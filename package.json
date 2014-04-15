@@ -1,0 +1,12 @@
+{
+  "name": "auth0",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auth0/blog.git"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
