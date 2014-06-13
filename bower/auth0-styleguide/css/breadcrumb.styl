@@ -1,0 +1,36 @@
+color_blue = #14204d;
+color_blue_light = #3cc8f4;
+color_red = #eb5422;
+color_grey = #d1d2d4;
+.breadcrumb
+  padding: 14px 20px;
+  border-radius: 3px;
+  margin-bottom: 40px;
+  overflow: hidden
+  background-color: color_blue;
+  background: linear-gradient(120deg, darken(color_red, 40%) 0%, color_blue 100%); /* W3C */
+
+  ul
+    padding: 0;
+    margin: 0;
+    li
+      float: left
+      display: inline-block
+      color: white;
+      font-weight: bold
+      font-size: 12px;
+      margin-right: 10px;
+      a
+        color: white;
+
+
+    &.external-links
+      float: right;
+      li
+        margin-right: 0;
+        margin-left: 20px;
+        a
+          opacity: .6;
+          &:hover
+            opacity: 1;
+

@@ -9,11 +9,12 @@ This blog uses [Jekyll](https://github.com/mojombo/jekyll).
 
 ## Run
 
-1.  Make sure you have [RVM](http://rvm.io/) or other ruby version manager installed. 
-2.  Enter the blog directory and make sure with ruby --version that you are running the right ruby version (.ruby-version file).
-3.  Install dependencies with `bundle install`
-4.  `bundle exec jekyll serve --watch`
-5.  Open [http://localhost:4000/blog/](http://localhost:4000/blog/). Make sure you don't leave out the trailing slash (/), otherwise you will get:
+1.  Make sure you have [RVM](http://rvm.io/) or other ruby version manager installed.
+2.	You must also have [npm](http://npmjs.org) installed.
+3.  Enter the blog directory and make sure with ruby --version that you are running the right ruby version (.ruby-version file).
+4.  Install dependencies with `bundle install`
+5.  `bundle exec jekyll serve --watch`
+6.  Open [http://localhost:4000/blog/](http://localhost:4000/blog/). Make sure you don't leave out the trailing slash (/), otherwise you will get:
 ![error](https://i.cloudup.com/FWLX_cUhXb.png)
 
 

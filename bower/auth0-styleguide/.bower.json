@@ -1,0 +1,16 @@
+{
+  "name": "auth0-styleguide",
+  "version": "0.2.3",
+  "devDependencies": {},
+  "dependencies": {},
+  "homepage": "https://github.com/auth0/styleguide",
+  "_release": "0.2.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.3",
+    "commit": "1d8e1845ea47897b6485501d7a9c225730c0f217"
+  },
+  "_source": "git@github.com:auth0/styleguide.git",
+  "_target": "~0.2.0",
+  "_originalSource": "git@github.com:auth0/styleguide.git"
+}

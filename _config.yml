@@ -2,6 +2,7 @@ markdown: rdiscount
 pygments: true
 paginate: 15
 exclude:  [ Gemfile, Gemfile.lock, Procfile, vendor, Rakefile]
+include: [bower]
 permalink: pretty
 pygments:  true
 excerpt_separator: '<!-- more -->'
