@@ -10,6 +10,7 @@ author:
   url: https://twitter.com/leastprivilege
   avatar: https://avatars1.githubusercontent.com/u/1454075?s=400
 description: "A guest post from identity expert Dominick Baier. Cross posted on leastprivilege.com  AuthorizationServer is a lightweight OAuth2 implementation that is"
+category: Auth0 based tutorial
 ---
 
 A guest post from identity expert Dominick Baier. Cross posted on [leastprivilege.com](http://leastprivilege.com/2014/04/08/integrating-authorizationserver-with-auth0/)

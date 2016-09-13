@@ -10,6 +10,7 @@ author:
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
 description: "We are going to extend the scenario described in the previous post, so Fabrikom can accept users from another partner company."
+category: Auth0 based tutorial,Technical guide
 related:
 - 2013-03-05-On-Premises-SharePoint-Federated-with-Office-365-and-Google
 - 2013-04-29-Global-Azure-Bootcamp-Real-World-Nodejs-Startup

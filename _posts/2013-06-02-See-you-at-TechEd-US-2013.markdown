@@ -9,6 +9,7 @@ author:
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
 description: "Going to TechEd USA this week? So am I! Nick Harris was very kind to invite us to his session: Build Real-World Modern Apps with Windows Azure Mobile Services"
+category: Announcement
 ---
 
 
@@ -24,4 +25,3 @@ And you probably guessed it right. I'll be covering the _how to work with custom
 This is a 300 level session, so come prepared for quite a deep dive! Look forward to meeting you there.
 
 The session is on Wednesday 5th, but I'll also be around on [Tuesday 4th](http://northamerica.msteched.com/Agenda#day-2) for the __Ask the Experts__ and __Jam Sessions__. If you want to meet 1:1, send me an e-mail: eugeniop AT auth0.com
-

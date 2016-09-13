@@ -10,6 +10,7 @@ author:
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
 description: "We are very excited to announce the release of the Auth0 Component for Xamarin. As with the other SDKs we released (and available on Github)"
+category: Auth0 based tutorial
 related:
 - 2015-09-30-auth0-passwordless-email-authentication-and-sms-login-without-passwords
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock

@@ -2,6 +2,7 @@
 layout: post
 title: "Token-based Authentication with Socket.IO"
 description: "Learn to implement token-based authentication using Socket.IO in this quick tutorial."
+category: Technical guide
 date: 2014-01-15 14:18
 outdated: true
 alias: /2014/01/15/auth-with-socket-io/

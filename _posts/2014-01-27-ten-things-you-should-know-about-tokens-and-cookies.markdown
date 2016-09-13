@@ -3,6 +3,7 @@ published: "true"
 layout: post
 title: 10 Things You Should Know about Tokens
 description: "Explore in more detail some of the most common questions around token-based authentication."
+category: Technical guide
 date: "2014-01-27 12:30"
 alias: /2014/01/27/ten-things-you-should-know-about-tokens-and-cookies/
 author:
@@ -248,6 +249,3 @@ Please leave a comment or [discuss on HN](https://news.ycombinator.com/item?id=7
 Happy tokenizing!
 
 _Photo taken from: http://alfanatic.webs.com/_
-
-
-

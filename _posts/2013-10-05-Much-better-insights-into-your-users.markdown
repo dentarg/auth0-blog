@@ -10,6 +10,7 @@ author:
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
 description: "We recently released a much improved visualization for Auth0's user log."
+category: Product
 ---
 
 

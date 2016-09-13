@@ -1,0 +1,6 @@
+---
+layout: null
+---
+blogpost,blog/,Blog Home,Auth0 based tutorial
+{% for post in site.posts %}blogpost,{{ site.baseurl | replace_first:'/','' }}{% if post.alias == nil %}{{ post.url }}{% else %}{{ post.alias }}{% endif %},{% if post.category == nil %}Auth0 based tutorial{% else %}{{ post.category }}{% endif %}
+{% endfor %}

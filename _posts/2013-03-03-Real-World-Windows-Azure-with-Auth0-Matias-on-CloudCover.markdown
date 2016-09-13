@@ -9,6 +9,7 @@ author:
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
 description: "Nick Harris was very kind to have us as guests on the CloudCover show. Matias provide details on Auth0, and then talks a little bit about the internals: how"
+category: Auth0 based tutorial,Guide
 related:
 - 2015-10-23-using-ldap-with-c-sharp
 - 2016-04-15-angularjs-authentication-screencast-series-part-1
