@@ -10,7 +10,7 @@ author:
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
 description: "Auth0 supports many common identity scenarios. One of them is a SaaS app being used by companies with their own identity systems. This is the classic"
-category: Auth0 based tutorial,Business Article
+category: Auth0 based tutorial
 related:
 - 2013-03-05-On-Premises-SharePoint-Federated-with-Office-365-and-Google
 - 2013-03-07-On-Premises-SharePoint-Federated-with-Partner-AD

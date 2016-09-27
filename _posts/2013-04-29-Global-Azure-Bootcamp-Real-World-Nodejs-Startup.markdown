@@ -18,7 +18,6 @@ tags:
 - microsoft
 ---
 
-
 ### Startup in-a-Box Bootcamp
 
 In partnership with Microsoft, [NXTP Labs](http://www.nxtplabs.com/), [Mural.ly](http://mural.ly) and [Ideame](http://idea.me), [Auth0](https://auth0.com) is very proud to have hosted the the [Global Windows Azure Bootcmap](http://globalwindowsazure.azurewebsites.net) in [Buenos Aires, Argentina](http://azurenodebootcamp.eventbrite.com).
