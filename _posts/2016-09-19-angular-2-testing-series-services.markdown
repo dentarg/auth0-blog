@@ -22,14 +22,14 @@ tags:
 - jasmine
 ---
 
-When i started developing and writing tests for Angularjs applications,
-everything felt natural. The tools were mature and i easily got used to
-develop applications in TDD (Test Driven Development).
-It gave me a high level of confidence, that my application is working as i imagined.
-Just after Angular 2 came out and i learnt the basics, i knew that the next step is to learn testing with it.
+When I started developing and writing tests for Angularjs applications,
+everything felt natural. The tools were mature and I easily got used to
+develop applications in TDD ([Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development)).
+It gave me a high level of confidence, that my application is working as I imagined.
+Just after Angular 2 came out and I learnt the basics, I knew that the next step was to learn testing with it.
 
 This article is the first part of a series,
-where i share my experiences testing different building blocks of an Angular 2 application.
+where I share my experiences testing different building blocks of an Angular 2 application.
 We will start with simple use cases and then head for more complex ones.
 
 - Services (this article)
@@ -38,20 +38,25 @@ We will start with simple use cases and then head for more complex ones.
 - Pipes
 - Routing
 
-You may wonder why is it so important to write tests.
+You may wonder why it is so important to write tests.
 
-With tests, we can guard against someone breaking our code by refactoring or
+With tests, we can ensure the correctness of our application: the code does what it was designed to do.
+We can guard against someone breaking our code by refactoring or
 adding new features. This might have happened to you when someone added a small feature
 or added equivalent code transformations, and nothing worked afterwards.
 Writing tests can clarify the intention of the code by giving usage examples.
 It can also reveal design flaws. When a piece of code is hard to test,
 there might be a problem with the underlying architecture.
 
+If you are new to Test-Driven Development I would recommend reading the Test-Driven Development book by Kent Beck.
+It gives a nice overview about the concepts and best practices.
+
 ### Choosing the framework
 
-The first thing we have to choose is the framework. The suggested one by Angular 2's core team is Jasmine.
+The first thing we have to choose is the framework. The suggested one by Angular 2's core team is
+[Jasmine](http://jasmine.github.io/edge/introduction.html).
 For a long time it was the only supported testing framework, because test setups were hard wired into the framework.
-Thanks to refactoring now tests can also be written in Mocha, or any other framework
+Thanks to refactoring now tests can also be written in [Mocha](https://mochajs.org/), or any other framework
 that supports the ```beforeEach``` hook. This hook runs before every test run.
 If your framework of choice doesn't support it, you have to add the following code snippet to your setup.
 
@@ -66,7 +71,7 @@ beforeEveryTestHook(() => {
 
 The first line within the hook resets the internal state of the Dependency Injection container.
 It clears out any given provider or module.
-If you are not familiar with Dependency Injection, i would recommend reading the
+If you are not familiar with Dependency Injection, I would recommend reading the
 [official documentation](https://angular.io/docs/ts/latest/guide/dependency-injection.html) about it.
 
 The second one clears out any remaining zone which fakes asynchronous operations like ```setTimeout```.
@@ -228,7 +233,7 @@ it('should display name with engine', inject([Car], (car: Car) => {
 
 In unit tests we want to execute the code in isolation.
 It means not depending on big complex objects and not calling methods that rely on external systems
-(like Http calls or database access).
+(like HTTP calls or database access).
 In these cases we want to simulate the original behavior while skipping the underlying implementation.
 
 When achieved, it is called mocking.
@@ -304,7 +309,7 @@ In this tutorial, we managed to:
 - fake dependencies with Jasmine
 - fake dependencies with dependency injection
 
-Hope it convinced you, that writing tests in Angular 2 is not an overly complicated thing.
+I hope this has convinced you, that writing tests in Angular 2 is not an overly complicated thing.
 
 The code for the article is available in
 [this GitHub repository](https://github.com/blacksonic/angular2-testing-ground "Angular 2 testing ground").
