@@ -39,11 +39,11 @@ Ionic 2 Beta has been released and, just as Angular 2 is vastly different from A
 
 Authentication is a critical component of non-trivial mobile apps, and with Ionic 2, we can add JWT authentication easily by following the same process we would for an Angular 2 app.
 
-In this tutorial we'll build a simple Ionic 2 application that can authenticate users and provide access to protected resources that are secured with JWT authentication from a NodeJS server. We'll use our [NodeJS JWT Authenntication Sample](https://github.com/auth0/nodejs-jwt-authentication-sample) to allow users to create accounts, log in, and retrieve public and private Chuck Norris quotes.
+In this tutorial we'll build a simple Ionic 2 application that can authenticate users and provide access to protected resources that are secured with JWT authentication from a NodeJS server. We'll use our [NodeJS JWT Authentication Sample](https://github.com/auth0/nodejs-jwt-authentication-sample) to allow users to create accounts, log in, and retrieve public and private Chuck Norris quotes.
 
-![ionic2 authentication](https://cdn.auth0.com/blog/ionic2-auth/ionic2-auth-6.png)
+![Ionic 2 Authentication](https://cdn.auth0.com/blog/ionic2-auth/ionic2-auth-6.png)
 
-## Getting Started
+## Getting Started with Ionic Authentication
 
 To get started, let's first install Ionic and create a new project. Ionic 2 is installed with the `@beta` tag.
 
@@ -215,7 +215,7 @@ export class ProfilePage {
   error: string;
   jwtHelper: JwtHelper = new JwtHelper();
   local: Storage = new Storage(LocalStorage);
-  user: string;  
+  user: string;
 
   constructor(private http: Http) {
     this.auth = AuthService;
@@ -299,7 +299,7 @@ Let's now create the view.
           </ion-item>
 
           <div padding>
-            <button block type="submit">Login</button>        
+            <button block type="submit">Login</button>
           </div>
 
         </form>
@@ -323,7 +323,7 @@ Let's now create the view.
       </div>
 
       <div padding>
-        <p *ngIf="error" class="error">{{ "{{ error._body " }}}}</p>  
+        <p *ngIf="error" class="error">{{ "{{ error._body " }}}}</p>
       </div>
 
   </ion-content>
@@ -333,7 +333,7 @@ Let's now create the view.
       <div padding>
         <h1>Welcome, {{ "{{ user " }}}}</h1>
         <button block (click)="logout()">Logout</button>
-      </div>  
+      </div>
     </div>
   </ion-content>
 ```
@@ -443,7 +443,7 @@ We should now be able to get quotes from the **Quotes** page.
 
 ## Aside: Adding Authentication with Auth0
 
-Setting up username and password authentication with a Node server is simple enough, but things can get tricky when we want to add social auth with providers like Facebook, Twitter, Google, and others. With Auth0, we can use any social provider and get other authentication features like single sign-on, multi-factor login, and passwordless auth, all at the flip of a switch. It's easy to add Auth0 to our Ionic 2 apps--let's take a look at how in these steps.
+Setting up username and password authentication with a Node server is simple enough, but things can get tricky when we want to add social auth with providers like Facebook, Twitter, Google, and others. With Auth0, we can use any social provider and get other authentication features like single sign-on, multi-factor login, and passwordless auth, all at the flip of a switch. It's easy to add Ionic Authentication with Auth0--let's take a look at how in these steps.
 
 ### Step 0: Sign Up for Auth0 and Configure the Callback URL
 
@@ -472,7 +472,7 @@ file://\*
   ...
 
   <!-- Auth0 Lock script -->
-  <script src="https://cdn.auth0.com/js/lock-9.0.min.js"></script>
+  <script src="//cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
 
   <!-- Setting the right viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -492,11 +492,13 @@ declare var Auth0Lock: any;
 @Page({
   templateUrl: 'build/pages/profile/profile.html',
 })
+
 export class ProfilePage {
   auth: AuthService;
   lock = new Auth0Lock('YOUR_AUTH0_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
   local: Storage = new Storage(LocalStorage);
   user: Object;
+  self = this;
 
   constructor() {
     this.auth = AuthService;
@@ -505,27 +507,30 @@ export class ProfilePage {
     }).catch(error => {
       console.log(error);
     });
+
+    this.lock.on("authenticated", authResult => {
+      self.lock.getProfile(authResult.idToken, (error, profile) => {
+        if (error) {
+          alert(error);
+          return;
+        }
+
+        self.local.set('id_token', authResult.idToken);
+        self.local.set('profile', JSON.stringify(profile));
+        self.user = profile;
+      });
+    });
   }
 
   login() {
-    this.lock.show((err, profile, token) => {
-      if (err) {
-        alert(err);
-        return;
-      }
-
-      this.local.set('profile', JSON.stringify(profile));
-      this.local.set('id_token', token);
-      this.user = profile;
-
-    });
+    this.lock.show();
   }
 
   logout() {
     this.local.remove('profile');
     this.local.remove('id_token');
     this.user = null;
-  }  
+  }
 }
 ```
 
@@ -590,4 +595,4 @@ That's it! You've now got authentication with Auth0 set up for your Ionic 2 app.
 
 ## Wrapping Up
 
-Adding authentication to an Ionic 2 app is very similar to how it's done in an Angular 2 application. This is really beneficial because we can reuse a lot of the same libraries and logic between the two of them. We're likely to see many more great features from Ionic 2 as it continues to develop.
+Developing Ionic authentication is very similar to how it's done in an Angular 2 application. This is really beneficial because we can reuse a lot of the same libraries and logic between the two of them. We're likely to see many more great features from Ionic 2 as it continues to develop.

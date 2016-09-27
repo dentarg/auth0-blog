@@ -24,7 +24,7 @@ related:
 
 ---
 
-**TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/kmaida/elm-with-jwt-api).
+**TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/kmaida/auth0-elm-with-jwt-api).
 
 ---
 
@@ -46,7 +46,7 @@ If you're [familiar with JavaScript but new to Elm](http://elm-lang.org/docs/fro
 
 ## Setup and Installation
 
-The full source code for our finished app can be [cloned on GitHub here](https://github.com/kmaida/elm-with-jwt-api).
+The full source code for our finished app can be [cloned on GitHub here](https://github.com/kmaida/auth0-elm-with-jwt-api).
 
 We're going to use [Gulp](http://gulpjs.com) to build and serve our application locally and [NodeJS](https://nodejs.org/en) to serve our API and install dependencies through the Node Package Manager (npm). If you don't already have Node and Gulp installed, please visit their respective websites and follow instructions for download and installation. 
 
@@ -70,7 +70,7 @@ Once Elm is successfully installed, we need to set up our project's configuratio
 {
     "version": "0.1.0",
     "summary": "Build an App in Elm with JWT Authentication and an API",
-    "repository": "https://github.com/kmaida/elm-with-jwt-api.git",
+    "repository": "https://github.com/kmaida/auth0-elm-with-jwt-api.git",
     "license": "MIT",
     "source-directories": [
         "src",
@@ -183,7 +183,7 @@ The default `gulp` task will compile Elm, watch and copy files to a `/dist` fold
 
 Our development files should be located in a `/src` folder. Please create the `/dist` and `/src` folders at the root of the project. Our file structure now looks like this:
 
-![Elm Application Structure](https://raw.githubusercontent.com/YiMihi/elm-with-jwt/master/article-assets/file-structure1.jpg)
+![Elm Application Structure](https://cdn.auth0.com/blog/elm-auth/file-structure1.jpg)
 
 ### Syntax Highlighting
 
@@ -195,7 +195,7 @@ We're going to build an app that does more than echo "Hello world". We're going 
 
 Once we've got things running, our app should look like this:
 
-![elm quote](https://raw.githubusercontent.com/YiMihi/elm-with-jwt/master/article-assets/step1.jpg)
+![elm quote](https://cdn.auth0.com/blog/elm-auth/step1.jpg)
 
 Let's fire up our Gulp task. This will start a local server and begin watching for file changes:
 
@@ -267,11 +267,11 @@ blockquote {
 
 We're ready to start writing Elm. Create a file in the `/src` folder called `Main.elm`. The full code for this step is available in the source repository on GitHub:
 
- **[Main.elm - Introduction to Elm](https://github.com/kmaida/elm-with-jwt-api/blob/20dc6e6e8c049f68dbf47492933659b9d19103c1/src/Main.elm)**
+ **[Main.elm - Introduction to Elm](https://github.com/kmaida/auth0-elm-with-jwt-api/blob/step-1/src/Main.elm)**
  
 Our file structure should now look like this:
 
-![file structure 2](https://raw.githubusercontent.com/YiMihi/elm-with-jwt/master/article-assets/file-structure2.jpg)
+![file structure 2](https://cdn.auth0.com/blog/elm-auth/file-structure2.jpg)
 
 If you're already familiar with Elm you can skip ahead. If Elm is brand new to you, keep reading: we'll introduce The Elm Architecture and Elm's language syntax by thoroughly breaking down this code. Make sure you have a good grasp of this section before moving on; the next sections will assume an understanding of the syntax and concepts.
 
@@ -447,13 +447,13 @@ Now we're ready to fill in some of the blanks we left earlier. In several places
 
 When this step is done, our application should look like this:
 
-![elm quote](https://raw.githubusercontent.com/YiMihi/elm-with-jwt/master/article-assets/step2.jpg)
+![elm quote](https://cdn.auth0.com/blog/elm-auth/step2.jpg)
 
 Clicking the button will call the API to get and display random Chuck Norris quotes. Make sure you have [the API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) running at [http://localhost:3001](http://localhost:3001) so it's accessible to our app.
 
 Once we're successfully getting quotes, our source code will look like this: 
 
-**[Main.elm - Calling the API](https://github.com/kmaida/elm-with-jwt-api/blob/7713fb80e9b2f48558395bf2df0cff891121fa7e/src/Main.elm)**
+**[Main.elm - Calling the API](https://github.com/kmaida/auth0-elm-with-jwt-api/blob/step-2/src/Main.elm)**
 
 The first thing we need to do is import the dependencies necessary for making HTTP requests:
 

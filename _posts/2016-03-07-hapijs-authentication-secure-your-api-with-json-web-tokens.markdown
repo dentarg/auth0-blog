@@ -39,7 +39,7 @@ A lesser-known alternative that has been gaining traction in recent years is [Ha
 
 In this article we'll look at how to build an API with HapiJS that connects to MongoDB. We'll use some of the great tools in the HapiJS ecosystem, such as **[Joi](https://github.com/hapijs/joi)** for input validation and **[Boom](https://github.com/hapijs/boom)** for error handling. We'll use Mongoose to interact with the database, although you might prefer to skip this and interact with Mongo directly. We'll use the **[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)** package to create JWTs and **[hapi-auth-jwt](https://github.com/ryanfitz/hapi-auth-jwt)** to verify them when they arrive as `Authorization` headers.
 
-The API we build will be mostly focused on authentication. As such, we'll create enpoints for creating user accounts, authenticating users, and displaying a list of registered users for those who have admin access. When users successfully authenticate, they will be issued [JSON Web Tokens (JWT)](http://jwt.io/introduction) which can be used to access other endpoints. We'll store a `scope` claim in the JWT which will give us a simple way to implement access control.
+The API we build will be mostly focused on authentication. As such, we'll create enpoints for creating user accounts, authenticating users, and displaying a list of registered users for those who have admin access. When users successfully authenticate, they will be issued [JSON Web Tokens (JWT)](https://auth0.com/learn/json-web-tokens/) which can be used to access other endpoints. We'll store a `scope` claim in the JWT which will give us a simple way to implement access control.
 
 ## Getting Started with HapiJS Authentication
 
@@ -213,7 +213,7 @@ module.exports = {
     validate: {
       payload: createUserSchema
     }
-  }  
+  }
 }
 ```
 
@@ -393,7 +393,7 @@ module.exports = {
     validate: {
       payload: authenticateUserSchema
     }
-  }  
+  }
 }
 ```
 
@@ -535,7 +535,7 @@ First, add the Lock library to your front end.
   ...
 
   <!-- Auth0Lock script -->
-  <script src="https://cdn.auth0.com/js/lock-8.2.min.js"></script>
+  <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
 
   <!-- Setting the right viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -551,25 +551,27 @@ Next, configure an instance of `Auth0Lock`.
 var lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_DOMAIN');
 ```
 
-You can attach an event listener to a button click and call `lock.show` to open the Lock widget.
+You can attach an event listener to a button click and call `lock.show` to open the Lock widget. Then, we listen on the `authenticated` event and call the `getProfile` method to retrieve the profile and the token.
 
 ```js
 // app.js
 
 document.getElementById('btn-login').addEventListener('click', function() {
-  lock.show(function(err, profile, token) {
-    if (err) {
-      // Error callback
-      console.error("Something went wrong: ", err);
-    } else {
-      // Success calback  
+  lock.show();
+});
 
-      // Save the JWT token.
-      localStorage.setItem('id_token', token);
-      // Save the profile
-      localStorage.setItem('userProfile', JSON.stringify(profile));
-    }
-  });
+lock.on("authenticated", function(authResult) {
+    lock.getProfile(authResult.idToken, function(error, profile) {
+
+      if (error) {
+        // Error callback
+        console.error("Something went wrong: ", err);
+      }
+
+      localStorage.setItem('userProfile', JSON.stringify(profile))
+      localStorage.setItem('id_token', authResult.idToken)
+
+    });
 });
 ```
 

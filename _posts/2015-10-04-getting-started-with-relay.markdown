@@ -39,7 +39,7 @@ Often, crafting application data sources can come down to trade-offs between per
 
 To address these issues, Relay allows us to specify exactly the shape of the data that we want from the server for a given component. Because we can place our queries within our components, we can better reason about the data associations for each component.
 
-{% include tweet_quote.html quote_text="Relay allows us to specify exactly the shape of the data that we want from the server for a given component." %}
+{% include tweet_quote.html quote_text="Relay let us specify exactly the shape of the data that we want from the server for a given component." %}
 
 Without Relay, components make requests to many different endpoints.
 
@@ -453,7 +453,7 @@ If everything is set up correctly, you should be able to see the app in the brow
 
 Auth0 issues [JSON Web Tokens](http://jwt.io) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [Single Sign On](https://auth0.com/docs/sso/single-sign-on), User Management, support for Social (Facebook, Github, Twitter, etc.), Enterprise (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code. Auth0 is perfect for [Single Page Applications](https://auth0.com/docs/sequence-diagrams) and very easy to set up.
 
-Auth0 provides an integration for Relay apps that makes it easy to implement authentication. Have a look at the [docs page]() or [get in touch](mailto:support@auth0.com) with us to find out more.
+Auth0 provides an integration for Relay apps that makes it easy to implement authentication. Have a look at the [docs page]() or [open a support ticket](https://support.auth0.com) with us to find out more.
 
 ### Implementing Auth in Your Relay App
 

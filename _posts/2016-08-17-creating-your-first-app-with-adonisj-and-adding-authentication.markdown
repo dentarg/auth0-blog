@@ -84,9 +84,7 @@ We'll spin up a new app using the `adonis` command like so: `adonis new GOT`. Ch
 
 AdonisJs applications follow the **Model-View-Controller** design pattern.
 
-![Model View Controller Diagram](https://drscdn.500px.org/photo/152746175/m%3D900/9972f8c30c163f019a50ba15b8a70f9b)
-
-*(Source: [AdonisJs.com](http://adonisjs.com/docs/3.0/overview))*
+![Model View Controller Diagram](https://cdn.auth0.com/blog/adonis/MVC-Flow-Chart.png)
 
 In a nutshell,
 
@@ -731,6 +729,14 @@ Route.get('/got', function * (request, response) {
 }).middleware('auth')
 ```
 Now, log out and then try to access that route. An `InvalidLoginException` will be thrown. Check out the [docs](http://adonisjs.com/docs/3.0/middleware) for more info on creating and customizing middleware in **AdonisJs**.
+
+
+## Aside: Using Auth0 with AdonisJS
+
+**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
+
+We can easily set up authentication in our AdonisJS apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **AdonisJS**. Now head over to the [Nodejs Quickstart docs](https://auth0.com/docs/quickstart/webapp/nodejs) and follow the steps highlighted there.
+
 
 ## Wrapping Up
 
