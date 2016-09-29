@@ -40,7 +40,9 @@ We will start with simple use cases and then head for more complex ones.
 
 You may wonder why it is so important to write tests.
 
-![TDD code is guilty](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/tdd_guilty.png)
+<p align="center">
+  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/tdd_guilty.png" />
+</p>
 
 With tests, we can ensure the correctness of our application: the code does what it was designed to do.
 We can guard against someone breaking our code by refactoring or
@@ -55,7 +57,9 @@ It gives a nice overview about the concepts and best practices.
 
 ### Choosing the framework
 
-![Jasmine vs Mocha](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/jasmine-mocha.png)
+<p align="center">
+  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/jasmine-mocha.png" />
+</p>
 
 The first thing we have to choose is the framework. The suggested one by Angular 2's core team is
 [Jasmine](http://jasmine.github.io/edge/introduction.html).
