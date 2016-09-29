@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Angular 2 Testing Series: Services"
-description: "Learn how to test services in Angular 2. We will start with setting up the environment and finish with using Dependency Injection in the tests."
+title: "Angular 2 Testing In Depth: Services"
+description: "Learn how to test services in Angular 2. We will start with setting up the environment and finish with using Dependency Injection."
 date: 2016-09-19 08:23
 author:
   name: "Gábor Soós"
@@ -24,7 +24,7 @@ tags:
 
 When I started developing and writing tests for Angularjs applications,
 everything felt natural. The tools were mature and I easily got used to
-develop applications in TDD ([Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development)).
+developing applications in TDD ([Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development)).
 It gave me a high level of confidence, that my application is working as I imagined.
 Just after Angular 2 came out and I learnt the basics, I knew that the next step was to learn testing with it.
 
@@ -40,6 +40,8 @@ We will start with simple use cases and then head for more complex ones.
 
 You may wonder why it is so important to write tests.
 
+![TDD code is guilty](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/tdd_guilty.png)
+
 With tests, we can ensure the correctness of our application: the code does what it was designed to do.
 We can guard against someone breaking our code by refactoring or
 adding new features. This might have happened to you when someone added a small feature
@@ -52,6 +54,8 @@ If you are new to Test-Driven Development I would recommend reading the Test-Dri
 It gives a nice overview about the concepts and best practices.
 
 ### Choosing the framework
+
+![Jasmine vs Mocha](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/jasmine-mocha.png)
 
 The first thing we have to choose is the framework. The suggested one by Angular 2's core team is
 [Jasmine](http://jasmine.github.io/edge/introduction.html).
@@ -138,6 +142,10 @@ it('should return it\'s horsepower', () => {
 });
 ```
 
+If you run the tests a similar output will be on the terminal.
+
+![First tests](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/first_test_run.png)
+
 Both tests are passing, it is time to refactor.
 There is duplication at the start of each test. Instantiation is exactly the same,
 we can move it out into a setup block.
@@ -217,6 +225,8 @@ The difference here is that we configure the ```TestBed``` with the provided
 services in the ```configureTestingModule``` method.
 Only these classes can be instantiated with the ```inject``` method.
 If we try to request something else, we get an error telling it is an unknown provider.
+
+![Unknown provider](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/test_failure_missing_dep.png)
 
 We can request instances of the services in an array from the ```inject``` method.
 In the callback we get the instances in the same order as in the dependency array with the first parameter.
@@ -309,7 +319,13 @@ In this tutorial, we managed to:
 - fake dependencies with Jasmine
 - fake dependencies with dependency injection
 
+If you follow the steps introduced in this article and write tests for your application, you can sleep safe and sound.
+The code will work as intended and when someone accidentally breaks it,
+the tests will warn him that those changes are unsafe and shouldn't be committed until the tests are green again.
+
+Jasmine will help you along the way with it's easy syntax and batteries included (assertion and mocking library).
+
 I hope this has convinced you, that writing tests in Angular 2 is not an overly complicated thing.
 
-The code for the article is available in
+To make the start even more easier the code is available in
 [this GitHub repository](https://github.com/blacksonic/angular2-testing-ground "Angular 2 testing ground").
