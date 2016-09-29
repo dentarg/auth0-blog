@@ -214,6 +214,36 @@ p.blog-description
     transform: translate(-50%, -50%);
     max-width: 120%;
 
+.custom-try-banner
+  background #222228 url("https://cdn.auth0.com/blog/banner/banner-pattern-2.svg") center center no-repeat
+
+  .banner-wrapper
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center
+    flex-direction: column;
+    padding: 30px;
+
+    +breakpoint("tablet")
+      flex-direction: row;
+      padding: 0 50px;
+
+  .banner-text
+    flex: 1;
+    margin: 0px 22px;
+    padding: 25px 0;
+    margin-bottom: 0;
+    font-size 13.5px
+    font-weight 500
+    text-align: center;
+    color: #fff;
+
+    +breakpoint("tablet")
+      flex: 1 248px;
+
+  .btn-md
+    font-size: 11px;
 // This css is used to export blog thumbnails using canvas,
 // images need to be centered using table cell as canvas doesnt support
 // the translate property.
