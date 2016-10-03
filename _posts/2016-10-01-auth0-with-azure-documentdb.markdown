@@ -4,8 +4,8 @@ title: "Planet-scale authentication with Auth0 and Azure DocumentDB"
 description: Learn how to integrate Azure DocumentDB as your Auth0's custom user database and take advantage of this blazing fast cloud NoSQL database service.
 date: 2016-10-01 12:00
 design:
-  bg_color: "#000000"
-  image: https://cdn.auth0.com/blog/aspnet-core-web-apis/swagger.png
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
 author:
   name: Matías Quaranta
   url: http://twitter.com/ealsur
@@ -35,7 +35,7 @@ Let’s start by noting the **diversity** of custom database identity providers 
 
 This list includes MySQL, Sql Server (both on-premises and on Azure), PostgreSQL, ASP.NET Membership providers, any Basic Auth web service and **MongoDB**. We will focus on this last one since Azure DocumentDB now supports the [MongoDB protocol](https://azure.microsoft.com/documentation/articles/documentdb-protocol-mongodb/).
 
-[IMAGE]
+![Auth0 custom providers list](https://cdn.auth0.com/blog/auth0-and-documentdb/providers.png)
 
 >You can see the full Custom Database Identity providers' documentation on the [official docs](https://auth0.com/docs/connections/database).
 
@@ -47,12 +47,12 @@ To _sum up_, we will be using the MongoDB protocol supported by Auth0 identity p
 
 Like we mentioned before, Azure DocumentDB supports the [creation of databases that support the MongoDB protocol](https://azure.microsoft.com/documentation/articles/documentdb-create-mongodb-account/) (as of the writing of this article, this feature is in preview). We must access the [Azure Portal](https://portal.azure.com/) and filter for DocumentDB services, we will find the version with MongoDB support:
 
-[IMAGE]
-[IMAGE]
+![Searching the Azure Portal](https://cdn.auth0.com/blog/auth0-and-documentdb/portal-search.png)
+![Creating our Azure DocumentDB service](https://cdn.auth0.com/blog/auth0-and-documentdb/portal-creation.png)
 
 Once created, we will be able to access our **connection string** credentials on the instance blade, we need to take note of these values because we well use them later on the integration:
 
-[IMAGE]
+![Obtaining connection string](https://cdn.auth0.com/blog/auth0-and-documentdb/portal-connectionstring.png)
 
 After creating our service, we will proceed to create a **Database** and a **Collection** to store our data. If you are not familiar with the Database and Collection concepts for NoSQL databases, a Database can hold multiple Collections and each Collection will store Documents (in JSON format). You will be [billed](https://azure.microsoft.com/pricing/details/documentdb/) for _each Collection_, so plan your distribution accordingly.
 
@@ -60,12 +60,11 @@ After creating our service, we will proceed to create a **Database** and a **Col
 
 We will create an "auth0" database:
 
-[IMAGE]
+![Creating a database](https://cdn.auth0.com/blog/auth0-and-documentdb/portal-db.png)
 
 And a "users" collection:
 
-[IMAGE]
-[IMAGE]
+![Creating a collection](https://cdn.auth0.com/blog/auth0-and-documentdb/portal-collection.png)
 
 Azure DocumentDB lets you define a [dynamic and scalable throughput](https://azure.microsoft.com/documentation/articles/documentdb-performance-levels/) you can increase later as your application demands.
 
@@ -73,15 +72,15 @@ Azure DocumentDB lets you define a [dynamic and scalable throughput](https://azu
 
 In this step, we will use the connection string information we collected on the Azure Portal to create a **custom database provider**. In your Auth0 Dashboard, you will see a _Connections > Database_ configuration section:
 
-[IMAGE]
+![Auth0's Dashboard Connections menu](https://cdn.auth0.com/blog/auth0-and-documentdb/dashboard-menu.png)
 
 Once there, you can _Create a Db Connection_:
 
-[IMAGE]
+![Create Db Connection](https://cdn.auth0.com/blog/auth0-and-documentdb/dashboard-button.png)
 
 You will be asked for a _name_:
 
-[IMAGE]
+![Setting up Connection name](https://cdn.auth0.com/blog/auth0-and-documentdb/dashboard-connection.png)
 
 Once created, we will go to the Custom Database tab and enable the "**Use my own database**" toggle, which will activate the lower **Database Action Scripts** section.
 
@@ -95,7 +94,7 @@ We will add the _database name_ after the port, like this:
 
 `mongodb://<your_service_name>:<your_password>==@<your_service_name>.documents.azure.com:10250/auth0?ssl=true`
 
-[IMAGE]
+![Setting up global variable](https://cdn.auth0.com/blog/auth0-and-documentdb/dashboard-variable.png)
 
 In our Node.js scripts, we can access this value by the global variable `configuration.ConnectionString`.
 
@@ -115,7 +114,6 @@ function login (email, password, callback) {
       if (!bcrypt.compareSync(password, user.password)) {
         return callback();
       }
-      console.log(user);
       callback(null,   {
         user_id:      user._id.toString(),
         nickname:     user.nickname,
@@ -192,7 +190,7 @@ function remove (id, callback) {
 ```   
 And we can **test** the connection by running the _Create_ script from within the interface:
 
-[IMAGE]
+![Testing the connection](https://cdn.auth0.com/blog/auth0-and-documentdb/dashboard-test.png)
 
 If we query the content of the Azure DocumentDB collection through the Azure Portal, we will find our created user:
 ```json
@@ -220,7 +218,7 @@ Finally, we can create a new **Client Application** and define that we will use 
 
 >For a detailed concept explanation, you can read the [official Applications documentation](https://auth0.com/docs/applications).
 
-[IMAGE]
+![Defining the Application connection](https://cdn.auth0.com/blog/auth0-and-documentdb/dashboard-setup.png)
 
 This will let our Client Application to access and use the DocumentDB identity provider.
 
