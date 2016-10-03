@@ -2,7 +2,7 @@
 layout: post
 title: "Planet-scale authentication with Auth0 and Azure DocumentDB"
 description: Learn how to integrate Azure DocumentDB as your Auth0's custom user database and take advantage of this blazing fast cloud NoSQL database service.
-date: 2016-10-01 12:00
+date: 2016-10-11 08:30
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
