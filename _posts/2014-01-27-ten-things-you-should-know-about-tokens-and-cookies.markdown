@@ -3,7 +3,7 @@ published: "true"
 layout: post
 title: 10 Things You Should Know about Tokens
 description: "Explore in more detail some of the most common questions around token-based authentication."
-category: Technical guide
+category: Technical guide, Cookies vs Tokens
 date: "2014-01-27 12:30"
 alias: /2014/01/27/ten-things-you-should-know-about-tokens-and-cookies/
 author:
