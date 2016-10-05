@@ -1,13 +1,13 @@
 {% assign current = page %}
 
-<section class="custom-try-banner {% if current.banner.bg_color %} {{ current.banner.bg_color }} {% endif %}">
+<section class="custom-try-banner {% if current.banner.bg_color == nil %} {% else %} {{ current.banner.bg_color }} {% endif %}">
   <div class="banner-wrapper">
     <a href="https://auth0.com/" target="_blank" class="banner-logo"></a>
     <p class="banner-text">
-      {% if current.banner_text %}
-        {{ current.banner_text }}
-      {% else %}
+      {% if current.banner.text == nil %}
         Authentication that just works.<br> Any app. Any device. Hosted anywhere.
+      {% else %}
+        {{ current.banner.text }}
       {% endif %}
     </p>
     <a href="javascript:signup()" class="signup-button btn btn-success btn-md">Use Auth0 for Free</a>
