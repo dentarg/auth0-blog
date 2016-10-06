@@ -31,6 +31,10 @@ This concept of an "observable", or "stream" as I like to call them, can be diff
 
 To demonstrate how this all works, we are going to build a simple weather app. There will be a text input that we type a zip code into. Then we click the button to submit it. A request will be sent to get the current temperature at the zip code. Once we get the temperature back, we will display the zip code and the temperature together on page. We will be able to put as many temperatures to watch on the page. Then we will create a timer that will refresh the temperature after a set time period. Let's get to it!
 
+The code for this application can be found [on Github](https://github.com/searsaw/rxjs-weather).
+
+> Update: This article has been updated to [RxJS version 5](https://github.com/ReactiveX/RxJS). There are very few changes to the original code. The changes that were made will be highlighted where necessary.
+
 ## Setting Things Up
 
 First thing we need to do is create a basic HTML page that loads the RxJS library into the document so we can use it. We will also include some CSS that will organize things a bit.
@@ -70,7 +74,8 @@ First thing we need to do is create a basic HTML page that loads the RxJS librar
         <button id="add-location">Add Location</button>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.0-beta.12/Rx.min.js"></script>
     <script>
       // our code will go here
       console.log('RxJS included?', !!Rx);
@@ -80,6 +85,8 @@ First thing we need to do is create a basic HTML page that loads the RxJS librar
 ```
 
 Load this file in your favorite browser, and open up your developer console. You should see `RxJS included? true`. If you do, then you're ready to start writing some reactive JavaScript! Notice we have a simple "form" consisting of our zip code input and a button. Our first piece of JavaScript will grab those elements and create streams from their events. We will also grab a reference to the `app-container` that we will add our elements to later.
+
+> Update: We have included RxJS version 5 through the CDN instead of the previous version 4.1.
 
 ```javascript
 // Grab HTML elements
@@ -95,11 +102,14 @@ This is plain ol' JavaScript. Nothing too crazy going on here.
 const btnClickStream =
   Rx.Observable
     .fromEvent(addLocationBtn, 'click')
-    .map(() => true)
+    // .map(() => true)
+    .mapTo(true)
     .forEach(val => console.log('btnClickStream val', val));
 ```
 
-Here is our first look at RxJS! We are using the `fromEvent` method on the `Rx.Observable` object to create a stream from the click event that will be emitted by our `addLocationBtn`. This means, any time it is clicked, that event object will be sent down this `btnClickStream`. We will use the `map` method on the returned stream to map each value to the value `true`. I like to do this to simplify the logic in my mind. Since I only care that an event happened, I `map` the value to a simple boolean value. This is just the way I like to do things. If it's not your cup of tea, it's an optional step and can be removed in your app.  Lastly, to make sure it's working, we use `forEach`, which adds a subscriber to the stream. Here we are simply logging the value.
+Here is our first look at RxJS! We are using the `fromEvent` method on the `Rx.Observable` object to create a stream from the click event that will be emitted by our `addLocationBtn`. This means, any time it is clicked, that event object will be sent down this `btnClickStream`. We will use the `mapTo` method on the returned stream to map each value to the value `true`. I like to do this to simplify the logic in my mind. Since I only care that an event happened, I `mapTo` the value to a simple boolean value. This is just the way I like to do things. If it's not your cup of tea, it's an optional step and can be removed in your app.  Lastly, to make sure it's working, we use `forEach`, which adds a subscriber to the stream. Here we are simply logging the value.
+
+> Update: The `mapTo` method was added in version 5 and make the code a bit more readable than using `map` with a function that just returns true. The same thing is accomplished both ways.
 
 ![Button Click Stream](https://cdn.auth0.com/blog/reactive-programming/btn_click_stream.png)
 
@@ -139,7 +149,7 @@ Reload the page, enter a zip code, and click the button. Make sure to watch the 
 ```javascript
 // Create reusable temperature fetching stream
 const getTemperature = zip =>
-  fetch(`http://api.openweathermap.org/data/2.5/weather?q=${zip},us&units=imperial&appid=APPID`)
+  fetch(`http://api.openweathermap.org/data/2.5/weather?q=${zip},us&units=imperial&APPID=<APPID>`)
     .then(res => res.json());
 
 const zipTemperatureStreamFactory = zip =>
@@ -147,7 +157,7 @@ const zipTemperatureStreamFactory = zip =>
     .fromPromise(getTemperature(zip))
     .map(({ main: { temp } }) => ({ temp, zip }));
 ```
-We have created two functions. The first one, `getTemperature`, takes a zip code and makes a request to the weather API to get the temperature. Since [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) returns a promise, we then call `then` on that promise. This promise receives the response, and we return the JSON form of that response so we can more easily work with it. This means this function returns a promise. *This is important.* Also, make sure to change `APPID` to the application ID you can get for free [from the API keys page in the OpenWeatherMap admin page](https://home.openweathermap.org/api_keys).
+We have created two functions. The first one, `getTemperature`, takes a zip code and makes a request to the weather API to get the temperature. Since [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) returns a promise, we then call `then` on that promise. This promise receives the response, and we return the JSON form of that response so we can more easily work with it. This means this function returns a promise. *This is important.* Also, make sure to change `<APPID>` to the application ID you can get for free [from the API keys page in the OpenWeatherMap admin page](https://home.openweathermap.org/api_keys).
 
 The second function also takes a zip code. We return a stream by using the `fromPromise` method on the `Rx.Observable` object to create one from the promise that is returned from calling our `getTemperature` function and passing it the current zip code. Since this returns a stream, we can operate on it with any of the available methods that `Rx.Observable` instances have on them. Since we only care about the current zip code and its temperature, let's return an object that only has these pieces of data on them. We `map` over the promise stream, destructuring the input to get the temperature out, and return an object containing the data we want. For more information on the new destructuring syntax in the ES2015 version of JavaScript, [visit the MDN documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
 
@@ -202,7 +212,8 @@ Here we are creating a new `ReplaySubject` and then subscribing it to our `zipco
 // and update the page
 Rx.Observable
   .interval(20000)
-  .flatMapLatest(() => replayZipsStream)
+  // .flatMapLatest(() => replayZipsStream)
+  .switchMap(() => replayZipsStream)
   .flatMap(zipTemperatureStreamFactory)
   .forEach(({ zip, temp }) => {
     console.log('Updating!', zip, temp);
@@ -214,7 +225,9 @@ Rx.Observable
   });
 ```
 
-The first thing we do is create a stream that will output a value at a specified interval. The value is nothing we care about. We just want to act when we see that value. We then use a new method, `flatMapLatest`, to flatten the stream we get from the callback function, which is just our `ReplaySubject`. The reason we use `flatMapLatest` instead of `flatMap` is because we want to make sure that our `replayZipsStream` only has one subscriber on it. If we used `flatMap`, we would be adding multiple subscribers to the same `ReplaySubject`, which would cause us to send out a bunch of extra requests to the weather API. After all this, we will have a stream of zip codes like we did when adding a zip code to the page. So we can operate on it the same way. We use `flatMap` and pass it our factory function that will make a request to the weather API. Lastly, we iterate over each one we get back and update the data on that page.
+The first thing we do is create a stream that will output a value at a specified interval. The value is nothing we care about. We just want to act when we see that value. We then use a new method, `switchMap`, to flatten the stream we get from the callback function, which is just our `ReplaySubject`. The reason we use `switchMap` instead of `flatMap` is because we want to make sure that our `replayZipsStream` only has one subscriber on it. If we used `flatMap`, we would be adding multiple subscribers to the same `ReplaySubject`, which would cause us to send out a bunch of extra requests to the weather API. After all this, we will have a stream of zip codes like we did when adding a zip code to the page. So we can operate on it the same way. We use `flatMap` and pass it our factory function that will make a request to the weather API. Lastly, we iterate over each one we get back and update the data on that page.
+
+> Update: The `flatMapLatest` method was changed to `switchMap` in version 5.
 
 ![Timer in Action](https://cdn.auth0.com/blog/reactive-programming/timer_stream.png)
 
