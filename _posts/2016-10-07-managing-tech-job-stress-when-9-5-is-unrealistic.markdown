@@ -55,7 +55,7 @@ It's easy to feel like we need to keep our eyes glued to our monitors to meet a 
 
 **Get up and walk around.** A short trek to the break room for coffee, a chat around the water jug, a brisk walk around the parking lot, any movement and small change of scenery keeps our bodies more active and our minds more alert. This doesn't need to be time-consuming or disruptive. Five to fifteen minutes taken periodically throughout the day helps far more than it harms a busy schedule.
 
-Even if we aren't in a position to take time off right now, [Steve Pheley](http://twitter.com/spheley) encourages us to **negotiate some much-needed vacation in the near future**. This will hopefully afford some valuable recovery time. Also, don't cancel pre-planned vacations even if they conflict with the project schedule. If our vacation was on the books and approved a long time ago, we shouldn't forgo it to stay and work. Time off is an employee's right and sacrificing it only makes us resentful.
+Even if we aren't in a position to take time off right now, [Steve Pheley](http://twitter.com/spheley) encourages us to **negotiate some much-needed vacation in the near future**. This will hopefully afford some valuable recovery time. Also, don't cancel pre-planned vacations even if they conflict with the project schedule. If our vacation was on the books and approved a long time ago, we shouldn't forgo it to stay and work. Time off is an employee's right and sacrificing it only makes us resentful and unhappy.
 
 ### Leaner Workflow and Work Style
 
@@ -69,4 +69,10 @@ Scrutinize the distribution of work. **If there's a way to make more efficient u
 
 ### Communication and Support From Management
 
-Potentially the most effective way to manage workplace stress is to have a channel of communication with our bosses that produces positive outcomes. This can also be the most challenging. Sometimes pushing back yields good--or at least encouraging--results, and sometimes it's entirely unsuccessful.
+Potentially the most effective way to manage workplace stress is to **have a channel of communication with our bosses that produces positive outcomes**. This can also be the most challenging. Sometimes pushing back yields good—or at least encouraging—results, and sometimes it's entirely unsuccessful. 
+
+H. Jeffrey brings home the point that "**active engagement from supportive management is important**." Managers should check in regularly with their team and set a worthy example. [Emily](http://twitter.com/unixgeekem) notes that employees who see their manager working until midnight may feel that such hours are standard for the position; this is something we want to avoid. Team leads often do double-duty because they're just as stressed as their team but they also need to keep the project on track, support the team, and present a good game face.
+
+Even when previous discourse hasn't been entirely fruitful, in most cases **we should continue to be vocal**. It's equally important to frame our concerns so they don't evoke complaining. It's easy to dismiss a complainer. We stand on solid ground when we present well-reasoned options and solutions. Even if our upper management does not have direct control over some project details (ie., a client with a drop-dead launch date), **good managers should work with us to explore any and all options to help their employees succeed**.
+
+## Coping with Work Stress: At Home
