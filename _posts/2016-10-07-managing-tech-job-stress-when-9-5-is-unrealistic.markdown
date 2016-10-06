@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Managing Tech Job Stress When 9-5 is Unrealistic"
-description: "Explore the many ways to manage stress and burnout when overtime is an expectation."
+description: "Explore the many ways to manage job stress and burnout when overtime is an expectation."
 date: 2016-10-07 8:30
 author:
   name: "Kim Maida"
@@ -9,14 +9,15 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: 
-  bg_color: "#324090"
+  image: https://cdn.auth0.com/blog/managing-tech-job-stress/job-stress-logo.png
+  bg_color: "#134F96"
 tags:
 - stress
 - workplace
 - jobs
 related:
-- 
+- 2016-05-20-21-tips-for-remote-working
+- 2016-05-23-how-to-motivate-your-employees
 ---
 
 ---
