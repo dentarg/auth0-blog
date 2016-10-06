@@ -101,4 +101,16 @@ For many tech workers, hobbies can overlap work. Many of us might love designing
 
 Sometimes we power through stressful projects or periods of burnout because we love our jobs. Sometimes we don't. **Sometimes it's best to leave a job that we no longer enjoy or find fulfilling.** It's challenging to find the time and motivation to apply for other positions when we're already burned out, but **knowing when to consider other opportunities** is just as important as knowing when to stick it out.
 
-Looking for another job can also be therapeutic. **Putting our resumes together and recognizing the value of our skills reaffirms that we have options and are in control of our future.** Our prospects do not need to be dictated by a bad situation. We can be proactive about our circumstances. Even if it's hard to cultivate the motivation necessary to apply for jobs, [Maitland](http://twitter.com/androidqueen) reminds us that doing so should be incorporated into our self-care routine.
+Looking for another job can also be therapeutic. **Putting our resumes together and recognizing the value of our skills reaffirms that we have options and are in control of our future.** Even if it's hard to cultivate the motivation necessary to apply for jobs, [Maitland](http://twitter.com/androidqueen) reminds us that doing so should be incorporated into our self-care routine. Our prospects do not need to be dictated by a bad situation: we can be proactive about our circumstances.
+
+## At the End of the Day
+
+At the end of the day, take some time to wind down. **Our minds  race with all the stressors we've experienced and it's important not to sleep with those things hanging over our heads.** We can meditate, read, or spend time with those we care about even if only for half an hour before we crash and need to sleep.
+
+### Complaining vs. Gratitude
+
+One of the easiest things to do when we're in a difficult position is complain. **Complaining may feel good in the moment, but [science](https://www.fastcompany.com/3040672/how-to-be-a-success-at-everything/why-complaining-may-be-dangerous-to-your-health) [has proven](http://bigthink.com/ideafeed/complaining-is-bad-for-you) [it's unhealthy](http://www.inc.com/jessica-stillman/complaining-rewires-your-brain-for-negativity-science-says.html).** We should remind ourselves to think of things we're grateful for instead. It may be difficult to feel much gratitude when we're in a tough spot, but **remembering the people and things we're thankful for is [beneficial](http://www.today.com/health/be-thankful-science-says-gratitude-good-your-health-t58256) [to our](http://www.huffingtonpost.com/mequilibrium/gratitude-benefits_b_3321351.html) [health](http://www.health.harvard.edu/newsletter_article/in-praise-of-gratitude)**.
+
+### We Have Control
+
+There are many things we can do to manage job stress. Tackling it at the source at work is vital and taking care of ourselves is also important. If we follow the advice of others who have walked our path, we can take charge of the ways we conduct ourselves and interact. Armed with knowledge and support, we can overcome stressful situations and emerge tired, perhaps, but whole. **We always have more control than we think we do, and recognizing that is a worthy accomplishment.**
