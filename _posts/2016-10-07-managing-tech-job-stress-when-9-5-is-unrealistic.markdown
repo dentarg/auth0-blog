@@ -33,7 +33,7 @@ Perceived of lack of control makes a high-pressure situation even more stressful
 
 ## Coping with Work Stress: At Work
 
-There is no magic bullet for work stress or burnout. You might get a hundred professional massages (but seriously, who has the time?) and not feel better. The first place to tackle work stress is _at work_.
+There is no magic bullet for work stress or burnout. You might get a hundred professional massages (but seriously, who has the time?) and not feel better. **The most direct line of defense is to tackle work stress _at work_.**
 
 ### Be the Canary in the Coal Mine
 
@@ -76,3 +76,9 @@ H. Jeffrey brings home the **importance of "active engagement from supportive ma
 Even when previous discourse hasn't been fruitful, **in most cases we should continue to be vocal**. It's equally important to frame our concerns so they don't evoke complaining. It's easy to dismiss a complainer. We stand on solid ground when we present well-reasoned options and solutions. Even if upper management does not have direct control over some project details (ie., a client with a drop-dead launch date), **good managers should be willing to explore any and all options to help their employees succeed**.
 
 ## Coping with Work Stress: At Home
+
+Addressing work stress at work is the most productive way to be proactive at the source of the situation. But we can't always avoid taking our stress home with us. We need to make sure we're promoting self-care outside the workplace.
+
+### Physical Well-being
+
+**It's well-known that [exercise](https://www.adaa.org/understanding-anxiety/related-illnesses/other-related-conditions/stress/physical-activity-reduces-st) [is](http://www.huffingtonpost.com/2013/05/21/exercise-reduces-stress-levels-anxiety-cortisol_n_3307325.html) [good](http://www.active.com/fitness/articles/7-ways-exercise-relieves-stress) [for stress](http://www.health.harvard.edu/staying-healthy/exercising-to-relax)**. At the same time, many of us know how _difficult_ it can be to find motivation to work out when we're exhausted and stressed. When we can snatch a precious spare moment, all we want to do is languish on the sofa. Keep in mind that **getting exercise doesn't have to mean hitting the gym at midnight or waking up at 4 AM to run 5K**. Even if we can manage to squeeze in ten to fifteen minutes a day before work, it's a worthwhile habit to form. The barrier to entry is lower than it seems. Running, stairs, jumping jacks, squats, situps, and pushups are good places to begin. **Start small and do what you can** because something is always better than nothing.
