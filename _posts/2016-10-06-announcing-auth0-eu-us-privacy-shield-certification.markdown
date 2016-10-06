@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "The EU Privacy Shield Is Here"
+title: "Announcing Auth0's Certification in the EU-US Privacy Shield Framework"
 description: The new body of rules promises to tighten up data security for consumers in Europe.
-date: 2016-08-30 08:51
+date: 2016-10-06 08:30
 author: 
   name: Diego Poza
   url: https://twitter.com/diegopoza
@@ -14,11 +14,17 @@ design:
 tags: 
 - privacy-shield
 - safe-harbor
+- data-protection
 related:
 - 2016-08-16-how-real-state-companies-can-implement-open-id-connect-with-auth0
 - 2016-08-02-analysis-of-enterprise-connections-data
 - 2016-05-17-why-identity-federation-matters
 ---
+
+We are happy to announce that effective today Auth0 is part of the EU-US Privacy Shield Program and publicly committed to comply with its requirements.
+This certification enables Auth0 to transfer personal data from the European Union to the United States while complying with EU data protection requirements.
+
+## Understanding Privacy Shield
 
 The European Commission decided last year that the [Safe Harbor Principles](https://auth0.com/blog/safe-harbor-still-matters/), which outlined rules for the security of data transferred between the United States and EU by companies, were no longer robust enough. So they replaced Safe Harbor with the [EU-US Privacy Shield Framework](https://www.privacyshield.gov/welcome).
 
@@ -41,7 +47,7 @@ The Shield is different from Safe Harbor mostly because it calls for the US Depa
 
 Like Safe Harbor, American companies have to self-comply with the Privacy Shield. Doing so allows them to receive certification that their data transferral to the EU is secure. Auth0 is in the process of complying with the brand new EU-US Privacy Shield Framework. 
 
-Currently we already follow many of the rules laid out in The Shield. In our [privacy policy](https://auth0.com/privacy) we demonstrate how discerning we are with data collection—we only ask for personal information we need to deliver our services and to ensure our site is running properly. We may also analyze your data through aggregated data pools, so that no individual is highlighted in our studies. This protects the privacy of our users.
+Auth0 follows the rules laid out in The Shield. In our [privacy policy](https://auth0.com/privacy) we demonstrate how discerning we are with data collection—we only ask for personal information we need to deliver our services and to ensure our site is running properly. We may also analyze your data through aggregated data pools, so that no individual is highlighted in our studies. This protects the privacy of our users.
 
 ## Why Was The Shield Introduced
 
@@ -72,7 +78,7 @@ There are four requirements to joining Shield:
 
 Any company that wants to be certified by the Department of Commerce for Shield must give them a very detailed description of how the company will be using the personal data of EU citizens. The certificate has to be renewed annually.
 
-While we aren't yet Shield-certified, Auth0 is [already SOC 2 Type II certified](https://auth0.com/security). We also conform to the OpenID Connect protocol and offer HIPAA BAA agreements for companies transferring sensitive personal health information. 
+Auth0 is now part of the EU-US Privacy Shield Program and we are [already SOC 2 Type II certified](https://auth0.com/security). We also conform to the OpenID Connect protocol and offer HIPAA BAA agreements for companies transferring sensitive personal health information.
 
 We follow a series of verified identity standards and have built our services around them, including LDAP, SAML, OAuth, and JSON Web Tokens. We also maintain the integrity of the data we collect and ensure [security](https://auth0.com/security) through encryption and password hashing. With Auth0 you can ensure up to five levels of password complexity and even opt into custom rules that implement the [OWASP recommendations](https://www.owasp.org/index.php/Authentication_Cheat_Sheet#Implement_Proper_Password_Strength_Controls). Through Auth0 you can harness these powerful standards to protect your own applications. When we receive Shield-certification, that too will be available.
 
