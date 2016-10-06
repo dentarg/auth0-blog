@@ -81,4 +81,24 @@ Addressing work stress at work is the most productive way to be proactive at the
 
 ### Physical Well-being
 
-**It's well-known that [exercise](https://www.adaa.org/understanding-anxiety/related-illnesses/other-related-conditions/stress/physical-activity-reduces-st) [is](http://www.huffingtonpost.com/2013/05/21/exercise-reduces-stress-levels-anxiety-cortisol_n_3307325.html) [good](http://www.active.com/fitness/articles/7-ways-exercise-relieves-stress) [for stress](http://www.health.harvard.edu/staying-healthy/exercising-to-relax)**. At the same time, many of us know how _difficult_ it can be to find motivation to exercise when we're overworked. When we snatch a precious spare moment, all we want to do is languish on the sofa. Keep in mind that **getting exercise doesn't have to mean hitting the gym at midnight or waking up at 4 AM to run 5K**. If we can squeeze in ten to fifteen minutes each day before work, it's a worthwhile habit. The barrier to entry is lower than it seems; running, stairs, jumping jacks, squats, situps, and pushups are good places to begin. **Start small and do what you can** because something is always better than nothing.
+**It's well-known that [exercise](https://www.adaa.org/understanding-anxiety/related-illnesses/other-related-conditions/stress/physical-activity-reduces-st) [is](http://www.huffingtonpost.com/2013/05/21/exercise-reduces-stress-levels-anxiety-cortisol_n_3307325.html) [good](http://www.active.com/fitness/articles/7-ways-exercise-relieves-stress) [for stress](http://www.health.harvard.edu/staying-healthy/exercising-to-relax)**. At the same time, many of us know how _difficult_ it can be to find motivation to exercise when we're overworked. When we snatch a precious spare moment, all we want to do is languish on the sofa. Keep in mind that **getting exercise doesn't have to mean hitting the gym at midnight or waking up at 4 AM to run 5K**. If we can squeeze in 10-15 minutes each day before work, it's a worthwhile habit. The barrier to entry is lower than it seems; running, stairs, jumping jacks, squats, situps, and pushups are good places to begin. **Start small and do what you can** because something is always better than nothing. It can be surprising how much of a difference a 10 minute jog every morning can make.
+
+### Relaxation
+
+If we're working long hours, sometimes we're too frazzled to have the time for lengthy massages or even half an hour of yoga. **A quick 2-5 minute meditation is also a good way to soothe a stressed and overactive mind.** [Quick meditation](http://www.huffingtonpost.com/2013/11/08/guided-meditation-relaxation_n_4235832.html) [exercises](https://www.themuse.com/advice/the-2minute-exercise-that-can-completely-transform-your-day) can be performed in a matter of minutes at home _or_ at work.
+
+We may feel so drained that we just want to be left alone, but **spending time with loved ones and pets takes our minds off work and reminds us that we have things that bring us joy**. Rituals also help: walking the dog, eating dinner as a family, or reading a few pages of a good book. [Steve](http://twitter.com/spheley) suggests setting reminders if we need to. Habit-forming apps like [Productive](http://productiveapp.io/) can help, but simple calendar reminders work as well.
+
+### Help and Outsourcing
+
+We should **be okay with asking for help or outsourcing chores**. If the house is dirty, we can hire housekeeping. H. Jeffrey notes that if there's no food, we can go out to eat, get some delivered, or batch-prepare easy meals on the weekends. We can **ask friends and family for help, but we shouldn't delegate the things we find comfort in**. If walking the dog or watering the flowers relaxes us, we should make sure we keep those for ourselves.
+
+### Work vs. Hobbies
+
+For many tech workers, hobbies can overlap work. Many of us might love designing or systems or programming, so we do these things in our spare time as well as for our career. We should be careful to avoid overlap when we're stressed at work and in danger of burnout. If we're not, fun rapidly becomes work instead. [Ado](http://twitter.com/kukicado) advocates **"doing something completely different" in our off time**.
+
+### Consider Alternatives and Cultivate Options
+
+Sometimes we power through stressful projects or periods of burnout because we love our jobs. Sometimes we don't. **Sometimes it's best to leave a job that we no longer enjoy or find fulfilling.** It's challenging to find the time and motivation to apply for other positions when we're already burned out, but **knowing when to consider other opportunities** is just as important as knowing when to stick it out.
+
+Looking for another job can also be therapeutic. **Putting our resumes together and recognizing the value of our skills reaffirms that we have options and are in control of our future.** Our prospects do not need to be dictated by a bad situation. We can be proactive about our circumstances. Even if it's hard to cultivate the motivation necessary to apply for jobs, [Maitland](http://twitter.com/androidqueen) reminds us that doing so should be incorporated into our self-care routine.
