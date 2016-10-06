@@ -11,6 +11,7 @@ layout: null
      "author_url"    : "{{ post.author.url }}",
      "tags"          : "{{ post.tags | first }}",
      "url"           : "{{ post.url }}",
+     "keyword"       : "{{ post.content | strip_html | strip_newlines | keywords_text }}",
    {% if post.design.image %}
      "image"         : "{{ post.design.image }}",
    {% else %}
