@@ -29,29 +29,29 @@ Consider a hypothetical scenario: your current project is under pressure to meet
 
 This is sound advice, but right now it seems idealistic to the point of impossible. You feel obligated to do whatever it takes to complete the project on time, including working long hours and giving up weekends. Maybe you love your job, even if it's stressful. You normally enjoy the fast pace, but you're getting burned out. The situation feels out of your control. What can you do?
 
-A perception of lack of control makes a high-pressure situation feel even more stressful. However, there are things we can do to alleviate this. We'll go over suggestions aggregated by consulting communities of devoted tech employees in a variety of positions, including engineers, system administrators, project managers, engineering managers, quality assurance engineers, user experience architects, and more.
+Perceived of lack of control makes a high-pressure situation even more stressful. However, there are things we can do to alleviate this. We'll go over techniques aggregated by consulting devoted tech employees in a variety of positions, including engineers, system administrators, project managers, engineering managers, quality assurance engineers, user experience architects, and more.
 
 ## Coping with Work Stress: At Work
 
-There is no magic bullet for work stress or burnout. You might get a hundred professional massages (but seriously, who has the time?) and not feel much better. The first place to tackle work stress is _at work_.
+There is no magic bullet for work stress or burnout. You might get a hundred professional massages (but seriously, who has the time?) and not feel better. The first place to tackle work stress is _at work_.
 
 ### Be the Canary in the Coal Mine
 
-Let's start at the beginning. After all, every situation has one: a point when we first sense things are going to become painful. If we're lucky enough to be present at that time, we should _not_ stand idly by. And even if we come aboard after the ship has set sail, we shouldn't simply remain silent through the storm.
+Let's start at the beginning. After all, every situation has one: a point when we first sense things becoming painful. If we're lucky enough to be present at that time, we should _not_ stand idly by. Even if we came aboard after the ship set sail, we shouldn't remain silent through the storm.
 
-[Dave Winkel](https://www.linkedin.com/in/dave-winkel-b9438a) emphasizes the importance of being "[the canary in the coal mine](https://en.wiktionary.org/wiki/canary_in_a_coal_mine)". **Raising red flags early and often helps us steer a situation.** [Laura Kimpel-Matthews](http://www.linkedin.com/in/laurakimpelmatthews) recommends **escalating with solutions for upper management** and including all potential options to open a discussion. Suggest cutting scope, increasing resources, extending timelines, shifting responsibilities, etc. It's very difficult to ignore a well-crafted proposal for improvement and good management should be willing to work with our suggestions. 
+[Dave Winkel](https://www.linkedin.com/in/dave-winkel-b9438a) emphasizes the importance of being "[the canary in the coal mine](https://en.wiktionary.org/wiki/canary_in_a_coal_mine)". **Raising red flags early and often helps us steer a situation and alert others.** [Laura Kimpel-Matthews](http://www.linkedin.com/in/laurakimpelmatthews) recommends **escalating with solutions for upper management** and including all potential options to open a discussion. Suggest cutting scope, increasing resources, extending timelines, shifting responsibilities, etc. It's difficult to ignore a well-crafted proposal for improvement and good management should be willing to work with our suggestions. 
 
 ### We're All in This Together Now
 
 **Remember that our teammates are experiencing the same situation.** We're all in this together. It's easy to accidentally cultivate a toxic atmosphere when everyone is stressed and overworked. [Emily Gladstone Cole](http://twitter.com/unixgeekem) emphasizes that we "need to help foster a culture of supporting each other. Answer each other's questions, don't be negative about someone, and be as impersonal as possible when raising concerns on their work."
 
-**Do things as a team.** Take twenty minutes to go out for gelato together. If everyone is working late, expense dinner and eat together (_not_ at desks!) while having a lively discussion about anything _except_ our stressful project. [Mike Behnke](http://twitter.com/localpcguy) recommends "tracking wins" and sharing them: any positive feedback received from clients, management, or peers can help bolster the team.
+**Do things as a team.** Take twenty minutes to go out for gelato together. If everyone is working late, expense dinner and eat together (_not_ at desks!) while having a lively conversation about anything _except_ our stressful project. [Mike Behnke](http://twitter.com/localpcguy) recommends "tracking wins" and sharing them: any positive feedback received from clients, management, or peers can help bolster the team.
 
 ### Take Breaks and Recognize When to Rest
 
-It's easy to feel like we need to keep our eyes glued to our monitors to meet a deliverable, but **getting away helps keep us sane _and_ productive**. We need to set and know our limits and go home when we've hit them. [Ado Kukic](http://twitter.com/kukicado) makes the important point that "being constantly on edge and stressed greatly decreases the quality of output, which only ends up in working even longer hours to fix an already crumbling deliverable." 
+It's easy to feel like we need to keep our eyes glued to our monitors to meet a deliverable, but getting away helps keep us sane _and_ productive. We need to **set and know our limits and go home when we've hit them**. [Ado Kukic](http://twitter.com/kukicado) makes the important point that "being constantly on edge and stressed greatly decreases the quality of output, which only ends up in working even longer hours to fix an already crumbling deliverable." 
 
-**Don't eat lunch in front of a computer or at a desk.** Get food elsewhere with friends / coworkers if possible. This provides a much needed mental reset partway through the day.
+**Don't eat lunch in front of a computer or at a desk.** Get food elsewhere with friends if possible and try not to talk about work. This provides a much needed mental reset partway through the day.
 
 **Get up and walk around.** A short trek to the break room for coffee, a chat around the water jug, a brisk walk around the parking lot, any movement and small change of scenery keeps our bodies more active and our minds more alert. This doesn't need to be time-consuming or disruptive. Five to fifteen minutes taken periodically throughout the day helps far more than it harms a busy schedule.
 
