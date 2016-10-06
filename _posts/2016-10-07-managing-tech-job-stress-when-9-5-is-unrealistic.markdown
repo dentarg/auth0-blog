@@ -30,7 +30,7 @@ Consider a hypothetical: your current project is under pressure to meet a seemin
 
 This is sound advice, but right now it seems idealistic to the point of impossible. You feel obligated to do whatever it takes to complete the project on time, including working long hours and giving up weekends. Maybe you love your job, even if it's stressful. You normally enjoy the fast pace, but you're getting burned out. The situation feels out of your control. What can you do?
 
-Perceived of lack of control makes a high-pressure situation even more stressful. However, there are things we can do to alleviate this. We'll go over techniques aggregated by consulting devoted tech employees in a variety of positions including engineers, system administrators, project managers, engineering managers, quality assurance engineers, user experience architects, and more.
+Perceived lack of control makes a high-pressure situation even more stressful. However, there are things we can do to alleviate this. We'll go over techniques aggregated by consulting devoted tech employees in a variety of positions including engineers, system administrators, project managers, engineering managers, quality assurance engineers, user experience architects, and more.
 
 ## Coping with Work Stress: At Work
 
