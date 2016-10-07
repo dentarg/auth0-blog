@@ -19,9 +19,6 @@ tags:
 related:
 - 2016-08-04-creating-your-first-elm-app-part-1
 - 2016-07-14-create-an-app-in-vuejs-2
-- 2016-04-13-authentication-in-golang
----
-
 ---
 
 **TL;DR:** In the first part of this tutorial, we introduced the Elm language by building a [simple Elm Application that called an API](https://auth0.com/blog/creating-your-first-elm-app-part-1/). Now we'll authenticate with JSON Web Tokens to make protected API requests. The full code is available in [this GitHub repository](https://github.com/kmaida/auth0-elm-with-jwt-api).
