@@ -84,6 +84,8 @@ Even when previous discourse hasn't been fruitful, **in most cases we should con
 
 Addressing work stress at work is the most productive way to be proactive at the source of the situation. But we can't always avoid taking our stress home with us. We need to make sure we're promoting self-care outside the workplace too.
 
+![Manage tech job stress at home](https://cdn.auth0.com/blog/managing-tech-job-stress/managing-stress-image.png)
+
 ### Physical Well-being
 
 **It's well-known that [exercise](https://www.adaa.org/understanding-anxiety/related-illnesses/other-related-conditions/stress/physical-activity-reduces-st) [is](http://www.huffingtonpost.com/2013/05/21/exercise-reduces-stress-levels-anxiety-cortisol_n_3307325.html) [good](http://www.active.com/fitness/articles/7-ways-exercise-relieves-stress) [for stress](http://www.health.harvard.edu/staying-healthy/exercising-to-relax)**. At the same time, many of us know how difficult it can be to find motivation to exercise when we're overworked. When we snatch a precious spare moment, all we want to do is languish on the sofa. Keep in mind that **getting exercise doesn't have to mean hitting the gym at midnight or waking up at 4 AM to run 5K**. If we can squeeze in 10-15 minutes each day before work, it's a worthwhile habit. The barrier to entry is lower than it seems; running, stairs, jumping jacks, squats, situps, and pushups are good places to begin. **Start small and do what you can** because something is always better than nothing. It can be surprising how much of a difference a 10 minute jog every morning can make.
