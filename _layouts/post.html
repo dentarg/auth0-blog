@@ -1,5 +1,6 @@
 ---
 layout: default
+is_post: true
 ---
 <!-- Twitter Conversion -->
 <script type="text/javascript">
@@ -13,6 +14,9 @@ layout: default
 
 <article itemprop="mainEntity" itemscope itemtype="http://schema.org/BlogPosting">
   <link itemprop="mainEntityOfPage" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
+  {% if page.updated %}
+    <meta itemprop="dateModified" content="{{ page.updated }}">
+  {% endif %}
   {% include banner_post.html %}
 
   {% include utility_bar.html %}
