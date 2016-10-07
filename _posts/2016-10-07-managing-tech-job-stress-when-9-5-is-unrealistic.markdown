@@ -102,19 +102,19 @@ We should **be okay with asking for help or outsourcing chores**. If the house i
 
 ### Work vs. Hobbies
 
-For many tech workers, hobbies can overlap work. Many of us might love designing or systems or programming, so we do these things in our spare time as well as for our career. We should be careful to avoid overlap when we're stressed at work and in danger of burnout. If we're not, fun rapidly becomes work instead. [Ado](http://twitter.com/kukicado) advocates **"doing something completely different" in our off time**.
+For many tech workers, hobbies can overlap work. Many of us love designing, systems, or programming, so we do these things in our spare time as well as for our career. We should be careful to avoid overlap when we're stressed at work and in danger of burnout. If we're not, fun rapidly becomes work instead. [Ado](http://twitter.com/kukicado) advocates **"doing something completely different" in our off time**.
 
 ### Consider Alternatives and Cultivate Options
 
 Sometimes we power through stressful projects or periods of burnout because we love our jobs. Sometimes we don't. **Sometimes it's best to leave a job that we don't enjoy or find fulfilling.** It's challenging to drum up the time and motivation to apply for other positions when we're already burned out, but **knowing when to consider other opportunities** is just as important as knowing when to stick it out.
 
-Looking for another job can also be therapeutic. **Putting our resumes together and recognizing the value of our skills reaffirms that we have options and are in control of our future.** Even if it's hard to cultivate the motivation necessary to apply for jobs, [Maitland](http://twitter.com/androidqueen) reminds us that doing so should be incorporated into our self-care routine. Our prospects do not need to be dictated by a bad situation: we can be proactive about our circumstances.
+Looking for another job can also be therapeutic. **Putting our resumes together and recognizing the value of our skills reaffirms that we have options and are in control of our future.** Even if it's hard to cultivate the motivation necessary to apply for jobs, [Maitland](http://twitter.com/androidqueen) reminds us that doing so should be incorporated into our self-care routine. Our future prospects do not need to be dictated by a bad situation.
 
 {% include tweet_quote.html quote_text="Recognizing the value of our skills reaffirms that we have options and are in control of our future." %}
 
 ## At the End of the Day
 
-At the end of the day, take some time to wind down. **Our minds  race with all the stressors we've experienced and it's important not to sleep with those things hanging over our heads.** We can meditate, read, or spend time with those we care about even if only for half an hour before we crash and need to sleep.
+Before going to bed, take some time to wind down. **Our minds race with all the stressors we've experienced throughout the day and it's important not to sleep with those things hanging over our heads.** We can meditate, read, or spend time with those we care about even if only for half an hour before we crash and need to sleep.
 
 ### Complaining vs. Gratitude
 
