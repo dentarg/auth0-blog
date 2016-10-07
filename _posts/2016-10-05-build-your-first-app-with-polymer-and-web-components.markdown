@@ -18,13 +18,9 @@ tags:
 related:
 - 2016-09-29-angular-2-authentication
 - 2016-08-17-aurelia-1.0-how-to-build-a-simple-secured-application
-- 2016-06-15-adding-authentication-to-react-native-using-jwt
 ---
 
----
-
-
-**TL;DR** [Google Polymer](https://www.polymer-project.org/1.0/) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available at [this GitHub repo](https://github.com/auth0-blog/polymer-with-jwt-api).
+**TL;DR:** [Google Polymer](https://www.polymer-project.org/1.0/) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available at [this GitHub repo](https://github.com/auth0-blog/polymer-with-jwt-api).
 
 ## What Are Web Components?
 

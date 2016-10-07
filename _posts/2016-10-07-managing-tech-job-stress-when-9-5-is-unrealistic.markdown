@@ -20,9 +20,7 @@ related:
 - 2016-05-23-how-to-motivate-your-employees
 ---
 
----
-
-**TL;DR** Many jobs in the tech industry are fast-paced, stimulating, rewarding—and notorious for being stressful. The key to managing stress and burnout is to realize that we have more control than we think regarding the way we work, interact with the people around us, and engage in self-care. We'll consider a plethora of ways we can cope with job-induced stress both in the workplace and at home.
+**TL;DR:** Many jobs in the tech industry are fast-paced, stimulating, rewarding—and notorious for being stressful. The key to managing stress and burnout is to realize that we have more control than we think regarding the way we work, interact with the people around us, and engage in self-care. We'll consider a plethora of ways we can cope with job-induced stress both in the workplace and at home.
 
 ## When the Obvious Answers are Unrealistic
 
