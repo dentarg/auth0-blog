@@ -14,6 +14,12 @@
       <title>{{ page.title }}</title>
     {% endif %}
 
+    {% if page.is_post %}
+      {% if page.updated %}
+       <meta itemprop="dateModified" content="{{ page.updated }}">
+      {% endif %}
+    {% endif %}
+
     <link href="https://plus.google.com/+Auth0" rel="publisher" />
 
     <script src="//use.typekit.net/tde2fii.js"></script>
