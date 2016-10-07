@@ -66,7 +66,7 @@ Scrutinize the distribution of work. **If there's a way to make more efficient u
 
 [Karen Ford](http://twitter.com/karenforda2) reminds us to **ask "am I really needed here?" when being invited to meetings or included on email chains**. Managers and senior level employees spend a substantial amount of time in meetings, sometimes standing on ceremony rather than out of necessity. This consumption of time can be reduced if we take a moment to consider whether our presence will actually be beneficial. We can also make it clear we'll respond to emails at certain times of day but instanteous feedback shouldn't be expected. Then we can gain some uninterrupted productivity.
 
-**Ask for help.** [Maitland Hemby](http://twitter.com/androidqueen) offers an excellent serenity prayer: "**Grant me the patience to figure stuff out when I can, the courage to ask for help when I can't, and the wisdom to know the difference.**" When we have the luxury of time we spend many hours Googling things. When we're under the pressure of a deliverable or drowning in an ocean of tasks, we should ask for help. The people around us are a fount of valuable knowledge.
+**Ask for help.** [Maitland Hemby](http://twitter.com/androidqueen) offers an excellent serenity prayer: "**Grant me the patience to figure stuff out when I can, the courage to ask for help when I can't, and the wisdom to know the difference.**" When we have the luxury of time we spend many hours Googling things. When we're under the pressure of a deliverable or drowning in an ocean of tasks, we should ask for help when we're struggling. The people around us are a fount of valuable knowledge.
 
 [Karen](http://twitter.com/karenforda2) promotes **breaking large tasks into smaller, more digestible ones**. The benefits are twofold: this "helps you keep sane of your goals and helps you feel more accomplished at the end of the day because you can cross things off your list." A sense of daily achievement is an important reassurance that progress is being made.
 
@@ -78,7 +78,7 @@ Scrutinize the distribution of work. **If there's a way to make more efficient u
 
 Even when previous discourse hasn't been fruitful, **in most cases we should continue to be vocal**. It's equally important to frame our concerns so they don't evoke complaining. It's easy to dismiss a complainer. We stand on solid ground when we present well-reasoned options and solutions. Even if upper management does not have direct control over some project details (ie., a client with a drop-dead launch date), **good managers should be willing to explore any and all options to help their employees succeed**.
 
-{% include tweet_quote.html quote_text="Good managers should be willing to explore any and all options to help their employees succeed" %}
+{% include tweet_quote.html quote_text="Good managers should be willing to explore any and all options to help their employees succeed." %}
 
 ## Coping with Work Stress: At Home
 
