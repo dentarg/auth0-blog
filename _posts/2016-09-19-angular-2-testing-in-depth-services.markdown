@@ -25,11 +25,11 @@ tags:
 When I started developing and writing tests for Angularjs applications,
 everything felt natural. The tools were mature and I easily got used to
 developing applications in TDD ([Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development)).
-It gave me a high level of confidence, that my application is working as I imagined.
-Just after Angular 2 came out and I learnt the basics, I knew that the next step was to learn testing with it.
+It gave me a high level of confidence, knowing that my application was working as I had imagined.
+Just after Angular 2 came out and I learned the basics, I knew that the next step was to testing.
 
-This article is the first part of a series,
-where I share my experiences testing different building blocks of an Angular 2 application.
+This article is the first part of a series in which
+I share my experiences testing different building blocks of an Angular 2 application.
 We will start with simple use cases and then head for more complex ones.
 
 - Services (this article)
@@ -44,15 +44,15 @@ You may wonder why it is so important to write tests.
   <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/tdd_guilty.png" />
 </p>
 
-With tests, we can ensure the correctness of our application: the code does what it was designed to do.
+With tests, we can ensure the correctness of our application: that the code does what it was designed to do.
 We can guard against someone breaking our code by refactoring or
 adding new features. This might have happened to you when someone added a small feature
-or added equivalent code transformations, and nothing worked afterwards.
+or equivalent code transformations and nothing worked afterwards.
 Writing tests can clarify the intention of the code by giving usage examples.
 It can also reveal design flaws. When a piece of code is hard to test,
 there might be a problem with the underlying architecture.
 
-If you are new to Test-Driven Development I would recommend reading the Test-Driven Development book by Kent Beck.
+If you are new to Test-Driven Development, I would recommend reading the Test-Driven Development book by Kent Beck.
 It gives a nice overview about the concepts and best practices.
 
 ### Choosing the framework
@@ -61,12 +61,12 @@ It gives a nice overview about the concepts and best practices.
   <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/jasmine-mocha.png" />
 </p>
 
-The first thing we have to choose is the framework. The suggested one by Angular 2's core team is
+The first thing we have to choose is the framework. The one suggested by Angular 2's core team is
 [Jasmine](http://jasmine.github.io/edge/introduction.html).
 For a long time it was the only supported testing framework, because test setups were hard wired into the framework.
-Thanks to refactoring now tests can also be written in [Mocha](https://mochajs.org/), or any other framework
+Thanks to refactoring, now tests can also be written in [Mocha](https://mochajs.org/), or any other framework
 that supports the ```beforeEach``` hook. This hook runs before every test run.
-If your framework of choice doesn't support it, you have to add the following code snippet to your setup.
+If your framework of choice doesn't support it, you have to add the following code snippet to your setup:
 
 ```typescript
 import { resetFakeAsyncZone, TestBed } from '@angular/core/testing';
@@ -82,16 +82,16 @@ It clears out any given provider or module.
 If you are not familiar with Dependency Injection, I would recommend reading the
 [official documentation](https://angular.io/docs/ts/latest/guide/dependency-injection.html) about it.
 
-The second one clears out any remaining zone which fakes asynchronous operations like ```setTimeout```.
+The second one clears out any remaining zone that fakes asynchronous operations like ```setTimeout```.
 Detailed articles can be found on the Thoughtram blog about zones:
 [Understanding zones](http://blog.thoughtram.io/angular/2016/01/22/understanding-zones.html) and
 [Zones in Angular 2](http://blog.thoughtram.io/angular/2016/02/01/zones-in-angular-2.html).
 
-For the series we will be using Jasmine as the test framework.
+For this series, we will be using Jasmine as the test framework.
 
 ### Writing the first test
 
-Let's look at our first service which will be tested.
+Let's look at our first service that will be tested.
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -109,13 +109,13 @@ export class Engine {
 ```
 
 It has two getter methods and the ```Injectable``` decorator.
-The tests will test wether these getter methods work as intended.
+The tests will check whether these getter methods work as intended.
 The decorator is needed to utilize dependency injection.
 
-In Jasmine we can group our tests with the ```describe``` method.
-Within this method we can create test cases with the ```it``` function.
-It is adviced to place one class per file (the service) and group the tests around it (with ```describe```).
-We can further group test cases around methods of the class,
+In Jasmine, we can group our tests with the ```describe``` method.
+Within this method, we can create test cases with the ```it``` function.
+It is advised to place one class per file (the service) and group the tests around it (with ```describe```).
+We can further group test cases around methods of the class
 by placing ```describe``` statements inside the top ```describe``` block.
 For now we will only group our tests around the class.
 
@@ -131,12 +131,12 @@ describe('Engine', () => {
 });
 ```
 
-In this setup only plain instantiation is used, we will introduce dependency injection later.
-For basic services it can be enough.
+In this setup, only plain instantiation is used; we will introduce dependency injection later.
+For basic services, plain instantiation can be enough.
 
-We call the ```getHorsepower``` method of the engine, and check if it's equal with the expected value.
+We call the ```getHorsepower``` method of the engine and check that it's equal to the expected value.
 
-The first test is green and passing, let's write another one for the ```getName``` method.
+The first test is green and has been passed. Let's write another one for the ```getName``` method.
 
 ```typescript
 it('should return it\'s horsepower', () => {
@@ -146,11 +146,11 @@ it('should return it\'s horsepower', () => {
 });
 ```
 
-If you run the tests a similar output will be on the terminal.
+If you run the tests, a similar output will be on the terminal.
 
 ![First tests](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/first_test_run.png)
 
-Both tests are passing, it is time to refactor.
+Both tests have been passed; it is time to refactor.
 There is duplication at the start of each test. Instantiation is exactly the same,
 we can move it out into a setup block.
 
@@ -173,17 +173,17 @@ describe('Engine', () => {
 ```
 
 The ```subject``` variable is declared at the start of the ```describe``` block, and the creation of the service
-is moved to the ```beforeEach``` block. This way we don't have to manually do it every time.
-It is common to move out the creation of the test case subject into a separate method,
+is moved to the ```beforeEach``` block. This way we don't have to do it manually every time.
+It is common to move the creation of the test case subject to a separate method,
 because it offloads the tests and makes them more readable.
 
 ### Using Dependency Injection
 
-Creating services directly can be good if the subject under test has none or few dependencies.
-But if it has multiple dependencies or a deeper dependency tree it gets tedious to setup all the classes.
-For these situations we can use Angular 2's dependency injection management.
+Creating services directly can be good if the subject under test has no or few, dependencies.
+But if it has multiple dependencies, or a deeper dependency tree, setting up all the classes becomes tedious.
+For these situations, we can use Angular 2's dependency injection management.
 
-The ```Car``` class uses the ```Engine``` class in the constructor and it's instance in the ```getName``` method.
+The ```Car``` class uses the ```Engine``` class in the constructor and its instance in the ```getName``` method.
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -199,7 +199,7 @@ export class Car {
 }
 ```
 
-We check for the ```getName``` method's output in the test after we setup the dependency injection container.
+We check for the ```getName``` method's output in the test after we set up the dependency injection container.
 
 ```typescript
 import { TestBed, inject } from '@angular/core/testing';
@@ -228,14 +228,14 @@ describe('Car', () => {
 The difference here is that we configure the ```TestBed``` with the provided
 services in the ```configureTestingModule``` method.
 Only these classes can be instantiated with the ```inject``` method.
-If we try to request something else, we get an error telling it is an unknown provider.
+If we try to request something else, we get an error saying it is an unknown provider.
 
 ![Unknown provider](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/test_failure_missing_dep.png)
 
 We can request instances of the services in an array from the ```inject``` method.
-In the callback we get the instances in the same order as in the dependency array with the first parameter.
-The type hint inside the  callback is only for IDE completion, it also works without it.
-In the example it is placed inside the ```beforeEach``` function, but it can also be added to the ```it``` block.
+In the callback, we get the instances in the same order as in the dependency array with the first parameter.
+The type hint inside the  callback is only for IDE completion; it also works without it.
+In the example, it is placed inside the ```beforeEach``` function, but it can also be added to the ```it``` block.
 
 ```typescript
 it('should display name with engine', inject([Car], (car: Car) => {
@@ -245,14 +245,14 @@ it('should display name with engine', inject([Car], (car: Car) => {
 
 ### Mocking
 
-In unit tests we want to execute the code in isolation.
-It means not depending on big complex objects and not calling methods that rely on external systems
+In unit tests, we want to execute the code in isolation.
+This means it is not dependent on big, complex objects and is not calling methods that rely on external systems
 (like HTTP calls or database access).
-In these cases we want to simulate the original behavior while skipping the underlying implementation.
+In these cases, we want to simulate the original behavior while skipping the underlying implementation.
 
 When achieved, it is called mocking.
-We don't have to manually do it, Jasmine gives tools to make it work.
-Let's assume that the method of the ```Engine``` class has a call to the server through
+We don't have to do it manually. Jasmine provides tools to make it work.
+Let's assume that the method of the ```Engine``` class has a call through to the server
 and we want to mock it.
 
 ```typescript
@@ -308,11 +308,11 @@ beforeEach(() => {
 });
 ```
 
-With this setup the ```inject``` call will return an instance of ```V8Engine``` when asked for ```Engine```.
-We can also use ```useFactory``` with a callback or ```useValue``` with an instance to accomplish the same result.
+With this setup, the ```inject``` call will return an instance of ```V8Engine``` when asked for ```Engine```.
+We can also use ```useFactory``` with a callback, or ```useValue``` with an instance, to accomplish the same result.
 The only drawback here is that every method of the class must be implemented and changed
 whenever the original class changes.
-Optionally the original class can be extended to override only specific methods.
+The original class can be extended optionally in order to override only specific methods.
 
 ### Conclusion
 
@@ -327,9 +327,9 @@ If you follow the steps introduced in this article and write tests for your appl
 The code will work as intended and when someone accidentally breaks it,
 the tests will warn him that those changes are unsafe and shouldn't be committed until the tests are green again.
 
-Jasmine will help you along the way with it's easy syntax and batteries included (assertion and mocking library).
+Jasmine will help you along the way with its easy syntax and batteries included (assertion and mocking library).
 
-I hope this has convinced you, that writing tests in Angular 2 is not an overly complicated thing.
+I hope this has convinced you that writing tests in Angular 2 is not an overly complicated thing.
 
-To make the start even more easier the code is available in
+To make the start even easier, the code is available in
 [this GitHub repository](https://github.com/blacksonic/angular2-testing-ground "Angular 2 testing ground").
