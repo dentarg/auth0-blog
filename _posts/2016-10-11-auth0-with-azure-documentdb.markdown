@@ -104,13 +104,15 @@ In our Node.js scripts, we can access this value by the global variable `configu
 Now, we will define our custom _Login_, _Create_, _Verify_, _Change Password_ and _Delete_ scripts using our predefined variable:
 
 __Login__
+
 ```javascript
 function login (email, password, callback) {
   mongo(configuration.ConnectionString, function (db) {
     var users = db.collection('users');
     users.findOne({email: email}, function (err, user) {
 
-      if (err) return callback(err);
+
+if (err) return callback(err);
 
       if (!user) return callback();
 
@@ -127,7 +129,9 @@ function login (email, password, callback) {
   });
 }
 ```
+
 __Create__
+
 ```javascript
 function create (user, callback) {
   mongo(configuration.ConnectionString, function (db) {
@@ -150,6 +154,7 @@ function create (user, callback) {
 ```
 
 __Verify__
+
 ```javascript
 function verify (email, callback) {
   mongo(configuration.ConnectionString, function (db) {
@@ -163,7 +168,9 @@ function verify (email, callback) {
   });
 }
 ``` 
+
 __Change Password__
+
 ```javascript
 function changePassword (email, newPassword, callback) {
   mongo(configuration.ConnectionString, function (db) {
@@ -178,7 +185,9 @@ function changePassword (email, newPassword, callback) {
   });
 }
 ```
+
 __Delete__
+
 ```javascript
 function remove (id, callback) {
   mongo(configuration.ConnectionString, function (db) {
@@ -191,11 +200,13 @@ function remove (id, callback) {
   });
 }
 ```   
+
 And we can **test** the connection by running the _Create_ script from within the interface:
 
 ![Testing the connection](https://cdn.auth0.com/blog/auth0-and-documentdb/dashboard-test.png)
 
 If we query the content of the Azure DocumentDB collection through the Azure Portal, we will find our created user:
+
 ```json
 {
     "_id": {
