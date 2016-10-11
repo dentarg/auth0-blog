@@ -17,6 +17,9 @@ tags:
 - documentdb
 - authentication
 related:
+- 2016-09-01-aspnet-core-apis-with-swagger-and-autorest
+- 2016-06-03-add-auth-to-native-desktop-csharp-apps-with-jwt
+- 2016-06-13-authenticating-a-user-with-linkedin-in-aspnet-core
 ---
 
 ---
