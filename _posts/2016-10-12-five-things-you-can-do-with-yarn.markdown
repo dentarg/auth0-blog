@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "5 things you can do with Yarn"
-description: Yarn is a new package manager for JavaScript by facebook. Learn how to use Yarn to increase your productivity..
-date: 2016-10-12 05:304
+description: Yarn is a new package manager for JavaScript by facebook. Learn how to use Yarn to increase your productivity.
+date: 2016-10-12 05:30
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
@@ -24,11 +24,11 @@ related:
 
 ---
 
-**TL;DR:** There are several package managers in the Javascript land: **npm**, **bower**, **component**, **volo**. As of this writing, the most popular package manager in the JavaScript Land is **npm**. The npm client provides access to hundreds of thousands of code libraries in the npm registry. Just recently, facebook launched a new package manager for Javascript called **Yarn** which claims to be faster, more reliable and secure than the already existing npm client. In this article, you will learn how five things you can do with Yarn.
+**TL;DR:** There are several package managers in the JavaScript land: **npm**, **bower**, **component**, **volo**. As of this writing, the most popular package manager in the JavaScript land is **npm**. The npm client provides access to hundreds of thousands of code libraries in the npm registry. Just recently, facebook launched a new package manager for JavaScript called **Yarn** which claims to be faster, more reliable and secure than the already existing npm client. In this article, you will learn how five things you can do with Yarn.
 
 ---
 
-**Yarn** is a new package manager for Javascript created by facebook. It offers a fast, highly reliable and secure dependency management for developers using Javascript in their apps. Here are five things you can do with Yarn.
+**Yarn** is a new package manager for JavaScript created by facebook. It offers a fast, highly reliable and secure dependency management for developers using JavaScript in their apps. Here are five things you can do with Yarn.
 
 ## 1. Work Offline
 
@@ -65,18 +65,21 @@ yarn add <pkg-name>
 ```
 
 Install a package from a remote gzipped tarball like so:
+
 ```bash
 yarn add <https://thatproject.code/package.tgz>
 ```
 
 Install a package from your local file system like so:
+
 ```bash
 yarn add file:/path/to/local/folder
 ```
 
-This is particularly helpful for developers that constantly publish javascript packages. You can always use this to test out your packages before publishing it to a registry.
+This is particularly helpful for developers that constantly publish JavaScript packages. You can always use this to test out your packages before publishing it to a registry.
 
 Install a package from a remote git repository like so:
+
 ```bash
 yarn add <git remote-url>
 ```
@@ -93,23 +96,19 @@ If you have used **npm** for a while, you must have had experiences where you ha
 
 Yarn efficiently queues up requests and avoids request waterfalls in order to maximize network utilization. It starts by making requests to the registry and recursively looking up each dependency. Next, it looks in a global cache directory to see if the package has been downloaded before. If it hasn't, Yarn fetches the package tarball and places it in the global cache to enable it work offline and eliminate the need to re-download.
 
-During install, Yarn parallelizes operations which makes the install process faster.
-
-I did a fresh install of three packages namely, **jsonwebtoken**, **express** and **lodash** using **npm** and **yarn**.
-
-By the time *Yarn* was done installing them, *npm* was still installing.
+During install, Yarn parallelizes operations which makes the install process faster. I did a fresh install of three packages namely, **jsonwebtoken**, **express** and **lodash** using **npm** and **yarn**. By the time *Yarn* was done installing them, *npm* was still installing.
 
 ![](https://cdn.auth0.com/blog/blog/yarn-npm-compare.png)
 
 ## 4. Lock Package Versions Automatically
 
-Npm has a feature called **shrinkwrap* which is intended to lock down your package dependencies for production use. The challenge with shrinkwrap is that every developer has to manually run `npm shrinkwrap` to generate the `npm-shrinkwrap.json` file. Developers are also humans, we can forget!
+Npm has a feature called **shrinkwrap** which is intended to lock down your package dependencies for production use. The challenge with **shrinkwrap** is that every developer has to manually run `npm shrinkwrap` to generate the `npm-shrinkwrap.json` file. Developers are also humans, we can forget!
 
 With Yarn, it's a different ball game. From installation, a `yarn.lock` file is generated automatically. It is similar to the `composer.lock` file that PHP developers are familiar with. The `yarn.lock` file locks down the exact versions of the packages that have been installed and all its dependencies. With this file, you can be certain that every member of your engineering team have the exact package versions installed and deployments can easily be reproduced without unexpected bugs.
 
 ## 5. Install Dependencies Same Way Across Machines
 
-The way **Npm client** installs dependencies can make the structure of the contents of *Developer A* `node_modules` directory different from *Developer B*. It uses a non-deterministic approach to install those package dependencies. This approach is sometimes responsible for bugs that can't be easily reproduced because of the popular *works on my system* problem.
+The **npm client** installs dependencies in a way that can make the structure of the contents of *Developer A* `node_modules` directory different from *Developer B*. It uses a non-deterministic approach to install those package dependencies. This approach is sometimes responsible for bugs that can't be easily reproduced because of the popular *works on my system* problem.
 
 With Yarn, the presence of a lock file and an install algorithm ensures that the dependencies installed produce the exact same file and folder structure across machines.
 
