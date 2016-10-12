@@ -228,9 +228,17 @@ The `AuthGuard` checks to see if a user is authenticated. For routes protected w
 
 
 ```
-// ...
+import { Routes, RouterModule, CanActivate } from '@angular/router';
+import { AuthGuard } from './auth-guard.service';
+
+import { DashboardComponent } from './dashboard.component';
+import { HeroesComponent } from './heroes.component';
+import { HeroDetailComponent } from './hero-detail.component';
+
+import { SecretHeroesComponent } from './secret-heroes.component';
+import { SecretHeroDetailComponent } from './secret-hero-detail.component';
+
 const appRoutes: Routes = [
-  const appRoutes: Routes = [
   {
     path: '',
     redirectTo: '/dashboard',
@@ -259,8 +267,10 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
 ];
-];
-// ...
+
+export const routing = RouterModule.forRoot(appRoutes);
+
+export const routedComponents = [DashboardComponent, HeroesComponent, HeroDetailComponent, SecretHeroesComponent, SecretHeroDetailComponent];
 ```
 
 The additional routes have the `AuthGuard` activate meaning we'll check if the user is logged in only on these routes. For this application, we only created one `NgModule` and that was the root module. Let's take a look at it's implementation.
