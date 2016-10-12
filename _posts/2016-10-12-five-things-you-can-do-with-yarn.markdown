@@ -4,8 +4,8 @@ title: "5 things you can do with Yarn"
 description: Yarn is a new package manager for JavaScript by facebook. Learn how to use Yarn to increase your productivity.
 date: 2016-10-12 05:30
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
+  bg_color: "#1D6A8D"
+  image: https://cdn.auth0.com/blog/yarn-logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -17,9 +17,8 @@ tags:
 - javascript
 - package manager
 related:
-- 2016-09-01-aspnet-core-apis-with-swagger-and-autorest
-- 2016-06-03-add-auth-to-native-desktop-csharp-apps-with-jwt
-- 2016-06-13-authenticating-a-user-with-linkedin-in-aspnet-core
+- 2016-09-06-use-nginx-plus-and-auth0-to-authenticate-api-clients
+- 2016-06-29-learn-more-about-our-jwt-chrome-debugger-extension
 ---
 
 ---
@@ -84,10 +83,10 @@ Install a package from a remote git repository like so:
 yarn add <git remote-url>
 ```
 
-![](https://cdn.auth0.com/blog/blog/yarn-add-gitrepo.png)
+![Yarn installs from a Github Repo](https://cdn.auth0.com/blog/blog/yarn-add-gitrepo.png)
 _Yarn installs from a Github repo_
 
-![](https://cdn.auth0.com/blog/blog/yarn-add-bowercomp.png)
+![Yarn detects that a Github Rep exists as a package in the bower registry](https://cdn.auth0.com/blog/blog/yarn-add-bowercomp.png)
 _Yarn also automatically detects that the git repo exists as a package in the bower registry and treats it as such_
 
 ## 3. Fetch Packages Speedily
@@ -98,7 +97,7 @@ Yarn efficiently queues up requests and avoids request waterfalls in order to ma
 
 During install, Yarn parallelizes operations which makes the install process faster. I did a fresh install of three packages namely, **jsonwebtoken**, **express** and **lodash** using **npm** and **yarn**. By the time *Yarn* was done installing them, *npm* was still installing.
 
-![](https://cdn.auth0.com/blog/blog/yarn-npm-compare.png)
+![Comparison of Yarn and Npm](https://cdn.auth0.com/blog/blog/yarn-npm-compare.png)
 
 ## 4. Lock Package Versions Automatically
 
