@@ -44,9 +44,7 @@ _Install express and jsonwebtoken packages with yarn_
 ![Installation complete with Yarn](https://cdn.auth0.com/blog/blog/yarn-completed-install.png)
 _Installation complete_
 
-After the installation was complete, I went ahead to delete the *node_modules* inside my *orijin* directory and also disconnected from the internet.
-
-Disconnected from the internet, I ran Yarn like so again:
+After the installation was complete, I went ahead to delete the *node_modules* inside my *orijin* directory and also disconnected from the internet. I ran Yarn like so again:
 
 ![Installing packages offline with Yarn](https://cdn.auth0.com/blog/blog/yarn-install-offline.png)
 _Yarn installed the packages offline_
