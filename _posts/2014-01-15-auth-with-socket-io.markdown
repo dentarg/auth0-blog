@@ -2,7 +2,6 @@
 layout: post
 title: "Token-based Authentication with Socket.IO"
 description: "Learn to implement token-based authentication using Socket.IO in this quick tutorial."
-category: Technical guide
 date: 2014-01-15 14:18
 outdated: true
 alias: /2014/01/15/auth-with-socket-io/
@@ -15,7 +14,7 @@ design:
   image: http://assets.auth0.com/blog/design-process/socket-io.png
   bg_color: "#030303"
   bg_merge: true
-category: Technical guide, Cookies vs Tokens
+category: Technical guide, Identity, Cookies vs Tokens
 pr: 2
 tags:
 - featured
