@@ -4,6 +4,7 @@ title: "Want Skyrocketing Growth? You Need To Offer a Free Trial"
 description: "For SaaS companies, offering a free trial is crucial for growth. Find out how to determine the right trial length for your product to boost customer acquisition."
 date: 2016-04-21 13:30
 alias: /2016/04/21/want-skyrocketing-growth-you-need-to-offer-a-free-trial/
+category: Growth, Growth Hacking
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com

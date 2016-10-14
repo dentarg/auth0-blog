@@ -4,6 +4,7 @@ title: "Fingerprint Authentication: High Security & Low Friction"
 description: Implement fingerprint authentication to allow users easy access to apps while still keeping them secure
 date: 2016-05-10 8:30
 alias: /2016/05/10/how-fingerprint-auth-gives-you-security/
+category: Technical Guide, Identity, Passwordless
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com

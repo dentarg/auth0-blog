@@ -4,6 +4,7 @@ title: "What 3 Security Stories of 2015 Can Tell About Security"
 description: Here’s why SaaS companies should be offering their premium security features to everyone next year.
 date: 2015-12-23 17:35
 alias: /2015/12/23/what-3-security-stories-of-2015-can-teach-you-about-security-in-2016/
+category: Growth, Security
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

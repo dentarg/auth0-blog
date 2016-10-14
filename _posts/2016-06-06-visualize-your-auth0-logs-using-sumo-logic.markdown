@@ -4,6 +4,7 @@ title: "Visualize and Search Your Auth0 Logs Using Sumo Logic"
 description: The Auth0 Logs to Sumo Logic extension helps you deal with security incidents and performance issues
 date: 2016-06-06 8:30
 alias: /2016/06/06/visualize-your-auth0-logs-using-sumo-logic/
+category: Auth0 Based Tutorial, Tools
 author:
   name: Eugene Kogan
   url: https://twitter.com/eugk

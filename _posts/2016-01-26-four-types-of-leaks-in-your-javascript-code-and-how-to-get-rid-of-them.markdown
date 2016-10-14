@@ -4,6 +4,7 @@ title: "4 Types of Memory Leaks in JavaScript and How to Get Rid Of Them"
 description: "Learn about memory leaks in JavaScript and what can be done to solve it!"
 date: 2016-01-26 13:30
 alias: /2016/01/26/four-types-of-leaks-in-your-javascript-code-and-how-to-get-rid-of-them/
+category: Technical guide, Architecture, Performance
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

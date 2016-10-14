@@ -4,6 +4,7 @@ title: "AngularJS Authentication Screencast Series - Part 2"
 description: "Learn how to add JWT authentication to your AngularJS 1.x app"
 date: 2016-04-20 13:30
 alias: /2016/04/20/angularjs-authentication-screencast-series-part-2/
+category: Technical Guide, Angular, Screencasts
 author: 
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en

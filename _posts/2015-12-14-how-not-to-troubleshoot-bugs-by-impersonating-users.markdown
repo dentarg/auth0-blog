@@ -4,6 +4,7 @@ title: "Troubleshooting? This is what you shouldn’t do"
 description: Impersonate users in the wrong way, and you’ll open up security holes in your app
 date: 2015-12-14 12:27
 alias: /2015/12/14/how-not-to-troubleshoot-bugs-by-impersonating-users/
+category: Growth, Identity, Impersonation
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

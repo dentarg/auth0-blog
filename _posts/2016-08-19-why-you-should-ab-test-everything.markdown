@@ -3,6 +3,7 @@ layout: post
 title: "Why You Should Follow Facebook And A/B Test Everything"
 description: "How A/B Testing can help you taking decisions that make impact"
 date: 2016-08-19 11:48
+category: Growth, Growth Hacking
 author: 
   name: Diego Poza
   url: https://twitter.com/diegopoza

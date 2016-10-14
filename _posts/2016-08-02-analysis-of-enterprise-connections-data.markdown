@@ -3,6 +3,7 @@ layout: post
 title: "Analyzing Enterprise Connections Data: What can we learn?"
 description: How our Customer's Users Are Connecting To Enterprise Providers
 date: 2016-08-02 12:20
+category: Growth, Data
 author: 
   name: Diego Poza
   url: https://twitter.com/diegopoza

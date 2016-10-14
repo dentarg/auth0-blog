@@ -4,6 +4,7 @@ title: "5 Steps to Add Modern Authentication to Legacy Apps Using JWTs"
 description: "Conventional authentication is challenging for today's web applications. Learn about the reasons and how to use JSON Web Tokens (JWT) for modern authentication."
 date: 2015-09-28 13:00
 alias: /2015/09/28/5-steps-to-add-modern-authentication-to-legacy-apps-using-jwts/
+category: Growth, Identity, Authentication
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en

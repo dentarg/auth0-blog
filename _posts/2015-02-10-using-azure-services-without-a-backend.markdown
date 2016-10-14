@@ -4,6 +4,7 @@ title: "Using Azure Services without a Backend"
 description: "Access Azure Storage APIs securely from browsers (i.e. using JavaScript) or native apps, without the need of a backend server."
 date: 2015-02-10 09:00
 alias: /2015/02/10/using-azure-services-without-a-backend/
+category: Technical guide, Microsoft, Azure
 author:
   name: Nathan Totten
   url: http://twitter.com/ntotten
