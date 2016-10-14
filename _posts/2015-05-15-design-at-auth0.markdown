@@ -4,8 +4,9 @@ title: "Engineering the Design Process at Auth0"
 description: "Our lessons in defining a cohesive design language <br /> across all our products."
 date: 2015-06-09 21:24
 draft: false
+category: Design
 author:
-  name: Ricky Rauch
+  name: Ricardo Rauch
   url: https://twitter.com/rickyrauch
   mail: ricky@auth0.com
   avatar: https://www.gravatar.com/avatar/27396b3fa24389198ef5d3e7e410e9c4?size=60

@@ -4,6 +4,7 @@ title: "How to Use Social Login to Drive Your App’s Growth"
 description: Social login is the quickest way to engage your users and drive your growth
 date: 2015-12-16 12:21
 alias: /2015/12/16/how-to-use-social-login-to-drive-your-apps-growth/
+category: Growth, Identity, Social Login
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

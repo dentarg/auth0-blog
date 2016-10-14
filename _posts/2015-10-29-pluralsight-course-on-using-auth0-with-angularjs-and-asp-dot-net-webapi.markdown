@@ -4,6 +4,7 @@ title: "Pluralsight Course on using Auth0 with AngularJS and ASP.NET WebAPI"
 description: This is a guest post by Ajden Towfeek. Ajden is a full-stack developer with focus on Microsoft technologies with 10+ years of experience in commercial software development.
 date: 2015-10-29 00:41
 alias: /2015/10/29/pluralsight-course-on-using-auth0-with-angularjs-and-asp-dot-net-webapi/
+category: Technical guide, Microsoft, WebAPI
 author:
   name: Ajden Towfeek
   url: http://twitter.com/ajtowf

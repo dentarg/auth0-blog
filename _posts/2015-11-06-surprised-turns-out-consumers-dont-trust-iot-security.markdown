@@ -4,6 +4,7 @@ title: "Surprised? Turns out, consumers don’t trust IoT security"
 description: What customers and developers think of IoT security
 date: 2015-11-06 16:16
 alias: /2015/11/06/surprised-turns-out-consumers-dont-trust-iot-security/
+category: Growth, Security, IoT
 author:
   name: Kelsey Flittner
   url: http://twitter.com/kelseyoneal

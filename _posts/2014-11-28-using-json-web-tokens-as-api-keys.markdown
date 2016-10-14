@@ -21,6 +21,7 @@ related:
 - 2014-01-27-ten-things-you-should-know-about-tokens-and-cookies
 - 2014-02-26-openid-connect-final-spec-10
 - 2015-12-17-json-web-token-signing-algorithms-overview
+category: Technical Guide, JWT
 ---
 
 Most APIs today use an **API Key** to authenticate legitimate clients. **API Keys** are very simple to use from the consumer perspective:

@@ -9,6 +9,7 @@ author:
   url: http://twitter.com/eugenio_pace
   avatar: https://secure.gravatar.com/avatar/702d07476c482418b948b911504137a5?s=60
 description: "We are very happy to announce that Auth0 is now available in the Windows Azure Store as an Add-on. Integrating it into your Azure apps is now even easier"
+category: Announcement
 related:
 - 2013-04-10-Auth0-Windows-Azure-Active-Directory
 - 2013-03-07-On-Premises-SharePoint-Federated-with-Partner-AD

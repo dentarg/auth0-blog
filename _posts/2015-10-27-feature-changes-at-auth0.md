@@ -3,6 +3,7 @@ layout: post
 title: "Applying GitHub's Parallel Code Paths using Node.js in Auth0"
 description: "Learn how we deploy new versions of features while avoiding breaking changes through the use of a node.js library for feature changes."
 date: 2015-10-27 13:00
+category: Auth0 based tutorial, Engineering
 author:
   name: Damian Schenkelman
   url: http://twitter.com/dschenkelman

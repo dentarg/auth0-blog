@@ -3,6 +3,7 @@ layout: post
 title: "Analyzing Passwordless Connections Data: What can we learn?"
 description: Why Passwordless Login Is The Way Of The Future 
 date: 2016-09-09 12:30
+category: Growth, Data
 author: 
   name: Diego Poza
   url: https://twitter.com/diegopoza

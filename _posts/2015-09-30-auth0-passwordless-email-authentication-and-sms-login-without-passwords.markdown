@@ -4,6 +4,7 @@ title: "Log in without Passwords: Introducing Auth0 Passwordless"
 description: SMS Authentication and Email Authentication made easy and secure.
 date: 2015-09-30 09:00
 alias: /2015/09/30/auth0-passwordless-email-authentication-and-sms-login-without-passwords/
+category: Technical guide, Identity, Passwordless
 author:
   name: Matias Woloski
   url: http://www.twitter.com/woloski

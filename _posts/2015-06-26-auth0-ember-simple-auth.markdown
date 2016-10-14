@@ -4,6 +4,7 @@ title: "Ember + Auth0"
 description: "Introducing an official 'ember simple auth' add-on"
 date: 2015-07-23 06:00
 alias: /2015/06/26/auth0-ember-simple-auth/
+category: Technical guide, Frontend, Ember
 author:
   name: "Ben Schwarz"
   mail: ben@auth0.com

@@ -3,6 +3,7 @@ layout: post
 title: "Web-Proxy Auto Discovery (WPAD) Considered Harmful"
 description: "WPAD + Proxy Automatic Configuration (PAC) can be used to thwart HTTPS protected URLs"
 date: 2016-07-28 18:00
+category: Hot Topics, Security
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

@@ -4,6 +4,7 @@ title: "Building Serverless Apps with AWS Lambda"
 description: "Learn how to build a serverless app with Lambda, the function-as-a-service platform from Amazon. Find out how AWS Lambda stacks up against Webtask."
 date: 2016-07-19 08:30
 alias: /2016/07/19/building-serverless-apps-with-aws-lambda/
+category: Technical Guide, Serverless, Lambda
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"

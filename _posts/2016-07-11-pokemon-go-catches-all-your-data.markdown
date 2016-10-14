@@ -4,6 +4,7 @@ title: "Gotta Catch'em All: Pokémon GO Catches All Your Data!"
 description: "A potential programming mistake raises unexpected privacy concerns among users"
 date: 2016-07-11 18:00
 alias: /2016/07/11/pokemon-go-catches-all-your-data/
+category: Hot Topics, Security
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

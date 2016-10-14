@@ -11,6 +11,7 @@ author:
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
 description: "For the last few months, we've been working on many new features and improvements to the platform."
+category: Product
 related:
 - 2014-09-17-big-milestone
 - 2014-04-28-announcing-our-advisors

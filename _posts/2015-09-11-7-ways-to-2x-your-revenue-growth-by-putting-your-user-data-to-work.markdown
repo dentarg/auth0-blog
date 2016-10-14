@@ -4,6 +4,7 @@ layout: "post"
 description: "Using Rules with Auth0 you can put your data to work and drive your marketing engine!"
 date: 2015-09-11 09:00
 alias: /2015/09/11/7-ways-to-2x-your-revenue-growth-by-putting-your-user-data-to-work/
+category: Growth, Identity, Rules
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
