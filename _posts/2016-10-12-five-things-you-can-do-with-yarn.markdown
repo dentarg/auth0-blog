@@ -109,7 +109,7 @@ The **npm client** installs dependencies in a way that can make the structure of
 
 With Yarn, the presence of a lock file and an install algorithm ensures that the dependencies installed produce the exact same file and folder structure across development machines and when deploying applications to production.
 
-**Note:** One more thing, I know I promised five but I can't help tell you how good **Yarn** makes me feel. Enterprise environments require the ability to be able to list a dependencies' license type. Yarn offers the ability to list the license type for a given dependency by running `yarn licences ls` in your root directory as follows:
+**Note:** One more thing, I know I promised five but I can't help tell you how good **Yarn** makes me feel. Enterprise environments require the ability to be able to list a dependencies' license type. Yarn offers the ability to list the license type for a given dependency by running `yarn licenses ls` in your root directory as follows:
 
 ![Yarn Licenses](https://cdn.auth0.com/blog/licenses.png)
 
