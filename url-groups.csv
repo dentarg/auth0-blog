@@ -1,6 +1,7 @@
 ---
 layout: null
 ---
-blogpost,blog/,Blog Home,Auth0 based tutorial
-{% for post in site.posts %}blogpost,{{ site.baseurl | replace_first:'/','' }}{% if post.alias == nil %}{{ post.url }}{% else %}{{ post.alias }}{% endif %},{% if post.category == nil %}Auth0 based tutorial{% else %}{{ post.category }}{% endif %}
+url,cat1,cat2,cat3
+blog/,Blog Home,Auth0 based tutorial,
+{% for post in site.posts %}{% capture rawtext %}{{ site.baseurl | replace_first:'/','' }}{% if post.alias == nil %}{{ post.url }}{% else %}{{ post.alias }}{% endif %},{% if post.category == nil %}Auth0 based tutorial{% else %}{{ post.category }}{% endif %}{% endcapture %}{{ rawtext  | split:',' | row_format_csv:4 }}
 {% endfor %}
