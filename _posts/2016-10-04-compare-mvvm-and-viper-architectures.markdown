@@ -3,6 +3,7 @@ layout: post
 title: "Comparing MVVM and Viper architectures: When to use one or the other"
 description: "How MVVM and VIPER can be good alternatives to the traditional MVC in iOS projects"
 date: 2016-10-04 8:30
+category: Technical guide, Mobile, iOS
 author:
   name: Rafael Sacchi
   url: https://twitter.com/rafael_sacchi?lang=en

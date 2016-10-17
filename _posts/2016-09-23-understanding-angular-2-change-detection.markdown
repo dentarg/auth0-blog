@@ -3,6 +3,7 @@ layout: post
 title: "Understanding Angular 2 change detection"
 description: "Angular 2 introduces a new change detection system that makes apps much faster and allows developers fine-tune the process."
 date: 2016-09-23 8:30
+category: Technical guide, Angular, Angular2
 author:
   name: "Wojciech Kwiatek"
   url: "https://twitter.com/WojciechKwiatek"

@@ -3,6 +3,7 @@ layout: post
 title: "Angular 2 Authentication Tutorial"
 description: "Angular 2.0 has officially been released. Learn how to quickly build apps and add authentication the right way."
 date: 2016-09-29 08:30
+category: Technical guide, Angular, Angular2
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"

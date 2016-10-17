@@ -3,6 +3,7 @@ layout: post
 title: "5 things you can do with Yarn"
 description: Yarn is a new package manager for JavaScript by Facebook. Learn how to use Yarn to increase your productivity.
 date: 2016-10-13 08:30
+category: Hot Topic, Tools
 design:
   bg_color: "#1D6A8D"
   image: https://cdn.auth0.com/blog/yarn-logo.png

@@ -3,6 +3,7 @@ layout: post
 title: "Announcing Auth0's Certification in the EU-US Privacy Shield Framework"
 description: The new body of rules promises to tighten up data security for consumers in Europe.
 date: 2016-10-06 08:30
+category: Growth, Certifications 
 author: 
   name: Diego Poza
   url: https://twitter.com/diegopoza
