@@ -4,8 +4,8 @@ title: "SSO Login: Key Benefits and Implementation"
 description: Learn the benefits of Single Sign On login and how to achieve it with Auth0
 date: 2016-10-17 08:30
 design:
-  bg_color: "#1D6A8D"
-  image: https://cdn.auth0.com/blog/yarn-logo.png
+  bg_color: "#305F96"
+  image: https://cdn.auth0.com/blog/SSO-Logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -88,6 +88,6 @@ If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) 
 
 ## Conclusion
 
-The benefits of using SSO login to manage a large ecosystem of applications and services are numerous as highlighted in this post. Modern application development crazily supports having distributed and decentralized systems. With an efficient SSO login in place, it's easier to add more applications to the existing suite of services without having to worry about authentication every time. If Google can implement SSO login and succeed, you too can do it and succed with Auth0!
+The benefits of using SSO login to manage a large ecosystem of applications and services are numerous as highlighted in this post. Modern application development crazily supports having distributed and decentralized systems. With an efficient SSO login in place, it's easier to add more applications to the existing suite of services without having to worry about authentication every time. If Google can implement SSO login and succeed, you too can do it and succeed with Auth0!
 
 {% include tweet_quote.html quote_text="If Google can implement SSO login and succeed, you too can do it and succeed with Auth0!" %}
