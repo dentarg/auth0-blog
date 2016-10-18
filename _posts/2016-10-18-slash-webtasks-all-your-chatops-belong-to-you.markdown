@@ -39,7 +39,7 @@ We're bringing our *wt* CLI command right into the Slack environment in a new an
 
 ![Editor](https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/editor.png)
 
-Once your task is authored, then you and the rest of your team can use it rich from Slack using */wt [cmd]*. It is that easy.
+Once your task is authored, then you and the rest of your team can use it right from Slack using */wt [cmd]*. It is that easy.
 
 Your teams can immediately start creating commands. Internally once we unleashed Slash Task on Auth0, this is exactly what happened. One of the first tasks that showed up was "wt status" which allows our teams to monitor the status of our Webtask clusters. You can see Matias and I using it below to try to determine if we have an outage in one of our clusters.
 
