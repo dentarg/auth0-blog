@@ -265,6 +265,7 @@ Notice how we set the **page size** by the MaxItemCount attribute of the FeedOpt
 #### Dependency Injection
 When working on ASP.NET Core, one of the core features is Depedency Injection. Because of this, it’s vital that our DocumentDB provider is wrapped in a [service](https://github.com/ealsur/auth0documentdb/blob/master/Services/DocumentDbService.cs) that can be injected by an [interface](https://github.com/ealsur/auth0documentdb/blob/master/Services/IDocumentDbService.cs).
 
+
 A simple way is to create a service class that receives an **IConfiguration** (possibly coming from your [appsettings.json](https://github.com/ealsur/auth0documentdb/blob/master/appsettings.json) file) and creates an instance of our DocumentDbProvider:
 
 ```cs
@@ -273,6 +274,7 @@ public DocumentDbService(IConfiguration configuration)
 {
     _provider = new DocumentDbProvider(new DocumentDbSettings(configuration));
 }
+
 ```
 
 By implementing an interface, we can maintain a single copy of our service through the **IServiceCollection** available on our Startup.cs file:
@@ -312,6 +314,8 @@ Collections can **scale dynamically** with Azure DocumentDB’s [partition suppo
 Furthermore, each of the operations we described earlier will require and additional Partition Key value as part of the [RequestOptions](https://msdn.microsoft.com/library/microsoft.azure.documents.client.requestoptions.aspx) class.
 
 Partitions let us take advantage of parallel queries on multiple collections for the best throughput by using .Net’s [Task Parallel Library](https://msdn.microsoft.com/library/dd460717.aspx).
+
+>For a more detailed look at implementing Partition querying, take a look at the [official sample GitHub repository](https://github.com/Azure/azure-documentdb-dotnet/tree/master/samples/code-samples/Partitioning).
 
 ## Conclusion
 Azure DocumentDB is a fast and flexible cloud storage service that will work on mostly any use case scenario and can work along with Auth0 in a very streamlined fashion.
