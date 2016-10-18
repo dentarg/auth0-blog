@@ -81,6 +81,11 @@ Clean and easy login can not only boost customer experience, but it can lead to 
 
 Social login has the dual effect of making your site easier to enter and use while also making the whole design look cleaner. Clean design actively invites customers in, making them more likely to spend time on your site and trust your company's products.
 
+## Aside: Auth0 Login Widget
+Our Lock widget is a beautifully designed, all-in-one, embeddable login box for your apps. It provides sign up, sign in, password reset, and other features that are ready to go. The widget’s styles can be easily customized to line up with your brand, and you can use one of our pre-made themes to help. Unlock the power of a good login experience with Auth0 Lock. Try our live demo in the [Auth0 Lock](https://auth0.com/lock) page.
+
+<img src="https://auth0.com/learn/wp-content/uploads/2016/01/what-is-social-login-1.png" alt="Auth0 Login Widget" width="300">
+
 ## Focusing on Your Customers' Experience Will Keep Them Coming Back
 
 Login is the gateway to your whole website and your product beyond that. If customers feel like there are any roadblocks to them entering your website, they'll move on to another. 
