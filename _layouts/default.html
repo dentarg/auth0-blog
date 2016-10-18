@@ -272,6 +272,7 @@
 
     <!-- jekyll-search -->
     <script src="{{ site.baseurl }}/js/vendor/jekyll-search.js" type="text/javascript"></script>
+    <script src="{{ site.baseurl }}/js/vendor/js-cookie.js" type="text/javascript"></script>
     <script src="{{ site.baseurl }}/js/search.js" type="text/javascript"></script>
     <script src="{{ site.baseurl }}/js/filters-search.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -300,9 +301,9 @@
 
     <script type="text/javascript">
     try {
-      window.abTestingLib.load({ fetchFn: function () { return $.get("https://ab.it.auth0.com/"); }});
+      window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/'); }});
       window.abTestingLib.integration('auth0metrics').start({ metrics: window.metricsLib});
-      window.abTestingLib.start();
+      window.abTestingLib.start().then(enhanceAnalytics);
 
       window.abTestingLib.onReady(function (ab) {
         try {
@@ -318,6 +319,55 @@
         }
       });
 
+      function enhanceAnalytics() {
+        var analytics = window.abTestingLib.analytics;
+
+        var originalSetCurrentVariantName = analytics.setCurrentVariantName.bind(analytics);
+        var originalGetCurrentVariantName = analytics.getCurrentVariantName.bind(analytics);
+
+        var enhancedSetCurrentVariantName = function (variantName, value) {
+          setCurrentVariantName(variantName, value);
+          originalSetCurrentVariantName(variantName, value);
+        };
+
+        var enhancedGetCurrentVariantName = function (variantName) {
+          var originalValue = originalGetCurrentVariantName(variantName);
+          var cookieValue = getCurrentVariantName(variantName);
+
+          if (originalValue != cookieValue) {
+            originalSetCurrentVariantName(variantName, cookieValue);
+          }
+
+          return cookieValue;
+        };
+
+        analytics.setCurrentVariantName = enhancedSetCurrentVariantName;
+        analytics.getCurrentVariantName = enhancedGetCurrentVariantName;
+        window.setVariant = enhancedSetCurrentVariantName;
+        window.getVariant = enhancedGetCurrentVariantName;
+      }
+
+      function setCurrentVariantName(variantName, value) {
+        var variants = loadCookieVariants();
+        variants[variantName] = value;
+        saveCookieVariants(variants);
+      }
+
+      function getCurrentVariantName(variantName) {
+        var variants = loadCookieVariants();
+        return variants[variantName];
+      }
+
+      function loadCookieVariants() {
+        return JSON.parse(Cookies.get('ajs_ab.traits') || '{}');
+      }
+
+      function saveCookieVariants(variants) {
+        return Cookies.set('ajs_ab.traits', JSON.stringify(variants), {
+          expires: 365,
+          path: '/'
+        });
+      }
     } catch (e) {
       console.error('Error initializing ABTesting lib. ABTesting will be disabled');
       $('#pjax').css('visibility', 'visible');
@@ -607,27 +657,6 @@
           metricsLib.page();
 
           $('p').selectionSharer();
-
-          // PJAX temporarily disabled as it breaks sticky behavior
-
-          // $(document)
-          //   .pjax('#pjax a', '#pjax', { fragment: '#pjax', timeout: 800 })
-          //   .on('pjax:click', function() {
-          //     NProgress.start();
-          //   })
-          //   .on('pjax:success pjax:popstate', function() {
-          //
-          //     // Hide content until the ab/experiments run
-          //     $('#pjax').css('visibility', 'hidden');
-          //
-          //     initialize();
-          //
-          //     NProgress.done();
-          //
-          //     metricsLib.page();
-          //
-          //     executeABExperiments();
-          //   });
 
           $(window).on('load', function() {
             $(document.body).trigger("sticky_kit:recalc");
