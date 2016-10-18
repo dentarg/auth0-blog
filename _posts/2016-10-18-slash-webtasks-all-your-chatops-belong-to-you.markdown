@@ -13,17 +13,17 @@ design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/logo-webtask-slack.png
 tags: 
-- automation
-- serverless
-- slack
 - webtask
+- serverless
+- faas
+- slack
 - devops
 - chatops
 
 related:
 - 2016-09-14-build-a-serverless-slack-bot-with-webtask/
 ---
-At [Auth0](https://auth0.com/) we live and breathe devops, and one thing we've been really gaga over is chatops. We're deploying servers globally right from [Slack](https://slack.com/), we're monitoring our infrastucture in Slack, and hey we've even integrated many of our SAAS / LOB systems in Slack. 
+At [Auth0](https://auth0.com/) we live and breathe devops, and one thing we've been really amped over is chatops. We're deploying servers globally right from [Slack](https://slack.com/), we're monitoring our infrastucture in Slack, and hey we've even integrated many of our SAAS / LOB systems in Slack. 
 
 Up until now, doing that has been quite a bit of work as you generally end up building custom bots, or building custom commands. In either case you have to package it up, deploy and host. Tools like [Hubot](https://github.com/github/hubot) go a long way to make the authoring easier, but you still have to stand up a server, configure it, etc.
 
@@ -41,11 +41,15 @@ We're bringing our *wt* CLI command right into the Slack environment in a new an
 
 Once your task is authored, then you and the rest of your team can use it right from Slack using */wt [cmd]*. It is that easy.
 
-Your teams can immediately start creating commands. Internally once we unleashed Slash Task on Auth0, this is exactly what happened. One of the first tasks that showed up was "wt status" which allows our teams to monitor the status of our Webtask clusters. You can see Matias and I using it below to try to determine if we have an outage in one of our clusters.
+Your teams can immediately start creating commands. Internally once we unleashed Slash Task on Auth0, this is exactly what happened. One of the first tasks that showed up was "wt status" which allows our teams to monitor the status of our Webtask clusters. That command was followed by an influx of new commands coming from all over our organization, such as a command to search our Data Warehouse for leads information, a command to wakeup another user in Slack, and most importantly a command to comically slap that annoying co-worker with a virtual trout. :-)
 
-![wt](https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/wt_status.png)
+Everyone is jazzed now about building their own commands! 
 
-That command was followed by an influx of new commands coming from all over our organization. Everyone is jazzed now about building their own commands!
+Below you can see the new commands in action, while Matias and I do some obviously cheeky improv.
+
+<video autoplay loop width="600">
+    <source src="https://cdn.auth0.com/website/wt-slash/wt-slash-slack-statuslead.mp4"/>
+</video>
 
 ## Getting started
 
