@@ -2,7 +2,7 @@
 layout: post
 title: "SSO Login: Key Benefits and Implementation"
 description: Learn the benefits of Single Sign On login and how to achieve it with Auth0
-date: 2016-10-17 08:30
+date: 2016-10-18 08:30
 design:
   bg_color: "#305F96"
   image: https://cdn.auth0.com/blog/SSO-Logo.png
@@ -24,7 +24,7 @@ related:
 
 ---
 
-**TL;DR:** As companies and organizations grow, they have to deal with an increasing number of applications and services. More often than not, these applications and services all need some form of authentication to deal with people accessing items and features. Maintaining multiple sets of credentials to log in to different applications within an organization can be excruciating. **SSO login** can take away that pain. In this post, I'll show you how **SSO login** works and discuss the key benefits of integrating sso login into your application development workflow.
+**TL;DR:** As companies and organizations grow, they have to deal with an increasing number of applications and services. More often than not, these applications and services need authentication to manage access. Maintaining multiple sets of credentials to log in to different applications within an organization can be excruciating. **SSO login** can take away that pain. In this post, I'll show you how **SSO login** works and discuss the key benefits of integrating SSO login into your application development workflow.
 
 ---
 
@@ -32,7 +32,7 @@ related:
 
 **Single Sign On (SSO) login** refers to when a user logs in to an application with a single set of credentials and is then automatically signed into multiple applications. With SSO login, a user gains access to multiple software systems without maintaining different login credentials such as usernames and passwords.
 
-A very popular example of SSO login is Google's implementation for their software products. Once a user is logged in to Gmail, the user automatically gains access to YouTube, Google Sheets, Google Photos, and other Google products.
+A very popular example of SSO login is Google's implementation for their software products. Once a user is logged in to Gmail, the user automatically gains access to YouTube, Google Drive, Google Photos, and other Google products.
 
 ![SSO login example - Google apps](https://cdn.auth0.com/blog/sso-google-upload.png)
 _I signed into gmail and already have access to all those products around the red marker_
@@ -41,11 +41,11 @@ _I signed into gmail and already have access to all those products around the re
 
 Why should you implement **SSO login**? What are the benefits of SSO login? How does it increase your product's conversion rate? These are some of the benefits of SSO login:
 
-* Eliminating the time spent re-entering user credentials, thus improving productivity for users and increasing conversion rates for product owners, which means your internal employees and your external users don't have to go through the hassle of maintaining and remembering yet another set of credentials
-* Eliminating password fatigue from having to store or remember different usernames and passwords
-* Reducing complaints about password problems, thus reducing the costs associated with setting up several helpdesk systems for password-reset issues, invalid credentials, etc.
-* Minimizing [phishing](https://en.wikipedia.org/wiki/Phishing), thus improving security
-* Streamlining the local, desktop, and remote application workflows, thus improving users' productive capacity
+* Eliminate the time spent re-entering user credentials, thus improving productivity for users and increasing conversion rates for product owners, which means your internal employees and your external users don't have to go through the hassle of maintaining and remembering yet another set of credentials
+* Eliminate password fatigue from having to store or remember different usernames and passwords
+* Reduce complaints about password problems, thus reducing the costs associated with setting up several helpdesk systems for password-reset issues, invalid credentials, etc.
+* Minimize [phishing](https://en.wikipedia.org/wiki/Phishing), thus improving security
+* Streamlines the local, desktop, and remote application workflows, thus improving users' productive capacity
 
 ## How SSO Login Works
 
@@ -55,23 +55,23 @@ Let's look at an ideal scenario before going into the nitty-gritty of how SSO lo
 
 **Proposed solution**: Eliminate the different login systems that are present. Users should be able to log in to **foo.com** and then be signed in to  **bar.com** and **baz.com** automatically without having to re-enter their authentication credentials.
 
-**SSO login to the rescue**: With SSO login, a *central authentication server* needs to exist. Let's call our central authentication server **foobaraz.com**. This is how the process flow will look in this scenario:
+**SSO login to the rescue**: With SSO login, a *central authentication server* needs to exist. Let's call our central authentication server **foobarbaz.com**. This is how the process flow will look in this scenario:
 
 1. The user accesses **foo.com**.
-2. The user is redirected to **foobaraz.com**, where an authentication-related cookie is generated.
+2. The user is redirected to **foobarbaz.com**, where an authentication-related cookie is generated.
 3. The user navigates to **bar.com**.
-4. The user is redirected to **foobaraz.com**.
-5. **foobaraz.com** checks whether the user already has an authentication-related cookie and redirects the user back to **bar.com**, providing access to its features and content.
+4. The user is redirected to **foobarbaz.com**.
+5. **foobarbaz.com** checks whether the user already has an authentication-related cookie and redirects the user back to **bar.com**, providing access to its features and content.
 6. The same process applies to **baz.com**.
 
-The simple take-away concept is that there is one central domain through which authentication is performed, and then the session is shared with other domains in some secure way e.g., a signed Json Web Token (JWT).
+The simple take-away concept is that there is one central domain through which authentication is performed, and then the session is shared with other domains in some secure way e.g., a signed JSON Web Token (JWT).
 
 ![A typical SSO example](https://cdn.auth0.com/blog/sso/typical-sso.png)
 _A typical graphical SSO example_
 
 ## SSO Integrations
 
-There are different SSO login integrations. SSO integrations are external services you can use for SSOs. You can enable SSO login for your corporate applications, such as *Salesforce*, *Dropbox*, *Microsoft Azure Active Directory*, *Slack*, *SharePoint*, *New Relic*, *Zendesk*, and so on.
+There are different SSO login integrations: these are external services you can use for Single Sign On logins. You can enable SSO login for your corporate applications, such as *Salesforce*, *Dropbox*, *Microsoft Azure Active Directory*, *Slack*, *SharePoint*, *New Relic*, *Zendesk*, and so on.
 
 ## Aside: SSO Login with Auth0
 
@@ -80,11 +80,11 @@ The process flow using Auth0 as the central authentication server can be seen be
 ![Using Auth0 as the central authentication domain](https://cdn.auth0.com/blog/sso/auth0.png)
 _Using Auth0 as the central authentication domain_
 
-With Auth0, SSO login is just a few clicks away. **Auth0** provides out-of-the-box support for over 15 cloud applications: **Microsoft Azure Active Directory**, **Box**, **CloudBees**, **Concur**, **Dropbox**, **Microsoft Dynamics CRM**, **Adobe Echosign**, **Egnyte**, **New Relic**, **Office 365**, **Salesforce**, **SharePoint**, **Slack**, **Springcm**, **Zendesk**, and **Zoom**.
+With Auth0, SSO login is just a few clicks away. **Auth0** provides out-of-the-box support for over 15 cloud applications including: **Microsoft Azure Active Directory**, **Box**, **CloudBees**, **Concur**, **Dropbox**, **Microsoft Dynamics CRM**, **Adobe Echosign**, **Egnyte**, **New Relic**, **Office 365**, **Salesforce**, **SharePoint**, **Slack**, **Springcm**, **Zendesk**, and **Zoom**.
 
 We also support industry standards such as **SAML**, **WS-Fed**, and **OAuth 2.0** so you can hook up any third-party application you need.
 
-If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now to enable SSO login for your applications. Check out the comprehensive [SSO login docs](https://auth0.com/docs/sso) to learn how to implement SSO for your apps. In addition, you can dive straight in to the [code samples](https://github.com/auth0-samples/auth0-sso-sample) that show how to implement SSO login between *Single Page Apps* and *Regular Web Apps* using Auth0.
+If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now to enable SSO login for your applications. Check out the comprehensive [SSO login docs](https://auth0.com/docs/sso) to learn how to implement SSO for your apps. In addition, you can dive straight into the [code samples](https://github.com/auth0-samples/auth0-sso-sample) that show how to implement SSO login between *Single Page Apps* and *Regular Web Apps* using Auth0.
 
 ## Conclusion
 
