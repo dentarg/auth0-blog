@@ -29,7 +29,7 @@ related:
 ---
 
 ## Recap
-In our previous article [link] we configured an **integration** between Auth0 and Azure DocumentDB as a Custom Database Provider to store our enrolled users in JSON format, as [documents](https://en.wikipedia.org/wiki/Document-oriented_database).
+In our [previous article](https://auth0.com/blog/auth0-with-azure-documentdb/)we configured an **integration** between Auth0 and Azure DocumentDB as a Custom Database Provider to store our enrolled users in JSON format, as [documents](https://en.wikipedia.org/wiki/Document-oriented_database).
 
 Conceptually, in Azure DocumentDB, a _database_ can be defined as a logical container of document collections; each _collection_ can hold not only documents but _stored procedures_, _triggers_ and _user-defined functions_ too. The collection is the [billable unit](https://azure.microsoft.com/pricing/details/documentdb/) and the one that defines the [consistency level](https://azure.microsoft.com/en-us/documentation/articles/documentdb-consistency-levels/).
 
