@@ -2,8 +2,8 @@
 layout: post
 title: "Slash Webtasks - All your chatops are belong to you"
 description: Introducing Slash Webtask, an amazingly simple new way to author custom Slack commands using Webtask right from within Slack. Nothing to deploy, nothing to build. All you need is code!
-date: 2016-10-17 18:28
-category: Announcements, Features, Tools
+date: 2016-10-19 8:30
+category: Announcement, Feature, Tools
 author: 
   name: Glenn Block
   url: https://twitter.com/gblock
@@ -35,13 +35,17 @@ _But what if you didnt?_
 
 Today we're announcing [Slash Webtasks](https://webtask.io/slack), custom Slack commands authored as Webtasks. Nothing to package up, nothing to deploy. Install the new Slash Webtasks Slack Extension and you can start creating new Slack commands _right from within Slack_.
 
-We're bringing our *wt* CLI command right into the Slack environment in a new and powerful way. You can use */wt create* to create a new task and then edit it with our rich web-based editor. 
+We're bringing our existing easy to use *wt-cli* command experience right into the Slack environment in a new and powerful way with a generic */wt* slash command. You can use */wt create* right in Slack to create a new task and then edit it immediately using our rich web-based editor.
 
 ![Editor](https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/editor.png)
 
 Once your task is authored, then you and the rest of your team can use it right from Slack using */wt [cmd]*. It is that easy.
 
-Your teams can immediately start creating commands. Internally once we unleashed Slash Task on Auth0, this is exactly what happened. One of the first tasks that showed up was "wt status" which allows our teams to monitor the status of our Webtask clusters. That command was followed by an influx of new commands coming from all over our organization, such as a command to search our Data Warehouse for leads information, a command to wakeup another user in Slack, and most importantly a command to comically slap that annoying co-worker with a virtual trout. :-)
+Your teams can immediately start creating commands. Internally once we unleashed Slash Webtasks on Auth0, this is exactly what happened. 
+
+## How we're using Slash Webtasks at Auth0
+
+One of the first tasks that showed up was "/wt status" which allows our teams to monitor the status of our Webtask clusters. That command was followed by an influx of new commands coming from all over our organization, such as a command to search our Data Warehouse for leads information, a command to wakeup another user in Slack, and most importantly a command to comically slap that annoying co-worker with a virtual trout. :-)
 
 Everyone is jazzed now about building their own commands! 
 
