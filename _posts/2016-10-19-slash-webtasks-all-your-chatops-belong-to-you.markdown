@@ -3,7 +3,7 @@ layout: post
 title: "Slash Webtasks - All your chatops are belong to you"
 description: Introducing Slash Webtask, an amazingly simple new way to author custom Slack commands using Webtask right from within Slack. Nothing to deploy, nothing to build. All you need is code!
 date: 2016-10-19 8:30
-category: Announcement, Feature, Tools
+category: Announcements, Features, Tools
 author: 
   name: Glenn Block
   url: https://twitter.com/gblock
@@ -21,7 +21,8 @@ tags:
 - chatops
 
 related:
-- 2016-09-14-build-a-serverless-slack-bot-with-webtask/
+- 2016-09-14-build-a-serverless-slack-bot-with-webtask
+- 2016-06-28-building-serverless-apps-with-webtask
 ---
 At [Auth0](https://auth0.com/) we live and breathe devops, and one thing we've been really amped over is chatops. We're deploying servers globally right from [Slack](https://slack.com/), we're monitoring our infrastucture in Slack, and hey we've even integrated many of our SAAS / LOB systems in Slack. 
 
