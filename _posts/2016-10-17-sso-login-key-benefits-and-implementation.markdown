@@ -67,7 +67,7 @@ Let's look at an ideal scenario before going into the nitty-gritty of how SSO lo
 
 The simple take-away concept is that there is one central domain through which authentication is performed, and then the session is shared with other domains in some secure way e.g., a signed JSON Web Token (JWT).
 
-![A typical SSO example](https://cdn.auth0.com/blog/sso/typical-sso.png)
+![A typical SSO example](https://cdn.auth0.com/blog/typical-sso.png)
 _A typical graphical SSO example_
 
 ## SSO Integrations
@@ -78,7 +78,7 @@ There are different SSO login integrations: these are external services you can 
 
 The process flow using Auth0 as the central authentication server can be seen below:
 
-![Using Auth0 as the central authentication domain](https://cdn.auth0.com/blog/sso/auth0.png)
+![Using Auth0 as the central authentication domain](https://cdn.auth0.com/blog/auth0-sso-flow.png)
 _Using Auth0 as the central authentication domain_
 
 With Auth0, SSO login is just a few clicks away. **Auth0** provides out-of-the-box support for over 15 cloud applications including: **Microsoft Azure Active Directory**, **Box**, **CloudBees**, **Concur**, **Dropbox**, **Microsoft Dynamics CRM**, **Adobe Echosign**, **Egnyte**, **New Relic**, **Office 365**, **Salesforce**, **SharePoint**, **Slack**, **Springcm**, **Zendesk**, and **Zoom**.
