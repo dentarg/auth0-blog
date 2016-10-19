@@ -38,7 +38,7 @@ Today we're announcing [Slash Webtasks](https://webtask.io/slack), custom Slack 
 
 We're bringing our existing easy to use *wt-cli* command experience right into the Slack environment in a new and powerful way with a generic */wt* slash command. You can use */wt create* right in Slack to create a new task and then edit it immediately using our rich web-based editor.
 
-![Editor](https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/editor.png)
+![Editor](https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/editornew.png)
 
 Once your task is authored, then you and the rest of your team can use it right from Slack using */wt [cmd]*. It is that easy.
 
