@@ -34,6 +34,8 @@ _But what if you didnt?_
 
 ## Slash Webtasks!
 
+<script src="//fast.wistia.com/embed/medias/dh3jt3ras7.jsonp" async></script><script src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_dh3jt3ras7 videoFoam=true" style="height:100%;width:100%">&nbsp;</div></div></div>
+
 Today we're announcing [Slash Webtasks](https://webtask.io/slack), custom Slack commands authored as Webtasks. Nothing to package up, nothing to deploy. Install the new Slash Webtasks Slack Extension and you can start creating new Slack commands _right from within Slack_.
 
 We're bringing our existing easy to use *wt-cli* command experience right into the Slack environment in a new and powerful way with a generic */wt* slash command. You can use */wt create* right in Slack to create a new task and then edit it immediately using our rich web-based editor.
