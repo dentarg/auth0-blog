@@ -453,7 +453,10 @@ _register.njk_
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="/register">
+
+                       {% raw %}
                         {{ csrfField }}
+                       {% endraw %}
 
                         <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Name</label>
@@ -516,7 +519,10 @@ _login.njk_
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="/login">
+
+                      {% raw %}
                         {{ csrfField }}
+                       {% endraw %}
 
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
