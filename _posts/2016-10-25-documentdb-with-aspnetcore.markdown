@@ -29,21 +29,21 @@ related:
 ---
 
 ## Recap
-In our [previous article](https://auth0.com/blog/auth0-with-azure-documentdb/)we configured an **integration** between Auth0 and Azure DocumentDB as a Custom Database Provider to store our enrolled users in JSON format, as [documents](https://en.wikipedia.org/wiki/Document-oriented_database).
+In our [previous article](https://auth0.com/blog/auth0-with-azure-documentdb/) we configured an **integration** between Auth0 and Azure DocumentDB as a Custom Database Provider to store our enrolled users in JSON format, as [documents](https://en.wikipedia.org/wiki/Document-oriented_database).
 
 Conceptually, in Azure DocumentDB, a _database_ can be defined as a logical container of document collections; each _collection_ can hold not only documents but _stored procedures_, _triggers_ and _user-defined functions_ too. The collection is the [billable unit](https://azure.microsoft.com/pricing/details/documentdb/) and the one that defines the [consistency level](https://azure.microsoft.com/en-us/documentation/articles/documentdb-consistency-levels/).
 
 ![DocumentDB element hierarchy](https://cdn.auth0.com/blog/aspnetcore-and-documentdb/hierarchy.png)
 
 ## Querying and storing data on Azure DocumentDB
-Azure DocumentDB collections have [automatic attribute indexing](https://azure.microsoft.com/documentation/articles/documentdb-indexing/), that can also be [customized](https://azure.microsoft.com/documentation/articles/documentdb-indexing-policies/). This **schema-free** approach lets you store Documents with different and dynamic structures that can evolve with time.
+Azure DocumentDB collections have [automatic attribute indexing](https://azure.microsoft.com/documentation/articles/documentdb-indexing/), that can also be [customized](https://azure.microsoft.com/documentation/articles/documentdb-indexing-policies/). This **schema-free** approach lets you store documents with different and dynamic structures that can evolve with time.
 
-Since we are storing our Users on DocumentDB, this means we can also **store other object types** in the same collection without interfering with each other.
+Since we are storing our users on DocumentDB, this means we can also **store other object types** in the same collection without interfering with each other.
 
-// We will work with a practical pattern to achieve this multiple type storage and build performance-wise querying examples; even though DocumentDB supports [Node.js](https://azure.microsoft.com/documentation/articles/documentdb-nodejs-get-started/), [Python](https://azure.microsoft.com/documentation/articles/documentdb-sdk-python/), [Java](https://azure.microsoft.com/documentation/articles/documentdb-sdk-java/) and [.Net](https://azure.microsoft.com/documentation/articles/documentdb-get-started/) SDKs, we'll be working on the latter. A [full sample on GitHub](https://github.com/ealsur/auth0documentdb/) is available running on ASP.NET Core.
+We will work with a practical pattern to achieve this multiple type storage and build performance-wise querying examples; even though DocumentDB supports [Node.js](https://azure.microsoft.com/documentation/articles/documentdb-nodejs-get-started/), [Python](https://azure.microsoft.com/documentation/articles/documentdb-sdk-python/), [Java](https://azure.microsoft.com/documentation/articles/documentdb-sdk-java/) and [.Net](https://azure.microsoft.com/documentation/articles/documentdb-get-started/) SDKs, we'll be working on the latter. A [full sample on GitHub](https://github.com/ealsur/auth0documentdb/) is available running on ASP.NET Core.
 
 ### Dependencies
-Using ASP.NET Core we will use the _project.json_ to define dependencies. We will only need the [Azure DocumentDB Nuget package](https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/) on the latest version:
+Using ASP.NET Core, we will use the _project.json_ to define dependencies. We will only need the [Azure DocumentDB Nuget package](https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/) on the latest version:
 
 ```javascript
 {
@@ -197,7 +197,7 @@ public async Task DeleteItem(string id)
 }
 ```
 
-It requires a Document URI, which can create with our previous helper method.
+It requires a Document URI, which can be created with our previous helper method.
 
 #### Querying documents
 Queries can be achieved using [SQL syntax](https://azure.microsoft.com/documentation/articles/documentdb-sql-query/) or [LINQ to DocumentDB syntax](https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/#linq-to-documentdb-sql). Building a generic query method is as simple as:
@@ -218,7 +218,7 @@ public IQueryable<T> CreateQuery<T>(string sqlExpression, FeedOptions feedOption
 }
 ```
 
-You might notice a [FeedOptions](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.aspx) attribute, this lets you define things like the size of result sets or pagination. If we are creating a query that we know we will get just one result, it’s a performant good practice to set the [MaxItemCount](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.maxitemcount.aspx) property to 1:
+You might notice a [FeedOptions](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.aspx) attribute, this lets you define things like the size of result sets or pagination. If we are creating a query that will return just one result, it’s a performant good practice to set the [MaxItemCount](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.maxitemcount.aspx) property to 1:
 
 ```cs
 var feedOptions = new FeedOptions() { MaxItemCount = 1 };
@@ -263,7 +263,7 @@ public async Task<PagedResults<MyClass>> GetContactAddresses(int size = 10, stri
 Notice how we set the **page size** by the MaxItemCount attribute of the FeedOptions.
 
 #### Dependency Injection
-When working on ASP.NET Core, one of the core features is Depedency Injection. Because of this, it’s vital that our DocumentDB provider is wrapped in a [service](https://github.com/ealsur/auth0documentdb/blob/master/Services/DocumentDbService.cs) that can be injected by an [interface](https://github.com/ealsur/auth0documentdb/blob/master/Services/IDocumentDbService.cs).
+When working on ASP.NET Core, one of the core features is Dependency Injection. Because of this, it’s vital that our DocumentDB provider is wrapped in a [service](https://github.com/ealsur/auth0documentdb/blob/master/Services/DocumentDbService.cs) that can be injected by an [interface](https://github.com/ealsur/auth0documentdb/blob/master/Services/IDocumentDbService.cs).
 
 
 A simple way is to create a service class that receives an **IConfiguration** (possibly coming from your [appsettings.json](https://github.com/ealsur/auth0documentdb/blob/master/appsettings.json) file) and creates an instance of our DocumentDbProvider:
@@ -307,11 +307,11 @@ public class ProfileController : Controller
 ```
 
 #### Partitions and parallelism
-Collections can **scale dynamically** with Azure DocumentDB’s [partition support](https://azure.microsoft.com/documentation/articles/documentdb-partition-data/#single-partition-and-partitioned-collections). Partitioned collections have a potential higher throughput and required a Partition Key configuration. Single-partition cannot be changed to Partitioned collections, so **plan ahead**, if your application data might grow beyond 10GB or you need more than 10,000 Request Units per second, you might as well evaluate Partitioned collections.
+Collections can **scale dynamically** with Azure DocumentDB’s [partition support](https://azure.microsoft.com/documentation/articles/documentdb-partition-data/#single-partition-and-partitioned-collections). Partitioned collections have a potential higher throughput and requires a Partition Key configuration. Single-partition cannot be changed to Partitioned collections, so **plan ahead**, if your application data might grow beyond 10GB or you need more than 10,000 Request Units per second, you might as well evaluate Partitioned collections.
 
 ![DocumentDB Partitioned collections](https://cdn.auth0.com/blog/aspnetcore-and-documentdb/partitioned.png)
 
-Furthermore, each of the operations we described earlier will require and additional Partition Key value as part of the [RequestOptions](https://msdn.microsoft.com/library/microsoft.azure.documents.client.requestoptions.aspx) class.
+Furthermore, each of the operations we described earlier will require an additional Partition Key value as part of the [RequestOptions](https://msdn.microsoft.com/library/microsoft.azure.documents.client.requestoptions.aspx) class.
 
 Partitions let us take advantage of parallel queries on multiple collections for the best throughput by using .Net’s [Task Parallel Library](https://msdn.microsoft.com/library/dd460717.aspx).
 
