@@ -63,4 +63,6 @@ Slash Webtasks are really easy to get going with and author. Head over to our la
 
 Slash Webtasks dramatically reduce the cost of building new Slack commands. Start taking advantage of a really low friction way to do chatops NOW, powered by Webtask. We're excited to see what you are going to build!
 
+Let us know about your experience. And if you like what you see, we're on [Product Hunt](https://www.producthunt.com/tech/slash-webtask), show us some love!
+
 
