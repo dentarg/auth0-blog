@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Slash Webtasks - All your chatops are belong to you"
+title: "Slash Webtasks - All your ChatOps are belong to you"
 description: Introducing Slash Webtask, an amazingly simple new way to author custom Slack commands using Webtask right from within Slack. Nothing to deploy, nothing to build. All you need is code!
 date: 2016-10-19 8:30
 category: Announcements, Features, Tools
@@ -24,7 +24,7 @@ related:
 - 2016-09-14-build-a-serverless-slack-bot-with-webtask
 - 2016-06-28-building-serverless-apps-with-webtask
 ---
-At [Auth0](https://auth0.com/) we live and breathe devops, and one thing we've been really amped over is chatops. We're deploying servers globally right from [Slack](https://slack.com/), we're monitoring our infrastucture in Slack, and hey we've even integrated many of our SAAS / LOB systems in Slack. 
+At [Auth0](https://auth0.com/) we live and breathe devops, and one thing we've been really amped over is ChatOps. We're deploying servers globally right from [Slack](https://slack.com/), we're monitoring our infrastucture in Slack, and hey we've even integrated many of our SAAS / LOB systems in Slack. 
 
 Up until now, doing that has been quite a bit of work as you generally end up building custom bots, or building custom commands. In either case you have to package it up, deploy and host. Tools like [Hubot](https://github.com/github/hubot) go a long way to make the authoring easier, but you still have to stand up a server, configure it, etc.
 
@@ -60,7 +60,7 @@ Below you can see the new commands in action, while Matias and I do some obvious
 
 Slash Webtasks are really easy to get going with and author. Head over to our landing [page](https://webtask.io/slack), install our new Slack app, and you can get started.
 
-## All your chatops belong to YOU
+## All your ChatOps belong to YOU
 
 Slash Webtasks dramatically reduce the cost of building new Slack commands. Start taking advantage of a really low friction way to do chatops NOW, powered by Webtask. We're excited to see what you are going to build!
 
