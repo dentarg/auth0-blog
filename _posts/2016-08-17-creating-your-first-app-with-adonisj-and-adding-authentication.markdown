@@ -274,7 +274,7 @@ A user can have many API tokens, but a token belongs to just one user. This is e
 * Register the authentication provider to the providers list in `bootstrap/app.js`.
 * Set up a global middleware in `app/Http/kernel.js` by adding `Adonis/Middleware/AuthInit` to the `globalMiddleware` variable.
 
-Next, open up `app/resources/views/welcome.njk` and configure it like so:
+Next, open up `resources/views/welcome.njk` and configure it like so:
 
 {% highlight html %}
 {% raw %}
@@ -323,7 +323,7 @@ Here, we are looping through the `characters` object passed from the `ListContro
 
 `request.currentUser` - This helper method returns the information for a currently logged-in user. You can check if a user has been authenticated or not by just using the `if` condition to determine if it returns an actual object or a null value, which is falsey.
 
-Currently, the `master.njk` file doesn't have bootstrap configured and there is no navbar. So, open up `app/resources/views/master.njk` and configure it like so:
+Currently, the `master.njk` file doesn't have bootstrap configured and there is no navbar. So, open up `resources/views/master.njk` and configure it like so:
 
 {% highlight html %}
 <!doctype html>
@@ -428,13 +428,13 @@ const Route = use('Route')
 Route.get('/', 'ListController.show')
 
 Route.get('/login', 'AuthController.index')
-Route.get('/login', 'AuthController.login')
+Route.post('/login', 'AuthController.login')
 
 Route.get('/register', 'RegisterController.index')
 Route.post('register', 'RegisterController.doRegister')
 ```
 
-Let's create views for these routes. Create a `app/resources/views/register.njk` file and add the code below:
+Let's create views for these routes. Create a `resources/views/register.njk` file and add the code below:
 
 _register.njk_
 
@@ -453,7 +453,10 @@ _register.njk_
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="/register">
+
+                       {% raw %}
                         {{ csrfField }}
+                       {% endraw %}
 
                         <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Name</label>
@@ -497,7 +500,7 @@ _register.njk_
 {% endraw %}
 {% endhighlight %}
 
-Create `app/resources/views/login.njk` file and add the code below:
+Create `resources/views/login.njk` file and add the code below:
 
 _login.njk_
 
@@ -516,7 +519,10 @@ _login.njk_
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="/login">
+
+                      {% raw %}
                         {{ csrfField }}
+                       {% endraw %}
 
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
