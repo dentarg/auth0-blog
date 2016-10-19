@@ -2,7 +2,7 @@
 layout: post
 title: "Blazing-fast NoSQL with ASP.NET Core and Azure DocumentDB"
 description: Let's delve into Azure DocumentDB with ASP.NET Core and learn common-case scenarios from a performance point of view.
-date: 2016-10-30 08:30
+date: 2016-10-25 08:30
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
