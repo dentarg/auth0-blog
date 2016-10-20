@@ -195,11 +195,11 @@
               metricsLib.track('open:talk-to-sales');
             },
             onFormSuccess: function (metricsData) {
-              metricsLib.track('register:lead:pricing-contact-form', metricsData);
+              metricsLib.track('register:lead:talk-to-sales-modal', metricsData);
               metricsLib.track('sent:talk-to-sales', metricsData);
             },
             onFormFail: function (metricsData) {
-              metricsLib.track('fail:register:lead:pricing-contact-form', metricsData);
+              metricsLib.track('fail:register:lead:talk-to-sales-modal', metricsData);
               metricsLib.track('fail-sent:talk-to-sales', metricsData);
             }
           };
