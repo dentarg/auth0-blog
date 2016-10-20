@@ -277,7 +277,7 @@ public DocumentDbService(IConfiguration configuration)
 
 ```
 
-By implementing an interface, we can maintain a single copy of our service through the **IServiceCollection** available on our Startup.cs file:
+By implementing an interface, we can maintain a single copy of our service through the **IServiceCollection** available on our [Startup.cs](https://github.com/ealsur/auth0documentdb/blob/master/Startup.cs#L31) file:
 
 ```cs
 public void ConfigureServices(IServiceCollection services)
