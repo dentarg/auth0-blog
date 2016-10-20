@@ -4,7 +4,7 @@ title: "Adding Authentication to a Native Desktop C# App with JWTs"
 description: Learn how to build a Native Desktop C# app and easily get up and running with JWT authentication.
 date: 2016-06-03 8:30
 alias: /2016/06/03/add-auth-to-native-desktop-csharp-apps-with-jwt/
-category: Technical Guide, Microsoft, C#
+category: Technical guide, Microsoft, C#
 author:
   name: Prosper Otemuyiwa
   url: https://twitter.com/unicodeveloper?lang=en

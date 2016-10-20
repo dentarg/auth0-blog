@@ -3,7 +3,7 @@ layout: post
 title: "Use @NgModule to Manage Dependencies in your Angular 2 Apps"
 description: "The Angular 2 @NgModule decorator allows for easier management of dependencies within the Angular 2 framework."
 date: 2016-09-15 08:30
-category: Technical Guide, Angular, Angular2
+category: Technical guide, Angular, Angular2
 author:
   name: "Martin Gontovnikas"
   url: "https://twitter.com/mgonto"

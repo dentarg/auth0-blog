@@ -4,7 +4,7 @@ title: "Create an App in VueJS 2"
 description: VueJS is coming out with a new version. Learn what's changed by building a simple application.
 date: 2016-07-14 8:30
 alias: /2016/07/14/create-an-app-in-vuejs-2/
-category: Technical Guide, Frontend, VueJS
+category: Technical guide, Frontend, VueJS
 author:
   name: Alex Sears
   url: http://twitter.com/searsaw

@@ -4,7 +4,7 @@ title: "Laracon 2016 Summary - Day Three"
 description: "The final day of Laracon focused on design, performance, software estimation and much more. Check out our summary of Laracon US day three."
 date: 2016-07-30 08:30
 alias: /2016/07/30/laracon-summary-day-3/
-category: Technical Guide, Conferences, Laravel
+category: Technical guide, Conferences, Laravel
 author:
   name: "Prosper Otemuyiwa"
   url: "https://twitter.com/unicodeveloper"

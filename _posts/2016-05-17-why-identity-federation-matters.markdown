@@ -4,7 +4,7 @@ title: "Why Federated Identity Management Matters"
 description: With an identity clearinghouse, you can stay focused on your business, not figuring out who your users are.
 date: 2016-05-17 8:30
 alias: /2016/05/17/why-identity-federation-matters/
-category: Technical Guide, Identity, Federation
+category: Technical guide, Identity, Federation
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

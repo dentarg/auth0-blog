@@ -3,7 +3,7 @@ layout: post
 title: "ASP.NET Core APIs in the fast lane with Swagger and Autorest"
 description: Document your ASP.NET Core Web APIs with Swagger and auto-generate authenticated clients quickly and easily with Autorest.
 date: 2016-09-01 12:00
-category: Technical Guide, Microsoft, ASP Net Core
+category: Technical guide, Microsoft, ASP Net Core
 design:
   bg_color: "#000000"
   image: https://cdn.auth0.com/blog/aspnet-core-web-apis/swagger.png

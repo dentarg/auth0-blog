@@ -3,7 +3,7 @@ layout: post
 title: "Bootstrapping a React project"
 description: Setting up a React application requires a lot. Learn how to bootstrap a React project without complexities!
 date: 2016-08-11 12:30
-category: Technical Guide, Frontend, React
+category: Technical guide, Frontend, React
 author:
   name: Prosper Otemuyiwa
   url: https://twitter.com/unicodeveloper?lang=en

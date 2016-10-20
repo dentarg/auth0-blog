@@ -4,7 +4,7 @@ title: "rrtr is Dead. Here are Some React Router Alternatives."
 description: "React Router and rrtr have reconciled. Explore React Router alternatives and learn how to use them in your apps."
 date: 2016-04-19 08:30
 alias: /2016/04/19/react-router-alternatives/
-category: Technical Guide, Frontend, React
+category: Technical guide, Frontend, React
 author: 
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"
