@@ -24,26 +24,26 @@ related:
 
 ---
 
-**TL;DR:** This article continues the journey we [started](https://auth0.com/blog/auth0-with-azure-documentdb/) with Azure DocumentDB, in it, we will learn how to build common query patterns and services with ASP.NET Core. A full working application sample is available as a [GitHub repository](https://github.com/ealsur/auth0documentdb/).
+**TL;DR:** This article continues the journey we [started](https://auth0.com/blog/auth0-with-azure-documentdb/) with Azure DocumentDB. In this installment, we will learn how to build common query patterns and services with ASP.NET Core. A full working application sample is available as a [GitHub repository](https://github.com/ealsur/auth0documentdb/).
 
 ---
 
 ## Recap
 In our [previous article](https://auth0.com/blog/auth0-with-azure-documentdb/) we configured an **integration** between Auth0 and Azure DocumentDB as a Custom Database Provider to store our enrolled users in JSON format, as [documents](https://en.wikipedia.org/wiki/Document-oriented_database).
 
-Conceptually, in Azure DocumentDB, a _database_ can be defined as a logical container of document collections; each _collection_ can hold not only documents but _stored procedures_, _triggers_ and _user-defined functions_ too. The collection is the [billable unit](https://azure.microsoft.com/pricing/details/documentdb/) and the one that defines the [consistency level](https://azure.microsoft.com/en-us/documentation/articles/documentdb-consistency-levels/).
+Conceptually, in Azure DocumentDB, a _database_ can be defined as a logical container of document collections; each _collection_ can hold not only documents but _stored procedures_, _triggers_, and _user-defined functions_. The collection is the [billable unit](https://azure.microsoft.com/pricing/details/documentdb/) and defines the [consistency level](https://azure.microsoft.com/en-us/documentation/articles/documentdb-consistency-levels/).
 
 ![DocumentDB element hierarchy](https://cdn.auth0.com/blog/aspnetcore-and-documentdb/hierarchy.png)
 
 ## Querying and storing data on Azure DocumentDB
-Azure DocumentDB collections have [automatic attribute indexing](https://azure.microsoft.com/documentation/articles/documentdb-indexing/), that can also be [customized](https://azure.microsoft.com/documentation/articles/documentdb-indexing-policies/). This **schema-free** approach lets you store documents with different and dynamic structures that can evolve with time.
+Azure DocumentDB collections have [automatic attribute indexing](https://azure.microsoft.com/documentation/articles/documentdb-indexing/), which can also be [customized](https://azure.microsoft.com/documentation/articles/documentdb-indexing-policies/). This **schema-free** approach lets you store documents with different and dynamic structures that can evolve over time.
 
-Since we are storing our users on DocumentDB, this means we can also **store other object types** in the same collection without interfering with each other.
+Since we are storing our users on DocumentDB, this means we can also **store other object types** in the same collection without their interfering with each other.
 
-We will work with a practical pattern to achieve this multiple type storage and build performance-wise querying examples; even though DocumentDB supports [Node.js](https://azure.microsoft.com/documentation/articles/documentdb-nodejs-get-started/), [Python](https://azure.microsoft.com/documentation/articles/documentdb-sdk-python/), [Java](https://azure.microsoft.com/documentation/articles/documentdb-sdk-java/) and [.Net](https://azure.microsoft.com/documentation/articles/documentdb-get-started/) SDKs, we'll be working on the latter. A [full sample on GitHub](https://github.com/ealsur/auth0documentdb/) is available running on ASP.NET Core.
+We will work with a practical pattern to achieve this multiple-type storage and build performance-wise querying examples; even though DocumentDB supports [Node.js](https://azure.microsoft.com/documentation/articles/documentdb-nodejs-get-started/), [Python](https://azure.microsoft.com/documentation/articles/documentdb-sdk-python/), [Java](https://azure.microsoft.com/documentation/articles/documentdb-sdk-java/), and [.Net](https://azure.microsoft.com/documentation/articles/documentdb-get-started/) SDKs, we'll be working on the latter. A [full sample on GitHub](https://github.com/ealsur/auth0documentdb/) is available running on ASP.NET Core.
 
 ### Dependencies
-Using ASP.NET Core, we will use the _project.json_ to define dependencies. We will only need the [Azure DocumentDB Nuget package](https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/) on the latest version:
+Using ASP.NET Core, we will use the _project.json_ to define dependencies. We will only need the [Azure DocumentDB Nuget package] (https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/) on the latest version:
 
 ```javascript
 {
@@ -54,7 +54,7 @@ Using ASP.NET Core, we will use the _project.json_ to define dependencies. We wi
 ```
 
 ### Base Type Pattern
-We start by creating a base abstract class with a _Type_ and _Id_ attributes. All DocumentDB objects have an id attribute that can be auto generated (as a Guid) or set upon creation:
+We start by creating a base abstract class with _Type_ and _Id_ attributes. All DocumentDB objects have an id attribute that can be auto generated (as a Guid) or set upon creation:
 
 ```cs
 public abstract class Entity
@@ -76,9 +76,9 @@ public abstract class Entity
 }
 ```
 
->You might notice the [JsonProperty](http://www.newtonsoft.com/json/help/html/t_newtonsoft_json_serialization_jsonproperty.htm) decorator, this is because the "id" attribute on DocumentDB is always lowercase and it will ensure that it matches it no matter what your JSON serialization configuration is.
+>You might notice the [JsonProperty](http://www.newtonsoft.com/json/help/html/t_newtonsoft_json_serialization_jsonproperty.htm) decorator. This is because the "id" attribute on DocumentDB is always lowercase; the decorator will make sure the property name matches, no matter what your JSON serialization configuration is.
 
-Now, every object type you want to store on DocumentDB can **inherit** from this class and set their own attributes:
+Now, every object type you want to store on DocumentDB can **inherit** from this class and set its own attributes:
 
 ```cs
 public class NotificationPreferences : Entity
@@ -116,16 +116,16 @@ public class ContactAddress : Entity
 }
 ```
 
-### Performant querying
-Azure DocumentDB allows for insert, update, delete and querying capabilities on different flavors including LINQ and SQL syntax.
+### Performant Querying
+Azure DocumentDB allows for insert, update, delete, and querying capabilities on different flavors, including LINQ and SQL syntax.
 
 >If you already have your data in another format / source, you can use the Azure DocumentDB [Data Migration tool](https://azure.microsoft.com/documentation/articles/documentdb-import-data/) to migrate it to a collection.
 
-The following operations are available as a [full provider](https://github.com/ealsur/auth0documentdb/blob/master/Services/DocumentDbProvider.cs) on the GitHub repository, we will highlight the snippets that will let you understand the basic operations.
+The following operations are available as a [full provider](https://github.com/ealsur/auth0documentdb/blob/master/Services/DocumentDbProvider.cs) on the GitHub repository; we will highlight the snippets that will enable you to understand the basic operations.
 
-To successfully connect to a DocumentDB collection we will need the **service Url endpoint** and the **password/key** (when using the MongoDB protocol-enabled version it's called _Password_ and using a normal DocumentDB instance it's called _Key_) obtained on the Azure Portal, they will enable us to access the service through a [DocumentClient](https://msdn.microsoft.com/library/azure/microsoft.azure.documents.client.documentclient.aspx).
+To successfully connect to a DocumentDB collection we will need the **service url endpoint** and the **password/key** (when using the MongoDB protocol-enabled version it's called _Password_ and when using a normal DocumentDB instance it's called _Key_) obtained on the Azure Portal. They will enable us to access the service through a [DocumentClient](https://msdn.microsoft.com/library/azure/microsoft.azure.documents.client.documentclient.aspx).
 
-Like we mentioned [earlier](https://azure.microsoft.com/documentation/articles/documentdb-resources/), documents are grouped on collections within a database, each collection is accessed by a [Resource URI syntax](https://msdn.microsoft.com/en-us/library/azure/dn919266.aspx), the SDK provides helper methods to build URIs:
+Like we mentioned [earlier](https://azure.microsoft.com/documentation/articles/documentdb-resources/), documents are grouped in collections within a database, each collection is accessed by a [Resource URI syntax](https://msdn.microsoft.com/en-us/library/azure/dn919266.aspx). The SDK provides helper methods to build URIs:
 
 ```cs
 private  Uri GetCollectionLink()
@@ -134,7 +134,7 @@ private  Uri GetCollectionLink()
 }
 ```
 
-We always start by creating an instance of a DocumentClient and using it on every access operation, a common performance tip is to maintain a single DocumentClient for all our queries and operations:
+We always start by creating an instance of a DocumentClient and using it in every access operation. A common performance tip is to maintain a single DocumentClient for all our queries and operations:
 
 ```cs
 public DocumentDbProvider(DocumentDbSettings settings)
@@ -148,7 +148,7 @@ public DocumentDbProvider(DocumentDbSettings settings)
 }
 ```
 
->There is an [entire article](https://azure.microsoft.com/documentation/articles/documentdb-performance-tips/) regarding performance best-practices available.
+>For other performance best practices, there is an [entire article](https://azure.microsoft.com/documentation/articles/documentdb-performance-tips/) on this topic.
 
 We will now cover the **basic operations**.
 
@@ -163,7 +163,7 @@ public async Task<string> AddItem<T>(T document)
 }
 ```
 
-This will internally use [Newtonsoft.Json](https://www.nuget.org/packages/newtonsoft.json/) to serialize your object to JSON and store it. If you set the Id property it will be maintained, if you don’t, it will create a new Guid string. This also means that you can exclude attributes from serialization with the [JsonIgnore](http://www.newtonsoft.com/json/help/html/serializationattributes.htm) attribute.
+This will internally use [Newtonsoft.Json](https://www.nuget.org/packages/newtonsoft.json/) to serialize your object to JSON and store it. If you set the id property it will be maintained; if you don't, it will create a new Guid string. This also means that you can exclude attributes from serialization with the [JsonIgnore](http://www.newtonsoft.com/json/help/html/serializationattributes.htm) attribute.
 
 #### Updating documents
 The same simple procedure works on updates:
@@ -185,7 +185,7 @@ private Uri GetDocumentLink(string id)
 }
 ```
 
->Azure DocumentDB **does not support partial updates** at the time of this article's writing, if you try to do it, you will end up with a replaced document with fewer attributes that it originally had.
+>Azure DocumentDB **does not support partial updates** at the time of this article's writing. If you try to do it, you will end up with a replaced document with fewer attributes than it had originally.
 
 #### Deleting a document
 Deleting a document is as simple as:
@@ -200,7 +200,7 @@ public async Task DeleteItem(string id)
 It requires a Document URI, which can be created with our previous helper method.
 
 #### Querying documents
-Queries can be achieved using [SQL syntax](https://azure.microsoft.com/documentation/articles/documentdb-sql-query/) or [LINQ to DocumentDB syntax](https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/#linq-to-documentdb-sql). Building a generic query method is as simple as:
+Queries can be performed using [SQL syntax](https://azure.microsoft.com/documentation/articles/documentdb-sql-query/) or [LINQ to DocumentDB syntax](https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/#linq-to-documentdb-sql). Building a generic query method is as simple as:
 
 ```cs
 public IQueryable<T> CreateQuery<T>(FeedOptions feedOptions)
@@ -218,13 +218,13 @@ public IQueryable<T> CreateQuery<T>(string sqlExpression, FeedOptions feedOption
 }
 ```
 
-You might notice a [FeedOptions](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.aspx) attribute, this lets you define things like the size of result sets or pagination. If we are creating a query that will return just one result, it’s a performant good practice to set the [MaxItemCount](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.maxitemcount.aspx) property to 1:
+You might notice a [FeedOptions](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.aspx) attribute. This lets you define things like the size of result sets or pagination. If we are creating a query that will return just one result, it’s a performant good practice to set the [MaxItemCount](https://msdn.microsoft.com/en-us/library/microsoft.azure.documents.client.feedoptions.maxitemcount.aspx) property to 1:
 
 ```cs
 var feedOptions = new FeedOptions() { MaxItemCount = 1 };
 ```
 
-[IQueryable](https://msdn.microsoft.com/en-us/library/azure/bb351562.aspx) can be chained, this means that following our Type object pattern, we can create queries for different object types based on the same internal function:
+[IQueryable](https://msdn.microsoft.com/en-us/library/azure/bb351562.aspx) can be chained, meaning that following our Type object pattern, we can create queries for different object types based on the same internal function:
 
 ```cs
 _provider.CreateQuery<OneType>(feedOptions).Where(x => x.Type == "onetype");
@@ -262,11 +262,11 @@ public async Task<PagedResults<MyClass>> GetContactAddresses(int size = 10, stri
 
 Notice how we set the **page size** by the MaxItemCount attribute of the FeedOptions.
 
-#### Dependency Injection
+#### Dependency injection
 When working on ASP.NET Core, one of the core features is Dependency Injection. Because of this, it’s vital that our DocumentDB provider is wrapped in a [service](https://github.com/ealsur/auth0documentdb/blob/master/Services/DocumentDbService.cs) that can be injected by an [interface](https://github.com/ealsur/auth0documentdb/blob/master/Services/IDocumentDbService.cs).
 
 
-A simple way is to create a service class that receives an **IConfiguration** (possibly coming from your [appsettings.json](https://github.com/ealsur/auth0documentdb/blob/master/appsettings.json) file) and creates an instance of our DocumentDbProvider:
+A simple way to do this is to create a service class that receives an **IConfiguration** (possibly coming from your [appsettings.json](https://github.com/ealsur/auth0documentdb/blob/master/appsettings.json) file) and creates an instance of our DocumentDbProvider:
 
 ```cs
 private readonly DocumentDbProvider _provider;
@@ -307,17 +307,28 @@ public class ProfileController : Controller
 ```
 
 #### Partitions and parallelism
-Collections can **scale dynamically** with Azure DocumentDB’s [partition support](https://azure.microsoft.com/documentation/articles/documentdb-partition-data/#single-partition-and-partitioned-collections). Partitioned collections have a potential higher throughput and requires a Partition Key configuration. Single-partition cannot be changed to Partitioned collections, so **plan ahead**, if your application data might grow beyond 10GB or you need more than 10,000 Request Units per second, you might as well evaluate Partitioned collections.
+Collections can **scale dynamically** with Azure DocumentDB’s [partition support](https://azure.microsoft.com/documentation/articles/documentdb-partition-data/#single-partition-and-partitioned-collections). Partitioned collections have a potentially higher throughput and require a Partition Key configuration. Single-partition collections cannot be changed to Partitioned collections, so **plan ahead**: if your application data might grow beyond 10GB or you need more than 10,000 Request Units per second, you might as well evaluate Partitioned collections.
 
 ![DocumentDB Partitioned collections](https://cdn.auth0.com/blog/aspnetcore-and-documentdb/partitioned.png)
 
 Furthermore, each of the operations we described earlier will require an additional Partition Key value as part of the [RequestOptions](https://msdn.microsoft.com/library/microsoft.azure.documents.client.requestoptions.aspx) class.
 
-Partitions let us take advantage of parallel queries on multiple collections for the best throughput by using .Net’s [Task Parallel Library](https://msdn.microsoft.com/library/dd460717.aspx).
+Partitions help optimize throughput by allowing us to take advantage of parallel queries on multiple collections by using .Net’s [Task Parallel Library](https://msdn.microsoft.com/library/dd460717.aspx).
 
 >For a more detailed look at implementing Partition querying, take a look at the [official sample GitHub repository](https://github.com/Azure/azure-documentdb-dotnet/tree/master/samples/code-samples/Partitioning).
 
+## Aside: Using Auth0 with Azure DocumentDB
+Azure DocumentDB can be integrated as a [custom database provider](https://auth0.com/blog/auth0-with-azure-documentdb) by [using the MongoDB protocol](https://azure.microsoft.com/documentation/articles/documentdb-create-mongodb-account/). 
+
+Create a custom database connection by going to the _Connections > Database_ in your [Auth0 management dashboard](https://manage.auth0.com/) and build your MongoDB _connection string_ by obtaining the credentials from your Azure DocumentDB account on the [Azure Portal](https://portal.azure.com):
+
+`mongodb://<your_service_name>:<your_password>==@<your_service_name>.documents.azure.com:10250/auth0?ssl=true` 
+
+You can then use it on your **Database Action Scripts** sections.
+
+For a step by step guide, you can view [Planet-scale authentication with Auth0 and Azure DocumentDB](https://auth0.com/blog/auth0-with-azure-documentdb/)
+
 ## Conclusion
-Azure DocumentDB is a fast and flexible cloud storage service that will work on mostly any use case scenario and can work along with Auth0 in a very streamlined fashion.
-Remember that a **full sample**, including extensions and providers is [available on GitHub](https://github.com/ealsur/auth0documentdb).  
+Azure DocumentDB is a fast and flexible cloud storage service that will work on almost any use case scenario and can work along with Auth0 in a highly streamlined fashion.
+Remember that a **full sample**, including extensions and providers, is [available on GitHub](https://github.com/ealsur/auth0documentdb).  
 
