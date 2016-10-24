@@ -80,6 +80,7 @@ GEM
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
     rake (11.1.1)
+    rake_text (0.0.1)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -108,9 +109,10 @@ DEPENDENCIES
   jekyll (= 2.4.0)
   psych (~> 2.0.5)
   rake
+  rake_text
   rdiscount (~> 2.1.7.1)
   stringex (~> 2.5.2)
   stylus (~> 1.0.1)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
