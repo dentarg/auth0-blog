@@ -5,8 +5,8 @@ description: Learn how the Dyn attack was perpetrated, how it could have been pr
 date: 2016-10-25 08:30
 category: Hot Topic, Security, Attacks
 design:
-  bg_color: "#305F96"
-  image: https://cdn.auth0.com/blog/SSO-Logo.png
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/biggest-internet-attack/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
