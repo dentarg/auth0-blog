@@ -63,4 +63,4 @@ You can use **Auth0** to simplify the implementation of your identity security. 
 
 Cyber attacks are becoming the order of the day and many companies that develop IoT devices constantly think about user experience before security. Security should be *first-class* when dealing with connected devices and any type of application.
 
-{% include tweet_quote.html quote_text="Security should be *first-class* when dealing with connected devices and any type of application!" %}
+{% include tweet_quote.html quote_text="Security should be first-class when dealing with connected devices and any type of application!" %}
