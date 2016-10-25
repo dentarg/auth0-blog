@@ -5,7 +5,7 @@ description: "Learn how to create a real world angular 2 app using Pipes, Direct
 reply:
  twitter: https://twitter.com/auth0/status/598909226111631360
 date: 2015-05-14 09:54AM
-date_override: "2015-10-07 12:30"
+date_override: "2015-10-26 12:30"
 category: Technical guide, Angular, Angular 2
 alias: /2015/05/14/creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between/
 author:
@@ -50,7 +50,7 @@ related:
 
 <div class="alert">
   <i class="icon-budicon-390" style="top: 14px; left: 20px"></i>
-  <strong style="font-size: 18px">This article was updated on May 18, 2016 to reflect Angular 2 rc.1</strong>
+  <strong style="font-size: 18px">This article was updated on Oct 26, 2016 to reflect the latest version of Angular 2.</strong>
 </div>
 
 Last week, the Angular team [announced](https://twitter.com/angularjs/status/593797019258359809) that **Angular 2 was moving from Alpha to Developer Preview**. Therefore, we figured **it was time to give it a try**.
@@ -63,11 +63,11 @@ After looking around the internet, I learned that **all of the existing examples
 
 ### Warning!
 
-Before we start, I wanted to give you a warning. Angular 2 is changing constantly since it's still in a Developer Preview, which means we'll be working with the bleeding edge. Therefore, this example might become outdated. However, we'll work on updating the source code as often as we can to stay up to date.
+When we originally wrote this article, Angular 2 was constantly changing. Angular 2 is in a much better place now, so we are updating the content and code samples to reflect the latest version of the framework.
 
 ### Seed project
 
-In order to start working with Angular 2, I strongly recommend checking [Pawel](https://twitter.com/pkozlowski_os)'s [ng2-play](https://github.com/pkozlowski-opensource/ng2-play). It makes it really easy to install and spin up a new project with Angular 2.
+In order to start working with Angular 2, I strongly recommend checking [Pawel](https://twitter.com/pkozlowski_os)'s [ng2-play](https://github.com/pkozlowski-opensource/ng2-play). It makes it really easy to install and spin up a new project with Angular 2. The Angular 2 team has also released an official [Angular 2 CLI](https://cli.angular.io/) which can also make project setup a breeze.
 
 ### Read the comments!
 
@@ -83,151 +83,170 @@ npm install angular2-jwt
 
 ## Let's code!
 
-### Setting up the router
+### Our Root Module
 
-The first thing we should do is set up the router. For each URL, our job is to setup which component should be loaded and where.
-
-First, we need to create our [App](https://github.com/auth0/angular2-authentication-sample/blob/master/src/app/app.js) component, which will set up the routes:
+Angular 2 requires us to set up a root module for our application. This is done using the [@NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html) decorator which allows us to logically group our application into overarching modules. NgModules aims to simplify the way we manage dependencies in our Angular 2 apps. For our application, we'll group our entire application into a single module.
 
 ```js
-// src/app/app.ts
+// Import dependencies
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
-import {Component} from '@angular/core';
-import {RouteConfig, RouterLink, Router} from '@angular/router-deprecated';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
-import {LoggedInRouterOutlet} from './LoggedInOutlet';
-import {Home} from '../home/home';
-import {Login} from '../login/login';
-import {Signup} from '../signup/signup';
+import { AuthGuard } from './common/auth.guard';
+import { Home } from './home';
+import { Login } from './login';
+import { Signup } from './signup';
+import { App } from './app';
+
+import { routes } from './app.routes';
+
+// Declare the NgModule decorator
+@NgModule({
+  // Define the root component
+  bootstrap: [App],
+  // Define other components in our module
+  declarations: [
+    Home, Login, Signup, App
+  ],
+  // Define the services imported by our app
+  imports: [
+    HttpModule, BrowserModule, FormsModule,
+    RouterModule.forRoot(routes, {
+      useHash: true
+    })
+  ],
+  providers: [
+    AuthGuard, ...AUTH_PROVIDERS
+  ]
+})
+export class AppModule {}
+```
+
+You can learn much more about Angular 2 modules and how to better manage dependencies with them in this [post](https://auth0.com/blog/angular-2-ngmodules/).
+
+### Setting Up the Router
+
+Next we will set up the router. For each URL, our job is to setup which component should be loaded and where. Let's create a `app.routes.ts` file and we'll define our routes there.
+
+```js
+// Import our dependencies
+import { Routes } from '@angular/router';
+import { Home } from './home';
+import { Login } from './login';
+import { Signup } from './signup';
+import { AuthGuard } from './common/auth.guard';
+
+// Define which component should be loaded based on the current URL
+export const routes: Routes = [
+  { path: '',       component: Login },
+  { path: 'login',  component: Login },
+  { path: 'signup', component: Signup },
+  { path: 'home',   component: Home, canActivate: [AuthGuard] },
+  { path: '**',     component: Login },
+];
+```
+
+### Building the Root Component
+
+Our app needs an initial entry point. Let's create an `app.component.ts` file and define the specifics of our root component there.
+
+```
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+const template = require('./app.html');
 
 @Component({
-  // HTML selector for this component
-  selector: 'auth-app'
-  template: `
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
-  `,
-  directives: [LoggedInRouterOutlet]
+  selector: 'auth-app',
+  template: template
 })
 
-@RouteConfig([
-  { path: '/', redirectTo: ['/Home'] },
-  { path: '/home', component: Home, as: 'Home' },
-  { path: '/login', component: Login, as: 'Login' },
-  { path: '/signup', component: Signup, as: 'Signup' }
-])
-
 export class App {
-  constructor() {}
+  constructor(public router: Router) {}
 }
 ```
+
+You may have noticed that we are also importing an `app.html` file which will be our template. Let's create this file as well and add the following code to it:
+
+```html
+<div class="container">
+  <!-- Our components will be loaded here based on the current URL -->
+  <router-outlet></router-outlet>
+</div>
+```
+
+### Bootstrapping our Application
+
+Finally, we'll need to bootstrap our application to get it running.
 
 Now we can `bootstrap` the application to get it running.
 
 ```js
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-// src/index.ts
+import { AppModule } from './app.module';
 
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import { provide } from '@angular/core';
-import { FORM_PROVIDERS } from '@angular/common';
-import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { Http, HTTP_PROVIDERS } from '@angular/http';
-import { AuthConfig, AuthHttp } from 'angular2-jwt';
-
-import { App } from './app/app';
-
-bootstrap(
-  App,
-  [
-    FORM_PROVIDERS,
-    ROUTER_PROVIDERS,
-    HTTP_PROVIDERS,
-    provide(AuthHttp, {
-      useFactory: (http) => {
-        return new AuthHttp(new AuthConfig({
-          tokenName: 'jwt'
-        }), http);
-      },
-      deps: [Http]
-    })
-  ]
-);
+// The bootstrap process in the final release of Angular 2 requires a module instead of a component
+platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-To configure **angular2-jwt** we need to provide `AuthHttp` with `useFactory` pointing to a new instance.
+We are now ready to start implementing our app specific logic.
 
-### Restricting access to pages
+### Restricting Access to Pages
 
-We don't want anonymous users to be able to access the `Home` route, so we should redirect them if they aren't authenticated. For that, we can create our own `RouterOutlet`, which will only let authenticated users access the home route.
+We don't want anonymous users to be able to access the `Home` route, so we should redirect them if they aren't authenticated. For that, we can create our own `Guard`, which will only let authenticated users access the home route. 
 
-For that, we need to do two things. First of all, we need to modify our `app.js` to use the new **LoggedInRouterOutlet** we'll create, rather than using the default one.
+If we look at our routes code above we see that on the `Home` route we pass some additional code `canActivate: [AuthGuard]`. In this section we will implement the code for the `AuthGuard`. Once our app is running, each time the home route is hit, the AuthGuard function will be executed and decide whether or not a user can actually access the route.
 
-We need a `LoggedInRouterOutlet` directive which extends the `Router` to allow us to specify which routes are public and rediredcts if the route is private and the user isn't authenticated.
+```
+import { Injectable } from '@angular/core';
+import { Router, CanActivate } from '@angular/router';
+import { tokenNotExpired } from 'angular2-jwt';
 
-```js
-// src/app/LoggedInOutlet.ts
 
-import {Directive, Attribute, ViewContainerRef, DynamicComponentLoader} from '@angular/core';
-import {Router, RouterOutlet, ComponentInstruction} from '@angular/router-deprecated';
-import {Login} from '../login/login';
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router) {}
 
-@Directive({
-  selector: 'router-outlet'
-})
-export class LoggedInRouterOutlet extends RouterOutlet {
-  publicRoutes: any;
-  private parentRouter: Router;
-
-  constructor(_viewContainerRef: ViewContainerRef, _loader: DynamicComponentLoader,
-              _parentRouter: Router, @Attribute('name') nameAttr: string) {
-    super(_viewContainerRef, _loader, _parentRouter, nameAttr);
-
-    this.parentRouter = _parentRouter;
-    // The Boolean following each route below
-    // denotes whether the route requires authentication to view
-    this.publicRoutes = {
-      'login': true,
-      'signup': true
-    };
-  }
-
-  activate(instruction: ComponentInstruction) {
-    let url = instruction.urlPath;
-    if (!this.publicRoutes[url] && !localStorage.getItem('jwt')) {
-      this.parentRouter.navigateByUrl('/login');
+  canActivate() {
+    // Check to see if a user has a valid JWT
+    if (tokenNotExpired()) {
+      // If they do, return true and allow the user to load the home component
+      return true;
     }
-    return super.activate(instruction);
+
+    // If not, they redirect them to the login page
+    this.router.navigate(['/login']);
+    return false;
   }
-}
 ```
 
-### Creating the login page
+### Creating the Login page
 
-Now it's time to create our [Login](https://github.com/auth0/angular2-authentication-sample/blob/master/src/login/login.js) component. Its main function will be displaying the login form and calling the login API using `Http`. Once the server successfully authenticates the user, we'll save the [JWT](http://jwt.io/) we get back in `localStorage` and then redirect the user to the home page.
+Now it's time to create our [Login](https://github.com/auth0/angular2-authentication-sample/blob/master/src/login/login.ts) component. Its main function will be displaying the login form and calling the login API using `Http`. Once the server successfully authenticates the user, we'll save the [JWT](http://jwt.io/) we get back in `localStorage` and then redirect the user to the home page.
 
 ```js
-// src/login/login.ts
-
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
-import { Http, Headers } from '@angular/http';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 
-let styles   = require('./login.css');
-let template = require('./login.html');
+const styles   = require('./login.css');
+const template = require('./login.html');
 
 @Component({
   selector: 'login',
-  directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
   template: template,
   styles: [ styles ]
 })
-
 export class Login {
-  constructor(public router: Router, public http: Http) {}
+  constructor(public router: Router, public http: Http) {
+  }
 
   login(event, username, password) {
     event.preventDefault();
@@ -235,8 +254,8 @@ export class Login {
     this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
       .subscribe(
         response => {
-          localStorage.setItem('jwt', response.json().id_token);
-          this.router.parent.navigateByUrl('/home');
+          localStorage.setItem('id_token', response.json().id_token);
+          this.router.navigate(['home']);
         },
         error => {
           alert(error.text());
@@ -247,74 +266,63 @@ export class Login {
 
   signup(event) {
     event.preventDefault();
-    this.router.parent.navigateByUrl('/signup');
+    this.router.navigate(['signup']);
   }
 }
 ```
 
 ```html
- <!-- src/login/login.html -->
- <div class="login jumbotron center-block">
+<div class="login jumbotron center-block">
   <h1>Login</h1>
   <form role="form" (submit)="login($event, username.value, password.value)">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" #username class="form-control" id="username" placeholder="Username">
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" #password class="form-control" id="password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-    <a href="/signup">Click here to Signup</a>
-  </form>
- </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" #username class="form-control" id="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" #password class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+    <a [routerLink]="['/signup']">Click here to Signup</a>
+</form>
+</div>
 ```
+
+The sign up page is implemented in much the same way. For brevity, we will omit the implementation here, but you can view it on [GitHub](https://github.com/auth0-blog/angular2-authentication-sample/tree/master/src/signup). 
 
 ### Creating the Home component
 
-The user is logged in. It's time to create the [Home](https://github.com/auth0/angular2-authentication-sample/blob/master/src/home/home.js) component, to which the user will arrive upon successful login. It will let the user call an authenticated API as well as display the JWT information.
+The user is logged in. It's time to create the [Home](https://github.com/auth0/angular2-authentication-sample/blob/master/src/home/home.ts) component, to which the user will arrive upon successful login. It will let the user call an authenticated API as well as display the JWT information.
 
 ```js
-// src/home/home.ts
-
 import { Component } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
-import { Http, Headers } from '@angular/http';
-import { Router } from '@angular/router-deprecated';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 
-let styles = require('./home.css');
-let template = require('./home.html');
-
+const styles = require('./home.css');
+const template = require('./home.html');
 
 @Component({
   selector: 'home',
-  directives: [CORE_DIRECTIVES],
-  // Here we specify the template we'll use
   template: template,
-  styles: [styles]
+  styles: [ styles ]
 })
 export class Home {
-  // Here we define this component's instance variables
-  // They're accessible from the template
   jwt: string;
   decodedJwt: string;
   response: string;
   api: string;
 
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
-    // We get the JWT from localStorage
-    this.jwt = localStorage.getItem('jwt');
-    // We also store the decoded JSON from this JWT
+    this.jwt = localStorage.getItem('id_token');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
   }
 
   logout() {
-    // Method to be called when the user wants to logout
-    // Logging out means just deleting the JWT from localStorage and redirecting the user to the Login page
-    localStorage.removeItem('jwt');
-    this.router.parent.navigateByUrl('/login');
+    localStorage.removeItem('id_token');
+    this.router.navigate(['login']);
   }
 
   callAnonymousApi() {
@@ -322,7 +330,6 @@ export class Home {
   }
 
   callSecuredApi() {
-    // We call the secured API
     this._callApi('Secured', 'http://localhost:3001/api/protected/random-quote');
   }
 
@@ -349,22 +356,27 @@ export class Home {
 ```
 
 ```html
- <!-- src/home/home.html -->
-  <div>
-    <div class="home jumbotron centered">
-      <h1>Welcome to the angular2 authentication sample!</h1>
-      <h2 *ngIf="jwt">Your JWT is:</h2>
-      <pre *ngIf="jwt" class="jwt"><code>{{ "{{jwt" }}}}</code></pre>
-      <pre *ngIf="jwt" class="jwt"><code>{{ "{{decodedJwt | json" }}}}</code></pre>
-      <p>Click any of the buttons to call an API and get a response</p>
-      <p><a class="btn btn-primary btn-lg" role="button" (click)="callAnonymousApi()">Call Anonymous API</a></p>
-      <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Call Secure API</a></p>
-      <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
-      <h2 *ngIf="response">The response of calling the <span class="red">{{api}}</span> API is:</h2>
-      <h3 *ngIf="response">{{ "{{response" }}}}</h3>
-    </div>
+ <div>
+  <div class="home jumbotron centered">
+    <h1>Welcome to the angular2 authentication sample!</h1>
+    <h2 *ngIf="jwt">Your JWT is:</h2>
+    <pre *ngIf="jwt" class="jwt"><code>{{ jwt }}</code></pre>
+    <pre *ngIf="jwt" class="jwt"><code>{{ decodedJwt | json }}</code></pre>
+    <p>Click any of the buttons to call an API and get a response</p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="callAnonymousApi()">Call Anonymous API</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Call Secure API</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
+    <h2 *ngIf="response">The response of calling the <span class="red">{{ api }}</span> API is:</h2>
+    <h3 *ngIf="response">{{ response }}</h3>
   </div>
+</div>
 ```
+
+That's it. We should be able to run and test our application now. If you are using the ng-play starter, simply run `npm start` and the app will compile and build. You can access the app on `localhost:3000`.
+
+In the sample [GitHub repo](https://github.com/auth0-blog/angular2-authentication-sample/tree/master/backend) we also included a simple backend server that accompanies this tutorial. You can run this server by executing the `npm run server` command.
+
+With both of these running, navigate to your app and try logging in with the credentials `gonto` for both the username and password. If all worked as expected, you will be redirected to the home page and can make calls to the API.
 
 ## Aside: Using Angular 2 with Auth0
 
@@ -383,12 +395,12 @@ If you don't already have any Auth0 account, [sign up](https://auth0.com/signup)
 > Note: If you use npm to get Auth0Lock, you will need to include it in your build step.
 
 ```html
-  <!-- src/client/index.html -->
+  <!-- index.html -->
 
   ...
 
   <!-- Auth0 Lock script -->
-  <script src="https://cdn.auth0.com/js/lock-9.1.min.js"></script>
+  <script src="//cdn.auth0.com/js/lock/10.2.2/lock.min.js"></script>
 
   <!-- Setting the right viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -400,73 +412,104 @@ If you don't already have any Auth0 account, [sign up](https://auth0.com/signup)
 
 It's best to set up an injectable service for authentication that can be used across the application.
 
-With Auth0, we get access to the user's profile and JWT in the `lock.show` callback and these items can be saved in local storage for use later.
+With Auth0, we get access to the user's profile and JWT in the `lock.on('authenticated')` callback and these items can be saved in local storage for use later. Let's create a new file called `auth.service.ts` in our common directory. The implementation will be as follows:
 
 ```js
-// src/client/shared/auth.service.ts
+import { Injectable } from '@angular/core';
+import { tokenNotExpired } from 'angular2-jwt';
+import { Router } from '@angular/router';
 
-import {Injectable, NgZone} from 'angular2/core';
-import {Router} from 'angular2/router';
-import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
-
-// Avoid name not found warnings
 declare var Auth0Lock: any;
 
 @Injectable()
-export class Auth {
-  lock = new Auth0Lock('YOUR_AUTH0_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
-  refreshSubscription: any;
-  user: Object;
-  zoneImpl: NgZone;
+export class AuthService {
+  // Set our Auth0 credentials
+  lock = new Auth0Lock('YOUR-AUTH0-CLIENT-ID', 'YOUR-AUTH0-DOMAIN.auth0.com');
 
-  constructor(private authHttp: AuthHttp, zone: NgZone, private router: Router) {
-    this.zoneImpl = zone;
-    this.user = JSON.parse(localStorage.getItem('profile'));
-  }
+  constructor(private router: Router) {
+    // Capture the user credentials when the user has succesfully logged in
+    this.lock.on('authenticated', (authResult: any) => {
+      localStorage.setItem('id_token', authResult.idToken);
 
-  public authenticated() {
-    // Check if there's an unexpired JWT
-    return tokenNotExpired();
-  }
+      this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
+        if (error) {
+          console.log(error);
+        }
 
-  public login() {
-    // Show the Auth0 Lock widget
-    this.lock.show({}, (err, profile, token) => {
-      if (err) {
-        alert(err);
-        return;
-      }
-      // If authentication is successful, save the items
-      // in local storage
-      localStorage.setItem('profile', JSON.stringify(profile));
-      localStorage.setItem('id_token', token);
-      this.zoneImpl.run(() => this.user = profile);
+        localStorage.setItem('profile', JSON.stringify(profile));
+        this.router.navigateByUrl('/home');
+      });
+
+      this.lock.hide();
     });
   }
 
-  public logout() {
+  // Display the lock login box
+  login() {
+    this.lock.show();
+  }
+
+  // Logout the user
+  logout() {
+    // To log out, just remove the token and profile
+    // from local storage
     localStorage.removeItem('profile');
     localStorage.removeItem('id_token');
-    this.zoneImpl.run(() => this.user = null);
-    this.router.navigate(['Home']);
+
+    // Send the user back to the dashboard after logout
+    this.router.navigateByUrl('/login');
+  }
+
+  // Check whether the user is logged in or not
+  loggedIn() {
+    return tokenNotExpired();
   }
 }
 ```
 
+In order to use this service, we'll have to declare it in our NgModule in the `app.module.ts` file.
+
+```js
+// ... existing dependencies
+import { AuthService } from './common/auth.service';
+
+@NgModule({
+  // ... existing declarations
+  providers: [
+    AuthGuard, ...AUTH_PROVIDERS, AuthService
+  ]
+})
+```
+
 ### Step 3: Add a Click Handler to Login
 
-We can use the methods from our authentication service in any of our components which means we can easily add a click handler to a "Login" and "Logout" button.
+We can use the methods from our authentication service in any of our components which means we can easily add a click handler to a "Login" and "Logout" button. Let's edit our login component to make use of Lock for authentication.
+
+First we'll need to include the `AuthService` in our `Login` component.
+
+```js
+//... existing dependencies 
+import { AuthService } from '../common/auth.service';
+// ...
+export class Login {
+  // Add the AuthService to our constructor
+  constructor(public router: Router, public http: Http, private auth: AuthService) {
+  }
+  // ...
+}
+```
+
+Next, we'll make the updates to our template.
 
 ```html
-  <!-- src/client/app.component.html -->
+<div class="login jumbotron center-block">
 
-  ...
-
-  <button (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
-  <button (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
-
-  ...
+  <a class="btn btn-success" (click)="auth.login()" *ngIf="!auth.loggedIn()">Log In</a>
+  
+</div>
 ```
+
+Now, when a user clicks the Log In link, they will be presented with the Lock UI. Upon a succesful login, they will be redirected to the home page.
 
 ### Step 4: Make Authenticated HTTP Requests
 
