@@ -99,8 +99,12 @@
     <meta name="robots" content="noindex, noarchive, follow" />
     {% endif %}
 
-    {% if page.url %}
-    <link rel="canonical" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
+    {% if page.is_tag_index %}
+    <link rel="canonical" href="https://auth0.com/blog" />
+    {% else %}
+      {% if page.url %}
+        <link rel="canonical" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
+      {% endif %}
     {% endif %}
 
     {% if page.is_tag_index %}
