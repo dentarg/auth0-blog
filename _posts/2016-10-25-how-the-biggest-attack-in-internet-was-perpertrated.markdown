@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How was the biggest attack in Internet history perpetrated?"
+title: "How was the biggest DDoS attack in Internet history perpetrated?"
 description: Learn how the Dyn attack was perpetrated, how it could have been prevented and how to avoid similar attacks in the future
 date: 2016-10-25 08:30
 category: Hot Topic, Security, Attacks
