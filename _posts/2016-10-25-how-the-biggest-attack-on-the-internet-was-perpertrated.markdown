@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "How was the biggest attack on the Internet history perpetrated?"
+title: "How was the biggest attack in Internet history perpetrated?"
 description: Learn how the Dyn attack was perpetrated, how it could have been prevented and how to avoid similar attacks in the future
 date: 2016-10-25 08:30
-category: Internet Attack, IOT
+category: Internet Attack, IoT
 design:
   bg_color: "#305F96"
   image: https://cdn.auth0.com/blog/SSO-Logo.png
@@ -25,15 +25,15 @@ related:
 
 ---
 
-**TL;DR:** Last week, one of the biggest attacks in the internet history was perpetrated via a group of hackers. Popular websites like **Twitter**, **Netflix**, **GitHub**, **Amazon**, **Spotify** were knocked offline. These web sites were not accessible for the period the attacks lasted. A Distributed Denial of Service (DDOS) attack on Dyn - a domain name server company affected the online availability of these popular platforms.
+**TL;DR:** Last week, one of the biggest attacks in the internet history was perpetrated via a group of hackers during which popular websites like **Twitter**, **Netflix**, **GitHub**, **Amazon**, **Spotify** were knocked offline. These web sites were not accessible for the period the attacks lasted. A Distributed Denial of Service (DDOS) attack on Dyn - a domain name server company -  affected the online availability of these popular platforms.
 
 ---
 
 ## How did it happen?
 
-Investigations about the recent DDOS attacks primarily revolved around **Internet of Things(iOT)**. It was revealed that several cameras, digital video recorders(DVRs) were hacked to create a massive botnet that struck Dyn with lots of traffic, about a trillion bits of data per second. These cameras and devices were vulnerable because they used default and common guessable passwords.
+Investigations about the recent DDOS attacks primarily revolved around **Internet of Things(IoT)**. It was revealed that several cameras, digital video recorders(DVRs) were hacked to create a massive botnet that struck Dyn with lots of traffic, about a trillion bits of data per second. These cameras and devices were vulnerable because they used default and common guessable passwords.
 
-The attack on Dyn came from tens of millions of IP addresses according to the formal statement that was released on Dyn's website. The botnet that invoked the attack looks for smart home and **Internet of things** devices and transforms them into bots to use in cyberattacks. It was also discovered that the primary manufacturer of these devices utilized the default username and password combination such as `root` and `xc3511` respectively. These credentials are common on the Internet and can be used to access various types of DVRs.
+The attack on Dyn came from tens of millions of IP addresses according to the formal statement that was released on Dyn's website. The botnet that invoked the attack looks for smart home and **Internet of things** devices and transforms them into bots to use in cyberattacks. It was also discovered that one of the reasons this was so easily done was that most IoT devices still use the default username and password combination that they were shipped with. An example of a common username is `root`. These credentials are easy to find on the Internet, and were probably used to compromise thousands of devices with minimal effort.
 
 ## How could it have been prevented?
 
@@ -43,7 +43,7 @@ It is not new that in the **Internet of things** world, a lot of default and gue
 * Brute Force Protection - A certain limit can be set on failed login attempts on a device. If it exceeds a certain number, you can block the user!
 * Change passwords frequently - The more devices, apps and systems get hacked, the likelihood that your password is leaked increases. Make a habit of frequently changing your passwords. More details can be found [here](https://auth0.com/blog/avoiding-password-reuse-attacks/)
 
-## How can Auth0 help secure IOT?
+## How can Auth0 help secure IoT?
 
 Here at Auth0, we conducted a survey about both developer and consumer sentiments when it comes to the state of IoT security and what people think about the future. This very interesting [post](https://auth0.com/blog/surprised-turns-out-consumers-dont-trust-iot-security/) gives full details about the survey.
 
