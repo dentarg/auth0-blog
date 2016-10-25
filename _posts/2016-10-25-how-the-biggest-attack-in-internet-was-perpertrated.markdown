@@ -3,7 +3,7 @@ layout: post
 title: "How was the biggest attack in Internet history perpetrated?"
 description: Learn how the Dyn attack was perpetrated, how it could have been prevented and how to avoid similar attacks in the future
 date: 2016-10-25 08:30
-category: Internet Attack, IoT
+category: Hot Topic, Security, Attacks
 design:
   bg_color: "#305F96"
   image: https://cdn.auth0.com/blog/SSO-Logo.png
@@ -13,14 +13,15 @@ author:
   mail: prosper.otemuyiwa@auth0.com
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
 tags:
+- internet-attack
 - internet-history
 - iot
-- internet-attack
 - dyn
 related:
 - 2016-07-11-pokemon-go-catches-all-your-data
-- 2015-12-28-securing-your-nodebots-with-json-web-tokens
 - 2015-11-06-surprised-turns-out-consumers-dont-trust-iot-security/
+- 2015-12-28-securing-your-nodebots-with-json-web-tokens
+
 ---
 
 ---
