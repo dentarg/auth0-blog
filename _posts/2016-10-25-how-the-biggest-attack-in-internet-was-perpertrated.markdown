@@ -61,6 +61,6 @@ You can use **Auth0** to simplify the implementation of your identity security. 
 
 ## Conclusion
 
-Cyber attacks are becoming the order of the day and many companies that develop IoT devices constantly think about user experience before security. Security should be *first-class* when dealing with connected devices and any type of application.
+Cyber attacks are becoming the order of the day and many companies that develop IoT devices constantly think about user experience before security. Experts are concerned about the security of IoT devices for a long time, but nobody took action to improve that. Security should be *first-class* when dealing with connected devices and any type of application. Now that the world witnessed what lack of security in connected devices can do, it is important that manufacturers of IoT devices and users start taking security seriously to prevent similar or even worst attacks in the future.
 
 {% include tweet_quote.html quote_text="Security should be first-class when dealing with connected devices and any type of application!" %}
