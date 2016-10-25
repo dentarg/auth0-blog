@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How was the biggest attack on the Internet history perpetrated?"
-description: Learn how the attack was perpetrated, how it could have been prevented and how to avoid similar attacks in the future
+description: Learn how the Dyn attack was perpetrated, how it could have been prevented and how to avoid similar attacks in the future
 date: 2016-10-25 08:30
 category: Internet Attack, IOT
 design:
