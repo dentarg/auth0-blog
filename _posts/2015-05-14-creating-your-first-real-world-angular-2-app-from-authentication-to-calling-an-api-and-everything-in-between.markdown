@@ -545,7 +545,7 @@ We can again use `AuthHttp` from [**anuglar2-jwt**](https://github.com/auth0/ang
 
 ### Step 5: Done!
 
-That's all there is to it to add authentication to your Angular 2 app with Auth0!
+That's all there is to it to add authentication to your Angular 2 app with Auth0! If you would like to see the completed demo with Auth0 Lock, you can view it [here](https://github.com/auth0-blog/angular2-authentication-sample/tree/auth0-lock).
 
 ## Conclusions
 
