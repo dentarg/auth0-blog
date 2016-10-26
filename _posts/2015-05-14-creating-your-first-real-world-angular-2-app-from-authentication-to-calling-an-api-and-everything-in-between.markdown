@@ -174,10 +174,10 @@ export class App {
 You may have noticed that we are also importing an `app.html` file which will be our template. Let's create this file as well and add the following code to it:
 
 ```html
-<div class="container">
-  <!-- Our components will be loaded here based on the current URL -->
-  <router-outlet></router-outlet>
-</div>
+  <div class="container">
+    <!-- Our components will be loaded here based on the current URL -->
+    <router-outlet></router-outlet>
+  </div>
 ```
 
 ### Bootstrapping our Application
@@ -272,21 +272,21 @@ export class Login {
 ```
 
 ```html
-<div class="login jumbotron center-block">
-  <h1>Login</h1>
-  <form role="form" (submit)="login($event, username.value, password.value)">
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" #username class="form-control" id="username" placeholder="Username">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" #password class="form-control" id="password" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-    <a [routerLink]="['/signup']">Click here to Signup</a>
-</form>
-</div>
+ <div class="login jumbotron center-block">
+   <h1>Login</h1>
+   <form role="form" (submit)="login($event, username.value, password.value)">
+   <div class="form-group">
+     <label for="username">Username</label>
+     <input type="text" #username class="form-control" id="username" placeholder="Username">
+   </div>
+   <div class="form-group">
+     <label for="password">Password</label>
+     <input type="password" #password class="form-control" id="password" placeholder="Password">
+   </div>
+   <button type="submit" class="btn btn-default">Submit</button>
+     <a [routerLink]="['/signup']">Click here to Signup</a>
+ </form>
+ </div>
 ```
 
 The sign up page is implemented in much the same way. For brevity, we will omit the implementation here, but you can view it on [GitHub](https://github.com/auth0-blog/angular2-authentication-sample/tree/master/src/signup). 
@@ -396,7 +396,6 @@ If you don't already have any Auth0 account, [sign up](https://auth0.com/signup)
 
 ```html
   <!-- index.html -->
-
   ...
 
   <!-- Auth0 Lock script -->
@@ -502,11 +501,11 @@ export class Login {
 Next, we'll make the updates to our template.
 
 ```html
-<div class="login jumbotron center-block">
+ <div class="login jumbotron center-block">
 
-  <a class="btn btn-success" (click)="auth.login()" *ngIf="!auth.loggedIn()">Log In</a>
+   <a class="btn btn-success" (click)="auth.login()" *ngIf="!auth.loggedIn()">Log In</a>
   
-</div>
+ </div>
 ```
 
 Now, when a user clicks the Log In link, they will be presented with the Lock UI. Upon a succesful login, they will be redirected to the home page.
