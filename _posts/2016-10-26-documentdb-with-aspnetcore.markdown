@@ -44,7 +44,7 @@ Since we are storing our users on DocumentDB, this means we can also **store oth
 We will work with a practical pattern to achieve this multiple-type storage and build performance-wise querying examples; even though DocumentDB supports [Node.js](https://azure.microsoft.com/documentation/articles/documentdb-nodejs-get-started/), [Python](https://azure.microsoft.com/documentation/articles/documentdb-sdk-python/), [Java](https://azure.microsoft.com/documentation/articles/documentdb-sdk-java/), and [.Net](https://azure.microsoft.com/documentation/articles/documentdb-get-started/) SDKs, we'll be working on the latter. A [full sample on GitHub](https://github.com/ealsur/auth0documentdb/) is available running on ASP.NET Core.
 
 ### Dependencies
-Using ASP.NET Core, we will use the _project.json_ to define dependencies. We will only need the [Azure DocumentDB Nuget package] (https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/) on the latest version:
+Using ASP.NET Core, we will use the _project.json_ to define dependencies. We will only need the [Azure DocumentDB Nuget package](https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/) on the latest version:
 
 ```javascript
 {
