@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "Blazing-fast NoSQL with ASP.NET Core and Azure DocumentDB"
+title: "Using Azure DocumentDB and ASP.NET Core for extreme NoSQL performance"
 description: Let's delve into Azure DocumentDB with ASP.NET Core and learn common-case scenarios from a performance point of view.
 date: 2016-10-26 08:30
+category: Technical guide, Microsoft, DocumentDB
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
@@ -28,8 +29,8 @@ related:
 
 ---
 
-## Recap
-In our [previous article](https://auth0.com/blog/auth0-with-azure-documentdb/) we configured an **integration** between Auth0 and Azure DocumentDB as a Custom Database Provider to store our enrolled users in JSON format, as [documents](https://en.wikipedia.org/wiki/Document-oriented_database).
+## Integration between Auth0 and Azure DocumentDB
+In our previous article: [Integration between Auth0 and Azure DocumentDB](https://auth0.com/blog/auth0-with-azure-documentdb/) we configured an **integration** between Auth0 and Azure DocumentDB as a Custom Database Provider to store our enrolled users in JSON format, as [documents](https://en.wikipedia.org/wiki/Document-oriented_database).
 
 Conceptually, in Azure DocumentDB, a _database_ can be defined as a logical container of document collections; each _collection_ can hold not only documents but _stored procedures_, _triggers_, and _user-defined functions_. The collection is the [billable unit](https://azure.microsoft.com/pricing/details/documentdb/) and defines the [consistency level](https://azure.microsoft.com/en-us/documentation/articles/documentdb-consistency-levels/).
 
@@ -306,7 +307,7 @@ public class ProfileController : Controller
 }
 ```
 
-#### Partitions and parallelism
+#### Partitions and parallelism in Azure DocumentDB
 Collections can **scale dynamically** with Azure DocumentDB’s [partition support](https://azure.microsoft.com/documentation/articles/documentdb-partition-data/#single-partition-and-partitioned-collections). Partitioned collections have a potentially higher throughput and require a Partition Key configuration. Single-partition collections cannot be changed to Partitioned collections, so **plan ahead**: if your application data might grow beyond 10GB or you need more than 10,000 Request Units per second, you might as well evaluate Partitioned collections.
 
 ![DocumentDB Partitioned collections](https://cdn.auth0.com/blog/aspnetcore-and-documentdb/partitioned.png)
