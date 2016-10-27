@@ -600,7 +600,7 @@ When we're done, our completed `Main.elm` will look like this:
 
 **[Main.elm - Persisting Logins with Local Storage](https://github.com/kmaida/auth0-elm-with-jwt-api/blob/step-6/src/Main.elm)**
 
-The first things you may notice are changes to our `Main` module and program:
+The first things you may notice are changes to our `Main` module and program and `init`:
 
 ```elm
 port module Main exposing (..)
@@ -615,11 +615,26 @@ main =
         , subscriptions = \_ -> Sub.none
         , view = view
         }
+        
+...
+
+init : Maybe Model -> (Model, Cmd Msg)
+init model =
+    case model of 
+        Just model ->
+            ( model, fetchRandomQuoteCmd )
+
+        Nothing ->
+( Model "" "" "" "" "" "", fetchRandomQuoteCmd )
+
+...
 ```
 
 We need to switch from `program` to `programWithFlags`. The type therefore changes from `Program Never` to `Program (Maybe Model)`. This means we might have a model provided at initialization. If the model is already in local storage it will be available. If we don't have anything stored when we arrive we'll initialize without it.
 
-So where does this initial model come from? We need to write a little bit of JavaScript in our `index.html`:
+We also need to update `init` and its type annotation to handle the fact that the app _may_ be initializing with a model (`Maybe Model`). If there's data present from local storage, we'll set the model. If there isn't, we'll initialize the same way we did previously.
+
+So where does this potential initial model come from? We need to write a little bit of JavaScript in our `index.html`:
 
 ```js
 ...    
@@ -788,6 +803,8 @@ Then we'll instantiate a lock instance:
 var options = { allowedConnections: ['Username-Password-Authentication'] };
 var lock = new Auth0Lock(<YOUR_CLIENT_ID>, <YOUR_CLIENT_DOMAIN>, options);
 ```
+
+> Note: Make sure to add your app's domain (and port, if applicable) to your app client's Allowed Callback URLs, Allowed Logout URLs, and Allowed Origins (CORS) in [your Auth0 Dashboard](https://manage.auth0.com/#/clients).
 
 Next we'll set up the JS to instantiate the Elm application with flags and ports to interoperate with the lock widget and `localStorage`. We'll request a stored profile and token and if available, we'll recreate an object that matches the record we'll use in the `Auth0.elm` module for a `LoggedInUser`. Then we'll create ports to show the lock widget and perform logout, adding and removing items from local storage accordingly.
 
