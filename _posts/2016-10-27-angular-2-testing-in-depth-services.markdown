@@ -21,6 +21,10 @@ tags:
 - angular
 - typescript
 - jasmine
+related:
+- angular-2-ngmodules
+- create-a-desktop-app-with-angular-2-and-electron
+- angular-2-authentication
 ---
 
 When I started developing and writing tests for Angularjs applications,
