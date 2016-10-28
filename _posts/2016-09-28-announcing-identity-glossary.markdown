@@ -20,8 +20,6 @@ related:
 - 2016-08-16-how-real-state-companies-can-implement-open-id-connect-with-auth0
 - 2016-08-02-analysis-of-enterprise-connections-data
 - 2016-05-17-why-identity-federation-matters
-banner:
-  text: "Testing banner"
 ---
 
 Reading about identity and authentication on the web is like learning a foreign language, and understanding it is incredibly important.
