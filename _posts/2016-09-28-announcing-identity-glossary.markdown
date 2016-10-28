@@ -4,15 +4,15 @@ title: "Announcing Auth0's Identity Glossary"
 description: A comprehensive list of important security and identity words.
 date: 2016-09-28 08:30
 category: Announcements, Content
-author: 
+author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
-design: 
+design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/identity-glossary/logo.png
-tags: 
+tags:
 - identity
 - security
 - identity-glossary
