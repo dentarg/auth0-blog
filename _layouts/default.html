@@ -305,7 +305,7 @@
 
     <script type="text/javascript">
     try {
-      window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/'); }});
+      window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/?application=website'); }});
       window.abTestingLib.integration('auth0metrics').start({ metrics: window.metricsLib});
       window.abTestingLib.start().then(enhanceAnalytics);
 
