@@ -3,7 +3,7 @@ layout: post
 title: "Build a Universal JavaScript App with Next.js"
 description: Learn how to build Universal JavaScript apps with the new and shiny Next.js framework
 date: 2016-11-01 08:30
-category: Technical guide, Identity, Next.js
+category: Hot Topics, Frameworks, Next.js
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/next.jslogo.png
@@ -37,7 +37,7 @@ The term *Universal* simply means the ability to run the same code on the server
 
 ## Enter Next.js
 
-**[Next.js](https://github.com/zeit/next.js/)** is a small framework that is built on top of React, Webpack and Babel. It was created to enable easy creation of server-rendered React applications. **Next.js** saves you time and effort because it ships with features out of the box that caters for server-rendering of JavaScript applications. These features include the following:
+**[Next.js](https://github.com/zeit/next.js/)** is a small framework that is built on top of React, Webpack and Babel. It was built to enable easy creation of server-rendered React applications. **Next.js** saves you time and effort because it ships with features out of the box that caters for server-rendering of JavaScript applications. These features include the following:
 
 * Hot code reloading
 * Automatic transpilation and bundling(using babel & webpack)
