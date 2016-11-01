@@ -52,7 +52,7 @@ Most garbage collectors use an algorithm known as *mark-and-sweep*. The algorith
 
 1. The garbage collector builds a list of "roots". Roots usually are global variables to which a reference is kept in code. In JavaScript, the "window" object is an example of a global variable that can act as a root. The window object is always present, so the garbage collector can consider it and all of its children to be always present (i.e. not garbage).
 2. All roots are inspected and marked as active (i.e. not garbage). All children are inspected recursively as well. Everything that can be reached from a root is not considered garbage.
-3. All pieces of memory not marked as garbage can now be considered garbage. The collector can now free that memory and return it to the OS.
+3. All pieces of memory not marked as active can now be considered garbage. The collector can now free that memory and return it to the OS.
 
 Modern garbage collectors improve on this algorithm in different ways, but the essence is the same: reachable pieces of memory are marked as such and the rest is considered garbage.
 
