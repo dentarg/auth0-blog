@@ -5,8 +5,8 @@ description: Learn how to build Universal JavaScript apps with the new and shiny
 date: 2016-11-01 08:30
 category: Technical guide, Identity, Next.js
 design:
-  bg_color: "#305F96"
-  image: https://cdn.auth0.com/blog/SSO-Logo.png
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/next.jslogo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
