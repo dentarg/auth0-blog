@@ -12,6 +12,11 @@
       <title>{{ page.tag | capitalize }} - Auth0 Blog</title>
     {% else %}
       <title>{{ page.title }}</title>
+
+      <!-- Swiftype for the posts -->
+      <meta class="swiftype" name="title" data-type="string" content="{{ page.title }}"/>
+      <meta class="swiftype" name="type" data-type="enum" content="blog" />
+      <meta class="swiftype" name="popularity" data-type="integer" content="1"/>
     {% endif %}
 
     <link href="https://plus.google.com/+Auth0" rel="publisher" />
