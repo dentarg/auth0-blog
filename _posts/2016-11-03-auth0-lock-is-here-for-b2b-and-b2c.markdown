@@ -3,7 +3,7 @@ layout: post
 title: "Auth0 Lock Is Here For Both B2C And B2B Login"
 description: With just one login box, Lock is a hub for all your users
 date: 2016-11-03 15:55
-category: Growth, B2C
+category: Growth, Identity, Auth0
 author:
   name: "Martin Gontovnikas"
   url: "https://twitter.com/mgonto"
