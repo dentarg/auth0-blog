@@ -3,14 +3,20 @@ layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 1"
 description: "Learn how to migrate features of a real-world Angular 1 application to Angular 2"
 date: 2016-11-07 8:30
+category: Technical guide, Angular, Angular2
+banner:
+  text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/angular/logo.png
+  image_size: "75%"
+  image_bg_color: "rgb(1, 70, 166)"
+  bg_color: "rgb(1, 70, 166)"
+  bg_merge: true
 tags:
 - angular2
 - angular
