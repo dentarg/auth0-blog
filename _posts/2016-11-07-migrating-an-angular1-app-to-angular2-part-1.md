@@ -26,7 +26,7 @@ related:
 - 2016-09-15-angular-2-ngmodules
 ---
 
-**TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to Angular 2: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects.
+**TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to Angular 2: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects. Clone the code for our Angular 2 app from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
 
 ---
 
