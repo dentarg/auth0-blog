@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 1"
-description: "Description goes here and must be less than 156 characters."
+description: "Learn how to migrate features of a real-world Angular 1 application to Angular 2"
 date: 2016-11-07 8:30
 author:
   name: "Kim Maida"
@@ -20,7 +20,9 @@ related:
 - 2016-09-15-angular-2-ngmodules
 ---
 
-**TL;DR:**
+**TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions appear daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to Angular 2: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects.
+
+---
 
 ## Angular 1 and Angular 2
 
@@ -37,14 +39,14 @@ Angular 2 is a powerful and attractive platform. Many developers will have their
 We'll walk through the process of migrating an Angular 1 app to Angular 2. Our Angular 1 project is relatively small but it represents a scalable, real-world Single Page Application. After following this tutorial, you should have a better understanding of how to get started with Angular 2 and how features from Angular 1 translate to Angular 2.
 
 **This tutorial assumes you are comfortable developing apps with AngularJS version 1.x.** If you're just looking to learn Angular 2, check out resources like [Angular 2 Authentication](https://auth0.com/blog/angular-2-authentication/) and [Getting Started with Angular 2](https://school.scotch.io/getting-started-with-angular-2).
-
+I
 ## Angular 1 "ng1-dinos"
 
-Our Angular 1 app is called **ng1-dinos** and the code is available at the [ng1-dinos GitHub repo](https://github.com/kmaida/ng1-dinos). It has the following features:
+Our Angular 1 app is called **ng1-dinos** and the code is available at the [ng1-dinos GitHub repo](https://github.com/auth0-blog/ng1-dinos). It has the following features:
 
 * Routing (dinosaurs listing with individual detail pages)
 * Filtering (search for dinosaurs by name)
-* Calls an [external Node API](https://github.com/kmaida/sample-nodeserver-dinos) to get dinosaur data
+* Calls an [external Node API](https://github.com/auth0-blog/sample-nodeserver-dinos) to get dinosaur data
 * SCSS and [Bootstrap CSS](http://getbootstrap.com/css/)
 * Custom off-canvas navigation
 * Metadata factory to provide dynamic `<title>`
@@ -63,23 +65,23 @@ Follow the instructions on the following sites to install these dependencies:
 * [NodeJS with npm](https://nodejs.org)
 * [Gulp](http://gulpjs.com) (install globally with `npm install -g gulp`)
 
-We'll also need to clone **[sample-nodeserver-dinos](https://github.com/kmaida/sample-nodeserver-dinos)**. This local Node server will provide the external API for both our ng1-dinos and ng2-dinos apps. Follow the instructions in the [sample-nodeserver-dinos README](https://github.com/kmaida/sample-nodeserver-dinos/blob/master/README.md) to get it installed and running on [http://localhost:3001](http://localhost:3001).
+We'll also need to clone **[sample-nodeserver-dinos](https://github.com/auth0-blog/sample-nodeserver-dinos)**. This local Node server will provide the external API for both our ng1-dinos and ng2-dinos apps. Follow the instructions in the [sample-nodeserver-dinos README](https://github.com/auth0-blog/sample-nodeserver-dinos/blob/master/README.md) to get it installed and running on [http://localhost:3001](http://localhost:3001).
 
 ### Install and Run "ng1-dinos"
 
-1. Clone **[ng1-dinos](https://github.com/kmaida/ng1-dinos)** from GitHub to a local directory of your choosing.
+1. Clone **[ng1-dinos](https://github.com/auth0-blog/ng1-dinos)** from GitHub to a local directory of your choosing.
 2. Run `npm install` from the root directory.
 3. Run `gulp` to serve the application (runs locally on [http://localhost:8000](http://localhost:8000))
 
 Once you have the app and the Dinos Node server running, the app should look like this in the browser:
 
-![ng1-dinos screenshot](https://cdn.auth0.com/blog/ng1-to-ng2/ng1-dinos.jpg)
+![ng1-dinos screenshot](https://cdn.auth0.com/blog/ng1-to-ng2/ng1-dinos-home.jpg)
 
 Take some time to familiarize with the file structure, code, and features. We won't be making any _changes_ to this application, but it's important to get comfortable with it because everything we do in our Angular 2 app will be a migration of ng1-dinos. 
 
 ## Introducing "ng2-dinos"
 
-Our migrated Angular 2 application will be called **ng2-dinos**. The full source code for the completed app can be cloned from the [ng2-dinos GitHub repo](https://github.com/kmaida/ng2-dinos). This app will use the same Node API. From a user's perspective, we want ng2-dinos to be indistinguishable from ng1-dinos. Under the hood, we'll rewrite the app to take advantage of the powerful new features of Angular 2.
+Our migrated Angular 2 application will be called **ng2-dinos**. The full source code for the completed app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos). This app will use the same Node API. From a user's perspective, we want ng2-dinos to be indistinguishable from ng1-dinos. Under the hood, we'll rewrite the app to take advantage of the powerful new features of Angular 2.
 
 Angular 2 brings in several technologies that ng1-dinos does not take advantage of. Instead of a Gulp build, we'll use the [Angular CLI](https://cli.angular.io/) to set up and serve ng2-dinos. We're going to write the app using [TypeScript](https://www.typescriptlang.org/) and [ES6](http://es6-features.org/) which will be transpiled by the Angular CLI. 
 
@@ -93,7 +95,11 @@ Let's get started with our ng2-dinos build!
 
 You should have [NodeJS with npm](https://nodejs.org) installed already.
 
-Next, install the [Angular CLI](https://github.com/angular/angular-cli) globally with the following command: `npm install -g angular-cli`.
+Next, install the [Angular CLI](https://github.com/angular/angular-cli) globally with the following command: 
+
+```bash
+npm install -g angular-cli
+```
 
 > **NOTE:** At the time of writing, the Angular CLI is quite useful but in beta and still very much under development. There may be times when you encounter errors using it. Please consult the [angular-cli GitHub issues](https://github.com/angular/angular-cli/issues/) for resolutions if this occurs.
 
@@ -129,7 +135,7 @@ Now that we have a working starter project for our ng2-dinos app, we want to res
 
 Let's start by adding the [Bootstrap CSS](http://getbootstrap.com/css/) CDN to the `ng2-dinos/src/index.html` file. We can also add a default `<title>` and some `<meta>` tags:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 <!doctype html>
@@ -138,7 +144,7 @@ Let's start by adding the [Bootstrap CSS](http://getbootstrap.com/css/) CDN to t
   <meta charset="utf-8">
   <title>ng2-dinos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Kim Maida @ Auth0">
+  <meta name="author" content="Auth0">
   <meta name="description" content="Learn about some popular as well as obscure dinosaurs!">
   <base href="/">
 
@@ -154,15 +160,15 @@ Let's start by adding the [Bootstrap CSS](http://getbootstrap.com/css/) CDN to t
   <app-root>Loading...</app-root>
 </body>
 </html>
-```
+{% endhighlight %}
 
 ### Third Party Libraries
 
 The only third party JavaScript we'll add is a custom build of [Modernizr](https://modernizr.com/). You can grab this file from the Angular 1 ng1-dinos app. We'll be doing quite a bit of copying and pasting since we're doing a migration, so it's best to keep your local ng1-dinos project handy. 
 
-Our minified, custom Modernizr build can be found at [`ng1-dinos/src/assets/js/vendor/modernizr.min.js`](https://github.com/kmaida/ng1-dinos/blob/master/src/assets/js/vendor/modernizr.min.js). Create the necessary folder structure in ng2-dinos:
+Our minified, custom Modernizr build can be found at [`ng1-dinos/src/assets/js/vendor/modernizr.min.js`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/js/vendor/modernizr.min.js). Create the necessary folder structure in ng2-dinos:
 
-```text
+```
 ng2-dinos
     |-- src/
          |-- assets/
@@ -173,7 +179,7 @@ ng2-dinos
 
 Angular CLI uses Webpack to bundle local dependencies, so we _won't_ add Modernizr to our ng2-dinos index file. Instead, we'll add a reference to the `angular-cli.json` app's `scripts`:
 
-```javascript
+```js
 // ng2-dinos/angular-cli.json
 
 {
@@ -195,7 +201,7 @@ We initialized our project with the `--styles=scss` flag so SCSS is supported an
 
 Create a `ng2-dinos/src/assets/scss/` folder and move the `ng2-dinos/src/styles.scss` file into it. Then update the `angular-cli.json` app's `styles` reference:
 
-```javascript
+```js
 // ng2-dinos/angular-cli.json
 
 {...
@@ -209,13 +215,13 @@ Create a `ng2-dinos/src/assets/scss/` folder and move the `ng2-dinos/src/styles.
 
 > **NOTE:** When moving or adding new files, you'll need to stop and restart the Angular CLI server (`Ctrl+C`, `ng serve`) to avoid module build errors. Changes within files are watched and live reloaded, but reorganizing the file structure can break this.
 
-Now let's add some global SCSS from ng1-dinos. We'll copy the files and subdirectories from [`ng1-dinos/src/assets/css/scss/core/`](https://github.com/kmaida/ng1-dinos/tree/master/src/assets/css/scss/core) to `ng2-dinos/src/assets/scss/`.
+Now let's add some global SCSS from ng1-dinos. We'll copy the files and subdirectories from [`ng1-dinos/src/assets/css/scss/core/`](https://github.com/auth0-blog/ng1-dinos/tree/master/src/assets/css/scss/core) to `ng2-dinos/src/assets/scss/`.
 
 > **NOTE:** If you paid close attention, you'll notice that we're left off a folder in ng2-dinos. Our Angular 1 ng1-dinos app had a `css` folder with `scss` inside it. We don't need the `css` folder in ng2-dinos because of the Angular CLI Webpack bundling.
 
 When we're done, our ng2-dinos global styles file structure should look like this:
 
-```text
+```
 ng2-dinos
     |-- src/
          |-- assets/
@@ -280,11 +286,11 @@ textarea {
 
 The Angular CLI creates all app files (modules, components, services, pipes, etc.) relative to `ng2-dinos/src/app/`. Note that the ng2-dinos app has a component (`app.component.ts|.html|.scss|.spec.ts`) in the root of this folder. This is our app's root component, but we want to move it into a subfolder to keep ng2-dinos organized, scalable, and correlated with ng1-dinos.
 
-> **NOTE:** Recall that this tutorial won't cover testing, so the `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/kmaida/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
+> **NOTE:** Recall that this tutorial won't cover testing, so the `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/auth0-blog/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
 
 Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The app file structure should now look like this:
 
-```text
+```
 ng2-dinos
     |-- src/
          |-- app/
@@ -314,18 +320,19 @@ In the ng1-dinos Angular 1 app, `ng-app` was on the `<html>` element. This provi
 
 As we saw above, the body of our Angular 2 **ng2-dinos** `index.html` file looks like this:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 ...
 <body>
   <app-root>Loading...</app-root>
 </body>
-```
+{% endhighlight %}
 
 In comparison, the body of our Angular 1 **ng1-dinos** `index.html` file looks like this:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- ng1-dinos/src/index.html -->
 
 ...
@@ -358,7 +365,8 @@ In comparison, the body of our Angular 1 **ng1-dinos** `index.html` file looks l
   </div> <!-- /.layout-overflow -->
   ...
 </body>
-```
+{% endraw %}
+{% endhighlight %}
 
 The layout markup, header, content, and footer children will now move to the ng2-dinos root component `app.component` (`<app-root>`).
 
@@ -366,7 +374,8 @@ The layout markup, header, content, and footer children will now move to the ng2
 
 Let's stub out `app.component.html`:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- ng2-dinos/src/app/core/app.component.html -->
 
 <div class="layout-overflow">
@@ -385,7 +394,8 @@ Let's stub out `app.component.html`:
 
   </div> <!-- /.layout-canvas -->
 </div> <!-- /.layout-overflow -->
-``` 
+{% endraw %}
+{% endhighlight %} 
 
 ### App Component SCSS
 
@@ -466,20 +476,20 @@ If we open the `header.component.ts` file, we can see that the `@Component`'s `s
 
 Let's add `<app-header>` to our `app.component.html`:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/app/core/app.component.html -->
 
 ...
     <!-- HEADER -->
     <app-header></app-header>
 ...
-```
+{% endhighlight %}
 
 ### Header Component HTML
 
 Let's add our markup to the header component. Open `header.component.html` and add HTML for the header, off-canvas  toggle, and navigation menu:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/app/header/header.component.html -->
 
 <header id="header" class="header">
@@ -499,18 +509,18 @@ Let's add our markup to the header component. Open `header.component.html` and a
         <a href>About</a>
       </li>
       <li>
-        <a href="https://github.com/kmaida/sample-nodeserver-dinos">Dino API on GitHub</a>
+        <a href="https://github.com/auth0-blog/sample-nodeserver-dinos">Dino API on GitHub</a>
       </li>
     </ul>
   </nav>
 </header>
-```
+{% endhighlight %}
 
 This is mostly standard markup. The only Angular 2 functionality so far is a `click` handler on the link to toggle the off-canvas menu. We'll add more Angular later once we have multiple views and routing in place.
 
 ### Header Component SCSS
 
-First grab the Angular 1 [`ng1-dinos/src/assets/css/scss/components/_nav.scss`](https://github.com/kmaida/ng1-dinos/blob/master/src/assets/css/scss/components/_nav.scss) file and copy it into the ng2-dinos header component folder.
+First grab the Angular 1 [`ng1-dinos/src/assets/css/scss/components/_nav.scss`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/css/scss/components/_nav.scss) file and copy it into the ng2-dinos header component folder.
 
 Now let's `@import` it and add SCSS to `header.component.scss`:
 
@@ -580,9 +590,9 @@ Let's make our header component functional. We need the header to communicate wi
 
 Open the `header.component.ts` file. We'll implement component communication with [inputs/outputs](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#inputs-outputs) and events. Remember that we added a `click` event handler to our header HTML that looked like this:
 
-```html
+{% highlight html %}
 <a class="toggle-offcanvas bg-primary" (click)="toggleNav()"><span></span></a>
-```
+{% endhighlight %}
 
 > **NOTE:** `[]`, `()`, and `[()]` are "binding punctuation" and refer to the direction of data flow. `()` indicates a binding to an event. You can read more about [binding syntax in the Angular 2 docs](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax).
 
@@ -625,14 +635,14 @@ Now we need to define the `click` event handler. We already named this function 
 
 Next we need to listen for the `navToggled` event in the parent. Add the declarative code to `app.component.html`:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/app/core/app.component.html -->
 
 ...
     <!-- HEADER -->
     <app-header (navToggled)="navToggleHandler($event)"></app-header>
 ...
-```
+{% endhighlight %}
 
 Now we'll create the `navToggleHandler($event)` in `app.component.ts`:
 
@@ -662,7 +672,7 @@ Everything is working correctly but this doesn't look very good. Let's fix it!
 
 ## Observables and Properties
 
-In ng1-dinos, all off-canvas nav functionality was handled by  [`ng1-dinos/src/app/core/ui/navControl.dir.js`](https://github.com.com/kmaida/ng1-dinos/blob/master/src/app/core/ui/navControl.dir.js), including menu toggling and layout height. We've migrated the navigation functionality but we're still missing the layout height fix.
+In ng1-dinos, all off-canvas nav functionality was handled by  [`ng1-dinos/src/app/core/ui/navControl.dir.js`](https://github.com.com/auth0-blog/ng1-dinos/blob/master/src/app/core/ui/navControl.dir.js), including menu toggling and layout height. We've migrated the navigation functionality but we're still missing the layout height fix.
 
 We want our minimum page height to be the height of the window no matter how tall the content is. This way, the off-canvas navigation will never look prematurely cut off. To address this, we'll use an RxJS observable and the `window.resize` event.
 
@@ -723,7 +733,8 @@ We're using an [RxJS observable](http://reactivex.io/rxjs/class/es6/Observable.j
 
 We can then bind `minHeight` to the `[style.min-height]` property on the layout canvas element in `app.component.html`:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- ng2-dinos/src/app/core/app.component.html -->
 
 ...
@@ -732,7 +743,8 @@ We can then bind `minHeight` to the `[style.min-height]` property on the layout 
     [ngClass]="{'nav-open': navOpen, 'nav-closed': !navOpen}"
     [style.min-height]="minHeight">
 ...
-```
+{% endraw %}
+{% endhighlight %}
 
 > **NOTE:** Angular 2 binds to **DOM properties**, _not_ HTML attributes. This may seem counter-intuitive because we're declaratively adding things like `[disabled]` or `[style.min-height]` to our markup, but these refer to properties, not attributes. Please read [Binding syntax: An overview](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) for a mental model shift regarding this.
 
@@ -767,19 +779,19 @@ export class FooterComponent {}
 
 ### Footer Component HTML
 
-We can copy the footer markup from [`ng1-dinos/src/app/footer/footer.tpl.html`](https://github.com/kmaida/ng1-dinos/blob/master/src/app/footer/footer.tpl.html) to our ng2-dinos `footer.component.html` file. We just need to update the link so that it references ng2-dinos instead of ng1-dinos:
+We can copy the footer markup from [`ng1-dinos/src/app/footer/footer.tpl.html`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/footer/footer.tpl.html) to our ng2-dinos `footer.component.html` file. We just need to update the link so that it references ng2-dinos instead of ng1-dinos:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/app/footer/footer.component.html -->
 
 <p>
-  <small>MIT 2016 | <a href="https://github.com/kmaida/ng2-dinos">ng2-dinos @ GitHub</a></small>
+  <small>MIT 2016 | <a href="https://github.com/auth0-blog/ng2-dinos">ng2-dinos @ GitHub</a></small>
 </p>
-```
+{% endhighlight %}
 
 ### Footer Component SCSS
 
-The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/_footer.scss`](https://github.com/kmaida/ng1-dinos/blob/master/src/assets/css/scss/components/_footer.scss). We need to add `@import`s so that our Angular 2 component can access the layout variables and responsive mixins. We're also going to change the `.footer` class to `:host` since this class no longer exists and we need to style the host element and not children of the component:
+The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/_footer.scss`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/css/scss/components/_footer.scss). We need to add `@import`s so that our Angular 2 component can access the layout variables and responsive mixins. We're also going to change the `.footer` class to `:host` since this class no longer exists and we need to style the host element and not children of the component:
 
 ```scss
 /* ng2-dinos/src/app/footer/footer.component.scss */
@@ -791,7 +803,7 @@ The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/
 @import '../../assets/scss/partials/layout.vars';
 @import '../../assets/scss/partials/responsive.partial';
 
-.footer {
+:host {
   padding: $padding-screen-small;
   text-align: center;
 
@@ -805,14 +817,14 @@ The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/
 
 Finally, we'll add the `<app-footer>` element to the `app.component.html`:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/app/core/app.component.html -->
 
 ...
     <!-- FOOTER -->
     <app-footer></app-footer>
 ...
-```
+{% endhighlight %}
 
 Restart `ng serve` and we should see the simple footer in our app.
 
