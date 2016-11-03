@@ -20,7 +20,7 @@ related:
 - 2016-09-15-angular-2-ngmodules
 ---
 
-**TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions appear daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to Angular 2: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects.
+**TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to Angular 2: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects.
 
 ---
 
@@ -168,7 +168,7 @@ The only third party JavaScript we'll add is a custom build of [Modernizr](https
 
 Our minified, custom Modernizr build can be found at [`ng1-dinos/src/assets/js/vendor/modernizr.min.js`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/js/vendor/modernizr.min.js). Create the necessary folder structure in ng2-dinos:
 
-```
+```text
 ng2-dinos
     |-- src/
          |-- assets/
@@ -221,7 +221,7 @@ Now let's add some global SCSS from ng1-dinos. We'll copy the files and subdirec
 
 When we're done, our ng2-dinos global styles file structure should look like this:
 
-```
+```text
 ng2-dinos
     |-- src/
          |-- assets/
@@ -290,7 +290,7 @@ The Angular CLI creates all app files (modules, components, services, pipes, etc
 
 Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The app file structure should now look like this:
 
-```
+```text
 ng2-dinos
     |-- src/
          |-- app/
@@ -828,11 +828,7 @@ Finally, we'll add the `<app-footer>` element to the `app.component.html`:
 
 Restart `ng serve` and we should see the simple footer in our app.
 
-## Summary
-
-We now have basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint`, our app should be free of linter errors.
-
-### Aside: Refactoring Suggestions
+## Aside: Refactoring Suggestions
 
 As mentioned before, this is a migration tutorial so one of our goals is to maintain close to 1:1 correlation with ng1-dinos while still implementing Angular 2 best practices. This will be the continued goal in subsequent parts of the tutorial. However, there are refactoring opportunities that we shouldn't ignore.
 
@@ -844,10 +840,10 @@ Here is my refactoring suggestion from part one of our migration tutorial:
 
 Keep an eye out for more refactoring suggestions in subsequent lessons.
 
-### What's Next
+## Conclusion
+
+We now have basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint`, our app should be free of linter errors.
 
 In the next parts of the tutorial, we'll enable navigation by creating page components and implementing routing. Then we'll call the API and use HTTP and observables to get and display dinosaur data and detail subpages, create type models, learn about filtering, implement error handling, and show loading states. We'll even address authentication.
-
-### Conclusion
 
 Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for parts two and three of Migrating an Angular 1 App to Angular 2 (coming soon)!
