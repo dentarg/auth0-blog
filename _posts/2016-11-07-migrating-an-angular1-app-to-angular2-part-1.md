@@ -45,7 +45,7 @@ Angular 2 is a powerful and attractive platform. Many developers will have their
 We'll walk through the process of migrating an Angular 1 app to Angular 2. Our Angular 1 project is relatively small but it represents a scalable, real-world Single Page Application. After following this tutorial, you should have a better understanding of how to get started with Angular 2 and how features from Angular 1 translate to Angular 2.
 
 **This tutorial assumes you are comfortable developing apps with AngularJS version 1.x.** If you're just looking to learn Angular 2, check out resources like [Angular 2 Authentication](https://auth0.com/blog/angular-2-authentication/) and [Getting Started with Angular 2](https://school.scotch.io/getting-started-with-angular-2).
-I
+
 ## Angular 1 "ng1-dinos"
 
 Our Angular 1 app is called **ng1-dinos** and the code is available at the [ng1-dinos GitHub repo](https://github.com/auth0-blog/ng1-dinos). It has the following features:
