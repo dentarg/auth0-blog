@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 1"
-description: "Learn how to migrate features of a real-world Angular 1 application to Angular 2"
+description: "Learn how to migrate popular, real-world features of an Angular 1 application to Angular 2"
 date: 2016-11-07 8:30
 category: Technical guide, Angular, Angular2
 banner:
