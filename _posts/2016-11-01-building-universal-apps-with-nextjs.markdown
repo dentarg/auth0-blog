@@ -455,7 +455,305 @@ The creators of **Next.js** also have a tool, [now](https://zeit.co/now) that yo
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our **Next.js** apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Next.js**. Now, our *next.js* app is basically a React app, so head over to the [React Quickstart docs](https://auth0.com/docs/quickstart/spa/react) and follow the steps highlighted there.
+We can easily set up authentication in our **Next.js** apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
+
+**Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/` or whatever url/port you are running on. Also set the `Allowed Origins (CORS)` to `http://localhost:3000/` or whatever domain url you are using, especially if it is hosted.
+
+### Step 1
+
+Open up `utils/AuthService.js` and modify the code to look like this below:
+
+_utils/AuthService.js_
+
+```js
+import React from 'react'
+
+export default class AuthService {
+  constructor(clientId, domain) {
+    // Configure Auth0
+    this.clientId = clientId
+    this.domain = domain
+
+    this.lock = new Auth0Lock(clientId, domain, {})
+    // Add callback for lock `authenticated` event
+    this.lock.on('authenticated', this._doAuthentication.bind(this))
+    // binds login functions to keep this context
+    this.login = this.login.bind(this)
+  }
+
+  _doAuthentication(authResult){
+    // Saves the user token
+    this.setToken(authResult.idToken)
+  }
+
+  getLock() {
+    // An instance of Lock
+    return new Auth0Lock(this.clientId, this.domain, {});
+  }
+
+  login() {
+    // Call the show method to display the widget.
+    this.lock.show()
+  }
+
+  loggedIn(){
+    // Checks if there is a saved token and it's still valid
+    return !!this.getToken()
+  }
+
+  setToken(idToken){
+    // Saves user token to localStorage
+    localStorage.setItem('id_token', idToken)
+  }
+
+  getToken(){
+    // Retrieves the user token from localStorage
+    return localStorage.getItem('id_token')
+  }
+
+  logout(){
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem('id_token');
+  }
+}
+```
+
+### Step 2
+
+Open up `pages/index.js` and modify the code to look like so:
+
+_pages/index.js_
+
+```js
+import React from 'react'
+import posts from '../data/posts'
+import { style } from 'next/css'
+import Link from 'next/link'
+import AuthService from '../utils/AuthService'
+
+export default class extends React.Component {
+  static getInitialProps ({ req, res}) {
+    return { posts: posts }
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = { loggedIn: false }
+  }
+
+  componentDidMount() {
+    this.auth = new AuthService('_AUTH0_CLIENT_ID_', '_AUTH0_DOMAIN_');
+    this.setState({ loggedIn: this.auth.loggedIn() })
+    // instance of Lock
+    this.lock = this.auth.getLock();
+    this.lock.on('authenticated', () => {
+      this.setState({ loggedIn: this.auth.loggedIn() })
+    });
+  }
+
+  login() {
+    this.auth.login();
+  }
+
+  render() {
+
+   const loginButton = this.state.loggedIn ? <div>HELLO</div> : <button onClick={this.login.bind(this)}>Login</button>;
+
+    return (
+      <div>
+      <div className={style(styles.header)}>
+        <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+        { loginButton }
+        <h3> NEXTHRONE - THE REVELATION OF GAME OF THRONES' CHARACTERS </h3>
+      </div>
+      <table className={style(styles.table)}>
+        <thead>
+          <tr>
+              <th className={style(styles.th)}>Character</th>
+              <th className={style(styles.th)}>Real Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+              this.props.posts.map( (post, i) => (
+                  <tr key={i}>
+                      <td className={style(styles.td)}>{ post.codeName }</td>
+                      <td className={style(styles.td)}>
+                        { this.state.loggedIn ? <Link href={`/account?id=${post.id}`}>{ post.realName }</Link> : <div>You need to login</div> }
+                      </td>
+                  </tr>
+              ))
+          }
+       </tbody>
+      </table>
+      </div>
+    )
+  }
+}
+
+const styles = {
+  th: {
+    background: '#00cccc',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontSize: '12px',
+    padding: '12px 35px',
+  },
+
+  header: {
+    font: '15px Monaco',
+    textAlign: 'center'
+  },
+
+  table: {
+    fontFamily: 'Arial',
+    margin: '25px auto',
+    borderCollapse: 'collapse',
+    border: '1px solid #eee',
+    borderBottom: '2px solid #00cccc'
+  },
+
+  td: {
+    color: '#999',
+    border: '1px solid #eee',
+    padding: '12px 35px',
+    borderCollapse: 'collapse'
+  },
+
+  list: {
+    padding: '50px',
+    textAlign: 'center'
+  },
+
+  photo: {
+    display: 'inline-block'
+  },
+
+  photoLink: {
+    color: '#333',
+    verticalAlign: 'middle',
+    cursor: 'pointer',
+    background: '#eee',
+    display: 'inline-block',
+    width: '250px',
+    height: '250px',
+    lineHeight: '250px',
+    margin: '10px',
+    border: '2px solid transparent',
+    ':hover': {
+      borderColor: 'blue'
+    }
+  }
+}
+```
+
+Replace `_AUTH0_CLIENT_ID_` and `_AUTH0_DOMAIN_` with the values from your [dashboard](https://manage.auth0.com/#/applications). We created a state called `loggedIn` and instantiated the AuthService in `componentDidMount`. Now Auth0Lock is not isomorphic, so we need to load the lock script from the cdn to make it available in our component within the render method. Based on the state of `loggedIn`, you will have the ability to have access to the link that redirects to the account or not!
+
+Now, run the app, the login button should appear at the top like so:
+
+![NexThrone Index](https://cdn.auth0.com/blog/nexthrone-login.png)
+_NexThrone Index Non-loggedIn Status_
+
+User clicks on the login button and the Auth0 Lock displays like so:
+
+![NexThrone Auth0 Lock Widget](https://cdn.auth0.com/blog/nexthrone-auth0lock.png)
+_NexThrone Auth0 Lock Widget_
+
+Once you log in successfully, you will now have access to the links like so:
+
+![NexThrone Logged-in Status](https://cdn.auth0.com/blog/nexthrone-loggedin.png)
+_NexThrone Logged-in Status_
+
+Now you are logged-in and the `id-token` is present in the localStorage. You can now click on the link to have access to the account page.
+
+### Step 3
+
+We need to restrict access to the account page if the user is not logged-in. If the `id_token` doesn't exist, then it means the user has been logged out. So open up your `pages/account.js` and modify the code like so:
+
+_pages/account.js_
+
+```js
+import React from 'react'
+import posts from '../data/posts'
+import { style } from 'next/css'
+import * as  _ from 'lodash'
+import AuthService from '../utils/AuthService'
+
+export default class extends React.Component {
+
+  componentDidMount() {
+    this.auth = new AuthService('_AUTH0_CLIENT_ID_', '_AUTH0_DOMAIN_');
+    if (!this.auth.loggedIn()) {
+      this.props.url.replaceTo('/')
+    }
+  }
+
+  render () {
+    const item =  _.find(posts, { id: this.props.url.query.id })
+
+    return (
+      <div className={style(styles.main)}>
+        <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+        <div className={style(styles.header)}>
+          <h3> NEXTHRONE - THE REVELATION OF GAME OF THRONES' CHARACTERS </h3>
+        </div>
+        <div className={style(styles.panel)}>
+          <h1 className={style(styles.heading)}>
+            Character: { item.codeName }
+            <br/>
+            <br/>
+            Real Name: { item.realName }
+            <br/>
+            <br/>
+            Brief Description:
+            <br/>
+            <br/>
+            <span> { item.story } </span>
+          </h1>
+        </div>
+
+        <div className={style(styles.singlePhoto)}>
+          <img src={ item.display_src} alt={item.realName} width={500} height={500} />
+        </div>
+      </div>
+    )
+  }
+}
+
+
+const styles = {
+  main: {
+    padding: '50px'
+  },
+
+  header: {
+    font: '15px Monaco',
+    textAlign: 'center'
+  },
+
+  panel: {
+    float: 'right',
+    marginRight: '140px',
+    width: '300px'
+  },
+
+  singlePhoto: {
+    border: '1px solid #999',
+    width: '500px',
+    height: '500px',
+    float: 'left'
+  },
+
+  heading: {
+    font: '15px Monaco'
+  }
+}
+```
+
+In the `componentDidMount`, we just simply check if the user is logged in or not. If the user is not logged in, then the user will be redirected to the index page to log in.
+
+The source code for the authentication part of the NexThrone app can be found on the [adding-auth branch here](https://github.com/auth0-blog/nextjs-got/tree/adding-auth)
+
 
 ## Conclusion
 
