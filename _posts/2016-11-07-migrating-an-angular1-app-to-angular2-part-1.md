@@ -26,7 +26,7 @@ related:
 - 2016-09-15-angular-2-ngmodules
 ---
 
-**TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to a fresh Angular 2 build: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects. Clone the code for our Angular 2 app from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
+**TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to a fresh Angular 2 build: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects. The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
 
 ---
 
@@ -36,26 +36,26 @@ related:
 
 While Angular developers were and _are_ eager to try Angular 2, adoption can be challenging. Many of us have Angular 1 apps in development or maintenance and aren't in a position to migrate them to Angular 2 due to tight deadlines, budget constraints, client or management reluctance, etc. Angular 1 is [still being maintained](https://github.com/angular/angular.js/blob/master/CHANGELOG.md); in fact, at time of writing [Angular 1.6 is in release candidate](https://github.com/angular/angular.js/blob/master/CHANGELOG.md#160-rc0-bracing-vortex-2016-10-26) and Angular 1 apps are not about to go away.
 
-> **NOTE:** [Angular 2 uses SemVer (Semantic Versioning)](http://angularjs.blogspot.com/2016/10/versioning-and-releasing-angular.html?view=classic). This means that unlike Angular 1, there will no longer be breaking changes in point releases. Currently, version 3.0 is scheduled for launch in early 2017.
+> **Note:** [Angular 2 uses SemVer (Semantic Versioning)](http://angularjs.blogspot.com/2016/10/versioning-and-releasing-angular.html?view=classic). This means that unlike Angular 1, there will no longer be breaking changes in point releases. Currently, version 3.0 is scheduled for launch in early 2017.
 
 ## Migrate vs. Upgrade
 
-Angular 2 is a powerful and attractive platform. Many developers will have their first opportunity to dig in when they tackle migrating an existing Angular 1 app to Angular 2. At this time, **_upgrading_** the original codebase is extremely difficult: Angular 2 is not an iteration of Angular 1. Moving between them is more straightforward when **_migrating_** to a fresh build that implements the same features on a new platform.
+Angular 2 is a powerful and attractive platform. Many developers will have their first opportunity to dig in when they tackle migrating an existing Angular 1 app to Angular 2. At this time, **_upgrading_** the original codebase is extremely difficult: Angular 2 is not an iteration of Angular 1. Moving between them is more straightforward when **_migrating_** to a fresh build that translates the same features on the new platform.
 
 We'll walk through the process of migrating an Angular 1 app to Angular 2. Our Angular 1 project is relatively small but it represents a scalable, real-world Single Page Application. After following this tutorial, you should have a better understanding of how to get started with Angular 2 and how features from Angular 1 translate to Angular 2.
 
-**This tutorial assumes you are comfortable developing apps with AngularJS version 1.x.** If you're just looking to learn Angular 2, check out resources like [Angular 2 Authentication](https://auth0.com/blog/angular-2-authentication/) and [Getting Started with Angular 2](https://school.scotch.io/getting-started-with-angular-2).
+**This tutorial assumes you are comfortable developing apps with AngularJS version 1.x.** If you're looking to learn Angular 2 without an Angular 1 comparison, check out resources like [Angular 2 Authentication](https://auth0.com/blog/angular-2-authentication/) and [Getting Started with Angular 2](https://school.scotch.io/getting-started-with-angular-2).
 
 ## Angular 1 "ng1-dinos"
 
-Our Angular 1 app is called **ng1-dinos** and the code is available at the [ng1-dinos GitHub repo](https://github.com/auth0-blog/ng1-dinos). It has the following features:
+Our Angular 1 app is called **ng1-dinos**. The code is available at the [ng1-dinos GitHub repo](https://github.com/auth0-blog/ng1-dinos). It has the following features:
 
 * Routing (dinosaurs listing with individual detail pages)
 * Filtering (search for dinosaurs by name)
 * Calls an [external Node API](https://github.com/auth0-blog/sample-nodeserver-dinos) to get dinosaur data
 * SCSS and [Bootstrap CSS](http://getbootstrap.com/css/)
 * Custom off-canvas navigation
-* Metadata factory to provide dynamic `<title>`
+* Metadata factory to provide dynamic `<title>`s
 * [Gulp](http://gulpjs.com/) build
 * Guided by the [Angular 1 Style Guide](https://github.com/johnpapa/angular-styleguide/tree/master/a1#angular-1-style-guide)
 * Scalability
@@ -77,19 +77,19 @@ We'll also need to clone **[sample-nodeserver-dinos](https://github.com/auth0-bl
 
 1. Clone **[ng1-dinos](https://github.com/auth0-blog/ng1-dinos)** from GitHub to a local directory of your choosing.
 2. Run `npm install` from the root directory.
-3. Run `gulp` to serve the application (runs locally on [http://localhost:8000](http://localhost:8000))
+3. Run `gulp` to serve the application (runs locally on [http://localhost:8000](http://localhost:8000)).
 
-Once you have the app and the Dinos Node server running, the app should look like this in the browser:
+Once you have ng1-dinos and the Node API running, the app should look like this in the browser:
 
 ![ng1-dinos screenshot](https://cdn.auth0.com/blog/ng1-to-ng2/ng1-dinos-home.jpg)
 
-Take some time to familiarize with the file structure, code, and features. We won't be making any _changes_ to this application, but it's important to get comfortable with it because everything we do in our Angular 2 app will be a migration of ng1-dinos. 
+**Important:** Take some time to familiarize with the file structure, code, and features. We won't be making any _changes_ to this application, but it's important to get comfortable with it because everything we do in our Angular 2 app will be a migration of ng1-dinos. 
 
 ## Introducing "ng2-dinos"
 
 Our migrated Angular 2 application will be called **ng2-dinos**. The full source code for the completed app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos). This app will use the same Node API. From a user's perspective, we want ng2-dinos to be indistinguishable from ng1-dinos. Under the hood, we'll rewrite the app to take advantage of the powerful new features of Angular 2.
 
-Angular 2 brings in several technologies that ng1-dinos does not take advantage of. Instead of a Gulp build, we'll use the [Angular CLI](https://cli.angular.io/) to set up and serve ng2-dinos. We're going to write the app using [TypeScript](https://www.typescriptlang.org/) and [ES6](http://es6-features.org/) which will be transpiled by the Angular CLI. 
+Angular 2 brings in several technologies that ng1-dinos does not take advantage of. Instead of a Gulp build, we'll use the [Angular CLI](https://cli.angular.io/) to set up and serve ng2-dinos. We're going to write the app using [TypeScript](https://www.typescriptlang.org/) and [ES6](http://es6-features.org/) which will be transpiled by the Angular CLI.
 
 We'll follow the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) for the most part, with a few minor exceptions regarding file structure. For this tutorial, we want to preserve as much of a correlation with ng1-dinos as we can. This will make it easier to follow the migration of features.
 
@@ -107,7 +107,7 @@ Next, install the [Angular CLI](https://github.com/angular/angular-cli) globally
 npm install -g angular-cli
 ```
 
-> **NOTE:** At the time of writing, the Angular CLI is quite useful but in beta and still very much under development. There may be times when you encounter errors using it. Please consult the [angular-cli GitHub issues](https://github.com/angular/angular-cli/issues/) for resolutions if this occurs.
+> **Note:** At the time of writing, the Angular CLI is quite useful but in beta and still very much under development. There may be times when you encounter errors using it. Please consult the [angular-cli GitHub issues](https://github.com/angular/angular-cli/issues/) for resolutions if this occurs.
 
 ### Initialize ng2-dinos
 
@@ -117,7 +117,13 @@ The first thing we'll do is initialize our new Angular 2 app and get it running.
 ng new ng2-dinos --style=scss
 ```
 
-Next we can serve the app by running `ng serve` from the root directory of our new app. You should be able to view the site in the browser at [http://localhost:4200](http://localhost:4200). The app should look like this:
+Next we can serve the app by running the following command from the root directory of our new app:
+
+```bash
+ng serve
+```
+
+We should be able to view the site in the browser at [http://localhost:4200](http://localhost:4200). The app should look like this:
 
 ![ng2-dinos initialized](https://cdn.auth0.com/blog/ng1-to-ng2/app-works.jpg)
 
@@ -132,6 +138,8 @@ ng lint
 ```
 
 This tutorial follows the Style Guide and adheres to the default rules in the TSLint config file. It's good to lint your project periodically to make sure your code is clean and free of linter errors.
+
+> **Note:** The Angular CLI TSLint `"eofline": true` rule requires [files to end with a _newline_](https://palantir.github.io/tslint/rules/eofline/). This is [standard convention](http://stackoverflow.com/questions/729692/why-should-text-files-end-with-a-newline). If you want to avoid lots of newline errors when linting, make sure that your files include this.
 
 ## Customizing Our Angular 2 Project
 
@@ -168,11 +176,11 @@ Let's start by adding the [Bootstrap CSS](http://getbootstrap.com/css/) CDN to t
 </html>
 {% endhighlight %}
 
-> **NOTE:** The code for including the Bootstrap CSS can be found at [Bootstrap CDN](http://getbootstrap.com/getting-started/#download-cdn). We're using version 3.3.7 because it is latest stable at the time of writing. Please note that if you upgrade to version 4.x, there are major changes that would need to be addressed.
+> **Note:** The code for including the Bootstrap CSS can be found at [Bootstrap CDN - Getting Started](http://getbootstrap.com/getting-started/#download-cdn). We're using version 3.3.7 because it is latest stable at the time of writing. Please note that if you upgrade to version 4.x, there are major changes to be mindful of.
 
 ### Third Party Libraries
 
-The only third party JavaScript we'll add is a custom build of [Modernizr](https://modernizr.com/). You can grab this file from the Angular 1 ng1-dinos app. We'll be doing quite a bit of copying and pasting since we're doing a migration, so it's best to keep your local ng1-dinos project handy. 
+The only third party JavaScript we want is a custom build of [Modernizr](https://modernizr.com/). We'll be doing quite a bit of copying and pasting from ng1-dinos since we're doing a migration, so it's best to keep your local ng1-dinos project handy. 
 
 Our minified, custom Modernizr build can be found at [`ng1-dinos/src/assets/js/vendor/modernizr.min.js`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/js/vendor/modernizr.min.js). Create the necessary folder structure in ng2-dinos:
 
@@ -221,11 +229,11 @@ Create a `ng2-dinos/src/assets/scss/` folder and move the `ng2-dinos/src/styles.
       ...
 ```
 
-> **NOTE:** When moving or adding new files, you'll need to stop and restart the Angular CLI server (`Ctrl+C`, `ng serve`) to avoid module build errors. Changes within files are watched and live reloaded, but reorganizing the file structure can break this.
+> **Note:** When moving or adding new files, you'll need to stop and restart the Angular CLI server (`Ctrl+C`, `ng serve`) to avoid module build errors. Changes within files are watched and live reloaded, but reorganizing the file structure can break this.
 
 Now let's add some global SCSS from ng1-dinos. We'll copy the files and subdirectories from [`ng1-dinos/src/assets/css/scss/core/`](https://github.com/auth0-blog/ng1-dinos/tree/master/src/assets/css/scss/core) to `ng2-dinos/src/assets/scss/`.
 
-> **NOTE:** If you paid close attention, you'll notice that we're left off a folder in ng2-dinos. Our Angular 1 ng1-dinos app had a `css` folder with `scss` inside it. We don't need the `css` folder in ng2-dinos because of the Angular CLI Webpack bundling.
+> **Note:** If you paid close attention, you'll notice that we're left off a folder in ng2-dinos. Our Angular 1 ng1-dinos app had a `css` folder with `scss` inside it. We don't need the `css` folder in ng2-dinos because of the Angular CLI Webpack bundling.
 
 When we're done, our ng2-dinos global styles file structure should look like this:
 
@@ -236,11 +244,11 @@ ng2-dinos
       |-scss/
         |-partials/
           |-_layout.vars.scss
-           |-_responsive.partial.scss
-         |-_base.scss
-         |-_layout.scss
-         |-_presentation.scss
-         |-styles.scss
+          |-_responsive.partial.scss
+        |-_base.scss
+        |-_layout.scss
+        |-_presentation.scss
+        |-styles.scss
 ```
 
 Now we'll `@import` these SCSS files in the ng2-dinos global `styles.scss`:
@@ -294,7 +302,7 @@ textarea {
 
 The Angular CLI creates all app files (modules, components, services, pipes, etc.) relative to `ng2-dinos/src/app/`. Note that the ng2-dinos app has a component (`app.component.ts|.html|.scss|.spec.ts`) in the root of this folder. This is our app's root component, but we want to move it into a subfolder to keep ng2-dinos organized, scalable, and correlated with ng1-dinos.
 
-> **NOTE:** Recall that this tutorial won't cover testing, so the `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/auth0-blog/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
+> **Note:** Recall that this tutorial won't cover testing, so the `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/auth0-blog/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
 
 Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The app file structure should now look like this:
 
@@ -318,7 +326,7 @@ export * from './core/app.component';
 export * from './core/app.module';
 ```
 
-> **NOTE:** Always keep in mind that Angular 2 is very interconnected with regard to dependency imports. When we move files, we break references in other places. The CLI tells us where the problems are when we build and TS code hinting in our editor can help too. To address the issue at its root, we can use additional `@NgModule`s to manage dependencies; you can learn more by reading [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/).
+> **Note:** Always keep in mind that Angular 2 is very interconnected with regard to dependency imports. When we move files, we break references in other places. The CLI tells us where the problems are when we build and TS code hinting in our editor can help too. To address the issue at its root, we can use additional `@NgModule`s to manage dependencies; you can learn more by reading [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/).
 
 That's it for setup! We can officially start migrating ng1-dinos to ng2-dinos.
 
@@ -373,6 +381,7 @@ In comparison, the body of our Angular 1 **ng1-dinos** `index.html` file looks l
   </div> <!-- /.layout-overflow -->
   ...
 </body>
+
 {% endraw %}
 {% endhighlight %}
 
@@ -588,7 +597,7 @@ We don't need to change [View Encapsulation](https://angular.io/docs/ts/latest/g
 
 Now the component CSS can access the `.nav-open` class up the DOM tree from the header component.
 
-> **NOTE:** Recall that the site layout and navigation functionality styles remained global rather than being componetized in `app.component.scss` (instead we deleted that file). We could have moved the sections of the global `_layout.scss` into different child components and replaced references to parent styles with `:host-context()`. We didn't do this because the goal of this tutorial is to demonstrate _as close to a 1:1 migration as possible_ while covering many topics. When we're finished migrating the entire app, I encourage you to refactor where desirable! We'll highlight refactoring suggestions in the summaries of each part of this tutorial.
+> **Note:** Recall that the site layout and navigation functionality styles remained global rather than being componetized in `app.component.scss` (instead we deleted that file). We could have moved the sections of the global `_layout.scss` into different child components and replaced references to parent styles with `:host-context()`. We didn't do this because the goal of this tutorial is to demonstrate _as close to a 1:1 migration as possible_ while covering many topics. When we're finished migrating the entire app, I encourage you to refactor where desirable! We'll highlight refactoring suggestions in the summaries of each part of this tutorial.
 
 ### Component Interaction
 
@@ -602,7 +611,7 @@ Open the `header.component.ts` file. We'll implement component communication wit
 <a class="toggle-offcanvas bg-primary" (click)="toggleNav()"><span></span></a>
 {% endhighlight %}
 
-> **NOTE:** `[]`, `()`, and `[()]` are "binding punctuation" and refer to the direction of data flow. `()` indicates a binding to an event. You can read more about [binding syntax in the Angular 2 docs](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax).
+> **Note:** `[]`, `()`, and `[()]` are "binding punctuation" and refer to the direction of data flow. `()` indicates a binding to an event. You can read more about [binding syntax in the Angular 2 docs](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax).
 
 There are a few things we need to do to make this event handler functional.
 
@@ -684,7 +693,7 @@ In ng1-dinos, all off-canvas nav functionality was handled by  [`ng1-dinos/src/a
 
 We want our minimum page height to be the height of the window no matter how tall the content is. This way, the off-canvas navigation will never look prematurely cut off. To address this, we'll use an RxJS observable and the `window.resize` event.
 
-> **NOTE:** In ng1-dinos, we referenced the `navControl` directive's DOM `$element` and applied `min-height` styles with JS. We did this to [avoid an additional watcher](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) in Angular 1. However, [Angular 2's change detection](https://auth0.com/blog/understanding-angular-2-change-detection/) is vastly improved so we can shift our concerns over watchers to other things instead.
+> **Note:** In ng1-dinos, we referenced the `navControl` directive's DOM `$element` and applied `min-height` styles with JS. We did this to [avoid an additional watcher](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) in Angular 1. However, [Angular 2's change detection](https://auth0.com/blog/understanding-angular-2-change-detection/) is vastly improved so we can shift our concerns over watchers to other things instead.
 
 Angular 2 strongly recommends _avoiding_ direct DOM manipulation. There is an [`ElementRef`](https://angular.io/docs/ts/latest/api/core/index/ElementRef-class.html) class that provides access to the native element, but using it is not recommended and is usually avoidable. We'll use [property data binding](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) instead.
 
@@ -735,7 +744,7 @@ First we'll import dependencies. We're going to use the `OnInit` [lifecycle hook
 
 We're using an [RxJS observable](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html) to subscribe to the `window.resize` event and execute a debounced function that sets a `min-height`. The `window.resize` event doesn't automatically fire on page load, so we need to trigger the handler manually in `ngOnInit`.
 
-> **NOTE:** This tutorial does _not_ cover Functional Reactive Programming (FRP) and RxJS in depth. If FRP and RxJS are new to you, please read [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/), or for a more Angular 2-centric approach: [Functional Reactive Programming for Angular 2 Developers - RxJs and Observables](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/).
+> **Note:** This tutorial does _not_ cover Functional Reactive Programming (FRP) and RxJS in depth. If FRP and RxJS are new to you, please read [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/), or for a more Angular 2-centric approach: [Functional Reactive Programming for Angular 2 Developers - RxJs and Observables](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/).
 
 ### Add Property to App Component HTML
 
@@ -754,7 +763,7 @@ We can then bind `minHeight` to the `[style.min-height]` property on the layout 
 {% endraw %}
 {% endhighlight %}
 
-> **NOTE:** Angular 2 binds to **DOM properties**, _not_ HTML attributes. This may seem counter-intuitive because we're declaratively adding things like `[disabled]` or `[style.min-height]` to our markup, but these refer to properties, not attributes. Please read [Binding syntax: An overview](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) for a mental model shift regarding this.
+> **Note:** Angular 2 binds to **DOM properties**, _not_ HTML attributes. This may seem counter-intuitive because we're declaratively adding things like `[disabled]` or `[style.min-height]` to our markup, but these refer to properties, not attributes. Please read [Binding syntax: An overview](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) for a mental model shift regarding this.
 
 Now our app should be the height of the window even if the content is short. If the navigation grows longer than the content, the CSS we imported from ng1-dinos will ensure that it gets a scrollbar. With the menu open, our app should look like this in the browser:
 
@@ -840,7 +849,7 @@ Restart `ng serve` and we should see the simple footer in our app.
 
 As mentioned before, this is a migration tutorial so one of our goals is to maintain close to 1:1 correlation with ng1-dinos while still implementing Angular 2 best practices. This will be the continued goal in subsequent parts of the tutorial. However, there are refactoring opportunities that we shouldn't ignore.
 
-> **NOTE:** You may want to wait to refactor until you complete all parts of the tutorial.
+> **Note:** You may want to wait to refactor until you complete all parts of the tutorial.
 
 Here is my refactoring suggestion from part one of our migration tutorial:
 
