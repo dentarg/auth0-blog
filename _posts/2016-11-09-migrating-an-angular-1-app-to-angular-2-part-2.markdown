@@ -54,7 +54,7 @@ Part 2 has the same dependencies as [Part 1](http://auth0.com/blog/migrating-an-
 
 We'll pick up right where we left off. 
 
-## Pages
+## Migrating Angular 2 Pages
 
 In [Part 1](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1), we implemented some links in our navigation, but we don't actually have pages to display when the links are clicked. Let's create some components so we can implement routing.
 
@@ -236,7 +236,7 @@ This component will show when the route accessed does not exist. We'll apply a c
 
 > **Note:** Our Angular 1 ng1-dinos app had classes like `.home-wrapper` and `.about-wrapper` on the article elements but Angular 2's view encapsulation negates the need for this!
 
-## Angular 2 Routing
+## Migrating Angular 1 Routing to Angular 2
 
 Routing is an essential feature of our ng1-dinos app. For ng2-dinos, we're going to create a new `@NgModule` to handle routing. This gives us more flexibility to expand routing later, if needed, without bloating the `app.module.ts`.
 
@@ -423,9 +423,9 @@ We need to import `Router` and `NavigationStart` from `@angular/router`. Next we
 
 Now when we click on links in the menu the correct component displays and the navigation closes. Our app homepage now looks like this:
 
-![Angular 2 single page application with routing](https://cdn.auth0.com/blog/ng1-to-ng2/part2-start.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 single page application with routing](https://cdn.auth0.com/blog/ng1-to-ng2/part2-start.jpg)
 
-## Calling an API
+## Calling an API in Angular 2
 
 Now our architecture and navigation is in place! We've arrived at the business logic portion of our app. Angular 1 ng1-dinos used a [service to call the API: `ng1-dinos/src/app/core/Dinos.service.js`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/core/Dinos.service.js).
 
@@ -615,13 +615,13 @@ The `ng-repeat` of Angular 1 has been replaced by the [`ngFor` repeater directiv
 
 We should now have a simple list of all the dinosaurs returned from the API. Our app homepage should look like this in the browser:
 
-![Angular 2 app showing list with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-simple-list.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app showing list with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-simple-list.jpg)
 
 We can also test to make sure the error state is working properly by stopping the local Node dinos server and then reloading our Angular 2 app. We should see this:
 
-![Angular 2 app showing data error](https://cdn.auth0.com/blog/ng1-to-ng2/error-no-data.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app showing data error](https://cdn.auth0.com/blog/ng1-to-ng2/error-no-data.jpg)
 
-## Display Dino Cards
+## Display Dino Cards in Angular 2
 
 Our Angular 1 ng1-dinos app repeats a [`dinoCard` directive with a template](https://github.com/auth0-blog/ng1-dinos/tree/master/src/app/pages/home/dino-card) that displays each dinosaur's name and detail link in a card styled with Bootstrap. The implementation in ng2-dinos will be similar.
 
@@ -695,11 +695,11 @@ We'll add some Bootstrap layout and classes so that our cards display nicely in 
 
 Our ng2-dinos homepage should now look like this:
 
-![Angular 2 app showing child component cards with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-dino-cards.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app showing child component cards with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-dino-cards.jpg)
 
 Our migration is coming together. The Angular 2 app is finally starting to look more like ng1-dinos!
 
-## Filtering by Search Query
+## Migrating Angular 1 Filtering to Angular 2
 
 You may have heard about [Angular 2 pipes](https://angular.io/docs/ts/latest/guide/pipes.html). Pipes transform displayed values within a template. In Angular 1, we used the pipe character (`|`) to do similar things with [filters](https://docs.angularjs.org/api/ng/filter/filter). However, filters are _gone_ in Angular 2.
 
@@ -748,7 +748,7 @@ export class FilterService {
 
 We want search to be case-insensitive so we'll convert the query and values to lowercase when checking for matches. If the method is somehow called with a falsey query, we'll return the original array instead of trying to check for matches. For our ng2-dinos simple search, we're only going to check string values in the objects. If you need a more robust search (ie., one that also checks dates, numbers, etc.) you'll want to handle that specifically. This is one of the benefits of implementing filters this way over the old Angular 1 filter: we have more fine-grained control.
 
-## Use Filter Service to Search Dinosaurs
+## Use Angular 2 Filter Service to Search
 
 Now that we have a way to filter by query, let's implement this in our home component. 
 
@@ -886,11 +886,11 @@ If we view our app, you may notice we could use a bit of styling to put some spa
 
 We should now be able to search for dinosaurs by name:
 
-![Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search.jpg)
 
 If the search doesn't return any results, we should see a message:
 
-![Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search-no-results.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search-no-results.jpg)
 
 ## Aside: Refactoring Suggestions
 
