@@ -266,7 +266,7 @@ Now we'll `@import` these SCSS files in the ng2-dinos global `styles.scss`:
 @import 'layout';
 ```
 
-Restart the Angular CLI server and the background color should change to grey. This is a visual indicator that our new global styles are working. If you inspect the page, you should see the global `<body>` styles applied.
+Restart the Angular CLI server and our app's background color should change to grey. This is a visual indicator that our new global styles are working. If we inspect the page, we should see the global `<body>` styles applied.
 
 Finally, we'll clean up the `_base.scss` file. Angular 2 doesn't utilize `ng-cloak` so we'll remove the `ng-cloak` ruleset. Afterwards, this is what remains:
 
@@ -302,9 +302,9 @@ textarea {
 
 The Angular CLI creates all app files (modules, components, services, pipes, etc.) relative to `ng2-dinos/src/app/`. Note that the ng2-dinos app has a component (`app.component.ts|.html|.scss|.spec.ts`) in the root of this folder. This is our app's root component, but we want to move it into a subfolder to keep ng2-dinos organized, scalable, and correlated with ng1-dinos.
 
-> **Note:** Recall that this tutorial won't cover testing, so the `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/auth0-blog/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
+> **Note:** Recall that this tutorial won't cover testing. The `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/auth0-blog/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
 
-Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The app file structure should now look like this:
+Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The `app` folder's file structure should now look like this:
 
 ```text
 ng2-dinos
@@ -326,13 +326,13 @@ export * from './core/app.component';
 export * from './core/app.module';
 ```
 
-> **Note:** Always keep in mind that Angular 2 is very interconnected with regard to dependency imports. When we move files, we break references in other places. The CLI tells us where the problems are when we build and TS code hinting in our editor can help too. To address the issue at its root, we can use additional `@NgModule`s to manage dependencies; you can learn more by reading [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/).
+> **Note:** Always keep in mind that Angular 2 is very interconnected with regard to dependency imports. When we move files, we break references in other places. The CLI tells us where the problems are when we build. TypeScript code hinting in our editor can help too. To address the issue at its root, we can use additional `@NgModule`s to manage dependencies; you can learn more by reading [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/).
 
 That's it for setup! We can officially start migrating ng1-dinos to ng2-dinos.
 
 ## Root App Component
 
-In the ng1-dinos Angular 1 app, `ng-app` was on the `<html>` element. This provided Angular control over the `<head>`, allowing us to dynamically update the `<title>` with a custom metadata factory. In Angular 2, our root app component is located inside the `<body>`. Angular 2 provides a service to manage page `<title>`s, so we no longer need an `<html>`-level app root.
+In the ng1-dinos Angular 1 app, `ng-app` was on the `<html>` element. This provided Angular control over the `<head>`, allowing us to dynamically update the `<title>` with a custom metadata factory. In Angular 2, our root app component is located inside the `<body>`. Angular 2 provides a service to manage page `<title>`s and we shouldn't use an `<html>`-level app root anymore.
 
 As we saw above, the body of our Angular 2 **ng2-dinos** `index.html` file looks like this:
 
@@ -416,9 +416,11 @@ Let's stub out `app.component.html`:
 
 ### App Component SCSS
 
-We already included global SCSS for the site layout and off-canvas nav functionality. Because the styles for the layout, header, and navigation interact with each other, we won't componetize all of them in this tutorial. We want to maintain a fairly direct migration path with ng1-dinos, but there will be room for refactoring after the app is migrated. We won't use the `app.component.scss` file so let's delete it.
+We already included global SCSS for the site layout and off-canvas nav functionality. Because the styles for the layout, header, and navigation interact with each other, we won't componetize the layout styles in this tutorial. We want to maintain a fairly direct migration path with ng1-dinos, but there will be room for refactoring after the app is migrated. We won't use the `app.component.scss` file so let's delete it.
 
-Now we'll add the `navOpen` boolean we referenced for controlling the `nav-open`/`nav-closed` classes in the `app.component.html` above. We also need to remove the reference to `app.component.scss` since we deleted that file:
+### App Component TypeScript
+
+Now we'll add the `navOpen` boolean property we referenced for controlling the `.nav-open`/`.nav-closed` classes in the `app.component.html` above. We also need to remove the reference to `app.component.scss` since we deleted that file:
 
 ```typescript
 // ng2-dinos/src/app/core/app.component.ts
@@ -436,7 +438,7 @@ export class AppComponent {
 }
 ```
 
-If we restart the Angular CLI server now and inspect the DOM in the browser, we'll see a `nav-closed` class on the `<div class="layout-canvas">` element. We can use the inspector to change `nav-closed` to `nav-open`. If we do this, we should see the page content slide to the right:
+If we restart the Angular CLI server now and inspect the DOM in the browser, we'll see a `.nav-closed` class on the `<div class="layout-canvas">` element. We can use the inspector to change `.nav-closed` to `.nav-open`. If we do this, we should see the page content slide to the right:
 
 ![ng2-dinos app root nav open](https://cdn.auth0.com/blog/ng1-to-ng2/app-root-nav-open.jpg)
 
@@ -444,7 +446,7 @@ Now we're ready to create the header.
 
 ## Header Component
 
-We can use the Angular CLI's `g` command to [generate new components](https://github.com/angular/angular-cli#generating-components-directives-pipes-and-services) for our app. Stop the server (`Ctrl+C`) and let's create a header component:
+We can use the Angular CLI's `g` command (shortcut for `generate`) to [generate new components](https://github.com/angular/angular-cli#generating-components-directives-pipes-and-services) for our app. Stop the server (`Ctrl+C`) and let's create a header component:
 
 ```bash
 ng g component header
@@ -489,7 +491,7 @@ As you can see, the `HeaderComponent` class is imported and has also been added 
 
 ### Add Header Element to App Component HTML
 
-If we open the `header.component.ts` file, we can see that the `@Component`'s `selector` is `app-header`. We generally want custom elements to be hyphenated as per the [W3C spec for custom elements](http://w3c.github.io/webcomponents/spec/custom/#prod-potentialcustomelementname). This is also covered by the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#02-07). The Angular CLI generates new component selectors with a prefix. By default, this prefix is `app`. This way, we won't get conflicts when calling this component since the  `<header>` element already exists. 
+If we open the `header.component.ts` file, we can see that the `@Component`'s `selector` is `app-header`. We generally want custom elements to be hyphenated as per the [W3C spec for custom elements](http://w3c.github.io/webcomponents/spec/custom/#prod-potentialcustomelementname). This is also covered by the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#02-07). The Angular CLI generates new component selectors with a prefix. By default, this prefix is `app`. This way, we won't get conflicts with native elements when calling this component (since `<header>` already exists in the HTML5 spec). 
 
 Let's add `<app-header>` to our `app.component.html`:
 
@@ -504,7 +506,7 @@ Let's add `<app-header>` to our `app.component.html`:
 
 ### Header Component HTML
 
-Let's add our markup to the header component. Open `header.component.html` and add HTML for the header, off-canvas  toggle, and navigation menu:
+Let's add our markup to the header component similar to [`ng1-dinos/src/app/header/header.tpl.html`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/header/header.tpl.html). Open `header.component.html` and add HTML for the header, off-canvas toggle, and navigation menu:
 
 {% highlight html %}
 <!-- ng2-dinos/src/app/header/header.component.html -->
@@ -533,7 +535,7 @@ Let's add our markup to the header component. Open `header.component.html` and a
 </header>
 {% endhighlight %}
 
-This is mostly standard markup. The only Angular 2 functionality so far is a `click` handler on the link to toggle the off-canvas menu. We'll add more Angular later once we have multiple views and routing in place.
+This is mostly standard markup. The only Angular 2 functionality so far is a `(click)` binding on the link to toggle the off-canvas menu. We'll add more Angular later once we have multiple views and routing in place.
 
 ### Header Component SCSS
 
@@ -591,21 +593,21 @@ We need to make one modification in the `_nav.scss` file. We'll change the `.nav
 
 This has to do with how Angular 2 encapsulates DOM node styles. If you've ever used [native web components](http://webcomponents.org/) or [Google Polymer](https://www.polymer-project.org/), you should be familiar with shadow DOM encapsulation in components. Regardless, you may want to read about [View Encapsulation in Angular 2](http://blog.thoughtram.io/angular/2015/06/29/shadow-dom-strategies-in-angular2.html).
 
-In a nutshell, Angular 2's default encapsulation mode is `Emulated`. This means styles are scoped to their components with unique attributes that Angular 2 creates. Having component-isolated styles is often very useful, except for when we want to reach up the DOM tree and have our component styles affected by ancestors.
+In a nutshell, Angular 2's default encapsulation mode is `Emulated`. This means styles are scoped to their components with unique attributes that Angular 2 generates. Having component-isolated styles is often very useful—except for when we want to reach up the DOM tree and have our component styles affected by ancestors.
 
 We don't need to change [View Encapsulation](https://angular.io/docs/ts/latest/guide/component-styles.html#!#view-encapsulation) in the header component class though. There is only one reference to an ancestor in `_nav.scss`. We can use [special selectors](https://angular.io/docs/ts/latest/guide/component-styles.html#!#special-selectors) like `:host-context()` to look up the cascade instead.
 
 Now the component CSS can access the `.nav-open` class up the DOM tree from the header component.
 
-> **Note:** Recall that the site layout and navigation functionality styles remained global rather than being componetized in `app.component.scss` (instead we deleted that file). We could have moved the sections of the global `_layout.scss` into different child components and replaced references to parent styles with `:host-context()`. We didn't do this because the goal of this tutorial is to demonstrate _as close to a 1:1 migration as possible_ while covering many topics. When we're finished migrating the entire app, I encourage you to refactor where desirable! We'll highlight refactoring suggestions in the summaries of each part of this tutorial.
+> **Note:** Recall that the site layout and navigation functionality styles remained global rather than being componetized in `app.component.scss` (instead we deleted that file). We could have moved the sections of the global `_layout.scss` into different child components and replaced references to parent styles with `:host-context()`. We didn't do this because the goal of this tutorial is to demonstrate _as close to a 1:1 migration as possible_ while covering many topics. When we're finished migrating the entire app, I encourage you to refactor where desirable! We'll highlight refactoring suggestions at the end of each part of this tutorial.
 
-### Component Interaction
+## Header Component Interaction
 
 Let's make our header component functional. We need the header to communicate with the root app component to implement the off-canvas navigation.
 
-#### Header Component TypeScript
+### Header Component TypeScript
 
-Open the `header.component.ts` file. We'll implement component communication with [inputs/outputs](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#inputs-outputs) and events. Remember that we added a `click` event handler to our header HTML that looked like this:
+Open the `header.component.ts` file. We'll implement component communication with [inputs/outputs](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#inputs-outputs) and events. Remember that we added a `click` event binding to our header HTML that looked like this:
 
 {% highlight html %}
 <a class="toggle-offcanvas bg-primary" (click)="toggleNav()"><span></span></a>
@@ -642,15 +644,15 @@ export class HeaderComponent implements OnInit {
 }
 ```
 
-The header component is a child of the root app component. We need a way to notify the parent when the user clicks the hamburger to open or close the menu. We'll do this by [emitting an event that the parent can listen for](https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#child-to-parent). 
+The header component is a child of the root app component. We need a way to notify the parent when the user clicks the hamburger to open or close the menu. We'll do this by [emitting an event that the parent can bind to](https://angular.io/docs/ts/latest/cookbook/component-communication.html#!#child-to-parent). 
 
-We'll import `Output` and [`EventEmitter`](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html) from `@angular/core` and then create a new event emitter `@Output` decorator. We also need a way to track whether the navigation is open or closed, so we'll add a boolean `navOpen` member that defaults to `false`.
+We'll import `Output` and [`EventEmitter`](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html) from `@angular/core` and then create a new event emitter `@Output` decorator. We also need a way to track whether the navigation is open or closed, so we'll add a boolean `navOpen` property that defaults to `false`.
 
-Now we need to define the `click` event handler. We already named this function `toggleNav()` in our `header.component.html`. The function will simply toggle the `navOpen` boolean and emit the `navToggled` event with the current state of `navOpen`.
+Now we need to define the `click` event handler. We already named this function `toggleNav()` in our `header.component.html`. The function will toggle the `navOpen` boolean and emit the `navToggled` event with the current state of `navOpen`.
 
-#### Header Communication with App Component
+### Header Communication with App Component
 
-Next we need to listen for the `navToggled` event in the parent. Add the declarative code to `app.component.html`:
+Next we need to listen for the `navToggled` event in the parent. Add the following declarative code to `app.component.html`:
 
 {% highlight html %}
 <!-- ng2-dinos/src/app/core/app.component.html -->
@@ -693,7 +695,7 @@ In ng1-dinos, all off-canvas nav functionality was handled by  [`ng1-dinos/src/a
 
 We want our minimum page height to be the height of the window no matter how tall the content is. This way, the off-canvas navigation will never look prematurely cut off. To address this, we'll use an RxJS observable and the `window.resize` event.
 
-> **Note:** In ng1-dinos, we referenced the `navControl` directive's DOM `$element` and applied `min-height` styles with JS. We did this to [avoid an additional watcher](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) in Angular 1. However, [Angular 2's change detection](https://auth0.com/blog/understanding-angular-2-change-detection/) is vastly improved so we can shift our concerns over watchers to other things instead.
+> **Note:** In ng1-dinos, we referenced the `navControl` directive's DOM `$element` and applied `min-height` styles with JS. We did this to [avoid an additional watcher](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) in Angular 1. However, [Angular 2's change detection](http://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html) is [vastly improved](https://auth0.com/blog/understanding-angular-2-change-detection/) so we can shift our concerns over watchers to other things instead.
 
 Angular 2 strongly recommends _avoiding_ direct DOM manipulation. There is an [`ElementRef`](https://angular.io/docs/ts/latest/api/core/index/ElementRef-class.html) class that provides access to the native element, but using it is not recommended and is usually avoidable. We'll use [property data binding](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) instead.
 
@@ -742,7 +744,7 @@ Let's talk about the code above.
 
 First we'll import dependencies. We're going to use the `OnInit` [lifecycle hook](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) from `@angular/core` to manage the observable and implement initial layout height. Then we need `Observable` from the [RxJS library](https://github.com/Reactive-Extensions/RxJS) which is packaged with Angular 2.
 
-We're using an [RxJS observable](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html) to subscribe to the `window.resize` event and execute a debounced function that sets a `min-height`. The `window.resize` event doesn't automatically fire on page load, so we need to trigger the handler manually in `ngOnInit`.
+We're using an [RxJS observable](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html) to subscribe to the `window.resize` event and execute a debounced function that sets a `min-height`. The `window.resize` event doesn't automatically fire on page load, so we need to trigger the handler manually in `ngOnInit()`.
 
 > **Note:** This tutorial does _not_ cover Functional Reactive Programming (FRP) and RxJS in depth. If FRP and RxJS are new to you, please read [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/), or for a more Angular 2-centric approach: [Functional Reactive Programming for Angular 2 Developers - RxJs and Observables](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/).
 
@@ -763,7 +765,7 @@ We can then bind `minHeight` to the `[style.min-height]` property on the layout 
 {% endraw %}
 {% endhighlight %}
 
-> **Note:** Angular 2 binds to **DOM properties**, _not_ HTML attributes. This may seem counter-intuitive because we're declaratively adding things like `[disabled]` or `[style.min-height]` to our markup, but these refer to properties, not attributes. Please read [Binding syntax: An overview](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) for a mental model shift regarding this.
+> **Note:** Angular 2 binds to **DOM properties**, _not_ HTML attributes. This may seem counter-intuitive because we're declaratively adding things like `[disabled]` or `[style.min-height]` to our markup, but these refer to properties, not attributes. Please read [Binding syntax: An overview](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#binding-syntax) to learn more.
 
 Now our app should be the height of the window even if the content is short. If the navigation grows longer than the content, the CSS we imported from ng1-dinos will ensure that it gets a scrollbar. With the menu open, our app should look like this in the browser:
 
@@ -779,7 +781,7 @@ ng g component footer
 
 ### Footer Component TypeScript
 
-The `footer.component.ts` should be very simple. There's no dynamic functionality; we just need to create the component and display it. Let's simplify the component:
+The `footer.component.ts` should be very simple. There's no dynamic functionality; we just need to create the component and display it. Let's simplify the `FooterComponent` class:
 
 ```typescript
 // ng2-dinos/src/app/footer/footer.component.ts
@@ -808,7 +810,7 @@ We can copy the footer markup from [`ng1-dinos/src/app/footer/footer.tpl.html`](
 
 ### Footer Component SCSS
 
-The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/_footer.scss`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/css/scss/components/_footer.scss). We need to add `@import`s so that our Angular 2 component can access the layout variables and responsive mixins. We're also going to change the `.footer` class to `:host` since this class no longer exists and we need to style the host element and not children of the component:
+The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/_footer.scss`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/css/scss/components/_footer.scss). We need to add `@import`s so our Angular 2 component can access global layout variables and responsive mixins. We're also going to change `.footer` to the special `:host` selector since `.footer` no longer exists and we need to style the component's host element:
 
 ```scss
 /* ng2-dinos/src/app/footer/footer.component.scss */
@@ -855,11 +857,11 @@ Here is my refactoring suggestion from part one of our migration tutorial:
 
 * Consider componetizing more global SCSS, breaking files like `_layout.scss` up into respective `*.component.scss` files and utilizing selectors like `:host` and `:host-context()`.
 
-Keep an eye out for more refactoring suggestions in subsequent lessons.
+Keep an eye out for more refactoring suggestions in the next lessons.
 
 ## Conclusion
 
-We now have basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint`, our app should be free of linter errors.
+We now have the basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint`, our app should be free of linter errors.
 
 In the next parts of the tutorial, we'll enable navigation by creating page components and implementing routing. Then we'll call the API and use HTTP and observables to get and display dinosaur data and detail subpages, create type models, learn about filtering, implement error handling, and show loading states. We'll even address authentication.
 
