@@ -60,7 +60,7 @@ Our Angular 1 app is called **ng1-dinos**. The code is available at the [ng1-din
 * Guided by the [Angular 1 Style Guide](https://github.com/johnpapa/angular-styleguide/tree/master/a1#angular-1-style-guide)
 * Scalability
 
-## ng1-dinos Setup
+## Angular 1 Setup Before Migrating to Angular 2
 
 Let's set up **ng1-dinos** and get it running locally.
 
@@ -81,7 +81,7 @@ We'll also need to clone **[sample-nodeserver-dinos](https://github.com/auth0-bl
 
 Once you have ng1-dinos and the Node API running, the app should look like this in the browser:
 
-![ng1-dinos screenshot](https://cdn.auth0.com/blog/ng1-to-ng2/ng1-dinos-home.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 1 app screenshot](https://cdn.auth0.com/blog/ng1-to-ng2/ng1-dinos-home.jpg)
 
 **Important:** Take some time to familiarize with the file structure, code, and features. We won't be making any _changes_ to this application, but it's important to get comfortable with it because everything we do in our Angular 2 app will be a migration of ng1-dinos. 
 
@@ -93,7 +93,7 @@ Angular 2 brings in several technologies that ng1-dinos does not take advantage 
 
 We'll follow the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) for the most part, with a few minor exceptions regarding file structure. For this tutorial, we want to preserve as much of a correlation with ng1-dinos as we can. This will make it easier to follow the migration of features.
 
-## Angular 2 Setup
+## Angular 2 Setup for Migrating Angular 1
 
 Let's get started with our ng2-dinos build! 
 
@@ -125,7 +125,7 @@ ng serve
 
 We should be able to view the site in the browser at [http://localhost:4200](http://localhost:4200). The app should look like this:
 
-![ng2-dinos initialized](https://cdn.auth0.com/blog/ng1-to-ng2/app-works.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app initialized](https://cdn.auth0.com/blog/ng1-to-ng2/app-works.jpg)
 
 Take a look at the file structure for your new ng2-dinos app. You may notice there are test files and configuration, but **we won't cover testing in this tutorial**. If you'd like to learn more about testing Angular 2, check out [Testing in the Angular docs](https://angular.io/docs/ts/latest/guide/testing.html) and articles like [Angular 2 Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/) and [Three Ways to Test Angular 2 Components](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d#.m3gh6p8bb).
 
@@ -141,7 +141,7 @@ This tutorial follows the Style Guide and adheres to the default rules in the TS
 
 > **Note:** The Angular CLI TSLint `"eofline": true` rule requires [files to end with a _newline_](https://palantir.github.io/tslint/rules/eofline/). This is [standard convention](http://stackoverflow.com/questions/729692/why-should-text-files-end-with-a-newline). If you want to avoid lots of newline errors when linting, make sure that your files include this.
 
-## Customizing Our Angular 2 Project
+## Customizing Our Angular 2 Project for Migration
 
 Now that we have a working starter project for our ng2-dinos app, we want to restructure it and add some libraries.
 
@@ -330,7 +330,7 @@ export * from './core/app.module';
 
 That's it for setup! We can officially start migrating ng1-dinos to ng2-dinos.
 
-## Root App Component
+## Angular 2 Root App Component
 
 In the ng1-dinos Angular 1 app, `ng-app` was on the `<html>` element. This provided Angular control over the `<head>`, allowing us to dynamically update the `<title>` with a custom metadata factory. In Angular 2, our root app component is located inside the `<body>`. Angular 2 provides a service to manage page `<title>`s and we shouldn't use an `<html>`-level app root anymore.
 
@@ -440,11 +440,11 @@ export class AppComponent {
 
 If we restart the Angular CLI server now and inspect the DOM in the browser, we'll see a `.nav-closed` class on the `<div class="layout-canvas">` element. We can use the inspector to change `.nav-closed` to `.nav-open`. If we do this, we should see the page content slide to the right:
 
-![ng2-dinos app root nav open](https://cdn.auth0.com/blog/ng1-to-ng2/app-root-nav-open.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app root nav open](https://cdn.auth0.com/blog/ng1-to-ng2/app-root-nav-open.jpg)
 
 Now we're ready to create the header.
 
-## Header Component
+## Angular 2 Header Component
 
 We can use the Angular CLI's `g` command (shortcut for `generate`) to [generate new components](https://github.com/angular/angular-cli#generating-components-directives-pipes-and-services) for our app. Stop the server (`Ctrl+C`) and let's create a header component:
 
@@ -454,7 +454,7 @@ ng g component header
 
 New components are created relative to the `ng2-dinos/src/app` root. The resulting output should resemble the following:
 
-![create Angular 2 component with Angular CLI](https://cdn.auth0.com/blog/ng1-to-ng2/create-header.jpg)
+![Migrating Angular 1 app to Angular 2: create Angular 2 component with Angular CLI](https://cdn.auth0.com/blog/ng1-to-ng2/create-header.jpg)
 
 We can see from the terminal output that new files were created, but let's also look at the `app.module.ts` file so we're familiar with everything necessary for adding new components to an Angular 2 app.
 
@@ -601,7 +601,7 @@ Now the component CSS can access the `.nav-open` class up the DOM tree from the 
 
 > **Note:** Recall that the site layout and navigation functionality styles remained global rather than being componetized in `app.component.scss` (instead we deleted that file). We could have moved the sections of the global `_layout.scss` into different child components and replaced references to parent styles with `:host-context()`. We didn't do this because the goal of this tutorial is to demonstrate _as close to a 1:1 migration as possible_ while covering many topics. When we're finished migrating the entire app, I encourage you to refactor where desirable! We'll highlight refactoring suggestions at the end of each part of this tutorial.
 
-## Header Component Interaction
+## Angular 2 Component Interaction
 
 Let's make our header component functional. We need the header to communicate with the root app component to implement the off-canvas navigation.
 
@@ -685,11 +685,11 @@ export class AppComponent {
 
 If we build now, we should be able to open and close the off-canvas navigation by clicking the hamburger icon. When open, the icon should animate into an X and the app should look like this:
 
-![Angular 2 app with off-canvas navigation](https://cdn.auth0.com/blog/ng1-to-ng2/oc-nav-short.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app with off-canvas navigation](https://cdn.auth0.com/blog/ng1-to-ng2/oc-nav-short.jpg)
 
 Everything is working correctly but this doesn't look very good. Let's fix it!
 
-## Observables and Properties
+## Angular 2 Observables and Properties
 
 In ng1-dinos, all off-canvas nav functionality was handled by  [`ng1-dinos/src/app/core/ui/navControl.dir.js`](https://github.com.com/auth0-blog/ng1-dinos/blob/master/src/app/core/ui/navControl.dir.js), including menu toggling and layout height. We've migrated the navigation functionality but we're still missing the layout height fix.
 
@@ -769,9 +769,9 @@ We can then bind `minHeight` to the `[style.min-height]` property on the layout 
 
 Now our app should be the height of the window even if the content is short. If the navigation grows longer than the content, the CSS we imported from ng1-dinos will ensure that it gets a scrollbar. With the menu open, our app should look like this in the browser:
 
-![Angular 2 app with off-canvas navigation](https://cdn.auth0.com/blog/ng1-to-ng2/oc-nav-full.jpg)
+![Migrating Angular 1 app to Angular 2: Angular 2 app with off-canvas navigation](https://cdn.auth0.com/blog/ng1-to-ng2/oc-nav-full.jpg)
 
-## Footer Component
+## Angular 2 Footer Component
 
 We have a header, so let's add the simple footer from ng1-dinos too. Run the `ng g` command to create a new component:
 
