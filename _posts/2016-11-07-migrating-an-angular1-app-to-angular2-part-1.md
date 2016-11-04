@@ -34,9 +34,9 @@ related:
 
 [AngularJS 1.x](https://angularjs.org/) has been a frontrunner among JavaScript frameworks over the past few years. There are thousands of production sites and apps [built with Google's "superheroic MVW framework"](https://www.madewithangular.com) and many more still in development. In mid-September 2016, [Angular 2 was released](http://angularjs.blogspot.com/2016/09/angular2-final.html) after a lengthy period of betas and release candidates. Angular developers knew this was coming and that [Angular 2](https://angular.io/) was a full rewrite and platform implementation, not an incremental update. 
 
-While Angular developers were and _are_ eager to try Angular 2, adoption can be challenging. Many of us have Angular 1 apps in development or maintenance and aren't in a position to migrate them to Angular 2 due to tight deadlines, budget constraints, client or management reluctance, etc. Angular 1 is still being maintained and Angular 1 apps are not about to go away.
+While Angular developers were and _are_ eager to try Angular 2, adoption can be challenging. Many of us have Angular 1 apps in development or maintenance and aren't in a position to migrate them to Angular 2 due to tight deadlines, budget constraints, client or management reluctance, etc. Angular 1 is [still being maintained](https://github.com/angular/angular.js/blob/master/CHANGELOG.md); in fact, at time of writing [Angular 1.6 is in release candidate](https://github.com/angular/angular.js/blob/master/CHANGELOG.md#160-rc0-bracing-vortex-2016-10-26) and Angular 1 apps are not about to go away.
 
-> **NOTE:** [Angular 2 uses SemVer (Semantic Versioning)](http://angularjs.blogspot.com/2016/10/versioning-and-releasing-angular.html?view=classic). This means that unlike Angular 1, there will no longer be breaking changes in point releases.
+> **NOTE:** [Angular 2 uses SemVer (Semantic Versioning)](http://angularjs.blogspot.com/2016/10/versioning-and-releasing-angular.html?view=classic). This means that unlike Angular 1, there will no longer be breaking changes in point releases. Currently, version 3.0 is scheduled for launch in early 2017.
 
 ## Migrate vs. Upgrade
 
@@ -154,7 +154,7 @@ Let's start by adding the [Bootstrap CSS](http://getbootstrap.com/css/) CDN to t
   <meta name="description" content="Learn about some popular as well as obscure dinosaurs!">
   <base href="/">
 
-  <!-- External stylesheets -->
+  <!-- Bootstrap CDN stylesheet -->
   <link 
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -168,6 +168,8 @@ Let's start by adding the [Bootstrap CSS](http://getbootstrap.com/css/) CDN to t
 </html>
 {% endhighlight %}
 
+> **NOTE:** The code for including the Bootstrap CSS can be found at [Bootstrap CDN](http://getbootstrap.com/getting-started/#download-cdn). We're using version 3.3.7 because it is latest stable at the time of writing. Please note that if you upgrade to version 4.x, there are major changes that would need to be addressed.
+
 ### Third Party Libraries
 
 The only third party JavaScript we'll add is a custom build of [Modernizr](https://modernizr.com/). You can grab this file from the Angular 1 ng1-dinos app. We'll be doing quite a bit of copying and pasting since we're doing a migration, so it's best to keep your local ng1-dinos project handy. 
@@ -176,11 +178,11 @@ Our minified, custom Modernizr build can be found at [`ng1-dinos/src/assets/js/v
 
 ```text
 ng2-dinos
-    |-- src/
-         |-- assets/
-              |-- js/
-                   |-- vendor/
-                        |-- modernizr.min.js
+  |-src/
+    |-assets/
+      |-js/
+        |-vendor/
+          |-modernizr.min.js
 ```
 
 Angular CLI uses Webpack to bundle local dependencies, so we _won't_ add Modernizr to our ng2-dinos index file. Instead, we'll add a reference to the `angular-cli.json` app's `scripts`:
@@ -229,16 +231,16 @@ When we're done, our ng2-dinos global styles file structure should look like thi
 
 ```text
 ng2-dinos
-    |-- src/
-         |-- assets/
-              |-- scss/
-                   |-- partials/
-                        |-- _layout.vars.scss
-                        |-- _responsive.partial.scss
-                   |-- _base.scss
-                   |-- _layout.scss
-                   |-- _presentation.scss
-                   |-- styles.scss
+  |-src/
+    |-assets/
+      |-scss/
+        |-partials/
+          |-_layout.vars.scss
+           |-_responsive.partial.scss
+         |-_base.scss
+         |-_layout.scss
+         |-_presentation.scss
+         |-styles.scss
 ```
 
 Now we'll `@import` these SCSS files in the ng2-dinos global `styles.scss`:
@@ -298,12 +300,12 @@ Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a n
 
 ```text
 ng2-dinos
-    |-- src/
-         |-- app/
-              |-- core/
-                   |-- app.component[.html|.scss|.ts]
-                   |-- app.module.ts
-              |-- index.ts
+  |-src/
+    |-app/
+      |-core/
+        |-app.component[.html|.scss|.ts]
+        |-app.module.ts
+      |-index.ts
 
 ```
 
