@@ -233,7 +233,7 @@ Create a `ng2-dinos/src/assets/scss/` folder and move the `ng2-dinos/src/styles.
 
 Now let's add some global SCSS from ng1-dinos. We'll copy the files and subdirectories from [`ng1-dinos/src/assets/css/scss/core/`](https://github.com/auth0-blog/ng1-dinos/tree/master/src/assets/css/scss/core) to `ng2-dinos/src/assets/scss/`.
 
-> **Note:** If you paid close attention, you'll notice that we're left off a folder in ng2-dinos. Our Angular 1 ng1-dinos app had a `css` folder with `scss` inside it. We don't need the `css` folder in ng2-dinos because of the Angular CLI Webpack bundling.
+> **Note:** If you paid close attention, you'll notice we've left off a folder in ng2-dinos. Our Angular 1 ng1-dinos app had a `css` folder with `scss` inside it. We don't need the `css` folder in ng2-dinos because of the Angular CLI Webpack bundling.
 
 When we're done, our ng2-dinos global styles file structure should look like this:
 
