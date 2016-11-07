@@ -754,6 +754,8 @@ In the `componentDidMount`, we just simply check if the user is logged in or not
 
 The source code for the authentication part of the NexThrone app can be found on the [adding-auth branch here](https://github.com/auth0-blog/nextjs-got/tree/adding-auth)
 
+You can also check out [Luis Rudge's](https://github.com/luisrudge) sample app that shows how to [integrate Next.js with Auth0 here](https://github.com/luisrudge/next.js-auth0)
+
 
 ## Conclusion
 
