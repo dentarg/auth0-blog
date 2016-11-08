@@ -825,7 +825,7 @@ Next we need a method for the template to use to filter the dinosaur list. We'll
 
 Our ng1-dinos app has a way to instantly clear the search with a button. We want the same feature in ng2-dinos, so let's create a `resetQuery()` method. This method sets the `query` to an empty string and then sets `filteredDinos` to the original, unfiltered `dinos` array. The reason we have to manually reset the array is because we're going to declaratively run `filterDinos()` on `keyup` in the query input field. This won't be triggered when the user clicks the button to clear the query.
 
-Finally, we need a method that returns an expression informing the template that no search results match the query. If there is a `dinos` array, the `filteredDinos` array is empty, there is a query, and (as a catch-all), there is no API error, then we can conclude the user's search has produced no results. In our ng1-dinos app, we used this expression in the `ng-if` in the view. Angular 2 recommends shifting logic of this type into the component logic.
+Finally, we need a method that returns an expression informing the template that no search results match the query. If there is a `dinos` array, the `filteredDinos` array is empty, there is a query, and (as a catch-all), there is no API error, then we can conclude the user's search has produced no results. In our ng1-dinos app, we used this expression in the `ng-if` in the view. Angular 2 recommends [shifting logic of this type into the component](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#simplicity).
 
 ### Filter in Home HTML
 
