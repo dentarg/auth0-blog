@@ -559,20 +559,36 @@ Open `detail.component.html`:
 
 Let's add the `<app-loading>` element and a wrapper to hide the content while loading is in progress. Now the loading gif should show while we retrieve API data for a dinosaur's detail information.
 
-## Migration From Angular 1 to Angular 2
+### Remove "Loading..." Text from Index HTML
 
-The migration of our [Angular 1 ng1-dinos app](https://github.com/auth0-blog/ng1-dinos) to [Angular 2 ng2-dinos](https://github.com/auth0-blog/ng2-dinos) is now complete! If you have both apps running, they should be functionally equivalent to a user. Please explore the two apps in the browser to make sure that our migration was successful.
+Finally, we're going to remove the `Loading...` text from our `index.html` file's `<app-root>` element. This is the last thing we'll do to make our Angular 2 migration feature-match our Angular 1 ng1-dinos app:
+
+```html
+<!-- ng2-dinos/src/index.html -->
+
+...
+<body>
+  <app-root></app-root>
+</body>
+...
+```
+
+## Completed Migration From Angular 1 to Angular 2
+
+The migration of our [Angular 1 ng1-dinos app](https://github.com/auth0-blog/ng1-dinos) to [Angular 2 ng2-dinos](https://github.com/auth0-blog/ng2-dinos) is now complete! If you have both apps running, they should be functionally equivalent from a user's perspective. Please explore the two apps in the browser to make sure that our migration was successful.
 
 ## Aside: Refactoring Suggestions
 
-Here is my refactoring suggestion from part three of our migration tutorial:
+Here are my refactoring suggestions from part three of our migration tutorial:
 
 * As with [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2), you may want to consider using additional `@NgModule`s to manage dependencies. Modules can make dependency management easier. Read the [Angular Modules docs](https://angular.io/docs/ts/latest/guide/ngmodule.html) and [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/) to learn more.
 * You could potentially abstract the template API error markup into its own component. The error message is currently different between the home and detail page components, but you could use data binding to pass a custom string into the component each time it's utilized. This might help with scalability if additional API calls will be made across additional components in the future.
 
 ## Aside: Authenticating an Angular 2 App with Auth0
 
-We're going to go beyond our migration now and explore authenticating our Angular 2 app with Auth0.
+Now we're going to go beyond our migration and explore authenticating our Angular 2 app with Auth0!
+
+![Auth0 implemented in Angular 2 app]()
 
 ## Conclusion
 
