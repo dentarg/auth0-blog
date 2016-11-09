@@ -584,11 +584,38 @@ Here are my refactoring suggestions from part three of our migration tutorial:
 * As with [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2), you may want to consider using additional `@NgModule`s to manage dependencies. Modules can make dependency management easier. Read the [Angular Modules docs](https://angular.io/docs/ts/latest/guide/ngmodule.html) and [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/) to learn more.
 * You could potentially abstract the template API error markup into its own component. The error message is currently different between the home and detail page components, but you could use data binding to pass a custom string into the component each time it's utilized. This might help with scalability if additional API calls will be made across additional components in the future.
 
-## Aside: Authenticating an Angular 2 App with Auth0
+## Aside: Authenticating an Angular 2 App with Auth0 Lock
 
-Now we're going to go beyond our migration and explore authenticating our Angular 2 app with Auth0!
+Now we're going to go beyond our migration and explore authenticating our Angular 2 ng2-dinos app with Auth0! We'll implement Auth0's Lock widget to manage user identity. The completed code for implementing Auth0 Lock with ng2-dinos is available in the [ng2-dinos authentication-with-auth0 branch on GitHub](#). 
 
-![Auth0 implemented in Angular 2 app]()
+![Auth0 implemented in Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-auth0.jpg)
+
+Once you have authentication set up,
+
+### Configuring Your Auth0 Client
+
+The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
+
+1. Sign up for a [free Auth0 account](https://auth0.com/signup).
+2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
+3. Name your new app and select "Single Page Web Applications". 
+4. In the **Settings** for your newly created app, add `http://localhost:4200` to the Allowed Callback URLs, Allowed Logout URLs, and Allowed Origins (CORS).
+5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above uses username/password database, Facebook, Google, and Twitter.
+
+### Setup and Dependencies
+
+### Create an Authentication Service
+
+### Add Login and Logout to Header
+
+![Log in Auth0 Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-log-in.jpg)
+
+![Log out Auth0 Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-authenticated.jpg)
+
+### Next Steps
+
+* [Authorizing route access](https://auth0.com/docs/quickstart/spa/angular2/07-authorization)
+* [Calling APIs with authenticated HTTP requests](https://auth0.com/docs/quickstart/spa/angular2/08-calling-apis)
 
 ## Conclusion
 
