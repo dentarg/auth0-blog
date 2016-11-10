@@ -25,7 +25,8 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="//cdn.auth0.com/js/lock-8.min.js"></script>
+    <script src="//cdn.auth0.com/w2/auth0-7.4.0.min.js"></script>
+    <script src="//cdn.auth0.com/js/lock/10.6.1/lock.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.min.js"></script>
     <script src="//cdn.auth0.com/web-header/latest/web-header.js"></script>
@@ -142,17 +143,34 @@
     <div id="header"></div>
     <script>
     (function () {
-      var lock = window.lock = new Auth0Lock('zEYfpoFzUMEzilhkHilcWoNkrFfJ3hAI', 'auth0.auth0.com');
-      var options = {
-        callbackURL:    'https://manage.auth0.com/callback',
-        socialBigButtons: true,
-        dict: {
-          signup: {
-            footerText: 'By signing up, you agree to our <a href="/terms" target="_new">terms of service</a> and <a href="/privacy" target="_new">privacy policy</a>'
-          }
-        },
-        icon: '//cdn.auth0.com/styleguide/latest/lib/logos/img/badge.png'
+      var config = {
+        auth0Domain: 'auth0.auth0.com',
+        auth0ClientID: 'zEYfpoFzUMEzilhkHilcWoNkrFfJ3hAI',
+        auth0CallbackURL: 'https://manage.auth0.com/callback',
       };
+      var auth0js = new Auth0({
+        domain: config.auth0Domain,
+        clientID: config.auth0ClientID,
+        callbackURL: config.auth0CallbackURL,
+        responseType: 'token'
+      });
+      var lockOptions = {
+        auth: { redirectUrl: config.auth0CallbackURL },
+        theme: {
+          logo: '//cdn.auth0.com/styleguide/latest/lib/logos/img/badge.png'
+        },
+        rememberLastLogin: true,
+        integratedWindowsLogin: false,
+        socialButtonStyle: 'big',
+        languageDictionary: {
+          signUpTerms: 'By signing up, you agree to our <a href="/terms" target="_new">terms of service</a> and <a href="/privacy" target="_new">privacy policy</a>'
+        }
+      };
+      var lock = window.lock = new Auth0Lock(
+        config.auth0ClientID,
+        config.auth0Domain,
+        lockOptions
+      );
 
       lock.on('signup ready', function () {
         metricsLib.track('open:signup', getBasicInfo());
@@ -164,18 +182,12 @@
 
       window.login = function login() {
         metricsLib.track('click:signin', getBasicInfo());
-
-        lock.hide(function() {
-          lock.show(options);
-        });
+        lock.show({ initialScreen: 'login' });
       }
 
       window.signup = function() {
         metricsLib.track('click:signup', getBasicInfo());
-
-        lock.hide(function() {
-          lock.showSignup(options);
-        });
+        lock.show({ initialScreen: 'signUp' });
       }
 
       // Header
@@ -192,7 +204,7 @@
 
         componentDidMount: function () {
           var _this = this;
-          lock.getClient().getSSOData(false, function (err, data) {
+          auth0js.getSSOData(false, function (err, data) {
             var logged = data.sso;
             _this.setState({ logged: logged });
           });
