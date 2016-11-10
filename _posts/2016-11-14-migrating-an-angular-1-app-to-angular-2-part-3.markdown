@@ -582,15 +582,13 @@ The migration of our [Angular 1 ng1-dinos app](https://github.com/auth0-blog/ng1
 Here are my refactoring suggestions from part three of our migration tutorial:
 
 * As with [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2), you may want to consider using additional `@NgModule`s to manage dependencies. Modules can make dependency management easier. Read the [Angular Modules docs](https://angular.io/docs/ts/latest/guide/ngmodule.html) and [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/) to learn more.
-* You could potentially abstract the template API error markup into its own component. The error message is currently different between the home and detail page components, but you could use data binding to pass a custom string into the component each time it's utilized. This might help with scalability if additional API calls will be made across additional components in the future.
+* You could potentially abstract the template API error markup into its own component. The error message is currently different between the home and detail page components, but you could use data binding to pass a custom string into the component each time it's utilized. This might help with scalability if additional API calls will be made in new components in the future.
 
 ## Aside: Authenticating an Angular 2 App with Auth0 Lock
 
 Now we're going to go beyond our migration and explore authenticating our Angular 2 ng2-dinos app with Auth0! We'll implement Auth0's Lock widget to manage user identity. The completed code for implementing Auth0 Lock with ng2-dinos is available in the [ng2-dinos authentication-with-auth0 branch on GitHub](#). 
 
 ![Auth0 implemented in Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-auth0.jpg)
-
-Once you have authentication set up,
 
 ### Configuring Your Auth0 Client
 
@@ -604,7 +602,88 @@ The first thing you'll need is an Auth0 account. Follow these simple steps to ge
 
 ### Setup and Dependencies
 
+First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.5 for our tutorial:
+
+```html
+<!-- ng2-dinos/src/index.html -->
+
+...
+  <!-- Auth0 Lock widget -->
+  <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+</head>
+...
+```
+
+Next we need the [`angular-jwt` helper library](https://github.com/auth0/angular2-jwt). Install this with npm:
+
+```bash
+npm install angular2-jwt --save
+```
+
 ### Create an Authentication Service
+
+We need an Angular 2 service to implement login functionality and authentication methods. We can use the CLI to generate the boilerplate in the `ng2-dinos/src/app/core/` folder:
+
+```bash
+ng g service core/auth
+```
+
+Open the new `auth.service.ts` file and add the following:
+
+```typescript
+// ng2-dinos/src/app/core/auth.service.ts
+
+import { Injectable } from '@angular/core';
+import { tokenNotExpired } from 'angular2-jwt';
+
+// Avoid name not found warnings
+declare var Auth0Lock: any;
+
+@Injectable()
+export class AuthService {
+  lock = new Auth0Lock('[YOUR_AUTH0_CLIENT_ID]', '[YOUR_AUTH0_CLIENT_DOMAIN].auth0.com', {});
+  userProfile: Object;
+
+  constructor() {
+    this.userProfile = JSON.parse(localStorage.getItem('profile'));
+
+    // Add callback for lock 'authenticated' event
+    this.lock.on('authenticated',
+      (authResult) => {
+        localStorage.setItem('id_token', authResult.idToken);
+
+        this.lock.getProfile(authResult.idToken, (error, profile) => {
+          if (error) {
+            throw Error('There was an error retrieving profile data!');
+          }
+
+          localStorage.setItem('profile', JSON.stringify(profile));
+          this.userProfile = profile;
+        });
+      }
+    );
+  }
+
+  login() {
+    // Call the show method to display the Lock widget
+    this.lock.show();
+  }
+
+  authenticated() {
+    // Check if there's an unexpired JWT
+    // This searches for an item in localStorage with key == 'id_token'
+    return tokenNotExpired();
+  }
+
+  logout() {
+    // Remove token and profile from localStorage
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('profile');
+    this.userProfile = undefined;
+  }
+
+}
+```
 
 ### Add Login and Logout to Header
 
