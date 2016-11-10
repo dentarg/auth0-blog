@@ -31,7 +31,7 @@ related:
 
 ## What is Passwordless Authentication?
 
-Passwordless authentication is a type of authentication where users do not need to login with passwords. This form of authentication totally makes passwords obsolete. With this form of authentication, users are presented with the options of either logging in simply via a magic link or using a token that is delivered via emails or text messages.
+Passwordless authentication is a type of authentication where users do not need to login with passwords. This form of authentication totally makes passwords obsolete. With this form of authentication, users are presented with the options of either logging in simply via a magic link, fingerprint, or using a token that is delivered via emails or text messages.
 
 ## How did Passwordless Authentication come about?
 
@@ -39,15 +39,15 @@ Over the years, there have been an increasing case of stolen and hacked password
 
 In addition, several platforms and applications keep emerging by the day and users have to register and set passwords for almost every one of those applications. Users are finding it really hard to keep up, thus encouraging them to provide the same password for several applications. This is a very [common fact](https://nakedsecurity.sophos.com/2013/04/23/users-same-password-most-websites/). Now, there is a problem with this approach. Once a hacker gets access to the password of a user to one application, then the hacker has a high probability of gaining acess to every other account that the user possesses. Password Managers like [LastPass](https://www.lastpass.com) and [1Password](https://1password.com/) have been made to combat the challenge of users having to remember strong, crazy and unique passwords across various systems. As awesome as these password managers are, how secured are they? Are they hack-free? How reliable are these applications?
 
-With these challenges staring down at us like a monster, What if there are no more passwords to be hacked? What if there are no more passwords for users to remember? What if we discard the use of passwords totally? Passwordless authentication to the rescue!
+With these challenges staring down at us like a monster, what if there are no more passwords to be hacked? what if there are no more passwords for users to remember? what if we discard the use of passwords totally? Passwordless authentication to the rescue!
 
 ## Benefits of Passwordless Authentication
 
 Without much ado, passwordless authentication helps:
 
-* **Improve User Experience:*** The faster users can sign up and use your service, the more users your app tends to attract. Users dread having to fill out forms and go through a rigorous registration process. Imagine eliminating that extra 5 minutes of asking users to remember their grandparent's maiden name as a security question. Passwordless authentication helps improve user experience in this regard!
+* **Improve User Experience:** The faster users can sign up and use your service, the more users your app tends to attract. Users dread having to fill out forms and go through a rigorous registration process. Imagine eliminating that extra 5 minutes of asking users to remember their grandparent's maiden name as a security question. Passwordless authentication helps improve user experience in this regard!
 
-* **Increase Security: Once you go passwordless, then there are no passwords to be hacked any longer.
+* **Increase Security:** Once you go passwordless, then there are no passwords to be hacked any longer.
 
 ## How does Passwordless Authentication really work?
 
@@ -97,7 +97,7 @@ Let's take a look at Auth0's fingerprint implementation. Auth0 supports **Touch 
 
 With Auth0, passwordless authentication is dead simple to implement. There are diagrams earlier in this post that already shows the passwordless authentication flow using Auth0. You must have noticed `Passwordless API` in those diagrams. This is a battle-tested and efficient [API implementation](https://auth0.com/docs/api/authentication#passwordless) of passwordless authentication. You can check out how it works under the hood or simply build your own implementation on top of it.
 
-We can also easily configure our applications to use **Auth0 Lock** for passwordless authentication. Let's quickly create an application that implements magic link and SMS by following the steps below:
+We can also easily configure our applications to use **Auth0 Lock** for passwordless authentication. Let's quickly create an application that implements magic link by following the steps below:
 
 - Clone this [repo](https://github.com/auth0-samples/auth0-jquery-passwordless-sample)
 - Create an [Auth0 account for free](https://auth0.com/signup)
@@ -118,7 +118,7 @@ _Save Configuration for Passwordless App_
 ![https://cdn.auth0.com/blog/passwordlessSettings.png](https://cdn.auth0.com/blog/passwordlessSettings.png)
 _Settings Tab_
 
-- Open up `auth0-variables.js` and replace the values there with your real Auth0 keys
+- Open up `auth0-variables.js` in your code and replace `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` values with your real Auth0 keys
 -  Run the app and test the app
 ![Click Magic Link Button](https://cdn.auth0.com/blog/clickMagicLink.png)
 _Click the Magic Link Button_
