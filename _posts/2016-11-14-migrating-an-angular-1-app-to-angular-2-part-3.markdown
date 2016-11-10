@@ -415,11 +415,10 @@ export class HomeComponent implements OnInit {
       .subscribe(
         res => {
           ...
+          this.loading = false;
         },
         err => {
           ...
-        },
-        () => {
           this.loading = false;
         }
       );
@@ -440,7 +439,9 @@ export class HomeComponent implements OnInit {
 }
 ```
 
-We'll add a boolean `loading` property to track loading state. Loading should be turned off when the API responds either with a success or a failure; we don't want to get stuck in an infinite loading state. We'll use the [`onCompleted` method](http://reactivex.io/documentation/operators/subscribe.html) to implement this. This is the third method of `subscribe` (the first two being `onNext` and `onError`). This is quite similar to our implemention in the Angular 1 app: [ng1-dinos used the promise method `.finally()`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/pages/home/Home.ctrl.js) in this case.
+We'll add a boolean `loading` property to track loading state. Loading should be turned off when the API responds either with a success or a failure; we don't want to get stuck in an infinite loading state. We'll add `this.loading = false` in both the `onNext` and `onError` subscription functions.
+
+> **Note:** This is different our implemention in the Angular 1 app: [ng1-dinos used the promise method `.finally()`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/pages/home/Home.ctrl.js). When [subscribing to observables](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md), the `onCompleted` function is only executed upon graceful termination of the observable sequence. Unlike `finally()` with promises, it will not run if an exception occurred. 
 
 To initiate the loading state, we'll set the `loading` property to `true` in the `ngOnInit()` lifecycle hook.
 
@@ -509,11 +510,10 @@ export class DetailComponent implements OnInit {
         .subscribe(
           res => {
             ...
+            this.loading = false;
           },
           err => {
             ...
-          },
-          () => {
             this.loading = false;
           }
         );
@@ -641,7 +641,7 @@ declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
-  lock = new Auth0Lock('[YOUR_AUTH0_CLIENT_ID]', '[YOUR_AUTH0_CLIENT_DOMAIN].auth0.com', {});
+  lock = new Auth0Lock('[YOUR_AUTH0_CLIENT_ID]', '[YOUR_AUTH0_CLIENT_DOMAIN]', {});
   userProfile: Object;
 
   constructor() {
@@ -684,6 +684,8 @@ export class AuthService {
 
 }
 ```
+
+Replace `[YOUR_AUTH0_CLIENT_ID]` with your Auth0 client ID and  `[YOUR_AUTH0_CLIENT_DOMAIN]` with your Auth0 domain. These can both be found in your [Auth0 dashboard](https://manage.auth0.com/#/clients) client settings.
 
 ### Add Login and Logout to Header
 
