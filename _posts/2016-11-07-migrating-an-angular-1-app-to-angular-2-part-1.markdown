@@ -865,4 +865,4 @@ We now have the basic architecture for our ng2-dinos app! We've successfully mig
 
 In the next parts of the tutorial, we'll enable navigation by creating page components and implementing routing. Then we'll call the API and use HTTP and observables to get and display dinosaur data and detail subpages, create type models, learn about filtering, implement error handling, and show loading states. We'll even address authentication.
 
-Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for parts two and three of Migrating an Angular 1 App to Angular 2 (coming soon)!
+Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. To continue our migration, please join me for [Part 2 of Migrating an Angular 1 App to Angular 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2)!
