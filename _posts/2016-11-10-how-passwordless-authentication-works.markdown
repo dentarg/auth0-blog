@@ -5,8 +5,8 @@ description: Learn the nitty-gritty of passwordless authentication
 date: 2016-11-10 08:30
 category: Identity, Security, Passwordless
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/biggest-internet-attack/logo.png
+  bg_color: "#001D3F"
+  image: https://cdn.auth0.com/blog/PasswordlessLogo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
