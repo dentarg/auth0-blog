@@ -5,7 +5,7 @@ description: "Learn how to migrate real-world features of an Angular 1 applicati
 date: 2016-11-14 8:30
 category: Technical guide, Angular, Angular2
 banner:
-  text: "Auth0 makes it easy to add authentication to your AngularJS application.""
+  text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"
@@ -247,7 +247,8 @@ Finally, we'll call the `getDino()` method in the `ngOnInit()` [lifecycle hook](
 
 Now we're ready to display the dinosaur detail information in our detail component template. Open the `detail.component.html` file:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- ng2-dinos/src/app/pages/detail/detail.component.html -->
 
 <article id="content-wrapper" class="content-wrapper">
@@ -300,15 +301,16 @@ Now we're ready to display the dinosaur detail information in our detail compone
   </p>
 
 </article>
-```
+{% endraw %}
+{% endhighlight %}
 
 Like with the other page components we migrated, we don't need a `.detail-wrapper` class in the template. In Angular 1 ng1-dinos we used these classes to "componetize" globally-declared CSS. Angular 2 encapsulates styles by component so we don't need specific wrapper classes anymore. 
 
 We'll use Bootstrap to style most of our dinosaur details. Most of our data can be displayed simply using [interpolation with double-curly braces](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#interpolation). The exception is the `info` paragraph. Our API sometimes returns HTML markup in this string. In Angular 1 ng-dinos, we used `ng-bind-html` to render markup in bindings. In Angular 2, so we need to bind to the `innerHTML` DOM property like so: 
 
-```html
+{% highlight html %}
 <p class="lead" [innerHTML]="dino.info"></p>
-```
+{% endhighlight %}
 
 We'll add a link back to the homepage and then finally, show an error message if there was a problem retrieving data from the API.
 
@@ -453,7 +455,8 @@ Finally, we need a getter method `get isLoaded()` to tell the template when load
 
 Now we need to implement our loading component and some template logic in the home markup `home.component.html`:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- ng2-dinos/src/app/pages/home/home.component.html -->
 
 <article id="content-wrapper" class="content-wrapper">
@@ -477,7 +480,8 @@ Now we need to implement our loading component and some template logic in the ho
   </div>
 
 </article>
-```
+{% endraw %}
+{% endhighlight %}
 
 We'll add and remove the loading component with `<app-loading *ngIf="loading">`. We'll also add a container around the rest of the page content and only stamp it if the `isLoaded` getter is true.
 
@@ -540,7 +544,8 @@ We'll make the same changes to our detail component as the home component. We wa
 
 Open `detail.component.html`:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- ng2-dinos/src/app/pages/detail/detail.component.html -->
 
 <article id="content-wrapper" class="content-wrapper">
@@ -557,7 +562,8 @@ Open `detail.component.html`:
   </div>
 
 </article>
-```
+{% endraw %}
+{% endhighlight %}
 
 Let's add the `<app-loading>` element and a wrapper to hide the content while loading is in progress. Now the loading gif should show while we retrieve API data for a dinosaur's detail information.
 
@@ -565,7 +571,7 @@ Let's add the `<app-loading>` element and a wrapper to hide the content while lo
 
 Finally, we're going to remove the `Loading...` text from our `index.html` file's `<app-root>` element. This is the last thing we'll do to make our Angular 2 migration feature-match our Angular 1 ng1-dinos app:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 ...
@@ -573,7 +579,7 @@ Finally, we're going to remove the `Loading...` text from our `index.html` file'
   <app-root></app-root>
 </body>
 ...
-```
+{% endhighlight %}
 
 ## Completed Migration From Angular 1 to Angular 2
 
@@ -590,7 +596,7 @@ Here are my refactoring suggestions from part three of our migration tutorial:
 
 Now we're going to go beyond our migration and explore authenticating our Angular 2 ng2-dinos app with [Auth0](https://auth0.com)! We'll implement [Auth0's Lock widget](https://auth0.com/lock/) to manage user identity. The completed code for implementing Auth0 Lock with ng2-dinos is available in the [ng2-dinos authentication-with-auth0 branch on GitHub](https://github.com/auth0-blog/ng2-dinos/tree/authentication-with-auth0). 
 
-![Auth0 implemented in Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-auth0.jpg)
+![Auth0 Lock implemented in Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-auth0.jpg)
 
 ### Configuring Your Auth0 Client
 
@@ -606,7 +612,7 @@ The first thing you'll need is an Auth0 account. Follow these simple steps to ge
 
 First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.5 for our tutorial:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 ...
@@ -614,7 +620,7 @@ First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using ve
   <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
 </head>
 ...
-```
+{% endhighlight %}
 
 Next we need the [`angular2-jwt` helper library](https://github.com/auth0/angular2-jwt). Install this with npm:
 
@@ -797,7 +803,7 @@ constructor(..., private auth: AuthService) { }
 
 Now we have access to `AuthService` methods in our `header.component.html` template. We can call them using `auth.[method_name]`. Let's add the login button:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/app/header/header.component.html -->
 
 ...
@@ -814,7 +820,7 @@ Now we have access to `AuthService` methods in our `header.component.html` templ
 
   </nav>
 ...
-```
+{% endhighlight %}
 
 Below the navigation list element, we'll add a `<section class="authWrapper">` to contain anything having to do with login/logout. We'll add a login button with a `(click)` handler that executes the `auth.login()` method. We'll show this button with `*ngIf` if the user is not authenticated.
 
@@ -839,7 +845,8 @@ When a user is authenticated, we want to display a greeting and a logout button 
 
 We can add this to our `header.component.html` template like so:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- ng2-dinos/src/app/header/header.component.html -->
 
 ...
@@ -858,7 +865,8 @@ We can add this to our `header.component.html` template like so:
       </div>
     </section>
 ...
-```
+{% endraw %}
+{% endhighlight %}
 
 If the user is authenticated, we'll show an info alert box greeting them by name. A logout button will be provided with a `(click)` handler to the `auth.logout()` method.
 
@@ -893,4 +901,4 @@ With Auth0 user authentication in place, we can do things like  authorize route 
 
 Our ng2-dinos app is complete! Make sure you've run `ng lint` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state. We've even covered adding authentication with Auth0 so we can authorize routes or make secure API calls in the future. 
 
-Hopefully you can dive into both Angular 1 to 2 migrations and new  Angular 2 projects with confidence now!
+Hopefully you're now ready to dive into Angular 1 to 2 migrations as well as new Angular 2 projects with confidence!
