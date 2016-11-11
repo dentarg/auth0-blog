@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How Passwordless Authentication Works"
-description: Learn the nitty-gritty of passwordless authentication
+description: Learn the nitty-gritty of Passwordless Authentication
 date: 2016-11-10 08:30
 category: Identity, Security, Passwordless
 design:
@@ -37,7 +37,7 @@ Passwordless authentication is a type of authentication where users do not need 
 
 Over the years, cases of stolen and hacked passwords have been on the rise. So many cases, such as the [Yahoo data breach](https://auth0.com/blog/yahoo-confirms-data-breach-of-half-a-billion-user-accounts/), [Dropbox user accounts leak](http://www.foxnews.com/tech/2016/08/31/dropbox-data-breach-68-million-user-account-details-leaked.html), and [LinkedIn Data Breach](http://fortune.com/2016/05/18/linkedin-data-breach-email-password/), had to do with having several passwords leaked.
 
-In addition, platforms and applications keep emerging by the day and users have to register and set passwords for almost every one of them. Users are finding it really hard to keep up, thus encouraging them to use the same password for several applications. This is a very [common occurrence](https://nakedsecurity.sophos.com/2013/04/23/users-same-password-most-websites/). Now, there is a problem with this approach. Once a hacker gets access to user's password for one application, the hacker has a high probability of gaining access to every other account the user possesses. Password managers like [LastPass](https://www.lastpass.com) and [1Password](https://1password.com/) have been made to combat the challenge of users having to remember strong, crazy, and unique passwords across various systems. As awesome as these password managers are, how secure are they? Are they hack-proof? How reliable are these applications?
+In addition, platforms and applications keep emerging by the day and users have to register and set passwords for almost every one of them. Users are finding it really hard to keep up, thus encouraging them to use the same password for several applications. This is a very [common occurrence](https://nakedsecurity.sophos.com/2013/04/23/users-same-password-most-websites/). Now, there is a problem with this approach. Once a hacker gets access to user's password for one application, the hacker has a high probability of gaining access to every other account the user possesses. Password managers like [LastPass](https://www.lastpass.com) and [1Password](https://1password.com/) attempt to combat the challenge of users having to remember strong, crazy, and unique passwords across various systems.
 
 With these challenges staring down at us like a monster, what if there are no more passwords to be hacked? What if there are no more passwords for users to remember? What if we discard the use of passwords totally? Passwordless authentication to the rescue!
 
@@ -145,6 +145,6 @@ If you don't want to go through the process of creating an app, there is an onli
 
 There is no doubt that passwords have become more susceptible to being compromised in recent years. Passwordless authentication aims to eliminate authentication vulnerabilities. This recent [analysis of passwordless connections](https://auth0.com/blog/analysis-of-passwordless-connections/) shows that passwordless adoption is increasing. Passwordless authentication is also very useful and gaining ground in the IoT world. It's easier, friendlier, and faster to be authenticated into an IoT device via Touch ID, push notification, or even a onetime passcode than with traditional means. If you really care about security, you should look into passwordless authentication!
 
-We have covered how to implement practical passwordless authentication in an application using magic links. You can follow a similar process to achieve the same objective using a onetime code via SMS.
+We have covered how to implement practical passwordless authentication in an application using magic links. You can follow a similar process to achieve the same objective using a onetime code via SMS. [Sign up for Auth0](https://auth0.com/signup) and implement passwordless authentication today!
 
 {% include tweet_quote.html quote_text="If you care about security, you should look into passwordless authentication" %}
