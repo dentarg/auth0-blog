@@ -97,7 +97,7 @@ We'll import our new detail component and then add a route with an `:id` paramet
 
 Now we need to link each dinosaur with its detail page. Open `dino-card.component.html`:
 
-```html
+{% highlight html %}
 <!-- ng2-dinos/src/app/pages/home/dino-card/dino-card.component.html -->
 
 ...
@@ -105,7 +105,7 @@ Now we need to link each dinosaur with its detail page. Open `dino-card.componen
       <a class="btn btn-primary" [routerLink]="['/dinosaur', dino.id]">Details</a>
     </p>
 ...
-```
+{% endhighlight %}
 
 We'll use the [`routerLink` directive](https://angular.io/docs/ts/latest/api/router/index/RouterLink-directive.html) with the Details button and bind an array of the URL segments: `[routerLink]="['/dinosaur', dino.id]"`. Now we should be able to click on dinosaur Details in the homepage and see our detail component.
 
