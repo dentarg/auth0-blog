@@ -5,7 +5,7 @@ description: "Learn how to migrate real-world features of an Angular 1 applicati
 date: 2016-11-14 8:30
 category: Technical guide, Angular, Angular2
 banner:
-  text: "Auth0 makes it easy to add authentication to your AngularJS application."
+  text: "Auth0 makes it easy to add authentication to your Angular 2 application."
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"
@@ -399,7 +399,7 @@ We'll import the `LoadingComponent` class and then add it to the `declarations` 
 
 ## Add Loading Component to Home
 
-The Angular 1 ng1-dinos app shows the loading directive in the home and the detail views.
+The Angular 1 ng1-dinos app shows the loading directive in the home and detail views.
 
 ### Implement Loading Functionality in Home TypeScript
 
@@ -413,6 +413,8 @@ In `home.component.ts`, let's add the functionality we need to conditionally add
 export class HomeComponent implements OnInit {
   ...
   loading: boolean;
+  
+  constructor(...) { }
 
   getDinos() {
     this.dinosService.getAllDinos$()
@@ -449,7 +451,7 @@ We'll add a boolean `loading` property to track loading state. Loading should be
 
 To initiate the loading state, we'll set the `loading` property to `true` in the `ngOnInit()` lifecycle hook.
 
-Finally, we need a getter method `get isLoaded()` to tell the template when loading has completed. Our Angular 1 ng1-dinos app implemented this expression in the template, but the [Angular 2 docs recommend moving this kind of logic to the component](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#simplicity).
+Finally, we need a getter method `get isLoaded()` to tell the template when loading has completed. Angular 1 ng1-dinos implemented this expression in the template, but the [Angular 2 docs recommend moving this kind of logic to the component](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#simplicity).
 
 ### Implement Loading Functionality in Home HTML
 
@@ -538,7 +540,7 @@ export class DetailComponent implements OnInit {
 }
 ```
 
-We'll make the same changes to our detail component as the home component. We want to add a boolean loading property that is `true` on initialization and `false` `onNext` and `onError`. A `get isLoaded()` getter compares the loading state to check if it's been set to `false` and will be used to stamp content in the template.
+We'll make the same changes to our detail component as the home component. We want to add a boolean `loading` property that is `true` on initialization and `false` `onNext` and `onError`. A `get isLoaded()` getter compares the loading state to check if it's been set to `false` and will be used to stamp content in the template.
 
 ### Implement Loading Functionality in Detail HTML
 
@@ -598,7 +600,7 @@ Now we're going to go beyond our migration and explore authenticating our Angula
 
 ![Auth0 Lock implemented in Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-auth0.jpg)
 
-### Configuring Your Auth0 Client
+### Configure Your Auth0 Client
 
 The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
 
@@ -779,6 +781,7 @@ import { AuthService } from './auth.service';
   ],
   ...
 })
+export class AppModule { }
 ```
 
 Now let's implement the template functionality so users can log in and out.
@@ -835,7 +838,7 @@ Open the `header.component.scss` file and let's add a little bit of margin to ou
 }
 ```
 
-We can now log in users!
+Users can now log in!
 
 ### Add Greeting and Logout to Header Component
 
@@ -868,7 +871,7 @@ We can add this to our `header.component.html` template like so:
 {% endraw %}
 {% endhighlight %}
 
-If the user is authenticated, we'll show an info alert box greeting them by name. A logout button will be provided with a `(click)` handler to the `auth.logout()` method.
+If the user is authenticated, we'll show an info alert box greeting them by name. A logout button will be provided with a `(click)` handler calling the `auth.logout()` method.
 
 Open the `header.component.scss` file and add one simple style to the `<p>` tag in the alert to add some margin:
 
@@ -885,7 +888,7 @@ Open the `header.component.scss` file and add one simple style to the `<p>` tag 
 }
 ```
 
-We now have an authentication available in our Angular 2 ng2-dinos application!
+We now have authentication in our Angular 2 ng2-dinos app!
 
 ### Next Steps
 
@@ -901,4 +904,4 @@ With Auth0 user authentication in place, we can do things like  authorize route 
 
 Our ng2-dinos app is complete! Make sure you've run `ng lint` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state. We've even covered adding authentication with Auth0 so we can authorize routes or make secure API calls in the future. 
 
-Hopefully you're now ready to dive into Angular 1 to 2 migrations as well as new Angular 2 projects with confidence!
+Hopefully you're now ready to dive into Angular migrations as well as new Angular 2 projects with confidence!
