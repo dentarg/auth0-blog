@@ -306,7 +306,7 @@ Now we're ready to display the dinosaur detail information in our detail compone
 
 Like with the other page components we migrated, we don't need a `.detail-wrapper` class in the template. In Angular 1 ng1-dinos we used these classes to "componetize" globally-declared CSS. Angular 2 encapsulates styles by component so we don't need specific wrapper classes anymore. 
 
-We'll use Bootstrap to style most of our dinosaur details. Most of our data can be displayed simply using [interpolation with double-curly braces](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#interpolation). The exception is the `info` paragraph. Our API sometimes returns HTML markup in this string. In Angular 1 ng-dinos, we used `ng-bind-html` to render markup in bindings. In Angular 2, so we need to bind to the `innerHTML` DOM property like so: 
+We'll use Bootstrap to style most of our dinosaur details. Most of our data can be displayed simply using [interpolation with double-curly braces](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#interpolation). The exception is the `info` paragraph. Our API sometimes returns HTML markup in this string. In Angular 1 ng-dinos, we used `ng-bind-html` to render markup in bindings. In Angular 2, we need to bind to the `innerHTML` DOM property like so: 
 
 {% highlight html %}
 <p class="lead" [innerHTML]="dino.info"></p>
