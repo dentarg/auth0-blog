@@ -45,7 +45,7 @@ The third and final part of the tutorial will cover:
 
 ## Setup and Dependencies
 
-Part two has the same dependencies as part one of our tutorial, so make sure you have:
+Part three has the same dependencies as the first two parts of our tutorial, so make sure you have:
 
 * [NodeJS with npm](https://nodejs.org)
 * [sample-nodeserver-dinos](https://github.com/auth0-blog/sample-nodeserver-dinos) local API for both Angular 1 and 2 apps
