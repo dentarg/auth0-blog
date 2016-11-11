@@ -65,13 +65,13 @@ Auth0 sends a clickable link to your email
 
 User is then logged in
 
-![Authenticatd User](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-authenticated-magic-flow.png)
+![User Authenticated without using password](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-authenticated-magic-flow.png)
 
 * **Authentication with a onetime code via e-mail:** With this form of authentication, the user is requested to enter their email address. An email is sent to the user with a unique onetime code. Once the user enters this code into your application, your app validates that the code is correct, a session is initiated and the user is logged in.
 
 Let's take a look at Auth0's onetime code via email implementation below:
 
-![One-time code via email](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-create-user-flow.png)
+![Authentication with a onetime code via email](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-create-user-flow.png)
 
 If the email address matches an existing user, Auth0 just authenticates the user like so:
 
@@ -81,7 +81,7 @@ If the email address matches an existing user, Auth0 just authenticates the user
 
 Let's take a look at Auth0's onetime code via SMS implementation below:
 
-![One-time code via SMS](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-create-user-flow.png)
+![Authentication with a onetime code via SMS](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-create-user-flow.png)
 
 If the phone number matches an existing user, Auth0 just authenticates the user like so:
 
@@ -91,7 +91,7 @@ If the phone number matches an existing user, Auth0 just authenticates the user 
 
 Let's take a look at Auth0's fingerprint implementation. Auth0 supports **Touch ID** for iOs. This is the authentication flow:
 
-![Touch ID flow](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-touchid-flow.png)
+![Authentication with Fingerprint](https://cdn.auth0.com/docs/media/articles/connections/passwordless/passwordless-touchid-flow.png)
 
 ## Aside: Passwordless Authentication with Auth0
 
@@ -102,7 +102,7 @@ We can also easily configure our applications to use **Auth0 Lock** for password
 - Clone this [repo](https://github.com/auth0-samples/auth0-jquery-passwordless-sample)
 - Create an [Auth0 account for free](https://auth0.com/signup)
 - On the dashboard, click on the red `Create Client` button to create a new app like so:
-![https://cdn.auth0.com/blog/passwordlessApp.png](https://cdn.auth0.com/blog/passwordlessApp.png)
+![Create a Passwordless Application](https://cdn.auth0.com/blog/passwordlessApp.png)
 
 - Head over to the [Passwordless Connections](https://manage.auth0.com/#/connections/passwordless) side of the dashboard and enable email option
 ![Enable Passwordless App](https://cdn.auth0.com/blog/enableEmailOne.png)
@@ -111,11 +111,11 @@ _Enable Passwordless App_
 ![Enable Magic Link](https://cdn.auth0.com/blog/enableEmailLink.png)
 _Enable Magic Link_
 
-![Configure specific app](https://cdn.auth0.com/blog/enableEmailForApp.png)
+![Save Configuration for Passwordless App](https://cdn.auth0.com/blog/enableEmailForApp.png)
 _Save Configuration for Passwordless App_
 
 - Head over to your settings tab for the `Passwordless App` and copy your `client_id` and `domain`
-![https://cdn.auth0.com/blog/passwordlessSettings.png](https://cdn.auth0.com/blog/passwordlessSettings.png)
+![Passwordless Authentication Settings](https://cdn.auth0.com/blog/passwordlessSettings.png)
 _Settings Tab_
 
 - Open up `auth0-variables.js` in your code and replace the `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` values with your real Auth0 keys
@@ -123,19 +123,19 @@ _Settings Tab_
 ![Click Magic Link Button](https://cdn.auth0.com/blog/clickMagicLink.png)
 _Click the Magic Link Button_
 
-![Click Signin](https://cdn.auth0.com/blog/lock-magic-link.png)
+![Sign in without passwords](https://cdn.auth0.com/blog/lock-magic-link.png)
 _Follow the instruction and sign in_
 
 ![Email Modal](https://cdn.auth0.com/blog/inputEmail.png)
 _Submit your email on the Lock Widget_
 
-![Notification Modal Box](https://cdn.auth0.com/blog/notificationBox.png)
+![Magic link email notification](https://cdn.auth0.com/blog/notificationBox.png)
 _Notification Modal to show that the link has been sent_
 
 ![Magic Link from email](https://cdn.auth0.com/blog/magicLinkPasswordless.png)
 _Magic Link From Email_
 
-![Welcome Page After Sign In](https://cdn.auth0.com/blog/welcomeEmailFromLink.png)
+![Signed in via the Magic Link](https://cdn.auth0.com/blog/welcomeEmailFromLink.png)
 _Signed in via the Magic Link_
 
 If you don't want to go through the process of creating an app, there is an online version you can play with [here.](https://auth0.github.io/lock-passwordless/)
