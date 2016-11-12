@@ -6,6 +6,8 @@ date: 2015-03-31 09:00
 date_override: "2015-10-07 12:30"
 alias: /2015/03/31/critical-vulnerabilities-in-json-web-token-libraries/
 category: Technical guide, Security
+banner:
+  text: "Don't worry about vulnerabilities, use Auth0 and we will take care of them."
 author:
   name: Tim McLean
   url: https://timmclean.net
