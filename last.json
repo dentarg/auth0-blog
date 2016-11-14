@@ -8,5 +8,6 @@ layout: null
     "link": "https://auth0.com{{ site.baseurl }}{{ site.posts[0].url }}",
     "date": "{{ site.posts[0].date | date: "%B %-d" }}",
     "author": "{{ site.posts[0].author.name }}",
-    "thumbnail": "{{ site.posts[0].design.image }}"
+    "thumbnail": "{{ site.posts[0].design.image }}",
+    "fullDate": "{{ site.posts[0].date | date_to_xmlschema}}"
 }
