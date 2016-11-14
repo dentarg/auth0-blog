@@ -23,7 +23,7 @@ tags:
 - migrate
 related:
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
-- 2016-09-29-angular-2-authentication
+- 2016-11-14-migrating-an-angular-1-app-to-angular-2-part-3
 ---
 
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. In the [first part of this tutorial](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1) we set up our Angular 2 app and migrated the basic architecture. This time we'll implement some real-world features like routing, calling an API, and more. The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
@@ -914,4 +914,4 @@ Our ng2-dinos app now calls an API and supports searching! We've successfully mi
 
 In the final part of the tutorial, we'll create a dinosaur detail component with routing and we'll show loading states while waiting for API calls to complete. We'll also go over how to add authentication to our Angular 2 app (a feature we didn't have in ng1-dinos).
 
-Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for the final lesson in Migrating an Angular 1 App to Angular 2 (coming soon)!
+Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for the final lesson: [Migrating an Angular 1 App to Angular 2 - Part 3](https://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-3)!
