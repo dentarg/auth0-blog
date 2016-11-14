@@ -792,7 +792,7 @@ Let's add a login button in the menu area. When we're done with this step and th
 
 ![Log in Auth0 Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-log-in.jpg)
 
-We want to be able to use methods from the `AuthService` in our header component so let's open `header.component.ts`, inject `AuthService`, and make it available in the constructor:
+We want to be able to use methods from the `AuthService` in our header template so let's open `header.component.ts`, inject `AuthService`, and make it available in the constructor:
 
 ```typescript
 // ng2-dinos/src/app/header/header.component.ts
@@ -827,7 +827,7 @@ Now we have access to `AuthService` methods in our `header.component.html` templ
 
 Below the navigation list element, we'll add a `<section class="authWrapper">` to contain anything having to do with login/logout. We'll add a login button with a `(click)` handler that executes the `auth.login()` method. We'll show this button with `*ngIf` if the user is not authenticated.
 
-Open the `header.component.scss` file and let's add a little bit of margin to our `.authWrapper` element:
+Open the `header.component.scss` file and let's add a margin to our `.authWrapper` element:
 
 ```scss
 /* ng2-dinos/src/app/header/header.component.scss */
