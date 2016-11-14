@@ -29,7 +29,7 @@ related:
 
 ---
 
-**TL;DR** Node Js brings the simplicity of JavaScript to the backend. Today, we will build an entire application with Node JS, starting with a blank canvas and finishing with a fully functional application with multiple routes, authentication, and even remote data access. Check out the completed code example from our [GitHub repo]().
+**TL;DR** Node Js brings the simplicity of JavaScript to the backend. Today, we will build an entire application with Node JS, starting with a blank canvas and finishing with a fully functional application with multiple routes, authentication, and even remote data access. Check out the completed code example from our [GitHub repo](https://github.com/auth0-blog/nodejs-awesome-polls).
 
 ---
 
@@ -73,7 +73,7 @@ Node Js is great for many use cases, but not so good in others. If you need high
 
 Now that we know more about Node Js, we are ready to get coding and building our application. The application we'll be building today is called Awesome Polls. The United States just had its presidential elections and we are going to build an app to help us analyse the results. Imagine you're building this app for a news organization that wishes to have the most up to date data so that it can provide accurate reports to it's viewers.
 
-For this tutorial we will assume that you have at least some JavaScript and general programming knowledge, but no Node Js exposure, so we'll take it step by step. As always, you can check out the completed code from the [GitHub repo]() if you would like to just follow along.
+For this tutorial we will assume that you have at least some JavaScript and general programming knowledge, but no Node Js exposure, so we'll take it step by step. As always, you can check out the completed code from the [GitHub repo](https://github.com/auth0-blog/nodejs-awesome-polls) if you would like to just follow along.
 
 ### Installing Node Js and NPM
 
