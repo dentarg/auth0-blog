@@ -2,7 +2,7 @@
 layout: post
 title: "A Rundown of JavaScript 2015 features"
 description: "Take a look at the features from ECMAScript/JavaScript 2015 and learn how they can help you in your projects"
-date: 2016-11-14 13:00
+date: 2016-11-15 13:00
 category: Technical guide, Feature list
 author:
   name: Sebastián Peyrott
@@ -43,7 +43,7 @@ This rundown is based on the excellent work of Luke Hoban and his [es6features G
 ## Introduction
 After years of slow development, JavaScript has seen a rebirth. Node.js and newer frontend frameworks and libraries have renowed the enthusiasm behind the language. Its use for medium and big systems has put people thinking hard on how JavaScript needs to grow. The result of this is ECMAScript 2015, a big update to the language that brings many ideas that had been in the works for a long time. Let's see how these ideas help to make JavaScript a better language for all uses today. 
 
-## The features
+## The Features
 ### Let and Const
 Since its inception, JavaScript had one way of declaring variables: `var`. The `var` statement, however, obeys the rules of **variable hoisting**. In other words, `var` declarations act as if the variables are declared at the top of the current execution context (function). This may result in unintuitive behavior:
 
@@ -210,7 +210,7 @@ The actual usefulness of classes compared to lean prototypes for big projects is
 
 Whatever your thoughts on the matter, one thing is clear: if you prefer to stick to a class-based approach, there is now one officially sanctioned way of doing so. Otherwise, use prototypes to your heart's content.
 
-### Object-literal improvements
+### Object-literal Improvements
 Another feature born out of practicality are the improvements to object literal declarations. Take a look:
 
 ```javascript
@@ -249,7 +249,7 @@ obj[getKey()] = 'some value';
 
 Anything that aids in readability and keeps blocks of code that should belong together as close as possible helps to reduce the chances of making a mistake.
 
-### Template string literals
+### Template String Literals
 There comes a time in every project in which you will need to interpolate values into a string. The standard way of doing this in JavaScript was through repeated concatenations:
 
 ```javascript
@@ -606,7 +606,7 @@ Note the odd syntax in the last `for..of` loop: `let [key, value]`. This is call
 
 Consistency and simplicity can do wonders for readability and maintainability, and this is exactly what iterators, iterables, generators and the `for..of` loop bring to the table.
 
-### Functions: default arguments and the rest operator
+### Functions: Default Arguments and the Rest Operator
 Functions now support default arguments, simplifying the common pattern of checking whether an argument exists and then setting its value.
 
 ```javascript
@@ -637,7 +637,7 @@ function request(url, method = 'GET', data = {}, contentType = 'application/json
 request('https://my-api.com/endpoint', undefined, { hello: 'world' });
 ```
 
-This, however, does not preclude proper API design. In the example above, users might be tempted to pass the third argument as the second one, in particular when using `HTTP GET`. So, although this can help to redeuce bolierplate inside functions, care must be taken when picking the right order of arguments and their default values.
+This, however, does not preclude proper API design. In the example above, users might be tempted to pass the third argument as the second one, in particular when using `HTTP GET`. So, although this can help to redeuce boilerplate inside functions, care must be taken when picking the right order of arguments and their default values.
 
 The `rest` operator is a new operator inspired by the one from C, take a look:
 
@@ -656,7 +656,7 @@ Of course, JavaScript did allow access to arguments not declared in the argument
 
 Since the variable declared through the rest operator is a true array, extensions such as `caller` and `callee`, present in `arguments`, are not available. 
 
-### Spread syntax
+### Spread Syntax
 A way to quickly understand spread syntax is to think of it as the opposite to the rest operator. Spread syntax substitutes argument lists with the elements from an array (or any iterable, in fact). In other words:
 
 ```javascript
@@ -872,7 +872,7 @@ But static modules do remove some flexibility that is handy in some scenarios. U
 #### Can we use modules now?
 Yes, and you should! Although module loading is not implemented in browsers yet, bundlers, compilers and libraries such as Babel, Webpack and System.js have implemented ECMAScript 2015 modules. The benefit of adopting modules early is that they are already part of the spec! You know one way or the other, modules are set in stone and won't see major changes in future versions of JavaScript. Using Common.js or AMD today implies taking a step back and adopting solutions that will fade out in the future.
 
-### New collections
+### New Collections
 Although JavaScript has the necessary power to implement many data structures, some of them are better implemented through optimizations only available to the interpreter. The ECMAScript 2015 working group decided to tackle this issue and came up with `Set`, `Map`, `WeakSet` and `WeakMap`.
 
 `Set` stores unique objects. Objects can be tested for presence in the set. `Set` uses special comparison semantics (which mostly resemble `===`) to check for object equality.
@@ -891,7 +891,7 @@ JavaScript has always been lean in the data structures department. Sets and maps
 
 Unfortunately, hash-based maps are still not available.
 
-### Object proxies
+### Object Proxies
 Another big addition to ECMAScript 2016. Object proxies let you customize the behavior of objects in interesting ways. JavaScript, by virtue of being a dynamic language, is very flexible when it comes to modifying objects. However, certain modifications are better expressed through the use of proxies. For example, let's see how we can modify all get operations of all properties of an object to add one in case the property is a number. Let's tackle this problem using ECMAScript 5 first.
 
 ```javascript
@@ -1018,7 +1018,7 @@ Symbols can help you to prevent polluting an object with keys that are better op
 
 By keeping the namespace of special object keys separate from common keys, ECMAScript 2015 makes debugging easier, object serialization simpler, and it reduces the chances of hitting bugs caused by key name collisions.
 
-### Typed arrays
+### Typed Arrays
 One of the pitfalls of JavaScript is the lack of proper numeric types. Most of the time, it is possible to get around this limitation somehow. However, efficient storage of big quantities of numeric values can't be achieved. This is solved with typed arrays.
 
 ```javascript
@@ -1028,8 +1028,8 @@ arr[8] = 255;
 
 Typed arrays provide efficient storage for signed and unsigned integers of 8, 16 and 32 bits. There are also floating point versions for 32-bit and 64-bit values.
 
-### Minor features
-#### Subclassing built-ins
+### Minor Features
+#### Subclassing Built-ins
 Adding to the controversial nature of ECMAScript 2015 classes, most built-in objects can now be subclassed.
 
 ```javascript
@@ -1049,8 +1049,8 @@ console.log(arr.lengthWithTerminator);
 
 Subclassing should be preferred to manipulating the prototype of built-ins, and proxies should be preferred over these two options. Ultimately it is up to you to pick the best option for your use case. In general terms, behavior reuse is better expressed through composition or proxies than subclassing, so use this feature with care.
 
-#### Guaranteed tail-call optimization
-Many functional programming languages perform tail-call optimization. Tail-call optimization handles the conversion of certain recursive function calls into loops. This conversion avoid stack overflows. JavaScript brings many functional features to the table, but this one was sorely missing until ECMAScript 2015. Certain algorithms are better expressed through recursion rather than loops.
+#### Guaranteed Tail-call Optimization
+Many functional programming languages perform tail-call optimization. Tail-call optimization handles the conversion of certain recursive function calls into loops. This conversion avoids stack overflows. JavaScript brings many functional features to the table, but this one was sorely missing until ECMAScript 2015. Certain algorithms are better expressed through recursion rather than loops.
 
 ```javascript
 function factorial(n) {
@@ -1070,9 +1070,9 @@ function factorial(n) {
 }
 ```
 
-In this example the last operation in the branch is the multiplication of `n` by the recursive function. In other words, the recursive function is not in tail position and tail call optimization cannot be performed.
+In this example the last operation in one of the branches is the multiplication of `n` by the recursive function. In other words, the recursive function is not in tail position and tail call optimization cannot be performed.
 
-Some language implementations are smart enough to convert this last example into the former, enabling tail call optimization. This is not required nor expected of ECMAScript 2015 implementations, so one should not depend on that.
+Some language implementations are smart enough to convert this last example into the former, enabling tail call optimization. This is not required nor expected of ECMAScript 2015 implementations, so one should not depend on it.
 
 Tail-call optimization is an interesting addition to the JavaScript toolbox. However, it should only be used when clarity is improved by it.
 
@@ -1103,11 +1103,11 @@ Binary and octal literals are now available:
 0b10100001 === 0xA1 === 0o241 === 161;
 ```
 
-## What comes next
+## What Comes Next
 The next versions of ECMAScript will probably not be as big as ECMAScript 2015, however interesting additions are expected. Let's see some of the major ones.
 
 ### Async/Await
-We have seen how ECMAScript 2015 improves asynchronous programming by the way of promises. Still, for all their benefits, promises come with a considerable syntactic weight. Is there any way we could improve this? Fortunately, yes! That's what async/await will attempt to do in ECMAScript 2017.
+We have seen how ECMAScript 2015 improves asynchronous programming by the way of promises. Still, for all their merits, promises come with a considerable syntactic weight. Is there any way we could improve this? Fortunately, yes! That's what async/await will attempt to do in ECMAScript 2017.
 
 Here is one the samples from the promises section above:
 
@@ -1195,7 +1195,7 @@ async function apiDoSomethingMoreComplex(withThis) {
 }
 ```
 
-The improvement is notable. Readability is so much better that one might even confuse this for synchronous code. `async`/`await` make an asynchronous function look like a synchronous function by acting as syntactic sugar to hide the behavior of promises acting in the back. Yes, that's right, `async`/`await` are little more than syntactic sugar for promises! So, whatever code works with promises today already supports `async`/`await`! To make it clear how `async`/`await` relate to promises we'll make the behavior more explicit.
+The improvement is notable. Readability is so much better that one might even confuse this for synchronous code. `async`/`await` make an asynchronous function look like a synchronous function by acting as syntactic sugar to hide the behavior of promises working in the back. Yes, that's right, `async`/`await` are little more than syntactic sugar for promises! So, whatever code works with promises today already supports `async`/`await`! To make it clear how `async`/`await` relate to promises we'll make the behavior more explicit.
 
 - `await` can only be used inside `async` functions.
 - An `async` function returns a promise. The value returned from the function is the result of the promise. If the function throws, then the promise is rejected. The function may return a promise instead, resulting in a chained promise. In other words, async functions always wrap their result in a promise.
@@ -1218,7 +1218,7 @@ function normalFunction() {
 An `async` function is simply a promise. Outside other `async` functions, you are required to follow the `Promise` API. That is it! `Async`/`await` take the power of promises and make them much more readable. And readable is always better: better for code, and better for you and future coders.
 
 ### Single Intruction Multiple Data (SIMD)
-As JavaScript gets used for more and more purposes, it becomes evident how access to certain hardware operations can make things more efficient. Single instruction multiple data (SIMD) instructions are a series of hardware operations that work on multiple elements of data at the same time. Certain operations can be speed up greatly when access to these instructions is available. They are of particular use in image, audio and cryptographic operations, all areas where JavaScript has started to be used.
+As JavaScript gets used for more and more purposes, it becomes evident how access to certain hardware operations can make things more efficient. Single instruction multiple data (SIMD) instructions are a series of hardware operations that work on multiple elements of data at the same time. Certain operations can be sped up greatly when access to these instructions is available. They are of particular use in image, audio and cryptographic operations, all areas where JavaScript has started to be used.
 
 ```javascript
 const a = SIMD.Float32x4(1, 2, 3, 4);
@@ -1230,7 +1230,7 @@ This example, taken from the [MDN SIMD page](https://developer.mozilla.org/en-US
 
 SIMD operations open the door to more possibilities for JavaScript.
 
-### Asynchronous iteration
+### Asynchronous Iteration
 Asynchronous iteration takes three great features from ECMAScript 2015 and 2017 and mixes them together: iterators, generators and async/await. This is an early proposal, so the syntax is not set in stone yet. Here's what it could look like:
 
 ```javascript
@@ -1387,4 +1387,4 @@ The `getProfile` function is a promise. You can either use it as such, or `await
 [Get the fully working example](https://github.com/auth0-blog/es2015-rundown-example).
 
 ## Conclusion
-ECMAScript 2015 is a major update to JavaScript. Many talked about for years are now available. These features make JavaScript much more suitable for big-scale development. Certain common patterns are simplified, clarity is improved and expressiveness increased. Although ECMAScript 2015 support is a problem when targetting old browsers or environments, transpilers such as Babel and Traceur let you reap the benefits today. As most JavaScript projects nowadays make use of bundlers, the use of transpilers is simple and convenient. There is no reason you should not use ECMAScript 2015 today!
+ECMAScript 2015 is a major update to JavaScript. Many of the improvements talked about for years are now available. These features make JavaScript much more suitable for big-scale development. Certain common patterns are simplified, clarity is improved and expressiveness is increased. Although ECMAScript 2015 support is a problem when targetting old browsers or environments, transpilers such as Babel and Traceur let you reap the benefits today. As most JavaScript projects nowadays make use of bundlers, the use of transpilers is simple and convenient. There is no reason you should not use ECMAScript 2015 and reap the benefits today!
