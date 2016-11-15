@@ -145,13 +145,14 @@ Eiji [demoed](https://credential-management-sample.appspot.com) the Credential M
 
 **Aside: Authenticating with Auth0**
 
-The [Credential Management API](https://developers.google.com/web/updates/2016/04/credential-management-api) is very promising like I mentioned above. Now, the automatic sign-in  across devices works only with `Google Login`. With [Auth0 Lock](https://auth0.com/docs/libraries/lock), you have access to [multiple authentication sources](https://docs.auth0.com/identityproviders) such as *Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce*, amongst others, or enterprise identity systems like *Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider*. Auth0 helps you to:
+The [Credential Management API](https://developers.google.com/web/updates/2016/04/credential-management-api) is very promising like I mentioned above. Now, the cool thing about automatic sign-in across devices is that it works with multiple login providers. [This](https://developers.google.com/web/fundamentals/security/credential-management/retrieve-credentials) shows how you can federate with any provider. With [Auth0 Lock](https://auth0.com/docs/libraries/lock), you also have access to [multiple authentication sources](https://docs.auth0.com/identityproviders) such as *Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce*, amongst others, or enterprise identity systems like *Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider*. Auth0 helps you to:
 
 * Add authentication through more traditional username/password databases.
 * Add support for linking different user accounts with the same user.
 * Support for generating signed Json Web Tokens to call your APIs and flow the user identity securely.
 * Analytics of how, when and where users are logging in.
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+* Achieve [SSO(Single Sign On)](https://auth0.com/docs/sso) seamlessly.
 
 [Sign up](https://auth0.com/signup) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
 
