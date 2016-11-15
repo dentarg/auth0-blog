@@ -2,7 +2,7 @@
 layout: post
 title: "Chrome Developer Summit 2016 - Summary"
 description: "Check out our summary of the recently concluded Chrome Developer Summit."
-date: 2016-11-14 08:30
+date: 2016-11-15 08:30
 category: Technical guide, Conferences, Chrome Developer Summit
 author:
   name: "Prosper Otemuyiwa"
