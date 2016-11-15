@@ -60,7 +60,7 @@ In [Part 1](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1
 
 ### Create Home, About, and 404 Page Components
 
-In order to implement routing, the first thing we need is multiple pages. Let's quickly create home, about, and 404  components. These will be pages so create a subdirectory in the `ng2-dinos/src/app` folder called `pages`. Stop the server and execute the following commands:
+In order to implement routing, the first thing we need is multiple pages. Let's quickly create home, about, and 404  components. These will be pages so create a subdirectory in the `ng2-dinos/src/app/` folder called `pages`. Stop the server and execute the following commands:
 
 * Home page component: `ng g component pages/home`
 * About page component: `ng g component pages/about`
@@ -244,7 +244,7 @@ Routing is an essential feature of our ng1-dinos app. For ng2-dinos, we're going
 
 ### Create a Routing Module
 
-Because of how the CLI generates multiple files per component in its own subdirectory, sometimes it's more straightforward to create a new feature manually. Regardless, we should know how to do this. Let's create a routing module in the `ng2-dinos/src/app/core` folder. We'll name this file `app-routing.module.ts`:
+Because of how the CLI generates multiple files per component in its own subdirectory, sometimes it's more straightforward to create a new feature manually. Regardless, we should know how to do this. Let's create a routing module in the `ng2-dinos/src/app/core/` folder. We'll name this file `app-routing.module.ts`:
 
 ```typescript
 // ng2-dinos/src/app/core/app-routing.module.ts
@@ -473,7 +473,7 @@ The API route we want to use is [http://localhost:3001/api/dinosaurs](http://loc
 
 We can see that the response is an array of dinosaur objects. Each dinosaur has an `id` and a `name`. We can see the `id` is a number and the `name` is a string. Now we can create a model.
 
-We'll have more than one model, so let's create a folder for models to keep our app scalable: `ng2-dinos/src/app/core/models`. In this folder, we'll make our model file: `dino.model.ts`.
+We'll have more than one model, so let's create a folder for models to keep our app scalable: `ng2-dinos/src/app/core/models/`. In this folder, we'll make our model file: `dino.model.ts`.
 
 ```typescript
 export class Dino {
