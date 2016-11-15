@@ -10,7 +10,7 @@ if (navigator.serviceWorker) {
         });
 }
 
-function requestNotificationPermission() {
+window.requestNotificationPermission = function () {
 
     if (Notification.requestPermission) {
         Notification.requestPermission(function(result) {
@@ -41,8 +41,7 @@ function registerForPush() {
                         method: "POST",
                         body: JSON.stringify({"registration_id": subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1)})
                     })
-                    .then(function(res){ console.log(res) });
-                    console.log("Subscription for Push successful: ", subscription.endpoint);
+                    .then(function(res){ console.log('registered') });
                     console.log("DEVICE_REGISTRATION_ID: ", subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1));
                 })
                 .catch(function(error) {
