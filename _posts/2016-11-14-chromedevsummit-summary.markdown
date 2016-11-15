@@ -152,7 +152,7 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 * Support for generating signed Json Web Tokens to call your APIs and flow the user identity securely.
 * Analytics of how, when and where users are logging in.
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
-* Achieve [SSO(Single Sign On)](https://auth0.com/docs/sso) seamlessly
+* Achieve [SSO(Single Sign On)](https://auth0.com/docs/sso) seamlessly.
 
 [Sign up](https://auth0.com/signup) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
 
