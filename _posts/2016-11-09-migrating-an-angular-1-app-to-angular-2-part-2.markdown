@@ -170,7 +170,7 @@ export class Error404Component implements OnInit {
 }
 ```
 
-### Home Component HTML
+### Home Component Template
 
 Now we have a document title but we also want to display `pageName` in a heading in our HTML. Let's write some basic markup.
 
@@ -189,7 +189,7 @@ In the `home.component.html` file, add an `<article>` and a heading with an inte
 
 We'll add a lot more to this component later.
 
-### About Component HTML
+### About Component Template
 
 Let's add some basic information about our app in the `about.component.html` template:
 
@@ -218,7 +218,7 @@ Let's add some basic information about our app in the `about.component.html` tem
 {% endraw %}
 {% endhighlight %}
 
-### 404 Component HTML
+### 404 Component Template
 
 This component will show when the route the user attempts to access does not exist. We'll apply a couple of Bootstrap classes in the `error404.component.html` template:
 
@@ -657,7 +657,7 @@ export class DinoCardComponent {
 
 We need to import `Input` from `@angular/core`. We also need our trusty `Dino` model. Then we'll declare our `@Input() dino: Dino` typed property. We don't need to add anything to the constructor so the `constructor() { }` function can be deleted. We also aren't using the `OnInit` lifecycle hook so we can remove it from imports, the exported class, and the `ngOnInit()` function. Keep in mind that if we expand functionality at some future date, we may need to replace things we've cleaned up for brevity.
 
-### Dino Card Component HTML
+### Dino Card Component Template
 
 Let's create the template for the dino card component. This file will be very similar to the ng1-dinos dino card template:
 
@@ -680,7 +680,7 @@ Let's create the template for the dino card component. This file will be very si
 
 Notice that the Details button doesn't go anywhere yet. We'll hook this up when we add the dinosaur detail component and routing.
 
-### Display Dino Card in Home Component
+### Display Dino Card in Home Component Template
 
 Now let's replace the unordered list with our new dino card component in `home.component.html`:
 
@@ -760,7 +760,7 @@ We want search to be case-insensitive so we'll convert the query and values to l
 
 Now that we have a way to filter by query, let's implement this in our home component. 
 
-### Filter in Home TypeScript
+### Filter in Home Component TypeScript
 
 Open the `home.component.ts` file:
 
@@ -827,7 +827,7 @@ Our ng1-dinos app has a way to instantly clear the search with a button. We want
 
 Finally, we need a method that returns an expression informing the template that no search results match the query. If there is a `dinos` array, the `filteredDinos` array is empty, there is a query, and (as a catch-all), there is no API error, then we can conclude the user's search has produced no results. In our ng1-dinos app, we used this expression in the `ng-if` in the view. Angular 2 recommends [shifting logic of this type into the component](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#simplicity).
 
-### Filter in Home HTML
+### Filter in Home Component Template
 
 You can reference the Angular 1 [ng1-dinos `Home.view.html`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/pages/home/Home.view.html) to check out the markup for searching. We're going to copy and then modify it for ng2-dinos `home.component.html`:
 
@@ -877,6 +877,8 @@ We want to use [two-way binding with `ngModel`](https://angular.io/docs/ts/lates
 In order for our filtering to work in the template, we need to update the `*ngFor` repeater to use the `filteredDinos` array instead of the `dinos` array.
 
 We also want to show a message if a user searches and there are no matching results. This message should show if the `noSearchResults` getter returns `true`.
+
+### Filter in Home Component Styles
 
 If we view our app, you may notice we could use a bit of styling to put some space between the search and the dinosaur list. Open the `home.component.scss` file and add:
 
