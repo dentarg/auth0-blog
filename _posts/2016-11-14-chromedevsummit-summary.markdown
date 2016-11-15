@@ -143,7 +143,7 @@ Eiji [demoed](https://credential-management-sample.appspot.com) the Credential M
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Interested to putting Credential Management API and Payment Request API together? Check out: <a href="https://t.co/RAX13s6LaB">https://t.co/RAX13s6LaB</a> <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash">#ChromeDevSummit</a></p>&mdash; Eiji Kitamura (@agektmr) <a href="https://twitter.com/agektmr/status/797487620854935552">November 12, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**Aside: Authenticating with Auth0
+**Aside: Authenticating with Auth0**
 
 The [Credential Management API](https://developers.google.com/web/updates/2016/04/credential-management-api) is very promising like I mentioned above. Now, the automatic sign-in  across devices works only with `Google Login`. With Auth0 Lock, you have access to [multiple authentication sources](https://docs.auth0.com/identityproviders) such as *Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce*, amongst others, or enterprise identity systems like *Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider*. Auth0 helps you to:
 
