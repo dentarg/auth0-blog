@@ -77,7 +77,7 @@ For this tutorial we will assume that you have at least some JavaScript and gene
 
 ### Installing Node Js and NPM
 
-To install Node Js head over to the official website located at [https://nodejs.org](https://nodejs.org) and you'll see a giant green download button for your operating system. Simply download the executable, run it, and go through the steps to install Node Js on your system.
+To install Node Js head over to the official website located at [https://nodejs.org](https://nodejs.org) and you'll see a giant green download button for your operating system. In our tutorial today, we'll be running the 6.x LTS version of Node. Simply download the executable, run it, and go through the steps to install Node Js on your system.
 
 If you are on a Mac, you can also install Node Js and NPM via [Homebrew](http://brew.sh/). Simply run `homebrew install node` from your terminal and in seconds Node and NPM will be installed.
 
