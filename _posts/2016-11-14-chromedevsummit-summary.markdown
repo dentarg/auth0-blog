@@ -41,7 +41,7 @@ The Chrome Developer Summit 2016 consisted of about 19 talks and some workshops.
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Oh my goodness statement breakpoints<a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash">#ChromeDevSummit</a> <a href="https://t.co/eoJ9baG8YG">pic.twitter.com/eoJ9baG8YG</a></p>&mdash; Jason Miller, Mr 🦊 (@_developit) <a href="https://twitter.com/_developit/status/796839609481199616">November 10, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Taylor Savage](https://twitter.com/taylorthesavage)** and [Monica Dinculescu](https://notwaldorf) talked about [Polymer](https://www.polymer-project.org/1.0/) and Web Components. They talked about how several browsers now support Shadow DOM and Custom elements. Taylor highlighted organizations that use Polymer actively. Companies like *BBVA*, *Coca-cola*, *EA*, *Predix* and *Google*. Want to learn how to use Polymer? Check out this [excellent tutorial](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components/) to get started. In addition, check out their session [here](https://developer.chrome.com/devsummit/schedule/sessions/web-components-and-polymer)
+**[Taylor Savage](https://twitter.com/taylorthesavage)** and **[Monica Dinculescu](https://notwaldorf)** talked about [Polymer](https://www.polymer-project.org/1.0/) and Web Components. They talked about how several browsers now support Shadow DOM and Custom elements. Taylor highlighted organizations that use Polymer actively. Companies like *BBVA*, *Coca-cola*, *EA*, *Predix* and *Google*. Want to learn how to use Polymer? Check out this [excellent tutorial](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components/) to get started. In addition, check out their session [here](https://developer.chrome.com/devsummit/schedule/sessions/web-components-and-polymer).
 
 **[Alex Russell](https://twitter.com/slightlylate)**, Software Engineer, Chrome gave a talk on *Progressive Performance*. He was really passionate about testing apps performance on slow networks and low-power devices. Alex admonished developers not to assume that their high-end devices are used extensively by the general populace. After testing on the browser with the available online tools, he stated that developers should still strive to test on real devices because cases such as network and cpu throttling can be accurately measured there. He also stated that *53% of visits are abandoned if a mobile site takes more than three seconds to load.*  Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/progressive-performance).
 
@@ -50,12 +50,12 @@ The Chrome Developer Summit 2016 consisted of about 19 talks and some workshops.
 - Preload is good for moving the start download time of an asset closer to the initial request
 - H2 Push is good for cutting out a full RTT
 
-Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/planning-for-performance)
+Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/planning-for-performance).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Woot! <a href="https://twitter.com/samccone">@samccone</a> just announced <a href="https://twitter.com/ChromeDevTools">@ChromeDevTools</a> will be getting JS parse timings!! <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash">#ChromeDevSummit</a> <a href="https://t.co/vNQkZchB5p">pic.twitter.com/vNQkZchB5p</a></p>&mdash; Jason Miller, Mr 🦊 (@_developit) <a href="https://twitter.com/_developit/status/796889350118068224">November 11, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Emily Stark](https://twitter.com/estark37)** gave a talk titled *Real Talk About HTTPS*. She highlighted what Chrome is doing to make users use HTPS, especially UI/UX features to alert developers and users on the real need for HTTPS on their websites and apps. She also talked about the [transparency report](https://www.google.com/transparencyreport) at Google. Check out the slides for her talk [here](https://docs.google.com/presentation/d/1_0JS8sZaSJyXsH-b0Mnw3qkJxTae1-RiZQu6XdeWPlY/edit#slide=id.g6497df4fb_1_40). Her session can also be found [here](https://developer.chrome.com/devsummit/schedule/sessions/security-http2-leading-to-https)
+**[Emily Stark](https://twitter.com/estark37)** gave a talk titled *Real Talk About HTTPS*. She highlighted what Chrome is doing to make users use HTPS, especially UI/UX features to alert developers and users on the real need for HTTPS on their websites and apps. She also talked about the [transparency report](https://www.google.com/transparencyreport) at Google. Check out the slides for her talk [here](https://docs.google.com/presentation/d/1_0JS8sZaSJyXsH-b0Mnw3qkJxTae1-RiZQu6XdeWPlY/edit#slide=id.g6497df4fb_1_40). Her session can also be found [here](https://developer.chrome.com/devsummit/schedule/sessions/security-http2-leading-to-https).
 
 **[Robert Nyman](https://twitter.com/robertnyman) and [Rick Byers](https://twitter.com/RickByers)** talked about *Predictability for the Web*. Robert highlighted that the web has a problem. Issues such as *Inconsistency and lack of interoperability amongst browsers* . He also mentioned that Google started a Predictability project six months ago and this will help reduce the need for:
 
@@ -64,7 +64,7 @@ Check out his session [here](https://developer.chrome.com/devsummit/schedule/ses
 * Polyfills for inconsistencies between APIs
 * Shims that smooth over lacking interoperability
 
-**Rick Byers**, Software Engineer, Chrome talked about improved collaboration between browser engines. Check out the slides [here](http://www.slideshare.net/robnyman/predictability-for-the-web), their session is also available [here](https://developer.chrome.com/devsummit/schedule/sessions/predictability-for-the-web)
+**Rick Byers**, Software Engineer, Chrome talked about improved collaboration between browser engines. Check out the slides [here](http://www.slideshare.net/robnyman/predictability-for-the-web). Their session is also available [here](https://developer.chrome.com/devsummit/schedule/sessions/predictability-for-the-web).
 
 **[Paul Bakaus](https://twitter.com/pbakaus)**, Developer Advocate, Google gave a talk on *From AMP to PWA - the best of both worlds*. He stated that *53% of users bounce from sites that take longer than 3 seconds to load*. He talked about the benefits of using **Accelerated Mobile Pages(AMP)**. The [AMP project](https://www.ampproject.org/) is an open-source JS library that:
 
@@ -72,7 +72,7 @@ Check out his session [here](https://developer.chrome.com/devsummit/schedule/ses
 * Manages rendering and resource loading to optimize performance
 * Same everywhere - Highly cacheable
 
-Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/from-amp-to-pwa)
+Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/from-amp-to-pwa).
 
 **[Addy Osmani](https://twitter.com/addyosmani)**, Developer Programs Engineer, Google gave a talk on *Production PWAs with frameworks*. Addy talked about how to use React to build Progressive Web Apps at a large scale. He recommended using [LightHouse](https://github.com/GoogleChrome/lighthouse) over remote debugging. He also talked extensively about Code-splitting and developer experiences around it. In this talk, Addy also mentioned his [RFC for Webpack Performance Budgets](https://github.com/webpack/webpack/issues/3216) aimed at improving load times and interactivity by highlighting large/monolithic bundles. He also highlighted *Universal JS* performance issues and how he helped redesign [code.nasa.gov](https://code.nasa.gov). Don't know about Universal JS yet? this [tutorial with Next.js](https://auth0.com/blog/building-universal-apps-with-nextjs/) can help get you started. Check out Addy's session [here](https://developer.chrome.com/devsummit/schedule/sessions/productions-pwas-with-frameworks).
 
@@ -94,13 +94,13 @@ He also highlighted tools for PWAs. Some of them are:
 * sw-precache-webpack-plugin
 * sw-offline-google-analytics and much more
 
-Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/tools-and-libraries-for-progressive-web-apps)
+Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/tools-and-libraries-for-progressive-web-apps).
 
 **[Dru Knox](https://twitter.com/drufball)**, Product Manager, Chrome talked about *Client Storage: shave seconds off your load time with one simple trick*. Check out his session phere](https://developer.chrome.com/devsummit/schedule/sessions/the-state-of-storage).
 
-**[Seth Thompson](https://twitter.com/s3ththompson)**, Product Manager, Chrome gave a talk on **Advanced JS Performance with V8 and Web Assembly**. He talked about Chrome V8 engine update to use Ignition. Ignition brings a smaller memory footprint and a simplified execution pipeline. Seth demoed a photo gallery with a live coding session that involved improving the existing code base with `async` and `await` features. Seth also talked about Web Assembly's mission and did a coding practical session on it. Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/advanced-js-performance)
+**[Seth Thompson](https://twitter.com/s3ththompson)**, Product Manager, Chrome gave a talk on *Advanced JS Performance with V8 and Web Assembly*. He talked about Chrome V8 engine update to use Ignition. Ignition brings a smaller memory footprint and a simplified execution pipeline. Seth demoed a photo gallery with a live coding session that involved improving the existing code base with `async` and `await` features. Seth also talked about Web Assembly's mission and did a coding practical session on it. Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/advanced-js-performance).
 
-**[Jake Archibald](https://twitter.com/jaffathecake)**, Developer Advocate, Google gave a fantastic talk on **Future App Model: Advanced Service Worker**. Jake talked about new and recently improved JavaScript features such as Async Iterators, Transform and Identity Streams, Navigation preload, Foreign fetch, Background Fetch and Navigation transitions. He explained how service workers can be greatly improved with these features. Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/future-app-model).
+**[Jake Archibald](https://twitter.com/jaffathecake)**, Developer Advocate, Google gave a fantastic talk on *Future App Model: Advanced Service Worker*. Jake talked about new and recently improved JavaScript features such as Async Iterators, Transform and Identity Streams, Navigation preload, Foreign fetch, Background Fetch and Navigation transitions. He explained how service workers can be greatly improved with these features. Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/future-app-model).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">…<br>Navigation preload <a href="https://t.co/b7bfJOE61z">https://t.co/b7bfJOE61z</a><br><br>Foreign fetch <a href="https://t.co/0ji2Tuw9FM">https://t.co/0ji2Tuw9FM</a><br><br>Background fetch <a href="https://t.co/qALqXgSnnn">https://t.co/qALqXgSnnn</a><br>…</p>&mdash; Jake Archibald (@jaffathecake) <a href="https://twitter.com/jaffathecake/status/797235023673892864">November 12, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -111,7 +111,7 @@ Check out his session [here](https://developer.chrome.com/devsummit/schedule/ses
 
 **[Patrick Kettner](https://twitter.com/patrickkettner)**, Edge PM, Microsoft, gave a talk on *The "Progressive" in Progressive Web Apps*. Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/progressive-in-pwa).
 
-**[Paul Kinlan](https://twitter.com/paul_kinlan)**, Developer Advocate, Google, talked about the future of the web. He started with mentioning the existing API functionalities that are available in the browser. Features such as Camera Access, Battery level status, Microphone Access, Push Notifications and Network Information access. He talked about a better mobile game plan by:
+**[Paul Kinlan](https://twitter.com/paul_kinlan)**, Developer Advocate, Google, talked about the future of the web. He started with mentioning the existing API functionalities that are available in the browser. Features such as Camera Access, Battery level status, Microphone Access, Push Notifications and Network Information access. He also talked about a better mobile game plan that can be made possible by:
 
 1. Smoothing out the platform
 2. Decrease feature gap
@@ -128,7 +128,7 @@ He highlighted the exciting new and improved features for the Web below:
 * Generic Sensor API
 * WebVR
 
-Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/next-for-the-web)
+Check out his session [here](https://developer.chrome.com/devsummit/schedule/sessions/next-for-the-web).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">SAD NUCLEAR MICE <a href="https://twitter.com/Paul_Kinlan">@Paul_Kinlan</a>, Developer Advocate 😳😂 <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash">#ChromeDevSummit</a> <a href="https://t.co/c0fm6UTESk">pic.twitter.com/c0fm6UTESk</a></p>&mdash; Abdelrahman Omran (@Omranic) <a href="https://twitter.com/Omranic/status/797264379540406273">November 12, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -158,6 +158,6 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 
 ## Conclusion
 
-The Chrome Dev Summit generally focused on building progressive web apps. It's very obvious that Google is making giant strides to make the web more accessible and also bringing some native app functionalities to the web. Thanks to *Jake Archibald* and *Paul Lewis* for entertaining developers throughout the event. I had lots of fun and `Aha` moments during the summit. Already looking forward to #ChromeDevSummit2017 and the awesomeness it's hopefully going to bring with it!
+The Chrome Dev Summit generally focused on building progressive web apps. It's very obvious that Google is making giant strides to make the web more accessible and also bringing some native app functionalities to the web. Thanks to *Jake Archibald* and *Paul Lewis* for entertaining developers throughout the event. I had lots of fun and `Aha` moments during the summit. Already looking forward to **#ChromeDevSummit2017** and the awesomeness it's hopefully going to bring with it!
 
-If you were at the summit, let me know your `Aha` moments in the comment section 😃
+If you were at the summit, let me know your `Aha` moments in the comment section. 😃
