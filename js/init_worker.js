@@ -1,7 +1,7 @@
 if (navigator.serviceWorker) {
     console.log("ServiceWorkers are supported");
 
-    navigator.serviceWorker.register('https://auth0.com/blog/js/sw.js')
+    navigator.serviceWorker.register('js/sw.js')
         .then(function(reg) {
             console.log("ServiceWorker registered", reg);
         })
@@ -26,7 +26,7 @@ window.requestNotificationPermission = function () {
 
 
 function registerForPush() {
-   // if (navigator.serviceWorker.controller) {
+    //if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
             serviceWorkerRegistration.pushManager.subscribe({
                     userVisibleOnly: true
@@ -49,11 +49,11 @@ function registerForPush() {
                 });
         });
     //} else {
-      //  console.log("No active ServiceWorker");
+      // console.log("No active ServiceWorker");
     //}
 }
 
-function doesBrowserSupportNotifications() {
+(function doesBrowserSupportNotifications() {
 
     var supported = true;
     if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
@@ -80,4 +80,4 @@ function doesBrowserSupportNotifications() {
     if (supported) {
         console.log("Everthing is fine you can continue")
     }
-};
+})();
