@@ -85,7 +85,7 @@ We will want to ensure that both NPM and Node are installed. Once you've gone th
 
 ![Verify Node Js Installation](https://cdn.auth0.com/blog/nodejs-awesome-polls/test.png)
 
-*Note: Node.js has two version. A 6.x stable/long-term support version and 7.x which is the cutting edge version, that supports some of the latest ES6 features. Both versions are production-ready, and for this tutorial we'll be using the 6.x version of Node.*
+*Note: Node.js has two versions. A 6.x stable/long-term support version and 7.x which is the cutting edge version, that supports some of the latest ES6 features. Both versions are production-ready, and for this tutorial we'll be using the 6.x version of Node.*
 
 ### Node Js Project Setup
 
