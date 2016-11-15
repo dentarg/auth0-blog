@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 3"
-description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 3): routing + API with params and authentication."
+description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 3): routing  & API with params, authentication."
 date: 2016-11-14 8:30
 category: Technical guide, Angular, Angular2
 banner:
@@ -11,7 +11,7 @@ author:
   url: "https://twitter.com/KimMaida"
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
-design:*
+design:
   image: https://cdn.auth0.com/blog/angular/logo.png
   image_size: "75%"
   image_bg_color: "rgb(1, 70, 166)"
