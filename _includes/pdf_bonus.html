@@ -21,7 +21,7 @@ You can also save the text in a variable
     <div class="pdf-bonus">
         <div class="pdf-left">Bonus PDF</div>
         <div class="pdf-desc">{{ include.text }}</div>
-        <button type="button" data-toggle="modal" data-target="#modal-pdf" class="btn btn-sm">
+        <button type="button" data-toggle="modal" data-target="#modal-pdf" class="btn btn-sm pdf-download">
             DOWNLOAD
             <modal></modal>
         </button>
@@ -79,6 +79,11 @@ You can also save the text in a variable
 </div>
 
 <script>
+
+$('.pdf-download').on('click', function() {
+  $('#modal-pdf').modal();
+});
+
 $('#pdf-email').on('input', function() {
     var email = $(this).val();
     var regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

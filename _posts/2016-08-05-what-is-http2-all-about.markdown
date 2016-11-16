@@ -3,6 +3,7 @@ layout: post
 title: "What is HTTP/2 All About?"
 description: "HTTP/2 is the latest web standard that aims to improve the way we interact with the web. Learn all about HTTP/2 and how it affects you."
 date: 2016-08-05 08:30
+category: Technical guide, Architecture, HTTP
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"

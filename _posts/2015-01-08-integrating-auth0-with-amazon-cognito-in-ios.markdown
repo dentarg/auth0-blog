@@ -3,6 +3,7 @@ layout: post
 title: "Integrating Auth0 with Amazon Cognito in iOS"
 date: 2015-01-08 12:27
 alias: /2015/01/08/integrating-auth0-with-amazon-cognito-in-ios/
+category: Technical guide, Backend, Cognito
 author:
   name: "Martin Gontovnikas"
   url: https://twitter.com/mgonto
@@ -21,7 +22,6 @@ related:
 - 2015-12-04-how-to-implement-slack-like-login-on-ios-with-auth0
 - 2015-04-03-using-touchid-for-authentication-in-your-react-native-app
 - 2015-06-29-using-smartlock-on-android-in-3-simple-steps
----
 ---
 
 > TL;DR: You can get a working sample that uses Auth0, Cognito, and iOS in [this Github repository](https://github.com/auth0/Lock.iOS-OSX/tree/master/Examples/Cognito.Swift)

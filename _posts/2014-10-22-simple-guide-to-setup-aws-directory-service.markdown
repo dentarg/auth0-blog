@@ -4,6 +4,8 @@ title: "Simple Guide to Setup AWS  Directory Service"
 date: 2014-10-22 18:01
 outdated: true
 alias: /2014/10/22/simple-guide-to-setup-aws-directory-service/
+description: "Amazon introduced today a new feature called AWS Directory Service. In a nutshell, it allows:  Connect existing Active Directory to the cloud or to create"
+category: Auth0 based tutorial
 author:
   name: José F. Romaniello
   url: "http://joseoncode.com"
@@ -14,7 +16,6 @@ tags:
 - ad
 - ldap
 - directory
-description: "Amazon introduced today a new feature called AWS Directory Service. In a nutshell, it allows:  Connect existing Active Directory to the cloud or to create"
 ---
 
 Amazon introduced today a new feature called [AWS Directory Service](http://aws.amazon.com/es/directoryservice/). In a nutshell, it allows:

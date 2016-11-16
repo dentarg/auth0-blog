@@ -4,6 +4,7 @@ title: "ng-conf 2016 Summary - Day Three"
 description: "The final day of ng-conf focused on reactive programming, Firebase and much more. Check out our summary of ng-conf day three. "
 date: 2016-05-07 08:30
 alias: /2016/05/07/ng-conf-summary-day-3/
+category: Technical guide, Conferences, Angular
 author: 
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"

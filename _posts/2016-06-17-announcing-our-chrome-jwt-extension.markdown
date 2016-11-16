@@ -4,6 +4,7 @@ title: "Introducing our new JWT Debugger Chrome Extension"
 description: "Do you like JWT.io? Then you'll love this extension!"
 date: 2016-06-17 12:30
 alias: /2016/06/17/announcing-our-chrome-jwt-extension/
+category: Auth0 Based Tutorials, Tools
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

@@ -5,7 +5,7 @@ date: 2014-07-02 09:01
 outdated: true
 alias: /2014/07/02/wordpress-single-sign-on/
 author:
-  name: Ricardo Rauch
+  name: Ricky Rauch
   mail: ricky@auth0.com
   url: http://twitter.com/gravityonmars
   avatar: https://www.gravatar.com/avatar/27396b3fa24389198ef5d3e7e410e9c4?size=60
@@ -15,6 +15,7 @@ tags:
 - single-sign-on
 - auth0
 description: "We recently published the first version of the WordPress plugin for Auth0, which provides:  Single Sign On with Enterprise Directories (LDAP, AD, Google Apps"
+category: Product
 ---
 
 ![WordPress and auth0](https://s3.amazonaws.com/blog.auth0.com/wp-banner.png)

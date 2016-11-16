@@ -3,6 +3,7 @@ layout: post
 title: "Use NGINX Plus and Auth0 to Authenticate API Clients"
 description: "The NGINX Plus R10 release comes with native support for the JWT authentication standard. Learn how this can change the way your app handles authentication."
 date: 2016-09-06 08:30
+category: Technical guide, Tools
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"

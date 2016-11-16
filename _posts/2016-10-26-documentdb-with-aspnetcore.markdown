@@ -4,6 +4,8 @@ title: "Using Azure DocumentDB and ASP.NET Core for extreme NoSQL performance"
 description: Let's delve into Azure DocumentDB with ASP.NET Core and learn common-case scenarios from a performance point of view.
 date: 2016-10-26 08:30
 category: Technical guide, Microsoft, DocumentDB
+banner:
+  text: "Quickly add authentication to your ASP.NET Core Web API app."
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png

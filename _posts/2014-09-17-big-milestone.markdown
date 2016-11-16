@@ -9,7 +9,7 @@ author:
   url:  http://www.twitter.com/jgelsey
   avatar: https://auth0.com/lib/about/img/jon.png
 description: "Today I am very proud to announce that we’ve raised $2.4 Million in seed funding led by Bessemer Venture Partners, with participation from K9 Ventures"
-related:
+category: Announcement
 related:
 - 2015-06-23-another-big-milestone
 - 2014-04-28-announcing-our-advisors

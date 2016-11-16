@@ -9,10 +9,12 @@ author:
   url: "http://joseoncode.com"
   mail: "jfromaniello@gmail.com"
   avatar: "https://secure.gravatar.com/avatar/d1a7e0fbfb2c1d9a8b10fd03648da78f.png"
+category: Product
 tags:
 - Google Apps
 - announcements
 description: "We are moving from the deprectad Google Apps Provisioning API to the new Google Apps Directory API. This will affect you only if you are using Google Apps"
+category: Product
 ---
 
 

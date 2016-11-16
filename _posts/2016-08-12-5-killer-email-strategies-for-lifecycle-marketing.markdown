@@ -3,6 +3,7 @@ layout: post
 title: "5 Killer Email Strategies For Better Lifecycle Marketing"
 description: How to keep your users engaged with your product throughout their time with it
 date: 2016-08-12 12:30
+category: Growth, Growth Hacking
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

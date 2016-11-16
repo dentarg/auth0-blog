@@ -4,6 +4,7 @@ title: "Introduction to Immutable.js and Functional Programming Concepts"
 description: "Learn about functional data structures and their uses in this overview of Facebook's popular library for JavaScript: Immutable.js"
 date: 2016-03-23 13:30
 alias: /2016/03/23/intro-to-immutable-js/
+category: Technical guide, Architecture, Immutable
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

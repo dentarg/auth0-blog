@@ -9,6 +9,7 @@ author:
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
 description: "In case you missed it, this week at TechEd, Microsoft announced many changes to the Azure Platform. See Scott Gu post for details. One of these being Windows"
+category: Auth0 based tutorial
 ---
 
 

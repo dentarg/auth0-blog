@@ -4,6 +4,7 @@ title: "Passwordless Login with Facebook Account Kit"
 description: "Learn about passwordless authentication and how Facebook Account Kit can help your app become password free."
 date: 2016-04-21 08:30
 alias: /2016/04/21/facebook-account-kit-passwordless-authentication/
+category: Technical guide, Identity, Passwordless
 author: 
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"

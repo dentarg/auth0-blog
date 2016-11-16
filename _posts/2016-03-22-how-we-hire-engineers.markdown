@@ -4,6 +4,7 @@ title: "How we hire engineers"
 description: "Providing transparency about our hiring process and the rationale behind it."
 date: 2016-03-22 12:00
 alias: /2016/03/22/how-we-hire-engineers/
+category: Auth0 Based Tutorial, Engineering
 author:
   name: Damian Schenkelman
   url: http://twitter.com/dschenkelman

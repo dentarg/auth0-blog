@@ -23,6 +23,7 @@ tags:
 - soc2
 - certification
 - enterprise
+category: Announcements
 ---
 Providing an always-on, highly secure identity service is core to the Auth0 brand promise. As such, all our systems, controls and processes have always been designed with security and availability as critical design points.  
 

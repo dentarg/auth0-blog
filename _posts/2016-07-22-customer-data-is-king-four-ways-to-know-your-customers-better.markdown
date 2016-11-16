@@ -4,6 +4,7 @@ title: "Customer Data is King: Four Ways to Know Your Customers Better"
 description: "For B2C companies, nothing beats knowing who your customers are and what they want."
 date: 2016-07-22 8:30
 alias: /2016/07/22/customer-data-is-king-four-ways-to-know-your-customers-better/
+category: Growth, B2C
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en

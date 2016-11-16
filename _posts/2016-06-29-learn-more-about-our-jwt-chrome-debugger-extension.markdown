@@ -4,6 +4,7 @@ title: "Learn more about the new JWT Debugger Chrome Extension"
 description: We've created a video showing of some of the cool features of our JWT Debugger for you to see
 date: 2016-06-29 11:23
 alias: /2016/06/29/learn-more-about-our-jwt-chrome-debugger-extension/
+category: Technical guide, Webinars, JWT
 author: 
   name: Kassandra Perch
   url: http://twitter.com/nodebotanist

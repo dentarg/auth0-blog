@@ -41,8 +41,8 @@ $(document).ready(function() {
   function sendMetrics(){
     if($('#search-input').val().length > 1 && $('#search-input').val() !== ''){
       var blogSearchData={
-        searchText: $('#search-input').val(),
-        resultsCount: $('.post-result').length
+        trackData: $('#search-input').val(),
+        value: $('.post-result').length
       };
       metricsLib.track('blog:search', blogSearchData);
     };

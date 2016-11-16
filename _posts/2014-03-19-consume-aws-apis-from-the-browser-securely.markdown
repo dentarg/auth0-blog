@@ -11,6 +11,7 @@ author:
   url: http://twitter.com/woloski
   avatar: https://secure.gravatar.com/avatar/0cd73f2f2f39709bd03646e9225cc3d3?s=60
 description: "TL;DR: you can access the AWS APIs securely (e.g. S3, DynamoDB, EC2) from browsers (i.e. using JavaScript) or native apps, without the need of a backend"
+category: Auth0 based tutorial
 ---
 
 **TL;DR**: you can access the AWS APIs securely (e.g. S3, DynamoDB, EC2) from browsers (i.e. using JavaScript) or native apps, without the need of a backend server. Live demo @ <http://auth0.github.io/auth0-s3-sample/>

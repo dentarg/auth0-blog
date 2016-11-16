@@ -4,6 +4,7 @@ title: "Angular 2 Series - Part 1: Working with Pipes"
 description: "Learn how to implement pipes (formerly known as filters) in your Angular 2 apps"
 date: 2015-09-03 11:00
 alias: /2015/09/03/angular2-series-working-with-pipes/
+category: Technical guide, Angular, Angular2 Series
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en

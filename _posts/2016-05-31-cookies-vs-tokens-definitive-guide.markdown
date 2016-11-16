@@ -4,6 +4,7 @@ title: "Cookies vs Tokens: The Definitive Guide"
 description: "The cookie vs token debate favors token-based authentication. Learn the advantages and get answers to common concerns regarding token authentication."
 date: 2016-05-31 08:30
 alias: /2016/05/31/cookies-vs-tokens-definitive-guide/
+category: Technical guide, Identity, Cookies vs Tokens
 author: 
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"

@@ -20,7 +20,8 @@ tags:
 - auth0
 - login
 - signup
-description: "Auth0 SDKs make it really easy to add Single Sign On Authentication to any app, on any platform. But sometimes, apps cannot be modified. What to do then? A very simple solution is to"
+description: "Auth0 SDKs make it really easy to add SSO to any app, on any platform. But sometimes, apps cannot be modified. What to do then? A very simple solution is to"
+category: Auth0 based tutorial
 ---
 
 Auth0 [SDKs](https://docs.auth0.com) make it really easy to add SSO to any app, on any platform. But sometimes, apps cannot be modified. What to do then?

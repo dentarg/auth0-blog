@@ -4,6 +4,7 @@ title: "Docker 101 for Developers"
 description: Now is your chance to learn about Docker in this introductory webinar!
 date: 2016-07-12 10:30
 alias: /2016/07/12/docker-101-for-developers/
+category: Technical guide, Webinar, Others
 author: 
   name: Kassandra Perch
   url: http://twitter.com/nodebotanist

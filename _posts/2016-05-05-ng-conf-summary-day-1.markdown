@@ -4,6 +4,7 @@ title: "ng-conf 2016 Summary - Day One"
 description: "Angular 2 has reached the release candidate milestone. Learn more and get caught up on all the news coming out of ng-conf 2016."
 date: 2016-05-05 08:30
 alias: /2016/05/05/ng-conf-summary-day-1/
+category: Technical guide, Conferences, Angular
 author: 
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"

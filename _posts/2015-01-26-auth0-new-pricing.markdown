@@ -4,6 +4,7 @@ title: "Auth0 New Pricing"
 description: "We have modified our pricing structure to be much more flexible, allowing you to create custom packages that best fit your needs."
 date: 2015-01-26 08:00
 alias: /2015/01/26/auth0-new-pricing/
+category: Announcements
 author:
   name: "Gianpaolo Carraro"
   url:  http://www.twitter.com/gcarraro

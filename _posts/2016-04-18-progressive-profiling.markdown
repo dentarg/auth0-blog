@@ -4,6 +4,7 @@ title: "Progressive Profiling: Vital Info from Happy Customers"
 description: "You can get data from your customers while keeping them happy by collecting it over time. Find out how you can use progressive profiling to your advantage."
 date: 2016-04-18 08:30
 alias: /2016/04/18/progressive-profiling/
+category: Growth, Data
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

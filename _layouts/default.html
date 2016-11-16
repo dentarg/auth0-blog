@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <meta property="fb:app_id" content="196885384022260" />
     <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 
     {% include sharing_metas.html %}
@@ -12,16 +11,22 @@
       <title>{{ page.tag | capitalize }} - Auth0 Blog</title>
     {% else %}
       <title>{{ page.title }}</title>
+
+      <!-- Swiftype for the posts -->
+      <meta class="swiftype" name="title" data-type="string" content="{{ page.title }}"/>
+      <meta class="swiftype" name="type" data-type="enum" content="blog" />
+      <meta class="swiftype" name="popularity" data-type="integer" content="1"/>
     {% endif %}
 
     <link href="https://plus.google.com/+Auth0" rel="publisher" />
-
+    <link rel="manifest" href="{{ site.baseurl }}/manifest.json">
     <script src="//use.typekit.net/tde2fii.js"></script>
     <script>try{Typekit.load();}catch(e){}</script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-    <script type="text/javascript" src="//cdn.auth0.com/js/lock-8.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//cdn.auth0.com/w2/auth0-7.4.0.min.js"></script>
+    <script src="//cdn.auth0.com/js/lock/10.6.1/lock.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.min.js"></script>
     <script src="//cdn.auth0.com/web-header/latest/web-header.js"></script>
@@ -99,8 +104,12 @@
     <meta name="robots" content="noindex, noarchive, follow" />
     {% endif %}
 
-    {% if page.url %}
-    <link rel="canonical" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
+    {% if page.is_tag_index %}
+    <link rel="canonical" href="https://auth0.com/blog" />
+    {% else %}
+      {% if page.url %}
+        <link rel="canonical" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
+      {% endif %}
     {% endif %}
 
     {% if page.is_tag_index %}
@@ -127,23 +136,41 @@
 
     <link rel="stylesheet" href="{{ site.baseurl }}/css/index.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/vendor/selection-sharer.min.css" />
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"> -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 
     <div id="header"></div>
     <script>
     (function () {
-      var lock = window.lock = new Auth0Lock('zEYfpoFzUMEzilhkHilcWoNkrFfJ3hAI', 'auth0.auth0.com');
-      var options = {
-        callbackURL:    'https://manage.auth0.com/callback',
-        socialBigButtons: true,
-        dict: {
-          signup: {
-            footerText: 'By signing up, you agree to our <a href="/terms" target="_new">terms of service</a> and <a href="/privacy" target="_new">privacy policy</a>'
-          }
-        },
-        icon: '//cdn.auth0.com/styleguide/latest/lib/logos/img/badge.png'
+      var config = {
+        auth0Domain: 'auth0.auth0.com',
+        auth0ClientID: 'zEYfpoFzUMEzilhkHilcWoNkrFfJ3hAI',
+        auth0CallbackURL: 'https://manage.auth0.com/callback',
       };
+      var auth0js = new Auth0({
+        domain: config.auth0Domain,
+        clientID: config.auth0ClientID,
+        callbackURL: config.auth0CallbackURL,
+        responseType: 'token'
+      });
+      var lockOptions = {
+        auth: { redirectUrl: config.auth0CallbackURL },
+        theme: {
+          logo: '//cdn.auth0.com/styleguide/latest/lib/logos/img/badge.png'
+        },
+        rememberLastLogin: true,
+        integratedWindowsLogin: false,
+        socialButtonStyle: 'big',
+        languageDictionary: {
+          signUpTerms: 'By signing up, you agree to our <a href="/terms" target="_new">terms of service</a> and <a href="/privacy" target="_new">privacy policy</a>'
+        }
+      };
+      var lock = window.lock = new Auth0Lock(
+        config.auth0ClientID,
+        config.auth0Domain,
+        lockOptions
+      );
 
       lock.on('signup ready', function () {
         metricsLib.track('open:signup', getBasicInfo());
@@ -155,18 +182,12 @@
 
       window.login = function login() {
         metricsLib.track('click:signin', getBasicInfo());
-
-        lock.hide(function() {
-          lock.show(options);
-        });
+        lock.show({ initialScreen: 'login' });
       }
 
       window.signup = function() {
         metricsLib.track('click:signup', getBasicInfo());
-
-        lock.hide(function() {
-          lock.showSignup(options);
-        });
+        lock.show({ initialScreen: 'signUp' });
       }
 
       // Header
@@ -183,7 +204,7 @@
 
         componentDidMount: function () {
           var _this = this;
-          lock.getClient().getSSOData(false, function (err, data) {
+          auth0js.getSSOData(false, function (err, data) {
             var logged = data.sso;
             _this.setState({ logged: logged });
           });
@@ -194,11 +215,11 @@
               metricsLib.track('open:talk-to-sales');
             },
             onFormSuccess: function (metricsData) {
-              metricsLib.track('register:lead:pricing-contact-form', metricsData);
+              metricsLib.track('register:lead:talk-to-sales-modal', metricsData);
               metricsLib.track('sent:talk-to-sales', metricsData);
             },
             onFormFail: function (metricsData) {
-              metricsLib.track('fail:register:lead:pricing-contact-form', metricsData);
+              metricsLib.track('fail:register:lead:talk-to-sales-modal', metricsData);
               metricsLib.track('fail-sent:talk-to-sales', metricsData);
             }
           };
@@ -269,11 +290,24 @@
       {% include footer.html %}
     </div>
 
-    <!-- jekyll-search -->
-    <script src="{{ site.baseurl }}/js/vendor/jekyll-search.min.js" type="text/javascript"></script>
-    <script src="{{ site.baseurl }}/js/search.js" type="text/javascript"></script>
+    <script src="{{ site.baseurl }}/init_worker.js" type="text/javascript"></script>
 
+    <!-- jekyll-search -->
+    <script src="{{ site.baseurl }}/js/vendor/jekyll-search.js" type="text/javascript"></script>
+    <script src="{{ site.baseurl }}/js/vendor/js-cookie.js" type="text/javascript"></script>
+    <script src="{{ site.baseurl }}/js/search.js" type="text/javascript"></script>
+    <script src="{{ site.baseurl }}/js/filters-search.js" type="text/javascript"></script>
     <script type="text/javascript">
+      var searchFilters = new SearchFilters({
+            input: document.getElementById('search-input'),
+            filters: ['author'],
+            json: '{{ site.baseurl }}/filters.json',
+            autoCompleteOptions: {},
+            selectCallback: RenderSearch
+          });
+
+      searchFilters.render();
+
       SimpleJekyllSearch({
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
@@ -289,9 +323,9 @@
 
     <script type="text/javascript">
     try {
-      window.abTestingLib.load({ fetchFn: function () { return $.get("https://ab.it.auth0.com/"); }});
+      window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/?application=website'); }});
       window.abTestingLib.integration('auth0metrics').start({ metrics: window.metricsLib});
-      window.abTestingLib.start();
+      window.abTestingLib.start().then(enhanceAnalytics);
 
       window.abTestingLib.onReady(function (ab) {
         try {
@@ -307,6 +341,55 @@
         }
       });
 
+      function enhanceAnalytics() {
+        var analytics = window.abTestingLib.analytics;
+
+        var originalSetCurrentVariantName = analytics.setCurrentVariantName.bind(analytics);
+        var originalGetCurrentVariantName = analytics.getCurrentVariantName.bind(analytics);
+
+        var enhancedSetCurrentVariantName = function (variantName, value) {
+          setCurrentVariantName(variantName, value);
+          originalSetCurrentVariantName(variantName, value);
+        };
+
+        var enhancedGetCurrentVariantName = function (variantName) {
+          var originalValue = originalGetCurrentVariantName(variantName);
+          var cookieValue = getCurrentVariantName(variantName);
+
+          if (originalValue != cookieValue) {
+            originalSetCurrentVariantName(variantName, cookieValue);
+          }
+
+          return cookieValue;
+        };
+
+        analytics.setCurrentVariantName = enhancedSetCurrentVariantName;
+        analytics.getCurrentVariantName = enhancedGetCurrentVariantName;
+        window.setVariant = enhancedSetCurrentVariantName;
+        window.getVariant = enhancedGetCurrentVariantName;
+      }
+
+      function setCurrentVariantName(variantName, value) {
+        var variants = loadCookieVariants();
+        variants[variantName] = value;
+        saveCookieVariants(variants);
+      }
+
+      function getCurrentVariantName(variantName) {
+        var variants = loadCookieVariants();
+        return variants[variantName];
+      }
+
+      function loadCookieVariants() {
+        return JSON.parse(Cookies.get('ajs_ab.traits') || '{}');
+      }
+
+      function saveCookieVariants(variants) {
+        return Cookies.set('ajs_ab.traits', JSON.stringify(variants), {
+          expires: 365,
+          path: '/'
+        });
+      }
     } catch (e) {
       console.error('Error initializing ABTesting lib. ABTesting will be disabled');
       $('#pjax').css('visibility', 'visible');
@@ -582,10 +665,6 @@
             $(window).scrollTop(0);
           }
 
-          // Update canonical url
-          $("link[rel='canonical']").attr("href", window.location.href);
-
-
           stickyElements();
         }
 
@@ -600,27 +679,6 @@
           metricsLib.page();
 
           $('p').selectionSharer();
-
-          // PJAX temporarily disabled as it breaks sticky behavior
-
-          // $(document)
-          //   .pjax('#pjax a', '#pjax', { fragment: '#pjax', timeout: 800 })
-          //   .on('pjax:click', function() {
-          //     NProgress.start();
-          //   })
-          //   .on('pjax:success pjax:popstate', function() {
-          //
-          //     // Hide content until the ab/experiments run
-          //     $('#pjax').css('visibility', 'hidden');
-          //
-          //     initialize();
-          //
-          //     NProgress.done();
-          //
-          //     metricsLib.page();
-          //
-          //     executeABExperiments();
-          //   });
 
           $(window).on('load', function() {
             $(document.body).trigger("sticky_kit:recalc");
@@ -659,13 +717,23 @@
         }());
     </script>
     <script type="text/javascript">
-    var _mfq = _mfq || [];
-    (function() {
-        var mf = document.createElement("script");
-        mf.type = "text/javascript"; mf.async = true;
-        mf.src = "//cdn.mouseflow.com/projects/556d4409-c833-4212-898c-22fdda3bcb91.js";
-        document.getElementsByTagName("head")[0].appendChild(mf);
-    })();
-</script>
+      var _mfq = _mfq || [];
+      (function() {
+          var mf = document.createElement("script");
+          mf.type = "text/javascript"; mf.async = true;
+          mf.src = "//cdn.mouseflow.com/projects/556d4409-c833-4212-898c-22fdda3bcb91.js";
+          document.getElementsByTagName("head")[0].appendChild(mf);
+      })();
+    </script>
+    <script>
+      (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:301495,hjsv:5};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1;
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+      })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
 </body>
 </html>

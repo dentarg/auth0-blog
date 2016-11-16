@@ -1,5 +1,6 @@
 ---
 layout: default
+is_post: true
 ---
 <!-- Twitter Conversion -->
 <script type="text/javascript">
@@ -13,6 +14,9 @@ layout: default
 
 <article itemprop="mainEntity" itemscope itemtype="http://schema.org/BlogPosting">
   <link itemprop="mainEntityOfPage" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
+  {% if page.updated %}
+    <meta itemprop="dateModified" content="{{ page.updated }}">
+  {% endif %}
   {% include banner_post.html %}
 
   {% include utility_bar.html %}
@@ -30,8 +34,9 @@ layout: default
           </div>
         </main>
         <div class="bottom-module">
-          <div class="try-banner">
-              <a href="javascript:signup()" class="signup-button btn btn-success   btn-lg">Try Auth0 for Free</a>
+          {% include custom-try-banner.html %}
+          <div class="try-banner" style="display:none;">
+              <a href="javascript:signup()" class="signup-button btn btn-success   btn-lg">Use Auth0 for Free</a>
           </div>
         </div>
         <div id="disqus_thread"></div>

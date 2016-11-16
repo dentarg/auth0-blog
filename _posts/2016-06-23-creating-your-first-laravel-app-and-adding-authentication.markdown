@@ -4,6 +4,7 @@ title: "Creating your first Laravel app and adding authentication"
 description: Learn how to build your first Laravel application and add authentication to it.
 date: 2016-06-23 5:00
 alias: /2016/06/23/creating-your-first-laravel-app-and-adding-authentication/
+category: Technical guide, PHP, Laravel
 author:
   name: Prosper Otemuyiwa
   url: https://twitter.com/unicodeveloper?lang=en
