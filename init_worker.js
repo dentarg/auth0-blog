@@ -41,7 +41,8 @@ function registerForPush() {
                         method: "POST",
                         body: JSON.stringify({"registration_id": subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1)})
                     })
-                    .then(function(res){ console.log('registered') });
+                    .then(function(res){ console.log('registered') })
+                    .catch(function(err){ console.err(err); return });
                     console.log("DEVICE_REGISTRATION_ID: ", subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1));
                 })
                 .catch(function(error) {
@@ -51,6 +52,35 @@ function registerForPush() {
     //} else {
       // console.log("No active ServiceWorker");
     //}
+}
+
+window.unsubscribePushNotification = function() {
+  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+
+    serviceWorkerRegistration.pushManager.getSubscription().then(
+      function(pushSubscription) {
+        // Check we have a subscription to unsubscribe
+        if (!pushSubscription) {
+            console.warn('Unsubscribed Notification')
+            return;
+        }
+
+        var subscriptionId = pushSubscription.endpoint.substr(pushSubscription.endpoint.lastIndexOf('/') + 1);
+        // request to wt to remove subscription of db
+        pushSubscription.unsubscribe().then(function(successful) {
+            fetch("https://auth0-marketing.run.webtask.io/blog-push-subscriptions/"+subscriptionId,
+            {
+                method: "DELETE"
+            })
+            .then(function(res){ console.log('unsubscribe') })
+            .catch(function(err){ console.err(err); return });
+        }).catch(function(e) {
+          console.log('Unsubscription error: ', e);
+        });
+      }).catch(function(e) {
+        console.error('Error thrown while unsubscribing from push messaging.', e);
+      });
+  });
 }
 
 (function doesBrowserSupportNotifications() {
