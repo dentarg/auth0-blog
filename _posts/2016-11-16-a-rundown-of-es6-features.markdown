@@ -540,7 +540,9 @@ So, having to write iterators this way, although simple, can be cumbersome. What
 
 ```javascript
 function* arrayIterator(array) {
-    array.forEach(i => yield i);
+    for(let i = 0; i < array.length; ++i) {
+        yield array[i];
+    }
 }
 ```
 
