@@ -4,6 +4,7 @@ if (navigator.serviceWorker) {
     navigator.serviceWorker.register('https://auth0.com/blog/sw.js')
         .then(function(reg) {
             console.log("ServiceWorker registered", reg);
+            doesBrowserSupportNotifications();
         })
         .catch(function(error) {
             console.log("Failed to register ServiceWorker", error);
@@ -83,7 +84,7 @@ window.unsubscribePushNotification = function() {
   });
 }
 
-(function doesBrowserSupportNotifications() {
+function doesBrowserSupportNotifications() {
 
     var supported = true;
     if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
@@ -110,4 +111,4 @@ window.unsubscribePushNotification = function() {
     if (supported) {
         console.log("Everthing is fine you can continue")
     }
-})();
+};
