@@ -43,7 +43,7 @@ This rundown is based on the excellent work of Luke Hoban and his [es6features G
 ## Introduction
 After years of slow development, JavaScript has seen a rebirth. Node.js and newer frontend frameworks and libraries have renowed the enthusiasm behind the language. Its use for medium and big systems has put people thinking hard on how JavaScript needs to grow. The result of this is ECMAScript 2015, a big update to the language that brings many ideas that had been in the works for a long time. Let's see how these ideas help to make JavaScript a better language for all uses today. 
 
-## The Features
+## ECMAScript 2015 Features
 ### Let and Const
 Since its inception, JavaScript had one way of declaring variables: `var`. The `var` statement, however, obeys the rules of **variable hoisting**. In other words, `var` declarations act as if the variables are declared at the top of the current execution context (function). This may result in unintuitive behavior:
 
@@ -156,7 +156,7 @@ function Counter() {
 const counter = new Counter();
 ```
 
-### Classes
+### JavaScript Classes
 Since its inception JavaScript has supported object-oriented programming. However the form of OOP implemented by JavaScript was not entirely familiar for many developers, especially those coming from the Java and C++ family of languages. These two languages, and many others, implement objects in the spirit of Simula 67. JavaScript, however, implements objects in the spirit of Self. This model of OOP is known as *prototype based programming*.
 
 Prototype-based programming can be unintuitive for developers coming from other object models. This has resulted in many JavaScript libraries coming up with their own way of using objects. These ways are sometimes incompatible. Prototype-based programming is powerful enough to model a class-based programming model, and library writers have come up with many ways of doing so.
@@ -210,7 +210,7 @@ The actual usefulness of classes compared to lean prototypes for big projects is
 
 Whatever your thoughts on the matter, one thing is clear: if you prefer to stick to a class-based approach, there is now one officially sanctioned way of doing so. Otherwise, use prototypes to your heart's content.
 
-### Object-literal Improvements
+### JavaScript Object-literal Improvements
 Another feature born out of practicality are the improvements to object literal declarations. Take a look:
 
 ```javascript
@@ -249,7 +249,7 @@ obj[getKey()] = 'some value';
 
 Anything that aids in readability and keeps blocks of code that should belong together as close as possible helps to reduce the chances of making a mistake.
 
-### Template String Literals
+### JavaScript Template String Literals
 There comes a time in every project in which you will need to interpolate values into a string. The standard way of doing this in JavaScript was through repeated concatenations:
 
 ```javascript
@@ -306,7 +306,7 @@ tag`Hello ${a} world ${b}`;
 
 Tag functions are essentially functions that transform string literals in arbitrary ways. As you can imagine, they can be abused in ways that impair readability, so use them with care.
 
-### Promises
+### ECMAScript 2015 Promises
 One of the biggest features in ECMAScript 2015. Promises attempt to bring some sanity to the asynchronous nature of JavaScript. If you are a seasoned JavaScript developer you know callbacks and closures rule the day. You do know, as well, they are pretty flexible. That means everyone gets to choose how to use them. And in a dynamic language noone will hold your hand if mix two callback conventions unexpectedly.
 
 Here's what JavaScript looked like without promises:
@@ -444,7 +444,7 @@ Here the full power of promises can be seen: two HTTP requests are chained toget
 
 In short, promises make asynchronous code more readable and reduce the chances of making mistakes. They also end the discussion of how promises should work, as before ECMAScript 2015 there were competing solutions with their own API.
 
-### Generators, iterators, iterables and for...of
+### ECMAScript 2015 Generators, iterators, iterables and for...of
 Another big feature from ECMAScript 2015. If you come from Python you will get JavaScript generators right away as they are very similar. Take a look:
 
 ```javascript
@@ -700,7 +700,7 @@ const numList = new NumberList(...nums);
 
 Spread syntax simplifies a number of common patterns. And simplicity is always good for readability and maintainability.
 
-### Destructuring
+### Destructuring in JavaScript
 Destructuring is an extension of JavaScript's syntax that allows for certain interesting ways of transforming a single variable into multiple variables bound to its internals. We have already seen one example of this above:
 
 ```javascript
@@ -808,7 +808,7 @@ let [a, , ...rest] = arr; // rest === [3, 4, 5], number 2 skipped
 
 Arguably, destructuring is a new way rather than a better way of doing things. My personal advice is to keep things simple and readable. Do not overuse destructuring when a simple reference to an inner variable can be written as `let a = obj.subObj.a`. Destructuring is of particular use when "picking" multiple elements from objects at different nest levels. In this case, readability can be improved. It is also useful in function arguments and `for` loops to reduce the number of helper variables needed.
 
-### Modules
+### JavaScript Modules
 One of the most expected features from ECMAScript 2015. Modules put an end to endless discussions regarding the proper way of extending JavaScript to do what most languages already do: separate code in different places in a convenient, portable and performant way.
 
 > If you are relatively new to programming, it might be hard to see why modularity is such an essential requirement for proper development practice. Think of modules as a way to organize code in self-contained units of work. These units define a clear way to interact with other units. This separation promotes maintainability, readability and allows more people to develop concurrently without stepping on each other's toes. Keeping things small and simple also helps tremendously in the process of design and implementation.
@@ -872,7 +872,7 @@ But static modules do remove some flexibility that is handy in some scenarios. U
 #### Can we use modules now?
 Yes, and you should! Although module loading is not implemented in browsers yet, bundlers, compilers and libraries such as Babel, Webpack and System.js have implemented ECMAScript 2015 modules. The benefit of adopting modules early is that they are already part of the spec! You know one way or the other, modules are set in stone and won't see major changes in future versions of JavaScript. Using Common.js or AMD today implies taking a step back and adopting solutions that will fade out in the future.
 
-### New Collections
+### New JavaScript Collections
 Although JavaScript has the necessary power to implement many data structures, some of them are better implemented through optimizations only available to the interpreter. The ECMAScript 2015 working group decided to tackle this issue and came up with `Set`, `Map`, `WeakSet` and `WeakMap`.
 
 `Set` stores unique objects. Objects can be tested for presence in the set. `Set` uses special comparison semantics (which mostly resemble `===`) to check for object equality.
@@ -1103,7 +1103,7 @@ Binary and octal literals are now available:
 0b10100001 === 0xA1 === 0o241 === 161;
 ```
 
-## What Comes Next
+## What Comes Next in ECMAScript
 The next versions of ECMAScript will probably not be as big as ECMAScript 2015, however interesting additions are expected. Let's see some of the major ones.
 
 ### Async/Await
