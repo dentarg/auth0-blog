@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 3"
-description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 3): routing + API with params and authentication."
+description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 3): routing  & API with params, authentication."
 date: 2016-11-14 8:30
 category: Technical guide, Angular, Angular2
 banner:
@@ -243,7 +243,7 @@ The `getDino()` method iterates over the available route parameters. We'll conve
 
 Finally, we'll call the `getDino()` method in the `ngOnInit()` [lifecycle hook](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html). 
 
-### Detail Component HTML
+### Detail Component Template
 
 Now we're ready to display the dinosaur detail information in our detail component template. Open the `detail.component.html` file:
 
@@ -314,7 +314,7 @@ We'll use Bootstrap to style most of our dinosaur details. Most of our data can 
 
 We'll add a link back to the homepage and then finally, show an error message if there was a problem retrieving data from the API.
 
-### Detail Component SCSS
+### Detail Component Styles
 
 We'll just make one small tweak in the SCSS for our detail component to reduce the amount of extra space above the dinosaur name heading. In the Angular 1 app, the detail page styles were here: [`ng1-dinos/src/assets/css/scss/pages/_detail.scss`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/css/scss/pages/_detail.scss).
 
@@ -397,11 +397,11 @@ export class AppModule { }
 
 We'll import the `LoadingComponent` class and then add it to the `declarations` array. Now we can use the `<app-loading>` element in other components.
 
-## Add Loading Component to Home
+## Add Loading Component to Home Component
 
 The Angular 1 ng1-dinos app shows the loading directive in the home and detail views.
 
-### Implement Loading Functionality in Home TypeScript
+### Implement Loading Functionality in Home Component TypeScript
 
 In `home.component.ts`, let's add the functionality we need to conditionally add our new loading component:
 
@@ -453,7 +453,7 @@ To initiate the loading state, we'll set the `loading` property to `true` in the
 
 Finally, we need a getter method `get isLoaded()` to tell the template when loading has completed. Angular 1 ng1-dinos implemented this expression in the template, but the [Angular 2 docs recommend moving this kind of logic to the component](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#simplicity).
 
-### Implement Loading Functionality in Home HTML
+### Implement Loading Functionality in Home Component Template
 
 Now we need to implement our loading component and some template logic in the home markup `home.component.html`:
 
@@ -493,11 +493,11 @@ When our app home component is loading, it now looks like this:
 
 The animated gif shows a running raptor until loading is completed.
 
-## Add Loading Component to Detail
+## Add Loading Component to Detail Component
 
 Now we'll make similar changes to the detail component to add the loading state. 
 
-### Implement Loading Functionality in Detail TypeScript
+### Implement Loading Functionality in Detail Component TypeScript
 
 Let's open our `detail.component.ts` file:
 
@@ -542,7 +542,7 @@ export class DetailComponent implements OnInit {
 
 We'll make the same changes to our detail component as the home component. We want to add a boolean `loading` property that is `true` on initialization and `false` `onNext` and `onError`. A `get isLoaded()` getter compares the loading state to check if it's been set to `false` and will be used to stamp content in the template.
 
-### Implement Loading Functionality in Detail HTML
+### Implement Loading Functionality in Detail Component Template
 
 Open `detail.component.html`:
 
