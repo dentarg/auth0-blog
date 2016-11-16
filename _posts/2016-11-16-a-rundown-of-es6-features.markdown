@@ -292,8 +292,8 @@ function tag(strings, ...values) {
   console.log(strings[0]); // "Hello "
   console.log(strings[1]); // " world "
   console.log(strings[2]); // ""
-  console.log(values[0]);  // 15
-  console.log(values[1]);  // 50
+  console.log(values[0]);  // 1
+  console.log(values[1]);  // 'something'
 
   return "This is the returned string, it needn't use the arguments";
 }
