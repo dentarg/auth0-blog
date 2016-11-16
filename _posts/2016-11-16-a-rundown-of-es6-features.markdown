@@ -41,7 +41,7 @@ This rundown is based on the excellent work of Luke Hoban and his [es6features G
 -----
 
 ## Introduction
-After years of slow development, JavaScript has seen a rebirth. Node.js and newer frontend frameworks and libraries have renowed the enthusiasm behind the language. Its use for medium and big systems has put people thinking hard on how JavaScript needs to grow. The result of this is ECMAScript 2015, a big update to the language that brings many ideas that had been in the works for a long time. Let's see how these ideas help to make JavaScript a better language for all uses today. 
+After years of slow development, JavaScript has seen a rebirth. Node.js and newer frontend frameworks and libraries have renewed the enthusiasm behind the language. Its use for medium and big systems has put people thinking hard on how JavaScript needs to grow. The result of this is ECMAScript 2015, a big update to the language that brings many ideas that had been in the works for a long time. Let's see how these ideas help to make JavaScript a better language for all uses today. 
 
 ## ECMAScript 2015 Features
 ### Let and Const
