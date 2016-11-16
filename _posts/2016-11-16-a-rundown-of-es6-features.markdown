@@ -410,7 +410,7 @@ In case an exception is thrown, both `then` and `catch` know how to handle that:
 
 > Functions `then` and `catch` always return promises (even when there are no more promises in the chain). That means you can call `then` or `catch` after any call to these functions again. This is why it is said promises can be "chained". When everything is done, any further calls to `then` or `catch` execute the callback passed to them immediately.
 
-It is important to note that chaining promises is usually the right thing to do. In the example above, we could have ommitted the `return` statement in from of `database.update`. The code would have worked the same in case no errors were caused by the database operation. However, the code would behave differently if an error where to occur: if the database operation were to fail, the `catch` block below would not get called, as the promise would not be chained to the outtermost one.
+It is important to note that chaining promises is usually the right thing to do. In the example above, we could have ommitted the `return` statement in from of `database.update`. The code would have worked the same in case no errors were caused by the database operation. However, the code would behave differently if an error were to occur: if the database operation were to fail, the `catch` block below would not get called, as the promise would not be chained to the outtermost one.
 
 So how can you create your own promises? Easy enough:
 
