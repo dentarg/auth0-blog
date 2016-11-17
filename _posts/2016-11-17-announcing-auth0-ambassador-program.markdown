@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Introducing the Auth0 Ambassador Program. Apply Today!"
-description: "It's our new mentorship program that will help you master developer evangelism skills such as community building, technical content creation, public speaking and more!"
+title: "Introducing the Auth0 Ambassador Program!"
+description: "Introducing our new mentorship program that will help you master developer evangelism skills."
 date: 2016-11-17 08:30
 alias: /2016/11/17/announcing-auth0-ambassador-program/
 category: Announcements, Programs
