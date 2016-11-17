@@ -63,4 +63,4 @@ While this is not a paid position, our evangelism team set up the program so the
 
 ![Ambassadors](https://cdn.auth0.com/blog/ambassador-post-img.png )
 
-**[Apply today!](https://auth0.com/ambassador-program) If you have additional questions, email community@auth0.com.** 
+**[Apply today!](https://auth0.com/ambassador-program) If you have additional questions, email [community@auth0.com](mailto:community@auth0.com).** 
