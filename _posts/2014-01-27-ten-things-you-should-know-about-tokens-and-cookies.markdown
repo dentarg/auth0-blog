@@ -97,7 +97,7 @@ Tokens stored in local/session storage, on the other hand, can't be accessed fro
 
 One possible option is, when the user authenticates on `app.yourdomain.com` and you generate a token you can also set a cookie set to `.yourdomain.com`
 
-    $.post('/authenticate, function() {
+    $.post('/authenticate', function() {
       // store token on local/session storage or cookie
         ....
 
