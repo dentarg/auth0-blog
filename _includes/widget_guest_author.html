@@ -13,7 +13,7 @@
         </g>
       </svg>
     </button>
-    <img class="guest-author-image" src="https://cdn.auth0.com/blog/guest-authors/pencil.png" alt="Auth0 Guest Author Program">
+    <a class = "img-link" href ="https://auth0.com/guest-authors"><img class="guest-author-image" src="https://cdn.auth0.com/blog/guest-authors/pencil.png" alt="Auth0 Guest Author Program"></a>
     <a class="guest-author-link" href="https://auth0.com/guest-authors" rel="external">
       Learn More
       <svg width="6px" height="9px" viewBox="0 0 6 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -30,4 +30,18 @@
       </svg>
     </a>
   </article>
+<script type="text/javascript">
+(function() {
+if (Math.random() >= .5) {
+        title = document.getElementsByClassName("guest-author-title")[0];
+        title.innerHTML = 'Join the Auth0<br> Ambassador Program'
+        img = document.getElementsByClassName("guest-author-image")[0];
+        img.src = 'https://auth0.com/lib/ambassador-program/assets/ambassador-spaceman-stand-up-1x.gif'
+        img.alt = 'Auth0 Ambassador Program'
+        imgLink = document.getElementsByClassName("img-link")[0];
+        imgLink.href = 'https://auth0.com/ambassador-program'
+	learnLink = document.getElementsByClassName("guest-author-link")[0];
+	learnLink.href = 'https://auth0.com/ambassador-program'
+}})();
+</script>
 </section>
