@@ -197,8 +197,7 @@ import { DinoDetail } from '../../core/models/dino-detail.model';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss'],
-  providers: [DinosService]
+  styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
   dino: DinoDetail;
@@ -237,7 +236,7 @@ Most of this should look familiar from implementing our home component in [Part 
 
 Let's start by importing our dependencies. We need the `Title` service. We'll also need [`ActivatedRoute`](https://angular.io/docs/ts/latest/api/router/index/ActivatedRoute-interface.html) and `Params` from `@angular/router` in order to retrieve the route ID parameter to use to get the appropriate dinosaur data from the API. Finally, we'll also need the `DinosService` and `DinoDetail` model.
 
-Next we need to provide our `DinosService` in the `@Component`'s `providers` array. We'll create a couple of properties: `dino` will utilize the `DinoDetail` model type and `error` is a boolean, like in our `home.component.ts`. Then we'll add dependencies to the constructor function so we can use them.
+We'll create a couple of properties: `dino` will utilize the `DinoDetail` model type and `error` is a boolean, like in our `home.component.ts`. Then we'll add dependencies to the constructor function so we can use them.
 
 The `getDino()` method iterates over the available route parameters. We'll convert the `id` string to a number and then pass it to the `getDino$(id)` observable. We'll subscribe to the observable and assign the JSON response to the `dino` property. We'll also set the page title as the dinosaur's `name`. If there's an error retrieving data, we'll simply set the `error` property to `true`.
 

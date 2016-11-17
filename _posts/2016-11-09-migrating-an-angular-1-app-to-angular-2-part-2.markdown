@@ -538,6 +538,34 @@ Finally we manage successes and errors. The `map` operator processes the result 
 
 > **Note:** In the Angular 1 [ng1-dinos Dinos service](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/core/Dinos.service.js), the success function checks for an object because some server configurations (such as NGINX) will return a successful XHR response with an HTML error page in the case of an API failure. The front-end promise incorrectly resolves this as the appropriate data. We do _not_ need to do this check in Angular 2 ng2-dinos because we have TypeScript ensuring that the shape of the data matches our `Dino` model. Pay attention to your data though: if you have a response that occasionally changes shape, you'll need to address that in the model so you don't receive errors. You can read more about [TypeScript functions and optional parameters here](https://www.typescriptlang.org/docs/handbook/functions.html).
 
+### Provide the Dinos Service in App Module
+
+We want the dinos service to be a singleton. Unlike Angular 1, Angular 2 services can be singletons _or_ have multiple instances depending on how they're provided. To create a global singleton, we'll provide the service in the `app.module.ts`:
+
+```typescript
+// ng2-dinos/src/app/core/app.module.ts
+
+...
+import { DinosService } from './dinos.service';
+
+@NgModule({
+  declarations: [
+    ...
+  ],
+  imports: [
+    ...
+  ],
+  providers: [
+    ...,
+    DinosService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+We import the `DinosService` and then add it to the `providers` array. It's now available for use in our components.
+
 ### Use the Dinos Service in Home Component
 
 Now we have a service that fetches data from the API. We'll use this service in our home component to display a list of dinosaurs. Open the `home.component.ts` file:
@@ -551,7 +579,6 @@ import { Dino } from '../../core/models/dino.model';
 
 @Component({
   ...
-  providers: [DinosService]
 })
 export class HomeComponent implements OnInit {
   dinos: Dino[];
@@ -583,7 +610,7 @@ export class HomeComponent implements OnInit {
 }
 ```
 
-As always, we import our dependencies. We need our new `DinosService` and `Dino` model. Then we need to provide our `DinosService` in the `@Component`'s `providers` array.
+As always, we import our dependencies. We need our new `DinosService` and `Dino` model.
 
 Then we'll implement the functionality to use this service. We'll declare that the `dinos` property should be of type `Dino[]` (an array of items matching the `Dino` model). We'll also create an `error` boolean property. We'll add the `private dinosService: DinosService` to the constructor parameters.
 
@@ -818,6 +845,8 @@ export class HomeComponent implements OnInit {
 ```
 
 We need to import and then provide our `FilterService`. Next we'll set its parameter in the constructor function. Now we can use it in our home component.
+
+> **Note:** By providing the filter service in the component instead of `app.module.ts`, we're creating an instance unique to _this component_. We're doing this here because there is only one place we're filtering. If you add filters to additional components in the future, consider using a global singleton if there's no compelling reason to create multiple instances.
 
 We're going to create a property called `filteredDinos` alongside our `dinos` property. The filtered collection should also have the `Dino[]` type. When we successfully retrieve data from the API, we'll set `filteredDinos` as well as `dinos`. At this point it is the full collection.
 
