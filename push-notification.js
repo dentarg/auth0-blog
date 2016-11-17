@@ -1,3 +1,4 @@
+// about service worker and push notification
 if (navigator.serviceWorker) {
     console.log("ServiceWorkers are supported");
 
@@ -24,7 +25,6 @@ window.requestNotificationPermission = function () {
         console.log("Notifications not supported by this browser.");
     }
 }
-
 
 function registerForPush() {
     //if (navigator.serviceWorker.controller) {
@@ -69,7 +69,7 @@ function subscribe(serviceWorkerRegistration){
 }
 
 window.unsubscribePushNotification = function () {
-    navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+    return navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
 
         serviceWorkerRegistration.pushManager.getSubscription().then(
             function(pushSubscription) {
@@ -125,3 +125,52 @@ function doesBrowserSupportNotifications() {
         console.log("Everthing is fine you can continue")
     }
 };
+
+//  popup push subscription
+
+$(document).ready(function($){
+
+    // delay open pupup
+    function openPopup() {
+        setTimeout( function() { $('.pn-popup').addClass('is-visible');
+        },30000);
+    }
+
+    window.subscriptionValidation = function(){
+        return navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+            serviceWorkerRegistration.pushManager.getSubscription().then(
+                function(pushSubscription) {
+                // Check subsccription
+                if(!pushSubscription){
+                    openPopup();
+                }
+               }
+            )
+        })
+    }
+    //subscriptionValidation();
+
+    // popup buttons
+    $('#push-allow').on('click', function(e){
+        $('.pn-popup').removeClass('is-visible');
+        requestNotificationPermission();
+    });
+
+    $('#push-block').on('click', function(e){
+        $('.pn-popup').removeClass('is-visible');
+    });
+
+    //close popup
+    $('.pn-popup').on('click', function(event){
+        if( $(event.target).is('.pn-popup-close') || $(event.target).is('.pn-popup') ) {
+            event.preventDefault();
+            $(this).removeClass('is-visible');
+        }
+    });
+    //close popup when with esc
+    $(document).keyup(function(event){
+        if(event.which=='27'){
+            $('.pn-popup').removeClass('is-visible');
+        }
+    });
+});
