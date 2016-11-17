@@ -115,7 +115,7 @@ At first this may seem like little improvement. However, arrow functions behave 
 function Counter() {
     this.count = 20;
 
-    setInterval(function callback{
+    setInterval(function callback() {
         ++this.count; // BUG! this points to the global object 
                       // or is undefined (in strict mode) 
     }, 1000);
@@ -133,7 +133,7 @@ function Counter() {
     var that = this;
     this.count = 20;
 
-    setInterval(function callback{
+    setInterval(function callback() {
         ++that.count; 
     }, 1000);
 }
