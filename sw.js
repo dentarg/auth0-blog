@@ -8,7 +8,7 @@ self.addEventListener('push', function(event) {
         }).then(function(data){
             console.log('data', data);
             link = data.link;
-            return self.registration.showNotification('New Post Auth0 blog', {
+            return self.registration.showNotification('New article in Auth0 blog!', {
                 body: data.title,
                 icon: data.thumbnail,
                 tag: 'Auth0-blog-post-notification'

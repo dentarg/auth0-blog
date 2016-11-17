@@ -141,7 +141,7 @@ $(document).ready(function($){
             serviceWorkerRegistration.pushManager.getSubscription().then(
                 function(pushSubscription) {
                 // Check subsccription
-                if(!pushSubscription){
+                if(!pushSubscription && localStorage.getItem("pn-subscription") != "false"){
                     openPopup();
                 }
                }
@@ -158,6 +158,7 @@ $(document).ready(function($){
 
     $('#push-block').on('click', function(e){
         $('.pn-popup').removeClass('is-visible');
+        localStorage.setItem("pn-subscription","false");
     });
 
     //close popup
