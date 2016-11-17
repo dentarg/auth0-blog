@@ -11,8 +11,8 @@ author:
   mail: "kunal.batra@auth0.com"
   avatar: "https://s.gravatar.com/avatar/5bdf34cb56195a699562bb1468013154.png"
 design:
-  bg_color: "#222228"
-  image: "https://cdn.auth0.com/blog/ambassador-spacesuit.png"
+  bg_color: "#000000"
+  image: "https://cdn.auth0.com/blog/ambassador-program/logo.png"
 tags:
 - Ambassador
 - Ambassador-Program
