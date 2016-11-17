@@ -26,13 +26,13 @@ related:
 > TL;DR: Apply to the [Ambassador Program](https://auth0.com/ambassador-program). Our new initiative to help you master developer evangelism skills such as community building, technical content creation, public speaking and more! 
 
 ---
+
 ##Background
 Here at Auth0, our core mission is to make the internet safer. We do this by serving the developer community and giving them the tools they need for their applications to be secure and successful. 
 
-However, our service to the dev community doesn't end there. We regularly give [conference talks](https://t.co/BpponhTwXI), [create technical content](https://auth0.com/blog/), [release open source libraries](https://auth0.com/opensource), and more. With the Auth0 [Ambassador program](https://auth0.com/ambassador-program) we're looking to expand on these outreach efforts.
+We strongly believe that we cannot be successful in making the Internet safer, without an incredibly valuable and engaged group of people helping us. **That's why we want to recognize developers who want to have a real impact within the community**.
 
-
-### What does the program entail ?
+### What is it like to be an Auth0 Ambassador ?
 
 As an Auth0 Ambassador, you'll gain the support of our evangelism team. We'll help you build up your brand and master the evangelism skillset by:
 
@@ -49,9 +49,9 @@ Everything is on a voluntary basis. You can do as much or as little as your sche
 
 Our passion is to make developers' lives more awesome. We're looking for developers who feel the same way. You naturally get satisfaction and enjoyment when you teach or solve problems for others. To see our other criteria check out our [Ambassador Program page](https://auth0.com/ambassador-program). 
 
-### Rewards and Perks
+### Rewards and Perks of being and Auth0 Ambassador
 
-This is not a paid position, but our evangelism team set up the program so the more developers you serve, the more perks you can attain. For a detailed list, visit our [Ambassador Page](https://auth0.com/ambassador-program). Some of the perks are:
+While this is not a paid position, our evangelism team set up the program so the more impact you make, the more perks you will get. For a detailed list, visit our [Ambassador Page](https://auth0.com/ambassador-program). Some of the perks are:
 
 + We'll pay for travel and lodging to any of your accepted talks that cover Auth0 or Identity/Security
 + Have Auth0 sponsor local developer meetups of your choice
@@ -59,6 +59,8 @@ This is not a paid position, but our evangelism team set up the program so the m
 + Exclusive Access to Auth0 gear that identifies you as part of the Ambassador Program 
 + [Check the website for more](https://auth0.com/ambassador-program).
 
-### Get Started
+### Get Started Now! 
 
-[Apply today!](https://auth0.com/ambassador-program) If you have additional questions, email community@auth0.com. 
+![Ambassadors](https://cdn.auth0.com/blog/ambassador-post-img.png )
+
+**[Apply today!](https://auth0.com/ambassador-program) If you have additional questions, email community@auth0.com.** 
