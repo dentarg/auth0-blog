@@ -1313,7 +1313,7 @@ module.exports = {
 Now edit the HTML file to point to our new compiled bundle:
 
 ```html
-<script src="app.bundle.js"></script>
+ <script src="app.bundle.js"></script>
 ```
 
 Now let's modify the `auth0-variables.js` file to use the new `export` keyword from ECMAScript 2015:
