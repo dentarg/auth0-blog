@@ -451,7 +451,7 @@ Another big feature from ECMAScript 2015. If you come from Python you will get J
 function* counter() {
     let i = 0;
     while(true) {
-        yield i;
+        yield i++;
     }
 }
 ```
@@ -471,7 +471,7 @@ If all of this sounds familiar to you it may be because there is a very similar 
 function* counter() {
     let i = 0;
     while(true) {
-        const reset = yield i;
+        const reset = yield i++;
         if(reset) {
             i = 0;
         }
