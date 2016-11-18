@@ -412,18 +412,16 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart && this.navOpen) {
-        this.toggleNav();
-      }
-    });
+    this.router.events
+      .filter(event => event instanceof NavigationStart && this.navOpen)
+      .subscribe(event => this.toggleNav());
   }
   ...
 ```
 
 We need to import `Router` and `NavigationStart` from `@angular/router`. Next we need to make `private router: Router` available in our constructor function.
 
-[Router.events](https://angular.io/docs/ts/latest/api/router/index/Event-type-alias.html) is an observable of route events. We'll subscribe to it to set `navOpen` to `false` when the event is an instance of `NavigationStart`.
+[Router.events](https://angular.io/docs/ts/latest/api/router/index/Event-type-alias.html) is an observable of route events. We'll filter for when the event is an instance of `NavigationStart` and the navigation is open. We'll then subscribe to it to set `navOpen` to `false`.
 
 Now when we click on links in the menu the correct component displays and the navigation closes. Our app homepage now looks like this:
 
