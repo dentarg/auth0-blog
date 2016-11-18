@@ -18,9 +18,13 @@ tags:
 - TOTP
 ---
 
-**TL;DR:** Multifactor authentication involves providing an extra layer of security by ensuring users provide more than one piece of information for identification. More information about [Multifactor Authentication (MFA) can be found here](https://auth0.com/docs/multifactor-authentication)
+**TL;DR:** Multifactor authentication involves providing an extra layer of security by ensuring users provide more than one piece of information for identification. It typically requires a combination of something the user knows (such as pins, passwords, secret questions) and something the user has (such as cards, hardware tokens, phone). Worthy of note is that two-factor authentication is the most used type of multifactor authentication (MFA). More information about [Multifactor Authentication (MFA) can be found here](https://auth0.com/docs/multifactor-authentication).
 
-In this article we will go over the different ways to implement multifactor and shed more light on how they work.
+In this article we will go over why we should implement multifactor authentication and the different ways to implement it.
+
+## Why should we implement Multifactor Authentication?
+
+There have been several cases of stolen and hacked passwords. Systems with just simple username and password combinations getting hacked have been on the rise. In this situation, implementing multifactor authentication will prevent hackers from gaining access to your accounts even if your password is stolen. The extra layer of protection that **MFA** offers ensure that your account is more secure!
 
 ## What are the different ways to implement Multifactor?
 
