@@ -66,7 +66,7 @@ The **Enrollment** process is as follows:
 * A unique one-time code is generated on the server and then sent to the phone number.
 * The user enters the code into the app and multifactor is enabled.
 
-The **Login process is as follows:
+The **Login** process is as follows:
 
 * A user logs into a website/application with a username and password.
 * A unique one-time code is generated on the server and then sent to the already registered user phone number.
