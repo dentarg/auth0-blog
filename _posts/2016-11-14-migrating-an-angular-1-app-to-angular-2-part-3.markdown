@@ -611,14 +611,14 @@ The first thing you'll need is an Auth0 account. Follow these simple steps to ge
 
 ### Setup and Dependencies
 
-First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.5 for our tutorial:
+First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.6 for our tutorial:
 
 {% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 ...
   <!-- Auth0 Lock widget -->
-  <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+  <script src="https://cdn.auth0.com/js/lock/10.6/lock.min.js"></script>
 </head>
 ...
 {% endhighlight %}
