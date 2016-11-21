@@ -425,7 +425,7 @@ _Next.js 500 Error Page_
 
 Sometimes you might need a more advanced routing than the option that **Next.js** provides, *Next.js* still allows you to intercept the request and do whatever you want. Check [here](https://github.com/zeit/next.js/issues/25) for comprehensive info on how to achieve that.
 
-**Next.js** has a default component, *error.js* that handles 404 and 500 errors on both client and server side. You can override it like so:
+**Next.js** has a default component, *_error.js* that handles 404 and 500 errors on both client and server side. You can override it like so:
 
 ```js
 
