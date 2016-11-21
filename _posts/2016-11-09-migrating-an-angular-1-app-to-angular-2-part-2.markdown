@@ -826,13 +826,13 @@ export class HomeComponent implements OnInit {
     this.getDinos();
   }
 
-  filterDinos(query: string) {
+  filterDinos() {
     this.filteredDinos = this.filterService.search(this.dinos, this.query);
   }
 
   resetQuery() {
     this.query = '';
-    this.filterDinos(this.query);
+    this.filteredDinos = this.dinos;
   }
 
   get noSearchResults() {
@@ -848,7 +848,7 @@ We need to import and then provide our `FilterService`. Next we'll set its param
 
 We're going to create a property called `filteredDinos` alongside our `dinos` property. The filtered collection should also have the `Dino[]` type. When we successfully retrieve data from the API, we'll set `filteredDinos` as well as `dinos`. At this point it is the full collection.
 
-Next we need a method for the template to use to filter the dinosaur list. We'll call this method `filterDinos()`. It should accept a `query: string` parameter. This is going to be the value of our search input field. We'll pass this query and our full `dinos` collection to the filtering method we created: `this.filteredDinos = this.filterService.search(this.dinos, this.query)`.
+Next we need a method for the template to use to filter the dinosaur list. We'll call this method `filterDinos()`. Inside this function, we'll pass the `query` and our full `dinos` collection to the `FilterService` method we created and set its results: `this.filteredDinos = this.filterService.search(this.dinos, this.query)`.
 
 Our ng1-dinos app has a way to instantly clear the search with a button. We want the same feature in ng2-dinos, so let's create a `resetQuery()` method. This method sets the `query` to an empty string and then sets `filteredDinos` to the original, unfiltered `dinos` array. The reason we have to manually reset the array is because we're going to declaratively run `filterDinos()` on `keyup` in the query input field. This won't be triggered when the user clicks the button to clear the query.
 
@@ -872,7 +872,7 @@ You can reference the Angular 1 [ng1-dinos `Home.view.html`](https://github.com/
       type="text"
       class="form-control"
       [(ngModel)]="query"
-      (keyup)="filterDinos(query)" />
+      (keyup)="filterDinos()" />
 
     <span class="input-group-btn">
       <button
@@ -897,7 +897,7 @@ You can reference the Angular 1 [ng1-dinos `Home.view.html`](https://github.com/
 {% endraw %}
 {% endhighlight %}
 
-We want to use [two-way binding with `ngModel`](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#ngModel) to bind the `query` to the search input. On the `keyup` event, we'll run our `filterDinos(query)` function. This will update the `filteredDinos` array. We also have a button to clear the search query. On `click`, we'll execute `resetQuery()`. If there's no query, we can disable the button.
+We want to use [two-way binding with `ngModel`](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#ngModel) to bind the `query` to the search input. On the `keyup` event, we'll run our `filterDinos()` function. This will update the `filteredDinos` array. We also have a button to clear the search query. On `click`, we'll execute `resetQuery()`. If there's no query, we can disable the button.
 
 > **Note:** `ngModel` now requires the `FormsModule` from `@angular/forms`. The Angular CLI creates new projects with this dependency in `app.module.ts` automatically but it's important to know why and how we utilize it in our app.
 
