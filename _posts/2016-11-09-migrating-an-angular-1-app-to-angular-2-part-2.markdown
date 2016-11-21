@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 2"
-description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 2)."
+description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 2): routing, API, and filtering."
 date: 2016-11-09 8:30
 category: Technical guide, Angular, Angular2
 banner:
@@ -23,7 +23,7 @@ tags:
 - migrate
 related:
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
-- 2016-09-29-angular-2-authentication
+- 2016-11-14-migrating-an-angular-1-app-to-angular-2-part-3
 ---
 
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. In the [first part of this tutorial](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1) we set up our Angular 2 app and migrated the basic architecture. This time we'll implement some real-world features like routing, calling an API, and more. The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
@@ -60,7 +60,7 @@ In [Part 1](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1
 
 ### Create Home, About, and 404 Page Components
 
-In order to implement routing, the first thing we need is multiple pages. Let's quickly create home, about, and 404  components. These will be pages so create a subdirectory in the `ng2-dinos/src/app` folder called `pages`. Stop the server and execute the following commands:
+In order to implement routing, the first thing we need is multiple pages. Let's quickly create home, about, and 404  components. These will be pages so create a subdirectory in the `ng2-dinos/src/app/` folder called `pages`. Stop the server and execute the following commands:
 
 * Home page component: `ng g component pages/home`
 * About page component: `ng g component pages/about`
@@ -170,7 +170,7 @@ export class Error404Component implements OnInit {
 }
 ```
 
-### Home Component HTML
+### Home Component Template
 
 Now we have a document title but we also want to display `pageName` in a heading in our HTML. Let's write some basic markup.
 
@@ -189,7 +189,7 @@ In the `home.component.html` file, add an `<article>` and a heading with an inte
 
 We'll add a lot more to this component later.
 
-### About Component HTML
+### About Component Template
 
 Let's add some basic information about our app in the `about.component.html` template:
 
@@ -218,7 +218,7 @@ Let's add some basic information about our app in the `about.component.html` tem
 {% endraw %}
 {% endhighlight %}
 
-### 404 Component HTML
+### 404 Component Template
 
 This component will show when the route the user attempts to access does not exist. We'll apply a couple of Bootstrap classes in the `error404.component.html` template:
 
@@ -244,7 +244,7 @@ Routing is an essential feature of our ng1-dinos app. For ng2-dinos, we're going
 
 ### Create a Routing Module
 
-Because of how the CLI generates multiple files per component in its own subdirectory, sometimes it's more straightforward to create a new feature manually. Regardless, we should know how to do this. Let's create a routing module in the `ng2-dinos/src/app/core` folder. We'll name this file `app-routing.module.ts`:
+Because of how the CLI generates multiple files per component in its own subdirectory, sometimes it's more straightforward to create a new feature manually. Regardless, we should know how to do this. Let's create a routing module in the `ng2-dinos/src/app/core/` folder. We'll name this file `app-routing.module.ts`:
 
 ```typescript
 // ng2-dinos/src/app/core/app-routing.module.ts
@@ -412,18 +412,16 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart && this.navOpen) {
-        this.toggleNav();
-      }
-    });
+    this.router.events
+      .filter(event => event instanceof NavigationStart && this.navOpen)
+      .subscribe(event => this.toggleNav());
   }
   ...
 ```
 
 We need to import `Router` and `NavigationStart` from `@angular/router`. Next we need to make `private router: Router` available in our constructor function.
 
-[Router.events](https://angular.io/docs/ts/latest/api/router/index/Event-type-alias.html) is an observable of route events. We'll subscribe to it to set `navOpen` to `false` when the event is an instance of `NavigationStart`.
+[Router.events](https://angular.io/docs/ts/latest/api/router/index/Event-type-alias.html) is an observable of route events. We'll filter for when the event is an instance of `NavigationStart` and the navigation is open. We'll then subscribe to it to set `navOpen` to `false`.
 
 Now when we click on links in the menu the correct component displays and the navigation closes. Our app homepage now looks like this:
 
@@ -473,7 +471,7 @@ The API route we want to use is [http://localhost:3001/api/dinosaurs](http://loc
 
 We can see that the response is an array of dinosaur objects. Each dinosaur has an `id` and a `name`. We can see the `id` is a number and the `name` is a string. Now we can create a model.
 
-We'll have more than one model, so let's create a folder for models to keep our app scalable: `ng2-dinos/src/app/core/models`. In this folder, we'll make our model file: `dino.model.ts`.
+We'll have more than one model, so let's create a folder for models to keep our app scalable: `ng2-dinos/src/app/core/models/`. In this folder, we'll make our model file: `dino.model.ts`.
 
 ```typescript
 export class Dino {
@@ -538,6 +536,34 @@ Finally we manage successes and errors. The `map` operator processes the result 
 
 > **Note:** In the Angular 1 [ng1-dinos Dinos service](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/core/Dinos.service.js), the success function checks for an object because some server configurations (such as NGINX) will return a successful XHR response with an HTML error page in the case of an API failure. The front-end promise incorrectly resolves this as the appropriate data. We do _not_ need to do this check in Angular 2 ng2-dinos because we have TypeScript ensuring that the shape of the data matches our `Dino` model. Pay attention to your data though: if you have a response that occasionally changes shape, you'll need to address that in the model so you don't receive errors. You can read more about [TypeScript functions and optional parameters here](https://www.typescriptlang.org/docs/handbook/functions.html).
 
+### Provide the Dinos Service in App Module
+
+We want the dinos service to be a singleton. Unlike Angular 1, Angular 2 services can be singletons _or_ have multiple instances depending on how they're provided. To create a global singleton, we'll provide the service in the `app.module.ts`:
+
+```typescript
+// ng2-dinos/src/app/core/app.module.ts
+
+...
+import { DinosService } from './dinos.service';
+
+@NgModule({
+  declarations: [
+    ...
+  ],
+  imports: [
+    ...
+  ],
+  providers: [
+    ...,
+    DinosService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+We import the `DinosService` and then add it to the `providers` array. It's now available for use in our components.
+
 ### Use the Dinos Service in Home Component
 
 Now we have a service that fetches data from the API. We'll use this service in our home component to display a list of dinosaurs. Open the `home.component.ts` file:
@@ -551,7 +577,6 @@ import { Dino } from '../../core/models/dino.model';
 
 @Component({
   ...
-  providers: [DinosService]
 })
 export class HomeComponent implements OnInit {
   dinos: Dino[];
@@ -583,7 +608,7 @@ export class HomeComponent implements OnInit {
 }
 ```
 
-As always, we import our dependencies. We need our new `DinosService` and `Dino` model. Then we need to provide our `DinosService` in the `@Component`'s `providers` array.
+As always, we import our dependencies. We need our new `DinosService` and `Dino` model.
 
 Then we'll implement the functionality to use this service. We'll declare that the `dinos` property should be of type `Dino[]` (an array of items matching the `Dino` model). We'll also create an `error` boolean property. We'll add the `private dinosService: DinosService` to the constructor parameters.
 
@@ -657,7 +682,7 @@ export class DinoCardComponent {
 
 We need to import `Input` from `@angular/core`. We also need our trusty `Dino` model. Then we'll declare our `@Input() dino: Dino` typed property. We don't need to add anything to the constructor so the `constructor() { }` function can be deleted. We also aren't using the `OnInit` lifecycle hook so we can remove it from imports, the exported class, and the `ngOnInit()` function. Keep in mind that if we expand functionality at some future date, we may need to replace things we've cleaned up for brevity.
 
-### Dino Card Component HTML
+### Dino Card Component Template
 
 Let's create the template for the dino card component. This file will be very similar to the ng1-dinos dino card template:
 
@@ -680,7 +705,7 @@ Let's create the template for the dino card component. This file will be very si
 
 Notice that the Details button doesn't go anywhere yet. We'll hook this up when we add the dinosaur detail component and routing.
 
-### Display Dino Card in Home Component
+### Display Dino Card in Home Component Template
 
 Now let's replace the unordered list with our new dino card component in `home.component.html`:
 
@@ -760,7 +785,7 @@ We want search to be case-insensitive so we'll convert the query and values to l
 
 Now that we have a way to filter by query, let's implement this in our home component. 
 
-### Filter in Home TypeScript
+### Filter in Home Component TypeScript
 
 Open the `home.component.ts` file:
 
@@ -819,6 +844,8 @@ export class HomeComponent implements OnInit {
 
 We need to import and then provide our `FilterService`. Next we'll set its parameter in the constructor function. Now we can use it in our home component.
 
+> **Note:** By providing the filter service in the component instead of `app.module.ts`, we're creating an instance unique to _this component_. We're doing this here because there is only one place we're filtering. If you add filters to additional components in the future, consider using a global singleton if there's no compelling reason to create multiple instances.
+
 We're going to create a property called `filteredDinos` alongside our `dinos` property. The filtered collection should also have the `Dino[]` type. When we successfully retrieve data from the API, we'll set `filteredDinos` as well as `dinos`. At this point it is the full collection.
 
 Next we need a method for the template to use to filter the dinosaur list. We'll call this method `filterDinos()`. It should accept a `query: string` parameter. This is going to be the value of our search input field. We'll pass this query and our full `dinos` collection to the filtering method we created: `this.filteredDinos = this.filterService.search(this.dinos, this.query)`.
@@ -827,7 +854,7 @@ Our ng1-dinos app has a way to instantly clear the search with a button. We want
 
 Finally, we need a method that returns an expression informing the template that no search results match the query. If there is a `dinos` array, the `filteredDinos` array is empty, there is a query, and (as a catch-all), there is no API error, then we can conclude the user's search has produced no results. In our ng1-dinos app, we used this expression in the `ng-if` in the view. Angular 2 recommends [shifting logic of this type into the component](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#simplicity).
 
-### Filter in Home HTML
+### Filter in Home Component Template
 
 You can reference the Angular 1 [ng1-dinos `Home.view.html`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/pages/home/Home.view.html) to check out the markup for searching. We're going to copy and then modify it for ng2-dinos `home.component.html`:
 
@@ -878,6 +905,8 @@ In order for our filtering to work in the template, we need to update the `*ngFo
 
 We also want to show a message if a user searches and there are no matching results. This message should show if the `noSearchResults` getter returns `true`.
 
+### Filter in Home Component Styles
+
 If we view our app, you may notice we could use a bit of styling to put some space between the search and the dinosaur list. Open the `home.component.scss` file and add:
 
 ```scss
@@ -914,4 +943,4 @@ Our ng2-dinos app now calls an API and supports searching! We've successfully mi
 
 In the final part of the tutorial, we'll create a dinosaur detail component with routing and we'll show loading states while waiting for API calls to complete. We'll also go over how to add authentication to our Angular 2 app (a feature we didn't have in ng1-dinos).
 
-Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for the final lesson in Migrating an Angular 1 App to Angular 2 (coming soon)!
+Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for the final lesson: [Migrating an Angular 1 App to Angular 2 - Part 3](https://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-3)!

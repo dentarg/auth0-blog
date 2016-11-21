@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 1"
-description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build."
+description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 1): setup, architecture, and components."
 date: 2016-11-07 8:30
 category: Technical guide, Angular, Angular2
 banner:
@@ -23,7 +23,7 @@ tags:
 - migrate
 related:
 - 2016-11-09-migrating-an-angular-1-app-to-angular-2-part-2
-- 2016-09-29-angular-2-authentication
+- 2016-11-14-migrating-an-angular-1-app-to-angular-2-part-3
 ---
 
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to a fresh Angular 2 build: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects. The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
@@ -387,7 +387,7 @@ In comparison, the body of our Angular 1 **ng1-dinos** `index.html` file looks l
 
 The layout markup, header, content, and footer children will now move to the ng2-dinos root component `app.component` (`<app-root>`).
 
-### App Component HTML
+### App Component Template
 
 Let's stub out `app.component.html`:
 
@@ -414,7 +414,7 @@ Let's stub out `app.component.html`:
 {% endraw %}
 {% endhighlight %} 
 
-### App Component SCSS
+### App Component Styles
 
 We already included global SCSS for the site layout and off-canvas nav functionality. Because the styles for the layout, header, and navigation interact with each other, we won't componetize the layout styles in this tutorial. We want to maintain a fairly direct migration path with ng1-dinos, but there will be room for refactoring after the app is migrated. We won't use the `app.component.scss` file so let's delete it.
 
@@ -489,7 +489,7 @@ export class AppModule { }
 
 As you can see, the `HeaderComponent` class is imported and has also been added to the `@NgModule`'s `declarations` array.
 
-### Add Header Element to App Component HTML
+### Add Header Element to App Component Template
 
 If we open the `header.component.ts` file, we can see that the `@Component`'s `selector` is `app-header`. We generally want custom elements to be hyphenated as per the [W3C spec for custom elements](http://w3c.github.io/webcomponents/spec/custom/#prod-potentialcustomelementname). This is also covered by the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#02-07). The Angular CLI generates new component selectors with a prefix. By default, this prefix is `app`. This way, we won't get conflicts with native elements when calling this component (since `<header>` already exists in the HTML5 spec). 
 
@@ -504,7 +504,7 @@ Let's add `<app-header>` to our `app.component.html`:
 ...
 {% endhighlight %}
 
-### Header Component HTML
+### Header Component Template
 
 Let's add our markup to the header component similar to [`ng1-dinos/src/app/header/header.tpl.html`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/header/header.tpl.html). Open `header.component.html` and add HTML for the header, off-canvas toggle, and navigation menu:
 
@@ -537,7 +537,7 @@ Let's add our markup to the header component similar to [`ng1-dinos/src/app/head
 
 This is mostly standard markup. The only Angular 2 functionality so far is a `(click)` binding on the link to toggle the off-canvas menu. We'll add more Angular later once we have multiple views and routing in place.
 
-### Header Component SCSS
+### Header Component Styles
 
 First grab the Angular 1 [`ng1-dinos/src/assets/css/scss/components/_nav.scss`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/css/scss/components/_nav.scss) file and copy it into the ng2-dinos header component folder.
 
@@ -689,7 +689,7 @@ If we build now, we should be able to open and close the off-canvas navigation b
 
 Everything is working correctly but this doesn't look very good. Let's fix it!
 
-## Angular 2 Observables and Properties
+## Angular 2 Observables and DOM Properties
 
 In ng1-dinos, all off-canvas nav functionality was handled by  [`ng1-dinos/src/app/core/ui/navControl.dir.js`](https://github.com.com/auth0-blog/ng1-dinos/blob/master/src/app/core/ui/navControl.dir.js), including menu toggling and layout height. We've migrated the navigation functionality but we're still missing the layout height fix.
 
@@ -748,7 +748,7 @@ We're using an [RxJS observable](http://reactivex.io/rxjs/class/es6/Observable.j
 
 > **Note:** This tutorial does _not_ cover Functional Reactive Programming (FRP) and RxJS in depth. If FRP and RxJS are new to you, please read [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/), or for a more Angular 2-centric approach: [Functional Reactive Programming for Angular 2 Developers - RxJs and Observables](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/).
 
-### Add Property to App Component HTML
+### Add DOM Property to App Component Template
 
 We can then bind `minHeight` to the `[style.min-height]` property on the layout canvas element in `app.component.html`:
 
@@ -796,7 +796,7 @@ import { Component } from '@angular/core';
 export class FooterComponent {}
 ```
 
-### Footer Component HTML
+### Footer Component Template
 
 We can copy the footer markup from [`ng1-dinos/src/app/footer/footer.tpl.html`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/footer/footer.tpl.html) to our ng2-dinos `footer.component.html` file. We just need to update the link so that it references ng2-dinos instead of ng1-dinos:
 
@@ -808,7 +808,7 @@ We can copy the footer markup from [`ng1-dinos/src/app/footer/footer.tpl.html`](
 </p>
 {% endhighlight %}
 
-### Footer Component SCSS
+### Footer Component Styles
 
 The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/_footer.scss`](https://github.com/auth0-blog/ng1-dinos/blob/master/src/assets/css/scss/components/_footer.scss). We need to add `@import`s so our Angular 2 component can access global layout variables and responsive mixins. We're also going to change `.footer` to the special `:host` selector since `.footer` no longer exists and we need to style the component's host element:
 
@@ -832,7 +832,7 @@ The ng1-dinos footer SCSS comes from [`ng1-dinos/src/assets/css/scss/components/
 }
 ```
 
-### Add Footer to App Component HTML
+### Add Footer to App Component Template
 
 Finally, we'll add the `<app-footer>` element to the `app.component.html`:
 
