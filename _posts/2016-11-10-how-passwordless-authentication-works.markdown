@@ -2,7 +2,7 @@
 layout: post
 title: "How Passwordless Authentication Works"
 description: Learn the nitty-gritty of Passwordless Authentication
-date: 2016-11-10 08:30
+date: 2016-11-23 08:30
 category: Identity, Security, Passwordless
 design:
   bg_color: "#001D3F"
