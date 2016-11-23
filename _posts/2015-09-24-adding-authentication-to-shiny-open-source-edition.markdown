@@ -29,6 +29,11 @@ related:
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
 
+<div class="alert" style="background-color:#daf4fd;color:#097093">
+  <i class="icon-budicon-390" style="top: 14px; left: 20px"></i>
+  <strong style="font-size: 18px">Some content in this post is outdated. Stay tuned for a new, updated tutorial soon!</strong>
+</div>
+
 
 [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/)  is a great solution for BI/analytics reporting. It leverages all the power of the [R language](https://www.r-project.org/), which is the most popular open-source language for statistics, and it has a lot of useful functions for *Data Mining*, *Machine Learning*, *Reporting*, etc.
 
