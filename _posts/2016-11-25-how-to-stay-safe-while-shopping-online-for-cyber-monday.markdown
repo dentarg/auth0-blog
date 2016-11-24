@@ -1,44 +1,44 @@
 ---
 layout: post
 title: "How To Stay Safe While Shopping Online For Cyber Monday"
-description: Learn the tips that will help you shop safely online on Cyber Monday
+description: Learn this six tips that will help you shop safely online on Cyber Monday
 date: 2016-11-25 08:30
 category: Safety, Security
 design:
-  bg_color: "#001D3F"
-  image: https://cdn.auth0.com/blog/PasswordlessLogo.png
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/cybermondaylogo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
   mail: prosper.otemuyiwa@auth0.com
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
 tags:
-- passwordless
-- authentication
-- touchID
+- shopping
+- cyber-attacks
+- security
 related:
-- 2016-04-21-facebook-account-kit-passwordless-authentication
-- 2016-05-14-how-passwordless-sms-authentication-can-improve-your-app
-- 2016-09-09-analysis-of-passwordless-connections
+- 2016-10-25-how-the-biggest-attack-in-internet-was-perpetrated
+- 2016-06-21-avoiding-password-reuse-attacks
+- 2015-11-30-top-5-cyber-monday-security-threats-and-what-to-do-about-them
 
 ---
 
 ---
 
-Technology has made it very easy for people to purchase goods and services from the comfort of their homes. **Cyber Monday** is approaching and a lot of people will be online watching the prices of their favorite items fall so that they can purchase. Billions of dollars will be spent online during this popular end-of-the-year sales event. It's a common fact that a lot of online transactions happen around the months of October, November and December. Unfortunately, a lot of fraudulent online activities happen around this time also. Cyber criminals are most active during this period and the big concern is that a lot of online shoppers are negligent about cyber security threats. These kind of users are easy targets for hackers and cyber-criminals.
+Technology has made it very easy for people to purchase goods and services from the comfort of their homes. **Cyber Monday** is approaching and a lot of people will be online watching the prices of their favorite items drop so that they can purchase. Billions of dollars will be spent online during this popular *end-of-the-year sales* event. It's a common fact that a lot of online transactions happen around the months of October, November and December. Unfortunately, a lot of fraudulent online activities happen around this time also. Cyber criminals are most active during this period and the big concern is that a lot of online shoppers are negligent about cyber security threats. These kind of users are easy targets for hackers and cyber-criminals.
 
 ---
 
-How do you stay safe while shopping online? I'll expatiate on six tips that can help you shop safely online on **Cyber Monday**
+How do you stay safe while shopping online? I'll expatiate on six tips that can help you shop safely online on **Cyber Monday**.
 
-1. **Ensure the Site is Secure by looking out for https URL**
+## 1. Ensure the site is secure by looking out for https URL
 
-Once you visit a website, ensure that the site has Secure Sockets Layer (SSL) encryption installed. The website will start with *https://* and a locked padlock will also present in the address bar, mostly next to the URL. Don't atttempt to buy anything with your credit/debit card on a website that has no SSL installed.
+Once you visit a website, ensure that the site has Secure Sockets Layer (SSL) encryption installed. The website will start with **https://** and a locked padlock will also present in the address bar, mostly next to the URL. Don't atttempt to buy anything with your credit/debit card on a website that has no SSL installed.
 
 ![Visit Secure Sites on CyberMonday](https://cdn.auth0.com/blog/top-5-threats-cyber-monday/Unsecure-Sites.png)
 _Make sure you shop on secure sites_
 
-2. **Avoid using weak passwords**
+## 2. Avoid using weak passwords
 
 Hackers maintain a list of commonly used passwords that are deployed via bots to try on various websites at a time. Using a weak password increases the risk of having your credentials in those lists. If you currently have a weak password on the sites you shop with regularly, it's time to change it to a very [strong](https://auth0.com/docs/connections/database/password-strength) password. Here are some tips to help you create a secure password:
 
@@ -47,7 +47,7 @@ Hackers maintain a list of commonly used passwords that are deployed via bots to
 
 ![Avoid Weak Passwords on CyberMonday](https://cdn.auth0.com/blog/top-5-threats-cyber-monday/Weak-Password.png)
 
-3. **Look out for Fake and Forged Sites**
+## 3. Look out for Fake and Forged Sites
 
 During this shopping period, cyber criminals go lengths to replicate popular websites. Users get tricked into providing sensitive information such as usernames, passwords, social security numbers and credit card details on fake versions of popular sites, thinking that they are logged onto the real site.
 
@@ -60,7 +60,7 @@ Here are some tips to ensure you don't log into a forged site:
 
 ![Avoid Phishing Sites](https://cdn.auth0.com/blog/top-5-threats-cyber-monday/Phishing.png)
 
-4. **Try as much as possible to shop on trusted brands**
+## 4. Try as much as possible to shop on trusted brands
 
 There are various shopping websites that have earned a strong reputation overtime. I'll advice that you shop on these websites that are globally recognized as trusted brands. These brands have experienced **cyber monday** events various times and have improved their **tech**, to provide very robust security measures to handle the numerous online shoppers that will log onto their platform.
 
@@ -69,9 +69,9 @@ There are various shopping websites that have earned a strong reputation overtim
 ![Trusted Brands](https://thebrandthattimeforgot.files.wordpress.com/2013/10/brand-logos_various.png)
 _Source: https://thebrandthattimeforgot.files.wordpress.com_
 
-5. **Look out for Malware and Ad Scams**
+## 5. Look out for Malware and Ad Scams
 
-During this season, social network scams and malware are always on the increase. Lots of fake deals exist on the internet. These fake deals, when clicked, directs you to fake sites and trick you to download in some cases, antivirus software or a software that can make you claim hot deals. In most cases, they are malware that can steal information from your computer when installed.
+During this season, social network scams and malware are on the increase. Lots of fake deals exist on the internet. These fake deals, when clicked, directs you to fake sites and trick you to download in some cases, antivirus software or a software that can make you claim hot deals. In most cases, they are malware that can steal information from your computer when installed.
 
 Here are some tips to ensure you are not a victim of these scams:
 
@@ -87,7 +87,7 @@ You might see various ads about **Claim this..**, **Claim..that** like the one b
 ![Phishing Ad Banners](https://cdn.auth0.com/blog/top-5-threats-cyber-monday/Malware-2.png)
 _Scam Ads_
 
-6. **Avoid deals that are too good to be true**
+## 6. Avoid deals that are too good to be true
 
 Humans by nature are driven by greed, so cyber attackers prey on users with this mindset by tricking users with incredulous deals. During this season, various deals appear on social media that are just too good to be true. In short, there is a popular [twelve scams of christmas list](http://www.mcafee.com/us/about/news/2011/q4/20111109-01.aspx) compiled by McAfee. This list contains the popular examples of *too good to be true* deals. Try as much as possible to avoid deals like this!
 
