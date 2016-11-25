@@ -38,7 +38,7 @@ related:
 - 2016-06-21-avoiding-password-reuse-attacks
 ---
 
-The US Navy was [recently notified](http://www.navy.mil/submit/display.asp?story_id=97820) by a contractor of a major leak of sailor's personal information. Although the leak is currently under investigation, the perpetrators purpotedly used a stolen laptop with either compromised credentials or downloaded data. In this post we will study the different ways in which sensitive data can be protected in case of device theft. Read on!
+The US Navy was [recently notified](http://www.navy.mil/submit/display.asp?story_id=97820) by a contractor of a major leak of sailor's personal information. Although the leak is currently under investigation, the perpetrators purportedly used a stolen laptop with either compromised credentials or downloaded data. In this post we will study the different ways in which sensitive data can be protected in case of device theft. Read on!
 
 {% include tweet_quote.html quote_text="Property theft MUST be accounted for when sensitive data is at stake" %}
 
