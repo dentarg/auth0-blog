@@ -93,7 +93,20 @@ Humans, by nature, are said to be driven by greed, so cyber attackers prey on us
 
 ## Aside: Stay Secure with Auth0
 
-As a developer, you can use [Auth0 Lock](https://auth0.com/docs/libraries/lock) to authenticate your users. The lock widget uses **https** to ensure that users' information is transmitted securely. Furthermore, a developer has the option to define the complexity of passwords that users enter during signups as provided in the [password policies](https://auth0.com/docs/connections/database/password-strength).
+As a developer, you can use [Auth0 Lock](https://auth0.com/docs/libraries/lock) to authenticate your users. The lock widget uses **https** to ensure that users' information is transmitted securely.
+
+You can also use Auth0's [Breached Password Detection](https://auth0.com/breached-passwords/) feature to ensure your users are protected from compromised credentials.
+
+Futhermore, you can define **password policies** to customize the level of complexity of the passwords a user enters during sign-ups. Auth0 offers five levels of security matching the [OWASP password recommendations](https://www.owasp.org/index.php/Authentication_Cheat_Sheet#Implement_Proper_Password_Strength_Controls):
+
+- **None (default)**: The password must exist and be at least one character long.
+- **Low**: The password must be at least six characters long.
+- **Fair**: The password must be at least eight characters long and must contain a lower case letter, an upper case letter, and a number.
+- **Good**: The password must be at least eight characters long and must contain at least three of the following four characters: a lower case letter, an upper case letter, a number, or a special character (e.g. !@#$%^&*)
+- **Excellent**: The password must be at least 10 characters long. It must contain no more than two identical characters in a row (e.g., "aaa" is not allowed). It must contain at least three of the following four types of characters: a lower case letter, an upper case letter, a number, and a special character (e.g. !@#$%^&*).
+
+![](https://cdn.auth0.com/blog/top-5-threats-cyber-monday/password-strenght.png)
+
 
 ## Conclusion
 
