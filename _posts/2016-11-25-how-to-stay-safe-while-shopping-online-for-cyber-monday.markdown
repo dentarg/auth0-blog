@@ -105,7 +105,7 @@ Futhermore, you can define **password policies** to customize the level of compl
 - **Good**: The password must be at least eight characters long and must contain at least three of the following four characters: a lower case letter, an upper case letter, a number, or a special character (e.g. !@#$%^&*)
 - **Excellent**: The password must be at least 10 characters long. It must contain no more than two identical characters in a row (e.g., "aaa" is not allowed). It must contain at least three of the following four types of characters: a lower case letter, an upper case letter, a number, and a special character (e.g. !@#$%^&*).
 
-![](https://cdn.auth0.com/blog/top-5-threats-cyber-monday/password-strenght.png)
+![Password Strength](https://cdn.auth0.com/blog/top-5-threats-cyber-monday/password-strenght.png)
 
 
 ## Conclusion
