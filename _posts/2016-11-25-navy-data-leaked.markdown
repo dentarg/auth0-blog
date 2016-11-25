@@ -2,8 +2,8 @@
 layout: post
 title: "US Navy Data Leaked: 10 Tips to Protect Sensitive Data from Theft"
 description: "The recent leak of US Navy's personal sailor information puts in the spotlight the difficulties of keeping sensitive data secure, here's what you can do about it"
-date: 2016-11-24 13:00
-category: Security
+date: 2016-11-25 12:00
+category: Hot Topics, Security, Breaches
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
@@ -11,9 +11,9 @@ author:
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
   bg_color: "#004071"
-  image: https://cdn.auth0.com/blog/es6rundown/logo.png
+  image: https://cdn.auth0.com/blog/navy-leak/logo.png
   image_size: "100%"
-  image_bg_color: "#222228"
+  image_bg_color: "#004071"
   blog_series: false
 tags:
 - security
@@ -33,9 +33,9 @@ tags:
 - secure data
 - securing data
 related:
-- 2016-01-26-four-types-of-leaks-in-your-javascript-code-and-how-to-get-rid-of-them
-- 2016-03-15-javascript-module-systems-showdown
-- 2015-10-14-7-things-you-should-know-about-web-assembly
+- how-the-biggest-attack-in-internet-was-perpetrated
+- yahoo-confirms-data-breach-of-half-a-billion-user-accounts
+- 2016-06-21-avoiding-password-reuse-attacks
 ---
 
 The US Navy was [recently notified](http://www.navy.mil/submit/display.asp?story_id=97820) by a contractor of a major leak of sailor's personal information. Although the leak is currently under investigation, the perpetrators purpotedly used a stolen laptop with either compromised credentials or downloaded data. In this post we will study the different ways in which sensitive data can be protected in case of device theft. Read on!
@@ -55,17 +55,17 @@ Cached credentials are probably one of the most common cases. Most users rely on
 
 In the case of email, things can even be worse! E-mail not only is the gateway to password recovery mechanisms, but to impersonation and social engineering, which we will discuss below.
 
-![Cached Credentials]()
+![Cached Credentials](https://cdn.auth0.com/blog/navy-leak/cached-credentials.png)
 
 ### Scenario 2: cached data
 Another possible scenario deals with actual cached data on the stolen device. Although unlikely for big amounts of data, storage is cheap. It is not preposterous to think a developer working on a critical piece of infrastructure would keep some data local to speed up development. This is a case were encryption and policies for sensitive data storage help tremendously. But even then, encryption is only as strong as its authentication mechanism: a weak password defeats any encryption. 
 
-![Cached Data]()
+![Cached Data](https://cdn.auth0.com/blog/navy-leak/cached-data.png)
 
 ### Scenario 3: social engineering
 This scenario is often overlooked. Once you have enough tools to impersonate a user, you can start to pull strings until you get the level of access required for your malicious purposes. The owner of the laptop may not have had access to the sailor's data, but what if he had an active email session in his computer. The malicious user could have used his or her email account to request temporary access to the protected resource (to run tests for instance). This is another scenario were proper policies and development practices can make or break your chain of security.
 
-![Social Engineering]()
+![Social Engineering](https://cdn.auth0.com/blog/navy-leak/social-engineering.png)
 
 ## Policies to Protect Your Data
 So what do all of these scenarios have in common? That there are proper policies that can be used to mitigate the effects of device theft. Some of these policies are easy to enforce, while others require strict adherence from users. This is a key factor in security that is often overlooked: the weakest links in the chain are usually people. So the more you can automatically enforce, the better. Unfortunately, people do not like to feel constrained, so balance must be sought. What policies could we use to prevent theft of information in the above scenarios? Let's find out.
