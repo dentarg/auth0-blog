@@ -60,7 +60,7 @@ The benefits of having more user information for marketing purposes are probably
 
 ## Social Data is Easy with Auth0
 
-Enabling social login is easy with Auth0, especially when you use the [Lock widget](https://auth0.com/lock) in your application. After [signing up for Auth0](https://auth0.com/signup), select the social identity providers you want to allow your users to log in with. You get to choose which pieces of profile information you’d like your customers to share with you.
+Enabling social login is easy with Auth0, especially when you use the [Lock widget](https://auth0.com/lock) in your application. After [signing up for Auth0](javascript:signup\(\)), select the social identity providers you want to allow your users to log in with. You get to choose which pieces of profile information you’d like your customers to share with you.
 
 ![customer data facebook](https://cdn.auth0.com/blog/customer-data/customer-data-2.png)
 

@@ -399,7 +399,7 @@ With Auth0, all of this is done for us out of the box, and we don't need to worr
 
 ### Step 0: Sign Up for Auth0 and Configure
 
-If you don't already have any Auth0 account, [sign up](https://auth0.com/signup) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
 
 ### Step 1: Add Auth0Lock to Your App
 

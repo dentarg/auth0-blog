@@ -27,7 +27,7 @@ related:
 
 ### Introduction
 
-Today we are very pleased to announce Auth0 [new pricing](https://auth0.com/pricing), along with a new **free** and **full-featured** [developer plan](https://auth0.com/signup).
+Today we are very pleased to announce Auth0 [new pricing](https://auth0.com/pricing), along with a new **free** and **full-featured** [developer plan](javascript:signup\(\)).
 
 {% include tweet_quote.html quote_text="Today we are very pleased to announce Auth0 new pricing." %}
 
@@ -102,4 +102,4 @@ As per those of you currently in trial mode, you will automatically be moved to 
 
 ### Conclusion
 
-We are very excited about both our new [new pricing](https://auth0.com/pricing) and our new free and full-featured [developer plan](https://auth0.com/signup). Give them a go and do not hesitate to [share your feedback](https://auth0.com/?contact=true).  
+We are very excited about both our new [new pricing](https://auth0.com/pricing) and our new free and full-featured [developer plan](javascript:signup\(\)). Give them a go and do not hesitate to [share your feedback](https://auth0.com/?contact=true).  

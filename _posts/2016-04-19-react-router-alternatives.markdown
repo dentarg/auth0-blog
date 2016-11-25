@@ -148,7 +148,7 @@ If you are feeling adventurous and up for a challenge, [James K Nelson](https://
 
 ## Aside: Auth0 Makes it Easy to Protect Routes
 
-Whether you are using React Router, router5, or building your own - Auth0 can help with authentication. [Sign up](https://auth0.com/signup) for your free account to get started. You can follow the in-depth [documentation](https://auth0.com/docs/quickstart/spa/react/no-api) for adding authentication to a React app but we'll still give you a sneak peek below. 
+Whether you are using React Router, router5, or building your own - Auth0 can help with authentication. [Sign up](javascript:signup\(\)) for your free account to get started. You can follow the in-depth [documentation](https://auth0.com/docs/quickstart/spa/react/no-api) for adding authentication to a React app but we'll still give you a sneak peek below. 
 
 We'll show a quick example of how you can use the [**jwt-decode**](https://github.com/auth0/jwt-decode) library to ensure that a users token is valid. We'll assume that the user already has a token and we'll check to see if this token is expired. Our code looks like:
 

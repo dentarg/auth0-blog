@@ -1163,7 +1163,7 @@ When users are logged in, they'll see something like this:
 
 The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
 
-1. Sign up for a [free Auth0 account](https://auth0.com/signup).
+1. Sign up for a [free Auth0 account](javascript:signup\(\)).
 2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
 3. Name your new app and select "Single Page Web Applications". 
 4. In the **Settings** for your newly created app, add `http://localhost:8080` to the Allowed Callback URLs and Allowed Logout URLs.

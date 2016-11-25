@@ -213,7 +213,7 @@ You can add Auth0 to an Angular 2 app really easily. There are just a few simple
 
 ### Step 0: Sign Up for Auth0 and Configure
 
-If you don't already have any Auth0 account, [sign up](https://auth0.com/signup) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
 
 ### Step 1: Add Auth0Lock to Your App
 

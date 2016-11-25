@@ -26,7 +26,7 @@ related:
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
 
-> Testing out APIs is always easier with tools like Postman. In this screencast, we'll demonstrate how to work with Auth0's authentication and management APIs using our Postman collections. [Sign up](https://auth0.com/signup) for your free Auth0 account to follow along.
+> Testing out APIs is always easier with tools like Postman. In this screencast, we'll demonstrate how to work with Auth0's authentication and management APIs using our Postman collections. [Sign up](javascript:signup\(\)) for your free Auth0 account to follow along.
 
 <h2 id="enabling-social-login">Using the Auth0 Postman Collections</h2>
 

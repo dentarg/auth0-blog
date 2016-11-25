@@ -151,7 +151,7 @@ For our implementation, our JWK will look like:
 }
 ```
 
-Let's go ahead and get our Auth0 client credentials so we can test our implementation. If you don't already have an Auth0 account, sign up for a free one [here](https://auth0.com/signup). Log in to your [management dashboard](https://manage.auth0.com), navigate to the client you wish you to use, and retreive your **Domain** and **Client Secret**. Replace the `YOUR-AUTH0-DOMAIN` from the `nginx.conf` file and with your domain and `YOUR-AUTH0-SECRET` with your secret and save the files.
+Let's go ahead and get our Auth0 client credentials so we can test our implementation. If you don't already have an Auth0 account, sign up for a free one [here](javascript:signup\(\)). Log in to your [management dashboard](https://manage.auth0.com), navigate to the client you wish you to use, and retreive your **Domain** and **Client Secret**. Replace the `YOUR-AUTH0-DOMAIN` from the `nginx.conf` file and with your domain and `YOUR-AUTH0-SECRET` with your secret and save the files.
 
 ![Auth0 Management Dashboard](https://cdn.auth0.com/blog/nginx-plus/management-dashboard.png)
 
@@ -206,4 +206,4 @@ By default NGINX Plus looks for the Authorization header with the JWT, but we ca
 
 ## Conclusion
 
-Today, we looked at how NGINX Plus can take the burden of validating JWTs off our application servers. We showed how you can integrate Auth0's identity platform to handle the issuance of JWTs. Since we adhere to standards, everything we covered today is also applicable to non-Auth0 JWT implementations, but for the quickest and most secure option, give us a [try](https://auth0.com/signup). 
+Today, we looked at how NGINX Plus can take the burden of validating JWTs off our application servers. We showed how you can integrate Auth0's identity platform to handle the issuance of JWTs. Since we adhere to standards, everything we covered today is also applicable to non-Auth0 JWT implementations, but for the quickest and most secure option, give us a [try](javascript:signup\(\)). 

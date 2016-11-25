@@ -60,7 +60,7 @@ MVVM stands for **Model-View-ViewModel**. It's a different way to arrange respon
 
 - **View** - Here, things start to change. The view layer in MVVM englobes the interface (UIView subclasses, xib and storyboard files), the view logic (animations, drawing) and handling user input events (button clicks, transitions, etc). Those are responsibilities of the View and the _Controller_ in the MVC. This means that your views will remain the same, while your view controller subclasses will only contain a small subset of the responsibilities they have in MVC - and will get reasonably smaller than usual
 
-- **ViewModel** - That's the new home for most of your usual controller code. The view model layer will request the data from the model layer (it might be a local access to a database or a network request) and pass it back to the view, formatted in the way it will be displayed. But it's a two-way mechanism: user input, when necessary, will also get through the view model layer to update the model. Since the view model controls exactly what is being displayed, it's useful to use some data binding mechanism between the two layers. 
+- **ViewModel** - That's the new home for most of your usual controller code. The view model layer will request the data from the model layer (it might be a local access to a database or a network request) and pass it back to the view, formatted in the way it will be displayed. But it's a two-way mechanism: user input, when necessary, will also get through the view model layer to update the model. Since the view model controls exactly what is being displayed, it's useful to use some data binding mechanism between the two layers.
 
 Comparing to MVC, you change from a pattern that looks like this:
 
@@ -321,7 +321,7 @@ That's it for MVVM. You may find this approach more testable, maintainable and d
 
 ### How it works
 
-VIPER is an application of the [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) to iOS projects. It stands for View, Interactor, Presenter, Entity, and Router. It's a really segmented way to divide responsibilities, fits very well with unit testing and makes your code more reusable. 
+VIPER is an application of the [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) to iOS projects. It stands for View, Interactor, Presenter, Entity, and Router. It's a really segmented way to divide responsibilities, fits very well with unit testing and makes your code more reusable.
 
 ![Viper Architecture](https://cdn.auth0.com/blog/mvvm-vs-viper/viper-architecture.png)
 
@@ -596,7 +596,7 @@ Auth0 is an authentication broker that supports social identity providers (Faceb
 It's quite easy to integrate Auth0 Lock into an iOS project, as we will see in the next few steps:
 
 ### Step 0
-If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now to follow along with the other steps. Also, create a new client in the dashboard - it's pretty easy and straightforward.
+If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps. Also, create a new client in the dashboard - it's pretty easy and straightforward.
 
 ### Step 1
 Lock is available on [CocoaPods](https://cocoapods.org/) and [Carthage](https://github.com/Carthage/Carthage). [Create a new project with CocoaPods](https://guides.cocoapods.org/) or use an existing one. Then add the following line to your Podfile:
@@ -613,7 +613,7 @@ Create a new file named Auth0.plist. In both Auth0.plist and Info.plist files, a
 * **Auth0ClientId**: The client ID of your Auth0 application.
 * **Auth0Domain**: Your Auth0 account domain.
 
-These values can be found in the [client dashboard](https://app.auth0.com/#/applications). 
+These values can be found in the [client dashboard](https://app.auth0.com/#/applications).
 
 ### Step 2
 Set up your AppDelegate class with the following code:
@@ -634,7 +634,7 @@ First, instantiate A0LockViewController and register the authentication callback
 let lock = A0Lock.shared()
 if let controller = lock.newLockViewController() {
     controller.closable = true
-            
+
     controller.onAuthenticationBlock = {(profile, token) in
         // Do something with token & profile. e.g.: save them.
         // Lock will not save the Token and the profile for you.
