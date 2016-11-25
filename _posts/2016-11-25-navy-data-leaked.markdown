@@ -2,7 +2,7 @@
 layout: post
 title: "US Navy Data Leaked: 10 Tips to Protect Sensitive Data from Theft"
 description: "The recent leak of US Navy sailors' personal information puts in the spotlight the difficulties of keeping sensitive data secure, here's what you can do about it"
-date: 2016-11-25 12:00
+date: 2016-11-25 6:00
 category: Hot Topics, Security, Breaches
 author:
   name: Sebastián Peyrott
