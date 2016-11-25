@@ -3,7 +3,7 @@ layout: post
 title: "How To Stay Safe While Shopping Online For Cyber Monday"
 description: Learn this six tips that will help you shop safely online on Cyber Monday
 date: 2016-11-25 08:30
-category: Safety, Security
+category: Growth, Security
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/cybermondaylogo.png
