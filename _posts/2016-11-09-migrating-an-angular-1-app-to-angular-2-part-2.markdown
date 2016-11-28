@@ -73,7 +73,7 @@ We want to update the document `<title>` tag for each page. Recall that `<title>
 We want the `Title` service to be registered in the root injector so it's available to the entire application. Let's add it to our `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 import { BrowserModule, Title } from '@angular/platform-browser';
 ...
@@ -292,7 +292,6 @@ ng2-dinos
     |-app/
       |-core/
         |-app.component[.html|.scss|.ts]
-        |-app.module.ts
         |-app-routing.module.ts
       |-header/
         |-_nav.scss
@@ -306,6 +305,7 @@ ng2-dinos
           |-error404.component[.html|.ts]
         |-home/
           |-home.component[.html|.scss|.ts]
+      |-app.module.ts
       |-index.ts
 ```
 
@@ -314,10 +314,10 @@ ng2-dinos
 We have a new module to handle routing but it isn't being imported anywhere in our app right now. We need to add it to our `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 ...
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './core/app-routing.module';
 ...
 
 @NgModule({
@@ -541,10 +541,10 @@ Finally we manage successes and errors. The `map` operator processes the result 
 We want the dinos service to be a singleton. Unlike Angular 1, Angular 2 services can be singletons _or_ have multiple instances depending on how they're provided. To create a global singleton, we'll provide the service in the `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 ...
-import { DinosService } from './dinos.service';
+import { DinosService } from './core/dinos.service';
 
 @NgModule({
   declarations: [
