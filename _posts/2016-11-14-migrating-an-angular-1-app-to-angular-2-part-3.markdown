@@ -377,10 +377,10 @@ It's possible to keep everything we need in the component without external templ
 In order to use our new component in our app, we need to add it to our `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 ...
-import { LoadingComponent } from './ui/loading.component';
+import { LoadingComponent } from './core/ui/loading.component';
 ...
 
 @NgModule({
@@ -766,10 +766,10 @@ Finally, we'll implement a way to check the current authentication state of the 
 Our authentication service is now ready for use! We'll provide it at the app level in `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 ...
-import { AuthService } from './auth.service';
+import { AuthService } from './core/auth.service';
 ...
 
 @NgModule({

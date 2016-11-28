@@ -304,7 +304,7 @@ The Angular CLI creates all app files (modules, components, services, pipes, etc
 
 > **Note:** Recall that this tutorial won't cover testing. The `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/auth0-blog/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
 
-Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The `app` folder's file structure should now look like this:
+Let's move the `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The `app` folder's file structure should now look like this:
 
 ```text
 ng2-dinos
@@ -312,7 +312,7 @@ ng2-dinos
     |-app/
       |-core/
         |-app.component[.html|.scss|.ts]
-        |-app.module.ts
+      |-app.module.ts
       |-index.ts
 
 ```
@@ -323,7 +323,7 @@ This breaks our build. We can fix it by updating the `ng2-dinos/src/app/index.ts
 // ng2-dinos/src/app/index.ts
 
 export * from './core/app.component';
-export * from './core/app.module';
+export * from './app.module';
 ```
 
 > **Note:** Always keep in mind that Angular 2 is very interconnected with regard to dependency imports. When we move files, we break references in other places. The CLI tells us where the problems are when we build. TypeScript code hinting in our editor can help too. To address the issue at its root, we can use additional `@NgModule`s to manage dependencies; you can learn more by reading [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/).
@@ -461,15 +461,15 @@ We can see from the terminal output that new files were created, but let's also 
 `app.module.ts` is our app's primary `@NgModule`. It now looks like this:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from '../header/header.component';
+import { AppComponent } from './core/app.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
