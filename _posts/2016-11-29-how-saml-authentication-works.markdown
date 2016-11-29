@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "How SAML Authentication Works"
-description: Learn the nitty-gritty of Saml Authentication
+description: Learn the nitty-gritty of SAML Authentication
 date: 2016-11-29 08:30
-category: Identity, Security, Saml
+category: Identity, Security, SAML
 design:
   bg_color: "#001D3F"
   image: https://cdn.auth0.com/blog/PasswordlessLogo.png
