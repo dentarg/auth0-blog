@@ -70,6 +70,6 @@ Examples of non-SMS OOB authenticators include [Auth0 Guardian](https://auth0.co
 
 ## Conclusion
 
-Overall, the new guidelines put the user experience at the forefront while also establishing more robust storage and authentication methods. Although the NIST Digital Authentication Guideline governs Federal sites, its tenets are great standards for _any_ app or site with authentication. To learn more, check out the [NIST Draft 800-63-3](https://pages.nist.gov/800-63-3) itself and [Jim Fenton's "Toward Better Password Requirements"](http://www.slideshare.net/jim_fenton/toward-better-password-requirements) presentation. 
+Overall, the new guidelines put the user experience at the forefront while also establishing more robust storage and authentication methods. Although the NIST Digital Authentication Guideline governs Federal sites, its tenets are good standards for _any_ app or site with authentication. The guideline is currently in draft. When the policies are final, Federal agencies as well as many other companies and vendors will make strides to comply with the new guidelines for improved authentication security and user experience. To learn more, check out the [NIST Draft 800-63-3](https://pages.nist.gov/800-63-3) itself and [Jim Fenton's "Toward Better Password Requirements"](http://www.slideshare.net/jim_fenton/toward-better-password-requirements) presentation. 
 
 
