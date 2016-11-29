@@ -10,8 +10,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  bg_color: "#1F3C5E"
-  image: https://cdn.auth0.com/blog/federated-identity/logo.png
+  bg_color: "#485FB8"
+  image: https://cdn.auth0.com/blog/nist-auth-guideline/NISTimage.png
 tags:
 - security
 - passwords
@@ -28,7 +28,11 @@ related:
 
 ## NIST Digital Authentication Guideline
 
-The [US National Institute of Standards and Technology (NIST)](https://www.nist.gov/) is creating new policies for Federal agencies implementing authentication. The draft, called **Special Publication 800-63-3**, is available [on the NIST website](https://pages.nist.gov/800-63-3) as well as [on NIST's GitHub](https://github.com/usnistgov/800-63-3). The suite of documents includes the following:
+The [US National Institute of Standards and Technology (NIST)](https://www.nist.gov/) is creating new policies for Federal agencies implementing authentication.
+
+![Digital Authentication Guideline: US NIST logo](https://cdn.auth0.com/blog/nist-auth-guideline/nist.png)
+
+The draft, called **Special Publication 800-63-3**, is available [on the NIST website](https://pages.nist.gov/800-63-3) as well as [on NIST's GitHub](https://github.com/usnistgov/800-63-3). The suite of documents includes the following:
 
 * [800-63-3: Digital Authentication Guideline](https://pages.nist.gov/800-63-3/sp800-63-3.html) (overview)
 * [800-63A: Enrollment & Identity Proofing](https://pages.nist.gov/800-63-3/sp800-63a.html)
