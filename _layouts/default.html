@@ -29,8 +29,8 @@
     <script src="//cdn.auth0.com/js/lock/10.6.1/lock.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.min.js"></script>
-    <script src="//cdn.auth0.com/web-header/1.4.0/web-header.js"></script>
-    <link rel="stylesheet" href="//cdn.auth0.com/web-header/1.4.0/web-header.css" />
+    <script src="//cdn.auth0.com/web-header/2.0.1/web-header.js"></script>
+    <link rel="stylesheet" href="//cdn.auth0.com/web-header/2.0.1/web-header.css" />
     <script src="//npmcdn.com/auth0-contact-form@latest"></script>
     <link rel="stylesheet" href="//npmcdn.com/auth0-contact-form@latest/dist/contact-form.css" />
     <script src="//cdn.auth0.com/js/m/metrics-1.min.js"></script>
@@ -234,7 +234,6 @@
         render: function () {
           var HeaderProps = {
             logged: this.state.logged,
-            showLock: window.login,
             showContactForm: this.state.showContactForm
           };
           var Auth0WebHeaderProps = toAuth0WebHeaderProps(HeaderProps);
@@ -246,15 +245,18 @@
       function toAuth0WebHeaderProps(props) {
         var Auth0WebHeaderProps = {
           theme: 'dark',
-          secondaryButtonLink: null,
-          secondaryButtonOnClick: props.showContactForm
+          talkToSalesButtonLink: null,
+          talkToSalesButtonOnClick: props.showContactForm
         };
 
         if (props.logged) {
-          Auth0WebHeaderProps.primaryButtonText = 'Open Dashboard';
-          Auth0WebHeaderProps.primaryButtonLink = 'https://manage.auth0.com';
+          Auth0WebHeaderProps.loginButtonEnable = false;
+          Auth0WebHeaderProps.signupButtonText = 'Open Dashboard';
+          Auth0WebHeaderProps.signupButtonLink = 'https://manage.auth0.com';
         } else {
-          Auth0WebHeaderProps.primaryButtonOnClick = props.showLock;
+          Auth0WebHeaderProps.loginButtonEnable = true;
+          Auth0WebHeaderProps.loginButtonOnClick = window.login;
+          Auth0WebHeaderProps.signupButtonOnClick = window.signup;
         }
 
         return Auth0WebHeaderProps;
