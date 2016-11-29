@@ -60,7 +60,7 @@ Consider this use case:
 - Our identity provider is **Auth0**
 - Our service provider is an enterprise HR portal called **Zagadat**
 
-**Note:** The identity provider could be any identity management platform
+**Note:** The identity provider could be any identity management platform.
 
 Now, a user is trying to gain access to **Zagadat** using SAML authentication.
 
@@ -75,12 +75,21 @@ _Example of a SAML request_
 * The browser redirects the user to a SSO URL, **Auth0**
 * **Auth0** parses the SAML request, authenticates the user(this could be either via username and password or even a two-factor authentication, if the user is already authenticated on auth0, this step will be skipped) and generates a SAML response
 
-![]()
+![Typical SAML response](https://cdn.auth0.com/blog/SAMLResponse.png)
 _Example of a SAML response_
 
 * **Auth0** returns the encoded SAML response to the browser
 * The browser sends the SAML response to **Zagadat** for verification
 * If the verification is successful, user will be logged in to **Zagadat** and granted access to all the various resources.
+
+Note the attributes that are highlighted in the SAML request and response. Find below a little glossary of these parameters:
+
+* **ID:** Newly generated number for identification
+* **IssueInstant:** Timestamp to indicate the time it was generated
+* **AssertionConsumerServiceURL:** The SAML URL interface of the service provider, where the Identity Provider sends the authentication token.
+* **Issuer:** The name(identity) of the Service Provider
+* **InResponseTo:** The ID of the SAML request that this response belongs to
+* **Recipient:** The name(identity) of the Service Provider
 
 ## Aside: SAML Authentication with Auth0
 
@@ -88,7 +97,7 @@ With Auth0, SAML authentication is dead simple to implement. We can easily confi
 
 In the example below, we will use an Auth0 account(account 1) as a *Service Provider* and authenticate users against a second Auth0 account(account 2) which will serve as our *Identity Provider*. Follow the steps below:
 
-**1. Establish two Auth0 Accounts**
+## 1. Establish two Auth0 Accounts
 
 If you do not already have two Auth0 accounts, you will need to create them. If you do already have two accounts, you can skip to step #2.
 
@@ -103,7 +112,7 @@ In the window which appears, enter a name for your second account in the **"Your
 
 You can switch back and forth between the accounts by going to the upper right corner of the dashboard, clicking on the name of the current account, and using the popup menu which appears to switch between your accounts.
 
-**2. Set up the Auth0 IDP (account 2)**
+## 2. Set up the Auth0 IDP (account 2)
 
 In this section you will configure one Auth0 account (account 2) to serve as an Identity Provider. You will do this by registering a client, but in this case, the 'client' you register is really a representation of account 1, the SAML Service Provider.
 
@@ -148,7 +157,7 @@ Next, create a user to use in testing the SAML SSO sequence. *In the Auth0 dashb
 
 * Press the blue **"SAVE"** button.
 
-##3. Set up the Auth0 service provider (account 1)
+## 3. Set up the Auth0 service provider (account 1)
 
 In this section you will configure another Auth0 account (account 1) so it knows how to communicate with the second Auth0 account (account 2) for single sign on via the SAML protocol.
 
@@ -209,7 +218,7 @@ You need to locate the row that starts with **"AssertionConsumerService"** and c
 
 Copy and save this URL. This is the URL on account 1 that will receive the SAML assertion from the IDP. In the next section you will give this URL to the IDP so it knows where to send the SAML assertion.
 
-##4. Add your Service Provider metadata to the Identity Provider
+## 4. Add your Service Provider metadata to the Identity Provider
 
 In this section you will go back and add some information about the Service Provider (account 1) to the Identity Provider (account 2) so the Identity Provider Auth0 account knows how to receive and respond to SAML-based authentication requests from the Service Provider Auth0 account.
 
@@ -217,24 +226,25 @@ In this section you will go back and add some information about the Service Prov
 
 **In the Auth0 dashboard:** for Account 2
 
-1. Click on **"Clients"** link at left.
+* Click on **"Clients"** link at left.
 
-2. Find the row for the client you created earlier, and click on the **"Add Ons"** icon to the right of the client name. (the angle bracket and slash icon)
+* Find the row for the client you created earlier, and click on the **"Add Ons"** icon to the right of the client name. (the angle bracket and slash icon)
 
-3. Locate the box with the **"SAML2 WEB APP"** label and click on the circle toggle to turn it green.
+* Locate the box with the **"SAML2 WEB APP"** label and click on the circle toggle to turn it green.
 
 ![Addons](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-10.jpg)
 
-4. Next, a configuration window will pop up for the **"Addon: SAML2 Web App"**. Make sure you are in the **"Settings"** tab.
+
+* Next, a configuration window will pop up for the **"Addon: SAML2 Web App"**. Make sure you are in the **"Settings"** tab.
 
 ![Addon: SAML2 Web App Settings Tab](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-11.png)
 
 
-5. In the **"Application Callback URL"** field, paste in the **Assertion Consumer Service URL** that you copied and saved in section 3 above (the last step).
+* In the **"Application Callback URL"** field, paste in the **Assertion Consumer Service URL** that you copied and saved in section 3 above (the last step).
 
 ![Assertion Consumer Service URL](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-12.png)
 
-6. In the Settings field below, go to line 2 that has the "audience" attribute.
+* In the Settings field below, go to line 2 that has the "audience" attribute.
 
 First remove the "//" at the beginning of the line to uncomment it. Next, replace the original value (urn:foo) with the **Entity ID** value you saved and copied in step 3 above. The new line 2 should look something like:
 
@@ -243,7 +253,7 @@ First remove the "//" at the beginning of the line to uncomment it. Next, replac
     "audience":"urn:auth0:YOUR_TENANT:YOUR_CONNECTION_NAME"
 ```
 
-7. Click on the blue **"SAVE"** button at the bottom of the screen
+* Click on the blue **"SAVE"** button at the bottom of the screen
 
 ## 5. Test Identity Provider
 
@@ -315,32 +325,33 @@ If the SAML configuration works, your browser will be redirected back to an Auth
 
 In this section you will create a very simple HTML page that invokes the *Auth0 Lock Widget* which will trigger the SAML login sequence. This will enable an end-to-end test of the SAML SSO.
 
-Create an HTML page and insert the following HTML and javascript code:
+Create an HTML page and insert the following:
 
-```html
+{% highlight html %}
 <!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <HTML>
 <BODY>
 <p> Click on the button to log in </p>
 
-<script src="http://cdn.auth0.com/js/lock/10.2/lock.min.js"></script>
-<script type="text/javascript">
-  var lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_AUTH0_DOMAIN',{
-        redirectUrl: 'http://jwt.io',
-        responseType: 'token',
-        auth: {
-          params: {scope: 'openid'}
-        }
-    });
+	<script src="http://cdn.auth0.com/js/lock/10.2/lock.min.js"></script>
+	<script type="text/javascript">
+	  var lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_AUTH0_DOMAIN',{
+	        redirectUrl: 'http://jwt.io',
+	        responseType: 'token',
+	        auth: {
+	          params: {scope: 'openid'}
+	        }
+	    });
 
-  function signin() {
-    lock.show();
-  }
-</script>
+	  function signin() {
+	    lock.show();
+	  }
+	</script>
+ 
 <button onclick="signin()">Login</button>
 </BODY>
 </HTML>
-```
+{% endhighlight %}
 
 Make sure you replace *YOUR-APP-CLIENT-ID* with the actual value of the app you registered in step 7 above. The client ID for your client can be found in the *Auth0 dashboard* for *Account 1* by going to "Clients" link and clicking on the "Settings" (gear) icon to the right of your client's name.
 
