@@ -5,8 +5,8 @@ description: Learn the nitty-gritty of SAML Authentication
 date: 2016-11-29 08:30
 category: Identity, Security, SAML
 design:
-  bg_color: "#001D3F"
-  image: https://cdn.auth0.com/blog/PasswordlessLogo.png
+  bg_color: "#9F2324"
+  image: https://cdn.auth0.com/blog/SAMLLogo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
