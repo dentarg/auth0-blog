@@ -66,7 +66,7 @@ NIST also supplies guidelines for the verifier's encryption and storage of passw
 
 NIST recommends utilizing [out-of-band (OOB) authentication](https://www.techopedia.com/definition/29532/out-of-band-authentication-ooba) to provide [2-factor Authentication (2FA)](https://auth0.com/learn/two-factor-authentication/). The guidelines also state that **SMS is _deprecated_ for OOB authentication**. SMS can be compromised by a variety of threats such as smartphone malware, [SS7 attacks](https://www.theguardian.com/technology/2016/apr/19/ss7-hack-explained-mobile-phone-vulnerability-snooping-texts-calls), forwarding, change of phone number, and more.
 
-Examples of non-SMS OOB authenticators include [Auth0 Guardian](https://auth0.com/docs/multifactor-authentication/guardian), [Duo Mobile](https://duo.com/solutions/features/two-factor-authentication-methods/duo-mobile), and [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en). NIST states that use of biometrics must be _with_ another authentication factor for [Multifactor Authentication](https://auth0.com/learn/multifactor-authentication/).
+Examples of non-SMS OOB authenticators include [Auth0 Guardian](https://auth0.com/docs/multifactor-authentication/guardian), [Duo Mobile](https://duo.com/solutions/features/two-factor-authentication-methods/duo-mobile), and [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en). NIST states that use of biometrics must be _with_ another authentication factor for [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication).
 
 ## Conclusion
 
