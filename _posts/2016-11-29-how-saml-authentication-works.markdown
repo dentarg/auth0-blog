@@ -66,21 +66,24 @@ Now, a user is trying to gain access to **Zagadat** using SAML authentication.
 
 This is the process flow:
 
-* The user tries to log into **Zagadat** from a browser
-* **Zagadat** responds by generating a SAML request
+ 1. The user tries to log into **Zagadat** from a browser
+ 2.  **Zagadat** responds by generating a SAML request
 
-![Typical SAML request](https://cdn.auth0.com/blog/samlrequestzg.png)
-_Example of a SAML request_
+    ![Typical SAML request](https://cdn.auth0.com/blog/samlrequestzg.png)
+    _Example of a SAML request_
 
-* The browser redirects the user to a SSO URL, **Auth0**
-* **Auth0** parses the SAML request, authenticates the user(this could be either via username and password or even a two-factor authentication, if the user is already authenticated on auth0, this step will be skipped) and generates a SAML response
+ 3. The browser redirects the user to a SSO URL, **Auth0**
+ 4. **Auth0** parses the SAML request, authenticates the user(this could be either via username and password or even a two-factor authentication, if the user is already authenticated on auth0, this step will be skipped) and generates a SAML response
 
-![Typical SAML response](https://cdn.auth0.com/blog/SAMLResponse.png)
-_Example of a SAML response_
+    ![Typical SAML response](https://cdn.auth0.com/blog/SAMLResponse.png)
+    _Example of a SAML response_
 
-* **Auth0** returns the encoded SAML response to the browser
-* The browser sends the SAML response to **Zagadat** for verification
-* If the verification is successful, user will be logged in to **Zagadat** and granted access to all the various resources.
+ 5. **Auth0** returns the encoded SAML response to the browser
+ 6. The browser sends the SAML response to **Zagadat** for verification
+ 7. If the verification is successful, user will be logged in to **Zagadat** and granted access to all the various resources.
+
+![Process flow diagram](https://cdn.auth0.com/blog/saml-process-flow-diagram.png)
+_Process Flow diagram_
 
 Note the attributes that are highlighted in the SAML request and response. Find below a little glossary of these parameters:
 
