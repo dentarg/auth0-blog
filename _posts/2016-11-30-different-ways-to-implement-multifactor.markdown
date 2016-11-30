@@ -57,6 +57,8 @@ The **login** process is as follows:
 
 An alternative implementation is the use of [**RSA** Keys](https://tools.ietf.org/html/draft-rsa-dsa-sha2-256-03). RSA authentication is basically based on two factors: A password/pin and an authenticator. The authenticator might be a [hardware](http://hitachi-id.com/concepts/hardware_token.html) or [software token](https://en.wikipedia.org/wiki/Software_token). A hardware or software token is assigned to a user. During login, after entering the password/pin, the user clicks on the token and an authentication code is generated at fixed intervals (usually about 60seconds) using a built-in clock and the device's factory-encoded random key. The key is different for each token and is loaded into the corresponding RSA Authentication Manager.
 
+![Software Token](https://auth0.com/learn/wp-content/uploads/2016/03/tfa-software.png)
+
 **Note:** The generated codes are time-based so the client and the server need to synchronize their clocks for this to work efficiently.
 
 ##How Short Message Service (SMS) Works
@@ -77,6 +79,8 @@ The **login** process is as follows:
 * The user enters the code into the app.
 * If it's valid, the user is authenticated and a session is initiated.
 
+![SMS Multi-factor Authentication](https://auth0.com/learn/wp-content/uploads/2016/03/tfa-sms.png)
+
 ##How Electronic Mail (Email)
 
 The process for a typical multifactor application using email is as follows:
@@ -85,6 +89,8 @@ The process for a typical multifactor application using email is as follows:
 * A unique one-time code is generated on the server and sent via email to the user.
 * The user retrieves the code from the email and enters the code into the app.
 * If it's valid, the user is authenticated and a session is initiated.
+
+![](https://auth0.com/learn/wp-content/uploads/2016/03/tfa-email.png)
 
 ##How Push Notifications Work
 
@@ -95,6 +101,8 @@ The process for a typical multifactor application using push notification is as 
 * This notification is a login request.
 * It includes information such as the application name, the OS and browser of the request, the location and the date of the request.
 * The user accepts the request & automatically the user becomes logged in.
+
+![Push Notifications with Auth0 guardian](https://auth0.com/learn/wp-content/uploads/2016/03/multifactor.png)
 
 ##Aside: Different ways to implement multifactor with Auth0
 
