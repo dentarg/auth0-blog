@@ -110,4 +110,4 @@ Implementing multifactor with Auth0 is a breeze. The various ways to implement m
 
 ##Conclusion
 
-We have covered the different ways of implementing multifactor authentication in an application. Sign up for Auth0 and add that extra layer of security to your apps today!
+We have covered the different ways to implement multifactor authentication in an application and how they work. Sign up for Auth0 and add that extra layer of security to your apps today in a breeze!
