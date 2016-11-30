@@ -106,7 +106,7 @@ Implementing multifactor with Auth0 is a breeze. The various ways to implement m
 * [Custom Providers such as *Yubikey*](https://auth0.com/docs/multifactor-authentication/yubikey)
 * [Contextual MFA with custom scripted rules](https://auth0.com/docs/multifactor-authentication#mfa-using-custom-rules)
 
-[Sign up](https://auth0.com/signup) for a free account today and enjoy fast, seamless, hassle-free multifactor authentication in your apps.
+[Sign up](javascript:signup\(\)) for a free account today and enjoy fast, seamless, hassle-free multifactor authentication in your apps.
 
 ##Conclusion
 
