@@ -58,7 +58,6 @@ The **login** process is as follows:
 An alternative implementation is the use of [**RSA** Keys](https://tools.ietf.org/html/draft-rsa-dsa-sha2-256-03). RSA authentication is basically based on two factors: A password/pin and an authenticator. The authenticator might be a [hardware](http://hitachi-id.com/concepts/hardware_token.html) or [software token](https://en.wikipedia.org/wiki/Software_token). A hardware or software token is assigned to a user. During login, after entering the password/pin, the user clicks on the token and an authentication code is generated at fixed intervals (usually about 60seconds) using a built-in clock and the device's factory-encoded random key. The key is different for each token and is loaded into the corresponding RSA Authentication Manager.
 
 ![Software Token](https://auth0.com/learn/wp-content/uploads/2016/03/tfa-software.png)
-_Software Token_
 
 **Note:** The generated codes are time-based so the client and the server need to synchronize their clocks for this to work efficiently.
 
