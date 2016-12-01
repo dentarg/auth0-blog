@@ -198,11 +198,7 @@ Angular CLI uses Webpack to bundle local dependencies, so we _won't_ add Moderni
 ```js
 // ng2-dinos/angular-cli.json
 
-{
-  "project": {
-    "version": "1.0.0-beta.19-3",
-    "name": "ng2-dinos"
-  },
+{...
   "apps": [
     {...
       "scripts": [
