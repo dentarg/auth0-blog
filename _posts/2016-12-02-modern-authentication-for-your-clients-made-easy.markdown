@@ -10,8 +10,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: https://cdn.auth0.com/blog/nodejs-awesome-polls/nodejs_logo.png
-  bg_color: "#333333"
+  image: https://cdn.auth0.com/blog/systems-integrators-post/logo.png
+  bg_color: "#165196"
 tags:
 - security
 - modern-authentication
@@ -24,11 +24,11 @@ related:
 
 ---
 
-**TL;DR** Whether you're a small consultency working with a few clients or have been around for some time, the authentication needs of your customers are likely similar. Legacy authentication via username and password is not enough. Your customers are demanding multifactor authentication, single sign-on, and greater security. Building these features in-house is complex, but with Auth0 it doesn't have to be.
+**TL;DR** Whether you're a small consultancy working with a few clients or have been around for some time, the authentication needs of your customers are likely similar. Legacy authentication via username and password is not enough. Your customers are demanding multifactor authentication, single sign-on, and greater security. Building these features in-house is complex, but with Auth0 it doesn't have to be.
 
 ---
 
-Being a consultant or systems integrator means wearing many hats. To be successful you must be knowledgable about various technologies, methodologies, and best practices as well as how to put them all together to meet your clients goals. The technological landscape is constantly changing and keeping up can be a challenge.
+Being a consultant or systems integrator means wearing many hats. To be successful you must be knowledgeable about various technologies, methodologies, and best practices as well as how to put them all together to meet your clients goals. The technological landscape is constantly changing and keeping up can be a challenge.
 
 When it comes to authentication and security, usernames and passwords are simply not enough. Modern authentication focuses on:
 
@@ -46,11 +46,11 @@ Keeping up with modern authentication and security best practices would be chall
 
 ## Auth0 for Systems Integrators
 
-Whether you're a small consultency working with a few clients or have been around for some time, the authentication requirements from your customers are likely to be similar. Auth0 can provide a comprehensive authentication platform that your clients will love. Your organization will benefit from being able to provide modern authentication in record time. Let's take a look at some of the features.
+Whether you're a small consultancy working with a few clients or have been around for some time, the authentication requirements from your customers are likely to be similar. Auth0 can provide a comprehensive authentication platform that your clients will love. Your organization will benefit from being able to provide modern authentication in record time. Let's take a look at some of the features.
 
 ### Modern Authentication
 
-Authentication starts at the login screen. The [Lock](https://auth0.com/lock) widget provides a modern login widget that supports traditional username and password, social, and enterprise authentication. This cross-platform widget can be implemented in as little as 10 lines of code but supports various branding and configuration options to truely make it your own. If you need full control over the user interface instead, our RESTful API provides the same functionality so you can have full control.
+Authentication starts at the login screen. The [Lock](https://auth0.com/lock) widget provides a modern login widget that supports traditional username and password, social, and enterprise authentication. This cross-platform widget can be implemented in as little as 10 lines of code but supports various branding and configuration options to truly make it your own. If you need full control over the user interface instead, our RESTful API provides the same functionality so you can have full control.
 
 ### Enterprise Federation and Single Sign-On
 
