@@ -303,14 +303,18 @@ Next we'll start our app with a record that references an `init` function, an `u
 
 `subscriptions` may look strange at first. [Subscriptions](http://www.elm-tutorial.org/en/03-subs-cmds/01-subs.html) listen for external input and we won't be using any in the Chuck Norris Quoter so we don't need a named function here. Elm does not have a concept of `null` or `undefined` and it's expecting functions as values in this record. This is an anonymous function that declares there are no subscriptions. 
 
-Here's a breakdown of the syntax. `\` begins an anonymous function. A backslash is used [because it resembles a lambda (λ)](https://en.wikipedia.org/wiki/Anonymous_function). `_` represents an argument that is discarded, so `\_` is an anonymous function that doesn't have arguments. `->` signifies the body of the function. `subscriptions = \_ -> ...` in JS would look like this:
+Here's a breakdown of the syntax. `\` begins an anonymous function. A backslash is used [because it resembles a lambda (λ)](https://en.wikipedia.org/wiki/Anonymous_function). `_` represents an argument that is discarded. `->` signifies the body of the function. `subscriptions = \_ -> ...` in JS might look like either of these:
 
 ```js
 // JS
 subscriptions = function() { ... }
+
+subscriptions = function(anyArg) { 
+	// do nothing with anyArg
+}
 ```
 
-(What would an anonymous function _with_ an argument look like? Answer: `\x -> ...`) 
+(What would an anonymous function _requiring_ an argument look like? Answer: `\x -> ...`) 
 
 Next up are the model type alias and the `init` function:
 
