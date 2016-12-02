@@ -4,7 +4,7 @@ title: "Secure Your React and Redux App with JWT Authentication"
 description: "Learn how to add JWT authentication to your React and Redux app. Use Redux middleware to make secure calls to an API."
 date: 2016-01-04 16:00
 alias: /2016/01/04/secure-your-react-and-redux-app-with-jwt-authentication/
-category: Technical guide, Frontend, React
+category: Technical Guide, Frontend, React
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en

@@ -4,7 +4,7 @@ title: "Logging &amp; Debugging in React with Flux: Replaying your user’s acti
 description: "Making it easy to reproduce end-user issues and bugs with Flux."
 date: 2015-08-25 09:00
 alias: /2015/08/25/logging-and-debugging-in-react-with-flux-replaying-your-users-actions/
-category: Technical guide, Frontend, React
+category: Technical Guide, Frontend, React
 author:
   name: Sandrino Di Mattia
   url: https://twitter.com/sandrinodm

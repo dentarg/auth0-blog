@@ -4,7 +4,7 @@ title: "Using the Auth0 Postman Collections"
 description: "Learn how you can use the Auth0 Postman collections to work with our authentication API and management API inside Postman"
 date: 2016-05-12 14:30
 alias: /2016/05/12/using-the-auth0-postman-collections/
-category: Auth0 Based Tutorial, Tools
+category: Auth0-based Tutorial, Tools
 author: 
   name: Jerrie Pelser
   url: https://twitter.com/jerriepelser

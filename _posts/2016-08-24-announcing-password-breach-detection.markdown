@@ -3,7 +3,7 @@ layout: post
 title: "Announcing Password Breach Detection for Auth0"
 description: "A new feature that could save you and your users a lot of trouble!"
 date: 2016-08-24 13:00
-category: Announcements, Features
+category: Announcement, Feature
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

@@ -4,7 +4,7 @@ title: "T-Shirt Tuesdays!"
 description: Here is your chance to win a free Auth0 t-shirt, every Tuesday in December. #Auth0FTW
 date: 2015-12-01 12:35
 alias: /2015/12/01/t-shirt-tuesdays/
-category: Announcements, Contest
+category: Announcement, Contest
 author:
   name: Kelsey Flittner
   url: https://twitter.com/kelseyoneal

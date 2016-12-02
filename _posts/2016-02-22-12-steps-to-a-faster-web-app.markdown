@@ -4,7 +4,7 @@ title: "12 Steps to a Faster Web App"
 description: "Are you following these tips? If not, learn how to create a faster web app!"
 date: 2016-02-22 13:30
 alias: /2016/02/22/12-steps-to-a-faster-web-app/
-category: Technical guide, Architecture, Performance
+category: Technical Guide, Architecture, Performance
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

@@ -4,7 +4,7 @@ title: "ng-conf 2016 Summary - Day Two"
 description: "Day two of ng-conf 2016 was Fair Day. We got to deep dive and learn more about what's in the pipeline for Angular 2."
 date: 2016-05-06 08:30
 alias: /2016/05/06/ng-conf-summary-day-2/
-category: Technical guide, Conferences, Angular
+category: Technical Guide, Conferences, Angular
 author: 
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"

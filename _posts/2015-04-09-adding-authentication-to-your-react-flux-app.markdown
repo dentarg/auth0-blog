@@ -5,7 +5,7 @@ description: "ReactJS authentication gets easy if you understand just a few basi
 date: 2015-04-9 11:22
 date_override: "2015-10-07 12:30"
 alias: /2015/04/09/adding-authentication-to-your-react-flux-app/
-category: Technical guide, Frontend, React
+category: Technical Guide, Frontend, React
 author:
   name: Martin Gontovnikas
   url: https://twitter.com/mgonto

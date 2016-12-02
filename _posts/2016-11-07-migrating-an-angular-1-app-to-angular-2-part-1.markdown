@@ -3,7 +3,7 @@ layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 1"
 description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 1): setup, architecture, and components."
 date: 2016-11-07 8:30
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Migration
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:

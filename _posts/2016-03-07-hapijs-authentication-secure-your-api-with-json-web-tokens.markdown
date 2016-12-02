@@ -4,7 +4,7 @@ title: "HapiJS Authentication - Secure Your API With JWT"
 description: "HapiJS is a great framework for building NodeJS APIs. Get started with HapiJS Authentication to create users and protect your API endpoints."
 date: 2016-03-07 08:30
 alias: /2016/03/07/hapijs-authentication-secure-your-api-with-json-web-tokens/
-category: Technical guide, Backend, HapiJS
+category: Technical Guide, Backend, HapiJS
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en

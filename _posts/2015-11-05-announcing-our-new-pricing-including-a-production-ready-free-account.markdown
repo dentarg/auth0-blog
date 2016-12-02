@@ -5,7 +5,7 @@ description: "Introducing a 7,000 monthly active users plan, free unlimited open
 date: 2015-11-05 08:30
 pinned: true
 alias: /2015/11/05/announcing-our-new-pricing-including-a-production-ready-free-account/
-category: Announcements, Pricing
+category: Announcement, Pricing
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

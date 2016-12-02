@@ -4,7 +4,7 @@ title: "Another big milestone: $9.3M in funding and 24,000 users"
 description: "Auth0 has raised an additional $6.875 million in Series A funding, led once again by Bessemer Venture Partners and K9 Ventures bringing our funding total to $9.3 million"
 date: 2015-06-24 06:00
 alias: /2015/06/23/another-big-milestone/
-category: Announcements
+category: Announcement
 author:
   name: "Jon Gelsey"
   mail: jon@auth0.com

@@ -4,7 +4,7 @@ title: "Using Smart Lock on Android in 3 simple steps"
 description: In this tutorial, learn how to use Google Smart Lock, a service that makes handling user's credentials on Android a pain-free process.
 date: 2015-06-29 22:16
 alias: /2015/06/29/using-smartlock-on-android-in-3-simple-steps/
-category: Technical guide, Mobile, Android
+category: Technical Guide, Mobile, Android
 author:
   name: Hernan Zalazar
   url: "https://twitter.com/hzalaz"

@@ -3,7 +3,7 @@ layout: post
 title: "How Passwordless Authentication Works"
 description: Learn the nitty-gritty of Passwordless Authentication
 date: 2016-11-23 08:30
-category: Identity, Security, Passwordless
+category: Technical Guide, Identity, Passwordless
 design:
   bg_color: "#001D3F"
   image: https://cdn.auth0.com/blog/PasswordlessLogo.png

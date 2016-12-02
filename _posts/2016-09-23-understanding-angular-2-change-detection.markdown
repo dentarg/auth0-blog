@@ -3,7 +3,7 @@ layout: post
 title: "Understanding Angular 2 change detection"
 description: "Angular 2 introduces a new change detection system that makes apps much faster and allows developers fine-tune the process."
 date: 2016-09-23 8:30
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
