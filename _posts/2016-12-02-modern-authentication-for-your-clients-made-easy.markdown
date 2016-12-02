@@ -70,4 +70,4 @@ If [username and password](https://auth0.com/docs/connections/database) authenti
 
 ## Auth0 Partners Program
 
-Auth0 solves authentication, identity, and security challenges for organizations by providing a complete platform for managing modern identity. Our goal is to make identity simple and easy, so you can spend less time worrying about authentication and focus on what makes your product unique. [Contact us](https://auth0.com/partners#become-a-partner) today to learn more about becoming an [Auth0 Technology Partner](https://auth0.com/partners).
+Auth0 solves authentication, identity, and security challenges for organizations by providing a complete platform for managing modern identity. Our goal is to make identity simple and easy, so you can spend less time worrying about authentication and focus on your clients and their needs. [Contact us](https://auth0.com/partners#become-a-partner) today to learn more about becoming an [Auth0 Technology Partner](https://auth0.com/partners).
