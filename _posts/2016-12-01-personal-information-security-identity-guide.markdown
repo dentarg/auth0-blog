@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Personal Information Security Identity Guide for family and friends"
-description: "Learn how the different types of Multifactor Authentication work!"
+description: "Learn how to keep your family and friends safe with this personal information security identity guide"
 date: 2016-12-02 08:30
 category: Technical guide, Identity, Security
 author:
