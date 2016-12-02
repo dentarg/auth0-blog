@@ -4,7 +4,7 @@ title: "Securing your NodeBots with JSON Web Tokens"
 description: "Secure your internet-connected NodeBots projects with JSON Web Tokens."
 date: 2015-12-28 9:00
 alias: /2015/12/22/securing-nodebots-with-JWT
-category: Technical guide, IoT, Nodebots
+category: Technical Guide, IoT, Nodebots
 author:
   name: Kassandra Perch
   url: https://twitter.com/nodebotanist

@@ -3,7 +3,7 @@ layout: post
 title: "Build Your First App with Polymer and Web Components"
 description: "Build an app using web components and Polymer that interacts with an API and authenticates users with JSON Web Tokens."
 date: 2016-10-05 8:30
-category: Technical guide, Frontend, Polymer
+category: Technical Guide, Frontend, Polymer
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"

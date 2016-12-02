@@ -4,7 +4,7 @@ title: "Understanding Reactive Programming and RxJS"
 description: "Using Reactive programming and RxJS, you can simplify your programming logic and make your programs easier to understand. Let's build a weather app to show this off!"
 date: 2016-09-27 8:36
 updated: 2016-10-06 8:30
-category: Technical guide, Frontend, RxJS
+category: Technical Guide, Frontend, RxJS
 author:
   name: Alex Sears
   url: http://twitter.com/searsaw

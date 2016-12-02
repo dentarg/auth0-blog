@@ -3,7 +3,7 @@ layout: post
 title: "A Rundown of JavaScript 2015 features"
 description: "Take a look at the features from ECMAScript/JavaScript 2015 and learn how they can help you in your projects"
 date: 2016-11-16 13:00
-category: Technical guide, Feature list
+category: Technical Guide, Frontend, JavaScript
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

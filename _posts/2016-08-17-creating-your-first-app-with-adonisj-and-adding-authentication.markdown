@@ -3,7 +3,7 @@ layout: post
 title: "Creating your first app with AdonisJs and adding authentication"
 description: Learn how to build your first AdonisJs application and add authentication to it.
 date: 2016-08-23 12:30
-category: Technical guide, Frontend, AdonisJS
+category: Technical Guide, Frontend, AdonisJS
 author:
   name: Prosper Otemuyiwa
   url: https://twitter.com/unicodeveloper?lang=en

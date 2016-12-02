@@ -3,7 +3,7 @@ layout: post
 title: "What the New NIST Guidelines Mean for Authentication"
 description: "Learn about NIST's Digital Authentication Guideline and what it means for authentication security."
 date: 2016-11-29 8:30
-category: Passwords, Authentication, Security
+category: Hot Topics, Authentication
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"

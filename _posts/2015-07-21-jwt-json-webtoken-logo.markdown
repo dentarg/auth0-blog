@@ -4,7 +4,7 @@ title: "JWT: 2 years later"
 description: Json Web Tokens (JWT) gets a logo, new website and more
 date: 2015-07-21 13:00
 alias: /2015/07/21/jwt-json-webtoken-logo/
-category: Announcements
+category: Announcement
 author:
   name: Matias Woloski
   url: "https://twitter.com/woloski"

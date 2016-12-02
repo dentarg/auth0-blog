@@ -4,7 +4,7 @@ title: “Pre-release Program, Zero To Launch, Blasts Off!”
 description: “Auth0 introduces pre-release program, Zero To Launch, giving qualifying customers exclusive early access to new features and functionality.”
 date: 2015-11-11 16:00
 alias: /2015/11/10/pre-release-program-zero-to-launch-blasts-off/
-category: Announcements, Programs
+category: Announcement, Program
 author:
   name: Clayton Moulynox
   url: https://twitter.com/claytonhm

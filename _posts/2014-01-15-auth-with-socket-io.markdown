@@ -14,7 +14,7 @@ design:
   image: http://assets.auth0.com/blog/design-process/socket-io.png
   bg_color: "#030303"
   bg_merge: true
-category: Technical guide, Identity, Cookies vs Tokens
+category: Technical Guide, Identity, Cookies vs Tokens
 pr: 2
 tags:
 - featured

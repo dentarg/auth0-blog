@@ -3,7 +3,7 @@ layout: post
 title: "SSO Login: Key Benefits and Implementation"
 description: Learn the benefits of Single Sign On login and how to achieve it with Auth0
 date: 2016-10-18 08:30
-category: Technical guide, Identity, Single Sign On
+category: Technical Guide, Identity, Single Sign On
 design:
   bg_color: "#305F96"
   image: https://cdn.auth0.com/blog/SSO-Logo.png

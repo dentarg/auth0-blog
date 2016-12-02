@@ -3,7 +3,7 @@ layout: post
 title: "What are the different ways to implement Multifactor Authentication?"
 description: "Learn how the different types of Multifactor Authentication work!"
 date: 2016-11-30 08:30
-category: Technical guide, Identity, MFA
+category: Technical Guide, Identity, MFA
 author:
   name: "Prosper Otemuyiwa"
   url: "https://twitter.com/unicodeveloper"

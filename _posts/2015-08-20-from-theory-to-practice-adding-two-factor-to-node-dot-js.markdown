@@ -4,7 +4,7 @@ title: "From Theory to Practice: Adding Two-Factor Authentication to Node.js"
 description: "Learn how to easily add 2FA/MFA to your Node.js + Express.js apps using TOTP"
 date: 2015-08-20 18:00
 alias: /2015/08/20/from-theory-to-practice-adding-two-factor-to-node-dot-js/
-category: Technical guide, Backend, NodeJS
+category: Technical Guide, Backend, NodeJS
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

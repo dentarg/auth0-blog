@@ -3,7 +3,7 @@ layout: post
 title: "Creating Your First Elm App: From Authentication to Calling an API (Part 1)"
 description: Explore building an app in the functional, reactive front-end language Elm, complete with an API and JWT authentication.
 date: 2016-08-04 13:30
-category: Technical guide, Frontend, Elm
+category: Technical Guide, Frontend, Elm
 design:
   bg_color: "#2D2D2D"
   image: https://cdn.auth0.com/blog/intro-to-elm/logo.png

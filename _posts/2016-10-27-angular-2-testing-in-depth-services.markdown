@@ -3,7 +3,7 @@ layout: post
 title: "Angular 2 Testing In Depth: Services"
 description: "Learn how to test services in Angular 2. We will start with setting up the environment and finish with using Dependency Injection."
 date: 2016-10-27 08:23
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:

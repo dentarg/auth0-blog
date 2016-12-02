@@ -4,7 +4,7 @@ title: "G’day, Mate! Auth0 Australia Launches"
 description: The Auth0 Australia Region joins the US and EU regions, extending our ability to offer the lowest login latency and allow subscribers to meet any applicable compliance requirements.
 date: 2015-09-21 08:00
 alias: /2015/09/21/auth0-australia-launches/
-category: Announcements
+category: Announcement
 author:
   name: José F. Romaniello
   url: http://twitter.com/jfroma

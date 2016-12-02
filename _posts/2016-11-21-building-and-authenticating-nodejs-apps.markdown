@@ -3,7 +3,7 @@ layout: post
 title: "Build and Authenticate a Node Js App with JSON Web Tokens"
 description: "Node Js allows you to build backend applications with JavaScript. In this tutorial we'll take a look at how you can secure your Node Js applications with JSON Web Tokens (JWTs)."
 date: 2016-11-21 08:30
-category: Technical guide, Node Js, Express
+category: Technical Guide, Backend, NodeJS
 banner:
   text: "Auth0 makes it easy to add authentication to your NodeJs application."
 author:

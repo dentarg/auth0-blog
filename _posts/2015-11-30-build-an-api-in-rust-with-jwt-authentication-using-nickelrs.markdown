@@ -4,7 +4,7 @@ title: "Build an API in Rust with JWT Authentication using Nickel.rs"
 description: "Learn how to implement a simple REST API with JWT Authentication in Rust using the Nickel.rs web framework and the MongoDB Rust Driver."
 date: 2015-11-30 16:00
 alias: /2015/11/30/build-an-api-in-rust-with-jwt-authentication-using-nickelrs/
-category: Technical guide, Backend, Rust
+category: Technical Guide, Backend, Rust
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en

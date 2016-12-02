@@ -4,7 +4,7 @@ title: "Creating Offline-First Web Apps with Service Workers"
 description: "Learn about the importance of creating an offline-first experience for app users and how to accomplish it easily with the Service Worker API"
 date: 2015-10-30 16:00
 alias: /2015/10/30/creating-offline-first-web-apps-with-service-workers/
-category: Technical guide, Architecture, Service Worker
+category: Technical Guide, Architecture, Service Worker
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
