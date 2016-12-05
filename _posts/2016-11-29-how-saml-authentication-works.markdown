@@ -3,7 +3,7 @@ layout: post
 title: "How SAML Authentication Works"
 description: Learn the nitty-gritty of SAML Authentication
 date: 2016-11-29 08:30
-category: Identity, Security, SAML
+category: Technical Guide, Identity, SAML
 design:
   bg_color: "#9F2324"
   image: https://cdn.auth0.com/blog/SAMLLogo.png
