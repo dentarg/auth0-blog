@@ -25,37 +25,37 @@ related:
 
 ---
 
-**TL;DR:** Most applications have user authentication as an integral part of their system. The need for various forms and protocols of authentication have increased over time. One of such protocols for authentication is SAML. In this article, you'll get to understand how SAML authentication works!
+**TL;DR:** User authentication is an integral part of most applications' systems, and the need for different forms and protocols of authentication has increased. One protocol is SAML, and in this article, you'll get to understand how it works!
 
 ---
 
 ## What is SAML?
 
-Security Assertion Markup Language (SAML) is an XML-based framework for authentication and authorization between two entities: a Service Provider and an Identity Provider. The Service Provider agrees to trust the Identity Provider to authenticate users. The Identity Provider authenticates users and provides to Service Providers an *authentication assertion* that indicates a user has been authenticated.
+Security Assertion Markup Language (SAML) is an XML-based framework for authentication and authorization between two entities: a Service Provider and an Identity Provider. The Service Provider agrees to trust the Identity Provider to authenticate users. In return, the Identity provider generates an *authentication assertion*, which indicates that a user has been authenticated.
 
-SAML is a standard for single sign-on (SSO). Exchange of authentication information is done through digitally signed XML documents. It's a complex single sign-on implementation that enables seamless authentication mostly between businesses and enterprises.
+SAML is a standard single sign-on (SSO) format. Authentication information is exchanged through digitally signed XML documents. It's a complex single sign-on (SSO) implementation that enables seamless authentication, mostly between businesses and enterprises.
 
-With SAML, you don't have to worry about typing in some authentication credentials, remembering and resetting passwords.
+With SAML, you don't have to worry about typing in authentication credentials or remembering and resetting passwords.
 
 ## Benefits of SAML Authentication
 
-Without much ado, the benefits of SAML authentication includes:
+Without much ado, the benefits of SAML authentication include:
 
-* **Standardization:** SAML is a standard format that allows seamless interoperability between systems independent of implementation. It takes away the common issues associated with vendor and platform-specific architecture and implementation.
+* **Standardization:** SAML is a standard format that allows seamless interoperability between systems, independent of implementation. It takes away the common problems associated with vendor and platform-specific architecture and implementation.
 
-* **Improved User Experience:** Providing users access to various service providers without additional authentication by allowing them sign in once allows for a faster and better user experience at each service. It eliminates the need for password issues such as reset and recovery.
+* **Improved User Experience:** Users can access multiple service providers by signing in just once, without additional authentication, allowing for a faster and better experience at each service provider. This eliminates password issues such as reset and recovery.
 
-* **Increased Security:** Security is a key aspect of software development. When it comes to enterprise applications, it is of extreme importance. SAML provides just one point of authentication, which happens at a secure identity provider and then SAML is used to transfer the identity to service providers. This form of authentication ensures that authentication credentials don't leave the firewall boundary.
+* **Increased Security:** Security is a key aspect of software development, and when it comes to enterprise applications, it is extremely important. SAML provides a single point of authentication, which happens at a secure identity provider. Then, SAML transfers the identity to service providers. This form of authentication ensures that credentials don't leave the firewall boundary.
 
-* **Loose coupling of directories:** SAML doesn't require user information to be maintained and synchronized between directories.
+* **Loose Coupling of Directories:** SAML doesn't require user information to be maintained and synchronized between directories.
 
-* **Reduced costs for Service Providers:** With SAML, you don't have to maintain account information accross multiple services. The identity provider bears this burden.
+* **Reduced Costs for Service Providers:** With SAML, you don't have to maintain account information accross multiple services. The identity provider bears this burden.
 
-## How Does SAML Authentication Really Work?
+## How does SAML Authentication Really Work?
 
 Let's take an in-depth look at the process flow of SAML authentication in an application. SAML single sign-on authentication typically involves a service provider and an identity provider. The process flow usually involves the *trust establishment* and *authentication flow* stages.
 
-Consider this use case: 
+Consider this example: 
 
 - Our identity provider is **Auth0**
 - Our service provider is an enterprise HR portal called **Zagadat**
@@ -66,33 +66,33 @@ Now, a user is trying to gain access to **Zagadat** using SAML authentication.
 
 This is the process flow:
 
- 1. The user tries to log into **Zagadat** from a browser
+ 1. The user tries to log in to **Zagadat** from a browser
  2.  **Zagadat** responds by generating a SAML request
 
     ![Typical SAML request](https://cdn.auth0.com/blog/samlrequestzg.png)
     _Example of a SAML request_
 
- 3. The browser redirects the user to a SSO URL, **Auth0**
- 4. **Auth0** parses the SAML request, authenticates the user(this could be either via username and password or even a two-factor authentication, if the user is already authenticated on auth0, this step will be skipped) and generates a SAML response
+ 3. The browser redirects the user to an SSO URL, **Auth0**
+ 4. **Auth0** parses the SAML request, authenticates the user (this could be via username and password or even a two-factor authentication; if the user is already authenticated on auth0, this step will be skipped) and generates a SAML response
 
     ![Typical SAML response](https://cdn.auth0.com/blog/SAMLResponse.png)
     _Example of a SAML response_
 
  5. **Auth0** returns the encoded SAML response to the browser
  6. The browser sends the SAML response to **Zagadat** for verification
- 7. If the verification is successful, user will be logged in to **Zagadat** and granted access to all the various resources.
+ 7. If the verification is successful, the user will be logged in to **Zagadat** and granted access to all the various resources
 
 ![Process flow diagram](https://cdn.auth0.com/blog/saml-process-flow-diagram.png)
 _Process Flow diagram_
 
-Note the attributes that are highlighted in the SAML request and response. Find below a little glossary of these parameters:
+Note the attributes that are highlighted in the SAML request and response. Here's a little glossary of these parameters:
 
 * **ID:** Newly generated number for identification
 * **IssueInstant:** Timestamp to indicate the time it was generated
-* **AssertionConsumerServiceURL:** The SAML URL interface of the service provider, where the Identity Provider sends the authentication token.
-* **Issuer:** The name(identity) of the Service Provider
+* **AssertionConsumerServiceURL:** The SAML URL interface of the service provider, where the Identity provider sends the authentication token.
+* **Issuer:** The name (identity) of the service provider
 * **InResponseTo:** The ID of the SAML request that this response belongs to
-* **Recipient:** The name(identity) of the Service Provider
+* **Recipient:** The name (identity) of the service provider
 
 ## Aside: SAML Authentication with Auth0
 
