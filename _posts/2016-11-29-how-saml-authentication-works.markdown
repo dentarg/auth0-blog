@@ -69,13 +69,13 @@ This is the process flow:
  1. The user tries to log in to **Zagadat** from a browser
  2.  **Zagadat** responds by generating a SAML request
 
-    ![Typical SAML request](https://cdn.auth0.com/blog/samlrequestzg.png)
+    ![Typical SAML Authentication request](https://cdn.auth0.com/blog/samlrequestzg.png)
     _Example of a SAML request_
 
  3. The browser redirects the user to an SSO URL, **Auth0**
  4. **Auth0** parses the SAML request, authenticates the user (this could be via username and password or even a two-factor authentication; if the user is already authenticated on auth0, this step will be skipped) and generates a SAML response
 
-    ![Typical SAML response](https://cdn.auth0.com/blog/SAMLResponse.png)
+    ![Typical SAML Authentication response](https://cdn.auth0.com/blog/SAMLResponse.png)
     _Example of a SAML response_
 
  5. **Auth0** returns the encoded SAML response to the browser
@@ -375,7 +375,7 @@ The **Auth0 Lock** widget should appear with one login option.
 
 If you have other connections turned on for your client, your **Auth0 Lock Widget** may look slightly different. If you are prompted to enter an email address, make sure the email address you enter has the same domain name as the domain(s) you entered in the **Settings** tab for the client in the Account 1 Auth0 dashboard. (**Apps/APIs -> Settings**)
 
-![](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-19.png)
+![SAML SSO Auth0](https://cdn.auth0.com/docs/media/articles/saml/samlsso-auth0-to-auth0/samlsso-auth0-19.png)
 
 
 After entering your email address, the blue button on the Lock widget may have a new label. Click on the button which may be labeled **"saml"** or **ACCESS** or with the email domain of the email address you are logging in with, to initiate the SAML sso sequence with the Auth0 Identity Provider.
