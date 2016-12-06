@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Machine Learning for Everyone"
+title: "Machine Learning for Everyone"
 description: Learn the basics of predictive modeling behind one of the most-used machine learning models
 date: 2016-12-06 12:00
 category: Technical Guide, Data, Machine Learning
@@ -23,8 +23,6 @@ related:
 - 2016-07-22-customer-data-is-king-four-ways-to-know-your-customers-better
 - 2016-07-21-analysis-of-social-connection-data
 ---
-
-## About Machine Learning
 
 We all know that machine learning is about handling data, but it also can be seen as:
 
