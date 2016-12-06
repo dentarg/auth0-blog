@@ -720,27 +720,67 @@ pre.prettyprint
       font-size: 18px;
 
 .entry-content .alert
-  font-family: "proxima-nova";
-  font-size: 14px;
-  color: white;
-  line-height: 1.5;
-  margin-top: 20px;
-  font-weight: 500;
-  background: rgb(243, 53, 53);
-  position: relative;
-  padding-left: 62px;
-  margin-bottom: 40px;
+  position relative
+  padding 15px
+  margin-bottom 28px
+  border-radius 3px
+  font-size 14px
+  font-family "Avenir Next", Avenir, "Helvetica Neue", Helvetica, sans-serif
 
-  i
-    position: absolute;
-    top: 20px;
-    left: 15px;
-    opacity: .7;
-    font-size: 27px;
+  strong
+    font-weight 500
 
-  a
-    text-decoration: underline;
-    color: currentColor;
+  &.alert-success
+    a
+      color currentColor
+      border-color: rgba(63,105,16,0.4);
+
+  &.alert-info
+    a
+      color currentColor
+      border-color: rgba(9,112,147,0.4);
+
+  &.alert-warning
+    a
+      color currentColor
+      border-color: rgba(120,102,0,0.4);
+
+  &.alert-danger
+    a
+      color currentColor
+      border-color: rgba(128,31,0,0.4);
+
+  //alert variant with icon
+  &.alert-icon
+    padding-left 38px
+
+    i
+      position absolute
+      top 16.5px
+      left 15px
+
+
+//   font-family: "proxima-nova";
+//   font-size: 14px;
+//   color: white;
+//   line-height: 1.5;
+//   margin-top: 20px;
+//   font-weight: 500;
+//   background: rgb(243, 53, 53);
+//   position: relative;
+//   padding-left: 62px;
+//   margin-bottom: 40px;
+
+//   i
+//     position: absolute;
+//     top: 20px;
+//     left: 15px;
+//     opacity: .7;
+//     font-size: 27px;
+
+//   a
+//     text-decoration: underline;
+//     color: currentColor;
 
 .separator
   border-top: 1px solid #ddd;

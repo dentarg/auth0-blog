@@ -37,9 +37,9 @@ related:
 - 2015-08-05-creating-your-first-aurelia-app-from-authentication-to-calling-an-api
 ---
 
-<div class="alert" style="background-color:#daf4fd;color:#097093">
-  <i class="icon-budicon-390" style="top: 14px; left: 20px"></i>
-  <strong style="font-size: 18px">We just added a new updated article that covers the same topic. You can find it here: <a href="https://auth0.com/blog/angular-2-authentication/">Angular 2 Authentication Tutorial</a>.</strong>
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>We just added a new updated article that covers the same topic. You can find it here: <a href="https://auth0.com/blog/angular-2-authentication/">Angular 2 Authentication Tutorial</a>.</strong>
 </div>
 
 ----
@@ -48,9 +48,9 @@ related:
 
 ----
 
-<div class="alert">
-  <i class="icon-budicon-390" style="top: 14px; left: 20px"></i>
-  <strong style="font-size: 18px">This article was updated on Oct 26, 2016 to reflect the latest version of Angular 2.</strong>
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This article was updated on Oct 26, 2016 to reflect the latest version of Angular 2.</strong>
 </div>
 
 Last week, the Angular team [announced](https://twitter.com/angularjs/status/593797019258359809) that **Angular 2 was moving from Alpha to Developer Preview**. Therefore, we figured **it was time to give it a try**.
