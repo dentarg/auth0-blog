@@ -246,16 +246,13 @@
         var Auth0WebHeaderProps = {
           theme: 'dark',
           talkToSalesButtonLink: null,
-          talkToSalesButtonOnClick: props.showContactForm
+          talkToSalesButtonOnClick: props.showContactForm,
+          loginButtonOnClick: window.login
         };
 
         if (props.logged) {
-          Auth0WebHeaderProps.loginButtonEnable = false;
-          Auth0WebHeaderProps.signupButtonText = 'Open Dashboard';
           Auth0WebHeaderProps.signupButtonLink = 'https://manage.auth0.com';
         } else {
-          Auth0WebHeaderProps.loginButtonEnable = true;
-          Auth0WebHeaderProps.loginButtonOnClick = window.login;
           Auth0WebHeaderProps.signupButtonOnClick = window.signup;
         }
 
