@@ -82,7 +82,7 @@ This is the process flow:
  6. The browser sends the SAML response to **Zagadat** for verification
  7. If the verification is successful, the user will be logged in to **Zagadat** and granted access to all the various resources
 
-![Process flow diagram](https://cdn.auth0.com/blog/saml-process-flow-diagram.png)
+![Process flow diagram](https://cdn.auth0.com/blog/flow-process/saml-flow-diagram.png)
 _Process Flow diagram_
 
 Note the attributes that are highlighted in the SAML request and response. Here's a little glossary of these parameters:
