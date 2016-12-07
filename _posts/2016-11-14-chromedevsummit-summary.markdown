@@ -16,6 +16,10 @@ tags:
 - Chrome
 - Summit
 - ChromeDevSummit
+related:
+- 2016-07-27-laracon-summary-day-1
+- 2016-07-29-laracon-summary-day-2
+- 2015-07-30-laracon-summary-day-3
 ---
 
 The Chrome Developer Summit 2016 consisted of about 19 talks and various workshops. More people attended the summit than expected. The talks and workshops were really awesome. This year, the Chrome Developer Summit focused on making the web better and more accessible with [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps). A lot of the talks and workshops were centered around understanding the nitty-gritty of progressive enhancements, improvement in web apps performance and pushing the mobile web forward in ways that make it more native-like. According to *VP, Chrome Engineering*, [Darin Fisher](https://twitter.com/darinwf) who gave the keynote, there are currently about 2 billion active Chrome browsers across mobile and desktop.
