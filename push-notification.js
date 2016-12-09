@@ -140,6 +140,7 @@ $(document).ready(function($){
         return navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
             serviceWorkerRegistration.pushManager.getSubscription().then(
                 function(pushSubscription) {
+                  console.log(pushSubscription);
                 // Check subsccription
                 if(!pushSubscription && localStorage.getItem("pn-subscription") != "false"){
                     openPopup();
