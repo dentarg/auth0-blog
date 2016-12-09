@@ -1,74 +1,50 @@
 .pn-popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(64, 64, 75, 0.6);
-  opacity: 0;
   visibility: hidden;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
   transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
 
 .pn-popup.is-visible {
-  opacity: 1;
   visibility: visible;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
   transition: opacity 0.3s 0s, visibility 0s 0s;
-  z-index: 999;
 }
 
 .pn-popup-container {
-  position: relative;
-  width: 90%;
-  max-width: 450px;
-  margin: 15em auto;
-  background: #FFF;
+  background: #fff;
   border-radius: 3px;
-  text-align: center;
-  padding: 40px 40px;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.10);
-  -webkit-transform: translateY(-40px);
-  -moz-transform: translateY(-40px);
-  -ms-transform: translateY(-40px);
-  -o-transform: translateY(-40px);
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.1);
+  height: 155px;
+  left: 110px;
+  max-width: 350px;
+  padding: 30px 30px 20px 30px;
+  position: absolute;
+  top: 100px;
+  z-index: 1500;
   transform: translateY(-40px);
-  /* Force Hardware Acceleration in WebKit */
-  -webkit-backface-visibility: hidden;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
   transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  transition-duration: 0.3s;
+  transition-duration: .3s;
 }
 
 .pn-popup-container p {
   color: rgba(0,0,0,0.87);
   font-family: AvenirNext-Regular;
-  font-size: 18px;
-  margin: 0px 0px 20px 0px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .pn-popup-container .pn-buttons button {
-  width: 84px;
+  width: 49%;
   height: 46px;
   font-family: AvenirNext-Medium;
   font-size: 12px;
   border: 0;
   border-radius: 0 0 5px 5px;
   color: #fff;
-  margin: 2px 5px;
   letter-spacing: 0.5px;
 }
 
 .pn-popup-container .pn-buttons button:first-child  {
   background: #EB5424 ;
   border-radius: 3px;
-  margin-right: 15px;
   color: #FFFFFF ;
 }
 
@@ -113,8 +89,16 @@
   transform: translateY(0);
 }
 
+.pn-popup-container .arrow {
+  background: #fff;
+  height: 29px;
+  left: 64px;
+  position: absolute;
+  top: -9px;
+  transform: rotate(45deg);
+  width: 29px;
+}
+
 @media only screen and (min-width: 1170px) {
-  .pn-popup-container {
-    margin: 15em auto;
-  }
+
 }

@@ -141,6 +141,7 @@
 <body itemscope itemtype="http://schema.org/WebPage">
 
     <div id="header"></div>
+    {% include popup_notification.html %}
     <script>
     (function () {
       var config = {
@@ -285,9 +286,6 @@
       <script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
 
       {{ content }}
-
-      {% include popup_notification.html %}
-
       {% include footer.html %}
     </div>
 
