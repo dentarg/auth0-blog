@@ -4,7 +4,7 @@ if (navigator.serviceWorker) {
 
   navigator.serviceWorker.register('https://auth0.com/blog/sw.js')
     .then(function (reg) {
-        console.log('ServiceWorker registered', reg);
+        console.log('ServiceWorker registered');
         doesBrowserSupportNotifications();
       })
     .catch(function (error) {
@@ -27,7 +27,6 @@ var requestNotificationPermission = function () {
 };
 
 function registerForPush() {
-  //if (navigator.serviceWorker.controller) {
   navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
 
     serviceWorkerRegistration.pushManager.getSubscription().then(
@@ -41,10 +40,6 @@ function registerForPush() {
         subscribe(serviceWorkerRegistration);
       });
   });
-
-  //} else {
-  // console.log("No active ServiceWorker");
-  //}
 }
 
 function subscribe(serviceWorkerRegistration) {
@@ -69,7 +64,6 @@ function subscribe(serviceWorkerRegistration) {
           return;
         });
 
-      //console.log("DEVICE_REGISTRATION_ID: ", subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1));
     })
     .catch(function (error) {
         console.log('Subscription for Push failed', error);
@@ -150,7 +144,7 @@ $(document).ready(function ($) {
     }, 30000);
   }
 
-  window.subscriptionValidation = function () {
+  var subscriptionValidation = function () {
     return navigator.serviceWorker.ready
       .then(function (serviceWorkerRegistration) {
         serviceWorkerRegistration.pushManager.getSubscription()
@@ -166,8 +160,6 @@ $(document).ready(function ($) {
           );
       });
   };
-
-  //subscriptionValidation();
 
   // popup buttons
   $('#push-allow').on('click', function (e) {
@@ -195,4 +187,6 @@ $(document).ready(function ($) {
       $('.pn-popup').removeClass('is-visible');
     }
   });
+
+  subscriptionValidation();
 });
