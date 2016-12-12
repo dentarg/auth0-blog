@@ -26,6 +26,11 @@ related:
 - 2016-11-14-migrating-an-angular-1-app-to-angular-2-part-3
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
+
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. In the [first part of this tutorial](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1) we set up our Angular 2 app and migrated the basic architecture. This time we'll implement some real-world features like routing, calling an API, and more. The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
 
 ---

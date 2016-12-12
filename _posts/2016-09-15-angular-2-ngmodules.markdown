@@ -27,6 +27,11 @@ related:
 - creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
+
 ---
 
 **TL;DR** Angular 2 RC 5 introduced a series of new features including [@NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html), lazy loading support for the router, and [Ahead-of-Time (AoT)](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/) compilation. In this post, we'll look at the new `@NgModule` decorator and see how it can make managing dependencies a lot easier. 

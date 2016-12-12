@@ -29,6 +29,11 @@ related:
 - angular-2-authentication
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
+
 When I started developing and writing tests for Angularjs applications,
 everything felt natural. The tools were mature and I easily got used to
 developing applications in TDD ([Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development)).

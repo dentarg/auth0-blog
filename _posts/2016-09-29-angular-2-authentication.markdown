@@ -27,6 +27,11 @@ related:
 - create-a-desktop-app-with-angular-2-and-electron
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
+
 ---
 
 **TL;DR** Angular 2.0 has finally been released. In this tutorial we are going to look at how to build applications with Angular 2 as well as how to add token based authentication to Angular 2 apps the right way. Check out the completed code example from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
