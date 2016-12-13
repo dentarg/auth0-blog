@@ -814,6 +814,53 @@ What do we do? There are different ways to handle this scenario. One of the many
 
 Well, let's conclude here for now!
 
+## Aside: Easy Authentication with Auth0
+
+You can use [Auth0 Lock](https://auth0.com/docs/libraries/lock) for your progressive web app. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app like so:
+
+```js
+
+// Initiating our Auth0Lock
+var lock = new Auth0Lock(
+  'YOUR_CLIENT_ID',
+  'YOUR_AUTH0_DOMAIN'
+);
+
+// Listening for the authenticated event
+lock.on("authenticated", function(authResult) {
+  // Use the token in authResult to getProfile() and save it to localStorage
+  lock.getProfile(authResult.idToken, function(error, profile) {
+    if (error) {
+      // Handle error
+      return;
+    }
+
+    localStorage.setItem('idToken', authResult.idToken);
+    localStorage.setItem('profile', JSON.stringify(profile));
+  });
+});
+
+```
+
+_Implementing Lock_
+
+```js
+
+document.getElementById('btn-login').addEventListener('click', function() {
+  lock.show();
+});
+
+```
+
+_Showing Lock_
+
+
+![Auth0 Lock Screen](https://cdn.auth0.com/blog/nexthrone-auth0lock.png)
+
+_Auth0 Lock Screen_
+
+In the case of an offline-first app, authenticating the user against a remote database won't be possible when network connectivity is lost. However, with service workers, you have full control over which pages and scripts are loaded when the user is offline. This means you can configure your `offline.html` file to display a useful message stating the user needs to regain connectivity to login again instead of displaying the Lock login screen.
+
 ## Conclusion
 
 In this article, we were able to cover the basics of how progressive web apps work in general. We were also able to make our app partially work offline. 
