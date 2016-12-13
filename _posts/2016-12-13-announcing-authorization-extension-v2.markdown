@@ -122,5 +122,5 @@ Our API Authorization feature has been in public preview for some time now and a
 
 Here are some additional resources that can get your started:
 
-- [Official documentation](https://github.com/auth0/docs/blob/master/articles/extensions/authorization-extension.md)
+- [Official Documentation](https://auth0.com/docs/extensions/authorization-extension)
 - [Automatically provisioning Groups, Roles and Permissions](https://github.com/auth0-extensions/authz-extension-automation-sample)
