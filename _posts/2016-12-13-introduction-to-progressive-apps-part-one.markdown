@@ -772,7 +772,7 @@ self.addEventListener('fetch', function(event) {
 
 Like I explained in the earlier part of this post, all our assets are in `filesToCache` array. As the service worker gets installed, it opens the cache in the browser and adds all the files we defined in the array to the `pwa-commits-v3` cache. The `install` event fires once the service worker is already installed. This phase ensures that your service worker updates its cache whenever any of the app shell files change. The `fetch` event phase serves the app shell from the cache.
 
-**Note:** Check out Google's [sw-toolbox](https://github.com/GoogleChrome/sw-toolbox) library for easier and better way of precaching your assets.
+**Note:** Check out Google's [sw-toolbox](https://github.com/GoogleChrome/sw-toolbox) and [sw-precache](https://github.com/GoogleChrome/sw-precache)libraries for easier and better way of precaching your assets and generating service workers.
 
 Now reload your web app and open **DevTools**. Go the **Service Worker** pane on the **Application** tab.
 
