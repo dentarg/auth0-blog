@@ -5,17 +5,17 @@ description: Progressive Web apps is the future. Learn how to make your mobile w
 date: 2016-12-13 08:30
 category: Technical Guide, Identity, Progressive Web Apps
 design:
-  bg_color: "#9F2324"
-  image: https://cdn.auth0.com/blog/SAMLLogo.png
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/pwa/offline-first-Logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
   mail: prosper.otemuyiwa@auth0.com
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
 tags:
-- saml
-- authentication
-- sso
+- pwa
+- service-workers
+- offline
 related:
 - 2016-11-23-how-passwordless-authentication-works
 - 2016-01-27-setting-up-passwordless-authentication-with-the-auth0-dashboard
@@ -42,10 +42,11 @@ Before now, mobile apps could do a lot of things that web apps couldn't really d
 
 {% include tweet_quote.html quote_text="A progressive web application is basically a website built using modern web technologies but acts and feels like a mobile app" %}
 
-Remember the splash screen that native apps provide? Right now, latest versions of Chrome on Android support the use of a splash screen to give your web app a native experience, all thanks to **Progressive Web Apps**
+Remember the splash screen that native apps provide? Right now, latest versions of Chrome on Android support the use of a splash screen to give your web app a native experience, all thanks to **Progressive Web Apps**.
 
 
-![](https://developers.google.com/web/updates/images/2015/10/splashscreen.gif)
+![Splash Screen](https://developers.google.com/web/updates/images/2015/10/splashscreen.gif)
+
 _Source: developers.google.com_
 
 ## Features of Progressive Web Apps
@@ -72,40 +73,48 @@ Several developers and companies have re-developed their websites into progressi
   - 40% higher re-engagement rate
   - Users spend more time on the platform
   - 70% conversion rate
-  _Stats: Google PWA Showcase_
 
-  ![Flipkart Splashscreen](https://cdn.auth0.com/blog/flipkart/splashscreen.png)
-  _Flipkart Splashscreen_
-  ![Flipkart Homescreen option](https://cdn.auth0.com/blog/flipkart/flipkart-homescreen.png)
-  _Add to HomeScreen on Flipkart_
+_Stats: Google PWA Showcase_
+
+![Flipkart Splashscreen](https://cdn.auth0.com/blog/flipkart/splashscreen.png)
+_Flipkart Splashscreen_
+![Flipkart Homescreen option](https://cdn.auth0.com/blog/flipkart/flipkart-homescreen.png)
+_Add to HomeScreen on Flipkart_
+
 More information on the [case study here](https://developers.google.com/web/showcase/2016/pdfs/flipkart.pdf)
     
 * **[Housing](https://housing.com):** Housing.com is one of India's foremost startups. They provide online real estate platforms in India. They created a progressive web app which resulted in a 38% increase in conversions across browsers and also the following:
   - 40% lower bounce rate
   - 10% longer average session
   - 30% faster page load
-  _Stats: Google PWA Showcase_
 
-  ![Housing Homescreen](https://cdn.auth0.com/blog/housing/housing-homescreen.png)
- _Add to HomeScreen on Housing_
-  ![Housing - Push Notifications Option](https://cdn-images-1.medium.com/max/800/1*QwQRrNEXBOzgWhnCYYnkGQ.png)
-  _Option to turn on Push Notifications_
+_Stats: Google PWA Showcase_
+
+![Housing Homescreen](https://cdn.auth0.com/blog/housing/housing-homescreen.png)
+_Add to HomeScreen on Housing_
+![Housing - Push Notifications Option](https://cdn-images-1.medium.com/max/800/1*QwQRrNEXBOzgWhnCYYnkGQ.png)
+_Option to turn on Push Notifications_
 
 More information on the [case study here](https://developers.google.com/web/showcase/2016/pdfs/housing.pdf)
 
 * **[AliExpress](https://m.aliexpress.com/):** AliExpress, the very popular global online retail marketplace had the challenge of getting users to download their mobile app and re-engage as much as they wanted. To solve this challenge, they decided to created a progressive web app for their mobile web users and the results were very impressive:
- - 104% increase in conversion rate for new users
- - 74% increase in time spent per session across all browsers
- - 2X more pages visited per session per user across all browsers
- _Stats: Google PWA Showcase_
+  - 104% increase in conversion rate for new users
+  - 74% increase in time spent per session across all browsers
+  - 2X more pages visited per session per user across all browsers
 
- ![AliExpress Mobile](https://cdn.auth0.com/blog/aliexpress/mobile)
- _AliExpress Mobile Nav_
- ![AliExpress Homepage](https://cdn.auth0.com/blog/aliexpress/homepage)
- _AliExpress Mobile Homepage_
+_Stats: Google PWA Showcase_
+
+![AliExpress Mobile](https://cdn.auth0.com/blog/aliexpress/mobile)
+
+_AliExpress Mobile Navigation_
+
+![AliExpress Homepage](https://cdn.auth0.com/blog/aliexpress/homepage)
+
+_AliExpress Mobile Homepage_
+
 More information on the [case study here](https://developers.google.com/web/showcase/2016/pdfs/aliexpress.pdf)
 
-These companies have benefitted immensely from deploying progressive web apps. Next, let's dive in further into one of the major components that makes up what we call a progressive web app, **Service Workers**
+These companies have benefitted immensely from deploying progressive web apps. Next, let's dive in further into one of the major components that makes up what we call a progressive web app, **Service Workers**.
 
 
 ## Service Workers
@@ -119,6 +128,7 @@ A Service worker can't access the DOM but it can make use of the [fetch](https:/
 A Service worker file, eg `sw.js` needs to be placed in the root directory like so:
 
 ![Service Worker JavaScript file](https://cdn.auth0.com/blog/service/serviceworker.png)
+
 _Service Worker file in the root directory_
 
 To get started with service workers in your progressive web app, you need to register the service worker in your app's js file. If your application's js file was `app.js`, then inside the file, we'll have a piece of JavaScript code like so:
@@ -133,7 +143,7 @@ To get started with service workers in your progressive web app, you need to reg
 
 ```
 
-The piece of code above checks if the browser supports service workers, and if it does, registers the service worker file! Once the service worker is registered, we start to experience it's lifecycle the moment a user visits the page for the first time.
+The piece of code above checks if the browser supports service workers, and if it does, registers the service worker file. Once the service worker is registered, we start to experience it's lifecycle the moment a user visits the page for the first time.
 
 The Service Worker's Life Cycle goes thus:
 
@@ -160,8 +170,8 @@ self.addEventListener('install', function(event) {
 
 ```
 
-- The `filesToCache` variable represents an array of all the files you want to cache
-- The `cacheName` refers to the name given to the cache store
+  - The `filesToCache` variable represents an array of all the files you want to cache
+  - The `cacheName` refers to the name given to the cache store
 
 * **Activate**: This event is fired when the service worker starts up.
 
@@ -189,7 +199,7 @@ self.addEventListener('activate', function(event) {
 
 Here the service worker updates its cache whenever any of the app shell files change.
 
-* **Fetch**: This event helps serve the app shell from the cache. `caches.match()` dissects the web request that triggered the event, and checks to see if it's available in the cache. It then either responds with the cached version, or uses `fetch` to get a copy from the network. The response is returned to he web page with `e.respondWith().`
+* **Fetch**: This event helps serve the app shell from the cache. `caches.match()` dissects the web request that triggered the event, and checks to see if it's available in the cache. It then either responds with the cached version, or uses `fetch` to get a copy from the network. The response is returned to the web page with `e.respondWith().`
 
 ```js
 
@@ -208,7 +218,13 @@ self.addEventListener('fetch', function(event) {
 
 ```
 
-More information about Service Workers [here](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers)
+At this time of writing, service workers are supported by Chrome, Opera and Firefox. Safari and Edge don't support it yet.
+
+![Service Worker Support](https://cdn.auth0.com/blog/pwa/serviceworker-support)
+_Service Worker_
+
+The [Service Worker Specification](https://github.com/w3c/ServiceWorker) and [primer](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) are very useful resources for knowing more about Service Workers.
+
 
 ## Application Shell
 
@@ -518,18 +534,22 @@ The `latest.js` and `app.js` can be empty for now.
 Now, spin up your app using a local server, e.g [http-server](https://www.npmjs.com/package/http-server), your web app should look like this:
 
 ![Sidemenu](https://cdn.auth0.com/blog/pwa/sidemenu.png)
+
 _Side menu_
 
 ![Index](https://cdn.auth0.com/blog/pwa/index.png)
+
 _Index Page_
 
 ![Latest Page](https://cdn.auth0.com/blog/pwa/app-shell.png)
+
 _Latest Page_
 
 ![Higlighted App shell](https://cdn.auth0.com/blog/pwa/highlighted-appshell.png)
+
 _Application Shell_
 
-Your application shell is also highlighted above. No dynamic content loaded yet. Next we need to fetch commits from Github's API
+Your application shell is also highlighted above. No dynamic content loaded yet. Next, we need to fetch commits from Github's API.
 
 ### Fetch Dynamic Content
 
@@ -629,31 +649,32 @@ Open up your `latest.js` file and add the code below:
 
   fetchCommits();
 })();
+
 ```
 
 In addition, reference the `latest.js` script in your `latest.html` file like so:
 
-```html
+{% highlight html %}
+
 <script src="./js/latest.js"></script>
-```html
+
+{% endhighlight %}
 
 Also, add the spinner to your `latest.html` file like so:
 
-```html
+
+{% highlight html %}
 
 ....
-
 <div class="loader">
       <svg viewBox="0 0 32 32" width="32" height="32">
         <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
       </svg>
 </div>
 
- <!-- Toast msg's  -->
 <div class="toast__container"></div>  
 
-...  
-```
+{% endhighlight %}
 
 In the `latest.js` code, you can observe that we are fetching the commits from Github's API and appending them to the DOM. Now our `latest.html` page should look like this:
 
@@ -751,9 +772,9 @@ self.addEventListener('fetch', function(event) {
 
 Like I explained in the earlier part of this post, all our assets are in `filesToCache` array. As the service worker gets installed, it opens the cache in the browser and adds all the files we defined in the array to the `pwa-commits-v3` cache. The `install` event fires once the service worker is already installed. This phase ensures that your service worker updates its cache whenever any of the app shell files change. The `fetch` event phase serves the app shell from the cache.
 
-Now reload your web app and open **DevTools. Go the **Service Worker** pane on the **Application** tab.
+Now reload your web app and open **DevTools**. Go the **Service Worker** pane on the **Application** tab.
 
-*Note:* Ensure, you enable the `Update on reload` checkbox to force the service worker to update on every page reload
+*Note:* Ensure, you enable the `Update on reload` checkbox to force the service worker to update on every page reload.
 
 ![Service Worker](https://cdn.auth0.com/blog/pwa/service-worker.png)
 
@@ -762,26 +783,31 @@ Now reload your web app and open **DevTools. Go the **Service Worker** pane on t
 Now, reload your page and then go to the `Cache Storage` pane on the `Application` tab of Chrome DevTools. Expand the section and you should see the name of our app shell cache listed on the left-hand side like so:
 
 ![Cache](https://cdn.auth0.com/blog/pwa/cache.png)
+
 _Cache Storage_
 
 When you click on your app shell cache you can see all of the resources that it has currently cached. Let's test out it's offline capability now. Head over to the **Service Worker** pane again and tick the **Offline** checkbox. A small yellow warning icon should appear next to the **Network** tab like so:
 
 ![Offline-Network Tab](https://cdn.auth0.com/blog/pwa/offline-network-tab.png)
+
 _Offline Network tab in Chrome Dev Tools_
 
 Now, reload your web page and check it out. Does it work offline?
 
 ![Index Page Offline](https://cdn.auth0.com/blog/pwa/offline-index.png)
+
 _Index Page Offline_
 
 Yaaay!!! the index page is served offline. What about the `latest` page that shows the latest commits?
 
 ![Latest Page Offline](https://cdn.auth0.com/blog/pwa/oops-latest.png)
+
 _Latest Page Offline_
 
 Yaaay!!! the latest page is served offline. But wait a minute! Where is the data? Where are the commits? Oops! Our app still tries to query the Github API when the user is disconnected from the internet and it fails. 
 
 ![Behind the Scenes Fetch Offline failure](https://cdn.auth0.com/blog/pwa/behind-the-scenes.png)
+
 _Data Fetch Failure, Chrome DevTools_
 
 What do we do? There are different ways to handle this scenario. One of the many options is telling the service worker to serve up an offline page. Another option is to cache the commit data on first load, load locally-saved data on subsequent requests, then fetch recent data later when the user is connected. The commit data can be stored in `IndexedDB` or `local Storage`. 
