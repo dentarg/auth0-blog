@@ -199,7 +199,28 @@ To create a client go to `Client` on the sidebar and then `Create Client` on the
 Take note of the `Client ID`, `Domain` and the `Client Secret`. You will need these later to setup shiny-auth0. Another important setting is the `Allowed Callback URLs` setting visible below. This is the URL the user will be redirected to after a successful authentication attempt. It is formed by the domain of your public server plus the `callback` path. For instance: `https://shiny.yourhost.com/callback`.
 
 ### Limit Logins to Only Certain Users
+Having a login screen anyone can access use to login after creating a user is usually not of much use. For instance, you may want to allow users whose email domain is the domain of your organization. To customize which users can login we can use [rules](https://auth0.com/docs/rules). For our example, we will set a simple domain whitelist.
 
+Go to the [Auth0 dashboard](https://manage.auth0.com/#/rules) and pick `Rules` from the sidebar. Then pick `Create Rule` on the top right corner of the screen. Choose `Email domain whitelist` from the `Access Control` section. This rule is simple enough you will have no trouble understanding it.
+
+```javascript
+function (user, context, callback) {
+    var whitelist = ['example.com', 'example.org']; //authorized domains
+    var userHasAccess = whitelist.some(
+      function (domain) {
+        var emailSplit = user.email.split('@');
+        return emailSplit[emailSplit.length - 1].toLowerCase() === domain;
+      });
+
+    if (!userHasAccess) {
+      return callback(new UnauthorizedError('Access denied.'));
+    }
+
+    return callback(null, user, context);
+}
+```
+
+Users whose email addresses have one of the domains in the `whitelist` array are allowed to login. Simple as that! Do note that rules apply to all Auth0 Clients (that is, multiple applications) from your account. You can filter which applications, or even connections, a certain rule applies to. Read more on rules in the [docs](https://auth0.com/docs/rules).
 
 ## Step 4: Setting up shiny-auth0 for Shiny Server Authentication
 Finally we'll get to see everything working together. Once this step is done you'll have a fully secured Shiny Server.
