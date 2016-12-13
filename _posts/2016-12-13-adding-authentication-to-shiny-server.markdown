@@ -10,10 +10,10 @@ author:
   mail: speyrott@auth0.com
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
-  bg_color: "#004071"
-  image: https://cdn.auth0.com/blog/navy-leak/logo.png
+  bg_color: "#3674A8"
+  image: https://cdn.auth0.com/blog/shiny-server-2/logo.png
   image_size: "100%"
-  image_bg_color: "#004071"
+  image_bg_color: "#7897b1"
   blog_series: false
 tags:
 - shiny
@@ -93,7 +93,7 @@ Shiny Server should now be active and running! By default, Shiny runs on port 38
 ip addr
 ```
 
-Then use a browser in a different computer and point it to [http://<ip-address>:3838](https://<ip-address>:3838).
+Then use a browser in a different computer and point it to [http://YOUR-IP-ADDRESS:3838](https://YOUR-IP-ADDRESS:3838).
 
 > If the computer running Shiny has a firewall setup, you will need to consult with your system administrator for the proper steps to access Shiny server.
 
