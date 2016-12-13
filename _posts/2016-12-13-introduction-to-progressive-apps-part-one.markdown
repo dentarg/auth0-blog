@@ -3,7 +3,7 @@ layout: post
 title: "Introduction to Progressive Web Apps (Offline First) - Part 1"
 description: Progressive Web apps is the future. Learn how to make your mobile web app native-like by making it work offline.
 date: 2016-12-13 08:30
-category: Technical Guide, Identity, Progressive Web Apps
+category: Technical Guide, Progressive Web Apps, Service Worker
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/pwa/offline-first-Logo.png
@@ -17,9 +17,9 @@ tags:
 - service-workers
 - offline
 related:
-- 2016-11-23-how-passwordless-authentication-works
-- 2016-01-27-setting-up-passwordless-authentication-with-the-auth0-dashboard
-- 2016-09-06-use-nginx-plus-and-auth0-to-authenticate-api-clients
+- 2015-10-30-creating-offline-first-web-apps-with-service-workers
+- 2016-02-22-12-12-steps-to-a-faster-web-app
+- 2016-04-18-progressive-profiling
 
 ---
 
