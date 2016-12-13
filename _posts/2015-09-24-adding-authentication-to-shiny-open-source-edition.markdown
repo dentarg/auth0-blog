@@ -31,7 +31,7 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-500"></i>
-  <strong>Some content in this post is outdated. Stay tuned for a new, updated tutorial soon!</strong>
+  <strong>Some content in this post is outdated. Check our <a href="https://auth0.com/blog/adding-authentication-to-shiny-server/">updated guide</a>.</strong>
 </div>
 
 
