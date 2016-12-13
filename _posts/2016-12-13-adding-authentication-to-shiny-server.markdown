@@ -22,10 +22,10 @@ tags:
 - auth0
 - proxy
 - shiny-proxy
-- R
-- R-language
-- R-programming
-- R-project
+- r
+- r-language
+- r-programming
+- r-project
 related:
 - 2016-12-06-machine-learning-for-everyone
 - 2016-07-22-customer-data-is-king-four-ways-to-know-your-customers-better
