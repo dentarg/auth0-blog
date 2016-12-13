@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introduction to Progressive Web Apps (Offline First) - Part 1"
-description: Progressive Web apps is the future. Learn how to make your mobile web app native-like by making it work offline.
+description: Progressive Web Apps are the future. Learn how to make your mobile web app native-like by making it work offline.
 date: 2016-12-13 08:30
 category: Technical Guide, Progressive Web Apps, Service Worker
 design:
@@ -25,24 +25,24 @@ related:
 
 ---
 
-**TL;DR:** Web development has evolved over the years and it has provided developers and any specie that cares to put up a website or web application the ability to serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In this article, you'll get to understand how to build a progressive web app that works offline!
+**TL;DR:** Web development has evolved significantly over the years allowing developers to deploy a website or web application and serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In this article, you'll get to understand how to build a progressive web app that works offline!
 
 ---
 
 ## Introduction to Progressive Web Apps
 
-A progressive web application is basically a website built using modern web technologies but acts and feels like a mobile app. In 2015, *Alex Russell*, Google engineer, and *Frances Berriman* coined the term **Progressive Web Apps** and Google has been immensely working on making sure that progressive web apps can really give users that native-app like experience. The flow of a typical progressive web app goes thus: 
+A progressive web application is basically a website built using modern web technologies but acts and feels like a mobile app. In 2015, *Alex Russell*, Google engineer, and *Frances Berriman* coined the term **Progressive Web Apps**. Google has been immensely working on making sure that progressive web apps can really give users that native-app like experience. The flow of a typical progressive web app goes thus: 
 
-* Starts out as been accessible in tabs on the Web browser
+* Starts out as accessible in tabs on the Web browser
 * Shows the option of adding to the homescreen of the device
-* Progressively starts existing app-like properties such as offline usage, push notifications and background sync
+* Progressively starts exhibiting app-like properties such as offline usage, push notifications and background sync
 
-Before now, mobile apps could do a lot of things that web apps couldn't really do. **Progressive Web Apps**, are web apps that try to do what mobile apps have been doing for a long time. They are web applications that combine the best of the web and the best of apps. **Progressive Web Apps**, can load very fast on slow network connections, work offline, send push notifications, and load on the home screen with the power of [Web App Manifest](https://www.w3.org/TR/appmanifest). 
+Until now, mobile apps could do a lot of things that web apps couldn't really do. **Progressive Web Apps**, are web apps that try to do what mobile apps have been doing for a long time. They are web applications that combine the best of the web and the best of apps. **Progressive Web Apps**, can load very fast on slow network connections, work offline, send push notifications, and load on the home screen with the power of [Web App Manifest](https://www.w3.org/TR/appmanifest). 
 
 
 {% include tweet_quote.html quote_text="A progressive web application is basically a website built using modern web technologies but acts and feels like a mobile app" %}
 
-Remember the splash screen that native apps provide? Right now, latest versions of Chrome on Android support the use of a splash screen to give your web app a native experience, all thanks to **Progressive Web Apps**.
+Remember the splash screen that native apps provide? Right now, the latest versions of Chrome on Android support the use of a splash screen to give your web app a native experience, all thanks to **Progressive Web Apps**.
 
 
 ![Splash Screen](https://developers.google.com/web/updates/images/2015/10/splashscreen.gif)
@@ -53,16 +53,16 @@ _Source: developers.google.com_
 
 What does it mean for a web app to be progressive? This new class of web applications have characteristics that defines their existence. Without much ado, these are the features of progressive web apps:
 
-* **Responsive:** The UI must fit the device's form factor: desktop, mobile, tablet and any kind of device
-* **App-like:** When interacting with a progressive web app, it should feel like a native app
-* **Connectivity Independent:** It should work offline (via Service Workers) or in areas of low connectivity
-* **Re-engageable:** Through features like push notifications, users should be able to consistently engage and re-use the app
-* **Installable:** A user should be able to add it on their homescreen and just launch it from there whenever they need to re-use the app
-* **Discoverable:** Should be identified as applications and be discoverable by search engines
-* **Fresh:** Should be able to serve new content in the app when the user is connected to the internet
-* **Safe:** Should be served via HTTPS to prevent content-tampering and man-in-the-middle attacks
-* **Progressive:** Regardless of the browser choice, it should work for every user
-* **Linkable:** Easy to share via URL
+* **Responsive:** The UI must fit the devices form factor: desktop, mobile, and tablet.
+* **App-like:** When interacting with a progressive web app, it should feel like a native app.
+* **Connectivity Independent:** It should work offline (via Service Workers) or in areas of low connectivity.
+* **Re-engageable:** Through features like push notifications, users should be able to consistently engage and re-use the app.
+* **Installable:** A user should be able to add it on their homescreen and just launch it from there whenever they need to re-use the app.
+* **Discoverable:** Should be identified as applications and be discoverable by search engines.
+* **Fresh:** Should be able to serve new content in the app when the user is connected to the internet.
+* **Safe:** Should be served via HTTPS to prevent content-tampering and man-in-the-middle attacks.
+* **Progressive:** Regardless of the browser choice, it should work for every user.
+* **Linkable:** Easy to share via URL.
 
 ## Production Use Cases of Progressive Web Apps
 
@@ -83,7 +83,7 @@ _Add to HomeScreen on Flipkart_
 
 More information on the [case study here](https://developers.google.com/web/showcase/2016/pdfs/flipkart.pdf)
     
-* **[Housing](https://housing.com):** Housing.com is one of India's foremost startups. They provide online real estate platforms in India. They created a progressive web app which resulted in a 38% increase in conversions across browsers and also the following:
+* **[Housing](https://housing.com):** Housing.com is one of India's foremost startups. They provide an online real estate platform in India. They created a progressive web app which resulted in a 38% increase in conversions across browsers and also the following:
   - 40% lower bounce rate
   - 10% longer average session
   - 30% faster page load
@@ -223,7 +223,7 @@ At this time of writing, service workers are supported by Chrome, Opera and Fire
 ![Service Worker Support](https://cdn.auth0.com/blog/pwa/serviceworker-support)
 _Service Worker_
 
-The [Service Worker Specification](https://github.com/w3c/ServiceWorker) and [primer](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) are very useful resources for knowing more about Service Workers.
+The [Service Worker Specification](https://github.com/w3c/ServiceWorker) and [primer](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers) are very useful resources for learning more about Service Workers.
 
 
 ## Application Shell
@@ -233,17 +233,17 @@ Earlier in the post, I made mention of the `app shell` at various times. The app
 ![Application Shell](https://cdn.auth0.com/blog/pwa/appshell)
 _Application Shell_
 
-## What we will be building
+## What We Will Be Building
 
 We'll build a simple progressive web app. The app simply tracks the latest commits from a particular open source project. As a progressive web app, it should:
 
 - Work offline. A user should be able to view the latest commits without an internet connection
-- The app should load very instantly on repeated visits
+- The app should load instantly on repeated visits
 - Once the push notification button is turned on, the user should get a notification on the latest commits to the open source project
 - Be installable( added to the homescreen)
 - Have a web application manifest
 
-## Talk is cheap, let's build
+## Talk Is Cheap, Let's Build
 
 Create an `index.html` and `latest.html` file in your code directory like so:
 
