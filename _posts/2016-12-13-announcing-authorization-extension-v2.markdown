@@ -8,7 +8,7 @@ category: Announcement, Extensions
 author:
   name: "Sandrino Di Mattia"
   url: "https://www.twitter.com/sandrinodm"
-  mail: "sandrino@auth0.com"
+  mail: "sandrin@auth0.com"
   avatar: "https://s.gravatar.com/avatar/e8a46264ec428f6b37018e1b962b893a.png"
 tags:
 - Auth0
@@ -40,6 +40,8 @@ Groups are collections of users and are a common way to organize users in enterp
 
 Users can then be added to one or more groups. But groups can also be nested, where members of a group are automatically added as members of another group.
 
+![An example of the "Finance Group"](https://cdn.auth0.com/blog/authorization-v2/group.png)
+
 The main reason of having groups is because it allows us to group people that have the same profile within the company. This makes it easy to assign roles and permissions to groups than it is to individual people (because these people can get sick, go on holidays or leave the company).
 
 ### Permissions and Roles
@@ -48,16 +50,20 @@ While groups are bound to an organization and not an application, the same is no
 
 If you look at an application that you are building, you’ll notice that users can do many things within your application. Opening a record, updating one, deleting one, reporting, changing settings, … Everything your users can do are actions. And a permission could express if you are allowed to execute that action or not, eg:
 
-
 - `read:users`
 - `run:reports`
 - `update:settings`
 - …
 
+![Permissions are granual actions that you can execute within an application](https://cdn.auth0.com/blog/authorization-v2/permissions.png)
+
 These permissions only make sense within the application. A `generate:invoice` permission might make a lot of sense in your accounting application, but not sense at all in your planning tool. So permissions represent actions that you can execute as a user within an application and roles are there to group these permissions in logical collections.
 
 A timesheet application can have a **Timesheet User** role and a **Timesheet Manager** role. A user will have permissions like `read:timesheets update:timesheets create:timesheets` while a manager will have additional permissions like `approve:timesheet` and `reject:timesheet`.
 `
+
+![Roles are used to organize your permissions](https://cdn.auth0.com/blog/authorization-v2/role.png)
+
 Finally these roles can be assigned to specific users or to groups, and in that case every user of that group will receive these roles (and permissions).
 
 ## Consuming this information in your Applications
@@ -70,13 +76,39 @@ After setting up everything in the extension your applications will need to cons
 
 In the configuration section you can configure the behavior of the extension. Any change you make here will deploy a rule to your Auth0 account which will add the information to the token, the app_metadata or both.
 
-If you’re implementing RBAC for example, you could just check the box to store the Roles in the token. But if at some point later on you need to understand what permissions a user has in a specific application, you could for example make the following call:
+If you’re implementing RBAC for example, you could just check the box to store the Roles in the token. But if at some point later on you need to understand what permissions a user has in a specific application, you could for example make the following call to get the user's authorization data in the context of an application:
 
 ```
-GET https://sandrino-dev.us.webtask.io/adf6e2f2b84784b57522e3b19dfc9201/api/...
+POST https://sandrino-dev.us.webtask.io/api/users/ad|john@fabrikam.com/policy/9CDFQBunB9ZvYRCpFWJlzpH9tUwclGIO
 ```
 
-This will return the groups, roles and permissions of a user in the context of the current application.
+This will return the groups, roles and permissions of a user in the context of the current application:
+
+```json
+{
+  "groups": [
+    "Distribution",
+    "Accounting"
+  ],
+  "permissions": [
+    "read:own-receipts",
+    "update:own-receipts",
+    "update:delete-receipts",
+    "read:own-reports",
+    "update:own-reports",
+    "delete:own-reports",
+    "submit:own-reports",
+    "read:receipts",
+    "read:reports",
+    "approve:reports",
+    "reject:reports"
+  ],
+  "roles": [
+    "Expense User",
+    "Expense Manager"
+  ]
+}
+```
 
 ## Feedback?
 
