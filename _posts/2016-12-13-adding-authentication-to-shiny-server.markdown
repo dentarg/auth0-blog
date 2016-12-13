@@ -3,7 +3,7 @@ layout: post
 title: "Adding Authentication to Shiny Server in 4 Simple Steps"
 description: "Learn how to add authentication to your free Shiny Server setup and secure your interactive R apps!"
 date: 2016-12-13 6:00
-category: Hot Topics
+category: Technical Guide, Data, Shiny
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
