@@ -2,8 +2,8 @@
 layout: post
 title: "Introducing the Auth0 Authorization Extension v2!"
 description: "Introducing the new version of our Authorization Extension which adds supports for roles and permissions."
-date: 2016-12-13 08:30
-alias: /2016/12/13/announcing-authorization-extension-v2/
+date: 2016-12-14 08:30
+alias: /2016/12/14/announcing-authorization-extension-v2/
 category: Announcement, Extensions
 author:
   name: "Sandrino Di Mattia"
@@ -53,14 +53,13 @@ If you look at an application that you are building, you’ll notice that users 
 - `read:users`
 - `run:reports`
 - `update:settings`
-- …
+- ...
 
 ![Permissions are granual actions that you can execute within an application](https://cdn.auth0.com/blog/authorization-v2/permissions.png)
 
 These permissions only make sense within the application. A `generate:invoice` permission might make a lot of sense in your accounting application, but not sense at all in your planning tool. So permissions represent actions that you can execute as a user within an application and roles are there to group these permissions in logical collections.
 
 A timesheet application can have a **Timesheet User** role and a **Timesheet Manager** role. A user will have permissions like `read:timesheets update:timesheets create:timesheets` while a manager will have additional permissions like `approve:timesheet` and `reject:timesheet`.
-`
 
 ![Roles are used to organize your permissions](https://cdn.auth0.com/blog/authorization-v2/role.png)
 
@@ -112,7 +111,7 @@ This will return the groups, roles and permissions of a user in the context of t
 
 ## Feedback?
 
-This extension was built using React, Redux, Hapi and Webtask. When you install it in your account, the whole application is then deployed in the Webtask container of your Auth0 account.
+This extension was built using React, Redux, Hapi and Webtask. When you install it, the whole application will run in the Webtask container of your Auth0 account.
 
 The whole source is available here and feel free to open a GitHub issue if you have any feedback: https://github.com/auth0/auth0-authorization-extension
 
