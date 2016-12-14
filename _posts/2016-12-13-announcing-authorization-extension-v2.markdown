@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Announcing Auth0 Authorization Extension v2!"
+title: "Announcing the Auth0 Authorization v2 Extension!"
 description: "Introducing the new version of our Authorization Extension which adds support for roles and permissions"
 date: 2016-12-14 08:30
 category: Announcement, Extensions
