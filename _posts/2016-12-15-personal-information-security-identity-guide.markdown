@@ -44,10 +44,11 @@ We came up with a list of questions that sums up the common security challenges 
 ### Is my home network secure?
 
 When setting up your wireless network at home, ensure you have a very strong WPA-2 (Wi-Fi Protected Access 2) password by following this process:
-    * Log into your account
-    * Open the wireless tab to edit your wireless settings
-    * Click to enable **WPA-2** from the dropdown option
-    * Set a strong password. Check out how to pick a good password on question #5
+
+* Log into your account
+* Open the wireless tab to edit your wireless settings
+* Click to enable **WPA-2** from the dropdown option
+* Set a strong password. Check out how to pick a good password on question #5
 
 
 ### How do i detect phishing emails?
