@@ -44,28 +44,28 @@ This part of this tutorial will cover:
 
 When building progressive web apps, there are various storage mechanisms to consider like so:
 
-* [IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API): This is a transactional JavaScript based database system for client-side storage of data. This database employs the use of indexes to enable high performance searches of the data stored in it. IndexedDB exposes an asynchronous API that supposedly avoids blocking the DOM, but some research has shown that in some cases it is blocking. I recommend that you use libraries when working with IndexedDB because manipulating it in vanilla JavaScript can be very verbose and complex. Examples of good libraries are [localForage](https://mozilla.github.io/localForage), [idb](https://www.npmjs.com/package/idb) and[idb-keyval](https://www.npmjs.com/package/idb-keyval).
+* **[IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API):** This is a transactional JavaScript based database system for client-side storage of data. This database employs the use of indexes to enable high performance searches of the data stored in it. IndexedDB exposes an asynchronous API that supposedly avoids blocking the DOM, but some research has shown that in some cases it is blocking. I recommend that you use libraries when working with IndexedDB because manipulating it in vanilla JavaScript can be very verbose and complex. Examples of good libraries are [localForage](https://mozilla.github.io/localForage), [idb](https://www.npmjs.com/package/idb) and [idb-keyval](https://www.npmjs.com/package/idb-keyval).
 
   ![IndexedDB Browser Support](https://cdn.auth0.com/blog/browser/indexeddbsupport)
 
   _IndexedDB browser support_
-* [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache): This is best for storing url addressable resources. Works in Service worker really well.
-* [PouchDB](https://pouchdb.com): Open Source JavaScript database inspired by [CouchDB](http://couchdb.apache.org). It enables applications to store data locally while offline, then synchronize it with CouchDB and compatible servers when the application is back online, keeping the user's data in sync no matter where they next login. PouchDB supports all modern browsers, using IndexedDB under the hood and falling back to WebSQL where IndexedDB isn't supported. Supported in Firefox 29+ (Including Firefox OS and Firefox for Android), Chrome 30+, Safari 5+, Internet Explorer 10+, Opera 21+, Android 4.0+, iOS 7.1+ and Windows Phone 8+.
-* [Web Storage e.g localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API): It is synchronous and can block the DOM. The usage is capped at 5MB in most browsers. It has a simple API for storing data and it uses key-value pairs. 
+* **[Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache):** This is best for storing url addressable resources. Works in Service worker really well.
+* **[PouchDB](https://pouchdb.com):** Open Source JavaScript database inspired by [CouchDB](http://couchdb.apache.org). It enables applications to store data locally while offline, then synchronize it with CouchDB and compatible servers when the application is back online, keeping the user's data in sync no matter where they next login. PouchDB supports all modern browsers, using IndexedDB under the hood and falling back to WebSQL where IndexedDB isn't supported. Supported in *Firefox 29+ (Including Firefox OS and Firefox for Android), Chrome 30+, Safari 5+, Internet Explorer 10+, Opera 21+, Android 4.0+, iOS 7.1+* and *Windows Phone 8+*.
+* **[Web Storage e.g localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API):** It is synchronous and can block the DOM. The usage is capped at 5MB in most browsers. It has a simple API for storing data and it uses key-value pairs. 
   
   ![Web Storage Browser Support](https://cdn.auth0.com/blog/browser/webstorage.png)
 
   _Web Storage browser support_
 
-* [WebSQL](https://www.w3.org/TR/webdatabase): This is a relational database solution for browsers. It has been deprecated and the [specification](https://www.w3.org/TR/webdatabase) is no longer maintained. So, browsers may not support it in the future.
+* **[WebSQL](https://www.w3.org/TR/webdatabase):** This is a relational database solution for browsers. It has been deprecated and the [specification](https://www.w3.org/TR/webdatabase) is no longer maintained. So, browsers may not support it in the future.
 
-[Quota for Mobile Storage](https://cdn.auth0.com/blog/quota/mobile.png)
+![Quota for Mobile Storage](https://cdn.auth0.com/blog/quota/mobile.png)
 
 _Mobile Storage Quota_
 
 [Addy Osmani](https://twitter.com/addyosmani) has a comprehensive resource on [Offline storage for progressive web apps](https://medium.com/dev-channel/offline-storage-for-progressive-web-apps-70d52695513c#.j7e7w3m7g). You should really check it out!
 
-According to PouchDB maintainer, [Nolan Lawson](https://twitter.com/nolanlawson) ask yourself these questions when you are using a database:
+According to PouchDB maintainer, [Nolan Lawson](https://twitter.com/nolanlawson), do well to ask yourself these questions when you are using a database:
 
 * Is this database in-memory or on-disk(PouchDB, IndexedDB)?
 * What needs to be stored on disk? What data should survive the application being closed or crashing?
@@ -170,7 +170,7 @@ Open up your `js/latest.js` file. We will update the `fetchCommits` function to 
 
 ```
 
-With this piece of code above, one first page load, the commit data will be stored in `localStorage`. Now let's write another function to retrieve the data from `localStorage` like so:
+With this piece of code above, on first page load, the commit data will be stored in `localStorage`. Now let's write another function to retrieve the data from `localStorage` like so:
 
 ```js
 
@@ -213,7 +213,9 @@ With this piece of code above, one first page load, the commit data will be stor
 
 ```
 
-This piece of code fetches data from `localStorage` and appends it to the DOM. Now, we need a conditional to know when to call the `fetchCommits` and `fetchCommitsFromLocalStorage` function. 
+This piece of code fetches data from `localStorage` and appends it to the DOM. 
+
+Now, we need a conditional to know when to call the `fetchCommits` and `fetchCommitsFromLocalStorage` function. 
 
 The updated `latest.js` file should look like so:
 
@@ -388,7 +390,9 @@ In the piece of code above, we are checking if the browser supports `localStorag
 
 Now, reload the browser again, make sure do you a hard, clear cache reload else we won't see the result of our code changes. 
 
-Now, go offline and load the `latest` page. Yaaay!! it loads the data without any problem.
+Now, go offline and load the `latest` page. What happens?
+
+Yaaay!! it loads the data without any problem.
 
 ![Load Dynamic Data Offline](https://cdn.auth0.com/blog/browser/pwacommits.png)
 
@@ -452,6 +456,6 @@ In the case of an offline-first app, authenticating the user against a remote da
 
 ## Conclusion
 
-In this article, we were able to make our app work offline and also load instantly. We were able to cache our dynamic data and serve the user the cached date when offline. 
+In this article, we were able to make our app load instantly and work offline. We were able to cache our dynamic data and serve the user the cached data when offline. 
 
 In the final part of this tutorial, we will cover how to enable push notifications, add web application manifest and our app to a user's homescreen.
