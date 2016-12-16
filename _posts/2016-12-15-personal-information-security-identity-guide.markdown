@@ -10,8 +10,8 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#000000"
-  image: "https://cdn.auth0.com/blog/MFALogo.png"
+  bg_color: "#2E2E2D"
+  image: "https://cdn.auth0.com/blog/guide/personal-information-Logo.png"
 tags:
 - Security
 - Identity
