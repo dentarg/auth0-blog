@@ -138,13 +138,57 @@ function doesBrowserSupportNotifications() {
 
 $(document).ready(function ($) {
 
+  function conditionalScroll(scroll) {
+    if (scroll > 520) {
+      $('.pn-popup')
+        .css(
+          { 'position': 'fixed',
+            'z-index': '1500',
+            'top': '10px',
+            'visibility': 'visible'
+          });
+
+      $('.pn-popup-container')
+        .css(
+          {
+            'position': 'inherit',
+            'top': 'top: 110px'
+          });
+    }else {
+      $('.pn-popup')
+        .css(
+          {
+            'position': 'static',
+            'visibility': 'visible'
+          });
+
+      $('.pn-popup-container')
+        .css(
+          {
+            'position': 'absolute',
+            'top': '130px'
+          });
+    }
+
+  }
+
+  var popupVisibility = function () {
+    var scroll = $(window).scrollTop();
+    conditionalScroll(scroll);
+
+    $(window).scroll(function () {
+      scroll = $(window).scrollTop();
+      conditionalScroll(scroll);
+    });
+  };
+
   // delay open pupup
   function openPopup() {
-    setTimeout(function () { $('.pn-popup').addClass('is-visible');
+    setTimeout(function () { popupVisibility();
     }, 30000);
   }
 
-  var subscriptionValidation = function () {
+  window.subscriptionValidation = function () {
     return navigator.serviceWorker.ready
       .then(function (serviceWorkerRegistration) {
         serviceWorkerRegistration.pushManager.getSubscription()
@@ -188,5 +232,5 @@ $(document).ready(function ($) {
     }
   });
 
-  subscriptionValidation();
+  //subscriptionValidation();
 });
