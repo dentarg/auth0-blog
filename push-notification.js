@@ -139,35 +139,49 @@ function doesBrowserSupportNotifications() {
 $(document).ready(function ($) {
 
   function conditionalScroll(scroll) {
-    if (scroll > 520) {
-      $('.pn-popup')
-        .css(
-          { 'position': 'fixed',
-            'z-index': '1500',
-            'top': '10px',
-            'visibility': 'visible'
-          });
+    var width = $(window).width();
+    if (width > 991) {
+      if (scroll > 520) {
+        $('.pn-popup')
+          .css(
+            { 'position': 'fixed',
+              'z-index': '1500',
+              'visibility': 'visible'
+            });
 
-      $('.pn-popup-container')
-        .css(
-          {
-            'position': 'inherit',
-            'top': 'top: 110px'
-          });
-    }else {
-      $('.pn-popup')
-        .css(
-          {
-            'position': 'static',
-            'visibility': 'visible'
-          });
+        $('.arrow')
+          .css(
+            {
+              'visibility': 'hidden',
+            });
 
-      $('.pn-popup-container')
-        .css(
-          {
-            'position': 'absolute',
-            'top': '130px'
-          });
+        $('.pn-popup-container')
+          .css(
+            {
+              'position': 'inherit',
+              'top': '110px'
+            });
+      }else {
+        $('.pn-popup')
+          .css(
+            {
+              'position': 'static',
+              'visibility': 'visible'
+            });
+
+        $('.pn-popup-container')
+          .css(
+            {
+              'position': 'absolute',
+              'top': '130px'
+            });
+
+        $('.arrow')
+          .css(
+            {
+              'visibility': 'visible',
+            });
+      }
     }
 
   }
@@ -188,7 +202,7 @@ $(document).ready(function ($) {
     }, 30000);
   }
 
-  window.subscriptionValidation = function () {
+  subscriptionValidation = function () {
     return navigator.serviceWorker.ready
       .then(function (serviceWorkerRegistration) {
         serviceWorkerRegistration.pushManager.getSubscription()
@@ -232,5 +246,5 @@ $(document).ready(function ($) {
     }
   });
 
-  //subscriptionValidation();
+  subscriptionValidation();
 });
