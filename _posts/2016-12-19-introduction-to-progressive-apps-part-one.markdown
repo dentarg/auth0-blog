@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introduction to Progressive Web Apps (Offline First) - Part 1"
-description: Progressive Web Apps are the future. Learn how to make your mobile web app native-like by making it work offline.
+description: Progressive Web Apps are the future. Implement offline functionality and make your mobile web app feel like a native app.
 date: 2016-12-19 10:30
 category: Technical Guide, Architecture, Progressive Web Apps
 design:
