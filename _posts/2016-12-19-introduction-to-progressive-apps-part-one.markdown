@@ -2,8 +2,8 @@
 layout: post
 title: "Introduction to Progressive Web Apps (Offline First) - Part 1"
 description: Progressive Web Apps are the future. Learn how to make your mobile web app native-like by making it work offline.
-date: 2016-12-13 08:30
-category: Technical Guide, Progressive Web Apps, Service Worker
+date: 2016-12-19 10:30
+category: Technical Guide, Architecture, Progressive Web Apps
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/pwa/offline-first-Logo.png
