@@ -387,7 +387,7 @@ _index.html_
 
 ```
 
-Create a `css` folder in your directory and grab the `style.css` file from [here](https://github.com/unicodeveloper/pwa-commits/blob/master/css/style.css).
+Create a `css` folder in your directory and grab the `style.css` file from [here](https://github.com/unicodeveloper/pwa-commits/blob/master/public/css/style.css).
 
 Create a `js` folder in your directory and add the following files: `app.js`, `menu.js`, `offline.js`, `latest.js`, `toast.js`
 
