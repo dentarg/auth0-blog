@@ -25,15 +25,15 @@ related:
 
 ---
 
-**TL;DR:** Web development has evolved significantly over the years allowing developers to deploy a website or web application and serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In the [first part of this tutorial](https://link-to-part-1) we set up our progressive web app, cached the pages and made it work partially offline. This time, we'll make it load instantly and work offline fully.
+**TL;DR:** Web development has evolved significantly over the years allowing developers to deploy a website or web application and serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In the [first part of this tutorial](https://auth0.com/blog/introduction-to-progressive-apps-part-one) we set up our progressive web app, cached the pages and made it work partially offline. This time, we'll make it load instantly and work offline fully.
 
 ---
 
 ## Recap and Introduction to Part 2
 
-In [Introduction to Progressive Web Apps (Offline First)](https://link-to-part-1), we discussed how a typical progressive web application should look like and also introduced the service worker. So far, we've cached the application shell. The `index` and `latest` pages of our web app now load offline. They also load faster on repeated visits. Towards the end of the first part of this tutorial, we were able to load the `latest` page offline but couldn't get the dynamic data to display when the user is offline.
+In [Introduction to Progressive Web Apps (Offline First)](https://auth0.com/blog/introduction-to-progressive-apps-part-one), we discussed how a typical progressive web application should look like and also introduced the service worker. So far, we've cached the application shell. The `index` and `latest` pages of our web app now load offline. They also load faster on repeated visits. Towards the end of the first part of this tutorial, we were able to load the `latest` page offline but couldn't get dynamic data to display when the user is offline.
 
-This part of this tutorial will cover:
+This tutorial will cover:
 
 * Caching the App data on the `latest` page to be displayed to the user when offline
 * Using `localStorage` to store the App data
@@ -49,7 +49,7 @@ When building progressive web apps, there are various storage mechanisms to cons
   ![IndexedDB Browser Support](https://cdn.auth0.com/blog/browser/indexeddbsupport)
 
   _IndexedDB browser support_
-* **[Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache):** This is best for storing url addressable resources. Works in Service worker really well.
+* **[Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache):** This is best for storing url addressable resources. Works with Service worker really well.
 * **[PouchDB](https://pouchdb.com):** Open Source JavaScript database inspired by [CouchDB](http://couchdb.apache.org). It enables applications to store data locally while offline, then synchronize it with CouchDB and compatible servers when the application is back online, keeping the user's data in sync no matter where they next login. PouchDB supports all modern browsers, using IndexedDB under the hood and falling back to WebSQL where IndexedDB isn't supported. Supported in *Firefox 29+ (Including Firefox OS and Firefox for Android), Chrome 30+, Safari 5+, Internet Explorer 10+, Opera 21+, Android 4.0+, iOS 7.1+* and *Windows Phone 8+*.
 * **[Web Storage e.g localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API):** It is synchronous and can block the DOM. The usage is capped at 5MB in most browsers. It has a simple API for storing data and it uses key-value pairs. 
   
@@ -76,9 +76,9 @@ According to PouchDB maintainer, [Nolan Lawson](https://twitter.com/nolanlawson)
 You can check out [how to think about databases](https://nolanlawson.com/2016/02/08/how-to-think-about-databases) to give you a broader knowledge on the subject matter.
 
 
-## Instant Loading, Let's Implement
+## Let's Implement Instant Loading
 
-For our web app, we'll use `localStorage` . I recommend that you don't use `localStorage` for production apps because of the limitations I highlighted earlier in this tutorial. The app we are building is a very simple one, so `localStorage` will totally work fine.
+For our web app, we'll use `localStorage` . I recommend that you don't use `localStorage` for production apps because of the limitations I highlighted earlier in this tutorial. The app we are building is a very simple one, so `localStorage` will work fine.
 
 Open up your `js/latest.js` file. We will update the `fetchCommits` function to store the data it fetches from the Github API in `localStorage` like so:
 
@@ -388,7 +388,7 @@ _latest.js_
 
 In the piece of code above, we are checking if the browser supports `localStorage` and if it does, we go ahead to check if the commit data has been cached. If it has not been cached, we fetch, display and cache the app's commit data.
 
-Now, reload the browser again, make sure do you a hard, clear cache reload else we won't see the result of our code changes. 
+Now, reload the browser again, make sure you do a hard, clear-cache, reload else we won't see the result of our code changes. 
 
 Now, go offline and load the `latest` page. What happens?
 
