@@ -19,19 +19,19 @@ tags:
 related:
 - 2015-10-30-creating-offline-first-web-apps-with-service-workers
 - 2016-02-22-12-12-steps-to-a-faster-web-app
-- 2016-04-18-progressive-profiling
+- 2016-12-18-introduction-to-progressive-apps-part-one
 
 ---
 
 ---
 
-**TL;DR:** Web development has evolved significantly over the years allowing developers to deploy a website or web application and serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In [Part 1](part 1) and [Part 2](part 2) of this tutorial, we set up our progressive web app, cached the pages and made it work fully offline. This time, we'll add the ability to activate push notifications.
+**TL;DR:** Web development has evolved significantly over the years allowing developers to deploy a website or web application and serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In [Part 1](https://auth0.com/blog/introduction-to-progressive-apps-part-one) and [Part 2](part 2) of this tutorial, we set up our progressive web app, cached the pages and made it work fully offline. This time, we'll add the ability to activate push notifications.
 
 ---
 
 ## Recap and Introduction to Part 3
 
-In [Introduction to Progressive Web Apps (Offline First)](https://link-to-part-1), we discussed how a typical progressive web application should look like and also introduced the service worker. We also cached the application shell. In [Introduction to Progressive Web Apps (Instant Loading)](https://link-to-part-2), we made the app cache dynamic data and load instantly from locally saved data.
+In [Introduction to Progressive Web Apps (Offline First)](https://auth0.com/blog/introduction-to-progressive-apps-part-one), we discussed how a typical progressive web application should look like and also introduced the service worker. We also cached the application shell. In [Introduction to Progressive Web Apps (Instant Loading)](https://link-to-part-2), we made the app cache dynamic data and load instantly from locally saved data.
 
 This part of this tutorial will cover:
 
@@ -964,7 +964,7 @@ In the case of an offline-first app, authenticating the user against a remote da
 
 We have been able to successfully make our app work offline, load instantly, receive push notifications and also installable. 
 
-Progressive Web Apps have a checklist. I highlighted the requirements in Part 1 . However, there is a tool, [Lighthouse](https://github.com/GoogleChrome/lighthouse) for auditing an [app for progressive web app features](https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app). It is available as a [chrome extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) and also a [CLI](https://github.com/GoogleChrome/lighthouse#install-cli).
+Progressive Web Apps have a checklist. I highlighted the requirements in [Part 1](https://auth0.com/blog/introduction-to-progressive-apps-part-one) . However, there is a tool, [Lighthouse](https://github.com/GoogleChrome/lighthouse) for auditing an [app for progressive web app features](https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app). It is available as a [chrome extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) and also a [CLI](https://github.com/GoogleChrome/lighthouse#install-cli).
 
 I recommend that you use this tool frequently when developing a progressive web app. This tutorial wouldn't have been possible without [Ire's series on PWA](https://bitsofco.de/bitsofcode-pwa-part-1-offline-first-with-service-worker), [Timi's server side push notification tutorial](https://chunksofco.de/push-notifications-on-the-web-building-a-pwa-crossover-20f0317987de#.x311m3x56), [Gokulakrishnan's PWA demo app](https://github.com/gokulkrishh) and the guys at Google that work and blog daily about progressive web apps. Thanks to you all!
 
