@@ -857,7 +857,7 @@ class Login extends Component {
 export default Login;
 ```
 
-We passed our `App.js`'s Lock instance to `Login` so we could access its `.show()` method. The `Login` component has a link that shows the Lock widget when clicked.
+We passed our `App.js`'s Lock instance to `Login` so we could access its `show()` method. The `Login` component has a link that shows the Lock widget when clicked.
 
 We'll add just a little bit of CSS to support this component:
 
