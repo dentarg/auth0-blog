@@ -2,7 +2,7 @@
 layout: post
 title: "Learn About Inferno JS: Build and Authenticate an App"
 description: "Inferno is a fast, small, React-like JavaScript UI library."
-date: 2016-12-21 8:30
+date: 2016-12-27 8:30
 category: Inferno, JavaScript, Technical guide
 banner:
   text: "Auth0 makes it easy to add authentication to your Single Page Application."
@@ -12,8 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/inferno/Inferno_Logo.png
+  bg_color: "#494949"
 tags:
 - inferno
 - javascript
