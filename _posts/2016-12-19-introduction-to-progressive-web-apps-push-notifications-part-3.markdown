@@ -3,10 +3,10 @@ layout: post
 title: "Introduction to Progressive Web Apps (Push Notifications) - Part 3"
 description: Progressive Web Apps are the future. Learn how to make your mobile web app native-like by making it work offline, load instantly and send push notifications.
 date: 2016-12-19 08:30
-category: Technical Guide, Progressive Web Apps, Service Worker
+category: Technical Guide, Progressive Web Apps, Push Notifications
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/pwa/offline-first-Logo.png
+  image: https://cdn.auth0.com/blog/pwa/push_notification_Logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -462,7 +462,7 @@ The **Server Key** should be the value of `FCM_API_KEY` in the `.env` file of th
 
 The **Server Key** is needed when posting to Firebase Cloud Messaging via our API Server. Check out the notification controller in our API codebase:
 
-_server/controllers/notification.server.controller.js
+_server/controllers/notification.server.controller.js_
 
 ```js
 
@@ -477,7 +477,7 @@ notifyUsers: function(req, res){
         notification: {
           title: "New commit on Github Repo: RIL",
           icon: "ic_launcher",
-          body: "This is a correct guy man. Take it!!!"
+          body: "Click to see the latest commit'"
         }
     });
 
@@ -838,9 +838,9 @@ self.addEventListener('notificationclick', function(event) {
 
 ```
 
-Here, the code above listens to the event that is fired when a user clicks on the notification. `event.notification.close()`, closes the notification once clicked. Then, a new window or tab will be opened re-directing to `localhost:8080/latest.html.
+Here, the code above listens to the event that is fired when a user clicks on the notification. `event.notification.close()`, closes the notification once clicked. Then, a new window or tab will be opened re-directing to `localhost:8080/latest.html.`
 
-**Note:* `event.waitUntil()` is been called to ensure the browser doesn't terminate our service worker before our new window has been displayed.
+**Note:** `event.waitUntil()` is been called to ensure the browser doesn't terminate our service worker before our new window has been displayed.
 
 
 ### Automate Notification Sending Process
@@ -849,7 +849,7 @@ We have been manually making a post request via *postman*. Practically, we want 
 
 Ever heard of Webhooks? Yes, [Github Webhooks](https://developer.github.com/webhooks) to the rescue! 
 
-**Note:** Use the repository url of your choice, because you will have to make commits and see this workas you go through this tutorial.
+**Note:** Use the repository url of your choice, because you will have to make commits and see that this works as you go through this tutorial.
 
 
 Head over to the repository of your choice. In my case it is `https://github.com/unicodeveloper/resources-i-like/` . Go to **Settings > Webhooks** like so:
@@ -860,7 +860,7 @@ Click on `Add webhook` button
 
 ![Add a new webhook](https://cdn.auth0.com/blog/pwa/webhooks.png)
 
-Now, it's time to add a hook. The hook will be our `notify` api endpoint. When you make a commit on Github, a `push` event is fired. With this webhook, a `POST` request will be sent to `/api/notify` API endpoint whenever a commit is made on this particular repository. Sweet!!!
+Now, it's time to add a hook. The hook will be our `notify` API endpoint. When you make a commit on Github, a `push` event is fired. With this webhook, a `POST` request will be sent to `/api/notify` API endpoint whenever a commit is made on this particular repository. Sweet!!!
 
 ![Webhook Notify API endpoint](https://cdn.auth0.com/blog/pwa/webhooks_ngrok.png)
 
@@ -966,6 +966,6 @@ We have been able to successfully make our app work offline, load instantly, rec
 
 Progressive Web Apps have a checklist. I highlighted the requirements in [Part 1](https://auth0.com/blog/introduction-to-progressive-apps-part-one) . However, there is a tool, [Lighthouse](https://github.com/GoogleChrome/lighthouse) for auditing an [app for progressive web app features](https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app). It is available as a [chrome extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) and also a [CLI](https://github.com/GoogleChrome/lighthouse#install-cli).
 
-I recommend that you use this tool frequently when developing a progressive web app. This tutorial wouldn't have been possible without [Ire's series on PWA](https://bitsofco.de/bitsofcode-pwa-part-1-offline-first-with-service-worker), [Timi's server side push notification tutorial](https://chunksofco.de/push-notifications-on-the-web-building-a-pwa-crossover-20f0317987de#.x311m3x56), [Gokulakrishnan's PWA demo app](https://github.com/gokulkrishh) and the guys at Google that work and blog daily about progressive web apps. Thanks to you all!
+I recommend that you use this tool frequently when developing a progressive web app. This tutorial wouldn't have been possible without [Ire's series on PWA](https://bitsofco.de/bitsofcode-pwa-part-1-offline-first-with-service-worker), [Timi's server side push notification tutorial](https://chunksofco.de/push-notifications-on-the-web-building-a-pwa-crossover-20f0317987de#.x311m3x56), [Gokulakrishnan's PWA demo app](https://github.com/gokulkrishh) and the guys at Google that work and blog daily about progressive web apps. Thanks a bunch!
 
 Hopefully you're now ready to dive fully into make your web applications progressive!
