@@ -645,7 +645,7 @@ When no dinosaur is selected, our app now looks like this:
 
 ![Inferno app displaying list of dinosaurs from API with no details](https://cdn.auth0.com/blog/inferno/inferno_dinos.jpg)
 
-When a dinosaur is clicked, its details are fetched from the API and displayed. The selected dinosaur receives an `.active` class in the list, which we've styled as bold and underlined with CSS:
+When a dinosaur is clicked, its details are fetched from the API and displayed. The selected dinosaur receives an `.active` class in the list, which we styled as bold and underlined in the `DinoList` CSS previously:
 
 ![Inferno app displaying list of dinosaurs from API with details](https://cdn.auth0.com/blog/inferno/inferno_dinosaur.jpg)
 
