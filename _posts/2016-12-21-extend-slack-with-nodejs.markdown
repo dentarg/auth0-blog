@@ -11,7 +11,7 @@ author:
   avatar: https://s.gravatar.com/avatar/53f70144dc9d7c76455fa91f858d4cec?s=200
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/slash-webtask-all-your-chatops-are-belong-to-you/logo-webtask-slack.png
+  image: https://cdn.auth0.com/blog/extend-slack/logo.png
 tags:
 - webtask
 - serverless
@@ -118,7 +118,7 @@ The bottom line is that Slash Webtasks allowed us to greatly reduce the friction
 
 ## Who killed the server: inside Slash Webtasks
 
-Spoiler alert: it wasn’t the butler. Slash Webtasks are running on top of the Auth0 Webtask[https://webtask.io/?utm_source=blog&utm_medium=blog&utm_campaign=slash] technology which provides the necessary computation and isolation primitives to securely execute custom Node.js code in a multi-tenant environment like the Slack platform.
+Spoiler alert: it wasn’t the butler. Slash Webtasks are running on top of the [Auth0 Webtask](https://webtask.io/?utm_source=blog&utm_medium=blog&utm_campaign=slash) technology which provides the necessary computation and isolation primitives to securely execute custom Node.js code in a multi-tenant environment like the Slack platform.
 
 Auth0 Webtasks were created to support extensibility of the [Auth0 identity platform](https://auth0.com/?utm_source=blog&utm_medium=blog&utm_campaign=slash) through custom code, and have been deployed and operated at scale since 2014. While the technology existed before serverless was a word, it embodies many of the same principles. The essence of the webtask platform is to make development focused primarily on writing code, rather than making servers a first class concept. The [What is serverless](https://auth0.com/blog/what-is-serverless/?utm_source=medium&utm_medium=blog&utm_campaign=slash) post describes these principles in more detail.
 
