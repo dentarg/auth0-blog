@@ -22,26 +22,26 @@ related:
 - 2016-02-22-12-steps-to-a-faster-web-app
 ---
 
-**TL;DR:** [Inferno](https://github.com/trueadm/inferno) is a blazing-fast, lightweight, React-like JavaScript library. React developers will find it comfortably familiar while Inferno also supplies better performance, smaller size, and other improvements. Inferno is highly modular and unopinionated, encouraging developers to add only the pieces we require and write code to suit our personal preferences. In this tutorial, we'll introduce the Inferno library, then build a simple Inferno app and authenticate it with [Auth0](https://auth0.com). The final code can be found at the [inferno-app GitHub repo](https://github.com/auth0-blog/inferno-app/).
+**TL;DR:** [Inferno](https://github.com/trueadm/inferno) is a blazing-fast, lightweight, React-like JavaScript library. React developers will find it comfortably familiar. Inferno also supplies better performance, smaller size, and other improvements. Inferno is highly modular and unopinionated, encouraging developers to add only the pieces we require and write code to suit our personal preferences. In this tutorial, we'll introduce the Inferno library, then build a simple Inferno app and authenticate it with [Auth0](https://auth0.com). The final code can be found at the [inferno-app GitHub repo](https://github.com/auth0-blog/inferno-app/).
 
 ---
 
 ## Introduction to Inferno
 
-[Inferno](https://github.com/trueadm/inferno) is a fast, lightweight JavaScript library that resembles [React](https://facebook.github.io/react/). Minified and gzipped, Inferno weighs in at only 8kb. It's also extremely performant in [benchmarks](https://github.com/trueadm/inferno#benchmarks) as well as real-world applications. Inferno can render on both the client and server and at the time of writing, it is the _fastest_ JavaScript UI library that exists. 
+[Inferno](https://github.com/trueadm/inferno) is a fast, lightweight JavaScript library that resembles [React](https://facebook.github.io/react/). Minified and gzipped, Inferno weighs in at only 8kb (React gzipped is over 40kb). It's also extremely performant in [benchmarks](https://github.com/trueadm/inferno#benchmarks) as well as real-world applications. Inferno can render on both the client and server and at the time of writing, it is the _fastest_ JavaScript UI library that exists. 
 
 These features are very attractive, but many JavaScript developers are overwhelmed by the number of libraries and frameworks already out there. A few tools have emerged as mindshare and usage leaders, React among them. So what are the reasons behind Inferno's creation? Who should use Inferno and why?
 
 ### Why Was Inferno Created?
 
-Inferno's author, [Dominic Gannaway](https://twitter.com/trueadm), wanted to examine whether a UI library could improve experience for web apps on mobile devices. This included addressing issues that existing UI libraries had with battery drain, memory consumption, and performance. Inferno builds on the same API as React to greatly diminish barrier to entry and take advantage of the best features of React. The result was a lightweight and incredibly performant UI library that React developers will find delightfully familiar but also improved.
+Inferno's author, [Dominic Gannaway](https://twitter.com/trueadm), wanted to examine whether a UI library could improve experience for web apps on mobile devices. This included addressing issues that existing UI libraries had with battery drain, memory consumption, and performance. Inferno builds on the same API as React to greatly diminish the barrier to entry and take advantage of the best features of React. The result was a lightweight and incredibly performant UI library that React developers will find delightfully familiar but also improved.
 
 ### Inferno Features
 
 Inferno has many features, including but not limited to:
 
 * Component driven, one-way data flow architecture
-* Partial synthetic event system
+* [Partial synthetic event system](https://github.com/trueadm/inferno#differences-from-react)
 * A `linkEvent` feature, which removes the need for arrow functions or binding event callbacks
 * Isomorphic rendering on both client and server with `inferno-server`
 * Lifecycle events on functional components
@@ -659,7 +659,7 @@ The last thing we'll do is add [Auth0](https://auth0.com) authentication to our 
 
 The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
 
-1. Sign up for a [free Auth0 account](https://auth0.com/signup).
+1. Sign up for a <a href="javascript:signup()">free Auth0 account</a>.
 2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
 3. Name your new app and select "Single Page Web Applications". 
 4. In the **Settings** for your newly created app, add `http://localhost:3000` to the Allowed Callback URLs and Allowed Origins (CORS).
