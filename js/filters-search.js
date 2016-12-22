@@ -24,7 +24,8 @@ var SearchFilters = function(options){
   }
 
   function fillMenu (input, filter, url) {
-    $.get(url).then(function(res){
+    $.get('https://auth0.com/blog/filters.json').then(function(res){
+      console.log(res);
        var data = res[filter];
        if(data != undefined){
          autocompleteInit(input, data, filter);
