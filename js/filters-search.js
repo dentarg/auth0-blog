@@ -21,16 +21,19 @@ var SearchFilters = function(options){
         }
       }
     });
-  }
+  };
 
-  function fillMenu (input, filter, url) {
-    $.get('https://auth0.com/blog/filters.json').then(function(res){
-      console.log(res);
-       var data = res[filter];
-       if(data != undefined){
-         autocompleteInit(input, data, filter);
-       }
-     });
+  function fillMenu(input, filter, url) {
+    $.ajax({
+      url: url,
+    })
+    .done(function (result) {
+      var res = JSON.parse(result);
+      var data = res[filter];
+      if (data !== undefined) {
+        autocompleteInit(input, data, filter);
+      }
+    });
   }
 
   function autocompleteInit(input, data, filter){
