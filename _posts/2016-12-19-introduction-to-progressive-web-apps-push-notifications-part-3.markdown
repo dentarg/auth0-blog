@@ -33,7 +33,7 @@ related:
 
 In [Introduction to Progressive Web Apps (Offline First)](https://auth0.com/blog/introduction-to-progressive-apps-part-one), we discussed how a typical progressive web application should look like and also introduced the service worker. We also cached the application shell. In [Introduction to Progressive Web Apps (Instant Loading)](https://link-to-part-2), we made the app cache dynamic data and load instantly from locally saved data.
 
-This part of this tutorial will cover:
+This part of the tutorial will cover:
 
 * Activating Push Notifications in the web app
 * Adding a web application manifest to make the web app installable
@@ -43,10 +43,10 @@ This part of this tutorial will cover:
 
 The [Push API](https://developer.mozilla.org/en/docs/Web/API/Push_API) gives web applications the ability to receive push notification messages pushed to them from a server. This works hand in hand with the service worker. This is the process of a typical push notification flow in a web application:
 
-* The web app brings forward a popup asking the user to subscribe to receive notifications.
+* The web app brings forward a popup asking the user to subscribe to notifications.
 * The user subscribes to receive push notifications.
 * The service worker's push manager is responsible for handling the user's subscription.
-* The user's subscription ID is used whenever messages are posted from the server. Every user can actually have a customized experience based on their subscription ID.
+* The users subscription ID is used whenever messages are posted from the server. Every user can actually have a customized experience based on their subscription ID.
 * The service worker, with the help of the `push` listens and is ready to receive any message coming in.
 
 ## Implementation
@@ -55,8 +55,8 @@ This is a quick summary of the process of how we'll set up push notifications in
 
 * Give the user an option to click on a button to activate or deactivate push notifications
 * If the user activates, subscribe the user to receive push notifications via the service worker's push manager
-* Set up an API to handle saving and deletion of user's subscription ID. This API will also have endpoints that will be responsible for sending notifications to all the users that have activated push notifications
-* Set up Github Webhook to automate the sending of notifications immediately a new commit is pushed to the `resources-i-like` repo.
+* Set up an API to handle saving and deleting of users subscription ID. This API will also have endpoints that will be responsible for sending notifications to all the users that have activated push notifications
+* Set up GitHub Webhook to automate the sending of notifications immediately a new commit is pushed to the `resources-i-like` repo.
 
 ### Let's Build
 
@@ -202,7 +202,7 @@ Create a new JavaScript file `js/notification.js` in your project. Reference the
 
 ```
 
-This bunch of code above is doing different things. Just relax, I'll explain the different parts of the code.
+The code above is doing many things. Just relax, I'll explain the different parts of the code.
 
 ```js
 
@@ -215,7 +215,7 @@ This bunch of code above is doing different things. Just relax, I'll explain the
 
 _Push Notification button_
 
-This code above simply grabs the push notification activation and deactivation button.
+This code simply grabs the push notification activation and deactivation button.
 
 ```js
 
@@ -254,7 +254,7 @@ function isPushSupported() {
 
 ```
 
-This code above checks the browser to determine whether push notification is supported. Now, it's paramount that the service worker has to be registered and ready before you can even try to subscribe a user to receive push notifications. So, the code above also checks if the service worker is ready and gets the subscription of the user.
+This code checks the browser to determine whether push notification is supported. Now, it's paramount that the service worker has to be registered and ready before you can even try to subscribe a user to receive push notifications. So, the code above also checks if the service worker is ready and gets the subscription of the user.
 
 ```js
 
@@ -362,7 +362,7 @@ _Subscription in the console_
 
 ```
 
-This code above is responsible for unsubscribing from push notification. A toast message indicates the unsubscription, then goes ahead to change the color of the button and delete the subscription ID. 
+This code is responsible for unsubscribing from push notification. A toast message indicates the unsubscription, then goes ahead to change the color of the button and delete the subscription ID. 
 
 **Note:** The function that deletes subscription ID has been commented out for now.
 
@@ -385,7 +385,7 @@ _Unsubscription in the console_
 
 ```
 
-This code above simply adds a click event to the button to toggle between subscribing and unsubscribing a user.
+This code simply adds a click event to the button to toggle between subscribing and unsubscribing a user.
 
 ### Handle Subscription IDs
 
@@ -438,7 +438,7 @@ The API service handling the saving and deletion of subscription IDs will also h
 * `DELETE /api/user/:user_id` to delete and unsubscribe users
 * `POST /api/notify` to send notifications to all subscribed users
 
-Lucky enough, I have coded the [API service](https://github.com/unicodeveloper/pwa-api). Make sure you have `node` and `mongodb` installed. Clone it and run from the terminal with `node server.js` like so:
+Lucky enough, I have coded the [API service](https://github.com/unicodeveloper/pwa-api). Make sure you have `node` and [`mongodb`](https://docs.mongodb.com/manual/installation) installed. Clone it and run from the terminal with `node server.js` like so:
 
 ![PWA API Server](https://cdn.auth0.com/blog/pwa/pwa-api.png)
 
@@ -845,7 +845,7 @@ Here, the code above listens to the event that is fired when a user clicks on th
 
 ### Automate Notification Sending Process
 
-We have been manually making a post request via *postman*. Practically, we want the user to get a notification once a commit has been made to the Github repository, `https://github.com/unicodeveloper/resources-i-like/`. So, how do we automate this process?
+We have been manually making a post request via *Postman*. Practically, we want the user to get a notification once a commit has been made to the Github repository, `https://github.com/unicodeveloper/resources-i-like/`. So, how do we automate this process?
 
 Ever heard of Webhooks? Yes, [Github Webhooks](https://developer.github.com/webhooks) to the rescue! 
 
@@ -962,7 +962,7 @@ In the case of an offline-first app, authenticating the user against a remote da
 
 ## Conclusion
 
-We have been able to successfully make our app work offline, load instantly, receive push notifications and also installable. 
+We have been able to successfully make our app work offline, load instantly, receive push notifications, and also installable. 
 
 Progressive Web Apps have a checklist. I highlighted the requirements in [Part 1](https://auth0.com/blog/introduction-to-progressive-apps-part-one) . However, there is a tool, [Lighthouse](https://github.com/GoogleChrome/lighthouse) for auditing an [app for progressive web app features](https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app). It is available as a [chrome extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) and also a [CLI](https://github.com/GoogleChrome/lighthouse#install-cli).
 
