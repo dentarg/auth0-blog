@@ -1,5 +1,6 @@
 
 //$(document).ready(function() {
+$(window).load(function() {
   function toggle_search(active){
     if(active){
       $('#archive-container').hide();
@@ -49,4 +50,4 @@
   };
 
   $('#search-input').keyup( _.debounce(sendMetrics,1500) );
-//});
+});
