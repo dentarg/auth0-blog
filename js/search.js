@@ -1,5 +1,5 @@
 
-$(document).ready(function() {
+//$(document).ready(function() {
   function toggle_search(active){
     if(active){
       $('#archive-container').hide();
@@ -37,7 +37,7 @@ $(document).ready(function() {
     toggle_search(false);
     $(this).hide();
   });
-  
+
   function sendMetrics(){
     if($('#search-input').val().length > 1 && $('#search-input').val() !== ''){
       var blogSearchData={
@@ -49,4 +49,4 @@ $(document).ready(function() {
   };
 
   $('#search-input').keyup( $.debounce( 1500, sendMetrics ) );
-});
+//});
