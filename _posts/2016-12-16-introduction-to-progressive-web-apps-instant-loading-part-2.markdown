@@ -6,7 +6,7 @@ date: 2016-12-16 08:30
 category: Technical Guide, Progressive Web Apps, Service Worker
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/pwa/offline-first-Logo.png
+  image: https://cdn.auth0.com/blog/pwa/instant_loading_Logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
