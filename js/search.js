@@ -48,5 +48,5 @@
     };
   };
 
-  $('#search-input').keyup( $.debounce( 1500, sendMetrics ) );
+  $('#search-input').keyup( _.debounce(sendMetrics,1500) );
 //});
