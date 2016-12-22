@@ -845,9 +845,9 @@ Here, the code above listens to the event that is fired when a user clicks on th
 
 ### Automate Notification Sending Process
 
-We have been manually making a post request via *Postman*. Practically, we want the user to get a notification once a commit has been made to the Github repository, `https://github.com/unicodeveloper/resources-i-like/`. So, how do we automate this process?
+We have been manually making a post request via *Postman*. Practically, we want the user to get a notification once a commit has been made to the GitHub repository, `https://github.com/unicodeveloper/resources-i-like/`. So, how do we automate this process?
 
-Ever heard of Webhooks? Yes, [Github Webhooks](https://developer.github.com/webhooks) to the rescue! 
+Ever heard of Webhooks? Yes, [GitHub Webhooks](https://developer.github.com/webhooks) to the rescue! 
 
 **Note:** Use the repository url of your choice, because you will have to make commits and see that this works as you go through this tutorial.
 
@@ -860,7 +860,7 @@ Click on `Add webhook` button
 
 ![Add a new webhook](https://cdn.auth0.com/blog/pwa/webhooks.png)
 
-Now, it's time to add a hook. The hook will be our `notify` API endpoint. When you make a commit on Github, a `push` event is fired. With this webhook, a `POST` request will be sent to `/api/notify` API endpoint whenever a commit is made on this particular repository. Sweet!!!
+Now, it's time to add a hook. The hook will be our `notify` API endpoint. When you make a commit on GitHub, a `push` event is fired. With this webhook, a `POST` request will be sent to `/api/notify` API endpoint whenever a commit is made on this particular repository. Sweet!!!
 
 ![Webhook Notify API endpoint](https://cdn.auth0.com/blog/pwa/webhooks_ngrok.png)
 
@@ -868,7 +868,7 @@ Look at the diagram above. Hold on. Wait a minute! There is a strange URL in the
 
 ### Set up Ngrok
 
-It's simple. We can't use a localhost URL. Github needs a URL that exists on the internet so I took advantage of a tool called [ngrok](https://ngrok.com/download). With **Ngrok**, you can expose a local server to the internet.
+It's simple. We can't use a localhost URL. GitHub needs a URL that exists on the internet so I took advantage of a tool called [ngrok](https://ngrok.com/download). With **Ngrok**, you can expose a local server to the internet.
 
 Install **Ngrok**. From your terminal, use ngrok to ping the port of the API server like so:
 
@@ -886,7 +886,7 @@ So use whatever url it outputs on the terminal from ngrok in the webhook.
 
 **Note:** Ngrok outputs both `http` and `https` URLs, so feel free to use any of them. They still map to your local server.
 
-Now, once you have added the webhook, Github immediately does a test `POST` ping to the hook to determine if it is all properly set up. 
+Now, once you have added the webhook, GitHub immediately does a test `POST` ping to the hook to determine if it is all properly set up. 
 
 ![Delivery](https://cdn.auth0.com/blog/pwa/test_delivery.png)
 
@@ -910,7 +910,23 @@ Our [app](https://ril-pwa.firebaseapp.com) is now live. I also hosted the [API](
 
 For the app to work fully, I changed the URL in the `notification.js` file to the live API URL on heroku. I also changed the Webhook URL to the live API URL.
 
-The [PWA](https://github.com/unicodeveloper/pwa-commits) and [API code](https://github.com/unicodeveloper/pwa-api) is on Github.
+## Add App To Homescreen
+
+Open up your browser on your device, especially Chrome and add it like so:
+
+![Click on Elipsis icon](https://cdn.auth0.com/blog/pwa/click_on_elipsis.png)
+
+_Click on the Ellipsis icon by the right_
+
+![Add to homescreen](https://cdn.auth0.com/blog/pwa/add_to_homescreen.png)
+
+_Add to Homescreen_
+
+![Shortcut added to homescreen](https://cdn.auth0.com/blog/pwa/shortcut_on_homescreen.png)
+
+_App now on Homescreen_
+
+The [PWA](https://github.com/unicodeveloper/pwa-commits) and [API code](https://github.com/unicodeveloper/pwa-api) is on GitHub.
 
 
 ## Aside: Easy Authentication with Auth0
