@@ -504,7 +504,7 @@ With Auth0, Hapi authentication becomes very simple.
 
 ### Step 0: Sign Up for Your Free Auth0 Account
 
-If you haven't yet done so, sign up for your [free Auth0 account](https://auth0.com/signup). The free plan gives you 7,000 regular active users and two social identity providers, which is plenty for many real world apps.
+If you haven't yet done so, sign up for your [free Auth0 account](javascript:signup\(\)). The free plan gives you 7,000 regular active users and two social identity providers, which is plenty for many real world apps.
 
 ### Step 1: Add Your Auth0 Private Key
 

@@ -370,7 +370,7 @@ In our example, we have created a REST service that is self-contained. We could 
 ## Aside: Using spring-boot with Auth0
 Auth0 issues [JSON Web Tokens](http://jwt.io/introduction) on every login for your users. This means that you only have to write a few lines of code to get a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social (Facebook, GitHub, Twitter, etc.), enterprise (Active Directory, LDAP, SAML, etc.), and your own database of users.
 
-If you haven't done so yet, this is a good time to sign up for a [free Auth0 account](https://auth0.com/signup), after which we can take a look at how we need to alter our previous example to allow for Auth0 to manage our login.
+If you haven't done so yet, this is a good time to sign up for a [free Auth0 account](javascript:signup\(\)), after which we can take a look at how we need to alter our previous example to allow for Auth0 to manage our login.
 
 ### Changes to our project
 

@@ -336,7 +336,7 @@ On the next screen, you will be prompted to enter the name for the account. The 
 
 ### Integrating Auth0 into Firebase
 
-If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com), select **Applications** from the navigational menu, then select the app you want to connect with Firebase. Once you are on the app page, select the **Add-Ons** tab and flip the **Firebase** toggle.
+If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com), select **Applications** from the navigational menu, then select the app you want to connect with Firebase. Once you are on the app page, select the **Add-Ons** tab and flip the **Firebase** toggle.
 
 ![Activate Firebase Addon](https://cdn.auth0.com/blog/new-firebase/add-firebase.png)
 
@@ -450,7 +450,7 @@ Auth0 additionally offers a platform for building serverless apps called [Webtas
 
 Today, we built a storytelling app called FireTeller on the new Firebase 3.0 SDK and integrated Auth0 to handle user authentication. We showed how Firebase simplifies the development and deployment of web apps and how we can utilize the real-time capabilities of the database to foster collaboration. Adding authentication with Auth0 allowed us to extend the platform with additional capabilities.
 
-Check out the GitHub [repo](https://github.com/auth0-blog/fireteller) to get the code and sign up for a free [Auth0](https://auth0.com/signup) and [Firebase](https://firebase.google.com) account to get started today. How will you extend the FireTeller app? Here are some ideas:
+Check out the GitHub [repo](https://github.com/auth0-blog/fireteller) to get the code and sign up for a free [Auth0](javascript:signup\(\)) and [Firebase](https://firebase.google.com) account to get started today. How will you extend the FireTeller app? Here are some ideas:
 
 * Round Robin Storytelling - instead of everyone contributing whenever they want, make it so that only one person can add to the story at a time
 * Private Stories - allow authenticated users to create and collaborate with only the users they allow

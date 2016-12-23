@@ -448,7 +448,7 @@ Setting up username and password authentication with a Node server is simple eno
 
 ### Step 0: Sign Up for Auth0 and Configure the Callback URL
 
-If you don't already have any Auth0 account, [sign up](https://auth0.com/signup) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
 
 In your dashboard, you need to specify an **Allowed Callback URL** for mobile:
 

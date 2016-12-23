@@ -52,5 +52,5 @@ Auth0 provides breached password detection that can be enabled simply and easily
 <img src="https://cdn.auth0.com/blog/breach/lock.gif"/>
 </video>
 
-Read about [Breached Passwords](https://auth0.com/breached-passwords) and [Anomaly Detection](https://auth0.com/docs/anomaly-detection) to learn more about how to protect users and their credentials with Auth0. You can also [sign up for a free Auth0 account](https://auth0.com/signup)!
+Read about [Breached Passwords](https://auth0.com/breached-passwords) and [Anomaly Detection](https://auth0.com/docs/anomaly-detection) to learn more about how to protect users and their credentials with Auth0. You can also [sign up for a free Auth0 account](javascript:signup\(\))!
 

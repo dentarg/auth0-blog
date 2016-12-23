@@ -152,7 +152,7 @@ If you must store sensitive data in the payload or your use case calls for the J
 
 Here at Auth0, we've written SDKs, guides, and quickstarts for working with JWTs for many languages and frameworks including [NodeJS](https://github.com/auth0/express-jwt), [Java](https://github.com/auth0/java-jwt), [Python](https://github.com/auth0/auth0-python), [GoLang](https://github.com/auth0/go-jwt-middleware), and [many more](https://auth0.com/docs). Our last "Cookies vs. Tokens" article used the AngularJS framework, so it's fitting to use Angular 2 for our code samples today.
 
-You can download the sample code from our [GitHub repo](https://github.com/auth0/auth0-angular2). Downloading the code samples is preferable as Angular 2 requires a lot of initial setup to get going. If you haven't already, [sign up](https://auth0.com/signup) for a free Auth0 account so you can do the implementation yourself and experiment with different features and options. Let's get started.
+You can download the sample code from our [GitHub repo](https://github.com/auth0/auth0-angular2). Downloading the code samples is preferable as Angular 2 requires a lot of initial setup to get going. If you haven't already, [sign up](javascript:signup\(\)) for a free Auth0 account so you can do the implementation yourself and experiment with different features and options. Let's get started.
 
 ### Setting Up the Back-end Server
 
@@ -538,4 +538,4 @@ Angular 2, through its [Mobile Toolkit](https://mobile.angular.io/), makes it ea
 
 ## Conclusion
 
-In today's article we compared the differences between cookie and token-based authentication. We highlighted the advantages and concerns of using tokens and also wrote a simple app to showcase how JWT works in practice. There are many reasons to use tokens and Auth0 is here to ensure that implementing token authentication is easy and secure. Finally, we introduced Progressive Web Apps to help make your web applications feel more native on mobile devices. [Sign up](https://auth0.com/signup) for a free account today and be up and running in minutes.
+In today's article we compared the differences between cookie and token-based authentication. We highlighted the advantages and concerns of using tokens and also wrote a simple app to showcase how JWT works in practice. There are many reasons to use tokens and Auth0 is here to ensure that implementing token authentication is easy and secure. Finally, we introduced Progressive Web Apps to help make your web applications feel more native on mobile devices. [Sign up](javascript:signup\(\)) for a free account today and be up and running in minutes.
