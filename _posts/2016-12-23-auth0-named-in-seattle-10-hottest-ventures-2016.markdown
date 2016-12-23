@@ -16,7 +16,7 @@ press_release: true
 tags: 
 - auth0
 - seattle-top10
-related
+related:
 - 2015-09-30-auth0-introduces-passwordless-authentication
 - 2016-08-24-auth0-raises-15M-to-enhance-its-identity-platform
 ---
