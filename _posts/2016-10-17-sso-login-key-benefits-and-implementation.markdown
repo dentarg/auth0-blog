@@ -85,7 +85,7 @@ With Auth0, SSO login is just a few clicks away. **Auth0** provides out-of-the-b
 
 We also support industry standards such as **SAML**, **WS-Fed**, and **OAuth 2.0** so you can hook up any third-party application you need.
 
-If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now to enable SSO login for your applications. Check out the comprehensive [SSO login docs](https://auth0.com/docs/sso) to learn how to implement SSO for your apps. In addition, you can dive straight into the [code samples](https://github.com/auth0-samples/auth0-sso-sample) that show how to implement SSO login between *Single Page Apps* and *Regular Web Apps* using Auth0.
+If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now to enable SSO login for your applications. Check out the comprehensive [SSO login docs](https://auth0.com/docs/sso) to learn how to implement SSO for your apps. In addition, you can dive straight into the [code samples](https://github.com/auth0-samples/auth0-sso-sample) that show how to implement SSO login between *Single Page Apps* and *Regular Web Apps* using Auth0.
 
 ## Conclusion
 

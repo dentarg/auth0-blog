@@ -120,7 +120,7 @@ Single sign-on is the most basic integration possible, and it becomes something 
 
 Setting the login up for one provider can be a huge pain—much less doing it for multiple ones—as you’ll have to deal with the peculiarities of the company’s login API and grapple with its documentation.
 
-With [Auth0](https://auth0.com/signup), all you need to do is flip a switch to activate a number of integrations.
+With [Auth0](javascript:signup\(\)), all you need to do is flip a switch to activate a number of integrations.
 
 ![Auth0 Social connections](https://cdn.auth0.com/blog/marketplace/auth0-social.jpeg)
 
