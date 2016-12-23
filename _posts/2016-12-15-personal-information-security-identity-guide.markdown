@@ -1,17 +1,17 @@
 ---
 layout: post
 title: "Personal Information Security Guide for Family and Friends"
-description: "Learn how to keep your family and friends safe with this personal information security identity guide"
-date: 2016-12-15 08:30
-category: Technical guide, Identity, Security
+description: "Help your family and friends being secure with this printable security guide"
+date: 2016-12-23 08:30
+category: Hot Topics, Security
 author:
   name: "Prosper Otemuyiwa"
   url: "https://twitter.com/unicodeveloper"
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#2E2E2D"
-  image: "https://cdn.auth0.com/blog/guide/personal-information-Logo.png"
+  bg_color: "#222228"
+  image: "https://cdn.auth0.com/blog/personal-info-security-guide/logo.png"
 tags:
 - Security
 - Identity
@@ -22,6 +22,10 @@ tags:
 
 This article aims to serve as a personal information security identity guide for you, family and friends. Follow this guide and keep your family and friends safe from cybercriminals this season!
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Find the printable guide to give it to your family and friends here: <a href="https://cdn.auth0.com/blog/personal-info-security-guide/Personal-Information-Security-Guide.pdf">Personal Information Security Guide for Family and Friends PDF</a>.</strong>
+</div>
 
 ## The Guide
 
@@ -143,5 +147,10 @@ We recommend that you backup your personal information securely on a regular bas
 ## Conclusion
 
 Finally, we would like to give you a word of advice to complement these tips to ensure you, your family and friends stay safe this season and beyond! Keep these things in mind, and we are hopeful that you will enjoy this season with your friends and family.
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Find the printable guide to give it to your family and friends here: <a href="https://cdn.auth0.com/blog/personal-info-security-guide/Personal-Information-Security-Guide.pdf">Personal Information Security Guide for Family and Friends PDF</a>.</strong>
+</div>
 
 Merry Christmas and Happy new Year in Advance!
