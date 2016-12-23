@@ -16,9 +16,12 @@ press_release: true
 tags: 
 - auth0
 - seattle-top10
+related
+- 2015-09-30-auth0-introduces-passwordless-authentication
+- 2016-08-24-auth0-raises-15M-to-enhance-its-identity-platform
 ---
 
-**BELLEVUE, WA** - Every year the *Seattle Museum of History and Industry* partners with *GeekWire* to present the *Seattle 10* - a collection of ten history-making local start-up companies. Auth0 had the privilege of joining the Seattle 10 Class of 2016, chosen over dozens of other fantastic nominees. To commemorate, Auth0 and the other winners recreated their business ideas on a six-foot by six-foot cocktail napkin that was unveiled on December 7 at the GeekWire Gala. The pop-up exhibit will run through January 29, 2017.
+**BELLEVUE, WA** - Every year the [*Seattle Museum of History and Industry*](http://www.mohai.org/) partners with [*GeekWire*](http://www.geekwire.com/) to present the [*Seattle 10*](http://www.mohai.org/component/content/article/70-exhibits/764-seattle-10) - a collection of ten history-making local start-up companies. Auth0 had the privilege of joining the [Seattle 10 Class of 2016](http://www.geekwire.com/2016/meet-seattle-10-hot-startups-transforming-everything-education-enterprise-software/), chosen over dozens of other fantastic nominees. To commemorate, Auth0 and the other winners recreated their business ideas on a six-foot by six-foot cocktail napkin that was unveiled on December 7 at the GeekWire Gala. The pop-up exhibit will run through January 29, 2017.
 
 ![Auth0 Napkin](https://cdn.auth0.com/blog/press/auth0-napkin.png)
 
