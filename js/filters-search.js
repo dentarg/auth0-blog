@@ -21,15 +21,19 @@ var SearchFilters = function(options){
         }
       }
     });
-  }
+  };
 
-  function fillMenu (input, filter, url) {
-    $.get(url).then(function(res){
-       var data = res[filter];
-       if(data != undefined){
-         autocompleteInit(input, data, filter);
-       }
-     });
+  function fillMenu(input, filter, url) {
+    $.ajax({
+      url: url,
+    })
+    .done(function (result) {
+      var res = JSON.parse(result);
+      var data = res[filter];
+      if (data !== undefined) {
+        autocompleteInit(input, data, filter);
+      }
+    });
   }
 
   function autocompleteInit(input, data, filter){
