@@ -21,6 +21,7 @@ tags:
 related:
 - 2015-09-30-auth0-introduces-passwordless-authentication
 - 2016-12-23-auth0-named-in-seattle-10-hottest-ventures-2016
+- 2015-08-25-auth0-adds-saas-luminaries-to-its-board-of-directors
 ---
 
 **BELLEVUE, WA** --(Marketwired - August 24, 2016) - [Auth0](https://auth0.com/), the leading universal identity platform, today announced it has raised $15M in a Series B financing led by *Trinity Ventures*. The new funding follows a year of strong growth for the company which saw revenue increase by 5x, and saw global industry leaders like *Dow Jones*, *CenturyLink* and *Telkomsel* subscribe to the service. The additional funding will further accelerate the growth of Auth0's identity platform and aid in the launch of additional, advanced security features for customers. As part of the financing, Trinity general partner, Karan Mehandru, has joined the Auth0 board of directors.
