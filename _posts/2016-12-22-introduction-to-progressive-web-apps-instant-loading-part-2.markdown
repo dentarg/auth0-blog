@@ -282,6 +282,57 @@ Just look at the speed at which it loads when the user is offline....OMG!!!
 ![Loads From Service Worker](https://cdn.auth0.com/blog/browser/load_from_service_worker.png)
 _Loads from Service Worker when user is offline_
 
+## One More Thing
+
+Now, we can make the app load instantly by fetching data from the localStorage. How do we get fresh updated data? We need a way of still getting fresh data especially when the user is online.
+
+It's simple. Let's add a refresh button that triggers a request to GitHub to get the most recent data.
+
+Open up your `latest.html` file and add this code for the refresh button within the `<header>` tag.
+
+```html
+
+<button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
+
+```
+
+So the `<header>` tag should look like this after adding the button:
+
+```html
+
+<header>
+  <span class="header__icon">
+    <svg class="menu__icon no--select" width="24px" height="24px" viewBox="0 0 48 48" fill="#fff">
+      <path d="M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z"></path>
+    </svg>
+  </span>
+  <span class="header__title no--select">PWA - Commits</span>
+  <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
+</header> 
+
+```
+
+Finally, let's attach a `click` event to the button and add functionality to it. Open your `latest.js` and add this code at the top like so:
+
+```js
+
+document.getElementById('butRefresh').addEventListener('click', function() {
+    // Get fresh, updated data from GitHub whenever you are clicked
+    toast('Fetching latest data...');
+    fetchCommits();
+    console.log("Getting fresh data!!!");
+});
+
+```
+
+Clear your cache and reload the app. Now, your `latest.html` page should look like so:
+
+![PWA - Get Updated data](https://cdn.auth0.com/blog/pwa/latest_data.png)
+
+_Get Updated data_
+
+Anytime users need the most recent data, they can just click on the refresh button.
+
 
 ## Aside: Easy Authentication with Auth0
 
