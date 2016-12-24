@@ -59,7 +59,7 @@ When setting up your wireless network at home, ensure you have a very strong WPA
 ![WPA-2 Settings Dialog](http://i.stack.imgur.com/X5wMl.png)
 
 
-### How do i detect phishing emails?
+### How do I detect phishing emails?
 
 **Phishing** emails are emails designed to look like legitimate messages from actual banks, businesses, and other organizations. In reality, they are crafted messages from cyber-criminals intended to steal your identity, personal information, or money. 
 
