@@ -1,5 +1,7 @@
 ---
 layout: null
+sitemap:
+  exclude: 'yes'
 ---
 {
     "avatar": "{{ site.posts[0].author.avatar }}",

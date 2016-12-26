@@ -1,5 +1,7 @@
 ---
 layout: null
+sitemap:
+  exclude: 'yes'
 ---
 {% assign posts = site.posts | where: "press_release", true %}
 [
