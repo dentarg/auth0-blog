@@ -659,7 +659,7 @@ The last thing we'll do is add [Auth0](https://auth0.com) authentication to our 
 
 The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
 
-1. Sign up for a <a href="javascript:signup()">free Auth0 account</a>.
+1. Sign up for a [free Auth0 account](https://auth0.com/signup).
 2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
 3. Name your new app and select "Single Page Web Applications". 
 4. In the **Settings** for your newly created app, add `http://localhost:3000` to the Allowed Callback URLs and Allowed Origins (CORS).
