@@ -288,7 +288,7 @@ module.exports = wt.fromExpress(app).auth0({
 });
 ```
 
-Our updated Webtask has a lot more going on. Since we are adding Auth0 to the Webtask now, we'll need to get our Auth0 credentials and pass them when we deploy the Webtask. [Sign up](https://auth0.com/signup) for a free Auth0 account to continue.
+Our updated Webtask has a lot more going on. Since we are adding Auth0 to the Webtask now, we'll need to get our Auth0 credentials and pass them when we deploy the Webtask. [Sign up](javascript:signup\(\)) for a free Auth0 account to continue.
 
 Once you have created your Auth0 account, navigate to the [management dashboard](https://manage.auth0.com) and navigate into your newly created app. From here you will want to get the **Client ID**, **Client Secret** and **Domain**. Now, we'll deploy a new version of our newsletter Webtask with our Auth0 app credentials. Let's see how to do this:
 

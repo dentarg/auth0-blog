@@ -546,7 +546,7 @@ We will use the Auth0 delegation API to exchange our Auth0 token for an AWS toke
 
 ### AWS Configuration with Auth0
 
-First things first, [sign up](https://auth0.com/signup) for a free Auth0 account. In the Auth0 [management dashboard](https://dashboard.auth0.com), create a new application, then navigate to the Add-Ons tab. Here, we will just enable the Amazon Web Services add-on but flipping the switch to the "on" state.
+First things first, [sign up](javascript:signup\(\)) for a free Auth0 account. In the Auth0 [management dashboard](https://dashboard.auth0.com), create a new application, then navigate to the Add-Ons tab. Here, we will just enable the Amazon Web Services add-on but flipping the switch to the "on" state.
 
 ![Auth0 Add-Ons Dashboard](https://cdn.auth0.com/blog/lambda-serverless/auth0-config.png)
 
@@ -606,7 +606,7 @@ Now we are ready to integrate Auth0 in our Serverless Stories application. For o
 </head>
 ```
 
-Next, we'll open up the `app.js` file located in the assets directory. As you may recall, this is where we implemented all of our application logic. The first thing we'll do here is strip out all the AWS Cognito related code. Once that is done, we'll configure our Auth0 code. Remember you will need an Auth0 account for this, so if you don't already have one, you can create one [here](https://auth0.com/signup).
+Next, we'll open up the `app.js` file located in the assets directory. As you may recall, this is where we implemented all of our application logic. The first thing we'll do here is strip out all the AWS Cognito related code. Once that is done, we'll configure our Auth0 code. Remember you will need an Auth0 account for this, so if you don't already have one, you can create one [here](javascript:signup\(\)).
 
 ```
 var auth0 = new Auth0({

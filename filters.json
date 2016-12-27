@@ -1,5 +1,7 @@
 ---
 layout: null
+sitemap:
+  exclude: 'yes'
 ---
 
 {% capture rawauthors %}{% for post in site.posts %}{% if post.author.name %}{{ post.author.name }}|{% endif %}{% endfor %}{% endcapture %}

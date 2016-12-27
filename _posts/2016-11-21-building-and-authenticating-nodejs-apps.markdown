@@ -471,7 +471,7 @@ app.use(function(err, req, res, next) {
 
 We set up a great foundation and our app is looking good. The final piece of the puzzle is to get authentication up and running, so users can log in and view the polls. We'll use [Auth0](https://auth0.com) to accomplish this, but the [Passport.js](http://passportjs.org/) library has strategies for all major authentication frameworks and providers.
 
-To get started, you'll need an [Auth0](https://auth0.com) account. If you don't already have one, you can sign up for a free account [here](https://auth0.com/signup). Once you have an account, log in and navigate to the [management dashboard](https://manage.auth0.com) and retrieve your Auth0 app specific keys. The three items you'll need specifically are: **Client Id**, **Client Secret**, and **Domain**.
+To get started, you'll need an [Auth0](https://auth0.com) account. If you don't already have one, you can sign up for a free account [here](javascript:signup\(\)). Once you have an account, log in and navigate to the [management dashboard](https://manage.auth0.com) and retrieve your Auth0 app specific keys. The three items you'll need specifically are: **Client Id**, **Client Secret**, and **Domain**.
 
 Once you have these three items, go ahead and open up the `.env` file we created and create a variable for each of these. Your completed `.env` file should look like this:
 
@@ -622,6 +622,6 @@ Congrats! You just built an entire Node Js app and added authentication to it.
 
 ## Conclusion
 
-Node Js is a powerful language and framework for building modern applications. The community support through NPM is unrivaled and Auth0 can help secure your Node Js apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](https://auth0.com/signup) today so you can focus on building features unique to your app.
+Node Js is a powerful language and framework for building modern applications. The community support through NPM is unrivaled and Auth0 can help secure your Node Js apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
 
 {% include tweet_quote.html quote_text="With Auth0, you can add authentication to your Node Js app in minutes." %}

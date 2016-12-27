@@ -203,6 +203,8 @@ $(document).ready(function ($) {
   }
 
   subscriptionValidation = function () {
+    if (navigator.serviceWorker === undefined) { return; }
+
     return navigator.serviceWorker.ready
       .then(function (serviceWorkerRegistration) {
         serviceWorkerRegistration.pushManager.getSubscription()

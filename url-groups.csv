@@ -1,5 +1,7 @@
 ---
 layout: null
+sitemap:
+  exclude: 'yes'
 ---
 url,cat1,cat2,cat3
 blog/,Blog Home,Auth0 based tutorial,
