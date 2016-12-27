@@ -53,7 +53,7 @@ You can read more about the [features of Inferno](https://github.com/trueadm/inf
 
 ### Release Date
 
-Inferno is in beta at the time of writing, but the first final release is very close. The Inferno team intends to publish around Christmas 2016 / New Year 2017. This release will include version 1.0 of the [Inferno JS library](https://github.com/trueadm/inferno) as well as the launch of the [official Inferno website and documentation](http://infernojs.org/).
+Inferno is in beta at the time of writing, but the first final release is imminent. The Inferno team intends to publish at the end of 2016 / early 2017. This release will include version 1.0 of the [Inferno JS library](https://github.com/trueadm/inferno) as well as the launch of the [official Inferno website and documentation](http://infernojs.org/).
 
 ### Who Should Use Inferno?
 
