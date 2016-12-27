@@ -3,7 +3,7 @@ layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 3"
 description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 3): routing  & API with params, authentication."
 date: 2016-11-14 8:30
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Migration
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular 2 application."
 author:
@@ -25,6 +25,11 @@ related:
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 - 2016-11-09-migrating-an-angular-1-app-to-angular-2-part-2
 ---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
 
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. In [Part 1](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1) and [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2) of this tutorial we set up our Angular 2 app, migrated the basic architecture, routing, API, and more. In this final installment we'll finish our app! The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
 
@@ -197,8 +202,7 @@ import { DinoDetail } from '../../core/models/dino-detail.model';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss'],
-  providers: [DinosService]
+  styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
   dino: DinoDetail;
@@ -237,7 +241,7 @@ Most of this should look familiar from implementing our home component in [Part 
 
 Let's start by importing our dependencies. We need the `Title` service. We'll also need [`ActivatedRoute`](https://angular.io/docs/ts/latest/api/router/index/ActivatedRoute-interface.html) and `Params` from `@angular/router` in order to retrieve the route ID parameter to use to get the appropriate dinosaur data from the API. Finally, we'll also need the `DinosService` and `DinoDetail` model.
 
-Next we need to provide our `DinosService` in the `@Component`'s `providers` array. We'll create a couple of properties: `dino` will utilize the `DinoDetail` model type and `error` is a boolean, like in our `home.component.ts`. Then we'll add dependencies to the constructor function so we can use them.
+We'll create a couple of properties: `dino` will utilize the `DinoDetail` model type and `error` is a boolean, like in our `home.component.ts`. Then we'll add dependencies to the constructor function so we can use them.
 
 The `getDino()` method iterates over the available route parameters. We'll convert the `id` string to a number and then pass it to the `getDino$(id)` observable. We'll subscribe to the observable and assign the JSON response to the `dino` property. We'll also set the page title as the dinosaur's `name`. If there's an error retrieving data, we'll simply set the `error` property to `true`.
 
@@ -378,10 +382,10 @@ It's possible to keep everything we need in the component without external templ
 In order to use our new component in our app, we need to add it to our `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 ...
-import { LoadingComponent } from './ui/loading.component';
+import { LoadingComponent } from './core/ui/loading.component';
 ...
 
 @NgModule({
@@ -604,7 +608,7 @@ Now we're going to go beyond our migration and explore authenticating our Angula
 
 The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
 
-1. Sign up for a [free Auth0 account](https://auth0.com/signup).
+1. Sign up for a [free Auth0 account](javascript:signup\(\)).
 2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
 3. Name your new app and select "Single Page Web Applications". 
 4. In the **Settings** for your newly created app, add `http://localhost:4200` to the Allowed Callback URLs and Allowed Origins (CORS).
@@ -612,14 +616,14 @@ The first thing you'll need is an Auth0 account. Follow these simple steps to ge
 
 ### Setup and Dependencies
 
-First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.5 for our tutorial:
+First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.6 for our tutorial:
 
 {% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 ...
   <!-- Auth0 Lock widget -->
-  <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+  <script src="https://cdn.auth0.com/js/lock/10.6/lock.min.js"></script>
 </head>
 ...
 {% endhighlight %}
@@ -767,10 +771,10 @@ Finally, we'll implement a way to check the current authentication state of the 
 Our authentication service is now ready for use! We'll provide it at the app level in `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 ...
-import { AuthService } from './auth.service';
+import { AuthService } from './core/auth.service';
 ...
 
 @NgModule({

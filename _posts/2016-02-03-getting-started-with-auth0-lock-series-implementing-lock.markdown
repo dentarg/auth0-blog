@@ -4,7 +4,7 @@ title: "Getting Started with Auth0 Lock Series: Implementing Lock"
 description: "This is the start of the Lock screencast series, where we show how to implement Lock in a web application"
 date: 2016-02-03 09:54
 alias: /2016/02/03/getting-started-with-auth0-lock-series-implementing-lock/
-category: Auth0 Based Tutorial, Webinar, Lock
+category: Auth0-based Tutorial, Webinar, Lock
 author:
   name: Kassandra Perch
   url: https://twitter.com/nodebotanist

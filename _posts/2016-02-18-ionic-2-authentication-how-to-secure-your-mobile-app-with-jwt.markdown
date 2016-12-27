@@ -4,7 +4,7 @@ title: "Ionic 2 Authentication: How to Secure Your Mobile App with JWT"
 description: "Ionic 2 Beta has been released. Learn how to add JWT authentication to your Ionic 2 app and make secure calls to an API."
 date: 2016-02-18 08:30
 alias: /2016/02/18/ionic-2-authentication-how-to-secure-your-mobile-app-with-jwt/
-category: Technical guide, Mobile, Ionic
+category: Technical Guide, Mobile, Ionic
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
@@ -448,7 +448,7 @@ Setting up username and password authentication with a Node server is simple eno
 
 ### Step 0: Sign Up for Auth0 and Configure the Callback URL
 
-If you don't already have any Auth0 account, [sign up](https://auth0.com/signup) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
 
 In your dashboard, you need to specify an **Allowed Callback URL** for mobile:
 

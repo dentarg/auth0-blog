@@ -4,7 +4,7 @@ title: "Creating your first Aurelia app: From authentication to calling an API"
 description: "Learn how to create a real world Aurelia app using ES6, aurelia-auth and much more! We'll implement from Authentication to calling an API and everything in between"
 date: 2015-08-05 18:28
 alias: /2015/08/05/creating-your-first-aurelia-app-from-authentication-to-calling-an-api/
-category: Technical guide, Frontend, Aurelia
+category: Technical Guide, Frontend, Aurelia
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
@@ -552,7 +552,7 @@ Auth0 issues [JSON Web Tokens](https://auth0.com/learn/json-web-tokens/) on ever
 
 You can use [Lock](https://auth0.com/docs/libraries/lock) to integrate [Auth0](https://auth0.com) with Aurelia as well and avoid having to deal with authentication!
 
-To start, sign up for your [free Auth0 account](https://auth0.com/signup) if you haven't already. Then bring in the **Auth0Lock** script.
+To start, sign up for your [free Auth0 account](javascript:signup\(\)) if you haven't already. Then bring in the **Auth0Lock** script.
 
 ```html
   <!-- Auth0 Lock script -->

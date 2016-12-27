@@ -4,7 +4,7 @@ title: "Creating your first Symfony app and adding authentication"
 description: Learn how to build your first Symfony application and add authentication to it.
 date: 2016-07-26 12:30
 alias: /2016/07/26/creating-your-first-symfony-app-and-adding-authentication/
-category: Technical guide, PHP, Symfony
+category: Technical Guide, PHP, Symfony
 author:
   name: Prosper Otemuyiwa
   url: https://twitter.com/unicodeveloper?lang=en
@@ -863,7 +863,7 @@ Right now, Laravel is the most trending PHP framework in the world. Laravel thri
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Symfony apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Symfony**.
+We can easily set up authentication in our Symfony apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Symfony**.
 
 ### Step 1: Install and Configure Auth0 plugin
 

@@ -4,7 +4,7 @@ title: "HapiJS Authentication - Secure Your API With JWT"
 description: "HapiJS is a great framework for building NodeJS APIs. Get started with HapiJS Authentication to create users and protect your API endpoints."
 date: 2016-03-07 08:30
 alias: /2016/03/07/hapijs-authentication-secure-your-api-with-json-web-tokens/
-category: Technical guide, Backend, HapiJS
+category: Technical Guide, Backend, HapiJS
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
@@ -504,7 +504,7 @@ With Auth0, Hapi authentication becomes very simple.
 
 ### Step 0: Sign Up for Your Free Auth0 Account
 
-If you haven't yet done so, sign up for your [free Auth0 account](https://auth0.com/signup). The free plan gives you 7,000 regular active users and two social identity providers, which is plenty for many real world apps.
+If you haven't yet done so, sign up for your [free Auth0 account](javascript:signup\(\)). The free plan gives you 7,000 regular active users and two social identity providers, which is plenty for many real world apps.
 
 ### Step 1: Add Your Auth0 Private Key
 

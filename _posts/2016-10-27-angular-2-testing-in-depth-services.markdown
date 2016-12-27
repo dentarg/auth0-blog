@@ -3,7 +3,7 @@ layout: post
 title: "Angular 2 Testing In Depth: Services"
 description: "Learn how to test services in Angular 2. We will start with setting up the environment and finish with using Dependency Injection."
 date: 2016-10-27 08:23
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
@@ -28,6 +28,11 @@ related:
 - create-a-desktop-app-with-angular-2-and-electron
 - angular-2-authentication
 ---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
 
 When I started developing and writing tests for Angularjs applications,
 everything felt natural. The tools were mature and I easily got used to

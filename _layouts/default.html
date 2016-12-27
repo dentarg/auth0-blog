@@ -29,8 +29,8 @@
     <script src="//cdn.auth0.com/js/lock/10.6.1/lock.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.min.js"></script>
-    <script src="//cdn.auth0.com/web-header/latest/web-header.js"></script>
-    <link rel="stylesheet" href="//cdn.auth0.com/web-header/latest/web-header.css" />
+    <link rel="stylesheet" href="https://cdn.auth0.com/website/web-header/3.0/web-header.css" />
+    <script src="https://cdn.auth0.com/website/web-header/3.0/web-header.js"></script>
     <script src="//npmcdn.com/auth0-contact-form@latest"></script>
     <link rel="stylesheet" href="//npmcdn.com/auth0-contact-form@latest/dist/contact-form.css" />
     <script src="//cdn.auth0.com/js/m/metrics-1.min.js"></script>
@@ -141,6 +141,7 @@
 <body itemscope itemtype="http://schema.org/WebPage">
 
     <div id="header"></div>
+    {% include popup_notification.html %}
     <script>
     (function () {
       var config = {
@@ -234,7 +235,6 @@
         render: function () {
           var HeaderProps = {
             logged: this.state.logged,
-            showLock: window.login,
             showContactForm: this.state.showContactForm
           };
           var Auth0WebHeaderProps = toAuth0WebHeaderProps(HeaderProps);
@@ -246,15 +246,15 @@
       function toAuth0WebHeaderProps(props) {
         var Auth0WebHeaderProps = {
           theme: 'dark',
-          secondaryButtonLink: null,
-          secondaryButtonOnClick: props.showContactForm
+          talkToSalesButtonLink: null,
+          talkToSalesButtonOnClick: props.showContactForm,
+          loginButtonOnClick: window.login
         };
 
         if (props.logged) {
-          Auth0WebHeaderProps.primaryButtonText = 'Open Dashboard';
-          Auth0WebHeaderProps.primaryButtonLink = 'https://manage.auth0.com';
+          Auth0WebHeaderProps.signupButtonLink = 'https://manage.auth0.com';
         } else {
-          Auth0WebHeaderProps.primaryButtonOnClick = props.showLock;
+          Auth0WebHeaderProps.signupButtonOnClick = window.signup;
         }
 
         return Auth0WebHeaderProps;
@@ -286,40 +286,41 @@
       <script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
 
       {{ content }}
-
       {% include footer.html %}
     </div>
 
-    <script src="{{ site.baseurl }}/init_worker.js" type="text/javascript"></script>
-
-    <!-- jekyll-search -->
-    <script src="{{ site.baseurl }}/js/vendor/jekyll-search.js" type="text/javascript"></script>
+    <script src="{{ site.baseurl }}/push-notification.js" type="text/javascript"></script>
     <script src="{{ site.baseurl }}/js/vendor/js-cookie.js" type="text/javascript"></script>
-    <script src="{{ site.baseurl }}/js/search.js" type="text/javascript"></script>
-    <script src="{{ site.baseurl }}/js/filters-search.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      var searchFilters = new SearchFilters({
-            input: document.getElementById('search-input'),
-            filters: ['author'],
-            json: '{{ site.baseurl }}/filters.json',
-            autoCompleteOptions: {},
-            selectCallback: RenderSearch
-          });
 
-      searchFilters.render();
+    {% if page.is_post_index %}
+      <!-- jekyll-search -->
+      <script src="{{ site.baseurl }}/js/vendor/jekyll-search.js" type="text/javascript"></script>
+      <script src="{{ site.baseurl }}/js/search.js" type="text/javascript"></script>
+      <script src="{{ site.baseurl }}/js/filters-search.js" type="text/javascript"></script>
+      <script type="text/javascript">
+        var searchFilters = new SearchFilters({
+              input: document.getElementById('search-input'),
+              filters: ['author'],
+              json: '{{ site.baseurl }}/filters.json',
+              autoCompleteOptions: {},
+              selectCallback: RenderSearch
+            });
 
-      SimpleJekyllSearch({
-        searchInput: document.getElementById('search-input'),
-        resultsContainer: document.getElementById('results-container'),
-        json: '{{ site.baseurl }}/search.json',
-        searchResultTemplate: `{% include results_post.html %}`,
-        noResultsText: 'No results found',
-        limit: 20,
-        fuzzy: false,
-        exclude: ['Welcome']
-      })
-    </script>
-    <!-- end jekyll-search-->
+        searchFilters.render();
+
+        SimpleJekyllSearch({
+          searchInput: document.getElementById('search-input'),
+          resultsContainer: document.getElementById('results-container'),
+          json: '{{ site.baseurl }}/search.json',
+          searchResultTemplate: `{% include results_post.html %}`,
+          noResultsText: 'No results found',
+          limit: 20,
+          fuzzy: false,
+          exclude: ['Welcome']
+        })
+      </script>
+      <!-- end jekyll-search-->
+    {% endif %}
 
     <script type="text/javascript">
     try {
@@ -679,6 +680,21 @@
           metricsLib.page();
 
           $('p').selectionSharer();
+          
+          var selectionSharerFacebook = $('#selectionSharerPopover-inner .action.facebook')[0];
+          $(selectionSharerFacebook).on('click', function() {
+            metricsLib.track('blog:share:custom:facebook');
+          });
+
+          var selectionSharerTwitter = $('#selectionSharerPopover-inner .action.tweet')[0];
+          $(selectionSharerTwitter).on('click', function() {
+            metricsLib.track('blog:share:custom:twitter');
+          });
+
+          var selectionSharerEmail = $('#selectionSharerPopover-inner .action.email')[0];
+          $(selectionSharerEmail).on('click', function() {
+            metricsLib.track('blog:share:custom:email');
+          });
 
           $(window).on('load', function() {
             $(document.body).trigger("sticky_kit:recalc");
@@ -715,15 +731,6 @@
             s.src = '//' + disqus_shortname + '.disqus.com/count.js';
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
-    </script>
-    <script type="text/javascript">
-      var _mfq = _mfq || [];
-      (function() {
-          var mf = document.createElement("script");
-          mf.type = "text/javascript"; mf.async = true;
-          mf.src = "//cdn.mouseflow.com/projects/556d4409-c833-4212-898c-22fdda3bcb91.js";
-          document.getElementsByTagName("head")[0].appendChild(mf);
-      })();
     </script>
     <script>
       (function(h,o,t,j,a,r){

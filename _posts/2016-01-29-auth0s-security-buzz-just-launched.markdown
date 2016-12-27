@@ -4,7 +4,7 @@ title: "Auth0's Security Buzz just launched!"
 description: Our new channel for sharing our thoughts on security
 date: 2016-01-29 17:31
 alias: /2016/01/29/auth0s-security-buzz-just-launched/
-category: Announcements, Programs
+category: Announcement, Program
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza

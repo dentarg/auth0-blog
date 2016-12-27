@@ -4,7 +4,7 @@ title: "rrtr is Dead. Here are Some React Router Alternatives."
 description: "React Router and rrtr have reconciled. Explore React Router alternatives and learn how to use them in your apps."
 date: 2016-04-19 08:30
 alias: /2016/04/19/react-router-alternatives/
-category: Technical guide, Frontend, React
+category: Technical Guide, Frontend, React
 author: 
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"
@@ -148,7 +148,7 @@ If you are feeling adventurous and up for a challenge, [James K Nelson](https://
 
 ## Aside: Auth0 Makes it Easy to Protect Routes
 
-Whether you are using React Router, router5, or building your own - Auth0 can help with authentication. [Sign up](https://auth0.com/signup) for your free account to get started. You can follow the in-depth [documentation](https://auth0.com/docs/quickstart/spa/react/no-api) for adding authentication to a React app but we'll still give you a sneak peek below. 
+Whether you are using React Router, router5, or building your own - Auth0 can help with authentication. [Sign up](javascript:signup\(\)) for your free account to get started. You can follow the in-depth [documentation](https://auth0.com/docs/quickstart/spa/react/no-api) for adding authentication to a React app but we'll still give you a sneak peek below. 
 
 We'll show a quick example of how you can use the [**jwt-decode**](https://github.com/auth0/jwt-decode) library to ensure that a users token is valid. We'll assume that the user already has a token and we'll check to see if this token is expired. Our code looks like:
 
@@ -192,5 +192,3 @@ With just a few lines of code we were able to protect our routes. The **jwt-deco
 ## Conclusion
 
 The JavaScript community is constantly changing. Frameworks, libraries and conflicts come and go. React Router is and will likely remain the go-to routing library for React but that's not to say that there aren't great alternatives worth checking out. The co-maintainers of the React Router library have [pledged](https://medium.com/rackt-and-roll/rrtr-is-dead-long-live-react-router-ce982f6f1c10#.uc8anqeqb) to take better steps in terms of communication, release schedule and merging of pull requests for the React Router library and I'm excited to see those changes implemented.
-
-<div class="riddle_target" data-url="//www.riddle.com/a/60905" style="margin:0 auto;max-width:640px;"><div style="display:none"><section><h2>What routing library do you use for your React apps?</h2></section><section><h3>React Router</h3></section><section><h3>React Router Component</h3></section><section><h3>React Mini Router</h3></section><section><h3>Universal Router</h3></section><section><h3>router5</h3></section><section><h3>Other</h3></section></div><div class="rid-load" style="background:#000 url(//www.riddle.com/assets/img/loader.gif) no-repeat center/10%;padding-top:56%;border-radius:5px"></div></div><script src="//www.riddle.com/files/js/embed.js"></script>

@@ -10,7 +10,7 @@ author:
   mail: "hernan@auth0.com"
   avatar: "https://www.gravatar.com/avatar/b93af62499ed0f76f280acb37913f15d.png?size=200"
 description: "A few weeks back we released the first version of our native iOS SDK to help you add authentication to your app. We needed a Keychain library that supported"
-category: Technical guide, Mobile, iOS
+category: Technical Guide, Mobile, iOS
 tags:
 - ios
 - touchid

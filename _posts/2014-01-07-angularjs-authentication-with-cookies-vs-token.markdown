@@ -3,7 +3,7 @@ published: "true"
 layout: post
 title: Cookies vs Tokens. Getting auth right with Angular.JS
 description: "Using a token-based authentication design over cookie-based authentication."
-category: Technical guide, Identity, Cookies vs Tokens
+category: Technical Guide, Identity, Cookies vs Tokens
 date: "2014-01-07 12:30"
 date_override: "2015-10-07 12:30"
 alias: /2014/01/07/angularjs-authentication-with-cookies-vs-token/
@@ -27,9 +27,9 @@ tags:
 
 <!-- <img src="https://s3.amazonaws.com/blog.auth0.com/img/poisoned-cookies.jpg" style="width: 400px; margin-left: auto; margin-right: auto; display: block;" /> -->
 
-<div class="alert" style="background-color:#daf4fd;color:#097093">
-  <i class="icon-budicon-390" style="top: 14px; left: 20px"></i>
-  <strong style="font-size: 18px">We just added a new updated article that covers the same topic. You can find it here: <a href="https://auth0.com/blog/2016/05/31/cookies-vs-tokens-definitive-guide/">Cookies vs Tokens: The definitive guide<a/>.</strong>
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>We just added a new updated article that covers the same topic. You can find it here: <a href="https://auth0.com/blog/2016/05/31/cookies-vs-tokens-definitive-guide/">Cookies vs Tokens: The definitive guide<a/>.</strong>
 </div>
 
 ### Introduction

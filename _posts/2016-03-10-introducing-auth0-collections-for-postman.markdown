@@ -4,7 +4,7 @@ title: "Introducing Auth0 for Postman Collections"
 description: We have created Postman Collections for our Auth0 APIs which allows you to easily test API calls from within Postman
 date: 2016-03-10 1:30
 alias: /2016/03/10/introducing-auth0-collections-for-postman/
-category: Announcements, Tools
+category: Announcement, Tools
 author:
   name: Jerrie Pelser
   mail: jerrie@auth0.com

@@ -4,7 +4,7 @@ title: "Adding Authentication to Shiny Open Source Edition"
 description: Learn how to leverage Auth0 to have Shiny Authentication for the open source version or another legacy website.
 date: 2015-09-24 09:00
 alias: /2015/09/24/adding-authentication-to-shiny-open-source-edition/
-category: Technical guide, Data, Shiny
+category: Technical Guide, Data, Shiny
 author:
   name: Pablo Seibelt
   url: http://www.twitter.com/sicarul
@@ -28,6 +28,11 @@ related:
 - 2015-10-23-using-ldap-with-c-sharp
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Some content in this post is outdated. Check our <a href="https://auth0.com/blog/adding-authentication-to-shiny-server/">updated guide</a>.</strong>
+</div>
 
 
 [Shiny Server](https://www.rstudio.com/products/shiny/shiny-server/)  is a great solution for BI/analytics reporting. It leverages all the power of the [R language](https://www.r-project.org/), which is the most popular open-source language for statistics, and it has a lot of useful functions for *Data Mining*, *Machine Learning*, *Reporting*, etc.
@@ -77,7 +82,7 @@ a2enmod auth_openidc
 
 ## Configure an Auth0 Account
 
-If you don't already have an Auth0 Account, [create one here](http://auth0.com/signup) and set up the type of connections you want to allow. The default settings allow anyone to sign up, but you can set up a better scheme. For example, if you use Google Apps, you can just connect that and [allow only those from your domain to access the server](https://manage.auth0.com/#/connections/enterprise). Alternatively, you can use [rules](https://manage.auth0.com/#/rules) to decide which users are allowed access.
+If you don't already have an Auth0 Account, [create one here](javascript:signup\(\)) and set up the type of connections you want to allow. The default settings allow anyone to sign up, but you can set up a better scheme. For example, if you use Google Apps, you can just connect that and [allow only those from your domain to access the server](https://manage.auth0.com/#/connections/enterprise). Alternatively, you can use [rules](https://manage.auth0.com/#/rules) to decide which users are allowed access.
 
 You can [browse the docs](https://auth0.com/docs) or [ask for help](https://support.auth0.com) setting up the best scheme for your scenario.
 

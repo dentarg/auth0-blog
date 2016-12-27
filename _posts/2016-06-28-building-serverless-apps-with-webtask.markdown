@@ -4,7 +4,7 @@ title: "Building Serverless Apps with Webtask.io"
 description: "Webtask is Function-as-a-Service platform for building serverless apps. Learn how to build applications without worrying about servers, and common use-cases where serverless shines."
 date: 2016-06-28 08:30
 alias: /2016/06/28/building-serverless-apps-with-webtask/
-category: Technical guide, Serverless, Webtasks
+category: Technical Guide, Serverless, Webtasks
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"
@@ -288,7 +288,7 @@ module.exports = wt.fromExpress(app).auth0({
 });
 ```
 
-Our updated Webtask has a lot more going on. Since we are adding Auth0 to the Webtask now, we'll need to get our Auth0 credentials and pass them when we deploy the Webtask. [Sign up](https://auth0.com/signup) for a free Auth0 account to continue.
+Our updated Webtask has a lot more going on. Since we are adding Auth0 to the Webtask now, we'll need to get our Auth0 credentials and pass them when we deploy the Webtask. [Sign up](javascript:signup\(\)) for a free Auth0 account to continue.
 
 Once you have created your Auth0 account, navigate to the [management dashboard](https://manage.auth0.com) and navigate into your newly created app. From here you will want to get the **Client ID**, **Client Secret** and **Domain**. Now, we'll deploy a new version of our newsletter Webtask with our Auth0 app credentials. Let's see how to do this:
 

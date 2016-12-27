@@ -4,7 +4,7 @@ title: "Rise of the High Boilerplate Framework: A Look at Falcor and Relay"
 description: "JavaScript modules and build steps are getting more numerous and complicated, but what about boilerplate in new frameworks?"
 date: 2016-01-13 16:00
 alias: /2016/01/13/rise-of-the-high-boilerplate-framework-a-look-at-falcor-and-relay/
-category: Technical guide, Architecture, Performance
+category: Technical Guide, Architecture, Performance
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
@@ -255,7 +255,7 @@ It would also be interesting to see how the companies that created Falcor and Re
 
 ## Aside: Falcor and Relay Authentication is Easy with Auth0
 
-Auth0 simplifies common authentication needs like social login, multi-factor authentication, and single sign-on. You can [sign up for an account](https://auth0.com/signup) and get 7,000 regular active users for free.
+Auth0 simplifies common authentication needs like social login, multi-factor authentication, and single sign-on. You can [sign up for an account](javascript:signup\(\)) and get 7,000 regular active users for free.
 
 To add Authentication to Falcor, simply install and setup **express-jwt** with your Auth0 credentials and add the middleware to your route.
 

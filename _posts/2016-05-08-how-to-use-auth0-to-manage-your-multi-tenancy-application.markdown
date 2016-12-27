@@ -4,7 +4,7 @@ title: "How To Use Auth0 To Manage Your Multi-Tenant Application"
 description: Using multi-tenancy you can cut costs and still allow your customers strict control over their data
 date: 2016-05-08 8:30
 alias: /2016/05/08/how-to-use-auth0-to-manage-your-multi-tenancy-application/
-category: Technical guide, Identity, Multitenancy
+category: Technical Guide, Identity, Multitenancy
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

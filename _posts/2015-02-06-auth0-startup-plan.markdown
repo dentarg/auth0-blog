@@ -4,7 +4,7 @@ title: "Auth0 Startup Plan"
 description: "Introducing the Startup Plan as part of our new pricing."
 date: 2015-02-06 08:00
 alias: /2015/02/06/auth0-startup-plan/
-category: Announcements
+category: Announcement
 author:
   name: "Gianpaolo Carraro"
   url:  http://www.twitter.com/gcarraro
@@ -23,7 +23,7 @@ related:
 - 2015-11-05-announcing-our-new-pricing-including-a-production-ready-free-account
 ---
 
-Following last month's [new pricing announcement](https://auth0.com/pricing) and new free and full-featured [developer plan](https://auth0.com/signup), today we are adding a **Startup Plan** to our pricing.
+Following last month's [new pricing announcement](https://auth0.com/pricing) and new free and full-featured [developer plan](javascript:signup\(\)), today we are adding a **Startup Plan** to our pricing.
 
 ### Startup Plan
 

@@ -3,7 +3,7 @@ layout: post
 title: "Announcing Auth0's Identity Glossary"
 description: A comprehensive list of important security and identity words.
 date: 2016-09-28 08:30
-category: Announcements, Content
+category: Announcement, Content
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza

@@ -4,7 +4,7 @@ title: "JSON Web Token (JWT) Signing Algorithms Overview"
 description: "Learn all about the different JWT signing algorithms and how to choose the correct one for your use case!"
 date: 2015-12-17 13:00
 alias: /2015/12/17/json-web-token-signing-algorithms-overview/
-category: Technical guide, JWT, Algorithms
+category: Technical Guide, JWT, Algorithms
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

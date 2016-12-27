@@ -4,7 +4,7 @@ title: "The MFA monitoring tool"
 description: Automation which helps you monitor the multi-factor authentication status of various services.
 date: 2016-06-16 8:30
 alias: /2016/06/16/the-mfa-monitoring-tool/
-category: Auth0 Based Tutorials, Tools
+category: Auth0-based Tutorials, Tools
 author:
   name: Radek Karpowicz
   url: https://twitter.com/radekk

@@ -3,7 +3,7 @@ layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 2"
 description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 2): routing, API, and filtering."
 date: 2016-11-09 8:30
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Migration
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
@@ -25,6 +25,11 @@ related:
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 - 2016-11-14-migrating-an-angular-1-app-to-angular-2-part-3
 ---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
 
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. In the [first part of this tutorial](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1) we set up our Angular 2 app and migrated the basic architecture. This time we'll implement some real-world features like routing, calling an API, and more. The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
 
@@ -73,7 +78,7 @@ We want to update the document `<title>` tag for each page. Recall that `<title>
 We want the `Title` service to be registered in the root injector so it's available to the entire application. Let's add it to our `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 import { BrowserModule, Title } from '@angular/platform-browser';
 ...
@@ -292,7 +297,6 @@ ng2-dinos
     |-app/
       |-core/
         |-app.component[.html|.scss|.ts]
-        |-app.module.ts
         |-app-routing.module.ts
       |-header/
         |-_nav.scss
@@ -306,6 +310,7 @@ ng2-dinos
           |-error404.component[.html|.ts]
         |-home/
           |-home.component[.html|.scss|.ts]
+      |-app.module.ts
       |-index.ts
 ```
 
@@ -314,10 +319,10 @@ ng2-dinos
 We have a new module to handle routing but it isn't being imported anywhere in our app right now. We need to add it to our `app.module.ts`:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 ...
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './core/app-routing.module';
 ...
 
 @NgModule({
@@ -412,18 +417,16 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart && this.navOpen) {
-        this.toggleNav();
-      }
-    });
+    this.router.events
+      .filter(event => event instanceof NavigationStart && this.navOpen)
+      .subscribe(event => this.toggleNav());
   }
   ...
 ```
 
 We need to import `Router` and `NavigationStart` from `@angular/router`. Next we need to make `private router: Router` available in our constructor function.
 
-[Router.events](https://angular.io/docs/ts/latest/api/router/index/Event-type-alias.html) is an observable of route events. We'll subscribe to it to set `navOpen` to `false` when the event is an instance of `NavigationStart`.
+[Router.events](https://angular.io/docs/ts/latest/api/router/index/Event-type-alias.html) is an observable of route events. We'll filter for when the event is an instance of `NavigationStart` and the navigation is open. We'll then subscribe to it to set `navOpen` to `false`.
 
 Now when we click on links in the menu the correct component displays and the navigation closes. Our app homepage now looks like this:
 
@@ -538,6 +541,34 @@ Finally we manage successes and errors. The `map` operator processes the result 
 
 > **Note:** In the Angular 1 [ng1-dinos Dinos service](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/core/Dinos.service.js), the success function checks for an object because some server configurations (such as NGINX) will return a successful XHR response with an HTML error page in the case of an API failure. The front-end promise incorrectly resolves this as the appropriate data. We do _not_ need to do this check in Angular 2 ng2-dinos because we have TypeScript ensuring that the shape of the data matches our `Dino` model. Pay attention to your data though: if you have a response that occasionally changes shape, you'll need to address that in the model so you don't receive errors. You can read more about [TypeScript functions and optional parameters here](https://www.typescriptlang.org/docs/handbook/functions.html).
 
+### Provide the Dinos Service in App Module
+
+We want the dinos service to be a singleton. Unlike Angular 1, Angular 2 services can be singletons _or_ have multiple instances depending on how they're provided. To create a global singleton, we'll provide the service in the `app.module.ts`:
+
+```typescript
+// ng2-dinos/src/app/app.module.ts
+
+...
+import { DinosService } from './core/dinos.service';
+
+@NgModule({
+  declarations: [
+    ...
+  ],
+  imports: [
+    ...
+  ],
+  providers: [
+    ...,
+    DinosService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+We import the `DinosService` and then add it to the `providers` array. It's now available for use in our components.
+
 ### Use the Dinos Service in Home Component
 
 Now we have a service that fetches data from the API. We'll use this service in our home component to display a list of dinosaurs. Open the `home.component.ts` file:
@@ -551,7 +582,6 @@ import { Dino } from '../../core/models/dino.model';
 
 @Component({
   ...
-  providers: [DinosService]
 })
 export class HomeComponent implements OnInit {
   dinos: Dino[];
@@ -583,7 +613,7 @@ export class HomeComponent implements OnInit {
 }
 ```
 
-As always, we import our dependencies. We need our new `DinosService` and `Dino` model. Then we need to provide our `DinosService` in the `@Component`'s `providers` array.
+As always, we import our dependencies. We need our new `DinosService` and `Dino` model.
 
 Then we'll implement the functionality to use this service. We'll declare that the `dinos` property should be of type `Dino[]` (an array of items matching the `Dino` model). We'll also create an `error` boolean property. We'll add the `private dinosService: DinosService` to the constructor parameters.
 
@@ -801,13 +831,13 @@ export class HomeComponent implements OnInit {
     this.getDinos();
   }
 
-  filterDinos(query: string) {
+  filterDinos() {
     this.filteredDinos = this.filterService.search(this.dinos, this.query);
   }
 
   resetQuery() {
     this.query = '';
-    this.filterDinos(this.query);
+    this.filteredDinos = this.dinos;
   }
 
   get noSearchResults() {
@@ -819,9 +849,11 @@ export class HomeComponent implements OnInit {
 
 We need to import and then provide our `FilterService`. Next we'll set its parameter in the constructor function. Now we can use it in our home component.
 
+> **Note:** By providing the filter service in the component instead of `app.module.ts`, we're creating an instance unique to _this component_. We're doing this here because there is only one place we're filtering. If you add filters to additional components in the future, consider using a global singleton if there's no compelling reason to create multiple instances.
+
 We're going to create a property called `filteredDinos` alongside our `dinos` property. The filtered collection should also have the `Dino[]` type. When we successfully retrieve data from the API, we'll set `filteredDinos` as well as `dinos`. At this point it is the full collection.
 
-Next we need a method for the template to use to filter the dinosaur list. We'll call this method `filterDinos()`. It should accept a `query: string` parameter. This is going to be the value of our search input field. We'll pass this query and our full `dinos` collection to the filtering method we created: `this.filteredDinos = this.filterService.search(this.dinos, this.query)`.
+Next we need a method for the template to use to filter the dinosaur list. We'll call this method `filterDinos()`. Inside this function, we'll pass the `query` and our full `dinos` collection to the `FilterService` method we created and set its results: `this.filteredDinos = this.filterService.search(this.dinos, this.query)`.
 
 Our ng1-dinos app has a way to instantly clear the search with a button. We want the same feature in ng2-dinos, so let's create a `resetQuery()` method. This method sets the `query` to an empty string and then sets `filteredDinos` to the original, unfiltered `dinos` array. The reason we have to manually reset the array is because we're going to declaratively run `filterDinos()` on `keyup` in the query input field. This won't be triggered when the user clicks the button to clear the query.
 
@@ -845,7 +877,7 @@ You can reference the Angular 1 [ng1-dinos `Home.view.html`](https://github.com/
       type="text"
       class="form-control"
       [(ngModel)]="query"
-      (keyup)="filterDinos(query)" />
+      (keyup)="filterDinos()" />
 
     <span class="input-group-btn">
       <button
@@ -870,7 +902,7 @@ You can reference the Angular 1 [ng1-dinos `Home.view.html`](https://github.com/
 {% endraw %}
 {% endhighlight %}
 
-We want to use [two-way binding with `ngModel`](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#ngModel) to bind the `query` to the search input. On the `keyup` event, we'll run our `filterDinos(query)` function. This will update the `filteredDinos` array. We also have a button to clear the search query. On `click`, we'll execute `resetQuery()`. If there's no query, we can disable the button.
+We want to use [two-way binding with `ngModel`](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#ngModel) to bind the `query` to the search input. On the `keyup` event, we'll run our `filterDinos()` function. This will update the `filteredDinos` array. We also have a button to clear the search query. On `click`, we'll execute `resetQuery()`. If there's no query, we can disable the button.
 
 > **Note:** `ngModel` now requires the `FormsModule` from `@angular/forms`. The Angular CLI creates new projects with this dependency in `app.module.ts` automatically but it's important to know why and how we utilize it in our app.
 

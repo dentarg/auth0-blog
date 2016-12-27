@@ -4,7 +4,7 @@ title: "JavaScript Module Systems Showdown: CommonJS vs AMD vs ES2015"
 description: "Learn about the different JavaScript module systems currently in use, and find out which will be the best option for your project."
 date: 2016-03-15 13:30
 alias: /2016/03/15/javascript-module-systems-showdown/
-category: Technical guide, Benchmarks
+category: Technical Guide, Benchmarks
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

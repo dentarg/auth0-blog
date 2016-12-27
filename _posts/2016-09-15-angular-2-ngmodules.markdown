@@ -3,7 +3,7 @@ layout: post
 title: "Use @NgModule to Manage Dependencies in your Angular 2 Apps"
 description: "The Angular 2 @NgModule decorator allows for easier management of dependencies within the Angular 2 framework."
 date: 2016-09-15 08:30
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
@@ -26,6 +26,11 @@ related:
 - create-a-desktop-app-with-angular-2-and-electron
 - creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between
 ---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
 
 ---
 
@@ -355,4 +360,4 @@ Stay tuned. We will be releasing a follow up post early next week that will walk
 
 ## Conclusion
 
-NgModule is a great and welcome addition to the Angular 2 framework. Managing dependencies in an application is never an easy task, but the `@NgModule` decorator is a great leap towards getting it right. If you aren't already using it in your Angular 2 applications, updating to RC5 and beyond is well worth it for this functionality alone. If you are building Angular 2 applications and are looking to do authentication right, check out our [Angular 2 JWT library](https://github.com/auth0/angular2-jwt) and [sign up](https://auth0.com/signup) for a free Auth0 account to get up and running in no time.
+NgModule is a great and welcome addition to the Angular 2 framework. Managing dependencies in an application is never an easy task, but the `@NgModule` decorator is a great leap towards getting it right. If you aren't already using it in your Angular 2 applications, updating to RC5 and beyond is well worth it for this functionality alone. If you are building Angular 2 applications and are looking to do authentication right, check out our [Angular 2 JWT library](https://github.com/auth0/angular2-jwt) and [sign up](javascript:signup\(\)) for a free Auth0 account to get up and running in no time.

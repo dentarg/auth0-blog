@@ -21,3 +21,11 @@ You can also save the text in a variable
     <p class="tweet-link">TWEET THIS <img src="https://cdn.auth0.com/blog/resources/twitter.svg"></p>
   </a>
 </blockquote>
+
+<script>
+	$(function() {
+		$('.tweet-quote').on('click', function() {
+			metricsLib.track('blog:share:twitter_quote');
+		});
+	});
+</script>

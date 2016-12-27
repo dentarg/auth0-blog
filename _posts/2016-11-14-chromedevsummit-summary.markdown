@@ -3,7 +3,7 @@ layout: post
 title: "Chrome Developer Summit 2016 - Summary"
 description: "Check out our summary of the recently concluded Chrome Developer Summit."
 date: 2016-11-15 08:30
-category: Technical guide, Conferences, Chrome Developer Summit
+category: Technical Guide, Conferences, Chrome Developer Summit
 author:
   name: "Prosper Otemuyiwa"
   url: "https://twitter.com/unicodeveloper"
@@ -16,6 +16,10 @@ tags:
 - Chrome
 - Summit
 - ChromeDevSummit
+related:
+- 2016-07-27-laracon-summary-day-1
+- 2016-07-29-laracon-summary-day-2
+- 2015-07-30-laracon-summary-day-3
 ---
 
 The Chrome Developer Summit 2016 consisted of about 19 talks and various workshops. More people attended the summit than expected. The talks and workshops were really awesome. This year, the Chrome Developer Summit focused on making the web better and more accessible with [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps). A lot of the talks and workshops were centered around understanding the nitty-gritty of progressive enhancements, improvement in web apps performance and pushing the mobile web forward in ways that make it more native-like. According to *VP, Chrome Engineering*, [Darin Fisher](https://twitter.com/darinwf) who gave the keynote, there are currently about 2 billion active Chrome browsers across mobile and desktop.
@@ -154,7 +158,7 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 * Achieve [SSO(Single Sign On)](https://auth0.com/docs/sso) seamlessly.
 
-[Sign up](https://auth0.com/signup) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
+[Sign up](javascript:signup\(\)) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
 
 
 ## Conclusion

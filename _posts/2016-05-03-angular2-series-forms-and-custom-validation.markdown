@@ -4,7 +4,7 @@ title: "Angular 2 Series - Part 5: Forms and Custom Validation"
 description: "Angular 2 forms are powerful and come with many great features. Learn how to create both simple and complex forms, as well as how to do custom form validation."
 date: 2016-05-03 08:30
 alias: /2016/05/03/angular2-series-forms-and-custom-validation/
-category: Technical guide, Angular, Angular2 Series
+category: Technical Guide, Angular, Angular2 Series
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
@@ -399,7 +399,7 @@ With Auth0, all of this is done for us out of the box, and we don't need to worr
 
 ### Step 0: Sign Up for Auth0 and Configure
 
-If you don't already have any Auth0 account, [sign up](https://auth0.com/signup) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
 
 ### Step 1: Add Auth0Lock to Your App
 

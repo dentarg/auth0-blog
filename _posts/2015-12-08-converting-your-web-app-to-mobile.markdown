@@ -4,7 +4,7 @@ title: "Convert your Web App to a Mobile App with Apache Cordova"
 description: How you can effortlessly create your multiplatform application from a web application
 date: 2015-12-08 16:15
 alias: /2015/12/08/converting-your-web-app-to-mobile/
-category: Technical guide, Mobile, Cordova
+category: Technical Guide, Mobile, Cordova
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza

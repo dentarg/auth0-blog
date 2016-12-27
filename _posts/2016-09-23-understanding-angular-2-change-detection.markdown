@@ -3,7 +3,7 @@ layout: post
 title: "Understanding Angular 2 change detection"
 description: "Angular 2 introduces a new change detection system that makes apps much faster and allows developers fine-tune the process."
 date: 2016-09-23 8:30
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
@@ -29,6 +29,11 @@ related:
 - creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between
 
 ---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2" book for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
 
 ---
 
@@ -213,7 +218,7 @@ You can add Auth0 to an Angular 2 app really easily. There are just a few simple
 
 ### Step 0: Sign Up for Auth0 and Configure
 
-If you don't already have any Auth0 account, [sign up](https://auth0.com/signup) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
 
 ### Step 1: Add Auth0Lock to Your App
 

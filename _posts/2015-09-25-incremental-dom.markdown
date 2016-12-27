@@ -4,7 +4,7 @@ title: "Incremental DOM 101: What is it and why I should care?"
 description: Learn how Incremental DOM works and how it compares to Glimmer and Virtual DOM
 date: 2015-10-23 19:00
 alias: /2015/10/23/incremental-dom/
-category: Technical guide, Architecture, Incremental DOM
+category: Technical Guide, Architecture, Incremental DOM
 author:
   name: Pablo Terradillos
   url: https://twitter.com/tehsis

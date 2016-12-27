@@ -1,5 +1,7 @@
 ---
 layout: null
+sitemap:
+  exclude: 'yes'
 ---
 {% for post in site.posts %}
   {% if post.pinned %}

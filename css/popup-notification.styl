@@ -1,0 +1,104 @@
+.pn-popup {
+  visibility: hidden;
+  transition: all 1s ease;
+}
+
+.pn-popup.is-visible {
+  visibility: visible;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.pn-popup-container {
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.3);
+  height: 155px;
+  left: 110px;
+  max-width: 350px;
+  padding: 30px 30px 20px 30px;
+  position: absolute;
+  top: 100px;
+  z-index: 1500;
+  transform: translateY(-40px);
+  transition: all 1s ease;
+
+}
+
+.pn-popup-container p {
+  color: rgba(0,0,0,0.87);
+  font-family: AvenirNext-Regular;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pn-popup-container .pn-buttons button {
+  width: 49%;
+  height: 46px;
+  font-family: AvenirNext-Medium;
+  font-size: 12px;
+  border: 0;
+  border-radius: 0 0 5px 5px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.pn-popup-container .pn-buttons button:first-child  {
+  background: #EB5424 ;
+  border-radius: 3px;
+  color: #FFFFFF ;
+}
+
+.pn-popup-container .pn-buttons button:first-child:hover {
+  background-color: #e14615;
+}
+
+.pn-popup-container .pn-buttons button:last-child:hover {
+  background-color: #f5f7f9;
+}
+
+.pn-popup-container .pn-buttons button:last-child {
+  background: #FFFFFF ;
+  border: 1px solid #CCCCCC ;
+  border-radius: 3px;
+  color: #000000 ;
+}
+
+.pn-popup-container .pn-popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: rgba(74,73,74,0.60); ;
+  background-color: #E3E5E7;
+  line-height: 20px;
+}
+
+.pn-popup-container .pn-popup-close:after, .pn-popup-container .pn-popup-close:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.is-visible .pn-popup-container {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.pn-popup-container .arrow {
+  background: #fff;
+  height: 29px;
+  left: 64px;
+  position: absolute;
+  top: -9px;
+  transform: rotate(45deg);
+  width: 29px;
+}
+
+@media only screen and (min-width: 1170px) {
+
+}

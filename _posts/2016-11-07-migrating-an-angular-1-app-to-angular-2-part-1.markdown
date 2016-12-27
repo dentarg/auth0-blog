@@ -3,7 +3,7 @@ layout: post
 title: "Migrating an Angular 1 App to Angular 2 - Part 1"
 description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 1): setup, architecture, and components."
 date: 2016-11-07 8:30
-category: Technical guide, Angular, Angular2
+category: Technical Guide, Angular, Migration
 banner:
   text: "Auth0 makes it easy to add authentication to your AngularJS application."
 author:
@@ -25,6 +25,11 @@ related:
 - 2016-11-09-migrating-an-angular-1-app-to-angular-2-part-2
 - 2016-11-14-migrating-an-angular-1-app-to-angular-2-part-3
 ---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
 
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. Learn how to migrate a real-world Angular 1 app to a fresh Angular 2 build: what's the same, what's similar, and what's completely different. After this tutorial, you should be prepared to tackle your own migrations as well as new Angular 2 projects. The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
 
@@ -198,11 +203,7 @@ Angular CLI uses Webpack to bundle local dependencies, so we _won't_ add Moderni
 ```js
 // ng2-dinos/angular-cli.json
 
-{
-  "project": {
-    "version": "1.0.0-beta.19-3",
-    "name": "ng2-dinos"
-  },
+{...
   "apps": [
     {...
       "scripts": [
@@ -304,7 +305,7 @@ The Angular CLI creates all app files (modules, components, services, pipes, etc
 
 > **Note:** Recall that this tutorial won't cover testing. The `.spec.ts` files have been largely removed from the sample [ng2-dinos repo](http://github.com/auth0-blog/ng2-dinos) to make it simpler to view. The Angular CLI creates these files automatically when generating new architecture. Feel free to keep them in your project and write tests. For brevity, **the rest of the tutorial will no longer mention `.spec.ts` files.** If you're using them, just remember to include them whenever managing files.
 
-Let's move the `app.module.ts` and `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The `app` folder's file structure should now look like this:
+Let's move the `app.component[.html|.scss|.ts]` files to a new folder: `ng2-dinos/src/app/core/`. The `app` folder's file structure should now look like this:
 
 ```text
 ng2-dinos
@@ -312,7 +313,7 @@ ng2-dinos
     |-app/
       |-core/
         |-app.component[.html|.scss|.ts]
-        |-app.module.ts
+      |-app.module.ts
       |-index.ts
 
 ```
@@ -323,7 +324,7 @@ This breaks our build. We can fix it by updating the `ng2-dinos/src/app/index.ts
 // ng2-dinos/src/app/index.ts
 
 export * from './core/app.component';
-export * from './core/app.module';
+export * from './app.module';
 ```
 
 > **Note:** Always keep in mind that Angular 2 is very interconnected with regard to dependency imports. When we move files, we break references in other places. The CLI tells us where the problems are when we build. TypeScript code hinting in our editor can help too. To address the issue at its root, we can use additional `@NgModule`s to manage dependencies; you can learn more by reading [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/).
@@ -461,15 +462,15 @@ We can see from the terminal output that new files were created, but let's also 
 `app.module.ts` is our app's primary `@NgModule`. It now looks like this:
 
 ```typescript
-// ng2-dinos/src/app/core/app.module.ts
+// ng2-dinos/src/app/app.module.ts
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from '../header/header.component';
+import { AppComponent } from './core/app.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [

@@ -4,7 +4,7 @@ title: "Angular 2 Series - Part 4: Component Router In-Depth"
 description: "Learn all about the new Angular 2 router and how to set it up in your app."
 date: 2016-01-25 08:30
 alias: /2016/01/25/angular-2-series-part-4-component-router-in-depth/
-category: Technical guide, Angular, Angular2 Series
+category: Technical Guide, Angular, Angular2 Series
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
@@ -567,7 +567,7 @@ Let's go through the simple steps of adding Auth0 to your app.
 
 ### Sign Up
 
-If you haven't already done so, sign up for your [free Auth0 account](https://auth0.com/signup).
+If you haven't already done so, sign up for your [free Auth0 account](javascript:signup\(\)).
 
 ### Install angular2-jwt for Authenticated HTTP Requests
 
