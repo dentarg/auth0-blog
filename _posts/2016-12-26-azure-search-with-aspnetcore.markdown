@@ -8,7 +8,7 @@ banner:
   text: "Harness the potential of Azure Search's scalable and powerful engine through ASP.NET Core."
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
+  image: https://cdn.auth0.com/blog/azure-search/searchlogo.png
 author:
   name: Matías Quaranta
   url: http://twitter.com/ealsur
@@ -58,7 +58,7 @@ On the other hand, the available attributes applicable to fields are:
 
 A simple and visual representation of these Types and Attributes are visible during the [Azure Portal](https://docs.microsoft.com/azure/search/search-create-index-portal) **index creation** experience:
 
-![Index fields and attributes](path/to/image.png)
+![Index fields and attributes](https://cdn.auth0.com/blog/azure-search/searchatts.png)
 
 Alternatively, you can use the [REST API](https://docs.microsoft.com/rest/api/searchservice/Create-Index) to achieve the same result. 
 
@@ -69,7 +69,7 @@ Now that our index is ready, we need to load data inside; we have several altern
 
 Once your data is in, you can start by doing some searches. You can do it using the [.NET SDK](https://docs.microsoft.com/en-us/azure/search/search-query-dotnet) or [REST API](https://docs.microsoft.com/en-us/azure/search/search-query-rest-api) we mentioned before, but you can also do it directly from inside the Azure Portal without a single line of code needed through the **Search Explorer**:
 
-![Azure Search Explorer on the Azure Portal](path/to/image.png)
+![Azure Search Explorer on the Azure Portal](https://cdn.auth0.com/blog/azure-search/searchexplorer.png)
 
 You can even use any of the [query parameters](https://docs.microsoft.com/rest/api/searchservice/Search-Documents) specified on the documentation when you use the Explorer.
 
@@ -80,7 +80,8 @@ By default, Azure Search applies the [TF-IDF](https://en.wikipedia.org/wiki/Tf%E
 Azure Search has a set of very powerful set of features that will empower you to create the ultimate search experience, among the most used ones:
 
 - [Facets and filters](https://docs.microsoft.com/en-us/azure/search/search-faceted-navigation) let you create drilldown navigation experiences like the most popular e-commerce sites use by providing real-time statistics on result filters and enabling your users to apply them to further narrow their search.
-![Visual example of faceting and filtering](path/to/image.png)
+
+![Visual example of faceting and filtering](https://cdn.auth0.com/blog/azure-search/site_sample.png)
 - [Search Suggestions](https://azure.microsoft.com/en-us/blog/azure-search-how-to-add-suggestions-auto-complete-to-your-search-applications/) that cover auto-complete scenarios from within the search box.
 - [Advanced querying](https://docs.microsoft.com/en-us/rest/api/searchservice/Lucene-query-syntax-in-Azure-Search) for complex scenarios by supporting [Lucene query syntax](https://lucene.apache.org/core/4_10_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html), including [Fuzzy Search](https://docs.microsoft.com/en-us/rest/api/searchservice/Lucene-query-syntax-in-Azure-Search#bkmk_fuzzy), [Proximity Search](https://docs.microsoft.com/en-us/rest/api/searchservice/Lucene-query-syntax-in-Azure-Search#bkmk_proximity), [Term boosting](https://docs.microsoft.com/en-us/rest/api/searchservice/Lucene-query-syntax-in-Azure-Search#bkmk_termboost) and [Regular expressions](https://docs.microsoft.com/en-us/rest/api/searchservice/Lucene-query-syntax-in-Azure-Search#bkmk_regex).
 
@@ -103,7 +104,7 @@ After creating our service and consuming it for some time, we may be wondering: 
 
 Luckily, we can! We only need an Azure Storage account on the same region and subscription than our Azure Search service and use the [Azure Portal to configure it](https://docs.microsoft.com/en-us/azure/search/search-traffic-analytics). Afterwards we can either download the data or consume it with another service like Microsoft PowerBI with a [content pack](https://powerbi.microsoft.com/en-us/documentation/powerbi-content-pack-azure-search/).
 
-![PowerBI graphs](path/to/image.png)
+![PowerBI graphs](https://cdn.auth0.com/blog/azure-search/search_analytics.png)
 
 ## Mixing it all together
 
@@ -128,7 +129,7 @@ Once the generator is installed, we can create our basic app by running:
 
 And picking **Web Application Basic**:
 
-![Yeoman menu creating a web app](path/to/image.png)
+![Yeoman menu creating a web app](https://cdn.auth0.com/blog/azure-search/yoweb.PNG)
 
 >This creates a simple ASP.NET Core MVC Web application you can try by running `dotnet restore` and `dotnet run` on the created folder (you can also follow the next steps with a pre-existing ASP.NET Core application).
 
@@ -138,7 +139,7 @@ Continuing after this groundwork, we will create a personalized **Auth0 Sign up 
 
 You will initially need your Auth0 ClientId, Secret and Domain, which you can obtain from your Dashboard:
 
-![Auth0 ClientId and Secret](path/to/image.png)
+![Auth0 ClientId and Secret](https://cdn.auth0.com/blog/azure-search/auth0creds.png)
 
 Authentication will be handled by [OpenID Connect](https://auth0.com/docs/protocols/oidc), so we will first need to configure it. We need [ASP.NET Core’s OpenID Connect package](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.OpenIdConnect/), so we’ll add that to our dependencies:
 
@@ -242,11 +243,11 @@ This example will prompt for two extra fields, one a text value, another a restr
 
 Our Lock (with some other extra fields) will end up looking like:
 
-![Auth0 customized sign up Lock](path/to/image.png)
+![Auth0 customized sign up Lock](https://cdn.auth0.com/blog/azure-search/locksignup.PNG)
 
 All these extra fields get stored on our Azure DocumentDB database inside the **user_metadata** attribute as part of the JSON user document.
 
-![User profile on Azure DocumentDB](path/to/image.png)
+![User profile on Azure DocumentDB](https://cdn.auth0.com/blog/azure-search/lockmeta.PNG)
 
 ### Indexing users
 If you recall one of the features we mentioned earlier, Azure Search is capable of pulling data with **indexers** from Azure DocumentDB databases automatically.
@@ -255,39 +256,39 @@ We can start by creating an Azure Search account. The service includes a **free 
 
 Once our account is created, we will need to set up the import pipeline by selecting **Import data**:
 
-![Import data menu item](path/to/image.png)
+![Import data menu item](https://cdn.auth0.com/blog/azure-search/searchimport.PNG)
 
 Next, we’ll search for our Azure DocumentDB database among the available **sources**:
 
-![Import data sources](path/to/image.png)
+![Import data sources](https://cdn.auth0.com/blog/azure-search/searchimport_source.PNG)
 
 After selecting our database, we can customize the query that obtains our documents, so we will flatten the data generated by Auth0 by configuring this query:
 
-![Import query](path/to/image.png)
+![Import query](https://cdn.auth0.com/blog/azure-search/searchimport_query.PNG)
 
 Keep in mind that the user_metadata attribute will hold your own custom fields (in our case the address, gender, country and description), so edit this query accordingly.
 
 Once the source is set, Azure Search probes the database for one document and provides us with a suggested index structure:
 
-![Index structure](path/to/image.png)
+![Index structure](https://cdn.auth0.com/blog/azure-search/searchimport_index.PNG)
 
 We will mark each field’s attributes depending on the search experience we want to provide, data that comes from closed value lists are good Filterable/Facetable candidates while open text data is probable best suited for Searchable. 
 
 Additionally, we will create a **Suggester** that will use our users’ email to provide an auto-complete experience later on:
 
-![Creating a Suggester](path/to/image.png)
+![Creating a Suggester](https://cdn.auth0.com/blog/azure-search/searchimport_suggest.PNG)
 
 After configuring the index structure, we are left with just the pulling schedule that will define how often will our Indexer look for new information in our database, this includes automatic change tracking and, optionally, deletions tracking by a configurable soft delete attribute.
 
-![Configuring indexing schedule](path/to/image.png)
+![Configuring indexing schedule](https://cdn.auth0.com/blog/azure-search/searchimport_indexer.PNG)
 
 The indexer will run and detect new documents. We can always keep track of every run through the Portal:
 
-![Indexer history](path/to/image.png)
+![Indexer history](https://cdn.auth0.com/blog/azure-search/importerlog.png)
 
 Finally, you will need to write down your access **keys** so you can use it on the next section:
 
-![Service access keys](path/to/image.png)
+![Service access keys](https://cdn.auth0.com/blog/azure-search/search_keys.PNG)
 
 ### Creating our UX
 
@@ -370,11 +371,11 @@ public class SearchPayload
 
 Once the wiring is done, it’s just a matter of creating interfaces, you can use any client framework of your choice to do so, using [AngularJS](https://angularjs.org/) for example, we can create a UI that provides for a Faceted/Filterable search [experience](https://github.com/ealsur/auth0search/blob/master/wwwroot/lib/users.js):
 
-![Faceting and filtering UI](path/to/image.png)
+![Faceting and filtering UI](https://cdn.auth0.com/blog/azure-search/site_search.PNG)
 
 And even an auto-complete [experience](https://github.com/ealsur/auth0search/blob/master/wwwroot/lib/suggestions.js) using the Suggester we created previously:
 
-![Suggestions UI](path/to/image.png)
+![Suggestions UI](https://cdn.auth0.com/blog/azure-search/site_suggestions.PNG)
 
 Code samples for each experience are available at the repository.
 
