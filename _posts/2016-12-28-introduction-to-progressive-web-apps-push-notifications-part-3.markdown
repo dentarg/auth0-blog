@@ -2,8 +2,8 @@
 layout: post
 title: "Introduction to Progressive Web Apps (Push Notifications) - Part 3"
 description: Progressive Web Apps are the future. Learn how to make your mobile web app native-like by making it work offline, load instantly and send push notifications.
-date: 2016-12-19 08:30
-category: Technical Guide, Progressive Web Apps, Push Notifications
+date: 2016-12-28 08:30
+category: Technical Guide, Architecture, Progressive Web Apps
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/pwa/push_notification_Logo.png
