@@ -17,7 +17,6 @@ design:
   blog_series: false
 tags:
 - budget
-- 2017
 - authentication
 - expansion
 - scaling
