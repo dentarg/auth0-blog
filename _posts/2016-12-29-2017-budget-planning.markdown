@@ -2,7 +2,7 @@
 layout: post
 title: "2017 Budget Planning for Technology Startups: Authentication is Key"
 description: "We take a look at budget planning for startups and find out why making authentication part of the budget is more important now than ever"
-date: 2016-11-16 13:00
+date: 2016-12-29 13:00
 category: Technical Guide, Frontend, JavaScript
 author:
   name: Sebastián Peyrott
