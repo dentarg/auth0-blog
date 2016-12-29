@@ -25,13 +25,13 @@ related:
 
 ---
 
-**TL;DR:** Web development has evolved significantly over the years allowing developers to deploy a website or web application and serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In [Part 1](https://auth0.com/blog/introduction-to-progressive-apps-part-one) and [Part 2](part 2) of this tutorial, we set up our progressive web app, cached the pages and made it work fully offline. This time, we'll add the ability to activate push notifications.
+**TL;DR:** Web development has evolved significantly over the years allowing developers to deploy a website or web application and serve millions of people around the globe within minutes. With just a browser, a user can put in a URL and access a web application. With, **Progressive Web Apps**, developers can deliver amazing app-like experiences to users using modern web technologies. In [Part 1](https://auth0.com/blog/introduction-to-progressive-apps-part-one) and [Part 2](https://auth0.com/blog/introduction-to-progressive-web-apps-instant-loading-part-2) of this tutorial, we set up our progressive web app, cached the pages and made it work fully offline. This time, we'll add the ability to activate push notifications.
 
 ---
 
 ## Recap and Introduction to Part 3
 
-In [Introduction to Progressive Web Apps (Offline First)](https://auth0.com/blog/introduction-to-progressive-apps-part-one), we discussed how a typical progressive web application should look like and also introduced the service worker. We also cached the application shell. In [Introduction to Progressive Web Apps (Instant Loading)](https://link-to-part-2), we made the app cache dynamic data and load instantly from locally saved data.
+In [Introduction to Progressive Web Apps (Offline First)](https://auth0.com/blog/introduction-to-progressive-apps-part-one), we discussed how a typical progressive web application should look like and also introduced the service worker. We also cached the application shell. In [Introduction to Progressive Web Apps (Instant Loading)](https://auth0.com/blog/introduction-to-progressive-web-apps-instant-loading-part-2), we made the app cache dynamic data and load instantly from locally saved data.
 
 This part of the tutorial will cover:
 
