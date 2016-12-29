@@ -55,6 +55,8 @@ In the old days, every company kept their own mail server. Now you would be craz
 ## Why You Should Not Develop Authentication In-House
 Authentication is essential to all technology startups. Unfortunately, it is a complex subject. Not only a simple username/password is simply not enough (and inconvenient), but sensitive stuff can be accessed if your authentication system is compromised. In a sense, authentication and authorization are probably one of the most sensitive areas for technology startups. It appears deceivingly simple from the outside, but becomes a thorny subject as you start to learn its intricacies. Is your authentication system secured by two-factor authentication? Is an SMS fallback available? Are your users using passwords which have already been leaked from other sources? Are social logins implemented to bring more users to your platform? Can your system handle hundreds of thousands of users? Are your enterprise accounts supported and linked with your newer services? These are all tough questions for every startup. But with Auth0 things need not be this way.
 
+![Social logins at a click](https://cdn.auth0.com/blog/budget/social.png)
+
 <a href="">Sign up for a free Auth0</a> account and learn why more and more companies are using an external authentication solution. You can get up and running in a matter of minutes, with support for features such as:
 
 - [A visual dashboard for managing all settings](https://auth0.com/docs/user-profile)
@@ -69,7 +71,17 @@ Authentication is essential to all technology startups. Unfortunately, it is a c
 - [Programmable rules](https://auth0.com/docs/rules)
 - [Easy integration for mobile and web apps](https://auth0.com/lock)
 
+![Auth0 Lock](https://cdn.auth0.com/blog/budget/lock.png)
+
 Let us handle authentication for you so you can truly focus on what matters: delivering your product.
+
+For example, consider the case of enterprise federation. The enterprise sales cycle is already too long. Meetings, contracts, and due diligence slow the sales cycle. Having to build authentication and enterprise federation proof of concepts for various enterprise connections delays the process further. Not being able to support enterprise federation the way a customer requires can cost you the sale. Having enterprise federation should be a "check-the-box" item rather than a feature to be scrutinized.
+
+![Auth0 enterprise connections](https://cdn.auth0.com/blog/budget/enterprise.png)
+
+Auth0 features a comprehensive enterprise toolkit that supports features like federation through all major identity providers, single sign on (SSO), auditing, analytics, and enhanced security features like multifactor authentication and anomaly detection. Many of these features can be enabled and configured with the flip of a switch and a few lines of code.
+
+Having a modern authentication platform does not result in increased revenue alone. Freeing up your developers to focus on building the unique features of your business, on the other hand, does. 
 
 ## Other Stuff To Keep In Mind
 Unfortunately, budget planning is not all about what you can do in-house or buy from external providers. It also has to do with strategy. Here are some things we have found can make a whole world of difference:
