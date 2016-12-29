@@ -3,27 +3,25 @@ layout: post
 title: "2017 Budget Planning for Technology Startups: Authentication is Key"
 description: "We take a look at budget planning for startups and find out why making authentication part of the budget is more important now than ever"
 date: 2016-12-29 13:00
-category: Technical Guide, Frontend, JavaScript
-author:
-  name: Sebastián Peyrott
-  url: https://twitter.com/speyrott?lang=en
-  mail: speyrott@auth0.com
-  avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
+category: Growth, Identity
+author: 
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/es6rundown/logo.png
-  image_size: "100%"
-  image_bg_color: "#222228"
-  blog_series: false
+  bg_color: "#00715A"
+  image: https://cdn.auth0.com/blog/budget/logo.png
 tags:
 - budget
 - authentication
 - expansion
 - scaling
 - startup
-- startups
 related:
-
+- 2016-12-02-modern-authentication-for-your-clients-made-easy
+- 2016-11-03-auth0-lock-is-here-for-b2b-and-b2c
+- 2016-07-22-customer-data-is-king-four-ways-to-know-your-customers-better
 ---
 
 2017 is coming and with it so do many tough decisions for startups and small businesses alike. Budget planning is perhaps the hardest of them. In this short article we will take a look at what is important for tech startups, how to aim for success in the coming year, and why you should consider authentication an important part of your budget. Read on!
