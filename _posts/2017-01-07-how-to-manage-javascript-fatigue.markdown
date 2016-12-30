@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to Manage JavaScript Fatigue"
-description: "Many developers are overwhelmed by the proliferation of modern JS. Learn how to manage and mitigate JS fatigue."
+description: "Many developers are overwhelmed by the rapidly expanding ecosystem of modern JavaScript. Learn how to manage and mitigate JS fatigue."
 date: 2017-01-07 8:30
 category: Growth, Generic
 banner:
