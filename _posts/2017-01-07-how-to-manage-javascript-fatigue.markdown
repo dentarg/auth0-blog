@@ -84,9 +84,9 @@ For plenty of developers, there are two primary ways we efficiently learn someth
 1. We need to learn it in order to complete a project for work with predefined requirements and a deadline, or:
 2. We build something on our own that we're interested in.
 
-Learning anything can be arduous and tedious if we don't have a clear view of the end result or real-world practicality. On the same token, **learning is much more gratifying when we're using it to [build something interesting or useful](https://medium.com/@wwalser/cure-for-js-fatigue-build-something-more-interesting-afaf74b95682#.sdpp03kro)**.
+Learning anything can be arduous and tedious if we don't have a clear view of the end result or real-world practicality. On the same token, **learning is much more gratifying when we're using it to build something interesting or useful**.
 
-One good way to learn new tools and frameworks is to make the same thing (something useful that you like) using different tools.  This [shouldn't be the ubiquitious and tiresome TODO app](https://medium.com/building-kwoosh/you-dont-need-more-knowledge-83c5247e8f60#.yvz0arns4). It should be something that covers many common features of modern applications, such as:
+One good way to learn new tools and frameworks is to make the same thing (something useful that you like) using different tools.  This [shouldn't be the ubiquitious and tiresome TODO app](https://hackernoon.com/cure-for-js-fatigue-build-something-more-interesting-afaf74b95682#.bi5mnqt96). It should be something that covers many common features of modern applications, such as:
 
 * Routing
 * Global header and footer
