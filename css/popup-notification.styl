@@ -1,11 +1,14 @@
 .pn-popup {
   visibility: hidden;
-  transition: all 1s ease;
+  transition: all .5s ease;
 }
 
-.pn-popup.is-visible {
+.pn-popup button:focus{
+  outline: none
+}
+
+.pn-is-visible {
   visibility: visible;
-  transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
 .pn-popup-container {
@@ -20,7 +23,7 @@
   top: 100px;
   z-index: 1500;
   transform: translateY(-40px);
-  transition: all 1s ease;
+  transition: all .5s ease;
 
 }
 
