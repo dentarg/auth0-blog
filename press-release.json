@@ -14,7 +14,7 @@ sitemap:
       "date"          : "{{ post.date | date: "%B %d, %Y" }}",
       "author"        : "{{ post.author.name }}",
       "thumbnail"     : "{{ post.design.image }}",
-      "fullDate"      : "{{ post.date | date_to_xmlschema}}"
+      "fullDate"      : "{{ post.date | date: "%Y-%m-%d" }}"
     }{% unless forloop.last  %},{% endunless %}
   {% endfor %}
 ]
