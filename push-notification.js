@@ -216,6 +216,7 @@ $(document).ready(function ($) {
   // popup buttons
   $('#push-allow').on('click', function (e) {
     $('.pn-popup').removeClass('pn-is-visible');
+    valActive = false;
     requestNotificationPermission();
   });
 
