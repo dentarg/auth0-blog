@@ -5,7 +5,7 @@ description: "Many developers are overwhelmed by the proliferation of modern JS.
 date: 2017-01-07 8:30
 category: Growth, Generic
 banner:
-  text: "Auth0 makes it easy to add authentication to your single page application."
+  text: "Auth0 makes it easy to add authentication to your JS application."
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"
