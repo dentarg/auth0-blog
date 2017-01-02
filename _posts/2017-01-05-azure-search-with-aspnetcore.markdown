@@ -2,8 +2,8 @@
 layout: post
 title: "Streamlining a search experience with ASP.NET Core and Azure Search"
 description: Harness the potential of Azure Search's scalable and powerful engine through ASP.NET Core.
-date: 2016-10-26 08:30
-category: Technical guide, Microsoft, DocumentDB
+date: 2017-01-05 08:30
+category: Technical guide, Microsoft, Azure
 banner:
   text: "Harness the potential of Azure Search's scalable and powerful engine through ASP.NET Core."
 design:
