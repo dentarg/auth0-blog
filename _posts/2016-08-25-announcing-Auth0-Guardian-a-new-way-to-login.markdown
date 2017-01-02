@@ -53,7 +53,7 @@ Manual steps in the MFA process are usually the main factor against its adoption
 Auth0 Guardian is our iOS and Android app for multifactor authentication. The best of it: it can work using push-notifications. That's right, no more SMSs or manual codes. Here, have a look:
 
 <video autoplay loop>
-    <source src="https://auth0.com/lib/guardian/resources/videos/mfa-hero-loop.mp4"/>
+    <source src="https://auth0.com/pages/guardian/resources/videos/mfa-hero-loop.mp4"/>
 </video>
 
 If you are a security conscious user, you can get a glance at the login request details:
