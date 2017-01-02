@@ -6,16 +6,16 @@ featured_tab: active
 description: "Featured posts from the Auth0 Blog: Everything you need to know about Identity Infrastructure, Access Management, SSO and JWT Authentication. Company updates & Technology Trends."
 
 ---
-
-{% assign featured = site.tags.featured | sort: 'pr' %}
+{% assign featured = [] %}
+{% if site.tags.featured %}
+  {% assign featured = site.tags.featured | sort: 'pr' %}
+{% endif %}
 
 {% include banner_blog.html %}
 
 {% include navigation.html %}
 
 <div id="container" class="container">
-
-
 
 <ul class="archive">
   {% for post in featured limit: 6 %}
