@@ -1,16 +1,23 @@
 ---
 layout: post
-title: "Rails 5 with Auth0"
-description: <A SHORT DESCRIPTION OF THE POST>
-date: 2016-12-09 13:36
+title: "Managing authentication in your Ruby on Rails 5 app with Auth0"
+description: Learn how to create an application in Rails 5 with Auth0.
+date: 2016-01-03 13:36
 author:
   name: Amin Shah Gilani
   url: https://amin.gilani.me
   mail: amin@gilani.me
   avatar: https://secure.gravatar.com/avatar/e97345f1125996ea6e1a8394fd45da28
+design:
+  image: https://cdn.auth0.com/blog/rails-with-auth0/logo.png
+  bg_color: "#4A4A4A"
 tags:
 - ruby-on-rails
 - auth0
+related:
+- 2016-08-11-bootstrapping-a-react-project
+- 2016-12-27-learn-about-inferno-js-build-and-authenticate-an-app
+- 2016-02-22-12-steps-to-a-faster-web-app
 ---
 
 # Auth0 with Rails 5
@@ -19,7 +26,7 @@ tags:
 
 Rails 5 is out with Action Cable, a brand new API mode, and best of all, Rake tasks inside Rails!
 
-The existing quickstart at Auth0 aims to get you up and running really fast. But in this tutorial, we'll create a new application that compartmentalizes your code appropriately, does everything in The Rails Way. This will lead to a stronger base on which to grow your application.
+The [existing quickstart](https://auth0.com/docs/quickstart/webapp/rails) at Auth0 aims to get you up and running really fast. But in this tutorial, we'll create a new application that compartmentalizes your code appropriately, does everything in The Rails Way. This will lead to a stronger base on which to grow your application.
 
 As an added bonus, this application will be compatible with [Pundit](https://github.com/elabs/pundit) right out of the box!
 
