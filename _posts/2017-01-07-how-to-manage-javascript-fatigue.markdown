@@ -73,15 +73,15 @@ If #1 isn't practical for your use case and the answers to #2 and #3 are not bot
 
 In fact, it can make us _better developers_ to know when to be okay with _not_ learning some new tool. You may have heard the expression "[Jack of all trades, master of none](https://en.wikipedia.org/wiki/Jack_of_all_trades,_master_of_none)", which implies superficial knowledge in many things but expertise in none of them. Remember that **you're _not_ obligated to learn everything** and you can excel at your craft without jumping on every bandwagon that rolls up to the curb.
 
-On the other hand, **if a tool has gained critical mass _and_ will help you solve a frequent problem, it's worth further exploration**. Don't feel like you have to commit to learning it right away, but it might help to find out a little more and keep an eye on it.
+On the other hand, **if a tool has gained critical mass _and_ will help you solve a problem you're having, it's worth further exploration**. Don't feel like you have to commit to learning it right away, but it might help to find out a little more and keep an eye on it.
 
-{% include tweet_quote.html quote_text="Pick your battles: if a tool has gained critical mass and helps you solve a frequent problem, it's worth exploration." %}
+{% include tweet_quote.html quote_text="Pick your battles: if a tool has gained critical mass and helps you solve a problem, it's worth exploration." %}
 
 ### Make Something Interesting / Useful
 
-For plenty of developers, there are two primary ways we efficiently learn something new in a short amount of time:
+For many developers, there are two primary ways we learn something new in a short amount of time:
 
-1. We need to learn it in order to complete a project for work with predefined requirements and a deadline, or:
+1. We need to learn it in order to complete a project with predefined requirements and a deadline, or:
 2. We build something on our own that we're interested in.
 
 Learning anything can be arduous and tedious if we don't have a clear view of the end result or real-world practicality. On the same token, **learning is much more gratifying when we're using it to build something interesting or useful**.
