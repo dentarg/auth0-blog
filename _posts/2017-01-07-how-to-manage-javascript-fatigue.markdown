@@ -118,7 +118,7 @@ It's ideal to know how and why something works so it's less magical, but [that _
 
 {% include tweet_quote.html quote_text="'Learn as you go' is a legitimate, effective way to absorb lots of new information over time." %}
 
-## Avoid Fatigue Using Auth0 For JS App Authentication
+## Aside: Use Auth0 For Authentication in JS Apps
 
 Taking advantage of knowledge, tools, and solutions from others is extremely valuable when combating JS fatigue. Authentication can be one of the most complex, time-consuming features to build for _any_ application. Developers who are already learning a new toolchain, library, or framework can become even more overwhelmed building secure, complicated features like authentication. 
 
