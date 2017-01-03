@@ -40,9 +40,9 @@ There's already an Auth0 tutorial on making a Ruby on Rails app, but it skips ov
 
 If you're working with rails, you already know this, but I like to keep things complete. We're also going to be using postgresql as our database, even in development. It's good practice to reflect your production environment as closely as possible in development, and databases can be particularly tricky since some migrations that work with, say, sqlite won't work with postgresql.
 
-~~~bash
+```bash
 $ rails new auth0_setup --database=postgresql
-~~~
+```
 
 ### Setting up Gems
 
@@ -52,36 +52,36 @@ Adhering to best practices, we're going to be storing secrets in environment var
 
 Add the following to your `Gemfile` and run `bundle install`:
 
-~~~ruby
+```ruby
 # Standard Auth0 requirements
 gem 'omniauth', '~> 1.3.1'
 gem 'omniauth-auth0', '~> 1.4.1'
 # Secrets should never be stored in code
 gem 'dotenv-rails', require: 'dotenv/rails-now', group: [:development, :test]
-~~~
+```
 
 ### Setup your environment variables
 
 Dotenv will load environment variables stored in the `.env` file, so you don't want to check that into version control. Add the following to your `.gitignore` and commit it immediately.
 
-~~~bash
+```bash
 # Ignore the environment variables
 .env
-~~~
+```
 
 Now we can safely store our secrets. Create a `.env` file, and copy your Auth0 tokens from the settings page of your [Client](https://manage.auth0.com/#/clients)
 
-~~~
+```
 AUTH0_CLIENT_ID= #INSERT YOUR SECRET HERE
 AUTH0_CLIENT_SECRET= #INSERT YOUR SECRET HERE
 AUTH0_DOMAIN= #INSERT YOUR SECRET HERE
-~~~
+```
 
 ### Setup app secrets
 
 Instead of referring to the secrets directly in your code, fetch them once in the secrets file, where they should be, and refer them via this file throughout your code. Make the following changes to your `config/secrets.yml`
 
-~~~yaml
+```yaml
 # Add this to the top of the file
 default: &default
   auth0_client_id: <%= ENV['AUTH0_CLIENT_ID'] %>
@@ -101,13 +101,13 @@ production:
   <<: *default
   ...
 
-~~~
+```
 
 ### Create an initializer
 
 Initializers are loaded before the application is executed. Let's configure Omniauth's Auth0 strategy and add it to the middleware stack. Create `config/initializers/auth0.rb` to configure OmniAuth.
 
-~~~ruby
+```ruby
 # Configure the middleware
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider(
@@ -118,7 +118,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     callback_path: '/auth/auth0/callback'
   )
 end
-~~~
+```
 
 ### Creating Pages
 
@@ -126,18 +126,18 @@ After authenticating the user, Auth0 will redirect to your app and tell you the 
 
 We also want two pages for our simplistic app, a publicly accessible home page, and a privately accessible dashboard. These will be in their own controllers.
 
-~~~bash
+```bash
 rails g controller PublicPages home && \
 rails g controller Dashboard show && \
 rails g controller auth0 callback failure --skip-template-engine --skip-assets
-~~~
+```
 
 Troubleshoot:  
 If you get errors running your app at this point, you should probably setup your database with `rails db:setup && rails db:migrate`
 
 Now let's wire up the routes to our controllers and actions. Make the following changes to `config/routes.rb`:
 
-~~~ruby
+```ruby
 # home page
 root 'public_pages#home'
 
@@ -147,13 +147,13 @@ get 'dashboard' => 'dashboard#show'
 # Auth0 routes for authentication
 get '/auth/auth0/callback' => 'auth0#callback'
 get '/auth/failure'        => 'auth0#failure'
-~~~
+```
 
 ### Setup the Auth0 Controller
 
 Replace the file in `/app/controllers/auth0_controller.rb` with
 
-~~~ruby
+```ruby
 class Auth0Controller < ApplicationController
   # This stores all the user information that came from Auth0
   # and the IdP
@@ -171,16 +171,16 @@ class Auth0Controller < ApplicationController
     # TODO show a failure page or redirect to an error page
   end
 end
-~~~
+```
 
 You may want to finish the TODO above with your own custom behavior.
 
 Auth0 only allows callbacks to a whitelist of URLs for security purposes. We also want a callback for our development environment so specify these callback urls at [Application Settings](https://manage.auth0.com/#/applications):
 
-~~~
+```
 https://example.com/auth/auth0/callback
 http://localhost:3000/auth/auth0/callback
-~~~
+```
 
 Replace `https://example.com` with the URL of your actual application.
 
