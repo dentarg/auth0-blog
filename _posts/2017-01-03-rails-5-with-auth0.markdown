@@ -274,12 +274,12 @@ end
 
 And then in our `app/views/dashboard/show.html.erb`:
 
-```erb
+{% highlight html %}
 <div>
   <img class="avatar" src="<%= @user[:info][:image] %>"/>
   <h2>Welcome <%= @user[:info][:name] %></h2>
 </div>
-```
+{% highlight html %}
 
 
 ### Descriptive Errors
