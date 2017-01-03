@@ -20,11 +20,9 @@ related:
 - 2016-02-22-12-steps-to-a-faster-web-app
 ---
 
-# Auth0 with Rails 5
+Rails 5 is out with Action Cable, a brand new API mode, and best of all, Rake tasks inside Rails!
 
 ![Auth0 On Rails](https://github.com/amingilani/auth0-rails5/raw/master/docs/auth0-on-rails.png)
-
-Rails 5 is out with Action Cable, a brand new API mode, and best of all, Rake tasks inside Rails!
 
 The [existing quickstart](https://auth0.com/docs/quickstart/webapp/rails) at Auth0 aims to get you up and running really fast. But in this tutorial, we'll create a new application that compartmentalizes your code appropriately, does everything in The Rails Way. This will lead to a stronger base on which to grow your application.
 
