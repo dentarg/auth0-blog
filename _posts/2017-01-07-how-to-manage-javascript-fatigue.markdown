@@ -41,10 +41,10 @@ We get JS fatigue when the requirements (either actual or self-imposed) for lear
 
 JS fatigue can refer to:
 
-* the fear that we'll fall behind or become obsolete if we don't know and use the newest, hottest tools.
-* the sense that we never become experts in anything because everything changes too quickly and the tools we're trying to learn are already being replaced.
-* picking up a new framework and then becoming overwhelmed thinking we need to master everything in the toolchain in order to use it.
-* the fear that we'll pick a tool that will get displaced and support and resources will die out.
+* the fear that we'll fall behind or become obsolete if we don't know and use the newest, hottest tools;
+* the sense that we never become experts in anything because everything changes too quickly and the tools we're trying to learn are already being replaced;
+* picking up a new framework and then becoming overwhelmed thinking we need to master everything in the toolchain in order to use it;
+* the fear that we'll pick a tool that will get displaced, resulting in a lack of support and obsolete resources;
 * frustration with a lack of user empathy when consulting documentation or resources while trying to learn a new framework or toolchain.
 
 ## JavaScript's Astonishing Growth Rate
@@ -64,7 +64,7 @@ At this time, JS proliferation is _not_ showing signs of slowing. JS fatigue doe
 The first thing to focus on is picking your battles. We get easily overwhelmed trying to follow every hot new thing that emerges. **It's good to be _aware_ of the sea of new technologies, but not to drown in it.** If something starts to come up a lot, read a little about it. You'll want to know just enough to answer the following:
 
 1. What is its primary purpose?
-2. Is it popular enough to have a stable, growing community and easily accessible support?
+2. Is it popular enough to have a stable, growing community and easily accessible support? (Who is behind it? Who is using it?)
 3. Does it _solve_ a problem I frequently run into with my current tools?
 
 If #1 isn't practical for your use case and the answers to #2 and #3 are not both _yes_, don't expend precious time and effort learning this if you're already fatigued. **It can be best to wait and see, or to take a pass on tools that don't serve your goals.** [Make peace with your focus](https://medium.com/javascript-scene/why-im-thankful-for-js-fatigue-i-know-you-re-sick-of-those-words-but-this-is-different-296fae0c888f#.h81mamgiv) and remember that _no_ JS developer is an expert in every new tool that lands.
@@ -106,7 +106,7 @@ It's important to maintain a high level of interest and/or usefulness with your 
 
 ### Be Aware of Common Concepts
 
-Even as JS grows and changes, there are always concepts shared amongst many new frameworks and libraries. It's useful to keep an eye out for these tools and topics. For example, [ES6](http://es6-features.org/) and [TypeScript](https://www.typescriptlang.org/) are becoming more heavily used, as well as [Webpack](https://webpack.github.io/), [functional reactive programming](https://vincenttunru.com/Javascript-reactive-programming/), and [web component](http://webcomponents.org/) concepts. **Knowing about common dependencies makes different frameworks feel more similar.**
+Even as JS grows and changes, there are always concepts shared amongst many new frameworks and libraries. It's useful to keep an eye out for these tools and topics. For example, [ES6](http://es6-features.org/) and [TypeScript](https://www.typescriptlang.org/) are becoming more heavily used, as well as [Webpack](https://webpack.github.io/), [functional reactive programming](https://vincenttunru.com/Javascript-reactive-programming/), and [web components](http://webcomponents.org/). **Knowing about common dependencies makes different frameworks feel more similar.**
 
 When you take the plunge with a new framework and toolchain, you'll learn some of the common topics. You'll be pleased to find that other modern frameworks leverage many of the same tools and concepts and are now much easier to pick up.
 
@@ -117,6 +117,14 @@ Many developers are fatigued by the fact that new frameworks have so many comple
 It's ideal to know how and why something works so it's less magical, but [that _doesn't_ mean you need to frontload that knowledge before getting started](https://medium.com/building-kwoosh/you-dont-need-more-knowledge-83c5247e8f60#.yvz0arns4). Don't worry if you find yourself picking it up along the way. When you hit a roadblock, work through it. Remember to take breaks if you get frustrated. **"Learn as you go" is a legitimate, effective method for absorbing lots of new information over time.** Once you've done the basics, the _how_ and _why_ reveal themselves, either in "Ah-ha!" moments or gradually with repeated use.
 
 {% include tweet_quote.html quote_text="'Learn as you go' is a legitimate, effective way to absorb lots of new information over time." %}
+
+## Avoid Fatigue Using Auth0 For JS App Authentication
+
+Taking advantage of knowledge, tools, and solutions from others is extremely valuable when combating JS fatigue. Authentication can be one of the most complex, time-consuming features to build for _any_ application. Developers who are already learning a new toolchain, library, or framework can become even more overwhelmed building secure, complicated features like authentication. 
+
+If you have a JS app that needs authentication, Auth0 can bear the load for any framework. Auth0's [Single Page Application QuickStart guides](https://auth0.com/docs/quickstart/spa) and [Auth0 SDK for Web](https://auth0.com/docs/libraries/auth0js) provide indepth documentation for robust identity and user management in JS apps. Auth0 makes authentication straightforward, greatly reducing fatigue and cognitive burden for busy developers.
+
+Don't be hesitant to utilize the proper tools and services that will help you do your job and do it well. We're much less fatigued by new things when we have help completing difficult tasks. If authentication is one of your primary needs, you can learn more in the [Auth0 docs](https://auth0.com/docs) or [sign up for a free account here](https://auth0.com/signup).
 
 ## Conclusion
 
