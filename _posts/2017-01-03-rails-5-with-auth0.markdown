@@ -2,7 +2,7 @@
 layout: post
 title: "Managing authentication in your Ruby on Rails 5 app with Auth0"
 description: Learn how to create an application in Rails 5 with Auth0.
-date: 2016-01-03 13:36
+date: 2017-01-03 13:36
 author:
   name: Amin Shah Gilani
   url: https://amin.gilani.me
@@ -190,7 +190,7 @@ Replace `https://example.com` with the URL of your actual application.
 
 Auth0 provides a beautiful embedded login form called [Lock](https://auth0.com/docs/libraries/lock). It's designed to work with Auth0 and looks absolutely gorgeous. Replace the contents of `app/views/public_pages/home.html.erb`
 
-~~~html
+{% highlight html %}
 <div id="root" style="width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px; box-sizing: border-box;">
     embedded area
 </div>
@@ -210,13 +210,13 @@ Auth0 provides a beautiful embedded login form called [Lock](https://auth0.com/d
   });
   lock.show();
 </script>
-~~~
+{% endhighlight html %}
 
 ### An auth0 helper
 
 Coming from using Devise for authentication in Rails, I liked the helpers it gave so let's recreate those as closely as possible. Add the following to `app/helpers/auth0_helper.rb`
 
-~~~ruby
+```ruby
 module Auth0Helper
   private
 
@@ -247,13 +247,13 @@ module Auth0Helper
     root_path
   end
 end
-~~~
+```
 
 For this helper to be available throughout your application, add this line to your `app/controllers/application_controller.rb`. All other controllers inherit from Application Controller.
 
-~~~ruby
+```ruby
 include Auth0Helper
-~~~
+```
 
 ### Showing user info in the dashboard
 
@@ -261,7 +261,7 @@ include Auth0Helper
 
 We don't really have any content to show in our sample application at this point so let's make our dashboard show the User's picture and name upon login!
 
-~~~ruby
+```ruby
 # app/controllers/dashboard_controller.rb
 class DashboardController < ApplicationController
   before_action :authenticate_user!
@@ -270,30 +270,30 @@ class DashboardController < ApplicationController
     @user = current_user
   end
 end
-~~~
+```
 
 And then in our `app/views/dashboard/show.html.erb`:
 
-~~~erb
+```erb
 <div>
   <img class="avatar" src="<%= @user[:info][:image] %>"/>
   <h2>Welcome <%= @user[:info][:name] %></h2>
 </div>
-~~~
+```
 
 
 ### Descriptive Errors
 
 Remember the `failure` callback? When authentication fails, you want to handle it gracefully. So on unsuccessful authentication, let's make Omniauth internally redirect there and pass along an error description. Add this to your `config/initializers/omniauth.rb`
 
-~~~ruby
+```ruby
 OmniAuth.config.on_failure = Proc.new { |env|
   message_key = env['omniauth.error.type']
   error_description = Rack::Utils.escape(env['omniauth.error'].error_message)
   new_path = "#{env['SCRIPT_NAME']}#{OmniAuth.config.path_prefix}/failure?error_type=#{message_key}&error_msg=#{error_description}"
   Rack::Response.new(['302 Moved'], 302, 'Location' => new_path).finish
 }
-~~~
+```
 
 ### Overflowing Cookies in Development
 
@@ -301,16 +301,16 @@ Cookies have a 4kb limit, which is too small to store our user's information in.
 
 1. Add this to `/config/initializers/session_store.rb`
 
-   ~~~
+   ```
    Rails.application.config.session_store :cache_store
-   ~~~
+   ```
 
 2. Add this to the end of the config block in `/config/enviroments/development.rb` so that it overrides all other instances:
 
-   ~~~
+   ```
    # enforce this rule
    config.cache_store = :memory_store
-   ~~~
+   ```
 
 ## Conclusion
 
