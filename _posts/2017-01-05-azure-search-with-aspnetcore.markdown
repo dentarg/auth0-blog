@@ -7,8 +7,8 @@ category: Technical guide, Microsoft, Azure
 banner:
   text: "Harness the potential of Azure Search's scalable and powerful engine through ASP.NET Core."
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/azure-search/searchlogo.png
+  bg_color: "#00628A"
+  image: https://cdn.auth0.com/blog/azure-search/logo.png
 author:
   name: Matías Quaranta
   url: http://twitter.com/ealsur
