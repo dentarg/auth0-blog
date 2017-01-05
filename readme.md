@@ -71,7 +71,7 @@ design:
 
 1.  Enter the blog directory and make sure with ruby --version that you are running the right ruby version (.ruby-version file).
 2.  Install dependencies with `bundle install`
-3.  `bundle exec jekyll serve --watch`
+3.  `bundle exec jekyll serve --watch`  or  `bundle exec jekyll serve --watch --limit_posts 10`
 4.  Open [http://localhost:4000/blog/](http://localhost:4000/blog/). Make sure you don't leave out the trailing slash (/), otherwise you will get:
 ![error](https://i.cloudup.com/FWLX_cUhXb.png)
 
