@@ -10,8 +10,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: https://cdn.auth0.com/blog/systems-integrators-post/logo.png
-  bg_color: "#165196"
+  image: https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/logo.png
+  bg_color: "#003472"
 tags:
 - frameworks
 - cross-platform
