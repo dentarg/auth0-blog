@@ -28,7 +28,7 @@ related:
 
 ---
 
-**TL;DR** Mobile apps are here to stay. For a long time, to build a mobile app you would need extensive Ojbective-C or Java knowledge. Hybrid frameworks and transpilers existed, but paled in comparisson to what could be accomplished building apps natively. In recent years, these frameworks have started catching up on features, functionality and performance. Today, we'll take a look at five promising frameworks for building cross-platform mobile applications.
+**TL;DR** Mobile apps are here to stay. For a long time, to build a mobile app you would need extensive Objective-C or Java knowledge. Hybrid frameworks and transpilers existed, but paled in comparison to what could be accomplished building apps natively. In recent years, these frameworks have started catching up on features, functionality and performance. Today, we'll take a look at five promising frameworks for building cross-platform mobile applications.
 
 ---
 
@@ -36,7 +36,7 @@ Two mobile platforms dominate the landscape, Apple's iOS and Google's Android. C
 
 Android is based on Java, while iOS runs on Objective-C and Swift. Two fundamentally different frameworks for developers to target. For a long time, companies wishing to develop mobile apps, had to have two teams, one dedicated to iOS development, while the other to Android. Hybrid or cross-platform frameworks and transpilers have gained popularity as they allow developers to target multiple platforms with a single code base, reducing cost and development time.
 
-Today we will take a look at alternatives to building native mobile applications. We will look at various frameworks and approaches to brining your app to the small screen and the pros and cons of each. Without further ado, let's jump right in.
+Today we will take a look at alternatives to building native mobile applications. We will look at various frameworks and approaches to bringing your app to the small screen and the pros and cons of each. Without further ado, let's jump right in.
 
 ## Ionic
 
@@ -76,7 +76,7 @@ There is often confusion in the developer community between PhoneGap and Cordova
 
 ## Xamarin
 
-[Xamarin](https://www.xamarin.com/) comes from [Microsoft](https://microsoft.com) and takes a unique approach to cross-platform app development. Xamarin applications are built with C# and the underlying layer on which Xamarin is built on top of is [Mono](http://www.mono-project.com/). The benefit of building applications with Xamarin compared to Cordova-based frameworks is that apps built with Xamarin make use each platforms native API's. This means that Xamarin apps compile down to native iOS and Android applications and behave as such.
+[Xamarin](https://www.xamarin.com/) comes from [Microsoft](https://microsoft.com) and takes a unique approach to cross-platform app development. Xamarin applications are built with C# and the underlying layer on which Xamarin is built on top of is [Mono](http://www.mono-project.com/). The benefit of building applications with Xamarin compared to Cordova-based frameworks is that apps built with Xamarin make use each platform's native API's. This means that Xamarin apps compile down to native iOS and Android applications and behave as such.
 
 Xamarin is not a code once, run everywhere solution. While you can achieve a high level of code shareability, you will more than likely need to write specific code for iOS and Android versions of your app. With Xamarin, you will not be able to use native open-source libraries that are available for iOS and Android, but you will be able to make use of many .Net libraries. Finally, getting access to the latest native APIs can be slow since the Xamarin developers will have to implement them into the framework after they are released.
 
@@ -88,7 +88,7 @@ Xamarin is not a code once, run everywhere solution. While you can achieve a hig
 * Performance of Xamarin apps is comparable to that of natively written applications.
 
 ### Cons
-* Although you can achieve code shareability, you will occassionaly need to write platform specific code.
+* Although you can achieve code shareability, you will occasionally need to write platform specific code.
 * You will need to understand iOS and Android APIs to be able to get the most of out the platform.
 * The licensing model can be difficult to navigate with certain features locked behind Professional and Enterprise licenses.
 
@@ -112,16 +112,16 @@ React Native combines the easy to learn syntax of React but also enables develop
 
 ## Progressive Web Apps
 
-[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) aim to make web applications behave like their native counterparts. This project comes to us from [Google](https://google.com) and presents a very intersting proposition. PWA apps aim to be reliable, fast, and engaging. This means that apps should load fast, present an engaging and fluid user experience, and support native features like push notifications or offline access. The PWA spec will add new features and functionaly over time and developers can choose how many features of PWA they wish to implement in their applications making it perhaps the most flexible way to reach mobile users.
+[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) aim to make web applications behave like their native counterparts. This project comes to us from [Google](https://google.com) and presents a very interesting proposition. PWA apps aim to be reliable, fast, and engaging. This means that apps should load fast, present an engaging and fluid user experience, and support native features like push notifications or offline access. The PWA spec will add new features and functionality over time and developers can choose how many features of PWA they wish to implement in their applications making it perhaps the most flexible way to reach mobile users.
 
-Progressive Web Apps are unique for two major reasons. While they can be "installed" on a users homescreen, they are not delivered through the App Store or Google Play. Instead, when a user visits a PWA, they are presented with an option to add it to their homescreen. This is interesting because it gives the developer the power to deliver and update their applications without forcing the user to do anything. Second, Progressive Web Apps, seeing as they're web applications, can be scraped and indexed in search engines. This significantly increases discoverability and opens doors for deeper integrations in the future.
+Progressive Web Apps are unique for two major reasons. While they can be "installed" on a user's homescreen, they are not delivered through the App Store or Google Play. Instead, when a user visits a PWA, they are presented with an option to add it to their homescreen. This is interesting because it gives the developer the power to deliver and update their applications without forcing the user to do anything. Second, Progressive Web Apps, seeing as they're web applications, can be scraped and indexed in search engines. This significantly increases discoverability and opens doors for deeper integrations in the future.
 
 {% include tweet_quote.html quote_text="Progressive Web Apps allow developers to add mobile features to existing web applications." %}
 
 ### Pros
-* No need for seperate code base. Your web application is your mobile application.
-* App will be indexed and discoverable through seach engines.
-* App does not need to go through the App Store or Google Play to be "installed" on a users mobile device.
+* No need for separate code base. Your web application is your mobile application.
+* App will be indexed and discoverable through search engines.
+* App does not need to go through the App Store or Google Play to be "installed" on a user's mobile device.
 
 ### Cons 
 * Limited support for PWA on iOS.
