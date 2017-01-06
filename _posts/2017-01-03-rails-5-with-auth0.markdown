@@ -3,6 +3,7 @@ layout: post
 title: "Managing authentication in your Ruby on Rails 5 app with Auth0"
 description: Learn how to create an application in Rails 5 with Auth0.
 date: 2017-01-03 13:36
+category: Technical guide, Backend, Ruby
 author:
   name: Amin Shah Gilani
   url: https://amin.gilani.me
