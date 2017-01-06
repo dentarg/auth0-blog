@@ -22,14 +22,18 @@ related:
 - 2016-04-19-supercharge-your-registration-process
 ---
 
-There’s a Technology Basics White Paper first published in 2002 entitled *“Username and Password – A Dying Security Model.”* This paper documents the **HIGH** risk level associated with legacy authentication (using username and password) and predicted that secure access methods using *Biometrics*, *Single Sign On (SSO)*, *One Time Password Tokens* and *Multi-Factor Authentication*, would quickly replace the use of traditional passwords. Fast forward to a decade and a half later and the majority of companies are still using username and password authentication. We all agree that legacy authentication is not good enough, so why do most companies still use them?
+There’s a Technology Basics White Paper first published in 2002 entitled *“Username and Password – A Dying Security Model.”* This paper documents the **HIGH** risk level associated with legacy authentication (using username and password) and predicted that secure access methods using *Biometrics*, *Single Sign On (SSO)*, *One Time Password Tokens* and *Multi-Factor Authentication*, would quickly replace the use of traditional passwords.
+
+Fast forward to a decade and a half later and the majority of companies are still using username and password authentication. We all agree that legacy authentication is not good enough, so why do most companies still use them?
+
 
 For many, the path to modern authentication seems difficult and expensive, while others worry about the impact on user experience.
 
-Join us for a webinar where we will explore this paradox and discuss practices for making secure, modern authentication fast and easy for developers and simple and frictionless for users.
+
+Join me and Garrett Bekker (*Principal Security Analyst of 451 Research*) for a webinar where we will explore this paradox and discuss practices for making secure, modern authentication fast and easy for developers and simple and frictionless for users.
 
 ![Risks Posed By Legacy Authentication Webinar](https://cdn.auth0.com/blog/legacy-auth-webinar/webinar-banner.png)
 
 > The Webinar will be live online Jan 18 9:00 am PST or after on demand.
 
-[Register now!](https://www.brighttalk.com/webcast/10363/235469?utm_source=Marketing&utm_medium=brighttalk&utm_campaign=235469).
+[Register now!](https://www.brighttalk.com/webcast/10363/235469?utm_source=Marketing&utm_medium=brighttalk&utm_campaign=235469)
