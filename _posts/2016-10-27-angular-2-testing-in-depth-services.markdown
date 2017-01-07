@@ -25,7 +25,7 @@ tags:
 - jasmine
 related:
 - angular-2-ngmodules
-- create-a-desktop-app-with-angular-2-and-electron
+- angular-2-testing-in-depth-http-services
 - angular-2-authentication
 ---
 
@@ -45,7 +45,7 @@ I share my experiences testing different building blocks of an Angular 2 applica
 We will start with simple use cases and then head for more complex ones.
 
 - Services (this article)
-- Http Services
+- [Http Services](https://auth0.com/blog/angular-2-testing-in-depth-http-services/)
 - Components
 - Pipes
 - Routing
