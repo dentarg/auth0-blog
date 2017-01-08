@@ -458,17 +458,15 @@ Run your tests and the output will show that a snapshot has been added.
 
 When you look at your project, there will be a `__snapshots__` folder inside the `app/__tests__/components` folder with a file named `Clock.snapshot.test.jsx.snap` inside it. The following are its contents.
 
-```
-exports[`Clock component renders the clock correctly renders correctly 1`] = `
-<div
-  className="clock">
-  <span
-    className="clock-text">
-    01:03
-  </span>
-</div>
-`;
-```
+    exports[`Clock component renders the clock correctly renders correctly 1`] = `
+    <div
+      className="clock">
+      <span
+        className="clock-text">
+        01:03
+      </span>
+    </div>
+    `;
 
 As you can see, it shows the expected result of having passed `63` to the Clock component.
 
