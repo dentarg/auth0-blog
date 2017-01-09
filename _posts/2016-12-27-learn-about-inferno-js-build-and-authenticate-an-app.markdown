@@ -51,9 +51,9 @@ You can read more about the [features of Inferno](https://github.com/trueadm/inf
 
 >**Note:** I strongly recommend reading the interview article. It provides the technical details of Inferno, how it works, and how it compares to similar libraries like React and Preact.
 
-### Release Date
+### Documentation
 
-Inferno is in beta at the time of writing, but the first final release is imminent. The Inferno team intends to publish at the end of 2016 / early 2017. This release will include version 1.0 of the [Inferno JS library](https://github.com/trueadm/inferno) as well as the launch of the [official Inferno website and documentation](http://infernojs.org/).
+Inferno is in version 1.x at the time of writing and the [official Inferno website and documentation can be viewed here](http://infernojs.org/).
 
 ### Who Should Use Inferno?
 
