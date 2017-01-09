@@ -22,13 +22,18 @@ related:
 - 2016-02-22-12-steps-to-a-faster-web-app
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This article has been updated to Inferno v1.x.</strong>
+</div>
+
 **TL;DR:** [Inferno JS](https://github.com/trueadm/inferno) is a blazing-fast, lightweight, React-like JavaScript library. React developers will find it comfortably familiar. Inferno JS also supplies better performance, smaller size, and other improvements. Inferno is highly modular and unopinionated, encouraging developers to add only the pieces we require and write code to suit our personal preferences. In this tutorial, we'll introduce the Inferno JavaScript library, then build a simple Inferno app and authenticate it with [Auth0](https://auth0.com). The final code can be found at the [inferno-app GitHub repo](https://github.com/auth0-blog/inferno-app/).
 
 ---
 
 ## Introduction to Inferno JS
 
-[Inferno](https://github.com/trueadm/inferno) is a fast, lightweight JavaScript library that resembles [React](https://facebook.github.io/react/). Minified and gzipped, Inferno weighs in at only 8kb (React gzipped is over 40kb). It's also extremely performant in [benchmarks](https://github.com/trueadm/inferno#benchmarks) as well as real-world applications. Inferno can render on both the client and server and at the time of writing, it is the _fastest_ JavaScript UI library that exists. 
+[Inferno](https://github.com/trueadm/inferno) is a fast, lightweight JavaScript library that resembles [React](https://facebook.github.io/react/). Minified and gzipped, Inferno weighs in at only 9kb (React gzipped is over 40kb). It's also extremely performant in [benchmarks](https://github.com/trueadm/inferno#benchmarks) as well as real-world applications. Inferno can render on both the client and server and at the time of writing, it is the _fastest_ JavaScript UI library that exists. 
 
 These features are very attractive, but many JavaScript developers are overwhelmed by the number of libraries and frameworks already out there. A few tools have emerged as mindshare and usage leaders, React among them. So what are the reasons behind Inferno's creation? Who should use Inferno and why?
 
@@ -51,9 +56,9 @@ You can read more about the [features of Inferno](https://github.com/trueadm/inf
 
 >**Note:** I strongly recommend reading the interview article. It provides the technical details of Inferno, how it works, and how it compares to similar libraries like React and Preact.
 
-### Release Date
+### Documentation
 
-Inferno is in beta at the time of writing, but the first final release is imminent. The Inferno team intends to publish at the end of 2016 / early 2017. This release will include version 1.0 of the [Inferno JS library](https://github.com/trueadm/inferno) as well as the launch of the [official Inferno website and documentation](http://infernojs.org/).
+Inferno is in version 1.x at the time of writing and the [official Inferno website and documentation can be viewed here](http://infernojs.org/).
 
 ### Who Should Use Inferno?
 
@@ -941,6 +946,6 @@ We now have working authentication in our Inferno app. In the future, we can use
 
 We've learned how to create a basic real-world application with Inferno. We've also explored some of the features Inferno has that its predecessors lack, such as `linkEvent`. We've demonstrated how simple it can be to utilize Inferno with external methods. Inferno author Dominic Gannaway's favorite feature is lifecycle hooks for functional components, something we didn't explore in this tutorial but should certainly be utilized by developers who prefer a functional component approach.
 
-To learn more about the Inferno JS library, you can get in touch with the community and development team by checking out the [Inferno GitHub](https://github.com/trueadm/inferno) and the [Inferno Slack](https://inferno-slack.herokuapp.com/).
+To learn more about the Inferno JS library, you can peruse the docs at [infernojs.org](http://infernojs.org) or get in touch with the community and development team by checking out the [Inferno GitHub](https://github.com/trueadm/inferno) and [Inferno Slack](https://inferno-slack.herokuapp.com/).
 
 If you're a JavaScript developer trying to improve performance and reduce filesize in your web apps, check out Inferno. Even if you don't have React experience, Inferno is easy to learn thanks to the abundance of React resources and tutorials available. Hopefully you're now ready to get started with Inferno in your projects!
