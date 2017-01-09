@@ -634,3 +634,64 @@ function refreshContainers() {
 }
 ```
 Whenever we call `refreshContainers()`, the Docker API will be used to retrieve the list of all of the containers that exist on the current system (running or not), which will then send them all using the 'containers.list' message through socket.io. Notice though that we're sending the message through the main `io` object rather than through a specific socket - this means that _all of the clients_ currently connected will have their container lists refreshed. You will see why this becomes important later in the article.
+
+Moving over to the main React component, we should now be able to start picking up messages through socket.io which indicate that we should display the container list. First, import the socket.io library and connect to the socket.io server:
+
+```javascript
+import * as io from 'socket.io-client'
+
+let socket = io.connect()
+```
+
+Next, delete the mocked-up containers that we had put in before. Then change the constructor so that we react to the messages being passed to us from socket.io instead of using our mocked-up containers. We will also initialise the component state so that the containers are just empty lists; the component will populate them at some short time in the future when it has received the appropriate message. Here's what the constructor looks like now:
+
+```javascript
+constructor() {
+    super()
+    this.state = {
+        containers: [],
+        stoppedContainers: []
+    }
+
+    socket.on('containers.list', (containers: any) => {
+
+        const partitioned = _.partition(containers, (c: any) => c.State == "running")
+
+        this.setState({
+            containers: partitioned[0].map(this.mapContainer),
+            stoppedContainers: partitioned[1].map(this.mapContainer)
+        })
+    })
+}
+```
+
+We listen for messages using `io.on()` and specify the message string. When our socket receives a message with this name, our handler function will be called. In this case, we handle it and receive a list of container objects down the wire. We then partition it into running and stopped containers (just as we did before) and then we set the state appropriately. Each container from the server is mapped to our client-side Container type using a function `mapContainer()`, which is shown here:
+
+```javascript
+mapContainer(container:any): Container {
+    return {
+        id: container.Id,
+        name: _.chain(container.Names)
+            .map((n: string) => n.substr(1))
+            .join(", ")
+            .value(),
+        state: container.State,
+        status: `${container.State} (${container.Status})`,
+        image: container.Image
+    }
+}
+```
+
+This is where we extract out properties such as the name, image, status and so on. Any other properties that you want to include on the UI in the future, you will probably read inside this function.
+
+So now we have the ability to react to socket.io messages coming down the wire, the next thing to do is cause the server to send us the container list! We do this by sending a 'containers.list' message to the server using `socket.emit`, which will send all the connections a similarly-titled message back with the container data. We can send this message from the `componentDidMount` event, which is called on our Component once it has been 'mounted' to the DOM:
+
+```javascript
+componentDidMount() {
+    socket.emit('containers.list')
+}
+```
+
+Right now, you should be able to start your app and have it display a list of the running and stopped Docker containers on your machine!
+
+![My Docker containers](http://i.imgur.com/F1Llyk4.png)
