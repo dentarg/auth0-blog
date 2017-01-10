@@ -146,7 +146,7 @@ Mobile applications present various user and identity challenges. Luckily, [Auth
 * **PhoneGap** - [Quickstart](https://auth0.com/docs/quickstart/native/phonegap)
 * **Xamarin** - [Quickstart](https://auth0.com/docs/quickstart/native/xamarin), [Tutorial](https://auth0.com/blog/xamarin-authentication-and-cross-platform-app-development/)
 * **React Native** - [Quickstart (iOS)](https://auth0.com/docs/quickstart/native/react-native-ios), [Quickstart (Android)](https://auth0.com/docs/quickstart/native/react-native-android)
-* **Progress Web Apps** - [Tutorial](https://auth0.com/blog/introduction-to-progressive-apps-part-one/)
+* **Progressive Web Apps** - [Tutorial](https://auth0.com/blog/introduction-to-progressive-apps-part-one/)
 
 ## Conclusion
 
