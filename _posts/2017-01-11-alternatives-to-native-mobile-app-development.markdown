@@ -40,6 +40,8 @@ Today we will take a look at alternatives to building native mobile applications
 
 ## Ionic
 
+![Ionic](https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/ionic-logo.png)
+
 [Ionic](https://ionicframework.com/) is perhaps the most widely known cross-platform mobile framework. It allows developers to build iOS and Android applications with web technologies such as HTML, CSS, and JavaScript. Ionic is built on top of [Cordova](https://cordova.apache.org/) which enables access to various device features such as geolocation, push notifications, camera, and others. Ionic 1.x utilizes [Angular 1.x](https://angularjs.org/), while Ionic 2, the latest version of the framework, utilizes [Angular 2+](https://angular.io/).
 
 In addition to the framework, Ionic boasts an entire ecosystem to get developers up and running as quickly as possible. [Ionic Cloud](https://ionic.io/cloud) gives developers various tools to manage, deploy, and scale their Ionic applications. [Ionic Creator](https://ionic.io/products/creator) is a visual editor that allows developers to rapidly prototype and build mobile applications via drag and drop. Finally, [Ionic View](http://view.ionic.io/) is a free iOS and Android app that allows developers to easily share their Ionic app with users, testers, and clients without having to deploy the application to any app store. Developers simply invite users via the Ionic View app, and once an invite has been accepted the user can download and run the developers app inside of Ionic View as if the app was installed on their phone.
@@ -57,6 +59,8 @@ In addition to the framework, Ionic boasts an entire ecosystem to get developers
 * Not suitable for complex mobile applications such as games or graphics intensive programs.
 
 ## PhoneGap / Cordova
+
+![PhoneGap](https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/phonegap-logo.png)
 
 [PhoneGap](http://phonegap.com/) is very similar to Ionic in many respects. It too allows developers to build cross-platform mobile applications with web technologies and is built on top of Cordova. PhoneGap is not tied to any specific JavaScript framework, so developers have more choice in how they build their applications. PhoneGap boasts an ecosystem comprised of a desktop app, mobile app, and a cloud service called [PhoneGap Build](https://build.phonegap.com/) for building and deploying an application.
 
@@ -76,6 +80,8 @@ There is often confusion in the developer community regarding PhoneGap and Cordo
 
 ## Xamarin
 
+![Xamarin](https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/xamarin-logo.png)
+
 [Xamarin](https://www.xamarin.com/) comes from [Microsoft](https://microsoft.com) and takes a unique approach to cross-platform app development. Xamarin applications are written entirely in C#. Xamarin then compiles the C# code into native iOS and Android distributions. The underlying layer on which Xamarin is built on top of is [Mono](http://www.mono-project.com/) and this enables cross-platform development. The benefit of building applications with Xamarin compared to Cordova-based frameworks is that apps built with Xamarin make use each platform's native API's. This means that Xamarin apps compile down to native iOS and Android applications and behave as such.
 
 Xamarin is not a code once, run everywhere solution. While you can achieve a high level of code shareability, you will more than likely need to write specific code for iOS and Android versions of your app. With Xamarin, you will not be able to use native open-source libraries that are available for iOS and Android, but you can make use of many .Net libraries. Finally, getting access to the latest native APIs can be slow since the Xamarin developers will have to implement them into the framework after they are released.
@@ -94,6 +100,8 @@ Xamarin is not a code once, run everywhere solution. While you can achieve a hig
 
 ## React Native
 
+![React Native](https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/react-native-logo.png)
+
 [React Native](https://facebook.github.io/react-native/) comes to us from [Facebook](https://facebook.com) and presents a framework for building cross-platform mobile applications with [React](https://facebook.github.io/react/). React Native is comparable to Xamarin, wherein apps created with React Native are indistinguishable from native iOS and Android apps written in Objective-C or Java. 
 
 React Native combines the easy to learn syntax of React but also enables developers to write Objective-C, Swift, or Java when needed for additional performance or tuning. This means that developers can use existing native libraries in their React Native apps. React Native also comes with many UI components such as buttons, sliders, and modals that allow developers to get up and running quickly.
@@ -111,6 +119,8 @@ React Native combines the easy to learn syntax of React but also enables develop
 * While React and React Native are open source projects, Facebook has faced criticism of its BSD+Patents licensing model.
 
 ## Progressive Web Apps
+
+![Progressive Web Apps](https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/pwa-intro.png)
 
 [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) aim to make web applications behave like their native counterparts. This project comes to us from [Google](https://google.com) and presents a very interesting proposition. Progressive Web Apps aim to be reliable, fast, and engaging. This means that apps should load fast, present an engaging and fluid user experience, and support native features like push notifications or offline access. The PWA spec will add new features and functionality over time. Developers can then choose how many features they wish to implement, possibly making PWA the most flexible way to reach mobile users.
 
