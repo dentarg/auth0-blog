@@ -30,18 +30,18 @@ related:
 
 ## Introduction
 
-Writing tests is an integral part of application development. Testing results in software that has less bugs and that is easier to debug, build on and maintain. In this article, we'll look at how to test a React application using the Jest testing framework.
+Writing tests is an integral part of application development. Testing results in software that has fewer bugs, more stability, and is easier to maintain. In this article, we'll look at how to test a React application using the Jest testing framework.
 
-Jest is a JavaScript test runner [maintained by Facebook](https://github.com/facebook/jest). A test runner is software that looks for tests in your codebase, runs them and displays the results (usually on a CLI interface).
+[Jest](https://github.com/facebook/jest) is a JavaScript test runner maintained by Facebook. A test runner is software that looks for tests in your codebase, runs them and displays the results (usually through a CLI interface).
 
 The following are some of the features that Jest offers.
 
  - **Performance** - Jest run tests in parallel processes thus minimizing test runtime.
- - **Mocking** - Jest allows you to [mock](http://stackoverflow.com/a/2666006/1380071) objects in your test files. It supports [function mocking](https://facebook.github.io/jest/docs/mock-functions.html#content), [manual mocking](https://facebook.github.io/jest/docs/manual-mocks.html#content) and [timer mocking](https://facebook.github.io/jest/docs/timer-mocks.html#content). You can mock specific objects or turn on automatic mocking with [automock](https://facebook.github.io/jest/docs/configuration.html#automock-boolean) which will mock every component/object that the component/object under test depends on.
- - **Snapshot testing** - When using Jest to test a React or React Native application, you can write a snapshot test that will save the output of a rendered component to file and compare the component's output to the snapshot on subsequent runs. This is useful in knowing when your component changes its behaviour.
+ - **Mocking** - Jest allows you to [mock](http://stackoverflow.com/a/2666006/1380071) objects in your test files. It supports [function mocking](https://facebook.github.io/jest/docs/mock-functions.html#content), [manual mocking](https://facebook.github.io/jest/docs/manual-mocks.html#content) and [timer mocking](https://facebook.github.io/jest/docs/timer-mocks.html#content). You can mock specific objects or turn on automatic mocking with [automock](https://facebook.github.io/jest/docs/configuration.html#automock-boolean) which will mock every component/object that the component/object test depends on.
+ - **Snapshot testing** - When using Jest to test a [React](https://facebook.github.io/react/) or [React Native](https://facebook.github.io/react-native/) application, you can write a snapshot test that will save the output of a rendered component to file and compare the component's output to the snapshot on subsequent runs. This is useful in knowing when your component changes its behaviour.
  - **Code coverage support** - This is provided with Jest with no additional packages or configuration. 
  - **Test isolation and sandboxing** - With Jest, no two tests will ever conflict with each other, nor will there ever be a global or module local state that is going to cause trouble. Sandboxed test files and automatic global state resets for every test.
- - **Integrates with other testing libraries** - Jest works well with other testing libraries (e.g. Enzyme, chai).
+ - **Integrates with other testing libraries** - Jest works well with other testing libraries (e.g. [Enzyme](https://github.com/airbnb/enzyme), [Chai](http://chaijs.com/)).
 
 Jest is a Node-based runner which means that it runs tests in a Node environment as opposed to a real browser. Tests are run within a fake DOM implementation (via [jsdom](https://github.com/tmpvar/jsdom)) on the command line.
 
@@ -51,7 +51,7 @@ You should note though that while Jest provides browser globals such as `window`
 
 Before looking at how tests are written, let's first look at the application we'll be testing. It can be downloaded [here](https://github.com/echessa/react-testing-with-jest). In the downloaded folder, you will find two projects, one named `starter` with no test files and the other named `completed` with the test files included. In this article, we'll start with the `starter` project and proceed to add tests to it.
 
-The sample application is a simple countdown timer created in react. To run it, first navigate to the root of the starter project:
+The sample application is a simple countdown timer created in React. To run it, first navigate to the root of the starter project:
 
 ```sh
 $ cd path/to/starter/CountdownTimer
@@ -85,7 +85,7 @@ The functionality of the countdown timer has been separated into three component
 
 The Clock component is responsible for rendering the clock face and formatting the user's input to an `MM:SS` format. The CountdownForm component contains a form that takes the user input and passes it to the Countdown component which starts decrementing the value every second, passing the current value to the Clock component for display.
 
-Having looked at the sample application, we'll now proceed to writing tests for it.
+Having looked at the sample application, we'll now proceed with writing tests for it.
 
 ## Writing Tests
 
@@ -189,7 +189,7 @@ resolve: {
 
 Other test runners like [karma](https://karma-runner.github.io/1.0/index.html) are able to pick up the application's setting from the Webpack config file, but this is not the case with Jest. Jest doesn't automatically work with Webpack. In the above case, Jest doesn't know how to resolve the aliases specified in the Webpack config file.
 
-To solve this, you can either use a third party tool like [jest-webpack-alias](https://www.npmjs.com/package/jest-webpack-alias) or [babel-plugin-module-resolver](https://github.com/tleunen/babel-plugin-module-resolver), or you can add the aliases in Jest's configuration settings. I prefer the latter solution as it is easier to setup and it requires the least modification to the app. With this, Jest settings are separate from the app's settings thus incase I ever want to change the test runner used, I would just need to delete Jest settings from package.json (or from the Jest config file) and won't have to edit the Webpack config file and Babel config file.
+To solve this, you can either use a third party tool like [jest-webpack-alias](https://www.npmjs.com/package/jest-webpack-alias) or [babel-plugin-module-resolver](https://github.com/tleunen/babel-plugin-module-resolver), or you can add the aliases in Jest's configuration settings. I prefer the latter solution as it is easier to setup and it requires the least modification to the app. With this, Jest settings are separate from the app's settings. If I ever wanted to change the test runner used, I would just need to delete Jest settings from package.json (or from the Jest config file) and won't have to edit the Webpack config file and Babel config file.
 
 You can define Jest's configuration settings either in the `package.json` or create a separate file for the settings and then add the `--config <path/to/config_file>` option to the `jest` command. In the spirit of [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns), we'll create a separate file. Create a file at the root of the project named `jest.config.js` and add the following to it.
 
@@ -208,7 +208,7 @@ You can define Jest's configuration settings either in the `package.json` or cre
 
 ```
 
-`moduleFileExtensions` specifies an array of file extensions your modules use. By default it includes `["js", "json", "jsx", "node"]` (if you require modules without specifying a file extension, Jest looks for these extensions) so we don't really need the setting in the above file as `js` and `jsx` are included. I thought to include it so you know that it is necessary if your project consists of files with other extensions e.g. if you are using TypeScript, then you would include `["js", "jsx", "json", "ts", "tsx"]`.
+`moduleFileExtensions` specifies an array of file extensions your modules use. By default it includes `["js", "json", "jsx", "node"]` (if you require modules without specifying a file extension, Jest looks for these extensions) so we don't really need the setting in the above file as `js` and `jsx` are included. I wanted to include it so you know that it is necessary if your project consists of files with other extensions e.g. if you are using TypeScript, then you would include `["js", "jsx", "json", "ts", "tsx"]`.
 
 In `moduleNameMapper`, we map different files to their respective aliases. `rootDir` is a special token that gets replaced by Jest with the root of the project. This is usually the folder where the `package.json` file is located, unless you specify a custom `rootDir` option in your configuration.
 
@@ -224,9 +224,9 @@ Run the test again with `npm test` and it should now pass. We now know that the 
 
 ### Testing Business Logic
 
-We've written a test that assures us that our component renders properly. This however is not an indicator that the component behaves as it should and produces correct output. To test for this, we'll test the component's functions and make sure they are doing what they should be doing.
+We've written a test that assures us that our component renders properly. This however is not an indicator that the component behaves as it should and produces the correct output. To test for this, we'll test the component's functions and make sure they are doing what they should be doing.
 
-For this we'll use the [Enzyme](http://airbnb.io/enzyme/) library to write the tests. Enzyme is a JavaScript Testing utility for React created by Airbnb that makes it easier to assert, manipulate, and traverse a React Component's output. It is unopinionated regarding which test runner or assertion library used, and is compatible with the major test runners and assertion libraries available.
+For this we'll use the [Enzyme](http://airbnb.io/enzyme/) library to write the tests. Enzyme is a JavaScript Testing utility for React created by [Airbnb](https://www.airbnb.com) that makes it easier to assert, manipulate, and traverse a React Component's output. It is unopinionated regarding which test runner or assertion library used, and is compatible with the major test runners and assertion libraries available.
 
 To install Enzyme, run the following command:
 
@@ -290,9 +290,9 @@ it('renders without crashing', () => {
 });
 ```
 
-The difference between `shallow()` and `mount()` is that `shallow()` tests components in isolation from the child components they render while `mount()` goes deeper and tests a componen't children. For `shallow()` this means that if the parent component renders another component that fails to render, then a `shallow()` rendering on the parent will still pass.
+The difference between `shallow()` and `mount()` is that `shallow()` tests components in isolation from the child components they render while `mount()` goes deeper and tests a component's children. For `shallow()` this means that if the parent component renders another component that fails to render, then a `shallow()` rendering on the parent will still pass.
 
-The remaining tests test the `Clock.jsx` `render()` and `formatTime()` finctions, placed in separate `describe` blocks.
+The remaining tests test the `Clock.jsx` `render()` and `formatTime()` functions, placed in separate `describe` blocks.
 
 The Clock component's `render()` function takes a props value of `timeInSeconds`, passes it to `formatTime()` and then displays the returned value inside a `<span>` with a `class` of `clock-text`. In the test with the `describe` label of `render`, we pass in the time in seconds to Clock and assert that the output is as expected.
 
