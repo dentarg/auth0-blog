@@ -44,7 +44,7 @@ Today we will take a look at alternatives to building native mobile applications
 
 In addition to the framework, Ionic boasts an entire ecosystem to get developers up and running as quickly as possible. [Ionic Cloud](https://ionic.io/cloud) gives developers various tools to manage, deploy, and scale their Ionic applications. [Ionic Creator](https://ionic.io/products/creator) is a visual editor that allows developers to rapidly prototype and build mobile applications via drag and drop. Finally, [Ionic View](http://view.ionic.io/) is a free iOS and Android app that allows developers to easily share their Ionic app with users, testers, and clients without having to deploy the application to any app store. Developers simply invite users via the Ionic View app, and once an invite has been accepted the user can download and run the developers app inside of Ionic View as if the app was installed on their phone.
 
-{% include tweet_quote.html quote_text="Ionic enables the development of cross-platform mobile apps built with web technologies like HTML, CSS, and JavaScript." %}
+{% include tweet_quote.html quote_text="Ionic enables the development of mobile apps built with web technologies like HTML, CSS, and JS." %}
 
 ### Pros 
 * Build mobile apps with familiar web technologies such as HTML, CSS, and JavaScript.
@@ -80,7 +80,7 @@ There is often confusion in the developer community regarding PhoneGap and Cordo
 
 Xamarin is not a code once, run everywhere solution. While you can achieve a high level of code shareability, you will more than likely need to write specific code for iOS and Android versions of your app. With Xamarin, you will not be able to use native open-source libraries that are available for iOS and Android, but you can make use of many .Net libraries. Finally, getting access to the latest native APIs can be slow since the Xamarin developers will have to implement them into the framework after they are released.
 
-{% include tweet_quote.html quote_text="Xamarin allows you to build cross-platform iOS and Android applications in C#." %}
+{% include tweet_quote.html quote_text="Xamarin allows you to build cross-platform iOS and Android applications in C-Sharp." %}
 
 ### Pros
 * Developers already familiar with the Microsoft ecosystem will feel right at home with Xamarin and its use of C#.
