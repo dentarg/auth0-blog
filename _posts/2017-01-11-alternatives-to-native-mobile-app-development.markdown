@@ -2,7 +2,7 @@
 layout: post
 title: "Alternatives to Native Mobile App Development"
 description: "A look at five frameworks for building cross-platform mobile applications and how they stack up against each other."
-date: 2017-01-11 08:30
+date: 2017-01-10 08:30
 category: Mobile, Frameworks
 author:
   name: "Ado Kukic"
