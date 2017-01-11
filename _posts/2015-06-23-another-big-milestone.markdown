@@ -9,7 +9,7 @@ author:
   name: "Jon Gelsey"
   mail: jon@auth0.com
   url:  http://www.twitter.com/jgelsey
-  avatar: https://auth0.com/lib/about/img/jon.png
+  avatar: https://auth0.com/pages/about/img/jon.png
   twitter: jgelsey
 design:
   image: https://cdn.auth0.com/blog/series-a/blog-logo-4.png

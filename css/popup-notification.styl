@@ -1,11 +1,14 @@
 .pn-popup {
   visibility: hidden;
-  transition: all 1s ease;
+  transition: all .5s ease;
 }
 
-.pn-popup.is-visible {
+.pn-popup button:focus{
+  outline: none
+}
+
+.pn-is-visible {
   visibility: visible;
-  transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
 .pn-popup-container {
@@ -13,14 +16,14 @@
   border-radius: 3px;
   box-shadow: 0 1px 4px 0 rgba(0,0,0,0.3);
   height: 155px;
-  left: 110px;
   max-width: 350px;
+  margin-left: -20px;
   padding: 30px 30px 20px 30px;
   position: absolute;
   top: 100px;
   z-index: 1500;
   transform: translateY(-40px);
-  transition: all 1s ease;
+  transition: all .5s ease;
 
 }
 

@@ -137,53 +137,43 @@ function doesBrowserSupportNotifications() {
 //  popup push subscription
 
 $(document).ready(function ($) {
-
+  var valActive;
   function conditionalScroll(scroll) {
-    var width = $(window).width();
-    if (width > 991) {
-      if (scroll > 520) {
-        $('.pn-popup')
-          .css(
-            { 'position': 'fixed',
-              'z-index': '1500',
-              'visibility': 'visible'
-            });
+    if (valActive) {
+      var width = $(window).width();
+      if (width > 991) {
+        if (scroll > 520) {
+          $('.pn-popup')
+            .css(
+              { 'position': 'fixed',
+                'z-index': '1500',
+              });
 
-        $('.arrow')
-          .css(
-            {
-              'visibility': 'hidden',
-            });
+          $('.pn-popup').addClass('pn-is-visible');
+          $('.pn-popup-container')
+            .css(
+              {
+                'position': 'inherit',
+                'top': '110px'
+              });
+        }else {
+          $('.pn-popup')
+            .css(
+              {
+                'position': 'static',
+              });
 
-        $('.pn-popup-container')
-          .css(
-            {
-              'position': 'inherit',
-              'top': '110px'
-            });
-      }else {
-        $('.pn-popup')
-          .css(
-            {
-              'position': 'static',
-              'visibility': 'visible'
-            });
+          $('.pn-popup').addClass('pn-is-visible');
 
-        $('.pn-popup-container')
-          .css(
-            {
-              'position': 'absolute',
-              'top': '130px'
-            });
-
-        $('.arrow')
-          .css(
-            {
-              'visibility': 'visible',
-            });
+          $('.pn-popup-container')
+            .css(
+              {
+                'position': 'absolute',
+                'top': '130px'
+              });
+        }
       }
     }
-
   }
 
   var popupVisibility = function () {
@@ -198,7 +188,8 @@ $(document).ready(function ($) {
 
   // delay open pupup
   function openPopup() {
-    setTimeout(function () { popupVisibility();
+    setTimeout(function () {
+      popupVisibility();
     }, 30000);
   }
 
@@ -214,6 +205,7 @@ $(document).ready(function ($) {
 
               // Check subsccription
               if (!pushSubscription && localStorage.getItem('pn-subscription') != 'false') {
+                valActive = true;
                 openPopup();
               }
             }
@@ -223,29 +215,16 @@ $(document).ready(function ($) {
 
   // popup buttons
   $('#push-allow').on('click', function (e) {
-    $('.pn-popup').removeClass('is-visible');
+    $('.pn-popup').removeClass('pn-is-visible');
+    valActive = false;
     requestNotificationPermission();
   });
 
   $('#push-block').on('click', function (e) {
-    $('.pn-popup').removeClass('is-visible');
+    $('.pn-popup').removeClass('pn-is-visible');
+    valActive = false;
     localStorage.setItem('pn-subscription', 'false');
     metricsLib.track('blog:notifications', { 'trackData': 'declined' });
-  });
-
-  //close popup
-  $('.pn-popup').on('click', function (event) {
-    if ($(event.target).is('.pn-popup-close') || $(event.target).is('.pn-popup')) {
-      event.preventDefault();
-      $(this).removeClass('is-visible');
-    }
-  });
-
-  //close popup when with esc
-  $(document).keyup(function (event) {
-    if (event.which == '27') {
-      $('.pn-popup').removeClass('is-visible');
-    }
   });
 
   subscriptionValidation();
