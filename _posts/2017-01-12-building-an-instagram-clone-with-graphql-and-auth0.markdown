@@ -34,14 +34,15 @@ This allows clients to specify their data requirements with queries and send it 
 
 The type-safe schema unlocks new possibilities for tooling, as demonstrated by GraphiQL which is maintained by Facebook. With features like auto completion (as shown in the gif) and an included documentation it offers a great developer experience.
 
-![Autocompletion]()
+![Autocompletion](https://cdn.auth0.com/blog/graph/autocompletio.gif)
 _Autocompletion_
 
 Let's learn more about GraphQL queries and mutations by building an Instagram clone.
 
 ## Building An Instagram Clone
 
-![Youtube video](https://www.youtube.com/watch?v=5uxq8Om-AZQ)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5uxq8Om-AZQ" frameborder="0" allowfullscreen></iframe>
+
 _User Authentication with Auth0 for React and Apollo_
 
 We want to build an application that displays a feed of posts with an appropriate image and description. Everyone should be able to see these posts, but to prevent spam we only allow registered users to create new ones. We also send occasional email updates to subscribed users.
@@ -159,15 +160,15 @@ As GraphQL queries are hierarchical, we simply include the *author* object with 
 
 ```js
 
-mutation {
-  createPost(
-    description: "Found this #auth0 badge",
-    imageUrl: "https://styleguide.auth0.com/lib/logos/img/badge.png",
-    authorId: "nilan-id"
-  ) {
-    id
-  }
-}
+    mutation {
+      createPost(
+        description: "Found this #auth0 badge",
+        imageUrl: "https://styleguide.auth0.com/lib/logos/img/badge.png",
+        authorId: "nilan-id"
+      ) {
+        id
+      }
+    }
 
 ```
 
@@ -175,19 +176,19 @@ Mutations have responses too. In this case we get the id of the new post in retu
 
 ```js
 
-{
-  "data": {
-    "createPost": {
-      "id": "another-id"
+    {
+      "data": {
+        "createPost": {
+          "id": "another-id"
+        }
+      }
     }
-  }
-}
 
 ``` 
 
 Now that we saw queries and mutations in action, we can think about authentication and authorization.
 
-## AUTHENTICATING GRAPHQL REQUESTS
+## Authenticating GraphQL Requests
 
 The authentication workflow we are focusing on goes like this:
 
@@ -197,25 +198,25 @@ The authentication workflow we are focusing on goes like this:
 
 ```js
 
-query {
-  user {
-    name
-  }
-}
+    query {
+      user {
+        name
+      }
+    }
 
-``
+```
 
 * for a valid token that contains the Auth0 user id of a user already registered at the GraphQL server, the name will be returned:
 
 ```js
 
-{
-    "data": {
-      "user": {
-        "name": "Nilan"
-      }
+    {
+        "data": {
+          "user": {
+            "name": "Nilan"
+          }
+        }
     }
-}
 
 ```
 
@@ -226,11 +227,13 @@ They are then logged into the application and can create new posts.
 * for invalid tokens or valid tokens that contain the Auth0 user id of a user not yet registered at the GraphQL server, the response will be *null*:
 
 ```js
+
  {
     "data": {
       "user": "null"
     }
-  }
+ }
+
 ```
 
 New users will then have to finish the sign up process on a separate page
@@ -298,7 +301,7 @@ We can use the *user* query in the frontend application to show buttons for logo
 
 An authenticated user can then create a new post by specifying a description and url for the image which will be used for the *createPost* that we saw above.
 
-## AUTHORIZATION FOR GRAPHQL
+## Authorization For GraphQL
 
 One last thing that is missing is disallowing users that are not authenticated to create new posts. We can partly control that by hiding functionality in the frontend. However, it is really the responsibility of the GraphQL server to make sure that no unauthorized posts are created.
 
@@ -317,10 +320,10 @@ Then the GraphQL server can determine whether an incoming request is authorized 
 
 On the other hand, if the request is authenticated and contains the *createPost* mutation, the server would grant the request permission, due to the *Authenticated users can create posts* rule.
 
-## CONCLUSION
+## Conclusion
 
 That's it! In this article we learned the basics of GraphQL by building an Instagram clone. We saw how to authenticate GraphQL requests using Auth0 and combine that with permission rules on the GraphQL server. To see how the application looks like, you can play around with [the hosted version of our Instagram clone](http://apollo-auth0.netlify.com).
 
 To setup a GraphQL backend in less than 5 minutes, check out [Graphcool](https://graph.cool). Auth0 integration comes out-of-the-box and works nicely together with the advanced permission system.
 
-![Setting up a GraphQL backend in 5 minutes](https://www.youtube.com/watch?v=wSkZFfuAToM)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wSkZFfuAToM" frameborder="0" allowfullscreen></iframe>
