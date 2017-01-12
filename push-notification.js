@@ -47,7 +47,7 @@ function subscribe(serviceWorkerRegistration) {
     userVisibleOnly: true,
   })
   .then(function (subscription) {
-      fetch('https://auth0-marketing.run.webtask.io/blog-push-subscriptions?webtask_no_cache=1',
+      fetch('https://auth0-marketing.run.webtask.io/pn-push-subscriptions/push-notification',
         {
             headers: {
               'Accept': 'application/json',
@@ -88,7 +88,7 @@ window.unsubscribePushNotification = function () {
             // request to wt to remove subscription of db
             pushSubscription.unsubscribe()
               .then(function (successful) {
-                fetch('https://auth0-marketing.run.webtask.io/blog-push-subscriptions/' + subscriptionId,
+                fetch('https://auth0-marketing.run.webtask.io/pn-push-subscriptions/push-notification/' + subscriptionId,
                   {
                     method: 'DELETE',
                   })
