@@ -134,7 +134,7 @@ Now, go to `react-scripts/template/public` directory. Open the `index.html` file
 
 You can also change the favicon to your company's favicon. You can change as many things as you want and add custom components that your team uses frequently.
 
-Create a `.env.example` in the `react-scripts/template` directory contains the following:
+Create a `.env.example` in the `react-scripts/template` directory that contains the following:
 
 ```bash
 
@@ -143,7 +143,7 @@ REACT_APP_POSITION_ID='ENGR'
 
 ```
 
-A user will have to rename it to `.env` once the create-react-app finish installing the react-scripts. You should add this instruction to the `README` file.
+A user will have to rename it to `.env` once the `create-react-app` tool is done installing the `react-scripts`. You should add this instruction to the `README` file.
 
 **Note:** *CRA* already includes support for custom env variables if you're open to prefixing their names with **REACT_APP**.
 
@@ -153,7 +153,7 @@ That's all we need!
 
 Before publishing to npm, we need to change the `name` key of the `package.json` file in `react-scripts` directory to `unicodelabs-react-scripts`.
 
-Change the `description` key to `Unicodelabs Configuration and scripts for Create React App.`. Also, point the `repository` key to the right location. In my case, it is `unicodelabs/create-react-app`.
+Change the `description` key to `Unicodelabs Configuration and scripts for Create React App.` Also, point the `repository` key to the right location. In my case, it is `unicodelabs/create-react-app`.
 
 Now, `cd` to the `react-scripts` directory from your terminal like so:
 
@@ -170,9 +170,17 @@ Go ahead and publish
 ![Publish](https://cdn.auth0.com/blog/cra/publish.png)
 _Published unicodelabs-react-scripts to npm_
 
-## Test 
+## Test Your Custom Script
 
-Head over to your terminal and run `create-react-app test-app --scripts-version unicodelabs-react-scripts`. In your own case it would be `yourname-react-scripts`, where `yourname` is your company name or whatever name you choose to give it.
+Head over to your terminal and run:
+
+```bash
+
+create-react-app test-app --scripts-version unicodelabs-react-scripts
+
+```
+
+In your own case it would be `yourname-react-scripts`, where `yourname` is your company name or whatever name you choose to give it.
 
 *CRA* would install it and then you will see a notice like so:
 
@@ -183,7 +191,7 @@ Remember, when we put this message in the code earlier? Awesome!
 
 Now, `cd` into the `test-app` directory, rename the `.env.example` to `.env` and run `npm start` command.
 
-Your app will be up with the new template like so:
+Your app will spin up with the new template like so:
 
 ![New template showing up](https://cdn.auth0.com/blog/cra/result.png)
 
@@ -208,9 +216,11 @@ create-react-app my-app --scripts-version auth0-react-scripts
 ```
 
 Once it is done installing, go ahead and:
+
 * Grab your *Client id* and *Auth0 domain* from the [Auth0 dashboard](https://manage.auth0.com). 
 * Create a *.env* file in the root of the `my-app` project and add *client id* and *Auth0 domain* values to **REACT_APP_AUTH0_CLIENT_ID** and **REACT_APP_AUTH0_DOMAIN** respectively.
 * Run the app.
+
 
 ![Welcome Screen](https://cdn.auth0.com/blog/cra/welcomepage.png)
 _Welcome Screen_
@@ -225,3 +235,9 @@ _Logged In_
 Viola! You now have a fresh React app with full authentication powered by Auth0 ready for use. 
 
 [Sign up](javascript:signup\(\)) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
+
+## Conclusion
+
+Great programmers constantly sharpen their tools daily to increase productivity. *CRA* is a great tool for quickly building React Applications. In addition, having your own customized fork of `react-scripts` helps you and your team easily add all the configurations you need. You'll need to maintain your fork, and [make sure it is synced](https://help.github.com/articles/fork-a-repo/#keep-your-fork-synced) with the upstream to have all updates. [Backstroke](https://github.com/1egoman/backstroke) is a bot that can help you with this. 
+
+Have a very productive time hacking away!
