@@ -2,7 +2,7 @@
 layout: post
 title: "A Brief History of JavaScript"
 description: "We take a look at the evolution of JavaScript, arguably one of the most important languages of today, and tomorrow"
-date: 2016-12-28 6:00
+date: 2017-01-13 6:00
 category: Technical Guide, Data, JavaScript
 author:
   name: Sebastián Peyrott
@@ -11,7 +11,7 @@ author:
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
   bg_color: "#3674A8"
-  image: https://cdn.auth0.com/blog/shiny-server-2/logo.png
+  image: https://cdn.auth0.com/blog/es6rundown/logo.png
   image_size: "100%"
   image_bg_color: "#7897b1"
   blog_series: false
@@ -22,6 +22,7 @@ tags:
 - mocha
 - livescript
 related:
+- 2016-11-16-a-rundown-of-es6-features
 - 2016-03-15-javascript-module-systems-showdown
 - 2015-10-14-7-things-you-should-know-about-web-assembly
 ---
@@ -35,9 +36,15 @@ JavaScript is arguably one of the most important languages today. The rise of th
 ## It All Began in the 90s
 It all happened in six months from May to December 1995. Netscape Communications Corporation had a strong presence in the young web. Its browser, Netscape Communicator, was gaining traction as a competitor to NCSA Mosaic, the first popular web browser. Netscape was founded by the very same people that took part in the development of Mosaic during the early 90s, and now, with money and independence, they had the necessary freedom to seek further ways to expand the web. And that is precisely what gave birth to JavaScript.
 
+![Netscape Logo](https://cdn.auth0.com/blog/js-history/netscape-logo.png)
+
 Marc Andreessen, founder of Netscape Communications and part of the ex-Mosaic team, had the vision that the web needed a way to become more dynamic. Animations, interaction and other forms of small automation should be part of the web of the future. So the web needed a small scripting language that could interact with the DOM (which was not set in stone as it is right now). But, and this was an important strategic call at the time, this scripting language should not be oriented to big-shot developers and people with experience in the software engineering side of things. Java was on the rise as well, and Java applets were to be a reality soon. So the scripting language for the web would need to cater to a different type of audience: designers. Indeed, the web was static. HTML was still young and simple enough for non-developers to pick up. So whatever was to be part of the browser to make the web more dynamic should be accessible to non-programmers. And so the idea of Mocha was born. Mocha was to become a scripting language for the web. Simple, dynamic, and accessible to non-developers.
 
+![Marc Andreessen](https://cdn.auth0.com/blog/js-history/marc.jpg)
+
 This is when Brendan Eich, father of JavaScript, came into the picture. Eich was contracted by Netscape Communications to develop a "Scheme for the browser". Scheme is a Lisp dialect and, as such, comes with very little syntactic weight. It is dynamic, powerful, and functional in nature. The web needed something of the sort: easy to grasp syntactically; dynamic, to reduce verbosity and speed up development; and powerful. Eich saw a chance to work on something he liked and joined forces.
+
+![Brendan Eich](https://cdn.auth0.com/blog/js-history/brendan.jpg)
 
 At the moment there was a lot of pressure to come up with a working prototype as soon as possible. The Java language, née Oak at the time, was starting to get traction. Sun Microsystems was making a big push for it and Netscape Communications was about to close a deal with them to make Java available in the browser. So why Mocha (this was the early name for JavaScript)? Why create a whole new language when there was an alternative? The idea at the time was that Java was not suited for the type of audience that would consume Mocha: scripters, amateurs, designers. Java was just too big, too enterprisy for the role. So the idea was to make Java available for big, professional, component writers; while Mocha would be used for small scripting tasks. In other words, Mocha was meant to be the scripting companion for Java, in a way analogous to the relationship between C/C++ and Visual Basic on the Windows platform.
 
@@ -159,19 +166,25 @@ But this was just the start in JavaScript history. Its hurried development made 
 > The rest is perverse, merciless history. JS beat Java on the client, rivaled only by Flash, which supports an offspring of JS, ActionScript. - **[Brendan Eich's blog: Popularity](https://brendaneich.com/2008/04/popularity/)**
 
 ### A Trip Down Memory Lane: A Look at Netscape Navigator 2.0 and 3.0
-The first public release of JavaScript was integrated in Netscape Navigator 2.0, released in TODO. Thanks to the wonders of virtualization and abandonware websites, we can revive those moments today!
+The first public release of JavaScript was integrated in Netscape Navigator 2.0, released in 1995. Thanks to the wonders of virtualization and abandonware websites, we can revive those moments today!
 
-![]()
+![Netscape Navigator 2.01 Gold](https://cdn.auth0.com/blog/js-history/netscape2.png)
 
-Unfortunately, many basic features of JavaScript were not working at the time. Anonymous functions and prototype chains, the two most powerful features were not working as they do today. Still, these features were alredy part of the design of the language and would be implemented correctly in the following years.
+Unfortunately, many basic features of JavaScript were not working at the time. Anonymous functions and prototype chains, the two most powerful features were not working as they do today. Still, these features were alredy part of the design of the language and would be implemented correctly in the following years. It should be noted that the JavaScript interpreter in this release was considered in alpha state.
 
-![]()
+<video controls="true">
+    <source src="https://cdn.auth0.com/blog/js-history/netscape2.mp4" type="video/mp4">
+</video>
 
-Fortunately, a year later, Netscape Navigator 3.0, released in TODO, was already making a big difference:
+Fortunately, a year later, Netscape Navigator 3.0, released in 1996, was already making a big difference:
 
-![]()
+<video controls="true">
+    <source src="https://cdn.auth0.com/blog/js-history/netscape3.mp4" type="video/mp4">
+</video>
 
-Still, features such as regular expressions, JSON and exceptions were still not available. JavaScript would evolve tremendously the following years.
+Note how the error gives us more information about what is going on. This let's us speculate the interpreter is treating the `prototype` property in a special way. So we attempt to replace the object with a basic `Object` instance which we then modify. Et voilá, it works! Somewhat, at least. The assignment inside the `test` function appears to do nothing. Clearly, there was a lot of work that needed to be done. Nonetheless, JavaScript in its state was usable for many tasks and its popularity continued growing.
+
+Features such as regular expressions, JSON and exceptions were still not available. JavaScript would evolve tremendously the following years.
 
 ## ECMAScript: JavaScript as a standard
 The first big change for JavaScript after its public release came in the form of ECMA standardization. [ECMA](http://www.ecma-international.org) is an industry association formed in 1961 concerned solely with standardization of information and communications systems.
@@ -188,7 +201,11 @@ For trademark reasons, the ECMA committee was not able to use JavaScript as the 
 
 The [first ECMAScript standard](http://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262,%201st%20edition,%20June%201997.pdf) was based on the version of JavaScript released with Netscape Navigator 4 and still missed important features such as regular expressions, JSON, exceptions, and important methods for builtin objects. It was working much better in the browser, however. JavaScript was becoming better and better. Version 1 was released in June 1997.
 
-![]()
+<video controls="true">
+    <source src="https://cdn.auth0.com/blog/js-history/netscape4.mp4" type="video/mp4">
+</video>
+
+Notice how our simple test of prototypes and functions now works correctly. A lot of work had gone under the hood in Netscape 4, and JavaScript benefited tremendously from it. Our example now essentially runs identically to any current browser. This is a great state to be for its first release as a standard.
 
 The second version of the standard, ECMAScript 2, was released to fix inconsistencies between ECMA and the ISO standard for JavaScript (ISO/IEC 16262), so no changes to the language were part of it. It was released in June 1998.
 
@@ -214,7 +231,7 @@ Although JavaScript was more in use than ever, it was still primarily a client-s
 Netscape Navigator 6, released in November 2000 and a major change from past versions, supported ECMAScript 3. Almost a year and a half later, Firefox, a lean browser based on the codebase for Netscape Navigator, was released supporting ECMAScript 3 as well. These browsers, alongside Internet Explorer continued pushing JavaScript growth.
 
 #### The birth of AJAX
-AJAX, asynchronous JavaScript and XML, was a technique that was born in the years of ECMAScript 3. Although it was not part of the standard, Microsoft implemented certain extensions to JavaScript for its Internet Explorer 5 browser. One of them was the `XMLHttpRequest` function (in the form of the XMLHTTL ActiveX control). This function allowed a browser to perform an asynchronous HTTP request against a server, thus allowing pages to be updated on-the-fly. Although the term *AJAX* was not coined until years later, this technique was pretty much in place.
+AJAX, asynchronous JavaScript and XML, was a technique that was born in the years of ECMAScript 3. Although it was not part of the standard, Microsoft implemented certain extensions to JavaScript for its Internet Explorer 5 browser. One of them was the `XMLHttpRequest` function (in the form of the XMLHTTP ActiveX control). This function allowed a browser to perform an asynchronous HTTP request against a server, thus allowing pages to be updated on-the-fly. Although the term *AJAX* was not coined until years later, this technique was pretty much in place.
 
 > The term AJAX was coined by Jesse James Garrett, co-founder of Adaptive Path, in this [iconic blog post](http://adaptivepath.org/ideas/ajax-new-approach-web-applications/).
 
@@ -222,13 +239,29 @@ AJAX, asynchronous JavaScript and XML, was a technique that was born in the year
 
 This evolution of features, an implementor bringing something interesting to the language and implementing it in its browser, is still the way JavaScript and associated web standards such as HTML and CSS continue to evolve. At the time, however, there was much less communication between parties, which resulted in delays and fragmentation. To be fair, JavaScript development today is much more organized, with procedures for presenting proposals by any interested parties.
 
-#### Netscape Navigator 6
+#### Playing with Netscape Navigator 6
 
-![]()
+<video controls="true">
+    <source src="https://cdn.auth0.com/blog/js-history/netscape6.mp4" type="video/mp4">
+</video>
 
-#### Internet Explorer 5
+This release supports exceptions, the main showstopper previous versions suffered when trying to access Google. Incredibly, trying to access Google in this version results in a viewable, working page, even today. For contrast we attempted to access Google using Netscape Navigator 4, and we got hit by the lack of exceptions, incomplete rendering, and bad layout. Things were moving fast for the web, even back then.
 
-![]()
+#### Playing with Internet Explorer 5
+
+<video controls="true">
+    <source src="https://cdn.auth0.com/blog/js-history/ie5.mp4" type="video/mp4">
+</video>
+
+Internet Explorer 5 was capable of rendering the current version of Google as well. It is well known, however, there were [many differences in the implementation of certain features between Internet Explorer and other browsers](http://wiki.ecmascript.org/lib/exe/fetch.php?id=resources%3Aresources&cache=cache&media=resources:jscriptdeviationsfromes3.pdf). These differences plagued the web for many years, and were the source of frustration for web developers for a long time, who usually had to implement special cases for Internet Explorer users.
+
+In fact, to access the `XMLHttpRequest` object in Internet Explorer 5 and 6, it was necessary to resort to ActiveX. Other browsers implemented it as a native object.
+
+```javascript
+var xhr = new ActiveXObject("Microsoft.XMLHTTP");
+```
+
+Arguably, it was Internet Explorer 5 who brought the idea to the table first. It was not until version 7 that Microsoft started to follow standards and consensus more closely. Some outdated corporate sites still require old versions of Internet Explorer to run correctly.
 
 ### ECMAScript 3.1 and 4: The Years of Struggle
 Unfortunately, the following years were not good for JavaScript development. As soon as work on ECMAScript 4 started, strong differences in the committee started to appear. There was a group of people that thought JavaScript needed features to become a stronger language for large-scale application development. This group proposed many features that were big in scope and in changes. Others thought this was not the appropriate course for JavaScript. The lack of consensus, and the complexity of some of the proposed features, pushed the release of ECMAScript 4 further and further away.
@@ -510,3 +543,4 @@ At the moment, development versions of Chrome, Firefox and Microsoft Edge suppor
 ## Conclusion
 The history of JavaScript has been long and full of bumps. It was proposed as a "Scheme for the web". Early on it got Java-like syntax strapped on. Its first prototype was developed in a matter of weeks. It suffered the perils of marketing and got three names in less than two years. It was then standardized and got a name that sounded like a [skin desease](http://www.infoworld.com/article/2653798/application-development/javascript-creator-ponders-past--future.html). After three successful releases, the fourth got caught up in development hell for almost 8 years. Fingers got pointed around. Then, by the sheer success of a single feature (AJAX), the community got its act back together and development was resumed. Version 4 was scrapped and a minor revision, known by everyone as version 3.1, got renamed to version 5. Version 6 spent many years in development (again) but this time the committee succeeded, but nonetheless decided to change the name again, this time to 2015. This revision was big and took a lot of time to get implemented. But finally, new air was breathed into JavaScript. The community is as active as ever. Node.js, V8 and other projects have brought JavaScript to places it was never thought for. Asm.js, WebAssembly are about to take it even further. And the active proposals in different stages are all making JavaScript's future as bright as ever. It's been a long road, full of bumps, and JavaScript is still one of the most successful languages ever. That's a testament in itself. Always bet on JavaScript.
 
+{% include tweet_quote.html quote_text="JavaScript is still one of the most successful languages ever, always bet on JavaScript" %}
