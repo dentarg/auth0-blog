@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to create a custom create-react-app script"
+title: "Customizing create-react-app: How to Make Your Own create-react-app Template"
 description: "Create React App (CRA) is a very good tool for creating react apps from the CLI without build configuration. Learn how to create a custom script that works with create-react-app"
 date: 2017-01-10 08:30
 category: React, Frameworks
@@ -26,11 +26,11 @@ related:
 
 ---
 
-**TL;DR:** There are several tools available for developers to aid the building of various types of websites and applications. One of such is [**Create React App(CRA)**](https://github.com/facebookincubator/create-react-app), the CLI tool that helps JavaScript developers create **React** apps with no build configuration. As awesome as **CRA** is, developers still need a way of tweaking, adding special scripts and modules that doesn't come bundled with **CRA**. Today, I'll teach you how to create your own custom create-react-app scripts that you and your team harbor!
+**TL;DR:** There are several tools available for developers to aid the building of various types of websites and applications. One such tool is [**Create React App(CRA)**](https://github.com/facebookincubator/create-react-app), the CLI tool that helps JavaScript developers create react apps with no build configuration. As awesome as **CRA** is, developers still need a way of tweaking, adding special scripts and modules that doesn't come bundled with **CRA**. Today, I'll teach you how to create custom `create-react-app` scripts for you and your team!
 
 ---
 
-Many developers already use [create-react-app](https://github.com/facebookincubator/create-react-app) to build their React applications, but like I mentioned earlier, developers are still screaming for more configurations! Some are interested in having support for:
+Many developers already use [create-react-app](https://github.com/facebookincubator/create-react-app) to build their React applications, but like I mentioned earlier, developers are still screaming for more configuration options! Some are interested in having support for:
 
 * PostCSS
 * CSS Modules
@@ -42,11 +42,11 @@ Many developers already use [create-react-app](https://github.com/facebookincuba
 
 ..and a lot more out of the box!
 
-A lot of developers, including JavaScript newbies create *React* apps from scratch daily, so the *CRA* team at facebook built the *create-react-app* tool to make the process of creating such apps less tedious and error-prone.
+A lot of developers, including JavaScript newbies create *React* apps from scratch daily, so the *CRA* team at Facebook built the *create-react-app* tool to make the process of creating such apps less tedious and error-prone.
 
 As a developer that needs support for some of the technologies I highighted earlier, one way of going about it is running `npm run eject`. This command copies all the config files and dependencies right into your project, then you can manually configure your app with all sorts of tools to satisfaction.
 
-One major challenge developers might face with *eject* is not been able to enjoy the future features of *CRA* . Another challenge with *eject* would be ineffecient synchronised setup across React developers working in team. One great way of solving this later challenge is publishing a fork of `react-scripts` for your team, then all your developers can just run `create-react-app my-app --scripts-version mycompany-react-scripts` and have the same setup across board. Let's talk how to accomplish that!
+One major challenge developers might face with *eject* is not been able to enjoy the future features of *CRA* . Another challenge with *eject* would be ineffecient synchronised setup across React developers working in team. One great way of solving this later challenge is publishing a fork of `react-scripts` for your team, then all your developers can just run `create-react-app my-app --scripts-version mycompany-react-scripts` and have the same setup across board. Let's learn how to accomplish that!
 
 
 ## Create a Fork
@@ -61,7 +61,7 @@ Inside the `packages` directory, there is a folder called `react-scripts`. The `
 
 ## Tweak the Configuration
 
-Clone the directory and open up the `react-scripts/scripts/init.js` in your code editor. Let's add some few console messages and probably warning like so:
+Clone the directory and open up the `react-scripts/scripts/init.js` in your code editor. Let's add some few console messages like so:
 
 
 ```js
@@ -86,7 +86,7 @@ _Added important message to show during installation_
 
 **Now, Let's change templates**
 
-Open up `react-scripts/template/src` directory. Open `App.js` and replace it with this:
+Open up `react-scripts/template/src/App.js` and replace it with this:
 
 ```js
 
@@ -134,7 +134,7 @@ Now, go to `react-scripts/template/public` directory. Open the `index.html` file
 
 You can also change the favicon to your company's favicon. You can change as many things as you want and add custom components that your team uses frequently.
 
-Create a `.env.example` in the `react-scripts/template` directory that contains the following:
+Create an `.env.example` in the `react-scripts/template` directory that contains the following:
 
 ```bash
 
