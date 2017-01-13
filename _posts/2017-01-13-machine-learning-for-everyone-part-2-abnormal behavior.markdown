@@ -1,3 +1,31 @@
+---
+layout: post
+title: "Machine Learning for Everyone - Part 2: Building predictive models to spot anomalous data"
+description: Case study in R reviewing common concepts regarding how to validate, run and visualize a predictive model on production ranking the most suspicious cases.  
+date: 2017-01-13 12:00
+category: Technical Guide, Data, Machine Learning
+author:
+  name: Pablo Casas
+  url: https://twitter.com/datasciheroes
+  mail: pablo.casas@auth0.com
+  avatar: https://s.gravatar.com/avatar/759facc84628c0cc0746d347f217218e?s=80
+design:
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/machine-learning-for-everyone/logo.png
+tags:
+- r
+- rstats
+- data-science
+- data
+- machine-learning
+- random-forest
+- anomaly-detection
+related:
+- 2016-12-06-machine-learning-for-everyone
+- 2016-12-13-adding-authentication-to-shiny-server
+
+---
+
 ### Overview
 
 We're going to analyze data that contain cases flagged as abnormal. So we'll build a predictive model in order to spot cases that are not currently flagged as abnormal, but behaving like ones that are.
@@ -42,7 +70,7 @@ library(caret)
 library(funModeling)
 library(Rtsne)
 
-## download data from github, if you have any problem go directly to github: https://github.com/auth0/machine-learning-post-2-abnormal-behavior 
+## download data from github, if you have any problem go directly to github: https://github.com/auth0/machine-learning-post-2-abnormal-behavior
 url_git_data = "https://raw.github.com/auth0/machine-learning-post-2-abnormal-behavior/master/data_abnormal.txt"
 download.file(url_git_data,"data_abnormal.txt")
 
