@@ -2,19 +2,16 @@
 layout: post
 title: "A Brief History of JavaScript"
 description: "We take a look at the evolution of JavaScript, arguably one of the most important languages of today, and tomorrow"
-date: 2017-01-13 6:00
-category: Technical Guide, Data, JavaScript
+date: 2017-01-16 12:30
+category: Technical Guide, Frontend, JavaScript
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
   mail: speyrott@auth0.com
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
-  bg_color: "#3674A8"
+  bg_color: "#222228"
   image: https://cdn.auth0.com/blog/es6rundown/logo.png
-  image_size: "100%"
-  image_bg_color: "#7897b1"
-  blog_series: false
 tags:
 - javascript
 - history
