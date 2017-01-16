@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "Announcing the Guardian Whitelabel SDK"
-description: "Forget about building your Authenticator and Notification mobile app from scratch, try Guardian Whitelabel SDK"
-date: 2016-01-16 08:30
+description: "Forget about building your Authenticator and Notification mobile app from scratch, try Guardian Whitelabel SDK!"
+date: 2017-01-16 08:30
 category: Announcement, Guardian
 design:
-  bg_color: "#4a4a4a"
-  image: https://cdn.auth0.com/blog/auth-extensions-v2/logo.png
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/guardian/Guardianlogo.png
 author:
   name: "Prosper Otemuyiwa"
   url: "http://twitter.com/unicodeveloper?lang=en"
@@ -34,13 +34,21 @@ On November 23, 2016, We tagged the first release of [Guardian for iOS](https://
 
 You can use the Guardian Mobile SDKs - available for [iOS](https://auth0.com/docs/multifactor-authentication/developer/libraries/ios) and [Android](https://auth0.com/docs/multifactor-authentication/developer/libraries/android) to build your own white-label multifactor authentication application with complete control over the branding and look-and-feel.
 
+![White label Multifactor](https://auth0.com/pages/guardian/assets/sdk.png)
+
 ## Guardian
 
-[Guardian](https://auth0.com/docs/multifactor-authentication/guardian) is Auth0's multifactor authentication solution that provides a simple and secure way to implement Multifactor Authentication. It also supports [push notifications](https://auth0.com/docs/multifactor-authentication/administrator/push-notifications). The Guardian app can be downloaded from the [App Store](https://itunes.apple.com/us/app/auth0-guardian/id1093447833) or from [Google Play](https://play.google.com/store/apps/details?id=com.auth0.guardian).
+[Guardian](https://auth0.com/docs/multifactor-authentication/guardian) is Auth0's multifactor authentication solution that provides a simple and secure way to implement Multifactor Authentication. It also supports [push notifications](https://auth0.com/docs/multifactor-authentication/administrator/push-notifications). 
+
+<video autoplay loop width="600">
+    <source src="https://cdn.auth0.com/blog/guardian/guardian-2.m4v"/>
+</video>
+
+The Guardian app can be downloaded from the [App Store](https://itunes.apple.com/us/app/auth0-guardian/id1093447833) or from [Google Play](https://play.google.com/store/apps/details?id=com.auth0.guardian).
 
 With the Guardian SDK([iOS](https://github.com/auth0/Guardian.swift) and [Android](https://github.com/auth0/Guardian.Android)), you can build your own custom mobile applications that works like *Guardian* or integrate some Guardian functionalities, such as receiving *Push Notifications* in your mobile applications. 
 
-A typical scenario could be; While building a banking app, you can make use of the Guardian SDK in your existing mobile app to receive and confirm push notifications when someone performs an ATM  transaction.
+A typical scenario could be: While building a banking app, you can make use of the Guardian SDK in your existing mobile app to receive and confirm push notifications when someone performs an ATM  transaction.
 
 ## How can I use it? 
 
@@ -51,4 +59,4 @@ _Push Notifications and SMS_
 
 ## Conclusion
 
-The Guardian Mobile SDK opens up a myriad of opportunities for developers and organizations to leverage an already secure, tested and existing solution for building and enhancing their mobile apps. Try it!
+The Guardian Mobile SDK opens up a myriad of opportunities for developers and organizations to leverage an already secure, tested and existing solution for building and enhancing their mobile apps. Try it today!
