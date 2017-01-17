@@ -3,7 +3,7 @@ layout: post
 title: "The Auth0 Marketing Website Has Been Localized for the Japanese Market"
 description: "Auth0 makes it simple and easy to add authentication and authorization to any app. By localizing our marketing website, we hope to make it easier for developers and companies to implement and see the benefits of modern identity management."
 date: 2017-01-17 08:30
-category: PR, Press
+category: Announcements, Press
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
