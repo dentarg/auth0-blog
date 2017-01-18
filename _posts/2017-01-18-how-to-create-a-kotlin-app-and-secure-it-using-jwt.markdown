@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to create an application in Kotlin and secure it using Json Web Tokens (JWTs)"
+title: "How to create an application in Kotlin and secure it using JSON Web Tokens (JWTs)"
 description: "Learn how to create a simple application using Kotlin, a statically typed programming language that targets the Java Virtual Machine (JVM)"
 date: 2017-01-18 10:00
 category: Technical guide, Backend, Kotlin
