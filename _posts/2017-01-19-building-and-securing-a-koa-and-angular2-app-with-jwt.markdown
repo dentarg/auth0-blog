@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building and Securing Koa and Angular 2 with JWT"
-description: "Single Page Applications (SPAs) can benefit greatly from JWT secured backends. Here we will see how to secure an Angular 2 app, backed by Koa, with JWT's."
+description: "Single Page Applications (SPAs) can benefit greatly from JWT secured backends. Here we will see how to secure an Angular 2 app, backed by Koa, with JWTs."
 date: 2017-01-19 8:30
 category: Technical Guide, Angular, Angular2
 author:
