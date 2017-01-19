@@ -3,17 +3,23 @@ layout: post
 title: "Auth0 is OpenID Connect Certified"
 description: "Auth0 conforms to OpenID Connect protocol and allows clients to verify the identity of the end-users though a reliable implementation."
 date: 2017-01-19 10:45
-category: <CATEGORY>
+category: Growth, Certifications
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60design
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: #4a4a4a
+  image: "https://cdn.auth0.com/blog/open-id-certified/logo.png"
 tags:
-- <TAGS>
+- openid
+- auth0
+- oauth
+related:
+- 2015-09-23-what-is-and-how-does-single-sign-on-work
+- 2015-12-16-how-to-use-social-login-to-drive-your-apps-growth
+- 2015-09-23-what-is-and-how-does-single-sign-on-work
 ---
 
 Last year in May, Auth0 officially certified that our [OpenID Connect implementations abide by the OpenID standard](http://oixnet.org/openid-certifications/auth0/). We're thrilled to be among the ranks of first industry leaders like Google, Microsoft, and Paypal among others.
@@ -34,13 +40,13 @@ Instead of having to sign up on a website and keep track of your passwords, you 
 
 On a website, it might look something like this:
 
-![login](https://quip.com/-/blob/LeWAAAxIKs6/egkeUM0_FeZcWOaay0Jtww?s=bsNZAsnD0tKS)
+![login](https://cdn.auth0.com/blog/open-id-certified/sign-in-form.png)
 
 A user is already logged into Facebook or Google (an identity provider) with a set of credentials. This set of credentials can then be used to log into another website or application, a relying party. This site or app will ask the user "Sign up with Facebook or Google?"
 
 When a user clicks on Google or Facebook, they're authorizing that identity provider to back up their claim. Then the user is redirected to the website or application.
 
-![authorization](https://quip.com/-/blob/LeWAAAxIKs6/7bEd-Bo14Nfm2mveGX_P2g?s=bsNZAsnD0tKS)
+![authorization](https://cdn.auth0.com/blog/open-id-certified/social-provider-authorization.png)
 
 This use of linked identities means you only have to manage a single username and password for websites.
 
