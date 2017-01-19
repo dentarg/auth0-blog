@@ -3,16 +3,24 @@ layout: post
 title: "Is Multifactor Authentication The Best Way To Secure Your Accounts? Myths And Reality"
 description: "Multifactor authentication is important, but the question of implementation is more complex than it seems."
 date: 2017-01-19 12:31
+category: Hot Topics, Authentication
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: #000000
+  image: https://cdn.auth0.com/blog/mfa-myths/logo.png
+related:
+  - 2016-11-30-different-ways-to-implement-multifactor
+  - 2015-12-17-json-web-token-signing-algorithms-overview
 tags:
-- foo
+  - mfa
+  - authentication
+  - security
+  - rsa
+  - totp
 ---
 
 ## Intro
@@ -31,7 +39,7 @@ It was once true that most MFA systems operated basically the same way. Today, h
 
 ### Reality: MFA is extremely customizable
 
-![MFA alternatives](https://quip.com/-/blob/PeCAAAmpuIU/zFSTJ_DYwaONwKtu1Lmnfg?s=jPZUA1s5xvZn)
+![MFA alternatives](https://cdn.auth0.com/blog/mfa-myths/mfa-alternatives.png)
 
 There are three entire genres of factor—knowledge, possession, and inherence:
 
@@ -61,7 +69,7 @@ This also means that computational power is required to encrypt and decrypt RSA 
 
 TOTP, on the other hand, operates symmetrically. A secret key is known to both the signer and the signee at the same time. A hash function is used to blend the secret key with the time at the moment of authentication (requiring fairly precise clock synchronization) and a one-time password is generated that is valid only for a short amount of time.
 
-![TOTP screenshots](https://quip.com/-/blob/PeCAAAmpuIU/DCHwiCQMQoW2PPFX332zrA?s=jPZUA1s5xvZn)
+![TOTP screenshots](https://cdn.auth0.com/blog/mfa-myths/totp-screenshot.png)
 
 This takes significantly less time and processing power than RSA, but it does mean certain vulnerabilities become hypothetically possible. If a key was somehow compromised on the server-side, for instance, an employee of an organization could potentially impersonate a user to malicious ends. With RSA, the same employee would have to [change the codebase](http://crypto.stackexchange.com/questions/11293/hmac-sha256-vs-rsa-sha256-which-one-to-use) to do such a thing—likely leaving a paper trail.  
 
@@ -81,7 +89,7 @@ But the U.S National Institute of Standards and Technology has recently come out
 
 These vulnerabilities, plus the fact that other forms of authentication have become more user-friendly, mean that many sites and apps enabled with multifactor authentication are moving on to different methods.
 
-![Different multifactor alternatives](https://quip.com/-/blob/PeCAAAmpuIU/FU_s9PeR02cNN5HS66yhZA?s=jPZUA1s5xvZn)
+![Different multifactor alternatives](https://cdn.auth0.com/blog/mfa-myths/apps-of-mfa.png)
 
 There's the time-based one-time password algorithm, or TOTP, which is most notable used by apps like Google Authenticator. A single-use password is generated from the combination of a secret key and the current time, and you enter that into the app asking for authentication rather than a code that could have been intercepted in transmission.  
 
@@ -103,7 +111,7 @@ MFA does not have to be troublesome for users. It doesn't have to require keepin
 
 With [Auth0 Guardian](https://auth0.com/guardian/), you can make logging in through multifactor authentication a simple matter of swiping and tapping a push notification from your [phone's lock screen](https://auth0.com/blog/announcing-Auth0-Guardian-a-new-way-to-login/).
 
-![Auth0's Guardian App](https://quip.com/-/blob/PeCAAAmpuIU/Ow3ZHAoe54ivqMdOH6sm5Q?s=jPZUA1s5xvZn)
+![Auth0's Guardian App](https://cdn.auth0.com/blog/mfa-myths/auth0-guardian-mfa.png)
 
 It's available for both iOS and Android, and can be enabled with a [simple toggle](https://auth0.com/guardian). Check out the full docs [here](https://auth0.com/docs/multifactor-authentication/guardian).
 
