@@ -3,7 +3,7 @@ layout: post
 title: "Better User Management with the Delegated Administration Dashboard"
 description: "Learn how to use the Delegated Administration Dashboard extension to expose the users dashboard for a select group of users and build a powerful user management workflow."
 date: 2017-01-24 08:30
-category: Extension, Features, User Management
+category: Extension, Features
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"
@@ -34,7 +34,7 @@ Building modern applications is only half the battle. As your app grows, the nee
 
 The Delegated Administration Dashboard or Delegated Admin extension allows you to give fine-grained access to user data stored and accessed through Auth0. With this extension, you can give individual users access to view, manage, and edit users in your apps, without giving them the proverbial *keys to the kingdom* a.k.a. full access to the Auth0 [dashboard](https://dashboard.auth0.com).
 
-{% include tweet_quote.html quote_text="The Delegated Administration Dashboard extension allows organizations to build and enforce powerful user management workflows." %}
+{% include tweet_quote.html quote_text="The Delegated Admin Dashboard allows organizations to build and enforce powerful user management workflows." %}
 
 Today, we will look at how you can utilize the Delegated Admin extension to expose only the User dashboard to a set of privileged users. We will be doing this in the context of a fictional company that has grown tremendously and needs a better way to delegate user management access. Our example is a common one but there are many use cases where this extension can be applied. For example, a SaaS platform may want to give their clients an easy to use dashboard to manage their tenants. Another example could be an organization wishing to grant specific access to various departments, IT Support would be able to view, edit, and delete all organizational accounts, while Customer Support would only have access to customers. We'll try to address various use cases throughout the post to show the versatility of the extension. Let's get started.
 
@@ -54,7 +54,11 @@ The first thing we are going to do is create a new Auth0 client to house the use
 
 To create the client, navigate to the Auth0 dashboard and click on the **New Client** button. You can name the client whatever you want, we'll just name ours CloudCakes Inc. Set the type of app as **Single Page App* and click **Create**.
 
-With the new client created, go ahead and copy its **Client ID**. Navigate to the bottom of the **Settings** tab in this newly created client and click on the **Show Advanced Settings** link. From here, navigate to the **OAuth** tab and in the **Allowed APPs/APIs** section paste in the **Client ID**. Additionally in this section, change the **JsonWebToken Signature Algorithm** to **RS256**. 
+![Auth0 Create New Client](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/create-client.png)
+
+With the new client created, go ahead and copy its **Client ID**. Navigate to the bottom of the **Settings** tab in this newly created client and click on the **Show Advanced Settings** link. From here, navigate to the **OAuth** tab and in the **Allowed APPs/APIs** section paste in the **Client ID**. Additionally in this section, change the **JsonWebToken Signature Algorithm** to **RS256**.
+
+![Auth0 Advanced Client Settings](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/advanced-client-settings.png) 
 
 Finally, scroll up to the **Allowed Callback URLs** section and here we will add the url that will be used to access the Users Dashboard. The url will follow this structure `https://YOUR-AUTH0-USERNAME.LOCALE.webtask.io/auth0-delegated-admin/login`, so since I am in the US and my username is `adobot` the URL I will add is `https://adobot.us.webtask.io/auth0-delegated-admin/login`. Save your changes and navigate to the [Extensions](https://manage.auth0.com/#/extensions) tab in the main menu.
 
@@ -64,11 +68,15 @@ In addition to setting up a new client for our Users Dashboard, we'll also want 
 
 To create the database connection, head over to the [Database Connections](https://manage.auth0.com/#/connections/database) in the Auth0 dashboard and select **Create DB Connection**. Name your connection, select how users will login, and it is recommended you disable sign-ups so that users don't have the option to directly sign up for an account.
 
+![Auth0 Create DB Connection](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/create-db-connection.png)
+
 Once the connection is created go back to the client you are going to use for the Users Dashboard and enable just this newly created connection for it. This will ensure that only users that are stored in this database can login and access the Users Dashboard. 
 
 ### Enabling the Delegated Admin Extension
 
-To enable the Delegation Admin Dashboard extension, you will just need the Client ID you copied earlier. From the Extensions section, navigate to the very bottom where you will find the the Delegation Admin Dashboard extension, click on it, and a modal dialog will pop up asking you to input some data before enabling the extension. 
+To enable the Delegation Admin Dashboard extension, you will just need the Client ID you copied earlier. From the Extensions section, navigate to the very bottom where you will find the the Delegation Admin Dashboard extension, click on it, and a modal dialog will pop up asking you to input some data before enabling the extension.
+
+![Enabling Delegated Administration Dashboard Extension](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/enable-delegated-admin-extension.png) 
 
 The two fields you will need to provide data for are the **EXTENSION_CLIENT_ID** and **Title**. Extension Client ID will be the Client ID you copied earlier and the title can be anything. You can also optionally add a link to a CSS file to customize the look and feel of the Users Dashboard, but we'll omit that here. Click **Install** to enable the extension.
 
@@ -76,7 +84,11 @@ The two fields you will need to provide data for are the **EXTENSION_CLIENT_ID**
 
 We've enabled the Delegation Admin Dashboard extension but it's of little use to us now since we don't have any users capable of accessing it. Let's change that. Navigate to the [Users](https://manage.auth0.com/#/users) tab in the Auth0 dashboard and create a new user. Be sure place this user in the correct database.
 
+![Delegated Admin Dashboard Login](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/login-screen.png)
+
 With the user created, let's go ahead and login to see the Users Dashboard. Navigate to your dashboard url, which again follows the `https://YOUR-AUTH0-USERNAME.LOCALE.webtask.io/auth0-delegated-admin/login` pattern. Attempting to login with the newly created user will give you access to the Users Dashboard but you will not be able to view or do anything as the system does not know what permissions this user has. We'll need to go edit the users `metadata` and let the system know what type of user is logging in and what they should be able to do. Let's do that now.
+
+![Users Dashboard No Permissions](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/users-dashboard-no-permissions.png)
 
 ## Understanding User Roles
 
@@ -92,7 +104,11 @@ To grant one of these roles to our user, we'll need to edit the `app_metadata` f
 
 Save this change and go back to the Users Dashboard. Refresh the page and now the user will have full access to the Users Dashboard and will see all of the existing users across all connections, logs, and will have the ablility to configure the Users Dashboard. So far so good. If you go back and change the role to `"Delegated Admin - User"` and refresh the page, you will just be able to see the list of users, but not logs and you will not have the ability to make configuration changes to the Users Dashboard with the account.
 
+![Adding Delegated Admin Roles](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/adding-user-permissions.png)
+
 You may have noticed that regardless of the role you gave to your user, they were able to see all of the users across all of your Auth0 connections. In many cases you would not want this to happen, instead you'd want to have fine-grained control over which connections an account has access to. We'll address that in the next section.
+
+![Delegated Admin Dashboard with Permissions](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/login-with-permissions.png)
 
 ### Fine-grained Control with Hooks
 
@@ -264,6 +280,8 @@ function(ctx, callback) {
 ```
 
 Now when the logged in account goes to create a new user from the Users Dashboard, they will be able to assign a department immediatley to the new user.
+
+![Create User with Membership](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/create-with-membership.png)
 
 ### Settings Query 
 
