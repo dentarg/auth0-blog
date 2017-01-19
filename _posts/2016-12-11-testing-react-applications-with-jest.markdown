@@ -49,7 +49,7 @@ You should note though that while Jest provides browser globals such as `window`
 
 ## Setting up the Sample Project
 
-Before looking at how tests are written, let's first look at the application we'll be testing. It can be downloaded [here](https://github.com/echessa/react-testing-with-jest). In the downloaded folder, you will find two projects, one named `starter` with no test files and the other named `completed` with the test files included. In this article, we'll start with the `starter` project and proceed to add tests to it.
+Before looking at how tests are written, let's first look at the application we'll be testing. It can be downloaded [here](https://github.com/echessa/react-testing-with-jest). In the downloaded folder, you will find three projects - one named `starter` with no test files, another named `completed` with the test files included and another named `completed_with_auth0` which contains test files and also adds authentication to the application. In this article, we'll start with the `starter` project and proceed to add tests to it.
 
 The sample application is a simple countdown timer created in React. To run it, first navigate to the root of the starter project:
 
@@ -476,7 +476,240 @@ You should include the `__snapshots__` folder in your versioning system to ensur
 
 ## Aside: Using React with Auth0
 
-If you are interested in using Auth0 in your React application for authentication, check out our [documentation](https://auth0.com/docs/quickstart/spa/react) which covers that and also take a look at [this article](https://davidwalsh.name/react-authentication).
+Before concluding the article, let's take a look at how you can add authentication to the React app and ensure the tests work with this. We'll change the app so that it requires the user to be logged in before they can start the countdown timer. In the process, we'll take a look at a caveat that Jest has as a Node-based test runner that runs its tests on jsdom.
+
+To get started, first sign up for an [Auth0](https://auth0.com) account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Single Page Web Applications** from the Client type list. On the next page, select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Set the **Allowed Callback URLs** and **Allowed Origins (CORS)** to `http://localhost:3000/` and save the changes with the button at the bottom of the page.
+
+We'll add the Auth0 [Lock widget](https://auth0.com/lock) to our app, which provides an interface for the user to login and/or signup.
+
+Create a folder named `utils` in the `app` folder and add a `AuthService.js` file to it. Add the following to the file.
+
+```js
+import React from 'react';
+import Auth0Lock from 'auth0-lock';
+import decode from 'jwt-decode';
+
+export default class AuthService {
+
+    constructor() {
+        // Configure Auth0
+        this.clientId = 'YOUR_CLIENT_ID';
+        this.domain = 'YOUR_CLIENT_DOMAIN';
+
+        this.lock = new Auth0Lock(this.clientId, this.domain, {});
+        // Add callback for lock `authenticated` event
+        this.lock.on('authenticated', this._doAuthentication.bind(this));
+        // binds login functions to keep this context
+        this.login = this.login.bind(this);
+    }
+
+    _doAuthentication(authResult){
+        // Saves the user token
+        this.setToken(authResult.idToken);
+    }
+
+    getLock() {
+        // An instance of Lock
+        return new Auth0Lock(this.clientId, this.domain, {});
+    }
+
+    login() {
+        // Call the show method to display the widget.
+        this.lock.show();
+    }
+
+    loggedIn() {
+        // Checks if there is a saved token and it's still valid
+        const idToken = this.getToken();
+        return idToken && !this.isTokenExpired(idToken);
+    }
+
+    setToken(idToken){
+        // Saves user token to localStorage
+        localStorage.setItem('id_token', idToken);
+    }
+
+    getToken(){
+        // Retrieves the user token from localStorage
+        return localStorage.getItem('id_token');
+    }
+
+    logout(){
+        // Clear user token and profile data from localStorage
+        localStorage.removeItem('id_token');
+    }
+
+    getTokenExpirationDate(encodedToken) {
+        const token = decode(encodedToken);
+        if (!token.exp) { return null; }
+
+        const date = new Date(0);
+        date.setUTCSeconds(token.exp);
+
+        return date;
+    }
+
+    isTokenExpired(token) {
+        const expirationDate = this.getTokenExpirationDate(token);
+        return expirationDate < new Date();
+    }
+}
+```
+
+Authentication will be handled by this class. The code contains comments that explain what is happening at each step, so I won't go over it here.
+
+Replace `YOUR_CLIENT_ID` and `YOUR_CLIENT_DOMAIN` in the above code with your Auth0 client details.
+
+Install the following two packages.
+
+```sh
+$ npm install --save auth0-lock jwt-decode
+```
+
+`auth0-lock` provides the Lock widget while `jwt-decode` is used in the code to decode a [JSON Web token](https://jwt.io/) before checking if its expiration date has passed.
+
+Modify `CountdownForm.jsx` as shown:
+
+```js
+import React from 'react';
+import AuthService from '../utils/AuthService'
+
+class CountdownForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { loggedIn: false };
+    }
+
+    componentDidMount() {
+        this.auth = new AuthService();
+        this.setState({ loggedIn: this.auth.loggedIn() });
+        // instance of Lock
+        this.lock = this.auth.getLock();
+        this.lock.on('authenticated', () => {
+            this.setState({ loggedIn: this.auth.loggedIn() });
+        });
+    }
+
+    login() {
+        this.auth.login();
+    }
+
+    logout() {
+        this.auth.logout();
+        this.setState({ loggedIn: this.auth.loggedIn() });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        if (this.state.loggedIn) {
+            var secondsStr = this.refs.seconds.value;
+
+            if (secondsStr.length > 0 && secondsStr.match(/^[0-9]*$/)) {
+                this.refs.seconds.value = '';
+                this.props.onSetCountdownTime(parseInt(secondsStr, 10));
+            }
+        } else {
+            alert("You need to log in first");
+        }
+    }
+
+    render() {
+        const authButton = this.state.loggedIn ? <div><button className="button expanded" onClick={this.logout.bind(this)}>Logout</button></div> : <div><button className="button expanded" onClick={this.login.bind(this)}>Login</button></div>;
+
+        return (
+            <div>
+                <form ref="form" onSubmit={this.onSubmit.bind(this)} className="countdown-form">
+                    <input type="text" ref="seconds" placeholder="Enter time in seconds"/>
+                    <input type="submit" className="button success expanded" value="Start Countdown"/>
+                </form>
+                { authButton }
+            </div>
+        );
+    }
+}
+
+export default CountdownForm;
+```
+
+In the above, we add a `loggedIn` state to the component that will keep track of the user's authentication status. We instantiate a `AuthService` object and use this to make an instance of the `lock` widget. We set a callback function that will be called after authentication with `this.lock.on('authenticated', cb)` and in this function we change the `loggedIn` state to `true`. On log out, this will be set to `false`.
+
+In the render button, we check the `loggedIn` state and add a `Login` button if its value is `false` and a `Logout` button otherwise. These buttons are bound to the `login()` and `logout()` functions respectively.
+
+When the form is submitted, we first check if the user is authenticated before proceeding with the countdown. If they aren't, an `alert` is displayed that lets them know they need to be logged in.
+
+Run Webpack to process and bundle the JavaScript files and then start the app.
+
+```sh
+$ webpack
+$ npm start
+```
+
+When you navigate to [http://localhost:3000/](http://localhost:3000/), you will see the added Login button.
+
+![Login Button](https://raw.githubusercontent.com/echessa/various_learning/master/misc/jest_images/image_05.png)
+
+On clicking the button, the Lock widget will be displayed.
+
+![Lock Widget](https://raw.githubusercontent.com/echessa/various_learning/master/misc/jest_images/image_06.png)
+
+Use its **Sign Up** tab to create an account. After signing up, you will be automatically logged in, therefore you will be able to perform a countdown and the bottom button will now be the `Logout` button.
+
+![Logout Button](https://raw.githubusercontent.com/echessa/various_learning/master/misc/jest_images/image_07.png)
+
+That works fine, but if you run the tests, there will be several failing ones.
+
+![Failing tests](https://raw.githubusercontent.com/echessa/various_learning/master/misc/jest_images/image_08.png)
+
+If you take a look at the error messages, you will see `ReferenceError: localStorage is not defined` several times.
+
+We mentioned earlier that Jest is a Node-based runner that runs its tests in a Node environment, simulating the DOM with jsdom. jsdom does a great job in replicating a lot of DOM features, but it lacks in other features; for example, at the time of writing this, the current version of jsdom doesn't support [localStorage or sessionStorage](https://github.com/tmpvar/jsdom/issues/1137). This is a problem for us because our app saves the authentication token it gets back from Auth0 to localStorage.
+
+To get around this limitation, we can either create our own implementation of localStorage or use a third party one like [node-localstorage](https://github.com/lmaccherone/node-localstorage). Since we only require a simple version of localStorage, we'll create our own implimentation. To be able to save, retrieve and remove a token to localStorage, we only require the `setItem(key, value)`, `getItem(key)` and `removeItem(key)` functions of the the [Storage](https://www.w3.org/TR/webstorage/#the-storage-interface) interface. If your application requires other localStorage features, it's better to use the third party option.
+
+Create a file in the `utils` folder named `localStorage.js` and add the following to it.
+
+```js
+module.exports = {
+    setLocalStorage: function() {
+        global.localStorage = {
+            getItem: function (key) {
+                return this[key];
+            },
+            setItem: function (key, value) {
+                this[key] = value;
+            },
+            removeItem: function (key) {
+                delete this[key];
+            }
+        };
+
+        const jwt = require('jsonwebtoken');
+        const token = jwt.sign({ foo: 'bar', exp: Math.floor(Date.now() / 1000) + 3000 }, 'shhhhh');
+        localStorage.setItem('id_token', token);
+    }
+};
+```
+
+In the above, we create an object with the three required functions and assign it to `global.localStorage`. We then create a token, set an expiration date to it and save it in localStorage as the value of the `id_token` key. The token will be decoded in `AuthService` and its `exp` attribute checked to determine if it has expired. You should note that `jwt-decode` doesn't validate tokens; any well formed JWT will be decoded. If your app uses tokens to authorize API calls, you should validate the tokens in your server-side logic by using something like [express-jwt](https://github.com/auth0/express-jwt), [koa-jwt](https://github.com/stiang/koa-jwt), [Owin Bearer JWT](https://github.com/michaelnoonan/Auth0-Owin-JwtBearerAuthentication), etc.
+
+You can create a test account and perform a real [Login](https://auth0.com/docs/quickstart/spa/vanillajs/02-custom-login) during testing, but I prefer to not make unneccesary network calls during testing. Since we aren't testing the Login functionality, I deem it unnecessary to perform authentication with the Auth0 server, therefore we create a 'fake' token with a `exp` attribute that will be checked by the app.
+
+Install the following package.
+
+```sh
+$ npm install --save-dev jsonwebtoken
+```
+
+Add the following to the `CountdownForm.test.jsx` and `Countdown.test.jsx` components inside their outer `describe()` blocks before all the `it()` and inner `describe()` blocks.
+
+```js
+beforeAll(() => {
+    const ls = require("../../utils/localStorage.js");
+    ls.setLocalStorage();
+});
+```
+
+Run the tests with `npm test` and they should all pass.
 
 ## Conclusion
 
