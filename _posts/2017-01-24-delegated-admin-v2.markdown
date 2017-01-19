@@ -3,7 +3,7 @@ layout: post
 title: "Better User Management with the Delegated Administration Dashboard"
 description: "Learn how to use the Delegated Administration Dashboard extension to expose the users dashboard for a select group of users and build a powerful user management workflow."
 date: 2017-01-24 08:30
-category: Extension, Features
+category: Extension, Features, User Management
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"
@@ -13,10 +13,11 @@ design:
   image: https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/logo.png
   bg_color: "#003472"
 tags:
+- extension
+- feature
 - user-management
 - delegated-admin
 - delegated-administration-dashboard
-- extension
 - auth0-extension
 related:
 - introduction-to-progressive-apps-part-one
