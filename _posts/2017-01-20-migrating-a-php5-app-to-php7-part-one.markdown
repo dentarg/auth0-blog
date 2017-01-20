@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Migrating a PHP 5 App to PHP 7 (Development Environment)"
+title: "Migrating a PHP 5 App to PHP 7 (Development Environment) - Part 1"
 description: "Learn how to migrate a PHP 5 application to PHP 7: Setup and development environment."
 date: 2017-01-20 8:30
 category: Technical Guide, PHP, Migration
@@ -61,7 +61,7 @@ and much more! If you aren't using any of the deprecated features in your PHP 5 
 
 The first step to upgrading your application to use PHP 7 features is to migrate your development environment from PHP 5.x to PHP 7.x. We will cover how to upgrade your development environment to run PHP 7.x on Ubuntu, CentOs, Windows and Mac OS machines.
 
-#### Mac OS X
+## Mac OS X
 
 If you are a fan of [Homebrew](http://brew.sh), you can install PHP 7.0 via homebrew like so:
 
@@ -85,9 +85,9 @@ curl -s http://php-osx.liip.ch/install.sh | bash -s 7.0
 
 ```
 
-#### Windows
+## Windows
 
-If you are fan of [WAMP](http://www.wampserver.com/en) or [XAMPP](https://www.apachefriends.org/download.html), then you can just download the latest versions of the software. It comes packaged with PHP 7.O.
+If you are fan of [WAMP](http://www.wampserver.com/en) or [XAMPP](https://www.apachefriends.org/download.html), then you can just download the latest versions of the software. It comes packaged with PHP 7.0.
 
 ![XAMPP download](https://cdn.auth0.com/blog/phpv/donwload.png)
 _Download and install the last/latest version_
@@ -95,7 +95,7 @@ _Download and install the last/latest version_
 Another option is to download the PHP 7.0 distribution for windows from [http://windows.php.net/download#php-7.0](http://windows.php.net/download#php-7.0).
 
 
-#### Ubuntu
+## Ubuntu
 
 If you are running Ubuntu on your machine, especially around v14 and 15, you can install PHP 7.0 by running these commands:
 
@@ -107,11 +107,11 @@ sudo apt-get install php7.0
 
 ```
 
-#### Debian
+## Debian
 
 If you are running Debian on your machine, especially around v6, v7 and v8, you can install PHP 7.0 by doing the following:
 
-1. Open up your `/etc/apt/sources.list` file, and make sure you have these commands below:
+* Open up your `/etc/apt/sources.list` file, and make sure you have these commands below:
 
 _If you are using a Jessie distribution_
 
@@ -130,7 +130,7 @@ deb-src http://packages.dotdeb.org wheezy all
 
 ```
 
-2. Fetch and Install the GnuPG key
+* Fetch and Install the GnuPG key
 
 ```bash
 
@@ -139,7 +139,7 @@ sudo apt-key add dotdeb.gpg
 
 ```
 
-3. Install PHP 7.0
+* Install PHP 7.0
 
 ```bash
 
@@ -148,7 +148,7 @@ sudo apt-get install php7.0
 
 ```
 
-#### CentOS / Red Hat Enterprise Linux
+## CentOS / Red Hat Enterprise Linux
 
 If you are running CentOS or Red Hat Enterprise Linux operating system on your machine, you can install PHP 7.0 by running the following commands on your terminal like so:
 
@@ -171,7 +171,7 @@ Zend Engine v3.0.0, Copyright (c) 1998-2015 Zend Technologies
 
 ```
 
-#### phpbrew
+## phpbrew
 
 [PHPBrew](https://github.com/phpbrew/phpbrew) is a tool that you can use to build and install multiple versions of PHP on your machine. It can:
 
@@ -232,11 +232,11 @@ Most times, we use PHP with other extensions such as MySQL, PDO, openssl etc. Yo
 
 This command above will build PHP with MySQL, mycrypt, openssl, debug and sqlite.
 
-#### Vagrant
+## Vagrant
 
 Vagrant provides a simple, elegant way to manage and provision Virtual Machines. The development environments that run on Vagrant are packaged via **Vagrant boxes**. Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes! One of such boxes I recommend is **Laravel Homestead**.
 
-##### Laravel Homestead
+### Laravel Homestead
 
 Laravel Homestead is an official, pre-packaged Vagrant box that provides you a wonderful development environment without requiring you to install PHP, a web server, and any other server software on your local machine. Homestead runs on any Windows, Mac, or Linux system. It includes the following:
 
@@ -268,16 +268,13 @@ Follow the instructions on the [laravel homestead documentation](https://laravel
 
 > I recommend Windows users to take a stab at using [Laragon](https://laragon.org). It provides an alternative but suitable and powerful environment like Laravel Homestead.
 
-##### php7dev
+### php7dev
 
-Another Vagrant image is **[php7dev](https://github.com/rlerdorf/php7dev)** by Rasmus Ledorf ( Creator of PHP). It is a Debian 8 Vagrant image which is preconfigured for testing PHP apps and developing extensions across many versions of PHP.
-
-You can gloriously switch between PHP versions by using the `newphp` command. 
+Another Vagrant image is **[php7dev](https://github.com/rlerdorf/php7dev)** by Rasmus Ledorf ( Creator of PHP). It is a Debian 8 Vagrant image which is preconfigured for testing PHP apps and developing extensions across many versions of PHP. You can gloriously switch between PHP versions by using the `newphp` command. 
 
 Follow the instructions on the [README](https://github.com/rlerdorf/php7dev) to find out how to install, configure and use.
 
-
-#### Valet
+## Valet
 
 [Valet](https://github.com/laravel/valet) is a PHP development environment for Mac minimalists. It was built by Taylor and Adam Wathan of the Laravel community. It is a fast blazing development environment that uses roughly 7MB of RAM. It requires Homebrew.
 
@@ -316,17 +313,17 @@ Out of the box, Valet supports [Laravel](https://laravel.com), [Lumen](https://l
 
 Follow the instructions on the [laravel valet documentation](https://laravel.com/docs/5.3/homestead) to find out how to install and get started using it.
 
-#### Docker
+## Docker
 
-##### php7-dockerized
+### php7-dockerized
 
 [php7-dockerized](https://github.com/hamptonpaulk/php7-dockerized) is a simple PHP 7 Docker and Compose environment that is bundled with Nginx and MySQL. Follow the instructions on [setting up a local PHP 7 development environment with docker and compose!](https://medium.com/code-school/setting-up-a-local-php7-development-environment-with-docker-compose-e9531baed291#.bezir0x7n).
 
-##### laradock
+### Laradock
 
 [Laradock](https://github.com/laradock/laradock) is a docker PHP development environment that gives you a wonderful development environment without requiring you to install PHP 7, Nginx, MySQL, Redis, and any other software on your machines.
 
-1. Clone Laradock inside your project like so:
+* Clone Laradock inside your project like so:
 
 ```bash
 
@@ -334,7 +331,7 @@ git clone https://github.com/Laradock/laradock.git
 
 ```
 
-2. Enter the laradock folder and run this command:
+* Enter the laradock folder and run this command:
 
 ```bash
 
@@ -342,7 +339,7 @@ docker-compose up -d nginx mysql redis beanstalkd
 
 ```
 
-3. Open your `.env` file and set the following:
+* Open your `.env` file and set the following:
 
 ```bash
 
@@ -354,9 +351,22 @@ QUEUE_HOST=beanstalkd
 
 Follow the instructions on the [laradock documentation](https://github.com/laradock/laradock/blob/master/README.md) to find out how to install and configure it.
 
+### phpdocker
+
+[phpdocker.io](https://github.com/phpdocker-io/phpdocker.io) is a PHP and Docker generated environment. It supports PHP 7 up until 7.1 beta. Follow the instructions to set it up like so:
+
+* Clone [https://github.com/phpdocker-io/phpdocker.io](https://github.com/phpdocker-io/phpdocker.io)
+* Copy `app/config/parameters.yml.dist` into `app/config/parameters.yml`
+* Run `composer install`
+* Run `bower install`
+* Run `php bin/console assets:install --symlink --relative`
+* Run `docker-compose up -d`
+
 
 ## Conclusion
 
 We have successfully covered various ways of setting up a PHP 7 development environment. The first step to migrating an app from a specific language version to another is ensuring that the development environment supports the new version. 
 
-Do you have other ways of setting up PHP 7 development environments? Are you currently using an awesome tool to run your PHP 7 apps? Please let me know in the comments section. In the next article, we'll go through all the features of PHP 7 that you can leverage when migrating your PHP 5 application!
+Do you have other ways of setting up PHP 7 development environments? Are you currently using an awesome tool to run your PHP 7 apps? Please let me know in the comments section.
+
+In the next article, we'll go through all the features of PHP 7 that you can leverage when migrating your PHP 5 application!
