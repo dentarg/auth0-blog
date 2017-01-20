@@ -38,7 +38,7 @@ Let's get to it!
 
 # Setup
 
-First, we need to set things up. Clone the repo that holds the initial code for this application and install all the dependencies using npm. For those who are familiar with yarn, you can use it to install the dependencies instead of npm.
+First, we need to set things up. Clone the repo that holds the initial code for this application and install all the dependencies using npm. For those who are familiar with yarn, you can use it to install the dependencies instead of npm. If you'd rather just download the source, you can get that [from the Github repo](https://github.com/searsaw/optimizing-react).
 
 ```
 git clone https://github.com/searsaw/optimizing-react.git
@@ -53,7 +53,7 @@ Open up a browser to `localhost:8080` and get to know the application a bit. If 
 
 # Profiling the Application
 
-Now that we have the application on our machines, we need a way to profile it to see where React is wasting time. Luckily, the team over at Facebook (heard of them?) has created a package called `react-addons-perf`. It's pretty simple to use. When we are ready for it to start profiling, we call `Perf.start()`. We do some actions to profile and then call `Perf.stop()`. Once we have some profiled data, there are a few tables we can output to see some of this data. The two we will concentrate on will be `Perf.printWasted()` and `Perf.printOperations()`. In this case, wasted means, as stated before, that React calculated the new virtual DOM, compared it to the old one, and saw that there were some pieces it calculated that didn't change. This means it wasted time creating the new virtual DOM for pieces of the page that won't change at all. Operations are the changes React made to the actual DOM to make the it mirror the virtual DOM.
+Now that we have the application on our machines, we need a way to profile it to see where React is wasting time. Luckily, the team over at Facebook (heard of them?) has created a package called [`react-addons-perf`](https://facebook.github.io/react/docs/perf.html). It's pretty simple to use. When we are ready for it to start profiling, we call `Perf.start()`. We do some actions to profile and then call `Perf.stop()`. Once we have some profiled data, there are a few tables we can output to see some of this data. The two we will concentrate on will be `Perf.printWasted()` and `Perf.printOperations()`. In this case, wasted means, as stated before, that React calculated the new virtual DOM, compared it to the old one, and saw that there were some pieces it calculated that didn't change. This means it wasted time creating the new virtual DOM for pieces of the page that won't change at all. Operations are the changes React made to the actual DOM to make the it mirror the virtual DOM.
 
 ```
 npm install --save-dev react-addons-perf # or `yarn add --dev react-addons-perf`
