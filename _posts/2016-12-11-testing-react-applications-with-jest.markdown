@@ -478,7 +478,7 @@ You should include the `__snapshots__` folder in your versioning system to ensur
 
 Before concluding the article, let's take a look at how you can add authentication to the React app and ensure the tests work with this. We'll change the app so that it requires the user to be logged in before they can start the countdown timer. In the process, we'll take a look at a caveat that Jest has as a Node-based test runner that runs its tests on jsdom.
 
-To get started, first [sign up for an Auth0](https://auth0.com) account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Single Page Web Applications** from the Client type list. On the next page, select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Set the **Allowed Callback URLs** and **Allowed Origins (CORS)** to `http://localhost:3000/` and save the changes with the button at the bottom of the page.
+To get started, first <a href="javascript:signup()">sign up</a> for an Auth0 account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Single Page Web Applications** from the Client type list. On the next page, select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Set the **Allowed Callback URLs** and **Allowed Origins (CORS)** to `http://localhost:3000/` and save the changes with the button at the bottom of the page.
 
 We'll add the Auth0 [Lock widget](https://auth0.com/lock) to our app, which provides an interface for the user to login and/or signup.
 
