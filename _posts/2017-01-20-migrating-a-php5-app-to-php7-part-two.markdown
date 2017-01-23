@@ -775,7 +775,30 @@ dirname($path, 3);
 
 ### Uniform Variable Syntax
 
-This brings a much needed change to the way variable-variable expressions are constructed.
+This brings a much needed change to the way variable-variable expressions are constructed. It allows for a number of new combinations of operators that were previously disallowed, and so introduces new ways to achieve old operations in a more polished code.
+
+```php
+
+// nesting ::
+$foo::$bar::$baz // access the property $baz of the $foo::$bar property
+
+// nesting ()
+foo()() // invoke the return of foo()
+
+// operators on expressions enclosed in ()
+(function () {})() // IIFE syntax from JS
+
+```
+
+```php
+
+                        // old meaning            // new meaning
+$$foo['bar']['baz']     ${$foo['bar']['baz']}     ($$foo)['bar']['baz']
+$foo->$bar['baz']       $foo->{$bar['baz']}       ($foo->$bar)['baz']
+$foo->$bar['baz']()     $foo->{$bar['baz']}()     ($foo->$bar)['baz']()
+Foo::$bar['baz']()      Foo::{$bar['baz']}()      (Foo::$bar)['baz']()
+
+```
 
 ### Reserved Words
 
