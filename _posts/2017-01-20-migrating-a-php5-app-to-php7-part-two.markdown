@@ -22,7 +22,7 @@ related:
 ---
 
 
-**TL;DR:** Many PHP applications are still running on PHP 5.x, not ready to take full advantage of the awesome features that PHP 7 offers. A lot of developers have not made the switch because of certain fears of compatibility issues, migration challenges and the strange awkward feeling that migrating will take away a big chunk of their time. In the [first part of this tutorial](#link-to-part-1) we learned how to set up a PHP 7 development environment. This time, we'll go learn about all the new PHP 7 features and how you can leaverage them when migrating your php 5 app to PHP 7.
+**TL;DR:** Many PHP applications are still running on PHP 5.x, not ready to take full advantage of the awesome features that PHP 7 offers. A lot of developers have not made the switch because of certain fears of compatibility issues, migration challenges and the strange awkward feeling that migrating will take away a big chunk of their time. In the [first part of this tutorial](#link-to-part-1) we learned how to set up a PHP 7 development environment. This time, we'll learn about all the new PHP 7 features and how you can leaverage them when migrating your php 5 app to PHP 7.
 
 ---
 
@@ -461,6 +461,8 @@ Many fatal and recoverable fatal errors have been converted to exceptions in PHP
 
 _Hierarchy_
 
+```bash
+
 \Throwable
 ├── \Exception (implements \Throwable)
 │   ├── \LogicException
@@ -484,6 +486,8 @@ _Hierarchy_
     ├── \DivisionByZeroError
     ├── \ParseError
     └── \TypeError
+
+```
 
 So you can catch specific Errors  like so:
 
@@ -646,7 +650,7 @@ Generators can now delegate to another generator by using `yield from` like so:
 
 ```php
 
-unction square(array $number) {
+function square(array $number) {
     foreach($number as $num)
     {
         yield $num * $num;
@@ -843,52 +847,38 @@ _ReflectionFunctionAbstract API_
 * `ReflectionFunctionAbstract::hasReturnType` - Checks if the function has a specified return type.
 * `ReflectionFunctionAbstract::getReturnType` — Gets the specified return type of a function
 
-
-
-
-
-
-
-```php
-
-class ReflectionType {
-    
-}
-
-
-
 ### Deprecated Features
 
 Using deprecated features in PHP will trigger an `E_DEPRECATED` error. 
 
 * PHP 4 Style constructors are deprecated, and will be removed in the future. An example of a PHP 4 style of writing constructors(having the same name with the class) is this:
 
-```php
+    ```php
 
-class Economy {
-    function economy() {
-        /* ... */
+    class Economy {
+        function economy() {
+            /* ... */
+        }
     }
-}
 
-```
+    ```
 
 * Static calls to methods that are actually not *static* are deprecated.
 
-```php
+    ```php
 
-class Economy {
-    function affordPrimaryEducation() {
-        echo 'I think I might not be able to afford it with this economy';
+    class Economy {
+        function affordPrimaryEducation() {
+            echo 'I think I might not be able to afford it with this economy';
+        }
     }
-}
 
-Economy::affordPrimaryEducation();
+    Economy::affordPrimaryEducation();
 
-// Result
-Deprecated: Non-static method Economy::affordPrimaryEducation() should not be called statically in ......
+    // Result
+    Deprecated: Non-static method Economy::affordPrimaryEducation() should not be called statically in ......
 
-```
+    ```
 
 * The salt option for the `password_hash()` function has been deprecated to prevent developers from generating their own salts which are mostly insecure.
 
