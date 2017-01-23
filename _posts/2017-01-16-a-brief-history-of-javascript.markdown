@@ -315,7 +315,7 @@ The [conclusions](https://mail.mozilla.org/pipermail/es-discuss/2008-August/0034
 
 All in all, ECMAScript 4 took almost 8 years of development and was finally scrapped. A hard lesson for all who were involved.
 
-The word "Harmony" appears in the conclusions above. This was the name the project for future extensions for JavaScript received. Harmony would be the alternative that everyone could agree on. Aftr the release of ECMAScript 3.1 (in the form of version 5, as we'll see below), ECMAScript Harmony became the place were all new ideas for JavaScript would be discussed.
+The word "Harmony" appears in the conclusions above. This was the name the project for future extensions for JavaScript received. Harmony would be the alternative that everyone could agree on. After the release of ECMAScript 3.1 (in the form of version 5, as we'll see below), ECMAScript Harmony became the place were all new ideas for JavaScript would be discussed.
 
 #### ActionScript
 ActionScript was a programming language based on an early draft for ECMAScript 4. Adobe implemented it as part of its Flash suite of applications and was the sole scripting language supported by it. This made Adobe take a strong stance in favor of ECMAScript 4, even going as far as releasing their engine as open-source ([Tamarin](https://en.wikipedia.org/wiki/Tamarin_%28software%29)) in hopes of speeding ECMAScript 4 adoption. An interesting take on the matter was exposed by Mike Chambers, an Adobe employee:
