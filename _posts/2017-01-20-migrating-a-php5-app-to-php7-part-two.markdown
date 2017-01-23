@@ -10,7 +10,7 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
+  image: https://cdn.auth0.com/blog/migration/PHPlogo.png
   bg_color: "#312A4C"
 tags:
 - php5
@@ -316,7 +316,7 @@ getMoney();
 
 The enhancements were made possible from the [Unicode Codepoint Escape Syntax RFC](https://wiki.php.net/rfc/unicode_escape).
 
-Now, you can also get the name equivalent of the unicode character, say "\u{1F4B0}" like so:
+Now, you can also get the name equivalent of the unicode character, say "\u{1F4B0}" via the new `IntlChar` class like so:
 
 ```php
 
@@ -332,6 +332,8 @@ var_dump(IntlChar::charFromName("SNOWMAN"));
 var_dump(IntlChar::charFromName("TURTLE"));
 
 ```
+
+> **Note:** The IntlChar class contains about 600 constants and 59 static methods.
 
 This was made possible from the [IntlChar RFC](https://wiki.php.net/rfc/intl.char). The PHP manual has extensive documentation on [IntlChar](http://php.net/manual/en/class.intlchar.php) class.
 
@@ -752,7 +754,106 @@ v10
 
 ```
 
+### dirname() enhancement
+
+The `dirname()` in PHP 5 returns a parent directory's path. In PHP 7.0.0, an optional *levels* parameter has been added to the function to allow you as developer determine how many levels up you want to go when getting a path.
+
+```php
+
+$path = '/Unicodeveloper/source/php-workspace/laravel/vavoom';
+
+dirname($path, 3);
+
+// Result
+/Unicodeveloper/source
+
+```
+
+### Uniform Variable Syntax
+
+This brings a much needed change to the way variable-variable expressions are constructed.
+
+### Reserved Words
+
+PHP 7 now allows globally reserved words such as `new`, `private`, `for` as property, constant, and method names within classes, interfaces, and traits.
+
+```php
+
+class Car {
+
+    private $type, $who, $costs;
+
+    public function new($carType) {
+        $this->type = $carType;
+        return $this;
+    }
+
+    public function for($who) {
+        $this->who = $who;
+        return $this;
+    }
+
+    public function costs($price) {
+        $this->price = $price;
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->type . ' ' . $this->who . ' ' . $this->price. PHP_EOL;
+    }
+}
+
+$car = new Car();
+echo $car->new('Mercedes Benz')->for('Wife')->costs(14000);
+
+// Result
+Mercedes Benz Wife 14000
+
+```
+
 ### Reflection API Enhancements
+
+PHP 7 introduces two new reflection classes. One is the `ReflectionGenerator` class that reports information about generators and the other is the `ReflectionType` class that reports information about a function's return type.
+
+_ReflectionType API_
+
+* `ReflectionType::allowsNull` — Checks if null is allowed
+* `ReflectionType::isBuiltin` — Checks if it is a built-in type
+* `ReflectionType::__toString` - gets the parameter type name
+
+_ReflectionGenerator API_
+
+* `ReflectionGenerator::__construct` — Constructs a ReflectionGenerator object
+* `ReflectionGenerator::getExecutingFile` — Gets the file name of the currently executing generator
+* `ReflectionGenerator::getExecutingGenerator` — Gets the executing Generator object
+* `ReflectionGenerator::getExecutingLine` — Gets the currently executing line of the generator
+* `ReflectionGenerator::getFunction` — Gets the function name of the generator
+* `ReflectionGenerator::getThis` — Gets the $this value of the generator
+* `ReflectionGenerator::getTrace` — Gets the trace of the executing generator
+
+Two new methods have also been added to the `ReflectionParameter` and `ReflectionFunctionAbstract` classes.
+
+_ReflectionParameter API_
+
+* `ReflectionParameter::hasType` -  Checks if parameter has a type
+* `ReflectionParameter::getType` - Gets a parameter's type
+
+_ReflectionFunctionAbstract API_
+
+* `ReflectionFunctionAbstract::hasReturnType` - Checks if the function has a specified return type.
+* `ReflectionFunctionAbstract::getReturnType` — Gets the specified return type of a function
+
+
+
+
+
+
+
+```php
+
+class ReflectionType {
+    
+}
 
 
 
@@ -829,16 +930,21 @@ Here are backward incompatible changes you should be aware of:
 * `global` can no longer accept *variable variables* unless you fake it by using the curly brace like so `global ${$foo->bar}`.
 * An `E_WARNING` will be emitted and **NULL** will be returned when internal functions try to perform float to integer automatic conversions.
 * Prefixing comments with `#` in `php.ini` file is no longer allowed. Only semi-colons(;) should be used.
+* Dividing by 0 will emit an `E_WARNING` and also one of either `+INF`, `-INF`, or `NAN`.
 * `$HTTP_RAW_POST_DATA` was deprecated in PHP 5.6.0 and finally removed in PHP 7.0.0. Use [php://input](https://php.net/manual/en/wrappers.php.php#wrappers.php.input) as a replacement.
 * Switch statements can no longer have multiple default blocks. An **E_COMPILE_ERROR** will be triggered if you try to define more than one default block.
 * Functions can not have multiple parameters with the same name. `function slap($hand, $hand, $strength)`. An **E_COMPILE_ERROR** will be triggered as a result of this function.
 * Static calls made to a non-static method with an incompatible context will now result in the called method having an undefined `$this` variable and a deprecation warning being issued. 
+
+You can check out the few other [PHP core functions](https://secure.php.net/manual/en/migration70.changed-functions.php) that have changed.
 
 ### Removed Extensions and SAPIs
 
 The `ext/mysql`, `ext/mssql`, `ereg` and `sybase_ct` extensions have been removed. All the `mysql_` functions have been removed! You should either use the `ext/mysqli` extension or use the `ext/pdo` extension which is has an object-oriented API.
 
 The `aolserver`, `apache`, `apache_hooks`, `apache2filter`, `caudium`, `continuity`, `isapi`, `milter`, `nsapi`, `phttpd`, `pi3web`, `roxen`, `thttpd`, `tux` and `webjames` SAPIs have been removed.
+
+
 
 ## Conclusion
 
