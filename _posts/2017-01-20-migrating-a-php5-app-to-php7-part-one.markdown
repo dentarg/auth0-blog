@@ -10,8 +10,8 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/migration/PHPlogo.png
+  bg_color: "#312A4C"
 tags:
 - php5
 - php7
