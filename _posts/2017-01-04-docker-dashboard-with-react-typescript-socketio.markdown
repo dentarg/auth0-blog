@@ -383,13 +383,6 @@ export interface Container {
 
 export class ContainerListItem extends React.Component<Container, {}> {
 
-    // Handles the click event of the start/stop button
-    onActionButtonClick() {
-        const evt = this.isRunning() ? 'container.stop' : 'container.start'
-
-        // more to come here..
-    }
-
     // Helper method for determining whether the container is running or not
     isRunning() {
         return this.props.state === 'running'
@@ -409,7 +402,7 @@ export class ContainerListItem extends React.Component<Container, {}> {
                         Image: {this.props.image}
                     </div>
                     <div className="panel-footer">
-                        <button onClick={this.onActionButtonClick.bind(this)} className="btn btn-default">{buttonText}</button>
+                        <button className="btn btn-default">{buttonText}</button>
                     </div>
                 </div>
             </div>
@@ -695,3 +688,53 @@ componentDidMount() {
 Right now, you should be able to start your app and have it display a list of the running and stopped Docker containers on your machine!
 
 ![My Docker containers](http://i.imgur.com/F1Llyk4.png)
+
+## Starting containers
+
+Being able to start and stop a container is merely an extension of what we've already accomplished. Let's have a look at how we can start a container when we click the 'Start' button.
+
+### Wiring up the start button
+
+The workflow we're going to implement looks like this:
+
+1) We are going to handle the 'click' event of the start button from inside the React component
+2) Inside the click event, we're going to send a message to the socket running on the server
+3) The server will receive the message and tell Docker to start the appropriate container
+4) When the container starts, the server will dispatch a message to all connections with a refreshed list of containers
+
+Let's start with the button. Alter the button inside your `ContainerListItem` component so that it handles the click event using a method called `onActionButtonClick`:
+
+```javascript
+<button onClick={this.onActionButtonClick.bind(this)} 
+    className="btn btn-default">{buttonText}</button>
+```
+
+Next create, the `onActionButtonClick` handler somewhere inside the same component:
+
+```javascript
+onActionButtonClick() {    
+    socket.emit('container.start', { id: this.props.id })
+}
+```
+
+Here we post the 'container.start' message to the socket along with the container id. Armed with this information, we'll be able to tell Docker which container to start. You might find that you'll get an issue here, because Typescript doesn't know what `socket` is yet. We can fix that by importing `socket.io-client` and connecting to the server socket. At the top of the file, then:
+
+```javascript
+import * as io from 'socket.io-client'
+
+const socket = io.connect()
+```
+
+Now everything should be fine. To complete the feature, let's pop over to the server side and handle the incoming message. Open `server.js` and add the following somewhere inside your socket connection handler, alongside where you handle the 'containers.list' message:
+
+```javascript
+socket.on('container.start', args => {
+    const container = docker.getContainer(args.id)
+
+    if (container) {
+        container.start((err, data) => refreshContainers())
+    }
+})
+```
+
+Here we simply get a container from Docker using the id that we get from the client. If the container is valid, we call `start` on it. Once start has completed, we call our `refreshContainers` method that we already have. This will cause socket.io to send our current list of containers to all the connected clients.
