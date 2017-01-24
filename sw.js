@@ -1,12 +1,9 @@
  var link;
 self.addEventListener('push', function(event) {
-    console.log('Received a push message', event);
     event.waitUntil(
         fetch('last.json').then(function(response){
-            console.log(response);
             return response.json();
         }).then(function(data){
-            console.log('data', data);
             link = data.link;
             return self.registration.showNotification('New article in Auth0 blog!', {
                 body: data.title,
@@ -18,7 +15,6 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-    console.dir(event);
     event.waitUntil(
         clients.matchAll({
             type: "window"
