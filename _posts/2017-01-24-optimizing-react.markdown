@@ -2,7 +2,7 @@
 layout: post
 title: "Optimizing the Performance of Your React Application"
 description: "Optimizing your React application is simple thanks to a few easy-to-learn techniques."
-date: 2017-01-04 13:00
+date: 2017-01-24 13:00
 category: Technical Guide, Frontend, React
 author:
   name: Alex Sears
@@ -10,14 +10,19 @@ author:
   mail: alexwsears@gmail.com
   avatar: "https://s.gravatar.com/avatar/6c0654e56c8c73ffee8f76fe03d18ccf?s=80"
 design:
-  bg_color: "#212121"
-  image: https://s3.amazonaws.com/optimizing-react/react-logo.svg
+  bg_color: "#222425"
+  image: https://cdn.auth0.com/blog/optimizing-react/logo.png
 tags:
 - javascript
 - frontend-development
 - react
 - performance
 - optimization
+related:
+- 2017-01-11-alternatives-to-native-mobile-app-development
+- 2016-11-21-building-and-authenticating-nodejs-apps
+- 2016-09-27-understanding-reactive-programming-and-rxjs
+
 ---
 
 ---
