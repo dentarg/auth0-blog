@@ -2,7 +2,7 @@
 layout: post
 title: "5 Reasons Your Company Needs Identity and Access Management"
 description: "From revenue to employee happiness, identity management has more to offer than you might think."
-date: 2017-01-19 8:30
+date: 2017-01-24 8:30
 category: Technical Guide
 author:
   name: "Bruno Krebs"
@@ -58,7 +58,7 @@ The thought of having a problem with login security should strike fear into ever
 
 Your business can't budget in an entire, 24/7 security detail, right?
 
-![](https://quip.com/-/blob/PPdAAAMuiFA/-UYgfAxpOYhw8ISzD8WQlw)
+![Protected](https://cdn.auth0.com/blog/flow/protected.png)
 
 Well, no, you probably can't. However, when you outsource your identity management, you can get all the strength and expertise of your own security detail without keeping an army of engineers in your office. 
 
