@@ -46,7 +46,7 @@ Rules in Auth0 are code snippets written in Javascript that are executed as part
 
 That essentially allows you to extend the Auth0 API with your own customizations without having to write any additional code on your end.
 
-[![Rules in Auth0](https://cdn.auth0.com/blog/rules-auth0/rules.png)](https://auth0.com/docs/rules)
+[![Rules in Auth0](https://cdn.auth0.com/blog/integrate-your-saas-tools/rules-diagram.png)](https://auth0.com/docs/rules)
 
 When a user signs up, logs in, or authenticates in general, an authentication request is made to Auth0 (Step 1). After the user authenticates in step (3), the rules are run on step (4) and the result is passed back to the App.
 

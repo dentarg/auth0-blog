@@ -46,6 +46,7 @@ task :new_post, :title do |t, args|
     post.puts "title: \"#{title.gsub(/&/,'&amp;')}\""
     post.puts "description: <A SHORT DESCRIPTION OF THE POST>"
     post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
+    post.puts "category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>"
     post.puts "author: "
     post.puts "  name: <YOUR NAME>"
     post.puts "  url: <YOUR URL>"
@@ -55,6 +56,8 @@ task :new_post, :title do |t, args|
     post.puts "  image: <A PATH TO A 200x200 IMAGE>"
     post.puts "tags: "
     post.puts "- foo"
+    post.puts "related:"
+    post.puts "- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>"
     post.puts "---"
   end
 end

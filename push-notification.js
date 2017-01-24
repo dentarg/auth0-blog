@@ -1,28 +1,16 @@
 // about service worker and push notification
 if (navigator.serviceWorker) {
-  console.log('ServiceWorkers are supported');
-
-  navigator.serviceWorker.register('https://auth0.com/blog/sw.js')
-    .then(function (reg) {
-        console.log('ServiceWorker registered');
-        doesBrowserSupportNotifications();
-      })
-    .catch(function (error) {
-        console.log('Failed to register ServiceWorker', error);
-      });
+  navigator.serviceWorker.register('https://auth0.com/blog/sw.js');
 }
 
 var requestNotificationPermission = function () {
 
   if (Notification.requestPermission) {
     Notification.requestPermission(function (result) {
-      console.log('Notification permission : ', result);
       if (result == 'granted') {
         registerForPush();
       }
     });
-  } else {
-    console.log('Notifications not supported by this browser.');
   }
 };
 
@@ -33,7 +21,6 @@ function registerForPush() {
       function (pushSubscription) {
         // Check we have a subscription to unsubscribe
         if (pushSubscription) {
-          console.warn('subscribed Notification');
           return;
         }
 
@@ -47,7 +34,7 @@ function subscribe(serviceWorkerRegistration) {
     userVisibleOnly: true,
   })
   .then(function (subscription) {
-      fetch('https://auth0-marketing.run.webtask.io/blog-push-subscriptions?webtask_no_cache=1',
+      fetch('https://auth0-marketing.run.webtask.io/pn-push-subscriptions/push-notification',
         {
             headers: {
               'Accept': 'application/json',
@@ -60,13 +47,11 @@ function subscribe(serviceWorkerRegistration) {
           metricsLib.track('blog:notifications', { 'trackData': 'accepted' });
         })
         .catch(function (err) {
-          console.err(err);
           return;
         });
 
     })
     .catch(function (error) {
-        console.log('Subscription for Push failed', error);
       });
 }
 
@@ -79,7 +64,6 @@ window.unsubscribePushNotification = function () {
           function (pushSubscription) {
             // Check we have a subscription to unsubscribe
             if (!pushSubscription) {
-              console.warn('Unsubscribed Notification');
               return;
             }
 
@@ -88,51 +72,18 @@ window.unsubscribePushNotification = function () {
             // request to wt to remove subscription of db
             pushSubscription.unsubscribe()
               .then(function (successful) {
-                fetch('https://auth0-marketing.run.webtask.io/blog-push-subscriptions/' + subscriptionId,
+                fetch('https://auth0-marketing.run.webtask.io/pn-push-subscriptions/push-notification/' + subscriptionId,
                   {
                     method: 'DELETE',
                   })
                   .then(function (res) { console.log('unsubscribe'); })
                   .catch(function (err) {
-                    console.err(err);
                     return;
                   });
-              }).catch(function (e) {
-                console.log('Unsubscription error: ', e);
               });
-          }).catch(function (e) {
-              console.error('Error thrown while unsubscribing from push messaging.', e);
-            });
+          });
     });
 };
-
-function doesBrowserSupportNotifications() {
-  var supported = true;
-  if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
-    console.warn('Notifications aren\'t supported in Service Workers.');
-    supported = false;
-  }
-
-  if (!Notification.requestPermission) {
-    console.warn('Notifications are not supported by the browser');
-    supported = false;
-  }
-
-  if (Notification.permission !== 'granted') {
-    console.warn('The user has blocked notifications.');
-    supported = false;
-  }
-
-  // Check if push messaging is supported
-  if (!('PushManager' in window)) {
-    console.warn('Push messaging isn\'t supported.');
-    supported = false;
-  }
-
-  if (supported) {
-    console.log('Everthing is fine you can continue');
-  }
-}
 
 //  popup push subscription
 
@@ -201,7 +152,6 @@ $(document).ready(function ($) {
         serviceWorkerRegistration.pushManager.getSubscription()
           .then(
             function (pushSubscription) {
-              console.log(pushSubscription);
 
               // Check subsccription
               if (!pushSubscription && localStorage.getItem('pn-subscription') != 'false') {
