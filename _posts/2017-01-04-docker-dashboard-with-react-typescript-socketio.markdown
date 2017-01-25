@@ -815,3 +815,101 @@ Now, once your app is running, dive into the command line and stop one of your c
 
 Furthermore, thanks to the power of socket.io, you should be able to open your dashboard in multiple browsers and _see them all update at the same time_. Go ahead and try browsing your dashboard on your mobile device too! 
 
+## Starting brand new containers
+
+In this final section, we're going to explore how we can start brand new containers from exiting Docker images. This will involve a couple of new React components, a [Bootstrap Modal popup](http://getbootstrap.com/javascript/#modals) and some more interaction with socket.io and the Docker API.
+
+First, let's create the React components. There are 3 components involved:
+
+* A 'modal' component, which is a generic component for creating any modal dialog
+* A 'new container model' component, which is based upon the generic modal component for showing the new container-specific UI, as well as handling validation
+* A 'dialog trigger' component which is used to show a modal dialog component on the screen.
+
+### Creating a generic modal popup component
+
+Let's start with the generic component, seeing as our modal for creating a new container will be based upon this one. We're making a generic component just as an exercise to show you how you can extend such a component for multiple uses. For example, later you might go on to create a dialog to accept an image name that will be pulled from the Docker hub - you could also base that modal upon this generic component.
+
+Create a new file in the 'components' director called `modal.tsx`, and begin by importing the relevant modules:
+
+```javascript
+import * as React from 'react'
+```
+
+Next, define some properties that our modal can accept so that we can configure how it looks and works:
+
+```javascript
+interface ModalProperties {
+    id: string
+    title: string
+    buttonText?: string
+    onButtonClicked?: () => boolean|undefined
+}
+```
+
+We must take an id and a title, but we can also accept some text for the button on the dialog and also a handler for the button click, so that we can define what happens when the user clicks the button. Remember that this component is designed to be used in a generic way - we don't actually know what the behaviour will be yet!
+
+Now let's define the component itself:
+
+```javascript
+export default class Modal extends React.Component<ModalProperties, {}> {
+
+    // Store the HTML element id of the modal popup
+    modalElementId: string
+
+    constructor(props: ModalProperties) {
+        super(props)
+        this.modalElementId = `#${this.props.id}`
+    }
+
+    onPrimaryButtonClick() {
+        // Delegate to the generic button handler defined by the inheriting component
+        if (this.props.onButtonClicked) {
+            if (this.props.onButtonClicked() !== false) {
+
+                // Use Bootstrap's jQuery API to hide the popup
+                $(this.modalElementId).modal('hide')
+            }
+        }
+    }
+
+    render() {
+        return (
+            <div className="modal fade" id={ this.props.id }>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 className="modal-title">{ this.props.title }</h4>
+                        </div>
+                        <div className="modal-body">
+                            { this.props.children }
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button"
+                                onClick={this.onPrimaryButtonClick.bind(this)}
+                                className="btn btn-primary">{ this.props.buttonText || "Ok" }
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+```
+
+The component definition itself is mostly straightforward - we just render out the appropriate Bootstrap markup for modal popups, but we pepper it with values, such as the component title. We also specify the client handler on the button as well as the button text. If the component doesn't specify what the button text should be, the default value "Ok" is used, using this line:
+
+```javascript
+{ this.props.buttonText || "Ok" }
+```
+
+Most importantly, the component called `this.props.children` for the modal body. You'll see why this important in the next section, but basically it allows us to render other components that are specified as children of this component. More on that later.
+
+One last thing before we move on; when this component compiles, you'll probably find that Typescript will complain that it can't find `$`, which is true since we haven't imported it. To fix this, we need to simply install the typings for jQuery so that it knows how to resolve that symbol. You will also need to install the types for bootstrap, so that it knows what the bootstrap-specific methods and properties are.
+
+In the command line, then:
+
+```
+npm install --save-dev @types/jquery @types/bootstrap
+```
