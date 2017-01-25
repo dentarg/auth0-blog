@@ -134,7 +134,9 @@ function(ctx, callback) {
 }
 ```
 
-Let's see how we can extend the capabilities of the Users Dashboard with Hooks.
+Let's see how we can extend the capabilities of the Users Dashboard with Hooks. To access Hooks, you will need to be logged in with a user with the role of `Delegated Admin - Administrator`. Head over to the Delegated Admin dashboard and login. Once in, click on your users email in the top right corner and a dropdown menu will open, from here click on the **Configuration** tab and you will see the configuration page where we will add our hooks.
+
+![Accessing Delegated Admin Configuration](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/accessing-hooks.png)
 
 #### Filter Hooks
 
