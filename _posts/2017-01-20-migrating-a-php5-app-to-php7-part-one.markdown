@@ -81,7 +81,7 @@ Another option is to install it via `curl` on your terminal like so:
 
 ```bash
 
-curl -s http://php-osx.liip.ch/install.sh | bash -s 7.0
+curl -s https://php-osx.liip.ch/install.sh | bash -s 7.0
 
 ```
 
@@ -175,11 +175,11 @@ Zend Engine v3.0.0, Copyright (c) 1998-2015 Zend Technologies
 
 [PHPBrew](https://github.com/phpbrew/phpbrew) is a tool that you can use to build and install multiple versions of PHP on your machine. It can:
 
-* Build php with different variants like PDO, mysql, sqlite, debug etc
-* Compile apache php module and separate them by different versions.
+* Build PHP with different variants like PDO, MySQL, SQLite, debug etc
+* Compile Apache PHP module and separate them by different versions.
 * Switch versions very easily and is integrated with bash/zsh shell.
-* Install & enable php extensions into current environment with ease.
-* Install multiple php into system-wide environment.
+* Install & enable PHP extensions into current environment with ease.
+* Install multiple PHP into system-wide environment.
 * Detect path for Homebrew and MacPorts.
 
 ![phpbrew](https://raw.github.com/phpbrew/phpbrew/master/screenshots/01.png)
@@ -222,7 +222,7 @@ phpbrew install github:php/php-src@PHP-7.0 as php-7.0.0
 
 ```
 
-Most times, we use PHP with other extensions such as MySQL, PDO, openssl etc. You can use **phpbrew** to build your PHP environment with various variants like so:
+Most times, we use PHP with other extensions such as MySQL, PDO, OpenSSL etc. You can use **phpbrew** to build your PHP environment with various variants like so:
 
 ```bash
 
@@ -230,7 +230,7 @@ Most times, we use PHP with other extensions such as MySQL, PDO, openssl etc. Yo
 
 ```
 
-This command above will build PHP with MySQL, mycrypt, openssl, debug and sqlite.
+This command above will build PHP with MySQL, mycrypt, OpenSSL, debug and SQLite.
 
 ## Vagrant
 
@@ -256,7 +256,7 @@ Laravel Homestead is an official, pre-packaged Vagrant box that provides you a w
 
 1. Install [VirtualBox 5.1](https://www.virtualbox.org/wiki/Downloads), or [VMWare](https://www.vmware.com), and [Vagrant](https://www.vagrantup.com/downloads.html). 
 
-2. Now that you have Vagrant and Virtualbox or VMware installed, go ahead and download the laravel homestead box like so:
+2. Now that you have Vagrant and VirtualBox or VMware installed, go ahead and download the Laravel Homestead box like so:
 
 ```bash
 
@@ -264,19 +264,19 @@ vagrant box add laravel/homestead
 
 ```
 
-Follow the instructions on the [laravel homestead documentation](https://laravel.com/docs/5.3/homestead) to find out more about the installation process.
+Follow the instructions on the [Laravel Homestead documentation](https://laravel.com/docs/5.3/homestead) to find out more about the installation process.
 
 > I recommend Windows users to take a stab at using [Laragon](https://laragon.org). It provides an alternative but suitable and powerful environment like Laravel Homestead.
 
 ### php7dev
 
-Another Vagrant image is **[php7dev](https://github.com/rlerdorf/php7dev)** by Rasmus Ledorf ( Creator of PHP). It is a Debian 8 Vagrant image which is preconfigured for testing PHP apps and developing extensions across many versions of PHP. You can gloriously switch between PHP versions by using the `newphp` command. 
+Another Vagrant image is **[php7dev](https://github.com/rlerdorf/php7dev)** by Rasmus Ledorf (Creator of PHP). It is a Debian 8 Vagrant image which is preconfigured for testing PHP apps and developing extensions across many versions of PHP. You can gloriously switch between PHP versions by using the `newphp` command. 
 
 Follow the instructions on the [README](https://github.com/rlerdorf/php7dev) to find out how to install, configure and use.
 
 ## Valet
 
-[Valet](https://github.com/laravel/valet) is a PHP development environment for Mac minimalists. It was built by Taylor and Adam Wathan of the Laravel community. It is a fast blazing development environment that uses roughly 7MB of RAM. It requires Homebrew.
+[Valet](https://github.com/laravel/valet) is a PHP development environment for Mac minimalists. It was built by [Taylor](https://twitter.com/taylorotwell) and [Adam Wathan](https://twitter.com/adamwathan) of the Laravel community. It is a fast blazing development environment that uses roughly 7MB of RAM. It requires Homebrew.
 
 Laravel Valet configures Mac to use PHP's built-in web server in the background when your machine starts. With Valet, if you create a project folder called `auth0-php`, then you can just open `auth0-php.dev` in your browser and it will serve the contents of the folder automatically.
 
@@ -288,7 +288,7 @@ valet share
 
 ```
 
-![Valet share](https://cdn-images-1.medium.com/max/1000/1*aycOcQJYFzH2HdBAI7uwlg.png)
+![Valet share](https://cdn.auth0.com/blog/valet/share.png)
 _Valet uses Ngrok under the hood to share_
 
 You can even serve a local site over encrypted TLS using HTTP/2 by invoking a command like so:
@@ -299,7 +299,7 @@ valet secure blog
 
 ```
 
-where `blog` is the name of the site or project folder.
+where `blog` is the name of the site or project folder. Valet generates a Fresh local TLS certificate.
 
 ![Secure the Blog](https://cdn.auth0.com/blog/valet/share.png)
 _Invoke the secure command_
@@ -311,7 +311,7 @@ Very awesome!
 
 Out of the box, Valet supports [Laravel](https://laravel.com), [Lumen](https://lumen.laravel.com), [Symfony](https://symfony.com), [Zend](https://framework.zend.com), [CakePHP 3](https://cakephp.org), [Wordpress](https://wordpress.org), [Bedrock](https://roots.io/bedrock), [Craft](https://craftcms.com), [Statamic](https://statamic.com) and [Jigsaw](http://jigsaw.tighten.co). However, you can extend Valet with your own [custom drivers](https://laravel.com/docs/5.3/valet#custom-valet-drivers).
 
-Follow the instructions on the [laravel valet documentation](https://laravel.com/docs/5.3/homestead) to find out how to install and get started using it.
+Follow the instructions on the [laravel valet documentation](https://laravel.com/docs/5.3/valet) to find out how to install and get started using it.
 
 ## Docker
 
