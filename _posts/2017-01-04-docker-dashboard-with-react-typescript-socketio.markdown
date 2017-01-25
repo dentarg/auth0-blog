@@ -182,6 +182,39 @@ Finally, let's test it out to make sure it's all working so far. In the command 
 
 The prompt should tell you that it has managed to start the site on port 3000. [Browse there now](http://localhost:3000) and make sure we can see our default index page. If not, check both the browser window and the console to see if Node has spat out any useful errors, and try again.
 
+### Keeping a smooth development workflow
+
+Right now when you make changes to the site you will be forced to stop and restart the node app to see your changes to NodeJS code take effect, or re-run the webpack command whenever you make a change to your React components. We can mitigate both of these by causing them to reload themselves whenever changes are made.
+
+To automatically reload your NodeJS server-side changes, you can use a package called [nodemon](https://nodemon.io/). Install it using `npm install -g nodemon` and then start your node app using `nodemon server.js`. You'll notice that, as you make changes to your code, the app will automatically restart.
+
+To handle the recompilation of your React components automatically, webpack has a 'watch' option that will cause it to re-run by itself. To do this, start webpack using `webpack --watch` and notice that your Javascript bundles will start recompiling automatically whenever you change your React components.
+
+To have thes two things - nodemon and webpack - running together, you can either start them in two different console windows, or if you're using OSX or Linux you can run them from one console using this neat one-liner:
+
+`nodemon server.js & webpack --watch`
+
+**Note** This won't work on Windows systems, but luckily there is a package for that called [concurrently](https://www.npmjs.com/package/concurrently) that you can use to achieve the same affect:
+
+```
+npm install -g concurrently
+concurrently "nodemon server.js" "webpack --watch"
+```
+
+Even better, you can put all of this into the node start script. Edit the 'scripts' node of the 'package.json' file to look like the following:
+
+```javascript
+...
+"main": "index.js",
+"scripts": {
+"start": "concurrently \"nodemon server.js\" \"webpack --watch\""
+},
+"author": "",
+...
+```
+
+And then whenever you want to start your app and have it automatically recompile everything, you can simply run `npm start`!
+
 ## Starting some React and Typescript
 
 The main body of our client application is going to be constructed using React and Typescript, which means we need to spend a little more time setting up one or two more tools. Once we set up a workflow for compiling the first component, the rest will easily follow.
@@ -738,3 +771,30 @@ socket.on('container.start', args => {
 ```
 
 Here we simply get a container from Docker using the id that we get from the client. If the container is valid, we call `start` on it. Once start has completed, we call our `refreshContainers` method that we already have. This will cause socket.io to send our current list of containers to all the connected clients.
+
+## Stopping containers
+
+The functionality for stopping containers that are running is done in much the same way; we send a message through socket.io to the server with a 'containers.stop' message, the server stops the relevant container and then tells everyone to refresh their container list.
+
+Once again, let's start on the component side of things. In the previous section, we added a handler for the 'start/stop' button which tells socket.io to send a message to start the container. Let's tweak that a bit so that we can use it for stopping containers too; we'll just send the right message or not depending on whether the container is currently running or not. So this handler now becomes:
+
+```javascript
+onActionButtonClick() {
+    const evt = this.isRunning() ? 'container.stop' : 'container.start'
+    socket.emit(evt, { id: this.props.id })
+}
+```
+
+Next, we'll handle the message on the server. Add a handler for this alongside the one we added in the previous section for 'container.start':
+
+```javascript
+socket.on('container.stop', args => {
+    const container = docker.getContainer(args.id)
+
+    if (container) {
+        container.stop((err, data) => refreshContainers())
+    }
+})
+```
+
+The code looks strikingly similar to the start code, except we _stop_ a container instead of starting it. If you run the app now, you should be able to start and stop your containers!
