@@ -2,7 +2,7 @@
 layout: post
 title: "How To Build Your User Analytics Funnel With Social Login"
 description: "How to collect, send and analyze your user data for growth"
-date: 2017-01-18 14:37
+date: 2017-01-25 14:37
 category: Growth, Identity, Analytics
 author:
   name: Diego Poza
@@ -10,7 +10,7 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: #00479A
+  bg_color: "#00479A
   image: https://cdn.auth0.com/blog/user-analytics-funnel-social-login/post-logo.png
 tags:
 - marketing
