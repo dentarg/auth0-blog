@@ -798,3 +798,20 @@ socket.on('container.stop', args => {
 ```
 
 The code looks strikingly similar to the start code, except we _stop_ a container instead of starting it. If you run the app now, you should be able to start and stop your containers!
+
+### Periodically refreshing container state
+
+Before we head into the last section, now would be a good time to add a quick feature that will automatically refresh our container state. As awesome as our new Docker dashboard is, containers can be started, stopped, created and destroyed from a few different places outside of our app, such as the command line. It would be nice to reflect these changes in our app too.
+
+A quick and easy way to achieve this is to simply read the container state every x seconds, then update our clients. We already have most of the tools to do this, so let's implement it!
+
+Back in `server.js` in the server-side app, add a quick one-liner to send an updated list of Docker containers every 2 seconds. Put this outside of the `io.on('connection', ...` block:
+
+```javascript
+setInterval(refreshContainers, 2000)
+```
+
+Now, once your app is running, dive into the command line and stop one of your containers using `docker stop <container id or name>`, and you should see the container stop inside your dashboard too!
+
+Furthermore, thanks to the power of socket.io, you should be able to open your dashboard in multiple browsers and _see them all update at the same time_. Go ahead and try browsing your dashboard on your mobile device too! 
+
