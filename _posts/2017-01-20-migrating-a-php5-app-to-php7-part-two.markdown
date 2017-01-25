@@ -22,7 +22,7 @@ related:
 ---
 
 
-**TL;DR:** Many PHP applications are still running on PHP 5.x, not ready to take full advantage of the awesome features that PHP 7 offers. A lot of developers have not made the switch because of certain fears of compatibility issues, migration challenges and the strange awkward feeling that migrating will take away a big chunk of their time. In the [first part of this tutorial](#link-to-part-1) we learned how to set up a PHP 7 development environment. This time, we'll learn about all the new PHP 7 features and how you can leaverage them when migrating your php 5 app to PHP 7.
+**TL;DR:** Many PHP applications are still running on PHP 5.x, not ready to take full advantage of the awesome features that PHP 7 offers. A lot of developers have not made the switch because of certain fears of compatibility issues, migration challenges and the strange awkward feeling that migrating will take away a big chunk of their time. In the [first part of this tutorial](#link-to-part-1) we learned how to set up a PHP 7 development environment. This time, we'll learn about all the new PHP 7 features and how you can leaverage them when migrating your PHP 5 app to PHP 7.
 
 ---
 
@@ -79,7 +79,7 @@ echo getBookNo("8");
 This is it: 8
 ```
 
-I passed in a string and it concerced it to an integer and allowed it to run successfully. Now in PHP 7, you can be strict and ensure no form of automatic conversion occurs by declaring a strict mode at the top of your php file like so:
+I passed in a string and it concerced it to an integer and allowed it to run successfully. Now in PHP 7, you can be strict and ensure no form of automatic conversion occurs by declaring a strict mode at the top of your PHP file like so:
 
 ```php
 declare(strict_types=1);
@@ -95,7 +95,7 @@ PHP Fatal error:  Uncaught TypeError: Argument 1 passed to getBookNo() must be o
 
 ```
 
-In PHP 5, if you pass in a float value, it automatically strips out the decimal parts and leave you with an integer. Now in PHP 7, If you pass in a float value too, it will throw a Fatal error. When building a financial application, this feature comes in handy! 
+In PHP 5, if you pass in a float value, it automatically strips out the decimal parts and leaves you with an integer. Now in PHP 7, If you pass in a float value too, it will throw a Fatal error. When building a financial application, this feature comes in handy! 
 
 Remember something like this in JavaScript? where you have to write `use "strict";` at the top of your JavaScript file.
 
@@ -967,4 +967,4 @@ Going over the rundown of all these features as highlighted in this article and 
 
 Thanks to the PHP Manual and RFC documents. You can always reference them for more information.
 
-In the next and final part of this series, we'll convert a small PHP 5 app to PHP 7 and measure the performance. 
+In the next and final part of this series, we'll convert a small PHP 5 app to PHP 7, then measure and report the performance difference. 
