@@ -10,7 +10,7 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#00479A
+  bg_color: "#00479A"
   image: https://cdn.auth0.com/blog/user-analytics-funnel-social-login/post-logo.png
 tags:
 - marketing
