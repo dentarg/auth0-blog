@@ -10,8 +10,8 @@ author:
   mail: "krebs.bruno@gmail.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  image: https://cdn.auth0.com/blog/koa-angular2/logo.png
-  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/ga/Passwordlesslogo.png
+  bg_color: "#37556D"
 tags:
 - passwordless
 - authorization
