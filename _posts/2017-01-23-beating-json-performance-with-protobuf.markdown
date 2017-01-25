@@ -28,11 +28,11 @@ related:
 
 **TL;DR**
 
-Protocol buffers, or Protobuf, is a binary format created by Google to serialize data between different services. Google made this protocol open source and now it provides support, out of the box, to the most common languages like JavaScript, Java, C#, Ruby and others. In our tests, it was demonstrated that this protocol performed up to **6 times faster** than JSON.
+Protocol buffers, or Protobuf, is a binary format created by Google to serialize data between different services. Google made this protocol open source and now it provides support, out of the box, to the most common languages, like JavaScript, Java, C#, Ruby and others. In our tests, it was demonstrated that this protocol performed up to **6 times faster** than JSON.
 
 ## What is Protobuf
 
-[Protocol buffers](https://developers.google.com/protocol-buffers/docs/overview), usually referred as Protobuf, is a protocol developed by Google to allow serialization and deserialization of structured data. Google developed it with the goal to provide a better way, compared to XML, to make systems communicate. So their focused on making it simpler, smaller, faster and more maintainable then XML. But, as you will see in this article, this protocol even surpassed JSON with a better performance, better maintainability and smaller size.
+[Protocol buffers](https://developers.google.com/protocol-buffers/docs/overview), usually referred as Protobuf, is a protocol developed by Google to allow serialization and deserialization of structured data. Google developed it with the goal to provide a better way, compared to XML, to make systems communicate. So they focused on making it simpler, smaller, faster and more maintainable then XML. But, as you will see in this article, this protocol even surpassed JSON with a better performance, better maintainability and smaller size.
 
 ### How does it differs from JSON?
 
@@ -53,18 +53,18 @@ The short answer to the question is yes, Protobuf is faster than JSON. But this 
 
 ### Test Sample
 
-To support the measurements I have created three Protobuf messages: `Address`, to hold just the street and number; `Person`, to hold the name, a collection of addresses, a collection of mobile numbers and a collection of email addresses; `People`, to hold a collection of person messages. This messages were assembled together in an application with four RESTful endpoints:
+To support the measurements, I have created three Protobuf messages: `Address`, to hold just the street and number; `Person`, to hold the name, a collection of addresses, a collection of mobile numbers and a collection of email addresses; `People`, to hold a collection of `Person` messages. These messages were assembled together in an application with four RESTful endpoints:
 
-1. A RESTful endpoint that accepted GET requests and returned a list of 50 thousand people in Protobuf format.
-2. A RESTful endpoint that accepted GET requests and returned the same list of 50 thousand people, but in JSON format.
-3. A RESTful endpoint that accepted POST requests with any number of people in Protobuf format.
-4. A RESTful endpoint that accepted POST requests with any number of people in JSON format.
+1. One that accepted `GET` requests and returned a list of 50 thousand people in Protobuf format.
+2. Another one that accepted `GET` requests and returned the same list of 50 thousand people, but in JSON format.
+3. A third one that accepted `POST` requests with any number of people in Protobuf format.
+4. A fourth one that accepted `POST` requests with any number of people in JSON format.
 
 ### JavaScript to Java Communication
 
 Since there are a lot of JavaScript engines available, it is valuable to see how the most popular of them behave with this set of data. So I decided to use the following browsers: [Chrome](https://www.google.com/chrome), as this is the most popular browser around and its JavaScript engine is also used by [Node.js](https://nodejs.org); [Firefox](https://www.mozilla.org/en-US/firefox/new/), as this is another very popular browser; and [Safari](www.apple.com/safari/), as this is the default browser on MacBooks and iPhones.
 
-The following chart exposes the average performance, of these browsers, on 50 subsequent GET requests to both endpoints  - the Protobuf and JSON endpoints. These 50 requests per endpoint were issued twice: first when running the Spring Boot application with compression turned on; and then when running the application with compression turned off. So, in the end, each browser requested 200 times all these 50 thousand people data.
+The following chart exposes the average performance, of these browsers, on 50 subsequent `GET` requests to both endpoints  - the Protobuf and JSON endpoints. These 50 requests per endpoint were issued twice: first when running the Spring Boot application with compression turned on; and then when running the application with compression turned off. So, in the end, each browser requested 200 times all these 50 thousand people data.
 
 ![Comparison of Protobuf/JSON performance on compressed GET requests](https://cdn.auth0.com/blog/protobuf-json/compressed-env-get-requests.png)
 
@@ -76,17 +76,17 @@ Now, when we have to deal with **non-compressed messages**, the results change q
 
 On these situations, Protobuf performs even better when compared to JSON. Messages, on this format, were **34% smaller**, and they took **21% less time** to be available to the JavaScript code.
 
-When issuing POST requests, the difference gets almost imperceptible as usually this kind of request doesn't deal with heavy messages. More frequent than not, these requests just handle the update of a few fields on a form or something like that. So, to make the test trustworthy, I issued 50 requests with just one `Person` message a few properties, like emails addresses and mobiles, on it. The results can be checked below:
+When issuing `POST` requests, the difference gets almost imperceptible as usually this kind of request doesn't deal with heavy messages. More frequent than not, these requests just handle the update of a few fields on a form or something like that. So, to make the test trustworthy, I issued 50 requests with just one `Person` message and a few properties, like emails addresses and mobiles, on it. The results can be checked below:
 
 ![Comparison of Protobuf/JSON performance on POST requests](https://cdn.auth0.com/blog/protobuf-json/post-requests-js-to-java.png)
 
-In this case the messages sizes were not even different, mainly because they were so small that the meta-data about them were the heavier than the data itself. And the time to issue the request and get a response were almost equal as well, with only a **4% better** performance from Protobuf requests when compared to JSON requests.
+In this case the messages sizes were not even different, mainly because they were so small that the meta-data about them were heavier than the data itself. And the time to issue the request and get a response back was almost equal as well, with only a **4% better** performance from Protobuf requests when compared to JSON requests.
 
 ### Java to Java Communication
 
 If we were to use only JavaScript environments, like Node.js applications and web browsers as interfaces, I would think twice before investing time on learning and migrating endpoints to Protobuf. But, when we start adding other platforms, like Java, Android, Python, etc, then we start to see real gains on using Protobuf.
 
-The chart below was generated with the average performance of 500 GET requests issued by one Spring Boot application to another Spring Boot application. Both applications were deployed on different virtual machines hosted by [Digital Ocean](https://www.digitalocean.com/). I chose this strategy to simulate a common scenario where two microservices are communicating through the wire. Let's see how this simulation ran:
+The chart below was generated with the average performance of 500 `GET` requests issued by one Spring Boot application to another Spring Boot application. Both applications were deployed on different virtual machines hosted by [Digital Ocean](https://www.digitalocean.com/). I chose this strategy to simulate a common scenario where two microservices are communicating through the wire. Let's see how this simulation ran:
 
 ![Comparison of Protobuf/JSON performance on GET requests issued by a Java app to another Java app](https://cdn.auth0.com/blog/protobuf-json/java-to-java-get-reqs.png)
 
@@ -96,7 +96,7 @@ As you can see, when we have environments that JSON is not a native part of, the
 
 ## Are There Any Other Advantages and Disadvantages?
 
-As every decision that you take, there will be advantages and disadvantages. And, when choosing one message format or protocol over another, this is no different. Protocol buffers suffers from a few issues, as I list below:
+As every decision that you take, there will be advantages and disadvantages. And, when choosing one message format or protocol over another, this is not different. Protocol buffers suffers from a few issues, as I list below:
 
 - **Lack of resources**. You won't find that many resources (do not expect a very detailed documentation, nor too many blog posts) about using and developing with Protobuf.
 - **Narrower community**. Probably the root cause of the first disadvantage. On Stack Overflow, for example, you will find roughly 1.500 questions marked with Protobuf tags. While JSON have more than 180 thousand questions on this same platform.
@@ -147,11 +147,11 @@ message Address {
 }
 ```
 
-The three messages above are very simple and easy to understand. The first message, `People`, contains just a collection of `Person` messages. The second message, `Person`, contains a `name` of type `string`, a collection of `Address` messages, a collection of `mobile` numbers that are hold as `string` and, lastly, a collection of `email`, also hold as `string`. The third message, `Address`, contains two properties: the first one is `street` of type `string`; and the second one is `number` of type `int32`.
+The three messages above are very simple and easy to understand. The first message, `People`, contains just a collection of `Person` messages. The second message, `Person`, contains a `name` of type `string`, a collection of `Address` messages, a collection of `mobile` numbers that are hold as `string` and, lastly, a collection of `email` addresses, also hold as `string`. The third message, `Address`, contains two properties: the first one is `street` of type `string`; and the second one is `number` of type `int32`.
 
 Besides these definitions, there are three lines, at the top of the file, that helps the code generator:
 
-1. First there is a `syntax` defined with the value `proto3`. This is the version of Protobuf that I'm using, which, as the time of writing, it is the latest version. It is important to note that previous versions of Protobuf used to allow the developers to be more restrictive about the messages that they exchanged through the usage of the `required` keyword. This is now deprecated and not available anymore.
+1. First there is a `syntax` defined with the value `proto3`. This is the version of Protobuf that I'm using, which, as the time of writing, it is the latest version. It is important to note that previous versions of Protobuf used to allow the developers to be more restrictive, about the messages that they exchanged, through the usage of the `required` keyword. This is now deprecated and not available anymore.
 2. Second there is a `package demo;` definition. This configuration is used to nest the generated classes/objects created.
 3. Third, there is a `option java_package` definition. This configuration is also used by the generator to nest the generated sources. The difference here is that this is applied to Java only. I have used both configurations to make the generator behave differently when creating code to Java and when creating code to JavaScript. That is, Java classes were created on `com.auth0.protobuf` package, and JavaScript objects were created under `demo`.
 
@@ -164,9 +164,9 @@ To generate the source code for the `proto` messages, I have used two libraries:
 1. For Java, I have used the `Protocol Compiler` provided by Google. [This page on Protocol Buffers' documentation](https://developers.google.com/protocol-buffers/docs/downloads) explains how to install it. As I use [Brew](http://brew.sh/) on my MacBook, it was just a matter of issuing `brew install protobuf`.
 2. For JavaScript, I have used `protobuf.js`. You can find its source and instructions [over here](https://github.com/dcodeIO/protobuf.js).
 
-For most all other supported programming languages, like Python, C#, etc, Google's `Protocol Compiler` will be good enough. But for JavaScript, `protobuf.js` is better, since it has better documentation, [better support](https://github.com/dcodeIO/protobuf.js/blob/2db4305ca67d003d57aa14eb23f25eb6c3672034/README.md#compatibility) and better performance - I have also ran the performance tests with the default library provided by Google, but with it I got worse results than I got with JSON.
+For most of the supported programming languages, like Python, C#, etc, Google's `Protocol Compiler` will be good enough. But for JavaScript, `protobuf.js` is better, since it has better documentation, [better support](https://github.com/dcodeIO/protobuf.js/blob/2db4305ca67d003d57aa14eb23f25eb6c3672034/README.md#compatibility) and better performance - I have also ran the performance tests with the default library provided by Google, but with it I got worse results than I got with JSON.
 
-### Generating Code for Java
+### Parsing and Serialization with Java
 
 After having the `Protocol Compiler` installed, I generated the Java source code with the following command:
 
@@ -200,11 +200,11 @@ final Person person = Person.newBuilder()
         .build();
 ```
 
-These instances alone just represent the messages, but I also needed a way to exchange them. Spring, as always, provides support for Protobuf and there are a few resources out there - like [this one on Spring's blog](https://spring.io/blog/2015/03/22/using-google-protocol-buffers-with-spring-mvc-based-rest-services), and [this one from Baeldung](http://www.baeldung.com/spring-rest-api-with-protocol-buffers) - that help on that matter. Just be aware that, as in any Java project, a few dependencies are needed. These are the ones that I had to add to my Maven project:
+These instances alone just represent the messages, so I also needed a way to exchange them. Spring, as always, provides support for Protobuf and there are a few resources out there - like [this one on Spring's blog](https://spring.io/blog/2015/03/22/using-google-protocol-buffers-with-spring-mvc-based-rest-services), and [this one from Baeldung](http://www.baeldung.com/spring-rest-api-with-protocol-buffers) - that helped me on that matter. Just be aware that, as in any Java project, a few dependencies are needed. These are the ones that I had to add to my Maven project:
 
 ```xml
 <dependencies>
-    <!-- Spring Boot deps and etc -->
+    <!-- Spring Boot deps and etc above.. -->
     <dependency>
         <groupId>com.google.protobuf</groupId>
         <artifactId>protobuf-java</artifactId>
@@ -225,7 +225,7 @@ These instances alone just represent the messages, but I also needed a way to ex
 </dependencies>
 ```
 
-### Generating Code for JavaScript
+### Parsing and Serialization with JavaScript
 
 The library used, `protobuf.js`, helped me to compile the `.proto` messages to JavaScript and also to exchange these messages. The first thing that I had to do was to install it as a dependency. For this, I have used [Node.js](https://nodejs.org) and [NPM](https://www.npmjs.com):
 
@@ -233,7 +233,7 @@ The library used, `protobuf.js`, helped me to compile the `.proto` messages to J
 npm install protobufjs
 ```
 
-The command above, enabled me to use `pbjs` command line utility (CLI) to generate the code. The following command is how I used this CLI:
+The command above enabled me to use `pbjs` command line utility (CLI) to generate the code. The following command is how I used this CLI:
 
 ```bash
 ./node_modules/protobufjs/bin/pbjs -t static-module \
@@ -250,7 +250,7 @@ npm install -g browserify
 browserify ./src/main/resources/static/people.js -o ./src/main/resources/static/bundle.js
 ```
 
-Doing that I was able to add a single dependency to my `index.html` file:
+By doing that I was able to add a single dependency to my `index.html` file:
 
 ```html
 <html>
