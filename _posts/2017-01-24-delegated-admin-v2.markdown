@@ -10,8 +10,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/logo.png
-  bg_color: "#003472"
+  image: https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/hero.png
+  bg_color: "#222228"
 tags:
 - extension
 - feature
