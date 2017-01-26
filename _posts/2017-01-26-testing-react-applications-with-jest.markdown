@@ -2,8 +2,8 @@
 layout: post
 title: Testing React Applications with Jest
 description: Learn how to test React applications with the Jest JavaScript testing framework.
-date: 2016-12-11 17:00
-category: Technical Guide, React
+date: 2017-01-26 17:00
+category: Technical Guide, Frontend, React
 banner:
   text: Painless JavaScript testing with Jest.
 author:
@@ -12,11 +12,8 @@ author:
   mail: jokhessa@gmail.com
   avatar: https://s.gravatar.com/avatar/f820da721cd1faa5ef4b5e14af3f1ed5
 design:
-  bg_color: rgb(59, 55, 56)
-  bg_merge: true
-  image: https://raw.githubusercontent.com/echessa/various_learning/d71b81b76687e35f9757840bde3c84e9be64b6ba/misc/jest_images/jest.png
-  image_size: 100%
-  image_bg_color: rgb(59, 55, 56)
+  bg_color: "#4a4a4a"
+  image: https://cdn.auth0.com/blog/testing-react-with-jest/logo.png
 tags: 
 - react
 - jest
