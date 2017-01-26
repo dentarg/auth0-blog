@@ -34,6 +34,8 @@ related:
 
 In this post we will explore the concept of refresh tokens as defined by [OAuth2](https://tools.ietf.org/html/rfc6749). We will learn why they came to be and how they compare to other types of tokens. We will also learn how to use them with a simple example. Read on!
 
+**Update:** at the moment this article was written Auth0 had not gone through [OpenID Connect certification](http://openid.net/certification/). Some of the terms used in this article such as `access token` do not conform to this spec but do conform to the [OAuth2 specification](https://tools.ietf.org/html/rfc6749#section-1.4). OpenID Connect establishes a clear distinction between `access tokens` (used to access the API of the authorization server) and the `id token` (used for client authentication against a resource server).
+
 -----
 
 ## Introduction
