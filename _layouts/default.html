@@ -652,9 +652,14 @@
           // Social Buttons
           $('.social-stats .network').cSButtons();
 
-          // Force al content links to blank
+          // Force content links to _blank if not explicitly set to _self
           $('.entry-content a').each(function() {
-            $(this).attr('target', '_blank');
+            var _$this = $(this);
+            var _target = _$this.attr('target');
+              
+            if (_target !== '_self') {
+             _$this.attr('target', '_blank');
+            }
           });
 
           // Handle scroll pos

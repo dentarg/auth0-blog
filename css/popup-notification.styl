@@ -1,14 +1,10 @@
 .pn-popup {
-  visibility: hidden;
+  display: none;
   transition: all .5s ease;
 }
 
 .pn-popup button:focus{
   outline: none
-}
-
-.pn-is-visible {
-  visibility: visible;
 }
 
 .pn-popup-container {
@@ -102,6 +98,8 @@
   width: 29px;
 }
 
-@media only screen and (min-width: 1170px) {
-
+@media only screen and (min-width : 991px) {
+  .pn-is-visible {
+    display: inline;
+  }
 }
