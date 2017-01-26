@@ -32,20 +32,20 @@ Protocol buffers, or Protobuf, is a binary format created by Google to serialize
 
 ## What is Protobuf
 
-[Protocol buffers](https://developers.google.com/protocol-buffers/docs/overview), usually referred as Protobuf, is a protocol developed by Google to allow serialization and deserialization of structured data. Google developed it with the goal to provide a better way, compared to XML, to make systems communicate. So they focused on making it simpler, smaller, faster and more maintainable then XML. But, as you will see in this article, this protocol even surpassed JSON with a better performance, better maintainability and smaller size.
+[Protocol buffers](https://developers.google.com/protocol-buffers/docs/overview), usually referred as Protobuf, is a protocol developed by Google to allow serialization and deserialization of structured data. Google developed it with the goal to provide a better way, compared to XML, to make systems communicate. So they focused on making it simpler, smaller, faster and more maintainable then XML. But, as you will see in this article, this protocol even surpassed JSON with better performance, better maintainability and smaller size.
 
-### How does it differs from JSON?
+### How Does it Differs from JSON?
 
 It is important to note that, although [JSON](http://www.json.org/) and [Protobuf](https://developers.google.com/protocol-buffers/docs/overview) messages can be used interchangeably, these technologies were designed with different goals. JSON, which stands for JavaScript Object Notation, is simply a message format that arose from a subset of the JavaScript programming language. JSON messages are exchanged in text format and, nowadays, they are completely independent and supported by, virtually, all programming languages.
 
-Protobuf, on the other hand, is more than a message format, it is also a set of rules and tools to define and exchange these messages. Google, the creator of this protocol, has made it open source and it provides tools to generate code for the most used programming languages around, like [JavaScript](https://developers.google.com/protocol-buffers/docs/reference/javascript-generated), [Java](https://developers.google.com/protocol-buffers/docs/javatutorial),
+Protobuf, on the other hand, is more than a message format, it is also a set of rules and tools to define and exchange these messages. Google, the creator of this protocol, has made it open source and provides tools to generate code for the most used programming languages around, like [JavaScript](https://developers.google.com/protocol-buffers/docs/reference/javascript-generated), [Java](https://developers.google.com/protocol-buffers/docs/javatutorial),
 [PHP](https://developers.google.com/protocol-buffers/docs/reference/php-generated), [C#](https://developers.google.com/protocol-buffers/docs/csharptutorial),
 [Ruby](https://developers.google.com/protocol-buffers/docs/reference/ruby-generated),
 [Objective C](https://developers.google.com/protocol-buffers/docs/reference/objective-c-generated), [Python](https://developers.google.com/protocol-buffers/docs/pythontutorial), [C++](https://developers.google.com/protocol-buffers/docs/cpptutorial) and [Go](https://developers.google.com/protocol-buffers/docs/gotutorial). Besides that, Protobuf has more data types than JSON, like enumerates and methods, and is also heavily used on [RPCs (Remote Procedure Calls)](https://github.com/grpc).
 
-## Is Protobuf Really faster than JSON?
+## Is Protobuf Really Faster than JSON?
 
-There are several resources online that show that Protobuf performs better than JSON, XML and etc - like [this one](https://github.com/eishay/jvm-serializers/wiki) and [this one](https://maxondev.com/serialization-performance-comparison-c-net-formats-frameworks-xmldatacontractserializer-xmlserializer-binaryformatter-json-newtonsoft-servicestack-text/) -, but it is always important to check if this is the case for your own needs and environment. Here, at Auth0, I have developed a simple [Spring Boot application](https://github.com/brunokrebs/auth0-speed-test) to test a few scenarios and measure how JSON and Protobuf performed. Mostly I have tested serialization of both protocols to make two Java applications communicate and to make a JavaScript web application communicate to this backend.
+There are several resources online that show that Protobuf performs better than JSON, XML and etc - like [this one](https://github.com/eishay/jvm-serializers/wiki) and [this one](https://maxondev.com/serialization-performance-comparison-c-net-formats-frameworks-xmldatacontractserializer-xmlserializer-binaryformatter-json-newtonsoft-servicestack-text/) -, but it is always important to check if this is the case for your own needs and use case. Here, at Auth0, I have developed a simple [Spring Boot application](https://github.com/brunokrebs/auth0-speed-test) to test a few scenarios and measure how JSON and Protobuf performed. Mostly I have tested serialization of both protocols to make two Java applications communicate and to make a JavaScript web application communicate to this backend.
 
 >The main reason to create these two scenarios - Java to Java and JavaScript to Java - was to measure how this protocol would behave in an enterprise environment like Java and also on an environment where JSON is the native message format. That is, what I show here is data from an environment where JSON is built in and should perform extremely fast (JavaScript engines) and from an environment where JSON is not a first class citizen.
 
@@ -53,7 +53,7 @@ The short answer to the question is yes, Protobuf is faster than JSON. But this 
 
 ### Test Sample
 
-To support the measurements, I have created three Protobuf messages: `Address`, to hold just the street and number; `Person`, to hold the name, a collection of addresses, a collection of mobile numbers and a collection of email addresses; `People`, to hold a collection of `Person` messages. These messages were assembled together in an application with four RESTful endpoints:
+To support the measurements, I have created three Protobuf messages: `Address`, to hold just the street and number; `Person`, to hold the name, a collection of addresses, a collection of mobile numbers, and a collection of email addresses; `People`, to hold a collection of `Person` messages. These messages were assembled together in an application with four RESTful endpoints:
 
 1. One that accepted `GET` requests and returned a list of 50 thousand people in Protobuf format.
 2. Another one that accepted `GET` requests and returned the same list of 50 thousand people, but in JSON format.
@@ -76,7 +76,7 @@ Now, when we have to deal with **non-compressed messages**, the results change q
 
 On these situations, Protobuf performs even better when compared to JSON. Messages, on this format, were **34% smaller**, and they took **21% less time** to be available to the JavaScript code.
 
-When issuing `POST` requests, the difference gets almost imperceptible as usually this kind of request doesn't deal with heavy messages. More frequent than not, these requests just handle the update of a few fields on a form or something like that. So, to make the test trustworthy, I issued 50 requests with just one `Person` message and a few properties, like emails addresses and mobiles, on it. The results can be checked below:
+When issuing `POST` requests, the difference gets almost imperceptible as usually this kind of request doesn't deal with heavy messages. More frequent than not, these requests just handle the update of a few fields on a form or something similar. So, to make the test trustworthy, I issued 50 requests with just one `Person` message and a few properties, like emails addresses and mobiles, on it. The results can be checked below:
 
 ![Comparison of Protobuf/JSON performance on POST requests](https://cdn.auth0.com/blog/protobuf-json/post-requests-js-to-java.png)
 
@@ -99,8 +99,8 @@ As you can see, when we have environments that JSON is not a native part of, the
 As every decision that you take, there will be advantages and disadvantages. And, when choosing one message format or protocol over another, this is not different. Protocol buffers suffers from a few issues, as I list below:
 
 - **Lack of resources**. You won't find that many resources (do not expect a very detailed documentation, nor too many blog posts) about using and developing with Protobuf.
-- **Narrower community**. Probably the root cause of the first disadvantage. On Stack Overflow, for example, you will find roughly 1.500 questions marked with Protobuf tags. While JSON have more than 180 thousand questions on this same platform.
-- **Lack of support**. Google does not provide support for other programming languages like Swift, R, Scala and etc. But, sometimes, you can overcome this issue with third part libraries.
+- **Smaller community**. Probably the root cause of the first disadvantage. On Stack Overflow, for example, you will find roughly 1.500 questions marked with Protobuf tags. While JSON have more than 180 thousand questions on this same platform.
+- **Lack of support**. Google does not provide support for other programming languages like Swift, R, Scala and etc. But, sometimes, you can overcome this issue with third party libraries, like [Swift Protobuf provided by Apple](https://github.com/apple/swift-protobuf).
 - **Non-human readability**. JSON, as exchanged on text format and with simple structure, is easy to be read and analyzed by humans. This is not the case with a binary format.
 
 Although choosing Protobuf will bring these disadvantages along, this protocol is a lot faster, on some situations, as I demonstrated above. Besides that, there are a few other advantages:
@@ -111,17 +111,17 @@ Although choosing Protobuf will bring these disadvantages along, this protocol i
 
 ## How Do We Use Protobuf?
 
-Now that you already know that Protobuf is faster than JSON and you also know its advantages and disadvantages, let's take a look on how do we use this technology. Protobuf has three main components that we have to deal with:
+Now that you already know that Protobuf is faster than JSON and you also know its advantages and disadvantages, let's take a look on how to use this technology. Protobuf has three main components that we have to deal with:
 
-1. **Messages descriptors**. When using Protobuf we have to define our messages structures on `.proto` files.
-2. **Messages implementations**. Messages definitions are not enough to represent and exchange data on any programming language. We have to generate classes/objects to deal with data on the chosen programming language. Gladly, Google provides code generators for the most common programming languages.
+1. **Message descriptors**. When using Protobuf we have to define our messages structures in `.proto` files.
+2. **Message implementations**. Messages definitions are not enough to represent and exchange data in any programming language. We have to generate classes/objects to deal with data in the chosen programming language. Luckily, Google provides code generators for the most common programming languages.
 3. **Parsing and Serialization**. After defining and creating Protobuf messages, we need to be able to exchange these messages. Google helps us here again, as long as we use one of the supported programming language.
 
 Let's catch a glimpse of each of components.
 
 ### Protobuf Message Definition
 
-As already mentioned, messages on Protobuf are describe on `.proto` files. Below you can find an example of the three messages descriptors that I used on my performance tests. I have defined all of them on the same file, which I called `people.proto`.
+As already mentioned, messages on Protobuf are describe in `.proto` files. Below you can find an example of the three message descriptors that I used in my performance tests. I have defined all of them in the same file, which I called `people.proto`.
 
 ```
 syntax = "proto3";
@@ -200,7 +200,7 @@ final Person person = Person.newBuilder()
         .build();
 ```
 
-These instances alone just represent the messages, so I also needed a way to exchange them. Spring, as always, provides support for Protobuf and there are a few resources out there - like [this one on Spring's blog](https://spring.io/blog/2015/03/22/using-google-protocol-buffers-with-spring-mvc-based-rest-services), and [this one from Baeldung](http://www.baeldung.com/spring-rest-api-with-protocol-buffers) - that helped me on that matter. Just be aware that, as in any Java project, a few dependencies are needed. These are the ones that I had to add to my Maven project:
+These instances alone just represent the messages, so I also needed a way to exchange them. Spring provides support for Protobuf and there are a few resources out there - like [this one on Spring's blog](https://spring.io/blog/2015/03/22/using-google-protocol-buffers-with-spring-mvc-based-rest-services), and [this one from Baeldung](http://www.baeldung.com/spring-rest-api-with-protocol-buffers) - that helped me on that matter. Just be aware that, as in any Java project, a few dependencies are needed. These are the ones that I had to add to my Maven project:
 
 ```xml
 <dependencies>
@@ -230,14 +230,14 @@ These instances alone just represent the messages, so I also needed a way to exc
 The library used, `protobuf.js`, helped me to compile the `.proto` messages to JavaScript and also to exchange these messages. The first thing that I had to do was to install it as a dependency. For this, I have used [Node.js](https://nodejs.org) and [NPM](https://www.npmjs.com):
 
 ```bash
-npm install protobufjs
+npm install -g protobufjs
 ```
 
 The command above enabled me to use `pbjs` command line utility (CLI) to generate the code. The following command is how I used this CLI:
 
 ```bash
-./node_modules/protobufjs/bin/pbjs -t static-module \
-    -w commonjs -o ./src/main/resources/static/people.js \
+pbjs -t static-module -w commonjs -o \
+    ./src/main/resources/static/people.js \
     ./src/main/resources/people.proto
 ```
 
@@ -334,4 +334,4 @@ Nevertheless, considering that JSON is native to JavaScript engines, Protobuf st
 
 Also, one important thing that I noticed is that, even though there are not many resources around about Protobuf, I was still able to use it in different environments without having a hard time. So I guess I will start using this technology with more frequency now.
 
-Are about you? What do you think about the speed of Protobuf? And about starting to use it in your projects? Leave a comment!
+How about you? What do you think about the speed of Protobuf? Are you considering using it in your projects? Leave a comment!
