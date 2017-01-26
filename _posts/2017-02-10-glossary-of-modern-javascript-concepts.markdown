@@ -27,24 +27,23 @@ related:
 
 ## Concepts
 
-This article covers the following topics:
+You can jump straight into the following topic groups:
 
-* <a href="#pure-functions" target="_self">Pure functions</a>
-* <a href="#impure-functions" target="_self">Impure functions</a>
-* <a href="#side-effects" target="_self">Side Effects</a>
-* <a href="#stateful" target="_self">Stateful</a>
-* <a href="#stateless" target="_self">Stateless</a>
-* <a href="#immutable" target="_self">Immutable</a>
-* <a href="#mutable" target="_self">Mutable</a>
-* <a href="#imperative" target="_self">Imperative</a>
-* <a href="#declarative" target="_self">Declarative</a>
+* <a href="#pure-impure-side-effects" target="_self">Pure Functions, Impure Functions, Side Effects</a>
+* <a href="#state" target="_self">State: Stateful and Stateless</a>
+* <a href="#immutable-mutable" target="_self">Immutability and Mutability</a>
+* <a href="#imperative-declarative" target="_self">Imperative and Declarative Programming</a>
 * <a href="#functional-programming" target="_self">Functional Programming</a>
 * <a href="#reactive-programming" target="_self">Reactive Programming</a>
 * <a href="#functional-reactive-programming" target="_self">Functional Reactive Programming</a>
+* <a href="#web-components" target="_self">Web Components</a>
+* <a href="#dumb-smart-components" target="_self">Dumb and Smart Components</a>
 
-## Pure Functions, Impure Functions, Side Effects
+---
 
-### <span id="pure-functions"></span>Pure Functions
+## <span id="pure-impure-side-effects"></span>Pure Functions, Impure Functions, Side Effects
+
+### Pure Functions
 
 A **pure function**'s _return value_ is determined only by its _input values_ (arguments) with no side effects. When given the same argument, the result will always be the same. Here is an example:
 
@@ -73,7 +72,7 @@ In summary:
 * Pure functions rely only on local state and do not mutate external state.
 * Pure functions produce no [_side effects_](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29).
 
-### <span id="impure-functions"></span>Impure Functions
+### Impure Functions
 
 An **impure function** mutates state outside its scope. Any function that has side effects is impure. Procedural functions with no utilized return value are also impure. Consider the following examples:
 
@@ -97,7 +96,7 @@ function proceduralFn() {
 }
 ```
 
-### <span id="side-effects"></span>Side Effects
+### Side Effects
 
 When a function or expression modifies state outside its own context, this is a **side effect**. Examples of side effects include making a call to an API, writing data, raising an alert dialog, modifying an external variable, etc. If a function produces side effects, it is considered _impure_.
 
@@ -111,11 +110,13 @@ To learn more about **pure and impure functions**, check out the following resou
 * [Master the JavaScript Interview: What is a Pure Function?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976#.kt48h2bfa)
 * [Functional Programming: Pure Functions](https://www.sitepoint.com/functional-programming-pure-functions/)
 
-## State
+---
+
+## <span id="state"></span>State
 
 **State** refers to the stored information a program has access to at a point in time. The contents of variables in an application at any given instant is the application's _state_.
 
-### <span id="stateful"></span>Stateful
+### Stateful
 
 **Stateful** programs, apps, or components store data in memory about the current state. They can modify the state as well as access its history. The following example is _stateful_:
 
@@ -128,7 +129,7 @@ function increment() {
 increment();
 ```
 
-### <span id="stateless"></span>Stateless
+### Stateless
 
 **Stateless** programs, apps, or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. The following example is _stateless_:
 
@@ -145,17 +146,19 @@ increment(number);
 
 To learn more about **state**, check out the following resources:
 
-* 
+* TBD
 
-## Immutability and Mutability
+---
+
+## <span id="immutable-mutable"></span>Immutability and Mutability
 
 The concepts of **immutability and mutability** are slightly more nebulous in JavaScript than in some other programming languages. However, you will hear a lot about immutability when reading about functional programming in JS. It's important to know what these terms mean classically and also how they are referenced and implemented in JavaScript.
 
-### <span id="immutable"></span>Immutable
+### Immutable
 
 If an object is **immutable**, its state cannot be modified after creation.
 
-### <span id="mutable"></span>Mutable
+### Mutable
 
 If an object is **mutable**, its state can be modified after creation.
 
@@ -216,7 +219,9 @@ To learn more about **immutability and mutability**, check out the following res
 * [Using Immutable Data Stuctures in JavaScript](http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript)
 * [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux) (includes great examples on addressing immutable state)
 
-## Imperative and Declarative Programming
+---
+
+## <span id="imperative-declarative"></span>Imperative and Declarative Programming
 
 While some languages are **imperative** (C#, Java, PHP) or **declarative** (SQL, HTML), JavaScript supports both paradigms.
 
@@ -224,7 +229,7 @@ Those familiar with even the most basic JavaScript have written imperative code:
 
 Declarative code tells the computer _what_ you want to achieve rather than how, and the computer takes care of how to get to the end result without explicit description from the developer. If you've used the `map` method, you've written declarative JS.
 
-### <span id="imperative"></span>Imperative
+### Imperative
 
 **Imperative** programming describes _how_ a program's logic works in explicit commands with statements that modify the program state.
 
@@ -243,7 +248,7 @@ function incrementArray(arr) {
 
 This function shows exactly _how_ the function's logic works. We iterate over the array and explicitly increase each number, pushing it to a new array. We then return the new, resulting array. This is a step-by-step description of the function's logic.
 
-### <span id="declarative"></span>Declarative
+### Declarative
 
 **Declarative** programming describes _what_ a program's logic accomplishes without describing _how_.
 
@@ -270,6 +275,8 @@ To learn more about **imperative and declarative programming**, check out the fo
 * [Imperative and (Functional) Declarative JS In Practice](http://www.redotheweb.com/2015/09/18/declarative-imperative-js.html)
 * [JavaScript's Map, Reduce, and Filter](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter)
 
+---
+
 ## <span id="functional-programming"></span>Functional Programming
 
 Now that we've learned about pure functions, statelessness, immutability, and declarative programming, let's look briefly into the _functional programming_ paradigm.
@@ -292,6 +299,8 @@ To learn more about **functional programming**, check out the following resource
 * [So You Want to be a Functional Programmer](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536#.q8a7nwjat)
 * [What is the difference between functional and imperative programming languages?](http://stackoverflow.com/questions/17826380/what-is-difference-between-functional-and-imperative-programming-languages)
 
+---
+
 ## <span id="reactive-programming"></span>Reactive Programming
 
 ### Reactive Programming Takeaways
@@ -301,7 +310,17 @@ To learn more about **reactive programming**, check out the following resources:
 * [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 * [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/)
 
+---
+
 ## <span id="functional-reactive-programming"></span>Functional Reactive Programming
+
+---
+
+## <span id="web-components"></span>Web Components
+
+---
+
+## <span id="dumb-smart-components"></span>Dumb Components and Smart Components
 
 
 
