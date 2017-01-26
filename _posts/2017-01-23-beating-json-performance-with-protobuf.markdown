@@ -10,8 +10,8 @@ author:
   mail: "krebs.bruno@gmail.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: "#4a4a4a"
+  image: "https://cdn.auth0.com/blog/protobuf-json/logo.png"
 tags:
 - protobuf
 - protocol
