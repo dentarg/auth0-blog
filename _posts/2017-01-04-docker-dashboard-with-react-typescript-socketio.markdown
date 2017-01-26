@@ -906,10 +906,231 @@ The component definition itself is mostly straightforward - we just render out t
 
 Most importantly, the component called `this.props.children` for the modal body. You'll see why this important in the next section, but basically it allows us to render other components that are specified as children of this component. More on that later.
 
-One last thing before we move on; when this component compiles, you'll probably find that Typescript will complain that it can't find `$`, which is true since we haven't imported it. To fix this, we need to simply install the typings for jQuery so that it knows how to resolve that symbol. You will also need to install the types for bootstrap, so that it knows what the bootstrap-specific methods and properties are.
+Also note the `onPrimaryButtonClick` handler; when the button is clicked, it delegates control to whatever is using this component, but it also inspects the return value from that call. If false is returned, it doesn't automatically close the dialog. This is useful for later when we don't want to close the dialog in the event that our input isn't valid.
+
+One last thing before we move on; when this component compiles, you'll probably find that Typescript will complain that it can't find `$`, which is true since we haven't imported it. To fix this, we need to simply install the typings for jQuery so that it knows how to resolve that symbol. You will also need to install the types for Twitter Bootstrap, so that it knows what the bootstrap-specific methods and properties are.
 
 In the command line, then:
 
 ```
 npm install --save-dev @types/jquery @types/bootstrap
 ```
+
+### Creating the 'new container' dialog
+
+This dialog will be defined by creating a new dialog component and wrapping the content in the generic dialog component that we created in the last section, specifing some things like the title and what happens when the user clicks the button. Create a new file for the component called 'newContainerModal'.
+
+Firstly, define our imports:
+
+```javascript
+import * as React from 'react'
+import Modal from './modal'
+import * as classNames from 'classnames'
+```
+
+Note that we're importing our generic modal as `Modal`, allowing us to make use of it in this new modal component - more on that shortly.
+
+Now let's define some incoming properties, and some state for our new component:
+
+```javascript
+interface ModalProperties {
+    id: string,
+    onRunImage?: (name: string) => void
+}
+
+interface ModalState {
+    imageName: string
+    isValid: boolean
+}
+```
+
+For the properties, we allow an id for the component to be set - this will make sense soon when we create our last component, the 'modal dialog trigger'. We also take a function that we can call when the name of an image to run has been entered.
+
+For the state, we're going to record the name of the image that was entered, and also some basic form validation state using the `isValid` flag.
+
+As a reminder, this is what this modal popup is going to look like; there's just one text field and one button:
+
+![The Docker dashboard modal dialog component](http://i.imgur.com/3YJoSpn.png)
+
+Let's fill out the component and have a look at its `render` method. Also note the constructor, where can initialise the component state to something default:
+
+```javascript
+export class NewContainerDialog extends React.Component<ModalProperties, ModalState> {
+
+    constructor(props: ModalProperties) {
+        super(props)
+
+        this.state = {
+            imageName: '',
+            isValid: false
+        }
+    }
+
+    render() {
+
+        let inputClass = classNames({
+            "form-group": true,
+            "has-error": !this.state.isValid
+        })
+
+        return (
+            <Modal id="newContainerModal" buttonText="Run" title="Create a new container" onButtonClicked={this.runImage.bind(this)}>
+                <form className="form-horizontal">
+                    <div className={inputClass}>
+                        <label htmlFor="imageName" className="col-sm-3 control-label">Image name</label>
+                        <div className="col-sm-9">
+                            <input type="text" 
+                                className="form-control" 
+                                onChange={this.onImageNameChange.bind(this)}
+                                id="imageName" 
+                                placeholder="e.g mongodb:latest"/>
+                        </div>
+                    </div>
+                </form>
+            </Modal>
+        )
+    }
+}
+```
+
+Hopefully now you can see how the component is constructing using the generic modal component we created earlier. In this configuration, the `Modal` component acts as a _higher-order component_, wrapping other components inside of it, instead of our new component _inheriting_ from it as we might have otherwise done.
+
+The rest of the markup is fairly standard Bootstrap markup that defines a form field with a label. Three things to note, however:
+
+* We apply a class to the `div` that wraps the form elements that is derived from our `isValid` state property; if the form isn't valid, the input box gets a nice red border, and the user can see they've done something wrong
+* We specify a handler for the textbox's 'onChange' event, allowing us to handle and record what the user is typing in
+* We specify a handler for the generic modal's button click - when the user clicks that button, our new component is going to handle the event and do something specific to our needs. We'll come back to this in a minute
+
+Let's define that change handler now:
+
+```javascript
+onImageNameChange(e: any) {
+    const name = e.target.value
+
+    this.setState({
+        imageName: name,
+        isValid: name.length > 0
+    })
+}
+```
+
+All of the form behaviour is captured here. As the user is typing into the box, we record the input value into the `imageName` state property, and also determine whether or not it's valid; for now, it's good enough for the image name to have at least one character.
+
+Next, we need to define what happens when the user clicks the button on the modal popup. This is done inside the `runImage` function:
+
+```javascript
+runImage() {
+    if (this.state.isValid && this.props.onRunImage)
+        this.props.onRunImage(this.state.imageName)
+        
+    return this.state.isValid
+}
+```
+
+This should be fairly straightforward - we simply say that if the state of the component is valid, and the `onRunImage` handler has been defined, we call it with the name of the image that the user typed in. We also return a value which indicates to the generic modal component that it should close itself. This happens to just be the same thing is the value of the `isValid` flag.
+
+That's it for this component - let's create a trigger component so that we can open it!
+
+### Triggering the modal
+
+This last component is going to represent the trigger - the thing the user will click on - that opens a modal popup. It's definition is actually very simple. Create a new component called 'dialogTrigger.tsx' and populate it with the following:
+
+```javascript
+import * as React from 'react'
+
+export interface DialogTriggerProperties {
+    id: string
+    buttonText: string
+}
+
+export class DialogTrigger extends React.Component<DialogTriggerProperties, {}> {
+    render() {
+        const href = `#${this.props.id}`
+
+        return (
+            <a className="btn btn-primary" data-toggle="modal" href={ href }>{ this.props.buttonText }</a>
+        )
+    }
+}
+```
+
+For the component properties, we take the id of the modal we want to trigger, and also the text that we want to show on the button. Then inside the render function, a standard Bootstrap link is displayed with button styling and the id of the modal to open. If you're not familiar with Bootstrap, note that the actual opening of the dialog is all done with the Bootstrap Javascript library - all we need to do is specify the `data-toggle="modal"` attribute and set the href attribute to the id of the modal we want to open.
+
+## Tying it all together
+
+Now that we have all of our modal components, we can put them all together. Head back to `app.tsx` and import all the components we just created:
+
+```javascript
+import { NewContainerDialog } from './newContainerModal'
+import { DialogTrigger } from './dialogTrigger'
+```
+
+There's no need to import the generic Modal component, as that will be done by the `NewContainerDialog` component; we're not going to use it directly here.
+
+Now, update the render function so that it contains our new components. For the trigger, place it under the header, and for the 'new container' dialog, it just needs to go on the page somewhere; Bootstrap will place it correctly once it has been opened:
+
+```javascript
+render() {
+    return (
+        <div className="container">
+            <h1 className="page-header">Docker Dashboard</h1>
+            <DialogTrigger id="newContainerModal" buttonText="New container" />
+            <ContainerListComponent title="Running" containers={this.state.containers} />
+            <ContainerListComponent title="Stopped containers" containers={this.state.stoppedContainers} />
+
+            <NewContainerDialog id="newContainerModal" onRunImage={this.onRunImage.bind(this)} />
+        </div>
+    )
+}
+```
+
+Note how the id property of `DialogTrigger` is the same as the id property of `NewContainerDialog` - this is necessary in order for the trigger to understand that this is the dialog it needs to trigger.
+
+Also note how the `onRunImage` property of the dialog component is defined - let's create that now:
+
+```javascript
+onRunImage(name: String) {
+    socket.emit('image.run', { name: name })
+}
+```
+
+Very simply, it just sends the name of the image to the server inside a message called 'image.run'. We can define that now by heading over to `server.js` and handling a new message alongside where we've created the others:
+
+```javascript
+socket.on('image.run', args => {
+    docker.createContainer({ Image: args.name }, (err, container) => {
+        if (!err)
+            container.start((err, data) => {
+                if (err)
+                    socket.emit('image.error', { message: err })
+            })
+        else
+            socket.emit('image.error', { message: err })
+    })
+})
+```
+
+Here we call out to the Docker API and its convenient `createContainer` method, passing in the image name that the user typed in. _This will not pull new images from the Docker Hub_ - it will only start new containers from existing images that exist on the local system. However, it can certainly be done - I'll leave it as an exercise for you, the reader, to complete in your own time.
+
+If we're able to create the container, we'll start it. Remember our timer that we created earlier? Once the container starts, that timer will pick up the new container and display it to all the clients that are connected!
+
+Finally, if there is an error we can send an 'image.error' message back to the socket that sent the original 'image.run' message, which will be useful for the user so that they are aware that something didn't work as expected. Let's head back to the app component for the final piece of the puzzle. Inside the constructor of the `app.tsx` component:
+
+```javascript
+socket.on('image.error', (args: any) => {
+    alert(args.message.json.message)
+})
+```
+
+Here we simply throw an alert if Docker encounters an error running the image. Armed with your new-found React knowledge, I'm sure you can now come up with some fancy UI to make this a lot prettier!
+
+## Wrapping up
+
+By now you should have a useful but somewhat basic Docker dashboard, and hopefully the journey has been worth it! With all the socket.io goodness, be sure to play around with loading your app from multiple sources, like your desktop browser and mobile phone, and watch them all keep in sync!
+
+Some things you could continue on with to make it a lot more useful, include:
+
+* Using the Docker API to pull images instead of simply running them
+* Using the Docker API to stream the container logs to the client through Socket.io
+* Extending the container dialog form to include options for port mapping, volumes, container name and more!
+* .. and more
