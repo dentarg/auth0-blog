@@ -2,14 +2,15 @@
 layout: post
 title: "Create a Docker dashboard with Typescript, React and Socket.io"
 description: Let's create a functioning web-based dashboard for Docker!
-date: 2017-01-04 09:38
+date: 2017-01-26 23:37
 author: 
   name: Steve Hobbs
-  url: https://stevescodingblog.co.uk
+  url: http://twitter.com/elkdanger
   mail: elkdanger@gmail.com
+  avatar: https://en.gravatar.com/userimage/3841188/bc8fc1f1ebb326d59bab456cac894bdf.jpeg
 design: 
   bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  image: <IMAGE>
 tags: 
 - reactjs
 - typescript
