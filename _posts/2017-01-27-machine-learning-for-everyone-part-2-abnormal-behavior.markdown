@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Machine Learning for Everyone - Part 2: Building predictive models to spot anomalous data"
+title: "Machine Learning for Everyone - Part 2: Spotting anomalous data"
 description: Case study in R reviewing common concepts regarding how to validate, run and visualize a predictive model on production ranking the most suspicious cases.  
 date: 2017-01-27 12:00
 category: Technical Guide, Data, Machine Learning
