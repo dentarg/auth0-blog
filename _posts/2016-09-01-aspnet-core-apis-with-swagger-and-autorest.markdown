@@ -196,13 +196,13 @@ The first step is to add the [JwtBearer Nuget package](https://www.nuget.org/pac
 
 Next, we will create our API in Auth0 by enabling [API Authorization](https://auth0.com/docs/api-auth) in our account. To do this, go to your [Account Settings](https://manage.auth0.com/#/account/advanced), click on the Advanced tab and turn on the **OAuth 2.0 API Authorization** flag.
 
-![Enable API Section](https://cdn.auth0.com/blog/aspnet-core-web-apis/EnableAPI.png)
+![Enable API Section](https://cdn.auth0.com/blog/aspnet-core-web-apis/enableapi.png)
 
 Now, go to the new API section on the left menu and click on **Create API**, remember to set a custom Identifier.
 
 ![Creating a new API](https://cdn.auth0.com/blog/aspnet-core-web-apis/CreateAPI.png)
 
-![Creating a new API](https://cdn.auth0.com/blog/aspnet-core-web-apis/NewAPI.png)
+![Creating a new API](https://cdn.auth0.com/blog/aspnet-core-web-apis/newapi.png)
 
 Then, let’s modify our **ASP.NET Core pipeline** to include the Jwt Token authentication in the Configure method in your Startup.cs file:
 
@@ -272,7 +272,7 @@ After generating our client, Autorest will let you know that you will need the [
 
 We will start by creating a new **Regular Web Application client** on our [Auth0 dashboard](https://manage.auth0.com/).
 
-![Creating our Client](https://cdn.auth0.com/blog/aspnet-core-web-apis/CreateClient.png)
+![Creating our Client](https://cdn.auth0.com/blog/aspnet-core-web-apis/createclient.png)
 
 >There is a complete [client documentation](https://auth0.com/docs/clients) available.
 
