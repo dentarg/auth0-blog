@@ -21,19 +21,22 @@ related:
 - 2016-11-16-a-rundown-of-es6-features
 ---
 
-**TL;DR:** Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. There are new topics surfacing as well as numerous classical programming concepts that are unfamiliar to many front-end developers. We'll take a look at some of the common concepts in the modern JavaScript landscape.
+## Introduction
+
+Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. There are new topics surfacing as well as numerous classical programming concepts that are unfamiliar to many front-end developers. We'll take a look at some of the common concepts in the current front-end landscape and explore how they apply to modern JavaScript.
 
 ---
 
 ## Concepts
 
-You can jump straight into the following topic groups:
+You can jump straight into the following topics:
 
 * <a href="#pure-impure-side-effects" target="_self">Pure Functions, Impure Functions, Side Effects</a>
 * <a href="#state" target="_self">State: Stateful and Stateless</a>
 * <a href="#immutable-mutable" target="_self">Immutability and Mutability</a>
 * <a href="#imperative-declarative" target="_self">Imperative and Declarative Programming</a>
 * <a href="#functional-programming" target="_self">Functional Programming</a>
+* <a href="#observables" target="_self">Observables</a>
 * <a href="#reactive-programming" target="_self">Reactive Programming</a>
 * <a href="#functional-reactive-programming" target="_self">Functional Reactive Programming</a>
 * <a href="#web-components" target="_self">Web Components</a>
@@ -279,18 +282,18 @@ To learn more about **imperative and declarative programming**, check out the fo
 
 ## <span id="functional-programming"></span>Functional Programming
 
-Now that we've learned about pure functions, statelessness, immutability, and declarative programming, let's look briefly into the _functional programming_ paradigm.
+Now that we've learned about pure functions, statelessness, immutability, and declarative programming, let's look briefly into the functional programming paradigm.
 
 **Functional programming** encompasses the above concepts in the following ways:
 
 * Core functionality with pure functions without side effects. 
 * Data is immutable.
 * Functional programs are stateless.
-* Imperative shell contains pure core.
+* Imperative outer code contains and executes pure core code.
 
 ### Functional Programming Takeaways
 
-Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and manage necessary side effects, impure functions can call pure functions to implement imperative code.
+Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and manage necessary side effects, impure functions can call pure functions using imperative code.
 
 To learn more about **functional programming**, check out the following resources:
 
@@ -301,18 +304,58 @@ To learn more about **functional programming**, check out the following resource
 
 ---
 
+## <span id="observables"></span>Observables
+
+**Observables** are asynchronous collections arriving over time. An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. [Reactive Extensions](http://reactivex.io/) provides observables to JavaScript in the [RxJS](https://github.com/ReactiveX/rxjs) library.
+
+To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time (as the window is dragged to its desired size). We can create an observable and subscribe to it to react to the stream of resize events. As the window size changes, we can declaratively debounce the stream and observe the changes.
+
+```js
+var resize$ = Rx.Observable.fromEvent(window, 'resize').debounceTime(250);
+
+resize$.subscribe((event) => {
+  let t = event.target;
+  console.log(`${t.innerWidth}px x ${t.innerHeight}px`);
+});
+```
+
+### Observables Takeaways
+
+Observables and their operators are often visualized using _marbles_, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion.
+
+To learn more about **observables and observers**, check out the following resources:
+
+* [Reactive Extensions: Observable](http://reactivex.io/documentation/observable.html)
+* [Introducing the Observable](https://egghead.io/lessons/javascript-introducing-the-observable)
+* [RxMarbles](http://rxmarbles.com/)
+* [Rx Book - Observable](https://xgrommx.github.io/rx-book/content/observable/index.html)
+
+--
+
 ## <span id="reactive-programming"></span>Reactive Programming
+
+**Reactive programming** deals with observing and reacting to events in asynchronous data streams.
 
 ### Reactive Programming Takeaways
 
 To learn more about **reactive programming**, check out the following resources:
 
+* [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/)
 * [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 * [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/)
+* [Reactive Programming](http://paulstovell.com/blog/reactive-programming)
+* [Modernization of Reactivity](https://davidwalsh.name/modernization-reactivity)
 
 ---
 
 ## <span id="functional-reactive-programming"></span>Functional Reactive Programming
+
+### Functional Reactive Programming Takeaways
+
+To learn more about **functional reactive programming (FRP)**, check out the following resources:
+
+* [The Functional Reactive Misconception](https://sideeffects.xyz/2015/the-functional-reactive-misconception/)
+* [What is Functional Reactive Programming](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming/1030631#1030631)
 
 ---
 
