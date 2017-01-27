@@ -2,7 +2,7 @@
 layout: post
 title: "Machine Learning for Everyone - Part 2: Building predictive models to spot anomalous data"
 description: Case study in R reviewing common concepts regarding how to validate, run and visualize a predictive model on production ranking the most suspicious cases.  
-date: 2017-01-13 12:00
+date: 2017-01-27 12:00
 category: Technical Guide, Data, Machine Learning
 author:
   name: Pablo Casas
@@ -15,7 +15,6 @@ design:
 tags:
 - r
 - rstats
-- data-science
 - data
 - machine-learning
 - random-forest
@@ -23,7 +22,6 @@ tags:
 related:
 - 2016-12-06-machine-learning-for-everyone
 - 2016-12-13-adding-authentication-to-shiny-server
-
 ---
 
 ### Overview
@@ -38,9 +36,6 @@ Topics are:
 * Inspection of suspicious cases (audit)
 * Prediction and dimension reduction (t-SNE)
 
-
-<br>
-
 ### Let's start!
 
 This post contains R code and some machine learning explanations, which can be extrapolated to other languages such as Python. The idea is to create a case study giving the reader the opportunity to recreate results. You will need the following:
@@ -49,13 +44,9 @@ This post contains R code and some machine learning explanations, which can be e
 * Download <a href="https://www.rstudio.com/products/rstudio/download/">RStudio IDE</a>
 
 
-Note: There are some points oversimplified in the analysis, but hopefully you'll become curious to learn more about this topic, in case you've never done a project like this.
-
-<br>
+> Note: There are some points oversimplified in the analysis, but hopefully you'll become curious to learn more about this topic, in case you've never done a project like this.
 
 First, install and load the packages (libraries) containing the functions we'll use in this project, and load the data.
-
-
 
 ```r
 # delete these installation lines after 1st run
@@ -63,7 +54,6 @@ install.packages("caret")
 install.packages("funModeling")
 install.packages("Rtsne")
 ```
-
 
 ```r
 library(caret)
@@ -80,7 +70,6 @@ data=read.delim("data_abnormal.txt", header = T, stringsAsFactors = F, sep = "\t
 
 The data contains the following columns:
 
-
 ```r
 colnames(data)
 ```
@@ -94,7 +83,6 @@ We are going to predict column `abnormal` based on `var_1`, `var_2` ... `var_8` 
 
 Inspecting target variable:
 
-
 ```r
 freq(data, "abnormal")
 ```
@@ -103,12 +91,9 @@ freq(data, "abnormal")
 
 Almost 3 percent of cases are flagged as abnormal.
 
-<br>
-
 Next, we create the predictive model using **Random Forest**, doing the model parameter tuning with `caret` library using 4-fold cross-validation optimized for the ROC metric. We'll come back to this later.
 
 _You can find the basics of random forest in the <a href="https://auth0.com/blog/machine-learning-for-everyone/" target="blank">first post</a> of this series._
-
 
 ```r
 ################################################  
@@ -130,15 +115,11 @@ fit_model = train(abnormal ~ var_1 + var_2 + var_3 + var_4 + var_5 + var_6 + var
                  metric = "ROC")
 ```
 
-<br>
-
 There are some important things to note about the last layout:
 
 The `mtry` column indicates a parameter that is optimized by the library `caret`.
 
 The selection is based on the ROC metric. This metric goes from 0.5 to 1 and indicates how well the model distiguishes between `True Positve` and `False Positive` rates. The higher the better.
-
-<br>
 
 ### Choosing the "best" model
 
@@ -150,13 +131,9 @@ Random forest does not have many parameters to tune compared with other similar 
 
 _Cross-validating results is really important; you can get more information in ref. [1]_
 
-<br>
-
 ### What is the ROC value?
 
 This is a long -long- topic, but here we try to introduce you to some aspects to start becoming familiar with it.
-
-<br>
 
 #### Some history
 
@@ -176,8 +153,6 @@ These outcomes can be `True` or `False`, so we have four possibilites:
 
 4- The radar _says_ `Be easy, no plane is coming....` and the real result is **Negative**: It's a `False Negative`.
 
-<br>
-
 #### Abnormal example data
 
 In the data we used to build the model, we have:
@@ -187,8 +162,6 @@ In the data we used to build the model, we have:
 
 Normally we associate the positive value with the less representative value, which is the one we are trying to explain and the least common.
 
-<br>
-
 #### Analysis of possibilites
 
 Points 1 and 3 imply the radar (or the predictive model) asserts [ASSERTS WHAT?].
@@ -197,11 +170,7 @@ With points 2 and 4, the model failed---it predicted one thing and it was actual
 
 The ROC value measures the trade-off between the `True Positive` and `True Negative` rates. This is because we need to be sure about what the model is saying when it detects a `Positive` outcome:
 
-<br>
-
 **Is this `Positive` prediction reliable or not?**
-
-<br>
 
 #### Usage in medicine
 
@@ -211,15 +180,11 @@ _"The flu test for this patient was positive"_: if this result is confirmed afte
 
 It is used in many tests in which the result is either `true` or `false`; it's very important to know if we can trust this result.
 
-<br>
-
 #### Usage in Auth0
 
 We did some proof of concept to automatically spot the most suspicious login cases in order to boost current **anomaly detection** feature, and ROC curve was a good option to test the predictive model sensitivity.
 
 _More info about current anomaly detection feature at ref. [2]_
-
-<br>
 
 #### Understanding the extremes
 
@@ -230,20 +195,15 @@ Knowing extreme ROC values is a good approach to better understanding it:
 
 _See more about ROC in ref. [3]_
 
-<br>
-
 ### Going back to the predictive model
 
 We talked about the predictive model output, which is something like: `positive / negative` or `yes / no`. But it's better to work with probabilities (also known as **score**) so the output of any predictive model (in binary or multi-label class prediction) should be the score.
 
 _For a longer explanation, see ref. [4]_.
 
-<br>
-
 Once we get the score value, we can select all cases above a threshold and label them as `abnormal`.
 
 We assign the probability of being `abnormal=yes` to each case:
-
 
 ```r
 data$score=predict(fit_model$finalModel, type="prob")[,2]
@@ -281,11 +241,7 @@ head(data_to_inspect$id)
 ## [1]  59  94 105 107 224 259
 ```
 
-<br>
-
 **Is there a way to visualize how the predictive model "sees" data and assigns the probabilities?**
-
-<br>
 
 ### Let's talk about projections
 
@@ -299,13 +255,10 @@ You've probably already seen this "complex" technique: in geographical maps. The
 
 <img src='https://cdn.auth0.com/blog/machine-learning-2/map_projections.png' width="350px" alt="Variable reduction">
 
-<br>
-
 There are several ways to do this with data; the most popular is probably Principal Component Analysis -aka PCA- (however, this doesn't lead to good visualizations). The one we used in this post is **t-Distributed Stochastic Neighbor Embedding**, which is also implemented in languages other than **R**. _More info at ref. [5]._
 
 _Google did a live demo based on text data, see ref. [6]._
 
-<br>
 
 #### Hands on R!
 
@@ -334,8 +287,6 @@ d_tsne$score=data$score
 d_tsne = d_tsne[order(d_tsne$abnormal),]
 ```
 
-<br>
-
 **Now the magic!**  Plotting the resulting t-SNE model which maps 17 variables in two dimensions :)
 
 
@@ -354,8 +305,6 @@ ggplot(d_tsne, aes(x=V1, y=V2, color=abnormal)) +
 ```
 
 <img src="https://cdn.auth0.com/blog/machine-learning-2/tsne_abnormal_data.png" alt="tsne on abnormal data" width="500px">
-
-<br>
 
 ### But what are we seeing there? Analysis
 
@@ -379,7 +328,6 @@ The cases flagged as abnormal, plus the top 2 percent of suspicious ones detecte
 
 Time to play with your own data :)
 
-<br>
 
 ### References
 
