@@ -91,7 +91,7 @@ First thing we'll need to do is <a href="javascript:signup()">sign up for a free
 
 Now head over to [clients](https://manage.auth0.com/#/clients) and create a new one choosing 'Regular web Application' as the client type. Let's name it as something like 'Basic PHP WebApp'.
 
-Now that we have our client created, we need take note of three properties: `Domain`, `Client ID` and `Client Secret`. All of them can be found on the `Settings` tab of the client that we've just created.
+Now that we have our client created, we need to take note of three properties: `Domain`, `Client ID` and `Client Secret`. All of them can be found on the `Settings` tab of the client that we've just created.
 
 The last configuration that we need to do, before updating our code, is to add `http://localhost:3000` as an `Allowed Callback URLs` on our Auth0 client.
 
@@ -100,6 +100,7 @@ The last configuration that we need to do, before updating our code, is to add `
 Create a `composer.json` file in a new directory and add this to it like so:
 
 ```js
+
 {
     "name": "basic php webapp",
     "description": "Basic sample for securing a WebApp with Auth0",
@@ -119,7 +120,7 @@ Create a `public` folder inside the directory and add two files, `app.css` and `
 
 ```css
 
- body {
+body {
   font-family: "proxima-nova", sans-serif;
   text-align: center;
   font-size: 300%;
@@ -281,6 +282,7 @@ We need a file to invoke the `dotenv` library and load the values that we have d
 ```php
 
 <?php
+
   // Read .env
   try {
     $dotenv = new Dotenv\Dotenv(__DIR__);
@@ -292,12 +294,11 @@ We need a file to invoke the `dotenv` library and load the values that we have d
 ```
 _dotenv-loader.php_
 
-Finally, let's create the `index.php` file where all our app logic will reside. Like I said earlier, it's just a basic app so don't be worried about separation of concerns.
+Finally, let's create the `index.php` file where all our app logic will reside. Like I mentioned earlier, it's just a basic app so don't be worried about separation of concerns.
 
 This is how the file should look like:
 
-```php
-
+{% highlight html %}
 <?php
 
 // Require composer autoloader
@@ -382,8 +383,7 @@ if (isset($_REQUEST['logout'])) {
         </div>
     </body>
 </html>
-
-```
+{% endhighlight %}
 
 Relax, let's analyze the code together.
 
@@ -399,7 +399,7 @@ require __DIR__ . '/dotenv-loader.php';
 This is where we require the dotenv loader and composer autoloader. The autoloader makes it possible for us to import any class from the PHP packages installed in the app.
 
 ```php
-...
+
 use Auth0\SDK\API\Authentication;
 
 $domain        = getenv('AUTH0_DOMAIN');
@@ -417,7 +417,6 @@ $auth0Oauth = $auth0->get_oauth_client($client_secret, $redirect_uri, [
 $starWarsNames = ['Darth Vader', 'Ahsoka Tano', 'Kylo Ren', 'Obi-Wan Kenobi', 'R2-D2', 'Snoke'];
 
 $userInfo = $auth0Oauth->getUser();
-....
 
 ```
 
@@ -427,7 +426,7 @@ Then, we moved on to instantiating the `Authentication` class.
 
 The `$auth0->get_oauth_client()` method by default stores user information in the PHP session, and we also instructed it to save the `access_token` and `id_token`. 
 
-`$starWarsNames` array contains some characters from Star Wars. Later in the code, a user will be assigned a randome code name from this array.
+`$starWarsNames` array contains some characters from Star Wars. Later in the code, a user will be assigned a random code name from this array.
 
 `$auth0Oauth->getUser()` retrieves the user information.
 
@@ -441,44 +440,35 @@ if (isset($_REQUEST['logout'])) {
 
 ```
 
-This checks if user submitted a request to log out, clears the session and redirects the user back to the homepage.
+This checks if the user submitted a request to log out, clears the session and redirects the user back to the homepage.
 
-```js
-...
-...
+{% highlight html %}
 <script src="http://code.jquery.com/jquery-3.0.0.min.js" type="text/javascript"></script>
 <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
-...
-
-```
+{% endhighlight %}
 
 We are making use of Auth0 Lock widget, and we also using jQuery to call the lock methods and handle button click event.
 
-```js
-...
+{% highlight html %}
 <!-- font awesome from BootstrapCDN -->
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+{% endhighlight %}
 
-```
 
 Pulled in bootstrap and font-awesome for beautification.
 
-```js
+{% highlight html %}
 <script>
   var AUTH0_CLIENT_ID = '<?php echo getenv("AUTH0_CLIENT_ID") ?>';
   var AUTH0_DOMAIN = '<?php echo getenv("AUTH0_DOMAIN") ?>';
   var AUTH0_CALLBACK_URL = '<?php echo getenv("AUTH0_CALLBACK_URL") ?>';
 </script>
-```
+{% endhighlight %}
 
 Here, we are feeding the Auth0 credentials to JavaScript variables.
 
-```php
-
-....
-....
-
+{% highlight html %}
 <div class="container">
     <div class="login-page clearfix">
       <?php if(!$userInfo): ?>
@@ -498,8 +488,7 @@ Here, we are feeding the Auth0 credentials to JavaScript variables.
       </div>
       <?php endif ?>
 </div>
-....
-```
+{% endhighlight %}
 
 In the code above, if the `$userInfo` is not set, then it means the user has not logged in yet, so we display the signin button. If the user has signed in, then we grab the user's info and display it along with the `logout` button.
 
@@ -522,11 +511,11 @@ When you are logged in, you should be assigned a Star Wars codename like so:
 ![Logged In](https://cdn.auth0.com/blog/app/loggedin.png)
 _Logged In_
 
-Our app is running successfully on a PHP 5.x server. You can grab the [source code from Github](https://github.com/auth0-blog/starwars-phpapp) to ensure that everything works as expected.
+Our app is now running successfully on a PHP 5.x server. You can grab the [source code from Github](https://github.com/auth0-blog/starwars-phpapp) to ensure that everything works as expected.
 
 ### Migrate to PHP 7
 
-We are currently running a PHP 5.x app. Let's migrate it to PHP 7. The good thing like I said earlier in the previous post is that most times you might not have to change anything in the codebase. Let's see if that holds true for this app.
+We are currently running a PHP 5.x app. Let's migrate it to PHP 7. The good thing like I mentioned earlier in the previous post is that most times you might not have to change anything in the codebase. Let's see if that holds true for this app.
 
 Upgrade your server to at least PHP 7.0.0 and run this app again.
 
@@ -559,12 +548,11 @@ _API showing random jokes_
 
 The app is working fine, no errors!
 
-
 ### Use PHP 7 features in Second App
 
 Let's refactor this app and integrate some PHP 7 features.
 
-This is the directory structure of our API app:
+This is the directory structure of our API app at the moment:
 
 ```bash
 
@@ -602,7 +590,7 @@ use Exception;
 
 class Main {
 
-    public function getCategories(){
+    public function getCategories() {
         return $this->getCategoryData();
     }
 
@@ -716,10 +704,9 @@ _PHP 7 Return Type Declarations added in Main.php_
 
 Another PHP 7 feature we can add is *function parameter typehinting*. We have a method, `getRandomJokes($randomNumber)` that accepts a `$randomNumber` which is an integer. 
 
-Let's refactor that method, `getRandomJokes()`. We'll eliminate that `if` condition and just typehint the `$randomNumber` parameter like so:
+Let's refactor that method, `getRandomJokes()`. We'll eliminate the `if` condition and just typehint the `$randomNumber` parameter like so:
 
 ```php
-...
 
 public function getRandomJokes(int $randomNumber): string {
 
@@ -744,12 +731,11 @@ public function getRandomJokes(int $randomNumber): string {
 Now if you try to pass in a value asides an integer like so:
 
 ```php
-...
 
-  $router->get('/jokes/random', function() use ($app){
-      echo json_encode($app->getRandomJokes("dsdsds"));
-  });
-...
+$router->get('/jokes/random', function() use ($app){
+  echo json_encode($app->getRandomJokes("dsdsds"));
+});
+
 ```
 _index.php_
 
@@ -768,7 +754,7 @@ PHP 7 runs on the new Zend engine 3.0, thus making your apps see up to 2x faster
 
 [Rasmus Ledorf](https://twitter.com/rasmus), *Creator of PHP* and inventor of the SQL LIMIT clause did some benchmarking with a few popular PHP projects with the various versions of PHP from PHP 5.4 up until PHP 7.0 and also benchmarked against HHVM 3.6.1. 
 
-Let's take a good look at the benchmarks. The test Box Specs Rasmus used are:
+Let's take a good look at the benchmarks. The test box specs Rasmus used are:
 
 * Gigabyte Z87X-UD3H i7-4771 4 cores @ 3.50GHz w/ 16G of Ram @ 1600MHz
 * Hyperthreading enabled for a total of 8 virtual cores
@@ -812,6 +798,8 @@ _Wordpress 4.1.1_
 ![Drupal 8](https://cdn.auth0.com/blog/benchmark/drupal.png)
 _Drupal 8_
 
+From the results above, you can see that we can make double the amount of requests in lesser time in PHP 7 than PHP 5.
+
 These specs can be found in the `Speeding Up The Web With PHP 7` talk he gave at Fluent Conf, 2015.
 
 Check out the following benchmarks:
@@ -825,6 +813,6 @@ Check out the following benchmarks:
 
 We have successfully covered how to upgrade your development and server environments from PHP 5 to PHP 7, gone through the features PHP 7 offers and also migrated two apps from PHP 5 to PHP 7. 
 
-woot! woot! It's been quite a journey highlighting everything PHP 7 has to offer. PHP has grown tremendously over the years from been that toy language to a full-blown fast and enterprise language.
+Woot! Woot! It's been quite a journey highlighting everything PHP 7 has to offer. PHP has grown tremendously over the years from a toy language to a full-blown fast and enterprise language.
 
 The [PHP Manual](http://php.net/manual/en/index.php) and [RFC](https://wiki.php.net/RFC) documents remain the most complete go-to reference for any of the new PHP 7 features. You can always leverage them for more information.
