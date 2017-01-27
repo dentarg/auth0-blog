@@ -339,4 +339,4 @@ Time to play with your own data :)
 * [6] <a href="https://research.googleblog.com/2016/12/open-sourcing-embedding-projector-tool.html">
 Open sourcing the Embedding Projector: a tool for visualizing high dimensional data</a>
 
-<href="https://github.com/auth0/machine-learning-post-2-abnormal-behavior" target="blank">Link</a> to clone from Github (only R code).
+<a href="https://github.com/auth0/machine-learning-post-2-abnormal-behavior" target="blank">Link</a> to clone from Github (only R code).
