@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Making use of RxJS in Angular"
-description: "Angular is built on the top of RxJS. It can be helpful for the app, too."
+description: "Angular is built on the top of RxJS. Learn how you can make use of RxJS in your Angular apps for a clearer and more maintainable codebase."
 date: 2016-09-14 10:00
 author:
   name: "Wojciech Kwiatek"
@@ -26,7 +26,7 @@ related:
 
 ---
 
-**TL;DR** Angular incorporates RxJS and uses it internally. We can make use of some RxJS goodies and introduce FRP to write more robust code.
+**TL;DR** Angular incorporates RxJS and uses it internally. We can make use of some RxJS goodies and introduce FRP to write more robust code in our apps.
 
 ---
 
@@ -34,11 +34,11 @@ If you're new to RxJS, I recommend reading [Understanding Reactive Programming a
 
 RxJS is all about streams, operators to modify them, and observables.
 
-## Functional Reactive Programming
-FRP has recently become a buzzword. To give you a deeper understanding on that topic, there is an awesome post from Andre Stalz -- [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754). What you should know from this comprehensive post? Reactive programming is actually programming with asynchronous data streams, such as RxJS streams. But where does the word *functional* come into play? Functional is about how we can modify these streams and create another. A stream can be used as an input to another stream. We have a bunch of operators in RxJS to do things like this. So, can we do some of FRP with RxJS? The short answer is: yes! And we'll do so with Angular.
+## Functional Reactive Programming (FRP)
+FRP has recently become a buzzword. To give you a deeper understanding on that topic, there is an awesome post from Andre Stalz -- [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754). What is the key takeaway from the this comprehensive post? Reactive programming is actually programming with asynchronous data streams. But where does the word *functional* come into play? Functional is about how we can modify these streams to create new sets of data. A stream can be used as an input to another stream. We have a bunch of operators in RxJS to do things like this. So, can we do some of FRP with RxJS? The short answer is: yes! And we'll do so with Angular.
 
 ## RxJS in Angular
-When we want to start playing with RxJS in Angular, all we need to do is add operators we want to use. The RxJS itself is Angular dependency so it's ready to use.
+To get started with RxJS in Angular, all we need to do is import the operators we want to use. TRxJS is itself an Angular dependency so it's ready to use out of the box.
 
 ### Passing observables to the view
 We are about to start with some observables created ad hoc. Let's create an observable from the JavaScript array:
@@ -47,7 +47,7 @@ We are about to start with some observables created ad hoc. Let's create an obse
 const items = Observable.of([1, 2, 3])
 ```
 
-Now, we can use the created observable as component's property and pass it into the view. Angular introduced a new filter, which will be a perfect fit here. It's called `async`. Its purpose is to unwrap promises and observables. In the case of an observable it'll pass the last value of the observable:
+Now, we can use the created observable as a component's property and pass it into the view. Angular introduced a new filter, which will be a perfect fit here. It's called `async`. Its purpose is to unwrap promises and observables. In the case of an observable it'll pass the last value of the observable:
 
 
 ```ts
@@ -71,10 +71,10 @@ export class AppComponent {
 
 We should see a list of elements in the browser.
 
-This is our *hello world* example to see how the `async` works and what can we use it for.
+This is our *hello world* example to see how async works and how we can use it.
 
 ### Http
-Angular relies on RxJS in some of the internal features. One of the most well-known services is *Http*. In Angular 1.x, *Http* was a promise-based service. In Angular, it's based on observables. This means that we can also make use of the `async` pipe here. Let's try to create a real-world example with service now. We want to fetch a list of repos authored by Auth0 on GitHub:
+Angular relies on RxJS for some of its internal features. One of the most well-known services is *Http*. In Angular 1.x, *Http* was a promise-based service. In Angular 2+, it's based on observables. This means that we can also make use of the `async` pipe here. Let's try to create a real-world example with a service. We want to fetch a list of repos authored by Auth0 on GitHub:
 
 ```ts
 import { Injectable } from '@angular/core'
@@ -97,6 +97,8 @@ export class RepoService {
 Here, we have the service, which exposes the `getReposForUser` method to make an http call. Note the return type of the method -- it's an `Observable<any>`. Now, we can add it into the module and use it in the component:
 
 ```ts
+import { RepoService } from './repo.service.js'
+
 @Component({
   selector: 'my-app',
   template: `
@@ -137,7 +139,7 @@ export class AppComponent {
 
 Now the call for repositories is fired, and we can see that the list of repos has been fetched correctly. Why is that?
 
-## Hot and cold observables
+## Hot and Cold Observables
 The `http.get` observable above is **cold**: that means each subscriber sees the same events from the beginning. It's independent of any other subscriber. It also means that if there's no subscriber, no value is emitted! See this one in action:
 
 ```ts
@@ -173,12 +175,12 @@ export class RepoService {
 }
 ```
 
-Now you should see just one call. If you want to go deeper with the topic, here is the [Hot vs Cold Observables](http://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339) article by Ben Lesh.
+Now you should see just one call. If you want to go deeper with the topic, here is a [Hot vs Cold Observables](http://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339) article by Ben Lesh.
 
 ## Programming the reactive way in Angular
 
 ### Handling events
-We've covered how you've probably used RxJS observables for *Http* in Angular, even if you weren't aware of it. However, there are more things to do with streams, even if Angular doesn't require you to do so. Now we move on to the *on click* events. The traditional, imperative way of handling click events in Angular is as follows:
+We've covered how you've probably used RxJS observables for *Http* in Angular, even if you weren't aware of it. However, there are many more things you can do with streams, even if Angular doesn't require you to do so. Now we move on to the *on click* events. The traditional, imperative way of handling click events in Angular is as follows:
 
 ```ts
 @Component({
@@ -196,7 +198,7 @@ export class AppComponent {
 }
 ```
 
-We can create a stream of click events using RxJS `Subject`. *Subject* is the observer and observable at once. It means it can emit value (using `.next()`), and you can subscribe to it (using `subscribe`).
+We can create a stream of click events using RxJS `Subject`. *Subject* is both an observer and an observable at the same time. It means it can emit value (using `.next()`), and you can subscribe to it (using `subscribe`).
 
 Here, you can see the same case achieved with functional approach using RxJS:
 
@@ -277,7 +279,7 @@ export class AppComponent {
 ```
 
 ### Forms
-Another place when you can use a power of RxJS are forms. We can use all of the knowledge that we have gained up to this point and see how we can create a reactive login form.
+Another place when you can use the power of RxJS is forms. We can use all of the knowledge that we have gained up to this point and see how we can create a reactive login form.
 
 First, let's start with adding `ReactiveFormsModule` from `@angular/forms` to the module. Then we can make use of the reactive forms introduced in Angular. Here's how it can look:
 
@@ -416,4 +418,4 @@ export class AppComponent {
 ## Conclusion
 Angular has a lot more features than meets the eye. RxJS is, in my personal opinion, one of the best of them. It can rocket the app to the next level in term of maintainability and clarity. The future is more declarative, less imperative code.
 
-RxJS can appear intimidating at first, but once you’re familiar with its functionality and operators, it supplies many benefits (such as defining logic at the declaration time). All of this is to say, the code is easier to understand than imperative one. RxJS requires a different mode of thinking, but it is very worthwhile to learn and use.
+RxJS can appear intimidating at first, but once you’re familiar with its functionality and operators, it supplies many benefits (such as defining logic at the declaration time). All of this is to say, the code is easier to understand compared to imperative code. RxJS requires a different mode of thinking, but it is very worthwhile to learn and use.
