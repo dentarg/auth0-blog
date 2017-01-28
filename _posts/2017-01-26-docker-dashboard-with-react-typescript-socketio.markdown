@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Create a Docker dashboard with Typescript, React and Socket.io"
+title: "Create a Docker dashboard with TypeScript, React and Socket.io"
 description: Let's create a functioning web-based dashboard for Docker!
 date: 2017-01-26 23:37
 author: 
@@ -20,7 +20,7 @@ tags:
 - socket.io
 ---
 
-In this article, we are going to use a few different technologies together to build something which, after a bit more elaboration, might actually be useful! We will be creating a web-based dashboard for a [Docker](https://www.docker.com/) installation using a number of different frameworks and technologies, both front-end and server-side, enabling some administrator to monitor running containers, start and stop existing containers, and create new containers based on existing Docker images. There is lots of scope for elaboration here, of course, but I'll leave that as an exercise for you, the reader. Hopefully this article will set you off on the right foot with a good overview of the relevant technologies, enabling you to add even more value to the product!
+In this article, we are going to use a few different technologies together to build something which, after a bit more elaboration, might actually be useful! We will be creating a web-based dashboard for a [Docker](https://www.docker.com/) installation using a number of different frameworks and technologies, both front-end and server-side, enabling some administrator to monitor running containers, start and stop existing containers, and create new containers based on existing Docker images. There is a wide scope for elaboration here, of course, but I'll leave that as an exercise for you, the reader. Hopefully this article will set you off on the right foot with a good overview of the relevant technologies, enabling you to add even more value to the product!
 
 ## The app
 
@@ -34,19 +34,19 @@ If you want to explore the finished product as a reference (finished as far as t
 
 ## Technology stack
 
-Let's have a look at exactly what we're going to be using, and why. I'll go through the prerequisites and what to install first in a bit.
+Let's have a look at exactly what we're going to be using, and why. I'll go through the prerequisites and installation requirements in a bit.
 
-* **Node** We will use this to write our server-side code in Javascript to run it on our machine, and serve up our website to our users
-* **Docker** This uses container technology to reliably run apps and services on a machine. The app interfaces with the Docker daemon through the [Docker Remote API](https://docs.docker.com/engine/reference/api/docker_remote_api/). More on this later
-* **Typescript** This allows us to add type safety to Javascript and allows us to use modern Javascript syntax in older browsers
-* **React** Allows us to write the front-end of our application in isolated components in an immutable, state-driven way, mixing Html with Javascript
-* **Socket.io** Provides us with a way to communicate in real-time with the server and other clients using WebSocket technology, gracefully degrading on older browsers
+* **Node**: We will use this to write our server-side code in JavaScript to run it on our machine, and serve up our website to our users.
+* **Docker**: This uses container technology to reliably run apps and services on a machine. The app interfaces with the Docker daemon through the [Docker Remote API](https://docs.docker.com/engine/reference/api/docker_remote_api/). More on this later.
+* **TypeScript**: This allows us to add type safety to JavaScript and allows us to use modern JavaScript syntax in older browsers.
+* **React**: Allows us to write the front-end of our application in isolated components in an immutable, state-driven way, mixing Html with JavaScript.
+* **Socket.io**: Provides us with a way to communicate in real-time with the server and other clients using WebSocket technology, gracefully degrading on older browsers.
 
 Peppered amongst the main technologies mentioned above are various libraries which also provide a lot of value during development time:
 
-* **ExpressJS** Used to serve our web application
-* **Webpack** To transpile our Typescript assests into normal Javascript
-* **Bootstrap** To provide something decent looking - a problem I know all of us programmers endure!
+* **ExpressJS**: Used to serve our web application.
+* **Webpack**: To transpile our TypeScript assests into normal JavaScript.
+* **Bootstrap**: To provide something decent looking - a problem I know all of us programmers endure!
 
 There are a few more minor ones, but I will cover those as we come to them.
 
@@ -54,9 +54,9 @@ There are a few more minor ones, but I will cover those as we come to them.
 
 ### Docker
 
-As this is going to be a slick-looking dashboard for _Docker_, we need to make sure we have Docker installed (if you don't already).
+As this is going to be a slick-looking dashboard for Docker, we need to make sure we have Docker installed (if you don't already).
 
-Head to https://www.docker.com/ and download the latest version of the client for your operating system. If you've never heard of or used Docker before, don't worry about it too much, but it might be worth following through their [getting started tutorial for Mac](https://docs.docker.com/docker-for-mac/) or [Windows](https://docs.docker.com/docker-for-windows/) or [Linux](https://docs.docker.com/engine/installation/).
+Head to [docker.com](https://www.docker.com) and download the latest version of the client for your operating system. If you've never heard of or used Docker before, don't worry about it too much, but it might be worth following through their [getting started tutorial for Mac](https://docs.docker.com/docker-for-mac/) or [Windows](https://docs.docker.com/docker-for-windows/) or [Linux](https://docs.docker.com/engine/installation/).
 
 To make sure your Docker installation is up and running, open up a command prompt and type: `docker -v`. You should see some version information repeated back to you; mine says `Docker version 1.12.5, build 7392c3b`. If you can't see this or you get an error, follow through the installation docs again carefully to see if you missed anything.
 
@@ -64,9 +64,9 @@ Keep the command prompt open - you're going to need it!
 
 ### NodeJS
 
-To write our app and serve the web interface to the user, we're going to use NodeJS. This has a number of libraries and frameworks which will make this job very easy for us.
+To write our app and serve the web interface to the user, we're going to use NodeJS. This has a number of libraries and frameworks which will make the job very easy for us.
 
-I used Node version 6.3.1 to write this article, so I would urge you to use the same version or later if you can, as there are some language features that I'm using which may not be available in earlier versions of the framework.
+Node, version 6.3.1 was used to build the demo app for this article, so I would urge you to use the same version or later if you can, as there are some language features that I'm using which may not be available in earlier versions of the framework.
 
 You can [grab the 6.3.1 release](https://nodejs.org/en/download/releases/) from their website, or simply grab the [latest release](https://nodejs.org/en/download/) from their main downloads page. You can also use something like [NVM](https://github.com/creationix/nvm) if you want to mix and match your versions for different projects, which is something I can recommend doing.
 
@@ -80,15 +80,15 @@ It should repeat the correct version number back to you. Also check that NPM is 
 
 It should ideally be version 3 or greater.
 
-### Typescript
+### TypeScript
 
-We will need to install the [Typescript](https://www.npmjs.com/package/typescript) compiler for our application to work; luckily we can do this through NPM. 
+We will need to install the [TypeScript](https://www.npmjs.com/package/typescript) compiler for our application to work; luckily we can do this through NPM. 
 
-Now that we have NPM installed from the previous step, we can install Typescript using the following command:
+Now that we have NPM installed from the previous step, we can install TypeScript using the following command:
 
 `npm install -g typescript`
 
-This will download the Typescript compiler using the node package manager and make the tools available on the command-line. To verify that your installation has worked, type:
+This will download the TypeScript compiler using the node package manager and make the tools available on the command-line. To verify that your installation has worked, type:
 
 `tsc -v`
 
@@ -96,7 +96,7 @@ Which should again echo a version number back to you (I'm using 2.0.10).
 
 ### Webpack
 
-Finally, install [Webpack](https://www.NPMjs.com/package/webpack), which will allow us to package our Javascript assets together and will effectively run our Typescript compiler for us. Again, we can do this through NPM:
+Finally, install [Webpack](https://www.npmjs.com/package/webpack), which will allow us to package our JavaScript assets together and will effectively run our TypeScript compiler for us. Again, we can do this through NPM:
 
 `npm install -g webpack`
 
@@ -110,7 +110,7 @@ Next, initialise the NodeJS project by typing: `npm init`
 
 This will ask you a number of questions about the project, none of which are terribly important for this demo, except that the name must be all lower-case and contain no spaces.
 
-Once that has finished, you will be left with a `package.json` file in your project. This is the manifest file that describes your node project and all of its dependencies, and we'll be adding to this shortly.
+Once that has finished, you will be left with a `package.json` file in your project. This is the manifest file that describes your node project and all of its dependencies, and we'll be adding to this file shortly.
 
 ## Creating the web server
 
@@ -120,9 +120,9 @@ Let's begin by installing [ExpressJS](http://expressjs.com/), which will enable 
 
 `npm install --save express`
 
-Express is a framework that provides us with an API for handling incoming HTTP requests, and defining their responses. You can apply a number of view engines for serving web pages back to the user, along with a whole host of middleware for serving static files, handling cookies, and much more. Alas, we're simply going to use it to serve up a single Html file and some Javascript assets, but at least it makes that job easy!
+[Express](http://expressjs.com/) is a framework that provides us with an API for handling incoming HTTP requests, and defining their responses. You can apply a number of view engines for serving web pages back to the user, along with a whole host of middleware for serving static files, handling cookies, and much more. Alas, we're simply going to use it to serve up a single HTML file and some JavaScript assets, but at least it makes that job easy!
 
-Next, create the file `server.js` inside the root of your project, and add the code which will serve the Html file:
+Next, create the file `server.js` inside the root of your project, and add the code which will serve the HTML file:
 
 ```javascript
 let express = require('express')
@@ -144,7 +144,7 @@ server.listen(port, () => console.log(`Server started on port ${port}`))
 
 ```
 
-_You're going to see a lot of new ES6 syntax in this article, like `let`, `const`, arrow functions and a few other things. If you're not aware of modern Javascript syntax, it's worth having [a read up on some the new features](https://babeljs.io/learn-es2015/)!_
+_Note: You're going to see a lot of new ES6 syntax in this article, like `let`, `const`, arrow functions and a few other things. If you're not aware of modern JavaScript syntax, it's worth having [a read up on some the new features](https://babeljs.io/learn-es2015/)!_
 
 Next, create an `index.html` file in the root of the project with the following content:
 
@@ -189,7 +189,7 @@ Right now when you make changes to the site you will be forced to stop and resta
 
 To automatically reload your NodeJS server-side changes, you can use a package called [nodemon](https://nodemon.io/). Install it using `npm install -g nodemon` and then start your node app using `nodemon server.js`. You'll notice that, as you make changes to your code, the app will automatically restart.
 
-To handle the recompilation of your React components automatically, webpack has a 'watch' option that will cause it to re-run by itself. To do this, start webpack using `webpack --watch` and notice that your Javascript bundles will start recompiling automatically whenever you change your React components.
+To handle the recompilation of your React components automatically, webpack has a 'watch' option that will cause it to re-run by itself. To do this, start webpack using `webpack --watch` and notice that your JavaScript bundles will start recompiling automatically whenever you change your React components.
 
 To have thes two things - nodemon and webpack - running together, you can either start them in two different console windows, or if you're using OSX or Linux you can run them from one console using this neat one-liner:
 
@@ -216,9 +216,9 @@ Even better, you can put all of this into the node start script. Edit the 'scrip
 
 And then whenever you want to start your app and have it automatically recompile everything, you can simply run `npm start`!
 
-## Starting some React and Typescript
+## Starting some React and TypeScript
 
-The main body of our client application is going to be constructed using React and Typescript, which means we need to spend a little more time setting up one or two more tools. Once we set up a workflow for compiling the first component, the rest will easily follow.
+The main body of our client application is going to be constructed using React and TypeScript, which means we need to spend a little more time setting up one or two more tools. Once we set up a workflow for compiling the first component, the rest will easily follow.
 
 Firstly, let's have a look at how we're going to structure our React components.
 
@@ -250,11 +250,11 @@ ReactDOM.render(
 )
 ```
 
-If you're using the excellent [Visual Studio Code](https://code.visualstudio.com/) you'll notice that it will immediately start throwing up intellisense issues, mainly because it doesn't know what 'react', 'react-dom' and our application component is. We're going to use Webpack and Typescript to fix that!
+If you're using the excellent [Visual Studio Code](https://code.visualstudio.com/) you'll notice that it will immediately start throwing up intellisense issues, mainly because it doesn't know what 'react', 'react-dom' and our application component is. We're going to use Webpack and TypeScript to fix that!
 
 ### Setting up Webpack
 
-Webpack is the thing that is going to take all our .tsx files, work out their dependencies based on the imported files, run them through the Typescript compiler and then spit out one Javascript file that we can include on the main Html page. It does this primarily by referencing a configuration file in the root of our project, so let's create that next.
+Webpack will take all our .tsx files, work out their dependencies based on the imported files, run them through the TypeScript compiler and then spit out one JavaScript file that we can include on the main Html page. It does this primarily by referencing a configuration file in the root of our project, so let's create that next.
 
 Create the file `webpack.config.js` in the root of your project, with the following contents:
 
@@ -286,13 +286,13 @@ module.exports = {
 
 There's quite a bit in there, so let's go through it:
 
-* The `entry` key tells Webpack to start processing files using the `/app/index.tsx` file
-* The output key tells Webpack where to put the output files; in the `/public/js` folder with the name `bundle.js`
-* The `devtool` key, along with the `source-map-loader` preloader in the `module` section, tells Webpack to generate source maps, which will come in very handy when trying to debug your Javascript app later
-* The `resolve` key tells Webpack which extensions to pay attention to when resolving modules
-* The `loaders` section tells Webpack what middleware to use when processing modules. Here we tell it that, whenever Webpack comes across a file with a .ts or .tsx extension, it should use the `ts-loader` tool. This is the tool that processes a Typescript file and turns it into regular Javascript.
+* The `entry` key tells Webpack to start processing files using the `/app/index.tsx` file.
+* The output key tells Webpack where to put the output files; in the `/public/js` folder with the name `bundle.js`.
+* The `devtool` key, along with the `source-map-loader` preloader in the `module` section, tells Webpack to generate source maps, which will come in very handy when trying to debug your JavaScript app later.
+* The `resolve` key tells Webpack which extensions to pay attention to when resolving module.
+* The `loaders` section tells Webpack what middleware to use when processing modules. Here we tell it that, whenever Webpack comes across a file with a .ts or .tsx extension, it should use the `ts-loader` tool. This is the tool that processes a TypeScript file and turns it into regular JavaScript.
 
-There is a lot more you can do with Webpack, including automatically splitting out common modules into a `common.js` file, or including css files along with your Javascript, but what we have here is sufficient for our requirements.
+There is a lot more you can do with Webpack, including automatically splitting out common modules into a `common.js` file, or including css files along with your JavaScript, but what we have here is sufficient for our requirements.
 
 To get this to work, we still need to install the `ts-loader` and `source-map-loader` packages:
 
@@ -302,11 +302,11 @@ We also need to install the React packages that we need:
 
 `npm install --save-dev react react-dom`
 
-Next, we need install Typescript into the project. We have already installed it globally in the first section of this article, so we can simply link it in:
+Next, we need install TypeScript into the project. We have already installed it globally in the first section of this article, so we can simply link it in:
 
 `npm link typescript`
 
-Typescript itself needs a configuration file, which lives in the `tsconfig.json` file in the root of the project. Create that now, with the following content:
+TypeScript itself needs a configuration file, which lives in the `tsconfig.json` file in the root of the project. Create that now, with the following content:
 
 ```json
 {
@@ -321,7 +321,7 @@ Typescript itself needs a configuration file, which lives in the `tsconfig.json`
 }
 ```
 
-The main parts of this configuration are the `module`, `target` and `jsx` keys, which instruct Typescript how to output the correct code to load modules in the right way, and also how to deal with the React JSX syntax correctly (covered later).
+The main parts of this configuration are the `module`, `target` and `jsx` keys, which instruct TypeScript how to output the correct code to load modules in the right way, and also how to deal with the React JSX syntax correctly (covered later).
 
 Let's see what state our Webpack set up is in at the moment. From the command line, simply type `webpack` to start compilation.
 
@@ -349,7 +349,7 @@ Essentially, it still doesn't know what 'react' is, so let's fix that now!
 
 ### Installing typings for React
 
-Because we've told Webpack that we're going to handle the React and ReactDOM libraries ourselves, we need to tell Typescript what those things are. We do that using [Type Definition Files](https://github.com/DefinitelyTyped/DefinitelyTyped). As you can see from the Github repository, there are thousands of files, covering most of the Javascript frameworks you've heard of. This is how we get rich typing, compile-time hints and intellisense while writing Typescript files. Luckily, we can also install them using NPM.
+Because we've told Webpack that we're going to handle the React and ReactDOM libraries ourselves, we need to tell TypeScript what those things are. We do that using [Type Definition Files](https://github.com/DefinitelyTyped/DefinitelyTyped). As you can see from the Github repository, there are thousands of files, covering most of the JavaScript frameworks you've heard of. This is how we get rich typing, compile-time hints and intellisense while writing TypeScript files. Luckily, we can also install them using NPM.
 
 To install them, use:
 
@@ -369,7 +369,7 @@ export class AppComponent extends React.Component<{}, {}> {
 
 At the moment it does nothing except print out 'Docker Dashboard' in a header tag, but it should at least compile. We'll flesh this out much more later on! For now though, you should be able to run the `webpack` command again now, and have it produce no errors.
 
-To inspect what Webpack has created for us, find the `public/js` folder and open the `bundle.js` file. You'll see that, while it does look rather obtuse, you should be able to recognise elements of your program in there towards the very bottom, as normal Javascript that can run in the browser. It's also rather large, as it also includes the React libraries and it will include even more by the time we're finished!
+To inspect what Webpack has created for us, find the `public/js` folder and open the `bundle.js` file. You'll see that, while it does look rather obtuse, you should be able to recognise elements of your program in there towards the very bottom, as normal JavaScript that can run in the browser. It's also rather large, as it also includes the React libraries and it will include even more by the time we're finished!
 
 The next thing to do is include this file in our Html page. Open `index.html` and put a script tag near the bottom, underneath the Bootstrap include:
 
@@ -381,9 +381,9 @@ The next thing to do is include this file in our Html page. Open `index.html` an
 </body>
 ```
 
-Now, you should be at the point where you can run the site using `node server.js`, browse to http://localhost:3000 and view the running website. If you can see 'Docker Dashboard' written using a large header font, then you've successfully managed to get your Webpack/Typescript/React workflow working! Congratulations!
+Now, you should be at the point where you can run the site using `node server.js`, browse to `http://localhost:3000` and view the running website. If you can see 'Docker Dashboard' written using a large header font, then you've successfully managed to get your Webpack/TypeScript/React workflow working! Congratulations!
 
-Now let's flesh the actual application a bit more and add some real value..
+Now let's flesh out the actual application a bit more and add some real value.
 
 ## Creating the components
 
@@ -451,7 +451,7 @@ The goal of this component is to not only display the current status of the comp
 
 The other interesting this component can do, is slightly alter its appearance depending on whether the container is running or not. It has a green header when it's running, and a grey header when it's not. It does this by simply switching the Css class depending on the status. 
 
-We'll need to install the `classnames` package for this to work, along with its Typescript reference typings. To do that, drop into the command line once more:
+We'll need to install the `classnames` package for this to work, along with its TypeScript reference typings. To do that, drop into the command line once more:
 
 `npm install --save classnames`
 
@@ -459,7 +459,7 @@ We'll need to install the `classnames` package for this to work, along with its 
 
 [Classnames](https://www.npmjs.com/package/classnames) is not strictly necessary, but does provide a handy API for conditionally concatenating CSS class names together, as we are doing here.
 
-Next, let's create the ContainerItemList component, which is in charge of displaying a whole list of these components together. Create a new file in /app/components called `ContainerList` with the following content:
+Next, let's create the `ContainerItemList` component, which is in charge of displaying a whole list of these components together. Create a new file in `/app/components` called `ContainerList` with the following content:
 
 ```javascript
 import * as React from 'react'
@@ -485,9 +485,9 @@ export class ContainerList extends React.Component<ContainerListProps, {}> {
 }
 ```
 
-This one is a little simpler as it doesn't do too much except display a bunch of `ComponentListItem`s in a list. The properties for this component include an array of Containers to display, and a title for the list. If the list of containers is empty, we show a short message.
+This one is a little simpler as it doesn't do too much except display a bunch of `ComponentListItem`s in a list. The properties for this component include an array of `Container` objects to display, and a title for the list. If the list of containers is empty, we show a short message.
 
-Otherwise, we use `map()` to convert the list of `Container` types into `ContainerListItem` components, using the [spread operator](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator) (the `...c` part) to apply the properties on `Container` to the component. We also give it a key so that React can uniquely identify each container in the list; I'm using the name of the container, seeing as that will be unique in our domain (you can't create two Docker containers with the same name, running or not).
+Otherwise, we use `map()` to convert the list of `Container` types into `ContainerListItem` components, using the [spread operator](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Spread_operator) (the `...c` part) to apply the properties on `Container` to the component. We also give it a key so that React can uniquely identify each container in the list. I'm using the name of the container, seeing as that will be unique in our domain (you can't create two Docker containers with the same name, running or not).
 
 So now we have a component to render a container, and one to render a list of containers with a title, let's flesh out the App container a bit more.
 
@@ -532,7 +532,7 @@ class AppState {
 }
 ```
 
-Now change the type of the state on `AppComponent` so that Typescript knows what properties are available on our state. Your `AppComponent` declaration should now look like this:
+Now change the type of the state on `AppComponent` so that TypeScript knows what properties are available on our state. Your `AppComponent` declaration should now look like this:
 
 ```javascript
 export class AppComponent extends React.Component<{}, AppState> {
@@ -731,10 +731,10 @@ Being able to start and stop a container is merely an extension of what we've al
 
 The workflow we're going to implement looks like this:
 
-1) We are going to handle the 'click' event of the start button from inside the React component
-2) Inside the click event, we're going to send a message to the socket running on the server
-3) The server will receive the message and tell Docker to start the appropriate container
-4) When the container starts, the server will dispatch a message to all connections with a refreshed list of containers
+1) We are going to handle the 'click' event of the start button from inside the React component.
+2) Inside the click event, we're going to send a message to the socket running on the server.
+3) The server will receive the message and tell Docker to start the appropriate container.
+4) When the container starts, the server will dispatch a message to all connections with a refreshed list of containers.
 
 Let's start with the button. Alter the button inside your `ContainerListItem` component so that it handles the click event using a method called `onActionButtonClick`:
 
@@ -751,7 +751,7 @@ onActionButtonClick() {
 }
 ```
 
-Here we post the 'container.start' message to the socket along with the container id. Armed with this information, we'll be able to tell Docker which container to start. You might find that you'll get an issue here, because Typescript doesn't know what `socket` is yet. We can fix that by importing `socket.io-client` and connecting to the server socket. At the top of the file, then:
+Here we post the 'container.start' message to the socket along with the container id. Armed with this information, we'll be able to tell Docker which container to start. You might find that you'll get an issue here, because TypeScript doesn't know what `socket` is yet. We can fix that by importing `socket.io-client` and connecting to the server socket. At the top of the file, then:
 
 ```javascript
 import * as io from 'socket.io-client'
@@ -909,7 +909,7 @@ Most importantly, the component called `this.props.children` for the modal body.
 
 Also note the `onPrimaryButtonClick` handler; when the button is clicked, it delegates control to whatever is using this component, but it also inspects the return value from that call. If false is returned, it doesn't automatically close the dialog. This is useful for later when we don't want to close the dialog in the event that our input isn't valid.
 
-One last thing before we move on; when this component compiles, you'll probably find that Typescript will complain that it can't find `$`, which is true since we haven't imported it. To fix this, we need to simply install the typings for jQuery so that it knows how to resolve that symbol. You will also need to install the types for Twitter Bootstrap, so that it knows what the bootstrap-specific methods and properties are.
+One last thing before we move on; when this component compiles, you'll probably find that TypeScript will complain that it can't find `$`, which is true since we haven't imported it. To fix this, we need to simply install the typings for jQuery so that it knows how to resolve that symbol. You will also need to install the types for Twitter Bootstrap, so that it knows what the bootstrap-specific methods and properties are.
 
 In the command line, then:
 
@@ -1055,7 +1055,7 @@ export class DialogTrigger extends React.Component<DialogTriggerProperties, {}> 
 }
 ```
 
-For the component properties, we take the id of the modal we want to trigger, and also the text that we want to show on the button. Then inside the render function, a standard Bootstrap link is displayed with button styling and the id of the modal to open. If you're not familiar with Bootstrap, note that the actual opening of the dialog is all done with the Bootstrap Javascript library - all we need to do is specify the `data-toggle="modal"` attribute and set the href attribute to the id of the modal we want to open.
+For the component properties, we take the id of the modal we want to trigger, and also the text that we want to show on the button. Then inside the render function, a standard Bootstrap link is displayed with button styling and the id of the modal to open. If you're not familiar with Bootstrap, note that the actual opening of the dialog is all done with the Bootstrap JavaScript library - all we need to do is specify the `data-toggle="modal"` attribute and set the href attribute to the id of the modal we want to open.
 
 ## Tying it all together
 
@@ -1095,7 +1095,7 @@ onRunImage(name: String) {
 }
 ```
 
-Very simply, it just sends the name of the image to the server inside a message called 'image.run'. We can define that now by heading over to `server.js` and handling a new message alongside where we've created the others:
+It just sends the name of the image to the server inside a message called 'image.run'. We can define that now by heading over to `server.js` and handling a new message alongside where we've created the others:
 
 ```javascript
 socket.on('image.run', args => {
@@ -1131,7 +1131,7 @@ By now you should have a useful but somewhat basic Docker dashboard, and hopeful
 
 Some things you could continue on with to make it a lot more useful, include:
 
-* Using the Docker API to pull images instead of simply running them
-* Using the Docker API to stream the container logs to the client through Socket.io
-* Extending the container dialog form to include options for port mapping, volumes, container name and more!
-* .. and more
+* Using the Docker API to pull images instead of simply running them.
+* Using the Docker API to stream the container logs to the client through Socket.io.
+* Extending the container dialog form to include options for port mapping, volumes, container name and more!.
+
