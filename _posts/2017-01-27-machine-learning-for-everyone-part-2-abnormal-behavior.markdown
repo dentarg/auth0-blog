@@ -164,7 +164,7 @@ Normally we associate the positive value with the less representative value, whi
 
 #### Analysis of possibilites
 
-Points 1 and 3 imply the radar (or the predictive model) asserts [ASSERTS WHAT?].
+Points 1 and 3 imply the radar (or the predictive model) asserts the prediction.
 
 With points 2 and 4, the model failed---it predicted one thing and it was actually the opposite.
 
