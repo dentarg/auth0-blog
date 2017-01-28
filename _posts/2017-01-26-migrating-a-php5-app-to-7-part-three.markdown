@@ -55,7 +55,7 @@ Currently there is no tool out there that performs a 100% automatic conversion o
 
 ### phpto7aid
 
-[phpto7aid](https://github.com/gisostallenberg/php-to-7-aid) is a tool that is used to identify PHP 5 code that will not work in PHP 7. It tries to aid you as much as possible in resolving this issues, by either providing the exact solution or giving hints on how to solve the issue.
+[phpto7aid](https://github.com/gisostallenberg/php-to-7-aid) is a tool that is used to identify PHP 5 code that will not work in PHP 7. It tries to aid you as much as possible in resolving these issues, by either providing the exact solution or giving hints on how to solve the issue.
 
 ### PhpStorm PHP 7 Compatibility Inspection
 
@@ -71,10 +71,10 @@ _Source: Jetbrains.com_
 
 The image below shows a typical example of an application that has classes with names that are reserved in PHP 7. Selecting **Run Inspection By Name** option from the **Code** menu, and then selecting the **PHP 7 Compatibility** section will give you results like this one below:
 
-![](https://cdn.auth0.com/blog/php/PHP7-Readiness-Results.png)
+![PHP 7 Readiness Results](https://cdn.auth0.com/blog/php/PHP7-Readiness-Results.png)
 _Source: Jetbrains.com_
 
-## Work with First App
+## Building a PHP5 App
 
 We will build the first simple PHP 5 app very quickly. This is the scope of the app:
 
@@ -83,13 +83,13 @@ We will build the first simple PHP 5 app very quickly. This is the scope of the 
 * A user will be assigned a random Star Wars Code Name.
 * A user will be able to log out of the app.
 
-Building this app will require us to set up a database to store the users, write our registration and login code and manage the users session. Now, we won't employ the use of any framework because we don't want any form of overhead. Ordinarily, building this app will take a lot of time and setup but there is a service we can use to eliminate the hassle. Oh, yeah, Auth0 to the rescue!
+Building this app will require us to set up a database to store the users, write our registration and login code and manage the users session. Now, we won't employ the use of any framework because we don't want any form of overhead. Ordinarily, building this app would take a lot of time and setup but there is a service we can use to eliminate the hassle. Oh, yeah, Auth0 to the rescue!
 
 ### Create and Configure Auth0 Client
 
 First thing we'll need to do is <a href="javascript:signup()">sign up for a free Auth0 account</a> and configure a new client.
 
-Now head over to [clients](https://manage.auth0.com/#/clients) and create a new one choosing 'Regular web Application' as the client type. Let's name it as something like 'Basic PHP WebApp'.
+Now head over to [clients tab](https://manage.auth0.com/#/clients) and create a new one choosing 'Regular web Application' as the client type. Let's name it as something like 'Basic PHP WebApp'.
 
 Now that we have our client created, we need to take note of three properties: `Domain`, `Client ID` and `Client Secret`. All of them can be found on the `Settings` tab of the client that we've just created.
 
@@ -447,7 +447,7 @@ This checks if the user submitted a request to log out, clears the session and r
 <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
 {% endhighlight %}
 
-We are making use of Auth0 Lock widget, and we also using jQuery to call the lock methods and handle button click event.
+We are making use of [Auth0 Lock widget](https://auth0.com/docs/libraries/lock), and we also using jQuery to call the lock methods and handle button click event.
 
 {% highlight html %}
 <!-- font awesome from BootstrapCDN -->
@@ -513,9 +513,9 @@ _Logged In_
 
 Our app is now running successfully on a PHP 5.x server. You can grab the [source code from Github](https://github.com/auth0-blog/starwars-phpapp) to ensure that everything works as expected.
 
-### Migrate to PHP 7
+### Migrating our PHP5 App to PHP7
 
-We are currently running a PHP 5.x app. Let's migrate it to PHP 7. The good thing like I mentioned earlier in the previous post is that most times you might not have to change anything in the codebase. Let's see if that holds true for this app.
+We are currently running a PHP 5.x app. Let's migrate it to PHP 7. The good thing is that most times you might not have to change anything in the codebase. Let's see if that holds true for this app.
 
 Upgrade your server to at least PHP 7.0.0 and run this app again.
 
@@ -798,7 +798,7 @@ _Wordpress 4.1.1_
 ![Drupal 8](https://cdn.auth0.com/blog/benchmark/drupal.png)
 _Drupal 8_
 
-From the results above, you can see that we can make double the amount of requests in lesser time in PHP 7 than PHP 5.
+From the results above, you can see that we can make double the amount of requests in less time in PHP 7 than PHP 5.
 
 These specs can be found in the `Speeding Up The Web With PHP 7` talk he gave at Fluent Conf, 2015.
 
