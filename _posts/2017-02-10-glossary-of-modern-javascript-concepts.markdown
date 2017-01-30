@@ -293,7 +293,7 @@ Now that we've learned about pure functions, statelessness, immutability, and de
 
 ### Functional Programming Takeaways
 
-Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and manage necessary side effects, impure functions can call pure functions using imperative code.
+Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and manage necessary side effects, impure functions can call pure functions imperatively.
 
 To learn more about **functional programming**, check out the following resources:
 
@@ -306,7 +306,7 @@ To learn more about **functional programming**, check out the following resource
 
 ## <span id="observables"></span>Observables
 
-**Observables** are asynchronous collections arriving over time. An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. [Reactive Extensions](http://reactivex.io/) provides observables to JavaScript in the [RxJS](https://github.com/ReactiveX/rxjs) library.
+**Observables** are asynchronous collections arriving over time (also called _streams_). An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. Observables are a JS implementation of the [_observer pattern_](http://stackoverflow.com/a/15596243). [Reactive Extensions](http://reactivex.io/) provides an observables library for JavaScript via [RxJS](https://github.com/ReactiveX/rxjs).
 
 To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time (as the window is dragged to its desired size). We can create an observable and subscribe to it to react to the stream of resize events. As the window size changes, we can declaratively debounce the stream and observe the changes.
 
@@ -321,27 +321,35 @@ resize$.subscribe((event) => {
 
 ### Observables Takeaways
 
-Observables and their operators are often visualized using _marbles_, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion.
+Observables are streams and almost anything can be a stream. A stream could be resize events from dragging a browser window to API responses. A _promise_ is an observable with a single emitted value. However, observables (streams) can return many values over time.
 
-To learn more about **observables and observers**, check out the following resources:
+Observables are often visualized using circles ("marbles") on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion.
+
+To learn more about **observables**, check out the following resources:
 
 * [Reactive Extensions: Observable](http://reactivex.io/documentation/observable.html)
+* [The introduction to Reactive Programming you've been missing: Request and Response](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754#request-and-response)
 * [Introducing the Observable](https://egghead.io/lessons/javascript-introducing-the-observable)
 * [RxMarbles](http://rxmarbles.com/)
 * [Rx Book - Observable](https://xgrommx.github.io/rx-book/content/observable/index.html)
 
---
+---
 
 ## <span id="reactive-programming"></span>Reactive Programming
 
-**Reactive programming** deals with observing and reacting to events in asynchronous data streams.
+**Reactive programming** is concerned with propagating and responding to incoming events over time, declaratively (describing _what_ to do rather than _how_).
+
+[Reactive Extensions](http://reactivex.io/) is an API for asynchronous programming with observable streams. Reactive Extensions is abbreviated Rx, and [provides libraries for a variety of languages](http://reactivex.io/languages.html) including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
 
 ### Reactive Programming Takeaways
 
+Reactive programming is a paradigm involving observing and reacting to events in asynchronous data streams.
+
 To learn more about **reactive programming**, check out the following resources:
 
-* [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/)
 * [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+* [Introduction to Rx](http://www.introtorx.com/)
+* [The Reactive Manifesto](http://www.reactivemanifesto.org/)
 * [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/)
 * [Reactive Programming](http://paulstovell.com/blog/reactive-programming)
 * [Modernization of Reactivity](https://davidwalsh.name/modernization-reactivity)
@@ -350,12 +358,26 @@ To learn more about **reactive programming**, check out the following resources:
 
 ## <span id="functional-reactive-programming"></span>Functional Reactive Programming
 
+In some simplified definitions, **functional reactive programming (FRP)** is a subset of reactive programming using the principles of functional programming such as referential transparency. However, a more accurate definition from [Conal Elliot, FRP's formulator](http://stackoverflow.com/a/5386908), would be that FRP is [denotative](http://www.dictionary.com/browse/denotation) and temporally continuous. Elliot mentions that he prefers the term _denotative continuous-time programming_.
+
+**Functional reactive programming** is:
+
+* dynamic: can react to changes of input
+* temporally continuous: 
+
 ### Functional Reactive Programming Takeaways
 
 To learn more about **functional reactive programming (FRP)**, check out the following resources:
 
 * [The Functional Reactive Misconception](https://sideeffects.xyz/2015/the-functional-reactive-misconception/)
-* [What is Functional Reactive Programming](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming/1030631#1030631)
+* [What is Functional Reactive Programming?](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming/1030631#1030631)
+* [Haskell - Functional Reactive Programming](https://wiki.haskell.org/Functional_Reactive_Programming)
+* [Composing Reactive Animations](http://conal.net/fran/tutorial.htm)
+* [Specification for a functional reactive programming language](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#5878525)
+* [A more elegant specification for FRP](https://github.com/conal/talk-2015-more-elegant-frp)
+* [Elm - A Farewell to FRP](http://elm-lang.org/blog/farewell-to-frp)
+* [Early inspirations and new directions in functional reactive programming](http://conal.net/blog/posts/early-inspirations-and-new-directions-in-functional-reactive-programming)
+* [Breaking Down FRP](https://blogs.janestreet.com/breaking-down-frp/)
 
 ---
 
