@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Angular 2 Testing In Depth: HTTP Services"
-description: "Learn how to test HTTP services in Angular 2. We will start by writing tests for requests and finish by refactoring them to a cleaner format."
+title: "Angular Testing In Depth: HTTP Services"
+description: "Learn how to test HTTP services in Angular. We will start by writing tests for requests and finish by refactoring them to a cleaner format."
 date: 2017-01-07 08:23
 category: Technical Guide, Angular, Angular2
 banner:
@@ -41,7 +41,7 @@ More importantly, these tests need to be isolated from the outside world.
 In this article I will show you how to test your requests properly and elegantly.
 
 This article is the second part of a series in which
-I share my experiences testing different building blocks of an Angular 2 application.
+I share my experiences testing different building blocks of an Angular application.
 It relies heavily on Dependency Injection based testing and
 it is recommended that you read [the first part](https://auth0.com/blog/angular-2-testing-in-depth-services/)
 if you are not familiar with the concepts.
@@ -55,7 +55,7 @@ if you are not familiar with the concepts.
 ### Testing our first request
 
 <p align="center">
-  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-http-services/github-logo.png" alt="Angular 2 Testing Framework"/>
+  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-http-services/github-logo.png" alt="Angular Testing Framework"/>
 </p>
 
 To get started we will test a basic request, the GET request.
@@ -216,7 +216,7 @@ When modifying data stored on the server we need to restrict access to it.
 This is usually done with a POST request on the login page.
 
 <p align="center">
-  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-http-services/auth0-logo.png" alt="Angular 2 Testing Framework"/>
+  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-http-services/auth0-logo.png" alt="Angular Testing Framework"/>
 </p>
 
 Auth0 provides a good solution for handling user authentication.
@@ -293,7 +293,7 @@ The previous setup works, but it has multiple problems.
 Those who have tested their HTTP services in Angularjs may remember how simple the setup was for those tests.
 Angularjs provided convenient methods for setting expectations on requests.
 
-Angular 2 doesn't have those built-in functionalities,
+Angular doesn't have those built-in functionalities,
 but very similar ones are present in the [ngx-http-test](https://github.com/blacksonic/ngx-http-test) library.
 
 It can solve the problems mentioned earlier.
@@ -358,7 +358,7 @@ it('should be called with proper arguments', (done) => {
 });
 ```
 
-### Conclusion: What we've learned about Angular 2 HTTP testing
+### Conclusion: What we've learned about Angular HTTP testing
 
 In this tutorial, we managed to:
 
@@ -366,8 +366,8 @@ In this tutorial, we managed to:
 - write assertions for requests
 - refactor the tests to be more readable
 
-Angular 2 has the tools to test HTTP requests, but still lacks the readable assertion methods that were present in Angularjs.
+Angular has the tools to test HTTP requests, but still lacks the readable assertion methods that were present in Angularjs.
 Until such methods are implemented, the [ngx-http-test](https://github.com/blacksonic/ngx-http-test) library can be used.
 
 To see the tests in action check out
-[this GitHub repository](https://github.com/blacksonic/angular2-testing-ground "Angular 2 testing ground").
+[this GitHub repository](https://github.com/blacksonic/angular-testing-ground "Angular testing ground").

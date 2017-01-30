@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Angular 2 Testing In Depth: Services"
-description: "Learn how to test services in Angular 2. We will start with setting up the environment and finish with using Dependency Injection."
+title: "Angular Testing In Depth: Services"
+description: "Learn how to test services in Angular. We will start with setting up the environment and finish with using Dependency Injection."
 date: 2016-10-27 08:23
 category: Technical Guide, Angular, Angular2
 banner:
@@ -18,14 +18,13 @@ design:
   bg_color: "rgb(1, 70, 166)"
   bg_merge: true
 tags:
-- angular2
 - testing
 - angular
 - typescript
 - jasmine
 related:
 - angular-2-ngmodules
-- angular-2-testing-in-depth-http-services
+- angular-testing-in-depth-http-services
 - angular-2-authentication
 ---
 
@@ -41,7 +40,7 @@ It gave me a high level of confidence, knowing that my application was working a
 Just after Angular 2 came out and I learned the basics, I knew that the next step was to testing.
 
 This article is the first part of a series in which
-I share my experiences testing different building blocks of an Angular 2 application.
+I share my experiences testing different building blocks of an Angular application.
 We will start with simple use cases and then head for more complex ones.
 
 - Services (this article)
@@ -53,7 +52,7 @@ We will start with simple use cases and then head for more complex ones.
 You may wonder why it is so important to write tests.
 
 <p align="center">
-  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/tdd_guilty.png" alt="Angular 2 Testing Driven Development"/>
+  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/tdd_guilty.png" alt="Angular Testing Driven Development"/>
 </p>
 
 With tests, we can ensure the correctness of our application: that the code does what it was designed to do.
@@ -67,13 +66,13 @@ there might be a problem with the underlying architecture.
 If you are new to Test-Driven Development, I would recommend reading the Test-Driven Development book by Kent Beck.
 It gives a nice overview about the concepts and best practices.
 
-### Choosing the framework to test Angular 2
+### Choosing the framework to test Angular
 
 <p align="center">
-  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/jasmine-mocha.png" alt="Angular 2 Testing Framework"/>
+  <img src="https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/jasmine-mocha.png" alt="Angular Testing Framework"/>
 </p>
 
-The first thing we have to choose is the framework. The one suggested by Angular 2's core team is
+The first thing we have to choose is the framework. The one suggested by Angular's core team is
 [Jasmine](http://jasmine.github.io/edge/introduction.html).
 For a long time it was the only supported testing framework, because test setups were hard wired into the framework.
 Thanks to refactoring, now tests can also be written in [Mocha](https://mochajs.org/), or any other framework
@@ -97,11 +96,11 @@ If you are not familiar with Dependency Injection, I would recommend reading the
 The second one clears out any remaining zone that fakes asynchronous operations like ```setTimeout```.
 Detailed articles can be found on the Thoughtram blog about zones:
 [Understanding zones](http://blog.thoughtram.io/angular/2016/01/22/understanding-zones.html) and
-[Zones in Angular 2](http://blog.thoughtram.io/angular/2016/02/01/zones-in-angular-2.html).
+[Zones in Angular](http://blog.thoughtram.io/angular/2016/02/01/zones-in-angular-2.html).
 
 For this series, we will be using Jasmine as the test framework.
 
-### Writing the first Angular 2 test
+### Writing the first Angular test
 
 Let's look at our first service that will be tested.
 
@@ -160,10 +159,10 @@ it('should return it\'s horsepower', () => {
 
 If you run the tests, a similar output will be on the terminal.
 
-![Angular 2 First Tests](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/first_test_run.png)
+![Angular First Tests](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/first_test_run.png)
 
 Both tests have been passed; it is time to refactor.
-There is duplication at the start of each Angular 2 test. Instantiation is exactly the same,
+There is duplication at the start of each Angular test. Instantiation is exactly the same,
 we can move it out into a setup block.
 
 ```typescript
@@ -193,7 +192,7 @@ because it offloads the tests and makes them more readable.
 
 Creating services directly can be good if the subject under test has no or few, dependencies.
 But if it has multiple dependencies, or a deeper dependency tree, setting up all the classes becomes tedious.
-For these situations, we can use Angular 2's dependency injection management.
+For these situations, we can use Angular's dependency injection management.
 
 The ```Car``` class uses the ```Engine``` class in the constructor and its instance in the ```getName``` method.
 
@@ -242,7 +241,7 @@ services in the ```configureTestingModule``` method.
 Only these classes can be instantiated with the ```inject``` method.
 If we try to request something else, we get an error saying it is an unknown provider.
 
-![Angular 2 Testing Error](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/test_failure_missing_dep.png)
+![Angular Testing Error](https://github.com/blacksonic/articles/raw/master/img/angular2-testing-services/test_failure_missing_dep.png)
 
 We can request instances of the services in an array from the ```inject``` method.
 In the callback, we get the instances in the same order as in the dependency array with the first parameter.
@@ -257,7 +256,7 @@ it('should display name with engine', inject([Car], (car: Car) => {
 
 ### Mocking
 
-In unit tests for Angular 2, we want to execute the code in isolation.
+In unit tests for Angular, we want to execute the code in isolation.
 This means it is not dependent on big, complex objects and is not calling methods that rely on external systems
 (like [HTTP calls](https://auth0.com/blog/angular-2-series-part-3-using-http/) or database access).
 In these cases, we want to simulate the original behavior while skipping the underlying implementation.
@@ -291,7 +290,7 @@ When mocking the prototype, it affects every instance of the class.
 
 ### Using Dependency Injection for Mocking
 
-The previous solution for mocking can be achieved also with Angular 2's dependency injection mechanism.
+The previous solution for mocking can be achieved also with Angular's dependency injection mechanism.
 We pass the ```Engine``` class as the provider token, but create the instances with a fake class.
 
 ```typescript
@@ -326,7 +325,7 @@ The only drawback here is that every method of the class must be implemented and
 whenever the original class changes.
 The original class can be extended optionally in order to override only specific methods.
 
-### Conclusion: What we've learned about Angular 2 Testing
+### Conclusion: What we've learned about Angular Testing
 
 In this tutorial, we managed to:
 
@@ -335,13 +334,13 @@ In this tutorial, we managed to:
 - fake dependencies with Jasmine
 - fake dependencies with dependency injection
 
-If you follow the steps introduced in this article and write tests for your Angular 2 application, you can sleep safe and sound.
+If you follow the steps introduced in this article and write tests for your Angular application, you can sleep safe and sound.
 The code will work as intended and when someone accidentally breaks it,
 the tests will warn him that those changes are unsafe and shouldn't be committed until the tests are green again.
 
 Jasmine will help you along the way with its easy syntax and batteries included (assertion and mocking library).
 
-I hope this has convinced you that writing tests in Angular 2 is not an overly complicated thing.
+I hope this has convinced you that writing tests in Angular is not an overly complicated thing.
 
 To make the start even easier, the code is available in
-[this GitHub repository](https://github.com/blacksonic/angular2-testing-ground "Angular 2 testing ground").
+[this GitHub repository](https://github.com/blacksonic/angular-testing-ground "Angular testing ground").
