@@ -2,7 +2,7 @@
 layout: post
 title: "Mozilla Replaces Persona with Auth0 for Identity and Access Management (IAM)"
 description: "Mozilla has chosen to replace their longstanding Persona authentication system with Auth0."
-date: 2017-01-18 08:30
+date: 2017-01-30 08:30
 category: PR, Press
 author:
   name: Martin Gontovnikas
@@ -10,15 +10,16 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  image: https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/logo.png
-  bg_color: "#003472"
+  image: https://cdn.auth0.com/blog/auth0-mozilla-pr/mozilla_logo.png
+  bg_color: "#16214d"
 tags:
 - auth0
 - mozilla
 - passwordless
+- IAM
 related:
 - auth0-named-in-seattle-10-hottest-ventures-2016
-- 2015-09-30-auth0-introduces-passwordless-authentication
+- auth0-japanese-localization
 - 2016-08-24-auth0-raises-15M-to-enhance-its-identity-platform
 press_release: true
 ---
