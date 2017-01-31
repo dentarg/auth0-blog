@@ -2,7 +2,7 @@
 layout: post
 title: "Beating JSON performance with Protobuf"
 description: "Protobuf, the binary format crafted by Google, surpasses JSON performance even on JavaScript environments like Node.js/V8 and web browsers."
-date: 2017-01-23 11:46
+date: 2017-01-31 08:30
 category: Technical Guide, Architecture, Performance
 author:
   name: "Bruno Krebs"
