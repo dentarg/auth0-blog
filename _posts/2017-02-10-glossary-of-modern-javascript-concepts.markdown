@@ -134,7 +134,7 @@ increment();
 
 ### Stateless
 
-**Stateless** programs, apps, or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. The following example is _stateless_:
+**Stateless** programs, apps, or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. <a href="#pure-impure-side-effects" target="_self">Pure functions</a> are stateless. See the following example:
 
 ```js
 // Stateless
@@ -149,7 +149,8 @@ increment(number);
 
 To learn more about **state**, check out the following resources:
 
-* TBD
+* [State](https://en.wikipedia.org/wiki/State_(computer_science))
+* [Advantages of stateless programming](http://stackoverflow.com/questions/844536/advantages-of-stateless-programming)
 
 ---
 
@@ -297,6 +298,7 @@ Immutable data and statelessness mean that the program's existing state is not m
 
 To learn more about **functional programming**, check out the following resources:
 
+* [Functional Programming For The Rest of Us](http://www.defmacro.org/ramblings/fp.html)
 * [Functional Programming with JavaScript](http://stephen-young.me.uk/2013/01/20/functional-programming-with-javascript.html)
 * [Don't be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
 * [So You Want to be a Functional Programmer](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536#.q8a7nwjat)
@@ -339,13 +341,13 @@ To learn more about **observables**, check out the following resources:
 
 **Reactive programming** is concerned with propagating and responding to incoming events over time, declaratively (describing _what_ to do rather than _how_).
 
-[Reactive Extensions](http://reactivex.io/) is an API for asynchronous programming with observable streams. Reactive Extensions is abbreviated Rx, and [provides libraries for a variety of languages](http://reactivex.io/languages.html) including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
+Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with observable streams. Reactive Extensions (commonly known as Rx*) [provides libraries for a variety of languages](http://reactivex.io/languages.html) including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)). (For an example of reactive programming, see the <a href="#observables" target="_self">observables code</a> above.)
 
 ### Reactive Programming Takeaways
 
-Reactive programming is a paradigm involving observing and reacting to events in asynchronous data streams.
+Reactive programming is a paradigm involving observing and reacting to events in asynchronous data streams. RxJS is used in [Angular](https://medium.com/google-developer-experts/angular-introduction-to-reactive-extensions-rxjs-a86a7430a61f#.41aap1i8a) and is gaining popularity as a JavaScript solution for reactive programming.
 
-To learn more about **reactive programming**, check out the following resources:
+To learn more about **reactive programming** in general as well as with JavaScript, check out the following resources:
 
 * [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 * [Introduction to Rx](http://www.introtorx.com/)
@@ -358,14 +360,45 @@ To learn more about **reactive programming**, check out the following resources:
 
 ## <span id="functional-reactive-programming"></span>Functional Reactive Programming
 
-In some simplified definitions, **functional reactive programming (FRP)** is a subset of reactive programming using the principles of functional programming such as referential transparency. However, a more accurate definition from [Conal Elliot, FRP's formulator](http://stackoverflow.com/a/5386908), would be that FRP is [denotative](http://www.dictionary.com/browse/denotation) and temporally continuous. Elliot mentions that he prefers the term _denotative continuous-time programming_.
+According to some simplified definitions, functional reactive programming (FRP) is a subset of reactive programming using the principles of functional programming such as referential transparency. In short, FRP could be summarized as declaratively responding to events or behaviors over time. But the full picture is not quite that simple. Let's take a look at the formulation of FRP and then at its use in relation to JavaScript in particular.
 
-**Functional reactive programming** is:
+### What is Functional Reactive Programming?
 
-* dynamic: can react to changes of input
-* temporally continuous: 
+A [more accurate definition](http://stackoverflow.com/a/5386908) from [Conal Elliot, FRP's formulator](https://twitter.com/conal), would be that **functional reactive programming** is "[denotative](https://en.wikibooks.org/wiki/Haskell/Denotational_semantics) and temporally continuous". Elliot mentions that he prefers to describe this programming paradigm as _denotative continuous-time programming_ as opposed to "functional reactive programming".
+
+> FRP expressions describe entire evolutions of values over time, representing these evolutions directly as first-class values. —Conal Elliot
+
+**Functional reactive programming**, at its most basic, original  definition, has two fundamental properties:
+
+* **denotative**: the meaning of each function or type is precise, simple, and implementation-independent ("functional" references this)
+* **continuous time**: [variables have a particular value for a very short time: between any two points are an infinite number of other points](https://en.wikipedia.org/wiki/Discrete_time_and_continuous_time#Continuous_time); provides transformation flexibility, efficiency, modularity, and accuracy ("reactive" references this)
+
+In short, [**functional reactive programming** is programming declaratively with time-varying values](https://www.quora.com/What-is-Functional-Reactive-Programming). 
+
+Let's examine an analogy to understand _continuous time / temporal continuity_: consider vector graphics. Vector graphics have an _infinite resolution_. Unlike bitmap graphics (discrete resolution), vector graphics scale indefinitely.
+
+To elaborate on this definition, FRP should be:
+
+* dynamic: can react over time or to input changes
+* temporally continuous: reactive _behaviors_ can change continually while reactive _values_ change discretely
+* efficient: minimize amount of processing necessary when inputs change
+* historically aware: pure functions map state from a previous point in time to the next point in time; state changes concern the local element and not the global program state
+
+Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). An example of a functional reactive language is [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming).
+
+### In Practice: Functional Reactive Programming and JavaScript
+
+The traditional definition of FRP can be difficult to grasp, especially for developers who don't have experience with languages like Haskell or Elm. However, the term has come up more frequently in the front-end ecosystem, so let's shed some light on its application in JavaScript.
+
+In order to reconcile what you may have read about FRP in JS, it's important to understand that **[Rx*](http://reactivex.io/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _not_ consistent with the primary fundamentals of Conal Elliot's definition of FRP**. In fact, [Elliot describes tools like Rx* and Bacon.js as "compositional event systems inspired by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525). 
+
+Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk about Elm briefly. [**Elm**](http://elm-lang.org) is a functional, typed language for building web applications. It  compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for  the [Redux](http://redux.js.org/) state container for JS apps. Elm was initially considered a functional reactive programming language, but as of version 0.17, it shifted to the use of _subscriptions_ over signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
+
+"Functional reactive programming", _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [_specifically excludes_ streams](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
 ### Functional Reactive Programming Takeaways
+
+FRP encodes actions that react to events using pure functions that map state from a previous point in time to the next point in time.  FRP in JavaScript doesn't adhere to the two primary fundamentals of Conal Elliot's FRP, but there is certainly value in abstractions of the original concept.
 
 To learn more about **functional reactive programming (FRP)**, check out the following resources:
 
@@ -378,6 +411,7 @@ To learn more about **functional reactive programming (FRP)**, check out the fol
 * [Elm - A Farewell to FRP](http://elm-lang.org/blog/farewell-to-frp)
 * [Early inspirations and new directions in functional reactive programming](http://conal.net/blog/posts/early-inspirations-and-new-directions-in-functional-reactive-programming)
 * [Breaking Down FRP](https://blogs.janestreet.com/breaking-down-frp/)
+* [Rx* is not FRP](https://twitter.com/ReactiveX/status/483625917491970048)
 
 ---
 
