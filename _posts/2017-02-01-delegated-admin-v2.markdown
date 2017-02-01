@@ -35,7 +35,7 @@ Building modern applications is only half the battle. As your app grows, the nee
 
 The Delegated Administration Dashboard or Delegated Admin extension allows you to give fine-grained access to user data stored and accessed through Auth0. With this extension, you can give individual users access to view, manage, and edit users in your apps, without giving them the proverbial *keys to the kingdom* a.k.a. full access to the Auth0 [dashboard](https://dashboard.auth0.com).
 
-{% include tweet_quote.html quote_text="The Delegated Admin Dashboard allows organizations to build and enforce powerful user management workflows." %}
+{% include tweet_quote.html quote_text="The Delegated Admin Dashboard allows companies to build and enforce powerful user management workflows." %}
 
 Today, we will look at how you can utilize the Delegated Admin extension to expose only the User dashboard to a set of privileged users. We will be doing this in the context of a fictional company that has grown tremendously and needs a better way to delegate user management access. Our example is a common one but there are many use cases where this extension can be applied. For example, a SaaS platform may want to give their clients an easy to use dashboard to manage their tenants. Another example could be an organization wishing to grant specific access to various departments, IT Support would be able to view, edit, and delete all organizational accounts, while Customer Support would only have access to customers. We'll try to address various use cases throughout the post to show the versatility of the extension. Let's get started.
 
