@@ -310,26 +310,57 @@ To learn more about **functional programming**, check out the following resource
 
 **Observables** are asynchronous collections arriving over time (also called _streams_). An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. Observables are a JS implementation of the [_observer pattern_](http://stackoverflow.com/a/15596243). [Reactive Extensions](http://reactivex.io/) provides an observables library for JavaScript via [RxJS](https://github.com/ReactiveX/rxjs).
 
-To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time (as the window is dragged to its desired size). We can create an observable and subscribe to it to react to the stream of resize events. As the window size changes, we can declaratively debounce the stream and observe the changes.
+To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time as the window is dragged to its desired size. We can create an observable and subscribe to it to react to the stream of resize events. As the window size changes, we can declaratively debounce the stream and subscribe to the changes.
 
 ```js
-var resize$ = Rx.Observable.fromEvent(window, 'resize').debounceTime(250);
+let resize$ = Rx.Observable.fromEvent(window, 'resize').debounceTime(250);
 
-resize$.subscribe((event) => {
+let subscription = resize$.subscribe((event) => {
   let t = event.target;
   console.log(`${t.innerWidth}px x ${t.innerHeight}px`);
 });
 ```
 
+### Hot Observables
+
+A **hot observable** pushes whether or not it's been subscribed to. For example, UI events like button clicks, mouse movement, etc. are _hot_. They will always push even if we're not specifically reacting to them with a subscription. The window resize example above is a hot observable. The `resize$` observable would fire whether or not `subscription` exists.
+
+### Cold Observables
+
+A **cold observable** begins pushing when we subscribe to it. If we subscribe again, it will start over.
+
+Consider a cold observable collection of numbers ranging from `1` to `5`. We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md) to the `source$` observable directly, _or_ we can [`create()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/create.md) an observer and pass it to the `subscribe()` method:
+
+```js
+// create observable
+let source$ = Rx.Observable.range(1, 5);
+
+// create observer with onNext, onError, and onCompleted callbacks
+let observer = Rx.Observer.create(
+  (value) => { console.log(`Next: ${value}`); }, // onNext
+  (event) => { console.log(`Error: ${event}`); }, // onError
+  () => { console.log('Completed!'); }  // onCompleted
+);
+
+// subscribe
+let subscription = source$.subscribe(observer);
+
+// terminate subscription and clean up
+subscription.dispose();
+```
+
+Upon subscription, the values are sent in sequence to the observer. The `onNext` function logs the values: `Next: 1`, `Next: 2`, etc. until completion: `Completed!`.
+
 ### Observables Takeaways
 
-Observables are streams and almost anything can be a stream. A stream could be resize events from dragging a browser window to API responses. A _promise_ is an observable with a single emitted value. However, observables (streams) can return many values over time.
+Observables are streams and almost anything can be a stream. We can observe any stream from resize events to existing arrays to API responses. We can create observables from almost anything. A _promise_ is an observable with a single emitted value. However, observables (streams) can return many values over time.
 
-Observables are often visualized using circles ("marbles") on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion.
+We can operate on observables in many ways. [RxJS has many operators](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core/operators). Observables are often visualized using circles ("marbles") on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion and use such visualizations to understand Rx* operators.
 
 To learn more about **observables**, check out the following resources:
 
 * [Reactive Extensions: Observable](http://reactivex.io/documentation/observable.html)
+* [Creating and Subscribing to Simple Observable Sequences](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md)
 * [The introduction to Reactive Programming you've been missing: Request and Response](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754#request-and-response)
 * [Introducing the Observable](https://egghead.io/lessons/javascript-introducing-the-observable)
 * [RxMarbles](http://rxmarbles.com/)
@@ -380,21 +411,33 @@ Let's examine an analogy to understand _continuous time / temporal continuity_: 
 To elaborate on this definition, FRP should be:
 
 * dynamic: can react over time or to input changes
-* temporally continuous: reactive _behaviors_ can change continually while reactive _values_ change discretely
+* time-varying: reactive _behaviors_ can change continually while reactive _values_ change discretely
 * efficient: minimize amount of processing necessary when inputs change
 * historically aware: pure functions map state from a previous point in time to the next point in time; state changes concern the local element and not the global program state
 
-Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). An example of a functional reactive language is [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming).
+Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). An example of a functional reactive language is [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming). Evan Czaplicki, the creator of Elm, also gives a great overview of FRP in his talk [Controlling Time and Space: Understanding the Many Formulations of FRP](https://www.youtube.com/watch?v=Agu6jipKfYw).
 
 ### In Practice: Functional Reactive Programming and JavaScript
 
 The traditional definition of FRP can be difficult to grasp, especially for developers who don't have experience with languages like Haskell or Elm. However, the term has come up more frequently in the front-end ecosystem, so let's shed some light on its application in JavaScript.
 
-In order to reconcile what you may have read about FRP in JS, it's important to understand that **[Rx*](http://reactivex.io/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _not_ consistent with the primary fundamentals of Conal Elliot's definition of FRP**. In fact, [Elliot describes tools like Rx* and Bacon.js as "compositional event systems inspired by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525). 
+In order to reconcile what you may have read about FRP in JS, it's important to understand that **[Rx*](https://www.sitepoint.com/functional-reactive-programming-rxjs/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _NOT_ consistent with the primary fundamentals of Conal Elliot's definition of FRP**. [Elliot states  that tools like Rx* and Bacon.js are not FRP. Instead, they are "compositional event systems _inspired_ by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525). 
 
-Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk about Elm briefly. [**Elm**](http://elm-lang.org) is a functional, typed language for building web applications. It  compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for  the [Redux](http://redux.js.org/) state container for JS apps. Elm was initially considered a functional reactive programming language, but as of version 0.17, it shifted to the use of _subscriptions_ over signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
+Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk about a different language briefly. [Evan Czapliki](http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf)'s [**Elm**](http://elm-lang.org) is a functional, typed language for building web applications. It compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for the [Redux](http://redux.js.org/) state container for JS apps. [Elm was originally considered a true functional reactive programming language](https://www.youtube.com/watch?v=Agu6jipKfYw), but as of version 0.17, it shifted to the use of _subscriptions_ over signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
 
 "Functional reactive programming", _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [_specifically excludes_ streams](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
+
+Let's take a look at a few JavaScript examples to demonstrate the basic principles of FRP:
+
+```js
+let move$ = Rx.Observable.fromEvent(document, 'mousemove');
+
+let subscription = move$.subscribe((event) => {
+  console.log(`${event.clientX}, ${event.clientY}`);
+});
+```
+
+This is a very similar example to the one we looked at in <a href="#observables" target="_self">Observables</a>. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We react to the observable stream of mouse movements over time.
 
 ### Functional Reactive Programming Takeaways
 
