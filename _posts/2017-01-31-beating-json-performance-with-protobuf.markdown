@@ -64,21 +64,27 @@ To support the measurements, I have created three Protobuf messages: `Address`, 
 
 Since there are a lot of JavaScript engines available, it is valuable to see how the most popular of them behave with this set of data. So I decided to use the following browsers: [Chrome](https://www.google.com/chrome), as this is the most popular browser around and its JavaScript engine is also used by [Node.js](https://nodejs.org); [Firefox](https://www.mozilla.org/en-US/firefox/new/), as this is another very popular browser; and [Safari](www.apple.com/safari/), as this is the default browser on MacBooks and iPhones.
 
-The following chart exposes the average performance, of these browsers, on 50 subsequent `GET` requests to both endpoints  - the Protobuf and JSON endpoints. These 50 requests per endpoint were issued twice: first when running the Spring Boot application with compression turned on; and then when running the application with compression turned off. So, in the end, each browser requested 200 times all these 50 thousand people data.
+The following charts exposes the average performance, of these browsers, on 50 subsequent `GET` requests to both endpoints  - the Protobuf and JSON endpoints. These 50 requests per endpoint were issued twice: first when running the Spring Boot application with compression turned on; and then when running the application with compression turned off. So, in the end, each browser requested 200 times all these 50 thousand people data.
 
-![Comparison of Protobuf/JSON performance on compressed GET requests](https://cdn.auth0.com/blog/protobuf-json/compressed-env-get-requests.png)
+![Comparison of Protobuf/JSON performance on compressed GET requests](https://cdn.auth0.com/blog/protobuf-json/compressed-env-times.png)
 
-As you can see in the chart above, the results for the **compressed environment** were quite similar for both Protobuf and JSON. Protobuf messages were **9% smaller** than JSON messages and they took only **4% less time** to be available to the JavaScript code. This can sound like nothing, but considering that Protobuf has to be converted from binary to JSON - JavaScript code uses JSON as its object literal format - it is amazing that Protobuf managed to be faster than its counterpart.
+![Comparison of Protobuf/JSON payload sizes on compressed GET requests](https://cdn.auth0.com/blog/protobuf-json/compressed-env-sizes.png)
 
-Now, when we have to deal with **non-compressed messages**, the results change quite a bit. Let's analyze the chart below:
+As you can see in the charts above, the results for the **compressed environment** were quite similar for both Protobuf and JSON. Protobuf messages were **9% smaller** than JSON messages and they took only **4% less time** to be available to the JavaScript code. This can sound like nothing, but considering that Protobuf has to be converted from binary to JSON - JavaScript code uses JSON as its object literal format - it is amazing that Protobuf managed to be faster than its counterpart.
 
-![Comparison of Protobuf/JSON performance on non-compressed GET requests](https://cdn.auth0.com/blog/protobuf-json/non-compressed-get-requests.png)
+Now, when we have to deal with **non-compressed messages**, the results change quite a bit. Let's analyze the charts below:
+
+![Comparison of Protobuf/JSON performance on non-compressed GET requests](https://cdn.auth0.com/blog/protobuf-json/non-compressed-env-times.png)
+
+![Comparison of Protobuf/JSON payload sizes on non-compressed GET requests](https://cdn.auth0.com/blog/protobuf-json/non-compressed-env-sizes.png)
 
 On these situations, Protobuf performs even better when compared to JSON. Messages, on this format, were **34% smaller**, and they took **21% less time** to be available to the JavaScript code.
 
 When issuing `POST` requests, the difference gets almost imperceptible as usually this kind of request doesn't deal with heavy messages. More frequent than not, these requests just handle the update of a few fields on a form or something similar. So, to make the test trustworthy, I issued 50 requests with just one `Person` message and a few properties, like emails addresses and mobiles, on it. The results can be checked below:
 
-![Comparison of Protobuf/JSON performance on POST requests](https://cdn.auth0.com/blog/protobuf-json/post-requests-js-to-java.png)
+![Comparison of Protobuf/JSON performance on POST requests](https://cdn.auth0.com/blog/protobuf-json/post-requests-times.png)
+
+![Comparison of Protobuf/JSON payload sizes on POST requests](https://cdn.auth0.com/blog/protobuf-json/post-requests-sizes.png)
 
 In this case the messages sizes were not even different, mainly because they were so small that the meta-data about them were heavier than the data itself. And the time to issue the request and get a response back was almost equal as well, with only a **4% better** performance from Protobuf requests when compared to JSON requests.
 
@@ -88,7 +94,7 @@ If we were to use only JavaScript environments, like Node.js applications and we
 
 The chart below was generated with the average performance of 500 `GET` requests issued by one Spring Boot application to another Spring Boot application. Both applications were deployed on different virtual machines hosted by [Digital Ocean](https://www.digitalocean.com/). I chose this strategy to simulate a common scenario where two microservices are communicating through the wire. Let's see how this simulation ran:
 
-![Comparison of Protobuf/JSON performance on GET requests issued by a Java app to another Java app](https://cdn.auth0.com/blog/protobuf-json/java-to-java-get-reqs.png)
+![Comparison of Protobuf/JSON performance on GET requests issued by a Java app to another Java app](https://cdn.auth0.com/blog/protobuf-json/java-times.png)
 
 Now this is a great performance improvement. When using Protobuf on a **non-compressed** environment, the requests took **78% less time** than the JSON requests. This shows that the binary format performed almost **5 times faster** than the text format. And, when issuing these requests on a **compressed** environment, the difference was even bigger. Protobuf performed **6 times faster**, taking only 25ms to handle requests that took 150ms on a JSON format.
 
