@@ -33,7 +33,7 @@ related:
 
 Building modern applications is only half the battle. As your app grows, the need for excellent management and maintenance tools becomes key. User management is one area where you don't want to get this wrong. If you are using [Auth0](https://auth0.com) for managing modern identity in your applications and are at a point where you need more control over user management, then I would like to introduce you to our **[Delegated Administration Dashboard](https://auth0.com/docs/extensions/delegated-admin)** extension.
 
-The Delegated Administration Dashboard or Delegated Admin extension allows you to give fine-grained access to user data stored and accessed through Auth0. With this extension, you can give individual users access to view, manage, and edit users in your apps, without giving them the proverbial *keys to the kingdom* a.k.a. full access to the Auth0 [dashboard](https://dashboard.auth0.com).
+The Delegated Administration Dashboard or Delegated Admin extension allows you to give fine-grained access to user data stored and accessed through Auth0. With this extension, you can give individual users access to view, manage, and edit users in your apps, without giving them the proverbial *keys to the kingdom* a.k.a. full access to the Auth0 [dashboard](https://manage.auth0.com).
 
 {% include tweet_quote.html quote_text="The Delegated Admin Dashboard allows companies to build and enforce powerful user management workflows." %}
 
