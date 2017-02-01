@@ -2,7 +2,7 @@
 layout: post
 title: "Better User Management with the Delegated Administration Dashboard"
 description: "Learn how to use the Delegated Administration Dashboard extension to expose the users dashboard for a select group of users and build a powerful user management workflow."
-date: 2017-01-24 08:30
+date: 2017-02-01 08:30
 category: Extension, Features, User Management
 author:
   name: "Ado Kukic"
