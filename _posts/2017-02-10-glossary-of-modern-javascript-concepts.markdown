@@ -29,9 +29,11 @@ Modern JavaScript has experienced massive proliferation over the last few years 
 
 ## Concepts
 
-You can jump straight into the following topics:
+In this article, we'll address concepts that are important to understand functional programming, reactive programming, and functional reactive programming. We'll also take a look at the different types of components and their importance for the future of the web and evolution of different JS programming paradigms.
 
-* <a href="#pure-impure-side-effects" target="_self">Pure Functions, Impure Functions, Side Effects</a>
+You can jump straight into each topic here, or continue reading to learn about the topics in order.
+
+* <a href="#purity" target="_self">Purity: Pure Functions, Impure Functions, Side Effects</a>
 * <a href="#state" target="_self">State: Stateful and Stateless</a>
 * <a href="#immutable-mutable" target="_self">Immutability and Mutability</a>
 * <a href="#imperative-declarative" target="_self">Imperative and Declarative Programming</a>
@@ -44,7 +46,7 @@ You can jump straight into the following topics:
 
 ---
 
-## <span id="pure-impure-side-effects"></span>Pure Functions, Impure Functions, Side Effects
+## <span id="purity"></span>Purity: Pure Functions, Impure Functions, Side Effects
 
 ### Pure Functions
 
@@ -77,7 +79,7 @@ In summary:
 
 ### Impure Functions
 
-An **impure function** mutates state outside its scope. Any function that has side effects is impure. Procedural functions with no utilized return value are also impure. Consider the following examples:
+An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure. Procedural functions with no utilized return value are also impure. Consider the following examples:
 
 ```js
 // This impure function produces a side effect.
@@ -101,13 +103,13 @@ function proceduralFn() {
 
 ### Side Effects
 
-When a function or expression modifies state outside its own context, this is a **side effect**. Examples of side effects include making a call to an API, writing data, raising an alert dialog, modifying an external variable, etc. If a function produces side effects, it is considered _impure_.
+When a function or expression modifies state outside its own context, the result is a **side effect**. Examples of side effects include making a call to an API, manipulating the DOM, raising an alert dialog, etc. If a function produces side effects, it is considered _impure_. Functions that cause side effects are less predictable and harder to test since they result in changes outside their local scope.
 
-### Pure and Impure Function Takeaways
+### Purity Takeaways
 
-Plenty of quality code consists of impure functions that procedurally invoke pure functions. This still produces advantages for testing and immutability. Referential transparency also enables [_memoization_](https://www.interviewcake.com/concept/python/memoization): caching and storing function call results and [reusing the cached results](https://www.sitepoint.com/implementing-memoization-in-javascript/) when the same inputs are used again.
+Plenty of quality code consists of _impure_ functions that procedurally invoke _pure_ functions. This still produces advantages for testing and immutability. Referential transparency also enables [_memoization_](https://www.interviewcake.com/concept/python/memoization): caching and storing function call results and [reusing the cached results](https://www.sitepoint.com/implementing-memoization-in-javascript/) when the same inputs are used again.
 
-To learn more about **pure and impure functions**, check out the following resources:
+To learn more about **purity**, check out the following resources:
 
 * [Pure versus impure functions](https://toddmotto.com/pure-versus-impure-functions)
 * [Master the JavaScript Interview: What is a Pure Function?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976#.kt48h2bfa)
@@ -134,7 +136,7 @@ increment();
 
 ### Stateless
 
-**Stateless** programs, apps, or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. <a href="#pure-impure-side-effects" target="_self">Pure functions</a> are stateless. See the following example:
+**Stateless** programs, apps, or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. <a href="#purity" target="_self">Pure functions</a> are stateless. See the following example:
 
 ```js
 // Stateless
@@ -191,11 +193,11 @@ This demonstrates that immutability by design does exist in JavaScript. However,
 ```js
 var arr = [1, 2, 3];
 arr.push(4);
-// Result: arr = [1, 2, 3, 4]
+// result: arr = [1, 2, 3, 4]
 
 var obj = { greeting: 'Hello' };
 obj.name = 'Jon';
-// Result: obj = { greeting: 'Hello', name: 'Jon' }
+// result: obj = { greeting: 'Hello', name: 'Jon' }
 ```
 
 In these examples, the _original_ objects are mutated. New objects are not returned.
@@ -204,11 +206,11 @@ To learn more about mutability in other languages, check out [Mutable vs Immutab
 
 ### In Practice: Immutability in JavaScript
 
-Functional programming in JS has gained a lot of momentum. But by design, JS is a very mutable language. Functional programming emphasizes _immutability_. Many other languages will raise errors when a developer tries to mutate an immutable object. So how can we reconcile the innate mutability of JS when writing functional or functional reactive JS?
+Functional programming in JS has gained a lot of momentum. But by design, JS is a very mutable, multi-paradigm language. Functional programming emphasizes _immutability_. Other functional languages will raise errors when a developer tries to mutate an immutable object. So how can we reconcile the innate mutability of JS when writing functional or functional reactive JS?
 
 When we talk about functional programming in JS, the word "immutable" is used a lot, but it's dependent on the developer to write their code with immutability in mind. For example, [Redux relies on a single, immutable state tree](https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree). However, _JavaScript itself_ is capable of mutating the state object. To implement an immutable state tree, we need to [return a _new_](https://egghead.io/lessons/javascript-redux-avoiding-array-mutations-with-concat-slice-and-spread) [state object](https://egghead.io/lessons/javascript-redux-avoiding-object-mutations-with-object-assign-and-spread) each time the state changes.
 
-JavaScript objects [can also be frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) with `Object.freeze(obj)` [to make them immutable](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html). Note that this is _shallow_, meaning object values in a frozen object can still be mutated. To further ensure immutability, packages like [deep-freeze](https://www.npmjs.com/package/deep-freeze) can recursively freeze objects. Freezing and deep freezing are most practical when used in _tests_ rather than in application code. This way, tests will alert developers when mutations occur so they can be corrected and avoided in the actual build.
+JavaScript objects [can also be frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) with `Object.freeze(obj)` [to make them immutable](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html). Note that this is _shallow_, meaning object values within a frozen object can still be mutated. To further ensure immutability, [functions like Mozilla's deepFreeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) and [npm packages like deep-freeze](https://www.npmjs.com/package/deep-freeze) can recursively freeze objects. Freezing is most practical when used in _tests_ rather than in application code. This way, tests will alert developers when mutations occur so they can be corrected and avoided in the actual build without cluttering the core code.
 
 There are also libraries available to support immutability in JS. [Mori](http://swannodette.github.io/mori/) delivers persistent data structures based on Clojure. [Immutable.js](https://facebook.github.io/immutable-js/) by Facebook also provides immutable collections for JS. Utility libraries like [Underscore.js](http://underscorejs.org) and [lodash](http://www.lodash.com) provide methods and modules to promote a more immutable, [functional programming style](https://github.com/lodash/lodash/wiki/FP-Guide).
 
@@ -222,7 +224,7 @@ To learn more about **immutability and mutability**, check out the following res
 * [Immutable Objects with Object Freeze](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html)
 * [Mutable vs Immutable Objects](https://www.interviewcake.com/concept/java/mutable)
 * [Using Immutable Data Stuctures in JavaScript](http://jlongster.com/Using-Immutable-Data-Structures-in-JavaScript)
-* [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux) (includes great examples on addressing immutable state)
+* [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux) (includes examples for addressing immutable state)
 
 ---
 
@@ -230,13 +232,13 @@ To learn more about **immutability and mutability**, check out the following res
 
 While some languages are **imperative** (C#, Java, PHP) or **declarative** (SQL, HTML), JavaScript supports both paradigms.
 
-Those familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS. 
+Most developers familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS. 
 
-Declarative code tells the computer _what_ you want to achieve rather than how, and the computer takes care of how to get to the end result without explicit description from the developer. If you've used the `map` method, you've written declarative JS.
+Declarative code tells the computer _what_ you want to achieve rather than how, and the computer takes care of how to achieve the end result without explicit description from the developer. If you've used `Array.map`, you've written declarative JS.
 
-### Imperative
+### Imperative Programming
 
-**Imperative** programming describes _how_ a program's logic works in explicit commands with statements that modify the program state.
+**Imperative programming** describes _how_ a program's logic works in explicit commands with statements that modify the program state.
 
 Consider a function that increments every number in an array of integers. An imperative JavaScript example of this might be:
 
@@ -253,11 +255,11 @@ function incrementArray(arr) {
 
 This function shows exactly _how_ the function's logic works. We iterate over the array and explicitly increase each number, pushing it to a new array. We then return the new, resulting array. This is a step-by-step description of the function's logic.
 
-### Declarative
+### Declarative Programming
 
-**Declarative** programming describes _what_ a program's logic accomplishes without describing _how_.
+**Declarative programming** describes _what_ a program's logic accomplishes _without_ describing how.
 
-Consider the `incrementArray()` function we implemented imperatively above. Let's implement this declaratively:
+Consider the `incrementArray()` function we implemented imperatively above. Let's implement this declaratively now:
 
 ```js
 function incrementArray(arr) {
@@ -265,13 +267,13 @@ function incrementArray(arr) {
 }
 ```
 
-Using the declarative programming paradigm, we show _what_ we want to achieve, but not how it works. The [`.map()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) returns a new array with the results of running the callback on each item from the passed array. This approach does not modify program state.
+Using declarative programming, we show _what_ we want to achieve, but not how it works. The [`Array.map()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) returns a new array with the results of running the callback on each item from the passed array. This approach does not modify program state, nor does it include any sequential logic showing _how_ it creates the new array.
 
-> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are functional array methods.
+> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are <a href="#functional-programming" target="_self">functional</a> array methods.
 
 ### Imperative and Declarative Programming Takeaways
 
-JavaScript allows both **imperative and declarative programming** paradigms. Much of the JS code we read and write is and has been imperative. However, with the rise of functional programming in JS, the declarative approach is rapidly becoming more common.
+JavaScript allows both **imperative and declarative programming** paradigms. Much of the JS code we read and write is and has been imperative. However, with the rise of <a href="#functional-programming" target="_self">functional programming</a> in JS, the declarative approach is rapidly becoming more common.
 
 To learn more about **imperative and declarative programming**, check out the following resources:
 
@@ -284,21 +286,24 @@ To learn more about **imperative and declarative programming**, check out the fo
 
 ## <span id="functional-programming"></span>Functional Programming
 
-Now that we've learned about pure functions, statelessness, immutability, and declarative programming, let's look briefly into the functional programming paradigm.
+Now that we've learned about purity, statelessness, immutability, and declarative programming, let's look briefly at the functional programming paradigm.
 
 **Functional programming** encompasses the above concepts in the following ways:
 
-* Core functionality with pure functions without side effects. 
+* Core functionality is implemented using pure functions without side effects. 
 * Data is immutable.
 * Functional programs are stateless.
-* Imperative outer code contains and executes pure core code.
+* Imperative container code executes declarative, pure core code and manages side effects.*
+
+> *If we tried to write an entire JavaScript application composed of nothing but pure functions with no side effects, it couldn't interact with its environment and therefore wouldn't be particularly useful.
 
 ### Functional Programming Takeaways
 
-Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and manage necessary side effects, impure functions can call pure functions imperatively.
+Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and handle necessary side effects, impure functions can call pure functions imperatively. 
 
 To learn more about **functional programming**, check out the following resources:
 
+* [Introduction to Immutable.js and Functional Programming Concepts](https://auth0.com/blog/intro-to-immutable-js/)
 * [Functional Programming For The Rest of Us](http://www.defmacro.org/ramblings/fp.html)
 * [Functional Programming with JavaScript](http://stephen-young.me.uk/2013/01/20/functional-programming-with-javascript.html)
 * [Don't be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
@@ -311,15 +316,25 @@ To learn more about **functional programming**, check out the following resource
 
 **Observables** are asynchronous collections arriving over time (also called _streams_). An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. Observables are a JS implementation of the [_observer pattern_](http://stackoverflow.com/a/15596243). [Reactive Extensions](http://reactivex.io/) (commonly known as Rx*) provides an observables library for JavaScript via [RxJS](https://github.com/ReactiveX/rxjs).
 
-To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time as the window is dragged to its desired size. We can create an observable and subscribe to it to react to the stream of resize events. As the window size changes, we can declaratively debounce the stream and subscribe to the changes.
+To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time as the window is dragged to its desired size. We can create an observable and subscribe to it to react to the stream of resize events.
+
+The example code below shows that as the window size changes, we can declaratively throttle the observable stream and subscribe to the changes to respond to new values in the collection:
 
 ```js
-let resize$ = Rx.Observable.fromEvent(window, 'resize').debounceTime(250);
+// create window resize stream
+// throttle resize events
+var resize$ = 
+  Rx.Observable
+    .fromEvent(window, 'resize')
+    .throttleTime(350);
 
-let subscription = resize$.subscribe((event) => {
-  let t = event.target;
-  console.log(`${t.innerWidth}px x ${t.innerHeight}px`);
-});
+// subscribe to the resize$ observable
+// log window width x height
+var subscription = 
+  resize$.subscribe((event) => {
+    let t = event.target;
+    console.log(`${t.innerWidth}px x ${t.innerHeight}px`);
+  });
 ```
 
 ### Hot Observables
@@ -333,22 +348,22 @@ A **cold observable** begins pushing when we subscribe to it. If we subscribe ag
 Let's create an observable collection of numbers ranging from `1` to `5`. We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md) to the `source$` observable we just created:
 
 ```js
-// create observable
-let source$ = Rx.Observable.range(1, 5);
+// create source number stream
+var source$ = Rx.Observable.range(1, 5);
 
-// subscribe
-let subscription = source$.subscribe(
+// subscribe to source$ observable
+var subscription = source$.subscribe(
   (value) => { console.log(`Next: ${value}`); }, // onNext
   (event) => { console.log(`Error: ${event}`); }, // onError
   () => { console.log('Completed!'); }  // onCompleted
 );
 ```
 
-Upon subscription, the values are sent in sequence to the observer. The `onNext` function logs the values: `Next: 1`, `Next: 2`, etc. until completion: `Completed!`. The cold `source$` observable we created doesn't push unless we _subscribe_ to it.
+Upon subscription, the values are sent in sequence to the observer. The `onNext` callback logs the values: `Next: 1`, `Next: 2`, etc. until completion: `Completed!`. The cold `source$` observable we created doesn't push unless we _subscribe_ to it.
 
 ### Observables Takeaways
 
-Observables are streams and almost anything can be a stream. We can observe any stream from resize events to existing arrays to API responses. We can create observables from almost anything. A _promise_ is an observable with a single emitted value. However, observables (streams) can return many values over time.
+Observables are streams. We can observe any stream: from resize events to existing arrays to API responses; we can create observables from almost anything. A _promise_ is an observable with a single emitted value. However, observables (streams) can return many values over time.
 
 We can operate on observables in many ways. [RxJS has many operators](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core/operators). Observables are often visualized using circles ("marbles") on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion and use such visualizations to understand Rx* operators.
 
@@ -360,6 +375,7 @@ To learn more about **observables**, check out the following resources:
 * [Introducing the Observable](https://egghead.io/lessons/javascript-introducing-the-observable)
 * [RxMarbles](http://rxmarbles.com/)
 * [Rx Book - Observable](https://xgrommx.github.io/rx-book/content/observable/index.html)
+* [Introducing the Observable](https://egghead.io/lessons/javascript-introducing-the-observable)
 
 ---
 
@@ -367,7 +383,27 @@ To learn more about **observables**, check out the following resources:
 
 **Reactive programming** is concerned with propagating and responding to incoming events over time, <a href="#imperative-delcarative" target="_self">declaratively</a> (describing _what_ to do rather than _how_).
 
-Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html) including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)). (For an example of reactive programming, see the <a href="#observables" target="_self">observables code</a> above.)
+Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
+
+Here is an example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code:
+
+```html
+<input id="confirmation-code" type="text">
+```
+
+We'll use RxJS and create a stream of inputs, like so:
+
+```js
+var confCode = document.getElementById('confirmation-code');
+
+var confCodes$ = 
+  Rx.Observable
+    .fromEvent(confCode, 'input')
+    .map(e => e.target.value)
+    .filter(code => code.length === 6);
+```
+
+We are observing inputs to the `confCode` input. We then use `map` to get the input value from each event. Next, we `filter` any results that are not six characters so they won't appear in the returned stream. Note that this was done in response to events over time, declaratively: although simplified for example purposes, this is the crux of _reactive programming_.
 
 ### Reactive Programming Takeaways
 
@@ -381,12 +417,13 @@ To learn more about **reactive programming** in general as well as with JavaScri
 * [Understanding Reactive Programming and RxJS](https://auth0.com/blog/understanding-reactive-programming-and-rxjs/)
 * [Reactive Programming](http://paulstovell.com/blog/reactive-programming)
 * [Modernization of Reactivity](https://davidwalsh.name/modernization-reactivity)
+* [Reactive-Extensions RxJS API Core](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core)
 
 ---
 
 ## <span id="functional-reactive-programming"></span>Functional Reactive Programming
 
-According to some simplified definitions, functional reactive programming (FRP) is a subset of reactive programming using the principles of functional programming such as referential transparency. In short, FRP could be summarized as declaratively responding to events or behaviors over time. But the full picture is not quite that simple. Let's take a look at the formulation of FRP and then at its use in relation to JavaScript in particular.
+According to some simplified definitions, functional reactive programming (FRP) is a subset of reactive programming using the principles of functional programming such as referential transparency. FRP could be summarized as declaratively responding to events or behaviors over time. But the full picture is not quite that simple. Let's take a look at the formulation of FRP. Then we'll examine its use in relation to JavaScript in particular.
 
 ### What is Functional Reactive Programming?
 
@@ -401,9 +438,9 @@ A [more accurate definition](http://stackoverflow.com/a/5386908) from [Conal Ell
 
 In short, [**functional reactive programming** is programming declaratively with time-varying values](https://www.quora.com/What-is-Functional-Reactive-Programming). 
 
-Let's examine an analogy to understand _continuous time / temporal continuity_: consider vector graphics. Vector graphics have an _infinite resolution_. Unlike bitmap graphics (discrete resolution), vector graphics scale indefinitely.
+To understand _continuous time / temporal continuity_, consider an analogy using vector graphics. Vector graphics have an _infinite resolution_. Unlike bitmap graphics (discrete resolution), vector graphics scale indefinitely no matter how large or small they are.
 
-To elaborate on this definition, FRP should be:
+FRP should be:
 
 * dynamic: can react over time or to input changes
 * time-varying: reactive _behaviors_ can change continually while reactive _values_ change discretely
@@ -420,61 +457,94 @@ In order to reconcile what you may have read about FRP in JS, it's important to 
 
 Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk about a different language briefly. [Evan Czapliki](http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf)'s [**Elm**](http://elm-lang.org) is a functional, typed language for building web applications. It compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for the [Redux](http://redux.js.org/) state container for JS apps. [Elm was originally considered a true functional reactive programming language](https://www.youtube.com/watch?v=Agu6jipKfYw), but as of version 0.17, it shifted to the use of _subscriptions_ over signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
 
-"Functional reactive programming", _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [_specifically excludes_ streams](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
+Functional reactive programming, _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [specifically _excludes_ streams as a component](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
-Let's take a look at a JavaScript example to demonstrate the basic principles of FRP:
+It's also crucial to understand that JavaScript inherently interacts with the user and UI, the DOM, and often a backend. <a href="#purity" target="_self">Side effects</a> and <a href="#imperative-declarative" target="_self">imperative</a> code are par for the course, even when taking a <a href="#functional-programming" target="_self">functional</a> or functional reactive approach. Without any imperative or impure code, a JS application wouldn't be much use.
+
+Let's take a look at an example to demonstrate the basic principles of FRP-inspired JavaScript:
 
 ```js
-// create a time observable
-let time$ = Rx.Observable.timer(0, 1000)
-  .timeInterval()
-  .map((t) => t.value);
+// create a time observable that adds an item every 1 second
+// map so resulting stream contains event values
+var time$ = 
+  Rx.Observable
+    .timer(0, 1000)
+    .timeInterval()
+    .map(e => e.value);
 
 // create a mouse movement observable
-let move$ = Rx.Observable.fromEvent(document, 'mousemove')
-  .debounceTime(20)
-  .map((e) => { return {x: e.clientX, y: e.clientY} });
+// throttle to every 350ms
+// map so resulting stream pushes objects with x and y coordinates
+var move$ = 
+  Rx.Observable
+    .fromEvent(document, 'mousemove')
+    .throttleTime(350)
+    .map(e => { return {x: e.clientX, y: e.clientY} });
 
 // merge time + mouse movement streams
 // complete after 10 seconds
-let source$ = Rx.Observable.merge(time$, move$)
-  .takeUntil(Rx.Observable.timer(10000));
+var source$ = 
+  Rx.Observable
+    .merge(time$, move$)
+    .takeUntil(Rx.Observable.timer(10000));
 
-let subscription = source$.subscribe(
-  (x) => { 
-    if (typeof x === 'number') {
-      addTime(x);
-    } else {
-      addPoint(x);
-    }
-  },
-  (err) => { console.log('Error:', err); },
-  () => {  console.log('Completed'); }
-);
+// subscribe to merged source$ observable
+// if value is a number, createTimeset()
+// if value is a coordinates object, addPoint()
+var subscription = 
+  source$.subscribe(
+    // onNext
+    (x) => { 
+      if (typeof x === 'number') {
+        createTimeset(x);
+      } else {
+        addPoint(x);
+      }
+    },
+    // onError
+    (err) => { console.warn('Error:', err); },
+    // onCompleted
+    () => { console.info('Completed'); }
+  );
 
-
-function addTime(n) {
+// add element to DOM to list out points touched in a particular second
+function createTimeset(n) {
   let elem = document.createElement('div');
   let num = n + 1;
   elem.id = 't' + num;
-  elem.innerText = num + ':';
+  elem.innerHTML = `<strong>${num}</strong>: `;
   document.body.appendChild(elem);
 }
 
+// add points touched to latest time in stream
 function addPoint(pointObj) {
   // add point to last appended element
   let numberElem = document.getElementsByTagName('body')[0].lastChild;
-  numberElem.innerText += ` (${pointObj.x}, ${pointObj.y}) `;
+  numberElem.innerHTML += ` (${pointObj.x}, ${pointObj.y}) `;
 }
 ```
 
-Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We react to the <a href="#observables" target="_self">observable</a> stream of mouse movements over time.
+You can check out this code in action in [this JSFiddle](https://jsfiddle.net/kmaida/3v8yw02s/). Run the code and move your mouse over the result area of the screen as it counts up to `10` seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
 
-We also have a <a href="#pure-impure-side-effects" target="_self">pure function</a> that returns the _current_ <a href="#state" target="_self">state</a> of the mouse position. To maintain immutability and statelessness, we log a new state object when responding to changes and do not modify any global state.
+Let's briefly discuss this implementation.
+
+First, we'll create an <a href="#observables" target="_self">observable</a> called `time$`. This is a timer that adds a value to the collection every `1000ms` (every second). We need to map the timer event to extract its `value` and push it in the resulting stream.
+
+Next, we'll create a `move$` observable from the `document.mousemove` event. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We'll throttle this so the results are more manageable. Then we can map the event to return an object with `x` and `y` properties and values to represent mouse coordinates.
+
+Next we want to merge the `time$` and `move$` streams. This way we can plot which mouse movements occurred during each time interval. We'll call the resulting observable `source$`. We'll also limit the `source$` observable so that it completes after ten seconds (`10000ms`).
+
+Now that we have our merged stream of time and movement, we'll create a `subscription` to the `source$` observable so we can react to it. In our `onNext` callback, we'll check to see if the value is a `number` or not. If it is, we want to call a function called `createTimeset()`. If it's a coordinates object, we'll call `addPoint()`. In the `onError` and `onCompleted` callbacks, we'll simply log some information.
+
+Let's look at the `createTimeset(n)` function. We'll create a new `div` element for each second interval, label it, and append it to the `body`.
+
+In the `addPoint(pointObj)` function, we'll print out the latest coordinates in the most recent timeset `div`. This will associate each coordinate with its corresponding time interval. We can now read where the mouse has been over time.
+
+> **Note:** These functions are <a href="#purity" target="_self">impure because they have side effects</a>. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
 
 ### Functional Reactive Programming Takeaways
 
-FRP encodes actions that react to events using pure functions that map state from a previous point in time to the next point in time.  FRP in JavaScript doesn't adhere to the two primary fundamentals of Conal Elliot's FRP, but there is certainly value in abstractions of the original concept.
+FRP encodes actions that react to events using pure functions that map state from a previous point in time to the next point in time.  FRP in JavaScript doesn't adhere to the two primary fundamentals of Conal Elliot's FRP, but there is certainly value in abstractions of the original concept. JavaScript relies heavily on side effects and imperative programming, but we can certainly take advantage of the power of FRP concepts to improve our JS.
 
 To learn more about **functional reactive programming (FRP)**, check out the following resources:
 
