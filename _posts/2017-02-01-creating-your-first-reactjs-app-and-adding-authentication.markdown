@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Creating your first ReactJS app adding authentication"
-description: Learn how to build your first ReactJS application and add authentication to it.
+title: "ReactJS Authentication Tutorial"
+description: Learn how to quickly build apps with ReactJS and add authenticationyour first ReactJS application and add authentication to it.
 date: 2017-02-01 8:30
 category: Technical Guide, Frontend, ReactJS
 author:
@@ -179,6 +179,8 @@ You can check out more [information on JSX here](https://facebook.github.io/reac
 Next, let's build an application with *ReactJS*.
 
 ## Let's get Started
+
+
 
 We'll be building a simple character-listing app with **AdonisJs 3.0**, just like we did with [Laravel](https://auth0.com/blog/creating-your-first-laravel-app-and-adding-authentication/). Our app will simply list **10 Game of Thrones characters** and their real names. Once we add authentication to the app, all logged-in users will have the privilege of knowing these celebrity characters personally.
 
