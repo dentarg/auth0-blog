@@ -36,7 +36,7 @@ You can jump straight into the following topics:
 * <a href="#immutable-mutable" target="_self">Immutability and Mutability</a>
 * <a href="#imperative-declarative" target="_self">Imperative and Declarative Programming</a>
 * <a href="#functional-programming" target="_self">Functional Programming</a>
-* <a href="#observables" target="_self">Observables</a>
+* <a href="#observables" target="_self">Observables: Hot and Cold</a>
 * <a href="#reactive-programming" target="_self">Reactive Programming</a>
 * <a href="#functional-reactive-programming" target="_self">Functional Reactive Programming</a>
 * <a href="#web-components" target="_self">Web Components</a>
@@ -151,6 +151,7 @@ To learn more about **state**, check out the following resources:
 
 * [State](https://en.wikipedia.org/wiki/State_(computer_science))
 * [Advantages of stateless programming](http://stackoverflow.com/questions/844536/advantages-of-stateless-programming)
+* [Stateful and stateless components, the missing manual](https://toddmotto.com/stateful-stateless-components)
 
 ---
 
@@ -308,7 +309,7 @@ To learn more about **functional programming**, check out the following resource
 
 ## <span id="observables"></span>Observables
 
-**Observables** are asynchronous collections arriving over time (also called _streams_). An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. Observables are a JS implementation of the [_observer pattern_](http://stackoverflow.com/a/15596243). [Reactive Extensions](http://reactivex.io/) provides an observables library for JavaScript via [RxJS](https://github.com/ReactiveX/rxjs).
+**Observables** are asynchronous collections arriving over time (also called _streams_). An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. Observables are a JS implementation of the [_observer pattern_](http://stackoverflow.com/a/15596243). [Reactive Extensions](http://reactivex.io/) (commonly known as Rx*) provides an observables library for JavaScript via [RxJS](https://github.com/ReactiveX/rxjs).
 
 To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time as the window is dragged to its desired size. We can create an observable and subscribe to it to react to the stream of resize events. As the window size changes, we can declaratively debounce the stream and subscribe to the changes.
 
@@ -329,27 +330,21 @@ A **hot observable** pushes whether or not it's been subscribed to. For example,
 
 A **cold observable** begins pushing when we subscribe to it. If we subscribe again, it will start over.
 
-Consider a cold observable collection of numbers ranging from `1` to `5`. We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md) to the `source$` observable directly, _or_ we can [`create()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/create.md) an observer and pass it to the `subscribe()` method:
+Let's create an observable collection of numbers ranging from `1` to `5`. We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md) to the `source$` observable we just created:
 
 ```js
 // create observable
 let source$ = Rx.Observable.range(1, 5);
 
-// create observer with onNext, onError, and onCompleted callbacks
-let observer = Rx.Observer.create(
+// subscribe
+let subscription = source$.subscribe(
   (value) => { console.log(`Next: ${value}`); }, // onNext
   (event) => { console.log(`Error: ${event}`); }, // onError
   () => { console.log('Completed!'); }  // onCompleted
 );
-
-// subscribe
-let subscription = source$.subscribe(observer);
-
-// terminate subscription and clean up
-subscription.dispose();
 ```
 
-Upon subscription, the values are sent in sequence to the observer. The `onNext` function logs the values: `Next: 1`, `Next: 2`, etc. until completion: `Completed!`.
+Upon subscription, the values are sent in sequence to the observer. The `onNext` function logs the values: `Next: 1`, `Next: 2`, etc. until completion: `Completed!`. The cold `source$` observable we created doesn't push unless we _subscribe_ to it.
 
 ### Observables Takeaways
 
@@ -370,9 +365,9 @@ To learn more about **observables**, check out the following resources:
 
 ## <span id="reactive-programming"></span>Reactive Programming
 
-**Reactive programming** is concerned with propagating and responding to incoming events over time, declaratively (describing _what_ to do rather than _how_).
+**Reactive programming** is concerned with propagating and responding to incoming events over time, <a href="#imperative-delcarative" target="_self">declaratively</a> (describing _what_ to do rather than _how_).
 
-Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with observable streams. Reactive Extensions (commonly known as Rx*) [provides libraries for a variety of languages](http://reactivex.io/languages.html) including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)). (For an example of reactive programming, see the <a href="#observables" target="_self">observables code</a> above.)
+Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html) including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)). (For an example of reactive programming, see the <a href="#observables" target="_self">observables code</a> above.)
 
 ### Reactive Programming Takeaways
 
@@ -427,17 +422,55 @@ Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk a
 
 "Functional reactive programming", _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [_specifically excludes_ streams](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
-Let's take a look at a few JavaScript examples to demonstrate the basic principles of FRP:
+Let's take a look at a JavaScript example to demonstrate the basic principles of FRP:
 
 ```js
-let move$ = Rx.Observable.fromEvent(document, 'mousemove');
+// create a time observable
+let time$ = Rx.Observable.timer(0, 1000)
+  .timeInterval()
+  .map((t) => t.value);
 
-let subscription = move$.subscribe((event) => {
-  console.log(`${event.clientX}, ${event.clientY}`);
-});
+// create a mouse movement observable
+let move$ = Rx.Observable.fromEvent(document, 'mousemove')
+  .debounceTime(20)
+  .map((e) => { return {x: e.clientX, y: e.clientY} });
+
+// merge time + mouse movement streams
+// complete after 10 seconds
+let source$ = Rx.Observable.merge(time$, move$)
+  .takeUntil(Rx.Observable.timer(10000));
+
+let subscription = source$.subscribe(
+  (x) => { 
+    if (typeof x === 'number') {
+      addTime(x);
+    } else {
+      addPoint(x);
+    }
+  },
+  (err) => { console.log('Error:', err); },
+  () => {  console.log('Completed'); }
+);
+
+
+function addTime(n) {
+  let elem = document.createElement('div');
+  let num = n + 1;
+  elem.id = 't' + num;
+  elem.innerText = num + ':';
+  document.body.appendChild(elem);
+}
+
+function addPoint(pointObj) {
+  // add point to last appended element
+  let numberElem = document.getElementsByTagName('body')[0].lastChild;
+  numberElem.innerText += ` (${pointObj.x}, ${pointObj.y}) `;
+}
 ```
 
-This is a very similar example to the one we looked at in <a href="#observables" target="_self">Observables</a>. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We react to the observable stream of mouse movements over time.
+Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We react to the <a href="#observables" target="_self">observable</a> stream of mouse movements over time.
+
+We also have a <a href="#pure-impure-side-effects" target="_self">pure function</a> that returns the _current_ <a href="#state" target="_self">state</a> of the mouse position. To maintain immutability and statelessness, we log a new state object when responding to changes and do not modify any global state.
 
 ### Functional Reactive Programming Takeaways
 
