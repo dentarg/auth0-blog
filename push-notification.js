@@ -178,4 +178,36 @@ $(document).ready(function ($) {
   });
 
   subscriptionValidation();
+
+  window.pn_safari = function () {
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      console.log('Browser is safari and has support for push notifications</p>');
+      var permissionData = window.safari.pushNotification.permission('web.com.auth0');
+      checkRemotePermission(permissionData);
+    } else {
+      console.log('Browser is not safari, use safari to proceed.');
+    }
+  };
+
+  function checkRemotePermission(permissionData) {
+    console.log('Checking permission for push notification');
+
+    if (permissionData.permission === 'default') {
+      console.log('Permission is <strong>default</strong> (first time)</p>');
+      console.log('Validating push package before showing request popup...</p>');
+
+      window.safari.pushNotification.requestPermission(
+        'https://auth0-pn.herokuapp.com', // The web service URL.
+        'web.com.auth0',                    // The Website Push ID.
+        {},            // Data that you choose to send to your server to help you identify the user.
+        checkRemotePermission                       // The callback function.
+      );
+    }else if (permissionData.permission === 'denied') {
+      console.log('Permission is <strong>denied</strong></p>');
+    }else if (permissionData.permission === 'granted') {
+      console.log('Permission is <strong>granted</strong></p>');
+      console.log('User device token is: <strong>' + permissionData.deviceToken + '</strong></p>');
+    }
+  }
+
 });
