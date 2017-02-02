@@ -2,7 +2,7 @@
 layout: post
 title: "Migrating a PHP 5 App to PHP 7 (Development Environment) - Part 1"
 description: "Learn how to migrate a PHP 5 application to PHP 7: Setup and development environment."
-date: 2017-01-20 8:30
+date: 2017-02-02 8:30
 category: Technical Guide, PHP, Migration
 author:
   name: "Prosper Otemuyiwa"
@@ -101,11 +101,14 @@ If you are running Ubuntu on your machine, especially around v14 and 15, you can
 
 ```bash
 
-sudo add-apt-repository ppa:ondrej/php-7.0
 sudo apt-get update
-sudo apt-get install php7.0
+sudo add-apt-repository ppa:ondrej/php
+
+sudo apt-get install -y php7.0-fpm php7.0-cli php7.0-curl php7.0-gd php7.0-intl php7.0-mysql
 
 ```
+
+**Note:** You can check out how to install PHP 7 and Nginx here, and manually build memcached module for PHP 7.
 
 ## Debian
 
@@ -236,6 +239,8 @@ This command above will build PHP with MySQL, mycrypt, OpenSSL, debug and SQLite
 
 Vagrant provides a simple, elegant way to manage and provision Virtual Machines. The development environments that run on Vagrant are packaged via **Vagrant boxes**. Vagrant boxes are completely disposable. If something goes wrong, you can destroy and re-create the box in minutes! One of such boxes I recommend is **Laravel Homestead**.
 
+> **Note:** You can check out these awesome free courses on [learning how to use Vagrant](https://serversforhackers.com/series/vagrant) on [https://serversforhackers.com](https://serversforhackers.com/)
+
 ### Laravel Homestead
 
 Laravel Homestead is an official, pre-packaged Vagrant box that provides you a wonderful development environment without requiring you to install PHP, a web server, and any other server software on your local machine. Homestead runs on any Windows, Mac, or Linux system. It includes the following:
@@ -361,6 +366,12 @@ Follow the instructions on the [laradock documentation](https://github.com/larad
 * Run `bower install`
 * Run `php bin/console assets:install --symlink --relative`
 * Run `docker-compose up -d`
+
+Don't hesitate to submit an issue on the `phpdocker-io` repo if you hit a roadblock.
+
+**Note:** [Chris Fidao](https://twitter.com/fideloper) has a fantastic course on Docker. With his course on [shippingdocker.com](https://shippingdocker.com), you'll learn how to use Docker in development, testing and production.
+
+There are different ways of setting up a PHP 7 development environment. The few I have mentioned here should give you a lot of options in getting your machine ready to effectively test PHP 7 features.
 
 
 ## Conclusion
