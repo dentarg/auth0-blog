@@ -5,10 +5,10 @@ description: "Optimizing your login for enterprise customers can help you save t
 date: 2017-01-24 8:30
 category: Technical Guide
 author:
-  name: "Bruno Krebs"
-  url: "https://twitter.com/brunoskrebs"
-  mail: "krebs.bruno@gmail.com"
-  avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   image: https://cdn.auth0.com/blog/ga/budgetlogo.png
   bg_color: "#00715A"
@@ -80,11 +80,11 @@ Today, Safari Books Online is used by a wide range of enterprise clients, from G
 
 When you use Auth0, you immediately cut down on the time that your team has to spend doing heavy lifting on the compatibility front. Auth0 allows you to make your app work with 10+ different enterprise identity providers, out of the box.
 
-![](https://cdn.auth0.com/blog/enterprise/options.png)
+![Auth0 Enterprise Options](https://cdn.auth0.com/blog/enterprise/options.png)
 
 Auth0 acts as an intermediary between your app and your users. It seamlessly integrates into your product, but [keeps your app isolated](https://auth0.com/docs/identityproviders) from any changes to or idiosyncrasies of different implementations. This means you can keep maximum function for your app with minimal effort for login.
 
-![](https://cdn.auth0.com/blog/enterprise/overview.png)
+![Enterprise Overview](https://cdn.auth0.com/blog/enterprise/overview.png)
 
 Using Auth0 to ramp up your security and login doesn't just shorten your sales cycle for one customer, but also gives you the tools to fit your login to a wide variety of enterprise needs. If you configure compatibility between Auth0 and your app once, you've configured compatibility for 10+ identity providers in one fell swoop.
 
