@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Glossary of Modern JavaScript Concepts"
-description: "Learn many of the common terms and concepts of today's JavaScript landscape."
+title: "Glossary of Modern JavaScript Concepts: Part 1"
+description: "Learn the concepts necessary to understand functional programming, reactive programming, and functional reactive programming in JavaScript."
 date: 2017-02-05 8:30
 category: Glossary, Technical guide
 banner:
@@ -16,20 +16,23 @@ design:
   bg_color: "#"
 tags:
 - javascript
+- functional-programming
+- reactive-programming
+- functional-reactive-programming
 related:
 - 2017-01-16-a-brief-history-of-javascript
-- 2016-11-16-a-rundown-of-es6-features
+- 2016-03-23-intro-to-immutable-js
 ---
 
 ## Introduction
 
-Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. There are new topics surfacing as well as numerous classical programming concepts that are unfamiliar to many front-end developers. We'll take a look at some of the common concepts in the current front-end landscape and explore how they apply to modern JavaScript.
+Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous programming concepts are surfacing that are unfamiliar to many front-end developers. In this post series, we'll take a look at some of the common concepts in the current front-end landscape and explore how they apply to modern JavaScript, starting with the fundamentals of functional programming, reactive programming, and functional reactive programming.
 
 ---
 
 ## Concepts
 
-In this article, we'll address concepts that are important to understand functional programming, reactive programming, and functional reactive programming. We'll also take a look at the different types of components and their importance for the future of the web and evolution of different JS programming paradigms.
+In this article, we'll address concepts that are important to understand **functional programming, reactive programming, and functional reactive programming** and their use with JavaScript.
 
 You can jump straight into each topic here, or continue reading to learn about the topics in order.
 
@@ -37,12 +40,11 @@ You can jump straight into each topic here, or continue reading to learn about t
 * <a href="#state" target="_self">State: Stateful and Stateless</a>
 * <a href="#immutable-mutable" target="_self">Immutability and Mutability</a>
 * <a href="#imperative-declarative" target="_self">Imperative and Declarative Programming</a>
+* <a href="#higher-order-functions" target="_self">Higher-order Functions</a>
 * <a href="#functional-programming" target="_self">Functional Programming</a>
 * <a href="#observables" target="_self">Observables: Hot and Cold</a>
 * <a href="#reactive-programming" target="_self">Reactive Programming</a>
 * <a href="#functional-reactive-programming" target="_self">Functional Reactive Programming</a>
-* <a href="#web-components" target="_self">Web Components</a>
-* <a href="#dumb-smart-components" target="_self">Dumb and Smart Components</a>
 
 ---
 
@@ -253,7 +255,7 @@ function incrementArray(arr) {
 }
 ```
 
-This function shows exactly _how_ the function's logic works. We iterate over the array and explicitly increase each number, pushing it to a new array. We then return the new, resulting array. This is a step-by-step description of the function's logic.
+This function shows exactly _how_ the function's logic works: we iterate over the array and explicitly increase each number, pushing it to a new array. We then return the resulting array. This is a step-by-step description of the function's logic.
 
 ### Declarative Programming
 
@@ -263,17 +265,19 @@ Consider the `incrementArray()` function we implemented imperatively above. Let'
 
 ```js
 function incrementArray(arr) {
-  return arr.map((item) => item++);
+  return arr.map(item => item++);
 }
 ```
 
 Using declarative programming, we show _what_ we want to achieve, but not how it works. The [`Array.map()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) returns a new array with the results of running the callback on each item from the passed array. This approach does not modify program state, nor does it include any sequential logic showing _how_ it creates the new array.
 
-> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are <a href="#functional-programming" target="_self">functional</a> array methods.
+> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are declarative, <a href="#functional-programming" target="_self">functional</a> array methods. Utility libraries like [lodash](https://lodash.com/) provide declarative methods like [`every`](https://lodash.com/docs/4.17.4#every), [`sortBy`](https://lodash.com/docs/4.17.4#sortBy), [`uniq`](https://lodash.com/docs/4.17.4#uniq), and more in addition to `map`, `reduce`, and `filter`.
 
 ### Imperative and Declarative Programming Takeaways
 
-JavaScript allows both **imperative and declarative programming** paradigms. Much of the JS code we read and write is and has been imperative. However, with the rise of <a href="#functional-programming" target="_self">functional programming</a> in JS, the declarative approach is rapidly becoming more common.
+As a language, JavaScript allows both **imperative and declarative programming** paradigms. Much of the JS code we read and write is and has been imperative. However, with the rise of <a href="#functional-programming" target="_self">functional programming</a> in JS, declarative approaches are becoming more common.
+
+Declarative programming has obvious advantages with regard to brevity and readability, but at the same time it can feel magical.  Many JavaScript beginners can benefit from gaining experience writing imperative JS before diving too deep into declarative programming.
 
 To learn more about **imperative and declarative programming**, check out the following resources:
 
@@ -284,18 +288,100 @@ To learn more about **imperative and declarative programming**, check out the fo
 
 ---
 
+## <span id="higher-order-functions"></span>Higher-order Functions
+
+A **higher-order function** is a function that:
+
+* accepts another function as an argument, or
+* returns a function as a result.
+
+In JavaScript, functions are [_first-class objects_](http://helephant.com/2008/08/19/functions-are-first-class-objects-in-javascript/). They can be stored and passed around as _values_: we can assign a function to a variable or pass a function to another function.
+
+```js
+var double = function(x) {
+  return x * 2;
+}
+var timesTwo = double;
+
+timesTwo(4); // 8
+```
+
+One example of taking a function as an argument is a _callback_. Callbacks can be inline anonymous functions or named functions:
+
+```js
+const myBtn = document.getElementById('myButton');
+
+// anonymous callback function
+myBtn.addEventListener('click', e => console.log(`Click event: ${e}`));
+
+// named callback function
+function btnHandler(e) {
+  console.log(`Click event: ${e}`);
+}
+myBtn.addEventListener('click', btnHandler);
+```
+
+We can also pass a function as an argument to any other function we create and then execute that argument:
+
+```js
+function sayHi() {
+  alert('Hi!');
+}
+function greet(greeting) {
+  greeting();
+}
+
+greet(sayHi); // alerts "Hi!"
+```
+
+> **Note:** When _passing a named function as an argument_, as in the two examples above, we don't use parentheses `()`. This way we're passing the function as an object. Parentheses _execute_ the function and return the result.
+
+Higher-order functions can also return another function:
+
+```js
+function sayHi() {
+  alert('Hi!');
+}
+function whenMeetingJohn() {
+  return sayHi;
+}
+var atLunchToday = whenMeetingJohn();
+
+atLunchToday(); // alerts "Hi!"
+```
+
+### Higher-order Function Takeaways
+
+The nature of JavaScript functions as first-class objects make them prime for facilitating <a href="#functional-programming" target="_self">functional programming</a>. 
+
+To learn more about **higher-order functions**, check out the following resources:
+
+* [Functions are first class objects in JavaScript](http://helephant.com/2008/08/19/functions-are-first-class-objects-in-javascript/)
+* [Higher-Order Functions in JavaScript](https://www.sitepoint.com/higher-order-functions-javascript/)
+* [Higher-order functions - Part 1 of Functional Programming in JavaScript](https://www.youtube.com/watch?v=BMUiFMZr7vk)
+* [Eloquent JavaScript - Higher-order Functions](http://eloquentjavascript.net/05_higher_order.html)
+* [Higher Order Functions](https://medium.com/functional-javascript/higher-order-functions-78084829fff4#.dwg58papp)
+
+---
+
 ## <span id="functional-programming"></span>Functional Programming
 
-Now that we've learned about purity, statelessness, immutability, and declarative programming, let's look briefly at the functional programming paradigm.
+Now we've learned about purity, statelessness, immutability, declarative programming, and higher-order functions. These are all concepts that are important in understanding the functional programming paradigm.
 
 **Functional programming** encompasses the above concepts in the following ways:
 
 * Core functionality is implemented using pure functions without side effects. 
 * Data is immutable.
 * Functional programs are stateless.
-* Imperative container code executes declarative, pure core code and manages side effects.*
+* Imperative container code manages side effects and executes declarative, pure core code.*
 
-> *If we tried to write an entire JavaScript application composed of nothing but pure functions with no side effects, it couldn't interact with its environment and therefore wouldn't be particularly useful.
+> *If we tried to write a JavaScript web application composed of nothing but pure functions with no side effects, it couldn't interact with its environment and therefore wouldn't be particularly useful.
+
+Let's examine a small example of functional JS. 
+
+```js
+// example goes here
+```
 
 ### Functional Programming Takeaways
 
@@ -308,7 +394,12 @@ To learn more about **functional programming**, check out the following resource
 * [Functional Programming with JavaScript](http://stephen-young.me.uk/2013/01/20/functional-programming-with-javascript.html)
 * [Don't be Scared of Functional Programming](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/)
 * [So You Want to be a Functional Programmer](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536#.q8a7nwjat)
+* [lodash - Functional Programming Guide](https://github.com/lodash/lodash/wiki/FP-Guide)
 * [What is the difference between functional and imperative programming languages?](http://stackoverflow.com/questions/17826380/what-is-difference-between-functional-and-imperative-programming-languages)
+* [Eloquent JavaScript, 1st Edition - Functional Programming](http://eloquentjavascript.net/1st_edition/chapter6.html)
+* [Functional Programming by Example](http://tobyho.com/2015/11/09/functional-programming-by-example/)
+* [Functional Programming in JavaScript - Video Series](https://www.youtube.com/watch?v=BMUiFMZr7vk&list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)
+* [Introduction to Functional JavaScript](https://medium.com/functional-javascript/introduction-to-functional-javascript-45a9dca6c64a#.2qjh0i04y)
 
 ---
 
@@ -459,9 +550,9 @@ Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk a
 
 Functional reactive programming, _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [specifically _excludes_ streams as a component](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
-It's also crucial to understand that JavaScript inherently interacts with the user and UI, the DOM, and often a backend. <a href="#purity" target="_self">Side effects</a> and <a href="#imperative-declarative" target="_self">imperative</a> code are par for the course, even when taking a <a href="#functional-programming" target="_self">functional</a> or functional reactive approach. Without any imperative or impure code, a JS application wouldn't be much use.
+It's also crucial to understand that JavaScript inherently interacts with the user and UI, the DOM, and often a backend. <a href="#purity" target="_self">Side effects</a> and <a href="#imperative-declarative" target="_self">imperative</a> code are par for the course, even when taking a <a href="#functional-programming" target="_self">functional</a> or functional reactive approach. Without imperative or impure code, a dynamic JS web application wouldn't be much use because it wouldn't interact with its environment.
 
-Let's take a look at an example to demonstrate the basic principles of FRP-inspired JavaScript:
+Let's take a look at an example to demonstrate the basic principles of FRP-inspired JavaScript. This sample prints out mouse movements over a period of ten seconds:
 
 ```js
 // create a time observable that adds an item every 1 second
@@ -526,13 +617,13 @@ function addPoint(pointObj) {
 
 You can check out this code in action in [this JSFiddle](https://jsfiddle.net/kmaida/3v8yw02s/). Run the code and move your mouse over the result area of the screen as it counts up to `10` seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
 
-Let's briefly discuss this implementation.
+Let's briefly discuss this implementation step-by-step.
 
 First, we'll create an <a href="#observables" target="_self">observable</a> called `time$`. This is a timer that adds a value to the collection every `1000ms` (every second). We need to map the timer event to extract its `value` and push it in the resulting stream.
 
-Next, we'll create a `move$` observable from the `document.mousemove` event. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We'll throttle this so the results are more manageable. Then we can map the event to return an object with `x` and `y` properties and values to represent mouse coordinates.
+Next, we'll create a `move$` observable from the `document.mousemove` event. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We'll throttle this so the resulting stream is more manageable. Then we can map the event to return an object with `x` and `y` properties and values to represent mouse coordinates.
 
-Next we want to merge the `time$` and `move$` streams. This way we can plot which mouse movements occurred during each time interval. We'll call the resulting observable `source$`. We'll also limit the `source$` observable so that it completes after ten seconds (`10000ms`).
+Next we want to merge the `time$` and `move$` streams. This is a _transformation_. This way we can plot which mouse movements occurred during each time interval. We'll call the resulting observable `source$`. We'll also limit the `source$` observable so that it completes after ten seconds (`10000ms`).
 
 Now that we have our merged stream of time and movement, we'll create a `subscription` to the `source$` observable so we can react to it. In our `onNext` callback, we'll check to see if the value is a `number` or not. If it is, we want to call a function called `createTimeset()`. If it's a coordinates object, we'll call `addPoint()`. In the `onError` and `onCompleted` callbacks, we'll simply log some information.
 
@@ -546,6 +637,14 @@ In the `addPoint(pointObj)` function, we'll print out the latest coordinates in 
 
 FRP encodes actions that react to events using pure functions that map state from a previous point in time to the next point in time.  FRP in JavaScript doesn't adhere to the two primary fundamentals of Conal Elliot's FRP, but there is certainly value in abstractions of the original concept. JavaScript relies heavily on side effects and imperative programming, but we can certainly take advantage of the power of FRP concepts to improve our JS.
 
+Finally, consider this quote from the recluse's book in the first edition of [Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/) (second edition available [here](http://eloquentjavascript.net)):
+
+> "Fu-Tzu had written a small program that was full of global state and dubious shortcuts. Reading it, a student asked 'You warned us against these techniques, yet I find them in your program. How can this be?'
+> 
+> Fu-Tzu said 'There is no need to fetch a water hose when the house is not on fire.' {This is not to be read as an encouragement of sloppy programming, but rather as a warning against neurotic adherence to rules of thumb.}"
+>
+>—_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
+
 To learn more about **functional reactive programming (FRP)**, check out the following resources:
 
 * [The Functional Reactive Misconception](https://sideeffects.xyz/2015/the-functional-reactive-misconception/)
@@ -554,6 +653,7 @@ To learn more about **functional reactive programming (FRP)**, check out the fol
 * [Composing Reactive Animations](http://conal.net/fran/tutorial.htm)
 * [Specification for a functional reactive programming language](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#5878525)
 * [A more elegant specification for FRP](https://github.com/conal/talk-2015-more-elegant-frp)
+* [Functional Reactive Programming for Beginners](https://www.youtube.com/watch?v=vLmaZxegahk)
 * [Elm - A Farewell to FRP](http://elm-lang.org/blog/farewell-to-frp)
 * [Early inspirations and new directions in functional reactive programming](http://conal.net/blog/posts/early-inspirations-and-new-directions-in-functional-reactive-programming)
 * [Breaking Down FRP](https://blogs.janestreet.com/breaking-down-frp/)
@@ -561,11 +661,12 @@ To learn more about **functional reactive programming (FRP)**, check out the fol
 
 ---
 
-## <span id="web-components"></span>Web Components
+## Conclusion
 
----
+We'll conclude with one more quote from the recluse's book in the first edition of [Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/):
 
-## <span id="dumb-smart-components"></span>Dumb Components and Smart Components
+> "A student had been sitting motionless behind his computer for hours, frowning darkly. He was trying to write a beautiful solution to a difficult problem, but could not find the right approach. Fu-Tzu hit him on the back of his head and shouted '_Type something!_' The student started writing an ugly solution. After he had finished, he suddenly understood the beautiful solution."
+>
+>—_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
 
-
-
+The concepts necessary for understanding functional programming, reactive programming, and functional reactive programming in JavaScript can be difficult to grasp, let alone _master_. 
