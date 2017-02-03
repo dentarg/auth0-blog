@@ -345,7 +345,7 @@ function sayHi() {
 function whenMeetingJohn() {
   return sayHi;
 }
-var atLunchToday = whenMeetingJohn();
+var atLunchToday = whenMeetingJohn;
 
 atLunchToday(); // alerts "Hi!"
 ```
@@ -377,10 +377,18 @@ Now we've learned about purity, statelessness, immutability, declarative program
 
 > *If we tried to write a JavaScript web application composed of nothing but pure functions with no side effects, it couldn't interact with its environment and therefore wouldn't be particularly useful.
 
-Let's examine a small example of functional JS. 
+Let's examine a small example. Say we have some text and we want to output keywords that are longer than five characters.
 
 ```js
-// example goes here
+const fpCopy = `Functional programming is powerful and enjoyable to write. It's also fun!`;
+
+function makeArray(arr) {
+  return arr
+    .split(/[\s,.!]+/)
+    .filter(item => item.length > 5);
+}
+
+console.log(makeArray(fpCopy));
 ```
 
 ### Functional Programming Takeaways
