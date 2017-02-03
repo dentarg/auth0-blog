@@ -2,7 +2,7 @@
 layout: post
 title: "How Enterprise Federation Helps Shorten The Sales Cycle"
 description: "Optimizing your login for enterprise customers can help you save time and close deals."
-date: 2017-01-24 8:30
+date: 2017-02-03 8:30
 category: Technical Guide
 author:
   name: Martin Gontovnikas
