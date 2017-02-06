@@ -24,13 +24,13 @@ related:
 - 2016-03-23-intro-to-immutable-js
 ---
 
-**TL;DR:** In the first part of the Glossary of Modern JS Concepts series, gain an understanding of _functional programming_, _reactive programming_, and _functional reactive programming_. We'll learn about purity, statefulness and statelessness, immutability and mutability, imperative and declarative programming, higher-order functions, observables, and the FP, RP, and FRP paradigms.
+**TL;DR:** In the first part of the Glossary of Modern JS Concepts series, we'll gain an understanding of _functional programming_, _reactive programming_, and _functional reactive programming_. To do so, we'll learn about purity, statefulness and statelessness, immutability and mutability, imperative and declarative programming, higher-order functions, observables, and the FP, RP, and FRP paradigms.
 
 ---
 
 ## Introduction
 
-Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous concepts appearing in JS blogs and documentation are still unfamiliar to many front-end developers. In this post series, we'll take a look at intermediate and advanced fundamental concepts in the front-end programming landscape and explore how they apply to modern JavaScript.
+Modern JavaScript has experienced massive proliferation over recent years and shows no signs of slowing. Numerous concepts appearing in JS blogs and documentation are still unfamiliar to many front-end developers. In this post series, we'll learn intermediate and advanced concepts in the current front-end programming landscape and explore how they apply to modern JavaScript.
 
 ---
 
