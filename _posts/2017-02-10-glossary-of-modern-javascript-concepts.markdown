@@ -155,17 +155,20 @@ increment(number); // global variable NOT modified: returns 2
 
 ### State Takeaways
 
+State management is important for any complex application. Stateful functions or components modify state and store history, but are more difficult to test and debug. Stateless functions rely only on their inputs to produce outputs.
+
 To learn more about **state**, check out the following resources:
 
 * <a href="https://en.wikipedia.org/wiki/State_(computer_science)">State</a>
 * [Advantages of stateless programming](http://stackoverflow.com/questions/844536/advantages-of-stateless-programming)
 * [Stateful and stateless components, the missing manual](https://toddmotto.com/stateful-stateless-components)
+* [Redux: predictable state container for JavaScript apps](http://redux.js.org/)
 
 ---
 
 ## <span id="immutable-mutable"></span>Immutability and Mutability
 
-The concepts of **immutability and mutability** are slightly more nebulous in JavaScript than in some other programming languages. However, you will hear a lot about immutability when reading about <a href="#functional-programming" target="_self">functional programming</a> in JS. It's important to know what these terms mean classically and also how they are referenced and implemented in JavaScript.
+The concepts of **immutability and mutability** are slightly more nebulous in JavaScript than in some other programming languages. However, you will hear a lot about immutability when reading about <a href="#functional-programming" target="_self">functional programming</a> in JS. It's important to know what these terms mean classically and also how they are referenced and implemented in JavaScript. The definitions are simple enough:
 
 ### Immutable
 
@@ -182,9 +185,11 @@ In JavaScript, `strings` and `numbers` are _immutable by design_. This is easily
 ```js
 var str = 'Hello!';
 var anotherStr = str.substring(2);
+// result: str = 'Hello!' (unchanged)
+// result: anotherStr = 'llo!' (new string)
 ```
 
-Our first string will always be `Hello!`, but we can operate on this string to create _new_ strings. We could also reassign the `str` _variable value_ to something else, but the actual string `Hello!` will always be `Hello!`.
+Using the `.substring()` method on our `Hello!` string does _not_ modify the original string. Instead, it creates a _new_ string. We could reassign the `str` _variable value_ to something else, but once we've created our `Hello!` string, it will always be `Hello!`.
 
 Numbers are immutable as well. The following will always have the same result:
 
@@ -212,17 +217,17 @@ To learn more about mutability in other languages, check out [Mutable vs Immutab
 
 ### In Practice: Immutability in JavaScript
 
-Functional programming in JS has gained a lot of momentum. But by design, JS is a very mutable, multi-paradigm language. Functional programming emphasizes _immutability_. Other functional languages will raise errors when a developer tries to mutate an immutable object. So how can we reconcile the innate mutability of JS when writing functional or functional reactive JS?
+<a href="#functional-programming" target="_self">Functional programming</a> in JavaScript has gained a lot of momentum. But by design, JS is a very mutable, multi-paradigm language. Functional programming emphasizes _immutability_. Other functional languages will raise errors when a developer tries to mutate an immutable object. So how can we reconcile the innate mutability of JS when writing functional or functional reactive JS?
 
-When we talk about functional programming in JS, the word "immutable" is used a lot, but it's dependent on the developer to write their code with immutability in mind. For example, [Redux relies on a single, immutable state tree](https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree). However, _JavaScript itself_ is capable of mutating the state object. To implement an immutable state tree, we need to [return a _new_](https://egghead.io/lessons/javascript-redux-avoiding-array-mutations-with-concat-slice-and-spread) [state object](https://egghead.io/lessons/javascript-redux-avoiding-object-mutations-with-object-assign-and-spread) each time the state changes.
+When we talk about functional programming in JS, the word "immutable" is used a lot, but it's the responsibility of the developer to write their code with immutability _in mind_. For example, [Redux relies on a single, immutable state tree](https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree). However, _JavaScript itself_ is capable of mutating the state object. To implement an immutable state tree, we need to [return a _new_](https://egghead.io/lessons/javascript-redux-avoiding-array-mutations-with-concat-slice-and-spread) [state object](https://egghead.io/lessons/javascript-redux-avoiding-object-mutations-with-object-assign-and-spread) each time the state changes.
 
-JavaScript objects [can also be frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) with `Object.freeze(obj)` [to make them immutable](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html). Note that this is _shallow_, meaning object values within a frozen object can still be mutated. To further ensure immutability, [functions like Mozilla's deepFreeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) and [npm packages like deep-freeze](https://www.npmjs.com/package/deep-freeze) can recursively freeze objects. Freezing is most practical when used in _tests_ rather than in application JS. This way, tests will alert developers when mutations occur so they can be corrected and avoided in the actual build without cluttering the core code.
+JavaScript objects [can also be frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) with `Object.freeze(obj)` [to make them immutable](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html). Note that this is _shallow_, meaning object values within a frozen object can still be mutated. To further ensure immutability, [functions like Mozilla's deepFreeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) and [npm deep-freeze](https://www.npmjs.com/package/deep-freeze) can recursively freeze objects. Freezing is most practical when used in _tests_ rather than in application JS. Tests will alert developers when mutations occur so they can be corrected or avoided in the actual build without `Object.freeze` cluttering up the core code.
 
-There are also libraries available to support immutability in JS. [Mori](http://swannodette.github.io/mori/) delivers persistent data structures based on Clojure. [Immutable.js](https://facebook.github.io/immutable-js/) by Facebook also provides immutable collections for JS. Utility libraries like [Underscore.js](http://underscorejs.org) and [lodash](http://www.lodash.com) provide methods and modules to promote a more immutable, [functional programming _style_](https://github.com/lodash/lodash/wiki/FP-Guide).
+There are also libraries available to support immutability in JS. [Mori](http://swannodette.github.io/mori/) delivers persistent data structures based on Clojure. [Immutable.js](https://facebook.github.io/immutable-js/) by Facebook also provides immutable collections for JS. Utility libraries like [Underscore.js](http://underscorejs.org) and [lodash](http://www.lodash.com) provide methods and modules to promote a more immutable [functional programming _style_](https://github.com/lodash/lodash/wiki/FP-Guide).
 
 ### Immutability and Mutability Takeaways
 
-Overall, JS is a very mutable language. Some styles of JS coding _rely_ on this innate mutability. When writing functional JS, however, implementing immutability requires mindfulness. JS will not natively throw errors when you modify something unintentionally. Testing and libraries can assist, but working with immutability in JS takes practice and methodology.
+Overall, JavaScript is a very mutable language. Some styles of JS coding _rely_ on this innate mutability. However, when writing functional JS, implementing immutability requires mindfulness. JS will not natively throw errors when you modify something unintentionally. Testing and libraries can assist, but working with immutability in JS takes practice and methodology.
 
 To learn more about **immutability and mutability**, check out the following resources:
 
