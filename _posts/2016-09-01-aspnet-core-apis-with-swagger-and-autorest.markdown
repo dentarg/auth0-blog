@@ -194,13 +194,15 @@ The first step is to add the [JwtBearer Nuget package](https://www.nuget.org/pac
 }
 ```
 
-For our next step, you will need your **Auth0 ClientId and Domain**, which you can obtain from your Dashboard:
+Next, we will create our API in Auth0 by enabling [API Authorization](https://auth0.com/docs/api-auth) in our account. To do this, go to your [Account Settings](https://manage.auth0.com/#/account/advanced), click on the Advanced tab and turn on the **OAuth 2.0 API Authorization** flag.
 
-![Getting our Auth0 credentials](https://cdn.auth0.com/blog/aspnet-core-web-apis/auth0credentials.PNG)
+![Enable API Section](https://cdn.auth0.com/blog/aspnet-core-web-apis/enableapi.png)
 
-On the same Settings pane, go to the _Advanced Settings_ > _OAuth_ and set the **JWT Signature Algorithm** to **RS256**:
+Now, go to the new API section on the left menu and click on **Create API**, remember to set a custom Identifier.
 
-![Configuring JWT on Auth0](https://cdn.auth0.com/blog/aspnet-core-web-apis/auth0jwt.PNG)
+![Creating a new API](https://cdn.auth0.com/blog/aspnet-core-web-apis/CreateAPI.png)
+
+![Creating a new API](https://cdn.auth0.com/blog/aspnet-core-web-apis/newapi.png)
 
 Then, let’s modify our **ASP.NET Core pipeline** to include the Jwt Token authentication in the Configure method in your Startup.cs file:
 
@@ -214,7 +216,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     /*It's important that this is AFTER app.UseSwagger or the swagger.json file would be innaccesible*/
     var options = new JwtBearerOptions
     {
-        Audience = "Your_Auth0_ClientId",
+        Audience = "Your_API_Identifier",
         Authority = "Your_Auth0_Domain"
     };
     app.UseJwtBearerAuthentication(options);
@@ -267,6 +269,24 @@ The interface is useful if you want to use [dependency injection](https://docs.a
 After generating our client, Autorest will let you know that you will need the [Microsoft.Rest.ClientRuntime](https://www.nuget.org/packages/Microsoft.Rest.ClientRuntime/) Nuget package on our dependencies.
 
 ### Locking it down with Auth0 
+
+We will start by creating a new **Regular Web Application client** on our [Auth0 dashboard](https://manage.auth0.com/).
+
+![Creating our Client](https://cdn.auth0.com/blog/aspnet-core-web-apis/createclient.png)
+
+>There is a complete [client documentation](https://auth0.com/docs/clients) available.
+
+Once the client has been created, we need to authorize it on our API. To do this, we go to the APIs section, select our API and authorize the client:
+
+![Authorizing our Client](https://cdn.auth0.com/blog/aspnet-core-web-apis/AuthorizeClient.png)
+
+Finally, you will need your **Auth0 ClientId and Domain**, which you can obtain from your client:
+
+![Getting our Auth0 credentials](https://cdn.auth0.com/blog/aspnet-core-web-apis/auth0credentials.PNG)
+
+And on the same Settings pane, go to the _Advanced Settings_ > _OAuth_ and set the **JWT Signature Algorithm** to **RS256**:
+
+![Configuring JWT on Auth0](https://cdn.auth0.com/blog/aspnet-core-web-apis/auth0jwt.PNG)
 
 Since our API is authenticating users from our Auth0 account, we’ll add [Auth0’s Lock](https://auth0.com/lock) to our Web application to obtain credentials that can be passed on to the API.
 
@@ -403,13 +423,13 @@ Now that we have a running Web Application with an authenticated user that needs
 Let’s say we want to call our API from an MVC Action that would list all the values from the API. First, we obtain the token from the current logged-in user with:
 
 ```cs
-User.Claims.First(x=>x.Type == "id_token").Value
+User.Claims.First(x=>x.Type == "access_token").Value
 ```
 
 And create credentials with it:
 
 ```cs
- var auth = new Microsoft.Rest.TokenCredentials(User.Claims.First(x=>x.Type == "id_token").Value);
+ var auth = new Microsoft.Rest.TokenCredentials(User.Claims.First(x=>x.Type == "access_token").Value);
 ```
 
 Finally, we use our _Autorest generated client_ to easily obtain the information and pass the credentials:
@@ -418,7 +438,7 @@ Finally, we use our _Autorest generated client_ to easily obtain the information
 [Authorize]
 public async Task<IActionResult> List()
 {
-    var auth = new Microsoft.Rest.TokenCredentials(User.Claims.First(x=>x.Type == "id_token").Value);
+    var auth = new Microsoft.Rest.TokenCredentials(User.Claims.First(x=>x.Type == "access_token").Value);
     var api = new Auth0SwaggerSampleAPI(new Uri("http://localhost:5000"), auth); 
     return View(await api.ValuesGetAsync());
 }
