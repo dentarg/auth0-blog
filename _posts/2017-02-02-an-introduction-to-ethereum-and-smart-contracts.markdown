@@ -329,8 +329,49 @@ The concept of the previous example can be extended to a proof of the existence 
 
 There are many more examples of things that can be implemented with Ethereum, [check them out](http://dapps.ethercasts.com)!
 
-## Aside: Linking Identities to Ethereum Addesses
+## Aside: Using Webtasks and Ethereum to Create a Login System
+One of the cool things about Ethereum is that addresses are, by definition, systems to prove ownership. Whomever can perform operations with an Ethereum address is the rightful owner of that address. This is, of course, the consequence of the underlying public-key infrastructure used to verify transactions. We can exploit this to create a login system based on Ethereum addresses. Let's see how.
+
+Any login system is mainly concerned with creating a unique identity that can be managed by whomever can pass a certain "login challenge". The login challenge is the method to prove that the same entity that created the account in the first place is the same entity doing operations now. Most systems rely on the classic username + password login challenge: a new user registers by choosing a unique username and a password, then, anytime the system requires proof that the user is in fact who he says he is, it can request the password for that username. This system works. But with Ethereum we already have a system for proving identities: public and private keys!
+
+We'll design a simple contract that can be used by any user to validate his ownership of an address. The login process will be as follows:
+
+1. A user accesses a website that requires him or her to login. When the user is not logged in, the website requests the user to enter his or her Ethereum address.
+2. The backend for the website receives the address for the user and creates a challenge string and a JWT. Both of these are sent back to the user.
+3. The user sends the challenge string to the `Login` contract and stores the JWT for later use locally.
+4. The backend listens for login attempts using the challenge string at the Ethereum network. When an attempt with the challenge string for the right user is seen, it can assume the user has proved his or her identity. The only person that can send a message with an Ethereum address is the holder of the private key, and the only user that knows the challenge string is the user that received the challenge through the login website.
+5. The user gets notified or polls the website backend for confirmation of his or her successful login. The user then proceeds to use the JWT issued in step 2 for accessing the website. Alternatively, a new JWT can be issued after a successful login to keep state client-side.
+
+To that end, this is the Ethereum contract we will use:
+
+```solidity
+pragma solidity ^0.4.2;
+
+contract Login {
+  
+    event LoginAttempt(address indexed sender, string challenge);
+
+    function login(string challenge) constant {
+        LoginAttempt(msg.sender, challenge);
+    }
+
+}
+```
+
+The contract is extremely simple. `Events` are special elements in Solidity that are mapped to a system in Ethereum that allows special data to be logged. Events are generally watched by clients monitoring the evolution of the blockchain. This allows actions to be taken by clients when events are created. In our case, whenever a user attempts to login, an event created with the challenge is broadcast. Note that the function is marked `constant`. This means no data is stored in the blockchain. We only care about receiving a call from the rightful owner of the Ethereum address that was passed to the third party website. And, thanks to the way Ethereum works, we can be sure the sender was the one who performed the call.
+
+In addition to the sender's address, the challenge is also broadcast. This means anyone watching the blockchain now knows the challenge. However, this cannot be used on its own to impersonate a user: a user can only interact with the backend through the session JWT. This means an attacker must know three pieces of information to impersonate a user: the Ethereum address, the challenge AND the JWT issued with the challenge. Since JWTs are signed, an attacker cannot create a valid JWT to impersonate an user, even with access to the challenge.
+
+Here's our backend code:
+
+```javascript
+```
+
+### Running the Example
+
 TODO
+
+Grab the full example.
 
 ## Conclusion
 TODO
