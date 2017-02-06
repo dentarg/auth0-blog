@@ -377,23 +377,51 @@ Now we've learned about purity, statelessness, immutability, declarative program
 
 > *If we tried to write a JavaScript web application composed of nothing but pure functions with no side effects, it couldn't interact with its environment and therefore wouldn't be particularly useful.
 
-Let's examine a small example. Say we have some text and we want to output keywords that are longer than five characters.
+Let's examine an example. Say we have some text and we want to count the words as well as output keywords that are longer than five characters:
 
 ```js
 const fpCopy = `Functional programming is powerful and enjoyable to write. It's also fun!`;
 
-function makeArray(arr) {
-  return arr
-    .split(/[\s,.!]+/)
-    .filter(item => item.length > 5);
+// remove punctuation from string 
+function stripPunctuation(str) {
+  return str
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 }
 
-console.log(makeArray(fpCopy));
+// split passed string on spaces to create an array
+function getArr(str) {
+  return str.split(' ');
+}
+
+// count items in the passed array
+function getWordCount(arr) {
+  return arr.length;
+}
+
+// find items in the passed array longer than 5 characters
+// make items lower case
+function getKeywords(arr) {
+  return arr
+    .filter(item => item.length > 5)
+    .map(item => item.toLowerCase());
+}
+
+// process copy to prep the string, create an array, count words, and get keywords
+function processCopy(str, prepFn, arrFn, countFn, kwFn) {
+  const copyArray = arrFn(prepFn(str));
+  
+  console.log(`Word count: ${countFn(copyArray)}`);
+  console.log(`Keywords: ${kwFn(copyArray)}`);
+}
+
+processCopy(fpCopy, stripPunctuation, getArr, getWordCount, getKeywords);
 ```
+
+This code is available to run at [this JSFiddle](https://jsfiddle.net/kmaida/xxc7g0ve/). It's broken into digestible, declarative functions with clear purpose. If we step through it and read the comments, no further explanation of the code should be necessary. Each _core_ function is modular and relies only on its inputs (<a href="#purity" target="_self">pure</a>). The last function processes the core to generate the collective outputs. It takes all our other functions as parameters and then produces logs. This function is the impure container that executes the core and manages side effects.
 
 ### Functional Programming Takeaways
 
-Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and handle necessary side effects, impure functions can call pure functions imperatively. 
+Immutable data and statelessness mean that the program's existing state is not modified. Instead, new values are returned. Pure functions are used for core functionality. In order to implement the program and handle necessary side effects, impure functions can call pure functions imperatively.
 
 To learn more about **functional programming**, check out the following resources:
 
@@ -408,6 +436,8 @@ To learn more about **functional programming**, check out the following resource
 * [Functional Programming by Example](http://tobyho.com/2015/11/09/functional-programming-by-example/)
 * [Functional Programming in JavaScript - Video Series](https://www.youtube.com/watch?v=BMUiFMZr7vk&list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)
 * [Introduction to Functional JavaScript](https://medium.com/functional-javascript/introduction-to-functional-javascript-45a9dca6c64a#.2qjh0i04y)
+* [How to perform side effects in pure functional programming](http://stackoverflow.com/questions/18172947/how-to-perform-side-effects-in-pure-functional-programming)
+* [Preventing Side Effects in JavaScript](https://davidwalsh.name/preventing-sideeffects-javascript)
 
 ---
 
@@ -623,7 +653,7 @@ function addPoint(pointObj) {
 }
 ```
 
-You can check out this code in action in [this JSFiddle](https://jsfiddle.net/kmaida/3v8yw02s/). Run the code and move your mouse over the result area of the screen as it counts up to `10` seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
+You can check out this code in action in [this JSFiddle](https://jsfiddle.net/kmaida/3v8yw02s/). Run the fiddle and move your mouse over the result area of the screen as it counts up to `10` seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
 
 Let's briefly discuss this implementation step-by-step.
 
@@ -655,6 +685,7 @@ Finally, consider this quote from the recluse's book in the first edition of [El
 
 To learn more about **functional reactive programming (FRP)**, check out the following resources:
 
+* [Functional Reactive Programming for Beginners](https://www.youtube.com/watch?v=vLmaZxegahk)
 * [The Functional Reactive Misconception](https://sideeffects.xyz/2015/the-functional-reactive-misconception/)
 * [What is Functional Reactive Programming?](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming/1030631#1030631)
 * [Haskell - Functional Reactive Programming](https://wiki.haskell.org/Functional_Reactive_Programming)
