@@ -257,7 +257,7 @@ Consider a function that increments every number in an array of integers. An imp
 function incrementArray(arr) {
   let resultArr = [];
   for (let i = 0; i < arr.length; i++) {
-    resultArr.push(arr[i]++);
+    resultArr.push(arr[i] + 1);
   }
   return resultArr;
 }
@@ -273,7 +273,7 @@ Consider the `incrementArray()` function we implemented imperatively above. Let'
 
 ```js
 function incrementArray(arr) {
-  return arr.map(item => item++);
+  return arr.map(item => item + 1);
 }
 ```
 
@@ -283,7 +283,7 @@ Using declarative programming, we show _what_ we want to achieve, but not how it
 
 ### Imperative and Declarative Programming Takeaways
 
-As a language, JavaScript allows both **imperative and declarative programming** paradigms. Much of the JS code we read and write is and has been imperative. However, with the rise of <a href="#functional-programming" target="_self">functional programming</a> in JS, declarative approaches are becoming more common.
+As a language, JavaScript allows both **imperative and declarative programming** paradigms. Much of the JS code we read and write is imperative. However, with the rise of <a href="#functional-programming" target="_self">functional programming</a> in JS, declarative approaches are becoming more common.
 
 Declarative programming has obvious advantages with regard to brevity and readability, but at the same time it can feel magical.  Many JavaScript beginners can benefit from gaining experience writing imperative JS before diving too deep into declarative programming.
 
@@ -311,7 +311,7 @@ const double = function(x) {
 }
 const timesTwo = double;
 
-timesTwo(4); // 8
+timesTwo(4); // result: returns 8
 ```
 
 One example of taking a function as an argument is a _callback_. Callbacks can be inline anonymous functions or named functions:
