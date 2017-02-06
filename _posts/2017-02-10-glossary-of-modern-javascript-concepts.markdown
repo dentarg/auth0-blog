@@ -2,7 +2,7 @@
 layout: post
 title: "Glossary of Modern JavaScript Concepts: Part 1"
 description: "Learn the concepts necessary to understand functional programming, reactive programming, and functional reactive programming in JavaScript."
-date: 2017-02-05 8:30
+date: 2017-02-13 8:30
 category: Glossary, Technical guide
 banner:
   text: "Auth0 makes it easy to add authentication to your JS application."
@@ -26,7 +26,7 @@ related:
 
 ## Introduction
 
-Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous programming concepts are surfacing that are unfamiliar to many front-end developers. In this post series, we'll take a look at some of the common concepts in the current front-end landscape and explore how they apply to modern JavaScript, starting with the fundamentals of functional programming, reactive programming, and functional reactive programming.
+Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous programming concepts are surfacing that are unfamiliar to many front-end developers. In this post series, we'll take a look common concepts in the current front-end landscape and explore how they apply to modern JavaScript. We'll start with the fundamentals of functional programming, reactive programming, and functional reactive programming.
 
 ---
 
@@ -67,7 +67,7 @@ Pure functions only depend on what's passed to them. For example, a pure functio
 ```js
 var someNum = 8;
 
-// This is NOT a pure function
+// this is NOT a pure function
 function impureHalf() {
   return someNum / 2;
 }
@@ -84,18 +84,18 @@ In summary:
 An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure. Procedural functions with no utilized return value are also impure. Consider the following examples:
 
 ```js
-// This impure function produces a side effect.
+// impure function producing a side effect
 function showAlert() {
   alert('This is a side effect!');
 }
 
-// This impure function mutates external state.
+// impure function mutating external state
 var globalVal = 1;
 function incrementGlobalVal() {
   globalVal++;
 }
 
-// This impure function calls pure functions procedurally.
+// impure function calling pure functions procedurally
 function proceduralFn() {
   const result1 = pureFnFirst(1);
   const result2 = pureFnLast(2);
@@ -128,7 +128,7 @@ To learn more about **purity**, check out the following resources:
 **Stateful** programs, apps, or components store data in memory about the current state. They can modify the state as well as access its history. The following example is _stateful_:
 
 ```js
-// Stateful
+// stateful
 var number = 1;
 function increment() {
   return number++;
@@ -141,7 +141,7 @@ increment();
 **Stateless** programs, apps, or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. <a href="#purity" target="_self">Pure functions</a> are stateless. See the following example:
 
 ```js
-// Stateless
+// stateless
 var number = 1;
 function increment(n) {
   return n++;
@@ -247,7 +247,6 @@ Consider a function that increments every number in an array of integers. An imp
 ```js
 function incrementArray(arr) {
   let resultArr = [];
-  
   for (let i = 0; i < arr.length; i++) {
     resultArr.push(arr[i]++);
   }
@@ -298,10 +297,10 @@ A **higher-order function** is a function that:
 In JavaScript, functions are [_first-class objects_](http://helephant.com/2008/08/19/functions-are-first-class-objects-in-javascript/). They can be stored and passed around as _values_: we can assign a function to a variable or pass a function to another function.
 
 ```js
-var double = function(x) {
+const double = function(x) {
   return x * 2;
 }
-var timesTwo = double;
+const timesTwo = double;
 
 timesTwo(4); // 8
 ```
@@ -330,7 +329,6 @@ function sayHi() {
 function greet(greeting) {
   greeting();
 }
-
 greet(sayHi); // alerts "Hi!"
 ```
 
@@ -380,31 +378,26 @@ Now we've learned about purity, statelessness, immutability, declarative program
 Let's examine an example. Say we have some text and we want to count the words as well as output keywords that are longer than five characters:
 
 ```js
-const fpCopy = `Functional programming is powerful and enjoyable to write. It's also fun!`;
+const fpCopy = `Functional programming is powerful and enjoyable to write. It's very cool!`;
 
 // remove punctuation from string 
-function stripPunctuation(str) {
-  return str
-    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
-}
+const stripPunctuation = (str) =>
+  str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 
 // split passed string on spaces to create an array
-function getArr(str) {
-  return str.split(' ');
-}
+const getArr = (str) =>
+  str.split(' ');
 
 // count items in the passed array
-function getWordCount(arr) {
-  return arr.length;
-}
+const getWordCount = (arr) =>
+  arr.length;
 
 // find items in the passed array longer than 5 characters
 // make items lower case
-function getKeywords(arr) {
-  return arr
+const getKeywords = (arr) =>
+  arr
     .filter(item => item.length > 5)
     .map(item => item.toLowerCase());
-}
 
 // process copy to prep the string, create an array, count words, and get keywords
 function processCopy(str, prepFn, arrFn, countFn, kwFn) {
@@ -417,7 +410,7 @@ function processCopy(str, prepFn, arrFn, countFn, kwFn) {
 processCopy(fpCopy, stripPunctuation, getArr, getWordCount, getKeywords);
 ```
 
-This code is available to run at [this JSFiddle](https://jsfiddle.net/kmaida/xxc7g0ve/). It's broken into digestible, declarative functions with clear purpose. If we step through it and read the comments, no further explanation of the code should be necessary. Each _core_ function is modular and relies only on its inputs (<a href="#purity" target="_self">pure</a>). The last function processes the core to generate the collective outputs. It takes all our other functions as parameters and then produces logs. This function is the impure container that executes the core and manages side effects.
+This code is available to run at this [JSFiddle: Functional Programming with JavaScript](https://jsfiddle.net/kmaida/xxc7g0ve/). It's broken into digestible, declarative functions with clear purpose. If we step through it and read the comments, no further explanation of the code should be necessary. Each _core_ function is modular and relies only on its inputs (<a href="#purity" target="_self">pure</a>). The last function processes the core to generate the collective outputs. This function, `processCopy()`, is the impure container that executes the core and manages side effects, though we've used a <a href="#higher-order-functions" target="_self">higher-order function</a> that accepts the other functions as arguments to maintain a functional style.
 
 ### Functional Programming Takeaways
 
@@ -452,14 +445,14 @@ The example code below shows that as the window size changes, we can declarative
 ```js
 // create window resize stream
 // throttle resize events
-var resize$ = 
+const resize$ = 
   Rx.Observable
     .fromEvent(window, 'resize')
     .throttleTime(350);
 
 // subscribe to the resize$ observable
 // log window width x height
-var subscription = 
+const subscription = 
   resize$.subscribe((event) => {
     let t = event.target;
     console.log(`${t.innerWidth}px x ${t.innerHeight}px`);
@@ -478,10 +471,10 @@ Let's create an observable collection of numbers ranging from `1` to `5`. We can
 
 ```js
 // create source number stream
-var source$ = Rx.Observable.range(1, 5);
+const source$ = Rx.Observable.range(1, 5);
 
 // subscribe to source$ observable
-var subscription = source$.subscribe(
+const subscription = source$.subscribe(
   (value) => { console.log(`Next: ${value}`); }, // onNext
   (event) => { console.log(`Error: ${event}`); }, // onError
   () => { console.log('Completed!'); }  // onCompleted
@@ -514,25 +507,36 @@ To learn more about **observables**, check out the following resources:
 
 Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
 
-Here is an example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code:
+Here is a simple example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code:
 
 ```html
 <input id="confirmation-code" type="text">
+<p>
+  <strong>Valid code attempt:</strong>
+  <code id="attempted-code"></code>
+</p>
 ```
 
 We'll use RxJS and create a stream of inputs, like so:
 
 ```js
-var confCode = document.getElementById('confirmation-code');
+const confCodeInput = document.getElementById('confirmation-code');
+const attemptedCode = document.getElementById('attempted-code');
 
-var confCodes$ = 
+const confCodes$ = 
   Rx.Observable
-    .fromEvent(confCode, 'input')
+    .fromEvent(confCodeInput, 'input')
     .map(e => e.target.value)
     .filter(code => code.length === 6);
+    
+const subscription = confCodes$.subscribe(
+  (value) => attemptedCode.innerText = value,
+  (event) => { console.warn(`Error: ${event}`); },
+  () => { console.info('Completed!'); }
+);
 ```
 
-We are observing inputs to the `confCode` input. We then use `map` to get the input value from each event. Next, we `filter` any results that are not six characters so they won't appear in the returned stream. Note that this was done in response to events over time, declaratively: although simplified for example purposes, this is the crux of _reactive programming_.
+This code can be run at this [JSFiddle: Reactive Programming with JavaScript](https://jsfiddle.net/kmaida/v1ozuwgu/). We'll observe inputs to the `confCodeInput` input element. Then we'll use `map` to get the `value` from each input event. Next, we'll `filter` any results that are not six characters so they won't appear in the returned stream. Finally, we can print out the latest valid confirmation code attempt. Note that this was done in response to events over time, declaratively: this is the crux of _reactive programming_.
 
 ### Reactive Programming Takeaways
 
@@ -552,22 +556,22 @@ To learn more about **reactive programming** in general as well as with JavaScri
 
 ## <span id="functional-reactive-programming"></span>Functional Reactive Programming
 
-According to some simplified definitions, functional reactive programming (FRP) is a subset of reactive programming using the principles of functional programming such as referential transparency. FRP could be summarized as declaratively responding to events or behaviors over time. But the full picture is not quite that simple. Let's take a look at the formulation of FRP. Then we'll examine its use in relation to JavaScript in particular.
+In oversimplified terms, functional reactive programming could be summarized as declaratively responding to events or behaviors over time. But the full picture is not that simple. Let's take a look at the formulation of FRP. Then we'll examine its use in relation to JavaScript.
 
 ### What is Functional Reactive Programming?
 
 A [more accurate definition](http://stackoverflow.com/a/5386908) from [Conal Elliot, FRP's formulator](https://twitter.com/conal), would be that **functional reactive programming** is "[denotative](https://en.wikibooks.org/wiki/Haskell/Denotational_semantics) and temporally continuous". Elliot mentions that he prefers to describe this programming paradigm as _denotative continuous-time programming_ as opposed to "functional reactive programming".
-
-> FRP expressions describe entire evolutions of values over time, representing these evolutions directly as first-class values. —Conal Elliot
 
 **Functional reactive programming**, at its most basic, original  definition, has two fundamental properties:
 
 * **denotative**: the meaning of each function or type is precise, simple, and implementation-independent ("functional" references this)
 * **continuous time**: [variables have a particular value for a very short time: between any two points are an infinite number of other points](https://en.wikipedia.org/wiki/Discrete_time_and_continuous_time#Continuous_time); provides transformation flexibility, efficiency, modularity, and accuracy ("reactive" references this)
 
-In short, [**functional reactive programming** is programming declaratively with time-varying values](https://www.quora.com/What-is-Functional-Reactive-Programming). 
+In short, [**functional reactive programming** is programming declaratively with time-varying values](https://www.quora.com/What-is-Functional-Reactive-Programming).
 
-To understand _continuous time / temporal continuity_, consider an analogy using vector graphics. Vector graphics have an _infinite resolution_. Unlike bitmap graphics (discrete resolution), vector graphics scale indefinitely no matter how large or small they are.
+> FRP expressions describe entire evolutions of values over time, representing these evolutions directly as first-class values. —Conal Elliot
+
+To understand _continuous time / temporal continuity_, consider an analogy using vector graphics. Vector graphics have an _infinite resolution_. Unlike bitmap graphics (discrete resolution), vector graphics scale indefinitely. They never pixellate or become indistinct when particularly large or small the way bitmap graphics do.
 
 FRP should be:
 
@@ -653,7 +657,7 @@ function addPoint(pointObj) {
 }
 ```
 
-You can check out this code in action in [this JSFiddle](https://jsfiddle.net/kmaida/3v8yw02s/). Run the fiddle and move your mouse over the result area of the screen as it counts up to `10` seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
+You can check out this code in action in this [JSFiddle: FRP-inspired JavaScript](https://jsfiddle.net/kmaida/3v8yw02s/). Run the fiddle and move your mouse over the result area of the screen as it counts up to `10` seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
 
 Let's briefly discuss this implementation step-by-step.
 
@@ -708,4 +712,6 @@ We'll conclude with one more quote from the recluse's book in the first edition 
 >
 >—_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
 
-The concepts necessary for understanding functional programming, reactive programming, and functional reactive programming in JavaScript can be difficult to grasp, let alone _master_. 
+The concepts necessary for understanding <a href="#functional-programming" target="_self">functional programming</a>, <a href="#reactive-programming" target="_self">reactive programming</a>, and <a href="#functional-reactive-programming" target="_self">functional reactive programming</a> can be difficult to grasp, let alone master. Writing code that takes advantage of a paradigm's fundamentals is the first step, even if it isn't entirely faithful at first. Practice illuminates the path ahead and reveals potential revisions. Consult the resource links in each section for additional information.
+
+With this glossary as a starting point, hopefully you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. We'll cover additional concepts and topics in the next modern JS glossary post!
