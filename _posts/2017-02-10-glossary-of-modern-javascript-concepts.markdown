@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Glossary of Modern JavaScript Concepts: Part 1"
-description: "Learn the fundamentals necessary to understand functional programming, reactive programming, and functional reactive programming in JavaScript."
+description: "Learn the fundamentals of functional programming, reactive programming, and functional reactive programming in JavaScript."
 date: 2017-02-13 8:30
 category: Glossary, Technical guide
 banner:
@@ -677,13 +677,13 @@ Let's look at the `createTimeset(n)` function. We'll create a new `div` element 
 
 In the `addPoint(pointObj)` function, we'll print out the latest coordinates in the most recent timeset `div`. This will associate each coordinate with its corresponding time interval. We can now read where the mouse has been over time.
 
-> **Note:** These functions are <a href="#purity" target="_self">impure because they have side effects</a>: they modify external scope. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
+> **Note:** These functions are <a href="#purity" target="_self">impure and have side effects</a>: they modify external scope. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
 
 ### Functional Reactive Programming Takeaways
 
 FRP encodes actions that react to events using pure functions that map state from a previous point in time to the next point in time.  FRP in JavaScript doesn't adhere to the two primary fundamentals of Conal Elliot's FRP, but there is certainly value in abstractions of the original concept. JavaScript relies heavily on side effects and imperative programming, but we can certainly take advantage of the power of FRP concepts to improve our JS.
 
-Finally, consider this quote from the first edition of [Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/) (second edition available [here](http://eloquentjavascript.net)):
+Finally, consider this quote from the [first edition of Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/) (the [second edition is available here](http://eloquentjavascript.net)):
 
 > "Fu-Tzu had written a small program that was full of global state and dubious shortcuts. Reading it, a student asked 'You warned us against these techniques, yet I find them in your program. How can this be?'
 > 
