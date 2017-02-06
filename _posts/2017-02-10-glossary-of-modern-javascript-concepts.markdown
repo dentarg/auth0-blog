@@ -30,7 +30,7 @@ related:
 
 ## Introduction
 
-Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous programming concepts are surfacing that are unfamiliar to many front-end developers. In this post series, we'll take a look at intermediate and advanced fundamental concepts in the front-end landscape and explore how they apply to modern JavaScript.
+Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous concepts appearing in JS blogs and documentation are still unfamiliar to many front-end developers. In this post series, we'll take a look at intermediate and advanced fundamental concepts in the front-end programming landscape and explore how they apply to modern JavaScript.
 
 ---
 
@@ -165,7 +165,7 @@ To learn more about **state**, check out the following resources:
 
 ## <span id="immutable-mutable"></span>Immutability and Mutability
 
-The concepts of **immutability and mutability** are slightly more nebulous in JavaScript than in some other programming languages. However, you will hear a lot about immutability when reading about functional programming in JS. It's important to know what these terms mean classically and also how they are referenced and implemented in JavaScript.
+The concepts of **immutability and mutability** are slightly more nebulous in JavaScript than in some other programming languages. However, you will hear a lot about immutability when reading about <a href="#functional-programming" target="_self">functional programming</a> in JS. It's important to know what these terms mean classically and also how they are referenced and implemented in JavaScript.
 
 ### Immutable
 
@@ -216,13 +216,13 @@ Functional programming in JS has gained a lot of momentum. But by design, JS is 
 
 When we talk about functional programming in JS, the word "immutable" is used a lot, but it's dependent on the developer to write their code with immutability in mind. For example, [Redux relies on a single, immutable state tree](https://egghead.io/lessons/javascript-redux-the-single-immutable-state-tree). However, _JavaScript itself_ is capable of mutating the state object. To implement an immutable state tree, we need to [return a _new_](https://egghead.io/lessons/javascript-redux-avoiding-array-mutations-with-concat-slice-and-spread) [state object](https://egghead.io/lessons/javascript-redux-avoiding-object-mutations-with-object-assign-and-spread) each time the state changes.
 
-JavaScript objects [can also be frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) with `Object.freeze(obj)` [to make them immutable](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html). Note that this is _shallow_, meaning object values within a frozen object can still be mutated. To further ensure immutability, [functions like Mozilla's deepFreeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) and [npm packages like deep-freeze](https://www.npmjs.com/package/deep-freeze) can recursively freeze objects. Freezing is most practical when used in _tests_ rather than in application code. This way, tests will alert developers when mutations occur so they can be corrected and avoided in the actual build without cluttering the core code.
+JavaScript objects [can also be frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) with `Object.freeze(obj)` [to make them immutable](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html). Note that this is _shallow_, meaning object values within a frozen object can still be mutated. To further ensure immutability, [functions like Mozilla's deepFreeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) and [npm packages like deep-freeze](https://www.npmjs.com/package/deep-freeze) can recursively freeze objects. Freezing is most practical when used in _tests_ rather than in application JS. This way, tests will alert developers when mutations occur so they can be corrected and avoided in the actual build without cluttering the core code.
 
-There are also libraries available to support immutability in JS. [Mori](http://swannodette.github.io/mori/) delivers persistent data structures based on Clojure. [Immutable.js](https://facebook.github.io/immutable-js/) by Facebook also provides immutable collections for JS. Utility libraries like [Underscore.js](http://underscorejs.org) and [lodash](http://www.lodash.com) provide methods and modules to promote a more immutable, [functional programming style](https://github.com/lodash/lodash/wiki/FP-Guide).
+There are also libraries available to support immutability in JS. [Mori](http://swannodette.github.io/mori/) delivers persistent data structures based on Clojure. [Immutable.js](https://facebook.github.io/immutable-js/) by Facebook also provides immutable collections for JS. Utility libraries like [Underscore.js](http://underscorejs.org) and [lodash](http://www.lodash.com) provide methods and modules to promote a more immutable, [functional programming _style_](https://github.com/lodash/lodash/wiki/FP-Guide).
 
 ### Immutability and Mutability Takeaways
 
-Overall, JS is a very mutable language. Some styles of JS coding _rely_ on this innate mutability. When writing functional JS, however, implementing immutability requires mindfulness. JS will not natively throw type errors when you modify something unintentionally. Testing and libraries can assist, but working with immutability in JS takes practice and methodology.
+Overall, JS is a very mutable language. Some styles of JS coding _rely_ on this innate mutability. When writing functional JS, however, implementing immutability requires mindfulness. JS will not natively throw errors when you modify something unintentionally. Testing and libraries can assist, but working with immutability in JS takes practice and methodology.
 
 To learn more about **immutability and mutability**, check out the following resources:
 
