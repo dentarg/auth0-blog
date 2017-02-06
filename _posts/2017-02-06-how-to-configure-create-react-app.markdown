@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Customizing create-react-app: How to Make Your Own create-react-app Template"
-description: "Create React App (CRA) is a very good tool for creating react apps from the CLI without build configuration. Learn how to create a custom script that works with create-react-app"
+title: "Customizing create-react-app: How to Make Your Own Template"
+description: "Create React App (CRA) is a very good tool for creating React apps from the CLI without build configuration."
 date: 2017-02-06 08:30
 category: Technical Guide, Frontend, React
 author:
