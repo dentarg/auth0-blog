@@ -24,17 +24,21 @@ related:
 - 2016-03-23-intro-to-immutable-js
 ---
 
+**TL;DR:** In the first part of the Glossary of Modern JS Concepts series, gain an understanding of _functional programming_, _reactive programming_, and _functional reactive programming_. We'll learn about purity, statefulness and statelessness, immutability and mutability, imperative and declarative programming, higher-order functions, observables, and the FP, RP, and FRP paradigms.
+
+---
+
 ## Introduction
 
-Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous programming concepts are surfacing that are unfamiliar to many front-end developers. In this post series, we'll take a look common concepts in the current front-end landscape and explore how they apply to modern JavaScript. We'll start with the fundamentals of functional programming, reactive programming, and functional reactive programming.
+Modern JavaScript has experienced massive proliferation over the last few years and shows no signs of slowing. Numerous programming concepts are surfacing that are unfamiliar to many front-end developers. In this post series, we'll take a look at intermediate and advanced fundamental concepts in the front-end landscape and explore how they apply to modern JavaScript.
 
 ---
 
 ## Concepts
 
-In this article, we'll address concepts that are important to understand **functional programming, reactive programming, and functional reactive programming** and their use with JavaScript.
+In this article, we'll address concepts that are crucial to understanding **functional programming, reactive programming, and functional reactive programming and their use with JavaScript**.
 
-You can jump straight into each topic here, or continue reading to learn about the topics in order.
+You can jump straight into each concept here, or continue reading to learn about them in order.
 
 * <a href="#purity" target="_self">Purity: Pure Functions, Impure Functions, Side Effects</a>
 * <a href="#state" target="_self">State: Stateful and Stateless</a>
