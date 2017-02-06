@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Glossary of Modern JavaScript Concepts: Part 1"
-description: "Learn the concepts necessary to understand functional programming, reactive programming, and functional reactive programming in JavaScript."
+description: "Learn the fundamentals necessary to understand functional programming, reactive programming, and functional reactive programming in JavaScript."
 date: 2017-02-13 8:30
 category: Glossary, Technical guide
 banner:
@@ -12,8 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/js-fatigue/JSLogo.png
+  bg_color: "#222228"
 tags:
 - javascript
 - functional-programming
@@ -153,7 +153,7 @@ increment(number);
 
 To learn more about **state**, check out the following resources:
 
-* [State](https://en.wikipedia.org/wiki/State_(computer_science))
+* <a href="https://en.wikipedia.org/wiki/State_(computer_science)">State</a>
 * [Advantages of stateless programming](http://stackoverflow.com/questions/844536/advantages-of-stateless-programming)
 * [Stateful and stateless components, the missing manual](https://toddmotto.com/stateful-stateless-components)
 
@@ -311,7 +311,7 @@ One example of taking a function as an argument is a _callback_. Callbacks can b
 const myBtn = document.getElementById('myButton');
 
 // anonymous callback function
-myBtn.addEventListener('click', e => console.log(`Click event: ${e}`));
+myBtn.addEventListener('click', function(e) { console.log(`Click event: ${e}`); });
 
 // named callback function
 function btnHandler(e) {
@@ -507,19 +507,21 @@ To learn more about **observables**, check out the following resources:
 
 Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
 
-Here is a simple example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code:
+Here is a simple example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code and we want to print out the latest valid code attempt:
 
-```html
+{% highlight html %}
+<!-- HTML -->
 <input id="confirmation-code" type="text">
 <p>
   <strong>Valid code attempt:</strong>
   <code id="attempted-code"></code>
 </p>
-```
+{% endhighlight %}
 
 We'll use RxJS and create a stream of inputs, like so:
 
 ```js
+// JS
 const confCodeInput = document.getElementById('confirmation-code');
 const attemptedCode = document.getElementById('attempted-code');
 
@@ -556,22 +558,24 @@ To learn more about **reactive programming** in general as well as with JavaScri
 
 ## <span id="functional-reactive-programming"></span>Functional Reactive Programming
 
-In oversimplified terms, functional reactive programming could be summarized as declaratively responding to events or behaviors over time. But the full picture is not that simple. Let's take a look at the formulation of FRP. Then we'll examine its use in relation to JavaScript.
+In simple terms, functional reactive programming could be summarized as declaratively responding to events or behaviors over time. To understand the tenets of FRP in more depth, let's take a look at FRP's formulation. Then we'll examine its use in relation to JavaScript.
 
 ### What is Functional Reactive Programming?
 
-A [more accurate definition](http://stackoverflow.com/a/5386908) from [Conal Elliot, FRP's formulator](https://twitter.com/conal), would be that **functional reactive programming** is "[denotative](https://en.wikibooks.org/wiki/Haskell/Denotational_semantics) and temporally continuous". Elliot mentions that he prefers to describe this programming paradigm as _denotative continuous-time programming_ as opposed to "functional reactive programming".
+A [more complete definition](http://stackoverflow.com/a/5386908) from [Conal Elliot, FRP's formulator](https://twitter.com/conal), would be that **functional reactive programming** is "[denotative](https://en.wikibooks.org/wiki/Haskell/Denotational_semantics) and temporally continuous". Elliot mentions that he prefers to describe this programming paradigm as _denotative continuous-time programming_ as opposed to "functional reactive programming".
 
 **Functional reactive programming**, at its most basic, original  definition, has two fundamental properties:
 
 * **denotative**: the meaning of each function or type is precise, simple, and implementation-independent ("functional" references this)
 * **continuous time**: [variables have a particular value for a very short time: between any two points are an infinite number of other points](https://en.wikipedia.org/wiki/Discrete_time_and_continuous_time#Continuous_time); provides transformation flexibility, efficiency, modularity, and accuracy ("reactive" references this)
 
-In short, [**functional reactive programming** is programming declaratively with time-varying values](https://www.quora.com/What-is-Functional-Reactive-Programming).
-
-> FRP expressions describe entire evolutions of values over time, representing these evolutions directly as first-class values. —Conal Elliot
+Again, when we put it simply: [**functional reactive programming** is programming declaratively with time-varying values](https://www.quora.com/What-is-Functional-Reactive-Programming).
 
 To understand _continuous time / temporal continuity_, consider an analogy using vector graphics. Vector graphics have an _infinite resolution_. Unlike bitmap graphics (discrete resolution), vector graphics scale indefinitely. They never pixellate or become indistinct when particularly large or small the way bitmap graphics do.
+
+>"FRP expressions describe entire evolutions of values over time, representing these evolutions directly as first-class values."
+>
+>—Conal Elliot
 
 FRP should be:
 
@@ -580,7 +584,7 @@ FRP should be:
 * efficient: minimize amount of processing necessary when inputs change
 * historically aware: pure functions map state from a previous point in time to the next point in time; state changes concern the local element and not the global program state
 
-Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). An example of a functional reactive language is [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming). Evan Czaplicki, the creator of Elm, also gives a great overview of FRP in his talk [Controlling Time and Space: Understanding the Many Formulations of FRP](https://www.youtube.com/watch?v=Agu6jipKfYw).
+Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). An example of a functional reactive language is [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming). Evan Czaplicki, the creator of [Elm](http://elm-lang.org), also gives a great overview of FRP in his talk [Controlling Time and Space: Understanding the Many Formulations of FRP](https://www.youtube.com/watch?v=Agu6jipKfYw).
 
 ### In Practice: Functional Reactive Programming and JavaScript
 
@@ -588,7 +592,7 @@ The traditional definition of FRP can be difficult to grasp, especially for deve
 
 In order to reconcile what you may have read about FRP in JS, it's important to understand that **[Rx*](https://www.sitepoint.com/functional-reactive-programming-rxjs/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _NOT_ consistent with the primary fundamentals of Conal Elliot's definition of FRP**. [Elliot states  that tools like Rx* and Bacon.js are not FRP. Instead, they are "compositional event systems _inspired_ by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525). 
 
-Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk about a different language briefly. [Evan Czapliki](http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf)'s [**Elm**](http://elm-lang.org) is a functional, typed language for building web applications. It compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for the [Redux](http://redux.js.org/) state container for JS apps. [Elm was originally considered a true functional reactive programming language](https://www.youtube.com/watch?v=Agu6jipKfYw), but as of version 0.17, it shifted to the use of _subscriptions_ over signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
+Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk about a different language briefly. [Evan Czapliki](http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf)'s [Elm](https://auth0.com/blog/creating-your-first-elm-app-part-1/) is a functional, typed language for building web applications. It compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for the [Redux](http://redux.js.org/) state container for JS apps. [Elm was originally considered a true functional reactive programming language](https://www.youtube.com/watch?v=Agu6jipKfYw), but as of version 0.17, it shifted to the use of _subscriptions_ instead of signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
 
 Functional reactive programming, _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [specifically _excludes_ streams as a component](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
