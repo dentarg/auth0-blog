@@ -573,26 +573,26 @@ Again, when we put it simply: [**functional reactive programming** is programmin
 
 To understand _continuous time / temporal continuity_, consider an analogy using vector graphics. Vector graphics have an _infinite resolution_. Unlike bitmap graphics (discrete resolution), vector graphics scale indefinitely. They never pixellate or become indistinct when particularly large or small the way bitmap graphics do.
 
->"FRP expressions describe entire evolutions of values over time, representing these evolutions directly as first-class values."
+> "FRP expressions describe entire evolutions of values over time, representing these evolutions directly as first-class values."
 >
->—Conal Elliot
+> —_Conal Elliot_
 
-FRP should be:
+Functional reactive programming should be:
 
-* dynamic: can react over time or to input changes
+* dynamic: can react over time _or_ to input changes
 * time-varying: reactive _behaviors_ can change continually while reactive _values_ change discretely
 * efficient: minimize amount of processing necessary when inputs change
 * historically aware: pure functions map state from a previous point in time to the next point in time; state changes concern the local element and not the global program state
 
 Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). An example of a functional reactive language is [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming). Evan Czaplicki, the creator of [Elm](http://elm-lang.org), also gives a great overview of FRP in his talk [Controlling Time and Space: Understanding the Many Formulations of FRP](https://www.youtube.com/watch?v=Agu6jipKfYw).
 
+In fact, let's talk briefly about [Evan Czapliki](http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf)'s [Elm](https://auth0.com/blog/creating-your-first-elm-app-part-1/). Elm is a functional, typed language for building web applications. It compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for the [Redux](http://redux.js.org/) state container for JS apps. [Elm was originally considered a true functional reactive programming language](https://www.youtube.com/watch?v=Agu6jipKfYw), but as of version 0.17, it implemented _subscriptions_ instead of signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
+
 ### In Practice: Functional Reactive Programming and JavaScript
 
 The traditional definition of FRP can be difficult to grasp, especially for developers who don't have experience with languages like Haskell or Elm. However, the term has come up more frequently in the front-end ecosystem, so let's shed some light on its application in JavaScript.
 
-In order to reconcile what you may have read about FRP in JS, it's important to understand that **[Rx*](https://www.sitepoint.com/functional-reactive-programming-rxjs/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _NOT_ consistent with the primary fundamentals of Conal Elliot's definition of FRP**. [Elliot states  that tools like Rx* and Bacon.js are not FRP. Instead, they are "compositional event systems _inspired_ by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525). 
-
-Though the renditions of "FRP" in JS are actually _"FRP-inspired"_, let's talk about a different language briefly. [Evan Czapliki](http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf)'s [Elm](https://auth0.com/blog/creating-your-first-elm-app-part-1/) is a functional, typed language for building web applications. It compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for the [Redux](http://redux.js.org/) state container for JS apps. [Elm was originally considered a true functional reactive programming language](https://www.youtube.com/watch?v=Agu6jipKfYw), but as of version 0.17, it shifted to the use of _subscriptions_ instead of signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
+In order to reconcile what you may have read about FRP in JS, it's important to understand that [Rx*](https://www.sitepoint.com/functional-reactive-programming-rxjs/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _not_ consistent with the two primary fundamentals of Conal Elliot's definition of FRP. [Elliot states that Rx* and Bacon.js are not FRP. Instead, they are "compositional event systems _inspired_ by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525). 
 
 Functional reactive programming, _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [specifically _excludes_ streams as a component](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
@@ -677,19 +677,19 @@ Let's look at the `createTimeset(n)` function. We'll create a new `div` element 
 
 In the `addPoint(pointObj)` function, we'll print out the latest coordinates in the most recent timeset `div`. This will associate each coordinate with its corresponding time interval. We can now read where the mouse has been over time.
 
-> **Note:** These functions are <a href="#purity" target="_self">impure because they have side effects</a>. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
+> **Note:** These functions are <a href="#purity" target="_self">impure because they have side effects</a>: they modify external scope. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
 
 ### Functional Reactive Programming Takeaways
 
 FRP encodes actions that react to events using pure functions that map state from a previous point in time to the next point in time.  FRP in JavaScript doesn't adhere to the two primary fundamentals of Conal Elliot's FRP, but there is certainly value in abstractions of the original concept. JavaScript relies heavily on side effects and imperative programming, but we can certainly take advantage of the power of FRP concepts to improve our JS.
 
-Finally, consider this quote from the recluse's book in the first edition of [Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/) (second edition available [here](http://eloquentjavascript.net)):
+Finally, consider this quote from the first edition of [Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/) (second edition available [here](http://eloquentjavascript.net)):
 
 > "Fu-Tzu had written a small program that was full of global state and dubious shortcuts. Reading it, a student asked 'You warned us against these techniques, yet I find them in your program. How can this be?'
 > 
 > Fu-Tzu said 'There is no need to fetch a water hose when the house is not on fire.' {This is not to be read as an encouragement of sloppy programming, but rather as a warning against neurotic adherence to rules of thumb.}"
 >
->—_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
+> —_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
 
 To learn more about **functional reactive programming (FRP)**, check out the following resources:
 
@@ -710,12 +710,12 @@ To learn more about **functional reactive programming (FRP)**, check out the fol
 
 ## Conclusion
 
-We'll conclude with one more quote from the recluse's book in the first edition of [Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/):
+We'll conclude with another excellent quote from the first edition of [Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/):
 
 > "A student had been sitting motionless behind his computer for hours, frowning darkly. He was trying to write a beautiful solution to a difficult problem, but could not find the right approach. Fu-Tzu hit him on the back of his head and shouted '_Type something!_' The student started writing an ugly solution. After he had finished, he suddenly understood the beautiful solution."
 >
->—_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
+> —_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
 
-The concepts necessary for understanding <a href="#functional-programming" target="_self">functional programming</a>, <a href="#reactive-programming" target="_self">reactive programming</a>, and <a href="#functional-reactive-programming" target="_self">functional reactive programming</a> can be difficult to grasp, let alone master. Writing code that takes advantage of a paradigm's fundamentals is the first step, even if it isn't entirely faithful at first. Practice illuminates the path ahead and reveals potential revisions. Consult the resource links in each section for additional information.
+The concepts necessary for understanding <a href="#functional-programming" target="_self">functional programming</a>, <a href="#reactive-programming" target="_self">reactive programming</a>, and <a href="#functional-reactive-programming" target="_self">functional reactive programming</a> can be difficult to grasp, let alone _master_. Writing code that takes advantage of a paradigm's fundamentals is the initial step, even if it isn't entirely faithful at first. Practice illuminates the path ahead and also reveals potential revisions. If anything is still unclear regarding these topics, please consult the links in each section for additional resources.
 
-With this glossary as a starting point, hopefully you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. We'll cover additional concepts and topics in the next modern JS glossary post!
+With this glossary as a starting point, you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. We'll cover additional topics in the next Modern JS Glossary post!
