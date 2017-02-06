@@ -64,9 +64,9 @@ function half(x) {
 }
 ```
 
-The `half(x)` function takes a number `x` and returns a value of half of `x`. If we pass an argument of `8` to this function, the function will always return `4`. When invoked, a pure function can be replaced by its result. For example, we could replace `half(8)` with `4` wherever used in our code with no change to the final outcome. This is called **[_referential transparency_](https://en.wikipedia.org/wiki/Referential_transparency)**.
+The `half(x)` function takes a number `x` and returns a value of half of `x`. If we pass an argument of `8` to this function, the function will always return `4`. When invoked, a pure function can be replaced by its result. For example, we could replace `half(8)` with `4` wherever used in our code with no change to the final outcome. This is called **[referential transparency](https://en.wikipedia.org/wiki/Referential_transparency)**.
 
-Pure functions only depend on what's passed to them. For example, a pure function cannot reference variables from a parent scope unless they are explicitly passed into the function as arguments. Even then, they may _not modify_ the parent scope.
+Pure functions only depend on what's passed to them. For example, a pure function cannot reference variables from a parent scope unless they are explicitly passed into the function as arguments. Even then, the function can _not modify_ the parent scope.
 
 ```js
 var someNum = 8;
@@ -81,7 +81,7 @@ In summary:
 
 * In pure functions, the same input will always produce the same output.
 * Pure functions rely only on local state and do not mutate external state.
-* Pure functions produce no [_side effects_](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29).
+* Pure functions do not produce [side effects](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29).
 
 ### Impure Functions
 
@@ -109,7 +109,7 @@ function proceduralFn() {
 
 ### Side Effects
 
-When a function or expression modifies state outside its own context, the result is a **side effect**. Examples of side effects include making a call to an API, manipulating the DOM, raising an alert dialog, etc. If a function produces side effects, it is considered _impure_. Functions that cause side effects are less predictable and harder to test since they result in changes outside their local scope.
+When a function or expression modifies state outside its own context, the result is a **side effect**. Examples of side effects include making a call to an API, manipulating the DOM, raising an alert dialog, writing to a database, etc. If a function produces side effects, it is considered _impure_. Functions that cause side effects are less predictable and harder to test since they result in changes outside their local scope.
 
 ### Purity Takeaways
 
@@ -137,7 +137,7 @@ var number = 1;
 function increment() {
   return number++;
 }
-increment();
+increment(); // global variable modified: number = 2
 ```
 
 ### Stateless
@@ -148,9 +148,9 @@ increment();
 // stateless
 var number = 1;
 function increment(n) {
-  return n++;
+  return n + 1;
 }
-increment(number);
+increment(number); // global variable NOT modified: returns 2
 ```
 
 ### State Takeaways
@@ -681,7 +681,7 @@ Let's look at the `createTimeset(n)` function. We'll create a new `div` element 
 
 In the `addPoint(pointObj)` function, we'll print out the latest coordinates in the most recent timeset `div`. This will associate each coordinate with its corresponding time interval. We can now read where the mouse has been over time.
 
-> **Note:** These functions are <a href="#purity" target="_self">impure and have side effects</a>: they modify external scope. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
+> **Note:** These functions are <a href="#purity" target="_self">impure</a>: they have no return value and they also produce side effects. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
 
 ### Functional Reactive Programming Takeaways
 
