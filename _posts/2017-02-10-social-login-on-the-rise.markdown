@@ -10,8 +10,8 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  image: https://cdn.auth0.com/blog/ga/budgetlogo.png
-  bg_color: "#00715A"
+  image: https://cdn.auth0.com/blog/social-login-on-the-rise/social-login-logo.png
+  bg_color: "#2E598C"
 tags:
 - identity
 - social-login
