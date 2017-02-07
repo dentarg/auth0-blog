@@ -2,11 +2,11 @@
 layout: post
 title: "Migrating a PHP 5 App to PHP 7 (Rundown of PHP 7 Features) - Part 2"
 description: "Take a look at the PHP 7 features and learn how they can help you in migrating your PHP 5 projects."
-date: 2017-01-20 8:30
+date: 2017-02-07 8:30
 category: Technical Guide, PHP, Migration
 author:
   name: "Prosper Otemuyiwa"
-  url: "http://twitter.com/unicodeveloper?lang=en"
+  url: "https://twitter.com/unicodeveloper"
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
@@ -18,9 +18,10 @@ tags:
 - migrate
 related:
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
-- 2016-11-09-migrating-an-angular-1-app-to-angular-2-part-2
+- 2017-01-20-migrating-a-php5-app-to-php7-part-one
 ---
 
+---
 
 **TL;DR:** Many PHP applications are still running on PHP 5.x, not ready to take full advantage of the awesome features that PHP 7 offers. A lot of developers have not made the switch because of certain fears of compatibility issues, migration challenges and the strange awkward feeling that migrating will take away a big chunk of their time. In the [first part of this tutorial](https://auth0.com/blog/migrating-a-php5-app-to-php7-part-one) we learned how to set up a PHP 7 development environment. This time, we'll learn about all the new PHP 7 features and how you can leverage them when migrating your PHP 5 app to PHP 7.
 
