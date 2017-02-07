@@ -203,6 +203,7 @@ Numbers are immutable as well. The following will always have the same result:
 
 ```js
 var three = 1 + 2;
+// result: three = 3
 ```
 
 Under no circumstances could `1 + 2` evaluate to anything other than `3`.
@@ -477,13 +478,13 @@ The example code above shows that as the window size changes, we can throttle th
 
 ### Hot Observables
 
-User interface events like button clicks, mouse movement, etc. are _hot_. **Hot observables** will always push even if we're not specifically reacting to them with a subscription. The window resize example above is a hot observable. The `resize$` observable would fire whether or not `subscription` exists.
+User interface events like button clicks, mouse movement, etc. are _hot_. **Hot observables** will always push even if we're not specifically reacting to them with a subscription. The window resize example above is a hot observable: the `resize$` observable fires whether or not `subscription` exists.
 
 ### Cold Observables
 
 A **cold observable** begins pushing _only_ when we subscribe to it. If we subscribe again, it will start over.
 
-Let's create an observable collection of numbers ranging from `1` to `5`. We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md) to the `source$` observable we just created:
+Let's create an observable collection of numbers ranging from `1` to `5`:
 
 ```js
 // create source number stream
@@ -497,7 +498,7 @@ const subscription = source$.subscribe(
 );
 ```
 
-Upon subscription, the values are sent in sequence to the observer. The `onNext` callback logs the values: `Next: 1`, `Next: 2`, etc. until completion: `Completed!`. The cold `source$` observable we created doesn't push unless we _subscribe_ to it.
+We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md) to the `source$` observable we just created. Upon subscription, the values are sent in sequence to the observer. The `onNext` callback logs the values: `Next: 1`, `Next: 2`, etc. until completion: `Completed!`. The cold `source$` observable we created doesn't push unless we _subscribe_ to it.
 
 ### Observables Takeaways
 
@@ -523,7 +524,7 @@ To learn more about **observables**, check out the following resources:
 
 **Reactive programming** is concerned with propagating and responding to incoming events over time, <a href="#imperative-declarative" target="_self">declaratively</a> (describing _what_ to do rather than _how_).
 
-Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
+Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Reactive Extensions (abbreviated Rx*) [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
 
 Here is an example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code and we want to print out the latest valid code attempt. Our HTML might look like this:
 
@@ -536,7 +537,7 @@ Here is an example of reactive programming with observables. Let's say we have a
 </p>
 {% endhighlight %}
 
-We'll use RxJS and create a stream of inputs to implement our functionality, like so:
+We'll use RxJS and create a stream of input events to implement our functionality, like so:
 
 ```js
 // JS
@@ -556,13 +557,13 @@ const subscription = confCodes$.subscribe(
 );
 ```
 
-This code can be run at this [JSFiddle: Reactive Programming with JavaScript](https://jsfiddle.net/kmaida/v1ozuwgu/). We'll observe [events from](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/fromevent.md) the `confCodeInput` input element. Then we'll use the [`map` operator](http://reactivex.io/documentation/operators/map.html) to get the `value` from each input event. Next, we'll [`filter`](http://reactivex.io/documentation/operators/filter.html) any results that are not six characters so they won't appear in the returned stream. Finally, we'll [`subscribe`](http://reactivex.io/documentation/operators/subscribe.html) to our `confCodes$` observable and print out the latest valid confirmation code attempt. Note that this was done in response to events over time, declaratively: this is the crux of _reactive programming_.
+This code can be run at this [JSFiddle: Reactive Programming with JavaScript](https://jsfiddle.net/kmaida/v1ozuwgu/). We'll observe [events from](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/fromevent.md) the `confCodeInput` input element. Then we'll use the [`map` operator](http://reactivex.io/documentation/operators/map.html) to get the `value` from each input event. Next, we'll [`filter`](http://reactivex.io/documentation/operators/filter.html) any results that are not six characters so they won't appear in the returned stream. Finally, we'll [`subscribe`](http://reactivex.io/documentation/operators/subscribe.html) to our `confCodes$` observable and print out the latest valid confirmation code attempt. Note that this was done in response to events over time, declaratively: this is the crux of reactive programming.
 
 ### Reactive Programming Takeaways
 
-Reactive programming is a paradigm involving observing and reacting to events in asynchronous data streams. RxJS is used in [Angular](https://medium.com/google-developer-experts/angular-introduction-to-reactive-extensions-rxjs-a86a7430a61f#.41aap1i8a) and is gaining popularity as a JavaScript solution for reactive programming.
+The reactive programming paradigm involves observing and reacting to events in asynchronous data streams. RxJS is used in [Angular](https://medium.com/google-developer-experts/angular-introduction-to-reactive-extensions-rxjs-a86a7430a61f#.41aap1i8a) and is gaining popularity as a JavaScript solution for reactive programming.
 
-To learn more about **reactive programming** in general as well as with JavaScript, check out the following resources:
+To learn more about **reactive programming**, check out the following resources:
 
 * [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 * [Introduction to Rx](http://www.introtorx.com/)
