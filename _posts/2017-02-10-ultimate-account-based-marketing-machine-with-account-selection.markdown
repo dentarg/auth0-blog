@@ -1,17 +1,16 @@
 ---
 layout: post
 title: "Build The Ultimate Account Based Marketing Machine with Account Selection"
-description: "(TBD)"
+description: "Learn various strategies on how to reach the right people through calculated account selection."
 date: 2017-02-10 8:30
 category: Marketing, Growth, Analytics
 author:
   name: Brandon Redlinger
   url: https://twitter.com/Brandon_Lee_09
-  avatar: https://pbs.twimg.com/profile_images/3350604320/65b04a23a475f4ead9d21ae155460a67_400x400.jpeg
-  mail: diego.poza@auth0.com
+  avatar: https://cdn.auth0.com/blog/ultimate-abm-machine/brandon-redlinger.png
 design:
-  bg_color: "#00479A"
-  image: https://cdn.auth0.com/blog/user-analytics-funnel-social-login/post-logo.png
+  bg_color: "#16214D"
+  image: https://cdn.auth0.com/blog/ultimate-abm-machine/ABM-logo.png
 tags:
 - account-based-marketing
 - abm
@@ -92,3 +91,8 @@ Across a sample of Engagio customers, the median number of accounts per account 
 As you can see, there’s a lot that goes into establishing the base for your Account Based Everything program. We’ve just scratched the surface of the first step. To learn more about the WHO (and the WHAT and the WHERE) of Account Based Sales Development, download [The Clear & Complete Guide to Account Based Sales Development](http://www.engagio.com/clear-and-complete-guide-to-account-based-sales-development/).
 
 How many accounts does your team manage, on average? How did you make this decision?
+
+<div class="alert alert-info">
+<strong>About Brandon Redlinger:</strong><br />
+Brandon Redlinger is the Director of Growth at <a href="http://www.engagio.com/" target="_blank">Engagio</a>, the Account Based Everything platform that orchestrates human connections. He is passionate about the intersection between tech and psychology, especially as it applies to growing businesses. You can follow him on Twitter <a href="https://twitter.com/Brandon_Lee_09" target="_blank">@brandon_lee_09</a> or connect with him on <a href="https://www.linkedin.com/in/brandonredlinger" target="_blank">LinkedIn</a>.
+</div>
