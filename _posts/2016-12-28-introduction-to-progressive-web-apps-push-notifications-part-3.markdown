@@ -904,7 +904,7 @@ Yes!!!! the process has been totally automated.
 
 ## Host PWA
 
-One of the requirements of a PWA is to have its content served via HTTPS. [Firebase hosting](firebase.google.com/docs/hosting) is a very good option for deploying our app to a server that supports HTTPS.  
+One of the requirements of a PWA is to have its content served via HTTPS. [Firebase hosting](https://firebase.google.com/docs/hosting/) is a very good option for deploying our app to a server that supports HTTPS.  
 
 Our [app](https://ril-pwa.firebaseapp.com) is now live. I also hosted the [API](https://rilapi.herokuapp.com/api) on heroku.
 
