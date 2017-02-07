@@ -2,7 +2,7 @@
 layout: post
 title: "Glossary of Modern JavaScript Concepts: Part 1"
 description: "Learn the fundamentals of functional programming, reactive programming, and functional reactive programming in JavaScript."
-date: 2017-02-13 8:30
+date: 2017-02-09 8:30
 category: Glossary, Technical guide
 banner:
   text: "Auth0 makes it easy to add authentication to your JS application."
@@ -223,7 +223,7 @@ When we talk about functional programming in JS, the word "immutable" is used a 
 
 JavaScript objects [can also be frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) with `Object.freeze(obj)` [to make them immutable](http://adripofjavascript.com/blog/drips/immutable-objects-with-object-freeze.html). Note that this is _shallow_, meaning object values within a frozen object can still be mutated. To further ensure immutability, [functions like Mozilla's deepFreeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) and [npm deep-freeze](https://www.npmjs.com/package/deep-freeze) can recursively freeze objects. Freezing is most practical when used in _tests_ rather than in application JS. Tests will alert developers when mutations occur so they can be corrected or avoided in the actual build without `Object.freeze` cluttering up the core code.
 
-There are also libraries available to support immutability in JS. [Mori](http://swannodette.github.io/mori/) delivers persistent data structures based on Clojure. [Immutable.js](https://facebook.github.io/immutable-js/) by Facebook also provides immutable collections for JS. Utility libraries like [Underscore.js](http://underscorejs.org) and [lodash](http://www.lodash.com) provide methods and modules to promote a more immutable [functional programming _style_](https://github.com/lodash/lodash/wiki/FP-Guide).
+There are also libraries available to support immutability in JS. [Mori](http://swannodette.github.io/mori/) delivers persistent data structures based on Clojure. [Immutable.js](https://facebook.github.io/immutable-js/) by Facebook also provides [immutable collections for JS](https://auth0.com/blog/intro-to-immutable-js/). Utility libraries like [Underscore.js](http://underscorejs.org) and [lodash](http://www.lodash.com) provide methods and modules to promote a more immutable [functional programming _style_](https://github.com/lodash/lodash/wiki/FP-Guide).
 
 ### Immutability and Mutability Takeaways
 
