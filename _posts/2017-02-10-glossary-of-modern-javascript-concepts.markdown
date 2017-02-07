@@ -341,16 +341,15 @@ function greet(greeting) {
 greet(sayHi); // alerts "Hi!"
 ```
 
-> **Note:** When _passing a named function as an argument_, as in the two examples above, we don't use parentheses `()`. This way we're passing the function as an object. Parentheses _execute_ the function and return the result.
+> **Note:** When _passing a named function as an argument_, as in the two examples above, we don't use parentheses `()`. This way we're passing the function as an object. Parentheses _execute_ the function and pass the result instead of the function itself.
 
 Higher-order functions can also return another function:
 
 ```js
-function sayHi() {
-  alert('Hi!');
-}
 function whenMeetingJohn() {
-  return sayHi;
+  return function() {
+    alert('Hi!');
+  }
 }
 var atLunchToday = whenMeetingJohn;
 
@@ -514,7 +513,7 @@ To learn more about **observables**, check out the following resources:
 
 ## <span id="reactive-programming"></span>Reactive Programming
 
-**Reactive programming** is concerned with propagating and responding to incoming events over time, <a href="#imperative-delcarative" target="_self">declaratively</a> (describing _what_ to do rather than _how_).
+**Reactive programming** is concerned with propagating and responding to incoming events over time, <a href="#imperative-declarative" target="_self">declaratively</a> (describing _what_ to do rather than _how_).
 
 Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
 
@@ -680,7 +679,7 @@ First, we'll create an <a href="#observables" target="_self">observable</a> call
 
 Next, we'll create a `move$` observable from the `document.mousemove` event. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We'll throttle this so the resulting stream is more manageable. Then we can `map` the event to return an object with `x` and `y` values to represent mouse coordinates.
 
-Next we want to merge the `time$` and `move$` streams. This is a _transformation_. This way we can plot which mouse movements occurred during each time interval. We'll call the resulting observable `source$`. We'll also limit the `source$` observable so that it completes after ten seconds (`10000ms`).
+Next we want to [merge](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/merge.md) the `time$` and `move$` streams. This is a _combining operator_. This way we can plot which mouse movements occurred during each time interval. We'll call the resulting observable `source$`. We'll also limit the `source$` observable so that it completes after ten seconds (`10000ms`).
 
 Now that we have our merged stream of time and movement, we'll create a `subscription` to the `source$` observable so we can react to it. In our `onNext` callback, we'll check to see if the value is a `number` or not. If it is, we want to call a function called `createTimeset()`. If it's a coordinates object, we'll call `addPoint()`. In the `onError` and `onCompleted` callbacks, we'll simply log some information.
 
