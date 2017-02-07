@@ -13,8 +13,8 @@ design:
   bg_color: "#533A5C"
   image: https://cdn.auth0.com/blog/blog/AdonisJSLogo.png
 tags:
-- laravel
-- adonisjs
+- reactjs
+- redux
 - javascript
 - authentication
 - web-app
@@ -671,7 +671,7 @@ _CelebrityJokes.js_
 
 Grab your coffee at this point because you have successfully created the `Nav`, `CelebrityJokes`, and `FoodJokes` components. Whoop! Whoop!
 
-We need to take care of one more component so that we our app can function. Can you guess? Yes, the root component!
+We need to take care of one more component so that our app can function. Can you guess? Yes, the root component!
 
 ## Build the Root Component
 
@@ -729,7 +729,7 @@ import { Router, Route, browserHistory } from 'react-router';
 
 ```
 
-Just some few things before we check out our application:
+Just a few things before we check our application in the browser:
 
 * Open up `public/index.html` and add bootstrap. Now the content of the html file should look like so:
 
@@ -782,7 +782,7 @@ Just some few things before we check out our application:
 {% endhighlight %}
 
 
-Feel free to check out your application in the browser. Right now, you should have something like this:
+Now, feel free to check out your application in the browser. Right now, you should have something like this:
 
 ![Homepage](https://cdn.auth0.com/blog/react/homepage.png)
 _Homepage_
@@ -896,7 +896,7 @@ console.log('Listening on localhost:3333');
 
 Try accessing the `http://localhost:3333/api/jokes/celebrity` endpoint again from your postman. You should be denied access like so:
 
-![Unauthorized Access](http://localhost:3333/api/jokes/celebrity)
+![Unauthorized Access](https://cdn.auth0.com/blog/react/unauthorized.png)
 _Unauthorized Access_
 
 Next, let's add authentication to our front-end.
@@ -991,7 +991,7 @@ function isTokenExpired(token) {
 
 ```
 
-In the code above, we created an instance of `Auth0 Lock` and passed in our credentials. We also listened on `authenticated` event. It grabs the `id_token` returned from Auth0 server and stores it in localStorage. The `logout` function deletes the token and directs us back to the homepage.
+In the code above, we created an instance of `Auth0 Lock` and passed in our credentials. We also listened on the `authenticated` event. It grabs the `id_token` returned from Auth0 server and stores it in localStorage. The `logout` function deletes the token and directs us back to the homepage.
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1135,7 +1135,7 @@ _Allowed Origins_
 
 ### Secure The Special Route
 
-We need to ensure no one can go the browser and just type `/special` to access the celebrity route.
+We need to ensure that no one can go to the browser and just type `/special` to access the celebrity route.
 
 Open up `index.js` and add an `onEnter` prop with a value of `requireAuth` to the `/special` route like so:
 
