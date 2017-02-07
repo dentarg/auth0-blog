@@ -198,9 +198,9 @@ $(document).ready(function ($) {
 
       window.safari.pushNotification.requestPermission(
         'https://auth0-pn.herokuapp.com', // The web service URL.
-        'web.com.auth0',                    // The Website Push ID.
+        'web.com.auth0.push',                    // The Website Push ID.
         {},            // Data that you choose to send to your server to help you identify the user.
-        checkRemotePermission                       // The callback function.
+        checkRemotePermission                     // The callback function.
       );
     }else if (permissionData.permission === 'denied') {
       console.log('Permission is <strong>denied</strong></p>');
