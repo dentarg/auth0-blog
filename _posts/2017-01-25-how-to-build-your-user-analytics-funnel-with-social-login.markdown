@@ -71,7 +71,7 @@ If you wanted to collect the current country from all users logging in through T
 var country = user.country;
 ```
 
-Using Auth0's [Segment Rule](https://github.com/auth0/rules/blob/master/rules/send-events-segmentio.md), you could then send that data to [Segment](segment.io) and then to the email marketing tool of your choice:
+Using Auth0's [Segment Rule](https://github.com/auth0/rules/blob/master/rules/send-events-segmentio.md), you could then send that data to [Segment](https://segment.com/) and then to the email marketing tool of your choice:
 
 ```javascript
 function(user, context, callback) {

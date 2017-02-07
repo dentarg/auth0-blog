@@ -78,7 +78,7 @@ lock.show({}, function(err, profile, id_token){
 
 This callback recieves an error `err` (`null` if successful), a `profile` object representing our logged-in user, and an `id_token`: this is the JWT that will authenticate your user, and is useful if you will be making calls to APIs that you protect with JWT authentication. You can then modify the DOM, or your application state, or whatever you need with the profile information.
 
-**Please remember that redirect mode is the recommended use of Lock [due to browser compatibility issues](https://auth0.com/docs/libraries/lock/authentication-modes#popup-mode). Please only use popup mode if you must.**
+**Please remember that redirect mode is the recommended use of Lock [due to browser compatibility issues](https://auth0.com/docs/libraries/lock/v10/popup-mode). Please only use popup mode if you must.**
 
 Finally, we'll talk about implementing redirect mode in a single-page application. The best way to go about this is to check your application hash for an ID token on your callback page, then, if it is found, use that ID token to get the user's profile from Auth0. To parse and use the ID token from the hash, Lock provides `lock.parseHash()` and `lock.getProfile()`:
 
