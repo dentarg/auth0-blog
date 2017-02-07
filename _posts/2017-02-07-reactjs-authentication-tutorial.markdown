@@ -363,17 +363,20 @@ Let's check out the structure of our newly scaffolded app.
 
 
 ```bash
-
-- node_modules - All the packages required for the react app resides here
-- public 
-    - favicon.ico - The app’s favicon
-    - index.html - Index file that declares the root div where the App component is been bound to
-- src
-    - App.css -  File that contains styles for the App component
-    - App.js - Basic App Component
-    - App.test.js - Test file that contains tests for the App Component
-    - index.css - File that contains style for root div
-    - index.js - Javascript file that binds the root div to the parent App Component
+my-app/
+  README.md
+  node_modules/ - All the packages required for the react app resides here
+  package.json - File that contains the names of all the packages residing in node_modules folder
+  public/
+    index.html -  Index file that declares the root div where the App component is been bound to
+    favicon.ico - The app’s favicon
+  src/
+    App.css - File that contains styles for the App component
+    App.js - Basic App Component
+    App.test.js - Test file that contains tests for the App Component
+    index.css - File that contains style for root div
+    index.js - Javascript file that binds the root div to the parent App Component
+    logo.svg
 ```
 
 We will work with this structure but make some few modifications. First, delete the `App.test.js` file.
