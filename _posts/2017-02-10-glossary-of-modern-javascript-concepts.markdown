@@ -498,7 +498,7 @@ Observables are streams. We can observe any stream: from resize events to existi
 
 We can operate on observables in many ways. [RxJS has many operators](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core/operators). Observables are often visualized using circles ("marbles") on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion and use such visualizations to understand Rx* operators. The following image illustrates the [filter](http://rxmarbles.com/#filter) operator:
 
-![Rx observables - filter operator from rxmarbles.com](https://cdn.auth0.com/blog/jsglossary/rxmarbles.png)
+![reactive programming with Rx observables: filter operator from rxmarbles.com](https://cdn.auth0.com/blog/jsglossary/rxmarbles.png)
 
 To learn more about **observables**, check out the following resources:
 
