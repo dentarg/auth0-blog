@@ -64,7 +64,7 @@ function half(x) {
 }
 ```
 
-The `half(x)` function takes a number `x` and returns a value of half of `x`. If we pass an argument of `8` to this function, the function will always return `4`. When invoked, a pure function can be replaced by its result. For example, we could replace `half(8)` with `4` wherever used in our code with no change to the final outcome. This is called **[referential transparency](https://en.wikipedia.org/wiki/Referential_transparency)**.
+The `half(x)` function takes a number `x` and returns a value of half of `x`. If we pass an argument of `8` to this function, the function will always return `4`. When invoked, a pure function can be replaced by its result. For example, we could replace `half(8)` with `4` wherever used in our code with no change to the final outcome. This is called [_referential transparency_](https://en.wikipedia.org/wiki/Referential_transparency).
 
 Pure functions only depend on what's passed to them. For example, a pure function cannot reference variables from a parent scope unless they are explicitly passed into the function as arguments. Even then, the function can _not modify_ the parent scope.
 
