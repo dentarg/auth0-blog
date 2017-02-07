@@ -384,7 +384,7 @@ Now we've learned about purity, statelessness, immutability, declarative program
 
 > *If we tried to write a JavaScript web application composed of nothing but pure functions with no side effects, it couldn't interact with its environment and therefore wouldn't be particularly useful.
 
-Let's examine an example. Say we have some text and we want to count the words as well as output keywords that are longer than five characters:
+Let's explore an example. Say we have some text copy and we want to get its word count. We also want to find keywords that are longer than five characters. Using functional programming, our resulting code might look something like this:
 
 ```js
 const fpCopy = `Functional programming is powerful and enjoyable to write. It's very cool!`;
@@ -419,7 +419,7 @@ function processCopy(str, prepFn, arrFn, countFn, kwFn) {
 processCopy(fpCopy, stripPunctuation, getArr, getWordCount, getKeywords);
 ```
 
-This code is available to run at this [JSFiddle: Functional Programming with JavaScript](https://jsfiddle.net/kmaida/xxc7g0ve/). It's broken into digestible, declarative functions with clear purpose. If we step through it and read the comments, no further explanation of the code should be necessary. Each _core_ function is modular and relies only on its inputs (<a href="#purity" target="_self">pure</a>). The last function processes the core to generate the collective outputs. This function, `processCopy()`, is the impure container that executes the core and manages side effects, though we've used a <a href="#higher-order-functions" target="_self">higher-order function</a> that accepts the other functions as arguments to maintain a functional style.
+This code is available to run at this [JSFiddle: Functional Programming with JavaScript](https://jsfiddle.net/kmaida/xxc7g0ve/). It's broken into digestible, declarative functions with clear purpose. If we step through it and read the comments, no further explanation of the code should be necessary. Each _core_ function is modular and relies only on its inputs (<a href="#purity" target="_self">pure</a>). The last function processes the core to generate the collective outputs. This function, `processCopy()`, is the impure container that executes the core and manages side effects. We've used a <a href="#higher-order-functions" target="_self">higher-order function</a> that accepts the other functions as arguments to maintain the functional style.
 
 ### Functional Programming Takeaways
 
@@ -445,11 +445,9 @@ To learn more about **functional programming**, check out the following resource
 
 ## <span id="observables"></span>Observables
 
-**Observables** are asynchronous collections arriving over time (also called _streams_). An observable is similar to an array, except instead of being stored in memory, items arrive asynchronously over time. We can _subscribe_ to observables and react to events emitted by them. Observables are a JS implementation of the [_observer pattern_](http://stackoverflow.com/a/15596243). [Reactive Extensions](http://reactivex.io/) (commonly known as Rx*) provides an observables library for JavaScript via [RxJS](https://github.com/ReactiveX/rxjs).
+**Observables** are similar to arrays, except instead of being stored in memory, items arrive asynchronously over time (also called _streams_). We can _subscribe_ to observables and react to events emitted by them. JavaScript observables are an implementation of the [_observer pattern_](http://stackoverflow.com/a/15596243). [Reactive Extensions](http://reactivex.io/) (commonly known as Rx*) provides an observables library for JS via [RxJS](https://github.com/ReactiveX/rxjs).
 
-To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time as the window is dragged to its desired size. We can create an observable and subscribe to it to react to the stream of resize events.
-
-The example code below shows that as the window size changes, we can declaratively throttle the observable stream and subscribe to the changes to respond to new values in the collection:
+To demonstrate the concept of observables, let's consider a simple example: resizing the browser window. It's easy to understand observables in this context. Resizing the browser window emits a stream of events over a period of time as the window is dragged to its desired size. We can create an observable and subscribe to it to react to the stream of resize events:
 
 ```js
 // create window resize stream
@@ -468,13 +466,15 @@ const subscription =
   });
 ```
 
+The example code above shows that as the window size changes, we can throttle the observable stream and subscribe to the changes to respond to new values in the collection. This is an example of a _hot observable_.
+
 ### Hot Observables
 
-A **hot observable** pushes whether or not it's been subscribed to. For example, UI events like button clicks, mouse movement, etc. are _hot_. They will always push even if we're not specifically reacting to them with a subscription. The window resize example above is a hot observable. The `resize$` observable would fire whether or not `subscription` exists.
+User interface events like button clicks, mouse movement, etc. are _hot_. **Hot observables** will always push even if we're not specifically reacting to them with a subscription. The window resize example above is a hot observable. The `resize$` observable would fire whether or not `subscription` exists.
 
 ### Cold Observables
 
-A **cold observable** begins pushing when we subscribe to it. If we subscribe again, it will start over.
+A **cold observable** begins pushing _only_ when we subscribe to it. If we subscribe again, it will start over.
 
 Let's create an observable collection of numbers ranging from `1` to `5`. We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md) to the `source$` observable we just created:
 
@@ -494,9 +494,9 @@ Upon subscription, the values are sent in sequence to the observer. The `onNext`
 
 ### Observables Takeaways
 
-Observables are streams. We can observe any stream: from resize events to existing arrays to API responses; we can create observables from almost anything. A _promise_ is an observable with a single emitted value. However, observables (streams) can return many values over time.
+Observables are streams. We can observe any stream: from resize events to existing arrays to API responses. We can create observables from almost anything. A _promise_ is an observable with a single emitted value, but observables can return many values over time.
 
-We can operate on observables in many ways. [RxJS has many operators](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core/operators). Observables are often visualized using circles ("marbles") on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion and use such visualizations to understand Rx* operators. The following image illustrates the [filter](http://rxmarbles.com/#filter) operator:
+We can operate on observables in many ways. [RxJS demonstrates this with numerous operators](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core/operators). Observables are often visualized using points on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion and use such visualizations to understand Rx* operators. For example, the following RxMarbles image illustrates the [filter operator](http://rxmarbles.com/#filter):
 
 ![reactive programming with Rx observables: filter operator from rxmarbles.com](https://cdn.auth0.com/blog/jsglossary/rxmarbles.png)
 
@@ -518,7 +518,7 @@ To learn more about **observables**, check out the following resources:
 
 Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Rx* [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
 
-Here is a simple example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code and we want to print out the latest valid code attempt:
+Here is an example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code and we want to print out the latest valid code attempt. Our HTML might look like this:
 
 {% highlight html %}
 <!-- HTML -->
@@ -529,7 +529,7 @@ Here is a simple example of reactive programming with observables. Let's say we 
 </p>
 {% endhighlight %}
 
-We'll use RxJS and create a stream of inputs, like so:
+We'll use RxJS and create a stream of inputs to implement our functionality, like so:
 
 ```js
 // JS
@@ -549,7 +549,7 @@ const subscription = confCodes$.subscribe(
 );
 ```
 
-This code can be run at this [JSFiddle: Reactive Programming with JavaScript](https://jsfiddle.net/kmaida/v1ozuwgu/). We'll observe inputs to the `confCodeInput` input element. Then we'll use `map` to get the `value` from each input event. Next, we'll `filter` any results that are not six characters so they won't appear in the returned stream. Finally, we can print out the latest valid confirmation code attempt. Note that this was done in response to events over time, declaratively: this is the crux of _reactive programming_.
+This code can be run at this [JSFiddle: Reactive Programming with JavaScript](https://jsfiddle.net/kmaida/v1ozuwgu/). We'll observe [events from](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/fromevent.md) the `confCodeInput` input element. Then we'll use the [`map` operator](http://reactivex.io/documentation/operators/map.html) to get the `value` from each input event. Next, we'll [`filter`](http://reactivex.io/documentation/operators/filter.html) any results that are not six characters so they won't appear in the returned stream. Finally, we'll [`subscribe`](http://reactivex.io/documentation/operators/subscribe.html) to our `confCodes$` observable and print out the latest valid confirmation code attempt. Note that this was done in response to events over time, declaratively: this is the crux of _reactive programming_.
 
 ### Reactive Programming Takeaways
 
@@ -607,14 +607,14 @@ In order to reconcile what you may have read about FRP in JS, it's important to 
 
 Functional reactive programming, _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [specifically _excludes_ streams as a component](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
-It's also crucial to understand that JavaScript inherently interacts with the user and UI, the DOM, and often a backend. <a href="#purity" target="_self">Side effects</a> and <a href="#imperative-declarative" target="_self">imperative</a> code are par for the course, even when taking a <a href="#functional-programming" target="_self">functional</a> or functional reactive approach. Without imperative or impure code, a dynamic JS web application wouldn't be much use because it wouldn't interact with its environment.
+It's also crucial to understand that JavaScript inherently interacts with the user and UI, the DOM, and often a backend. <a href="#purity" target="_self">Side effects</a> and <a href="#imperative-declarative" target="_self">imperative</a> code are par for the course, even when taking a <a href="#functional-programming" target="_self">functional</a> or functional reactive approach. _Without_ imperative or impure code, a JS web application with a UI wouldn't be much use because it couldn't interact with its environment.
 
-Let's take a look at an example to demonstrate the basic principles of FRP-inspired JavaScript. This sample prints out mouse movements over a period of ten seconds:
+Let's take a look at an example to demonstrate the basic principles of _FRP-inspired_ JavaScript. This sample uses RxJS and prints out mouse movements over a period of ten seconds:
 
 ```js
 // create a time observable that adds an item every 1 second
 // map so resulting stream contains event values
-var time$ = 
+const time$ = 
   Rx.Observable
     .timer(0, 1000)
     .timeInterval()
@@ -623,7 +623,7 @@ var time$ =
 // create a mouse movement observable
 // throttle to every 350ms
 // map so resulting stream pushes objects with x and y coordinates
-var move$ = 
+const move$ = 
   Rx.Observable
     .fromEvent(document, 'mousemove')
     .throttleTime(350)
@@ -631,7 +631,7 @@ var move$ =
 
 // merge time + mouse movement streams
 // complete after 10 seconds
-var source$ = 
+const source$ = 
   Rx.Observable
     .merge(time$, move$)
     .takeUntil(Rx.Observable.timer(10000));
@@ -639,7 +639,7 @@ var source$ =
 // subscribe to merged source$ observable
 // if value is a number, createTimeset()
 // if value is a coordinates object, addPoint()
-var subscription = 
+const subscription = 
   source$.subscribe(
     // onNext
     (x) => { 
@@ -657,8 +657,8 @@ var subscription =
 
 // add element to DOM to list out points touched in a particular second
 function createTimeset(n) {
-  let elem = document.createElement('div');
-  let num = n + 1;
+  const elem = document.createElement('div');
+  const num = n + 1;
   elem.id = 't' + num;
   elem.innerHTML = `<strong>${num}</strong>: `;
   document.body.appendChild(elem);
@@ -667,26 +667,26 @@ function createTimeset(n) {
 // add points touched to latest time in stream
 function addPoint(pointObj) {
   // add point to last appended element
-  let numberElem = document.getElementsByTagName('body')[0].lastChild;
+  const numberElem = document.getElementsByTagName('body')[0].lastChild;
   numberElem.innerHTML += ` (${pointObj.x}, ${pointObj.y}) `;
 }
 ```
 
-You can check out this code in action in this [JSFiddle: FRP-inspired JavaScript](https://jsfiddle.net/kmaida/3v8yw02s/). Run the fiddle and move your mouse over the result area of the screen as it counts up to `10` seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
+You can check out this code in action in this [JSFiddle: FRP-inspired JavaScript](https://jsfiddle.net/kmaida/3v8yw02s/). Run the fiddle and move your mouse over the result area of the screen as it counts up to 10 seconds. You should see mouse coordinates appear along with the counter. This indicates where your mouse was during each 1-second time interval.
 
 Let's briefly discuss this implementation step-by-step.
 
-First, we'll create an <a href="#observables" target="_self">observable</a> called `time$`. This is a timer that adds a value to the collection every `1000ms` (every second). We need to map the timer event to extract its `value` and push it in the resulting stream.
+First, we'll create an <a href="#observables" target="_self">observable</a> called `time$`. This is a timer that adds a value to the collection every `1000ms` (every second). We need to `map` the timer event to extract its `value` and push it in the resulting stream.
 
-Next, we'll create a `move$` observable from the `document.mousemove` event. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We'll throttle this so the resulting stream is more manageable. Then we can map the event to return an object with `x` and `y` properties and values to represent mouse coordinates.
+Next, we'll create a `move$` observable from the `document.mousemove` event. Mouse movement is _continuous_. At any point in the sequence, there are an infinite number of points in between. We'll throttle this so the resulting stream is more manageable. Then we can `map` the event to return an object with `x` and `y` values to represent mouse coordinates.
 
 Next we want to merge the `time$` and `move$` streams. This is a _transformation_. This way we can plot which mouse movements occurred during each time interval. We'll call the resulting observable `source$`. We'll also limit the `source$` observable so that it completes after ten seconds (`10000ms`).
 
 Now that we have our merged stream of time and movement, we'll create a `subscription` to the `source$` observable so we can react to it. In our `onNext` callback, we'll check to see if the value is a `number` or not. If it is, we want to call a function called `createTimeset()`. If it's a coordinates object, we'll call `addPoint()`. In the `onError` and `onCompleted` callbacks, we'll simply log some information.
 
-Let's look at the `createTimeset(n)` function. We'll create a new `div` element for each second interval, label it, and append it to the `body`.
+Let's look at the `createTimeset(n)` function. We'll create a new `div` element for each second interval, label it, and append it to the DOM.
 
-In the `addPoint(pointObj)` function, we'll print out the latest coordinates in the most recent timeset `div`. This will associate each coordinate with its corresponding time interval. We can now read where the mouse has been over time.
+In the `addPoint(pointObj)` function, we'll print out the latest coordinates in the most recent timeset `div`. This will associate each set of coordinates with its corresponding time interval. We can now read where the mouse has been over time.
 
 > **Note:** These functions are <a href="#purity" target="_self">impure</a>: they have no return value and they also produce side effects. The side effects are DOM manipulations. As mentioned earlier, the JavaScript we need to write for our apps frequently interacts with scope outside its functions.
 
@@ -727,6 +727,6 @@ We'll conclude with another excellent quote from the first edition of [Eloquent 
 >
 > —_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
 
-The concepts necessary for understanding <a href="#functional-programming" target="_self">functional programming</a>, <a href="#reactive-programming" target="_self">reactive programming</a>, and <a href="#functional-reactive-programming" target="_self">functional reactive programming</a> can be difficult to grasp, let alone _master_. Writing code that takes advantage of a paradigm's fundamentals is the initial step, even if it isn't entirely faithful at first. Practice illuminates the path ahead and also reveals potential revisions. If anything is still unclear regarding these topics, please consult the links in each section for additional resources.
+The concepts necessary for understanding <a href="#functional-programming" target="_self">functional programming</a>, <a href="#reactive-programming" target="_self">reactive programming</a>, and <a href="#functional-reactive-programming" target="_self">functional reactive programming</a> can be difficult to grasp, let alone _master_. Writing code that takes advantage of a paradigm's fundamentals is the initial step, even if it isn't entirely faithful at first. Practice illuminates the path ahead and also reveals potential revisions.
 
-With this glossary as a starting point, you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. We'll cover additional topics in the next Modern JS Glossary post!
+With this glossary as a starting point, you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. If anything is still unclear regarding these topics, please consult the links in each section for additional resources. We'll cover more concepts in the next Modern JS Glossary post!
