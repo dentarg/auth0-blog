@@ -35,7 +35,7 @@ The answer is yes: social login really is secure. But even the most secure metho
 
 ## Social Identity Providers Give You Peace of Mind
 
-One of the biggest value propositions of social login is also the reason that it really *is *as secure as you think it is: Google, Facebook, LinkedIn and others have millions of users.
+One of the biggest value propositions of social login is also the reason that it really *is* as secure as you think it is: Google, Facebook, LinkedIn and others have millions of users.
 
 With these three social login options you could give the vast majority of your user base a social option for logging into your app. The more popular the site, [the more popular](https://auth0.com/blog/analysis-of-social-connection-data/) the social login integration.
 
