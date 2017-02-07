@@ -159,9 +159,11 @@ function increment(n) {
 increment(number); // global variable NOT modified: returns 2
 ```
 
+Stateless applications _do_ still manage state. However, they return their current state without _mutating_ previous state. This is a tenet of <a href="#functional-programming">functional programming</a>.
+
 ### State Takeaways
 
-State management is important for any complex application. Stateful functions or components modify state and store history, but are more difficult to test and debug. Stateless functions rely only on their inputs to produce outputs.
+State management is important for any complex application. Stateful functions or components modify state and store history, but are more difficult to test and debug. Stateless functions rely only on their inputs to produce outputs. A stateless program returns new state rather than _modifying_ existing state.
 
 To learn more about **state**, check out the following resources:
 
