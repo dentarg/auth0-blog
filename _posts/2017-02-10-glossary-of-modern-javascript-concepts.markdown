@@ -105,6 +105,12 @@ function proceduralFn() {
   const result2 = pureFnLast(2);
   console.log(`Done with ${result1} and ${result2}!`);
 }
+
+// impure function that resembles a pure function,
+// but returns different results given the same inputs
+function getRandomRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
 ```
 
 ### Side Effects
@@ -142,7 +148,7 @@ increment(); // global variable modified: number = 2
 
 ### Stateless
 
-**Stateless** programs, apps, or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. <a href="#purity" target="_self">Pure functions</a> are stateless. See the following example:
+**Stateless** functions or components perform tasks as though running them for the first time, every time. This means they do not reference or utilize any information from earlier in their execution. Statelessness enables _referential transparency_. Functions depend only on their arguments and do not access or need knowledge of anything outside their scope. <a href="#purity" target="_self">Pure functions</a> are stateless. See the following example:
 
 ```js
 // stateless
@@ -241,7 +247,7 @@ To learn more about **immutability and mutability**, check out the following res
 
 ## <span id="imperative-declarative"></span>Imperative and Declarative Programming
 
-While some languages are **imperative** (C#, Java, PHP) or **declarative** (SQL, HTML), JavaScript supports both paradigms.
+While some languages were designed to be **imperative** (C++, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and [C#](https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx)) can support both programming paradigms. 
 
 Most developers familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS. 
 
