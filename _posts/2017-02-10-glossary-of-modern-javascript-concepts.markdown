@@ -79,13 +79,17 @@ function impureHalf() {
 
 In summary:
 
-* In pure functions, the same input will always produce the same output.
-* Pure functions rely only on local state and do not mutate external state.
+* Pure functions must take arguments.
+* The same input (arguments) will always produce the same output (return).
+* Pure functions rely only on local state and do not mutate external state (_note:_ `console.log` changes global state).
 * Pure functions do not produce [side effects](https://en.wikipedia.org/wiki/Side_effect_%28computer_science%29).
+* Pure functions cannot call impure functions.
 
 ### Impure Functions
 
-An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure. Procedural functions with no utilized return value are also impure. Consider the following examples:
+An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure. Procedural functions with no utilized return value are also impure.
+
+Consider the following examples:
 
 ```js
 // impure function producing a side effect
@@ -95,8 +99,8 @@ function showAlert() {
 
 // impure function mutating external state
 var globalVal = 1;
-function incrementGlobalVal() {
-  globalVal++;
+function incrementGlobalVal(x) {
+  globalVal += x;
 }
 
 // impure function calling pure functions procedurally
@@ -119,7 +123,7 @@ When a function or expression modifies state outside its own context, the result
 
 ### Purity Takeaways
 
-Plenty of quality code consists of _impure_ functions that procedurally invoke _pure_ functions. This still produces advantages for testing and immutability. Referential transparency also enables [_memoization_](https://www.interviewcake.com/concept/python/memoization): caching and storing function call results and [reusing the cached results](https://www.sitepoint.com/implementing-memoization-in-javascript/) when the same inputs are used again.
+Plenty of quality code consists of _impure_ functions that procedurally invoke _pure_ functions. This still produces advantages for testing and immutability. Referential transparency also enables [_memoization_](https://www.interviewcake.com/concept/python/memoization): caching and storing function call results and [reusing the cached results](https://www.sitepoint.com/implementing-memoization-in-javascript/) when the same inputs are used again. It can be a challenge to determine when functions are truly pure.
 
 To learn more about **purity**, check out the following resources:
 
@@ -131,7 +135,7 @@ To learn more about **purity**, check out the following resources:
 
 ## <span id="state"></span>State
 
-**State** refers to the stored information a program has access to at a point in time. The contents of variables in an application at any given instant is the application's _state_.
+**State** refers to the information a program has access to and can operate on at a point in time. This includes data stored in memory as well as OS memory, input/output ports, database, etc. For example, the contents of variables in an application at any given instant are representative of the application's _state_.
 
 ### Stateful
 
@@ -180,15 +184,15 @@ The concepts of **immutability and mutability** are slightly more nebulous in Ja
 
 ### Immutable
 
-If an object is **immutable**, its state cannot be modified after creation.
+If an object is **immutable**, its value cannot be modified after creation.
 
 ### Mutable
 
-If an object is **mutable**, its state can be modified after creation.
+If an object is **mutable**, its value can be modified after creation.
 
 ### By Design: Immutability and Mutability in JavaScript
 
-In JavaScript, `strings` and `numbers` are _immutable by design_. This is easily understandable if we consider how we operate on them:
+In JavaScript, strings and number literals are _immutable by design_. This is easily understandable if we consider how we operate on them:
 
 ```js
 var str = 'Hello!';
@@ -199,7 +203,7 @@ var anotherStr = str.substring(2);
 
 Using the `.substring()` method on our `Hello!` string does _not_ modify the original string. Instead, it creates a _new_ string. We could reassign the `str` _variable value_ to something else, but once we've created our `Hello!` string, it will always be `Hello!`.
 
-Numbers are immutable as well. The following will always have the same result:
+Number literals are immutable as well. The following will always have the same result:
 
 ```js
 var three = 1 + 2;
@@ -238,6 +242,10 @@ There are also libraries available to support immutability in JS. [Mori](http://
 
 Overall, JavaScript is a very mutable language. Some styles of JS coding _rely_ on this innate mutability. However, when writing functional JS, implementing immutability requires mindfulness. JS will not natively throw errors when you modify something unintentionally. Testing and libraries can assist, but working with immutability in JS takes practice and methodology.
 
+Immutability has advantages. It results in code that is simpler to reason about. It also enables <a href="https://en.wikipedia.org/wiki/Persistence_(computer_science)">_persistency_</a>, the ability to keep older versions of a data structure and copy only the parts that have changed.
+
+The disadvantage of immutability is that many algorithms and operations cannot be implemented efficiently.
+
 To learn more about **immutability and mutability**, check out the following resources:
 
 * [Immutability in JavaScript](https://www.sitepoint.com/immutability-javascript/)
@@ -250,7 +258,7 @@ To learn more about **immutability and mutability**, check out the following res
 
 ## <span id="imperative-declarative"></span>Imperative and Declarative Programming
 
-While some languages were designed to be **imperative** (C++, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and [C#](https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx)) can support both programming paradigms. 
+While some languages were designed to be **imperative** (C, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and [C#](https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx)) can support both programming paradigms. 
 
 Most developers familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS. 
 
@@ -278,7 +286,15 @@ This function shows exactly _how_ the function's logic works: we iterate over th
 
 **Declarative programming** describes _what_ a program's logic accomplishes _without_ describing how.
 
-Consider the `incrementArray()` function we implemented imperatively above. Let's implement this declaratively now:
+A very straightforward example of declarative programming can be demonstrated with [SQL](https://www.khanacademy.org/computing/computer-programming/sql). We can query a database table (`People`) for people with the last name `Smith` like so:
+
+```sql
+SELECT * FROM People WHERE LastName = 'Smith'
+```
+
+This code is easy to read and describes _what_ we want to accomplish. There is no description of _how_ the result should be achieved. The computer takes care of that.
+
+Now consider the `incrementArray()` function we implemented imperatively above. Let's implement this declaratively now:
 
 ```js
 function incrementArray(arr) {
@@ -286,9 +302,9 @@ function incrementArray(arr) {
 }
 ```
 
-Using declarative programming, we show _what_ we want to achieve, but not how it works. The [`Array.map()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) returns a new array with the results of running the callback on each item from the passed array. This approach does not modify program state, nor does it include any sequential logic showing _how_ it creates the new array.
+We show _what_ we want to achieve, but not how it works. The [`Array.map()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) returns a new array with the results of running the callback on each item from the passed array. This approach does not modify existing values, nor does it include any sequential logic showing _how_ it creates the new array.
 
-> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are declarative, <a href="#functional-programming" target="_self">functional</a> array methods. Utility libraries like [lodash](https://lodash.com/) provide declarative methods like [`every`](https://lodash.com/docs/4.17.4#every), [`sortBy`](https://lodash.com/docs/4.17.4#sortBy), [`uniq`](https://lodash.com/docs/4.17.4#uniq), and more in addition to `map`, `reduce`, and `filter`.
+> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are declarative, <a href="#functional-programming" target="_self">functional</a> array methods. Utility libraries like [lodash](https://lodash.com/) provide methods like [`every`](https://lodash.com/docs/4.17.4#every), [`sortBy`](https://lodash.com/docs/4.17.4#sortBy), [`uniq`](https://lodash.com/docs/4.17.4#uniq), and more in addition to `map`, `reduce`, and `filter`.
 
 ### Imperative and Declarative Programming Takeaways
 
@@ -603,7 +619,7 @@ Functional reactive programming should be:
 * efficient: minimize amount of processing necessary when inputs change
 * historically aware: pure functions map state from a previous point in time to the next point in time; state changes concern the local element and not the global program state
 
-Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). An example of a functional reactive language is [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming). Evan Czaplicki, the creator of [Elm](http://elm-lang.org), also gives a great overview of FRP in his talk [Controlling Time and Space: Understanding the Many Formulations of FRP](https://www.youtube.com/watch?v=Agu6jipKfYw).
+Conal Elliot's slides on the [Essence and Origins of FRP can be viewed here](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf). The programming language [Haskell](https://wiki.haskell.org/Functional_Reactive_Programming) lends itself to true FRP due to its functional, pure, and lazy nature. Evan Czaplicki, the creator of [Elm](http://elm-lang.org), gives a great overview of FRP in his talk [Controlling Time and Space: Understanding the Many Formulations of FRP](https://www.youtube.com/watch?v=Agu6jipKfYw).
 
 In fact, let's talk briefly about [Evan Czapliki](http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf)'s [Elm](https://auth0.com/blog/creating-your-first-elm-app-part-1/). Elm is a functional, typed language for building web applications. It compiles to JavaScript, CSS, and HTML. [The Elm Architecture](https://guide.elm-lang.org/architecture/) was the inspiration for the [Redux](http://redux.js.org/) state container for JS apps. [Elm was originally considered a true functional reactive programming language](https://www.youtube.com/watch?v=Agu6jipKfYw), but as of version 0.17, it implemented _subscriptions_ instead of signals in the interest of making the language easier to learn and use. In doing so, Elm [bid farewell to FRP](http://elm-lang.org/blog/farewell-to-frp).
 
