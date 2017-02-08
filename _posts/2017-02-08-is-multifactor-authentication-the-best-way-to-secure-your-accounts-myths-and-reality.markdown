@@ -2,8 +2,8 @@
 layout: post
 title: "Is Multifactor Authentication The Best Way To Secure Your Accounts? Myths And Reality"
 description: "Multifactor authentication is important, but the question of implementation is more complex than it seems."
-date: 2017-01-19 12:31
-category: Hot Topics, Authentication
+date: 2017-02-08 12:31
+category: Growth, Identity, Multifactor
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
