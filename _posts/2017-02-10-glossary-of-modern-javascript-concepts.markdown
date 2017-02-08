@@ -522,7 +522,7 @@ We can [`subscribe()`](https://github.com/Reactive-Extensions/RxJS/blob/master/d
 
 Observables are streams. We can observe any stream: from resize events to existing arrays to API responses. We can create observables from almost anything. A _promise_ is an observable with a single emitted value, but observables can return many values over time.
 
-We can operate on observables in many ways. [RxJS demonstrates this with numerous operators](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core/operators). Observables are often visualized using points on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion and use such visualizations to understand Rx* operators. For example, the following RxMarbles image illustrates the [filter operator](http://rxmarbles.com/#filter):
+We can operate on observables in many ways. [RxJS utilizes numerous operator methods](https://github.com/Reactive-Extensions/RxJS/tree/master/doc/api/core/operators). Observables are often visualized using points on a line, as demonstrated on the [RxMarbles](http://rxmarbles.com) site. Since the stream consists of asynchronous events over _time_, it's easy to conceptualize this in a linear fashion and use such visualizations to understand Rx* operators. For example, the following RxMarbles image illustrates the [filter operator](http://rxmarbles.com/#filter):
 
 ![reactive programming with Rx observables: filter operator from rxmarbles.com](https://cdn.auth0.com/blog/jsglossary/rxmarbles.png)
 
