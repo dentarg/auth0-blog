@@ -80,7 +80,7 @@ echo getBookNo("8");
 This is it: 8
 ```
 
-I passed in a string and it concerced it to an integer and allowed it to run successfully. Now in PHP 7, you can be strict and ensure no form of automatic conversion occurs by declaring a strict mode at the top of your PHP file like so:
+I passed in a string and it coerced it to an integer and allowed it to run successfully. Now in PHP 7, you can be strict and ensure no form of automatic conversion occurs by declaring a strict mode at the top of your PHP file like so:
 
 ```php
 declare(strict_types=1);
