@@ -10,8 +10,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#533A5C"
-  image: https://cdn.auth0.com/blog/blog/AdonisJSLogo.png
+  bg_color: "#222425"
+  image: https://cdn.auth0.com/blog/blog/React-logo.png
 tags:
 - reactjs
 - redux
@@ -27,25 +27,25 @@ related:
 
 ---
 
-**TL;DR:** ReactJS is a declarative, efficient and flexible JavaScript library for building user interfaces. Currently, ReactJs has over 58,000 stars on [GitHub](https://github.com/facebook/react). ReactJS makes it easy for you to build your web applications in form of encapsulated components that manage their own state. In this tutorial, I'll show you how easy it is to build a web application with ReactJS and add authentication to it. Check out the [repo](https://github.com/auth0-blog/reactjs-authentication-tutorial) to get the code.
+**TL;DR:** ReactJS is a declarative, efficient and flexible JavaScript library for building user interfaces. Currently, ReactJS has over 58,000 stars on [GitHub](https://github.com/facebook/react). ReactJS makes it easy for you to build your web applications in the form of encapsulated components that manage their own state. In this tutorial, I'll show you how easy it is to build a web application with ReactJS and add authentication to it. Check out the [repo](https://github.com/auth0-blog/reactjs-authentication-tutorial) to get the code.
 
 ---
 
-**ReactJS** is a JavaScript library, built and maintained by Facebook. It was developed by [Jordan Walke](https://twitter.com/jordwalke), a software engineer at Facebook. It was open-sourced and announced to the developer community in March 2015. Since then, it has received tremendous growth and adoption in the developer community. In fact, as at the time of this writing, **ReactJS** is the 5th most starred project of all time on GitHub.
+**ReactJS** is a JavaScript library, built and maintained by Facebook. It was developed by [Jordan Walke](https://twitter.com/jordwalke), a software engineer at Facebook. It was open-sourced and announced to the developer community in March 2015. Since then, it has undergone tremendous growth and adoption in the developer community. In fact, as at the time of writing, **ReactJS** is the 5th most starred project of all time on GitHub.
 
-Currently, many web platforms use **ReactJS** to build their user interfaces. Such platforms include *Netflix*, *Instagram*, *Airbnb*, *KhanAcademy*, *Walmart* etc. The [documentation](https://facebook.github.io/react) is very detailed, and there is a vibrant community of users. In addition, a plethora of **ReactJS** addons exist on GitHub for easy inclusion in your project for whatever functionality you are trying to build out.
+Currently, many web platforms use **ReactJS** to build their user interfaces. Such platforms include *Netflix*, *Instagram*, *Airbnb*, *KhanAcademy*, *Walmart* and more. The [documentation](https://facebook.github.io/react) is very detailed, and there is a vibrant community of users. In addition, a plethora of **ReactJS** addons exist on GitHub for easy inclusion in your project for whatever functionality you are trying to build.
 
 ## Understanding Key Concepts in ReactJS
 
-**ReactJS** was influenced by **XHP**, an augmentation of [PHP](https://github.com/php/php-src) and [Hack](http://hacklang.org) to allow XML syntax for the purpose of creating custom and reusable HTML elements. An initial look at **ReactJS**, especially coming from the world of [JQuery](https://jquery.com/) and having no knowlede of Angular, Ember or VueJS can really get you confused. There are so many questions you might have to ask yourself such as:
+**ReactJS** was influenced by **XHP**, an augmentation of [PHP](https://github.com/php/php-src) and [Hack](http://hacklang.org) to allow XML syntax for the purpose of creating custom and reusable HTML elements. If you're coming from the world of [jQuery](https://jquery.com) and don't have experience with frameworks like Angular, Ember, or VueJS, you may find **ReactJS** very confusing. There are many questions you might have to ask yourself, such as:
 
-* Why is JavaScript and HTML together in one script?
+* Why are JavaScript and HTML together in one script?
 * What is JSX? Why is the syntax so weird?
 * What is a state?
 * Why do we need props?
-* What and why do we need components in our apps?
+* What are and why do we need components in our apps?
 
-Don't worry, you'll have answers to your many questions soon! There are some key concepts you need to know about React. Once you have a basic understanding of these concepts, then you'll be able to create your first *ReactJS* app without banging your head on the wall.
+Don't worry, you'll have answers to your many questions soon! There are some key concepts you need to know when learning React. Once you have a basic understanding of these concepts, then you'll be able to create your first **ReactJS** app without banging your head on the wall.
 
 These key concepts are:
 
@@ -54,13 +54,13 @@ These key concepts are:
 * **State**
 * **JSX**
 
-I'll give a basic overview of these concepts to nourish your understanding of *ReactJS*.
+I'll give a basic overview of these concepts to nourish your understanding of **ReactJS**.
 
 ### Components - The Types and API
 
 React is basically about components. A ReactJS app is just one big component made up of interoperable smaller components. Working with ReactJS means you are thinking in components most of the time.
 
-An example of a component is an HTML 5 tag, say `<header>`. A header can have attributes, it can be styled and also possess its own behaviour. In **ReactJS**, you'll be able to build your own custom component using **ES6** like so:
+An example of a component is an HTML 5 tag, say `<header>`. A header can have attributes, it can be styled and also possess its own behaviour. In **ReactJS**, you'll be able to build your own custom component using [**ES6**](https://auth0.com/blog/a-rundown-of-es6-features/) like so:
 
 ```js
 
@@ -74,13 +74,56 @@ class CustomComponent extends React.Component {
 
 So, your component will now be `<CustomComponent></CustomComponent>`.
 
-React provides some methods that are triggered at various points from creating a component up until the component is destroyed. It is called the [Component's Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html). You can hook into these methods to control the behaviour of components in your app. There are also methods like [`render`](https://facebook.github.io/react/docs/rendering-elements.html) and [`setState`](https://facebook.github.io/react/docs/state-and-lifecycle.html) that you can use to render an element on the DOM and set the state of a component respectively. 
+React provides some methods that are triggered at various points from creating a component up until the component is destroyed. This is called the [Component's Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html). You can declare methods to hook into the component's lifecycle to control the behaviour of components in your app. Some examples of these lifecycle hooks are `componentDidMount()`, `componentWillMount()`, `componentWillUnmount()`, `shouldComponentUpdate()`, `componentWillUpdate()` and more. 
+
+* **componentWillMount()** : This method is called before the component is initially rendered. So it is called before the `render` method is executed. You can't perform any type of DOM manipulation here because the component isn't available in the DOM yet.
+* **componentDidMount()** : This method is called right after the component has been rendered. So it is called immediately after the `render` method has been executed. It's the best place to perform network and AJAX calls.
+* **componentWillUnmount()** : This method is called right before the component is removed from the DOM.
+* **shouldComponentUpdate()** : This method determines if a re-rendering should occur or not. It is never called on initial rendering and it's always called before the render method.
+* **componentWillUpdate()** : This method is called as soon as `shouldComponentUpdate` returns true. It is called just before the component is rendered with new data.
+
+There are also methods like [`render`](https://facebook.github.io/react/docs/rendering-elements.html) and [`setState`](https://facebook.github.io/react/docs/state-and-lifecycle.html) that you can use to render an element on the DOM and set the state of a component respectively. 
+
+Take this example for a spin and watch how these lifecycle hooks work. Observe the sequence of logs in the browser console.
+
+```js
+
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+
+class Experiment extends Component {
+
+  componentWillMount() {
+    console.log("This will mount");
+  }
+
+  componentDidMount() {
+    console.log("This did mount");
+  }
+
+  componentWillUnmount() {
+    console.log("This will unmount");
+  }
+
+  render() {
+    console.log("I am just rendering like a boss");
+    return <div>I got rendered!</div>;
+  }
+  
+}
+
+render(
+  <Experiment />,
+  document.getElementById("root")
+);
+
+```
 
 ### Props
 
-`Props` is the short form for `properties`. Properties are attributes of a component. In fact, props are how components talk to each other. A tag in HTML, say `<img` has an attribute, a.k.a `prop` called `src` that points to the location of an image.
+`Props` is the short form for `properties`. Properties are attributes of a component. In fact, props are how components talk to each other. A tag in HTML such as `<img>` has an attribute, a.k.a `prop` called `src` that points to the location of an image.
 
-In React, you can have two components, `FatherComponent`, and `SonComponent`. Let's see how they can talk to each other.
+In React, you can have two components, `FatherComponent` and `SonComponent`. Let's see how they can talk to each other.
 
 ```js
 
@@ -106,11 +149,11 @@ class SonComponent extends React.Component {
 
 _SonComponent_
 
-Now, when the page is served, and a `<FatherComponent>` is called, `I am a true son. I have my father's eyeballs` will be rendered on the page.
+Now, when the page is served and a `<FatherComponent>` is called, `I am a true son. I have my father's eyes` will be rendered on the page.
 
 ### State
 
-When developing *ReactJS* applications, it is important to know when and when not to use state in components. The question now is: *When do I use state?*, *When do I use props?*  Props are data that the component depends on to render correctly. Most times, it comes from above, meaning it is passed down from a parent component to a child component. Like `props`, `state` holds information about the component but it is handled differently. When a component needs to keep track of data in an application between renderings. For example, the amount of times a button was clicked, user input from a form etc. When state changes in a component, the component automatically re-renders and updates the DOM.
+When developing *ReactJS* applications, it is important to know when and when not to use state in components. The question now is: *When do I use state?*, *When do I use props?*  Props are data that the component depends on to render correctly. Most times, it comes from above, meaning it is passed down from a parent component to a child component. Like `props`, `state` holds information about the component but it is handled differently.For example, the number of times a button was clicked, user input from a form, etc. When state changes in a component, the component automatically re-renders and updates the DOM.
 
 Inside a component, state is managed using a `setState` function.
 
@@ -160,11 +203,11 @@ class Button extends React.Component {
 
 ```
 
-Now, this works great for simple applications, like the one we'll build in this tutorial. For medium and large apps, it is recommended to use a state management library like [Redux](http://redux.js.org), or [MobX](https://github.com/mobxjs/mobx) to avoid big balls of messy code and also to help you track every event happening within your app.
+Now, this works great for simple applications like the one we'll build in this tutorial. For medium and large apps, it is recommended to use a state management library like [Redux](http://redux.js.org) or [MobX](https://github.com/mobxjs/mobx) to avoid big balls of messy code and also to help you track every event happening within your app.
 
 ### JSX
 
-Initially, looking at JSX seems awkward. JSX is the combination of HTML and JavaScript code in the same file. You can decide to name the extension of the file as `.jsx` or just `.js`. An example of JSX is:
+Initially, looking at JSX seems awkward. JSX is the combination of HTML and JavaScript code in the same file. You can decide to name the extension of the filem`.jsx` or just `.js`. An example of JSX is:
 
 ```js
 
@@ -184,21 +227,21 @@ Next, let's build an application with *ReactJS*.
 
 ![Chuck Norris World](https://cdn.auth0.com/blog/react/app.png)
 
-The app we will build today is called Chuck Norris World. Our app is a 2-fold eye into the world of Chuck Norris and his greatness. The Chuck Norris World app will display different jokes about the legend. A list of common food jokes will be available to the general public, while the celebrity jokes will only be accessible to registered members. 
+The app we will build today is called Chuck Norris World. Our app is an eye into the world of Chuck Norris and his greatness. The Chuck Norris World app will display different jokes about the legend. A list of common food jokes will be available to the general public, while the celebrity jokes will only be accessible to registered members. 
 
-**Note:** Celebrities demand a lot of cash from us these days for any form of joke made about them, and Chuck Norris isn't helping matters either. Always still cracking jokes about them, Sigh!
+**Note:** These days, celebrities demand a lot of cash for jokes made at their expense, and Chuck Norris isn't helping matters. Always cracking jokes about them, sigh!
 
 ## Build The Back-End
 
 Let's build an API to serve the list of jokes to our app. We'll quickly build the API with [Node.js](https://nodejs.org). The API is simple. This is what we need:
 
-* An endpoint to serve jokes about food - `/api/jokes/food` . 
-* An endpoint to serve jokes about celebrities - `/api/jokes/celebrity` .
-* Secure the endpoint that serves celebrity jokes, so that it can only be accessible by registered users.
+* An endpoint to serve jokes about food - `/api/jokes/food`. 
+* An endpoint to serve jokes about celebrities - `/api/jokes/celebrity`.
+* Secure the endpoint that serves celebrity jokes, so that it can only be accessed by registered users.
 
 Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/master/server). 
 
-Your `server.js` should look like so:
+Your `server.js` should look like this:
 
 ```js
 
@@ -257,7 +300,7 @@ app.get('/api/jokes/celebrity', (req,res)=>{
   },
   {
     id: 88882,
-    joke: "Chuck Norris only let's Charlie Sheen think he is winning. Chuck won a long time ago."
+    joke: "Chuck Norris only lets Charlie Sheen think he is winning. Chuck won a long time ago."
   },
   {
     id: 88883,
@@ -287,7 +330,7 @@ console.log('Listening on localhost:3333');
 _server.js_
 
 
-Your `package.json` file should look like so:
+Your `package.json` file should look like this:
 
 ```js
 
@@ -313,9 +356,11 @@ Your `package.json` file should look like so:
 
 ```
 
+> **Note:** Make sure you have [`nodemon`](https://github.com/remy/nodemon) installed globally.
+
 _package.json_
 
-Once you have cloned it, run an `npm install`, then use [postman](https://www.getpostman.com) to serve your routes like so:
+Once you have cloned the project, run an `npm install`, then use [postman](https://www.getpostman.com) to serve your routes like so:
 
 ![API serving food jokes](https://cdn.auth0.com/blog/react/postman.png)
 _API serving food jokes_
@@ -323,17 +368,17 @@ _API serving food jokes_
 ![API serving celebrity jokes](https://cdn.auth0.com/blog/react/postmanfood.png)
 _API serving celebrity jokes_
 
-The Food jokes endpoint should be - `http://localhost:3333/api/jokes/food` .
+The Food jokes endpoint should be `http://localhost:3333/api/jokes/food`.
 
-The Celebrity jokes endpoint should be - `http://localhost:3333/api/jokes/celebrity` .
+The Celebrity jokes endpoint should be `http://localhost:3333/api/jokes/celebrity`.
 
 Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with ReactJS. Woot! Woot!
 
 ## Build The Front-End With ReactJS
 
-In the early days of **ReactJS**, there was no tool or common way to set up a *ReactJS* app. Lots of boilerplates, starters and open source tools currently exist to set up a react app. There is one that stands out because of it's simplicity. It's called the [Create-React-App (CRA) CLI](https://github.com/facebookincubator/create-react-app) tool. It's being maintained by Facebook.
+In the early days of **ReactJS**, there was no tool or common way to set up a *ReactJS* app. However, React is more mature now; plenty of boilerplates, starters, and open source tools are currently available to help you set up an app. There is one that stands out because of its simplicity. It's called the [Create-React-App (CRA) CLI](https://github.com/facebookincubator/create-react-app) tool. It's being maintained by Facebook.
 
-> **Note:** We have a custom react script that comes bundled with Authentication. So you can use create-react-app to boostrap an authentication app like so `create-react-app my-app --scripts-version auth0-react-scripts`
+> **Note:** We have a custom React script that comes bundled with Auth0 authentication. So you can use create-react-app to boostrap an app with authentication support like this `create-react-app my-app --scripts-version auth0-react-scripts`
 
 Go ahead and install the CRA tool globally like so:
 
@@ -355,7 +400,7 @@ Then open [`http://localhost:3000`](http://localhost:3000) to see your app.
 
 ![App recently scaffolded and showing at Localhost](https://cdn.auth0.com/blog/react/ready-app.png)
 
-**Note:** It automatically invokes Yarn for installation. If you don't have Yarn installed, it falls back to use npm.
+**Note:** `create-react-app` automatically invokes Yarn for installation. If you don't have Yarn installed, it falls back to use npm.
 
 Let's check out the structure of our newly scaffolded app.
 
@@ -394,9 +439,9 @@ Make the following modifications like so:
 
 ## Fetch the API Data
 
-First thing we need to do is to fetch the API data from our Node backend to display in our app. Make sure the Node server is running.
+The first thing we need to do is to fetch the API data from our Node backend to display in our app. Make sure the Node server is running.
 
-Let's create a helper file to handle the fetching of API. Create a `chucknorris-api.js` file inside the `utils` directory.
+Let's create a helper file to handle fetching the API. Create a `chucknorris-api.js` file inside the `utils` directory.
 
 Open up the file and add code to it like so:
 
@@ -421,13 +466,15 @@ function getCelebrityData() {
 ```
 _chucknorris-api.js_
 
+**Note:** Install `axios` in your app by running `npm install axios --save`.
+
 We are using a very good promise based http client, [axios](https://github.com/mzabriskie/axios). An alternative for this is [superagent](https://github.com/visionmedia/superagent).
 
-So in the `getFoodData` and `getCelebrityData` functions, axios fetches data from the API endpoints. Then we do this: `export {getFoodData, getCelebrityData};` to make them ready for use in our components.
+In the `getFoodData` and `getCelebrityData` functions, axios fetches data from the API endpoints. Then we do this: `export {getFoodData, getCelebrityData};` to make them ready for use in our components.
 
 ## Build the Nav Component
 
-The `Nav.js` file is our Nav component. So, go ahead and add code to it like so:
+The `Nav.js` file is our Nav component. Go ahead and add code to it like so:
 
 ```js
 
@@ -464,7 +511,7 @@ export default Nav;
 
 ```
 
-**Note:** Open up your terminal and install `react-router` like so: `npm install react-router@3.0.0 --save`. At the time of this writing, `react-router` is in 4.0 alpha. So, you can play around with it.
+**Note:** Open up your terminal and install `react-router` like so: `npm install react-router@3.0.0 --save`. At the time of this writing, `react-router` is in 4.0 alpha, so you can explore its features.
 
 The `Link` Component from `react-router` enables seamless client-side transition between routes without any page reload.
 
@@ -542,6 +589,8 @@ export default FoodJokes;
 ```
 _FoodJokes.js_
 
+> **Note:** Learn why I use [`super()` in the class constructor](http://cheng.logdown.com/posts/2016/03/26/683329).
+
 Let's analyze the code above. The `FoodJoke` component is pulling data from an API, so it needs a way of holding that data. That's where `state` comes in. In **ReactJS**, you can use `props` to pass data around and use `state` to hold/manage that data.
 
 In the constructor, we define the initial state as seen in the code below:
@@ -567,7 +616,7 @@ In the `getFoodJokes` method, we call the `getFoodData` method we exported from 
 ...
 ```
 
-Now, we took advantage of one of **ReactJS** lifecycle hooks, `componentWillMount`. Whatever is defined in this method is applied just before a component gets rendered on the browser screen. So, we invoked the `getFoodJokes` method in the hook as seen below:
+Now, we took advantage of one of the **ReactJS** lifecycle hooks, `componentWillMount`. Whatever is defined in this method is applied just before a component gets rendered on the browser screen. So, we invoked the `getFoodJokes` method in the hook as seen below:
 
 ```js
 ...
@@ -577,7 +626,7 @@ Now, we took advantage of one of **ReactJS** lifecycle hooks, `componentWillMoun
 ...
 ```
 
-All we are trying to do is tell **ReactJS** to load the data from the API just before `FoodJokes` component gets rendered.
+All we are trying to do is tell **ReactJS** to load the data from the API just before the  `FoodJokes` component gets rendered.
 
 Finally, we rendered the component with the **ReactJS** render method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant. 
 
@@ -607,7 +656,7 @@ We looped through the `jokes` constant which is now an array to display the cont
 
 ````
 
-Now, let's build the `CelebrityJokes` component in the same way too like so:
+Now, let's build the `CelebrityJokes` component in the same way:
 
 ```js
 
@@ -717,7 +766,7 @@ You might quickly notice that we are not defining a class here, rather we just d
 ...
 ```
 
-The Routing is simple. We have defined it to display the `FoodJokes` component once a user hits the `/` route. It displays the `CelebrityJokes` component once a user hits the `/special` route. [The beginner's guide to react router](https://medium.com/@dabit3/beginner-s-guide-to-react-router-53094349669#.7kmmo5n9a) will give you a better understanding of how routing works in **ReactJS**.
+The routing is simple. We have defined it to display the `FoodJokes` component once a user hits the `/` route. It displays the `CelebrityJokes` component once a user hits the `/special` route. [The Beginner's guide to react router](https://medium.com/@dabit3/beginner-s-guide-to-react-router-53094349669#.7kmmo5n9a) will give you a better understanding of how routing works in **ReactJS**.
 
 This `ReactDOM.render(<Root />, document.getElementById('root'));` renders the root component in the `root` div, which is the starting point of our **ReactJS** application.
 
@@ -734,7 +783,7 @@ import { Router, Route, browserHistory } from 'react-router';
 
 Just a few things before we check our application in the browser:
 
-* Open up `public/index.html` and add bootstrap. Now the content of the html file should look like so:
+* Open up `public/index.html` and add [bootstrap](http://getbootstrap.com). Now the content of the html file should look like this:
 
 {% highlight html %}
 
@@ -785,7 +834,7 @@ Just a few things before we check our application in the browser:
 {% endhighlight %}
 
 
-Now, feel free to check out your application in the browser. Right now, you should have something like this:
+Feel free to check out your application in the browser. Right now, you should have something like this:
 
 ![Homepage](https://cdn.auth0.com/blog/react/homepage.png)
 _Homepage_
@@ -799,11 +848,11 @@ _Current Application_
 
 ## Adding Authentication to Your ReactJS App
 
-Majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **ReactJS** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
+The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **ReactJS** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and navigate to the client app you wish to use. Get the **Domain**, **Client Id**, and **Client Secret** of this app. We'll need them soon.
+Log into your Auth0 [management dashboard](https://manage.auth0.com) and navigate to the client app you wish to use. Get the **Domain**, **Client Id**, and **Client Secret** of this app. We'll need them soon.
 
 ### Secure The Node API
 
@@ -813,52 +862,13 @@ Open up your `server.js` file and replace the `AUTH0_CLIENT_ID` and `AUTH0_CLIEN
 
 ```js
 
-'use strict';
-
-const express = require('express');
-const app = express();
-const jwt = require('express-jwt');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-
+...
 const authCheck = jwt({
   secret: 'AUTH0_CLIENT_SECRET',
   audience: 'AUTH0_CLIENT_ID '
 });
 
-app.get('/api/jokes/food', (req, res)=>{
-  let foodJokes = [
-  {
-    id: 99991,
-    joke: "When Chuck Norris was a baby, he didn't suck his mother's breast. His mother served him whiskey, straight out of the bottle."
-  },
-  {
-    id: 99992,
-    joke: 'When Chuck Norris makes a burrito, its main ingredient is real toes.'
-  },
-  {
-    id: 99993,
-    joke: 'Chuck Norris eats steak for every single meal. Most times he forgets to kill the cow.'
-  },
-  {
-    id: 99994,
-    joke: "Chuck Norris doesn't believe in ravioli. He stuffs a live turtle with beef and smothers it in pig's blood."
-  },
-  {
-    id: 99995,
-    joke: "Chuck Norris recently had the idea to sell his urine as a canned beverage. We know this beverage as Red Bull."
-  },
-  {
-    id: 99996,
-    joke: 'When Chuck Norris goes to out to eat, he orders a whole chicken, but he only eats its soul.'
-  } 
-  ];
-  res.json(foodJokes);
-})
+....
 
 app.get('/api/jokes/celebrity', authCheck, (req,res)=>{
   let CelebrityJokes = [
@@ -897,7 +907,7 @@ console.log('Listening on localhost:3333');
 
 **Note:** You should load these values from environment variables for security reasons. No one should have access to your Auth0 secret.
 
-Try accessing the `http://localhost:3333/api/jokes/celebrity` endpoint again from your postman. You should be denied access like so:
+Try accessing the `http://localhost:3333/api/jokes/celebrity` endpoint again from Postman. You should be denied access like so:
 
 ![Unauthorized Access](https://cdn.auth0.com/blog/react/unauthorized.png)
 _Unauthorized Access_
@@ -994,13 +1004,13 @@ function isTokenExpired(token) {
 
 ```
 
-In the code above, we created an instance of `Auth0 Lock` and passed in our credentials. We also listened on the `authenticated` event. It grabs the `id_token` returned from Auth0 server and stores it in localStorage. The `logout` function deletes the token and directs us back to the homepage.
+In the code above, we created an instance of `Auth0 Lock` and passed in our credentials. We also listened on the `authenticated` event. It grabs the `id_token` returned from the Auth0 server and stores it in localStorage. The `logout` function deletes the token and directs us back to the homepage.
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
-Finally, we implemented a middleware, `requireAuth` method. We'll use this method to protect the `/special` route from being accessed for non-loggedIn users.
+Finally, we implemented a middleware, the `requireAuth` method. We'll use this method to protect the `/special` route from being accessed for non-loggedIn users.
 
-Let's go update the `Nav` component to hide/show the `login` and `logout` buttons based on the user logged-in status.
+Let's go update the `Nav` component to hide/show the `login` and `logout` buttons based on the user's authentication status.
 
 Now, your `Nav` component should look like this:
 
@@ -1047,11 +1057,13 @@ export default Nav;
 ``` 
 _Nav.js_
 
+> **Note:** We used an arrow function to wrap and execute the onClick handlers like so: `{() => login()}` . Check out how to [handle events in react with arrow function](https://medium.com/@machnicki/handle-events-in-react-with-arrow-functions-ede88184bbb#.ekwwbituw) to understand why we used arrow functions.
+
 We imported `login`, `logout` and `isLoggedIn` functions from the `AuthService`. Then, we attached the `login()` and `logout()` functions to the `login` and `logout` buttons respectively.
 
-We also hid the `/special` link by checking the logged-in status of the user via the `isLoggedIn()` function.
+We also hid the `/special` link by checking the authentication status of the user via the `isLoggedIn()` function.
 
-Open up the `FoodJokes` Component and modify it to be like so:
+Open up the `FoodJokes` Component and modify it like so:
 
 ```js
 
@@ -1124,11 +1136,11 @@ export default FoodJokes;
 
 ```
 
-We are enabling the link to celebrity jokes based on the logged-in status of a user via the `isLoggedIn()` method.
+We are enabling the link to celebrity jokes based on the login status of a user via the `isLoggedIn()` method.
 
 ### Add some values to Auth0 Dashboard
 
-Just before you try to login or signup, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:3000` to the **Allowed Callback URLs** and **Allowed Origins (CORS)**.
+Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:3000` to the **Allowed Callback URLs** and **Allowed Origins (CORS)**.
 
 ![Allowed Callback](https://cdn.auth0.com/blog/react/allowedcallback)
 _Allowed Callback Urls_
@@ -1161,7 +1173,7 @@ const Root = () => {
 ```
 _index.js_
 
-Now, try to login.
+Now, try to log in.
 
 ![Lock Login Widget](https://cdn.auth0.com/blog/react/login.png)
 _Lock Login Widget_
@@ -1170,9 +1182,9 @@ _Lock Login Widget_
 _Logged In, but unauthorized to see the celebrity content_
 
 
-Oops! We have successfully logged in but the content of the celebrity jokes is not showing up. And in the console, we are getting a `401 Unauthorized` error. Why?
+Oops! We have successfully logged in but the content of the celebrity jokes is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
 
-It's simple! We secured our endpoint earlier, but right now we are not passing the JWT to the backend yet. We need to send the JWT along with our request as a header to enable the secured endpoint recognize the logged-in user.
+It's simple! We secured our endpoint earlier, but right now we are not passing the JWT to the backend yet. We need to send the JWT along with our request as a header to enable the secured endpoint's recognition of the logged-in user.
 
 ### Updating the AuthService & ChuckNorris API helper
 
@@ -1190,7 +1202,7 @@ export function getIdToken() {
 
 Adding an `export` just before the function makes it exportable.
 
-Go ahead and open up `utils/chucknorris-api.js` file. We will tweak the `getCelebrityData` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
+Go ahead and open up the `utils/chucknorris-api.js` file. We will tweak the `getCelebrityData` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
 
 Now, we will pass an option to send an `Authorization` header with a Bearer token along with the `GET` request like so:
 
@@ -1205,7 +1217,7 @@ function getCelebrityData() {
 
 The `/api/jokes/celebrity` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
 
-Now, try to login again. 
+Now, try to log in again. 
 
 ![Working Chuck Norris World App](https://cdn.auth0.com/blog/react/working_chuck_norris_app.gif)
 _Working Chuck Norris World App_
@@ -1214,6 +1226,6 @@ Everything is working fine. Pat yourself on the back. You have just successfully
 
 ## Conclusion
 
-**ReactJS** is an awesome front-end library to employ in building your user interfaces. It takes advantage of the Virtual DOM, it is fast and it has a bubbling community. There are several react plugins/addons that the community provides to allow you do almost anything in **ReactJS**. 
+**ReactJS** is an awesome front-end library to employ in building your user interfaces. It takes advantage of the Virtual DOM, it is fast and it has a bubbling community. There are several React plugins/addons that the community provides to allow you do almost anything in **ReactJS**. 
 
 In addition, Auth0 can help secure your **ReactJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
