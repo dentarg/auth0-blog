@@ -151,9 +151,9 @@ That's all we need!
 
 ## Publish react-scripts to NPM
 
-Before publishing to npm, we need to change the `name` key of the `package.json` file in `react-scripts` directory to `unicodelabs-react-scripts`.
+Before publishing to npm, we need to change the value of the `name` key of the `package.json` file in `react-scripts` directory to `unicodelabs-react-scripts`.
 
-Change the `description` key to `Unicodelabs Configuration and scripts for Create React App.` Also, point the `repository` key to the right location. In my case, it is `unicodelabs/create-react-app`.
+Change the value of the `description` key to `Unicodelabs Configuration and scripts for Create React App.` Also, point the value of the `repository` key to the right location. In my case, it is `unicodelabs/create-react-app`.
 
 Now, `cd` to the `react-scripts` directory from your terminal like so:
 
