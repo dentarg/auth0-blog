@@ -441,6 +441,8 @@ function processCopy(str, prepFn, arrFn, countFn, kwFn) {
 }
 
 processCopy(fpCopy, stripPunctuation, getArr, getWordCount, getKeywords);
+// result: Word count: 11
+// result: Keywords: functional,programming,powerful,enjoyable
 ```
 
 This code is available to run at this [JSFiddle: Functional Programming with JavaScript](https://jsfiddle.net/kmaida/xxc7g0ve/). It's broken into digestible, declarative functions with clear purpose. If we step through it and read the comments, no further explanation of the code should be necessary. Each _core_ function is modular and relies only on its inputs (<a href="#purity" target="_self">pure</a>). The last function processes the core to generate the collective outputs. This function, `processCopy()`, is the impure container that executes the core and manages side effects. We've used a <a href="#higher-order-functions" target="_self">higher-order function</a> that accepts the other functions as arguments to maintain the functional style.
