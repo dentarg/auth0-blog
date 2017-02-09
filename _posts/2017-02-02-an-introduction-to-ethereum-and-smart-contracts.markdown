@@ -193,197 +193,204 @@ It is entirely possible for the network to be forked if a sufficiently large num
 
 Forks can also be caused by a change in the protocol or the software running the nodes. These changes can result in nodes invalidating blocks that are considered valid by other nodes. The effect is identical to a network-related fork.
 
-## Aside: a Login System Using Bitcoin and Webtasks
-Although we have not delved into the specifics of how Bitcoin or Ethereum handle transactions, there is a certain *programmability* built into them. Bitcoin allows for certain conditions to be specified in each transaction. If these conditions are met, the transaction can be spent. Ethereum, on the other hand, goes much further: a Turing-complete programming language is built into the system. We will focus on Ethereum in the next post in this series, but for now we will take a look at creative ways in which the concepts of the blockchain can be exploited for more than just sending money. For this, we will develop a simple authentication system on top of Bitcoin. Scripts in both Bitcoin and Ethereum are known as *smart contracts*.
+## Aside: a Perpetual Message System Using Webtasks and Bitcoin
+Although we have not delved into the specifics of how Bitcoin or Ethereum handle transactions, there is a certain *programmability* built into them. Bitcoin allows for certain conditions to be specified in each transaction. If these conditions are met, the transaction can be spent. Ethereum, on the other hand, goes much further: a Turing-complete programming language is built into the system. We will focus on Ethereum in the next post in this series, but for now we will take a look at creative ways in which the concepts of the blockchain can be exploited for more than just sending money. For this, we will develop a simple perpetual message system on top of Bitcoin. How will it work?
 
-Our system will allow users to login using their Bitcoin accounts. Here's how it will work:
+We have seen the blockchain stores transactions that can be verified. Each transaction is signed by the one who can perform it and then broadcast to the network. It is then stored inside a block after performing a proof-of-work. This means that any information embedded in the transaction is stored forever inside the blockchain. The timestamp of the block serves as proof of the message's date, and the proof-of-work process serves as proof of to its immutable nature.
 
-1. A user accesses a site and a login box appears. It requests his or her Bitcoin address.
-2. The site contacts the login server and sends the address of the user to it. The server replies with a transaction that the user must perform to verify he is the owner of the address.
-3. The site shows the user the transaction and requests he or she manually performs it. This can be done with any Bitcoin wallet software.
-4. The login server waits for the transaction to be broadcast in the Bitcoin network. After this, the user is logged in.
+Bitcoin uses a scripting system that describes steps a user must perform to spend money. The most common script is simply "prove you are the owner of a certain private-key by signing this message with it". This is known as the "pay to pubkey hash" script. In decompiled form it looks like:
 
-In a sense, the Bitcoin network in this case is simply used as a transport for the signed transaction. The Bitcoin network could simply be removed from the equation by having the user sign something with his Bitcoin private key. We will see in the next post in this series how logins for blockchain users can be improved.
-
-## Ethereum: a Programmable Blockchain
-Although the concept of the blockchain was born out of the research into cryptocurrencies, they are much more powerful than just that. Blockchains essentially encode one thing: state transitions. Whenever someone sends a coin in Bitcoin to someone, the global state of the blockchain is changed. Moments before account A hold 50 coins, now account A is empty and account B holds 50 coins. Furthermore, the blockchain provides a cryptographically secure way of performing these state transitions. In other words, not only the state of the blockchain can be verified by any outside party, but any state transitions initiated by blockchain users can only be performed in a secure, verifiable manner.
-
-![Transactions as computations]()
-
-All software systems deal in some way or another with state transitions. So what if we could generalize the state transitions inside a blockchain into any software we could think of. Are there any inherent limitations in the blockchain concept that would prevent state transitions from being something different than sending coins? The answer is no. Blockchains deal with reaching consensus for decentralized computations, it does not matter what those computations are. And this is exactly what the Ethereum network brings to the table: a blockchain that can perform any computation as part of a transaction.
-
-![Transactions as general computations]()
-
-It is easy to get lost in the world of cryptocurrencies and simple exchanges of value between two users, but there are many other applications where distributed, secure computations make sense. In fact, even Bitcoin allows for a limited form of computation as part of its transaction system. It is this system that allows for things like:
-
-- Secure deposits that get returned to the payer if conditions are met (or not)
-- Money that cannot be spent unless a certain [number of users agree to spending it](https://en.bitcoin.it/wiki/Multisignature)
-- Money that can only be spent after producing external data that satisfies rules set in the script
-
-Given a Turing-complete system for computations associated to a blockchain, many more applications are possible. This is Ethereum.
-
-### Ether
-Although Ethereum brings general computations to the blockchain, it still makes use of a "coin". Its coin is called "ether", and, as any coin, it is a number that can be stored into account addresses and can be spent or received as part of transactions or block generation. This begs the question "why is it necessary at all?".
-
-A [Turing-complete language](https://en.wikipedia.org/wiki/Turing_completeness) is a language that, by definition, can perform any computation. In other words, if there is an algorithm for something, it can express it. Ethereum scripts, called *smart contracts*, can thus run any computation. Computations are run as part of a transaction. This means each node in the network must run computations. Any machine capable of running a Turing-complete language (i.e. a Turing machine) has one problem: the [halting problem](https://en.wikipedia.org/wiki/Halting_problem). The halting problem essentially states that no Turing machine can determine beforehand whether a program run in it will either terminate (halt) or run forever. In other words, the only way of finding out if a piece of code loops forever or not is by running that code. This poses a big problem for Ethereum: no single node can get caught up in an infinite loop running a program. Doing so would essentially stop the evolution of the blockchain and halt all transactions. But there is a way around that.
-
-Since computation is costly, and it is in fact rewarded by giving nodes that produce blocks ether (like Bitcoin), what better way to limit computations than by requiring ether for running them. Thus Ethereum solves the problem of denial of service attacks through malicious (or bugged) scripts that run forever. Every time a script is run, the user requesting the script to run must set a limit of ether to spend in it. Ether is consumed by the script as it runs. This is ensured by the virtual machine that runs the scripts. If the script cannot complete before running out of ether, it is halted at that point. In Ethereum the ether assigned to an script as a limit is known as *gas* (as in gasoline).
-
-As ether represents value, it can be converted to other coins. Exchanges exist to trade ether for other coins. This gives ether a [real money valuation](https://coinmarketcap.com/currencies/ethereum/), much like coins from Bitcoin.
-
-### Smart Contracts
-Smart contracts are the key element of Ethereum. In them any algorithm can be encoded. Smart contracts can carry arbitrary state and can perform any arbitrary computations. They are even able to call other smart contracts. This gives the scripting facilities of Ethereum tremendous flexibility.
-
-Smart contracts are run by each node as part of the block creation process. Just like Bitcoin, block creation is the moment where transactions actually take place, in the sense that once a transaction takes place inside a block, global blockchain state is changed. Ordering affects state changes, and just like in Bitcoin, each node is free to choose the order of transactions inside a block. After doing so (and executing the transactions), a certain amount of work must be performed to create a valid block. In contrast to Bitcoin, Ethereum follows a different pattern for selecting which blocks get added to the valid blockchain. While in Bitcoin the longest chain of valid blocks is always the rightful blockchain, Ethereum follows a protocol called [GHOST](https://www.cryptocompare.com/coins/guides/what-is-the-ghost-protocol-for-ethereum/) (in fact a variation thereof). The GHOST protocol allows for stale blocks, blocks that were computed by other nodes but that would otherwise be discarded since others have computed newer blocks, to be integrated into the blockchain, reducing wasted computing power and increasing incentives for slower nodes. It also allows for faster confirmation of transactions: whereas in Bitcoin blocks are usually created every 10 minutes, in Ethereum blocks are created within seconds. [Much discussion](https://news.ycombinator.com/item?id=7553418) has gone into whether this protocol is an improvement over the much simpler "fastest longest chain" protocol in Bitcoin, however this discussion is out of scope for this article. For now this protocol appears to run with success in Ethereum.
-
-An important aspect of how smart contracts work in Ethereum is that they have their own address in the blockchain. In other words, contract code is not carried inside each transaction that makes use of it. This would quickly become unwieldy. Instead, a node can create a special transaction that assigns an address to a contract. This transaction can also run code at the moment of creation. After this initial transaction, the contract becomes forever a part of the blockchain and its address never changes. Whenever a node wants to call any of the methods defined by the contract, it can send a message to the address for the contract, specifying data as input and the method that must be called. The contract will run as part of the creation of newer blocks up to the *gas limit* or completion. Contract methods can return a value or store data. This data is part of the state of the blockchain.
-
-#### State
-An interesting aspect of contracts being able to store data is how can that be handled in an efficient way. If state is mutated by contracts, and the nature of the blockchain ensures that state is always consistent across all nodes, then all nodes must have access to the whole state stored in the blockchain. Since the size of this storage in unlimited in principle, this raises questions with regards to how to handle this effectively as the network scales. In particular, how can smaller and less powerful nodes make use of the Ethereum network if they can't store the whole state? How can they perform computations? To solve this, Ethereum makes use of something called [Merkle Patricia Trees](https://easythereentropy.wordpress.com/2014/06/04/understanding-the-ethereum-trie/).
-
-A Merkle Patricia Tree is a special kind of data structure that can store cryptographically authenticated data in the form of keys and values. A Merkle Patricia Tree with a certain group of keys and values can only be constructed in a single way. In other words, given the same set of keys and values, two Merkle Patricia Trees constructed independently will result in the same structure bit-by-bit. A special property of Merkle Patricia Trees is that the value of the root key (the first key in the tree) depends on the values of all sub-keys. This means that any change to the tree results in a completely different root key value. Changes to a leaf cause all keys leading to the root key through that branch to be recomputed. What we have described is in fact the "Merkle" part of the tree, the "Patricia" part comes from the nature keys are located in the tree. In Patricia trees the key of the node is actually its hash value (the hash of the data contained in it). Only leaf nodes can contain data. All other nodes are simply pathways to the leaves. These intermediary nodes are constructed using binary prefixes of the keys. In this way, two keys that share a binary prefix also share intermediary nodes. The Merkle Patricia Trees implemented in Ethereum have other optimizations that overcome inefficiencies inherent to the simple algorithm described here.
-
-![Merkle Patricia Trees]
-
-For our purposes, the Merkle aspect of the trees are what matter in Ethereum. Rather than keeping the whole tree inside a block, the hash of its root node (which is simply its key value) is embedded in the block. If some malicious node were to tamper with the state of the blockchain, it would become evident as soon as other nodes computed the hash of the root node using the tampered data. The resulting hash would simply not match with the one recorded in the block. At this point we should find ourselves asking a big question: why not simply take the hash of the data? Merkle Patricia Trees are used in Ethereum for a different, but very important reason: most of the time, nodes do not need a full copy of the whole state of the system. Rather, they want to have a partial view of the state, complete enough to perform any necessary computations for newer blocks or to read the state from some specific address. Since no computations usually require access to the whole state stored in the blockchain, downloading all state would be superfluous. In fact, if nodes had to do this, scalability would be a serious concern as the network expanded. To verify a partial piece of the state at a given point, a node need only download the data necessary for a branch of the tree and the hashes of its siblings. Any change in the data stored at a leaf would require a malicious node to be able to carry a [preimage attack](https://en.wikipedia.org/wiki/Preimage_attack) against the hashing algorithm of the tree (to find the values for the siblings that combined with the modified data produce the same root hash as the one stored in the block).
-
-![A partial Merkle Tree]()
-
-All of this allows efficient operations on the state of the blockchain, while at the same time keeping its actual (potentially huge) data separate from the block, still the center piece of the security scheme of the blockchain.
-
-#### History
-Much like Bitcoin, the blockchain can be used to find the state of the system at any point in time. This can be done by replaying each transaction from the very first block up to the point in question. However, in contrast to Bitcoin, most nodes do not keep a full copy of the data for every point in time. Ethereum allows for old data to be *pruned* from the blockchain. The blockchain remains consistent as long as the blocks are valid, and data is stored outside of the blocks, so technically it is not required to verify the proof of work chain. In contrast to Bitcoin, where to find the balance of an account a node must replay all transactions leading up to that point, Ethereum stores state by keeping the root hash of the Merkle Patricia Tree in each block. As long as the data for the last block (or any past blocks) is available, future operations can be performed in the Ethereum network. In other words, it is not necessary for the network to replay old transactions, since their result is already available. This would be akin to storing the balance of each account in each block in the Bitcoin network.
-
-![Partial historical state in the blockchain]()
-
-There are, however, nodes that store the whole copy of the historical state of the blockchain. This serves for historical and development purposes.
-
-#### Solidity and a Sample Smart Contract
-Smart contracts run on the Ethereum Virtual Machine, which in turn runs on each node. Though powerful, the Ethereum Virtual Machine works at a much too low level to be convenient to directly program (like most VMs). For this reason, several languages for writing contracts have been developed. Of these, the most popular one is [Solidity](https://solidity.readthedocs.io/en/develop/).
-
-Solidity is a JavaScript-like language developed specifically for writing Ethereum Smart Contracts. The Solidity compiler turns this code into Ethereum Virutal Machine bytecode, which can then be sent to the Ethereum network as a transaction to be given its own address.
-
-To better understand Solidity, let's take a look at one example:
-
-```solidity
-pragma solidity ^0.4.2;
-
-contract OwnerClaims {
-  
-    string constant public defaultKey = "default";
-
-    mapping(address => mapping(string => string)) private owners;
-
-    function setClaim(string key, string value) {
-        owners[msg.sender][key] = value;
-    }
-
-    function getClaim(address owner, string key) constant returns (string) {
-        return owners[owner][key];
-    } 
-
-    function setDefaultClaim(string value) {
-        setClaim(defaultKey, value);
-    }
-
-    function getDefaultClaim() constant returns (string) {
-        return getClaim(defaultKey);
-    }
-
-}
+```
+<sig> <pubKey> OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-This is a simple owner claims contract. An owner claims contract is a contract that lets any address owner to record arbitrary key-value data. The nature of the blockchain certifies that the owner of certain address is the only one who can set claims in connection to that address. In other words, the owner claims contract allows anyone who wants to perform transactions with one of your addresses to know your claims. For instance, you can set a claim called "email", so that anyone that wants to perform a transaction with you can get your email address. This is useful, since an Ethereum address is not bound to an identity (or email address), only to its private-key.
+Where `<sig>` and `<pubKey>` are provided by the spender and the rest is specified by the original sender of the money. This is simply a sequence of mixed data and operations. The interpreter for this script is a stack-based virtual machine. The details of execution are out of scope for this article, but you can find a nice summary at the [Bitcoin Wiki](https://en.bitcoin.it/wiki/Script#Standard_Transaction_to_Bitcoin_address_.28pay-to-pubkey-hash.29). The important take from this is that transactions can have data embedded in them in the scripts.
 
-The contract is as simple as possible. First there is the `contract` keyword that signals the beginning of a contract. Then comes `OwnerClaims`, the contract name. Inside the contract there are two types of elements: variables and functions.
+In fact, there exists a valid opcode for embedding data inside a transaction: the `OP_RETURN` opcode. Whatever data follows the `OP_RETURN` opcode is stored in the transaction. Of course, there is a limit for the amount of data allowed: 40-bytes. This is very little, but still certain interesting applications can be performed with such a tiny amount of storage. One of them is our perpetual message system. Another interesting use case is the "proof of existence" concept. By storing a hash of an asset in the blockchain, it serves as proof of its existence at the point it was added to a block. In fact, there [already exists such a project](https://proofofexistence.com). In fact, there is nothing preventing you from using our perpetual message system for a similar use.
 
-Among variables there are two types as well: constants and writable variables. Constants are just that: they can never be changed. Writable variables, however, save state in the blockchain. It is these variables that encode the state saved in the blockchain, nothing more.
+### The Implementation
+Our system will work as an HTTP service. Data will we passed in JSON format as the body of `POST` requests. The service will have three endpoints plus one for debugging.
 
-Functions are pieces of code that can either read or modify state. Read-only functions are also marked as `constant` in the code and do not require `gas` to run. On the other hand, functions that mutate state require `gas`, since state transitions must be encoded in new blocks of the blockchain (and these cost work to produce).
-
-Values returned from functions are returned to the caller.
-
-The `owners` variable in our contract is a [map](https://en.wikipedia.org/wiki/Associative_array), also known as associative array or dictionary. It matches a key to a value. In our case, the key is an `address`. Addresses in Ethereum are the identifiers of either normal accounts (usually managed by users) or other contracts. When an owner of an address decides to set a claim, it is this mapping from address to a claim that we are interested in. In fact, we are not simply mapping an address to a claim, but to a group of key-values that constitute a group of claims (in the form of another map). This is convenient because an address owner might want to make several details about himself known to others. In other words, address owners might want to make their email address and their cellphone number both available. To do so, they might create to claims: one under the "email" key, and the other under the "phone" key.
-
-The contract leaves to each owner to decide what entries to create, so the names of the keys are not known in advance. For this reason, a special "default" key is available, so any reader might know at least one claim if he doesn't know what keys are available. In truth, this key is also in place for a different reason: Solidity does not make it practical to return bulk data from functions. In other words, it is not easy to return all claims connected to an address in a single function call. In fact, the `mapping` type does not even have an iteration operation (although one can be coded if needed), so it is not possible to know what keys are inside a mapping. It is left as an exercise for the reader to find ways to improve this if needed.
-
-### Current and Potential Uses
-What we just saw with our simple example gave us a taste of what is possible with Ethereum. Do note it has nothing to do with exchanging money! Although ether is necessary to perform mutations on the network, our contract is strictly concerned with securely establishing a series of claims connected to an Ethereum address. Nothing more. Not only the result is mathematically verifiable (no other person other than the owner of the address can set claims), but is also very hard to erase: it is recorded in a globally distributed database with no central node!
-
-Having access to a distributed, Turing-complete computing engine with verifiable semantics opens a world of possibilities. Let's take a look at interesting ideas already implemented or under implementation in Ethereum.
-
-#### The Decentralized Autonomous Organization (DAO)
-The DAO is, literally, an organization. It has members, it has a central authority (the Owner), members can cast votes and the organization itself can perform any operations any other account could do. Members can create proposals, in the form of transactions, and voting members from the organization can cast votes to either approve the proposal or dismiss it. Proposals have a limit of time after which votes are counted and a decision is taken. The decision to perform or dismiss the proposal is carried by the contract of the DAO. In other words, no central authority can decide the fate of a proposal, and this is certified by the contract and the nature of the blockchain. The Owner can be changed by a proposal. The only privilege the owner has is the ability to add or remove voting members.
-
-In fact, the DAO we have just described is only one of the possible implementations. There are many improvements or modifications that can be performed to create whatever type of hierarchy. A Congress, a shareholder association, a democracy, these are all possibilities.
-
-To learn more about DAOs, the main Ethereum website has a [whole area](https://www.ethereum.org/dao) dedicated to them.
-
-#### A Central Bank or Your Own Coin
-Although ether has real value and can be traded for other coins, other coin systems can be implemented on top of Ethereum. For instance, you could design your own coin with a central authority that can create money, authorize transactions or arbitrate disputes. Take a look at a possible implementation by following this [tutorial](https://www.ethereum.org/token).
-
-#### A Crowdfunding System
-Crowdfunding lets donors send money for a project that has not been completed or even started. In this way, funding for projects of different sizes is possible. The amount of money donated for the project is what usually decides the fate of the project. The usual problem with crowdfunding is the need for a central figure to hold founders responsible in case a project is not satisfactorily completed after funding, or to make sure all the money donated actually arrives at the hands of the founders. In other words, crowdfunding requires a considerable amount of trust to be placed in both the founder of a project and the central authority. But with Ethereum this needn't be so.
-
-With Ethereum, it is possible to design a contract that takes a certain amount of money from donors and stores it in an account. This funds in this account can be kept away from the hands of the founders until they provide proof of their progress. When a certain milestone is achieved, the funds can be released. On the other hand, if the founders fail to provide proof of their progress in a reasonable timeframe, donated funds can be automatically returned to the donors. All of this logic of handling funds can be performed without trust in a central authority. Donors can be sure their money won't be spent until proof of work is provided, and they can be sure they will always get their money back otherwise. They can also be 100% certain each donor's money will go into the right hands.
-
-An [example implementation of a crowdsale](https://www.ethereum.org/crowdsale) is available in the Ethereum page.
-
-#### Prove That You Said Something in the Past
-An interesting aspect of the blockchain is that its mere existence is proof that every transaction in it happened at some point in time. Although a certain variance in the timestamp of a transaction is expected (as it will get set by the node that creates the block that contains it), anything recorded in the blockchain happened at some point in the past. In fact, it is possible to assert it happened before or after other events also recorded or linked in some way to the blockchain. Since the blockchain allows for arbitrary state to be stored in it, it is possible to link an arbitrary message to an address. Anyone can confirm by looking at the blockchain that that message was produced at some point in the past by the owner of an address. All the owner needs to do is prove he is the owner of the address that produced the same message in the past. This can simply be done by performing a transaction using the same address as before.
-
-Suppose you wrote a book. Before sending copies to your friends and editors, you decide to prove it was you who wrote it by storing its proof of existence in the blockchain. If your book gets plagiarized before getting published (by one of the editors, for instance), you can prove it was you who wrote it by showing you linked its hash to an Ethereum address. When anyone wants to confirm you own the address, you can show it to them through any transaction of their choice. The blockchain ensures any person in doubt can see the association between the hash of the book and your address, proving you had access to the full copy of the book at some point in the past.
-
-#### Proof of Existence for Digital Assets
-The concept of the previous example can be extended to a proof of the existence of anything that can be hashed. In other words, anything with a single digital representation can be hashed and stored in the blockchain, just like the arbitrary message from above. Later, any user can query whether the element was hashed and added to the blockchain.
-
-[Here](https://chainy.info) is one working example of this concept.
-
-There are many more examples of things that can be implemented with Ethereum, [check them out](http://dapps.ethercasts.com)!
-
-## Aside: Using Webtasks and Ethereum to Create a Login System
-One of the cool things about Ethereum is that addresses are, by definition, systems to prove ownership. Whomever can perform operations with an Ethereum address is the rightful owner of that address. This is, of course, the consequence of the underlying public-key infrastructure used to verify transactions. We can exploit this to create a login system based on Ethereum addresses. Let's see how.
-
-Any login system is mainly concerned with creating a unique identity that can be managed by whomever can pass a certain "login challenge". The login challenge is the method to prove that the same entity that created the account in the first place is the same entity doing operations now. Most systems rely on the classic username + password login challenge: a new user registers by choosing a unique username and a password, then, anytime the system requires proof that the user is in fact who he says he is, it can request the password for that username. This system works. But with Ethereum we already have a system for proving identities: public and private keys!
-
-We'll design a simple contract that can be used by any user to validate his ownership of an address. The login process will be as follows:
-
-1. A user accesses a website that requires him or her to login. When the user is not logged in, the website requests the user to enter his or her Ethereum address.
-2. The backend for the website receives the address for the user and creates a challenge string and a JWT. Both of these are sent back to the user.
-3. The user sends the challenge string to the `Login` contract and stores the JWT for later use locally.
-4. The backend listens for login attempts using the challenge string at the Ethereum network. When an attempt with the challenge string for the right user is seen, it can assume the user has proved his or her identity. The only person that can send a message with an Ethereum address is the holder of the private key, and the only user that knows the challenge string is the user that received the challenge through the login website.
-5. The user gets notified or polls the website backend for confirmation of his or her successful login. The user then proceeds to use the JWT issued in step 2 for accessing the website. Alternatively, a new JWT can be issued after a successful login to keep state client-side.
-
-To that end, this is the Ethereum contract we will use:
-
-```solidity
-pragma solidity ^0.4.2;
-
-contract Login {
-  
-    event LoginAttempt(address indexed sender, string challenge);
-
-    function login(string challenge) constant {
-        LoginAttempt(msg.sender, challenge);
-    }
-
-}
-```
-
-The contract is extremely simple. `Events` are special elements in Solidity that are mapped to a system in Ethereum that allows special data to be logged. Events are generally watched by clients monitoring the evolution of the blockchain. This allows actions to be taken by clients when events are created. In our case, whenever a user attempts to login, an event created with the challenge is broadcast. Note that the function is marked `constant`. This means no data is stored in the blockchain. We only care about receiving a call from the rightful owner of the Ethereum address that was passed to the third party website. And, thanks to the way Ethereum works, we can be sure the sender was the one who performed the call.
-
-In addition to the sender's address, the challenge is also broadcast. This means anyone watching the blockchain now knows the challenge. However, this cannot be used on its own to impersonate a user: a user can only interact with the backend through the session JWT. This means an attacker must know three pieces of information to impersonate a user: the Ethereum address, the challenge AND the JWT issued with the challenge. Since JWTs are signed, an attacker cannot create a valid JWT to impersonate an user, even with access to the challenge.
-
-Here's our backend code:
+#### The `/new` endpoint
+It creates a new user using the username and password passed in. Sample body:
 
 ```javascript
+{ 
+    "id": "username:password", // password is not hashed for simplicity, 
+                               // TLS is required!
+    "testnet": true            // True to use Bitcoin's test network
+}
 ```
 
-### Running the Example
+The response is of the form:
 
-TODO
+```javascript
+{
+    "address": "..."            // A Bitcoin address for the user just created
+}
+```
 
-Grab the full example.
+#### The `/address` endpoint
+Returns the address for an existing user. Sample body:
+
+```javascript
+{ 
+    "id": "username:password", // password is not hashed for simplicity, 
+                               // TLS is required!
+}
+```
+
+The response is identical to the `/new` endpoint.
+
+#### The `/message` endpoint
+Broadcasts a transaction to the Bitcoin network with the message stored in it. A fee is usually required for the network to accept the transaction (though some nodes may accept transactions with no fees). Messages can be at most 33 bytes long. Sample body:
+
+```javascript
+{ 
+    "id": "username:password", 
+    "fee": 667, 
+    "message": "test" 
+}
+```
+
+The response is either a transaction id or an error message. Sample of a successful response:
+
+```javascript
+{ 
+    "status": "Message sent!",
+    "transactionId": "3818b4f03fbbf091d5b52edd0a58ee1f1834967693f5029e5112d36f5fdbf2f3"
+}
+```
+
+Using the transaction id one can see the message stored in it. One can use any publicly available blockchain explorer to do this.
+
+#### The `/debugNew` endpoint
+Similar to the `/new` endpoint but allows one to create an user with an existing Bitcoin private key (and address). Sample body:
+
+```javascript
+{ 
+    "id": "username:password", // password is not hashed for simplicity, 
+                               // TLS is required!
+    "testnet": true,           // True to use Bitcoin's test network
+    "privateKeyWIF": "..."     // A private key in WIF format.
+                               // Note testnet keys are different from livenet keys,
+                               // so the private key must agree with the 
+                               // value of the "testnet" key in this object
+}
+```
+
+The response is identical to the `/new` endpoint.
+
+### The Code
+The only interesting endpoint is the one that builds and broadcasts the transaction (`/message`). We use the `bitcore-lib` and `bitcore-explorers` libraries to do this:
+
+```javascript
+getUnspentUtxos(from).then(utxos => {
+    let inputTotal = 0;
+    utxos.some(utxo => {
+        inputTotal += parseInt(utxo.satoshis);
+        return inputTotal >= req.body.fee;
+    });
+    if(inputTotal < req.body.fee) {
+        res.status(402).send('Not enough balance in account for fee');
+        return;
+    }
+
+    const dummyPrivateKey = new bitcore.PrivateKey();
+    const dummyAddress = dummyPrivateKey.toAddress();
+
+    const transaction = 
+        bitcore.Transaction()
+                .from(utxos)
+                .to(dummyAddress, 0)
+                .fee(req.body.fee)
+                .change(from)
+                .addData(`${messagePrefix}${req.body.message}`)
+                .sign(req.account.privateKeyWIF);
+    
+    broadcast(transaction.uncheckedSerialize()).then(body => {
+        if(req.webtaskContext.secrets.debug) {
+            res.json({
+                status: 'Message sent!',
+                transactionId: body,
+                transaction: transaction.toString(),
+                dummyPrivateKeyWIF: dummyPrivateKey.toWIF() 
+            });
+        } else {
+            res.json({
+                status: 'Message sent!',
+                transactionId: body
+            });
+        }
+    }, error => {
+        res.status(500).send(error.toString());
+    });
+}, error => {
+    res.status(500).send(error.toString());
+});
+```
+
+The code is fairly simple:
+
+1. Gets the unspent transactions for an address (i.e. the coins available, the balance).
+2. Build a new transaction using the unspent transactions as input.
+3. Point the transaction to a new, empty address. Assign 0 coins to that address (do not send money unnecessarily).
+4. Set the fee.
+5. Set the address where the unspent money will get sent back (the change address).
+6. Add our message.
+7. Broadcast the transaction.
+
+Bitcoin requires transactions to be constructed using the money from previous transactions. That is, when coins are sent, it is not the origin address that is specified, rather it is the transactions pointing to that address that are included in a new transaction that points to a different destination address. From these transactions is subtracted the money that is then sent to the destination. In our case, we use these transactions to pay for the fee. Everything else gets sent back to our address.
+
+### Deploying the Example
+Thanks to the power of [Webtasks](https://webtask.io), deploying and using this code is a piece of cake. First clone the repository:
+
+```sh
+git clone git@github.com:auth0-blog/ethereum-series-bitcoin-perpetual-message-example.git
+```
+
+Now make sure you have the Webtask command-line tools installed:
+
+```sh
+npm install -g wt-cli
+```
+
+If you haven't done so, initialize your Webtask credentials (this is a one time process):
+
+```sh
+wt init
+```
+
+Now deploy the project:
+
+```sh
+cd ethereum-series-bitcoin-perpetual-message-example
+wt create --name bitcoin-perpetual-message --meta 'wt-node-dependencies={"bcryptjs":"2.4.3","bitcore-lib":"0.13.19","bitcore-explorers-bitcore-lib-0.13.19":"1.0.1-3"}' app.js
+```
+
+Your project is now ready to test! Use CURL to try it out:
+
+```sh
+curl -X POST https://wt-sebastian_peyrott-auth0_com-0.run.webtask.io/bitcoin-perpetual-message/new -d '{ "id":"test:test", "testnet":true }' -H "Content-Type: application/json"
+{"address":"mopYghMw5i7rYiq5pfdrqFt4GvBus8G3no"} # This is your Bitcoin address
+```
+
+You now have to add some funds to your new Bitcoin address. If you are on Bitcoin's testnet, you can simply use a [faucet](https://testnet.manu.backend.hamburg/faucet).
+
+> Faucets are Bitcoin websites that give free coins to addresses. These are easy to get for the testnet. For the "livenet" you need to buy Bitcoins using a [Bitcoin exchange](https://en.wikipedia.org/wiki/Digital_currency_exchange).
+
+Now send a message!
+
+```sh
+curl -X POST https://wt-sebastian_peyrott-auth0_com-0.run.webtask.io/bitcoin-perpetual-message/message -d '{ "id":"test:test", "fee":667, "message":"test" }' -H "Content-Type: application/json"
+{"status":"Message sent!","transactionId":"3818b4f03fbbf091d5b52edd0a58ee1f1834967693f5029e5112d36f5fdbf2f3"}
+```
+
+Now you can [look at the transaction](https://www.blocktrail.com/tBTC/tx/3818b4f03fbbf091d5b52edd0a58ee1f1834967693f5029e5112d36f5fdbf2f3) using a blockchain explorer and the transaction id. If you go down to the bottom of the page in the link before you will see our message with a prefix `WTMSG: test`. This will get stored in the blockchain forever.
+
+Try it yourself! The webtask at https://wt-sebastian_peyrott-auth0_com-0.run.webtask.io/bitcoin-perpetual-message/ is live. You will need to create your own account and fund it, though.
+
+You can also [get the full code](https://github.com/auth0-blog/ethereum-series-bitcoin-perpetual-message-example) for this example and run it!
 
 ## Conclusion
-TODO
+Blockchains enable distributed, verified transactions. At the same time they provide a creative solution to the double-spending problem. This has enabled the rise of cryptcurrencies, of which Bitcoin is the most popular example. Millions of dollars in Bitcoins are traded each day, and the trend is not giving any signs of slowing down. Bitcoin provides a limited set of operations to customize transactions. Still, many creative applications have appeared through the combination of blockchains and computations. Ethereum is the greatest example of these: marrying decentralized transactions with a Turing-complete execution environment. In the next post in the series we will take a closer look at how Ethereum differs from Bitcoin and how the concept of decentralized applications was brought to life by it.
