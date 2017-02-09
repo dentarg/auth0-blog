@@ -206,7 +206,7 @@ Bitcoin uses a scripting system that describes steps a user must perform to spen
 
 Where `<sig>` and `<pubKey>` are provided by the spender and the rest is specified by the original sender of the money. This is simply a sequence of mixed data and operations. The interpreter for this script is a stack-based virtual machine. The details of execution are out of scope for this article, but you can find a nice summary at the [Bitcoin Wiki](https://en.bitcoin.it/wiki/Script#Standard_Transaction_to_Bitcoin_address_.28pay-to-pubkey-hash.29). The important take from this is that transactions can have data embedded in them in the scripts.
 
-In fact, there exists a valid opcode for embedding data inside a transaction: the `OP_RETURN` opcode. Whatever data follows the `OP_RETURN` opcode is stored in the transaction. Of course, there is a limit for the amount of data allowed: 40-bytes. This is very little, but still certain interesting applications can be performed with such a tiny amount of storage. One of them is our perpetual message system. Another interesting use case is the "proof of existence" concept. By storing a hash of an asset in the blockchain, it serves as proof of its existence at the point it was added to a block. In fact, there [already exists such a project](https://proofofexistence.com). In fact, there is nothing preventing you from using our perpetual message system for a similar use.
+In fact, there exists a valid opcode for embedding data inside a transaction: the `OP_RETURN` opcode. Whatever data follows the `OP_RETURN` opcode is stored in the transaction. Of course, there is a limit for the amount of data allowed: 40-bytes. This is very little, but still certain interesting applications can be performed with such a tiny amount of storage. One of them is our perpetual message system. Another interesting use case is the "proof of existence" concept. By storing a hash of an asset in the blockchain, it serves as proof of its existence at the point it was added to a block. In fact, there [already exists such a project](https://proofofexistence.com). There is nothing preventing you from using our perpetual message system for a similar use.
 
 ### The Implementation
 Our system will work as an HTTP service. Data will we passed in JSON format as the body of `POST` requests. The service will have three endpoints plus one for debugging.
@@ -282,7 +282,7 @@ Similar to the `/new` endpoint but allows one to create an user with an existing
 The response is identical to the `/new` endpoint.
 
 ### The Code
-The only interesting endpoint is the one that builds and broadcasts the transaction (`/message`). We use the `bitcore-lib` and `bitcore-explorers` libraries to do this:
+The most interesting endpoint is the one that builds and broadcasts the transaction (`/message`). We use the `bitcore-lib` and `bitcore-explorers` libraries to do this:
 
 ```javascript
 getUnspentUtxos(from).then(utxos => {
@@ -388,7 +388,7 @@ curl -X POST https://wt-sebastian_peyrott-auth0_com-0.run.webtask.io/bitcoin-per
 
 Now you can [look at the transaction](https://www.blocktrail.com/tBTC/tx/3818b4f03fbbf091d5b52edd0a58ee1f1834967693f5029e5112d36f5fdbf2f3) using a blockchain explorer and the transaction id. If you go down to the bottom of the page in the link before you will see our message with a prefix `WTMSG: test`. This will get stored in the blockchain forever.
 
-Try it yourself! The webtask at https://wt-sebastian_peyrott-auth0_com-0.run.webtask.io/bitcoin-perpetual-message/ is live. You will need to create your own account and fund it, though.
+Try it yourself! The webtask at `https://wt-sebastian_peyrott-auth0_com-0.run.webtask.io/bitcoin-perpetual-message/` is live. You will need to create your own account and fund it, though.
 
 You can also [get the full code](https://github.com/auth0-blog/ethereum-series-bitcoin-perpetual-message-example) for this example and run it!
 
