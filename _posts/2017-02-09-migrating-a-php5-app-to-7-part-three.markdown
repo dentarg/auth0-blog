@@ -2,7 +2,7 @@
 layout: post
 title: "Migrating a PHP 5 App to PHP 7 (Tools & Implementation) - Part 3"
 description: "Let's go through migrating a simple PHP 5 app to PHP 7"
-date: 2017-01-26 8:30
+date: 2017-02-09 8:30
 category: Technical Guide, PHP, Tools
 author:
   name: "Prosper Otemuyiwa"
