@@ -3,7 +3,7 @@ layout: post
 title: "Serverless REST API with Angular, Persistence and Security"
 description: "Develop an Angular app from scratch, with serverless REST API, security and persistence and deploy it to GitHub Pages in no time."
 date: 2017-02-08 08:30
-category: Technical Guide
+category: Technical Guide, Angular, Angular2
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
@@ -13,9 +13,17 @@ design:
   bg_color: #000
   image: <A PATH TO A 200x200 IMAGE>
 tags:
-- foo
+- angular
+- serverless
+- faas
+- webtask
+- github
+- mongodb
 related:
--
+- building-and-securing-a-koa-and-angular2-app-with-jwt
+- angular-2-testing-in-depth-services
+- angular-2-authentication
+
 ---
 
 **TL;DR**
