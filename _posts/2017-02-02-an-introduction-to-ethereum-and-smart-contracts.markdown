@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "An Introduction to Ethereum and Smart Contracts"
-description: "Learn how Ethereum and its Turing-complete smart contracts can shape the future of secure transactions"
+title: "An Introduction to Ethereum and Smart Contracts: Bitcoin & The Blockchain"
+description: "Learn about Bitcoin and the genius behind the blockchain concept as we delve into Ethereum"
 date: 2017-02-02 12:30
 category: Technical Guide
 author:
@@ -192,6 +192,18 @@ Valid blocks that are valid but find their way into shorter *forks* of the block
 It is entirely possible for the network to be forked if a sufficiently large number of nodes gets disconnected at the same time from another part of the network. If this happens, each fork will continue creating blocks in isolation from the other. If the networks merge again in the future, the nodes will compare the different versions of the blockchains and pick the longer one. The fork with the greater computational power will always win. If the fork where to be sustained for a long enough period of time, a big number of transactions would be undone when the merge took place. It is for this reason that forks are problematic.
 
 Forks can also be caused by a change in the protocol or the software running the nodes. These changes can result in nodes invalidating blocks that are considered valid by other nodes. The effect is identical to a network-related fork.
+
+## Aside: a Login System Using Bitcoin and Webtasks
+Although we have not delved into the specifics of how Bitcoin or Ethereum handle transactions, there is a certain *programmability* built into them. Bitcoin allows for certain conditions to be specified in each transaction. If these conditions are met, the transaction can be spent. Ethereum, on the other hand, goes much further: a Turing-complete programming language is built into the system. We will focus on Ethereum in the next post in this series, but for now we will take a look at creative ways in which the concepts of the blockchain can be exploited for more than just sending money. For this, we will develop a simple authentication system on top of Bitcoin. Scripts in both Bitcoin and Ethereum are known as *smart contracts*.
+
+Our system will allow users to login using their Bitcoin accounts. Here's how it will work:
+
+1. A user accesses a site and a login box appears. It requests his or her Bitcoin address.
+2. The site contacts the login server and sends the address of the user to it. The server replies with a transaction that the user must perform to verify he is the owner of the address.
+3. The site shows the user the transaction and requests he or she manually performs it. This can be done with any Bitcoin wallet software.
+4. The login server waits for the transaction to be broadcast in the Bitcoin network. After this, the user is logged in.
+
+In a sense, the Bitcoin network in this case is simply used as a transport for the signed transaction. The Bitcoin network could simply be removed from the equation by having the user sign something with his Bitcoin private key. We will see in the next post in this series how logins for blockchain users can be improved.
 
 ## Ethereum: a Programmable Blockchain
 Although the concept of the blockchain was born out of the research into cryptocurrencies, they are much more powerful than just that. Blockchains essentially encode one thing: state transitions. Whenever someone sends a coin in Bitcoin to someone, the global state of the blockchain is changed. Moments before account A hold 50 coins, now account A is empty and account B holds 50 coins. Furthermore, the blockchain provides a cryptographically secure way of performing these state transitions. In other words, not only the state of the blockchain can be verified by any outside party, but any state transitions initiated by blockchain users can only be performed in a secure, verifiable manner.
