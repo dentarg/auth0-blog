@@ -7,7 +7,7 @@ category: Technical Guide
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
-  mail: "krebs.bruno@gmail.com"
+  mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
   bg_color: #000
