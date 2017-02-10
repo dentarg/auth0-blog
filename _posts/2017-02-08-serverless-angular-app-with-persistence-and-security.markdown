@@ -10,8 +10,8 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: #000
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: #0143A3
+  image: https://cdn.auth0.com/blog/serverless-angular/logo.png
 tags:
 - angular
 - serverless
