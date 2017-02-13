@@ -117,7 +117,7 @@ function getRandomRange(min, max) {
 }
 ```
 
-### Side Effects
+### Side Effects in JavaScript
 
 When a function or expression modifies state outside its own context, the result is a **side effect**. Examples of side effects include making a call to an API, manipulating the DOM, raising an alert dialog, writing to a database, etc. If a function produces side effects, it is considered _impure_. Functions that cause side effects are less predictable and harder to test since they result in changes outside their local scope.
 
@@ -399,6 +399,8 @@ To learn more about **higher-order functions**, check out the following resource
 
 Now we've learned about purity, statelessness, immutability, declarative programming, and higher-order functions. These are all concepts that are important in understanding the functional programming paradigm.
 
+### In Practice: Functional Programming with JavaScript
+
 **Functional programming** encompasses the above concepts in the following ways:
 
 * Core functionality is implemented using pure functions without side effects. 
@@ -543,6 +545,8 @@ To learn more about **observables**, check out the following resources:
 **Reactive programming** is concerned with propagating and responding to incoming events over time, <a href="#imperative-declarative" target="_self">declaratively</a> (describing _what_ to do rather than _how_).
 
 Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Reactive Extensions (abbreviated Rx*) [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
+
+### In Practice: Reactive Progamming with JavaScript
 
 Here is an example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code and we want to print out the latest valid code attempt. Our HTML might look like this:
 
