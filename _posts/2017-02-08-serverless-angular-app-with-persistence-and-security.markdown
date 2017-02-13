@@ -32,25 +32,25 @@ Using the right tools, you can create an application from scratch and release it
 
 ## Overview
 
-In this post I will show you that, with the right tools, it is possible to start a **full stack** app - a task list application in this case -, from scratch, and release it to production in a short time. By full stack I mean that we will have from static file hosting, going through REST API and security, all the way to the persistence layer. This is how we will manage all the moving parts:
+In this post I will show you that, with the right tools, it is possible to start a **full stack** appapp—a task list application in this case—from scratch, and release it to production in a short time. Our full stack app will support static file hosting, a secure REST API, and a robust persistence layer. This is how we will manage all the moving parts:
 
-- Identity management and security - this will be supported by [Auth0](https://auth0.com) and will rely JWT tokens.
-- Serverless REST API - we will build a small [Express application](https://expressjs.com/) that will run [Webtask](https://webtask.io).
-- Persistence layer - we are going to create a [MongoDB database](https://www.mongodb.com/) that is going to be hosted by [mLab](https://mlab.com/).
-- Static file hosting - we are going to release our application on [GitHub Pages](https://pages.github.com/).
+- **Identity management and security** supported by [Auth0](https://auth0.com) and JSON Web Tokens (JWT)
+- **Serverless REST API** provided by an [Express](https://expressjs.com/) app with [Webtask](https://webtask.io)
+- **Persistence layer** with a [MongoDB database](https://www.mongodb.com/) hosted by [mLab](https://mlab.com/)
+- **Static file hosting** via deployment to [GitHub Pages](https://pages.github.com/)
 
-Since the app that we are going to develop is quite simple, in terms of features, it won't be necessary to have MongoDB running on our local environment, we will use mLab during development as well. The only tools that are expected to be installed are [NodeJS and NPM](https://docs.npmjs.com/getting-started/installing-node).
+Since the app that we are going to develop is quite simple in terms of features, it won't be necessary to have MongoDB running on our local environment. We will use mLab during development as well as production. The only tools that are expected to be installed are [NodeJS and NPM](https://docs.npmjs.com/getting-started/installing-node).
 
 Our application will have the following features:
 
-- Sign in and sign out.
-- List that shows tasks from a user.
-- Form that allows users to add new tasks.
-- A button for each task, to enable users to remove these tasks.
+- Sign in and sign out
+- List that shows tasks from a user
+- Form that allows users to add new tasks
+- A button for each task, to enable users to remove these tasks
 
 ## Creating a New Angular App
 
-We are going to create our new Angular app with [Angular CLI](https://github.com/angular/angular-cli). Actually, we will be using this tool during the whole process to help us creating components/services and preparing (building) our app to be released.
+We are going to create our new Angular app with [Angular CLI](https://github.com/angular/angular-cli). Actually, we will be using this tool during the whole process to create components/services and build our app for production.
 
 Here is a list of a few commands that we will have to issue to install Angular CLI and to create our app skeleton:
 
@@ -65,21 +65,21 @@ ng new task-list && cd task-list
 ng serve
 ```
 
-The last command in this list is responsible for packaging our application, with the development profile, and for serving it locally with [Webpack Development Server](https://webpack.github.io/docs/webpack-dev-server.html). After executing all these commands, navigate to `http://localhost:4200/` to see it up and running.
+The last command in this list is responsible for packaging our application with the development profile, and for serving it locally with [Webpack Development Server](https://webpack.github.io/docs/webpack-dev-server.html). After executing all these commands, navigate to `http://localhost:4200/` to see it up and running.
 
 ![Angular app skeleton up and running.](https://cdn.auth0.com/blog/serverless-angular/ng-cli-skeleton.png)
 
 ## Securing Angular with Auth0
 
-The first thing that we are going to take care of in our application is security. Security must be a first priority in any application that handles sensitive, third party, data like the task list that we are about to develop.
+The first thing that we are going to take care of in our application is security. Security must be a first priority in any application that handles sensitive, third party data like the task list that we are about to develop.
 
-To start, <a href="javascript:signup()">sign up for a free Auth0 account</a> and take note of `Client ID` and `Domain`. Both values are going to be used to configure [Lock](https://auth0.com/docs/libraries/lock) - an embeddable login system.
+To start, <a href="javascript:signup()">sign up for a free Auth0 account</a> and take note of `Client ID` and `Domain`. Both values are going to be used to configure [Lock](https://auth0.com/docs/libraries/lock): an embeddable login system.
 
-**Important**, Auth0 demands, from the developer, a list of *Allowed Callback URLs*. This list contains all the URLs to which Auth0 can redirect a user to after issuing a JWT token. Therefore we must configure here at least two URLs: `http://localhost:4200/` and the URL where our app will be exposed, something like: `https://brunokrebs.github.io/task-list/`. This URL will be defined when we release to GitHub Pages.
+**Important**: Auth0 requires a list of *Allowed Callback URLs*. This list contains all the URLs to which Auth0 can redirect a user to after issuing a JWT. Therefore we must configure at least two URLs: `http://localhost:4200/` and the URL where our app will be exposed, something like: `https://brunokrebs.github.io/task-list/`. This URL will be defined when we release to GitHub Pages.
 
 ![Auth0 client settings.](https://cdn.auth0.com/blog/serverless-angular/auth0-client-config.png)
 
-To use Lock, we must install two libraries in our application: `auth0-lock` and `angular2-jwt`. Since we are using TypeScript with Angular, we will also install `@types/auth0-lock` library, which provides TypeScript definitions for Lock. Also, since we want to provide our users a good looking interface, we are going to install [Angular Material](https://github.com/angular/material2). These dependencies are installed with the following commands:
+To use Lock, we must install two libraries in our application: `auth0-lock` and `angular2-jwt`. Since we are using TypeScript with Angular, we will also install the `@types/auth0-lock` library, which provides TypeScript definitions for Lock. Also, since we want to provide our users a good looking interface, we are going to install [Angular Material](https://github.com/angular/material2). These dependencies are installed with the following commands:
 
 ```bash
 # Auth0 Lock and Angular 2 JWT runtime deps
@@ -89,7 +89,7 @@ npm install --save auth0-lock angular2-jwt @angular/material
 npm install --save-dev @types/auth0-lock
 ```
 
-With all the dependencies installed, let's use Angular CLI to create a `NavBarComponent`, where we will put *Sign In* and *Sign Out* buttons, and a `AuthService`, that will be responsible for `sign in`, `sign out` and to allow other components to verify if the user is `authenticated` or not. Two commands more are needed to create both the component and the service:
+Let's use Angular CLI to create a `NavBarComponent` with *Sign in* and *Sign out* buttons. We will also create a `AuthService` that will be responsible for `sign in`, `sign out` and to validate if the user is `authenticated` or not.
 
 ```bash
 # generates NavBarComponent files under src/app/nav-bar
@@ -99,9 +99,19 @@ ng g component nav-bar
 ng g service auth
 ```
 
-After executing these commands, Angular CLI will have created a file, at `src/app/auth.service.ts`, to our `AuthService` and three files to our `NavBarComponent`: `src/app/nav-bar/nav-bar.component.ts`, `src/app/nav-bar/nav-bar.component.html` and `src/app/nav-bar/nav-bar.component.css`.
+After executing these commands, Angular CLI will have created the following file structure:
 
-> Actually two extra files were created: `src/app/auth.service.spec.ts` and `src/app/nav-bar/nav-bar.component.spec.ts`. We would use these files to write tests for both the component and the service. But, for the sake of simplicity, we won't address testing in this post. You can check the following references to read about testing in Angular: [Angular 2 Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/); [Angular Testing](https://angular.io/docs/ts/latest/guide/testing.html); [Testing Components in Angular 2 with Jasmine](https://semaphoreci.com/community/tutorials/testing-components-in-angular-2-with-jasmine)
+```
+src
+  |-app
+    |-nav-bar
+      |-nav-bar.component.ts
+      |-nav-bar.component.html
+      |-nav-bar.component.css]
+    |-auth.service.ts
+```
+
+> Actually two extra files were created: `src/app/auth.service.spec.ts` and `src/app/nav-bar/nav-bar.component.spec.ts`. We would use these files to write tests for both the component and the service. However, for the sake of simplicity, we won't address testing in this post. You can check the following references to read about testing in Angular: [Angular 2 Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/); [Angular Testing](https://angular.io/docs/ts/latest/guide/testing.html); [Testing Components in Angular 2 with Jasmine](https://semaphoreci.com/community/tutorials/testing-components-in-angular-2-with-jasmine)
 
 To integrate with Lock, let's first implement `src/app/auth.service.ts` with the following code:
 
@@ -110,11 +120,11 @@ import { Injectable } from '@angular/core';
 import Auth0Lock from 'auth0-lock';
 import { tokenNotExpired } from 'angular2-jwt';
 
-// FIXME: change these with with your own Auth0 'Client ID' and 'Domain'
+// FIXME: replace these with your own Auth0 'Client ID' and 'Domain'
 const AUTH0_CLIENT_ID = 'YOUR_AUTH0_CLIENT_ID';
 const AUTH0_DOMAIN = 'YOUR_AUTH0_DOMAIN';
 
-// this is the key to the JWT token in the browser localStorage
+// this is the key to the JWT in the browser localStorage
 const ID_TOKEN = 'id_token';
 
 @Injectable()
@@ -136,9 +146,9 @@ export class AuthService {
 }
 ```
 
-In the code above, there are three thing that worth mentioning. First, we must replace `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` with the values that we took note before. Second, the `ID_TOKEN` references the key were the JWT token will be saved (on the user's browser `localStorage`). And third, the constructor of this service adds a callback listener to the `authenticated` event on Lock. This callback saves the token issued by Auth0 in the `localStorage`. To sign out a user, it is just a matter of removing this token from the `localStorage`.
+In the code above, there are three things that worth mentioning. First, we must replace `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` with the values that we noted previously. Second, the `ID_TOKEN` references the key were the JWT will be saved (on the user's browser `localStorage`). And third, the constructor of this service adds a callback listener to the `authenticated` event on Lock. This callback saves the token issued by Auth0 in `localStorage`. To sign out a user, it is just a matter of removing this token from `localStorage`.
 
-Our `AuthService` class is good to go, but, unlike `components`, Angular CLI does not add `services` to our `@NgModule` definition by default. To do this, open `src/app/app.module.ts` file, add this `service` as a `provider` and, also, configure Angular Material in the `imports` property.
+Our `AuthService` class is good to go, but unlike `components`, Angular CLI does not add `services` to our `@NgModule` definition by default. To do this, open `src/app/app.module.ts` file, add this `service` as a `provider` and add Angular Material in the `imports` array:
 
 ```typescript
 // ... other imports
@@ -157,7 +167,7 @@ import { MaterialModule } from '@angular/material';
 export class AppModule { }
 ```
 
-We can now focus on implementing our `NavBarComponent`. First, we will focus on the TypeScript implementation of it - where we will inject `AuthService` and add three public methods that will be used by our HTML interface -, then we will implement the HTML interface and last we are going improve the user interface with some CSS rules.
+We can now focus on implementing our `NavBarComponent`. First, we will inject `AuthService` and add three public methods that will be used by our HTML interface. Then we will implement the interface and add some CSS rules to improve it.
 
 Let's open the `src/app/nav-bar/nav-bar.component.ts` file and implement the following code:
 
@@ -172,12 +182,6 @@ import { AuthService } from '../auth.service';
 })
 export class NavBarComponent {
   constructor(private authService: AuthService) { }
-
-  signIn() { this.authService.signIn(); }
-
-  signOut() { this.authService.signOut(); }
-
-  authenticated() { return this.authService.authenticated(); }
 }
 ```
 
@@ -342,7 +346,7 @@ function loadUserCollection(webtaskContext) {
 
 The code is quite simple and easy to understand, but an overall explanation might come in handy. The main purpose of this file is to export an [Express app](https://expressjs.com/en/starter/hello-world.html) that handles three HTTP methods for a single route, the main `/` route. These three methods, as explained before, allow users to create, retrieve and delete tasks from collections on a MongoDB database.
 
-Every user will have its on collection - not the best approach, since [MongoDB can handle a maximum of 24,000 collections](https://docs.mongodb.com/manual/reference/limits/#namespaces), but good enough to start. This collection is based on the `sub` claim, [which identifies user](https://tools.ietf.org/html/rfc7519#section-4.1.2), present in the JWT token issued by Auth0.
+Every user will have its on collection - not the best approach, since [MongoDB can handle a maximum of 24,000 collections](https://docs.mongodb.com/manual/reference/limits/#namespaces), but good enough to start. This collection is based on the `sub` claim, [which identifies user](https://tools.ietf.org/html/rfc7519#section-4.1.2), present in the JWT issued by Auth0.
 
 The last function definition in the `tasks.js` file, `loadUserCollection`, is actually responsible for two things: security and MongoDB connection. When a user issues any request to our API, the function verifies if the `authorization` header sent was actually signed by Auth0 - if none is sent a non user friendly error is generated. This is done through the `jwt.verify` function with the help if `AUTH0_SECRET` key. The second responsibility, connecting to MongoDB, is handled by `mongojs` module and depends on three configuration variables: `MONGO_USER`, `MONGO_PASSWORD`, `MONGO_URL`.
 
