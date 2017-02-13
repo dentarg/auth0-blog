@@ -207,7 +207,7 @@ $(document).ready(function ($) {
   function checkRemotePermission(permissionData) {
     if (permissionData.permission === 'default') {
       window.safari.pushNotification.requestPermission(
-        'https://auth0-pn.herokuapp.com', // The web service URL.
+        'https://safari-web-service.herokuapp.com', // The web service URL.
         'web.com.auth0.website',                    // The Website Push ID.
         {},            // Data that you choose to send to your server to help you identify the user.
         checkRemotePermission                     // The callback function.
