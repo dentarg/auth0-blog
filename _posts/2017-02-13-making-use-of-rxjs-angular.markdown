@@ -2,26 +2,24 @@
 layout: post
 title: "Making use of RxJS in Angular"
 description: "Angular is built on the top of RxJS. Learn how you can make use of RxJS in your Angular apps for a clearer and more maintainable codebase."
-date: 2016-09-14 10:00
+date: 2017-02-13 10:00
 author:
   name: "Wojciech Kwiatek"
   url: "https://twitter.com/WojciechKwiatek"
   mail: "wojtek.kwiatek@gmail.com"
   avatar: "https://en.gravatar.com/userimage/102277541/a28d70be6ae2b9389db9ad815cab510e.png?size=200"
 design:
-  bg_color: "#171717"
-  image: ""
+  bg_color: "#572D89"
+  image: https://cdn.auth0.com/blog/reactive-programming/logo.png
 tags:
-- angular2
+- angular
 - angularjs
 - rxjs
 - functional
 - async
 related:
--
--
--
-
+- 2016-09-27-understanding-reactive-programming-and-rxjs
+- 2017-01-19-building-and-securing-a-koa-and-angular2-app-with-jwt
 ---
 
 ---
