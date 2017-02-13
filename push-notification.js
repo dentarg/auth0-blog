@@ -145,12 +145,12 @@ $(document).ready(function ($) {
   }
 
   subscriptionValidation = function () {
-    if ('safari' in window && 'pushNotification' in window.safari) {
-      if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
-        valActive = true;
-        return openPopup();
-      }
-    }
+    // if ('safari' in window && 'pushNotification' in window.safari) {
+    //   if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+    //     valActive = true;
+    //     return openPopup();
+    //   }
+    // }
 
     if (navigator.serviceWorker === undefined) { return; }
 
@@ -168,6 +168,15 @@ $(document).ready(function ($) {
             }
           );
       });
+  };
+
+  window.subscriptionValidationSafari = function () {
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+        valActive = true;
+        return openPopup();
+      }
+    }
   };
 
   // popup buttons
