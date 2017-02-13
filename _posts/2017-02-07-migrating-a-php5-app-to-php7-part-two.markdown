@@ -57,7 +57,7 @@ function getBookNo(int $number) {
     return $number;
 }
 
-getName('boooks');
+getBookNo('boooks');
 
 // Error raised
 PHP Fatal error:  Uncaught TypeError: Argument 1 passed to getBookNo() must be of the type integer, string given, called in ....

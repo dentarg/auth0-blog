@@ -145,6 +145,13 @@ $(document).ready(function ($) {
   }
 
   subscriptionValidation = function () {
+    // if ('safari' in window && 'pushNotification' in window.safari) {
+    //   if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+    //     valActive = true;
+    //     return openPopup();
+    //   }
+    // }
+
     if (navigator.serviceWorker === undefined) { return; }
 
     return navigator.serviceWorker.ready
@@ -163,11 +170,24 @@ $(document).ready(function ($) {
       });
   };
 
+  window.subscriptionValidationSafari = function () {
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+        valActive = true;
+        return openPopup();
+      }
+    }
+  };
+
   // popup buttons
   $('#push-allow').on('click', function (e) {
     $('.pn-popup').removeClass('pn-is-visible');
     valActive = false;
-    requestNotificationPermission();
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      pnSafari();
+    } else {
+      requestNotificationPermission();
+    }
   });
 
   $('#push-block').on('click', function (e) {
@@ -177,37 +197,30 @@ $(document).ready(function ($) {
     metricsLib.track('blog:notifications', { 'trackData': 'declined' });
   });
 
-  subscriptionValidation();
-
-  window.pn_safari = function () {
+  window.pnSafari = function(){
     if ('safari' in window && 'pushNotification' in window.safari) {
-      console.log('Browser is safari and has support for push notifications</p>');
       var permissionData = window.safari.pushNotification.permission('web.com.auth0');
       checkRemotePermission(permissionData);
-    } else {
-      console.log('Browser is not safari, use safari to proceed.');
     }
-  };
+  }
 
   function checkRemotePermission(permissionData) {
-    console.log('Checking permission for push notification');
-
     if (permissionData.permission === 'default') {
-      console.log('Permission is <strong>default</strong> (first time)</p>');
-      console.log('Validating push package before showing request popup...</p>');
-
       window.safari.pushNotification.requestPermission(
-        'https://auth0-pn.herokuapp.com', // The web service URL.
-        'web.com.auth0.push',                    // The Website Push ID.
+        'https://safari-web-service.herokuapp.com', // The web service URL.
+        'web.com.auth0.website',                    // The Website Push ID.
         {},            // Data that you choose to send to your server to help you identify the user.
         checkRemotePermission                     // The callback function.
       );
     }else if (permissionData.permission === 'denied') {
-      console.log('Permission is <strong>denied</strong></p>');
+      localStorage.setItem('pn-subscription', 'false');
+      metricsLib.track('blog:notifications', { 'trackData': 'declined' });
     }else if (permissionData.permission === 'granted') {
-      console.log('Permission is <strong>granted</strong></p>');
-      console.log('User device token is: <strong>' + permissionData.deviceToken + '</strong></p>');
+      localStorage.setItem('permissionAllow', 'true');
+      metricsLib.track('blog:notifications', { 'trackData': 'accepted' });
     }
   }
+
+  subscriptionValidation();
 
 });
