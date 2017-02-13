@@ -3,6 +3,7 @@ layout: post
 title: "Making use of RxJS in Angular"
 description: "Angular is built on the top of RxJS. Learn how you can make use of RxJS in your Angular apps for a clearer and more maintainable codebase."
 date: 2017-02-13 10:00
+category: Technical Guide, Frontend, RxJS
 author:
   name: "Wojciech Kwiatek"
   url: "https://twitter.com/WojciechKwiatek"
@@ -24,7 +25,7 @@ related:
 
 ---
 
-**TL;DR** Angular incorporates RxJS and uses it internally. We can make use of some RxJS goodies and introduce FRP to write more robust code in our apps.
+**TL;DR** Angular, [previously known as Angular 2](http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html), incorporates RxJS and uses it internally. We can make use of some RxJS goodies and introduce FRP to write more robust code in our apps.
 
 ---
 
