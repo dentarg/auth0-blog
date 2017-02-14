@@ -193,12 +193,12 @@ As you can see, this component works as a simple wrapper over `AuthService`, all
 
   <span class="fill-space"></span>
 
-  <button md-button (click)="signIn()" *ngIf="!authenticated()">Sign In</button>
-  <button md-button (click)="signOut()" *ngIf="authenticated()">Sign Out</button>
+  <button md-button (click)="authService.signIn()" *ngIf="!authService.authenticated()">Sign In</button>
+  <button md-button (click)="authService.signOut()" *ngIf="authService.authenticated()">Sign Out</button>
 </md-toolbar>
 ```
 
-Our `NavBar` exposes our application's title along with two buttons. At any given time, only one of these buttons are truly visible to the user, the *Sign In* button is going to be visible when the user is not yet `authenticated` and the *Sign Out* will be visible otherwise. To make our interface look better, we have also added a `span.fill-space` element, that will be responsible to push both buttons to the right border. To accomplish this, we need to add the CSS rule that follows to the `src/app/nav-bar/nav-bar.component.css` file:
+Our `NavBar` exposes our application's title along with two buttons. At any given time, only one button is truly visible to the user. The *Sign In* button is going to be visible when the user is not yet `authenticated` and the *Sign Out* will be visible otherwise. To make our interface look better, we have also added a `span.fill-space` element, that will be responsible to push both buttons to the right border. To accomplish this, we need to add the CSS rule that follows to the `src/app/nav-bar/nav-bar.component.css` file:
 
 ```css
 .fill-space {
@@ -208,7 +208,7 @@ Our `NavBar` exposes our application's title along with two buttons. At any give
 
 Good, we now have both the `NavBarComponent` and the `AuthService` fully implemented and integrated. But we still need to add this component to our `src/app/app.component.html` file, otherwise it will never get rendered. To do this, just replace the content of this file with the following line of code: `<app-nav-bar></app-nav-bar>`.
 
-If we run our application now, it wouldn't look neat because most major browsers come with an `8px` margin on `body` elements and because we haven't configured any [Angular Material Theme](https://github.com/angular/material2/blob/master/guides/theming.md). We fix both issues by updating our `src/styles.css` file to look like:
+If we run our application now, it wouldn't look neat because most major browsers come with an `8px` margin on `body` elements and because we haven't configured any [Angular Material Theme](https://github.com/angular/material2/blob/master/guides/theming.md). We will fix both issues by updating our `src/styles.css` file to look like:
 
 ```css
 @import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
@@ -224,7 +224,7 @@ We are now good to go, so let's start our development server, by issuing `ng ser
 
 ### Adding a Welcome Message to Visitors
 
-To make our application a friendly place, let's add a welcoming message. To do that, first we will add two methods and inject `AuthService` to `src/app/app.component.ts` file, making it look like this:
+To make our application a friendly place, let's add a welcoming message. To do that, first we will add two methods and inject `AuthService` in the `src/app/app.component.ts` file, making it look like this:
 
 ```typescript
 import { Component } from '@angular/core';
@@ -237,10 +237,6 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
   constructor(private authService: AuthService) { }
-
-  signIn() { this.authService.signIn(); }
-
-  authenticated() { this.authService.authenticated(); }
 }
 ```
 
@@ -253,7 +249,7 @@ After that we are going to add the message, as a `md-card` component from [Angul
   <md-card *ngIf="!authenticated()">
     <md-card-title>Hello, visitor.</md-card-title>
     <md-card-subtitle>
-      Please, <a (click)="signIn()">sign in</a> to manage your task list.
+      Please <a (click)="authService.signIn()">sign in</a> to manage your task list.
     </md-card-subtitle>
   </md-card>
 </div>
@@ -273,9 +269,9 @@ Heading to our app, `http://localhost:4200/`, we can see our new welcome message
 
 ## Implementing Serverless REST API
 
-Now that we have our application integrated with Auth0, which allows our users to sign in and sign out, let's create our serverless REST API. This API will handle `POST` requests, to persist new tasks, `GET` requests, to retrieve tasks from a user, and `DELETE` requests, to remove tasks.
+Now that we have our application integrated with Auth0, which allows our users to sign in and sign out, let's create our serverless REST API. This API will handle `POST` requests (to persist new tasks), `GET` requests (to retrieve tasks from a user) and `DELETE` requests (to remove tasks).
 
-We will first create a file called `tasks.js` on a new folder called `webtask`, and then we will add the following code to it:
+We will first create a file called `tasks.js` in a new folder called `webtask`, and then we will add the following code to it:
 
 ```js
 'use strict';
@@ -346,17 +342,17 @@ function loadUserCollection(webtaskContext) {
 
 The code is quite simple and easy to understand, but an overall explanation might come in handy. The main purpose of this file is to export an [Express app](https://expressjs.com/en/starter/hello-world.html) that handles three HTTP methods for a single route, the main `/` route. These three methods, as explained before, allow users to create, retrieve and delete tasks from collections on a MongoDB database.
 
-Every user will have its on collection - not the best approach, since [MongoDB can handle a maximum of 24,000 collections](https://docs.mongodb.com/manual/reference/limits/#namespaces), but good enough to start. This collection is based on the `sub` claim, [which identifies user](https://tools.ietf.org/html/rfc7519#section-4.1.2), present in the JWT issued by Auth0.
+Every user will have their own collection—not the best approach, since [MongoDB can handle a maximum of 24,000 collections](https://docs.mongodb.com/manual/reference/limits/#namespaces), but good enough to start. This collection is based on the `sub` claim, [which identifies user](https://tools.ietf.org/html/rfc7519#section-4.1.2), present in the JWT issued by Auth0.
 
-The last function definition in the `tasks.js` file, `loadUserCollection`, is actually responsible for two things: security and MongoDB connection. When a user issues any request to our API, the function verifies if the `authorization` header sent was actually signed by Auth0 - if none is sent a non user friendly error is generated. This is done through the `jwt.verify` function with the help if `AUTH0_SECRET` key. The second responsibility, connecting to MongoDB, is handled by `mongojs` module and depends on three configuration variables: `MONGO_USER`, `MONGO_PASSWORD`, `MONGO_URL`.
+The last function definition in the `tasks.js` file, `loadUserCollection`, is actually responsible for two things: security and MongoDB connection. When a user issues any request to our API, the function verifies if the `authorization` header sent was actually signed by Auth0. If none is sent, a non-user-friendly error is generated. This is done through the `jwt.verify` function with the help if `AUTH0_SECRET` key. The second responsibility, connecting to MongoDB, is handled by `mongojs` module and depends on three configuration variables: `MONGO_USER`, `MONGO_PASSWORD`, `MONGO_URL`.
 
-All these configuration variables - three to connect to MongoDB and one to verify Auth0 tokens - are passed to Webtask when creating the serverless function. We will see how this is done soon.
+All these configuration variables—three to connect to MongoDB and one to verify Auth0 tokens—are passed to Webtask when creating the serverless function. We will see how this is done soon.
 
 This is the **whole REST API implementation**, with this code we are ready to handle users requests that will be sent by the components that we are about to create on our Angular app. But there are a few more steps that we need to perform.
 
 ### Creating a MongoDB Database
 
-To make our lives easier and to avoid heaving to install and support MongoDB by ourselves, we are going to use [mLab](https://mlab.com) - a cloud-hosted MongoDB. So the first thing that we have to do is to head to their website and sign up for a free account. After verifying our email address, we have to [create a new deployment](https://mlab.com/create). Since we are just starting our app and we won't get too much traffic, let's choose the ***Single Node*** plan and the ***Sandbox*** type, which provides us 500 MB of DB storage for free. You will also need to choose a database name, something like `task-list`.
+To make our lives easier and to avoid heaving to install and support MongoDB by ourselves, we are going to use [mLab](https://mlab.com), a cloud-hosted MongoDB. The first thing that we have to do is to head to their website and sign up for a free account. After verifying our email address, we have to [create a new deployment](https://mlab.com/create). Since we are just starting our app and we won't get too much traffic, let's choose the ***Single Node*** plan and the ***Sandbox*** type, which provides us 500 MB of DB storage for free. You will also need to choose a database name, something like `task-list`.
 
 The last thing that we will have to do is to create a user to connect to this database. If you choose `task-list` as the name of your database, [this is the link to create users](https://mlab.com/databases/task-list#users).
 
@@ -364,9 +360,9 @@ The last thing that we will have to do is to create a user to connect to this da
 
 ### Configuring Webtask Account
 
-We will also need to create a [Webtask account](https://webtask.io), but this as easy as it can be. Webtask, being a product of Auth0, relies on Lock and enables us to create an account with one of the following identity providers (IdP): Facebook, GitHub, Google or Microsoft. So it is just a matter of hitting a button to create an account.
+We will also need to create a [Webtask account](https://webtask.io), but this as easy as it can be. Webtask, being a product of Auth0, relies on Lock and enables us to create an account with one of the following identity providers (IdP): Facebook, GitHub, Google or Microsoft. It is just a matter of hitting a button to create an account.
 
-After choosing and IdP, we are faced with a very succinct three steps webpage that shows us how to create a *Hello World* serverless function. We already have a Webtask to deploy, so let's follow only the first two steps in order to configure the CLI tool in our computer:
+After choosing an IdP, we are presented with a succinct, three-step process demonstrating how to create a *Hello World* serverless function. We already have a Webtask to deploy, so let's follow only the first two steps in order to configure the CLI tool in our computer:
 
 ```bash
 # install Webtask CLI tool
@@ -392,9 +388,9 @@ wt create webtask/tasks.js \
   --prod
 ```
 
-The first option passed to `wt` tool specifies that we want to `create` a Webtask based on our `webtask/tasks.js` file. The second parameter, identifies our code as being an Express app, which needs to be pre-compiled by Webtask with the help of `webtask-tools/express` tool. The following four parameters are the `secrets` that we use in our Webtask - `-s` prefix denotes them as `secrets`. The last parameter creates our Webtask in `production` mode, which makes it faster.
+The first option passed to the `wt` tool specifies that we want to `create` a Webtask based on our `webtask/tasks.js` file. The second parameter identifies our code as being an Express app, which needs to be pre-compiled by Webtask with the help of `webtask-tools/express` tool. The following four parameters are the `secrets` that we use in our Webtask (`-s` prefix denotes them as `secrets`). The last parameter creates our Webtask in `production` mode, which makes it faster.
 
-Be aware that the values above have to be replaced with real values that come from our Auth0 account - we can find the `AUTH0_SECRET` value at the same place we found `Client ID` and `Domain` - and from our mLab account - head to mLab's dashboard to get these values.
+Be aware that the values above have to be replaced with values that come from our Auth0 account and from our mLab account. `AUTH0_SECRET` value can be found at the same place of `Client ID` and `Domain`. And the last three values, related to MongoDB, can be found at mLab's dashboard.
 
 Having successfully issued the Webtask creation command, we can now focus on working on the main feature of our Angular application, the task list component.
 
@@ -417,7 +413,7 @@ ng g service task-list/task-list
 
 ### Integrating Angular with Serverless REST API
 
-Both `TaskListComponent` and `TaskFormComponent`, will depend on `TaskListService` to communicate with our serverless REST API, so let's handle the service implementation first.
+Both `TaskListComponent` and `TaskFormComponent` will depend on `TaskListService` to communicate with our serverless REST API, so let's handle the service implementation first.
 
 Open the recently created service file, `src/app/task-list/task-list.service.ts`, and insert the following code:
 
@@ -451,9 +447,9 @@ export class TaskListService {
 
 There are three important things to note in this code. First, the `TASKS_ENDPOINT` constant. This constant must reference the *URL* returned by the `wt create` command above.
 
-Second, this class is not using `Http` from `@angular/http`. It is using `AuthHttp`, which is provided by `angular2-jwt` module and which integrates gracefully with `auth0-lock`. Instances of this class, that get injected in our services, automatically send an `authorization` header with whatever content it finds on `id_token` key on the user browser `localStorage`. As you may have noted, this is the same place where we stored tokens when configuring `AuthService`.
+Second, this class is not using `Http` from `@angular/http`. It is using `AuthHttp`, which is provided by `angular2-jwt` and which integrates gracefully with `auth0-lock`. Instances of this class automatically send an `authorization` header with whatever content it finds on `id_token` key on the user browser `localStorage`. As you may have noted, this is the same place where we stored tokens when configuring `AuthService`.
 
-Third, all methods in `TaskListService` return `Observables`, leaving to the caller decide what to do with the response sent by our serverless REST API.
+Third, all methods in `TaskListService` return `Observables`, leaving the caller to decide what to do with the response sent by our serverless REST API.
 
 To inject `TaskListService` in our components, we need to make a few changes in our main `@NgModule`, located in `src/app/app.module.ts`:
 
@@ -488,7 +484,7 @@ The `AuthHttp` provider needed help from a factory - declared as `authHttpFactor
 
 ### Listing Tasks with Angular
 
-Our `TaskListComponent` can now be implemented. We will now open `src/app/task-list/task-list.component.ts` file and apply the code below:
+Our `TaskListComponent` can now be implemented. We will now open the `src/app/task-list/task-list.component.ts` file and apply the code below:
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -529,13 +525,13 @@ export class TaskListComponent implements OnInit {
 }
 ```
 
-This class gets `TaskListService` injected and subscribe a few methods to the `Observables` returned. Both `taskAdded` and `deleteTask` subscribe `loadTasks` method as the callback to be executed when the `Observables` respond without errors. `console.log` is subscribed by these methods to handle cases where errors are issued by the serverless REST API.
+This class gets `TaskListService` injected and subscribe a few methods to the `Observables` returned. Both `taskAdded` and `deleteTask` triggers a call to `loadTasks` method when the `Observables` respond without errors. `console.log` is triggered by these methods to handle cases where errors are issued by the serverless REST API.
 
-The other method, `loadTasks`, subscribe an arrow function that gets the array of tasks sent, in the JSON format, and assign it to `tasks` property.
+The `loadTasks` method adds an arrow function as a callback to `loadTasks` to assign the result to `tasks` property.
 
 With the three exposed methods and the `task` property filled, we can now implement the `TaskListComponent` interface, which resides in the `src/app/task-list/task-list.component.html` file.
 
-This is how this file must look like:
+This is what this file should look like:
 
 {% highlight html %}
 <md-card>
@@ -559,7 +555,7 @@ This is how this file must look like:
 
 Here we added a `md-list` component, [provided by Angular Material](https://material.angular.io/components/component/list), that iterates through the `tasks`, showing their creation date and their description. Also, each task got a `button` that enables users to delete them.
 
-To make our interface better, let's add two CSS rules to `src/app/task-list/task-list.component.css` file:
+To make our interface better, let's add two CSS rules to the `src/app/task-list/task-list.component.css` file:
 
 ```css
 .task-item {
@@ -574,9 +570,9 @@ button.delete {
 }
 ```
 
-This will make different tasks distinguishable, with a gray background color, and push the delete button to the right, aligning it vertically to the task.
+This will make different tasks distinguishable with a gray background color, and push the delete button to the right, aligning it vertically to the task.
 
-Now our interface is ready to list tasks, so we need to make it visible by adding it to `src/app/app.component.html` file. Open it and the `TaskListComponent` as follows:
+Now our interface is ready to list tasks, so we need to make it visible by adding it to the `src/app/app.component.html` file. Open it and the `TaskListComponent` as follows:
 
 {% highlight html %}
 <app-nav-bar></app-nav-bar>
@@ -584,19 +580,19 @@ Now our interface is ready to list tasks, so we need to make it visible by addin
 <div class="app-container">
   <!-- ... card with welcome message -->
 
-  <app-task-list *ngIf="authenticated()"></app-task-list>
+  <app-task-list *ngIf="authService.authenticated()"></app-task-list>
 </div>
 {% endhighlight %}
 
-If we open our application in a browser now, by accessing `http://localhost:4200`, we would see the following screen.
+If we open our application in a browser, by accessing `http://localhost:4200`, we would see the following screen.
 
 ![Angular material with empty list of tasks](https://cdn.auth0.com/blog/serverless-angular/no-pending-tasks.png)
 
-We now depend on implementing the last component, `TaskFormComponent`, to allow users to add tasks to their lists.
+Our app's completion now depends on implementing the last component, `TaskFormComponent`, to allow users to add tasks to their lists.
 
 ### Adding Tasks with Angular
 
-To enable user to add task, we need to open the `src/app/task-list/task-form/task-form.component.ts` and implement it as follows:
+To enable a user to add tasks, we need to open the `src/app/task-list/task-form/task-form.component.ts` file and implement it as follows:
 
 ```typescript
 import { Component, EventEmitter, Output } from '@angular/core';
@@ -620,7 +616,7 @@ export class TaskFormComponent {
 }
 ```
 
-This component has a single responsibility, which is to allow users to type some text, that gets held by `task` property, and emit an `taskAdded` event with the task typed. This component's HTML is also really simple:
+This component accepts a user's task input and emits a taskAdded event with the data. This component's HTML is also really simple:
 
 {% highlight html %}
 <div class="task-form">
@@ -629,15 +625,15 @@ This component has a single responsibility, which is to allow users to type some
 </div>
 {% endhighlight %}
 
-The button labeled as *Add* triggers, when clicked, the `addTask` method in the component and then this method triggers the `taskAdded` event emitter. `TaskListComponent` is the component that will listen to these events. We already implemented a method, called `taskAdded`, that can handle such events. We just need to update this component's HTML to add `TaskFormComponent` and register the event handler.
+When clicked, the *Add* button triggers the `addTask` method in the component. This method then triggers the `taskAdded` event emitter. `TaskListComponent` is the component that will listen to these events. We already implemented a method, called `taskAdded`, that can handle such events. We just need to update this component's HTML to add `TaskFormComponent` and register the event handler.
 
-To do that, let's open `src/app/task-list/task-list.component.html` and add `app-task-form` tag just before our list, as follows:
+To do that, let's open `src/app/task-list/task-list.component.html` and add the `app-task-form` tag just before our list, as follows:
 
 {% highlight html %}
 <md-card>
   <!-- ... card title and subtitle -->
 
-  <app-task-form (taskAdded)="taskAdded($event)"></app-task-form>
+  <app-task-form (taskAdded)="taskAddedHandler($event)"></app-task-form>
 
   <!-- ... md-list -->
 </md-card>
@@ -647,7 +643,7 @@ And here we go. Our app is now fully implemented and ready to go to production.
 
 ![Task list Angular app with serverless REST API and MongoDB fully implemented](https://cdn.auth0.com/blog/serverless-angular/first-task-recorded.png)
 
-Or is it? If we play a little with application we will see that under some conditions the user experience is not that good. The app takes a while to update the task list when a new task is added or an existing one gets deleted. So there is room for improvement.
+Or is it? If we play a little with the application we will see that under some conditions the user experience is not that good. The app takes a while to update the task list when a new task is added or an existing one gets deleted. So there is room for improvement.
 
 ### Adding an AJAX Loading Indicator
 
@@ -686,14 +682,11 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 export class AppComponent {
   constructor(private authService: AuthService, private slimLoading: SlimLoadingBarService) { }
 
-  // ... other method definitions
-
-  startLoading() { this.slimLoading.start(); }
-  stopLoading() { this.slimLoading.complete(); }
+  // ... method definitions
 }
 ```
 
-Both `startLoading` and `stopLoading` methods will be registered as event listeners on `TaskListComponent`. We still didn't created event emitters in this component, but we can configure the listeners in advance. Let's open `src/app/app.component.html` and edit like this:
+Both `startLoading` and `stopLoading` methods will be registered as event listeners on `TaskListComponent`. We still didn't create event emitters in this component, but we can configure the listeners in advance. Let's open `src/app/app.component.html` and edit like this:
 
 {% highlight html %}
 <app-nav-bar></app-nav-bar>
@@ -701,9 +694,9 @@ Both `startLoading` and `stopLoading` methods will be registered as event listen
 <div class="app-container">
   <!-- ... welcome message ... -->
 
-  <app-task-list *ngIf="authenticated()"
-    (startAjaxRequest)="startLoading()"
-    (completeAjaxRequest)="stopLoading()">
+  <app-task-list *ngIf="authService.authenticated()"
+    (startAjaxRequest)="slimLoading.start()"
+    (completeAjaxRequest)="slimLoading.complete()">
   </app-task-list>
 </div>
 
@@ -711,7 +704,7 @@ Both `startLoading` and `stopLoading` methods will be registered as event listen
 <ng2-slim-loading-bar [color]="'gold'" [height]="'4px'"></ng2-slim-loading-bar>
 {% endhighlight %}
 
-The last thing we will have to do is to edit the `src/app/task-list/task-list.component.ts` file to create and use both `startAjaxRequest` and `completeAjaxRequest` event emitters on `TaskListComponent`:
+The last thing we will have to do is edit the `src/app/task-list/task-list.component.ts` file to create and use both `startAjaxRequest` and `completeAjaxRequest` event emitters on `TaskListComponent`:
 
 ```typescript
 // ... other imports
@@ -736,7 +729,7 @@ export class TaskListComponent implements OnInit {
     );
   }
 
-  taskAdded(task) {
+  taskAddedHandler(task) {
     this.startAjaxRequest.emit();
     this.taskListService.addTask(task).subscribe(
       response => this.loadTasks(),
@@ -754,19 +747,19 @@ export class TaskListComponent implements OnInit {
 }
 ```
 
-Here we have create both event emitters and have added them to the three methods that depend on AJAX request. Whenever one of these methods is called we emit an event, through `this.startAjaxRequest.emit()`, to the *Slim Loading Bar* to tell it to start running the loading bar indicator on our interface. After getting a response back from the AJAX requests sent by `loadTasks` method, that updates the task list, we then tell *Slim Loading Bar* to complete its progress through `this.completeAjaxRequest.emit()`.
+Here we have create both event emitters and have added them to the three methods that depend on AJAX request. Whenever one of these methods is called we emit an event, through `this.startAjaxRequest.emit()`, to the *Slim Loading Bar* to tell it to start running the loading bar indicator on our interface. After getting a response back from the AJAX requests sent by the `loadTasks` method, that updates the task list, we then tell *Slim Loading Bar* to complete its progress through `this.completeAjaxRequest.emit()`.
 
-If we run our development server, by issuing `ng serve` and heading to `http://localhost:4200/`, we will see our application with a better user experience:
+If we run our development server by issuing `ng serve` and heading to `http://localhost:4200/`, we will see our application with a better user experience:
 
 ![Slim loading bar on task list Angular application](https://cdn.auth0.com/blog/serverless-angular/slim-loading-bar.png)
 
 ## Going Live with GitHub Pages
 
-Our application is ready to be deployed to production. We have a persistence layer that saves all users tasks. We have a serverless REST API that accepts `GET`, `POST` and `DELETE` requests to manipulate tasks. We have security, provided by Auth0. And we have a good looking Angular single page application interface. The only thing that is missing is a place to host our static (HTML, CSS and JavaScript) files.
+Our application is ready to be deployed to production. We have a persistence layer that saves all users' tasks. We have a serverless REST API that accepts `GET`, `POST` and `DELETE` requests to manipulate tasks. We have security, provided by Auth0. And we have a good looking Angular single page application interface. The only thing that is missing is a place to host our static (HTML, CSS and JavaScript) files.
 
-That is exactly what [GitHub Pages provides](https://pages.github.com/). To use it is really simple. We have first to create a repository on it - of course we also need a GitHub account, but who doesn't have one these days -, then we will have to push our work to it and after that we will need to create a branch, called `gh-pages`, that will contain only our production bundles.
+That is exactly what [GitHub Pages provides](https://pages.github.com/). To use it is simple. We just need to create a repository and push our work to a branch called `gh-pages`. This branch should contain only our production bundles.
 
-To create a GitHub repository, go to [Create a New Repository](https://github.com/new) page on GitHub, choose a meaningful repository name - something like *task-list* - and hit the *Create repository* button.
+To create a GitHub repository go to [GitHub](https://github.com/), sign in (or sign up if you don't have an account) and choose the *Create a New Repository* option. Create your new repository naming it as *task-list*. Note that if you choose another name, you will have to adjust the `base-href` parament of the `ng build` command that we will run later.
 
 ![Creating a GitHub repository](https://cdn.auth0.com/blog/serverless-angular/create-github-repo.png)
 
@@ -784,18 +777,18 @@ git commit -m "Task List Angular app with a secure serverless REST API."
 git push origin master
 ```
 
-Having our code safe, we can now work on the *going live* task. Two steps are needed here. The first one is to prepare our code to production and package it. Again Angular CLI comes in handy. To do that we just have to issue `ng build --prod --base-href=/task-list/`. Note that we have to set `base-href` to the exact same name of our GitHub repository, otherwise our application won't be able to load all the resources and it won't work.
+Having our code safe, we can now work on the *going live* task. Two steps are needed here. The first one is to prepare our code for production and package it. Again Angular CLI comes in handy. To do that we just have to issue `ng build --prod --base-href=/task-list/`. Note that we have to set `base-href` to the exact same name of our GitHub repository, otherwise our application won't be able to load all the resources and it won't work.
 
-The second step used to be handled by Angular CLI, but [this command has been removed in the latest release](https://github.com/angular/angular-cli/pull/4385), so we will need a third party tool to help us here. Gladly there is one that is very easy to use, called `angular-cli-ghpages`. To install it issue `npm install -g angular-cli-ghpages`. After that we just have to execute `angular-cli-ghpages` (yep, without any parameters) and voilà. Our app is up and running on GitHub Pages.
+The second step used to be handled by Angular CLI, but [this command has been removed in the latest release](https://github.com/angular/angular-cli/pull/4385), so we will need a third party tool to help us here. Fortunately, there is one that is very easy to use called `angular-cli-ghpages`. To install it issue `npm install -g angular-cli-ghpages`. After that we just have to execute `angular-cli-ghpages` (yep, without any parameters) and voilà. Our app is up and running on GitHub Pages.
 
-**Important**, do not forget to update the *Allowed Callback URLs* on your Auth0 account. The list of allowed URLs must have the URL where our app was exposed. Something like `https://brunokrebs.github.io/task-list/`.
+**Important**: do not forget to update the *Allowed Callback URLs* on your Auth0 account. The list of allowed URLs must have the URL where our app was exposed. This should be something like `https://brunokrebs.github.io/task-list/`.
 
 ![Angular application, with secured serverless REST API running on GitHub Pages](https://cdn.auth0.com/blog/serverless-angular/running-on-github-pages.png)
 
 ## Conclusion
 
-As we could see, when we choose the right tools, it gets easy to achieve great accomplishments. We started with nothing, just an idea to develop a task list application, an managed to create and release it to the internet with not that much effort.
+As we could see, when we choose the right tools, it gets easy to achieve great accomplishments. We started with nothing, just an idea to develop a task list application, and managed to create and release it to the internet with not that much effort.
 
-We didn't even had to worry about building, supporting and securing servers to host our web application nor our database. If we had to manage these tasks by ourselves, we would take much more time and wouldn't be as confident about its security, fault tolerance and scalability as we are now.
+We didn't even have to worry about building, supporting and securing servers to host our web application or our database. If we had to manage these tasks by ourselves, we would take much more time and wouldn't be as confident about our app's security, fault tolerance and scalability.
 
 And this is just the beginning. Freeing ourselves from all these issues enables us to focus 100% on our ideas and on what makes our applications unique.
