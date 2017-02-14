@@ -1,3 +1,33 @@
+// Get broser Name
+
+function getBrowserName() {
+  var userAgent = navigator.userAgent;
+  var browserName = (userAgent.match(/opera|chrome|safari|firefox/i) || [])[0];
+  var appName = navigator.appName;
+
+  if (appName === 'Microsoft Internet Explorer') {
+    browserName = 'IE';
+    return browserName;
+  }
+
+  if (navigator.appVersion.indexOf('Edge') > -1) {
+    browserName = 'Edge';
+    return browserName;
+  }
+
+  if (browserName === 'Chrome') {
+    var opr = userAgent.match(/\bOPR/i);
+    if (opr !== null) {
+      browserName = 'Opera';
+      return browserName;
+    }
+
+    return browserName;
+  }else {
+    return browserName;
+  }
+}
+
 // about service worker and push notification
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register('https://auth0.com/blog/sw.js');
@@ -44,7 +74,7 @@ function subscribe(serviceWorkerRegistration) {
             body: JSON.stringify({ 'registration_id': subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1) }),
           })
         .then(function (res) {
-          metricsLib.track('blog:notifications', { 'trackData': 'accepted' });
+          metricsLib.track('blog:notifications:' + browser, { 'trackData': 'accepted' });
         })
         .catch(function (err) {
           return;
@@ -88,6 +118,7 @@ window.unsubscribePushNotification = function () {
 //  popup push subscription
 
 $(document).ready(function ($) {
+  var browser = getBrowserName();
   var valActive;
   function conditionalScroll(scroll) {
     if (valActive) {
@@ -194,7 +225,7 @@ $(document).ready(function ($) {
     $('.pn-popup').removeClass('pn-is-visible');
     valActive = false;
     localStorage.setItem('pn-subscription', 'false');
-    metricsLib.track('blog:notifications', { 'trackData': 'declined' });
+    metricsLib.track('blog:notifications:' + browser, { 'trackData': 'declined' });
   });
 
   window.pnSafari = function(){
@@ -214,10 +245,10 @@ $(document).ready(function ($) {
       );
     }else if (permissionData.permission === 'denied') {
       localStorage.setItem('pn-subscription', 'false');
-      metricsLib.track('blog:notifications', { 'trackData': 'declined' });
+      metricsLib.track('blog:notifications:' + browser, { 'trackData': 'declined' });
     }else if (permissionData.permission === 'granted') {
       localStorage.setItem('permissionAllow', 'true');
-      metricsLib.track('blog:notifications', { 'trackData': 'accepted' });
+      metricsLib.track('blog:notifications:' + browser, { 'trackData': 'accepted' });
     }
   }
 
