@@ -546,7 +546,7 @@ To learn more about **observables**, check out the following resources:
 
 Reactive programming is often associated with [Reactive Extensions](http://reactivex.io/), an API for asynchronous programming with <a href="#observables" target="_self">observable streams</a>. Reactive Extensions (abbreviated Rx*) [provides libraries for a variety of languages](http://reactivex.io/languages.html), including JavaScript ([RxJS](https://github.com/Reactive-Extensions/RxJS)).
 
-### In Practice: Reactive Progamming with JavaScript
+### In Practice: Reactive Programming with JavaScript
 
 Here is an example of reactive programming with observables. Let's say we have an input where the user can enter a six-character confirmation code and we want to print out the latest valid code attempt. Our HTML might look like this:
 
