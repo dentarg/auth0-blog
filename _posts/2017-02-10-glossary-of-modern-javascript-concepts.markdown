@@ -258,7 +258,7 @@ To learn more about **immutability and mutability**, check out the following res
 
 ## <span id="imperative-declarative"></span>Imperative and Declarative Programming
 
-While some languages were designed to be **imperative** (C, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and [C#](https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx)) can support both programming paradigms. 
+While some languages were designed to be **imperative** (C, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and <a href="https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx">C#</a>) can support both programming paradigms. 
 
 Most developers familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS. 
 
