@@ -376,7 +376,7 @@ function whenMeetingJohn() {
     alert('Hi!');
   }
 }
-var atLunchToday = whenMeetingJohn;
+var atLunchToday = whenMeetingJohn();
 
 atLunchToday(); // alerts "Hi!"
 ```
