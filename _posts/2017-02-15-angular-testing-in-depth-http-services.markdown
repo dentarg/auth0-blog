@@ -2,10 +2,10 @@
 layout: post
 title: "Angular Testing In Depth: HTTP Services"
 description: "Learn how to test HTTP services in Angular. We will start by writing tests for requests and finish by refactoring them to a cleaner format."
-date: 2017-01-07 08:23
+date: 2017-02-15 08:23
 category: Technical Guide, Angular, Angular2
 banner:
-  text: "Auth0 makes it easy to add authentication to your AngularJS application."
+  text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
   name: "Gábor Soós"
   url: "https://twitter.com/blacksonic86"
