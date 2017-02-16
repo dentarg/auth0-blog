@@ -393,6 +393,7 @@ Finally we called `window.customElements.define('vimeo-embed', VimeoEmbed);` to 
 Create an `index.html` file. Go ahead and import the `vimeo-embed.html` file in it like so:
 
 {% highlight html %}
+
 <!doctype html>
 <html>
 <head>
@@ -413,13 +414,14 @@ Create an `index.html` file. Go ahead and import the `vimeo-embed.html` file in 
     </div>   
 </body>
 </html>
+
 {% endhighlight %}
 
-Oh, you can see the `webcomponentsjs` polyfill referenced in the `<script>` tag. How did we get that?
+Oh, you can see the `webcomponentsjs` polyfill referenced in the *script* tag. How did we get that?
 
 Install it via bower like this:
 
-```js
+```bash
 bower install webcomponentsjs --save
 ```
 
@@ -463,7 +465,7 @@ Go ahead and publish
 
 Now, your component should be visible in the registry.
 
-![Visible in the component registry](https://cdn.auth0.com/blog/webcomponent/visible.png)
+![Visible in the component registry](https://cdn.auth0.com/blog/webcomponent/latestpublished.png)
 
 Yaay!
 
