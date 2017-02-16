@@ -731,10 +731,10 @@ Being able to start and stop a container is merely an extension of what we've al
 
 The workflow we're going to implement looks like this:
 
-1) We are going to handle the 'click' event of the start button from inside the React component.
-2) Inside the click event, we're going to send a message to the socket running on the server.
-3) The server will receive the message and tell Docker to start the appropriate container.
-4) When the container starts, the server will dispatch a message to all connections with a refreshed list of containers.
+1. We are going to handle the 'click' event of the start button from inside the React component.
+2. Inside the click event, we're going to send a message to the socket running on the server.
+3. The server will receive the message and tell Docker to start the appropriate container.
+4. When the container starts, the server will dispatch a message to all connections with a refreshed list of containers.
 
 Let's start with the button. Alter the button inside your `ContainerListItem` component so that it handles the click event using a method called `onActionButtonClick`:
 
