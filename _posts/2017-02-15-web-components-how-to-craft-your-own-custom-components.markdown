@@ -10,8 +10,8 @@ author:
   mail: "prosper.otemuyiwa@gmail.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#572D89"
-  image: https://cdn.auth0.com/blog/reactive-programming/logo.png
+  bg_color: "#7A5EAC"
+  image: https://cdn.auth0.com/blog/webcomponents/webcomponentslogo.png
 tags:
 - polymer
 - web-components
