@@ -118,6 +118,7 @@ In the code above, we referenced two scripts:
 
 ```js
 <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+```
 
 The `Webcomponentjs` file is the Web components' polyfill for browsers that don't support web components yet.
 
@@ -218,7 +219,7 @@ window.customElements.define('file-bag', class extends HTMLElement {
 
 So when you call `<file-bag><p>This is a file bag </p></file-bag>` in the browser, it will be rendered like so:
 
-% highlight html %}
+{% highlight html %}
   <file-bag>
     <strong>Shadow dom super powers for the win!</strong>
   </file-bag>
@@ -244,8 +245,6 @@ This is a web component specification that defines how to declare pieces of mark
 The `<template>` tag is placed within the web component. You can write HTML and CSS code within this tag to define how you want the component to be presented in the browser.
 
 You can reference the [HTML Template](https://html.spec.whatwg.org/multipage/webappapis.html#scripting) specification for a very detailed information on templating.
-
-## Browser Support for Web Components
 
 ## Build a Vimeo Embed Web Component
 
@@ -321,7 +320,9 @@ We have also added CSS style to the `template` tag to define the styling of the 
 
 The next step is to actually create the custom element. Now add a `<script>` tag just after the `<template>` tag and create it like so:
 
-```js
+
+{% highlight html %}
+
 <script>
 (function(window, document, undefined) {
 
@@ -378,7 +379,7 @@ The next step is to actually create the custom element. Now add a `<script>` tag
 })(window, document);
 </script>
 
-```
+{% endhighlight %}
 
 We have the `constructor` and `createAndPlay` method. As I mentioned earlier, the constructor initializes state in the custom element. So, we implemented the *Shadow DOM* and called the `createAndPlay` method in the constructor.
 
