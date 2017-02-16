@@ -11,10 +11,8 @@ author:
   mail: tomek@auth0.com
   avatar: https://s.gravatar.com/avatar/53f70144dc9d7c76455fa91f858d4cec?s=200
 design:
-  bg_color: "#415156"
-  image: https://cdn.auth0.com/blog/webtasks/webtask_logo.png
-  image_size: "120%"
-  image_bg_color: "#B6C5CA"
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/auth0-webhooks-announcements/hooks_logo.png
   blog_series: false
 tags:
 - product
