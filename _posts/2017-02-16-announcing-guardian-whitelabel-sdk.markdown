@@ -2,8 +2,9 @@
 layout: post
 title: "Announcing the Guardian Whitelabel SDK"
 description: "Learn about the Guardian Whitelabel SDK and how you can easily build your own authenticator leveraging our battle-tested solution."
-date: 2017-01-16 08:30
-category: Announcement, Guardian
+date: 2017-02-16 08:30
+category: Announcement, Feature, Guardian
+press_release: true
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/guardian/Guardianlogo.png
