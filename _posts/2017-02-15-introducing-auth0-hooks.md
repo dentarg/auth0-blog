@@ -29,7 +29,7 @@ related:
 - 2015-10-29-extensibility-through-code-using-webtasks
 ---
 
-Auth0 Hooks are a new extensibility mechanism in Auth0 that allows you to customize the behavior of our platform using Node.js. Learn what Auth0 Hooks are and how they are what you can do with them.
+Auth0 Hooks are a new extensibility mechanism in Auth0 that allows you to customize the behavior of our platform using Node.js. 
 
 -----
 
@@ -37,12 +37,17 @@ Auth0 Hooks are a new extensibility mechanism in Auth0 that allows you to custom
 
 Customization flexibility has always been an integral part of the Auth0 platform. Until now, you could use [Auth0 Rules](https://auth0.com/docs/rules) to execute arbitrary Node.js code during an authorization transaction. Today, we are introducing [Auth0 Hooks](https://auth0.com/docs/auth0-hooks), a new and improved mechanism to extend the Auth0 platform using code. 
 
+![Auth0 Hooks in Webtask Editor](https://cdn.auth0.com/hooks/assets/wt-editor-auth0-hooks.png)  
+
 ## Better developer experience
 
 While Auth0 Hooks are building on the same underlying [Webtask](https://webtask.io) technology we have developed to run Auth0 Rules, several aspects of the developer experience are improved: 
 
 * Using the [management dashboard](https://auth0.com/docs/auth0-hooks/dashboard) you can create, move in and out of production, and edit hooks for selected extensibility points in the Auth0 platform. 
-* You edit hook code in the Webtask Editor which offers much richer featureset compared to the experiene you are used to with Auth0 Rules.  
+
+![Auth0 Hooks dashboard](https://cdn.auth0.com/hooks/assets/manage-hooks.png)  
+
+* You edit hook code in the Webtask Editor which offers a much richer featureset compared to the experiene you are used to with Auth0 Rules.  
 * Syntax completion allows you write the code faster without referring to documentation.  
 * Integrated secret management improves the security of your code by providing a mechanism to securely store secrets while making them conveniently available in code.  
 * Integrated runner allows you to test your code without leaving the webtask editor.  
@@ -69,7 +74,7 @@ Auth0 Hooks provide a foundation for a new extensibility mechanism in Auth0. All
 
 If you have been using Auth0 Rules before, these are some of the key differences in the development experience when moving on to Auth0 Hooks: 
 
-* In Auth0 Rules, you are editing code on the Auth0 management dashbaord. When using Auth0 Hooks, you edit code in the Webtask Editor.  
+* In Auth0 Rules, you are editing code on the Auth0 management dashboard. When using Auth0 Hooks, you edit code in the Webtask Editor.  
 * When using Auth0 Rules, you are specifying rule configuration common to all rules on the Auth0 management dashboard. Auth0 Hooks allow you to specify secret configuration directly in the Webtask Editor, and separately for each hook.  
 * When developing Auth0 Rules, you can dry run a rule from within the Auth0 management dashboard. Auth0 Hooks can be tested from within the Webtask Editor using the integrated runner and access to real-time logs. 
 * There is no command line tool to manipulate Auth0 Rules. Auth0 Hooks come with the [Auth0 CLI](https://auth0.com/docs/auth0-hooks/cli) tool, and can also be manipulated using the lower level [Webtask CLI](https://webtask.io/cli) tool.  
