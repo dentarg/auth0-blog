@@ -116,9 +116,10 @@ This is an example of the component in the `index.html` file.
 
 In the code above, we referenced two scripts:
 
-```js
-<script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
-```
+{% highlight html %}
+    <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+{% endhighlight %}
+
 
 The `Webcomponentjs` file is the Web components' polyfill for browsers that don't support web components yet.
 
