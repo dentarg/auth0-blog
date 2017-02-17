@@ -2,7 +2,7 @@
 layout: post
 title: "Introducing Auth0 Hooks"
 description: "Customize Auth0 platform with Node.js using Auth0 Hooks, a new extensibility mechanism powered by Webtasks."
-date: 2017-02-17 09:00
+date: 2017-02-17 08:30
 alias: /2017/02/17/introducing-auth0-hooks/
 category: Technical Guide, Serverless, Webtasks
 author:
