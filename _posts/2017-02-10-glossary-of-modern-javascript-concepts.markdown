@@ -304,7 +304,7 @@ function incrementArray(arr) {
 
 We show _what_ we want to achieve, but not how it works. The [`Array.map()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) returns a new array with the results of running the callback on each item from the passed array. This approach does not modify existing values, nor does it include any sequential logic showing _how_ it creates the new array.
 
-> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are declarative, <a href="#functional-programming" target="_self">functional</a> array methods. Utility libraries like [lodash](https://lodash.com/) provide methods like [`every`](https://lodash.com/docs/4.17.4#every), [`sortBy`](https://lodash.com/docs/4.17.4#sortBy), [`uniq`](https://lodash.com/docs/4.17.4#uniq), and more in addition to `map`, `reduce`, and `filter`.
+> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are declarative, <a href="#functional-programming" target="_self">functional</a> array methods. Utility libraries like [lodash](https://lodash.com/) provide methods like [`takeWhile`](https://lodash.com/docs/4.17.4#takeWhile), [`uniq`](https://lodash.com/docs/4.17.4#uniq), [`zip`](https://lodash.com/docs/4.17.4#zip), and more in addition to `map`, `reduce`, and `filter`.
 
 ### Imperative and Declarative Programming Takeaways
 
