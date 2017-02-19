@@ -32,7 +32,8 @@ for a serverless backend APIs and more. Not surprisingly, I also chose Auth0 for
 
 My plan was that users will authenticate using Google and the code would then access the Picas and GMail APIs authorizing with the authenticated user credentials.
 
-```User Story: As a user I want to log in with my Google account so I can view my google photos in a simple viewer
+```
+User Story: As a user I want to log in with my Google account so I can view my google photos in a simple viewer
 ```
 
 That all seemed fairly straight forward after spending time learning the basics of OAuth and OpenID flows. Then I read the various Google docs and ended up being nicely confused. Google spread the docs around and are not always very precise. They are often unclear on whether access is from client or backend or which authentication flows they are talking about.
