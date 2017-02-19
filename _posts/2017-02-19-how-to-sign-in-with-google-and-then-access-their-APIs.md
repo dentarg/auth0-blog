@@ -1,6 +1,6 @@
 *Guest post by SteveALee of Opendirective.com*
 
-Authentication of web apps is a big hairy problem and if you are not careful it will eat a large chunk of you developer time. 
+Without a doubt, authentication of web apps is a big hairy problem and if you are not careful it will eat a large chunk of you developer time. 
 Worse, if you don't get it right you're open to being hacked, which will take even more of your precious time, not to manage damaging your reputation.
 One of the easiest ways to mitigate this is to outsource the work to Auth0 who provide an excellent and flexible solution along with some of the best documents and support in the business.
 But, even when using Auth0 some scenareos are still complex to figure out and take time to get right. 
@@ -46,6 +46,7 @@ I'll present some a links to important docs. But first, here's the flow we use.
 
 In order for this to all work you need to have configured the following
 
+* A gmail account - d'oh
 * Auth0 web Client for the SPA
 * Google API auth0 clientid for the SPA
 * Auth0 non interactive client for the backend
@@ -54,7 +55,6 @@ In order for this to all work you need to have configured the following
 The docs describing these are in links above
 
 The SPA code is as follow (not I actually use the CycleJS integration but this imperative code should be easy to understand). 
-For development server I simply installed npm package lite-serve configured to port 8000
 
 ```
 
@@ -65,4 +65,7 @@ The Azure Function code. This is a javascript HTTP Function and no dependenies n
 ```
 
 ```
+
+If you want to try out this code you'll need to install the 2 npm dependencies; goto to "Functions App Settings"->"Console" and then cd to the folder for your function and ```npm install jsonwebtoken request```. You'll also need to set up CORS in the App Settings by adding your client URL - eg ```localhost:8000``` 
+For client development server I simply installed npm package lite-serve configured to port 8000
 
