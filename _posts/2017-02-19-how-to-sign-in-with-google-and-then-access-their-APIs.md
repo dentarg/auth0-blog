@@ -70,7 +70,7 @@ You should also read:
 * [Identity Provider Access Tokens](https://auth0.com/docs/tokens/idp)
 * [Lock for Web](https://auth0.com/docs/libraries/lock)
 
-Here is a basic SPA example code:
+Here is a basic SPA client example code:
 
 ```html
 <!doctype html>
@@ -164,7 +164,7 @@ Here is a basic SPA example code:
 </body>
 ```
 
-Here's The AzureFunction backend code. This is a JavaScript HTTP Function with method of GET. Tokens are passed from ther SPA in the URL.
+Here's the AzureFunctions backend code. This is a JavaScript HTTP Function with method of GET. Tokens are passed from ther SPA in the URL.
 
 
 ```js
@@ -187,7 +187,7 @@ module.exports = jwtDecorator(function (context, req) {
    if (req.user) {
         getAdminAccessToken()
         .then(({object: {access_token}}) => { 
-            return getUserAccessToken(access_token, userid)
+            return getUserAccessToken(access_token, req.user.sub)
         })
         .then(({object}) => {
             const access_token = object.identities[0].access_token
@@ -289,7 +289,7 @@ For the backend you'll need to create a HTTP Function with the method set to GET
 
 ## Observations
 
-While this works just fine I'm concerned about speed. It takes a second or two to respond (ignoring the Function warm up time after a period of inactivity). I don't think the speed will be the Function code execution, but rather the cumulative over-the-wire and response times. I also need to check the geographic regions all align (Europe in my case).
+While this works just fine I'm concerned about speed. It takes two or three seconds for the Function to run (ignoring the Function warm up time after a period of inactivity). I don't think the speed is the Function code execution, but rather the cumulative over-the-wire and Auth0 response times. I also need to check the geographic regions all align (Europe in my case).
 
 As this is a serverless backend with no state storage the same code will run for every similar endpoint. Apart from the speed concern, we can tidy up the code to be more DRY by moving the code to get the access_token into a module shared by all the Functions in the Function App. Or even making it a npm package.
 
