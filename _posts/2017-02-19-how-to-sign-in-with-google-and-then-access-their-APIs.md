@@ -29,11 +29,9 @@ This post then, is the story of my experience plus some working Javascript code 
 I'm developing a set of open source components used in a commercial SaaS designed to support the needs of people with cognitive disabilities or low digital literacy.
 The initial components and product will provide simplified access to shared photographs and email. Given this, Google Picas and GMail seemed like a natural choice for the initial underlying service. Unfortunately however, the Picasa API has been feature stripped recently when Google moved over to Google Photos.  
 
-My requirment was that users will authenticate using Google signon and the code would then access the user's photos and emails, using the Picasa and GMail APIs while authorizing access with the authenticated user credentials.
+My requirement is that users will authenticate using Google signon and the code would then access the user's photos and emails, using the Picasa and GMail APIs while authorizing access with the authenticated user credentials.
 
-```
-User Story: As a user I want to log into the app with my Google account so I get a list my Google photo albums
-```
+> User Story: As a user I want to log into the app with my Google account so I get a list my Google photo albums
 
 That all seemed fairly straight forward after spending some time learning the basics of OAuth and OpenID flows from a mixture of Auth0 and OpenID documentation. Then, I read the various Google API and auth docs and ended up being nicely confused. Google spread the documentation around several places and are not always consistent or precise. In addition. they are often unclear on whether they are describing access from a client or backend or which specific authentication flows they are talking about. Finally, they often use their own SDKs (or libraries) which obscure the details and are largely irrelevent and another large download for client users
 
@@ -74,7 +72,7 @@ You should also read:
 
 Here is a basic SPA example code:
 
-```
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -103,7 +101,8 @@ Here is a basic SPA example code:
               alert(this.status+' '+this.responseText)
           }
       }
-      xmlhttp.open("GET", FUNCTION_ENDPOINT+'&at='+authToken+'&it='+idToken, true);
+      xmlhttp.open("GET", FUNCTION_ENDPOINT, true);
+      xmlhttp.setRequestHeader('Authorization', 'Bearer '+idToken)
       xmlhttp.send();
   }
 
@@ -129,50 +128,103 @@ Here is a basic SPA example code:
   );
 
   lock.on("authenticated", function(authResult) {
+    localStorage.setItem('accessToken', authResult.accessToken);
+    localStorage.setItem('idToken', authResult.idToken);
     lock.getUserInfo(authResult.accessToken, function(error, profile) {
       if (error) {
         // Handle error
         return;
       }
-
-      localStorage.setItem('accessToken', authResult.accessToken);
-      localStorage.setItem('profile', JSON.stringify(profile));
-
-      getGoogleAlbums(authResult.accessToken, authResult.idToken)
     });
   });  
   
   document.getElementById('btn-login').addEventListener('click', function() {
     lock.show();
   });
+  document.getElementById('btn-get').addEventListener('click', function() {
+    var accessToken = localStorage.getItem('accessToken')
+    var idToken = localStorage.getItem('idToken')
+    getGoogleAlbums(accessToken, idToken)
+  })
 
-  // Verify that there's a token in localStorage
-  var token = localStorage.getItem('accessToken');
-  if (token) {
-    showProfile();
+  function view() {
+    var token = localStorage.getItem('accessToken');
+    if (token) {
+      showProfile();
+    }
   }
-
-  // Display the user's profile
   function showProfile() {
-    var profile = JSON.stringify(JSON.parse(localStorage.getItem('profile')),null,2);
-    document.getElementById('profile').textContent = profile;
+      var profile = JSON.stringify(JSON.parse(localStorage.getItem('profile')),null,2);
+      document.getElementById('profile').textContent = profile;
   }
+
+  view()
 
   </script>
 </body>
-</html>
 ```
 
-And here's The AzureFunction backend code. This is a JavaScript HTTP Function with method of GET. Tokens are passed from ther SPA in the URL.
+Here's The AzureFunction backend code. This is a JavaScript HTTP Function with method of GET. Tokens are passed from ther SPA in the URL.
 
-```
-const request = require("request")
-const jwt = require('jsonwebtoken')
 
+```js
+// constants - should be in app settings not here
 const DOMAIN = 'YOUR AUTH0 DOMAIN HERE'
 const ADMIN_CLIENT_ID = 'YOUR ADMIN APP CLIENT ID HERE'
 const ADMIN_CLIENT_SECRET = 'YOUR ADMIN APP CLIENT SECRET HERE'
 const APP_CLIENT_SECRET = 'YOUR SPA APP SECRET HERE'
+
+
+// init a JWT decorator that checks the signature and specified fields
+const jwtDecorator = require('azure-functions-auth0')({
+  clientId: APP_CLIENT_ID,
+  clientSecret: APP_CLIENT_SECRET,
+  domain: DOMAIN
+})
+
+module.exports = jwtDecorator(function (context, req) {
+
+   if (req.user) {
+        getAdminAccessToken()
+        .then(({object: {access_token}}) => { 
+            return getUserAccessToken(access_token, userid)
+        })
+        .then(({object}) => {
+            const access_token = object.identities[0].access_token
+            return getAlbums(access_token)
+        })
+        .then(({object: {feed: {entry}}}) => {  // FIXME handle no entry
+            const titles = entry.map(ent => ent.title.$t)
+            return {
+                status: 200,
+                body: JSON.stringify(titles),
+                headers: {'Content-Type': 'application/json'}
+            }
+        })
+        .catch(err => {
+            return {
+                status: 400,
+                body: err.message
+            }
+        })
+        .then(res => {   
+            context.done(null, res)
+        })
+    }
+    else {
+        const res = {
+            status: 400,
+            body: 'Something is wrong with the Authorization token'
+        }
+        context.done(null, res)
+    }
+})
+```
+
+And here are the supporting functions
+
+```js
+const request = require("request")
 
 function requestObject(options) {
     return new Promise((resolve, reject) => {
@@ -225,51 +277,6 @@ function getAlbums(accessToken) {
     }
     return requestObject(options)
 }
-
-module.exports = function (context, req) {
-
-    const idtoken = req.query.it
-    let payload
-    try {
-        payload = jwt.verify(idtoken, APP_CLIENT_SECRET)
-    } catch(err) {
-        res = {
-            status: 400,
-            body: "The ID token doesn't check out"
-        }
-        context.done(null, res)
-        return
-    }
-    const userid = payload.sub
-
-    if (userid) {
-        getAdminAccessToken()
-        .then(({object: {access_token}}) => { 
-            return getUserAccessToken(access_token, userid)
-        })
-        .then(({object}) => {
-            const access_token = object.identities[0].access_token
-            return getAlbums(access_token)
-        })
-        .then(({object: {feed: {entry}}}) => {  // FIXME handle no entry
-            const titles = entry.map(ent => ent.title.$t)
-            return {
-                status: 200,
-                body: JSON.stringify(titles),
-                headers: {'Content-Type': 'application/json'}
-            }
-        })
-        .catch(err => {
-            return {
-                status: 400,
-                body: err.message
-            }
-        })
-        .then(res => {   
-            context.done(null, res)
-        })
-    }
-}
 ```
 
 In production code you'd need to check that the access_token is good and that the user is uthorised to access then endpoint. You'd also probably also move the security details out to applications settings (if only to stop you accidently checking them into GitHub).
@@ -278,7 +285,7 @@ In production code you'd need to check that the access_token is good and that th
 
 For a client development server I simply installed npm package 'lite-server' configured to port 8000
 
-For the backend you'll need to create a HTTP Function with the method set to GET. You'll needto install the 2 npm dependencies; goto to "Functions App Settings" -> "Console" and then 'cd' to the folder for your function and ```npm install jsonwebtoken request```. You'll also need to set up CORS in the App Settings by adding your client URL - eg ```localhost:8000```. Finally, copy the function URL to the SPA code. 
+For the backend you'll need to create a HTTP Function with the method set to GET. You'll needto install the 2 npm dependencies; goto to "Functions App Settings" -> "Console" and then 'cd' to the folder for your function and ```npm install azure-functions-auth0 request```. You'll also need to set up CORS in the App Settings by adding your client URL - eg ```localhost:8000```. Finally, copy the function URL to the SPA code. 
 
 ## Observations
 
