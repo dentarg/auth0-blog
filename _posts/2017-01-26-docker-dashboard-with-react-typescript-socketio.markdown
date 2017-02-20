@@ -30,7 +30,7 @@ This is a quick preview of what the app looks like when it's finished. It's esse
 
 ## The code
 
-If you want to explore the finished product as a reference (finished as far as the article is concerned!) then you can [fork the code on Github.com](https://github.com/elkdanger/docker-dashboard).
+If you want to explore the finished product as a reference (finished as far as the article is concerned!) then you can [fork the code on Github.com](https://github.com/elkdanger/docker-dashboard-example).
 
 ## Technology stack
 
@@ -45,7 +45,7 @@ Let's have a look at exactly what we're going to be using, and why. I'll go thro
 Peppered amongst the main technologies mentioned above are various libraries which also provide a lot of value during development time:
 
 * **ExpressJS**: Used to serve our web application.
-* **Webpack**: To transpile our TypeScript assests into normal JavaScript.
+* **Webpack 2**: To transpile our TypeScript assests into normal JavaScript.
 * **Bootstrap**: To provide something decent looking - a problem I know all of us programmers endure!
 
 There are a few more minor ones, but I will cover those as we come to them.
@@ -94,13 +94,13 @@ This will download the TypeScript compiler using the node package manager and ma
 
 Which should again echo a version number back to you (I'm using 2.0.10).
 
-### Webpack
+### Webpack 2
 
 Finally, install [Webpack](https://www.npmjs.com/package/webpack), which will allow us to package our JavaScript assets together and will effectively run our TypeScript compiler for us. Again, we can do this through NPM:
 
 `npm install -g webpack`
 
-This has installed webpack into our global package repository on our machine, giving us access to the 'webpack' tool, but we will _also_ need to install it into our project folder - which is what we're about to do next!
+This has installed webpack into our global package repository on our machine, giving us access to the 'webpack' tool.
 
 ## Setting up the project
 
@@ -269,16 +269,12 @@ module.exports = {
     devtool: "source-map",
 
     resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
 
     module: {
         loaders: [
             { test: /\.tsx?$/, loader: "ts-loader" }
-        ],
-
-        preLoaders: [
-            { test: /\.js$/, loader: "source-map-loader" }
         ]
     }
 };
