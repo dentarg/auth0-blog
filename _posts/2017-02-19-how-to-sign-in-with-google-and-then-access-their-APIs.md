@@ -178,7 +178,7 @@ const APP_CLIENT_SECRET = 'YOUR SPA APP SECRET HERE'
 // init a JWT decorator that checks the signature and specified fields
 const jwtDecorator = require('azure-functions-auth0')({
   clientId: APP_CLIENT_ID,
-  clientSecret: APP_CLIENT_SECRET,
+  clientSecret: new Buffer(APP_CLIENT_SECRET).toString('base64'),
   domain: DOMAIN
 })
 
