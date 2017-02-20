@@ -19,37 +19,36 @@ related:
 
 *Guest post by SteveALee of OpenDirective.com*
 
-Without a doubt, authentication of web apps is one of the most complex features to implement correctly and if you are not careful it will eat a large chunk of you developement time. 
+Without a doubt authentication for web apps is one of the most complex features to implement correctly and if you are not careful it will eat a large chunk of you developement time. 
 Worse, if you don't get it **exactly** right you're open to being hacked, which will take even more of your precious time, not to manage damaging your reputation. So it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business.
 But, even when using Auth0 some scenareos are still complex to figure out and code. Typically and "true to form", I picked one of these complex cases as my first attempt at auth for a SPA + SaaS.
 
 This post then, is the story of my experience plus some working Javascript code for AzureFunctions with Auth0.
 
 ## The Problem
-I'm developing a set of open source components used in a commercial SaaS design to support the needs of people with cognitive disabilities or low digital literacy.
-The initial components and product will provide simplified access to shared photographs and email. Given this, Google Picas and GMail seemed like a natural choice for the initial underlying service. Even though the Picasa API has been feature stripped recently when Google moved over to Google Photos.  
+I'm developing a set of open source components used in a commercial SaaS designed to support the needs of people with cognitive disabilities or low digital literacy.
+The initial components and product will provide simplified access to shared photographs and email. Given this, Google Picas and GMail seemed like a natural choice for the initial underlying service. Unfortunately however, the Picasa API has been feature stripped recently when Google moved over to Google Photos.  
 
-My requirment was that users will authenticate using Google signon and the code would then access the users photos and emails, using the Picas and GMail APIs while authorizing with the authenticated user credentials.
+My requirment was that users will authenticate using Google signon and the code would then access the user's photos and emails, using the Picasa and GMail APIs while authorizing access with the authenticated user credentials.
 
 ```
 User Story: As a user I want to log in with my Google account so I can view my google photos in a simple viewer
 ```
 
-That all seemed fairly straight forward after spending some time learning the basics of OAuth and OpenID flows from a mixture of Auth0 and OpenID documentation. Then, I read the various Google API and auth docs and ended up being nicely confused. Google spread the documentation around several places and are not always consistent or precise. In addition. they are often unclear on whether they are describing access from a client or backend or which authentication flows they are talking about. Finally they often use their own SDKs (or libraries) which obscure the details and are largely irrelevent and another large download for client users
+That all seemed fairly straight forward after spending some time learning the basics of OAuth and OpenID flows from a mixture of Auth0 and OpenID documentation. Then, I read the various Google API and auth docs and ended up being nicely confused. Google spread the documentation around several places and are not always consistent or precise. In addition. they are often unclear on whether they are describing access from a client or backend or which specific authentication flows they are talking about. Finally, they often use their own SDKs (or libraries) which obscure the details and are largely irrelevent and another large download for client users
 
 ## Getting nowhere very slowly
 
 After attempting a few spikes accessing the Google APIs directly from the SPA I ended up pulling my hair out. 
-The Picasa API in particular is very flaky in how it handles CORS and authentication. Plan B, then, was to use Auth0 do do all the heavy lifting. My hope was their Lock widget would solve the technical issues relatively easily. For example it handles the nonce and state features used to stop hacking. Lock is also flexible in user experience options, for example it easily alows the addition of extra services. However, I soon found out the access_token that lock provides to a SPA is not usable in Google APIs and it was hard to find any answers.
+The Picasa API in particular is very flaky in how it handles CORS and authentication. Plan B then, was to use Auth0 do do all the heavy lifting. My hope was their Lock widget would solve the technical issues relatively easily. For example it handles the 'nonce' and 'state' attributes used to stop hacking. Lock is also flexible in user experience options, for example it easily alows the addition of extra services. However, I soon found out the access_token that lock provides to a SPA is not usable in Google APIs and it was hard to find any answers.
 
-At this point I started to think that backend access was going to be the solution. In addition to reliable access there's also the question of what to do when tokens expire? We need to avoid having users keep logging in, so refresh tokens will be required which must be kept safely backend side as they effectively allow endless access. Several other design requirements pointed to backend and using AzureFunctions meant a rapid development and relatively low DevOps requirments. Win - win.   
+At this point I started to think that backend access was going to be the solution. In addition to reliable access there's also the question of what to do when tokens expire. We need to avoid having the user keep logging in, so refresh tokens will be required which must be kept safely backend side as they effectively allow endless access. Several other design requirements pointed to backend access and using AzureFunctions meant a rapid development and relatively low DevOps requirments. Win - win.   
 
-So more rapiding spikes and this did eventually work out after I stumbled across a highly relevant Auth0 document and requested help from the awesome Nico. As Nico pointed out, if you use Auth0 as the identity provider then even when proxy other providers the access_tokens you get are form Auth0. They can be used Auth0 APIs or your own but are not what other APIs require. Auth0 does provide a way for backend code to get the access_token from 3rd part identity providers. However, this token is somewhat hidden for security purposes.
-
+So more rapiding spikes and this did eventually work out. But only after I stumbled across a highly relevant Auth0 document and requested help from the awesome Nico at Auth0. As Nico pointed out, if you use Auth0 as the identity provider then even when proxying other 3rd party identity providers the access_tokens you get are from Auth0. They can be used with Auth0 APIs or your own, but are not what 3rd party APIs require. Auth0 does provide a mechanism for backend code to get the access_token from 3rd part identity providers. However, the token is hidden in the Auth0 UI for security purposes.
 
 ## Auth0 and AzureFunctions: making live easy
 
-Without further delay, here's the low down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials via the google access_token. I'll also present some a links to important docs. But first, here's the flow we use.
+Without further delay, here's the low-down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials, using the Google access_token. I'll also present some a links to important docs. But first, here's the flow we use.
 
 * SPA displays the Auth0 Lock passing suitable options
 * User logs in with Google, approving access to requested scopes (eg read photos, read emails)
@@ -270,18 +269,18 @@ module.exports = function (context, req) {
 }
 ```
 
-In production code you'd need to check that the access_token is good and that the user Authorised alowed to run then endpoint. You'd also probably also move out the security details to applications settings
+In production code you'd need to check that the access_token is good and that the user is uthorised to access then endpoint. You'd also probably also move the security details out to applications settings (if only to stop you accidently checking them into GitHub).
 
 ## Running the Code
 
-For client development server I simply installed npm package lite-server configured to port 8000
+For a client development server I simply installed npm package 'lite-server' configured to port 8000
 
-For the backend you'll need to create a HTTP function, set the method to GET and then install the 2 npm dependencies; goto to "Functions App Settings" -> "Console" and then cd to the folder for your function and ```npm install jsonwebtoken request```. You'll also need to set up CORS in the App Settings by adding your client URL - eg ```localhost:8000```. Copy the function URL to the SPA code. 
+For the backend you'll need to create a HTTP Function with the method set to GET. You'll needto install the 2 npm dependencies; goto to "Functions App Settings" -> "Console" and then 'cd' to the folder for your function and ```npm install jsonwebtoken request```. You'll also need to set up CORS in the App Settings by adding your client URL - eg ```localhost:8000```. Finally, copy the function URL to the SPA code. 
 
 ## Observations
 
-While this works just fine I'm concerned about speed. It takes a second or two to respond (ignoring the Function warm up time afte a period of inactivity). I don't think the speed will be the Function code execution but rather the cumulative over the wire and response. I also need to check the geographic regions all align (Europe in my case).
+While this works just fine I'm concerned about speed. It takes a second or two to respond (ignoring the Function warm up time after a period of inactivity). I don't think the speed will be the Function code execution, but rather the cumulative over-the-wire and response times. I also need to check the geographic regions all align (Europe in my case).
 
-As this is a serverless backend with no state storage the same code will run for every endpoint. Apart form the speed concern we can be more DRY by moving the code to get the access_token into a module shared by all the Functions in the Function App.
+As this is a serverless backend with no state storage the same code will run for every similar endpoint. Apart from the speed concern, we can tidy up the code to be more DRY by moving the code to get the access_token into a module shared by all the Functions in the Function App. Or even making it a npm package.
 
-Do let me know if you have any comments or optimisation.
+Please do ping me if you have any comments or optimisations.
