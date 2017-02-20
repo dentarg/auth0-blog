@@ -32,7 +32,7 @@ The initial components and product will provide simplified access to shared phot
 My requirment was that users will authenticate using Google signon and the code would then access the user's photos and emails, using the Picasa and GMail APIs while authorizing access with the authenticated user credentials.
 
 ```
-User Story: As a user I want to log into the app with my Google account and can get a list my Google photo albums
+User Story: As a user I want to log into the app with my Google account so I get a list my Google photo albums
 ```
 
 That all seemed fairly straight forward after spending some time learning the basics of OAuth and OpenID flows from a mixture of Auth0 and OpenID documentation. Then, I read the various Google API and auth docs and ended up being nicely confused. Google spread the documentation around several places and are not always consistent or precise. In addition. they are often unclear on whether they are describing access from a client or backend or which specific authentication flows they are talking about. Finally, they often use their own SDKs (or libraries) which obscure the details and are largely irrelevent and another large download for client users
@@ -48,7 +48,7 @@ So more rapiding spikes and this did eventually work out. But only after I stumb
 
 ## Auth0 and AzureFunctions: making live easy
 
-Without further delay, here's the low-down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials, using the Google access_token. I'll also present some a links to important docs. But first, here's the flow we use.
+Without further delay, here's the low-down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials, using the Google access_token. I'll also present some a links to important docs. But first, here's the complete flow we use:
 
 * SPA displays the Auth0 Lock passing suitable options
 * User logs in with Google, approving access to requested scopes (eg read photos, read emails)
@@ -59,17 +59,20 @@ Without further delay, here's the low-down on what you need to do to let a user 
 * Backend extracts the google access_token from the users profile.
 * Backend calls the Google Picas API and processing the results and return to the SPA on the HTTP response
 
-In order for this to all work you need to have configured the following
+In order for this to all work you need to have configured the following:
 
 * A gmail account with some photos - d'oh
-* Auth0 web Client for the SPA
-* Google oauth client for backend access to APIs
-* Auth0 non interactive client for the backend
-* Auth0 management API access for backend access
+* Auth0 web Client for the SPA - [Authentication for Client-side Web Apps](https://auth0.com/docs/client-auth/client-side-web)
+* Google oauth client for backend access to APIs - [Connect Your Client to Google](https://auth0.com/docs/connections/social/google)
+* Auth0 non interactive client for backend access to Auth0 management API- [Call an Identity Provider API](https://auth0.com/docs/tutorials/calling-an-external-idp-api)
 
-The docs describing these are in links above
+You should also read:
+* [Auth0 Overview](https://auth0.com/docs/overview)
+* [Call APIs from Client-side Web Apps](https://auth0.com/docs/api-auth/grant/implicit) - though the example code skips this step.
+* [Identity Provider Access Tokens](https://auth0.com/docs/tokens/idp)
+* [Lock for Web](https://auth0.com/docs/libraries/lock)
 
-Here is a basic example SPA.
+Here is a basic SPA example code:
 
 ```
 <!doctype html>
@@ -282,5 +285,7 @@ For the backend you'll need to create a HTTP Function with the method set to GET
 While this works just fine I'm concerned about speed. It takes a second or two to respond (ignoring the Function warm up time after a period of inactivity). I don't think the speed will be the Function code execution, but rather the cumulative over-the-wire and response times. I also need to check the geographic regions all align (Europe in my case).
 
 As this is a serverless backend with no state storage the same code will run for every similar endpoint. Apart from the speed concern, we can tidy up the code to be more DRY by moving the code to get the access_token into a module shared by all the Functions in the Function App. Or even making it a npm package.
+
+A final question exists on how to handle token expiry. We can get new tokens, possibly with a Refresh Toekns but it's not clear how to update the access token that Auth0 holds. If we can't then the code will hsve to be changed so Auth0's copy is not treaded as the master record.
 
 Please do ping me if you have any comments or optimisations.
