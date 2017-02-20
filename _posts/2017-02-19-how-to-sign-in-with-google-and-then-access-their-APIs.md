@@ -19,58 +19,58 @@ related:
 
 *Guest post by SteveALee of OpenDirective.com*
 
-Without a doubt, authentication of web apps is a particularly difficult problem and if you are not careful it will eat a large chunk of you developer time. 
-Worse, if you don't get it right you're open to being hacked, which will take even more of your precious time, not to manage damaging your reputation. Auth0 help mitigate this problem with an excellent and flexible solution along with some of the best documents and support in the business.
-But, even when using Auth0 some scenareos are still complex to figure out and "true to form", I picked one of these cases as my first attempt at auth.
-This post is the story of my experience and some working code using AzureFunctions with Auth0.
+Without a doubt, authentication of web apps is one of the most complex features to implement correctly and if you are not careful it will eat a large chunk of you developement time. 
+Worse, if you don't get it **exactly** right you're open to being hacked, which will take even more of your precious time, not to manage damaging your reputation. So it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business.
+But, even when using Auth0 some scenareos are still complex to figure out and code. Typically and "true to form", I picked one of these complex cases as my first attempt at auth for a SPA + SaaS.
 
-## The problem
-I'm developing a set of open source components and commercial SaaS design to support the needs of people with cognitive disabilities or low digital literacy.
-The initial components and product will provide simplified access to shared photographs and email. Given this, Google seemed like a natural choice for the initial underlying service. 
-The software stack i've settled on is: [cyclejs](https://cycle.js.org/) for the a reactive SPA front end and [Microsoft Azure Functions](https://azure.microsoft.com/en-us/services/functions/) 
-for a serverless backend APIs and more. Not surprisingly, I also chose Auth0 for authentication and authorization duties. 
+This post then, is the story of my experience plus some working Javascript code for AzureFunctions with Auth0.
 
-My plan was that users will authenticate using Google and the code would then access the Picas and GMail APIs authorizing with the authenticated user credentials.
+## The Problem
+I'm developing a set of open source components used in a commercial SaaS design to support the needs of people with cognitive disabilities or low digital literacy.
+The initial components and product will provide simplified access to shared photographs and email. Given this, Google Picas and GMail seemed like a natural choice for the initial underlying service. Even though the Picasa API has been feature stripped recently when Google moved over to Google Photos.  
+
+My requirment was that users will authenticate using Google signon and the code would then access the users photos and emails, using the Picas and GMail APIs while authorizing with the authenticated user credentials.
 
 ```
 User Story: As a user I want to log in with my Google account so I can view my google photos in a simple viewer
 ```
 
-That all seemed fairly straight forward after spending time learning the basics of OAuth and OpenID flows. Then I read the various Google docs and ended up being nicely confused. Google spread the docs around and are not always very precise. They are often unclear on whether access is from client or backend or which authentication flows they are talking about.
+That all seemed fairly straight forward after spending some time learning the basics of OAuth and OpenID flows from a mixture of Auth0 and OpenID documentation. Then, I read the various Google API and auth docs and ended up being nicely confused. Google spread the documentation around several places and are not always consistent or precise. In addition. they are often unclear on whether they are describing access from a client or backend or which authentication flows they are talking about. Finally they often use their own SDKs (or libraries) which obscure the details and are largely irrelevent and another large download for client users
 
 ## Getting nowhere very slowly
 
-After attempting a few spikes that accessed the Google APIs directly from the SPA I ended up pulling my hair out. 
-The Picasa API in particular is very flaky in how it handles CORS and authentication. I started to think that backend access was going to be the solution for relable API access. And then theirs the question of what to do when tokens expire? The code will need to avoid having users keep loging in, so a refresh tokens will be required and they have to be kept server side as they effectively allow endless access.
+After attempting a few spikes accessing the Google APIs directly from the SPA I ended up pulling my hair out. 
+The Picasa API in particular is very flaky in how it handles CORS and authentication. Plan B, then, was to use Auth0 do do all the heavy lifting. My hope was their Lock widget would solve the technical issues relatively easily. For example it handles the nonce and state features used to stop hacking. Lock is also flexible in user experience options, for example it easily alows the addition of extra services. However, I soon found out the access_token that lock provides to a SPA is not usable in Google APIs and it was hard to find any answers.
 
-Plan , then, was to use Auth0 do do all the heavy lifting. My hope was it would solve the technical issues relatively easily and also be flexible in options for the user experience of authetication, alowing the addition of services.
-And yes, this did eventually work out with Auth0 Lock easily providing the authentication UI. 
-However, authorisation to the google APIs caused me conciderable confusion and required help from support as I managed to miss the important docs.
+At this point I started to think that backend access was going to be the solution. In addition to reliable access there's also the question of what to do when tokens expire? We need to avoid having users keep logging in, so refresh tokens will be required which must be kept safely backend side as they effectively allow endless access. Several other design requirements pointed to backend and using AzureFunctions meant a rapid development and relatively low DevOps requirments. Win - win.   
+
+So more rapiding spikes and this did eventually work out after I stumbled across a highly relevant Auth0 document and requested help from the awesome Nico. As Nico pointed out, if you use Auth0 as the identity provider then even when proxy other providers the access_tokens you get are form Auth0. They can be used Auth0 APIs or your own but are not what other APIs require. Auth0 does provide a way for backend code to get the access_token from 3rd part identity providers. However, this token is somewhat hidden for security purposes.
+
 
 ## Auth0 and AzureFunctions: making live easy
 
-Without further a-do, here's the low down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials. I'll also present some a links to important docs. But first, here's the flow we use.
+Without further delay, here's the low down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials via the google access_token. I'll also present some a links to important docs. But first, here's the flow we use.
 
-* SPA displays the lock passing suitable options
-* User logs in with Google, approving access to listed scopes (eg read emails)
+* SPA displays the Auth0 Lock passing suitable options
+* User logs in with Google, approving access to requested scopes (eg read photos, read emails)
 * If required Auth0 creates a new Auth0 user linked to the google user
-* SPA gets the auth0 user id_token and access_token
-* SPA calls the backend HTTP endpoint to get a list of email etc. It passes the id_token 
-* Backend AzureFunction uses the userid in the id_token to find out the user profile using the Auth0 admin API
+* SPA gets the Auth0 user id_token and access_token
+* SPA calls the backend HTTP endpoint to get a list of photos etc. It passes the id_token 
+* Backend AzureFunction uses the userid in the id_token to find the user profile using the Auth0 admin API
 * Backend extracts the google access_token from the users profile.
-* Backend calls the GMail api and returns the results
+* Backend calls the Google Picas API and processing the results and return to the SPA on the HTTP response
 
 In order for this to all work you need to have configured the following
 
-* A gmail account - d'oh
+* A gmail account with some photos - d'oh
 * Auth0 web Client for the SPA
-* Google API auth0 clientid for the SPA
+* Google oauth client for backend access to APIs
 * Auth0 non interactive client for the backend
-* Auth0 API management API for backend access
+* Auth0 management API access for backend access
 
 The docs describing these are in links above
 
-The example SPA code is as follows (note I actually use the Auth0 CycleJS integration but this imperative code should be easy to understand). 
+Here is a basic example SPA.
 
 ```
 <!doctype html>
@@ -78,34 +78,36 @@ The example SPA code is as follows (note I actually use the Auth0 CycleJS integr
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <title>My Awesome Cycle.js app</title>
+  <title>Google API test</title>
   <script src="https://cdn.auth0.com/js/lock/10.9.1/lock.min.js"></script>
 </head>
 <body>
-    <button id="btn-login">Press me</button>
-  <h2>Welcome <span id="nick" class="nickname"></span></h2>
+  <button id="btn-login">Press me</button>
   <pre id="profile"/>
 
   <script>
   
+  // Config
+  var FUNCTION_ENDPOINT = 'YOUR AZURE FUNCTION ENDPOINT URL HERE'
+  var AUTH0_CLIENT_ID = 'YOUR AUTH0 CLIENT ID HERE'
+  var AUTH0_DOMAIN = 'YOUR AUTH0 DOMAIN HERE'
+    
+  // Call our backend with the access and id tokens
+  // For simplicity we pop up an alert with the outcome
   function getGoogleAlbums(authToken, idToken) {
-    var funct = 'YOUR AZURE FUNCTION ENDPOINT HERE'
     var xmlhttp = new XMLHttpRequest()
     xmlhttp.onreadystatechange = function() {
           if (this.readyState == 4 /*&& this.status == 200*/) {
               alert(this.status+' '+this.responseText)
           }
       }
-      xmlhttp.open("GET", funct+'&at='+authToken+'&it='+idToken, true);
+      xmlhttp.open("GET", FUNCTION_ENDPOINT+'&at='+authToken+'&it='+idToken, true);
       xmlhttp.send();
   }
 
   var lock = new Auth0Lock(
-    'YOUR AUTH0 CLIENT ID HERE',
-    'YOUR AUTH0 DOMAIN HERE',
+    AUTH0_CLIENT_ID,
+    AUTH0_DOMAIN,
     {
       allowedConnections: ['google-oauth2'],
       allowForgotPassword: false,
@@ -118,58 +120,48 @@ The example SPA code is as follows (note I actually use the Auth0 CycleJS integr
         params: { scope: 'openid nickname name email' },
         responseType: "token"
       },
-      theme: {
-        primaryColor: '#31324F'
-      },
       languageDictionary: {
         title: "Sign into Google"
       }
-  }
+    }
   );
 
-  // Listening for the authenticated event
-lock.on("authenticated", function(authResult) {
-  // Use the token in authResult to getUserInfo() and save it to localStorage
-  lock.getUserInfo(authResult.accessToken, function(error, profile) {
-    if (error) {
-      // Handle error
-      return;
-    }
+  lock.on("authenticated", function(authResult) {
+    lock.getUserInfo(authResult.accessToken, function(error, profile) {
+      if (error) {
+        // Handle error
+        return;
+      }
 
-    localStorage.setItem('accessToken', authResult.accessToken);
-    localStorage.setItem('profile', JSON.stringify(profile));
+      localStorage.setItem('accessToken', authResult.accessToken);
+      localStorage.setItem('profile', JSON.stringify(profile));
 
-    getGoogleAlbums(authResult.accessToken, authResult.idToken)
-  });
-});  
+      getGoogleAlbums(authResult.accessToken, authResult.idToken)
+    });
+  });  
   
   document.getElementById('btn-login').addEventListener('click', function() {
-  lock.show();
-});
+    lock.show();
+  });
 
-// Verify that there's a token in localStorage
-var token = localStorage.getItem('accessToken');
-if (token) {
-  showLoggedIn();
-  showProfile();
-}
+  // Verify that there's a token in localStorage
+  var token = localStorage.getItem('accessToken');
+  if (token) {
+    showProfile();
+  }
 
-// Display the user's profile
-function showLoggedIn() {
-  var profile = JSON.parse(localStorage.getItem('profile'));
-  document.getElementById('nick').textContent = profile.nickname;
-}
-function showProfile() {
-  var profile = JSON.stringify(JSON.parse(localStorage.getItem('profile')),null,2);
-  document.getElementById('profile').textContent = profile;
-}
+  // Display the user's profile
+  function showProfile() {
+    var profile = JSON.stringify(JSON.parse(localStorage.getItem('profile')),null,2);
+    document.getElementById('profile').textContent = profile;
+  }
 
   </script>
 </body>
 </html>
 ```
 
-The Azure Function code. This is a javascript HTTP Function with method of GET. Tokens are passed in the URL
+And here's The AzureFunction backend code. This is a JavaScript HTTP Function with method of GET. Tokens are passed from ther SPA in the URL.
 
 ```
 const request = require("request")
@@ -280,7 +272,16 @@ module.exports = function (context, req) {
 
 In production code you'd need to check that the access_token is good and that the user Authorised alowed to run then endpoint. You'd also probably also move out the security details to applications settings
 
-If you want to try out this code you'll need to install the 2 npm dependencies; goto to "Functions App Settings"->"Console" and then cd to the folder for your function and ```npm install jsonwebtoken request```. You'll also need to set up CORS in the App Settings by adding your client URL - eg ```localhost:8000``` 
+## Running the Code
 
-For client development server I simply installed npm package lite-serve configured to port 8000
+For client development server I simply installed npm package lite-server configured to port 8000
 
+For the backend you'll need to create a HTTP function, set the method to GET and then install the 2 npm dependencies; goto to "Functions App Settings" -> "Console" and then cd to the folder for your function and ```npm install jsonwebtoken request```. You'll also need to set up CORS in the App Settings by adding your client URL - eg ```localhost:8000```. Copy the function URL to the SPA code. 
+
+## Observations
+
+While this works just fine I'm concerned about speed. It takes a second or two to respond (ignoring the Function warm up time afte a period of inactivity). I don't think the speed will be the Function code execution but rather the cumulative over the wire and response. I also need to check the geographic regions all align (Europe in my case).
+
+As this is a serverless backend with no state storage the same code will run for every endpoint. Apart form the speed concern we can be more DRY by moving the code to get the access_token into a module shared by all the Functions in the Function App.
+
+Do let me know if you have any comments or optimisation.
