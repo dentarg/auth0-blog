@@ -32,7 +32,7 @@ The initial components and product will provide simplified access to shared phot
 My requirment was that users will authenticate using Google signon and the code would then access the user's photos and emails, using the Picasa and GMail APIs while authorizing access with the authenticated user credentials.
 
 ```
-User Story: As a user I want to log in with my Google account so I can view my google photos in a simple viewer
+User Story: As a user I want to log into the app with my Google account and can get a list my Google photo albums
 ```
 
 That all seemed fairly straight forward after spending some time learning the basics of OAuth and OpenID flows from a mixture of Auth0 and OpenID documentation. Then, I read the various Google API and auth docs and ended up being nicely confused. Google spread the documentation around several places and are not always consistent or precise. In addition. they are often unclear on whether they are describing access from a client or backend or which specific authentication flows they are talking about. Finally, they often use their own SDKs (or libraries) which obscure the details and are largely irrelevent and another large download for client users
