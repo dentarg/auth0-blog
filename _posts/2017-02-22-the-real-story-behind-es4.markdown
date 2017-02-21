@@ -2,7 +2,7 @@
 layout: post
 title: "The Real Story Behind ECMAScript 4"
 description: "We review the different views on the development of ECMAScript 4"
-date: 2017-02-17 12:30
+date: 2017-02-22 12:30
 category: Technical Guide, Frontend, JavaScript
 author:
   name: Sebastián Peyrott
@@ -101,7 +101,7 @@ The success of Internet Explorer in the desktop, due in great part to its bundli
 
 Microsoft, by the time Firefox was released, had mostly stagnated with regards to web development. Internet Explorer was the king, and .NET was making big inroads in the server market. After their shift in focus towards C#, JScript .NET was left mostly unchanged. In other words, Microsoft had no particular interest at this point in reviving ECMAScript: they controled the browser, and JScript .NET was an afterthought. It would require some prodding to wake them up.
 
-Macromedia, and then Adobe after its acquisition, started a push towards integration of their internal ActionScript work into ECMA in 2005. They had spent a considerable amount of technical effort into ActionScript, and it would only be in their best interests to see that work integrated into ECMAScript. They had the users, the implementation and the experience to use as leverage inside the committee.
+Macromedia, and then Adobe after its acquisition, started a push towards integration of their internal ActionScript work into ECMA in 2003. They had spent a considerable amount of technical effort into ActionScript, and it would only be in their best interests to see that work integrated into ECMAScript. They had the users, the implementation and the experience to use as leverage inside the committee.
 
 At this point, Brendan Eich, now part of Mozilla, was concerned about Microsoft's stagnation with regards to web technologies. He knew web development was based on consensus, and, at the moment, the biggest player was Microsoft. He needed their involvement if things were to move forward. Taking notice of Macromedia's renewed interest in restarting the work on ECMAScript 4, he realized now was a good time to get the ball rolling. He approached Macromedia and told them it would be a good idea to work on a simple standard as a warm up exercise: E4X. ECMAScript for XML was a rather simple extension to ECMAScript 3 syntax that allowed native manipulation of XML data. Eich took the opportunity to bring Microsoft on-board and ECMA-357, E4X, got published in the year 2004. With the major players involved, now was the time to resume work on ECMAScript 4. By the end of 2005, TC-39 was working again.
 
@@ -130,7 +130,7 @@ At an [iconic meeting in Oslo, Norway in 2008](https://mail.mozilla.org/pipermai
 3. Some ES4 proposals have been deemed unsound for the Web, and are off the table for good: packages, namespaces and early binding. This conclusion is key to Harmony.
 4. Other goals and ideas from ES4 are being rephrased to keep consensus in the committee; these include a notion of classes based on existing ES3 concepts combined with proposed ES3.1 extensions.
 
-ECMAScript 3.1 was soon renamed to ECMAScript 5 to make it clear it was the way forward and that version 4 was not to be expected. Version 5 was finally released in 1999. All major browsers (including Internet Explorer) were fully compliant by 2012.
+ECMAScript 3.1 was soon renamed to ECMAScript 5 to make it clear it was the way forward and that version 4 was not to be expected. Version 5 was finally released in 2009. All major browsers (including Internet Explorer) were fully compliant by 2012.
 
 Of particular interest is the word "Harmony" in Eich's e-mail. "Harmony" was the designated name for the new ECMAScript development process, to be adopted from ECMAScript 6 (later renamed 2015) onwards. Harmony would make it possible to develop complex features without falling into the same traps ECMAScript 4 experienced. Some of the ideas in ECMAScript 4 were recycled in Harmony. ECMAScript 6/2015 finally brought many of the big ideas from ECMAScript 4 to ECMAScript. Others, were completely scrapped.
 
@@ -145,7 +145,8 @@ It was the hope of ActionScript developers that innovation in ActionScript would
 
 JScript .NET, on the other hand, was largely left untouched since the early 2000s, ever since Microsoft's shift to C# as the main .NET language. It went into maintenance mode in .NET 2.0 (2005) and remains available only as a legacy product inside the latest versions of .NET. It does not support features added to .NET after version 1 (such as generics, delegates, etc.).
 
-## An ECMAScript 4 timeline
+## An ECMAScript timeline
+![ECMAScript history timeline](https://cdn.auth0.com/blog/es4/es4-timeline.png)
 
 ## Aside: JavaScript use at Auth0
 At Auth0 we are [heavy users of JavaScript](https://github.com/auth0). From our [Lock library](https://github.com/auth0/lock) to our backend, JavaScript powers the core of our operations. We find its asynchronous nature and the low entry barrier for new developers essential to our success. We are eager to see where the language is headed and the impact it will have in its ecosystem. 
