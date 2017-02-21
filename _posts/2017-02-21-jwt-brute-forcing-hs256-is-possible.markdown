@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "JWT: Brute forcing HS256 is possible"
-description: "Cracking a JWT composed with HS256 is possible by brute forcing it. Learn how to use Auth0 to provide JWTs with RS256"
+description: "Cracking a JWT signed with HS256 is possible by brute forcing it. Learn how to use Auth0 to provide and protect your JWTs with RS256"
 date: 2017-02-21 08:30
 category: Technical Guide, Security, JWT
 design:
@@ -103,9 +103,9 @@ The most common algorithms for signing JWTs are:
 
 ### HS256
 
-Keyed-Hash Message Authentication Code (HMAC) is an algorithm that combines a certain payload with a secret using a cryptographic hash function like `SHA-256`. The result is a code that can be used to verify a message only if both the generating and verifying parties know the secret. In other words, HMACs allow messages to be verified through `shared secrets`.
+Hash-based Message Authentication Code (HMAC) is an algorithm that combines a certain payload with a secret using a cryptographic hash function like `SHA-256`. The result is a code that can be used to verify a message only if both the generating and verifying parties know the secret. In other words, HMACs allow messages to be verified through shared secrets.
 
-This is an example showcasing a HMAC-based signing algorithms:
+This is an example showcasing a HMAC-based signing algorithm:
 
 ```js
 
@@ -117,7 +117,7 @@ const jwt = `${encodedHeader}.${encodedPayload}.${signature}`;
 
 ```
 
-An example of signing a JWT using the `jsonwebtoken` JavaScript library can be found below:
+An example of signing a JWT with the `HS256` algorithm using the `jsonwebtoken` JavaScript library can be found below:
 
 ```
 
@@ -195,19 +195,20 @@ const decoded = jwt.verify(signed, publicRsaKey, {
 
 ### ES256
 
-ECDSA algorithms also make use of public keys. The math behind the algorithm is different, though, so the steps to generate the keys are different as well. The "P-256" in the name of this algorithm tells us exactly which version of the algorithm to use (more details about this in chapter 7). We can use OpenSSL to generate the key as well:
+ECDSA algorithms also make use of public keys. We can use OpenSSL to generate the key as well:
 
 ```bash
 
 # Generate a private key (prime256v1 is the name of the parameters used
 # to generate the key, this is the same as P-256 in the JWA spec). 
 openssl ecparam -name prime256v1 -genkey -noout -out ecdsa_private_key.pem
+
 # Derive the public key from the private key
 openssl ec -in ecdsa_private_key.pem -pubout -out ecdsa_public_key.pem
 
 ```
 
-If you open these files you will note that there is much less data in them. This is one of the benefits of ECDSA over RSA (more about this in chapter 7). The generated files are in PEM format as well, so simply pasting them in your source will suffice.
+If you open these files you will note that there is much less data in them. This is one of the benefits of ECDSA over RSA. The generated files are in PEM format as well, so simply pasting them in your source will suffice.
 
 ```js
 
@@ -234,13 +235,13 @@ const decoded = jwt.verify(signed, publicEcdsaKey, {
 
 ```
 
-**Note:** This is just an excerpt about these algorithms from the very comprehensive [Auth0 JWT book](https://auth0.com/e-books/jwt-handbook) written by [Sebastian Peyrott](https://twitter.com/speyrott). Download it for more information on signing and validating JWTs using these algorithms mentioned above.
+> **Note:** These algorithm notes above are excerpts from the very comprehensive [Auth0 JWT book](https://auth0.com/e-books/jwt-handbook) written by [Sebastian Peyrott](https://twitter.com/speyrott). Download it for more information on signing and validating JWTs using these algorithms mentioned above.
 
-## Brute Forcing a JSON Webtoken Signed With HS256
+## Brute Forcing a HS256 JSON Web Token
 
-As secure as `HS256` is, especially when implemented the right way, brute-forcing a JSON web token signed with **HS256** is possible. 
+As secure as `HS256` is, especially when implemented the right way, brute-forcing a JSON web token signed with **HS256** is still very possible. 
 
-I came across a [tool](https://github.com/brendan-rius/c-jwt-cracker) written in C on Github. It is a multi-threaded JWT brute force cracker. With a huge computing power, this tool can find the secret key of a `HS256` **JSON Web token**.
+Recently, I came across a [tool](https://github.com/brendan-rius/c-jwt-cracker) written in C on GitHub. It is a multi-threaded JWT brute force cracker. With a huge computing power, this tool can find the secret key of a `HS256` **JSON Web token**.
 
 ### Implementing a Brute Force Attack
 
@@ -268,7 +269,13 @@ apt-get install libssl-dev
 
 ```
 
-Go ahead and clone the `jwt-cracker` from [Github](https://github.com/brendan-rius/c-jwt-cracker). 
+The specs of my MacBook are mentioned below:
+
+* Processor 2.7 GHz Intel Core i5
+* Memory 8GB 1867 MHz DDR3
+* Graphics Intel Iris Graphics 6100 1536 MB
+
+Go ahead and clone the `jwt-cracker` from [GitHub](https://github.com/brendan-rius/c-jwt-cracker). 
 
 An example JWT signed with `HS256` and a secret, `Sn1f` is:
 
@@ -288,7 +295,7 @@ time ./jwtcrack eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiw
 
 ![Crack](https://cdn.auth0.com/blog/bruteforceattack/token.png)
 
-It took about 6.16s on my laptop to crack the key.
+It took about 6.16s on my laptop to crack the secret key.
 
 With the help of [jwt.io](https://jwt.io), let's sign another token quickly, but with a secret, *secret*.
 
