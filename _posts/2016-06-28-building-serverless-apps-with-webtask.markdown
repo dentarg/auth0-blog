@@ -297,6 +297,7 @@ wt create newsletter.js
     -s AUTH0_CLIENT_ID=YOUR_AUTH0_CLIENT_ID
     -s AUTH0_CLIENT_SECRET=YOUR_AUTHO_CLIENT_SECRET
     -s AUTH0_DOMAIN=YOUR_AUTH0_DOMAIN.auth0.com
+    -s AUTH0_SECRET_ENCODING=utf8
 ```
 
 With the deployment complete, we are ready to integrate our Webtask into our Serverless Stories blog.

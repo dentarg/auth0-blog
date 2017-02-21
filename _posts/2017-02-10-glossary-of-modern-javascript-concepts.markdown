@@ -258,7 +258,7 @@ To learn more about **immutability and mutability**, check out the following res
 
 ## <span id="imperative-declarative"></span>Imperative and Declarative Programming
 
-While some languages were designed to be **imperative** (C, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and [C#](https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx)) can support both programming paradigms. 
+While some languages were designed to be **imperative** (C, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and <a href="https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx">C#</a>) can support both programming paradigms. 
 
 Most developers familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS. 
 
@@ -304,7 +304,7 @@ function incrementArray(arr) {
 
 We show _what_ we want to achieve, but not how it works. The [`Array.map()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) returns a new array with the results of running the callback on each item from the passed array. This approach does not modify existing values, nor does it include any sequential logic showing _how_ it creates the new array.
 
-> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are declarative, <a href="#functional-programming" target="_self">functional</a> array methods. Utility libraries like [lodash](https://lodash.com/) provide methods like [`every`](https://lodash.com/docs/4.17.4#every), [`sortBy`](https://lodash.com/docs/4.17.4#sortBy), [`uniq`](https://lodash.com/docs/4.17.4#uniq), and more in addition to `map`, `reduce`, and `filter`.
+> **Note:** JavaScript's [`map`, `reduce`,](https://www.sitepoint.com/map-reduce-functional-javascript/) [and `filter`](https://danmartensen.svbtle.com/javascripts-map-reduce-and-filter) are declarative, <a href="#functional-programming" target="_self">functional</a> array methods. Utility libraries like [lodash](https://lodash.com/) provide methods like [`takeWhile`](https://lodash.com/docs/4.17.4#takeWhile), [`uniq`](https://lodash.com/docs/4.17.4#uniq), [`zip`](https://lodash.com/docs/4.17.4#zip), and more in addition to `map`, `reduce`, and `filter`.
 
 ### Imperative and Declarative Programming Takeaways
 
@@ -376,7 +376,7 @@ function whenMeetingJohn() {
     alert('Hi!');
   }
 }
-var atLunchToday = whenMeetingJohn;
+var atLunchToday = whenMeetingJohn();
 
 atLunchToday(); // alerts "Hi!"
 ```
