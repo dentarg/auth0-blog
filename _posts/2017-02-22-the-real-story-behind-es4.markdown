@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Real Story Behind ECMAScript 4"
-description: "We review the different views on the development of ECMAScript 4"
+description: "We take a look at what really happened during the ECMAScript 4 era"
 date: 2017-02-22 12:30
 category: Technical Guide, Frontend, JavaScript
 author:
