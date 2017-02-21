@@ -293,6 +293,8 @@ time ./jwtcrack eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiw
 
 ```
 
+> **Note:** Make sure the `jwtcrack` script is executable by running `chmod a+x ./jwtcrack`
+
 ![Crack](https://cdn.auth0.com/blog/bruteforceattack/token.png)
 
 It took about 6.16s on my laptop to crack the secret key.
