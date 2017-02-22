@@ -2,7 +2,7 @@
 layout: post
 title: "Serverless REST API with Angular, Persistence and Security"
 description: "Develop an Angular app from scratch, with serverless REST API, security and persistence and deploy it to GitHub Pages in no time."
-date: 2017-02-08 08:30
+date: 2017-02-22 08:30
 category: Technical Guide, Angular, Angular2
 author:
   name: "Bruno Krebs"
