@@ -87,9 +87,9 @@ One may wonder why companies like Oracle and Red Hat make available two versions
 
 ## Java Community Process (JCP)
 
-The *Java Community Process* (JCP) is the process that facilitates Java to evolve. Interested parties, like developers and companies, can act together in this process by cooperating to evolve the platform. Most of the times enhancements to any Java technology occur through *Java Specification Requests* (JSRs), but there are times that the platform evolves through *JDK Enhancement-Proposals* (JEPs).
+The *Java Community Process* (JCP) is the process that facilitates Java to evolve. Interested parties, like developers and companies, can act together in this process by cooperating to evolve the platform. Most of the time, enhancements to any Java technology occur through *Java Specification Requests* (JSRs), but there are times that the platform evolves through *JDK Enhancement-Proposals* (JEPs). The difference between both process will be explained later.
 
-As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on Java SE. To release this specification in Java SE 5, Sun Microsystems—the company that created Java—issued a *JSR* to the JCP program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
+As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on Java SE. To release this specification in Java SE 5, Sun Microsystems—the company that created Java—issued a *JSR* to the *JCP* program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
 
 - a description of the proposed specification
 - the target platform
@@ -98,32 +98,40 @@ As an example, let's consider the introduction of the Java API for RESTful Web S
 
 After submitting this specification request, members of the *Executive Committee* (EC) analyzed it to decide if this request deserved attention or not. Since it was approved by the *EC*, Mark Hadley and Paul Sandoz—former employees of Sun Microsystems—were assigned as *Specification Leads* and kept working on it with the help of *Expert Group* members and *Contributors*.
 
-All the different roles and workflow involved to release any *JSR*, like the example above, are defined in the *JCP* program and are governed by the *EC*.
+All the different roles and the workflow involved to release any *JSR*, like the example above, are defined in the *JCP* program and are governed by the *EC*.
 
 ### Java Community Process Membership
 
 To officially participate in any stage of a *JSR* or process in the *JCP*, an organization or individual has to sign a *Java Specification Participation Agreement* (JSPA), a *Associate Membership Agreement* (AMA) or a *Partner Membership Agreement* (PMA).
 
-Any entity (human or organization) that has signed one of the agreements mentioned above will be categorized as one of the three types of *JCP Membership* available: Associate Member, Partner Member or Full Member. Each of these types qualify members to act on different roles in the process. The *JCP* provides a [very detailed explanation of how different kind of subjects (individuals, non-profit organizations or commercial organizations) become members](https://jcp.org/en/participation/overview) and [how they can contribute](https://jcp.org/aboutJava/communityprocess/final/jsr364/MembershipClasses_v7.pdf). But basically, the following rules apply:
+Any entity (human or organization) that signs one of these agreements gets categorized as one of the three types of *JCP Membership* available: Associate Member, Partner Member or Full Member. Each of these types qualify members to act on different roles in the process. The *JCP* provides a [very detailed explanation of how different kind of subjects (individuals, non-profit organizations or commercial organizations) become members](https://jcp.org/en/participation/overview) and [how they can contribute](https://jcp.org/aboutJava/communityprocess/final/jsr364/MembershipClasses_v7.pdf). But basically, the following rules apply:
 
-- Associate Members can be *Contributors* to *JSRs' Expert Groups*, attend *JCP Member* events and vote in the annual *Executive Committee* elections for the two Associate seats
+- Associate Members can be *Contributors* to *JSRs' Expert Groups*, attend *JCP Member* events and vote in the annual *Executive Committee* elections for two Associate seats
 - Partner Members can serve on the *Executive Committee*, attend to *JCP Member* events and vote in the annual *Executive Committee* elections
 - Full Members can work on the *Executive Committee*, vote in the annual *Executive Committee* elections, work as *Contributors* to *JSRs* and lead these specifications.
 
 ### Executive Committee (EC)
 
-As already stated, the *Executive Committee* (EC) plays a major role in the *JCP* program. Members of this group have to analyze, comment, vote and decided on the approval of all the *JSRs* issued to the program. Besides being responsible for guiding the evolution of the entire platform, the *EC* and the whole *JCP* program are also responsible for the *JCP* program itself, keeping it in adherence to what the community expects from the program and its members.
+The *Executive Committee* (EC) plays a major role in the *JCP* program. Members of this group have to analyze, comment, vote and decided on the approval of all the *JSRs* submitted to the program. Besides being responsible for guiding the evolution of the entire platform, the *EC* and the whole *JCP* program are also responsible for the *JCP* program itself, keeping it in adherence to what the community expects from the program and its members.
 
 Members of this committee are elected through [annual elections](https://jcp.org/en/participation/committee) and they are responsible for:
 
 - reviewing and voting to approve or reject new *JSR* proposals
 - reviewing and voting to approve or reject public review drafts
-- decide when JSRs that have not made sufficient progress through the *JCP* be withdrawn
-- collaborating on revisions to the *JCP*
+- deciding when *JSRs* should be withdrawn
+- collaborating on revisions to the *JCP* program
 
 ### Specification Lead
 
-The *Specification Lead* is usually the author of the specification or, like in the example of the *JAX-RS* spec, someone related to the organization that filed the request. *Spec Leads* are responsible for choosing and leading the members the *Expert Group* while developing a specification.
+The *Specification Lead* is usually the author of the specification or, like in the example of the *JAX-RS* spec, someone related to the organization that filed the request. *Spec Leads* main responsibility is to guide *Expert Group* members and the *Contributors* while developing a specification, but they also have to:
+
+- provide the Reference Implementation for the *JSR*
+- complete the *Technology Compatibility Kit* (TCK)—[a suite of tests that checks a particular a *JSR* for compliance](https://jcp.org/en/resources/tdk)
+- update the *JSR* page on [jcp.org](https://jcp.org), providing documents like [Early Draft Review](https://www.jcp.org/en/jsr/stage?listBy=community), [Public Review](https://www.jcp.org/en/jsr/stage?listBy=public), [Proposed Final Draft](https://www.jcp.org/en/jsr/stage?listBy=proposed), etc
+
+### Contributor
+
+*Contributors* are an *Associate Member* (i.e. individuals that signed the *Associate Membership Agreement*) that helped the *Expert Group* and the *Specification Lead* to test and develop a *JSR*. This role is the first step to the *JCP* program. *Contributors* that provide great help on one or more *JSRs* have a good chance to be considered as candidates for future *Expert Groups* and/or to act as a *Specification Lead*.
 
 ## Java Specification Requests (JSR)
 ### Structure of a JSR
