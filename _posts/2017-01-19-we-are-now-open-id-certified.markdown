@@ -22,7 +22,7 @@ related:
 - 2015-09-23-what-is-and-how-does-single-sign-on-work
 ---
 
-Last year in May, Auth0 officially certified that our [OpenID Connect implementations abide by two OpenID standards](http://oixnet.org/openid-certifications/auth0/): OP Basic and OP Config. This year in February, Auth0 certified to abide by another two profiles: OP Implicit and Hybrid OP. We're thrilled to be among the ranks of first industry leaders like Google, Microsoft, and Paypal among others.
+Last year in May, Auth0 officially certified that our [OpenID Connect implementations abide by two OpenID profiles](http://oixnet.org/openid-certifications/auth0/): OP Basic and OP Config. This year in February, Auth0 certified to abide by another two profiles: OP Implicit and Hybrid OP. We're thrilled to be among the ranks of first industry leaders like Google, Microsoft, and Paypal among others.
 
 OpenID Connect, as a layer on top of the OAuth 2.0 authorization protocol, allows for decentralized authentication and improves user access to websites and apps.
 
