@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Java's Evolution - An Overview of How the Platform Evolves"
-description: "This article provides an overall explanation about how Java evolves both as platform and as programming language. A nice infographic accompanies it to illustrate the idea."
+title: "Java Acronyms—How Js Interact to Compose the Platform"
+description: "This article provides an explanation of the most important Java acronyms and how they interact to compose one of the most used platforms in the world."
 date: 2017-02-10 12:14
 category: Technical Guide, Java
 author:
@@ -23,11 +23,11 @@ related:
 - <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
 ---
 
-In this article I'm going to explain how Java evolves over time. I'm going to define some important acronyms—like JDK, JRE, JSR, JEP, etc—and show how they interact together to compose one of the most used platforms in the world. In the end I'll provide an infographic that illustrate this process.
+**TL;DR:** In this article I'm going to explain the most important Java acronyms and how they interact to make Java evolve over time. First I'm going to introduce how the platform is divided—explaining what are the differences between Java ME, Java SE and Java EE—and then I'm going to define some important acronyms like: JDK, JRE, JCP, JSR, JEP, etc. I will also provide a brief explanation of how most of these acronyms interact in the Java world.
 
 ## Java Editions
 
-Before diving into the details of how Java evolves, it's important to understand what its main pieces are. Java is distributed in three different editions: *Java Standard Edition* (Java SE), *Java Enterprise Edition* (Java EE) and *Java Micro Edition* (Java ME).
+Before diving into Java acronyms, it's important to understand what are the main pieces of the platform. Java is distributed in three different editions: *Java Standard Edition* (Java SE), *Java Enterprise Edition* (Java EE) and *Java Micro Edition* (Java ME).
 
 *Java Micro Edition* was created focusing applications running on embedded and mobile devices in the Internet of Things. This edition is not, by far, as popular as its siblings and will not be the focus of this article, although it also [evolves based on the same process](http://www.oracle.com/technetwork/java/javame/tech/jcp-jsp-140210.html).
 
@@ -87,7 +87,7 @@ One may wonder why companies like Oracle and Red Hat make available two versions
 
 ## Java Community Process (JCP)
 
-The *Java Community Process* (JCP) is the process that facilitates Java to evolve. Interested parties, like developers and companies, can act together in this process by cooperating to evolve the platform. Most of the time, enhancements to any Java technology occur through *Java Specification Requests* (JSRs), but there are times that the platform evolves through *JDK Enhancement-Proposals* (JEPs). The difference between both process will be explained later.
+The *Java Community Process* (JCP) is the process that formalizes and standardizes Java technologies. Interested parties, like developers and companies, cooperate in this process to evolve the platform. Most of the time, enhancements to any Java technology or introduction of new ones occur through *Java Specification Requests* (JSRs). But there are times that the platform evolves through *JDK Enhancement-Proposals* (JEPs).
 
 As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on Java SE. To release this specification in Java SE 5, Sun Microsystems—the company that created Java—issued a *JSR* to the *JCP* program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
 
@@ -109,6 +109,8 @@ Any entity (human or organization) that signs one of these agreements gets categ
 - Associate Members can be *Contributors* to *JSRs' Expert Groups*, attend *JCP Member* events and vote in the annual *Executive Committee* elections for two Associate seats
 - Partner Members can serve on the *Executive Committee*, attend to *JCP Member* events and vote in the annual *Executive Committee* elections
 - Full Members can work on the *Executive Committee*, vote in the annual *Executive Committee* elections, work as *Contributors* to *JSRs* and lead these specifications.
+
+![JCP members hierarchy](https://i.snag.gy/PDn6o7.jpg)
 
 ### Executive Committee (EC)
 
@@ -134,6 +136,11 @@ The *Specification Lead* is usually the author of the specification or, like in 
 *Contributors* are an *Associate Member* (i.e. individuals that signed the *Associate Membership Agreement*) that helped the *Expert Group* and the *Specification Lead* to test and develop a *JSR*. This role is the first step to the *JCP* program. *Contributors* that provide great help on one or more *JSRs* have a good chance to be considered as candidates for future *Expert Groups* and/or to act as a *Specification Lead*.
 
 ## Java Specification Requests (JSR)
+
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing what problem they want to solve and how. This first version of the *JSR* is then analyzed by the *EC* to be approved or disapproved.
+
+When a *JSR* gets approved by the *EC*, the *Specification Leads* can start choosing *Expert Group* members and *Contributors*. After having the whole crew defined, they start working on
+
 ### Structure of a JSR
 ### JSR Lifecycle
 
