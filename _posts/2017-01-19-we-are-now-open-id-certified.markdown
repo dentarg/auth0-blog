@@ -22,13 +22,13 @@ related:
 - 2015-09-23-what-is-and-how-does-single-sign-on-work
 ---
 
-Last year in May, Auth0 officially certified that our [OpenID Connect implementations abide by two OpenID profiles](http://oixnet.org/openid-certifications/auth0/): OP Basic and OP Config. This year in February, Auth0 certified to abide by another two profiles: OP Implicit and Hybrid OP. We're thrilled to be among the ranks of first industry leaders like Google, Microsoft, and Paypal among others.
+In May of last year, Auth0 officially gained certifications for *OP Basic* and *OP Config* profiles of the OpenID Connect spec. As of February this year, Auth0 has gained two new [OpenID Connect certifications: *OP Implicit* and *Hybrid OP*](http://oixnet.org/openid-certifications/auth0/). With these certifications we're thrilled to join the ranks of industry leaders such as Google, Microsoft, PayPal, and others who are embracing standards based authentication.
 
 OpenID Connect, as a layer on top of the OAuth 2.0 authorization protocol, allows for decentralized authentication and improves user access to websites and apps.
 
 Getting certified means ensuring that our implementation of the protocol meets the official specifications as outlined by [OpenID](http://openid.net/developers/specs/).
 
-OpenID is a cornerstone of the modern, open web, and we're proud to give our implementation the official stamp of approval.
+OpenID is a cornerstone of the modern, open web, and we're proud that our implementation has the official stamp of approval.
 
 ## What Is OpenID Connect?
 
@@ -36,7 +36,7 @@ OpenID Connect is an open identity standard. It acts as an authentication layer 
 
 A user gets an OpenID account through an OpenID identity provider. The user uses that account to sign into any site (a relying party) that accepts OpenID authentication (for example, YouTube). This open-source framework, provided by the OpenID standard, lets the user, relying party and the identity provider “just work” together.
 
-Instead of having to sign up on a website and keep track of your passwords, you only need to sign up once and use that login across a number of websites.
+Instead of having to sign up on a website and keep track of your passwords, you only need to sign up once and use that login across various applications.
 
 On a website, it might look something like this:
 
@@ -67,7 +67,7 @@ Since you're uniquely identified over the internet, OpenID Connect is also a goo
 
 If your friend opens a website and sees someone with your OpenID has made a comment, they can be certain it was you, not someone with the same name coincidentally.
 
-## Why OpenID Certification?
+## Why Get OpenID Certification?
 
 You've carried rounds and rounds of tests to check your OpenID specs. The results were great with strong participation. So what's the point of getting certified?
 
