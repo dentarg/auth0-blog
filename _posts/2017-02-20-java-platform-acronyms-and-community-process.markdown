@@ -155,7 +155,7 @@ The *Specification Lead* is usually the author of the specification or, like in 
 
 ## Java Specification Requests (JSR)
 
-A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes trough a series of stages until it gets released or discarded. The following list enumerates all the stages from the creation of *JSR* to its release:
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes through a series of stages until it gets released or discarded. The following list enumerates all the stages from the creation of *JSR* to its release:
 
 - Write a JSR—an individual or company that
 - Submit a JSR
@@ -184,6 +184,6 @@ The whole process defined as *JCP* enables multiple companies to rely on technol
 
 Of course, this process and these specifications don't come for free. Actually the price is quite high, which is the timeframe that new technologies and trends take to get adopted by the *JCP* community.
 
-As an example, let's say that a company would like that to use GraphQL. Right now there is no specification on any Java edition that support this technology, and there are chances that Java will never support it. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. Which would make the company loose the upside of the specifications.
+As an example, let's say that a company would like that to use [GraphQL](http://graphql.org/). Right now there is no specification on any Java edition that support this technology, and there are chances that Java standards will never support it at all. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. Which would make the company loose the upside of the specifications.
 
-What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you propose some changes to it? We would love to hear you in the comments box!
+What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you propose some changes to it? We would love to hear your ideas.
