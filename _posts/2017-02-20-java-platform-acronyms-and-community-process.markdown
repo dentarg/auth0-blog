@@ -2,7 +2,7 @@
 layout: post
 title: "Java Platform, Acronyms and the Community Process"
 description: "This article provides an explanation of the most important Java acronyms and how the community handle them to compose the most used platform in the world."
-date: 2017-02-10 12:14
+date: 2017-02-20 12:14
 category: Technical Guide, Java
 author:
   name: "Bruno Krebs"
@@ -112,9 +112,9 @@ As an example, let's consider the introduction of the Java API for RESTful Web S
 - a description of the proposed specification
 - the target platform
 - why the need of a new specification
-- and technologies that the specification relies on
+- and technologies that the specification relied on
 
-After submitting this specification request, members of the *Executive Committee* (EC) analyzed it to decide if this request deserved attention or not. Since it was approved by the *EC*, Mark Hadley and Paul Sandoz—former employees of Sun Microsystems—were assigned as *Specification Leads* and kept working on it with the help of *Expert Group* members and *Contributors*.
+After submitting this specification request, members of the *Executive Committee* (EC) analyzed it to decide if the request deserved attention or not. Since it was approved by the *EC*, Mark Hadley and Paul Sandoz—former employees of Sun Microsystems—were assigned as *Specification Leads* and kept working on it with the help of *Expert Group* members and *Contributors*.
 
 All the different roles and the workflow involved to release any *JSR*, like the example above, are defined in the *JCP* program and are governed by the *EC*.
 
@@ -151,31 +151,39 @@ The *Specification Lead* is usually the author of the specification or, like in 
 
 ### Contributor
 
-*Contributors* are an *Associate Member* (i.e. individuals that signed the *Associate Membership Agreement*) that helped the *Expert Group* and the *Specification Lead* to test and develop a *JSR*. This role is the first step to the *JCP* program. *Contributors* that provide great help on one or more *JSRs* have a good chance to be considered as candidates for future *Expert Groups* and/or to act as a *Specification Lead*.
+*Contributors* are *Associate Members* (i.e. individuals that signed the *Associate Membership Agreement*) that help the *Expert Group* and the *Specification Lead* to test and develop a *JSR*. This role is the first step to the *JCP* program. *Contributors* that provide great help on one or more *JSRs* have a good chance to be considered as candidates for future *Expert Groups* and/or to act as a *Specification Lead*.
 
 ## Java Specification Requests (JSR)
 
-A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *EC*, and the whole community, then have from 2 to 4 weeks to analyze and comment on the *JSR*.
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes trough a series of stages until it gets released or discarded. The following list enumerates all the stages from the creation of *JSR* to its release:
 
-The length of this period is defined by the *JSR* submitter. After this period, starts a new stage called *JSR Approval Ballot* (JAB), where the member of the *EC* has 2 weeks to vote on it. To be approved, a *JSR* has to:
+- Write a JSR—an individual or company that
+- Submit a JSR
+- JSR Review
+- EG formation
+- Early Draft Review
+- Public Review
+- Proposed Final Draft
+- Final Ballot
 
-- receive at least 5 votes
-- receive yes as the majority of the votes casted (absent votes are ignored)
+A thorough definition of all these stages can be found in the [Spec Lead Guide at jcp.org](https://jcp.org/en/resources/guide).
 
-When a *JSR* gets approved by the *EC*, the *Specification Leads* start forming an *Expert Group* and a team of *Contributors* to work on the specification. After having the whole crew defined, they start working on the *Early Draft Review* (EDR). Before this draft is reached, *JSR* access is only open to the *JCP* members working on the specification. But when the *EDR* is released, companies are allowed to specifically begin talking in press releases and other public venues about the *JSR*.
+![JCP stages](https://jcp.org/images/JCP.Timeline.12.png)
 
-The idea of the *EDR* is to encourage the *EG* to feel comfortable going into review before the *Public Review*
+*Java Specification Request* are used in three different situation:
 
-> Most of the communication happens on email aliases and everything is open to the public.
-
-Three types of *JSRs* exists nowadays:
-
-- *JSRs* that propose enhancement to previously approved *JSRs*
-- *JSRs* that propose new features to the platform
-- Platform *JSRs* that hold a set of *JSRs* that may be part of the next major release (e.g. *Java SE 9* or *Java EE 9*)
+- when there is a new feature that the community wants to see in a future release of some Java edition (*Java ME*, *Java SE* or *Java EE*)
+- when the community wants to enhance some existing feature (e.g. add new capabilities to *JSF*)
+- when the community thinks that the *JCP* program needs some change
 
 ## Conclusion
 
-As you can see, the Java community has an addiction for acronyms, mainly those that start with the letter J. But alongside with this addiction, the community has also built an amazing environment, with crystal-clear rules, that enable Java to evolve.
+As you can see, the Java community has an addiction for acronyms, mainly those that contains the letter *J*. But alongside with this "addiction", the community has also built an amazing environment, with crystal-clear rules, that enable Java to evolve as a platform and as a community.
 
-The community,
+The whole process defined as *JCP* enables multiple companies to rely on technologies that adhere to specifications. Relying on these specifications guarantee that companies will have more than one vendor capable of supporting their operations. As such, if a vendor starts providing bad services or goes bankrupt, the companies have the guarantee that moving to another vendor won't cause too much trouble.
+
+Of course, this process and these specifications don't come for free. Actually the price is quite high, which is the timeframe that new technologies and trends take to get adopted by the *JCP* community.
+
+As an example, let's say that a company would like that to use GraphQL. Right now there is no specification on any Java edition that support this technology, and there are chances that Java will never support it. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. Which would make the company loose the upside of the specifications.
+
+What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you propose some changes to it? We would love to hear you in the comments box!
