@@ -155,9 +155,9 @@ The *Specification Lead* is usually the author of the specification or, like in 
 
 ## Java Specification Requests (JSR)
 
-A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes through a series of stages until it gets released or discarded. The following list enumerates all the stages from the creation of *JSR* to its release:
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes through a series of stages until it gets released or discarded. The following list enumerates all the stages from the creation of a *JSR* to its release:
 
-- Write a JSR—an individual or company that
+- Write a JSR
 - Submit a JSR
 - JSR Review
 - EG formation
@@ -166,15 +166,47 @@ A *Java Specification Request* is the document that starts an enhancement on the
 - Proposed Final Draft
 - Final Ballot
 
-A thorough definition of all these stages can be found in the [Spec Lead Guide at jcp.org](https://jcp.org/en/resources/guide).
+All these stages are thoroughly defined in the [JCP 2.10: Process Document](https://jcp.org/en/procedures/jcp2#3.5.1). But below I share a resume of them.
 
 ![JCP stages](https://jcp.org/images/JCP.Timeline.12.png)
 
-*Java Specification Request* are used in three different situation:
+### Write a Java Specification Request
 
-- when there is a new feature that the community wants to see in a future release of some Java edition (*Java ME*, *Java SE* or *Java EE*)
-- when the community wants to enhance some existing feature (e.g. add new capabilities to *JSF*)
-- when the community thinks that the *JCP* program needs some change
+The first stage is where an individual or a company that have identified a opportunity writes about it. The artifact expected from this stage must conform to the *JSR Submission Template*.
+
+### Submit a Java Specification Request
+
+After having the template properly filled, the author then submits it to the *JCP* program. If everything is ok with the submission, then the *JSR* enters the review phase.
+
+### Java Specification Request Review
+
+When a *JSR* reaches this stage, the *EC*, and the whole community, have from 2 to 4 weeks to analyze and comment on it.
+
+The length of this period is defined by the *JSR* submitter. This stage ends in a *JSR Approval Ballot* (JAB), where members of the *EC* have another 2 weeks to vote on it. To be approved, a *JSR* has to:
+
+- receive at least 5 votes
+- receive yes as the majority of the votes casted (absent votes are ignored)
+
+### Expert Group formation
+
+When a *JSR* gets approved by the *EC*, the *Specification Leads* start forming an *Expert Group* and a team of *Contributors* to work on the specification. After having the whole crew defined, they start working on the *Early Draft Review* (EDR).
+
+### Early Draft Review
+
+The goal of *Early Draft Review* is to get the draft specification into a form suitable for *Public Review* as quickly as possible. The public participation in this stage is desired and important as they can raise architectural and technological issues that can improve the specification.
+
+### Public Review
+
+This stage is reached when a *JSR* is really close to its full definition and the *EG* is ready to start developing the *Reference Implementation* (RI). The goal of this stage is to collect some last feedbacks and to give the chance to the community to contribute one last time before moving to the *Proposed Final Draft*.
+
+### Proposed Final Draft
+
+If the *Public Review* is successful, the Expert Group then prepares the *Proposed Final Draft* of the specification by completing any revisions necessary to respond to comments. During this phase the *JSR* gets finished both as a specification and as an implementation (a *Reference Implementation*). Also, the *Specification Lead* and the *Expert Group* is responsible for completing the *TCK*.
+
+### Final Ballot
+
+After having all the documents, the implementation and the *TCK* finished, the *Specification Leads* send the *Final Draft* of the Specification to the *JCP* program to have the *Final Approval Ballot* initiated. In case of a successful ballot, after a maximum of 14 days the specification gets published in the *JCP* website with its *RI*.
+
 
 ## Conclusion
 
@@ -186,4 +218,4 @@ Of course, this process and these specifications don't come for free. Actually t
 
 As an example, let's say that a company would like that to use [GraphQL](http://graphql.org/). Right now there is no specification on any Java edition that support this technology, and there are chances that Java standards will never support it at all. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. Which would make the company loose the upside of the specifications.
 
-What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you propose some changes to it? We would love to hear your ideas.
+What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you suggest some changes to it? We would love to hear your ideas.
