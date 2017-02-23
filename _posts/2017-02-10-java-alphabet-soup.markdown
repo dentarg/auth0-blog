@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java Acronyms—How Js Interact to Compose the Platform"
+title: "Java Acronyms—How They Interact to Compose the Platform"
 description: "This article provides an explanation of the most important Java acronyms and how they interact to compose one of the most used platforms in the world."
 date: 2017-02-10 12:14
 category: Technical Guide, Java
@@ -19,11 +19,13 @@ tags:
 - jcp
 - jsr
 - jep
+- java se
+- java ee
 related:
 - <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
 ---
 
-**TL;DR:** In this article I'm going to explain the most important Java acronyms and how they interact to make Java evolve over time. First I'm going to introduce how the platform is divided—explaining what are the differences between Java ME, Java SE and Java EE—and then I'm going to define some important acronyms like: JDK, JRE, JCP, JSR, JEP, etc. I will also provide a brief explanation of how most of these acronyms interact in the Java world.
+**TL;DR:** In this article I'm going to explain the most important Java acronyms and how they interact to make Java evolve over time. First I'm going to introduce how the platform is divided—explaining what are the differences between Java ME, *Java SE* and *Java EE*—and then I'm going to define some important acronyms like: *JDK*, *JRE*, *JCP*, *JSR*, *JEP*, etc. I will also provide a brief explanation of how most of these acronyms interact in the Java world.
 
 ## Java Editions
 
@@ -65,7 +67,7 @@ The *Java Runtime Environment* (JRE) is a set of tools that form an environment 
 
 > Java has always been [extremely careful with backward compatibility](https://zeroturnaround.com/rebellabs/10-reasons-why-java-rocks-more-than-ever-part-9-backwards-compatibility/). Therefore, installing the latest version available is advised and will probably lead to better performance.
 
-There are two files that are worth noting on a typical JRE installation. The first one is the `java` executable file. This file is responsible for bootstrapping the *JVM* that will run the application. The second one is the `rt.jar` file. This file contains all the runtime classes that comprises the *JCL*.
+There are two files that are worth noting on a typical *JRE* installation. The first one is the `java` executable file. This file is responsible for bootstrapping the *JVM* that will run the application. The second one is the `rt.jar` file. This file contains all the runtime classes that comprises the *JCL*.
 
 ### Java Development Kit (JDK)
 
@@ -89,7 +91,7 @@ One may wonder why companies like Oracle and Red Hat make available two versions
 
 The *Java Community Process* (JCP) is the process that formalizes and standardizes Java technologies. Interested parties, like developers and companies, cooperate in this process to evolve the platform. Most of the time, enhancements to any Java technology or introduction of new ones occur through *Java Specification Requests* (JSRs). But there are times that the platform evolves through *JDK Enhancement-Proposals* (JEPs).
 
-As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on Java SE. To release this specification in Java SE 5, Sun Microsystems—the company that created Java—issued a *JSR* to the *JCP* program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
+As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on *Java SE*. To release this specification in *Java SE 5*, Sun Microsystems—the company that created Java—issued a *JSR* to the *JCP* program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
 
 - a description of the proposed specification
 - the target platform
@@ -137,7 +139,12 @@ The *Specification Lead* is usually the author of the specification or, like in 
 
 ## Java Specification Requests (JSR)
 
-A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing what problem they want to solve and how. The *EC* then analyzes this first version of the *JSR* to approve or disapprove it.
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity/problem and submit it to revision. The *EC*, and the whole community, then have from 2 to 4 weeks to analyze the *JSR*.
+
+The length of this period is defined by the *JSR* submitter. After this period, starts a new stage called *JSR Approval Ballot* (JAB), where the member of the *EC* has 2 week to vote on it. To be approved, a *JSR* has to:
+
+- receive at least 5 votes
+- receive yes as the majority of the votes casted (non votes are ignored)
 
 When a *JSR* gets approved by the *EC*, the *Specification Leads* starts choosing *Expert Group* members and *Contributors* to compose its team. After having the whole crew defined, they start working on the specification. Most of the communication happens on email aliases and everything is open to the general public.
 
@@ -145,7 +152,7 @@ Three types of *JSRs* exists nowadays:
 
 - *JSRs* that propose enhancement to previously approved *JSRs*
 - *JSRs* that propose new features to the platform
-- Platform *JSRs* that hold a set of *JSRs* that may be part of the next major release (e.g. Java SE 9 or Java EE 9)
+- Platform *JSRs* that hold a set of *JSRs* that may be part of the next major release (e.g. *Java SE 9* or *Java EE 9*)
 
 ## JDK Enhancement-Proposal (JEP)
 
@@ -157,4 +164,4 @@ Essentially, *JDK Enhancement-Proposals* (JEPs) are documents that proposes chan
 
 As you can see, the Java community has an addiction for acronyms, mainly those that start with the letter J. But alongside with this addiction, the community has also built an amazing environment, with crystal-clear rules, that enable Java to evolve.
 
-The community, 
+The community,
