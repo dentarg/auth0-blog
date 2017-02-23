@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Java Acronyms—How They Interact to Compose the Platform"
-description: "This article provides an explanation of the most important Java acronyms and how they interact to compose one of the most used platforms in the world."
+title: "Java Platform, Acronyms and the Community Process"
+description: "This article provides an explanation of the most important Java acronyms and how the community handle them to compose the most used platform in the world."
 date: 2017-02-10 12:14
 category: Technical Guide, Java
 author:
@@ -82,19 +82,19 @@ Nowadays, most of the tools distributed by JDK are not directly used by develope
 
 The *Java Enterprise Edition* (Java EE) was created to extend the *Java SE* by adding a set of specifications that define capabilities commonly used by enterprise applications. The latest version of this edition [contains over 40 specifications](https://en.wikipedia.org/wiki/Java_EE_version_history#Java_EE_7_.28June_12.2C_2013.29) that help developers to create applications that [communicate through web services](http://www.oracle.com/technetwork/java/javaee/tech/webservices-139501.html), [convert object-oriented data to entity relationship model](https://docs.oracle.com/javaee/7/tutorial/partpersist.htm), [handle transactional conversations](http://www.oracle.com/technetwork/java/javaee/jta/index.html) and [so on](http://www.oracle.com/technetwork/java/javaee/overview/index.html).
 
-One great advantage of having an enterprise edition defined as specifications is that different vendors can develop application servers to support it. This leads to a richer environment where companies can choose the best vendor to support their operations.
+One great advantage of having an enterprise edition defined as specifications is that different vendors can develop their own application servers to support it. This leads to a richer environment where companies can choose the best vendor to support their operations.
 
 ### Java Enterprise Edition Vendors
 
 As the time of writing there are [8 different vendors that certified their Java EE implementation](https://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition#Certified_application_servers). Among these vendors, two of them are free and open-source: [GlassFish Server Open Source Edition](https://glassfish.java.net/) and [WildFly](http://wildfly.org/).
 
-Oracle, the creator of *GlassFish*, and Red Hat, the creator of *WildFly*, also provides proprietary and paid versions of these application servers. *Oracle GlassFish Server* is the version supported by Oracle and *JBoss Enterprise Application Platform* is the version supported by Red Hat.
+Oracle, the creator of *GlassFish*, and Red Hat, the creator of *WildFly*, also provide proprietary and paid versions of these application servers. *Oracle GlassFish Server* is the version supported by Oracle and *JBoss Enterprise Application Platform* is the version supported by Red Hat.
 
 One may wonder why companies like Oracle and Red Hat make available two versions of their applications servers: one open-source and free and the other paid and proprietary. The biggest differences between these versions are that the paid ones usually have more performance and better support. Vendors invest a lot to make these versions run smoothly and to solve any issues that might occur as fast as possible.
 
 ### Java Enterprise Edition Features
 
-As already stated, *Java EE* comes with a lot (more than 40) features based on *JSRs*. These features help companies to handle common needs like persistence, security, web interfaces, state validation and so on. The following list enumerates the most important and used features of *Java EE*:
+As already stated, *Java EE* comes with a lot (more than 40) features based on *JSRs*. These features help companies to handle common needs like persistence, security, web interfaces, state validation and so on. The following list enumerates some of the most important and used features of *Java EE*:
 
 - *Java Persistence API* (JPA)—a specification for accessing, persisting and managing data between Java objects and a relational database
 - *JavaServer Faces* (JSF)—a specification for building component-based user interfaces for web applications
@@ -105,7 +105,7 @@ As already stated, *Java EE* comes with a lot (more than 40) features based on *
 
 ## Java Community Process (JCP)
 
-The *Java Community Process* (JCP) is the process that formalizes and standardizes Java technologies. Interested parties, like developers and companies, cooperate in this process to evolve the platform. Most of the time, enhancements to any Java technology or introduction of new ones occur through *Java Specification Requests* (JSRs). But there are times that the platform evolves through *JDK Enhancement-Proposals* (JEPs).
+The *Java Community Process* (JCP) is the process that formalizes and standardizes Java technologies. Interested parties, like developers and companies, cooperate in this process to evolve the platform. Enhancements to any Java technology or introduction of new ones occur through *Java Specification Requests* (JSRs).
 
 As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on *Java SE*. To release this specification in *Java SE 5*, Sun Microsystems—the company that created Java—issued a *JSR* to the *JCP* program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
 
@@ -173,12 +173,6 @@ Three types of *JSRs* exists nowadays:
 - *JSRs* that propose enhancement to previously approved *JSRs*
 - *JSRs* that propose new features to the platform
 - Platform *JSRs* that hold a set of *JSRs* that may be part of the next major release (e.g. *Java SE 9* or *Java EE 9*)
-
-## JDK Enhancement-Proposal (JEP)
-
-Essentially, *JDK Enhancement-Proposals* (JEPs) are documents that proposes changes to future releases of the JDK. But there is more, JEP also defines a process on how these enhancements evolve and
-
-![example of lifecycle](https://www.python.org/m/dev/peps/pep-0001/pep-0001-1.png)
 
 ## Conclusion
 
