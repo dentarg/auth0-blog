@@ -21,7 +21,7 @@ tags:
 related:
 - auth0-named-in-seattle-10-hottest-ventures-2016
 - auth0-japanese-localization
-- 2016-08-24-auth0-raises-15M-to-enhance-its-identity-platform
+- announcing-guardian-whitelabel-sdk
 press_release: true
 ---
 
