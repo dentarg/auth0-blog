@@ -52,6 +52,7 @@ Let's take as an example an arbitrary application that needs to read files from 
 One important concept to bare in mind is that the *JVM* is, before everything, a specification. Being a specification allows different vendors to create their own implementation of the *JVM*. [Wikipedia has an up to date article that lists open source and proprietary JVMs](https://en.wikipedia.org/wiki/List_of_Java_virtual_machines), but the most important and used ones are: [Open JDK](http://openjdk.java.net/) (which is open source), [J9 from IBM](https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.lnx.80.doc/user/java_jvm.html) and [Oracle JVM](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) (both proprietary).
 
 ![JVMs are specific to each OS and architecture](https://i.snag.gy/JXYiOe.jpg)
+_Java applications run on JVMs that are specific to each OS and architecture_
 
 ### Java Class Library (JCL)
 
@@ -60,6 +61,8 @@ The *Java Class Library* is a set of standard libraries that is available to any
 As of version 8 of Java, there were more than 4 thousand classes available to the applications running on the *JVM*. This makes a typical installation of Java consume a [large size on disk](http://www.oracle.com/technetwork/java/javase/windows-diskspace-140460.html).
 
 > Java members, realizing that Java platform was getting to big addressed the issue by introducing a feature called [compact profiles on Java 8](http://www.oracle.com/technetwork/java/embedded/resources/tech/compact-profiles-overview-2157132.html) and by making the [whole API modular on Java 9](http://openjdk.java.net/projects/jigsaw/quick-start).
+
+![Java SE API and some of its packages](https://i.snag.gy/JRFMOg.jpg)
 
 ### Java Runtime Environment (JRE)
 
@@ -81,11 +84,24 @@ The *Java Enterprise Edition* (Java EE) was created to extend the *Java SE* by a
 
 One great advantage of having an enterprise edition defined as specifications is that different vendors can develop application servers to support it. This leads to a richer environment where companies can choose the best vendor to support their operations.
 
+### Java Enterprise Edition Vendors
+
 As the time of writing there are [8 different vendors that certified their Java EE implementation](https://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition#Certified_application_servers). Among these vendors, two of them are free and open-source: [GlassFish Server Open Source Edition](https://glassfish.java.net/) and [WildFly](http://wildfly.org/).
 
-Oracle, the creator of GlassFish, and Red Hat, the creator of WildFly, also provides proprietary and paid versions of these application servers. Oracle GlassFish Server is the version supported by Oracle and JBoss Enterprise Application Platform is the version supported by Red Hat.
+Oracle, the creator of *GlassFish*, and Red Hat, the creator of *WildFly*, also provides proprietary and paid versions of these application servers. *Oracle GlassFish Server* is the version supported by Oracle and *JBoss Enterprise Application Platform* is the version supported by Red Hat.
 
-One may wonder why companies like Oracle and Red Hat make available two versions of their applications servers: one open-source and free and the other paid and proprietary. The biggest differences between these versions is that the paid and proprietary version usually have some performance tunning applied by the vendor and that customers get better support when using it.
+One may wonder why companies like Oracle and Red Hat make available two versions of their applications servers: one open-source and free and the other paid and proprietary. The biggest differences between these versions are that the paid ones usually have more performance and better support. Vendors invest a lot to make these versions run smoothly and to solve any issues that might occur as fast as possible.
+
+### Java Enterprise Edition Features
+
+As already stated, *Java EE* comes with a lot (more than 40) features based on *JSRs*. These features help companies to handle common needs like persistence, security, web interfaces, state validation and so on. The following list enumerates the most important and used features of *Java EE*:
+
+- *Java Persistence API* (JPA)—a specification for accessing, persisting and managing data between Java objects and a relational database
+- *JavaServer Faces* (JSF)—a specification for building component-based user interfaces for web applications
+- *JavaServer Pages* (JSP)—a technology that helps software developers create dynamically generated web pages based on HTML
+- *Java API for RESTful Web Services* (JAX-RS)—a spec that provides support in creating RESTful web services
+- *Enterprise Java Beans* (EJB)—a specification for developing components that encapsulates business logic of an application
+- *Context and Dependency Inject* (CDI)—a technology that allows developers to apply [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control) on Java applications
 
 ## Java Community Process (JCP)
 
@@ -139,14 +155,18 @@ The *Specification Lead* is usually the author of the specification or, like in 
 
 ## Java Specification Requests (JSR)
 
-A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity/problem and submit it to revision. The *EC*, and the whole community, then have from 2 to 4 weeks to analyze the *JSR*.
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *EC*, and the whole community, then have from 2 to 4 weeks to analyze and comment on the *JSR*.
 
-The length of this period is defined by the *JSR* submitter. After this period, starts a new stage called *JSR Approval Ballot* (JAB), where the member of the *EC* has 2 week to vote on it. To be approved, a *JSR* has to:
+The length of this period is defined by the *JSR* submitter. After this period, starts a new stage called *JSR Approval Ballot* (JAB), where the member of the *EC* has 2 weeks to vote on it. To be approved, a *JSR* has to:
 
 - receive at least 5 votes
-- receive yes as the majority of the votes casted (non votes are ignored)
+- receive yes as the majority of the votes casted (absent votes are ignored)
 
-When a *JSR* gets approved by the *EC*, the *Specification Leads* starts choosing *Expert Group* members and *Contributors* to compose its team. After having the whole crew defined, they start working on the specification. Most of the communication happens on email aliases and everything is open to the general public.
+When a *JSR* gets approved by the *EC*, the *Specification Leads* start forming an *Expert Group* and a team of *Contributors* to work on the specification. After having the whole crew defined, they start working on the *Early Draft Review* (EDR). Before this draft is reached, *JSR* access is only open to the *JCP* members working on the specification. But when the *EDR* is released, companies are allowed to specifically begin talking in press releases and other public venues about the *JSR*.
+
+The idea of the *EDR* is to encourage the *EG* to feel comfortable going into review before the *Public Review*
+
+> Most of the communication happens on email aliases and everything is open to the public.
 
 Three types of *JSRs* exists nowadays:
 
