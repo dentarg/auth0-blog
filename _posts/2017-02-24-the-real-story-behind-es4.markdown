@@ -152,7 +152,7 @@ An interesting take on the matter was exposed by Mike Chambers, an Adobe employe
 
 > ActionScript 3 is not going away, and we are not removing anything from it based on the recent decisions. We will continue to track the ECMAScript specifications, but as we always have, we will innovate and push the web forward when possible (just as we have done in the past). - **[Mike Chamber's blog](http://www.mikechambers.com/blog/2008/08/14/actionscript-3-and-ecmascript-4/)**
 
-It was the hope of ActionScript developers that innovation in ActionScript would drive features in ECMAScript. Unfortunately this was never the case, and what later came to ECMAScript 2015 was in many ways incompatible with ActionScript.
+It was the hope of ActionScript developers that [innovation in ActionScript would drive features in ECMAScript](http://blogs.adobe.com/open/standards_ecmascript_and_repre/). Unfortunately this was never the case, and what later came to ECMAScript 2015 was in many ways incompatible with ActionScript.
 
 JScript .NET, on the other hand, had been largely left untouched since the early 2000s. Microsoft had long realized developer uptake was just too low. It went into maintenance mode in .NET 2.0 (2005) and remains available only as a legacy product inside the latest versions of .NET. It does not support features added to .NET after version 1 (such as generics, delegates, etc.).
 
