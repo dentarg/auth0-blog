@@ -27,15 +27,15 @@ related:
 
 ---
 
-Web components allow for reusability and the ability to associate JS behaviour with your markup. Developers can search for existing components created by other developers on the [web components registry](https://www.webcomponents.org). In the absence of suitable existing custom elements, developers can create theirs and make it available for others by publishing it the registry. 
+Web components allow for reusability and the ability to associate JS behaviour with your markup. Developers can search for existing components created by other developers on the [web components registry](https://www.webcomponents.org). In the absence of suitable existing custom elements, developers can create theirs and make it available for others by publishing it to the registry. 
 
 ## What are Web Components?
 
-Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps. They are reusable widgets that are built on the Web Component standards. Web Components work across modern browsers and can be used with any JavaScript library or framework that utilizes HMTL.
+Web components are a set of web platform APIs that allow you to create new custom, reusable, encapsulated HTML tags to use in web pages and web apps. They are reusable widgets that are built on the Web Component standards. Web Components work across modern browsers and can be used with any JavaScript library or framework that utilizes HTML.
 
-There are some sets of rules and specifications that you need to follow to develop web components. These specifications are classified into four:
+There are some sets of rules and specifications that you need to follow to develop web components. These specifications are classified into four categories:
 
-* Custom Elemen
+* Custom Elements
 * Shadow DOM
 * HTML Imports
 * HTML Template
@@ -46,7 +46,10 @@ We'll talk about these specifications in the latter part of this post. But let's
 
 The first step is to browse the [element registry](https://www.webcomponents.org). Check for the components that you are interested in, then go through the README to know how to import it and use in your web applications.
 
-The web component registry has two main sections; [elements](https://www.webcomponents.org/elements) and [collections](https://www.webcomponents.org/collections).
+The web component registry has two main sections: 
+
+* [elements](https://www.webcomponents.org/elements): These are custom elements in the registry.
+* [collections](https://www.webcomponents.org/collections): These are sets of custom elements. An example is the [awesome-chart-elements collection](https://www.webcomponents.org/collection/StartPolymer/awesome-chart-elements) that contains eight awesome elements for working with charts in a web app.
 
 An example web component you can install is [juicy-ace-editor](https://www.webcomponents.org/element/Juicy/juicy-ace-editor). You can install it by following these processes:
 
@@ -56,7 +59,7 @@ Make sure you have [bower](https://bower.io) installed, else run:
 npm install -g bower
 ```
 
-Now install the code `ace-editor` like so:
+Now install the `ace-editor` component like so:
 
 ```bash
 bower install juicy-ace-editor --save
@@ -68,7 +71,7 @@ Create an `index.html` file and import the `juicy-ace-editor` component like thi
 <link rel="import" href="bower_components/juicy-ace-editor/juicy-ace-editor.html">
 ```
 
-and placed the component on the page like this:
+and place the component on the page like this:
 
 ```js
  <juicy-ace-editor theme="ace/theme/monokai" mode="ace/mode/javascript"></juicy-ace-editor>
@@ -114,7 +117,7 @@ This is an example of the component in the `index.html` file.
 </html>
 {% endhighlight %}
 
-In the code above, we referenced two scripts:
+In the code above, we referenced a script:
 
 {% highlight html %}
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
@@ -127,6 +130,8 @@ When you check out your browser, this is how your page will look like:
 
 ![Webcomponent Juicy Editor](https://cdn.auth0.com/blog/webcomponent/editor.png)
 
+Follow the [documentation here](https://github.com/juicy/juicy-ace-editor) to install and run it in your web browser.
+
 It is that simple. Now we have a code editor in our browser by just importing a *Web Component*. Whoop! Whoop!
 
 Now, let's go through the *Web Components* specifications in order to know how to create a custom component, starting from `Custom Elements`.
@@ -137,7 +142,8 @@ Now, let's go through the *Web Components* specifications in order to know how t
 
 This is a web component specification that defines how to craft and use new types of DOM elements. There are some ground rules on how to name and define your custom elements. They are:
 
-* The name of your custom element must contain a **dash (-)**. For example, `<file-reader>`, `<skype-login>` are valid names for custom elements, while `<skype_login>`, `<skypelogin>` are not. This is necessary in order to allow the HTML parser differenciate between a custom element and an inbuilt HTML element.
+* The name of your custom element must contain a **dash (-)**. For example, `<file-reader>`, and `<skype-login>` are valid names for custom elements, while `<skype_login>`, and `<skypelogin>` are not. This is necessary in order to allow the HTML parser differentiate between a custom element and an inbuilt HTML element.
+
 * A custom element can't be registered more than once. A `DOMException` error will be thrown if you do so.
 * A custom element can't be self-closing. For example, you can't write a custom element like this: `<skype-login />`. It should always be written like this: `<skype-login></skype-login>`.
 
@@ -161,7 +167,7 @@ window.customElements.define('file-bag', class extends HTMLElement {
 });
 ```
 
-With this already defined, you can now use the custom element in a browser like so:
+With this already defined, you can now use the custom element in a web page like so:
 
 {% highlight html %}
   <file-bag></file-bag>
@@ -226,7 +232,7 @@ So when you call `<file-bag><p>This is a file bag </p></file-bag>` in the browse
   </file-bag>
 {% endhighlight %}
 
-The main idea behind *Shadow DOM* is to mask all of the markup behind a custom element in the shadows. If you inspect the element in the browser, you won't see any of the markup apart from the attributes of the element. They are hidden under shadow roots. Browser vendors have been using *Shadow DOM* for years to natively implement elements such as `<input>`, `<audio>`, `<video>` and many others. Another benefit is that all the styling and scripts inside the custom element won't accidentally leak out and effect anything else on the page. 
+The main idea behind *Shadow DOM* is to mask all of the markup behind a custom element in the shadows. If you inspect the element in the browser, you won't see any of the markup apart from the attributes of the element. They are hidden under shadow roots. Browser vendors have been using *Shadow DOM* for years to natively implement elements such as `<input>`, `<audio>`, `<video>` and many others. Another benefit is that all the styling and scripts inside the custom element won't accidentally leak out and affect anything else on the page. 
 
 You can reference the [shadow DOM specification](https://w3c.github.io/webcomponents/spec/shadow/) for a lot more information.
 
@@ -249,7 +255,7 @@ You can reference the [HTML Template](https://html.spec.whatwg.org/multipage/web
 
 ## Build a Vimeo Embed Web Component
 
-We'll build a web component that will allow users embed vimeo videos into their apps easily. Let's get started,
+We'll build a web component that will allow users embed vimeo videos into their apps easily. Let's get started.
 
 Create a new HTML file, `video-embed.html`. Define the HTML Template markup like so:
 
@@ -330,7 +336,7 @@ The next step is to actually create the custom element. Now add a `<script>` tag
     // Refers to the "importer", which is index.html
     var thatDoc = document;
 
-    // Refers to the "importee", which is youtube-embed.html
+    // Refers to the "importee", which is vimeo-embed.html
     var thisDoc = (thatDoc._currentScript || thatDoc.currentScript).ownerDocument;
 
     // Gets content from <template>.
@@ -349,7 +355,8 @@ The next step is to actually create the custom element. Now add a `<script>` tag
            
             // Adds a template clone into shadow root.
             var clone = thatDoc.importNode( template, true );
-                shadowRoot.appendChild( clone );
+            
+            shadowRoot.appendChild( clone );
 
             var embed = this.getAttribute( "embed" );
             var video = shadowRoot.querySelector( ".vimeo" );
@@ -363,16 +370,16 @@ The next step is to actually create the custom element. Now add a `<script>` tag
 
                 var iframe = document.createElement( "iframe" );
 
-                    iframe.setAttribute( "frameborder", "0" );
-                    iframe.setAttribute( "allowfullscreen", "" );
-                    iframe.setAttribute( "webkitallowfullscreen", "" );
-                    iframe.setAttribute( "mozallowfullscreen", "" );
-                    iframe.setAttribute( "src", "https://player.vimeo.com/video/" + embedID + "?autoplay=1" );
-                    iframe.setAttribute( "width", "640");
-                    iframe.setAttribute( "height", "360");
+                iframe.setAttribute( "frameborder", "0" );
+                iframe.setAttribute( "allowfullscreen", "" );
+                iframe.setAttribute( "webkitallowfullscreen", "" );
+                iframe.setAttribute( "mozallowfullscreen", "" );
+                iframe.setAttribute( "src", "https://player.vimeo.com/video/" + embedID + "?autoplay=1" );
+                iframe.setAttribute( "width", "640");
+                iframe.setAttribute( "height", "360");
 
-                    this.innerHTML = "";
-                    this.appendChild( iframe );
+                this.innerHTML = "";
+                this.appendChild( iframe );
             });
         }
     }
@@ -398,7 +405,7 @@ Create an `index.html` file. Go ahead and import the `vimeo-embed.html` file in 
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Youtube Embed</title>
+    <title>Vimeo Embed</title>
     <script src="./bower_components/webcomponentsjs/webcomponents.min.js"></script>
     <link rel="import" href="vimeo-embed.html">
     <style type="text/css">
@@ -444,7 +451,7 @@ Inspect the page with Chrome DevTools, check out the `<video-embed>` tag:
 ![Video embed tag](https://cdn.auth0.com/blog/webcomponent/videoembed.png)
 _video embed tag_
 
-Check out the SHADOW DOM below:
+Check out the Shadow dom below:
 
 ![Shadow Dom](https://cdn.auth0.com/blog/webcomponent/shadowroot.png)
 _Shadow Dom_
@@ -453,13 +460,13 @@ Now that we have a fully functional vimeo embed web component, let's package it 
 
 ## Submit To The Web Component Registry
 
-There is a list of [requirements](https://www.webcomponents.org/publish) to adhere to before submitting your component to the registry. Follow the instructions
+There is a list of [requirements](https://www.webcomponents.org/publish) to adhere to before submitting your component to the registry. Follow the instructions below:
 
-* Add an open source [license](https://github.com/auth0-blog/vimeo-embed/blob/master/LICENSE)
+* Add an open source [license](https://github.com/auth0-blog/vimeo-embed/blob/master/LICENSE).
 * Add a [README](https://github.com/auth0-blog/vimeo-embed/blob/master/README.md) and include a [demo](https://github.com/auth0-blog/vimeo-embed/tree/master/demo).
-* Tag a release
+* Tag a release.
 
-Go ahead and publish
+Go ahead and [publish](https://www.webcomponents.org/publish)
 
 ![Publish the Web Component](https://cdn.auth0.com/blog/webcomponent/publish.png)
 
@@ -491,7 +498,7 @@ There are libraries available that make it easier to build web components. Some 
 * [SkateJS](https://github.com/skatejs/skatejs)
 * [X-Tag](https://x-tag.github.io)
 
- All the libraries highlighted here offer helpers to cut down boilerplate code and make creating new components easier. **Polymer** and **Bosonic** also offer a library of ready made Web Components, but Polymer remains the most widely used amongst developers. Check out this [awesome tutorial on building apps with Polymer and Web components](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components).
+ All the libraries highlighted here offer tools to cut down boilerplate code and make creating new components easier. **Polymer** and **Bosonic** also offer a library of ready made Web Components, but Polymer remains the most widely used amongst developers. Check out this [awesome tutorial on building apps with Polymer and Web components](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components).
 
 ## Aside: Easy Authentication with Auth0
 You can use [Auth0 Lock](https://auth0.com/docs/libraries/lock) for authentication in your web apps. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app like so:
@@ -537,8 +544,35 @@ _Showing Lock_
 
 _Auth0 Lock Screen_
 
+You can also use the [custom auth0-lock polymer web component](https://github.com/epilith/auth0-lock) for login like so:
+
+{% highlight html %}
+
+<auth0-lock autoLogin="true" 
+            domain="AUTH0_DOMAIN"
+            clientId="AUTH0_CLIENTID"
+            profile="{{profile}}"></auth0-lock>
+
+<script>
+    var firebaseRequest = {
+        api: "api", // This defaults to the first active addon if any or you can specify this
+        scope: "openid profile"         // default: openid
+    };
+
+    document.querySelector('auth0-lock').addEventListener('logged-in', function (profile) {
+        console.log(profile);
+
+        // try to get delegated access to Firebase
+        document.querySelector('auth0-lock').delegate(firebaseRequest, function (result) {
+            console.log(result)
+        });
+    });
+</script>
+
+{% endhighlight %}
+
 ## Conclusion
-Web components has a lot more benefits than meets the eye. Web Components, allow for less code, modular code and more reuse in our apps.
+Web components have a lot more benefits than meets the eye. Web Components allow for less code, modular code and more reuse in our apps.
 
 In my opinion, the major selling point of **Web components** is reusability and simplicity of use. The more high quality components developers submit to the [registry](https://www.webcomponents.org), the more a plethora of better tools will be available to the community for building better and beautiful web apps in less time!
 
