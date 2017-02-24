@@ -29,11 +29,11 @@ related:
 
 ## Java Editions
 
-Before diving into the *Java Community Process* (JCP), it's important to understand what are the main pieces of the platform. Java is distributed in three different editions: *Java Standard Edition* (Java SE), *Java Enterprise Edition* (Java EE) and *Java Micro Edition* (Java ME).
+Before diving into the *Java Community Process* (JCP), it's important to understand the main pieces of the platform. Java is distributed in three different editions: *Java Standard Edition* (Java SE), *Java Enterprise Edition* (Java EE) and *Java Micro Edition* (Java ME).
 
-*Java Micro Edition* was created focusing applications running on embedded and mobile devices in the Internet of Things. This edition is not, by far, as popular as its siblings and will not be the focus of this article, although it shares many of the acronyms and processes in its evolution.
+*Java Micro Edition* was created to support applications running on embedded and mobile devices in the [*Internet of Things*](https://en.wikipedia.org/wiki/Internet_of_things). This edition is not, by far, as popular as its siblings and will not be the focus of this article, although it shares many of the acronyms and processes in its evolution.
 
-*Java Standard Edition* and *Java Enterprise Edition* are [heavily used worldwide](http://www.tiobe.com/tiobe-index/). Together they are used in many different kinds of solutions like [web applications, applications servers, big data technologies and so on](http://javarevisited.blogspot.com.br/2014/12/where-does-java-used-in-real-world.html).
+*Java Standard Edition* and *Java Enterprise Edition* are [heavily used worldwide](http://www.tiobe.com/tiobe-index/). Together, they are used in various kinds of solutions like [web applications, applications servers, big data technologies and so on](http://javarevisited.blogspot.com.br/2014/12/where-does-java-used-in-real-world.html).
 
 Both editions are composed of a large number of modules and it wouldn't be possible to provide a thorough explanation of the whole platform. Therefore, I'm going to briefly address its most important pieces.
 
@@ -41,13 +41,18 @@ Both editions are composed of a large number of modules and it wouldn't be possi
 
 ## Java Standard Edition (Java SE)
 
-The *Java Standard Edition* (Java SE) is the minimum requirement to run a Java application. This edition provides a solid basis to the *Java Enterprise Edition*, and as such I will start by defining some of its components.
+The *Java Standard Edition* (Java SE) is the minimum requirement to run a Java application. This edition provides a solid basis to the *Java Enterprise Edition*, and as such I will start by defining some of its components:
+
+- *Java Virtual Machine* (JVM)
+- *Java Class Library* (JCL)
+- *Java Runtime Environment* (JRE)
+- *Java Development Kit* (JDK)
 
 ### Java Virtual Machine (JVM)
 
-The *Java Virtual Machine* (JVM) is responsible for supporting the execution of Java applications. This is the piece of the platform that makes the statement *write once run everywhere* true for Java. Each particular host operating system (Windows, Linux, Mac OS, etc) needs its own implementation of the *JVM*, otherwise it wouldn't be possible to run Java applications.
+The *Java Virtual Machine* (JVM) is responsible for supporting the execution of Java applications. This is the piece of the platform that makes the statement *write once, run everywhere* true for Java. Each particular host operating system (Windows, Linux, Mac OS, etc) needs its own implementation of the *JVM*, otherwise it wouldn't be possible to run Java applications.
 
-Let's take as an example an arbitrary application that needs to read files from the hosting system. If this application didn't run on an engine like the *JVM*, that abstracts tasks like IO operations, it would be necessary to write a different program to every single system targeted. This would make the release process slower and it would become harder to support and share this application.
+Let's take as an example an arbitrary application that needs to read files from the hosting system. If this application didn't run on an engine like the *JVM*, that abstracts tasks like *IO* operations, it would be necessary to write a different program to every single system targeted. This would make the release process slower and it would become harder to support and share this application.
 
 One important concept to bare in mind is that the *JVM* is, before everything, a specification. Being a specification allows different vendors to create their own implementation of the *JVM*. [Wikipedia has an up to date article that lists open source and proprietary JVMs](https://en.wikipedia.org/wiki/List_of_Java_virtual_machines), but the most important and used ones are: [Open JDK](http://openjdk.java.net/) (which is open source), [J9 from IBM](https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.lnx.80.doc/user/java_jvm.html) and [Oracle JVM](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) (both proprietary).
 
@@ -66,7 +71,7 @@ As of version 8 of Java, there were more than 4 thousand classes available to th
 
 ### Java Runtime Environment (JRE)
 
-The *Java Runtime Environment* (JRE) is a set of tools that form an environment where Java applications run. Whenever a person wants to run a Java program, they must choose a vendor and install one of the versions available for their specific environment architecture (Linux x86, Linux x64, Mac OS X, Windows x64, etc). Installing it gives them access to a set of files and programs.
+The *Java Runtime Environment* (JRE) is a set of tools that provide an environment where Java applications can run effectively. Whenever a user wants to run a Java program, they must choose a vendor and install one of the versions available for their specific environment architecture (Linux x86, Linux x64, Mac OS X, Windows x64, etc). Installing it gives them access to a set of files and programs.
 
 > Java has always been [extremely careful with backward compatibility](https://zeroturnaround.com/rebellabs/10-reasons-why-java-rocks-more-than-ever-part-9-backwards-compatibility/). Therefore, installing the latest version available is advised and will probably lead to better performance.
 
@@ -74,7 +79,7 @@ There are two files that are worth noting on a typical *JRE* installation. The f
 
 ### Java Development Kit (JDK)
 
-The *Java Development Kit* (JDK) is an extension of the *JRE*. Alongside with the files and tools provided by the *JRE*, the *JDK* includes the compilers and tools (like JavaDoc, and Java Debugger) to create Java programs. For this reason, whenever one wants to develop its own Java application, they will need to install a *JDK*.
+The *Java Development Kit* (JDK) is an extension of the *JRE*. Alongside with the files and tools provided by the *JRE*, the *JDK* includes the compilers and tools (like JavaDoc, and Java Debugger) to create Java programs. For this reason, whenever one wants to develop a Java application, they will need to install a *JDK*.
 
 Nowadays, most of the tools distributed by JDK are not directly used by developers. Usually Java developers rely on third party tools (like [Apache Maven](https://maven.apache.org/) or [Gradle](https://gradle.org/)) that automate compile, build and distribution processes. Developers also rely on their IDEs (Integrated Development Environments) to build and debug their projects.
 
@@ -86,7 +91,7 @@ One great advantage of having an enterprise edition defined as specifications is
 
 ### Java Enterprise Edition Vendors
 
-As the time of writing there are [8 different vendors that certified their Java EE implementation](https://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition#Certified_application_servers). Among these vendors, two of them are free and open-source: [GlassFish Server Open Source Edition](https://glassfish.java.net/) and [WildFly](http://wildfly.org/).
+At the time of writing there are [8 different vendors that certified their Java EE implementation](https://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition#Certified_application_servers). Among these vendors, two of them are free and open-source: [GlassFish Server Open Source Edition](https://glassfish.java.net/) and [WildFly](http://wildfly.org/).
 
 Oracle, the creator of *GlassFish*, and Red Hat, the creator of *WildFly*, also provide proprietary and paid versions of these application servers. *Oracle GlassFish Server* is the version supported by Oracle and *JBoss Enterprise Application Platform* is the version supported by Red Hat.
 
@@ -111,7 +116,7 @@ As an example, let's consider the introduction of the Java API for RESTful Web S
 
 - a description of the proposed specification
 - the target platform
-- why the need of a new specification
+- why the need for a new specification
 - and technologies that the specification relied on
 
 After submitting this specification request, members of the *Executive Committee* (EC) analyzed it to decide if the request deserved attention or not. Since it was approved by the *EC*, Mark Hadley and Paul Sandoz—former employees of Sun Microsystems—were assigned as *Specification Leads* and kept working on it with the help of *Expert Group* members and *Contributors*.
@@ -155,7 +160,7 @@ The *Specification Lead* is usually the author of the specification or, like in 
 
 ## Java Specification Requests (JSR)
 
-A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes through a series of stages until it gets released or discarded. The following list enumerates the stages from the creation of a *JSR* to its release:
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it for revision. The *JSR* then passes through a series of stages until it gets released or discarded. The following list enumerates the stages from the creation of a *JSR* to its release:
 
 - Write a *JSR*
 - Submit a *JSR*
@@ -168,7 +173,7 @@ A *Java Specification Request* is the document that starts an enhancement on the
 
 ![JCP stages](https://jcp.org/images/JCP.Timeline.12.png)
 
-All these stages are thoroughly defined in the [JCP 2.10: Process Document](https://jcp.org/en/procedures/jcp2#3.5.1). But below I share a resume of them.
+All these stages are thoroughly defined in the [JCP 2.10: Process Document](https://jcp.org/en/procedures/jcp2#3.5.1). But below I share a summary of them.
 
 ### Write a Java Specification Request
 
@@ -215,6 +220,6 @@ The whole process defined as *JCP* enables multiple companies to rely on technol
 
 Of course, this process and these specifications don't come for free. Actually the price is quite high, which is the timeframe that new technologies and trends take to get adopted by the *JCP* community.
 
-As an example, let's say that a company would like that to use [GraphQL](http://graphql.org/). Right now there is no specification on any Java edition that support this technology, and there are chances that Java standards will never support it at all. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. This would make the company loose the upside of the specifications.
+As an example, let's say that a company would like to use [GraphQL](http://graphql.org/). Right now, there is no specification on any Java edition that support this technology, and there are chances that Java standards will never support it at all. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. This would make the company loose the upside of the specifications.
 
 What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you suggest some changes to it? We would love to hear your ideas.
