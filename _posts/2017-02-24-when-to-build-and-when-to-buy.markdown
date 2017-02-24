@@ -3,18 +3,23 @@ layout: post
 title: "When to Build and When to Buy"
 description: A cost analysis isn't the only thing to look at when deciding when to build or buy
 date: 2017-02-24 09:01
-category:
+category: Growth, Generic
 author:
-  name:
-  url:
-  mail:
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   bg_color:
   image:
 tags:
-- foo
+- saas
+- iam
+- growth
+- security
 related:
--
+- 2017-02-10-ultimate-account-based-marketing-machine-with-account-selection
+- 2015-08-18-how-to-go-upmarket-and-grow-your-revenue-by-20x
 ---
 
 It's a question many companies, big and small, ask themselves: should I build a new platform or software from scratch or should I invest in a ready-made product?
