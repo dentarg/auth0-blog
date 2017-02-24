@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Java Platform and Java Community Process Overview"
-description: "This article provides a brief explanation of the Java platform and the community process that evolves it."
+description: "This article provides a brief explanation of the Java platform and the community process that is responsible for evolving it."
 date: 2017-02-20 12:14
 category: Technical Guide, Java
 author:
@@ -25,7 +25,7 @@ related:
 - <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
 ---
 
-**TL;DR:** In this article I'm going to explain the most important pieces of the Java platform and provide a brief explanation of the process responsible for evolving it. First I'm going to introduce the different Java editions—*Java ME*, *Java SE* and *Java EE*— and some important acronyms related to them, like: *JDK*, *JRE*, *JVM*, *JSP*, *JPA*, etc. And then I will end up providing an overview of the *Java Community Process* (JCP).
+**TL;DR:** In this article I'm going to explain the most important pieces of the Java platform and provide a brief explanation of the process responsible for evolving it. First I'm going to introduce the different Java editions—*Java ME*, *Java SE* and *Java EE*—and some important acronyms related to them, like: *JDK*, *JRE*, *JVM*, *JSP*, *JPA*, etc. In the end I will provide an overview of the *Java Community Process* (JCP).
 
 ## Java Editions
 
@@ -107,7 +107,7 @@ As already stated, *Java EE* comes with a lot (more than 40) features based on *
 
 The *Java Community Process* (JCP) is the process that formalizes and standardizes Java technologies. Interested parties, like developers and companies, cooperate in this process to evolve the platform. Enhancements to any Java technology or introduction of new ones occur through *Java Specification Requests* (JSRs).
 
-As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on *Java SE*. To release this specification in *Java SE 5*, Sun Microsystems—the company that created Java—issued a *JSR* to the *JCP* program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
+As an example, let's consider the introduction of the Java API for RESTful Web Services (JAX-RS) specification on *Java EE*. To release this specification in *Java EE 5*, Sun Microsystems—the company that created Java—issued a *JSR* to the *JCP* program, [under the number 311](https://jcp.org/en/jsr/detail?id=311#orig). This request defined some details like:
 
 - a description of the proposed specification
 - the target platform
@@ -155,24 +155,24 @@ The *Specification Lead* is usually the author of the specification or, like in 
 
 ## Java Specification Requests (JSR)
 
-A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes through a series of stages until it gets released or discarded. The following list enumerates all the stages from the creation of a *JSR* to its release:
+A *Java Specification Request* is the document that starts an enhancement on the Java platform. Whenever a member of the *JCP* program sees an opportunity to improve the platform, they create a *JSR* describing the opportunity and submit it to revision. The *JSR* then passes through a series of stages until it gets released or discarded. The following list enumerates the stages from the creation of a *JSR* to its release:
 
-- Write a JSR
-- Submit a JSR
-- JSR Review
-- EG formation
+- Write a *JSR*
+- Submit a *JSR*
+- *JSR* Review
+- *EG* formation
 - Early Draft Review
 - Public Review
 - Proposed Final Draft
 - Final Ballot
 
-All these stages are thoroughly defined in the [JCP 2.10: Process Document](https://jcp.org/en/procedures/jcp2#3.5.1). But below I share a resume of them.
-
 ![JCP stages](https://jcp.org/images/JCP.Timeline.12.png)
+
+All these stages are thoroughly defined in the [JCP 2.10: Process Document](https://jcp.org/en/procedures/jcp2#3.5.1). But below I share a resume of them.
 
 ### Write a Java Specification Request
 
-The first stage is where an individual or a company that have identified a opportunity writes about it. The artifact expected from this stage must conform to the *JSR Submission Template*.
+The first stage is where an individual or a company that have identified an opportunity writes about it. The artifact expected from this stage must conform to the *JSR Submission Template*.
 
 ### Submit a Java Specification Request
 
@@ -201,12 +201,11 @@ This stage is reached when a *JSR* is really close to its full definition and th
 
 ### Proposed Final Draft
 
-If the *Public Review* is successful, the Expert Group then prepares the *Proposed Final Draft* of the specification by completing any revisions necessary to respond to comments. During this phase the *JSR* gets finished both as a specification and as an implementation (a *Reference Implementation*). Also, the *Specification Lead* and the *Expert Group* is responsible for completing the *TCK*.
+If the *Public Review* is successful, the *Expert Group* then prepares the *Proposed Final Draft* of the specification by completing any revisions necessary to respond to comments. During this phase the *JSR* gets finished both as a specification and as an implementation (a *Reference Implementation*). Also, the *Specification Lead* and the *Expert Group* is responsible for completing the *TCK*.
 
 ### Final Ballot
 
-After having all the documents, the implementation and the *TCK* finished, the *Specification Leads* send the *Final Draft* of the Specification to the *JCP* program to have the *Final Approval Ballot* initiated. In case of a successful ballot, after a maximum of 14 days the specification gets published in the *JCP* website with its *RI*.
-
+After having all the documents, the implementation and the *TCK* finished, the *Specification Leads* send the *Final Draft* of the Specification to the *JCP* program to have the *Final Approval Ballot* initiated. In case of a successful ballot, after a maximum of 14 days the specification gets published in the *JCP* website with its *RI*. The *JSR* then gets in a *Maintenance* mode where small updates to it might occur.
 
 ## Conclusion
 
@@ -216,6 +215,6 @@ The whole process defined as *JCP* enables multiple companies to rely on technol
 
 Of course, this process and these specifications don't come for free. Actually the price is quite high, which is the timeframe that new technologies and trends take to get adopted by the *JCP* community.
 
-As an example, let's say that a company would like that to use [GraphQL](http://graphql.org/). Right now there is no specification on any Java edition that support this technology, and there are chances that Java standards will never support it at all. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. Which would make the company loose the upside of the specifications.
+As an example, let's say that a company would like that to use [GraphQL](http://graphql.org/). Right now there is no specification on any Java edition that support this technology, and there are chances that Java standards will never support it at all. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. This would make the company loose the upside of the specifications.
 
 What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you suggest some changes to it? We would love to hear your ideas.
