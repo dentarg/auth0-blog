@@ -451,7 +451,7 @@ Inspect the page with Chrome DevTools, check out the `<video-embed>` tag:
 ![Video embed tag](https://cdn.auth0.com/blog/webcomponent/videoembed.png)
 _video embed tag_
 
-Check out the Shadow dom below:
+Check out the Shadow DOM below:
 
 ![Shadow Dom](https://cdn.auth0.com/blog/webcomponent/shadowroot.png)
 _Shadow Dom_
