@@ -25,14 +25,14 @@ related:
 - 2016-03-15-javascript-module-systems-showdown
 ---
 
-Our JavaScript history article sparked interesting comments regarding what really happened during the ECMAScript 4 era. Below you will find a more detailed perspective of what really between 1999 and 2008 in the world of JavaScript. Read on!
+Our JavaScript history article sparked interesting comments regarding what really happened during the ECMAScript 4 era. Below you will find a more detailed perspective of what really went down between 1999 and 2008 in the world of JavaScript. Read on!
 
 {% include tweet_quote.html quote_text="A deeper look onto what really went on with ECMAScript 4" %}
 
 -----
 
 ## A Short Recap
-As we explained in detail in our [JavaScript history piece](), JavaScript was originally conceived as a "glue" programming language for designers and amateur programmers. It was meant to be a simple scripting language for the web, one that could be used for animations, preliminary form checks and dynamic pages. Time showed, however, that people wanted to do much more with it.
+As we explained in detail in our [JavaScript history piece](https://auth0.com/blog/a-brief-history-of-javascript/), JavaScript was originally conceived as a "glue" programming language for designers and amateur programmers. It was meant to be a simple scripting language for the web, one that could be used for animations, preliminary form checks and dynamic pages. Time showed, however, that people wanted to do much more with it.
 
 A year after its release in 1995 Netscape took JavaScript to ECMA, a standards organization, to create a standard for JavaScript. In a way, this was a two sided effort: on one hand, it was an attempt to keep implementors in check (i.e. keeping implementations compatible); and it was also a way for other players to be part of the development process without leaving room for classic "embrace, extend, extinguish" schemes.
 
@@ -114,7 +114,7 @@ As E4X was an ECMA standard concerning ECMAScript, it was a good way to get the 
 
 Macromedia, now Adobe, took the work of TC-39 as a clear indication ActionScript was a safe bet. As work progressed, Adobe continued internal development of ActionScript at a fast pace, implementing many of the ideas discussed by the committee in short time. In 2006, Flash 9 was released, and with it ActionScript 3 was also out the door. The list of features integrated in it was *extensive*. On top of ActionScript 2 classes were added: optional typing, byte arrays, maps, compile time *and* runtime type checking, packages, namespaces, regular expressions, events, E4X, proxies and iterators.
 
-Adobe decided to take one more step to make sure things moved forward: in November, 2006, Tamarin, Adobe's in-house ActionScript 3.0 engine (used in Flash 9), was released as open-source and donated to the Mozilla Foundation. This was a clear indication that Adobe wanted ECMAScript to succeed, and, if at all possible, to be as little different from ActionScript as possible.
+Adobe decided to take one more step to make sure things moved forward. In November, 2006, Tamarin, Adobe's in-house ActionScript 3.0 engine (used in Flash 9), was released as open-source and donated to the Mozilla Foundation. This was a clear indication that Adobe wanted ECMAScript to succeed, and, if at all possible, to be as little different from ActionScript as possible.
 
 > A colorful fact of history is that Macromedia [wanted to integrate Sun's J2ME JVM into Flash](https://twitter.com/BrendanEich/status/834124316476219392) for ActionScript 3. The internal name for this project was "Maelstrom". For [legal and strategic reasons](https://twitter.com/BrendanEich/status/834149931405283328) this plan never came to fruition and Tamarin was born instead.
 
@@ -134,7 +134,7 @@ As time passed, it became clear ECMAScript 4 was too big for its own weight. The
 ## ECMAScript 4 is Dead, Long Live ECMAScript!
 A meeting in Oslo, Norway had been planned for the committee to establish a way forward. Before this meeting took place, Adobe, off the record, had made it clear they were planning to withdraw from ECMAScript 4 development, joining Microsoft and Yahoo in their stance. This was, perhaps, the result of seeing ECMAScript 4 become too different from ActionScript 3.
 
-The [iconic meeting took place in 2008](https://mail.mozilla.org/pipermail/es-discuss/2008-August/003400.html). In it the committee took the hard decision: ECMAScript 4 was dead. A new version of ECMAScript was to be expected, and a change in direction for future work was drafted. Brendan Eich broke the official news in an iconic e-mail. The conclusions of this meeting were to:
+The [iconic meeting took place in 2008](https://mail.mozilla.org/pipermail/es-discuss/2008-August/003400.html). In it, the committee took the hard decision: ECMAScript 4 was dead. A new version of ECMAScript was to be expected, and a change in direction for future work was drafted. Brendan Eich broke the official news in an iconic e-mail. The conclusions of this meeting were to:
 
 1. Focus work on ES3.1 with full collaboration of all parties, and target two interoperable implementations by early next year. 
 2. Collaborate on the next step beyond ES3.1, which will include syntactic extensions but which will be more modest than ES4 in both semantic and syntactic innovation.
