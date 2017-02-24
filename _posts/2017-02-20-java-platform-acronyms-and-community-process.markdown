@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Java Platform, Acronyms and the Community Process"
-description: "This article provides an explanation of the most important Java acronyms and how the community handle them to compose the most used platform in the world."
+title: "Java Platform and Community Process Overview"
+description: "This article provides a brief explanation of the Java platform and the community process that evolves it."
 date: 2017-02-20 12:14
 category: Technical Guide, Java
 author:
@@ -25,11 +25,11 @@ related:
 - <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
 ---
 
-**TL;DR:** In this article I'm going to explain the most important Java acronyms and how they interact to make Java evolve over time. First I'm going to introduce how the platform is divided—explaining what are the differences between Java ME, *Java SE* and *Java EE*—and then I'm going to define some important acronyms like: *JDK*, *JRE*, *JCP*, *JSR*, *JEP*, etc. I will also provide a brief explanation of how most of these acronyms interact in the Java world.
+**TL;DR:** In this article I'm going to explain the most important pieces of the Java platform and provide a brief explanation of the process responsible for evolving it. First I'm going to introduce the different Java editions—*Java ME*, *Java SE* and *Java EE*— and some important acronyms related to them, like: *JDK*, *JRE*, *JVM*, *JSP*, *JPA*, etc. And then I will end up providing an overview of the *Java Community Process* (JCP).
 
 ## Java Editions
 
-Before diving into Java acronyms, it's important to understand what are the main pieces of the platform. Java is distributed in three different editions: *Java Standard Edition* (Java SE), *Java Enterprise Edition* (Java EE) and *Java Micro Edition* (Java ME).
+Before diving into the *Java Community Process* (JCP), it's important to understand what are the main pieces of the platform. Java is distributed in three different editions: *Java Standard Edition* (Java SE), *Java Enterprise Edition* (Java EE) and *Java Micro Edition* (Java ME).
 
 *Java Micro Edition* was created focusing applications running on embedded and mobile devices in the Internet of Things. This edition is not, by far, as popular as its siblings and will not be the focus of this article, although it shares many of the acronyms and processes in its evolution.
 
@@ -60,7 +60,7 @@ The *Java Class Library* is a set of standard libraries that is available to any
 
 As of version 8 of Java, there were more than 4 thousand classes available to the applications running on the *JVM*. This makes a typical installation of Java consume a [large size on disk](http://www.oracle.com/technetwork/java/javase/windows-diskspace-140460.html).
 
-> Java members, realizing that Java platform was getting to big addressed the issue by introducing a feature called [compact profiles on Java 8](http://www.oracle.com/technetwork/java/embedded/resources/tech/compact-profiles-overview-2157132.html) and by making the [whole API modular on Java 9](http://openjdk.java.net/projects/jigsaw/quick-start).
+> Java members, realizing that Java platform was getting too big addressed the issue by introducing a feature called [compact profiles on Java 8](http://www.oracle.com/technetwork/java/embedded/resources/tech/compact-profiles-overview-2157132.html) and by making the [whole API modular on Java 9](http://openjdk.java.net/projects/jigsaw/quick-start).
 
 ![Java SE API and some of its packages](https://i.snag.gy/JRFMOg.jpg)
 
