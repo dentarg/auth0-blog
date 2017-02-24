@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java Platform and Community Process Overview"
+title: "Java Platform and Java Community Process Overview"
 description: "This article provides a brief explanation of the Java platform and the community process that evolves it."
 date: 2017-02-20 12:14
 category: Technical Guide, Java
