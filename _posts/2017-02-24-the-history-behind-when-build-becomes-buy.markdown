@@ -13,7 +13,11 @@ design:
   bg_color:
   image:
 tags:
-- foo
+- iam
+- stripe
+- salesforce
+- security
+- startups
 related:
 - 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
 - 2017-02-10-ultimate-account-based-marketing-machine-with-account-selection
