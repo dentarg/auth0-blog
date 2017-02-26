@@ -17,8 +17,8 @@ tags:
 - php7
 - migrate
 related:
-- 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 - 2017-01-20-migrating-a-php5-app-to-php7-part-one
+- 2017-02-09-migrating-a-php5-app-to-php7-part-three
 ---
 
 ---
