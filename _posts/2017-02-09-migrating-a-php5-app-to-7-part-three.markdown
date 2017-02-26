@@ -17,8 +17,8 @@ tags:
 - php7
 - migrate
 related:
-- 2016-11-07-migrating-a-php5-app-to-7
-- 2016-11-09-migrating-a-php5-app-to-7-part-2
+- 2017-01-20-migrating-a-php5-app-to-php7-part-one
+- 2017-02-07-migrating-a-php5-app-to-php7-part-two
 ---
 
 
