@@ -2,7 +2,7 @@
 layout: post
 title: "Houghton Mifflin Harcourt Chooses Auth0 to Consolidate Identity"
 description: "In an effort to consolidate various platforms under a single unified experience, Houghton Mifflin Harcourt needed a powerful identity management solution and Auth0 delivered."
-date: 2017-02-24 08:30
+date: 2017-02-27 08:30
 category: PR, Press
 author:
   name: Martin Gontovnikas
