@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "What Cloudbleed Means for You and Your Customers"
-description: "Multifactor authentication is important, but the question of implementation is more complex than it seems."
+description: "Tavis Ormandy, a vulnerability researcher at Google, discovered that Cloudflare was accidentally leaking sensitive data including passwords, private messages, and more. Learn how this may affect you and your customers and what to do next."
 date: 2017-02-28 8:30
 category: Security
 author:
@@ -10,8 +10,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#000000"
-  image: https://cdn.auth0.com/blog/mfa-myths/logo.png
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/cloudbleed-post/cloudflare-logo.png
 related:
   - 2016-11-30-different-ways-to-implement-multifactor
   - 2015-12-17-json-web-token-signing-algorithms-overview
