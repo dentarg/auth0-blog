@@ -2,15 +2,16 @@
 layout: post
 title: "Create a Docker dashboard with TypeScript, React and Socket.io"
 description: Let's create a functioning web-based dashboard for Docker!
-date: 2017-01-26 23:37
+date: 2017-03-02 08:45
+category: Technical Guide, Frontend, React
 author: 
   name: Steve Hobbs
   url: http://twitter.com/elkdanger
   mail: elkdanger@gmail.com
   avatar: https://en.gravatar.com/userimage/3841188/bc8fc1f1ebb326d59bab456cac894bdf.jpeg
 design: 
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <IMAGE>
+  bg_color: "#394D54"
+  image: https://cdn.auth0.com/blog/docker/logo.png
 tags: 
 - reactjs
 - typescript
@@ -18,6 +19,9 @@ tags:
 - webpack
 - node
 - socket.io
+related:
+- 2016-07-12-docker-101-for-developers
+- 2016-09-01-aspnet-core-apis-with-swagger-and-autorest
 ---
 
 In this article, we are going to use a few different technologies together to build something which, after a bit more elaboration, might actually be useful! We will be creating a web-based dashboard for a [Docker](https://www.docker.com/) installation using a number of different frameworks and technologies, both front-end and server-side, enabling some administrator to monitor running containers, start and stop existing containers, and create new containers based on existing Docker images. There is a wide scope for elaboration here, of course, but I'll leave that as an exercise for you, the reader. Hopefully this article will set you off on the right foot with a good overview of the relevant technologies, enabling you to add even more value to the product!
