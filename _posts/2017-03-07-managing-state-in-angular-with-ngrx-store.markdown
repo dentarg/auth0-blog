@@ -2,7 +2,7 @@
 layout: post
 title: "Managing State in Angular with ngrx/store"
 description: "Learn how to manage application state with ngrx/store: reactive Redux for Angular."
-date: 2017-03-03 8:30
+date: 2017-03-07 8:30
 category: Technical guide
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
@@ -19,51 +19,53 @@ design:
   bg_merge: true
 tags:
 - angular
+- angular2
 - javascript
 - ngrx
 - redux
 - rxjs
 related:
-- 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 - 2017-02-10-glossary-of-modern-javascript-concepts
+- 2017-02-13-making-use-of-rxjs-angular
+- 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 ---
 
-**TL;DR:** In this article, we'll explore managing state with an immutable data store in an [Angular](http://angular.io) application using [ngrx/store](https://github.com/ngrx/store): reactive Redux for Angular. We'll also authenticate our app with [Auth0](https://auth0.com) and implement route authorization with route guards. The final code can be cloned from [this GitHub repository]().
+**TL;DR:** In this article, we'll explore managing state with an immutable data store in an [Angular](http://angular.io) application using [ngrx/store](https://github.com/ngrx/store): reactive Redux for Angular. We'll also authenticate our app with [Auth0](https://auth0.com) and implement route authorization with route guards. The final code can be cloned from [this GitHub repository](https://github.com/auth0-blog/pet-tags-ngrx).
 
 ---
 
 ## Managing State in Angular Apps
 
-State management in large, complex applications has been a headache plaguing AngularJS / Angular developers over the last few years. In [AngularJS (version 1.x)](https://angularjs.org/), state management is often addressed using a confusing mix of services, events, and `$rootScope`. In [Angular (versions 2+)](https://angular.io), [component interaction](https://angular.io/docs/ts/latest/cookbook/component-communication.html) is cleaner but still quite involved, [encompassing many different approaches](https://scotch.io/tutorials/get-angular-1-features-in-angular-2) depending on the desired direction of the flow of data.
+State management in large, complex applications has been a headache plaguing AngularJS / Angular developers over the last few years. In [AngularJS (version 1.x)](https://angularjs.org/), state management is often addressed using a confusing mixture of services, events, and `$rootScope`. In [Angular (versions 2+)](https://angular.io), [component interaction](https://angular.io/docs/ts/latest/cookbook/component-communication.html) is cleaner but can still be quite involved, [encompassing many different approaches](https://scotch.io/tutorials/get-angular-1-features-in-angular-2) depending on the desired direction of the flow of data.
 
 > **Note:** In this article, _AngularJS_ refers specifically to version 1.x of the framework while _Angular_ refers to versions 2.x and up, as per the [Branding Guidelines for Angular](http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html).
 
-Some developers have taken to using [Redux](https://github.com/reactjs/redux) with AngularJS and Angular. [Redux is a "predictable state container for JavaScript apps"](http://redux.js.org) and supports an immutable, single data store. Redux is best-known for its use with [React](https://github.com/reactjs), but it can be utilized with any view library. [Egghead.io](http://egghead.io) hosts an excellent [free video series on Redux from its creator, Dan Abramov](https://egghead.io/series/getting-started-with-redux).
+Some developers are using [Redux](https://github.com/reactjs/redux) with AngularJS or Angular. [Redux is a "predictable state container for JavaScript apps"](http://redux.js.org) and supports a single, immutable data store. Redux is best-known for its use with [React](https://github.com/reactjs), but it can be utilized with any view library. [Egghead.io](http://egghead.io) hosts an excellent [free video series on Redux from its creator, Dan Abramov](https://egghead.io/series/getting-started-with-redux).
 
 ## Introducing ngrx/store
 
-For our Angular application, we're going to use [ngrx/store](https://github.com/ngrx/store) rather than Redux. What is the relationship between Redux and ngrx/store and why would we prefer the latter?
+For our Angular application, we're going to use [ngrx/store](https://github.com/ngrx/store) rather than Redux. What is the relationship between Redux and ngrx/store and why would we prefer one over the other?
 
 ### Relationship to Redux
 
-Ngrx/store is an "RxJS powered state management library for Angular applications, inspired by Redux", authored by [Rob Wormald, an Angular Developer Advocate](https://twitter.com/robwormald). It shares Redux's core fundamentals, but uses [RxJS](http://reactivex.io/rxjs/), which implements the observer pattern in JS and comes packaged with Angular. It follows the core principles of Redux and is specifically designed for Angular.
+Ngrx/store is an "RxJS powered state management library for Angular applications, inspired by Redux", authored by [Rob Wormald, an Angular Developer Advocate](https://twitter.com/robwormald). It shares Redux's core fundamentals but uses [RxJS](http://reactivex.io/rxjs/), which implements the observer pattern in JS and comes packaged with Angular. It follows the core principles of Redux and is specifically designed for Angular.
 
 ### Fundamental Tenets of ngrx/store
 
-* State is a single, immutable data structure
-* Actions describe state changes
-* Pure functions called reducers take the previous state and the next action to compute the new state
+* _State_ is a single, immutable data structure
+* _Actions_ describe state changes
+* Pure functions called _reducers_ take the previous state and the next action to compute the new state
 * State accessed with the `Store`, an observable of state and an observer of actions
 
-Let's break this down a little bit. This is a quick (but important) overview of the basics. We'll go more indepth as we build our application.
+Let's break this down. The following is a quick (but important) overview of the basics. We'll go more indepth as we build our application.
 
 ### Actions
 
 **Actions** are information payloads that send data from the application to the _reducer_, which updates the _store_. [Actions](https://egghead.io/lessons/javascript-redux-describing-state-changes-with-actions) are the only way the store receives data.
 
-In ngrx/store, the action interface looks like this:
+In ngrx/store, the `Action` [interface](https://www.typescriptlang.org/docs/handbook/interfaces.html) looks like this:
 
-```typescript
+```js
 // actions consist of type and data payload
 export interface Action {
   type: string;
@@ -71,7 +73,7 @@ export interface Action {
 }
 ```
 
-The `type` string should indicate the kind of state change we want. For example, this might be something like `'ADD_TODO'` or `'DECREMENT'`, etc. The payload is the data being sent to the store to update it. Actions are _dispatched_ to the store like so:
+The `type` should describe the kind of state change we want. For example, this might be something like `'ADD_TODO'` or `'DECREMENT'`, etc. The `payload` is the data being sent to the store in order to update it. Actions are _dispatched_ to the store like so:
 
 ```js
 // dispatch action to update store
@@ -83,7 +85,7 @@ store.dispatch({
 
 ### Reducers
 
-**Reducers** specify how the state actually changes in response to _actions_. A [reducer](https://egghead.io/lessons/javascript-redux-the-reducer-function) is a _pure_ function that describes state mutations in the app by taking the previous state and the dispatched action and returning the next state as a _new_ object, generally using [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) and/or [`spread syntax`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator):
+**Reducers** specify how the state changes in response to _actions_. A [reducer](https://egghead.io/lessons/javascript-redux-the-reducer-function) is a _pure_ function that describes state mutations in the app by taking the previous state and the dispatched action and returning the next state as a _new_ object, generally using [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) and/or [`spread syntax`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator):
 
 ```js
 // reducer function specifies how the state
@@ -125,7 +127,7 @@ We'll create several components to compose a tag builder and a tag preview. We'l
 
 When finished, our custom pet tags app will look like this:
 
-![Angular app with ngrx/store Redux for Angular](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-app.jpg)
+![Angular app with ngrx/store Redux for Angular](https://cdn.auth0.com/blog/ngrx/ngrx-app.jpg)
 
 Let's get started!
 
@@ -160,17 +162,17 @@ $ npm install @ngrx/core @ngrx/store --save
 
 We now have everything we need to get started on our app.
 
-### Customize App Boilerplate
+## Customize App Boilerplate
 
 Let's customize the generated Angular boilerplate to better suit the application we want to build.
 
-#### Create `src/app/core` Folder
+### Create `src/app/core` Folder
 
 First, create the following folder: `src/app/core`. Our app's root component and core files will live here. Move the `app.component.*` files into this folder.
 
 > **Note:** For brevity, this tutorial will not cover testing. We will ignore all `*.spec.ts` files. If you'd like to write tests, please do so. Otherwise, these files will not be mentioned again in this article and they have been removed from the source code in the GitHub repository for simplicity.
 
-#### Update App Module
+### Update App Module
 
 Next, open the `src/app/app.module.ts` file. We need to update the path to our `app.component` file since we just moved it into the `src/app/core` folder:
 
@@ -181,16 +183,16 @@ import { AppComponent } from './core/app.component';
 ...
 ```
 
-#### Organize Assets
+### Organize Assets
 
 Navigate to the `src/assets` folder.
 
 Inside `assets`, add a new folder called `images`. Leave this empty for now; we'll add some images later. Next, move the `src/styles.css` file from the root folder into `src/assets`.
 
-Moving `styles.css` requires us to make a change to `angular-cli.json`. Open this file and change the `styles` array as follows:
+Moving `styles.css` requires us to make a change to `.angular-cli.json`. Open this file and change the `styles` array as follows:
 
 ```js
-// angular-cli.json
+// .angular-cli.json
 ...
 "styles": [
   "assets/styles.css"
@@ -198,9 +200,9 @@ Moving `styles.css` requires us to make a change to `angular-cli.json`. Open thi
 ...
 ```
 
-#### Add Bootstrap CSS to Angular App
+### Add Bootstrap CSS to Angular App
 
-Finally, we'll add [Bootstrap CSS](https://v4-alpha.getbootstrap.com/) to the `index.html` file in our app. This `<link>` tag was copied from the [Bootstrap CDN](https://v4-alpha.getbootstrap.com/getting-started/download/#bootstrap-cdn). We'll only use the compiled CSS and not JS. While we're at it, let's update our app's `<title>` to `Custom Pet Tags`:
+Finally, we'll add [Bootstrap CSS](https://v4-alpha.getbootstrap.com/) to the `index.html` file in our app. This `<link>` tag was copied from the [Bootstrap CDN](https://v4-alpha.getbootstrap.com/getting-started/download/#bootstrap-cdn). We'll only use the compiled CSS and not JS. While we're at it, let's update our app's `<title>` to "Custom Pet Tags":
 
 {% highlight html %}
 <!-- index.html -->
@@ -217,25 +219,29 @@ Finally, we'll add [Bootstrap CSS](https://v4-alpha.getbootstrap.com/) to the `i
 ...
 {% endhighlight %}
 
-### Serve the App
+## Serve the App
 
-We can serve our app and watch for changes with the following command:
+We can serve our app on `localhost` and watch for changes with the following command:
 
 ```bash
 $ ng serve
 ```
 
-This serves our app. Start the server and navigate to [http://localhost:4200](http://localhost:4200). Our app should look like this:
+Start the server and navigate to [http://localhost:4200](http://localhost:4200). The app should look like this:
 
-![Angular app generated with angular-cli](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-boilerplate.jpg)
+![Angular app generated with angular-cli](https://cdn.auth0.com/blog/ngrx/ngrx-boilerplate.jpg)
 
 ## App Component
 
 Now we're ready to start building out the features of our Custom Pet Tags Angular application. We'll start with the `app.component.*` files. This is our root component. Changes here will be minimal.
 
-### Remove App Component CSS
+### Delete App Component CSS
 
-First, let's delete the `app.component.css` file. We won't need it since we'll only use Bootstrap for styling this component. We also need to remove the reference to the deleted CSS file in the `app.component.ts` file. Lastly, we can delete the `title` in the `AppComponent` class, like so:
+Let's delete the `app.component.css` file. We won't need it since we'll only use Bootstrap for styling this component.
+
+### App Component TypeScript
+
+We also need to remove the reference to the deleted CSS file in the `app.component.ts` file. We can also delete the boilerplate `title` property from the `AppComponent` class. Our file should look like this:
 
 ```typescript
 // src/app/core/app.component.ts
@@ -252,7 +258,7 @@ export class AppComponent {
 
 ### App Component Template HTML
 
-Now let's add some HTML to our `app.component.html` template. Replace the current contents of this file with the following:
+Now let's add some HTML to the `app.component.html` template. Replace the current contents of this file with the following:
 
 {% highlight html %}
 <!-- src/app/core/app.component.html -->
@@ -266,13 +272,13 @@ Now let's add some HTML to our `app.component.html` template. Replace the curren
 </div>
 {% endhighlight %}
 
-We'll use Bootstrap styles to add a grid and a heading. Then we'll add the [`router-outlet`](https://angular.io/docs/ts/latest/api/router/index/RouterOutlet-directive.html) directive component. This is where our views will render when we change routes in our single page app. At this point, our app will throw an error until we establish routing and page components. Let's do that next. 
+We'll use Bootstrap styles to add a grid and a heading. Then we'll add the [`<router-outlet>`](https://angular.io/docs/ts/latest/api/router/index/RouterOutlet-directive.html) directive. This is where our views will render when we change routes in our single page app. At this point, the app will throw an error until we establish routing and page components. Let's do that next. 
 
 ## Create Page Components
 
 As mentioned before, our app will have three routes: a homepage with login, a page where the user can create and preview a new pet tag, and a completion page where the user can view their finished tag and log out.
 
-Let's create these page components so that we can set up our routing. Then we'll come back to each of them to build them out.
+Let's create these page components so we can set up routing. Then we'll come back to each of them to build them out.
 
 Execute the following commands from the root your `pet-tags-ngrx` project folder to generate the components:
 
@@ -282,11 +288,11 @@ $ ng g component pages/create
 $ ng g component pages/complete
 ```
 
-The [`ng g` command (or `ng generate`)](https://github.com/angular/angular-cli/#generating-components-directives-pipes-and-services) creates the necessary files and folders for Angular components, directives, pipes, and services. It also imports components in `app.module.ts`. We now have the scaffolding for our three page components, so let's set up routing.
+The [`ng g` command (or its longform, `ng generate`)](https://github.com/angular/angular-cli/#generating-components-directives-pipes-and-services) creates the necessary files and folders for Angular components, directives, pipes, and services. It also imports components in `app.module.ts`. We now have the scaffolding for our three page components, so let's set up routing.
 
 ## Create a Routing Module
 
-Let's build an `NgModule` to support routing. Create a new file in the `src/app/core` folder called `app-routing.module.ts`:
+Let's build a separate `NgModule` to support routing. Create a new file in the `src/app/core` folder called `app-routing.module.ts`:
 
 ```typescript
 // src/app/core/routing-module.ts
@@ -327,7 +333,9 @@ import { CompleteComponent } from './../pages/complete/complete.component';
 export class AppRoutingModule {}
 ```
 
-Next let's open our main app module file (`src/app/app.module.ts`) and add the new `AppRoutingModule` to `imports` like so:
+We now have our three routes: `/`, `/create`, and `/complete`. Page not found errors will redirect back to the homepage.
+
+Next let's open our main app module file (`app.module.ts`) and add the new `AppRoutingModule` to `imports` like so:
 
 ```typescript
 // src/app/app.module.ts
@@ -343,17 +351,17 @@ import { AppRoutingModule } from './core/app-routing.module';
   ...
 ```
 
-We now have routing set up. We should be able to navigate to our pages in the browser by entering the URLs defined in the `AppRoutingModule`. Our `HomeComponent` now shows in the `<router-outlet>` when we're on the homepage:
+We now have routing set up. We should be able to navigate in the browser by entering the URLs defined in the `AppRoutingModule`. Our `HomeComponent` now renders in the `<router-outlet>` when we're on the homepage:
 
-![Angular app with routing](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-routing.jpg)
+![Angular app with routing](https://cdn.auth0.com/blog/ngrx/ngrx-routing.jpg)
 
 ## "Home" Page Component
 
-Our `HomeComponent` will simply have a message and a login button for unauthenticated visitors. If a user is already logged in, they'll be sent to the `/create` route instead.
+The `HomeComponent` will simply have a message and a login button for unauthenticated visitors. If a user is already logged in, they'll be sent to the `/create` route instead.
 
-> **Note:** Initially we'll set up our components without authentication. After the primary features of our ngrx/store app are built, we'll add [Auth0](https://auth0.com) authentication and a route guard.
+> **Note:** Initially, we'll set up our components without authentication. After the primary features of our ngrx/store app are built, we'll add [Auth0](https://auth0.com) authentication and a route guard.
 
-For now, let's add a message and a button that takes the user to the `/create` page. Open the `home.component.html` template and replace the boilerplate content with the following markup:
+For now, let's add a message and a placeholder button that takes the user to the `/create` page. Open the `home.component.html` template and replace the boilerplate content with the following markup:
 
 {% highlight html %}
 <!-- src/app/pages/home/home.component.html -->
@@ -371,11 +379,11 @@ For now, let's add a message and a button that takes the user to the `/create` p
 </div>
 {% endhighlight %}
 
-At the moment, the `Log In` button simply navigates to [http://localhost:4200/create](http://localhost:4200/create) and shows the `CreateComponent`. Later, we'll update it to authenticate the user before going to the Create page.
+At the moment, the "Log In" button simply navigates to [http://localhost:4200/create](http://localhost:4200/create). Later, we'll update it to authenticate the user before going to the Create page.
 
 Our homepage now looks like this:
 
-![Angular app with login](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-home.jpg)
+![Angular app with login](https://cdn.auth0.com/blog/ngrx/ngrx-home.jpg)
 
 ## Pet Tag Model
 
@@ -406,13 +414,13 @@ export const initialTag: PetTag = {
 };
 ```
 
-The class declares the _shape_ of the `PetTag` type. These are the required properties and types for our application's custom pet tag state object.
+The class declares the _shape_ of the `PetTag` type. These are the required properties and type annotations for our application's custom pet tag state object.
 
 Next we want to export a constant called `initialTag`. This constant declares the values in the default state object. We'll use this to initialize state as well as reset it.
 
 ## Pet Tag Actions
 
-Now we're ready to build an _actions creator_ for our action types. Recall that actions are dispatched to a _reducer_ to update the _store_. We'll declare an action for each kind of modification we can make to the store.
+Now we're ready to build an _actions creator_ for our action types. Recall that actions are dispatched to a _reducer_ to update the _store_. We'll declare an action for each kind of modification we want to make to the store.
 
 Create the following file: `src/app/core/pet-tag.actions.ts`.
 
@@ -421,8 +429,8 @@ Create the following file: `src/app/core/pet-tag.actions.ts`.
 export const SELECT_SHAPE = 'SELECT_SHAPE';
 export const SELECT_FONT = 'SELECT_FONT';
 export const ADD_TEXT = 'ADD_TEXT';
-export const INCLUDE_CLIP = 'INCLUDE_CLIP';
-export const ADD_GEMS = 'ADD_GEMS';
+export const TOGGLE_CLIP = 'TOGGLE_CLIP';
+export const TOGGLE_GEMS = 'TOGGLE_GEMS';
 export const COMPLETE = 'COMPLETE';
 export const RESET = 'RESET';
 ```
@@ -431,13 +439,13 @@ We're defining actions as constants. Alternatively, we could construct injectabl
 
 ## Pet Tag Reducer
 
-Now let's build our _reducer_ function that will take actions and update the _store_. Create a new file: `src/app/core/pet-tag.reducer.ts`.
+Now let's build our _reducer_ function that will take _actions_ and update the _store_. Create a new file: `src/app/core/pet-tag.reducer.ts`.
 
 ```typescript
 // src/app/core/pet-tag.reducer.ts
 import { Action } from '@ngrx/store';
 import { PetTag, initialTag } from './../core/pet-tag.model';
-import { SELECT_SHAPE, SELECT_FONT, ADD_TEXT, INCLUDE_CLIP, ADD_GEMS, COMPLETE, RESET } from './pet-tag.actions';
+import { SELECT_SHAPE, SELECT_FONT, ADD_TEXT, TOGGLE_CLIP, TOGGLE_GEMS, COMPLETE, RESET } from './pet-tag.actions';
 
 export function petTagReducer(state: PetTag = initialTag, action: Action) {
   switch (action.type) {
@@ -453,13 +461,13 @@ export function petTagReducer(state: PetTag = initialTag, action: Action) {
       return Object.assign({}, state, {
         text: action.payload
       });
-    case INCLUDE_CLIP:
+    case TOGGLE_CLIP:
       return Object.assign({}, state, {
-        clip: action.payload
+        clip: !state.clip
       });
-    case ADD_GEMS:
+    case TOGGLE_GEMS:
       return Object.assign({}, state, {
-        gems: action.payload
+        gems: !state.gems
       });
     case COMPLETE:
       return Object.assign({}, state, {
@@ -475,17 +483,21 @@ export function petTagReducer(state: PetTag = initialTag, action: Action) {
 
 We need to import `Action` from ngrx/store. Then we need the `PetTag` model and its default state, `initialTag`. We also need to import the actions we created in the previous step.
 
-Now we'll create our `petTagReducer()` function. The reducer accepts previous `state` and the dispatched `action` as arguments. Remember that this is a _pure_ function: inputs determine outputs and the function does not modify global state. When we return anything from the reducer, it either needs to be a new object or it can output an unmodified input (such as in the `default` case).
+Now we'll create our `petTagReducer()` function. The reducer accepts previous `state` and the dispatched `action` as arguments. Remember that this is a _pure_ function: inputs determine outputs and the function does not modify global state. This means that when we return anything from the reducer, it either needs to be a new object or it can output an unmodified input (such as in the `default` case).
 
-We're going to use [`Object.assign()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to return new objects containing the values from source objects. The sources will be the _previous state_ and objects containing the action _payload_.
+We're going to use [`Object.assign()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to return new objects containing the values from source objects in most cases. The sources will be the _previous state_ and objects containing the action _payload_.
 
-> **Note:** Notice that the `RESET` case still uses `action.payload`, although we have _access_ to the `initialTag` constant from imports. This is to maintain purity. We aren't passing `initialTag` into the reducer _except_ as the default value of the `state` argument. This means that if we were to return `Object.assign({}, state, initialTag)` for `RESET`, the function would no longer be pure; it would utilize data outside its own scope. Instead, we'll pass `initialTag` as the _action payload_ when dispatching the `RESET` action in our _component_ rather than in the reducer.
+The `TOGGLE_CLIP` and `TOGGLE_GEMS` actions toggle booleans that are assigned in the `initialTag` state. Therefore, we don't need a payload when we dispatch these actions; we can simply set the value to its opposite in these cases.
+
+We're sending a payload with the `COMPLETE` action because we want to explicitly set it to `true`, and only do so once for each tag created. We could use a toggle for this as well, but for clarity, we'll dispatch a specific value as a payload instead.
+
+> **Note:** Notice that the `RESET` case still uses `action.payload`, although we have _access_ to the `initialTag` constant from imports. This is to maintain purity. We aren't passing `initialTag` into the reducer _except_ as the default value of the `state` argument. This means that if we were to return `Object.assign({}, state, initialTag)` for `RESET`, the function would no longer be pure: it would utilize data outside its own scope. Instead, we'll pass `initialTag` as the payload when dispatching the `RESET` action in our _component_ rather than in the reducer.
 
 ### Import Store in App Module
 
 We now have actions and a reducer function. We need to tell our application to use the store and reducer. Open the `app.module.ts` file and update the following:
 
-```typescript
+```js
 // src/app/app.module.ts
 ...
 import { StoreModule } from '@ngrx/store';
@@ -532,7 +544,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import { SELECT_SHAPE, SELECT_FONT, ADD_TEXT, INCLUDE_CLIP, ADD_GEMS, COMPLETE } from './../../core/pet-tag.actions';
+import { SELECT_SHAPE, SELECT_FONT, ADD_TEXT, TOGGLE_CLIP, TOGGLE_GEMS, COMPLETE } from './../../core/pet-tag.actions';
 import { PetTag } from './../../core/pet-tag.model';
 
 @Component({
@@ -581,17 +593,15 @@ export class CreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  includeClipHandler(clip: boolean) {
+  toggleClipHandler() {
     this.store.dispatch({
-      type: INCLUDE_CLIP,
-      payload: clip
+      type: TOGGLE_CLIP
     });
   }
 
-  addGemsHandler(gems: boolean) {
+  toggleGemsHandler() {
     this.store.dispatch({
-      type: ADD_GEMS,
-      payload: gems
+      type: TOGGLE_GEMS
     });
   }
 
@@ -613,29 +623,29 @@ We won't be needing any CSS for this component, so I've removed the CSS file and
 
 In the `CreateComponent` class, `tagState$` is a `PetTag`-shaped observable. In the constructor, we'll use the ngrx/store method `select()` to set `this.tagState$` to the state observable.
 
-Our `ngOnInit()` lifecycle hook will set up the _subscription_ to the `tagState$` observable. This will set the local member `this.petTag` to the `state` returned by the observable stream each time a new state is pushed. Our local `this.done` member will watch for a selected `shape` and `text`. These are the two properties of a pet tag that _must_ have truthy values in order for the tag to be fully customized. The `ngOnDestroy()` lifecycle hook then cleans up the subscription when the component is destroyed.
+Our `ngOnInit()` lifecycle hook will set up the _subscription_ to the `tagState$` observable. This will set the `petTag` property to the `state` returned by the observable stream each time a new state is pushed. The `done` property will check for a selected `shape` and `text`. These are the two properties of a pet tag that _must_ have truthy values in order for the tag to be "fully customized". The `ngOnDestroy()` lifecycle hook then cleans up the subscription when the component is destroyed.
 
 Finally, we'll create the event handler functions that dispatch actions to the store. These handlers will be executed when the child dumb components emit events to update the custom tag state. Each handler uses the `store.dispatch()` method to send the desired action `type` and `payload` to our reducer.
 
-> **Note:** In a more complex app, you may wish to dispatch actions in an _actions creator_ service that can be injected into your components. However, for our small app and for learning purposes, this may be redundant and unnecessary, so we will dispatch actions directly from our smart components using simpler constants from our actions creator, `pet-tag.actions.ts`.
+> **Note:** In a more complex app, you may wish to dispatch actions in an _actions creator_ service that can be injected into your components. However, for our small app and for learning purposes, this is unnecessary, so we will dispatch actions directly from our smart components using constants from our actions creator, `pet-tag.actions.ts`.
 
-### Code Linting
+### Aside: Code Linting
 
-Angular's CLI comes with code linting in the form of the [codelyzer](https://github.com/mgechev/codelyzer) package. You can lint your project by running the following command:
+Angular's CLI comes with code linting in the form of the [codelyzer](https://github.com/mgechev/codelyzer) package. You can lint your project at any time by running the following command:
 
 ```bash
 $ ng lint
 ```
 
-Let's take the opportunity to lint our pet tags app now. If any errors are found, correct them before proceeding. It's good practice to lint periodically throughout development to maintain clean code. The lint configuration can be found at `/tslint.json` in your project.
+Let's take the opportunity to lint our pet tags app now. If any errors are found, correct them before proceeding. It's good practice to lint periodically throughout development to maintain clean code. The linting configuration can be found at `tslint.json` in your project.
 
 ## Tag Shape Component
 
 Now we'll build our first presentational component: `TagShapeComponent`. When we're finished with this component, the Create page should look like this:
 
-![Angular app with ngrx/store - "Create" page with smart and dumb components](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-tagShape.jpg)
+![Angular app with ngrx/store - "Create" page with smart and dumb components](https://cdn.auth0.com/blog/ngrx/ngrx-tagShape.jpg)
 
-Let's generate the scaffolding for this child component with the following angular-cli command:
+Let's generate the scaffolding for this child component with the following Angular CLI command:
 
 ```bash
 $ ng g component pages/create/tag-shape
@@ -643,7 +653,7 @@ $ ng g component pages/create/tag-shape
 
 The tag shape component will display four different images with possible shapes: a bone, a rectangle, a circle, and a heart. The user can select which shape they'd like for their custom pet tag.
 
-Download all four `.svg` images from the GitHub repository here: [`pet-tags-ngrx/src/assets/images/`](https://github.com/auth0-blog/pet-tags-ngrx/tree/master/src/assets/images). Place them in the `/src/assets/images` folder.
+Download all four `.svg` images from the GitHub repository here: [`pet-tags-ngrx/src/assets/images/`](https://github.com/auth0-blog/pet-tags-ngrx/tree/master/src/assets/images). Place them in your local `pet-tags-ngrx/src/assets/images` folder.
 
 ### Tag Shape Component TypeScript
 
@@ -673,13 +683,13 @@ export class TagShapeComponent {
 
 Add `Output` and `EventEmitter` to the `@angular/core` imports.
 
-Our tag shape selector will use radio buttons, so we'll need a property to store the shape `ngModel`. The shape name options are strings, so we'll set the `tagShape` to have a type of `string`.
+Our tag shape selector will use radio buttons, so we'll need a property to store the shape `ngModel`. The shape name options are strings, so we'll set `tagShape`'s type annotation to `string`.
 
-Next we need an [`@Output()` decorator](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#inputs-outputs) to [emit an event](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html) when the user selects a shape. This will send the information to the parent `CreateComponent`. The `selectShape(shape)` method will _emit_ the event with shape information. The parent can then _handle_ this event with the `selectShapeHandler()` method we created in `CreateComponent`. We'll hook this up to the parent shortly.
+Next we need an [`@Output()` decorator](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#inputs-outputs) to [emit an event](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html) when the user selects a shape. This will send the information to the parent `CreateComponent`. The `selectShape(shape)` method will _emit_ the event with shape information. The parent can then _handle_ this event with the `selectShapeHandler()` method we created earlier in `CreateComponent`. We'll hook this up to the parent shortly.
 
 ### Tag Shape Component Template
 
-Before that, we'll add the necessary template markup for our `TagShapeComponent`. Open the `tag-shape.component.html` file:
+Before that, we'll add the necessary template markup for our `TagShapeComponent`. Modify the `tag-shape.component.html` file as shown:
 
 {% highlight html %}
 <!-- src/app/pages/create/tag-shape/tag-shape.component.html -->
@@ -792,7 +802,7 @@ Our app now updates state when the user selects a shape for their custom pet tag
 
 Next we'll create a child component that lets the user choose a font style and enter the text they'd like on their pet tag. Our Create page will look like this once we've added our tag text component:
 
-![Angular app with ngrx/store dumb component tag text](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-text.jpg)
+![Angular app with ngrx/store dumb component tag text](https://cdn.auth0.com/blog/ngrx/ngrx-text.jpg)
 
 Generate the component scaffolding with the following command:
 
@@ -834,7 +844,7 @@ export class TagTextComponent {
 
 This component works the same way as our `TagShapeComponent`, so it looks very similar. We'll import `Output` and `EventEmitter` and create properties for the `tagTextInput` and `fontType` based on user inputs.
 
-> **Note:** We aren't adding `tagTextInput: string =` because properties with immediately declared values don't need type annotations; the types are _inferred_ from initial values.
+> **Note:** We aren't adding `string` type annotations to our properties because declaring initial values allows types to be _inferred_ automatically.
 
 We'll emit events when the user updates the tag text or changes the font style selection.
 
@@ -906,7 +916,7 @@ Finally, we need to add the `TagTextComponent` to the Create page:
   (addTextEvent)="addTextHandler($event)"></app-tag-text>
 {% endhighlight %}
 
-Notice that we're adding an [`*ngIf` structural directive](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#ngIf) to the `<app-tag-text>` element. We only want this component to appear once the user has selected a shape. This is because we're going to create a preview of the tag soon, and it doesn't make sense to show a preview unless a shape has already been selected. This prevents users from entering text or extra tag options before choosing a shape.
+Notice that we're adding an [`*ngIf` structural directive](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#ngIf) to the `<app-tag-text>` element. We only want this component to appear once the user has selected a shape. This is because we're going to create a preview of the tag soon, and it doesn't make sense to show a preview unless a shape has already been selected. This prevents users from entering text or extra tag options _before_ choosing a shape.
 
 We'll listen for `TagTextComponent` to emit the `selectFontEvent` and `addTextEvent` events and handle them with the methods we added to `CreateComponent` earlier, which dispatch the `SELECT_FONT` and `ADD_TEXT` actions and payloads to the reducer:
 
@@ -930,7 +940,7 @@ addTextHandler(text: string) {
 
 Now we'll let the user choose whether they want a few extras for their custom pet tag. Once we've implemented the tag extras component, our Create page will look like this:
 
-![Angular app with ngrx/store dumb component tag extras](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-tagExtras.jpg)
+![Angular app with ngrx/store dumb component tag extras](https://cdn.auth0.com/blog/ngrx/ngrx-tagExtras.jpg)
 
 Create the scaffolding for `TagExtrasComponent` with this command:
 
@@ -954,22 +964,22 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class TagExtrasComponent {
   tagClip: boolean;
   gems: boolean;
-  @Output() includeClipEvent = new EventEmitter;
-  @Output() addGemsEvent = new EventEmitter;
+  @Output() toggleClipEvent = new EventEmitter;
+  @Output() toggleGemsEvent = new EventEmitter;
 
   constructor() { }
 
-  includeClip(clip: boolean) {
-    this.includeClipEvent.emit(clip);
+  toggleClip() {
+    this.toggleClipEvent.emit();
   }
 
-  addGems(gems: boolean) {
-    this.addGemsEvent.emit(gems);
+  toggleGems() {
+    this.toggleGemsEvent.emit();
   }
 }
 ```
 
-This should look very familiar by now. "Extras" are options to include a tag clip or gems with our pet tag, so they are `boolean` values in the application state.
+This should look very familiar by now. "Extras" are options to include a tag clip or gems with our pet tag, so they are `boolean` values serving as `ngModel`s for checkboxes.
 
 ### Tag Extras Component Template
 
@@ -990,7 +1000,7 @@ Add the necessary markup to the `tag-extras.component.html` template:
       <input
         type="checkbox"
         [(ngModel)]="tagClip"
-        (change)="includeClip(tagClip)"> Include tag clip
+        (change)="toggleClip()"> Include tag clip
     </label>
   </div>
 
@@ -999,7 +1009,7 @@ Add the necessary markup to the `tag-extras.component.html` template:
       <input
         type="checkbox"
         [(ngModel)]="gems"
-        (change)="addGems(gems)"> Add gems
+        (change)="toggleGems()"> Add gems
     </label>
   </div>
 </div>
@@ -1030,33 +1040,33 @@ Let's add the tag extras component to `create.component.html` like so:
 ...
 <app-tag-extras
   *ngIf="petTag.shape"
-  (includeClipEvent)="includeClipHandler($event)"
-  (addGemsEvent)="addGemsHandler($event)"></app-tag-extras>
+  (toggleClipEvent)="toggleClipHandler()"
+  (toggleGemsEvent)="toggleGemsHandler()"></app-tag-extras>
 {% endhighlight %}
 
-Like the tag text component, we'll only display the extras if the user has already selected a shape. The `includeClipEvent` and `addGemsEvent` events are handled by the `CreateComponent` methods we created earlier to dispatch the `INCLUDE_CLIP` and `ADD_GEMS` actions and payloads to the reducer:
+Like the tag text component, we'll only display the extras if the user has already selected a shape. The `toggleClipEvent` and `toggleGemsEvent` events are handled by the `CreateComponent` methods we created earlier to dispatch the `TOGGLE_CLIP` and `TOGGLE_GEMS` actions to the reducer:
 
 ```typescript
-includeClipHandler(clip: boolean) {
+toggleClipHandler() {
   this.store.dispatch({
-    type: INCLUDE_CLIP,
-    payload: clip
+    type: TOGGLE_CLIP
   }); 
 }
 
-addGemsHandler(gems: boolean) {
+toggleGemsHandler() {
   this.store.dispatch({
-    type: ADD_GEMS,
-    payload: gems
+    type: TOGGLE_GEMS
   });
 }
 ```
 
+Since these are boolean toggles, no payloads are necessary. Recall that we set up the reducer to use the _previous_ state to determine the _next_ state in these cases.
+
 ## Tag Preview Component
 
-Now let's create a component that shows a simple preview of the pet tag as it's being created. When we've implemented the tag preview presentational component, we'll be able to view the tag like so:
+Now let's create a component that shows a simple preview of the pet tag as it's being created. After we've implemented the tag preview presentational component, we'll be able to view the tag like so:
 
-![Angular app with ngrx/store dumb component preview](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-preview.jpg)
+![Angular app with ngrx/store dumb component preview](https://cdn.auth0.com/blog/ngrx/ngrx-preview.jpg)
 
 Let's scaffold the `TagPreviewComponent`. This component will be a child of both the Create and Complete pages, so let's create it in the root of the `app` folder like so:
 
@@ -1118,7 +1128,7 @@ The `@Input() petTag` that we'll be receiving from the parent component is the s
 
 We want to display this data in a user-friendly, visual way. We'll do this by showing an image of the tag with user-inputted text and notes about whether the user has chosen to include a clip or gems.
 
-We'll set the image source as well as the tag clip and gems options (`"Yes"` or `"No"`) when changes to the input are detected. The input is provided by `CreateComponent`'s subscription to the `tagState$` store observable.
+We'll set the image source as well as the tag clip and gems option text ("Yes" or "No") when changes to the input are detected. The input is provided by `CreateComponent`'s subscription to its `tagState$` store observable.
 
 ### Tag Preview Component Template
 
@@ -1147,11 +1157,11 @@ Open the `tag-preview.component.html` file and add:
 {% endraw %}
 {% endhighlight %}
 
-The preview will show if there is a shape. We'll display an image of the tag with the appropriate shape and a shape class. We'll also display the pet tag text in the appropriate font using a class with the `font` value. Finally, we'll print out whether the user has chosen to include a tag clip or gems.
+The preview will show if there is a shape. We'll display the appropriate shape SVG image and a `shape` class. We'll also display the pet tag text in the appropriate font using a class with the `font` value. Finally, we'll print out whether the user has chosen to include a tag clip or gems.
 
 ### Tag Preview Component Styles
 
-Recall that there are four possible tag shapes: a bone, rectangle, circle, and heart. In order to display a nice preview of any of these shapes, we'll need some additional styling. Open the `tag-preview.component.css` file:
+Recall that there are four possible tag shapes: a bone, rectangle, circle, and heart. In order to display a nice preview with any of these shapes, we'll need some additional styling. Open the `tag-preview.component.css` file:
 
 ```css
 /* src/app/tag-preview/tag-preview.component.css */
@@ -1190,9 +1200,9 @@ img {
 }
 ```
 
-After some basic styling to position the preview elements, we'll set the font sizes based on shape and the fonts based on the user's selected font style.
+After some basic styling to position the preview elements, we'll set the font sizes based on shape and the font families based on the user's selected font style.
 
-Now our `TagPreviewComponent` is ready to be added in container components.
+Now our `<app-tag-preview>` is ready to be added to the container component templates.
 
 ### Add Tag Preview Component to the Create Page
 
@@ -1209,13 +1219,13 @@ Square brackets (`[...]`) denote one-way [binding syntax](https://angular.io/doc
 
 Now we should be able to see live changes in the tag preview as we customize our tag:
 
-![Angular with ngrx/store preview changing live](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-preview-animated.gif)
+![Angular with ngrx/store preview changing live](https://cdn.auth0.com/blog/ngrx/ngrx-preview-animated.gif)
 
 ## Submit Completed Tag
 
 Now that we have our tag builder and preview built, let's add a "Done" button to submit the finished tag to the Complete page. When implemented, our Create page should look like the following:
 
-![Angular app with ngrx/store and submit button](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-tagDone.jpg)
+![Angular app with ngrx/store and submit button](https://cdn.auth0.com/blog/ngrx/ngrx-tagDone.jpg)
 
 We've already created a `submit()` method in `CreateComponent` that dispatches the `COMPLETE` action and payload to the reducer. All we need to do is create a button that calls this method in our `create.component.html` template:
 
@@ -1253,9 +1263,9 @@ The tag can be considered ready for submission if it has a shape and text. If th
 
 We scaffolded the Complete page when we set up the main routes for our app. Once we've implemented the component, the Complete page will look something like this after the user has created a custom pet tag:
 
-![Angular app with ngrx/store complete page](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-complete.jpg)
+![Angular app with ngrx/store complete page](https://cdn.auth0.com/blog/ngrx/ngrx-complete.jpg)
 
-### Complete Component TypeScript
+### "Complete" Component TypeScript
 
 Now let's open the `complete.component.ts` smart component and implement the following code:
 
@@ -1302,17 +1312,17 @@ export class CompleteComponent implements OnInit, OnDestroy {
 }
 ```
 
-`CompleteComponent` is a routable smart (container) component. We'll be managing a store subscription, so we need to import `OnInit`, `OnDestroy`, `Observable`, `Subscription`, and `Store`. We'll also have a link the user can click to start over and create a new tag. This will set the state back to its initial values, so we need to import the `RESET` action as well as `PetTag` and `initialTag` from our model.
+`CompleteComponent` is a routable smart (container) component. We'll be managing a store subscription, so we need to import `OnInit`, `OnDestroy`, `Observable`, `Subscription`, and `Store`. We'll also have a link the user can click to start over and create a new tag. This will set the state back to its initial values, so we need to import the `RESET` action, as well as `PetTag` and `initialTag` from our model.
 
 This component doesn't need any styling beyond Bootstrap, so we'll delete the `complete.component.css` file and remove the reference to it.
 
-Like in our `CreateComponent` smart component, we'll create a `tagState$` observable, `tagStateSubscription`, and a local `petTag` property. We'll also create an `emptyTag` property with the `PetTag` shape. We'll set its value to `initialTag`.
+Like in our `CreateComponent` smart component, we'll create a `tagState$` observable, `tagStateSubscription`, and a local `petTag` property. We'll also create an `emptyTag` property with the `PetTag` type. We'll set its value to `initialTag`.
 
-In the constructor, we'll assign `tagState$` as the store observable. Then in `ngOnInit`, we'll _subscribe_ to the observable and set the local `petTag` property. In the `ngOnDestroy` method, we'll clean up our subscribtion by unsubscribing.
+In the constructor, we'll assign `tagState$` as the store observable. Then in `ngOnInit()`, we'll _subscribe_ to the observable and set the `petTag` property. In the `ngOnDestroy()` method, we'll clean up our subscribtion by _unsubscribing_.
 
 Finally, our `newTag()` method will dispatch the `RESET` action with the empty tag payload. This "resets" the application state so that a new tag can be customized.
 
-### Complete Component Template
+### "Complete" Component Template
 
 Our `CompleteComponent`'s HTML template will look like this:
 
@@ -1336,13 +1346,13 @@ Our `CompleteComponent`'s HTML template will look like this:
 {% endraw %}
 {% endhighlight %}
 
-First we'll show a success alert that congratulates the user on creating a custom tag for their pet, grabbing the name from the `petTag` state object's text. We'll provide a link to create another tag that executes the `newTag()` method and routes the visitor back to the Create page to start fresh.
+First we'll show a success alert that congratulates the user on creating a custom tag for their pet, grabbing the pet's name from the `petTag` state object's `text`. We'll provide a link to create another tag that executes the `newTag()` method and routes the visitor back to the Create page to start fresh.
 
 Then we'll show the tag preview component and pass the `petTag` object to it: `<app-tag-preview [petTag]="petTag">`
 
 Finally, we'll need to show an error message if the user manually navigates to the `/complete` route without having finished customizing a tag. A link should be available to take them back to the Create page. The Complete page error should look like this:
 
-![Angular app with ngrx/store complete page with error message](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-completeError.jpg)
+![Angular app with ngrx/store complete page with error message](https://cdn.auth0.com/blog/ngrx/ngrx-completeError.jpg)
 
 We now have the primary functionality of our Custom Pet Tags application set up and working!
 
@@ -1350,7 +1360,7 @@ We now have the primary functionality of our Custom Pet Tags application set up 
 
 We'll now protect our application so that only authenticated users can access it. We already set up a "Log In" button in our `HomeComponent`, but right now it just navigates to the Create page. Let's hook up the authentication functionality using [Auth0](https://auth0.com).
 
-![Angular app with ngrx/store and authentication with Auth0](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular + ngrx:store/assets/ngrx-auth0.jpg)
+![Angular app with ngrx/store and authentication with Auth0](https://cdn.auth0.com/blog/ngrx/ngrx-auth0.jpg)
 
 ### Sign Up for Auth0
 
@@ -1448,7 +1458,7 @@ export class AuthService {
     localStorage.removeItem('profile');
   }
 
-  get authenticated: boolean {
+  get authenticated(): boolean {
     // search for an item in localStorage with key == 'id_token'
     return tokenNotExpired();
   }
@@ -1458,23 +1468,23 @@ export class AuthService {
 
 We'll import `Router` to handle redirection after login and `tokenNotExpired` (from `angular2-jwt`) to make sure our user still has a valid JWT.
 
-To avoid TypeScript warnings, we need to declare types for `Auth0Lock` and `localStorage`. We will [_inject_](https://angular.io/docs/ts/latest/api/core/index/Injectable-decorator.html) our service wherever we need access to its properties and methods.
+To avoid TypeScript warnings, we need to declare types for `Auth0Lock` and `localStorage`. We'll be able to [_inject_](https://angular.io/docs/ts/latest/api/core/index/Injectable-decorator.html) our `AuthService` wherever we need access to its properties and methods (ie., in other components).
 
-In our `AuthService` class, we need to create a new Lock instance with our Auth0 client's ID and domain. These can be found in your Auth0 dashboard settings for the Single Page Application client you just set up. Replace `[CLIENT_ID]` and `[CLIENT_DOMAIN]` with your personalized information. We'll pass a configuration object to our Lock instance with a `redirectUrl` and `responseType`.
+In the `AuthService` class, we need to create a new Lock instance with our Auth0 client's ID and domain. These can be found in your Auth0 dashboard settings for the Single Page Application client you just set up. Replace `[CLIENT_ID]` and `[CLIENT_DOMAIN]` with your personalized information. We'll pass a configuration object to our Lock instance with a `redirectUrl` and `responseType`.
 
 > **Note:** You can read more about [Lock configuration in the docs](https://auth0.com/docs/libraries/lock/v10/customization).
 
 We'll create a property to store the user's profile information that we'll retrieve when a visitor authenticates. This has an  `Object` type.
 
-Because we'll be storing the user's profile and access token in local storage, the first thing we'll do in our constructor is check for an existing profile. If there's a profile in storage, we'll set the `userProfile` property.
+Because we'll be storing the user's profile and access token in local storage, the first thing we'll do in our constructor is check for an existing profile. If there's a profile in storage already, we'll set the `userProfile` property.
 
 Next we need to listen to the Lock instance for the [`hash_parsed` event](https://github.com/auth0/lock#onevent-callback). This is a low-level event that we'll use (instead of the `authenticated` event) in order to handle single page app redirection upon login.
 
 If an `idToken` is present, we'll save it to `localStorage` and use it to retrieve the user's profile information. Once the profile has been successfully retrieved, we can save it to `localStorage` and redirect to the Create page. If there is no `idToken` returned, we'll `throw` an authentication error.
 
-Finally, we'll implement three methods: `login()`, `logout()`, and the `authenticated` accessor. The `login()` method will simply display the Lock widget so the user can log in with Auth0. The `logout()` method removes the user's token and profile from local storage. The `authenticated` method checks the JWT to see if it has expired and returns a boolean representing authentication status.
+Finally, we'll implement three methods: `login()`, `logout()`, and the `authenticated` accessor. The `login()` method will simply display the Lock widget so the user can log in with Auth0. The `logout()` method removes the user's token and profile from local storage. The `authenticated` getter checks the JWT to see if it has expired and returns a boolean representing authentication status.
 
-We're now ready to use the `AuthService` to authenticate users in our application.
+We're now ready to use `AuthService` to authenticate users in our application.
 
 ### Provide Auth Service in App Module
 
@@ -1493,11 +1503,11 @@ import { AuthService } from './core/auth.service';
   ...
 ```
 
-Import `AuthService` in the app module and add it to the `providers` array. We can now import this service anywhere in our application.
+Import `AuthService` in the app module and add it to the `providers` array. We can now inject this service elsewhere in our application.
 
 ### Home Component Login
 
-The first thing we'll do with `AuthService` is hook up the "Log In" button we created on the homepage.
+The first thing we'll implement with `AuthService` is the "Log In" button we created on the homepage.
 
 Open `home.component.ts`:
 
@@ -1552,9 +1562,9 @@ import { AuthService } from './../../core/auth.service';
 ...
 ```
 
-We'll import `AuthService` and make it publicly available to the constructor.
+We'll import `AuthService` and make it publicly available to the constructor so we can access its properties and methods in the HTML template.
 
-Next open the `complete.component.html` template:
+Next open `complete.component.html`:
 
 {% highlight html %}
 {% raw %}
@@ -1575,11 +1585,11 @@ Next open the `complete.component.html` template:
 {% endraw %}
 {% endhighlight %}
 
-We'll greet the user by name and add a Log Out button to call the `AuthService`'s `logout()` method and redirect the user back to the homepage.
+We'll greet the user by name and add a "Log Out" button to call the `AuthService`'s `logout()` method and redirect the user back to the homepage.
 
 ### Greet User in Create Component
 
-For an additional personal touch, we'll also greet the user by name on the Create page. Open `create.component.ts`:
+For a personal touch, we'll also greet the user by name on the Create page. Open `create.component.ts`:
 
 ```typescript
 // src/app/pages/create/create.component.ts
@@ -1593,7 +1603,7 @@ import { AuthService } from './../../core/auth.service';
 
 Import the `AuthService` and make it publicly available in the constructor. 
 
-Next open the `create.component.html` template and make the following small update:
+Next open the `create.component.html` template and add a personalized greeting after `Hello`:
 
 {% highlight html %}
 {% raw %}
@@ -1605,11 +1615,11 @@ Next open the `create.component.html` template and make the following small upda
 {% endraw %}
 {% endhighlight %}
 
-Now our app has more of a personal touch.
+Now our app feels more personalized.
 
 ### Create a Route Guard
 
-We can log in and out of our app, but that doesn't offer much more than simple personalization because none of our routes are _protected_ yet. Unauthenticated users can still access everything if they enter URLs manually. Let's implement a route guard so that only logged in users can customize pet tags.
+We can log in and out of our app, but that doesn't offer much more than simple personalization because none of our routes are _protected_ yet. Unauthenticated users can still access everything if they enter URLs manually. Let's implement a route guard so that only logged in users can create and customize pet tags.
 
 Create a new file in `src/app/core` called `auth.guard.ts`:
 
@@ -1635,17 +1645,17 @@ export class AuthGuard implements CanActivate {
 }
 ```
 
-We'll need to inject our route guard in our routing module, so we need to import `Injectable`. We'll also need `Router` to redirect the user when they're not authenticated, and `CanActivate` to activate routes if the user _is_ authenticated. We'll also import `AuthService` to get the authentication status of the user.
+We need to inject the route guard in our routing module, so we need to import `Injectable`. We'll also need `Router` to redirect the user when they're not authenticated, and `CanActivate` to activate (or deactivate) routes based on user authentication status. We'll import `AuthService` to get this authentication information. That's it for imports.
 
-`AuthGuard` implements [`CanActivate`](https://angular.io/docs/ts/latest/api/router/index/CanActivate-interface.html), a guard which determines if a route can be activated or not. We'll make `AuthService` and `Router` available privately to the constructor.
+The `AuthGuard` class implements [`CanActivate`](https://angular.io/docs/ts/latest/api/router/index/CanActivate-interface.html), a guard which determines if a route can be activated or not. We'll make `AuthService` and `Router` available privately to the constructor.
 
-Our `canActivate()` method checks if the user is authenticated. If they are, the route can be activated so we'll `return true`. Otherwise, we'll redirect to the Home page so the user can log in and `return false`: the route cannot activate. 
+Our `canActivate()` method checks if the user is authenticated. If they are, the route can be activated so we'll `return true`. Otherwise, we'll redirect to the Home page so the user can log in and `return false`: the route cannot be activated. 
 
 ### App Routing Module with Route Guard
 
-Now that we've created a route guard, we need to implement it in our application. Let's open our `app-routing.module.ts` and make some updates:
+Now that we've created a route guard, we need to apply it in our application. Let's open the `app-routing.module.ts` file and make some updates:
 
-```typescript
+```js
 // src/app/core/app-routing.module.ts
 ...
 import { AuthGuard } from './auth.guard';
@@ -1677,9 +1687,9 @@ import { AuthGuard } from './auth.guard';
   ...
 ```
 
-First we need to import our `AuthGuard`. Then we'll add the `canActivate: [ AuthGuard ]` key/value to each route that we want to protect. This includes the `'create'` route and the `'complete'` route.
+First we need to import our `AuthGuard`. Then we'll add the `canActivate: [ AuthGuard ]` key/value to each route that we want to protect. This includes the `'create'` route and the `'complete'` route. Finally, we need to add `AuthGuard` to the `providers` array.
 
-Finally, we need to add `AuthGuard` to the `providers` array. Unauthorized users can no longer access routes that require authentication. Trying to access protected routes when not logged in redirects visitors to the homepage where they'll see the Log In button.
+Unauthorized users can no longer access routes that require authentication. Trying to access protected routes when not logged in redirects visitors to the homepage where they'll see the "Log In" button.
 
 > **Note:** Don't forget to run `$ ng lint` if you haven't been doing so and make sure there are no issues with our code.
 
@@ -1687,11 +1697,13 @@ Finally, we need to add `AuthGuard` to the `providers` array. Unauthorized users
 
 Our simple Angular + ngrx/store + Auth0 application is now complete. Try it out!
 
-### You Might Not _Need_ Ngrx/store
+### Aside: You Might Not _Need_ ngrx/store
 
-Make sure you've read [You Might Not Need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367#.2hrw17sa5) before you implement ngrx/store in a production Angular application. Our tutorial's sample app is reasonably simple because we're using ngrx/store for teaching and learning. When building production apps for yourself or clients, consider the necessity and ramifications of using a tool like Redux or ngrx/store before implementing. Smaller, simpler apps work just fine with _local_ state. In these cases, it's possible to introduce confusion and indirection if ngrx/store is used unnecessarily.
+State management libraries are _great_, but please make sure you've read [You Might Not Need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367#.2hrw17sa5) before you implement ngrx/store in a production Angular application.
 
-That said, ngrx/store and its kin are incredibly helpful and valuable tools when managing state in large or particularly complex applications. Hopefully you're now able to reason about the paradigm used by Redux and ngrx/store and can make informed decisions regarding how and when to use state management libraries.
+Our tutorial's sample app is reasonably simple because we're using ngrx/store for teaching and learning. When building production apps for yourself or clients, consider the necessity and ramifications of using a tool like Redux or ngrx/store before implementing. Angular (with its inclusion of [RxJS](https://github.com/Reactive-Extensions/RxJS)) now does a great job of [managing global data with services](https://scotch.io/tutorials/get-angular-1-features-in-angular-2#global-communication-with-services). Therefore, smaller, simpler apps work just fine with _local_ state. In these cases, it's possible to introduce confusion and indirection if ngrx/store is used unnecessarily.
+
+That said, ngrx/store and its kin are incredibly helpful and valuable tools when managing state in large or particularly complex applications. Hopefully you're now able to reason about the paradigm used by Redux and ngrx/store. This should help you  make informed decisions regarding how and when to use state management libraries.
 
 ### Additional State Management Resources
 
@@ -1704,7 +1716,7 @@ Here are some additional resources for learning how to manage state with stores:
 * [Angular 2 Service Layers: Redux, RxJS and Ngrx Store - When to Use a Store and Why?](http://blog.angular-university.io/angular-2-redux-ngrx-rxjs/)
 * [Getting Started with Redux - Dan Abramov on Egghead.io](https://egghead.io/courses/getting-started-with-redux)
 
-While Angular makes it reasonably straightforward to share and pass data in smaller apps with [services and component communication](https://scotch.io/tutorials/get-angular-1-features-in-angular-2), managing global application state can rapidly become a mess and a headache in complex apps. Global stores like ngrx/store greatly aid in organizing and compartmentalizing state management. Hopefully you're now prepared to tackle building your own Angular apps with ngrx/store!
+While Angular makes it reasonably straightforward to share and pass data in smaller apps with services and component communication, managing global application state can rapidly become a mess and a headache in complex apps. Global stores like ngrx/store greatly aid in organizing and compartmentalizing state management. Hopefully you're now prepared to tackle building your own complex Angular apps with ngrx/store!
 
 
 
