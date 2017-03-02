@@ -65,12 +65,12 @@ The profile information is returned in JSON format.
 
 ```typescript
 import { Injectable } from '@angular/core';
-import { HTTP, Response } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class GithubService {
-  constructor(private http: HTTP) {}
+  constructor(private http: Http) {}
 
   getProfile(userName: string) {
     return this.http
@@ -81,24 +81,24 @@ export class GithubService {
 ```
 
 The ```getProfile``` method sends a GET request to the API and returns the response.
-Every request made with the ```HTTPModule``` returns an ```Observable.```
+Every request made with the ```HttpModule``` returns an ```Observable.```
 The returned value will always be a ```Response``` object, which can return the response body.
 With the help of the ```json``` or ```text``` method we can transform the value of the Observable.
 
 The first thing we have to do is to set up the test dependencies.
-The ```HTTP``` dependency is required.
-If we don't provide it, we will get this error message: ```No provider for HTTP!```.
+The ```Http``` dependency is required.
+If we don't provide it, we will get this error message: ```No provider for Http!```.
 
 ```typescript
 beforeEach(() => {
   TestBed.configureTestingModule({
     providers: [GithubService],
-    imports: [HTTPModule]
+    imports: [HttpModule]
   });
 });
 ```
 
-The problem with the real ```HTTPModule``` is that we will end up sending real HTTP requests.
+The problem with the real ```HttpModule``` is that we will end up sending real HTTP requests.
 It is an absolutely terrible idea to do this with unit tests, because it breaks the test's isolation from the outside world.
 Under no circumstances will the result of the test be guaranteed.
 For example, the network can go down and our well-crafted tests will no longer work.
@@ -107,7 +107,7 @@ Instead, Angular has a built-in way to fake HTTP requests.
 
 ```typescript
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { HTTP, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
+import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 
 ...
 
@@ -118,9 +118,9 @@ beforeEach(() => {
       MockBackend,
       BaseRequestOptions,
       {
-        provide: HTTP,
+        provide: Http,
         useFactory: (mockBackend: MockBackend, defaultOptions: ResponseOptions) => {
-          return new HTTP(mockBackend, defaultOptions);
+          return new Http(mockBackend, defaultOptions);
         },
         deps: [MockBackend, BaseRequestOptions]
       }
@@ -129,8 +129,8 @@ beforeEach(() => {
 });
 ```
 
-Instead of providing ```HTTP``` as a module,
-it is better to use the factory provider and pass the ```MockBackend``` instance to the ```HTTP``` constructor.
+Instead of providing ```Http``` as a module,
+it is better to use the factory provider and pass the ```MockBackend``` instance to the ```Http``` constructor.
 This way the fake backend captures every request and can respond accordingly.
 
 Before writing the first test it is also important to get an instance of the ```MockBackend,```
@@ -228,7 +228,7 @@ but for real-world scenarios I would recommend using it.
 ```typescript
 @Injectable()
 export class Auth0Service {
-  constructor(private http: HTTP) {}
+  constructor(private http: Http) {}
 
   login(username: string, password: string) {
     let headers = new Headers({
