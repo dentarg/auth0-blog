@@ -621,14 +621,14 @@ The first thing you'll need is an Auth0 account. Follow these simple steps to ge
 
 ### Setup and Dependencies
 
-First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.6 for our tutorial:
+First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.11 for our tutorial:
 
 {% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 ...
   <!-- Auth0 Lock widget -->
-  <script src="https://cdn.auth0.com/js/lock/10.6/lock.min.js"></script>
+  <script src="https://cdn.auth0.com/js/lock/10.11/lock.min.js"></script>
 </head>
 ...
 {% endhighlight %}
@@ -658,6 +658,8 @@ import { tokenNotExpired } from 'angular2-jwt';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
+declare var localStorage: any;
+declare var window: any;
 
 @Injectable()
 export class AuthService {
@@ -729,7 +731,7 @@ export class AuthService {
 
 As always, first we'll talk about the imports. `Injectable` is necessary for any injectable service and is provided by the boilerplate. We'll want to use `Router` to redirect the authenticated user back to the route they logged in from. We also need `tokenNotExpired` from `angular2-jwt` to get a user's authentication state.
 
-In order to avoid TypeScript name not found warnings, we'll declare `Auth0Lock`'s type annotation as `any`.
+In order to avoid TypeScript name not found warnings, we'll declare type annotations for `Auth0Lock`, `localStorage`, and `window`.
 
 Then we'll create a new lock instance:
 
