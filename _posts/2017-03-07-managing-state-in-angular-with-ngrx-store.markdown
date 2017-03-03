@@ -1716,7 +1716,7 @@ Here are some additional resources for learning how to manage state with stores:
 * [Angular 2 Service Layers: Redux, RxJS and Ngrx Store - When to Use a Store and Why?](http://blog.angular-university.io/angular-2-redux-ngrx-rxjs/)
 * [Getting Started with Redux - Dan Abramov on Egghead.io](https://egghead.io/courses/getting-started-with-redux)
 
-While Angular makes it reasonably straightforward to share and pass data in smaller apps with services and component communication, managing global application state can rapidly become a mess and a headache in complex apps. Global stores like ngrx/store greatly aid in organizing and compartmentalizing state management. Hopefully you're now prepared to tackle building your own complex Angular apps with ngrx/store!
+While Angular makes it reasonably straightforward to share and pass data in smaller apps with services and component communication, managing global application state can rapidly become a mess and a headache in complex apps. Global stores like ngrx/store greatly aid in organizing and compartmentalizing state management. Hopefully you're now prepared to tackle building your own Angular apps with ngrx/store!
 
 
 
