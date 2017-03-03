@@ -1,4 +1,4 @@
----
+
 layout: post
 title: "Create a Docker dashboard with TypeScript, React and Socket.io"
 description: Let's create a functioning web-based dashboard for Docker!
@@ -191,7 +191,7 @@ The prompt should tell you that it has managed to start the site on port 3000. [
 
 Right now when you make changes to the site you will be forced to stop and restart the node app to see your changes to NodeJS code take effect, or re-run the webpack command whenever you make a change to your React components. We can mitigate both of these by causing them to reload themselves whenever changes are made.
 
-To automatically reload your NodeJS server-side changes, you can use a package called [nodemon](https://nodemon.io/). Install it using `npm install -g nodemon` and then start your node app using `nodemon server.js`. You'll notice that, as you make changes to your code, the app will automatically restart.
+To automatically reload your NodeJS server-side changes, you can use a package called [nodemon](https://nodemon.io/). If you want to use this package from the command line, you can do `npm install -g nodemon`. This will allow us to run our app in such a way that any changes to the server-side code will cause the web server to automatically restart, by using `nodemon server.js`. We only want to do this on our development machines though, so we will configure our `package.json` accordingly.
 
 To handle the recompilation of your React components automatically, webpack has a 'watch' option that will cause it to re-run by itself. To do this, start webpack using `webpack --watch` and notice that your JavaScript bundles will start recompiling automatically whenever you change your React components.
 
@@ -206,19 +206,31 @@ npm install -g concurrently
 concurrently "nodemon server.js" "webpack --watch"
 ```
 
-Even better, you can put all of this into the node start script. Edit the 'scripts' node of the 'package.json' file to look like the following:
+While you can use these tools by installing them globally, for our application we're going to install these two things as development dependencies, and adjust our `package.json` file with two commands: one to start the app normally without nodemon, and a development script we can use to start both nodemon and webpack watch.
+
+Firstly, install these two packages as development dependencies:
+
+```
+npm install -D nodemon concurrently
+```
+
+Then edit the 'scripts' node of the `package.json` file to look like the following:
 
 ```javascript
 ...
 "main": "index.js",
 "scripts": {
-"start": "concurrently \"nodemon server.js\" \"webpack --watch\""
+  "start": "webpack -p && node server.js",
+  "start-dev": "./node_modules/.bin/concurrently 'nodemon server.js' 'webpack --watch'"
 },
 "author": "",
 ...
 ```
 
-And then whenever you want to start your app and have it automatically recompile everything, you can simply run `npm start`!
+* The `start` script (run using `npm start`) will firstly compile your JavaScript assets using Webpack and then run our app using node. The `-p` switch causes Webpack to automatically optimize and minimize our scripts, ready for production
+* The `start-dev` script (run using `npm run start-dev`) is our development mode. It starts our webserver using Nodemon and Webpack in 'watch' mode, meaning that both our server-side and client-side code will be automatically reloaded when something changes
+
+(Thanks to [@OmgImAlexis](https://twitter.com/OmgImAlexis) for some suggestions in this area!)
 
 ## Starting some React and TypeScript
 
