@@ -32,7 +32,7 @@ related:
 </div>
 
 <div class="alert alert-info alert-icon">
-  <i class="icon-budicon-664"></i>
+  <i class="icon-budicon-487"></i>
   The <a href="http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html">Branding Guidelines for Angular</a> state that version 1.x should be referred to as <em>AngularJS</em>, whereas all releases from version 2 and up are named <em>Angular</em>. This migration article will continue to use "Angular 1" to refer to AngularJS (1.x) and "Angular 2" to refer to Angular (2 and up) in order to clearly differentiate the frameworks and reduce confusion.
 </div>
 

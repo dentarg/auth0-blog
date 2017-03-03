@@ -32,7 +32,7 @@ related:
 </div>
 
 <div class="alert alert-info alert-icon">
-  <i class="icon-budicon-664"></i>
+  <i class="icon-budicon-487"></i>
   The <a href="http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html">Branding Guidelines for Angular</a> state that version 1.x should be referred to as <em>AngularJS</em>, whereas all releases from version 2 and up are named <em>Angular</em>. This migration article will continue to use "Angular 1" to refer to AngularJS (1.x) and "Angular 2" to refer to Angular (2 and up) in order to clearly differentiate the frameworks and reduce confusion.
 </div>
 
@@ -636,7 +636,7 @@ First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using ve
 Next we need the [`angular2-jwt` helper library](https://github.com/auth0/angular2-jwt). Install this with npm:
 
 ```bash
-npm install angular2-jwt --save
+$ npm install angular2-jwt --save
 ```
 
 ### Create an Authentication Service
@@ -777,7 +777,7 @@ Finally, we'll implement a way to check the current authentication state of the 
 
 Our authentication service is now ready for use! We'll provide it at the app level in `app.module.ts`:
 
-```typescript
+```js
 // ng2-dinos/src/app/app.module.ts
 
 ...
@@ -811,7 +811,7 @@ We want to be able to use methods from the `AuthService` in our header template 
 ...
 import { AuthService } from '../core/auth.service';
 ...
-constructor(..., private auth: AuthService) { }
+constructor(..., public auth: AuthService) { }
 ...
 ```
 
