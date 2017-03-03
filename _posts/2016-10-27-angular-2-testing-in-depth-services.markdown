@@ -44,7 +44,7 @@ I share my experiences testing different building blocks of an Angular applicati
 We will start with simple use cases and then head for more complex ones.
 
 - Services (this article)
-- [Http Services](https://auth0.com/blog/angular-2-testing-in-depth-http-services/)
+- [Http Services](https://auth0.com/blog/angular-testing-in-depth-http-services/)
 - Components
 - Pipes
 - Routing
