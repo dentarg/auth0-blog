@@ -119,7 +119,7 @@ beforeEach(() => {
       BaseRequestOptions,
       {
         provide: Http,
-        useFactory: (mockBackend: MockBackend, defaultOptions: ResponseOptions) => {
+        useFactory: (mockBackend: MockBackend, defaultOptions: RequestOptions) => {
           return new Http(mockBackend, defaultOptions);
         },
         deps: [MockBackend, BaseRequestOptions]
