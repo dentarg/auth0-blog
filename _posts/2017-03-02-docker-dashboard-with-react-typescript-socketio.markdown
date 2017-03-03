@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: "Create a Docker dashboard with TypeScript, React and Socket.io"
 description: Let's create a functioning web-based dashboard for Docker!
