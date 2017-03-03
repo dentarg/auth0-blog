@@ -72,9 +72,9 @@ In [Part 1](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1
 
 In order to implement routing, the first thing we need is multiple pages. Let's quickly create home, about, and 404  components. These will be pages so create a subdirectory in the `ng2-dinos/src/app/` folder called `pages`. Stop the server and execute the following commands:
 
-* Home page component: `ng g component pages/home`
-* About page component: `ng g component pages/about`
-* 404 page component: `ng g component pages/error404`
+* Home page component: `$ ng g component pages/home`
+* About page component: `$ ng g component pages/about`
+* 404 page component: `$ ng g component pages/error404`
 
 ### Add Title Provider to App Module
 
@@ -117,18 +117,18 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  pageName: string = 'Dinosaurs';
+  pageName = 'Dinosaurs';
 
   constructor(private titleService: Title) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.titleService.setTitle(this.pageName);
   }
 
 }
 ```
 
-First we'll import the `Title` class from `@angular/platform-browser`. In our `HomeComponent` class, we'll create a `pageName: string` property and set it to "Dinosaurs". Then we'll add the `private titleService: Title` to our constructor function. In our `ngOnInit()` function, we'll set the title to the `pageName`. You can consult the Angular 2 docs to [learn more about the Title service](https://angular.io/docs/ts/latest/cookbook/set-document-title.html).
+First we'll import the `Title` class from `@angular/platform-browser`. In our `HomeComponent` class, we'll create a `pageName` property and set it to "Dinosaurs". Then we'll add the `private titleService: Title` to our constructor function. In our `ngOnInit()` function, we'll set the title to the `pageName`. You can consult the Angular 2 docs to [learn more about the Title service](https://angular.io/docs/ts/latest/cookbook/set-document-title.html).
 
 Now let's do the same for the about and 404 components: `about.component.ts` and `error404.component.ts`. We'll also _delete_ the `about.component.scss` and `error404.component.scss` files and any references to them. The about and 404 components will be plain pages with some static copy. We can use Bootstrap classes to style both and don't need componetized SCSS.
 
@@ -145,7 +145,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './about.component.html'
 })
 export class AboutComponent implements OnInit {
-  pageName: string = 'About';
+  pageName = 'About';
 
   constructor(private titleService: Title) { }
 
@@ -169,7 +169,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './error404.component.html'
 })
 export class Error404Component implements OnInit {
-  pageName: string = '404 Page Not Found';
+  pageName = '404 Page Not Found';
 
   constructor(private titleService: Title) { }
 
@@ -244,8 +244,6 @@ This component will show when the route the user attempts to access does not exi
 {% endraw %}
 {% endhighlight %}
 
-
-
 > **Note:** Our Angular 1 ng1-dinos app had classes like `.home-wrapper` and `.about-wrapper` on the article elements but Angular 2's view encapsulation negates the need for this!
 
 ## Migrating Angular 1 Routing to Angular 2
@@ -316,7 +314,6 @@ ng2-dinos
         |-home/
           |-home.component[.html|.scss|.ts]
       |-app.module.ts
-      |-index.ts
 ```
 
 ### Import Routing Module in App Module
@@ -435,7 +432,7 @@ We need to import `Router` and `NavigationStart` from `@angular/router`. Next we
 
 Now when we click on links in the menu the correct component displays and the navigation closes. Our app homepage now looks like this:
 
-![Migrating Angular 1 app to Angular 2: Angular 2 single page application with routing](https://cdn.auth0.com/blog/ng1-to-ng2/part2-start.jpg)
+![Migrating AngularJS app to Angular: Angular 2 single page application with routing](https://cdn.auth0.com/blog/ng1-to-ng2/part2-start.jpg)
 
 ## Calling an API in Angular 2
 
@@ -444,7 +441,7 @@ Now our architecture and navigation is in place! We've arrived at the business l
 We're going to author a service for this in our Angular 2 migration too. Let's start by creating the file. Use the following Angular CLI command to create a service boilerplate:
 
 ```bash
-ng g service core/dinos
+$ ng g service core/dinos
 ```
 
 When we run this command, note the warning output informing us that the service was generated but not provided. We'll provide it at the component level this time instead of application-wide like we did with the `Title` service. This means we _won't_ put `DinosService` in the `app.module.ts`.
@@ -591,7 +588,7 @@ import { Dino } from '../../core/models/dino.model';
 export class HomeComponent implements OnInit {
   dinos: Dino[];
   error: boolean;
-  pageName: string = 'Dinosaurs';
+  pageName = 'Dinosaurs';
 
   constructor(
     private titleService: Title,
@@ -654,11 +651,11 @@ The `ng-repeat` of Angular 1 has been replaced by the [`ngFor` repeater directiv
 
 We now have a list of all the dinosaurs returned from the API. Our app homepage looks like this in the browser:
 
-![Migrating Angular 1 app to Angular 2: Angular 2 app showing list with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-simple-list.jpg)
+![Migrating AngularJS app to Angular: Angular 2 app showing list with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-simple-list.jpg)
 
 We can also test the error state by stopping the local Node dinos server and then reloading our Angular 2 app. We should see this:
 
-![Migrating Angular 1 app to Angular 2: Angular 2 app showing data error](https://cdn.auth0.com/blog/ng1-to-ng2/error-no-data.jpg)
+![Migrating AngularJS app to Angular: Angular 2 app showing data error](https://cdn.auth0.com/blog/ng1-to-ng2/error-no-data.jpg)
 
 ## Display Dino Cards
 
@@ -667,7 +664,7 @@ Our Angular 1 ng1-dinos app repeats a [`dinoCard` directive with a template](htt
 We'll start by generating the new dino card component in the same folder as our home component:
 
 ```bash
-ng g component pages/home/dino-card
+$ ng g component pages/home/dino-card
 ```
 
 ### Dino Card Component TypeScript
@@ -736,7 +733,7 @@ We'll add some Bootstrap classes so our cards display nicely in a grid. Then we'
 
 Our ng2-dinos homepage now looks like this:
 
-![Migrating Angular 1 app to Angular 2: Angular 2 app showing child component cards with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-dino-cards.jpg)
+![Migrating AngularJS app to Angular: Angular 2 app showing child component cards with API data](https://cdn.auth0.com/blog/ng1-to-ng2/home-dino-cards.jpg)
 
 Our migration is coming together. The Angular 2 app is finally starting to look more like ng1-dinos!
 
@@ -757,7 +754,7 @@ Instead, we'll create a _service_ that performs filtering. You may already be fa
 Let's create a service for filtering:
 
 ```bash
-ng g service core/filter
+$ ng g service core/filter
 ```
 
 We want our filter service to provide a `search()` method that accepts an array and a query string. It should check objects in the array for strings that contain the query and return a new array of all objects with a match. Let's implement this in `filter.service.ts`:
@@ -770,13 +767,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FilterService {
   search(array: any[], query: string) {
-    let lQuery = query.toLowerCase();
+    const lQuery = query.toLowerCase();
 
     if (!query) {
       return array;
     } else if (array) {
-      let filteredArray = array.filter(item => {
-        for (let key in item) {
+      const filteredArray = array.filter(item => {
+        for (const key in item) {
           if ((typeof item[key] === 'string') && (item[key].toLowerCase().indexOf(lQuery) !== -1)) {
             return true;
           }
@@ -813,8 +810,8 @@ export class HomeComponent implements OnInit {
   dinos: Dino[];
   filteredDinos: Dino[];
   error: boolean;
-  pageName: string = 'Dinosaurs';
-  query: string = '';
+  pageName = 'Dinosaurs';
+  query = '';
 
   constructor(..., private filterService: FilterService) { }
 
@@ -933,11 +930,11 @@ If we view our app, you may notice we could use a bit of styling to put some spa
 
 We should now be able to search for dinosaurs by name:
 
-![Migrating Angular 1 app to Angular 2: Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search.jpg)
+![Migrating AngularJS app to Angular: Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search.jpg)
 
 If the search doesn't return any results, we should see a message:
 
-![Migrating Angular 1 app to Angular 2: Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search-no-results.jpg)
+![Migrating AngularJS app to Angular: Angular 2 app with search filtering](https://cdn.auth0.com/blog/ng1-to-ng2/search-no-results.jpg)
 
 ## Aside: Refactoring Suggestions
 
@@ -953,4 +950,4 @@ Our ng2-dinos app now calls an API and supports searching! We've successfully mi
 
 In the final part of the tutorial, we'll create a dinosaur detail component with routing and we'll show loading states while waiting for API calls to complete. We'll also go over how to add authentication to our Angular 2 app (a feature we didn't have in ng1-dinos).
 
-Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for the final lesson: [Migrating an Angular 1 App to Angular 2 - Part 3](https://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-3)!
+Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for the final lesson: [Migrating an AngularJS App to Angular - Part 3](https://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-3)!

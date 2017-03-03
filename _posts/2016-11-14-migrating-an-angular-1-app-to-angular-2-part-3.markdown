@@ -73,7 +73,7 @@ Our Angular 1 ng1-dinos app shows a dinosaur's details when we click on one in t
 Let's create a new detail component:
 
 ```bash
-ng g component pages/detail
+$ ng g component pages/detail
 ```
 
 ### Routing with Parameters
@@ -644,7 +644,7 @@ npm install angular2-jwt --save
 We need an Angular 2 service to implement login functionality and authentication methods. We can use the CLI to generate the boilerplate in the `ng2-dinos/src/app/core/` folder:
 
 ```bash
-ng g service core/auth
+$ ng g service core/auth
 ```
 
 Open the new `auth.service.ts` file and add the following code. We'll go over this in detail below:

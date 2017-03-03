@@ -455,7 +455,7 @@ Now we're ready to create the header.
 We can use the Angular CLI's `g` command (shortcut for `generate`) to [generate new components](https://github.com/angular/angular-cli#generating-components-directives-pipes-and-services) for our app. Stop the server (`Ctrl+C`) and let's create a header component:
 
 ```bash
-ng g component header
+$ ng g component header
 ```
 
 New components are created relative to the `ng2-dinos/src/app` root. The resulting output should resemble the following:
@@ -785,10 +785,10 @@ Now our app should be the height of the window even if the content is short. If 
 
 ## Angular 2 Footer Component
 
-We have a header, so let's add the simple footer from ng1-dinos too. Run the `ng g` command to create a new component:
+We have a header, so let's add the simple footer from ng1-dinos too. Run the `$ ng g` command to create a new component:
 
 ```bash
-ng g component footer
+$ ng g component footer
 ```
 
 ### Footer Component TypeScript
