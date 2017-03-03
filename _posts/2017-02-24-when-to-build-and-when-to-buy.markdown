@@ -10,8 +10,8 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  bg_color:
-  image:
+  bg_color: #3E3E55
+  image: https://cdn.auth0.com/blog/build-becomes-buy/logo.png
 tags:
 - saas
 - iam
