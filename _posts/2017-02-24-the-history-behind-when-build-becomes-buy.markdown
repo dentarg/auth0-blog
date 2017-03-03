@@ -10,8 +10,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color:
-  image:
+  bg_color: #653636
+  image: https://cdn.auth0.com/blog/build-becomes-buy/logo.png
 tags:
 - iam
 - stripe
