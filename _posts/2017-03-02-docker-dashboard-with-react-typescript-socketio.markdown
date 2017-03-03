@@ -30,7 +30,7 @@ In this article, we are going to use a few different technologies together to bu
 
 This is a quick preview of what the app looks like when it's finished. It's essentially a page that displays two lists of Docker containers; those that are currently running, and those that are stopped. It allows the user to start and stop these containers, as well as start a new container from an existing image by clicking the 'New container' button.
 
-![Preview of the Docker dashboard app](http://i.imgur.com/jfWUxBY.png)
+![Preview of the Docker dashboard app](https://i.imgur.com/jfWUxBY.png)
 
 ## The code
 
@@ -403,7 +403,7 @@ What we have now is a server-side application which acts as the backbone of our 
 
 To figure out what components we need, let's take another look at a screenshot of the application, this time with the individual React components highlighted:
 
-![The Docker dashboard with components](http://i.imgur.com/1Qek2Fd.png)
+![The Docker dashboard with components](https://i.imgur.com/1Qek2Fd.png)
 
 * The DialogTrigger component displays a button which can trigger a Bootstrap modal dialog
 * The ContainerItem component knows how to display a single Docker container, including some info about the container itself
@@ -411,7 +411,7 @@ To figure out what components we need, let's take another look at a screenshot o
 
 One additional component which is not shown in that screenshot is the modal dialog for starting new containers:
 
-![The Docker dashboard modal dialog component](http://i.imgur.com/3YJoSpn.png)
+![The Docker dashboard modal dialog component](https://i.imgur.com/3YJoSpn.png)
 
 To start with, let's create the component to display a single container. Create a new file in /app/components called `containerListItem.tsx`, and give it the following content:
 
@@ -599,7 +599,7 @@ render() {
 
 At this point you should have a basic dashboard setup with some dummy containers - let's have a look:
 
-![A basic dashboard](http://i.imgur.com/faVfciE.png)
+![A basic dashboard](https://i.imgur.com/faVfciE.png)
 
 ## Making things dynamic!
 
@@ -733,7 +733,7 @@ componentDidMount() {
 
 Right now, you should be able to start your app and have it display a list of the running and stopped Docker containers on your machine!
 
-![My Docker containers](http://i.imgur.com/F1Llyk4.png)
+![My Docker containers](https://i.imgur.com/F1Llyk4.png)
 
 ## Starting containers
 
@@ -963,7 +963,7 @@ For the state, we're going to record the name of the image that was entered, and
 
 As a reminder, this is what this modal popup is going to look like; there's just one text field and one button:
 
-![The Docker dashboard modal dialog component](http://i.imgur.com/3YJoSpn.png)
+![The Docker dashboard modal dialog component](https://i.imgur.com/3YJoSpn.png)
 
 Let's fill out the component and have a look at its `render` method. Also note the constructor, where can initialise the component state to something default:
 
