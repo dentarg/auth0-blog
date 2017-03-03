@@ -40,7 +40,7 @@ related:
 
 ---
 
-## AngularJS and Angular
+## AngularJS 1 and Angular 2+
 
 [AngularJS 1.x](https://angularjs.org/) has been a frontrunner among JavaScript frameworks over the past few years. There are thousands of production sites and apps [built with Google's "superheroic MVW framework"](https://www.madewithangular.com) and many more still in development. In mid-September 2016, [Angular 2 was released](http://angularjs.blogspot.com/2016/09/angular2-final.html) after a lengthy period of betas and release candidates. Angular developers knew this was coming and that [Angular 2](https://angular.io/) was a full rewrite and platform implementation, not an incremental update.
 
