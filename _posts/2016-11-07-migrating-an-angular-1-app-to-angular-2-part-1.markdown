@@ -117,7 +117,7 @@ Next, install the [Angular CLI](https://github.com/angular/angular-cli) globally
 $ npm install -g angular-cli
 ```
 
-**Note:** At the time of update, the Angular CLI has entered release candidate but is still not final. If you encounter errors using it, please consult the [angular-cli GitHub issues](https://github.com/angular/angular-cli/issues/) for resolutions.
+> **Note:** At the time of update, the Angular CLI has entered release candidate but is still not final. If you encounter errors using it, please consult the [angular-cli GitHub issues](https://github.com/angular/angular-cli/issues/) for resolutions.
 
 ### Initialize ng2-dinos
 
@@ -149,7 +149,7 @@ $ ng lint
 
 This tutorial follows the Style Guide and adheres to the default rules in the TSLint config file. It's good to lint your project periodically to make sure your code is clean and free of linter errors.
 
-**Note:** The Angular CLI TSLint `"eofline": true` rule requires [files to end with a _newline_](https://palantir.github.io/tslint/rules/eofline/). This is [standard convention](http://stackoverflow.com/questions/729692/why-should-text-files-end-with-a-newline). If you want to avoid lots of newline errors when linting, make sure that your files include this.
+> **Note:** The Angular CLI TSLint `"eofline": true` rule requires [files to end with a _newline_](https://palantir.github.io/tslint/rules/eofline/). This is [standard convention](http://stackoverflow.com/questions/729692/why-should-text-files-end-with-a-newline). If you want to avoid lots of newline errors when linting, make sure that your files include this.
 
 ## Customizing Our Angular 2 Project for Migration
 
@@ -654,7 +654,7 @@ The header component is a child of the root app component. We need a way to noti
 
 We'll import `Output` and [`EventEmitter`](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html) from `@angular/core` and then create a new event emitter `@Output` decorator. We also need a way to track whether the navigation is open or closed, so we'll add a `navOpen` property that defaults to `false`.
 
-> _**Note:** Notice that we didn't declare a type annotation for `navOpen`. This is because we initialized the property with a value. The type is inferred from this value. Adding type annotations that can be inferred automatically will result in linting errors._
+> **Note:** Notice that we didn't declare a type annotation for `navOpen`. This is because we initialized the property with a value. The type is inferred from this value. Adding type annotations that can be inferred automatically will result in linting errors.
 
 Now we need to define the `click` event handler. We already named this function `toggleNav()` in our `header.component.html`. The function will toggle the `navOpen` boolean and emit the `navToggled` event with the current state of `navOpen`.
 
