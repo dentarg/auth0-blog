@@ -114,7 +114,7 @@ You should have [NodeJS with npm](https://nodejs.org) installed already.
 Next, install the [Angular CLI](https://github.com/angular/angular-cli) globally with the following command:
 
 ```bash
-npm install -g angular-cli
+$ npm install -g angular-cli
 ```
 
 **Note:** At the time of update, the Angular CLI has entered release candidate but is still not final. If you encounter errors using it, please consult the [angular-cli GitHub issues](https://github.com/angular/angular-cli/issues/) for resolutions.
@@ -124,13 +124,13 @@ npm install -g angular-cli
 The first thing we'll do is initialize our new Angular 2 app and get it running. We'll use the Angular CLI to generate a new project with SCSS support using the following command:
 
 ```bash
-ng new ng2-dinos --style=scss
+$ ng new ng2-dinos --style=scss
 ```
 
 Next we can serve the app by running the following command from the root directory of our new app:
 
 ```bash
-ng serve
+$ ng serve
 ```
 
 We should be able to view the site in the browser at [http://localhost:4200](http://localhost:4200). The app should look like this:
@@ -144,7 +144,7 @@ Take a look at the file structure for your new ng2-dinos app. You may notice the
 The Angular CLI provides code linting with [TSLint](https://palantir.github.io/tslint/) and [Codelyzer](https://github.com/mgechev/codelyzer). TSLint provides TypeScript linting and Codelyzer provides TSLint rules that adhere to the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html). We can view all of these linting rules at `ng2-dinos/tslint.json`. We can lint our project using the following command:
 
 ```bash
-ng lint
+$ ng lint
 ```
 
 This tutorial follows the Style Guide and adheres to the default rules in the TSLint config file. It's good to lint your project periodically to make sure your code is clean and free of linter errors.

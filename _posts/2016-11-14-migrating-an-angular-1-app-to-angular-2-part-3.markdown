@@ -913,6 +913,6 @@ With Auth0 user authentication in place, we can do things like  authorize route 
 
 ## Conclusion
 
-Our ng2-dinos app is complete! Make sure you've run `$ ng lint` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state. We've even covered adding authentication with Auth0 so we can authorize routes or make secure API calls in the future. 
+Our ng2-dinos app is complete! Make sure you've run `ng lint` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state. We've even covered adding authentication with Auth0 so we can authorize routes or make secure API calls in the future. 
 
 Hopefully you're now ready to dive into Angular migrations as well as new Angular 2 projects with confidence!
