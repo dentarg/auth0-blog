@@ -11,7 +11,7 @@ author:
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
   image: https://cdn.auth0.com/blog/this-the-season-for-cyber-criminals/logo.png
-  bg_color: "#05344D"
+  bg_color: "#191716"
 related:
   - 2016-11-30-different-ways-to-implement-multifactor
   - 2015-12-17-json-web-token-signing-algorithms-overview
