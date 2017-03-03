@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Cloudpets Data Breach Affects Over 820,000 Customers"
-description: "An unsecured database allowed hackers to steal personal information from over 820,000 Cloudpets customers."
+description: "An unsecured database allowed hackers to steal personal information from over 820,000 Cloudpets customers. Learn how this may affect you and what to do next."
 date: 2017-03-03 8:30
 category: Security, Data Breach
 author:
@@ -10,11 +10,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/hero.png
-  bg_color: "#222228"
-design:
-  bg_color: "#000000"
-  image: https://cdn.auth0.com/blog/cloudbleed-post/cloudflare-logo.png
+  image: https://cdn.auth0.com/blog/this-the-season-for-cyber-criminals/logo.png
+  bg_color: "#05344D"
 related:
   - 2016-11-30-different-ways-to-implement-multifactor
   - 2015-12-17-json-web-token-signing-algorithms-overview
@@ -53,6 +50,6 @@ Top things to remember when it comes to choosing a good password:
 
 ## Auth0 Can Protect Your Users and Apps
 
-Managing identity is a complex and difficult task. At [Auth0](https://auth0.com), our goal is to make identity simple for developers. A recent feature we launched called [Breached Password Detection](https://auth0.com/breached-passwords) can help alert your users that their credentials have been compromised in a data breach when they login to your app. This helps your users stay safe, but also protects your apps from malicious access. Additionally, Auth0 meets the standards for various [password strength requirements](https://auth0.com/docs/connections/database/password-strength), provides [multifactor authentication](https://auth0.com/multifactor-authentication), and more.
+Managing identity is a complex and difficult task. At [Auth0](https://auth0.com), our goal is to make identity simple for developers. A recent feature we launched called [Breached Password Detection](https://auth0.com/breached-passwords) can help alert your users that their credentials have been compromised in a data breach when they login to your app. We are still working on getting and adding credentials from this breach to our database to better protect your users. This feature helps your users stay safe, but also protects your apps from malicious access. Additionally, Auth0 meets the standards for various [password strength requirements](https://auth0.com/docs/connections/database/password-strength), provides [multifactor authentication](https://auth0.com/multifactor-authentication), and more.
 
-If you want to make identity simple and secure for your applications, give Auth0 a <a href="javascript:signup()">try</a>.
+If you want to make identity simple and secure for your applications, <a href="javascript:signup()">give Auth0 a try</a>.
