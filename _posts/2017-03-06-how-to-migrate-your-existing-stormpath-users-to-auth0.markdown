@@ -30,7 +30,7 @@ tags:
 
 [Stormpath](https://stormpath.com) is an authentication as a service company that allows developers to offload their authentication and authorization needs to a third party. The company offered a RESTful API that customers could use to manage identity in their applications. Today, the company [announced](https://stormpath.com/blog/stormpaths-new-path) that it had been acquired by [Okta](https://www.okta.com), which is another company that provides identity management services.
 
-Acquisitions in the software industry are a norm. What is surprising about this acquisition is that the Stormpath product will be shut down later this year as the team transitions to Okta leaving many customers to scramble to find an alternative. Customers have until **August 18, 2017** to find a new provider, get it up and running, and export their existing users. Quite a challenge in such a short time frame.
+Acquisitions in the software industry are a norm. What is surprising about this acquisition is that the Stormpath product will be shut down later this year as the team transitions to Okta leaving many customers to scramble to find an alternative. Customers have until **August 18, 2017** to find a new provider, get it up and running, and export their existing users. This could be a challenging amount of unexpected work in such a short time frame.
 
 {% include tweet_quote.html quote_text="Ethereum marries the power of decentralized transactions with Turing-complete contracts!" %}
 
@@ -57,6 +57,8 @@ You can name your connection anything you like. Leave all the default settings a
 Next, let's go into this database connection and connect it to our Auth0 account. Click on your newly created connection and navigate to the **Custom Database** tab. Flip the switch titled "Use my own database" and the **Database Action Scripts** section will be enabled. This is where we will write our code to connect to your existing Stormpath user datastore. We will need to write two scripts: **Login** and **Get User**. **Login** will proxy the login process and **Get User** to manage looking up accounts when a user attempts to reset their password.
 
 ![Enable Custom Database]()
+
+One final step we'll do before implementing our scripts is enabling this connection for our default client. Navigate to the **Clients** tab while you are in your database connection and flip the switch to enable this client for the Default Connection. *If you already have an existing Auth0 account, the connection name may be different.*
 
 ### Login
 The **Login** script is executed when a user attempts to sign in but their account is not found in the Auth0 database. Here we will implement the functionality to pass the user credentials provided to our Stormpath user datastore and see if that user is valid. Auth0 provides templates for many common databases such as MongoDB, MySQL and Sql Server, but for Stormpath we will have to write our own. We will utilize Stormpath's REST API to authenticate the user. Let's look at the implementation below:
@@ -179,7 +181,7 @@ With these two scripts we have user migration setup and ready to go. To test it 
 
 ### Building the Frontend
 
-We will build our frontend with Angular 2. We'll use the [Auth0 Angular 2 Quickstart](https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample/tree/master/01-Login) to get up and running quickly. With the project downloaded, we'll need to setup our Auth0 credentials. We'll do that in the `auth.config.js` file. Open the file and change the values to look like this:
+We will build our frontend with Angular 2. We'll use the [Auth0 Angular 2 Quickstart](https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample/tree/master/01-Login) to get up and running quickly. Auth0 provides a comprehensive set of quickstarts, SDKs, and guides for many popular languages and frameworks. See them all [here](https://auth0.com/docs). With the project downloaded, we'll need to setup our Auth0 credentials. We'll do that in the `auth.config.js` file. Open the file and change the values to look like this:
 
 ```js
 "use strict";
@@ -209,6 +211,14 @@ This means that our migration was successful. This user is now migrated to Auth0
 
 I hope the user migration functionality I showed in this post helps with your use case. This gradual migration works great because it is transparent to your end-users. As the deadline approaches and Stormpath prepares to shut down their service, you may need to speed up the migration process. Auth0 can help here as well. You can [bulk import](https://auth0.com/docs/tutorials/bulk-importing-users-into-auth0) your existing user datastore into Auth0 or since we already wrote the **Get User** script you can send out a mass email to your users letting them know they need to change their password and by clicking on the link in the email their accounts will be migrated to Auth0.
 
-Now that your migrates woes have been taken care of, let's briefly talk about what Auth0 brings to the table besides authentication and authorization. 
+Now that your migrates woes have been taken care of, let's briefly talk about what Auth0 brings to the table besides authentication and authorization. Many features that Auth0 provides can be enabled with the flip of a switch. [Multifactor authentication](https://auth0.com/multifactor-authentication) is one such feature. You can enable MFA using our in-house MFA solution, [Guardian](https://auth0.com/multifactor-authentication), with just the flip of a switch. 
+
+If you are already using a 3rd party MFA solution or have your own custom solution, you can continue to use it as well. The Auth0 [Rules](https://auth0.com/docs/rules) extensibility platform allows you to take control of the authorization workflow. Here you can configure any number of events such as triggering 3rd party MFA, performing progressive profiling, and much more.
+
+We want to make your switch to Auth0 as painless as possible, so we are making the Database Migration feature free for all existing Stormpath customers. To help you get up and running faster we are also giving existing Stormpath customers 8 hours of professional services at no cost.
 
 ## Conclusion
+
+Stormpath will be shutting down their authentication and authorization API's this summer. Customers have until August 18, 2017 to move off the platform. At Auth0, we hope to give existing Stormpath customers an easy and smooth transition plan. Our database migration feature can start migrating your users today!
+
+If you are affected by the Stormpath news and want to give Auth0 a try, <a href="javascript:signup()">sign up for a free account</a> and get started today.
