@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to migrate your existing Stormpath users to Auth0"
+title: "How to migrate your existing Stormpath users to Auth0 (without requiring password resets)"
 description: "Stormpath is shutting down August 18, 2017. Learn how to effortlessly migrate your existing Stormpath users to Auth0 and gain a few new features out-of-the-box as well. "
 date: 2017-03-06 8:30
 category: Migration, Announcement
@@ -181,7 +181,7 @@ With these two scripts we have user migration setup and ready to go. To test it 
 
 ### Building the Frontend
 
-We will build our frontend with Angular 2. We'll use the [Auth0 Angular 2 Quickstart](https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample/tree/master/01-Login) to get up and running quickly. Auth0 provides a comprehensive set of quickstarts, SDKs, and guides for many popular languages and frameworks. See them all [here](https://auth0.com/docs). With the project downloaded, we'll need to setup our Auth0 credentials. We'll do that in the `auth.config.js` file. Open the file and change the values to look like this:
+We will build our frontend with Angular 2. We'll use the [Auth0 Angular 2 Quickstart](https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample/tree/master/01-Login) to get up and running quickly. Our final application can be seen [here](https://github.com/auth0-blog/migrate-stormpath-users-to-auth0/tree/master/frontend). Auth0 provides a comprehensive set of quickstarts, SDKs, and guides for many popular languages and frameworks. See them all [here](https://auth0.com/docs). With the project downloaded, we'll need to setup our Auth0 credentials. We'll do that in the `auth.config.js` file. Open the file and change the values to look like this:
 
 ```js
 "use strict";
@@ -205,7 +205,32 @@ Notice that you are instantly logged in. If we look at the response data from th
 
 This means that our migration was successful. This user is now migrated to Auth0. The next time they login to the application, we'll check their credentials against Auth0's database instead of making the extra call to Stormpath.
 
+Now you may notice the two links `Call Public API` and `Call Private API`. Let's build a simple backend that will return data when these links are clicked. We'll do that next.
+
 ### Building the Backend
+
+For our backend, we'll build a simple Spring Boot application that exposes a RESTful API. You can get the code for the sample application [here](https://github.com/auth0-blog/migrate-stormpath-users-to-auth0/tree/master/backend). To setup the application, you will just need to update the application with your credentials. The file where the credentials are stored is called `auth0.properties` and can be found in the `src/main/resources/` directory. Edit the file to look like so:
+
+```
+auth0.domain: {YOUR-AUTH-DOMAIN}.auth0.com
+auth0.issuer: https://{YOUR-AUTH0-DOMAIN}.auth0.com/
+auth0.clientId: {YOUR-AUTH0-CLIENT-ID}
+auth0.securedRoute: NOT_USED
+auth0.base64EncodedSecret: false
+auth0.authorityStrategy: ROLES
+auth0.defaultAuth0ApiSecurityEnabled: false
+auth0.signingAlgorithm: HS256
+```
+
+With this update in place, you should be able to build the application by running:
+
+```
+mvn spring-boot:run -Drun.arguments="--auth0.clientSecret=YOUR_SECRET_KEY"
+```
+
+If the application was built successfully, you will be able to access the API at `localhost:4000`. The two routes that are exposed by this application that we care about are `/public` and `/secure`. The `/public` route will be accessible by everyone, while the `/secure` route will return a successful response only if the user is authenticated and passes the correct credentials. 
+
+Once your backend is up and running go back to your frontend application and try clicking on the the two links `Call Public API` and `Call Private API`. The public API you will be able to access even when not logged in. For the private API, you will need to be logged in to call the route and get the appropriate response.
 
 ## Go Further with Auth0
 
@@ -221,4 +246,4 @@ We want to make your switch to Auth0 as painless as possible, so we are making t
 
 Stormpath will be shutting down their authentication and authorization API's this summer. Customers have until August 18, 2017 to move off the platform. At Auth0, we hope to give existing Stormpath customers an easy and smooth transition plan. Our database migration feature can start migrating your users today!
 
-If you are affected by the Stormpath news and want to give Auth0 a try, <a href="javascript:signup()">sign up for a free account</a> and get started today.
+If you are affected by the Stormpath news and want to easily migrate your users, give Auth0 a try, <a href="javascript:signup()">sign up for a free account</a> and get started today.
