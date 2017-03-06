@@ -20,6 +20,7 @@ related:
 *Guest post by @SteveALee of OpenDirective.com*
 
 Without a doubt, authentication for web apps is one of the most complex features to implement correctly. If you’re not careful, it will eat a large chunk of your development time. Worse, if you don't get it exactly right you're left vulnerable to being hacked, which will take even more of your precious time, not to mention damaging your reputation. Therefore, it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business. However, even when using Auth0 some scenarios are still complex to figure out and code. Typically and "true to form", I picked one of these complex cases as my first attempt at auth for a Single Page App (SPA) Software as a Service (SaaS) product.
+
 This post is the story of my experience along with some working JavaScript code for Azure Functions with Auth0. 
 
 ##Serverless Architecture##
@@ -59,17 +60,19 @@ Without further delay, here's the low-down on what you need to do to let a user 
 In order for this to work, you need to have the following configured:
 
 * A Google Photos account with some photos, preferably in several albums
-* Auth0 web Client for the SPA - Authentication for Client-side Web Apps
-* Google OAuth client for backend access to APIs - Connect Your Client to Google
-* Auth0 API definition for the API - Call APIs from Client-side Web Apps
-* Auth0 non-interactive client for backend access to Auth0 management API - Call an Identity Provider API
+* Auth0 web Client for the SPA - [Authentication for Client-side Web Apps](https://auth0.com/docs/client-auth/client-side-web)
+* Google OAuth client for backend access to APIs - [Connect Your Client to Google](https://auth0.com/docs/connections/social/google)
+* Auth0 API definition for the API - [Call APIs from Client-side Web Apps](https://auth0.com/docs/api-auth/grant/implicit)
+* Auth0 non-interactive client for backend access to Auth0 management API - [Call an Identity Provider API](Call an Identity Provider API)
+* Azure account and an [Azure Functions App](https://azure.microsoft.com/en-us/services/functions/)
 
 You should also read: 
 
-Auth0 Overview 
-Identity Provider Access Tokens 
+* [Auth0 Overview](https://auth0.com/docs/overview) 
+* [Identity Provider Access Tokens](https://auth0.com/docs/tokens/idp)
+* [Lock for Web](https://auth0.com/docs/libraries/lock)
+* [Create your first Azure Function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function)
 
-Lock for Web
 Here is a simple vanilla HTML and JavaScript example that allows the user to sign in with the Auth0 Lock and then calls the Azure Functions backend to get a list of Google Photos albums:
 
 ```html
@@ -175,7 +178,7 @@ Note, this initial block of constants should not normally be included in the mai
 const AUTH0_DOMAIN_URL = 'https://DOMAIN.auth0.com'
 const AUTH0_API_ID = 'https://API_ID'
 const AUTH0_SIGNING_CERTIFICATE = `-----BEGIN CERTIFICATE-----
-<Get this form the Auth0 client Advanced settings -> certificates>
+<Get this from the Auth0 client Advanced settings -> certificates>
 -----END CERTIFICATE-----`
 const AUTH0_ADMIN_CLIENT_ID = 'YOUR ADMIN CLIENT APP ID'
 const AUTH0_ADMIN_CLIENT_SECRET = 'YOUR ADMIN APP CLIENT SECRET'
