@@ -11,7 +11,7 @@ author:
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/es6rundown/logo.png
+  image: https://cdn.auth0.com/blog/ethereum1/logo.png
 tags:
 - ethereum
 - contracts
@@ -23,9 +23,8 @@ tags:
 - cryptocurrency
 - cryptocurrencies
 related:
-- 2016-11-16-a-rundown-of-es6-features
-- 2016-03-15-javascript-module-systems-showdown
-- 2015-10-14-7-things-you-should-know-about-web-assembly
+- get-your-twitter-share-count-back-with-a-webtask
+- build-a-serverless-slack-bot-with-webtask
 ---
 
 [Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. Read on as we explore how it works!
