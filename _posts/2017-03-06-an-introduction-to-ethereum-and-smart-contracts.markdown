@@ -12,6 +12,7 @@ author:
 design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/ethereum1/logo.png
+  image_size: "80%"
 tags:
 - ethereum
 - contracts
