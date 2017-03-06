@@ -22,6 +22,11 @@ related:
 - 2016-07-14-create-an-app-in-vuejs-2
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-487"></i>
+  This article covers <strong>Elm v0.17</strong>. To upgrade to Elm v0.18, please see the <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md">0.18 Upgrade Docs here</a>. In addition, make sure to address all applicable <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md#package-changes">package changes</a>. 
+</div>
+
 **TL;DR:** In the first part of this tutorial, we introduced the Elm language by building a [simple Elm Application that called an API](https://auth0.com/blog/creating-your-first-elm-app-part-1/). Now we'll authenticate with JSON Web Tokens to make protected API requests. The full code is available in [this GitHub repository](https://github.com/kmaida/auth0-elm-with-jwt-api).
 
 ---
