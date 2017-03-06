@@ -91,7 +91,7 @@ function login(username, password, callback) {
       // Your API Client ID
       user: '{STORMPATH-CLIENT-ID}',
       // YOUR API Client Secret
-      password: '{STROMPATH-CLIENT-SECRET}'
+      password: '{STORMPATH-CLIENT-SECRET}'
     },
     headers: {
       'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ function login(username, password, callback) {
         // Your API Client ID
         user: '{STORMPATH-CLIENT-ID}',
         // YOUR API Client Secret
-        password: '{STROMPATH-CLIENT-SECRET}'
+        password: '{STORMPATH-CLIENT-SECRET}'
       }
     }, function (errorUserInfo, responseUserInfo, bodyUserInfo) {
       // If we get a successful response, we'll process it
@@ -135,7 +135,7 @@ function login(username, password, callback) {
         // If this field is not set, the user will get an email asking them to verify
         // their account
         email_verified: true,
-        // Add any additional fields you would like to carry over from Strompath
+        // Add any additional fields you would like to carry over from Stormpath
       });
     });
   });
@@ -159,7 +159,7 @@ function getByEmail(email, callback) {
       // Your API Client ID
       user: '{STORMPATH-CLIENT-ID}',
       // YOUR API Client Secret
-      password: '{STROMPATH-CLIENT-SECRET}'
+      password: '{STORMPATH-CLIENT-SECRET}'
     },
     qs: { q: email }
   }, function (error, response, body) {
@@ -177,7 +177,7 @@ function getByEmail(email, callback) {
       username: user.username,
       email: user.email,
       email_verified: true,
-      // Add any additional fields you would like to carry over from Strompath
+      // Add any additional fields you would like to carry over from Stormpath
     });
   });
 }
