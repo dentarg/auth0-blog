@@ -24,7 +24,7 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  This article covers <strong>Elm v.0.17</strong>. To upgrade to Elm v.0.18, please see the <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md">0.18 Upgrade Docs here</a>. In addition, make sure to address all applicable <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md#package-changes">package changes</a>. 
+  This article covers <strong>Elm v0.17</strong>. To upgrade to Elm v0.18, please see the <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md">0.18 Upgrade Docs here</a>. In addition, make sure to address all applicable <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md#package-changes">package changes</a>. 
 </div>
 
 **TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/kmaida/auth0-elm-with-jwt-api).
