@@ -10,9 +10,9 @@ author:
   mail: speyrott@auth0.com
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/ethereum1/logo.png
-  image_size: "80%"
+  bg_color: "#454A75"
+  image: https://cdn.auth0.com/blog/Ethereum1/logo-2.png
+  image_size: "100%"
 tags:
 - ethereum
 - contracts
