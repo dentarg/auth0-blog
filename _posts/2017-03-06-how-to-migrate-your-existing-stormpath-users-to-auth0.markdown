@@ -10,8 +10,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: https://cdn.auth0.com/blog/this-the-season-for-cyber-criminals/logo.png
-  bg_color: "#191716"
+  image: https://cdn.auth0.com/blog/migrate-stormpath-users/stormpath_logo.png
+  bg_color: "#244EC6"
 related:
   - 2016-11-30-different-ways-to-implement-multifactor
   - 2015-12-17-json-web-token-signing-algorithms-overview
@@ -30,11 +30,16 @@ tags:
 
 [Stormpath](https://stormpath.com) is an authentication as a service company that allows developers to offload their authentication and authorization needs to a third party. The company offered a RESTful API that customers could use to manage identity in their applications. Today, the company [announced](https://stormpath.com/blog/stormpaths-new-path) that it had been acquired by [Okta](https://www.okta.com), which is another company that provides identity management services.
 
+![Acquisition announcement](https://cdn.auth0.com/blog/migrate-stormpath-users/acquisition.png)
+
 Acquisitions in the software industry are a norm. What is surprising about this acquisition is that the Stormpath product will be shut down later this year as the team transitions to Okta leaving many customers to scramble to find an alternative. Customers have until **August 18, 2017** to find a new provider, get it up and running, and export their existing users. This could be a challenging amount of unexpected work in such a short time frame.
 
-{% include tweet_quote.html quote_text="Ethereum marries the power of decentralized transactions with Turing-complete contracts!" %}
+{% include tweet_quote.html quote_text="Stormpath customers have until August 18, 2017 to migrate off the platform as it is being shut down!" %}
 
 At [Auth0](https://auth0.com), our goal is to provide the best authentication and identity management solution that is also simple and easy for developers to work with. 
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/auth0">@auth0</a> should open user migration to everyone from <a href="https://twitter.com/goStormpath">@goStormpath</a> and gain all those clients that can&#39;t move to okta. <a href="https://twitter.com/hashtag/wearesorry?src=hash">#wearesorry</a></p>&mdash; Tom Compagno (@TomCompagno) <a href="https://twitter.com/TomCompagno/status/838825630078660608">March 6, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Custom Database Migration Made Easy with Auth0
 
@@ -50,13 +55,15 @@ Talk is cheap, so let me actually walk you through the steps.
 
 First of all you will need an Auth0 account. <a href="javascript:signup()">Signup for free here.</a> With your account created, let's setup a custom database connection. In your Auth0 [management dashboard](https://manage.auth0.com), navigate to the **Connections** and then **Database** menu. On this page, click on the **Create DB Connection** button in the top right corner.
 
-![Create DB Connection]()
+![Create DB Connection](https://cdn.auth0.com/blog/migrate-stormpath-users/create-db-connection.png)
 
 You can name your connection anything you like. Leave all the default settings as is for now and click the **Create** button to create the connection.
 
+![Setup Custom DB Connection](https://cdn.auth0.com/blog/migrate-stormpath-users/configure-db.png)
+
 Next, let's go into this database connection and connect it to our Auth0 account. Click on your newly created connection and navigate to the **Custom Database** tab. Flip the switch titled "Use my own database" and the **Database Action Scripts** section will be enabled. This is where we will write our code to connect to your existing Stormpath user datastore. We will need to write two scripts: **Login** and **Get User**. **Login** will proxy the login process and **Get User** to manage looking up accounts when a user attempts to reset their password.
 
-![Enable Custom Database]()
+![Enable Custom Database](https://cdn.auth0.com/blog/migrate-stormpath-users/enable-custom-db.png)
 
 One final step we'll do before implementing our scripts is enabling this connection for our default client. Navigate to the **Clients** tab while you are in your database connection and flip the switch to enable this client for the Default Connection. *If you already have an existing Auth0 account, the connection name may be different.*
 
@@ -197,11 +204,15 @@ Both of these values can be found in your Auth0 [management dashboard](https://m
 
 With these values configured save the file and run `npm install`. Once npm has installed all the required dependencies, run the project by executing `npm start`. Navigate to `localhost:3000` to see the app in action.
 
-![Angular 2 Frontend]()
+![Angular 2 Frontend](https://cdn.auth0.com/blog/migrate-stormpath-users/frontend.png)
 
 Click on the **Login** button to login to your application. Clicking the **Login** button will bring up the Auth0 [Lock](https://auth0.com/lock) widget and ask the user to provide their email and password. Here, the user will provide their Stormpath email and password credentials and if they are correct they will be logged in. If you don't already have a Stormpath user account you can login with, go into your Stormpath dashboard and create an account. Now login with your Stormpath user credentials.
 
+![Angular 2 Login with Lock](https://cdn.auth0.com/blog/migrate-stormpath-users/lock.png)
+
 Notice that you are instantly logged in. If we look at the response data from the transaction we'll see that the user is coming from the **Stormpath-Users** connection alongside other data that we imported. Let's make sure that this user was migrated to Auth0 as well. To check this we'll navigate to the [Users](https://manage.auth0.com/#/users) section of the Auth0 dashboard and we'll now see the user we logged in with.
+
+![User Migrated](https://cdn.auth0.com/blog/migrate-stormpath-users/migrated.png)
 
 This means that our migration was successful. This user is now migrated to Auth0. The next time they login to the application, we'll check their credentials against Auth0's database instead of making the extra call to Stormpath.
 
@@ -230,7 +241,11 @@ mvn spring-boot:run -Drun.arguments="--auth0.clientSecret=YOUR_SECRET_KEY"
 
 If the application was built successfully, you will be able to access the API at `localhost:4000`. The two routes that are exposed by this application that we care about are `/public` and `/secure`. The `/public` route will be accessible by everyone, while the `/secure` route will return a successful response only if the user is authenticated and passes the correct credentials. 
 
+![Accessing Public API](https://cdn.auth0.com/blog/migrate-stormpath-users/public-api.png)
+
 Once your backend is up and running go back to your frontend application and try clicking on the the two links `Call Public API` and `Call Private API`. The public API you will be able to access even when not logged in. For the private API, you will need to be logged in to call the route and get the appropriate response.
+
+![Accessing Private API](https://cdn.auth0.com/blog/migrate-stormpath-users/private-api.png)
 
 ## Go Further with Auth0
 
