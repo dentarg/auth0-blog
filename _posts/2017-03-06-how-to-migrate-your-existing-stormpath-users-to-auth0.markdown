@@ -40,7 +40,7 @@ At [Auth0](https://auth0.com), our goal is to provide the best authentication an
 
 The most important thing you are probably concerend with right now is how to migrate your existing users with minimal impact to your applications. At Auth0 we hope to greatly reduce your stress and anxiety with our painless user import functionality. 
 
-The way this feature works is you will setup a database connection and connect it to your Stormpath account. When your users login, they will login with their existing credentials, and when authenticated, we will automatically migrate that user account from Stormpath into Auth0. Your users will not have to change their password or jump through any additional hoops and you can decide what data to port over from Stormpath.
+The way this feature works is by setting up a database connection and connecting it to your Stormpath account. When your users login the first time, they will enter their existing Stormpath credentials and, if authenticated successfully, we will automatically migrate that user account from Stormpath into Auth0. Your users will not have to change their password or jump through any additional hoops and you can decide what data to port over from Stormpath. Next time the user logs in, Auth0 will detect that they have been migrated and authenticate them with their Auth0 account.
 
 ![Auth0 User Migration](https://cdn.auth0.com/docs/media/articles/connections/database/migrating-diagram.png)
 
@@ -54,7 +54,7 @@ First of all you will need an Auth0 account. <a href="javascript:signup()">Signu
 
 You can name your connection anything you like. Leave all the default settings as is for now and click the **Create** button to create the connection.
 
-Next, let's go into this database connection and connect it to our Auth0 account. Click on your newly created connection and navigate to the **Custom Database** tab. Flip the switch titled "Use my own database" and the **Database Action Scripts** section will be enabled. This is where we will write our code to connect to our existing Stormpath user datastore. We will need to write two scripts: **Login** and **Get User**. **Login** to manage the login process and **Get User** to manage looking up accounts when a user attempts to reset their password.
+Next, let's go into this database connection and connect it to our Auth0 account. Click on your newly created connection and navigate to the **Custom Database** tab. Flip the switch titled "Use my own database" and the **Database Action Scripts** section will be enabled. This is where we will write our code to connect to your existing Stormpath user datastore. We will need to write two scripts: **Login** and **Get User**. **Login** will proxy the login process and **Get User** to manage looking up accounts when a user attempts to reset their password.
 
 ![Enable Custom Database]()
 
@@ -175,7 +175,7 @@ function getByEmail (email, callback) {
 }
 ```
 
-With these two scripts we have user migration setup and ready to go. Let's test it. To test and make sure our code works, let's build a simple application that allows a user to login and request protected resources via an API. We'll build the frontend with Angular 2 and the backend we'll power with Spring.
+With these two scripts we have user migration setup and ready to go. To test it and make sure our code works, let's build a simple application that allows a user to login and request protected resources via an API. We'll build the frontend with Angular 2 and the backend we'll power with Spring.
 
 ### Building the Frontend
 
