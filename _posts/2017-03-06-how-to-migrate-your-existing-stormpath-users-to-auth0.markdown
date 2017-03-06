@@ -75,9 +75,9 @@ One final step we'll do before implementing our scripts is enabling this connect
 The **Login** script is executed when a user attempts to sign in but their account is not found in the Auth0 database. Here we will implement the functionality to pass the user credentials provided to our Stormpath user datastore and see if that user is valid. Auth0 provides templates for many common databases such as MongoDB, MySQL and Sql Server, but for Stormpath we will have to write our own. We will utilize Stormpath's REST API to authenticate the user. Let's look at the implementation below:
 
 ```js
-function login (username, password, callback){
+function login(username, password, callback) {
   // Replace the YOUR-CLIENT-ID attribute with your Stormpath ID
-  var url = 'https://api.stormpath.com/v1/applications/{YOUR-CLIENT-ID}/loginAttempts'
+  var url = 'https://api.stormpath.com/v1/applications/{YOUR-CLIENT-ID}/loginAttempts';
 
   // Stormpath requires the user credentials be passed in as a base64 encoded message
   var message = username + ':' + password;
@@ -94,54 +94,50 @@ function login (username, password, callback){
       password: '{STROMPATH-CLIENT-SECRET}'
     },
     headers: {
-        'Content-Type': 'application/json'    
+      'Content-Type': 'application/json'
     },
-    json : { 
+    json: {
       type: 'basic',
-      // Passing in the base64 encoded credentials 
+      // Passing in the base64 encoded credentials
       value: pass
     }
-  }, function(error, response, body){
-     // If response is successful we'll continue
-     if(response.statusCode === 200){
-       // A successful response will return a URL to get the user information
-       var accountUrl = body.account.href
+  }, function (error, response, body) {
+    // If response is successful we'll continue
+    if (response.statusCode !== 200) return callback();
+    // A successful response will return a URL to get the user information
+    var accountUrl = body.account.href;
 
-       // We'll make a second request to get the user info. This time it will be a GET request
-       request({
-         url: accountUrl,
-         method: 'GET',
-         auth: {
-           // Your API Client ID
-           user: '{STORMPATH-CLIENT-ID}',
-           // YOUR API Client Secret
-           password: '{STROMPATH-CLIENT-SECRET}'
-         },
-       }, function(error, response, body){
-         // If we get a successful response, we'll process it
-         if(response.statusCode === 200){
-           body = JSON.parse(body);
-           // To get the user identifier, we'll strip out the Stormpath API
-           var id = body.href.replace("https://api.stormpath.com/v1/accounts/", "");
-           // Finally, we'll set the data we want to store in Auth0 and migrate the user
-           callback(null, {
-             user_id : id,
-             username: body.username,
-             email: body.email,
-             // We set the users email_verified to true as we assume if they were a valid
-             // user in Stormpath, they have already verified their email
-             // If this field is not set, the user will get an email asking them to verify
-             // their account
-             email_verified: true,
-             // Add any additional fields you would like to carry over from Strompath
-           });
-         } else {
-           callback();
-         }
-       })
-     } else {
-       callback();
-     }
+    // We'll make a second request to get the user info. This time it will be a GET request
+    request({
+      url: accountUrl,
+      method: 'GET',
+      auth: {
+        // Your API Client ID
+        user: '{STORMPATH-CLIENT-ID}',
+        // YOUR API Client Secret
+        password: '{STROMPATH-CLIENT-SECRET}'
+      }
+    }, function (errorUserInfo, responseUserInfo, bodyUserInfo) {
+      // If we get a successful response, we'll process it
+      if (responseUserInfo.statusCode !== 200) return callback();
+
+      var parsedBody = JSON.parse(bodyUserInfo);
+      // To get the user identifier, we'll strip out the Stormpath API
+      var id = parsedBody.href.replace('https://api.stormpath.com/v1/accounts/', '');
+
+      // Finally, we'll set the data we want to store in Auth0 and migrate the user
+      return callback(null, {
+        user_id : id,
+        username: parsedBody.username,
+        email: parsedBody.email,
+        // We set the users email_verified to true as we assume if they were a valid
+        // user in Stormpath, they have already verified their email
+        // If this field is not set, the user will get an email asking them to verify
+        // their account
+        email_verified: true,
+        // Add any additional fields you would like to carry over from Strompath
+      });
+    });
   });
 }
 ```
@@ -152,9 +148,10 @@ The **Get User** script is executed when the user attempts to do a password rese
 Let's look at our implementation of the **Get User** script for Stormpath:
 
 ```js
-function getByEmail (email, callback) {
+function getByEmail(email, callback) {
   // Replace the YOUR-CLIENT-ID attribute with your Stormpath ID
-  var url = 'https://api.stormpath.com/v1/applications/{YOUR-CLIENT-ID}/accounts'
+  var url = 'https://api.stormpath.com/v1/applications/{YOUR-CLIENT-ID}/accounts';
+
   request({
     url: url,
     method: 'GET',
@@ -164,27 +161,25 @@ function getByEmail (email, callback) {
       // YOUR API Client Secret
       password: '{STROMPATH-CLIENT-SECRET}'
     },
-    qs: {q: email}
-  }, function(error, response, body){
-      if(response.statusCode === 200){
-        body = JSON.parse(body);
-        var user = body.items[0];
-        if(user){
-          var id = user.href.replace("https://api.stormpath.com/v1/accounts/", "");
-          callback(null, {
-             user_id : id,
-             username: user.username,
-             email: user.email,
-             email_verified: true,
-             // Add any additional fields you would like to carry over from Strompath
-           });
-        } else {
-          callback()
-        }
-      } else {
-        callback()
-      }
-  })
+    qs: { q: email }
+  }, function (error, response, body) {
+    if (response.statusCode !== 200) return callback();
+
+    var parsedBody = JSON.parse(body);
+    var user = parsedBody.items[0];
+
+    if (!user) return callback();
+
+    var id = user.href.replace('https://api.stormpath.com/v1/accounts/', '');
+
+    return callback(null, {
+      user_id: id,
+      username: user.username,
+      email: user.email,
+      email_verified: true,
+      // Add any additional fields you would like to carry over from Strompath
+    });
+  });
 }
 ```
 
