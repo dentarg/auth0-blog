@@ -41,7 +41,7 @@ At [Auth0](https://auth0.com), our goal is to provide the best authentication an
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/auth0">@auth0</a> should open user migration to everyone from <a href="https://twitter.com/goStormpath">@goStormpath</a> and gain all those clients that can&#39;t move to okta. <a href="https://twitter.com/hashtag/wearesorry?src=hash">#wearesorry</a></p>&mdash; Tom Compagno (@TomCompagno) <a href="https://twitter.com/TomCompagno/status/838825630078660608">March 6, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**You ask, we deliver :)!**. We're offering the database migration feature for free for all Stormpath customers 💥!
+**You ask, we deliver :)!** We're offering the database migration feature for free for all Stormpath customers 💥!
 
 ## Custom Database Migration Made Easy with Auth0
 
@@ -49,7 +49,7 @@ The most important thing you are probably concerned with right now is how to mig
 
 The way this feature works is by setting up a [custom database connection](https://auth0.com/docs/connections/database/mysql) and connecting it to your Stormpath account. When your users login the first time, they will enter their existing Stormpath credentials and, if authenticated successfully, we will automatically migrate that user account from Stormpath into Auth0. Your users will not have to change their password or jump through any additional hoops and you can decide what data to port over from Stormpath. Next time the user logs in, Auth0 will detect that they have been migrated and authenticate them with their Auth0 account.
 
-![Auth0 User Migration](https://cdn.auth0.com/docs/media/articles/connections/database/migrating-diagram.png)
+![Auth0 User Migration](https://cdn.auth0.com/blog/migrate-stormpath-users/migrating-copy.png)
 
 Talk is cheap, so let me actually walk you through the steps.
 
@@ -219,7 +219,7 @@ Notice that you are instantly logged in. If we look at the response data from th
 
 This means that our migration was successful. This user is now migrated to Auth0. The next time they login to the application, we'll check their credentials against Auth0's database instead of making the extra call to Stormpath. The workflow diagram below illustrates the process once again.
 
-![Auth0 User Migration](https://cdn.auth0.com/docs/media/articles/connections/database/migrating-diagram.png)
+![Auth0 User Migration](https://cdn.auth0.com/blog/migrate-stormpath-users/migrating-copy.png)
 
 Now you may notice the two links `Call Public API` and `Call Private API`. Let's build a simple backend that will return data when these links are clicked. We'll do that next.
 
