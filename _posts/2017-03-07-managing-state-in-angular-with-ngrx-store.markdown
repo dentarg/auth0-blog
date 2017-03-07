@@ -474,24 +474,24 @@ export function petTagReducer(state: PetTag = initialTag, action: Action) {
         complete: action.payload
       });
     case RESET:
-      return Object.assign({}, state, action.payload);
+      return Object.assign({}, state, initialTag);
     default:
       return state;
   }
 }
 ```
 
-We need to import `Action` from ngrx/store. Then we need the `PetTag` model and its default state, `initialTag`. We also need to import the actions we created in the previous step.
+First we import `Action` from ngrx/store. Then we need the `PetTag` model and its default state, `initialTag`. We also need to import the actions we created in the previous step.
 
 Now we'll create our `petTagReducer()` function. The reducer accepts previous `state` and the dispatched `action` as arguments. Remember that this is a _pure_ function: inputs determine outputs and the function does not modify global state. This means that when we return anything from the reducer, it either needs to be a new object or it can output an unmodified input (such as in the `default` case).
 
-We're going to use [`Object.assign()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to return new objects containing the values from source objects in most cases. The sources will be the _previous state_ and objects containing the action _payload_.
+We'll use [`Object.assign()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to return new objects containing the values from source objects in most cases. The sources will be the _previous state_ and objects containing the action _payload_.
 
 The `TOGGLE_CLIP` and `TOGGLE_GEMS` actions toggle booleans that are assigned in the `initialTag` state. Therefore, we don't need a payload when we dispatch these actions; we can simply set the value to its opposite in these cases.
 
 We're sending a payload with the `COMPLETE` action because we want to explicitly set it to `true`, and only do so once for each tag created. We could use a toggle for this as well, but for clarity, we'll dispatch a specific value as a payload instead.
 
-> **Note:** Notice that the `RESET` case still uses `action.payload`, although we have _access_ to the `initialTag` constant from imports. This is to maintain purity. We aren't passing `initialTag` into the reducer _except_ as the default value of the `state` argument. This means that if we were to return `Object.assign({}, state, initialTag)` for `RESET`, the function would no longer be pure: it would utilize data outside its own scope. Instead, we'll pass `initialTag` as the payload when dispatching the `RESET` action in our _component_ rather than in the reducer.
+> **Note:** Notice that the `RESET` case uses the imported `initialTag` object. Because `initialTag` is a _constant_, using it here does not interfere with the reducer's purity.
 
 ### Import Store in App Module
 
@@ -1276,7 +1276,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { RESET } from './../../core/pet-tag.actions';
-import { PetTag, initialTag } from './../../core/pet-tag.model';
+import { PetTag } from './../../core/pet-tag.model';
 
 @Component({
   selector: 'app-complete',
@@ -1286,7 +1286,6 @@ export class CompleteComponent implements OnInit, OnDestroy {
   tagState$: Observable<PetTag>;
   private tagStateSubscription: Subscription;
   petTag: PetTag;
-  emptyTag: PetTag = initialTag;
 
   constructor(private store: Store<PetTag>) {
     this.tagState$ = store.select('petTag');
@@ -1304,8 +1303,7 @@ export class CompleteComponent implements OnInit, OnDestroy {
 
   newTag() {
     this.store.dispatch({
-      type: RESET,
-      payload: this.emptyTag
+      type: RESET
     });
   }
 
@@ -1320,7 +1318,7 @@ Like in our `CreateComponent` smart component, we'll create a `tagState$` observ
 
 In the constructor, we'll assign `tagState$` as the store observable. Then in `ngOnInit()`, we'll _subscribe_ to the observable and set the `petTag` property. In the `ngOnDestroy()` method, we'll clean up our subscribtion by _unsubscribing_.
 
-Finally, our `newTag()` method will dispatch the `RESET` action with the empty tag payload. This "resets" the application state so that a new tag can be customized.
+Finally, our `newTag()` method will dispatch the `RESET` action. This "resets" the application state so that a new tag can be customized.
 
 ### "Complete" Component Template
 
@@ -1443,8 +1441,9 @@ export class AuthService {
           this.router.navigate(['/create']);
         });
       } else if (authResult && !authResult.idToken) {
-        // authentication failed
-        throw Error(`There was an error authenticating: ${authResult}`);
+        // authentication failed: show Lock widget and log a warning
+        this.login();
+        console.warn(`There was an error authenticating: ${authResult}`);
       }
     });
   }
@@ -1619,7 +1618,9 @@ Now our app feels more personalized.
 
 ### Create a Route Guard
 
-We can log in and out of our app, but that doesn't offer much more than simple personalization because none of our routes are _protected_ yet. Unauthenticated users can still access everything if they enter URLs manually. Let's implement a route guard so that only logged in users can create and customize pet tags.
+We can log in and out of our app, but that doesn't offer much more than simple personalization at the moment. Any visitor can still navigate to any route they wish if they simply enter URLs manually. Let's implement a route guard so that routes are activated only for logged in users.
+
+> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with the JWT provided by Auth0 using a `Bearer` header. You can read more on how to do this in the [Auth0 Angular 2 Calling APIs docs](https://auth0.com/docs/quickstart/spa/angular2/08-calling-apis). The [`angular2-jwt` package](https://github.com/auth0/angular2-jwt) we installed provides `AUTH_PROVIDERS` to help accomplish this. When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards.
 
 Create a new file in `src/app/core` called `auth.guard.ts`:
 
