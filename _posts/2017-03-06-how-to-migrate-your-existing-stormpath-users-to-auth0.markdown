@@ -41,13 +41,13 @@ At [Auth0](https://auth0.com), our goal is to provide the best authentication an
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/auth0">@auth0</a> should open user migration to everyone from <a href="https://twitter.com/goStormpath">@goStormpath</a> and gain all those clients that can&#39;t move to okta. <a href="https://twitter.com/hashtag/wearesorry?src=hash">#wearesorry</a></p>&mdash; Tom Compagno (@TomCompagno) <a href="https://twitter.com/TomCompagno/status/838825630078660608">March 6, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**You ask, we deliver :)!**. We're offering database migration feature for free for all Stormpath customers 💥!
+**You ask, we deliver :)!**. We're offering the database migration feature for free for all Stormpath customers 💥!
 
 ## Custom Database Migration Made Easy with Auth0
 
 The most important thing you are probably concerned with right now is how to migrate your existing users with minimal impact to your applications. At Auth0 we hope to greatly reduce your stress and anxiety with our painless user import functionality. 
 
-The way this feature works is by setting up a database connection and connecting it to your Stormpath account. When your users login the first time, they will enter their existing Stormpath credentials and, if authenticated successfully, we will automatically migrate that user account from Stormpath into Auth0. Your users will not have to change their password or jump through any additional hoops and you can decide what data to port over from Stormpath. Next time the user logs in, Auth0 will detect that they have been migrated and authenticate them with their Auth0 account.
+The way this feature works is by setting up a [custom database connection](https://auth0.com/docs/connections/database/mysql) and connecting it to your Stormpath account. When your users login the first time, they will enter their existing Stormpath credentials and, if authenticated successfully, we will automatically migrate that user account from Stormpath into Auth0. Your users will not have to change their password or jump through any additional hoops and you can decide what data to port over from Stormpath. Next time the user logs in, Auth0 will detect that they have been migrated and authenticate them with their Auth0 account.
 
 ![Auth0 User Migration](https://cdn.auth0.com/docs/media/articles/connections/database/migrating-diagram.png)
 
@@ -66,6 +66,10 @@ You can name your connection anything you like. Leave all the default settings a
 Next, let's go into this database connection and connect it to our Stormpath account. Click on your newly created connection and navigate to the **Custom Database** tab. Flip the switch titled "Use my own database" and the **Database Action Scripts** section will be enabled. This is where we will write our code to connect to your existing Stormpath user datastore. We will need to write two scripts: **Login** and **Get User**. **Login** will proxy the login process and **Get User** will manage looking up accounts when a user attempts to reset their password.
 
 ![Enable Custom Database](https://cdn.auth0.com/blog/migrate-stormpath-users/enable-custom-db.png)
+
+With our custom database feature turned on, let's enable the import functionality. By default the custom database connection will allow us to authenticate with an external database. If we want to migrate users from the external platform into Auth0 we'll need to simply toggle a switch. Go to the **Settings** tab of the connection and flip the switch titled "Import Users to Auth0" and you're done.
+
+![Import Users to Auth0 Switch](https://cdn.auth0.com/blog/migrate-stormpath-users/import-to-auth0.png)
 
 One final step we'll do before implementing our scripts is enabling this connection for our default client. Navigate to the **Clients** tab while you are in your database connection and flip the switch to enable this client for the Default Connection. *If you already have an existing Auth0 account, the connection name may be different.*
 
