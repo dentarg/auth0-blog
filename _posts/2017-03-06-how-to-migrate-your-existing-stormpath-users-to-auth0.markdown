@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Easily Migrate Your Existing Stormpath Users to Auth0 "
-description: "Stormpath is shutting down August 18, 2017. Learn how to effortlessly migrate your existing Stormpath users to Auth0 and gain a few new features out-of-the-box. "
+description: "Stormpath is shutting down August 18, 2017. Learn how to effortlessly migrate your existing Stormpath users to Auth0 without requiring your users to reset their passwords and gain a few new features out-of-the-box. "
 date: 2017-03-06 12:30
 category: Migration, Announcement
 author:
