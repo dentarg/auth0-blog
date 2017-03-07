@@ -1479,7 +1479,7 @@ Because we'll be storing the user's profile and access token in local storage, t
 
 Next we need to listen to the Lock instance for the [`hash_parsed` event](https://github.com/auth0/lock#onevent-callback). This is a low-level event that we'll use (instead of the `authenticated` event) in order to handle single page app redirection upon login.
 
-If an `idToken` is present, we'll save it to `localStorage` and use it to retrieve the user's profile information. Once the profile has been successfully retrieved, we can save it to `localStorage` and redirect to the Create page. If there is no `idToken` returned, we'll `throw` an authentication error.
+If an `idToken` is present, we'll save it to `localStorage` and use it to retrieve the user's profile information. Once the profile has been successfully retrieved, we can save it to `localStorage` and redirect to the Create page. If there is no `idToken` returned, we'll reinitialize the login and log an authentication warning.
 
 Finally, we'll implement three methods: `login()`, `logout()`, and the `authenticated` accessor. The `login()` method will simply display the Lock widget so the user can log in with Auth0. The `logout()` method removes the user's token and profile from local storage. The `authenticated` getter checks the JWT to see if it has expired and returns a boolean representing authentication status.
 
