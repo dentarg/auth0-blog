@@ -3,18 +3,21 @@ layout: post
 title: "Using Severless Azure Functions with Auth0 to Access Google APIss"
 description: "TL;DR: Learn how Node.js backend code can access a Google API once a user logs in with Google via the Auth0 Lock widget."
 date: 2017-02-19 8:30
-category: ??
+category: Technical guide
 author:
   name: Steve Lee
   url: https://twitter.com/SteveALee
-  avatar: ??
+  avatar: https://s.gravatar.com/avatar/9cf3b2625e7daf7aa5d01542fbedb2c5
 design:
   bg_color: "#16214D"
   image: https://cdn.auth0.com/blog/ultimate-abm-machine/ABM-logo.png
 tags:
-- ??
+- javascript
+- serverless
+- azure-functions
 related:
-- ??
+- 2016-06-28-building-serverless-apps-with-webtask
+- 2015-10-29-extensibility-through-code-using-webtasks
 ---
 
 *Guest post by @SteveALee of OpenDirective.com*
