@@ -1,28 +1,46 @@
+// Get broser Name
+
+function getBrowserName() {
+  var userAgent = navigator.userAgent;
+  var browserName = (userAgent.match(/opera|chrome|safari|firefox/i) || [])[0];
+  var appName = navigator.appName;
+
+  if (appName === 'Microsoft Internet Explorer') {
+    browserName = 'IE';
+    return browserName;
+  }
+
+  if (navigator.appVersion.indexOf('Edge') > -1) {
+    browserName = 'Edge';
+    return browserName;
+  }
+
+  if (browserName === 'Chrome') {
+    var opr = userAgent.match(/\bOPR/i);
+    if (opr !== null) {
+      browserName = 'Opera';
+      return browserName;
+    }
+
+    return browserName;
+  }else {
+    return browserName;
+  }
+}
+
 // about service worker and push notification
 if (navigator.serviceWorker) {
-  console.log('ServiceWorkers are supported');
-
-  navigator.serviceWorker.register('https://auth0.com/blog/sw.js')
-    .then(function (reg) {
-        console.log('ServiceWorker registered');
-        doesBrowserSupportNotifications();
-      })
-    .catch(function (error) {
-        console.log('Failed to register ServiceWorker', error);
-      });
+  navigator.serviceWorker.register('https://auth0.com/blog/sw.js');
 }
 
 var requestNotificationPermission = function () {
 
   if (Notification.requestPermission) {
     Notification.requestPermission(function (result) {
-      console.log('Notification permission : ', result);
       if (result == 'granted') {
         registerForPush();
       }
     });
-  } else {
-    console.log('Notifications not supported by this browser.');
   }
 };
 
@@ -33,7 +51,6 @@ function registerForPush() {
       function (pushSubscription) {
         // Check we have a subscription to unsubscribe
         if (pushSubscription) {
-          console.warn('subscribed Notification');
           return;
         }
 
@@ -57,16 +74,14 @@ function subscribe(serviceWorkerRegistration) {
             body: JSON.stringify({ 'registration_id': subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1) }),
           })
         .then(function (res) {
-          metricsLib.track('blog:notifications', { 'trackData': 'accepted' });
+          metricsLib.track('blog:notifications:' + browser, { 'trackData': 'accepted' });
         })
         .catch(function (err) {
-          console.err(err);
           return;
         });
 
     })
     .catch(function (error) {
-        console.log('Subscription for Push failed', error);
       });
 }
 
@@ -79,7 +94,6 @@ window.unsubscribePushNotification = function () {
           function (pushSubscription) {
             // Check we have a subscription to unsubscribe
             if (!pushSubscription) {
-              console.warn('Unsubscribed Notification');
               return;
             }
 
@@ -94,49 +108,17 @@ window.unsubscribePushNotification = function () {
                   })
                   .then(function (res) { console.log('unsubscribe'); })
                   .catch(function (err) {
-                    console.err(err);
                     return;
                   });
-              }).catch(function (e) {
-                console.log('Unsubscription error: ', e);
               });
-          }).catch(function (e) {
-              console.error('Error thrown while unsubscribing from push messaging.', e);
-            });
+          });
     });
 };
-
-function doesBrowserSupportNotifications() {
-  var supported = true;
-  if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
-    console.warn('Notifications aren\'t supported in Service Workers.');
-    supported = false;
-  }
-
-  if (!Notification.requestPermission) {
-    console.warn('Notifications are not supported by the browser');
-    supported = false;
-  }
-
-  if (Notification.permission !== 'granted') {
-    console.warn('The user has blocked notifications.');
-    supported = false;
-  }
-
-  // Check if push messaging is supported
-  if (!('PushManager' in window)) {
-    console.warn('Push messaging isn\'t supported.');
-    supported = false;
-  }
-
-  if (supported) {
-    console.log('Everthing is fine you can continue');
-  }
-}
 
 //  popup push subscription
 
 $(document).ready(function ($) {
+  var browser = getBrowserName();
   var valActive;
   function conditionalScroll(scroll) {
     if (valActive) {
@@ -194,6 +176,13 @@ $(document).ready(function ($) {
   }
 
   subscriptionValidation = function () {
+    // if ('safari' in window && 'pushNotification' in window.safari) {
+    //   if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+    //     valActive = true;
+    //     return openPopup();
+    //   }
+    // }
+
     if (navigator.serviceWorker === undefined) { return; }
 
     return navigator.serviceWorker.ready
@@ -201,7 +190,6 @@ $(document).ready(function ($) {
         serviceWorkerRegistration.pushManager.getSubscription()
           .then(
             function (pushSubscription) {
-              console.log(pushSubscription);
 
               // Check subsccription
               if (!pushSubscription && localStorage.getItem('pn-subscription') != 'false') {
@@ -213,19 +201,57 @@ $(document).ready(function ($) {
       });
   };
 
+  window.subscriptionValidationSafari = function () {
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+        valActive = true;
+        return openPopup();
+      }
+    }
+  };
+
   // popup buttons
   $('#push-allow').on('click', function (e) {
     $('.pn-popup').removeClass('pn-is-visible');
     valActive = false;
-    requestNotificationPermission();
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      pnSafari();
+    } else {
+      requestNotificationPermission();
+    }
   });
 
   $('#push-block').on('click', function (e) {
     $('.pn-popup').removeClass('pn-is-visible');
     valActive = false;
     localStorage.setItem('pn-subscription', 'false');
-    metricsLib.track('blog:notifications', { 'trackData': 'declined' });
+    metricsLib.track('blog:notifications:' + browser, { 'trackData': 'declined' });
   });
 
+  window.pnSafari = function(){
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      var permissionData = window.safari.pushNotification.permission('web.com.auth0');
+      checkRemotePermission(permissionData);
+    }
+  }
+
+  function checkRemotePermission(permissionData) {
+    if (permissionData.permission === 'default') {
+      window.safari.pushNotification.requestPermission(
+        'https://safari-web-service.herokuapp.com', // The web service URL.
+        'web.com.auth0.website',                    // The Website Push ID.
+        {},            // Data that you choose to send to your server to help you identify the user.
+        checkRemotePermission                     // The callback function.
+      );
+    }else if (permissionData.permission === 'denied') {
+      localStorage.setItem('pn-subscription', 'false');
+      metricsLib.track('blog:notifications:' + browser, { 'trackData': 'declined' });
+    }else if (permissionData.permission === 'granted') {
+      localStorage.setItem('permissionAllow', 'true');
+      metricsLib.track('blog:notifications:' + browser, { 'trackData': 'accepted' });
+    }
+  }
+
   subscriptionValidation();
+
 });

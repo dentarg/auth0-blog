@@ -268,10 +268,13 @@ For the basic example, we'll have a route that will generate a new JWT for us. W
   	/* Create the token */
     token := jwt.New(jwt.SigningMethodHS256)
 
+    /* Create a map to store our claims
+    claims := token.Claims.(jwt.MapClaims)
+
     /* Set token claims */
-    token.Claims["admin"] = true
-    token.Claims["name"] = "Ado Kukic"
-    token.Claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+    claims["admin"] = true
+    claims["name"] = "Ado Kukic"
+    claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
 
     /* Sign the token with our secret */
     tokenString, _ := token.SignedString(mySigningKey)
@@ -506,9 +509,10 @@ package main
 
 import(
   ...
+  "errors"
   "github.com/joho/godotenv"
-  "github.com/dgrijalva/jwt-go"
-  "github.com/auth0/go-jwt-middleware"
+  jwt "github.com/dgrijalva/jwt-go"
+  jwtmiddleware "github.com/auth0/go-jwt-middleware"
 )
 
 func main() {
@@ -532,11 +536,11 @@ func main() {
 
 var jwtMiddleware = jwtmiddleware.New(jwtmiddleware.Options{
   ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
-  decoded, err := base64.URLEncoding.DecodeString(os.Getenv("AUTH0_CLIENT_SECRET"))
-  if err != nil {
-    return nil, err
+  token, err := os.Getenv("AUTH0_CLIENT_SECRET")
+  if len(token) == 0 {
+    return nil, errors.New("Auth0 Client Secret Not Set")
   }
-  return decoded, nil
+  return token, nil
   },
 })
 ```

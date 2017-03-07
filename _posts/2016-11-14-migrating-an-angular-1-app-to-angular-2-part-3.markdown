@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Migrating an Angular 1 App to Angular 2 - Part 3"
-description: "Learn how to migrate real-world features of an Angular 1 application to a fresh Angular 2 build (Part 3): routing  & API with params, authentication."
+title: "Migrating an AngularJS App to Angular - Part 3"
+description: "Learn how to migrate real-world features of an AngularJS 1 application to a fresh Angular 2+ build (Part 3): routing  & API with params, authentication."
 date: 2016-11-14 8:30
 category: Technical Guide, Angular, Migration
 banner:
-  text: "Auth0 makes it easy to add authentication to your Angular 2 application."
+  text: "Auth0 makes it easy to add authentication to your Angular  application."
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"
@@ -28,7 +28,12 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <strong>Get the "Migrating an AngularJS App to Angular book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-487"></i>
+  The <a href="http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html">Branding Guidelines for Angular</a> state that version 1.x should be referred to as <em>AngularJS</em>, whereas all releases from version 2 and up are named <em>Angular</em>. This migration article will continue to use "Angular 1" to refer to AngularJS (1.x) and "Angular 2" to refer to Angular (2 and up) in order to clearly differentiate the frameworks and reduce confusion.
 </div>
 
 **TL;DR:** Many AngularJS 1.x developers are interested in Angular 2, but the major differences between versions 1 and 2 are daunting when we have so many Angular 1 apps already in production or maintenance. In [Part 1](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-1) and [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2) of this tutorial we set up our Angular 2 app, migrated the basic architecture, routing, API, and more. In this final installment we'll finish our app! The final code for our Angular 2 app can be cloned from the [ng2-dinos GitHub repo](https://github.com/auth0-blog/ng2-dinos).
@@ -68,7 +73,7 @@ Our Angular 1 ng1-dinos app shows a dinosaur's details when we click on one in t
 Let's create a new detail component:
 
 ```bash
-ng g component pages/detail
+$ ng g component pages/detail
 ```
 
 ### Routing with Parameters
@@ -616,14 +621,14 @@ The first thing you'll need is an Auth0 account. Follow these simple steps to ge
 
 ### Setup and Dependencies
 
-First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.6 for our tutorial:
+First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.11 for our tutorial:
 
 {% highlight html %}
 <!-- ng2-dinos/src/index.html -->
 
 ...
   <!-- Auth0 Lock widget -->
-  <script src="https://cdn.auth0.com/js/lock/10.6/lock.min.js"></script>
+  <script src="https://cdn.auth0.com/js/lock/10.11/lock.min.js"></script>
 </head>
 ...
 {% endhighlight %}
@@ -631,7 +636,7 @@ First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using ve
 Next we need the [`angular2-jwt` helper library](https://github.com/auth0/angular2-jwt). Install this with npm:
 
 ```bash
-npm install angular2-jwt --save
+$ npm install angular2-jwt --save
 ```
 
 ### Create an Authentication Service
@@ -639,7 +644,7 @@ npm install angular2-jwt --save
 We need an Angular 2 service to implement login functionality and authentication methods. We can use the CLI to generate the boilerplate in the `ng2-dinos/src/app/core/` folder:
 
 ```bash
-ng g service core/auth
+$ ng g service core/auth
 ```
 
 Open the new `auth.service.ts` file and add the following code. We'll go over this in detail below:
@@ -653,6 +658,8 @@ import { tokenNotExpired } from 'angular2-jwt';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
+declare var localStorage: any;
+declare var window: any;
 
 @Injectable()
 export class AuthService {
@@ -724,7 +731,7 @@ export class AuthService {
 
 As always, first we'll talk about the imports. `Injectable` is necessary for any injectable service and is provided by the boilerplate. We'll want to use `Router` to redirect the authenticated user back to the route they logged in from. We also need `tokenNotExpired` from `angular2-jwt` to get a user's authentication state.
 
-In order to avoid TypeScript name not found warnings, we'll declare `Auth0Lock`'s type annotation as `any`.
+In order to avoid TypeScript name not found warnings, we'll declare type annotations for `Auth0Lock`, `localStorage`, and `window`.
 
 Then we'll create a new lock instance:
 
@@ -770,7 +777,7 @@ Finally, we'll implement a way to check the current authentication state of the 
 
 Our authentication service is now ready for use! We'll provide it at the app level in `app.module.ts`:
 
-```typescript
+```js
 // ng2-dinos/src/app/app.module.ts
 
 ...
@@ -804,7 +811,7 @@ We want to be able to use methods from the `AuthService` in our header template 
 ...
 import { AuthService } from '../core/auth.service';
 ...
-constructor(..., private auth: AuthService) { }
+constructor(..., public auth: AuthService) { }
 ...
 ```
 

@@ -1,13 +1,10 @@
  var link;
-self.addEventListener('push', function(event) {
-    console.log('Received a push message', event);
+self.addEventListener('push', function (event) {
     event.waitUntil(
-        fetch('last.json').then(function(response){
-            console.log(response);
+        fetch('last.json').then(function (response) {
             return response.json();
         }).then(function(data){
-            console.log('data', data);
-            link = data.link;
+            link = data.link + '?utm_source=notifications-chrome&utm_medium=sc&utm_campaign=notifications';
             return self.registration.showNotification('New article in Auth0 blog!', {
                 body: data.title,
                 icon: data.thumbnail,
@@ -18,7 +15,6 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-    console.dir(event);
     event.waitUntil(
         clients.matchAll({
             type: "window"

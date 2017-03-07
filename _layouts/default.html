@@ -164,6 +164,8 @@
         integratedWindowsLogin: false,
         socialButtonStyle: 'big',
         languageDictionary: {
+          emailInputPlaceholder: 'Work email',
+          passwordInputPlaceholder: 'Your password',
           signUpTerms: 'By signing up, you agree to our <a href="/terms" target="_new">terms of service</a> and <a href="/privacy" target="_new">privacy policy</a>'
         }
       };
@@ -652,9 +654,14 @@
           // Social Buttons
           $('.social-stats .network').cSButtons();
 
-          // Force al content links to blank
+          // Force content links to _blank if not explicitly set to _self
           $('.entry-content a').each(function() {
-            $(this).attr('target', '_blank');
+            var _$this = $(this);
+            var _target = _$this.attr('target');
+              
+            if (_target !== '_self') {
+             _$this.attr('target', '_blank');
+            }
           });
 
           // Handle scroll pos
