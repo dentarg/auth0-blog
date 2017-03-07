@@ -292,7 +292,7 @@ The [`ng g` command (or its longform, `ng generate`)](https://github.com/angular
 
 ## Create a Routing Module
 
-Let's build a separate `NgModule` to support routing. Create a new file in the `src/app/core` folder called `app-routing.module.ts`:
+Let's build a separate [`NgModule`](https://auth0.com/blog/angular-2-ngmodules/) to support routing. Create a new file in the `src/app/core` folder called `app-routing.module.ts`:
 
 ```typescript
 // src/app/core/routing-module.ts
@@ -1620,7 +1620,7 @@ Now our app feels more personalized.
 
 We can log in and out of our app, but that doesn't offer much more than simple personalization at the moment. Any visitor can still navigate to any route they wish if they simply enter URLs manually. Let's implement a route guard so that routes are activated only for logged in users.
 
-> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with the JWT provided by Auth0 using a `Bearer` header. You can read more on how to do this in the [Auth0 Angular 2 Calling APIs docs](https://auth0.com/docs/quickstart/spa/angular2/08-calling-apis). The [`angular2-jwt` package](https://github.com/auth0/angular2-jwt) we installed provides `AUTH_PROVIDERS` to help accomplish this. When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards.
+> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with the JWT provided by Auth0 using a `Bearer` header. You can read more on how to do this in the [Auth0 Angular 2 Calling APIs docs](https://auth0.com/docs/quickstart/spa/angular2/08-calling-apis). The [`angular2-jwt` package](https://github.com/auth0/angular2-jwt) we installed provides `AUTH_PROVIDERS` to help accomplish this. When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards. You can read more about securing a Node API in the [Angular 2 Authentication tutorial here](https://auth0.com/blog/angular-2-authentication/).
 
 Create a new file in `src/app/core` called `auth.guard.ts`:
 
