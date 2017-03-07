@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to migrate your existing Stormpath users to Auth0 (without requiring password resets)"
+title: "Easily Migrate Your Existing Stormpath Users to Auth0 "
 description: "Stormpath is shutting down August 18, 2017. Learn how to effortlessly migrate your existing Stormpath users to Auth0 and gain a few new features out-of-the-box. "
 date: 2017-03-06 12:30
 category: Migration, Announcement
@@ -24,7 +24,7 @@ tags:
 
 ---
 
-**TL;DR** Stormpath announced today that it was acquired by Okta. As a result, the Stormpath API will be shutting down this coming August as the team transitions to Okta. Customers have until August 18, 2017 to export their user data to Okta or a different provider. Find out how to easily migrate your users to Auth0 without requiring your users to reset their passwords and some additional benefits you'll gain by making the switch.
+**TL;DR** Stormpath announced today that it was acquired by Okta. As a result, the Stormpath API will be shutting down this coming August as the team transitions to Okta. Customers have until August 18, 2017 to export their user data to Okta or a different provider. Find out how to easily migrate your users to Auth0 without requiring your users to reset their passwords and some additional benefits you'll gain by making the switch. If you would like to follow along with our demo, download the sample app from [GitHub](https://github.com/auth0-blog/migrate-stormpath-users-to-auth0/tree/master/).
 
 ---
 
@@ -32,7 +32,7 @@ tags:
 
 ![Acquisition announcement](https://cdn.auth0.com/blog/migrate-stormpath-users/acquisition.png)
 
-Acquisitions in the software industry are a norm. What is surprising about this acquisition is that the Stormpath product will be shut down later this year as the team transitions to Okta leaving many customers to scramble to find an alternative. Customers have until **August 18, 2017** to find a new provider, get it up and running, and export their existing users. This could be a challenging amount of unexpected work in such a short time frame.
+Acquisitions in the software industry are a norm. What is surprising about this acquisition is that the Stormpath product will be shut down later this year as the team transitions to Okta and many customers will have to find an alternative. Customers have until **August 18, 2017** to find a new provider, get it up and running, and export their existing users. This could be a challenging amount of unexpected work in such a short time frame.
 
 {% include tweet_quote.html quote_text="Stormpath customers have until August 18, 2017 to migrate off the platform as it is being shut down!" %}
 
@@ -41,7 +41,7 @@ At [Auth0](https://auth0.com), our goal is to provide the best authentication an
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/auth0">@auth0</a> should open user migration to everyone from <a href="https://twitter.com/goStormpath">@goStormpath</a> and gain all those clients that can&#39;t move to okta. <a href="https://twitter.com/hashtag/wearesorry?src=hash">#wearesorry</a></p>&mdash; Tom Compagno (@TomCompagno) <a href="https://twitter.com/TomCompagno/status/838825630078660608">March 6, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**We are doing just that!**
+**You ask, we deliver :)!**
 
 ## Custom Database Migration Made Easy with Auth0
 
@@ -55,7 +55,7 @@ Talk is cheap, so let me actually walk you through the steps.
 
 ### Implementing the Database Migration Scripts
 
-First of all you will need an Auth0 account. <a href="javascript:signup()">Signup for free here.</a> With your account created, let's setup a custom database connection. In your Auth0 [management dashboard](https://manage.auth0.com), navigate to the **Connections** and then **Database** menu. On this page, click on the **Create DB Connection** button in the top right corner.
+First of all you will need an Auth0 account. <a href="javascript:signup()">Signup for free here.</a> With your account created, let's setup a custom database connection. In your Auth0 [management dashboard](https://manage.auth0.com), navigate to the [database connections](https://manage.auth0.com/#/connections/database) section.
 
 ![Create DB Connection](https://cdn.auth0.com/blog/migrate-stormpath-users/create-db-connection.png)
 
@@ -260,6 +260,6 @@ We want to make your switch to Auth0 as painless as possible, so we are making t
 
 ## Conclusion
 
-Stormpath will be shutting down their authentication and authorization API's this summer. Customers have until August 18, 2017 to move off the platform. At Auth0, we hope to give existing Stormpath customers an easy and smooth transition plan. Our database migration feature can start migrating your users today!
+Stormpath will be shutting down their authentication and authorization API's this coming August. Customers have until August 18, 2017 to move off the platform. At Auth0, we hope to give existing Stormpath customers an easy and smooth transition plan. Our database migration feature can start migrating your users today!
 
 If you are affected by the Stormpath news and want to easily migrate your users, give Auth0 a try, <a href="javascript:signup()">sign up for a free account</a> and get started today.
