@@ -41,7 +41,7 @@ At [Auth0](https://auth0.com), our goal is to provide the best authentication an
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/auth0">@auth0</a> should open user migration to everyone from <a href="https://twitter.com/goStormpath">@goStormpath</a> and gain all those clients that can&#39;t move to okta. <a href="https://twitter.com/hashtag/wearesorry?src=hash">#wearesorry</a></p>&mdash; Tom Compagno (@TomCompagno) <a href="https://twitter.com/TomCompagno/status/838825630078660608">March 6, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**You ask, we deliver :)!**
+**You ask, we deliver :)!**. We're offering database migration feature for free for all Stormpath customers 💥!
 
 ## Custom Database Migration Made Easy with Auth0
 
