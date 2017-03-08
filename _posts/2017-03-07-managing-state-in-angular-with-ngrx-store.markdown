@@ -140,7 +140,7 @@ Make sure you have [Node.js with npm](https://nodejs.org/en/) installed (LTS dow
 Next, we'll install the [Angular CLI](https://cli.angular.io/) for scaffolding and serving our app. Run the following command to install [angular-cli](https://github.com/angular/angular-cli) globally:
 
 ```bash
-$ npm install -g angular-cli
+$ npm install -g @angular/cli
 ```
 
 This will install the latest version of the Angular CLI tool. Keep in mind that the Angular CLI just came out of beta and is now into release candidates at the time of writing. Updates are still to be expected. If you need to update your Angular CLI installation at any time, refer to the [Angular CLI GitHub README here](https://github.com/angular/angular-cli).
