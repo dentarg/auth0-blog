@@ -2,13 +2,13 @@
 layout: post
 title: "3 Easy Practical Steps You Can Take To Drive More Users To Convert"
 description: "Yes, your login can help you raise your conversion rate — here's how."
-date: 2017-01-24 8:30
-category: Technical Guide
-author:
-  name: "Bruno Krebs"
-  url: "https://twitter.com/brunoskrebs"
-  mail: "krebs.bruno@gmail.com"
-  avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
+date: 2017-03-08 8:30
+category: Growth, Generic
+author: 
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
   image: https://cdn.auth0.com/blog/ga/more-users-logo.png
   bg_color: "#689C9E"
