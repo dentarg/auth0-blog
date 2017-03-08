@@ -97,4 +97,4 @@ If you like using our [CLI](https://webtask.io/cli?utm_source=auth0.com&utm_medi
 ![CLI support](https://cdn.auth0.com/webtask/assets/images/from-cli.gif)
 
 ## Go try it! 
-The new Webtask Editor is an amazing tool for Serverless development. It will let you instantly go from idea => code => running. Not only do you get a rich browser based authoring experience, but you get a tool to secure, test, and debug your code. Go get started playing with the Webtask editor now [webtask.io/make](https://webtask.io/make?utm_source=auth0.com&utm_medium=blog&utm_campaign=webtask_editor_launch).
+The new Webtask Editor is an amazing tool for Serverless development. It will let you instantly go from idea => code => running. Not only do you get a rich browser based authoring experience, but you get a tool to secure, test, and debug your code. Go get started playing with the Webtask editor now [webtask.io/make](https://webtask.io/make?utm_source=auth0.com&utm_medium=blog&utm_campaign=webtask_editor_launch). Also check out our documentation at [webtask.io/docs/editor](https://webtask.io/docs/editor?utm_source=auth0.com&utm_medium=blog&utm_campaign=webtask_editor_launch).
