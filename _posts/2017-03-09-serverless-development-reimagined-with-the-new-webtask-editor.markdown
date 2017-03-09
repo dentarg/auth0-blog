@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Serverless development reimagined with the new Webtask Editor"
-description: <A SHORT DESCRIPTION OF THE POST>
-date: 2017-03-07 16:02
+description: We've just shipped a brand new editor for Webtask to go from 0 to code in seconds!
+date: 2017-03-09 16:02
 category: Technical Guide, Serverless, Webtask
 author: 
   name: Javier Centurion
