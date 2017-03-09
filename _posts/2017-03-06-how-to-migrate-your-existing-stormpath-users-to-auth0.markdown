@@ -207,7 +207,7 @@ Both of these values can be found in your Auth0 [management dashboard](https://m
 
 With these values configured save the file and run `npm install`. Once npm has installed all the required dependencies, run the project by executing `npm start`. Navigate to `localhost:3000` to see the app in action.
 
-![Angular 2 Frontend](https://cdn.auth0.com/blog/migrate-stormpath-users/frontend.png)
+![Angular 2 Frontend](https://cdn.auth0.com/blog/migrate-stormpath-users-to-auth0/app-new.png)
 
 Click on the **Login** button to login to your application. Clicking the **Login** button will bring up the Auth0 [Lock](https://auth0.com/lock) widget and ask the user to provide their email and password. Here, the user will provide their Stormpath email and password credentials and if they are correct they will be logged in. If you don't already have a Stormpath user account you can login with, go into your Stormpath dashboard and create an account. Now login with your Stormpath user credentials.
 
@@ -241,7 +241,7 @@ auth0.signingAlgorithm: HS256
 With this update in place, you should be able to build the application by running:
 
 ```
-mvn spring-boot:run -Drun.arguments="--auth0.clientSecret=YOUR_SECRET_KEY"
+mvn spring-boot:run -Drun.arguments="--auth0.secret=YOUR_SECRET_KEY"
 ```
 
 If the application was built successfully, you will be able to access the API at `localhost:4000`. The two routes that are exposed by this application that we care about are `/public` and `/secure`. The `/public` route will be accessible by everyone, while the `/secure` route will return a successful response only if the user is authenticated and passes the correct credentials. 
@@ -251,6 +251,10 @@ If the application was built successfully, you will be able to access the API at
 Once your backend is up and running go back to your frontend application and try clicking on the the two links `Call Public API` and `Call Private API`. The public API you will be able to access even when not logged in. For the private API, you will need to be logged in to call the route and get the appropriate response.
 
 ![Accessing Private API](https://cdn.auth0.com/blog/migrate-stormpath-users/private-api.png)
+
+We also used Angular 2 to add some dynamic classes. So if the user is logged in we'll make both of the buttons green to indicate they can be clicked.
+
+![App when logged in](https://cdn.auth0.com/blog/migrate-stormpath-users-to-auth0/app-logged-in.png)
 
 ## Go Further with Auth0
 
