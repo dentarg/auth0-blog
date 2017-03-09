@@ -44,12 +44,12 @@ https://ssir.org/articles/entry/innovation_labs_10_defining_features
 Innovation labs may have several aims, including but not limited to:
 
 * **Ideation**: cultivating ideas and collaboration through hackathons, internal proposals, demos, and more.
-* **Attracting talent**: companies that stay on the cusp of cutting-edge technology and foster a culture of innovation are more attractive to prospective employees.
+* **Attracting talent**: companies that stay on the cusp of cutting-edge technology and foster a culture of innovation are more attractive to skilled, prospective employees.
 * **Long-term revenue**: new products, services, and other offerings can have substantial long-term returns. In addition, bringing more ideation and production in-house reduces long-term costs.
 
 ## Identity Innovation
 
-Innovations in identity technology have led us to more secure and more dynamic tools and practices.
+Innovations in identity technology have led us to more secure and more dynamic tools and practices. Let's examine a few examples.
 
 ### Frictionless Authentication with Passwordless
 
@@ -57,5 +57,11 @@ The evolution of [Passwordless authentication](https://auth0.com/passwordless) h
 
 In fact, Passwordless biometric security is steadily gaining traction with identity innovations such as the [Biometric Wallet from Hammacher Schlemmer](http://www.hammacher.com/Product/81863) and [biometric credit card technology](http://www.sdcexec.com/news/12214482/new-biometric-credit-card-technology-is-an-important-advance-in-fraud-prevention).
 
+### Personalization with Identity Data
+
+Data collected from user identity can be very valuable for increasing ROI by providing a personalized experience to users. Retailers make use of consumer data by providing product suggestions, personalizing ads
+
 http://www.datamentors.com/blog/how-personalize-retail-experience-data
+
+### Using Identity Data to Improve Security
 
