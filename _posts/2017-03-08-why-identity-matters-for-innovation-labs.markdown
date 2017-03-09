@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why Identity Matters for Innovation Labs"
-description: "Description goes here and must be less than 156 characters."
+description: "Learn about identity innovations, and why identity matters for innovation labs."
 date: 2017-03-08 8:30
 category: Growth, DemandGen
 banner:
@@ -20,18 +20,9 @@ tags:
 - growth
 - demand-generation
 related:
-- date-post-name
-- date-post-name
+- 2017-02-03-how-enterprise-federation-helps-shorten-the-sales-cycle
+- 2017-01-25-how-to-build-your-user-analytics-funnel-with-social-login
 ---
-
-It should be Why identity matters for Innovation Labs.  - Then we talk about first using identity for innovation (discuss 3-4 use cases of innovation with identity maybe passwordless, a retail example social data for personalization, the more creative, the better).  then the second half should be focused on time savings for innovation labs, so that basic Authentication work does not slow them down.
-
-[1:05]  
-Here are some innovation lab articles if that helps,
-https://www.cbinsights.com/blog/corporate-innovation-labs/
-https://econsultancy.com/blog/68356-what-is-an-innovation-lab-and-how-do-they-work/
-http://www.innovationlabs.com/innovation-services/innovation-labs/
-https://ssir.org/articles/entry/innovation_labs_10_defining_features
 
 **TL;DR:** Innovation drives technology and **innovation labs** are critical for propelling the technology industry forward. Find out about innovative accomplishments with identity, and why identity matters for innovation labs.
 
@@ -39,7 +30,7 @@ https://ssir.org/articles/entry/innovation_labs_10_defining_features
 
 ## What are Innovation Labs?
 
-**Innovation labs** are initiatives designed to promote and grow innovative thinking, services, and products. There are many ways that businesses approach the promotion of innovation, including forming strategic units or simply providing avenues for workers to network and collaborate. Some examples of corporate innovation labs include [Research at Google](https://research.google.com/), [Microsoft Research Lab](https://www.microsoft.com/en-us/research/), [Oracle Labs](https://labs.oracle.com/pls/apex/f?p=labs:15:0), [and more](https://www.cbinsights.com/blog/corporate-innovation-labs/).
+**Innovation labs** are initiatives designed to promote and grow innovative thinking, services, and products. There are many ways that businesses approach the promotion of innovation, including forming strategic units or simply providing avenues for workers to network and collaborate. Some examples of corporate innovation labs include [Research at Google](https://research.google.com/), [Microsoft Research Lab](https://www.microsoft.com/en-us/research/), [Oracle Labs](https://labs.oracle.com/pls/apex/f?p=labs:15:0), [iLab at Harvard](https://i-lab.harvard.edu/), [and more](https://www.cbinsights.com/blog/corporate-innovation-labs/).
 
 Innovation labs may have several aims, including but not limited to:
 
@@ -59,9 +50,42 @@ In fact, Passwordless biometric security is steadily gaining traction with ident
 
 ### Personalization with Identity Data
 
-Data collected from user identity can be very valuable for increasing ROI by providing a personalized experience to users. Retailers make use of consumer data by providing product suggestions, personalizing ads
+Data collected from user identity is valuable for increasing ROI by providing a personalized experience to users. Retailers make use of consumer data by providing product suggestions, personalizing ads, and sending personalized emails. 
 
-http://www.datamentors.com/blog/how-personalize-retail-experience-data
+For example, [Qubit](http://www.qubit.com/) leverages analytics and visitor behavior to tailor e-commerce experiences to each user. Utilizing identity information like the user's location along with data like purchase history, preferences, checkout speed, and more enables highly focused personalization and targeting.
 
 ### Using Identity Data to Improve Security
 
+Innovations with identity _data_ have led to greatly enhanced security. [Anomaly detection](https://auth0.com/learn/anomaly-detection/) is the identification of unusual data points in a set. For example, if a user normally logs into an application from New York City, USA, a login with the same credentials from Brisbane, Australia is an outlier and could potentially indicate malicious activity. Identity data can be used to detect a multitude of different anomalies, including location, time, [repeated failed login attempts](https://en.wikipedia.org/wiki/Brute-force_attack), authentication from new devices, and much more.
+
+When an identity data anomaly has been detected, steps can be taken to mitigate risk. The user can be notified of potentially malicious activity and asked to verify their identity, their account can be frozen in the case of a brute force attack, or their credentials can be reset such as in the case of [breached passwords](https://auth0.com/breached-passwords).
+
+## Why Identity Matters for Innovation Labs
+
+Swift development, flexibility, and focus on ideation and growth are vital for innovation labs. When producing an innovative product or application, it's important for innovators to be able to hone their craft and not have to expend hundreds of hours worrying about identity management and authentication security.
+
+Auth0 is an Identity-as-a-Service (IDaaS) solution that works with any application built on any framework. Auth0 also supports a multitude of identity providers, including popular social platforms like Twitter and Facebook as well as enterprise providers such as Active Directory. Integration is swift and easy, and can be implemented in just a few minutes.
+
+![importance of identity for innovation labs](https://cdn.auth0.com/blog/innovation-labs/innovation-labs.png)
+
+> _"I'm a big proponent of letting experts do what they do best ... I didn't want to rely on building [an identity management solution] ourselves."_
+>
+>— _David Bernick, [Harvard Medical School](https://auth0.com/learn/harvard-medical-school-identity-secures-nih-research/)_
+
+Innovation labs can reap numerous benefits from utilizing Auth0 as an identity management solution, including:
+
+### Reduction in Engineering Time and Costs
+
+Auth0 enables easy integration with any application on any framework, be it Node.js, PHP, .NET, Swift, Java, Angular, etc. [Extensive documentation](https://auth0.com/docs) and SDKs are available to jumpstart development and reduce the engineering time and effort needed to implement a robust authentication solution. Auth0 integrates with dozens of social and enterprise providers at the flip of a switch, and also supports Single Sign-On with minimal coding.
+
+### Flexibility and Extensibility
+
+Auth0's login functionality and fine-grained authorization permissions are easily customized with [rules](https://auth0.com/docs/rules). Numerous extensions are also available for additional features such as logging, GitHub Deployments, and much more. Metadata can be added to users manually or via rules. Even the Auth0 login widget, called [Lock](https://auth0.com/lock), can either be used out-of-the-box, or replaced with a fully customized user interface.
+
+### Increased Security
+
+Auth0 supplies Multifactor authentication and Passwordless at the click of a button. The solution also provides highly customizable anomaly detection in addition to breached password and brute force protection. Auth0 is peer reviewed by international security experts and complies with standards such as SAML, OAuth, WS-Federation, and certifications like OpenID Connect, SOC2, HIPAA, etc.
+
+## Innovate Without Worrying About Identity
+
+Rapidfire development, excellent flexibility, and reduced time to market are vital for innovation to blossom in the technology industry. Auth0 provides services that enable these fundamental tenets of tech innovation. With Auth0, innovation labs can focus on producing groundbreaking offerings without worrying about authentication security and identity management.
