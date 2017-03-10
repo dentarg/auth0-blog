@@ -22,7 +22,7 @@ related:
 
 *Guest post by [@SteveALee](https://twitter.com/@SteveALee) of [OpenDirective.com](http://opendirective.com)*
 
-**TL;DR:** Learn how Node.js backend code can access a Google API once a user logs in with Google via the Auth0 Lock widget.
+**TL;DR:** Learn how Node.js backend code via Azure Functions can access a Google API once a user logs in with Google via the Auth0 Lock widget.
 
 ---
 
@@ -217,7 +217,7 @@ module.exports = jwtValidateDecorator((context, req) => {
             return getAlbums(google_access_token)
         })
         // Get the album titles
-        .then(({object: {feed: {entry}}}) => {  // FIXME handle no entry
+        .then(({object: {feed: {entry}}}) => {
             const titles = entry.map(ent => ent.title.$t)   
             return {
                 status: 200,
