@@ -1088,8 +1088,8 @@ render() {
         <div className="container">
             <h1 className="page-header">Docker Dashboard</h1>
             <DialogTrigger id="newContainerModal" buttonText="New container" />
-            <ContainerListComponent title="Running" containers={this.state.containers} />
-            <ContainerListComponent title="Stopped containers" containers={this.state.stoppedContainers} />
+            <ContainerList title="Running" containers={this.state.containers} />
+            <ContainerList title="Stopped containers" containers={this.state.stoppedContainers} />
 
             <NewContainerDialog id="newContainerModal" onRunImage={this.onRunImage.bind(this)} />
         </div>
