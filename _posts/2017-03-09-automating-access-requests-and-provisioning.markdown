@@ -16,9 +16,10 @@ design:
   image_bg_color: "#2f3342"
   image_size: "90%"
 tags: 
-- foo
+- provisioning, access requests, tools
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2016-06-28-building-serverless-apps-with-webtask
+- 2016-12-13-announcing-authorization-extension-v2
 ---
 ## Automating Access Requests & Provisioning
 _A deep look at how we automated our employee access request system_
