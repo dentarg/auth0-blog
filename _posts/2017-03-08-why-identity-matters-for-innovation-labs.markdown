@@ -2,7 +2,7 @@
 layout: post
 title: "Why Identity Matters for Innovation Labs"
 description: "Learn about identity innovations, and why identity matters for innovation labs."
-date: 2017-03-08 8:30
+date: 2017-03-15 8:30
 category: Growth, DemandGen
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -12,8 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/innovation-labs/innovation-lab-logo.png
+  bg_color: "#38383F"
 tags:
 - innovation-labs
 - modern-identity
@@ -52,7 +52,7 @@ In fact, Passwordless biometric security is steadily gaining traction with ident
 
 Data collected from user identity is valuable for increasing ROI by providing a personalized experience to users. Retailers make use of consumer data by providing product suggestions, personalizing ads, and sending personalized emails. 
 
-For example, [Qubit](http://www.qubit.com/) leverages analytics and visitor behavior to tailor e-commerce experiences to each user. Utilizing identity information like the user's location along with data like purchase history, preferences, checkout speed, and more enables highly focused personalization and targeting.
+For example, [Qubit](http://www.qubit.com/) leverages analytics and visitor behavior to tailor e-commerce experiences to each user. Utilizing identity information like the user's location along with data like purchase history, preferences, checkout speed, and more enables highly focused personalization and targeting. About [60% of consumers agree that "retailers who personalize their shopping experience make it easier to find the products that are most interesting"](http://www.marketingcharts.com/online/online-shoppers-prove-receptive-to-retailers-personalization-tactics-27413/).
 
 ### Using Identity Data to Improve Security
 
@@ -62,7 +62,7 @@ When an identity data anomaly has been detected, steps can be taken to mitigate 
 
 ## Why Identity Matters for Innovation Labs
 
-Swift development, flexibility, and focus on ideation and growth are vital for innovation labs. When producing an innovative product or application, it's important for innovators to be able to hone their craft and not have to expend hundreds of hours worrying about identity management and authentication security.
+Swift development, flexibility, and focus on ideation and growth are vital for innovation labs. When producing an innovative product or application, it's important for innovators to be able to hone their craft and not have to expend hundreds of hours worrying about managing identity and securing authentication.
 
 Auth0 is an Identity-as-a-Service (IDaaS) solution that works with any application built on any framework. Auth0 also supports a multitude of identity providers, including popular social platforms like Twitter and Facebook as well as enterprise providers such as Active Directory. Integration is swift and easy, and can be implemented in just a few minutes.
 
