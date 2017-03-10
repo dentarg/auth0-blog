@@ -16,7 +16,9 @@ design:
   image_bg_color: "#2f3342"
   image_size: "90%"
 tags: 
-- provisioning, access requests, tools
+- provisioning
+- access requests
+- tools
 related:
 - 2016-06-28-building-serverless-apps-with-webtask
 - 2016-12-13-announcing-authorization-extension-v2
