@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Using Severless Azure Functions with Auth0 to Access Google APIss"
-description: "TL;DR: Learn how Node.js backend code can access a Google API once a user logs in with Google via the Auth0 Lock widget."
-date: 2017-02-19 8:30
+description: "Learn to use Node with Azure Functions with Google APIs and Auth0."
+date: 2017-03-10 8:30
 category: Technical guide
 author:
   name: Steve Lee
@@ -22,23 +22,25 @@ related:
 
 *Guest post by @SteveALee of OpenDirective.com*
 
+**TL;DR:** Learn how Node.js backend code can access a Google API once a user logs in with Google via the Auth0 Lock widget.
+
 Without a doubt, authentication for web apps is one of the most complex features to implement correctly. If you’re not careful, it will eat a large chunk of your development time. Worse, if you don't get it exactly right you're left vulnerable to being hacked, which will take even more of your precious time, not to mention damaging your reputation. Therefore, it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business. However, even when using Auth0 some scenarios are still complex to figure out and code. Typically and "true to form", I picked one of these complex cases as my first attempt at auth for a Single Page App (SPA) Software as a Service (SaaS) product.
 
-This post is the story of my experience along with some working JavaScript code for Azure Functions with Auth0. 
+This post is the story of my experience along with some working JavaScript code for [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) with [Auth0](https://www.auth0.com). 
 
-##Serverless Architecture##
-Azure Functions are part of Microsoft’s offering in the relatively new Serverless Architecture space. Sometime referred to as Functions as a Service (FaaS), Serverless Architecture allows you to concentrate your development offerts on you ‘Business Logic’ or backend application code. In this extension of Platform As a Service (PaaS), Microsoft manage all the lower layers of the hardware and software stack for you. For example: servers, operating systems, web servers and even platforms such as nodejs.  Note that serverless code is event driven and triggers may be HTTP requests but can also be from other sources such as a database update. This [introductory article](https://www.martinfowler.com/bliki/Serverless.html) on MartinFlower.com explains a web app use of Serverless Architecture and also links to a very thorough post by Mike Roberts.  
+##Serverless Architecture
+Azure Functions are part of Microsoft’s offering in the relatively new Serverless Architecture space. Sometime referred to as Functions as a Service (FaaS), Serverless Architecture allows you to concentrate your development offerts on you ‘Business Logic’ or backend application code. In this extension of Platform As a Service (PaaS), Microsoft manage all the lower layers of the hardware and software stack for you. For example: servers, operating systems, web servers and even platforms such as Node.js.  Note that serverless code is event driven and triggers may be HTTP requests but can also be from other sources such as a database update. This [introductory article](https://www.martinfowler.com/bliki/Serverless.html) on MartinFlower.com explains a web app use of Serverless Architecture and also links to a very thorough post by Mike Roberts.  
 
-##The Problem##
+##The Problem
 I'm developing a set of open source components used in a commercial SaaS designed to support the needs of people with cognitive disabilities or low digital literacy. The initial components and product will provide simplified access to shared photographs and email. Given this, Google Picasa and Gmail seemed like natural choices for the initial underlying services. Unfortunately, the Picasa API has been feature stripped recently when Google moved over to Google Photos.
 
 My initial requirement for the user experience is that they can easily authenticate by signing into their existing Google account. The code should then be able to access their photos and emails, using the Picasa and Gmail APIs. This will require authorized access based on the user credentials provided when they sign in. The initial user story that we cover in this post is:
 
->As a user I want to log into the app with my Google account so I get a list of my Google Photos albums.
+>As a user, I want to log into the app with my Google account so I get a list of my Google Photos albums.
 
 That all seemed fairly straightforward after spending some time learning the basics of OAuth and OpenID flows from a mixture of Auth0 and OpenID documentation. Then I read the various Google API and auth docs and ended up confused. Google spreads the documentation around several places and it is not always consistent or precise. In addition, Google’s docs are often unclear on whether they are describing access from a client or backend and which specific authentication flows they are talking about. Finally, they often use their own SDKs (or libraries), which obscures the details and is largely irrelevant. This also adds another large download for client users.
 
-##Getting Nowhere Very Slowly##
+##Getting Nowhere Very Slowly
 
 After exploring the Google APIs with some experimental code accessing them directly from the SPA I wanted to pull my hair out. The Picasa API in particular is very flaky in how it handles CORS and authentication. Plan B was to use Auth0 to do all the heavy lifting. My hope was their Lock widget would solve the technical issues relatively easily. For example, Lock handles the 'nonce' and 'state' attributes used to stop hacking. Lock is also flexible in user experience options, for example it easily allows the addition of extra services. However, I soon found out the access_token that lock provides to a SPA is not usable in Google APIs and it was hard to find any answers.
 
@@ -46,9 +48,9 @@ At this point, I started to think that backend access was going to be the soluti
 
 I found after more experimental code that this did eventually work out, but only after I stumbled across a highly relevant Auth0 document and requested help from the awesome Nico, a Customer Success Engineer at Auth0. As Nico pointed out, if you use Auth0 as the identity provider then even when proxying other third party identity providers, the access_tokens you get are from Auth0. They can be used with Auth0 APIs or your own, but are not what third party APIs require. Auth0 does provide a mechanism for backend code to get the access_token from third party identity providers. However, the token is hidden in the Auth0 UI for security purposes.
 
-##Auth0 and Azure Functions: Making Life Easy##
+##Auth0 and Azure Functions: Making Life Easy
 
-Without further delay, here's the low-down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials, using the Google access_token. I'll also present some links to important docs. Here's the complete flow we use:
+Without further delay, here's the low-down on what you need to do to let a user sign in with Google via the Auth0 Lock and then access a Google API with their credentials, using the Google `access_token`. I'll also present some links to important docs. Here's the complete flow we use:
 
 1. SPA displays the Auth0 Lock passing suitable options
 1. User logs in with Google, approving access to requested scopes (eg read photos, read emails)
@@ -172,7 +174,7 @@ Here is a simple vanilla HTML and JavaScript example that allows the user to sig
 </html>
 ```
 
-Now for the Azure Functions backend code. This is a JavaScript HTTP Azure Function with the method set to GET. Tokens are passed from the frontend code above in a URL parameter.
+Now for the Azure Functions backend code. This is a JavaScript HTTP Azure Function with the method set to `GET`. Tokens are passed from the frontend code above in a URL parameter.
 
 Note, this initial block of constants should not normally be included in the main code (if only to stop you accidently checking your secrets into GitHub). Rather it’s good practice to place them in the Function App Service’s Settings and reference them from the code. 
 
@@ -241,7 +243,7 @@ module.exports = jwtValidateDecorator((context, req) => {
 })
 ```
 
-Here are the supporting functions called from the main code block above. They can be placed in the same Function for simplicity. An alternative is to place them in a separate module file and “require” them as usual with nodejs. Azure Functions allows you to provide several Functions and supporting code in a single Functions App.
+Here are the supporting functions called from the main code block above. They can be placed in the same Function for simplicity. An alternative is to place them in a separate module file and “require” them as usual with Node.js. Azure Functions allows you to provide several Functions and supporting code in a single Functions App.
 const request = require('request')
 
 ```js
@@ -301,11 +303,10 @@ function getAlbums(accessToken) {
 }
 ```
 
-We need to check the Auth0 access_token is valid before allowing the API code to be executed. This is done by a decorator (or wrapper) function based on the npm azure_functions_auth0 module but modified to work correctly with an Auth0 API access_token.
-
-azure_functions_auth0.js
+We need to check the Auth0 `access_token` is valid before allowing the API code to be executed. This is done by a decorator (or wrapper) function based on the npm azure_functions_auth0 module but modified to work correctly with an Auth0 API access_token.
 
 ```js
+// azure_functions_auth0.js
 // based on the npm package azure-functions-auth0
 // But modified to handle the Auth0 API accessToken
 
@@ -358,7 +359,7 @@ module.exports = (options) => {
 }; 
 ```
 
-##Running the Code##
+##Running the Code
 
 For a local client development server, I simply installed npm package ['lite-server'](https://www.npmjs.com/package/lite-server) configured to port 8000 with a ‘bs-config.json’ file.
 
@@ -370,11 +371,11 @@ npm install express-jwt request
 
 You'll also need to set up CORS by adding your client URL - eg. localhost:8000. This is found in the Azure Functions console panel and click on ‘Function app settings’ -> ‘Configure CORS’. Finally, copy the Function’s URL into the SPA code constants block.
 
-##Observations##
+##Observations
 
 As this is a Serverless backend with no local state storage, the same authorization code will run for every similar endpoint. We can tidy up the code to be more DRY (Don’t Repeat Yourself) by moving the code to get the Auth0 Admin and Google access_tokens into a module shared by all your Functions in the Function App.
 
-##Conclusion##
+##Conclusion
 
 Auth0 provides all the features needed to access Google APIs with a user’s credentials. When a user signs in through Auth0 you get an Auth0 access token. You then need to obtain the third party access token for Google’s APIs. This is done with backend code for security. The code accesses the user’s profile via the Auth0 Admin API and can then obtain the access token provided when the user signed in with Google.
 
