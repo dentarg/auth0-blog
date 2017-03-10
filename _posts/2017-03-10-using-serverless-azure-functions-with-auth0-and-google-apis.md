@@ -3,14 +3,14 @@ layout: post
 title: "Using Serverless Azure Functions with Auth0 and Google APIs"
 description: "Learn to use Node with Azure Functions with Google APIs and Auth0."
 date: 2017-03-10 8:30
-category: Technical guide
+category: Technical guide, Serverless, Azure Functions
 author:
   name: Steve Lee
   url: https://twitter.com/SteveALee
   avatar: https://s.gravatar.com/avatar/9cf3b2625e7daf7aa5d01542fbedb2c5
 design:
-  bg_color: "#16214D"
-  image: https://cdn.auth0.com/blog/ultimate-abm-machine/ABM-logo.png
+  bg_color: "#089E56"
+  image: https://cdn.auth0.com/blog/azure-functions-and-auth0/logo.png
 tags:
 - javascript
 - serverless
