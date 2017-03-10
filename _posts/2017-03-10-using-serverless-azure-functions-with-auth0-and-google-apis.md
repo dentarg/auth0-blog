@@ -26,7 +26,7 @@ related:
 
 ---
 
-Without a doubt, authentication for web apps is one of the most complex features to implement correctly. If you’re not careful, it will eat a large chunk of your development time. Worse, if you don't get it exactly right you're left vulnerable to being hacked, which will take even more of your precious time, not to mention damaging your reputation. Therefore, it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business. However, even when using Auth0 some scenarios are still complex to figure out and code. Typically and "true to form", I picked one of these complex cases as my first attempt at auth for a Single Page App (SPA) Software as a Service (SaaS) product.
+Without a doubt, authentication for web apps is one of the most complex features to implement correctly. If you’re not careful, it will eat a large chunk of your development time. Worse, if you don't get it exactly right you're left vulnerable to being hacked, which will take even more of your precious time, not to mention damaging your reputation. Therefore, it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business. I picked a complex case as my first attempt at auth for a Single Page App (SPA) Software as a Service (SaaS) product.
 
 This post is the story of my experience along with some working JavaScript code for [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) with [Auth0](https://www.auth0.com). 
 
