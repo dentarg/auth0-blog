@@ -66,6 +66,10 @@ To make sure your Docker installation is up and running, open up a command promp
 
 Keep the command prompt open - you're going to need it!
 
+**A note about the Docker Toolbox:** The article was written assuming that you have the Docker native tools installed. If you happen to have the older [Docker Toolbox](https://www.docker.com/products/docker-toolbox) installed then the Docker API may not work for you straight out of the box. If you're in this situation, you may need to [perform some additional steps to enable the API](http://stackoverflow.com/questions/40294853/how-to-enable-docker-api-access-from-windows-running-docker-toolbox-docker-mach) with Docker Toolbox.
+
+_Many thanks to reader_ Rick Wolff _for pointing this out!_
+
 ### NodeJS
 
 To write our app and serve the web interface to the user, we're going to use NodeJS. This has a number of libraries and frameworks which will make the job very easy for us.
