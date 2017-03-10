@@ -10,8 +10,9 @@ author:
   mail: speyrott@auth0.com
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/es6rundown/logo.png
+  bg_color: "#454A75"
+  image: https://cdn.auth0.com/blog/Ethereum1/logo-2.png
+  image_size: "100%"
 tags:
 - ethereum
 - contracts
@@ -28,14 +29,40 @@ related:
 - 2015-10-14-7-things-you-should-know-about-web-assembly
 ---
 
-[Bitcoin]() took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum]() attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. Read on as we explore how it works!
+[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we will take a closer look at how Ethereum works and what makes it different from Bitcoin and other blockchains. Rean on!
+
+This is post 2 from a three-post series about Ethereum. [Read post 1 if you haven't done so.](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/)
 
 {% include tweet_quote.html quote_text="Ethereum marries the power of decentralized transactions with Turing-complete contracts!" %}
 
 -----
 
+## Introduction
+In our [previous post](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/), we took a closer look at what blockchains are and how they help in making distributed, verifiable transactions a possibility. Our main example was Bitcoin: the world's most popular cryptocurrency. Millions of dollars, in the form of bitcoins, are traded each day, making Bitcoin one of the most prominent examples of the viability of the blockchain concept.
+
+### The Blockchain
+A blockchain is a distributed, verifiable datastore. It works by marrying public-key cryptography with the nobel concept of the *proof-of-work*.
+
+Each transaction in the blockchain is signed by the rightful owner of the resource being traded in the transaction. When new coins (resources) are created they are assigned to an owner. This owner, in turn, can prepare new transactions that send those coins to others by simply embedding the new owner's public key in the transaction and then signing the transaction with his or her private-key. In this way, a verifiable link of transactions is created; each new transaction, with a new owner, pointing to the previous transaction, with the previous owner.
+
+To order these transactions and prevent the [double-spending problem](https://en.wikipedia.org/wiki/Double-spending), blockchains use the *proof-of-work*. The proof-of-work is a procedure that establishes a cost for grouping transactions in a certain order and adding them to the blockchain. These groups of transactions are called *blocks*. Each block points to a previous block in the chain, thus the name *blockchain*. By making blocks costly to make and making sure each new block points to the previous block, any potential attacker wanting to modify the history of transactions as represented by the blockchain must pay the cost of each block modified. Since blocks point to previous blocks, modifying an old block requires paying the cost for *all* blocks after it, making changes to old blocks very costly. A blockchain compounds the difficulty of modifying the blockchain by making the cost of creating blocks be of computational nature. In other words, to create new blocks, a certain amount of CPU power must be spent. Since CPU power is dependent on the advancement of technology, it is very hard for any single malicious entity to amass enough CPU power to outspend the rest of the network. A practical attack against a blockchain-based network usually requires a single entity controlling more than 50% of the combined CPU power of the network. The bigger the network, the harder it is to perform. 
+
+But, as we saw in our first post in this series, blockchains are more than just that. Transactions, by their very nature, can do more than just send resources from owner A to owner B. In fact, the very act of doing so can be described as a very simple program: the sender produces a computation (transaction) that can only be performed if the receiver produces, at some point in the future, the right inputs. In the case of a standard monetary transaction, the right input would be the proof of ownership from the receiver. In other words, the receiver can only spend the coins he received if he proves he is the rightful owner of those coins. It may seem a bit contrived but it really isn't. When you perform a wire transfer, you prove you are the owner of an account through some sort of authentication procedure. For a home-banking system that could simply be a username and a password. At a bank, it would be your ID or debit-card. These procedures are usually hardwired into the system, but with blockchains it needn't be so.
+
+In our first post we also took a cursory look at this. We first showed how Bitcoin transactions are in fact small programs that are intepreted by each node using a simple stack-based virtual-machine.
+
+```
+<sig> <pubKey> OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+```
+
+This virtual-machine, in the case of Bitcoin, is limited by design. It is not turing-complete and can only perform a limited number of operations. Still, its flexibility opened up the possibility for many interesting uses. The small script above, a.k.a. smart contract, is the standard ["pay to pubkey hash" Bitcoin script](https://en.bitcoin.it/wiki/Transaction#Pay-to-PubkeyHash). It describes a small program that allows a sender to send coins to a receiver by verifying his identity with a public-key: the standard A to B monetary transaction, with ID cards substituted with public and private-keys. However, there's nothing preventing other uses, as long as you stick to the available operations supported by the virtual-machine. We took a look at a possible use in our previous post, where we created a perpetual-message system: immutable messages timestamped and forever embedded in the blockchain. The older they get, the harder it is for them to ever be changed. Nifty.
+
+Now, we'll take a look at how Ethereum amplifies these concepts.
+
 ## Ethereum: a Programmable Blockchain
-Although the concept of the blockchain was born out of the research into cryptocurrencies, they are much more powerful than just that. Blockchains essentially encode one thing: state transitions. Whenever someone sends a coin in Bitcoin to someone, the global state of the blockchain is changed. Moments before account A hold 50 coins, now account A is empty and account B holds 50 coins. Furthermore, the blockchain provides a cryptographically secure way of performing these state transitions. In other words, not only the state of the blockchain can be verified by any outside party, but any state transitions initiated by blockchain users can only be performed in a secure, verifiable manner.
+Although the concept of the blockchain was born out of the research into cryptocurrencies, they are much more powerful than just that. A blockchain essentially encodes one thing: state transitions. Whenever someone sends a coin in Bitcoin to someone, the global state of the blockchain is changed. Moments before account A hold 50 coins, now account A is empty and account B holds 50 coins. Furthermore, the blockchain provides a cryptographically secure way of performing these state transitions. In other words, not only the state of the blockchain can be verified by any outside party, but any state transitions initiated by blockchain users can only be performed in a secure, verifiable manner.
+
+> An interesting way to think of a blockchain is as a never-halting computation: new instructions and data are fetched from a pool, the pool of unconfirmed transactions. Each result is recorded in the blockchain, which forms the state of the computation. Any single snapshot of the blockchain is the state of the computation at that point.
 
 ![Transactions as computations]()
 
@@ -43,13 +70,15 @@ All software systems deal in some way or another with state transitions. So what
 
 ![Transactions as general computations]()
 
-It is easy to get lost in the world of cryptocurrencies and simple exchanges of value between two users, but there are many other applications where distributed, secure computations make sense. In fact, even Bitcoin allows for a limited form of computation as part of its transaction system. It is this system that allows for things like:
+It is easy to get lost in the world of cryptocurrencies and simple exchanges of value between two users, but there are many other applications where distributed, secure computations make sense. It is this system that allows for things like:
 
 - Secure deposits that get returned to the payer if conditions are met (or not)
 - Money that cannot be spent unless a certain [number of users agree to spending it](https://en.bitcoin.it/wiki/Multisignature)
 - Money that can only be spent after producing external data that satisfies rules set in the script
 
 Given a Turing-complete system for computations associated to a blockchain, many more applications are possible. This is Ethereum.
+
+[Take a look](http://dapps.ethercasts.com) at the things the community is working on to get a sense of the many useful ideas that can be run as decentralized applications.
 
 ### Ether
 Although Ethereum brings general computations to the blockchain, it still makes use of a "coin". Its coin is called "ether", and, as any coin, it is a number that can be stored into account addresses and can be spent or received as part of transactions or block generation. This begs the question "why is it necessary at all?".
@@ -72,7 +101,7 @@ An interesting aspect of contracts being able to store data is how can that be h
 
 A Merkle Patricia Tree is a special kind of data structure that can store cryptographically authenticated data in the form of keys and values. A Merkle Patricia Tree with a certain group of keys and values can only be constructed in a single way. In other words, given the same set of keys and values, two Merkle Patricia Trees constructed independently will result in the same structure bit-by-bit. A special property of Merkle Patricia Trees is that the value of the root key (the first key in the tree) depends on the values of all sub-keys. This means that any change to the tree results in a completely different root key value. Changes to a leaf cause all keys leading to the root key through that branch to be recomputed. What we have described is in fact the "Merkle" part of the tree, the "Patricia" part comes from the nature keys are located in the tree. In Patricia trees the key of the node is actually its hash value (the hash of the data contained in it). Only leaf nodes can contain data. All other nodes are simply pathways to the leaves. These intermediary nodes are constructed using binary prefixes of the keys. In this way, two keys that share a binary prefix also share intermediary nodes. The Merkle Patricia Trees implemented in Ethereum have other optimizations that overcome inefficiencies inherent to the simple algorithm described here.
 
-![Merkle Patricia Trees]
+![Merkle Patricia Trees]()
 
 For our purposes, the Merkle aspect of the trees are what matter in Ethereum. Rather than keeping the whole tree inside a block, the hash of its root node (which is simply its key value) is embedded in the block. If some malicious node were to tamper with the state of the blockchain, it would become evident as soon as other nodes computed the hash of the root node using the tampered data. The resulting hash would simply not match with the one recorded in the block. At this point we should find ourselves asking a big question: why not simply take the hash of the data? Merkle Patricia Trees are used in Ethereum for a different, but very important reason: most of the time, nodes do not need a full copy of the whole state of the system. Rather, they want to have a partial view of the state, complete enough to perform any necessary computations for newer blocks or to read the state from some specific address. Since no computations usually require access to the whole state stored in the blockchain, downloading all state would be superfluous. In fact, if nodes had to do this, scalability would be a serious concern as the network expanded. To verify a partial piece of the state at a given point, a node need only download the data necessary for a branch of the tree and the hashes of its siblings. Any change in the data stored at a leaf would require a malicious node to be able to carry a [preimage attack](https://en.wikipedia.org/wiki/Preimage_attack) against the hashing algorithm of the tree (to find the values for the siblings that combined with the modified data produce the same root hash as the one stored in the block).
 
@@ -170,7 +199,7 @@ The concept of the previous example can be extended to a proof of the existence 
 
 There are many more examples of things that can be implemented with Ethereum, [check them out](http://dapps.ethercasts.com)!
 
-## Aside: Using Webtasks and Ethereum to Create a Login System
+## Aside: A Simple Login System using Ethereum
 One of the cool things about Ethereum is that addresses are, by definition, systems to prove ownership. Whomever can perform operations with an Ethereum address is the rightful owner of that address. This is, of course, the consequence of the underlying public-key infrastructure used to verify transactions. We can exploit this to create a login system based on Ethereum addresses. Let's see how.
 
 Any login system is mainly concerned with creating a unique identity that can be managed by whomever can pass a certain "login challenge". The login challenge is the method to prove that the same entity that created the account in the first place is the same entity doing operations now. Most systems rely on the classic username + password login challenge: a new user registers by choosing a unique username and a password, then, anytime the system requires proof that the user is in fact who he says he is, it can request the password for that username. This system works. But with Ethereum we already have a system for proving identities: public and private keys!
@@ -181,7 +210,7 @@ We'll design a simple contract that can be used by any user to validate his owne
 2. The backend for the website receives the address for the user and creates a challenge string and a JWT. Both of these are sent back to the user.
 3. The user sends the challenge string to the `Login` contract and stores the JWT for later use locally.
 4. The backend listens for login attempts using the challenge string at the Ethereum network. When an attempt with the challenge string for the right user is seen, it can assume the user has proved his or her identity. The only person that can send a message with an Ethereum address is the holder of the private key, and the only user that knows the challenge string is the user that received the challenge through the login website.
-5. The user gets notified or polls the website backend for confirmation of his or her successful login. The user then proceeds to use the JWT issued in step 2 for accessing the website. Alternatively, a new JWT can be issued after a successful login to keep state client-side.
+5. The user gets notified or polls the website backend for confirmation of his or her successful login. The user then proceeds to use the JWT issued in step 2 for accessing the website. Alternatively, a new JWT can be issued after a successful login.
 
 To that end, this is the Ethereum contract we will use:
 
@@ -190,29 +219,279 @@ pragma solidity ^0.4.2;
 
 contract Login {
   
-    event LoginAttempt(address indexed sender, string challenge);
+    event LoginAttempt(address sender, string challenge);
 
-    function login(string challenge) constant {
+    function login(string challenge) {
         LoginAttempt(msg.sender, challenge);
     }
 
 }
 ```
 
-The contract is extremely simple. `Events` are special elements in Solidity that are mapped to a system in Ethereum that allows special data to be logged. Events are generally watched by clients monitoring the evolution of the blockchain. This allows actions to be taken by clients when events are created. In our case, whenever a user attempts to login, an event created with the challenge is broadcast. Note that the function is marked `constant`. This means no data is stored in the blockchain. We only care about receiving a call from the rightful owner of the Ethereum address that was passed to the third party website. And, thanks to the way Ethereum works, we can be sure the sender was the one who performed the call.
+The contract is extremely simple. `Events` are special elements in Solidity that are mapped to a system in Ethereum that allows special data to be logged. Events are generally watched by clients monitoring the evolution of the blockchain. This allows actions to be taken by clients when events are created. In our case, whenever a user attempts to login, an event created with the challenge is broadcast. We only care about receiving a call from the rightful owner of the Ethereum address that was passed to the third party website. And, thanks to the way Ethereum works, we can be sure the sender was the one who performed the call.
 
 In addition to the sender's address, the challenge is also broadcast. This means anyone watching the blockchain now knows the challenge. However, this cannot be used on its own to impersonate a user: a user can only interact with the backend through the session JWT. This means an attacker must know three pieces of information to impersonate a user: the Ethereum address, the challenge AND the JWT issued with the challenge. Since JWTs are signed, an attacker cannot create a valid JWT to impersonate an user, even with access to the challenge.
 
-Here's our backend code:
+What follows is our backend code. First, let's see how to watch for Ethereum events:
 
 ```javascript
+const LoginContract = require('./login_contract.js');
+
+const loginContract = LoginContract.at(process.env.LOGIN_CONTRACT_ADDRESS || 
+                      '0xf7b06365e9012592c8c136b71c7a2475c7a94d71');
+
+// LoginAttempt is the name of the event that signals logins in the 
+// Login contract. This is specified in the login.sol file.
+const loginAttempt = loginContract.LoginAttempt();
+
+const challenges = {};
+const successfulLogins = {};
+
+loginAttempt.watch((error, event) => {
+    if(error) {
+        console.log(error);
+        return;
+    }
+
+    console.log(event);
+
+    const sender = event.args.sender.toLowerCase();
+
+    // If the challenge sent through Ethereum matches the one we generated,
+    // mark the login attempt as valid, otherwise ignore it.
+    if(challenges[sender] === event.args.challenge) {
+        successfulLogins[sender] = true;
+    }
+});
 ```
 
+The `login_contract.js` file contains what is needed to inter-operate with our contract. Let's take a look:
+
+```javascript
+// web3 is an Ethereum client library
+const Web3 = require('web3');
+const web3 = new Web3();
+
+web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'));
+
+// This file is generated by the Solidity compiler to easily interact with
+// the contract using the web3 library.
+const loginAbi = require('../solidity/build/contracts/Login.json').abi;
+const LoginContract = web3.eth.contract(loginAbi);
+
+module.exports = LoginContract;
+```
+
+`Web3` is the official client library to interact with Ethereum nodes. An Ethereum node is what actually connects to the rest of the Ethereum network. It performs "mining" (block generation), transaction operations (create and send) and block verification.
+
+The `Login.json` file is generated by the Solidity contract compiler, part of the standard Ethereum development tools. The Solidity compiler takes Solidity source code and turns it into Ethereum Virtual Machine bytecode and an interface description file that can be used by Web3 to interact with the contract once it is uploaded to the network.
+
+And here are our HTTP endpoints:
+
+```javascript
+app.post('/login', (req, res) => {
+    // All Ethereum addresses are 42 characters long
+    if(!req.body.address || req.body.address.length !== 42) {
+        res.sendStatus(400);
+        return;
+    }
+
+    req.body.address = req.body.address.toLowerCase();
+
+    const challenge = cuid();
+    challenges[req.body.address] = challenge;
+
+    const token = jwt.sign({ 
+        address: req.body.address, 
+        access: 'finishLogin'
+    }, secret);
+
+    res.json({
+        challenge: challenge,
+        jwt: token
+    });
+});
+
+app.post('/finishLogin', validateJwt, (req, res) => {
+    if(!req.jwt || !req.jwt.address || req.jwt.access !== 'finishLogin') {
+        res.sendStatus(400);
+        return;
+    }
+
+    if(successfulLogins[req.jwt.address]) {
+        delete successfulLogins[req.jwt.address];
+        delete challenges[req.jwt.address];
+
+        const token = jwt.sign({ 
+            address: req.jwt.address, 
+            access: 'full'
+        }, secret);
+
+        res.json({
+            jwt: token,
+            address: req.jwt.address
+        });
+    } else {
+        // HTTP Accepted (not completed)
+        res.sendStatus(202);
+    }
+});
+
+app.post('/apiTest', validateJwt, (req, res) => {
+    if(req.jwt.access !== 'full') {
+        res.sendStatus(401); //Unauthorized
+        return;
+    }
+
+    res.json({
+        message: 'It works!'
+    });
+});
+```
+
+The `/login` endpoint receives a login request carrying an Ethereum address for the user that wants to login. The user must be the owner of such Ethereum address. It generates a JWT and a challenge. The JWT can only be used to access the `/finishLogin` endpoint.
+
+Before the user can call the `/finishLogin` endpoint he or she must prove his or her identity by making a call to the `login` method of the `Login` contract. The `login` method receives a single parameter: the challenge returned by the `/login` endpoint. He must perform this call using the same account address that was passed to the `/login` endpoint. He or she can use any Ethereum wallet or client to do this.
+
+After making the call to the `login` method of the `Login` contract, the user can complete the login by using the `/finishLogin` endpoint. He or she must pass the JWT returned by the `/login` endpoint to it. If the login is successful, a new JWT with full access is returned. Otherwise, if the login is still pending, an accepted HTTP status (202) is returned signalling proper verification of the login request is still pending. If the JWT passed to `/finishLogin` is invalid, an unauthorized HTTP status code is returned (401).
+
+After the `/finishLogin` endpoint is called and the login process is completed, the returned JWT can be used to access other parts of the API. In this case, the `/apiTest` endpoint is available. It simply returns "It works!" wrapped in a JSON object if the user is logged-in.
+
+[Grab the full example.](https://github.com/auth0-blog/ethereum-login-sample)
+
 ### Running the Example
+Building and deploying the example is not as straightforward as it may seem due to the nature of Ethereum and current development tools. Here are the steps we used to test the example above.
 
-TODO
+#### 1. Get an Ethereum node client
+There are several Ethereum node clients. A popular one is [go-ethereum](https://github.com/ethereum/go-ethereum), a client written in Go. Download it and install it.
 
-Grab the full example.
+Ethereum, as other cryptocurrencies do, has different versions of the blockchain with different parameters. There are essentially two blockchains: the main official blockchain and a test blockchain. The main blockchain never undoes operations once they are confirmed. Since some operations require money, the main blockchain is not ideal for testing. The test blockchain, on the other hand, is much less strict about forks and changes. It is also simpler to mine "Ether", Ethereum's currency. 
+
+We could use the test network for our example here. However, running a client node for any of the public networks is problematic for one reason: to be able to start doing transactions, the client must first *verify* all previous transactions in the blockchain. That means that bootstrapping a new client node takes quite a bit of time. Fortunately there is an alternative: we can create a new, pristine private Ethereum blockchain to run our tests. To do so, run go-ethereum using the following command line:
+
+```sh
+./geth --rpc --nat none --dev
+```
+
+#### 2. Create a new Ethereum account to mine some Ether
+The `geth` command can also be used to interact with a running client. Launch an interactive console connected to the running client:
+
+```sh
+/geth attach ipc:/var/folders/ts/7xznj_p13xb7_5th3w6yjmjm0000gn/T/ethereum_dev_mode/geth.ipc
+```
+
+The IPC file mentioned in the command can be found in the output from running the node in our first step. Look for the line that reads:
+
+```
+IPC endpoint opened: /var/folders/ts/7xznj_p13xb7_5th3w6yjmjm0000gn/T/ethereum_dev_mode/geth.ipc
+```
+
+Now in the Geth console type:
+
+```javascript
+personal.newAccount()
+```
+
+After hitting `ENTER` a prompt will appear requesting a passphrase. This is the passphrase that will be used to perform any operations using this account. You can think of this as the passphrase required to decrypt the private-key used to sign Ethereum transactions. Do not leave the prompt empty, choose a simple passphrase for testing instead. A new Ethereum address will be returned by the function. If at any point you forget this address, you can list accounts by inspecting `personal.listAccounts` (it's a variable, not a function, so don't add `()` at the end).
+
+> The `geth` console is a JavaScript interpreter.
+
+#### 3. Start mining some Ether
+Now it's time to add some Ether to our new account. Ether is required to perform operations in the Ethereum blockchain, so it is necessary to perform this step. Ether can be gathered in two ways: by receiving it from another account or by mining it. Since this is a private network, we will need to mine it. Don't worry, the private network is by default configured to be able to mine Ether easily. Let's do it:
+
+```javascript
+miner.setEtherbase(personal.listAccounts[0]) // Hit ENTER
+miner.start() // Hit ENTER
+```
+
+Now wait a few seconds (or minutes depending on your hardware) and then confirm you have some Ether in your account:
+
+```javascript
+eth.getBalance(personal.listAccounts[0]) // Hit ENTER
+```
+
+#### 4. Compile and deploy our Login contract
+To simplify the process of compiling and deploying contracts, we will use `truffle`. Truffle is a development framework for Ethereum, simplifying many common tasks. Install it:
+
+```sh
+npm install -g truffle
+```
+
+Before using truffle to deploy contracts, it is necessary to "unlock" our account in our Ethereum node client. Unlocking is the process of decrypting the private-key and holding it in memory using the passphrase used to create it. This allows any client libraries (such as Truffle) connecting to the node to make operations on behalf of the unlocked account. Go to the `geth` console and type:
+
+```javascript
+personal.unlockAccount(personal.listAccounts[0]) // Hit ENTER
+```
+
+Now switch to the `solidity` directory of our sample application. Edit the `truffle.js` file and set your newly created address as the `from` key. Then run:
+
+```sh
+truffle migrate
+```
+
+The `migrate` command compiles and deploys the contracts to the Ethereum network on behalf of the account set in `truffle.js`. As a result you will get the address of the newly deployed contract. Take note of it.
+
+#### 5. Install an Ethereum wallet
+Ethereum wallets are convenient interfaces for users to interact with the Ethereum network. Sending and receiving Ether, deploying contracts or making calls to them are all operations usually supported by wallets. Mist is the official Ethereum wallet. Download it and install it.
+
+Once installed, we will need to tell Mist to connect to our private network rather than the public main or test networks. To do this, run Mist from the command line like so:
+
+```sh
+./Ethereum\ Wallet --rpc /var/folders/ts/7xznj_p13xb7_5th3w6yjmjm0000gn/T/ethereum_dev_mode/geth.ipc
+```
+
+The IPC file is the same file used by the `geth` console and can be gathered from the `geth` output logs.
+
+#### 6. Tell the Ethereum wallet of the contract
+Many contracts live in the Ethereum network. Wallets need to know a contract's address and interface before being able to interact with them. Let's tell Mist about our Login contract. Go to `Contracts -> Watch Contract` (top right, then bottom left).
+
+![Watch contract](https://cdn.auth0.com/blog/ethereum2/watch-contract.png)
+
+Complete the fields as follows:
+
+- Name: Login
+- Contract Address: <address of the contract as returned by Truffle migrate>
+- JSON Interface: the abi from `Login.json`. For convenience it is pasted below. Copy and paste it in Mist.
+
+```
+[ { "constant": false, "inputs": [ { "name": "challenge", "type": "string" } ], "name": "login", "outputs": [], "payable": false, "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "sender", "type": "address" }, { "indexed": false, "name": "challenge", "type": "string" } ], "name": "LoginAttempt", "type": "event" } ]
+```
+
+![Watch contract](https://cdn.auth0.com/blog/ethereum2/watch-contract-2.png)
+
+As a test, now try to send some Ether to the contract: `Contracts -> Login -> Transfer Ether & Tokens`. Send `1 Ether` or any other amount less than your balance. You will need to provide the passphrase for your account.
+
+![Send Ether](https://cdn.auth0.com/blog/ethereum2/send-ether.png)
+
+#### 7. Deploy the backend
+Go to the `backend` folder and run:
+
+```sh
+npm install
+node app.js
+```
+
+#### 8. Serve the frontend
+Go to the `frontend` folder and run:
+
+```sh
+npm install -g static-serve
+static-serve
+```
+
+You may use any other simple static HTTP server such as Python's `SimpleHTTPServer`. If you do so, make sure to serve the app in port 9080. This is important due to CORS.
+
+#### 9. Test everyting together!
+Open your browser at [http://localhost:9080](http://localhost:9080). Now attempt to login by putting your Ethereum address in the input field. A challenge text will be generated. Go to the Mist (Ethereum Wallet) and go to the Login contract. To the right you will see "WRITE TO CONTRACT". Select the `login` function and paste the challenge in the text fill that appears there. Then click on `Execute`. Input your passphrase and send the transaction.
+
+Now switch back to the login page. After a few seconds the login will be completed and a welcome message will appear. Voilà!
+
+<video width="600" controls src="https://cdn.auth0.com/blog/ethereum2/login.mp4">
+</video>
+
+This example shows how a typical Ethereum user can use his existing Ethereum account to login to any third party website supporting Ethereum. And all of this is done without a central server. Although authentication is not performed by the owner of the website, there is no central authority validating the user: it is the Ethereum network that does so.
+
+[Grab the full example.](https://github.com/auth0-blog/ethereum-login-sample)
 
 ## Conclusion
-TODO
+We have taken a deeper look at Ethereum: a decentralized, blockchain-based framework for developing applications. Applications run on each node, and each state transition produced by them is validated and recorded by the blockchain. The power of the approach extends the concepts of Bitcoin to more than just monetary transactions or simple non-turing complete contracts. The power of distributed apps is just beginning to be tapped. In the next post in the series we will take a look at an actual application developed on the Ethereum network: a two-factor authentication system for Ethereum users using a mobile validator application. Stay tuned!
