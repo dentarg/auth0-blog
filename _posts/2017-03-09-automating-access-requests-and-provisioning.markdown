@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Automating Access Requests &amp; Provisioning"
-description: "A look at how Auth0 automated employee access"
+title: "User Provisioning and Access Request with Auth0 and Webtask"
+description: "A deep look at how we automated our employee access request system using Auth0 as the directory and Webtask for serverless last mile integration with our systems"
 date: 2017-03-09 19:11
 category: Auth0-based Tutorial, Engineering
 author: 
@@ -10,11 +10,13 @@ author:
   mail: alex@auth0.com
   avatar: http://2.gravatar.com/avatar/71fb37b19e60e1b27a78dc91630dbb29
 design: 
-  bg_color: "#2f3342"
-  bg_merge: true
-  image: https://cdn.auth0.com/blog/access-requests/logo-sketch-transparent.png
-  image_bg_color: "#2f3342"
-  image_size: "90%"
+  bg_color: "#4E7E48"
+  bg_merge: false
+  image: https://cdn.auth0.com/blog/access-requests/logo.png
+  image_tw: https://cdn.auth0.com/blog/access-requests/card.png
+  image_fb: https://cdn.auth0.com/blog/access-requests/card.png
+  image_bg_color: "#4E7E48"
+  image_size: "120%"
 tags: 
 - provisioning
 - access requests
