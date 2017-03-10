@@ -30,6 +30,11 @@ related:
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-664"></i>
+  <strong>Get the "Migrating an AngularJS App to Angular book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+</div>
+
 **TL;DR:** In this article, we'll explore managing state with an immutable data store in an [Angular](http://angular.io) application using [ngrx/store](https://github.com/ngrx/store): reactive Redux for Angular. We'll also authenticate our app with [Auth0](https://auth0.com) and implement route authorization with route guards. The final code can be cloned from [this GitHub repository](https://github.com/auth0-blog/pet-tags-ngrx).
 
 ---
