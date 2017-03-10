@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Using Severless Azure Functions with Auth0 to Access Google APIss"
+title: "Using Serverless Azure Functions with Auth0 and Google APIs"
 description: "Learn to use Node with Azure Functions with Google APIs and Auth0."
 date: 2017-03-10 8:30
 category: Technical guide
@@ -20,9 +20,11 @@ related:
 - 2015-10-29-extensibility-through-code-using-webtasks
 ---
 
-*Guest post by @SteveALee of OpenDirective.com*
+*Guest post by [@SteveALee](https://twitter.com/@SteveALee) of [OpenDirective.com](http://opendirective.com)*
 
 **TL;DR:** Learn how Node.js backend code can access a Google API once a user logs in with Google via the Auth0 Lock widget.
+
+---
 
 Without a doubt, authentication for web apps is one of the most complex features to implement correctly. If you’re not careful, it will eat a large chunk of your development time. Worse, if you don't get it exactly right you're left vulnerable to being hacked, which will take even more of your precious time, not to mention damaging your reputation. Therefore, it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business. However, even when using Auth0 some scenarios are still complex to figure out and code. Typically and "true to form", I picked one of these complex cases as my first attempt at auth for a Single Page App (SPA) Software as a Service (SaaS) product.
 
@@ -42,11 +44,11 @@ That all seemed fairly straightforward after spending some time learning the bas
 
 ##Getting Nowhere Very Slowly
 
-After exploring the Google APIs with some experimental code accessing them directly from the SPA I wanted to pull my hair out. The Picasa API in particular is very flaky in how it handles CORS and authentication. Plan B was to use Auth0 to do all the heavy lifting. My hope was their Lock widget would solve the technical issues relatively easily. For example, Lock handles the 'nonce' and 'state' attributes used to stop hacking. Lock is also flexible in user experience options, for example it easily allows the addition of extra services. However, I soon found out the access_token that lock provides to a SPA is not usable in Google APIs and it was hard to find any answers.
+After exploring the Google APIs with some experimental code accessing them directly from the SPA I wanted to pull my hair out. The Picasa API in particular is very flaky in how it handles CORS and authentication. Plan B was to use Auth0 to do all the heavy lifting. My hope was their Lock widget would solve the technical issues relatively easily. For example, Lock handles the `nonce` and `state` attributes used to stop hacking. Lock is also flexible in user experience options, for example it easily allows the addition of extra services. However, I soon found out the `access_token` that Lock provides to a SPA is not usable in Google APIs and it was hard to find any answers.
 
 At this point, I started to think that backend access was going to be the solution. In addition to reliable access there's also the question of what to do when tokens expire. We need to avoid having the user keep logging in, so refresh tokens will be required which must be stored securely in the backend, as they effectively allow endless access. Several other design requirements pointed to backend access, and using Azure Functions meant a rapid development and relatively low DevOps requirements. Win - win.
 
-I found after more experimental code that this did eventually work out, but only after I stumbled across a highly relevant Auth0 document and requested help from the awesome Nico, a Customer Success Engineer at Auth0. As Nico pointed out, if you use Auth0 as the identity provider then even when proxying other third party identity providers, the access_tokens you get are from Auth0. They can be used with Auth0 APIs or your own, but are not what third party APIs require. Auth0 does provide a mechanism for backend code to get the access_token from third party identity providers. However, the token is hidden in the Auth0 UI for security purposes.
+I found after more experimental code that this did eventually work out, but only after I stumbled across a highly relevant Auth0 document and requested help from the awesome Nico, a Customer Success Engineer at Auth0. As Nico pointed out, if you use Auth0 as the identity provider then even when proxying other third party identity providers, the `access_token`s you get are from Auth0. They can be used with Auth0 APIs or your own, but are not what third party APIs require. Auth0 does provide a mechanism for backend code to get the `access_token` from third party identity providers. However, the token is hidden in the Auth0 UI for security purposes.
 
 ##Auth0 and Azure Functions: Making Life Easy
 
@@ -55,11 +57,11 @@ Without further delay, here's the low-down on what you need to do to let a user 
 1. SPA displays the Auth0 Lock passing suitable options
 1. User logs in with Google, approving access to requested scopes (eg read photos, read emails)
 1. If required, Auth0 creates a new Auth0 user linked to the Google user
-1. SPA gets the Auth0 user id_token and access_token
-1. SPA calls the backend HTTP endpoint to get a list of photos, etc., and passes the access_token with this request
+1. SPA gets the Auth0 user `id_token` and `access_token`
+1. SPA calls the backend HTTP endpoint to get a list of photos, etc., and passes the `access_token` with this request
 1. Backend Azure Functions validates the JWT and optionally checks the user is allowed access
-1. Backend uses the userid in the access_token to find the user profile using the Auth0 admin API
-1. Backend extracts the Google access_token from the user’s profile.
+1. Backend uses the userid in the `access_token` to find the user profile using the Auth0 admin API
+1. Backend extracts the Google `access_token` from the user’s profile.
 1. Backend calls the Google Picasa API and processes the results, returning them to the SPA in the HTTP response
 
 In order for this to work, you need to have the following configured:
@@ -303,7 +305,7 @@ function getAlbums(accessToken) {
 }
 ```
 
-We need to check the Auth0 `access_token` is valid before allowing the API code to be executed. This is done by a decorator (or wrapper) function based on the npm azure_functions_auth0 module but modified to work correctly with an Auth0 API access_token.
+We need to check the Auth0 `access_token` is valid before allowing the API code to be executed. This is done by a decorator (or wrapper) function based on the `npm azure_functions_auth0` module but modified to work correctly with an Auth0 API `access_token`.
 
 ```js
 // azure_functions_auth0.js
@@ -363,17 +365,17 @@ module.exports = (options) => {
 
 For a local client development server, I simply installed npm package ['lite-server'](https://www.npmjs.com/package/lite-server) configured to port 8000 with a ‘bs-config.json’ file.
 
-For the backend, you'll need to create an HTTP Azure Function with the method set to GET. You'll also need to install the two npm dependencies of ‘express-jwt’ and ‘request’. In the Azure Functions control panel go to "Functions App Settings" -> "Console" to open up a console. Then 'cd' to the folder for your function and enter the following command:
+For the backend, you'll need to create an HTTP Azure Function with the method set to GET. You'll also need to install the two npm dependencies of `express-jwt` and `request`. In the Azure Functions control panel go to "Functions App Settings" -> "Console" to open up a console. Then `cd` to the folder for your function and enter the following command:
 
-```
+```bash
 npm install express-jwt request
 ```
 
-You'll also need to set up CORS by adding your client URL - eg. localhost:8000. This is found in the Azure Functions console panel and click on ‘Function app settings’ -> ‘Configure CORS’. Finally, copy the Function’s URL into the SPA code constants block.
+You'll also need to set up CORS by adding your client URL - eg. localhost:8000. This is found in the Azure Functions console panel and click on "Function app settings" -> "Configure CORS". Finally, copy the Function’s URL into the SPA code constants block.
 
 ##Observations
 
-As this is a Serverless backend with no local state storage, the same authorization code will run for every similar endpoint. We can tidy up the code to be more DRY (Don’t Repeat Yourself) by moving the code to get the Auth0 Admin and Google access_tokens into a module shared by all your Functions in the Function App.
+As this is a Serverless backend with no local state storage, the same authorization code will run for every similar endpoint. We can tidy up the code to be more DRY (Don’t Repeat Yourself) by moving the code to get the Auth0 Admin and Google `access_token`s into a module shared by all your Functions in the Function App.
 
 ##Conclusion
 
