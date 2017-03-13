@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to Become a Data-Driven Marketer"
-description: "Data is a powerful marketing tool, but there's more to it than you think."
+description: "Learn about a data-informed marketing approach with buyer personas and lead generation."
 date: 2017-03-20 8:30
 category: Growth
 banner:
@@ -22,7 +22,7 @@ related:
 - date-post-name
 ---
 
-**TL;DR:** Data is a powerful marketing tool, but there's more to it than you think.
+**TL;DR:** Data is a powerful marketing tool, but there's more to it than you think. Learn about how your marketing approach should use data in combination with buyer personas and lead generation.
 
 ---
 
@@ -32,12 +32,11 @@ The best companies stand out by using the personal data customers provide to mak
 
 Let's take a closer look at how data can help marketers build more meaningful relationships with customers and make campaigns more impactful.
 
-
 ## Build Better Buyer Personas Through Analysis
 
 Instead of looking at potential customers as an undefined group of people, use your data to create buyer personas. As a means to attract your ideal customers, buyer personas identify the specific characteristics that these customers have.
 
-This creates a framework that you can use to understand what different groups of customers need from you. Buyer personas help you create targeted campaigns that are more meaningful and resonate.
+This creates a framework that you can use to understand what different groups of customers need from you. Buyer personas help you create targeted campaigns that resonate with consumers and are more meaningful.
 
 Each persona should have its own set of characteristics. Start by asking yourself questions like: 
 
@@ -47,12 +46,12 @@ Each persona should have its own set of characteristics. Start by asking yoursel
 * What's their title? 
 * What industry do they work in?
 
-One way to segment your users based on these characteristics is to use a tool that analyzes your social media followers. [Facebook's Audience Insights](https://adespresso.com/academy/blog/how-to-use-facebooks-audience-insights-to-create-buyer-personas/) tool offers up a treasure trove of information that you can dig into. You can group users together and get to know them better. Take the folks that follow you, and plug their data into an [analytics tool](https://amplitude.com/mobile-analytics) to find out how your customers find you, what they access on your site or even their social media profiles. 
+One way to segment your users based on these characteristics is to use a tool that analyzes your social media followers. [Facebook's Audience Insights](https://adespresso.com/academy/blog/how-to-use-facebooks-audience-insights-to-create-buyer-personas/) tool offers a treasure trove of information that you can dig into. You can group users together and get to know them better. Take the folks that follow you and plug their data into an [analytics tool](https://amplitude.com/mobile-analytics) to find out how your customers find you, what they access on your site, or even their social media profiles. 
 
 ![Facebook Audience Insights - data-driven marketing](https://cdn.auth0.com/blog/data-driven/facebook-audience.png)
 [Source](http://www.adweek.com/digital/audience-insights/)
 
-Another way to create buyer personas is by gradually collecting data with a tool like Clearbit. Clearbit offers an Enrichment API that lets companies collect data on users and track them over time. By simply entering an email address or website, companies can access personal and business information for their target audience like:
+Another way to create buyer personas is by gradually collecting data with a tool like [Clearbit](https://clearbit.com). Clearbit offers an Enrichment API that lets companies collect data on users and track them over time. By simply entering an email address or website, companies can access personal and business information for their target audience like:
 
 * Social media profiles
 * Where users work and company size
@@ -62,19 +61,19 @@ Another way to create buyer personas is by gradually collecting data with a tool
 ![Clearbit bio data driven marketing](https://cdn.auth0.com/blog/data-driven/bio.png)
 [Source](http://blog.clearbit.com/5-ways-to-use-clearbits-enrichment-api/)
 
-Clearbit then lets you segment customers based on the characteristics you're interested in (location, industry, social media preferences). From there you can build targeted campaigns. If you want to focus on developers in New York City who work for companies with more 100 employees, now you have the data to do that.
+Clearbit then lets you segment customers based on the characteristics you're interested in (location, industry, social media preferences). From there you can build targeted campaigns. If you want to focus on developers in New York City who work for companies with more than 100 employees, now you have the data to do that.
 
 Keep in mind that your buyer personas will evolve over time. As their characteristics shift, change your campaigns accordingly.
 
 ## Compare Lead Generation From Different Sources
 
-Lead generation plays an essential role in marketing and attracting the right customers. If you're not actively pursuing it, you're ignoring a crucial piece needed to grow your business.  You likely won't see the returns you expect from your growth strategies (https://amplitude.com/mobile-analytics) if they aren't seen by the folks they're designed for.
+Lead generation plays an essential role in marketing and attracting the right customers. If you're not actively pursuing it, you're ignoring a crucial piece needed to grow your business.  You likely won't see the returns you expect from your [growth strategies](https://amplitude.com/mobile-analytics) if they aren't seen by the folks they're designed for.
 
 More and more of our transactions, both financial and social, take place in the digital world. You probably interact with your customers online, whether it's on Twitter or via comments on your blog.
 
 But to turn casual interaction into lead generation, you have to be clear about who your ideal customers are and what channels work best for reaching out to them. If you've developed the latest wearable gadget for millennials, it probably doesn't make sense to use direct mail to get their attention. A few well-timed tweets are more likely to pique their interest.
 
-One way to know what approach attracts people to your site is to track specific events. Whether it's newsletter signups or signups to access an online tool, you can add a snippet of code to your site to track which events get the most leads. A tool like Keen.io helps you see where leads are coming from (https://auth0.com/rules/send-events-keenio) once you've added their snippet.
+One way to know what approach attracts people to your site is to track specific events. Whether it's newsletter subscriptions or signups to access an online tool, you can add a snippet of code to your site to track which events get the most leads. A tool like [Keen.io](https://keen.io/) helps you [see where leads are coming from](https://auth0.com/rules/send-events-keenio) once you've added their snippet.
 
 ```js
 function(user, context, callback) {
@@ -120,7 +119,7 @@ function(user, context, callback) {
 }
 ```
 
-Another way to compare lead generation is to focus on what generation methods work best for which channels. Wistia targets companies who need video hosting services and want to use analytics in their marketing strategies. To attract these customers, Wistia uses inbound channels like their website, blog, and social media.
+Another way to compare lead generation is to focus on what generation methods work best for which channels. [Wistia](https://wistia.com/) targets companies who need video hosting services and want to use analytics in their marketing strategies. To attract these customers, Wistia uses inbound channels like their website, blog, and social media.
 
 Within each channel, they've identified specific sources that help them generate lots of leads. For example, on their website, they provide resource downloads, webinars, and free product trials to attract them and turn browsers into leads. All require basic information like an email address.
 
@@ -133,14 +132,14 @@ They can take stock of what works best and focus on it. They have a massive vide
 
 Andrew Chen, part of Uber's growth team, put it best when [he said](http://andrewchen.co/know-the-difference-between-data-informed-and-versus-data-driven/), “Don’t let shallow analysis of data that happens to be cheap, easy and fast to collect, nudge you off-course in your entrepreneurial pursuits.”
 
-Simply put, data tells you a story at a point in time, but this can be limiting when trying to figure out the future. A data-informed company uses data as one tool in their toolkit to develop forward looking strategies. 
+Simply put, data tells you a story at a point in time, but this can be limiting when trying to figure out the future. A data-informed company uses data as one tool in their toolkit to develop forward looking strategies.
 
 Data will tell you how many people buy your products in a given month or how many people opened your newsletter. What it won't tell you, at least not easily, is what type of social or economical impact your product had on these people. It won't tell you how it's improved their lives.
 
 ![data-driven, data-informed](https://cdn.auth0.com/blog/data-driven/data.png)
 [Source](https://wistia.com/blog/data-informed-marketing)
 
-Companies like Wistia include past experiences, intuition, judgment and qualitative input to make decisions. Data + a holistic approach captures analysis that would have been lost if based solely on data.
+Companies like Wistia include past experiences, intuition, judgement, and qualitative input to make decisions. Data _with_ a holistic approach captures analysis that would have been lost if based solely on data.
 
 Data alone can be helpful, but the combination of these elements will help you build strategies that are more focused and better received by audiences.
 
@@ -150,6 +149,4 @@ Once you've painted a clear picture of who you're marketing to and segmented the
 
 While data is the engine that powers your company, your marketing approach should use data in combination with buyer personas and lead generation to get you to where you want to be.
 
-Keep monitoring your data and keep iterating on what you've learned from your previous marketing strategies to keep your efforts running smoothly day in and day out. 
-
-
+Keep monitoring your data and continue iterating on what you've learned from your previous marketing strategies to keep your efforts running smoothly day in and day out. 
