@@ -2,7 +2,7 @@
 layout: post
 title: "An Introduction to Ethereum and Smart Contracts: a Programmable Blockchain"
 description: "Learn about verified, distributed computations in the cloud using Ethereum"
-date: 2017-03-13 12:30
+date: 2017-03-14 12:30
 category: Technical Guide
 author:
   name: Sebastián Peyrott
@@ -64,11 +64,11 @@ Although the concept of the blockchain was born out of the research into cryptoc
 
 > An interesting way to think of a blockchain is as a never-halting computation: new instructions and data are fetched from a pool, the pool of unconfirmed transactions. Each result is recorded in the blockchain, which forms the state of the computation. Any single snapshot of the blockchain is the state of the computation at that point.
 
-![Transactions as computations]()
+![Transactions as computations](https://cdn.auth0.com/blog/ethereum2/tx-as-computations.png)
 
 All software systems deal in some way or another with state transitions. So what if we could generalize the state transitions inside a blockchain into any software we could think of. Are there any inherent limitations in the blockchain concept that would prevent state transitions from being something different than sending coins? The answer is no. Blockchains deal with reaching consensus for decentralized computations, it does not matter what those computations are. And this is exactly what the Ethereum network brings to the table: a blockchain that can perform any computation as part of a transaction.
 
-![Transactions as general computations]()
+![Transactions as general computations](https://cdn.auth0.com/blog/ethereum2/tx-as-generic-computations-2.png)
 
 It is easy to get lost in the world of cryptocurrencies and simple exchanges of value between two users, but there are many other applications where distributed, secure computations make sense. It is this system that allows for things like:
 
@@ -99,20 +99,22 @@ An important aspect of how smart contracts work in Ethereum is that they have th
 #### State
 An interesting aspect of contracts being able to store data is how can that be handled in an efficient way. If state is mutated by contracts, and the nature of the blockchain ensures that state is always consistent across all nodes, then all nodes must have access to the whole state stored in the blockchain. Since the size of this storage in unlimited in principle, this raises questions with regards to how to handle this effectively as the network scales. In particular, how can smaller and less powerful nodes make use of the Ethereum network if they can't store the whole state? How can they perform computations? To solve this, Ethereum makes use of something called [Merkle Patricia Trees](https://easythereentropy.wordpress.com/2014/06/04/understanding-the-ethereum-trie/).
 
-A Merkle Patricia Tree is a special kind of data structure that can store cryptographically authenticated data in the form of keys and values. A Merkle Patricia Tree with a certain group of keys and values can only be constructed in a single way. In other words, given the same set of keys and values, two Merkle Patricia Trees constructed independently will result in the same structure bit-by-bit. A special property of Merkle Patricia Trees is that the value of the root key (the first key in the tree) depends on the values of all sub-keys. This means that any change to the tree results in a completely different root key value. Changes to a leaf cause all keys leading to the root key through that branch to be recomputed. What we have described is in fact the "Merkle" part of the tree, the "Patricia" part comes from the nature keys are located in the tree. In Patricia trees the key of the node is actually its hash value (the hash of the data contained in it). Only leaf nodes can contain data. All other nodes are simply pathways to the leaves. These intermediary nodes are constructed using binary prefixes of the keys. In this way, two keys that share a binary prefix also share intermediary nodes. The Merkle Patricia Trees implemented in Ethereum have other optimizations that overcome inefficiencies inherent to the simple algorithm described here.
+A Merkle Patricia Tree is a special kind of data structure that can store cryptographically authenticated data in the form of keys and values. A Merkle Patricia Tree with a certain group of keys and values can only be constructed in a single way. In other words, given the same set of keys and values, two Merkle Patricia Trees constructed independently will result in the same structure bit-by-bit. A special property of Merkle Patricia Trees is that the value of the root key (the first key in the tree) depends on the values of all sub-keys. This means that any change to the tree results in a completely different root key value. Changes to a leaf cause all keys leading to the root key through that branch to be recomputed. What we have described is in fact the "Merkle" part of the tree, the "Patricia" part comes from the nature keys are located in the tree. Patricia trees are [tries](https://en.wikipedia.org/wiki/Trie) where any node that is an only child is merged with its parent. They are also known as "radix trees" or "compact prefix tree".
 
-![Merkle Patricia Trees]()
+The Merkle Patricia Trees implemented in Ethereum have other optimizations that overcome inefficiencies inherent to the simple algorithm described here.
+
+![Simplified Merkle Patricia Tree](https://cdn.auth0.com/blog/ethereum2/merkle-patricia-tree.png)
 
 For our purposes, the Merkle aspect of the trees are what matter in Ethereum. Rather than keeping the whole tree inside a block, the hash of its root node (which is simply its key value) is embedded in the block. If some malicious node were to tamper with the state of the blockchain, it would become evident as soon as other nodes computed the hash of the root node using the tampered data. The resulting hash would simply not match with the one recorded in the block. At this point we should find ourselves asking a big question: why not simply take the hash of the data? Merkle Patricia Trees are used in Ethereum for a different, but very important reason: most of the time, nodes do not need a full copy of the whole state of the system. Rather, they want to have a partial view of the state, complete enough to perform any necessary computations for newer blocks or to read the state from some specific address. Since no computations usually require access to the whole state stored in the blockchain, downloading all state would be superfluous. In fact, if nodes had to do this, scalability would be a serious concern as the network expanded. To verify a partial piece of the state at a given point, a node need only download the data necessary for a branch of the tree and the hashes of its siblings. Any change in the data stored at a leaf would require a malicious node to be able to carry a [preimage attack](https://en.wikipedia.org/wiki/Preimage_attack) against the hashing algorithm of the tree (to find the values for the siblings that combined with the modified data produce the same root hash as the one stored in the block).
 
-![A partial Merkle Tree]()
+![A Partial Simplified Merkle Tree](https://cdn.auth0.com/blog/ethereum2/partial-merkle-patricia-tree.png)
 
 All of this allows efficient operations on the state of the blockchain, while at the same time keeping its actual (potentially huge) data separate from the block, still the center piece of the security scheme of the blockchain.
 
 #### History
 Much like Bitcoin, the blockchain can be used to find the state of the system at any point in time. This can be done by replaying each transaction from the very first block up to the point in question. However, in contrast to Bitcoin, most nodes do not keep a full copy of the data for every point in time. Ethereum allows for old data to be *pruned* from the blockchain. The blockchain remains consistent as long as the blocks are valid, and data is stored outside of the blocks, so technically it is not required to verify the proof of work chain. In contrast to Bitcoin, where to find the balance of an account a node must replay all transactions leading up to that point, Ethereum stores state by keeping the root hash of the Merkle Patricia Tree in each block. As long as the data for the last block (or any past blocks) is available, future operations can be performed in the Ethereum network. In other words, it is not necessary for the network to replay old transactions, since their result is already available. This would be akin to storing the balance of each account in each block in the Bitcoin network.
 
-![Partial historical state in the blockchain]()
+![Partial historical state in the blockchain](https://cdn.auth0.com/blog/ethereum2/state-prunning.png)
 
 There are, however, nodes that store the whole copy of the historical state of the blockchain. This serves for historical and development purposes.
 
