@@ -2,7 +2,7 @@
 layout: post
 title: "User Provisioning and Access Request with Auth0 and Webtask"
 description: "A deep look at how we automated our employee access request system using Auth0 as the directory and Webtask for serverless last mile integration with our systems"
-date: 2017-03-09 19:11
+date: 2017-03-14 19:11
 category: Auth0-based Tutorial, Engineering
 author: 
   name: Alex Stanciu
