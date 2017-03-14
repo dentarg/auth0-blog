@@ -1,25 +1,26 @@
 ---
 layout: post
 title: "Anomaly Detection: Safer Login with ThisData and Auth0"
-description: "Description goes here and must be less than 156 characters."
+description: "Learn how to detect authentication anomalies with ThisData to improve login security."
 date: 2017-03-20 8:30
 category: Technical guide
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: "Kim Maida"
+  name: "Nick Malcolm"
   url: "https://twitter.com/nickmalcolm"
-  mail: "kim.maida@auth0.com"
+  mail: ""
   avatar: "https://cdn.auth0.com/blog/thisdata/nickmalcolm.jpeg"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/thisdata/ThisData-logo.png
+  bg_color: "#6D3CEB"
 tags:
-- hyphenated-tags
-- 
+- ThisData
+- anomaly-detection
+- security
 related:
-- date-post-name
-- date-post-name
+- 2017-01-27-machine-learning-for-everyone-part-2-abnormal-behavior
+- 2016-12-02-modern-authentication-for-your-clients-made-easy
 ---
 
 _Guest post by [Nick Malcolm](https://twitter.com/nickmalcolm), CTO at [ThisData](https://thisdata.com)_
@@ -58,7 +59,7 @@ Once you’ve created a client, head over to the **Settings** section of the das
 
 ![Set up an Auth0 app and grab client information](https://cdn.auth0.com/blog/thisdata/3-2-auth0-secrets.png)
 
-Clone [this sample app from Github](https://github.com/thisdata/auth0-thisdata), open up `auth0-variables.js`, and add your auth0 credentials like so:
+Clone [this sample app from Github](https://github.com/thisdata/auth0-thisdata), open up `auth0-variables.js`, and add your Auth0 credentials like so:
 
 ```js
 var AUTH0_CLIENT_ID='xxxxxxxxxxx';  
@@ -72,7 +73,7 @@ In the Auth0 dashboard, click on the **Rules** section in the main navigation, t
 
 ![Create an Auth0 rule to integrate with ThisData](https://cdn.auth0.com/blog/thisdata/4-1-create-rule.png)
 
-A list of available rule templates will be presented to you as shown in the diagram below. Choose the “Account Takeover Detection via ThisData” rule.
+A list of available rule templates will be presented to you as shown in the diagram below. Choose the **“Account Takeover Detection via ThisData”** rule.
 
 ![Choose Account Takeover Detection via ThisData rule](https://cdn.auth0.com/blog/thisdata/4-2-thisdata-rule.png)
 
@@ -88,7 +89,7 @@ This rule is designed to detect phished or compromised user accounts. Even if th
 
 ThisData has a risk score that is attached to every login event. A higher risk score indicates a more significant anomaly was  detected. If the risk is high, the user can still log in, but we can also send a notification to their email address to verify it was really them.
 
-> In Part 1 we learned how to add a rule called "Account Takeover Prevention via ThisData", which will _block_ a login attempt if the risk is too high.
+> The **"Account Takeover Prevention via ThisData"** rule will _block_ a login attempt if the risk is too high.
 
 After clicking on the rule, the rule editor will show up. Here, you can see the code that integrates ThisData with your login process. It's nice and simple—it pushes some metadata to ThisData's API when your user logs in.
 
