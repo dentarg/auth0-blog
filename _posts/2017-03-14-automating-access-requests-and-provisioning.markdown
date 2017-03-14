@@ -33,7 +33,7 @@ _A deep look at how we automated our employee access request system_
 This is all you need to tell our Slack bot; a request is created and your manager receives an approval request.
 
 ### Some Background
-Granting users access to various resources is a challenge that many (if not most) organizations face. Unfortunately, many small/medium-sized companies find the cost of purchasing and operating monolithic provisioning systems prohibitive. User access often becomes a highly manual and messy process. Here at Autho we started out with a Google Form: employees would fill it out checking off various resources/apps they wanted access to. The form saved into a Google Sheet where a script would take each entry and create an Issue in a GitHub repository. Our IT team would then use the repo’s issues as a request tracking system and manually fulfill them.
+Granting users access to various resources is a challenge that many (if not most) organizations face. Unfortunately, many small/medium-sized companies find the cost of purchasing and operating monolithic provisioning systems prohibitive. User access often becomes a highly manual and messy process. Here at Auth0 we started out with a Google Form: employees would fill it out checking off various resources/apps they wanted access to. The form saved into a Google Sheet where a script would take each entry and create an Issue in a GitHub repository. Our IT team would then use the repo’s issues as a request tracking system and manually fulfill them.
 There are a few problems with this approach:
 
 - No approval mechanism
