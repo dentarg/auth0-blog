@@ -24,10 +24,10 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  This article covers <strong>Elm v0.17</strong>. To upgrade to Elm v0.18, please see the <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md">0.18 Upgrade Docs here</a>. In addition, make sure to address all applicable <a href="https://github.com/elm-lang/elm-platform/blob/master/upgrade-docs/0.18.md#package-changes">package changes</a>. 
+  This article and its supporting GitHub repositories have been updated to <strong>Elm v0.18</strong>.
 </div>
 
-**TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/kmaida/auth0-elm-with-jwt-api).
+**TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/auth0-blog/elm-with-jwt-api).
 
 ---
 
@@ -49,7 +49,7 @@ If you're [familiar with JavaScript but new to Elm](http://elm-lang.org/docs/fro
 
 ## Setup and Installation
 
-The full source code for our finished app can be [cloned on GitHub here](https://github.com/kmaida/auth0-elm-with-jwt-api).
+The full source code for our finished app can be [cloned on GitHub here](https://github.com/auth0-blog/elm-with-jwt-api).
 
 We're going to use [Gulp](http://gulpjs.com) to build and serve our application locally and [NodeJS](https://nodejs.org/en) to serve our API and install dependencies through the Node Package Manager (npm). If you don't already have Node and Gulp installed, please visit their respective websites and follow instructions for download and installation. 
 
@@ -71,9 +71,9 @@ Once Elm is successfully installed, we need to set up our project's configuratio
 // elm-package.json
 
 {
-    "version": "0.1.0",
+    "version": "1.0.0",
     "summary": "Build an App in Elm with JWT Authentication and an API",
-    "repository": "https://github.com/kmaida/auth0-elm-with-jwt-api.git",
+    "repository": "https://github.com/auth0-blog/elm-with-jwt-api.git",
     "license": "MIT",
     "source-directories": [
         "src",
@@ -81,16 +81,16 @@ Once Elm is successfully installed, we need to set up our project's configuratio
     ],
     "exposed-modules": [],
     "dependencies": {
-        "elm-lang/core": "4.0.1 <= v < 5.0.0",
-        "elm-lang/html": "1.0.0 <= v < 2.0.0",
-        "evancz/elm-http": "3.0.1 <= v < 4.0.0",
-        "rgrempel/elm-http-decorators": "1.0.2 <= v < 2.0.0"
+        "elm-lang/core": "5.1.1 <= v < 6.0.0",
+        "elm-lang/html": "2.0.0 <= v < 3.0.0",
+        "elm-lang/http": "1.0.0 <= v < 2.0.0",
+        "rgrempel/elm-http-decorators": "2.0.0 <= v < 3.0.0"
     },
-    "elm-version": "0.17.0 <= v < 0.18.0"
+    "elm-version": "0.18.0 <= v < 0.19.0"
 }
 ```
 
-We'll be using Elm v0.17 in this tutorial. The `elm-version` here is restricted to minor point releases of 0.17. There are breaking changes between versions 0.17 and 0.16 and we can likely expect the same for 0.18.
+We'll be using Elm v0.18 in this tutorial. The `elm-version` here is restricted to minor point releases of 0.18.
 
 Now that we've declared our Elm dependencies, we can install them:
 
@@ -108,16 +108,14 @@ Now we have Node, Gulp, Elm, and the API installed. Let's set up our build confi
 // package.json
 
 ...
-
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-connect": "^4.0.0",
-    "gulp-elm": "^0.4.4",
+    "gulp-elm": "^0.6.1",
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7"
   }
-
 ...
 ```
 
@@ -270,7 +268,7 @@ blockquote {
 
 We're ready to start writing Elm. Create a file in the `/src` folder called `Main.elm`. The full code for this step is available in the source repository on GitHub:
 
- **[Main.elm - Introduction to Elm](https://github.com/kmaida/auth0-elm-with-jwt-api/blob/step-1/src/Main.elm)**
+ **[Main.elm - Introduction to Elm](https://github.com/auth0-blog/elm-with-jwt-api/blob/step-1/src/Main.elm)**
  
 Our file structure should now look like this:
 
@@ -280,12 +278,11 @@ If you're already familiar with Elm you can skip ahead. If Elm is brand new to y
 
 ```js
 import Html exposing (..)
-import Html.App as Html
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 ```
 
-At the top of our app file, we need to import dependencies. We expose the `Html` package to the application for use and then declare `Html.App` as `Html`. Because we'll be writing a view function, we will expose `Html.Events` and `Html.Attributes` to use click and input events, IDs, classes, and other element attributes.
+At the top of our app file, we need to import dependencies. We expose the `Html` package to the application for use. Because we'll be writing a view function, we will expose `Html.Events` and `Html.Attributes` to use click and input events, IDs, classes, and other element attributes.
 
 Everything we're going to write is part of **The Elm Architecture**. In brief, this refers to the basic pattern of Elm application logic. It consists of `Model` (application state), `Update` (way to update the application state), and `View` (render the application state as HTML). You can read more about [The Elm Architecture in Elm's guide](http://guide.elm-lang.org/architecture).
 
@@ -460,7 +457,7 @@ Clicking the button will call the API to get and display random Chuck Norris quo
 
 Once we're successfully getting quotes, our source code will look like this: 
 
-**[Main.elm - Calling the API](https://github.com/kmaida/auth0-elm-with-jwt-api/blob/step-2/src/Main.elm)**
+**[Main.elm - Calling the API](https://github.com/auth0-blog/elm-with-jwt-api/blob/step-2/src/Main.elm)**
 
 The first thing we need to do is import the dependencies necessary for making HTTP requests:
 
