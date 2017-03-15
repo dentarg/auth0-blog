@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Creating Your First Elm App: From Authentication to Calling an API (Part 1)"
-description: Explore building an app in the functional, reactive front-end language Elm, complete with an API and JWT authentication.
+description: Explore building an app in the functional, reactive front-end language Elm. Part 1 focuses on Elm history, architecture, syntax, and calling an API.
 date: 2016-08-04 13:30
 category: Technical Guide, Frontend, Elm
 design:
@@ -10,7 +10,7 @@ design:
 author:
   name: Kim Maida
   url: http://twitter.com/KimMaida
-  mail: kim@kmaida.io
+  mail: kim.maida@auth0.com
   avatar: https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png
 tags:
 - elm
@@ -19,12 +19,12 @@ tags:
 - authentication
 related:
 - 2016-08-09-creating-your-first-elm-app-part-2
-- 2016-07-14-create-an-app-in-vuejs-2
+- 2017-02-10-glossary-of-modern-javascript-concepts
 ---
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  This article and its supporting GitHub repositories have been updated to <strong>Elm v0.18</strong>.
+  <strong>Update:</strong> This article and its supporting GitHub repos have been updated to <strong>Elm v0.18</strong>!
 </div>
 
 **TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/auth0-blog/elm-with-jwt-api).
