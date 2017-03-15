@@ -4,6 +4,7 @@ title: "Serverless development reimagined with the new Webtask Editor"
 description: We've just shipped a brand new editor for Webtask to go from 0 to code in seconds!
 date: 2017-03-09 16:02
 category: Technical Guide, Serverless, Webtask
+press_release: true
 author: 
   name: Javier Centurion
   mail: javier.centurion@auth0.com
