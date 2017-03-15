@@ -5,8 +5,8 @@ description: "Explore building an app in the functional, reactive front-end lang
 date: 2016-08-09 08:30
 category: Technical Guide, Frontend, Elm
 design:
-  bg_color: "#2D2D2D"
-  image: https://cdn.auth0.com/blog/intro-to-elm/logo.png
+  bg_color: "#5A6378"
+  image: https://cdn.auth0.com/blog/elm-auth/elm-logo.png
 author:
   name: Kim Maida
   url: http://twitter.com/KimMaida
