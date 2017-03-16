@@ -2,7 +2,7 @@
 layout: post
 title: "Web Components: How To Craft Your Own Custom Components"
 description: "Learn how to make web components and leverage them in your applications today."
-date: 2017-02-15 8:30
+date: 2017-03-16 8:30
 category: Technical Guide, Frontend, Web Components
 author:
   name: "Prosper Otemuyiwa"
