@@ -90,6 +90,7 @@ Vincent Freeman is deemed an in-valid because he's conceived naturally without t
 In order to mask his true genetics, he uses the identity (blood, skin, hair, eyelashes, urine, and saliva) of a paralyzed man—a valid—by falsifying a finger-prick blood test to gain access to opportunities that would typically be out of reach.
 
 ![Gattaca biometrics identity fingerprint and prick](https://cdn.auth0.com/blog/id-in-movies/gattaca.jpg)
+
 [Source](http://biometrics.mainguet.org/movies/Gattaca_fake_blood_sample.jpg)
 
 Despite the obvious physical differences between Vincent and Jerome, we're shown that genetics take precedence. In other words, identity is authenticated by biometrics.
