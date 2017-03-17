@@ -24,19 +24,29 @@
 {% endif %}
 
 <!-- Twitter Cards -->
-{% if page.design.image_tw %}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="{{page.design.image_tw}}">
-{% else if page.design.image%}
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="{{page.design.image}}">
-{% else %}
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.auth0.com/styleguide/latest/lib/logos/img/favicon.png">
-{% endif %}
-<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-<meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta name="twitter:site" content="@auth0">
 <meta name="twitter:creator" content="@auth0">
+{% if page.title %}
+  <meta name="twitter:title" content="{{ page.title }}">
+{% else %}
+  <meta name="twitter:title" content="{{ site.title }}">
+{% endif %}
+{% if page.url %}
+  <meta name="twitter:url" content="{{ site.url }}/blog">
+{% endif %}
+{% if page.description %}
+  <meta name="twitter:description" content="{{ page.description }}">
+{% else %}
+  <meta name="twitter:description" content="{{ site.description }}">
+{% endif %}
+{% if page.image %}
+  <meta name="twitter:image:src" content="{{ site.url }}/path/to/image/{{ page.image }}">
+{% else %}
+  <meta name="twitter:image:src" content="https://cdn.auth0.com/blog/blog-twitter-card/twitter-card">
+{% endif %}
+<meta name="twitter:image:height" content="512">
+<meta name="twitter:image:width" content="1024">
 
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
