@@ -2,21 +2,22 @@
 layout: post
 title: "Analyzing Identity in Movies"
 description: "As technology becomes more advanced, movies are predictors of how our identity will be utilized."
-date: 2017-03-15 8:30
-category: Growth, Thing, Thing2
+date: 2017-03-17 8:30
+category: Growth, Identity
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: "NAME HERE"
-  url: "https://twitter.com/TWITTER_HANDLE"
-  mail: "_____@auth0.com"
-  avatar: "https://en.gravatar.com/userimage/IMAGE.png"
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/identity-in-movies/logo.png
+  bg_color: "#355FB7"
 tags:
-- hyphenated-tags
-- 
+- identity
+- movies
+- biometry
 related:
 - 2016-12-06-machine-learning-for-everyone
 - 2016-11-23-how-passwordless-authentication-works
