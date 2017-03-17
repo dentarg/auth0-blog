@@ -17,8 +17,8 @@ tags:
 - php7
 - migrate
 related:
-- 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 - 2017-01-20-migrating-a-php5-app-to-php7-part-one
+- 2017-02-09-migrating-a-php5-app-to-php7-part-three
 ---
 
 ---
@@ -57,7 +57,7 @@ function getBookNo(int $number) {
     return $number;
 }
 
-getName('boooks');
+getBookNo('boooks');
 
 // Error raised
 PHP Fatal error:  Uncaught TypeError: Argument 1 passed to getBookNo() must be of the type integer, string given, called in ....
@@ -80,7 +80,7 @@ echo getBookNo("8");
 This is it: 8
 ```
 
-I passed in a string and it concerced it to an integer and allowed it to run successfully. Now in PHP 7, you can be strict and ensure no form of automatic conversion occurs by declaring a strict mode at the top of your PHP file like so:
+I passed in a string and it coerced it to an integer and allowed it to run successfully. Now in PHP 7, you can be strict and ensure no form of automatic conversion occurs by declaring a strict mode at the top of your PHP file like so:
 
 ```php
 declare(strict_types=1);

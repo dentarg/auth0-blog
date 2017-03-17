@@ -1,16 +1,16 @@
 ---
 layout: post
 title: "Creating Your First Elm App: From Authentication to Calling an API (Part 1)"
-description: Explore building an app in the functional, reactive front-end language Elm, complete with an API and JWT authentication.
+description: Explore building an app in the functional, reactive front-end language Elm. Part 1 focuses on Elm history, architecture, syntax, and calling an API.
 date: 2016-08-04 13:30
 category: Technical Guide, Frontend, Elm
 design:
-  bg_color: "#2D2D2D"
-  image: https://cdn.auth0.com/blog/intro-to-elm/logo.png
+  bg_color: "#5A6378"
+  image: https://cdn.auth0.com/blog/elm-auth/elm-logo.png
 author:
   name: Kim Maida
   url: http://twitter.com/KimMaida
-  mail: kim@kmaida.io
+  mail: kim.maida@auth0.com
   avatar: https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png
 tags:
 - elm
@@ -19,10 +19,15 @@ tags:
 - authentication
 related:
 - 2016-08-09-creating-your-first-elm-app-part-2
-- 2016-07-14-create-an-app-in-vuejs-2
+- 2017-02-10-glossary-of-modern-javascript-concepts
 ---
 
-**TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/kmaida/auth0-elm-with-jwt-api).
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>Update:</strong> This article and its supporting GitHub repos have been updated to <strong>Elm v0.18</strong>!
+</div>
+
+**TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/auth0-blog/elm-with-jwt-api).
 
 ---
 
@@ -44,11 +49,11 @@ If you're [familiar with JavaScript but new to Elm](http://elm-lang.org/docs/fro
 
 ## Setup and Installation
 
-The full source code for our finished app can be [cloned on GitHub here](https://github.com/kmaida/auth0-elm-with-jwt-api).
+The full source code for our finished app can be [cloned on GitHub here](https://github.com/auth0-blog/elm-with-jwt-api).
 
 We're going to use [Gulp](http://gulpjs.com) to build and serve our application locally and [NodeJS](https://nodejs.org/en) to serve our API and install dependencies through the Node Package Manager (npm). If you don't already have Node and Gulp installed, please visit their respective websites and follow instructions for download and installation. 
 
->Note: Webpack is an alternative to Gulp. If you're interested in trying a customizable webpack build in the future for larger Elm projects, check out [elm-webpack-loader](https://github.com/rtfeldman/elm-webpack-loader).
+> **Note:** Webpack is an alternative to Gulp. If you're interested in trying a customizable webpack build in the future for larger Elm projects, check out [elm-webpack-loader](https://github.com/rtfeldman/elm-webpack-loader).
 
 We also need the API. Clone the [NodeJS JWT Authentication sample API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) repository and follow the README to get it running.
 
@@ -66,9 +71,9 @@ Once Elm is successfully installed, we need to set up our project's configuratio
 // elm-package.json
 
 {
-    "version": "0.1.0",
+    "version": "1.0.0",
     "summary": "Build an App in Elm with JWT Authentication and an API",
-    "repository": "https://github.com/kmaida/auth0-elm-with-jwt-api.git",
+    "repository": "https://github.com/auth0-blog/elm-with-jwt-api.git",
     "license": "MIT",
     "source-directories": [
         "src",
@@ -76,16 +81,16 @@ Once Elm is successfully installed, we need to set up our project's configuratio
     ],
     "exposed-modules": [],
     "dependencies": {
-        "elm-lang/core": "4.0.1 <= v < 5.0.0",
-        "elm-lang/html": "1.0.0 <= v < 2.0.0",
-        "evancz/elm-http": "3.0.1 <= v < 4.0.0",
-        "rgrempel/elm-http-decorators": "1.0.2 <= v < 2.0.0"
+        "elm-lang/core": "5.1.1 <= v < 6.0.0",
+        "elm-lang/html": "2.0.0 <= v < 3.0.0",
+        "elm-lang/http": "1.0.0 <= v < 2.0.0",
+        "rgrempel/elm-http-decorators": "2.0.0 <= v < 3.0.0"
     },
-    "elm-version": "0.17.0 <= v < 0.18.0"
+    "elm-version": "0.18.0 <= v < 0.19.0"
 }
 ```
 
-We'll be using Elm v0.17 in this tutorial. The `elm-version` here is restricted to minor point releases of 0.17. There are breaking changes between versions 0.17 and 0.16 and we can likely expect the same for 0.18.
+We'll be using Elm v0.18 in this tutorial. The `elm-version` here is restricted to minor point releases of 0.18.
 
 Now that we've declared our Elm dependencies, we can install them:
 
@@ -103,16 +108,14 @@ Now we have Node, Gulp, Elm, and the API installed. Let's set up our build confi
 // package.json
 
 ...
-
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-connect": "^4.0.0",
-    "gulp-elm": "^0.4.4",
+    "gulp-elm": "^0.6.1",
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7"
   }
-
 ...
 ```
 
@@ -201,14 +204,14 @@ Let's fire up our Gulp task. This will start a local server and begin watching f
 gulp
 ```
 
->Note: Since Gulp is compiling Elm for us, if we have compile errors they will show up in the command prompt / terminal window. If you have one of the Elm plugins installed in your editor, they should also show up inline in your code.
+> **Note:** Since Gulp is compiling Elm for us, if we have compile errors they will show up in the command prompt / terminal window. If you have one of the Elm plugins installed in your editor, they should also show up inline in your code.
 
 ### HTML
 
 We'll start by creating a basic `index.html` file:
 
 {% highlight html %}
-<!-- index.html -->
+<!-- src/index.html -->
 
 <!DOCTYPE html>
 <html>
@@ -216,7 +219,7 @@ We'll start by creating a basic `index.html` file:
         <meta charset="utf-8">
         <title>Chuck Norris Quoter</title>
         <script src="Main.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles.css">
     </head>
     
@@ -240,7 +243,7 @@ Finally we'll use JS to tell Elm to load our application. The Elm module we're g
 Next, let's create the `styles.css` file:
 
 ```css
-/* styles.css */
+/* src/styles.css */
 
 .container {
     margin: 1em auto;
@@ -265,7 +268,7 @@ blockquote {
 
 We're ready to start writing Elm. Create a file in the `/src` folder called `Main.elm`. The full code for this step is available in the source repository on GitHub:
 
- **[Main.elm - Introduction to Elm](https://github.com/kmaida/auth0-elm-with-jwt-api/blob/step-1/src/Main.elm)**
+ **[src/Main.elm - Step 1: Introduction to Elm](https://github.com/auth0-blog/elm-with-jwt-api/blob/step-1/src/Main.elm)**
  
 Our file structure should now look like this:
 
@@ -275,17 +278,16 @@ If you're already familiar with Elm you can skip ahead. If Elm is brand new to y
 
 ```js
 import Html exposing (..)
-import Html.App as Html
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 ```
 
-At the top of our app file, we need to import dependencies. We expose the `Html` package to the application for use and then declare `Html.App` as `Html`. Because we'll be writing a view function, we will expose `Html.Events` and `Html.Attributes` to use click and input events, IDs, classes, and other element attributes.
+At the top of our app file, we need to import dependencies. We expose the `Html` package to the application for use. Because we'll be writing a view function, we will expose `Html.Events` and `Html.Attributes` to use click and input events, IDs, classes, and other element attributes.
 
 Everything we're going to write is part of **The Elm Architecture**. In brief, this refers to the basic pattern of Elm application logic. It consists of `Model` (application state), `Update` (way to update the application state), and `View` (render the application state as HTML). You can read more about [The Elm Architecture in Elm's guide](http://guide.elm-lang.org/architecture).
 
 ```elm
-main : Program Never
+main : Program Never Model Msg
 main = 
     Html.program 
         { init = init 
@@ -295,7 +297,7 @@ main =
         }
 ```
 
-`main : Program Never` is a [type annotation](https://github.com/elm-guides/elm-for-js/blob/master/How%20to%20Read%20a%20Type%20Annotation.md). This annotation says "`main` has type `Program` and should `Never` expect a flags argument". If this doesn't make a ton of sense yet, hang tight--we'll be covering more type annotations throughout our app.
+`main : Program Never Model Msg` is a [type annotation](https://github.com/elm-guides/elm-for-js/blob/master/How%20to%20Read%20a%20Type%20Annotation.md). This annotation says "`main` has type `Program` and should `Never` expect a flags argument". If this doesn't make a ton of sense yet, hang tight—we'll be covering more type annotations throughout our app.
 
 Every Elm project defines `main` as a program. There are a few program candidates, including `beginnerProgram`, `program`, and `programWithFlags`. Initially, we'll use `main = Html.program`.
 
@@ -340,27 +342,11 @@ The first block is a multi-line comment. A single-line comment is represented li
 -- Single-line comment
 ```
 
-Let's create a `type alias` called `Model`: 
-
-```elm
-type alias Model =
-    { quote : String 
-    }
-```
-
 A [type alias](http://guide.elm-lang.org/types/type_aliases.html) is a definition for use in type annotations. In future type annotations, we can now say `Something : Model` and `Model` would be replaced by the contents of the type alias.
 
 We expect a record with a property of `quote` that has a string value. We've mentioned [records](http://elm-lang.org/docs/records) a few times, so we'll expand on them briefly: records look similar to objects in JavaScript. However, records in Elm are immutable: they hold labeled data but do not have inheritance or methods. Elm's functional paradigm uses persistent data structures so "updating the model" returns a new model with only the changed data copied.
 
-Now we've come to the `init` function that we referenced in our `main` program:
-
-```elm
-init : (Model, Cmd Msg)
-init =
-    ( Model "", Cmd.none )
-```
-
-The type annotation for `init` means "`init` returns a tuple containing record defined in Model type alias and a command for an effect with an update message". That's a mouthful--and we'll be encountering additional type annotations that look similar but have more context, so they'll be easier to understand. What we should take away from this type annotation is that we're returning a [tuple](http://guide.elm-lang.org/core_language.html#tuples) (an ordered list of values of potentially varying types). So for now, let's concentrate on the `init` function.
+Now we've come to the `init` function that we referenced in our `main` program. The type annotation for `init` means "`init` returns a tuple containing record defined in Model type alias and a command for an effect with an update message". That's a mouthful--and we'll be encountering additional type annotations that look similar but have more context, so they'll be easier to understand. What we should take away from this type annotation is that we're returning a [tuple](http://guide.elm-lang.org/core_language.html#tuples) (an ordered list of values of potentially varying types). So for now, let's concentrate on the `init` function.
 
 Functions in Elm are defined with a name followed by a space and any arguments (separated by spaces), an `=`, and the body of the function indented on a newline. There are no parentheses, braces, `function` or `return` keywords. This might feel sparse at first but hopefully you'll find the clean syntax speeds development.
 
@@ -373,9 +359,11 @@ Returning a tuple is the easiest way to get multiple results from a function. Th
     * Update case
 -}
 
+
 type Msg = GetQuote
 
 update : Msg -> Model -> (Model, Cmd Msg)
+
 update msg model =
     case msg of
         GetQuote ->
@@ -409,6 +397,7 @@ We now have the logic in place for our application. How will we display the UI? 
     VIEW
 -}
 
+
 view : Model -> Html Msg
 view model =
     div [ class "container" ] [
@@ -439,7 +428,7 @@ Last, we want to display the quote text. We'll do this with a `blockquote` and `
 
 We now have all the pieces in place for the first phase of our app! We can view it at [http://localhost:3000](http://localhost:3000). Try clicking the "Grab a quote!" button a few times.
 
->Note: If the app didn't compile, Elm provides [compiler errors for humans](http://elm-lang.org/blog/compiler-errors-for-humans) in the console and in your editor if you're using an Elm plugin. Elm will not compile if there are errors! This is to avoid runtime exceptions.
+> **Note:** If the app didn't compile, Elm provides [compiler errors for humans](http://elm-lang.org/blog/compiler-errors-for-humans) in the console and in your editor if you're using an Elm plugin. Elm will not compile if there are errors! This is to avoid runtime exceptions.
 
 That was a lot of detail, but now we're set on basic syntax and structure. We'll move on to build the features of our Chuck Norris Quoter app. 
 
@@ -455,16 +444,15 @@ Clicking the button will call the API to get and display random Chuck Norris quo
 
 Once we're successfully getting quotes, our source code will look like this: 
 
-**[Main.elm - Calling the API](https://github.com/kmaida/auth0-elm-with-jwt-api/blob/step-2/src/Main.elm)**
+**[src/Main.elm - Step 2: Calling an API](https://github.com/auth0-blog/elm-with-jwt-api/blob/step-2/src/Main.elm)**
 
-The first thing we need to do is import the dependencies necessary for making HTTP requests:
+The first thing we need to do is import the dependency necessary for making HTTP requests:
 
 ```elm
 import Http
-import Task exposing (Task)
 ```
 
-We'll need [Http](http://package.elm-lang.org/packages/evancz/elm-http/3.0.1/Http) and [Task](http://package.elm-lang.org/packages/elm-lang/core/4.0.1/Task). A [task](http://guide.elm-lang.org/error_handling/task.html) in Elm is similar to a promise in JS: tasks describe asynchronous operations that can succeed or fail.
+We'll need [Http](http://package.elm-lang.org/packages/elm-lang/http/1.0.0/Http) to make requests and handle responses.
 
 Next we'll update our `init` function:
 
@@ -474,78 +462,92 @@ init =
     ( Model "", fetchRandomQuoteCmd )
 ```
 
-Now instead of `Cmd.none` we have a command called `fetchRandomQuoteCmd`. A [command](http://package.elm-lang.org/packages/elm-lang/core/4.0.1/Platform-Cmd#Cmd) is a way to tell Elm to do some effect (like HTTP). We're commanding the application to fetch a random quote from the API on initialization. We'll define the `fetchRandomQuoteCmd` function shortly.
+Now instead of `Cmd.none` we have a command called `fetchRandomQuoteCmd`. A [command](http://package.elm-lang.org/packages/elm-lang/core/latest/Platform-Cmd#Cmd) is a way to tell Elm to do some effect (like HTTP). We're commanding the application to fetch a random quote from the API on initialization. We'll define the `fetchRandomQuoteCmd` function shortly.
 
 ```elm
 {-
-    UPDATE
-    * API routes
-    * GET
-    * Messages
-    * Update case
+   UPDATE
+   * API routes
+   * GET
+   * Messages
+   * Update case
 -}
-
 -- API request URLs
-    
+
+
 api : String
 api =
-     "http://localhost:3001/"    
-    
+    "http://localhost:3001/"
+
+
 randomQuoteUrl : String
-randomQuoteUrl =    
-    api ++ "api/random-quote"   
+randomQuoteUrl =
+    api ++ "api/random-quote"
+
+
 
 -- GET a random quote (unauthenticated)
-    
-fetchRandomQuote : Platform.Task Http.Error String
+
+
+fetchRandomQuote : Http.Request String
 fetchRandomQuote =
     Http.getString randomQuoteUrl
-    
+
+
 fetchRandomQuoteCmd : Cmd Msg
 fetchRandomQuoteCmd =
-    Task.perform HttpError FetchQuoteSuccess fetchRandomQuote
+    Http.send FetchRandomQuoteCompleted fetchRandomQuote
+
+
+fetchRandomQuoteCompleted : Model -> Result Http.Error String -> ( Model, Cmd Msg )
+fetchRandomQuoteCompleted model result =
+    case result of
+        Ok newQuote ->
+            ( { model | quote = newQuote }, Cmd.none )
+
+        Err _ ->
+            ( model, Cmd.none )
 ``` 
 
 We've added some code to our update section. First we'll store the API routes. 
 
-The Chuck Norris API returns unauthenticated random quotes as strings, not JSON. Let's create a function called `fetchRandomQuote`. The type annotation declares that this function is a task that either fails with an error or succeeds with a string. We can use the [`Http.getString`](http://package.elm-lang.org/packages/evancz/elm-http/3.0.1/Http#getString) method to make the HTTP request with the API route as an argument.
+The Chuck Norris API returns unauthenticated random quotes as strings, not JSON. Let's create a function called `fetchRandomQuote`. We can use the [`Http.getString`](http://package.elm-lang.org/packages/elm-lang/http/1.0.0/Http#getString) method to make the HTTP request with the API route as an argument.
 
 HTTP is something that happens outside of Elm. A command is needed to request the effect and a message is needed to notify the update that the effect was completed and to deliver its results.
 
-We'll do this in `fetchRandomQuoteCmd`. This function's type annotation declares that it returns a command with a message. [`Task.perform`](http://package.elm-lang.org/packages/elm-lang/core/4.0.1/Task#perform) is a command that tells the runtime to execute a task. Tasks can fail or succeed so we need to pass three arguments to `Task.perform`: a message for failure (`HttpError`), a message for success (`FetchQuoteSuccess`), and what task to perform (`fetchRandomQuote`). 
+We'll do this in `fetchRandomQuoteCmd`. This function's type annotation declares that it returns a command with a message. [`Http.send`](http://package.elm-lang.org/packages/elm-lang/http/1.0.0/Http#send) is a command that sends a request.
 
-`HttpError` and `FetchQuoteSuccess` are messages that don't exist yet, so let's create them:
+We then need to respond to the completed request with a message that handles successes and errors: `FetchRandomQuoteCompleted`. If the request returns `Ok`, we'll set the `quote` in the model with the string that is returned. In the case of an error (`Err`), we aren't going to do anything special. For the sake of brevity, we'll handle API errors when we get to authentication but not for getting unauthenticated quotes. Since we're discarding this argument, we can pass a discarded argument `_`. This will return a tuple that sends the model in its current state and no command. You may want to handle errors here on your own after completing the provided code.
+
+Let's add `FetchRandomQuoteCompleted` to our messages and update:
 
 ```elm
 -- Messages
 
-type Msg 
+
+type Msg
     = GetQuote
-    | FetchQuoteSuccess String
-    | HttpError Http.Error      
+    | FetchRandomQuoteCompleted (Result Http.Error String)  
+
+
 
 -- Update
 
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GetQuote ->
             ( model, fetchRandomQuoteCmd )
 
-        FetchQuoteSuccess newQuote ->
-            ( { model | quote = newQuote }, Cmd.none )
-            
-        HttpError _ ->
-            ( model, Cmd.none )
+        FetchRandomQuoteCompleted result ->
+            fetchRandomQuoteCompleted model result
 ```            
 
-We add these two new messages to the `Msg` union type and annotate the types of their arguments. `FetchQuoteSuccess` accepts a string that contains the new Chuck Norris quote from the API and `HttpError` accepts an [`Http.Error`](http://package.elm-lang.org/packages/evancz/elm-http/3.0.1/Http#Error). These are the possible success / fail results of the task.
+We add these two new messages to the `Msg` union type and annotate the types of their arguments. `FetchRandomQuoteCompleted` accepts a result with an [`Http.Error`](http://package.elm-lang.org/packages/elm-lang/http/1.0.0/Http#Error) or the new Chuck Norris quote string from the API. These are the possible fail / success results of the HTTP request.
 
-Next we add these cases to the `update` function and declare what we want returned in the `(Model, Cmd Msg)` tuple. We also need to update the `GetQuote` tuple to fetch a quote from the API. We'll change `GetQuote` to return the current model and issue the command to fetch a random quote, `fetchRandomQuoteCmd`.
+Next we add this case to the `update` function and declare what we want returned in the `(Model, Cmd Msg)` tuple. We also need to update the `GetQuote` tuple to fetch a quote from the API. We'll change `GetQuote` to return the current model and issue the command to fetch a random quote, `fetchRandomQuoteCmd`.
 
-`FetchQuoteSuccess`'s argument is the new quote string. We want to update the model with this. There are no commands to execute here, so we will declare the second element of the tuple `Cmd.none`.
-
-`HttpError`'s argument is `Http.Error` but we aren't going to do anything special with this. For the sake of brevity, we'll handle API errors when we get to authentication but not for getting unauthenticated quotes. Since we're discarding this argument, we can pass `_` to `HttpError`. This will return a tuple that sends the model in its current state and no command. You may want to handle errors here on your own after completing the provided code.
+`FetchRandomQuoteCompleted`'s argument is the response result. We use this to update the model in our `Ok` case.
 
 It's important to remember that the `update` function's type is `Msg -> Model -> (Model, Cmd Msg)`. This means that all branches of the `case` statement _must_ return the same type. If any branch does not return a tuple with a model and a command, a compiler error will occur.
 
