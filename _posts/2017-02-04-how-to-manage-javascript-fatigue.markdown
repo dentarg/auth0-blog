@@ -2,7 +2,7 @@
 layout: post
 title: "How to Manage JavaScript Fatigue"
 description: "Many developers are overwhelmed by the rapidly expanding ecosystem of modern JavaScript. Learn how to manage and mitigate JS fatigue."
-date: 2017-02-08 8:30
+date: 2017-03-21 8:30
 category: Growth, Generic
 banner:
   text: "Auth0 makes it easy to add authentication to your JS application."
@@ -19,23 +19,25 @@ tags:
 - javascript
 - tooling
 related:
+- 2017-02-10-glossary-of-modern-javascript-concepts
 - 2016-10-07-managing-tech-job-stress-when-9-5-is-unrealistic
-- 2016-05-23-how-to-motivate-your-employees
 ---
 
 **TL;DR:** Most JavaScript developers have heard of or experienced JavaScript fatigue. JS fatigue is the overwhelming sense that we need to learn most of the hottest emerging technologies in order to do our jobs well. This is unattainable and the stress we feel to achieve it is unjustified; so how do we manage and combat JavaScript fatigue?
 
 ---
 
+![JavaScript fatigue comic](https://cdn.auth0.com/blog/js-fatigue/comic.png)
+
 ## What is JavaScript Fatigue?
 
-_JavaScript fatigue_ is on a lot of developers' tongues and blogs recently, and with valid reason. But what does it mean to have JS fatigue? It's often mentioned when someone hears about a new library, framework, dependency manager, build tool, etc. Let's do a quick breakdown of what JS fatigue means.
+Putting satire aside, _JavaScript fatigue_ is on a lot of developers' tongues and blogs recently, and with valid reason. But what does it mean to have JS fatigue? It's often mentioned when someone hears about a new library, framework, dependency manager, build tool, etc. Let's do a quick breakdown of what JS fatigue means.
 
 ### JS Fatigue vs. Analysis Paralysis
 
 JS fatigue is often linked with [analysis paralysis](https://en.wikipedia.org/wiki/Analysis_paralysis) (also called _choice paralysis_). JS analysis paralysis can occur because of the huge range of options when selecting a framework, tooling, testing suites, and more for a new application. Choosing the right framework or library can be challenging and occasionally even paralyzing, but having a wealth of tools at our disposal allows us to be more selective about what's best for the job at hand. In some cases, options help us to _avoid_ fatigue by supplying an ideal solution for a specific project.
 
-### JS Fatigue is...
+### What it Means to Have JS Fatigue
 
 We get JS fatigue when the requirements (either actual or self-imposed) for learning something are so daunting that a developer becomes exhausted and overwhelmed.
 
@@ -53,7 +55,7 @@ In a nutshell, JS fatigue has become a phenomenon because the JS landscape is ev
 
 The exponential and unslowed growth of JS has opened the doors for great tools, languages, and frameworks. However, this also promotes change so rapid it can make any developer's head spin. [The Deep Roots of Javascript Fatigue](https://segment.com/blog/the-deep-roots-of-js-fatigue/) delves into the history of JS and its swift evolution over a short amount of time. It's a great read and highly recommended.
 
-Only a few years ago, most programmers considered _front-end development_ to consist primarily of HTML, CSS, and UI-enhancing JavaScript (such as jQuery). Since then, JS alone has proliferated into [isomorphic JS](http://isomorphic.net/javascript), [functional reactive programming](https://www.sitepoint.com/functional-reactive-programming-rxjs/) [in](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/) [JS](https://www.infoq.com/articles/virtual-panel-reactive-javascript-and-elm-in-2016), [frameworks, libraries, build](https://medium.com/javascript-scene/top-javascript-frameworks-topics-to-learn-in-2017-700a397b711#.fuxwtb909) [tools, package managers, and much more](http://stackoverflow.com/questions/35062852/npm-vs-bower-vs-browserify-vs-gulp-vs-grunt-vs-webpack). We used to refer to "front-end" wholistically as all client-side development, but JS has evolved to support a specialization: _JavaScript developers_.
+Only a few years ago, most programmers considered _front-end development_ to consist primarily of HTML, CSS, and UI-enhancing JavaScript (such as jQuery). Since then, JS alone has proliferated into [isomorphic JS](http://isomorphic.net/javascript), [functional reactive programming](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#functional-reactive-programming) [in](https://www.sitepoint.com/functional-reactive-programming-rxjs/) [JS](https://www.infoq.com/articles/virtual-panel-reactive-javascript-and-elm-in-2016), [frameworks, libraries, build](https://medium.com/javascript-scene/top-javascript-frameworks-topics-to-learn-in-2017-700a397b711#.fuxwtb909) [tools, package managers, and much more](http://stackoverflow.com/questions/35062852/npm-vs-bower-vs-browserify-vs-gulp-vs-grunt-vs-webpack). We used to refer to "front-end" wholistically as all client-side development, but JS has evolved to support a specialization: _JavaScript developers_.
 
 ## How to Manage JS Fatigue
 
@@ -96,7 +98,7 @@ One good way to learn new tools and frameworks is to make the same thing (someth
 * External API
 * Services and utilities
 
-This has several advantages for learning:
+This has several advantages for learning.
 
 * **Familiarity**: knowing what you're trying to achieve and not making it up as you go along makes development more straightfoward.
 * **Comparison**: rebuilding something reveals similarities and differences as well as highlights strengths and weaknesses between frameworks.
@@ -106,7 +108,7 @@ It's important to maintain a high level of interest and/or usefulness with your 
 
 ### Be Aware of Common Concepts
 
-Even as JS grows and changes, there are always concepts shared amongst many new frameworks and libraries. It's useful to keep an eye out for these tools and topics. For example, [ES6](http://es6-features.org/) and [TypeScript](https://www.typescriptlang.org/) are becoming more heavily used, as well as [Webpack](https://webpack.github.io/), [functional reactive programming](https://vincenttunru.com/Javascript-reactive-programming/), and [web components](http://webcomponents.org/). **Knowing about common dependencies makes different frameworks feel more similar.**
+Even as JS grows and changes, there are always [concepts shared amongst many new frameworks and libraries](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#functional-reactive-programming). It's useful to keep an eye out for these tools and topics. For example, [ES6](https://auth0.com/blog/a-rundown-of-es6-features) and [TypeScript](https://www.typescriptlang.org/) are becoming more heavily used, as well as [Webpack](https://webpack.github.io/), [functional reactive programming](https://vincenttunru.com/Javascript-reactive-programming/), and [web components](https://auth0.com/blog/web-components-how-to-craft-your-own-custom-components/). **Knowing about common dependencies makes different frameworks feel more similar.**
 
 When you take the plunge with a new framework and toolchain, you'll learn some of the common topics. You'll be pleased to find that other modern frameworks leverage many of the same tools and concepts and are now much easier to pick up.
 
@@ -132,7 +134,7 @@ We'll finish with an analogy. If JS is the world around you, there are a few way
 
 If you look at the JS world through a **telescope**, you can see _one thing very clearly_. However, you're essentially blind to everything _else_ around you. It's important to be comfortable with your focus, but not to the point that you shut out awareness of any other possibilities.
 
-If you view the world as a **panorama**, you get a vast, comprehensive picture but it's hard to know where to look. Everything in the scene competes for your attention and you can get easily distracted when trying to focus if something else catches your eye. This can be exhausting.
+If you view the world as a panorama through a **wide-angle lens**, you get a vast, comprehensive picture but it's hard to know where to look. Everything in the scene competes for your attention and you can get easily distracted when trying to focus if something else catches your eye. This can be exhausting.
 
 Now consider a normal **pair of glasses**. You can see everything more clearly, but still focus your attention on one (or a few) things without losing sight of what's in your periphery. 
 
