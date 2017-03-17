@@ -2,7 +2,7 @@
 layout: post
 title: "Securing Spring Boot with JWTs"
 description: Learn how to set up a Spring Boot project using Java, and secure it with JWTs.
-date: 2017-03-20 08:30
+date: 2016-09-20 08:30
 category: Technical Guide, Java, Spring Boot
 banner:
   text: "Quickly add authentication to your Spring Security Java API app."
