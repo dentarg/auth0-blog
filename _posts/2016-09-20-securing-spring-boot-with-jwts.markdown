@@ -183,7 +183,7 @@ The first step is to secure some routes of our application. For this demo we wil
 </dependency>
 ```
 
-Once we have updated the `pom.xml` file and imported the new dependencies, we are ready to start securing our routes. First of all, we want to avoid exposing `/users` to everyone, so we will create a configuration that restricts its access. We will accomplish this by adding a new class called `WebSecurityConfig` that extends the `WebSecurityConfigurerAdapter` class from Spring Security. Let's add this new class, under the `./src/main/java/com/example/security/` directory, with the following content:
+Once we have updated the `pom.xml` file and imported the new dependencies, we are ready to start securing our routes. First of all, we want to avoid exposing `/users` to everyone, so we will create a configuration that restricts its access. We will accomplish this by adding a new class called `WebSecurityConfig` that extends the `WebSecurityConfigurerAdapter` class from Spring Security. Let's add this new class, under a new package called `com.example.security`, with the following content:
 
 ```java
 package com.example.security;
@@ -201,7 +201,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
+    http.csrf().disable().authorizeRequests()
         .antMatchers("/").permitAll()
         .antMatchers(HttpMethod.POST, "/login").permitAll()
         .anyRequest().authenticated()
@@ -234,6 +234,8 @@ The classes `JWTLoginFilter` and `JWTAuthenticationFilter` will handle logging i
 ### Creating a JWT Service on Spring Boot
 
 Our JWT service will deal with the creation and verification of our tokens. In this example, we will create a token based on a username and an expiration time, and then sign it with a secret (using an HMAC). We will use `io.jsonwebtoken.Jwts` here for creating and verifying our tokens; they also provide a bunch of algorithms we can use to sign our secret.
+
+For this, let's create a new class called `TokenAuthenticationService`, under the `com.example.security`, with the following code:
 
 ```java
 package com.example.security;
@@ -286,7 +288,7 @@ class TokenAuthenticationService {
 
 ### Authenticating with JWTs
 
-We now have everything set up to use JWTs in our authentication process. We'll first take a look at the `JWTLoginFilter` class. This class will intercept `POST` requests on the `/login` path and attempt to authenticate the user. When the user is successfully authenticated, it will return a JWT in the `Authorization` header of the response. Let's create this class, under the `./src/main/java/com/example/security/JWTLoginFilter.java` file, with the following content:
+We now have everything set up to use JWTs in our authentication process. We'll first take a look at the `JWTLoginFilter` class. This class will intercept `POST` requests on the `/login` path and attempt to authenticate the user. When the user is successfully authenticated, it will return a JWT in the `Authorization` header of the response. Let's create this class, under the `com.example.security` package, with the following content:
 
 ```java
 package com.example.security;
@@ -341,7 +343,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
 During the authentication attempt, which is dealt by the `attemptAuthentication` method, we retrieve the username and password from the request. After they are retrieved, we use the `AuthenticationManager` to verify that these details match with an existing user. If it does, we enter the `successfulAuthentication` method. In this method we fetch the name from the authenticated user, and pass it on to `TokenAuthenticationService`, which will then add a JWT to the response.
 
-Now we will implement the `JWTAuthenticationFilter` class. Let's create this class, under the `./src/main/java/com/example/security/WebSecurityConfig.java` file, with the following content:
+Now we will implement the `JWTAuthenticationFilter` class. Let's create this class, under the same `com.example.security` package, with the following content:
 
 ```java
 package com.example.security;
@@ -373,9 +375,9 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 }
 ```
 
-What this filter does is to interceptall requests to validate the presence of the JWT–that is, the ones that are not issued to `/` nor `/users`. This validation is done with the help of the `TokenAuthenticationService` class.
+What this filter does is to intercept all requests to validate the presence of the JWT–that is, the ones that are not issued to `/` nor `/users`. This validation is done with the help of the `TokenAuthenticationService` class.
 
-We need just one extra class: the `AccountCredentials` class. This will be used to map request data when a `POST` call is made to `/login` path. The request data should contain the username and password as part of the body. Let's create this class, under the `./src/main/java/com/example/security/AccountCredentials.java` file, with the following content:
+We need just one extra class: the `AccountCredentials` class. This will be used to map request data when a `POST` call is made to `/login` path. The request data should contain the username and password as part of the body. Let's create this class, under the same `com.example.security` package, with the following content:
 
 ```java
 package com.example.security;
@@ -502,8 +504,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers("/public").permitAll()
-        .antMatchers("/secure").authenticated();
+        .antMatchers("/").permitAll()
+        .antMatchers("/users").authenticated();
 
     JwtWebSecurityConfigurer
         .forHS256(audience, issuer, secret.getBytes())
@@ -517,7 +519,7 @@ There we have it, this was all that's required to use Auth0 with Spring Boot. We
 ```bash
 # replace YOUR_SECRET_KEY to something like
 # F7O9nLhowPQcJlaA_kHJaDBNBgnpPooOssu-3lxCYukuag9pAPuuTzY3XyGn8uXv
-mvn spring-boot:run -Drun.arguments="--auth0.clientSecret=YOUR_SECRET_KEY"
+mvn spring-boot:run -Drun.arguments="--auth0.secret=YOUR_SECRET_KEY"
 ```
 
 Note that you have to replace `YOUR_SECRET_KEY` in the last command with your `Client Secret`. To get a JWT, first we need to issue a POST request to `https://YOUR-DOMAIN.auth0.com/dbconnections/signup`.
