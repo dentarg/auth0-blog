@@ -32,7 +32,7 @@
   <meta name="twitter:title" content="{{ site.title }}">
 {% endif %}
 {% if page.url %}
-  <meta name="twitter:url" content="{{ site.url }}/blog">
+  <meta name="twitter:url"  content="https://auth0.com{{ site.baseurl }}{{ page.url }}">
 {% endif %}
 {% if page.description %}
   <meta name="twitter:description" content="{{ page.description }}">
@@ -43,15 +43,15 @@
 
 {% if page.is_post_index %}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.auth0.com/blog/blog-twitter-card/twitter-card.png">
-{% endif %}
-
+<meta name="twitter:image:src" content="https://cdn.auth0.com/blog/blog/home-twitter-card.png">
+{% else %}
 {% if page.design.image_tw %}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{{page.design.image_tw}}">
-{% else if page.design.image %}
+{% else if page.design.image  %}
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="{{page.design.image}}">
+{% endif %}
 {% endif %}
 
 <meta name="twitter:image:height" content="512">
