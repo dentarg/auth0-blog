@@ -41,12 +41,17 @@
 {% endif %}
 
 
-{% if page.design.image%}
+{% if page.is_post_index %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.auth0.com/blog/blog-twitter-card/twitter-card.png">
+{% endif %}
+
+{% if page.design.image_tw %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{page.design.image_tw}}">
+{% else if page.design.image %}
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="{{page.design.image}}">
-{% else %}
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image:src" content="https://cdn.auth0.com/blog/blog-twitter-card/twitter-card.png">
 {% endif %}
 
 <meta name="twitter:image:height" content="512">
