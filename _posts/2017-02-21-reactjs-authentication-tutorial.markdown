@@ -262,7 +262,7 @@ const authCheck = jwt({
   audience: 'AUTH0_CLIENT_ID '
 });
 
-app.get('/api/jokes/food', (req, res)=>{
+app.get('/api/jokes/food', (req, res) => {
   let foodJokes = [
   {
     id: 99991,
@@ -292,7 +292,7 @@ app.get('/api/jokes/food', (req, res)=>{
   res.json(foodJokes);
 })
 
-app.get('/api/jokes/celebrity', (req,res)=>{
+app.get('/api/jokes/celebrity', (req,res) => {
   let CelebrityJokes = [
   {
     id: 88881,
@@ -540,7 +540,7 @@ class FoodJokes extends Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getFoodJokes();
   }
 
@@ -616,19 +616,19 @@ In the `getFoodJokes` method, we call the `getFoodData` method we exported from 
 ...
 ```
 
-Now, we took advantage of one of the **ReactJS** lifecycle hooks, `componentWillMount`. Whatever is defined in this method is applied just before a component gets rendered on the browser screen. So, we invoked the `getFoodJokes` method in the hook as seen below:
+Now, we took advantage of one of the **ReactJS** lifecycle hooks, `componentDidMount`. Whatever is defined in this method is applied immediately after a component is mounted on the browser screen. So, we invoked the `getFoodJokes` method in the hook as seen below:
 
 ```js
 ...
- componentWillMount() {
+ componentDidMount() {
     this.getFoodJokes();
   }
 ...
 ```
 
-All we are trying to do is tell **ReactJS** to load the data from the API just before the  `FoodJokes` component gets rendered.
+All we are trying to do is tell **ReactJS** to load the data from the API immediately the `FoodJokes` component gets rendered.
 
-Finally, we rendered the component with the **ReactJS** render method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant. 
+Finally, we rendered the component with the **ReactJS** `render` method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant. 
 
 We looped through the `jokes` constant which is now an array to display the contents on the screen.
 
@@ -678,7 +678,7 @@ class CelebrityJokes extends Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getCelebrityJokes();
   }
 
@@ -1086,7 +1086,7 @@ class FoodJokes extends Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getFoodJokes();
   }
 
@@ -1114,17 +1114,11 @@ class FoodJokes extends Component {
           ))}
 
         <div className="col-sm-12">
-          <div className="jumbotron text-center">
-            <h2>Get Access to Celebrity Jokes By Logging In</h2>
-          </div>
-        </div>
-
-        <div className="col-sm-12">
           { isLoggedIn() ?
           <div className="jumbotron text-center">
             <h2>View Celebrity Jokes</h2>
             <Link className="btn btn-lg btn-success" to='/special'> Celebrity Jokes </Link>
-          </div> : ''
+          </div> : <div className="jumbotron text-center"><h2>Get Access to Celebrity Jokes By Logging In</h2></div>
           }
         </div>
       </div>
