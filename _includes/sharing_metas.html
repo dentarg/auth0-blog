@@ -24,7 +24,6 @@
 {% endif %}
 
 <!-- Twitter Cards -->
-<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@auth0">
 <meta name="twitter:creator" content="@auth0">
 {% if page.title %}
@@ -40,11 +39,16 @@
 {% else %}
   <meta name="twitter:description" content="{{ site.description }}">
 {% endif %}
-{% if page.image %}
-  <meta name="twitter:image:src" content="{{ site.url }}/path/to/image/{{ page.image }}">
+
+
+{% if page.design.image%}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="{{page.design.image}}">
 {% else %}
-  <meta name="twitter:image:src" content="https://cdn.auth0.com/blog/blog-twitter-card/twitter-card">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:src" content="https://cdn.auth0.com/blog/blog-twitter-card/twitter-card.png">
 {% endif %}
+
 <meta name="twitter:image:height" content="512">
 <meta name="twitter:image:width" content="1024">
 
