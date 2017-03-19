@@ -39,7 +39,7 @@ This is part 1 of a 3 post series.
 ## Introduction: Bitcoin and the Double-Spending Problem
 In 2009, someone, under the alias of Satoshi Nakamoto, released this [iconic Bitcoin whitepaper](https://bitcoin.org/bitcoin.pdf). Bitcoin was poised to solve a very specific problem: how can the [double-spending problem](https://en.wikipedia.org/wiki/Double-spending) be solved without a central authority acting as arbiter to each transaction?
 
-To be fair, this problem had been in the [minds of researchers](http://eprint.iacr.org/2015/464.pdf) for [some time](http://ieeexplore.ieee.org/document/4268195/?reload=true) before Bitcoin was released. But where previous solution where of research quality, Bitcoin succeeded in bringing a working, production ready design to the masses.
+To be fair, this problem had been in the [minds of researchers](http://eprint.iacr.org/2015/464.pdf) for [some time](http://ieeexplore.ieee.org/document/4268195/?reload=true) before Bitcoin was released. But where previous solutions were of research quality, Bitcoin succeeded in bringing a working, production ready design to the masses.
 
 > The earliest references to some of the concepts directly applied to Bitcoin are from the 1990s. In 2005, Nick Szabo, a computer scientist, introduced the concept of [Bitgold](http://unenumerated.blogspot.com/2005/12/bit-gold.html), a precursor to Bitcoin, sharing many of its concepts. The similarities between Bitgold and Bitcoin are sufficient that some people [have speculated he might be Satoshi Nakamoto](https://dave.liberty.me/who-is-satoshi-nakamoto/).
 
