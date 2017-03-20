@@ -2,7 +2,7 @@
 layout: post
 title: "How to Manage JavaScript Fatigue"
 description: "Many developers are overwhelmed by the rapidly expanding ecosystem of modern JavaScript. Learn how to manage and mitigate JS fatigue."
-date: 2017-03-21 8:30
+date: 2017-03-22 8:30
 category: Growth, Generic
 banner:
   text: "Auth0 makes it easy to add authentication to your JS application."
