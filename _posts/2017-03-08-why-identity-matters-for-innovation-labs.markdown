@@ -2,7 +2,7 @@
 layout: post
 title: "Why Identity Matters for Innovation Labs"
 description: "Learn about identity innovations, and why identity matters for innovation labs."
-date: 2017-03-15 8:30
+date: 2017-03-21 8:30
 category: Growth, DemandGen
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
