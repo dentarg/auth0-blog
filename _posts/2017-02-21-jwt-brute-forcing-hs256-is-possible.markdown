@@ -5,8 +5,8 @@ description: "Cracking a JWT signed with HS256 is possible by brute forcing it. 
 date: 2017-02-21 08:30
 category: Technical Guide, Security, JWT
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/guardian/Guardianlogo.png
+  bg_color: "#000000"
+  image: https://jwt.io/img/pic_logo.svg
 author:
   name: "Prosper Otemuyiwa"
   url: "http://twitter.com/unicodeveloper?lang=en"
@@ -28,11 +28,11 @@ JSON Web Tokens are an open, industry standard [RFC 7519](https://tools.ietf.org
 
 ## What is a JSON Web Token?
 
-A JSON Web Token encodes a series of claims in a JSON object. Some of these claims have specific meaning, while others are left to be interpreted by the users. These claims can be verified and trusted because it is digitally signed. Examples of these claims are `issuer (iss)`, `subject (sub)`, `audience (aud)`, `expiration time (exp)`, `not before (nbf)`, and `issued at (iat)`. JWTs can be signed using a secret (with HMAC algorithm) or a public/private key pair using RSA.
+A JSON Web Token encodes a series of claims in a JSON object. Some of these claims have specific meaning, while others are left to be interpreted by the users. These claims can be verified and trusted because it is digitally signed. Examples of these claims are `issuer (iss)`, `subject (sub)`, `audience (aud)`, `expiration time (exp)`, `not before (nbf)`, and `issued at (iat)`. JWTs can be signed using a secret (with HMAC algorithm) or a public/private key pair using RSA or Elliptic-Curve.
 
 ## Structure of a JSON Web Token
 
-A JWT consists of three main parts separated by a `.` namely:
+A signed, compact-serialized JWT consists of three main parts separated by a `.` namely:
 
 * Header
 * Payload
@@ -87,7 +87,7 @@ HMACSHA256(
 
 ```
 
-The signature is used to verify that the sender of the JWT is who it says it is and to ensure that the message was’t changed in the way.
+The signature is used to prove that the message was constructed by members of a group, even though unique identity can't be established (unless the sender is the receiver) and to ensure that the message was’t changed in any way.
 
 _A signed JWT_
 
@@ -239,7 +239,7 @@ const decoded = jwt.verify(signed, publicEcdsaKey, {
 
 ## Brute Forcing a HS256 JSON Web Token
 
-As secure as `HS256` is, especially when implemented the right way, brute-forcing a JSON web token signed with **HS256** is still very possible. 
+As secure as `HS256` is, especially when implemented the right way, brute-forcing a JSON web token signed with small and medium sized shared-secrets using **HS256** is still very possible. 
 
 Recently, I came across a [tool](https://github.com/brendan-rius/c-jwt-cracker) written in C on GitHub. It is a multi-threaded JWT brute force cracker. With a huge computing power, this tool can find the secret key of a `HS256` **JSON Web token**.
 
