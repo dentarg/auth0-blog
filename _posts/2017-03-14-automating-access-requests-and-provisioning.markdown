@@ -4,12 +4,12 @@ title: "User Provisioning and Access Request with Auth0 and Webtask"
 description: "A deep look at how we automated our employee access request system using Auth0 as the directory and Webtask for serverless last mile integration with our systems"
 date: 2017-03-14 19:11
 category: Auth0-based Tutorial, Engineering
-author: 
+author:
   name: Alex Stanciu
   url: https://twitter.com/alecks
   mail: alex@auth0.com
-  avatar: http://2.gravatar.com/avatar/71fb37b19e60e1b27a78dc91630dbb29
-design: 
+  avatar: https://2.gravatar.com/avatar/71fb37b19e60e1b27a78dc91630dbb29
+design:
   bg_color: "#4E7E48"
   bg_merge: false
   image: https://cdn.auth0.com/blog/access-requests/logo.png
@@ -17,7 +17,7 @@ design:
   image_fb: https://cdn.auth0.com/blog/access-requests/card.png
   image_bg_color: "#4E7E48"
   image_size: "120%"
-tags: 
+tags:
 - provisioning
 - access requests
 - tools
@@ -160,4 +160,3 @@ Speaking of Redis, we also have a fairly standard caching layer for things that 
 In its current state, Phenix is a fairly solid access request platform with some light provisioning. We are planning to keep building on top of this to create a robust provisioning engine with full connector support that handles all types of CRUD operations against target systems. We are also building a reconciliation engine to sync data into the system from other sources. 
 
 While Phenix is an internal tool for now, we are aware that it could be beneficial to others and we may decide to open it later. If you think something like this would be useful to your organization, or if you have any other thoughts or questions on this topic, please leave us a comment.
-
