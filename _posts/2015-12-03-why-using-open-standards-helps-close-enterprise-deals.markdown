@@ -5,6 +5,10 @@ description: Contrary to popular belief, reducing vendor lock-in helps gaining e
 date: 2015-12-03 12:04
 alias: /2015/12/03/why-using-open-standards-helps-close-enterprise-deals/
 category: Growth, Standards
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -125,3 +129,5 @@ Open standards have seen thousands of companies come and go. They were around be
 By eschewing the traditional notion of lock-in where your customers are forced to rely on you—an effect that engenders bitterness and resentment—you reduce the technological barriers to switching or leaving. While potentially having a disastrous effect on the economics of the business of enterprise software, we’ve seen it to have the opposite effect.
 
 Those constraints force you to get creative and build real value on top of what’s been commoditized and made open and free. When you do that, customers will actively choose you, and you’ll win more deals and build real customer loyalty based in free choice.
+
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)

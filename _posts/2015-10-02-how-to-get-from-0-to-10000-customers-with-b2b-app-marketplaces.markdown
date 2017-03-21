@@ -5,6 +5,10 @@ description: "Use single sign-on, polish your listing, do internationalization, 
 date: 2015-10-02 11:59
 alias: /2015/10/02/how-to-get-from-0-to-10000-customers-with-b2b-app-marketplaces/
 category: Growth, B2B
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -30,7 +34,7 @@ When they launched in 2010, they had a product that their friends and family fou
 
 What ultimately propelled them from 0 to 10,000 paying customers came as a total surprise. In 2011, when their growth exploded, a whopping 33% of new customers came directly from a totally unexpected source—the [Chrome Web Store](http://purde.net/2014/12/how-to-get-from-0-to-10000-paying-customers-in-saas/).
 
-When you think B2B SaaS customer acquisition, you often think content marketing, advertising or direct sales. But it turns out that one of the cheapest, most powerful forms of customer acquisition are B2B app marketplaces.
+When you think [B2B SaaS customer acquisition](http://resources.auth0.com/unlock-b2b-saas-growth-iam/), you often think content marketing, advertising or direct sales. But it turns out that one of the cheapest, most powerful forms of customer acquisition are B2B app marketplaces.
 
 ## B2B App Marketplace Landscape
 
@@ -193,3 +197,5 @@ What’s most awesome about acquiring customers via apps marketplaces is that it
 A few years in, the importance of the Chrome Store for Pipedrive’s business had dramatically decreased. Yet, those tailwinds provided by the free, frictionless customer acquisition via Chrome Store helped them build the rare, absolutely critical momentum that startups need to succeed in a big way.
 
 They were able to focus 100% of their energy on improving the product, which got them from 0 to 10,000 customers and now has put them in a position to challenge the giants of CRM.
+
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)
