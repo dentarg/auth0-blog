@@ -2,7 +2,7 @@
 layout: post
 title: "An Introduction to Ethereum and Smart Contracts: a Programmable Blockchain"
 description: "Learn about verified, distributed computations in the cloud using Ethereum"
-date: 2017-03-14 12:30
+date: 2017-03-23 12:30
 category: Technical Guide
 author:
   name: Sebastián Peyrott
@@ -24,9 +24,8 @@ tags:
 - cryptocurrency
 - cryptocurrencies
 related:
-- 2016-11-16-a-rundown-of-es6-features
-- 2016-03-15-javascript-module-systems-showdown
-- 2015-10-14-7-things-you-should-know-about-web-assembly
+- 2017-03-06-an-introduction-to-ethereum-and-smart-contracts
+- build-a-serverless-slack-bot-with-webtask
 ---
 
 [Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we will take a closer look at how Ethereum works and what makes it different from Bitcoin and other blockchains. Rean on!
@@ -64,7 +63,7 @@ Although the concept of the blockchain was born out of the research into cryptoc
 
 > An interesting way to think of a blockchain is as a never-halting computation: new instructions and data are fetched from a pool, the pool of unconfirmed transactions. Each result is recorded in the blockchain, which forms the state of the computation. Any single snapshot of the blockchain is the state of the computation at that point.
 
-![Transactions as computations](https://cdn.auth0.com/blog/ethereum2/tx-as-computations.png)
+![Transactions as computations](https://cdn.auth0.com/blog/ethereum2/tx-as-computations-bunny.png)
 
 All software systems deal in some way or another with state transitions. So what if we could generalize the state transitions inside a blockchain into any software we could think of. Are there any inherent limitations in the blockchain concept that would prevent state transitions from being something different than sending coins? The answer is no. Blockchains deal with reaching consensus for decentralized computations, it does not matter what those computations are. And this is exactly what the Ethereum network brings to the table: a blockchain that can perform any computation as part of a transaction.
 
@@ -103,18 +102,18 @@ A Merkle Patricia Tree is a special kind of data structure that can store crypto
 
 The Merkle Patricia Trees implemented in Ethereum have other optimizations that overcome inefficiencies inherent to the simple description presented here.
 
-![Simplified Merkle Patricia Tree](https://cdn.auth0.com/blog/ethereum2/merkle-patricia-tree.png)
+![Simplified Merkle Patricia Tree](https://cdn.auth0.com/blog/ethereum2/merkle-patricia-tree-bunny.png)
 
 For our purposes, the Merkle aspect of the trees are what matter in Ethereum. Rather than keeping the whole tree inside a block, the hash of its root node is embedded in the block. If some malicious node were to tamper with the state of the blockchain, it would become evident as soon as other nodes computed the hash of the root node using the tampered data. The resulting hash would simply not match with the one recorded in the block. At this point we should find ourselves asking a big question: why not simply take the hash of the data? Merkle Patricia Trees are used in Ethereum for a different, but very important reason: most of the time, nodes do not need a full copy of the whole state of the system. Rather, they want to have a partial view of the state, complete enough to perform any necessary computations for newer blocks or to read the state from some specific address. Since no computations usually require access to the whole state stored in the blockchain, downloading all state would be superfluous. In fact, if nodes had to do this, scalability would be a serious concern as the network expanded. To verify a partial piece of the state at a given point, a node need only download the data necessary for a branch of the tree and the hashes of its siblings. Any change in the data stored at a leaf would require a malicious node to be able to carry a [preimage attack](https://en.wikipedia.org/wiki/Preimage_attack) against the hashing algorithm of the tree (to find the values for the siblings that combined with the modified data produce the same root hash as the one stored in the block).
 
-![A Partial Simplified Merkle Tree](https://cdn.auth0.com/blog/ethereum2/partial-merkle-patricia-tree.png)
+![A Partial Simplified Merkle Tree](https://cdn.auth0.com/blog/ethereum2/partial-merkle-patricia-tree-bunny.png)
 
 All of this allows efficient operations on the state of the blockchain, while at the same time keeping its actual (potentially huge) data separate from the block, still the center piece of the security scheme of the blockchain.
 
 #### History
 Much like Bitcoin, the blockchain can be used to find the state of the system at any point in time. This can be done by replaying each transaction from the very first block up to the point in question. However, in contrast to Bitcoin, most nodes do not keep a full copy of the data for every point in time. Ethereum allows for old data to be *pruned* from the blockchain. The blockchain remains consistent as long as the blocks are valid, and data is stored outside of the blocks, so technically it is not required to verify the proof of work chain. In contrast to Bitcoin, where to find the balance of an account a node must replay all transactions leading up to that point, Ethereum stores state by keeping the root hash of the Merkle Patricia Tree in each block. As long as the data for the last block (or any past blocks) is available, future operations can be performed in the Ethereum network. In other words, it is not necessary for the network to replay old transactions, since their result is already available. This would be akin to storing the balance of each account in each block in the Bitcoin network.
 
-![Partial historical state in the blockchain](https://cdn.auth0.com/blog/ethereum2/state-prunning.png)
+![Partial historical state in the blockchain](https://cdn.auth0.com/blog/ethereum2/state-prunning-bunny.png)
 
 There are, however, nodes that store the whole copy of the historical state of the blockchain. This serves for historical and development purposes.
 
