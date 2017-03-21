@@ -5,6 +5,10 @@ description: "Learn what are microservices and how they are used in the industry
 date: 2015-09-04 18:00
 alias: /2015/09/04/an-introduction-to-microservices-part-1/
 category: Technical Guide, Architecture, Microservices
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

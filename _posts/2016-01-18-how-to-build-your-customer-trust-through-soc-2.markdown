@@ -5,6 +5,10 @@ description: Learn what SOC2 is and how we implemented it at Auth0
 date: 2016-01-18 13:30
 alias: /2016/01/18/how-to-build-your-customer-trust-through-soc-2/
 category: Growth, Certifications
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -26,7 +30,7 @@ related:
 
 The SaaS model is built on one thing—trust. Data breaches can cost millions, so it’s paramount companies can trust their SaaS providers with their data. As a SaaS, if people don’t trust you with their data, it will destroy you.
 
-However if they do trust you, you can become the go-to SaaS provider in your sector for all companies, from bootstrappers up to enterprise. This will significantly increase your potential customer base as you expand into these enterprise areas, and drastically increase your revenue from these companies.
+However if they do trust you, you can become the go-to SaaS provider in your sector for all companies, from bootstrappers up to enterprise. This will [significantly increase your potential customer base](http://resources.auth0.com/unlock-b2b-saas-growth-iam/) as you expand into these enterprise areas, and drastically increase your revenue from these companies.
 
 So showing that you can be trusted is essential for a SaaS company moving into enterprise, and one of the best ways to build trust in your service is through SOC 2 attestation.
 
@@ -96,7 +100,7 @@ This report shows that you have been externally audited as trustworthy. More tha
 
 ## **How We Got Our SaaS Ready For SOC 2**
 
-If you want to [go upmarket](https://auth0.com/blog/2015/08/18/how-to-go-upmarket-and-grow-your-revenue-by-20x/) and start to attract big enterprise customers then SOC 2 attestation can often be a deal-breaker. Companies dealing with sensitive data want end-to-end compliance and not having SOC 2 means that they won’t even talk to you.
+If you want to [go upmarket](https://auth0.com/blog/2015/08/18/how-to-go-upmarket-and-grow-your-revenue-by-20x/) and start to [attract big enterprise customers](http://resources.auth0.com/unlock-b2b-saas-growth-iam/) then SOC 2 attestation can often be a deal-breaker. Companies dealing with sensitive data want end-to-end compliance and not having SOC 2 means that they won’t even talk to you.
 
 Here’s how our methods and procedures helped get Auth0 SOC 2 ready in the 2 Trust Principles we were audited on—security and availability—and can give you an insight into what’s needed to get this attestation.
 
@@ -162,3 +166,5 @@ For companies that deal with financial data, or any data of a sensitive nature, 
 A SOC 2 banner on your site starts to put you in line for an entirely new level of company, large enterprise businesses that need to protect their customer data, their employee data, and their corporate data with the highest levels of security. Successfully completing a SOC 2 audit shows these companies that you meet these high standards and that you’re serious about compliance if its required in their industry.
 
 Not only that, but it also shows them that you can be trusted and that your entire team is dedicated to this security mission and the protection of your customers data.
+
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)
