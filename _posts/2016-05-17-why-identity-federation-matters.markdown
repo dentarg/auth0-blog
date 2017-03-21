@@ -5,6 +5,10 @@ description: With an identity clearinghouse, you can stay focused on your busine
 date: 2016-05-17 8:30
 alias: /2016/05/17/why-identity-federation-matters/
 category: Technical Guide, Identity, Federation
+banner:
+  text: "Build vs Buy: Guide to Evaluating Identity Management"
+  action: "http://resources.auth0.com/build-vs-buy-evaluating-identity-management/"
+  cta: "Download"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -23,7 +27,7 @@ related:
 - 2016-05-10-how-fingerprint-auth-gives-you-security
 ---
 
-## What Is Federated Identity Management?
+## What Is [Federated Identity Management](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/)?
 
 In the early days of the web, your digital identities were dispersed across all the different sites and applications that you used:
 
@@ -82,6 +86,8 @@ Emerging in popularity now are passwordless systems, where your access does not 
 
 When you're choosing an identity provider and means of authentication, you need to take into account each provider's limitations and benefits and choose the one that's best for your users and your needs.
 
+[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/)
+
 ## The Problem With Decentralization
 
 Of course, the profusion of different SSO services presents a dilemma. If you're running a site, you usually choose one. That means other authentication services won't work. And the problem just gets worse the bigger your organization gets. Today, you might have:
@@ -127,3 +133,5 @@ But with just a few lines of code, you can also
 Auth0 is a true federated identity manager in the sense that it doesn't *just *allow for you to stay signed in across domains. Auth0 also gives you access to the user accounts of everyone on your system, allows you to set specific access restrictions across identity providers, and keep all of this data consistent.
 
 Auth0 can be a clearinghouse for the identities of all your users whether you're running a consumer-facing mobile app or an enterprise system with a SAML-based identity provider. One click is all it takes to turn integrations on and off, and to secure them with Auth0's [full lineup of security features](https://auth0.com/security).
+
+[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/)
