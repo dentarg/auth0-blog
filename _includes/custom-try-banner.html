@@ -10,6 +10,16 @@
         {{ current.banner.text }}
       {% endif %}
     </p>
-    <a href="javascript:signup()" class="signup-button btn btn-success btn-md">Use Auth0 for Free</a>
+    {% if current.banner.action == nil %}
+      <a href="javascript:signup()" class="signup-button btn btn-success btn-md">Use Auth0 for Free</a>
+    {% else %}
+      <a href="{{ current.banner.action }}" class="signup-button btn btn-success btn-md">
+        {% if current.banner.cta == nil %}
+          Use Auth0 for Free
+        {% else %}
+          {{ current.banner.cta }}
+        {% endif %}
+      </a>
+    {% endif %}
   </div>
 </section>
