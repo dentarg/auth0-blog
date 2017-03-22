@@ -15,12 +15,11 @@ design:
   image: https://cdn.auth0.com/blog/js-fatigue/JSLogo.png
   bg_color: "#222228"
 tags:
-- javascript-fatigue
 - javascript
 - tooling
 related:
-- 2017-02-10-glossary-of-modern-javascript-concepts
 - 2016-10-07-managing-tech-job-stress-when-9-5-is-unrealistic
+- 2017-02-10-glossary-of-modern-javascript-concepts
 ---
 
 **TL;DR:** Most JavaScript developers have heard of or experienced JavaScript fatigue. JS fatigue is the overwhelming sense that we need to learn most of the hottest emerging technologies in order to do our jobs well. This is unattainable and the stress we feel to achieve it is unjustified; so how do we manage and combat JavaScript fatigue?
@@ -28,6 +27,7 @@ related:
 ---
 
 ![JavaScript fatigue comic](https://cdn.auth0.com/blog/js-fatigue/comic.png)
+_[View larger](https://cdn.auth0.com/blog/js-fatigue/comic.png)_
 
 ## What is JavaScript Fatigue?
 
