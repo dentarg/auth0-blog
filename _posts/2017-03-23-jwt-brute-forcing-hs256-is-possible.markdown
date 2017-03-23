@@ -2,7 +2,7 @@
 layout: post
 title: "JWT: Brute forcing HS256 is possible"
 description: "Cracking a JWT signed with HS256 is possible by brute forcing it. Learn how to use Auth0 to provide and protect your JWTs with RS256"
-date: 2017-02-21 08:30
+date: 2017-03-23 08:30
 category: Technical Guide, Security, JWT
 design:
   bg_color: "#000000"
