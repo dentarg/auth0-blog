@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "JWT: Brute forcing HS256 is possible"
-description: "Cracking a JWT signed with HS256 is possible by brute forcing it. Learn how to use Auth0 to provide and protect your JWTs with RS256"
+title: "Brute Forcing HS256 is Possible: The Importance of Using Strong Keys in Signing JWTs"
+description: "Cracking a JWT signed with weak keys is possible via brute force attacks. Learn how Auth0 protects against such attacks and alternative JWT signing methods provided."
 date: 2017-03-23 08:30
 category: Technical Guide, Security, JWT
 design:
@@ -13,9 +13,9 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 tags:
-- token
-- security
 - jwt
+- security
+- token
 - hs256
 - rs256
 related:
@@ -24,7 +24,7 @@ related:
 - 2016-11-21-building-and-authenticating-nodejs-apps
 ---
 
-JSON Web Tokens are an open, industry standard [RFC 7519](https://tools.ietf.org/html/rfc7519) method for representing claims securely between two parties. They can be digitally signed or encrypted and there are several algorithms that can be employed in signing a JWT. In this article, we'll look at the two most common algorithms and discover how you can brute force a JWT signed with one to output it's secret key!
+JSON Web Tokens are an open, industry standard [RFC 7519](https://tools.ietf.org/html/rfc7519) method for representing claims securely between two parties. They can be digitally signed or encrypted and there are several algorithms that can be employed in signing a JWT. In this article, we'll look at the two most common algorithms and discover how using weak keys can allow malicious parties to brute force the secret key from the JWT.
 
 ## What is a JSON Web Token?
 
@@ -86,8 +86,6 @@ HMACSHA256(
   secret)
 
 ```
-
-The signature is used to prove that the message was constructed by members of a group, even though unique identity can't be established (unless the sender is the receiver) and to ensure that the message was’t changed in any way.
 
 _A signed JWT_
 
@@ -243,6 +241,8 @@ As secure as `HS256` is, especially when implemented the right way, brute-forcin
 
 Recently, I came across a [tool](https://github.com/brendan-rius/c-jwt-cracker) written in C on GitHub. It is a multi-threaded JWT brute force cracker. With a huge computing power, this tool can find the secret key of a `HS256` **JSON Web token**.
 
+*Please note the RFC7518 standard states that "A key of the same size as the hash output (for instance, 256 bits for "HS256") or larger MUST be used with this algorithm." Auth0 secret keys exceed this requirement making cracking via this or similar tools all but impossible.*
+
 ### Implementing a Brute Force Attack
 
 I used a Mac computer to try out the brute force attack. First, make sure you have `openssl` installed. If it is not, install it with homebrew like so:
@@ -320,13 +320,15 @@ Let's take another look at the keys we used to generate the tokens that were cra
 
 > 1 character = 8 bits 
 
-The second key, `secret` is 48-bit. In my opinion, these keys are too short to be secure. In fact, the [JSON Web Algorithms RFC 7518](https://tools.ietf.org/html/rfc7518#page-7) states that a key of the same size as the hash output (for instance, 256 bits for "HS256") or larger MUST be used with the HS256 algorithm.
+The second key, `secret` is 48-bit. This is simply too short to be a valid key. In fact, the [JSON Web Algorithms RFC 7518](https://tools.ietf.org/html/rfc7518#page-7) states that a key of the same size as the hash output (for instance, 256 bits for "HS256") or larger MUST be used with the HS256 algorithm.
 
-I therefore recommend that anyone trying to generate a JSON Web token should use a secret key with a size of at least 256-bit while using **HS256** as the signing algorithm, otherwise just sign your JWT with **RSA**. [Auth0](https://auth0.com) allows you to easily sign your JWTs with **RS256**.
+I therefore recommend that anyone trying to generate a JSON Web token and signing them with HS256 to use a properly sized secret key. [Auth0](https://auth0.com) secret keys are 512 bits in length and not susceptible to this type of brute force attack. Additionally, Auth0 allows you to easily sign your JWTs with **RS256**.
 
 ## Using Auth0 to sign JWT with RS256
 
-With [Auth0](https://auth0.com), you can easily generate JWTs for authentication and authorization. The [Auth0 Lock](https://auth0.com/docs/libraries/lock) library returns a signed JWT that you can store on the client side and use for future requests to your APIs.
+With [Auth0](https://auth0.com), you can easily generate JWTs for authentication and authorization. By default, we use HS256 to sign the JWTs generated, but we also allow customs to use RS256 if their use case calls for it. The [Auth0 Lock](https://auth0.com/docs/libraries/lock) library returns a signed JWT that you can store on the client side and use for future requests to your APIs.
+
+In the vast majority of use cases you would never need to change the signing algorithm, but on the off chance that you do, let's see how to accomplish it with Auth0.
 
 Create a client on the [dashboard](https://manage.auth0.com) like so:
 
@@ -353,5 +355,7 @@ _Default is HS256, Switching to RS256 is simple_
 
 JSON Web Tokens (JWTs) are lightweight and can easily be used across platforms and languages. They are a clever way to pass signed or encrypted information between applications. There are several [JWT libraries](https://jwt.io/#libraries-io) available for signing and verifying the tokens.
 
-We have also been able to show that brute forcing of HS256 JWTs is certainly possible, especially when used with short secret keys. Unfortunately, this is a limitation of most shared-key approaches. Weak keys can usually be broken by brute force even for the best cryptographic hashes if they are short enough. The only real mitigation to these attacks is using hashing algorithms designed to be slow, such as [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), or long keys. However, the use cases for which JWT was conceived usually require fast creation and validation, which makes strong keys the only real solution. As a rule of thumb, make sure to pick a shared-key as long as the length of the hash. For HS256 that would be a 256-bit key (or 32 bytes). Alternatively, make use of RS256 or public-key based signing algorithms and rely on specialized tools to create the keys.
+We have also been able to show that brute forcing of HS256 JWTs is certainly possible, when used with short and weak secret keys. Unfortunately, this is a limitation of most shared-key approaches. All cryptographic constructions, including HS256, are insecure if used with short keys, so ensure that implementations satisfy the standardized requirements.
+
+As a rule of thumb, make sure to pick a shared-key as long as the length of the hash. For HS256 that would be a 256-bit key (or 32 bytes) minimum. Luckily, if you are an Auth0 customer you have nothing to worry about as we follow all the standards and best practices when generating secret keys.
 
