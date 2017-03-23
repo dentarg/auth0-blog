@@ -67,7 +67,7 @@ Although the concept of the blockchain was born out of the research into cryptoc
 
 All software systems deal in some way or another with state transitions. So what if we could generalize the state transitions inside a blockchain into any software we could think of. Are there any inherent limitations in the blockchain concept that would prevent state transitions from being something different than sending coins? The answer is no. Blockchains deal with reaching consensus for decentralized computations, it does not matter what those computations are. And this is exactly what the Ethereum network brings to the table: a blockchain that can perform any computation as part of a transaction.
 
-![Transactions as general computations](https://cdn.auth0.com/blog/ethereum2/tx-as-generic-computations-2.png)
+![Transactions as general computations](https://cdn.auth0.com/blog/ethereum2/tx-as-generic-computations-2-bunny.png)
 
 It is easy to get lost in the world of cryptocurrencies and simple exchanges of value between two users, but there are many other applications where distributed, secure computations make sense. It is this system that allows for things like:
 
