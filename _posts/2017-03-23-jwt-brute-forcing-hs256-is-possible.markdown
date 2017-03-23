@@ -351,6 +351,7 @@ _Default is HS256, Switching to RS256 is simple_
 
 ## Conclusion
 
-JSON Web Tokens (JWTs) are lightweight and can easily be used across platforms and languages. They are a clever way to authenticate & authorize modern applications. There are several [JWT libraries](https://jwt.io/#libraries-io) available for signing and verifying the tokens.
+JSON Web Tokens (JWTs) are lightweight and can easily be used across platforms and languages. They are a clever way to pass signed or encrypted information between applications. There are several [JWT libraries](https://jwt.io/#libraries-io) available for signing and verifying the tokens.
 
-We have also been able to show that brute forcing of HS256 JWTs is possible, especially when used with small secret key sizes. Great caution should be taken while signing and validating your JSON Web tokens!
+We have also been able to show that brute forcing of HS256 JWTs is certainly possible, especially when used with short secret keys. Unfortunately, this is a limitation of most shared-key approaches. Weak keys can usually be broken by brute force even for the best cryptographic hashes if they are short enough. The only real mitigation to these attacks is using hashing algorithms designed to be slow, such as [bcrypt](https://en.wikipedia.org/wiki/Bcrypt), or long keys. However, the use cases for which JWT was conceived usually require fast creation and validation, which makes strong keys the only real solution. As a rule of thumb, make sure to pick a shared-key as long as the length of the hash. For HS256 that would be a 256-bit key (or 32 bytes). Alternatively, make use of RS256 or public-key based signing algorithms and rely on specialized tools to create the keys.
+
