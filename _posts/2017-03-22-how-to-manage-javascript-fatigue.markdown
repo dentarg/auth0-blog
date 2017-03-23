@@ -26,7 +26,7 @@ related:
 
 ---
 
-![JavaScript fatigue comic](https://cdn.auth0.com/blog/js-fatigue/comic.png)
+<a href="https://cdn.auth0.com/blog/js-fatigue/comic.png">![JavaScript fatigue comic](https://cdn.auth0.com/blog/js-fatigue/comic.png)</a>
 _[View larger](https://cdn.auth0.com/blog/js-fatigue/comic.png)_
 
 ## What is JavaScript Fatigue?
