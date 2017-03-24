@@ -2,13 +2,13 @@
 layout: post
 title: "How To Get A 360 View of Your Customer By Managing Identity"
 description: "Get inside your customers' heads by centralizing your data."
-date: 2017-02-10 8:30
-category: Marketing
+date: 2017-03-24 8:30
+category: Growth, B2C
 author:
-  name: Martin Gontovnikas
-  url: http://twitter.com/mgonto
-  mail: gonto@auth0.com
-  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
   image: https://cdn.auth0.com/blog/360-view-by-identity/managing-identity-logo.png
   bg_color: "#4a4a4a"
