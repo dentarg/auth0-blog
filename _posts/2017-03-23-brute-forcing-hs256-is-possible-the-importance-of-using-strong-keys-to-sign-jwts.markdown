@@ -5,8 +5,10 @@ description: "Cracking a JWT signed with weak keys is possible via brute force a
 date: 2017-03-23 08:30
 category: Technical Guide, Security, JWT
 design:
-  bg_color: "#000000"
-  image: https://jwt.io/img/pic_logo.svg
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/jwtalgos/logo.png
+  image_size: "100%"
+  image_bg_color: "#222228"
 author:
   name: "Prosper Otemuyiwa"
   url: "http://twitter.com/unicodeveloper?lang=en"
