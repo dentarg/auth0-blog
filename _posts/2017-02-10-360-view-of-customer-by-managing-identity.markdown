@@ -4,6 +4,7 @@ title: "How To Get A 360 View of Your Customer By Managing Identity"
 description: "Get inside your customers' heads by centralizing your data."
 date: 2017-03-24 8:30
 category: Growth, B2C
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
