@@ -25,7 +25,7 @@ related:
 
 **TL;DR** [Disqus](https://disqus.com/) is a great tool for adding interactivity through conversation and comments to your blog.  Integrating it with your WordPress site is really simple. The downside to Disqus is that it requires another set of credentials before users can interact with your site. Today, we'll show how to eliminate the need for users to log in twice with Auth0 and Single Sign On (SSO) for a better user experience.
 
-[WordPress](https://wordpress.org/) makes it easy to create blogs and other media sites. It is one of the leading CMS systems out there, and allows developers to create powerful websites that users can engage with. The default comment capability from WordPress can be greatly improved through the addition of the [Disqus WordPress Plugin](https://wordpress.org/plugins/disqus-comment-system/). Disqus provides a really nice interface for tracking and interacting with users through comments and reviews.  The one downfall to Disqus is that it requires users to have a separate login alongside their WordPress credentials. That’s where SSO comes in. With SSO enabled for your Disqus account, your WordPress user accounts will automatically integrate with Disqus, enabling users to comment without having to log in to Disqus as well as WordPress.
+[WordPress](https://wordpress.org/) makes it easy to create blogs and other media sites. It is one of the leading CMS systems out there, and allows developers to create powerful websites that users can engage with. The default comment capability from WordPress can be greatly improved through the addition of the [Disqus WordPress Plugin](https://wordpress.org/plugins/disqus-comment-system/). Disqus provides a really nice interface for tracking and interacting with users through comments and reviews.  The one downfall to Disqus is that it requires users to have a separate login alongside their WordPress credentials. That’s where SSO comes in. With SSO enabled for your Disqus account, your WordPress user accounts will automatically integrate with Disqus, enabling users to comment without having to log into Disqus as well as WordPress.
 
 ---
 
@@ -56,7 +56,7 @@ Once activated, let’s finish setting up Disqus:
 1. Enter your Disqus account credentials.
 1. Choose the website that you configured earlier.
 
-At this point you should be able to log in to your site. Go to a blog post, and see the default comment section replaced with Disqus.  Notice that you have to log in to Disqus to be able to comment (if you don’t have to log in, you were probably already logged into Disqus, try logging out using the dropdown).
+At this point you should be able to log into your site. Go to a blog post, and see the default comment section replaced with Disqus.  Notice that you have to log into Disqus to be able to comment (if you don’t have to log in, you were probably already logged into Disqus, try logging out using the dropdown).
 
 ![SSO Not Working](https://cdn.auth0.com/blog/auth0-disqus-wordpress-sso/sso-not-working.png)
 
@@ -108,7 +108,7 @@ Scroll down to the advanced section and paste the secret and public keys:
 NOTE: Ensure that “Anyone can register” is set to true in General->Settings.
 
 ## Give it a try!
-Once you log in to WordPress, you should now see that you are logged into Disqus as well when you go to enter a comment:
+Once you log into WordPress, you should now see that you are logged into Disqus as well when you go to enter a comment:
 
 ![SSO is Working](https://cdn.auth0.com/blog/auth0-disqus-wordpress-sso/sso-works.png)
 
