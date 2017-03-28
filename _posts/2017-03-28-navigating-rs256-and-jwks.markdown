@@ -34,7 +34,7 @@ When signing your JWTs it is better to use an asymmetric signing algorithm.  Doi
 
 The code snippets below have been adapted from Auth0's [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) and [express-jwt](https://github.com/auth0/express-jwt).
 
-Check out the sample [repository](https://github.com/auth0-samples/auth0-node-jwks-rs256).
+Check out the sample [repository](https://github.com/sgmeyer/auth0-node-jwks-rs256).
 
 ## RS256 vs HS256
 
@@ -406,4 +406,4 @@ As you can see anytime we call the api's `/meta` endpoint a token will be verifi
 
 At this point we have seen an end to end sample for verifying a RS256 signed JWT.  This process not overly difficult, however it does add significant complexity as opposed to a symmetric algorithm like HS256.  Despite the added complexity it offers significant security benefits over HS256 and will surely pay off in the long run.  We highly recommend using RS256 as a means to sign your JWTs.
 
-You can find the full sample on [GitHub](https://github.com/auth0-samples/auth0-node-jwks-rs256).
+You can find the full sample on [GitHub](https://github.com/sgmeyer/auth0-node-jwks-rs256).
