@@ -44,13 +44,13 @@ When creating clients and resources servers (APIs) in Auth0 two algorithms are s
 
 Due to the symmetric nature of HS256 we favor the use of RS256 for signing your JWTs, especially for APIs with 3rd party clients.  However, this decision comes with some extra steps for verifying the signature of your JWTs.  Auth0 uses the [JWK](https://tools.ietf.org/html/rfc7517) specification to represent the cryptographic keys used for signing tokens.  This spec defines two high level data structures: JWKS and JWK.  Here are the definitions directly from the specification:
 
->  JSON Web Key (JWK) 
+> JSON Web Key (JWK) 
 >
->      A JSON object that represents a cryptographic key.  The members of the object represent properties of the key, including its value. 
+> A JSON object that represents a cryptographic key.  The members of the object represent properties of the key, including its value. 
 
->   JWK Set 
+> JWK Set 
 >
->      A JSON object that represents a set of JWKs.  The JSON object MUST have a "keys" member, which is an array of JWKs. 
+> A JSON object that represents a set of JWKs.  The JSON object MUST have a "keys" member, which is an array of JWKs. 
 
 At the most basic level the JWKS is a set of keys that could have been used to sign the JWT.  Auth0 exposes a JWKS endpoint for each tenant, which is found at https://your-tenant.auth0.com/.well-known/jwks.json  This endpoint will contain the JWK used to sign all Auth0 issued JWTs for this tenant.  Here is an example of the JWKS used by a demo tenant.
 
@@ -147,7 +147,7 @@ export class JwksClient {
   getJwks(cb) { ... }
 
   /**
-   * https://github.com/sgmeyer/auth0-node-jwks-rs256/blob/master/src/lib/JwksClient.js#L30-L65
+   * https://github.com/sgmeyer/auth0-node-jwks-rs256/blob/master/src/lib/JwksClient.js#L30-L58
    **/
   getSigningKeys(cb) {
     const callback = (err, keys) => {
@@ -230,6 +230,9 @@ So far we have built a client that can be used to retrieve the JWKS and fide the
 Before we move on to processing the JWT we want to create a quick wrapper for the `JwksClient` that returns a method that will eventually hand off the key we need to verify the JWT.  Ths class is a bit specific to the node async model, however it is necessary for the final step when we tie together the final middleware.
 
 ```javascript
+/**
+ * https://github.com/sgmeyer/auth0-node-jwks-rs256/blob/master/src/lib/expressJwtSecret.js#L4-L38
+ **/
 const handleSigningKeyError = (err, cb) => {
   // If we didn't find a match, can't provide a key.
   if (err && err.name === 'SigningKeyNotFoundError') {
@@ -310,7 +313,7 @@ export default (options) => {
   var middleware = (req, res, next) => {
     ...
 
-    // https://github.com/sgmeyer/auth0-node-jwks-rs256/blob/master/src/middleware/expressJwt.js#L25-L29
+    // https://github.com/sgmeyer/auth0-node-jwks-rs256/blob/master/src/middleware/expressJwt.js#L25-L28
     var token = parts[1];
 
     // This could fail.  If it does handle as 401 as the token is invalid.
@@ -334,7 +337,7 @@ export default (options) => {
   var middleware = (req, res, next) => {
     ...
 
-    // https://github.com/sgmeyer/auth0-node-jwks-rs256/blob/master/src/middleware/expressJwt.js#L29-L59
+    // https://github.com/sgmeyer/auth0-node-jwks-rs256/blob/master/src/middleware/expressJwt.js#L30-L58
     if (decodedToken.header.alg !== 'RS256') {
       // we are only supporting RS256 so fail if this happens.
       return cb(null, null);
