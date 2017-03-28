@@ -52,7 +52,7 @@ Due to the symmetric nature of HS256 we favor the use of RS256 for signing your 
 >
 > A JSON object that represents a set of JWKs.  The JSON object MUST have a "keys" member, which is an array of JWKs. 
 
-At the most basic level the JWKS is a set of keys that could have been used to sign the JWT.  Auth0 exposes a JWKS endpoint for each tenant, which is found at https://your-tenant.auth0.com/.well-known/jwks.json  This endpoint will contain the JWK used to sign all Auth0 issued JWTs for this tenant.  Here is an example of the JWKS used by a demo tenant.
+At the most basic level the JWKS is a set of keys that could have been used to sign the JWT.  Auth0 exposes a JWKS endpoint for each tenant, which is found at https://your-tenant.auth0.com/.well-known/jwks.json.  This endpoint will contain the JWK used to sign all Auth0 issued JWTs for this tenant.  Here is an example of the JWKS used by a demo tenant.
 
 ```
 {
@@ -85,19 +85,18 @@ The JWKS above contains a single key.  Each property in the key is defined by th
 * **kid:** Is the unique identifier for the key
 * **x5t:** Is the thumbprint of the x.509 cert (SHA-1 thumbprint) 
 
->  Please review the specification for a more in depth definition of each field. 
-
 ## Verifying a JWT using the JWKS endpoint
 
 Now that we understand JWKS and the specific properties of each JWK let's put this together and verify a JWT signed by Auth0 with RS256.  In our example we are going to build a first party API for our ficticious company c0der.io.  The API will have a single endpoint returning metadata about our API, which requires a valid JWT.  Ideally your Resource Server would also validate necessary scopes, however that is beyond this topic.  We will assume an API and client have been created and we will focus on what happens once our API recieves a request.
 
 **Here are the steps for validating the JWT:**
-1. Retrieve the JWKS and filter for potential signing keys (https://your-tenant.auth0.com/.well-known/jwks.json)
-2. Extract the JWT from the request's authorization header
-3. Decode the JWT and grab the `kid` property from the header
-4. Find the signing key in the filtered JWKS with a matching `kid` property
-5. Using the `x5c` property build a certificate which will be used to verify the JWT signature
-6. Ensure the JWT contains the expected audience, issuer, expiration, etc.
+
+1. Retrieve the JWKS and filter for potential signing keys (https://your-tenant.auth0.com/.well-known/jwks.json) 
+2. Extract the JWT from the request's authorization header 
+3. Decode the JWT and grab the `kid` property from the header 
+4. Find the signing key in the filtered JWKS with a matching `kid` property 
+5. Using the `x5c` property build a certificate which will be used to verify the JWT signature 
+6. Ensure the JWT contains the expected audience, issuer, expiration, etc. 
 
 > **Note:** there are many good libraries for verifying a JWT.  You can use the currated list to find one for you language at [JWT.io](https://jwt.io/#libraries-io).
 
@@ -105,7 +104,7 @@ Let's jump into some code and see this in action.
 
 ## Retrieving the JWK
 
-The first thing we are going to do is grab the web key set from the Auth0 JWKS endpoint.  Using `request` we can simply perform a `GET` to retrieve the JSON blob.
+The first thing we are going to do is grab the key set from the Auth0 JWKS endpoint.  Using `request` we can simply perform a `GET` to retrieve the JSON blob.
 
 ```javascript
 /**
