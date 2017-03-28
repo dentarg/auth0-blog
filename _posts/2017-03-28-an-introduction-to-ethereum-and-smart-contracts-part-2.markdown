@@ -28,7 +28,7 @@ related:
 - build-a-serverless-slack-bot-with-webtask
 ---
 
-[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we will take a closer look at how Ethereum works and what makes it different from Bitcoin and other blockchains. Rean on!
+[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we will take a closer look at how Ethereum works and what makes it different from Bitcoin and other blockchains. Read on!
 
 This is post 2 from a three-post series about Ethereum. [Read post 1 if you haven't done so.](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/)
 
