@@ -6,7 +6,7 @@ date: 2016-08-02 12:20
 category: Growth, Data
 banner:
   text: "Build vs Buy: Guide to Evaluating Identity Management"
-  action: "http://resources.auth0.com/build-vs-buy-evaluating-identity-management/"
+  action: "https://resources.auth0.com/build-vs-buy-evaluating-identity-management/"
   cta: "Download"
 author:
   name: Diego Poza
@@ -60,7 +60,7 @@ These results show that logins via Windows Server architecture are still by far 
 
 ADFS is the part of Active Directory Services that allows for resource access across traditional boundaries:
 
-* It provides [simplified and secure identity federation](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/).
+* It provides [simplified and secure identity federation](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/).
 * It enables the creation of trust relationships between two organizations.
 * Provides access to applications between organizations.
 * Provides single sign on between two different directories for web-based applications.
@@ -103,4 +103,4 @@ There are two major findings from our study so far:
 
 Both of these are areas of improvement. Auth0 users currently connecting through AD or ADFS could start to look seriously at using Azure for their connections instead. And Auth0 users not pushing their own users away from unique usernames and passwords should definitely consider allowing SSO, either through Enterprise or Social.
 
-[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/)
+[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/)
