@@ -6,7 +6,7 @@ date: 2016-11-03 15:55
 category: Growth, Identity, Auth0
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
-  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
   cta: "Download"
 author:
   name: "Martin Gontovnikas"
@@ -86,4 +86,4 @@ Building your own login widget is time-consuming and costly. Beyond developing t
 
 Lock ensures security and improves customer experience. It will make your product easier to use and keep customers coming back.
 
-[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

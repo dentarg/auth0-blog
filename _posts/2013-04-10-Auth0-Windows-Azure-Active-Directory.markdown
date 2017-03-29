@@ -6,7 +6,7 @@ outdated: true
 alias: /2013/04/10/Auth0-Windows-Azure-Active-Directory/
 banner:
   text: "Build vs Buy: Guide to Evaluating Identity Management"
-  action: "http://resources.auth0.com/build-vs-buy-evaluating-identity-management/"
+  action: "https://resources.auth0.com/build-vs-buy-evaluating-identity-management/"
   cta: "Download"
 author:
   name: Matias Woloski
@@ -34,7 +34,7 @@ This week Microsoft announced the general availability of Windows Azure Active D
 
 > Every app that creates a new user database contributes to Global Warming, and kills millions of kittens :-) -- the internet
 
-This last release of Azure AD contributes greatly to the adoption of [more modern identity architectures](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/). Hundreds of thousands of companies rely on Active Directory today. Azure AD brings you closer to the (not anymore) utopia of connnecting organizations seamlessly and securely.
+This last release of Azure AD contributes greatly to the adoption of [more modern identity architectures](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/). Hundreds of thousands of companies rely on Active Directory today. Azure AD brings you closer to the (not anymore) utopia of connnecting organizations seamlessly and securely.
 
 But what exactly is Azure AD? It [is _not_ a Domain Controller](http://weblogs.asp.net/scottgu/archive/2013/04/08/windows-azure-active-directory-general-availability-new-backup-service-web-site-monitoring-and-diagnostic-improvements.aspx#10122132) in the cloud. It is more like a combination of AD and ADFS with a more modern API to query the directory. It runs on the cloud and it can run as a the primary user directory for an organization or synced against an on-premise AD and federated with ADFS (it won't save passwords in the cloud). Even more enticing is the fact that it is free!
 
@@ -120,4 +120,4 @@ And if you enable the Azure Mobile Services add-on, we'll issue a token (JWT) co
 
 We are part of the [Windows Azure Store](http://www.windowsazure.com/en-us/store/overview/). With a [few clicks](http://blog.auth0.com/2013/03/28/Auth0-Now-Available-In-The-Windows-Azure-Store/), you can have your own account, for free.
 
-[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/)
+[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/)
