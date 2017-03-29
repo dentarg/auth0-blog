@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Navigating RS256 and JWKS"
-description: "Start using RS256 for signing your JWTs."
+description: "Learn how to start using RS256 for signing your JWTs."
 date: 2017-03-28 8:30
 category: Technical Guide, Security, JWT
 design:
@@ -12,7 +12,6 @@ design:
 author:
   name: Shawn Meyer
   url: https://twitter.com/sgmeyer
-  avatar: https://avatars2.githubusercontent.com/u/1427318?v=3&s=200
   avatar: https://s.gravatar.com/avatar/0b3b0a5bf530f8c3a1fdee5233979c81?s=200
   mail: sgmeyer@auth0.com
 tags:
@@ -30,7 +29,7 @@ related:
 
 ## TL;DR:
 
-When signing your JWTs it is better to use an asymmetric signing algorithm.  Doing so will no longer require sharing a private key across many applications.  Using an algorithm like RS256 and the JWKS endpoint allows your applications to trust the JWTs were signed by Auth0.
+When signing your JWTs it is better to use an asymmetric signing algorithm.  Doing so will no longer require sharing a private key across many applications.  Using an algorithm like RS256 and the JWKS endpoint allows your applications to trust the JWTs signed by Auth0.
 
 The code snippets below have been adapted from Auth0's [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) and [express-jwt](https://github.com/auth0/express-jwt).
 
@@ -38,7 +37,7 @@ Check out the sample [repository](https://github.com/sgmeyer/auth0-node-jwks-rs2
 
 ## RS256 vs HS256
 
-When creating clients and resources servers (APIs) in Auth0 two algorithms are supported for signing JSON Web Tokens (JWTs): RS256 and HS256.  HS256 is the default for clients and RS256 is the default for APIs.  When building applications it is important to understand the differences between these two algorithms.  To begin HS256 generates a symmetic MAC and RS256 generates an asymmetric signature.  Simply put HS256 must share a secret with any client or API that wants to verify the JWT.  Like any other symmetric algorithm the same secret is used for both signing and verifying the JWT.  This means there is no way to fully guarantee Auth0 generated the JWT with HS256 as any client or API with the secret could generate a validly signed JWT.  On the otherhand RS256 generates an asymmetric signature, which means a private key must be used to sign the JWT and a different public key must be used to verify the signature.  Unlike symmetric algorithms, using RS256 offers ensurances that Auth0 is the signer of a JWT since Auth0 is the only party with the private key.
+ When creating clients and resources servers (APIs) in Auth0, two algorithms are supported for signing JSON Web Tokens (JWTs): RS256 and HS256.  HS256 is the default for clients and RS256 is the default for APIs.  When building applications, it is important to understand the differences between these two algorithms.  To begin, HS256 generates a symmetric MAC and RS256 generates an asymmetric signature.  Simply put HS256 must share a secret with any client or API that wants to verify the JWT.  Like any other symmetric algorithm, the same secret is used for both signing and verifying the JWT.  This means there is no way to fully guarantee Auth0 generated the JWT with HS256 as any client or API with the secret could generate a validly signed JWT.  On the otherOn the other hand, RS256 generates an asymmetric signature,, which means a private key must be used to sign the JWT and a different public key must be used to verify the signature.  Unlike symmetric algorithms, using RS256 offers assurances that Auth0 is the signer of a JWT since Auth0 is the only party with the private key.
 
 ## Verifying RS256
 
@@ -52,7 +51,7 @@ Due to the symmetric nature of HS256 we favor the use of RS256 for signing your 
 >
 > A JSON object that represents a set of JWKs.  The JSON object MUST have a "keys" member, which is an array of JWKs. 
 
-At the most basic level the JWKS is a set of keys that could have been used to sign the JWT.  Auth0 exposes a JWKS endpoint for each tenant, which is found at https://your-tenant.auth0.com/.well-known/jwks.json.  This endpoint will contain the JWK used to sign all Auth0 issued JWTs for this tenant.  Here is an example of the JWKS used by a demo tenant.
+At the most basic level, the JWKS is a set of keys containing the public keys that should be used to verify any JWT issued by the authorization server.  Auth0 exposes a JWKS endpoint for each tenant, which is found at _https://your-tenant.auth0.com/.well-known/jwks.json_.  This endpoint will contain the JWK used to sign all Auth0 issued JWTs for this tenant.  Here is an example of the JWKS used by a demo tenant.
 
 ```
 {
@@ -72,33 +71,33 @@ At the most basic level the JWKS is a set of keys that could have been used to s
 ]}
 ```
 
-**Note:** At the time of writting Auth0 only supports a single JWK for signing, however it is important to assume this endpoint could contain multiple JWKs.  As an example multiple keys can be found in the JWKS when rotating signing certificates.
+**Note:** At the time of writing, Auth0 only supports a single JWK for signing, however it is important to assume this endpoint could contain multiple JWKs.  As an example, multiple keys can be found in the JWKS when rotating signing certificates.
 
-The JWKS above contains a single key.  Each property in the key is defined by the JWK specification ([RFC 7517 Section 4](https://tools.ietf.org/html/rfc7517#section-4)).  We will use these properties to determine which key was used to sign the JWT.  Here is a quick breakdown of what each property represents:
+The JWKS above contains a single key.  Each property in the key is defined by the JWK specification [RFC 7517 Section 4](https://tools.ietf.org/html/rfc7517#section-4).  We will use these properties to determine which key was used to sign the JWT.  Here is a quick breakdown of what each property represents:
 
-* **alg:** Is the algorithm for the key 
-* **kty:** Is the key type 
-* **use:** Is how the key was meant to be used.  For the example above `sig` represents `signature`. 
-* **x5c:** Is the x509 certificate chain 
-* **e:**   Is the exponent for a standard pem 
-* **n:**   Is the moduluos for a standard pem 
-* **kid:** Is the unique identifier for the key
-* **x5t:** Is the thumbprint of the x.509 cert (SHA-1 thumbprint) 
+* **alg:** is the algorithm for the key 
+* **kty:** is the key type 
+* **use:** is how the key was meant to be used.  For the example above `sig` represents `signature`. 
+* **x5c:** is the x509 certificate chain 
+* **e:**   is the exponent for a standard pem 
+* **n:**   is the moduluos for a standard pem 
+* **kid:** is the unique identifier for the key
+* **x5t:** is the thumbprint of the x.509 cert (SHA-1 thumbprint) 
 
 ## Verifying a JWT using the JWKS endpoint
 
-Now that we understand JWKS and the specific properties of each JWK let's put this together and verify a JWT signed by Auth0 with RS256.  In our example we are going to build a first party API for our ficticious company c0der.io.  The API will have a single endpoint returning metadata about our API, which requires a valid JWT.  Ideally your Resource Server would also validate necessary scopes, however that is beyond this topic.  We will assume an API and client have been created and we will focus on what happens once our API recieves a request.
+Now that we understand JWKS and the specific properties of each JWK let's put this together and verify a JWT signed by Auth0 with RS256.  In our example we are going to build a first party API for our ficticious company c0der.io.  The API will have a single endpoint returning metadata about our API, which requires a valid JWT.  Ideally your resource server would also validate necessary scopes, however, that is beyond this topic.  We will assume an API and client have been created and we will focus on what happens once our API recieves a request.
 
 **Here are the steps for validating the JWT:**
 
-1. Retrieve the JWKS and filter for potential signing keys (https://your-tenant.auth0.com/.well-known/jwks.json) 
-2. Extract the JWT from the request's authorization header 
-3. Decode the JWT and grab the `kid` property from the header 
-4. Find the signing key in the filtered JWKS with a matching `kid` property 
-5. Using the `x5c` property build a certificate which will be used to verify the JWT signature 
+1. Retrieve the JWKS and filter for potential signing keys.
+2. Extract the JWT from the request's authorization header. 
+3. Decode the JWT and grab the `kid` property from the header. 
+4. Find the signing key in the filtered JWKS with a matching `kid` property. 
+5. Using the `x5c` property build a certificate which will be used to verify the JWT signature. 
 6. Ensure the JWT contains the expected audience, issuer, expiration, etc. 
 
-> **Note:** there are many good libraries for verifying a JWT.  You can use the currated list to find one for you language at [JWT.io](https://jwt.io/#libraries-io).
+> **Note:** There are many good libraries for verifying a JWT.  You can use the curated list to find one for your language at [JWT.io](https://jwt.io/#libraries-io).
 
 Let's jump into some code and see this in action.
 
@@ -185,7 +184,7 @@ Quick recap, we have retrieved the set of keys (JWKS) from Auth0 and we have fil
 
 ## Finding the exact signing key
 
-Continuing with our example, we will add an additional method to `JwksClient` called `getSigningKey` taking a key identifier (`kid`) as an argument and return the expected key (JWK) used to sign the JWT.  If a JWK is not found then an error must be thrown.  This means the JWT supplied with the request was signed with a key that is not supported by Auth0.  This should ultimately be treated as a 401 Unauthorized.  If a matching key is found then that key will be passed as an argument to the callback.
+Continuing with our example, we will add an additional method to `JwksClient` called `getSigningKey` taking a key identifier (`kid`) as an argument and return the expected key (JWK) used to sign the JWT.   If a JWK is not found, then an error must be thrown.  This means the JWT supplied with the request was signed with a key that is not supported by Auth0.  This should ultimately be treated as a 401 Unauthorized.  If a matching key is found, then that key will be passed as an argument to the callback.
 
 ```javascript
 export class JwksClient {
@@ -220,13 +219,13 @@ export class JwksClient {
   }
 ```
 
-So far we have built a client that can be used to retrieve the JWKS and fide the signing key using the value of the `kid` property.  At this point we have not verified the JWT nor have we extracted the JWT from the request.  
+So far we have built a client that can be used to retrieve the JWKS and fide the signing key using the value of the `kid` property.  At this point, we have neither verified the JWT nor extracted it from the request.  
 
-> **Note:** as an optimization for production it would be wise to implement a caching mehanism for the JWKS or keys so that each request does not require a call to the JWKS endpoint.
+> **Note:** As an optimization for production it would be wise to implement a caching mechanism for the JWKS or keys so that each request does not require a call to the JWKS endpoint.
 
 ## Creating a Signing Secret Wrapper
 
-Before we move on to processing the JWT we want to create a quick wrapper for the `JwksClient` that returns a method that will eventually hand off the key we need to verify the JWT.  Ths class is a bit specific to the node async model, however it is necessary for the final step when we tie together the final middleware.
+Before we move on to processing the JWT we want to create a quick wrapper for the `JwksClient` that returns a method that will eventually hand off the key we need to verify the JWT.  This class is a bit specific to the node async model, however it is necessary for the final step when we tie together the final middleware.
 
 ```javascript
 /**
@@ -300,7 +299,7 @@ export default (options) => {
 
 > **Note:** It is important to differentiate between verifying and decoding a token.  Decoding simply means to base64url decode the header and payload.  This step is not concerned with validating the signature, audience, expiration, etc.  Verifying the token is the process of ensuring the token's signature, but also the audience, expiration, etc are valid.
 
-At this point the middleware is pretty boring.  It simply parses the authorization header for the format `Authorization: Bearer [token]`.  If the authorization header doesn't exist, is empty, or does not fit the format the we will throw an UnauthorizedError which later is treated as a 401 Unauthorized response.  If the header does meet the criteria the JWT is pulled from the authorization header.
+At this point the middleware is pretty boring.  It simply parses the authorization header for the format `Authorization: Bearer [token]`.  If the authorization header doesn't exist, is empty, or does not fit the format the we will throw an `UnauthorizedError` which later is treated as a `401 Unauthorized` response.  If the header does meet the criteria the JWT is pulled from the authorization header.
 
 ## Decoding the JWT 
 
@@ -374,7 +373,7 @@ export default (options) => {
 
 ## Calling our middleware
 
-Now that we have all the pieces in place to validate an RS256 token we need to configure the middleware and apply it to the route.
+Now that we have all the pieces in place to validate an RS256 token, we need to configure the middleware and apply it to the route.
 
 ```javascript
 /**
@@ -390,7 +389,7 @@ export const jwtCheck = expressJwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: 'https://api.codehero.com/v1/',
+  audience: 'https://api.c0der.io/v1/',
   issuer: `https://your-tenant.auth0.com/`,
   algorithms: ['RS256']
 });
