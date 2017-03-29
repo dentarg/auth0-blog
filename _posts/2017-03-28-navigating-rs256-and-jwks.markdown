@@ -37,7 +37,7 @@ Check out the sample [repository](https://github.com/sgmeyer/auth0-node-jwks-rs2
 
 ## RS256 vs HS256
 
- When creating clients and resources servers (APIs) in Auth0, two algorithms are supported for signing JSON Web Tokens (JWTs): RS256 and HS256.  HS256 is the default for clients and RS256 is the default for APIs.  When building applications, it is important to understand the differences between these two algorithms.  To begin, HS256 generates a symmetric MAC and RS256 generates an asymmetric signature.  Simply put HS256 must share a secret with any client or API that wants to verify the JWT.  Like any other symmetric algorithm, the same secret is used for both signing and verifying the JWT.  This means there is no way to fully guarantee Auth0 generated the JWT as any client or API with the secret could generate a validly signed JWT.  On the other hand, RS256 generates an asymmetric signature,, which means a private key must be used to sign the JWT and a different public key must be used to verify the signature.  Unlike symmetric algorithms, using RS256 offers assurances that Auth0 is the signer of a JWT since Auth0 is the only party with the private key.
+ When creating clients and resources servers (APIs) in Auth0, two algorithms are supported for signing JSON Web Tokens (JWTs): RS256 and HS256.  HS256 is the default for clients and RS256 is the default for APIs.  When building applications, it is important to understand the differences between these two algorithms.  To begin, HS256 generates a symmetric MAC and RS256 generates an asymmetric signature.  Simply put HS256 must share a secret with any client or API that wants to verify the JWT.  Like any other symmetric algorithm, the same secret is used for both signing and verifying the JWT.  This means there is no way to fully guarantee Auth0 generated the JWT as any client or API with the secret could generate a validly signed JWT.  On the other hand, RS256 generates an asymmetric signature, which means a private key must be used to sign the JWT and a different public key must be used to verify the signature.  Unlike symmetric algorithms, using RS256 offers assurances that Auth0 is the signer of a JWT since Auth0 is the only party with the private key.
 
 ## Verifying RS256
 
@@ -184,7 +184,7 @@ Quick recap, we have retrieved the set of keys (JWKS) from Auth0 and we have fil
 
 ## Finding the exact signing key
 
-Continuing with our example, we will add an additional method to `JwksClient` called `getSigningKey` taking a key identifier (`kid`) as an argument and return the expected key (JWK) used to sign the JWT.   If a JWK is not found, then an error must be thrown.  This means the JWT supplied with the request was signed with a key that is not supported by Auth0.  This should ultimately be treated as a 401 Unauthorized.  If a matching key is found, then that key will be passed as an argument to the callback.
+Continuing with our example, we will add an additional method to `JwksClient` called `getSigningKey` taking a key identifier (`kid`) as an argument and return the expected key (JWK) used to sign the JWT.   If a JWK is not found, then an error must be thrown.  This means the JWT supplied with the request was signed with a key that is not supported by Auth0.  This should ultimately be treated as a `401 Unauthorized`.  If a matching key is found, then that key will be passed as an argument to the callback.
 
 ```javascript
 export class JwksClient {
@@ -219,7 +219,7 @@ export class JwksClient {
   }
 ```
 
-So far we have built a client that can be used to retrieve the JWKS and fide the signing key using the value of the `kid` property.  At this point, we have neither verified the JWT nor extracted it from the request.  
+So far we have built a client that can be used to retrieve the JWKS and find the signing key using the value of the `kid` property.  At this point, we have neither verified the JWT nor extracted it from the request.  
 
 > **Note:** As an optimization for production it would be wise to implement a caching mechanism for the JWKS or keys so that each request does not require a call to the JWKS endpoint.
 
