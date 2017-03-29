@@ -2,13 +2,14 @@
 layout: post
 title: "Is Passwordless Authorization More Secure Than Passwords?"
 description: "When your users' behaviors determine the safety of your login, passwordless comes out on top."
-date: 2017-01-24 8:30
-category: Technical Guide
+date: 2017-03-29 8:30
+category: Growth, Identity, Passwordless
+is_non-tech: true
 author:
-  name: "Bruno Krebs"
-  url: "https://twitter.com/brunoskrebs"
-  mail: "krebs.bruno@gmail.com"
-  avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   image: https://cdn.auth0.com/blog/ga/Passwordlesslogo.png
   bg_color: "#37556D"
