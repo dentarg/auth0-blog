@@ -136,7 +136,7 @@ export class JwksClient {
 
 ```
 
-After grabbing the JWKS we will filter out all the keys that are not intended for signing a JWT.  This step may seem unneccessary as the Auth0 JWKS endpoint typically contains a signle signing key, however it is good practice to assume multiple keys could be present (i.e. key rotation).
+After grabbing the JWKS we will filter out all the keys that are not intended for signing a JWT.  This step may seem unneccessary as the Auth0 JWKS endpoint typically contains a single signing key, however it is good practice to assume multiple keys could be present (i.e. key rotation).
 
 ```javascript
 export class JwksClient {
