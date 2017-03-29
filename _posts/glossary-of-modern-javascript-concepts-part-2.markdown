@@ -248,7 +248,35 @@ As you can see, data is _only flowing in one direction_: from the model down. Th
 
 ### Two-way Data Binding
 
-In **two-way data binding**, the data does flow in both directions. This means that the JS can update the model and the UI can do so as well, without 
+In **two-way data binding**, the data flows in both directions. This means that the JS can update the model and the UI can do so as well. A common example of two-way data binding is with [AngularJS](https://angularjs.org) (versions 1.x).
+
+Let's implement the same example from above, but with AngularJS two-way data binding:
+
+```js
+// AngularJS two-way binding
+(function() {
+  angular
+    .module('myApp', [])
+    .controller('MyCtrl', function($scope) {
+      $scope.text = '';
+      $scope.$watch('text', function(newVal) {
+        console.log('Model updated from UI:', newVal);
+      });
+    });
+}());
+```
+
+```html
+<!-- HTML -->
+<body ng-app="myApp">
+  <div ng-controller="MyCtrl">
+    <input type="text" ng-model="text" />
+    <p>Text: {{text}}</p>
+  </div>
+</body>
+```
+
+This code is available to run at [Plunker: AngularJS two-way binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview).
 
 ### Data Flow and Binding Takeaways
 
