@@ -623,7 +623,9 @@ This component accepts a user's task input and emits a `taskAdded` event with th
 
 {% highlight html %}
 <div class="task-form">
-  <md-input [(ngModel)]="task" placeholder="New task"></md-input>
+  <md-input-container>
+    <input mdInput [(ngModel)]="task" placeholder="New task">
+  </md-input-container>
   <button md-button md-raised-button color="primary" (click)="addTask()">Add</button>
 </div>
 {% endhighlight %}
