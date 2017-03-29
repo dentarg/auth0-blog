@@ -27,7 +27,7 @@ related:
 - 2016-05-10-how-fingerprint-auth-gives-you-security
 ---
 
-## What Is [Federated Identity Management](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/)?
+## What Is Federated Identity Management?
 
 In the early days of the web, your digital identities were dispersed across all the different sites and applications that you used:
 
@@ -43,7 +43,7 @@ The problem was that if an organization wanted to have user credentials carry ov
 
 ## How Federated Identity Management Works
 
-The web's early infrastructure was not built to permit federated identity management—it worked against it. In fact, it was one of the earliest and most crucial principles, the same origin policy, that made the idea very difficult to implement:
+[The web's early infrastructure was not built to permit federated identity management](http://resources.auth0.com/build-vs-buy-evaluating-identity-management/)—it worked against it. In fact, it was one of the earliest and most crucial principles, the same origin policy, that made the idea very difficult to implement:
 
 * The same origin policy states that no cookies or other information stored on an end-user's computer can be accessed except by the original *creator *of that information.
 * This is fundamental—it means that domain Y can't rifle through your data and find your username and password to domain X. Without this policy, the whole idea of internet security would be moot.
