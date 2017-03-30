@@ -2,7 +2,7 @@
 layout: post
 title: "Java Platform and Java Community Process Overview"
 description: "This article provides a brief explanation of the Java platform and the community process that is responsible for evolving it."
-date: 2017-02-20 12:14
+date: 2017-03-30 12:14
 category: Technical Guide, Java
 author:
   name: "Bruno Krebs"
@@ -10,8 +10,8 @@ author:
   mail: "krebs.bruno@gmail.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: "#3471C0"
+  image: "https://cdn.auth0.com/blog/java-jcp/logo.png"
 tags:
 - java
 - jre
@@ -19,10 +19,12 @@ tags:
 - jcp
 - jsr
 - jep
-- java se
-- java ee
+- jse
+- jee
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2016-09-20-securing-spring-boot-with-jwts
+- 2017-01-31-beating-json-performance-with-protobuf
+- 2016-04-05-quicktip-use-jhipster
 ---
 
 **TL;DR:** In this article I'm going to explain the most important pieces of the Java platform and provide a brief explanation of the process responsible for evolving it. First I'm going to introduce the different Java editions—*Java ME*, *Java SE* and *Java EE*—and some important acronyms related to them, like: *JDK*, *JRE*, *JVM*, *JSP*, *JPA*, etc. In the end I will provide an overview of the *Java Community Process* (JCP).
@@ -37,7 +39,7 @@ Before diving into the *Java Community Process* (JCP), it's important to underst
 
 Both editions are composed of a large number of modules and it wouldn't be possible to provide a thorough explanation of the whole platform. Therefore, I'm going to briefly address its most important pieces.
 
-![Java Editions and their applicability](https://image.slidesharecdn.com/javaee7inaction-131107133348-phpapp01/95/gujavasc-java-ee-7-in-action-3-638.jpg?cb=1383831268)
+![Java Editions and their applicability](https://cdn.auth0.com/blog/java-jcp/java-platform.png)
 
 ## Java Standard Edition (Java SE)
 
@@ -56,7 +58,7 @@ Let's take as an example an arbitrary application that needs to read files from 
 
 One important concept to bare in mind is that the *JVM* is, before everything, a specification. Being a specification allows different vendors to create their own implementation of the *JVM*. [Wikipedia has an up to date article that lists open source and proprietary JVMs](https://en.wikipedia.org/wiki/List_of_Java_virtual_machines), but the most important and used ones are: [Open JDK](http://openjdk.java.net/) (which is open source), [J9 from IBM](https://www.ibm.com/support/knowledgecenter/SSYKE2_8.0.0/com.ibm.java.lnx.80.doc/user/java_jvm.html) and [Oracle JVM](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) (both proprietary).
 
-![JVMs are specific to each OS and architecture](https://i.snag.gy/JXYiOe.jpg)
+![JVMs are specific to each OS and architecture](https://cdn.auth0.com/blog/java-jcp/java-architectures.png)
 _Java applications run on JVMs that are specific to each OS and architecture_
 
 ### Java Class Library (JCL)
