@@ -264,7 +264,7 @@ Now that your migrates woes have been taken care of, let's briefly talk about wh
 
 If you are already using a 3rd party MFA solution or have your own custom solution, you can continue to use it as well. The Auth0 [Rules](https://auth0.com/docs/rules) extensibility platform allows you to take control of the authorization workflow. Here you can configure any number of events such as triggering 3rd party MFA, performing progressive profiling, and much more.
 
-We want to make your switch to Auth0 as painless as possible, so we are making the Database Migration feature free for all existing Stormpath customers. For enterprise customers switching from Stormpath to Auth0, we are also offering 8 hours of professional services at no cost.
+We want to make your switch to Auth0 as painless as possible, so we are making the Database Migration feature free for all existing Stormpath customers. For customers switching from Stormpath to Auth0 and purchasing an Auth0 Enterprise Support plan, we are also offering 8 hours of professional services at no cost.
 
 ## Conclusion
 
