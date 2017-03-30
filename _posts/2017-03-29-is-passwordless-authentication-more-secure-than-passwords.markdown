@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "Is Passwordless Authorization More Secure Than Passwords?"
+title: "Is Passwordless Authentication More Secure Than Passwords?"
 description: "When your users' behaviors determine the safety of your login, passwordless comes out on top."
 date: 2017-03-29 8:30
+alias: /is-passwordless-authorization-more-secure-than-passwords/
 category: Growth, Identity, Passwordless
 is_non-tech: true
 author:
@@ -15,7 +16,7 @@ design:
   bg_color: "#37556D"
 tags:
 - passwordless
-- authorization
+- authentication
 - security
 - login
 related:
@@ -28,13 +29,13 @@ related:
 
 One place where both businesses and consumers agree is login safety. For consumers, it's important that they trust the login of their apps and websites because they are handing over sensitive, personal information. For businesses, keeping that information safe is of the utmost importance — nobody wants to send out a [notification that their system has been breeched](http://arstechnica.com/security/2016/06/how-linkedins-password-sloppiness-hurts-us-all/). 
 
-So when a new way to log in comes along, it's only natural that we respond with skepticism — is this *really *safe? — because we know how important a secure sign on is. In the case of passwordless authorization, that reaction is particularly strong, because we have had it drilled into our heads that passwords are the ultimate source of protection for your account. 
+So when a new way to log in comes along, it's only natural that we respond with skepticism — is this *really *safe? — because we know how important a secure sign on is. In the case of passwordless authentication, that reaction is particularly strong, because we have had it drilled into our heads that passwords are the ultimate source of protection for your account. 
 
-Although that skepticism is healthy and helps us find the best, most secure ways to log in, Auth0 is here to clear things up. Not only is passwordless authorization safe to use, it might even be safer than a traditional username + password login. 
+Although that skepticism is healthy and helps us find the best, most secure ways to log in, Auth0 is here to clear things up. Not only is passwordless authentication safe to use, it might even be safer than a traditional username + password login. 
 
-## What is passwordless authorization?
+## What is passwordless authentication?
 
-Passworldess authorization is a way to configure your login, well, without a password. For example, a user might register their email and then receive a single-use passcode for each sign on. One common example of this is[ Slack's magic links](https://auth0.com/blog/how-to-implement-slack-like-login-on-ios-with-auth0/). Put in your email, hit “Send Magic Link,” and you can log into Slack from your email inbox with no password.
+Passworldess authentication is a way to configure your login, well, without a password. For example, a user might register their email and then receive a single-use passcode for each sign on. One common example of this is[ Slack's magic links](https://auth0.com/blog/how-to-implement-slack-like-login-on-ios-with-auth0/). Put in your email, hit “Send Magic Link,” and you can log into Slack from your email inbox with no password.
 
 ![Slack Magic Link](https://cdn.auth0.com/blog/passwordless/slack_magiclink.jpg) 
 
@@ -66,9 +67,9 @@ But magic links are just the tip of the passwordless iceberg. There are several 
 
 ![TouchID Flow](https://cdn.auth0.com/blog/passwordless/passwordless-touchid-flow.png)
 
-## How does the safety of passwordless authorization compare to other logins?
+## How does the safety of passwordless authentication compare to other logins?
 
-The technical side of both passwordless and username + password authorization has many considerations. It's up to the company to make sure that they are storing customer information correctly and to protect it from hacks. There are best practices for each method, and, if done correctly, there isn't a runaway winner. 
+The technical side of both passwordless and username + password authentication has many considerations. It's up to the company to make sure that they are storing customer information correctly and to protect it from hacks. There are best practices for each method, and, if done correctly, there isn't a runaway winner. 
 
 Here's a brief rundown of how things stack up on the technical side of things:
 
@@ -87,7 +88,7 @@ Where things really get interesting is how user behavior affects the safety of l
 
 ### Username + Password
 
-By now, it's pretty clear: we reuse the same passwords over, and over, and over. The Telegraph reported that “[t]he data shows that at least some people are still [failing to heed even the most basic security principles](http://www.telegraph.co.uk/technology/2016/01/26/most-common-passwords-revealed---and-theyre-ridiculously-easy-to/) about secure codes.” When you look at the [best ways to keep your personal information secure](https://auth0.com/blog/personal-information-security-identity-guide/), it's no wonder why: it takes time and attention to ensure security with a password. 
+By now, it's pretty clear: we reuse the same passwords over, and over, and over. The Telegraph reported that “the data shows that at least some people are still [failing to heed even the most basic security principles](http://www.telegraph.co.uk/technology/2016/01/26/most-common-passwords-revealed---and-theyre-ridiculously-easy-to/) about secure codes.” When you look at the [best ways to keep your personal information secure](https://auth0.com/blog/personal-information-security-identity-guide/), it's no wonder why: it takes time and attention to ensure security with a password. 
 
 With an average of  [130 accounts](http://blog.dashlane.com/wp-content/uploads/2015/07/MailboxSecurity_infographic_EN_final1.jpg) registered to one email in the US, it's not surprising that [73% of users](https://www.telesign.com/resources/research-and-reports/telesign-consumer-account-security-report/) have duplicate passwords. To remember 130 different passwords would be extremely difficult for anyone — and probably send password retrieval requests through the roof.
 
@@ -97,18 +98,18 @@ These bad habits can make it hard to protect your users, no matter how good your
 
 ### Eliminating The Password
 
-Passwordless authorization, by its nature, eliminates the problem of using an unsafe password. This means that one of the biggest user errors is taken out of your login. 
+Passwordless authentication, by its nature, eliminates the problem of using an unsafe password. This means that one of the biggest user errors is taken out of your login. 
 
-One of the biggest skepticisms around passwordless authorization is the idea that using a channel like email to send a code or link can be unsafe because it can be compromised. This is a legitimate concern, but a compromised email account could also be used to “reset” a password, and therefore this concern presents no additional risk for the passwordless method over username + password login. 
+One of the biggest skepticisms around passwordless authentication is the idea that using a channel like email to send a code or link can be unsafe because it can be compromised. This is a legitimate concern, but a compromised email account could also be used to “reset” a password, and therefore this concern presents no additional risk for the passwordless method over username + password login. 
 
-Passwordless authorization can also have the added benefit of two devices required for login. If you are authenticating with Auth0 Guardian, for example, you would need the device paired with the account in order to access that account, even if you knew the username. Of course, it is possible for devices to be stolen, but it makes malicious logins more difficult
+Passwordless authentication can also have the added benefit of two devices required for login. If you are authenticating with Auth0 Guardian, for example, you would need the device paired with the account in order to access that account, even if you knew the username. Of course, it is possible for devices to be stolen, but it makes malicious logins more difficult
 
 Requiring two devices for login is part of multi-factor, physical authentication, which is the most secure login option. Each individual method has a [single point of failure](http://www.imore.com/talk-mobile/future-authentication-biometrics-multi-factor-and-co-dependency-talk-mobile), and multi-factor authentication helps reduce impact of a single system's flaws. 
 
 ## For login, passwordless is the future
 
-Although this has not been an exhaustive exploration into all of the safety considerations relevant to the username + password and passwordless methods, it's clear that the technical foundations of passwordless authorization are safe and robust.
+Although this has not been an exhaustive exploration into all of the safety considerations relevant to the username + password and passwordless methods, it's clear that the technical foundations of passwordless authentication are safe and robust.
 
 Although username + password is currently the most familiar login method, it is by no means the gold standard. Yes, much of this rests on the way that users behave. Unfortunately, humans simply aren't built to remember and use different secure passwords for all of our 130 accounts. 
 
-Passwordless authorization, then, is becoming an increasingly relevant option for login. Users are connected to more devices and have more accounts than ever, which means that the passwordless approach is only growing more convenient for users. Sometimes it's also the case that you have to save the user from themselves — and for that, passwordless* is* a clear winner. 
+Passwordless authentication, then, is becoming an increasingly relevant option for login. Users are connected to more devices and have more accounts than ever, which means that the passwordless approach is only growing more convenient for users. Sometimes it's also the case that you have to save the user from themselves — and for that, passwordless* is* a clear winner. 
