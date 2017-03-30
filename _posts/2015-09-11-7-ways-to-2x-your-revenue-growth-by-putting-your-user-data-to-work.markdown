@@ -7,7 +7,7 @@ alias: /2015/09/11/7-ways-to-2x-your-revenue-growth-by-putting-your-user-data-to
 category: Growth, Identity, Rules
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
-  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
   cta: "Download"
 author:
   name: Martin Gontovnikas

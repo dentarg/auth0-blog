@@ -7,7 +7,7 @@ alias: /2016/05/08/how-to-use-auth0-to-manage-your-multi-tenancy-application/
 category: Technical Guide, Identity, Multitenancy
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
-  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
   cta: "Download"
 author:
   name: Martin Gontovnikas
@@ -101,4 +101,4 @@ The logic of the applications can then use this metadata to restrict or allow us
 
 To find out how you can implement a multi-tenant application using Auth0, follow our demo [here](https://auth0.com/docs/scenarios/multi-tenant-saas-azure-ad).
 
-[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

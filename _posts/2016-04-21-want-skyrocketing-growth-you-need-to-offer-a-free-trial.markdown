@@ -7,7 +7,7 @@ alias: /2016/04/21/want-skyrocketing-growth-you-need-to-offer-a-free-trial/
 category: Growth, Growth Hacking
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
-  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
   cta: "Download"
 author:
   name: Diego Poza
@@ -155,4 +155,4 @@ Not to mention, customers who try your free trial but won’t convert are still 
 
 That’s not a bad silver lining.
 
-[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

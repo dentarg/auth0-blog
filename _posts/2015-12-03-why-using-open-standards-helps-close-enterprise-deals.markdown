@@ -7,7 +7,7 @@ alias: /2015/12/03/why-using-open-standards-helps-close-enterprise-deals/
 category: Growth, Standards
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
-  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
   cta: "Download"
 author:
   name: Martin Gontovnikas
@@ -130,4 +130,4 @@ By eschewing the traditional notion of lock-in where your customers are forced t
 
 Those constraints force you to get creative and build real value on top of what’s been commoditized and made open and free. When you do that, customers will actively choose you, and you’ll win more deals and build real customer loyalty based in free choice.
 
-[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

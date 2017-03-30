@@ -7,7 +7,7 @@ alias: /2016/04/07/integrate-auth0-into-your-existing-saas-tools/
 category: Growth, Identity, Rules
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
-  action: "http://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
   cta: "Download"
 author:
   name: Diego Poza
@@ -335,4 +335,4 @@ These are only a few examples. Any of these Rules can be customized to your othe
 
 ![Auth0 provides lots of rule templates for you](https://cdn.auth0.com/blog/integrate-your-saas-tools/rule-templates.png)
 
-[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](http://resources.auth0.com/unlock-b2b-saas-growth-iam/)
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)
