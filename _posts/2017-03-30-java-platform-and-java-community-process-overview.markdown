@@ -225,3 +225,84 @@ Of course, this process and these specifications don't come for free. Actually t
 As an example, let's say that a company would like to use [GraphQL](http://graphql.org/). Right now, there is no specification on any Java edition that support this technology, and there are chances that Java standards will never support it at all. So, if the company really wants to use it, it will have to take its chances by adopting another solution that will have nothing to do with the Java platform and its standards. This would make the company loose the upside of the specifications.
 
 What about you, what do you think about the Java platform, the *JCP* program and the whole Java community? Do you think they are moving in the right direction? Would you suggest some changes to it? We would love to hear your ideas.
+
+## Aside: Securing Java Applications with Auth0
+
+Auth0 makes it easy for developers to implement even the most complex identity solutions for their web, mobile, and internal applications. Need proof? Check out how easy it is to secure a RESTful Spring Boot application with Auth0.
+
+For starters, we would need to include a couple of dependencies. Let's say that we are using the [Apache Maven](https://maven.apache.org/) build manager. In that case, we would open our `pom.xml` file and add the following dependencies:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!--project definitions ...-->
+  <dependencies>
+    <!--other dependencies ...-->
+
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>auth0</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>auth0-spring-security-api</artifactId>
+      <version>1.0.0-rc.2</version>
+    </dependency>
+  </dependencies>   
+</project>
+```
+
+After that we would simply create, or update, our `WebSecurityConfigurerAdapter` extension, as shown in the following code excerpt:
+
+```java
+package com.auth0.samples;
+
+import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Value("${auth0.audience}")
+    private String audience;
+
+    @Value("${auth0.issuer}")
+    private String issuer;
+
+    @Value("${auth0.secret}")
+    private String secret;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/api/**").authenticated();
+
+        JwtWebSecurityConfigurer
+                .forHS256(audience, issuer, secret.getBytes())
+                .configure(http);
+    }
+}
+```
+
+And then configure three parameters in the Auth0 SDK, which is done by adding the following properties in the `application.properties` file:
+
+```bash
+# change this with your own Auth0 client id
+auth0.audience=LtiwyfY1Y2ANJerCNTIbT7vVsX5zKBS5
+# change this with your own Auth0 client secret
+auth0.secret=TjpxsT2pMt9Jj6Np45GSPnTnHY-Y-LFyv6fUGGH_EGQLD4_ONBuymn3zxfcCnpdJ
+# change this with your own Auth0 domain
+auth0.issuer=https://bkrebs.auth0.com/
+```
+
+Making these small changes would give us a high level of security alongside with a very extensible authentication solution. With Auth0, we could easily integrate our authentication mechanism with different [social identity providers](https://auth0.com/docs/identityproviders#social)—like Facebook, Google, Twitter, GitHub, etc—and also with [enterprise solutions like Active Directory and SAML](https://auth0.com/docs/identityproviders#enterprise). Besides that, [adding Multifactor Authentication to the application would become a piece of cake](https://auth0.com/docs/multifactor-authentication).
+
+Want more? Take a look at [Auth0's solutions](https://auth0.com/docs) and at an article that thoroughly describes how to secure a [Spring Application with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/).
