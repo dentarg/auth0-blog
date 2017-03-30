@@ -147,8 +147,8 @@ contract OwnerClaims {
         setClaim(defaultKey, value);
     }
 
-    function getDefaultClaim() constant returns (string) {
-        return getClaim(defaultKey);
+    function getDefaultClaim(address owner) constant returns (string) {
+        return getClaim(owner, defaultKey);
     }
 
 }
