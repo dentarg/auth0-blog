@@ -39,7 +39,7 @@ You can jump straight into each concept here, or continue reading to learn about
 
 * <a href="#scope-closures" target="_self">Scope (Global, Local, Lexical) and Closures</a>
 * <a href="#data-flow-binding" target="_self">One-way Data Flow and Two-way Data Binding</a>
-* <a href="#change-detection" target="_self">Change Detection: Dirty Checking, Virtual DOM, Zones</a>
+* <a href="#change-detection" target="_self">Change Detection: Dirty Checking, Accessors, Virtual DOM</a>
 * <a href="#tree-shaking" target="_self">Tree-shaking</a>
 
 ---
@@ -283,9 +283,13 @@ Let's implement the same example from above, but with AngularJS two-way data bin
 </body>
 ```
 
-This code is available to run at [Plunker: AngularJS two-way binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview). In our controller, we set up the `$scope.text` model. In our template, we associate this model with the `<input>` using `ng-model="text"`. When we change the input value in the UI, the model will also be updated in the controller.
+This code is available to run at [Plunker: AngularJS two-way binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview). 
 
-This is two-way binding in AngularJS. As you can see, we didn't set up any events or handlers to explicitly signal the controller that the model was updated in the UI. The `text` data binding in the template automatically uses a [watcher](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef) to display changes to the model. We can also `$watch()` the model in the controller.
+In our controller, we set up the `$scope.text` model. In our template, we associate this model with the `<input>` using `ng-model="text"`. When we change the input value in the UI, the model will also be updated in the controller. We can see this in the `$watch()`.
+
+> **Note:** Using `$watch()` in a controller is debateable practice. We've done it here for _example purposes_. In your own AngularJS apps, take into consideration that there are alternatives to using `$watch()` in controllers (such as events), and always deregister watches `$onDestroy`. 
+
+This is two-way binding in AngularJS. As you can see, we didn't set up any events or handlers to explicitly signal the controller that the model was updated in the UI. The `text` data binding in the template automatically uses a [watcher](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef) to display changes to the model. We can also `$watch()` the model. Watching should be done in services or directive `link` functions, not in controllers
 
 > **Note:** AngularJS uses what's called the [digest cycle](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) (dirty checking) to compare a value with the previous value. You can read more about dirty checking in AngularJS in the section on <a href="#change-detection" target="_self">change detection</a>.
 
@@ -329,7 +333,7 @@ To learn more about **one-way data flow and two-way data binding**, check out th
 
 ---
 
-## <span id="change-detection"></span>Change Detection: Dirty Checking, Virtual DOM, Zones
+## <span id="change-detection"></span>Change Detection: Dirty Checking, Accessors, Virtual DOM
 
 Change detection is an important for any dynamic JavaScript Single Page Application (SPA). When the user updates something, the app must have a way to detect and react to that change appropriately. Some kind of change detection is therefore vital to SPA frameworks.
 
@@ -339,11 +343,19 @@ At a fairly high level, let's explore a few methods of change detection used in 
 
 Although [Angular](https://angular.io) was released, [AngularJS](https://angularjs.org) still accounts for multitudes of apps that are in production or development right now. AngularJS uses what's known as the [_digest cycle_](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is **dirty checking**. What does this mean?
 
-Dirty checking refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI. 
+Dirty checking refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI. Another watcher is added when we want to watch values for changes using `$scope.$watch()`.
+
+> <em>"AngularJS remembers the value and compares it to a previous value. This is basic dirty-checking. If there is a change in value, then it fires the change event."</em>
+>
+> — [Miško Hevery](https://twitter.com/mhevery), creator of Angular
+
+The digest cycle is a _loop_. AngularJS runs through its list of watchers and checks to see if any of the watched`$scope` variables have changed (aka, are "dirty"). If a variable has not changed, it moves on to the next watched variable. If it finds one that is dirty, it remembers this new value and re-enters the loop. When nothing further has changed, the DOM is updated.
+
+The major advantages of dirty checking are that it's simple and predictable; however, it's also inefficient. Therefore, it's important that care is taken when creating watchers in AngularJS. Every time a `$scope` property is bound to the UI, a watcher is added. Every time a `$watch()` is implemented, another watcher is added. Many directives also add watchers, and so do scope variables, filters, and repeaters. We can easily see how this can get out of hand in a complex page. This has led to articles such as [11 Tips to Improve AngularJS Performance: 1. Minimize/Avoid Watchers](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) and [Speeding up AngularJS's $digst loop](https://coderwall.com/p/d_aisq/speeding-up-angularjs-s-digest-loop). Angular (v2+) [no longer uses](https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html) [dirty checking](https://vsavkin.com/change-detection-in-angular-2-4f216b855d4c).
+
+### Accessors
 
 ### Virtual DOM
-
-### Zones
 
 ### Change Detection Takeaways
 
@@ -351,6 +363,7 @@ To learn more about **change detection**, check out the following resources:
 
 * [Change and its Detection in JavaScript Frameworks](https://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html)
 * [Change Detection Overview](https://gofore.com/en/change-detection-overview-part-1/)
+* [Dirty checking in AngularJS](http://stackoverflow.com/questions/9682092/how-does-data-binding-work-in-angularjs/9693933#9693933)
 * [The Digest Loop and Apply](https://www.ng-book.com/p/The-Digest-Loop-and-apply/)
 * [Angular Change Detection Explained](https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html)
 
