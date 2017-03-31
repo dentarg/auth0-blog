@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Glossary of Modern JavaScript Concepts: Part 2"
-description: "Learn about scope, closures, components, and many concepts commonly utilized in modern JS frameworks."
+description: "Learn about scope, closures, data flow, and concepts commonly utilized in modern JS frameworks & applications."
 date: 2017-04-10 8:30
 category: Glossary, Technical guide
 banner:
@@ -21,33 +21,32 @@ related:
 - 2017-03-22-how-to-manage-javascript-fatigue
 ---
 
-**TL;DR:** In the [first part of the Glossary of Modern JS Concepts](https://auth0.com/blog/glossary-of-modern-javascript-concepts/) series, we learned about functional, reactive, and functional reactive programming. In **Part 2**, we'll gain an understanding of core concepts like _scope_, _closures_, _tree-shaking_, and more, as well as JS framework topics such as _data flow_ and _change detection_.
+**TL;DR:** In the [first part of the Glossary of Modern JS Concepts](https://auth0.com/blog/glossary-of-modern-javascript-concepts/) series, we learned about functional, reactive, and functional reactive programming. In **Part 2**, we'll gain an understanding of core concepts like _scope_, _closures_, _tree-shaking_, and more, as well as JS application topics such as _data flow_ and _change detection_.
 
 ---
 
 ## Introduction
 
-Modern JavaScript has experienced massive proliferation over recent years and shows no signs of slowing. Numerous concepts appearing in JS blogs and documentation are still unfamiliar to many front-end developers. In this post series, we'll learn intermediate and advanced concepts in the current front-end programming landscape and explore how they apply to modern JavaScript.
+Modern JavaScript has experienced massive proliferation over recent years and shows no signs of slowing. Numerous concepts appearing in JS blogs and documentation are still unfamiliar to many front-end developers. In this post series, we'll learn intermediate and advanced concepts in the current front-end programming landscape and explore how they apply to modern JavaScript, JS frameworks, and JS applications.
 
 ---
 
 ## Concepts
 
-In this article, we'll address concepts that are crucial to understanding modern JavaScript, including **scope and closures, data flow, change detection, components, compilers, and more**.
+In this article, we'll address concepts that are crucial to understanding modern JS and JS applications, including **scope and closures, data flow, change detection, components, compilers, and more**.
 
 You can jump straight into each concept here, or continue reading to learn about them in order.
 
 * <a href="#scope-closures" target="_self">Scope (Global, Local, Lexical) and Closures</a>
-* <a href="#data-flow-binding" target="_self">Data Flow and Data Binding: One-way and Two-way</a>
-* <a href="#change-detection" target="_self">Change Detection: Dirty Checking, Data Binding, Virtual DOM, Immutable State</a>
+* <a href="#data-flow-binding" target="_self">One-way Data Flow and Two-way Data Binding</a>
+* <a href="#change-detection" target="_self">Change Detection: Dirty Checking, Virtual DOM, Zones</a>
 * <a href="#tree-shaking" target="_self">Tree-shaking</a>
-
 
 ---
 
-## <span id="scope-closures"></span>Scope and Closures
+## <span id="scope-closures"></span>Scope (Global, Local, Lexical) and Closures
 
-_"Explain closures"_ is a famous (and often dreaded) JavaScript technical interview question. The truth is that plenty of skilled JS developers have difficulty _explaining_ closures, even if they conceptually understand (and even use) them. Let's back up and talk about the concepts necessary to explain a closure.
+_"Explain closures"_ is a famous (and occasionally dreaded) JavaScript technical interview question. The truth is that plenty of skilled JS developers have difficulty explaining closures, even if they conceptually _understand_ (and even use) them. Let's back up and talk about the concepts necessary to explain a closure.
 
 ### Scope
 
@@ -162,7 +161,7 @@ When we execute `atLunchToday()`, we receive an alert with the argument we passe
 
 > **Note:** We can also call the _returned_ function (`alertGreeting`) _without_ assigning it. Doing so looks like this: `whenMeetingJohn('Whassup')()`.
 
-Hopefully we can see the value in closures when looking at this simple example. We can greet John with several different salutations and each time we create a closure with access to that particular greeting data.
+Hopefully we can see the value in closures when looking at this simple example. We can greet John with several different salutations and each time we create a closure with access to the particular salutation data in scope at the time of creation.
 
 Another common example demonstrating closures uses a simple addition expression:
 
@@ -206,7 +205,7 @@ To learn more about **scope and closures** (and `this`), check out the following
 
 ## <span id="data-flow-binding"></span>One-way Data Flow and Two-way Data Binding
 
-With the proliferation of JavaScript frameworks and single-page applications, it's important for JS developers to understand concepts like data flow direction, data binding, and how the tools we're using manage this.
+With the proliferation of JavaScript frameworks and single-page applications, it's important for JS developers to understand concepts like data flow / binding, and how the tools we're using manage this.
 
 ### One-way Data Flow
 
@@ -220,11 +219,13 @@ class OneWay extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
+    // set initial this.state.text to an empty string
     this.state = {
       text: ''
     };
   }
   handleChange(e) {
+    // get new input value from the event and update state
     this.setState({
       text: e.target.value
     });
@@ -240,34 +241,40 @@ class OneWay extends React.Component {
 }
 ```
 
-This code is available to run at [JSFiddle: React One-way Data Flow](https://jsfiddle.net/kmaida/045znrsf/). We can see that the `state` object model is established in the `constructor` function. The initial value of `this.state.text` is an empty string. In our `render()` function, we add an `onChange` handler to our `<input>` element. We then use this handler to `setState()`, signalling the state object to update the `text` property with the new value of the input field.
+This code is available to run at [JSFiddle: React One-way Data Flow](https://jsfiddle.net/kmaida/045znrsf/). We can see that the `state` object model is established in the `constructor` function. The initial value of `this.state.text` is an empty string. In our `render()` function, we add an `onChange` handler to our `<input>` element. We use this handler to `setState()`, signalling the `state` object model to update the `text` property with the new value of the input field.
 
-As you can see, data is _only flowing in one direction_: from the model down. The UI input does not have direct access to the model. If we want to update state in response to changes from the UI, the input must send a message with the payload. The only way the UI can influence the model is through this change event and the [`setState()` method](https://facebook.github.io/react/docs/react-component.html#setstate). The UI will never [automagically](https://en.wiktionary.org/wiki/automagical) update the model.
+Data is _only flowing in one direction_: from the model down. The UI input does _not_ have direct access to the model. If we want to update state in response to changes from the UI, the input must send a message carrying the payload. The only way the UI can influence the model is through this event and the [`setState()` method](https://facebook.github.io/react/docs/react-component.html#setstate). The UI will never [automagically](https://en.wiktionary.org/wiki/automagical) update the model.
 
-> **Note:** In order to reflect changes from the model _to_ the UI, React creates a new virtual DOM and diffs the old virtual DOM with the updated virtual DOM. Only the _changes_ are then rendered in the real DOM.
+> **Note:** In order to reflect changes from the model _to_ the UI, React creates a new virtual DOM and diffs the old virtual DOM with the updated virtual DOM. Only the _changes_ are then rendered in the real DOM. We'll talk more about this in the section on <a href="#change-detection" target="_self">change detection</a>.
 
 ### Two-way Data Binding
 
-In **two-way data binding**, the data flows in both directions. This means that the JS can update the model and the UI can do so as well. A common example of two-way data binding is with [AngularJS](https://angularjs.org) (versions 1.x).
+In **two-way data binding**, the data flows in both directions. This means that the JS can update the model _and_ the UI can do so as well. A common example of two-way data binding is with [AngularJS](https://angularjs.org).
+
+> **Note:** In this article, _AngularJS_ refers specifically to version 1.x of the framework while _Angular_ refers to versions 2.x and up, as per the [Branding Guidelines for Angular](http://angularjs.blogspot.com/2017/01/branding-guidelines-for-angular-and.html).
 
 Let's implement the same example from above, but with AngularJS two-way data binding:
 
 ```js
-// AngularJS two-way binding
+// AngularJS two-way data binding
+// script.js
 (function() {
   angular
     .module('myApp', [])
     .controller('MyCtrl', function($scope) {
+      // set initial $scope.text to an empty string
       $scope.text = '';
-      $scope.$watch('text', function(newVal) {
-        console.log('Model updated from UI:', newVal);
+      // watch $scope.text for changes
+      $scope.$watch('text', function(newVal, oldVal) {
+        console.log(`Old value: ${oldVal}. New value: ${newVal}`);
       });
     });
 }());
 ```
 
 ```html
-<!-- HTML -->
+<!-- AngularJS two-way data binding -->
+<!-- index.html -->
 <body ng-app="myApp">
   <div ng-controller="MyCtrl">
     <input type="text" ng-model="text" />
@@ -276,14 +283,76 @@ Let's implement the same example from above, but with AngularJS two-way data bin
 </body>
 ```
 
-This code is available to run at [Plunker: AngularJS two-way binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview).
+This code is available to run at [Plunker: AngularJS two-way binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview). In our controller, we set up the `$scope.text` model. In our template, we associate this model with the `<input>` using `ng-model="text"`. When we change the input value in the UI, the model will also be updated in the controller.
+
+This is two-way binding in AngularJS. As you can see, we didn't set up any events or handlers to explicitly signal the controller that the model was updated in the UI. The `text` data binding in the template automatically uses a [watcher](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef) to display changes to the model. We can also `$watch()` the model in the controller.
+
+> **Note:** AngularJS uses what's called the [digest cycle](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) (dirty checking) to compare a value with the previous value. You can read more about dirty checking in AngularJS in the section on <a href="#change-detection" target="_self">change detection</a>.
+
+### Aside: "Two-way Data Binding" in Angular (v2+)
+
+But wait! Angular still has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. The [`[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
+
+The following are functionally equivalent and demonstrate the [ngModel directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) in Angular:
+
+```js
+// ngModel directive: two-way binding syntax
+<input [(ngModel)]="text" />
+<p>{{text}}</p>
+
+// ngModel property and event binding
+<input [ngModel]="text" (ngModelChange)="text=$event" />
+<p>{{text}}</p>
+```
+
+The [Angular docs on two-way binding](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) cover this thoroughly.
 
 ### Data Flow and Binding Takeaways
+
+Several modern JavaScript frameworks and libraries utilize unidirectional data flow ([React](https://facebook.github.io/react/), [Angular](https://angular.io), [Inferno](http://infernojs.org/), [Redux](http://redux.js.org/), etc.). Why? One-way data flow encourages clean architecture with regard to how data moves through an application. Application state is also easier to manage, updates are more predictable, and performance can be better as well.
+
+Although automagical two-way data binding was one of [AngularJS](https://angularjs.org/)'s most popular demos back in 2009, [Angular](https://angular.io) has left it behind. Some Angular developers lamented this initially, but ultimately, many found that performance gains and greater control outweighed automagic.
+
+As we saw in the React example above, it's important to remember that one-way data flow does _not_ mean that it's difficult to update the store from the UI. It only means that such updates are done deliberately with specific instruction. It's less magical, but much more manageable.
+
+> **Note:** Generally when developers mention "implementing two-way data binding" in frameworks with one-way data flow (such as React), they are referring to the steps necessary to have UI changes notify the state that it should be updated. They are not looking for a way to implement _automagical_ two-way binding.
 
 To learn more about **one-way data flow and two-way data binding**, check out the following resources:
 
 * [Video: Introducing One-Way Data Flow](https://www.sitepoint.com/video-introducing-one-way-data-flow/)
 * [Diagrams comparing one-way and two-way data binding](http://stackoverflow.com/a/37566693)
+* [Why does React emphasize unidirectional data flow and Flux architecture?](https://hashnode.com/post/why-does-react-emphasize-on-unidirectional-data-flow-and-flux-architecture-ciibz8ej600n2j3xtxgc0n1f0)
+* [Data binding code in 9 JavaScript frameworks](http://engineering.paiza.io/entry/2015/03/12/145216) (from 2015, but still worth a look)
+* [Two-way Data Binding in Angular (v2+)](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html)
+* [AngularJS Docs - Data Binding](https://docs.angularjs.org/guide/databinding)
+* [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html)
+
+---
+
+## <span id="change-detection"></span>Change Detection: Dirty Checking, Virtual DOM, Zones
+
+Change detection is an important for any dynamic JavaScript Single Page Application (SPA). When the user updates something, the app must have a way to detect and react to that change appropriately. Some kind of change detection is therefore vital to SPA frameworks.
+
+At a fairly high level, let's explore a few methods of change detection used in popular JavaScript frameworks today.
+
+### Dirty Checking
+
+Although Angular v2+ is out, [AngularJS v1.x](https://angularjs.org) still accounts for multitudes of apps that are live  and in development right now. AngularJS uses what's known as the [_digest cycle_](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is **dirty checking**. What does this mean?
+
+Dirty checking refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI.
+
+### Virtual DOM
+
+### Zones
+
+### Change Detection Takeaways
+
+To learn more about **change detection**, check out the following resources:
+
+* [Change and its Detection in JavaScript Frameworks](https://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html)
+* [Change Detection Overview](https://gofore.com/en/change-detection-overview-part-1/)
+* [The Digest Loop and Apply](https://www.ng-book.com/p/The-Digest-Loop-and-apply/)
+* [Angular Change Detection Explained](https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html)
 
 ---
 
