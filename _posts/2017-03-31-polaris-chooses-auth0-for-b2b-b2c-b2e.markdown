@@ -4,6 +4,7 @@ title: "Polaris Chooses Auth0 for B2B, B2C, and B2E"
 description: "Polaris chose Auth0 as their IDaaS platform to handle cloud-enabled B2B, B2C, and B2E elegantly and securely."
 date: 2017-03-31 8:30
 category: PR, Press
+press_release: true
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"
