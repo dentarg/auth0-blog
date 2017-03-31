@@ -289,11 +289,11 @@ This is two-way binding in AngularJS. As you can see, we didn't set up any event
 
 > **Note:** AngularJS uses what's called the [digest cycle](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) (dirty checking) to compare a value with the previous value. You can read more about dirty checking in AngularJS in the section on <a href="#change-detection" target="_self">change detection</a>.
 
-### Aside: "Two-way Data Binding" in Angular (v2+)
+### Aside: Two-way Data Binding in Angular
 
-But wait! Angular still has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. The [`[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
+But wait! [Angular](https://angular.io) has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. [Two-way binding `[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding in a template, and the [`ngModel` directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) supplies an `ngModelChange` event for you. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
 
-The following are functionally equivalent and demonstrate the [ngModel directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) in Angular:
+The following are functionally equivalent and demonstrate the `ngModel` directive:
 
 ```js
 // ngModel directive: two-way binding syntax
@@ -305,11 +305,11 @@ The following are functionally equivalent and demonstrate the [ngModel directive
 <p>{{text}}</p>
 ```
 
-The [Angular docs on two-way binding](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) cover this thoroughly.
+The [Angular docs on two-way binding](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) cover this syntax thoroughly.
 
 ### Data Flow and Binding Takeaways
 
-Several modern JavaScript frameworks and libraries utilize unidirectional data flow ([React](https://facebook.github.io/react/), [Angular](https://angular.io), [Inferno](http://infernojs.org/), [Redux](http://redux.js.org/), etc.). Why? One-way data flow encourages clean architecture with regard to how data moves through an application. Application state is also easier to manage, updates are more predictable, and performance can be better as well.
+Many modern JavaScript frameworks and libraries utilize unidirectional data flow ([React](https://facebook.github.io/react/), [Angular](https://angular.io), [Inferno](http://infernojs.org/), [Redux](http://redux.js.org/), etc.). Why? One-way data flow encourages clean architecture with regard to how data moves through an application. Application state is also easier to manage, updates are more predictable, and performance can be better as well.
 
 Although automagical two-way data binding was one of [AngularJS](https://angularjs.org/)'s most popular demos back in 2009, [Angular](https://angular.io) has left it behind. Some Angular developers lamented this initially, but ultimately, many found that performance gains and greater control outweighed automagic.
 
@@ -337,9 +337,9 @@ At a fairly high level, let's explore a few methods of change detection used in 
 
 ### Dirty Checking
 
-Although Angular v2+ is out, [AngularJS v1.x](https://angularjs.org) still accounts for multitudes of apps that are live  and in development right now. AngularJS uses what's known as the [_digest cycle_](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is **dirty checking**. What does this mean?
+Although [Angular](https://angular.io) was released, [AngularJS](https://angularjs.org) still accounts for multitudes of apps that are in production or development right now. AngularJS uses what's known as the [_digest cycle_](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is **dirty checking**. What does this mean?
 
-Dirty checking refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI.
+Dirty checking refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI. 
 
 ### Virtual DOM
 
