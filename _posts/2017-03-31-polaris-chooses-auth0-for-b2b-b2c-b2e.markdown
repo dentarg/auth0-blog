@@ -25,9 +25,9 @@ related:
 
 ![Polaris Ride Command with Auth0](https://cdn.auth0.com/blog/polaris/polaris-ridecommand.jpg)
 
-In order to meet the needs of all use cases, Polaris needed a solution that manages B2B, B2C, and B2E. Finding such a solution would negate the need to implement multiple solutions to handle different use cases, which could potentially result in excessive workload and serious integration complications. Auth0 was the answer to handling all use cases gracefully, easily, and securely with one platform. In addition, Auth0 also met Polaris's needs for [enterprise federation](https://auth0.com/docs/identityproviders), [Single-Sign On](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/), and [cloud support](https://auth0.com/learn/cloud-identity-access-management/).
+In order to meet the needs of all use cases, Polaris needed a solution that manages B2B, B2C, and B2E. Finding such a solution would negate the need to implement multiple solutions to handle different use cases, which could potentially result in excessive workload and serious integration complications. Auth0 was the answer to handling all use cases securely with one platform. In addition, Auth0 also met Polaris's needs for [enterprise federation](https://auth0.com/docs/identityproviders), [Single-Sign On](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/), and [cloud support](https://auth0.com/learn/cloud-identity-access-management/).
 
-Auth0 has enabled Polaris to implement elegant, secure authentication solutions for their existing use cases, but it doesn't stop there. Additional use cases for Auth0 are emerging at Polaris now that they have an easy, powerful way to implement robust authentication. Polaris looks forward to additional Auth0 implementations in future products as well as current ones.
+Auth0 has enabled Polaris to implement authentication solutions for their existing use cases, but it doesn't stop there. Additional use cases for Auth0 are emerging at Polaris now that they have an easy way to implement powerful, robust authentication. Polaris looks forward to additional Auth0 implementations in future products as well as current ones.
 
 Read more in our [Polaris Case Study](https://auth0.com/learn/polaris-case-study/).
 
