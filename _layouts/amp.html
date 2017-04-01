@@ -15,17 +15,12 @@
 <title>Auth0 Blog</title>
 {%endif%}
 
-
-<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+{% if is_list_amp_index %}
+<link rel="canonical" href="https://auth0.com/blog/">
+{%else %}
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url | replace: '/amp',''}}">
+{%endif%}
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
-
-{% if page.is_list_amp_index %}
-  <link rel="amphtml" href="https://auth0.com/blog/{{site.ampdir}}"/>
-{% else %}
-  {% if page.url %}
-    <link rel="amphtml" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
-  {% endif %}
-{% endif %}
 
 
     {% if page.meta-robots %}
