@@ -1,0 +1,53 @@
+{% assign current = page %}
+{% assign is_banner_post = true %}
+
+{% if page.is_post_index %}
+  {% assign current = post %}
+{% endif %}
+
+
+{% if current.tags %}
+    {% assign tag = current.tags[0] %}
+{% else %}
+  {% assign tag = 'Blog' %}
+{% endif %}
+
+<section class="banner banner-post{% if current.design.blog_series %} blog-series{% endif %} bg-header-post" >
+    <div class="container banner-container">
+        <i class="icon-budicon-697 hide"></i>
+
+        {% include amp/entry_image.html %}
+        <h2>{{current.title}}</h2>
+        {% if current.description %}
+        <div class="entry-content" itemprop="description">
+          {{ current.description | markdownify }}
+        </div>
+        {% endif %}
+
+        <div class="post-info">
+          <div class="author">
+            <a href="{{current.author.url}}"><span class="name" itemprop="author">{{current.author.name | truncatewords: 2, ''}}</span></a>
+          </div>
+          <div class="share-container">
+            <div>
+              <amp-social-share type="facebook" width="25" height="25"
+              data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
+              data-param-attribution="Auth0"
+              data-param-app_id="625852750947273"
+              ></amp-social-share>
+              <amp-social-share type="linkedin" width="25" height="25"
+              data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
+              data-param-attribution="Auth0"
+              data-param-text="{{current.title}} @auth0"
+              ></amp-social-share>
+              <amp-social-share type="twitter" width="25" height="25"
+              data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
+              data-param-attribution="Auth0"
+              data-param-text="{{current.title}} @auth0"
+              ></amp-social-share>
+            </div>
+          </div>
+        </div>
+
+    </div>
+</section>

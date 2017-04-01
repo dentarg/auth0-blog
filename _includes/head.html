@@ -1,0 +1,151 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
+    {% include sharing_metas.html %}
+
+    {% if page.is_tag_index %}
+      <title>{{ page.tag | capitalize }} - Auth0 Blog</title>
+    {% else %}
+      <title>{{ page.title }}</title>
+
+      <!-- Swiftype for the posts -->
+      <meta class="swiftype" name="title" data-type="string" content="{{ page.title }}"/>
+      <meta class="swiftype" name="type" data-type="enum" content="blog" />
+      <meta class="swiftype" name="popularity" data-type="integer" content="1"/>
+    {% endif %}
+
+    <link href="https://plus.google.com/+Auth0" rel="publisher" />
+    <link rel="manifest" href="{{ site.baseurl }}/manifest.json">
+    <script src="//use.typekit.net/tde2fii.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//cdn.auth0.com/w2/auth0-7.4.0.min.js"></script>
+    <script src="//cdn.auth0.com/js/lock/10.6.1/lock.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.auth0.com/website/web-header/3.2.2/web-header.css" />
+    <script src="https://cdn.auth0.com/website/web-header/3.2.2/web-header.js"></script>
+    <script src="//npmcdn.com/auth0-contact-form@latest"></script>
+    <link rel="stylesheet" href="//npmcdn.com/auth0-contact-form@latest/dist/contact-form.css" />
+    <script src="//cdn.auth0.com/js/m/metrics-1.min.js"></script>
+    <script type="text/javascript">
+      !function(){
+        var metricsLib = window.metricsLib = window.metricsLib || [];
+        // A list of the methods in metrics.js to stub.
+        metricsLib.methods = [
+          'segment',
+          'track',
+          'setUserId',
+          'identify',
+          'alias',
+          'page',
+          'getData',
+          'ready',
+          'traits'
+        ];
+        metricsLib.factory = function(method){
+          return function(){
+            var args = Array.prototype.slice.call(arguments);
+            args.unshift(method);
+            metricsLib.push(args);
+            return metricsLib;
+          };
+        };
+        for (var i = 0; i < metricsLib.methods.length; i++) {
+          var key = metricsLib.methods[i];
+          metricsLib[key] = metricsLib.factory(key);
+        }
+        metricsLib.load = function(segmentKey, dwhEndpoint){
+          if(null != window.Auth0Metrics){
+            window.metricsLib = new Auth0Metrics(segmentKey, dwhEndpoint, 'blog');
+          }else{
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = ('https:' === document.location.protocol
+              ? 'https://' : 'http://')
+              + 'cdn.auth0.com/js/m/metrics-1.min.js';
+            script.onerror = function(){
+              console.error("No metrics");
+            }
+            script.onload = function(){
+              // Grab analytics and make it private
+              window.metricsLib = new Auth0Metrics(segmentKey, dwhEndpoint, 'blog');
+            }
+            var first = document.getElementsByTagName('script')[0];
+            first.parentNode.insertBefore(script, first);
+          }
+        };
+        var SEGMENT_KEY = {% if 'production' == site.env %} 'aaB6w2BsRwUcGbRSUY7X22FPAa1NL3BL' {% else %} 'WqErZyd56ob3pmMDnko55hNgFt8B4Zox' {% endif %};
+        var DWH_ENDPOINT = {% if 'production' == site.env %} 'https://dwh-tracking.it.auth0.com/dwh-metrics' {% else %} '//auth0-metrics-server.herokuapp.com/dwh-metrics' {% endif %};
+        if (DWH_ENDPOINT) {
+          //- We should catch for an undefined DWH_ENDPOINT
+          metricsLib.load(SEGMENT_KEY, DWH_ENDPOINT);
+        } else {
+          console.error("DWH_ENDPOINT must be defined for tracking to work.")
+        }
+        }();
+    </script>
+
+    <script src="//cdn.auth0.com/js/ab/ab-1.min.js"></script>
+    <script src="//cdn.auth0.com/js/ab/ab-loader-1.min.js"></script>
+
+    {% if page.meta-robots %}
+    <meta name="robots" content="{{ page.meta-robots }}" />
+    {% endif %}
+
+    {% if paginator.page > 1 %}
+    <meta name="robots" content="noindex, noarchive, follow" />
+    {% endif %}
+
+    {% if page.is_tag_index %}
+    <link rel="canonical" href="https://auth0.com/blog" />
+    {% else %}
+      {% if page.url %}
+        <link rel="canonical" href="https://auth0.com{{ site.baseurl }}{{page.url | replace:'index.html',''}}" />
+      {% endif %}
+    {% endif %}
+
+    <!-- amphtml -->
+
+    {% if page.is_tag_index %}
+      <link rel="amphtml" href="https://auth0.com/blog/{{site.ampdir}}"/>
+    {% else %}
+      {% if page.url %}
+        <link rel="amphtml" href="https://auth0.com{{ site.baseurl }}/{{site.ampdir}}{{page.url | replace:'index.html',''}}" />
+      {% endif %}
+    {% endif %}
+
+
+    {% if page.is_tag_index %}
+      {% if paginator.previous_page %}
+      <link rel="prev" href="https://auth0.com{{ site.baseurl }}/tags/{{ page.tag }}/page{{paginator.previous_page}}">
+      {% endif %}
+      {% if paginator.next_page %}
+      <link rel="next" href="https://auth0.com{{ site.baseurl }}/tags/{{ page.tag }}/page{{paginator.next_page}}">
+      {% endif %}
+    {% else %}
+      {% if paginator.previous_page %}
+      <link rel="prev" href="https://auth0.com{{ site.baseurl }}/page{{paginator.previous_page}}">
+      {% endif %}
+      {% if paginator.next_page %}
+      <link rel="next" href="https://auth0.com{{ site.baseurl }}/page{{paginator.next_page}}">
+      {% endif %}
+    {% endif %}
+
+    <link rel="shortcut icon" href="//cdn.auth0.com/styleguide/latest/lib/logos/img/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://auth0.com/blog/rss.xml">
+    <link type="application/opensearchdescription+xml" rel="search" href="https://auth0.com/blog/osd.xml"/>
+
+    <link rel="preload" href="https://cdn.auth0.com/styleguide/core/2.0.1/fonts/fakt/FaktPro-Normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="https://cdn.auth0.com/styleguide/core/2.0.1/core.min.css">
+    <link rel="stylesheet" href="https://cdn.auth0.com/styleguide/components/1.0.7/components.min.css">
+
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/index.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/vendor/selection-sharer.min.css" />
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"> -->
+</head>
