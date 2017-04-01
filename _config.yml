@@ -7,6 +7,7 @@ excerpt_separator: '<!-- more -->'
 url: 'https://auth0.com'
 baseurl: '/blog'
 encoding: utf-8
+ampdir: 'amp'
 only_first_p:
   show_read_more_link: true
   read_more_link_text: 'Read more'
