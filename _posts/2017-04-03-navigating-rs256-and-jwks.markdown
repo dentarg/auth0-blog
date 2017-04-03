@@ -2,7 +2,7 @@
 layout: post
 title: "Navigating RS256 and JWKS"
 description: "Learn how to start using RS256 for signing your JWTs."
-date: 2017-03-28 8:30
+date: 2017-04-03 8:30
 category: Technical Guide, Security, JWT
 design:
   bg_color: "#222228"
