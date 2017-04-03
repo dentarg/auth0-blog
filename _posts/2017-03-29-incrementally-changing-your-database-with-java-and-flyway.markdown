@@ -10,8 +10,8 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: #000
-  image: "https://flywaydb.org/assets/logo/flyway-logo-tm.png"
+  bg_color: "#0166AE"
+  image: "https://cdn.auth0.com/blog/spring-boot-flyway/logo.png"
 tags:
 - java
 - flyway
@@ -26,13 +26,13 @@ Source code versioning is a subject that has been widely discussed and which has
 
 ## What is Flyway
 
-[Flyway](https://flywaydb.org/) is a tool, developed by Boxfuse, that enables developers to apply version control practices to the database that supports a Java application. With it, we can tightly integrate plain SQL scripts in the lifecycle of an application, guaranteeing that its database will always be compatible without any manual intervention.
+[Flyway](https://flywaydb.org/) is a tool, developed by Boxfuse, that enables developers to apply version control practices to the database that supports a Java application. With it, we can tightly integrate plain SQL scripts in the lifecycle of an application, guaranteeing that its database will always be compatible without manual intervention.
 
 ## How Does Flyway Works
 
-Flyway works by checking the current version of the database and by applying new migrations automatically before the rest of the application starts. Whenever a developer needs to change the schema of a database or to issue some changes to the data residing on it, they need to create a SQL migration in the directory read by Flyway. Usually this directory is `classpath:db/migration`, but one can change the default value if needed.
+Flyway works by checking the current version of the database and by applying new migrations automatically before the rest of the application starts. Whenever a developer needs to change the schema of a database, or to issue some changes to the data residing on it, they need to create a SQL migration in the directory read by Flyway. Usually this directory is `classpath:db/migration`, but one can change the default value if needed.
 
-Internally, Flyway controls the version of a database through records on a specific table in the database itself. The first time that Flyway runs (i.e. in the first migration), it creates a table called `schema_version` with the following definition:
+Internally, Flyway controls the version of a database through records on a specific table in the database itself. The first time that Flyway runs (i.e. in the first migration), it creates a table called `schema_version`, with the following definition:
 
 ```bash
 # column name  | column type
@@ -56,13 +56,13 @@ installed_rank | version | description | type |     script     |  checksum   | i
              1 | 1       | users       | SQL  | V1__users.sql  |   841518221 | postgres     | 2017-03-25 19:15:59
 ```
 
-Then when a developer adds a second script, naming it as something like `V2__another_script.sql`, Flyway is able to query the `schema_version` table to see on what version the database is and can figure it out what scripts it needs to run, if any.
+Then when a developer adds a second script, naming it as something like `V2__another_script.sql`, Flyway is able to query the `schema_version` table to see on what version the database is and can figure it out what scripts it needs to run.
 
-Most of the default properties used by Flyway to control the version of the database can be changed. If needed, developers can change the name of the table that Flyway uses, if migrations can be run out of order or not, where these scripts are, and etc. Take a look at [Flyway's documentation for more](https://flywaydb.org/documentation/).
+Most of the default properties used by Flyway to control the version of the database can be changed. If needed, developers can change the name of the table that Flyway uses, whether migrations can be run out of order or not, where these scripts are, and etc. Take a look at [Flyway's documentation for more](https://flywaydb.org/documentation/).
 
 ## How Can We Integrate Flyway
 
-Flyway easily integrates with most of the build tools available on the Java environment. Out of the box, Boxfuse made available plugins to [Maven](https://flywaydb.org/documentation/maven/), [Gradle](https://flywaydb.org/documentation/gradle/), [Ant](https://flywaydb.org/documentation/ant/) and [SBT](https://flywaydb.org/documentation/sbt/). But, even if we don't use one of—or don't want to integrate with—these build tools, we can still use Flyway through a [CLI tool](https://flywaydb.org/documentation/commandline/), or directly with its [API](https://flywaydb.org/documentation/api/).
+Flyway easily integrates with most of the build tools available on the Java environment. Out of the box, Boxfuse made available plugins to [Maven](https://flywaydb.org/documentation/maven/), [Gradle](https://flywaydb.org/documentation/gradle/), [Ant](https://flywaydb.org/documentation/ant/) and [SBT](https://flywaydb.org/documentation/sbt/). But, even if we don't use one of—or don't want to integrate with—these build tools, we can still use Flyway through a [CLI tool](https://flywaydb.org/documentation/commandline/), or directly through its [API](https://flywaydb.org/documentation/api/).
 
 Besides these options, a few plugins were crafted by the developers community. These plugins make smooth the usage of Flyway with some popular frameworks like [Spring Boot](https://flywaydb.org/documentation/plugins/springboot), [Grails](https://flywaydb.org/documentation/plugins/grails) and [Play](https://flywaydb.org/documentation/plugins/play).
 
@@ -82,7 +82,7 @@ Running the application is just a matter of issuing `mvn spring-boot:run` in the
 
 ### Integrating Spring Boot with Flyway
 
-To integrate Spring Boot with Flyway, we will need to add `flyway-core` as a dependency to our application. But, as we still don't have any database configured on our application, we will also add another dependency: `hsqldb`. HSQLDB is an in-memory database, written in Java, that easily integrates with Spring and, as such, will help us on our exercise. To add both dependencies, open the `pom.xml` and include the following elements:
+To integrate Spring Boot with Flyway, we will need to add `flyway-core` as a dependency to our application. But, as we still don't have any database configured, we will also add another dependency: `hsqldb`. HSQLDB is an in-memory database, written in Java, that easily integrates with Spring and, as such, will help us on our exercise. To add both dependencies, open the `pom.xml` file and include the following elements:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -148,22 +148,19 @@ To be able to persist and retrieve customers from the database, we will create a
 ```java
 package com.auth0.samples;
 
-import com.auth0.samples.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 }
 ```
 
-If you are not familiar with Spring Data, you might think that this interfaces does nothing. But that is not true, this interface does a lot actually. It enables us to `findAll()` customers, `save()` customers, and `findOne()` customer by its ID. It also gives us a nice feature called *Query Methods*, that allows us to create queries simply by defining an empty method declaration. For example, we could create a query to find `Customers` by their names by adding a single-line method declaration like `List<Customer> findByName(String name);`. Take a look at the [`JpaRepository` reference for more](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods).
+If you are not familiar with Spring Data, you might think that this interfaces isn't much of a help. But that is not true, this interface does a lot actually. It enables us to `findAll()` customers, `save()` customers, and `findOne()` customer by its ID. It also gives us a nice feature called *Query Methods*, that allows us to create queries simply by defining an empty method declaration. For example, we could create a query to find `Customers` by their names by adding a single-line method declaration like `List<Customer> findByName(String name);`. Take a look at the [`JpaRepository` reference for more](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods).
 
 We are now capable of instatiating customers and persisting them in the database. But we didn't define a way to expose these customers to the world (like to a web browser or to any other device). So, let's tackle this by creating a RESTful endpoint that responds for `/customers/`. For that, we will create a class called `CustomerController`, in the `com.auth0.samples` package, with the following source code:
 
 ```java
-package com.auth0.samples.controller;
+package com.auth0.samples;
 
-import com.auth0.samples.model.Customer;
-import com.auth0.samples.persistence.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -184,7 +181,7 @@ public class CustomerController {
 }
 ```
 
-As we can see, this `CustomerController` class uses `CustomerRepository`, which was automatically injected, to expose customers. With this class, we can now respond to HTTP `GET` requests with an array of persisted customers. But the problem is that we don't have any persisted for the time being and, actually, we don't even have the `customer` table on our database. Let's use Flyway to create the table and populate it.
+As we can see, this `CustomerController` class uses `CustomerRepository`, which is automatically injected, to expose customers. With this class, we can now respond to HTTP `GET` requests with an array of persisted customers. But the problem is that we don't have anything persisted yet and, actually, we don't even have the `customer` table on our database. Let's use Flyway to create the table and populate it.
 
 ### Creating a Flyway Script
 
@@ -218,16 +215,16 @@ As we can see, the `/customers/` endpoint responded properly with the array of c
 
 ## Saving Multiple Contacts to Customers
 
-Let's say that the *Product Owner* of our team has spoken to the users of the application and that they were complaining about not being able to save more than one contact per customer. What can we do to help these users? Well, the first thing we can do is to refactor the `Customer` entity, extracting the contact fields to an entity of its own. This will require us to use JPA to tie both entities, mapping *Many* contacts *To One* customer, which is accomplished through the `@ManyToOne` annotation. Lastly, will force us to create another endpoint to permit the front-end application to retrieve an array of contacts of a specific customer.
+Let's say that the *Product Owner* of our team has spoken to the users of the application and that they were complaining about not being able to save more than one contact per customer. What can we do to help these users? Well, the first thing we can do is to refactor the `Customer` entity, extracting the contact fields to an entity of its own. This will require us to use JPA to tie both entities, mapping *Many* contacts *To One* customer, which is accomplished through the `@ManyToOne` annotation. Lastly, will require us to create another endpoint to permit the front-end application to retrieve an array of contacts of a specific customer.
 
-The refactoring stated above refers only to the source code of our application. Accomplishing all this changes won't be enough as the database will still contain a single table, `customer`, with contact details embedded. To fix this issue, we will create another Flyway script, which will contain a command to create the `contact` table and another command to move customers' contact details to this new table.
+The refactoring stated above refers only to the source code of our application. Accomplishing all these changes won't be enough as the database will still contain a single table, `customer`, with contact details embedded. To fix this issue, we will create another Flyway script, which will contain a command to create the `contact` table and another command to move customers' contact details to this new table.
 
 ### Refactoring the Source Code
 
 Let's begin the refactoring process by addressing the source code of our application. The first thing we will do is to create the `Contact` class, which will hold contact details of customers. We will create this class in the `com.auth0.samples` package, with the following content:
 
 ```java
-package com.auth0.samples.model;
+package com.auth0.samples;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -262,7 +259,7 @@ Note that the `Contact` entity just created has the exact same fields that refer
 After creating the `Contact` entity, we will now refactor the `Customer` entity to remove contact properties from it. The `Customer` class will now look as:
 
 ```java
-package com.auth0.samples.model;
+package com.auth0.samples;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -290,13 +287,11 @@ The only property on `Customer` that refers to contacts now is a `List` of conta
 The last thing that we will do to finish the source code refactoring, is to create the new endpoint which will be responsible for serializing the contacts of a customer. This endpoint will be created in the `CustomerController` class as follows:
 
 ```java
-package com.auth0.samples.controller;
+package com.auth0.samples;
 
 // other imports
 
-import com.auth0.samples.model.Contact;
 import org.springframework.web.bind.annotation.PathVariable;
-import java.util.List;
 
 @RestController
 public class CustomerController {
@@ -350,7 +345,7 @@ If we issue a `GET` request to `/customers/1/contacts/` now, the endpoint will p
 
 ## Conclusion
 
-Having a tool like Flyway integrated in our application is a great addition. With it, we can create scripts that will refactor the database to a state that is compatible with the source code, and we can move data around to guarantee that they will reside in the correct tables.
+Having a tool like Flyway integrated in our application is a great addition. With it, we can create scripts that will refactor the database to a state that is compatible with the source code, and we can move data around to guarantee that it will reside in the correct tables.
 
 Flyway will also be helpful if we eventually run into an issue where we need to recover the database from a backup. In a case like that, we can rest assured that Flyway will correctly identify if the combination of the source code version and the database version that we are running have any scripts that need to be applied.
 
