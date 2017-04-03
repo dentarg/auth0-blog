@@ -287,7 +287,7 @@ This code is available to run at [Plunker: AngularJS two-way binding](http://pln
 
 In our controller, we set up the `$scope.text` model. In our template, we associate this model with the `<input>` using `ng-model="text"`. When we change the input value in the UI, the model will also be updated in the controller. We can see this in the `$watch()`.
 
-> **Note:** Using `$watch()` in a controller is debateable practice. We've done it here for _example purposes_. In your own AngularJS apps, take into consideration that there are alternatives to using `$watch()` in controllers (such as events), and always deregister watches `$onDestroy`. 
+> **Note:** Using `$watch()` in a controller is debateable practice. We've done it here for _example purposes_. In your own AngularJS apps, take into consideration that there are alternatives to using `$watch()` in controllers (such as events), and if you do use `$watch()`, always [deregister your watches `$onDestroy`](https://www.bennadel.com/blog/2480-unbinding-watch-listeners-in-angularjs.htm). 
 
 This is two-way binding in AngularJS. As you can see, we didn't set up any events or handlers to explicitly signal the controller that the model was updated in the UI. The `text` data binding in the template automatically uses a [watcher](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef) to display changes to the model. We can also `$watch()` the model. Watching should be done in services or directive `link` functions, not in controllers
 
@@ -295,7 +295,7 @@ This is two-way binding in AngularJS. As you can see, we didn't set up any event
 
 ### Aside: Two-way Data Binding in Angular
 
-But wait! [Angular](https://angular.io) has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. [Two-way binding `[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding in a template, and the [`ngModel` directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) supplies an `ngModelChange` event for you. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
+But wait! [Angular](https://angular.io) has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. [Angular's two-way binding `[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding in a template, and the [`ngModel` directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) supplies an `ngModelChange` event for you. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
 
 The following are functionally equivalent and demonstrate the `ngModel` directive:
 
@@ -341,19 +341,25 @@ At a fairly high level, let's explore a few methods of change detection used in 
 
 ### Dirty Checking
 
-Although [Angular](https://angular.io) was released, [AngularJS](https://angularjs.org) still accounts for multitudes of apps that are in production or development right now. AngularJS uses what's known as the [_digest cycle_](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is **dirty checking**. What does this mean?
+Although [Angular](https://angular.io) was released, [AngularJS](https://angularjs.org) still accounts for multitudes of apps that are in production or development right now. AngularJS uses what's known as the [_digest cycle_](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is _dirty checking_. What does this mean?
 
-Dirty checking refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI. Another watcher is added when we want to watch values for changes using `$scope.$watch()`.
+**Dirty checking** refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI. Another watcher is added when we want to watch values for changes using `$scope.$watch()`.
 
 > <em>"AngularJS remembers the value and compares it to a previous value. This is basic dirty-checking. If there is a change in value, then it fires the change event."</em>
 >
 > — [Miško Hevery](https://twitter.com/mhevery), creator of Angular
 
-The digest cycle is a _loop_. AngularJS runs through its list of watchers and checks to see if any of the watched`$scope` variables have changed (aka, are "dirty"). If a variable has not changed, it moves on to the next watched variable. If it finds one that is dirty, it remembers this new value and re-enters the loop. When nothing further has changed, the DOM is updated.
+The digest cycle is a _loop_. AngularJS runs through its list of watchers and checks to see if any of the watched`$scope` variables have changed (aka, are "dirty"). If a variable has not changed, it moves on to the next watched variable. If it finds one that is dirty, it remembers its new value and _re-enters the loop_. When no changes are detected in the entire watch list, the DOM is updated.
 
-The major advantages of dirty checking are that it's simple and predictable; however, it's also inefficient. Therefore, it's important that care is taken when creating watchers in AngularJS. Every time a `$scope` property is bound to the UI, a watcher is added. Every time a `$watch()` is implemented, another watcher is added. Many directives also add watchers, and so do scope variables, filters, and repeaters. We can easily see how this can get out of hand in a complex page. This has led to articles such as [11 Tips to Improve AngularJS Performance: 1. Minimize/Avoid Watchers](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) and [Speeding up AngularJS's $digst loop](https://coderwall.com/p/d_aisq/speeding-up-angularjs-s-digest-loop). Angular (v2+) [no longer uses](https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html) [dirty checking](https://vsavkin.com/change-detection-in-angular-2-4f216b855d4c).
+The major advantage of dirty checking is that it's simple and predictable: there is no extending of objects and there are no APIs involved. However, it's also inefficient. Whenever _anything_ changes, the the digest cycle is triggered. Therefore, it's important that care is taken when creating watchers in AngularJS. Every time a `$scope` property is bound to the UI, a watcher is added. Every time a `$watch()` is implemented, another watcher is added. Many directives also add watchers, and so do scope variables, filters, and repeaters.
+
+Though dirty checking can still be fast in a simple app, we can easily see how this can get out of hand in a complex implementation. This has led to articles such as [11 Tips to Improve AngularJS Performance: 1. Minimize/Avoid Watchers](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) and [Speeding up AngularJS's $digest loop](https://coderwall.com/p/d_aisq/speeding-up-angularjs-s-digest-loop).
+
+> **Note:** Angular (v2+) [no longer](https://gofore.com/en/angular-2-change-detection-part-2/) [uses](https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html) [dirty checking](https://vsavkin.com/change-detection-in-angular-2-4f216b855d4c).
 
 ### Accessors
+
+[Ember](https://emberjs.com/) and [Backbone](http://backbonejs.org/) use **data accessors** (_getters_ and _setters_) for change detection.
 
 ### Virtual DOM
 
