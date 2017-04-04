@@ -18,7 +18,9 @@ tags:
 - identity
 - auth0
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2017-03-17-analyzing-identity-in-movies
+- 2017-03-24-360-view-of-customer-by-managing-identity
+- 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
 When it comes to appealing to customers, slowly but surely, personalization has become the name of the game. From Netflix's personalized recommendations algorithm to Amazon's suggested items, users are learning to expect that the interactions they have with a digital product or company will be catered to them.
