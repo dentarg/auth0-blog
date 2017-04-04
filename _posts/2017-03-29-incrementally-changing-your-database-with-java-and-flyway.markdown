@@ -30,7 +30,15 @@ Source code versioning is a subject that has been widely discussed and which has
 
 ## How Does Flyway Works
 
-Flyway works by checking the current version of the database and by applying new migrations automatically before the rest of the application starts. Whenever a developer needs to change the schema of a database, or to issue some changes to the data residing on it, they need to create a SQL migration in the directory read by Flyway. Usually this directory is `classpath:db/migration`, but one can change the default value if needed.
+Flyway works by checking the current version of the database and by applying new migrations automatically before the rest of the application starts. Whenever a developer needs to change the schema of a database, or to issue some changes to the data residing on it, they need to create a SQL script, following a name convention, in the directory read by Flyway. Usually this directory is `classpath:db/migration`, but one can change the default value if needed.
+
+Flyway's name convention consists of:
+
+- a prefix: which defaults to `V`
+- a version: dots or underscores separated in as many parts as one likes
+- separator: which defaults to `__` (two underscores) and separates the version from the description
+- description: a text with words separated by underscores or spaces
+- suffix: which defaults to `.sql`
 
 Internally, Flyway controls the version of a database through records on a specific table in the database itself. The first time that Flyway runs (i.e. in the first migration), it creates a table called `schema_version`, with the following definition:
 
@@ -48,7 +56,7 @@ execution_time | integer
 success        | boolean
 ```
 
-And adds to it a record identifying that the first migration occurred. For example, let's say that our script is called `V1__users.sql`. When Flyway syncs up the database with this script, it adds to the `schema_version` table a record like this:
+Then Flyway adds to it a record identifying that the first migration occurred. For example, let's say that our script is called `V1__users.sql`. When Flyway syncs up the database with this script, it adds to the `schema_version` table a record like this:
 
 ```bash
 installed_rank | version | description | type |     script     |  checksum   | installed_by |     installed_on
