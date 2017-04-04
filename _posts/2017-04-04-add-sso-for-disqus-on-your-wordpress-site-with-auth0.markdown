@@ -10,8 +10,8 @@ author:
   mail: mostekcm@auth0.com
   avatar: "https://gravatar.com/avatar/8e5a8216a606127a787669d99de86ee2?s=200"
 design: 
-  bg_color: "#2e9fff"
-  image: https://cdn.auth0.com/blog/auth0-disqus-wordpress-sso/logo.png
+  bg_color: "#247FCC"
+  image: https://cdn.auth0.com/blog/disqus-sso-post/logo.png
 tags: 
   - Disqus
   - WordPress
