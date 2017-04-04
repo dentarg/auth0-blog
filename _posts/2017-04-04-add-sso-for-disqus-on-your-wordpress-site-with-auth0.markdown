@@ -2,7 +2,7 @@
 layout: post
 title: "Add SSO for Disqus on your WordPress Site with Auth0"
 description: "Learn how utilize SSO for your Disqus WordPress plugin for your blog comments using Auth0 for authentication on the blog."
-date: 2017-03-22 13:29
+date: 2017-04-04 10:00
 category: Technical Guide, Identity
 author: 
   name: Carlos Mostek
@@ -10,7 +10,7 @@ author:
   mail: mostekcm@auth0.com
   avatar: "https://gravatar.com/avatar/8e5a8216a606127a787669d99de86ee2?s=200"
 design: 
-  bg_color: #2e9fff
+  bg_color: "#2e9fff"
   image: https://cdn.auth0.com/blog/auth0-disqus-wordpress-sso/logo.png
 tags: 
   - Disqus
