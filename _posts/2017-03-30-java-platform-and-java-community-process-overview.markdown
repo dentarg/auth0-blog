@@ -71,7 +71,7 @@ As of version 8 of Java, there were more than 4 thousand classes available to th
 
 > Java members, realizing that Java platform was getting too big addressed the issue by introducing a feature called [compact profiles on Java 8](http://www.oracle.com/technetwork/java/embedded/resources/tech/compact-profiles-overview-2157132.html) and by making the [whole API modular on Java 9](http://openjdk.java.net/projects/jigsaw/quick-start).
 
-![Java SE API and some of its packages](https://i.snag.gy/JRFMOg.jpg)
+![Java SE API and some of its packages](https://cdn.auth0.com/blog/java-jcp/jcl_packages.png)
 
 ### Java Runtime Environment (JRE)
 
@@ -139,7 +139,7 @@ Any entity (human or organization) that signs one of these agreements gets categ
 - Partner Members can serve on the *Executive Committee*, attend to *JCP Member* events and vote in the annual *Executive Committee* elections
 - Full Members can work on the *Executive Committee*, vote in the annual *Executive Committee* elections, work as *Contributors* to *JSRs* and lead these specifications.
 
-![JCP members hierarchy](https://i.snag.gy/PDn6o7.jpg)
+![JCP members hierarchy](https://cdn.auth0.com/blog/java-jcp/jcp_members_hierarchy.png)
 
 ### Executive Committee (EC)
 
@@ -178,7 +178,7 @@ A *Java Specification Request* is the document that starts an enhancement on the
 - Proposed Final Draft
 - Final Ballot
 
-![JCP stages](https://jcp.org/images/JCP.Timeline.12.png)
+![JCP stages](https://cdn.auth0.com/blog/java-jcp/jcp_stages.png)
 
 All these stages are thoroughly defined in the [JCP 2.10: Process Document](https://jcp.org/en/procedures/jcp2#3.5.1). But below I share a summary of them.
 
