@@ -2,8 +2,8 @@
 layout: post
 title: "When to Build and When to Buy"
 description: A cost analysis isn't the only thing to look at when deciding when to build or buy
-date: 2017-02-24 09:01
-category: Growth, Generic
+date: 2017-04-06 09:01
+category: Growth, BuildBuy
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
