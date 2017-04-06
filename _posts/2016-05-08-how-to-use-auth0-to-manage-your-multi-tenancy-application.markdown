@@ -5,6 +5,10 @@ description: Using multi-tenancy you can cut costs and still allow your customer
 date: 2016-05-08 8:30
 alias: /2016/05/08/how-to-use-auth0-to-manage-your-multi-tenancy-application/
 category: Technical Guide, Identity, Multitenancy
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -96,3 +100,5 @@ For instance, a user might be authenticated for multiple tenants and have differ
 The logic of the applications can then use this metadata to restrict or allow users access to data and instances as the roles allow.
 
 To find out how you can implement a multi-tenant application using Auth0, follow our demo [here](https://auth0.com/docs/scenarios/multi-tenant-saas-azure-ad).
+
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

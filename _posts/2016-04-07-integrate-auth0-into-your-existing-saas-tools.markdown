@@ -5,6 +5,10 @@ description: Using Auth0 Rules, all your SaaS tools can become part of your auth
 date: 2016-04-07 13:00
 alias: /2016/04/07/integrate-auth0-into-your-existing-saas-tools/
 category: Growth, Identity, Rules
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com
@@ -330,3 +334,5 @@ Find this rule [here](https://github.com/auth0/rules/blob/master/rules/fraud-pre
 These are only a few examples. Any of these Rules can be customized to your other SaaS tools and your apps needs. Using the Auth0 Dashboard, you can use these or any other template to start using Rules in your app right now, or you can build your own unique Rule for your SaaS. The power is there for you to use it.
 
 ![Auth0 provides lots of rule templates for you](https://cdn.auth0.com/blog/integrate-your-saas-tools/rule-templates.png)
+
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

@@ -5,6 +5,10 @@ description: "For SaaS companies, offering a free trial is crucial for growth. F
 date: 2016-04-21 13:30
 alias: /2016/04/21/want-skyrocketing-growth-you-need-to-offer-a-free-trial/
 category: Growth, Growth Hacking
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com
@@ -150,3 +154,5 @@ Good content marketing can do more than improve a free trial, it can bring new c
 Not to mention, customers who try your free trial but won’t convert are still giving you usage data.
 
 That’s not a bad silver lining.
+
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

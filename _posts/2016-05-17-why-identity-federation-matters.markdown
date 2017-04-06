@@ -5,6 +5,10 @@ description: With an identity clearinghouse, you can stay focused on your busine
 date: 2016-05-17 8:30
 alias: /2016/05/17/why-identity-federation-matters/
 category: Technical Guide, Identity, Federation
+banner:
+  text: "Build vs Buy: Guide to Evaluating Identity Management"
+  action: "https://resources.auth0.com/build-vs-buy-evaluating-identity-management/"
+  cta: "Download"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -39,7 +43,7 @@ The problem was that if an organization wanted to have user credentials carry ov
 
 ## How Federated Identity Management Works
 
-The web's early infrastructure was not built to permit federated identity management—it worked against it. In fact, it was one of the earliest and most crucial principles, the same origin policy, that made the idea very difficult to implement:
+[The web's early infrastructure was not built to permit federated identity management](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/)—it worked against it. In fact, it was one of the earliest and most crucial principles, the same origin policy, that made the idea very difficult to implement:
 
 * The same origin policy states that no cookies or other information stored on an end-user's computer can be accessed except by the original *creator *of that information.
 * This is fundamental—it means that domain Y can't rifle through your data and find your username and password to domain X. Without this policy, the whole idea of internet security would be moot.
@@ -81,6 +85,8 @@ Emerging in popularity now are passwordless systems, where your access does not 
 ![Passwordless Connections](https://cdn.auth0.com/blog/federated-identity/passwordless-connections.png)
 
 When you're choosing an identity provider and means of authentication, you need to take into account each provider's limitations and benefits and choose the one that's best for your users and your needs.
+
+[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/)
 
 ## The Problem With Decentralization
 
@@ -127,3 +133,5 @@ But with just a few lines of code, you can also
 Auth0 is a true federated identity manager in the sense that it doesn't *just *allow for you to stay signed in across domains. Auth0 also gives you access to the user accounts of everyone on your system, allows you to set specific access restrictions across identity providers, and keep all of this data consistent.
 
 Auth0 can be a clearinghouse for the identities of all your users whether you're running a consumer-facing mobile app or an enterprise system with a SAML-based identity provider. One click is all it takes to turn integrations on and off, and to secure them with Auth0's [full lineup of security features](https://auth0.com/security).
+
+[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM.](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/)

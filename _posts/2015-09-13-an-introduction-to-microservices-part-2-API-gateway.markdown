@@ -5,6 +5,10 @@ description: "Learn about API gateways and how they work in a microservice-based
 date: 2015-09-13 09:00
 alias: /2015/09/13/an-introduction-to-microservices-part-2-API-gateway/
 category: Technical Guide, Architecture, Microservices
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

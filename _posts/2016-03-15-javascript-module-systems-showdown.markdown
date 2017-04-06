@@ -282,7 +282,7 @@ console.log(diag(4, 3)); // 5
 
 The `import` directive can be used to bring modules into the namespace. This directive, in contrast with `require` and `define` is not dynamic (i.e. it cannot be called at any place). The `export` directive, on the other hand, can be used to explicitly make elements public.
 
-The static nature of the `import` and `export` directive allows static analyzers to build a full tree of dependencies without running code. ES2015 does support dynamic loading of modules:
+The static nature of the `import` and `export` directive allows static analyzers to build a full tree of dependencies without running code. ES2015 does not support dynamic loading of modules, but a draft specification does:
 
 ```JavaScript
 System.import('some_module')
@@ -294,9 +294,11 @@ System.import('some_module')
       });
 ```
 
-> In truth, ES2015 [only specifies the syntax](https://github.com/lukehoban/es6features/issues/75) for the dynamic and static module loaders. In practice, ES2015 implementations are not required to do anything after parsing these directives. Module loaders such as System.js are still required until the next ECMAScript spec is released.
+> In truth, ES2015 [only specifies the syntax](https://github.com/lukehoban/es6features/issues/75) for static module loaders. In practice, ES2015 implementations are not required to do anything after parsing these directives. Module loaders such as System.js are still required. A draft specification for browser module loading [is available](https://github.com/whatwg/loader).
 
 This solution, by virtue of being integrated in the language, lets runtimes pick the best loading strategy for modules. In other words, when asynchronous loading gives benefits, it can be used by the runtime.
+
+> **Update (Feb 2017):** there is a now a [specification for dynamic loading of modules](https://github.com/tc39/proposal-dynamic-import). This is a proposal for future releases of the ECMAScript standard. 
 
 #### Pros
 - Synchronous and asynchronous loading supported.

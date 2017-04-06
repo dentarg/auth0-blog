@@ -1,3 +1,33 @@
+// Get broser Name
+
+function getBrowserName() {
+  var userAgent = navigator.userAgent;
+  var browserName = (userAgent.match(/opera|chrome|safari|firefox/i) || [])[0];
+  var appName = navigator.appName;
+
+  if (appName === 'Microsoft Internet Explorer') {
+    browserName = 'IE';
+    return browserName;
+  }
+
+  if (navigator.appVersion.indexOf('Edge') > -1) {
+    browserName = 'Edge';
+    return browserName;
+  }
+
+  if (browserName === 'Chrome') {
+    var opr = userAgent.match(/\bOPR/i);
+    if (opr !== null) {
+      browserName = 'Opera';
+      return browserName;
+    }
+
+    return browserName;
+  }else {
+    return browserName;
+  }
+}
+
 // about service worker and push notification
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register('https://auth0.com/blog/sw.js');
@@ -44,7 +74,7 @@ function subscribe(serviceWorkerRegistration) {
             body: JSON.stringify({ 'registration_id': subscription.endpoint.substr(subscription.endpoint.lastIndexOf('/') + 1) }),
           })
         .then(function (res) {
-          metricsLib.track('blog:notifications', { 'trackData': 'accepted' });
+          metricsLib.track('blog:notifications:' + browser, { 'trackData': 'accepted' });
         })
         .catch(function (err) {
           return;
@@ -88,6 +118,7 @@ window.unsubscribePushNotification = function () {
 //  popup push subscription
 
 $(document).ready(function ($) {
+  var browser = getBrowserName();
   var valActive;
   function conditionalScroll(scroll) {
     if (valActive) {
@@ -145,6 +176,13 @@ $(document).ready(function ($) {
   }
 
   subscriptionValidation = function () {
+    // if ('safari' in window && 'pushNotification' in window.safari) {
+    //   if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+    //     valActive = true;
+    //     return openPopup();
+    //   }
+    // }
+
     if (navigator.serviceWorker === undefined) { return; }
 
     return navigator.serviceWorker.ready
@@ -163,19 +201,57 @@ $(document).ready(function ($) {
       });
   };
 
+  window.subscriptionValidationSafari = function () {
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
+        valActive = true;
+        return openPopup();
+      }
+    }
+  };
+
   // popup buttons
   $('#push-allow').on('click', function (e) {
     $('.pn-popup').removeClass('pn-is-visible');
     valActive = false;
-    requestNotificationPermission();
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      pnSafari();
+    } else {
+      requestNotificationPermission();
+    }
   });
 
   $('#push-block').on('click', function (e) {
     $('.pn-popup').removeClass('pn-is-visible');
     valActive = false;
     localStorage.setItem('pn-subscription', 'false');
-    metricsLib.track('blog:notifications', { 'trackData': 'declined' });
+    metricsLib.track('blog:notifications:' + browser, { 'trackData': 'declined' });
   });
 
+  window.pnSafari = function(){
+    if ('safari' in window && 'pushNotification' in window.safari) {
+      var permissionData = window.safari.pushNotification.permission('web.com.auth0');
+      checkRemotePermission(permissionData);
+    }
+  }
+
+  function checkRemotePermission(permissionData) {
+    if (permissionData.permission === 'default') {
+      window.safari.pushNotification.requestPermission(
+        'https://safari-web-service.herokuapp.com', // The web service URL.
+        'web.com.auth0.website',                    // The Website Push ID.
+        {},            // Data that you choose to send to your server to help you identify the user.
+        checkRemotePermission                     // The callback function.
+      );
+    }else if (permissionData.permission === 'denied') {
+      localStorage.setItem('pn-subscription', 'false');
+      metricsLib.track('blog:notifications:' + browser, { 'trackData': 'declined' });
+    }else if (permissionData.permission === 'granted') {
+      localStorage.setItem('permissionAllow', 'true');
+      metricsLib.track('blog:notifications:' + browser, { 'trackData': 'accepted' });
+    }
+  }
+
   subscriptionValidation();
+
 });

@@ -13,9 +13,9 @@ design:
   bg_color: "#222425"
   image: https://cdn.auth0.com/blog/optimizing-react/logo.png
 tags:
+- react
 - javascript
 - frontend-development
-- react
 - performance
 - optimization
 related:

@@ -1,14 +1,10 @@
 .pn-popup {
-  visibility: hidden;
+  display: none;
   transition: all .5s ease;
 }
 
 .pn-popup button:focus{
   outline: none
-}
-
-.pn-is-visible {
-  visibility: visible;
 }
 
 .pn-popup-container {
@@ -29,7 +25,6 @@
 
 .pn-popup-container p {
   color: rgba(0,0,0,0.87);
-  font-family: AvenirNext-Regular;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -37,7 +32,6 @@
 .pn-popup-container .pn-buttons button {
   width: 49%;
   height: 46px;
-  font-family: AvenirNext-Medium;
   font-size: 12px;
   border: 0;
   border-radius: 0 0 5px 5px;
@@ -102,6 +96,8 @@
   width: 29px;
 }
 
-@media only screen and (min-width: 1170px) {
-
+@media only screen and (min-width : 991px) {
+  .pn-is-visible {
+    display: inline;
+  }
 }

@@ -5,6 +5,10 @@ description: "Learn the basics of dependency management and data sharing for mic
 date: 2015-11-09 10:00
 alias: /2015/11/07/introduction-to-microservices-part-4-dependencies/
 category: Technical Guide, Architecture, Microservices
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

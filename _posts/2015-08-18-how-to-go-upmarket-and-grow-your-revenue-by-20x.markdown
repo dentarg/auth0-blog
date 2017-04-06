@@ -5,6 +5,10 @@ description: "Learn how to grow your revenue for your SaaS by offering enterpris
 date: 2015-08-18 17:15
 alias: /2015/08/18/how-to-go-upmarket-and-grow-your-revenue-by-20x/
 category: Growth, Identity
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -27,7 +31,7 @@ related:
 - 2016-04-14-safely-use-best-customer-retention-tactics
 - 2016-03-04-4-ways-to-turn-customer-support-into-a-growth-factor
 ---
-For most developers, building for individuals and small to medium-sized businesses (SMBs) fall within their comfort zones, while selling to the enterprise is something totally foreign that they can’t ever imagine doing.
+For most developers, building for individuals and small to medium-sized businesses (SMBs) fall within their comfort zones, while [selling to the enterprise](https://resources.auth0.com/unlock-b2b-saas-growth-iam/) is something totally foreign that they can’t ever imagine doing.
 
 The problem that you’ll encounter, though, is that churn (the percent of customers who cancel your service) for individuals and SMBs will fall within 3-5% monthly, and that’s if you’re lucky.  Otherwise, you could have churn of 10% monthly or worse, and that means losing X% of your customers every year.  
 
@@ -135,3 +139,5 @@ Making big money in the enterprise is easier than ever for developers and startu
 These aren’t about changing significant parts of your product. They are about offering value to a certain subset of customers. In particular, these people value being able to take ownership of their service.
 
 For 30 minutes’ work.
+
+[Unlock B2B SaaS growth with modern identity management. Download free eBook here.](https://resources.auth0.com/unlock-b2b-saas-growth-iam/)

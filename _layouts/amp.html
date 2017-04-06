@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+<head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
+{% if page.title%}
+<title>{{ page.title }}</title>
+{% else %}
+<title>Auth0 Blog</title>
+{%endif%}
+
+{% if is_list_amp_index %}
+<link rel="canonical" href="https://auth0.com/blog/">
+{%else %}
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url | replace: '/amp',''}}">
+{%endif%}
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+
+
+    {% if page.meta-robots %}
+    <meta name="robots" content="{{ page.meta-robots }}" />
+    {% endif %}
+
+    {% if paginator.page > 1 %}
+    <meta name="robots" content="noindex, noarchive, follow" />
+    {% endif %}
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+<script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+
+<style amp-custom>
+  {% capture include_to_scssify %}
+    {% include amp-styles.scss %}
+  {% endcapture %}
+  {{ include_to_scssify | scssify }}
+
+{% if page.post.design.bg_color %}
+  .bg-header-post{
+    background-color: {{ page.post.design.bg_color }}
+  }
+{%endif%}
+
+{% assign bg_header_list = paginator.posts.first.design.bg_color %}
+{% if bg_header_list %}
+  .list-container .bg-header-list{
+    background-color: {{bg_header_list}}
+  }
+{%endif%}
+
+</style>
+
+</head>
+  <body>
+    {% include amp/amp_sidebar.html %}
+
+    <div class="wrapper">
+      <div class="navbar">
+        <div class="navbar-logo">
+          <svg viewBox="63 47 201 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+              <desc>Created with Sketch.</desc>
+              <defs></defs>
+              <g id="Logo" stroke="none" fill="none" transform="translate(63.000000, 47.000000)" stroke-width="1" fill-rule="evenodd">
+                  <g id="Untitled">
+                      <g id="Page-1">
+                          <g id="logo-blue-horizontal">
+                              <g id="Group">
+                                  <g id="Clipped" transform="translate(80.952381, 18.857143)" fill="#16214D">
+                                      <path d="M107.150216,0.0471428571 C103.653247,0.0471428571 100.695671,1.67828571 98.5969697,4.76357143 C96.5108225,7.83042857 95.4082251,12.1114286 95.4082251,17.1428571 C95.4082251,22.1742857 96.5108225,26.4552857 98.5969697,29.5217143 C100.695671,32.6074286 103.653247,34.2381429 107.150216,34.2381429 C110.647186,34.2381429 113.604762,32.6074286 115.703463,29.5217143 C117.789177,26.4552857 118.891775,22.1742857 118.891775,17.1428571 C118.891775,12.1114286 117.789177,7.83042857 115.703463,4.76357143 C113.604762,1.67828571 110.647186,0.0471428571 107.150216,0.0471428571 L107.150216,0.0471428571 L107.150216,0.0471428571 Z M107.150216,30.0021429 C105.478355,30.0021429 104.157576,29.0657143 103.111255,27.1388571 C101.847619,24.8112857 101.151515,21.2614286 101.151515,17.1428571 C101.151515,13.0242857 101.847619,9.474 103.111255,7.14685714 C104.157576,5.22 105.478355,4.28314286 107.150216,4.28314286 C108.821645,4.28314286 110.142857,5.22 111.189177,7.14685714 C112.452814,9.474 113.148485,13.0238571 113.148485,17.1428571 C113.148485,21.2618571 112.452814,24.8121429 111.189177,27.1388571 C110.142857,29.0657143 108.821645,30.0021429 107.150216,30.0021429 L107.150216,30.0021429 L107.150216,30.0021429 Z M31.3636364,12.5022857 L31.3636364,27.2074286 C31.3636364,31.0842857 34.5497835,34.2381429 38.4658009,34.2381429 C41.8813853,34.2381429 44.4619048,32.5607143 45.4121212,31.839 C45.4649351,31.7987143 45.5341991,31.7867143 45.5978355,31.8068571 C45.6614719,31.827 45.7108225,31.8767143 45.730303,31.9401429 L46.3034632,33.7971429 L50.5354978,33.7971429 L50.5354978,12.5022857 L45.0974026,12.5022857 L45.0974026,28.4254286 C45.0974026,28.5004286 45.0545455,28.5694286 44.9874459,28.6041429 C43.9649351,29.1261429 41.947619,30.0025714 39.9268398,30.0025714 C38.204329,30.0025714 36.8017316,28.6148571 36.8017316,26.9087143 L36.8017316,12.5022857 L31.3636364,12.5022857 L31.3636364,12.5022857 L31.3636364,12.5022857 Z M85.8168831,33.7967143 L91.2554113,33.7967143 L91.2554113,19.0915714 C91.2554113,15.2147143 88.0692641,12.0604286 84.1532468,12.0604286 C81.2705628,12.0604286 78.9580087,13.2874286 77.8363636,14.0185714 C77.7735931,14.0592857 77.6939394,14.0627143 77.6285714,14.0275714 C77.5632035,13.9924286 77.521645,13.9247143 77.521645,13.8505714 L77.521645,0.489 L72.0835498,0.489 L72.0835498,33.7967143 L77.521645,33.7967143 L77.521645,17.8731429 C77.521645,17.7981429 77.5645022,17.7291429 77.6320346,17.6948571 C78.6541126,17.1724286 80.6718615,16.2964286 82.6922078,16.2964286 C83.5268398,16.2964286 84.3116883,16.6182857 84.9017316,17.2024286 C85.4917749,17.7865714 85.8164502,18.564 85.8164502,19.3898571 L85.8164502,33.7967143 L85.8168831,33.7967143 L85.8168831,33.7967143 Z M54.4554113,16.7378571 L57.765368,16.7378571 C57.8774892,16.7378571 57.9683983,16.8278571 57.9683983,16.9388571 L57.9683983,28.6534286 C57.9683983,31.7327143 60.4991342,34.2377143 63.6095238,34.2377143 C64.7372294,34.2377143 65.8497835,34.0765714 66.9199134,33.7585714 L66.9199134,29.9125714 C66.295671,29.967 65.5779221,30.0021429 65.0705628,30.0021429 C64.1528139,30.0021429 63.4064935,29.2628571 63.4064935,28.3547143 L63.4064935,16.9384286 C63.4064935,16.8274286 63.4974026,16.7374286 63.6095238,16.7374286 L66.9199134,16.7374286 L66.9199134,12.5018571 L63.6095238,12.5018571 C63.4974026,12.5018571 63.4064935,12.4118571 63.4064935,12.3008571 L63.4064935,5.26928571 L57.9683983,5.26928571 L57.9683983,12.3008571 C57.9683983,12.4118571 57.8774892,12.5018571 57.765368,12.5018571 L54.4554113,12.5018571 L54.4554113,16.7378571 L54.4554113,16.7378571 L54.4554113,16.7378571 Z M22.6670996,33.7967143 L28.3242424,33.7967143 L19.7207792,4.09285714 C19.0311688,1.71085714 16.8012987,0.0471428571 14.2982684,0.0471428571 C11.7952381,0.0471428571 9.56536797,1.71085714 8.87532468,4.09285714 L0.271861472,33.7967143 L5.92943723,33.7967143 L8.41948052,25.1991429 C8.44458874,25.113 8.52424242,25.0538571 8.61471861,25.0538571 L19.9818182,25.0538571 C20.0722944,25.0538571 20.152381,25.113 20.1770563,25.1991429 L22.6670996,33.7967143 L22.6670996,33.7967143 L22.6670996,33.7967143 Z M18.638961,20.8182857 L9.95844156,20.8182857 C9.89480519,20.8182857 9.83463203,20.7887143 9.7961039,20.7377143 C9.75800866,20.688 9.74588745,20.6224286 9.76320346,20.562 L14.1034632,5.57657143 C14.1285714,5.49042857 14.2082251,5.43128571 14.2987013,5.43128571 C14.3891775,5.43128571 14.4688312,5.49042857 14.4935065,5.57657143 L18.8341991,20.562 C18.8515152,20.6228571 18.8393939,20.688 18.8008658,20.7377143 C18.7627706,20.7887143 18.7025974,20.8182857 18.638961,20.8182857 L18.638961,20.8182857 L18.638961,20.8182857 Z" id="Shape"></path>
+                                  </g>
+                                  <g id="Clipped" fill="#EB5424">
+                                      <path d="M51.7554113,58.2261429 L44.461039,35.9987143 L63.5554113,22.2651429 L39.9528139,22.2651429 L32.6580087,0.0385714286 L32.6558442,0.0325714286 L56.2619048,0.0325714286 L63.5584416,22.263 L63.5588745,22.2625714 L63.5649351,22.2591429 C67.8021645,35.1557143 63.4380952,49.824 51.7554113,58.2261429 L51.7554113,58.2261429 L51.7554113,58.2261429 Z M13.5588745,58.2261429 L13.5528139,58.2304286 L32.6519481,71.9674286 L51.7554113,58.2265714 L32.6580087,44.4891429 L13.5588745,58.2261429 L13.5588745,58.2261429 L13.5588745,58.2261429 Z M1.75411255,22.2595714 L1.75411255,22.2595714 C-2.70649351,35.8542857 2.47142857,50.2594286 13.5549784,58.2287143 L13.55671,58.2218571 L20.8519481,35.9957143 L1.76190476,22.2647143 L25.3588745,22.2647143 L32.6541126,0.0381428571 L32.6558442,0.0321428571 L9.04848485,0.0321428571 L1.75411255,22.2595714 L1.75411255,22.2595714 L1.75411255,22.2595714 Z" id="Shape"></path>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                  </g>
+              </g>
+          </svg>
+        </div>
+        <div role="button" on="tap:sidebar.toggle" tabindex="0" class="ampstart-navbar-trigger">
+          <svg viewBox="635 60 68 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+              <desc>Created with Sketch.</desc>
+              <defs></defs>
+              <path d="M636.5,62 L701.5,62" id="Line" stroke="#000000" stroke-width="2" stroke-linecap="square" fill="none"></path>
+              <path d="M636.5,84 L701.5,84" id="Line" stroke="#000000" stroke-width="2" stroke-linecap="square" fill="none"></path>
+              <path d="M636.5,106 L701.5,106" id="Line" stroke="#000000" stroke-width="2" stroke-linecap="square" fill="none"></path>
+          </svg>
+        </div>
+      </div>
+      {{content}}
+    </div>
+  </body>
+</html>

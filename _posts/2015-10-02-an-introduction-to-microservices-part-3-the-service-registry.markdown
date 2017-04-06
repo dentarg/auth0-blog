@@ -3,8 +3,12 @@ layout: post
 title: "An Introduction to Microservices, Part 3: The Service Registry"
 description: "How the service registry works in a microservice-based architecture"
 date: 2015-10-02 09:00
-alias: /2015/10/02/an-introduction-to-microservices-part-3-the-service-registry/
+alias: "/2015/10/02/an-introduction-to-microservices-part-3-the-service-registry/"
 category: Technical Guide, Architecture, Microservices
+banner:
+  text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
+  action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"
+  cta: "Download"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
