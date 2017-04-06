@@ -54,7 +54,6 @@ This year's ng-conf opened with a theme of _empathy and inclusivity_. The code o
 * Angular version 5 will use AOT by default in both dev and production.
 * "You can build with us!" is the Angular team's overall message to the developer community this year.
 
-
 ### Full Summary
 
 Igor Minar kicked off the keynote speaking about why the Angular team builds Angular: to enable creation of applications that people love to use and that developers love to build. He spoke about the desire for the community to be welcoming and inclusive, upholding and protecting values of mutual respect. Angular has a [code of conduct](http://github.com/angular/code-of-conduct) as well as an email where people can reach out regarding conduct concerns (conduct@angular.io).
@@ -121,31 +120,38 @@ The keynote concluded by revisiting last year's final keynote takeaway. In 2016,
 
 ## I am One with Angular, and Angular is One with Me
 
-- [John Papa](https://twitter.com/john_papa)
-
-### OUTLINE
-
-* Being able to code efficiently and effectively with whatever tools you like to use - the right tools can make a huge difference
-* Angular Development Tools: Angular CLI / VS Code / Angular Snippets / Language Service
-* Angular CLI
-  * Makes it easy to create an application that works and follows solid practices
-  * @angular/cli commands `--dry-run`: don't write files, but report them
-  * `--skip-install` skips npm install, CLI supports Yarn too
-  * Tip: `ng new my-app --routing --prefix ma --style scss --dry-run` once happy, remove `--dry-run` flag and generate files
-  * Everything is customizable in the `.angular-cli.json` configuration file
-  * Sample `one-with-angular` app
-  * `ng serve -o` launches app in the browser
-  * `ng g c nav` -> `ng generate component nav`: CLI now adds to the `app.module.ts` for you
-  * `ng g cl rebel` creates a model
-  * `ng g s data -m app.module`
-* Extremely difficult to get lazy-loading to work in AngularJS. It's easy in Angular. Angular CLI automatically detects you're using a lazy loaded route and created a load split bundle and loaded it on the fly.
-  * Snippets follow the Angular Styleguide
-* CLI command: `ng eject` - eject Webpack from the CLI: now use `npm` scripts to run, package deps revealed, Webpack file added in
-* CLI takes away the monotony of our jobs - gets rid of boilerplate and enables building apps in the most optimized way possible, CLI evolves with the framework
-* ROI - generate code fast and correctly, follow styleguide and deviate where we need to, efficient dev and debug experience, solid and powerful build process, out of the box testing, easy exit strategy
-* http://jpapa.me/ps-ng-cli
+**Speaker:** [John Papa](https://twitter.com/john_papa)
 
 ### Major Takeaways (tl;dr)
+
+* The Angular CLI can easily generate components, services, models, and more with minimal effort and very few keystrokes.
+* The CLI supports full customization and extension with the ability to eject Webpack.
+* Tools like the Angular CLI help reduce cognitive burden when developing while ensuring standards and best practices are followed at the same time.
+
+### Full Summary
+
+John Papa emphasized the importance of being able to code efficiently and effectively with whatever tools you like to use; the right tools make a huge difference. Angular has a host of development tools, and he prefers Angular CLI, VS Code, Angular Snippets (extension for VS Code), and Language Service.
+
+The Angular CLI makes it easy to create an application that works and follows solid practices as well. The `--dry-run` flag doesn't write files, but it reports them so the developer can have a clear picture of what their CLI commands will do when executed. The `--skip-install` flag skips npm install, enabling the developer to use Yarn instead if they choose.
+
+> **Tip:** `ng new [your-app-name] --routing --prefix [your-prefix] --style scss --dry-run`, removing `--dry-run` when happy with the results to generate files.
+
+John demonstrated several CLI commands using a sample `one-with-angular` application, including the following:
+
+* `ng serve -o` launches the app in the browser
+* `ng g c nav` shortcuts `ng generate component nav`; the CLI now adds generated components to the `app.module.ts` for you
+* `ng g cl rebels` creates a class with the specified name (useful for models)
+* `ng g s data -m app.module` creates a service and provides it in the `app.module.ts` file
+
+John briefly touched on lazy loading. It was extremely difficult to get lazy loading to work in AngularJS, but is significantly simpler in Angular. The Angular CLI automatically detects that you're using a lazy loaded route and creates a load split bundle to load on the fly (provided that you fulfill certain requirements first, see the Module to Module talk summary to learn more).
+
+The Angular CLI also supports `ng eject`, which ejects Webpack from the CLI. This provides NPM scripts that can be run instead of using `ng` commands and reveals package dependencies. The Webpack configuration file is also added in so it can be fully customized by the developer.
+
+John emphasizes that the Angular CLI takes away the monotony of our jobs: it gets rid of boilerplate and enables us to build apps in the most optimized way possible. The CLI also evolves with the framework. 
+
+The return on investment with regard to the CLI has many facets. We can generate code fast and correctly, as well as follow the styleguide and deviate where we need to. We're provided with an efficient development and debug experience, a solid and powerful build process, out of the box testing, and an easy exit strategy with ejection.
+
+John Papa's [Pluralsight course on the Angular CLI is available here](http://jpapa.me/ps-ng-cli).
 
 ---
 
