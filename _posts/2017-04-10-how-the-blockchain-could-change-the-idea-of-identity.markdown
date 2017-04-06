@@ -10,8 +10,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: https://cdn.auth0.com/blog/migrate-stormpath-users/stormpath_logo.png
-  bg_color: "#244EC6"
+  image: https://cdn.auth0.com/blog/blockchain/logo.png
+  bg_color: "#75499A"
 related:
   - 2016-11-30-different-ways-to-implement-multifactor
   - 2015-12-17-json-web-token-signing-algorithms-overview
