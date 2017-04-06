@@ -157,75 +157,69 @@ John Papa's [Pluralsight course on the Angular CLI is available here](http://jpa
 
 ## Mad Science with the Angular Compiler
 
-* Minko Gechev
-
-### OUTLINE
-
-* Minko Gechev: angular-seed, codelyzer author
-* The compiler transforms the source code of an Angular app for achieving higher efficiency in terms of bundle size, etc.
-* Renders components in most efficient way and instantiates component's controller, sets up change detection mechanism, generates views and providers instantiation
-* Transformation of application
-* Compiler can analyze the source code, visualize the source code, and more
-* How does a compiler work?
-  * input -> compiler -> output (ie., typescript -> compiler -> javascript)
-  * input -> compiler (lexical analysis, syntax analysis) -> output
-  * lexical analysis: take a string and tokenize it: creates an object and then parse the token, produce AST
-  * static program analysis is the analysis of computer software that is performed without actually executing programs
-  * Codelyzer - can show program is compatible with styleguide
-      * uses TS compiler for lexical analysis
-* Codelyzer can perform analysis of styles and templates
-  * hard to find all the dead styles manually
-  * use AST for templates and styles, match both against each other and see if styles are actually in use
-* Breaking changes - almost no breaking changes between v2 and v4, but there were some deprecations that should be cleaned up before v5
-  * Find and replace strings? Works in some cases (ie., template -> ng-template in HTML files, but not in classes)
-  * Context-aware replacement
-  * `npm i -g ngmigrate` ng migrate will find and suggest deprecations, can allow it to fix it for you
-* Code visualization
-  * understanding a large system: a lot of code which is hard to digest, mixing different levels of abstraction, humans are good in "visual thinking"
-  * compiler provides primitives for parsing an Angular application - https://github.com/mgechev/ngast, ngrev
-  * ngrev (app) / ngast can take an application's tsconfig.json and render out a visualization showing dependencies in a chart
-* Let's go one dimension higher
-  * ngworld - 3D modeling of AST
-* Conclusion - show these tools and what can be achieved with the Angular compiler
+**Speaker:** [Minko Gechev](http://blog.mgechev.com/)
 
 ### Major Takeaways (tl;dr)
 
+* A front-end compiler accepts input and performs lexical and static program analysis before producing output.
+* The Angular compiler can be leveraged to determine if a program is compatible with the styleguide.
+* The compiler can also be used to detect deprecations and remove them.
+* The compiler can produce Abstract Syntax Trees of Angular applications in highly visual ways.
+
+### Full Summary
+
+Minko Gechev is the author of [angular-seed](https://github.com/mgechev/angular-seed) and [Codelyzer](https://github.com/mgechev/codelyzer). Minko spoke about the Angular compiler. The compiler transforms the source code of an Angular app to achieve higher efficiency in terms of bundle size. It renders components in most efficient way and instantiates each component's controller, sets up the change detection mechanism, generates views, and instantiates providers. The compiler tansforms the application. It can analyze the source code, visualize the source code, and more.
+
+How does a compiler work? The compiler accepts input and produces output (ie., TypeScript -> Compiler -> JavaScript. In the case of front end compilers like Angular's, the compiler performs both lexical and syntax analysis.
+
+**Lexical analysis** takes a string and tokenizes it: this creates an object and then parses the token to produce an [Abstract Syntax Tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+
+**Static program analysis** is the analysis of computer software that is performed without actually executing programs. For example, Codelyzer can show whether a program is compatible with the Angular styleguide. It uses the TypeScript compiler for lexical analysis and can perform an analysis of styles and templates. It's hard to find all the dead styles manually, so the AST can be used for templates and styles. Both are matched against each other to see which styles and classes are actually in use.
+
+There are almost no breaking changes between Angular v2 and v4, but there were some deprecations that should be cleaned up before moving on to version 5. How can these be detected? Finding and replacing strings works in _some_ cases (ie., `template` to `ng-template` in HTML files, but not in classes). Context-aware replacement is a better option. [ngMigrate](http://ngmigrate.telerik.com/) will find and suggest deprecations, and developers can allow it to fix these deprecations automatically.
+
+Minko demonstrated code visualization, which aids in understanding a large system. A lot of code which is hard to digest, as it mixes different levels of abstraction. However, humans are good at "visual thinking", so visualizations can greatly aid here. The compiler provides primitives for parsing an Angular application. Minko's [ngast](https://github.com/mgechev/ngast) (parser) + [ngrev](https://github.com/mgechev/ngrev) (reverse engineering app) can utilize an application's `tsconfig.json` to render out a visualization showing the app's dependencies in a chart. In addition, Minko demonstrated a Minecraft-like 3D modeling of AST with his [`ngworld`](https://github.com/mgechev/ngworld) demo, a rendering which displayed an Angular app's AST as gardens with trees in 3D space. This was an impressive display of what can be achieved with the Angular compiler.
+
 ---
 
-## Unofficial Angular Docs
+## Aside: Unofficial Angular Docs
 
-* Joe Eames
-
-Contribute resources and blogs
+Joe Eames announced the [Unofficial Angular Docs](http://ngdoc.io/) as a community collection of articles, tutorials, and resources for learning Angular.
 
 ---
 
 ## Creating VR Experiences with Angular and WebGL
 
-* Austin McDaniel
-
-### OUTLINE
-
-* VR is old tricks turned new
-* Stereoscopy - putting 2 images beside each other with a little bit of overlap which creates illusion of depth
-* WebVR - WebGL is required to create rich and immersive environments
-* Same problems, different story
-* VR introduces more challenges: desktop/mobile, head tracking, voice, gestures, shaders - changes the way we're going to be building our interfaces
-* A-frame - markup-like component composition like what we have in Angular today: isn't Angular, but what if it could be? Has the same characteristics
-* Google has been thinking of all the ways we might wnat to render Angular today - we can do lots of things with custom renderers.
-* Custom renderers abstracted away the creation of DOM elements, adding styles, adding to the scene
-* Override DOM renderer: the meshes created there are not exactly DOM objects. Browser doesn't like lots of HTML. So we can override the DOM renderer and blacklist any WebGL components that we have.
-* WebGL is accomplished using Canvas
-* Angular WebGL markup `<ngx-renderer>` with scene, camera, lights, balls. Components for each and the scene can be rendered with its child components.
-* Apply stereoscopic filters: copy the DOM structure / components and lay them out beside each other (3js can duplicate the camera, for instance).
-* Polyfills are required to normalize browser APIs and add events for position, orientation, poses, enable chromeless, head-tracking, etc.
-* DEMO with a web VR chrome extension
-  * 50 bouncing spheres
-* Note: We want to run animations outside of Angular zones because we don't want Angular change detection
-* What's next?
-  * Performance starts to bottleneck; need to take it a step further - better rendering, running outside of zones, native compilation? (can use compilers to take Angular componenents and compile them down to be native applications for headsets, etc.)
+**Speaker:** Austin McDaniel
 
 ### Major Takeaways (tl;dr)
+
+* WebVR requires WebGL.
+* A-frame framework for building VR web experiences is similar to Angular.
+* Custom renderers need to abstract away the creation of DOM elements and addition of styles and components to a scene.
+* Third party libraries and polyfills are currently necessary to produce stereoscopy and duplicate camera.
+* WebVR in Angular needs to run outside of zones to be removed from change detection.
+* Compilers could potentially take Angular components and compile to native VR headset applications.
+
+### Full Summary
+
+Virtual Reality is simply old tricks turned new. **Stereoscopy** is an old concept. The effect is created by putting two images beside each other with a little bit of overlap. This creates the illusion of depth.
+
+[**WebVR**](https://webvr.info/) is an open standard and requires [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to create rich and immersive environments.
+
+VR introduces more challenges to the creation of these environments. VR faces hurdles such as desktop/mobile, head tracking, voice, gestures, shaders, and more. There are many changes to the way we're going to be building our interfaces to accommodate VR.
+
+[A-frame](https://aframe.io/) is a web framework for building VR experiences. It utilizes markup-like component composition similar to what we have in Angular today; it isn't Angular, but the characteristics are similar, so what if it could be? Google has been considering all the ways we might wnat to render Angular today. This means that we can do lots of things with custom renderers.
+
+We need to use custom renderers to abstract away the creation of DOM elements, adding styles, and adding components to the scene. Austin talks about how we first need to override DOM renderer: the meshes created there are not exactly DOM objects. Browsers don't like lots of HTML, so we need to override the DOM renderer and blacklist any WebGL components that we have.
+
+WebGL is accomplished using HTML5 `<canvas>`. We can construct Angular WebGL markup (ie., `<ngx-renderer>`) with scene, camera, lights, and items, such as spheres. Components for each piece as well as the scene can be rendered with `<ngx-renderer>`'s child components. To apply stereoscopic filters, we can copy the DOM structure and components and lay them out beside each other ([three.js](https://threejs.org/) can duplicate the camera, for instance). Polyfills are required to normalize browser APIs and add events for position, orientation, poses, enable chromeless, head-tracking, etc.
+
+Austin presented a demo of fifty bouncing spheres. In the absence of VR headsets for the audience, the VR effect could be emulated with a [WebVR Chrome browser extension](https://chrome.google.com/webstore/detail/webvr-api-emulation/gbdnpaebafagioggnhkacnaaahpiefil?hl=en).
+
+> **Note:** We want to run animations outside of Angular zones because we don't want Angular change detection.
+
+What's next? Austin noted that performance starts to bottleneck, so we need to take it a step further: better rendering, running outside of zones, and possibly native compilation. There is potential for using compilers to take Angular components and compile them down to be native applications for headsets.
 
 ---
 
