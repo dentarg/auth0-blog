@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "ng-conf 2017 Summary - Day 1"
-description: "Overview of ng-conf 2017 (April 5) Day 1 sessions."
+description: "Angular v4 has been released. Read the major takeaways from ng-conf 2017 (April 5) Day 1."
 date: 2017-04-06 8:30
 category: Conference, Growth
 banner:
