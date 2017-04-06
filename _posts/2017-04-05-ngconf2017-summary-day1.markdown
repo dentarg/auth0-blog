@@ -3,7 +3,7 @@ layout: post
 title: "ng-conf 2017 Summary - Day 1"
 description: "Angular v4 has been released. Read the major takeaways from ng-conf 2017 (April 5) Day 1."
 date: 2017-04-06 8:30
-category: Conference, Growth
+category: Technical Guide, Conferences, Angular
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
@@ -12,11 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/ng-conf-2017/logo.png
+  bg_color: "#000000"
 tags:
 - angular
 - javascript
