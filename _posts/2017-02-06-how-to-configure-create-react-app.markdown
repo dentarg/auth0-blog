@@ -56,6 +56,8 @@ Open up your GitHub repo and fork the [create-react-app repo](https://github.com
 ![Creating a fork of create-react-app](https://cdn.auth0.com/blog/cra/fork.png)
 _Creating a fork of create-react-app_
 
+**Note:** It is recommended that you fork from the latest stable branch. Master is unstable.
+
 Inside the `packages` directory, there is a folder called `react-scripts`. The `react-scripts` folder contains scripts for building, testing and starting your app. In fact, this is where we can tweak, configure and add new scripts and templates.
 
 
