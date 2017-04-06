@@ -97,7 +97,7 @@ Once those parameters are set, the extension will start shipping logs on the pre
 
 After a few minutes, you will be able to query and start obtaining information from your logs, create dashboards and alerts.
 
-![Auth0 logs showing in Log Analytics](https://cdn.auth0.com/blog/azure-logs-analytics/oms5.png)
+![Auth0 logs showing in Log Analytics](https://cdn.auth0.com/blog/azure-logs-analytics/oms7.png)
 
 ## Conclusion
 
