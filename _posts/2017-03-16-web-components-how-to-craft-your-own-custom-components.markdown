@@ -391,7 +391,7 @@ The next step is to actually create the custom element. Now add a `<script>` tag
 
 {% endhighlight %}
 
-We have the `constructor`, `connectedCallback` and `createAndPlay` method. In the constructor, we call the `super()` method to have access to the methods and properties of `HTMLElement`. 
+We have the `constructor`, `connectedCallback` and `createAndPlay` method. In the constructor, we called the `super()` method to have access to the methods and properties of `HTMLElement`. 
 
 The `connectedCallback` method is a lifecycle hook that our custom element provides. So, we have deferred the work of setting up the shadow root, getting the value of the embed attribute and also calling the `createAndPlay` in this hook. As I mentioned earlier, this method is called whenever the custom element is inserted into the DOM.
 
