@@ -8,7 +8,7 @@ banner:
   text: "Ship and analyze your Auth0 logs in Azure Log Analytics."
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/auth0-and-documentdb/logo.png
+  image: https://cdn.auth0.com/blog/azure-logs-analytics/logo.png
 author:
   name: Matías Quaranta
   url: http://twitter.com/ealsur
@@ -42,15 +42,15 @@ Azure Log Analytics is a [logging-as-a-service](https://azure.microsoft.com/serv
 
 Log Analytics offers a powerfull [querying engine](https://docs.microsoft.com/azure/log-analytics/log-analytics-log-searches) that indexes every attribute of your logs and lets you navigate through log records in a breeze.
 
-![Azure Log Analytics queries](oms6.png)
+![Azure Log Analytics queries](https://cdn.auth0.com/blog/azure-logs-analytics/oms6.png)
 
 You can even [create custom dashboards](https://docs.microsoft.com/azure/log-analytics/log-analytics-dashboards) to summarize information.
 
-![Azure Log Analytics custom dashboard](oms9.png)
+![Azure Log Analytics custom dashboard](https://cdn.auth0.com/blog/azure-logs-analytics/oms9.png)
 
 Creating alerts and webhooks that respond to log changes lets you take proactive actions and respond by triggering a custom flow of actions.
 
-![Azure Log Analytics alerts and webhooks](oms10.png)
+![Azure Log Analytics alerts and webhooks](https://cdn.auth0.com/blog/azure-logs-analytics/oms10.png)
 
 Finally, the [pricing model](https://azure.microsoft.com/pricing/details/log-analytics/) is quite flexible. It even has a _free tier_ that holds your data for 7 days with a 500MB daily collection limit. The price can scale as your volume of data increases following the cloud paradigm of _pay-as-you-go_.
 
@@ -66,17 +66,17 @@ To obtain and send these logs to Azure Log Analytics we can use [Extensions](htt
 
 We can _create_ a free service through the [Azure Portal](https://portal.azure.com/#create/Microsoft.LogAnalyticsOMS).
 
-![Azure portal experience](oms0.png)
+![Azure portal experience](https://cdn.auth0.com/blog/azure-logs-analytics/oms0.png)
 
 Once it's provisioned, we'll be able to access the _OMS Portal_ through the newly created instance.
 
-![Azure portal experience](oms1.png)
+![Azure portal experience](https://cdn.auth0.com/blog/azure-logs-analytics/oms1.png)
 
 In the OMS Portal, go to the _Settings charm_ on the top right menu and open the _Connected Sources_ section to obtain your _Workspace ID_ and _Workspace Key_.
 
-![Setting charm](oms2.png)
+![Setting charm](https://cdn.auth0.com/blog/azure-logs-analytics/oms2.png)
 
-![Obtaining your Workspace credentials](oms3.png)
+![Obtaining your Workspace credentials](https://cdn.auth0.com/blog/azure-logs-analytics/oms3.png)
 
 ### Configuring your Auth0 extension
 
@@ -93,11 +93,11 @@ And provide the required information:
 
 Once those parameters are set, the extension will start shipping logs on the predefined schedule.
 
-![Installed extensions](oms4.png)
+![Installed extensions](https://cdn.auth0.com/blog/azure-logs-analytics/oms4.png)
 
 After a few minutes, you will be able to query and start obtaining information from your logs, create dashboards and alerts.
 
-![Auth0 logs showing in Log Analytics](oms5.png)
+![Auth0 logs showing in Log Analytics](https://cdn.auth0.com/blog/azure-logs-analytics/oms5.png)
 
 ## Conclusion
 
