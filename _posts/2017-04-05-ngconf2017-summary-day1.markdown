@@ -42,7 +42,7 @@ This year's ng-conf opened with a theme of _empathy and inclusivity_. The code o
 
 **Speakers:** [Igor Minar](https://twitter.com/IgorMinar), [Stephen Fluin](https://twitter.com/stephenfluin), Brian Martin
   
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 * Angular fosters a community of inclusivity and wants to enable creation of apps that people love to use and developers love to build.
 * The Angular ecosystem is thriving and growing, with intentions to extend in several directions.
@@ -122,7 +122,7 @@ The keynote concluded by revisiting last year's final keynote takeaway. In 2016,
 
 **Speaker:** [John Papa](https://twitter.com/john_papa)
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 * The Angular CLI can easily generate components, services, models, and more with minimal effort and very few keystrokes.
 * The CLI supports full customization and extension with the ability to eject Webpack.
@@ -159,7 +159,7 @@ John Papa's [Pluralsight course on the Angular CLI is available here](http://jpa
 
 **Speaker:** [Minko Gechev](http://blog.mgechev.com/)
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 * A front-end compiler accepts input and performs lexical and static program analysis before producing output.
 * The Angular compiler can be leveraged to determine if a program is compatible with the styleguide.
@@ -192,7 +192,7 @@ Joe Eames announced the [Unofficial Angular Docs](http://ngdoc.io/) as a communi
 
 **Speaker:** Austin McDaniel
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 * WebVR requires WebGL.
 * A-frame framework for building VR web experiences is similar to Angular.
@@ -225,78 +225,86 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 
 ## Module vs. Module
 
-* Deborah Kurata (@deborahkurata)
+**Speaker:** [Deborah Kurata](https://twitter.com/deborahkurata)
 
-### OUTLINE
+### Major Takeaways (TL;DR)
 
-* JS has issues (namespaces, code organizations), modules are supposed to be solving those issues
-* Angular uses ES2015 modules, but also has its own modules
-* ES2015 module - a code file `export` / `import`: "micro" in nature
-* Angular modules - "macro" in nature: define a set of components, related files, dependencies, more features = more modules `@NgModule` a class with a specific decorator, pass a set of arrays to this
-* Angular modules are, themselves, also ES2015 modules (exported and imported)
-* Demo - products list with filtering, ratings, and detail pages
-* Every Angular application has at least one Angular module (the `app` module)
-  * Every component belongs to one and only one Angular module - `declarations` array
-  * `bootstrap` array contains our startup component
-  * `providers` array for custom services, if we use a service from somewhere else, it doesn't go here. Has special functionality associated with it, so only services sould go here. At runtime, the service's provider is registered with the application-wide injector and can be injected into any other codefile associated with the app.
-  * `imports` array for Angular modules: system pieces or third party modules like material or ngrx, any of our other modules
-      * Router module - declares several router directives and exports them to make them available, also registers router service. It's very important to only register this service _once_. `forRoot` method on `RouterModule` ensures that this is only registered once. Otherwise, we would use `forChild` for other modules that we create so that the router service is not called again.
-  * `exports` array lets other modules take advantage of things
-* Break up Angular module into additional modules when it gets too long: these are "feature modules" (in Angular docs). 
-  * Services are always registered application-wide, so even if a service is declared in a feature module, it's accessible to the app module.
-  * Common module is exported by BrowserModule (import BrowserModule in Angular app module and then use CommonModule for all the feature modules)
-  * Look at what's in your components to know what modules to import into the parent module's `imports` array
-  * When you see modules being repeatedly imported (like CommonModule, FormsModule for two-way binding, etc.), set up a SharedModule
-      * SharedModule can combine the common imports - import SharedModule instead of repeatedly importing lots of things
-* Angular modules organize pieces of application, extend our app with capabilities from external libraries, provide a template resolution environment. Module defines what template can access. Aggregate and re-export (ie., SharedModule), can create libraries (such as Material Design). Can be loaded eagerly or lazy-loaded.
-* Lazy-loading: "lazy but fast"
-  * 3 things you must do:
-      * Need feature modules (otherwise there's nothing to load!) You have to lazy load modules
-      * Need to group routes under a single component-less parent route: path with children of a single route, components are associated with the children, not the parent.
-      * Do not import the feature module, this defeats the purpose of lazy loading.
-  * Then we can move the path and declare `loadChildren` with the name of the module class
+* ES2015 modules are "micro" and export and import.
+* Angular modules are "macro" and define a set of components, related files, and dependencies.
+* Angular apps can have an app module, feature modules, and shared modules for better organization.
+* Modules enable lazy loading.
 
-### Major Takeaways (tl;dr)
+### Full Summary
+
+JavaScript has issues (such as namespaces and code organization) and modules are supposed to be solving those issues. Angular uses ES2015 modules, but also has its own modules. An ES2015 module is simply a code file with `export` / `import`. These are "micro" in nature. Angular modules are "macro" in nature: they define a set of components, related files, and dependencies. The Angular `@NgModule` is a class with a specific decorator and we then pass a set of arrays to this class.
+
+Angular modules are, themselves, also ES2015 modules: they are exported and imported. Deborah demoed an app featuring a products list with filtering, ratings, and detail pages. Every Angular application has at least one Angular module: the `app` module. Deborah then talked about the arrays passed to the `@NgModule`:
+
+* `declarations` array: every component belongs to one and only one Angular module.
+* `bootstrap` array: contains our startup component.
+* `providers` array: provides custom services. If we use a service from the Angular core, it doesn't go here. The `providers` array has special functionality associated with it, so only custom services should go here. At runtime, the service's provider is registered with the application-wide injector and can be injected into any other code file associated with the app.
+* `imports` array: contains other Angular modules. System pieces or third party modules like Material, ngrx, or any of our other custom modules would be included here.
+* `exports` array lets other modules take advantage of things
+
+> **Note:** The router module (included in the `exports` array) declares several router directives and exports them to make them available. It also registers the router service. It's very important to only register this service _once_. The `forRoot` method on `RouterModule` ensures that this is only registered one time. Otherwise, we would use `forChild` for other modules that we create so that the router service is not called multiple times.
+
+Deborah talked about the importance of breaking up an Angular module into additional modules when it gets too long. These additional modules are "feature modules" (so named in the [Angular docs](https://angular.io/docs/ts/latest/)).
+
+Next Deborah explained intricacies of sharing between modules. Services are always registered application-wide, so even if a service is declared in a feature module, it's accessible to the app module. `CommonModule` is exported by `BrowserModule`, so `BrowserModule` should be imported in the Angular `app` module. Then `CommonModule` can be imported for all feature modules.
+Developers should look at what's in components to know which modules to include in the parent module's `imports` array.
+
+When modules are being repeatedly imported (like `CommonModule`, `FormsModule` for two-way binding, etc.), a `SharedModule` should be utilized. A `SharedModule` can combine the common imports so a single `SharedModule` can be imported into feature modules instead of repeatedly importing lots of things.
+
+Angular modules organize pieces of an application, extend the app with capabilities from external libraries, and provide a template resolution environment. Modules define what templates can access. They can also aggregate and re-export (ie., `SharedModule`), which can assist in the creation of libraries, such as Material.
+
+Modules can be loaded eagerly or lazily. Lazy loading is "lazy but fast". In order to enable lazy loading, Deborah clearly defines three things that must be done:
+
+1. The app needs feature modules: otherwise there's nothing to load, because lazy loading only loads _modules_.
+2. Routes need to be grouped under a single component-less parent route. This is a path with children of a single route and components are associated with the children, not the parent.
+3. Feature modules should _not_ be imported in the `app` module; this defeats the purpose of lazy loading.
+
+Once these requirements are fulfilled, we can move the route path and declare `loadChildren` with the name of the module class to implement [lazy loading](https://angular.io/docs/ts/latest/api/router/index/Routes-type-alias.html).
 
 ---
 
 ## Embrace Component Tranquility
 
-* Jason Schwartzenberger
+**Speaker:** [Justin Schwartzenberger](https://twitter.com/schwarty)
 
-### OUTLINE
+### Major Takeaways (TL;DR)
 
-* Angular 2 embraces the component model
-* Web components, Polymer, React -> following in footsteps of component-based architecture
-* With Angular, need to become component architects
-* Scope styling to components, send input and output to / from components
-* We want to componentize all the things!
-  * Then start to think, "this can't be good"
-  * Is there a price to be paid for overusing components?
-      * Component Tax
-          * Angular component: rendering engine, execution and tracking, pre-run compilation - Angular must do these things for each component we have in an application
-          * Payload Tax: Creating lots of components increases this workload / adds to JS payload.
-          * Execution Tax: Bootstrapping, lazy loading, compilation
-          * BUT we need that payload, we want that execution. Angular works to streamline this process. We need to understand costs to become component architects
-          * Container element tax: too many custom elements use a container element as their top-level node: we care about the inner contents of the element, but we don't need that container which then needs to be set `:host { display: block; }`, etc. This increases payload. 
-              * Container element tax can be dealt with by targeting existing elements with attribute selectors.
-              * Component is a subset of a directive
-              * We commonly take a custom-element-first approach rather than using class, attribute, etc.
-* Component composition
-  * Decision and presentation pattern
-      * Parent components - load and alter data (smart)
-      * Child components - present data and use input/output (dumb)
-      * This architecture has a tax too: the Tree Coupling Tax
-      * This can get too deep and you get things that are only there for chaining and passthrough.
-* Everything always has a tax: "As developers, we're always battling to put queen size sheets on a king size bed."
-  * We could use services, but this creates challenges too: now components need lots of services injected
-  * Working in harmony but not being coupled is a challenge
-  * Redux can help here: dispatch actions to change state, then our components can just deal with the store
-  * A combination of decision/presentation, services, observables, redux can work toward solving the tree-coupling tax
-      * Atomic design - use multiple patterns to solve problems and decouple when necessary
-* Ultimately, need a balanced approach while being aware of cost. We can now make decisions with intent: our decisions adapted for our scenarios.
+* Component tax: every component costs resources to render, execute, and compile.
+* Payload tax: creating lots of components increases the overall JavaScript payload.
+* Execution tax: bootstrapping, lazy loading, and compilation cost resources.
+* Container element tax: we default to custom elements when we can cut down on extra containers by using attributes instead.
+* Decision and Presentation pattern: smart parent components with dumb child components can result in a tree coupling tax with deep nesting for no good purpose.
+* Everything has a tax and the trick is to take a balanced approach so that decisions are made with intent. We can combine Decision/Presentation with services, observables, or Redux to solve problems and decouple when necessary.
 
-### Major Takeaways (tl;dr)
+### Full Summary
+
+Justin Schwartzenberger began by speaking about how Angular embraces the component model. In doing so, Angular follows in the footsteps of other component-based architectures, such as that utilized by Web components, Polymer, and React. With Angular, its developers need to become **component architects**.
+
+Initially, there's a temptation to **componentize all the things**! However, the next sentiment that follows is often: "this can't be good". Is there a price to be paid for overusing components?
+
+There is a **Component Tax**. Every Angular component has its own set of requirements and resources consumed by the rendering engine, execution and tracking, and pre-run compilation. Angular must do these things for each and every component we have in an application.
+
+There is also a **Payload Tax**. Creating lots of components increases this workload and adds to the overall JavaScript payload.
+
+Next there's an **Execution Tax**. Bootstrapping, lazy loading, and compilation all consume resources as well.
+
+However, we _need_ that payload and we want that execution. Angular works to streamline this process. We need to understand the costs in order to become competent component architects.
+
+There's also a **Container Element Tax**. Too many custom elements use a container element as their top-level node. We care about the inner contents of the element, but we don't _need_ that container. The container is not a block-level element by default, which quite frequently means that it needs to be set as such (ie., using `:host { display: block; }`). This increases payload. The Container Element Tax can be dealt with by targeting _existing_ elements with _attribute_ selectors rather than creating custom elements. We commonly default to a custom-element-first approach rather than using a class or attribute.
+
+The **Decision and Presentation pattern** describes smart parent and dumb child components. The parent components load and alter data while the child components present data and use inputs and outputs to communicate with their parent. However, Justin notes that this architecture has a tax too: the **Tree Coupling Tax**. This can get too deep and result in nested components that only exist for chaining and passthrough.
+
+Ultimately, everything always has a tax. 
+
+> _"As developers, we're always battling to put queen size sheets on a king size bed."_ —Justin Schwartzenberger
+
+We could use services, but this creates challenges too: now components need lots of services injected. Working in harmony but not being coupled is a challenge. In complex cases, Redux can help here. A state machine can dispatch actions to change application state. As a result, our components can just deal with the store.
+
+A combined approach is the most reasonable and balanced. Utilizing a combination of Decision and Presentation, services, observables, and/or Redux can work toward solving the Tree Coupling Tax. The principle of Atomic design uses multiple patterns to solve problems and decouple when necessary. Ultimately, we need a balanced approach while being aware of cost. We can then make decisions with _intent_: our decisions are adapted for our scenarios.
 
 ---
 
@@ -331,7 +339,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * slides: yom.nu/ng-conf-2017
 * demo: yom.nu/ng-conf-2017-demo
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -343,7 +351,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 
 * GET VIDEO
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -390,7 +398,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * User content might be more extensive than you think.
 * Final word: keep the injection vulnerabilities out of your app.
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -425,7 +433,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
       * `ngZone.runOutsideAngular(() => { ... });` runs outside Angular context and won't cause Angular change detection
       * Running custom animation, requestAnimationFrame, good cases for this to avoid unintended slowdown in your application.
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -480,7 +488,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * **You can sit with us.** Empathy - "If you're experienced, take the time to help somebody out."
 * If you haven't learned Angular, why not? How can we help?
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -498,7 +506,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * Roger on keyboard / singing (feat. Shai Reznik)
 * (Is the video available???)
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -523,7 +531,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * "I love programming because I get to do fun things." --Gwen
 * STEM should be much more interactive; our kids will be more prepared for the struggles and challenges that lie ahead
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -549,7 +557,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
   * Test like a real user
   * Remove code
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -575,7 +583,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * The most important thing is to provide value - your efforts should be helping you accomplish the goals of your projects
 * Practice, effort, and skill will always be far more important than the tools that you use
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -623,7 +631,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
   * Will feel familiar if you keep using the CLI, but will integrate with more - dream bigger
 * Thanks to team and to contributors (issues, PRs, Gitter chat)
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -667,7 +675,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
       * More flexible metadata
       * Remove `ngfactory.ts` files to inline this in your code while compiling - simpler, fewer concepts you need to know
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -710,7 +718,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * Google image recognition API can be used too
 * Resources available (repo)
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
@@ -772,7 +780,7 @@ What's next? Austin noted that performance starts to bottleneck, so we need to t
 * It's okay to build stuff for yourself / for fun!
 * Negative feelings are a symptom, not the problem - root cause analysis: reflect on your feels, accept those emotions as being valid. Then ideas will just come down, find a creative outlet for those ideas.
 
-### Major Takeaways (tl;dr)
+### Major Takeaways (TL;DR)
 
 ---
 
