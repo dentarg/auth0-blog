@@ -51,6 +51,7 @@ This year's ng-conf opened with a theme of _empathy and inclusivity_. The code o
 * Angular v4 is better for users and developers and is state of the art.
 * Semantic version and time-based releases were covered with major releases every 6 months.
 * Major releases will be simple upgrades, aiming to mitigate upgrade obstacles.
+* Angular LTS (Long Term Support) was announced for Angular v4 through October, 2018.
 * Angular version 5 will use AOT by default in both dev and production.
 * "You can build with us!" is the Angular team's overall message to the developer community this year.
 
@@ -118,67 +119,32 @@ The keynote concluded by revisiting last year's final keynote takeaway. In 2016,
 
 ---
 
-## I am One with Angular, and Angular is One with Me
-
-**Speaker:** [John Papa](https://twitter.com/john_papa)
-
-### Major Takeaways (TL;DR)
+## Angular CLI Tips
 
 * The Angular CLI can easily generate components, services, models, and more with minimal effort and very few keystrokes.
+* The `--dry-run` flag can report what will be outputted so you can check your work with the CLI before generating anything.
+* Lazy loading is much easier in Angular than AngularJS with the CLI.
 * The CLI supports full customization and extension with the ability to eject Webpack.
 * Tools like the Angular CLI help reduce cognitive burden when developing while ensuring standards and best practices are followed at the same time.
 
-### Full Summary
-
-John Papa emphasized the importance of being able to code efficiently and effectively with whatever tools you like to use; the right tools make a huge difference. Angular has a host of development tools, and he prefers Angular CLI, VS Code, Angular Snippets (extension for VS Code), and Language Service.
-
-The Angular CLI makes it easy to create an application that works and follows solid practices as well. The `--dry-run` flag doesn't write files, but it reports them so the developer can have a clear picture of what their CLI commands will do when executed. The `--skip-install` flag skips npm install, enabling the developer to use Yarn instead if they choose.
-
-> **Tip:** `ng new [your-app-name] --routing --prefix [your-prefix] --style scss --dry-run`, removing `--dry-run` when happy with the results to generate files.
-
-John demonstrated several CLI commands using a sample `one-with-angular` application, including the following:
+John Papa demonstrated several CLI commands using a sample application, including the following:
 
 * `ng serve -o` launches the app in the browser
 * `ng g c nav` shortcuts `ng generate component nav`; the CLI now adds generated components to the `app.module.ts` for you
 * `ng g cl rebels` creates a class with the specified name (useful for models)
 * `ng g s data -m app.module` creates a service and provides it in the `app.module.ts` file
 
-John briefly touched on lazy loading. It was extremely difficult to get lazy loading to work in AngularJS, but is significantly simpler in Angular. The Angular CLI automatically detects that you're using a lazy loaded route and creates a load split bundle to load on the fly (provided that you fulfill certain requirements first, see the Module to Module talk summary to learn more).
+> **Tip:** `ng new [your-app-name] --routing --prefix [your-prefix] --style scss --dry-run`, removing `--dry-run` when happy with the results to generate files.
 
-The Angular CLI also supports `ng eject`, which ejects Webpack from the CLI. This provides NPM scripts that can be run instead of using `ng` commands and reveals package dependencies. The Webpack configuration file is also added in so it can be fully customized by the developer.
-
-John emphasizes that the Angular CLI takes away the monotony of our jobs: it gets rid of boilerplate and enables us to build apps in the most optimized way possible. The CLI also evolves with the framework. 
-
-The return on investment with regard to the CLI has many facets. We can generate code fast and correctly, as well as follow the styleguide and deviate where we need to. We're provided with an efficient development and debug experience, a solid and powerful build process, out of the box testing, and an easy exit strategy with ejection.
-
-John Papa's [Pluralsight course on the Angular CLI is available here](http://jpapa.me/ps-ng-cli).
+John Papa's Pluralsight course on the [Angular CLI is available here](http://jpapa.me/ps-ng-cli).
 
 ---
 
-## Mad Science with the Angular Compiler
+## Angular Compiler
 
-**Speaker:** [Minko Gechev](http://blog.mgechev.com/)
+A front-end compiler accepts input and performs lexical and static program analysis before producing output. The Angular compiler can be leveraged to determine if a program is compatible with the styleguide. The compiler can also be used to detect deprecations and remove them. In addition, it is capable of producing [Abstract Syntax Trees (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree) of Angular applications in highly visual ways.
 
-### Major Takeaways (TL;DR)
-
-* A front-end compiler accepts input and performs lexical and static program analysis before producing output.
-* The Angular compiler can be leveraged to determine if a program is compatible with the styleguide.
-* The compiler can also be used to detect deprecations and remove them.
-* The compiler can produce Abstract Syntax Trees of Angular applications in highly visual ways.
-
-### Full Summary
-
-Minko Gechev is the author of [angular-seed](https://github.com/mgechev/angular-seed) and [Codelyzer](https://github.com/mgechev/codelyzer). Minko spoke about the Angular compiler. The compiler transforms the source code of an Angular app to achieve higher efficiency in terms of bundle size. It renders components in most efficient way and instantiates each component's controller, sets up the change detection mechanism, generates views, and instantiates providers. The compiler tansforms the application. It can analyze the source code, visualize the source code, and more.
-
-How does a compiler work? The compiler accepts input and produces output (ie., TypeScript -> Compiler -> JavaScript. In the case of front end compilers like Angular's, the compiler performs both lexical and syntax analysis.
-
-**Lexical analysis** takes a string and tokenizes it: this creates an object and then parses the token to produce an [Abstract Syntax Tree (AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
-
-**Static program analysis** is the analysis of computer software that is performed without actually executing programs. For example, Codelyzer can show whether a program is compatible with the Angular styleguide. It uses the TypeScript compiler for lexical analysis and can perform an analysis of styles and templates. It's hard to find all the dead styles manually, so the AST can be used for templates and styles. Both are matched against each other to see which styles and classes are actually in use.
-
-There are almost no breaking changes between Angular v2 and v4, but there were some deprecations that should be cleaned up before moving on to version 5. How can these be detected? Finding and replacing strings works in _some_ cases (ie., `template` to `ng-template` in HTML files, but not in classes). Context-aware replacement is a better option. [ngMigrate](http://ngmigrate.telerik.com/) will find and suggest deprecations, and developers can allow it to fix these deprecations automatically.
-
-Minko demonstrated code visualization, which aids in understanding a large system. A lot of code which is hard to digest, as it mixes different levels of abstraction. However, humans are good at "visual thinking", so visualizations can greatly aid here. The compiler provides primitives for parsing an Angular application. Minko's [ngast](https://github.com/mgechev/ngast) (parser) + [ngrev](https://github.com/mgechev/ngrev) (reverse engineering app) can utilize an application's `tsconfig.json` to render out a visualization showing the app's dependencies in a chart. In addition, Minko demonstrated a Minecraft-like 3D modeling of AST with his [`ngworld`](https://github.com/mgechev/ngworld) demo, a rendering which displayed an Angular app's AST as gardens with trees in 3D space. This was an impressive display of what can be achieved with the Angular compiler.
+Minko Gechev's impressive [`ngworld` 3-D AST visualizer is available here](https://github.com/mgechev/ngworld).
 
 ---
 
@@ -188,217 +154,79 @@ Joe Eames announced the [Unofficial Angular Docs](http://ngdoc.io/) as a communi
 
 ---
 
-## Creating VR Experiences with Angular and WebGL
+## WebVR with Angular
 
-**Speaker:** Austin McDaniel
-
-### Major Takeaways (TL;DR)
-
-* WebVR requires WebGL.
-* A-frame framework for building VR web experiences is similar to Angular.
+* [**WebVR**](https://webvr.info/) is an open standard and requires [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to create rich and immersive environments.
+* [A-frame](https://aframe.io/) framework for building VR web experiences is similar to Angular.
 * Custom renderers need to abstract away the creation of DOM elements and addition of styles and components to a scene.
 * Third party libraries and polyfills are currently necessary to produce stereoscopy and duplicate camera.
 * WebVR in Angular needs to run outside of zones to be removed from change detection.
-* Compilers could potentially take Angular components and compile to native VR headset applications.
-
-### Full Summary
-
-Virtual Reality is simply old tricks turned new. **Stereoscopy** is an old concept. The effect is created by putting two images beside each other with a little bit of overlap. This creates the illusion of depth.
-
-[**WebVR**](https://webvr.info/) is an open standard and requires [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to create rich and immersive environments.
-
-VR introduces more challenges to the creation of these environments. VR faces hurdles such as desktop/mobile, head tracking, voice, gestures, shaders, and more. There are many changes to the way we're going to be building our interfaces to accommodate VR.
-
-[A-frame](https://aframe.io/) is a web framework for building VR experiences. It utilizes markup-like component composition similar to what we have in Angular today; it isn't Angular, but the characteristics are similar, so what if it could be? Google has been considering all the ways we might wnat to render Angular today. This means that we can do lots of things with custom renderers.
-
-We need to use custom renderers to abstract away the creation of DOM elements, adding styles, and adding components to the scene. Austin talks about how we first need to override DOM renderer: the meshes created there are not exactly DOM objects. Browsers don't like lots of HTML, so we need to override the DOM renderer and blacklist any WebGL components that we have.
-
-WebGL is accomplished using HTML5 `<canvas>`. We can construct Angular WebGL markup (ie., `<ngx-renderer>`) with scene, camera, lights, and items, such as spheres. Components for each piece as well as the scene can be rendered with `<ngx-renderer>`'s child components. To apply stereoscopic filters, we can copy the DOM structure and components and lay them out beside each other ([three.js](https://threejs.org/) can duplicate the camera, for instance). Polyfills are required to normalize browser APIs and add events for position, orientation, poses, enable chromeless, head-tracking, etc.
-
-Austin presented a demo of fifty bouncing spheres. In the absence of VR headsets for the audience, the VR effect could be emulated with a [WebVR Chrome browser extension](https://chrome.google.com/webstore/detail/webvr-api-emulation/gbdnpaebafagioggnhkacnaaahpiefil?hl=en).
-
-> **Note:** We want to run animations outside of Angular zones because we don't want Angular change detection.
-
-What's next? Austin noted that performance starts to bottleneck, so we need to take it a step further: better rendering, running outside of zones, and possibly native compilation. There is potential for using compilers to take Angular components and compile them down to be native applications for headsets.
+* Currently, performance starts to bottleneck. In the future, compilers could potentially take Angular components and compile to native VR headset applications.
 
 ---
 
-## Module vs. Module
+## Modules
 
-**Speaker:** [Deborah Kurata](https://twitter.com/deborahkurata)
-
-### Major Takeaways (TL;DR)
-
-* ES2015 modules are "micro" and export and import.
-* Angular modules are "macro" and define a set of components, related files, and dependencies.
+* An ES2015 module is simply a code file with `export` / `import`. ES2015 modules are "micro" in nature.
+* Angular modules (`@NgModule`) are "macro" in nature and define a set of components, related files, and dependencies.
 * Angular apps can have an app module, feature modules, and shared modules for better organization.
-* Modules enable lazy loading.
+* Modules enable [lazy loading](https://angular.io/docs/ts/latest/api/router/index/Routes-type-alias.html).
 
-### Full Summary
-
-JavaScript has issues (such as namespaces and code organization) and modules are supposed to be solving those issues. Angular uses ES2015 modules, but also has its own modules. An ES2015 module is simply a code file with `export` / `import`. These are "micro" in nature. Angular modules are "macro" in nature: they define a set of components, related files, and dependencies. The Angular `@NgModule` is a class with a specific decorator and we then pass a set of arrays to this class.
-
-Angular modules are, themselves, also ES2015 modules: they are exported and imported. Deborah demoed an app featuring a products list with filtering, ratings, and detail pages. Every Angular application has at least one Angular module: the `app` module. Deborah then talked about the arrays passed to the `@NgModule`:
-
-* `declarations` array: every component belongs to one and only one Angular module.
-* `bootstrap` array: contains our startup component.
-* `providers` array: provides custom services. If we use a service from the Angular core, it doesn't go here. The `providers` array has special functionality associated with it, so only custom services should go here. At runtime, the service's provider is registered with the application-wide injector and can be injected into any other code file associated with the app.
-* `imports` array: contains other Angular modules. System pieces or third party modules like Material, ngrx, or any of our other custom modules would be included here.
-* `exports` array lets other modules take advantage of things
-
-> **Note:** The router module (included in the `exports` array) declares several router directives and exports them to make them available. It also registers the router service. It's very important to only register this service _once_. The `forRoot` method on `RouterModule` ensures that this is only registered one time. Otherwise, we would use `forChild` for other modules that we create so that the router service is not called multiple times.
-
-Deborah talked about the importance of breaking up an Angular module into additional modules when it gets too long. These additional modules are "feature modules" (so named in the [Angular docs](https://angular.io/docs/ts/latest/)).
-
-Next Deborah explained intricacies of sharing between modules. Services are always registered application-wide, so even if a service is declared in a feature module, it's accessible to the app module. `CommonModule` is exported by `BrowserModule`, so `BrowserModule` should be imported in the Angular `app` module. Then `CommonModule` can be imported for all feature modules.
-Developers should look at what's in components to know which modules to include in the parent module's `imports` array.
-
-When modules are being repeatedly imported (like `CommonModule`, `FormsModule` for two-way binding, etc.), a `SharedModule` should be utilized. A `SharedModule` can combine the common imports so a single `SharedModule` can be imported into feature modules instead of repeatedly importing lots of things.
-
-Angular modules organize pieces of an application, extend the app with capabilities from external libraries, and provide a template resolution environment. Modules define what templates can access. They can also aggregate and re-export (ie., `SharedModule`), which can assist in the creation of libraries, such as Material.
-
-Modules can be loaded eagerly or lazily. Lazy loading is "lazy but fast". In order to enable lazy loading, Deborah clearly defines three things that must be done:
-
-1. The app needs feature modules: otherwise there's nothing to load, because lazy loading only loads _modules_.
+> **Note:** Three things are needed for lazy loading:
+> 
+> 1. The app needs feature modules: otherwise there's nothing to load, because lazy loading only loads _modules_.
 2. Routes need to be grouped under a single component-less parent route. This is a path with children of a single route and components are associated with the children, not the parent.
 3. Feature modules should _not_ be imported in the `app` module; this defeats the purpose of lazy loading.
 
-Once these requirements are fulfilled, we can move the route path and declare `loadChildren` with the name of the module class to implement [lazy loading](https://angular.io/docs/ts/latest/api/router/index/Routes-type-alias.html).
-
 ---
 
-## Embrace Component Tranquility
-
-**Speaker:** [Justin Schwartzenberger](https://twitter.com/schwarty)
-
-### Major Takeaways (TL;DR)
+## Using Components with Intent
 
 * Component tax: every component costs resources to render, execute, and compile.
 * Payload tax: creating lots of components increases the overall JavaScript payload.
 * Execution tax: bootstrapping, lazy loading, and compilation cost resources.
-* Container element tax: we default to custom elements when we can cut down on extra containers by using attributes instead.
-* Decision and Presentation pattern: smart parent components with dumb child components can result in a tree coupling tax with deep nesting for no good purpose.
-* Everything has a tax and the trick is to take a balanced approach so that decisions are made with intent. We can combine Decision/Presentation with services, observables, or Redux to solve problems and decouple when necessary.
-
-### Full Summary
-
-Justin Schwartzenberger began by speaking about how Angular embraces the component model. In doing so, Angular follows in the footsteps of other component-based architectures, such as that utilized by Web components, Polymer, and React. With Angular, its developers need to become **component architects**.
-
-Initially, there's a temptation to **componentize all the things**! However, the next sentiment that follows is often: "this can't be good". Is there a price to be paid for overusing components?
-
-There is a **Component Tax**. Every Angular component has its own set of requirements and resources consumed by the rendering engine, execution and tracking, and pre-run compilation. Angular must do these things for each and every component we have in an application.
-
-There is also a **Payload Tax**. Creating lots of components increases this workload and adds to the overall JavaScript payload.
-
-Next there's an **Execution Tax**. Bootstrapping, lazy loading, and compilation all consume resources as well.
-
-However, we _need_ that payload and we want that execution. Angular works to streamline this process. We need to understand the costs in order to become competent component architects.
-
-There's also a **Container Element Tax**. Too many custom elements use a container element as their top-level node. We care about the inner contents of the element, but we don't _need_ that container. The container is not a block-level element by default, which quite frequently means that it needs to be set as such (ie., using `:host { display: block; }`). This increases payload. The Container Element Tax can be dealt with by targeting _existing_ elements with _attribute_ selectors rather than creating custom elements. We commonly default to a custom-element-first approach rather than using a class or attribute.
-
-The **Decision and Presentation pattern** describes smart parent and dumb child components. The parent components load and alter data while the child components present data and use inputs and outputs to communicate with their parent. However, Justin notes that this architecture has a tax too: the **Tree Coupling Tax**. This can get too deep and result in nested components that only exist for chaining and passthrough.
-
-Ultimately, everything always has a tax. 
+* Container element tax: we usually default to custom elements, but we can cut down on extra containers by using attributes instead.
+* Decision and Presentation pattern: smart parent components with dumb child components; however, this can sometimes result in a tree coupling tax with deep nesting for no good purpose other than chaining and passthrough.
+* Ultimately, everything has a tax and the trick is to take a balanced approach so that decisions are made with intent. We can combine Decision/Presentation with services, observables, or Redux to solve problems and decouple when necessary. 
 
 > _"As developers, we're always battling to put queen size sheets on a king size bed."_ —Justin Schwartzenberger
 
-We could use services, but this creates challenges too: now components need lots of services injected. Working in harmony but not being coupled is a challenge. In complex cases, Redux can help here. A state machine can dispatch actions to change application state. As a result, our components can just deal with the store.
+---
 
-A combined approach is the most reasonable and balanced. Utilizing a combination of Decision and Presentation, services, observables, and/or Redux can work toward solving the Tree Coupling Tax. The principle of Atomic design uses multiple patterns to solve problems and decouple when necessary. Ultimately, we need a balanced approach while being aware of cost. We can then make decisions with _intent_: our decisions are adapted for our scenarios.
+## Animations in Angular v4
+
+* As of Angular v4.0, the `@angular/animations` module is now separate from the Angular core.
+* Lots of changes have been implemented in the internal API.
+* `BrowserAnimationsModule` is for users.
+* `NoopAnimationsModule` is for testing.
+* New: the `animation()` function defines a reusable animation.
+* The `animateChild()` function can accept input variables for duration, start, and end, with defaults
+* Programmatic animations can be implemented by injecting `AnimationBuilder` into a component. This allows for building animations on the fly with scrubbing, playback controls, etc.
+* For route animations, data is passed to the transitions and the developer can determine what kind of transition is desired for the route change.
+
+A demo is [available from Matias Niemela here](http://yom.nu/ng-conf-2017-demo).
 
 ---
 
-## Animations in Angular 4.0.0
+## The Sandbox
 
-* Matias Niemela
+Injection attacks take place when you let your users inadvertantly run code on your system. The potential of executing user content is bad. Escaping ensures that user code is not executed, it's just ugly text on the screen.
 
-### OUTLINE
+The **expression sandbox** prevented developers from being able to reference the prototype of an object or items on the global scope. The sandbox has been removed as of AngularJS 1.6. The sandbox wasn't meant for security, it was to help developers. However, the real problem is that it allowed users to define things in your template: passing user content to `$compile` allowed expressions to flow through escape logic. This can be demonstrated by Ryan Hanson's article on [How I Stole Plunker Session Tokens with an Angular Expression](https://royaljay.com/security/angular-expression-injections/). If users can set their information to an exploit string which will be parsed as an expression by Angular, malicious code will render.
 
-* For v4.1
-* Setup - with 4.0, @angular/animations module: now separate from core
-* Lots of changes in the internal API
-* Animation modules
-  * BrowserAnimationsModule for users
-  * NoopAnimationsModule for testing
-* Basic example - how to fade in/out something?
-```
-<div [@fade]="active ? 'in" : 'out' />
-```
-* New verb: `animation()` function - defines a reusable animation
-* Can define a `fadeIn` animation and a `fadeOut` animation and `animateChild()`
-* `animateChild()` can accept input variables: duration, start, end, with defaults
-* `query()` and `queryAll()` collects inner items
-* programmatic animations
-  * AnimationBuilder inject into component and allows building animations on the fly: scrubbing, speeding the animation up and down, etc.
-  * Can then use a player
-* route animations
-  * RouteOutlet contains the data and metadata
-  * data is passed to the transitions and you can determine what kind of transition you want
-  * transitions = route changes
-  * can pass additional variables to route that will be consumed by the animation code (ie., do something different if back was used, etc)
-* slides: yom.nu/ng-conf-2017
-* demo: yom.nu/ng-conf-2017-demo
+Important guidelines:
 
-### Major Takeaways (TL;DR)
+1. Don't mix server templates with client templates. 
+2. Don't generate template source code by concatenating user input and templates.
+3. Be suspicious. User content might show up in unexpected places.
+4. Hack your app. It's fun. (Don't do it in production.)
 
----
+What do I have to do?
 
-## ng-rap
-
-* Shai Reznik
-
-### OUTLINE
-
-* GET VIDEO
-
-### Major Takeaways (TL;DR)
-
----
-
-## Keeping the Sand Out of Your Eyes: No Sandbox, No Problem
-
-* Tim Ehat (@tim_ehat), Technical Lead, Performance @ Domo
-
-### OUTLINE
-
-* AngularJS 1.6 - removal of the sandbox
-* Injection
-  * When you let your users inadvertantly run code on your system
-  * "yours" + NotYours
-  * The potential of executing user content is bad
-  * Vulnerabilities in LastPass in the last couple of weeks
-* Angular expressions
-  * {{1 + 1}} -> 2
-  * {{user.name}} -> timehat
-  * User code is not executed, it's just ugly text on the screen
-* Expression sandbox
-  * Gone as of AngularJS 1.6
-  * Same idea as injection
-  * Couldn't reference the prototype of an object or items on the global scope
-* What happened?
-  * People determined how to get out of the sandbox / security vulnerabilities, had to keep patching the sandbox to make it stronger
-  * Sandbox wasn't meant for security, it was to help developers
-  * The real problem is that users are able to define things in your template
-* Passing user content to $compile - expressions can flow through escape logic
-* Dynamically building your Angular templates server-side: {{somethingbad}} can be injected and will render
-* Ryan Hanson - How I stole Plunker session tokens with an Angular expression
-* Dangerous expressions: user could set their name to an exploit string which will be parsed as an expression by Angular. If it was just `<script>` it'll just be ugly text. However, using `{{` will render.
-* Important Guidelines:
-  * 1. Don't mix server templates with client templates. 
-  * 2. Don't generate template source code by concatenating user input and templates.
-  * 3. Be suspicious. User content might show up in unexpected places.
-  * 4. Hack your app. It's fun. (Don't do it in production.)
-* What do I have to do?
-  * Stop mixing server and client-side templates.
-  * Use `ng-non-bindable` / `ngNonBindable`
-* User content is dangerous in other places in Angular as well
-  * Don't pass user content to $watch, $watchGroup, $watchCollection, $apply, $applyAsync, $compile, etc, etc.
-  * Your templates might do more than you think. Ie., if `ng-app` is on HTML or body, everything within that is Angular.
-  * Bootstrap Angular where you need it and make sure that everything within there is under your control.
-* User content might be more extensive than you think.
-* Final word: keep the injection vulnerabilities out of your app.
-
-### Major Takeaways (TL;DR)
+* Stop mixing server and client-side templates.
+* Use `ng-non-bindable` / `ngNonBindable`
+* Don't pass user content to `$watch`, `$watchGroup`, `$watchCollection`, `$apply`, `$compile`, etc.
+* Your templates might do more than you think. Ie., if `ng-app` is on the HTML or body tag, everything within that is Angular, so bootstrap Angular where you need it and make sure that everything within is fully under your control.
 
 ---
 
