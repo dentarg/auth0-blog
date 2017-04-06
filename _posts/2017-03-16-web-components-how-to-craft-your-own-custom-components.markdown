@@ -351,19 +351,21 @@ The next step is to actually create the custom element. Now add a `<script>` tag
 
         constructor() {
             super();
-            var shadowRoot =  this.attachShadow({mode:'open'});
-           
-            // Adds a template clone into shadow root.
-            var clone = thatDoc.importNode( template, true );
-            
-            shadowRoot.appendChild( clone );
-
-            var embed = this.getAttribute( "embed" );
-            var video = shadowRoot.querySelector( ".vimeo" );
-
-            this.createAndPlay( embed, video );
         }
 
+        connectedCallback() {
+            var shadowRoot = this.attachShadow({mode:'open'});  
+
+            // Adds a template clone into shadow root.
+            var clone = thatDoc.importNode( template, true );
+            shadowRoot.appendChild(clone);
+
+            // get the value of the "embed" attribute
+            var embed = this.getAttribute("embed");
+            
+            var video = shadowRoot.querySelector( ".vimeo" );
+            this.createAndPlay(embed, video);
+        }
 
         createAndPlay(embedID, videoElem) {
             videoElem.addEventListener( "click", function() {
@@ -389,7 +391,9 @@ The next step is to actually create the custom element. Now add a `<script>` tag
 
 {% endhighlight %}
 
-We have the `constructor` and `createAndPlay` method. As I mentioned earlier, the constructor initializes state in the custom element. So, we implemented the *Shadow DOM* and called the `createAndPlay` method in the constructor.
+We have the `constructor`, `connectedCallback` and `createAndPlay` method. In the constructor, we call the `super()` method to have access to the methods and properties of `HTMLElement`. 
+
+The `connectedCallback` method is a lifecycle hook that our custom element provides. So, we have deferred the work of setting up the shadow root, getting the value of the embed attribute and also calling the `createAndPlay` in this hook. As I mentioned earlier, this method is called whenever the custom element is inserted into the DOM.
 
 In the `createAndPlay` method, we simply added a `click` eventlistener and used JavaScript to create an iframe and set the required attributes.
 
