@@ -41,103 +41,81 @@ This year's ng-conf opened with a theme of _empathy and inclusivity_. The code o
 ## Keynote
 
 **Speakers:** [Igor Minar](https://twitter.com/IgorMinar), [Stephen Fluin](https://twitter.com/stephenfluin), Brian Martin
+  
+### Major Takeaways (tl;dr)
 
-### Summary
+* Angular fosters a community of inclusivity and wants to enable creation of apps that people love to use and developers love to build.
+* The Angular ecosystem is thriving and growing, with intentions to extend in several directions.
+* Language Services intelligence for IDEs was announced.
+* Ionic version 3 was announced.
+* Angular v4 is better for users and developers and is state of the art.
+* Semantic version and time-based releases were covered with major releases every 6 months.
+* Major releases will be simple upgrades, aiming to mitigate upgrade obstacles.
+* Angular version 5 will use AOT by default in both dev and production.
+* "You can build with us!" is the Angular team's overall message to the developer community this year.
 
-Igor Minar kicked off the keynote speaking about why the Angular team builds Angular: to enable creation of applications that people love to use. He spoke about the desire for the community to be welcoming and inclusive, upholding and protecting values of mutual respect. Angular has a [code of conduct](http://github.com/angular/code-of-conduct) as well as an email where people can reach out regarding conduct concerns (conduct@angular.io).
+
+### Full Summary
+
+Igor Minar kicked off the keynote speaking about why the Angular team builds Angular: to enable creation of applications that people love to use and that developers love to build. He spoke about the desire for the community to be welcoming and inclusive, upholding and protecting values of mutual respect. Angular has a [code of conduct](http://github.com/angular/code-of-conduct) as well as an email where people can reach out regarding conduct concerns (conduct@angular.io).
 
 Stephen Fluin then went on to speak about the Angular ecosystem. For consistency, _AngularJS_ should be used to refer to the framework version 1.x and _Angular_ should refer to version 2 and above. This helps peole entering the community to understand the famework version and branding, and will also improve and clarify SEO.
 
 Next, some community metrics were presented. There are currently 727 Angular Meetup groups worldwide in over 100 countries. Stack Overflow developer survey results for 2017 reported that 44% of JavaScript framework/library users use AngularJS or Angular.
 
-The Angular team wants to continue to support companies that provide support or training for developers getting started or needing help with AngularJS or Angular.
+The Angular team wants to continue to support companies that provide support or training for developers getting started or needing help with AngularJS or Angular. Community projects are also an important part of the Angular ecosystem, including integrated dev environments, scaffolding education, seed apps, tools for linting, and more.
 
-### OUTLINE
+The concept of **"Build on Us"** was introduced next. This is the premise that frameworks can be built on top of Angular. Guidelines  called the Library Spec were announced for how to build and ship libraries with Angular. These guidelines will describe how to build and distribute extension projects in a way that is easy for devlelopers to use and consume. Angular Material is an example of a component library built on Angular; its purpose is to build tools that make component authoring easier. Angular Material's component dev kit demonstrates best practices for a variety of features, such overlays, gestures, and accessibility.
 
-* Why do we build Angular? (Igor)
-  * Enable creation of applications that people love to use
-  * Want these applications to be built by devs who love building these applications
-  * Want this community to be welcoming and inclusive
-      * Community growth - AngularJS: period of stability, Angular growing interest / growth of community, fueled both by people migrating from AngularJS and new people as well
-      * Community has certain values: github.com/angular/code-of-conduct / conduct@angular.io - want everybody to be respected
-      * Everyone in community should help protect these values
-    
-* Ecosystem (Stephen, developer advocate)
-  * Consistency: AngularJS (v1.x), Angular (v2+) - help people entering the community to understand the framework versioning, SEO, branding
-  * 727 Angular Meetup groups worldwide (over 100 countries)
-  * Developer survey results 2017
-      * Stack Overflow: 44% use AngularJS or Angular for JS libraries/frameworks
-  * Getting help either getting started or getting training - want to continue to support companies providing Angular education
-  * Community projects - integrated dev environments, scaffolding, seeds, tools for getting started, tools for linting, etc.
-  * Build on Us
-      * You can build frameworks on top of Angular
-      * Extend - announcing guidelines for how to build and ship libraries with Angular: Library Spec. How to build and distribute project in a way that is easy for devs to consume
-      * Angular Material - build tools that make component authoring easier: component dev kit best practices (overlays, gestures, accessibility)
-      * CLI - a few weeks ago, reached version 1.0 - one of the best ways to build Angular applications today. Within the CLI, there are best practices and wisdom built into the CLI: looking at ways to extract those best practices into SDKs - Angular IDE by Webclipse uses the CLI
-      * Language services - set of intelligence building on top of Angular now available in VS Code, WebStorm, and Angular IDE
-      * Look to the community for additional extension
-      * Ionic (Josh Thomas, core developer on Ionic)
-          * Open communication and collaboration with the Angular team while building latest version of Ionic >1M installs of Ionic v2
-          * Developers embracing latest version of Ionic
-          * Creating high-quality applications that are mobile; ie: Untappd (share new beers you've discovered with friends)
-          * Ionic v3 release today - built on top of Angular v4, faster boot time and desktop and tablet support
-  * State of Angular today
-      * Number of large companies using Angular in production
-      * 90% of Angular applicaitons built today are behind a firewall
-      * 100 applications launching in Angular per day
-      * 17% public Angular domains already using Angular v4
-      * Angular is very important within Google; >200 applications built in Angular
-      * NBA.com (Brian Martin)
-          * Game detail pages, you can drag up to 4 games at the same time
-          * Why we like Angular
-              * TypeScript
-              * Favors standards - framework that focuses on standards first; observables
-              * Drupal and Angular share programming principles, allows developers to switch between the two easily; integrates with Drupal Blocks - this allows building of custom components anywhere on the site
-              * Great ecosystem: dragula, redux, d3
-              * Performance - everything is streamlined with the observables
-              * Data integration - solves all of their use cases
-  * v4 - Better for Users (Igor)
-      * There was a need for ANgular to evolve, and v4 is the first step in that direction
-      * Need to enhance ease of use
-      * Make the migration from 2 to 4 easy
-      * Smaller apps, faster bootstrap - reduced the build size of applications ~60% reduction in size
-  * v4 - Better for Developers
-          * New APIs (ngIf, ngFor) - reactive paradigm is improved
-          * Changed the way Angular is packaged - wanted to achieve a smaller build size, and also reduce latency for a faster build
-          * First release of Angular that came with stable CLI release
-          * No breaking changes to stable APIs or common usage patterns
-  * v4 State of the Art (Stephen)
-      * Angular Universal community project was brought into the core repo
-          * Run and load entire Angular application on the server and send static to the browser and bootstrap Angular on top of that
-          * Makes applications a little bit faster - time user has to wait to see a fully rendered application is lowered
-          * Don't have to rely on a separate rendering layer
-      * Progressive Web Applications
-          * are about radically improving your user experience
-          * reliable, fast, engaging
-          * store all the assets in the user's browser so they can access the app offline
-          * pulling from local disk or memory to load much faster
-          * engagement: service workers - push notifications
-          * Shipped as a flag in CLI: service worker true, excited to continue to invest in this
-* What's next? (Igor)
-  * We'll continue to evolve Angular incrementally and predictably
-  * Why do we want Angular to evolve?
-  * Web ecosystem outside of Angular is also evolving and Angular needs to keep up with this and adjust
-  * Making sure that Angular itself keeps getting better / "evolve together"
-  * Semantic versioning: patch 4.0.1, minor: 4.1.0 new features, automated updates, major: 5.0.0 new features, simple updates - trying to change Angular in a good way but still very simple to upgrade: major version doesn't mean big obstacle
-  * Time-based releases: sets expectations regarding when changes will be coming. Patch every week; minor versions every month during the first 3 periods of release cycle. Major version every 6 months.
-  * Using Angular @ Google
-      * All Google apps use the latest pre-release version of Angular
-      * Large test suite, PR by PR - version of Angular that Google is using is the latest in master branch. Encourage users to stay as close to head as you're comfortable with - receive latest features and fixes, these are the versions that will afford compatibility with the latest tools
-      * Understand that some can't always upgrade: introducing LTS (Long Term Support)
-          * v4 LTS - critical bugfixes and security patches through October 2018: peace of mind that if your company can't move as fast as the rest of the community, you will still be supported
-  * v5 Themes
-      * Simplicity - simplify the way new applications are compiled. Currently: JIT in development mode, then when going to production, AOT compiler. Going to make AOT the default in v5 to reduce friction when going to production.
-      * Speed and size - making sure when you're using component libs like material, ionic, tree-shake components
-      * Smooth upgrades - want to make it super easy to upgrade to v5, no obstacles (true for all future versions)
-* Concluded with a summary of the major things spoken about: who we are, where we are today, plans for the future
-  * "You can build with us!" (last year: "Come sit with us")
-  
-### Major Takeaways (tl;dr)
+The **Angular CLI** reached version 1.0 a few weeks ago and is one of the best ways to build Angular applications today. Best practices and wisdom is built into the CLI, and the Angular team is exploring ways to extract those best practices into SDKs. For example, [Angular IDE by Webclipse](https://www.genuitec.com/products/angular-ide/) builds on the CLI.
+
+**Language Services** was also announced. This is a set of intelligence building on top of Angular that is now available in VS Code, WebStorm, and Angular IDE.
+
+**Ionic** version 3 was announced today, built on Angular v4. The Ionic team maintained open communication and collaboration with the Angular team while building the latest version. Version 2 has over one million installs.
+
+The **state of Angular today** covered some additional metrics. There are 100 applications launching in Angular per day. Although a vast majority (90%) of Angular applications are behind a firewall, 17% of public domain Angular apps are already using Angular v4. Angular's use within Google is also extremely significant. Over 200 Google apps are built with Angular.
+
+Brian Martin then spoke about using Angular on [NBA.com](http://nba.com). His development team likes Angular because of TypeScript, its standards-first approach, and that Drupal and Angular share programming principles, allowing developers to switch between the two easily while integrating. He also cited the great Angular ecosystem (integration with Dragula, Redux, and D3), performance, and data integration that meets all NBA.com's use cases.
+
+Igor and Stephen went on to speak about Angular v4, covering the following:
+
+**v4 is Better for Users:**
+
+* There was a need for Angular to evolve, and v4 is the first step in that direction.
+* Ease of use was enhanced.
+* Migration from v2 to v4 is easy.
+* Apps are smaller with faster bootstrap (build size of apps was reudced by approximately 60%).
+
+**v4 is Better for Developers:**
+
+* New APIs (ngIf, ngFor) with an improved reactive paradigm.
+* The way Angular is packaged has been changed to achieve a smaller build size and reduce latency for a faster build.
+* Version 4 is the first Angular release with a stable release of Angular CLI.
+* No breaking changes to stable APIs or common usage patterns.
+
+**v4 is State of the Art:**
+
+* The Angular Universal community project was brought into the core repository.
+* Angular Universal allows the entire Angular app to run and load on the server, and bootstrap Angular on top of that.
+* Applications are then a little bit faster; the time the user has to wait to see a fully rendered application is reduced.
+* Service workers are shipped as a flag in the CLI that can be turned on.
+* The team is excited to continue to invest in this.
+
+Finally, Igor spoke about **what's next** for Angular. Angular will continue to evolve incrementally and predictably to keep pace with the continually evolving ecosystem _outside_ of Angular itself.
+
+**Semantic versioning** was specified with **time-based releases**:
+
+* Patch releases: `4.0.x` (every week)
+* Minor releases: `4.x.0` (every month during the first three periods of the release cycle), contain new features and/or automated updates 
+* Major releases: `x.0.0` (every 6 months), will have new features but still support simple upgrades so a major version update doesn't result in an obstacle
+
+Igor also talked about **how Angular is used at Google**. All Google apps use the latest pre-release version of Angular with a large test suite, upgraded pull request by pull request. The version of Angular used at Google is latest in the master branch. The Angular team encourages users to stay as close to head as they're comfortable with. This way, they will receive the latest features and fixes and these are the versions that will afford compatibility with the latest tools.
+
+The Angular team also understands that some people can't always upgrade, so **LTS (Long Term Support)** was announced. Version 4 LTS will provide critical bugfixes and security patches until October, 2018.
+
+Finally, **version 5 themes** were presented. Angular version 5 aims to simplify the way new applications are compiled. Currently, JIT (Just In Time) compilation is used in development mode, then AOT (Ahead of Time) compilation is used when going to production. Version 5 aims to make AOT the default to reduce friction when moving an app to production. Speed and size are also a focus, particularly when using component libraries like Material or Ionic, with better tree-shaking for components.
+
+The keynote concluded by revisiting last year's final keynote takeaway. In 2016, the core Angular team established "come sit with us" as their invitation to the community to establish a rapport, to contribute, share, and ask questions. This year, the mantra was **"You can build with us!"**
 
 ---
 
