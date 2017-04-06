@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "ng-conf 2017 Summary - Day 1"
-description: "Overview of ng-conf 2017 (April 5) Day 1 talks."
-date: 2017-04-05 8:30
+description: "Overview of ng-conf 2017 (April 5) Day 1 sessions."
+date: 2017-04-06 8:30
 category: Conference, Growth
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
@@ -121,11 +121,9 @@ The keynote concluded by revisiting last year's final keynote takeaway. In 2016,
 
 ## Angular CLI Tips
 
-* The Angular CLI can easily generate components, services, models, and more with minimal effort and very few keystrokes.
-* The `--dry-run` flag can report what will be outputted so you can check your work with the CLI before generating anything.
-* Lazy loading is much easier in Angular than AngularJS with the CLI.
-* The CLI supports full customization and extension with the ability to eject Webpack.
-* Tools like the Angular CLI help reduce cognitive burden when developing while ensuring standards and best practices are followed at the same time.
+The [Angular CLI](https://github.com/angular/angular-cli) can easily generate components, services, models, and more with minimal effort and very few keystrokes. The `--dry-run` flag can report what will be outputted so you can check your work with the CLI before generating anything. The CLI also makes lazy loading much easier in Angular than AngularJS. Wwith the ability to eject Webpack, Angular CLI supports full customization and extension for any desired build configuration.
+
+Tools like the Angular CLI help reduce cognitive burden when developing while ensuring standards and best practices are followed at the same time.
 
 John Papa demonstrated several CLI commands using a sample application, including the following:
 
@@ -156,25 +154,21 @@ Joe Eames announced the [Unofficial Angular Docs](http://ngdoc.io/) as a communi
 
 ## WebVR with Angular
 
-* [**WebVR**](https://webvr.info/) is an open standard and requires [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to create rich and immersive environments.
-* [A-frame](https://aframe.io/) framework for building VR web experiences is similar to Angular.
-* Custom renderers need to abstract away the creation of DOM elements and addition of styles and components to a scene.
-* Third party libraries and polyfills are currently necessary to produce stereoscopy and duplicate camera.
-* WebVR in Angular needs to run outside of zones to be removed from change detection.
-* Currently, performance starts to bottleneck. In the future, compilers could potentially take Angular components and compile to native VR headset applications.
+[**WebVR**](https://webvr.info/) is an open standard and requires [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to create rich and immersive environments. [A-frame](https://aframe.io/) framework for building VR web experiences is similar to Angular. Therefore, can we implement WebVR with Angular?
+
+In order to implement WebVR in Angular, several things are needed. Custom renderers need to abstract away the creation of DOM elements and addition of styles and components to a scene. Third party libraries and polyfills are also currently necessary to produce stereoscopy and duplicate camera. Finally, WebVR in Angular needs to run outside of zones to be removed from change detection. 
+
+Currently, performance starts to bottleneck. However, in the future, compilers could potentially take Angular components and compile to native VR headset applications.
 
 ---
 
 ## Modules
 
-* An ES2015 module is simply a code file with `export` / `import`. ES2015 modules are "micro" in nature.
-* Angular modules (`@NgModule`) are "macro" in nature and define a set of components, related files, and dependencies.
-* Angular apps can have an app module, feature modules, and shared modules for better organization.
-* Modules enable [lazy loading](https://angular.io/docs/ts/latest/api/router/index/Routes-type-alias.html).
+An ES2015 module is simply a code file with `export` / `import`. ES2015 modules are "micro" in nature, whereas Angular modules (`@NgModule`) are "macro" in nature and define a set of components, related files, and dependencies. Angular apps can have an app module, feature modules, and shared modules for better organization. Modules also enable [lazy loading](https://angular.io/docs/ts/latest/api/router/index/Routes-type-alias.html).
 
-> **Note:** Three things are needed for lazy loading:
-> 
-> 1. The app needs feature modules: otherwise there's nothing to load, because lazy loading only loads _modules_.
+### 3 things are needed for lazy loading:
+
+1. The app needs feature modules: otherwise there's nothing to load, because lazy loading _only_ loads modules.
 2. Routes need to be grouped under a single component-less parent route. This is a path with children of a single route and components are associated with the children, not the parent.
 3. Feature modules should _not_ be imported in the `app` module; this defeats the purpose of lazy loading.
 
@@ -182,12 +176,15 @@ Joe Eames announced the [Unofficial Angular Docs](http://ngdoc.io/) as a communi
 
 ## Using Components with Intent
 
+Initially, Angular's ability to componetize can lead to developers wanting to "componetize all the things"! However, there are costs to doing this: 
+
 * Component tax: every component costs resources to render, execute, and compile.
 * Payload tax: creating lots of components increases the overall JavaScript payload.
 * Execution tax: bootstrapping, lazy loading, and compilation cost resources.
 * Container element tax: we usually default to custom elements, but we can cut down on extra containers by using attributes instead.
-* Decision and Presentation pattern: smart parent components with dumb child components; however, this can sometimes result in a tree coupling tax with deep nesting for no good purpose other than chaining and passthrough.
-* Ultimately, everything has a tax and the trick is to take a balanced approach so that decisions are made with intent. We can combine Decision/Presentation with services, observables, or Redux to solve problems and decouple when necessary. 
+* Tree coupling tax: the Decision and Presentation pattern utilizes smart parent components with dumb child components, but this can result in deep nesting for no good purpose other than chaining and passthrough.
+
+Ultimately, everything has a tax and the trick is to take a balanced approach so that decisions are made with intent. We can combine Decision/Presentation with services, observables, or Redux to solve problems and decouple when necessary. 
 
 > _"As developers, we're always battling to put queen size sheets on a king size bed."_ —Justin Schwartzenberger
 
@@ -195,16 +192,18 @@ Joe Eames announced the [Unofficial Angular Docs](http://ngdoc.io/) as a communi
 
 ## Animations in Angular v4
 
-* As of Angular v4.0, the `@angular/animations` module is now separate from the Angular core.
-* Lots of changes have been implemented in the internal API.
+As of Angular v4.0, the `@angular/animations` module is now separate from the Angular core. Lots of changes have been implemented in the internal API, as follows:
+
 * `BrowserAnimationsModule` is for users.
 * `NoopAnimationsModule` is for testing.
-* New: the `animation()` function defines a reusable animation.
-* The `animateChild()` function can accept input variables for duration, start, and end, with defaults
-* Programmatic animations can be implemented by injecting `AnimationBuilder` into a component. This allows for building animations on the fly with scrubbing, playback controls, etc.
-* For route animations, data is passed to the transitions and the developer can determine what kind of transition is desired for the route change.
+* The new `animation()` function defines a _reusable_ animation.
+* The `animateChild()` function can accept input variables for duration, start, and end, with defaults.
 
-A demo is [available from Matias Niemela here](http://yom.nu/ng-conf-2017-demo).
+Programmatic animations can be implemented by injecting `AnimationBuilder` into a component. This allows for building animations on the fly with scrubbing, playback controls, etc.
+
+For route animations, data is passed to the transitions and the developer can determine what kind of transition is desired for the route change.
+
+An animations demo is [available from Matias Niemela here](http://yom.nu/ng-conf-2017-demo).
 
 ---
 
@@ -214,14 +213,14 @@ Injection attacks take place when you let your users inadvertantly run code on y
 
 The **expression sandbox** prevented developers from being able to reference the prototype of an object or items on the global scope. The sandbox has been removed as of AngularJS 1.6. The sandbox wasn't meant for security, it was to help developers. However, the real problem is that it allowed users to define things in your template: passing user content to `$compile` allowed expressions to flow through escape logic. This can be demonstrated by Ryan Hanson's article on [How I Stole Plunker Session Tokens with an Angular Expression](https://royaljay.com/security/angular-expression-injections/). If users can set their information to an exploit string which will be parsed as an expression by Angular, malicious code will render.
 
-Important guidelines:
+### Important guidelines:
 
 1. Don't mix server templates with client templates. 
 2. Don't generate template source code by concatenating user input and templates.
 3. Be suspicious. User content might show up in unexpected places.
 4. Hack your app. It's fun. (Don't do it in production.)
 
-What do I have to do?
+### What do I have to do?
 
 * Stop mixing server and client-side templates.
 * Use `ng-non-bindable` / `ngNonBindable`
@@ -232,389 +231,177 @@ What do I have to do?
 
 ## Thoughtful Component Design
 
-* Jeremy Elbourn
-* Miles Malerba
+This talk went more in-depth into some principles of better components. For some components, _augmenting_ the native element is preferable over hiding the element inside some custom element, ie.: `<button md-button>`, `<nav md-tab-nav-bar ...>`, etc.
 
-### OUTLINE
+What are the benefits of augmenting native elements? Firstly, familiar API: developers know how to use HTML. In addition, if we're concealing component internals within custom elements, it's hard to know if the right thing is being done for accessibility underneath. At a glance, how will we see how an input inside a custom component interact with a screen reader with roles or ARIA?
+We can make components simpler and can avoid a huge mess of code and binding so that the user can interact directly with the native element.
 
-* For some components, augmenting the native element is preferable over hiding the element inside some custom element, ie.: `<button md-button>`, `<nav md-tab-nav-bar ...>`, etc.
-  * Familiar API: devs know how to use HTML
-  * If using all custom elements, it's hard to know if the right thing is being done for accessibility underneath: how will it interact with a screen reader? roles? aria?
-  * Can make components simpler: can avoid a huge mess of code and binding so that the user can interact directly with the native element
-* If there is no native element (such as a datepicker), need thoughtful component composition
-  * Can turn into a mess of attributes
-  * Can have separate elements that are connected to each other `[mdMenuTriggerFor]="menu"`
-  * Breaking up components benefits: single responsibility, flexibility, friendly to native elements
-* What if you want to be able to directly manipulate the DOM??
-  * You might be tempted to go straight to the DOM and skip over Angular
-  * Measuring, sizing, or positioning of elements might present a case for wanting to touch the DOM directly with the native DOM APIs
-  * Reaching outside the Angular app to find information can require this as well (ie., needing to find out if the layout is right to left or left to right, `<html dir="rtl">`
-  * Times we need to use the native APIs are:
-      * In response to user interaction - good to pre-render
-      * On initial render - a bit trickier, try to avoid situations like this. Measuring something dependent on CSS is a common example
-* Avoid manual templating (XSS) when dealing directly with DOM APIs. Angular has good measures in place to protect against XSS vectors, so if you circumvent Angular, this opens up possibility for more vulnerabilities
-* DOM manipulation in Angular: avoid where possible, use carefully if necessary, beware XSS, make sure it will play nicely with pre-rendering
-* The Angular Zone - thoughtful interactions with zone
-  * Zone provides an asynchronous execution context for Angular
-  * Zones are Angular's way of knowing about everything that happens in the app, including async like settimeout or http requests
-  * What can we do with zones? Have more control over when change detection runs
-      * `ngZone.runOutsideAngular(() => { ... });` runs outside Angular context and won't cause Angular change detection
-      * Running custom animation, requestAnimationFrame, good cases for this to avoid unintended slowdown in your application.
+If there is no native element (such as a datepicker), we need thoughtful component composition. It can be helpful to have separate elements that are connected to each other. This provides benefits such as single responsibility, flexibility, and friendliness to native elements.
 
-### Major Takeaways (TL;DR)
+### Manipulating the DOM
+
+Care should be taken when it's necessary to directly manipulate the DOM; this should only be done if there is no Angular alternative, such as for measuring, sizing, or positioning of elements after CSS styles have been applied. Reaching outside the Angular app to find information can require this as well (ie., needing to find out if the layout is right to left or left to right, `<html dir="rtl">`.
+
+Make sure that you are thoughtful about interactions with _zone_, Angular's change detection mechanism. Zones provide an asynchronous execution context for Angular and are Angular's way of knowing about everything that happens in the app, including asynchronous activity like `setTimeout` or HTTP requests. With zones, we have more control over when change detection runs. For example, we can implement `ngZone.runOutsideAngular(() => { ... });` to execute something outside the Angular context. This won't trigger Angular change detection. Running custom animation (as mentioned above with regard to WebVR) is a good example for needing this to avoid unintended slowdown in your application.
 
 ---
 
-## Back from the past: A tale of helping others upgrade from Angular 1.x
+## Upgrading From Angular 1.x
 
-* Sergio Cruze
+For most developers, the primary upgrade pain points are **time and priority**. These are influenced by:
 
-### OUTLINE
+* Business incentive: companies don't necessarily make more money by using the latest and greatest technologies, so upgrading can be a hard sell.
+* Team proficiency: engineering teams can experience hesitation or fear of the prospect of needing to learn a new framework from scratch.
+* Upgrading from AngularJS to Angular often means a full rewrite.
+* All the additional new tooling can be daunting.
 
-* 2013 - wrote first AngularJS app
-  * Idea to conception in no time - super fast prototyping
-  * Great separation of concerns
-  * Similar MVC as backend code
-* 2017 - Whoa, what happened?
-  * Lots of magic - where to go for help?
-  * This is the problem with modern JS in 2017
-      * More tooling (Node, Webpack)
-      * Modern languages (ES2015, TypeScript)
-      * Not limited to browsers
-      * All of this while...
-          * Backwards compatible
-          * Learning best practices as we go (making them up every other week)
-      * Not as simple as script tags anymore
-      * Dev onboarding is more difficult
-      * Lots to gain, but comes at a price
-* Tweet: "JavaScript has gotten harder, let's take it upon ourselves to help newcomers get going! #ngconf2017"
-* Common difficulties when upgrading
-  * TypeScript?
-  * Template syntax? `*`, `[]`, `()`
-  * Command line tools? Make things easy but also intimidating
-* Actual challenges helping people upgrade
-  * A lot of code mixed with server side code - this is mostly okay with AngularJS, but less so with Angular: competing priorities in the codebase
-  * CoffeeScript - change this to TypeScript
-  * Bower
-  * Grunt
-* We wanted to understand if this was representative of the community at large - we used science. Asked developers about their upgrade process: timeline, tools, etc.
-  * Upgrade pain points
-      * Time and priority
-      * Business incentive (don't necessarily make more $$ by using latest and greatest, can be a hard sell)
-      * Team proficiency (hesitation, fear of needing to learn a new framework from scratch)
-      * 3rd party libraries
-      * AngularJS -> Angular, often talking about a rewrite
-      * All the tooling
-  * Syntax is not a factor: time to learn and fear of change were primary concerns
-* How to go about it?
-  * Component-based architecture (start with v1.5+) Look at a page and rearchitect it in your mind in a component-based way
-  * Write full SPAs (don't use a container within a website)
-  * Install dependencies with NPM (or Yarn) instead of downloading code from a website and inserting script tags
-  * Bring in Webpack
-  * Use TypeScript
-* If there is a legitimate reason why you cannot upgrade, know that we feel your pain and will do our best to help you move forward.
-* **You can sit with us.** Empathy - "If you're experienced, take the time to help somebody out."
-* If you haven't learned Angular, why not? How can we help?
+> **Note:** Research showed that syntax is not a factor. The primary concerns with upgrading are time to learn and fear of change.
 
-### Major Takeaways (TL;DR)
+### Tips for making upgrading easier
+
+* Start with a component-based architecture (AnglarJS v1.5+).
+* Write _full SPAs_: don't use an AngularJS container within a website.
+* Install dependencies with NPM (or Yarn) instead of downloading code from a website and inserting script tags.
+* Bring in Webpack.
+* Use TypeScript.
+
+Finally, it was emphasized that if there is a legitimate reason why you cannot upgrade, know that the Angular team and community feels your pain and will do their best to help you move forward. The **"You can sit with us"** mantra from ng-conf 2016 was repeated: empathy is important. 
+
+> _"If you're experienced, take the time to help somebody out."_ —Sergio Cruze
 
 ---
 
-## Mischief Maker
+## Memory Leaks
 
-* Lukas Ruebbelke
-* Roger Tipping
+A **memory leak** refers to memory that should be released back to the system because it's no longer needed and it's not correctly released back to the operating system. Memory leaks cause significant performance issues over time.
 
-### OUTLINE
+There are two types of memory leaks:
 
-* You can do some amazing things with JS these days
-* Observables - everything is a stream
-* Tone.js - can be used to visualize music
-* Recorder.js, Wavesurfer.js
-* Roger on keyboard / singing (feat. Shai Reznik)
-* (Is the video available???)
+* Contrived examples
+* The real ones you find in your giant application that the contrived example didn't show you at all
 
-### Major Takeaways (TL;DR)
+Some memory leaks in Angular are easy to solve, such as `console.log` removal and long-lived observables. Chrome devtools provides a timeline view that gives great insights into overall performance. This can show when the leak happening, allowing the devleper to determine if it be isolated to some certain event and how big it is. 
 
----
+Final takeaways were:
 
-## ng-STEAM
-
-* Joe Skeen
-* Gwen Skeen
-
-### OUTLINE
-
-* STEM - world we're growing up in is different than the world parents grew up in (Gwen, 6 yo)
-  * Learning about STEM can be hard and even boring
-  * Even before learning to read and write, can explore world with hands
-  * Add "A" to add "Art" - STEAM
-* Gwen's been interested in dad's programming
-  * Last year she went to ng-kids and got to control a computer with a banana
-  * Used scratch to make mom a mother's day card
-* studio.code.org - nonprofit site about helping kids learn to program: prereader thru highschool
-* Started with quick start Angular on Plunker
-* Made an Angular app to pick your favorite color
-* Programming with Gwen has been a fun and rewarding experience.
-* "I love programming because I get to do fun things." --Gwen
-* STEM should be much more interactive; our kids will be more prepared for the struggles and challenges that lie ahead
-
-### Major Takeaways (TL;DR)
+* What actions cause the leak?
+* Test like a real user.
+* Remove code.
 
 ---
 
-## The Memory Leak Brain Drain
+## Angular CLI in Detail
 
-* John Boyd
+Hans Larsen, the Angular team lead for Angular CLI, spoke indepth about the history and future of the CLI. He understood that when you start up a new project, it's very difficult to keep track of all the configurations and boilerplate. The concern was that it **should be simple, not complex**. Angular CLI was built so that "it just works" without requiring too much thought or cognitive burden. The CLI saves hours and hours of working on Webpack configurations.
 
-### OUTLINE
+The Angular CLI is a small tool with a lot of big ambitions: it wants to fit your needs for large or small projects. Hans spoke about what's going on under the hood of the CLI in dev and prod modes and how the CLI detects lazy routes, creating multiple bundles to potentially be loaded later.
 
-* What is a memory leak?
-  * Memory that should be released back to the system because it's no longer needed and it's not correctly released back to the operating system.
-  * Significant performance issues over time - experience degrades over time
-* Types of memory leaks
-  * Contrived examples
-  * The real ones you find in your giant application that the contrived example didn't show you at all
-* Easy to solve memory leaks
-  * console.log removal
-  * long-lived observables
-* Chrome devtools - timeline view gives great insights into overall performance, when is the leak happening? Can it be isolated to some certain event? How big is it?
-  * Allocation timeline offers a more detailed view
-* Outside the tools
-  * What actions cause the leak?
-  * Test like a real user
-  * Remove code
+He then touched on `ng eject` (ejection of the `webpack.config.js` and Webpack dependencies for customization), concluding that segment with:
 
-### Major Takeaways (TL;DR)
+> _"Please eject responsibly."_ —Hans Larsen
+ 
+### What's coming for CLI v1.x?
+
+Future 1.x releases aim to reduce the size of bundles with more aggressive tree-shaking. There are also plans to increase performance of AOT compiling so that you can _develop_ in AOT instead of JIT and reduce production bugs. Error messaging will also be improved with actionable items detailing _how_ to fix errors.
+
+### Angular CLI v2
+
+Version 2.0 of the Angular CLI may possibly look more like an SDK, with plugin support and a set of libraries that can be used by other tools like IDEs and other CLIs. The CLI may also support more customizable templates, test frameworks, and build systems, allowing developers to mix and match.
+
+However, the CLI will maintain the same small interface and feel familiar if you keep using the CLI. It will integrate with more and continue to dream bigger while remaining simple to use.
 
 ---
 
-## There and Back Again: A Developer’s Tale
+## Reactive Programming with RxJS
 
-* Jacob Turner
+[Ben Lesh](https://twitter.com/benlesh) and [Tracy Lee](https://twitter.com/ladyleet) talked about how learning RxJS is difficult, but once mastered, it's extremely powerful and useful. Ben talked about creating new observables using the `new Observable` constructor, which has methods for `next`, `error`, and `complete`. There are other observable creation options, but they all use `new Observable` under the hood.
 
-### OUTLINE
+They then demonstrated an RxJS Pun App with lookahead search, API, and speech recognition.
 
-* Professional experience using both AngularJS and React
-* Learned AngularJS at a Bootcamp called DevMountain
-* Then worked at a startup doing React
-* Currently work for Domo doing Angular
-* Have you ever had a phase in your development career where you weren't sure what you do? 
-  * Wanted to define himself by his framework
-  * Thought AngularJS was awesome
-  * Had fulltime job doing React - defined self as a React developer: everything was great until it wasn't
-  * Two opportunities: Angular with Domo or React with another company - Domo was the overall better opportunity, no regrets
-* Transition - now "doing Angular as a React developer"
-  * Decided wanted to be "a builder"
-  * An "X Developer" is defined by their tools
-  * A "Builder" uses the best tool for the job
-* The most important thing is to provide value - your efforts should be helping you accomplish the goals of your projects
-* Practice, effort, and skill will always be far more important than the tools that you use
+### Tips
 
-### Major Takeaways (TL;DR)
+* Subjects are observables and observers which allow us to push values through by using the `next` method.
+* When importing from RxJS, only include what you need by importing from the module path directly. For example: `import {Subject} from 'rxjs/Subject';`
+* Remember to catch errors and return an empty observable: `.catch(err => { return Observable.empty(); }`
+* The `switchMap` operator converts the value to a new observable, switches to that observable, and unsubscribes from the previous observable.
+* The async pipe (`| async`) subscribes to the observable immediately when Angular initializes and unsubscribes when removed from the view.
+* The `share()` operator makes your observables multicast, allowing one subscription and multiple subscribers.
+
+### Same Shaped-ness
+
+**Same Shaped-ness** refers to streams that share the same shape. For example, in the demo app, spoken keywords and typed keywords are both observables of arrays of strings. They are same shaped and can therefore be **merged and shared**.
+
+[Slides for this talk are available here](https://www.slideshare.net/ladyleet/rxjs-a-beginner-experts-perspective-ngconf-2017).
 
 ---
 
-## The Little Tool That Dreams Big
+## Creativity
 
-* Hans Larsen - Angular team: lead for Angular CLI
+[Justin Searls](https://twitter.com/searls), the co-founder of [Test Double](http://testdouble.com/), concluded Day 1 of ng-conf 2017 with an excellent talk on turning negative and toxic emotion and converting it to creativity.
 
-### OUTLINE
+### What is creativity?
 
-* Started on Material project, wanted to help people build great apps
-* There was a problem Material was not solving: what happens before we can use Material?
-* When you start up a new project, really hard to keep track of all the configurations and boilerplate, and it should be simple, not complex.
-* Built this tool so that "it just works". You shouldn't have to think too hard about it, it should just work.
-* General sentiment is that the CLI saves hours and hours of working on Webpack configs.
-* Small tool with a lot of big ambitions - wants to fit your needs for large or small projects.
-* What is going on under the hood?
-  * `ng build/serve`
-      * Do you want to run in developer mode or production environment?
-      * Dev mode -> run static analysis and keep track of lazy routes
-          * Keeps routes in memory and compiles the TypeScript to JS
-          * Then passes the JS and lazy routes down to Webpack for bundling
-          * Then the code is ready to ship to the browser
-          * @ngtools does all of the above
-  * Detecting lazy routes?
-      * CLI uses same static analysis as Angular compiler to look for router module and everything that provides routes
-      * Then takes `loadChildren` and resolves the string to an actual class, verifies that everything is in place, and takes normal dependencies and creates two bundles with them: deps in first bundle, then creates a second bundle that might be needed, maybe later
-  * Refactoring
-      * In dev mode (JIT compilation), take template and style URLs and change them to use require calls so that Webpack can understand and include in the bundle
-      * In prod mode (AOT compilation), no longer need the component decorator anymore. Create static `ctorParameters` to inject necessary services. Everything can be tree-shaken properly by Webpack to remove what's not needed.
-* `ng eject` - there are cases where the CLI just doesn't fit the bill, you want to manage it yourself (ie., if you've outgrown it)
-  * Creates a `webpack.config.js`
-  * Can pass any argument that you would pass to `ng build` and eject with that proper Webpack configuration
-  * Please eject responsibly.
-* 2 weeks ago, CLI 1.0.0 final was released
-* Coming up in CLI 1.x:
-  * Reduce the size of bundles with more aggressive tree-shaking
-  * Want to increase performance of AOT compiling so that you can develop in AOT instead of JIT (reduce prod bugs)
-  * Improve error messaging - with actionable messages
-* CLI 2.0? 
-  * Possibly more like an SDK
-  * Support plugins
-  * Set of libraries that can be used by other tools like IDEs, other CLIs
-  * Custom templates, test frameworks, build systems: mix and match
-  * Same small interface
-  * Will feel familiar if you keep using the CLI, but will integrate with more - dream bigger
-* Thanks to team and to contributors (issues, PRs, Gitter chat)
+* Passion? Passion fizzles out.
+* Art? Coding is creative, but not all code is artistic on its merits.
+* Vision? Vision doesn't create anything.
 
-### Major Takeaways (TL;DR)
+Programming is one of the most creative endeavors humankind has undertaken, but many programmers don't _consider_ themselves creative. Justin's creativity flows from getting riled up by something, and creating a new library as a result.
 
----
+> _"I pass npm modules like kidney stones."_ —Justin Searls
 
-## The Angular Compiler 4.0
+### Taking negative and toxic emotion and turning it into creativity
 
-* Tobias Bosch
+Justin's fuel for creativity reads like a mad lib:
 
-### OUTLINE
+> _"I feel (express indignation), but I (admit incompetence). Maybe if I build it, I'll (feel less incompetent)."_ —Justin Searls
 
-* Angular compiler takes all your metadata, templates, stylesheets, and analyzes them
-* Builds Abstract Syntax Tree
-* Transforms TypeScript to JS
-* Insantiates the templates
-* If using AOT, generates `*.ngfactory.ts` files
-  * Elements: viewDef contains a property called nodes. Nodes are POJOs.
-  * Instantiate component: everything that needs to be created multiple times goes into ViewData
-* Element hierarchy
-  * If each node knows how many children it has, you can put all the elements in an array and it knows who is a child of whom
-* Directives
-  * Template
-  * Class
-  * DirectiveDef helper function
-  * Lifecycle hooks: Angular calls you back when something is destroyed or something happens. These are `flags` in the definition.
-* Bindings
-  * NodeDef stores names of bindings
-  * viewDef has update function with change detection (CheckFn) take expressions from your template and translate them into one expression in JavaScript.
-  * Need old values (only fires if something changes): array in viewData tracks old values
-* Angular 2 vs. Angular 4 code generation
-  * Angular 2 would generate a class per template and creates all elements and directives and stores them in properties
-  * In Angular 4, uses arrays to reduce size (v2 used only properties): trade-off
-* Focus on one of the benchmarking metrics and make it super fast, but then other metrics suffered. Dial it in a different direction, there are always trade-offs.
-* Example benchmark metrics demonstrating how size was reduced by release candidates of Angular 4.
-  * No regression for Bootstrap.
-  * Routing time (destroying everything and creating it again), there was regression from 40ms to 50ms for simple components, but with more complex components, there was no regression.
-  * Update - no regression
-* What's next?
-  * AOT will be the default
-      * Need watch mode
-      * Better error messaging indicating what needs to change
-      * Type checking templates - if you misspell a property, need to be able to pinpoint that and report location in the template
-      * More flexible metadata
-      * Remove `ngfactory.ts` files to inline this in your code while compiling - simpler, fewer concepts you need to know
+Fear of bad code can be paralyzing, so it's important to find a safe space where **working is more important than perfect**. Getting out of the line of fire lowers pressure and enables us to  build something to impress. Working code can sell ideas, so it's always helpful to bring a demo to the table.
 
-### Major Takeaways (TL;DR)
+Justin spoke about creating [Must Stache](https://github.com/searls/must-stache), a serverless Chrome browser extension that used _face.com_ facial recognition to overlay mustaches on photos of people. However, when face.com was shut down, former users were angry that the extension no longer worked, cultivating a toxic atmosphere as a result of popularity.
 
----
+### The Thoughtleader's Dilemma
 
-## Reactive Programming with RxJS: A Beginner & Expert’s Perspective
+The thoughtleader's dilemma occurs when you:
 
-* Ben Lesh (lead author of RxJS 5) @benlesh
-* Tracy Lee @ladyleet
+* Do interesting work.
+* Stop doing work.
+* Are now in danger of thoughtleading people off a cliff because you're not doing the work anymore.
 
-### OUTLINE
+Justin spoke about how he went too long without validating his ideas, resulting in an approach that was too hand-wavey. Everything seems simple at a distance as you get detached from the work. Many managers have this problem. Pattern recognition yields generic advice.
 
-* Learning RxJS is really hard but once you get it and master it, it's amazing (Tracy)
-* Couldn't find the right docs
-* Creating a new observable
-  * `new Observable` constructor, has methods for next, error, and complete
-  * observableOf, observableFrom also options
-* RxJS Pun App
-  * Lookahead Search - the idiomatic RxJS example
-      * Subjects are observables and observers
-      * Allows us to push values through by using `next` 
-      * Can use all operators
-* Imports: specifically get what you want, this is slow. ONly include what you need: import from the module path directly. Ie., `import {Subject} from 'rxjs/Subject';` Import specific operators. 
-* Lookahead search again: we need an observable of keywords
-  * Pun service: `suggestKeywords`, `getPuns`
-  * `.catch(err => { return Observable.empty(); }`
-  * Every time there's a text input change, an observable of suggested keywords is returned.
-  * `switchMap` operator: converts the value to a new observable, switches to that observable, and unsubscribes from the previous observable.
-  * `| async` - immediately when Angular initializes, subscribes to the observable. When removed from view, unsubscribes.
-  * `share()` operator - makes your observables multicast: it allows one subscription and multiple subscribers
-* Same Shaped-ness
-  * Let's add another data source
-  * Web speech API
-      * Returns an array of things the API thinks you said
-      * Can wrap this with an observable
-      * Can then use observer to `next()` out the results
-  * Observables are both lazy and cancellable
-      * If someone unsubscribes from speech recognition observable, it can turn the mic off / stop listening
-  * Angular service: injectable, actually use all results, add error handling
-  * `switchMap` clicks into speech recognition
-  * Spoken keywords and typed keywords (observables of arrays of strings) can be merged together and therefore shared - benefit of Same Shaped-ness
-* Google image recognition API can be used too
-* Resources available (repo)
+The solution is to **trust the people who are closest to the work to make decisions regarding the work**.
 
-### Major Takeaways (TL;DR)
+To maintain creativity and avoid this dilemma, learn about something, build a tool, share it with others, then go back to learning. If you're not getting through, tweak your message.
 
----
+### Not winning != not worthwhile
 
-## How to Scratch an Itch (in 200 Repos or Less)
+In the open source community, we often create something and then businesses come to depend on it. This results in entitled developers, which in turn leads to sadness at entitlement. Justin notes that the **happiness experienced by open source developers is often inversely proportional to the popularity of their libraries**.
 
-* Justin Searls @searls co-founded Test Double
+The solution? Build something no business could ever want. Justin designed own programming language called [emoruby](https://github.com/searls/emoruby) to compile emojis to Ruby. The repo has 0 GitHub issues.
 
-### OUTLINE
+In conclusion: **it's okay to build stuff for fun!** Negative feelings are a symptom, not the problem. When performing root cause analysis, reflect on your feels and accept those emotions as being valid. Then ideas will just come down, so find a creative outlet for those ideas.
 
-* What is creativity?
-  * Passion? - fizzles out, nope, not passion
-  * Art? - coding is creative but not all code is artistic on its merits
-  * Vision? - vision doesn't create anything
-  * Are YOU creative? Programming is one of the most creative endeavors humankind has undertaken
-  * Concept of a creative spark - you get an idea that pops into your head
-* Creativity is a chronic illness
-  * Get riled up by something, and then create a new library.
-  * "I pass npm modules like kidney stones."
-* Inadequacy - dad was a pro golfer
-* Brought up religious, hold firm to intangible concepts - "I carry indignation with me wherever I go"
-* Taking negative and toxic emotion and turning it into creativity
-* Privilege
-  * At Test Double, it's baked into the mentality that everyone has the time and opportunity to grow
-* I feel (express indignation), but I (admit incompetence). Maybe if I build it, I'll (feel less incompetent).
-* "Fear of bad code can paralyze you."
-* Finding a safe space where working was more important than perfect was important.
-* Joined first Ruby team, looked at their tests and was not impressed - built gimme
-  * Get out of the line of fire - lower pressure, and build something to impress
-  * Working code can sell ideas - bring a demo to the table
-* Midwestern programming
-  * east coast - smart
-  * west coast - cool tech
-  * midwest - boring - rockstar envy (so created Must Stache)
-      * serverless
-      * face.com got shut down
-      * popularity without purpose is toxic
-* The Thoughtleader's Dilemma
-  * Do interesting work
-  * Stop doing work
-  * Danger of thoughtleading people off a cliff because you're not doing the work anymore
-* How can I spend 20 hours to save myself 20 seconds? Home control (set alarm, IoT, etc.) simplisafe
-  * Went too long without validating ideas
-  * Approach was too hand-wavey
-  * Everything seems simple at a distance (as you get detached from the work, everything seems simpler - managers)
-* Pattern recognition yields generic advice - trust the people who are closest to the work to make decisions regarding the work
-* Test doubles are like stunt doubles - a fake for a test
-  * If something runs in the cloud, fake out the cloud and test that
-  * sinon.js most popular test double library for JS
-* Learn about something, build tool, share with others, go back to learning
-  * testdouble.js
-      * works pretty well
-      * shares what we learned clearly
-      * better than being cynical and complaining
-* Not getting through? Tweak your message.
-* Not winning != not worthwhile
-* Open source - you create, then businesses come to depend on it, entitled developers, leads to sadness at entitlement - happiness inversely proportional to the popularity of their libraries
-  * Build something no business could ever want
-  * Designed own programming language: emoruby - 0 github issues
-* It's okay to build stuff for yourself / for fun!
-* Negative feelings are a symptom, not the problem - root cause analysis: reflect on your feels, accept those emotions as being valid. Then ideas will just come down, find a creative outlet for those ideas.
+--- 
 
-### Major Takeaways (TL;DR)
+## Aside: Auth0 for Angular
+
+Angular v4 was just released, the Angular CLI has a stable release, and Angular LTS was also announced. It's a great time to explore Angular for your single page JavaScript applications. Auth0 can help out by providing authentication, a JWT library, Quick Start documentation, and tutorials. Check out some of the following resources:
+
+* [JWT library for Angular](https://github.com/auth0/angular2-jwt)
+* [Angular 2+ Quick Start with Auth0](https://auth0.com/docs/quickstart/spa/angular2)
+* [Migrating an AngularJS App to Angular eBook](https://auth0.com/e-books/migrating-to-angular2)
+* [Managing State in Angular with ngrx/store](https://auth0.com/blog/managing-state-in-angular-with-ngrx-store/)
+* [Angular 2 Authentication Tutorial](https://auth0.com/blog/angular-2-authentication/)
+
+You can [sign up for a free Auth0 account here](javascript:signup\(\))!
 
 ---
 
 ## Conclusion
 
+Day 1 of ng-conf 2017 was packed with information and great sessions. Day 2 is a Fair Day, comprised of activities for entertainment and networking as well as dozens of workshops running simultaneously. Day 3 returns to single track sessions. 
 
+You can tune into the [ng-conf 2017 livestream here](https://www.ng-conf.org/livestream) as well as watch recorded streams from previous days.
 
 
 
