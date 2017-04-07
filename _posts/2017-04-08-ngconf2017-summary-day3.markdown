@@ -138,15 +138,15 @@ With the new router, we can lazy load easily. We can put the existing (legacy) A
 
 Emoji as a Service - EmotiNg.me: realtime voting app
 
-> _"Building real-time apps is now easy."_
+> _"Building realtime apps is now easy."_
 
-Real-time response behavior is becoming an expectation of users. For example, Dropbox and Slack have real-time syncing across mobile (native) and web apps.
+realtime response behavior is becoming an expectation of users. For example, Dropbox and Slack have realtime syncing across mobile (native) and web apps.
 
-Traditionally, building real-time apps has been really hard. Buildling real-time apps is now easy (ie., with Angular, NativeScript, Firebase). EmotiNg is both a web and native app.
+Traditionally, building realtime apps has been really hard. Buildling realtime apps is now easy (ie., with Angular, NativeScript, Firebase). EmotiNg is both a web and native app.
 
-EmotiNg uses NativeScript. With native, the sky's the limit, allowing you to build cross-platform with ease. The magic in the background is observables with the Firebase plugin so that data is watched in real-time. There are many community-sourced plugins that make the native experience smoother.
+EmotiNg uses NativeScript. With native, the sky's the limit, allowing you to build cross-platform with ease. The magic in the background is observables with the Firebase plugin so that data is watched in realtime. There are many community-sourced plugins that make the native experience smoother.
 
-Why web? We have the ability and technology to sync in real-time between a native app and a web app. AngularFire 2 from Firebase can be implemented in Angular and provides real-time binding. Kendo UI was then used to implement chart visualizations.
+Why web? We have the ability and technology to sync in realtime between a native app and a web app. AngularFire 2 from Firebase can be implemented in Angular and provides realtime binding. Kendo UI was then used to implement chart visualizations.
 
 ---
 
@@ -185,7 +185,7 @@ We can also style based on validation status. Classes are applied that mirror va
 
 The entire validation process can be visualized as streams like RxMarbles.
 
-Insert your own validation chain `.let()` operator: takes a function that takes an observable and returns an observable. Your application then completely control the order and timing of your validation. This allows low-level customizations if that's what you need, and in addition, opens the possibility for push updates for real-time validation.
+Insert your own validation chain `.let()` operator: takes a function that takes an observable and returns an observable. Your application then completely control the order and timing of your validation. This allows low-level customizations if that's what you need, and in addition, opens the possibility for push updates for realtime validation.
 
 ---
 
@@ -227,11 +227,11 @@ You can build a `record` to specify types of keys.
   
 AngularFire2 is the official library for Firebase and Angular. Angular is less magical and has a smaller footprint with tree-shaking. In other frameworks, complexity is often hidden way under the surface so it takes a lot of experience to increase the performance of your app.
 
-Firebase is Google's backend business service. Firebase has taken over most of Google's mobile and Java SDKs. Firebase has monolithic SDKs for iOS, Android, and the mobile web. The keystone of Firebase is its real-time database. The database streams any writes to all connected clients within a matter of milliseconds.
+Firebase is Google's backend business service. Firebase has taken over most of Google's mobile and Java SDKs. Firebase has monolithic SDKs for iOS, Android, and the mobile web. The keystone of Firebase is its realtime database. The database streams any writes to all connected clients within a matter of milliseconds.
 
 In AngularFire2, observables wrap callbacks and promises. This is a more Angular-style API. AngularFire2 uses observables throughout. Any data that changes will stream to you. 
 
-So what's the problem? Firebase JS SDK contains real-time database, authentication, cloud storage, cloud messaging, and undetermined features in the future. This results in a large package size containing things users may not necessarily be using.
+So what's the problem? Firebase JS SDK contains realtime database, authentication, cloud storage, cloud messaging, and undetermined features in the future. This results in a large package size containing things users may not necessarily be using.
 
 By using `@NgModule`, a 30% smaller package size was yielded. The Firebase JS SDK is already modular. During compilation, it can tree shake and unused modules can be left out. Package size is therefore reduced and we can increase functionality: less is more.
 
@@ -288,19 +288,95 @@ When pre-rendering, a promise of fully rendered HTML is returned. The AppServerM
 
 ## Packaging Angular Libraries
 
+Components are the cornerstone of Angular. Application developers would like to be able to `npm` install libraries, import components into their application module, and take advantage of AOT and tree shaking.
 
+### AOT Support
+
+When surveying existing libraries, it was discovered that not all of them support AOT compilation. The requirements for supporting AOT are:
+
+* Type definitions (`*.dts` files)
+* Metadata files (`*.metadata.json`: these come from the Angular compiler)
+
+### Basic Optimizations
+
+A strategy for optimization is to intelligently concatenate files into a single file to publish fewer ES modules. Rollup is the suggested tool to implement this. The result of running Rollup is a Flat ECMAScript Module (FESM). Finally, inline templates and styles are recommended.
+
+### Avoid a "Kitchen Sink" NgModule
+
+You should avoid re-exporting all components in NgModule. This completely breaks tree shaking, meaning the entire library is included in your bundle even if you only use one module. One NgModule per component is recommended to enable tree shaking.
+
+### Advanced Optimizations
+
+Closure Compiler is optimized for ES2015 sources. It's recommended to publish FESMs with ES5 as well as with ES2015.
 
 ---
 
 ## Firebase and Google Cloud Functions
 
+"Serverless" does not actually mean _no servers_. **Serverless** means abstracting all the server-ish concerns away from the developer (such as load balancing, networking, pubsub, etc.).
 
+Serverless is:
+
+* Fully managed: you don't have to think about servers
+* Only pay for what you use and no up front provisioning 
+* Scales up or down as necessary
+
+[Firebase](https://firebase.google.com/) is "Backend as a Service" (BaaS). Firebase is multiplatform and provides a realtime database with realtime synchronization and offline support to reconcile your requests from when you were disconnected. Firebase also handles authentication out of the box, including anonymous login, email and password, social, and existing auth system integration.
+
+Firebase Cloud Messaging is a no-cost cross-platform messaging solution using notifications to drive user interactions with versatile messaging targeting.
+
+If you need code that runs on the server and not in the client, this would traditionally be done with a server communicating with an API.
+
+### Serverless
+
+"Not-Yet-a-Service-as-a-Service" means that you're creating business logic as a service: [Google Cloud Functions](http://cloud.google.com/functions) can provide Functions as a Service (FaaS).
+
+Cloud events can trigger cloud functions. Cloud storage, Firebase database, analytics, and auth can also execute serverless functions. HTTP functions can also integrate with cloud functions, ie., Google Home, ITTT, etc.
+
+**Cold start** refers to the fact that because the cloud functions aren't running all the time, the first time, it may take a long time to run.
 
 ---
 
 ## Best Practices
 
+Stephen Fluin shared tips to reduce bundle size for faster applications.
 
+### 1. Measure your bundles
+
+The NPM package `source-map-explorer` will generate source map files in a build. You can then inspect your bundle. Looking at source maps gives you an understanding of what is filling up the bundle.
+
+### 2. Use Ahead of Time compilation
+
+Applications shipped to production need to use AOT. The compiler itself is more than twice the size of the rest of Angular. With AOT, ngFactory files are shipped instead of the compiler.
+
+### 3. Stay up to date
+
+You can take advantage of improvements to bundle size by simply staying up to date with Angular. Igor Minar manually assessed a bundle and detailed which items were too large. Then improvements were made to remove those items from the bundle. By keeping up to date, you can gain from all the newest improvements to the framework.
+
+### 4. Import carefully
+
+It's easy to take a bundle that was reasonable before and make it unreasonable by importing incorrectly. For example, importing RxJS bare (`import 'rxjs'`), you add every single feature and operator in RxJS. Selectively include the pieces you need. The same is true of Angular Material. Using the source map explorer, you can determine if there are better ways to import libraries. 
+
+> **Note:** Tree shaking will help long term, but in general the tools that we use every day aren't capable of doing this at this time. We do expect this to get better over time.
+
+### 5. Lazy load
+
+Lazy loading is very easy. You take a module of your application and all its dependencies and refer to the module in routes. 
+
+Recommendations:
+
+* Lazy load your home screen.
+* Lazy load your admin section.
+* Lazy load your content views.
+* Lazy load **everything**.
+
+If you lazy load every route, everything is taken out of the critical path, allowing deferral of extra processing and a fast load of the app shell. This way users only pay for the pieces of the app that they need.
+
+### 6. Polyfill responsibly
+
+Take a look at your userbase and their demographics and then go through the Angular CLI polyfill file and make adjustments as necessary. For example, `es6/reflect` and `es7/reflect` aren't necessary with AOT.
+
+[Check out the Angular styleguide here.](https:/angular.io/styleguide)
 
 ---
 
@@ -326,6 +402,8 @@ You can [sign up for a free Auth0 account here](javascript:signup\(\))!
 
 ## Conclusion
 
-Day 3 of ng-conf 2017 was packed with information and great sessions. Key points today covered the addition of Angular Universal into the core, real-time apps with Firebase, packaging, and more. Overall, ng-conf 2017 was a great experience with excellent sessions and plentiful opportunities to mingle and network with the speakers, organizers, and community.
+Day 3 of ng-conf 2017 was packed with information and great sessions. Key points today covered the addition of Angular Universal into the core, realtime apps with Firebase, packaging, and more. There were also lightning talks on accessibility, starting meetups, eliminating Bootstrap, avoiding JS fatigue by doing more with less, and the [ngGirls](https://github.com/ng-girls) initiative. Overall, ng-conf 2017 was a great experience with excellent sessions and plentiful opportunities to mingle and network with the speakers, organizers, and community.
+
+
 
 You can watch recorded streams from [ng-conf 2017 here](https://www.ng-conf.org/livestream).
