@@ -18,7 +18,7 @@ tags:
 - angular
 - javascript
 related:
-- 2017-04-05-ngconf2017-summary-day1
+- 2017-04-06-ngconf2017-summary-day1
 - 2017-03-07-managing-state-in-angular-with-ngrx-store
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 ---
