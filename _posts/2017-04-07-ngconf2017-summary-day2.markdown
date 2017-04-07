@@ -2,7 +2,7 @@
 layout: post
 title: "ng-conf 2017 Summary - Day 2 (Fair Day)"
 description: "Angular v4 has been released. Read about Fair Day from ng-conf 2017 (April 6) Day 2."
-date: 2017-04-08 8:30
+date: 2017-04-07 8:30
 category: Conference, Growth
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
