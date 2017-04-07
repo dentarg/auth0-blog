@@ -166,7 +166,7 @@ function removeButton() {
 An additional consideration for this has to do with references to inner or leaf nodes inside a DOM tree. Suppose you keep a reference to a specific cell of a table (a `<td>` tag) in your JavaScript code. At some point in the future you decide to remove the table from the DOM but keep the reference to that cell. Intuitively one may suppose the GC will collect everything but that cell. In practice this won't happen: the cell is a child node of that table and children keep references to their parents. In other words, the reference to the table cell from JavaScript code causes the whole table to stay in memory. Consider this carefully when keeping references to DOM elements.
 
 ### 4: Closures
-A key aspect of JavaScript development are closures: anonymous functions that capture variables from parent scopes. Meteor developers [found a particular case](http://info.meteor.com/blog/an-interesting-kind-of-javascript-memory-leak) in which due to implementation details of the JavaScript runtime, it is possible to leak memory in a subtle way:
+A key aspect of JavaScript development are closures: anonymous functions that capture variables from parent scopes. Meteor developers [found a particular case](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156) in which due to implementation details of the JavaScript runtime, it is possible to leak memory in a subtle way:
 
 ```javascript
 var theThing = null;
@@ -188,7 +188,7 @@ setInterval(replaceThing, 1000);
 
 This snippet does one thing: every time `replaceThing` is called, `theThing` gets a new object which contains a big array and a new closure (`someMethod`). At the same time, the variable `unused` holds a closure that has a reference to `originalThing` (`theThing` from the previous call to `replaceThing`). Already somewhat confusing, huh? The important thing is that once a scope is created for closures that are in the same parent scope, that scope is shared. In this case, the scope created for the closure `someMethod` is shared by `unused`. `unused` has a reference to `originalThing`. Even though `unused` is never used, `someMethod` can be used through `theThing`. And as `someMethod` shares the closure scope with `unused`, even though `unused` is never used, its reference to `originalThing` forces it to stay active (prevents its collection). When this snippet is run repeatedly a steady increase in memory usage can be observed. This does not get smaller when the GC runs. In essence, a linked list of closures is created (with its root in the form of the `theThing` variable), and each of these closures' scopes carries an indirect reference to the big array, resulting in a sizable leak.
 
-> This is an implementation artifact. A different implementation of closures that can handle this matter is conceivable, as explained in the [Meteor blog post](http://info.meteor.com/blog/an-interesting-kind-of-javascript-memory-leak).
+> This is an implementation artifact. A different implementation of closures that can handle this matter is conceivable, as explained in the [Meteor blog post](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156).
 
 ## Unintuitive behavior of Garbage Collectors
 Although Garbage Collectors are convenient they come with their own set of trade-offs. One of those trade-offs is *nondeterminism*. In other words, GCs are unpredictable. It is not usually possible to be certain when a collection will be performed. This means that in some cases more memory than is actually required by the program is being used. In other cases, short-pauses may be noticeable in particularly sensitive applications. Although nondeterminism means one cannot be certain when a collection will be performed, most GC implementations share the common pattern of doing collection passes during allocation. If no allocations are performed, most GCs stay at rest. Consider the following scenario:
@@ -307,7 +307,7 @@ The combination of these tools can help greatly in finding leaks. Play with them
 - [JScript Memory Leaks - Douglas Crockford (old, in relation to Internet Explorer 6 leaks)](http://javascript.crockford.com/memory/leak.html)
 - [JavaScript Memory Profiling - Chrome Developer Docs](https://developer.chrome.com/devtools/docs/javascript-memory-profiling)
 - [Memory Diagnosis - Google Developers](https://developers.google.com/web/tools/chrome-devtools/profile/memory-problems/memory-diagnosis)
-- [An Interesting Kind of JavaScript Memory Leak - Meteor blog](http://info.meteor.com/blog/an-interesting-kind-of-javascript-memory-leak)
+- [An Interesting Kind of JavaScript Memory Leak - Meteor blog](https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156)
 - [Grokking V8 closures](http://mrale.ph/blog/2012/09/23/grokking-v8-closures-for-fun.html)
 
 ## Conclusion
