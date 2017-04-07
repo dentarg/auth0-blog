@@ -29,7 +29,7 @@ related:
 
 ## ng-conf 2017
 
-**[ng-conf](https://ngconf.org)** is the flagship [Angular](https://angular.io) / [AngularJS](https://angularjs.org) conference in Salt Lake City, Utah. The conference typically features talks from Angular core team members as well as ancillary Angular projects (such as [Material](https://material.angular.io/) and [Protractor](http://www.protractortest.org)) and members of the community. The conference is primarily single track but does have a Fair Day of workshops and fun events in between the two main talk days. This year's ng-conf runs from April 4-6, 2017. I am attending **ng-conf 2017** in Salt Lake City and bringing you summaries of the sessions and activities each day of the conference.
+**[ng-conf](https://ngconf.org)** is the flagship [Angular](https://angular.io) / [AngularJS](https://angularjs.org) conference in Salt Lake City, Utah. The conference typically features talks from Angular core team members as well as ancillary Angular projects (such as [Material](https://material.angular.io/) and [Protractor](http://www.protractortest.org)) and members of the community. The conference is primarily single track but does have a Fair Day of workshops and fun events in between the two main talk days. This year's ng-conf runs from April 5-7, 2017. I am attending **ng-conf 2017** in Salt Lake City and bringing you summaries of the sessions and activities each day of the conference.
 
 This year's ng-conf opened with a theme of _empathy and inclusivity_. The code of conduct was reviewed and emphasized, as community is extremely important to Angular, its creators, and the developers who support and use it.
 
