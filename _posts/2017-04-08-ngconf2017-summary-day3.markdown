@@ -106,6 +106,8 @@ AMP Pages: new idea where Google has defined a very strict set of rules about wh
 * Authorization: who is allowed to see/do what
 * Angular guards apply the logic that decides if a visitor can see the component
 
+![Angular authentication and authorization with the router - stage play with Shai Reznik](https://cdn.auth0.com/blog/ngconf17/shai.jpg)
+
 ---
 
 ## Upgrading Enterprise Angular Apps
@@ -382,7 +384,39 @@ Take a look at your userbase and their demographics and then go through the Angu
 
 ## Angular Team Panel
 
+The conference concluded with an Angular team panel where the audience could ask questions. Here are some of the key points from this Q&A.
 
+![Angular core team panel](https://cdn.auth0.com/blog/ngconf17/angularteam.jpg)
+
+### What if you can't upgrade from AngularJS to Angular?
+
+If you _can't_ upgrade from AngularJS to Angular, don't be under the impression that you _need_ to upgrade. AngularJS will continue to be supported and if you don't have the time to do it, then you shouldn't feel that you need to. AngularJS is not going to go away. Backporting useful features should help to bring new patterns to AngularJS and the Angular team wants to make it easier and easier to upgrade.
+
+### NgModules and components
+
+There are two reasons for NgModules: they're used at the compiler level to understand dependencies. This is an organizational feature. There's a distinction between a component and a compiled component and the need for a registry between them goes away in TypeScript v2.3.
+
+### Getting involved in the Angular design process
+
+All the source code at Google is in a single repository. Self-driving cars are next to Gmail and Angular. Google has a build system that builds everything from sources. Everything is built from scratch for every developer. Changes can be made anywhere in the process. Changes in Angular affect all the Angular applications. This allows fast iteration.
+
+All design changes that impact Angular are planned thoroughly and thought through. Google has taken a few community members through this process, so reach out to be sent a design doc if you're interested in this.
+
+### Sass Variables in components
+
+From a build perspective, it's difficult to be able to overwrite Sass variables. In order to change these, you need to insert a dependency on a dependency. Most build tools don't have a way to do this. At Google, the Sass variables are fixed and people are expected to override the CSS. However, theming with global styles do work. In the future, this problem will get easier to solve once CSS native variables are supported cross-browser. That then makes this issue go away completely.
+
+### Enterprise app sample
+
+We will eventually get an enterprise app sample, but there is no scheduled date for this. Enterprise complex applications are certainly a use case that Angular values. However, the challenge with providing an example for this is that all enterprise applications are very different. If you're an enterprise application builder with the capability to open source an application to help with this, please reach out to the Angular team.
+
+### Contributing to Angular
+
+The best way to start contributing to Angular is to start with small fixes in the documentation, triaging issues, and performing code reviews on pull requests. This helps contributors learn about the Angular team's process and code, then people move on to fixing bugs. It's difficult for large, complex open source projects to accept feature requests. Look for the community hotlist label on issues in GitHub as well.
+
+### LTS for AngularJS?
+
+The Angular team wants to know what the community wants out of an LTS for AngularJS? Committing to an LTS for AngularJS potentially sends an incorrect message that AngularJS is done, which it isn't.
 
 ---
 
@@ -402,8 +436,6 @@ You can [sign up for a free Auth0 account here](javascript:signup\(\))!
 
 ## Conclusion
 
-Day 3 of ng-conf 2017 was packed with information and great sessions. Key points today covered the addition of Angular Universal into the core, realtime apps with Firebase, packaging, and more. There were also lightning talks on accessibility, starting meetups, eliminating Bootstrap, avoiding JS fatigue by doing more with less, and the [ngGirls](https://github.com/ng-girls) initiative. Overall, ng-conf 2017 was a great experience with excellent sessions and plentiful opportunities to mingle and network with the speakers, organizers, and community.
-
-
+Day 3 of ng-conf 2017 was packed with information and great sessions. Key points today covered the addition of Angular Universal into the core, realtime apps with Firebase, NgModules, packaging, and more. There were also lightning talks on accessibility, starting meetups, eliminating Bootstrap, avoiding JS fatigue by doing more with less, and the [ngGirls](https://github.com/ng-girls) initiative. Overall, ng-conf 2017 was a great experience with excellent sessions and plentiful opportunities to mingle and network with the speakers, organizers, and community.
 
 You can watch recorded streams from [ng-conf 2017 here](https://www.ng-conf.org/livestream).
