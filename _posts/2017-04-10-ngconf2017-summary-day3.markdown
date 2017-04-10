@@ -3,7 +3,7 @@ layout: post
 title: "ng-conf 2017 Summary - Day 3"
 description: "Angular v4, realtime, rendering on the server, best practices, and more. Read about the sessions from ng-conf 2017 (April 7) Day 3."
 date: 2017-04-10 8:30
-category: Conference, Growth
+category: Technical Guide, Conferences, Angular
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
@@ -18,7 +18,7 @@ tags:
 - angular
 - javascript
 related:
-- 2017-04-05-ngconf2017-summary-day1
+- 2017-04-06-ngconf2017-summary-day1
 - 2017-04-07-ngconf2017-summary-day2
 ---
 
