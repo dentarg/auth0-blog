@@ -40,60 +40,67 @@ twitter: #ngmovie
   
 ### Major Takeaways (TL;DR)
 
-* 
+* Almost 200 Google apps are built with Angular.
+* Google's internal process does not mirror the community's because Google has much more stringent rules regarding tooling and language use.
+* The Angular team got TypeScript approved for use at Google, a process that took 2 years.
+* Performance on mobile is extremely important and Angular platform-server (formerly Angular Universal) helps to solve this.
 
 ### Full Summary
 
-> _"The business of Google actually runs on Angular."_ --Brad Green
+> _"The business of Google actually runs on Angular."_ —Brad Green
 
-* Product approval, hiring, promotions, payroll, bug filing apps are all written in Angular (almost 200 of these apps)
-* Automatic Closure to TypeScript - Google has been doing typed JS for over a decade
-* Built some courses to help developers learn Angular - 59 software engineers at Google volunteered to teach these courses
-* Public-facing apps are also written in Angular: Cloud Platform, Google Analytics, etc.
-* opensource.google.com shows all projects that are open-sourced at Google
+At Google, internal apps for product approval, hiring, promotions, payroll, bug filing, and more are all written in Angular. All total, there are almost 200 of these apps. Google uses automatic Closure to TypeScript and has been doing typed JS for over a decade. Google has built courses to help developers learn Angular and 59 software engineers at Google volunteered to teach these courses. Google also has public-facing apps that are written in Angular, including Cloud Platform, Google Analytics, and more.
 
-Why open source?
+When Google didn't open source their software, many people copied and rebuilt it in the open source space. [Open sourcing](https://opensource.google.com/) lets Google receives credit, community tools like linters, training offered by the community, less ramp-up when hiring, and quality benefits from seeing diverse use cases from outside of Google.
 
-When Google didn't open source their software, people copy / rebuild it in the open source space. Open sourcing lets Google receives credit, community tools like linters, training offered by the community, less ramp-up when hiring, quality benefits from seeing diverse use cases from outside of Google.
+Google is allowed to use a certain set of canonical languages. Closure-style JavaScript uses types in comments ([Closure](https://developers.google.com/closure/) is open-source). The Google team collaborated with Microsoft to contribute to TypeScript: this was a wonderful solution on the outside, but couldn't be used on projects inside Google. Google has a language approval process that includes the following steps:
 
-Google is allowed to use a certain set of canonical languages. Closure-style JavaScript uses types in comments (Closure is open-source). The Google team collaborated with Microsoft to contribute to TypeScript: this was a wonderful solution on the outside but couldn't be used on projects inside Google. Google has a language approval process: apply, fulfill checklist, prove that the new language had benefits over and above the existing languages, committee, approval. Nobody had ever done this before. Google had to go through this process (it took 2 years) to add TypeScript to the languages approved at Google.
+1. Apply
+2. Fulfill checklist
+3. Prove that the new language had benefits over and above the existing languages
+4. Committee
+5. Approval
 
-TypeScript benefits:
+Nobody had ever actually done this before. Google had to go through this process (it took 2 years!) to add TypeScript to the languages approved at Google.
 
-* inline types (easier to read / write)
-* fast recompile
-* decorators
-* built tooling so that it could be Closure compatible
+The benefits of TypeScript are:
+
+* Inline types (easier to read / write)
+* Fast recompile
+* Decorators
+* Built tooling so that it could be Closure compatible
 * IDE support
-* automatic build files
-* automated conversion to make it easier to migrate Closure to TS
-* vibrant community outside of Google
+* Automatic build files
+* Automated conversion to make it easier to migrate Closure to TS
+* A vibrant community outside of Google
 
-Google still can't use the Angular CLI. Google has their own build tools: Blaze and Closure (open source version of Blaze is called [Bazel](http://bazel.build).
+Google still can't use the Angular CLI. Google has their own build tools: Blaze and Closure. Currently there is an open source version of Blaze called [Bazel](http://bazel.build).
 
-Project inside Angular team called ABC: Angular with Bazel and Closure. Google is going to start doing this on the Angular core and then move it to Angular Material and then early adopters to address big scale. 
+There is a project inside the Angular team called ABC: Angular with Bazel and Closure. Google is going to start implementing this on the Angular core and then move it to Angular Material and then early adopters to address big scale. 
 
 Google is trying to move the outside world and the way things are done within Google closer together.
 
-### The Angular Platform
+> _"**Platform**: a raised level surface on which people or things can stand. / a declared policy of a group."_
 
-> _"Platform: a raised level surface on which people or things can stand. / A declared policy of a group."_
+The Angular team is trying to build "apps that people love to use". But how do we measure love?
 
-"Apps that people love to use" How do we measure love?
+Rob Wormald discussed some statistics: 
 
-53% of mobile visits are abandoned if it takes more than 3 seconds to lead. 1 out of 2 people expect a page to load in less than 2 seconds. 77% of mobile sites longer than 10 seconds to load. Average mobile site takes 19s to load on a 3G connection.
+* 53% of mobile visits are abandoned if it takes more than 3 seconds to lead.
+* 1 out of 2 people expect a page to load in less than 2 seconds.
+* 77% of mobile sites longer than 10 seconds to load.
+* The average mobile site takes 19 seconds to load on a 3G connection.
+* Sites that are interactive in 5 seconds or less see longer average sessions, lower bounce rates, and higher ad viewability.
 
-Sites that are interactive in 5 seconds or less see longer average sessions, lower bounce rates, higher ad viewability.
+> _"The whole point of frameworks should be to make delivering great things easier."_ —Rob Wormald
 
-> _"The whole point of frameworks should be to make delivering great things easier."_
+The team's primary focus when starting with Angular was to have interactive apps that are fast and reliable on mobile. However, there are other use cases that weren't considered as much, such as content-first sites (such as blogs). The question arose: what if we could use Angular to manage our entire web presence?
 
-Primary focus when starting with Angular was to have interactive apps that are fast and reliable on mobile. However, there are other use cases that weren't considered as much: content-first sites. What if we could use Angular to manage our entire web presence? 
-
-This resulted in `@angular/platform-server` (formerly Angular Universal). Interactive apps faster with app shell is a broadly applicable use case: everyone wants faster apps. We can render the app shell on the server at build time. Transitioning between the server and client is difficult, and Angular wants to make it as easy as possible to link the two. The app shell might consist of the header, menu, footer, sidebar, so the user gets to see the outer container without waiting. The app shell with the service worker takes this further so that instead of going out to the network, it's installed on your device.
+This resulted in `@angular/platform-server` (formerly Angular Universal). Interactive apps that load more swiftly with an app shell is a broadly applicable use case: everyone wants faster apps. We can render the app shell on the server at build time. Transitioning between the server and client is difficult, and Angular wants to make it as easy as possible to link the two. The app shell might consist of the header, menu, footer, sidebar, so the user gets to see the outer container without waiting. The app shell with the service worker takes this further so that instead of going out to the network, it's installed on your device.
 
 Angular's router works the exact same on the server as it does on the client. This means we can pre-render pages on the server: this is good for mixed content sites with static sections and interactive sections.
 
-AMP Pages: new idea where Google has defined a very strict set of rules about what you can do on a website to promote a superior experience (no interactivity, no third-party JavaScript, etc). If you adhere to these rules, you can show up in the Google carousel in search results. Rob then discussed the idea of combining AMP + Progressive Web Apps (service workers are allowed with AMP).
+Rob talked about Google Accelerated Mobile Pages (AMP) are a new idea where Google has defined a very strict set of rules about what you can do on a website to promote a superior experience. This includes no interactivity, no third-party JavaScript, etc. If you adhere to these rules, you can show up in the Google carousel in search results. Rob then discussed the idea of combining AMP + Progressive Web Apps, since service workers _are_ allowed with AMP.
 
 ---
 
@@ -438,4 +445,4 @@ You can [sign up for a free Auth0 account here](javascript:signup\(\))!
 
 Day 3 of ng-conf 2017 was packed with information and great sessions. Key points today covered the addition of Angular Universal into the core, realtime apps with Firebase, NgModules, packaging, and more. There were also lightning talks on accessibility, starting meetups, eliminating Bootstrap, avoiding JS fatigue by doing more with less, and the [ngGirls](https://github.com/ng-girls) initiative. Overall, ng-conf 2017 was a great experience with excellent sessions and plentiful opportunities to mingle and network with the speakers, organizers, and community.
 
-You can watch recorded streams from [ng-conf 2017 here](https://www.ng-conf.org/livestream).
+You can watch recorded streams from [ng-conf 2017 here](https://www.ng-conf.org/livestream). Individual talk videos are also available on the [ng-conf 2017 YouTube playlist](https://www.youtube.com/watch?v=0BikjL858OQ&list=PLOETEcp3DkCoS_2cW205cfRGl-Xp5jw4K).
