@@ -106,34 +106,39 @@ Rob talked about Google Accelerated Mobile Pages (AMP) are a new idea where Goog
 
 ## Angular Router: Authentication & Authorization
 
-* Goal: Learn to secure your components: it's more about the process.
-* Control access: who can see which component and what can he or she do?
-* Caveat: this is purely cosmetic, security should also be done on the server side!
+Shai Reznik had volunteers enact a stage play that he directed on the topic of authentication and authorization with the goal of learning the process of securing your components.
+
+> **Caveat**: routing with authentication and authorization is purely cosmetic; security should also be done on the server side!
+
+The main topics were:
+
 * Authentication: verifying identity
-* Authorization: who is allowed to see/do what
+* Authorization: who is allowed to see and do what
 * Angular guards apply the logic that decides if a visitor can see the component
 
 ![Angular authentication and authorization with the router - stage play with Shai Reznik](https://cdn.auth0.com/blog/ngconf17/shai.jpg)
+
+To see the full stage play, view [the ng-conf 2017 livestream segment here](https://youtu.be/EzRZOoRXNUM?t=55m30s).
 
 ---
 
 ## Upgrading Enterprise Angular Apps
 
-* Enterprise apps often need to be upgraded gradually step-by-step / component-by-component
-* NgUpgrade - bootstraps an AngularJS application in a specific way so that the AngularJS injector sees the Angular injector so the two can live alongside each other: bootstrap the AngularJS app from the Angular app.
-* Upgrade shell strategy: take existing AngularJS app and upgrade the root component
+Victor Savkin talked about methodologies for upgrading enterprise Angular apps:
 
-### Vertical Slicing upgrade strategy
+Enterprise apps often need to be upgraded gradually step-by-step / component-by-component. [NgUpgrade](https://angular.io/docs/ts/latest/guide/upgrade.html#!#upgrading-with-the-upgrade-module) bootstraps an AngularJS application in a specific way so that the AngularJS injector sees the Angular injector so the two can live alongside each other. This allows you to bootstrap the AngularJS app from the Angular app. Finally, there is an upgrade shell strategy which involves taking an existing AngularJS app and upgrading the root component.
 
-Often it's not feasible to upgrade the whole app, but we can do it route by route or feature by feature. You only have to deal with one version of Angular at a time: each screen is either fully AngularJS or fully Angular. This is easy to debug and understand, it encapsulates migration, and is fast, but can have code duplication and is coarse-grained.
+### Vertical Slicing Upgrade Strategy
 
-### Horizontal Slicing upgrade strategy (bottom-up)
+Often it's not feasible to upgrade the whole app, but we can do it route by route or feature by feature. This way, you only have to deal with one version of Angular at a time: each screen is either fully AngularJS or fully Angular. This is easy to debug and understand, it encapsulates migration, and is fast, but can have code duplication and is coarse-grained.
+
+### Horizontal Slicing Upgrade Strategy (bottom-up)
 
 In this strategy, you upgrade child components first, then upgrade the components that use those components, etc. If you open any screen, you'll be viewing with both versions of the framework at the same time. This is easy to get started with and doesn't have code duplication, but is harder to debug and understand, coordinate with multiple teams, hinders refactoring, and hinders performance.
 
 ### Managing URL
 
-URL is a global, mutable object that the user can interact with directly, making management difficult during a gradual migration. With single ownership of routes, sibling outlets can be used to manage this: the AngularJS `ng-view` and Angular `router-outlet` would both be present, but only one is active at a time. With mixed ownership, one part of the URL is managed by AngularJS and the other is managed by Angular. We can manage that by writing a custom URL handling strategy and extracting and merging URLs. 
+URL is a global, mutable object that the user can interact with directly, making management difficult during a gradual migration. With single ownership of routes, sibling outlets can be used to manage this: the AngularJS `ng-view` and Angular `router-outlet` would both be present, but only one is active at a time. With mixed ownership, one part of the URL is managed by AngularJS and the other is managed by Angular. We can control this by writing a custom URL handling strategy and extracting and merging URLs. 
 
 > **Note:** These same principles apply to state management.
 
@@ -143,48 +148,48 @@ With the new router, we can lazy load easily. We can put the existing (legacy) A
 
 ---
 
-## Building EmotiNg
+## Angular with NativeScript and Firebase
 
-Emoji as a Service - EmotiNg.me: realtime voting app
+Jen Looper, Tara Manicsic, and TJ Vanoll talked about building a realtime voting app providing "Emoji as a Service" called [EmotiNg](https://emoting.me/).
 
 > _"Building realtime apps is now easy."_
 
-realtime response behavior is becoming an expectation of users. For example, Dropbox and Slack have realtime syncing across mobile (native) and web apps.
-
-Traditionally, building realtime apps has been really hard. Buildling realtime apps is now easy (ie., with Angular, NativeScript, Firebase). EmotiNg is both a web and native app.
+Realtime response behavior is becoming an expectation of users. For example, Dropbox and Slack have realtime syncing across mobile (native) and web apps. Traditionally, building realtime apps has been really hard. This is now much easier, ie. with Angular, [NativeScript](https://www.nativescript.org/), [Firebase](https://firebase.google.com/). EmotiNg is both a web and native app.
 
 EmotiNg uses NativeScript. With native, the sky's the limit, allowing you to build cross-platform with ease. The magic in the background is observables with the Firebase plugin so that data is watched in realtime. There are many community-sourced plugins that make the native experience smoother.
 
-Why web? We have the ability and technology to sync in realtime between a native app and a web app. AngularFire 2 from Firebase can be implemented in Angular and provides realtime binding. Kendo UI was then used to implement chart visualizations.
+### Why web?
+
+We have the ability and technology to sync in realtime between a native app and a web app. AngularFire 2 from Firebase can be implemented in Angular and provides realtime binding. Kendo UI was then used to implement chart visualizations. Check out the [full presentation and EmotiNg demo here](https://www.youtube.com/watch?v=j2S5OrMUj9g).
 
 ---
 
 ## Language Service
 
-Language service can be installed as an extension in common IDEs. Autocompletion and code help is provided as you would expect in any language intelligence. TypeScript version 2.3 has a language service plugin.
+The Angular Language Service can be installed as an extension in common IDEs. Autocompletion and code help is provided as you would expect in any language intelligence. TypeScript version 2.3 has a Language Service plugin.
 
 ### How does the language service work?
 
-The editor starts a separate process to do an RPC and any changes you make to the file are sent across to the RPC. Any resulting completion or diagnostic messages come back across the RPC. The problem right now is that there is also a separate process doing the same thing for TypeScript, maintaining almost all of the same information. With 2.3, Angular language service will run as a plugin for TypeScript and only one process will be run.
+The editor starts a separate process to do a remote procedure call (RPC) and any changes you make to the file are sent across to the RPC. Any resulting completion or diagnostic messages come back across the RPC. The problem right now is that there is also a separate process doing the same thing for TypeScript, maintaining almost all of the same information. With 2.3, Angular Language Service will run as a plugin for TypeScript and only one process will be run.
 
-Language service completion workflow takes the HTML AST and the template AST and assesses the meaning of each element and associated components. It can then assess where the cursor is located within the template AST. From this, it asks, what can be a child of this and offers a completion list of options. If the cursor is in an interpolation expression, the template parser has to get involved. The expression AST is generated by the compiler and the language service inserts what's missing and then determines what could potentially be there. TypeScript language service then gets involved to determine the list of possible members to autocomplete.
+Language Service completion workflow takes the HTML AST (Abstract Syntax Tree) and the template AST and assesses the meaning of each element and associated components. It can then assess where the cursor is located within the template AST. From this, it asks what can be a child of this and offers a completion list of options. If the cursor is in an interpolation expression, the template parser has to get involved. The expression AST is generated by the compiler and the language service inserts what's missing and then determines what could potentially be there. TypeScript Language Service then gets involved to determine the list of possible members to autocomplete.
 
-Rolling your own editor integration was also briefly discussed. The language service host interface would need to be implemented to create an extension for your editor of choice. If you already have an integration for TypeScript, you can use a TypeScript host and therein create an Angular language service host.
+Rolling your own editor integration was also briefly discussed. The Language Service host interface would need to be implemented to create an extension for your editor of choice. If you already have an integration for TypeScript, you can use a TypeScript host and therein create an Angular Language Service host.
 
-In the future, the language service wants to:
+In the future, the Language Service wants to:
 
-* unify architecture with TypeScript
-* find all references
-* refactor/rename
-* quick fixes
-* improved diagnostics
-* add support in more editors
+* Unify architecture with TypeScript
+* Be able to find all references
+* Refactor/rename
+* Implement quick fixes
+* Provide improved diagnostics
+* Add support in more editors
 
 ---
 
 ## Form Validation
   
-For every form element in the DOM, there's a corresponding form control object. Validators are just functions that take a form control instance to return validation errors or null. Angular allows you to build your own custom validators. When composing multiple validators, it's helpful to return error maps rather than a simple boolean.
+For every form element in the DOM, there's a corresponding form control object. Validators are just functions that take a form control instance to return validation errors or `null`. Angular allows you to build your own custom validators. When composing multiple validators, it's helpful to return error maps rather than a simple boolean.
 
 In some cases, you have server validation. Async validators can handle this and are simply functions that return an observable from a request. Observables need to be completed (`http.get` does this for you).
 
@@ -192,15 +197,15 @@ We can also style based on validation status. Classes are applied that mirror va
 
 ### Upcoming Features
 
-The entire validation process can be visualized as streams like RxMarbles.
+The entire validation process can be visualized as streams like [RxMarbles](http://rxmarbles.com/).
 
-Insert your own validation chain `.let()` operator: takes a function that takes an observable and returns an observable. Your application then completely control the order and timing of your validation. This allows low-level customizations if that's what you need, and in addition, opens the possibility for push updates for realtime validation.
+You can insert your own validation chain `.let()` operator, which takes a function that takes an observable and returns an observable. Your application then completely controls the order and timing of your validation. This allows low-level customizations if that's what you need, and in addition, opens the possibility for push updates for realtime validation.
 
 ---
 
 ## TypeScript II - Functional Programming
 
-Strategy guide to functional programming in TypeScript.
+Sean May presented a strategy guide to functional programming in TypeScript.
 
 ### Basics
 
@@ -212,37 +217,31 @@ Being explicit is not always a great thing with type-checking and TypeScript. Th
 
 ### Combine functions as a pipeline for data
 
-Referential transparency means that a function call can be replaced by a value represented by its return. Compose lets you simplify this: `const compose = (g, f) => (x) => g(f(x));` Compose takes three generic arguments and returns a transformed function. We can compose composed functions; this is just input and output and TypeScript will be happy with it.
+Referential transparency means that a function call can be replaced by a value represented by its return. You can simplify this with `compose`, ie.: `const compose = (g, f) => (x) => g(f(x));` Compose takes three generic arguments and returns a transformed function. We can compose composed functions; this is just input and output and TypeScript will be happy with it.
 
 > **Note:** Mapping is not about loops at all: it's about going from type A to type B.
 
 This becomes easy to reason about, with practice. Data flow is predictable. It's easy to add or change links in the chain and easy to compose functions in a chain. If each link is pure, the whole chain is pure and it's testable.
 
-### Readonly
-
-`Readonly` is a useful type that is an interface which will take in whatever generic you pass to it and it will tell the compiler that all members of that type are read-only.
-
-### Pick
-
-`Pick` picks a subset of an object with the types intact. 
-
-### Record
-
-You can build a `record` to specify types of keys.
+* `Readonly` is a useful type that is an interface which will take in whatever generic you pass to it and it will tell the compiler that all members of that type are read-only.
+* `Pick` picks a subset of an object with the types intact.
+* You can build a `record` to specify types of keys.
 
 ---
 
 ## Reducing Package Size and Complexity with NgModule
   
-AngularFire2 is the official library for Firebase and Angular. Angular is less magical and has a smaller footprint with tree-shaking. In other frameworks, complexity is often hidden way under the surface so it takes a lot of experience to increase the performance of your app.
+[AngularFire2](https://github.com/angular/angularfire2) is the official Angular library for Firebase. Compared to AngularJS, Angular is less magical and has a smaller footprint with tree shaking. In other frameworks, complexity is often hidden way under the surface so it takes a lot of experience to increase the performance of your app.
 
-Firebase is Google's backend business service. Firebase has taken over most of Google's mobile and Java SDKs. Firebase has monolithic SDKs for iOS, Android, and the mobile web. The keystone of Firebase is its realtime database. The database streams any writes to all connected clients within a matter of milliseconds.
+[Firebase](https://firebase.google.com/) is Google's backend business service. Firebase has taken over most of Google's mobile and Java SDKs. Firebase has monolithic SDKs for iOS, Android, and the mobile web. The keystone of Firebase is its realtime database. The database streams any writes to all connected clients within a matter of milliseconds.
 
 In AngularFire2, observables wrap callbacks and promises. This is a more Angular-style API. AngularFire2 uses observables throughout. Any data that changes will stream to you. 
 
-So what's the problem? Firebase JS SDK contains realtime database, authentication, cloud storage, cloud messaging, and undetermined features in the future. This results in a large package size containing things users may not necessarily be using.
+### So what's the problem?
 
-By using `@NgModule`, a 30% smaller package size was yielded. The Firebase JS SDK is already modular. During compilation, it can tree shake and unused modules can be left out. Package size is therefore reduced and we can increase functionality: less is more.
+Firebase JS SDK contains realtime database, authentication, cloud storage, cloud messaging, and undetermined features in the future. This results in a large package size containing things users may not necessarily be using.
+
+By using `@NgModule`, package size was reduced to 30% of what it used to be. The Firebase JS SDK is already modular. During compilation, it can tree shake and unused modules can be left out. Package size is therefore reduced and we can increase functionality: less is more.
 
 In addition to NgModule, other steps can be taken to reduce package size. Firebase is proposing taking authentication and just returning an observable. If package size and complexity are reduced, more Angular-specific behavior can be introduced, such as route guards, lazy loading, and universal support.
 
@@ -252,7 +251,7 @@ In addition to NgModule, other steps can be taken to reduce package size. Fireba
   
 Many projects are big apps maintained by small teams and they don't have the time or resources to re-develop AngularJS apps in Angular.
 
-ngUpgrade allows you run AngularJS and Angular at the same time in a hybrid application. In a hybrid app, each element is owned by _either_ AngularJS or Angular.
+NgUpgrade allows you run AngularJS and Angular at the same time in a hybrid application. In a hybrid app, each element is owned by _either_ AngularJS or Angular.
 
 1. **Bootstrap a hybrid app**: two frameworks running side by side with injectors that know about each other.
 2. **Downgrading components**: "downgrade" means to make an Angular component or service available to AngularJS. Downgrade components and use them in AngularJS HTML templates. Syntax and structural directives still need to be in AngularJS.
@@ -266,9 +265,9 @@ ngUpgrade allows you run AngularJS and Angular at the same time in a hybrid appl
 
 ---
 
-## Angular Pre-Rendering (Universal rendering)
+## Angular Pre-Rendering (universal rendering)
 
-**Pre-rendering** refers to rendering an Angular application in whole or in part before sending HTML to the browser. Universal has graduated into a first-class part of Angular and has been brought into core.
+**Pre-rendering** refers to rendering an Angular application in whole or in part before sending HTML to the browser. Angular Universal has graduated into a first-class part of Angular and has been brought into core as `platform-server`.
 
 ### Why pre-render?
 
@@ -278,26 +277,24 @@ If we have a blog, some of our priorities might be:
 * Scrapeable
 * Crawlable
 
-AOT and lazy loading make Angular load pretty quickly, but there's improvement between HTML loading and Angular bootstrapping. Key metrics are time to first meaningful paint and time to interactive. With standard Angular CLI, first meaningful paint and interactive are both only available after HTML has loaded and bootstrapping is completed. With pre-render, first meaningful paint is after HTML is loaded and interactive is after bootstrapping.
+Ahead of Time (AOT) and lazy loading make Angular load pretty quickly, but there's improvement to be had between HTML loading and Angular bootstrapping. Key metrics are "time to first meaningful paint" and "time to interactive". With the standard Angular CLI, first meaningful paint and interactive are both only available after HTML has loaded _and_ bootstrapping is completed. With pre-render, first meaningful paint is after HTML is loaded and interactive is after bootstrapping.
 
-Social scrapers prefer specific meta tags, canonical URLs, etc.
-
-Search engine crawlers want to see a page title, meta description, and canonical URLs. They also look at page content. Crawlers will execute JavaScript, but pre-rendering is still recommended.
+Another consideration is that social scrapers prefer specific meta tags, canonical URLs, etc. Search engine crawlers want to see a page title, meta description, and canonical URLs. They also look at page content. Crawlers will execute JavaScript, but pre-rendering is still recommended.
 
 ### Pre-rendering in Angular 4.x
 
-When pre-rendering, a promise of fully rendered HTML is returned. The AppServerModule brings in the app module and server module. The server module overrides platform-specific features.
+When pre-rendering, a promise of fully rendered HTML is returned. The `AppServerModule` brings in the app module and server module. The server module overrides platform-specific features.
 
-* Render: applications can be partially or fully rendered at build time or request time.
-* Serve: ideally you've already got a page rendered and just need to kick it back to the browser.
-* Bootstrap and swap: pre-rendered document is served and partial content is present and when finished bootstrapping, a dynamic element replaces placeholder.
-* Record and replay: pre-rendered page is just HTML and CSS and JS starts loading. If a user interacts, you can either only load items that can't be interacted with, or you can record and replay interactions, ie., with preboot.js. This should be used sparingly and consciously.
+* **Render**: applications can be partially or fully rendered at build time or request time.
+* **Serve**: ideally you've already got a page rendered and just need to kick it back to the browser.
+* **Bootstrap and swap**: pre-rendered document is served and partial content is present. When finished bootstrapping, a dynamic element replaces a static placeholder.
+* **Record and replay**: the pre-rendered page is just HTML and CSS, and JS starts loading. If a user interacts, you can either only load items that can't be interacted with, or you can record and replay interactions, ie., with the [preboot library](https://github.com/angular/preboot). This should be used sparingly and consciously.
 
 ---
 
 ## Packaging Angular Libraries
 
-Components are the cornerstone of Angular. Application developers would like to be able to `npm` install libraries, import components into their application module, and take advantage of AOT and tree shaking.
+Components are the cornerstone of Angular. Application developers would like to be able to `npm` install libraries, import components into their application module, and take advantage of Ahead of Time compilation (AOT) and tree shaking.
 
 ### AOT Support
 
@@ -308,7 +305,7 @@ When surveying existing libraries, it was discovered that not all of them suppor
 
 ### Basic Optimizations
 
-A strategy for optimization is to intelligently concatenate files into a single file to publish fewer ES modules. Rollup is the suggested tool to implement this. The result of running Rollup is a Flat ECMAScript Module (FESM). Finally, inline templates and styles are recommended.
+A strategy for optimization is to intelligently concatenate files into a single file to publish fewer ES modules. [Rollup](https://rollupjs.org/) is the suggested tool to implement this. The result of running Rollup is a Flat ECMAScript Module (FESM). Finally, inline templates and styles are recommended.
 
 ### Avoid a "Kitchen Sink" NgModule
 
@@ -332,7 +329,7 @@ Serverless is:
 
 [Firebase](https://firebase.google.com/) is "Backend as a Service" (BaaS). Firebase is multiplatform and provides a realtime database with realtime synchronization and offline support to reconcile your requests from when you were disconnected. Firebase also handles authentication out of the box, including anonymous login, email and password, social, and existing auth system integration.
 
-Firebase Cloud Messaging is a no-cost cross-platform messaging solution using notifications to drive user interactions with versatile messaging targeting.
+[Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/) is a no-cost cross-platform messaging solution using notifications to drive user interactions with versatile messaging targeting.
 
 If you need code that runs on the server and not in the client, this would traditionally be done with a server communicating with an API.
 
@@ -340,9 +337,9 @@ If you need code that runs on the server and not in the client, this would tradi
 
 "Not-Yet-a-Service-as-a-Service" means that you're creating business logic as a service: [Google Cloud Functions](http://cloud.google.com/functions) can provide Functions as a Service (FaaS).
 
-Cloud events can trigger cloud functions. Cloud storage, Firebase database, analytics, and auth can also execute serverless functions. HTTP functions can also integrate with cloud functions, ie., Google Home, ITTT, etc.
+Cloud events can trigger cloud functions. Cloud storage, Firebase database, analytics, and auth can also execute serverless functions. HTTP functions can integrate with cloud functions, ie., Google Home, If This Then That, etc.
 
-**Cold start** refers to the fact that because the cloud functions aren't running all the time, the first time, it may take a long time to run.
+**Cold start** refers to the fact that because the cloud functions aren't running all the time, the first time, it may take a significant amount of time to run.
 
 ---
 
@@ -352,11 +349,11 @@ Stephen Fluin shared tips to reduce bundle size for faster applications.
 
 ### 1. Measure your bundles
 
-The NPM package `source-map-explorer` will generate source map files in a build. You can then inspect your bundle. Looking at source maps gives you an understanding of what is filling up the bundle.
+The NPM package [`source-map-explorer`](https://www.npmjs.com/package/source-map-explorer) will generate source map files in a build. You can then inspect your bundle. Looking at source maps gives you an understanding of what is filling up the bundle.
 
-### 2. Use Ahead of Time compilation
+### 2. Use Ahead of Time (AOT) compilation
 
-Applications shipped to production need to use AOT. The compiler itself is more than twice the size of the rest of Angular. With AOT, ngFactory files are shipped instead of the compiler.
+Applications shipped to production need to use AOT. The compiler itself is more than twice the size of the rest of Angular. With AOT, `ngFactory` files are shipped _instead_ of the compiler.
 
 ### 3. Stay up to date
 
@@ -364,9 +361,9 @@ You can take advantage of improvements to bundle size by simply staying up to da
 
 ### 4. Import carefully
 
-It's easy to take a bundle that was reasonable before and make it unreasonable by importing incorrectly. For example, importing RxJS bare (`import 'rxjs'`), you add every single feature and operator in RxJS. Selectively include the pieces you need. The same is true of Angular Material. Using the source map explorer, you can determine if there are better ways to import libraries. 
+It's easy to take a bundle that was reasonable before and make it unreasonable by importing incorrectly. For example, importing RxJS bare (`import 'rxjs'`), you add every single feature and operator in RxJS. Instead, selectively include the pieces you need. The same is true of Angular Material. Using the source map explorer, you can determine if there are better ways to import libraries. 
 
-> **Note:** Tree shaking will help long term, but in general the tools that we use every day aren't capable of doing this at this time. We do expect this to get better over time.
+> **Note:** Tree shaking will help long term, but in general the tools that we use every day aren't capable of doing this at this time. We do expect this to get better in the future.
 
 ### 5. Lazy load
 
@@ -385,45 +382,45 @@ If you lazy load every route, everything is taken out of the critical path, allo
 
 Take a look at your userbase and their demographics and then go through the Angular CLI polyfill file and make adjustments as necessary. For example, `es6/reflect` and `es7/reflect` aren't necessary with AOT.
 
-[Check out the Angular styleguide here.](https:/angular.io/styleguide)
+[For more best practices, check out the Angular styleguide here.](https:/angular.io/styleguide)
 
 ---
 
 ## Angular Team Panel
 
-The conference concluded with an Angular team panel where the audience could ask questions. Here are some of the key points from this Q&A.
+The conference concluded with an Angular core team panel where the audience could ask questions. Here are some key takeaways from this Q&A session.
 
 ![Angular core team panel](https://cdn.auth0.com/blog/ngconf17/angularteam.jpg)
 
 ### What if you can't upgrade from AngularJS to Angular?
 
-If you _can't_ upgrade from AngularJS to Angular, don't be under the impression that you _need_ to upgrade. AngularJS will continue to be supported and if you don't have the time to do it, then you shouldn't feel that you need to. AngularJS is not going to go away. Backporting useful features should help to bring new patterns to AngularJS and the Angular team wants to make it easier and easier to upgrade.
+If you _can't_ upgrade from AngularJS to Angular, don't be under the impression that you _need_ to upgrade. AngularJS will continue to be supported and if you don't have the time to upgrade to Angular, then you shouldn't feel that you need to. AngularJS is not going to go away. Backporting useful features should help to bring new patterns to AngularJS and the Angular team wants to make it easier and easier to upgrade.
 
 ### NgModules and components
 
-There are two reasons for NgModules: they're used at the compiler level to understand dependencies. This is an organizational feature. There's a distinction between a component and a compiled component and the need for a registry between them goes away in TypeScript v2.3.
+NgModules are used at the compiler level to understand dependencies. This is an organizational feature. There's a distinction between a component and a compiled component and the need for a registry between them goes away in TypeScript v2.3.
 
 ### Getting involved in the Angular design process
 
-All the source code at Google is in a single repository. Self-driving cars are next to Gmail and Angular. Google has a build system that builds everything from sources. Everything is built from scratch for every developer. Changes can be made anywhere in the process. Changes in Angular affect all the Angular applications. This allows fast iteration.
+All the source code at Google is in a single repository. Self-driving cars are next to Gmail and Angular. Google has a build system that builds everything from sources. Everything is built from scratch for every developer. Changes can be made anywhere in the process, so changes in Angular affect all the Angular applications. This allows fast iteration.
 
-All design changes that impact Angular are planned thoroughly and thought through. Google has taken a few community members through this process, so reach out to be sent a design doc if you're interested in this.
+All design changes that impact Angular are planned thoroughly and thought through. Google has taken a few community members through this process, so reach out to be sent a design doc if you're interested in getting involved in the Angular design process.
 
-### Sass Variables in components
+### Sass variables in components
 
-From a build perspective, it's difficult to be able to overwrite Sass variables. In order to change these, you need to insert a dependency on a dependency. Most build tools don't have a way to do this. At Google, the Sass variables are fixed and people are expected to override the CSS. However, theming with global styles do work. In the future, this problem will get easier to solve once CSS native variables are supported cross-browser. That then makes this issue go away completely.
+From a build perspective, it's difficult to be able to overwrite Sass variables. In order to change these, you need to insert a dependency _on_ a dependency. Most build tools don't have a way to do this. At Google, the Sass variables are fixed and people are expected to override the CSS. However, theming with global styles does work. In the future, this problem will get easier to solve once CSS native variables are supported cross-browser. With that support, this issue go away completely.
 
 ### Enterprise app sample
 
-We will eventually get an enterprise app sample, but there is no scheduled date for this. Enterprise complex applications are certainly a use case that Angular values. However, the challenge with providing an example for this is that all enterprise applications are very different. If you're an enterprise application builder with the capability to open source an application to help with this, please reach out to the Angular team.
+The Angular team will eventually provide an enterprise app sample, but there is no scheduled date for this. Enterprise complex applications are certainly a use case that Angular values. However, the challenge with providing an example for this is that all enterprise applications are very different. If you're an enterprise application builder with the capability to open source an application to help with this, please reach out to the Angular team.
 
 ### Contributing to Angular
 
 The best way to start contributing to Angular is to start with small fixes in the documentation, triaging issues, and performing code reviews on pull requests. This helps contributors learn about the Angular team's process and code, then people move on to fixing bugs. It's difficult for large, complex open source projects to accept feature requests. Look for the community hotlist label on issues in GitHub as well.
 
-### LTS for AngularJS?
+### Will there be LTS for AngularJS?
 
-The Angular team wants to know what the community wants out of an LTS for AngularJS? Committing to an LTS for AngularJS potentially sends an incorrect message that AngularJS is done, which it isn't.
+The Angular team wants to know what the community wants out of an LTS for AngularJS. Committing to an LTS for AngularJS potentially sends an incorrect message that AngularJS is _done_, which it isn't.
 
 ---
 
