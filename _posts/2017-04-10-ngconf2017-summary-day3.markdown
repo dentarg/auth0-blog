@@ -30,7 +30,7 @@ related:
 
 The final day of ng-conf 2017 was comprised of single track speaker sessions. You can read about them here.
 
-twitter: #ngmovie
+> As a fun bonus, check out the [Twitter hashtag `#ngmovie`](https://twitter.com/search?q=%23ngmovie).
 
 ---
 
