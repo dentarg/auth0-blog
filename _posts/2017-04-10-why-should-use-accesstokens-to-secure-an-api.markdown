@@ -10,8 +10,8 @@ author:
   mail: "prosper.otemuyiwa@gmail.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/ng-conf-2017/logo.png
-  bg_color: "#000000"
+  image: https://cdn.auth0.com/blog/accesstokensforapi/Logo.png
+  bg_color: "#8B572A"
 tags:
 - access-token
 - id-token
