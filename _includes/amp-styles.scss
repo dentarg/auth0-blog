@@ -26,6 +26,10 @@ ul {
   list-style: none
 }
 
+.wrapper-header{
+  height: 100vh
+}
+
 .banner{
   text-align: center;
   h1 {
@@ -37,21 +41,21 @@ ul {
 
 .banner-post{
   background: #354171;
-  padding: 5px 0 20px 0;
+  padding: 30px 0 20px 0;
   margin-bottom: 0;
-
   h2 {
     font-size: 25px;
     font-weight: 300;
     color: #fff;
-    margin: 5px 0px;
-    padding: 0px;
+    margin: 3.5px 0 18.5px 0;
+    padding: 0 29px 0 30px;
   }
 
   .banner-tag{
-    width: 100%;
     position: absolute;
     top: -10px;
+    left: 40.5px;
+    right: 40.5px;
 
     .tag, .date{
       text-transform: uppercase;
@@ -61,12 +65,10 @@ ul {
     .tag{
       float: left;
       display: inline-block;
-      padding-left: 4%;
     }
     .date{
       float: right;
       display: inline-block;
-      padding-right: 4%;
       i {
         margin-right: 3px;
         svg {
@@ -79,11 +81,6 @@ ul {
   }
   a {
     color: white;
-  }
-  .banner-container{
-    -webkit-animation: none;
-    animation: none;
-    margin-top: 30px;
   }
 
   .banner-subtitle{
@@ -99,10 +96,10 @@ ul {
     p
       {
         color: white;
-        font-size: 18px;
+        font-size: 17px;
         line-height: 1.5;
         font-weight: 200;
-        margin: 0px 5px 40px 5px
+        margin: 0px 30.5px 56.5px 36.5px;
      }
   }
 
@@ -118,7 +115,7 @@ ul {
 
   .entry-thumbnail {
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 48px;
     display: inline-block;
     border-radius: 50%;
     overflow: hidden;
@@ -218,6 +215,7 @@ ul {
 .post-info {
   text-align: justify;
   text-transform: uppercase;
+  padding: 0 29.5px;
   .author{
     display: inline-block;
   }
@@ -273,6 +271,7 @@ blockquote {
   margin: 0px -15px;
   padding-bottom: 20px;
   position: relative;
+  height: 172.5px;
 }
 
 amp-social-share{
