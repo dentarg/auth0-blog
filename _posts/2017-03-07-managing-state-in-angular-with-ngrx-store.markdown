@@ -1377,13 +1377,7 @@ The first thing we'll need is an Auth0 account. Follow these simple steps to get
 
 ### Set Up Dependencies
 
-Auth0 authenticates using [JSON Web Tokens](https://jwt.io). Let's install the [angular2-jwt](https://github.com/auth0/angular2-jwt) helper library using npm:
-
-```bash
-$ npm install angular2-jwt --save
-```
-
-We also need the [Auth0 Lock](https://auth0.com/docs/libraries/lock) library. This provides the login widget and methods. We'll include the CDN-provided script for Lock in the `<head>` of our `index.html` file, like so:
+We need the [Auth0 Lock](https://auth0.com/docs/libraries/lock) library. This provides the login widget and methods. We'll include the CDN-provided script for Lock in the `<head>` of our `index.html` file, like so:
 
 {% highlight html %}
 <!-- src/app/index.html -->
@@ -1410,7 +1404,6 @@ Our `auth.service.ts` file should look like this:
 // src/app/core/auth.service.ts
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { tokenNotExpired } from 'angular2-jwt';
 
 // avoid name not found warnings
 declare var Auth0Lock: any;
@@ -1463,14 +1456,13 @@ export class AuthService {
   }
 
   get authenticated(): boolean {
-    // search for an item in localStorage with key == 'id_token'
-    return tokenNotExpired();
+    return !!localStorage.getItem('id_token');
   }
 
 }
 ```
 
-We'll import `Router` to handle redirection after login and `tokenNotExpired` (from `angular2-jwt`) to make sure our user still has a valid JWT.
+We'll import `Router` to handle redirection after login.
 
 To avoid TypeScript warnings, we need to declare types for `Auth0Lock` and `localStorage`. We'll be able to [_inject_](https://angular.io/docs/ts/latest/api/core/index/Injectable-decorator.html) our `AuthService` wherever we need access to its properties and methods (ie., in other components).
 
@@ -1625,7 +1617,7 @@ Now our app feels more personalized.
 
 We can log in and out of our app, but that doesn't offer much more than simple personalization at the moment. Any visitor can still navigate to any route they wish if they simply enter URLs manually. Let's implement a route guard so that routes are activated only for logged in users.
 
-> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with the JWT provided by Auth0 using an `Authorization` header. You can read more on how to do this in the [Auth0 Angular 2 Calling APIs docs](https://auth0.com/docs/quickstart/spa/angular2/08-calling-apis). The [`angular2-jwt` package](https://github.com/auth0/angular2-jwt) we installed provides `AUTH_PROVIDERS` to help accomplish this. When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards. You can read more about securing a Node API in the [Angular 2 Authentication tutorial here](https://auth0.com/blog/angular-2-authentication/).
+> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with an access token provided by Auth0 using an `Authorization` header. You can read more on how to do this using a [hosted Lock instance and implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant). The [`angular2-jwt` package](https://github.com/auth0/angular2-jwt) provides `AUTH_PROVIDERS` to help accomplish this. When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards.
 
 Create a new file in `src/app/core` called `auth.guard.ts`:
 
