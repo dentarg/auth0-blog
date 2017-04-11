@@ -13,9 +13,10 @@
 
   .wrapper{
     padding: 25px;
+    padding-bottom: 27px;
 
     .footer{
-      margin-top: 10px;
+      margin-top: 23.5px;
       color: #9B9B9B;
       font-size: 14px;
       .date{
@@ -23,7 +24,7 @@
         margin-left: 5px;
         display: inline-block;
         float:right;
-        
+
         i{
           height: 10px;
           margin-right: 19px;
@@ -51,11 +52,11 @@
 
   .header{
     background-color: #751EFD;
-    height: 150px;
+    height: 179.5px;
     .thumbnail {
       width: 100px;
       margin: auto;
-      padding: 25px;
+      padding: 40px;
       amp-img{
         border-radius: 50%;
       }
@@ -63,7 +64,7 @@
   }
 
   .header-title{
-    padding-top: 10px
+    padding-top: 25.3px
   }
 
 

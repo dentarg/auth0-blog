@@ -2,63 +2,75 @@
   .navbar-logo{
     display: inline-block;
     width: 100px;
-    padding: 10px 0px 0px 30px;
+    padding: 23.5px 0 12.5px 31.5px;
   }
 
   .ampstart-navbar-trigger{
     display: inline-block;
     float: right;
-    padding: 1rem 2rem;
+    padding: 23.5px 28px 12.5px 0;
     width: 30px;
   }
 }
 amp-sidebar {
   width: 100%;
   background-color: #fff;
-
   .header{
-    min-height: 44px;
+    min-height: 11.7%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 33px;
+    border-bottom: 1px solid rgb(151,151,151);
     .amp-close-image{
-      width: 25px;
-      display: inline-block;
-      padding: 0.74rem 2rem 0.69rem 2rem;
-      float: right;
+      width: 23px;
+      height: 21px;
     }
   }
 
   .sidebar-list{
-    padding: 5% 15%;
+    min-height: 78.3%;
+    overflow: scroll;
     h2 {
       font-weight: 500;
       color: #4A4A4A;
       border-bottom: 2px solid #4A4A4A;
       width: autho;
       display: inline-block;
-      font-size: 25px;
-      letter-spacing: 2.38px;
-      padding-bottom: 2px;
+      font-size: 28.5px;
+      letter-spacing: 1.2px;
+      padding-bottom: 12px;
+      margin: 39px 10px 30px 47px;
     }
-  }
-  ul{
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
-    li{
-      margin-bottom: 15px;
-      a{
-        color: #4A4A4A;
+    ul{
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+      li{
+        margin: 0 23.5px 20px 47px;
+        a{
+          color: #4A4A4A;
+          font-size: 18px;
+        }
       }
     }
   }
 
-  .footer{
-    background-color: #eb5424;
-    border-color: #e14615;
-    padding: 10% 20%;
-    text-align: center;
-    color: white;
-    bottom: 0px;
-    position: absolute;
-    width: 60%;
+  .sidebar-footer{
+    min-height: 9.8%;
+    background: red;
+    color: #fff;
+    width: 100%;
+    margin: 0px;
+    font-size: 20px;
+    letter-spacing: 0.85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+}
+
+amp-sidebar.i-amphtml-element {
+  display: flex;
+  flex-direction: column;
 }
