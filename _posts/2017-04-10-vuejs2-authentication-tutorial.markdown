@@ -1307,54 +1307,37 @@ Now, try to log in.
 ![Lock Login Widget](https://cdn.auth0.com/blog/vuejs2/login.png)
 _Lock Login Widget_
 
-![Logged In and Unauthorized to see the celebrity content](https://cdn.auth0.com/blog/react/loggedinbutunauthorized)
-_Logged In, but unauthorized to see the celebrity content_
+![Logged In and Unauthorized to see the Private Startup Battle](https://cdn.auth0.com/blog/vuejs/unauthorized.png)
+_Logged In, but unauthorized to see the Private Startup Battle_
 
-
-Oops! We have successfully logged in but the content of the celebrity jokes is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
+We have successfully logged in but the content of the private startup battle is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
 
 It's simple! We secured our endpoint earlier, but right now we are not passing the JWT to the backend yet. We need to send the JWT along with our request as a header to enable the secured endpoint's recognition of the logged-in user.
 
-### Updating the AuthService & ChuckNorris API helper
+### Updating the Auth & Battles API helper
 
-Open up `utils/AuthService.js` and make the `getIdToken()` function exportable like so:
-
-```js
-...
-...
-export function getIdToken() {
-  return localStorage.getItem(ID_TOKEN_KEY);
-}
-...
-
-```
-
-Adding an `export` just before the function makes it exportable.
-
-Go ahead and open up the `utils/chucknorris-api.js` file. We will tweak the `getCelebrityData` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
+Go ahead and open up the `utils/battles-api.js` file. We will tweak the `getPrivateStartupBattles` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
 
 Now, we will pass an option to send an `Authorization` header with a Bearer token along with the `GET` request like so:
 
 ```js
 
-function getCelebrityData() {
-  const url = `${BASE_URL}/api/jokes/celebrity`;
+function getPrivateStartupBattles() {
+  const url = `${BASE_URL}/api/battles/private`;
   return axios.get(url, { headers: { Authorization: `Bearer ${getIdToken()}` }}).then(response => response.data);
 }
 
+
 ```
 
-The `/api/jokes/celebrity` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
+The `/api/battles/private` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
 
 Now, try to log in again. 
 
-![Working Chuck Norris World App](https://cdn.auth0.com/blog/react/working_chuck_norris_app.gif)
-_Working Chuck Norris World App_
-
-Everything is working fine. Pat yourself on the back. You have just successfully built a **ReactJS** app and added authentication to it! 
+Everything should work fine. Pat yourself on the back. You have just successfully built a **Vuejs 2** app and added authentication to it! 
 
 ## Conclusion
 
-**ReactJS** is an awesome front-end library to employ in building your user interfaces. It takes advantage of the Virtual DOM, it is fast and it has a bubbling community. There are several React plugins/addons that the community provides to allow you do almost anything in **ReactJS**. 
+**Vuejs 2** is a light-weight, fast and awesome library for building user interfaces. Its learning curve is gentle and its API is not complex to understand. It has a fast growing community and there are many components available to the public for different functionalities.
 
-In addition, Auth0 can help secure your **ReactJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your **Vuejs 2** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
