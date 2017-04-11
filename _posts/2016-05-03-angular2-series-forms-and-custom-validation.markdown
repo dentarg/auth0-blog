@@ -30,9 +30,9 @@ tags:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>Attention:</strong> Due to recent changes in our API and our wishes to maintain security best practices, the [use of `id_token` for API authorization is being deprecated](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). We are working diligently to update this and other articles that use `id_token` for API authorization. 
+  <p><strong>Attention:</strong> Due to recent changes in our API and our wishes to maintain security best practices, the <a href="https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/">use of id_token for API authorization is being deprecated</a>. We are working diligently to update this and other articles that use id_token for API authorization.</p>
 
-Applications should instead use the `access_token` for API authorization. While we update this article, please check out the [docs for latest guidance and instructions](https://auth0.com/docs/tokens/access-token) on how to generate `access_tokens` from Auth0. Thank you.
+<p>Applications should instead use the access_token for API authorization. While we update this article, please check out the <a href="https://auth0.com/docs/tokens/access-token">docs for latest guidance and instructions</a> on how to generate access_tokens from Auth0. Thank you.</p>
 </div>
 
 **TL;DR:** HTML forms might seem like a trivial matter, but they are important to get right. In this tutorial we will look at how to implement forms with Angular 2 and learn about the classes provided by the framework to do so. We'll see how to introduce validation to our forms, and even create a real-life asynchronous validator to check some input against an API. Check out the [repo](https://github.com/auth0-blog/angular2-forms) to go straight to the code.
