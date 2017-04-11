@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "Why You Should Always Use Access Tokens to Secure an API"
-description: "Explains the differences between access token and ID token and why the later should never be used to secure an API."
+description: "We explain the difference between access token and ID token and why the later should never be used to secure an API."
 date: 2017-04-10 8:30
 category: Technical Guide, Security, JWT
 author:
-  name: "Prosper Otemuyiwa"
-  url: "https://twitter.com/unicodeveloper"
-  mail: "prosper.otemuyiwa@gmail.com"
-  avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
+  name: "Maria Patiki"
+  url: "https://twitter.com/mariap__"
+  mail: "maria@auth0.com"
+  avatar: "https://www.gravatar.com/avatar/4ff2f1955778896cc06318b342dabf55?size=200"
 design:
   image: https://cdn.auth0.com/blog/accesstokensforapi/Logo.png
   bg_color: "#8B572A"
