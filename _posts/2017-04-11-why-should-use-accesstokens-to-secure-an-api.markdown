@@ -2,7 +2,7 @@
 layout: post
 title: "Why You Should Always Use Access Tokens to Secure an API"
 description: "We explain the difference between access token and ID token and why the later should never be used to secure an API."
-date: 2017-04-10 8:30
+date: 2017-04-11 8:30
 category: Technical Guide, Security, JWT
 author:
   name: "Maria Patiki"
