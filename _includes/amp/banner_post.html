@@ -29,20 +29,20 @@
     </div>
     <div class="share-container">
       <div>
-        <amp-social-share type="facebook" width="25" height="25"
+        <amp-social-share type="twitter" width="20" height="20"
+        data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
+        data-param-attribution="Auth0"
+        data-param-text="{{current.title}} @auth0"
+        ></amp-social-share>
+        <amp-social-share type="linkedin" width="20" height="20"
+        data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
+        data-param-attribution="Auth0"
+        data-param-text="{{current.title}} @auth0"
+        ></amp-social-share>
+        <amp-social-share type="facebook" width="20" height="20"
         data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
         data-param-attribution="Auth0"
         data-param-app_id="625852750947273"
-        ></amp-social-share>
-        <amp-social-share type="linkedin" width="25" height="25"
-        data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
-        data-param-attribution="Auth0"
-        data-param-text="{{current.title}} @auth0"
-        ></amp-social-share>
-        <amp-social-share type="twitter" width="25" height="25"
-        data-param-url={{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url|replace:'amp/',''}}
-        data-param-attribution="Auth0"
-        data-param-text="{{current.title}} @auth0"
         ></amp-social-share>
       </div>
     </div>
