@@ -68,7 +68,10 @@ We'll have to get our daily deals from somewhere. Let's build a very simple [Nod
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 // Public route
@@ -433,7 +436,17 @@ Now we are ready to test our app. If you would like more information on how @NgM
 
 The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular 2 application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and navigate to the client app you wish to use. Get the **Domain**, **Client Id**, and **Client Secret** of this app. That's all we'll need for now.
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
+
+From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Daily Deals API** and for the identifier I'll set it as **daily-deals-api**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+
+![Creating Auth0 API](https://cdn.auth0.com/blog/angular2-auth-dd/creating-api.png)
+
+Next, let's define some scopes for our API. Scopes allow us to manage access to our API. We can define as few or as many scopes as we want. For our simple example, we'll just create a single scope that will grant users full access to the API.
+
+![Adding Scope to API](https://cdn.auth0.com/blog/angular2-auth-dd/adding-scope.png)
+
+This is all we need to do for now. Let's secure our server using this new API that we created.
 
 ### Securing our server
 
@@ -446,14 +459,26 @@ const express = require('express');
 const app = express();
 // Import the required dependencies
 const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-// We are going to implement a JWT middleware that will ensure the validity of our token. We'll require each protected route to have a valid token sent in the Authorization header
+// We are going to implement a JWT middleware that will ensure the validity of our token. We'll require each protected route to have a valid access_token sent in the Authorization header
 const authCheck = jwt({
-  secret: new Buffer('YOUR-AUTH0-SECRET', 'base64'),
-  audience: 'YOUR-AUTH0-CLIENT-ID'
+  secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
+    algorithms: ['RS256']
 });
 
 app.get('/api/deals/public', (req, res)=>{
@@ -487,80 +512,84 @@ We'll make use of the [Angular 2 JWT library](https://github.com/auth0/angular2-
 
 ```js
 import { Injectable } from '@angular/core';
-import { tokenNotExpired } from 'angular2-jwt';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { Router } from '@angular/router';
 
-declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
-  // We'll use the Auth0 Lock widget for capturing user credentials
-  lock = new Auth0Lock('YOUR-AUTH0-CLIENTID', 'YOUR-AUTH0-DOMAIN.auth0.com');
 
   constructor(private router: Router) {
-    // We'll listen for an authentication event to be raised and if successful will log the user in.
-    this.lock.on('authenticated', (authResult: any) => {
-      localStorage.setItem('id_token', authResult.idToken);
-
-      this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
-        if (error) {
-          console.log(error);
-        }
-
-        localStorage.setItem('profile', JSON.stringify(profile));
-      });
-
-      this.lock.hide();
-    });
   }
 
-  // This method will display the lock widget
-  login() {
-    this.lock.show();
+  // Helper function that will allow us to extract the access_token and id_token
+  getParameterByName(name) {
+    let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
   }
-  
-  // This method will log the use out
-  logout() {
-    // To log out, just remove the token and profile
-    // from local storage
-    localStorage.removeItem('profile');
-    localStorage.removeItem('id_token');
 
-    // Send the user back to the public deals page after logout
+  // Get and store access_token in local storage
+  getAccessToken() {
+    let accessToken = this.getParameterByName('access_token');
+    localStorage.setItem('access_token', accessToken);
+  }
+
+  // Get and store id_token in local storage
+  getIdToken() {
+    let idToken = this.getParameterByName('id_token');
+    localStorage.setItem('id_token', idToken);
+    this.decodeIdToken(idToken);
+  }
+
+  // Decode id_token to verify the nonce
+  decodeIdToken(token) {
+    let jwtHelper = new JwtHelper();
+    let jwt = jwtHelper.decodeToken(token);
+    this.verifyNonce(jwt.nonce);
+  }
+
+  // Function to generate a nonce which will be used to mitigate replay attacks
+  generateNonce() {
+    let existing = localStorage.getItem('nonce');
+    if (existing === null) {
+      let nonce = '';
+      let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      for (let i = 0; i < 16; i++) {
+          nonce += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      localStorage.setItem('nonce', nonce);
+      return nonce;
+    }
+    return localStorage.getItem('nonce');
+  }
+
+  // Verify the nonce once user has authenticated.
+  // If the nonce can't be verified we'll log the user out
+  verifyNonce(nonce) {
+    if (nonce !== localStorage.getItem('nonce')) {
+      localStorage.removeItem('id_token');
+      localStorage.removeItem('access_token');
+    }
     this.router.navigateByUrl('/deals');
   }
 
-  // Finally, this method will check to see if the user is logged in. We'll be able to tell by checking to see if they have a token and whether that token is valid or not.
+  logout() {
+    // To log out, just remove the token and profile
+    // from local storage
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
+
+    // Send the user back to the dashboard after logout
+    this.router.navigateByUrl('/deals');
+  }
+
+  // We'll check to see if the user is logged in by checking if the token is expired
   loggedIn() {
     return tokenNotExpired();
   }
-}
 ```
 
-As we saw from our authentication service, we'll be using the Auth0 [Lock widget](https://auth0.com/lock). Lock is a powerful and beautiful widget that handles many authentication use cases including username and password sign in, account sign up, social connections, enterprise federation, and more. You can learn about all of Lock's functionality from the [docs](https://auth0.com/docs/libraries/lock).
-
-Let's make sure to include the Lock widget in our application. Open your `index.html` file and we'll load Lock from the Auth0 CDN.
-
-```html
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Ng2auth</title>
-  <base href="/">
-  <!-- Add Lock -->
-  <script src="//cdn.auth0.com/js/lock/10.2.2/lock.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
-</head>
-<body>
-  <!-- Body -->
-</body>
-</html>
-```
+We will use the Auth0 Hosted Lock option for authenticating our users. This is the most secure way to authenticate a user and get an `access_token` in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
 
 ### Angular 2 Authentication All In
 
@@ -656,8 +685,8 @@ import { AuthService } from './auth.service';
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <!-- We'll show the login link if the user is not currently logged in -->
-            <a (click)=authService.login() *ngIf="!authService.loggedIn()">Log In</a>
+            <!-- We'll show the login link which will redirect the user to the Auth0 Hosted Lock page if the user is not currently logged in -->
+            <a *ngIf="!authService.loggedIn()" href="https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={{nonce}}">Log In</a>
           </li>
           <li>
             <!-- On the other hand, if the user is logged in, we'll show a log out link -->
@@ -677,15 +706,98 @@ export class AppComponent {
   title = 'Daily Deals';
 
   // We'll need to include a reference to our authService in the constructor to gain access to the API's in the view
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    // Generate a nonce
+    this.nonce = this.authService.generateNonce();
+  }
 }
 ```
 
-There is one final update we need to make. If you try to access the `/secret` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the JWT to the backend. We'll have to update our deal service.
+The key item I want to highlight in this section is the login hyperlink: 
+
+```
+https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={nonce}
+```
+
+This URL calls the Auth0 `authorize` endpoint and we pass a series of parameters that will identity our API and client so that we can properly do the authentication. You can learn more about the specific values that can be passed [here](https://auth0.com/docs/api-auth/tutorials/implicit-grant#1-get-the-user-s-authorization).
+
+The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
+
+The client that was created for me is called **Daily Deals API (Test Client)**, and I will use this client for our application as it is already setup to work with the API. Open up your client, and you will want to copy the **Client ID**. This value will replace the `{YOUR-AUTH0-CLIENT-ID}` parameter. 
+
+![Daily Deals API Test Client](https://cdn.auth0.com/blog/angular2-auth-dd/dd-client.png)
+
+While you're viewing your client in the Auth0 dashboard, scroll down to find a section titled **Allowed Callback URLs**. Here you will add the URL that Auth0 will redirect to after successfully authenticating or creating a user. Since we are using the Angular CLI, and it defaults to `localhost:4200`, in our **Allowed Callback URLs** section we will add:
+
+```
+http://localhost:4200/callback
+```
+
+This URL will replace the `{YOUR-CALLBACK-URL}` parameter in the login link. We will have to account for this new endpoint in our front-end, so let's take care of that piece next.
+
+### Creating the Callback Component
+
+We will create a new component and call it `CallbackComponent`. This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will make extensive use of the `AuthService` we created earlier. Let's take a look at the implementation:
+
+```js
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+
+@Component({
+  template: ``
+})
+export class CallbackComponent {
+
+  constructor(private authService: AuthService) {
+    this.authService.getIdToken();
+    this.authService.getAccessToken();
+  }
+}
+```
+
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our CallbackComponent will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/deals` page and will be in a logged in state.
+
+Before we move on, let's make sure to register the `/callback` route in our routes file.
+
+```js
+import { Routes, RouterModule, CanActivate } from '@angular/router';
+import { AuthGuard } from './auth-guard.service';
+
+import { PublicDealsComponent } from './public-deals.component';
+import { PrivateDealsComponent } from './private-deals.component';
+import { CallbackComponent } from './callback.component';
+
+const appRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: '/deals',
+    pathMatch: 'full'
+  },
+  {
+    path: 'deals',
+    component: PublicDealsComponent
+  },
+  {
+    path: 'special',
+    component: PrivateDealsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'callback',
+    component: CallbackComponent,
+  }
+];
+
+export const routing = RouterModule.forRoot(appRoutes);
+
+export const routedComponents = [PublicDealsComponent, PrivateDealsComponent, CallbackComponent];
+```
+
+There is one final update we need to make. If you try to access the `/secret` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the `access_token` to the backend. We'll have to update our deal service.
 
 ### Updating the Deal Service
 
-We need to update the call to the `/api/deals/private` to include our JWT. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular 2 JWT library comes with an AuthHTTP method that will automatically take care of this for us. Let's see how we're going to implement this in our application.
+We need to update the call to the `/api/deals/private` to include our `access_token`. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular 2 JWT library comes with an AuthHTTP method that will take care of this for us. Let's see how we're going to implement this in our application.
 
 ```js
   // Be sure to include the HttpAuth API from the Angular 2 JWT library
@@ -707,13 +819,81 @@ We need to update the call to the `/api/deals/private` to include our JWT. There
   }
 ```
 
-![Auth0 Lock Widget](https://cdn.auth0.com/blog/angular2-auth-dd/lock.png)
+**Note:** The **authHTTP** library currently defaults to sending the `id_token` to the backend. Our API requires the `access_token` instead, but we can easily change this. The `authHTTP` library can be customized and we'll do this by creating a custom factory and changing the default token type from an `id_token` to an `access_token`. To do this, create a new file and call it `auth.factory.ts`. Our implementation will be as follows:
+
+```js
+import { Http, RequestOptions } from '@angular/http';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'token',
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+};
+```
+
+With this new factory created, we'll have to properly declare it in our NgModule. That implementation can be seen here:
+
+```js
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
+
+import { AppComponent } from './app.component';
+import { routing, routedComponents } from './app.routing';
+
+import { DealService } from './deal.service';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth-guard.service';
+import { AuthHttp } from 'angular2-jwt';
+import { authHttpServiceFactory } from './auth.factory';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    routing,
+    HttpModule,
+  ],
+  declarations: [
+    AppComponent,
+    routedComponents
+  ],
+  providers: [
+    DealService,
+    AUTH_PROVIDERS,
+    AuthService,
+    AuthGuard,
+    // Overwriting the default AuthHTTP library
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+In the future we will likely update the default to use the `access_token` so the above step may not be required. If you didn't want to use the AuthHTTP library, you could have just as easily appended an `Authorization` header to the call, and set the value to `Bearer {access_token}` and gotten the same result.
+
+### Putting it all together
+
+![Auth0 Hosted Lock](https://cdn.auth0.com/blog/angular2-auth-dd/hosted-lock.png)
 
 That's it. We are now ready to test our application. If your Node.js server is not running, make sure to start it up first. Head over to `localhost:4200` and you should automatically be redirected to `localhost:4200/deals` and see the list of public deals.
 
 ![Daily Deals Authenticated](https://cdn.auth0.com/blog/angular2-auth-dd/authenticated.png)
 
-Next, click on the login screen and you will be presented with the Lock widget. Login or sign up and you will be redirected back to the deals page, but now the UI will look slightly different. The main menu will have a new option for Private Deals, and the message at the bottom will also show you a link to the private deals. Instead of the Login link in the navbar, you'll also be presented with a Logout link instead. Finally click on the Public Deals link to see our list of exclusive private deals. 
+Next, click on the login screen and you will be redirected to your Auth0 domain and the hosted Lock login widget will be displayed. Login or sign up and you will be redirected back to the callback route, and then the deals page, but now the UI will look slightly different. The main menu will have a new option for Private Deals, and the message at the bottom will also show you a link to the private deals. Instead of the Login link in the navbar, you'll also be presented with a Logout link instead. Finally click on the Private Deals link to see our list of exclusive private deals.
+
+![Consent Dialog](https://cdn.auth0.com/blog/angular2-auth-dd/consent.png)
+
+**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, or if the scope changes in the future, a consent dialog will be displayed asking the user if they wish to grant access to the API. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client. 
 
 ![Exclusive Daily Deals](https://cdn.auth0.com/blog/angular2-auth-dd/secret-deals.png)
 
