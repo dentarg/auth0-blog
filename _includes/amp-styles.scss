@@ -215,7 +215,7 @@ ul {
 .post-info {
   text-align: justify;
   text-transform: uppercase;
-  padding: 0 29.5px;
+  padding: 0 28px 0 29.5px;
   .author{
     display: inline-block;
   }
@@ -274,9 +274,26 @@ blockquote {
   height: 172.5px;
 }
 
-amp-social-share{
-  border-radius: 50%;
+.amp-social-share-linkedin {
+  background-image: url('https://cdn.auth0.com/blog/amp/linkedin.svg');
+  margin-right: 2px;
 }
+
+.amp-social-share-facebook{
+  background-image: url('https://cdn.auth0.com/blog/amp/facebook.svg');
+  margin-right: 5px;
+}
+
+.amp-social-share-twitter{
+  background-image: url('https://cdn.auth0.com/blog/amp/twitter.svg');
+  margin-right: 5px;
+}
+
+.amp-social-share-facebook,
+.amp-social-share-twitter,
+.amp-social-share-linkedin{
+  background-color: transparent;
+ }
 
 .pointer-header{
   position: fixed;
