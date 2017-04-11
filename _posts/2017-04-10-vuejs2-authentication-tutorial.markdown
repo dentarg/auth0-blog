@@ -2,7 +2,7 @@
 layout: post
 title: "Vuejs 2 Authentication Tutorial"
 description: Learn how to quickly build apps with Vuejs 2 and add authentication the right way.
-date: 2017-02-21 8:30
+date: 2017-04-11 8:30
 category: Technical Guide, Frontend, VueJS
 author:
   name: Prosper Otemuyiwa
@@ -593,7 +593,7 @@ function getPublicStartupBattles() {
 
 function getPrivateStartupBattles() {
   const url = `${BASE_URL}/api/battles/private`;
-  return axios.get(url, { headers: { Authorization: `Bearer ${getIdToken()}` }}).then(response => response.data);
+  return axios.get(url).then(response => response.data);
 }
 
 ```
@@ -617,8 +617,8 @@ The `AppNav.vue` file is our Nav component. Go ahead and add code to it like so:
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <button class="btn btn-danger log" v-show="isLoggedIn()" @click="handleLogout()">Log out </button>
-        <button class="btn btn-info log" v-show="!isLoggedIn()" @click="handleLogin()">Log In</button>
+        <button class="btn btn-danger log" @click="handleLogout()">Log out </button>
+        <button class="btn btn-info log" @click="handleLogin()">Log In</button>
       </li>
     </ul>
   </nav>
@@ -678,14 +678,11 @@ By default, these two components will look similar in functionalities. They both
         </div>
       </div>
     </div>
-    
+  
     <div class="col-sm-12">
-      <div class="jumbotron text-center" v-if="isLoggedIn()">
+      <div class="jumbotron text-center">
         <h2>View Private Startup Battles</h2>
         <router-link class="btn btn-lg btn-success" to="/private-battles">Private Startup Battles</router-link>
-      </div>
-      <div class="jumbotron text-center" v-else>
-        <h2>Get Access to Private Startup Battles by Logging In</h2>
       </div>
     </div>
   </div>
@@ -925,33 +922,18 @@ Just a few things before we check our application in the browser:
 
 {% endhighlight %}
 
-* Open up `App.css` and add this style like so:
-
-{% highlight css %}
-
-.navbar-right { margin-right: 0px !important}
-.log {
-  margin: 5px 10px 0 0;
-}
-
-{% endhighlight %}
-
 
 Feel free to check out your application in the browser. Right now, you should have something like this:
 
-![Homepage](https://cdn.auth0.com/blog/react/homepage.png)
+![Homepage](https://cdn.auth0.com/blog/vuejs2/homepage.png)
 _Homepage_
 
-![Celebritypage](https://cdn.auth0.com/blog/react/celebritypage.png)
-_CelebrityPage_
+![Celebritypage](https://cdn.auth0.com/blog/vujes2/privatebattles.png)
+_Private Battles Page_
 
-![Chuck Norris World Demo](https://cdn.auth0.com/blog/react/chuck_norris_world.gif)
-_Current Application_
+## Adding Authentication to Your Vuejs 2 App
 
-
-## Adding Authentication to Your ReactJS App
-
-The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **ReactJS** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
+The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **Vuejs 2** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
@@ -959,9 +941,9 @@ Log into your Auth0 [management dashboard](https://manage.auth0.com) and navigat
 
 ### Secure The Node API
 
-We need to secure the API so that the celebrity endpoint will only be accessible to authenticated users. We can secure it easily with Auth0.
+We need to secure the API so that the private battles endpoint will only be accessible to authenticated users. We can secure it easily with Auth0.
 
-Open up your `server.js` file and replace the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` variables with your `client id` and `client secret` respectively. Then add the `authCheck` middleware to the celebrity endpoint like so:
+Open up your `server.js` file and replace the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` variables with your `client id` and `client secret` respectively. Then add the `authCheck` middleware to the private battles endpoint like so:
 
 ```js
 
@@ -973,34 +955,64 @@ const authCheck = jwt({
 
 ....
 
-app.get('/api/jokes/celebrity', authCheck, (req,res)=>{
-  let CelebrityJokes = [
+app.get('/api/battles/private', authCheck, (req,res) => {
+  let privateBattles = [
   {
-    id: 88881,
-    joke: 'As President Roosevelt said: "We have nothing to fear but fear itself. And Chuck Norris."'
+    id: 2111,
+    name: 'Startup Seattle',
+    sponsor: 'Mark Zuckerberg',
+    seedFund: '10M'
   },
   {
-    id: 88882,
-    joke: "Chuck Norris only let's Charlie Sheen think he is winning. Chuck won a long time ago."
+    id: 2112,
+    name: 'Startup Vegas',
+    sponsor: 'Bill Gates',
+    seedFund: '20M'
   },
   {
-    id: 88883,
-    joke: 'Everything King Midas touches turnes to gold. Everything Chuck Norris touches turns up dead.'
+    id: 2113,
+    name: 'Startup Addis-Ababa',
+    sponsor: 'Aliko Dangote',
+    seedFund: '8M'
   },
   {
-    id: 88884,
-    joke: 'Each time you rate this, Chuck Norris hits Obama with Charlie Sheen and says, "Who is winning now?!"'
+    id: 2114,
+    name: 'Startup Abuja',
+    sponsor: 'Femi Otedola',
+    seedFund: '5M'
   },
   {
-    id: 88885,
-    joke: "For Charlie Sheen winning is just wishful thinking. For Chuck Norris it's a way of life."
+    id: 2115,
+    name: 'Startup Paris',
+    sponsor: 'Jeff Bezos',
+    seedFund: '1.6M'
   },
   {
-    id: 88886,
-    joke: "Hellen Keller's favorite color is Chuck Norris."
-  } 
-  ];
-  res.json(CelebrityJokes);
+    id: 2116,
+    name: 'Startup London',
+    sponsor: 'Dave McClure',
+    seedFund: '1M'
+  },
+  {
+    id: 2117,
+    name: 'Startup Oslo',
+    sponsor: 'Paul Graham',
+    seedFund: '2M'
+  },
+  {
+    id: 2118,
+    name: 'Startup Bangkok',
+    sponsor: 'Jeff Clavier',
+    seedFund: '5M'
+  },
+  {
+    id: 2119,
+    name: 'Startup Seoul',
+    sponsor: 'Paul Buchheit',
+    seedFund: '4M'
+  }];
+
+  res.json(privateBattles);
 })
 
 app.listen(3333);
@@ -1010,16 +1022,16 @@ console.log('Listening on localhost:3333');
 
 **Note:** You should load these values from environment variables for security reasons. No one should have access to your Auth0 secret.
 
-Try accessing the `http://localhost:3333/api/jokes/celebrity` endpoint again from Postman. You should be denied access like so:
+Try accessing the `http://localhost:3333/api/battles/private` endpoint again from Postman. You should be denied access like so:
 
-![Unauthorized Access](https://cdn.auth0.com/blog/react/unauthorized.png)
+![Unauthorized Access](https://cdn.auth0.com/blog/vuejs2/unauthorized.png)
 _Unauthorized Access_
 
 Next, let's add authentication to our front-end.
 
-### Adding Authentication to our ReactJS Front-end
+### Adding Authentication to our Vuejs 2 Front-end
 
-We'll create an authentication service to handle everything about authentication in our app. Go ahead and create an `AuthService.js` file inside the `utils` directory.
+We'll create an authentication helper to handle everything about authentication in our app. Go ahead and create an `auth.js` file inside the `utils` directory.
 
 Before we add code, you need to install `jwt-decode` and `auth0-lock` node packages like so:
 
@@ -1029,15 +1041,18 @@ npm install jwt-decode auth0-lock --save
 
 ```
 
-Open up the `AuthService.js` file and add code to it like so:
+Open up the `auth.js` file and add code to it like so:
 
 ```js
-
 import decode from 'jwt-decode';
-import { browserHistory } from 'react-router';
+import axios from 'axios';
+import Router from 'vue-router';
 import Auth0Lock from 'auth0-lock';
 const ID_TOKEN_KEY = 'id_token';
 
+var router = new Router({
+   mode: 'hash',
+});
 
 const lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
     auth: {
@@ -1049,8 +1064,8 @@ const lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
 
 lock.on('authenticated', authResult => {
   setIdToken(authResult.idToken);
-  browserHistory.push('/special');
 });
+
 
 export function login(options) {
   lock.show(options);
@@ -1064,12 +1079,17 @@ export function login(options) {
 
 export function logout() {
   clearIdToken();
-  browserHistory.replace('/');
+  router.go('/');
 }
 
-export function requireAuth(nextState, replace) {
+export function requireAuth(to, from, next) {
   if (!isLoggedIn()) {
-    replace({pathname: '/'});
+    next({
+      path: '/',
+      query: { redirect: to.fullPath }
+    });
+  } else {
+    next();
   }
 }
 
@@ -1077,7 +1097,7 @@ function setIdToken(idToken) {
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 }
 
-function getIdToken() {
+export function getIdToken() {
   return localStorage.getItem(ID_TOKEN_KEY);
 }
 
@@ -1111,168 +1131,180 @@ In the code above, we created an instance of `Auth0 Lock` and passed in our cred
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
-Finally, we implemented a middleware, the `requireAuth` method. We'll use this method to protect the `/special` route from being accessed for non-loggedIn users.
+We imported the Vue router and created an instance of it. We need it for redirection after login and logout.
 
-Let's go update the `Nav` component to hide/show the `login` and `logout` buttons based on the user's authentication status.
+Finally, we implemented a middleware, the `requireAuth` method. We'll use this method to protect the `/private-battles` route from being accessed for non-loggedIn users.
 
-Now, your `Nav` component should look like this:
+Let's go update the `AppNav` component to hide/show the `login` and `logout` buttons based on the user's authentication status.
+
+Now, your `AppNav` component should look like this:
 
 ```js
+<template>
+  <nav class="navbar navbar-default">
+    <div class="navbar-header">
+      <router-link to="/" class="navbar-brand"> The Ultimate Startup Battle Ground</router-link>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <button class="btn btn-danger log" v-show="isLoggedIn()" @click="handleLogout()">Log out </button>
+        <button class="btn btn-info log" v-show="!isLoggedIn()" @click="handleLogin()">Log In</button>
+      </li>
+    </ul>
+  </nav>
+</template>
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { login, logout, isLoggedIn } from '../utils/AuthService';
-import '../App.css';
+<script>
+import { isLoggedIn, login, logout } from '../../utils/auth';
 
-class Nav extends Component {
+export default {
+  name: 'app-nav',
+  methods: {
+    handleLogin() {
+      login();
+    },
+    handleLogout() {
+      logout();
+    },
+    isLoggedIn() {
+      return isLoggedIn();
+    },
+  },
+};
+</script>
 
-  render() {
-    return (
-      <nav className="navbar navbar-default">
-        <div className="navbar-header">
-          <Link className="navbar-brand" to="/">Chuck Norris World</Link>
-        </div>
-        <ul className="nav navbar-nav">
-          <li>
-            <Link to="/">Food Jokes</Link>
-          </li>
-          <li>
-            { 
-             ( isLoggedIn() ) ? <Link to="/special">Celebrity Jokes</Link> :  ''
-            }
-          
-          </li>
-        </ul>
-        <ul className="nav navbar-nav navbar-right">
-          <li>
-           { 
-             (isLoggedIn()) ? ( <button className="btn btn-danger log" onClick={() => logout()}>Log out </button> ) : ( <button className="btn btn-info log" onClick={() => login()}>Log In</button> )
-           }
-          </li>
-        </ul>
-      </nav>
-    );
-  }
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.navbar-right { margin-right: 0px !important}
+
+.log {
+  margin: 5px 10px 0 0;
 }
-
-export default Nav;
-
+</style>
 ``` 
-_Nav.js_
+_AppNav.vue_
 
-> **Note:** We used an arrow function to wrap and execute the onClick handlers like so: `{() => login()}` . Check out how to [handle events in react with arrow function](https://medium.com/@machnicki/handle-events-in-react-with-arrow-functions-ede88184bbb#.ekwwbituw) to understand why we used arrow functions.
+We imported `login`, `logout` and `isLoggedIn` functions from the `auth` helper file. Then, we attached the `login()` and `logout()` functions to the `login` and `logout` buttons respectively.
 
-We imported `login`, `logout` and `isLoggedIn` functions from the `AuthService`. Then, we attached the `login()` and `logout()` functions to the `login` and `logout` buttons respectively.
-
-We also hid the `/special` link by checking the authentication status of the user via the `isLoggedIn()` function.
-
-Open up the `FoodJokes` Component and modify it like so:
+Open up the `PublicBattles` Component and modify it like so:
 
 ```js
+<template>
+  <div>
+    <app-nav></app-nav>
+    <h3 class="text-center">Daily Startup Battles</h3>
+    <hr/>
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Nav from './Nav';
-import { isLoggedIn } from '../utils/AuthService';
-import { getFoodData } from '../utils/chucknorris-api';
-
-class FoodJokes extends Component {
-
-  constructor() {
-    super()
-    this.state = { jokes: [] };
-  }
-
-  getFoodJokes() {
-    getFoodData().then((jokes) => {
-      this.setState({ jokes });
-    });
-  }
-
-  componentDidMount() {
-    this.getFoodJokes();
-  }
-
-  render() {
-
-    const { jokes }  = this.state;
-
-    return (
-      <div>
-        <Nav />
-        <h3 className="text-center">Chuck Norris Food Jokes</h3>
-        <hr/>
-
-        { jokes.map((joke, index) => (
-              <div className="col-sm-6" key={index}>
-                <div className="panel panel-primary">
-                  <div className="panel-heading">
-                    <h3 className="panel-title"> <span className="btn">#{ joke.id }</span></h3>
-                  </div>
-                  <div className="panel-body">
-                    <p> { joke.joke } </p>
-                  </div>
-                </div>
-              </div>
-          ))}
-
-        <div className="col-sm-12">
-          { isLoggedIn() ?
-          <div className="jumbotron text-center">
-            <h2>View Celebrity Jokes</h2>
-            <Link className="btn btn-lg btn-success" to='/special'> Celebrity Jokes </Link>
-          </div> : <div className="jumbotron text-center"><h2>Get Access to Celebrity Jokes By Logging In</h2></div>
-          }
+    <div class="col-sm-4" v-for="battle in publicBattles">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"> {{ battle.name }} </h3>
+        </div>
+        <div class="panel-body">
+          <p><span class="badge alert-info"> Sponsor: </span> {{ battle.sponsor }} </p>
+          <p><span class="badge alert-danger"> SeedFund: </span><strong> ${{ battle.seedFund }} </strong></p>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+    
+    <div class="col-sm-12">
+      <div class="jumbotron text-center" v-if="isLoggedIn()">
+        <h2>View Private Startup Battles</h2>
+        <router-link class="btn btn-lg btn-success" to="/private-battles">Private Startup Battles</router-link>
+      </div>
+      <div class="jumbotron text-center" v-else>
+        <h2>Get Access to Private Startup Battles by Logging In</h2>
+      </div>
+    </div>
+  </div>
+</template>
 
-export default FoodJokes;
+<script>
+import AppNav from './AppNav';
+import { isLoggedIn } from '../../utils/auth';
+import { getPublicStartupBattles } from '../../utils/battles-api';
 
+export default {
+  name: 'publicBattles',
+  components: {
+    AppNav,
+  },
+  data() {
+    return {
+      publicBattles: '',
+    };
+  },
+  methods: {
+    isLoggedIn() {
+      return isLoggedIn();
+    },
+    getPublicStartupBattles() {
+      getPublicStartupBattles().then((battles) => {
+        this.publicBattles = battles;
+      });
+    },
+  },
+  beforeMount() {
+    this.getPublicStartupBattles();
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>
 ```
+_publicBattles.vue_
 
-We are enabling the link to celebrity jokes based on the login status of a user via the `isLoggedIn()` method.
+We are enabling the link to private startup battles based on the login status of a user via the `isLoggedIn()` method.
 
 ### Add some values to Auth0 Dashboard
 
-Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:3000` to the **Allowed Callback URLs** and **Allowed Origins (CORS)**.
+Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:8080` to the **Allowed Callback URLs** and **Allowed Origins (CORS)**.
 
-![Allowed Callback](https://cdn.auth0.com/blog/react/allowedcallback)
+![Allowed Callback](https://cdn.auth0.com/blog/vuejs/callbackurls.png)
 _Allowed Callback Urls_
 
 ![Allowed Origins](https://cdn.auth0.com/blog/react/allowedorigins.png)
 _Allowed Origins_
 
-### Secure The Special Route
+### Secure The Private Battles Route
 
-We need to ensure that no one can go to the browser and just type `/special` to access the celebrity route.
+We need to ensure that no one can go to the browser and just type `/private-battles` to access the private battles route.
 
-Open up `index.js` and add an `onEnter` prop with a value of `requireAuth` to the `/special` route like so:
+Open up `router/index.js` and modify it to import the `requireAuth` function and also add a `beforeEnter` property with a value of `requireAuth` to the `/private-battles` route like so:
 
 ```js
-....
-....
-import { requireAuth } from './utils/AuthService';
+import Vue from 'vue';
+import Router from 'vue-router';
+import PrivateBattles from '@/components/privateBattles';
+import PublicBattles from '@/components/publicBattles';
+import { requireAuth } from '../../utils/auth';
 
-const Root = () => {
-  return (
-    <div className="container">
-      <Router history={browserHistory}>
-        <Route path="/" component={FoodJokes}/>
-        <Route path="/special" component={CelebrityJokes} onEnter={requireAuth} />
-      </Router>
-    </div>
-  )
-}
+Vue.use(Router);
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'PublicBattles',
+      component: PublicBattles,
+    },
+    {
+      path: '/private-battles',
+      name: 'PrivateBattles',
+      beforeEnter: requireAuth,
+      component: PrivateBattles,
+    },
+  ],
+});
 
 ```
 _index.js_
 
 Now, try to log in.
 
-![Lock Login Widget](https://cdn.auth0.com/blog/react/login.png)
+![Lock Login Widget](https://cdn.auth0.com/blog/vuejs2/login.png)
 _Lock Login Widget_
 
 ![Logged In and Unauthorized to see the celebrity content](https://cdn.auth0.com/blog/react/loggedinbutunauthorized)
