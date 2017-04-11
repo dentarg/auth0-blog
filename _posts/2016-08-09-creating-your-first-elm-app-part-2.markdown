@@ -1161,6 +1161,8 @@ We need to subscribe to the `auth0authResult` port to listen for external input 
 
 Finally, the view displays a message and button to open the lock widget if there is no authentication data in storage, and a greeting with the user's avatar along with a logout button if there is.
 
+> **Important security note:** In this simple demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+
 ## Elm: Now and Future
 
 We made a simple app but covered a lot of ground with Elm's architecture, syntax, and implementation of features you'll likely come across in web application development. Authenticating with JWT was straightforward and packages and JS interop offer a lot of extensibility.
