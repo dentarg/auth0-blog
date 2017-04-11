@@ -54,8 +54,6 @@ The `access_token` can be any type of token (not necessarily a JWT) and is meant
 
 **Note:** Access Tokens should be treated as opaque strings by clients. They are only meant for the API. Your client should not attempt to decode them or depend on a particular `access_token` format.
 
-The final day of ng-conf 2017 was comprised of single track speaker sessions. You can read about them here.
-
 ## How NOT to use each token
 
 Now that we saw what these tokens can be used for, let's see what they cannot be used for.
