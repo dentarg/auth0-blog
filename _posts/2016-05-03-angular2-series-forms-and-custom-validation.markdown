@@ -30,7 +30,7 @@ tags:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>Attention:</strong> Due to recent changes in our API and our wishes to maintain security best practices, the use of `id_token` for API authorization is being deprecated. We are working diligently to update this and other articles that use `id_token` for API authorization. 
+  <strong>Attention:</strong> Due to recent changes in our API and our wishes to maintain security best practices, the [use of `id_token` for API authorization is being deprecated](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). We are working diligently to update this and other articles that use `id_token` for API authorization. 
 
 Applications should instead use the `access_token` for API authorization. While we update this article, please check out the [docs for latest guidance and instructions](https://auth0.com/docs/tokens/access-token) on how to generate `access_tokens` from Auth0. Thank you.
 </div>
@@ -400,7 +400,7 @@ Notice here that we aren't waiting until a submit attempt is made because we wan
 
 ## Aside: Angular 2 Authentication with Auth0
 
-> **IMPORTANT:** The use of `id_token`s has been deprecated. Please see the [documentation on implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant) to learn how to secure your API and make authenticated HTTP requests. An updated article will be published on how to implement this with the latest version of Angular.
+> **IMPORTANT:** The use of `id_token`s [has been deprecated](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). Please see the [documentation on implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant) to learn how to secure your API and make authenticated HTTP requests. An updated article will be published on how to implement this with the latest version of Angular.
 
 Angular 2 forms are great, and the validation that we can do with them makes our lives easier. However, for the case of user registration and login, there is still a lot we need to consider for our apps, which often means a lot of manual work. This includes things like password reset, integrating social login, using multifactor authentication, and more.
 
