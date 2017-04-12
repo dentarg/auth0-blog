@@ -2,8 +2,8 @@
 layout: post
 title: "Ship your Auth0 logs to Azure Log Analytics"
 description: Learn which are the main features of Azure Log Analytics and how can you integrate it with Auth0
-date: 2017-04-11 08:30
-category: Technical Guide, Microsoft, Logs, Log Analytics
+date: 2017-04-13 08:30
+category: Technical Guide, Microsoft, Log Analytics
 banner:
   text: "Ship and analyze your Auth0 logs in Azure Log Analytics."
 design:
@@ -19,7 +19,9 @@ tags:
 - logging
 - analytics
 related:
-
+- 2017-03-10-using-serverless-azure-functions-with-auth0-and-google-apis
+- 2017-01-05-azure-search-with-aspnetcore
+- 2016-10-26-documentdb-with-aspnetcore
 ---
 
 ---
