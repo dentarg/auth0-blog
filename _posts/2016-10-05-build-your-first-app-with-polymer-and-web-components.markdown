@@ -1151,7 +1151,7 @@ We now have a functioning user state in the global header. When we log in or out
 
 ## Aside: Authenticating a Polymer App with Auth0
 
-Let's explore authenticating a Polymer app with a more robust solution. We'll do a quick implementation of [Auth0's Lock widget](https://auth0.com/docs/libraries/lock) to manage user identity. We'll leverage local storage and `app-data` again to ensure users aren't logged out unexpectedly. You can clone the full code from [this GitHub repo](https://github.com/auth0-blog/polymer-with-auth0).
+Let's explore authenticating the client side of a Polymer app with a more robust solution. We'll do a quick implementation of [Auth0's Lock widget](https://auth0.com/docs/libraries/lock) to manage user identity. We'll leverage local storage and `app-data` again to ensure users aren't logged out unexpectedly. You can clone the full code from [this GitHub repo](https://github.com/auth0-blog/polymer-with-auth0).
 
 ![Polymer register login app view with Auth0 Lock](https://cdn.auth0.com/blog/polymer/auth0-lock.jpg)
 
@@ -1192,6 +1192,8 @@ Our `auth0-login` element will include the following:
 * A link with an event handler to open the Lock widget.
 * Properties to pass Auth0 configuration into the element.
 * A greeting with profile image and logout button to show when the user is authenticated.
+
+> **Important security note:** In this demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
 
 Let's create the dependency element: `/src/lockjs.html`. Create a new file and add the following:
 
