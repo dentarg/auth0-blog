@@ -10,8 +10,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#222425"
-  image: https://cdn.auth0.com/blog/blog/React-logo.png
+  bg_color: "#35495E"
+  image: https://cdn2.auth0.com/blog/vuejs/logo.png
 tags:
 - vuejs
 - javascript
@@ -30,7 +30,7 @@ related:
 
 ---
 
-**Vuejs** was developed by [Evan You](https://twitter.com/youyuxi), an ex-Google software engineer. Just before launching Vuejs 2.0, he started to work on Vue.js full time and as a result, Vue.js 2 is significantly lighter, smaller in size and faster. Currently, many popular products use **Vuejs** to build their user interfaces. Such platforms include *Laravel Spark*, *Grammarly*, *Statamic*, *Laracasts* and more. There is a comprehensive list of [projects using Vuejs on Github](https://github.com/vuejs/awesome-vue#projects-using-vuejs). Vuejs 2's [documentation](https://vuejs.org/v2/guide/) is very detailed, and there is a vibrant community of users.
+**Vuejs** was developed by [Evan You](https://twitter.com/youyuxi), an ex-Google software engineer. Just before launching Vuejs 2.0, he started to work on Vue.js full time and as a result, Vue.js 2 is now  significantly lighter, smaller in size and faster. Currently, many popular products use **Vuejs** to build their user interfaces. Such platforms include *Laravel Spark*, *Grammarly*, *Statamic*, *Laracasts* and more. There is a comprehensive list of [projects using Vuejs on Github](https://github.com/vuejs/awesome-vue#projects-using-vuejs). Vuejs 2's [documentation](https://vuejs.org/v2/guide/) is very detailed, and there is a vibrant community of users.
 
 ## Vuejs 2, Angular 2 and React
 
@@ -76,13 +76,15 @@ According to this [benchmark](http://stefankrause.net/js-frameworks-benchmark4/w
 * **Components** 
 * **Template/JSX**
 
-You can decide to use **Vuejs 2* by simply invoking methods on a Vue instance or go the component-composing route.
+You can decide to use *Vuejs 2* by simply invoking methods on a Vue instance or go the component-composing route.
 
-```html
+{% highlight html %}
+
 <div id="app">
   <p>{{ message }}</p>
 </div>
-```
+
+{% endhighlight %}
 
 
 ```js
@@ -94,17 +96,17 @@ var app = new Vue({
 })
 ```
 
-The result of this code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces `{{` and `}}` are used to display the property on the web page.
+The result of this code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces *{{* and *}}* are used to display the property on the web page.
 
 ### Directives
 
 It's very easy to toggle the display of items on a web page with inbuilt directives such as `v-if`, `v-show` like so:
 
-```html
-<div id="app">
-  <p v-if="visible()">{{ message }}</p>
-</div>
-```
+{% highlight html %}
+  <div id="app">
+    <p v-if="visible()">{{ message }}</p>
+  </div>
+{% endhighlight %}
 
 ```js
 var app = new Vue({
@@ -122,15 +124,15 @@ var app = new Vue({
 
 If for any reason, the `visible` funtion returns false, the paragraph would not be displayed on the web page. What about iterations and loops? Check out the code below
 
-```html
-<div id="app">
-  <ol>
-    <li v-for="item in items">
-      {{ item.name }}
-    </li>
-  </ol>
-</div>
-```
+{% highlight html %}
+  <div id="app">
+    <ol>
+      <li v-for="item in items">
+        {{ item.name }}
+      </li>
+    </ol>
+  </div>
+{% endhighlight %}
 
 ```js
 var app = new Vue({
@@ -167,11 +169,11 @@ Vue.component('app-nav', {
 
 Then, you can use it in another component like so:
 
-```html
+{% highlight html %}
 <div>
   <app-nav></app-nav>
 </div>
-```
+{% endhighlight %}
 
 So, your component will now be `<app-nav></app-nav>`.
 
@@ -217,13 +219,13 @@ var app = new Vue({
 })
 ```
 
-```html
+{% highlight html %}
 <div id="app">
   <ol>
     <tag-list v-for="list in tagList" v-bind:item="list"></todo-item>
   </ol>
 </div>
-```
+{% endhighlight %}
 
 It will display these items on the web page like so:
 
@@ -609,7 +611,7 @@ In the `getPublicStartupBattles` and `getPrivateStartupBattles` functions, axios
 
 The `AppNav.vue` file is our Nav component. Go ahead and add code to it like so:
 
-```js
+{% highlight html %}
 <template>
   <nav class="navbar navbar-default">
     <div class="navbar-header">
@@ -651,7 +653,8 @@ export default {
   margin: 5px 10px 0 0;
 }
 </style>
-```
+{% endhighlight %}
+
 
 The `router-link` Component from `vue-router` enables seamless client-side transition between routes without any page reload.
 
@@ -659,8 +662,7 @@ The `router-link` Component from `vue-router` enables seamless client-side trans
 
 By default, these two components will look similar in functionalities. They both display data from different endpoints. Let's start with the `PublicBattles` component.
 
-```js
-
+{% highlight html %}
 <template>
   <div>
     <app-nav></app-nav>
@@ -722,8 +724,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
+{% endhighlight %}
 
-```
 _publicBattles.vue_
 
 Let's analyze the code above. The `publicBattles` component is pulling data from an API, so it needs a way of holding that data. Vuejs has a `data` method where you can define properties to hold your data as some form of state. In the code above, we declared a `publicBattles` property.
@@ -760,7 +762,7 @@ Let's take a good look at what is enclosed in the `<template>` tag. This is what
 
 We looped through the `publicBattles` property which is now an array with the help of the `v-for` inbuilt directive to display the contents on the screen.
 
-```html
+{% highlight html %}
 <div class="col-sm-4" v-for="battle in publicBattles">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -772,7 +774,7 @@ We looped through the `publicBattles` property which is now an array with the he
       </div>
     </div>
 </div>
-```
+{% endhighlight %}
 
 ```js
 ...
@@ -788,7 +790,7 @@ That's the `publicBattles` property right there. Vuejs automatically binds it to
 
 Now, let's build the `PrivateBattles` component in the same way:
 
-```js
+{% highlight html %}
 <template>
   <div>
     <app-nav></app-nav>
@@ -850,9 +852,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
+{% endhighlight %}
 
-
-```
 _privateBattles.vue_
 
 Give yourself a pat on the back because you have successfully created the `AppNav`, `PublicBattles`, and `PrivateBattles` components. Whoop! Whoop!
@@ -864,7 +865,6 @@ We need to take care of one more thing so that our app can function. Routing!!!
 Open up `src/router/index.js` file, this is where the vue router is defined. So modify the code like so:
 
 ```js
-
 import Vue from 'vue';
 import Router from 'vue-router';
 import PrivateBattles from '@/components/privateBattles';
@@ -886,8 +886,8 @@ export default new Router({
     },
   ],
 });
-
 ```
+
 _index.js_
 
 Each route has a path, name and the component to be rendered when that route is invoked by the user. By the ways, we already imported the components at the top of the file.
@@ -1139,7 +1139,7 @@ Let's go update the `AppNav` component to hide/show the `login` and `logout` but
 
 Now, your `AppNav` component should look like this:
 
-```js
+{% highlight html %}
 <template>
   <nav class="navbar navbar-default">
     <div class="navbar-header">
@@ -1181,14 +1181,16 @@ export default {
   margin: 5px 10px 0 0;
 }
 </style>
-``` 
+{% endhighlight %}
+ 
+
 _AppNav.vue_
 
 We imported `login`, `logout` and `isLoggedIn` functions from the `auth` helper file. Then, we attached the `login()` and `logout()` functions to the `login` and `logout` buttons respectively.
 
 Open up the `PublicBattles` Component and modify it like so:
 
-```js
+{% highlight html %}
 <template>
   <div>
     <app-nav></app-nav>
@@ -1253,7 +1255,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
-```
+{% endhighlight %}
+
 _publicBattles.vue_
 
 We are enabling the link to private startup battles based on the login status of a user via the `isLoggedIn()` method.
