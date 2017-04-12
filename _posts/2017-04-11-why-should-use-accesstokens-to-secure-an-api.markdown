@@ -5,7 +5,7 @@ description: "We explain the difference between access token and ID token and wh
 date: 2017-04-11 8:30
 category: Technical Guide, Security, JWT
 author:
-  name: "Maria Patiki"
+  name: "Maria Paktiti"
   url: "https://twitter.com/mariap__"
   mail: "maria@auth0.com"
   avatar: "https://www.gravatar.com/avatar/4ff2f1955778896cc06318b342dabf55?size=200"
