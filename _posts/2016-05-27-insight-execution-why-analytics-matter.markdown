@@ -5,6 +5,7 @@ description: 3 ways you can use Analytics to build your product
 date: 2016-05-27 9:30
 alias: /2016/05/27/insight-execution-why-analytics-matter/
 category: Growth, Identity, Analytics
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza

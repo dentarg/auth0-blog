@@ -5,6 +5,7 @@ description: Making security your best Customer Retention Hack
 date: 2016-04-14 12:30
 alias: /2016/04/14/safely-use-best-customer-retention-tactics/
 category: Growth, Security
+is_non-tech: true
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com

@@ -5,6 +5,7 @@ description: Why The Court's Decision Changes Nothing About Safe Harbor being a 
 date: 2016-03-21 13:30
 alias: /2016/03/21/safe-harbor-still-matters/
 category: Growth, Certifications
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

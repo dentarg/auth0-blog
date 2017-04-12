@@ -5,6 +5,7 @@ description: Implement fingerprint authentication to allow users easy access to 
 date: 2016-05-10 8:30
 alias: /2016/05/10/how-fingerprint-auth-gives-you-security/
 category: Technical Guide, Identity, Passwordless
+is_non-tech: true
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com

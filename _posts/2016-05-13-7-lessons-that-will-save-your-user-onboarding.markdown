@@ -5,6 +5,7 @@ description: No two apps are identical, and so no two user onboarding processes 
 date: 2016-05-13 8:30
 alias: /2016/05/13/7-lessons-that-will-save-your-user-onboarding/
 category: Growth, Growth Hacking
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

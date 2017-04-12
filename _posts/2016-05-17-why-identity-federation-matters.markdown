@@ -5,6 +5,7 @@ description: With an identity clearinghouse, you can stay focused on your busine
 date: 2016-05-17 8:30
 alias: /2016/05/17/why-identity-federation-matters/
 category: Technical Guide, Identity, Federation
+is_non-tech: true
 banner:
   text: "Build vs Buy: Guide to Evaluating Identity Management"
   action: "https://resources.auth0.com/build-vs-buy-evaluating-identity-management/"

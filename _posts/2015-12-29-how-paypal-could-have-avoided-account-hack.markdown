@@ -5,6 +5,7 @@ description: In this post you'll learn 5 techniques that can prevent your users'
 date: 2015-12-29 18:00
 alias: /2015/12/29/how-paypal-could-have-avoided-account-hack/
 category: Hot Topics, Security
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza

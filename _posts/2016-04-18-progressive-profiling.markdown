@@ -5,6 +5,7 @@ description: "You can get data from your customers while keeping them happy by c
 date: 2016-04-18 08:30
 alias: /2016/04/18/progressive-profiling/
 category: Growth, Data
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

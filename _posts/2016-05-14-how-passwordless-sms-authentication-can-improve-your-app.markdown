@@ -5,6 +5,7 @@ description: Enhancing Your App's security through SMS Authentication in simple 
 date: 2016-05-14 8:30
 alias: /2016/05/14/how-passwordless-sms-authentication-can-improve-your-app/
 category: Technical Guide, Identity, Passwordless
+is_non-tech: true
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com

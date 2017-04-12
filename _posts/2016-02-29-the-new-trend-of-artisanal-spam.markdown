@@ -5,6 +5,7 @@ description: Spam email hardly ever makes it to your inbox, and even when it doe
 alias: /2016/02/29/the-new-trend-of-artisanal-spam/
 category: Growth, Security, Spam
 date: 2016-03-02 13:30
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
