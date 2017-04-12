@@ -7,8 +7,8 @@ category: Technical Guide, Microsoft, Log Analytics
 banner:
   text: "Ship and analyze your Auth0 logs in Azure Log Analytics."
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/azure-logs-analytics/logo.png
+  bg_color: "#0072C6"
+  image: https://cdn2.auth0.com/blog/azure-logs-analytics/logo.png
 author:
   name: Matías Quaranta
   url: http://twitter.com/ealsur
