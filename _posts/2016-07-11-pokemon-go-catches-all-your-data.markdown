@@ -5,6 +5,7 @@ description: "A potential programming mistake raises unexpected privacy concerns
 date: 2016-07-11 18:00
 alias: /2016/07/11/pokemon-go-catches-all-your-data/
 category: Hot Topics, Security
+is_non-tech: true
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

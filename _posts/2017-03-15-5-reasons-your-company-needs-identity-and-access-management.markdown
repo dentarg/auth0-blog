@@ -4,6 +4,7 @@ title: "5 Reasons Your Company Needs Identity and Access Management"
 description: "From revenue to employee happiness, identity management has more to offer than you might think."
 date: 2017-03-15 8:30
 category: Growth, Identity
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

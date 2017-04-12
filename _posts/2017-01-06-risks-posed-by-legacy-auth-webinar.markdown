@@ -4,6 +4,7 @@ title: "Risks Posed By Legacy Authentication Webinar"
 description: Username and password are not enough. So why do most companies still use them?
 date: 2017-01-06 16:41
 category: Auth0-based Tutorial, Webinar, Authentication
+is_non-tech: true
 author:
   name: "Martin Gontovnikas"
   url: "https://twitter.com/mgonto"

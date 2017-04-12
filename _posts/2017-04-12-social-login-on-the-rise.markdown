@@ -4,6 +4,7 @@ title: "Social Login On The Rise: How Secure Is It?"
 description: "Find out if social login is really all it's hyped up to be."
 date: 2017-04-12 8:30
 category: Growth, Identity, Social Login
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

@@ -5,6 +5,7 @@ description: "Polaris chose Auth0 as their IDaaS platform to handle cloud-enable
 date: 2017-03-31 8:30
 category: PR, Press
 press_release: true
+is_non-tech: true
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"

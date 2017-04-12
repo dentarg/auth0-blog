@@ -4,6 +4,7 @@ title: "Analyzing Identity in Movies"
 description: "As technology becomes more advanced, movies are predictors of how our identity will be utilized."
 date: 2017-03-17 8:30
 category: Growth, Identity
+is_non-tech: true
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:

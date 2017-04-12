@@ -5,6 +5,7 @@ description: How To Use Social Connections To Improve Retention And Security
 date: 2016-07-21 12:45
 alias: /2016/07/21/analysis-of-social-connection-data/
 category: Growth, Data
+is_non-tech: true
 author: 
   name: Diego Poza
   url: https://twitter.com/diegopoza

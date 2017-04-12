@@ -4,6 +4,7 @@ title: "Analyzing Enterprise Connections Data: What can we learn?"
 description: How our Customer's Users Are Connecting To Enterprise Providers
 date: 2016-08-02 12:20
 category: Growth, Data
+is_non-tech: true
 banner:
   text: "Build vs Buy: Guide to Evaluating Identity Management"
   action: "https://resources.auth0.com/build-vs-buy-evaluating-identity-management/"

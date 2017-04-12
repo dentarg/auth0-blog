@@ -4,6 +4,7 @@ title: "Managing Tech Job Stress When 9-5 is Unrealistic"
 description: "Explore the many ways to manage job stress and burnout when overtime is an expectation."
 date: 2016-10-07 8:30
 category: Growth, Generic
+is_non-tech: true
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"

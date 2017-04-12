@@ -4,6 +4,7 @@ title: "Personal Information Security Guide for Family and Friends"
 description: "Help your family and friends being secure with this printable security guide"
 date: 2016-12-23 08:30
 category: Hot Topics, Security
+is_non-tech: true
 author:
   name: "Prosper Otemuyiwa"
   url: "https://twitter.com/unicodeveloper"

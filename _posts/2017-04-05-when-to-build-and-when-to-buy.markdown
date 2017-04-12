@@ -4,6 +4,7 @@ title: "When to Build and When to Buy"
 description: A cost analysis isn't the only thing to look at when deciding when to build or buy
 date: 2017-04-05 09:01
 category: Growth, BuildBuy
+is_non-tech: true
 banner:
   text: "Build vs Buy: Guide to Evaluating Identity Management"
   action: "https://resources.auth0.com/build-vs-buy-evaluating-identity-management/"

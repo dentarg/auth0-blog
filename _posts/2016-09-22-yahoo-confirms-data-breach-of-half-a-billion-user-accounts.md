@@ -4,6 +4,7 @@ title: "Yahoo Confirms Data Breach of Half a Billion User Accounts"
 description: "Yahoo has confirmed that in late 2014, at least 500 million user accounts were stolen in a large-scale data breach, exposing names, emails, and more."
 date: 2016-09-22
 category: Hot Topics, Security
+is_non-tech: true
 author:
   name: "Kim Maida"
   url: "https://twitter.com/KimMaida"

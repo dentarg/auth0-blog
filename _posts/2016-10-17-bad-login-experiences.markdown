@@ -4,6 +4,7 @@ title: "A Bad Login Experience Can Chase Customers Away"
 description: Intuitive design and simple layout is key to keeping people on your site.
 date: 2016-10-17 18:28
 category: Growth, Identity, Authentication
+is_non-tech: true
 author: 
   name: Federico Molina
   url: https://twitter.com/federicomolina
