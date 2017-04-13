@@ -96,7 +96,7 @@ var app = new Vue({
 })
 ```
 
-The result of the code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces *{{* and *}}* are used to display the property on the web page.
+The result of the code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces `{{` and `}}` are used to display the property on the web page.
 
 ### Directives
 
@@ -672,6 +672,7 @@ Let's take a good look at what is enclosed in the `<template>` tag. This is what
 We looped through the `publicBattles` property which is now an array with the help of the `v-for` inbuilt directive to display the contents on the screen.
 
 {% highlight html %}
+{% raw %}
 <div class="col-sm-4" v-for="battle in publicBattles">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -683,6 +684,7 @@ We looped through the `publicBattles` property which is now an array with the he
       </div>
     </div>
 </div>
+{% endraw %}
 {% endhighlight %}
 
 ```js
@@ -700,6 +702,7 @@ That's the `publicBattles` property right there. Vuejs automatically binds it to
 Now, let's build the `PrivateBattles` component in the same way:
 
 {% highlight html %}
+{% raw %}
 <template>
   <div>
     <app-nav></app-nav>
@@ -761,6 +764,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
+{% endraw %}
 {% endhighlight %}
 
 _privateBattles.vue_
@@ -831,7 +835,6 @@ Just a few things before we check our application in the browser:
 </html>
 
 {% endhighlight %}
-
 
 Feel free to check out your application in the browser. Right now, you should have something like this:
 
@@ -1053,6 +1056,7 @@ Let's go update the `AppNav` component to hide/show the `login` and `logout` but
 Now, your `AppNav` component should look like this:
 
 {% highlight html %}
+{% raw %}
 <template>
   <nav class="navbar navbar-default">
     <div class="navbar-header">
@@ -1094,6 +1098,7 @@ export default {
   margin: 5px 10px 0 0;
 }
 </style>
+{% endraw %}
 {% endhighlight %}
  
 
@@ -1104,6 +1109,7 @@ We imported `login`, `logout` and `isLoggedIn` functions from the `auth` helper 
 Open up the `PublicBattles` Component and modify it like so:
 
 {% highlight html %}
+{% raw %}
 <template>
   <div>
     <app-nav></app-nav>
@@ -1168,6 +1174,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
+{% endraw %}
 {% endhighlight %}
 
 _publicBattles.vue_
@@ -1180,6 +1187,7 @@ We will create a new component and call it ` allback.vue`. This component will b
 
 _callback.vue_
 
+{% highlight html %}
 <template>
 </template>
 <script>
@@ -1197,7 +1205,7 @@ export default {
 };
 </script>
 
-```
+{% endhighlight %}
 
 Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback  component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/` page and will be in a logged in state.
 
