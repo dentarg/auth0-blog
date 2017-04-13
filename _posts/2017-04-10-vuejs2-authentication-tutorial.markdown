@@ -26,11 +26,11 @@ related:
 
 ---
 
-**TL;DR:** Vuejs is a progressive JavaScript framework for building user interfaces on the web. It was launched shortly after ReactJS and over time, lots of developers started adopting it in their daily work. in fact, with the launch of Vuejs 2.0, the adoption and usage worldwide skyrocketed. Currently, Vuejs has over 49,000 stars on [Github](https://github.com/vuejs/vue). In this tutorial, I'll show you how easy it is to build a web application with Vuejs 2 and add authentication to it. Check out the [repo](https://github.com/auth0-blog/vuejs2-authentication-tutorial) to get the code.
+**TL;DR:** Vuejs is a progressive JavaScript framework for building user interfaces on the web. It was launched shortly after ReactJS and over time, lots of developers started adopting it in their daily work. In fact, with the launch of Vuejs 2.0, the adoption and usage worldwide skyrocketed. Currently, Vuejs has over 49,000 stars on [Github](https://github.com/vuejs/vue). In this tutorial, I'll show you how easy it is to build a web application with Vuejs 2 and add authentication to it. Check out the [repo](https://github.com/auth0-blog/vuejs2-authentication-tutorial) to get the code.
 
 ---
 
-**Vuejs** was developed by [Evan You](https://twitter.com/youyuxi), an ex-Google software engineer. Just before launching Vuejs 2.0, he started to work on Vue.js full time and as a result, Vue.js 2 is now  significantly lighter, smaller in size and faster. Currently, many popular products use **Vuejs** to build their user interfaces. Such platforms include *Laravel Spark*, *Grammarly*, *Statamic*, *Laracasts* and more. There is a comprehensive list of [projects using Vuejs on Github](https://github.com/vuejs/awesome-vue#projects-using-vuejs). Vuejs 2's [documentation](https://vuejs.org/v2/guide/) is very detailed, and there is a vibrant community of users.
+[**Vuejs**](https://vuejs.org/) was developed by [Evan You](https://twitter.com/youyuxi), an ex-Google software engineer. Just before launching Vuejs 2.0, he started to work on Vue.js full time and as a result, Vue.js 2 is now  significantly lighter, smaller in size and faster. Currently, many popular products use **Vuejs** to build their user interfaces. Such platforms include *Laravel Spark*, *Grammarly*, *Statamic*, *Laracasts* and more. There is a comprehensive list of [projects using Vuejs on Github](https://github.com/vuejs/awesome-vue#projects-using-vuejs). Vuejs 2's [documentation](https://vuejs.org/v2/guide/) is very detailed, and there is a vibrant community of users.
 
 ## Vuejs 2, Angular 2 and React
 
@@ -53,7 +53,7 @@ React and Vue.js are also similar in many ways. They both:
 
 * Utilize a virtual DOM.
 * Provide composable view components.
-* Have a core library & have sister libraries for handling state, routing, network requests e.t.c.
+* Have a core library & have sister libraries for handling state, routing, network requests, e.t.c.
 
 ### Enter Performance Profiling
 
@@ -96,7 +96,7 @@ var app = new Vue({
 })
 ```
 
-The result of this code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces *{{* and *}}* are used to display the property on the web page.
+The result of the code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces *{{* and *}}* are used to display the property on the web page.
 
 ### Directives
 
@@ -157,13 +157,13 @@ Lynda
 
 ### Components
 
-Vuejs 2 also leverages on components. It allows you to build large applications composed of small, self-contained smaller components.
+Vuejs 2 also leverages components. It allows you to build large applications composed of small, self-contained smaller components.
 
-An example of a component is an HTML 5 tag, say `<header>`. A header can have attributes, it can be styled and also possess its own behaviour. In **Vuejs 2**, you'll be able to build your own custom component by registering it like so:
+An example of a component is an HTML5 tag, say `<header>`. A header can have attributes, it can be styled and also possess its own behaviour. In **Vuejs 2**, you'll be able to build your own custom component by registering it like so:
 
 ```js
 Vue.component('app-nav', {
-  template: '<li>This is the application's navbar</li>'
+  template: "<li>This is the application's navbar</li>"
 })
 ```
 
@@ -193,7 +193,7 @@ _Vuejs 2 Lifecycle hooks_
 * **beforeDestroy()** : This method is called right before a Vue instance or component is destroyed. At this stage the instance is still fully functional.
 * **destroyed()** : This method is called after a Vue instance or component has been destroyed. When this hook is called, all directives of the Vue instance have been unbound, all event listeners have been removed, and all child Vue instances have also been destroyed.
 
-Vuejs 2 possess some inbuilt components such as `component`, `transition`, `transition-group`, `keep-alive` and `slot`. You can take advantage of these components in your app. [Check out how to use them](https://vuejs.org/v2/api/#component).
+Vuejs 2 possess some built-in components such as `component`, `transition`, `transition-group`, `keep-alive` and `slot`. You can take advantage of these components in your app. [Check out how to use them.](https://vuejs.org/v2/api/#component)
 
 ### Props
 
@@ -295,7 +295,7 @@ The app we will build today is called `The Ultimate Startup Battle Ground`. Seve
 
 Interested startup founders can get hold of this list and ensure their team does not miss out on it. However, the app will also provide a list of secret startup battles. This list will only be accessible to registered members.
 
-**Note:** The secret startup battles have bigger sponsors. How dared you miss that? Not gonna happen!
+**Note:** The secret startup battles have bigger sponsors. How dare you miss that? Not gonna happen!
 
 ## Build The Back-End
 
@@ -305,7 +305,9 @@ Let's build an API to serve the list of startup battles to our app. We'll quickl
 * An endpoint to serve secret startup battles - `/api/battles/private`.
 * Secure the endpoint that serves secret startup battles, so that it can only be accessed by registered users.
 
-Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/vuejs2-authentication-tutorial/tree/master/server). 
+Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/vuejs2-authentication-tutorial/tree/master/server).
+
+**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one. 
 
 Your `server.js` should look like this:
 
@@ -338,120 +340,16 @@ const authCheck = jwt({
 
 app.get('/api/battles/public', (req, res) => {
   let publicBattles = [
-  {
-    id: 1111,
-    name: 'Startup NYC',
-    sponsor: 'Alec Pesola',
-    seedFund: '500k'
-  },
-  {
-    id: 1112,
-    name: 'Startup Ontario',
-    sponsor: 'Ryan Chenkie',
-    seedFund: '750k'
-  },
-  {
-    id: 1113,
-    name: 'Startup Uttah',
-    sponsor: 'Diego Poza',
-    seedFund: '550k'
-  },
-  {
-    id: 1114,
-    name: 'Startup Australia',
-    sponsor: 'Eugene Kogan',
-    seedFund: '500k'
-  },
-  {
-    id: 1115,
-    name: 'Startup Buenos Aires',
-    sponsor: 'Sebastian Peyrott',
-    seedFund: '600k'
-  },
-  {
-    id: 1116,
-    name: 'Startup Lagos',
-    sponsor: 'Prosper Otemuyiwa',
-    seedFund: '650k'
-  },
-  {
-    id: 1117,
-    name: 'Startup Oslo',
-    sponsor: 'Mark Fish',
-    seedFund: '600k'
-  },
-  {
-    id: 1118,
-    name: 'Startup Calabar',
-    sponsor: 'Christian Nwamba',
-    seedFund: '800k'
-  },
-  {
-    id: 1119,
-    name: 'Startup Nairobi',
-    sponsor: 'Aniedi Ubong',
-    seedFund: '700k'
-  }];
+    // Array of public battles
+  ];
 
   res.json(publicBattles);
 })
 
 app.get('/api/battles/private', authCheck, (req,res) => {
   let privateBattles = [
-  {
-    id: 2111,
-    name: 'Startup Seattle',
-    sponsor: 'Mark Zuckerberg',
-    seedFund: '10M'
-  },
-  {
-    id: 2112,
-    name: 'Startup Vegas',
-    sponsor: 'Bill Gates',
-    seedFund: '20M'
-  },
-  {
-    id: 2113,
-    name: 'Startup Addis-Ababa',
-    sponsor: 'Aliko Dangote',
-    seedFund: '8M'
-  },
-  {
-    id: 2114,
-    name: 'Startup Abuja',
-    sponsor: 'Femi Otedola',
-    seedFund: '5M'
-  },
-  {
-    id: 2115,
-    name: 'Startup Paris',
-    sponsor: 'Jeff Bezos',
-    seedFund: '1.6M'
-  },
-  {
-    id: 2116,
-    name: 'Startup London',
-    sponsor: 'Dave McClure',
-    seedFund: '1M'
-  },
-  {
-    id: 2117,
-    name: 'Startup Oslo',
-    sponsor: 'Paul Graham',
-    seedFund: '2M'
-  },
-  {
-    id: 2118,
-    name: 'Startup Bangkok',
-    sponsor: 'Jeff Clavier',
-    seedFund: '5M'
-  },
-  {
-    id: 2119,
-    name: 'Startup Seoul',
-    sponsor: 'Paul Buchheit',
-    seedFund: '4M'
-  }];
+    // Array of private battles
+  ];
 
   res.json(privateBattles);
 })
@@ -460,7 +358,10 @@ app.listen(3333);
 console.log('Listening on localhost:3333');
 ```
 
+Check out the [full server.js file here](https://github.com/auth0-blog/vuejs2-authentication-tutorial/blob/master/server/server.js).
+
 **Note:** Your `YOUR-AUTH0-DOMAIN` should be replaced with your auth0 domain.
+
 _server.js_
 
 
@@ -571,7 +472,7 @@ ultimate-startup-battle/
 We will work with this structure but make some few modifications.
 
 
-**Note:** We are not writing any tests for this application. It's out of the scope of this tutorial. So during the installation, i opted out by choosing the no option.
+**Note:** We are not writing any tests for this application. It's out of the scope of this tutorial. So during the installation, I opted out by choosing the no option.
 
 Make the following modifications like so:
 
@@ -591,7 +492,6 @@ Open up the file and add code to it like so:
 ```js
 
 import axios from 'axios';
-import { getIdToken } from './auth';
 
 const BASE_URL = 'http://localhost:3333';
 
@@ -972,60 +872,8 @@ Open up your `server.js` file and add the `authCheck` middleware to the private 
 
 app.get('/api/battles/private', authCheck, (req,res) => {
   let privateBattles = [
-  {
-    id: 2111,
-    name: 'Startup Seattle',
-    sponsor: 'Mark Zuckerberg',
-    seedFund: '10M'
-  },
-  {
-    id: 2112,
-    name: 'Startup Vegas',
-    sponsor: 'Bill Gates',
-    seedFund: '20M'
-  },
-  {
-    id: 2113,
-    name: 'Startup Addis-Ababa',
-    sponsor: 'Aliko Dangote',
-    seedFund: '8M'
-  },
-  {
-    id: 2114,
-    name: 'Startup Abuja',
-    sponsor: 'Femi Otedola',
-    seedFund: '5M'
-  },
-  {
-    id: 2115,
-    name: 'Startup Paris',
-    sponsor: 'Jeff Bezos',
-    seedFund: '1.6M'
-  },
-  {
-    id: 2116,
-    name: 'Startup London',
-    sponsor: 'Dave McClure',
-    seedFund: '1M'
-  },
-  {
-    id: 2117,
-    name: 'Startup Oslo',
-    sponsor: 'Paul Graham',
-    seedFund: '2M'
-  },
-  {
-    id: 2118,
-    name: 'Startup Bangkok',
-    sponsor: 'Jeff Clavier',
-    seedFund: '5M'
-  },
-  {
-    id: 2119,
-    name: 'Startup Seoul',
-    sponsor: 'Paul Buchheit',
-    seedFund: '4M'
-  }];
+    // Array of private battles
+  ];
 
   res.json(privateBattles);
 })
@@ -1192,7 +1040,7 @@ Now, go to the clients area and check for the test client. You should see it in 
 
 ![Startup Battle Client](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
 
-Copy the client id and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
+Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1469,6 +1317,6 @@ Everything should work fine. Pat yourself on the back. You have just successfull
 
 ## Conclusion
 
-**Vuejs 2** is a light-weight, fast and awesome library for building user interfaces. Its learning curve is gentle and its API is not complex to understand. It has a fast growing community and there are many components available to the public for different functionalities.
+**Vuejs 2** is a lightweight, fast and awesome library for building user interfaces. Its learning curve is gentle and its API is not complex to understand. It has a fast growing community and there are many components available to the public for different functionalities.
 
 In addition, Auth0 can help secure your **Vuejs 2** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
