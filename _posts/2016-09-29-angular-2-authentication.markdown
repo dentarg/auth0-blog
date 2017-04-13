@@ -531,7 +531,7 @@ export class AuthService {
   // Get and store access_token in local storage
   getAccessToken() {
     let accessToken = this.getParameterByName('access_token');
-    localStorage.setItem('access_token', accessToken);
+    localStorage.setItem('token', accessToken);
   }
 
   // Get and store id_token in local storage
@@ -568,7 +568,7 @@ export class AuthService {
   verifyNonce(nonce) {
     if (nonce !== localStorage.getItem('nonce')) {
       localStorage.removeItem('id_token');
-      localStorage.removeItem('access_token');
+      localStorage.removeItem('token');
     }
     this.router.navigateByUrl('/deals');
   }
@@ -577,7 +577,7 @@ export class AuthService {
     // To log out, just remove the token and profile
     // from local storage
     localStorage.removeItem('id_token');
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('token');
 
     // Send the user back to the dashboard after logout
     this.router.navigateByUrl('/deals');
@@ -819,67 +819,7 @@ We need to update the call to the `/api/deals/private` to include our `access_to
   }
 ```
 
-**Note:** The **authHTTP** library currently defaults to sending the `id_token` to the backend. Our API requires the `access_token` instead, but we can easily change this. The `authHTTP` library can be customized and we'll do this by creating a custom factory and changing the default token type from an `id_token` to an `access_token`. To do this, create a new file and call it `auth.factory.ts`. Our implementation will be as follows:
-
-```js
-import { Http, RequestOptions } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({
-    tokenName: 'token',
-    tokenGetter: (() => localStorage.getItem('access_token'))
-  }), http, options);
-};
-```
-
-With this new factory created, we'll have to properly declare it in our NgModule. That implementation can be seen here:
-
-```js
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule, Http, RequestOptions } from '@angular/http';
-import { AUTH_PROVIDERS } from 'angular2-jwt';
-
-import { AppComponent } from './app.component';
-import { routing, routedComponents } from './app.routing';
-
-import { DealService } from './deal.service';
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth-guard.service';
-import { AuthHttp } from 'angular2-jwt';
-import { authHttpServiceFactory } from './auth.factory';
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    routing,
-    HttpModule,
-  ],
-  declarations: [
-    AppComponent,
-    routedComponents
-  ],
-  providers: [
-    DealService,
-    AUTH_PROVIDERS,
-    AuthService,
-    AuthGuard,
-    // Overwriting the default AuthHTTP library
-    {
-      provide: AuthHttp,
-      useFactory: authHttpServiceFactory,
-      deps: [Http, RequestOptions]
-    }
-  ],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-In the future we will likely update the default to use the `access_token` so the above step may not be required. If you didn't want to use the AuthHTTP library, you could have just as easily appended an `Authorization` header to the call, and set the value to `Bearer {access_token}` and gotten the same result.
+Now when a call is made to our API withe the `authHttp` service, we will automatically append the `access_token` to the call in an `Authorization` header and in the correct format. Let's try it out in the next section to make sure that it works.
 
 ### Putting it all together
 
