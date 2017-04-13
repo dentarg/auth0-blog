@@ -324,8 +324,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 const authCheck = jwt({
-  secret: 'AUTH0_CLIENT_SECRET',
-  audience: 'AUTH0_CLIENT_ID'
+  secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://{{YOUR-AUTH0-DOMAIN}}/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
+    algorithms: ['RS256']
 });
 
 app.get('/api/battles/public', (req, res) => {
@@ -452,6 +460,7 @@ app.listen(3333);
 console.log('Listening on localhost:3333');
 ```
 
+**Note:** Your `YOUR-AUTH0-DOMAIN` should be replaced with your auth0 domain.
 _server.js_
 
 
@@ -873,6 +882,7 @@ import PublicBattles from '@/components/publicBattles';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -937,23 +947,28 @@ The majority of the apps we use on a daily basis have a means of authenticating 
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
-Log into your Auth0 [management dashboard](https://manage.auth0.com) and navigate to the client app you wish to use. Get the **Domain**, **Client Id**, and **Client Secret** of this app. We'll need them soon.
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
+
+From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Startup Battle API** and for the identifier I'll set it as **http://startupbattle.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+
+![Creating the startupbattle API](https://cdn2.auth0.com/blog/startupbattle/api.png)
+_Creating the Startup battle API_
+
+Next, let's define some scopes for our API. Scopes allow us to manage access to our API. We can define as few or as many scopes as we want. For our simple example, we'll just create a single scope that will grant users full access to the API.
+
+![Locate scopes bar](https://cdn2.auth0.com/blog/startupbattles/scope.png)
+_Locate Scopes bar_
+
+![Adding Scope to API](https://cdn2.auth0.com/blog/startupbattles/scopes.png)
+_Adding scope_
 
 ### Secure The Node API
 
 We need to secure the API so that the private battles endpoint will only be accessible to authenticated users. We can secure it easily with Auth0.
 
-Open up your `server.js` file and replace the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` variables with your `client id` and `client secret` respectively. Then add the `authCheck` middleware to the private battles endpoint like so:
+Open up your `server.js` file and add the `authCheck` middleware to the private battles endpoint like so:
 
 ```js
-
-...
-const authCheck = jwt({
-  secret: 'AUTH0_CLIENT_SECRET',
-  audience: 'AUTH0_CLIENT_ID '
-});
-
-....
 
 app.get('/api/battles/private', authCheck, (req,res) => {
   let privateBattles = [
@@ -1020,7 +1035,6 @@ console.log('Listening on localhost:3333');
 
 ```
 
-**Note:** You should load these values from environment variables for security reasons. No one should have access to your Auth0 secret.
 
 Try accessing the `http://localhost:3333/api/battles/private` endpoint again from Postman. You should be denied access like so:
 
@@ -1033,11 +1047,11 @@ Next, let's add authentication to our front-end.
 
 We'll create an authentication helper to handle everything about authentication in our app. Go ahead and create an `auth.js` file inside the `utils` directory.
 
-Before we add code, you need to install `jwt-decode` and `auth0-lock` node packages like so:
+Before we add code, you need to install `jwt-decode` node package like so:
 
 ```bash
 
-npm install jwt-decode auth0-lock --save
+npm install jwt-decode --save
 
 ```
 
@@ -1049,36 +1063,19 @@ import axios from 'axios';
 import Router from 'vue-router';
 import Auth0Lock from 'auth0-lock';
 const ID_TOKEN_KEY = 'id_token';
+const ACCESS_TOKEN_KEY = 'access_token';
 
 var router = new Router({
-   mode: 'hash',
+   mode: 'history',
 });
 
-const lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
-    auth: {
-      redirectUrl: `${window.location.origin}`,
-      responseType: 'token'
-    }
-  }
-);
-
-lock.on('authenticated', authResult => {
-  setIdToken(authResult.idToken);
-});
-
-
-export function login(options) {
-  lock.show(options);
-
-  return {
-    hide() {
-      lock.hide();
-    }
-  }
+export function login() {
+  window.location.href = `https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={{generateNonce()}}`;
 }
 
 export function logout() {
   clearIdToken();
+  clearAccessToken();
   router.go('/');
 }
 
@@ -1093,16 +1090,70 @@ export function requireAuth(to, from, next) {
   }
 }
 
-function setIdToken(idToken) {
-  localStorage.setItem(ID_TOKEN_KEY, idToken);
-}
-
 export function getIdToken() {
   return localStorage.getItem(ID_TOKEN_KEY);
 }
 
+export function getAccessToken() {
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
+
 function clearIdToken() {
   localStorage.removeItem(ID_TOKEN_KEY);
+}
+
+function clearAccessToken() {
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
+}
+
+// Helper function that will allow us to extract the access_token and id_token
+function getParameterByName(name) {
+  let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+// Get and store access_token in local storage
+export function setAccessToken() {
+  let accessToken = getParameterByName('access_token');
+  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+}
+
+// Get and store id_token in local storage
+export function setIdToken() {
+  let idToken = getParameterByName('id_token');
+  localStorage.setItem(ID_TOKEN_KEY, idToken);
+  decodeIdToken(idToken);
+}
+
+// Decode id_token to verify the nonce
+function decodeIdToken(token) {
+  const jwt = decode(token);
+  verifyNonce(jwt.nonce);
+}
+
+// Function to generate a nonce which will be used to mitigate replay attacks
+function generateNonce() {
+  let existing = localStorage.getItem('nonce');
+  if (existing === null) {
+    let nonce = '';
+    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 16; i++) {
+        nonce += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    localStorage.setItem('nonce', nonce);
+    return nonce;
+  }
+  return localStorage.getItem('nonce');
+}
+
+// Verify the nonce once user has authenticated. If the nonce can't be verified we'll log the user out
+function verifyNonce(nonce) {
+  if (nonce !== localStorage.getItem('nonce')) {
+    clearIdToken();
+    clearAccessToken();
+  }
+
+  window.location.href = "/";
 }
 
 export function isLoggedIn() {
@@ -1124,10 +1175,24 @@ function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();
 }
-
 ```
 
-In the code above, we created an instance of `Auth0 Lock` and passed in our credentials. We also listened on the `authenticated` event. It grabs the `id_token` returned from the Auth0 server and stores it in localStorage. The `logout` function deletes the token and directs us back to the homepage.
+In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
+
+This URL calls the Auth0's `authorize` endpoint. With all the details we passed to the URL, our client app and will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the URL [here](https://auth0.com/docs/api-auth/tutorials/implicit-grant#1-get-the-user-s-authorization).
+
+The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
+
+Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
+
+![Startup Client](https://cdn2.auth0.com/blog/app/startupclient.png)
+_Startup API Client_
+
+Now, go to the clients area and check for the test client. You should see it in your list of clients like so:
+
+![Startup Battle Client](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
+
+Copy the client id and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1261,15 +1326,36 @@ _publicBattles.vue_
 
 We are enabling the link to private startup battles based on the login status of a user via the `isLoggedIn()` method.
 
+### Add A Callback Component
+
+We will create a new component and call it ` allback.vue`. This component will be activated when the `localhost:8080/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
+
+_callback.vue_
+
+<template>
+</template>
+<script>
+
+import { setIdToken, setAccessToken } from '../../utils/auth';
+
+export default {
+  name: '',
+  mounted() {
+    this.$nextTick(() => {
+      setAccessToken();
+      setIdToken();
+    });
+  },
+};
+</script>
+
+```
+
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback  component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/` page and will be in a logged in state.
+
 ### Add some values to Auth0 Dashboard
 
-Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:8080` to the **Allowed Callback URLs** and **Allowed Origins (CORS)**.
-
-![Allowed Callback](https://cdn.auth0.com/blog/vuejs/callbackurls.png)
-_Allowed Callback Urls_
-
-![Allowed Origins](https://cdn.auth0.com/blog/react/allowedorigins.png)
-_Allowed Origins_
+Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:8080/callback` to the **Allowed Callback URLs** and `http://localhost:8080` to **Allowed Origins (CORS)**.
 
 ### Secure The Private Battles Route
 
@@ -1305,12 +1391,53 @@ export default new Router({
 ```
 _index.js_
 
+One more thing. Now, let's register the `/callback` route in our routes file like so:
+
+```js
+import Vue from 'vue';
+import Router from 'vue-router';
+import PrivateBattles from '@/components/privateBattles';
+import PublicBattles from '@/components/publicBattles';
+import Callback from '@/components/callback';
+import { requireAuth } from '../../utils/auth';
+
+Vue.use(Router);
+
+export default new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'PublicBattles',
+      component: PublicBattles,
+    },
+    {
+      path: '/private-battles',
+      name: 'PrivateBattles',
+      beforeEnter: requireAuth,
+      component: PrivateBattles,
+    },
+    {
+      path: '/callback',
+      component: Callback,
+    },
+  ],
+});
+```
+
 Now, try to log in.
 
-![Lock Login Widget](https://cdn.auth0.com/blog/vuejs2/login.png)
+![Lock Login Widget](https://cdn2.auth0.com/blog/startupbattle/login.png)
 _Lock Login Widget_
 
-![Logged In and Unauthorized to see the Private Startup Battle](https://cdn.auth0.com/blog/vuejs/unauthorized.png)
+For the first time, the user will be shown a user consent dialog that will show the scope available. Once a user authorizes, it goes ahead to login the user and give him access based on the scopes.
+
+![User consent dialog](https://cdn2.auth0.com/blog/startupbattle/authorize.png)
+_User presented with an option to authorize_
+
+**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, subsequent logins will not need a user consent authorization dialog. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client.
+
+![Logged In and Unauthorized to see the Private Startup Battle](https://cdn2.auth0.com/blog/startupbattle/unauthorized.png)
 _Logged In, but unauthorized to see the Private Startup Battle_
 
 We have successfully logged in but the content of the private startup battle is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
@@ -1321,15 +1448,16 @@ It's simple! We secured our endpoint earlier, but right now we are not passing t
 
 Go ahead and open up the `utils/battles-api.js` file. We will tweak the `getPrivateStartupBattles` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
 
-Now, we will pass an option to send an `Authorization` header with a Bearer token along with the `GET` request like so:
+Now, we will pass an option to send an `Authorization` header with a Bearer access_token along with the `GET` request like so:
 
 ```js
 
+import { getAccessToken } from './auth';
+
 function getPrivateStartupBattles() {
   const url = `${BASE_URL}/api/battles/private`;
-  return axios.get(url, { headers: { Authorization: `Bearer ${getIdToken()}` }}).then(response => response.data);
+  return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
 }
-
 
 ```
 
