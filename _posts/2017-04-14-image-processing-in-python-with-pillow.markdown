@@ -22,7 +22,7 @@ tags:
 ## Introduction
 A lot of applications use digital images, and with this there is usually a need to process the images used. If you are building your application with Python and need to add image processing features to it, there are various libraries you could use. Some popular ones are [OpenCV](https://pypi.python.org/pypi/opencv-python), [scikit-image](http://scikit-image.org/), [Python Imaging Library](http://www.pythonware.com/products/pil/) and [Pillow](https://python-pillow.org/).
 
-We won't debate on which library is the best here, they all have their merits. This article will focus on Pillow, a library that is powerful, provides a wide array of image processing features and is simple to use.
+We won't debate on which library is the best here, they all have their merits. This article will focus on Pillow, a library that is powerful, provides a wide array of image processing features, and is simple to use.
 
 Pillow is a fork of the Python Imaging Library (PIL). PIL is a library that offers several standard procedures for manipulating images. It's a powerful library, but hasn't been updated since 2011 and doesn't support Python 3. Pillow builds on this, adding more features and support for Python 3. It supports a range of image file formats such as PNG, JPEG, PPM, GIF, TIFF and BMP. We'll see how to perform various operations on images such as cropping, resizing, adding text to images, rotating, greyscaling, e.t.c using this library.
 
@@ -35,7 +35,7 @@ After installing the prerequisite libraries, you can install Pillow with `pip:
 $ pip install Pillow
 ```
 
-To follow along, you can [download](https://github.com/echessa/misc/raw/master/rp/img_pro/images.zip) the images (coutesy of [unsplash](https://unsplash.com/)) that we'll use in the article. You can also use your own images.
+To follow along, you can [download](https://github.com/echessa/misc/raw/master/rp/img_pro/images.zip) the images (coutesy of [Unsplash](https://unsplash.com/)) that we'll use in the article. You can also use your own images.
 
 All examples will assume the required images are in the same directory as the python script file being run.
 
@@ -647,3 +647,5 @@ Run the app and you should now be able to log out.
 
 ## Conclusion
 In this article, we've covered some of the more common image processing operations found in applications. Pillow is a powerful library and we definitely haven't discussed all it can do. If you want to find out more, be sure to [read the documentation](https://pillow.readthedocs.io/en/3.0.x/index.html).
+
+If you're building a Python application that requires authentication, consider using Auth0 as it is bound to save you loads of time and effort. After <a href="javascript:signup()">signing up</a>, setting up your application with Auth0 is fairly simple. If you need help, you can look through the [documentation](https://auth0.com/docs) or post your question in the comment section below.
