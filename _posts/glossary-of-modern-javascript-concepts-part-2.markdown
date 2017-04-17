@@ -345,13 +345,11 @@ Although [Angular](https://angular.io) was released, [AngularJS](https://angular
 
 **Dirty checking** refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI. Another watcher is added when we want to watch values for changes using `$scope.$watch()`.
 
-> <em>"AngularJS remembers the value and compares it to a previous value. This is basic dirty-checking. If there is a change in value, then it fires the change event."</em>
->
-> — [Miško Hevery](https://twitter.com/mhevery), creator of Angular
+> <em>"AngularJS remembers the value and compares it to a previous value. This is basic dirty-checking. If there is a change in value, then it fires the change event."</em> —[Miško Hevery](https://twitter.com/mhevery), creator of Angular
 
 The digest cycle is a _loop_. AngularJS runs through its list of watchers and checks to see if any of the watched`$scope` variables have changed (aka, are "dirty"). If a variable has not changed, it moves on to the next watched variable. If it finds one that is dirty, it remembers its new value and _re-enters the loop_. When no changes are detected in the entire watch list, the DOM is updated.
 
-The major advantage of dirty checking is that it's simple and predictable: there is no extending of objects and there are no APIs involved. However, it's also inefficient. Whenever _anything_ changes, the the digest cycle is triggered. Therefore, it's important that care is taken when creating watchers in AngularJS. Every time a `$scope` property is bound to the UI, a watcher is added. Every time a `$watch()` is implemented, another watcher is added. Many directives also add watchers, and so do scope variables, filters, and repeaters.
+The major advantages of dirty checking are that it's simple and predictable: there is no extending of objects and there are no APIs involved. However, it's also inefficient. Whenever _anything_ changes, the the digest cycle is triggered. Therefore, it's important that care is taken when creating watchers in AngularJS. Every time a `$scope` property is bound to the UI, a watcher is added. Every time a `$watch()` is implemented, another watcher is added. Many directives also add watchers, and so do scope variables, filters, and repeaters.
 
 Though dirty checking can still be fast in a simple app, we can easily see how this can get out of hand in a complex implementation. This has led to articles such as [11 Tips to Improve AngularJS Performance: 1. Minimize/Avoid Watchers](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) and [Speeding up AngularJS's $digest loop](https://coderwall.com/p/d_aisq/speeding-up-angularjs-s-digest-loop).
 
