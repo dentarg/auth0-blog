@@ -167,7 +167,7 @@ The first public release of JavaScript was integrated in Netscape Navigator 2.0,
 
 ![Netscape Navigator 2.01 Gold](https://cdn.auth0.com/blog/js-history/netscape2.png)
 
-Unfortunately, many basic features of JavaScript were not working at the time. Anonymous functions and prototype chains, the two most powerful features were not working as they do today. Still, these features were alredy part of the design of the language and would be implemented correctly in the following years. It should be noted that the JavaScript interpreter in this release was considered in alpha state.
+Unfortunately, many basic features of JavaScript were not working at the time. Anonymous functions and prototype chains, the two most powerful features were not working as they do today. Still, these features were already part of the design of the language and would be implemented correctly in the following years. It should be noted that the JavaScript interpreter in this release was considered in alpha state.
 
 <video controls="true">
     <source src="https://cdn.auth0.com/blog/js-history/netscape2.mp4" type="video/mp4">
