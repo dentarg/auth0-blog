@@ -4,6 +4,7 @@ title: "Build The Ultimate Account Based Marketing Machine with Account Selectio
 description: "Learn various strategies on how to reach the right people through calculated account selection."
 date: 2017-02-10 8:30
 category: Growth, Marketing, ABM
+is_non-tech: true
 author:
   name: Brandon Redlinger
   url: https://twitter.com/Brandon_Lee_09

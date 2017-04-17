@@ -28,6 +28,13 @@ tags:
 
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-487"></i>
+  <p><strong>Attention:</strong> Due to recent changes in our API and our wishes to maintain security best practices, the <a href="https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/">use of id_token for API authorization is being deprecated</a>. We are working diligently to update this and other articles that use id_token for API authorization.</p>
+
+<p>Applications should instead use the access_token for API authorization. While we update this article, please check out the <a href="https://auth0.com/docs/tokens/access-token">docs for latest guidance and instructions</a> on how to generate access_tokens from Auth0. Thank you.</p>
+</div>
+
 **TL;DR:** HTML forms might seem like a trivial matter, but they are important to get right. In this tutorial we will look at how to implement forms with Angular 2 and learn about the classes provided by the framework to do so. We'll see how to introduce validation to our forms, and even create a real-life asynchronous validator to check some input against an API. Check out the [repo](https://github.com/auth0-blog/angular2-forms) to go straight to the code.
 
 If you'd like to see our other Angular 2 content, we've also covered [pipes](https://auth0.com/blog/2015/09/03/angular2-series-working-with-pipes/), [dependency injection](https://auth0.com/blog/2015/09/17/angular-2-series-part-2-domain-models-and-dependency-injection/), [HTTP](https://auth0.com/blog/2015/10/15/angular-2-series-part-3-using-http/), [authentication](https://auth0.com/blog/2015/11/10/introducing-angular2-jwt-a-library-for-angular2-authentication/), and [routing](https://auth0.com/blog/2016/01/25/angular-2-series-part-4-component-router-in-depth/).
@@ -393,6 +400,8 @@ Notice here that we aren't waiting until a submit attempt is made because we wan
 
 ## Aside: Angular 2 Authentication with Auth0
 
+> **IMPORTANT:** The use of `id_token`s [has been deprecated](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). Please see the [documentation on implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant) to learn how to secure your API and make authenticated HTTP requests. An updated article will be published on how to implement this with the latest version of Angular.
+
 Angular 2 forms are great, and the validation that we can do with them makes our lives easier. However, for the case of user registration and login, there is still a lot we need to consider for our apps, which often means a lot of manual work. This includes things like password reset, integrating social login, using multifactor authentication, and more.
 
 With Auth0, all of this is done for us out of the box, and we don't need to worry at all about form validation. Adding authentication to an Angular 2 app is really simple and, depending on your setup, can be done in under 10 minutes.
@@ -505,7 +514,7 @@ Once the user logs in, a [JSON Web Token](https://jwt.io/introduction) will be s
 
 ### Step 4: Make Authenticated HTTP Requests
 
-With [**anuglar2-jwt**](https://github.com/auth0/angular2-jwt), we can automatically have our JWTs sent in HTTP requests. To do so, we need to inject and use `AuthHttp`.
+With [**angular2-jwt**](https://github.com/auth0/angular2-jwt), we can automatically have our JWTs sent in HTTP requests. To do so, we need to inject and use `AuthHttp`.
 
 ```js
 // src/client/ping/ping.component.ts

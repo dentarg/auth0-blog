@@ -4,6 +4,7 @@ title: "Auth0 is OpenID Connect Certified"
 description: "Auth0 conforms to OpenID Connect protocol and allows clients to verify the identity of the end-users though a reliable implementation."
 date: 2017-02-23 10:00
 category: Growth, Certifications
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

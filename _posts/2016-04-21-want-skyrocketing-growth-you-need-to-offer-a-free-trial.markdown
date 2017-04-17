@@ -5,6 +5,7 @@ description: "For SaaS companies, offering a free trial is crucial for growth. F
 date: 2016-04-21 13:30
 alias: /2016/04/21/want-skyrocketing-growth-you-need-to-offer-a-free-trial/
 category: Growth, Growth Hacking
+is_non-tech: true
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
   action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"

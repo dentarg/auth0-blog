@@ -4,6 +4,7 @@ title: "Auth0 Raises $15M to Enhance Its Identity Platform With Advanced Securit
 description: Trinity Ventures Leads Round Catalyzed by Five-Fold Revenue Growth in 2015
 date: 2016-08-24 16:36
 category: Announcements, Press
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

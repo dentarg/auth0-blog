@@ -4,6 +4,7 @@ title: "Mozilla Replaces Persona with Auth0 for Identity and Access Management (
 description: "Mozilla has chosen to replace their longstanding Persona authentication system with Auth0."
 date: 2017-01-30 08:30
 category: PR, Press
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

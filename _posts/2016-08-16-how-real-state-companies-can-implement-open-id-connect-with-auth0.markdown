@@ -4,6 +4,7 @@ title: "How Real Estate Companies Can Implement Open ID Connect With Auth0"
 description: All National Association of REALTORS affiliated listing services are now required to adopt the Open ID Connect standard
 date: 2016-08-16 12:30
 category: Growth, Industries
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

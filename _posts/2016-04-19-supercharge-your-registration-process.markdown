@@ -5,6 +5,7 @@ description: "The registration process for your app is super important for your 
 date: 2016-04-19 13:30
 alias: /2016/04/19/supercharge-your-registration-process/
 category: Growth, Identity, Authentication
+is_non-tech: true
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com

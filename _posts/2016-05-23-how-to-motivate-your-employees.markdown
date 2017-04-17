@@ -5,6 +5,7 @@ description: 6 tips that will help you motivate your employees and increase your
 date: 2016-05-23 8:30
 alias: /2016/05/23/how-to-motivate-your-employees/
 category: Growth, Generic
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

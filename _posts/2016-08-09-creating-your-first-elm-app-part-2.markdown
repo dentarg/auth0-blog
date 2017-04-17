@@ -745,7 +745,9 @@ These modules are great resources to help you implement Auth0 with Elm. We will 
 
 ![elm with Auth0](https://cdn.auth0.com/blog/elm-auth/aside-auth0.jpg)
 
-You can download the complete code for the Elm app with Auth0 integration at [this GitHub repo](
+You can download the complete code for the Elm app with Auth0 integration at [this GitHub repo](https://github.com/auth0-blog/elm-with-auth0).
+
+> **Important security note:** In this demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
 
 ### Sign Up for Auth0
 

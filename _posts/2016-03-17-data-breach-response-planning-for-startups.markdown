@@ -5,6 +5,7 @@ description: Security is a challenge at most startups. Here's some advice on how
 date: 2016-03-17 08:30
 alias: /2016/03/17/data-breach-response-planning-for-startups/
 category: Technical Guide, Security
+is_non-tech: true
 author:
   name: Eugene Kogan
   url: https://twitter.com/eugk

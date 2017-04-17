@@ -4,6 +4,7 @@ title: "Auth0 Lock Is Here For Both B2C And B2B Login"
 description: With just one login box, Lock is a hub for all your users
 date: 2016-11-03 15:55
 category: Growth, Identity, Auth0
+is_non-tech: true
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
   action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"

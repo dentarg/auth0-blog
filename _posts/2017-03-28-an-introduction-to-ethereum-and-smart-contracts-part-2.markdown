@@ -3,7 +3,7 @@ layout: post
 title: "An Introduction to Ethereum and Smart Contracts: a Programmable Blockchain"
 description: "Learn about verified, distributed computations in the cloud using Ethereum"
 date: 2017-03-28 12:30
-category: Technical Guide
+category: Technical Guide, Ethereum
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

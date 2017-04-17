@@ -3,6 +3,7 @@ layout: post
 title: "Could your iPhone get stolen while it's unlocked?"
 description: How to prevent criminals to mess with your accounts
 category: Hot Topics, Security, Mobile
+is_non-tech: true
 date: 2016-12-09 13:42
 author:
   name: Eugene Kogan

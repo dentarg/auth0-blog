@@ -4,6 +4,7 @@ title: "Auth0 Named in Seattle’s 10 Hottest Entrepreneurial Ventures for 2016"
 description: Auth0 had the privilege of joining the Seattle 10 Class of 2016
 date: 2016-12-23 15:03
 category: Announcements, Press
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

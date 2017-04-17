@@ -3,7 +3,7 @@ layout: post
 title: "Anomaly Detection: Safer Login with ThisData and Auth0"
 description: "Learn how to detect authentication anomalies with ThisData to improve login security."
 date: 2017-03-20 8:30
-category: Technical guide
+category: Technical guide, Identity
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:

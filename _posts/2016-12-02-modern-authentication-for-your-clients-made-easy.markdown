@@ -4,6 +4,7 @@ title: "Modern Authentication for Your Clients Made Easy"
 description: "Legacy username and password authentication is not enough. Learn about modern authentication and how Auth0 can help you implement it for your clients."
 date: 2016-12-02 08:30
 category: Security, Growth
+is_non-tech: true
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"

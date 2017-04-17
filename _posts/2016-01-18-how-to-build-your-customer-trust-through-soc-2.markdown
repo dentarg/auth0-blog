@@ -5,6 +5,7 @@ description: Learn what SOC2 is and how we implemented it at Auth0
 date: 2016-01-18 13:30
 alias: /2016/01/18/how-to-build-your-customer-trust-through-soc-2/
 category: Growth, Certifications
+is_non-tech: true
 banner:
   text: "Free eBook: Unlock B2B SaaS with Modern Identity Management"
   action: "https://resources.auth0.com/unlock-b2b-saas-growth-iam/"

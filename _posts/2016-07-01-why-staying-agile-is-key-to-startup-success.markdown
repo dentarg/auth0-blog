@@ -5,6 +5,7 @@ description: You're not going to outspend or out-muscle big corporations, but yo
 date: 2016-07-01 12:30
 alias: /2016/07/01/why-staying-agile-is-key-to-startup-success/
 category: Growth, Generic
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
