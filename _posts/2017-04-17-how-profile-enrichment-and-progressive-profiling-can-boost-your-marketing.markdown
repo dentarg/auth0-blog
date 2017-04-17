@@ -2,7 +2,7 @@
 layout: post
 title: "How Profile Enrichment and Progressive Profiling Can Boost Your Marketing"
 description: "Learn how to use Auth0's Social Login and upcoming Progressive Profiling Plugin to target customers more effectively"
-date: 2017-04-04 16:38
+date: 2017-04-17 09:38
 category: Growth, Growth Hacking
 author:
   name: Federico Molina
@@ -62,7 +62,7 @@ There is a lot of information out there about your users that your sales and mar
 
 That's where profile enrichment comes in.
 
-Profile enrichment is when you automatically grab publicly available information and add it to a user's profile. You do this by using Auth0 Rules. Rules are snippets of code that run at signup or login.
+Profile enrichment is when you automatically grab publicly available information and add it to a user's profile. You do this by using 3rd-party data APIs, such as Clearbit or FullContact, and integrate them in your application by using Auth0 Rules. Rules are snippets of code that run at signup or login.
 
 For enrichment, your Rule would trigger an API that grabs the data for you, and then deposit that information into the profile that every user gets when they sign up through Auth0.
 
