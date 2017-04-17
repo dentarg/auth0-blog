@@ -3,7 +3,8 @@ layout: post
 title: "How Profile Enrichment and Progressive Profiling Can Boost Your Marketing"
 description: "Learn how to use Auth0's Social Login and upcoming Progressive Profiling Plugin to target customers more effectively"
 date: 2017-04-17 09:38
-category: Growth, Growth Hacking
+category: Growth, Analytics
+is_non-tech: true
 author:
   name: Federico Molina
   url: https://twitter.com/federicomolina
