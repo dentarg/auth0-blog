@@ -250,6 +250,7 @@ Your `server.js` should look like this:
 const express = require('express');
 const app = express();
 const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -258,8 +259,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 const authCheck = jwt({
-  secret: 'AUTH0_CLIENT_SECRET',
-  audience: 'AUTH0_CLIENT_ID '
+  secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://{{YOUR-AUTH0-DOMAIN}}/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
+    algorithms: ['RS256']
 });
 
 app.get('/api/jokes/food', (req, res) => {
@@ -852,7 +861,20 @@ The majority of the apps we use on a daily basis have a means of authenticating 
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
-Log into your Auth0 [management dashboard](https://manage.auth0.com) and navigate to the client app you wish to use. Get the **Domain**, **Client Id**, and **Client Secret** of this app. We'll need them soon.
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
+
+From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Chuck Norris World API** and for the identifier I'll set it as **http://chucknorrisworld.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+
+![Creating the Chuck Norris World API](https://cdn2.auth0.com/blog/chucknorris/api.png)
+_Creating the Chuck Norris World API_
+
+Next, let's define some scopes for our API. Scopes allow us to manage access to our API. We can define as few or as many scopes as we want. For our simple example, we'll just create a single scope that will grant users full access to the API.
+
+![Locate scopes bar](https://cdn2.auth0.com/blog/chucknorris/scopes.png)
+_Locate Scopes bar_
+
+![Adding Scope to API](https://cdn2.auth0.com/blog/chucknorris/scopealljokes.png)
+_Adding scope_
 
 ### Secure The Node API
 
@@ -862,15 +884,7 @@ Open up your `server.js` file and replace the `AUTH0_CLIENT_ID` and `AUTH0_CLIEN
 
 ```js
 
-...
-const authCheck = jwt({
-  secret: 'AUTH0_CLIENT_SECRET',
-  audience: 'AUTH0_CLIENT_ID '
-});
-
-....
-
-app.get('/api/jokes/celebrity', authCheck, (req,res)=>{
+app.get('/api/jokes/celebrity', authCheck, (req,res) => {
   let CelebrityJokes = [
   {
     id: 88881,
@@ -918,50 +932,30 @@ Next, let's add authentication to our front-end.
 
 We'll create an authentication service to handle everything about authentication in our app. Go ahead and create an `AuthService.js` file inside the `utils` directory.
 
-Before we add code, you need to install `jwt-decode` and `auth0-lock` node packages like so:
+Before we add code, you need to install `jwt-decode` node package like so:
 
 ```bash
 
-npm install jwt-decode auth0-lock --save
+npm install jwt-decode --save
 
 ```
 
 Open up the `AuthService.js` file and add code to it like so:
 
 ```js
-
 import decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
-import Auth0Lock from 'auth0-lock';
 const ID_TOKEN_KEY = 'id_token';
+const ACCESS_TOKEN_KEY = 'access_token';
 
-
-const lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN', {
-    auth: {
-      redirectUrl: `${window.location.origin}`,
-      responseType: 'token'
-    }
-  }
-);
-
-lock.on('authenticated', authResult => {
-  setIdToken(authResult.idToken);
-  browserHistory.push('/special');
-});
-
-export function login(options) {
-  lock.show(options);
-
-  return {
-    hide() {
-      lock.hide();
-    }
-  }
+export function login() {
+  window.location.href = `https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={{generateNonce()}}`;
 }
 
 export function logout() {
   clearIdToken();
-  browserHistory.replace('/');
+  clearAccessToken();
+  browserHistory.push('/special');
 }
 
 export function requireAuth(nextState, replace) {
@@ -970,16 +964,70 @@ export function requireAuth(nextState, replace) {
   }
 }
 
-function setIdToken(idToken) {
-  localStorage.setItem(ID_TOKEN_KEY, idToken);
+export function getIdToken() {
+  return localStorage.getItem(ID_TOKEN_KEY);
 }
 
-function getIdToken() {
-  return localStorage.getItem(ID_TOKEN_KEY);
+export function getAccessToken() {
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
 }
 
 function clearIdToken() {
   localStorage.removeItem(ID_TOKEN_KEY);
+}
+
+function clearAccessToken() {
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
+}
+
+// Helper function that will allow us to extract the access_token and id_token
+function getParameterByName(name) {
+  let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+// Get and store access_token in local storage
+export function setAccessToken() {
+  let accessToken = getParameterByName('access_token');
+  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+}
+
+// Get and store id_token in local storage
+export function setIdToken() {
+  let idToken = getParameterByName('id_token');
+  localStorage.setItem(ID_TOKEN_KEY, idToken);
+  decodeIdToken(idToken);
+}
+
+// Decode id_token to verify the nonce
+function decodeIdToken(token) {
+  const jwt = decode(token);
+  verifyNonce(jwt.nonce);
+}
+
+// Function to generate a nonce which will be used to mitigate replay attacks
+function generateNonce() {
+  let existing = localStorage.getItem('nonce');
+  if (existing === null) {
+    let nonce = '';
+    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 16; i++) {
+        nonce += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    localStorage.setItem('nonce', nonce);
+    return nonce;
+  }
+  return localStorage.getItem('nonce');
+}
+
+// Verify the nonce once user has authenticated. If the nonce can't be verified we'll log the user out
+function verifyNonce(nonce) {
+  if (nonce !== localStorage.getItem('nonce')) {
+    clearIdToken();
+    clearAccessToken();
+  }
+
+  window.location.href = "/";
 }
 
 export function isLoggedIn() {
@@ -1004,7 +1052,26 @@ function isTokenExpired(token) {
 
 ```
 
-In the code above, we created an instance of `Auth0 Lock` and passed in our credentials. We also listened on the `authenticated` event. It grabs the `id_token` returned from the Auth0 server and stores it in localStorage. The `logout` function deletes the token and directs us back to the homepage.
+In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
+
+This URL calls the Auth0's `authorize` endpoint. With all the details we passed to the URL, our client app and will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the URL [here](https://auth0.com/docs/api-auth/tutorials/implicit-grant#1-get-the-user-s-authorization).
+
+The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
+
+Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
+
+![Chuck Norris World Client](https://cdn2.auth0.com/blog/app/chucknorrisclient.png)
+_Chuck Norris World API Client_
+
+Now, go to the clients area and check for the test client. You should see it in your list of clients like so:
+
+![Chuck Norris World Test Client](https://cdn2.auth0.com/blog/chucknorris/testclient.png)
+
+Let's quickly go ahead to change the title of the client to `Chuck Norris World` like so:
+
+![Client Name Change](https://cdn2.auth0.com/blog/chucknorris/clientnamechange.png)
+
+Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1132,15 +1199,42 @@ export default FoodJokes;
 
 We are enabling the link to celebrity jokes based on the login status of a user via the `isLoggedIn()` method.
 
+### Add A Callback Component
+
+We will create a new component and call it `Callback.js`. This component will be activated when the `localhost:3000/callback` route is called and it will process the redirect from Auth0 and ensure we received the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
+
+_Callback.js_
+
+```js
+
+import { Component } from 'react';
+import { setIdToken, setAccessToken } from '../utils/AuthService';
+
+class Callback extends Component {
+
+  constructor() {
+    super()
+  }
+
+  componentDidMount() {
+    setAccessToken();
+    setIdToken();
+  }
+
+  render() {
+    return null;
+  }
+}
+
+export default Callback;
+
+```
+
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we received an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/` page and will be in a logged-in state.
+
 ### Add some values to Auth0 Dashboard
 
-Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:3000` to the **Allowed Callback URLs** and **Allowed Origins (CORS)**.
-
-![Allowed Callback](https://cdn.auth0.com/blog/react/allowedcallback)
-_Allowed Callback Urls_
-
-![Allowed Origins](https://cdn.auth0.com/blog/react/allowedorigins.png)
-_Allowed Origins_
+Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:3000/callback` to the **Allowed Callback URLs** and `http://localhost:3000` to **Allowed Origins (CORS)**.
 
 ### Secure The Special Route
 
@@ -1167,44 +1261,67 @@ const Root = () => {
 ```
 _index.js_
 
+Just one more thing before we test the app. Register the `/callback` route in the routes file like so:
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import CelebrityJokes from './components/CelebrityJokes';
+import FoodJokes from './components/FoodJokes';
+import Callback from './components/Callback';
+import { Router, Route, browserHistory } from 'react-router';
+import { requireAuth } from './utils/AuthService';
+
+const Root = () => {
+  return (
+    <div className="container">
+      <Router history={browserHistory}>
+        <Route path="/" component={FoodJokes}/>
+        <Route path="/special" component={CelebrityJokes} onEnter={requireAuth} />
+        <Route path="/callback" component={Callback} />
+      </Router>
+    </div>
+  )
+}
+
+ReactDOM.render(<Root />, document.getElementById('root'));
+
+```
+
 Now, try to log in.
 
-![Lock Login Widget](https://cdn.auth0.com/blog/react/login.png)
-_Lock Login Widget_
+![Lock Login Widget](https://cdn2.auth0.com/blog/chucknorris/loginbox.png)
+_Hosted Lock Login Widget_
 
-![Logged In and Unauthorized to see the celebrity content](https://cdn.auth0.com/blog/react/loggedinbutunauthorized)
+For the first time, the user will be shown a user consent dialog that will show the scope available. Once a user authorizes, it goes ahead to login the user and give them access based on the scopes.
+
+![User consent dialog](https://cdn2.auth0.com/blog/chucknorris/clientconsent.png)
+_User presented with an option to authorize_
+
+**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, subsequent logins will not need a user consent authorization dialog. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client.
+
+![Logged In and Unauthorized to see the celebrity content](https://cdn2.auth0.com/blog/chucknorris/unauthorized.png)
 _Logged In, but unauthorized to see the celebrity content_
 
 
 Oops! We have successfully logged in but the content of the celebrity jokes is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
 
-It's simple! We secured our endpoint earlier, but right now we are not passing the JWT to the backend yet. We need to send the JWT along with our request as a header to enable the secured endpoint's recognition of the logged-in user.
+It's simple! We secured our endpoint earlier, but right now we are not passing the `access_token` to the backend yet. We need to send the access token along with our request as a header to enable the secured endpoint's recognition of the logged-in user.
 
-### Updating the AuthService & ChuckNorris API helper
-
-Open up `utils/AuthService.js` and make the `getIdToken()` function exportable like so:
-
-```js
-...
-...
-export function getIdToken() {
-  return localStorage.getItem(ID_TOKEN_KEY);
-}
-...
-
-```
-
-Adding an `export` just before the function makes it exportable.
+### Updating the ChuckNorris API helper
 
 Go ahead and open up the `utils/chucknorris-api.js` file. We will tweak the `getCelebrityData` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
 
-Now, we will pass an option to send an `Authorization` header with a Bearer token along with the `GET` request like so:
+Now, we will pass an option to send an `Authorization` header with a Bearer access token along with the `GET` request like so:
 
 ```js
+...
+import { getAccessToken } from './AuthService';
+
 
 function getCelebrityData() {
   const url = `${BASE_URL}/api/jokes/celebrity`;
-  return axios.get(url, { headers: { Authorization: `Bearer ${getIdToken()}` }}).then(response => response.data);
+  return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
 }
 
 ```
