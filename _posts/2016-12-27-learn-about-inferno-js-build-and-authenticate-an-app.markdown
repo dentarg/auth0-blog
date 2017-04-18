@@ -654,33 +654,42 @@ When a dinosaur is clicked, its details are fetched from the API and displayed. 
 
 The last thing we'll do is add [Auth0](https://auth0.com) authentication to our Inferno app. At the moment, our sample dinosaur API doesn't have any secured endpoints—but if we need them in the future, Auth0's [JSON Web Token](http://jwt.io) authentication can help.
 
-![Inferno app with Auth0 JWT authentication](https://cdn.auth0.com/blog/inferno/inferno_auth0.jpg)
+![Inferno app with Auth0 JWT authentication](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
 ### Configure Your Auth0 Client
 
 The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
 
-1. Sign up for a [free Auth0 account](https://auth0.com/signup).
-2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
-3. Name your new app and select "Single Page Web Applications". 
-4. In the **Settings** for your newly created app, add `http://localhost:3000` to the Allowed Callback URLs and Allowed Origins (CORS).
+### Set Up a Client App
+
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
+2. Name your new app and select "Single Page Web Applications". 
+3. In the **Settings** for your new Auth0 client app, add `http://localhost:3000` to the **Allowed Callback URLs** and `http://localhost:3000` to the **Allowed Origins (CORS)**.
+4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and change the **JsonWebToken Signature Algorithm** to `RS256`.
 5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
+
+### Set Up an API
+
+1. Under your account name in the upper right corner of your [**Auth0 Dashboard**](https://manage.auth0.com/#/), choose **Account Settings** from the dropdown, then select the [**Advanced**](https://manage.auth0.com/#/account/advanced) tab. Scroll down to the **Settings** section and turn on the toggle for **Enable APIs Section**. Now you will have a link to manage [APIs](https://manage.auth0.com/#/apis) in your dashboard left sidebar navigation.
+2. Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:3001/api/`. The **Signing Algorithm** should be `RS256`.
+
+> **Important API Security Note:** The sample API that we cloned into this project does not have any authorized routes. However, you can easily set up protection for your Node API by consulting the Node.js example under the **Quick Start** tab in your new API's settings. You would then use the [`fetch` API](https://developer.mozilla.org/en-US/docs/Web/API/Headers) in your Inferno app to add an `Authorization` header with `Bearer [YOUR_ACCESS_TOKEN]` to the protected HTTP requests.
 
 ### Add Authentication Logic to Inferno App
 
-Use npm to install [auth0-lock](https://github.com/auth0/lock):
+Use npm to install [auth0-js](https://github.com/auth0/auth0.js):
 
 ```bash
-$ npm install auth0-lock --save
+$ npm install auth0-js --save
 ```
 
-Now that `auth0-lock` is installed, we can use it in our `App.js` file to implement authentication logic. We'll also need to create two new components, `Login` and `User`. These components are referenced in `App.js` below.
+Now that `auth0-js` is installed, we can use it in our `App.js` file to implement authentication logic. We'll also need to create two new components, `Login` and `User`. These components are referenced in `App.js` below.
 
 ```js
 // src/App.js
 
 ...
-import Auth0Lock from 'auth0-lock';
+import auth0 from 'auth0-js';
 import Login from './components/Login/Login';
 import User from './components/User/User';
 
@@ -692,8 +701,9 @@ function logOut(instance) {
     profile: null
   });
 
-  // Remove token and profile from localStorage
+  // Remove tokens and profile from localStorage
   localStorage.removeItem('id_token');
+  localStorage.removeItem('access_token');
   localStorage.removeItem('profile');
 }
 
@@ -710,25 +720,34 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // Create Auth0 Lock instance
-    this.lock = new Auth0Lock('[YOUR_CLIENT_ID]', '[YOUR_DOMAIN].auth0.com');
+    // Create Auth0 WebAuth instance
+    this.auth0 = new auth0.WebAuth({
+      clientID: '[YOUR_CLIENT_ID]',
+      domain: '[YOUR_CLIENT_DOMAIN]'
+    });
 
-    // On successful authentication:
-    this.lock.on('authenticated', (authResult) => {
-      // Use the returned token to fetch user profile
-      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
-        if (error) { return; }
+    // When Auth0 hash parsed, get profile
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.idToken && authResult.accessToken) {
+        // Use access token to retrieve user's profile and set session
+        // If you wanted to protect API requests, you'd use the access token to do so!
+        // For more information, please see: https://auth0.com/docs/api-auth/grant/implicit
+        this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+          window.location.hash = '';
 
-        // Save token and profile to state
-        this.setState({
-          idToken: authResult.accessToken,
-          profile: profile
+          // Save tokens and profile to state
+          this.setState({
+            idToken: authResult.idToken,
+            profile: profile
+          });
+
+          // Save tokens and profile to localStorage
+          localStorage.setItem('id_token', this.state.idToken);
+          // access_token should be used to protect API requests using an Authorization header
+          localStorage.setItem('access_token', this.state.accessToken);
+          localStorage.setItem('profile', JSON.stringify(profile));
         });
-
-        // Save token and profile to localStorage
-        localStorage.setItem('id_token', this.state.idToken);
-        localStorage.setItem('profile', JSON.stringify(profile));
-      });
+      }
     });
 
     // GET list of dinosaurs from API
@@ -742,7 +761,7 @@ class App extends Component {
           <div className="App-auth pull-right">
             {
               !state.idToken ? (
-                <Login lock={this.lock} />
+                <Login auth0={this.auth0} />
               ) : (
                 <div className="App-auth-loggedIn">
                   <User profile={state.profile} />
@@ -766,18 +785,20 @@ class App extends Component {
 export default App;
 ```
 
-Import `auth0-lock` as well as the new components we'll create, `Login` and `User`. `Login` will display a link that will launch the [Auth0 Lock widget](https://auth0.com/docs/libraries/lock). `User` will display after login and show the authenticated user's name and picture.
+Import `auth0-js` as well as the new components we'll create, `Login` and `User`. `Login` will call an `/authorize`  `User` will display after login and show the authenticated user's name and picture.
 
-In the `constructor()`, we'll check for an existing token and profile from a previous login and set them if available. In `componentDidMount()`, we'll create our Lock instance. Replace `[YOUR_CLIENT_ID]` and `[YOUR_DOMAIN]` with your Auth0 client information. On successful authentication, we'll do the following:
+In the `constructor()`, we'll check for an existing token and profile from a previous login and set them if available. In `componentDidMount()`, we'll create our Auth0 instance. Replace `[YOUR_CLIENT_ID]` and `[YOUR_DOMAIN]` with your Auth0 client information. On successful redirection from Auth0's hosted login, we'll do the following:
 
-* Use the access token to fetch user profile with `lock.getUserInfo()`.
-* Save the token and profile to `state`.
-* Save the token and profile to `localStorage` to persist the session.
+* Use the access token to fetch user profile with `auth0.client.userInfo()`.
+* Save the ID token and profile to `state`.
+* Save the ID token, access token, and profile to `localStorage` to persist the session.
+
+> **Note:** The access token would be needed for making authenticated _API requests_. We aren't doing so in this app, so we'll save it to local storage for the future, but there's no need to save it to state at this time.
 
 In the `render()` function, we'll add the `Login` and `User` components to the `<header>` element as well as a logout link. These will show conditionally based on the presence or absence of an access token. We'll pass properties to these components:
 
 ```js
-<Login lock={this.lock} />
+<Login auth0={this.auth0} />
 ```
 and:
 
@@ -839,17 +860,23 @@ import Inferno, { linkEvent } from 'inferno';
 import Component from 'inferno-component';
 import './Login.css';
 
-// Use the "lock" prop passed in App.js to
-// show the Auth0 Lock widget so users can log in
-function showLock(instance) {
-  instance.props.lock.show();
+// Use the "auth0" prop passed in App.js to
+// call authorize method to show hosted Auth0
+// Lock widget so users can log in
+function login(instance) {
+  instance.props.auth0.authorize({
+    responseType: 'token id_token',
+    redirectUri: 'http://localhost:3000/',
+    audience: 'http://localhost:3001/api/',
+    scope: 'openid profile'
+  });
 }
 
 class Login extends Component {
   render() {
     return(
       <div className="Login">
-        <a onClick={linkEvent(this, showLock)}>Log In</a>
+        <a onClick={linkEvent(this, login)}>Log In</a>
       </div>
     );
   }
@@ -858,7 +885,7 @@ class Login extends Component {
 export default Login;
 ```
 
-We passed our `App.js`'s Lock instance to `Login` so we could access its `show()` method. The `Login` component has a link that shows the Lock widget when clicked.
+We passed our `App.js`'s Auth0 instance to `Login` so we could access its `authorize()` method. The `Login` component has a link that calls this method with the necessary options when clicked.
 
 We'll add just a little bit of CSS to support this component:
 
@@ -898,7 +925,7 @@ import './User.css';
 class User extends Component {
   render(props) {
     let profile = props.profile;
-    let idp = profile.user_id.split('|')[0];
+    let idp = profile.sub.split('|')[0];
 
     return(
       <div className="User" title={idp}>
@@ -931,12 +958,12 @@ Add a few styles to `User.css` for alignment and a circular profile image:
 }
 ```
 
-We now have working authentication in our Inferno app. In the future, we can use identity management to secure routes, conditionally render UI, control user access, and more. Check out these additional resources to learn about packages and tutorials that will be helpful for authentication with Inferno / React-like apps:
+We now have working authentication in our Inferno app. In the future, we can use identity management to secure routes, make authenticated API calls, conditionally render UI, control user access, and more. Check out these additional resources to learn about packages and tutorials that will be helpful for authentication with Inferno / React-like apps:
 
 * [Inferno Redux](https://github.com/trueadm/inferno/tree/master/packages/inferno-redux)
 * [Inferno Router](https://github.com/trueadm/inferno/tree/master/packages/inferno-router)
-* [Auth0 React Quick Start](https://auth0.com/docs/quickstart/spa/react)
-* [React Authentication is Easy with Auth0](https://davidwalsh.name/react-authentication)
+* [Why You Should Use Access Tokens to Secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/)
+* [Call APIs with Implicit Grant](https://auth0.com/docs/api-auth/grant/implicit)
 
 ## Conclusion
 
