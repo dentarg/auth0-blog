@@ -33,6 +33,8 @@ related:
 
 React is fast. Like, hella fast. The core team spends lots of time and money making sure that React only makes the changes to the DOM that actually need to be made based on changes in state. However, as developers, we need to be aware that the code we write and the way we write it have huge impacts on the performance of our applications. We can't just expect the framework to be able to figure everything out.
 
+The reconciliation process React goes through when updates are made can be quite complex. I recommend you read [Facebook's article on reconciliation in React](https://facebook.github.io/react/docs/reconciliation.html) for a better understanding.
+
 There are two types of wasted operations that can happen in React. The first is calculating pieces of the virtual DOM that won't change. The second is making changes to the actual DOM when those changes are not necessary.
 
 We are going to take a look at a small application that can definitely be optimized. There is a form we can use to change the desired color. Then a bunch of boxes with Star Wars characters' names are printed to the screen underneath the form. We will start by getting some data printed to the console so we can tell if our optimizations are working. Then we will implement different ways of optimization.
@@ -249,6 +251,8 @@ obj1 === obj2 // false
 obj2 === obj3 // false
 obj1 === obj3 // true
 ```
+
+Also note that React will only check a component for changes if its parent has shown a change somehow. This means if a component returns `false` from `shouldComponentUpdate` or not show prop changes in when extending `PureComponent`, then none of its children will be checked either. Therefore, it's important that when using `PureComponent`, all children are also pure components as well. As Uncle Ben said, "With great power comes gret responsibility."
 
 In our `Character` component, we are passing down three objects. `character` will never change. We know that. So we don't need to worry about changing the reference it passes down. `style` is an object that has one attribute: `backgroundColor`. Each time React calculates the `style` prop, it is getting a new object, which means it will be passing down a new reference to an object that could potentially look exactly the same (if the background color stays white). Therefore, we can move `backgroundColor` out of this object and pass it down directly through props as a string. Strings are checked by value. So we are good there. Lastly, the `onClick` prop is calculated by creating a new closure that contains the current index of the item so we know which one to remove. The issue is that each time we create a new closure, we are creating a new function and therefore a new reference. This is similar to the issue with the `style` prop. We can fix this by passing an `onClick` prop that doesn't change at all. This new `onClick` will be called by the `Character` component and will be passed the current character's name. We will have to change the logic in `CharacterList.removeCharacter` to work with this. Let's start with updating the `Character` component.
 
