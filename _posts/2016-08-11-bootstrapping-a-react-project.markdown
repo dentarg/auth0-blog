@@ -335,8 +335,8 @@ Read more about Redux [here](http://redux.js.org/). [Here](https://github.com/xg
 
 Authentication is an important part of any application. The best way to do user authentication for single page apps is via JSON Web Tokens (JWT). A typical authentication flow is this:
 
-* A user signs up/logs in, generate JWT token and return it to the client
-* Store the JWT token on the client and send it via headers/query parameters for future requests
+* A user signs up/logs in, generates JWT `id_token` and `access_token` and returns them to the client
+* Store the JWT tokens on the client and send the `access_token` to the backend via headers/query parameters for future requests.
 
 _Authentication flow_
 
