@@ -752,6 +752,9 @@ const styles = {
 
 In the `componentDidMount`, we just simply check if the user is logged in or not. If the user is not logged in, then the user will be redirected to the index page to log in.
 
+**Note:** If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+
+
 The source code for the authentication part of the NexThrone app can be found on the [adding-auth branch here](https://github.com/auth0-blog/nextjs-got/tree/adding-auth)
 
 You can also check out [Luis Rudge's](https://github.com/luisrudge) sample app that shows how to [integrate Next.js with Auth0 here](https://github.com/luisrudge/next.js-auth0)
