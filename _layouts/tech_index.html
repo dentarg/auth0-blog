@@ -1,0 +1,20 @@
+---
+layout: default
+meta-robots: "noodp, noydir, noarchive, follow"
+is_post_index: true
+switch_index: true
+---
+{% include banner_blog.html %}
+
+<div id="container" class="container">
+
+  <div class="archive">
+
+  {% for post in site.tags[page.tag] limit: 3 %}
+    {% unless post.draft %}
+      {% include archive_post.html %}
+    {% endunless %}
+  {% endfor %}
+
+</div>
+</div>

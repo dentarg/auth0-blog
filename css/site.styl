@@ -106,7 +106,7 @@ p,li
     background: #232228;
     position: relative;
 
-    &:before
+    &:after
       content: "";
       display: block;
       position: absolute;
@@ -436,18 +436,15 @@ h1,h2,h3,h4,h5
     	text-decoration: none;
 
   &.active
-    background: #27bff3;
     position: relative;
     z-index: 20;
     color: white;
 
     +breakpoint("desktop")
-      border-bottom: 1px solid #27bff3;
-      color: #27bff3;
     	background: none;
 
     a
-    	color: #27bff3;
+    	color: white;
     	font-weight: 500;
     	text-decoration: none;
 
@@ -471,21 +468,46 @@ h1,h2,h3,h4,h5
 
 .blog-navigation
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: #232228;
   transform translate3d(0px,0px,0px)
+  background: transparent;
+  &.is_stuck
+   background: linear-gradient(135deg, #1f1c2c 0%,#323043 100%);
+  .items
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    +breakpoint("desktop")
+      border: none;
+  .icon-oval
+    &:before
+      content: ''
+      display: inline-block
+      width: 15px
+      height: 15px
+      border-radius: 50%
+      border: 2px solid #eb5424
+
+  .active
+    .icon-oval
+      &:before
+        content: '';
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-color: #eb5424;
+        border-radius: 50%;
 
   .jump-to
     outline: none;
     display: block;
     border: 0;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-    font-weight: 500;
     z-index: 400;
     position: relative;
-    background-color: #232228;
+    background-color: transparent;
+    font-family: AvenirNext-Medium;
+    text-transform: none;
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 24px;
     @extend .tab;
 
     +breakpoint("desktop")
@@ -494,9 +516,6 @@ h1,h2,h3,h4,h5
     i
       margin-left: 5px;
       opacity: 0.5;
-
-  #navigation_menu
-    background-color: #232228;
 
   ul, li, &
     list-style: none;
@@ -531,6 +550,9 @@ h1,h2,h3,h4,h5
   	@extend .tab;
   	text-transform: none;
   	letter-spacing: normal;
+    +breakpoint("desktop")
+      margin-left: 0px;
+      padding-left: 0px;
 
 ul.archive
   margin: 0;
