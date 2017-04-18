@@ -844,7 +844,7 @@ lock.on("authenticated", function(authResult) {
 
 ```
 
-**Note:** `id_token` should only be used to retrieve the user's profile, necessary for UI renderinf. When making calls to an API, we recommend that [you use an access_token](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/).
+**Note:** `id_token` should only be used to retrieve the user's profile, necessary for UI rendering. When making calls to an API, we recommend that [you use an access_token](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/).
 
 _Implementing Lock_
 
