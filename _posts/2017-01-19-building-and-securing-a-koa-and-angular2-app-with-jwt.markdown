@@ -2,7 +2,7 @@
 layout: post
 title: "Building and Securing Koa and Angular 2 with JWT"
 description: "Single Page Applications (SPAs) can benefit greatly from JWT secured backends. Here we will see how to secure an Angular 2 app, backed by Koa, with JWTs."
-date: 2017-01-19 8:30
+date: 2017-10-19 8:30
 category: Technical Guide, Angular, Angular2
 author:
   name: "Bruno Krebs"
@@ -851,15 +851,19 @@ Further more, if we want to support identity providers like Google, Facebook, Gi
 
 ### Configuring Your Auth0 Client
 
-First thing we'll need to do is <a href="javascript:signup()">sign up for a free Auth0 account</a> and configure a new client.
+If you haven't done so yet, this is a good time to <a href="javascript:signup()">sign up for a free Auth0 account</a>, after which we can take a look at how we need to alter our grocery list to allow for Auth0 to manage our login.
 
 When we first reach Auth0's [dashboard](https://dashboard.auth0.com), we are asked what identity providers we want to use. Since our application is intended for end users, we can choose only Google, which shall cover many of the users around. Those that are not covered can still input an e-mail address and a password to sign up.
 
-After that we must go to [clients](https://manage.auth0.com/#/clients) and create a new one choosing 'Single Page Web Application' as the client type. Let's name it as something like 'Grocery List', to help us remember what it is about.
+After that we must go to [APIs](https://manage.auth0.com/#/apis) and create a new one that will represent our grocery list. To create an API, we must define three fields: `Name`, which is just a friendly name for our new API; `Identifier`, which is a `String` that we will use when requesting an `access_token`; and the `Signing Algorithm`, which defines if this API will use a [symmetric or asymmetric algorithm](https://auth0.com/blog/json-web-token-signing-algorithms-overview/) to sign the `access_token`. In our case, we will fill this fields, respectively, with: `Grocery List API`; `grocery-list-api`; and `RS256` (i.e. we will use an asymmetric algorithm).
 
-Now that we have our client created, we need take note of three properties: `Domain`, `Client ID` and `Client Secret`. The first two properties will be used to configure Auth0's front-end component and the third one will be used to validate the JWT token sent by Auth0. All of them can be found on the `Settings` tab of the client that we've just created.
+![Creating the grocery list API on Auth0](https://cdn2.auth0.com/blog/koa-angular2/creating-api.png)
 
-The last configuration that we need to do, before updating our code, is to add `http://localhost:3000` as an `Allowed Callback URLs` on our Auth0 client.
+> An API is an entity that represents an external resource server, capable of accepting and responding resource requests made by clients (resource owners). And this is exactly what our grocery list app is, an API that holds the grocery list of our users.
+
+**Note:** If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account) and in the [Advanced tab](https://manage.auth0.com/#/account/advanced), scroll down until you see *Enable APIs Section* and flip the switch.
+
+When we created the API, Auth0 automatically created a client for us, which was called *Grocery List API (Test Client)*. Let's open up this client and copy the `Client ID` from it. It will be used as a parameter on the configuration that we will do in our Angular 2 app. While we're viewing this client in the Auth0 dashboard, let's scroll down to find a section entitled *Allowed Callback URLs*. Here we will add the URL that Auth0 will redirect the user to after a successful authentication. Therefore, let's add `http://localhost:3000/callback` to this field.
 
 ### Updating the Backend's Source Code
 
@@ -871,7 +875,7 @@ After making these changes, our file shall look like this:
 // routes
 import {SINGLETON as UserDAO} from "./user/user.dao";
 import {Exception} from '../common/exception';
-import { sign, verify } from "jsonwebtoken";
+import {sign, verify} from "jsonwebtoken";
 import {Serialize} from "cerialize";
 
 const SUPER_SECRET = 'SOME-CODE-COPIED-FROM-AUTH0';
@@ -1153,7 +1157,7 @@ export class AppComponent {
 
 Now we just need to update the `src/client/app/app.component.html` file by removing the `Sign Up` link, that is leading to a component that we already removed, and updating the `Sign In` link to call this `signIn` method that we have created on `AppComponent`. Which will make our file end up like this:
 
-```typescript
+{% highlight html %}
 <nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -1168,7 +1172,7 @@ Now we just need to update the `src/client/app/app.component.html` file by remov
 <section>
     <router-outlet></router-outlet>
 </section>
-```
+{% endhighlight %}
 
 We are now ready to run our Grocery List application with Auth0 identity management. By issuing `npm run dev` command we shall be able to use it, accessing it on [http://localhost:3000/](http://localhost:3000/), and sign in with Google or any other e-mail address as before.
 
