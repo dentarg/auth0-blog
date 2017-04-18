@@ -2,7 +2,7 @@
 layout: post
 title: "Vuejs 2 Authentication Tutorial"
 description: Learn how to quickly build apps with Vuejs 2 and add authentication the right way.
-date: 2017-04-11 8:30
+date: 2017-04-18 8:30
 category: Technical Guide, Frontend, VueJS
 author:
   name: Prosper Otemuyiwa
