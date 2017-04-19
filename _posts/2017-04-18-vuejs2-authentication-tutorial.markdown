@@ -55,6 +55,8 @@ React and Vue.js are also similar in many ways. They both:
 * Provide composable view components.
 * Have a core library & have sister libraries for handling state, routing, network requests, e.t.c.
 
+**Note:** If you are coming from jQuery and new to Vuejs, [here is a refresher to bring you up to date](https://medium.freecodecamp.com/vue-js-introduction-for-people-who-know-just-enough-jquery-to-get-by-eab5aa193d77).
+
 ### Enter Performance Profiling
 
 Vue.js and React utilize virtual DOM, but Vue's virtual DOM implementation allows rendering of UI to be faster than that of React, because it involves less overhead. Let's look at some performance statistics done by the Vue.js team. Check out the [repo here](https://github.com/chrisvfritz/vue-render-performance-comparisons).
