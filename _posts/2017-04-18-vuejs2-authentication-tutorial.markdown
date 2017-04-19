@@ -81,11 +81,11 @@ According to this [benchmark](http://stefankrause.net/js-frameworks-benchmark4/w
 You can decide to use *Vuejs 2* by simply invoking methods on a Vue instance or go the component-composing route.
 
 {% highlight html %}
-
+{% raw %}
 <div id="app">
   <p>{{ message }}</p>
 </div>
-
+{% endraw %}
 {% endhighlight %}
 
 
@@ -105,9 +105,11 @@ The result of the code above on the browser will be *Hello, it is this easy!*.  
 It's very easy to toggle the display of items on a web page with inbuilt directives such as `v-if`, `v-show` like so:
 
 {% highlight html %}
+{% raw %}
   <div id="app">
     <p v-if="visible()">{{ message }}</p>
   </div>
+{% endraw %}
 {% endhighlight %}
 
 ```js
@@ -127,6 +129,7 @@ var app = new Vue({
 If for any reason, the `visible` function returns false, the paragraph would not be displayed on the web page. What about iterations and loops? Check out the code below
 
 {% highlight html %}
+{% raw %}
   <div id="app">
     <ol>
       <li v-for="item in items">
@@ -134,6 +137,7 @@ If for any reason, the `visible` function returns false, the paragraph would not
       </li>
     </ol>
   </div>
+{% endraw %}
 {% endhighlight %}
 
 ```js
