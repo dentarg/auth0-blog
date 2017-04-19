@@ -122,7 +122,7 @@ var app = new Vue({
 });
 ```
 
-If for any reason, the `visible` funtion returns false, the paragraph would not be displayed on the web page. What about iterations and loops? Check out the code below
+If for any reason, the `visible` function returns false, the paragraph would not be displayed on the web page. What about iterations and loops? Check out the code below
 
 {% highlight html %}
   <div id="app">
