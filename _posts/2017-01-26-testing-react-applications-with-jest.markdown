@@ -634,6 +634,8 @@ In the render button, we check the `loggedIn` state and add a `Login` button if 
 
 When the form is submitted, we first check if the user is authenticated before proceeding with the countdown. If they aren't, an `alert` is displayed that lets them know they need to be logged in.
 
+**Note:** For some of your apps, you might have an API built for it. Make sure the [`id_token` is not used to secure the API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+
 Run Webpack to process and bundle the JavaScript files and then start the app.
 
 ```sh
