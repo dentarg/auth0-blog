@@ -98,7 +98,7 @@ var app = new Vue({
 })
 ```
 
-The result of the code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces `{{` and `}}` are used to display the property on the web page.
+The result of the code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces are used to display the property on the web page.
 
 ### Directives
 
@@ -253,7 +253,7 @@ data: {
 },
 render (h) {
   return (
-    <div id='message'>,
+    <div id='message'>
       { this.text } 
     </div>
   );
@@ -578,6 +578,7 @@ The `router-link` Component from `vue-router` enables seamless client-side trans
 By default, these two components will look similar in functionalities. They both display data from different endpoints. Let's start with the `PublicBattles` component.
 
 {% highlight html %}
+{% raw %}
 <template>
   <div>
     <app-nav></app-nav>
@@ -639,6 +640,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
+{% endraw %}
 {% endhighlight %}
 
 _publicBattles.vue_
