@@ -531,6 +531,9 @@ lock.on("authenticated", function(authResult) {
 
 ```
 
+**Note:** If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+
+
 _Implementing Lock_
 
 ```js
