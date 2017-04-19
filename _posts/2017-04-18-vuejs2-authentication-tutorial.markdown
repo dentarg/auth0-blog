@@ -81,11 +81,11 @@ According to this [benchmark](http://stefankrause.net/js-frameworks-benchmark4/w
 You can decide to use *Vuejs 2* by simply invoking methods on a Vue instance or go the component-composing route.
 
 {% highlight html %}
-
+{% raw %}
 <div id="app">
   <p>{{ message }}</p>
 </div>
-
+{% endraw %}
 {% endhighlight %}
 
 
@@ -98,16 +98,18 @@ var app = new Vue({
 })
 ```
 
-The result of the code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces `{{` and `}}` are used to display the property on the web page.
+The result of the code above on the browser will be *Hello, it is this easy!*.  The value of any property in the data object within a new Vue instance will be rendered to the DOM easily. The curly braces are used to display the property on the web page.
 
 ### Directives
 
 It's very easy to toggle the display of items on a web page with inbuilt directives such as `v-if`, `v-show` like so:
 
 {% highlight html %}
+{% raw %}
   <div id="app">
     <p v-if="visible()">{{ message }}</p>
   </div>
+{% endraw %}
 {% endhighlight %}
 
 ```js
@@ -127,6 +129,7 @@ var app = new Vue({
 If for any reason, the `visible` function returns false, the paragraph would not be displayed on the web page. What about iterations and loops? Check out the code below
 
 {% highlight html %}
+{% raw %}
   <div id="app">
     <ol>
       <li v-for="item in items">
@@ -134,6 +137,7 @@ If for any reason, the `visible` function returns false, the paragraph would not
       </li>
     </ol>
   </div>
+{% endraw %}
 {% endhighlight %}
 
 ```js
@@ -249,7 +253,7 @@ data: {
 },
 render (h) {
   return (
-    <div id='message'>,
+    <div id='message'>
       { this.text } 
     </div>
   );
@@ -574,6 +578,7 @@ The `router-link` Component from `vue-router` enables seamless client-side trans
 By default, these two components will look similar in functionalities. They both display data from different endpoints. Let's start with the `PublicBattles` component.
 
 {% highlight html %}
+{% raw %}
 <template>
   <div>
     <app-nav></app-nav>
@@ -635,6 +640,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
+{% endraw %}
 {% endhighlight %}
 
 _publicBattles.vue_

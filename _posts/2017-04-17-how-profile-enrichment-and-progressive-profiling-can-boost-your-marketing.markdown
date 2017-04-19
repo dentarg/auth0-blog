@@ -11,7 +11,7 @@ author:
   mail: federico.molina@auth0.com
   avatar: https://cdn.auth0.com/blog/profiles/fedemolina.png
 design:
-  bg_color: "#2A5383"
+  bg_color: "#152C46"
   image: https://cdn.auth0.com/blog/profile-enrichment/logo.png
   tags:
   - profile-enrichment
