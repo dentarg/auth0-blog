@@ -624,7 +624,7 @@ export default {
       });
     },
   },
-  beforeMount() {
+  mounted() {
     this.getPublicStartupBattles();
   },
 };
@@ -653,17 +653,19 @@ In the `getPublicStartupBattles` method, we call the `getPublicStartupBattles` m
 ...
 ```
 
-Now, we took advantage of one of the **Vuejs 2** lifecycle hooks, `beforeMount`. Whatever is defined in this method is applied just after a component is mounted on the browser screen. So, we invoked the `getPublicStartupBattles` method in the hook as seen below:
+Now, we took advantage of one of the **Vuejs 2** lifecycle hooks, `mounted`. Whatever is defined in this method is applied just after a component is mounted on the browser screen. So, we invoked the `getPublicStartupBattles` method in the hook as seen below:
 
 ```js
 ...
- beforeMount() {
+ mounted() {
     this.getPublicStartupBattles();
   }
 ...
 ```
 
-All we are trying to do is tell **Vuejs** to load the data from the API just before the `publicBattles` component gets rendered.
+All we are trying to do is tell **Vuejs** to load the data from the API just after the `publicBattles` component gets rendered.
+
+**Note:** You can add a loading indicator or spinner to present to the user while the data is been loaded from the API. This avoids flashing of blank screens. Check out [vuejs transition for loading data](https://laracasts.com/discuss/channels/vue/vuejs-transition-for-loading-data).
 
 We imported the `AppNav` component and registered it under the `components` property. The `name` property has a value of `publicBattles`. What that simply means is this. If we need to use this component in a template, then we would have it as `<publicBattles></publicBattles>`. 
 
@@ -755,7 +757,7 @@ export default {
       });
     },
   },
-  beforeMount() {
+  mounted() {
     this.getPrivateStartupBattles();
   },
 };
@@ -1165,7 +1167,7 @@ export default {
       });
     },
   },
-  beforeMount() {
+  mounted() {
     this.getPublicStartupBattles();
   },
 };
