@@ -26,6 +26,10 @@ reply:
 ---
 ```
 
+### Markdown Cheat Sheet
+
+A blog post markdown cheat sheet is available at [post-cheat-sheet.markdown](post-cheat-sheet.markdown).
+
 ### Dealing with outdated content
 
 ![](https://cldup.com/4hWdGjoZGc.png)
