@@ -15,7 +15,7 @@ design:
 tags:
 - angular2
 - jwt
-- koa2
+- koa
 - node
 - javascript
 related:
@@ -28,7 +28,7 @@ related:
 
 **TL;DR**
 
-[Koa](http://koajs.com/) is a web framework for Node.JS that is based on [async functions, a new ES7 feature](https://jakearchibald.com/2014/es7-async-functions/), providing a simpler and more concise API. In this article, we will build a grocery list application, with an [Angular 2](https://angular.io/) front-end, that communicates with a Koa based backend. Our application will take advantage of [JWT tokens](https://jwt.io/) to secure these communications. The full implementation is [provided on this repo at GitHub](https://github.com/brunokrebs/grocery-list-full).
+[Koa](http://koajs.com/) is a web framework for Node.JS that is based on [async functions, a new ES7 feature](https://jakearchibald.com/2014/es7-async-functions/), providing a simpler and more concise API. In this article, we will build a grocery list application, with an [Angular 2](https://angular.io/) front-end, that communicates with a Koa based backend. Our application will take advantage of [JWT tokens](https://jwt.io/) to secure these communications. The full implementation is [provided on this repo at GitHub](https://github.com/auth0-blog/grocery-list/tree/jwt).
 
 ## Overview
 
@@ -725,7 +725,7 @@ This component definition is far bigger than the previous ones, but it is also e
             </form>
             <div class="list-group">
                 <a class="list-group-item" (click)="removeItem(i)"
-                   \*ngFor="let item of getItems(); let i = index">
+                   *ngFor="let item of getItems(); let i = index">
                     {{ item }}
                 </a>
             </div>
@@ -851,6 +851,8 @@ And then finally we have reached the point where we have a fully functional groc
 Creating the authentication mechanisnm was not the hardest task but, for every single application that we build, we will have to recreate or reuse at least two components: one for the front-end application, that will show sign in and sign up forms; and one to handle identity persistence and retrieval.
 
 Further more, if we want to support identity providers (like Google, Facebook, GitHub, etc), multifactor authentication, and so on, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and securer.
+
+> **Note:** the refactoring below can be found fully implemented in the `auth0` branch of the [Grocery List app repository](https://github.com/auth0-blog/grocery-list/tree/jwt) on GitHub.
 
 ### Configuring Your Auth0 Client
 
@@ -1134,7 +1136,7 @@ export class AuthenticationService {
 }
 ```
 
-From now on, the authentication process will be handled by Auth0 Hosted Lock, a solution provided by Auth0 that makes easy securing  websites. To use the hosted solution we need to redirect the user to `http://{YOUR-AUTH0-DOMAIN}/authorize` with a few parameters. These parameters are filled by the methods that we have just defined.
+From now on, the authentication process will be handled by Auth0 Hosted Lock, a solution provided by Auth0 that makes easy securing websites. To use the hosted solution we need to redirect the user to `http://{YOUR-AUTH0-DOMAIN}/authorize` with a few query parameters. These parameters are filled by the methods that we have just defined.
 
 Now we need to update the `src/client/app/app.component.html` file by removing the `Sign Up` link, that is leading to a component that we already removed, and updating the `Sign In` link to redirect the user to Auth0 Hosted Lock. Update this file as follows:
 
@@ -1222,7 +1224,7 @@ import {CallbackComponent} from "./callback.component";
 export class AppModule { }
 ```
 
-We also have to update the grocery list component to use the new route that we have created on our backend. We will make three changes to this component:
+Besides that, we have to update the grocery list component to use the new route that we have created on our backend. We will make three changes to this component:
 
 1. We will make it implements `OnInit` lifecycle hook, which will trigger the ajax request to the newly created route that responds with the users grocery list.
 2. We will add a new private property called `getList` that represents the path to this new route.
