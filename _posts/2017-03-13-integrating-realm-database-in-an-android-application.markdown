@@ -38,7 +38,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.realm:realm-gradle-plugin:3.0.0"
+        classpath "io.realm:realm-gradle-plugin:3.1.2"
     }
 }
 ```
@@ -683,7 +683,7 @@ To add a login/register screen to the application, we'll use the [Lock](https://
 To add Lock to your project, first add the following dependency and sync your gradle files.
 
 ```groovy
-compile 'com.auth0.android:lock:2.0.0'
+compile 'com.auth0.android:lock:2.4.0'
 ```
 
 Add the following permissions to the manifest file.
@@ -763,19 +763,19 @@ public class LoginActivity extends Activity {
     private final LockCallback mCallback = new AuthenticationCallback() {
         @Override
         public void onAuthentication(Credentials credentials) {
-            Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), TaskListActivity.class));
+            Toast.makeText(LoginActivity.this, "Log In - Success", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this, TaskListActivity.class));
             finish();
         }
 
         @Override
         public void onCanceled() {
-            Toast.makeText(getApplicationContext(), "Log In - Cancelled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Log In - Cancelled", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(LockException error) {
-            Toast.makeText(getApplicationContext(), "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -835,10 +835,11 @@ To keep a user's session, we'll be working with the following key objects.
  package com.echessa.tasky.utils;
 
 class Constants {
-    final static String REFRESH_TOKEN = "AUTH0_REFRESH_TOKEN";
-    final static String ACCESS_TOKEN = "AUTH0_ACCESS_TOKEN";
-    final static String ID_TOKEN = "AUTH0_ID_TOKEN";
-    final static String CREDENTIAL_TYPE = "AUTH0_CREDENTIAL_TYPE";
+    final static String REFRESH_TOKEN = "refresh_token";
+    final static String ACCESS_TOKEN = "access_token";
+    final static String ID_TOKEN = "id_token";
+    final static String TOKEN_TYPE = "token_type";
+    final static String EXPIRES_IN = "expires_in";
 }
 ```
 
@@ -853,40 +854,49 @@ import android.content.SharedPreferences;
 import com.auth0.android.result.Credentials;
 import com.echessa.tasky.R;
 
+import static com.echessa.tasky.utils.Constants.ACCESS_TOKEN;
+import static com.echessa.tasky.utils.Constants.EXPIRES_IN;
+import static com.echessa.tasky.utils.Constants.ID_TOKEN;
+import static com.echessa.tasky.utils.Constants.REFRESH_TOKEN;
+import static com.echessa.tasky.utils.Constants.TOKEN_TYPE;
+
 public class CredentialsManager {
 
-    public static void saveCredentials(Context context, Credentials credentials){
+    public static void saveCredentials(Context context, Credentials credentials) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.auth0_preferences), Context.MODE_PRIVATE);
 
         sharedPref.edit()
-                .putString(Constants.ID_TOKEN, credentials.getIdToken())
-                .putString(Constants.REFRESH_TOKEN, credentials.getRefreshToken())
-                .putString(Constants.ACCESS_TOKEN, credentials.getAccessToken())
-                .putString(Constants.CREDENTIAL_TYPE, credentials.getType())
+                .putString(ID_TOKEN, credentials.getIdToken())
+                .putString(REFRESH_TOKEN, credentials.getRefreshToken())
+                .putString(ACCESS_TOKEN, credentials.getAccessToken())
+                .putString(TOKEN_TYPE, credentials.getType())
+                .putLong(EXPIRES_IN, credentials.getExpiresIn())
                 .apply();
     }
 
-    public static Credentials getCredentials(Context context){
+    public static Credentials getCredentials(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.auth0_preferences), Context.MODE_PRIVATE);
 
         return new Credentials(
-                sharedPref.getString(Constants.ID_TOKEN, null),
-                sharedPref.getString(Constants.ACCESS_TOKEN, null),
-                sharedPref.getString(Constants.CREDENTIAL_TYPE, null),
-                sharedPref.getString(Constants.REFRESH_TOKEN, null));
+                sharedPref.getString(ID_TOKEN, null),
+                sharedPref.getString(ACCESS_TOKEN, null),
+                sharedPref.getString(TOKEN_TYPE, null),
+                sharedPref.getString(REFRESH_TOKEN, null),
+                sharedPref.getLong(EXPIRES_IN, 0));
     }
 
-    public static void deleteCredentials(Context context){
+    public static void deleteCredentials(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.auth0_preferences), Context.MODE_PRIVATE);
 
         sharedPref.edit()
-                .putString(Constants.ID_TOKEN, null)
-                .putString(Constants.REFRESH_TOKEN, null)
-                .putString(Constants.ACCESS_TOKEN, null)
-                .putString(Constants.CREDENTIAL_TYPE, null)
+                .putString(ID_TOKEN, null)
+                .putString(REFRESH_TOKEN, null)
+                .putString(ACCESS_TOKEN, null)
+                .putString(TOKEN_TYPE, null)
+                .putLong(EXPIRES_IN, 0)
                 .apply();
     }
 }
@@ -903,6 +913,28 @@ Add the following to the `strings.xml` file.
 Modify `LoginActivity` as shown.
 
 ```java
+package com.echessa.tasky;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.auth0.android.Auth0;
+import com.auth0.android.authentication.AuthenticationAPIClient;
+import com.auth0.android.authentication.AuthenticationException;
+import com.auth0.android.callback.BaseCallback;
+import com.auth0.android.lock.AuthenticationCallback;
+import com.auth0.android.lock.Lock;
+import com.auth0.android.lock.LockCallback;
+import com.auth0.android.lock.utils.LockException;
+import com.auth0.android.result.Credentials;
+import com.auth0.android.result.UserProfile;
+import com.echessa.tasky.utils.CredentialsManager;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends Activity {
 
     private Lock mLock;
@@ -919,33 +951,34 @@ public class LoginActivity extends Activity {
                 //Add parameters to the build
                 .build(this);
 
-        if (CredentialsManager.getCredentials(this).getIdToken() == null) {
+        String accessToken = CredentialsManager.getCredentials(this).getAccessToken();
+        if (accessToken == null) {
             startActivity(mLock.newIntent(this));
             return;
         }
 
         AuthenticationAPIClient aClient = new AuthenticationAPIClient(auth0);
-        aClient.tokenInfo(CredentialsManager.getCredentials(this).getIdToken())
+        aClient.userInfo(accessToken)
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
                     @Override
                     public void onSuccess(final UserProfile payload) {
-                        LoginActivity.this.runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(LoginActivity.this, "Automatic Login Success", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        startActivity(new Intent(getApplicationContext(), TaskListActivity.class));
+                        startActivity(new Intent(LoginActivity.this, TaskListActivity.class));
                         finish();
                     }
 
                     @Override
                     public void onFailure(AuthenticationException error) {
-                        LoginActivity.this.runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(LoginActivity.this, "Session Expired, please Log In", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        CredentialsManager.deleteCredentials(getApplicationContext());
+                        CredentialsManager.deleteCredentials(LoginActivity.this);
                         startActivity(mLock.newIntent(LoginActivity.this));
                     }
                 });
@@ -962,32 +995,32 @@ public class LoginActivity extends Activity {
     private final LockCallback mCallback = new AuthenticationCallback() {
         @Override
         public void onAuthentication(Credentials credentials) {
-            Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
-            CredentialsManager.saveCredentials(getApplicationContext(), credentials);
+            Toast.makeText(LoginActivity.this, "Log In - Success", Toast.LENGTH_SHORT).show();
+            CredentialsManager.saveCredentials(LoginActivity.this, credentials);
             startActivity(new Intent(LoginActivity.this, TaskListActivity.class));
             finish();
         }
 
         @Override
         public void onCanceled() {
-            Toast.makeText(getApplicationContext(), "Log In - Cancelled", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Log In - Cancelled", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(LockException error) {
-            Toast.makeText(getApplicationContext(), "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
         }
     };
 }
 ```
  
- Before launching Lock we need to first ask for the `offline_access` scope in order to get a valid `refresh_token` in the response.
+Before launching Lock we need to first ask for the `offline_access` scope in order to get a valid `refresh_token` in the response.
  
-We then check for a saved `idToken`. If there is none, the Lock widget is launched and the user can log in. When they log in, the `onAuthentication()` callback will be called and their credentials saved.
+We then check for a saved `accessToken`. If there is none, the Lock widget is launched and the user can log in. When they log in, the `onAuthentication()` callback will be called and their credentials saved.
  
-If an `idToken` is found on application launch, we check whether it’s still valid. To do this, we fetch the user profile with the `AuthenticationAPI`. If this call succeeds, we launch the `TaskListActivity`.
+If an `accessToken` is found on application launch, we check whether it’s still valid. To do this, we fetch the user profile with the `AuthenticationAPI`. If this call succeeds, we launch the `TaskListActivity`.
  
-How you deal with a non-valid `idToken` is up to you. You will normally choose between two scenarios. You can either ask users to re-enter their credentials or use the `refreshToken` to get a new valid `idToken`. In our app, we ask the user to log in again (in the `onFailure()` callback).
+How you deal with a non-valid token is up to you. You will normally choose between two scenarios. You can either ask users to re-enter their credentials or use the `refreshToken` to get a new valid one. In our app, we ask the user to log in again (in the `onFailure()` callback).
 
 Run the app and you'll be able to remain logged in when you exit the app.
 
