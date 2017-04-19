@@ -725,7 +725,7 @@ This component definition is far bigger than the previous ones, but it is also e
             </form>
             <div class="list-group">
                 <a class="list-group-item" (click)="removeItem(i)"
-                   *ngFor="let item of getItems(); let i = index">
+                   \*ngFor="let item of getItems(); let i = index">
                     {{ item }}
                 </a>
             </div>
@@ -870,41 +870,48 @@ When we created the API, Auth0 automatically created a client for us, which was 
 
 ### Updating the Backend's Source Code
 
-Since we won't handle sign in and sign up features by ourselves anymore, the first file that we will update is the `src/server/authentication.routes.ts`. The security middleware, defined in this file, will use `jwks-rsa` library to load the `signingKey` of the API that we created above. Therefore, let's install `jwks-rsa` dependency then update the file as follows:
+Since we won't handle sign in and sign up features by ourselves anymore, the first file that we will update is the `src/server/authentication.routes.ts`. The security middleware, defined in this file, will use `jwks-rsa` library to load the `signingKey` of the API that we created above. Therefore, let's issue `npm install jwks-rsa --save` to install this dependency, and then update the file as follows:
 
 ```typescript
-// routes
-import {Exception} from "../common/exception";
-import {verify} from "jsonwebtoken";
-import * as JwksRsa from "jwks-rsa";
+import * as jwt from "jsonwebtoken";
+let jwks = require('jwks-rsa');
 
-let signingKey = null;
-
-let jwksClient = JwksRsa({
-    jwksUri: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/.well-known/jwks.json"
+const client = jwks({
+    jwksUri: 'https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json'
 });
 
-jwksClient.getSigningKey('RDUzRkIxMEQ1MTVDNTY4MDAwNENCNUYzNkM3RjRFQjEyOUU5NzA3Qg', (err, key) => {
-    signingKey = key.publicKey || key.rsaPublicKey;
-});
+const VERIFY_JWT = function(ctx, kid, token) {
+    return new Promise(function (resolve) {
+        client.getSigningKey(kid, (err, key) => {
+            let signingKey = key.publicKey || key.rsaPublicKey;
+            let accessKey = jwt.verify(token, signingKey);
+            ctx.state.user = {
+                sub: accessKey.sub
+            };
+            resolve();
+        });
+    });
+};
 
 export const SECURED_ROUTES = {
     path: /^\/api\/(.*)(?:\/|$)/,
-    middleware: function *(next) {
-        try {
-            let token = this.request.headers['authorization'];
-            this.state.user = verify(token.replace('Bearer ', ''), signingKey);
-            yield next;
-        } catch (err) {
-            throw new Exception(401, 'Uknown user!');
+    middleware: async (ctx, next) => {
+        if (! ctx.request.headers.authorization) {
+            ctx.status = 401;
+            return ctx.body = {
+                message: 'Unauthorized'
+            };
         }
+        let token = ctx.request.headers.authorization.replace('Bearer ', '');
+        let kid = jwt.decode(token, {complete: true}).header.kid;
+
+        await VERIFY_JWT(ctx, kid, token);
+        return next();
     }
 };
 ```
 
- As you can see, In it we will make three changes: remove the `SIGN_UP` constant; remove the `SIGN_IN` constant; and replace the `SUPER_SECRET` constant with the `Client Secret` that we've copied from Auth0's dashboard.
-
-After making these changes, our file shall look like this:
+ As you can see, we have removed the `SIGN_UP` and `SIGN_IN` constants, used `jwks-rsa` to get the signing key of the token that we receive in the `Authorization` header, and then used `jsonwebtoken` to validate its contents. Please, note that `{YOUR-AUTH0-DOMAIN}` above has to be replace with your Auth0 domain, something like `bkrebs.auth0.com`.
 
 Another file that will need to be updated is `src/server/user/user.routes.ts`. Before using Auth0, our users were registered in our application with the `SIGN_UP` middleware that we have removed. Now we will have to register users in our database on the first time they use our application.
 
@@ -916,27 +923,29 @@ import {SINGLETON as UserDAO} from "./user.dao";
 
 export const UPDATE_LIST = {
     path: '/api/update-list',
-    middleware: function *() {
-        let user = UserDAO.findByEmail(this.state.user.email);
-        user.items = this.request.body.items;
+    middleware: async ctx => {
+        let user = UserDAO.findByEmail(ctx.state.user.sub);
+        user.items = ctx.request.body.items;
         UserDAO.update(user);
-        this.body = {};
+        ctx.body = {};
     }
 };
 
 export const GET_LIST = {
     path: '/api/list',
-    middleware: function *() {
-        let user = UserDAO.findByEmail(this.state.user.email);
+    middleware: async (ctx, next) => {
+        let user = UserDAO.findByEmail(ctx.state.user.sub);
         if (!user) {
             // new users must be persisted before being able to fill data
             user = {
-                email: this.state.user.email,
+                email: ctx.state.user.sub,
                 items: []
             };
             UserDAO.insertUser(user);
         }
-        this.body = user.items;
+        ctx.body = user.items;
+        console.log('next');
+        return next();
     }
 };
 ```
@@ -948,6 +957,7 @@ TypeScript will now be complaining that we are trying to insert a user without a
 ```typescript
 export class User {
     public email: string;
+    public sub: string;
     public items: Array<string>;
 
     public static OnSerialized(instance : User, json : any) : void {
@@ -962,9 +972,8 @@ Now that we have added the new route to allow users to retrieve their grocery li
 import * as Router from "koa-router";
 import * as fs from "fs";
 // updating import from user.routes
-import { UPDATE_LIST, GET_LIST } from "./user/user.routes";
-// removing deprecated routes
-import { SECURED_ROUTES } from "./authentication.routes";
+import {UPDATE_LIST, GET_LIST} from "./user/user.routes";
+import {SECURED_ROUTES} from "./authentication.routes";
 
 const ROUTER = new Router();
 
@@ -977,11 +986,11 @@ const LOAD_HTML = function() {
     });
 };
 
-ROUTER.get(/^\/(.*)(?:\/|$)/, function *(next) {
-    if (this.request.url.startsWith("/api")) {
-        yield next;
+ROUTER.get(/^\/(.*)(?:\/|$)/, async (ctx, next) => {
+    if (ctx.request.url.startsWith("/api")) {
+        return next();
     } else {
-        this.body = yield LOAD_HTML();
+        ctx.body = await LOAD_HTML();
     }
 });
 
@@ -1046,69 +1055,174 @@ import {SignUpComponent} from "./sign-up/sign-up.component";
 export class AppModule { }
 ```
 
-After that, let's install `auth0-lock` dependency to our application by issuing `npm install --save auth0-lock`. This is the component that we will use to enable users to register and sign in to our application. To configure it open the `src/client/app/authentication.service.ts` file and update it as follows:
+After that, let's open the `src/client/app/authentication.service.ts` file and update it as follows:
 
 ```typescript
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import {Router} from "@angular/router";
 import {User} from "../../common/user";
-
-const Auth0Lock = require('auth0-lock').default;
-
-const AUTH0_CLIENT_ID = "some-client-id-provided-by-auth0";
-const AUTH0_DOMAIN = "brunokrebs.auth0.com";
+import {JwtHelper, tokenNotExpired} from "angular2-jwt";
 
 @Injectable()
 export class AuthenticationService {
     private _user: User;
-    private lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
-        auth: {
-            params: { scope: 'openid email' }
-        }
-    });
 
-    constructor(private http: Http, private router: Router) {
-        // We'll listen for an authentication event to be raised and if successful will log the user in.
-        this.lock.on('authenticated', (authResult: any) => {
-            this.onAuthenticated.call(this, authResult);
-        });
+    constructor(private router: Router) {
     }
 
-    private onAuthenticated(authResult: any): void {
-        localStorage.setItem('id_token', authResult.idToken);
+    // Helper function that will allow us to extract the access_token and id_token
+    getParameterByName(name: string) {
+        let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
 
-        this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
-            if (error) {
-                console.log(error);
+    // Get and store access_token in local storage
+    getAccessToken() {
+        let accessToken = this.getParameterByName('access_token');
+        localStorage.setItem('token', accessToken);
+    }
+
+    // Get and store id_token in local storage
+    getIdToken() {
+        let idToken = this.getParameterByName('id_token');
+        localStorage.setItem('id_token', idToken);
+        this.decodeIdToken(idToken);
+    }
+
+    // Decode id_token to verify the nonce
+    decodeIdToken(token: string) {
+        let jwtHelper = new JwtHelper();
+        let jwt = jwtHelper.decodeToken(token);
+        this._user = new User();
+        this._user.email = jwt.email;
+        this.verifyNonce(jwt.nonce);
+    }
+
+    // Function to generate a nonce which will be used to mitigate replay attacks
+    generateNonce() {
+        let existing = localStorage.getItem('nonce');
+        if (existing === null) {
+            let nonce = '';
+            let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < 16; i++) {
+                nonce += possible.charAt(Math.floor(Math.random() * possible.length));
             }
-            this._user = profile;
-
-            localStorage.setItem('profile', profile);
-            this.router.navigateByUrl('/grocery-list');
-        });
-
-        this.lock.hide();
+            localStorage.setItem('nonce', nonce);
+            return nonce;
+        }
+        return localStorage.getItem('nonce');
     }
 
-    showSignInScreen(): void {
-        this.lock.show();
+    // Verify the nonce once user has authenticated.
+    // If the nonce can't be verified we'll log the user out
+    verifyNonce(nonce: string) {
+        if (nonce !== localStorage.getItem('nonce')) {
+            localStorage.removeItem('id_token');
+            localStorage.removeItem('token');
+        }
+        this.router.navigate(['/grocery-list']);
     }
 
     user(): User {
         return this._user;
     }
+
+    loggedIn() {
+        return tokenNotExpired();
+    }
 }
 ```
 
-A few changes were made to this file. First we imported `Auth0Lock`, then we added a property called `lock` and pointed it to a new instance of `Auth0Lock`. This new instance was configured with the `Client Id` and the `Domain` that we have copied from Auth0's dashboard.
+From now on, the authentication process will be handled by Auth0 Hosted Lock, a solution provided by Auth0 that makes easy securing  websites. To use the hosted solution we need to redirect the user to `http://{YOUR-AUTH0-DOMAIN}/authorize` with a few parameters. These parameters are filled by the methods that we have just defined.
 
-After creating `Auth0Lock` instance, we registered an `authenticated` event listener to handle the response sent by Auth0. This listener is responsible for saving the JWT token in the `localStorage`, to retrieve the users profile and to send them to their grocery list.
+Now we need to update the `src/client/app/app.component.html` file by removing the `Sign Up` link, that is leading to a component that we already removed, and updating the `Sign In` link to redirect the user to Auth0 Hosted Lock. Update this file as follows:
 
-We have also added a new `showSignInScreen` method that is responsible for opening the sign in/up screen from Lock. This method will be used later.
+{% highlight html %}
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" [routerLink]="['']"></a>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <a *ngIf="!authenticationService.loggedIn()" href="https://{YOUR-AUTH0-DOMAIN}/authorize?scope=openid%20email&audience=grocery-list-api&response_type=id_token%20token&client_id={YOUR-CLIENT-ID}&redirect_uri=http://localhost:3000/callback&nonce={{nonce}}">Log In</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section>
+    <router-outlet></router-outlet>
+</section>
+{% endhighlight %}
 
-We must now update the grocery list component to use the new route that we have created on our backend. We will make three changes to this component:
+> **Important**—replace `{YOUR-AUTH0-DOMAIN}` above by your Auth0 domain (something like `bkrebs.auth0.com`) and `{YOUR-CLIENT-ID}`, with the *Client Id* of the *Grocery List API (Test Client)* client that was automatically created by Auth0.
+
+When a user successfully signs in to Lock, Auth0 will redirect them to the `http://localhost:3000/callback` URL, which was defined as the `redirect_uri` parameter in the link above.. So, we must create a new Angular component to handle this URL. The following code exhibits the content of the component that we must create in the `src/client/app/callback.component.ts` file:
+
+```ts
+import { Component } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
+
+@Component({
+    template: ``
+})
+export class CallbackComponent {
+
+    constructor(private authService: AuthenticationService) {
+        this.authService.getIdToken();
+        this.authService.getAccessToken();
+    }
+}
+```
+
+The `CallbackComponent` must also be registered in the `src/client/app/app.routing.ts` file, as below:
+
+```
+import {RouterModule} from "@angular/router";
+
+import {GroceryListComponent} from "./grocery-list/grocery-list.component";
+import {AuthenticatedGuard} from "./authenticated.guard";
+import {CallbackComponent} from "./callback.component";
+
+const APP_ROUTES = [{
+    path: 'grocery-list',
+    component: GroceryListComponent,
+    canActivate: [AuthenticatedGuard]
+}, {
+    path: 'callback', // CallbackComponent is activated on calls to /callback
+    component: CallbackComponent,
+}];
+
+export const Routing = RouterModule.forRoot(APP_ROUTES);
+```
+
+And on `AppModule`, as shown below:
+
+```ts
+// ... other imports
+import {CallbackComponent} from "./callback.component";
+
+@NgModule({
+    bootstrap: [ AppComponent ],
+    declarations: [
+        AppComponent, GroceryListComponent, CallbackComponent // new component
+    ],
+    imports: [
+        BrowserModule, HttpModule, FormsModule, Routing
+    ],
+    providers: [
+        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        AuthenticationService,
+        AuthenticatedGuard,
+        AUTH_PROVIDERS
+    ]
+})
+export class AppModule { }
+```
+
+We also have to update the grocery list component to use the new route that we have created on our backend. We will make three changes to this component:
 
 1. We will make it implements `OnInit` lifecycle hook, which will trigger the ajax request to the newly created route that responds with the users grocery list.
 2. We will add a new private property called `getList` that represents the path to this new route.
@@ -1146,7 +1260,7 @@ export class GroceryListComponent implements OnInit {
 }
 ```
 
-Having updated the `GroceryListComponent` we are almost done. The last thing that we have to do is to make `AppComponent` use the new `showSignInScreen` method that we have created on `AuthenticationService`. Let's open the `src/client/app/app.component.ts` file and update it as follows:
+Having updated the `GroceryListComponent` we are almost done. The last thing that we have to do is to make `AppComponent` generate a nonce for us through the `generateNonce` method that we have created on `AuthenticationService`. Let's open the `src/client/app/app.component.ts` file and update it as follows:
 
 ```typescript
 import {Component, ViewEncapsulation} from "@angular/core";
@@ -1157,33 +1271,13 @@ import {AuthenticationService} from "./authentication.service";
 })
 export class AppComponent {
     title = 'Grocery List';
+    nonce: string;
 
-    constructor(private authenticationService: AuthenticationService) { }
-
-    signIn() {
-        this.authenticationService.showSignInScreen();
+    constructor(private authenticationService: AuthenticationService) {
+      this.nonce = this.authenticationService.generateNonce();
     }
 }
 ```
-
-Now we just need to update the `src/client/app/app.component.html` file by removing the `Sign Up` link, that is leading to a component that we already removed, and updating the `Sign In` link to call this `signIn` method that we have created on `AppComponent`. Which will make our file end up like this:
-
-{% highlight html %}
-<nav class="navbar navbar-default">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a class="navbar-brand" [routerLink]="['']">{{title}}</a>
-        </div>
-        <ul class="nav navbar-nav pull-right">
-            <li><a (click)="signIn()">Sign In</a></li>
-        </ul>
-    </div>
-</nav>
-<section>
-    <router-outlet></router-outlet>
-</section>
-{% endhighlight %}
 
 We are now ready to run our Grocery List application with Auth0 identity management. By issuing `npm run dev` command we shall be able to use it, accessing it on [http://localhost:3000/](http://localhost:3000/), and sign in with Google or any other e-mail address as before.
 
