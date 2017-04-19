@@ -55,6 +55,8 @@ React and Vue.js are also similar in many ways. They both:
 * Provide composable view components.
 * Have a core library & have sister libraries for handling state, routing, network requests, e.t.c.
 
+**Note:** If you are coming from jQuery and new to Vuejs, [here is a refresher to bring you up to date](https://medium.freecodecamp.com/vue-js-introduction-for-people-who-know-just-enough-jquery-to-get-by-eab5aa193d77).
+
 ### Enter Performance Profiling
 
 Vue.js and React utilize virtual DOM, but Vue's virtual DOM implementation allows rendering of UI to be faster than that of React, because it involves less overhead. Let's look at some performance statistics done by the Vue.js team. Check out the [repo here](https://github.com/chrisvfritz/vue-render-performance-comparisons).
@@ -122,7 +124,7 @@ var app = new Vue({
 });
 ```
 
-If for any reason, the `visible` funtion returns false, the paragraph would not be displayed on the web page. What about iterations and loops? Check out the code below
+If for any reason, the `visible` function returns false, the paragraph would not be displayed on the web page. What about iterations and loops? Check out the code below
 
 {% highlight html %}
   <div id="app">
@@ -624,7 +626,7 @@ export default {
       });
     },
   },
-  beforeMount() {
+  mounted() {
     this.getPublicStartupBattles();
   },
 };
@@ -653,17 +655,19 @@ In the `getPublicStartupBattles` method, we call the `getPublicStartupBattles` m
 ...
 ```
 
-Now, we took advantage of one of the **Vuejs 2** lifecycle hooks, `beforeMount`. Whatever is defined in this method is applied just after a component is mounted on the browser screen. So, we invoked the `getPublicStartupBattles` method in the hook as seen below:
+Now, we took advantage of one of the **Vuejs 2** lifecycle hooks, `mounted`. Whatever is defined in this method is applied just after a component is mounted on the browser screen. So, we invoked the `getPublicStartupBattles` method in the hook as seen below:
 
 ```js
 ...
- beforeMount() {
+ mounted() {
     this.getPublicStartupBattles();
   }
 ...
 ```
 
-All we are trying to do is tell **Vuejs** to load the data from the API just before the `publicBattles` component gets rendered.
+All we are trying to do is tell **Vuejs** to load the data from the API just after the `publicBattles` component gets rendered.
+
+**Note:** You can add a loading indicator or spinner to present to the user while the data is been loaded from the API. This avoids flashing of blank screens. Check out [vuejs transition for loading data](https://laracasts.com/discuss/channels/vue/vuejs-transition-for-loading-data).
 
 We imported the `AppNav` component and registered it under the `components` property. The `name` property has a value of `publicBattles`. What that simply means is this. If we need to use this component in a template, then we would have it as `<publicBattles></publicBattles>`. 
 
@@ -755,7 +759,7 @@ export default {
       });
     },
   },
-  beforeMount() {
+  mounted() {
     this.getPrivateStartupBattles();
   },
 };
@@ -1165,7 +1169,7 @@ export default {
       });
     },
   },
-  beforeMount() {
+  mounted() {
     this.getPublicStartupBattles();
   },
 };
