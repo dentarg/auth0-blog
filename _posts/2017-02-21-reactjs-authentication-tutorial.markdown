@@ -263,11 +263,13 @@ const authCheck = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
+        // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
         jwksUri: "https://{{YOUR-AUTH0-DOMAIN}}/.well-known/jwks.json"
     }),
     // This is the identifier we set when we created the API
     audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
-    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
+    // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com , so TENANT-NAME will be prosper
+    issuer: "https://{TENANT-NAME}.auth0.com/",
     algorithms: ['RS256']
 });
 
@@ -880,7 +882,7 @@ _Adding scope_
 
 We need to secure the API so that the celebrity endpoint will only be accessible to authenticated users. We can secure it easily with Auth0.
 
-Open up your `server.js` file and replace the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` variables with your `client id` and `client secret` respectively. Then add the `authCheck` middleware to the celebrity endpoint like so:
+Open up your `server.js` file and replace the `YOUR-API-AUDIENCE-ATTRIBUTE`, `YOUR-AUTH0-DOMAIN ` and `TENANT_NAME` variables with the audience attribute of the API, your auth0 domain and tenant name respectively. Then add the `authCheck` middleware to the celebrity endpoint like so:
 
 ```js
 
