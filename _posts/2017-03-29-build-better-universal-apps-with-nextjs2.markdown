@@ -49,7 +49,7 @@ So, what has changed? What improvements have been made? Are there new features? 
 
 ### 1. Faster Compilation Times
 
-Every developer and their dog need their apps to be highly performant from development stage up until production. A lot of work has been done to improve the dev build time that **Next.js 1.0** brought to the scene. With great joy, I hereby announce to you that **Next.js 2** comes bundled with shorter build/rebuild times. This was made possible by offering [Lazy compilation during development](https://github.com/zeit/next.js/pull/1111)
+Every developer and their dog need their apps to be highly performant from development stage up until production. A lot of work has been done to improve the dev build time that **Next.js 1.0** brought to the scene. With great joy, I hereby announce to you that **Next.js 2** comes bundled with shorter build/rebuild times. This was made possible by offering [Lazy compilation during development](https://github.com/zeit/next.js/pull/1111). This simply means that before now, when you run next, it compiles all the pages. But now, lazy compilation ensures that it is only when a user hits a page, that compilation happens. So each page that is called by the user is an on-demand entry.
 
 ![Lazy Compilation during development](https://cdn.auth0.com/blog/next20/lazycompilationdev.png)
 _Lazy Compilation during development_
@@ -267,7 +267,7 @@ We can easily set up authentication in a **Next.js 2.0** apps by using the [Lock
 
 Authentication in a Next.js app could be a little complicated because you have to ensure that the server-rendered pages are authenticated, meaning they need to have access to the token.
 
-In the example below, the token returned from Auth0 is stored in localStorage and also as a cookie.
+In the example below, the token returned from Auth0 is stored in LocalStorage and also as a cookie.
 
 Check out the [completed app on Github](https://github.com/auth0-blog/next2-auth0).
 
@@ -547,6 +547,8 @@ The [secret page](https://github.com/auth0-blog/next2-auth0/blob/master/pages/se
 
 ![Secret page unauthorized](https://cdn.auth0.com/blog/secret/notloggedin.png)
 _Not displaying valid content because the user cant access the secret page without signing in_
+
+**Note:** Nextjs exposes virtually everything to the client. Secrets and environment variables are leaked to the frontend. So if you want to perform an API call and you need to validate a token based on a **secret**, then you will have to run a [custom express server](https://github.com/zeit/next.js/tree/master/examples/custom-server-express) so that your **secret** can be available only on the server. This also applies to other forms of operations that require loading some secret environment variables that the user of your app shouldn't have access to.
 
 
 ## Conclusion
