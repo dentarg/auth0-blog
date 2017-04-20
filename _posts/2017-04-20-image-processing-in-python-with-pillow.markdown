@@ -12,8 +12,8 @@ author:
   mail: jokhessa@gmail.com
   avatar: https://s.gravatar.com/avatar/f820da721cd1faa5ef4b5e14af3f1ed5
 design:
-  bg_color: "#4a4a4a"
-  image: https://pbs.twimg.com/profile_images/510760404411109380/wDGjWJxk.png
+  bg_color: "#154246"
+  image: https://cdn2.auth0.com/blog/image-processing-in-python/logo.png
 tags: 
 - python
 - pillow
