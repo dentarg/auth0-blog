@@ -228,7 +228,7 @@ var app = new Vue({
 {% highlight html %}
 <div id="app">
   <ol>
-    <tag-list v-for="list in tagList" v-bind:item="list"></todo-item>
+    <tag-list v-for="list in tagList" v-bind:item="list"></tag-list>
   </ol>
 </div>
 {% endhighlight %}
