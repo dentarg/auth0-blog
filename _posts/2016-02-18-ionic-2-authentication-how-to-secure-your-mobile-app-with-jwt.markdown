@@ -28,15 +28,13 @@ related:
 - 2015-08-11-create-your-first-ember-2-dot-0-app-from-authentication-to-calling-an-api
 ---
 
----
-<style>.entry-content img { max-width: 40% !important }</style>
 **TL;DR:** Ionic 2 Beta, which is built on Angular 2, has been released, and brings with it some excellent features. In this article we explore how to add JWT authentication to an Ionic 2 app. Check out [the repo](https://github.com/auth0/ionic2-auth) to go straight to the code.
 
 ---
 
 Ionic 2 Beta has been released and, just as Angular 2 is vastly different from Angular 1.x, the brand new Ionic is completely revamped as well. Ionic 2 brings all the power of Angular 2, and provides several of its own decorators for crafting cross-platform mobile applications easily. We still get a lot of the great features from Ionic 1, plus a lot more.
 
-{% include tweet_quote.html quote_text="Ionic 2 brings to the table all the power of Angular 2, and also provides several of its own decorators" %}
+{% include tweet_quote.html quote_text="Ionic 2 brings to the table all the power of Angular 2" %}
 
 Authentication is a critical component of non-trivial mobile apps, and with Ionic 2, we can add JWT authentication easily by following the same process we would for an Angular 2 app.
 
@@ -46,19 +44,17 @@ In this tutorial we'll build a simple Ionic 2 application that can authenticate 
 
 ## Getting Started with Ionic Authentication
 
-To get started, let's first install Ionic and create a new project. Ionic 2 is installed with the `@beta` tag.
+To get started, let's first install Ionic and Cordova so we can create our new project.
 
-> **Note:** Ionic 2 is under development and has recently gone through changes. Please make sure you have the latest version of the Ionic CLI installed.
+> **Note:** Cordova is a project that provides web access to native plugins. It is not specifically related to Ionic, and can be used with any other framework. But Ionic can take advantage of Cordova's extensive [set of plugins](https://cordova.apache.org/plugins) to implement features such as *scan barcodes*, *receive push notifications*, *access smartphone image gallery*, and so on.
 
 ```bash
-# Install Ionic globally
-npm install -g ionic@beta
+# Install Ionic and Cordova globally
+npm install -g ionic cordova
 
-# We want the TypeScript version of Ionic 2
-ionic start ionic-quotes --v2 --typescript
+# Then use Ionic CLI to create a template project
+ionic start chuck-norris-quotes --v2
 ```
-
-If we wanted to get the regular JavaScript version of Ionic 2, we would omit the `--typescript` flag; however, TypeScript is preferred by many people, so we'll use that for this tutorial.
 
 Next we can clone the backend repo into a directory called `server`. Even though we won't need it until a little later, we can also start the server now to have it ready to go.
 
@@ -68,74 +64,39 @@ cd server && npm install
 node server.js
 ```
 
-Now we can serve the Ionic application to make sure it's coming through ok. From a new terminal tab:
+Now we can serve the Ionic application to make sure it's coming through ok. From a new terminal tab, go to the directory created by Ionic, and issue `ionic serve`.
 
-```bash
-ionic serve
-```
+> **Note:** We'll develop in the browser in this tutorial, but you can also emulate a device as you develop if you like. Take a look at the [Ionic docs](http://ionicframework.com/docs/intro/installation/#platform-guides) for steps on how to emulate iOS and Android.
 
-> **Note:** We'll develop in the browser in this tutorial, but you can also emulate a device as you develop if you like. Take a look at the [Ionic docs](http://ionicframework.com/docs/v2/getting-started/installation/#building-for-ios) for steps on how to emulate iOS and Android.
-
-By default we are given a "tabs" style layout that has three pages linked in a tab strip along the bottom of the app view. We can also choose from other starter templates such as "complex-list" or "sidemenu" if we like.
+By default we are given a "tabs" style layout that has three pages linked in a tab strip along the bottom of the app view. We can also choose from other [starter templates](https://market.ionic.io/starters/) such as "complex-list" or "sidemenu" if we like.
 
 ## Bootstrapping the Application
 
-All of the action starts with the root component which is found in `app/app.ts`. Ionic apps are bootstrapped a bit differently than a regular Angular 2 application. With Ionic, we are given an `@App` decorator that is responsibile for wiring up the application, and then we use the `@Page` decorator for individual pages. The `@App` decorator can take some configuration, and is also the spot where we can set any providers we want.
+All of the action starts with the root component which is found in `app/app.module.ts`. Ionic apps are bootstrapped a bit differently than a regular Angular 2 application. With Ionic, we have to instruct our Angular 2 application to `bootstrap` with `IonicApp` class. Fortunately, this is automatically configured to us by the `ionic start` command.
 
-Since we'll be making authenticated HTTP requests, we'll need to use the [angular2-jwt](https://github.com/auth0/angular2-jwt) library. This gives us a chance to see how to use providers in Ionic 2 apps, since we'll need to configure angular2-jwt. To do so, we can use the `providers` array on the `@App` decorator.
-
+Since we'll be making authenticated HTTP requests, we'll need to use the [angular2-jwt](https://github.com/auth0/angular2-jwt) library.
 ```bash
-npm install angular2-jwt
-```
-
-```js
-// app/app.ts
-
-...
-
-import {Http} from 'angular2/http';
-import {provide} from 'angular2/core';
-import {AuthHttp, AuthConfig} from 'angular2-jwt';
-
-@App({
-  template: '<ion-nav [root]="rootPage"></ion-nav>',
-  config: {},
-  providers: [
-    provide(AuthHttp, {
-      useFactory: (http) => {
-        return new AuthHttp(new AuthConfig, http);
-      },
-      deps: [Http]
-    })
-  ]
-})
-
-...
+npm install --save angular2-jwt
 ```
 
 ## Creating the Profile Page for Authentication
 
 We'll really just need two pages for our app: one that retrieves quotes and another that acts as a profile area where the user can log in and out. Let's set up the profile page first.
 
-You'll notice that the template that comes with Ionic 2 has three generic pages and a `TabsPage` component in the `pages` directory. The `TabsPage` is used to provide navigation to the other pages and gives us the tab strip at the bottom of the app.
+You'll notice that the template that comes with Ionic 2 has three generic pages and a `TabsPage` component in the `pages/tabs` directory. The `TabsPage` is used to provide navigation to the other pages and gives us the tab strip at the bottom of the app.
 
-We can delete all the generic placeholder pages (but keep the `TabsPage`) and use Ionic's CLI to generate new ones. Here's the structure we want:
+We can delete all the generic placeholder pages, which are inside the following directories: `pages/about`, `pages/contact`, and `pages/home`. After that we need to update the `tabs/tabs.ts` file to make it look as:
 
-```bash
-|-- app
-  |-- pages
-    |-- profile
-        -- profile.html
-        -- profile.scss
-        -- profile.ts
-    |-- quotes
-        -- quotes.html
-        -- quotes.scss
-        -- quotes.ts
-    |-- tabs
-        -- tabs.html
-        -- tabs.ts
- ```
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  templateUrl: 'tabs.html'
+})
+export class TabsPage {
+  constructor() { }
+}
+```
 
  Using the CLI, we can easily generate pages.
 
@@ -444,11 +405,11 @@ We should now be able to get quotes from the **Quotes** page.
 
 ## Aside: Adding Authentication with Auth0
 
-Setting up username and password authentication with a Node server is simple enough, but things can get tricky when we want to add social auth with providers like Facebook, Twitter, Google, and others. With Auth0, we can use any social provider and get other authentication features like single sign-on, multi-factor login, and passwordless auth, all at the flip of a switch. It's easy to add Ionic Authentication with Auth0--let's take a look at how in these steps.
+Setting up username and password authentication with a Node server is simple enough, but things can get tricky when we want to add social auth with providers like Facebook, Twitter, Google, and others. With Auth0, we can use any social provider and get other authentication features like [single sign-on](https://auth0.com/docs/sso), [multi-factor login](https://auth0.com/docs/multifactor-authentication), and [passwordless auth](https://auth0.com/passwordless), all at the flip of a switch. It's easy to add Ionic Authentication with Auth0—let's take a look at how in these steps.
 
 ### Step 0: Sign Up for Auth0 and Configure the Callback URL
 
-If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, [sign up for a free one now](javascript:signup\(\)) to follow along with the other steps.
 
 In your dashboard, you need to specify an **Allowed Callback URL** for mobile:
 
