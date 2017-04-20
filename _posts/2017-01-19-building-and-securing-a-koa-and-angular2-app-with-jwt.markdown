@@ -34,9 +34,9 @@ related:
 
 For our application, we will use [TypeScript](https://www.typescriptlang.org/), a programming language that extends JavaScript with type checking, for developing both our backend and frontend. Angular 2 already advises us to use TypeScript when writing applications with their framework. But, besides the advantage of using the same language on both ends, TypeScript enables developers to become more productive by using tools that help them to avoid mistakes, like passing the wrong type to a method, and also by making refactoring much easier.
 
-Since we want our application to secure ours users' data, we will use JWT tokens to authorize certain requests. A JWT—which stands for JSON Web Token and is pronounced as "jot"—is a token that provides credibility on an end to end communication. JWTs are getting widely adopted, and they take place as an alternative to the, rather old, cookies approach. The biggest advantage of JWTs is that they can hold sensitive data, in a readable format, and be trustworthy while getting sent over the network.
+Since we want our application to secure ours users' data, we will use JWT tokens to authorize certain requests. A JWT—which stands for JSON Web Token and is pronounced as "jot"—is a token that provides credibility on an end to end communication. JWTs are getting widely adopted, and they take place as an alternative to the, rather old, cookie based approach. The biggest advantage of JWTs is that they can hold sensitive data, in a readable format, and be trustworthy while getting sent over the network.
 
-Koa is web framework, just like [Express](http://expressjs.com/), that is developed by the many of the same people that built Express—by the way, here is a [nice tutorial on how to secure an Angular 2 app backed by Express](https://auth0.com/blog/angular-2-authentication/). Unofficially known as Express' successor, Koa uses `async` functions to improve readability and robustness of applications. Writing middlewares to handle users requests become very easy and clear with Koa's approach, as we will see on our own grocery list application.
+Koa is web framework, just like [Express](http://expressjs.com/), that is developed by many of the same people that built Express—by the way, here is a [nice tutorial on how to secure an Angular 2 app backed by Express](https://auth0.com/blog/angular-2-authentication/). Unofficially known as Express' successor, Koa uses `async` functions to improve readability and robustness of applications. Writing middlewares to handle users requests become very easy and clear with Koa's approach, as we will see on our own grocery list application.
 
 ## Our Application - Grocery List
 
@@ -122,7 +122,7 @@ export class Exception extends Error {
 
 As we can see, what we've just created is responsible for carrying two properties related to errors. A status code, that represents an HTTP status, and a message with the error description.
 
-In order to be able to warn our users properly—i.e. in a JSON object format—about this errors, we have now to create an `exception-handler.middleware.ts` file that will contain our's middleware source code. Create it as a sibling to `app.ts`, under `./src/server/`. The contents of this middleware are very simple:
+In order to be able to warn our users properly—i.e. in a JSON object format—about these errors, we have now to create an `exception-handler.middleware.ts` file that will contain our's middleware source code. Create it as a sibling to `app.ts`, under `./src/server/`. The contents of this middleware are very simple:
 
 ```typescript
 import {Exception} from "../common/exception";
@@ -274,11 +274,11 @@ export default {
 }
 ```
 
-Everything that we do in this file is export a object literal with two properties. The first property, called `path`, represents the URL that will be requested by external resources, like our front-end, to update the a user's grocery list. The second property, called `middleware`, contains the `async` function that will handle such requests.
+All that we do in this file is export a object literal with two properties. The first property, called `path`, represents the URL that will be requested by external resources, like our front-end, to update the a user's grocery list. The second property, called `middleware`, contains the `async` function that will handle such requests.
 
-This function acts as a last resource in a request, since it does not call `next();` like the last one that we've built, simply retrieving an user object, base on the user's e-mail, and then update this user with the new items sent within the `ctx.request.body`.
+This function acts as a last resource in a request, since it does not call `next();` like the previous one that we've built. It simply retrieves a user object, base on the user's e-mail, and then update this user with the new items sent within the `ctx.request.body`.
 
-Notice that we use two different objects to get data from the request. The second object, `ctx.request.body`, contains the new information sent by the user and it is under `koa-bodyparser`'s responsibility to parse it properly. The first object, `ctx.state.user` does not exist yet. We still have to find a way to be able to identify whose request we are handling, but first we have to wire our new route to our application:
+Notice that we use two different objects to get data from the request. The second object, `ctx.request.body`, contains the new information sent by the user and it is under `koa-bodyparser`'s responsibility to parse it properly. The first object, `ctx.state.user` does not exist yet. We still have to find a way to identify whose request we are handling, but first we have to wire our new route to our application:
 
 ```typescript
 // ... koa router and fs imports
@@ -358,7 +358,7 @@ This new file exports three `async` functions that will act like routes, let's d
 1. The first one will respond to `/api/sign-up` post requests and it will enable new users to register to our application.
 2. The second one is going to be tied up to `/api/sign-in` in order to allow (or deny) an user to use the application. This is done based on an e-mail and a password informed by the user.
 
-Both middlewares described above respond to the user in the same way. If they are fed with proper data they send back a JSON response containing a token—issued by a function called `sign` of [jsonwebtoken package](https://github.com/auth0/node-jsonwebtoken)—and the user data, which contains its e-mail address, its name and its list of items to buy at the grocery store. In case the user sends improper data, like a wrong combination of e-mail and password, or try to register with an e-mail that is already registered, both middlewares answer with an exception describing the problem.
+Both middlewares described above respond to the user in the same way. If they are fed with proper data they send back a JSON response containing a token—issued by a function called `sign` of the [jsonwebtoken package](https://github.com/auth0/node-jsonwebtoken)—and the user data, which contains its e-mail address, its name and its list of items to buy at the grocery store. In case the user sends improper data, like a wrong combination of e-mail and password, or tries to register with an e-mail that is already registered, both middlewares answer with an exception describing the problem.
 
 The third middleware acts as a key component on our backend. As we can see, the path that it will answer to is a regular expression. This regular expression makes this middleware activate on any request sent to paths that begins with `/api/`, and what it does is to check if a valid token is informed on the `authorization` header request. This verification occurs with the help of `verify` function of the [jsonwebtoken package](https://github.com/auth0/node-jsonwebtoken).
 
@@ -850,7 +850,7 @@ And then finally we have reached the point where we have a fully functional groc
 
 Creating the authentication mechanisnm was not the hardest task but, for every single application that we build, we will have to recreate or reuse at least two components: one for the front-end application, that will show sign in and sign up forms; and one to handle identity persistence and retrieval.
 
-Further more, if we want to support identity providers (like Google, Facebook, GitHub, etc), multifactor authentication, and so on, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and securer.
+Further more, if we want to support identity providers (like Google, Facebook, GitHub, etc), multifactor authentication, and so on, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and more secure.
 
 > **Note:** the refactoring below can be found fully implemented in the `auth0` branch of the [Grocery List app repository](https://github.com/auth0-blog/grocery-list/tree/jwt) on GitHub.
 
@@ -1161,7 +1161,7 @@ Now we need to update the `src/client/app/app.component.html` file by removing t
 
 > **Important**—replace `{YOUR-AUTH0-DOMAIN}` above by your Auth0 domain (something like `bkrebs.auth0.com`) and `{YOUR-CLIENT-ID}`, with the *Client Id* of the *Grocery List API (Test Client)* client that was automatically created by Auth0.
 
-When a user successfully signs in to Lock, Auth0 will redirect them to the `http://localhost:3000/callback` URL, which was defined as the `redirect_uri` parameter in the link above.. So, we must create a new Angular component to handle this URL. The following code exhibits the content of the component that we must create in the `src/client/app/callback.component.ts` file:
+When a user successfully signs in to Lock, Auth0 will redirect them to the `http://localhost:3000/callback` URL, which was defined as the `redirect_uri` parameter in the link above. So, we must create a new Angular component to handle this URL. The following code exhibits the content of the component that we must create in the `src/client/app/callback.component.ts` file:
 
 ```ts
 import { Component } from '@angular/core';
