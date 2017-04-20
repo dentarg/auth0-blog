@@ -535,7 +535,9 @@ Finally, trigger the Lock widget to be shown when the user clicks the **Login** 
   </script>
 ```
 
-With the token in local storage, it can now be used as an `Authorization` header to access secured API endpoints. The way to attach the header to HTTP calls differs depending on which library or framework you're using. If you're using Angular 2 in your Electron app, you can use **[angular2-jwt](https://www.npmjs.com/package/angular2-jwt)**. Follow the steps in the [Angular 2 docs](https://auth0.com/docs/quickstart/spa/angular2/no-api) for more details. Not using Angular 2? We have got [integrations](https://auth0.com/docs) for many other frameworks and libraries as well!
+> **Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a flow that provides an access token](https://auth0.com/docs/api-auth/grant/implicit). Auth0 [`idToken` should only be used on the client-side, whereas access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+> 
+> The way to attach the header to HTTP calls differs depending on which library or framework you're using. If you're using Angular v2+ in your Electron app, you can use **[angular2-jwt](https://www.npmjs.com/package/angular2-jwt)**. Follow the steps in the [Angular docs](https://auth0.com/docs/quickstart/spa/angular2/no-api) for more details. Not using Angular v2+? We have got [integrations](https://auth0.com/docs) for many other frameworks and libraries as well!
 
 ## Wrapping Up
 

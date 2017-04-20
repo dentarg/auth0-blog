@@ -30,6 +30,7 @@ module Jekyll
       self.process(@name)
       self.read_yaml(File.join(base, '_layouts'), 'tech.html')
       self.data['switch'] = 'tech'
+      self.data['tag'] = 'tech'
     end
   end
 

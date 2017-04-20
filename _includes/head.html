@@ -5,7 +5,7 @@
 
     {% include sharing_metas.html %}
 
-    {% if page.is_tag_index %}
+    {% if page.is_tag_index or page.switch_index %}
       <title>{{ page.tag | capitalize }} - Auth0 Blog</title>
     {% else %}
       <title>{{ page.title }}</title>
