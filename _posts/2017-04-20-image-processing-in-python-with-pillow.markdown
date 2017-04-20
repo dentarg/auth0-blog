@@ -2,7 +2,7 @@
 layout: post
 title: Image Processing in Python with Pillow
 description: Learn how to process images using the Pillow Python library.
-date: 2017-04-14 17:54
+date: 2017-04-20 12:54
 category: Technical Guide, Python
 banner:
   text: Auth0 makes it easy to add authentication to your Python application.
