@@ -28,15 +28,15 @@ related:
 
 **TL;DR**
 
-[Koa](http://koajs.com/) is a web framework for Node.JS that is based on [generators, a new ES6 feature](https://davidwalsh.name/es6-generators), providing a simpler and more concise API. In this article, we will build a grocery list application, with an [Angular 2](https://angular.io/) front-end, that communicates with a Koa based backend. Our application will take advantage of [JWT tokens](https://jwt.io/) to secure these communications. The full implementation is [provided on this repo at GitHub](https://github.com/brunokrebs/grocery-list-full).
+[Koa](http://koajs.com/) is a web framework for Node.JS that is based on [async functions, a new ES7 feature](https://jakearchibald.com/2014/es7-async-functions/), providing a simpler and more concise API. In this article, we will build a grocery list application, with an [Angular 2](https://angular.io/) front-end, that communicates with a Koa based backend. Our application will take advantage of [JWT tokens](https://jwt.io/) to secure these communications. The full implementation is [provided on this repo at GitHub](https://github.com/auth0-blog/grocery-list/tree/jwt).
 
 ## Overview
 
 For our application, we will use [TypeScript](https://www.typescriptlang.org/), a programming language that extends JavaScript with type checking, for developing both our backend and frontend. Angular 2 already advises us to use TypeScript when writing applications with their framework. But, besides the advantage of using the same language on both ends, TypeScript enables developers to become more productive by using tools that help them to avoid mistakes, like passing the wrong type to a method, and also by making refactoring much easier.
 
-Since we want our application to secure ours users' data, we will use JWT tokens to authorize certain requests. A JWT - which stands for JSON Web Token and is pronounced as "jot" - is a token that provides credibility on an end to end communication. JWTs are getting widely adopted, and they take place as an alternative to the, rather old, cookies approach. The biggest advantage of JWTs is that they can hold sensitive data, in a readable format, and be trustworthy while getting sent over the network.
+Since we want our application to secure ours users' data, we will use JWT tokens to authorize certain requests. A JWT—which stands for JSON Web Token and is pronounced as "jot"—is a token that provides credibility on an end to end communication. JWTs are getting widely adopted, and they take place as an alternative to the, rather old, cookie based approach. The biggest advantage of JWTs is that they can hold sensitive data, in a readable format, and be trustworthy while getting sent over the network.
 
-Koa is web framework, just like [Express](http://expressjs.com/), that is developed by the many of the same people that built Express - by the way, here is a [nice tutorial on how to secure an Angular 2 app backed by Express](https://auth0.com/blog/angular-2-authentication/). Unofficially known as Express' successor, Koa uses generators to improve readability and robustness of applications. Writing middlewares to handle users requests become very easy and clear with Koa's approach, as we will see on our own grocery list application.
+Koa is web framework, just like [Express](http://expressjs.com/), that is developed by many of the same people that built Express—by the way, here is a [nice tutorial on how to secure an Angular 2 app backed by Express](https://auth0.com/blog/angular-2-authentication/). Unofficially known as Express' successor, Koa uses `async` functions to improve readability and robustness of applications. Writing middlewares to handle users requests become very easy and clear with Koa's approach, as we will see on our own grocery list application.
 
 ## Our Application - Grocery List
 
@@ -46,18 +46,18 @@ The grocery list application will have a very simple and intuitive functionality
 
 The most important files of our source code will be divided in three folders:
 
-1. Client source folder - which will hold our Angular 2 source code.
-2. Common source folder - which will hold files that are used by both backend and front-end.
-3. Server source folder - which will contain all the code that is responsible for persisting users' data and authenticating them.
+1. Client source folder—which will hold our Angular 2 source code.
+2. Common source folder—which will hold files that are used by both backend and front-end.
+3. Server source folder—which will contain all the code that is responsible for persisting users' data and authenticating them.
 
 ## Cloning the Repo
 
 To reach a minimum viable architecture, where we can start developing the real code for our grocery list, we'll need to do some configuration. Angular 2 alone is already considered cumbersome to configure. So, to avoid wasting valuable time, we will use a repo that provides a very good starting point, containing many of the dependencies installed and configured. Leaving us to deal with what matters: Koa's middlewares, Angular's components and JWT tokens' configuration.
 
-This repo was built specifically to be followed alongside with this post, and can be [found on GitHub](https://github.com/brunokrebs/grocery-list). So let's clone it:
+This repo was built specifically to be followed alongside with this post, and can be [found on GitHub](https://github.com/auth0-blog/grocery-list). So let's clone it:
 
 ```bash
-git clone git@github.com:brunokrebs/grocery-list.git
+git clone git@github.com:auth0-blog/grocery-list.git
 ```
 
 ### Node.js and NPM
@@ -68,7 +68,7 @@ Now that we have the repository cloned, we need to start configuring our develop
 node --version
 ```
 
-The above command must output, at least, `v4.0.0`, since it is the first version that supports generators. If an error occurs, while issuing this command, or a version prior to that gets printed, please refer to the [download area of Node.js and install the latest version](https://nodejs.org/en/download/).
+The above command must output, at least, `v7.6.0`, since it is the first version that supports `async` functions. If an error occurs, while issuing this command, or a version prior to that gets printed, please refer to the [download area of Node.js and install the latest version](https://nodejs.org/en/download/).
 
 Having Node.js and NPM correctly installed, we must issue `npm install` on our project's root folder. This command will install, locally, all the runtime and development dependencies that our application has. This command may take a while to run since there are many dependencies.
 
@@ -122,30 +122,29 @@ export class Exception extends Error {
 
 As we can see, what we've just created is responsible for carrying two properties related to errors. A status code, that represents an HTTP status, and a message with the error description.
 
-In order to be able to warn our users properly - i.e. in a JSON object format - about this errors, we have now to create an `exception-handler.middleware.ts` file that will contain our's middleware source code. Create it as a sibling to `app.ts`, under `./src/server/`. The contents of this middleware are very simple:
+In order to be able to warn our users properly—i.e. in a JSON object format—about these errors, we have now to create an `exception-handler.middleware.ts` file that will contain our's middleware source code. Create it as a sibling to `app.ts`, under `./src/server/`. The contents of this middleware are very simple:
 
 ```typescript
 import {Exception} from "../common/exception";
 
-export default function *(next) {
+export default async (ctx, next) => {
     try {
-        yield next;
+        return next();
     } catch (err) {
         if (err instanceof Exception) {
             // it transform the exception to an object literal
-            this.body = err.toObject();
-            this.status = err.statusCode;
+            ctx.body = err.toObject();
+            ctx.status = err.statusCode;
         } else {
             // unknow error
-            console.log(err);
-            this.body = { message: 'Unexpected error.' };
-            this.status = 500;
+            ctx.body = { message: 'Unexpected error.' };
+            ctx.status = 500;
         }
     }
 };
 ```
 
-Reading this file from top to bottom, we can see that it first declares a dependency on the previously created `./src/common/exception.ts` file and, after that, exports a generator (a function marked with \*). What this generator does is `yield` the control to the next middlewares in the stack, to let them process the requests, while keeping sure that if any errors occurs on them it gets catch and then informed to the user as an object literal.
+Reading this file from top to bottom, we can see that it first declares a dependency on the previously created `./src/common/exception.ts` file and, after that, exports an `async` function. This function passes the control to the next middlewares in the stack, to let them process the requests, while keeping sure that if any errors occurs on them it gets catch and then informed to the user as an object literal.
 
 Defining the `Exception` class and the `exception-handler` middleware is not enough. We also have to change `./src/app.ts` to make our Koa server use these new resources.
 
@@ -266,20 +265,20 @@ import {SINGLETON as UserDAO} from "./user.dao";
 
 export default {
     path: '/api/update-list',
-    middleware: function *() {
-        let user = UserDAO.findByEmail(this.state.user.email);
-        user.items = this.request.body.items;
+    middleware: async (ctx, next) => {
+        let user = UserDAO.findByEmail(ctx.state.user.email);
+        user.items = ctx.request.body.items;
         UserDAO.update(user);
-        this.body = {};
+        ctx.body = {};
     }
 }
 ```
 
-Everything that we do in this file is export a object literal with two properties. The first property, called `path`, represents the URL that will be requested by external resources, like our front-end, to update the a user's grocery list. The second property, called `middleware`, contains the generator that will handle such requests.
+All that we do in this file is export a object literal with two properties. The first property, called `path`, represents the URL that will be requested by external resources, like our front-end, to update the a user's grocery list. The second property, called `middleware`, contains the `async` function that will handle such requests.
 
-This generator acts as a last resource in a request, since it does not call `yield next;` like the last one that we've built, simply retrieving an user object, base on the user's e-mail, and then update this user with the new items sent within the `this.request.body`.
+This function acts as a last resource in a request, since it does not call `next();` like the previous one that we've built. It simply retrieves a user object, base on the user's e-mail, and then update this user with the new items sent within the `ctx.request.body`.
 
-Notice that we use two different objects to get data from the request. The second object, `this.request.body`, contains the new information sent by the user and it is under `koa-bodyparser`'s responsibility to parse it properly. The first object, `this.state.user` does not exist yet. We still have to find a way to be able to identify whose request we are handling, but first we have to wire our new route to our application:
+Notice that we use two different objects to get data from the request. The second object, `ctx.request.body`, contains the new information sent by the user and it is under `koa-bodyparser`'s responsibility to parse it properly. The first object, `ctx.state.user` does not exist yet. We still have to find a way to identify whose request we are handling, but first we have to wire our new route to our application:
 
 ```typescript
 // ... koa router and fs imports
@@ -312,14 +311,14 @@ const SUPER_SECRET = 'change-this';
 
 export const SIGN_UP = {
     path: '/api/sign-up',
-    middleware: function *() {
-        let user = UserDAO.findByEmail(this.request.body.email);
+    middleware: async (ctx, next) => {
+        let user = UserDAO.findByEmail(ctx.request.body.email);
         if (user) {
             throw new Exception(401, 'E-mail already registered.');
         }
-        UserDAO.insertUser(this.request.body);
-        user = UserDAO.findByEmail(this.request.body.email);
-        this.body = {
+        UserDAO.insertUser(ctx.request.body);
+        user = UserDAO.findByEmail(ctx.request.body.email);
+        ctx.body = {
             token: sign(user, SUPER_SECRET),
             user: Serialize(user)
         };
@@ -328,10 +327,10 @@ export const SIGN_UP = {
 
 export const SIGN_IN = {
     path: '/api/sign-in',
-    middleware: function *() {
-        let user = UserDAO.findByEmail(this.request.body.email);
-        if (user && this.request.body.password == user.password) {
-            this.body = {
+    middleware: async (ctx, next) => {
+        let user = UserDAO.findByEmail(ctx.request.body.email);
+        if (user && ctx.request.body.password == user.password) {
+            ctx.body = {
                 token: sign(user, SUPER_SECRET),
                 user: Serialize(user)
             };
@@ -343,27 +342,27 @@ export const SIGN_IN = {
 
 export const SECURED_ROUTES = {
     path: /^\/api\/(.*)(?:\/|$)/,
-    middleware: function *(next) {
+    middleware: async (ctx, next) => {
         try {
-            let token = this.request.headers['authorization'];
-            this.state.user = verify(token.replace('Bearer ', ''), SUPER_SECRET);
-            yield next;
+            let token = ctx.request.headers['authorization'];
+            ctx.state.user = verify(token.replace('Bearer ', ''), SUPER_SECRET);
+            return next();
         } catch (err) {
             throw new Exception(401, 'Uknown user');
         }
     }
 };
 ```
-This new file exports three middlewares that will act like routes, let's dive into the first two of them:
+This new file exports three `async` functions that will act like routes, let's dive into the first two of them:
 
 1. The first one will respond to `/api/sign-up` post requests and it will enable new users to register to our application.
 2. The second one is going to be tied up to `/api/sign-in` in order to allow (or deny) an user to use the application. This is done based on an e-mail and a password informed by the user.
 
-Both middlewares described above respond to the user in the same way. If they are fed with proper data they send back a JSON response containing a token - issued by a function called `sign` of [jsonwebtoken package](https://github.com/auth0/node-jsonwebtoken) - and the user data, which contains its e-mail address, its name and its list of items to buy at the grocery store. In case the user sends improper data, like a wrong combination of e-mail and password, or try to register with an e-mail that is already registered, both middlewares answer with an exception describing the problem.
+Both middlewares described above respond to the user in the same way. If they are fed with proper data they send back a JSON response containing a token—issued by a function called `sign` of the [jsonwebtoken package](https://github.com/auth0/node-jsonwebtoken)—and the user data, which contains its e-mail address, its name and its list of items to buy at the grocery store. In case the user sends improper data, like a wrong combination of e-mail and password, or tries to register with an e-mail that is already registered, both middlewares answer with an exception describing the problem.
 
 The third middleware acts as a key component on our backend. As we can see, the path that it will answer to is a regular expression. This regular expression makes this middleware activate on any request sent to paths that begins with `/api/`, and what it does is to check if a valid token is informed on the `authorization` header request. This verification occurs with the help of `verify` function of the [jsonwebtoken package](https://github.com/auth0/node-jsonwebtoken).
 
-`Sign` and `verify` functions work together to secure our users' data. Whenever a request is sent to any of the protected endpoints, `verify` takes control and ties a user object literal, that is retrieved from the token, to the `this.state.user` reference. This token *must* be present and signed with the same secret ingredient, which is done by the `verify` function when the user authenticated or registered.
+`Sign` and `verify` functions work together to secure our users' data. Whenever a request is sent to any of the protected endpoints, `verify` takes control and ties a user object literal, that is retrieved from the token, to the `ctx.state.user` reference. This token *must* be present and signed with the same secret ingredient, which is done by the `verify` function when the user authenticated or registered.
 
 So, that is how we guarantee that our user is who he claims to be. A Token data can be read by anyone anywhere, but its content cannot be changed because if it is, the `verify` function will complain that it cannot assert this content.
 
@@ -385,7 +384,7 @@ ROUTER.post(UPDATE_LIST_ROUTE.path, UPDATE_LIST_ROUTE.middleware);
 export default ROUTER;
 ```
 
-It is important to notice that order matters when defining middlewares and routes on Koa, since each middleware/route has the option to `yield` the control to the next one on the stack or to stop right there and answer the user. So we must define `SIGN_IN` and `SIGN_OUT` *before* the `SECURED_ROUTES` middleware and, the three of them must also be defined *before* `UPDATE_LIST_ROUTE`.
+It is important to notice that order matters when defining middlewares and routes on Koa. Each middleware/route can decide wether the next one on the stack must execute or not. So we must define `SIGN_IN` and `SIGN_OUT` *before* the `SECURED_ROUTES` middleware and the three of them must also be defined *before* `UPDATE_LIST_ROUTE`.
 
 Like so, we finish writing our backend, which has now every feature that we desire secured, and can focus on the front-end development with Angular 2.
 
@@ -408,8 +407,12 @@ import { Exception } from '../../common/exception';
 
 export class GlobalErrorHandler implements ErrorHandler {
     handleError(error : any) {
-        let myErrorObj: Exception = error.rejection.json();
-        alert(myErrorObj.statusCode + ': ' + myErrorObj.message);
+        if (error.rejection && typeof error.rejection.json == 'function') {
+            let myErrorObj: Exception = error.rejection.json();
+            alert(myErrorObj.statusCode + ': ' + myErrorObj.message);
+        } else {
+            console.log(error);
+        }
     }
 }
 ```
@@ -453,7 +456,7 @@ export class AuthenticationService {
 
     private onAuthenticated(response: any): void {
         this._user = response.json().user;
-        localStorage.setItem('id_token', response.json().token);
+        localStorage.setItem('token', response.json().token);
         this.router.navigate(['/grocery-list']);
     }
 
@@ -480,7 +483,7 @@ This service only has three public methods: one to `authenticate` an user based 
 Both `authenticate` and `signUp` methods have a very similar behavior. The first one makes a call, through the Angular 2 `Http` component, to `/api/sign-in` endpoint passing an object literal containing the user's e-mail and password. If the backend sends back a successful response, then `authenticate` method handles this response to the private method called `onAuthenticated`. This private method then takes three steps:
 
 1. It takes the user's data sent back and keeps it on the service memory, under the `_user` property.
-2. It gets the JWT token sent by the server and registers it on the `localStorage` under the `id_token` key.
+2. It gets the JWT token sent by the server and registers it on the `localStorage` under the `token` key.
 3. Sends the user to the `/grocery-list` Angular 2 route (yet to be defined).
 
 The `signUp` method proceeds almost in the exactly same way. The difference is that it sends the users name, in parallel with their e-mail and password, and the endpoint also changes to `/api/sign-up`. But, if the request gets a successful response, this methods proceeds exactly the same way as the `authenticate` method, passing the response to `onAuthenticated` private method.
@@ -701,7 +704,7 @@ export class GroceryListComponent {
 This component definition is far bigger than the previous ones, but it is also easy to grasp its content. What it does is to provide three public methods that will be called by the template:
 
 1. The first method, called `getItem` simply returns a list of `items`, that belongs to the current logged-in `user`. This list is then showed, by the template, to the user so he can see what does he have to buy.
-2. The second method, called `addItem`, is responsible for checking if the user has informed a new item, through the `this.newItem` property, and then to call the `updateUsersList` private method. This method is also called by the next public method and what it does is to issue a post request, through the `AuthHttp` object, to update the user's list.
+2. The second method, called `addItem`, is responsible for checking if the user has informed a new item, through the `ctx.newItem` property, and then to call the `updateUsersList` private method. This method is also called by the next public method and what it does is to issue a post request, through the `AuthHttp` object, to update the user's list.
 3. The third and final method is responsible for enabling the user to remove an item. This method is linked to every single item of the list on the template, and whenever one is tapped/clicked, this method is called with the index of the selected item. Then it simply calls the `updateUsersList` private method, updating the user's list on the backend.
 
 {% highlight html %}
@@ -845,52 +848,72 @@ And then finally we have reached the point where we have a fully functional groc
 
 ## Aside: Softening the Authentication Burden with Auth0
 
-Creating the authentication mechanisnm was not the hardest task but, for every single application that we build, we will have to recreate it or reuse existing components: one for the front-end application, that will show sign in and sign up forms; and one to handle identity persistence and retrieval.
+Creating the authentication mechanisnm was not the hardest task but, for every single application that we build, we will have to recreate or reuse at least two components: one for the front-end application, that will show sign in and sign up forms; and one to handle identity persistence and retrieval.
 
-Further more, if we want to support identity providers like Google, Facebook, GitHub, etc, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and securer.
+Further more, if we want to support identity providers (like Google, Facebook, GitHub, etc), multifactor authentication, and so on, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and more secure.
+
+> **Note:** the refactoring below can be found fully implemented in the `auth0` branch of the [Grocery List app repository](https://github.com/auth0-blog/grocery-list/tree/jwt) on GitHub.
 
 ### Configuring Your Auth0 Client
 
-First thing we'll need to do is <a href="javascript:signup()">sign up for a free Auth0 account</a> and configure a new client.
+If you haven't done so yet, this is a good time to <a href="javascript:signup()">sign up for a free Auth0 account</a>, after which we can take a look at how we need to alter our grocery list to allow for Auth0 to manage our login.
 
 When we first reach Auth0's [dashboard](https://dashboard.auth0.com), we are asked what identity providers we want to use. Since our application is intended for end users, we can choose only Google, which shall cover many of the users around. Those that are not covered can still input an e-mail address and a password to sign up.
 
-After that we must go to [clients](https://manage.auth0.com/#/clients) and create a new one choosing 'Single Page Web Application' as the client type. Let's name it as something like 'Grocery List', to help us remember what it is about.
+After that we must go to [APIs](https://manage.auth0.com/#/apis) and create a new one that will represent our grocery list. To create an API, we must define three fields: `Name`, which is just a friendly name for our new API; `Identifier`, which is a `String` that we will use when requesting an `access_token`; and the `Signing Algorithm`, which defines if this API will use a [symmetric or asymmetric algorithm](https://auth0.com/blog/json-web-token-signing-algorithms-overview/) to sign the `access_token`. In our case, we will fill this fields, respectively, with: `Grocery List API`; `grocery-list-api`; and `RS256` (i.e. we will use an asymmetric algorithm).
 
-Now that we have our client created, we need take note of three properties: `Domain`, `Client ID` and `Client Secret`. The first two properties will be used to configure Auth0's front-end component and the third one will be used to validate the JWT token sent by Auth0. All of them can be found on the `Settings` tab of the client that we've just created.
+![Creating the grocery list API on Auth0](https://cdn2.auth0.com/blog/koa-angular2/creating-api.png)
 
-The last configuration that we need to do, before updating our code, is to add `http://localhost:3000` as an `Allowed Callback URLs` on our Auth0 client.
+> An API is an entity that represents an external resource server, capable of accepting and responding resource requests made by clients (resource owners). And this is exactly what our grocery list app is, an API that holds the grocery list of our users.
+
+**Note:** If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account) and in the [Advanced tab](https://manage.auth0.com/#/account/advanced), scroll down until you see *Enable APIs Section* and flip the switch.
+
+When we created the API, Auth0 automatically created a client for us, which was called *Grocery List API (Test Client)*. Let's open up this client and copy the `Client ID` from it. It will be used as a parameter on the configuration that we will do in our Angular 2 app. While we're viewing this client in the Auth0 dashboard, let's scroll down to find a section entitled *Allowed Callback URLs*. Here we will add the URL that Auth0 will redirect the user to after a successful authentication. Therefore, let's add `http://localhost:3000/callback` to this field.
 
 ### Updating the Backend's Source Code
 
-Since we won't handle sign in and sign up features by ourselves anymore, the first file that we will update is the `src/server/authentication.routes.ts`. In it we will make three changes: remove the `SIGN_UP` constant; remove the `SIGN_IN` constant; and replace the `SUPER_SECRET` constant with the `Client Secret` that we've copied from Auth0's dashboard.
-
-After making these changes, our file shall look like this:
+Since we won't handle sign in and sign up features by ourselves anymore, the first file that we will update is the `src/server/authentication.routes.ts`. The security middleware, defined in this file, will use `jwks-rsa` library to load the `signingKey` of the API that we created above. Therefore, let's issue `npm install jwks-rsa --save` to install this dependency, and then update the file as follows:
 
 ```typescript
-// routes
-import {SINGLETON as UserDAO} from "./user/user.dao";
-import {Exception} from '../common/exception';
-import { sign, verify } from "jsonwebtoken";
-import {Serialize} from "cerialize";
+import * as jwt from "jsonwebtoken";
+let jwks = require('jwks-rsa');
 
-const SUPER_SECRET = 'SOME-CODE-COPIED-FROM-AUTH0';
+const client = jwks({
+    jwksUri: 'https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json'
+});
+
+const VERIFY_JWT = function(ctx, kid, token) {
+    return new Promise(function (resolve) {
+        client.getSigningKey(kid, (err, key) => {
+            let signingKey = key.publicKey || key.rsaPublicKey;
+            let accessKey = jwt.verify(token, signingKey);
+            ctx.state.user = {
+                sub: accessKey.sub
+            };
+            resolve();
+        });
+    });
+};
 
 export const SECURED_ROUTES = {
     path: /^\/api\/(.*)(?:\/|$)/,
-    middleware: function *(next) {
-        try {
-            let token = this.request.headers['authorization'];
-
-            this.state.user = verify(token.replace('Bearer ', ''), SUPER_SECRET);
-
-            yield next;
-        } catch (err) {
-            throw new Exception(401, 'Uknown user');
+    middleware: async (ctx, next) => {
+        if (! ctx.request.headers.authorization) {
+            ctx.status = 401;
+            return ctx.body = {
+                message: 'Unauthorized'
+            };
         }
+        let token = ctx.request.headers.authorization.replace('Bearer ', '');
+        let kid = jwt.decode(token, {complete: true}).header.kid;
+
+        await VERIFY_JWT(ctx, kid, token);
+        return next();
     }
 };
 ```
+
+ As you can see, we have removed the `SIGN_UP` and `SIGN_IN` constants, used `jwks-rsa` to get the signing key of the token that we receive in the `Authorization` header, and then used `jsonwebtoken` to validate its contents. Please, note that `{YOUR-AUTH0-DOMAIN}` above has to be replace with your Auth0 domain, something like `bkrebs.auth0.com`.
 
 Another file that will need to be updated is `src/server/user/user.routes.ts`. Before using Auth0, our users were registered in our application with the `SIGN_UP` middleware that we have removed. Now we will have to register users in our database on the first time they use our application.
 
@@ -902,27 +925,29 @@ import {SINGLETON as UserDAO} from "./user.dao";
 
 export const UPDATE_LIST = {
     path: '/api/update-list',
-    middleware: function *() {
-        let user = UserDAO.findByEmail(this.state.user.email);
-        user.items = this.request.body.items;
+    middleware: async ctx => {
+        let user = UserDAO.findByEmail(ctx.state.user.sub);
+        user.items = ctx.request.body.items;
         UserDAO.update(user);
-        this.body = {};
+        ctx.body = {};
     }
 };
 
 export const GET_LIST = {
     path: '/api/list',
-    middleware: function *() {
-        let user = UserDAO.findByEmail(this.state.user.email);
+    middleware: async (ctx, next) => {
+        let user = UserDAO.findByEmail(ctx.state.user.sub);
         if (!user) {
             // new users must be persisted before being able to fill data
             user = {
-                email: this.state.user.email,
+                email: ctx.state.user.sub,
                 items: []
             };
             UserDAO.insertUser(user);
         }
-        this.body = user.items;
+        ctx.body = user.items;
+        console.log('next');
+        return next();
     }
 };
 ```
@@ -934,6 +959,7 @@ TypeScript will now be complaining that we are trying to insert a user without a
 ```typescript
 export class User {
     public email: string;
+    public sub: string;
     public items: Array<string>;
 
     public static OnSerialized(instance : User, json : any) : void {
@@ -948,9 +974,8 @@ Now that we have added the new route to allow users to retrieve their grocery li
 import * as Router from "koa-router";
 import * as fs from "fs";
 // updating import from user.routes
-import { UPDATE_LIST, GET_LIST } from "./user/user.routes";
-// removing deprecated routes
-import { SECURED_ROUTES } from "./authentication.routes";
+import {UPDATE_LIST, GET_LIST} from "./user/user.routes";
+import {SECURED_ROUTES} from "./authentication.routes";
 
 const ROUTER = new Router();
 
@@ -963,11 +988,11 @@ const LOAD_HTML = function() {
     });
 };
 
-ROUTER.get(/^\/(.*)(?:\/|$)/, function *(next) {
-    if (this.request.url.startsWith("/api")) {
-        yield next;
+ROUTER.get(/^\/(.*)(?:\/|$)/, async (ctx, next) => {
+    if (ctx.request.url.startsWith("/api")) {
+        return next();
     } else {
-        this.body = yield LOAD_HTML();
+        ctx.body = await LOAD_HTML();
     }
 });
 
@@ -1032,68 +1057,174 @@ import {SignUpComponent} from "./sign-up/sign-up.component";
 export class AppModule { }
 ```
 
-After that, let's install `auth0-lock` dependency to our application by issuing `npm install --save auth0-lock`. This is the component that we will use to enable users to register and sign in to our application. To configure it open the `src/client/app/authentication.service.ts` file and update it as follows:
+After that, let's open the `src/client/app/authentication.service.ts` file and update it as follows:
 
 ```typescript
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import {Router} from "@angular/router";
-
-const Auth0Lock = require('auth0-lock').default;
-
-const AUTH0_CLIENT_ID = "some-client-id-provided-by-auth0";
-const AUTH0_DOMAIN = "brunokrebs.auth0.com";
+import {User} from "../../common/user";
+import {JwtHelper, tokenNotExpired} from "angular2-jwt";
 
 @Injectable()
 export class AuthenticationService {
     private _user: User;
-    private lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
-        auth: {
-            params: { scope: 'openid email' }
-        }
-    });
 
-    constructor(private http: Http, private router: Router) {
-        // We'll listen for an authentication event to be raised and if successful will log the user in.
-        this.lock.on('authenticated', (authResult: any) => {
-            this.onAuthenticated.call(this, authResult);
-        });
+    constructor(private router: Router) {
     }
 
-    private onAuthenticated(authResult: any): void {
-        localStorage.setItem('id_token', authResult.idToken);
+    // Helper function that will allow us to extract the access_token and id_token
+    getParameterByName(name: string) {
+        let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
 
-        this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
-            if (error) {
-                console.log(error);
+    // Get and store access_token in local storage
+    getAccessToken() {
+        let accessToken = this.getParameterByName('access_token');
+        localStorage.setItem('token', accessToken);
+    }
+
+    // Get and store id_token in local storage
+    getIdToken() {
+        let idToken = this.getParameterByName('id_token');
+        localStorage.setItem('id_token', idToken);
+        this.decodeIdToken(idToken);
+    }
+
+    // Decode id_token to verify the nonce
+    decodeIdToken(token: string) {
+        let jwtHelper = new JwtHelper();
+        let jwt = jwtHelper.decodeToken(token);
+        this._user = new User();
+        this._user.email = jwt.email;
+        this.verifyNonce(jwt.nonce);
+    }
+
+    // Function to generate a nonce which will be used to mitigate replay attacks
+    generateNonce() {
+        let existing = localStorage.getItem('nonce');
+        if (existing === null) {
+            let nonce = '';
+            let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < 16; i++) {
+                nonce += possible.charAt(Math.floor(Math.random() * possible.length));
             }
-            this._user = profile;
-
-            localStorage.setItem('profile', profile);
-            this.router.navigateByUrl('/grocery-list');
-        });
-
-        this.lock.hide();
+            localStorage.setItem('nonce', nonce);
+            return nonce;
+        }
+        return localStorage.getItem('nonce');
     }
 
-    showSignInScreen(): void {
-        this.lock.show();
+    // Verify the nonce once user has authenticated.
+    // If the nonce can't be verified we'll log the user out
+    verifyNonce(nonce: string) {
+        if (nonce !== localStorage.getItem('nonce')) {
+            localStorage.removeItem('id_token');
+            localStorage.removeItem('token');
+        }
+        this.router.navigate(['/grocery-list']);
     }
 
     user(): User {
         return this._user;
     }
+
+    loggedIn() {
+        return tokenNotExpired();
+    }
 }
 ```
 
-A few changes were made to this file. First we imported `Auth0Lock`, then we added a property called `lock` and pointed it to a new instance of `Auth0Lock`. This new instance was configured with the `Client Id` and the `Domain` that we have copied from Auth0's dashboard.
+From now on, the authentication process will be handled by Auth0 Hosted Lock, a solution provided by Auth0 that makes easy securing websites. To use the hosted solution we need to redirect the user to `http://{YOUR-AUTH0-DOMAIN}/authorize` with a few query parameters. These parameters are filled by the methods that we have just defined.
 
-After creating `Auth0Lock` instance, we registered an `authenticated` event listener to handle the response sent by Auth0. This listener is responsible for saving the JWT token in the `localStorage`, to retrieve the users profile and to send them to their grocery list.
+Now we need to update the `src/client/app/app.component.html` file by removing the `Sign Up` link, that is leading to a component that we already removed, and updating the `Sign In` link to redirect the user to Auth0 Hosted Lock. Update this file as follows:
 
-We have also added a new `showSignInScreen` method that is responsible for opening the sign in/up screen from Lock. This method will be used later.
+{% highlight html %}
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" [routerLink]="['']"></a>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <a *ngIf="!authenticationService.loggedIn()" href="https://{YOUR-AUTH0-DOMAIN}/authorize?scope=openid%20email&audience=grocery-list-api&response_type=id_token%20token&client_id={YOUR-CLIENT-ID}&redirect_uri=http://localhost:3000/callback&nonce={{nonce}}">Log In</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section>
+    <router-outlet></router-outlet>
+</section>
+{% endhighlight %}
 
-We must now update the grocery list component to use the new route that we have created on our backend. We will make three changes to this component:
+> **Important**—replace `{YOUR-AUTH0-DOMAIN}` above by your Auth0 domain (something like `bkrebs.auth0.com`) and `{YOUR-CLIENT-ID}`, with the *Client Id* of the *Grocery List API (Test Client)* client that was automatically created by Auth0.
+
+When a user successfully signs in to Lock, Auth0 will redirect them to the `http://localhost:3000/callback` URL, which was defined as the `redirect_uri` parameter in the link above. So, we must create a new Angular component to handle this URL. The following code exhibits the content of the component that we must create in the `src/client/app/callback.component.ts` file:
+
+```ts
+import { Component } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
+
+@Component({
+    template: ``
+})
+export class CallbackComponent {
+
+    constructor(private authService: AuthenticationService) {
+        this.authService.getIdToken();
+        this.authService.getAccessToken();
+    }
+}
+```
+
+The `CallbackComponent` must also be registered in the `src/client/app/app.routing.ts` file, as below:
+
+```
+import {RouterModule} from "@angular/router";
+
+import {GroceryListComponent} from "./grocery-list/grocery-list.component";
+import {AuthenticatedGuard} from "./authenticated.guard";
+import {CallbackComponent} from "./callback.component";
+
+const APP_ROUTES = [{
+    path: 'grocery-list',
+    component: GroceryListComponent,
+    canActivate: [AuthenticatedGuard]
+}, {
+    path: 'callback', // CallbackComponent is activated on calls to /callback
+    component: CallbackComponent,
+}];
+
+export const Routing = RouterModule.forRoot(APP_ROUTES);
+```
+
+And on `AppModule`, as shown below:
+
+```ts
+// ... other imports
+import {CallbackComponent} from "./callback.component";
+
+@NgModule({
+    bootstrap: [ AppComponent ],
+    declarations: [
+        AppComponent, GroceryListComponent, CallbackComponent // new component
+    ],
+    imports: [
+        BrowserModule, HttpModule, FormsModule, Routing
+    ],
+    providers: [
+        { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        AuthenticationService,
+        AuthenticatedGuard,
+        AUTH_PROVIDERS
+    ]
+})
+export class AppModule { }
+```
+
+Besides that, we have to update the grocery list component to use the new route that we have created on our backend. We will make three changes to this component:
 
 1. We will make it implements `OnInit` lifecycle hook, which will trigger the ajax request to the newly created route that responds with the users grocery list.
 2. We will add a new private property called `getList` that represents the path to this new route.
@@ -1131,7 +1262,7 @@ export class GroceryListComponent implements OnInit {
 }
 ```
 
-Having updated the `GroceryListComponent` we are almost done. The last thing that we have to do is to make `AppComponent` use the new `showSignInScreen` method that we have created on `AuthenticationService`. Let's open the `src/client/app/app.component.ts` file and update it as follows:
+Having updated the `GroceryListComponent` we are almost done. The last thing that we have to do is to make `AppComponent` generate a nonce for us through the `generateNonce` method that we have created on `AuthenticationService`. Let's open the `src/client/app/app.component.ts` file and update it as follows:
 
 ```typescript
 import {Component, ViewEncapsulation} from "@angular/core";
@@ -1142,32 +1273,12 @@ import {AuthenticationService} from "./authentication.service";
 })
 export class AppComponent {
     title = 'Grocery List';
+    nonce: string;
 
-    constructor(private authenticationService: AuthenticationService) { }
-
-    signIn() {
-        this.authenticationService.showSignInScreen();
+    constructor(private authenticationService: AuthenticationService) {
+      this.nonce = this.authenticationService.generateNonce();
     }
 }
-```
-
-Now we just need to update the `src/client/app/app.component.html` file by removing the `Sign Up` link, that is leading to a component that we already removed, and updating the `Sign In` link to call this `signIn` method that we have created on `AppComponent`. Which will make our file end up like this:
-
-```typescript
-<nav class="navbar navbar-default">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a class="navbar-brand" [routerLink]="['']">{{title}}</a>
-        </div>
-        <ul class="nav navbar-nav pull-right">
-            <li><a (click)="signIn()">Sign In</a></li>
-        </ul>
-    </div>
-</nav>
-<section>
-    <router-outlet></router-outlet>
-</section>
 ```
 
 We are now ready to run our Grocery List application with Auth0 identity management. By issuing `npm run dev` command we shall be able to use it, accessing it on [http://localhost:3000/](http://localhost:3000/), and sign in with Google or any other e-mail address as before.
@@ -1176,6 +1287,6 @@ Now if you want to add another identity provider, like Twitter, you just have to
 
 ## Conclusion
 
-As we could see, writing Koa web servers is very easy and we achieve very clean code through the use of generators. It is almost as if we were reading code that runs entirely synchronous. Also, by using TypeScript on both the backend and the front-end, our code becomes more readable and reliable, due to the type safe approach of this programming language.
+As we could see, writing Koa web servers is very easy and we achieve very clean code through the use of `async` functions. It is almost as if we were reading code that runs entirely synchronous. Also, by using TypeScript on both the backend and the front-end, our code becomes more readable and reliable, due to the type safe approach of this programming language.
 
 Allied to that, we can see that although these technologies are relatively new, we already have support to a lot of things, like securing the communication with JWT tokens.
