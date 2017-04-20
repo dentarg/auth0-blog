@@ -24,9 +24,9 @@ related:
 - 2016-12-23-auth0-named-in-seattle-10-hottest-ventures-2016
 ---
 
-**BELLEVUE, WA** - [Nando's](https://www.nandos.com/), a Portugese chicken restraurant with South African roots, has chosen Auth0 as their identity management platform for internal and public-facing applications.
+**BELLEVUE, WA** - [Nando's](https://www.nandos.com/), a Portugese chicken restaurant with South African roots, has chosen Auth0 as their identity management platform for internal and public-facing applications.
 
-Auth0 gives Nando's the robust Identity and Access Management (IAM) solution they need to integrate with applications both within and outside their own ecosystem. Internally, Nando's utilizes a cloud platform for project management, meeting software, AWS, JIRA, and more. With the increasing distribution of these applications, managing many identity providers and provisioning users was a challenge that Auth0 overcomes for Nando's. In addition, Nando's employs over 14,000 workers across 1300 restaurants in five countries. Using an app to engage on a more personal level and share information with their workers is also an important need for Nando's. A seamless user experience, Single Sign-On, and account linking were among the key aspirations when considering an IAM solution and selecting Auth0.
+Auth0 gives Nando's the robust Identity and Access Management (IAM) solution they need to integrate with applications both within and outside their own ecosystem. Internally, Nando's utilizes a cloud platform for project management, meeting software, AWS, JIRA, and more. With the increasing distribution of these applications, managing many identity providers and provisioning users is a challenge that Auth0 overcomes for Nando's. In addition, Nando's employs over 14,000 workers across 1300 restaurants in five countries. Using an app to engage on a more personal level and share information with their workers is also an important need for Nando's. A seamless user experience, Single Sign-On, and account linking were among the key aspirations when considering an IAM solution and selecting Auth0.
 
 ![Nando's chicken chooses Auth0 for their IAM](https://cdn2.auth0.com/blog/nandos/nandos-homepage.jpg)
 
