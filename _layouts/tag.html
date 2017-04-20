@@ -5,7 +5,6 @@ is_post_index: true
 is_tag_index: true
 ---
 {% include banner_blog.html %}
-{% include navigation.html %}
 
 <div class="container" id="container">
   <div class="row sticky-container">
@@ -23,7 +22,7 @@ is_tag_index: true
             {% endunless %}
             {% endfor %}
           </div>
-          
+
           {% include paging.html %}
         </div>
       </main>
