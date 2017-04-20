@@ -268,8 +268,7 @@ const authCheck = jwt({
     }),
     // This is the identifier we set when we created the API
     audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
-    // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com , so TENANT-NAME will be prosper
-    issuer: "https://{TENANT-NAME}.auth0.com/",
+    issuer: '{YOUR-AUTH0-DOMAIN}',
     algorithms: ['RS256']
 });
 
@@ -882,7 +881,7 @@ _Adding scope_
 
 We need to secure the API so that the celebrity endpoint will only be accessible to authenticated users. We can secure it easily with Auth0.
 
-Open up your `server.js` file and replace the `YOUR-API-AUDIENCE-ATTRIBUTE`, `YOUR-AUTH0-DOMAIN ` and `TENANT_NAME` variables with the audience attribute of the API, your auth0 domain and tenant name respectively. Then add the `authCheck` middleware to the celebrity endpoint like so:
+Open up your `server.js` file and replace the `YOUR-API-AUDIENCE-ATTRIBUTE`, and `YOUR-AUTH0-DOMAIN ` variables with the audience attribute of the API, and your auth0 domain respectively. Then add the `authCheck` middleware to the celebrity endpoint like so:
 
 ```js
 
@@ -934,11 +933,11 @@ Next, let's add authentication to our front-end.
 
 We'll create an authentication service to handle everything about authentication in our app. Go ahead and create an `AuthService.js` file inside the `utils` directory.
 
-Before we add code, you need to install `jwt-decode` node package like so:
+Before we add code, you need to install `jwt-decode` and `auth0-js` node packages like so:
 
 ```bash
 
-npm install jwt-decode --save
+npm install jwt-decode auth0-js --save
 
 ```
 
@@ -947,17 +946,34 @@ Open up the `AuthService.js` file and add code to it like so:
 ```js
 import decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
+import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
+const CLIENT_ID = '{AUTH0_CLIENT_ID}';
+const CLIENT_DOMAIN = 'AUTH0_DOMAIN';
+const REDIRECT = 'YOUR_CALLBACK_URL';
+const SCOPE = 'YOUR_SCOPE';
+const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
+
+var auth = new auth0.WebAuth({
+  clientID: CLIENT_ID,
+  domain: CLIENT_DOMAIN
+});
+
 export function login() {
-  window.location.href = `https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={{generateNonce()}}`;
+  auth.authorize({
+    responseType: 'token id_token',
+    redirectUri: REDIRECT,
+    audience: AUDIENCE,
+    scope: SCOPE
+  });
 }
 
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  browserHistory.push('/special');
+  browserHistory.push('/');
 }
 
 export function requireAuth(nextState, replace) {
@@ -998,38 +1014,6 @@ export function setAccessToken() {
 export function setIdToken() {
   let idToken = getParameterByName('id_token');
   localStorage.setItem(ID_TOKEN_KEY, idToken);
-  decodeIdToken(idToken);
-}
-
-// Decode id_token to verify the nonce
-function decodeIdToken(token) {
-  const jwt = decode(token);
-  verifyNonce(jwt.nonce);
-}
-
-// Function to generate a nonce which will be used to mitigate replay attacks
-function generateNonce() {
-  let existing = localStorage.getItem('nonce');
-  if (existing === null) {
-    let nonce = '';
-    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 16; i++) {
-        nonce += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    localStorage.setItem('nonce', nonce);
-    return nonce;
-  }
-  return localStorage.getItem('nonce');
-}
-
-// Verify the nonce once user has authenticated. If the nonce can't be verified we'll log the user out
-function verifyNonce(nonce) {
-  if (nonce !== localStorage.getItem('nonce')) {
-    clearIdToken();
-    clearAccessToken();
-  }
-
-  window.location.href = "/";
 }
 
 export function isLoggedIn() {
@@ -1051,14 +1035,13 @@ function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();
 }
-
 ```
 
 In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
 
-This URL calls the Auth0's `authorize` endpoint. With all the details we passed to the URL, our client app and will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the URL [here](https://auth0.com/docs/api-auth/tutorials/implicit-grant#1-get-the-user-s-authorization).
+The auth0 package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
+The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
 
 Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
 
@@ -1073,7 +1056,7 @@ Let's quickly go ahead to change the title of the client to `Chuck Norris World`
 
 ![Client Name Change](https://cdn2.auth0.com/blog/chucknorris/clientnamechange.png)
 
-Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
+Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:8080/callback`. 
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1221,6 +1204,7 @@ class Callback extends Component {
   componentDidMount() {
     setAccessToken();
     setIdToken();
+    window.location.href = "/";
   }
 
   render() {
@@ -1232,7 +1216,7 @@ export default Callback;
 
 ```
 
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we received an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/` page and will be in a logged-in state.
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we received an `id_token`, and `access_token`, we will be redirected back to the `/` page and will be in a logged-in state.
 
 ### Add some values to Auth0 Dashboard
 
