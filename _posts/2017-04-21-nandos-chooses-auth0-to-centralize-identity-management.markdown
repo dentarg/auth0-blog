@@ -28,7 +28,7 @@ related:
 
 Auth0 gives Nando's the robust Identity and Access Management (IAM) solution they need to integrate with applications both within and outside their own ecosystem. Internally, Nando's utilizes a cloud platform for project management, meeting software, AWS, JIRA, and more. With the increasing distribution of these applications, managing many identity providers and provisioning users was a challenge that Auth0 overcomes for Nando's. In addition, Nando's employs over 14,000 workers across 1300 restaurants in five countries. Using an app to engage on a more personal level and share information with their workers is also an important need for Nando's. A seamless user experience, Single Sign-On, and account linking were among the key aspirations when considering an IAM solution and selecting Auth0.
 
-![image goes here](https://cdn2.auth0.com/blog/nandos/nandos-homepage.jpg)
+![Nando's chicken chooses Auth0 for their IAM](https://cdn2.auth0.com/blog/nandos/nandos-homepage.jpg)
 
 As a restaurant, Nando's is also operating in a regulated industry. Auth0 helps Nando's build towards the regulations requirements for the security of customer information. This is particularly important for the public-facing apps for customer loyalty and online ordering. One authentication access point also makes it easy and simple for Nando's to maintain the solution and continue to comply with regulations across all of their apps. In addition, Auth0 provides the necessary compliance to safeguard customers out of the box, providing the confidence needed for Nando's internal and external apps.
 
