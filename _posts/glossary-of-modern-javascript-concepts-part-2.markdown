@@ -33,14 +33,18 @@ Modern JavaScript has experienced massive proliferation over recent years and sh
 
 ## Concepts
 
-In this article, we'll address concepts that are crucial to understanding modern JS and JS applications, including **scope and closures, data flow, change detection, components, compilers, and more**.
+In this article, we'll address concepts that are crucial to understanding modern JavaScript and JS applications, including **scope and closures, data flow, change detection, components, compilation, and more**.
 
 You can jump straight into each concept here, or continue reading to learn about them in order.
 
 * <a href="#scope-closures" target="_self">Scope (Global, Local, Lexical) and Closures</a>
 * <a href="#data-flow-binding" target="_self">One-way Data Flow and Two-way Data Binding</a>
 * <a href="#change-detection" target="_self">Change Detection: Dirty Checking, Accessors, Virtual DOM</a>
-* <a href="#tree-shaking" target="_self">Tree-shaking</a>
+* <a href="#web-components" target="_self">Web Components</a>
+* <a href="#smart-dumb-components" target="_self">Smart and Dumb Components</a>
+* <a href="#tree-shaking" target="_self">Tree Shaking</a>
+* <a href="#aot" target="_self">AOT (Ahead-of-Time) Compilation</a>
+* <a href="#jit" target="_jit">JIT (Just-in-Time) Compilation</a>
 
 ---
 
@@ -357,19 +361,58 @@ Though dirty checking can still be fast in a simple app, we can easily see how t
 
 ### Accessors
 
-[Ember](https://emberjs.com/) and [Backbone](http://backbonejs.org/) use **data accessors** (_getters_ and _setters_) for change detection.
+[Ember](https://emberjs.com/) and [Backbone](http://backbonejs.org/) use **data accessors** (_getters_ and _setters_) for change detection. [Ember objects](https://emberjs.com/api/classes/Ember.Object.html) inherit from Ember's APIs and have [`get()`](https://emberjs.com/api/classes/Ember.Object.html#method_get) and [`set()`](https://emberjs.com/api/classes/Ember.Object.html#method_set) methods that must be used to update models with data binding. This enables the binding between the UI and the data model and Ember then knows _exactly_ what changed. In turn, only the modified data triggers change events to update the app.
+
+> **Note:** In Backbone, this is done with [Backbone models](http://backbonejs.org/#Model) with [`get()`](http://backbonejs.org/#Model-get) and [`set()`](http://backbonejs.org/#Model-set) methods.
+
+This method is straightforward and enforces that the application author be very deliberate regarding their data bindings. However, on the flipside of the same coin, it can occasionally lead to confusion _because_ `Ember.Object`s are only used when data binding. This mixed data update approach can result in the developer scratching their head when things aren't updating because of a forgotten setter or getter.
 
 ### Virtual DOM
 
+**Virtual DOM** is used by [React](https://facebook.github.io/react/) (and [Inferno.js](https://infernojs.org)) to implement change detection. React doesn't specifically detect each change. Instead, [the _virtual_ DOM](https://medium.com/@rajikaimal/react-js-internals-virtual-dom-d054347b7f00) is used to _diff_ the previous state of the UI and the new state when a change occurs. React is notified of such changes by the use of [`setState()`](https://facebook.github.io/react/docs/react-component.html#setstate), which triggers the [`render()`](https://facebook.github.io/react/docs/react-component.html#render) method to perform the diff.
+
+Virtual DOM (occasionally known as V-DOM) is a JavaScript data model that _represents_ the real DOM tree. When a virtual DOM is generated, nothing is rendered to the browser. The [old model is compared to the new model](https://facebook.github.io/react/docs/reconciliation.html) and once React determines which parts of the virtual DOM have changed, only those parts are patched in the real DOM.
+
 ### Change Detection Takeaways
 
-To learn more about **change detection**, check out the following resources:
+There are many ways that JavaScript frameworks manage change detection, including [more that](https://vuejs.org/v2/guide/reactivity.html#How-Changes-Are-Tracked) [weren't](https://www.polymer-project.org/2.0/docs/devguide/observers) [covered here](https://auth0.com/blog/understanding-angular-2-change-detection/). They each have strengths and weaknesses, but the modern trend is toward more deliberate and less automagical methods, many utilizing [_observer pattern_](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript) under the hood.
+
+To learn more about **change detection** in JS frameworks, check out the following resources:
 
 * [Change and its Detection in JavaScript Frameworks](https://teropa.info/blog/2015/03/02/change-and-its-detection-in-javascript-frameworks.html)
 * [Change Detection Overview](https://gofore.com/en/change-detection-overview-part-1/)
 * [Dirty checking in AngularJS](http://stackoverflow.com/questions/9682092/how-does-data-binding-work-in-angularjs/9693933#9693933)
 * [The Digest Loop and Apply](https://www.ng-book.com/p/The-Digest-Loop-and-apply/)
+* [Ember.Object Class](https://emberjs.com/api/classes/Ember.Object.html)
+* [Accessors vs. Dirty Checking in JavaScript Frameworks](http://blog.bguiz.com/2013/08/05/accessors-vs-dirty-checking-in-javascript-frameworks/)
+* [React.JS internals: Virtual DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
+* [The Difference Between Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
+* [React: Reconciliation](https://facebook.github.io/react/docs/reconciliation.html)
+* [virtual-dom](https://github.com/Matt-Esch/virtual-dom)
+* [VueJS: How Changes are Tracked](https://vuejs.org/v2/guide/reactivity.html#How-Changes-Are-Tracked)
+* [Polymer 2.0: Observers and Computed Properties](https://www.polymer-project.org/2.0/docs/devguide/observers)
+* [Understanding Angular 2 Change Detection](https://auth0.com/blog/understanding-angular-2-change-detection/)
 * [Angular Change Detection Explained](https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html)
+
+---
+
+## <span id="tree-shaking"></span>Tree Shaking
+
+**Tree shaking** is a JavaScript module bundling term that refers to the static analysis of all imported code and exclusion of anything that isn't actually used.
+
+In a more literal analogy, consider a living tree. The tree is shaken and this causes the dead leaves to fall off, leaving behind the leaves the tree is actively using for photosynthesis. The concept behind tree shaking is _live code inclusion_: we include the parts that are needed to begin with, as opposed to removing the parts that are unneeded at the end (_dead code elimination_).
+
+Tree shaking relies on ES2015 module [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). The `import` and `export` statements are how a tree shaker walks an app's dependencies to determine its [static module structure](http://exploringjs.com/es6/ch_modules.html#static-module-structure). When the modules are bundled for deployment, the static module structure can be analyzed so that unused exports can be excluded, reducing the size of the final bundle.
+
+### Tree Shaking Takeaways
+
+To learn more about **tree shaking**, check out the following resources:
+
+* [Tree-shaking versus dead code elimination](https://medium.com/@Rich_Harris/tree-shaking-versus-dead-code-elimination-d3765df85c80)
+* [rollup.js](https://rollupjs.org/)
+* [Tree Shaking with Webpack](https://webpack.js.org/guides/tree-shaking/)
+* [Tree-shaking with webpack 2 and Babel 6](http://2ality.com/2015/12/webpack-tree-shaking.html)
+* [Angular Docs: Tree shaking](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking)
 
 ---
 
