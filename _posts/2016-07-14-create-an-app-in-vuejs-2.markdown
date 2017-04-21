@@ -926,6 +926,11 @@ export var lock = new Auth0Lock(YOUR_CLIENT_ID, YOUR_CLIENT_DOMAIN)
   </script>
 ```
 
+**Important Note:** The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+
+**Update: 21/04/2017** There is an [excellent post](https://auth0.com/blog/vuejs2-authentication-tutorial/) that clearly illustrates how to use Auth0 for authentication in a Vuejs 2 application. In this post, you'll learn how to obtain both `id_token` and `access_token` from Auth0, validate the `access_token` passed on from the client app to your server and retreive API resources after successfully validating the token. 
+
+
 ## Where do we go from here?
 
 We have only scratched the surface of what Vue can do. And with this new version of Vue, many improvements have been made. Not only is it faster, the API has been cleaned up and the tooling around it will be getting better as it gets closer to the official release of Vue 2.0. To stay on top of the changes as they happen, [monitor this Github issue on the Vue repo](https://github.com/vuejs/vue/issues/2873). As always, reach out in the comments and let us know how you're liking Vue!
