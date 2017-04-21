@@ -277,6 +277,8 @@ Rx.Observable
 
 That's it! You're set.
 
+> **Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+
 ## Gotta Stream Them All
 
 Thinking in terms of observables or streams may be a little strange at first. The way I think about it is as a collection of events over time instead of as a singular event. Once this clicks, thinking of all events from the DOM as streams will be a piece of cake. RxJS allows you to easily create and interact with these streams of events. It can be a powerful way to keep the logic of your application and the code itself much cleaner than when using other frameworks or libraries. As always, reach out in the comments, and let us know how you're liking RxJS!

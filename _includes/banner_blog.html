@@ -5,22 +5,20 @@
   {% assign current = post %}
 {% endif %}
 
-<section class="banner banner-post banner-blog" {% if current.design.bg_color %}style="background: {{current.design.bg_color}}"{% endif %} itemscope itemtype="http://schema.org/WPHeader">
-    <div class="container banner-container">
-        <a href="{{ site.baseurl }}/"
-          style="background-color: white;"
-          class="blog-thumbnail">
-          <img
-          src="https://cdn.auth0.com/styleguide/1.0.0/img/badge.png"
-          alt="Blog">
-        </a>
+<section class="n-banner n-banner-post n-banner-blog" {% if current.design.bg_color %}style="background: {{current.design.bg_color}}"{% endif %} itemscope itemtype="http://schema.org/WPHeader">
+    <div class="container n-banner-container">
+        <div class="content">
+          <h1 class="n-blog-title"><a href="{{ site.baseurl }}" title="Company Updates & Technology Articles">Blog</a></h1>
 
-        <h1 class="blog-title"><a href="{{ site.baseurl }}" title="Company Updates & Technology Articles">Blog</a></h1>
+          <p class="n-blog-description">
+            Company Updates & Technology Articles
+          </p>
 
-        <p class="blog-description">
-          Company Updates & Technology Articles
-        </p>
+          <a href="javascript:signup()" class="signup-button btn btn-success btn-md">Try Auth0 for Free</a>
+          <a class="contact-us signup-button btn btn-transparent btn-md">Contact Us</a>
 
-        <a href="javascript:signup()" class="signup-button btn btn-success btn-md">Use Auth0 for Free</a>
+        </div>
+        <div class="image"></div>
     </div>
+    {% include navigation.html %}
 </section>

@@ -147,6 +147,8 @@ We've shown how you can add JSON Web Token (JWT) authentication to your Angular 
 
 You may be familiar with the official Angular 2 demo application [Tour of Heroes](https://angular.io/docs/ts/latest/tutorial/). We have forked this app and created [Tour of Secret Heroes](https://github.com/auth0-blog/angular2-tour-of-heroes). In addition to familiarizing you with how Angular 2 works, our version also supports JSON Web Token based authentication. Let's take a look at how we accomplished this.
 
+**Important security note:** In this demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+
 First and foremost, we used the Angular 2 JWT library, created by Auth0. To install it in your application simply run `npm install angular2-jwt --save`.
 
 Next, we created an authentication service in a file called `auth.service.ts`. The implementation is as follows:

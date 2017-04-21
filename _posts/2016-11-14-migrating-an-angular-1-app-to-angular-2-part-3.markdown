@@ -663,6 +663,8 @@ declare var window: any;
 
 @Injectable()
 export class AuthService {
+  // IMPORTANT: id_token should only be used on the client, NOT to secure APIs.
+  // If you need to authorize an API, see: https://github.com/auth0-blog/angular-auth0-aside/blob/master/angular-auth0-aside.markdown
   lock = new Auth0Lock('[YOUR_AUTH0_CLIENT_ID]', '[YOUR_AUTH0_CLIENT_DOMAIN]', {
     auth: {
       redirectUrl: 'http://localhost:4200',
@@ -722,16 +724,17 @@ export class AuthService {
 
   get authenticated() {
     // Check if there's an unexpired JWT
-    // This searches for an item in localStorage with key == 'id_token'
-    return tokenNotExpired();
+    return tokenNotExpired('id_token');
   }
 
 }
 ```
 
-As always, first we'll talk about the imports. `Injectable` is necessary for any injectable service and is provided by the boilerplate. We'll want to use `Router` to redirect the authenticated user back to the route they logged in from. We also need `tokenNotExpired` from `angular2-jwt` to get a user's authentication state.
+As always, first we'll talk about the imports. `Injectable` is necessary for any injectable service and is provided by the boilerplate. We'll want to use `Router` to redirect the authenticated user back to the route they logged in from. We also need `tokenNotExpired('id_token')` from `angular2-jwt` to get a user's authentication state.
 
 In order to avoid TypeScript name not found warnings, we'll declare type annotations for `Auth0Lock`, `localStorage`, and `window`.
+
+> **Important Security Note:** An Auth0 `id_token` should [only be used on the client, _not_ to secure APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). An `access_token` should be used to make authenticated HTTP requests if necessary. If you need to authorize an API with Auth0, please read [Authenticating an Angular App and Node API with Auth0](https://github.com/auth0-blog/angular-auth0-aside/blob/master/angular-auth0-aside.markdown).
 
 Then we'll create a new lock instance:
 

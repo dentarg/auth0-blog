@@ -427,9 +427,20 @@ _Typical microservices diagram_
 In our example, we have created a REST service that is self-contained. We could focus on writing just the REST api that deals with logging in and retrieving a list of users. We could then create another Spring Boot project for another part of our application (say, for example, a JSP application or desktop client), if we were so inclined. These Spring Boot applications could then communicate with each other via HTTP, but would be largely independent of each other. This all makes Spring Boot a popular choice in modern architectures, and one worth checking out!
 
 ## Aside: Using Spring Boot with Auth0
-Auth0 issues [JSON Web Tokens](http://jwt.io/introduction) on every user login. This means that you only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (like Facebook, GitHub, Twitter, etc.), enterprise (Active Directory, LDAP, SAML, etc.), and your own database of users.
 
-If you haven't done so yet, this is a good time to sign up for a [free Auth0 account](javascript:signup\(\)), after which we can take a look at how we need to alter our previous example to allow for Auth0 to manage our login.
+Securing Spring Boot APIs with Auth0 is an easy task, as we will see, and brings a lot of great features to the table. With Auth0 we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (like Facebook, GitHub, Twitter, etc.), enterprise (Active Directory, LDAP, SAML, etc.), and your own database of users.
+
+For starters, if you haven't done so yet, this is a good time to sign up for a [free Auth0 account](javascript:signup\(\)). Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. And this is exactly what the Spring Boot app that we just built is, an API.
+
+![Creating an API on Auth0's dashboard](https://cdn.auth0.com/blog/spring-boot-jwts/create-api.png)
+
+**Note**, if you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
+
+When creating an API, we must define three fields: `Name`, which is just a friendly name for our new API; `Identifier`, which is a `String` that we will use when requesting an `access_token`; and the `Signing Algorithm`, which defines if this API will use a [symmetric or asymmetric algorithm](https://auth0.com/blog/json-web-token-signing-algorithms-overview/) to sign the `access_token`. In our case, we will fill this fields, respectively, with: `Spring Boot Users API`; `spring-boot-jwts`; and `RS256` (i.e. we will use an asymmetric algorithm).
+
+Auth0 supports different [OAuth 2.0 flows to request access tokens](https://auth0.com/docs/api-auth). In our particular case, to keep the example simple, we are going to use the [APIs & Trusted Clients flow](https://auth0.com/docs/api-auth/grant/password). Keep in mind that this flow, although being the easiest one to implement, is the less secure one and must be used **only** when the the client app is **absolutely trusted**. Most situations will require other flows, and the ["Which OAuth 2.0 flow should I use?"](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) article on Auth0 can help on deciding which is the best approach.
+
+To use the *APIs & Trusted Clients* flow, we must first configure the `Default Directory` property on our Auth0 account. To do so, head to the [Account settings](https://manage.auth0.com/#/account) page and add `Username-Password-Authentication` as the value of the `Default Directory` property.
 
 ### Changes to the Project
 
@@ -455,8 +466,8 @@ And then we remove the following dependency from our `pom.xml` file:
 Now, under `./src/main/resources`, there is a file called `application.properties`. This file needs to be populated with data from your Auth0 account. By default, when creating a new account you will have a "Default App", which you could use for this. These are the important parts of that config, so remember to replace the values with the values of your application:
 
 ```bash
-# replace YOUR-DOMAIN to get something like LtiwyfY1Y2ANJerNPOWbT7vVsX5zKBS5
-auth0.audience=YOUR-CLIENT-ID
+# spring-boot-jwts is the identifier of the API that we just created
+auth0.audience=spring-boot-jwts
 # replace YOUR-DOMAIN to get something like https://bkrebs.auth0.com/
 auth0.issuer=https://YOUR-DOMAIN.auth0.com/
 ```
@@ -477,7 +488,7 @@ Before we jump into the code, we need to add some dependencies to Maven.
 </dependency>
  ```
 
-Once we've done this, let's replace the source code of the `WebSecurityConfig` class, under the `./src/main/java/com/example/security/WebSecurityConfig.java` file, with the follwing:
+Once we've done this, let's replace the source code of the `WebSecurityConfig` class, under the `./src/main/java/com/example/security/WebSecurityConfig.java` file, with the following:
 
 ```java
 package com.example.security;
@@ -498,9 +509,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Value("${auth0.issuer}")
   private String issuer;
 
-  @Value("${auth0.secret}")
-  private String secret;
-
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
@@ -508,7 +516,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/users").authenticated();
 
     JwtWebSecurityConfigurer
-        .forHS256(audience, issuer, secret.getBytes())
+        .forRS256(audience, issuer)
         .configure(http);
   }
 }
@@ -517,20 +525,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 There we have it, this was all that's required to use Auth0 with Spring Boot. We can jump into testing this application now, once again with Postman or a tool like curl. So let's run the application:
 
 ```bash
-# replace YOUR_SECRET_KEY to something like
-# F7O9nLhowPQcJlaA_kHJaDBNBgnpPooOssu-3lxCYukuag9pAPuuTzY3XyGn8uXv
-mvn spring-boot:run -Drun.arguments="--auth0.secret=YOUR_SECRET_KEY"
+mvn spring-boot:run
 ```
 
-Note that you have to replace `YOUR_SECRET_KEY` in the last command with your `Client Secret`. To get a JWT, first we need to issue a POST request to `https://YOUR-DOMAIN.auth0.com/dbconnections/signup`.
+Before getting an access token to issue requests to our API, we first need to create a new user on Auth0. To do that we have to issue a `POST` request, which requires a `Content-Type` header with `application/json`, to `https://bkrebs.auth0.com/dbconnections/signup` with the following JSON body:
 
-![Signing up to Auth0](https://cdn.auth0.com/blog/spring-boot-jwts/auth0-signup.png)
+```json
+{
+  "client_id": "hfs2An7Zka9OPbXs0CRpmmmL33IKy4mA",
+  "email": "user@test.com",
+  "password": "123123",
+  "connection": "Username-Password-Authentication"
+}
+```
 
-And then we can issue a POST request to `https://YOUR-DOMAIN.auth0.com/oauth/ro` with the credential used.
+After that we can get an access token. For that we need to issue a `POST` request to `https://bkrebs.auth0.com/oauth/token` that contains a JSON object in the body, which also requires a `Content-Type` header with `application/json`, that looks like:
 
-![Auth0 login](https://cdn.auth0.com/blog/spring-boot-jwts/auth0-login.png)
+```json
+{
+  "grant_type":"password",
+  "username": "user@test.com",
+  "password": "123123",
+  "audience": "spring-boot-jwts",
+  "client_id": "hfs2An7Zka9OPbXs0CRpmmmL33IKy4mA",
+  "client_secret": "Hx4eFNAT8TI2POIWXhxWDJ8vWpZxt79DQYUl7e898Uw0ASfc7eY42zPf2H-Gv1n1"
+}
+```
 
-After doing this, we will get an `id_token` on the response that we can pass in the header of our GET request, in a similar manner to how we did it before. Now if we query our endpoint again, we get a list of the users. As we see, integrating Auth0 with Spring Boot is an easy process!
+The `client_id` and `client_secret` properties, on both requests, must be changed properly. Their values can be found in the `Spring Boot Users API (Test Client)` client that Auth0 created for us. Head to the [Clients page](https://manage.auth0.com/#/clients) to get them.
+
+Issuing this last request will give us an `access_token`. We will use this token in the header of the `GET` request that we will send to our Spring Boot API, in a similar manner to how we did it before. Now if we query our endpoint again, we get a list of the users. As we see, integrating Auth0 with Spring Boot is an easy process!
 
 {% include tweet_quote.html quote_text="Integrating Auth0 with Spring Boot is easy!" %}
 
