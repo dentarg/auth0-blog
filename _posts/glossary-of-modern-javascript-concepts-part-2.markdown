@@ -43,7 +43,7 @@ You can jump straight into each concept here, or continue reading to learn about
 * <a href="#web-components" target="_self">Web Components</a>
 * <a href="#smart-dumb-components" target="_self">Smart and Dumb Components</a>
 * <a href="#tree-shaking" target="_self">Tree Shaking</a>
-* <a href="#aot" target="_self">AOT (Ahead-of-Time) Compilation</a>
+* <a href="#aot" target="_self">AoT (Ahead-of-Time) Compilation</a>
 * <a href="#jit" target="_jit">JIT (Just-in-Time) Compilation</a>
 
 ---
@@ -402,9 +402,19 @@ To learn more about **change detection** in JS frameworks, check out the followi
 
 In a more literal analogy, consider a living tree. The tree is shaken and this causes the dead leaves to fall off, leaving behind the leaves the tree is actively using for photosynthesis. The concept behind tree shaking is _live code inclusion_: we include the parts that are needed to begin with, as opposed to removing the parts that are unneeded at the end (_dead code elimination_).
 
-Tree shaking relies on ES2015 module [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). The `import` and `export` statements are how a tree shaker walks an app's dependencies to determine its [static module structure](http://exploringjs.com/es6/ch_modules.html#static-module-structure). When the modules are bundled for deployment, the static module structure can be analyzed so that unused exports can be excluded, reducing the size of the final bundle.
+Tree shaking relies on ES2015 module [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). The `import` and `export` statements are compose an app's [static module structure](http://exploringjs.com/es6/ch_modules.html#static-module-structure). When the modules are bundled for deployment, the tree shaker analyzes the static module structure so that unused exports can be excluded, reducing the size of the final bundle.
+
+ES2015 enables us to specify explicit imports. For example, rather than importing the entire RxJS library, we can only import exactly what we want:
+
+```js
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+```
+
+Tree shaking uses this principle to walk the dependency graph and exclude things that aren't needed in order to reduce the size of deployment bundles.
 
 ### Tree Shaking Takeaways
+
+Tree shaking is term for JavaScript live code inclusion in module bundlers that use ES2015 modules to shake out unneeded dependencies on a more granular level, differing from dependency management predecessors such as CommonJS or AMD. The principle of tree shaking has been _popularized_ by the [rollup.js](https://rollupjs.org/) module bundler, but it's not exclusive to rollup Tree shaking is utilized in [Webpack 2](https://webpack.js.org/guides/tree-shaking/) as well. The concept of tree shaking and writing code that promotes it is also prevalent in [Angular with AoT compilation](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking). 
 
 To learn more about **tree shaking**, check out the following resources:
 
@@ -413,6 +423,8 @@ To learn more about **tree shaking**, check out the following resources:
 * [Tree Shaking with Webpack](https://webpack.js.org/guides/tree-shaking/)
 * [Tree-shaking with webpack 2 and Babel 6](http://2ality.com/2015/12/webpack-tree-shaking.html)
 * [Angular Docs: Tree shaking](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking)
+* [Kendo UI for Angular: Tree Shaking](http://www.telerik.com/kendo-angular-ui/components/framework/tree-shaking/)
+* [How To Clean Up Your JavaScript Build With Tree Shaking](https://blog.engineyard.com/2016/tree-shaking)
 
 ---
 
