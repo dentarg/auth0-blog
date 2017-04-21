@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Creating Your First Elm App: From Authentication to Calling an API (Part 2)"
-description: "Explore building an app in the functional, reactive front-end language Elm. Part 2 focuses on adding authentication to an Elm App."
+description: "Explore building an app in the functional front-end language Elm. Part 2 focuses on adding authentication to an Elm App."
 date: 2016-08-09 08:30
 category: Technical Guide, Frontend, Elm
 design:
@@ -31,7 +31,7 @@ related:
 
 ---
 
-Elm is a reactive language that compiles to JavaScript. Its robust compiler and static typing make it a nice option for developing applications for the browser that are free of runtime errors. In the first part of this Elm tutorial, we built a small web app to introduce the language and its syntax. 
+Elm is a functional language that compiles to JavaScript. Its robust compiler and static typing make it a nice option for developing applications for the browser that are free of runtime errors. In the first part of this Elm tutorial, we built a small web app to introduce the language and its syntax. 
 
 ## Authenticating the Chuck Norris Quoter App
 
@@ -1171,4 +1171,4 @@ Elm began in 2012 as [Evan Czaplicki's Harvard senior thesis](http://elm-lang.or
 
 Elm also has an [active community](http://elm-lang.org/community). I particularly found the [elmlang Slack](http://elmlang.herokuapp.com) to be a great place to learn about Elm and chat with knowledgeable developers who are happy to help with any questions.
 
-There are a lot of exciting things about Elm and I'm looking forward to seeing how it continues to evolve. Static typing, functional, reactive programming, and friendly documentation and compiler messaging make it a clean and speedy coding experience. There's also a peace of mind that Elm provides—the fear of production runtime errors is a thing of the past. Once Elm compiles, it _just works_, and that is something that no other JavaScript SPA frameworks can offer.
+There are a lot of exciting things about Elm and I'm looking forward to seeing how it continues to evolve. Static typing, functional programming, and friendly documentation and compiler messaging make it a clean and speedy coding experience. There's also a peace of mind that Elm provides—the fear of production runtime errors is a thing of the past. Once Elm compiles, it _just works_, and that is something that no other JavaScript SPA frameworks can offer.
