@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Creating Your First Elm App: From Authentication to Calling an API (Part 1)"
-description: Explore building an app in the functional, reactive front-end language Elm. Part 1 focuses on Elm history, architecture, syntax, and calling an API.
+description: Explore building an app in the functional front-end language Elm. Part 1 focuses on Elm history, architecture, syntax, and calling an API.
 date: 2016-08-04 13:30
 category: Technical Guide, Frontend, Elm
 design:
@@ -27,13 +27,13 @@ related:
   <strong>Update:</strong> This article and its supporting GitHub repos have been updated to <strong>Elm v0.18</strong>!
 </div>
 
-**TL;DR:** We can write statically typed, functional, reactive SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/auth0-blog/elm-with-jwt-api).
+**TL;DR:** We can write statically typed, functional SPAs on the front end with [Elm](http://www.elm-lang.org). Elm's compiler prevents runtime errors and compiles to JavaScript, making it an excellent choice for clean, speedy development. In part one of this tutorial, learn how to write your first Elm app and request data from an API. In part two, we'll add authentication using JSON Web Tokens. The full code is available at [this GitHub repository](https://github.com/auth0-blog/elm-with-jwt-api).
 
 ---
 
 All JavaScript app developers are likely familiar with this scenario: we implement logic, deploy our code, and then in QA (or worse, production) we encounter a runtime error! Maybe it was something we forgot to write a test for, or it's an obscure edge case we didn't foresee. Either way, when it comes to business logic in production code, we often spend post-launch with the vague threat of errors hanging over our heads.
 
-Enter [Elm](http://www.elm-lang.org): a [functional](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/), [reactive](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) front-end programming language that compiles to JavaScript, making it great for web applications that run in the browser. Elm's compiler presents us with friendly error messages _before_ runtime, thereby eliminating runtime errors.
+Enter [Elm](http://www.elm-lang.org): a [functional](https://www.smashingmagazine.com/2014/07/dont-be-scared-of-functional-programming/) front-end programming language that compiles to JavaScript, making it great for web applications that run in the browser. Elm's compiler presents us with friendly error messages _before_ runtime, thereby eliminating runtime errors.
 
 ## Why Elm?
 
