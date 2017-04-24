@@ -1038,6 +1038,8 @@ Now, go to the clients area and check for the test client. You should see it in 
 
 ![Startup Battle Client](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
 
+Open the client and change the **Client Type** from `Non Interactive Client` to `Single Page Application`.
+
 Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
