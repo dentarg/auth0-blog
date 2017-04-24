@@ -360,6 +360,9 @@ Make sure you replace *YOUR-APP-CLIENT-ID* with the actual value of the app you 
 
 Save this file in a place where you can access it via a browser. For this example, we'll call it **"hello-saml.html"*.
 
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+
+
 ## 9. Test your sample application
 
 In this step, you will test your sample HTML application that uses the Auth0 SAML connection you set up in Account 1 to perform SSO via SAML against Account 2, serving as the SAML Identity Provider.

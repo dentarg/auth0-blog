@@ -733,6 +733,8 @@ namespace WpfClient.Pages
 
 Did you expect it to be difficult? Sorry to disappoint you! Auth0 Lock Widget is dead simple to use.
 
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+
 ## Wrapping Up
 
 Visual Studio is a complete IDE, we have witnessed how easy it was to create pages in our desktop app and just add code behind the controls to make it work. C# is a great language to work. If you are coming from a Java background, then you'll sure have the fun time of your life working with it.
