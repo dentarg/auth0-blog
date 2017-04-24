@@ -2,7 +2,7 @@
 layout: post
 title: "Build Better Universal JavaScript Apps with Next.js 2.0"
 description: Next.js 2.0 has officially been released. What's new? What improvements were made? Learn how to build highly performant Universal JavaScript apps with this new release.
-date: 2017-03-29 08:30
+date: 2017-04-24 08:30
 category: Hot Topics, Frameworks, Next.js
 design:
   bg_color: "#222228"
