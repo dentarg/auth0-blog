@@ -37,7 +37,7 @@ The term *Universal* simply means the ability to run the same code on the server
 
 ## What's new in Next.js 2.0 ?
 
-Next.js 2.0 was released on On March 27, 2017. It comes bundled with a set of new features and improvements of existing features. **Next.js 1.0** already include the following features:
+Next.js 2.0 was released on On March 27, 2017. It comes bundled with a set of new features and improvements of existing features. **Next.js 1.0** already included the following features:
 
 * Hot code reloading
 * Automatic transpilation and bundling(using babel & webpack)
@@ -49,7 +49,7 @@ So, what has changed? What improvements have been made? Are there new features? 
 
 ### 1. Faster Compilation Times
 
-Every developer and their dog need their apps to be highly performant from development stage up until production. A lot of work has been done to improve the dev build time that **Next.js 1.0** brought to the scene. With great joy, I hereby announce to you that **Next.js 2** comes bundled with shorter build/rebuild times. This was made possible by offering [Lazy compilation during development](https://github.com/zeit/next.js/pull/1111). This simply means that before now, when you run next, it compiles all the pages. But now, lazy compilation ensures that it is only when a user hits a page, that compilation happens. So each page that is called by the user is an on-demand entry.
+Every developer and their dog need their apps to be highly performant from development stage up until production. A lot of work has been done to improve the dev build time that **Next.js 1.0** brought to the scene. With great joy, I hereby announce to you that **Next.js 2.0** comes bundled with shorter build/rebuild times. This was made possible by offering [Lazy compilation during development](https://github.com/zeit/next.js/pull/1111). This simply means that before now, when you run next, it compiles all the pages. But now, lazy compilation ensures that it is only when a user hits a page, that compilation happens. So each page that is called by the user is an on-demand entry.
 
 ![Lazy Compilation during development](https://cdn.auth0.com/blog/next20/lazycompilationdev.png)
 _Lazy Compilation during development_
@@ -65,7 +65,7 @@ _Implement on-demand entries_
 
 Apart from reducing the dev build times, **Next.js 2.0** offers much smaller and more-efficient builds than its' previous version. So by default, your app size is now smaller.
 
-![Bundle sizes for 1.0 and 2.0](https://cdn.auth0.com/blog/next20/newbundlesize.png)
+![Bundle sizes for 1.0 and 2](https://cdn.auth0.com/blog/next20/newbundlesize.png)
 _Basic site with Next.js and React bundled_
 
 _Source: [zeit.co](https://zeit.co/blog/next2)_
@@ -120,7 +120,7 @@ In the code sample above, you have set up a custom server. The path `/p/prosper`
 
 ### 5. Pre-fetching Pages 
 
-**Next.js 2.0** comes bundled with an API that allows you prefetch pages. Any `<Link>` tag can accept a `prefetch` prop and prefetch the pages it links to in the background like so:
+**Next.js 2** comes bundled with an API that allows you prefetch pages. Any `<Link>` tag can accept a `prefetch` prop and prefetch the pages it links to in the background like so:
 
 ```js
 
@@ -224,7 +224,7 @@ npm install next --save
 
 ```
 
-In **Next.js 2**, you now need to bring in `next` with `react` and `react-dom` like so:
+In **Next.js 2.0**, you now need to bring in `next` with `react` and `react-dom` like so:
 
 ```bash
 
@@ -255,7 +255,36 @@ _learnnextjs.com Landing page_
 ![Logged In view](https://cdn.auth0.com/blog/next20/loggedinview.png)
 _learnnextjs.com Logged in view_
 
-Oh, the [UI](https://github.com/arunoda/coursebook-ui) and [Backend](https://github.com/arunoda/coursebook-server) for [learnnextjs.com](https://learnnextjs.com) is open-source. This presents another opportunity to learn **Next.js 2** by going through its source code. 
+Oh, the [UI](https://github.com/arunoda/coursebook-ui) and [Backend](https://github.com/arunoda/coursebook-server) for [learnnextjs.com](https://learnnextjs.com) is open-source. This presents another opportunity to learn **Next.js 2.0** by going through its source code. 
+
+## Enter Next.js 2.2.0
+
+**Next.js 2.2.0** was tagged yesterday. It comes bundled with some nice changes:
+
+* **CDN support:** You might want to upload all your static files to a CDN, including build files. Now, you can serve Next.js static assets via a CDN. All you need is to expose the following option in `next.config.js` like so:
+
+```js
+const isProd = process.NODE_ENV === 'production'
+module.exports = {
+  // You may only need to add assetPrefix in the production.
+  assetPrefix: isProd? 'https://cdn.mydomain.com' : ''
+}
+```
+
+More information can be found [here](https://github.com/zeit/next.js/pull/1700).
+
+* **ETag support for server rendered pages** : The *ETag HTTP response header* is an identifier for a specific version of a resource found at a URL. It allows caches to be more efficient, and saves bandwidth, as a web server does not need to send a full response if the content has not changed. However, if the content has changed, etags are useful to help prevent simultaneous updates of a resource from overwriting each other. Etags are otherwise known as fingerprints used for tracking resource changes on the server.
+
+In Next.js, all server-rendered pages now [support Etags](https://github.com/zeit/next.js/pull/1693/).
+
+* New official examples on how to use Next.js with other technologies:
+
+  - [Material UI](https://github.com/zeit/next.js/tree/master/examples/with-material-ui)
+  - [Socket.io](https://github.com/zeit/next.js/tree/master/examples/with-socket.io) 
+  - [Semantic UI](https://github.com/zeit/next.js/tree/master/examples/with-semantic-ui)
+  - [Firebase](https://github.com/zeit/next.js/tree/master/examples/with-firebase)
+
+More information can be found in the [release notes](https://github.com/zeit/next.js/releases/tag/2.2.0).
 
 ## Aside: Authenticating a Next.js 2.0 App with Auth0
 
