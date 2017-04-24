@@ -21,7 +21,7 @@ related:
 - 2017-03-22-how-to-manage-javascript-fatigue
 ---
 
-**TL;DR:** In the [first part of the Glossary of Modern JS Concepts](https://auth0.com/blog/glossary-of-modern-javascript-concepts/) series, we learned about functional, reactive, and functional reactive programming. In **Part 2**, we'll gain an understanding of core concepts like _scope_, _closures_, _tree-shaking_, and more, as well as JS application topics such as _data flow_ and _change detection_.
+**TL;DR:** In the [first part of the Glossary of Modern JS Concepts](https://auth0.com/blog/glossary-of-modern-javascript-concepts/) series, we learned about functional, reactive, and functional reactive programming. In **Part 2**, we'll gain an understanding of concepts like _scope_, _closures_, _tree shaking_, _components_, and more, as well as JavaScript application topics such as _data flow_ and _change detection_.
 
 ---
 
@@ -39,12 +39,12 @@ You can jump straight into each concept here, or continue reading to learn about
 
 * <a href="#scope-closures" target="_self">Scope (Global, Local, Lexical) and Closures</a>
 * <a href="#data-flow-binding" target="_self">One-way Data Flow and Two-way Data Binding</a>
-* <a href="#change-detection" target="_self">Change Detection: Dirty Checking, Accessors, Virtual DOM</a>
+* <a href="#change-detection" target="_self">Change Detection in JS Frameworks: Dirty Checking, Accessors, Virtual DOM</a>
 * <a href="#web-components" target="_self">Web Components</a>
 * <a href="#smart-dumb-components" target="_self">Smart and Dumb Components</a>
-* <a href="#tree-shaking" target="_self">Tree Shaking</a>
-* <a href="#aot" target="_self">AoT (Ahead-of-Time) Compilation</a>
 * <a href="#jit" target="_jit">JIT (Just-in-Time) Compilation</a>
+* <a href="#aot" target="_self">AoT (Ahead-of-Time) Compilation</a>
+* <a href="#tree-shaking" target="_self">Tree Shaking</a>
 
 ---
 
@@ -337,7 +337,7 @@ To learn more about **one-way data flow and two-way data binding**, check out th
 
 ---
 
-## <span id="change-detection"></span>Change Detection: Dirty Checking, Accessors, Virtual DOM
+## <span id="change-detection"></span>Change Detection in JS Frameworks: Dirty Checking, Accessors, Virtual DOM
 
 Change detection is an important for any dynamic JavaScript Single Page Application (SPA). When the user updates something, the app must have a way to detect and react to that change appropriately. Some kind of change detection is therefore vital to SPA frameworks.
 
@@ -396,6 +396,61 @@ To learn more about **change detection** in JS frameworks, check out the followi
 
 ---
 
+## <span id="web-components"></span>Web Components
+
+**Web components** are encapsulated, reusable widgets based on web platform APIs. They are composed of four standards:
+
+* [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/)
+* [HTML Templates](https://html.spec.whatwg.org/multipage/scripting.html#the-template-element)
+* [Shadow DOM](https://w3c.github.io/webcomponents/spec/shadow/)
+* [HTML Imports](https://w3c.github.io/webcomponents/spec/imports/)
+
+Web components allow us to architect and import custom elements that automatically associate JS behavior with templates and can utilize shadow DOM to provide CSS scoping and DOM encapsulation.
+
+Web components consist of a set of [web platform APIs](https://www.w3.org/standards/techs/components).  
+
+### Web Components Takeaways
+
+To learn more about **web components**, check out the following resources:
+
+* [W3C Web Components Current Status](https://www.w3.org/standards/techs/components)
+* [webcomponents.org](https://www.webcomponents.org/introduction)
+* [Web Components: How To Craft Your Own Custom Components](https://auth0.com/blog/web-components-how-to-craft-your-own-custom-components/)
+* [MDN: Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+* [Using Web Components in React](https://facebook.github.io/react/docs/web-components.html)
+* [Build Your First App with Polymer and Web Components](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components/)
+
+---
+
+## <span id="smart-dumb-components"></span>Smart and Dumb Components
+
+### Smart and Dumb Components Takeaways
+
+To learn more about **smart and dumb components**, check out the following resources:
+
+
+
+---
+
+## <span id="jit"></span>JIT (Just-in-Time) Compilation
+
+### JIT Compilation Takeaways
+
+To learn more about **JIT compilation**, check out the following resources:
+
+
+
+---
+
+## <span id="aot"></span>AoT (Ahead-of-Time) Compilation
+
+### AoT Compilation Takeaways
+
+To learn more about **AoT compilation**, check out the following resources:
+
+
+
+
 ## <span id="tree-shaking"></span>Tree Shaking
 
 **Tree shaking** is a JavaScript module bundling term that refers to the static analysis of all imported code and exclusion of anything that isn't actually used.
@@ -414,7 +469,7 @@ Tree shaking uses this principle to walk the dependency graph and exclude things
 
 ### Tree Shaking Takeaways
 
-Tree shaking is term for JavaScript live code inclusion in module bundlers that use ES2015 modules to shake out unneeded dependencies on a more granular level, differing from dependency management predecessors such as CommonJS or AMD. The principle of tree shaking has been _popularized_ by the [rollup.js](https://rollupjs.org/) module bundler, but it's not exclusive to rollup Tree shaking is utilized in [Webpack 2](https://webpack.js.org/guides/tree-shaking/) as well. The concept of tree shaking and writing code that promotes it is also prevalent in [Angular with AoT compilation](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking). 
+_Tree shaking_ is term for JavaScript live code inclusion in module bundlers that use [ES2015](https://auth0.com/blog/a-rundown-of-es6-features/) static `import` and `export` to "shake out" unneeded dependencies on a more granular level, differing from the dynamic `require` statement used by CommonJS or AMD. The principle of tree shaking has been _popularized_ by the [rollup.js](https://rollupjs.org/) module bundler, but it's not exclusive to rollup Tree shaking is utilized in [Webpack 2](https://webpack.js.org/guides/tree-shaking/) as well. The concept of tree shaking and writing code that promotes it is also prevalent in [Angular with](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking) <a href="#aot" target="_self">AoT compilation</a>. 
 
 To learn more about **tree shaking**, check out the following resources:
 
@@ -430,6 +485,6 @@ To learn more about **tree shaking**, check out the following resources:
 
 ## Conclusion
 
-...
+With the swift rise of JavaScript Single Page Application frameworks and component-based paradigms, it's important to understand JS topics relating to scoping, components, compilation, and bundling.
 
-With this glossary as a starting point, you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. If anything is still unclear regarding these topics, please consult the links in each section for additional resources. We'll cover more concepts in the next Modern JS Glossary post!
+With this glossary as a starting point, you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. If anything is still unclear regarding these topics, please consult the links in each section for additional resources. You can also check out the [first part of the Glossary of Modern JS Concepts](https://auth0.com/blog/glossary-of-modern-javascript-concepts/) to learn about the concepts necessary to understand functional programming, reactive programming, and functional reactive programming.
