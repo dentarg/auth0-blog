@@ -405,11 +405,99 @@ To learn more about **change detection** in JS frameworks, check out the followi
 * [Shadow DOM](https://w3c.github.io/webcomponents/spec/shadow/)
 * [HTML Imports](https://w3c.github.io/webcomponents/spec/imports/)
 
-Web components allow us to architect and import custom elements that automatically associate JS behavior with templates and can utilize shadow DOM to provide CSS scoping and DOM encapsulation.
+Web components allow us to architect and import custom elements that automatically associate JS behavior with templates and can utilize shadow DOM to provide CSS scoping and DOM encapsulation. 
 
-Web components consist of a set of [web platform APIs](https://www.w3.org/standards/techs/components).  
+Web components consist of a set of [web platform APIs](https://www.w3.org/standards/techs/components). There are libraries (such as [Polymer](https://www.polymer-project.org/)) and polyfills (such as [webcomponents.js](https://github.com/webcomponents/webcomponentsjs)) to bridge the gap between [current browser support](http://jonrimmer.github.io/are-we-componentized-yet/) and future web API support.
+
+Let's say we want to create a simple web component (`my-component`) that shows some static text. We'd like to use HTML attributes to have the component change its text color and log something to the console. To display the `<my-component>` custom element in our website or app, we might import and use it like so:
+
+```html
+<!-- index.html -->
+<html>
+  <head>
+    ...
+    <script src="./bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="my-web-cmpnt.html">
+  </head>
+  <body>
+    <my-web-cmpnt color="red" log="Hello"></my-web-cmpnt>
+    ...
+```
+
+To create the `my-component` web component utilizing shadow DOM, our `my-component.html`'s `<template>` might look something like this:
+
+```html
+<!-- my-component.html -->
+<template>
+  <style>
+    .my-component {
+      display: block;
+      padding: 20px;
+    }
+  </style>
+
+  <div class="my-component">
+    <p>This is a custom element!</p>
+  </div>
+</template>
+```
+
+The `<template>` defines the element's CSS styling and HTML markup. Then, to take advantage of shadow DOM and JS functionality, we would add a `<script>` tag to our `my-component.html` file after the closing `</template>` tag. For example:
+
+```js
+<template>...</template>
+
+<script>
+  // my-component.html <script> tag
+  // (separated code block for syntax highlighting)
+  (function(window, document, undefined) {
+    var doc = document;
+    // my-component document
+    var self = (doc._currentScript || doc.currentScript).ownerDocument;
+    var template = self.querySelector('template').content;
+
+    // ShadowCSS shim, if needed
+    if (window.ShadowDOMPolyfill) {
+      WebComponents.ShadowCSS.shimStyling(template, 'my-component');
+    }
+
+    class MyComponent extends HTMLElement {
+      constructor() {
+        super();
+      }
+      connectedCallback() {
+        // get attributes
+        var color = this.getAttribute('color');
+        var log = this.getAttribute('log');
+        // utilize shadow DOM
+        var shadowRoot = this.attachShadow({mode:'open'});  
+        var clone = doc.importNode(template, true);
+        var myComponent;
+        
+        shadowRoot.appendChild(clone);
+        myComponent = shadowRoot.querySelector('.my-component');
+
+        // style with color and output log
+        myComponent.style.color = color;
+        console.log(log);
+      }
+    }
+    window.customElements.define('my-component', MyComponent);
+  }(window, document));
+</script>
+```
+
+When inspected in the browser, our component looks like this:
+
+![custom web component in Chrome inspector](https://cdn2.auth0.com/blog/js-glossary-2/screenshot_web-component.jpg)
+
+For a much more indepth tutorial, check out [Web Components: How To Craft Your Own Custom Components](https://auth0.com/blog/web-components-how-to-craft-your-own-custom-components/).
+
+Web components bring powerful, framework-like capabilities to browsers, and while the spec and support are still being finalized, the concepts have inspired frameworks such as [Angular](https://angular.io/docs/ts/latest/api/core/index/Component-decorator.html) (which initially attempted to use Web API web components, but ended up with its own implementation). Many JS frameworks ([Angular](https://angular.io/docs/ts/latest/api/core/index/Component-decorator.html), [React](https://facebook.github.io/react/docs/react-component.html), [Ember](https://www.emberjs.com/api/classes/Ember.Component.html), [Vue](https://vuejs.org/v2/guide/components.html)) leverage the concept of componetization with varying degrees of similarity to the web components API.
 
 ### Web Components Takeaways
+
+Web components allow us to create and use custom HTML elements with JS. They can also utilize the shadow DOM to provide CSS scoping and DOM encapsulation. By themselves, web components alone aren't a substitute for all the features of a SPA framework. However, their core concepts are heavily leveraged by many frameworks in use today and their future in the front-end landscape offers many opportunities for a growing [community of resources](https://www.webcomponents.org/).
 
 To learn more about **web components**, check out the following resources:
 
@@ -419,6 +507,9 @@ To learn more about **web components**, check out the following resources:
 * [MDN: Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 * [Using Web Components in React](https://facebook.github.io/react/docs/web-components.html)
 * [Build Your First App with Polymer and Web Components](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components/)
+* [Are We Componetized Yet?](http://jonrimmer.github.io/are-we-componentized-yet/)
+* [webcomponentjs on GitHub](https://github.com/webcomponents/webcomponentsjs)
+* [Google Polymer](https://www.polymer-project.org/)
 
 ---
 
