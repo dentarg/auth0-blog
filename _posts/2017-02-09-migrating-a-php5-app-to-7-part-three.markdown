@@ -424,7 +424,7 @@ $userInfo = $auth0Oauth->getUser();
 
 Then, we moved on to instantiating the `Authentication` class.
 
-The `$auth0->get_oauth_client()` method by default stores user information in the PHP session, and we also instructed it to save the `access_token` and `id_token`. 
+The `$auth0->get_oauth_client()` method by default stores user information in the PHP session, and we also instructed it to save the `refresh_token` and `id_token`. 
 
 `$starWarsNames` array contains some characters from Star Wars. Later in the code, a user will be assigned a random code name from this array.
 
@@ -491,6 +491,8 @@ Here, we are feeding the Auth0 credentials to JavaScript variables.
 {% endhighlight %}
 
 In the code above, if the `$userInfo` is not set, then it means the user has not logged in yet, so we display the signin button. If the user has signed in, then we grab the user's info and display it along with the `logout` button.
+
+**Important Security Note:** If you have an API for your application, the [`id_token` should not be used to secure the API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
 
 ### Run The App
 
