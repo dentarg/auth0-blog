@@ -515,11 +515,25 @@ To learn more about **web components**, check out the following resources:
 
 ## <span id="smart-dumb-components"></span>Smart and Dumb Components
 
+As we talked about above, some modern JS frameworks are heavily component-based. This leads to concepts of _component architecture_ and _component communication_. In some cases (such as in [React](https://facebook.github.io/react/) and [Angular](https://angular.io)), component architecture can utilize **smart and dumb components**. They are also referred to as "container" (smart) and "presentational" (dumb) components.
+
+### Smart Components
+
+Also known as _container_ components, **smart components** manage interactions with the application's [state](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#state) (can be stateful). They handle business logic and respond to events emitted from children (which are often dumb components).
+
+### Dumb Components
+
+Also known as _presentational_ components, **dumb components** rely on _inputs_ supplied by their parents and are ignorant of application state. They are often [pure](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#purity), modular, and reusable. They can communicate to their parents when reacting to an event, but they don't _handle_ the event themselves.
+
 ### Smart and Dumb Components Takeaways
 
 To learn more about **smart and dumb components**, check out the following resources:
 
-
+* [Container Components](https://medium.com/@learnreact/container-components-c0e67432e005)
+* [Container and Presentational Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+* [React at Preact: Smart Components](https://preact.gitbooks.io/react-book/content/jsx/smart.html)
+* [React at Preact: Dumb Components](https://preact.gitbooks.io/react-book/content/jsx/dumb.html)
+* [Angular Smart Components vs Presentation Components: What's the Difference, When to Use Each and Why?](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/)
 
 ---
 
