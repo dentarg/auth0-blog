@@ -382,80 +382,45 @@ We should now be able to get quotes from the **Quotes** page.
 
 ## Aside: Adding Authentication with Auth0
 
-Let's explore how to protect our applications and APIs, so that only authenticated users can access them, using [Auth0](https://auth0.com). You can clone this sample app and API from the [angular-auth0-aside repo on GitHub](https://github.com/auth0-blog/angular-auth0-aside).
+Setting up username and password authentication with a Node server is simple enough, but things can get tricky when we want to add social auth with providers like Facebook, Twitter, Google, and others. With Auth0, we can use any social provider and get other authentication features like single sign-on, multi-factor login, and passwordless auth, all at the flip of a switch. It's easy to add Ionic Authentication with Auth0--let's take a look at how in these steps.
 
-![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
+### Step 0: Sign Up for Auth0 and Configure the Callback URL
 
-### Sign Up for Auth0
+If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 client app and API so Auth0 can interface with an Angular app and Node API.
-
-### Set Up a Client App
-
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
-2. Name your new app and select "Single Page Web Applications".
-3. In the **Settings** for your new Auth0 client app, add `http://localhost:8100/callback` to the **Allowed Callback URLs** and `http://localhost:8100` to the **Allowed Origins (CORS)**.
-4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and change the **JsonWebToken Signature Algorithm** to `RS256`.
-5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
-
-### Set Up an API
-
-1. Under your account name in the upper right corner of your [**Auth0 Dashboard**](https://manage.auth0.com/#/), choose **Account Settings** from the dropdown, then select the [**Advanced**](https://manage.auth0.com/#/account/advanced) tab. Scroll down to the **Settings** section and turn on the toggle for **Enable APIs Section**. Now you will have a link to manage [APIs](https://manage.auth0.com/#/apis) in your dashboard left sidebar navigation.
-2. Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:3001/api/`. The **Signing Algorithm** should be `RS256`.
-3. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. We'll implement our Node API in this fashion, using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
-
-We're now ready to implement Auth0 authentication on both our Angular client and Node backend API.
-
-### Dependencies and Setup
-
-The Angular app utilizes the [Angular CLI](https://github.com/angular/angular-cli). Make sure you have the CLI installed globally:
+In your dashboard, you need to specify an **Allowed Callback URL** for mobile:
 
 ```bash
-$ npm install -g @angular/cli
+https://{YOUR_DOMAIN}.auth0.com/mobile
 ```
-
-Install the Node dependencies for both the Angular app and the Node server by running the following commands in the root of your project folder:
+For local development, you also need to specify a the local `file` protocol as an **Allowed Origin**:
 
 ```bash
-$ cd server
-$ npm install --save jwks-rsa
+file://\*
 ```
 
-The Node API is located in the `/server` folder at the root of our sample application.
+### Step 1: Add Auth0Lock to Your App
 
-Open the `server/protected-routes.js` file:
+[Lock](https://auth0.com/lock) is the beautiful (and totally customizable) login box widget that comes with Auth0. The script for it can be brought in from a CDN link or with NPM.
 
-```js
-// server/protected-routes.js
-...
-// @TODO: change [CLIENT_DOMAIN] to your Auth0 domain name.
-// @TODO: change [AUTH0_API_AUDIENCE] to your Auth0 API audience.
-var CLIENT_DOMAIN = '[CLIENT_DOMAIN].auth0.com';
-var AUTH0_AUDIENCE = '[AUTH0_API_AUDIENCE]';  // http://localhost:3001/api in this example
+> Note: If you use NPM to get Auth0Lock, you will need to include it in your build step.
 
-var jwtCheck = jwt({
-    secret: jwks.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
-    }),
-    audience: AUTH0_AUDIENCE,
-    issuer: `https://${CLIENT_DOMAIN}/`,
-    algorithms: ['RS256']
-});
-...
+```html
+  <!-- www/index.html -->
+
+  ...
+
+  <!-- Auth0 Lock script -->
+  <script src="//cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+  ...
 ```
 
-Change the `CLIENT_DOMAIN` variable to your Auth0 client domain. The `/api/protected` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+### Step 2: Add Lock to Your Profile Page
 
-> **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
-
-### Authentication Service
-
-Authentication logic on the front end is handled with by the `Profile` component: `src/pages/profile/profile.ts` file.
+The app we built above has the authentication action happening on the profile page. This is where we can initialize Lock.
 
 ```js
+// app/profile/profile.ts
 import {Component} from "@angular/core";
 import {IonicPage} from "ionic-angular";
 import {Headers, Http} from "@angular/http";
@@ -464,167 +429,111 @@ import {Storage} from "@ionic/storage";
 import {AuthService} from "../../app/services/auth/auth";
 import 'rxjs/add/operator/map';
 
-// Avoid name not found warnings
-declare var auth0: any;
+declare var Auth0Lock: any;
 
 @IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class AuthService {
-  // Create Auth0 web auth instance
-  // @TODO: Replace {YOUR_CLIENT_ID} and {YOUR_CLIENT_DOMAIN}
-  private auth0 = new auth0.WebAuth({
-    clientID: '{YOUR_CLIENT_ID}',
-    domain: '{YOUR_CLIENT_DOMAIN}'
-  });
+export class Profile {
+  auth: AuthService;
+  lock = new Auth0Lock('YOUR_AUTH0_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
 
-  userProfile: UserProfile;
+  user: Object;
+  self = this;
 
-  // Create a stream of logged in status to communicate throughout app
-  loggedIn: boolean;
-  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
+  constructor() {
+    this.auth = AuthService;
+    this.local.get('profile').then(profile => {
+      this.user = JSON.parse(profile);
+    }).catch(error => {
+      console.log(error);
+    });
 
-  constructor(private router: Router) {
-    // If authenticated, set local profile property and update login status subject
-    if (this.authenticated) {
-      this.userProfile = JSON.parse(localStorage.getItem('profile'));
-      this.setLoggedIn(true);
-    }
-  }
+    this.lock.on("authenticated", authResult => {
+      self.lock.getProfile(authResult.idToken, (error, profile) => {
+        if (error) {
+          alert(error);
+          return;
+        }
 
-  setLoggedIn(value: boolean) {
-    // Update login status subject
-    this.loggedIn$.next(value);
-    this.loggedIn = value;
+        self.local.set('id_token', authResult.idToken);
+        self.local.set('profile', JSON.stringify(profile));
+        self.user = profile;
+      });
+    });
   }
 
   login() {
-    // Auth0 authorize request
-    // Note: nonce is automatically generated: https://auth0.com/docs/libraries/auth0js/v8#using-nonce
-    this.auth0.authorize({
-      responseType: 'token id_token',
-      redirectUri: AUTH_CONFIG.REDIRECT,
-      audience: AUTH_CONFIG.AUDIENCE,
-      scope: AUTH_CONFIG.SCOPE
-    });
-  }
-
-  handleAuth() {
-    // When Auth0 hash parsed, get profile
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.hash = '';
-        this._getProfile(authResult);
-        this.router.navigate(['/']);
-      } else if (err) {
-        this.router.navigate(['/']);
-        console.error(`Error: ${err.error}`);
-      }
-    });
-  }
-
-  private _getProfile(authResult) {
-    // Use access token to retrieve user's profile and set session
-    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
-      this._setSession(authResult, profile);
-    });
-  }
-
-  private _setSession(authResult, profile) {
-    // Save session data and update login status subject
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('profile', JSON.stringify(profile));
-    this.userProfile = profile;
-    this.setLoggedIn(true);
+    this.lock.show();
   }
 
   logout() {
-    // Remove tokens and profile and update login status subject
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('profile');
-    this.userProfile = undefined;
-    this.setLoggedIn(false);
+    this.local.remove('profile');
+    this.local.remove('id_token');
+    this.user = null;
   }
-
-  get authenticated() {
-    // Check if there's an unexpired access token
-    return tokenNotExpired('access_token');
-  }
-
 }
 ```
 
-This service uses the config variables from `auth0-variables.ts` to instantiate an `auth0.js` WebAuth instance.
+Now in our `login` method, we just need to call `this.lock.show` to open the Login box. If we get a good result from the login, we save the profile and token in local storage and set the `user` object to the profile. Now we can display the user details in a nicely formatted card on the profile page.
 
-> **Note:** `auth0.js` is linked in the `index.html` file from CDN.
+{% highlight html %}
+{% raw %}
+<!-- src/pages/profile/profile.html -->
+<ion-navbar *navbar>
+  <ion-title>Profile</ion-title>
+</ion-navbar>
 
-An [RxJS `BehaviorSubject`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) is used to provide a stream of authentication status events that you can subscribe to anywhere in the app.
+<ion-content padding *ngIf="!auth.authenticated()">
 
-The `login()` method authorizes the authentication request with Auth0 using your config variables. An Auth0 hosted Lock instance will be shown to the user and they can then log in:
+  <button block (click)="login()">Login</button>
 
-> **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
+</ion-content>
 
-We'll receive an `id_token` and an `access_token` in the hash from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens and profile to local storage and updating the `loggedIn$` subject so that any subscribed components in the app are informed that the user is now authenticated.
+<ion-content padding *ngIf="auth.authenticated()">
+  <ion-card>
 
-> **Note:** The profile takes the shape of [`profile.model.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/profile.model.ts) from the [OpenID standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="{{ user.picture }}">
+      </ion-avatar>
+      <h2>{{  user.nickname }}</h2>
+      <p>{{ user.email }}</p>
+    </ion-item>
+  </ion-card>
 
-The `handleAuth()` method can then be called in the [`app.component.ts` constructor](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.component.ts) like so:
+  <button block (click)="logout()">Logout</button>
+
+</ion-content>
+{% endraw %}
+{% endhighlight %}
+
+![ionic2 authentication](https://cdn.auth0.com/blog/ionic2-auth/ionic2-auth-5.png)
+
+### Step 3: Add Your Auth0 Secret to Your Server
+
+Now that we are using tokens issued by Auth0, we need to change up the backend so that the **express-jwt** middleware uses our Auth0 secret key.
 
 ```js
-// src/app/app.component.ts
-import { AuthService } from './auth/auth.service';
+// server/protected-routes.js
+
 ...
-  constructor(private auth: AuthService) {
-    // Check for authentication and handle if hash present
-    auth.handleAuth();
-  }
+
+var jwtCheck = jwt({
+  secret: new Buffer('YOUR_AUTH0_SECRET_KEY', 'base64'),
+  audience: 'YOUR_AUTH0_CLIENT_ID'
+});
+
 ...
 ```
 
-Finally, we have a `logout()` method that clears data from local storage and updates the `loggedIn$` subject. We also have an `authenticated()` accessor to return current authentication status.
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
-Once [`AuthService` is provided in `app.module.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts#L32), its methods and properties can be used anywhere in our app, such as the [home component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/home).
+### Step 4: Add Token Refreshing
 
-The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until hash parsing is completed and the Angular app redirects back to the home page.
-
-### Making Authenticated API Requests
-
-In order to make authenticated HTTP requests, we're using [angular2-jwt](https://github.com/auth0/angular2-jwt). The [`auth-http.factory.ts` factory](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth-http.factory.ts) supplies an `authHttp` method that sends the `access_token` from local storage. This is provided in the [`app.module.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts):
-
-```js
-// src/app/app.module.ts
-...
-import { authHttpFactory } from './auth/auth-http.factory';
-...
-  providers: [
-    ...,
-    {
-      provide: AuthHttp,
-      useFactory: authHttpFactory,
-      deps: [Http, RequestOptions]
-    }
-  ],
-```
-
-We can then call our API in the [`api.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/api.service.ts) with `AuthHttp` to authorize requests.
-
-```js
-// src/app/api.service.ts
-...
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-...
-  getDragons$(): Observable<any[]> {
-    return this.authHttp
-      .get(`${this.baseUrl}dragons`)
-      .map(this._handleSuccess)
-      .catch(this._handleError);
-  }
-...
-```
+As it stands, users will need to re-authenticate once their token becomes expired. To keep users logged in, we can set up token refreshing. Have a look at the [Auth0 + Ionic 2 docs](https://auth0.com/docs/quickstart/native/ionic2) for instructions on how to set it up.
 
 ### Done!
 
