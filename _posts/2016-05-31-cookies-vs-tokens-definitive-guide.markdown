@@ -29,7 +29,7 @@ related:
 
 **TL;DR** Tokens-based authentication is more relevant than ever. We examine the differences and similarities between cookie and token-based authentication, advantages of using tokens, and address common questions and concerns developers have regarding token-based auth. Finally, putting theory to practice, we'll build an application that uses token authentication and make it a progressive web app.
 
-We will be writing an Angular 2 app that uses JWT for authentication. Grab the [Github repo](https://github.com/auth0/auth0-angular2) if you would like to follow along.
+We will be writing an Angular 2 app that uses JWT for authentication. Grab the [Github repo](https://github.com/auth0-blog/angular-auth0-aside) if you would like to follow along.
 
 ---
 
@@ -152,389 +152,308 @@ If you must store sensitive data in the payload or your use case calls for the J
 
 Here at Auth0, we've written SDKs, guides, and quickstarts for working with JWTs for many languages and frameworks including [NodeJS](https://github.com/auth0/express-jwt), [Java](https://github.com/auth0/java-jwt), [Python](https://github.com/auth0/auth0-python), [GoLang](https://github.com/auth0/go-jwt-middleware), and [many more](https://auth0.com/docs). Our last "Cookies vs. Tokens" article used the AngularJS framework, so it's fitting to use Angular 2 for our code samples today.
 
-You can download the sample code from our [GitHub repo](https://github.com/auth0/auth0-angular2). Downloading the code samples is preferable as Angular 2 requires a lot of initial setup to get going. If you haven't already, [sign up](javascript:signup\(\)) for a free Auth0 account so you can do the implementation yourself and experiment with different features and options. Let's get started.
+You can download the sample code from our [GitHub repo](https://github.com/auth0-blog/angular-auth0-aside) created by [Kim Maida](https://twitter.com/kimmaida). Downloading the code samples is preferable as Angular 2 requires a lot of initial setup to get going. If you haven't already, [sign up](javascript:signup\(\)) for a free Auth0 account so you can do the implementation yourself and experiment with different features and options. Let's get started.
 
-### Setting Up the Back-end Server
+### Features
 
-We'll first setup our server. We'll build our server with NodeJS. The server will expose two APIs: `/ping` and `/secured/ping`. The first will be publicly available any anyone can access it, while the second requires you to be authenticated to call it. The implementation is below:
+The [sample Angular application and API](https://github.com/auth0-blog/angular-auth0-aside) has the following features:
 
-```
-// Include the modules needed for our server.
-var http = require('http');
-var express = require('express');
-var cors = require('cors');
-var app = express();
-var jwt = require('express-jwt');
+* Angular application generated with [Angular CLI](https://github.com/angular/angular-cli) and served at [http://localhost:4200](http://localhost:4200)
+* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a hosted [Lock](https://auth0.com/lock) instance
+* Node server protected API route `http://localhost:3001/api/dragons` returns JSON data for authenticated `GET` requests
+* Angular app fetches data from API once user is authenticated with Auth0
+* Profile page requires authentication for access using route guards
+* Authentication service uses a subject to propagate authentication status events to the entire app
+* User profile is fetched on authentication and stored in authentication service
+* Access token, ID token, and profile are stored in local storage and removed upon logout
+* Authenticated API requests are made with the [angular2-jwt](https://github.com/auth0/angular2-jwt) helper library
 
-// Set up our JWT authentication middleware
-// Be sure to replace the YOUR_AUTH0_CLIENT_SECRET and
-// YOUR_AUTHO_CLIENT_ID with your apps credentials which
-// can be found in your management dashboard at 
-// https://manage.auth0.com
-var authenticate = jwt({
-  secret: new Buffer('YOUR_AUTH0_CLIENT_SECRET', 'base64'),
-  audience: 'YOUR_AUTH0_CLIENT_ID'
-});
+### Set Up a Client App
 
-app.use(cors());
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
+2. Name your new app and select "Single Page Web Applications". 
+3. In the **Settings** for your new Auth0 client app, add `http://localhost:4200/callback` to the **Allowed Callback URLs** and `http://localhost:4200` to the **Allowed Origins (CORS)**.
+4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and change the **JsonWebToken Signature Algorithm** to `RS256`.
+5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
 
-// Here we have a public route that anyone can access
-app.get('/ping', function(req, res) {
-  res.send(200, {text: "All good. You don't need to be authenticated to call this"});
-});
+### Set Up an API
 
-// We include the authenticate middleware here that will check for
-// a JWT and validate it. If there is a token and it is valid the
-// rest of the code will execute.
-app.get('/secured/ping', authenticate, function(req, res) {
-  res.send(200, {text: "All good. You only get this message if you're authenticated"});
-})
+1. Under your account name in the upper right corner of your [**Auth0 Dashboard**](https://manage.auth0.com/#/), choose **Account Settings** from the dropdown, then select the [**Advanced**](https://manage.auth0.com/#/account/advanced) tab. Scroll down to the **Settings** section and turn on the toggle for **Enable APIs Section**. Now you will have a link to manage [APIs](https://manage.auth0.com/#/apis) in your dashboard left sidebar navigation.
+2. Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:3001/api/`. The **Signing Algorithm** should be `RS256`.
+3. Once your API is created, navigate to the **Non-Interactive Clients** tab and flip the switch on the client you created above. This will ensure that your front-end client can access the backend API.
+4. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. We'll implement our Node API in this fashion, using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
-var port = process.env.PORT || 3001;
+We're now ready to implement Auth0 authentication on both our Angular client and Node backend API.
 
-// We launch our server on port 3001.
-http.createServer(app).listen(port, function (err) {
-  console.log('listening in http://localhost:' + port);
-});
+### Dependencies and Setup
+
+The Angular app utilizes the [Angular CLI](https://github.com/angular/angular-cli). Make sure you have the CLI installed globally:
+
+```bash
+$ npm install -g @angular/cli
 ```
 
-This is a pretty standard Node/Express setup. The only unique thing we did was implement the `express-jwt` middleware which will validate a JWT. Since we are doing this integration with Auth0, we'll let Auth0 handle the process of generating and signing tokens. If we did not want to use Auth0, we could create and sign our own tokens with the the `jsonwebtoken` module. Let's see an example of how this can be accomplished.
+Once you've cloned [the project](https://github.com/auth0-blog/angular-auth0-aside), install the Node dependencies for both the Angular app and the Node server by running the following commands in the root of your project folder:
 
+```bash
+$ npm install
+$ cd server
+$ npm install
 ```
-// Import modules
+
+The Node API is located in the [`/server` folder](https://github.com/auth0-blog/angular-auth0-aside/tree/master/server) at the root of our sample application.
+
+Open the [`server.js` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/server/server.js):
+
+```js
+// server/server.js
 ...
-var jwt = require('jsonwebtoken');
+// @TODO: change [CLIENT_DOMAIN] to your Auth0 domain name.
+// @TODO: change [AUTH0_API_AUDIENCE] to your Auth0 API audience.
+var CLIENT_DOMAIN = '[CLIENT_DOMAIN].auth0.com';
+var AUTH0_AUDIENCE = '[AUTH0_API_AUDIENCE]';  // http://localhost:3001/api in this example
 
-var token = jwt.sign({ sub : "1234567890", name : "Ado Kukic", admin: true }, 'shhhh');
-
-app.get('/token', function(req, res){
-	res.send(token);
+var jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
+    }),
+    audience: AUTH0_AUDIENCE,
+    issuer: `https://${CLIENT_DOMAIN}/`,
+    algorithms: ['RS256']
 });
+...
+//--- GET protected dragons route
+app.get('/api/dragons', jwtCheck, function (req, res) {
+  res.json(dragonsJson);
+});
+...
 ```
 
-If we were to write this code, launch the server, and navigate to `localhost:3001/token` we would see a signed token containing the three claims we made. The `jsonwebtoken` module can also be used to verify and decrypt the tokens. To learn more about it, check out its [repo](https://github.com/auth0/node-jsonwebtoken). As we won't be generating tokens on our server, we can remove this code.
+Change the `CLIENT_DOMAIN` variable to your Auth0 client domain and `AUTH0_AUDIENCE` to whatever you set your API audience to. The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
-### Implementing the Front-end
+> **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
-Next, we'll implement our Angular 2 app. If you are following along from our [GitHub repo](https://github.com/auth0/auth0-angular2), you'll see two options for the front-end. One uses [systemjs](https://github.com/systemjs/systemjs) while the other [Webpack](https://webpack.github.io/) for loading and manging our modules. As the preferred way to write Angular 2 apps is with TypeScript, we'll build our sample app with TypeScript. For our demo, we'll be working out of the **systemjs** directory. Additionally, we'll be using the `angular2-jwt` [library](https://github.com/auth0/angular2-jwt) which provides helper methods for making requests with the correct headers and also checking to see if a valid token exists.
+Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting the `.example` from the file extension. Then open the file and change the `[CLIENT_ID]` and `[CLIENT_DOMAIN]` strings to your Auth0 information:
 
-First things first. We need an entry point into our app and that is `index.html`.
-
-```
-<html>
-  <head>
-    <base href="/">
-    <title>Angular 2 Playground</title>
-      <meta charset="UTF-8">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-     <!-- We'll include the Auth0 Lock widget to handle authentication -->
-     <script src="//cdn.auth0.com/js/lock-9.0.min.js"></script>
-
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('app').catch(function(err){ console.error(err); });
-    </script>
-  </head>
-  <body>
-    <app>Loading...</app>
-  </body>
-</html>
+```js
+// src/app/auth/auth0-variables.ts
+...
+export const AUTH_CONFIG: AuthConfig = {
+  CLIENT_ID: '[CLIENT_ID]',
+  CLIENT_DOMAIN: '[CLIENT_DOMAIN].auth0.com',
+  ...
 ```
 
-Next, we'll define the entry point of our Angular 2 application. This will be done in a file called `main.ts`.
+Our app and API are now set up. They can be served by running `$ ng serve` from the root folder and `$ node server.js` from the `/server` folder.
 
-```
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import {provide} from '@angular/core';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {RouteConfig, ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {HTTP_PROVIDERS} from '@angular/http';
-// Here we load the angular2-jwt library
-import {AUTH_PROVIDERS} from 'angular2-jwt';
+With the Node API and Angular app running, let's take a look at how authentication is implemented.
 
-import { App } from './app.component';
+### Authentication Service
 
-bootstrap(App, [
-  HTTP_PROVIDERS,
-  ROUTER_PROVIDERS,
-  AUTH_PROVIDERS,
-  provide(LocationStrategy, { useClass: HashLocationStrategy })
-])
-```
+Authentication logic on the front end is handled with an `AuthService` authentication service: [`src/app/auth/auth.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth.service.ts). 
 
-We'll build the `auth.service.ts` next. This service will provide methods for logging users in and out of our application. Be sure to replace the `YOUR_CLIENT_ID` and `YOUR_DOMAIN` with your apps settings from your Auth0 [management dashboard](https://manage.auth0.com).
-
-```
-import {Injectable, NgZone} from '@angular/core';
-import {Router} from '@angular/router-deprecated';
-import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
+```js
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AUTH_CONFIG } from './auth0-variables';
+import { tokenNotExpired } from 'angular2-jwt';
+import { UserProfile } from './profile.model';
 
 // Avoid name not found warnings
-declare var Auth0Lock: any;
+declare var auth0: any;
 
 @Injectable()
-export class Auth {
-  // Replace YOUR_CLIENT_ID and YOUR_DOMAIN with your credentials
-  lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_DOMAIN');
-  refreshSubscription: any;
-  user: Object;
-  zoneImpl: NgZone;
+export class AuthService {
+  // Create Auth0 web auth instance
+  // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
+  auth0 = new auth0.WebAuth({
+    clientID: AUTH_CONFIG.CLIENT_ID,
+    domain: AUTH_CONFIG.CLIENT_DOMAIN
+  });
 
-  constructor(private authHttp: AuthHttp, zone: NgZone, private router: Router) {
-    this.zoneImpl = zone;
-    this.user = JSON.parse(localStorage.getItem('profile'));
+  userProfile: UserProfile;
+
+  // Create a stream of logged in status to communicate throughout app
+  loggedIn: boolean;
+  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
+
+  constructor(private router: Router) {
+    // If authenticated, set local profile property and update login status subject
+    if (this.authenticated) {
+      this.userProfile = JSON.parse(localStorage.getItem('profile'));
+      this.setLoggedIn(true);
+    }
   }
 
-  public authenticated() {
-    // Check if there's an unexpired JWT
-    return tokenNotExpired();
+  setLoggedIn(value: boolean) {
+    // Update login status subject
+    this.loggedIn$.next(value);
+    this.loggedIn = value;
   }
 
-  public login() {
-    // Show the Auth0 Lock widget
-    this.lock.show({}, (err, profile, token) => {
-      if (err) {
-        alert(err);
-        return;
-      }
-      // If authentication is successful, save the items
-      // in local storage
-      localStorage.setItem('profile', JSON.stringify(profile));
-      localStorage.setItem('id_token', token);
-      this.zoneImpl.run(() => this.user = profile);
+  login() {
+    // Auth0 authorize request
+    // Note: nonce is automatically generated: https://auth0.com/docs/libraries/auth0js/v8#using-nonce
+    this.auth0.authorize({
+      responseType: 'token id_token',
+      redirectUri: AUTH_CONFIG.REDIRECT,
+      audience: AUTH_CONFIG.AUDIENCE,
+      scope: AUTH_CONFIG.SCOPE
     });
   }
 
-  public logout() {
-    localStorage.removeItem('profile');
+  handleAuth() {
+    // When Auth0 hash parsed, get profile
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = '';
+        this._getProfile(authResult);
+        this.router.navigate(['/']);
+      } else if (err) {
+        this.router.navigate(['/']);
+        console.error(`Error: ${err.error}`);
+      }
+    });
+  }
+
+  private _getProfile(authResult) {
+    // Use access token to retrieve user's profile and set session
+    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+      this._setSession(authResult, profile);
+    });
+  }
+
+  private _setSession(authResult, profile) {
+    // Save session data and update login status subject
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('profile', JSON.stringify(profile));
+    this.userProfile = profile;
+    this.setLoggedIn(true);
+  }
+
+  logout() {
+    // Remove tokens and profile and update login status subject
+    localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
-    this.zoneImpl.run(() => this.user = null);
-    this.router.navigate(['Home']);
-  }
-}
-````
-
-Now that we have the foundation complete. We can start building our application. We'll build our root component in a file called `app.component.ts`.
-
-```
-import {Component} from '@angular/core';
-import {RouteConfig, ROUTER_PROVIDERS, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {HTTP_PROVIDERS} from '@angular/http';
-import {AUTH_PROVIDERS} from 'angular2-jwt';
-
-import {Home} from './home.component';
-import {Ping} from './ping.component';
-import {Profile} from './profile.component';
-import {Auth} from './auth.service';
-
-@Component({
-  selector: 'app',
-  providers: [ Auth ],
-  directives: [ ROUTER_DIRECTIVES ],
-  templateUrl: 'src/app.template.html',
-  styles: [`.btn-margin { margin-top: 5px}`]
-})
-@RouteConfig([
-  { path: '/home',  name: 'Home',  component: Home, useAsDefault: true },
-  { path: '/ping',  name: 'Ping',  component: Ping },
-  { path: '/profile',  name: 'Profile',  component: Profile }
-])
-export class App {
-
-  constructor(private auth: Auth) {}
-
-}
-```
-
-You may notice from our directive metadata that we will be loading an external template called `app.template.html`. Angular 2 templates can be inlined or reference an external file and since our template is on the longer side, we'll place it in an external file.
-
-```
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Auth0 - Angular 2</a>
-      <button class="btn btn-primary btn-margin" [routerLink]=" ['Home'] ">Home</button>
-      <button class="btn btn-primary btn-margin" [routerLink]=" ['Ping'] ">Ping</button>
-      <button class="btn btn-primary btn-margin" [routerLink]=" ['Profile'] " *ngIf="auth.authenticated()">Profile</button>
-      <button class="btn btn-primary btn-margin" (click)="auth.login()" *ngIf="!auth.authenticated()">Log In</button>
-      <button class="btn btn-primary btn-margin" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
-    </div>
-  </div>
-</nav>
-
-<main class="container">
-  <router-outlet></router-outlet>
-</main>
-```
-
-From our `app.template.html` file, we see that we will end up having three routes: **Home**, **Ping** and **Profile**. Additionally, there are two more buttons, Log In and Log Out. The `*ngIf` directive conditionally displays some routes based on whether the user is authenticated or not. Let's build out the three routes.
-
-#### Home Component
-
-The home component is the default route loaded. It is publicaly accessible.
-
-```
-import {Component} from '@angular/core';
-
-@Component({
-  selector: 'home',
-  template: `
-    <h1>Welcome to auth0-angular2</h1>
-    <p>
-      This repo shows you how to set up authentication in your Angular 2 apps with Auth0.
-      Get started by providing your Auth0 client ID and domain in the Auth0Lock widget in <code>auth/auth.service.ts</code>.
-    </p>
-  `
-})
-export class Home {
-  constructor() {}
-}
-```
-
-#### Ping Component
-
-The ping component interacts with our NodeJS server that we built earlier. The Node server will need to be running for you to access these routes.
-
-```
-import {Component} from '@angular/core';
-import {Http} from '@angular/http';
-
-import {AuthHttp} from 'angular2-jwt';
-import {Auth} from './auth.service';
-import 'rxjs/add/operator/map';
-
-@Component({
-  selector: 'ping',
-  template: `
-    <h1>Send a Ping to the Server</h1>
-    <p *ngIf="!auth.authenticated()">Log In to Get Access to a Secured Ping</p>
-    <button class="btn btn-primary" (click)="ping()">Ping</button>
-    <button class="btn btn-primary" (click)="securedPing()" *ngIf="auth.authenticated()">Secured Ping</button>
-    <h2>{{message}}</h2>
-  `
-})
-export class Ping {
-  API_URL: string = 'http://localhost:3001';
-  message: string;
-
-  constructor(private http: Http, private authHttp: AuthHttp, private auth: Auth) {}
-
-  ping() {
-    this.http.get(`${this.API_URL}/ping`)
-      .map(res => res.json())
-      .subscribe(
-        data => this.message = data.text,
-        error => this.message = error._body
-      );
+    localStorage.removeItem('profile');
+    this.userProfile = undefined;
+    this.setLoggedIn(false);
   }
 
-  securedPing() {
-    this.authHttp.get(`${this.API_URL}/secured/ping`)
-      .map(res => res.json())
-      .subscribe(
-        data => this.message= data.text,
-        error => this.message = error._body
-      );
+  get authenticated() {
+    // Check if there's an unexpired access token
+    return tokenNotExpired('access_token');
   }
+
 }
 ```
 
-#### Profile Component
+This service uses the config variables from `auth0-variables.ts` to instantiate an `auth0.js` WebAuth instance.
 
-The profile component displays user data for the currently logged in user. This component can only be accessed by a logged in user.
+> **Note:** `auth0.js` is linked in the `index.html` file from CDN.
 
+An [RxJS `BehaviorSubject`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) is used to provide a stream of authentication status events that you can subscribe to anywhere in the app.
+
+The `login()` method authorizes the authentication request with Auth0 using your config variables. An Auth0 hosted Lock instance will be shown to the user and they can then log in:
+
+> **Note:** If it's the user's first visit to our app and our callback is on localhost, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your Auth0 Dashboard API Settings. Look for the "Allow Skipping User Consent" toggle.
+
+We'll receive an `id_token` and an `access_token` in the hash from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens and profile to local storage and updating the `loggedIn$` subject so that any subscribed components in the app are informed that the user is now authenticated.
+
+> **Note:** The profile takes the shape of [`profile.model.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/profile.model.ts) from the [OpenID standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
+
+The `handleAuth()` method can then be called in the [`app.component.ts` constructor](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.component.ts) like so:
+
+```js
+// src/app/app.component.ts
+import { AuthService } from './auth/auth.service';
+...
+  constructor(private auth: AuthService) {
+    // Check for authentication and handle if hash present
+    auth.handleAuth();
+  }
+...
 ```
-import {Component} from '@angular/core';
-import {CanActivate} from '@angular/router-deprecated';
-import {tokenNotExpired} from 'angular2-jwt';
-import {Auth} from './auth.service';
 
-@Component({
-  selector: 'profile',
-  template: `
-    <h1>Profile</h1>
-    <img [src]="auth.user.picture">
-    <h2>{{auth.user.nickname}}</h2>
-    <span>{{auth.user.email}}</span>
-  `
-})
+Finally, we have a `logout()` method that clears data from local storage and updates the `loggedIn$` subject. We also have an `authenticated()` accessor to return current authentication status.
 
-@CanActivate(() => tokenNotExpired())
+Once [`AuthService` is provided in `app.module.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts#L32), its methods and properties can be used anywhere in our app, such as the [home component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/home).
 
-export class Profile {
-  constructor(private auth: Auth) {}
-}
+The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until hash parsing is completed and the Angular app redirects back to the home page. 
+
+### Making Authenticated API Requests
+
+In order to make authenticated HTTP requests, we're using [angular2-jwt](https://github.com/auth0/angular2-jwt). The [`auth-http.factory.ts` factory](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth-http.factory.ts) supplies an `authHttp` method that sends the `access_token` from local storage. This is provided in the [`app.module.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts):
+
+```js
+// src/app/app.module.ts
+...
+import { authHttpFactory } from './auth/auth-http.factory';
+...
+  providers: [
+    ...,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpFactory,
+      deps: [Http, RequestOptions]
+    }
+  ],
 ```
 
-With the three components built, we are ready to launch our app. If you are using the provided GitHub repo, you can simply run `gulp play` and your code will be transpiled into JavaScript and the application will launch at `localhost:9000`. If you did not use the GitHub repo, you will need to transpile the typescript or change the systemjs configuration to load typescript files instead.
+We can then call our API in the [`api.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/api.service.ts) with `AuthHttp` to authorize requests.
 
-Navigating to `localhost:9000` will load our the UI for app which will look like:
-
-![Angular 2 App with JWT Auth](https://cdn.auth0.com/blog/cookies-vs-tokens/angular2-app.png)
-
-You can navigate to the **Ping** tab and click the "Ping" button to make a call to your Node API and it will display the correct message. If you click on the **Login** button you will be prompted to login using the [Auth0 Lock](https://auth0.com/lock) widget. Upon successfully authenticating, you will be able to view your Profile, Log out, and have the ability to call a **Secured Ping** from the Ping tab. 
-
-### Progressive Web Apps
-
-The last topic I want to cover before we close out this article is [Progressive Web Apps](https://developers.google.com/web/fundamentals/getting-started/your-first-progressive-web-app/?hl=en). Progressive Web Apps allow your web based application to behave more like a native mobile iOS or Android app. Progressive Web Apps bring many advantages including increased performance, are "installable" on mobile devices, and can work offline.
- 
-Angular 2, through its [Mobile Toolkit](https://mobile.angular.io/), makes it easy to transform your Angular 2 app into a Progressive Web App. There are many components that can make your app more progressive, the one we'll look at today is the **webapp manifest**. This manifest is simply a file, similar to `package.json` for example, where you define specifics for your application. When your website is accessed on a mobile device, this manifest can be read and based on the information inside certain actions taken like setting the app name or setting the orientation of the app. Let's look at an app manifest, which is titled `manifest.webapp` and see which options we can set:
-
+```js
+// src/app/api.service.ts
+...
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+...
+  getDragons$(): Observable<any[]> {
+    return this.authHttp
+      .get(`${this.baseUrl}dragons`)
+      .map(this._handleSuccess)
+      .catch(this._handleError);
+  }
+...
 ```
- {
-   "name": "Auth0 Angular 2 App",
-   "short_name": "A0 Angular 2 App",
-   "icons": [
-     {
-             "src": "/android-chrome-36x36.png",
-             "sizes": "36x36",
-             "type": "image/png",
-             "density": 0.75
-         },
-         {
-             "src": "/android-chrome-48x48.png",
-             "sizes": "48x48",
-             "type": "image/png",
-             "density": 1
-         },
-         {
-             "src": "/android-chrome-72x72.png",
-             "sizes": "72x72",
-             "type": "image/png",
-             "density": 1.5
-         },
-         {
-             "src": "/android-chrome-96x96.png",
-             "sizes": "96x96",
-             "type": "image/png",
-             "density": 2
-         },
-         {
-             "src": "/android-chrome-144x144.png",
-             "sizes": "144x144",
-             "type": "image/png",
-             "density": 3
-         },
-         {
-             "src": "/android-chrome-192x192.png",
-             "sizes": "192x192",
-             "type": "image/png",
-             "density": 4
-         }
-   ],
-   "theme_color": "#000000",
-   "background_color": "#e0e0e0",
-   "start_url": "/index.html",
-   "display": "standalone",
-   "orientation": "portrait"
- }
+
+### Final Touches: Route Guard and Profile Page
+
+A [profile page component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/profile) can show an authenticated user's profile information. However, we only want this component to be accessible if the user is logged in.
+
+With an [authenticated API request and login/logout](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/home/home.component.ts) implemented, the final touch is to protect our profile route from unauthorized access. The [`auth.guard.ts` route guard](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth.guard.ts) can check authentication and activate routes conditionally. The guard is implemented on specific routes of our choosing in the [`app-routing.module.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app-routing.module.ts) like so:
+
+```js
+// src/app/app-routing.module.ts
+...
+import { AuthGuard } from './auth/auth.guard';
+...
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [
+          AuthGuard
+        ]
+      },
+...
 ```
+
+### More Resources
+
+That's it! We have an authenticated Node API and Angular application with login, logout, profile information, and protected routes. To learn more, check out the following resources:
+
+* [Why You Should Always Use Access Tokens to Secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/)
+* [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/)
+* [Access Token](https://auth0.com/docs/tokens/access-token)
+* [Verify Access Tokens](https://auth0.com/docs/api-auth/tutorials/verify-access-token)
+* [Call APIs from Client-side Web Apps](https://auth0.com/docs/api-auth/grant/implicit)
+* [How to implement the Implicit Grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant)
+* [Auth0.js v8 Documentation](https://auth0.com/docs/libraries/auth0js/v8)
+* [OpenID Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)
 
 ## Conclusion
 
