@@ -2,16 +2,17 @@
 layout: post
 title: "The History Behind When Build Becomes Buy"
 description: "Although considered the easiest option, building has it limitations when compared to the benefits of buying."
-date: 2017-02-24 10:02
-category: Growth, Generic
+date: 2017-04-25 10:02
+category: Growth, BuildBuy
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: #653636
-  image: https://cdn.auth0.com/blog/build-becomes-buy/logo.png
+  bg_color: #144987
+  image: https://cdn2.auth0.com/blog/build-becomes-buy/logo.png
 tags:
 - iam
 - stripe
@@ -20,6 +21,7 @@ tags:
 - startups
 related:
 - 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
+- 2017-04-05-when-to-build-and-when-to-buy
 - 2017-02-10-ultimate-account-based-marketing-machine-with-account-selection
 ---
 
