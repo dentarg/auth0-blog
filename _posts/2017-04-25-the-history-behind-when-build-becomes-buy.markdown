@@ -47,7 +47,7 @@ His proposed relational system proved to be far more efficient, and it enhanced 
 
 ![DBMS interaction](https://cdn.auth0.com/blog/build-becomes-buy/dbms_interaction.png)
 
-While IBM fretted over how a relational database product would cut into the revenue they were generating from their navigational database product, Oracle CEO Larry Ellison had no such concerns. Within a few years, the relational database and SQL—the language used to interact with it—had become the default option. Oracle, based on the strength of their relational database product, reaped the rewards of this shift.
+While IBM fretted over how a relational database product would cut into the revenue they were generating from their navigational database product, Oracle CEO Larry Ellison had no such concerns. Within a few years, the relational database and SQL—the language used to interact with it—had become the default option. [Oracle](https://www.oracle.com/), based on the strength of their relational database product, reaped the rewards of this shift.
 
 In the case of databases, the shift from build to buy came about as a result of the creation of **standards**. Prior to the relational takeover, there was no standout protocol, too many competing options, and no compelling reason to use any particular system over another.
 
@@ -61,7 +61,7 @@ The 1980's also marked the beginning of attempts to digitize the messy universe 
 
 The earliest software was database-driven and was more [digital Rolodex](https://www.crmswitch.com/crm-industry/crm-industry-history/) than true relationship manager. The organization of customer contact information was its primary purpose. Siebel was born in the 1990's, becoming the first “sales force automation” product to really capture the market—but it was still limited in that it was exclusively sold to big enterprises (It's worth noting that founder Tom Siebel came from Oracle.)    
 
-But the vast market of small to medium sized businesses remained largely without, relying on e-signatures and email to add order to the process of customer relationship management. That was until Salesforce. The *SaaS* (Software as a Service) model of Salesforce, driven home by founder Marc Benioff's guerrilla “software is dead” marketing, resulted in a product that was tailor-made (cost-wise) for *SMBs* (small and medium-sized business).
+But the vast market of small to medium sized businesses remained largely without, relying on e-signatures and email to add order to the process of customer relationship management. That was until [Salesforce](https://www.salesforce.com). The *SaaS* (Software as a Service) model of Salesforce, driven home by founder Marc Benioff's guerrilla “software is dead” marketing, resulted in a product that was tailor-made (cost-wise) for *SMBs* (small and medium-sized business).
 
 For the first time, a *CRM* tool could truly add value to the operations of an *SMB* and make buying a *CRM* a worthwhile endeavor. Their subscriber base grew rapidly.
 
@@ -87,7 +87,7 @@ Tech companies have never been very well served by banks, making online payments
 
 By the 2000s, new companies like Authorize.net and PayPal were working on the problem of online payments—but not truly cracking it. With Authorize, companies had to have a bank account linked to it. PayPal, on the other hand, had acquired a reputation for not being very user-friendly (by occasionally holding funds, for instance) and so payment remained a thorny problem for upstart developers.
 
-Both eventually moved upmarket, leaving startups without a simple way to process payments just as consumer demand for it was increasing. There was no simple option—until Stripe.
+Both eventually moved upmarket, leaving startups without a simple way to process payments just as consumer demand for it was increasing. There was no simple option—until [Stripe](https://stripe.com/).
 
 At its start, Stripe did one thing really well. They made it incredibly easy for businesses to collect payments online. Whatever the revenue model—one-time, transactional, subscription—you could take a developer, and have they set up a working payments portal in one afternoon with just a few simple API calls. The onboarding was simple, efficient, and it got people up and running fast.
 
@@ -103,7 +103,7 @@ In other words, everyone has something to gain from buying Stripe vs. trying to 
 
 ## Emergence of Identity as a Service
 
-These technological shifts are just beginning. Every year, another industry is disrupted by the emergence of new back-end technologies that enable startups and enterprises alike to stop building and start buying. There's Algolia for search, SendGrid for email, Zapier for workflow automation, and of course, there's *Identity and Access Management* (IAM).
+These technological shifts are just beginning. Every year, another industry is disrupted by the emergence of new back-end technologies that enable startups and enterprises alike to stop building and start buying. There's [Algolia](https://www.algolia.com/) for search, [SendGrid](https://sendgrid.com/) for email, [Zapier](https://zapier.com/) for workflow automation, and of course, there's *Identity and Access Management* (IAM).
 
 When it comes to managing user identities, companies of all sizes used to build all of their own systems. This came with plenty of difficulties, like creating a flexible and secure *Single Sign-On* (SSO) system to maintaining security amidst ever-increasing threats.
 
