@@ -651,6 +651,7 @@ Then you'll see a beautiful and customizable login screen:
 
 And that's it - your integration is done in just a few minutes.
 
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a specific OAuth flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 issues both `accessTokens` and `idTokens`, and the latter should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 ## Conclusion
 
