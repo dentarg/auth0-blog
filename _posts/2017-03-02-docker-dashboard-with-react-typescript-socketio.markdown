@@ -225,7 +225,7 @@ Then edit the 'scripts' node of the `package.json` file to look like the followi
 "main": "index.js",
 "scripts": {
   "start": "webpack -p && node server.js",
-  "start-dev": "./node_modules/.bin/concurrently 'nodemon server.js' 'webpack --watch'"
+  "start-dev": "./node_modules/.bin/concurrently \"nodemon server.js\" \"webpack --watch\""
 },
 "author": "",
 ...
