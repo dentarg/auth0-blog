@@ -15,7 +15,7 @@ design:
   image: https://cdn.auth0.com/blog/ionic2-auth/ionic-logo.png
   image_size: "101%"
 tags:
-- angular2
+- angular
 - angularjs
 - ionic
 - mobile
@@ -28,15 +28,15 @@ related:
 - 2015-08-11-create-your-first-ember-2-dot-0-app-from-authentication-to-calling-an-api
 ---
 
-**TL;DR:** Ionic 2 Beta, which is built on Angular 2, has been released, and brings with it some excellent features. In this article we explore how to add JWT authentication to an Ionic 2 app. Check out [the repo](https://github.com/auth0/ionic2-auth) to go straight to the code.
+**TL;DR:** Ionic 2 Beta, which is built on Angular, has been released, and brings with it some excellent features. In this article we explore how to add JWT authentication to an Ionic 2 app. Check out [the repo](https://github.com/auth0/ionic2-auth) to go straight to the code.
 
 ---
 
-Ionic 2 Beta has been released and, just as Angular 2 is vastly different from Angular 1.x, the brand new Ionic is completely revamped as well. Ionic 2 brings all the power of Angular 2, and provides several of its own decorators for crafting cross-platform mobile applications easily. We still get a lot of the great features from Ionic 1, plus a lot more.
+Ionic 2 Beta has been released and, just as Angular is vastly different from Angular 1.x, the brand new Ionic is completely revamped as well. Ionic 2 brings all the power of Angular, and provides several of its own decorators for crafting cross-platform mobile applications easily. We still get a lot of the great features from Ionic 1, plus a lot more.
 
-{% include tweet_quote.html quote_text="Ionic 2 brings to the table all the power of Angular 2" %}
+{% include tweet_quote.html quote_text="Ionic 2 brings to the table all the power of Angular" %}
 
-Authentication is a critical component of non-trivial mobile apps, and with Ionic 2, we can add JWT authentication easily by following the same process we would for an Angular 2 app.
+Authentication is a critical component of non-trivial mobile apps, and with Ionic 2, we can add JWT authentication easily by following the same process we would for an Angular app.
 
 In this tutorial we'll build a simple Ionic 2 application that can authenticate users and provide access to protected resources that are secured with JWT authentication from a NodeJS server. We'll use our [NodeJS JWT Authentication Sample](https://github.com/auth0/nodejs-jwt-authentication-sample) to allow users to create accounts, log in, and retrieve public and private Chuck Norris quotes.
 
@@ -72,9 +72,9 @@ By default we are given a "tabs" style layout that has three pages linked in a t
 
 ## Bootstrapping the Application
 
-All of the action starts with the root component which is found in `app/app.module.ts`. Ionic apps are bootstrapped a bit differently than a regular Angular 2 application. With Ionic, we have to instruct our Angular 2 application to `bootstrap` with `IonicApp` class. Fortunately, this is automatically configured to us by the `ionic start` command that we've issued before.
+All of the action starts with the root component which is found in `app/app.module.ts`. Ionic apps are bootstrapped a bit differently than regular Angular applications. With Ionic, we have to instruct our Angular application to `bootstrap` with `IonicApp` class. Fortunately, this is automatically configured to us by the `ionic start` command that we've issued before.
 
-Since we'll be making authenticated HTTP requests, we'll need to use the [angular2-jwt](https://github.com/auth0/angular2-jwt) library. Install it by through the following command:
+We'll use the [angular2-jwt](https://github.com/auth0/angular2-jwt) library to decode `idTokens`. Install it by through the following command:
 
 ```bash
 npm install --save angular2-jwt
@@ -86,19 +86,19 @@ We'll really just need two pages for our app: one that retrieves quotes and anot
 
 You'll notice that the template that comes with Ionic 2 has three generic pages and a `TabsPage` component in the `pages` directory. The `TabsPage` is used to provide navigation to the other pages and gives us the tab strip at the bottom of the app.
 
-The other ones are just generic placeholder pages and, as such, we can delete them. To do so, let's remove the following directories: `pages/about`, `pages/contact`, and `pages/home`. And remove their utilization from the `app/app.module.ts` file. This last step is achieved by removing these components:
+The other ones are just generic placeholder pages and, as such, we can delete them. To do so, let's remove the following directories: `pages/about`, `pages/contact`, and `pages/home`. We'll also remove their utilization from the `app/app.module.ts` file. This last step is achieved by removing these components:
 
 * `import` statements
 * from the `declarations` and `entryComponents` properties of `@NgModule`
 
- And then we generate the two pages that our app will have, through the Ionic's CLI:
+ We'll generate the two pages that our app will have, through the Ionic's CLI:
 
  ```bash
  ionic g page profile
  ionic g page quotes
  ```
 
- We'll need to change up the SASS files we import in `app/app.scss`:
+ We'll need to change up the SCSS files we import in `app/app.scss`:
 
  ```css
 @import "../pages/profile/profile";
@@ -213,7 +213,7 @@ export class Profile {
 }
 ```
 
-The `login` and `signup` methods send the user's credentials to the server. If the user successfully authenticates, a JWT is sent back in the response. To save the returned token, we're using the `Storage` class that comes from Ionic, which provide a local storage engine for us. The standard `localStorage` browser API would still work, but it's recommended that we use this class. Note that to properly setup `Storage`, we need to add configure it in the `pages/profile/profile.module.ts` file. Add `IonicStorageModule.forRoot()` in the `imports` property of the `@NgModule` decoration of the class in this file, and import `IonicStorageModule` from the `@ionic/storage` module.
+The `login` and `signup` methods send the user's credentials to the server. If the user successfully authenticates, a JWT is sent back in the response. To save the returned token, we're using the `Storage` class that comes from Ionic, which provides a local storage engine for us. The standard `localStorage` browser API would still work, but it's recommended that we use this class. Note that to properly setup `Storage`, we need to configure it in the `pages/profile/profile.module.ts` file. Add `IonicStorageModule.forRoot()` in the `imports` property of the `@NgModule` decoration of the class in this file, and import `IonicStorageModule` from the `@ionic/storage` module.
 
 The `authSuccess` method saves the token and also sets the `user` object with the user details contained in the token. The tokens returned from our server have a `username` claim, which we can use to greet the user. The `JwtHelper` class that comes with **angular2-jwt** can decode the token and give us access to the claims on it, which is how we access the username here.
 
@@ -233,7 +233,7 @@ Let's now create the view.
 <ion-content class="login" *ngIf="!auth.authenticated()">
   <ion-segment [(ngModel)]="authType" color="primary">
     <ion-segment-button value="login">
-      Login
+      Log In
     </ion-segment-button>
     <ion-segment-button value="signup">
       Sign Up
@@ -252,7 +252,7 @@ Let's now create the view.
     </ion-item>
 
     <div padding>
-      <button block type="submit">Login</button>
+      <button block type="submit">Log In</button>
     </div>
   </form>
 </ion-content>
@@ -260,7 +260,7 @@ Let's now create the view.
 <ion-content *ngIf="auth.authenticated()">
   <h1>Welcome, {{ user }}</h1>
   <div padding>
-    <button block (click)="logout()">Logout</button>
+    <button block (click)="logout()">Log Out</button>
   </div>
 </ion-content>
 {% endraw %}
@@ -488,7 +488,7 @@ Now in our `login` method, we just need to call `this.lock.show` to open the Log
 
 <ion-content padding *ngIf="!auth.authenticated()">
 
-  <button block (click)="login()">Login</button>
+  <button block (click)="login()">Log In</button>
 
 </ion-content>
 
@@ -541,4 +541,4 @@ That's it! You've now got authentication with Auth0 set up for your Ionic 2 app.
 
 ## Wrapping Up
 
-Developing Ionic authentication is very similar to how it's done in an Angular 2 application. This is really beneficial because we can reuse a lot of the same libraries and logic between the two of them. We're likely to see many more great features from Ionic 2 as it continues to develop.
+Developing Ionic authentication is very similar to how it's done in an Angular application. This is really beneficial because we can reuse a lot of the same libraries and logic between the two of them. We're likely to see many more great features from Ionic 2 as it continues to develop.
