@@ -5,6 +5,10 @@ description: "Setting up SAML authentication with Auth0 is as easy as setting an
 date: 2016-02-02 10:00
 alias: /2016/02/02/switching-from-social-logins-to-saml-in-minutes-with-auth0/
 category: Auth0-based Tutorial, Webinar, SAML
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Kassandra Perch
   url: https://twitter.com/nodebotanist

@@ -8,6 +8,10 @@ date: 2015-05-14 09:54AM
 updated: 2016-10-26 12.30
 category: Technical Guide, Angular, Angular 2
 alias: /2015/05/14/creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between/
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -199,7 +203,7 @@ We are now ready to start implementing our app specific logic.
 
 ### Restricting Access to Pages
 
-We don't want anonymous users to be able to access the `Home` route, so we should redirect them if they aren't authenticated. For that, we can create our own `Guard`, which will only let authenticated users access the home route. 
+We don't want anonymous users to be able to access the `Home` route, so we should redirect them if they aren't authenticated. For that, we can create our own `Guard`, which will only let authenticated users access the home route.
 
 If we look at our routes code above we see that on the `Home` route we pass some additional code `canActivate: [AuthGuard]`. In this section we will implement the code for the `AuthGuard`. Once our app is running, each time the home route is hit, the AuthGuard function will be executed and decide whether or not a user can actually access the route.
 
@@ -289,7 +293,7 @@ export class Login {
  </div>
 ```
 
-The sign up page is implemented in much the same way. For brevity, we will omit the implementation here, but you can view it on [GitHub](https://github.com/auth0-blog/angular2-authentication-sample/tree/master/src/signup). 
+The sign up page is implemented in much the same way. For brevity, we will omit the implementation here, but you can view it on [GitHub](https://github.com/auth0-blog/angular2-authentication-sample/tree/master/src/signup).
 
 ### Creating the Home component
 
@@ -487,7 +491,7 @@ We can use the methods from our authentication service in any of our components 
 First we'll need to include the `AuthService` in our `Login` component.
 
 ```js
-//... existing dependencies 
+//... existing dependencies
 import { AuthService } from '../common/auth.service';
 // ...
 export class Login {
@@ -504,7 +508,7 @@ Next, we'll make the updates to our template.
  <div class="login jumbotron center-block">
 
    <a class="btn btn-success" (click)="auth.login()" *ngIf="!auth.loggedIn()">Log In</a>
-  
+
  </div>
 ```
 

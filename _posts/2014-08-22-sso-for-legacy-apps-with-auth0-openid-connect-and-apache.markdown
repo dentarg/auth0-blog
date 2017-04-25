@@ -4,6 +4,10 @@ title: "SSO for Legacy Apps with Auth0, OpenID Connect & Apache"
 date: 2014-08-22 21:57
 outdated: true
 alias: /2014/08/22/sso-for-legacy-apps-with-auth0-openid-connect-and-apache/
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: "Eugenio Pace"
   url:  http://www.twitter.com/eugenio_pace

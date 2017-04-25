@@ -4,6 +4,10 @@ title: "SSO with any SAML App"
 date: 2013-07-17 11:46
 outdated: true
 alias: /2013/07/17/SSO-with-any-saml-app/
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com

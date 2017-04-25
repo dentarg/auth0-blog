@@ -6,6 +6,10 @@ date: 2016-04-19 13:30
 alias: /2016/04/19/supercharge-your-registration-process/
 category: Growth, Identity, Authentication
 is_non-tech: true
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Diego Poza
   mail: diego.poza@auth0.com

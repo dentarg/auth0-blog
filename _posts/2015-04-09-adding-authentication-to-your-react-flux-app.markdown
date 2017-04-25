@@ -6,6 +6,10 @@ date: 2015-04-9 11:22
 date_override: "2015-10-07 12:30"
 alias: /2015/04/09/adding-authentication-to-your-react-flux-app/
 category: Technical Guide, Frontend, React
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Martin Gontovnikas
   url: https://twitter.com/mgonto

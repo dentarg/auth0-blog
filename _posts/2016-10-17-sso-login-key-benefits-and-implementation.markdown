@@ -4,6 +4,10 @@ title: "SSO Login: Key Benefits and Implementation"
 description: Learn the benefits of Single Sign On login and how to achieve it with Auth0
 date: 2016-10-18 08:30
 category: Technical Guide, Identity, Single Sign On
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 design:
   bg_color: "#305F96"
   image: https://cdn.auth0.com/blog/SSO-Logo.png

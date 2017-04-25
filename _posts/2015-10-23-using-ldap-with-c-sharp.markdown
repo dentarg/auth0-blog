@@ -5,6 +5,10 @@ description: "In this tutorial learn how to integrate LDAP and Active Directory 
 date: 2015-10-28 10:00
 alias: /2015/10/28/using-ldap-with-c-sharp/
 category: Technical Guide, Microsoft, C#
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en

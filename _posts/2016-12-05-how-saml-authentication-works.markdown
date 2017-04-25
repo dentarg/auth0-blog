@@ -4,6 +4,10 @@ title: "How SAML Authentication Works"
 description: Learn the nitty-gritty of SAML Authentication
 date: 2016-12-05 08:30
 category: Technical Guide, Identity, SAML
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 design:
   bg_color: "#9F2324"
   image: https://cdn.auth0.com/blog/SAMLLogo.png
@@ -55,7 +59,7 @@ Without much ado, the benefits of SAML authentication include:
 
 Let's take an in-depth look at the process flow of SAML authentication in an application. SAML single sign-on authentication typically involves a service provider and an identity provider. The process flow usually involves the *trust establishment* and *authentication flow* stages.
 
-Consider this example: 
+Consider this example:
 
 - Our identity provider is **Auth0**
 - Our service provider is an enterprise HR portal called **Zagadat**
@@ -96,7 +100,7 @@ Note the attributes that are highlighted in the SAML request and response. Here'
 
 ## Aside: SAML Authentication with Auth0
 
-With Auth0, SAML authentication is dead simple to implement. We can easily configure our applications to use **Auth0 Lock** for SAML authentication. 
+With Auth0, SAML authentication is dead simple to implement. We can easily configure our applications to use **Auth0 Lock** for SAML authentication.
 
 In the example below, we will use an Auth0 account(account 1) as a *Service Provider* and authenticate users against a second Auth0 account(account 2) which will serve as our *Identity Provider*. Follow the steps below:
 
@@ -350,7 +354,7 @@ Create an HTML page and insert the following:
 	    lock.show();
 	  }
 	</script>
- 
+
 <button onclick="signin()">Login</button>
 </BODY>
 </HTML>

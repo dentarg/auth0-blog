@@ -5,6 +5,10 @@ description: "Learn how to implement social logins on Android with Facebook, Goo
 date: 2016-02-08 13:30
 alias: /2016/02/08/how-to-authenticate-on-android-using-social-logins/
 category: Technical Guide, Mobile, Android
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
