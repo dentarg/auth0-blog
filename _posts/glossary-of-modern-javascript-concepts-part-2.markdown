@@ -628,11 +628,15 @@ To learn more about **smart and dumb components**, check out the following resou
 
 ## <span id="jit"></span>JIT (Just-In-Time) Compilation
 
-**Just-in-time (JIT) compilation** is the process of translating code written in a programming language to machine code at runtime (during a program or application's execution). At runtime, a JIT compiler _monitors_ to detect functions or loops of code that are run multiple times. These pieces of code are then compiled. If they're particularly commonly executed ("hot"), JIT will optimize them and then store the optimized, compiled code.
+**Just-in-time (JIT) compilation** is the process of translating code written in a programming language to machine code at runtime (during a program or application's execution). At runtime, certain dynamic information is available, such as type identification. A JIT compiler _monitors_ to detect functions or loops of code that are run multiple times ("warm"). These pieces of code are then compiled. If they're quite commonly executed ("hot"), JIT will optimize them and also store the optimized, compiled code for execution.
 
-[Browsers use](https://softwareengineering.stackexchange.com/a/291343) [JIT compilation to run JavaScript](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/). In the modern JavaScript landscape, build tools like the [Angular CLI](https://github.com/angular/angular-cli) can use JIT to compile TypeScript to JS to machine code in the browser during development.
+When the compiler optimizes hot code, it makes assumptions about its types and shape based on consistency of previous executions. At any iteration, if those assumptions turn out to be inaccurate, the optimized code is discarded.
+
+[Browsers use](https://softwareengineering.stackexchange.com/a/291343) [JIT compilation to run JavaScript](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/). In the modern JavaScript framework landscape, build tools like the [Angular CLI](https://github.com/angular/angular-cli) can use JIT to compile TypeScript and Angular code to JS to machine code in the browser during local development, compiling each file separately. This provides certain advantages, such as no need to rebuild the project when watching for code changes and a faster initial build time.
 
 ### JIT Compilation Takeaways
+
+JIT compilation is used by browsers to compile JavaScript at runtime, and by tools like the Angular CLI to provide a fast local development experience.
 
 To learn more about **JIT compilation**, check out the following resources:
 
@@ -654,7 +658,7 @@ To learn more about **JIT compilation**, check out the following resources:
 
 To learn more about **AoT compilation**, check out the following resources:
 
-
+* [Angular: Is AOT Worth It?](https://blog.nrwl.io/angular-is-aot-worth-it-8fa02eaf64d4)
 
 ---
 
