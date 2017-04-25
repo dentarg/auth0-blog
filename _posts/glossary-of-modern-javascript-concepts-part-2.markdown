@@ -515,25 +515,114 @@ To learn more about **web components**, check out the following resources:
 
 ## <span id="smart-dumb-components"></span>Smart and Dumb Components
 
-As we talked about above, some modern JS frameworks are heavily component-based. This leads to concepts of _component architecture_ and _component communication_. In some cases (such as in [React](https://facebook.github.io/react/) and [Angular](https://angular.io)), component architecture can utilize **smart and dumb components**. They are also referred to as "container" (smart) and "presentational" (dumb) components.
+As we talked about above, some modern JS frameworks are heavily component-based. This leads to concepts of _component architecture_ and _component communication_. In some cases (such as in [React](https://facebook.github.io/react/) and [Angular](https://angular.io)), component architecture utilizes **smart and dumb components**. They are also referred to as "container" (smart) and "presentational" (dumb) components.
 
 ### Smart Components
 
-Also known as _container_ components, **smart components** manage interactions with the application's [state](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#state) (can be stateful). They handle business logic and respond to events emitted from children (which are often dumb components).
+Also known as _container_ components, **smart components** can manage interactions with the application's [state](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#state) and data. They handle business logic and respond to events emitted from children (which are often dumb components).
 
 ### Dumb Components
 
-Also known as _presentational_ components, **dumb components** rely on _inputs_ supplied by their parents and are ignorant of application state. They are often [pure](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#purity), modular, and reusable. They can communicate to their parents when reacting to an event, but they don't _handle_ the event themselves.
+Also known as _presentational_ components, **dumb components** rely on _inputs_ supplied by their parents and are ignorant of application state. They can be sometimes be considered [pure](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#purity) and are modular and reusable. They can communicate to their parents when reacting to an event, but they don't _handle_ the event themselves.
+
+### Presentational and Container Components in React
+
+[Dan Abramov](https://github.com/gaearon), the co-author of [Redux](http://redux.js.org/), [Create React App](https://github.com/facebookincubator/create-react-app), [React Hot Loader](https://github.com/gaearon/react-hot-loader), and more, originally wrote about [presentational and container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) and their meaning in [React](https://facebook.github.io/react/), particularly when used with state management like Flux or Redux. In a nutshell, the concepts can be summarized as follows:
+
+**Presentational (aka Dumb) Components:**
+
+* Focus on "_How things look_"
+* Allow containment with `this.props.children`
+* No dependencies on the rest of the app (ie., no Flux or Redux actions or stores)
+* Only receive data; do not load or mutate it
+* Are generally [functional](https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components) (with exceptions)
+
+**Container (aka Smart) Components:**
+
+* Focus on "_How things work_"
+* Provide data and behavior to other components
+* Usually have no or very little DOM markup, and never have styles
+* Are often stateful data sources
+* Are generally generated from [higher order components](https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750)
+
+Check out [his article](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) for more details and explanation.
+
+### Example: Smart and Dumb Components in Angular
+
+For a quick example that doesn't involve a state container, let's look at some simple smart and dumb components using [Angular](https://angular.io).
+
+Let's say we want a madlib-style feature where we [apologize for lashing out](https://www.threadless.com/product/7719/im_sorry_for_what_i_said_when_i_was_hungry) while hungry, tired, or debugging. When we're done, it should look like this in the browser:
+
+![Angular smart and dumb components](https://cdn2.auth0.com/blog/js-glossary-2/angular-smart-dumb.gif)
+
+The smart (container) component looks like this:
+
+```js
+// app/smart.component.ts
+import { Component } from '@angular/core';
+import { DumbComponent } from './dumb.component';
+
+@Component({
+  selector: 'my-smart-cmpnt',
+  template: `
+    <h1>I'm sorry for what I said when I was {{selectedOption}}.</h1>
+    
+    <my-dumb-cmpnt
+      [options]="optionsArr"
+      (changedOption)="onOptionChange($event)"></my-dumb-cmpnt>
+  `
+})
+export class SmartComponent { 
+  optionsArr = ['hungry', 'tired', 'debugging'];
+  selectedOption = '______';
+  
+  onOptionChange(e: string) {
+    this.selectedOption = e;
+  }
+}
+```
+
+This component manages all of the data necessary for this feature. It provides the options for the madlib (`optionsArr`) and then handles when the user chooses an option (`onOptionChange()`). It stores the `selectedOption`, passes the possible options into the dumb component, and sets the selected option when the dumb component emits a `changedOption` event.
+
+```js
+// app/dumb.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'my-dumb-cmpnt',
+  template: `
+    <div *ngFor="let option of options">
+      <button (click)="select(option)">{{option}}</button>
+    </div>
+  `
+})
+export class DumbComponent { 
+  @Input() options: Array;
+  @Output() changedOption = new EventEmitter();
+  
+  select(option) {
+    this.changedOption.emit(option);
+  }
+}
+```
+
+In turn, the dumb component accepts the options array as input and iterates over each item to create the buttons to select an option. When an option is clicked, the `changedOption` event is emitted with the selected option as its payload. The parent smart component then handles this event and sets its `selectedOption` for display in the UI.
+
+You can run this code at [this Plunker: Angular Smart and Dumb Components](https://embed.plnkr.co/OeUYze7djU90AWmc2Sno/).
 
 ### Smart and Dumb Components Takeaways
+
+Smart (container) components manage data, implement business logic, and handle events. Dumb (presentational) components accept inputs and can emit events, which are handled by a parent smart component. Dumb components are modular and can be reused throughout an application due to their more stateless nature. When using a state container like [Redux](https://egghead.io/courses/getting-started-with-redux) or [ngrx/store](https://auth0.com/blog/managing-state-in-angular-with-ngrx-store/), only smart components would dispatch actions or interact with the store.
 
 To learn more about **smart and dumb components**, check out the following resources:
 
 * [Container Components](https://medium.com/@learnreact/container-components-c0e67432e005)
-* [Container and Presentational Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+* [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+* [Presentational vs container components](https://twitter.com/dan_abramov/status/711614407537774594?lang=en)
 * [React at Preact: Smart Components](https://preact.gitbooks.io/react-book/content/jsx/smart.html)
 * [React at Preact: Dumb Components](https://preact.gitbooks.io/react-book/content/jsx/dumb.html)
 * [Angular Smart Components vs Presentation Components: What's the Difference, When to Use Each and Why?](http://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/)
+* [Managing State in Angular with ngrx/store](https://auth0.com/blog/managing-state-in-angular-with-ngrx-store/)
 
 ---
 
