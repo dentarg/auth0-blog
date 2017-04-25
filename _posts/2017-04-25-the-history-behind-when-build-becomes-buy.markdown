@@ -11,7 +11,7 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: #144987
+  bg_color: "#144987
   image: https://cdn2.auth0.com/blog/build-becomes-buy/logo.png
 tags:
 - iam
