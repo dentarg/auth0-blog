@@ -30,7 +30,7 @@ Source code versioning is a subject that has been widely discussed and which has
 
 ## How Does Flyway Works
 
-Flyway works by checking the current version of the database and by applying new migrations automatically before the rest of the application starts. Whenever a developer needs to change the schema of a database, or to issue some changes to the data residing on it, they need to create a SQL script, following a name convention, in the directory read by Flyway. Usually this directory is `classpath:db/migration`, but one can change the default value if needed.
+Flyway works by checking the current version of the database and by applying new migrations automatically before the rest of the application starts. Whenever a developer needs to change the schema of a database, or to issue some changes to the data residing on it they need to create a SQL script, following a name convention in the directory read by Flyway. Usually this directory is `classpath:db/migration`, but one can change the default value if needed.
 
 Flyway's name convention consists of:
 
@@ -39,6 +39,13 @@ Flyway's name convention consists of:
 - separator: which defaults to `__` (two underscores) and separates the version from the description
 - description: a text with words separated by underscores or spaces
 - suffix: which defaults to `.sql`
+
+For example, the following are all valid Flyway scripts:
+
+- V1.0001__some_description.sql
+- V1_0001__another_description.sql
+- V002_1_5__my_new_script.sql
+- V15__some_other_script.sql
 
 Internally, Flyway controls the version of a database through records on a specific table in the database itself. The first time that Flyway runs (i.e. in the first migration), it creates a table called `schema_version`, with the following definition:
 
@@ -351,12 +358,6 @@ If we issue a `GET` request to `/customers/1/contacts/` now, the endpoint will p
 
 ![Retrieving contacts of a customer](https://cdn.auth0.com/blog/spring-boot-flyway/get-contacts.png)
 
-## Conclusion
-
-Having a tool like Flyway integrated in our application is a great addition. With it, we can create scripts that will refactor the database to a state that is compatible with the source code, and we can move data around to guarantee that it will reside in the correct tables.
-
-Flyway will also be helpful if we eventually run into an issue where we need to recover the database from a backup. In a case like that, we can rest assured that Flyway will correctly identify if the combination of the source code version and the database version that we are running have any scripts that need to be applied.
-
 ## Aside: Securing Java Applications with Auth0
 
 Auth0 makes it easy for developers to implement even the most complex identity solutions for their web, mobile, and internal applications. Need proof? Check out how easy it is to secure a RESTful Spring Boot application with Auth0.
@@ -407,9 +408,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${auth0.issuer}")
     private String issuer;
 
-    @Value("${auth0.secret}")
-    private String secret;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -417,7 +415,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").authenticated();
 
         JwtWebSecurityConfigurer
-                .forHS256(audience, issuer, secret.getBytes())
+                .forRS256(audience, issuer)
                 .configure(http);
     }
 }
@@ -428,8 +426,6 @@ And then configure three parameters in the Auth0 SDK, which is done by adding th
 ```bash
 # change this with your own Auth0 client id
 auth0.audience=LtiwyfY1Y2ANJerCNTIbT7vVsX5zKBS5
-# change this with your own Auth0 client secret
-auth0.secret=TjpxsT2pMt9Jj6Np45GSPnTnHY-Y-LFyv6fUGGH_EGQLD4_ONBuymn3zxfcCnpdJ
 # change this with your own Auth0 domain
 auth0.issuer=https://bkrebs.auth0.com/
 ```
@@ -437,3 +433,9 @@ auth0.issuer=https://bkrebs.auth0.com/
 Making these small changes would give us a high level of security alongside with a very extensible authentication solution. With Auth0, we could easily integrate our authentication mechanism with different [social identity providers](https://auth0.com/docs/identityproviders#social)—like Facebook, Google, Twitter, GitHub, etc—and also with [enterprise solutions like Active Directory and SAML](https://auth0.com/docs/identityproviders#enterprise). Besides that, [adding Multifactor Authentication to the application would become a piece of cake](https://auth0.com/docs/multifactor-authentication).
 
 Want more? Take a look at [Auth0's solutions](https://auth0.com/docs) and at an article that thoroughly describes how to secure a [Spring Application with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/).
+
+## Conclusion
+
+Having a tool like Flyway integrated in our application is a great addition. With it, we can create scripts that will refactor the database to a state that is compatible with the source code, and we can move data around to guarantee that it will reside in the correct tables.
+
+Flyway will also be helpful if we eventually run into an issue where we need to recover the database from a backup. In a case like that, we can rest assured that Flyway will correctly identify if the combination of the source code version and the database version that we are running have any scripts that need to be applied.
