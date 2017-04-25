@@ -42,7 +42,7 @@ You can jump straight into each concept here, or continue reading to learn about
 * <a href="#change-detection" target="_self">Change Detection in JS Frameworks: Dirty Checking, Accessors, Virtual DOM</a>
 * <a href="#web-components" target="_self">Web Components</a>
 * <a href="#smart-dumb-components" target="_self">Smart and Dumb Components</a>
-* <a href="#jit" target="_jit">JIT (Just-in-Time) Compilation</a>
+* <a href="#jit" target="_jit">JIT (Just-In-Time) Compilation</a>
 * <a href="#aot" target="_self">AoT (Ahead-of-Time) Compilation</a>
 * <a href="#tree-shaking" target="_self">Tree Shaking</a>
 
@@ -608,7 +608,7 @@ export class DumbComponent {
 
 In turn, the dumb component accepts the options array as input and iterates over each item to create the buttons to select an option. When an option is clicked, the `changedOption` event is emitted with the selected option as its payload. The parent smart component then handles this event and sets its `selectedOption` for display in the UI.
 
-You can run this code at [this Plunker: Angular Smart and Dumb Components](https://embed.plnkr.co/OeUYze7djU90AWmc2Sno/).
+This code is available to run at [Plunker: Angular Smart and Dumb Components](https://embed.plnkr.co/OeUYze7djU90AWmc2Sno/).
 
 ### Smart and Dumb Components Takeaways
 
@@ -626,13 +626,25 @@ To learn more about **smart and dumb components**, check out the following resou
 
 ---
 
-## <span id="jit"></span>JIT (Just-in-Time) Compilation
+## <span id="jit"></span>JIT (Just-In-Time) Compilation
+
+**Just-in-time (JIT) compilation** is the process of translating code written in a programming language to machine code at runtime (during a program or application's execution). At runtime, a JIT compiler _monitors_ to detect functions or loops of code that are run multiple times. These pieces of code are then compiled. If they're particularly commonly executed ("hot"), JIT will optimize them and then store the optimized, compiled code.
+
+[Browsers use](https://softwareengineering.stackexchange.com/a/291343) [JIT compilation to run JavaScript](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/). In the modern JavaScript landscape, build tools like the [Angular CLI](https://github.com/angular/angular-cli) can use JIT to compile TypeScript to JS to machine code in the browser during development.
 
 ### JIT Compilation Takeaways
 
 To learn more about **JIT compilation**, check out the following resources:
 
-
+* [What does a just-in-time (JIT) compiler do?](http://stackoverflow.com/a/95679)
+* [JIT compiler overview](https://www.ibm.com/support/knowledgecenter/SSYKE2_7.0.0/com.ibm.java.win.70.doc/diag/understanding/jit_overview.html)
+* [1/3 A cartoon intro to WebAssembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
+* [2/3 A crash course in just-in-time (JIT) compilers](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)
+* [3/3 A crash course in assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/)
+* [The race for speed part 2: How JavaScript compilers work](http://creativejs.com/2013/06/the-race-for-speed-part-2-how-javascript-compilers-work/)
+* [Mozilla TraceMonkey](https://wiki.mozilla.org/JavaScript:TraceMonkey)
+* [How the V8 engine works?](http://thibaultlaurens.github.io/javascript/2013/04/29/how-the-v8-engine-works/)
+* [JIT vs AOT in Angular2 and how to use it](https://pub.scotch.io/@kashyapmukkamala/jit-vs-aot-in-angular2-and-how-to-use-it)
 
 ---
 
@@ -644,6 +656,7 @@ To learn more about **AoT compilation**, check out the following resources:
 
 
 
+---
 
 ## <span id="tree-shaking"></span>Tree Shaking
 
