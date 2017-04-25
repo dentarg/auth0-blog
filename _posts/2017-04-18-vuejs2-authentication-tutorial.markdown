@@ -908,11 +908,11 @@ Next, let's add authentication to our front-end.
 
 We'll create an authentication helper to handle everything about authentication in our app. Go ahead and create an `auth.js` file inside the `utils` directory.
 
-Before we add code, you need to install `jwt-decode` node package like so:
+Before we add code, you need to install `jwt-decode` and `auth0-js` node package like so:
 
 ```bash
 
-npm install jwt-decode --save
+npm install jwt-decode auth0-js --save
 
 ```
 
@@ -921,18 +921,35 @@ Open up the `auth.js` file and add code to it like so:
 ```js
 import decode from 'jwt-decode';
 import axios from 'axios';
+import auth0 from 'auth0-js';
 import Router from 'vue-router';
 import Auth0Lock from 'auth0-lock';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
-var router = new Router({
-   mode: 'history',
+const CLIENT_ID = '{AUTH0_CLIENT_ID}';
+const CLIENT_DOMAIN = '{AUTH0_DOMAIN}';
+const REDIRECT = 'YOUR_CALLBACK_URL';
+const SCOPE = '{SCOPE}';
+const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
+
+var auth = new auth0.WebAuth({
+  clientID: CLIENT_ID,
+  domain: CLIENT_DOMAIN
 });
 
 export function login() {
-  window.location.href = `https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={{generateNonce()}}`;
+  auth.authorize({
+    responseType: 'token id_token',
+    redirectUri: REDIRECT,
+    audience: AUDIENCE,
+    scope: SCOPE
+  });
 }
+
+var router = new Router({
+   mode: 'history',
+});
 
 export function logout() {
   clearIdToken();
@@ -983,38 +1000,6 @@ export function setAccessToken() {
 export function setIdToken() {
   let idToken = getParameterByName('id_token');
   localStorage.setItem(ID_TOKEN_KEY, idToken);
-  decodeIdToken(idToken);
-}
-
-// Decode id_token to verify the nonce
-function decodeIdToken(token) {
-  const jwt = decode(token);
-  verifyNonce(jwt.nonce);
-}
-
-// Function to generate a nonce which will be used to mitigate replay attacks
-function generateNonce() {
-  let existing = localStorage.getItem('nonce');
-  if (existing === null) {
-    let nonce = '';
-    let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 16; i++) {
-        nonce += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    localStorage.setItem('nonce', nonce);
-    return nonce;
-  }
-  return localStorage.getItem('nonce');
-}
-
-// Verify the nonce once user has authenticated. If the nonce can't be verified we'll log the user out
-function verifyNonce(nonce) {
-  if (nonce !== localStorage.getItem('nonce')) {
-    clearIdToken();
-    clearAccessToken();
-  }
-
-  window.location.href = "/";
 }
 
 export function isLoggedIn() {
@@ -1040,7 +1025,7 @@ function isTokenExpired(token) {
 
 In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
 
-This URL calls the Auth0's `authorize` endpoint. With all the details we passed to the URL, our client app and will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the URL [here](https://auth0.com/docs/api-auth/tutorials/implicit-grant#1-get-the-user-s-authorization).
+The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
 The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
 
@@ -1052,6 +1037,8 @@ _Startup API Client_
 Now, go to the clients area and check for the test client. You should see it in your list of clients like so:
 
 ![Startup Battle Client](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
+
+Open the client and change the **Client Type** from `Non Interactive Client` to `Single Page Application`.
 
 Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
 
@@ -1210,6 +1197,7 @@ export default {
     this.$nextTick(() => {
       setAccessToken();
       setIdToken();
+      window.location.href = '/';
     });
   },
 };
