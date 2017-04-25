@@ -273,6 +273,8 @@ login.onclick = function (e) {
 
 ![lock auth0](https://i.cloudup.com/6opoEX_Z9z.png)
 
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+
 In the case of an offline-first app, authenticating the user against a remote database won't be possible when network connectivity is lost. However, with service workers and a library like UpUp, you have full control over which pages and scripts are loaded when the user is offline. This means you can configure your `offline.html` file to display a useful message stating the user needs to regain connectivity to login again instead of displaying the Lock login screen.
 
 ## Wrapping Up
