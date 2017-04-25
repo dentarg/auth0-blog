@@ -22,11 +22,11 @@ related:
 - 2016-09-20-securing-spring-boot-with-jwts
 ---
 
-Source code versioning is a subject that has been widely discussed and which has many solutions created to address it, like Git, Subversion and Mercurial. But, what about our data and the schema that represents it? How do they keep in sync with the application that manipulates it? In this article, we are going to learn about Flyway, a solution that helps developers to handle version control of database schemas and data on Java applications.
+Source code versioning is a subject that has been widely discussed and which has many solutions created to address it, like [Git](https://git-scm.com/), [Subversion](https://subversion.apache.org/) and [Mercurial](https://www.mercurial-scm.org/). But, what about our data and the schema that represents it? How do they keep in sync with the application that manipulates it? In this article, we are going to learn about Flyway, a solution that helps developers to handle version control of database schemas and data on Java applications.
 
 ## What is Flyway
 
-[Flyway](https://flywaydb.org/) is a tool, developed by Boxfuse, that enables developers to apply version control practices to the database that supports a Java application. With it, we can tightly integrate plain SQL scripts in the lifecycle of an application, guaranteeing that its database will always be compatible without manual intervention.
+[Flyway](https://flywaydb.org/) is a tool, developed by [Boxfuse](https://boxfuse.com/), that enables developers to apply version control practices to the database that supports a Java application. With it, we can tightly integrate plain SQL scripts in the lifecycle of an application, guaranteeing that its database will always be compatible without manual intervention.
 
 ## How Does Flyway Works
 
