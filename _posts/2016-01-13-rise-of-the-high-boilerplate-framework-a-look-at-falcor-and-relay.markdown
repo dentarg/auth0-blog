@@ -257,7 +257,11 @@ It would also be interesting to see how the companies that created Falcor and Re
 
 Auth0 simplifies common authentication needs like social login, multi-factor authentication, and single sign-on. You can [sign up for an account](javascript:signup\(\)) and get 7,000 regular active users for free.
 
-To add Authentication to Falcor, simply install and setup **express-jwt** and **jwks-rsa** with your Auth0 credentials and add the middleware to your route.
+To add Authentication to Falcor, simply install and setup **express-jwt** and **jwks-rsa** with your Auth0 credentials and add the middleware to your route. Also set up an API like so:
+
+1. Under your account name in the upper right corner of your [**Auth0 Dashboard**](https://manage.auth0.com/#/), choose **Account Settings** from the dropdown, then select the [**Advanced**](https://manage.auth0.com/#/account/advanced) tab. Scroll down to the **Settings** section and turn on the toggle for **Enable APIs Section**. Now you will have a link to manage [APIs](https://manage.auth0.com/#/apis) in your dashboard left sidebar navigation.
+2. Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:3001/api/`. The **Signing Algorithm** should be `RS256`.
+3. You can consult the Node.js example under the **Quick Start** tab in your new API's settings.
 
 ```js
 // server.js
