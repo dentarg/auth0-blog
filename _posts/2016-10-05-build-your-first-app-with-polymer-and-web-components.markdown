@@ -80,7 +80,7 @@ Install the Polymer CLI:
 npm install -g polymer-CLI
 ```
 
-We also need to have a sample Node API running. Clone the [NodeJS JWT Authentication sample repo](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) and follow the instructions in the README to get it up and running on [http://localhost:3002](http://localhost:3002).
+We also need to have a sample Node API running. Clone the [NodeJS JWT Authentication sample repo](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) and follow the instructions in the README to get it up and running on [http://localhost:3001](http://localhost:3001).
 
 ### Initializing a Polymer App
 
@@ -331,7 +331,7 @@ Now we can take advantage of these elements.
 
 ### Calling an API with iron-ajax
 
-> Make sure you have the [Chuck Norris Node API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) cloned and running so that the API is accessible on [http://localhost:3002](http://localhost:3002).
+> Make sure you have the [Chuck Norris Node API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) cloned and running so that the API is accessible on [http://localhost:3001](http://localhost:3001).
 
 We're going to call the API using HTML. The only JavaScript we need to write in this element will be a simple handler to re-send the Ajax request when a button is clicked. Pretty cool, huh?
 
@@ -342,7 +342,7 @@ After the closing `</style>` tag (we'll come back to styling shortly), add the f
 <iron-ajax
 	id="getQuoteAjax"
 	auto 
-	url="http://localhost:3002/api/random-quote"
+	url="http://localhost:3001/api/random-quote"
 	method="get"
 	handle-as="text"
 	last-response="{{quote}}"></iron-ajax>
@@ -573,12 +573,12 @@ _setReqBody: function() {
 	this.$.registerLoginAjax.body = this.formData;
 },
 postLogin: function() {
-	this.$.registerLoginAjax.url = 'http://localhost:3002/sessions/create';
+	this.$.registerLoginAjax.url = 'http://localhost:3001/sessions/create';
 	this._setReqBody();
 	this.$.registerLoginAjax.generateRequest();
 },
 postRegister: function() {
-	this.$.registerLoginAjax.url = 'http://localhost:3002/users';
+	this.$.registerLoginAjax.url = 'http://localhost:3001/users';
 	this._setReqBody();
 	this.$.registerLoginAjax.generateRequest();
 }
@@ -999,7 +999,7 @@ Next add `iron-ajax`:
 <iron-ajax 
 	id="getSecretQuoteAjax"
 	method="get"
-	url="http://localhost:3002/api/protected/random-quote"
+	url="http://localhost:3001/api/protected/random-quote"
 	handle-as="text"
 	last-response="{{secretQuote}}"></iron-ajax>
 {% endraw %}
