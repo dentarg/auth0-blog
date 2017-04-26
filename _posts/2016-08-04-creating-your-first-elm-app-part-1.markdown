@@ -440,7 +440,7 @@ When this step is done, our application should look like this:
 
 ![elm quote](https://cdn.auth0.com/blog/elm-auth/step2.jpg)
 
-Clicking the button will call the API to get and display random Chuck Norris quotes. Make sure you have [the API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) running at [http://localhost:3001](http://localhost:3001) so it's accessible to our app.
+Clicking the button will call the API to get and display random Chuck Norris quotes. Make sure you have [the API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) running at [http://localhost:3002](http://localhost:3002) so it's accessible to our app.
 
 Once we're successfully getting quotes, our source code will look like this: 
 
@@ -477,7 +477,7 @@ Now instead of `Cmd.none` we have a command called `fetchRandomQuoteCmd`. A [com
 
 api : String
 api =
-    "http://localhost:3001/"
+    "http://localhost:3002/"
 
 
 randomQuoteUrl : String
@@ -571,4 +571,4 @@ Elm always infers types. If we've declared type definitions, Elm checks its infe
 
 ## Recap and Next Steps
 
-We've covered installing and using the Elm language and learned how to create our first app. We've also integrated with an external API through HTTP. You should now be familiar with Elm's basic syntax, type annotation, and compiler errors. If you'd like, take a little more time to familiarize with [Elm's documentation](http://elm-lang.org/docs). The [Elm FAQ](http://elm-community.github.io/elm-faq/) is another great resource from the Elm developer community. In the second half of this tutorial: [Creating your First Elm App - Part 2](https://auth0.com/blog/creating-your-first-elm-app-part-2/), we'll take a deeper dive into **authenticating our Chuck Norris Quoter app using JSON Web Tokens**.
+We've covered installing and using the Elm language and learned how to create our first app. We've also integrated with an external API through HTTP. You should now be familiar with Elm's basic syntax, type annotation, and compiler errors. If you'd like, take a little more time to familiarize with [Elm's documentation](http://elm-lang.org/docs). The [Elm FAQ](http://elm-community.github.io/elm-faq/) is another great resource from the Elm developer community. In the second half of this tutorial: [Creating your First Elm App - Part 2](https://auth0.com/blog/creating-your-first-elm-app-part-2/), we'll take a deeper dive into **authenticating our Chuck Norris Quoter app using an access token**.

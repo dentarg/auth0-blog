@@ -39,7 +39,7 @@ Now we'll continue to build out our Chuck Norris Quoter app to add user registra
 
 ### Registering a User
 
-Last time, we finished up by retrieving Chuck Norris quotes from the API. We also need registration so users can be issued [JSON Web Tokens](https://auth0.com/learn/json-web-tokens) with which to access protected quotes. We'll create a form that submits a `POST` request to the API to create a new user and return a token.
+Last time, we finished up by retrieving Chuck Norris quotes from the API. We also need registration so users can be issued [access tokens](https://auth0.com/docs/tokens/access-token) with which to access protected quotes. We'll create a form that submits a `POST` request to the API to create a new user and return an access token.
 
 ![elm quote](https://cdn.auth0.com/blog/elm-auth/step3a.jpg)
 
@@ -184,23 +184,24 @@ In the `getTokenCompleted` function's `Ok` case, we've authenticated the user no
 We'll also define the `tokenDecoder` function that ensures we can work with the response from the HTTP request:
 
 ```elm   
--- Decode POST response to get token
+-- Decode POST response to get access token
 
 
 tokenDecoder : Decoder String
 tokenDecoder =
-    Decode.field "id_token" Decode.string
+    Decode.field "access_token" Decode.string
 ``` 
 
 When registering or logging in a user, the response from the API is JSON shaped like this:
 
 ```elm
 {
+    "access_token": "someJWTTokenString",
     "id_token": "someJWTTokenString"
 }
 ```
 
-We'll decode the `id_token` to extract its contents as a string that will be returned on success.
+[ID tokens should only be used on the client side](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). We'll decode the `access_token` to extract its contents as a string that will be returned on success. The [access token](https://auth0.com/docs/tokens/access-token) is the one that we need in order to make authorized API requests.
 
 We want to display authentication errors to the user. Unlike the error case we implemented earlier, `getTokenCompleted`'s `Err` won't discard its argument. The type of the `error` argument is `Http.Error`. This is a union type that could be a few different errors. For the sake of simplicity, we're going to convert the error to a string and update the model's `errorMsg` with that string.
 
