@@ -527,7 +527,7 @@ export class Signup {
 ```
 The `signup()` method uses `aurelia-auth` to send a POST request to the API, which either creates a new user or returns an error if there was a problem. During the process of creating a new user, if successful, both `id_token` and `access_token` are returned. The `aurelia-auth` plugin automatically stores the `id_token` in localStorage, while we manually store the `access_token` returned.
 
-**Note:** The `aurelia-auth` plugin automaticaly stores just one token, thus the reason why we are storing the `access_token` manually.
+**Note:** The `aurelia-auth` plugin automatically stores just one token, thus the reason why we are storing the `access_token` manually.
 
 ### Login
 
