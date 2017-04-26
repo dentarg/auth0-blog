@@ -43,7 +43,7 @@ You can jump straight into each concept here, or continue reading to learn about
 * <a href="#web-components" target="_self">Web Components</a>
 * <a href="#smart-dumb-components" target="_self">Smart and Dumb Components</a>
 * <a href="#jit" target="_jit">JIT (Just-In-Time) Compilation</a>
-* <a href="#aot" target="_self">AoT (Ahead-of-Time) Compilation</a>
+* <a href="#aot" target="_self">AOT (Ahead-of-Time) Compilation</a>
 * <a href="#tree-shaking" target="_self">Tree Shaking</a>
 
 ---
@@ -487,7 +487,7 @@ The `<template>` defines the element's CSS styling and HTML markup. Then, to tak
 </script>
 ```
 
-When inspected in the browser, our component looks like this:
+This code is available to run at: [Plunker: Web components](http://embed.plnkr.co/6uAQPXbFbjQIIYRqX1cS/). When inspected in the browser, our component looks like this:
 
 ![custom web component in Chrome inspector](https://cdn2.auth0.com/blog/js-glossary-2/screenshot_web-component.jpg)
 
@@ -628,11 +628,11 @@ To learn more about **smart and dumb components**, check out the following resou
 
 ## <span id="jit"></span>JIT (Just-In-Time) Compilation
 
-**Just-in-time (JIT) compilation** is the process of translating code written in a programming language to machine code at runtime (during a program or application's execution). At runtime, certain dynamic information is available, such as type identification. A JIT compiler _monitors_ to detect functions or loops of code that are run multiple times ("warm"). These pieces of code are then compiled. If they're quite commonly executed ("hot"), JIT will optimize them and also store the optimized, compiled code for execution.
+**Just-in-time (JIT) compilation** is the process of translating code written in a programming language to machine code at runtime (during a program or application's execution). At runtime, certain dynamic information is available, such as type identification. A JIT compiler _monitors_ to detect functions or loops of code that are run multiple times—this code is considered "warm". These pieces of code are then compiled. If they're quite commonly executed ("hot"), JIT will optimize them and also store the optimized, compiled code for execution.
 
 When the compiler optimizes hot code, it makes assumptions about its types and shape based on consistency of previous executions. At any iteration, if those assumptions turn out to be inaccurate, the optimized code is discarded.
 
-[Browsers use](https://softwareengineering.stackexchange.com/a/291343) [JIT compilation to run JavaScript](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/). In the modern JavaScript framework landscape, build tools like the [Angular CLI](https://github.com/angular/angular-cli) can use JIT to compile TypeScript and Angular code to JS to machine code in the browser during local development, compiling each file separately. This provides certain advantages, such as no need to rebuild the project when watching for code changes and a faster initial build time.
+[Browsers use](https://softwareengineering.stackexchange.com/a/291343) [JIT compilation to run JavaScript](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/), and in the modern JavaScript framework landscape, build tools like the [Angular CLI](https://github.com/angular/angular-cli) can use JIT to compile TypeScript and Angular code to JS to machine code in the browser during local development, compiling each file separately. This provides certain advantages, such as no need to rebuild the project when watching for code changes and a faster initial build time.
 
 ### JIT Compilation Takeaways
 
@@ -652,13 +652,33 @@ To learn more about **JIT compilation**, check out the following resources:
 
 ---
 
-## <span id="aot"></span>AoT (Ahead-of-Time) Compilation
+## <span id="aot"></span>AOT (Ahead-Of-Time) Compilation
 
-### AoT Compilation Takeaways
+**Ahead-Of-Time (AOT) compilation** is the process of translating code written in a programming language to machine code before execution (as opposed to <a href="#jit" target="_self">at runtime</a>). Doing so reduces runtime overhead and compiles all files together rather than separately.
 
-To learn more about **AoT compilation**, check out the following resources:
+With regard to JavaScript application [AOT, such as that used by Angular](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html), this means inlining HTML and CSS and being able to deploy without the compiler, saving considerable size. The browser can also render the application immediately since it's precompiled.
+
+There are several benefits to AOT for production builds:
+
+* Fewer asynchronous requests: templates and styles are inlined with JS
+* Smaller download size: the compiler doesn't need to be downloaded if the app is already compiled
+* Detect template errors earlier: compiler detects binding errors during build rather than at runtime
+* Better security: evaluation is already done, which lowers chance of injection
+
+AOT in Angular also enables <a href="#tree-shaking" target="_self">tree shaking</a>. In the browser, an app compiled with AOT promotes a shorter total time to load and bootstrap due to being precompiled. Initial rendering time is also reduced because less code needs to be parsed.
+
+However, AOT will have a longer initial build time than JIT and would require a full recompile of the entire app if any changes are made.
+
+### AOT Compilation Takeaways
+
+AOT compilation takes place before runtime and bundles all files together. It enables tree shaking, smaller downloads, and improved security.
+
+To learn more about **AOT compilation**, check out the following resources:
 
 * [Angular: Is AOT Worth It?](https://blog.nrwl.io/angular-is-aot-worth-it-8fa02eaf64d4)
+* [Ahead-of-Time Compilation in Angular](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/)
+* [Ahead-of-Time Comilation](https://en.wikipedia.org/wiki/Ahead-of-time_compilation)
+* [IBM: The ahead-of-time compiler](https://www.ibm.com/support/knowledgecenter/en/SSSTCZ_2.0.0/com.ibm.rt.doc.20/realtime/aot.html)
 
 ---
 
@@ -680,7 +700,7 @@ Tree shaking uses this principle to walk the dependency graph and exclude things
 
 ### Tree Shaking Takeaways
 
-_Tree shaking_ is term for JavaScript live code inclusion in module bundlers that use [ES2015](https://auth0.com/blog/a-rundown-of-es6-features/) static `import` and `export` to "shake out" unneeded dependencies on a more granular level, differing from the dynamic `require` statement used by CommonJS or AMD. The principle of tree shaking has been _popularized_ by the [rollup.js](https://rollupjs.org/) module bundler, but it's not exclusive to rollup Tree shaking is utilized in [Webpack 2](https://webpack.js.org/guides/tree-shaking/) as well. The concept of tree shaking and writing code that promotes it is also prevalent in [Angular with](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking) <a href="#aot" target="_self">AoT compilation</a>. 
+_Tree shaking_ is term for JavaScript live code inclusion in module bundlers that use [ES2015](https://auth0.com/blog/a-rundown-of-es6-features/) static `import` and `export` to "shake out" unneeded dependencies on a more granular level, differing from the dynamic `require` statement used by CommonJS or AMD. The principle of tree shaking has been _popularized_ by the [rollup.js](https://rollupjs.org/) module bundler, but it's not exclusive to rollup Tree shaking is utilized in [Webpack 2](https://webpack.js.org/guides/tree-shaking/) as well. The concept of tree shaking and writing code that promotes it is also prevalent in [Angular with](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking) <a href="#aot" target="_self">AOT compilation</a>. 
 
 To learn more about **tree shaking**, check out the following resources:
 
