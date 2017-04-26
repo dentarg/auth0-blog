@@ -42,7 +42,7 @@ You can jump straight into each concept here, or continue reading to learn about
 * <a href="#change-detection" target="_self">Change Detection in JS Frameworks: Dirty Checking, Accessors, Virtual DOM</a>
 * <a href="#web-components" target="_self">Web Components</a>
 * <a href="#smart-dumb-components" target="_self">Smart and Dumb Components</a>
-* <a href="#jit" target="_jit">JIT (Just-In-Time) Compilation</a>
+* <a href="#jit" target="_self">JIT (Just-In-Time) Compilation</a>
 * <a href="#aot" target="_self">AOT (Ahead-of-Time) Compilation</a>
 * <a href="#tree-shaking" target="_self">Tree Shaking</a>
 
@@ -50,11 +50,11 @@ You can jump straight into each concept here, or continue reading to learn about
 
 ## <span id="scope-closures"></span>Scope (Global, Local, Lexical) and Closures
 
-_"Explain closures"_ is a famous (and occasionally dreaded) JavaScript technical interview question. The truth is that plenty of skilled JS developers have difficulty explaining closures, even if they conceptually _understand_ (and even use) them. Let's back up and talk about the concepts necessary to explain a closure.
+_"Explain closures"_ is an infamous JavaScript technical interview question. The truth is that plenty of skilled JS developers have difficulty _explaining_ closures, even if they conceptually _understand_ (and even use) them. Let's back up and talk about the concepts necessary to explain a closure.
 
 ### Scope
 
-In order to grasp _closures_, we need to understand **scope** first. Scope is simply the context of our code: where variables and functions are accessible.
+In order to grasp _closures_, we need to understand **scope** first. Scope is simply the context of our code: where variables and functions are _accessible_.
 
 The following example demonstrates two scopes, **global scope** and **local scope**:
 
@@ -76,7 +76,7 @@ Everything has access to the **global scope**. If we open an empty `.js` file an
 
 The `someFunction` function creates its own **local scope**. It also inherits access to the global scope. We can freely use `globalVar` _inside_ `someFunction`. However, the global scope does _not_ have access to nested contexts, such as `someFunction`'s local scope. If we try to log `localVar` from the global scope, we will receive an error because `localVar` is not defined in the global scope.
 
-In a nutshell, nested functions have their own scope. Functions declared inside another function also have access to their parent functions' scopes. This is called the **scope chain**.
+In a nutshell, nested functions have their own scope. Functions declared inside another function also have access to their parent functions' scopes. This is called the _scope chain_.
 
 **Lexical scope** (or _static scope_) refers to the fact that every nested function can access the functions that contain it.
 
@@ -108,7 +108,7 @@ function outerFunc() {
 outerFunc(); // logs 3 (1 + 2)
 ```
 
-This code is available to run at this [JSFiddle: JS Scope](https://jsfiddle.net/kmaida/7frrzym4/). `innerFunc` is the innermost function. It is declared inside `middleFunc`, which is in turn declared in `outerFunc`.
+This code is available to run at this [JSFiddle: JS Scope](https://jsfiddle.net/kmaida/7frrzym4/) (open your browser's console to see results). `innerFunc` is the innermost function. It is declared inside `middleFunc`, which is in turn declared in `outerFunc`.
 
 The `innerFunc` function can access variables declared in all of its parent scopes. Its scope chain allows access to:
 
@@ -123,7 +123,7 @@ This only works _down the nested functions, not up_. For instance, the locally s
 
 In the [first part of the Glossary of Modern JavaScript Concepts](https://auth0.com/blog/glossary-of-modern-javascript-concepts/), we learned about _higher-order functions_ and functions as first-class objects. If this doesn't sound familiar, take a moment to review the section on [Higher-order Functions](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#higher-order-functions).
 
-Now let's revisit this higher-order function example from Part 1:
+Now let's revisit the following higher-order function example we saw in Part 1:
 
 ```js
 // Higher-order function
@@ -137,7 +137,7 @@ var atLunchToday = whenMeetingJohn();
 atLunchToday(); // alerts "Hi!"
 ```
 
-This is a function that returns another function. Let's update this example to add an argument (`salutation`) and a `greeting` variable to `whenMeetingJohn`'s local scope. We'll also name the returned function `alertGreeting` so we can refer to it more easily:
+This is a function that returns another function. Let's update this example to add an argument (`salutation`) and a `greeting` variable to `whenMeetingJohn`'s local scope. We'll also name the previously anonymous returned function `alertGreeting` so we can refer to it more easily:
 
 ```js
 // Closures
@@ -157,15 +157,15 @@ whenMeetingJohn('Whassup')(); // alerts "Whassup, John!"
 
 This code is available to run at this [JSFiddle: JS Closures](https://jsfiddle.net/kmaida/c9wuupz8/). 
 
-A **closure** is formed when a function (`alertGreeting`) declared inside an outer function (`whenMeetingJohn`) references variables from the outer function's local scope (such as the `greeting` variable).
+A **closure** is formed when a function (`alertGreeting`) _declared_ inside an outer function (`whenMeetingJohn`) references variables from the outer function's local scope (such as the `greeting` variable).
 
-The term **closure** refers to the function _and_ the lexical environment (any local variables that were in scope when the closure was created) in which that function was declared.
+The term "closure" refers to the function _and_ the lexical environment (any local variables that were in scope when the closure was created) in which that function was declared.
 
 When we execute `atLunchToday()`, we receive an alert with the argument we passed during assignment (`'Hi'` in this case) and the `greeting` variable that was accessible in `alertGreeting`'s lexical environment.
 
 > **Note:** We can also call the _returned_ function (`alertGreeting`) _without_ assigning it. Doing so looks like this: `whenMeetingJohn('Whassup')()`.
 
-Hopefully we can see the value in closures when looking at this simple example. We can greet John with several different salutations and each time we create a closure with access to the particular salutation data in scope at the time of creation.
+Hopefully you can see the value in closures when looking at this simple example. We can greet John with several different salutations. Each time, we create a closure with access to the particular salutation data in scope at the time of creation.
 
 Another common example demonstrating closures uses a simple addition expression:
 
@@ -183,13 +183,15 @@ add1(2); // alerts 3
 add5(2); // alerts 7
 ```
 
-This code can be run at this [JSFiddle: JS Closures - Adder](https://jsfiddle.net/kmaida/qfvyofcs/). Both `add1` and `add5` are closures with different lexical environments storing different values for the `x` argument.
+This code can be run at this [JSFiddle: JS Closures - Adder](https://jsfiddle.net/kmaida/qfvyofcs/).
+
+Both `add1` and `add5` are closures with different lexical environments storing different values for the `x` argument.
 
 ### Scope and Closures Takeaways
 
 Scope is something that many JS developers learn early on, but may not have had to _explain_ in words or with specific examples. Understanding scope is vital to writing good JavaScript.
 
-> **Note:** There is more to scope than we covered here. There are some great resources available to aid in achieving greater understanding, especially with regard to the [`this` keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this). See below for more links.
+> **Note:** There is more to scope than we covered here. There are some great resources available to achieve greater understanding, especially with regard to the [`this` keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this). See below for more links.
 
 Closures associate data with a function utilizing the lexical environment the function was declared in.
 
@@ -245,9 +247,11 @@ class OneWay extends React.Component {
 }
 ```
 
-This code is available to run at [JSFiddle: React One-way Data Flow](https://jsfiddle.net/kmaida/045znrsf/). We can see that the `state` object model is established in the `constructor` function. The initial value of `this.state.text` is an empty string. In our `render()` function, we add an `onChange` handler to our `<input>` element. We use this handler to `setState()`, signalling the `state` object model to update the `text` property with the new value of the input field.
+This code is available to run at [JSFiddle: React One-way Data Flow](https://jsfiddle.net/kmaida/045znrsf/).
 
-Data is _only flowing in one direction_: from the model down. The UI input does _not_ have direct access to the model. If we want to update state in response to changes from the UI, the input must send a message carrying the payload. The only way the UI can influence the model is through this event and the [`setState()` method](https://facebook.github.io/react/docs/react-component.html#setstate). The UI will never [automagically](https://en.wiktionary.org/wiki/automagical) update the model.
+We can see that the `state` object model is established in the `constructor` function. The initial value of `this.state.text` is an empty string. In our `render()` function, we add an `onChange` handler to our `<input>` element. We use this handler to `setState()`, signalling the `state` object model to update the `text` property with the new value of the input field.
+
+Data is _only flowing in one direction_: from the model down. The UI input does _not_ have direct access to the model. If we want to update state in response to changes from the UI, the input must send a message carrying the payload. The only way the UI can influence the model is through this event and the [`setState()` method](https://facebook.github.io/react/docs/react-component.html#setstate). The UI will never [_automagically_](https://en.wiktionary.org/wiki/automagical) update the model.
 
 > **Note:** In order to reflect changes from the model _to_ the UI, React creates a new virtual DOM and diffs the old virtual DOM with the updated virtual DOM. Only the _changes_ are then rendered in the real DOM. We'll talk more about this in the section on <a href="#change-detection" target="_self">change detection</a>.
 
@@ -295,13 +299,13 @@ In our controller, we set up the `$scope.text` model. In our template, we associ
 
 > **Note:** Using `$watch()` in a controller is debateable practice. We've done it here for _example purposes_. In your own AngularJS apps, take into consideration that there are alternatives to using `$watch()` in controllers (such as events), and if you do use `$watch()`, always [deregister your watches `$onDestroy`](https://www.bennadel.com/blog/2480-unbinding-watch-listeners-in-angularjs.htm). 
 
-This is two-way binding in AngularJS. As you can see, we didn't set up any events or handlers to explicitly signal the controller that the model was updated in the UI. The `text` data binding in the template automatically uses a [watcher](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef) to display changes to the model. We can also `$watch()` the model. Watching should be done in services or directive `link` functions, not in controllers
+This is two-way binding in AngularJS. As you can see, we didn't set up any events or handlers to explicitly signal the controller that the model was updated in the UI. The `text` data binding in the template automatically uses a [watcher](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef) to display changes to the model. We can also `$watch()` the model. Watching should generally be done in services or directive `link` functions, not in controllers.
 
 > **Note:** AngularJS uses what's called the [digest cycle](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) (dirty checking) to compare a value with the previous value. You can read more about dirty checking in AngularJS in the section on <a href="#change-detection" target="_self">change detection</a>.
 
 ### Aside: Two-way Data Binding in Angular
 
-But wait! [Angular](https://angular.io) has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. [Angular's two-way binding `[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding in a template, and the [`ngModel` directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) supplies an `ngModelChange` event for you. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
+But wait! [Angular](https://angular.io) (v2+) has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. [Angular's two-way binding `[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding in a template, and the [`ngModel` directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) supplies an `ngModelChange` event for you. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
 
 The following are functionally equivalent and demonstrate the `ngModel` directive:
 
@@ -323,9 +327,9 @@ The [Angular docs on two-way binding](https://angular.io/docs/ts/latest/guide/te
 
 Many modern JavaScript frameworks and libraries utilize unidirectional data flow ([React](https://facebook.github.io/react/), [Angular](https://angular.io), [Inferno](http://infernojs.org/), [Redux](http://redux.js.org/), etc.). Why? One-way data flow encourages clean architecture with regard to how data moves through an application. Application state is also easier to manage, updates are more predictable, and performance can be better as well.
 
-Although automagical two-way data binding was one of [AngularJS](https://angularjs.org/)'s most popular demos back in 2009, [Angular](https://angular.io) has left it behind. Some Angular developers lamented this initially, but ultimately, many found that performance gains and greater control outweighed automagic.
+Although automagical two-way data binding was one of [AngularJS](https://angularjs.org/)'s most popular demos back in 2009, [Angular](https://angular.io) has left it behind. Some Angular developers lamented this at first, but ultimately, many found that performance gains and greater control outweighed automagic.
 
-As we saw in the React example above, it's important to remember that one-way data flow does _not_ mean that it's difficult to update the store from the UI. It only means that such updates are done deliberately with specific instruction. It's less magical, but much more manageable.
+As we saw in the React example above, it's important to remember that one-way data flow does _not_ mean that it's difficult to update the store from the UI. It only means that such updates are done deliberately, with specific instruction. It's less magical, but much more _manageable_.
 
 > **Note:** Generally when developers mention "implementing two-way data binding" in frameworks with one-way data flow (such as React), they are referring to the steps necessary to have UI changes notify the state that it should be updated. They are not looking for a way to implement _automagical_ two-way binding.
 
@@ -343,23 +347,23 @@ To learn more about **one-way data flow and two-way data binding**, check out th
 
 ## <span id="change-detection"></span>Change Detection in JS Frameworks: Dirty Checking, Accessors, Virtual DOM
 
-Change detection is an important for any dynamic JavaScript Single Page Application (SPA). When the user updates something, the app must have a way to detect and react to that change appropriately. Some kind of change detection is therefore vital to SPA frameworks.
+Change detection is important for any dynamic JavaScript Single Page Application (SPA). When the user updates something, the app must have a way to detect and react to that change appropriately. Some kind of change detection is therefore vital to SPA frameworks.
 
 At a fairly high level, let's explore a few methods of change detection used in popular JavaScript frameworks today.
 
 ### Dirty Checking
 
-Although [Angular](https://angular.io) was released, [AngularJS](https://angularjs.org) still accounts for multitudes of apps that are in production or development right now. AngularJS uses what's known as the [_digest cycle_](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is _dirty checking_. What does this mean?
+Although [Angular](https://angular.io) was released, [AngularJS](https://angularjs.org) still accounts for multitudes of apps in production or development right now. AngularJS uses what's known as the [digest cycle](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) to detect changes in an application. Under the hood, the digest cycle is _dirty checking_. What does this mean?
 
 **Dirty checking** refers to a deep comparison that is run on all models in the view to check for a changed value. AngularJS's digest cycle adds a _watcher_ for every property we add to the `$scope` and bind in the UI. Another watcher is added when we want to watch values for changes using `$scope.$watch()`.
 
-> <em>"AngularJS remembers the value and compares it to a previous value. This is basic dirty-checking. If there is a change in value, then it fires the change event."</em> —[Miško Hevery](https://twitter.com/mhevery), creator of Angular
+> <em>"AngularJS remembers the value and compares it to a previous value. This is basic dirty-checking. If there is a change in value, then it fires the change event."</em> —[Miško Hevery](https://twitter.com/mhevery), creator of AngularJS and Angular
 
-The digest cycle is a _loop_. AngularJS runs through its list of watchers and checks to see if any of the watched`$scope` variables have changed (aka, are "dirty"). If a variable has not changed, it moves on to the next watched variable. If it finds one that is dirty, it remembers its new value and _re-enters the loop_. When no changes are detected in the entire watch list, the DOM is updated.
+The digest cycle is a _loop_. AngularJS runs through its list of watchers and checks to see if any of the watched `$scope` variables have changed (aka, are "dirty"). If a variable has not changed, it moves on to the next watched variable. If it finds one that is dirty, it remembers its new value and _re-enters the loop_. When no new changes are detected in the entire watch list, the DOM is updated.
 
 The major advantages of dirty checking are that it's simple and predictable: there is no extending of objects and there are no APIs involved. However, it's also inefficient. Whenever _anything_ changes, the the digest cycle is triggered. Therefore, it's important that care is taken when creating watchers in AngularJS. Every time a `$scope` property is bound to the UI, a watcher is added. Every time a `$watch()` is implemented, another watcher is added. Many directives also add watchers, and so do scope variables, filters, and repeaters.
 
-Though dirty checking can still be fast in a simple app, we can easily see how this can get out of hand in a complex implementation. This has led to articles such as [11 Tips to Improve AngularJS Performance: 1. Minimize/Avoid Watchers](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) and [Speeding up AngularJS's $digest loop](https://coderwall.com/p/d_aisq/speeding-up-angularjs-s-digest-loop).
+Though dirty checking is sufficiently fast in a _simple_ app, we can easily see how this can get out of hand in a complex implementation. This has led to articles such as [11 Tips to Improve AngularJS Performance: 1. Minimize/Avoid Watchers](https://www.alexkras.com/11-tips-to-improve-angularjs-performance/#watchers) and [Speeding up AngularJS's $digest loop](https://coderwall.com/p/d_aisq/speeding-up-angularjs-s-digest-loop).
 
 > **Note:** Angular (v2+) [no longer](https://gofore.com/en/angular-2-change-detection-part-2/) [uses](https://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html) [dirty checking](https://vsavkin.com/change-detection-in-angular-2-4f216b855d4c).
 
@@ -369,13 +373,13 @@ Though dirty checking can still be fast in a simple app, we can easily see how t
 
 > **Note:** In Backbone, this is done with [Backbone models](http://backbonejs.org/#Model) with [`get()`](http://backbonejs.org/#Model-get) and [`set()`](http://backbonejs.org/#Model-set) methods.
 
-This method is straightforward and enforces that the application author be very deliberate regarding their data bindings. However, on the flipside of the same coin, it can occasionally lead to confusion _because_ `Ember.Object`s are only used when data binding. This mixed data update approach can result in the developer scratching their head when things aren't updating because of a forgotten setter or getter.
+This method is straightforward and enforces that the application author be very deliberate regarding their data bindings. However, on the flipside of the same coin, it can occasionally lead to confusion because `Ember.Object`s are _only_ used when data binding to templates. If there is no UI data binding, updates do not use `Ember.Object`s. This mixed approach can result in the developer scratching their head when things aren't updating because of a forgotten setter or getter.
 
 ### Virtual DOM
 
-**Virtual DOM** is used by [React](https://facebook.github.io/react/) (and [Inferno.js](https://infernojs.org)) to implement change detection. React doesn't specifically detect each change. Instead, [the _virtual_ DOM](https://medium.com/@rajikaimal/react-js-internals-virtual-dom-d054347b7f00) is used to _diff_ the previous state of the UI and the new state when a change occurs. React is notified of such changes by the use of [`setState()`](https://facebook.github.io/react/docs/react-component.html#setstate), which triggers the [`render()`](https://facebook.github.io/react/docs/react-component.html#render) method to perform the diff.
+**Virtual DOM** is used by [React](https://facebook.github.io/react/) (and [Inferno.js](https://infernojs.org)) to implement change detection. React doesn't specifically detect each change. Instead, [the _virtual_ DOM](https://medium.com/@rajikaimal/react-js-internals-virtual-dom-d054347b7f00) is used to _diff_ the previous state of the UI and the new state when a change occurs. React is notified of such changes by the use of the [`setState()`](https://facebook.github.io/react/docs/react-component.html#setstate) method, which triggers the [`render()`](https://facebook.github.io/react/docs/react-component.html#render) method to perform a diff.
 
-Virtual DOM (occasionally known as V-DOM) is a JavaScript data model that _represents_ the real DOM tree. When a virtual DOM is generated, nothing is rendered to the browser. The [old model is compared to the new model](https://facebook.github.io/react/docs/reconciliation.html) and once React determines which parts of the virtual DOM have changed, only those parts are patched in the real DOM.
+Virtual DOM (occasionally known as V-DOM) is a JavaScript data model that _represents_ the real DOM tree. When a virtual DOM is generated, nothing is rendered to the browser. The [old model is compared to the new model](https://facebook.github.io/react/docs/reconciliation.html) and once React determines which parts of the virtual DOM have changed, only those parts are patched in the _real_ DOM.
 
 ### Change Detection Takeaways
 
@@ -421,7 +425,7 @@ Let's say we want to create a simple web component (`my-component`) that shows s
 <html>
   <head>
     ...
-    <script src="./bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents.min.js"></script>
     <link rel="import" href="my-web-cmpnt.html">
   </head>
   <body>
@@ -533,7 +537,7 @@ Also known as _presentational_ components, **dumb components** rely on _inputs_ 
 
 [Dan Abramov](https://github.com/gaearon), the co-author of [Redux](http://redux.js.org/), [Create React App](https://github.com/facebookincubator/create-react-app), [React Hot Loader](https://github.com/gaearon/react-hot-loader), and more, originally wrote about [presentational and container components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) and their meaning in [React](https://facebook.github.io/react/), particularly when used with state management like Flux or Redux. In a nutshell, the concepts can be summarized as follows:
 
-**Presentational (aka Dumb) Components:**
+#### Presentational (aka Dumb) Components:
 
 * Focus on "_How things look_"
 * Allow containment with `this.props.children`
@@ -541,7 +545,7 @@ Also known as _presentational_ components, **dumb components** rely on _inputs_ 
 * Only receive data; do not load or mutate it
 * Are generally [functional](https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#stateless-functional-components) (with exceptions)
 
-**Container (aka Smart) Components:**
+#### Container (aka Smart) Components:
 
 * Focus on "_How things work_"
 * Provide data and behavior to other components
@@ -561,7 +565,8 @@ Let's say we want a madlib-style feature where we [apologize for lashing out](ht
 
 The smart (container) component looks like this:
 
-```js
+{% highlight js %}
+{% raw %}
 // app/smart.component.ts
 import { Component } from '@angular/core';
 import { DumbComponent } from './dumb.component';
@@ -584,11 +589,13 @@ export class SmartComponent {
     this.selectedOption = e;
   }
 }
-```
+{% endraw %}
+{% endhighlight %}
 
 This component manages all of the data necessary for this feature. It provides the options for the madlib (`optionsArr`) and then handles when the user chooses an option (`onOptionChange()`). It stores the `selectedOption`, passes the possible options into the dumb component, and sets the selected option when the dumb component emits a `changedOption` event.
 
-```js
+{% highlight js %}
+{% raw %}
 // app/dumb.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
@@ -608,7 +615,8 @@ export class DumbComponent {
     this.changedOption.emit(option);
   }
 }
-```
+{% endraw %}
+{% endhighlight %}
 
 In turn, the dumb component accepts the options array as input and iterates over each item to create the buttons to select an option. When an option is clicked, the `changedOption` event is emitted with the selected option as its payload. The parent smart component then handles this event and sets its `selectedOption` for display in the UI.
 
@@ -636,11 +644,11 @@ To learn more about **smart and dumb components**, check out the following resou
 
 When the compiler optimizes hot code, it makes assumptions about its types and shape based on consistency of previous executions. At any iteration, if those assumptions turn out to be inaccurate, the optimized code is discarded.
 
-[Browsers use](https://softwareengineering.stackexchange.com/a/291343) [JIT compilation to run JavaScript](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/), and in the modern JavaScript framework landscape, build tools like the [Angular CLI](https://github.com/angular/angular-cli) can use JIT to compile TypeScript and Angular code to JS to machine code in the browser during local development, compiling each file separately. This provides certain advantages, such as no need to rebuild the project when watching for code changes and a faster initial build time.
+[Browsers use](https://softwareengineering.stackexchange.com/a/291343) [JIT compilation to run JavaScript](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/). In the modern JavaScript framework landscape, compilers in frameworks like Angular can use JIT to compile TypeScript and Angular code to JS to machine code at runtime during local development, compiling each file separately. This provides certain advantages, such as no need to rebuild the project when watching for code changes and a faster initial build time.
 
 ### JIT Compilation Takeaways
 
-JIT compilation is used by browsers to compile JavaScript at runtime, and by tools like the Angular CLI to provide a fast local development experience.
+JIT compilation is used by browsers to compile JavaScript at runtime, and by frameworks like Angular to provide a fast local development experience.
 
 To learn more about **JIT compilation**, check out the following resources:
 
@@ -669,13 +677,13 @@ There are several benefits to AOT for production builds:
 * Detect template errors earlier: compiler detects binding errors during build rather than at runtime
 * Better security: evaluation is already done, which lowers chance of injection
 
-AOT in Angular also enables <a href="#tree-shaking" target="_self">tree shaking</a>. In the browser, an app compiled with AOT promotes a shorter total time to load and bootstrap due to being precompiled. Initial rendering time is also reduced because less code needs to be parsed.
+AOT also enables <a href="#tree-shaking" target="_self">tree shaking</a>. In the browser, an app compiled with AOT promotes a shorter total time to load and bootstrap due to being precompiled. Initial rendering time is also reduced because less code needs to be parsed.
 
 However, AOT will have a longer initial build time than JIT and would require a full recompile of the entire app if any changes are made.
 
 ### AOT Compilation Takeaways
 
-AOT compilation takes place before runtime and bundles all files together. It enables tree shaking, smaller downloads, and improved security.
+AOT compilation takes place before runtime and bundles all files together. It enables tree shaking, smaller downloads, and improved security compared to JIT.
 
 To learn more about **AOT compilation**, check out the following resources:
 
@@ -692,7 +700,7 @@ To learn more about **AOT compilation**, check out the following resources:
 
 In a more literal analogy, consider a living tree. The tree is shaken and this causes the dead leaves to fall off, leaving behind the leaves the tree is actively using for photosynthesis. The concept behind tree shaking is _live code inclusion_: we include the parts that are needed to begin with, as opposed to removing the parts that are unneeded at the end (_dead code elimination_).
 
-Tree shaking relies on ES2015 module [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). The `import` and `export` statements are compose an app's [static module structure](http://exploringjs.com/es6/ch_modules.html#static-module-structure). When the modules are bundled for deployment, the tree shaker analyzes the static module structure so that unused exports can be excluded, reducing the size of the final bundle.
+Tree shaking relies on ES2015 module [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export). The `import` and `export` statements compose an app's [static module structure](http://exploringjs.com/es6/ch_modules.html#static-module-structure). When the modules are bundled for deployment, the tree shaker analyzes the static module structure so that unused exports can be excluded, reducing the size of the final bundle.
 
 ES2015 enables us to specify explicit imports. For example, rather than importing the entire RxJS library, we can only import exactly what we want:
 
@@ -700,11 +708,13 @@ ES2015 enables us to specify explicit imports. For example, rather than importin
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 ```
 
-Tree shaking uses this principle to walk the dependency graph and exclude things that aren't needed in order to reduce the size of deployment bundles.
+This differs from the dynamic `require` statement used by CommonJS or AMD. Tree shaking uses this principle to walk the dependency graph and exclude things that aren't needed in order to reduce the size of deployment bundles.
+
+The principle of tree shaking is not new, but it has recently been _popularized_ by the [rollup.js](https://rollupjs.org/) module bundler. Tree shaking is utilized in [Webpack 2](https://webpack.js.org/guides/tree-shaking/) as well. The concept of tree shaking and writing code that promotes it is also prevalent in [Angular with](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking) <a href="#aot" target="_self">AOT compilation</a>.
 
 ### Tree Shaking Takeaways
 
-_Tree shaking_ is term for JavaScript live code inclusion in module bundlers that use [ES2015](https://auth0.com/blog/a-rundown-of-es6-features/) static `import` and `export` to "shake out" unneeded dependencies on a more granular level, differing from the dynamic `require` statement used by CommonJS or AMD. The principle of tree shaking has been _popularized_ by the [rollup.js](https://rollupjs.org/) module bundler, but it's not exclusive to rollup Tree shaking is utilized in [Webpack 2](https://webpack.js.org/guides/tree-shaking/) as well. The concept of tree shaking and writing code that promotes it is also prevalent in [Angular with](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html#!#tree-shaking) <a href="#aot" target="_self">AOT compilation</a>. 
+_Tree shaking_ is term for JavaScript live code inclusion in module bundlers that use [ES2015](https://auth0.com/blog/a-rundown-of-es6-features/) static `import` and `export` to "shake out" unneeded dependencies on a more granular level.  
 
 To learn more about **tree shaking**, check out the following resources:
 
