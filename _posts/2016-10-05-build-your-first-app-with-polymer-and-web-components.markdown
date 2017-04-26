@@ -86,13 +86,13 @@ We also need to have a sample Node API running. Clone the [NodeJS JWT Authentica
 
 Create a new directory and navigate to it in the terminal or command prompt. Use the following command to initialize the Polymer starter kit in your new folder:
 
-```
+```bash
 polymer init starter-kit
 ```
 
 This command installs the starter kit app and necessary Bower components. Once the command completes, we can view the app in the browser by running:
 
-```
+```bash
 polymer serve
 ```
 
@@ -612,7 +612,8 @@ handleUserResponse: function(event) {
 		this.error = '';
 		this.storedUser = {
 			name: this.formData.username,
-			token: response.id_token,
+			id_token: response.id_token,
+			access_token: response.access_token,
 			loggedin: true
 		};
 	}
@@ -625,7 +626,7 @@ handleUserError: function(event) {
 }
 ```
 
-We're adding two more properties: `storedUser` (object) to store name, token, and state of an authenticated user, and `error` (string) to display when the API returns a failure. Later we'll add `storedUser` to local storage and access it in other areas of the app. We can use shorthand `property: [Type]` because we don't need any additional options set.
+We're adding two more properties: `storedUser` (an object to store name, id token, access token, and state of an authenticated user), and `error` (a string to display when the API returns a failure). Later we'll add `storedUser` to local storage and access it in other areas of the app. We can use shorthand `property: [Type]` because we don't need any additional options set.
 
 Next we'll handle a successful API response: `handleUserResponse()`. Recall that we're handling all responses as text, so we need to parse the JSON. If a token is present we'll clear any errors from previous failures, define the `storedUser` object and its properties, and reset `formData` to an empty object.
 
@@ -1046,13 +1047,13 @@ Polymer({
 	},
 	getSecretQuote: function() {
 		// add token authorization and generate Ajax request
-		this.$.getSecretQuoteAjax.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
+		this.$.getSecretQuoteAjax.headers['Authorization'] = 'Bearer ' + this.storedUser.access_token;
 		this.$.getSecretQuoteAjax.generateRequest();
 	}
 });
 ```
 
-`getSecretQuote()` is executed when the user clicks the button to fetch a new quote from the API. We'll use the `generateRequest()` method and provide an `Authorization` header with the user's token.
+`getSecretQuote()` is executed when the user clicks the button to fetch a new quote from the API. We'll use the `generateRequest()` method and provide an `Authorization` header with the user's access token.
 
 Authenticated users can now get secret quotes!
 
