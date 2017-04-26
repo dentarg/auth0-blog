@@ -276,7 +276,8 @@ Let's implement the same example from above, but with AngularJS two-way data bin
 }());
 ```
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- AngularJS two-way data binding -->
 <!-- index.html -->
 <body ng-app="myApp">
@@ -285,7 +286,8 @@ Let's implement the same example from above, but with AngularJS two-way data bin
     <p>Text: {{text}}</p>
   </div>
 </body>
-```
+{% endraw %}
+{% endhighlight %}
 
 This code is available to run at [Plunker: AngularJS two-way binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview). 
 
@@ -303,7 +305,8 @@ But wait! [Angular](https://angular.io) has the "banana-in-a-box" `[(ngModel)]`,
 
 The following are functionally equivalent and demonstrate the `ngModel` directive:
 
-```js
+{% highlight js %}
+{% raw %}
 // ngModel directive: two-way binding syntax
 <input [(ngModel)]="text" />
 <p>{{text}}</p>
@@ -311,7 +314,8 @@ The following are functionally equivalent and demonstrate the `ngModel` directiv
 // ngModel property and event binding
 <input [ngModel]="text" (ngModelChange)="text=$event" />
 <p>{{text}}</p>
-```
+{% endraw %}
+{% endhighlight %}
 
 The [Angular docs on two-way binding](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) cover this syntax thoroughly.
 
@@ -411,7 +415,8 @@ Web components consist of a set of [web platform APIs](https://www.w3.org/standa
 
 Let's say we want to create a simple web component (`my-component`) that shows some static text. We'd like to use HTML attributes to have the component change its text color and log something to the console. To display the `<my-component>` custom element in our website or app, we might import and use it like so:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- index.html -->
 <html>
   <head>
@@ -422,11 +427,13 @@ Let's say we want to create a simple web component (`my-component`) that shows s
   <body>
     <my-web-cmpnt color="red" log="Hello"></my-web-cmpnt>
     ...
-```
+{% endraw %}
+{% endhighlight %}
 
-To create the `my-component` web component utilizing shadow DOM, our `my-component.html`'s `<template>` might look something like this:
+To create the `my-component` web component utilizing shadow DOM, our `my-component.html` might look something like this:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- my-component.html -->
 <template>
   <style>
@@ -440,16 +447,8 @@ To create the `my-component` web component utilizing shadow DOM, our `my-compone
     <p>This is a custom element!</p>
   </div>
 </template>
-```
-
-The `<template>` defines the element's CSS styling and HTML markup. Then, to take advantage of shadow DOM and JS functionality, we would add a `<script>` tag to our `my-component.html` file after the closing `</template>` tag. For example:
-
-```js
-<template>...</template>
 
 <script>
-  // my-component.html <script> tag
-  // (separated code block for syntax highlighting)
   (function(window, document, undefined) {
     var doc = document;
     // my-component document
@@ -485,11 +484,16 @@ The `<template>` defines the element's CSS styling and HTML markup. Then, to tak
     window.customElements.define('my-component', MyComponent);
   }(window, document));
 </script>
-```
+{% endraw %}
+{% endhighlight %}
 
-This code is available to run at: [Plunker: Web components](http://embed.plnkr.co/6uAQPXbFbjQIIYRqX1cS/). When inspected in the browser, our component looks like this:
+This code is available to run at [Plunker: Web components](http://embed.plnkr.co/6uAQPXbFbjQIIYRqX1cS/).
 
-![custom web component in Chrome inspector](https://cdn2.auth0.com/blog/js-glossary-2/screenshot_web-component.jpg)
+The `<template>` defines the element's CSS styling and HTML markup. Then, to take advantage of shadow DOM and JS functionality, we add a `<script>` tag to our `my-component.html` file after the closing `</template>` tag and implement our desired custom element JS functionality to get the element's attributes and use them to change the text color and log our message.
+
+When inspected with Chrome devtools, our component looks like this:
+
+<a href="(https://cdn2.auth0.com/blog/js-glossary-2/screenshot_web-component.jpg)">![modern js glossary: custom web component in Chrome inspector](https://cdn2.auth0.com/blog/js-glossary-2/screenshot_web-component.jpg)</a>
 
 For a much more indepth tutorial, check out [Web Components: How To Craft Your Own Custom Components](https://auth0.com/blog/web-components-how-to-craft-your-own-custom-components/).
 
@@ -553,7 +557,7 @@ For a quick example that doesn't involve a state container, let's look at some s
 
 Let's say we want a madlib-style feature where we [apologize for lashing out](https://www.threadless.com/product/7719/im_sorry_for_what_i_said_when_i_was_hungry) while hungry, tired, or debugging. When we're done, it should look like this in the browser:
 
-![Angular smart and dumb components](https://cdn2.auth0.com/blog/js-glossary-2/angular-smart-dumb.gif)
+![modern js glossary: Angular smart and dumb components](https://cdn2.auth0.com/blog/js-glossary-2/angular-smart-dumb.gif)
 
 The smart (container) component looks like this:
 
@@ -628,7 +632,7 @@ To learn more about **smart and dumb components**, check out the following resou
 
 ## <span id="jit"></span>JIT (Just-In-Time) Compilation
 
-**Just-in-time (JIT) compilation** is the process of translating code written in a programming language to machine code at runtime (during a program or application's execution). At runtime, certain dynamic information is available, such as type identification. A JIT compiler _monitors_ to detect functions or loops of code that are run multiple times—this code is considered "warm". These pieces of code are then compiled. If they're quite commonly executed ("hot"), JIT will optimize them and also store the optimized, compiled code for execution.
+**Just-In-time (JIT) compilation** is the process of translating code written in a programming language to machine code at runtime (during a program or application's execution). At runtime, certain dynamic information is available, such as type identification. A JIT compiler _monitors_ to detect functions or loops of code that are run multiple times—this code is considered "warm". These pieces of code are then compiled. If they're quite commonly executed ("hot"), JIT will optimize them and also store the optimized, compiled code for execution.
 
 When the compiler optimizes hot code, it makes assumptions about its types and shape based on consistency of previous executions. At any iteration, if those assumptions turn out to be inaccurate, the optimized code is discarded.
 
@@ -716,6 +720,6 @@ To learn more about **tree shaking**, check out the following resources:
 
 ## Conclusion
 
-With the swift rise of JavaScript Single Page Application frameworks and component-based paradigms, it's important to understand JS topics relating to scoping, components, compilation, and bundling.
+With the swift rise of JavaScript Single Page Application frameworks and component-based paradigms, it's important to understand JS topics relating to scoping, data flow, components, compilation, and bundling.
 
 With this glossary as a starting point, you can begin taking advantage of these concepts and programming paradigms to increase your JavaScript expertise. If anything is still unclear regarding these topics, please consult the links in each section for additional resources. You can also check out the [first part of the Glossary of Modern JS Concepts](https://auth0.com/blog/glossary-of-modern-javascript-concepts/) to learn about the concepts necessary to understand functional programming, reactive programming, and functional reactive programming.
