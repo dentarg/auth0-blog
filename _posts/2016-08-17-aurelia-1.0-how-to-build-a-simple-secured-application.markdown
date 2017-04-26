@@ -641,7 +641,7 @@ We want to fetch the quote when the route is hit, so within the `activate()` met
 
 The super `secret-quote` route is a little bit different. We are making a request to a different endpoint. We are also sending an `Authorization` header with a Bearer token, which is an access token in this case. 
 
-In case you are wondering why we are using an `access_token`, and not `id_token`, check out [why you should use access tokens to secure an api](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/).
+In case you are wondering why we are using an `access_token` and not `id_token`, check out [why you should use access tokens to secure an api](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/).
 
 For the view in `secret-quote.html`, make sure to change `${randomQuote}` to `${secretQuote}`.
 
