@@ -454,7 +454,7 @@ import {inject} from 'aurelia-framework';
 
 export class Login {
 
-  heading = 'Login';
+  heading = 'Log in';
 
   // User inputs will be bound to these view models
   // and when submitting the form for login
@@ -486,7 +486,7 @@ export class Login {
 
 The `logout` route essentially follows the same pattern using `authService.logout()` to remove the user's JWT from `localstorage`. See [the repo](https://github.com/chenkie/aurelia-jwt-auth/blob/master/client/src/logout.js) for further detail.
 
-With all this in place, we should now be able to signup, login, and log out users. Test it out to make sure that everything is running as expected. If everything is working properly, when the user logs in there will be two tokens set in `localStorage` as `aurelia_id_token` and `access_token`.
+With all this in place, we should now be able to sign up, log in, and log out users. Test it out to make sure that everything is running as expected. If everything is working properly, when the user logs in there will be two tokens set in `localStorage` as `aurelia_id_token` and `access_token`.
         
 ![Aurelia localStorage tokens](https://cdn2.auth0.com/blog/aurelia/aurelia-tokens.png)
 _Aurelia localStorage Tokens_ 
