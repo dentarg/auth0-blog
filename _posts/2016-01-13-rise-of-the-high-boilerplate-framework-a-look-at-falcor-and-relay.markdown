@@ -257,7 +257,7 @@ It would also be interesting to see how the companies that created Falcor and Re
 
 Auth0 simplifies common authentication needs like social login, multi-factor authentication, and single sign-on. You can [sign up for an account](javascript:signup\(\)) and get 7,000 regular active users for free.
 
-To add Authentication to Falcor, simply install and setup **express-jwt** with your Auth0 credentials and add the middleware to your route.
+To add Authentication to Falcor, simply install and setup **express-jwt** and **jwks-rsa** with your Auth0 credentials and add the middleware to your route.
 
 ```js
 // server.js
@@ -265,9 +265,18 @@ To add Authentication to Falcor, simply install and setup **express-jwt** with y
 ...
 
 var authenticate = jwt({
-  secret: new Buffer('YOUR_CLIENT_SECRET', 'base64'),
-  audience: 'YOUR_CLIENT_ID'
+  secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+    issuer: "{YOUR-AUTH0-DOMAIN}",
+    algorithms: ['RS256']
 });
+
 
 app.use('/api/model.json', authenticate, falcorExpress.dataSourceRoute(function(req, res)
   {
@@ -285,7 +294,7 @@ Then send an `Authorization` header with the requests to your model.
 ```js
 // front-end.js
 
-var token = localStorage.getItem('id_token');
+var token = localStorage.getItem('access_token');
 
 var model = new falcor.Model({
   source: new falcor.HttpDataSource('/api/model.json', {
@@ -314,7 +323,7 @@ To add the `Authorization` header, use Relay’s network layer.
 ```js
 // front-end.js
 
-var token = localStorage.getItem('id_token');
+var token = localStorage.getItem('access_token');
 
 Relay.injectNetworkLayer(
   new Relay.DefaultNetworkLayer('http://localhost:3000/graphql', {
@@ -324,6 +333,9 @@ Relay.injectNetworkLayer(
   })
 );
 ```
+
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+
 
 ## A Final Word
 
