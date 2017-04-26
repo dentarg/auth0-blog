@@ -277,7 +277,7 @@ Rx.Observable.prototype.authenticate = function(config) {
     return fetch(config.loginPath, init).then(function(data) {
       return data.json().then(function(jwt) {
         localStorage.setItem('id_token', jwt.id_token);
-        localStorage.setItem('id_token', jwt.access_token);
+        localStorage.setItem('access_token', jwt.access_token);
       });
     });        
   }
@@ -298,7 +298,7 @@ We can now log in with our credentials. For this simple example, we don't have a
 
 ## Retrieving Secret Quotes
 
-Now that we've got our authentication in place and we have an `id_token` and `access_token` saved in local storage, let's set up the streams that handle secret quotes. We'll need a way to check whether there is a JWT - `access_token` in local storage before we send the request. Let's once again abstract this task away into a custom operator called `authenticated`.
+Now that we've got our authentication in place and we have an `id_token` and `access_token` saved in local storage, let's set up the streams that handle secret quotes. We'll need a way to check whether there is a JWT `access_token` in local storage before we send the request. Let's once again abstract this task away into a custom operator called `authenticated`.
 
 ```js
 // app.js
@@ -324,7 +324,7 @@ Rx.Observable.prototype.authenticated = function(route) {
 ...
 ```
 
-The `authenticated` operator will check for a JWT - `access_token` in local storage, and if there is one, it will return an observable by mapping out an object with the route for our request and the JWT.
+The `authenticated` operator will check for a JWT `access_token` in local storage, and if there is one, it will return an observable by mapping out an object with the route for our request and the JWT.
 
 Next, we can make use of this operator in our `secretQuoteStream` by passing in the route we want to make the request to. In this case, it's the route for secret quotes.
 
