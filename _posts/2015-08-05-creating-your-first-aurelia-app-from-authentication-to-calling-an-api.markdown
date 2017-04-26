@@ -149,7 +149,7 @@ var config = {
 export default config;
 ```
 
-The API is accessible at `localhost:3001`, so we set this as our `baseUrl`. Next, we set up the proper endpoints that we'll need for signing users up and logging them in. We also need to override the `tokenName` with what our API serves, which in this case is `id_token`. Finally, we say that we want to redirect the user to the `welcome` view once they login.
+The API is accessible at `localhost:3001`, so we set this as our `baseUrl`. Next, we will set up the proper endpoints needed for signing users up and logging them in. We also need to override the `tokenName` with what our API serves, which in this case is `id_token`. Our API serves both `id_token` and `access_token` but we'll see how to handle the `access_token` later in the tutorial. Finally, we say that we want to redirect the users to the `welcome` view once they log in.
 
 ### Application Routing Config
 
@@ -423,6 +423,7 @@ export class Signup {
 
     return this.auth.signup(userInfo)
     .then((response) => {
+      localStorage.setItem('access_token', response.access_token);
       console.log("Signed Up!");
     })
     .catch(error => {
@@ -432,7 +433,10 @@ export class Signup {
   };
 }
 ```
-The `signup()` method uses `aurelia-auth` to send a POST request to the API, which either creates a new user or returns an error if there was a problem.
+
+The `signup()` method uses `aurelia-auth` to send a POST request to the API, which either creates a new user or returns an error if there was a problem. During the process of creating a new user, if successful, both `id_token` and `access_token` are returned. The `aurelia-auth` plugin automatically stores the `id_token` in localStorage, while we manually store the `access_token` returned.
+
+**Note:** The `aurelia-auth` plugin automatically stores just one token, thus the reason why we are storing the `access_token` manually.
 
 ### Login
 
@@ -443,28 +447,49 @@ The JavaScript for `login` looks similar as well, but this time, we are sending 
 ```js
 // client/src/login.js
 
-...
+import {AuthService} from 'aurelia-auth';
+import {inject} from 'aurelia-framework';
+        
+@inject(AuthService)
 
-  login() {
-    return this.auth.login(this.email, this.password)
-    .then(response => {
-      console.log("Login response: " + response);
-    })
-    .catch(error => {
-      this.loginError = error.response;
-    });
+export class Login {
+
+  heading = 'Login';
+
+  // User inputs will be bound to these view models
+  // and when submitting the form for login
+  email = '';
+  password = '';
+
+  // This view model will be given an error value
+  // if anything goes wrong with the login
+  loginError = '';
+
+  constructor(auth) {
+    this.auth = auth;
   };
-
-...
+        
+  login() {
+    return this.auth.login(this.email, this.password)     
+    .then(response => { 
+      localStorage.setItem('access_token', response.access_token);
+      console.log("Login response: " + response);  
+    })  
+    .catch(error => {     
+      this.loginError = error.response;  
+    });     
+  };  
+}
 ```
 
 ### Logout
 
 The `logout` route essentially follows the same pattern using `authService.logout()` to remove the user's JWT from `localstorage`. See [the repo](https://github.com/chenkie/aurelia-jwt-auth/blob/master/client/src/logout.js) for further detail.
 
-With all this in place, we should now be able to signup, login, and logout users. Test it out to make sure that everything is running as expected. If everything is working properly, when the user logs in there will be a JWT set in `localstorage`.
-
-![](https://cdn.auth0.com/blog/aurelia/aurelia-localstorage-token.png?dl=1)
+With all this in place, we should now be able to signup, login, and log out users. Test it out to make sure that everything is running as expected. If everything is working properly, when the user logs in there will be two tokens set in `localStorage` as `aurelia_id_token` and `access_token`.
+        
+![Aurelia localStorage tokens](https://cdn2.auth0.com/blog/aurelia/aurelia-tokens.png)
+_Aurelia localStorage Tokens_ 
 
 ## The Random Quote and Super-Secret Quote Routes
 
@@ -523,26 +548,50 @@ export class RandomQuote {
 
 We want to fetch the quote when the route is hit, so within the `activate()` method, we are making a GET request to our `random-quote` endpoint, which is located at `localhost:3001/api/random-quote`. If we get a good response, we set the quote text onto `randomQuote` so that it can be accessed in the view.
 
-The `super-secret-quote` route is pretty much the same, except that we make our requests to a different endpoint. For the view in `secret-quote.html`, make sure to change `${randomQuote}` to `${secretQuote}`
+The super `secret-quote` route is a little bit different. We are making a request to a different endpoint. We are also sending an `Authorization` header with a Bearer token, which is an access token in this case. 
+
+In case you are wondering why we are using an `access_token`, and not `id_token`, check out [why you should use access tokens to secure an api](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/).
+
+For the view in `secret-quote.html`, make sure to change `${randomQuote}` to `${secretQuote}`.
 
 ```js
 // client/src/secret-quote.js
 
-...
+import {inject} from 'aurelia-framework';
+import {HttpClient} from 'aurelia-http-client';
 
-activate() {
-  return this.http.get('http://localhost:3001/api/protected/random-quote')
-  .then(response => {
-    this.secretQuote = response.content;
-  }).catch(error => {
-    console.log('Error getting quote');
-  });
+// Using Aurelia's dependency injection, we inject HttpClient
+// with the @inject decorator to make HTTP requests
+@inject(HttpClient)
+
+export class SecretQuote {
+
+  heading = 'Super Secret Quote';
+
+  // View model that will be populated with the
+  // the secret quote retrieved from the API and
+  // displayed in the view
+  secretQuote = '';
+
+  constructor(http) {
+    this.http = http.configure(x => {
+      x.withHeader('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+    });
+  };
+
+  activate() {
+    return this.http.get('http://localhost:3001/api/protected/random-quote')
+    .then(response => {
+      this.secretQuote = response.content;
+    }).catch(error => {
+      console.log('Error getting quote');
+    });
+  };
 }
 
-...
 ```
 
-As you can see, the only real difference here is that the GET request we're making is going to the `protected/random-quote` endpoint. If there is no valid JWT in `localStorage`, we won't be able to get to this route. If somehow we got to it, the request would fail because no JWT would be sent to the server.
+If there is no valid `access_token` in `localStorage`, we won't be able to get to this route. If somehow we got to it, the request would fail because no JWT would be sent to the server.
 
 ![](https://cdn.auth0.com/blog/aurelia/aurelia-super-secret-quote.png?dl=1)
 
@@ -596,6 +645,8 @@ login() {
 
 ```
 
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+
 To make authenticated HTTP calls, simply attach the user's JWT as an `Authorization` header. This can be done on a per request basis, or you can configure all HTTP calls to include the header.
 
 ```js
@@ -606,7 +657,7 @@ To make authenticated HTTP calls, simply attach the user's JWT as an `Authorizat
 getSecretThing() {
   this.http.fetch('/api/protected-route', {
     headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     }
   })
   .then(response => response.json())
@@ -624,7 +675,7 @@ constructor(http) {
   this.http.configure(config => {
     config.withDefaults({
       headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
       }
     });
   });
@@ -639,6 +690,7 @@ To log the user out, simply remove their profile and JWT from local storage.
 logout() {
   localStorage.removeItem('profile');
   localStorage.removeItem('id_token');
+  localStorage.removeItem('access_token');
   this.isAuthenticated = false;
 }
 ```
