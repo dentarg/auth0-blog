@@ -5,16 +5,16 @@ description: "Learn how to easily add interaction based authentication for your 
 date: 2017-04-27 8:30
 category: Security, Frameworks, Technical Guide, Webtask
 author:
-  name: "Ado Kukic"
-  url: "https://twitter.com/kukicado"
-  mail: "ado@auth0.com"
-  avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
+  name: "João Angelo"
+  url: "https://github.com/jmangelo"
+  mail: "joao.angelo@auth0.com"
+  avatar: "https://cdn2.auth0.com/blog/alexa-auth/joao.jpeg"
 design:
-  image: https://cdn.auth0.com/blog/this-the-season-for-cyber-criminals/logo.png
-  bg_color: "#191716"
+  image: https://cdn2.auth0.com/blog/alexa-auth/logo.png
+  bg_color: "#1B5262"
 related:
-  - 2016-11-30-different-ways-to-implement-multifactor
-  - 2015-12-17-json-web-token-signing-algorithms-overview
+  - 2016-06-28-building-serverless-apps-with-webtask
+  - 2016-09-14-build-a-serverless-slack-bot-with-webtask
 tags:
   - alexa
   - authentication
@@ -381,3 +381,7 @@ Follow the on-screen instructions on how to activate the microphone and talk to 
 ## Conclusion
 
 In this post we took a look at how you can create an Alexa skill and pair it with [Auth0](https://auth0.com) for enhanced security. We also introduced you to [Webtask](https://webtask.io), our serverless offering that made it effortless to deploy an our Alexa skill implementation. [Sign up]((javascript:signup\(\)) for a free Auth0 account and add interaction based authentication to your Alexa skills in no time at all.
+
+### Special Thanks
+
+Thanks to [Ado Kukic](https://twitter.com/kukicado) for peer reviewing the proof of concept application and the blog post to ensure that it works properly.
