@@ -785,7 +785,7 @@ class App extends Component {
 export default App;
 ```
 
-Import `auth0-js` as well as the new components we'll create, `Login` and `User`. `Login` will call an `/authorize`  `User` will display after login and show the authenticated user's name and picture.
+Import `auth0-js` as well as the new components we'll create, `Login` and `User`. `Login` will use an auth0.js `authorize()` method to log in and retrieve tokens and the user's profile, redirecting back to our app when successful. `User` will display after login and show the authenticated user's name and picture.
 
 In the `constructor()`, we'll check for an existing token and profile from a previous login and set them if available. In `componentDidMount()`, we'll create our Auth0 instance. Replace `[YOUR_CLIENT_ID]` and `[YOUR_DOMAIN]` with your Auth0 client information. On successful redirection from Auth0's hosted login, we'll do the following:
 
