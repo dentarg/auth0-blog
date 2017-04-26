@@ -2,7 +2,7 @@
 layout: post
 title: "Glossary of Modern JavaScript Concepts: Part 2"
 description: "Learn about scope, closures, data flow, and concepts commonly utilized in modern JS frameworks & applications."
-date: 2017-04-10 8:30
+date: 2017-05-03 8:30
 category: Glossary, Technical guide
 banner:
   text: "Auth0 makes it easy to add authentication to your JS application."
