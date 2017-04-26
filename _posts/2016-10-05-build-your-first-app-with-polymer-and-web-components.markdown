@@ -80,19 +80,19 @@ Install the Polymer CLI:
 npm install -g polymer-CLI
 ```
 
-We also need to have a sample Node API running. Clone the [NodeJS JWT Authentication sample repo](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) and follow the instructions in the README to get it up and running on [http://localhost:3001](http://localhost:3001).
+We also need to have a sample Node API running. Clone the [NodeJS JWT Authentication sample repo](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) and follow the instructions in the README to get it up and running on [http://localhost:3002](http://localhost:3002).
 
 ### Initializing a Polymer App
 
 Create a new directory and navigate to it in the terminal or command prompt. Use the following command to initialize the Polymer starter kit in your new folder:
 
-```
+```bash
 polymer init starter-kit
 ```
 
 This command installs the starter kit app and necessary Bower components. Once the command completes, we can view the app in the browser by running:
 
-```
+```bash
 polymer serve
 ```
 
@@ -331,7 +331,7 @@ Now we can take advantage of these elements.
 
 ### Calling an API with iron-ajax
 
-> Make sure you have the [Chuck Norris Node API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) cloned and running so that the API is accessible on [http://localhost:3001](http://localhost:3001).
+> Make sure you have the [Chuck Norris Node API](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) cloned and running so that the API is accessible on [http://localhost:3002](http://localhost:3002).
 
 We're going to call the API using HTML. The only JavaScript we need to write in this element will be a simple handler to re-send the Ajax request when a button is clicked. Pretty cool, huh?
 
@@ -342,7 +342,7 @@ After the closing `</style>` tag (we'll come back to styling shortly), add the f
 <iron-ajax
 	id="getQuoteAjax"
 	auto 
-	url="http://localhost:3001/api/random-quote"
+	url="http://localhost:3002/api/random-quote"
 	method="get"
 	handle-as="text"
 	last-response="{{quote}}"></iron-ajax>
@@ -573,12 +573,12 @@ _setReqBody: function() {
 	this.$.registerLoginAjax.body = this.formData;
 },
 postLogin: function() {
-	this.$.registerLoginAjax.url = 'http://localhost:3001/sessions/create';
+	this.$.registerLoginAjax.url = 'http://localhost:3002/sessions/create';
 	this._setReqBody();
 	this.$.registerLoginAjax.generateRequest();
 },
 postRegister: function() {
-	this.$.registerLoginAjax.url = 'http://localhost:3001/users';
+	this.$.registerLoginAjax.url = 'http://localhost:3002/users';
 	this._setReqBody();
 	this.$.registerLoginAjax.generateRequest();
 }
@@ -612,7 +612,8 @@ handleUserResponse: function(event) {
 		this.error = '';
 		this.storedUser = {
 			name: this.formData.username,
-			token: response.id_token,
+			id_token: response.id_token,
+			access_token: response.access_token,
 			loggedin: true
 		};
 	}
@@ -625,7 +626,7 @@ handleUserError: function(event) {
 }
 ```
 
-We're adding two more properties: `storedUser` (object) to store name, token, and state of an authenticated user, and `error` (string) to display when the API returns a failure. Later we'll add `storedUser` to local storage and access it in other areas of the app. We can use shorthand `property: [Type]` because we don't need any additional options set.
+We're adding two more properties: `storedUser` (an object to store name, id token, access token, and state of an authenticated user), and `error` (a string to display when the API returns a failure). Later we'll add `storedUser` to local storage and access it in other areas of the app. We can use shorthand `property: [Type]` because we don't need any additional options set.
 
 Next we'll handle a successful API response: `handleUserResponse()`. Recall that we're handling all responses as text, so we need to parse the JSON. If a token is present we'll clear any errors from previous failures, define the `storedUser` object and its properties, and reset `formData` to an empty object.
 
@@ -998,7 +999,7 @@ Next add `iron-ajax`:
 <iron-ajax 
 	id="getSecretQuoteAjax"
 	method="get"
-	url="http://localhost:3001/api/protected/random-quote"
+	url="http://localhost:3002/api/protected/random-quote"
 	handle-as="text"
 	last-response="{{secretQuote}}"></iron-ajax>
 {% endraw %}
@@ -1046,13 +1047,13 @@ Polymer({
 	},
 	getSecretQuote: function() {
 		// add token authorization and generate Ajax request
-		this.$.getSecretQuoteAjax.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
+		this.$.getSecretQuoteAjax.headers['Authorization'] = 'Bearer ' + this.storedUser.access_token;
 		this.$.getSecretQuoteAjax.generateRequest();
 	}
 });
 ```
 
-`getSecretQuote()` is executed when the user clicks the button to fetch a new quote from the API. We'll use the `generateRequest()` method and provide an `Authorization` header with the user's token.
+`getSecretQuote()` is executed when the user clicks the button to fetch a new quote from the API. We'll use the `generateRequest()` method and provide an `Authorization` header with the user's access token.
 
 Authenticated users can now get secret quotes!
 
