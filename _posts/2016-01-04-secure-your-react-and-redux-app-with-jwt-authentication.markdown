@@ -347,6 +347,7 @@ export function loginUser(creds) {
         } else {
           // If login was successful, set the token in local storage
           localStorage.setItem('id_token', user.id_token)
+          localStorage.setItem('id_token', user.access_token)
           // Dispatch the success action
           dispatch(receiveLogin(user))
         }
@@ -359,7 +360,7 @@ export function loginUser(creds) {
 
 We're using the `fetch` API to make our calls to the server with our user's credentials. The important thing to notice here is that we're making use of our three `login` actions at various points of the API call. We start by dispatching the `requestLogin` function before the call is made to say that the request has been sent. If the status comes back as anything other than `OK`, we dispatch the `loginError` function, and if it was successful, we dispatch the `receiveLogin` function. In this way we can send the appropriate actions for whatever situation happens.
 
-We're also taking care of saving the JWT that comes back from the API in local storage right here within the API call. We could do this elsewhere, but it's important to note that we can't do it in the reducer. As was mentioned earlier, reducers should have no side effects.
+We're also taking care of saving the json web tokens that comes back from the API in local storage right here within the API call. We could do this elsewhere, but it's important to note that we can't do it in the reducer. As was mentioned earlier, reducers should have no side effects.
 
 We can also put in the actions for logging the user out. The logout process is a bit different because it really just requires that we remove the user's token from local storage and set the `isAuthenticated` boolean to false, but we'll put in all the actions that we would normally have when talking to an API just in case they are needed.
 
@@ -399,6 +400,7 @@ export function logoutUser() {
   return dispatch => {
     dispatch(requestLogout())
     localStorage.removeItem('id_token')
+    localStorage.removeItem('access_token')
     dispatch(receiveLogout())
   }
 }
@@ -622,7 +624,7 @@ const BASE_URL = 'http://localhost:3001/api/'
 
 function callApi(endpoint, authenticated) {
 
-  let token = localStorage.getItem('id_token') || null
+  let token = localStorage.getItem('access_token') || null
   let config = {}
 
   if(authenticated) {
@@ -679,7 +681,7 @@ export default store => next => action => {
 }
 ```
 
-The middleware itself is contained in the exported arrow function cascade which relies on the `callApi` function. The cool thing about setting up a middleware like this is that from our actions that make use of the middlware, we can set a property that specifies whether the request should be authenticated. Notice here that if the request should be authenticated, we attach the token from local storage as an `Authorization` header.
+The middleware itself is contained in the exported arrow function cascade which relies on the `callApi` function. The cool thing about setting up a middleware like this is that from our actions that make use of the middleware, we can set a property that specifies whether the request should be authenticated. Notice here that if the request should be authenticated, we attach the access token from local storage as an `Authorization` header.
 
 Next, we need to include some more actions to call the API for the quotes.
 
@@ -923,6 +925,8 @@ export function doAuthentication() {
 ```
 
 In this function we are dispatching the `lockError` function if there are any errors. If authentication is successful, we set the profile and token in local storage and dispatch the `lockSuccess` action.
+
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 With these actions in place, we can now add them to our reducer to handle authentication state change just like we would with any other action. The `login` action can be dispatched from the **Login** button in our React component.
 
