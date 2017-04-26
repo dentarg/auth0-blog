@@ -360,7 +360,7 @@ export function loginUser(creds) {
 
 We're using the `fetch` API to make our calls to the server with our user's credentials. The important thing to notice here is that we're making use of our three `login` actions at various points of the API call. We start by dispatching the `requestLogin` function before the call is made to say that the request has been sent. If the status comes back as anything other than `OK`, we dispatch the `loginError` function, and if it was successful, we dispatch the `receiveLogin` function. In this way we can send the appropriate actions for whatever situation happens.
 
-We're also taking care of saving the json web tokens that comes back from the API in local storage right here within the API call. We could do this elsewhere, but it's important to note that we can't do it in the reducer. As was mentioned earlier, reducers should have no side effects.
+We're also taking care of saving the JSON Web Token that comes back from the API in local storage right here within the API call. We could do this elsewhere, but it's important to note that we can't do it in the reducer. As was mentioned earlier, reducers should have no side effects.
 
 We can also put in the actions for logging the user out. The logout process is a bit different because it really just requires that we remove the user's token from local storage and set the `isAuthenticated` boolean to false, but we'll put in all the actions that we would normally have when talking to an API just in case they are needed.
 
