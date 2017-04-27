@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Interaction Based Authentication for Alexa Skills with Auth0"
-description: "Learn how to easily add interaction based authentication for your Alexa skills with Auth0."
+title: "Interaction-Based Authentication for Alexa Skills with Auth0"
+description: "Learn how to easily add interaction-based authentication for your Alexa skills with Auth0."
 date: 2017-04-27 8:30
 category: Security, Frameworks, Technical Guide, Webtask
 author:
@@ -21,7 +21,15 @@ tags:
   - webtask
 ---
 
-This blog post illustrates how to achieve secure authentication on each interaction with Alexa. At a very high-level this shows how to issue a command to Alexa, receive a one-time authentication code through a different medium, SMS or email, and then use that code to confirm the transaction through Alexa.
+---
+
+**TL;DR:** In this post we will look at how you can add interaction-based authentication to your Alexa skills. This will allow you to build Alexa skills that can perform tasks that you wouldn't want just anybody to be able to do. In our example, we will be building a fictional Pizza on Demand service that allows you to order pizza with just your voice.
+
+To follow along with our tutorial, be sure to check out the [GitHub repo](https://github.com/auth0/auth0-alexa-authentication-sample).
+
+---
+
+This blog post illustrates how to achieve secure authentication on each interaction with Alexa. At a very high-level this shows how to issue a command to Alexa, receive a one-time authentication code through a different medium (SMS or email), and then use that code to confirm the transaction through Alexa.
 
 ## How it Works
 
@@ -57,7 +65,7 @@ On the sidebar to the left, select the APIs menu and then click the CREATE API b
 
 ![Create API](https://cdn2.auth0.com/blog/alexa-auth/setup-api.png)
 
-*Note: If you don't see an APIs section on the sidebar make sure that on your advanced account settings you enable the Enable APIs Section switch.*
+*Note: If you don't see an APIs section on the sidebar make sure that on your advanced account settings you enable the Enable APIs Section switch. Under your account name in the upper right corner of your [Auth0 Dashboard](https://manage.auth0.com/#/), choose **Account Settings** from the dropdown, then select the [Advanced](https://manage.auth0.com/#/account/advanced) tab. In the **Settings** section, turn on the toggle for **Enable APIs Section.***
 
 Provide the following information:
 
@@ -75,9 +83,7 @@ On the sidebar to the left, select the **Clients** menu and then click the **CRE
 
 ![Create POD Client](https://cdn2.auth0.com/blog/alexa-auth/setup-client.png)
 
-Provide a name at your choice, for example, POD and select Non Interactive Clients as the client type.
-
-Confirm the client creation.
+Provide a name at your choice, for example, POD, and select Non Interactive Clients as the client type.
 
 ### Step 3 - Create a Database Connection
 
@@ -85,9 +91,7 @@ On the sidebar to the left, select the **Connections** menu, then the **Database
 
 ![Create Database Connection](https://cdn2.auth0.com/blog/alexa-auth/create-db-connection.png)
 
-Provide a name at your choice, for example, *POD-DB*.
-
-Confirm the database connection creation.
+Provide a name of your choice, for example, **POD-DB**.
 
 After being navigated to the connection details page, choose the Clients section and ensure that the connection is enabled for the POD client application created in the previous step.
 
@@ -101,9 +105,9 @@ Provide the following information:
 
 * A real email address that you have access to (if you're not going to use Twilio it's strictly required that the email address for the user be a real one).
 * A password of your choice.
-select the previously created connection as the connection to which the user is associated.
+* Select the previously created connection as the connection to which the user is associated.
 
-If you intend to use Twilio to deliver authentication codes to the user mobile phone number, after you get navigated to the user details page you need to click the EDIT button in the metadata section and provide the target phone number as part of the `user_metadata`:
+If you intend to use Twilio to deliver authentication codes to the user's mobile phone number, after you get navigated to the user details page you need to click the EDIT button in the metadata section and provide the target phone number as part of the `user_metadata`:
 
 ```
 {
@@ -113,15 +117,15 @@ If you intend to use Twilio to deliver authentication codes to the user mobile p
 
 ### Step 5 - Enable Passwordless
 
-On the sidebar to the left, select the **Connection** menu, then the **Passwordless** sub-menu and enable either the *SMS* or *Email* switch. If you provided a phone number for the test user then you **are required to enable the SMS option**, otherwise, you can choose to enable the Email option and get the authentication codes through your email inbox.
+On the sidebar to the left, select the **Connection** menu, then the **Passwordless** sub-menu and enable either the *SMS* or *Email* switch. If you provided a phone number for the test user then you **are required to enable the SMS option**. Otherwise, you can choose to enable the Email option and get the authentication codes through your email inbox.
 
-Enabling the SMS option requires you to provide information about your Twilio account. For the Email connection and purely for testing purposes you can use the Auth0 built-in email provider.
+Enabling the SMS option requires you to provide information about your Twilio account. For the Email connection and purely for testing purposes, you can use the Auth0 built-in email provider.
 
-In either cases when configuring the chosen type of Passwordless connection you need to set the **OTP Length** to **4** and enable the **Disable Sign Ups** switch.
+In either case, when configuring the chosen type of passwordless connection, you need to set the **OTP Length** to **4** and enable the **Disable Sign Ups** switch.
 
 ![Passwordless Settings](https://cdn2.auth0.com/blog/alexa-auth/passwordless-connection-settings.png)
 
-*Note: The use of passwordless authentication either with SMS or email require that the phone number or email address of the user be verified before using it to deliver authentication code. For demonstration purposes this sample skill does not require that step so please take that under consideration.*
+*Note: The use of passwordless authentication either with SMS or email requires that the phone number or email address of the user be verified before using it to deliver authentication codes. For demonstration purposes, this sample skill does not require that step so please take that under consideration.*
 
 ### Step 6 - Ensure Enabled Connections in POD Client Application
 
@@ -129,9 +133,9 @@ On the sidebar to the left, select the **Clients** menu, locate the entry for th
 
 ![Enabled Connections](https://cdn2.auth0.com/blog/alexa-auth/connections-enabled.png)
 
-Ensure that the only enabled connection for the client are the database connection created in step step 3 and the type of Passwordless connection that you enabled in step step 5 of this guide.
+Ensure that the only enabled connections for the client are the database connection created in step step 3 and the type of Passwordless connection that you enabled in step step 5 of this guide.
 
-### Step 7 - Enable Management API Access the POD Client Application
+### Step 7 - Enable Management API Access for the POD Client Application
 
 The last step we'll need to do is ensure that the POD Client application we created in step 2 can access the Auth0 Management API. Navigate to the **APIs** menu and find the **Management API**. Open it and from here click on the **Non-Interactive Clients** tab. Find the POD Client application and flip the switch to Authorize the application. For simplicity, we'll enable all of the scopes.
 
@@ -151,8 +155,8 @@ Provide the following information:
 
 * Choose **Custom Interaction Model** for the skill type.
 * Choose **English (U.S.)** for the language.
-* Provide a name at your choice, for example, POD.
-* Provide an invocation name at your choice, for example, pizza on demand.
+* Provide a name of your choice, for example, POD.
+* Provide an invocation name of your choice, for example, pizza on demand.
 
 ![Alexa Skill Info](https://cdn2.auth0.com/blog/alexa-auth/skill-info.png)
 
@@ -171,7 +175,7 @@ Jumbo
 
 Click the **Save** button and wait for the slot type to be processed.
 
-After processing of the previous slot type completes click again in the **Add a Slot Type** button, provide `PIZZA_TOPPINGS` for the slot type name and some sample values, for example:
+After processing of the previous slot type completes, click the **Add a Slot Type** button again and provide `PIZZA_TOPPINGS` for the slot type name and some sample values. For example:
 
 ```
 Pepperoni
@@ -191,8 +195,8 @@ Click the **Save** button and wait for the slot type to be processed.
 
 After adding both slot types, you'll need to provide the intent schema and sample utterances. The information to add to these fields is available in following files contained within this [sample repository](https://github.com/auth0/auth0-alexa-authentication-sample):
 
-* Intent Schema: `src/alexa/IntentSchema.json`
-* Sample Utterances: `src/alexa/SampleUtterances.txt`
+* Intent Schema: [`src/alexa/IntentSchema.json`](https://github.com/auth0/auth0-alexa-authentication-sample/blob/master/src/alexa/IntentSchema.json)
+* Sample Utterances: [`src/alexa/SampleUtterances.txt`](https://github.com/auth0/auth0-alexa-authentication-sample/blob/master/src/alexa/SampleUtterances.txt)
 
 You can copy/paste the content of those files to the respective form fields or feel free to add your own utterances. After providing this information click the **Next** button to move to the next step.
 
@@ -208,41 +212,41 @@ https://TEMP.run.webtask.io/pod/alexa
 
 After configuring the URL, enable the **Account Linking** process and provide the following information:
 
-* For the Authorization URL use an URL based on the following template **https://[your auth0 account].auth0.com/authorize?audience=[the identifier of the POD API]**. If you strictly followed this guide the identifier of the POD API will be https%3A%2F%2Fpod.localtest.me, otherwise, use the identifier you chose.
+* For the Authorization URL, use an URL based on the following template **https://[your auth0 account].auth0.com/authorize?audience=[the identifier of the POD API]**. If you strictly followed this guide the identifier of the POD API will be https://pod.localtest.me, otherwise, use the identifier you chose.
 * For the Client Id use the client identifier of the client application created in step 2 of the Auth0 section of this guide.
-* For the Domain List add the domain **cdn.auth0.com** to the list.
-* For the Scope field add the scopes **openid** and **offline_access** to the list.
-* For the Authorization Grant Type choose **Auth Code Grant**.
-* For the Access Token URI use an URL based on the following template **https://[your auth0 account].auth0.com/oauth/token**.
-* For the Client Secret use the client secret of the client application created in step 2 of the Auth0 section of this guide.
-* For the Client Authentication Scheme choose **HTTP Basic**. 
+* For the Domain List, add the domain **cdn.auth0.com** to the list.
+* For the Scope field, add the scopes **openid** and **offline_access** to the list.
+* For the Authorization Grant Type, choose **Auth Code Grant**.
+* For the Access Token URI, use an URL based on the following template **https://[your auth0 account].auth0.com/oauth/token**.
+* For the Client Secret, use the client secret of the client application created in step 2 of the Auth0 section of this guide.
+* For the Client Authentication Scheme, choose **HTTP Basic**. 
 * For the Privacy Policy URL, if the skill will be deployed to Webtask, use an URL based on the following template **https://TEMP.run.webtask.io/pod/app#/policy**, otherwise, use a suitable URL.
 
 ![Alexa Account Linking Settings](https://cdn2.auth0.com/blog/alexa-auth/account-linking.png)
 
-Before moving to the next step take note of all the URL's listed in the Redirect URLs section because you'll later add those to the client application configuration in Auth0.
+Before moving to the next step, take note of all the URLs listed in the Redirect URLs section because you'll later add those to the client application configuration in Auth0.
 
 Click the **Next** button to move to the next step.
 
 ### Step 4 - Skill SSL Certificate
 
-If you plan on strictly following this guide the skill will be deployed to [Webtask](https://webtask.io) and as such you can choose the option My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority, otherwise, you'll need to select the suitable option and proceed accordingly.
+If you plan on strictly following this guide the skill will be deployed to [Webtask](https://webtask.io) and as such you can choose the option **My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority**, otherwise, you'll need to select the suitable option and proceed accordingly.
 
 ![Alexa SSL Settings](https://cdn2.auth0.com/blog/alexa-auth/ssl.png)
 
-At this stage, you've already provided Amazon all the necessary information to enable the test step, however, you'll first need to perform a few additional steps outside the Amazon Developer Console before being able to successfully test it, namely deploying the code that will interact with the Alexa skill. I have [already built](https://github.com/auth0/auth0-alexa-authentication-sample) this functionality with NodeJS, but we'll need to deploy the application somewhere, and for that we'll use [Webtask](https://webtask.io).
+At this stage, you've already provided Amazon all the necessary information to enable the test step. However, you'll first need to perform a few additional steps outside the Amazon Developer Console before being able to successfully test it, namely deploying the code that will interact with the Alexa skill. I have [already built](https://github.com/auth0/auth0-alexa-authentication-sample) this functionality with NodeJS, but we'll need to deploy the application somewhere, and for that we'll use [Webtask](https://webtask.io).
 
 ## Deploying an Auth0 Webtask
 
-For a simplified deployment experience and given that it's for demonstration purposes only this guide will take you through the steps required to deploy the sample skill to a Webtask associated with your Auth0 account. If you haven't already gotten the code, clone it from [Github](https://github.com/auth0/auth0-alexa-authentication-sample) now.
+For a simplified deployment experience and given that it's for demonstration purposes only, this guide will take you through the steps required to deploy the sample skill to a Webtask associated with your Auth0 account. If you haven't already gotten the code, clone it from [Github](https://github.com/auth0/auth0-alexa-authentication-sample) now.
 
-Before continuing ensure that you have the Webtask CLI installed [https://webtask.io/docs/wt-cli](https://webtask.io/docs/wt-cli). Be sure to also install the Webtask Bundle module by running:
+Before continuing, ensure that you have the Webtask CLI installed [https://webtask.io/docs/wt-cli](https://webtask.io/docs/wt-cli). Be sure to also install the Webtask Bundle module by running:
 
 ```
 npm install -g webtask-bundle
 ```
 
-Given the deploy will use the Webtask associated to your Auth0 account you'll need to access the account settings in the Auth0 Dashboard and then select the Webtask section.
+Given the deploy will use the Webtask associated to your Auth0 account, you'll need to access the account settings in the Auth0 Dashboard and then select the Webtask section.
 
 Go through and execute the setup instructions available at that location.
 
@@ -256,7 +260,7 @@ npm install
 
 ### Configure Secrets
 
-Start by creating a `secrets.ini` file (you can use secrets.example.ini as template) under `/src/runtimes/` containing the settings mentioned in the next sections from the [GitHub repo](https://github.com/auth0/auth0-alexa-authentication-sample).
+Start by creating a `secrets.example.ini` file (you can use [secrets.example.ini](https://github.com/auth0/auth0-alexa-authentication-sample/blob/master/src/runtimes/secrets.example.ini) as template) under `/src/runtimes/` containing the settings mentioned in the next sections from the [GitHub repo](https://github.com/auth0/auth0-alexa-authentication-sample).
 
 #### Mandatory Settings
 
@@ -287,13 +291,13 @@ npm run build
 
 ### Create Webtask
 
-In the following command you'll need to add the appropriate Webtask CLI profile using the `-p` option if the default one is not the one associated with the Auth0 account you used to configure the skill.
+In the following command, you'll need to add the appropriate Webtask CLI profile using the `-p` option if the default one is not the one associated with the Auth0 account you used to configure the skill.
 
 ```
 wt create -n pod --secrets-file src\runtimes\secrets.ini build\bundle.js
 ```
 
-*Note: Be sure to math the secrets file and bundle.js to wherever they are located in your directory*
+*Note: Be sure to match the secrets file and bundle.js to wherever they are located in your directory.*
 
 After the previous command executes successfully, you will be given the Webtask URL to your application in the form of `https://wt-00000.run.webtask.io`. This application includes the API called by Alexa located at `/pod/alexa/`, a mostly internal API located at `/pod/api/`, and a back-end web application available at `/pod/app/`. You can use the last one to quickly check if the deploy went smoothly.
 
@@ -309,9 +313,9 @@ We are almost there. Now that we have our Webtask deployed, we just need to make
 
 ## Auth0 Additional Configuration Steps
 
-On the sidebar at the left select the **Clients** menu, locate the entry for the client application create in step 2 and click the Settings button available in that client entry row.
+On the sidebar at the left, select the **Clients** menu, locate the entry for the client application create in step 2 and click the Settings button available in that client entry row.
 
-Go the **Allowed Callback URLs** field and add all the redirect URL's you saved from step 3 in Amazon's configuration. These URL's will allow the Amazon backend to request and received tokens meant to be used against the POD API.
+Go the **Allowed Callback URLs** field and add all the redirect URLs you saved from step 3 in Amazon's configuration. These URLs will allow the Amazon backend to request and received tokens meant to be used against the POD API.
 
 ![Add Callback URLs](https://cdn2.auth0.com/blog/alexa-auth/setup-calback.png)
 
@@ -327,10 +331,11 @@ https://wt-0000.run.webtask.io/pod/app/oidc/callback
 
 This sample skill requires account linking so before being able to properly test it, you'll need to install the Amazon Alexa application for your mobile platform of choice and go through the account linking.
 
-*Note: The Alexa application is geo-restricted so you may not be able to install it by default in some countries. However, at least from an Android perspective you can Google/Bing your way out of this small roadblock.
-After successfully installing the application you'll need to login with your Amazon account and then access your skills. In this section you should see the skill you configured previously among your listed skills.*
+*Note: The Alexa application is geo-restricted so you may not be able to install it by default in some countries. However, at least from an Android perspective, you can Google/Bing your way out of this small roadblock.
 
-Access this skill and go through the account linking process. This process will show you the Auth0 hosted authentication page where you'll be able to login using username/password credentials of the user you created in step 4 of the Auth0 configuration.
+After successfully installing the application, you'll need to login with your Amazon account and then access your skills. In this section you should see the skill you configured previously among your listed skills.*
+
+Access this skill and go through the account linking process. This process will show you the Auth0 hosted authentication page where you'll be able to log in using the username/password credentials of the user you created in step 4 of the Auth0 configuration.
 
 **Enable the Pod App**
 
@@ -352,7 +357,7 @@ You're now ready to test your Alexa skill.
 
 Access the [Alexa skills list section](https://developer.amazon.com/edw/home.html#/skills/list) in the Amazon Developer Console and select the skill you created previously.
 
-On the sidebar at the left select the **Test** section and scroll to the Service Simulator area.
+On the sidebar at the left, select the **Test** section and scroll to the Service Simulator area.
 
 You can now enter an utterance and review both the request performed by Alexa and the response returned by the deployed skill.
 
@@ -360,7 +365,7 @@ Try it out by typing in **Get me a pizza**. You will get a response that that a 
 
 ![Ordering a Pizza on Demand](https://cdn2.auth0.com/blog/alexa-auth/order-pizza.png)
 
-To confirm the order you will need to provide this code by sending another request to your Alexa skill. This time type in **Authorize Order** and provide the code you receive, for example **Authorize Order One Two Three Four**.
+To confirm the order, you will need to provide this code by sending another request to your Alexa skill. This time, type in **Authorize Order** and provide the code you receive, for example **Authorize Order One Two Three Four**.
 
 If the code matches what was in your email, Alexa will respond with a success message saying that the pizza order is confirmed, otherwise you will get a message saying that the order failed to process.
 
@@ -374,13 +379,13 @@ If the code matches what was in your email, Alexa will respond with a success me
 
 ### Using Echosim.io
 
-Access the [Echosim.io](https://echosim.io/) application and login with your Amazon account.
+[Echosim.io](https://echosim.io/) is an online simulator for the Echo device. Access the [Echosim.io](https://echosim.io/) application and log in with your Amazon account.
 
-Follow the on-screen instructions on how to activate the microphone and talk to Alexa. Given Echosim.io is aimed at providing an online simulation of an Echo device you'll have to use the skill invocation name you configured in order to first activate the correct skill.
+Follow the on-screen instructions on how to activate the microphone and talk to Alexa. Given Echosim.io is aimed at providing an online simulation of an Echo device, you'll have to use the skill invocation name you configured in order to first activate the correct skill.
 
 ## Conclusion
 
-In this post we took a look at how you can create an Alexa skill and pair it with [Auth0](https://auth0.com) for enhanced security. We also introduced you to [Webtask](https://webtask.io), our serverless offering that made it effortless to deploy an our Alexa skill implementation. [Sign up]((javascript:signup\(\)) for a free Auth0 account and add interaction based authentication to your Alexa skills in no time at all.
+In this post we took a look at how you can create an Alexa skill and pair it with [Auth0](https://auth0.com) for enhanced security. We also introduced you to [Webtask](https://webtask.io), our serverless offering that made it effortless to deploy an Alexa skill implementation. [Sign up]((javascript:signup\(\)) for a free Auth0 account and add interaction-based authentication to your Alexa skills in no time at all.
 
 ### Special Thanks
 
