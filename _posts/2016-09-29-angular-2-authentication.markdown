@@ -512,81 +512,95 @@ We'll make use of the [Angular 2 JWT library](https://github.com/auth0/angular2-
 
 ```js
 import { Injectable } from '@angular/core';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AUTH_CONFIG } from './auth0-variables';
+import { tokenNotExpired } from 'angular2-jwt';
 
+// Avoid name not found warnings
+declare var auth0: any;
 
 @Injectable()
 export class AuthService {
+  // Create Auth0 web auth instance
+  // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
+  auth0 = new auth0.WebAuth({
+    clientID: AUTH_CONFIG.CLIENT_ID,
+    domain: AUTH_CONFIG.CLIENT_DOMAIN
+  });
+
+  // Create a stream of logged in status to communicate throughout app
+  loggedIn: boolean;
+  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
   constructor(private router: Router) {
+    // If authenticated, set local profile property and update login status subject
+    if (this.authenticated) {
+      this.setLoggedIn(true);
+    }
   }
 
-  // Helper function that will allow us to extract the access_token and id_token
-  getParameterByName(name) {
-    let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+  setLoggedIn(value: boolean) {
+    // Update login status subject
+    this.loggedIn$.next(value);
+    this.loggedIn = value;
   }
 
-  // Get and store access_token in local storage
-  getAccessToken() {
-    let accessToken = this.getParameterByName('access_token');
-    localStorage.setItem('token', accessToken);
+  login() {
+    // Auth0 authorize request
+    // Note: nonce is automatically generated: https://auth0.com/docs/libraries/auth0js/v8#using-nonce
+    this.auth0.authorize({
+      responseType: 'token id_token',
+      redirectUri: AUTH_CONFIG.REDIRECT,
+      audience: AUTH_CONFIG.AUDIENCE,
+      scope: AUTH_CONFIG.SCOPE
+    });
   }
 
-  // Get and store id_token in local storage
-  getIdToken() {
-    let idToken = this.getParameterByName('id_token');
-    localStorage.setItem('id_token', idToken);
-    this.decodeIdToken(idToken);
-  }
-
-  // Decode id_token to verify the nonce
-  decodeIdToken(token) {
-    let jwtHelper = new JwtHelper();
-    let jwt = jwtHelper.decodeToken(token);
-    this.verifyNonce(jwt.nonce);
-  }
-
-  // Function to generate a nonce which will be used to mitigate replay attacks
-  generateNonce() {
-    let existing = localStorage.getItem('nonce');
-    if (existing === null) {
-      let nonce = '';
-      let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for (let i = 0; i < 16; i++) {
-          nonce += possible.charAt(Math.floor(Math.random() * possible.length));
+  handleAuth() {
+    // When Auth0 hash parsed, get profile
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = '';
+        this._getProfile(authResult);
+        this.router.navigate(['/']);
+      } else if (err) {
+        this.router.navigate(['/']);
+        console.error(`Error: ${err.error}`);
       }
-      localStorage.setItem('nonce', nonce);
-      return nonce;
-    }
-    return localStorage.getItem('nonce');
+    });
   }
 
-  // Verify the nonce once user has authenticated.
-  // If the nonce can't be verified we'll log the user out
-  verifyNonce(nonce) {
-    if (nonce !== localStorage.getItem('nonce')) {
-      localStorage.removeItem('id_token');
-      localStorage.removeItem('token');
-    }
-    this.router.navigateByUrl('/deals');
+  private _getProfile(authResult) {
+    // Use access token to retrieve user's profile and set session
+    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+      this._setSession(authResult, profile);
+    });
+  }
+
+  private _setSession(authResult, profile) {
+    // Save session data and update login status subject
+    localStorage.setItem('token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('profile', JSON.stringify(profile));
+    this.setLoggedIn(true);
   }
 
   logout() {
-    // To log out, just remove the token and profile
-    // from local storage
-    localStorage.removeItem('id_token');
+    // Remove tokens and profile and update login status subject
     localStorage.removeItem('token');
-
-    // Send the user back to the dashboard after logout
-    this.router.navigateByUrl('/deals');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('profile');
+    this.router.navigate(['/']);
+    this.setLoggedIn(false);
   }
 
-  // We'll check to see if the user is logged in by checking if the token is expired
-  loggedIn() {
-    return tokenNotExpired();
+  get authenticated() {
+    // Check if there's an unexpired access token
+    return tokenNotExpired('token');
   }
+
+}
 ```
 
 We will use the Auth0 Hosted Lock option for authenticating our users. This is the most secure way to authenticate a user and get an `access_token` in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
@@ -610,8 +624,8 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate() {
-    // If user is not logged in we'll send them to the homepage 
-    if (!this.auth.loggedIn()) {
+    // If the user is not logged in we'll send them back to the home page
+    if (!this.auth.authenticated) {
       this.router.navigate(['']);
       return false;
     }
@@ -679,18 +693,15 @@ import { AuthService } from './auth.service';
             <a routerLink="/deals" routerLinkActive="active">Deals</a>
           </li>
           <li>
-            <!-- We'll only show the private deals link if the user is logged in -->
-            <a routerLink="/special" *ngIf="authService.loggedIn()" routerLinkActive="active">Private Deals</a>
+            <a routerLink="/special" *ngIf="authService.authenticated" routerLinkActive="active">Private Deals</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <!-- We'll show the login link which will redirect the user to the Auth0 Hosted Lock page if the user is not currently logged in -->
-            <a *ngIf="!authService.loggedIn()" href="https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={{nonce}}">Log In</a>
+            <a *ngIf="!authService.authenticated" (click)="authService.login()">Log In</a>
           </li>
           <li>
-            <!-- On the other hand, if the user is logged in, we'll show a log out link -->
-            <a (click)=authService.logout() *ngIf="authService.loggedIn()">Log Out</a>
+            <a (click)=authService.logout() *ngIf="authService.authenticated">Log Out</a>
           </li>
         </ul>
     </nav>
@@ -702,28 +713,40 @@ import { AuthService } from './auth.service';
   styles : ['.navbar-right { margin-right: 0px !important}']
 })
 export class AppComponent {
-
   title = 'Daily Deals';
 
   // We'll need to include a reference to our authService in the constructor to gain access to the API's in the view
   constructor(private authService: AuthService) {
-    // Generate a nonce
-    this.nonce = this.authService.generateNonce();
   }
 }
 ```
 
-The key item I want to highlight in this section is the login hyperlink: 
+When the user clicks on the login link, they will be taken to a hosted Lock login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
+
+Before we test out this functionality, we'll need to ensure that we have the right credentials so that our authentication service knows which parameters to pass to the hosted Lock page. Create a new file called `auth0-variables.ts` and paste the following:
+
+```js
+interface AuthConfig {
+  CLIENT_ID: string;
+  CLIENT_DOMAIN: string;
+  AUDIENCE: string;
+  REDIRECT: string;
+  SCOPE: string;
+}
+
+export const AUTH_CONFIG: AuthConfig = {
+  CLIENT_ID: 'YOUR-AUTH0-CLIENT-ID',
+  CLIENT_DOMAIN: 'YOUR-AUTH0-DOMAIN.auth0.com',
+  AUDIENCE: 'YOUR-AUTH0-API-IDENTIFIER',
+  REDIRECT: 'http://localhost:4200/callback',
+  SCOPE: 'openid'
+};
 
 ```
-https://{YOUR-AUTH0-DOMAIN}.auth0.com/authorize?scope=full_access&audience={YOUR-API-IDENTIFIER}&response_type=id_token%20token&client_id={YOUR-AUTH0-CLIENT-ID}&redirect_uri={YOUR-CALLBACK-URL}&nonce={nonce}
-```
 
-This URL calls the Auth0 `authorize` endpoint and we pass a series of parameters that will identity our API and client so that we can properly do the authentication. You can learn more about the specific values that can be passed [here](https://auth0.com/docs/api-auth/tutorials/implicit-grant#1-get-the-user-s-authorization).
+We are already importing this file in the `auth.service.ts` file, so once it is created we will not have to do anything else except change the `YOUR-AUTH0-CLIENT-ID`, `YOUR-AUTH0-DOMAIN`, and `YOUR-AUTH0-API-IDENTIFIER` for your actual values. The `YOUR-AUTH-CLIENT-ID` will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
 
-The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
-
-The client that was created for me is called **Daily Deals API (Test Client)**, and I will use this client for our application as it is already setup to work with the API. Open up your client, and you will want to copy the **Client ID**. This value will replace the `{YOUR-AUTH0-CLIENT-ID}` parameter. 
+The client that was created for me is called **Daily Deals API (Test Client)**, and I will use this client for our application as it is already setup to work with the API. Open up your client, and you will want to copy the **Client ID**. This value will replace the `YOUR-AUTH0-CLIENT-ID` parameter. Likewise, do the same for the other two placeholders.
 
 ![Daily Deals API Test Client](https://cdn.auth0.com/blog/angular2-auth-dd/dd-client.png)
 
@@ -732,8 +755,6 @@ While you're viewing your client in the Auth0 dashboard, scroll down to find a s
 ```
 http://localhost:4200/callback
 ```
-
-This URL will replace the `{YOUR-CALLBACK-URL}` parameter in the login link. We will have to account for this new endpoint in our front-end, so let's take care of that piece next.
 
 ### Creating the Callback Component
 
@@ -749,13 +770,12 @@ import { AuthService } from './auth.service';
 export class CallbackComponent {
 
   constructor(private authService: AuthService) {
-    this.authService.getIdToken();
-    this.authService.getAccessToken();
+    this.authService.handleAuth();
   }
 }
 ```
 
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our CallbackComponent will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/deals` page and will be in a logged in state.
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our CallbackComponent will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token` and an `access_token`, we will be redirected back to the `/deals` page and will be in a logged in state.
 
 Before we move on, let's make sure to register the `/callback` route in our routes file.
 
