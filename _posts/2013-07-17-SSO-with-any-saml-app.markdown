@@ -4,6 +4,10 @@ title: "SSO with any SAML App"
 date: 2013-07-17 11:46
 outdated: true
 alias: /2013/07/17/SSO-with-any-saml-app/
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com
@@ -50,3 +54,5 @@ So, if you don't see the app you need on our list, fear not! Use this feature or
 [open a support ticket](https://support.auth0.com)
 
 [Try Auth0 yourself!](https://auth0.com)
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

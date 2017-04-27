@@ -4,6 +4,10 @@ title: "How SAML Authentication Works"
 description: Learn the nitty-gritty of SAML Authentication
 date: 2016-12-05 08:30
 category: Technical Guide, Identity, SAML
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 design:
   bg_color: "#9F2324"
   image: https://cdn.auth0.com/blog/SAMLLogo.png
@@ -33,7 +37,7 @@ related:
 
 Security Assertion Markup Language (SAML) is an XML-based framework for authentication and authorization between two entities: a Service Provider and an Identity Provider. The Service Provider agrees to trust the Identity Provider to authenticate users. In return, the Identity provider generates an *authentication assertion*, which indicates that a user has been authenticated.
 
-SAML is a standard single sign-on (SSO) format. Authentication information is exchanged through digitally signed XML documents. It's a complex single sign-on (SSO) implementation that enables seamless authentication, mostly between businesses and enterprises.
+SAML is a standard [single sign-on (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) format. Authentication information is exchanged through digitally signed XML documents. It's a complex single sign-on (SSO) implementation that enables seamless authentication, mostly between businesses and enterprises.
 
 With SAML, you don't have to worry about typing in authentication credentials or remembering and resetting passwords.
 
@@ -55,7 +59,7 @@ Without much ado, the benefits of SAML authentication include:
 
 Let's take an in-depth look at the process flow of SAML authentication in an application. SAML single sign-on authentication typically involves a service provider and an identity provider. The process flow usually involves the *trust establishment* and *authentication flow* stages.
 
-Consider this example: 
+Consider this example:
 
 - Our identity provider is **Auth0**
 - Our service provider is an enterprise HR portal called **Zagadat**
@@ -96,7 +100,7 @@ Note the attributes that are highlighted in the SAML request and response. Here'
 
 ## Aside: SAML Authentication with Auth0
 
-With Auth0, SAML authentication is dead simple to implement. We can easily configure our applications to use **Auth0 Lock** for SAML authentication. 
+With Auth0, SAML authentication is dead simple to implement. We can easily configure our applications to use **Auth0 Lock** for SAML authentication.
 
 In the example below, we will use an Auth0 account(account 1) as a *Service Provider* and authenticate users against a second Auth0 account(account 2) which will serve as our *Identity Provider*. Follow the steps below:
 
@@ -350,7 +354,7 @@ Create an HTML page and insert the following:
 	    lock.show();
 	  }
 	</script>
- 
+
 <button onclick="signin()">Login</button>
 </BODY>
 </HTML>
@@ -413,7 +417,8 @@ Auth0 also provides several options:
 * SAML Configurations for SSO Integrations such as Google Apps, Hosted Graphite, [Litmos](https://auth0.com/docs/protocols/saml/saml-apps/litmos), [Cisco Webex](https://auth0.com/docs/protocols/saml/saml-apps/cisco-webex), [Sprout Video](https://auth0.com/docs/protocols/saml/saml-apps/sprout-video), [FreshDesk](https://auth0.com/docs/protocols/saml/saml-apps/freshdesk), Tableau Server, [Datadog](https://auth0.com/docs/protocols/saml/saml-apps/datadog), Egencia, Workday and Pluralsight
 * How to configure Auth0 to use other identity Providers such as [Okta](https://auth0.com/docs/protocols/saml/identity-providers/okta), [OneLogin](https://auth0.com/docs/protocols/saml/identity-providers/onelogin), [PingFederate 7](https://auth0.com/docs/protocols/saml/identity-providers/ping7), [SalesForce](https://auth0.com/docs/protocols/saml/identity-providers/salesforce), [SiteMinder](https://auth0.com/docs/protocols/saml/identity-providers/siteminder) and [SSOCircle](https://auth0.com/docs/protocols/saml/identity-providers/ssocircle)
 
-
 ## Conclusion
 
 We have covered how SAML authentication works and also went through some steps to implement it in an application. You want to implement SAML authentication in your app? <a href="javascript:signup()">Sign up for Auth0</a> and implement SAML authentication seamlessly today!
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

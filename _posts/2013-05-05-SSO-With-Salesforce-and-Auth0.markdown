@@ -4,6 +4,10 @@ title: "SSO with Salesforce.com and Auth0"
 date: 2013-05-05 8:29
 outdated: true
 alias: /2013/05/05/SSO-With-Salesforce-and-Auth0/
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Eugenio Pace
   mail: eugeniop@auth0.com

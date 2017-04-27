@@ -4,15 +4,19 @@ title: "Add SSO for Disqus on your WordPress Site with Auth0"
 description: "Learn how utilize SSO for your Disqus WordPress plugin for your blog comments using Auth0 for authentication on the blog."
 date: 2017-04-04 10:00
 category: Technical Guide, Identity
-author: 
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
+author:
   name: Carlos Mostek
   url: "https://twitter.com/mostekcm"
   mail: mostekcm@auth0.com
   avatar: "https://gravatar.com/avatar/8e5a8216a606127a787669d99de86ee2?s=200"
-design: 
+design:
   bg_color: "#247FCC"
   image: https://cdn.auth0.com/blog/disqus-sso-post/logo.png
-tags: 
+tags:
   - Disqus
   - WordPress
   - SSO
@@ -23,7 +27,7 @@ related:
 
 ---
 
-**TL;DR** [Disqus](https://disqus.com/) is a great tool for adding interactivity through conversation and comments to your blog.  Integrating it with your WordPress site is really simple. The downside to Disqus is that it requires another set of credentials before users can interact with your site. Today, we'll show how to eliminate the need for users to log in twice with Auth0 and Single Sign On (SSO) for a better user experience.
+**TL;DR** [Disqus](https://disqus.com/) is a great tool for adding interactivity through conversation and comments to your blog.  Integrating it with your WordPress site is really simple. The downside to Disqus is that it requires another set of credentials before users can interact with your site. Today, we'll show how to eliminate the need for users to log in twice with Auth0 and [Single Sign On (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) for a better user experience.
 
 [WordPress](https://wordpress.org/) makes it easy to create blogs and other media sites. It is one of the leading CMS systems out there, and allows developers to create powerful websites that users can engage with. The default comment capability from WordPress can be greatly improved through the addition of the [Disqus WordPress Plugin](https://wordpress.org/plugins/disqus-comment-system/). Disqus provides a really nice interface for tracking and interacting with users through comments and reviews.  The one downfall to Disqus is that it requires users to have a separate login alongside their WordPress credentials. That’s where SSO comes in. With SSO enabled for your Disqus account, your WordPress user accounts will automatically integrate with Disqus, enabling users to comment without having to log into Disqus as well as WordPress.
 
@@ -116,3 +120,5 @@ That’s it! You now have SSO functionality for your WordPress sites. Users sign
 
 ## Conclusion
 Today we saw how you can easily improve the user experience on your WordPress website with Disqus, Auth0, and Single Sign On (SSO). Lowering the barrier to entry for your users is always a plus, and not forcing them to enter another set of credentials to interact with your site is a big win here. If you are running WordPress applications and using Disqus for comments, Auth0 can save time implementing SSO. Give it a try today.
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

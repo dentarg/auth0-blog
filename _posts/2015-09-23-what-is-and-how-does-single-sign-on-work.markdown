@@ -5,6 +5,10 @@ description: "In this post you will learn about Single Sign On authentication an
 date: 2015-09-23 18:00
 alias: /2015/09/23/what-is-and-how-does-single-sign-on-work/
 category: Technical Guide, Identity, Single Sign On
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
@@ -30,7 +34,7 @@ related:
 - 2016-04-21-facebook-account-kit-passwordless-authentication
 ---
 
-Single-sign-on (SSO) authentication is now required more than ever. Nowadays, almost every website requires some form of authentication to access its features and content. With the number of websites and services rising, a centralized login system has become a necessity. In this two-piece post we will study how **SSO authentication** is implemented for the web and provide a working example using OpenID Connect (in part 2). Read on!
+[Single-sign-on (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) authentication is now required more than ever. Nowadays, almost every website requires some form of authentication to access its features and content. With the number of websites and services rising, a centralized login system has become a necessity. In this two-piece post we will study how **SSO authentication** is implemented for the web and provide a working example using OpenID Connect (in part 2). Read on!
 
 -----
 
@@ -75,3 +79,5 @@ If you are already using Auth0 in your developments, you know how easy it is to 
 
 ## Conclusion
 SSO authentication is here to stay. Decentralized systems are becoming more and more common and authentication is an essential aspect of all of them. SSO solves a big problem: how to manage the increasing number of users across a whole ecosystem of applications and services. Frameworks such as OpenID Connect and services such as the one we provide at Auth0 make [integrating Single Sign On](https://auth0.com/learn/how-to-implement-single-sign-on/) into your new or existing applications much easier. If you are implementing authentication for a new application or service, consider integrating SSO from the get-go.
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

@@ -5,6 +5,10 @@ description: "In this tutorial learn how to integrate LDAP and Active Directory 
 date: 2015-10-28 10:00
 alias: /2015/10/28/using-ldap-with-c-sharp/
 category: Technical Guide, Microsoft, C#
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
@@ -41,7 +45,7 @@ LDAP is a protocol that defines a series of operations through which you can acc
 
 ![LDAP's tree-structured attributes](https://cdn.auth0.com/blog/ldap/ldap-tree.png)
 
-One common use of LDAP is as part of **single-sign-on (SSO)** systems. If you are not familiar with SSO, read our [introduction to SSO](https://auth0.com/blog/2015/09/23/what-is-and-how-does-single-sign-on-work/).
+One common use of LDAP is as part of [single-sign-on (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) systems. If you are not familiar with SSO, read our [introduction to SSO](https://auth0.com/blog/2015/09/23/what-is-and-how-does-single-sign-on-work/).
 
 The following diagram shows how a simple SSO system can work using LDAP. The diagram shows a simplified [Microsoft Active Directory](https://en.wikipedia.org/wiki/Active_Directory) configuration using LDAP. Active Directory stores user information in an LDAP server. When a user attempts to login to his or her Windows PC, Windows validates the login information against the LDAP/Active Directory server. Whenever a user tries to do something that requires authentication, an application can use information from the Active Directory server to validate the user's identity. Of course, if SSO is not required, Active Directory can also be used as a simple authentication mechanism.
 
@@ -373,3 +377,5 @@ curl -H 'Content-Type: application/json' -X POST -d '{ "client_id":"FyFnhDX2kSqt
 
 ## Conclusion
 LDAP was designed as a lightweight protocol that can access directory contents. As it evolved over the years, it gained important features, such as authentication and transport security. As a well defined means to get user information, it has found its way to small and big deployments. Its simplicity and openness have kept LDAP relevant through the years. Nowadays, single sign on systems can also work using LDAP. Fortunately, integrating LDAP to existing or new projects is easy. In our next post, we will focus on Active Directory specifics using the [PrincipalContext API](https://msdn.microsoft.com/en-us/library/system.directoryservices.accountmanagement.principalcontext.aspx). Stay tuned!
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)
