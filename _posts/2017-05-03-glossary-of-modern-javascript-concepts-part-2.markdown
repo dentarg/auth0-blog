@@ -728,6 +728,16 @@ To learn more about **tree shaking**, check out the following resources:
 
 ---
 
+## Aside: Learning and Implementing Authentication with Auth0
+
+One of the most complex features to implement in an application is user authentication and identity management. [Security for authentication and identity](https://auth0.com/docs/security) is [an entire glossary](https://auth0.com/identity-glossary) unto itself.
+
+![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
+
+If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/learn/cloud-identity-access-management/) system quickly and easily for your JavaScript SPAs and [Node APIs](https://auth0.com/docs/architecture-scenarios/application/server-api/api-implementation-nodejs), Auth0 can help. Auth0 provides [Single Page Application QuickStart guides](https://auth0.com/docs/quickstart/spa), an [SDK for web](https://auth0.com/docs/libraries/auth0js), plenty of [documentation](https://auth0.com/docs), and [this blog's articles and tutorials](https://auth0.com/blog). You can [sign up for a free Auth0 account here](javascript:signup\(\)) to get started.
+
+---
+
 ## Conclusion
 
 With the swift rise of JavaScript Single Page Application frameworks and component-based paradigms, it's important to understand JS topics relating to scoping, data flow, components, compilation, and bundling.
