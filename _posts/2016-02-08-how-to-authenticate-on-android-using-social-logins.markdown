@@ -827,3 +827,5 @@ Get the [full code](https://github.com/auth0/blog-android-social-login-sample).
 
 ## Conclusion
 Social logins are now more important than ever. Many users find the sign-up process cumbersome and expect to be able to sign-in using one their existing accounts from other services. As an application developer, you want to make sure users are not scared away from trying your app because of the dreaded registration step. Adding several login providers is doable but increases the complexity of your app and the time needed to develop it. A great way to prevent this from happening is with our Android Lock library. Other benefits include: added security (for instance by not putting secret keys in your app) and professional support from our team. Try it, you won't be disappointed.
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

@@ -37,7 +37,7 @@ related:
 
 Security Assertion Markup Language (SAML) is an XML-based framework for authentication and authorization between two entities: a Service Provider and an Identity Provider. The Service Provider agrees to trust the Identity Provider to authenticate users. In return, the Identity provider generates an *authentication assertion*, which indicates that a user has been authenticated.
 
-SAML is a standard single sign-on (SSO) format. Authentication information is exchanged through digitally signed XML documents. It's a complex single sign-on (SSO) implementation that enables seamless authentication, mostly between businesses and enterprises.
+SAML is a standard [single sign-on (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) format. Authentication information is exchanged through digitally signed XML documents. It's a complex single sign-on (SSO) implementation that enables seamless authentication, mostly between businesses and enterprises.
 
 With SAML, you don't have to worry about typing in authentication credentials or remembering and resetting passwords.
 
@@ -417,7 +417,8 @@ Auth0 also provides several options:
 * SAML Configurations for SSO Integrations such as Google Apps, Hosted Graphite, [Litmos](https://auth0.com/docs/protocols/saml/saml-apps/litmos), [Cisco Webex](https://auth0.com/docs/protocols/saml/saml-apps/cisco-webex), [Sprout Video](https://auth0.com/docs/protocols/saml/saml-apps/sprout-video), [FreshDesk](https://auth0.com/docs/protocols/saml/saml-apps/freshdesk), Tableau Server, [Datadog](https://auth0.com/docs/protocols/saml/saml-apps/datadog), Egencia, Workday and Pluralsight
 * How to configure Auth0 to use other identity Providers such as [Okta](https://auth0.com/docs/protocols/saml/identity-providers/okta), [OneLogin](https://auth0.com/docs/protocols/saml/identity-providers/onelogin), [PingFederate 7](https://auth0.com/docs/protocols/saml/identity-providers/ping7), [SalesForce](https://auth0.com/docs/protocols/saml/identity-providers/salesforce), [SiteMinder](https://auth0.com/docs/protocols/saml/identity-providers/siteminder) and [SSOCircle](https://auth0.com/docs/protocols/saml/identity-providers/ssocircle)
 
-
 ## Conclusion
 
 We have covered how SAML authentication works and also went through some steps to implement it in an application. You want to implement SAML authentication in your app? <a href="javascript:signup()">Sign up for Auth0</a> and implement SAML authentication seamlessly today!
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

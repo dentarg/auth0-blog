@@ -29,7 +29,7 @@ related:
 
 ---
 
-Identity management seems like just a small piece of the puzzle that keeps your business running smoothly. If there's basic functionality for your system that gets people where they need to be, you should be all set, right?
+[Identity management](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/?utm_source=blog) seems like just a small piece of the puzzle that keeps your business running smoothly. If there's basic functionality for your system that gets people where they need to be, you should be all set, right?
 
 Unfortunately, it isn't that simple.
 
@@ -114,3 +114,5 @@ A robust IAM system will also allow you to implement the correct permissions and
 The best way to take full advantage of all that an IAM solution can offer you is to outsource your identity management. Unless you decide to sink your resources into building a full-scale identity management team, you simply won't be able to tap into the benefits that a robust IAM solution can offer you.
 
 Identity management is more than a simple login. It can offer a real value to your business, for everything from employee quality of life to revenue generation, and it has the potential to be an integral component of your success.
+
+[Learn how to evaluate a modern identity management solution that fits your needs in this free eBook, Build vs Buy: Guide to Evaluating IAM](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/?utm_source=blog)

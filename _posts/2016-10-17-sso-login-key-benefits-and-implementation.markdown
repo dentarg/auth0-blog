@@ -96,3 +96,5 @@ If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for
 The benefits of using SSO login to manage a large ecosystem of applications and services are numerous. Modern application development supports distributed and decentralized systems. With an efficient SSO login in place, it's easier to add more applications to the existing suite of services without having to worry about authentication every time. If Google can implement SSO login and succeed, you can do it too with Auth0!
 
 {% include tweet_quote.html quote_text="If Google can implement SSO login and succeed, you can do it too with Auth0!" %}
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

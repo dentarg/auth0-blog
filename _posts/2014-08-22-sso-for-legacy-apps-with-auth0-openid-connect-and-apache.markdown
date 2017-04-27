@@ -28,7 +28,7 @@ description: "Auth0 SDKs make it really easy to add SSO to any app, on any platf
 category: Auth0-based Tutorial, Integration
 ---
 
-Auth0 [SDKs](https://docs.auth0.com) make it really easy to add SSO to any app, on any platform. But sometimes, apps cannot be modified. What to do then?
+Auth0 [SDKs](https://docs.auth0.com) make it really easy to add [Single Sign On (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) to any app, on any platform. But sometimes, apps cannot be modified. What to do then?
 
 A very simple solution is to front any web content with a web server that itself is capable of negotiating authentication for users. One web server with the extensibility required for plugging-in any auth is Apache server.
 
@@ -90,3 +90,5 @@ OIDCProviderAuthorizationEndpoint https://contoso.auth0.com/authorize?connection
 Users will be sent directly to LinkedIn for authentication in this case.
 
 That's it!
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

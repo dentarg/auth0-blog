@@ -105,3 +105,5 @@ We are seeing a trend that web applications are moving to longer session expirat
 Auth0 Passwordless is **ready to be used in production** today and it is **included in every Auth0 plan**.
 
 We can’t wait to see what you will build. And we look forward to continuing to contribute  more improvements to identity and security on the web 🔐.
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

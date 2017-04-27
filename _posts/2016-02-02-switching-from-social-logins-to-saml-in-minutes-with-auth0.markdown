@@ -36,7 +36,7 @@ Today's video is about how easy it is to make the switch from social identity pr
 
 Today we'll talk about how easy it is to integrate SAML authentication with Auth0.
 
-So let's start with a hypothetical: you're building a SaaS product, and some of your enterprise customers want their employees to be able to access your product through Single Sign-On (SSO)...and their Identity Provider (IdP) happens to use SAML for authentication.
+So let's start with a hypothetical: you're building a SaaS product, and some of your enterprise customers want their employees to be able to access your product through [Single Sign-On (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)...and their Identity Provider (IdP) happens to use SAML for authentication.
 
 SAML is a complex standard, and so implementing Federation yourself, even with [already existing libraries](https://www.npmjs.org/package/saml2-js) can be quite a nightmare, and require lots of code and maintenance.
 
@@ -128,3 +128,5 @@ Once you have done this, you can test your new SAML connection in the Dashboard.
 With just a few minutes and no code changes, we have incorporated a SAML SSO into our Auth0 app! Want to learn more? [try our free plan](https://auth0.com/pricing), and you can checkout the [30+ social IdPs](https://auth0.com/docs/identityproviders#social) and the [enterprise IdPs](https://auth0.com/docs/identityproviders#enterprise) that we support.
 
 I'm Kassandra from Auth0, and thanks for reading!
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)
