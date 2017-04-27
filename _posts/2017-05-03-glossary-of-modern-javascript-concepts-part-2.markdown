@@ -38,7 +38,7 @@ In this article, we'll address concepts that are crucial to understanding modern
 You can jump straight into each concept here, or continue reading to learn about them in order.
 
 * <a href="#scope-closures" target="_self">Scope (Global, Local, Lexical) and Closures</a>
-* <a href="#data-flow-binding" target="_self">One-way Data Flow and Two-way Data Binding</a>
+* <a href="#data-flow-binding" target="_self">One-Way Data Flow and Two-Way Data Binding</a>
 * <a href="#change-detection" target="_self">Change Detection in JS Frameworks: Dirty Checking, Accessors, Virtual DOM</a>
 * <a href="#web-components" target="_self">Web Components</a>
 * <a href="#smart-dumb-components" target="_self">Smart and Dumb Components</a>
@@ -72,7 +72,7 @@ someFunction() {
 
 Everything has access to the **global scope**. If we open an empty `.js` file and type `var globalVar`, this variable is accessible to anything else we'll create. If we executed the file in a browser, `globalVar`'s function scope would be `window`.
 
-> **Note:** If we declare a new variable without the `var` keyword, it will be placed in the _global_ scope. You may have encountered this before (perhaps accidentally).
+> **Note:** If we declare a new variable without the `var` keyword, it will be placed in the _global_ scope no matter where it is in the code. You may have encountered this before (perhaps accidentally).
 
 The `someFunction` function creates its own **local scope**. It also inherits access to the global scope. We can freely use `globalVar` _inside_ `someFunction`. However, the global scope does _not_ have access to nested contexts, such as `someFunction`'s local scope. If we try to log `localVar` from the global scope, we will receive an error because `localVar` is not defined in the global scope.
 
@@ -185,7 +185,7 @@ add5(2); // alerts 7
 
 This code can be run at this [JSFiddle: JS Closures - Adder](https://jsfiddle.net/kmaida/qfvyofcs/).
 
-Both `add1` and `add5` are closures with different lexical environments storing different values for the `x` argument.
+Both `add1` and `add5` are closures with different lexical environments storing different values for the `x` argument. These values are protected by the fact that they're "enclosed" in the lexical environment of each closure. We could use the `addCreator(x)` factory function to create as many `add_` functions as we needed.
 
 ### Scope and Closures Takeaways
 
@@ -209,11 +209,11 @@ To learn more about **scope and closures** (and `this`), check out the following
 
 ---
 
-## <span id="data-flow-binding"></span>One-way Data Flow and Two-way Data Binding
+## <span id="data-flow-binding"></span>One-Way Data Flow and Two-Way Data Binding
 
-With the proliferation of JavaScript frameworks and single-page applications, it's important for JS developers to understand concepts like data flow / binding, and how the tools we're using manage this.
+With the proliferation of JavaScript frameworks and Single Page Applications (SPAs), it's important for JS developers to understand concepts like data flow / binding, and how the tools we're using manage this.
 
-### One-way Data Flow
+### One-Way Data Flow
 
 An application or framework with **one-way data flow** uses the model as the single source of truth. [React](https://facebook.github.io/react/) is a widely recognized example of one-way data flow (or _one-way data binding_). Messages are sent from the UI in the form of events to signal the model to update.
 
@@ -247,7 +247,7 @@ class OneWay extends React.Component {
 }
 ```
 
-This code is available to run at [JSFiddle: React One-way Data Flow](https://jsfiddle.net/kmaida/045znrsf/).
+This code is available to run at [JSFiddle: React One-Way Data Flow](https://jsfiddle.net/kmaida/045znrsf/).
 
 We can see that the `state` object model is established in the `constructor` function. The initial value of `this.state.text` is an empty string. In our `render()` function, we add an `onChange` handler to our `<input>` element. We use this handler to `setState()`, signalling the `state` object model to update the `text` property with the new value of the input field.
 
@@ -255,7 +255,7 @@ Data is _only flowing in one direction_: from the model down. The UI input does 
 
 > **Note:** In order to reflect changes from the model _to_ the UI, React creates a new virtual DOM and diffs the old virtual DOM with the updated virtual DOM. Only the _changes_ are then rendered in the real DOM. We'll talk more about this in the section on <a href="#change-detection" target="_self">change detection</a>.
 
-### Two-way Data Binding
+### Two-Way Data Binding
 
 In **two-way data binding**, the data flows in both directions. This means that the JS can update the model _and_ the UI can do so as well. A common example of two-way data binding is with [AngularJS](https://angularjs.org).
 
@@ -293,7 +293,7 @@ Let's implement the same example from above, but with AngularJS two-way data bin
 {% endraw %}
 {% endhighlight %}
 
-This code is available to run at [Plunker: AngularJS two-way binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview). 
+This code is available to run at [Plunker: AngularJS Two-Way Binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview). 
 
 In our controller, we set up the `$scope.text` model. In our template, we associate this model with the `<input>` using `ng-model="text"`. When we change the input value in the UI, the model will also be updated in the controller. We can see this in the `$watch()`.
 
@@ -303,7 +303,7 @@ This is two-way binding in AngularJS. As you can see, we didn't set up any event
 
 > **Note:** AngularJS uses what's called the [digest cycle](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) (dirty checking) to compare a value with the previous value. You can read more about dirty checking in AngularJS in the section on <a href="#change-detection" target="_self">change detection</a>.
 
-### Aside: Two-way Data Binding in Angular
+### Aside: Two-Way Data Binding in Angular
 
 But wait! [Angular](https://angular.io) (v2+) has the "banana-in-a-box" `[(ngModel)]`, right? On the surface, this may look like persistence of automagical two-way data binding. However, that is not the case. [Angular's two-way binding `[()]` syntax](https://angular.io/docs/ts/latest/guide/template-syntax.html#!#two-way) simply shortcuts property and event binding in a template, and the [`ngModel` directive](https://angular.io/docs/ts/latest/api/forms/index/NgModel-directive.html) supplies an `ngModelChange` event for you. To learn more about this, check out [this article on two-way binding in Angular](https://blog.thoughtram.io/angular/2016/10/13/two-way-data-binding-in-angular-2.html).
 
