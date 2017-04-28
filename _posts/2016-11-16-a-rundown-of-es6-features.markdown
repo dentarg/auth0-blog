@@ -1266,12 +1266,12 @@ This is the main client-side script to authenticate and authorize a user to acce
 
 ```javascript
 const auth0 = new window.auth0.WebAuth({
-    clientID: "E799daQPbejDsFx57FecbKLjAvkmjEvo",
-    domain: "speyrott.auth0.com",
-    scope: "openid email profile purchase",
-    audience: "/protected", // See https://auth0.com/docs/api-auth
+    clientID: "YOUR-AUTH0-CLIENT-ID",
+    domain: "YOUR-AUTH0-DOMAIN",
+    scope: "openid email profile YOUR-ADDITIONAL-SCOPES",
+    audience: "YOUR-API-AUDIENCES", // See https://auth0.com/docs/api-auth
     responseType: "token id_token",
-    redirectUri: "http://localhost:9000"
+    redirectUri: "http://localhost:9000" //YOUR-REDIRECT-URL
 });
 
 function logout() {
