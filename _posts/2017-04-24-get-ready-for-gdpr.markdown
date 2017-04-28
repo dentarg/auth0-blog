@@ -7,9 +7,9 @@ category: Security, Identity, Regulation
 is_non-tech: true
 author:
   name: Jonathan Armstrong
-  url: http://twitter.com/mgonto
-  mail: gonto@auth0.com
-  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+  url: https://twitter.com/armstrongjp
+  mail: jonathan.armstrong@corderycompliance.com
+  avatar: https://cdn2.auth0.com/blog/authors/jonathanarmstrong.jpg
 design:
   image: https://cdn.auth0.com/blog/social-login-on-the-rise/social-login-logo.png
   bg_color: "#2E598C"
