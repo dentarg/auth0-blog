@@ -277,6 +277,7 @@ Rx.Observable.prototype.authenticate = function(config) {
     return fetch(config.loginPath, init).then(function(data) {
       return data.json().then(function(jwt) {
         localStorage.setItem('id_token', jwt.id_token);
+        localStorage.setItem('access_token', jwt.access_token);
       });
     });        
   }
@@ -289,7 +290,7 @@ Rx.Observable.prototype.authenticate = function(config) {
 ...
 ```
 
-Here we are accepting a configuration object and setting up the request type, headers, and body that we want to send to the API. Once the request resolves, we set the returned token into local storage.
+Here we are accepting a configuration object and setting up the request type, headers, and body that we want to send to the API. Once the request resolves, we set the returned tokens into local storage.
 
 We can now log in with our credentials. For this simple example, we don't have a way to register users (although the NodeJS example back end allows it), so we'll just use the default username of "gonto" and a password of "gonto".
 
@@ -297,7 +298,7 @@ We can now log in with our credentials. For this simple example, we don't have a
 
 ## Retrieving Secret Quotes
 
-Now that we've got our authentication in place and we have a JWT saved in local storage, let's set up the streams that handle secret quotes. We'll need a way to check whether there is a JWT in local storage before we send the request. Let's once again abstract this task away into a custom operator called `authenticated`.
+Now that we've got our authentication in place and we have an `id_token` and `access_token` saved in local storage, let's set up the streams that handle secret quotes. We'll need a way to check whether there is a JWT `access_token` in local storage before we send the request. Let's once again abstract this task away into a custom operator called `authenticated`.
 
 ```js
 // app.js
@@ -323,7 +324,7 @@ Rx.Observable.prototype.authenticated = function(route) {
 ...
 ```
 
-The `authenticated` operator will check for a JWT in local storage, and if there is one, it will return an observable by mapping out an object with the route for our request and the JWT.
+The `authenticated` operator will check for a JWT `access_token` in local storage, and if there is one, it will return an observable by mapping out an object with the route for our request and the JWT.
 
 Next, we can make use of this operator in our `secretQuoteStream` by passing in the route we want to make the request to. In this case, it's the route for secret quotes.
 
@@ -467,6 +468,9 @@ var loginStream = loginClickStream
 If we enter a username of "hello@bye.com" and password of "hello", we see that we get a JWT back.
 
 ![reactive](https://cdn.auth0.com/blog/auth-observables/auth-observables-1-5.png)
+
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+
 
 If you'd like to explore Auth0's API further, head over to the [docs](https://auth0.com/docs/auth-api). For help while working with JWT's you can also check out [Auth0's JWT debugger](http://jwt.io/).
 
