@@ -1259,132 +1259,81 @@ async function* readLines(path) {
 
 To learn more about this proposal, visit its [GitHub repository](https://github.com/tc39/proposal-async-iteration).
 
-## Aside: Auth0 Lock with ECMAScript 2015 + Async/Await
-You can use ECMAScript 2015 and async/await today! We will see how to do this using Webpack + Babel. For this example we will adapt one of the Auth0 VanillaJS Lock examples to use ECMAScript 2015 and async/await.
+## Aside: using Auth0's JavaScript Library to Authenticate
+At Auth0 we use JavaScript heavily. Using our authentication and authorization server from your JavaScript web apps is a piece of cake. Here's one simple example using ECMAScript 2015 features and the [Auth0.js library](https://github.com/auth0/auth0.js).
 
-First, get the code and <a href="javascript:signup()">signup for a free Auth0 account</a>:
-
-```sh
-$ git clone git@github.com:auth0-samples/auth0-javascript-spa.git
-```
-
-Enter the `01-Login` directory and init a new NPM project.
-
-```sh
-npm init
-```
-
-Now install all our development dependencies:
-
-```
-npm install --save-dev http-server webpack babel-loader babel-core babel-preset-es2015 babel-plugin-transform-runtime babel-preset-stage-3 bluebird 
-```
-
-A simple Webpack + Babel setup requires two simple configuration files:
+This is the main client-side script to authenticate and authorize a user to access an API. It also updates the DOM to show some user data.
 
 ```javascript
-// webpack.config.js
-module.exports = {
-    entry: "./app.js",
-    output: {
-        path: __dirname,
-        filename: "app.bundle.js"
-    },
-    module: {
-        loaders: [{
-            test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel',
-            query: {
-                presets: ['es2015', 'stage-3']
-            }
-        }]
-    }
-};
-```
-
-```javascript
-// .babelrc
-{
-  "plugins": ["transform-runtime"]
-}
-```
-
-Now edit the HTML file to point to our new compiled bundle:
-
-```html
- <script src="app.bundle.js"></script>
-```
-
-Now let's modify the `auth0-variables.js` file to use the new `export` keyword from ECMAScript 2015:
-
-```javascript
-export const AUTH0_CLIENT_ID='E799daQPbejDsFx57FecbKLjAvkmjEvo';
-export const AUTH0_DOMAIN='speyrott.auth0.com';
-export const AUTH0_CALLBACK_URL=location.href;
-```
-
-Now comes the big part, we will refactor the `app.js` file to use some features from ECMAScript 2015 and async/await. But first, let's use `Bluebird` to convert Auth0 Lock's old Node.js callbacks to promises.
-
-```javascript
-import {
-  AUTH0_CLIENT_ID,
-  AUTH0_DOMAIN,
-  AUTH0_CALLBACK_URL
-} from './auth0-variables.js';
-
-import Promise from 'bluebird';
-
-var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-const getProfile = Promise.promisify(lock.getProfile, { context: lock });
-```
-
-And now let's use promises and async/await:
-
-```javascript
-async function retrieveProfile() {
-  var idToken = localStorage.getItem('id_token');
-  if (idToken) {
-    try {
-      const profile = await getProfile(idToken);
-      showProfileInfo(profile);
-    } catch(err) {
-      alert('There was an error getting the profile: ' + err.message);
-    }
-  }
-}
-
-async function afterLoad() {
-  // buttons
-  var btnLogin = document.getElementById('btn-login');
-  var btnLogout = document.getElementById('btn-logout');
-
-  btnLogin.addEventListener('click', function () {
-    lock.show();
-  });
-
-  btnLogout.addEventListener('click', function () {
-    logout();
-  });
-
-  lock.on("authenticated", function(authResult) {
-    getProfile(authResult.idToken).then(profile => {
-      localStorage.setItem('id_token', authResult.idToken);
-      showProfileInfo(profile); 
-    }, error => {
-      // Handle error
-    });
-  });
-
-  return retrieveProfile();
-}
-
-window.addEventListener('load', function () {
-  afterLoad().then();
+const auth0 = new window.auth0.WebAuth({
+    clientID: "E799daQPbejDsFx57FecbKLjAvkmjEvo",
+    domain: "speyrott.auth0.com",
+    scope: "openid email profile purchase",
+    audience: "/protected", // See https://auth0.com/docs/api-auth
+    responseType: "token id_token",
+    redirectUri: "http://localhost:9000"
 });
-```
 
-The `getProfile` function is a promise. You can either use it as such, or `await` for its result inside `async` functions.
+function logout() {
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
+    window.location.href = "/";
+}
+
+function showProfileInfo(profile) {
+    var btnLogin = document.getElementById('btn-login');
+    var btnLogout = document.getElementById('btn-logout');
+    var avatar = document.getElementById('avatar');
+    document.getElementById('nickname').textContent = profile.nickname;
+    btnLogin.style.display = "none";
+    avatar.src = profile.picture;
+    avatar.style.display = "block";
+    btnLogout.style.display = "block";
+}
+
+function retrieveProfile() {
+    var idToken = localStorage.getItem('id_token');
+    if (idToken) {
+        try {
+            const profile = jwt_decode(idToken);
+            showProfileInfo(profile);
+        } catch (err) {
+            alert('There was an error getting the profile: ' + err.message);
+        }
+    }
+}
+
+auth0.parseHash(window.location.hash, (err, result) => {
+    if(err || !result) {
+        // Handle error
+        return;
+    }
+
+    // You can use the ID token to get user information in the frontend.
+    localStorage.setItem('id_token', result.idToken);
+    // You can use this token to interact with server-side APIs.
+    localStorage.setItem('access_token', result.accessToken);
+    retrieveProfile();
+});
+
+function afterLoad() {
+    // buttons
+    var btnLogin = document.getElementById('btn-login');
+    var btnLogout = document.getElementById('btn-logout');
+
+    btnLogin.addEventListener('click', function () {
+        auth0.authorize();
+    });
+
+    btnLogout.addEventListener('click', function () {
+        logout();
+    });
+
+    retrieveProfile();
+}
+
+window.addEventListener('load', afterLoad);
+```
 
 [Get the fully working example](https://github.com/auth0-blog/es2015-rundown-example).
 
