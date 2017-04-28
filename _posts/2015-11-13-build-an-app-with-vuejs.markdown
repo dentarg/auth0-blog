@@ -288,6 +288,7 @@ export default {
   login(context, creds, redirect) {
     context.$http.post(LOGIN_URL, creds, (data) => {
       localStorage.setItem('id_token', data.id_token)
+      localStorage.setItem('access_token', data.access_token)
 
       this.user.authenticated = true
 
@@ -304,6 +305,7 @@ export default {
   signup(context, creds, redirect) {
     context.$http.post(SIGNUP_URL, creds, (data) => {
       localStorage.setItem('id_token', data.id_token)
+      localStorage.setItem('access_token', data.access_token)
 
       this.user.authenticated = true
 
@@ -319,6 +321,7 @@ export default {
   // To log out, we just need to remove the token
   logout() {
     localStorage.removeItem('id_token')
+    localStorage.removeItem('access_token')
     this.user.authenticated = false
   },
 
@@ -335,7 +338,7 @@ export default {
   // The object to be passed as a header for authenticated requests
   getAuthHeader() {
     return {
-      'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     }
   }
 }
@@ -529,7 +532,7 @@ auth.checkAuth()
 
 ### Setting Global Headers
 
-When we make a request to the protected `secret-quote` route, we pass an options object that has the `Authorization` header and user's JWT on it. If, instead, we wanted to globally set the `Authorization` header and not worry about setting it on each HTTP request, we could set up a global header.
+When we make a request to the protected `secret-quote` route, we pass an options object that has the `Authorization` header and user's JWT `access_token` on it. If, instead, we wanted to globally set the `Authorization` header and not worry about setting it on each HTTP request, we could set up a global header.
 
 ```js
 // src/index.js
@@ -623,6 +626,8 @@ export var lock = new Auth0Lock(YOUR_CLIENT_ID, YOUR_CLIENT_DOMAIN)
 
   </script>
 ```
+
+**Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 ## Wrapping Up
 
