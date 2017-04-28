@@ -2,8 +2,8 @@
 layout: post
 title: "Database Versioning with Flyway and Java"
 description: "Sync the database schema up with your application with Flyway"
-date: 2017-03-29 10:37
-category: Technical Guide, Java
+date: 2017-04-28 8:37
+category: Technical Guide, Java, Flyway
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
