@@ -3,7 +3,7 @@ layout: post
 title: "Glossary of Modern JavaScript Concepts: Part 1"
 description: "Learn the fundamentals of functional programming, reactive programming, and functional reactive programming in JavaScript."
 date: 2017-02-14 8:30
-category: Glossary, Technical guide
+category: Technical guide, JavaScript, Glossary
 banner:
   text: "Auth0 makes it easy to add authentication to your JS application."
 author:
