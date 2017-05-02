@@ -24,7 +24,7 @@ related:
 
 ## What is JavaServer Faces (JSF)
 
-JavaServer Faces (JSF) is a [Java specification](https://auth0.com/blog/incrementally-changing-your-database-with-java-and-flyway/) that promotes component-based user interface development for web applications. Views, on JSF, are described through XML files called view templates and usually rely on server-side sessions to store the state of UI components. For example, let's say that we wanted to show an HTML table of products. To do so, we would need an XML file with the following content:
+[JavaServer Faces (JSF)](http://www.oracle.com/technetwork/java/javaee/javaserverfaces-139869.html) is a [Java specification](https://auth0.com/blog/incrementally-changing-your-database-with-java-and-flyway/) that promotes component-based user interface development for web applications. Views, on *JSF*, are described through *XML* files called view templates and usually rely on server-side sessions to store the state of UI components. For example, let's say that we wanted to show an *HTML* table of products. To do so, we would need an *XML* file with the following content:
 
 ```xml
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -51,15 +51,15 @@ JavaServer Faces (JSF) is a [Java specification](https://auth0.com/blog/incremen
 
 ```
 
-In this case, the view would be rendered by using the `h:dataTable` component, with the help of a **backing bean** called `productListController`, which would generate the HTML response for the requester. After rendering the webpage, JSF would retain the state of the view in the server-side to allow future interaction.
+In this case, the view would be rendered by using the `h:dataTable` component, with the help of a **backing bean** called `productListController`, which would generate the *HTML* response for the requester. After rendering the webpage, *JSF* would retain the state of the view in the server-side to allow future interaction.
 
 ## Integrating JSF with Spring Boot
 
-For starters, we will fork and clone the [GitHub repo](https://github.com/auth0-blog/spring-boot-faces) specially created for this article. We could also use the [Spring Initilizr](http://start.spring.io/) webpage, which is easy and intuitive. But, as the application that we will build will have some other dependencies (like HSQLDB and Flywya), it will be easier to start with the fork.
+For starters, we will fork and clone the [GitHub repo](https://github.com/auth0-blog/spring-boot-faces) specially created for this article. We could also use the [Spring Initilizr](http://start.spring.io/) webpage, which is easy and intuitive. But, as the application that we will build will have some other dependencies (like *HSQLDB* and *Flyway*), it will be easier to start with the fork.
 
 ### JSF Dependencies
 
-After forking the repository, let's open our preferred IDE (Eclipse, IntelliJ IDEA, Netbeans, etc) and import the initial project as a [Maven project](https://maven.apache.org/). Having the application properly imported on our IDE, the first thing we will do is to add a few dependencies. Let's open the `pom.xml` file and add the following elements nested in the `<dependecies/>` element:
+After forking the repository, let's open our preferred *IDE* (Eclipse, IntelliJ IDEA, Netbeans, etc) and import the initial project as a [Maven project](https://maven.apache.org/). Having the application properly imported on our *IDE*, the first thing we will do is to add a few dependencies. Let's open the `pom.xml` file and add the following elements nested in the `<dependecies/>` element:
 
 ```xml
 <dependency>
@@ -98,11 +98,11 @@ After forking the repository, let's open our preferred IDE (Eclipse, IntelliJ ID
 </dependency>
 ```
 
-From top to bottom, let's demystify what these dependecies are. The first two dependencies, `myfaces-api` and `myfaces-impl`, are the JSF interface specification (`-api`) and implementation (`-impl`). The third dependency, `tomcat-embed-jasper`, is needed so the *JVM* can parse and execute JSF view on runtime.
+From top to bottom, let's demystify what these dependencies are. The first two dependencies, `myfaces-api` and `myfaces-impl`, are the *JSF* interface specification (`-api`) and implementation (`-impl`). The third dependency, `tomcat-embed-jasper`, is needed so the *JVM* can parse and execute *JSF* view on runtime.
 
-After that there are three dependencies with `org.ocpsoft.rewrite` as the value of `groupId`. These dependencies are related to [Rewrite](http://www.ocpsoft.org/rewrite/), an open-source routing and URL rewriting solution for Servlet and Java Web Frameworks. Using JSF without a tool like Rewrite would lead us to ugly and non RESTful-friendly URLs that heavily use query parameters to navigate. Therefore we will use Rewrite to achieve intuitive, bookmarkable, and pretty URLs.
+After that there are three dependencies with `org.ocpsoft.rewrite` as the value of `groupId`. These dependencies are related to [Rewrite](http://www.ocpsoft.org/rewrite/), an open-source routing and *URL* rewriting solution for *Servlet* and Java Web Frameworks. Using *JSF* without a tool like *Rewrite* would lead us to ugly and non RESTful-friendly *URLs* that heavily use query parameters to navigate. Therefore we will use *Rewrite* to achieve intuitive, bookmarkable, and pretty *URLs*.
 
-The last dependency added, `primefaces`, is an open source UI framework for JSF that features over 100 components, like data tables, drag & drop, overlay dialogs and etc. This framework will help us to create beautiful user interfaces easily.
+The last dependency added, `primefaces`, is an open source *UI* framework for *JSF* that features over a hundred components, like data tables, drag & drop, overlay dialogs, and etc. This framework will help us to create beautiful user interfaces easily.
 
 While we have the `pom.xml` file opened, let's change the build process by adding the following line to it:
 
@@ -113,11 +113,11 @@ While we have the `pom.xml` file opened, let's change the build process by addin
 </build>  
 ```
 
-This configuration is important because Rewrite isn't prepared to scan for configurations on non classical web applications (i.e. embedded application like Spring Boot). So we need to tweak the build process a little to help Rewrite on its purpose.
+This configuration is important because *Rewrite* isn't prepared to scan for configurations on non classical web applications (i.e. on embedded application like Spring Boot). So we need to tweak the build process a little to help *Rewrite* on its purpose.
 
 ### JSF Configuration
 
-Next, we will create two XML files. The first one, called `web.xml`, is quite popular among seasoned Java web developers. Usually, on a regular Spring Boot application, we wouldn't need this file. But, since we are going to use JSF, we need it to configure the `FacesServlet` servlet and a couple of listeners. Let's create this file under a new directory called `src/main/webapp/WEB-INF/` and add the following content:
+Next, we will create two *XML* files. The first one, called `web.xml`, is quite popular among seasoned Java web developers. Usually, on a regular Spring Boot application, we wouldn't need this file. But, since we are going to use *JSF*, we need  to configure the `FacesServlet` servlet and a couple of listeners. Let's create this file under a new directory called `src/main/webapp/WEB-INF/` and add the following content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -140,7 +140,7 @@ Next, we will create two XML files. The first one, called `web.xml`, is quite po
 </web-app>
 ```
 
-The first two elements in this file are responsible for setting `FacesServlet` up and configuring it. The `servlet-mapping` element instructs this servlet to handle requests to `*.jsf` URLs and deal with them in the context of JSF. The last two elements, the `listener` elements, are responsible for integrating JSF into the Spring context.
+The first two elements in this file are responsible for setting `FacesServlet` up and configuring it. The `servlet-mapping` element instructs this servlet to handle requests to `*.jsf` *URLs* and deal with them in the context of *JSF*. The last two elements, the `listener` elements, are responsible for integrating *JSF* into the Spring context.
 
 The second XML file that we need is called `faces-config.xml`. Let's create this file under the `src/main/webapp/WEB-INF/` folder with the following content:
 
@@ -157,7 +157,7 @@ The second XML file that we need is called `faces-config.xml`. Let's create this
 </faces-config>
 ```
 
-All this file does is to register an `ELResolver` (i.e. Expression Language resolver) that delegates to the `WebApplicationContext` context of Spring the responsibility to resolve name references. With it we can use Spring managed beans in the JSF context.
+All this file does is to register an `ELResolver` (i.e. an Expression Language resolver) that delegates to the `WebApplicationContext` context of Spring the responsibility to resolve name references. With it we can use Spring managed beans in the *JSF* context.
 
 As the last step to configure *JSF* with Spring Boot, we need to update the `Application` class of our project to create two more *beans*. This is done by configuring this class as follows:
 
@@ -202,9 +202,9 @@ public class Application extends SpringBootServletInitializer {
 }
 ```
 
-Having both XML files created, the dependencies properly imported, and the `Application` class properly configured, we are ready to start developing JSF application on Spring Boot.
+Having both *XML* files created, the dependencies properly imported, and the `Application` class configured, we are ready to start developing *JSF* applications on Spring Boot.
 
-## Creating a JSF and Spring Boot App
+## Creating a JSF App on Spring Boot
 
 As we are going to develop an simple application that lists and persists products, we are going to start by creating the `Product` entity. For starters, create the `Product.java` file in the `com.auth0.samples.bootfaces` package. This entity will have the following code:
 
@@ -249,7 +249,7 @@ This is a very simple `Product` entity, with only three properties:
 - `name`, which holds the name of the product
 - and `price`, which holds its price
 
-You may also note that your IDE started complaining about the `@Data` annotation. This annotation comes from the `lombok` library, which we still need to import on our application. [Project Lombok](https://projectlombok.org/) aims on reducing the boilerplate code that is repeated in many parts of a Java application, like *getters* and *setters*. In the entity above, we used `@Data` to take out the burden of defining a lot of accessor methods for the entity's properties. There are many other features that Lombok brings to the table, [take a look at its docs](http://jnb.ociweb.com/jnb/jnbJan2010.html).
+You probably noted that your *IDE* started complaining about the `@Data` annotation. This annotation comes from the `lombok` library, which we still need to import on our application. [Project Lombok](https://projectlombok.org/) aims on reducing the boilerplate code that is repeated in many parts of a Java application, like *getters* and *setters*. In the entity above, we used `@Data` to take out the burden of defining a lot of accessor methods for the entity's properties. There are many other features that Lombok brings to the table, [take a look at its docs](http://jnb.ociweb.com/jnb/jnbJan2010.html).
 
 To import it, add the following element as a child of `dependecies` in the `pom.xml` file:
 
@@ -261,14 +261,14 @@ To import it, add the following element as a child of `dependecies` in the `pom.
 </dependency>
 ```
 
-Now we are going to create the `application.properties` file that Spring Boot uses to configure *HSQLDB* connection `String`, and *Spring Data* to disable the auto-create feature of *Hibernate*. Note that *Hibernate* is a transitive dependency of *Spring Data*, and by default it reads classes annotated with *Entity* and tries to create tables for them. But, as mentioned before, in our application we are going to use [Flyway](https://flywaydb.org/). The `application.properties` file must be created in the `src/main/webapp/` folder with the following content:
+Now we are going to create the `application.properties` file, that Spring Boot uses, to configure *HSQLDB* connection `String`, and *Spring Data* to disable the auto-create feature of *Hibernate*. Note that *Hibernate* is a transitive dependency of *Spring Data*, and by default it reads classes annotated with *Entity* and tries to create tables for them. But, as mentioned before, in our application we are going to use [Flyway](https://flywaydb.org/). The `application.properties` file must be created in the `src/main/webapp/` folder with the following content:
 
 ```bash
 spring.datasource.url=jdbc:hsqldb:file:data/products
 spring.jpa.hibernate.ddl-auto=none
 ```
 
-The first property configures *HSQLDB* to persist data in the `data` folder of the root directory of our application, and the second one is the property that disables the *Hibernate* auto-create feature. Since we have disabled this feature, we now need to create a Flyway script to create the `product` table. Let's do that by creating a file called `V1__products.sql` in the `src/main/resources/db/migration/` folder. This file will contain the following script:
+The first property configures *HSQLDB* to persist data in the `data` folder of the root directory of our application, and the second one is the property that disables the *Hibernate* auto-create feature. Since we have disabled this feature, we now need to add a Flyway script to create the `product` table. Let's do that by creating a file called `V1__products.sql` in the `src/main/resources/db/migration/` folder. This file will contain the following script:
 
 ```sql
 create table product (
@@ -293,11 +293,11 @@ One might wonder, is the code above correct or useful? The answer is yes! `JpaRe
 
 We are now ready to work on the front-end code. To enable users to create products through our application, we will need to create three elements:
 
-1. A template that contains the base layout of our JSF application.
-2. A JSF interface (`xhtml` file) that contains the form to create new products.
+1. A template that contains the base layout of our *JSF* application.
+2. A *JSF* interface (`xhtml` file) that contains the form to create new products.
 3. A Spring controller to work as a *backing bean* to the form interface.
 
-### Building the JSF Interface for Product's Form
+### Building the JSF Interface to Create Products
 
 To start, let's create the template of our application. This template will be quite simple. First, create a file called `layout.xhtml` in the `src/main/webapp/` folder, and then add the following code to it:
 
@@ -334,9 +334,9 @@ To start, let's create the template of our application. This template will be qu
 </html>
 ```
 
-Defining a view on JSF is almost like defining a regular HTML file, but with a few different elements, as we can see above. These elements come from `namespaces` defined on *JSF* and related frameworks (like *PrimeFaces*). The most important elements in the layout above are the `p:toolbar` element and the `ui:insert` element. The first one is a component provided by PrimeFaces, and we use it to define a navigation menu on our template. This menu will enable users to go to a view that allows them to create products, and another view that allows them to list the products already created.
+Defining a view on *JSF* is almost like defining a regular *HTML* file, but with a few different elements, as we can see above. These elements come from *namespaces* defined on *JSF* and related frameworks (like *PrimeFaces*). The most important elements in the layout above are the `p:toolbar` element and the `ui:insert` element. The first one is a component provided by PrimeFaces, and we use it to define a navigation menu on our template. This menu will enable users to go to a view that allows them to create products, and another view that allows them to list the products already created.
 
-The second element, `ui:insert`, defines the exactly place of the template that will allow subviews to define their contents. A template can have many `ui:insert` elements, if they are defined with diferent names, but ours will have just one.
+The second element, `ui:insert`, defines the exactly place of the template that will allow subviews to define their contents. A template can have multiple `ui:insert` elements, if they are defined with different names, but ours will have just one.
 
 > **Note**, *JSF* uses a technology called *Facelets* to define templates. You can read all about it in the [JavaEE 7 tutorial on Oracle's website](https://docs.oracle.com/javaee/7/tutorial/jsf-facelets001.htm).
 
@@ -373,14 +373,14 @@ public class ProductController {
 }
 ```
 
-This class has only two methods: `save`, which will be called by a JSF button to save a new product; and `getProduct`, that will be used by the interface to tie the inputs on the form to an instance of `Product`. This instance is create at the same time that `ProductController` instance is created and a new one is created right after the user saves a new product. Also note that the `save` method redirects to `product-list.xhtml`, the interface that lists products persisted in our database.
+This class has only two methods: `save`, which will be called by a *JSF* button to save a new product; and `getProduct`, that will be used by the interface to tie the inputs on the form to an instance of `Product`. This instance is created at the same time that `ProductController` instance is, and a new one is created right after the user saves a new product. Also note that the `save` method redirects to `product-list.xhtml`, the interface that lists products persisted in our database.
 
 What is even more important to talk about is the four annotations that this class has:
 
 - `@Scope` is a Spring annotation that defines that a single instance of this class will exist per user
 - `@Component` defines this class as a Spring component and names it as `productController`—name that will be used in the form's interface
 - `@ELBeanName` is an annotation provided by *Rewrite* that configures the name of the bean on its scope
-- `@Join` is another annotation provided by *Rewrite*, this one configures the `/product` URL to respond in place of the `/product-form.jsf` URL.
+- `@Join`—another annotation provided by *Rewrite*—configures the `/product` *URL* to respond with the contents of `product-form.xhtml`.
 
 Lastly, let's create the form that will use the controller above. We will create a file called `product-form.xhtml` in the `src/main/webapp/` folder, with the following content:
 
@@ -409,15 +409,15 @@ Lastly, let's create the form that will use the controller above. We will create
 </html>
 ```
 
-This file uses the `ui:composition` element to explicitly define `layout.xhtml` as the template for this view. After that it uses `ui:define` to inform that this view must be rendered in the `content` area of the template. And then it starts defining the form to create new products. This form is composed of one `p:inputText` where the user can define the name of the product, and a `p:inputNumber` element where the user can define the price of the new product. This last element was specifically created to handle numerical properties, as it block non numerical characters and adds a mask to the input.
+This file uses the `ui:composition` element to explicitly define `layout.xhtml` as the template for this view. After that it uses `ui:define` to inform that this view must be rendered in the `content` area of the template. And then it starts defining the form to create new products. This form is composed of one `p:inputText` where the user can define the name of the product, and a `p:inputNumber` element where the user can define the price of the new product. This last element was specifically created to handle numerical properties, as it block non-numerical characters and adds a mask to the input.
 
-Lastly, the view defines a `h:commandButton` that renders a *HTML* button in the view that triggers the `save` method of the `ProductController` component. In this view we can see that we tie the new product and the behavior defined in the `ProductController` component through the `productController` name, which was defined in the `@Component` and `@ELBeanName` annotations of this component.
+Lastly, the view defines a `h:commandButton` that renders an *HTML* button in the view that triggers the `save` method of the `ProductController` component. In this view we can see that we tie the new product and the behavior defined in the `ProductController` component through the `productController` name, which was defined in the `@Component` and `@ELBeanName` annotations of this component.
 
 If we run our application now, through our *IDE* or through the `mvn spring-boot:run` command, we will be able to reach it in a browser going to `http://localhost:8080/product`. We will also be able to create new products through the form that is shown to us, but we won't be able to list the products created. Let's tackle that feature now.
 
 ### Building the JSF Interface for Products' List
 
-To enable our users to se a list of created products, we will first define a *backing bean* that will handle the logic behind the interface. This *backing bean* will be called `ProductListController`, and we will create it in the `com.auth0.samples.bootfaces` package with the following code:
+To enable our users to see a list of created products, we will first define a *backing bean* that will handle the logic behind the interface. This *backing bean* will be called `ProductListController`, and we will create it in the `com.auth0.samples.bootfaces` package with the following code:
 
 ```java
 package com.auth0.samples.bootfaces;
