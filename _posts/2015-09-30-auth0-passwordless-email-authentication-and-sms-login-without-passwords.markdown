@@ -5,6 +5,10 @@ description: SMS Authentication and Email Authentication made easy and secure.
 date: 2015-09-30 09:00
 alias: /2015/09/30/auth0-passwordless-email-authentication-and-sms-login-without-passwords/
 category: Technical Guide, Identity, Passwordless
+banner:
+  text: "The Definitive Guide to Single Sign-On"
+  action: "https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog"
+  cta: "Download eBook"
 author:
   name: Matias Woloski
   url: http://www.twitter.com/woloski
@@ -90,7 +94,7 @@ We implemented all of these and made it easy, accessible and secure to everyone.
 
 As developers we have to deal with a handful of devices, screen sizes, and browser-specific challenges. We wanted the [Lock Passwordless](https://github.com/auth0/lock-passwordless) widget to automatically adapt to mobile web browsers on various iOS and Android versions.
 
-Auth0 Passwordless can be used on all platforms: native apps, web apps, mobile web, command line interfaces or anything that can send an HTTP request over the net. It's a great way to achieve Single Sign On across everything with a single uniform authentication scheme across the board.
+Auth0 Passwordless can be used on all platforms: native apps, web apps, mobile web, command line interfaces or anything that can send an HTTP request over the net. It's a great way to achieve [Single Sign On](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) across everything with a single uniform authentication scheme across the board.
 
 {% include tweet_quote.html quote_text="Auth0 Passwordless can be used on all platforms and anything that can send an HTTP request over the net." %}
 
@@ -101,3 +105,5 @@ We are seeing a trend that web applications are moving to longer session expirat
 Auth0 Passwordless is **ready to be used in production** today and it is **included in every Auth0 plan**.
 
 We can’t wait to see what you will build. And we look forward to continuing to contribute  more improvements to identity and security on the web 🔐.
+
+[Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)
