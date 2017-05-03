@@ -2,7 +2,7 @@
 layout: post
 title: "Get Ready for GDPR"
 description: "The data protection and security landscape is all set for change next year with the new EU General Data Protection Regulation (GDPR). Find out how this may affect your business and what to do next."
-date: 2017-04-24 8:30
+date: 2017-05-03 8:30
 category: Security, Identity, Regulation
 is_non-tech: true
 author:
