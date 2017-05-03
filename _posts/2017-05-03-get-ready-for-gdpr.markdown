@@ -26,7 +26,7 @@ related:
 
 ## Introduction
 
-The data protection and security landscape are all set for change next year with the new EU General Data Protection Regulation (“GDPR”). There will be regulatory burdens, but you can also use GDPR to bring some focus on what you do and improve your security stance.  Remember...
+The data protection and security landscape is all set for change next year with the new EU General Data Protection Regulation (“GDPR”). There will be regulatory burdens, but you can also use GDPR to bring some focus on what you do and improve your security stance.  Remember...
 
 * The new rules are part revolution/part evolution - the new system builds on the current one if you already comply with EU privacy laws you can build on those foundations;
 * Don’t panic, plan instead - the full impact will come in 2018 but preparation now will pay off then.
