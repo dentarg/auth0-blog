@@ -31,6 +31,8 @@ The data protection and security landscape is all set for change next year with 
 * The new rules are part revolution/part evolution - the new system builds on the current one if you already comply with EU privacy laws you can build on those foundations;
 * Don’t panic, plan instead - the full impact will come in 2018 but preparation now will pay off then.
 
+![EU General Data Protection Regulation](https://cdn2.auth0.com/blog/get-ready-for-gdpr/gdpr-flag.png)
+
 At Cordery we’ve been working on GDPR projects since the first draft came out in 2012. GDPR is a long document but here’s some highlights:
 
 ## Reach
