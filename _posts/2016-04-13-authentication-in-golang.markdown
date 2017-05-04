@@ -488,11 +488,11 @@ With our UI finalized, let's add authentication in Golang and hook up our front 
 
 ## Aside: Adding Authentication with Auth0
 
-Adding user authentication will allow us to protect our API. Since our app deals with projects that are in active development, we don’t want any data to be publicly available. We will accomplish this in two parts. We will add authentication in Go and protect our API endpoints from being accessed without a proper `access_token` token. Next, we'll add a way for users to login through our React app and get a token.
+Adding user authentication will allow us to protect our API. Since our app deals with projects that are in active development, we don’t want any data to be publicly available. We will accomplish this in two parts. We will add authentication in Go and protect our API endpoints from being accessed without a valid `access_token` token. Next, we'll add a way for users to login through our React app and get a token.
 
 ### Authentication in Golang
 
-To start, let’s secure our API endpoints. We did this earlier with manual generation and verification of the JWT, but now we'll expand on the functionality here. We will utilize the `auth0-community/auth0` and `square/go-jose.v2` libraries for dealing with the JWT. Our implementation is as follows:
+To start, let’s secure our API endpoints. We did this earlier with manual generation and verification of the JWT, but now we'll expand on the functionality here. We will utilize the [`auth0-community/auth0`](https://github.com/auth0-community/go-auth0) and [`square/go-jose.v2`](https://github.com/square/go-jose) libraries for dealing with the JWT. Our implementation is as follows:
 
 ```go
 package main
@@ -587,7 +587,7 @@ var AddFeedbackHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 })
 ```
 
-The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, [sign up]() for a free Auth0 account. Navigate to the [APIs]() section and create a new API client by clicking the **Create API** button.
+The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, [sign up](javascript:signup\(\)) for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new API client by clicking the **Create API** button.
 
 ![Create We-R-VR API Client](https://cdn2.auth0.com/blog/go-auth/create-api-client.png)
 
@@ -595,7 +595,7 @@ Give your API a **name** and an **identifier**. The identifier you give the API 
 
 Once your client is created copy it's **secret** and **audience** fields and replace the accompanying placeholders in your `main.go` file. Notice that `/products` and `/products/{slug}/feedback` route are protected with the `authMiddleware` middleware function we've written. If you try to access these now without a proper `access_token`, you will get a `401 Unauthorized` error.
 
-When you created the API client, another client was created that will allow your frontend to authenticate and get the appropriate keys. Find this client and copy it's `Client ID` as you will need it later.
+When you created the API client, another client was created that will allow your frontend to authenticate and get the appropriate keys. Find this client, change it's **client type** to **single page application** and copy its `Client ID` as you will need it later.
 
 Next, we'll implement the login functionality on the frontend. Feel free to remove to the `/get-token` route as it is no longer necessary. We will get the token from Auth0.
 
@@ -821,7 +821,7 @@ var Product = React.createClass({
 
 ## Putting it All Together
 
-With the API and UI complete, we are ready to test our application. Fire up the server by once again running `go run main.go`.  Navigate to `localhost:3000` and you should see the sign in page. Click on the sign in button, and you will be redirected to the hosted Lock login page. Login and you will be redirected back to your application and will be in the logged in view of the application and will be able to leave feedback on the different experiences.
+With the API and UI complete, we are ready to test our application. Fire up the server by once again running `go run main.go`.  Navigate to `localhost:3000` and you should see the sign in page. Click on the sign in button, and you will be redirected to the hosted Lock login page. Log in and you will be redirected back to your application and will be in the logged-in view of the application and will be able to leave feedback on the different experiences.
 
 ![We-R-Vr application in action](https://cdn2.auth0.com/blog/go-auth/we-r-vr-final.png)
 
