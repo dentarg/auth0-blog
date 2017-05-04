@@ -1054,7 +1054,7 @@ Now, go to the clients area and check for the test client. You should see it in 
 
 Open the client and change the **Client Type** to *Single Page Application*.
 
-> Non interactive clients are meant to be used in machine to machine interactions. We are using an SPA to interact with the API so the client should be an SPA client.
+> Non interactive clients are meant to be used in machine to machine interactions. We are using an SPA to interact with the API so the client should be an SPA client. Check out [Implicit Grant](https://auth0.com/docs/api-auth/grant/implicit) and [client credentials exchange](https://auth0.com/docs/api-auth/grant/client-credentials) for more information.
 
 Let's quickly go ahead to change the title of the client to `Chuck Norris World` like so:
 
