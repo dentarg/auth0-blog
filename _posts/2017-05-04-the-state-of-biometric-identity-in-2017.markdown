@@ -1,14 +1,15 @@
 ---
 layout: post
 title: "The State of Biometric Identity in 2017"
-description: "The good, the bad, and the future."
-date: 2017-04-10 8:30
-category: Growth, Identity, Passwordless
+description: "The good, the bad, and the future of Biometric Identity."
+date: 2017-05-04 8:30
+category: Growth, Identity, Biometrics
+is_non-tech: true
 author:
-  name: "Ado Kukic"
-  url: "https://twitter.com/kukicado"
-  mail: "ado@auth0.com"
-  avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
   image: https://cdn.auth0.com/blog/state-of-biometric-identity-2017/logo.png
   bg_color: "#9F5F5F"
