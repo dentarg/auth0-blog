@@ -38,7 +38,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.realm:realm-gradle-plugin:3.1.2"
+        classpath "io.realm:realm-gradle-plugin:3.1.4"
     }
 }
 ```
@@ -310,13 +310,13 @@ protected void onCreate(Bundle savedInstanceState) {
                     .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            // TODO: 3/9/17 Save Edited Task
+                            // TODO: 5/4/17 Save Edited Task
                         }
                     })
                     .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            // TODO: 3/9/17 Delete Task
+                            // TODO: 5/4/17 Delete Task
                         }
                     })
                     .create();
@@ -422,7 +422,7 @@ private void changeTaskName(final String taskId, final String name) {
 }
 ```
 
-Call it by replacing the `// TODO: 3/9/17 Save Edited Task` comment in the ListViews's OnItemClickListener with:
+Call it by replacing the `// TODO: 5/4/17 Save Edited Task` comment in the ListViews's OnItemClickListener with:
 
 ```java
 changeTaskName(task.getId(), String.valueOf(taskEditText.getText()));
@@ -459,7 +459,7 @@ private void deleteAllDone() {
 
 The first function deletes a specific Task given an `id` while the second deletes all completed tasks.
 
-Call the first function by replacing the `// TODO: 3/9/17 Delete Task` comment in the ListViews's OnItemClickListener with:
+Call the first function by replacing the `// TODO: 5/4/17 Delete Task` comment in the ListViews's OnItemClickListener with:
 
 ```java
 deleteTask(task.getId());
@@ -683,7 +683,7 @@ To add a login/register screen to the application, we'll use the [Lock](https://
 To add Lock to your project, first add the following dependency and sync your gradle files.
 
 ```groovy
-compile 'com.auth0.android:lock:2.4.0'
+compile 'com.auth0.android:lock:2.5.0'
 ```
 
 Add the following permissions to the manifest file.
