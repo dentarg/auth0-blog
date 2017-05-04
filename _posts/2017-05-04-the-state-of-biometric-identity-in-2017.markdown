@@ -23,11 +23,11 @@ tags:
   - multifactor
 ---
 
-If we have any hope of a future with all-around passwordless, friction-free identification, it will probably come at the hands of biometrics. 
+If we have any hope of a future with all-around passwordless, friction-free authentication, it will probably come at the hands of biometrics. 
 
 A biometric identity is the unique physical features of your person that can be used to identify you. The classic example is fingerprints, which have been used to identify criminals since the 1800s. But now, much more than the fingerprint is used to identify people — for less sinister reasons than criminal identification. 
 
-And the future only promises more innovation in the field of biometric identity. From gait analysis to the way you use a computer, biometric identity still has plenty of room to grow.
+And the future only promises more innovation in the field of biometric authentication. From gait analysis to the way you use a computer, biometric authentication still has plenty of room to grow.
 
 ## Biometrics of today
 
@@ -37,7 +37,7 @@ There are a large number of biometric options available today, some more used th
 
 The most widely used biometrics are generally used by the government or large companies to verify your identity. One popular application of biometrics is in border security, where it is used as a way to confirm someone's identity in addition to their passport. Banks and hospitals are also big users of biometrics, in part because they secure large amounts of sensitive data. 
 
-Of course, with facial and fingerprint recognition available in many smartphones and computers. Day-to-day, many consumers use biometric identification habitually, whether it's unlocking one's phone or signing into an app.
+Of course, with facial and fingerprint recognition available in many smartphones and computers. Day-to-day, many consumers use biometric authentication habitually, whether it's unlocking one's phone or signing into an app.
 
 Another huge use of biometrics is in law enforcement. While most people thankfully don't come up against this use, it is an extension of the government's ability to store large amounts of biometric data, which is important for its widespread adoption.
 
@@ -64,7 +64,7 @@ Fingerprints aren't the only unique features of the hand — anything from dimen
 (Vein matching scan | [source](http://www.cbsnews.com/news/patientsecure-biometric-palm-scan-system-hospital-security/))
 
 ### DNA
-DNA recognition is probably the only form of biometric identification on this list that isn't easy to understand, because it relies on the isolation, copying and splitting of genetic markers in our DNA to identify us as an individual. Though widely used and very accurate, from court evidence to paternal testing to gene therapy, it doesn't have the immediacy needed to be used for something like border security.
+DNA recognition is probably the only form of biometric authentication on this list that isn't easy to understand, because it relies on the isolation, copying and splitting of genetic markers in our DNA to identify us as an individual. Though widely used and very accurate, from court evidence to paternal testing to gene therapy, it doesn't have the immediacy needed to be used for something like border security.
 
 ## Emerging 
 
@@ -85,7 +85,7 @@ From the sound of your voice to the cadence of your breath, voice recognition ta
 
 The future of biometrics is likely to try and move towards identifications that are easier and easier for users. Things like gait analysis don't take any real work on the part of the individual, like putting a finger or palm a scanner. They will rely on more powerful technological infrastructure becoming available in public areas, whether that's an easier way to read under-skin chips or better touchscreens for finger writing.
 
-It is, of course, possible that these technologies won't be significantly better than the developments made in our current biometric identification methods — but there's only one way to find out.
+It is, of course, possible that these technologies won't be significantly better than the developments made in our current biometric authentication methods — but there's only one way to find out.
 
 ### Gait Analysis
 An individual can be identified by a number of data points surrounding their gait, including speed and joint movements. Gait analysis is sometimes used for efficiency of motion in elite athletes, but people are still trying to figure out the best way to implement gait analysis for identification, and what the limits of its applications are. 
@@ -109,7 +109,7 @@ Biometrics *are* safe. There are a lot of hyperbolic fears about people who are 
 
 Well, remember those 100 datapoints that advanced voice recognition takes? They can determine you are you if you have a cold, and can even distinguish between voice imitators that sound so similar the human ear might confuse them for the same person. 
 
-Biometric identification checks aren't 100% foolproof, but it shouldn't be cause for concern. Unfortunately, there are weaknesses for every system. The weaknesses in biometric systems certainly aren't any higher than those in a username + password system, which we rely on now.
+Biometric authentication checks aren't 100% foolproof, but it shouldn't be cause for concern. Unfortunately, there are weaknesses for every system. The weaknesses in biometric systems certainly aren't any higher than those in a username + password system, which we rely on now.
 
 Let's put it this way — nobody is going to make a 3D printed version of your face to fool a scanner, unless you're an *extremely* powerful public figure. 
 
@@ -119,10 +119,10 @@ Let's put it this way — nobody is going to make a 3D printed version of your f
 
 If you are a powerful figure, you might want to avoid a total reliance on biometrics to configure a multifactor login with a complex, unique password and multiple devices involved in login.
 
-Most people simply aren't going to be targets of biometric identity theft, especially as technology gets more sophisticated and takes more and more data into account when making identifications. As it is now, biometric identification is probably better than having “1234567” or “0000” as your password, anyway.
+Most people simply aren't going to be targets of biometric identity theft, especially as technology gets more sophisticated and takes more and more data into account when making identifications. As it is now, biometric authentication is probably better than having “1234567” or “0000” as your password, anyway.
 
 ## The bio-future
 
-Biometric identification clearly has a long way to go before we exhaust its possibilities. From government identification to healthcare to banking, from consumers unlocking their devices to evidence in a courtroom, where biometric identification isn't the norm, it's likely to become the norm in the future. 
+Biometric authentication clearly has a long way to go before we exhaust its possibilities. From government identification to healthcare to banking, from consumers unlocking their devices to evidence in a courtroom, where biometric authentication isn't the norm, it's likely to become the norm in the future. 
 
 With more development, we could sharply reduce the use of passwords, identification documents, and PIN numbers. Biometrics are here to stay — and the best part is that once they're in place, you might never have to remember any passwords again.
