@@ -5,8 +5,8 @@ description: Learn how to deploy PHP applications on different platforms.
 date: 2017-04-24 08:30
 category: Technical guide, Frameworks, PHP
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/next.jslogo.png
+  bg_color: "#484C89"
+  image: hhttps://cdn2.auth0.com/blog/ultimateguide.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
