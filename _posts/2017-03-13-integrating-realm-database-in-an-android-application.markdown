@@ -21,14 +21,16 @@ related:
 ---
 
 ## Introduction
-The [Realm Mobile Database](https://realm.io/docs/get-started/overview/#the-realm-mobile-database) is a cross-platform database solution that can be used as an alternative to SQLite and Core Data. Compared to these two options, Realm is easier to set up and use. To perform the same operation in Realm, you usually end up writing fewer lines of code than you would with SQLite or Core Data. On performance, Realm is said to be faster and it also offers other modern features such as encryption, JSON support and data change notifications.
+The [Realm Mobile Database](https://realm.io/docs/get-started/overview/#the-realm-mobile-database) is a cross-platform database solution that can be used as an alternative to [SQLite](https://www.sqlite.org/) and [Core Data](https://developer.apple.com/reference/coredata). Compared to these two options, Realm is easier to set up and use. To perform the same operation in Realm, you usually end up writing fewer lines of code than you would with SQLite or Core Data. On performance, Realm is said to be faster and it also offers other modern features such as encryption, JSON support and data change notifications.
 
 Unlike a traditional database, objects in Realm are native objects. You don’t have to copy objects out of the database, modify them, and save them back—you’re always working with the “live,” real object. If one thread or process modifies an object, other threads and processes can be immediately notified. Objects always stay in sync.
 
-If your application needs to store user data to the cloud and have it synced on all devices used by the user, you can use the Realm Mobile Database together with the [Realm Object Server](https://realm.io/docs/realm-object-server/) for this. In this article though, we are going to focus on the Realm Mobile Database. We are going to see how to integrate it into an Android app and perform the usual CRUD operations on it. We'll create a To Do application which will enable the user to create, edit and delete tasks from a list.
+If your application needs to store user data to the cloud and have it synced on all devices used by the user, you can use the [Realm Mobile Database](https://realm.io/products/realm-mobile-database/) together with the [Realm Object Server](https://realm.io/docs/realm-object-server/) for this. In this article though, we are going to focus on the Realm Mobile Database. We are going to see how to integrate it into an Android app and perform the usual CRUD operations on it. We'll create a To Do application which will enable the user to create, edit and delete tasks from a list.
 
 ## Getting Started
-To get started, first create an Android project (I named mine Tasky). Select a Basic Activity template for it and on the last window of the project creation wizard, change the **Activity Name** to `TaskListActivity`.
+To get started, first create an Android project (I named mine Tasky). You can use an IDE of your choice, but the tutorial will give instructions specific to [Android Studio](https://developer.android.com/studio/index.html).
+
+Select a Basic Activity template for it and on the last window of the project creation wizard, change the **Activity Name** to `TaskListActivity`.
 
 To add the Realm library to the project, first add the classpath dependency to the project level `build.gradle` file.
 
@@ -198,7 +200,7 @@ String (`String`) and boxed integer (`Byte`, `Short`, `Integer`, and `Long`) Pri
 
 Our application will display the Task items in a ListView, and to work with this, we need an adapter that will manage the data model and adapt it to individual rows in the ListView.
 
-Realm makes available two adapters that can be used to bind its data to UI widgets, in particular data coming from `OrderedRealmCollection` (`RealmResults` and `RealmList`, which we'll look at shortly, implement this interface). There is the `RealmBaseAdapter` for working with ListViews and `RealmRecyclerViewAdapter` for working with RecyclerViews.
+Realm makes two adapters available that can be used to bind its data to UI widgets, in particular data coming from `OrderedRealmCollection` (`RealmResults` and `RealmList`, which we'll look at shortly, implement this interface). There is the `RealmBaseAdapter` for working with ListViews and `RealmRecyclerViewAdapter` for working with RecyclerViews.
 
 To use any one of these adapters, you have to add the `io.realm:android-adapters:2.0.0` dependency in the application level Gradle file, which we've done.
 
