@@ -6,7 +6,7 @@ date: 2017-05-04 08:30
 category: Technical guide, Frameworks, PHP
 design:
   bg_color: "#484C89"
-  image: hhttps://cdn2.auth0.com/blog/ultimateguide.png
+  image: https://cdn2.auth0.com/blog/ultimateguide.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -45,7 +45,7 @@ A generic PHP application involves the common *LAMP (Linux, Apache, Mysql and PH
 - **MySQL:** The database. A popular alternative software is PostgreSQL.
 - **PHP:** The server-side language for building the application.
 
-Next, let's cover how to deploy to several cloud server platforms.
+Next, let's cover how to deploy php applications to several cloud server platforms.
 
 ## Heroku
 
@@ -191,7 +191,7 @@ $db = substr($url["path"], 1);
 
 $conn = new mysqli($server, $username, $password, $db);
 ?>
-
+```
 _using mysqli_
 
 You can tweak that to suit PDO style. Add Postgres to your app like so:
@@ -314,7 +314,7 @@ Finally, deploy your app by running the following command like so:
 
 ```bash
 cf push <yourapp>
-``
+```
 
 `<yourapp>` has to be a unique name.
 
@@ -369,13 +369,13 @@ They offer [MongoDB](https://new-console.stage1.ng.bluemix.net/catalog/services/
 
 You can always use the Cloud Foundry tool to check out a lot of things such as logs, environment variables like so:
 
-- `cf logs --recent yourapp` - Shows the logs of your apps
-- `cf env yourapp` - Shows the environment variables associated with your app
-- `cf marketplace` - Shows all the services that Bluemix has to offer
+- `cf logs --recent yourapp` - Shows the logs of your apps.
+- `cf env yourapp` - Shows the environment variables associated with your app.
+- `cf marketplace` - Shows all the services that Bluemix has to offer.
 
 IBM Bluemix also offers [Redis Cloud](https://console.ng.bluemix.net/catalog/services/redis-cloud), a fully-managed cloud service for hosting and running your Redis dataset in BlueMix in a highly-available and scalable manner.
 
-IBM Bluemix provides the [**Workload Scheduler**](https://console.ng.bluemix.net/catalog/services/workload-scheduler) service. This service allows you to integrate your application with the capability to schedule workflows. Far beyond Cron, exploit job scheduling within and outside Bluemix. Easily create workflows in your application to run on a regular basis, at a specific time, on event basis (for example, when a file is deleted or updated), according to your needs. You can either use the *Workload Scheduler User Interface or use the APIs.
+IBM Bluemix provides the [**Workload Scheduler**](https://console.ng.bluemix.net/catalog/services/workload-scheduler) service. This service allows you to integrate your application with the capability to schedule workflows. Far beyond Cron, exploit job scheduling within and outside Bluemix. Easily create workflows in your application to run on a regular basis, at a specific time, on event basis (for example, when a file is deleted or updated), according to your needs. You can either use the *Workload Scheduler User Interface* or use the APIs.
 
 Get started with [Scheduling Jobs here](https://console.ng.bluemix.net/docs/services/WorkloadScheduler/index.html).
 
@@ -396,56 +396,55 @@ In our case, we'll set up deployment with Git.
 
 1. First, create an [account with Microsoft Azure](https://portal.azure.com). 
   
-  ![Dashboard](https://cdn2.auth0.com/blog/ultimateguidems/dashboard.png)
-  _Dashboard_
-
+    ![Dashboard](https://cdn2.auth0.com/blog/ultimateguidems/dashboard.png)
+    _Dashboard_
 2. Click on **New** on the left panel.
 3. Click **See all** just next to Marketplace.
 4. Click **Web + SQL**, then go ahead and create.
 
-  ![Web + SQL](https://cdn2.auth0.com/blog/ultimateguidems/websql.png)
+    ![Web + SQL](https://cdn2.auth0.com/blog/ultimateguidems/websql.png)
 
 5. You'll be prompted to select an offer for the type of subscription you are comfortable with. I chose *Free Trial*. With that, you'll be given a $200 Azure Credit.
 6. Give your name an app, then create an SQL database. Well, it's not needed for our app but for some reasons Azure forces you to create it.
 
-  ![Create a new app](https://cdn2.auth0.com/blog/ultimateguidems/createnewapp.png)
-  _Create a new app_
+    ![Create a new app](https://cdn2.auth0.com/blog/ultimateguidems/createnewapp.png)
+    _Create a new app_
 
-7. Now that our app has been created. Click on **App Services** by the left panel to see your app/
+7. Now that our app has been created. Click on **App Services** by the left panel to see your app.
 
-  ![App services](https://cdn2.auth0.com/blog/ultimateguidems/appservices.png)
-  _New app_
+    ![App services](https://cdn2.auth0.com/blog/ultimateguidems/appservices.png)
+    _New app_
 
 8. Click on the app, choose *Deployment options*, then click on `GitHub`. 
-9. Authorize GitHub to access your repo. Choose the Project. Choose the branch. In my case, i have an `azure` branch. That's the branch I'll use for deploying my code to the Azure platform.
+9. Authorize GitHub to access your repo. Choose the Project. Choose the branch. In my case, I have an `azure` branch. That's the branch I'll use for deploying my code to the Azure platform.
 
-  ![Configuration on your app](https://cdn2.auth0.com/blog/ultimateguidems/configuration.png)
+    ![Configuration on your app](https://cdn2.auth0.com/blog/ultimateguidems/configuration.png)
 
-10. Check out the deployment notifications
+10. Check out the deployment notifications.
 
-  ![Deployment Notifications](https://cdn2.auth0.com/blog/ultimateguidems/deployment_notifications.png)
+    ![Deployment Notifications](https://cdn2.auth0.com/blog/ultimateguidems/deployment_notifications.png)
 
-Now, browse to `http://[yoursitename].azurewebsites.net`. In my case, it is `http://starwarzapp.azurewebsites.net`.
+    Now, browse to `http://[yoursitename].azurewebsites.net`. In my case, it is `http://starwarzapp.azurewebsites.net`.
 
-Oops!, there is an HTTP 500 error. What's happening? Okay, we need to set the environment variables.
+    Oops!, there is an HTTP 500 error. What's happening? Okay, we need to set the environment variables.
 
 11. Go to your app in **App Services**, Click on **Application Settings** and then add the environment variables by the right.
 
-**Note:** Now grab the app URL, in my case it is `http://starwarzapp.azurewebsites.net/` and add to **Allowed Origins(CORS)** and **Allowed Callback URLs** in your [Auth0 dashboard](https://manage.auth0.com).
+    **Note:** Now grab the app URL, in my case it is `http://starwarzapp.azurewebsites.net/` and add to **Allowed Origins(CORS)** and **Allowed Callback URLs** in your [Auth0 dashboard](https://manage.auth0.com).
 
 12. By default, azure deployment doesn't do anything with our `composer.json` or `composer.lock` file. So, no package is getting installed. Now go back to **App Services**, click on your app, then go to **Development Tools** and select **Extension**. Choose the `Composer` extension and agree to the legal agreements.
 
-  ![Add extension](https://cdn2.auth0.com/blog/ultimateguidems/addextension.png)
+    ![Add extension](https://cdn2.auth0.com/blog/ultimateguidems/addextension.png)
 
 13. Now, make a little change to your app and push again to GitHub. You should see it deploying like so: 
 
-  ![Make a change](https://cdn2.auth0.com/blog/ultimateguidems/make_a_change.png)
+    ![Make a change](https://cdn2.auth0.com/blog/ultimateguidems/make_a_change.png)
 
-  ![Deployment details](https://cdn2.auth0.com/blog/ultimateguidems/deploymentdetails.png)
+    ![Deployment details](https://cdn2.auth0.com/blog/ultimateguidems/deploymentdetails.png)
 
 14. Now check out your app again. It should be [live](http://starwarzapp.azurewebsites.net) & working! 
 
-  ![Landing Page](https://cdn2.auth0.com/blog/ultimateguidems/landingpage.png)
+    ![Landing Page](https://cdn2.auth0.com/blog/ultimateguidems/landingpage.png)
 
 ### Database, Caching & Cron Jobs
 
@@ -458,10 +457,10 @@ Check out the [documentation](https://azure.microsoft.com/en-us/services/cache) 
 
 For scheduling and running tasks, Azure offers a [Scheduler](https://azure.microsoft.com/en-us/services/scheduler/). It allows you to:
 
-- Call services inside or outside of Azure
-- Run jobs on any schedule
-- Use Azure Storage queues for long-running or offline jobs
-- Invoke Azure Service Bus queues
+- Call services inside or outside of Azure.
+- Run jobs on any schedule.
+- Use Azure Storage queues for long-running or offline jobs.
+- Invoke Azure Service Bus queues.
 
 Check out [how to create and manage jobs using the Scheduler](https://docs.microsoft.com/en-us/azure/scheduler/scheduler-get-started-portal).
 
@@ -470,9 +469,9 @@ We already talked a little about setting up a database earlier while we were dep
 1. Log into the Azure Portal.
 2. Click **New** on the left panel of the dashboard. Choose **Data + Storage** in the Marketplace, then select MySQL database.
 3. Go ahead and configure your new MySQL database. Enter a name, choose your subscription, location and fill the required fields. Create!
-4. Connect to the database
+4. Connect to the database.
 
-  ![The connection info](https://docs.microsoft.com/en-us/azure/media/store-php-create-mysql-database/create-db-5-finished-db-blade.png)
+    ![The connection info](https://docs.microsoft.com/en-us/azure/media/store-php-create-mysql-database/create-db-5-finished-db-blade.png)
 
 Laravel developers can easily [configure a MySQL database for their apps on Azure](https://docs.microsoft.com/en-us/azure/store-php-create-mysql-database).
 
@@ -484,11 +483,11 @@ The service we'll use for deploying our famous StarWars app is **Amazon Elastic 
 
 - Sign up for an [AWS account](https://aws.amazon.com/account/) if you don't have one.
 - Head over to [Elastic Beanstalk console](https://us-west-2.console.aws.amazon.com/elasticbeanstalk).
-- Create a new app
+- Create a new app.
     ![Create new app](https://cdn2.auth0.com/blog/ultimateguideaws/createnewapp.png)
-- Click on `create web server`
+- Click on `create web server`.
     ![Create web server](https://cdn2.auth0.com/blog/ultimateguideaws/createwebserver.png)
-- Create the webserver environment
+- Create the webserver environment.
     ![Environment type](https://cdn2.auth0.com/blog/ultimateguideaws/environmentype.png)
 - Upload your code. Elastic Beanstalk requires that you upload a zip file of your codebase. You can manually zip it up. But I prefer to do that from my terminal like so:
 
@@ -510,9 +509,9 @@ The service we'll use for deploying our famous StarWars app is **Amazon Elastic 
 
 - Add Permission like so:
     ![Permission](https://cdn2.auth0.com/blog/ultimateguideaws/permission.png)
-- Review the information before launching
+- Review the information before launching.
     ![Review](https://cdn2.auth0.com/blog/ultimateguideaws/review.png)
-- Launch
+- Launch.
 
 ![Deployed](https://cdn2.auth0.com/blog/ultimateguideaws/deployed.png)
 
@@ -521,11 +520,11 @@ _Live app_
 
 Check out how to deploy:
 
-- [A Laravel app to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-laravel-tutorial.html)
-- [A CakePHP app to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-cakephp-tutorial.html)
-- [A Symfony2 app to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_PHP_symfony2.html)
-- [A Wordpress website to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-hawordpress-tutorial.html)
-- [A Drupal website to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-hadrupal-tutorial.html)
+- [A Laravel app to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-laravel-tutorial.html).
+- [A CakePHP app to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-cakephp-tutorial.html).
+- [A Symfony2 app to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_PHP_symfony2.html).
+- [A Wordpress website to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-hawordpress-tutorial.html).
+- [A Drupal website to Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-hadrupal-tutorial.html).
 
 ### Database, Caching and Cron Jobs
 
@@ -533,18 +532,18 @@ You can use an Amazon Relational Database Service (Amazon RDS) DB instance to st
 
 For caching, Amazon Web Services offers [ElastiCache](https://aws.amazon.com/elasticache). It is a web service that makes it easy to deploy, operate, and scale an in-memory data store or cache in the cloud. Amazon ElastiCache supports two open-source in-memory engines:
 
-- [Redis](https://aws.amazon.com/elasticache/redis)
-- Memcached
+- [Redis](https://aws.amazon.com/elasticache/redis).
+- Memcached.
 
 Amazon ElastiCache automatically detects and replaces failed nodes, reducing the overhead associated with self-managed infrastructures and provides a resilient system that mitigates the risk of overloaded databases, which slow website and application load times. Through integration with [Amazon CloudWatch](https://aws.amazon.com/cloudwatch), Amazon ElastiCache provides enhanced visibility into key performance metrics associated with your Redis or Memcached nodes. 
 
 Companies like [AirBnb](https://www.airbnb.com), [Healthguru](http://www.healthguru.com), [PlaceIQ](http://www.placeiq.com) and [Tokyo Data Network](http://www.tdn.co.jp) use ElastiCache for caching at multiple layers spanning HTML fragments, results of expensive DB queries, ephemeral session data and search results.
 
-> Check out [how to install the ElastiCache Cluster Client for PHP here](http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Appendix.PHPAutoDiscoverySetup.html)
+> Check out [how to install the ElastiCache Cluster Client for PHP here](http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Appendix.PHPAutoDiscoverySetup.html).
 
 Here is an [excellent post on building a PHP visitor counter with ElastiCache and Elastic Beanstalk](https://linuxacademy.com/howtoguides/posts/show/topic/13716-php-visitor-counter-with-elasticache-and-elastic-beanstalk)
 
-You can set up a cron job on Elastic Beanstalk. Learn how to run cron jobs on [Amazon Web Services(AWS) Elastic Beanstalk](https://medium.com/@joelennon/running-cron-jobs-on-amazon-web-services-aws-elastic-beanstalk-a41d91d1c571)
+You can set up a cron job on Elastic Beanstalk. Learn how to run cron jobs on [Amazon Web Services(AWS) Elastic Beanstalk](https://medium.com/@joelennon/running-cron-jobs-on-amazon-web-services-aws-elastic-beanstalk-a41d91d1c571).
 
 ## Laravel Forge
 
@@ -555,8 +554,8 @@ _Laravel Forge_
 
 Laravel Forge allows you to easily do the following apart from provisioning servers:
 
-- It integrates with LetsEncrypt to generate Free SSL Certificates for your apps
-- Easily manage jobs and queues
+- It integrates with LetsEncrypt to generate Free SSL Certificates for your apps.
+- Easily manage jobs and queues.
 - Collaboration with your team by sharing your server's management dashboard with co-workers.
 
 Matt Stauffer has an [amazing post on deploying your first Laravel app to Forge](https://mattstauffer.co/blog/getting-your-first-site-up-and-running-in-laravel-forge). 
@@ -569,12 +568,12 @@ Finally, the most popular educational PHP platform, [laracasts.com](https://lara
 
 [Envoyer](https://envoyer.io) is a platform that allows zero downtime PHP deployment. It allows you integrate with various services such as Gitlab, Slack, Bitbucket e.t.c. 
 
-With Envoyer, you can perform
+With Envoyer, you can perform:
 
-- Seamless Deployment rollbacks
-- Deploy to multiple servers
-- Monitor Cron Jobs
-- Perform Application Health Checks
+- Seamless Deployment rollbacks.
+- Deploy to multiple servers.
+- Monitor Cron Jobs.
+- Perform Application Health Checks.
 
 ## Deployer
 
