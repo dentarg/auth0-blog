@@ -72,7 +72,7 @@ There are fines of up to €20 million or 4% of the global annual revenue of a b
 
 ## What you need to do now?
 
-Start preparing now and read our FAQs at [www.bit.ly/gdprfaq](www.bit.ly/gdprfaq) or watch our film on YouTube at [www.bit.ly/gdprfilm](www.bit.ly/gdprfilm). You might also be interested in our GDPR subscription service which includes films, checklists articles and a monthly call to help plan for GDPR. The details of this service are at [www.bit.ly/gdprnav](www.bit.ly/gdprnav).
+Start preparing now and read our FAQs at [www.bit.ly/gdprfaq](https://www.bit.ly/gdprfaq) or watch our film on YouTube at [www.bit.ly/gdprfilm](https://www.bit.ly/gdprfilm). You might also be interested in our GDPR subscription service which includes films, checklists articles and a monthly call to help plan for GDPR. The details of this service are at [www.bit.ly/gdprnav](https://www.bit.ly/gdprnav).
 
 <div class="alert alert-info">
 <strong>About Jonathan Armstrong:</strong><br />
