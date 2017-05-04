@@ -18,9 +18,9 @@ tags:
 - heroku
 - deployment
 related:
-- 2016-11-01-building-universal-apps-with-nextjs
-- 2016-09-29-angular-2-authentication
-- 2016-10-05-build-your-first-app-with-polymer-and-web-components
+- 2017-02-02-migrating-a-php5-app-to-php7-part-one
+- 2017-02-07-migrating-a-php5-app-to-php7-part-two
+- 2017-02-09-migrating-a-php5-app-to-7-part-three
 ---
 
 **TL;DR:** There is a popular mantra amongst developers that goes thus; *Write, test and deploy*. In this tutorial, I'll show you how to deploy your PHP apps to different cloud server platforms such as *Google Cloud*, *Microsoft Azure*, *Heroku*, *IBM Bluemix* and others.
