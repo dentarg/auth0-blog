@@ -2,7 +2,7 @@
 layout: post
 title: "The Ultimate Guide To Deploying Your PHP Applications"
 description: Learn how to deploy PHP applications on different platforms.
-date: 2017-04-24 08:30
+date: 2017-05-04 08:30
 category: Technical guide, Frameworks, PHP
 design:
   bg_color: "#484C89"
@@ -23,7 +23,7 @@ related:
 - 2017-02-09-migrating-a-php5-app-to-7-part-three
 ---
 
-**TL;DR:** There is a popular mantra amongst developers that goes thus; *Write, test and deploy*. In this tutorial, I'll show you how to deploy your PHP apps to different cloud server platforms such as *Google Cloud*, *Microsoft Azure*, *Heroku*, *IBM Bluemix* and others.
+**TL;DR:** There is a popular mantra amongst developers that goes like this *write, test and deploy*. In this tutorial, I'll show you how to deploy your PHP apps to different cloud server platforms such as [Google Cloud](https://cloud.google.com), [Microsoft Azure](https://azure.microsoft.com), [Heroku](https://heroku.com), [IBM Bluemix](https://www.ibm.com/cloud-computing/bluemix), and others.
 
 ---
 
@@ -36,11 +36,11 @@ Cloud servers are basically virtual servers that run within a cloud computing en
 - Cloud servers scale very well.
 - Stabiity and security.
 
-amongst other things. In fact, many companies have moved their infrastructure to the cloud in order to reduce cost and complexity. It's a great option for many small, mid-sized businesses and enterprises. If you write a lot of tutorials and do POCs (Proof-of-concepts) like me, it's also a great choice for you!
+In fact, many companies have moved their infrastructure to the cloud in order to reduce cost and complexity. It's a great option for small, mid-sized, and enterprise scale businesses. If you write a lot of tutorials and do POCs (Proof-of-concepts) like me, it's also a great choice for you!
 
 A generic PHP application involves the common *LAMP (Linux, Apache, Mysql and PHP)* stack.
 
-- **Linux:** The Operating system that runs the other software packages. 
+- **Linux:** The operating system that runs the other software packages. 
 - **Apache:** The web server that runs the PHP code. A popular alternative software is *Nginx*.
 - **MySQL:** The database. A popular alternative software is PostgreSQL.
 - **PHP:** The server-side language for building the application.
@@ -208,7 +208,7 @@ Finally, you can use the [Heroku Scheduler](https://devcenter.heroku.com/article
 
 ## Google Cloud
 
-The [Google Cloud platform](https://cloud.google.com) is a giant and trusted cloud platform that a lot of companies all over the world have adopted to deploy and host their apps. Your apps will be running on the same infrastructure that powers all of Google's products. What other form of confidence do you need to assure you that your application will scale well enough to serve your thousands and millions of users easily? 
+The [Google Cloud platform](https://cloud.google.com) is a giant and trusted cloud platform that a lot of companies all over the world have adopted in deploying and hosting their apps. Your apps will be running on the same infrastructure that powers all of Google's products. What other form of confidence do you need to assure you that your application will scale well enough to serve your thousands and millions of users easily? 
 
 Google Cloud offers different options for hosting PHP apps. The platform offers [App Engine (Full managed)](https://cloud.google.com/appengine/), [Compute Engine (Scalabe VMs)](https://cloud.google.com/compute/) and [Container Engine (Kubernetes Clusters)](https://cloud.google.com/container-engine/).
 
@@ -216,9 +216,9 @@ In our case, we'll use App Engine. It abstracts the infrastucture away. Let's ju
 
 When using Google App Engine, you can choose the **Standard** or **Flexible** environment. The latter, like the name implies allows you to install any PHP extension that works on Debian Linux, has a configurable Nginx web server, writable filesystem, latest PHP versions and allows you to run deployment scripts using `composer.json`.
 
-We'll use the Flexible environment. So, go ahead and [create a new project](https://console.cloud.google.com/projectselector/appengine/create?lang=flex_php&st=true). Click on **Create**, give the project a name, select the region you'll like to serve your app and enable billing. 
+We'll use the flexible environment. So, go ahead and [create a new project](https://console.cloud.google.com/projectselector/appengine/create?lang=flex_php&st=true). Click on **Create**, give the project a name, select the region you'll like to serve your app and enable billing. 
 
-> **Note: You won't be charged without your permission
+> **Note:** You won't be charged without your permission.
 
 Now, download the [Google SDK](https://cloud.google.com/sdk/docs/) and install the Google Cloud tools.
 
@@ -341,7 +341,7 @@ You can either use the Cloud Foundry CLI or the Bluemix user interface to set en
 
   ![Select Environment Variables](https://cdn2.auth0.com/blog/ultimateguideibm/select_environmentvariable.png)
 
-- Scroll down and click the `Add` button to add the environment variables like so
+- Scroll down and click the **Add** button to add the environment variables like so
 
   ![Add environment variables](https://cdn2.auth0.com/blog/ultimateguideibm/add_env_variables.png)
 
@@ -476,7 +476,7 @@ We already talked a little about setting up a database earlier while we were dep
 
 Laravel developers can easily [configure a MySQL database for their apps on Azure](https://docs.microsoft.com/en-us/azure/store-php-create-mysql-database).
 
-## Amazon
+## Amazon Web Services
 
 More companies use AWS(Amazon Web Services) for storing all sorts of data ranging from images, mp3 files to videos than any other cloud platform. In fact, a lot of organizations like Uber, Spotify, Salesforce use Amazon Web Services wholy for hosting, deployment and infrastructure. AWS has a ton of developer products.
 
