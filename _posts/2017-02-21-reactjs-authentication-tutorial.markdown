@@ -1041,7 +1041,7 @@ In the code above, we are using an hosted version of Auth0 Lock in the `login` m
 
 The auth0 package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing SPA Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
+The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing SPA Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
 
 Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
 
