@@ -69,7 +69,9 @@ Here are a few tips to help you avoid falling victim to these scams.
 
 ## Aside: Implementing API Authorization with Auth0 
 
-Auth0 is a [certified OpenID Connect (OIDC) provider](http://openid.net/certification). One of the features we provide is [API Authentication and Authorization](https://auth0.com/docs/api-auth). Auth0's API authorization features allow you to manage the authorization requirements for server-to-server and client-to-server applications. If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use).
+This phishing attack took advantage of the OAuth protocol, a convenient way for internet accounts to link with third-party applications. Users don't have to hand over any password information. They just grant permission to a third party app. 
+
+One of the features Auth0 provides is [API Authentication and Authorization using the OAuth 2.0 authorization framework](https://auth0.com/docs/api-auth). Auth0's API authorization features allow you to manage the authorization requirements for server-to-server and client-to-server applications. If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use).
 
 In addition, our *ODIC Conformant Authentication* pipeline allows you to create third-party clients for your APIs and display consent dialogs for authorization.
 
