@@ -58,7 +58,9 @@ If you already gave the fake *Google Docs* app permission, here is how to protec
 
 ## How to avoid Phishing Scams
 
-Phishing scams have been around for a long time and they aren't going anywhere soon. Just last year, there was a case of a hacker who [stole nude pictures from celebrities](http://www.bbc.com/news/technology-36702837) via a phishing scam that targeted iCloud accounts. Here are just a few tips to prevent you from falling victim to these scams.
+Phishing scams have been around for a long time and they aren't going anywhere soon. Just last year, there was a case of a hacker who [stole nude pictures from celebrities](http://www.bbc.com/news/technology-36702837) via a phishing scam that targeted iCloud accounts. 
+
+Here are just a few tips below to prevent you from falling victim to these scams.
 
 1. **Look out for fake and forged Sites:** Verify that the site is secure by ensuring that the URL starts with https:// instead of http. Look out for typos in the site name and URL.
 2. **Install an Anti-Phishing Toolbar:** You can install these toolbars on your Internet browsers. It checks the sites that you are visiting and compares them to lists of known phishing sites.
