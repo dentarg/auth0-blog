@@ -19,7 +19,7 @@ tags:
 - Guide
 ---
 
-Two days ago, there was a large phishing scam that plagued the internet. It was a Google Doc Phishing attack penetrated via Gmail. On Wednesday, a worm in form of an email arrived in a lot of gmail user's inboxes from contacts they knew. The email stated that a Google Doc document had been shared with them.
+Two days ago, there was a large phishing scam that plagued the internet. It was a *Google Doc* phishing attack penetrated via Gmail. On Wednesday, a worm in form of an email arrived in a lot of gmail user's inboxes from contacts they knew. The email stated that a Google Doc document had been shared with them.
 
 ![Email claiming a document had been shared](https://cdn2.auth0.com/blog/phishingscam/sharedwithme.png)
 _Email claiming a document had been shared_
