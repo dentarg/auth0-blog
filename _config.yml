@@ -28,7 +28,7 @@ defaults:
       type: "posts"
     values:
       design:
-        image_default: https://cdn.auth0.com/styleguide/1.0.0/img/badge.png
+        image_default: https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/badge.png
   -
     scope:
       path: ""
