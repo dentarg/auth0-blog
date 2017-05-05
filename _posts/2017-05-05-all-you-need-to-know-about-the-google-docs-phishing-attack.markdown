@@ -4,7 +4,6 @@ title: "All You Need To Know About The Google Docs Phishing Attack"
 description: "Learn how the Google Docs Phishing Scam was perpetrated and how it could have been avoided."
 date: 2017-05-05 08:30
 category: Hot Topics, Security
-is_non-tech: true
 author:
   name: "Prosper Otemuyiwa"
   url: "https://twitter.com/unicodeveloper"
