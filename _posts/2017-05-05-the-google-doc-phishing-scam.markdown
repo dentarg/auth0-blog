@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Google Docs Phishing Scam"
+title: "All You Need To Know About The Google Docs Phishing Attack"
 description: "Learn how the Google Docs Phishing Scam was penetrated and how it could have been avoided."
 date: 2017-05-05 08:30
 category: Hot Topics, Security
@@ -11,8 +11,8 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#222228"
-  image: "https://cdn.auth0.com/blog/personal-info-security-guide/logo.png"
+  bg_color: "#1564C0"
+  image: "https://cdn2.auth0.com/blog/phishing/attacklogo.png"
 tags:
 - Security
 - Identity
@@ -29,6 +29,8 @@ Once a user clicked the link to open the document, it immediately redirected the
 ![Google Account Selection Screen](https://cdn2.auth0.com/blog/phishingscam/googleaccountselection.png)
 _Google Account Selection Screen_
 
+---
+
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Phishing (or malware) Google Doc links that appear to come from people you may know are going around. DELETE THE EMAIL. DON&#39;T CLICK. <a href="https://t.co/fSZcS7ljhu">pic.twitter.com/fSZcS7ljhu</a></p>&mdash; Zeynep Tufekci (@zeynep) <a href="https://twitter.com/zeynep/status/859840026082988038">May 3, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -36,6 +38,8 @@ Once the user gives the fake app posing as *Google Docs* permission, it would ha
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/zeynep">@zeynep</a> Just got this as well. Super sophisticated. <a href="https://t.co/l6c1ljSFIX">pic.twitter.com/l6c1ljSFIX</a></p>&mdash; Zach Latta (@zachlatta) <a href="https://twitter.com/zachlatta/status/859843151757955072">May 3, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
 
 ## Swift Combat Action From Google
 
@@ -54,13 +58,35 @@ If you already gave the fake *Google Docs* app permission, here is how to protec
 
 ## How to avoid Phishing Scams
 
-Phishing scams have been around for a long time and they aren't going anywhere soon. Here are just a few tips to prevent you from falling victim to these scams.
+Phishing scams have been around for a long time and they aren't going anywhere soon. Just last year, there was a case of a hacker who [stole nude pictures from celebrities](http://www.bbc.com/news/technology-36702837) via a phishing scam that targeted iCloud accounts. Here are just a few tips to prevent you from falling victim to these scams.
 
 1. **Look out for fake and forged Sites:** Verify that the site is secure by ensuring that the URL starts with https:// instead of http. Look out for typos in the site name and URL.
 2. **Install an Anti-Phishing Toolbar:** You can install these toolbars on your Internet browsers. It checks the sites that you are visiting and compares them to lists of known phishing sites.
 3. **Beware of Links and Attachments in your emails:** Before you click on a link in your email, hover on it, check if the link actually links to a legitimate secure site. Don't click on links that appear in random emails and instant messages.
 4. **Regularly update your browser**.
 5. **Beware of Pop ups**: Virtually all browsers allow you to block pop-ups, so you can set that as the default action. You can allow pop-ups sparingly when you actually need them.
+
+## Aside: Implementing API Authorization with Auth0 
+
+Auth0 is a [certified OpenID Connect (OIDC) provider](http://openid.net/certification). One of the features we provide is [API Authentication and Authorization](https://auth0.com/docs/api-auth). Auth0's API authorization features allow you to manage the authorization requirements for server-to-server and client-to-server applications. If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use).
+
+In addition, our *ODIC Conformant Authentication* pipeline allows you to create third-party clients for your APIs and display consent dialogs for authorization.
+
+If a user is authenticating through a third-party client and is requesting authorization to access the user's information or perform some action at an API on their behalf, they will see a consent dialog like so: 
+
+![Consent Dialog](https://cdn2.auth0.com/docs/media/articles/hosted-pages/consent-dialog.png)
+_Consent Dialog_
+
+If the user chooses to allow the application, this will create a user grant which represents this user's consent to this combination of client, resource server and scopes. The client application will then receive a successful authentication response from Auth0. However, if a user decides to reject consent to the application, they will be redirected to the `redirect_uri` specified in the request with an `access_denied` error like so:
+
+```bash
+
+HTTP/1.1 302 Found
+Location: https://fabrikam.com/contoso_social#
+    error=access_denied
+    &state=...
+
+```
 
 ## Conclusion
 
