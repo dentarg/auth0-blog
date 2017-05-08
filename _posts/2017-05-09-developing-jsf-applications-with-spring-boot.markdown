@@ -2,7 +2,7 @@
 layout: post
 title: "Developing JSF applications with Spring Boot"
 description: Spring Boot can leverage any type of applications, not only microservices. Let's build a JSF application with Spring Boot.
-date: 2017-05-01 19:11
+date: 2017-05-09 08:00
 category: Technical Guide, Java, Spring Boot
 author:
   name: "Bruno Krebs"
@@ -10,8 +10,8 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "#0166AE"
-  image: "https://cdn.auth0.com/blog/spring-boot-flyway/logo.png"
+  bg_color: "#2E668D"
+  image: "https://cdn2.auth0.com/blog/boot-faces/jsf-logo.png"
 tags:
 - foo
 related:
