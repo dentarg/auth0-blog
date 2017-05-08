@@ -17,9 +17,9 @@ tags:
 - auth0
 - auth0-rules
 related:
-- 2017-02-02-migrating-a-php5-app-to-php7-part-one
-- 2017-02-07-migrating-a-php5-app-to-php7-part-two
-- 2017-02-09-migrating-a-php5-app-to-7-part-three
+- 2017-05-04-the-state-of-biometric-identity-in-2017
+- 2017-04-17-how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing
+- 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
 [Auth0](https://auth0.com) is a service that allows you to easily authenticate the users of your application using methods like social network logins and passwordless systems.
