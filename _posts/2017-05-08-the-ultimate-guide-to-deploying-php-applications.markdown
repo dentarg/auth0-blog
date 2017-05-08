@@ -2,7 +2,7 @@
 layout: post
 title: "The Ultimate Guide To Deploying Your PHP Applications"
 description: Learn how to deploy PHP applications on different platforms.
-date: 2017-05-04 08:30
+date: 2017-05-08 08:30
 category: Technical guide, Frameworks, PHP
 design:
   bg_color: "#484C89"
