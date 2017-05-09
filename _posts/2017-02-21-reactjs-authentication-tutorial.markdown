@@ -207,7 +207,7 @@ Now, this works great for simple applications like the one we'll build in this t
 
 ### JSX
 
-Initially, looking at JSX seems awkward. JSX is the combination of HTML and JavaScript code in the same file. You can decide to name the extension of the filem`.jsx` or just `.js`. An example of JSX is:
+Initially, looking at JSX seems awkward. JSX is the combination of HTML and JavaScript code in the same file. You can decide to name the extension of the file `.jsx` or just `.js`. An example of JSX is:
 
 ```js
 
@@ -264,7 +264,7 @@ const authCheck = jwt({
         rateLimit: true,
         jwksRequestsPerMinute: 5,
         // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
-        jwksUri: "https://{{YOUR-AUTH0-DOMAIN}}/.well-known/jwks.json"
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
     }),
     // This is the identifier we set when we created the API
     audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
