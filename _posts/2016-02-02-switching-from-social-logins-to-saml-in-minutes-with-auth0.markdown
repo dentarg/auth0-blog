@@ -16,7 +16,7 @@ author:
   avatar: https://s.gravatar.com/avatar/bc94ff6211e645a2bdb4fdc60e23ad85.jpg?s=200
 design:
   bg_color: "#333333"
-  image: "https://cdn.auth0.com/styleguide/1.0.0/img/badge.png"
+  image: "https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/badge.png"
   image_size: "50%"
 tags:
 - SAML

@@ -340,22 +340,16 @@ Before we can start working with React, we'll need to do some setup in our `inde
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>We R VR</title>
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <!-- We will use the Babel transpiler so that we can convert our jsx code to js on the fly -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 
-    <!-- Core React libraries which we will be using -->
     <script src="http://fb.me/react-0.14.7.js"></script>
     <script src="https://fb.me/react-dom-0.14.7.js"></script>
-
-    <!-- Our React app code will be placed in the app.jsx file -->
     <script type="text/babel" src="static/js/app.jsx"></script>
 
-    <!-- We will import bootstrap so that we can build a good looking UI fast -->
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <!-- This will be the entry point for our React app -->
     <div class="container" id="app">
 
     </div>
@@ -377,14 +371,14 @@ Our application will allow the user to view and leave feedback on VR products. U
 
 The main component that will kick off our React application will be the the `app` component. Let's build it first:
 
-```
+```jsx
 var App = React.createClass({
   componentWillMount: function() {
-    this.setState({idToken: null})
   },
   render: function() {
-    if (this.state.idToken) {
-      return (<LoggedIn idToken={this.state.idToken} />);
+    
+    if (this.loggedIn) {
+      return (<LoggedIn />);
     } else {
       return (<Home />);
     }
@@ -396,7 +390,7 @@ var App = React.createClass({
 
 The `Home` component will be displayed when a user does not have an `idToken` meaning they are not logged in.
 
-```
+```jsx
 var Home = React.createClass({
   render: function() {
     return (
@@ -419,30 +413,26 @@ For now, we'll just build the UI. We'll add in the sign in functionality soon.
 
 The `LoggedIn` component will be displayed when a user does have an `idToken` meaning they are logged in.
 
-```
+```jsx
 var LoggedIn = React.createClass({
   getInitialState: function() {
     return {
-      profile: null,
-      products: null
+      products: []
     }
   },
   render: function() {
-    if (this.state.profile) {
-      return (
-        <div className="col-lg-12">
-          <span className="pull-right">{this.state.profile.nickname} <a onClick={this.logout}>Log out</a></span>
-          <h2>Welcome to We R VR</h2>
-          <p>Below you'll find the latest games that need feedback. Please provide honest feedback so developers can make the best games.</p>
-          <div className="row">
-          {this.state.products.map(function(product, i){
-            return <Product key={i} product={product} />
-          })}
-          </div>
-        </div>);
-    } else {
-      return (<div>Loading...</div>);
-    }
+    return (
+      <div className="col-lg-12">
+        <span className="pull-right"><a onClick={this.logout}>Log out</a></span>
+        <h2>Welcome to We R VR</h2>
+        <p>Below you'll find the latest games that need feedback. Please provide honest feedback so developers can make the best games.</p>
+        <div className="row">
+          
+        {this.state.products.map(function(product, i){
+          return <Product key={i} product={product} />
+        })}
+        </div>
+      </div>);
   }
 });
 ```
@@ -451,7 +441,7 @@ var LoggedIn = React.createClass({
 
 Finally, the `Product` component will contain information about the VR experience. We could further break this component down into multiple components, but for brevity, we'll keep it all in one component for the demo.
 
-```
+```jsx
 var Product = React.createClass({
   upvote : function(){
   },
@@ -488,7 +478,7 @@ var Product = React.createClass({
 
 With our components in place, the last thing we'll need to do is tell our React app how to start. We'll do that like this:
 
-```
+```jsx
 ReactDOM.render(<App />, document.getElementById('app'));
 ```
 
@@ -498,128 +488,205 @@ With our UI finalized, let's add authentication in Golang and hook up our front 
 
 ## Aside: Adding Authentication with Auth0
 
-Adding user authentication will allow us to protect our API. Since our app deals with projects that are in active development, we don’t want any data to be publicly available. We will accomplish this in two parts. We will add authentication in Go and protect our API endpoints from being accessed without a proper token. Next, we'll add a way for users to login through our React app and get a token.
+Adding user authentication will allow us to protect our API. Since our app deals with projects that are in active development, we don’t want any data to be publicly available. We will accomplish this in two parts. We will add authentication in Go and protect our API endpoints from being accessed without a valid `access_token` token. Next, we'll add a way for users to login through our React app and get a token.
 
 ### Authentication in Golang
 
-To start, let’s secure our API endpoints. We did this earlier with manual generation and verification of the JWT, but now we'll expand on the functionality here. We will utilize the `auth0/go-jwt-middleware` and `dgrijalva/jwt-go` libraries for dealing with the JWT. Additionally, we will utilize the `joho/godotenv` library so that we can store our Auth0 credentials outside of our `main.go` file. Let's see what our implemented code looks like.
+To start, let’s secure our API endpoints. We did this earlier with manual generation and verification of the JWT, but now we'll expand on the functionality here. We will utilize the [`auth0-community/auth0`](https://github.com/auth0-community/go-auth0) and [`square/go-jose.v2`](https://github.com/square/go-jose) libraries for dealing with the JWT. Our implementation is as follows:
 
 ```go
 package main
 
-import(
-  ...
-  "errors"
-  "github.com/joho/godotenv"
-  jwt "github.com/dgrijalva/jwt-go"
-  jwtmiddleware "github.com/auth0/go-jwt-middleware"
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
+
+	"github.com/auth0-community/auth0"
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	jose "gopkg.in/square/go-jose.v2"
 )
 
-func main() {
-
-  // Here we are loading in our .env file which will contain our Auth0 Client Secret and Domain
-  err := godotenv.Load()
-  if err != nil {
-    log.Fatal("Error loading .env file")
-  }
-
-  ...
-
-  r.Handle("/status", StatusHandler).Methods("GET")
-  r.Handle("/products", jwtMiddleware.Handler(ProductsHandler)).Methods("GET")
-  r.Handle("/products/{slug}/feedback", jwtMiddleware.Handler(AddFeedbackHandler)).Methods("POST")
-
+type Product struct {
+	Id          int
+	Name        string
+	Slug        string
+	Description string
 }
 
-// Handlers
-...
+var products = []Product{
+	Product{Id: 1, Name: "Hover Shooters", Slug: "hover-shooters", Description: "Shoot your way to the top on 14 different hoverboards"},
+	Product{Id: 2, Name: "Ocean Explorer", Slug: "ocean-explorer", Description: "Explore the depths of the sea in this one of a kind underwater experience"},
+	Product{Id: 3, Name: "Dinosaur Park", Slug: "dinosaur-park", Description: "Go back 65 million years in the past and ride a T-Rex"},
+	Product{Id: 4, Name: "Cars VR", Slug: "cars-vr", Description: "Get behind the wheel of the fastest cars in the world."},
+	Product{Id: 5, Name: "Robin Hood", Slug: "robin-hood", Description: "Pick up the bow and arrow and master the art of archery"},
+	Product{Id: 6, Name: "Real World VR", Slug: "real-world-vr", Description: "Explore the seven wonders of the world in VR"},
+}
 
-var jwtMiddleware = jwtmiddleware.New(jwtmiddleware.Options{
-  ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
-  token, err := os.Getenv("AUTH0_CLIENT_SECRET")
-  if len(token) == 0 {
-    return nil, errors.New("Auth0 Client Secret Not Set")
-  }
-  return token, nil
-  },
+func main() {
+	r := mux.NewRouter()
+
+	r.Handle("/", http.FileServer(http.Dir("./views/")))
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+
+	r.Handle("/products", authMiddleware(ProductsHandler)).Methods("GET")
+	r.Handle("/products/{slug}/feedback", authMiddleware(AddFeedbackHandler)).Methods("POST")
+
+	http.ListenAndServe(":3000", handlers.LoggingHandler(os.Stdout, r))
+}
+
+func authMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		secret := []byte("{YOUR-API-CLIENT-SECRET}")
+		secretProvider := auth0.NewKeyProvider(secret)
+		audience := "{YOUR-AUTH0-API-AUDIENCE}"
+
+		configuration := auth0.NewConfiguration(secretProvider, audience, "https://{YOUR-AUTH0-DOMAIN}.auth0.com/", jose.HS256)
+		validator := auth0.NewValidator(configuration)
+
+		token, err := validator.ValidateRequest(r)
+
+		if err != nil {
+			fmt.Println(err)
+			fmt.Println("Token is not valid:", token)
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Unauthorized"))
+		} else {
+			next.ServeHTTP(w, r)
+		}
+	})
+}
+
+var ProductsHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	payload, _ := json.Marshal(products)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(payload))
+})
+
+var AddFeedbackHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	var product Product
+	vars := mux.Vars(r)
+	slug := vars["slug"]
+
+	for _, p := range products {
+		if p.Slug == slug {
+			product = p
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	if product.Slug != "" {
+		payload, _ := json.Marshal(product)
+		w.Write([]byte(payload))
+	} else {
+		w.Write([]byte("Product Not Found"))
+	}
 })
 ```
 
-We have made minor changes to our `jwtMiddleware` function to use the `AUTH0_CLIENT_SECRET` variable rather than a hardcoded secret. We got this variable from our Auth0 management [dashboard](https://manage.auth0.com/) and stored it an environmental variable. That is all we needed to do on the Golang side.
+The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, [sign up](javascript:signup\(\)) for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new API client by clicking the **Create API** button.
+
+![Create We-R-VR API Client](https://cdn2.auth0.com/blog/go-auth/create-api-client.png)
+
+Give your API a **name** and an **identifier**. The identifier you give the API will be the **audience** for the middleware we've written above. Change the **Signing Algorithm** to **HS256** and click the **Create** button to finalize the creation of the API client.
+
+Once your client is created copy it's **secret** and **audience** fields and replace the accompanying placeholders in your `main.go` file. Notice that `/products` and `/products/{slug}/feedback` route are protected with the `authMiddleware` middleware function we've written. If you try to access these now without a proper `access_token`, you will get a `401 Unauthorized` error.
+
+When you created the API client, another client was created that will allow your frontend to authenticate and get the appropriate keys. Find this client, change it's **client type** to **single page application** and copy its `Client ID` as you will need it later.
 
 Next, we'll implement the login functionality on the frontend. Feel free to remove to the `/get-token` route as it is no longer necessary. We will get the token from Auth0.
 
-### Login with Auth0 Lock and React
+### Login with Auth0 and React
 
-Next, we’ll implement the login system on the frontend that will allow users to login and create accounts. We will do this using Auth0’s [Lock](https://auth0.com/docs/libraries/lock) widget. We'll first need to add the required libraries for the Lock widget. Let's update the `index.html` file.
+Next, we’ll implement the login system on the frontend that will allow users to login and create accounts. We'll first need to add the required Auth0 libraries . Let's update the `index.html` file.
 
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>We R VR</title>
-    <script src=“https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://cdn.auth0.com/js/auth0/8.5/auth0.min.js"></script>
     <script type="text/javascript" src="static/js/auth0-variables.js"></script>
-    <!-- ... existing libraries ... -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <script src="http://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script type="text/babel" src="static/js/app.jsx"></script>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
+    <div class="container" id="app">
+
+    </div>
   </body>
 </html>
 ```
 
-We've pulled the lock library from Auth0. We'll additionally need to create a new file called `auth0-variables.js` which will store our Auth0 `CLIENT_ID` and `CLIENT_DOMAIN`. You can get the `CLIENT_ID` and `CLIENT_DOMAIN` from your Auth0 management dashboard. With the libraries in place, we'll update our React components to handle the login as well as make calls to our Go API. Let's update the components one by one.
+We'll additionally need to create a new file called `auth0-variables.js` which will store our Auth0 `AUTH0_CLIENT_ID`, `AUTH0_DOMAIN`, `AUTH0_CALLBACK_URL`, and `AUTH0_API_AUDIENCE`. You can get the `AUTH0_CLIENT_ID`, `AUTH0_DOMAIN`, and `AUTH0_API_AUDIENCE` from your Auth0 [management dashboard](https://manage.auth0.com) and the `AUTH0_CALLBACK_URL` will be the URL of your app. With the libraries in place, we'll update our React components to handle the login as well as make calls to our Go API. Let's update the components one by one.
 
 #### App Component
 
 The `App` component will be updated to create an instance of the lock widget, capture and store the user token and add the correct authorization header to any requests to our Go API. Let's see what that code looks like below:
 
-```
+```jsx
 var App = React.createClass({
   componentWillMount: function() {
     this.setupAjax();
-    this.createLock();
-    this.setState({idToken: this.getIdToken()})
+    this.parseHash();
+    this.setState();
   },
-  /* We will create the lock widget and pass it to sub-components */
-  createLock: function() {
-    this.lock = new Auth0Lock(this.props.clientId, this.props.domain);
-  },
-  /* We will ensure that any AJAX request to our Go API has the authorization
-     header and passes the user JWT with the request */
+  // Add access_token if available with each XHR request to API
   setupAjax: function() {
     $.ajaxSetup({
       'beforeSend': function(xhr) {
-        if (localStorage.getItem('userToken')) {
+        if (localStorage.getItem('access_token')) {
           xhr.setRequestHeader('Authorization',
-                'Bearer ' + localStorage.getItem('userToken'));
+                'Bearer ' + localStorage.getItem('access_token'));
         }
       }
     });
   },
-  /* The getIdToken function get us the users JWT if already authenticated
-     or if it's the first time logging in, will get the JWT data and store it in local storage */
-  getIdToken: function() {
-    var idToken = localStorage.getItem('userToken');
-    var authHash = this.lock.parseHash(window.location.hash);
-    if (!idToken && authHash) {
-      if (authHash.id_token) {
-        idToken = authHash.id_token
-        localStorage.setItem('userToken', authHash.id_token);
+  // Extract the access_token and id_token from Auth0 Callback after login
+  parseHash: function(){
+    this.auth0 = new auth0.WebAuth({
+      domain:       AUTH0_DOMAIN,
+      clientID:     AUTH0_CLIENT_ID
+    });
+    this.auth0.parseHash(window.location.hash, function(err, authResult) {
+      if (err) {
+        return console.log(err);
       }
-      if (authHash.error) {
-        console.log("Error signing in", authHash);
+      console.log(authResult);
+      if(authResult !== null && authResult.accessToken !== null && authResult.idToken !== null){
+        localStorage.setItem('access_token', authResult.accessToken);
+        localStorage.setItem('id_token', authResult.idToken);
+        localStorage.setItem('profile', JSON.stringify(authResult.idTokenPayload));
       }
+    });
+  },
+  // Set user login state
+  setState: function(){
+    var idToken = localStorage.getItem('id_token');
+    if(idToken){
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
     }
-    return idToken;
   },
   render: function() {
-    if (this.state.idToken) {
-      /* If the user is logged in, we'll pass the lock widget and the token to the LoggedIn Component */
-      return (<LoggedIn lock={this.lock} idToken={this.state.idToken} />);
+    
+    if (this.loggedIn) {
+      return (<LoggedIn />);
     } else {
-      return (<Home lock={this.lock} />);
+      return (<Home />);
     }
   }
 });
@@ -629,12 +696,21 @@ var App = React.createClass({
 
 The updates to the `Home` component will add the functionality to allow a user to login.
 
-```
+```jsx
 var Home = React.createClass({
-  /* We will get the lock instance created in the App component
-     and bind it to a showLock function */
-  showLock: function() {
-    this.props.lock.show();
+  // Clicking the login link will redirect the user to the Hosted Lock page 
+  // where the user will provide their credentials and will then be redirected
+  // back to the application
+  authenticate: function(){
+    this.webAuth = new auth0.WebAuth({
+      domain:       AUTH0_DOMAIN,
+      clientID:     AUTH0_CLIENT_ID,
+      scope:        'openid profile',
+      audience:     AUTH0_API_AUDIENCE,
+      responseType: 'token id_token',
+      redirectUri : AUTH0_CALLBACK_URL
+    });
+    this.webAuth.authorize();
   },
   render: function() {
     return (
@@ -642,46 +718,34 @@ var Home = React.createClass({
       <div className="col-xs-12 jumbotron text-center">
         <h1>We R VR</h1>
         <p>Provide valuable feedback to VR experience developers.</p>
-        // When the user clicks on the button titled Sign In we will display the lock widget
-        <a onClick={this.showLock} className="btn btn-primary btn-lg btn-login btn-block">Sign In</a>
+        <a onClick={this.authenticate} className="btn btn-primary btn-lg btn-login btn-block">Sign In</a>
       </div>
     </div>);
   }
 });
 ```
 
-Once a user clicks on the **Sign In** button, they will be prompted to login via the Auth0 Lock widget.
-
-![Authentication in Golang](http://cdn.auth0.com/blog/go-auth/auth0-lock.png)
+![Hosted Lock login page](https://cdn2.auth0.com/blog/go-auth/hosted-lock.png)
 
 #### LoggedIn Component
 
 The `LoggedIn` component will be updated to pull in products to review from the Golang API.
 
-```
+```jsx
 var LoggedIn = React.createClass({
-  /* We will create a logout function that will log the user out */
+  // If a user logs out we will remove their tokens and profile info
   logout : function(){
-    localStorage.removeItem('userToken');
-    this.props.lock.logout({returnTo:'http://localhost:3000'})
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('profile');
   },
   getInitialState: function() {
     return {
-      profile: null,
-      products: null
+      products: []
     }
   },
+  // Once this components mounts, we will make a call to the API to get the product data
   componentDidMount: function() {
-    /* Once the component is created, we will get the user information from Auth0 */
-    this.props.lock.getProfile(this.props.idToken, function (err, profile) {
-      if (err) {
-        console.log("Error loading the Profile", err);
-        alert("Error loading the Profile");
-      }
-      this.setState({profile: profile});
-    }.bind(this));
-
-    /* Additionally, we will make a call to our Go API and get a list of products the user can review */
     this.serverRequest = $.get('http://localhost:3000/products', function (result) {
       this.setState({
         products: result,
@@ -690,21 +754,19 @@ var LoggedIn = React.createClass({
   },
 
   render: function() {
-    if (this.state.profile) {
-      return (
-        <div className="col-lg-12">
-          <span className="pull-right">{this.state.profile.nickname} <a onClick={this.logout}>Log out</a></span>
-          <h2>Welcome to We R VR</h2>
-          <p>Below you'll find the latest games that need feedback. Please provide honest feedback so developers can make the best games.</p>
-          <div className="row">
-          {this.state.products.map(function(product, i){
-            return <Product key={i} product={product} />
-          })}
-          </div>
-        </div>);
-    } else {
-      return (<div>Loading...</div>);
-    }
+    return (
+      <div className="col-lg-12">
+        <span className="pull-right"><a onClick={this.logout}>Log out</a></span>
+        <h2>Welcome to We R VR</h2>
+        <p>Below you'll find the latest games that need feedback. Please provide honest feedback so developers can make the best games.</p>
+        <div className="row">
+          
+        {this.state.products.map(function(product, i){
+          return <Product key={i} product={product} />
+        })}
+
+        </div>
+      </div>);
   }
 });
 ```
@@ -713,10 +775,11 @@ var LoggedIn = React.createClass({
 
 Finally, the `Product` component will be updated to add functionality to vote on products. The result will be sent to the API and the Go API will ensure that the `POST` request is valid and the product voted on actually exists.
 
-```
+```jsx
 var Product = React.createClass({
-  /* We will add the functionality for our upvote and downvote functions
-     Both of this will send a POST request to our Golang API */
+  // The upvote and downvote functions will send an API request to the backend
+  // These calls too will send the access_token and be verified before a success response
+  // is returned
   upvote : function(){
     var product = this.props.product;
     this.serverRequest = $.post('http://localhost:3000/products/' + product.Slug + '/feedback', {vote : 1}, function (result) {
@@ -756,11 +819,11 @@ var Product = React.createClass({
 })
 ```
 
-
-
 ## Putting it All Together
 
-With the API and UI complete, we are ready to test our application. Fire up the server by once again running `go run main.go`.  Navigate to `localhost:3000` and you should see the sign in page. Click on the sign in button, and you will see the Auth0 Lock widget. Login and you will be redirected to the logged in view of the application and will be able to leave feedback on the different experiences.
+With the API and UI complete, we are ready to test our application. Fire up the server by once again running `go run main.go`.  Navigate to `localhost:3000` and you should see the sign in page. Click on the sign in button, and you will be redirected to the hosted Lock login page. Log in and you will be redirected back to your application and will be in the logged-in view of the application and will be able to leave feedback on the different experiences.
+
+![We-R-Vr application in action](https://cdn2.auth0.com/blog/go-auth/we-r-vr-final.png)
 
 Let's take it one step further, and let's actually build and compile our application. Instead of writing `go run main.go`, execute the command `go build main.go` in your terminal window. You should see a new file appear in your directory. This will be a unix or windows executable file. Now you can run your application by simply executing `./main` in your directory and the web server will start.
 

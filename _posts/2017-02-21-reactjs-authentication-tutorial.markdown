@@ -207,7 +207,7 @@ Now, this works great for simple applications like the one we'll build in this t
 
 ### JSX
 
-Initially, looking at JSX seems awkward. JSX is the combination of HTML and JavaScript code in the same file. You can decide to name the extension of the filem`.jsx` or just `.js`. An example of JSX is:
+Initially, looking at JSX seems awkward. JSX is the combination of HTML and JavaScript code in the same file. You can decide to name the extension of the file `.jsx` or just `.js`. An example of JSX is:
 
 ```js
 
@@ -264,7 +264,7 @@ const authCheck = jwt({
         rateLimit: true,
         jwksRequestsPerMinute: 5,
         // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
-        jwksUri: "https://{{YOUR-AUTH0-DOMAIN}}/.well-known/jwks.json"
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
     }),
     // This is the identifier we set when we created the API
     audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
@@ -1041,7 +1041,7 @@ In the code above, we are using an hosted version of Auth0 Lock in the `login` m
 
 The auth0 package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
+The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing SPA Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
 
 Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
 
@@ -1052,11 +1052,17 @@ Now, go to the clients area and check for the test client. You should see it in 
 
 ![Chuck Norris World Test Client](https://cdn2.auth0.com/blog/chucknorris/testclient.png)
 
+Open the client and change the **Client Type** to *Single Page Application*.
+
+> Non interactive clients are meant to be used in machine to machine interactions. We are using an SPA to interact with the API so the client should be an SPA client. Check out [Implicit Grant](https://auth0.com/docs/api-auth/grant/implicit) and [client credentials exchange](https://auth0.com/docs/api-auth/grant/client-credentials) for more information.
+
 Let's quickly go ahead to change the title of the client to `Chuck Norris World` like so:
 
 ![Client Name Change](https://cdn2.auth0.com/blog/chucknorris/clientnamechange.png)
 
-Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:8080/callback`. 
+> Changing the Client name is totally optional.
+
+Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:3000/callback`. Don't forget to add that to the **Allowed Callback URLs** and `http://localhost:3000` to the **Allowed Origins (CORS)**. 
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
