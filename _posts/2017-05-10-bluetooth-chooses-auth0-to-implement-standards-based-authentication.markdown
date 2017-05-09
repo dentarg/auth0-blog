@@ -2,7 +2,7 @@
 layout: post
 title: "Bluetooth Chooses Auth0 to Implement Standards Based Authentication"
 description: "Bluetooth, a standards based organization, chooses Auth0 to implement standards based authentication via OpenID Connect and OAuth for improved security, access, and interoperability."
-date: 2017-05-11 08:30
+date: 2017-05-10 08:30
 category: PR, Press
 is_non-tech: true
 author:
