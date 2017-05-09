@@ -34,7 +34,7 @@ Cloud servers are basically virtual servers that run within a cloud computing en
 - Economically efficient.
 - You have the freedom to modify the server software to your needs.
 - Cloud servers scale very well.
-- Stabiity and security.
+- Stability and security.
 
 In fact, many companies have moved their infrastructure to the cloud in order to reduce cost and complexity. It's a great option for small, mid-sized, and enterprise scale businesses. If you write a lot of tutorials and do POCs (Proof-of-concepts) like me, it's also a great choice for you!
 
