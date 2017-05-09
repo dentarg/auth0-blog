@@ -18,7 +18,6 @@ tags:
 - product
 - webtask
 - hook
-- extend
 - customize
 - extensibility
 - custom-code

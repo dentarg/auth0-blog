@@ -1,0 +1,65 @@
+.search-bar .form-group {
+  padding: 14px 0;
+  margin-bottom: 0;
+}
+.search-bar .form-control {
+  border: 0;
+}
+.search-bar .title {
+  color: #000;
+  padding-bottom: 10px;
+  margin: 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e3e5e7;
+}
+.search-bar .search-control {
+  position: relative;
+}
+.search-bar .search-control .search-icon {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  opacity: 0.5;
+  color: #5c666f;
+}
+.search-bar .search-control .close-icon {
+  color: #999;
+  position: absolute;
+  top: 50%;
+  margin-top: -11px;
+  right: 16px;
+}
+.search-bar .search-control input {
+  height: 45px;
+  padding: 8px 16px;
+  box-shadow: none;
+  text-indent: 26px;
+  color: #5c666f;
+  -webkit-transition: all 0.5 ease;
+  transition: all 0.5s ease;
+}
+.search-bar .search-control input:focus {
+  text-indent: 0;
+  -webkit-transition: all 0.5 ease;
+  transition: all 0.5s ease;
+}
+.search-bar .search-control input::-webkit-input-placeholder {
+  font-size: 14px;
+  color: #5c666f;
+  padding: 12px 0;
+}
+.search-bar .search-control input::-moz-placeholder {
+  font-size: 14px;
+  color: #5c666f;
+  padding: 12px 0;
+}
+.search-bar .search-control input:-ms-input-placeholder {
+  font-size: 14px;
+  color: #5c666f;
+  padding: 12px 0;
+}
+.search-bar .search-control input:-moz-placeholder {
+  font-size: 14px;
+  color: #5c666f;
+  padding: 12px 0;
+}

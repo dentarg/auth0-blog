@@ -8,7 +8,7 @@ module Jekyll
     end
 
     def paginate(site)
-      posts = site.posts.find_all {|post| post.data['is_non-tech'] !=true}.sort_by {|post| -post.date.to_f}
+      posts = site.posts.find_all {|post| post.data['is_non-tech'] !=true  && post.data['is_extend'] != true}.sort_by {|post| -post.date.to_f}
       num_pages = TechPagerPa.calculate_pages(posts, site.config['paginate'].to_i)
 
       (1..num_pages).each do |page|

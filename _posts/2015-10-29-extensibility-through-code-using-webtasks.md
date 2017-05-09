@@ -20,7 +20,6 @@ tags:
 - product
 - webtask
 - http
-- extend
 - customize
 - extensibility
 - nodejs
