@@ -2,7 +2,7 @@
 layout: post
 title: "ReactJS Authentication Tutorial"
 description: Learn how to quickly build apps with ReactJS and add authentication the right way.
-date: 2017-05-21 8:30
+date: 2017-02-21 8:30
 category: Technical Guide, Frontend, ReactJS
 author:
   name: Prosper Otemuyiwa
