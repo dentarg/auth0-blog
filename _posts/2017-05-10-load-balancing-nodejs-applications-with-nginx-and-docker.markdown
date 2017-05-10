@@ -34,7 +34,7 @@ To learn more about Docker, take a look at [this webinar](https://auth0.com/blog
 
 ## Installing Docker
 
-Everything that we will need to test this architecture is Docker. As the instances of our [Node.js](https://nodejs.org/en/) application and [NGINX](https://www.nginx.com) will run inside Docker containers, we won't need to install anything else on our development machine. To install Docker, [simply follow the instructions on their website](https://www.docker.com/community-edition#/download).
+Everything that we will need to test this architecture is Docker. As the instances of our [Node.js](https://nodejs.org/en/) application and [NGINX](https://www.nginx.com) will run inside Docker containers, we won't need to install them on our development machine. To install Docker, [simply follow the instructions on their website](https://www.docker.com/community-edition#/download).
 
 ## Creating the Node.js Application
 
@@ -117,7 +117,7 @@ server {
 }
 ```
 
-This file will be used to configure NGINX. On it we can see that we first define an [`upstream`](http://nginx.org/en/docs/http/ngx_http_upstream_module.html) group of servers, with both URLs that respond for the instances of our application. By not defining any particular algorithm to load balance requests, we are using round-robin, which is the default on NGINX. There are several other options to load balance requests with NGINX, for example [the least number of active connections](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), or [the least average response time](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time).
+This file will be used to configure NGINX. On it we define an [`upstream`](http://nginx.org/en/docs/http/ngx_http_upstream_module.html) group of servers containing both URLs that respond for the instances of our application. By not defining any particular algorithm to load balance requests, we are using round-robin, which is the default on NGINX. There are several other options to load balance requests with NGINX, for example [the least number of active connections](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), or [the least average response time](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time).
 
 After that, we define a `server` property that configures NGINX to pass HTTP requests to `http://my-app`, which is handled by the `upstream` defined before. Also, note that we hardcoded `172.17.0.1` as the gateway IP, this is the default gateway when using Docker. If needed, you can change it to meet your local configuration.
 
