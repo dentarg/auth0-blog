@@ -23,7 +23,7 @@ is_post: true
 
   <div id="container" class="container">
     <div class="row sticky-container">
-      <section class="col-md-8 content-column">
+      <section class="col-md-8 col-md-offset-2 content-column">
 
         <main class="blog-post blog-single">
           <div class="inner">
@@ -41,9 +41,6 @@ is_post: true
         </div>
         <div id="disqus_thread"></div>
       </section>
-      <aside class="col-md-4 sidebar-column" data-sticky-padding="90" itemscope="" itemtype="http://schema.org/WPSideBar">
-        {% include popular_posts.html%}
-      </aside>
     </div>
     <div itemprop='publisher' itemscope='itemscope' itemtype='https://schema.org/Organization'>
       <div itemprop='logo' itemscope='itemscope' itemtype='https://schema.org/ImageObject'>
