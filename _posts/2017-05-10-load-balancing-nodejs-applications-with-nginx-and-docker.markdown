@@ -10,8 +10,8 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "#2E668D"
-  image: "https://cdn2.auth0.com/blog/boot-faces/jsf-logo.png"
+  bg_color: "#1C69A5"
+  image: "https://cdn2.auth0.com/blog/docker-nginx/logo.png"
 tags:
 - nodejs
 - docker
