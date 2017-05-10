@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Load Balancing NodeJS Applications with NGINX and Docker"
-description: "Let's dockerize two instances of a NodeJS application and load balance them with NGINX."
+title: "Load Balancing Node.js Applications with NGINX and Docker"
+description: "Let's dockerize two instances of a Node.js application and load balance them with NGINX."
 date: 2017-05-09 19:58
 category: Technical Guide, Architecture, Performance
 author:
@@ -22,17 +22,25 @@ related:
 - 2016-09-06-use-nginx-plus-and-auth0-to-authenticate-api-clients
 ---
 
-**TL;DR:** In this article we will see how easy it is to load balance dockerized NodeJS applications with NGINX. We will create a simple NodeJS application that serves an HTML file, containerize it with Docker, and containerize an NGINX instance that uses round-robin algorithm to load balance between two running instances of this application.
+**TL;DR:** In this article we will see how easy it is to load balance *dockerized* Node.js applications with NGINX. We will create a simple Node.js application that serves an HTML file, containerize it with Docker, and containerize an NGINX instance that uses round-robin algorithm to load balance between two running instances of this application.
+
+## What is Docker and Containers?
+
+Docker is a software container platform. Developers use [Docker](https://www.docker.com/) to eliminate “works on my machine” problem when collaborating with co-workers. This is done by putting pieces of a software architecture on containers (a.k.a. *dockerize* or containerize).
+
+Using containers, everything required to make a piece of software run is packaged into isolated containers. Unlike [Virtual Machines (VMs)](https://en.wikipedia.org/wiki/Virtual_machine), containers do not bundle a full operating system—only libraries and settings required to make the software work are needed. This makes them efficient, lightweight, self-contained and guarantees that software will always run on the same configuration, regardless of where it’s deployed.
+
+To learn more about Docker, take a look at [this webinar](https://auth0.com/blog/docker-101-for-developers/).
 
 ## Installing Docker
 
-Everything that we will need to test this architecture is [Docker](https://www.docker.com/). As the instances of our NodeJS application and the [NGINX](https://www.nginx.com) will run inside Docker containers, we won't need to install anything else on our development machine. To install Docker, [simply follow the instructions on their website](https://www.docker.com/community-edition#/download).
+Everything that we will need to test this architecture is Docker. As the instances of our [Node.js](https://nodejs.org/en/) application and [NGINX](https://www.nginx.com) will run inside Docker containers, we won't need to install anything else on our development machine. To install Docker, [simply follow the instructions on their website](https://www.docker.com/community-edition#/download).
 
-## Creating the NodeJS Application
+## Creating the Node.js Application
 
-To show NGINX load balancing in action, we are going to create a simple NodeJS application that serves a static HTML file. After that, we are going to containerize this application and run it twice. Lastly, we will configure a dockerized NGINX instance to dispatch requests to both instances of our application.
+To show NGINX load balancing in action, we are going to create a simple Node.js application that serves a static HTML file. After that, we are going to containerize this application and run it twice. Lastly, we will configure a *dockerized* NGINX instance to dispatch requests to both instances of our application.
 
-In the end, we will be able to reach `http://localhost:8080` on our local machine to "randomly" get results from one or another instance. In fact it is not random, we will configure NGINX to use round-robin algorithm to decide which instance will respond on each request.
+In the end, we will be able to reach `http://localhost:8080` on our local machine to "randomly" get results from one or another instance. In fact, the result won't be randomly decided, we will configure NGINX to use round-robin algorithm to decide which instance will respond on each request.
 
 But let's tackle one step at a time. To create this application we will first create a directory for the application, and then create an `index.js` file that will respond to HTTP requests.
 
@@ -48,7 +56,7 @@ http.createServer(function (req, res) {
 }).listen(8080);
 ```
 
-Everything that this NodeJS script does is to answer HTTP requests to `http://localhost:8080` with and HTML tag that contains a message defined in the `MESSAGE` environment variable. To better understand how this works, we can run the following commands:
+Everything that this Node.js script does is to answer HTTP requests to `http://localhost:8080` with and HTML tag that contains a message defined in the `MESSAGE` environment variable. To better understand how this works, we can run the following commands:
 
 ```bash
 export MESSAGE=Howdy!
@@ -57,9 +65,9 @@ node index
 
 And then open `http://localhost:8080` on a web browser. See? We got simple web page with the `Howdy!` message. Before proceeding, let's stop our application by hitting `Ctrl + C`.
 
-## Dockerizing the NodeJS Applications
+## Dockerizing the Node.js Applications
 
-To dockerize our NodeJS applications, we will need to create a file called `Dockerfile` in the `application` directory. The content of this file will be:
+To *dockerize* our Node.js applications, we will need to create a file called `Dockerfile` in the `application` directory. The content of this file will be:
 
 ```bash
 FROM node
@@ -69,7 +77,7 @@ EXPOSE 8080
 CMD [ "node", "/usr/src/app/index" ]
 ```
 
-> **Note:** If you don't understand how Docker or Dockerfile works, check out [this article](https://auth0.com/blog/docker-101-for-developers/) and [this reference](https://docs.docker.com/engine/reference/builder/).
+> **Note:** If you don't understand how a Dockerfile works, check out [this reference](https://docs.docker.com/engine/reference/builder/).
 
 After that we need to create an image, from this `Dockerfile`, which can be done through the following command:
 
@@ -109,9 +117,11 @@ server {
 }
 ```
 
-This file will be used to configure NGINX. On it we can see that we first define an [`upstream`](http://nginx.org/en/docs/http/ngx_http_upstream_module.html) group of servers, with both URLs that respond for the instances of our application. After that we define a `server` property that configures NGINX to pass HTTP requests to `http://my-app`, which is handled by the `upstream` defined before. Also, note that we hardcoded `172.17.0.1` as the gateway IP. If needed, you can change it to meet your local configuration.
+This file will be used to configure NGINX. On it we can see that we first define an [`upstream`](http://nginx.org/en/docs/http/ngx_http_upstream_module.html) group of servers, with both URLs that respond for the instances of our application. By not defining any particular algorithm to load balance requests, we are using round-robin, which is the default on NGINX. There are several other options to load balance requests with NGINX, for example [the least number of active connections](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), or [the least average response time](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time).
 
-Now we will create the `Dockerfile` that will be used to dockerize NGINX with this configuration. This file will contain the following code:
+After that, we define a `server` property that configures NGINX to pass HTTP requests to `http://my-app`, which is handled by the `upstream` defined before. Also, note that we hardcoded `172.17.0.1` as the gateway IP, this is the default gateway when using Docker. If needed, you can change it to meet your local configuration.
+
+Now we will create the `Dockerfile` that will be used to *dockerize* NGINX with this configuration. This file will contain the following code:
 
 ```bash
 FROM nginx
@@ -128,16 +138,16 @@ docker run -p 8080:80 -d load-balance-nginx
 
 After issuing these commands, let's open a web browser and access `http://localhost:8080`. If everything went well, we will see a web page with one of the two messages: `First instance` or `Second instance`. If we hit reload on our web browser a few times, we will realized that from time to time the message displayed switches between `First instance` and `Second instance`. This is the round-robin load balancing algorithm in action.
 
-> **Note:** There are other algorithms available on NGINX, [check their documentation for more info](https://www.nginx.com/resources/admin-guide/load-balancer/).
+> **Note:** To use the other algorithms available on NGINX, [check their documentation for more information](https://www.nginx.com/resources/admin-guide/load-balancer/).
 
-## Aside: Securing NodeJS Applications with Auth0
+## Aside: Securing Node.js Applications with Auth0
 
 One of the most complex features to implement in an application is user authentication and identity management. [Security for authentication and identity](https://auth0.com/docs/security) is [an entire glossary](https://auth0.com/identity-glossary) unto itself.
 
 ![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
-If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/learn/cloud-identity-access-management/) system quickly and easily for your NodeJS application, Auth0 can help. Take a look at [Auth0 NodeJS SDK Quickstart](https://auth0.com/docs/quickstart/webapp/nodejs/00-intro) to properly secure your application.
+If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/learn/cloud-identity-access-management/) system quickly and easily for your Node.js application, Auth0 can help. Take a look at [Auth0 Node.js SDK Quickstart](https://auth0.com/docs/quickstart/webapp/nodejs/00-intro) to properly secure your application.
 
 ## Conclusion
 
-Loading balancing applications with Docker and NGINX is an easy process. In this article we have managed to achieve this goal with a few simple steps. All we had to do was to install Docker on our development machine, run two instances of a dockerized applications and then configure a dockerized NGINX instance to round-robin requests to the application instances.
+Loading balancing applications with Docker and NGINX is an easy process. In this article we have managed to achieve this goal with a few simple steps. All we had to do was to install Docker on our development machine, run two instances of a *dockerized* applications and then configure a *dockerized* NGINX instance to round-robin requests to the application instances.
