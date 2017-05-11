@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "EmberJS Authentication Tutorial"
-description: Learn how to quickly build ambitious apps with EmberJS and add authentication the right way.
-date: 2017-04-18 8:30
+title: "EmberJS 2 Authentication Tutorial"
+description: Learn how to quickly build ambitious apps with EmberJS 2 and add authentication the right way.
+date: 2017-05-11 8:30
 category: Technical Guide, Frontend, EmberJS
 author:
   name: Prosper Otemuyiwa
