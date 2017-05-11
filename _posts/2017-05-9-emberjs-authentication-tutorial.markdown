@@ -26,7 +26,7 @@ related:
 
 ---
 
-**TL;DR:** Emberjs is a JavaScript framework for building ambitious web applications. It's a framework that was built for productivity and designed with developer ergonomics in mind. Currently, EmberJS has over 15,000 stars on [GitHub](https://github.com/emberjs/ember.js). In this tutorial, I'll show you how easy it is to build a web application with EmberJS 2 and add authentication to it. Check out the [repo](https://github.com/auth0-blog/emberjs-authentication-tutorial) to get the code.
+**TL;DR:** Emberjs is a JavaScript framework for building ambitious web applications. It's a framework that was built for productivity and designed with developer ergonomics in mind. Currently, EmberJS has over 15,000 stars on [GitHub](https://github.com/emberjs/ember.js). In this tutorial, I'll show you how easy it is to build a web application with EmberJS 2 and add authentication to it. Check out the [repo](https://github.com/auth0-blog/emberjs2authenticationtutorial) to get the code.
 
 ---
 
@@ -284,23 +284,26 @@ Next, let's build an application with *Emberjs 2*.
 
 ## Our App: Whistle Blower 
 
-![The Ultimate Startup Battle Ground](https://cdn.auth0.com/blog/vuejs/appscreenshot.png)
+![Whistle Blower](https://cdn.auth0.com/blog/emberjsauth/appscreenshot.png)
 
-The app we will build today is called `The Ultimate Startup Battle Ground`. Several startups are springing up all over the world. These startups are coming up with innovative technology but have limited funds. Our app hopes to alleviate the issue of funding by providing an up-to-date list of startup battles all over the world with details of sponsors and seed fund amount. The Ultimate Startup Battle Ground app will display a list of startup battles to the general public. 
+The app we will build today is called `Whistle Blower`. A *Whistle Blower* is a person who exposes any kind of information or activity that is deemed illegal, unethical, or not correct within an organization that is either private or public. The Whistle Blower app does the following:
 
-Interested startup founders can get hold of this list and ensure their team does not miss out on it. However, the app will also provide a list of secret startup battles. This list will only be accessible to registered members.
-
-**Note:** The secret startup battles have bigger sponsors. How dare you miss that? Not gonna happen!
+* It gives information about whistle blowing activities in your region. 
+* It's a small community of whistle blowers. 
+* A guest user on the *Whistle Blower* app will only have acess to basic information about the whistle blowing activities on the landing page. 
+* An authenticated user will have access to whistle blowers and their profile.
+* An authenticated user will have access to whistle blower meetups/gatherings.
 
 ## Build The Back-End
 
-Let's build an API to serve the list of startup battles to our app. We'll quickly build the API with [Node.js](https://nodejs.org). The API is simple. This is what we need:
+Let's build an API for our app. We'll quickly build the API with [Node.js](https://nodejs.org). The API is simple. This is what we need:
 
-* An endpoint to serve public startup battles - `/api/battles/public`. 
-* An endpoint to serve secret startup battles - `/api/battles/private`.
-* Secure the endpoint that serves secret startup battles, so that it can only be accessed by registered users.
+* An endpoint to serve latest whistle blowing activities in a region - `/api/activities`.
+* An endpoint to serve whistle blowers and their profile - `/api/whistleblowers`. 
+* An endpoint to serve whistle blower meetups - `/api/meetups`.
+* Securing the endpoint that serves whistle blowers profiles and meetups, so that it can only be accessed by registered users.
 
-Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/vuejs2-authentication-tutorial/tree/master/server).
+Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/emberjs2authenticationtutorial/blob/master/server/).
 
 **Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one. 
 
@@ -325,46 +328,122 @@ const authCheck = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: "https://{{YOUR-AUTH0-DOMAIN}}/.well-known/jwks.json"
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
     }),
     // This is the identifier we set when we created the API
     audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
-    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
+    issuer: "{YOUR-AUTH0-DOMAIN}",
     algorithms: ['RS256']
 });
 
-app.get('/api/battles/public', (req, res) => {
-  let publicBattles = [
-    // Array of public battles
-  ];
+app.get('/api/activities', (req, res) => {
+  let whistleBlowerActivities = [
+  {
+    title: '200 Million dollars cash found in Burger King, Utah',
+    location: 'Salt Lake City, Utah, America'
+  },
+  {
+    title: '52 billion naira found by EFCC in a Bungalow in Ikoyi',
+    location: 'Lagos, Nigeria',
+  },
+  {
+    title: '2 Million Kenyan Shillings found in Yaya Supermarket laundry',
+    location: 'Nairobi, Kenya',
+  },
+  {
+    title: '10 Ferraris discovered in underground apartment in Bueno Aires',
+    location: 'Bueno Aires, Argentina',
+  },
+  {
+    title: 'Central Bank Printing Machine found in a church at Guanajuato',
+    location: 'Guanajuato, Mexico',
+  }];
 
-  res.json(publicBattles);
+  res.json(whistleBlowerActivities);
 })
 
-app.get('/api/battles/private', authCheck, (req,res) => {
-  let privateBattles = [
-    // Array of private battles
-  ];
+app.get('/api/whistleblowers', (req,res) => {
+  let whistleBlowers = [
+  {
+    id: 1111,
+    name: 'Mark Fish',
+    level: 'Junior Whistle Blower',
+    avatar: 'http://svgavatars.com/style/svg/11.svg',
+    uncoveredSpoils: 2
+  },
+  {
+    id: 1112,
+    name: 'Garly Sticker',
+    level: 'Intermediate Whistle Blower',
+    avatar: 'http://svgavatars.com/style/svg/01.svg',
+    uncoveredSpoils: 10
+  },
+  {
+    id: 1113,
+    name: 'Prosper Otemuyiwa',
+    level: 'Senior Whistle Blower',
+    avatar: 'http://svgavatars.com/style/svg/15.svg',
+    uncoveredSpoils: 186
+  },
+  {
+    id: 1114,
+    name: 'Lovelyn Tigereek',
+    level: 'Intermediate Whistle Blower',
+    avatar: 'http://svgavatars.com/style/svg/02.svg',
+    uncoveredSpoils: 25
+  },
+  {
+    id: 1115,
+    name: 'Thank-God Okogbulor',
+    level: 'Senior Whistle Blower',
+    avatar: 'http://svgavatars.com/style/svg/03.svg',
+    uncoveredSpoils: 174
+  }];
 
-  res.json(privateBattles);
+  res.json(whistleBlowers);
+})
+
+app.get('/api/meetups', (req,res) => {
+  let meetups = [
+  {
+    name: 'WhistleBlower London Meetup',
+    date: '25, May 2017'
+  },
+  {
+    name: 'WhistleBlower Lagos Meetup',
+    date: '5, August 2017'
+  },
+  {
+    name: 'WhistleBlower Nairobi Meetup',
+    date: '15, September 2017'
+  },
+  {
+    name: 'WhistleBlower Utah Meetup',
+    date: '20, August 2017'
+  },
+  {
+    name: 'WhistleBlower Oslo Meetup',
+    date: '7, October 2017'
+  }];
+
+  res.json(meetups);
 })
 
 app.listen(3333);
 console.log('Listening on localhost:3333');
 ```
 
-Check out the [full server.js file here](https://github.com/auth0-blog/vuejs2-authentication-tutorial/blob/master/server/server.js).
+Check out the [full server.js file here](https://github.com/auth0-blog/emberjs2authenticationtutorial/blob/master/server/server.js).
 
-**Note:** Your `YOUR-AUTH0-DOMAIN` should be replaced with your auth0 domain.
+**Note:** `YOUR-AUTH0-DOMAIN` should be replaced with your Auth0 domain.
 
 _server.js_
-
 
 Your `package.json` file should look like this:
 
 ```js
 {
-  "name": "startup-battle",
+  "name": "whistleblower",
   "version": "0.0.1",
   "description": "",
   "main": "server.js",
@@ -383,7 +462,6 @@ Your `package.json` file should look like this:
     "jwks-rsa": "^1.1.1"
   }
 }
-
 ```
 
 > **Note:** Make sure you have [`nodemon`](https://github.com/remy/nodemon) installed globally.
@@ -392,492 +470,573 @@ _package.json_
 
 Once you have cloned the project, run an `npm install`, then use [postman](https://www.getpostman.com) to serve your routes like so:
 
-![API serving public startup battles](https://cdn.auth0.com/blog/vue/postmanpublic.png)
-_API serving public startup battles_
+![API serving meetups](https://cdn.auth0.com/blog/emberjsauth/meetups.png)
+_API serving meetups_
 
-![API serving private startup battles](https://cdn.auth0.com/blog/vue/postmanprivate.png)
-_API serving private startup battles_
+![API serving whistle blowers](https://cdn.auth0.com/blog/emberjsauth/whistleblowersapi.png)
+_API serving whistle blowers_
 
-The public startup battles endpoint should be `http://localhost:3333/api/battles/public`.
+![API serving whistle blowing activities](https://cdn.auth0.com/blog/emberjsauth/activities.png)
+_API serving whistle blowing activities_
 
-The private startup battles endpoint should be `http://localhost:3333/api/battles/private`.
+The public whistle blowing activities endpoint should be `http://localhost:3333/api/activities`.
 
-Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with Vuejs 2. 
+The private meetup endpoint should be `http://localhost:3333/api/meetups`.
 
-## Build The Front-End With Vuejs 2
+The private whistle blower endpoint should be `http://localhost:3333/api/whistleblowers`.
 
-In the early days of **Vuejs**, there was no particular recommended tool or common way to set up a *Vuejs* app. However, there is a tool now for scaffolding your Vuejs apps. It's called the [Vuejs CLI](https://github.com/vuejs/vue-cli) tool. It's being maintained by the Vuejs team.
+Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with EmberJS 2. 
 
-Go ahead and install the vue-cli tool globally like so:
+## Build The Front-End With EmberJS 2
 
-```bash
+**EmberJS** has a very nice tool for scaffolding your apps. It's called the [ember-cli](https://github.com/ember-cli/ember-cli). It's being maintained by the Ember team.
 
-npm install -g vue-cli
-
-```
-
-![Installation](https://cdn.auth0.com/blog/vuecli/installation.png)
-_You will be greeted with a series of questions_
-
-After installing globally, go ahead and scaffold a new **Vuejs 2** app like so:
+Go ahead and install the ember-cli tool globally like so:
 
 ```bash
 
-vue init webpack ultimate-startup-battle
+npm install -g ember-cli
 
 ```
 
-**Note:** In this context, `webpack` is a template. You can actually select the template you want `vue-cli` to scaffold your app with. Another alternative is to use `browserify`. Check out the [list of templates here](https://github.com/vuejs-templates/).
+After installing globally, go ahead and scaffold a new **EmberJS 2** app like so:
 
-Move into the new directory, `ultimate-startup-battle` and run `npm install` to install all the dependencies required for your app.
+```bash
 
-Now run `npm run dev` from your terminal to start up your app. It should automatically open up your web browser at `http://localhost:8080` and serve your new app.
+ember new whistleblower
 
-![App recently scaffolded and showing at Localhost](https://cdn.auth0.com/blog/vuejs/newscaffoldedapp.png)
+```
+
+![Provisioning a new ember app](https://cdn.auth0.com/blog/emberjsauth/installation.png)
+
+Move into the new directory, `whistleblower` and run `ember serve` to start up your app.
+
+![Default Page](https://cdn.auth0.com/blog/emberjsauth/defaultpage.png)
 
 Let's check out the structure of our newly scaffolded app.
 
-![Scaffolded App](https://cdn.auth0.com/blog/vuecli/boilerplate.png)
+![Scaffolded App](https://cdn.auth0.com/blog/emberjsauth/appstructure.png)
 
 ```bash
-ultimate-startup-battle/
-  build/ - All build files are here
+whistleblower/
+  app/ - All the controllers, components, routes and templates reside here
   config/ - All environment config files are here
-  node_modules/ - All the packages required for the vuejs app resides here
-  src/
-    - assets - All assets reside here
-    - components - All our Vue components resides here
-    - router - Our router is defined here
-    - App.vue - The Parent component
-    - main.js - Starting point for our app where the router, template and App component are bound to the root app div
-  static/ - contains static files
-  .babelrc
-  .editorconfig
-  .eslintignore
+  node_modules/ - All the packages required for the emberjs app resides here
+  public/
+  tests/ - All the tests file resides here
+  vendor/
+  .editorconfig 
+  .ember-cli
   .eslintrc.js
   .gitignore
-  .postcssrc.js
-  index.html - Index file that declares the root div where the App component is been bound to
+  .travis.yml
+  .watchmanconfig
+  ember-cli-build.js
   package.json - File that contains the names of all the packages residing in node_modules folder
   README.md
-  node_modules/ - All the packages required for the react app resides here
-  package.json - File that contains the names of all the packages residing in node_modules folder
+  testem.js
 ```
 
-We will work with this structure but make some few modifications.
+**Note:** We are not writing any tests for this application. It's out of the scope of this tutorial.
 
-
-**Note:** We are not writing any tests for this application. It's out of the scope of this tutorial. So during the installation, I opted out by choosing the no option.
-
-Make the following modifications like so:
-
-* Create a `privateBattles.vue` file inside the `components` directory. This component will take care of fetching the private startup battles and displaying them to the user.
-* Create a `publicBattles.vue` file inside the `components` directory. This component will take care of fetching the public startup battles and displaying them to the user.
-* Create a `AppNav.vue` file inside the `components` directory. This component will be in charge of our navigation throughout the app.
-* Create a folder called `utils` . This will house our helper functions.
-
-## Fetch the API Data
-
-The first thing we need to do is to fetch the API data from our Node backend to display in our app. Make sure the Node server is running.
-
-Let's create a helper file to handle fetching the API. Create a `battles-api.js` file inside the `utils` directory.
-
-Open up the file and add code to it like so:
-
-```js
-
-import axios from 'axios';
-
-const BASE_URL = 'http://localhost:3333';
-
-export {getPublicStartupBattles, getPrivateStartupBattles};
-
-function getPublicStartupBattles() {
-  const url = `${BASE_URL}/api/battles/public`;
-  return axios.get(url).then(response => response.data);
-}
-
-function getPrivateStartupBattles() {
-  const url = `${BASE_URL}/api/battles/private`;
-  return axios.get(url).then(response => response.data);
-}
-
-```
-_battles-api.js_
-
-**Note:** Install `axios` in your app by running `npm install axios --save`.
-
-We are using a very good promise based http client, [axios](https://github.com/mzabriskie/axios). An alternative for this is [superagent](https://github.com/visionmedia/superagent).
-
-In the `getPublicStartupBattles` and `getPrivateStartupBattles` functions, axios fetches data from the API endpoints. Then we do this: `export {getPublicStartupBattles, getPrivateStartupBattles};` to make them ready for use in our components.
-
-## Build the Nav Component
-
-The `AppNav.vue` file is our Nav component. Go ahead and add code to it like so:
-
-{% highlight html %}
-<template>
-  <nav class="navbar navbar-default">
-    <div class="navbar-header">
-      <router-link to="/" class="navbar-brand"> The Ultimate Startup Battle Ground</router-link>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <button class="btn btn-danger log" @click="handleLogout()">Log out </button>
-        <button class="btn btn-info log" @click="handleLogin()">Log In</button>
-      </li>
-    </ul>
-  </nav>
-</template>
-
-<script>
-import { isLoggedIn, login, logout } from '../../utils/auth';
-
-export default {
-  name: 'app-nav',
-  methods: {
-    handleLogin() {
-      login();
-    },
-    handleLogout() {
-      logout();
-    },
-    isLoggedIn() {
-      return isLoggedIn();
-    },
-  },
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.navbar-right { margin-right: 0px !important}
-
-.log {
-  margin: 5px 10px 0 0;
-}
-</style>
-{% endhighlight %}
-
-
-The `router-link` Component from `vue-router` enables seamless client-side transition between routes without any page reload.
-
-## Build the PublicBattles and PrivateBattles Component
-
-By default, these two components will look similar in functionalities. They both display data from different endpoints. Let's start with the `PublicBattles` component.
+We need to remove the default page content that ember presents in our app. Open `app/templates/application.hbs` file and remove this:
 
 {% highlight html %}
 {% raw %}
-<template>
-  <div>
-    <app-nav></app-nav>
-    <h3 class="text-center">Daily Startup Battles</h3>
-    <hr/>
 
-    <div class="col-sm-4" v-for="battle in publicBattles">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"> {{ battle.name }} </h3>
-        </div>
-        <div class="panel-body">
-          <p><span class="badge alert-info"> Sponsor: </span> {{ battle.sponsor }} </p>
-          <p><span class="badge alert-danger"> SeedFund: </span><strong> ${{ battle.seedFund }} </strong></p>
-        </div>
-      </div>
-    </div>
-  
-    <div class="col-sm-12">
-      <div class="jumbotron text-center">
-        <h2>View Private Startup Battles</h2>
-        <router-link class="btn btn-lg btn-success" to="/private-battles">Private Startup Battles</router-link>
-      </div>
-    </div>
-  </div>
-</template>
+{!-- The following component displays Ember's default welcome message. --}}
+{{welcome-page}}
+{{!-- Feel free to remove this! --}}
 
-<script>
-import AppNav from './AppNav';
-import { isLoggedIn } from '../../utils/auth';
-import { getPublicStartupBattles } from '../../utils/battles-api';
-
-export default {
-  name: 'publicBattles',
-  components: {
-    AppNav,
-  },
-  data() {
-    return {
-      publicBattles: '',
-    };
-  },
-  methods: {
-    isLoggedIn() {
-      return isLoggedIn();
-    },
-    getPublicStartupBattles() {
-      getPublicStartupBattles().then((battles) => {
-        this.publicBattles = battles;
-      });
-    },
-  },
-  mounted() {
-    this.getPublicStartupBattles();
-  },
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
 {% endraw %}
 {% endhighlight %}
 
-_publicBattles.vue_
+Now, our app will show a blank screen. Sweet! let's get started.
 
-Let's analyze the code above. The `publicBattles` component is pulling data from an API, so it needs a way of holding that data. Vuejs has a `data` method where you can define properties to hold your data as some form of state. In the code above, we declared a `publicBattles` property.
+## Style with Bootstrap
 
-The `methods` property also comes by default with Vuejs. In this property, you can define custom logic as functions within this property. So we defined `isLoggedIn` and `getPublicStartupBattles` functions.
-
-In the `getPublicStartupBattles` method, we call the `getPublicStartupBattles` method we exported from the `battles-api.js` helper file and set state as seen below:
-
-```js
-...
- getPublicStartupBattles() {
-      getPublicStartupBattles().then((battles) => {
-        this.publicBattles = battles;
-      });
-  },
-...
-```
-
-Now, we took advantage of one of the **Vuejs 2** lifecycle hooks, `mounted`. Whatever is defined in this method is applied just after a component is mounted on the browser screen. So, we invoked the `getPublicStartupBattles` method in the hook as seen below:
-
-```js
-...
- mounted() {
-    this.getPublicStartupBattles();
-  }
-...
-```
-
-All we are trying to do is tell **Vuejs** to load the data from the API just after the `publicBattles` component gets rendered.
-
-**Note:** You can add a loading indicator or spinner to present to the user while the data is been loaded from the API. This avoids flashing of blank screens. Check out [vuejs transition for loading data](https://laracasts.com/discuss/channels/vue/vuejs-transition-for-loading-data).
-
-We imported the `AppNav` component and registered it under the `components` property. The `name` property has a value of `publicBattles`. What that simply means is this. If we need to use this component in a template, then we would have it as `<publicBattles></publicBattles>`. 
-
-Let's take a good look at what is enclosed in the `<template>` tag. This is what is rendered on the screen.
-
-We looped through the `publicBattles` property which is now an array with the help of the `v-for` inbuilt directive to display the contents on the screen.
+Go ahead and open `app/index.html` file. Here, we will add the link to the bootstrap css and js file:
 
 {% highlight html %}
 {% raw %}
-<div class="col-sm-4" v-for="battle in publicBattles">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"> {{ battle.name }} </h3>
-      </div>
-      <div class="panel-body">
-        <p><span class="badge alert-info"> Sponsor: </span> {{ battle.sponsor }} </p>
-        <p><span class="badge alert-danger"> SeedFund: </span><strong> ${{ battle.seedFund }} </strong></p>
-      </div>
-    </div>
-</div>
-{% endraw %}
-{% endhighlight %}
-
-```js
-...
-  data() {
-    return {
-      publicBattles: '',
-    };
-  },
-...
-```
-
-That's the `publicBattles` property right there. Vuejs automatically binds it to the DOM. So, we can just use it in the `<template>` tag.
-
-Now, let's build the `PrivateBattles` component in the same way:
-
-{% highlight html %}
-{% raw %}
-<template>
-  <div>
-    <app-nav></app-nav>
-    <h3 class="text-center">Secret Startup Battles</h3>
-    <hr/>
-    
-    <div class="col-sm-4" v-for="battle in privateBattles">
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <h3 class="panel-title"> {{ battle.name }} </h3>
-        </div>
-        <div class="panel-body">
-          <p><span class="badge alert-info"> Sponsor: </span> {{ battle.sponsor }} </p>
-          <p><span class="badge alert-danger"> SeedFund: </span><strong> ${{ battle.seedFund }} </strong></p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-sm-12">
-      <div class="jumbotron text-center">
-        <h2>View Public Startup Battles</h2>
-        <router-link class="btn btn-lg btn-success" to="/"> Public Startup Battles </router-link>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import AppNav from './AppNav';
-import { isLoggedIn } from '../../utils/auth';
-import { getPrivateStartupBattles } from '../../utils/battles-api';
-
-export default {
-  name: 'privateBattles',
-  components: {
-    AppNav,
-  },
-  data() {
-    return {
-      privateBattles: '',
-    };
-  },
-  methods: {
-    isLoggedIn() {
-      return isLoggedIn();
-    },
-    getPrivateStartupBattles() {
-      getPrivateStartupBattles().then((battles) => {
-        this.privateBattles = battles;
-      });
-    },
-  },
-  mounted() {
-    this.getPrivateStartupBattles();
-  },
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
-{% endraw %}
-{% endhighlight %}
-
-_privateBattles.vue_
-
-Give yourself a pat on the back because you have successfully created the `AppNav`, `PublicBattles`, and `PrivateBattles` components. Whoop! Whoop!
-
-We need to take care of one more thing so that our app can function. Routing!!!
-
-## Build the Router
-
-Open up `src/router/index.js` file, this is where the vue router is defined. So modify the code like so:
-
-```js
-import Vue from 'vue';
-import Router from 'vue-router';
-import PrivateBattles from '@/components/privateBattles';
-import PublicBattles from '@/components/publicBattles';
-
-Vue.use(Router);
-
-export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'PublicBattles',
-      component: PublicBattles,
-    },
-    {
-      path: '/private-battles',
-      name: 'PrivateBattles',
-      component: PrivateBattles,
-    },
-  ],
-});
-```
-
-_index.js_
-
-Each route has a path, name and the component to be rendered when that route is invoked by the user. By the ways, we already imported the components at the top of the file.
-
-```js
-
-import Vue from 'vue';
-import Router from 'vue-router';
-import PrivateBattles from '@/components/privateBattles';
-import PublicBattles from '@/components/publicBattles';
-
-```
-
-Just a few things before we check our application in the browser:
-
-* Open up `index.html` in the root directory and add [bootstrap](http://getbootstrap.com). Now the content of the html file should look like this:
-
-{% highlight html %}
 
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>startupbattle</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Whistleblower</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{content-for "head"}}
+
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/whistleblower.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    {{content-for "head-footer"}}
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    {{content-for "body"}}
+
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/whistleblower.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+
+    {{content-for "body-footer"}}
   </body>
 </html>
 
+{% endraw %}
 {% endhighlight %}
 
-Feel free to check out your application in the browser. Right now, you should have something like this:
+Ember already provides a directory and a stylesheet file for your custom css. So, open `app/styles/app.css` and add the [css here](https://github.com/auth0-blog/emberjs2authenticationtutorial/blob/master/app/styles/app.css).
 
-![Homepage](https://cdn.auth0.com/blog/vuejs2/homepage.png)
-_Homepage_
+That's all about our styling. Next, let's create our routes.
 
-![Celebritypage](https://cdn.auth0.com/blog/vujes2/privatebattles.png)
-_Private Battles Page_
+## Create the Routes
 
-## Adding Authentication to Your Vuejs 2 App
+We need users to be able to access a URL:
 
-The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **Vuejs 2** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
+* that provides details about whistle blower meetups.
+* that provides details about whistle blowers.
+
+We also need a callback URL. I'll tell why we need that later in the tutorial. Let's create these routes ASAP. The *ember-cli* provides generator commands that makes this easy. So go ahead and run the following commands in your terminal:
+
+```bash
+ember generate route whistle-blowers
+ember generate route meetups
+ember generate route callback
+```
+
+The route files are generated together with their respective template files. EmberJS route handler renders a template when a route is invoked. 
+
+## Building the Nav Component
+
+Let's build the Nav Component. This component will be shared amongst all the pages. Generate the component using the *ember-cli*:
+
+```bash
+ember generate component app-nav
+```
+
+This command generates a component and a template for the app nav. Open up `app/templates/components/app-nav.hbs` and add this to it:
+
+{% highlight html %}
+{% raw %}
+
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+       Whistle Blower 
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+      
+            <button class="btn btn-danger log">Log out</button>
+      
+            <button class="btn btn-info log">Log In</button>
+     
+      </li>
+    </ul>
+</nav>
+
+{% endraw %}
+{% endhighlight %}
+
+Now, next we need to create an utility file for authentication and fetching API data for our routes from the backend. Well, Ember allows us to create utilities, but this is better suited for services. An Ember service is a long lived Ember object that can be made available in different parts of your application. This is exactly what we need.
+
+## Creating Services
+
+We need to create two services, the auth and api service. The former for everything related to user authentication and the latter for fetching API data from our server. Go ahead and create both services using the ember-cli:
+
+```bash
+ember generate service auth
+ember generate service whistleblowerapi
+```
+
+`app/services/auth.js` and `app/services/whistleblowerapi.js` will be created. Now, open the auth service and add this to it:
+
+_app/services/auth.js_
+
+```js
+import Ember from 'ember';
+import decode from 'npm:jwt-decode';
+import auth0 from 'npm:auth0-js';
+const ID_TOKEN_KEY = 'id_token';
+const ACCESS_TOKEN_KEY = 'access_token';
+
+const CLIENT_ID = '{AUTH0_CLIENT_ID}';
+const CLIENT_DOMAIN = '{AUTH0_DOMAIN}';
+const REDIRECT = '{CALLBACK_URL}';
+const SCOPE = '{SCOPE}';
+const AUDIENCE = '{API IDENTIFIER}';
+
+export default Ember.Service.extend({
+
+    auth: new auth0.WebAuth({
+        clientID: CLIENT_ID,
+        domain: CLIENT_DOMAIN
+    }),
+
+    login() {
+        this.get('auth').authorize({
+            responseType: 'token id_token',
+            redirectUri: REDIRECT,
+            audience: AUDIENCE,
+            scope: SCOPE
+        });
+    },
+
+    logout() {
+        this.clearIdToken();
+        this.clearAccessToken();
+        window.location.href = "/";
+    },
+
+    getIdToken() {
+        return localStorage.getItem(ID_TOKEN_KEY);
+    },
+
+    getAccessToken() {
+        return localStorage.getItem(ACCESS_TOKEN_KEY);
+    },
+
+    clearIdToken() {
+        localStorage.removeItem(ID_TOKEN_KEY);
+    },
+
+    clearAccessToken() {
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+    },
+
+    // Helper function that will allow us to extract the access_token and id_token
+    getParameterByName(name) {
+        let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    },
+
+    // Get and store access_token in local storage
+    setAccessToken() {
+        let accessToken = this.getParameterByName('access_token');
+        localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+    },
+
+    // Get and store id_token in local storage
+    setIdToken() {
+        let idToken = this.getParameterByName('id_token');
+        localStorage.setItem(ID_TOKEN_KEY, idToken);
+    },
+
+    isLoggedIn() {
+        const idToken = this.getIdToken();
+        return !!idToken && !this.isTokenExpired(idToken);
+    },
+
+    getTokenExpirationDate(encodedToken) {
+        const token = decode(encodedToken);
+        if (!token.exp) { return null; }
+
+        const date = new Date(0);
+        date.setUTCSeconds(token.exp);
+
+        return date;
+    },
+
+    isTokenExpired(token) {
+        const expirationDate = this.getTokenExpirationDate(token);
+        return expirationDate < new Date();
+    }
+});
+```
+
+Go ahead and install the `auth0-js` and `jwt-decode` packages from the terminal:
+
+```bash
+npm install auth0-js jwt-decode --save
+```
+
+> Our auth service contain different functions for authenticating using auth0 hosted lock,saving/extracting tokens, checking expiry date and checking if a user is logged in or not.
+
+**Note:** You fetch an property in a service using the `this.get('<name-of-property>')` syntax.
+
+Now, you might have noticed that we are importing them, using this syntax `import module from npm:package`. It turns out that CommonJS(Node) module doesn't play nice with ES6 import statements in Ember. It throws an error indicating that the module can't be found. As usual, we got a work around. To get our  NPM CommonJS version of our node modules to work with our ES6 import, all we have to do is:
+
+```bash
+ember install ember-browserify
+```
+
+and append `npm` to the module name like we did in the code snippet for the auth service above.
+
+Open the whistleblower api service and add this to it:
+
+_app/services/whistleblowerapi.js_
+
+```js
+import Ember from 'ember';
+import axios from 'npm:axios';
+
+const ACCESS_TOKEN_KEY = 'access_token';
+const BASE_URL = 'http://localhost:3333';
+
+export default Ember.Service.extend({
+
+    getMeetups() {
+        const url = `${BASE_URL}/api/meetups`;
+        return axios.get(url, { headers: { Authorization: `Bearer ${this.getAccessToken()}` }}).then(response => response.data);
+    },
+
+    getWhistleBlowers() {
+        const url = `${BASE_URL}/api/whistleblowers`;
+        return axios.get(url, { headers: { Authorization: `Bearer ${this.getAccessToken()}` }}).then(response => response.data);
+    },
+
+    getActivities() {
+        const url = `${BASE_URL}/api/activities`;
+        return axios.get(url).then(response => response.data);
+    },
+
+    getAccessToken() {
+        return localStorage.getItem(ACCESS_TOKEN_KEY);
+    }
+});
+```
+
+Install the `axios` module via your terminal:
+
+```bash
+npm install axios --save
+```
+
+> Here, we fetched the meetups, whistleblowers and activities from the API. Now, Ember already provides jQuery by default. So, an alternative is to use `Ember.$.get(url)` instead of axios. I personally love using axios, hence the reason I chose to use it here.
+
+Ember Services are injectable. You can inject them into different parts of your application as the need arises.
+
+## Build the Routes
+
+We have created our routes already. Now we need to pass data to the templates of these routes. Once a user hits a URL, they should be able to get data presented to them.
+
+Ember provides a `model` method in routes that allows us fetch data and pass it down to the route template. So, we'll add the model method into our routes, inject the api service and call the api service methods to provide data to the model hook so that it can be passed down to the templates.
+
+Open `app/routes/meetups.js` and add this:
+
+```js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+    api: Ember.inject.service('whistleblowerapi'),
+
+    model() {
+        return this.get('api').getMeetups();
+    }
+});
+```
+_app/routes/meetups.js_
+
+Open `app/routes/whistle-blowers.js` and add this:
+
+```js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+    api: Ember.inject.service('whistleblowerapi'),
+  
+    model() {
+        return this.get('api').getMeetups();
+    }
+});
+```
+_app/routes/whistle-blowers.js_
+
+Now, we need to create a route for our index page, which is the landing page. 
+
+```bash
+ember generate route index
+```
+
+Open `app/routes/index` and add this:
+
+```js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+    
+    api: Ember.inject.service('whistleblowerapi'),
+
+    model() {
+        return this.get('api').getActivities();
+    }
+});
+```
+_app/routes/index.js_
+
+Next, we need to display data in their respective templates.
+
+## Bring Templates to Life
+
+Open `app/templates/index.hbs` and add this:
+
+{% highlight html %}
+{% raw %}
+
+{{app-nav}}
+
+<div class="container">
+    <h3 class="text-center">Whistle Blowing Updates From Across The World</h3>
+</div>
+
+<br/>
+
+{{#each model as |update|}}
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"> {{ update.title }} </h3>
+        </div>
+        <div class="panel-body">
+          <p><span class="badge alert-danger"> Location: </span><strong> {{ update.location }} </strong></p>
+        </div>
+      </div>
+    </div>
+{{/each}}
+
+{% endraw %}
+{% endhighlight %}
+
+> We imported the app-nav component into this template to provide navigation menu for our app.
+
+We also looped through the model data coming from the index route using the `#each` helper method.
+
+Open `app/templates/meetups.hbs` and add this:
+
+{% highlight html %}
+{% raw %}
+
+{{app-nav}}
+
+<div class="container">
+    <h3 class="text-center">Whistle Blower Meetups Across The World </h3>
+</div>
+
+<br/>
+
+{{#each model as |meetup|}}
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"> {{ meetup.name }} </h3>
+        </div>
+        <div class="panel-body">
+          <p><span class="badge alert-danger"> Location: </span><strong> {{ meetup.date }} </strong></p>
+        </div>
+      </div>
+    </div>
+{{/each}}
+
+{{outlet}}
+
+{% endraw %}
+{% endhighlight %}
+
+
+Open `app/templates/whistle-blowers.hbs` and add this:
+
+{% highlight html %}
+{% raw %}
+
+{{app-nav}}
+
+<div class="container">
+    <h3 class="text-center">Whistle Blowers Across The World </h3>
+</div>
+
+<br/>
+
+{{#each model as |whistleblower|}}
+    <div class="col-lg-2 col-sm-4">
+        <div class="card hovercard">
+            <div class="cardheader">
+            </div>
+            <div class="avatar">
+                <img alt="" src="{{whistleblower.avatar}}">
+            </div>
+            <div class="info">
+                <div class="title">
+                    <a target="_blank" href="http://scripteden.com/">{{ whistleblower.name }}</a>
+                </div>
+                <div class="desc">
+                    <p><strong>{{whistleblower.level}}</strong></p></div>
+                <div class="desc">
+                    <p><span class="badge alert-danger"> Uncovered Spoils: </span> {{whistleblower.uncoveredSpoils}} </p></div>
+            </div>
+        </div>
+    </div>
+{{/each}}
+
+{{outlet}}
+
+{% endraw %}
+{% endhighlight %}
+
+Go to your browser and check out all the routes. They should be displaying the right data:
+
+![Index page](https://cdn.auth0.com/blog/emberjsauth/indexpage.png)
+_Landing page_
+
+![Meetups route](https://cdn.auth0.com/blog/emberjs/meetupspage.png)
+_Meetups Route_
+
+![Whistleblowers route](https://cdn.auth0.com/blog/emberjsauth/whistleblowerspage.png)
+_Whistleblowers route_
+
+Next, let's add authentication to our app.
+
+## Adding Authentication to Your EmberJS 2 App
+
+The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **Emberjs 2** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
 Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
 
-From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Startup Battle API** and for the identifier I'll set it as **http://startupbattle.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Startup Battle API** and for the identifier I'll set it as **http://whistleblower.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
 
-![Creating the startupbattle API](https://cdn2.auth0.com/blog/startupbattle/api.png)
-_Creating the Startup battle API_
+![Creating the Whistle Blower API](https://cdn.auth0.com/blog/emberjsauth/createwhistleblowersapi.png)
+_Creating the Whistle Blower API_
 
 Next, let's define some scopes for our API. Scopes allow us to manage access to our API. We can define as few or as many scopes as we want. For our simple example, we'll just create a single scope that will grant users full access to the API.
 
-![Locate scopes bar](https://cdn2.auth0.com/blog/startupbattles/scope.png)
+![Locate scopes bar](https://cdn.auth0.com/blog/emberjsauth/whistleblowerscope.png)
 _Locate Scopes bar_
 
-![Adding Scope to API](https://cdn2.auth0.com/blog/startupbattles/scopes.png)
+![Adding Scope to API](https://cdn.auth0.com/blog/emberjsauth/addscopes.png)
 _Adding scope_
 
 ### Secure The Node API
 
-We need to secure the API so that the private battles endpoint will only be accessible to authenticated users. We can secure it easily with Auth0.
+We need to secure the API so that the meetups and whistle blowers endpoints will only be accessible to authenticated users. We can secure it easily with Auth0.
 
 Open up your `server.js` file and add the `authCheck` middleware to the private battles endpoint like so:
 
 ```js
 
-app.get('/api/battles/private', authCheck, (req,res) => {
-  let privateBattles = [
-    // Array of private battles
+app.get('/api/meetups', authCheck, (req,res) => {
+  let meetups = [
+    // Array of meetups
   ];
 
-  res.json(privateBattles);
+  res.json(meetups);
+})
+
+app.get('/api/whistleblowers', authCheck, (req,res) => {
+  let whistleBlowers = [
+    // Array of whistle blowers
+  ];
+
+  res.json(whistleBlowers);
 })
 
 app.listen(3333);
@@ -885,433 +1044,252 @@ console.log('Listening on localhost:3333');
 
 ```
 
+Try accessing the `http://localhost:3333/api/meetups` endpoint again from Postman. You should be denied access like so:
 
-Try accessing the `http://localhost:3333/api/battles/private` endpoint again from Postman. You should be denied access like so:
-
-![Unauthorized Access](https://cdn.auth0.com/blog/vuejs2/unauthorized.png)
+![Unauthorized Access](https://cdn.auth0.com/blog/emberjsauth/restrictaccesstomeetups.png)
 _Unauthorized Access_
 
 Next, let's add authentication to our front-end.
 
-### Adding Authentication to our Vuejs 2 Front-end
+### Adding Authentication to our EmberJS 2 Front-end
 
-We'll create an authentication helper to handle everything about authentication in our app. Go ahead and create an `auth.js` file inside the `utils` directory.
+We created an `auth` service earlier. Open up `app/services/auth.js` again.
 
-Before we add code, you need to install `jwt-decode` and `auth0-js` node package like so:
-
-```bash
-
-npm install jwt-decode auth0-js --save
-
-```
-
-Open up the `auth.js` file and add code to it like so:
-
-```js
-import decode from 'jwt-decode';
-import axios from 'axios';
-import auth0 from 'auth0-js';
-import Router from 'vue-router';
-import Auth0Lock from 'auth0-lock';
-const ID_TOKEN_KEY = 'id_token';
-const ACCESS_TOKEN_KEY = 'access_token';
-
-const CLIENT_ID = '{AUTH0_CLIENT_ID}';
-const CLIENT_DOMAIN = '{AUTH0_DOMAIN}';
-const REDIRECT = 'YOUR_CALLBACK_URL';
-const SCOPE = '{SCOPE}';
-const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
-
-var auth = new auth0.WebAuth({
-  clientID: CLIENT_ID,
-  domain: CLIENT_DOMAIN
-});
-
-export function login() {
-  auth.authorize({
-    responseType: 'token id_token',
-    redirectUri: REDIRECT,
-    audience: AUDIENCE,
-    scope: SCOPE
-  });
-}
-
-var router = new Router({
-   mode: 'history',
-});
-
-export function logout() {
-  clearIdToken();
-  clearAccessToken();
-  router.go('/');
-}
-
-export function requireAuth(to, from, next) {
-  if (!isLoggedIn()) {
-    next({
-      path: '/',
-      query: { redirect: to.fullPath }
-    });
-  } else {
-    next();
-  }
-}
-
-export function getIdToken() {
-  return localStorage.getItem(ID_TOKEN_KEY);
-}
-
-export function getAccessToken() {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
-}
-
-function clearIdToken() {
-  localStorage.removeItem(ID_TOKEN_KEY);
-}
-
-function clearAccessToken() {
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
-}
-
-// Helper function that will allow us to extract the access_token and id_token
-function getParameterByName(name) {
-  let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-// Get and store access_token in local storage
-export function setAccessToken() {
-  let accessToken = getParameterByName('access_token');
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-}
-
-// Get and store id_token in local storage
-export function setIdToken() {
-  let idToken = getParameterByName('id_token');
-  localStorage.setItem(ID_TOKEN_KEY, idToken);
-}
-
-export function isLoggedIn() {
-  const idToken = getIdToken();
-  return !!idToken && !isTokenExpired(idToken);
-}
-
-function getTokenExpirationDate(encodedToken) {
-  const token = decode(encodedToken);
-  if (!token.exp) { return null; }
-
-  const date = new Date(0);
-  date.setUTCSeconds(token.exp);
-
-  return date;
-}
-
-function isTokenExpired(token) {
-  const expirationDate = getTokenExpirationDate(token);
-  return expirationDate < new Date();
-}
-```
-
-In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
+In the code present in this file, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
 
 The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
+The parameters that you do not have yet are the `{AUTH0-CLIENT-ID}` and the `{CALLBACK-URL}`. This will be an Auth0 client. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
 
 Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
 
-![Startup Client](https://cdn2.auth0.com/blog/app/startupclient.png)
-_Startup API Client_
+![Startup Client](https://cdn.auth0.com/blog/emberjsauth/whistleblowerclient.png)
+_WhistleBlower API Client_
 
-Now, go to the clients area and check for the test client. You should see it in your list of clients like so:
+Now, go to the clients area and check for the test client. Open the client and change the **Client Type**from `Non Interactive Client` to `Single Page Application`.
 
-![Startup Battle Client](https://cdn2.auth0.com/blog/startupbattleapi/client.png)
+> Non interactive clients are meant to be used in machine to machine interactions. We are using an SPA to interact with the API so the client should be an SPA client. Check out [Implicit Grant](https://auth0.com/docs/api-auth/grant/implicit) and [client credentials exchange](https://auth0.com/docs/api-auth/grant/client-credentials) for more information.
 
-Open the client and change the **Client Type** from `Non Interactive Client` to `Single Page Application`.
+Copy the **CLIENT ID** and replace it with the value of `CLIENT-ID` constant variable. Replace your callback url with `http://localhost:4200/callback`. Replace your client domain, scope and audience values with the domain from your Auth0 dashboard, scope from your API and API identifier respectively.
 
-Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
+We checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
-We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
+Let's go update the `app-nav` component to hide/show the `login` and `logout` buttons based on the user's authentication status.
 
-We imported the Vue router and created an instance of it. We need it for redirection after login and logout.
-
-Finally, we implemented a middleware, the `requireAuth` method. We'll use this method to protect the `/private-battles` route from being accessed for non-loggedIn users.
-
-Let's go update the `AppNav` component to hide/show the `login` and `logout` buttons based on the user's authentication status.
-
-Now, your `AppNav` component should look like this:
+Now, your `app-nav` component template file should look like this:
 
 {% highlight html %}
 {% raw %}
-<template>
-  <nav class="navbar navbar-default">
+
+<nav class="navbar navbar-default">
     <div class="navbar-header">
-      <router-link to="/" class="navbar-brand"> The Ultimate Startup Battle Ground</router-link>
+      {{#link-to 'index' class="navbar-brand"}} Whistle Blower {{/link-to}}
     </div>
+
+    <ul class="nav navbar-nav">
+        <li>
+            {{#if loggedIn }}
+                {{#link-to 'meetups' class="navbar-brand"}} Meetups {{/link-to}}
+                {{#link-to 'whistle-blowers' class="navbar-brand"}} Whistle Blowers {{/link-to}}
+            {{/if}}
+        </li>
+    </ul>
+
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <button class="btn btn-danger log" v-show="isLoggedIn()" @click="handleLogout()">Log out </button>
-        <button class="btn btn-info log" v-show="!isLoggedIn()" @click="handleLogin()">Log In</button>
+        {{#if loggedIn }}
+            <button {{ action "logout" }} class="btn btn-danger log">Log out</button>
+        {{else}}
+            <button {{ action "login" }} class="btn btn-info log">Log In</button>
+        {{/if}}
       </li>
     </ul>
-  </nav>
-</template>
+</nav>
 
-<script>
-import { isLoggedIn, login, logout } from '../../utils/auth';
-
-export default {
-  name: 'app-nav',
-  methods: {
-    handleLogin() {
-      login();
-    },
-    handleLogout() {
-      logout();
-    },
-    isLoggedIn() {
-      return isLoggedIn();
-    },
-  },
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.navbar-right { margin-right: 0px !important}
-
-.log {
-  margin: 5px 10px 0 0;
-}
-</style>
 {% endraw %}
 {% endhighlight %}
  
+_app/templates/components/app-nav.hbs_
 
-_AppNav.vue_
+Now, we used some handlebars helpers in the code above such as `#if` for conditional operations, `#link-to` for linking to a route.
 
-We imported `login`, `logout` and `isLoggedIn` functions from the `auth` helper file. Then, we attached the `login()` and `logout()` functions to the `login` and `logout` buttons respectively.
+We have a `loggedIn` variable that is set as a flag for alternating the display of the `login` and `logout` buttons. Now, where did that variable come from?
 
-Open up the `PublicBattles` Component and modify it like so:
+Open the component file responsible for the `app-nav` template and add this:
+
+```js
+import Ember from 'ember';
+
+export default Ember.Component.extend({
+    auth: Ember.inject.service('auth'),
+
+    init() {
+        this._super(...arguments);
+        this.set('loggedIn', this.get('auth').isLoggedIn());
+    },
+
+    actions: {
+        login() {
+            this.get('auth').login();
+        },
+        logout() {
+            this.get('auth').logout();
+        }
+    }
+});
+```
+
+_app/components/app-nav.js_
+
+We injected the `auth` service. Then we called the `init` method which is a component hook that is called whenever a component is been initialized. In the `init` method, we set a variable `loggedIn` with the value of the user's authentication status gotten from the `auth` service.
+
+> `this._super(..arguments)` has to be called to override the init method that ships with Ember components.
+
+Next, we defined the `actions`. In Ember, components use actions to communicate events and changes. The methods defined in the actions object get called when the user needs to trigger an action on the UI either via buttons or any form field elements.
+
+In our `app-nav` template, we have the `logout` and `login` buttons that trigger some actions:
 
 {% highlight html %}
 {% raw %}
-<template>
-  <div>
-    <app-nav></app-nav>
-    <h3 class="text-center">Daily Startup Battles</h3>
-    <hr/>
 
-    <div class="col-sm-4" v-for="battle in publicBattles">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"> {{ battle.name }} </h3>
-        </div>
-        <div class="panel-body">
-          <p><span class="badge alert-info"> Sponsor: </span> {{ battle.sponsor }} </p>
-          <p><span class="badge alert-danger"> SeedFund: </span><strong> ${{ battle.seedFund }} </strong></p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-sm-12">
-      <div class="jumbotron text-center" v-if="isLoggedIn()">
-        <h2>View Private Startup Battles</h2>
-        <router-link class="btn btn-lg btn-success" to="/private-battles">Private Startup Battles</router-link>
-      </div>
-      <div class="jumbotron text-center" v-else>
-        <h2>Get Access to Private Startup Battles by Logging In</h2>
-      </div>
-    </div>
-  </div>
-</template>
+{{#if loggedIn }}
+  <button {{ action "logout" }} class="btn btn-danger log">Log out</button>
+{{else}}
+  <button {{ action "login" }} class="btn btn-info log">Log In</button>
+{{/if}}
 
-<script>
-import AppNav from './AppNav';
-import { isLoggedIn } from '../../utils/auth';
-import { getPublicStartupBattles } from '../../utils/battles-api';
-
-export default {
-  name: 'publicBattles',
-  components: {
-    AppNav,
-  },
-  data() {
-    return {
-      publicBattles: '',
-    };
-  },
-  methods: {
-    isLoggedIn() {
-      return isLoggedIn();
-    },
-    getPublicStartupBattles() {
-      getPublicStartupBattles().then((battles) => {
-        this.publicBattles = battles;
-      });
-    },
-  },
-  mounted() {
-    this.getPublicStartupBattles();
-  },
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
 {% endraw %}
 {% endhighlight %}
 
-_publicBattles.vue_
+### Activate the Callback Route
 
-We are enabling the link to private startup battles based on the login status of a user via the `isLoggedIn()` method.
+We created a callback route earlier. This route will be called when a redirect is made from Auth0 after a successful authentication. The route will process the redirect and store the `access_token` and `id_token` coming from Auth0. Open `app/routes/callback.js` and add this:
 
-### Add A Callback Component
+```js
+import Ember from 'ember';
 
-We will create a new component and call it ` allback.vue`. This component will be activated when the `localhost:8080/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
+export default Ember.Route.extend({
 
-_callback.vue_
+    auth: Ember.inject.service('auth'),
+    
+    beforeModel() {
+        this.get('auth').setAccessToken();
+        this.get('auth').setIdToken();
+        this.transitionTo('/');
+    },
+});
+```
+_app/routes/callback.js_
 
-{% highlight html %}
-<template>
-</template>
-<script>
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our callback route will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token`, `access_token`, we will be redirected back to the `/` page and will be in a logged in state.
 
-import { setIdToken, setAccessToken } from '../../utils/auth';
-
-export default {
-  name: '',
-  mounted() {
-    this.$nextTick(() => {
-      setAccessToken();
-      setIdToken();
-      window.location.href = '/';
-    });
-  },
-};
-</script>
-
-{% endhighlight %}
-
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback  component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token`, `access_token`, and verified the `nonce`, we will be redirected back to the `/` page and will be in a logged in state.
+> Ember Routes provide a `beforeModel` hook that is called before the model is initialized. It can be used to conditionally prevent access to a route. It can also be used to perfom some actions like a middleware.
 
 ### Add some values to Auth0 Dashboard
 
-Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:8080/callback` to the **Allowed Callback URLs** and `http://localhost:8080` to **Allowed Origins (CORS)**.
+Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:4200/callback` to the **Allowed Callback URLs** and `http://localhost:4200` to **Allowed Origins (CORS)** of your client.
 
-### Secure The Private Battles Route
+### Secure Meetups and WhistleBlowers Routes
 
-We need to ensure that no one can go to the browser and just type `/private-battles` to access the private battles route.
+We need to ensure that no one can go to the browser and just type `/meetups` and `whistle-blowers` to access the meetups and whistleblowers routes respectively.
 
-Open up `router/index.js` and modify it to import the `requireAuth` function and also add a `beforeEnter` property with a value of `requireAuth` to the `/private-battles` route like so:
-
-```js
-import Vue from 'vue';
-import Router from 'vue-router';
-import PrivateBattles from '@/components/privateBattles';
-import PublicBattles from '@/components/publicBattles';
-import { requireAuth } from '../../utils/auth';
-
-Vue.use(Router);
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'PublicBattles',
-      component: PublicBattles,
-    },
-    {
-      path: '/private-battles',
-      name: 'PrivateBattles',
-      beforeEnter: requireAuth,
-      component: PrivateBattles,
-    },
-  ],
-});
-
-```
-_index.js_
-
-One more thing. Now, let's register the `/callback` route in our routes file like so:
+Open up `app/routes/meetups.js`. Modify it to have the `beforeModel` hook and inject the `auth` service:
 
 ```js
-import Vue from 'vue';
-import Router from 'vue-router';
-import PrivateBattles from '@/components/privateBattles';
-import PublicBattles from '@/components/publicBattles';
-import Callback from '@/components/callback';
-import { requireAuth } from '../../utils/auth';
+import Ember from 'ember';
 
-Vue.use(Router);
+export default Ember.Route.extend({
 
-export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'PublicBattles',
-      component: PublicBattles,
+    auth: Ember.inject.service('auth'),
+
+    api: Ember.inject.service('whistleblowerapi'),
+    
+    beforeModel() {
+        if(!this.get('auth').isLoggedIn()) {
+            this.transitionTo('/');
+        }
     },
-    {
-      path: '/private-battles',
-      name: 'PrivateBattles',
-      beforeEnter: requireAuth,
-      component: PrivateBattles,
-    },
-    {
-      path: '/callback',
-      component: Callback,
-    },
-  ],
+
+    model() {
+        return this.get('api').getMeetups();
+    }
 });
 ```
+_app/routes/meetups.js_
+
+Open up `app/routes/whistle-blowers.js`. Modify it to also have the `beforeModel` hook and inject the `auth` service:
+
+```js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+    auth: Ember.inject.service('auth'),
+
+    api: Ember.inject.service('whistleblowerapi'),
+    
+    beforeModel() {
+        if(!this.get('auth').isLoggedIn()) {
+            this.transitionTo('/');
+        }
+    },
+
+    model() {
+        return this.get('api').getWhistleBlowers();
+    }
+});
+```
+_app/routes/whistle-blowers.js_
+
+In both routes, just before the model initializes, we check if the user is logged in. If the user has not be authenticated, we redirect the user back to the landing page.
 
 Now, try to log in.
 
-![Lock Login Widget](https://cdn2.auth0.com/blog/startupbattle/login.png)
+![Lock Login Widget](https://cdn.auth0.com/blog/emberjsauth/login.png)
 _Lock Login Widget_
 
 For the first time, the user will be shown a user consent dialog that will show the scope available. Once a user authorizes, it goes ahead to login the user and give him access based on the scopes.
 
-![User consent dialog](https://cdn2.auth0.com/blog/startupbattle/authorize.png)
+![User consent dialog](https://cdn.auth0.com/blog/emberjsauth/authorize.png)
 _User presented with an option to authorize_
 
 **Note:** Since we are using `localhost` for our domain, once a user logs in the first time, subsequent logins will not need a user consent authorization dialog. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client.
 
-![Logged In and Unauthorized to see the Private Startup Battle](https://cdn2.auth0.com/blog/startupbattle/unauthorized.png)
-_Logged In, but unauthorized to see the Private Startup Battle_
+![Logged In and Athorized to see the private meetups page](https://cdn.auth0.com/blog/emberjsauth/authorizedmeetups.png)
+_Logged In and authorized see the private meetups page_
 
-We have successfully logged in but the content of the private startup battle is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
+![Logged In and Athorized to see the private whistleblowers page](https://cdn.auth0.com/blog/emberjsauth/authorizedwhistleblowers.png)
+_Logged In and authorized to see the private whistleblowers page_
 
-It's simple! We secured our endpoint earlier, but right now we are not passing the JWT to the backend yet. We need to send the JWT along with our request as a header to enable the secured endpoint's recognition of the logged-in user.
-
-### Updating the Auth & Battles API helper
-
-Go ahead and open up the `utils/battles-api.js` file. We will tweak the `getPrivateStartupBattles` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
-
-Now, we will pass an option to send an `Authorization` header with a Bearer access_token along with the `GET` request like so:
+We have successfully logged in and can access the content of both private routes. We passed an option to send an `Authorization` header with a Bearer `access_token` along with the `GET` request in our api service. The request sends the JWT to the secured backend. The backend verifies it. If it is valid, the user is granted access to the resources.
 
 ```js
+...
+  getMeetups() {
+        const url = `${BASE_URL}/api/meetups`;
+        return axios.get(url, { headers: { Authorization: `Bearer ${this.getAccessToken()}` }}).then(response => response.data);
+    },
 
-import { getAccessToken } from './auth';
-
-function getPrivateStartupBattles() {
-  const url = `${BASE_URL}/api/battles/private`;
-  return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
-}
-
+    getWhistleBlowers() {
+        const url = `${BASE_URL}/api/whistleblowers`;
+        return axios.get(url, { headers: { Authorization: `Bearer ${this.getAccessToken()}` }}).then(response => response.data);
+    },
+...
 ```
 
-The `/api/battles/private` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
+What happens if we don't send an `access_token`? Go ahead and remove the Authorization header. Make the request a plain get request that doesn't send any JWT to the backend.
 
-Now, try to log in again. 
+Aha, we get a blank page. The Chrome Dev tools shows us that we are unauthorized to make that request.
 
-Everything should work fine. Pat yourself on the back. You have just successfully built a **Vuejs 2** app and added authentication to it! 
+![Unauthorized](https://cdn.auth0.com/blog/emberjsauth/401unauthorized.png)
+_401 Unauthorized_
+
+You have just successfully built a **Vuejs 2** app and added authentication to it! 
+
+**Important API Security Note:** Anytime you intend using Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 ## Conclusion
 
-**Vuejs 2** is a lightweight, fast and awesome library for building user interfaces. Its learning curve is gentle and its API is not complex to understand. It has a fast growing community and there are many components available to the public for different functionalities.
+You have just successfully built an **EmberJS 2** app and added authentication to it. To be honest, Ember has a steep learning curve. It takes a while to navigate where to find different files and where to put certain logic but once you get a hang of it, then it becomes a [Saber](http://www.dictionary.com/browse/saber) for architecting and building ambitious web applications.
 
-In addition, Auth0 can help secure your **Vuejs 2** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your **EmberJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
