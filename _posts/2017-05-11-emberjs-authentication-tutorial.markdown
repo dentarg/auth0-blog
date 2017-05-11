@@ -10,8 +10,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#35495E"
-  image: https://cdn2.auth0.com/blog/vuejs/logo.png
+  bg_color: "#4a4a4a"
+  image: https://cdn.auth0.com/blog/emberjs/logo.png
 tags:
 - emberjs
 - javascript
@@ -49,7 +49,7 @@ I'll give a basic overview of these concepts to nourish your understanding of **
 
 Let's take a good look at how a typical EmberJS app works. Our fictitious app is a *Student Management System* and the URL is `https://studember.ng`. One of the URLs in this app is `https://studember.ng/students`. This route simply returns the details of all the students registered on this app. Now, check out what happens when the user loads the app for the first time.
 
-* Ember router maps the URL to a route handler. The route handler then renders a template and loads a model that is available to the template.
+Ember router maps the URL to a route handler. The route handler then renders a template and loads a model that is available to the template.
 
 ```js
 import Ember from 'ember';
@@ -65,7 +65,7 @@ Router.map(function() {
 });
 
 export default Router;
-``
+```
 _router_
 
 ```js
@@ -291,15 +291,15 @@ The app we will build today is called `Whistle Blower`. A *Whistle Blower* is a 
 * It gives information about whistle blowing activities in your region. 
 * It's a small community of whistle blowers. 
 * A guest user on the *Whistle Blower* app will only have acess to basic information about the whistle blowing activities on the landing page. 
-* An authenticated user will have access to whistle blowers and their profile.
+* An authenticated user will have access to whistle blowers and their profiles.
 * An authenticated user will have access to whistle blower meetups/gatherings.
 
 ## Build The Back-End
 
 Let's build an API for our app. We'll quickly build the API with [Node.js](https://nodejs.org). The API is simple. This is what we need:
 
-* An endpoint to serve latest whistle blowing activities in a region - `/api/activities`.
-* An endpoint to serve whistle blowers and their profile - `/api/whistleblowers`. 
+* An endpoint to serve the latest whistle blowing activities around the world - `/api/activities`.
+* An endpoint to serve whistle blowers and their profiles - `/api/whistleblowers`. 
 * An endpoint to serve whistle blower meetups - `/api/meetups`.
 * Securing the endpoint that serves whistle blowers profiles and meetups, so that it can only be accessed by registered users.
 
@@ -338,93 +338,24 @@ const authCheck = jwt({
 
 app.get('/api/activities', (req, res) => {
   let whistleBlowerActivities = [
-  {
-    title: '200 Million dollars cash found in Burger King, Utah',
-    location: 'Salt Lake City, Utah, America'
-  },
-  {
-    title: '52 billion naira found by EFCC in a Bungalow in Ikoyi',
-    location: 'Lagos, Nigeria',
-  },
-  {
-    title: '2 Million Kenyan Shillings found in Yaya Supermarket laundry',
-    location: 'Nairobi, Kenya',
-  },
-  {
-    title: '10 Ferraris discovered in underground apartment in Bueno Aires',
-    location: 'Bueno Aires, Argentina',
-  },
-  {
-    title: 'Central Bank Printing Machine found in a church at Guanajuato',
-    location: 'Guanajuato, Mexico',
-  }];
+    // An array of whistleblowing activities
+  ];
 
   res.json(whistleBlowerActivities);
 })
 
 app.get('/api/whistleblowers', (req,res) => {
   let whistleBlowers = [
-  {
-    id: 1111,
-    name: 'Mark Fish',
-    level: 'Junior Whistle Blower',
-    avatar: 'http://svgavatars.com/style/svg/11.svg',
-    uncoveredSpoils: 2
-  },
-  {
-    id: 1112,
-    name: 'Garly Sticker',
-    level: 'Intermediate Whistle Blower',
-    avatar: 'http://svgavatars.com/style/svg/01.svg',
-    uncoveredSpoils: 10
-  },
-  {
-    id: 1113,
-    name: 'Prosper Otemuyiwa',
-    level: 'Senior Whistle Blower',
-    avatar: 'http://svgavatars.com/style/svg/15.svg',
-    uncoveredSpoils: 186
-  },
-  {
-    id: 1114,
-    name: 'Lovelyn Tigereek',
-    level: 'Intermediate Whistle Blower',
-    avatar: 'http://svgavatars.com/style/svg/02.svg',
-    uncoveredSpoils: 25
-  },
-  {
-    id: 1115,
-    name: 'Thank-God Okogbulor',
-    level: 'Senior Whistle Blower',
-    avatar: 'http://svgavatars.com/style/svg/03.svg',
-    uncoveredSpoils: 174
-  }];
+    // An aray of whistle blowers
+  ];
 
   res.json(whistleBlowers);
 })
 
 app.get('/api/meetups', (req,res) => {
   let meetups = [
-  {
-    name: 'WhistleBlower London Meetup',
-    date: '25, May 2017'
-  },
-  {
-    name: 'WhistleBlower Lagos Meetup',
-    date: '5, August 2017'
-  },
-  {
-    name: 'WhistleBlower Nairobi Meetup',
-    date: '15, September 2017'
-  },
-  {
-    name: 'WhistleBlower Utah Meetup',
-    date: '20, August 2017'
-  },
-  {
-    name: 'WhistleBlower Oslo Meetup',
-    date: '7, October 2017'
-  }];
+    // An array of meetups
+  ];
 
   res.json(meetups);
 })
@@ -555,7 +486,7 @@ Now, our app will show a blank screen. Sweet! let's get started.
 
 ## Style with Bootstrap
 
-Go ahead and open `app/index.html` file. Here, we will add the link to the bootstrap css and js file:
+Go ahead and open the `app/index.html` file. Here, we will add the link to the bootstrap css and js file:
 
 {% highlight html %}
 {% raw %}
@@ -600,10 +531,10 @@ That's all about our styling. Next, let's create our routes.
 
 We need users to be able to access a URL:
 
-* that provides details about whistle blower meetups.
-* that provides details about whistle blowers.
+* That provides details about whistle blower meetups.
+* That provides details about whistle blowers.
 
-We also need a callback URL. I'll tell why we need that later in the tutorial. Let's create these routes ASAP. The *ember-cli* provides generator commands that makes this easy. So go ahead and run the following commands in your terminal:
+We also need a callback URL. I'll tell you why we need that later in the tutorial. Let's create these routes ASAP. The *ember-cli* provides generator commands that makes this easy. So go ahead and run the following commands in your terminal:
 
 ```bash
 ember generate route whistle-blowers
@@ -633,11 +564,8 @@ This command generates a component and a template for the app nav. Open up `app/
 
     <ul class="nav navbar-nav navbar-right">
       <li>
-      
-            <button class="btn btn-danger log">Log out</button>
-      
-            <button class="btn btn-info log">Log In</button>
-     
+          <button class="btn btn-danger log">Log out</button>
+          <button class="btn btn-info log">Log In</button>
       </li>
     </ul>
 </nav>
@@ -649,7 +577,7 @@ Now, next we need to create an utility file for authentication and fetching API 
 
 ## Creating Services
 
-We need to create two services, the auth and api service. The former for everything related to user authentication and the latter for fetching API data from our server. Go ahead and create both services using the ember-cli:
+We need to create two services, the auth and API service. The former for everything related to user authentication and the latter for fetching API data from our server. Go ahead and create both services using the ember-cli:
 
 ```bash
 ember generate service auth
@@ -759,7 +687,7 @@ npm install auth0-js jwt-decode --save
 
 > Our auth service contain different functions for authenticating using auth0 hosted lock,saving/extracting tokens, checking expiry date and checking if a user is logged in or not.
 
-**Note:** You fetch an property in a service using the `this.get('<name-of-property>')` syntax.
+**Note:** You can fetch a property in a service using the `this.get('<name-of-property>')` syntax.
 
 Now, you might have noticed that we are importing them, using this syntax `import module from npm:package`. It turns out that CommonJS(Node) module doesn't play nice with ES6 import statements in Ember. It throws an error indicating that the module can't be found. As usual, we got a work around. To get our  NPM CommonJS version of our node modules to work with our ES6 import, all we have to do is:
 
@@ -769,7 +697,7 @@ ember install ember-browserify
 
 and append `npm` to the module name like we did in the code snippet for the auth service above.
 
-Open the whistleblower api service and add this to it:
+Open the whistleblower API service and add this to it:
 
 _app/services/whistleblowerapi.js_
 
@@ -809,15 +737,15 @@ Install the `axios` module via your terminal:
 npm install axios --save
 ```
 
-> Here, we fetched the meetups, whistleblowers and activities from the API. Now, Ember already provides jQuery by default. So, an alternative is to use `Ember.$.get(url)` instead of axios. I personally love using axios, hence the reason I chose to use it here.
+> Here, we fetched the meetups, whistleblowers and activities from the API. Ember already provides jQuery by default. So, an alternative is to use `Ember.$.get(url)` instead of axios. I personally love using axios, hence the reason I chose to use it here.
 
 Ember Services are injectable. You can inject them into different parts of your application as the need arises.
 
 ## Build the Routes
 
-We have created our routes already. Now we need to pass data to the templates of these routes. Once a user hits a URL, they should be able to get data presented to them.
+We created our routes earlier. Now, we need to pass data to the templates of these routes. Once a user hits a URL, they should be able to get data presented to them.
 
-Ember provides a `model` method in routes that allows us fetch data and pass it down to the route template. So, we'll add the model method into our routes, inject the api service and call the api service methods to provide data to the model hook so that it can be passed down to the templates.
+Ember provides a `model` method in routes that allows us to fetch data and pass it down to the route template. So, we'll add the model method into our routes, inject the API service and call the service methods to provide data to the model hook so that it can be passed down to the templates.
 
 Open `app/routes/meetups.js` and add this:
 
@@ -941,7 +869,6 @@ Open `app/templates/meetups.hbs` and add this:
 {% endraw %}
 {% endhighlight %}
 
-
 Open `app/templates/whistle-blowers.hbs` and add this:
 
 {% highlight html %}
@@ -1055,11 +982,11 @@ Next, let's add authentication to our front-end.
 
 We created an `auth` service earlier. Open up `app/services/auth.js` again.
 
-In the code present in this file, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
+In the code present in this file, we are using an hosted version of Auth0 Lock in the `login` method. We also passed in our credentials. 
 
-The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
+The auth0 node module called the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{AUTH0-CLIENT-ID}` and the `{CALLBACK-URL}`. This will be an Auth0 client. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
+The parameters that you do not have yet are the `{AUTH0-CLIENT-ID}` and the `{CALLBACK-URL}`. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
 
 Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
 
@@ -1070,7 +997,7 @@ Now, go to the clients area and check for the test client. Open the client and c
 
 > Non interactive clients are meant to be used in machine to machine interactions. We are using an SPA to interact with the API so the client should be an SPA client. Check out [Implicit Grant](https://auth0.com/docs/api-auth/grant/implicit) and [client credentials exchange](https://auth0.com/docs/api-auth/grant/client-credentials) for more information.
 
-Copy the **CLIENT ID** and replace it with the value of `CLIENT-ID` constant variable. Replace your callback url with `http://localhost:4200/callback`. Replace your client domain, scope and audience values with the domain from your Auth0 dashboard, scope from your API and API identifier respectively.
+Copy the **CLIENT ID** from the dashboard and replace it with the value of the `CLIENT-ID` constant variable in your code. Replace your callback url with `http://localhost:4200/callback`. Replace your client domain, scope and audience values with the domain from your Auth0 dashboard, scope from your API and API identifier respectively.
 
 We checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1241,14 +1168,14 @@ export default Ember.Route.extend({
 ```
 _app/routes/whistle-blowers.js_
 
-In both routes, just before the model initializes, we check if the user is logged in. If the user has not be authenticated, we redirect the user back to the landing page.
+In both routes, just before the model initializes, we check if the user is logged in. If the user has not been authenticated, we redirect the user back to the landing page.
 
 Now, try to log in.
 
 ![Lock Login Widget](https://cdn.auth0.com/blog/emberjsauth/login.png)
 _Lock Login Widget_
 
-For the first time, the user will be shown a user consent dialog that will show the scope available. Once a user authorizes, it goes ahead to login the user and give him access based on the scopes.
+For the first time, the user will be shown a user consent dialog that will show the scopes available. Once a user authorizes, it goes ahead to login the user and give him access based on the scopes.
 
 ![User consent dialog](https://cdn.auth0.com/blog/emberjsauth/authorize.png)
 _User presented with an option to authorize_
@@ -1261,7 +1188,7 @@ _Logged In and authorized see the private meetups page_
 ![Logged In and Athorized to see the private whistleblowers page](https://cdn.auth0.com/blog/emberjsauth/authorizedwhistleblowers.png)
 _Logged In and authorized to see the private whistleblowers page_
 
-We have successfully logged in and can access the content of both private routes. We passed an option to send an `Authorization` header with a Bearer `access_token` along with the `GET` request in our api service. The request sends the JWT to the secured backend. The backend verifies it. If it is valid, the user is granted access to the resources.
+We have successfully logged in and can access the content of both private routes. We passed an option to send an `Authorization` header with a Bearer `access_token` along with the `GET` request in our API service. The request sends the JWT to the secured backend. The backend verifies it. If it is valid, the user is granted access to the resources.
 
 ```js
 ...
@@ -1277,19 +1204,17 @@ We have successfully logged in and can access the content of both private routes
 ...
 ```
 
-What happens if we don't send an `access_token`? Go ahead and remove the Authorization header. Make the request a plain get request that doesn't send any JWT to the backend.
+What happens if we don't send an `access_token`? Go ahead and remove the Authorization header. Make a plain get request that doesn't send any JWT to the backend.
 
-Aha, we get a blank page. The Chrome Dev tools shows us that we are unauthorized to make that request.
+Aha, we get a blank page. The Chrome Dev tools screaming at us like:
 
 ![Unauthorized](https://cdn.auth0.com/blog/emberjsauth/401unauthorized.png)
 _401 Unauthorized_
 
-You have just successfully built a **Vuejs 2** app and added authentication to it! 
-
-**Important API Security Note:** Anytime you intend using Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+**Important API Security Note:** Anytime you intend using Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `id_token` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 ## Conclusion
 
-You have just successfully built an **EmberJS 2** app and added authentication to it. To be honest, Ember has a steep learning curve. It takes a while to navigate where to find different files and where to put certain logic but once you get a hang of it, then it becomes a [Saber](http://www.dictionary.com/browse/saber) for architecting and building ambitious web applications.
+You have just successfully built an **EmberJS 2** app and added authentication to it. To be honest, Ember has a steep learning curve. It takes a while to navigate where to find different files and put certain logic but once you get a hang of it, then it becomes a [Saber](http://www.dictionary.com/browse/saber) for architecting and building ambitious web applications.
 
 In addition, Auth0 can help secure your **EmberJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
