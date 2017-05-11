@@ -2,8 +2,8 @@
 layout: post
 title: "Data Breaches by the Numbers"
 description: "By failing to plan for data breaches, you leave yourself vulnerable to inevitable attacks"
-date: 2017-02-24 14:47
-category: Hot Topics, Security, Breaches
+date: 2017-05-11 14:47
+category: Growth, Security, Breaches
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
