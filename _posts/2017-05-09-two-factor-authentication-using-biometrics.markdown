@@ -225,7 +225,7 @@ channel.bind("update", function() { /* (...) */ });
 
 ## Test-Drive
 
-All of the source code used as the basis for this article is available at: [Auth0 Voice Factor Extension](https://github.com/auth0/auth0-extension-voice-factor) repository. The easiest way for you to get started with it is to install it as an extension within your own Auth0 account; just follow the instructions contained in the repository *README* file.
+All of the source code used as the basis for this article is available at: [Auth0 Voice Factor Extension](https://github.com/auth0/auth0-extension-voice-factor) repository. The easiest way for you to get started with it is to install it as an extension within your own Auth0 account; just follow the instructions contained in the repository [*README*](https://github.com/auth0/auth0-extension-voice-factor#install-as-auth0-extension) file.
 
 If you don't yet have an Auth0 account don't worry, **you can [sign up](javascript:signup\(\)) for a free account today**. Besides the Auth0 account, a fully functional deployment also requires a [VoiceIt](https://www.voiceit-tech.com/) account used for processing all the voice enrollment and authentication requests.
 
