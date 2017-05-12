@@ -8,7 +8,7 @@ module Jekyll
     end
 
     def paginate(site)
-      amp_posts = site.posts.find_all {|post| post}.sort_by {|post| -post.date.to_f}
+      amp_posts = site.posts.find_all {|post| post.data['is_extend'] != true}.sort_by {|post| -post.date.to_f}
       num_pages = AmpPagerPa.calculate_pages(amp_posts, site.config['paginate'].to_i)
 
       (1..num_pages).each do |page|

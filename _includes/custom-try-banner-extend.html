@@ -1,0 +1,25 @@
+{% assign current = page %}
+
+<section class="custom-try-banner-extend {% if current.banner.bg_color == nil %} {% else %} {{ current.banner.bg_color }} {% endif %}">
+  <div class="banner-wrapper">
+    <a href="https://auth0.com/extend?umt_source=extend_blog&umt_medium=banner-logo&umt_campaign=extend_blog" target="_blank" class="banner-logo"></a>
+    <p class="banner-text">
+      {% if current.banner.text == nil %}
+        SaaS extensibility made simple.<br> No servers, no hosting, just code.
+      {% else %}
+        {{ current.banner.text }}
+      {% endif %}
+    </p>
+    {% if current.banner.action == nil %}
+      <a href="https://auth0.com/extend/try?umt_source=extend_blog&umt_medium=banner-try&umt_campaign=extend_blog" class="signup-button btn btn-success btn-md">Try Auth0 Extend</a>
+    {% else %}
+      <a href="{{ current.banner.action }}" class="signup-button btn btn-success btn-md">
+        {% if current.banner.cta == nil %}
+          Try Auth0 Extend
+        {% else %}
+          {{ current.banner.cta }}
+        {% endif %}
+      </a>
+    {% endif %}
+  </div>
+</section>

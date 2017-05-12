@@ -1,0 +1,36 @@
+.utility-bar {
+  visibility: hidden;
+  pointer-events: none;
+  margin-top: -42px;
+}
+.utility-bar.is_stuck {
+  margin-top: 0;
+  visibility: visible;
+  pointer-events: auto;
+  background: #fff;
+  padding: 10px 0;
+  z-index: 200;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.utility-bar .btn-success-extend {
+  background-color: extend-blue;
+  border-color: extend-blue;
+  color: #fff;
+}
+.utility-bar > .container {
+  position: relative;
+}
+.utility-bar .share-container {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.utility-bar .share-label {
+  display: none;
+  margin-right: 15px;
+breakpoint("tablet")
+}
+.utility-bar .social-stats {
+  display: inline-block;
+}

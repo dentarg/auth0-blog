@@ -1,0 +1,58 @@
+footer
+  
+  .footer-nav
+    background: black;
+    padding: 20px 0;
+    font-size: 14px;
+    font-weight: 500;
+    
+    +breakpoint('desktop')
+      font-size: 16px;
+    
+    .nav
+      float: left;
+    
+      li
+        display: block;
+        
+        +breakpoint('desktop')
+          display: inline-block;
+    
+        a
+          color: white;
+          
+          &:hover
+            background: transparent;
+            color: rgba(white, 0.6);
+    
+    .powered
+      float: right;
+      color: white;
+      padding: 10px;
+      
+      a
+        color: white;
+      
+      img
+        margin-left: 10px;
+    
+  .footer-information
+    padding: 20px 0;
+    color: rgba(0,0,0,0.6);
+    
+    .nav
+      float: left;
+      
+      li
+        display: inline-block;
+      
+        a
+          color: rgba(black, 0.6);
+          
+          &:hover
+            background: transparent;
+            color: rgba(black, 0.3);
+            
+    .copyright
+      float: right;
+      padding: 10px 0;

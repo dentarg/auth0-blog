@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html class="header-dark">
+
+  {% include head_extend.html %}
+
+<body itemscope itemtype="http://schema.org/WebPage">
+
+    <header class="site-header">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="navbar-header"><button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                        <a
+                            href="//auth0.com/extend?umt_source=extend_blog&umt_medium=header-logo&umt_campaign=extend_blog">
+                            <div class="logo-extend"><img src="https://cdn.auth0.com/website/auth0-extend/images/auth0-extend-logo.svg" alt="Auth0 Extend"></div>
+                            </a>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="li-docs no-basic"><a href="//auth0.com/extend/pricing?umt_source=extend_blog&umt_medium=header-pricing&umt_campaign=extend_blog">Pricing</a></li>
+                            <li class="li-docs no-basic"><a href="https://github.com/auth0/extend/wiki/Auth0-Extend-User%27s-Guide" onclick="trackDocumentation();"
+                                    target="_blank">Documentation</a></li>
+                            <li class="li-docs no-basic"><a href="#" onclick="showContactForm(&quot;extend_header_sales&quot;);" rel="external">Talk to Sales</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right pre-signup">
+                            <li><a class="signin-button signup js-signup" href="https://auth0.com/extend/try?umt_source=extend_blog&umt_medium=header-try&umt_campaign=extend_blog">Try Auth0 Extend</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <script>
+            function trackDocumentation() {
+                metricsLib.track('click:website:extend:tutorial');
+                }
+                var Auth0ContactForm = window.Auth0ContactForm.default;
+                var ContactForm = Auth0ContactForm.ContactForm;
+
+                function showContactForm(source) {
+                var contactForm = new ContactForm({
+                    postUrl: 'https://auth0-extend.run.webtask.io/contact?source=' + source
+                });
+                contactForm.show();
+                metricsLib.track('click:website:extend:talk-to-sales');
+                }
+
+                function showSupportForm() {
+                var contactForm = new ContactForm({
+                    postUrl: 'https://auth0-extend.run.webtask.io/contact?source=extend_account_support',
+                    modalTitle: 'File a ticket'
+                });
+                contactForm.show();
+                metricsLib.track('click:website:extend:talk-to-sales');
+                }
+
+                $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+    </header>
+
+    {% include popup_notification.html %}
+    
+    <div id="pjax">
+
+      <!-- Facebook -->
+      <div id="fb-root"></div>
+      <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=534074790006350&version=v2.0";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+
+      <!-- Twitter -->
+      <script type="text/javascript">
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+      </script>
+
+      <!-- Twitter Conversion -->
+      <script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
+      {{ content }}
+      {% include footer_extend.html %}
+    </div>
+
+    <script src="{{ site.baseurl }}/push-notification.js" type="text/javascript"></script>
+    <script src="{{ site.baseurl }}/js/vendor/js-cookie.js" type="text/javascript"></script>
+
+    {% if page.is_post_index %}
+      <!-- jekyll-search -->
+      <script src="{{ site.baseurl }}/js/vendor/jekyll-search.js" type="text/javascript"></script>
+      <script src="{{ site.baseurl }}/js/search.js" type="text/javascript"></script>
+      <script src="{{ site.baseurl }}/js/filters-search.js" type="text/javascript"></script>
+      <script type="text/javascript">
+        var searchFilters = new SearchFilters({
+              input: document.getElementById('search-input'),
+              filters: ['author'],
+              json: '{{ site.baseurl }}/filters.json',
+              autoCompleteOptions: {},
+              selectCallback: RenderSearch
+            });
+
+        searchFilters.render();
+
+        SimpleJekyllSearch({
+          searchInput: document.getElementById('search-input'),
+          resultsContainer: document.getElementById('results-container'),
+          json: '{{ site.baseurl }}/search.json',
+          searchResultTemplate: `{% include results_post.html %}`,
+          noResultsText: 'No results found',
+          limit: 20,
+          fuzzy: false,
+          exclude: ['Welcome']
+        })
+      </script>
+      <!-- end jekyll-search-->
+    {% endif %}
+
+    <!--- btn ontact us  --->
+    <script type="text/javascript">
+      var Auth0ContactForm = window.Auth0ContactForm.default;
+      var ContactForm = Auth0ContactForm.ContactForm;
+      var contactFormOptions = {
+        onModalOpen: function () {
+          metricsLib.track('open:talk-to-sales');
+        },
+        onFormSuccess: function (metricsData) {
+          metricsLib.track('register:lead:talk-to-sales-modal', metricsData);
+          metricsLib.track('sent:talk-to-sales', metricsData);
+        },
+        onFormFail: function (metricsData) {
+          metricsLib.track('fail:register:lead:talk-to-sales-modal', metricsData);
+          metricsLib.track('fail-sent:talk-to-sales', metricsData);
+        }
+      };
+      var contactForm = new ContactForm(contactFormOptions);
+
+
+      $('.contact-us').on('click', function() {
+        contactForm.show({includePhoneField: true });
+      });
+
+    </script>
+
+    <script type="text/javascript">
+    try {
+      window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/?application=website'); }});
+      window.abTestingLib.integration('auth0metrics').start({ metrics: window.metricsLib});
+      window.abTestingLib.start().then(enhanceAnalytics);
+
+      window.abTestingLib.onReady(function (ab) {
+        try {
+          window.abLoaded = true;
+          // Save experiments on the global scope
+          window.experiments = ab.getExperiments();
+          executeABExperiments();
+
+        } catch (e) {
+          console.error('Error running AB experiments.');
+          $('#pjax').css('visibility', 'visible');
+          window.abLoaded = true;
+        }
+      });
+
+      function enhanceAnalytics() {
+        var analytics = window.abTestingLib.analytics;
+
+        var originalSetCurrentVariantName = analytics.setCurrentVariantName.bind(analytics);
+        var originalGetCurrentVariantName = analytics.getCurrentVariantName.bind(analytics);
+
+        var enhancedSetCurrentVariantName = function (variantName, value) {
+          setCurrentVariantName(variantName, value);
+          originalSetCurrentVariantName(variantName, value);
+        };
+
+        var enhancedGetCurrentVariantName = function (variantName) {
+          var originalValue = originalGetCurrentVariantName(variantName);
+          var cookieValue = getCurrentVariantName(variantName);
+
+          if (originalValue != cookieValue) {
+            originalSetCurrentVariantName(variantName, cookieValue);
+          }
+
+          return cookieValue;
+        };
+
+        analytics.setCurrentVariantName = enhancedSetCurrentVariantName;
+        analytics.getCurrentVariantName = enhancedGetCurrentVariantName;
+        window.setVariant = enhancedSetCurrentVariantName;
+        window.getVariant = enhancedGetCurrentVariantName;
+      }
+
+      function setCurrentVariantName(variantName, value) {
+        var variants = loadCookieVariants();
+        variants[variantName] = value;
+        saveCookieVariants(variants);
+      }
+
+      function getCurrentVariantName(variantName) {
+        var variants = loadCookieVariants();
+        return variants[variantName];
+      }
+
+      function loadCookieVariants() {
+        return JSON.parse(Cookies.get('ajs_ab.traits') || '{}');
+      }
+
+      function saveCookieVariants(variants) {
+        return Cookies.set('ajs_ab.traits', JSON.stringify(variants), {
+          expires: 365,
+          path: '/'
+        });
+      }
+    } catch (e) {
+      console.error('Error initializing ABTesting lib. ABTesting will be disabled');
+      $('#pjax').css('visibility', 'visible');
+      window.abLoaded = true;
+    }
+    </script>
+    <script type="text/javascript">
+    function executeABExperiments () {
+      var path = window.location.pathname;
+      var experiments = window.experiments;
+
+      if(!window.abLoaded) {
+        return;
+      }
+
+      if(!experiments) {
+        // Restore content
+        $('#pjax').css('visibility', 'visible');
+        return;
+      }
+
+      try {
+        var experimentsForPath = experiments.runAllByPath(path);
+        var winningVariants = [];
+
+        experimentsForPath.experiments.forEach(function (e) {
+          winningVariants = winningVariants.concat(e.getCurrentVariant().getPropertiesByType('js'));
+        });
+
+        var variantContext = {};
+        variantContext.$ = $;
+
+        winningVariants.forEach(function(v) {
+          v.runInContext(variantContext);
+        });
+      } catch (e) {
+        console && console.error("Error running experiments for path:%s", path);
+      } finally {
+        // Restore content
+        $('#pjax').css('visibility', 'visible');
+      }
+    }
+    </script>
+
+    <script type="text/javascript">
+      // ab-watchdog, after 1500ms, show the site content no matter the state
+      // of the experiments
+      setTimeout(function () {
+        $('#pjax').css('visibility', 'visible');
+      }, 400);
+    </script>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/elm.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="{{ site.baseurl }}/js/vendor/nprogress.js"></script>
+    <script src="{{ site.baseurl }}/js/vendor/moment.min.js"></script>
+    <script src="{{ site.baseurl }}/js/vendor/jquery.csbuttons.min.js"></script>
+    <script async src="{{ site.baseurl }}/js/vendor/html2canvas.js"></script>
+    <script src="{{ site.baseurl }}/js/vendor/selection-sharer.min.js"></script>
+    <script src="{{ site.baseurl }}/js/vendor/jquery.sticky-kit.min.js"></script>
+    <script src="{{ site.baseurl }}/js/vendor/jquery.ba-throttle-debounce.min.js"></script>
+    <script type="text/javascript">
+      var getBasicInfo = function () {
+        return {
+          path: window.location.pathname,
+          url: window.location.toString(),
+          title: document.title,
+          referrer: document.referrer,
+          category: 'Lock',
+          label: 'blog'
+        }
+      };
+
+      var getBlogImage = function(getDOM) {
+          var img = $('.banner .entry-thumbnail img').first();
+
+          if(img.length) {
+              convertToDataURLviaCanvas(img.attr('src'), function(dataURL) {
+                img.replaceWith('<img src="' + dataURL + '">');
+              });
+          }
+
+          setTimeout(function() {
+            var banner = $('.banner');
+            var dom = $('.banner .entry-thumbnail');
+
+            if(getDOM === 'banner') {
+              dom = banner;
+            } else {
+              banner.addClass('export-icon');
+            }
+
+            banner.addClass('export');
+
+            html2canvas(dom.get(0), {
+              onrendered: function(canvas) {
+                var img = canvas.toDataURL("image/png");
+
+                banner.removeClass('export');
+
+                window.location = img;
+              }
+            });
+          }, 20);
+
+          function convertToDataURLviaCanvas(url, callback, outputFormat){
+            var img = new Image();
+
+            img.crossOrigin = 'Anonymous';
+
+            img.onload = function(){
+                var canvas = document.createElement('CANVAS');
+                var ctx = canvas.getContext('2d');
+                var dataURL;
+
+                canvas.height = this.height;
+                canvas.width = this.width;
+                ctx.drawImage(this, 0, 0);
+                dataURL = canvas.toDataURL(outputFormat);
+                callback(dataURL);
+                canvas = null;
+            };
+
+            img.src = url;
+          }
+      };
+
+      var getBlogBanner = function() {
+          getBlogImage('banner');
+      };
+
+      $(function() {
+
+
+        function stickyElements() {
+
+          function stickElement($elem, options) {
+            $elem.stick_in_parent(Object.assign({},{
+              offset_top: parseInt($elem.attr("data-sticky-padding")) || 0
+            }, options ));
+          }
+
+          stickElement($('.sidebar-column'));
+          stickElement($('.utility-bar'));
+          stickElement($('.blog-navigation'), {parent: "body"});
+        }
+
+        function initBlogSubscriber() {
+          if(localStorage.isBlogSubscriber !== true) {
+            $('form.newsletter-subscriber').removeClass('hide');
+          }
+
+          function closeSticky($module, animation) {
+            $module.addClass('animated ' + animation );
+            $module.on('animationend webkitAnimationEnd oAnimationEnd', function () {
+              $module.remove()
+              $(document.body).trigger("sticky_kit:recalc");
+            });
+          }
+
+          $('form.newsletter-subscriber').on('click', '[data-close]', function() {
+            var $module = $(this).closest('form');
+
+            closeSticky($module, 'fadeOutUp');
+          });
+
+          $('.guest-author-widget').on('click', '[data-close]', function() {
+            var $module = $(this).closest('section');
+            closeSticky($module, 'fadeOutRight');
+          });
+
+          $('form.newsletter-subscriber').on('submit', function(e) {
+            var $module = $(this);
+            var o_content = $module.html();
+            var value = $module.find('input').val();
+
+            e.preventDefault();
+
+            if(isValidEmail(value)) {
+              onValid();
+            } else {
+              alert('Please enter a valid email');
+            }
+
+            function isValidEmail(val) {
+              if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(val)) {
+                return true;
+              }
+
+              return false;
+            }
+
+            function onValid() {
+              $module.find('.fields').html('<p class="loading">Sending...</p>');
+
+              $.ajax({
+                type: "POST",
+                url: 'https://webtask.it.auth0.com/api/run/wt-martin-gon_to-0/auth0-blog-user?webtask_no_cache=1',
+                data: {
+                  email: value
+                },
+                success: onSuccess,
+                error: onFail
+              });
+            }
+
+            function onFail(response) {
+              $module.find('.fields').html('<p class="subscription-failed">There’s a problem subscribing to the list right now. Please try again later or <a href="https://support.auth0.com">contact support</a>.</p>');
+            }
+
+            function onSuccess(response) {
+              localStorage.setItem('isBlogSubscriber', true);
+
+              var blogRegData = getBasicInfo();
+              blogRegData.trackData = value;
+              blogRegData.email = value;
+              blogRegData.formId = '1052';
+              blogRegData.lpId = '1117';
+              blogRegData.Blog_Subs__c = true;
+              metricsLib.track('register:lead:blog-newsletter', blogRegData);
+
+              $module.find('.title').text('Thanks for subscribing');
+              $module.find('.fields').html('<p>You’ll be getting lots of awesome content!</p>');
+
+            }
+          });
+        }
+
+        function initialize() {
+          initBlogSubscriber();
+
+          $('pre code').each(function(i, block) {
+             hljs.highlightBlock(block);
+          });
+
+          $('.post-info time').each(function() {
+            var $current = $(this);
+            var dateString = new Date($current.text());
+            var diff = moment(dateString).diff(moment(new Date()), 'days');
+            var dateFormat;
+
+            dateFormat = moment(dateString).fromNow();
+
+            if(diff > -10) {
+              $current.text(dateFormat);
+            }
+
+            if (diff === 0) {
+              $current.text('Today');
+            }
+
+            $current.addClass('rendered');
+          });
+
+          // Social Buttons
+          $('.social-stats .network').cSButtons();
+
+          // Force content links to _blank if not explicitly set to _self
+          $('.entry-content a').each(function() {
+            var _$this = $(this);
+            var _target = _$this.attr('target');
+
+            if (_target !== '_self') {
+             _$this.attr('target', '_blank');
+            }
+          });
+
+          // Handle scroll pos
+          if($(window).data('navScroll')) {
+            $(window).scrollTop($(window).data('navScroll'));
+
+            $(window).data('navScroll', 0);
+          } else {
+            $(window).scrollTop(0);
+          }
+
+          stickyElements();
+        }
+
+        function setEvents() {
+          hljs.configure({
+            tabReplace: '  ', // 4 spaces
+            classPrefix: ''
+          });
+
+          NProgress.configure({ showSpinner: false, trickleSpeed: 600 });
+
+          metricsLib.page();
+
+          $('p').selectionSharer();
+
+          var selectionSharerFacebook = $('#selectionSharerPopover-inner .action.facebook')[0];
+          $(selectionSharerFacebook).on('click', function() {
+            metricsLib.track('blog:share:custom:facebook');
+          });
+
+          var selectionSharerTwitter = $('#selectionSharerPopover-inner .action.tweet')[0];
+          $(selectionSharerTwitter).on('click', function() {
+            metricsLib.track('blog:share:custom:twitter');
+          });
+
+          var selectionSharerEmail = $('#selectionSharerPopover-inner .action.email')[0];
+          $(selectionSharerEmail).on('click', function() {
+            metricsLib.track('blog:share:custom:email');
+          });
+
+          $(window).on('load', function() {
+            $(document.body).trigger("sticky_kit:recalc");
+          });
+
+
+          $('body').on('click', '.blog-navigation a', function() {
+            var tabs = $('.blog-navigation li');
+            var activeTab = $(this).parent();
+
+            $(window).data('navScroll', $(window).scrollTop());
+
+            tabs.removeClass('active');
+            activeTab.addClass('active');
+          });
+
+          initialize();
+        }
+
+        setEvents();
+      });
+    </script>
+
+
+
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'auth0blog'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <script>
+      (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:301495,hjsv:5};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1;
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+      })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+</body>
+</html>
