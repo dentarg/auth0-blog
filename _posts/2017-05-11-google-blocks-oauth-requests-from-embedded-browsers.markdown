@@ -26,7 +26,7 @@ In November, 2016, Google added a notification to their iOS consent page to crea
 
 As of April 20, 2017, Google has blocked OAuth authorization requests via web views. Unfortunately, a lot of developers have not migrated their current apps away from using embedded browsers to make such requests. Therefore, users trying to use their Google accounts to sign in to third party apps that still make use of web views for OAuth logins constantly get the dreaded **403 disallowed_useragent** error like the one below:
 
-![403 error](https://cdn.auth0.com/blog/403/403error.jpeg)
+<img src="https://cdn.auth0.com/blog/googleoauth/403error.png" width=400 height=400 />
 
 ---
 
