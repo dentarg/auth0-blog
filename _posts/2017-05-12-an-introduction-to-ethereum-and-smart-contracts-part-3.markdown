@@ -216,7 +216,8 @@ Open the app and input your email address. Now choose an unlock pattern. You wil
 
 The mobile app is now set, let's enable your Ethereum account for logins.
 
-TODO: VIDEO
+<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Mobile-Register.mp4">
+</video>
 
 ### Enable Your Ethereum Address for Logins
 This step, like the previous ones, is only performed once. This sets up the mapping between your primary address and the login address. In other words, it connects your Metamask account to the mobile app in your smartphone.
@@ -235,7 +236,8 @@ In case you are already experienced with Ethereum you may want to perform this s
 
 After this is done everything is set!
 
-TODO: VIDEO
+<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Wallet-Register.mp4">
+</video>
 
 ### Login to Our Test Site
 You may now login to any third party site that supports this authentication method using either your email address or your primary Ethereum address as a credential. Go to [our sample website](https://auth0-ethereum.com/authzero), put your email address and click `Login`. Watch your smartphone for notifications to approve your login.
