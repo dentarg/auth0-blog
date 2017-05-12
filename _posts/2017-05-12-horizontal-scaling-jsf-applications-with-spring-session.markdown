@@ -52,9 +52,9 @@ Spring Session is a module of the Spring Framework that aims on providing a comm
 
 ## Scaling JSF with Spring Session
 
-To see Spring Session in action, we are going to run two dockerized instances of a specific JSF application—i.e. we are going to use [Docker](https://www.docker.com/) to host our application instances. Each dockerized instance will run on a different port: instance number one will run on port 8081; and instance number two will run on port 8082.
+To see Spring Session in action, we are going to run two dockerized instances of a specific JSF application—i.e. we are going to use [Docker](https://www.docker.com/) to host our application instances. Each dockerized instance will run on a different port: instance *number one* will run on port `8081`; and instance *number two* will run on port `8082`.
 
-The JSF application in this repository is not configured with Spring Session. After building the application and running it on Docker, we are going to make the adjustments needed to tie these two instances with Spring Session. To seamlessly integrate these instances together, making them look as a single application, we are going to use a dockerized NGINX instance configured as a load balancer.
+The JSF application in this repository is not configured with Spring Session. After building the application and running it on Docker, we are going to make the adjustments needed to tie these two instances together with Spring Session. To seamlessly integrate these instances, making them look as a single application, we are going to use a dockerized NGINX instance configured as a load balancer.
 
 To summarize, we are going to:
 
@@ -68,15 +68,15 @@ To summarize, we are going to:
 
 ## JSF Application
 
-To start, let's [clone this repository](https://github.com/auth0-blog/spring-boot-session). The JSF application inside this repository contains only a data table that lists products and that accepts drag & drop commands to reorder the items on it.
+To start, let's [clone this repository](https://github.com/auth0-blog/spring-boot-session). The JSF application inside this repository contains only a data table that lists products and that accepts drag & drop commands to reorder the items.
 
-The list of products is instantiated in memory when a user access the application for the first time. When this user drags & drop an item, the new order is kept for the whole duration of the session. Different users can have different orders, as the reordering occurs inside an HTTP session. But, for the same user, no matter how many tabs of the application are opened on a web browser, the order will be the same.
+The list of products is instantiated in memory when a user access the application for the first time. When this user drags & drop an item, the new order is kept for the whole duration of the session. Different users can have different orders, as the reordering occurs inside an HTTP session. But, for the same user, no matter how many tabs of the application are opened on a web browser, the order will be always the same.
 
-Every time a user reorders the data table, JSF shows a message distinguishing which instance of the application handled the request. Before using Spring Session and tying the two instances together, this message won't have that much value. But when we have every piece in place, we will be able to see that different instances will act in the same HTTP session.
+Every time a user reorders the data table, JSF shows a message distinguishing which instance of the application handled the request. Before using Spring Session and tying the two instances together, this message won't have that much value. But, when we have every piece in place, we will be able to see that different instances will act in the same HTTP session.
 
 Enough talking, let's get our hands dirty. To clone the application and to run it in two different dockerized instances, let's issue the following commands:
 
-> **Note** that you will have to have Docker properly installed on your development environment. To install it, [follow the instructions here](https://docs.docker.com/engine/installation/). Besides that you will need a [JDK (1.7 or higher)](http://www.oracle.com/technetwork/java/javase/downloads/index.html) and [Maven](https://maven.apache.org/install.html). Please, be sure to have everything properly installed before proceeding.
+> **Note** that you will have to have Docker properly installed in your development environment. To install it, [follow the instructions here](https://docs.docker.com/engine/installation/). Besides that you will need a [JDK (1.7 or higher)](http://www.oracle.com/technetwork/java/javase/downloads/index.html) and [Maven](https://maven.apache.org/install.html). Please, be sure to have everything properly installed before proceeding.
 
 ```bash
 # clone repo
@@ -89,11 +89,11 @@ cd spring-boot-session
 mvn clean package
 ```
 
-After issuing the three commands above, we will have our JSF application ready to run. You might want to run it in your own machine before dockerizing it. The step is not needed, but it is good to see the application before putting it inside a Docker instance. To do that issue `java -jar target/spring-session-0.1-SNAPSHOT.jar` and open `http://localhost:8080/index.jsf` in your web browser. Note that if you do run the application now and try to reorder the data table, you will see a message saying *Request handled by: default title*. When we dockerize this application, we will give different titles to both instances.
+After issuing the three commands above, we will have our JSF application ready to run. You might want to run it in your own machine before dockerizing it. This step is not needed, but it is good to see the application before putting it inside a Docker instance. To do that issue `java -jar target/spring-session-0.1-SNAPSHOT.jar` and open `http://localhost:8080/index.jsf` in your web browser. Note that if you do run the application now and try to reorder the data table, you will see a message saying *Request handled by: default title*. When we dockerize this application, we will give different titles to both instances.
 
 ## Dockerizing the JSF Application
 
-Now that we have our application compiled and packaged, we can proceed with the dockerizing step. The process of dockerizing a [Spring Boot](https://projects.spring.io/spring-boot/) application (the JSF application in this repo is based on Spring Boot) is quite simple. We just need to generate a Docker image with a JDK, add the packaged application to this image and then run it. You will find the `Dockerfile` with all commands in the root directory of our application, but I show its contents below as well:
+Now that we have our application compiled and packaged, we can proceed with the dockerizing step. The process of dockerizing a [Spring Boot](https://projects.spring.io/spring-boot/) application (the JSF application in this repo is based on Spring Boot) is quite simple. We just need to generate a Docker image with a JDK, add the packaged application to this image and then run it. You will find the `Dockerfile` with all these commands in the root directory of our application, but I show its contents below as well:
 
 ```dockerfile
 FROM frolvlad/alpine-oraclejdk8:slim
@@ -118,9 +118,9 @@ docker run -d -p 8081:8080 --name without-spring-session-1 -e "APPLICATION_TITLE
 docker run -d -p 8082:8080 --name without-spring-session-2 -e "APPLICATION_TITLE=Second instance" without-spring-session
 ```
 
-The first command builds the image naming it as `without-spring-session` to easily identify it. After that we run two instances of this image. We define that the first instance being run will have its port `8080` tied to port `8081` in our development machine. And the second instance will have port `8080` tied to port `8082`. Note that we also define distinct values to the environment variable named `APPLICATION_TITLE`. This is the title that the JSF application shows in the *Request handled by* message when reordering the data table.
+The first command builds the image naming it as `without-spring-session` to easily identify that it is an image with no Spring Session configured. After that we run two instances of this image. We define that the first instance being run will have its port `8080` tied to port `8081` in our development machine. And the second instance will have port `8080` tied to port `8082`. Note that we also define distinct values to the environment variable named `APPLICATION_TITLE`. This is the title that the JSF application shows in the *Request handled by* message when reordering the data table.
 
-By opening `http://localhost:8081/index.jsf` on a tab of our web browser and `http://localhost:8082/index.jsf` in another tab, we can see that we have two distinct applications running apart. They do not share a common state (i.e. HTTP sessions). This means that if we reorder the data table on instance *number one*, nothing will happen with instance *number two*. We can refresh the page on both tabs and check that instance *number one* will show the data table reordered, while instance *number two* will have the data table unaltered.
+By opening `http://localhost:8081/index.jsf` on a tab of our web browser and `http://localhost:8082/index.jsf` on another tab, we can see that we have two distinct applications running apart. They do not share a common state (i.e. an HTTP session). This means that if we reorder the data table on instance *number one*, nothing will happen with instance *number two*. We can refresh the page an check that the second tab will have the data table unaltered.
 
 ## Integrating Spring Boot with Spring Session
 
@@ -156,7 +156,7 @@ public class Application {
 }
 ```
 
-Since HTTP session will be handled by an external session store (Redis), we will need to add the `Serializable` interface to everything that gets added to users' sessions— this interface tell the JVM that the classes that use it are subject to serialization over the network, to disk, etc. In this case, we have to update only the `Product` class.
+Since HTTP session will be handled by an external session store (Redis), we will need to add the `Serializable` interface to everything that gets added to users' sessions— this interface tells the JVM that the classes that use it are subject to serialization over the network, to disk, etc. In this case, we have to update only the `Product` class.
 
 ```java
 //...
@@ -167,7 +167,7 @@ public class Product implements Serializable {
 }
 ```
 
-Last step is to configure the Spring Session connection to Redis. This is done by add the following properties to the `application.properties` file:
+Last step is to configure the Spring Session connection to Redis. This is done by adding the following properties to the `application.properties` file:
 
 ```bash
 # ... other properties
@@ -188,7 +188,7 @@ ENV REDIS_PASSWORD secret
 CMD ["sh", "-c", "exec redis-server --requirepass \"$REDIS_PASSWORD\""]
 ```
 
-The file above starts by defining the [oficial Redis image](https://hub.docker.com/_/redis/) as the base for our image, and then define `secret` as the password for connecting to Redis. To build and run this image, we can issue the following commands:
+The file above starts by defining the [oficial Redis image](https://hub.docker.com/_/redis/) as the base for our own image, and then define `secret` as the password for connecting to Redis. To build and run this image, we can issue the following commands:
 
 ```bash
 # create redis image
@@ -199,6 +199,8 @@ docker run -p 6379:6379 -d --name spring-session-redis spring-session-redis
 ```
 
 Redis is now available to the Spring Session module that we've just configured in our JSF application. Therefore, we are ready to rebuild our JSF application, build the new Docker image (now with Spring Session), and then run both instances based on this new image.
+
+> **Note** that the first command below removes the two instances created before. This is needed to release ports `8081` and `8082` on our development machine.
 
 ```bash
 # remove previous instances
@@ -216,7 +218,7 @@ docker run -d -p 8081:8080 --name spring-session-1 -e "APPLICATION_TITLE=First i
 docker run -d -p 8082:8080 --name spring-session-2 -e "APPLICATION_TITLE=Second instance" spring-session
 ```
 
-After executing these commands, we will have The last step that we will need to perform to tie everything together is to create an NGINX instance that behaves as a load balancer.
+After executing these commands, the last step that we will need to perform to tie everything together is to create an NGINX instance that behaves as a load balancer.
 
 ## Load Balancing with NGINX
 
@@ -232,8 +234,8 @@ The `nginx.conf` file, configures NGINX to act as a load balancer that uses the 
 
 ```bash
 upstream my-app {
-    server 172.17.0.1:8081;
-    server 172.17.0.1:8082;
+    server 172.17.0.1:8081 weight=1;
+    server 172.17.0.1:8082 weight=1;
 }
 
 server {
