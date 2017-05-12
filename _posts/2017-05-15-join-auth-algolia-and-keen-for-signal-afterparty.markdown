@@ -55,6 +55,6 @@ For more information visit [https://www.algolia.com](https://www.algolia.com) or
 
 ### About Keen IO
 
-Add Description
+Over 60,000 developers use Keen IO APIs to capture, analyze, and embed event data into their tools and products. Thousands of customers rely on Keen’s event data platform to white label data applications in media, e-commerce, adTech, gaming, IoT and retail. Keen’s customers query trillions of data points daily. Keen IO also values and promotes empathy, introspection, distributed innovation, continuous learning, playing to your strengths, and patching your weaknesses with diverse collaborators.
 
 For more information visit [https://keen.io](https://keen.io) or follow [@keen_io](https://twitter.com/keen_io) on Twitter.
