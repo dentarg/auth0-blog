@@ -8,10 +8,10 @@ design:
   bg_color: "#484C89"
   image: https://cdn2.auth0.com/blog/ultimateguide.png
 author:
-  name: 
-  url:
-  mail: 
-  avatar:
+  name: Esteban Herrera
+  url: https://twitter.com/eh3rrera
+  mail: estebanhb2@gmail.com
+  avatar: https://pbs.twimg.com/profile_images/849824221618253824/di6-Pbxw.jpg
 tags:
 - pusher
 - auth0
