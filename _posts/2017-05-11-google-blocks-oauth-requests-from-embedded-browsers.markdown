@@ -13,11 +13,11 @@ design:
   bg_color: "#1564C0"
   image: "https://cdn2.auth0.com/blog/phishing/attacklogo.png"
 tags:
-- Security
-- Identity
+- security
+- identity
 - OAuth
-- Authorization
-- Guide
+- authorization
+- guide
 ---
 
 Last year, Google warned that starting from **April 20, 2017**, it will no longer allow OAuth requests to Google via embedded browsers otherwise known as web views. Before now, developers could successfully use webviews such as the WebView UI element in Android, UIWebView/WKWebView in iOS, and the equivalents on Windows and OS X to make OAuth requests to Google.
