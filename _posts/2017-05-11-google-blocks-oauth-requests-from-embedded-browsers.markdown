@@ -47,5 +47,5 @@ Windows developers can check the [OAuth for Apps: Windows Samples](https://githu
 
 ## Conclusion
 
-Switching away from embedded browsers might be a bit of work, but it provides a large user benefit. This should increase the conversion rate of your sign-in flow because users who are already signed-in to Google will be able to sign in to your app via the tap of a single button. Furthermore, users who are not signed-in will have to sign-in to Google for the first app they use, but then won't have to again for subsequent apps.
+Switching away from embedded browsers might be a bit of work, but it provides a large user benefit. This should increase the conversion rate of your sign-in flow because users who are already signed-in to Google will be able to sign in to your app via the tap of a single button. Furthermore, users will experience a smooth login experience, as those that are not signed-in will have to sign-in to Google for the first app they use, but then won't have to again for subsequent apps.
 
