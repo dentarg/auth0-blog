@@ -64,7 +64,7 @@ is_post: true
             DISQUS.reset({
               reload: true,
               config: function () {
-                this.page.url = location.href;
+                this.page.url = location.href.split('?')[0];
 
                 this.callbacks.afterRender = [function() {
                     // your code here
