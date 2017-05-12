@@ -188,7 +188,7 @@ ENV REDIS_PASSWORD secret
 CMD ["sh", "-c", "exec redis-server --requirepass \"$REDIS_PASSWORD\""]
 ```
 
-The file above starts by defining the [oficial Redis image](https://hub.docker.com/_/redis/) as the base for our own image, and then define `secret` as the password for connecting to Redis. To build and run this image, we can issue the following commands:
+The file above starts by defining the [official Redis image](https://hub.docker.com/_/redis/) as the base for our own image, and then define `secret` as the password for connecting to Redis. To build and run this image, we can issue the following commands:
 
 ```bash
 # create redis image
@@ -222,7 +222,7 @@ After executing these commands, the last step that we will need to perform to ti
 
 ## Load Balancing with NGINX
 
-To load balance requests between the two instances we will use the `Dockerfile` and the `nginx.conf` file that exist in the `./nginx` folder of the repository. The `Dockerfile` (contents below), simply enables the creation of an image based in the oficial NGINX image with a configuration defined in the `nginx.confg` file.
+To load balance requests between the two instances we will use the `Dockerfile` and the `nginx.conf` file that exist in the `./nginx` folder of the repository. The `Dockerfile` (contents below), simply enables the creation of an image based in the [official NGINX image](https://hub.docker.com/_/nginx/) with a configuration defined in the `nginx.conf` file.
 
 ```bash
 FROM nginx
@@ -230,7 +230,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 ```
 
-The `nginx.conf` file, configures NGINX to act as a load balancer that uses the round-robin algorithm to distribute HTTP requests between instances. As we can see through the contents below, this file defines an `upstream` that contains both instances, and then defines that any request should be redirected by one of these instances. By not explicitly defining any strategy in the `upstream` property, NGINX uses the default one (round-robin).
+The `nginx.conf` file configures NGINX to act as a load balancer that uses the round-robin algorithm to distribute HTTP requests between instances. As we can see through the contents below, this file defines an `upstream` that contains both instances, and then defines that any request should be redirected to one of these instances. By not explicitly defining any strategy in the `upstream` property, NGINX uses the default one (round-robin).
 
 ```bash
 upstream my-app {
@@ -255,8 +255,16 @@ docker build -t spring-session-nginx nginx
 docker run -p 8080:80 -d --name spring-session-nginx spring-session-nginx
 ```
 
-And Voila! We got our JSF application horizontally scaled with Spring Session handling HTTP sessions with the help of Redis. Now, whenever we issue an HTTP request to `http://localhost:8080`, we may get an answer from one instance or another. Just load this URL in your browser and reorder the data table a few times. You will see that sometimes one instance of our application will respond to the reordering event, sometimes the other instance will.
+And Voila! We got our JSF application horizontally scaled with Spring Session handling HTTP sessions with the help of Redis. Now, whenever we issue an HTTP request to `http://localhost:8080`, we may get an answer from one instance or another. Just load this URL in your web browser and reorder the data table a few times. You will see that sometimes one instance of our application will respond to the reordering event, sometimes the other instance will.
+
+## Aside: Securing Spring Boot Applications with Auth0
+
+One of the most complex features to implement in an application is user authentication and identity management. [Security for authentication and identity](https://auth0.com/docs/security) is [an entire glossary](https://auth0.com/identity-glossary) unto itself.
+
+![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
+
+If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/learn/cloud-identity-access-management/) system quickly and easily for your Spring Boot application, Auth0 can help. Take a look at [Securing Spring Boot with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/) to properly secure your application.
 
 ## Conclusion
 
-Using Spring Session to handle HTTP sessions is an easy task. Spring Boot makes it even easier, requiring just a few small steps to configure everything in an application. The problem is that this kind of architecture is not frequently used and that there are few resources that teach us how to integrate all the moving pieces together. I hope that by making this article available, Java developers that use Spring and mainly those that use JSF (which heavily depends on HTTP session) will be able to scale their application without struggling so much.
+Using Spring Session to handle HTTP sessions is an easy task. Spring Boot makes it even easier, requiring just a few small steps to configure everything in an application. The problem is that this kind of architecture is not frequently used and that there are few resources that teach us how to integrate all the moving pieces together. I hope that, by making this article available, Java developers that use Spring and mainly those that use JSF (which heavily depends on HTTP session) will be able to scale their application without struggling so much.
