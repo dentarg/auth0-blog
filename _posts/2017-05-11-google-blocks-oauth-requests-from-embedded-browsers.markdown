@@ -45,6 +45,14 @@ Windows developers can check the [OAuth for Apps: Windows Samples](https://githu
 * [OAuthDesktopApp](https://github.com/googlesamples/oauth-apps-for-windows/blob/master/OAuthDesktopApp/README.md) - Traditional desktop app sample, **WPF(Windows Presentation Foundation)**.
 * [OAuthConsoleApp](https://github.com/googlesamples/oauth-apps-for-windows/blob/master/OAuthConsoleApp/README.md) - Console application sample.
 
+## Aside: Using Auth0
+
+One of the most complex features to implement in an application is user authentication and identity management. Auth0 ships by default with the ability to use device browsers (and not embedded browsers) for Google Sign-in and OAuth with Google accounts. As a developer, using companies like Auth0 to implement this functionality saves you a lot of headache. You won't have to care about changes in the implementation, as Auth0 will take care of them.
+
+![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
+
+Check out how to us Auth0 Lock for [Web](https://auth0.com/docs/libraries/lock/v10), [iOS](https://auth0.com/docs/libraries/lock-ios/v2), and [Android](https://auth0.com/docs/libraries/lock-android). Also check out our [quickstarts](https://auth0.com/docs/quickstart/).  
+
 ## Conclusion
 
 Switching away from embedded browsers might be a bit of work, but it provides a large user benefit. This should increase the conversion rate of your sign-in flow because users who are already signed into Google will be able to sign into your app via the tap of a single button. Furthermore, users will experience a smooth login experience, as those that are not signed in will have to sign into Google for the first app they use, but then won't have to sign in again for subsequent apps.
