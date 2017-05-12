@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Horizontal Scaling JSF Applications with Spring Session"
-description: "JSF heavily depends on HTTP sessions, which is usually easier to scale vertically. Today we will see how we scale JSF horizontally with Spring Session."
+description: "JSF heavily depends on HTTP sessions, which is usually easier to scale vertically. Today we will see how to scale JSF horizontally with Spring Session."
 date: 2017-05-09 08:00
 category: Technical Guide, Java, Spring Boot
 author:
@@ -54,7 +54,7 @@ Spring Session is a module of the Spring Framework that aims on providing a comm
 
 To see Spring Session in action, we are going to run two dockerized instances of a specific JSF application—i.e. we are going to use [Docker](https://www.docker.com/) to host our application instances. Each dockerized instance will run on a different port: instance *number one* will run on port `8081`; and instance *number two* will run on port `8082`.
 
-The JSF application in this repository is not configured with Spring Session. After building the application and running it on Docker, we are going to make the adjustments needed to tie these two instances together with Spring Session. To seamlessly integrate these instances, making them look as a single application, we are going to use a dockerized NGINX instance configured as a load balancer.
+The JSF application in this repository is not configured with Spring Session. After building the application and running it on Docker, we are going to make the adjustments needed to tie these two instances together with Spring Session. To seamlessly integrate these instances, making them look like a single application, we are going to use a dockerized NGINX instance configured as a load balancer.
 
 To summarize, we are going to:
 
@@ -70,7 +70,7 @@ To summarize, we are going to:
 
 To start, let's [clone this repository](https://github.com/auth0-blog/spring-boot-session). The JSF application inside this repository contains only a data table that lists products and that accepts drag & drop commands to reorder the items.
 
-The list of products is instantiated in memory when a user access the application for the first time. When this user drags & drop an item, the new order is kept for the whole duration of the session. Different users can have different orders, as the reordering occurs inside an HTTP session. But, for the same user, no matter how many tabs of the application are opened on a web browser, the order will be always the same.
+The list of products is instantiated in memory when a user access the application for the first time. When the user drags & drop an item, the new order is kept for the whole duration of the session. Different users can have different orders, as the reordering occurs inside an HTTP session. But, for the same user, no matter how many tabs of the application are opened on a web browser, the order will be always the same.
 
 Every time a user reorders the data table, JSF shows a message distinguishing which instance of the application handled the request. Before using Spring Session and tying the two instances together, this message won't have that much value. But, when we have every piece in place, we will be able to see that different instances will act in the same HTTP session.
 
