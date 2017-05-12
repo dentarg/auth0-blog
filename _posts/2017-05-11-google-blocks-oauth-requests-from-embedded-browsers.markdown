@@ -10,8 +10,8 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#1564C0"
-  image: "https://cdn2.auth0.com/blog/phishing/attacklogo.png"
+  bg_color: "#4A4A4A"
+  image: "https://cdn.auth0.com/blog/googleoauth/logo.png"
 tags:
 - security
 - identity
@@ -24,7 +24,7 @@ Last year, Google warned that starting from **April 20, 2017**, it will no longe
 
 On November, 2016, Google added a notification to their iOS consent page to create awareness amongst developers of the forthcoming deprecation. Earlier this year, **March 2017**, Google added the same notification on the Android consent page.
 
-As of today, Google has blocked OAuth Authorization requests via web views. Unfortunately, a lot of developers have not migrated their current apps away from using embedded browsers to make such requests. So, users trying to use their Google accounts to sign in to third party apps that still makes use of web views for OAuth logins constantly get the dreaded **403 disallowed_useragent** error like the one below:
+As of today, Google has blocked OAuth authorization requests via web views. Unfortunately, a lot of developers have not migrated their current apps away from using embedded browsers to make such requests. So, users trying to use their Google accounts to sign in to third party apps that still makes use of web views for OAuth logins constantly get the dreaded **403 disallowed_useragent** error like the one below:
 
 ![403 error](https://cdn.auth0.com/blog/googleoauth/403error.png)
 _403 error while trying to login via Google_
