@@ -33,11 +33,11 @@ The happy hour will be a great opportunity to meet and network with fellow atten
 
 **What**: Auth0, Algolia, and Keen IO Happy Hour
 
-**Where**: Savoy Tivoli, 1434 Grant Ave, San Francisco, CA 94133
+**Where**: Rogue Ales Public House, 673 Union Street, San Francisco, CA 94133
 
-**When**: May 24, 2017 at 6:00pm
+**When**: May 24, 2017 at 6:00pm - 9:00pm
 
-**How**: [RSVP]() to reserve your spot as space is limited
+**How**: [RSVP](https://www.eventbrite.com/e/rogue-ales-happy-hour-by-algolia-auth0-and-keen-io-tickets-34586663642) to reserve your spot as space is limited
 
 We can't wait to see you there!
 
@@ -49,7 +49,7 @@ For more information visit [https://auth0.com](https://auth0.com) or follow [@au
 
 ### About Algolia
 
-Add Description
+Algolia helps developers connect their users with what matters most. Our hosted search API powers billions of queries for thousands of websites & mobile applications every month, delivering relevant results in an as-you-type search experience in under 100ms anywhere in the world. Algolia's full-stack solution takes the pain out of building search; we maintain the infrastructure & the engine, and we provide extensive documentations to our dozens of up-to-date API clients and SDKs with all the latest search features, so you can focus on delighting your users.
 
 For more information visit [https://www.algolia.com](https://www.algolia.com) or follow [@algolia](https://twitter.com/algolia) on Twitter.
 
