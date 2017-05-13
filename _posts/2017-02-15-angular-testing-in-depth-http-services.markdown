@@ -12,7 +12,7 @@ author:
   mail: "soos.gabor86@gmail.com"
   avatar: "https://secure.gravatar.com/avatar/9d2e715baab928f5bedb837bfcb70b2b"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
+  image: https://github.com/blacksonic/articles/raw/master/img/angular-logo-small.png
   image_size: "75%"
   image_bg_color: "rgb(1, 70, 166)"
   bg_color: "rgb(1, 70, 166)"
@@ -26,7 +26,7 @@ tags:
 related:
 - angular-2-ngmodules
 - angular-2-testing-in-depth-services
-- angular-2-authentication
+- angular-testing-in-depth-components
 ---
 
 <div class="alert alert-info alert-icon">
@@ -48,7 +48,7 @@ if you are not familiar with the concepts.
 
 - [Services](https://auth0.com/blog/angular-2-testing-in-depth-services/)
 - HTTP Services (this article)
-- Components
+- [Components](https://auth0.com/blog/angular-testing-in-depth-components/)
 - Pipes
 - Routing
 
