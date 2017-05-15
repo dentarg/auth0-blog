@@ -37,7 +37,7 @@ As always, get the sample code from our [GitHub repo](https://github.com/auth0-b
 
 {% include tweet_quote.html quote_text="Serverless platforms allow developers to build apps without worrying about infrastructure." %}
 
-Function-as-a-Service or serverless platforms are gaining traction because they allow developers to build applications without focusing on infrastructure. Check out our ["What is serverless"](https://auth0.com/blog/2016/06/09/what-is-serverless/) post to learn more what serverless is and how it can benefit you. In this post we will focus on writing a serverless application.
+Function-as-a-Service or serverless platforms are gaining traction because they allow developers to build applications without focusing on infrastructure. Check out our ["What is serverless"](https://auth0.com/blog/2016/06/09/what-is-serverless/) post to learn more what serverless is and how it can benefit you and [this article](http://www.iheavy.com/2017/04/15/top-amazon-lambda-questions-hiring-serverless-expert-interview/) by devops & data expert Sean Hull about the top Lambda questions for hiring a serverless expert. In this post we will focus on writing a serverless application.
 
 ## Serverless Stories Revisited
 
