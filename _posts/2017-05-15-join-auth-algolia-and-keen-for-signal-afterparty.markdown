@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Join Auth0, Algolia, and Keen IO for Happy Hour at Signal 2017"
-description: ""
+description: "Network, catch up on all the big announcements, and grab some swag at Rouge Ales Pub House. The happy hour hosted by Auth0, Algolia, and Keen IO is happening right after the talks end on May 24, 2017."
 date: 2017-05-15 08:30
 category: Announcement
 is_non-tech: true
@@ -25,7 +25,7 @@ related:
 press_release: false
 ---
 
-[Signal.2017]() is less than two weeks away and we can't wait to see what Twilio and the numerous vendors attending will have to show. The two-day conference kicks off May 24 and will be held at Pier 27 in San Francisco, California. After a long day of invigorating sessions including: [IFTTT: Building applications for the future](https://www.twilio.com/signal/schedule/7sIpsjOkTewgygqY86Sc0Y/ifttt-building-applications-for-the-future) by [Linden Tibbets](https://twitter.com/@ltibbets), [Congress on Speed Dial: Advocacy in the age of Twilio](https://www.twilio.com/signal/schedule/6LbXCBBhtYuKCSciyS8WA/congress-on-speed-dial) by [Ian Webster](https://twitter.com/@iwebst), and [What Can You Do With Twilio Voice?](https://www.twilio.com/signal/schedule/4r1gBAICZOAQGEAAascQSi/what-can-you-do-with-twilio-part-2) by [Manav Khurana](https://twitter.com/@manavkhurana), join Auth0, Algolia, and Keen IO as we host a special happy hour for Signal.2017 attendees.
+[Signal.2017](https://www.twilio.com/signal) is less than two weeks away and we can't wait to see what Twilio and the numerous vendors attending will have to show. The two-day conference kicks off May 24 and will be held at Pier 27 in San Francisco, California. After a long day of invigorating sessions including: [IFTTT: Building applications for the future](https://www.twilio.com/signal/schedule/7sIpsjOkTewgygqY86Sc0Y/ifttt-building-applications-for-the-future) by [Linden Tibbets](https://twitter.com/@ltibbets), [Congress on Speed Dial: Advocacy in the age of Twilio](https://www.twilio.com/signal/schedule/6LbXCBBhtYuKCSciyS8WA/congress-on-speed-dial) by [Ian Webster](https://twitter.com/@iwebst), and [What Can You Do With Twilio Voice?](https://www.twilio.com/signal/schedule/4r1gBAICZOAQGEAAascQSi/what-can-you-do-with-twilio-part-2) by [Manav Khurana](https://twitter.com/@manavkhurana), join Auth0, Algolia, and Keen IO as we host a special happy hour for Signal.2017 attendees.
 
 ![Signal Website](https://cdn.auth0.com/blog/signal-happyhour/signal.png)
 
