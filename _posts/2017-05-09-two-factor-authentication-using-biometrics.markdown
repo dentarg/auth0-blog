@@ -2,7 +2,7 @@
 layout: post
 title: "Two-Factor Authentication Using Biometrics"
 description: "Learn how to integrate voice recognition into your 2FA solution."
-date: 2017-05-09 08:30
+date: 2017-05-16 08:30
 category: Technical Guide, Identity, MFA
 author:
   name: "João Angelo"
