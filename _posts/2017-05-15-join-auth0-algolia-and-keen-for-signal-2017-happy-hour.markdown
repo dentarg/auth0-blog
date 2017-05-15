@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Join Auth0, Algolia, and Keen IO for Happy Hour at Signal 2017"
-description: "Network, catch up on all the big announcements, and grab some swag at Rouge Ales Pub House. The happy hour hosted by Auth0, Algolia, and Keen IO is happening right after the talks end on May 24, 2017."
+description: "Network, catch up on all the big announcements, and grab some swag at Rogue Ales Pub House. The happy hour hosted by Auth0, Algolia, and Keen IO is happening right after the talks end on May 24, 2017."
 date: 2017-05-15 08:30
 category: Announcement
 is_non-tech: true
