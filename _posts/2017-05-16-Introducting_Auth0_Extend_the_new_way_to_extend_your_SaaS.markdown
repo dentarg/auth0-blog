@@ -1,8 +1,8 @@
 ---
 layout: post_extend
 is_extend: true
-title: "Auth0 Extend, the new way to extend your SaaS"
-description: "Learn about Auth0 Extend, a new Serverless extensibility platform, which enables rapidly extending and customizing your SaaS"
+title: "Introducing Auth0 Extend, the new way to extend your SaaS"
+description: "Learn about Auth0 Extend, a new Serverless extensibility platform which enables rapidly extending and customizing your SaaS"
 date: 2017-05-16 01:00
 category: Announcement
 is_non-tech: false
@@ -19,7 +19,7 @@ tags:
 - webtask
 press_release: false
 ---
-# Auth0 Extend, the new way to extend your SaaS 
+# Introducing Auth0 Extend, the new way to extend your SaaS 
 
 Today is an exciting day as we add a new product to the Auth0 family, [Auth0 Extend](https://www.auth0.com/extend?utm_medium=blog&utm_campaign=extend_launch&utm_source=auth0.com)! Auth0 Extend gives you a [Serverless](https://martinfowler.com/articles/serverless.html) extensibility platform you can plug right into your SaaS, it is Extensibility As A Service.
 
@@ -34,7 +34,7 @@ If you are a decision maker for a SaaS product, then you are constantly dealing 
 
 Regardless of the requirement, generally they end up on an ever growing product backlog. Resources on your team are finite, so unless there is a critical mass of interest on the feature, or enough high paying customers, there's a good chance those features will never get done.
 <p><p><p>
-<img src="https://cdn.auth0.com/website/blog/extend/backlog.jpg"/>
+<img src="http://dilbert.com/strip/2013-02-25"/>
 <p>
 
 Making your SaaS extensible can remove the bottlenecks to delivering value. Done right, it enables new features to be introduced, and requirements met, without being blocked by the product backlog.
