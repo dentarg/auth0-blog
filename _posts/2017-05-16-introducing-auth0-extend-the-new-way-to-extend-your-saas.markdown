@@ -3,7 +3,7 @@ layout: post_extend
 is_extend: true
 title: "Introducing Auth0 Extend: The new way to extend your SaaS"
 description: "Learn about Auth0 Extend, a new Serverless extensibility platform that enables rapid extension and customization of your SaaS"
-date: 2017-05-16 01:00
+date: 2017-05-16 10:00
 category: Announcement
 is_non-tech: false
 author:
