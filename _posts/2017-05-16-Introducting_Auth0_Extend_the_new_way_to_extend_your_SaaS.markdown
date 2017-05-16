@@ -30,9 +30,9 @@ Today is an exciting day as we add a new product to the Auth0 family, [Auth0 Ext
 
 # Why you need extensibility
 
-If you are a decision maker for a SaaS product, then you are constantly dealing with a stream of requirements for new features. These requirements appear on Sales calls with prospective customers, or they come from your existing base. It may be that your SaaS needs to integrate with an external system the customer uses, or there's some custom validation logic that is absolute requirement. 
+If you are a decision maker for a SaaS product, then you are constantly dealing with a stream of requirements for new features. These requirements appear on Sales calls with prospective customers, or they come from your existing customer base. It may be that your SaaS needs to integrate with an external system the customer uses, or there's some custom validation logic that is absolute requirement. 
 
-Regardless of the requirement, generally they end up on an ever growing product backlog. Resources on your team are finite, so unless there is a critical mass of interest on the feature, or enough high paying customers, there's a good chance those features will never get done.
+Regardless of the requirement, feature requests inevitably end up on an ever growing product backlog. Resources on your team are finite, so unless there is a critical mass of interest on the feature, or enough high paying customers, there's a good chance those features will never get done.
 <p><p><p>
 <img src="https://cdn.auth0.com/website/blog/extend_launch_dibert.jpg"/>
 <p>
@@ -53,9 +53,6 @@ Webhooks offer distinct advantages that make them an attractive choice for exten
 * They can be authored in a number of programming languages.
 * They can use whatever 3rd party dependencies they need.
 
-> As a result there's _a lot_ of extensions that simply won't be built 
-> because standing up and managing a Webhook is a hassle.
-
 Here's the catch though, a Webhook _is_ a service. Just like any other service it needs to be properly designed, hosted somewhere, managed and monitored by someone, and that someone is often your customer. The burden has shifted, the backlog hasn't gone away, it's just moved to a different backlog. 
 
 As a result there's _a lot_ of extensions that simply won't be built because standing up and managing a Webhook is a hassle. A picture tells a thousand words, [Tomek](https://tomasz.janczuk.org/) said it best with this one.
@@ -66,7 +63,7 @@ As a result there's _a lot_ of extensions that simply won't be built because sta
 Auth0 Extend gives you the power of Webhooks and more without the pain.
 One of the key differentiators of our [Identity platform](https://auth0.com/how-it-works) has been how easy it is to customize by creating [Auth0 Rules](https://auth0.com/docs/rules). You can create rules in JavaScript right within the Auth0 Management portal and they immediately are able to execute in the cloud on demand. There's no servers or endpoints to deploy or manage as in the case of Webhooks thanks to its [Serverless](https://martinfowler.com/articles/serverless.html) architecture. Auth0 Rules are powered by Auth0 Extend. 
 
-You can now have the same great experience in your SaaS product. Auth0 Extend includes the Extend Editor, a white-labeled editor component that you can host in your SaaS UI for authoring extensions in JavaScript. And it includes our extensibility runtime powered by [Webtask](https://webtask.io), which can securely execute extensions on-demand, in a multi-tenant fashion, and at scale.
+You can now have the same great experience in your SaaS product. Auth0 Extend includes the Extend Editor, a white-labeled editor component that you can host in your SaaS UI for authoring extensions in JavaScript. And it includes our extensibility runtime powered by [Webtask](https://webtask.io), which can securely execute extensions on-demand, in a multi-tenant fashion, at scale, and with very low latency.
 
 Just look below at the screenshot of our Zero CRM sample, and see how easy it is to embed the Extend editor.
 
@@ -77,7 +74,7 @@ Just look below at the screenshot of our Zero CRM sample, and see how easy it is
 > By the numbers, rules resulted in more than 10x retention from our customers, 
 > and customers using rules represent 70% of our cloud-based revenue.
 
-Having Extend in our own product opened new doors and directly translated to new business. Our Sales Engineers jumped on top of rules as a key way to land deals, such as integrating with external systems that are a deal breaker. Our field and developer success teams use rules continually to address our customer's emerging requirements. By the numbers, rules resulted in more than 10x retention from our customers, and customers using rules represent 70% of our cloud-based revenue.
+Having Extend in our own product opened new doors and directly translated to new business. Our Sales Engineers jumped on top of rules as a key way to land deals, such as integrating with external systems that lack of support for would otherwise have been deal-breakers. Our field and developer success teams use rules daily to address our customer's emerging requirements. By the numbers, rules resulted in more than 10x retention from our customers, and customers using rules represent 70% of our cloud-based revenue.
 
 # A better way to extend your SaaS
 
