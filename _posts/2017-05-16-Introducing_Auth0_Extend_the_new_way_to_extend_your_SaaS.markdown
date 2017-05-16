@@ -13,6 +13,10 @@ author:
   avatar: "https://cdn.auth0.com/blog/profiles/glennblock.jpg"
 design:
   image: "https://cdn.auth0.com/website/blog/extend/auth0-extend_avatar.png"
+  bg_color: "#3445dc"
+  image_bg_color: "#3445dc"
+  bg_merge: trues
+  image_size: 80%
 tags:
 - serverless
 - extensibility
@@ -25,8 +29,9 @@ Today is an exciting day as we add a new product to the Auth0 family, [Auth0 Ext
 
 <script src="//fast.wistia.com/embed/medias/gdmdh89ehj.jsonp" async></script>
 <script src="//fast.wistia.com/assets/external/E-v1.js" async></script>
-<div class="wistia_embed wistia_async_gdmdh89ehj" style="height:349px;width:620px">&nbsp;</div>
-<br>
+
+
+<div class="empower-video-button wistia_embed wistia_async_gdmdh89ehj popover=true popoverContent=html"><img class="video-button" src="https://cdn.auth0.com/website/auth0-extend/icons/empower-button-video.svg" alt="button"><img class="video-screen" src="https://cdn.auth0.com/website/auth0-extend/images/empower-screen-video.jpg" alt="Screen"></div>
 
 # Why you need extensibility
 
