@@ -34,7 +34,7 @@ If you are a decision maker for a SaaS product, then you are constantly dealing 
 
 Regardless of the requirement, generally they end up on an ever growing product backlog. Resources on your team are finite, so unless there is a critical mass of interest on the feature, or enough high paying customers, there's a good chance those features will never get done.
 <p><p><p>
-<img src="http://dilbert.com/strip/2013-02-25"/>
+<img src="http://assets.amuniversal.com/6817d6e056e0013015f6001dd8b71c47"/>
 <p>
 
 Making your SaaS extensible can remove the bottlenecks to delivering value. Done right, it enables new features to be introduced, and requirements met, without being blocked by the product backlog.
