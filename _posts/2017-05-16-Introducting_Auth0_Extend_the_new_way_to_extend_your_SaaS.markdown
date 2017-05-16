@@ -17,7 +17,7 @@ tags:
 - serverless
 - extensibility
 - webtask
-press_release: false
+press_release: true
 ---
 # Introducing Auth0 Extend: The new way to extend your SaaS 
 
@@ -80,7 +80,7 @@ Having Extend in our own product opened new doors and directly translated to new
 
 Can you imagine the flexibility of your users being able to quickly and easily extend _your_ product through code without having to leave your SaaS or deploy and manage servers? Developers just love Auth0 Extend because of how simple it is to create extensions. No servers, no hosting, just code.
 
-Auth0 Extend can help you, the same way it has helped Auth0, and customers such as [Stamplay](https://stamplay.com), [Meteor Development Group](https://meteor.com) and [Graphcool](https://graph.cool). 
+Auth0 Extend can help you, the same way it has helped Auth0, and customers such as [Stamplay](https://stamplay.com), [Meteor Development Group](https://meteor.com) and [Graphcool](https://gviraph.cool). 
 
 Learn more at https://www.auth0.com/extend and sign up for our free developer account [here](https://www.auth0.com/try). Also follow our new [@auth0_extend](https://twitter.com/auth0_extend) twitter account. There's much more to come on Auth0 Extend, stay tuned!
 
