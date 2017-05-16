@@ -29,7 +29,7 @@ related:
 - 2015-09-28-5-steps-to-add-modern-authentication-to-legacy-apps-using-jwts
 ---
 
-In this article we introduce the concept of stateless sessions for developers used to stateful sessions. We point the benefits, and how a team could go about switching from one to the other. We will also show a sample setup using JWTs obtained through Auth0.
+In this article we introduce the concept of stateless sessions for developers used to stateful sessions. We point out the benefits and highlight how a team could go. We will also show a sample setup using JWTs obtained through Auth0.
 
 {% include tweet_quote.html quote_text="If you want to migrate to stateless sessions, this is your guide!" %}
 
@@ -191,7 +191,7 @@ eyJpdGVtcyI6WzAsMiw0XSwiaWF0IjoxNDkzMTM5NjU5LCJleHAiOjE0OTMxNDMyNTl9.
 932ZxtZzy1qhLXs932hd04J58Ihbg5_g_rIrj-Z16Js
 ```
 
-To render the items in the cart, the frontend only needs to retrieve it from its cookie:
+To render the items in the cart, the frontend only needs to retrieve and decode the JWT from its cookie":
 
 ```javascript
 function populateCart() {
@@ -256,7 +256,7 @@ app.get('/protected/add_item', idValidator, cartValidator, (req, res) => {
 });
 ```
 
-Note that locations prefixed by `/protected` are also protected by the API access token. This is setup using `express-jwt`:
+Note that locations prefixed by `/protected` are also protected by the API access token. This is set up using `express-jwt`:
 
 ```javascript
 app.use('/protected', expressJwt({
@@ -297,7 +297,7 @@ $('#login-button').on('click', function(event) {
 });
 ```
 
-The `audience` claim must match the one setup for your API endpoint using the Auth0 dashboard.
+The `audience` claim must match the one set up for your API endpoint using the Auth0 dashboard.
 
 The Auth0 authentication and authorization server displays a login screen with our settings and then redirects back to our application at a specific path with the tokens we requested. These are handled by our backend which simply sets them as cookies:
 
@@ -316,7 +316,7 @@ app.post('/auth', (req, res) => {
 
 Implementing CSRF mitigation techniques is left as an exercise for the reader. 
 
-Get [full example](https://github.com/auth0/jwt-handbook-samples/tree/master/stateless-sessions) and check how it works! If you want to run your own version, you will need to <a href="javascript:signup()">sign up for a free Auth0 account</a>.
+Get the [full example](https://github.com/auth0/jwt-handbook-samples/tree/master/stateless-sessions) and check how it works! If you want to run your own version, you will need to <a href="javascript:signup()">sign up for a free Auth0 account</a>.
 
 ## Conclusion
 Tokens, by virtue of being able to be validated on their own, require less queries in the backend. Additionally, custom data may be embedded in them, simplifying the flow of certain common operations such as authorization. The size of tokens may be a problem as the information contained in them gets bigger. Chatty architectures may worsen the symptoms in that case. For most scenarios, tokens are a great choice.
