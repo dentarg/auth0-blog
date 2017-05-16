@@ -1,7 +1,7 @@
 ---
 layout: post_extend
 is_extend: true
-title: "Introducing Auth0 Extend, the new way to extend your SaaS"
+title: "Introducing Auth0 Extend: The new way to extend your SaaS"
 description: "Learn about Auth0 Extend, a new Serverless extensibility platform which enables rapidly extending and customizing your SaaS"
 date: 2017-05-16 01:00
 category: Announcement
@@ -19,7 +19,7 @@ tags:
 - webtask
 press_release: false
 ---
-# Introducing Auth0 Extend, the new way to extend your SaaS 
+# Introducing Auth0 Extend: The new way to extend your SaaS 
 
 Today is an exciting day as we add a new product to the Auth0 family, [Auth0 Extend](https://www.auth0.com/extend?utm_medium=blog&utm_campaign=extend_launch&utm_source=auth0.com)! Auth0 Extend gives you a [Serverless](https://martinfowler.com/articles/serverless.html) extensibility platform you can plug right into your SaaS, it is Extensibility As A Service.
 
@@ -34,7 +34,7 @@ If you are a decision maker for a SaaS product, then you are constantly dealing 
 
 Regardless of the requirement, generally they end up on an ever growing product backlog. Resources on your team are finite, so unless there is a critical mass of interest on the feature, or enough high paying customers, there's a good chance those features will never get done.
 <p><p><p>
-<img src="http://assets.amuniversal.com/6817d6e056e0013015f6001dd8b71c47"/>
+<img src="https://cdn.auth0.com/website/blog/extend_launch_dibert.jpg"/>
 <p>
 
 Making your SaaS extensible can remove the bottlenecks to delivering value. Done right, it enables new features to be introduced, and requirements met, without being blocked by the product backlog.
@@ -64,9 +64,7 @@ As a result there's _a lot_ of extensions that simply won't be built because sta
 # How Auth0 Extend is better
 
 Auth0 Extend gives you the power of Webhooks and more without the pain.
-One of the key differentiators of our [Identity platform](https://auth0.com/how-it-works) has been how easy it is to customize by creating [Auth0 Rules](https://auth0.com/docs/rules). You can create rules in JavaScript right within the Auth0 Management portal and they immediately are able to execute in the cloud on demand. There's no servers or endpoints to deploy or manage as in the case of Webhooks thanks to its [Serverless](https://martinfowler.com/articles/serverless.html) architecture. Auth0 Rules are powered by Auth0 Extend. Below you can see authoring a rule which creates users in Intercom.
-
-<img src="https://cdn.auth0.com/website/blog/extend/screenshot_rules.png"/>
+One of the key differentiators of our [Identity platform](https://auth0.com/how-it-works) has been how easy it is to customize by creating [Auth0 Rules](https://auth0.com/docs/rules). You can create rules in JavaScript right within the Auth0 Management portal and they immediately are able to execute in the cloud on demand. There's no servers or endpoints to deploy or manage as in the case of Webhooks thanks to its [Serverless](https://martinfowler.com/articles/serverless.html) architecture. Auth0 Rules are powered by Auth0 Extend. 
 
 You can now have the same great experience in your SaaS product. Auth0 Extend includes the Extend Editor, a white-labeled editor component that you can host in your SaaS UI for authoring extensions in JavaScript. And it includes our extensibility runtime powered by [Webtask](https://webtask.io), which can securely execute extensions on-demand, in a multi-tenant fashion, and at scale.
 
