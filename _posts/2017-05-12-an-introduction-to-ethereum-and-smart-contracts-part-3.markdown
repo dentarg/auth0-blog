@@ -29,7 +29,7 @@ related:
 - 2015-10-14-7-things-you-should-know-about-web-assembly
 ---
 
-[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we teamed up with [GFT](http://www.gft.com/) to develop a practical application of an Ethereum-based login system for Ethereum users. Read on!
+[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we teamed up with Ivo Zielinski, Konrad Koziol, David Belinchon, and Nicolás González from [GFT's Innovation Team](https://www.gft.com/) to develop a practical application of an Ethereum-based login system for Ethereum users. Read on!
 
 This is post 3 from a three-post series about Ethereum. [Read post 1](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/) and [post 2](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts-part-2/) if you haven't done so.
 
@@ -66,7 +66,7 @@ There a series of problems with this approach. Namely:
 As you can imagine, these limitations make our simple authentication example impractical. So what can we do about them?
 
 ## Towards a Practical Authentication Solution for Ethereum Users
-Authentication is what we do at Auth0, so we teamed up with the guys from [GFT](http://www.gft.com/) to think of a better way of using Ethereum for this purpose. We came up with a proof of concept which we will share with you in this post. First, let's describe the design goals for our system:
+Authentication is what we do at Auth0, so we teamed up with the guys from [GFT's Innovation Team](http://www.gft.com/) to think of a better way of using Ethereum for this purpose. We came up with a proof of concept which we will share with you in this post. First, let's describe the design goals for our system:
 
 - It should allow users with an Ethereum address to use that address to login to a third party website (that supports this login method)
 - It should be easy to use and reasonably easy to setup
@@ -190,17 +190,17 @@ To perform operations in Ethereum you need a wallet. A wallet is an application 
 Go to the [Chrome Webstore](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn) and install Metamask.
 
 #### 2. Create a New Account
-Click on the Metamask icon on the top right corner of your Chrome windows and follow the wizard to create an account. Make sure it is created in the **Ropsten** testnet. To check this, after creating the account, click on the icon next to the Metamask fox, on the top left corner of the Metamask window. If you are using another network, just switch to `Ropsten` and then follow the wizard again.
+Click on the Metamask icon on the top right corner of your Chrome windows and follow the wizard to create an account. Make sure it is created in the **Rinkeby** testnet. To check this, after creating the account, click on the icon next to the Metamask fox, on the top left corner of the Metamask window. If you are using another network, just switch to `Rinkeby` and then follow the wizard again.
 
-<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Metamask-Account.mp4">
+<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Metamask-Account-Rinkeby.mp4">
 </video>
 
 #### 3. Get Some Ether
-To register you will need a minimum amount of Ether. Fortunately, this is easy to get in the testnet (in the mainnet you must either buy it or be lucky enough to be able to mine it). For the testnet it is possible to use "faucets". Faucets are places to get free Ether. For instance, here is one [popular faucet](http://faucet.ropsten.be:3001/). Just copy your Ethereum address from Metamask and put it in the faucet field. Then click on "Send me 1 test Ether".
+To register you will need a minimum amount of Ether. Fortunately, this is easy to get in the testnet (in the mainnet you must either buy it or be lucky enough to be able to mine it). For the testnet it is possible to use "faucets". Faucets are places to get free Ether. The most [popular Rinkeby faucet](https://www.rinkeby.io/) requires users to create a [GitHub gist](https://gist.github.com/). This is a simple way to limit misuse of the faucet. Creating gists is easy, you only require a GitHub account. Crate a public GitHub gist and paste your Metamask Rinkeby address in it. Then go back to the faucet and place the link to the gist in the required field, then click on "Give Me Ether" (the faucet is located in the `crypto faucet` section on the left bar).
 
 After a bit, you should see your newly acquired Ether in Metamask.
 
-To get your Ropsten Ethereum address, go to Metamask and then click on the "copy" icon next to your account name. This will be your *primary* Ethereum address. In an actual production system, this would be the address of an account with lots of Ether in it. One that you would not want to expose every time you want to login to some third party site using your Ethereum address.
+To get your Rinkeby Ethereum address, go to Metamask and then click on the "copy" icon next to your account name. This will be your *primary* Ethereum address. In an actual production system, this would be the address of an account with lots of Ether in it. One that you would not want to expose every time you want to login to some third party site using your Ethereum address.
 
 <video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Metamask-Faucet.mp4">
 </video>
@@ -244,9 +244,8 @@ You may now login to any third party site that supports this authentication meth
 
 You will notice there is a checkbox labeled `Trustless Authentication`. As explained before, third parties may opt for different levels of security. They can opt to trust the authentication server when it says the login is valid (trustful authentication) or they may opt to not trust the authentication server and validate the signature internally. In this case, the third party website must validate the signature of the secondary address itself, first be querying the secondary address using the `Mapper` contract (which is publicly available) and then by verifying the signature of the returned data using the secondary address to find the public key of the secondary address. This provides the highest level of security and uses the authentication server as simply a messenger.
 
-If you want to take a look at how this all plays together, [take a look at the code]().
-
-TODO: VIDEO
+<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Login.mp4">
+</video>
 
 ## Aside: Easy Authentication with Auth0
 What we have seen in this post seems complicated, and indeed authentication can be a complex matter. Fortunately, with our help it needn't be so. Check our [quickstarts](https://auth0.com/docs/quickstarts) and implement authentication and authorization in your apps in a breeze.
@@ -254,6 +253,14 @@ What we have seen in this post seems complicated, and indeed authentication can 
 <a href="javascript:signup()">Sign up</a> for a free account and get started!
 
 > Note: authentication for Ethereum accounts as discussed in this post is not available through Auth0. If you are interested in having this option using Auth0, let us know in the comments.
+
+## Aside: GFT
+![GFT Logo](https://cdn.auth0.com/blog/ethereum3/GFT_Logo_RGB.jpg)
+GFT Technologies SE (GFT) is a business change and technology consultancy trusted by the world's leading financial services institutions to solve their most critical challenges. Specifically defining answers to the current constant of regulatory change – whilst innovating to meet the demands of the digital revolution. GFT brings together advisory, creative and technology capabilities with innovation culture and specialist knowledge of the finance sector, to transform the clients' businesses.
+ 
+Utilising the CODE_n innovation platform, GFT is able to provide international start-ups, technology pioneers and established companies access to a global network, which enables them to tap into the disruptive trends in financial services markets and harness them for their out of the box thinking.
+ 
+Founded in 1987, GFT is represented in twelve countries with a global team of around 5,000 employees. The GFT share is listed on the Frankfurt Stock Exchange in the TecDAX (ISIN: DE0005800601). For more information visit [www.gft.com](https://www.gft.com).
 
 ## Conclusion
 We have taken our simple authentication for Ethereum accounts concept from our previous post and expanded it to make it more convenient. Let's review our design goals from the beginning of this post:
@@ -285,3 +292,5 @@ Developers can implement this by calling two endpoints of a RESTful API. Really 
 Not bad for our initial research into integrating Ethereum with classic technologies. This shows Ethereum can be integrated into traditional applications today. The platform works, and the concept of decentralized applications is picking up steam.
 
 Another interesting approach to Ethereum authentication is currently under development by [uPort](https://www.uport.me/). The landscape of blockchain based applications is still being explored and we are eager to find out what people can do with it. Let us know what you think in the comments!
+
+Many thanks to GFT's Innovation Team (Ivo Zielinski, Konrad Koziol, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept.
