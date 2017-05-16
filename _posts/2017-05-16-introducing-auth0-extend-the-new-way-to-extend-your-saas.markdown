@@ -26,7 +26,7 @@ press_release: true
 ---
 # Introducing Auth0 Extend, the new way to extend your SaaS  
 
-Today is an exciting day, as we add a new product to the Auth0 family: [Auth0 Extend](https://www.auth0.com/extend?utm_medium=blog&utm_campaign=extend_launch&utm_source=auth0.com)! Auth0 Extend gives you a [Serverless](https://martinfowler.com/articles/serverless.html) extensibility platform you can plug right into your SaaS. Basically, it's Extensibility as a Service.
+Today is an exciting day, as we add a new product to the Auth0 family: [Auth0 Extend](https://www.auth0.com/extend?utm_medium=blog&utm_campaign=extend_launch&utm_source=auth0.com)! Auth0 Extend gives you a [Serverless](https://martinfowler.com/articles/serverless.html) extensibility platform you can plug right into your SaaS. Basically, it's Extensibility as a Service. With Auth0 Extend, your customers, partners, as well as your own engineers and sales engineers can quickly and easily extend your product.
 
 <script src="//fast.wistia.com/embed/medias/gdmdh89ehj.jsonp" async></script>
 <script src="//fast.wistia.com/assets/external/E-v1.js" async></script>
@@ -47,7 +47,7 @@ Making your SaaS extensible can remove the bottlenecks to delivering value. Done
 
 # What about Webhooks
 
-<img src="https://cdn.auth0.com/website/blog/extend/flow.png"/>
+<img src="https://cdn.auth0.com/website/blog/extend/flow2.png"/>
 
 The most common way to handle extensibility for SaaS products today is through exposing Webhooks. This is how you extend Slack, Github, Zoho, Concur, Intercom, and many other services.  
 
@@ -63,7 +63,7 @@ Here's the catch, though: a Webhook _is_ a service. Just like any other service,
 
 As a result, there are _a lot_ of extensions that simply won't be built, because standing up and managing a Webhook is a hassle. A picture tells a thousand words, [Tomek](https://tomasz.janczuk.org/) said it best with this one.
 
-<img src="https://cdn.auth0.com/website/blog/extend/graph.png"/>
+<img src="https://cdn.auth0.com/website/blog/extend/graph2.png"/>
 # How Auth0 Extend is better
 
 Auth0 Extend gives you the power of Webhooks and more, without the pain.
