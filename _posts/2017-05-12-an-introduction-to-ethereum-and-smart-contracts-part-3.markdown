@@ -202,7 +202,7 @@ After a bit, you should see your newly acquired Ether in Metamask.
 
 To get your Rinkeby Ethereum address, go to Metamask and then click on the "copy" icon next to your account name. This will be your *primary* Ethereum address. In an actual production system, this would be the address of an account with lots of Ether in it. One that you would not want to expose every time you want to login to some third party site using your Ethereum address.
 
-<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Metamask-Faucet.mp4">
+<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Metamask-Faucet-Rinkeby.mp4">
 </video>
 
 ### Get the Mobile Authenticator App
@@ -236,7 +236,7 @@ In case you are already experienced with Ethereum you may want to perform this s
 
 After this is done everything is set!
 
-<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Wallet-Register.mp4">
+<video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Wallet-Register-Rinkeby.mp4">
 </video>
 
 ### Login to Our Test Site
@@ -265,28 +265,28 @@ Founded in 1987, GFT is represented in twelve countries with a global team of ar
 ## Conclusion
 We have taken our simple authentication for Ethereum accounts concept from our previous post and expanded it to make it more convenient. Let's review our design goals from the beginning of this post:
 
-- It should allow users with an Ethereum address to use that address to login to a third party website (that supports this login method)
+- **It should allow users with an Ethereum address to use that address to login to a third party website (that supports this login method)**.
 After registration, users can login to any site implementing this protocol using their Ethereum address or email address.
 
-- It should be easy to use and reasonably easy to setup
+- **It should be easy to use and reasonably easy to setup**.
 It is simpler than our previous example and simple enough for typical Ethereum users: one mobile app to install, one transaction to execute once.
 
-- It should not compromise the security of the user's Ethereum account
+- **It should not compromise the security of the user's Ethereum account**.
 Logins are now handled using a separate Ethereum account so the user does not need to expose his valuable Ethereum account.
 
-- It should allow users to recover their credentials in case of loss or theft
+- **It should allow users to recover their credentials in case of loss or theft**.
 In case of theft of the mobile device, the user can create a mapping to a new account for logins using his primary Ethereum address.
 
-- It should not require knowledge of contracts or manually calling contract methods
+- **It should not require knowledge of contracts or manually calling contract methods**.
 The mobile wallet app and Metamask combined isolate users from interacting with contracts directly.
 
-- It should have reasonable latency for a login system (no more than a couple of seconds)
+- **It should have reasonable latency for a login system (no more than a couple of seconds)**.
 Logins are only affected by network latency between the authentication server and the mobile device. In other words, they are as fast as any login system.
 
-- It should not cost users gas (or money) to login
+- **It should not cost users gas (or money) to login**.
 Users only spend Ether once when first setting up their account. After that, logins to any third party websites do not use gas or Ether.
 
-- It should be reasonably easy for developers to implement in their apps
+- **It should be reasonably easy for developers to implement in their apps**.
 Developers can implement this by calling two endpoints of a RESTful API. Really simple.
 
 Not bad for our initial research into integrating Ethereum with classic technologies. This shows Ethereum can be integrated into traditional applications today. The platform works, and the concept of decentralized applications is picking up steam.
