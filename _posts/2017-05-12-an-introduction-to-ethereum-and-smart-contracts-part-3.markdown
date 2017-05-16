@@ -31,14 +31,14 @@ related:
 
 [Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we teamed up with Ivo Zielinski, Konrad Koziol, David Belinchon, and Nicolás González from [GFT's Innovation Team](https://www.gft.com/) to develop a practical application of an Ethereum-based login system for Ethereum users. Read on!
 
-This is post 3 from a three-post series about Ethereum. [Read post 1](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/) and [post 2](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts-part-2/) if you haven't done so.
+This is the third post from a three-post series about Ethereum. [Read part 1](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/) and [part 2](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts-part-2/) if you haven't done so.
 
 {% include tweet_quote.html quote_text="Discover the power of decentralized apps with Ethereum" %}
 
 -----
 
 ## Introduction
-In our previous post we took a closer look at Ethereum, a decentralized, Turing-complete platform for developing applications using a blockchain. In Ethereum, applications run on each node in the network. The results of those computations are then encoded in blocks, which, through the proof-of-work system, are validated by each node in the network. Furthermore, these operations (transactions) are carried on on behalf of users. Users must sign each transaction with their private-key, thus making it possible to track whether a certain user can perform certain operations or not. In particular, transactions have a cost, and users must be able to pay that cost by spending Ethereum's cryptocoin: Ether.
+In our previous post we took a closer look at Ethereum, a decentralized, Turing-complete platform for developing applications using a blockchain. In Ethereum, applications run on each node in the network. The results of those computations are then encoded in blocks, which, through the proof-of-work system, are validated by each node in the network. Furthermore, these operations (transactions) are carried on out on behalf of users. Users must sign each transaction with their private-key, thus making it possible to track whether a certain user can perform certain operations or not. In particular, transactions have a cost, and users must be able to pay that cost by spending Ethereum's cryptocoin: **Ether**.
 
 In our previous post we also had a look at practical applications of Ethereum. The [Decentralized Autonomous Organization (DAO)](https://www.ethereum.org/dao), a [central bank](https://www.ethereum.org/token), a [crowdfunding system](https://www.ethereum.org/crowdsale), a [proof of existence system](https://chainy.info), and even our own [simple authentication system](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts-part-2/). All of these examples run without a central authority holding any control over them. All operations are carried out by each node on the network, and these are only effective after all nodes agree on the results. This makes Ethereum particularly powerful for applications were no single entity must be able to validate or approve operations.
 
@@ -47,7 +47,7 @@ Our simple login system on Ethereum did work as expected, but it was less than i
 <video width="600" controls src="https://cdn.auth0.com/blog/ethereum2/login.mp4">
 </video>
 
-The objective of the system is to make it possible for any third-party to allow users to login to the their website using an Ethereum address as an identifier. No username or password is required. We assume a user attempting to login with an Ethereum address is a user who currently holds an Ethereum address with some Ether (that is, a user that holds an Ethereum account for other uses). Based on these assumptions, this is how our sample system worked:
+The objective of the system is to make it possible for any third-party to allow users to log into the their website using an Ethereum address as an identifier. No username or password is required. We assume a user attempting to login with an Ethereum address is a user who currently holds an Ethereum address with some Ether (that is, a user that holds an Ethereum account for other uses). Based on these assumptions, this is how our sample system worked:
 
 1. A user browses to a third-party website that requires login. An input text area for the user's Ethereum address is displayed.
 2. The user inputs his or her Ethereum address and clicks "login".
@@ -56,7 +56,7 @@ The objective of the system is to make it possible for any third-party to allow 
 5. The backend watches the Ethereum network for the challenge string. It must be sent by the owner of the Ethereum address that was input in step 2.
 6. If the challenge is seen by the backend within a reasonable timeframe, the user is then marked as logged in using the Ethereum address from step 2 as the identifier. A new JWT with full access to the third-party website is issued. 
 
-There a series of problems with this approach. Namely:
+There are a series of problems with this approach. Namely:
 
 - The user must manually make a call to the `login` method of the `Login` contract using an Ethereum wallet of his or her choice.
 - The user must know the address and the interface of the `Login` contract beforehand.
@@ -68,20 +68,20 @@ As you can imagine, these limitations make our simple authentication example imp
 ## Towards a Practical Authentication Solution for Ethereum Users
 Authentication is what we do at Auth0, so we teamed up with the guys from [GFT's Innovation Team](http://www.gft.com/) to think of a better way of using Ethereum for this purpose. We came up with a proof of concept which we will share with you in this post. First, let's describe the design goals for our system:
 
-- It should allow users with an Ethereum address to use that address to login to a third party website (that supports this login method)
-- It should be easy to use and reasonably easy to setup
-- It should not compromise the security of the user's Ethereum account
-- It should allow users to recover their credentials in case of loss or theft
-- It should not require knowledge of contracts or manually calling contract methods
-- It should have reasonable latency for a login system (no more than a couple of seconds)
-- It should not cost users gas (or money) to login
-- It should be reasonably easy for developers to implement in their apps
+- It should allow users with an Ethereum address to use that address to login to a third party website (that supports this login method).
+- It should be easy to use and reasonably easy to setup.
+- It should not compromise the security of the user's Ethereum account.
+- It should allow users to recover their credentials in case of loss or theft.
+- It should not require knowledge of contracts or manually calling contract methods.
+- It should have reasonable latency for a login system (no more than a couple of seconds).
+- It should not cost users gas (or money) to login.
+- It should be reasonably easy for developers to implement in their apps.
 
 One of the biggest problems with our initial approach was that writes were necessary. This forced users who wanted to log in to spend Ether to do so. Worse, they had to wait for confirmation of the transaction before the login was successful. On the other hand, this made the login process truly decentralized.
 
 Writes were a requirement for our previous system due to the way Ethereum events work. Events are special operations in the Ethereum network that can be watched by nodes. Internally, events are Ethereum Virtual Machine ops that create data that is added to the transaction when it is mined. Events do not work on read-only (constant) Solidity functions, since they are added to a transaction when it is mined, this forces users of our first system to pay to generate a `LoginAttempt` event.
 
-This limitation forced us to make a compromise: rather than remain entirely decentralized, we added a server to handle authentication requests. In turn, this server relies on data stored in the Ethereum blockchain. Our system does retain the ability to allow for serverless logins, however. We will see how that works later on.
+This limitation forced us to make a compromise: rather than remain entirely decentralized, we added a server to handle authentication requests. In turn, this server relies on data stored in the Ethereum blockchain. However, our system does retain the ability to allow for serverless logins. We will see how that works later on.
 
 Another big limitation of our first system was that the user needed access to his Ethereum wallet to login. This is impractical for several reasons:
 
@@ -135,7 +135,7 @@ Although this contract is a bit more complex than we have seen so far, it remain
 - There are two events: `AddressMapped` and `Error`. The `AddressMapped` event is generated any time a user's primary Ethereum address is mapped to a secondary, login-only, address. The `Error` event is only generated in case of errors, such as when a mapping using an existing secondary address already exists.
 - Then two variables are declared: `primaryToSecondary` and `secondaryInUse`. `primaryToSecondary` is a map of addresses: given the primary address, it can tell the secondary address mapped to it. `secondaryInUse` is a map of addresses to booleans, used to check whether a secondary address is already in use.
 - Next comes `secondaryAddressMustBeUnique`. This special function is a *modifier*. Modifiers in Solidity are special functions that can be attached to contract methods. These run before the method code and can be used to *modify* their behavior. In this case, `secondaryAddressMustBeUnique` uses the `secondaryInUse` variable to confirm whether the secondary address passed as parameter is in use. If it is, this is flagged as an error and the `Error` event is emitted. If it is not in use, then execution continues. The `_` placeholder is where the code from the modified function is logically inserted.
-- And last there is the `mapAddress` method. This method takes a secondary address and maps it to the address of the *sender* or *caller* of this method. The semantics of Ethereum make sure that the sender is who he says he is. In other words, only the owner of the private key for an address can make calls as the *sender* to a Solidity method. This makes sure, without any special check, that only the rightful owner of the primary address can establish a mapping between it and a secondary address used for logins. This is the crux of our system.
+- And lastly there is the `mapAddress` method. This method takes a secondary address and maps it to the address of the *sender* or *caller* of this method. The semantics of Ethereum make sure that the sender is who he says he is. In other words, only the owner of the private key for an address can make calls as the *sender* to a Solidity method. This makes sure, without any special check, that only the rightful owner of the primary address can establish a mapping between it and a secondary address used for logins. This is the crux of our system.
 
 In summary, our contract does four things:
 
@@ -232,7 +232,7 @@ If you are an Ethereum user and you have your own wallet, you can perform this s
 
 Once you are in the site, paste the Ethereum address you copied from the email in the previous step and click `Register`. A Metamask window will pop-up. This is a confirmation that you are about to make a transaction from your primary account that will spend Ether. Click `Sign`. After a while your primary and secondary accounts will be connected! The time for this to happen depends on the Ethereum network. In general it is just a few seconds.
 
-In case you are already experienced with Ethereum you may want to perform this step manually. Call the `mapAddress` method of the `Mapper` contract located at ``. You can get the JSON API here. The only parameter is the address you got in your email.
+In case you are already experienced with Ethereum you may want to perform this step manually. Call the `mapAddress` method of the `Mapper` contract located at `0x5e24bf433aee99227737663c0a387f02a9ed4b8a`. You can get the [JSON API here](). The only parameter is the address you got in your email.
 
 After this is done everything is set!
 
