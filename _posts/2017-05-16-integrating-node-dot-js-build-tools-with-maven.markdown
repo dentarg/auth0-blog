@@ -23,7 +23,7 @@ related:
 - 2017-03-30-java-platform-and-java-community-process-overview
 ---
 
-**TL;DR:** Single Page Applications (SPAs) have been the biggest web development trend for a while now. Developers from all around the world have started creating new applications based in this technique, and started migrating existing ones too. For many years, Java developers relied on technologies specific to the Java world, such as [JavaServer Faces](https://auth0.com/blog/developing-jsf-applications-with-spring-boot/). But, as JavaScript frameworks started to gain more power, become more popular and well supported, Java developers started migrating their front-end code to these frameworks. Today we will see how we integrate Node.js build tools, used to process JavaScript source code, into Maven's lifecycle.
+**TL;DR:** Single Page Applications (SPAs) have been the biggest web development trend for a while now. Developers from all around the world have started creating new applications based on this technique, and started migrating existing ones too. For many years, Java developers relied on technologies specific to the Java world, such as [JavaServer Faces](https://auth0.com/blog/developing-jsf-applications-with-spring-boot/). But, as JavaScript frameworks started to gain more power, become more popular and well supported, Java developers started migrating their front-end code to these frameworks. Today we will see how we integrate Node.js build tools, used to process JavaScript source code, into Maven's lifecycle.
 
 ## Node.js Build Tools
 
@@ -33,7 +33,7 @@ In this article, we will use a Maven plugin, called [*Frontend Maven Plugin*](ht
 
 ## Cloning Maven Application
 
-To give us some leverage, let's clone a simple RESTful application based on Spring Boot. This application has a trivial API that handles HTTP requests to add new tasks, delete existing ones, and retrieve all tasks. Upon this API we will build a very small AngularJS application. If you are not familiar with AngularJS or Spring Boot, but would like too learn how to integrate Node.js tools with Maven, don't worry. As both the backend API and the front-end application that we will build are deadly simple, you will still be able to keep up with this article.
+To give us some leverage, let's clone a simple RESTful application based on [Spring Boot](https://projects.spring.io/spring-boot/). This application has a trivial API that handles HTTP requests to add new tasks, delete existing ones, and retrieve all tasks. Upon this API we will build a very small [AngularJS](https://angularjs.org/) application. If you are not familiar with AngularJS or Spring Boot, but would like too learn how to integrate Node.js tools with Maven, don't worry. As both the backend API and the front-end application that we will build are deadly simple, you will still be able to keep up with this article.
 
 To start, let's issue the following commands.
 
@@ -344,7 +344,7 @@ The `environment.name`, passed as an argument to Gulp, will be tied to Maven pro
 </project>
 ```
 
-With these elements, we can choose what kind of release we are going to do. If we want to package our app to production , which will uglify our AngularJS source code, we will need to execute the following command:
+With these elements, we can choose what kind of release we are going to do. If we want to package our app to production, which will uglify our AngularJS source code, we will need to execute the following command:
 
 ```bash
 mvn clean package -P production
@@ -370,4 +370,4 @@ If you need to implement a robust, highly customizable [identity and access mana
 
 ## Conclusion
 
-Developing SPA is indeed a good practice, as it gives an smooth interface for our users with seamless navigation and great user experience. Besides that the frameworks available have big communities and a lot of resources available that make web developers very productive. Therefore, integrating JavaScript with Java applications is a good idea and, as we saw today, easy as well. If we are using Maven on our project, we just need to register a single plugin to the build process and configure a few steps to automate the whole process.
+Developing SPAs is indeed a good practice, as it gives an smooth interface for our users with seamless navigation and great user experience. Besides that the frameworks available have big communities and a lot of resources available that make web developers very productive. Therefore, integrating JavaScript with Java applications is a good idea and, as we saw today, easy as well. If we are using Maven on our project, we just need to register a single plugin to the build process and configure a few steps to automate the whole process.
