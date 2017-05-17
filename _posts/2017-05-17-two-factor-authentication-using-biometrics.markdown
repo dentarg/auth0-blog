@@ -10,8 +10,8 @@ author:
   mail: "joao.angelo@auth0.com"
   avatar: "https://s.gravatar.com/avatar/7747f8f5b58076f7bc52cc1bcc54bec5?s=200"
 design:
-  bg_color: "#000000"
-  image: "https://cdn2.auth0.com/blog/voice-auth/logo.png"
+  bg_color: "#7C7B9D"
+  image: "https://cdn.auth0.com/blog/voice-auth/new-logo.png"
 tags:
 - Authentication
 - Multifactor
