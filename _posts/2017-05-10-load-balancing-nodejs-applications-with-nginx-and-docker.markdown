@@ -24,7 +24,7 @@ related:
 
 **TL;DR:** In this article we will see how easy it is to load balance *dockerized* Node.js applications with NGINX. We will create a simple Node.js application that serves an HTML file, containerize it with Docker, and containerize an NGINX instance that uses round-robin algorithm to load balance between two running instances of this application.
 
-## What is Docker and Containers?
+## Docker and Containers
 
 Docker is a software container platform. Developers use [Docker](https://www.docker.com/) to eliminate “works on my machine” problem when collaborating with co-workers. This is done by putting pieces of a software architecture on containers (a.k.a. *dockerize* or containerize).
 
@@ -67,7 +67,7 @@ And then open `http://localhost:8080` on a web browser. See? We got simple web p
 
 ## Dockerizing the Node.js Applications
 
-To *dockerize* our Node.js applications, we will need to create a file called `Dockerfile` in the `application` directory. The content of this file will be:
+To *dockerize* our Node.js application, we will need to create a file called `Dockerfile` in the `application` directory. The content of this file will be:
 
 ```bash
 FROM node
@@ -151,3 +151,11 @@ If you need to implement a robust, highly customizable [identity and access mana
 ## Conclusion
 
 Loading balancing applications with Docker and NGINX is an easy process. In this article we have managed to achieve this goal with a few simple steps. All we had to do was to install Docker on our development machine, run two instances of a *dockerized* applications and then configure a *dockerized* NGINX instance to round-robin requests to the application instances.
+
+To learn more about **load balancing, NGINX and Docker**, check out the following resources:
+
+- [Using nginx as HTTP load balancer](http://nginx.org/en/docs/http/load_balancing.html)
+- [NGINX Load Balancing - HTTP and TCP Load Balancer](https://www.nginx.com/resources/admin-guide/load-balancer/)
+- [How to Set Up NGINX Load Balancing](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-load-balancing)
+- [Docker Swarm Load Balancing with NGINX and NGINX Plus](https://www.nginx.com/blog/docker-swarm-load-balancing-nginx-plus/)
+- [How to run a load-balanced service in Docker containers](http://superuser.openstack.org/articles/run-load-balanced-service-docker-containers-openstack/)
