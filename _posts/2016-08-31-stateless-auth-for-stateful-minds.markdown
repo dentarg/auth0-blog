@@ -29,7 +29,7 @@ related:
 - 2015-09-28-5-steps-to-add-modern-authentication-to-legacy-apps-using-jwts
 ---
 
-In this article we introduce the concept of stateless sessions for developers used to statefull sessions. We point the benefits, and how a team could go about switching from one to the other. We will also show a sample setup using JWTs obtained through Auth0.
+In this article we introduce the concept of stateless sessions for developers used to stateful sessions. We point out the benefits and highlight how a team could go. We will also show a sample setup using JWTs obtained through Auth0.
 
 {% include tweet_quote.html quote_text="If you want to migrate to stateless sessions, this is your guide!" %}
 
@@ -108,6 +108,8 @@ The obvious difference lies in the way the gateway authenticates the incoming re
 
 An alternative way of dealing with leaked tokens is by setting a short expiration date in them. Every time the token is used this date is validated. If the token has expired, the user must reauthenticate. If the date is valid at the time the token is used for a request, a new, different token, with a new expiration date may be issued. In this way, a single leaked token is only valid for a short window of time. In practice, timed-tokens and blacklists are used in combination. Blacklists are used for long-lived tokens.
 
+For very sensitive tokens there is yet another option: to change the encryption or signing key. When this is done, all previously issued tokens become invalid. This affects all tokens, so this option is usually reserved for extreme cases.
+
 As you can imagine, checking for blacklisted tokens negates some of the benefits of the token-based approach. However, tokens can have a greater impact: by keeping relevant information for common calls in them, some requests can be handled without hitting the datastore (or by making queries smaller). This is why there are less arrows pointing to the user database in the stateless diagram. A subtle but important difference.
 
 Note that although the user database is not used by any of the services in the image, it is still necessary (other services may require it). There is only so much information a token can carry.
@@ -160,50 +162,161 @@ It will depend on your specific use case whether this difference is negligible o
 
 Other factors such as API call frequency must be considered as well. For instance: are our request queues too big due to many concurrent users? How does the use of bigger tokens impact on our server’s memory in this case? Will using a database increase latency or will JWT validation do so due to hardware limitations? What is the breaking point? As usual, only data from your specific use case can tell. Benchmark and test to your heart’s content.
 
-## Example: getting a JWT using Auth0
-Auth0 acts as a bridge between a login provider and your application. JWTs are the perfect tool for this: they can carry any information between a login provider and your application, without having state stored in a database.
+## Example: Using Auth0 and JWTs for Authentication and Client Side Sessions
+For our example we will make a simple shopping application. The user's shopping cart will be stored client-side. In this example, there are multiple JWTs present. Our shopping cart will be one of them.
 
-1. <a href="javascript:signup()">Sign up</a> for a free Auth0 account.
-2. [Go to the dashboard](https://manage.auth0.com/#/applications) and create a new application.
-3. For simplicity, we will test a simple user + password database connection. This should be enabled by default, if not, check the [connections section](https://manage.auth0.com/#/connections/database).
-4. To get the JWT for a user `test@test.com` with password `test` (check [here](https://auth0.com/docs/api/authentication#!#post--dbconnections-signup) for the user creation API), send the following HTTP post request:
+- One JWT for the ID token, a token that carries the user's profile information, useful for the UI.
+- One JWT for interacting with the API backend (the access token).
+- One JWT for our client-side state: the shopping cart.
+
+Here's how the shopping cart looks when decoded:
+
+```json
+{
+  "items": [
+    0,
+    2,
+    4
+  ],
+  "iat": 1493139659,
+  "exp": 1493143259
+}
+```
+
+Each item is identified by a numeric ID. The encoded and signed JWT looks like:
 
 ```text
-https://<username>.auth0.com/oauth/ro
-Content-Type: 'application/json'
-{
-  "client_id":   "YOUR APPLICATION CLIENT ID", // InfoQTest
-  "username":    "test@test.com",
-  "password":    "test",
-  "id_token":    "",
-  "connection":  "Username-Password-Authentication",
-  "grant_type":  "password",
-  "scope":       "openid",
-  "device":      ""
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJpdGVtcyI6WzAsMiw0XSwiaWF0IjoxNDkzMTM5NjU5LCJleHAiOjE0OTMxNDMyNTl9.
+932ZxtZzy1qhLXs932hd04J58Ihbg5_g_rIrj-Z16Js
+```
+
+To render the items in the cart, the frontend only needs to retrieve and decode the JWT from its cookie":
+
+```javascript
+function populateCart() {
+    const cartElem = $('#cart');
+    cartElem.empty();
+
+    const cartToken = Cookies.get('cart');
+    if(!cartToken) {
+        return;
+    }
+
+    const cart = jwt_decode(cartToken).items;
+    
+    cart.forEach(itemId => {
+        const name = items.find(item => item.id == itemId).name;
+        cartElem.append(`<li>${name}</li>`);
+    });
 }
 ```
 
-If everything is right, you should get something like this:
+Note that the frontend does not check the signature, it simply decodes the JWT so it can display its contents. The actual checks are performed by the backend. All JWTs are verified.
 
-```json
-{
-  "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NwZXlyb3R0LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1NzQzNzI5Y2I0OGNjODlkMTNhYTBmOTgiLCJhdWQiOiJtSXBBUXBaRERKMnR4WENIQTBaUjVVVTI2bU5pTnV4byIsImV4cCI6MTQ2NDA3NDA5OCwiaWF0IjoxNDY0MDM4MDk4fQ.FABgOD0lvnFImrsFEq6b8-fXJhgiqC6rq-RMkmIWA-o",
-  "access_token": "0oaab2tyG9ZHo779",
-  "token_type": "bearer"
+Here is the backend check for the validity of the cart JWT implemented as an Express middleware:
+
+```javascript
+function cartValidator(req, res, next) {
+    if(!req.cookies.cart) {
+        req.cart = { items: [] };
+    } else {
+        try {
+            req.cart = { 
+                items: jwt.verify(req.cookies.cart, 
+                                  process.env.AUTH0_CART_SECRET,
+                                  cartVerifyJwtOptions).items
+            };
+        } catch(e) {
+            req.cart = { items: [] }; 
+        }
+    }
+
+    next();
 }
 ```
 
-The content is:
+When items are added, the backend constructs a new JWT with the new item in it and a new signature:
 
-```json
-{
-  "iss": "https://speyrott.auth0.com/",
-  "sub": "auth0|5743729cb48cc89d13aa0f98",
-  "aud": "mIpAQpZDDJ2txXCHA0ZR5UU26mNiNuxo",
-  "exp": 1464074098,
-  "iat": 1464038098
-}
+```javascript
+app.get('/protected/add_item', idValidator, cartValidator, (req, res) => {    
+    req.cart.items.push(parseInt(req.query.id));
+
+    const newCart = jwt.sign(req.cart, 
+                             process.env.AUTH0_CART_SECRET, 
+                             cartSignJwtOptions);
+
+    res.cookie('cart', newCart, {
+        maxAge: 1000 * 60 * 60
+    });
+
+    res.end();
+
+    console.log(`Item ID ${req.query.id} added to cart.`);
+});
 ```
+
+Note that locations prefixed by `/protected` are also protected by the API access token. This is set up using `express-jwt`:
+
+```javascript
+app.use('/protected', expressJwt({
+    secret: jwksClient.expressJwtSecret(jwksOpts),
+    issuer: process.env.AUTH0_API_ISSUER,
+    audience: process.env.AUTH0_API_AUDIENCE,
+    requestProperty: 'accessToken',
+    getToken: req => {
+        return req.cookies['access_token'];
+    }
+}));
+```
+
+In other words, the `/protected/add_item` endpoint must first pass the access token validation step before validating the cart. One token validates access (authorization) to the API and the other token validates the integrity of the client side data (the cart).
+
+The access token and the ID token are assigned by Auth0 to our application. This requires setting up a [client](https://manage.auth0.com/#/clients) and an [API endpoint](https://manage.auth0.com/#/apis) using the [Auth0 dashboard](https://manage.auth0.com). These are then retrieved using the Auth0 JavaScript library, called by our frontend:
+
+```javascript
+//Auth0 Client ID
+const clientId = "t42WY87weXzepAdUlwMiHYRBQj9qWVAT";
+//Auth0 Domain
+const domain = "speyrott.auth0.com";
+
+const auth0 = new window.auth0.WebAuth({
+    domain: domain,
+    clientID: clientId,
+    audience: '/protected',
+    scope: 'openid profile purchase',
+    responseType: 'id_token token',
+    redirectUri: 'http://localhost:3000/auth/',
+    responseMode: 'form_post'
+});
+
+//(...)
+
+$('#login-button').on('click', function(event) {
+    auth0.authorize();
+});
+```
+
+The `audience` claim must match the one set up for your API endpoint using the Auth0 dashboard.
+
+The Auth0 authentication and authorization server displays a login screen with our settings and then redirects back to our application at a specific path with the tokens we requested. These are handled by our backend which simply sets them as cookies:
+
+```javascript
+app.post('/auth', (req, res) => {
+    res.cookie('access_token', req.body.access_token, {
+        httpOnly: true,
+        maxAge: req.body.expires_in * 1000
+    });
+    res.cookie('id_token', req.body.id_token, {
+        maxAge: req.body.expires_in * 1000
+    });
+    res.redirect('/');
+});
+```
+
+Implementing CSRF mitigation techniques is left as an exercise for the reader. 
+
+Get the [full example](https://github.com/auth0/jwt-handbook-samples/tree/master/stateless-sessions) and check how it works! If you want to run your own version, you will need to <a href="javascript:signup()">sign up for a free Auth0 account</a>.
 
 ## Conclusion
 Tokens, by virtue of being able to be validated on their own, require less queries in the backend. Additionally, custom data may be embedded in them, simplifying the flow of certain common operations such as authorization. The size of tokens may be a problem as the information contained in them gets bigger. Chatty architectures may worsen the symptoms in that case. For most scenarios, tokens are a great choice.
