@@ -29,7 +29,7 @@ related:
 - 2015-10-14-7-things-you-should-know-about-web-assembly
 ---
 
-[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we teamed up with Ivo Zielinski, Konrad Koziol, David Belinchon, and Nicolás González from [GFT's Innovation Team](https://www.gft.com/) to develop a practical application of an Ethereum-based login system for Ethereum users. Read on!
+[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we teamed up with Ivo Zieliński, Konrad Kozioł, David Belinchon, and Nicolás González from [GFT's Innovation Team](https://www.gft.com/) to develop a practical application of an Ethereum-based login system for Ethereum users. Read on!
 
 This is the third post from a three-post series about Ethereum. [Read part 1](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/) and [part 2](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts-part-2/) if you haven't done so.
 
@@ -293,4 +293,4 @@ Not bad for our initial research into integrating Ethereum with classic technolo
 
 Another interesting approach to Ethereum authentication is currently under development by [uPort](https://www.uport.me/). The landscape of blockchain based applications is still being explored and we are eager to find out what people can do with it. Let us know what you think in the comments!
 
-Many thanks to GFT's Innovation Team (Ivo Zielinski, Konrad Koziol, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept.
+Many thanks to GFT's Innovation Team (Ivo Zieliński, Konrad Kozioł, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept.
