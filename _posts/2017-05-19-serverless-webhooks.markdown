@@ -32,7 +32,7 @@ You don't have to look far to see how this strategy pays off: virtually all succ
 
 The most popular mechanism used by SaaS products today to offer extensibility is based on webhooks. Webhooks enable the customer to create a web service that will be called when a certain event occurs in your platform. Webhooks are very powerful and flexible: they allow customers to implement arbitrary business logic to extend your core product. 
 
-![Today: webooks](https://cloud.githubusercontent.com/assets/822369/26187727/e9d40b7c-3b4f-11e7-8c3a-9e86b3560dc4.png)
+![Today: webhooks](https://cloud.githubusercontent.com/assets/822369/26187727/e9d40b7c-3b4f-11e7-8c3a-9e86b3560dc4.png)
 
 Yet webhooks have their disadvantages. Using webhooks requires your customers to invest in and address several layers of concerns related to running a web service: hosting, monitoring, securing, ensuring availability, and more. All this increases the barrier to extending your product and the required development and maintenance. 
 
@@ -44,9 +44,9 @@ Auth0 Extend helps you add extensibility to your SaaS product in a way that addr
 
 Using Auth0 Extend is a win-win for you and your customers. Everybody benefits from the reduced time to market and the enablement of platform economy around your SaaS product. Your customers are going to be delighted with the state of the art, in-product development experience Auth0 Extend provides. They will appreciate being able to focus on business logic behind extending your system as opposed to servers, hosting, and maintence of their code. 
 
-### Use case: Apollo Lauchpad, the GraphQL playground
+### Use case: Apollo Launchpad, the GraphQL playground
 
-A great example of using Auth0 Extend to provide a sandboxed execution environment server side scripts is the just released [Apollo Launchpad](https://dev-blog.apollodata.com/introducing-launchpad-the-graphql-server-demo-platform-cc4e7481fcba), brought to you by the people behind [MeteorJS](https://www.meteor.com/). 
+A great example of using Auth0 Extend to provide a sandboxed execution environment server side scripts is the just released [Apollo Launchpad](https://dev-blog.apollodata.com/introducing-launchpad-the-graphql-server-demo-platform-cc4e7481fcba), brought to you by the people behind [Meteor](https://www.meteor.com/). 
 
 ![Apollo Launchpad](https://cloud.githubusercontent.com/assets/822369/26219716/d28b917c-3bc4-11e7-9679-56d90de10eee.png)
 
@@ -60,11 +60,11 @@ Auth0 Extend is a managed service that can be integrated into your SaaS product 
 
 ### Lap around Auth0 Extend
 
-While you can provide your own authoring experience for custom code and use only the secure, multi-tenant runtime Auth0 Extend provides to execute it, the Auth0 Extend editor is still the best way to highlight what the platform has to offer. Let's take a lap around Auth0 Extend from the perspective of your customers. 
+While you can provide your own authoring experience for custom code and use only the secure, multi-tenant runtime Auth0 Extend provides to execute it, the Auth0 Extend editor is the best way to highlight what the platform has to offer. Let's take a lap around Auth0 Extend from the perspective of your customers. 
 
 ### Sky is the limit with Node.js and NPM
 
-The primary programming environment in Auth0 Extend is Node.js. Your users can use Node with the vast majority of Node.js modules on NPM across all the versions they desire. The Extend Editor provides a great authoring experience for JavaScript with all the usual creature comforts developers are used to, from syntax highlighting to intellisense. 
+The primary programming environment in Auth0 Extend is Node.js. Your users can use Node.js with the vast majority of Node.js modules on NPM across all the versions they desire. The Extend Editor provides a great authoring experience for JavaScript with all the usual creature comforts developers are used to, from syntax highlighting to intellisense. 
 
 ![Sky is the limit with Node.js and NPM](https://cloud.githubusercontent.com/assets/822369/26187871/a193e05c-3b50-11e7-819a-b9b7ae417caf.png)
 
