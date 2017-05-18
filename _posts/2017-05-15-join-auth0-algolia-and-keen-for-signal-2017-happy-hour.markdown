@@ -35,7 +35,7 @@ The happy hour will be a great opportunity to meet and network with fellow atten
 
 **Where**: Rogue Ales Public House, 673 Union Street, San Francisco, CA 94133
 
-**When**: May 24, 2017 at 6:00pm - 9:00pm
+**When**: May 24, 2017 at 7:30pm - 9:30pm
 
 **How**: [RSVP](https://www.eventbrite.com/e/rogue-ales-happy-hour-by-algolia-auth0-and-keen-io-tickets-34586663642) to reserve your spot as space is limited
 
