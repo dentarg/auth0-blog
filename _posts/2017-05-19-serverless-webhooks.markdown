@@ -56,7 +56,7 @@ Check out the [Apollo Launchpad](https://launchpad.graphql.com/new) yourself!
 
 ### What exactly is Auth0 Extend? 
 
-Auth0 Extend is a managed service that can be integrated into your SaaS product to support authoring and execution of custom code your customers write to extend your platform. The service supports a rich development environment your customers can use to develop and debug Node.js code that you can embed directly in your web site. The second part of the Auth0 Extend service supports secure, "serverless" execution of these extensions on behalf of your customers, therefore removing all your customers' concerns related to hosting and maintaining a service. [Read more about the benefits of Auth0 Extend here](https://auth0.com/extend). 
+Auth0 Extend is a managed service that can be integrated into your SaaS product to support authoring and execution of custom code your customers write to extend your platform. The service supports a rich development environment your customers can use to develop and debug Node.js code that you can embed directly in your web site. The second part of the Auth0 Extend service supports secure, "serverless" execution of these extensions on behalf of your customers, therefore removing all your customers' concerns related to hosting and maintaining a service. [Read more about the benefits of Auth0 Extend here](https://auth0.com/extend/developers). 
 
 ### Lap around Auth0 Extend
 
