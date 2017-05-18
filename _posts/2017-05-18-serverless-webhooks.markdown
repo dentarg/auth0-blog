@@ -39,11 +39,21 @@ Yet webhooks have their disadvantages. Using webhooks requires your customers to
 
 ### Tomorrow: serverless webhooks with Auth0 Extend
 
-Auth0 Extend helps you add extensibility to your SaaS product in a way that addresses these concerns. Instead of having your customers provide a webhook URL to a service they need to host elsewhere, your users can implement their extension logic directly within your product using the Auth0 Extend editor.
+Auth0 Extend helps you add extensibility to your SaaS product in a way that addresses these concerns. Instead of having your customers provide a webhook URL to a service they need to host elsewhere, your users can implement their extension logic directly within your product [using the Auth0 Extend editor](https://auth0.com/extend/try).
 
 ![Tomorrow: serverless webhooks with Auth0 Extend](https://cloud.githubusercontent.com/assets/822369/26187776/2d57cc62-3b50-11e7-9e9b-12b88b474c84.png)
 
 Using Auth0 Extend is a win-win for you and your customers. Everybody benefits from the reduced time to market and the enablement of platform economy around your SaaS product. Your customers are going to be delighted with the state of the art, in-product development experience Auth0 Extend provides. They will appreciate being able to focus on business logic behind extending your system as opposed to servers, hosting, and maintence of their code. 
+
+### Use case: Apollo Lauchpad, the GraphQL playground
+
+A great example of using Auth0 Extend to provide a sandboxed execution environment server side scripts is the just released [Apollo Launchpad](https://dev-blog.apollodata.com/introducing-launchpad-the-graphql-server-demo-platform-cc4e7481fcba), brought to you by the people behind [MeteorJS](https://www.meteor.com/). 
+
+![Apollo Launchpad](https://cloud.githubusercontent.com/assets/822369/26219716/d28b917c-3bc4-11e7-9679-56d90de10eee.png)
+
+Apollo Lauchpad is an in-browser GraphQL server playground. It allows developers to share examples and patterns of GraphQL endpoints based on arbitrary GraphQL schema. The actual endpoint is executing in Auth0 Extend environment to provide adequate isolation between individual projects. 
+
+Check out the [Apollo Launchpad](https://launchpad.graphql.com/new) yourself!
 
 ### What exactly is Auth0 Extend? 
 
@@ -59,7 +69,7 @@ The primary programming environment in Auth0 Extend is Node.js. Your users can u
 
 ![Sky is the limit with Node.js and NPM](https://cloud.githubusercontent.com/assets/822369/26187871/a193e05c-3b50-11e7-819a-b9b7ae417caf.png)
 
-Thanks to an innovative way of handling module dependencies by the Auth0 Extend runtime, the latency of code execution is much less affacted by the number or size of them compared to tranditional ways of provisioning Node.js applications. 
+Thanks to an innovative way of handling module dependencies by the Auth0 Extend runtime, the latency of code execution is much less affected by the number or size of them compared to tranditional ways of provisioning Node.js applications. 
 
 ### High HTTP fidelity
 
@@ -69,7 +79,7 @@ Auth0 Extend offers very high fidelity with the HTTP protocol. The developer rem
 
 ### Secrets and configuration
 
-Majority of extensions of your plarform will communicate with external systems to do their job. It may be a Mongo database, Twilio or Sendgrid APIs, Salesforce, or any other system that expose endpoints. Auth0 Extend provides a very convenient and secure way of provisioning and handling API keys and other secret configuration necessary for extensions to do their job.
+The majority of extensions of your plarform will communicate with external systems to do their job. It may be a Mongo database, Twilio or Sendgrid APIs, Salesforce, or any other system that expose endpoints. Auth0 Extend provides a very convenient and secure way of provisioning and handling API keys and other secret configuration necessary for extensions to do their job.
 
 ![Secrets and configuration](https://cloud.githubusercontent.com/assets/822369/26188072/f918a9f6-3b51-11e7-8842-f2e3736e1de1.png)
 
@@ -77,7 +87,7 @@ Secrets are encrypted at rest and stored alongside the code of the extension. Th
 
 ### Integrated runner
 
-Auth0 Extend editor includes a runner component that allows your customers to test their code without using external tools. When you integrate Auth0 Extend into your SaaS, you can configure the runner with sample data specific to your extensibility points, so that your users are only a click away from testing their code with correct payloads. 
+Auth0 Extend editor includes a runner component that allows your customers to test their code without using external tools. When you integrate Auth0 Extend into your SaaS, you can configure the runner with sample data specific to your extensibility points, so that your users are only a click away from testing their code with matching and meaningful payloads. 
 
 ![Integrated runner](https://cloud.githubusercontent.com/assets/822369/26188113/45201276-3b52-11e7-81df-c7f18972c262.png)
 
@@ -89,7 +99,7 @@ Testing of the code during development is further facilitated with access to rea
 
 ### GitHub integration
 
-The Auth0 Extend system stores and manages the code your users write in order to execute it at runtime. But it also supports two-directional synchronization of that code with a GitHub repository. 
+The Auth0 Extend system stores and manages the code your users write in order to execute it at runtime. But it also supports bi-directional synchronization of that code with a GitHub repository. 
 
 Any changes to the code on GitHub can be automatically put into production. Also any changes made in the Auth0 Extend editor can generate a commit to the repo. 
 
@@ -107,7 +117,7 @@ The Auth0 Extend editor itself is highly customizable and extensible. You can ex
 
 ### Durable logs
 
-In addition to the real-time logs which provide your users with timely access to logging information during development, you can also configure Auth0 Extend to externalize all logging information to AWS Firehose. This provides you with the ability to store and process logs in Amazon S3, Redshift, or ElasticSearch for analytics and historical record. 
+In addition to the real-time logs which provide your users with immediate access to logging information during development, you can also configure Auth0 Extend to externalize all logging information to AWS Firehose. This provides you with the ability to store and process logs in Amazon S3, Redshift, or ElasticSearch for analytics and historical record. 
 
 ### Battle tested technology
 
@@ -115,7 +125,7 @@ Auth0 Extend is not a new product, it a result of scratching our own itch at Aut
 
 ### Getting started
 
-Start integratig Auth0 Extend into your product today. We not only make your customer's life simple, we also care about your own experience integratig Auth0 Extend into your SaaS.
+Start integrating Auth0 Extend into your product today. We not only make your customer's life simple, we also care about your own experience integratig Auth0 Extend into your SaaS.
 
 ```html
 <!DOCTYPE html>
