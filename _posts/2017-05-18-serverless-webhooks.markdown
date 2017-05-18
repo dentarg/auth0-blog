@@ -51,7 +51,7 @@ A great example of using Auth0 Extend to provide a sandboxed execution environme
 
 ![Apollo Launchpad](https://cloud.githubusercontent.com/assets/822369/26219716/d28b917c-3bc4-11e7-9679-56d90de10eee.png)
 
-Apollo Lauchpad is an in-browser GraphQL server playground. It allows developers to share examples and patterns of GraphQL endpoints based on an arbitrary GraphQL schema. The actual endpoint is executing in Auth0 Extend environment to provide adequate isolation and sandboxing of untrusted user code from individual projects. 
+Apollo Launchpad is an in-browser GraphQL server playground. It allows developers to share examples and patterns of GraphQL endpoints based on an arbitrary GraphQL schema. The actual endpoint is executing in Auth0 Extend environment to provide adequate isolation and sandboxing of untrusted user code from individual projects. 
 
 Check out the [Apollo Launchpad](https://launchpad.graphql.com/new) yourself!
 
