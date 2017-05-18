@@ -2,11 +2,11 @@
 layout: post
 title: "Get Realtime Authentication Events with Auth0 and Pusher"
 description: Learn how to levarage Pusher to get realtime authentication events from Auth0.
-date: 2017-05-10 08:30
+date: 2017-05-18 08:30
 category: Technical guide, Identity
 design:
-  bg_color: "#484C89"
-  image: https://cdn2.auth0.com/blog/ultimateguide.png
+  bg_color: "#3666A5"
+  image: https://cdn.auth0.com/blog/auth0-pusher/logo.png
 author:
   name: Esteban Herrera
   url: https://twitter.com/eh3rrera
