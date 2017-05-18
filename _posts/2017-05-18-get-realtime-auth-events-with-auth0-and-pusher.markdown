@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Get Realtime Authentication Events with Auth0 and Pusher"
-description: Learn how to levarage Pusher to get realtime authentication events from Auth0.
+description: Learn how to leverage Pusher to get realtime authentication events from Auth0.
 date: 2017-05-18 08:30
 category: Technical guide, Identity
 design:
