@@ -210,7 +210,7 @@ pusher.trigger(`callprogress-${call.cpid}`, "update", { "step": 2, "seq": seq++ 
 pusher.trigger(`callprogress-${call.cpid}`, "update", { "step": 3, "seq": seq++ });
 ```
 
-On thenclient-side you subscribe to the event stream and react accordingly. The only thing worth mentioning is that the server sends a sequence number with each update in order to allow the client to correctly process the progress updates even if the network fails to deliver them in order.
+On the client-side you subscribe to the event stream and react accordingly. The only thing worth mentioning is that the server sends a sequence number with each update in order to allow the client to correctly process the progress updates even if the network fails to deliver them in order.
 
 ```javascript
 var pusher = new Pusher(key, {
