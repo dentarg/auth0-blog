@@ -2,7 +2,7 @@
 layout: post_extend
 title: "Serverless Webhooks"
 description: Extend your SaaS with Node.js using Auth0 Extend
-date: 2017-05-18 09:23
+date: 2017-05-19 09:23
 is_extend: true
 category: Product
 author: 
@@ -13,7 +13,6 @@ author:
 design: 
   bg_color: "#3445dc"
   image: "https://cdn.auth0.com/website/extend/developer/blocks-graphic.svg"
-  # image: "https://cdn.auth0.com/blog/js-fatigue/JSLogo.png"
 tags: 
 - extend
 
