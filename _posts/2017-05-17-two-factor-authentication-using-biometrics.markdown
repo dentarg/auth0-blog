@@ -18,6 +18,7 @@ tags:
 - Biometrics
 related:
 - 2016-11-30-different-ways-to-implement-multifactor
+experimental: true
 ---
 
 **TL;DR** You can replace the use of traditional multifactor possession factors (phone codes, special-purpose hardware) in 2FA implementations with the use of inherence factors (voice biometrics) by leveraging [Auth0](https://auth0.com/) extensibility points and voice recognition services (VoiceIt). Additionally, by integrating a communications platform (Twilio) you can let your users complete the voice authentication step through their own phones.

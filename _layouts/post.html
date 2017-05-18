@@ -28,6 +28,7 @@ is_post: true
         <main class="blog-post blog-single">
           <div class="inner">
             <div class="entry-content js-entry-content" itemprop="articleBody">
+              {% include experiment_disclaimer.html %}
               {{ content }}
             </div>
             {% include reply_buttons.html %}
