@@ -46,7 +46,7 @@ Using Auth0 Extend is a win-win for you and your customers. Everybody benefits f
 
 ### Use case: Apollo Launchpad, the GraphQL playground
 
-A great example of using Auth0 Extend to provide a sandboxed execution environment server side scripts is the just released [Apollo Launchpad](https://dev-blog.apollodata.com/introducing-launchpad-the-graphql-server-demo-platform-cc4e7481fcba), brought to you by the people behind [Meteor](https://www.meteor.com/). 
+A great example of using Auth0 Extend to provide a sandboxed execution environment for server side scripts is the just released [Apollo Launchpad](https://dev-blog.apollodata.com/introducing-launchpad-the-graphql-server-demo-platform-cc4e7481fcba), brought to you by the people behind [Meteor](https://www.meteor.com/). 
 
 ![Apollo Launchpad](https://cloud.githubusercontent.com/assets/822369/26219716/d28b917c-3bc4-11e7-9679-56d90de10eee.png)
 
