@@ -1,6 +1,6 @@
 ---
 layout: post_extend
-title: "Serverless Webhooks"
+title: "Serverless Webhooks with Auth0 Extend"
 description: Extend your SaaS with Node.js using Auth0 Extend
 date: 2017-05-19 09:23
 is_extend: true
