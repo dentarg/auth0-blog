@@ -28,6 +28,8 @@ press_release: true
 
 Today is an exciting day, as we add a new product to the Auth0 family: [Auth0 Extend](https://www.auth0.com/extend?utm_medium=blog&utm_campaign=extend_launch&utm_source=auth0.com)! Auth0 Extend gives you a [Serverless](https://martinfowler.com/articles/serverless.html) extensibility platform you can plug right into your SaaS. Basically, it's Extensibility as a Service. With Auth0 Extend, your customers, partners, as well as your own engineers and sales engineers can quickly and easily extend your product.
 
+Watch this short 90 second video below to see how Auth0 Extend can help you.
+
 <script src="//fast.wistia.com/embed/medias/gdmdh89ehj.jsonp" async></script>
 <script src="//fast.wistia.com/assets/external/E-v1.js" async></script>
 
