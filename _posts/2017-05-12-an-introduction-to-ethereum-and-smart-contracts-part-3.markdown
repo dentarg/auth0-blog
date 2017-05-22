@@ -162,6 +162,8 @@ Registration is performed by following these steps:
 4. The **user** establishes a link between his or her primary Ethereum address and this secondary address. To do so the user can manually call the `mapAddress` method of the `Mapper` contract or use a special **wallet app** developed for this purpose. This step requires the user to spend a minimum amount of gas from his primary account.
 5. Once the link between addresses is established, the mobile application will show a confirmation dialog. If the user confirms, the mapping is established and the process is complete.
 
+One of the added benefits of this approach is that it makes throwaway accounts harder to use. Point 4 forces the user to spend Ether to establish the mapping between his personal Ethereum address and the login-only address. This way, third-parties can be sure that the Ethereum account used by the user is not a throwaway account (i.e. a spam account).
+
 ### Authentication
 ![Authentication](https://cdn.auth0.com/blog/ethereum3/Login-System.png)
 
@@ -313,4 +315,4 @@ Another interesting approach to Ethereum authentication is currently under devel
 
 Would you be interested in having Ethereum authentication as an option in Auth0? Don't forget to tell us in the comments!
 
-Many thanks to GFT's Innovation Team (Ivo Zieliński, Konrad Kozioł, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept.
+Many thanks to GFT's Innovation Team (Ivo Zieliński, Konrad Kozioł, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept, and to [Manu Aráoz](https://twitter.com/maraoz) for reviewing this article.
