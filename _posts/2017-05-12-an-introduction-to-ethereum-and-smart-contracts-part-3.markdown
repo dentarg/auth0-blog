@@ -253,12 +253,13 @@ You will notice there is a checkbox labeled `Trustless Authentication`. As expla
 If you are interested in taking a closer look at how our PoC works, here are all the repositories:
 
 - [The authentication server](https://github.com/auth0/ethereum-authentication-server)
-- [The mobile app](https://github.com/auth0/ethereum-auth-client)
+- [The mobile app](https://github.com/auth0/ethereum-authenticator-app-public)
 - [The sample third party web app](https://github.com/auth0/ethereum-sample-web)
 - [The registration wallet using Metamask](https://github.com/auth0/ethereum-browser-wallet)
 - [Docker scripts for easy testing](https://github.com/auth0/ethereum-docker-deployment)
 
 There are also a couple of helper libraries that were developed for this PoC, these are used by the repositories above:
+
 - [Ethereum crypto helper lib](https://github.com/auth0/ethereum-crypto)
 - [JavaScript library for doing auth as used by this PoC](https://github.com/auth0/ethereum-auth-client)
 - [A simple database abstraction helper](https://github.com/auth0/ethereum-user-db-service)
