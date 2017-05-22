@@ -2,7 +2,7 @@
 layout: post
 title: "Load Balancing Node.js Applications with NGINX and Docker"
 description: "Let's dockerize two instances of a Node.js application and load balance them with NGINX."
-date: 2017-05-09 19:58
+date: 2017-05-22 19:58
 category: Technical Guide, Architecture, Performance
 author:
   name: "Bruno Krebs"
