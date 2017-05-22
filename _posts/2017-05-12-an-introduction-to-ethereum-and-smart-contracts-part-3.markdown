@@ -2,7 +2,7 @@
 layout: post
 title: "An Introduction to Ethereum and Smart Contracts: an Authentication Solution"
 description: "Learn about verified, distributed computations in the cloud using Ethereum"
-date: 2017-05-12 12:30
+date: 2017-05-23 12:30
 category: Technical Guide
 author:
   name: Sebastián Peyrott
@@ -23,13 +23,14 @@ tags:
 - blockchain
 - cryptocurrency
 - cryptocurrencies
+- authentication
+- auth
 related:
-- 2016-11-16-a-rundown-of-es6-features
-- 2016-03-15-javascript-module-systems-showdown
-- 2015-10-14-7-things-you-should-know-about-web-assembly
+- 2017-03-06-an-introduction-to-ethereum-and-smart-contracts
+- 2017-03-28-an-introduction-to-ethereum-and-smart-contracts-part-2
 ---
 
-[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we teamed up with Ivo Zieliński, Konrad Kozioł, David Belinchon, and Nicolás González from [GFT's Innovation Team](https://www.gft.com/) to develop a practical application of an Ethereum-based login system for Ethereum users. Read on!
+[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we teamed up with Ivo Zieliński, Konrad Kozioł, David Belinchon, and Nicolás González from [GFT's Innovation Team](https://www.gft.com/) to develop a practical application of an Ethereum-based login system for Ethereum users. This system will allow any Ethereum user to prove ownership of an Ethereum account without using his or her private-key each time such proof is required, which is ideal for login systems. Think of "Login with Facebook" for Ethereum users. Read on!
 
 This is the third post from a three-post series about Ethereum. [Read part 1](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/) and [part 2](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts-part-2/) if you haven't done so.
 
@@ -175,6 +176,8 @@ Whenever a user who has already registered wants to use his or her Ethereum acco
 
 That is all there is to it, really! This scheme separates the signature process from a sensitive primary address, preventing the exposure of a potentially important private key while still giving the third party site confirmation that the user is the rightful owner of that address. Furthermore, although it relies on the authentication server for convenience, it can still work without it and does not require trust to be placed in it (the third party website can check the signature itself). Thus it remains decentralized in worst-case scenarios (authentication server down) and convenient for the common case.
 
+As an added benefit, this system can easily be adapted to work like "Login with Facebook" or "Login with Google" do. In fact, a future version could be included in Auth0!
+
 ### Cons
 As we have seen so far, our system appears to be more convenient than our initial, simple approach from part two of this series. However, it does come with a few limitations of its own. Let's take a brief look at them.
 
@@ -232,7 +235,7 @@ If you are an Ethereum user and you have your own wallet, you can perform this s
 
 Once you are in the site, paste the Ethereum address you copied from the email in the previous step and click `Register`. A Metamask window will pop-up. This is a confirmation that you are about to make a transaction from your primary account that will spend Ether. Click `Sign`. After a while your primary and secondary accounts will be connected! The time for this to happen depends on the Ethereum network. In general it is just a few seconds.
 
-In case you are already experienced with Ethereum you may want to perform this step manually. Call the `mapAddress` method of the `Mapper` contract located at `0x5e24bf433aee99227737663c0a387f02a9ed4b8a`. You can get the [JSON API here](). The only parameter is the address you got in your email.
+In case you are already experienced with Ethereum you may want to perform this step manually. Call the `mapAddress` method of the `Mapper` contract located at `0x5e24bf433aee99227737663c0a387f02a9ed4b8a`. You can get the [JSON API here](https://github.com/auth0/ethereum-auth-client/blob/master/config/abi.json). The only parameter is the address you got in your email.
 
 After this is done everything is set!
 
@@ -246,6 +249,20 @@ You will notice there is a checkbox labeled `Trustless Authentication`. As expla
 
 <video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Login.mp4">
 </video>
+
+If you are interested in taking a closer look at how our PoC works, here are all the repositories:
+
+- [The authentication server](https://github.com/auth0/ethereum-authentication-server)
+- [The mobile app](https://github.com/auth0/ethereum-auth-client)
+- [The sample third party web app](https://github.com/auth0/ethereum-sample-web)
+- [The registration wallet using Metamask](https://github.com/auth0/ethereum-browser-wallet)
+- [Docker scripts for easy testing](https://github.com/auth0/ethereum-docker-deployment)
+
+There are also a couple of helper libraries that were developed for this PoC, these are used by the repositories above:
+- [Ethereum crypto helper lib](https://github.com/auth0/ethereum-crypto)
+- [JavaScript library for doing auth as used by this PoC](https://github.com/auth0/ethereum-auth-client)
+- [A simple database abstraction helper](https://github.com/auth0/ethereum-user-db-service)
+- [Preconfigured Ethereum client node for this PoC](https://github.com/auth0/go-ethereum)
 
 ## Aside: Easy Authentication with Auth0
 What we have seen in this post seems complicated, and indeed authentication can be a complex matter. Fortunately, with our help it needn't be so. Check our [quickstarts](https://auth0.com/docs/quickstarts) and implement authentication and authorization in your apps in a breeze.
@@ -292,5 +309,7 @@ Developers can implement this by calling two endpoints of a RESTful API. Really 
 Not bad for our initial research into integrating Ethereum with classic technologies. This shows Ethereum can be integrated into traditional applications today. The platform works, and the concept of decentralized applications is picking up steam.
 
 Another interesting approach to Ethereum authentication is currently under development by [uPort](https://www.uport.me/). The landscape of blockchain based applications is still being explored and we are eager to find out what people can do with it. Let us know what you think in the comments!
+
+Would you be interested in having Ethereum authentication as an option in Auth0? Don't forget to tell us in the comments!
 
 Many thanks to GFT's Innovation Team (Ivo Zieliński, Konrad Kozioł, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept.
