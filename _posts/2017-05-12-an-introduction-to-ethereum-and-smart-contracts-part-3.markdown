@@ -315,4 +315,4 @@ Another interesting approach to Ethereum authentication is currently under devel
 
 Would you be interested in having Ethereum authentication as an option in Auth0? Don't forget to tell us in the comments!
 
-Many thanks to GFT's Innovation Team (Ivo Zieliński, Konrad Kozioł, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept, and to [Manu Aráoz](https://twitter.com/maraoz) for reviewing this article.
+Many thanks to GFT's Innovation Team (Ivo Zieliński, Konrad Kozioł, David Belinchon and Nicolás González) for doing an amazing job developing this proof-of-concept, and to [Manu Aráoz](https://twitter.com/maraoz) for reviewing and providing insight for this article.
