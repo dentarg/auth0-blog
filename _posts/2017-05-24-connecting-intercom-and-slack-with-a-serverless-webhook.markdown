@@ -224,7 +224,7 @@ Save the task. With everything wired up, the next time a message is sent, you sh
 
 <img src="https://cdn.auth0.com/website/blog/extend/intercomslack/slack-notification.png"/>
 
-Success! You've just seen how you can customize Intercom via Webhooks to have custom routing logic for Slack messages. You've also seen how you can use Webtask to quickly and easily get a Webhook endpoint. You can rapidly develop in Webtask's editor and explore the Webhook payload, as well as implement the Webhook logic. You were able to do all of this from the browser without having to install anything locally.
+Success! You've just seen how you can customize Intercom via Webhooks to have custom routing logic for Slack messages. You've also seen how you can use Webtask to quickly and easily get a Serverless Webhook endpoint. You can rapidly develop in Webtask's editor and explore the Webhook payload, as well as implement the logic. You were able to do all of this from the browser without having to install anything locally.
 
 ## Going further with Auth0 Extend
 
