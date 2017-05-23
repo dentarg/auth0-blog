@@ -191,7 +191,7 @@ If you don't have an Auth0 account:
 	![Create client](https://cdn.auth0.com/blog/swapart/createclient.png)
 	_Create client_
 
-* Head over to the [Passwordless Connections](https://manage.auth0.com/#/connections/passwordless) side of the dashboard and enable email option. It should show something similar to the image below:
+* Head over to the [Passwordless Connections](https://manage.auth0.com/#/connections/passwordless) side of the dashboard and enable SMS option. It should show something similar to the image below:
 
 	![Enable Swapart App](https://cdn.auth0.com/blog/enableEmailOne.png)
 	_Enable Swapart App_
