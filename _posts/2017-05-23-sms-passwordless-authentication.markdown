@@ -25,14 +25,14 @@ related:
 
 ---
 
-**TL;DR:** Passwordless authentication is not a new concept in the world of authentication. Platforms like Slack and Whatsapp already adopt this form of authentication. Passwordless authentication employs a form of strategy that requires authentication without passwords. However, there are different forms of passwordless authentication. In this article, you'll get to understand how SMS passwordless authentication works and build an app alongside. Check out the [repo](https://github.com/auth0-blog/swapart) to get the code.
+**TL;DR:** Passwordless is not a new concept in the world of authentication. Platforms like Slack and Whatsapp already adopt this form of authentication. There are different forms of strategy that requires authentication without passwords. However, there are different forms of passwordless authentication. In this article, you'll get to understand how SMS passwordless authentication works and build an app alongside. Check out the [repo](https://github.com/auth0-blog/swapart) to get the code.
 
 
 ---
 
 ## What is SMS Passwordless Authentication?
 
-SMS Passwordless authentication is a type of authentication where users do not need to login with passwords. This form of authentication totally makes passwords obsolete. With this form of authentication, users are presented with the option of logging in simply via a token that is delivered via text message.
+SMS Passwordless authentication is a type of authentication where users do not need to login with passwords. This form of authentication totally makes passwords obsolete. With this form of authentication, users are presented with the option of logging in simply via a one time unique code that is delivered via text message.
 
 ## Benefits of Passwordless Authentication
 
@@ -44,25 +44,25 @@ Without much ado, passwordless authentication helps:
 
 ## How Does SMS Passwordless Authentication Work?
 
-Let's take a look at how SMS passwordless authentication actually works. This form of authentication works via SMS. Check out the process below:
+Let's take a look at how SMS passwordless authentication actually works. Check out the process below:
 
-* The user is asked to enter a valid phone number. 
+* The user is asked to enter a valid phone number.
 
 	![](https://cdn.auth0.com/blog/sms-authentication/sms-lock.png)
-	
+
 	_User enters a valid phone number_
 
-* A unique onetime code is then sent to the phone number. 
+* A unique onetime code is then sent to the phone number.
 
 	![Onetime code is received](https://cdn.auth0.com/blog/sms-authentication/auth0-sms.png)
-	
+
 	_One time code is received_
 
 * Once the user enters this code into your application, your app validates that the code is correct and that the phone number exists and belongs to a user, a session is initiated, and the user is logged in.
 
 	![SMS Confirmation](https://cdn.auth0.com/blog/sms-authentication/sms-confirmation.png)
-	
-	_In Auth0's case, user has five minutes to input the code into the app & get logged-in_
+
+	_In Auth0's case, the user has five minutes to input the code into the app & get logged-in_
 
 
 Take a look at Auth0's onetime code via SMS implementation below:
@@ -77,17 +77,17 @@ Other forms of passwordless authentication are:
 
 * Authentication with a magic link via email
 * Authentication with a onetime code via e-mail
-* Authentication with Fingerprint
+* Authentication with fingerprint. Auth0 supports [TouchID](https://auth0.com/docs/libraries/lock-ios/v1/touchid-authentication)
 
 Check out this [excellent article](https://auth0.com/blog/how-passwordless-authentication-works/) to have an in-depth understanding of how these other forms of passwordless authentication work!
 
 ## Aside: Phone Number / SMS Passwordless Authentication with Auth0
 
-With Auth0, sms passwordless authentication otherwise known as phone number authentication is dead simple to implement. There are diagrams earlier in this post that already show the SMS passwordless authentication flow using Auth0. The Passwordless API is an efficient [API implementation](https://auth0.com/docs/api/authentication#passwordless) of passwordless authentication.
+With Auth0, SMS passwordless authentication otherwise known as phone number authentication is dead simple to implement. There are diagrams earlier in this post that already show the SMS passwordless authentication flow using Auth0. The Passwordless API is an efficient [API implementation](https://auth0.com/docs/api/authentication#passwordless) of passwordless authentication.
 
 We'll build an application that allows you login via your mobile phone number. Let's get started.
 
-Create an `index.html` file in your directory add this piece of code to it:
+Create an `index.html` file in your directory and add this piece of code to it:
 
 {% highlight html %}
 {% raw %}
@@ -142,7 +142,7 @@ Create an `index.html` file in your directory add this piece of code to it:
           var appearanceOpts = {
             autoclose: true
           };
-          
+
           // Open the lock in SMS mode with the ability to handle the authentication in page
           lock.sms(appearanceOpts,function (err, profile, id_token, access_token, state, refresh_token) {
             if (!err){
@@ -164,29 +164,28 @@ Create an `index.html` file in your directory add this piece of code to it:
 {% endraw %}
 {% endhighlight %}
 
+If you don't have an Auth0 account: <a href="javascript:signup()">Sign up for free</a>.
+
 Now, create a JavaScript file, `auth0-variables.js`. We'll add auth0 variables to this file
 
 ```js
-var AUTH0_CLIENT_ID='CLIENT_ID'; 
+var AUTH0_CLIENT_ID='CLIENT_ID';
 var AUTH0_DOMAIN='AUTH0_DOMAIN';
 ```
 
-Create an `app.css` file and add the [code here](https://github.com/auth0-blog/swapart/blob/master/app.css) to it. 
+Create an `app.css` file and add the [code here](https://github.com/auth0-blog/swapart/blob/master/app.css) to it.
 
 Run your app. The landing page should look like this:
 
 ![Landing Page](https://cdn.auth0.com/blog/swapart/landingpage.png)
 _Landing Page_
 
-When you click on **Signin**, you should have this:
+When you click on **Signin**, you should see this:
 
 ![Signin](https://cdn.auth0.com/blog/swapart/login.png)
 _Signin Page_
 
-If you don't have an Auth0 account:
-
-* <a href="javascript:signup()">Sign up for free</a>. 
-* On the dashboard, click on the red `Create Client` button to create a new app like so:
+* On the [Auth0 dashboard](https://manage.auth0.com), click on the red `Create Client` button to create a new app like so:
 
 	![Create client](https://cdn.auth0.com/blog/swapart/createclient.png)
 	_Create client_
@@ -196,17 +195,20 @@ If you don't have an Auth0 account:
 	![Enable Swapart App](https://cdn.auth0.com/blog/enableEmailOne.png)
 	_Enable Swapart App_
 
-* The next page will show you a page to fill in your `Twilio SID` and `Twilio Auth Token` and the `From number`. Fill it in and save the details.
+* The next page will show you a page to fill in your `Twilio SID` and `Twilio Auth Token` and the `From number`.
+* Head over to Twilio, sign up and get the `SID` and `Auth Token` values, then add them to the Auth0 page and save.
 * Head over to your settings tab for the `Swapart` app and copy your `client_id` and `domain`
 * Open up `auth0-variables.js` in your code and replace the `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` values with your real Auth0 keys.
-* Make sure you add your app URL to the **Allowed Origins(CORS)** in the Auth0 dashboard.
+* Make sure you add your app URL to the **Allowed Origins(CORS)** in the Auth0 dashboard. Your app has to run on a server. `http-server` and `nginx` are good options.
 
 Let's try our app. Click the Login button and put your phone number.
 
 ![Login with Phone Number](https://cdn.auth0.com/blog/swapart/loginwithphonenumber.png)
 _Login with Phone Number_
 
-![Code from Auth0 delivered to your Phone](https://cdn.auth0.com/blog/swapart/codefromauth0.png)
+<div align="center">
+	<img src="https://cdn.auth0.com/blog/swapart/codefromauth0.png" width=400 height=400 />
+</div>
 _Code from Auth0 delivered to your Phone_
 
 ![Enter the code](https://cdn.auth0.com/blog/swapart/code.png)
