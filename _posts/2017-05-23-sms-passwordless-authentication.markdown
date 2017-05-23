@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "SMS Passwordless Authentication"
-description: Learn how SMS Passwordless Authentication works!
-date: 2016-11-23 08:30
+description: Learn how phone number authentication works and how you can implement it easily with Auth0!
+date: 2017-05-23 08:30
 category: Technical Guide, Identity, Passwordless
 design:
   bg_color: "#001D3F"
@@ -25,7 +25,8 @@ related:
 
 ---
 
-**TL;DR:** Passwordless authentication is not a new concept in the world of authentication. Platforms like Slack and Whatsapp already adopt this form of authentication. Passwordless authentication employs a form of strategy that requires authentication without passwords. However, there are different forms of passwordless authentication. In this article, you'll get to understand how SMS passwordless authentication works and build an app alongside.
+**TL;DR:** Passwordless authentication is not a new concept in the world of authentication. Platforms like Slack and Whatsapp already adopt this form of authentication. Passwordless authentication employs a form of strategy that requires authentication without passwords. However, there are different forms of passwordless authentication. In this article, you'll get to understand how SMS passwordless authentication works and build an app alongside. Check out the [repo](https://github.com/auth0-blog/swapart) to get the code.
+
 
 ---
 
@@ -48,16 +49,19 @@ Let's take a look at how SMS passwordless authentication actually works. This fo
 * The user is asked to enter a valid phone number. 
 
 	![](https://cdn.auth0.com/blog/sms-authentication/sms-lock.png)
+	
 	_User enters a valid phone number_
 
 * A unique onetime code is then sent to the phone number. 
 
 	![Onetime code is received](https://cdn.auth0.com/blog/sms-authentication/auth0-sms.png)
+	
 	_One time code is received_
 
 * Once the user enters this code into your application, your app validates that the code is correct and that the phone number exists and belongs to a user, a session is initiated, and the user is logged in.
 
 	![SMS Confirmation](https://cdn.auth0.com/blog/sms-authentication/sms-confirmation.png)
+	
 	_In Auth0's case, user has five minutes to input the code into the app & get logged-in_
 
 
@@ -79,56 +83,145 @@ Check out this [excellent article](https://auth0.com/blog/how-passwordless-authe
 
 ## Aside: Phone Number / SMS Passwordless Authentication with Auth0
 
-With Auth0, passwordless authentication is dead simple to implement. There are diagrams earlier in this post that already show the passwordless authentication flow using Auth0. You must have noticed `Passwordless API` in those diagrams. This is a battle-tested and efficient [API implementation](https://auth0.com/docs/api/authentication#passwordless) of passwordless authentication. You can check out how it works under the hood or simply build your own implementation on top of it.
+With Auth0, sms passwordless authentication otherwise known as phone number authentication is dead simple to implement. There are diagrams earlier in this post that already show the SMS passwordless authentication flow using Auth0. The Passwordless API is an efficient [API implementation](https://auth0.com/docs/api/authentication#passwordless) of passwordless authentication.
 
-We can also easily configure our applications to use **Auth0 Lock** for passwordless authentication. Let's quickly create an application that implements magic link by following the steps below:
+We'll build an application that allows you login via your mobile phone number. Let's get started.
 
-- Clone this [repo](https://github.com/auth0-samples/auth0-jquery-passwordless-sample)
-- Create an <a href="javascript:signup()">Auth0 account for free</a>
-- On the dashboard, click on the red `Create Client` button to create a new app like so:
-![Create a Passwordless Application](https://cdn.auth0.com/blog/passwordlessApp.png)
+Create an `index.html` file in your directory add this piece of code to it:
 
-- Head over to the [Passwordless Connections](https://manage.auth0.com/#/connections/passwordless) side of the dashboard and enable email option
-![Enable Passwordless App](https://cdn.auth0.com/blog/enableEmailOne.png)
-_Enable Passwordless App_
+{% highlight html %}
+{% raw %}
 
-![Enable Magic Link](https://cdn.auth0.com/blog/enableEmailLink.png)
-_Enable Magic Link_
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="//use.typekit.net/iws6ohy.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
 
-![Save Configuration for Passwordless App](https://cdn.auth0.com/blog/enableEmailForApp.png)
-_Save Configuration for Passwordless App_
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-- Head over to your settings tab for the `Passwordless App` and copy your `client_id` and `domain`
-![Passwordless Authentication Settings](https://cdn.auth0.com/blog/passwordlessSettings.png)
-_Settings Tab_
+    <!-- font awesome from BootstrapCDN -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
 
-- Open up `auth0-variables.js` in your code and replace the `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` values with your real Auth0 keys
--  Run and test the app
-![Click Magic Link Button](https://cdn.auth0.com/blog/clickMagicLink.png)
-_Click the Magic Link Button_
+    <script src="auth0-variables.js"> </script>
+  </head>
+  <body class="home">
+    <div class="container">
+      <div class="login-page clearfix">
+        <div class="login-box auth0-box before">
+          <img class="logo" src="https://i.cloudup.com/StzWWrY34s.png" />
+          <h3>Auth0 Passwordless Example</h3>
+          <p>Login with SMS</p>
+          <div class="alert alert-warning">Don't forget to add your page's origin <strong><script type="text/javascript">document.write(location.origin)</script></strong> to your App's <strong>Allowed Origins (CORS)</strong> in the <a target="_blank" href="https://manage.auth0.com">Auth0 dashboard</a>, unless it is already in the list of <strong>Allowed Callback URLs.</strong></div>
+          <a ng-click="login()" class="btn btn-primary btn-lg btn-login btn-block">SignIn</a>
+        </div>
+        <div class="logged-in-box auth0-box logged-in" style="display: none;">
+          <h1 id="logo"><img src="auth0_logo_final_blue_RGB.png" /></h1>
+          <img class="avatar"/>
+          <h2>Welcome <span class="nickname"></span></h2>
+        </div>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.btn-login').click(function(e) {
+          e.preventDefault();
 
-![Sign in without passwords](https://cdn.auth0.com/blog/lock-magic-link.png)
-_Follow the instruction and sign in_
+          // Initialize Passwordless Lock instance
+          var lock = new Auth0LockPasswordless(
+            // All these properties are set in auth0-variables.js
+            AUTH0_CLIENT_ID,
+            AUTH0_DOMAIN
+          );
 
-![Email Modal](https://cdn.auth0.com/blog/inputEmail.png)
-_Submit your email on the Lock Widget_
+          var appearanceOpts = {
+            autoclose: true
+          };
+          
+          // Open the lock in SMS mode with the ability to handle the authentication in page
+          lock.sms(appearanceOpts,function (err, profile, id_token, access_token, state, refresh_token) {
+            if (!err){
+              // Save the JWT token.
+              localStorage.setItem('userToken', id_token);
+              console.log('profile',profile);
+              $('.login-box').hide();
+              $('.logged-in-box').show();
+              $('.nickname').text(profile.name);
+              $('.avatar').attr('src', profile.picture);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
 
-![Magic link email notification](https://cdn.auth0.com/blog/notificationBox.png)
-_Notification Modal to show that the link has been sent_
+{% endraw %}
+{% endhighlight %}
 
-![Magic Link from email](https://cdn.auth0.com/blog/magicLinkPasswordless.png)
-_Magic Link From Email_
+Now, create a JavaScript file, `auth0-variables.js`. We'll add auth0 variables to this file
 
-![Signed in via the Magic Link](https://cdn.auth0.com/blog/welcomeEmailFromLink.png)
-_Signed in via the Magic Link_
+```js
+var AUTH0_CLIENT_ID='CLIENT_ID'; 
+var AUTH0_DOMAIN='AUTH0_DOMAIN';
+```
 
-If you don't want to go through the process of creating an app, there is an online version you can play with [here.](https://auth0.github.io/lock-passwordless/)
+Create an `app.css` file and add the [code here](https://github.com/auth0-blog/swapart/blob/master/app.css) to it. 
 
+Run your app. The landing page should look like this:
+
+![Landing Page](https://cdn.auth0.com/blog/swapart/landingpage.png)
+_Landing Page_
+
+When you click on **Signin**, you should have this:
+
+![Signin](https://cdn.auth0.com/blog/swapart/login.png)
+_Signin Page_
+
+If you don't have an Auth0 account:
+
+* <a href="javascript:signup()">Sign up for free</a>. 
+* On the dashboard, click on the red `Create Client` button to create a new app like so:
+
+	![Create client](https://cdn.auth0.com/blog/swapart/createclient.png)
+	_Create client_
+
+* Head over to the [Passwordless Connections](https://manage.auth0.com/#/connections/passwordless) side of the dashboard and enable email option. It should show something similar to the image below:
+
+	![Enable Swapart App](https://cdn.auth0.com/blog/enableEmailOne.png)
+	_Enable Swapart App_
+
+* The next page will show you a page to fill in your `Twilio SID` and `Twilio Auth Token` and the `From number`. Fill it in and save the details.
+* Head over to your settings tab for the `Swapart` app and copy your `client_id` and `domain`
+* Open up `auth0-variables.js` in your code and replace the `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` values with your real Auth0 keys.
+* Make sure you add your app URL to the **Allowed Origins(CORS)** in the Auth0 dashboard.
+
+Let's try our app. Click the Login button and put your phone number.
+
+![Login with Phone Number](https://cdn.auth0.com/blog/swapart/loginwithphonenumber.png)
+_Login with Phone Number_
+
+![Code from Auth0 delivered to your Phone](https://cdn.auth0.com/blog/swapart/codefromauth0.png)
+_Code from Auth0 delivered to your Phone_
+
+![Enter the code](https://cdn.auth0.com/blog/swapart/code.png)
+_Enter code from Phone number_
+
+![Logged In](https://cdn.auth0.com/blog/swapart/loggedin.png)
+_Submit and be logged in_
+
+![Under the hood](https://cdn.auth0.com/blog/swapart/underthehoodetails.png)
+_Check out the token saved in the localStorage_
+
+You can go further and use the token to determine the `logged-in` and `logged-out` auth status of a user.
 
 ## Conclusion
 
 There is no doubt that passwords have become more susceptible to being compromised in recent years. [Passwordless](https://auth0.com/passwordless/) authentication aims to eliminate authentication vulnerabilities. This recent [analysis of passwordless connections](https://auth0.com/blog/analysis-of-passwordless-connections/) shows that passwordless adoption is increasing. Passwordless authentication is also very useful and gaining ground in the IoT world. It's easier, friendlier, and faster to be authenticated into an IoT device via Touch ID, push notification, or even a onetime passcode than with traditional means. If you really care about security, you should look into passwordless authentication!
-
-We have covered how to implement practical passwordless authentication in an application using magic links. You can follow a similar process to achieve the same objective using a onetime code via SMS. <a href="javascript:signup()">Sign up for Auth0</a> and implement passwordless authentication today!
 
 {% include tweet_quote.html quote_text="If you care about security, you should look into passwordless authentication" %}
