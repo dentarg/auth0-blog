@@ -234,7 +234,7 @@ Using Webhooks today for Intercom's extensibility places a burden. You have to s
 
 What if that textbox could go away? What if you could just edit the code right in Intercom in an embedded editor? There'd be no seperate accounts to worry about, no seperate endpoints to stand up and manage, no switching contexts. You could stay completely focused on writing the code for the extension.
 
-[Auth0 Extend](https://auth0.net/extend) makes this possible by giving you an embedded code editor for creating extensions and a Serverless runtiem for executing them. Below is a gif illustrating how Extend could help you write your extension right within Intercom.
+[Auth0 Extend](https://auth0.net/extend) makes this possible with an embedded code editor for creating extensions and a Serverless runtime for executing them. The demo below shows how Extend could enable you to create your extension right within Intercom!
 
 <img src="https://cdn.auth0.com/website/blog/extend/intercomslack/intercom_video.gif">
 
