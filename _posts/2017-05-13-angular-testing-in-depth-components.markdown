@@ -2,7 +2,7 @@
 layout: post
 title: "Angular Testing In Depth: Components"
 description: "Learn how to test Components in Angular. We will start with writing isolated tests for a component and finish with integration tests for the rendered component."
-date: 2017-05-13 08:23
+date: 2017-05-31 08:30
 category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
