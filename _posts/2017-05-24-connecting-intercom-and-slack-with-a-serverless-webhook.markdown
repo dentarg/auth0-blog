@@ -239,7 +239,7 @@ What if that textbox could go away? What if you could just edit the code right i
 <img src="https://cdn.auth0.com/website/blog/extend/intercomslack/intercom_video.gif">
 
 ## Recap
-In this post you've seen how you can customize Intercom via Webhooks to have custom routing logic for Slack messages. You've also seen how to use Webtask to implement a Serverless Webhook endpoint. You can rapidly develop in Webtask's editor and explore the Webhook payload, as well as implement the logic. You were able to do all of this from the browser without having to install anything locally. 
+In this post you've seen how to customize Intercom via Webhooks to have custom routing logic for Slack messages. You've learned how to use the Webtask Editor to create a Serverless Webhook endpoint and how you can use the editor to explore the Webhook payload. 
 
 Tell us what your experiences have been creating Webhooks. Have you used Serverless platforms to do it? We look forward to hearing from you.
 
