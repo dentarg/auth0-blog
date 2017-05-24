@@ -252,6 +252,7 @@ You will notice there is a checkbox labeled `Trustless Authentication`. As expla
 <video width="600" controls src="https://cdn.auth0.com/blog/ethereum3/Login.mp4">
 </video>
 
+### Explore the Code
 If you are interested in taking a closer look at how our PoC works, here are all the repositories:
 
 - [The authentication server](https://github.com/auth0/ethereum-authentication-server)
