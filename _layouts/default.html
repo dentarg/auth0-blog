@@ -77,7 +77,6 @@
             _this.setState({ logged: logged });
           });
 
-          var ContactForm = Auth0ContactForm.ContactForm;
           var contactFormOptions = {
             onModalOpen: function () {
               metricsLib.track('open:talk-to-sales');
@@ -91,7 +90,7 @@
               metricsLib.track('fail-sent:talk-to-sales', metricsData);
             }
           };
-          var contactForm = new ContactForm(contactFormOptions);
+          var contactForm = new Auth0ContactForm(contactFormOptions);
           this.setState({
             showContactForm: function () {
               contactForm.show({includePhoneField: true });
@@ -191,7 +190,6 @@
     <!--- btn ontact us  --->
     <script type="text/javascript">
       var Auth0ContactForm = window.Auth0ContactForm.default;
-      var ContactForm = Auth0ContactForm.ContactForm;
       var contactFormOptions = {
         onModalOpen: function () {
           metricsLib.track('open:talk-to-sales');
@@ -205,7 +203,7 @@
           metricsLib.track('fail-sent:talk-to-sales', metricsData);
         }
       };
-      var contactForm = new ContactForm(contactFormOptions);
+      var contactForm = new Auth0ContactForm(contactFormOptions);
 
 
       $('.contact-us').on('click', function() {
