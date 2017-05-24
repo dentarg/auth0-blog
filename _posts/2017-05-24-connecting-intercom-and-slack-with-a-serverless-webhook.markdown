@@ -127,7 +127,7 @@ To implement the Webtask you'll first need to setup an [Incoming Webhook](https:
 
 As part of the implementation, you'll need some npm modules to help you extract the raw text from the HTML message body, and for sending to Slack. Webtask has the `html-to-text` and `slack_notify` modules built which will help here.
 
-Here is the code for the completed Webtask, which you can replce your existing task with.
+Here is the code for the completed Webtask, which you can replace your existing task with.
 
 ```javascript
 //
@@ -223,7 +223,7 @@ Here is what the code is doing at a high level.
 * Composes the message to Send to Slack. This part of the code does a few gymnastics to build up the a message that is almost identical in format to the existing Intercom Slack integration messages.
 * Sends the message to Slack.
 
-*Note* For simplicity this code does only handles replies, but it can easily be changed to also support internal notes, which we did in our internal version. I'll leave that as a challenge for you.
+*Note* For simplicity this code only handles replies, but it can easily be changed to also support internal notes, which we did in our internal version. I'll leave that as a challenge for you.
 
 Save the task. With everything wired up, send another test message as you did earlier. You should see a notification in Slack similar to the following:
 
