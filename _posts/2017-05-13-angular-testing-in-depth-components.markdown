@@ -61,7 +61,7 @@ The email address can be preloaded through an `Input` property
 if it is passed down from the wrapping parent component.
 
 <p align="center">
-  <img src="https://github.com/blacksonic/articles/raw/master/img/angular-testing-components/login-form.png" alt="Angular Testing Framework"/>
+  <img src="https://cdn.auth0.com/blog/angular-component-testing/login-form.png" alt="Angular Testing Framework"/>
 </p>
 
 The two fields are handled by a reactive form created in the component.
