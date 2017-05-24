@@ -12,7 +12,7 @@ author:
   mail: "soos.gabor86@gmail.com"
   avatar: "https://secure.gravatar.com/avatar/9d2e715baab928f5bedb837bfcb70b2b"
 design:
-  image: https://github.com/blacksonic/articles/raw/master/img/angular-logo-small.png
+  image: https://cdn.auth0.com/blog/angular/logo.png
   image_size: "75%"
   image_bg_color: "rgb(1, 70, 166)"
   bg_color: "rgb(1, 70, 166)"
