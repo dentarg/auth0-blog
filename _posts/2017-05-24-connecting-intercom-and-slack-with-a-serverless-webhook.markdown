@@ -12,7 +12,7 @@ author:
   mail: "glenn.block@auth0.com"
   avatar: "https://cdn.auth0.com/blog/profiles/glennblock.jpg"
 design:
-  image: "https://cdn.auth0.com/website/blog/extend/auth0-extend_avatar.png"
+  image: "https://cdn.auth0.com/website/blog/extend/intercomslack/Intercom_slack_graphic2.png"
   bg_color: "#3445dc"
   image_bg_color: "#3445dc"
   bg_merge: trues
@@ -40,7 +40,7 @@ Fortunately, I found Intercom supports [Webhooks](https://docs.intercom.com/inte
 
 <img src="https://uploads.intercomcdn.com/i/o/17010148/7d640259791c81c11d48ef01/New-create-webhook-form.png"/>
 
-Notice the dialog requires you to provide `WEBHOOK URL`. This means you need to stand up an endpoint in order to get that URL. Looking in the [documentation](https://developers.intercom.com/v2.0/docs/webhooks) Intercom recommends developing locally using Sinatra, and exposing the endpoint using Ngrok. This means first you have to install a bunch of tools to develop and run locally. Later you'll then install deployment toolis in order to deploy to a cloud provider like Heroku. Along the way you have plenty of reading to do. Feels very ancient. 
+Notice the dialog requires you to provide `WEBHOOK URL`. This means you need to stand up an endpoint in order to get that URL. Looking in the [documentation](https://developers.intercom.com/v2.0/docs/webhooks) Intercom recommends developing locally using Sinatra, and exposing the endpoint using Ngrok. This means first you have to install a bunch of tools to develop and run locally. You'll then install deployment tools in order to deploy to a cloud provider like Heroku. Along the way you have plenty of reading to do. Feels very ancient. 
 
 ![Facepalm](https://cdn.auth0.com/website/blog/extend/intercomslack/facepalm.jpg)
 
@@ -63,7 +63,7 @@ The devil is of course in the details on each of the above. Next, I'll show you 
 ## Quickly setting up a Webhook to inspect the payload.
 Rather than read through documentation, when I work with APIs, I often start with exploring the actual payload. For APIs that I am calling, `curl` is often an easy way to do this. In the case of Webhooks, you need an endpoint in order to receive the Webhook. As I said, I didn't want to have to install anything locally. Thankfully with Webtask you don't have to. You can create a Webtask very quickly and plug it in as a Webhook to start seeing the data that is being sent, in this case from Intercom. 
 
-To create the webtask, open the browser to "https://webtask.io/make". Once you do you'll get a sign in prompt, where you can quickly log in with a variety of credentials including Github. Then you'll be taken to a screen to choose what kind of Webtask you want to create.
+To create the webtask, open the browser to [https://webtask.io/make](https://webtask.io/make). Once you do you'll get a sign in prompt, where you can quickly log in with a variety of credentials including Github. Then you'll be taken to a screen to choose what kind of Webtask you want to create.
 
 <a href="https://cdn.auth0.com/website/blog/extend/intercomslack/webtask-create.png" target="_blank"><img src="https://cdn.auth0.com/website/blog/extend/intercomslack/webtask-create.png"></a>
 
@@ -217,11 +217,13 @@ You'll notice throughout the code the code references parameters of the `context
 
 Here is what the code is doing at a high level.
 
-* Checks to see if there is a body, and if it has a data and data.item field. 
+* Checks to see if there is a `body`, and if it has a `data` and `data.item` field. 
 * Extracts the text from the HTML response message. Trims the text if it is too large.
 * Determines the channel by checking if the subject matches 
 * Composes the message to Send to Slack. This part of the code does a few gymnastics to build up the a message that is almost identical in format to the existing Intercom Slack integration messages.
 * Sends the message to Slack.
+
+*Note* For simplicity this code does only handles replies, but it can easily be changed to also support internal notes, which we did in our internal version. I'll leave that as a challenge for you.
 
 Save the task. With everything wired up, send another test message as you did earlier. You should see a notification in Slack similar to the following:
 
@@ -229,8 +231,8 @@ Save the task. With everything wired up, send another test message as you did ea
 
 Success! 
 
-## Going beyond Webhooks with Auth0 Extend
-Using Webhooks today for Intercom's extensibility places a burden. You have to sign up for a separate hosting provider, possibly install local tools, create your Webhook implementation, deploy it, and then configure the URL in Intercocm. You are not done there though, you also have to now manage this extension for the long haul. Serverless platforms like Webtask make that easier, but that still doesn't remove the maintenance and monitoring burden. You still have to research the different options, stand up the endpoint and maintain it.
+## Aside: Going beyond Webhooks with Auth0 Extend
+Using Webhooks today for Intercom's extensibility places a burden. You have to sign up for a separate hosting provider, possibly install local tools, create your Webhook implementation, deploy it, and then configure the URL in Intercom. You are not done there though, you also have to now manage this extension for the long haul. Serverless platforms like Webtask make that easier, but that still doesn't remove the maintenance and monitoring burden. You still have to research the different options, stand up the endpoint, and maintain it.
 
 What if that textbox could go away? What if you could just edit the code right in Intercom in an embedded editor? There'd be no seperate accounts to worry about, no seperate endpoints to stand up and manage, no switching contexts. You could stay completely focused on writing the code for the extension.
 
