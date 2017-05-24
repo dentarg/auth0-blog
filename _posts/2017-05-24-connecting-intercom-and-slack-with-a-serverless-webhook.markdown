@@ -27,40 +27,40 @@ press_release: false
 ---
 # Connecting Intercom and Slack with a Serverless Webhook
 
-In this post I am going to show you can connect Intercom via Webhooks to dynamically route messages to Slack by standing up a Serverless Webhook endpoint.
+In this post I am going to show you how you can connect Intercom via Webhooks to dynamically route messages to Slack by standing up a Serverless Webhook endpoint.
 
-One tool I work with a lot in my day job is [Intercom](https://intercom.com]. It is a great product which we use to send Welcome Auto messages to customers when they sign up for our product. What's realy nice about Intercom as opposed to just email, is we can respond right from the Intercom UI where the whole thread is visible to the team. That's why when we decided to launch a [second product](https://auth0.com/extend/) it was a no brainer for us to use it again.
+One tool I work with a lot in my day job is [Intercom](https://intercom.com). It is a great product which we use to send Welcome Auto messages to customers when they sign up for our product. What's realy nice about Intercom as opposed to just email, is we can respond right from the Intercom UI where the whole thread is visible to the team. That's why when we decided to launch a [second product](https://auth0.com/extend/) it was a no brainer for us to use it again.
 
 ## Challenges integrating Intercom with Slack
 
-As an organization we [live](https://auth0.com/blog/slash-webtasks-all-your-chatops-belong-to-you/) in Slack, and we integrate whatever we can since that's where we spend most of our time. Fortunately Intercom has an [integration](https://docs.intercom.com/integrations/slack-integration) with Slack, which we already use. That integration sends all notifications from Intercom to a single Slack channel. For our Extend product, I wanted the Intercom notifications to go to a different channel in order to allow us to have better visibility and management across the products. It became clear the existing Slack integration wouldn't suit my needs.
+As an organization we [live](https://auth0.com/blog/slash-webtasks-all-your-chatops-belong-to-you/) in Slack and as such, we integrate whatever we can to make our lives easier. Fortunately, Intercom has an [integration](https://docs.intercom.com/integrations/slack-integration) with Slack, which we already use. That integration sends all notifications from Intercom to a single Slack channel. For our Extend product, I wanted the Intercom notifications to go to a different channel in order to allow us to have better visibility and management across the products. It became clear the existing Slack integration wouldn't suit my needs.
 
 ## Webhooks, local tools, and standing up servers
-Fortunately, I found Intercom has [Webhooks](https://docs.intercom.com/integrations/webhooks). Using the `Create webhook` feature you can create a subscription which will send notifications to an endpoint for handling. You can see the creation screen below.
+Fortunately, I found Intercom supports [Webhooks](https://docs.intercom.com/integrations/webhooks). Using the `Create webhook` feature you can create a subscription which will send notifications to an endpoint for further handling. You can see the creation screen below.
 
 <img src="https://uploads.intercomcdn.com/i/o/17010148/7d640259791c81c11d48ef01/New-create-webhook-form.png"/>
 
-Notice the dialog expects to give it a `WEBHOOK URL`. This means you need to stand u an endpoint to get that URL. Looking in the [documentation](https://developers.intercom.com/v2.0/docs/webhooks) Intercom recommends standing up an endpoint locally for development using Sinatra, and Ngrok, you can then deploy to a provider that supports Sinatra like Heroku. This means first you have to install a bunch of stuff to develop and run locally, then you have to install more stuff to deploy to a cloud provider that supports Sinatra. Along the way you have a bunch of reading to do. Feels very ancient. 
+Notice the dialog requires you to provide `WEBHOOK URL`. This means you need to stand up an endpoint in order to get that URL. Looking in the [documentation](https://developers.intercom.com/v2.0/docs/webhooks) Intercom recommends developing locally using Sinatra, and exposing the endpoint using Ngrok. This means first you have to install a bunch of tools to develop and run locally. Later you'll then install deployment toolis in order to deploy to a cloud provider like Heroku. Along the way you have plenty of reading to do. Feels very ancient. 
 
 ![Facepalm](https://cdn.auth0.com/website/blog/extend/intercomslack/facepalm.jpg)
 
 ## Serverless Webhooks to the rescue
-Thankfully we have a really easy way today to spin up a Webhook endpoint, and we don't need to run anything locally for development or deployment, the answer is [Serverless](https://auth0.com/blog/what-is-serverless/). If you are shaking your head at the name, YES, Of course there are servers, the main difference is there not servers you have to directly worry about or manage. Let's move on. 
+Thankfully we have a really easy way today to spin up a Webhook endpoint, and we don't need to run anything locally for development or deployment. The answer is [Serverless](https://auth0.com/blog/what-is-serverless/). If you are shaking your head at the name, YES, of course there are servers, the main difference is there are not servers you have to directly worry about or manage. Let's move on. 
 
-Using a Serverless platform, you can easily write the code for a Webhook endpint and have it spin up on-demand in the cloud. There's a number of different options you can choose from and Serverless vendors differ in terms of the experience. Some require you to still install tools and do development locally and some require you to jump through extra setup hoops for exposing a Webhook. *Not Webtask*, it shines in this respect. Every Webtask you create IS a Webhook endpoint. Further, you can develop, test and deploy it completely in the browser in JavaScript, and with great support for NPM modules.
+Using a Serverless platform, you can easily write the code for a Webhook endpoint and have it spin up on-demand in the cloud. There's a number of different options you can choose from and Serverless vendors differ in terms of the experience of creating a Webhook endpoint. Some require you to install tools and do development locally and some require you to jump through extra setup hoops. *Not Webtask*, it shines in this respect. Every Webtask you create IS a Webhook endpoint. Further, you can develop, test and deploy it completely in the browser in JavaScript, and with great support for NPM modules.
 
-For me it was the obvious choice.
+For me these qualities of Webtask made it an obvious choice to use for implementing my Webhook.
 
 ## Designing the Webtask
 The diagram below shows at high level what I was trying to accomplish. 
 
 ![Flow diagram](https://cdn.auth0.com/website/blog/extend/intercomslack/flow.png)
 
-Whenever Webtask receives a notification, it will look at the contents, if it is a response related to Extend, then it will compose a Slack message and send it to our new #mtkg_intercom_extend channel.
+Whenever Webtask receives a notification, it will look at the contents, if it is a response related to Extend, then it will compose a Slack message and send it to our new `#mktg_intercom_extend channel`.
 
-The devil is of course in the details on each of the above. Next I'll show you the process I to went through to implement it.
+The devil is of course in the details on each of the above. Next, I'll show you the process I to went through to implement it.
 
-## Quickly setting up a webhook to inspect the payload.
+## Quickly setting up a Webhook to inspect the payload.
 Rather than read through documentation, when I work with APIs, I often start with exploring the actual payload. For APIs that I am calling, `curl` is often an easy way to do this. In the case of Webhooks, you need an endpoint in order to receive the Webhook. As I said, I didn't want to have to install anything locally. Thankfully with Webtask you don't have to. You can create a Webtask very quickly and plug it in as a Webhook to start seeing the data that is being sent, in this case from Intercom. 
 
 To create the webtask, open the browser to "https://webtask.io/make". Once you do you'll get a sign in prompt, where you can quickly log in with a variety of credentials including Github. Then you'll be taken to a screen to choose what kind of Webtask you want to create.
@@ -90,7 +90,7 @@ module.exports = function(ctx, cb) {
 
 This will grab the JSON body that Intercom sends and use the `inspect` function to dump it's contents to a string. Inspect is useful because if we just write the object directly with console.log, then nested objects just show as `[object]`. Click the "Save" button and you'll be ready to test.
 
-First click on the `Logs` icon to bring up the log viewer which you'll use to see the output. Clicking on the area above the log viewer search text box, allows you to resize resize the viewer window. First you need to add the webhook to Intercom. To do this you can head to the developer's management page. From [https://app.intercom.io](https://app.intercom.io) go to `Settings` -> `App settings` -> `Developer Tools` -> `Webhooks`. Click on `Create webhook`. Paste your Webtask URL from the clipboard that you copied earlier into the `WEBHOOK URL` textbox. Next you need to set what notifications to watch. In this case we want to watch whenever there is a reply, so check the `Reply from a user` and `Reply from a teammate` boxes.
+First click on the `Logs` icon to bring up the log viewer which you'll use to see the output. Clicking on the area above the log viewer search text box, allows you to resize the viewer window. First you need to add the webhook to Intercom. To do this you can head to the developer's management page. From [https://app.intercom.io](https://app.intercom.io) go to `Settings` -> `App settings` -> `Developer Tools` -> `Webhooks`. Click on `Create webhook`. Paste your Webtask URL from the clipboard that you copied earlier into the `WEBHOOK URL` textbox. Next you need to set what notifications to watch. In this case we want to watch whenever there is a reply, so check the `Reply from a user` and `Reply from a teammate` boxes.
 
 It should look similar to the following:
 
@@ -114,22 +114,25 @@ Check the email that you received and reply. The response should trigger the Web
 
 You can see a gist of the full contents of the log viewer [here](https://gist.github.com/7a64df0bea309f2e413451920b58d72e).
 
-Looking at the payload there are some elements that pop out that you'll need in order to create notifications similar to the Intercom Slack plugin. 
+Looking at the payload there are some elements that pop out that you'll need in order to create notifications similar to those created by the Intercom Slack plugin. 
 
 * The app id (app_id). This will be needed for generating URLs.
-* The subject of the original message (data.item.conversation_message.subject). You'll need this in order to route to the correct channel. 
-* The response message (data.item.conversation_parts.conversation_parts[0].body) which is in HTML format 
-* The topic (topic). Currently it is 'conversation.user.replied'. Looking in the docs I can also see that this can be 'conversation.admin.replied' if the reply is from an Intercom admin.
-* The user and assignee information
+* The subject of the original message `data.item.conversation_message.subject`. You'll need this in order to route to the correct channel. 
+* The response message `data.item.conversation_parts.conversation_parts[0].body` which is in HTML format. 
+* The topic `topic`. Currently it is 'conversation.user.replied'. Looking in the docs I can also see that this can be 'conversation.admin.replied' if the reply is from an Intercom admin.
+* The `user` and `assignee` information.
 
 ## Implementing the Webtask
 To implement the Webtask you'll first need to setup an [Incoming Webhook](https://api.slack.com/incoming-webhooks) to get a Slack URL that you can send messages to. You can create this if you are a Slack admin, or talk to your admin. Save the URL for later.
 
-As part of the implementation, you'll need some npm modules to help us extract the raw text from the HTML message body, and for sending to Slack. Webtask has the `html-to-text` and `slack_notify` modules built which will help here.
+As part of the implementation, you'll need some npm modules to help you extract the raw text from the HTML message body, and for sending to Slack. Webtask has the `html-to-text` and `slack_notify` modules built which will help here.
 
 Here is the code for the completed Webtask, which you can replce your existing task with.
 
 ```javascript
+//
+// requires SLACK_URL and SUBJECT secrets to be defined
+//
 module.exports = function(context, cb) {
   var slack = require("slack-notify")(context.secrets.SLACK_URL);
   var subject = context.secrets.SUBJECT;
@@ -207,7 +210,7 @@ module.exports = function(context, cb) {
 };
 ```
 
-You'll notice throughout the code there are several secrets that the code is expecting. You should use the secrets toolbar in Webtask to define these.
+You'll notice throughout the code the code references parameters of the `context.secrets` object. Secrets provide a way to provide secure data like connection strings, API keys, etc from outside the code. They can also be used for storing configuration information. You should use the [secrets](https://webtask.io/docs/editor/secrets) panel in the Webtask Editor to define the following secrets.
 
 * SLACK_URL - The Slack incoming webhook url you saved earlier.
 * SUBJECT - The subject of the email message to match on. The match is whether or not the mail subject contains SUBJECT. In my case the messages for Webtask and Extend have different subjects, so I matched on "Extend". This worked for us, but it might not work for your use case, in which case you should change the logic.
@@ -218,24 +221,27 @@ Here is what the code is doing at a high level.
 * Extracts the text from the HTML response message. Trims the text if it is too large.
 * Determines the channel by checking if the subject matches 
 * Composes the message to Send to Slack. This part of the code does a few gymnastics to build up the a message that is almost identical in format to the existing Intercom Slack integration messages.
-* Sends the message to Slack
+* Sends the message to Slack.
 
-Save the task. With everything wired up, the next time a message is sent, you should see a notification in Slack similar to the following:
+Save the task. With everything wired up, send another test message as you did earlier. You should see a notification in Slack similar to the following:
 
 <img src="https://cdn.auth0.com/website/blog/extend/intercomslack/slack-notification.png"/>
 
-Success! You've just seen how you can customize Intercom via Webhooks to have custom routing logic for Slack messages. You've also seen how you can use Webtask to quickly and easily get a Serverless Webhook endpoint. You can rapidly develop in Webtask's editor and explore the Webhook payload, as well as implement the logic. You were able to do all of this from the browser without having to install anything locally.
+Success! 
 
-## Going further with Auth0 Extend
+## Going beyond Webhooks with Auth0 Extend
+Using Webhooks today for Intercom's extensibility places a burden. You have to sign up for a separate hosting provider, possibly install local tools, create your Webhook implementation, deploy it, and then configure the URL in Intercocm. You are not done there though, you also have to now manage this extension for the long haul. Serverless platforms like Webtask make that easier, but that still doesn't remove the maintenance and monitoring burden. You still have to research the different options, stand up the endpoint and maintain it.
 
-Using Webhooks today pushes a burden on the customer. In order to extend it, you have to sign up for a separate account, provision, create your Webhook implementation, and then wire it up via the `WEBHOOK URL` text box so Intercom can call it. You are not done there though, You'll also have to now manage this extension for the long haul. Serverless platforms like Webtask make that easier, but that still doesn't remove the maintenance and monitoring burden. You still have to research the different options, stand up the endpoint and maintain it.
+What if that textbox could go away? What if you could just edit the code right in Intercom in an embedded editor? There'd be no seperate accounts to worry about, no seperate endpoints to stand up and manage, no switching contexts. You could stay completely focused on writing the code for the extension.
 
-What if that textbox could go away? What if you could just edit the code right in Intercom in an embedded editor? There'd be no seperate accounts that you would have to worry about, no seperate endpoints to standup and manage, no switching contexts. You could stay completely focused on the code and making sure it works as you expect.
-
-That's the kind of experience your SaaS can have with Auth0 Extend.
-
-An animated GIF tells a thousand words:
+[Auth0 Extend](https://auth0.net/extend) makes this possible by giving you an embedded code editor for creating extensions and a Serverless runtiem for executing them. Below is a gif illustrating how Extend could help you write your extension right within Intercom.
 
 <img src="https://cdn.auth0.com/website/blog/extend/intercomslack/intercom_video.gif">
+
+## Recap
+In this post you've seen how you can customize Intercom via Webhooks to have custom routing logic for Slack messages. You've also seen how to use Webtask to implement a Serverless Webhook endpoint. You can rapidly develop in Webtask's editor and explore the Webhook payload, as well as implement the logic. You were able to do all of this from the browser without having to install anything locally. 
+
+Tell us what your experiences have been creating Webhooks. Have you used Serverless platforms to do it? We look forward to hearing from you.
+
 
 
