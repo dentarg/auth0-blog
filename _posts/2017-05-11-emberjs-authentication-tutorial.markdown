@@ -2,7 +2,7 @@
 layout: post
 title: "EmberJS Authentication Tutorial"
 description: Learn how to quickly build ambitious apps with EmberJS 2 and add authentication the right way.
-date: 2017-05-11 8:30
+date: 2017-05-25 8:30
 category: Technical Guide, Frontend, EmberJS
 author:
   name: Prosper Otemuyiwa
@@ -42,7 +42,7 @@ I'll give a basic overview of these concepts to nourish your understanding of **
 * **Routing**
 * **Templates**
 * **Models**
-* **Components** 
+* **Components**
 * **Controllers**
 
 ### Routing
@@ -165,11 +165,11 @@ Components must have at least one dash in their name, e.g `active-list`. This he
 {% endhighlight %}
 
 
-Ember provides some methods that are triggered at various points from creating a component up until the component is destroyed. This is called the *Component's Lifecycle*. You can declare methods to hook into the component's lifecycle to control the behaviour of components in your app. 
+Ember provides some methods that are triggered at various points from creating a component up until the component is destroyed. This is called the *Component's Lifecycle*. You can declare methods to hook into the component's lifecycle to control the behaviour of components in your app.
 
 On **Initial Render**, we have:
 
-* init 
+* init
 * didReceiveAttrs
 * willRender
 * didInsertElement
@@ -226,7 +226,7 @@ This creates a component file at `app/components/student-list.js`, a template fo
 
 ### Controllers
 
-Ember Controllers are routable objects meant to decorate a model with display logic. They sit between the template and model to deal with logic and properties that do not belong to the view or the model. 
+Ember Controllers are routable objects meant to decorate a model with display logic. They sit between the template and model to deal with logic and properties that do not belong to the view or the model.
 
 When you have a property that needs to be in the template but doesn't exist in the model, you can place it the controller:
 
@@ -282,15 +282,15 @@ This creates a controller file at `app/controllers/students.js`, and a unit test
 
 Next, let's build an application with *Emberjs 2*.
 
-## Our App: Whistle Blower 
+## Our App: Whistle Blower
 
 ![Whistle Blower](https://cdn.auth0.com/blog/emberjsauth/appscreenshot.png)
 
 The app we will build today is called `Whistle Blower`. A *Whistle Blower* is a person who exposes any kind of information or activity that is deemed illegal, unethical, or not correct within an organization that is either private or public. The Whistle Blower app does the following:
 
-* It gives information about whistle blowing activities in your region. 
-* It's a small community of whistle blowers. 
-* A guest user on the *Whistle Blower* app will only have acess to basic information about the whistle blowing activities on the landing page. 
+* It gives information about whistle blowing activities in your region.
+* It's a small community of whistle blowers.
+* A guest user on the *Whistle Blower* app will only have acess to basic information about the whistle blowing activities on the landing page.
 * An authenticated user will have access to whistle blowers and their profiles.
 * An authenticated user will have access to whistle blower meetups/gatherings.
 
@@ -299,13 +299,13 @@ The app we will build today is called `Whistle Blower`. A *Whistle Blower* is a 
 Let's build an API for our app. We'll quickly build the API with [Node.js](https://nodejs.org). The API is simple. This is what we need:
 
 * An endpoint to serve the latest whistle blowing activities around the world - `/api/activities`.
-* An endpoint to serve whistle blowers and their profiles - `/api/whistleblowers`. 
+* An endpoint to serve whistle blowers and their profiles - `/api/whistleblowers`.
 * An endpoint to serve whistle blower meetups - `/api/meetups`.
 * Securing the endpoint that serves whistle blowers profiles and meetups, so that it can only be accessed by registered users.
 
 Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/emberjs2authenticationtutorial/blob/master/server/).
 
-**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one. 
+**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one.
 
 Your `server.js` should look like this:
 
@@ -416,7 +416,7 @@ The private meetup endpoint should be `http://localhost:3333/api/meetups`.
 
 The private whistle blower endpoint should be `http://localhost:3333/api/whistleblowers`.
 
-Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with EmberJS 2. 
+Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with EmberJS 2.
 
 ## Build The Front-End With EmberJS 2
 
@@ -456,7 +456,7 @@ whistleblower/
   public/
   tests/ - All the tests file resides here
   vendor/
-  .editorconfig 
+  .editorconfig
   .ember-cli
   .eslintrc.js
   .gitignore
@@ -542,7 +542,7 @@ ember generate route meetups
 ember generate route callback
 ```
 
-The route files are generated together with their respective template files. EmberJS route handler renders a template when a route is invoked. 
+The route files are generated together with their respective template files. EmberJS route handler renders a template when a route is invoked.
 
 ## Building the Nav Component
 
@@ -559,7 +559,7 @@ This command generates a component and a template for the app nav. Open up `app/
 
 <nav class="navbar navbar-default">
     <div class="navbar-header">
-       Whistle Blower 
+       Whistle Blower
     </div>
 
     <ul class="nav navbar-nav navbar-right">
@@ -771,7 +771,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
     api: Ember.inject.service('whistleblowerapi'),
-  
+
     model() {
         return this.get('api').getMeetups();
     }
@@ -779,7 +779,7 @@ export default Ember.Route.extend({
 ```
 _app/routes/whistle-blowers.js_
 
-Now, we need to create a route for our index page, which is the landing page. 
+Now, we need to create a route for our index page, which is the landing page.
 
 ```bash
 ember generate route index
@@ -791,7 +791,7 @@ Open `app/routes/index` and add this:
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-    
+
     api: Ember.inject.service('whistleblowerapi'),
 
     model() {
@@ -982,11 +982,11 @@ Next, let's add authentication to our front-end.
 
 We created an `auth` service earlier. Open up `app/services/auth.js` again.
 
-In the code present in this file, we are using an hosted version of Auth0 Lock in the `login` method. We also passed in our credentials. 
+In the code present in this file, we are using an hosted version of Auth0 Lock in the `login` method. We also passed in our credentials.
 
 The auth0 node module called the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{AUTH0-CLIENT-ID}` and the `{CALLBACK-URL}`. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
+The parameters that you do not have yet are the `{AUTH0-CLIENT-ID}` and the `{CALLBACK-URL}`. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
 
 Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
 
@@ -1035,7 +1035,7 @@ Now, your `app-nav` component template file should look like this:
 
 {% endraw %}
 {% endhighlight %}
- 
+
 _app/templates/components/app-nav.hbs_
 
 Now, we used some handlebars helpers in the code above such as `#if` for conditional operations, `#link-to` for linking to a route.
@@ -1098,7 +1098,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
     auth: Ember.inject.service('auth'),
-    
+
     beforeModel() {
         this.get('auth').setAccessToken();
         this.get('auth').setIdToken();
@@ -1130,7 +1130,7 @@ export default Ember.Route.extend({
     auth: Ember.inject.service('auth'),
 
     api: Ember.inject.service('whistleblowerapi'),
-    
+
     beforeModel() {
         if(!this.get('auth').isLoggedIn()) {
             this.transitionTo('/');
@@ -1154,7 +1154,7 @@ export default Ember.Route.extend({
     auth: Ember.inject.service('auth'),
 
     api: Ember.inject.service('whistleblowerapi'),
-    
+
     beforeModel() {
         if(!this.get('auth').isLoggedIn()) {
             this.transitionTo('/');
