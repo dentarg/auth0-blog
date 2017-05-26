@@ -2,18 +2,18 @@
 layout: post
 title: "Go Beyond Username/Password with Modern Authentication"
 description: "Learn how to leave usernames and passwords behind with social and passwordless authentication."
-date: 2017-03-22 8:30
-category: Growth
+date: 2017-05-26 8:30
+category: Growth, Modern Authentication
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: "NAME"
-  url: "https://twitter.com/[TWITTER]"
-  mail: "______@auth0.com"
-  avatar: "AVATAR HERE"
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/go-beyond-up-auth/logo.png
+  bg_color: "#01B48F"
 tags:
 - security
 - passwordless
@@ -95,4 +95,3 @@ Now more than ever, authentication involves more than just supporting usernames 
 Usernames and passwords aren't going to disappear, but authentication is complex, and it's only going to get harder to manage. 
 
 There's no need to struggle to keep up using in-house solutions when you can rely on experts that live and breathe identity management. Your IAM solution can support everything you want to offer your users, while letting you focus on the product that got users to sign up in the first place.
- 
