@@ -203,15 +203,78 @@ CakePHP’s template files are stored in `src/Template` inside a folder named af
 {% endraw %}
 {% endhighlight %}
 
-## Setting Up The Model
+_index.ctp_
 
-Laravel Models are stored by default in the root of the `app` directory. The `User` model ships with the Laravel framework. Only the `User` model is needed in this application so we won't create any additional models. However, if you want to create more models, you can simply run the command below like so:
+Go ahead and create a `Users` folder also in `src/Template` directory. Create an `add.ctp` and `login.ctp` file. The `add.ctp` file is the view for registering new users. The `login.ctp`is the view for users to log in.
 
-```bash
-php artisan make:model <modelName>
+Add this code in the `add.ctp` file:
+
+{% highlight html %}
+{% raw %}
+<div class="users form">
+<?= $this->Form->create($user) ?>
+    <fieldset>
+        <legend><?= __('Add User') ?></legend>
+        <?= $this->Form->control('emailaddress', ['type' => 'email']) ?>
+        <?= $this->Form->control('password') ?>
+   </fieldset>
+<?= $this->Form->button(__('Submit')); ?>
+<?= $this->Form->end() ?>
+</div>
+{% endraw %}
+{% endhighlight %}
+
+_add.ctp_
+
+The `$this->Form->control` is a CakePHP [Form Helper](https://book.cakephp.org/3.0/en/views/helpers/form.html).
+
+Add this code in the `login.ctp` file:
+
+{% highlight html %}
+{% raw %}
+<div class="users form">
+  <?= $this->Flash->render() ?>
+  <?= $this->Form->create() ?>
+      <fieldset>
+          <legend><?= __('Please enter your email address and password') ?></legend>
+          <?= $this->Form->control('emailaddress', ['type' => 'email']) ?>
+          <?= $this->Form->control('password') ?>
+      </fieldset>
+  <?= $this->Form->button(__('Login'), ['class' => 'btn btn-info']); ?>
+  <?= $this->Form->end() ?>
+</div>
+{% endraw %}
+{% endhighlight %}
+
+_login.ctp_
+
+One more thing. We need to pull in bootstrap to beautify our views. Go ahead and open up `src/Template/Layout/default.ctp` file.
+
+> The default file can be said to be the default master layout file for a CakePHP application.
+
+In the `<head>` section, you will notice these two lines of code:
+
+```php
+<?= $this->Html->css('base.css') ?>
+<?= $this->Html->css('cake.css') ?>
 ```
 
-where `<modelName>` represents the name of the Model you want to create.
+Add the link to bootstrap just above these lines of code:
+
+{% highlight html %}
+{% raw %}
+...
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+<?= $this->Html->css('base.css') ?>
+<?= $this->Html->css('cake.css') ?>
+...
+{% endraw %}
+{% endhighlight %}
+
+Scroll down a bit into the `<body>` section and comment out the nav section. We really do not need it.
+
 
 ## Setting Up The Routes
 
@@ -390,168 +453,253 @@ Next, create the `UsersController` using the bake command:
 bin/cake bake controller Users
 ```
 
+Now, open your controller file and delete every method except `add`, `beforeFilter`, `login` and `logout`.
 
+We need to modify some of the methods in our UsersController.
 
+The `add` method is responsible for adding/saving a new user. So go ahead and modify to look like this:
 
+_add_
 
+```php
+ /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
 
-
-
-One fascinating thing about Laravel is that it comes with authentication out of the box. You just have to configure it. Next, open up your terminal and run this command like so:
-
-```bash
-php artisan make:auth
+                return $this->redirect(['controller' => 'list', 'action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+    }
 ```
 
-Be careful enough to only do this on fresh applications.
+In the code above, a check is done to ensure it is a POST request coming in. The user data is also obtained from the request and saved using the User Entity class.
 
-<img width="1008" alt="screen shot 2016-06-19 at 2 34 10 pm" src="https://cloud.githubusercontent.com/assets/2946769/16177617/f0ff3406-362a-11e6-9144-1393c8031f2b.png">
 
-As you can see, some files have been copied into our application, the routes have also been updated. The route file has been populated with additional information like so:
+_login_
 
-<img width="658" alt="screen shot 2016-06-19 at 3 22 39 pm" src="https://cloud.githubusercontent.com/assets/2946769/16177907/d9f07318-3631-11e6-997c-48f35aeb7107.png">
+```php
+public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
 
-`Route::auth()` is a method that cleanly encapsulates all the login and register routes.
+            $this->Flash->error(__('Invalid email or password, try again'));
+        }
+    }
+```
 
-Now, the views needed for authentication are in the `resources/views/auth` directory. The base layout for our application has also been configured in the `resources/views/layouts` directory. All of these views use the Bootstrap CSS framework, but you are free to customize them however you wish.
+The error has been changed to `Invalid email or password, try again`. We are using email and password to authenticate instead of username and password.
 
-Open up your `welcome.blade.php` and configure it like so:
+In the code above, `$this->Auth->identify()` identifies the user using credentials provided in the request, then saves the user information to session using `$this->Auth->setUser($user)`. This line of code logs the user in.
+
+_logout_
+
+```php
+ public function logout()
+    {
+        $session = $this->request->session();
+        $session->destroy();
+        return $this->redirect($this->Auth->logout());
+    }
+```
+
+In the code above, we added code to destroy the session and redirect back to the list view via CakePHP's logout method. Now, you might be wondering. How do we know where it will redirect to?
+
+Open up `src/Controller/AppController.php` file, go into the `initialize` method and modify it like this:
+
+_initialize_
+```php
+public function initialize()
+    {
+        parent::initialize();
+
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'List',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'List',
+                'action' => 'index'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'emailaddress']
+                ]
+            ]
+        ]);
+    }
+...
+```
+
+A lot is going on in the code above. Just relax, I'll explain. We loaded CakePHP's Auth Component and passed in three keys, `loginRedirect`, `logoutRedirect` and `authenticate`.
+
+* **loginRedirect** - The user will be redirected to `/list` because the List controller and index action will be invoked.
+* **logoutRedirect** - The user will be redirected to `/list` because the List controller and index action will be invoked.
+* **authenticate** -  `username` is used by default when performing the user identification and login action. We switched to `emailaddress`, therefore, informing CakePHP's Auth handler about the change.
+
+In the code above, we changed the `redirect` function slightly to include the list controller and index action. This simply means we want the user to be redirected to the list page once registered successfully.
+
+> **Note: The index method returns the data for the route `/list`
+
+We haven't taken care of something very important. Open up `src/Controller/AppController.php` and check out the `beforeFilter` function. This function acts as a middleware, it intercepts requests coming in. Here, you can determine the kind of routes you want an authenticated user to be able to access or not. You can also set an `authenticated` status based on users logged-in or logged-out status.
+
+Modify the `beforeFilter` function like this:
+
+```php
+...
+...
+public function beforeFilter(Event $event)
+{
+    $this->Auth->allow(['index','view']);
+    $this->set('loggedIn', $this->Auth->user());
+}
+```
+
+`$this->Auth->allow(['index'], 'view'])` allows the `index` and `view` action of every controller in our app to be accessible whether the user is logged in or not.
+
+`$this->set('loggedIn', $this->Auth->user())` sets a `loggedIn` variable that we can use in the view to conditionally display some items based on the user logged in status. If the user is not logged in, `$this->Auth->user()` returns `null` which is a falsey value.
+
+### Update Views
+
+We need to update our views to conditionally show the list of game of thrones characters whether the user is logged in or not.
+
+Open up `List/index.ctp` and modify it like this:
 
 {% highlight html %}
-@extends('layouts.app')
-
-@section('content')
+{% raw %}
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-success">
                 <div class="panel-heading">List of Game of Thrones Characters</div>
+                  <?php if($loggedIn): ?>
+                    <br />
+                    <?= $this->Html->link('Logout', '/users/logout', ['class' => 'btn btn-danger']); ?>
 
-                    @if(Auth::check())
-                      <!-- Table -->
-                      <table class="table">
+                    <hr />
+
+                    <table class="table">
                           <tr>
                               <th>Character</th>
                               <th>Real Name</th>
                           </tr>
-                          @foreach($characters as $key => $value)
+                          <?php foreach($characters as $key => $value): ?>
                             <tr>
-                              <td>{{ $key }}</td><td>{{ $value }}</td>
+                              <td><?= $key ?></td><td><?= $value ?></td>
                             </tr>
-                          @endforeach
-                      </table>
-                    @endif
-
-
+                          <?php endforeach; ?>
+                    </table>
+                  <?php else: ?>
+                    <br />
+                    <div align="center">
+                      <h5> You need to login to have access to this list <?= $this->Html->link('Login', '/users/login', ['class' => 'btn btn-info']); ?> </h5>
+                    </div>
+                  <?php endif; ?>
             </div>
-            @if(Auth::guest())
-              <a href="/login" class="btn btn-info"> You need to login to see the list 😜😜 >></a>
-            @endif
+
         </div>
     </div>
 </div>
-@endsection
+{% endraw %}
 {% endhighlight %}
 
-Here, we are looping through the `$characters` array data passed from the `ListController` for appropriate rendering in the `welcome` view.
+In the code above, you can see how we're conditionally using the `$loggedIn` variable to display the logout, login buttons and the list of characters. Awesome!
 
-`Auth::check()` - You can check if a user is authenticated or not via this method from the `Auth` Facade. It returns true if a user is logged-in and false if a user is not. Check [here](https://laravel.com/docs/5.2/facades) to know how Facades work in Laravel.
+### Run The App
 
-`Auth::guest()` - This does the opposite of `Auth::check()`. It returns true if a user is not logged-in and false if a user is logged-in. Check [here](https://laravel.com/api/5.2/Illuminate/Auth/Guard.html) to see all the methods you can call on the `Auth` Facade.
+If you server is not up yet, then go ahead and run `bin/cake server` in your terminal. Try out the app:
 
-Now that we have all the routes and views setup, your application should look like this:
-
+![Landing Page](https://cdn.auth0.com/blog/cakephp/landingpage.png)
 _Landing Page_
 
-![Landing Page](https://cdn.auth0.com/blog/laravel-auth/landing-page.png)
-
+![Login Page](https://cdn.auth0.com/blog/cakephp/login.png)
 _Login Page_
 
-![Login Page](https://cdn.auth0.com/blog/laravel-auth/login-page.png)
+![Invalid credentials](https://cdn.auth0.com/blog/cakephp/invalidcredentials.png)
+_Invalid Credentials_
 
-_Register Page_
+![Display Page](https://cdn.auth0.com/blog/cakephp/display.png)
+_Display list of characters_
 
-![Register Page](https://cdn.auth0.com/blog/laravel-auth/register-page.png)
-
-## Run Migrations
-
-Migrations are like version control for your database, allowing a team to easily modify and share the application's database schema. In **Laravel**, they are placed in the `database/migrations` directory. Each migration file name contains a timestamp which allows **Laravel** to determine the order of the migrations.
-
-Luckily for us, the user migration files comes by default with a fresh **Laravel** install. Check the `database/migrations` directory to ensure you have at least two migration files named `xxx_create_users_table.php` and `xxx_create_password_resets_table.php` where `xxx` represents the timestamp.
-
-Now, run this command from your terminal:
-
-```bash
-php artisan migrate
-```
-The `users` and `password_resets` table will be created on running this command. Ensure the appropriate database name has been set in your `.env` file. The value should be assigned to this `DB_DATABASE` constant.
-
-## Path Customization
-
-Open up `AuthController.php` in `app/Http/Controllers/Auth` directory. There is a `$redirectTo` variable like so:
-
-```php
-/**
-* Where to redirect users after login / registration.
-*
-* @var string
-*/
-protected $redirectTo = '/';
-```
-It can be configured to whatever route you want the user to be redirected to just after registration or login. In our case, the user should be redirected to the landing page, so we don't need to change anything.
-
-Now, go ahead and register. It should register you successfully and log you in like so:
-
-![Landing Page while authenticated](https://cdn.auth0.com/blog/laravel-auth/landing-authenticated.png)
+![Logout](https://cdn.auth0.com/blog/cakephp/logout.png)
+_Logout button_
 
 
-## Using the Auth Middleware
-
-Middlewares provide a convenient mechanism for filtering HTTP requests entering your application. For example, **Laravel** includes a middleware that verifies the user of your application is authenticated. If the user is not authenticated, the middleware will redirect the user to the login screen. However, if the user is authenticated, the middleware will allow the request to proceed further. The `app/Http/Middleware` directory contains several middleware.
-
-Let's check out how the `auth` middleware works.
-
-Add a new route to your `routes.php` file like so:
-
-```php
-Route::get('/got', [
-  'middleware' => ['auth'],
-  'uses' => function () {
-   echo "You are allowed to view this page!";
-}]);
-```
-Now, log out, then try to access that route, you will be redirected back to the `/login` route. The Laravel `auth` middleware intercepted the request, checked if the user was logged-in, discovered that the user was not logged-in, then redirected the user back to the `login` page.
-
-## Aside: Using Auth0 with Laravel
+## Aside: Using Auth0 with CakePHP
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Laravel apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Laravel**.
+We can easily set up authentication in our CakePHP apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now.
 
-### Step 1: Install and Configure Auth0 plugin
+* Navigate to the Auth0 [management dashboard](https://manage.auth0.com/).
+* Create a new client
 
-Follow the instructions [here](https://auth0.com/docs/quickstart/webapp/laravel) to configure the Auth0 plugin.
+        ![Create a new client](https://cdn.auth0.com/blog/cakephp/create_client.png)
+
+* Give it a name and select the type of app
+
+        ![CakePHP GOT](https://cdn.auth0.com/blog/cakephp/got.png)
+
+* Take note of the *client_id*, *domain*, and *secret*. You'll need it soon.
+
+        ![Client details](https://cdn.auth0.com/blog/cakephp/client_details.png)
+
+
+### Step 1: Install and Configure CakePHP Auth0 package
+
+**Important Notice** The package you are about to install was not developed by Auth0. It is a community package.
+
+Go ahead and install the [cakephp package](https://github.com/jsoftb/auth0) via composer.
+
+> You have to set `minimum-stability` to `dev` in your composer.json file for the package to install successfully. Note that installing `dev-master` is not best practice. You should not do this in production.
 
 ### Step 2: Register the callback
 
-Head over to your Auth0 [dashboard](https://manage.auth0.com/#/applications/) and register a callback like so: `http://laravel-auth0.dev/auth0/callback` and logout URL `http://laravel-auth0.dev/logout`.
+Head over to your Auth0 [dashboard](https://manage.auth0.com/#/applications/) and register a callback in **Allowed Callback URLs** like so: `http://localhost:8765/users/login`
 
-Open up your routes and add this:
+Open up your `AppController`and add this to the initialize function:
 
 ```php
-Route::get('/auth0/callback', function() {
-   dd(Auth0::getUser());
-});
+...
+$this->loadComponent('Auth', [
+            'authenticate' => [
+                'Auth0.Auth0' => [
+                                  'domain'        => '<domain_value_provided_by_auth0>',
+                                  'client_id'     => '<client_id_value_provided_by_auth0>',
+                                  'client_secret' => '<client_secret_value_provided_by_auth0>',
+                                  'redirect_uri'  => '<redirect_uri_value_provided_by_auth0>'
+                ]
+            ],
+]);
 ```
+
+Replace the placeholder values with the credentials on your dashboard. I recommend that you load them from environment variables to prevent your credentials especially the **secret** from been leaked.
 
 ### Step 3: Include Auth0's Lock Widget
 
-Open up `welcome.blade.php` and configure it like so:
+Open up `List/index.ctp` and add the widget to it like so:
 
-{% highlight php %}
-@extends('layouts.app')
-
-@section('content')
+{% highlight html %}
+{% raw %}
 <script src="//cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
 <script type="text/javascript">
 
@@ -569,39 +717,53 @@ Open up `welcome.blade.php` and configure it like so:
   }
 </script>
 <button onclick="window.signin();">Login</button>
-@endsection
+...
+...
+{% endraw %}
 {% endhighlight %}
 
 When the login button is clicked, the auth0 lock widget comes up:
 
-![Auth0 Lock Widget](https://cdn.auth0.com/blog/laravel-auth/auth0-lock.png)
+![Auth0 Lock Widget](https://cdn.auth0.com/blog/cakephp/locklogin.png)
 
+### Step 4: Configure Lock in UsersController
 
-### Step 4: Configure & Use Lock Widget in Routes.php
-
-Add this to your `routes.php` file:
+Configure the `login` method of your `UsersController` like this:
 
 ```php
-Route::get('/auth0/callback', function() {
-   dd(Auth0::getUser());
-});
+public function login()
+    {
+        $authCode = $this->request->query('code', null);
+        if(!is_null($authCode)) {
+          $user = $this->Auth->identify();
+          if($user) {
+            $this->Auth->setUser($user);
+            return $this->redirect($this->Auth->redirectUrl());
+          }
+        }
+    }
 ```
 
-Now, once a user registers, it stores the user information in your Auth0 dashboard. We can retrieve this info using the `Auth0::getUser()` method. We can also hook onto the onLogin event using `Auth0::onLogin(function(...))`.
+Now, once a user registers, it stores the user information in your Auth0 user database. The CakePHP plugin retrieves the user info and sets it so that it is accessible in `$this->Auth0->user()`.
 
-![Access Token](https://cdn.auth0.com/blog/laravel-auth/access-token.png)
+### Step 4: Configure Logout
 
+Modify the `logout` function in `UsersController` to this code below:
 
-Access can be restricted with **Auth0 Middleware**, just add this `'auth0.jwt' => 'Auth0\Login\Middleware\Auth0JWTMiddleware'` in the `$routeMiddleware` array in `app/Http/Kernel.php`. Then use `auth0.jwt` middleware on your routes.
+```php
+public function logout()
+    {
+        $url = $this->Auth->logout();
+        $this->request->session()->destroy();
+        return $this->redirect($url);
+    }
+```
 
-With Auth0, you can have all your users information stored without having to run your own database. You can configure the Lock UI, It provides powerful analytics about users signing up on your platform such as, the browser the user logged in with, the location, device, number of logins and more out of the box!
-
-![User Information](https://cdn.auth0.com/blog/laravel-auth/user-information.png)
+Now, when you click the logout button, the user will be successfully logged out.
 
 **Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
-
 ## Wrapping Up
 
-Well done! You have just built your first app with Laravel. Laravel is an awesome framework to work with. It focuses on simplicity, clarity and getting work done. As we saw in this tutorial, you can easily add authentication to your Laravel apps. This is designed to help you get started on building your own apps with Laravel. You can leverage the knowledge gained here to build bigger and better apps.
+Well done! You have just built your first app with CakePHP. As we saw in this tutorial, you can easily add authentication to your CakePHP apps. This tutorial is designed to help you get started on building your own apps with CakePHP. You can leverage the knowledge gained here to build bigger and better apps.
 Please, let me know if you have any questions or observations in the comment section. 😊
