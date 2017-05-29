@@ -2,8 +2,8 @@
 layout: post
 title: "The Firewall of the Future Is Identity"
 description: "Focus your protection on the most precious assets"
-date: 2017-04-04 17:50
-category: Technical Guide, Security
+date: 2017-05-29 8:30
+category: Growth, Identity
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
