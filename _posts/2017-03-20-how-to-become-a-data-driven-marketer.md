@@ -7,16 +7,17 @@ category: Growth
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: "NAME"
-  url: "https://twitter.com/[TWITTER]"
-  mail: "______@auth0.com"
-  avatar: "AVATAR HERE"
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/data-driven/logo.png
+  bg_color: "#593C62"
 tags:
-- hyphenated-tags
-- 
+- analytics
+- marketing
+- data
 related:
 - date-post-name
 - date-post-name
