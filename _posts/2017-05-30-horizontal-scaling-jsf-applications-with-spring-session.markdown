@@ -2,7 +2,7 @@
 layout: post
 title: "Horizontal Scaling JSF Applications with Spring Session"
 description: "JSF heavily depends on HTTP sessions, which is usually easier to scale vertically. Today we will see how to scale JSF horizontally with Spring Session."
-date: 2017-05-09 08:00
+date: 2017-05-30 08:00
 category: Technical Guide, Java, Spring Boot
 author:
   name: "Bruno Krebs"
