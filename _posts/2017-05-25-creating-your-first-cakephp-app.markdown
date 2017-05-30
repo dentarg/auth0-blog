@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Creating your first CakePHP app and adding authentication"
-description: Learn how to build your first CakePHP application and add authentication to it.
+description: Learn how to build and secure your first CakePHP app.
 date: 2017-05-26 5:00
 category: Technical Guide, PHP, CakePHP
 author:
@@ -10,8 +10,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#4A4A4A"
-  image: https://cdn.auth0.com/blog/laravel-auth/logo.png
+  bg_color: "#93292E"
+  image: https://cdn.auth0.com/blog/cakephp/logo.png
 tags:
 - cakephp
 - api
@@ -31,7 +31,7 @@ related:
 
 ---
 
-**CakePHP** was developed by [Larry Masters](https://twitter.com/PhpNut). It emerged around 2005 as the first-ever PHP MVC framework. CakePHP has grown and evolved over the past decade as a prominent and go-to PHP framework in PHP userland. It is currently being maintained by the [CakePHP team](https://github.com/cakephp/cakephp/graphs/contributors). **CakePHP** ships with a lot of features out of the box, just like Laravel. These features include:
+**CakePHP** was developed by [Larry Masters](https://twitter.com/PhpNut). It emerged around 2005 as the first-ever PHP MVC framework. CakePHP has grown and evolved over the past decade as a prominent and go-to PHP framework. It is currently being maintained by the [CakePHP team](https://github.com/cakephp/cakephp/graphs/contributors). **CakePHP** ships with a lot of features out of the box, just like [Laravel](https://laravel.com). These features include:
 
 * A built-in ORM that combines the power of ActiveRecord and DataMapper patterns
 * Caching
@@ -39,7 +39,7 @@ related:
 * Scaffolding
 * Built-in Validation
 
-In January, 2017, [**Oven**](https://github.com/CakeDC/oven) was released by the CakePHP team. Oven is a tool for installing CakePHP without breaking a sweat. Just recently, a few days ago to be precise, the CakePHP team tagged the latest release of the framework, *CakePHP 3.4.7*, otherwise known as Red Velvet. Tasty! It is a maintenance release for the 3.4 branch that fixes several issues submitted by developers. Checkout the [changelog here](https://github.com/cakephp/cakephp/compare/3.4.6...3.4.7).
+In January, 2017, [**Oven**](https://github.com/CakeDC/oven) was released by the CakePHP team. Oven is a tool for installing CakePHP without breaking a sweat. Recently, a few days ago to be precise, the CakePHP team tagged the latest release of the framework, *CakePHP 3.4.7*, otherwise known as Red Velvet. Tasty! It is a maintenance release for the 3.4 branch that fixes several issues submitted by developers. Checkout the [changelog here](https://github.com/cakephp/cakephp/compare/3.4.6...3.4.7).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Oven - The easiest way to install CakePHP <a href="https://t.co/21ACYRzfov">pic.twitter.com/21ACYRzfov</a></p>&mdash; Larry E. Masters (@PhpNut) <a href="https://twitter.com/PhpNut/status/820026500510523393">January 13, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -93,7 +93,7 @@ Let's check out the directory structure of our newly scaffolded project, **got**
 
 ## Explore Directory Structure
 
-CakePHP applications follow the **Model-View-Controller** design pattern.
+CakePHP applications follow the **Model-View-Controller** architecture pattern.
 
 ![Model View Controller Diagram](https://cdn.auth0.com/blog/laravel-auth/mvc-diagram.png)
 
@@ -101,11 +101,11 @@ CakePHP applications follow the **Model-View-Controller** design pattern.
 
 In a nutshell,
 
-  * **Models** query your database and returns the necessary data.
+  * **Models** query your database and return the necessary data.
   * **Views** are pages that render data
-  * **Controllers** handle user requests, retrieve data from the Models and pass them unto the views.
+  * **Controllers** handle user requests, retrieve data from the Models and pass them into the views.
 
-Read more about [MVC](http://www.tomdalling.com/blog/software-design/model-view-controller-explained/) here.
+Read more about [MVC here](http://www.tomdalling.com/blog/software-design/model-view-controller-explained/).
 
 Let's checkout the directory structure of our CakePHP app. It contains the following directories and files:
 
@@ -117,7 +117,7 @@ Let's checkout the directory structure of our CakePHP app. It contains the follo
 * `tests` - contains all your test files
 * `tmp` - temporary data is stored here. It also houses session information.
 * `vendor` - contains the application dependencies. All the packages installed via composer.json reside here.
-* `webroot` - contains all the files you want to be publicly reachable.
+* `webroot` - contains all the files you want to be publicly accessible.
 * `.htaccess`
 * `composer.json` - composer file that houses the list and versions of PHP packages that your application depends on.
 * `composer.lock` - composer file that locks down specific versions of installed PHP packages.
@@ -320,7 +320,7 @@ Once a request hits the `/` route, it invokes the `index` method of the `ListCon
 
 ## Configuring the database
 
-This application will require some info about users to be stored in the database since we intend setting up authentication. We'll set up the underlying MySQL database for our game of thrones app.
+This application will require some info about users to be stored in the database since we intend to set up authentication. We'll set up the underlying MySQL database for our Game of Thrones app.
 
 Open up **config/app** file, and scroll down to the `DataSources` key. Put in the username and password for accessing your MySQL database. Also, create a database called `got` and reference the name here:
 
@@ -524,6 +524,7 @@ In the code above, we added code to destroy the session and redirect back to the
 Open up `src/Controller/AppController.php` file, go into the `initialize` method and modify it like this:
 
 _initialize_
+
 ```php
 public function initialize()
     {
@@ -558,7 +559,7 @@ A lot is going on in the code above. Just relax, I'll explain. We loaded CakePHP
 
 In the code above, we changed the `redirect` function slightly to include the list controller and index action. This simply means we want the user to be redirected to the list page once registered successfully.
 
-> **Note: The index method returns the data for the route `/list`
+> **Note:** The index method returns the data for the route `/list`
 
 We haven't taken care of something very important. Open up `src/Controller/AppController.php` and check out the `beforeFilter` function. This function acts as a middleware, it intercepts requests coming in. Here, you can determine the kind of routes you want an authenticated user to be able to access or not. You can also set an `authenticated` status based on users logged-in or logged-out status.
 
@@ -580,7 +581,7 @@ public function beforeFilter(Event $event)
 
 ### Update Views
 
-We need to update our views to conditionally show the list of game of thrones characters whether the user is logged in or not.
+We need to update our views to conditionally show the list of Game of Thrones characters based on whether the user is logged in or not.
 
 Open up `List/index.ctp` and modify it like this:
 
@@ -653,15 +654,15 @@ We can easily set up authentication in our CakePHP apps by using the [Lock Widge
 * Navigate to the Auth0 [management dashboard](https://manage.auth0.com/).
 * Create a new client
 
-        ![Create a new client](https://cdn.auth0.com/blog/cakephp/create_client.png)
+    ![Create a new client](https://cdn.auth0.com/blog/cakephp/create_client.png)
 
-* Give it a name and select the type of app
+* Give it a name and select the type of app as `Regular Web Applications`.
 
-        ![CakePHP GOT](https://cdn.auth0.com/blog/cakephp/got.png)
+    ![CakePHP GOT](https://cdn.auth0.com/blog/cakephp/got.png)
 
 * Take note of the *client_id*, *domain*, and *secret*. You'll need it soon.
 
-        ![Client details](https://cdn.auth0.com/blog/cakephp/client_details.png)
+    ![Client details](https://cdn.auth0.com/blog/cakephp/client_details.png)
 
 
 ### Step 1: Install and Configure CakePHP Auth0 package
