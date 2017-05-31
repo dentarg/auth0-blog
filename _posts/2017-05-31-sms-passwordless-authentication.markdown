@@ -2,7 +2,7 @@
 layout: post
 title: "SMS Passwordless Authentication"
 description: Learn how phone number authentication works and how you can implement it easily with Auth0!
-date: 2017-05-23 08:30
+date: 2017-05-31 08:30
 category: Technical Guide, Identity, Passwordless
 design:
   bg_color: "#001D3F"
@@ -15,7 +15,7 @@ author:
 tags:
 - passwordless
 - authentication
-- touchID
+- SMS
 related:
 - 2016-04-21-facebook-account-kit-passwordless-authentication
 - 2016-05-14-how-passwordless-sms-authentication-can-improve-your-app
