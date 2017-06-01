@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Creating your first CakePHP app and adding authentication"
+title: "Creating and securing your first CakePHP app"
 description: Learn how to build and secure your first CakePHP app.
-date: 2017-05-26 5:00
+date: 2017-06-01 8:00
 category: Technical Guide, PHP, CakePHP
 author:
   name: Prosper Otemuyiwa
