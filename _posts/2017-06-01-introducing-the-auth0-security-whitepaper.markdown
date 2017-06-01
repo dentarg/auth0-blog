@@ -2,15 +2,16 @@
 layout: post
 title: "Introducing the Auth0 Security Whitepaper"
 description: "Today we are releasing a whitepaper to describe our approach to security so that our customers can understand how their data is protected"
-date: 2017-03-28 11:10
-category: Announcements, Feature
+date: 2017-06-01 13:10
+category: Announcements, Resource
+press_release: true
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: #000
+  bg_color: "#000000"
   image: https://cdn.auth0.com/blog/security-whitepaper/logo.png
 tags:
 - auth0
@@ -19,7 +20,8 @@ tags:
 - white
 - paper
 related:
-- from-theory-to-practice-adding-two-factor-to-node-dot-js
+- introducing-auth0-extend-the-new-way-to-extend-your-saas
+- data-breach-response-planning-for-startups
 - 5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 ---
 
