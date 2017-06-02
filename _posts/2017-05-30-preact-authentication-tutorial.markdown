@@ -45,9 +45,9 @@ When I initially came across **Preact**, I asked myself one question: *Why do we
 
 Don't worry, you'll have answers to my questions soon! If you are new to *ReactJS*, I'll advise you check out this [excellent ReactJS tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). If you already know *ReactJS*, then you need to know what makes *Preact* stand out in the list of JavaScript UI frameworks.
 
-The key concepts in Preact are virtually thesame with ReactJS and I covered them [extensively here](https://auth0.com/blog/reactjs-authentication-tutorial). Let's quickly go over a few similarities.
+The key concepts in Preact are virtually the same with ReactJS and I covered them [extensively here](https://auth0.com/blog/reactjs-authentication-tutorial). Let's quickly go over a few similarities.
 
-> **Note**: Preact is to a large extent a petite version of React. In fact the P in Preact stands for `petite`.
+> **Note**: Preact is to a large extent, a petite version of React. In fact the P in Preact stands for `petite`.
 
 {% include tweet_quote.html quote_text="Preact is to a large extent a petite version of React. In fact the P in Preact stands for petite." %}
 
@@ -142,7 +142,7 @@ Meanwhile, Preact handles this better with **Linked State** that involves lesser
     }
     ```
 
-The `linkState()` function handles linking state from any input type and automatically derives the appropriate value from an event. More information on [Linked State](https://preactjs.com/guide/linked-state) here.
+Preact's `linkState()` function handles linking state from any input type and automatically derives the appropriate value from an event. More information on [Linked State](https://preactjs.com/guide/linked-state) here.
 
 ## Performance
 
@@ -200,6 +200,7 @@ const authCheck = jwt({
     }),
     // This is the identifier we set when we created the API
     audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+    // e.g https://prosper.auth0.com/
     issuer: '{YOUR-AUTH0-DOMAIN}',
     algorithms: ['RS256']
 });
@@ -228,7 +229,7 @@ app.get('/api/jokes/food', (req, res) => {
   },
   {
     id: 99996,
-    joke: 'When Chuck Norris goes to out to eat, he orders a whole chicken, but he only eats its soul.'
+    joke: 'When Chuck Norris goes out to eat, he orders a whole chicken, but he only eats its soul.'
   }
   ];
   res.json(foodJokes);
@@ -302,7 +303,7 @@ Your `package.json` file should look like this:
 
 _package.json_
 
-Once you have cloned the project, run an `npm install`, then use [postman](https://www.getpostman.com) to serve your routes like so:
+Once you have cloned the project, run an `npm install`, then use [Postman](https://www.getpostman.com) to consume your routes like so:
 
 ![API serving food jokes](https://cdn.auth0.com/blog/react/postman.png)
 _API serving food jokes_
@@ -318,17 +319,7 @@ Don't worry about the middleware in charge of securing our endpoint for now. We'
 
 ## Build The Front-End With Preact
 
-With **ReactJS**, we have the infamous [create-react-app](https://github.com/facebookincubator/create-react-app) for scaffolding new react apps. Currently, there is no similar tool for creating preact apps. However, the team behind `create-react-app` tool made it very easy for developers to configure it to suit their needs via react-scripts.
-
-> Learn how to configure create-react-app with this [excellent tutorial](https://auth0.com/blog/how-to-configure-create-react-app/).
-
-Thanks to the open source community, *Boris Serdiuk* already did the hard work of configuring `create-react-app` to create preact apps. Now, all you need is to have the `create-react-app` tool installed globally, then create a new preact app like this:
-
-```bash
-create-react-app chucknorrisworld --scripts-version @just-boris/preact-scripts
-```
-
-Another alternative to setting up preact apps is via the [preact-boilerplate](https://github.com/developit/preact-boilerplate) created by the author of Preact.
+One way of setting up preact apps is via the [preact-boilerplate](https://github.com/developit/preact-boilerplate) created by the author of Preact.
 
 We will use the `preact-boilerplate` in this tutorial. Go ahead and run the following command on your terminal to clone the boilerplate:
 
@@ -346,6 +337,12 @@ npm install
 Now run `npm run dev` to see your app at `http://localhost:8080`.
 
 ![App recently scaffolded and showing at Localhost](https://cdn.auth0.com/blog/preact/scaffoldedapp.png)
+
+**Note:** Another alternative is to use the efficient [create-react-app](https://github.com/facebookincubator/create-react-app) tool. It was created for scaffolding new react apps. Currently, there is no similar tool for creating preact apps. However, the team behind `create-react-app` tool made it very easy for developers to configure it to suit their needs via react-scripts.
+
+> Learn how to configure create-react-app with this [excellent tutorial](https://auth0.com/blog/how-to-configure-create-react-app/).
+
+Thanks to the open source community, *Boris Serdiuk* already did the hard work of configuring `create-react-app` to create preact apps. All you need to do is have the `create-react-app` tool installed globally, then follow the [instructions here](https://github.com/just-boris/create-preact-app).
 
 Open up the `src/components` directory and delete all the existing directories.
 
@@ -535,7 +532,7 @@ Now, we took advantage of one of the **Preact** lifecycle hooks, `componentDidMo
 
 All we are trying to do is tell **Preact** to load the data from the API immediately the `FoodJokes` component gets rendered.
 
-Finally, we rendered the component with the **Preact** `render` method. This is the method that does the actual rendering on the screen
+Finally, we rendered the component with the **Preact** `render` method. This is the method that does the actual rendering on the screen.
 
 We looped through the `jokes` variable passed as an argument to the `render` method which is now an array to display the contents on the screen.
 
