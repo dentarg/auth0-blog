@@ -37,37 +37,37 @@ related:
 
 ## Understanding Key Concepts in Preact
 
-When I initially came across **Preact**, I asked myself one question: *Why do we need another React implementation?* I couldnt come to terms with the fact that it promised a smaller and faster alternative to React with the same API. Hold on a second! *The same API?* You mean I don't need to relinquish my ReactJS superpowers just to learn how Preact works? I went through the documentation a second time and a bunch of questions magically strolled in to my brain.
+When I initially came across **Preact**, I asked myself one question: *Why do we need another React implementation?* I couldn't come to terms with the fact that it promised a smaller and faster alternative to ReactJS with the same API. Hold on a second! *The same API?* You mean I don't need to relinquish my ReactJS superpowers just to learn how Preact works? I went through the documentation a second time and a bunch of questions magically strolled in to my brain.
 
 * Is Preact really that fast?
 * Is Jason trying to sell his open source project to the public by throwing in the *fast* slogan?
-* Compared to React, does the user experience a significant difference in the speed of the web app?
+* Compared to ReactJS, does the user experience a significant difference in the speed of the web app?
 
-Don't worry, you'll have answers to my questions soon! If you are new to *ReactJS*, I'll advise you check out this [excellent React tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). If you already know *ReactJS*, then you need to know what makes *Preact* stand out in the list of JavaScript UI frameworks.
+Don't worry, you'll have answers to my questions soon! If you are new to *ReactJS*, I'll advise you check out this [excellent ReactJS tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). If you already know *ReactJS*, then you need to know what makes *Preact* stand out in the list of JavaScript UI frameworks.
 
-The key concepts in Preact are virtually thesame with React and I covered them [extensively here](https://auth0.com/blog/reactjs-authentication-tutorial). Let's quickly go over a few similarities.
+The key concepts in Preact are virtually thesame with ReactJS and I covered them [extensively here](https://auth0.com/blog/reactjs-authentication-tutorial). Let's quickly go over a few similarities.
 
 > **Note**: Preact is to a large extent a petite version of React. In fact the P in Preact stands for `petite`.
 
 {% include tweet_quote.html quote_text="Preact is to a large extent a petite version of React. In fact the P in Preact stands for petite." %}
 
-* The Lifecycle methods in Preact are the same with React.
-* Working with [Forms](https://preactjs.com/guide/forms) in Preact is really no different from [React](https://facebook.github.io/react/docs/forms.html) except for non-existent support for static props.
-* Classical components and stateless functional components.
+* The Lifecycle methods in Preact are the same with ReactJS.
+* Working with [Forms](https://preactjs.com/guide/forms) in Preact is really no different from [ReactJS](https://facebook.github.io/react/docs/forms.html) except for non-existent support for static props.
+* Classical components and stateless functional components exist in both frameworks.
 
 <blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="en" dir="ltr">this is <a href="https://twitter.com/notwaldorf">@notwaldorf</a>&#39;s fault</p>&mdash; Jason Miller 🦊⚛ (@_developit) <a href="https://twitter.com/_developit/status/870274885213458433">June 1, 2017</a></blockquote>
 
-Next, let's go over the differences between Preact and React.
+Next, let's go over the differences between Preact and ReactJS.
 
-### Differences between Preact and React
+### Differences between Preact and ReactJS
 
-There are trivial differences between Preact and React. Although, using [preact-compat](https://github.com/developit/preact-compat) attempts to achieve 100% compatibility with React.
+There are trivial differences between Preact and ReactJS. Although, using [preact-compat](https://github.com/developit/preact-compat) attempts to achieve 100% compatibility with React.
 
 * *No PropType Validation*: With preact-compat, you can include PropType support in your app.
 * [React.children](https://facebook.github.io/react/docs/react-api.html#react.children) is not supported in Preact. With preact-compat, you can use it.
 * In Preact, the `render()` method accepts a third argument. This argument is the root node to replace or append.
 * Preact components don't implement `contextTypes` or `childContextTypes`.
-* In Preact, you can simply use `class` for CSS classes. You want to go the *React* way? No problem. *className* is supported.
+* In Preact, you can simply use `class` for CSS classes. You want to go the *ReactJS* way? No problem. *className* is supported.
 * In place of using `React.createElement`, Preact offers an `h()` function that turns your JSX into Virtual DOM elements.
 * *props* and *state* are passed as arguments to the `render` method in Preact. This allows for automatic destructuring of props and state into local variables to be referenced from JSX. Check this out:
 
@@ -75,13 +75,7 @@ There are trivial differences between Preact and React. Although, using [preact-
     import { h, render, Component } from 'preact';
 
     class Food extends Component {
-        constructor() {
-            super();
-            this.state = {
-              desert: 'custard',
-              appetizer: 'french fries'
-            };
-        }
+        state = { desert: 'custard', appetizer: 'french fries' };
 
         componentDidMount() {
           ...
@@ -119,7 +113,7 @@ There are trivial differences between Preact and React. Although, using [preact-
     {% endhighlight %}
 
 * Preact renders components asynchronously for `state` changes and synchronously for `props` changes.
-* In React, updating state in response to events involved doing something like this:
+* In ReactJS, updating state in response to events involved doing something like this:
 
     ```js
     import { render, Component } from 'preact';
@@ -152,14 +146,14 @@ The `linkState()` function handles linking state from any input type and automat
 
 ## Performance
 
-I used [preact-perf](https://developit.github.io/preact-perf/) to run tests with different JavaScript frameworks for a todo app, and this was the result below:
+I used [preact-perf](https://developit.github.io/preact-perf/) to run tests with different JavaScript frameworks for a Todo app, and this was the result below:
 
 ![Benchmark](https://cdn.auth0.com/blog/preact/benchmark.png)
 _Preact and other JavaScript frameworks_
 
 Wow, so **Preact** is really that fast. Sorry for doubting you Jason!
 
-After building our app, we'll check out the app size and compare it with its React equivalent. Stay tuned readers!
+After building our app, we'll check out the app size and compare it with its ReactJS equivalent. Stay tuned!
 
 Next, let's re-write the [Chuck Norris World app](https://github.com/auth0-blog/reactjs-authentication-tutorial) we built with ReactJS in **Preact**.
 
@@ -361,9 +355,9 @@ Make the following modifications like so:
 
 In the `src/components` directory, go ahead and:
 
-* Create a `celebrityjokes` folder and an `index.js` inside the folder you just created. This component will take care of fetching the celebrity jokes and displaying them to the user.
-* Create a `foodjokes` folder and an `index.js` inside the folder you just created. This component will take care of fetching the food jokes and displaying them to the user.
-* Create a `nav` folder and an `index.js` inside the folder you just created. This component will be in charge of our navigation throughout the app.
+* Create a `celebrityjokes` folder and an `index.js` file inside the folder you just created. This component will take care of fetching the celebrity jokes and displaying them to the user.
+* Create a `foodjokes` folder and an `index.js` file inside the folder you just created. This component will take care of fetching the food jokes and displaying them to the user.
+* Create a `nav` folder and an `index.js` file inside the folder you just created. This component will be in charge of our navigation throughout the app.
 * Create a folder called `utils` inside the `src` directory. This will house our helper functions.
 
 ## Fetch the API Data
@@ -437,7 +431,7 @@ export default class Nav extends Component {
 };
 ```
 
-The `Link` Component from `preact-router` uses the `href` attribute unlike React that uses the `to` attribute.
+The `Link` Component from `preact-router` uses the `href` attribute unlike ReactJS that uses the `to` attribute.
 
 ## Build the CelebrityJokes and FoodJokes Component
 
@@ -505,7 +499,7 @@ export default FoodJokes;
 ```
 _foodjokes/index.js_
 
-> **Note:** In preact, you can just declare state without necessarily putting it in the constructor method.
+> **Note:** In Preact, you can just declare state without necessarily putting it in the constructor method.
 
 Let's analyze the code above. The `FoodJoke` component is pulling data from an API, so it needs a way of holding that data. That's where `state` comes in. In **Preact**, you can use `props` to pass data around and use `state` to hold/manage that data.
 
@@ -541,9 +535,9 @@ Now, we took advantage of one of the **Preact** lifecycle hooks, `componentDidMo
 
 All we are trying to do is tell **Preact** to load the data from the API immediately the `FoodJokes` component gets rendered.
 
-Finally, we rendered the component with the **Preact** `render` method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant.
+Finally, we rendered the component with the **Preact** `render` method. This is the method that does the actual rendering on the screen
 
-We looped through the `jokes` constant which is now an array to display the contents on the screen.
+We looped through the `jokes` variable passed as an argument to the `render` method which is now an array to display the contents on the screen.
 
 ```js
 ...
@@ -706,15 +700,16 @@ Just a few more things before we add authentication to our application.
 
 * Now create an `app.css` in the `src` directory and add this style to it like so:
 
-{% highlight css %}
-.navbar-right { margin-right: 0px !important}
-.log {
-  margin: 5px 10px 0 0;
-}
-```
-{% endhighlight %}
+  {% highlight css %}
+  .navbar-right { margin-right: 0px !important}
+  .log {
+    margin: 5px 10px 0 0;
+  }
+  {% endhighlight %}
 
-Now, feel free to check out your application in the browser. Next, let's add authentication to the app.
+Now, feel free to check out your application in the browser.
+
+Next, let's add authentication to the app.
 
 ## Adding Authentication to Chuck Norris World App
 
@@ -935,8 +930,6 @@ export default class Nav extends Component {
 
 ```
 _nav/index.js_
-
-> **Note:** We used an arrow function to wrap and execute the onClick handlers like so: `{() => login()}` . Check out how to [handle events in react with arrow function](https://medium.com/@machnicki/handle-events-in-react-with-arrow-functions-ede88184bbb#.ekwwbituw) to understand why we used arrow functions.
 
 We imported `login`, `logout` and `isLoggedIn` functions from the `AuthService`. Then, we attached the `login()` and `logout()` functions to the `login` and `logout` buttons respectively.
 
@@ -1169,7 +1162,7 @@ _app size before gzipping_
 
 The bundle.js size before gzipping is **132kb**.
 
-By default, *preact-boilerplate* was not configured to gzip your files. I installed the compression-webpack-plugin and submitted a [PR]() to enable further optimization via gzipping.
+By default, *preact-boilerplate* was not configured to gzip your files. I installed the compression-webpack-plugin and submitted a [PR](https://github.com/developit/preact-boilerplate/pull/199) to enable further optimization via gzipping.
 
 
 ![App size](https://cdn.auth0.com/blog/preact/gzippedappsize.png)
@@ -1184,7 +1177,7 @@ _app size after gzipping_
 
 React app size after gzipping is **96.81kb**.
 
-Alas!, our preact app size is smaller than that of React.
+Alas!, our Preact app size is smaller than that of ReactJS.
 
 ## Conclusion
 
