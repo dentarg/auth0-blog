@@ -27,209 +27,147 @@ related:
 
 ---
 
-**TL;DR:** ReactJS is a declarative, efficient and flexible JavaScript library for building user interfaces. Currently, ReactJS has over 58,000 stars on [GitHub](https://github.com/facebook/react). ReactJS makes it easy for you to build your web applications in the form of encapsulated components that manage their own state. In this tutorial, I'll show you how easy it is to build a web application with ReactJS and add authentication to it. Check out the [repo](https://github.com/auth0-blog/reactjs-authentication-tutorial) to get the code.
+**TL;DR:** Preact is a JavaScript library that offers a fast 3kb alternative to React with the same ES6 API. Currently, Preact has over 9,000 stars on [GitHub](https://github.com/developit/preact). Preact gives the developer an edge to build super fast JavaScript web applications without the constant headache of performance improvement because of its lightweight footprint. In this tutorial, I'll show you how easy it is to build a web application with Preact and add authentication to it. We'll also compare the speed of this application with its [ReactJS equivalent](https://github.com/auth0-blog/reactjs-authentication-tutorial). Check out the [repo](https://github.com/auth0-blog/preact-authentication-tutorial) to get the code.
 
 ---
 
-**ReactJS** is a JavaScript library, built and maintained by Facebook. It was developed by [Jordan Walke](https://twitter.com/jordwalke), a software engineer at Facebook. It was open-sourced and announced to the developer community in March 2015. Since then, it has undergone tremendous growth and adoption in the developer community. In fact, as at the time of writing, **ReactJS** is the 5th most starred project of all time on GitHub.
+**Preact** is a JavaScript library, built and maintained by [Jason Miller](https://twitter.com/_developit). It has tremendously gained a lot of attention in the JavaScript community in the past one year. In addition, it was mentioned in [Addy Osmani's talk](https://www.youtube.com/watch?v=aCMbSyngXB4) at Google I/O 2017. **Preact** recently dabbled into the Progressive Web Apps community by launching a [cli](https://github.com/developit/preact-cli) that provisions a new Preact [Progressive Web App](https://auth0.com/blog/introduction-to-progressive-apps-part-one) in 30 seconds. Whoop! Whoop!
 
-Currently, many web platforms use **ReactJS** to build their user interfaces. Such platforms include *Netflix*, *Instagram*, *Airbnb*, *KhanAcademy*, *Walmart* and more. The [documentation](https://facebook.github.io/react) is very detailed, and there is a vibrant community of users. In addition, a plethora of **ReactJS** addons exist on GitHub for easy inclusion in your project for whatever functionality you are trying to build.
+**Preact** supports modern browsers and IE9+. And there is a growing community of [Preact](https://preact-slack.now.sh) users. A plethora of **Preact** libraries and addons exist on [GitHub](https://github.com/developit/preact/#libraries--add-ons) for easy inclusion in your project for whatever functionality you are trying to build.
 
-## Understanding Key Concepts in ReactJS
+## Understanding Key Concepts in Preact
 
-**ReactJS** was influenced by **XHP**, an augmentation of [PHP](https://github.com/php/php-src) and [Hack](http://hacklang.org) to allow XML syntax for the purpose of creating custom and reusable HTML elements. If you're coming from the world of [jQuery](https://jquery.com) and don't have experience with frameworks like Angular, Ember, or VueJS, you may find **ReactJS** very confusing. There are many questions you might have to ask yourself, such as:
+When I initially came across **Preact**, I asked myself one question: *Why do we need another React implementation?* I couldnt come to terms with the fact that it promised a smaller and faster alternative to React with the same API. Hold on a second! *The same API?* You mean I don't need to relinquish my ReactJS superpowers just to learn how Preact works? I went through the documentation a second time and a bunch of questions magically strolled in to my brain.
 
-* Why are JavaScript and HTML together in one script?
-* What is JSX? Why is the syntax so weird?
-* What is a state?
-* Why do we need props?
-* What are and why do we need components in our apps?
+* Is Preact really that fast?
+* Is Jason trying to sell his open source project to the public by throwing in the *fast* slogan?
+* Compared to React, does the user experience a significant difference in the speed of the web app?
 
-Don't worry, you'll have answers to your many questions soon! There are some key concepts you need to know when learning React. Once you have a basic understanding of these concepts, then you'll be able to create your first **ReactJS** app without banging your head on the wall.
+Don't worry, you'll have answers to my questions soon! If you are new to *ReactJS*, I'll advise you check out this [excellent React tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). If you already know *ReactJS*, then you need to know what makes *Preact* stand out in the list of JavaScript UI frameworks.
 
-These key concepts are:
+The key concepts in Preact are virtually thesame with React and I covered them [extensively here](https://auth0.com/blog/reactjs-authentication-tutorial). Let's quickly go over a few similarities.
 
-* **Components - The Types and API**
-* **Props**
-* **State**
-* **JSX**
+> **Note**: Preact is to a large extent a petite version of React. In fact the P in Preact stands for `petite`.
 
-I'll give a basic overview of these concepts to nourish your understanding of **ReactJS**.
+{% include tweet_quote.html quote_text="Preact is to a large extent a petite version of React. In fact the P in Preact stands for petite." %}
 
-### Components - The Types and API
+* The Lifecycle methods in Preact are the same with React.
+* Working with [Forms](https://preactjs.com/guide/forms) in Preact is really no different from [React](https://facebook.github.io/react/docs/forms.html) except for non-existent support for static props.
+* Classical components and stateless functional components.
 
-React is basically about components. A ReactJS app is just one big component made up of interoperable smaller components. Working with ReactJS means you are thinking in components most of the time.
+<blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="en" dir="ltr">this is <a href="https://twitter.com/notwaldorf">@notwaldorf</a>&#39;s fault</p>&mdash; Jason Miller 🦊⚛ (@_developit) <a href="https://twitter.com/_developit/status/870274885213458433">June 1, 2017</a></blockquote>
 
-An example of a component is an HTML 5 tag, say `<header>`. A header can have attributes, it can be styled and also possess its own behaviour. In **ReactJS**, you'll be able to build your own custom component using [**ES6**](https://auth0.com/blog/a-rundown-of-es6-features/) like so:
+Next, let's go over the differences between Preact and React.
 
-```js
+### Differences between Preact and React
 
-class CustomComponent extends React.Component {
-   render() {
-      return '<h3> This is my custom component!!!</h3>';
-   }
-}
+There are trivial differences between Preact and React. Although, using [preact-compat](https://github.com/developit/preact-compat) attempts to achieve 100% compatibility with React.
 
-```
+* *No PropType Validation*: With preact-compat, you can include PropType support in your app.
+* [React.children](https://facebook.github.io/react/docs/react-api.html#react.children) is not supported in Preact. With preact-compat, you can use it.
+* In Preact, the `render()` method accepts a third argument. This argument is the root node to replace or append.
+* Preact components don't implement `contextTypes` or `childContextTypes`.
+* In Preact, you can simply use `class` for CSS classes. You want to go the *React* way? No problem. *className* is supported.
+* In place of using `React.createElement`, Preact offers an `h()` function that turns your JSX into Virtual DOM elements.
+* *props* and *state* are passed as arguments to the `render` method in Preact. This allows for automatic destructuring of props and state into local variables to be referenced from JSX. Check this out:
 
-So, your component will now be `<CustomComponent></CustomComponent>`.
+    ```js
+    import { h, render, Component } from 'preact';
 
-React provides some methods that are triggered at various points from creating a component up until the component is destroyed. This is called the [Component's Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html). You can declare methods to hook into the component's lifecycle to control the behaviour of components in your app. Some examples of these lifecycle hooks are `componentDidMount()`, `componentWillMount()`, `componentWillUnmount()`, `shouldComponentUpdate()`, `componentWillUpdate()` and more.
+    class Food extends Component {
+        constructor() {
+            super();
+            this.state = {
+              desert: 'custard',
+              appetizer: 'french fries'
+            };
+        }
 
-* **componentWillMount()** : This method is called before the component is initially rendered. So it is called before the `render` method is executed. You can't perform any type of DOM manipulation here because the component isn't available in the DOM yet.
-* **componentDidMount()** : This method is called right after the component has been rendered. So it is called immediately after the `render` method has been executed. It's the best place to perform network and AJAX calls.
-* **componentWillUnmount()** : This method is called right before the component is removed from the DOM.
-* **shouldComponentUpdate()** : This method determines if a re-rendering should occur or not. It is never called on initial rendering and it's always called before the render method.
-* **componentWillUpdate()** : This method is called as soon as `shouldComponentUpdate` returns true. It is called just before the component is rendered with new data.
+        componentDidMount() {
+          ...
+        }
 
-There are also methods like [`render`](https://facebook.github.io/react/docs/rendering-elements.html) and [`setState`](https://facebook.github.io/react/docs/state-and-lifecycle.html) that you can use to render an element on the DOM and set the state of a component respectively.
+        componentWillUnmount() {
+          ...
+        }
 
-Take this example for a spin and watch how these lifecycle hooks work. Observe the sequence of logs in the browser console.
-
-```js
-
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-
-class Experiment extends Component {
-
-  componentWillMount() {
-    console.log("This will mount");
-  }
-
-  componentDidMount() {
-    console.log("This did mount");
-  }
-
-  componentWillUnmount() {
-    console.log("This will unmount");
-  }
-
-  render() {
-    console.log("I am just rendering like a boss");
-    return <div>I got rendered!</div>;
-  }
-
-}
-
-render(
-  <Experiment />,
-  document.getElementById("root")
-);
-
-```
-
-### Props
-
-`Props` is the short form for `properties`. Properties are attributes of a component. In fact, props are how components talk to each other. A tag in HTML such as `<img>` has an attribute, a.k.a `prop` called `src` that points to the location of an image.
-
-In React, you can have two components, `FatherComponent` and `SonComponent`. Let's see how they can talk to each other.
-
-```js
-
-class FatherComponent extends React.Component {
-   render() {
-      return <SonComponent quality="eye balls" />;
-   }
-}
-
-```
-
-_FatherComponent_
-
-```js
-
-class SonComponent extends React.Component {
-    render() {
-      return <p> I am a true son. I have my father's "{ this.props.quality }" . </p>;
+        render(props, state) {
+          return <span> { state.desert } </span>;
+        }
     }
-}
 
-```
+    // render an instance of Food into <body>:
+    render(<Food />, document.body);
+    ```
 
-_SonComponent_
+    ```js
+    import { render, Component } from 'preact';
 
-Now, when the page is served and a `<FatherComponent>` is called, `I am a true son. I have my father's eyes` will be rendered on the page.
+    class Unite extends Component {
+        render(props, state) {
+            return <a href={props.href}>{ props.children }</a>;
+        }
+    }
+    ```
 
-### State
+    This component can now be rendered as:
 
-When developing *ReactJS* applications, it is important to know when and when not to use state in components. The question now is: *When do I use state?*, *When do I use props?*  Props are data that the component depends on to render correctly. Most times, it comes from above, meaning it is passed down from a parent component to a child component. Like `props`, `state` holds information about the component but it is handled differently.For example, the number of times a button was clicked, user input from a form, etc. When state changes in a component, the component automatically re-renders and updates the DOM.
+    {% highlight html %}
+    {% raw %}
+    <Unite href="http://preact.com">Preact</Unite>
+    {% endraw %}
+    {% endhighlight %}
 
-Inside a component, state is managed using a `setState` function.
+* Preact renders components asynchronously for `state` changes and synchronously for `props` changes.
+* In React, updating state in response to events involved doing something like this:
 
-```js
+    ```js
+    import { render, Component } from 'preact';
 
-class Layout extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      position: "right"
-    };
-  }
+    class Food extends Component {
+        handleChange = e => {
+            this.setState({ text: e.target.value });
+        }
 
-  render() {
-    return (
-      { this.state.position }
-    )
-  }
-}
+        render({ }, { text }) {
+            return <input value={text} onInput={this.handleChange} />;
+        }
+    }
+    ```
 
-```
+Meanwhile, Preact handles this better with **Linked State** that involves lesser code like this:
 
-```js
+    ```js
+    import { render, Component } from 'preact';
+    import linkState from 'linkstate';
 
-class Button extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      count: 0,
-    };
-  }
+    class Food extends Component {
+        render({ }, { text }) {
+            return <input value={text} onInput={linkState(this, 'text')} />;
+        }
+    }
+    ```
 
-  updateCount() {
-    this.setState((prevState, props) => {
-      return { count: prevState.count + 1 }
-    });
-  }
+The `linkState()` function handles linking state from any input type and automatically derives the appropriate value from an event. More information on [Linked State](https://preactjs.com/guide/linked-state) here.
 
-  render() {
-    return (
-      <button onClick={() => this.updateCount()} >
-        Clicked {this.state.count} times
-      </button>
-    );
-  }
-}
+## Performance
 
-```
+I used [preact-perf](https://developit.github.io/preact-perf/) to run tests with different JavaScript frameworks for a todo app, and this was the result below:
 
-Now, this works great for simple applications like the one we'll build in this tutorial. For medium and large apps, it is recommended to use a state management library like [Redux](http://redux.js.org) or [MobX](https://github.com/mobxjs/mobx) to avoid big balls of messy code and also to help you track every event happening within your app.
+![Benchmark](https://cdn.auth0.com/blog/preact/benchmark.png)
+_Preact and other JavaScript frameworks_
 
-### JSX
+Wow, so **Preact** is really that fast. Sorry for doubting you Jason!
 
-Initially, looking at JSX seems awkward. JSX is the combination of HTML and JavaScript code in the same file. You can decide to name the extension of the file `.jsx` or just `.js`. An example of JSX is:
+After building our app, we'll check out the app size and compare it with its React equivalent. Stay tuned readers!
 
-```js
-
-class Layout extends React.Component {
-  render() {
-    return <p>Hello {this.props.layoutStructure ?  'Frontend layout' : 'Backend Layout'}</p>;
-  }
-}
-
-```
-
-You can check out more [information on JSX here](https://facebook.github.io/react/docs/introducing-jsx.html).
-
-Next, let's build an application with *ReactJS*.
+Next, let's re-write the [Chuck Norris World app](https://github.com/auth0-blog/reactjs-authentication-tutorial) we built with ReactJS in **Preact**.
 
 ## Our App: Chuck Norris World
 
 ![Chuck Norris World](https://cdn.auth0.com/blog/react/app.png)
 
 The app we will build today is called Chuck Norris World. Our app is an eye into the world of Chuck Norris and his greatness. The Chuck Norris World app will display different jokes about the legend. A list of common food jokes will be available to the general public, while the celebrity jokes will only be accessible to registered members.
-
-**Note:** These days, celebrities demand a lot of cash for jokes made at their expense, and Chuck Norris isn't helping matters. Always cracking jokes about them, sigh!
 
 ## Build The Back-End
 
@@ -239,7 +177,7 @@ Let's build an API to serve the list of jokes to our app. We'll quickly build th
 * An endpoint to serve jokes about celebrities - `/api/jokes/celebrity`.
 * Secure the endpoint that serves celebrity jokes, so that it can only be accessed by registered users.
 
-Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/master/server).
+Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/preact-authentication-tutorial/tree/master/server).
 
 Your `server.js` should look like this:
 
@@ -382,70 +320,51 @@ The Food jokes endpoint should be `http://localhost:3333/api/jokes/food`.
 
 The Celebrity jokes endpoint should be `http://localhost:3333/api/jokes/celebrity`.
 
-Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with ReactJS. Woot! Woot!
+Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with Preact. Woot! Woot!
 
-## Build The Front-End With ReactJS
+## Build The Front-End With Preact
 
-In the early days of **ReactJS**, there was no tool or common way to set up a *ReactJS* app. However, React is more mature now; plenty of boilerplates, starters, and open source tools are currently available to help you set up an app. There is one that stands out because of its simplicity. It's called the [Create-React-App (CRA) CLI](https://github.com/facebookincubator/create-react-app) tool. It's being maintained by Facebook.
+With **ReactJS**, we have the infamous [create-react-app](https://github.com/facebookincubator/create-react-app) for scaffolding new react apps. Currently, there is no similar tool for creating preact apps. However, the team behind `create-react-app` tool made it very easy for developers to configure it to suit their needs via react-scripts.
 
-> **Note:** We have a custom React script that comes bundled with Auth0 authentication. So you can use create-react-app to boostrap an app with authentication support like this `create-react-app my-app --scripts-version auth0-react-scripts`
+> Learn how to configure create-react-app with this [excellent tutorial](https://auth0.com/blog/how-to-configure-create-react-app/).
 
-Go ahead and install the CRA tool globally like so:
-
-```bash
-
-npm install -g create-react-app
-
-```
-
-After installing globally, go ahead and scaffold a new **ReactJS** app like so:
+Thanks to the open source community, *Boris Serdiuk* already did the hard work of configuring `create-react-app` to create preact apps. Now, all you need is to have the `create-react-app` tool installed globally, then create a new preact app like this:
 
 ```bash
-
-create-react-app chucknorrisworld
-
+create-react-app chucknorrisworld --scripts-version @just-boris/preact-scripts
 ```
 
-Then open [`http://localhost:3000`](http://localhost:3000) to see your app.
+Another alternative to setting up preact apps is via the [preact-boilerplate](https://github.com/developit/preact-boilerplate) created by the author of Preact.
 
-![App recently scaffolded and showing at Localhost](https://cdn.auth0.com/blog/react/ready-app.png)
-
-**Note:** `create-react-app` automatically invokes Yarn for installation. If you don't have Yarn installed, it falls back to use npm.
-
-Let's check out the structure of our newly scaffolded app.
-
-![Scaffolded App](https://cdn.auth0.com/blog/react/folder-structure.png)
-
+We will use the `preact-boilerplate` in this tutorial. Go ahead and run the following command on your terminal to clone the boilerplate:
 
 ```bash
-my-app/
-  README.md
-  node_modules/ - All the packages required for the react app resides here
-  package.json - File that contains the names of all the packages residing in node_modules folder
-  public/
-    index.html -  Index file that declares the root div where the App component is been bound to
-    favicon.ico - The app’s favicon
-  src/
-    App.css - File that contains styles for the App component
-    App.js - Basic App Component
-    App.test.js - Test file that contains tests for the App Component
-    index.css - File that contains style for root div
-    index.js - Javascript file that binds the root div to the parent App Component
-    logo.svg
+git clone --depth 1 https://github.com/developit/preact-boilerplate.git chucknorrisworld
+cd chucknorrisworld
 ```
 
-We will work with this structure but make some few modifications. First, delete the `App.test.js` file.
+Then install the dependencies like this:
 
-**Note:** We are not writing any tests for this application. It's out of the scope of this tutorial. If you want to learn how to test your **ReactJS** applications, check out [testing react applications with Jest](https://auth0.com/blog/testing-react-applications-with-jest/).
+```bash
+npm install
+```
+
+Now run `npm run dev` to see your app at `http://localhost:8080`.
+
+![App recently scaffolded and showing at Localhost](https://cdn.auth0.com/blog/preact/scaffoldedapp.png)
+
+Open up the `src/components` directory and delete all the existing directories.
+
+**Note:** We are not writing any tests for this application. It's out of the scope of this tutorial.
 
 Make the following modifications like so:
 
-* Create a folder called `components` inside the `src` directory. This will house our components.
-* Create a `CelebrityJokes.js` file inside the `components` directory. This component will take care of fetching the celebrity jokes and displaying them to the user.
-* Create a `FoodJokes.js` file inside the `components` directory. This component will take care of fetching the food jokes and displaying them to the user.
-* Create a `Nav.js` file inside the `components` directory. This component will be in charge of our navigation throughout the app.
+In the `src/components` directory, go ahead and:
+
+* Create a `celebrityjokes` folder and an `index.js` inside the folder you just created. This component will take care of fetching the celebrity jokes and displaying them to the user.
+* Create a `foodjokes` folder and an `index.js` inside the folder you just created. This component will take care of fetching the food jokes and displaying them to the user.
+* Create a `nav` folder and an `index.js` inside the folder you just created. This component will be in charge of our navigation throughout the app.
 * Create a folder called `utils` inside the `src` directory. This will house our helper functions.
-* Delete `App.js` file. Are you surprised? Don’t worry, we won’t need it.
 
 ## Fetch the API Data
 
@@ -484,46 +403,41 @@ In the `getFoodData` and `getCelebrityData` functions, axios fetches data from t
 
 ## Build the Nav Component
 
-The `Nav.js` file is our Nav component. Go ahead and add code to it like so:
+The `index.js` file in the `nav` folder is our Nav component. Go ahead and add code to it like so:
 
 ```js
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import '../App.css';
+import { h, Component } from 'preact';
+import { Link } from 'preact-router';
+import './App.css';
 
-class Nav extends Component {
+export default class Nav extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default">
-        <div className="navbar-header">
-          <Link className="navbar-brand" to="/">Chuck Norris World</Link>
+      <nav class="navbar navbar-default">
+        <div class="navbar-header">
+          <Link class="navbar-brand" href="/">Chuck Norris World</Link>
         </div>
-        <ul className="nav navbar-nav">
+        <ul class="nav navbar-nav">
           <li>
-            <Link to="/">Food Jokes</Link>
+            <Link href="/">Food Jokes</Link>
           </li>
           <li>
-           <Link to="/special">Celebrity Jokes</Link>
+           <Link href="/special">Celebrity Jokes</Link>
           </li>
         </ul>
-        <ul className="nav navbar-nav navbar-right">
-          <li><button className="btn btn-info log">Log In</button></li>
-          <li><button className="btn btn-danger log">Log out </button></li>
+        <ul class="nav navbar-nav navbar-right">
+          <li><button class="btn btn-info log">Log In</button></li>
+          <li><button class="btn btn-danger log">Log out </button></li>
         </ul>
       </nav>
     );
   }
-}
-
-export default Nav;
-
+};
 ```
 
-**Note:** Open up your terminal and install `react-router` like so: `npm install react-router@3.0.0 --save`. At the time of this writing, `react-router` is in 4.0 alpha, so you can explore its features.
-
-The `Link` Component from `react-router` enables seamless client-side transition between routes without any page reload.
+The `Link` Component from `preact-router` uses the `href` attribute unlike React that uses the `to` attribute.
 
 ## Build the CelebrityJokes and FoodJokes Component
 
@@ -531,18 +445,14 @@ By default, these two components will look similar in functionalities. They both
 
 ```js
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Nav from './Nav';
-import { getFoodData } from '../utils/chucknorris-api';
+import { h, Component } from 'preact';
+import { Link } from 'preact-router';
+import { getFoodData } from '../../utils/chucknorris-api';
 
 
 class FoodJokes extends Component {
 
-  constructor() {
-    super()
-    this.state = { jokes: [] };
-  }
+  state = { jokes: [] };
 
   getFoodJokes() {
     getFoodData().then((jokes) => {
@@ -554,39 +464,36 @@ class FoodJokes extends Component {
     this.getFoodJokes();
   }
 
-  render() {
-
-    const { jokes }  = this.state;
+  render({}, { jokes }) {
 
     return (
       <div>
-        <Nav />
-        <h3 className="text-center">Chuck Norris Food Jokes</h3>
+        <h3 class="text-center">Chuck Norris Food Jokes</h3>
         <hr/>
 
         { jokes.map((joke, index) => (
-              <div className="col-sm-6" key={index}>
-                <div className="panel panel-primary">
-                  <div className="panel-heading">
-                    <h3 className="panel-title"> <span className="btn">#{ joke.id }</span></h3>
+              <div class="col-sm-6" key={index}>
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title"> <span class="btn">#{ joke.id }</span></h3>
                   </div>
-                  <div className="panel-body">
+                  <div class="panel-body">
                     <p> { joke.joke } </p>
                   </div>
                 </div>
               </div>
           ))}
 
-        <div className="col-sm-12">
-          <div className="jumbotron text-center">
+        <div class="col-sm-12">
+          <div class="jumbotron text-center">
             <h2>Get Access to Celebrity Jokes By Logging In</h2>
           </div>
         </div>
 
-        <div className="col-sm-12">
-            <div className="jumbotron text-center">
+        <div class="col-sm-12">
+            <div class="jumbotron text-center">
               <h2>View Celebrity Jokes</h2>
-              <Link className="btn btn-lg btn-success" to='/special'> Celebrity Jokes </Link>
+              <Link class="btn btn-lg btn-success" to='/special'> Celebrity Jokes </Link>
             </div>
         </div>
       </div>
@@ -595,22 +502,18 @@ class FoodJokes extends Component {
 }
 
 export default FoodJokes;
-
 ```
-_FoodJokes.js_
+_foodjokes/index.js_
 
-> **Note:** Learn why I use [`super()` in the class constructor](http://cheng.logdown.com/posts/2016/03/26/683329).
+> **Note:** In preact, you can just declare state without necessarily putting it in the constructor method.
 
-Let's analyze the code above. The `FoodJoke` component is pulling data from an API, so it needs a way of holding that data. That's where `state` comes in. In **ReactJS**, you can use `props` to pass data around and use `state` to hold/manage that data.
+Let's analyze the code above. The `FoodJoke` component is pulling data from an API, so it needs a way of holding that data. That's where `state` comes in. In **Preact**, you can use `props` to pass data around and use `state` to hold/manage that data.
 
 In the constructor, we define the initial state as seen in the code below:
 
 ```js
 ...
- constructor() {
-    super()
-    this.state = { jokes: [] };
-  }
+ state = { jokes: [] };
 ...
 ```
 
@@ -626,7 +529,7 @@ In the `getFoodJokes` method, we call the `getFoodData` method we exported from 
 ...
 ```
 
-Now, we took advantage of one of the **ReactJS** lifecycle hooks, `componentDidMount`. Whatever is defined in this method is applied immediately after a component is mounted on the browser screen. So, we invoked the `getFoodJokes` method in the hook as seen below:
+Now, we took advantage of one of the **Preact** lifecycle hooks, `componentDidMount`. Whatever is defined in this method is applied immediately after a component is mounted on the browser screen. So, we invoked the `getFoodJokes` method in the hook as seen below:
 
 ```js
 ...
@@ -636,51 +539,40 @@ Now, we took advantage of one of the **ReactJS** lifecycle hooks, `componentDidM
 ...
 ```
 
-All we are trying to do is tell **ReactJS** to load the data from the API immediately the `FoodJokes` component gets rendered.
+All we are trying to do is tell **Preact** to load the data from the API immediately the `FoodJokes` component gets rendered.
 
-Finally, we rendered the component with the **ReactJS** `render` method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant.
+Finally, we rendered the component with the **Preact** `render` method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant.
 
 We looped through the `jokes` constant which is now an array to display the contents on the screen.
 
-**Note:** In **ReactJS**, when you loop through some form of data, you have to provide the `key` property and make sure it has a unique value, else an error will be thrown!
-
 ```js
 ...
- const { jokes }  = this.state;
-...
-
 { jokes.map((joke, index) => (
-            <div className="col-sm-6" key={index}>
-              <div className="panel panel-primary">
-                <div className="panel-heading">
-                  <h3 className="panel-title"> <span className="btn">#{ joke.id }</span></h3>
+            <div class="col-sm-6" key={index}>
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title"> <span class="btn">#{ joke.id }</span></h3>
                 </div>
-                <div className="panel-body">
+                <div class="panel-body">
                   <p> { joke.joke } </p>
                 </div>
               </div>
             </div>
 ))}
-
-.....
-
+...
 ````
 
 Now, let's build the `CelebrityJokes` component in the same way:
 
 ```js
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Nav from './Nav';
-import { getCelebrityData } from '../utils/chucknorris-api';
+import { h, Component } from 'preact';
+import { Link } from 'preact-router';
+import { getCelebrityData } from '../../utils/chucknorris-api';
 
 class CelebrityJokes extends Component {
 
-  constructor() {
-    super();
-    this.state = { jokes: [] };
-  }
+  state = { jokes: [] };
 
   getCelebrityJokes() {
     getCelebrityData().then((jokes) => {
@@ -692,33 +584,29 @@ class CelebrityJokes extends Component {
     this.getCelebrityJokes();
   }
 
-  render() {
-
-    const { jokes } = this.state;
-
+  render({}, { jokes }) {
     return (
       <div>
-        <Nav />
-        <h3 className="text-center">Privileged Chuck Norris Celebrity Jokes</h3>
+        <h3 class="text-center">Privileged Chuck Norris Celebrity Jokes</h3>
         <hr/>
 
         { jokes.map((joke, index) => (
-              <div className="col-sm-6" key={index}>
-                <div className="panel panel-danger">
-                  <div className="panel-heading">
-                    <h3 className="panel-title"><span className="btn">#{ joke.id }</span></h3>
+              <div class="col-sm-6" key={index}>
+                <div class="panel panel-danger">
+                  <div class="panel-heading">
+                    <h3 class="panel-title"><span class="btn">#{ joke.id }</span></h3>
                   </div>
-                  <div className="panel-body">
+                  <div class="panel-body">
                     <p> { joke.joke } </p>
                   </div>
                 </div>
               </div>
           ))}
 
-        <div className="col-sm-12">
-          <div className="jumbotron text-center">
+        <div class="col-sm-12">
+          <div class="jumbotron text-center">
             <h2>View Food Jokes</h2>
-            <Link className="btn btn-lg btn-success" to='/'>Chuck Norris Food Jokes </Link>
+            <Link class="btn btn-lg btn-success" href='/'>Chuck Norris Food Jokes </Link>
           </div>
         </div>
       </div>
@@ -729,136 +617,108 @@ class CelebrityJokes extends Component {
 export default CelebrityJokes;
 
 ```
-_CelebrityJokes.js_
+_celebrityjokes/index.js_
 
-Grab your coffee at this point because you have successfully created the `Nav`, `CelebrityJokes`, and `FoodJokes` components. Whoop! Whoop!
+We need to take care of one more component so that our app can function. The App component!
 
-We need to take care of one more component so that our app can function. Can you guess? Yes, the root component!
+## Build the App Component
 
-## Build the Root Component
+This is the component where we get to define how routing should work in our application and also bind it to a div that holds the entire UI for the app.
 
-This is the component where we get to define how routing should work in our application and also bind it to the `root` div that holds the whole app.
-
-Open up `index.js` and add code to it like so:
+Open up `src/components/app.js` and add code to it like so:
 
 ```js
+import { h, Component } from 'preact';
+import { Router } from 'preact-router';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CelebrityJokes from './components/CelebrityJokes';
-import FoodJokes from './components/FoodJokes';
-import { Router, Route, browserHistory } from 'react-router';
+import Nav from './nav';
+import CelebrityJokes from './celebrityjokes';
+import FoodJokes from './foodjokes';
+import Callback from './callback';
 
-const Root = () => {
-  return (
-    <div className="container">
-      <Router history={browserHistory}>
-        <Route path="/" component={FoodJokes}/>
-        <Route path="/special" component={CelebrityJokes}/>
-      </Router>
-    </div>
-  )
+export default class App extends Component {
+  /** Gets fired when the route changes.
+   *  @param {Object} event   "change" event from [preact-router](http://git.io/preact-router)
+   *  @param {string} event.url The newly routed URL
+   */
+  handleRoute = e => {
+    this.currentUrl = e.url;
+  };
+
+  render() {
+    return (
+      <div id="app">
+        <Nav />
+        <Router onChange={this.handleRoute}>
+          <FoodJokes path="/" />
+          <FoodJokes path="/foodjokes" />
+          <CelebrityJokes path="/special" />
+          <Callback path="/callback" />
+        </Router>
+      </div>
+    );
+  }
 }
 
-ReactDOM.render(<Root />, document.getElementById('root'));
-
 ```
-_index.js_
+_app.js_
 
-You might quickly notice that we are not defining a class here, rather we just defined a `Root` function. **ReactJS** allows you to do that. Then, we imported the Router from `react-router`.
+The routing is simple. Each component is a route in the `Router` component. We have defined the `FoodJokes` component to be called once a user hits the `/` route/path. It displays the `CelebrityJokes` component once a user hits the `/special` route/path. Also, when a user hits the `foodjokes` route, it displays the `FoodJokes` component.
 
-```js
-...
-<Router history={browserHistory}>
-  <Route path="/" component={FoodJokes}/>
-  <Route path="/special" component={CelebrityJokes}/>
-</Router>
-...
-```
+Just a few more things before we add authentication to our application.
 
-The routing is simple. We have defined it to display the `FoodJokes` component once a user hits the `/` route. It displays the `CelebrityJokes` component once a user hits the `/special` route. [The Beginner's guide to react router](https://medium.com/@dabit3/beginner-s-guide-to-react-router-53094349669#.7kmmo5n9a) will give you a better understanding of how routing works in **ReactJS**.
-
-This `ReactDOM.render(<Root />, document.getElementById('root'));` renders the root component in the `root` div, which is the starting point of our **ReactJS** application.
-
-We imported all the required components like so:
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CelebrityJokes from './components/CelebrityJokes';
-import FoodJokes from './components/FoodJokes';
-import { Router, Route, browserHistory } from 'react-router';
-
-```
-
-Just a few things before we check our application in the browser:
-
-* Open up `public/index.html` and add [bootstrap](http://getbootstrap.com). Now the content of the html file should look like this:
+* Open up `src/index.ejs` and add [bootstrap](http://getbootstrap.com). Now the content of the index file should look like this:
 
 {% highlight html %}
+{% raw %}
+ <!DOCTYPE html>
+<html>
+<head>
+  <% for (var chunk in htmlWebpackPlugin.files.css) { %>
+    <link rel="preload" href="<%= htmlWebpackPlugin.files.css[chunk] %>"  as="style">
+  <% } %>
+  <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+    <link rel="preload" href="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>" as="script">
+  <% } %>
+  <meta charset="utf-8">
+  <title>preact-boilerplate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+  <meta name="description" content="preact-boilerplate">
+  <meta name="msapplication-TileColor" content="#673ab8">
+  <meta name="msapplication-TileImage" content="./assets/icons/mstile-150x150.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="preact-boilerplate">
+  <meta name="application-name" content="preact-boilerplate">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#673ab8">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="./manifest.json">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body></body>
+</html>
 
-  <!doctype html>
-  <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-      <!--
-        Notice the use of %PUBLIC_URL% in the tag above.
-        It will be replaced with the URL of the `public` folder during the build.
-        Only files inside the `public` folder can be referenced from the HTML.
-
-        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-        work correctly both with client-side routing and a non-root public URL.
-        Learn how to configure a non-root public URL by running `npm run build`.
-      -->
-      <title>React App</title>
-    </head>
-    <body>
-      <div id="root"></div>
-      <!--
-        This HTML file is a template.
-        If you open it directly in the browser, you will see an empty page.
-
-        You can add webfonts, meta tags, or analytics to this file.
-        The build step will place the bundled scripts into the <body> tag.
-
-        To begin the development, run `npm start`.
-        To create a production bundle, use `npm run build`.
-      -->
-    </body>
-  </html>
-
+{% endraw %}
 {% endhighlight %}
 
-* Open up `App.css` and add this style like so:
+* Now create an `app.css` in the `src` directory and add this style to it like so:
 
 {% highlight css %}
-
 .navbar-right { margin-right: 0px !important}
 .log {
   margin: 5px 10px 0 0;
 }
-
+```
 {% endhighlight %}
 
+Now, feel free to check out your application in the browser. Next, let's add authentication to the app.
 
-Feel free to check out your application in the browser. Right now, you should have something like this:
+## Adding Authentication to Chuck Norris World App
 
-![Homepage](https://cdn.auth0.com/blog/react/homepage.png)
-_Homepage_
-
-![Celebritypage](https://cdn.auth0.com/blog/react/celebritypage.png)
-_CelebrityPage_
-
-![Chuck Norris World Demo](https://cdn.auth0.com/blog/react/chuck_norris_world.gif)
-_Current Application_
-
-
-## Adding Authentication to Your ReactJS App
-
-The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **ReactJS** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
+The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **Preact** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
@@ -887,30 +747,8 @@ Open up your `server.js` file and replace the `YOUR-API-AUDIENCE-ATTRIBUTE`, and
 
 app.get('/api/jokes/celebrity', authCheck, (req,res) => {
   let CelebrityJokes = [
-  {
-    id: 88881,
-    joke: 'As President Roosevelt said: "We have nothing to fear but fear itself. And Chuck Norris."'
-  },
-  {
-    id: 88882,
-    joke: "Chuck Norris only let's Charlie Sheen think he is winning. Chuck won a long time ago."
-  },
-  {
-    id: 88883,
-    joke: 'Everything King Midas touches turnes to gold. Everything Chuck Norris touches turns up dead.'
-  },
-  {
-    id: 88884,
-    joke: 'Each time you rate this, Chuck Norris hits Obama with Charlie Sheen and says, "Who is winning now?!"'
-  },
-  {
-    id: 88885,
-    joke: "For Charlie Sheen winning is just wishful thinking. For Chuck Norris it's a way of life."
-  },
-  {
-    id: 88886,
-    joke: "Hellen Keller's favorite color is Chuck Norris."
-  }
+    ....
+    // Array of jokes
   ];
   res.json(CelebrityJokes);
 })
@@ -929,7 +767,7 @@ _Unauthorized Access_
 
 Next, let's add authentication to our front-end.
 
-### Adding Authentication to our ReactJS Front-end
+### Adding Authentication to our Preact Front-end
 
 We'll create an authentication service to handle everything about authentication in our app. Go ahead and create an `AuthService.js` file inside the `utils` directory.
 
@@ -945,7 +783,6 @@ Open up the `AuthService.js` file and add code to it like so:
 
 ```js
 import decode from 'jwt-decode';
-import { browserHistory } from 'react-router';
 import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
@@ -973,13 +810,7 @@ export function login() {
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  browserHistory.push('/');
-}
-
-export function requireAuth(nextState, replace) {
-  if (!isLoggedIn()) {
-    replace({pathname: '/'});
-  }
+  window.location.href = "/";
 }
 
 export function getIdToken() {
@@ -1056,46 +887,38 @@ Open the client and change the **Client Type** to *Single Page Application*.
 
 > Non interactive clients are meant to be used in machine to machine interactions. We are using an SPA to interact with the API so the client should be an SPA client. Check out [Implicit Grant](https://auth0.com/docs/api-auth/grant/implicit) and [client credentials exchange](https://auth0.com/docs/api-auth/grant/client-credentials) for more information.
 
-Let's quickly go ahead to change the title of the client to `Chuck Norris World` like so:
-
-![Client Name Change](https://cdn2.auth0.com/blog/chucknorris/clientnamechange.png)
-
 > Changing the Client name is totally optional.
 
-Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:3000/callback`. Don't forget to add that to the **Allowed Callback URLs** and `http://localhost:3000` to the **Allowed Origins (CORS)**.
+Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:8080/callback`. Don't forget to add that URL to the **Allowed Callback URLs** and `http://localhost:8080` to the **Allowed Origins (CORS)**.
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
-
-Finally, we implemented a middleware, the `requireAuth` method. We'll use this method to protect the `/special` route from being accessed for non-loggedIn users.
 
 Let's go update the `Nav` component to hide/show the `login` and `logout` buttons based on the user's authentication status.
 
 Now, your `Nav` component should look like this:
 
 ```js
+import { h, Component } from 'preact';
+import { Link } from 'preact-router';
+import { login, logout, isLoggedIn } from '../../utils/AuthService';
+import '../../app.css';
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { login, logout, isLoggedIn } from '../utils/AuthService';
-import '../App.css';
-
-class Nav extends Component {
+export default class Nav extends Component {
 
   render() {
     return (
       <nav className="navbar navbar-default">
         <div className="navbar-header">
-          <Link className="navbar-brand" to="/">Chuck Norris World</Link>
+          <Link className="navbar-brand" href="/">Chuck Norris World</Link>
         </div>
         <ul className="nav navbar-nav">
           <li>
-            <Link to="/">Food Jokes</Link>
+            <Link href="/">Food Jokes</Link>
           </li>
           <li>
             {
-             ( isLoggedIn() ) ? <Link to="/special">Celebrity Jokes</Link> :  ''
+             ( isLoggedIn() ) ? <Link href="/special">Celebrity Jokes</Link> :  ''
             }
-
           </li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
@@ -1108,12 +931,10 @@ class Nav extends Component {
       </nav>
     );
   }
-}
-
-export default Nav;
+};
 
 ```
-_Nav.js_
+_nav/index.js_
 
 > **Note:** We used an arrow function to wrap and execute the onClick handlers like so: `{() => login()}` . Check out how to [handle events in react with arrow function](https://medium.com/@machnicki/handle-events-in-react-with-arrow-functions-ede88184bbb#.ekwwbituw) to understand why we used arrow functions.
 
@@ -1125,18 +946,15 @@ Open up the `FoodJokes` Component and modify it like so:
 
 ```js
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import Nav from './Nav';
-import { isLoggedIn } from '../utils/AuthService';
-import { getFoodData } from '../utils/chucknorris-api';
+import { h, Component } from 'preact';
+import { Link } from 'preact-router';
+import { isLoggedIn } from '../../utils/AuthService';
+import { getFoodData } from '../../utils/chucknorris-api';
+
 
 class FoodJokes extends Component {
 
-  constructor() {
-    super()
-    this.state = { jokes: [] };
-  }
+  state = { jokes: [] };
 
   getFoodJokes() {
     getFoodData().then((jokes) => {
@@ -1148,35 +966,32 @@ class FoodJokes extends Component {
     this.getFoodJokes();
   }
 
-  render() {
-
-    const { jokes }  = this.state;
+  render({}, { jokes }) {
 
     return (
       <div>
-        <Nav />
-        <h3 className="text-center">Chuck Norris Food Jokes</h3>
+        <h3 class="text-center">Chuck Norris Food Jokes</h3>
         <hr/>
 
         { jokes.map((joke, index) => (
-              <div className="col-sm-6" key={index}>
-                <div className="panel panel-primary">
-                  <div className="panel-heading">
-                    <h3 className="panel-title"> <span className="btn">#{ joke.id }</span></h3>
+              <div class="col-sm-6" key={index}>
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title"> <span className="btn">#{ joke.id }</span></h3>
                   </div>
-                  <div className="panel-body">
+                  <div class="panel-body">
                     <p> { joke.joke } </p>
                   </div>
                 </div>
               </div>
           ))}
 
-        <div className="col-sm-12">
+        <div class="col-sm-12">
           { isLoggedIn() ?
-          <div className="jumbotron text-center">
+          <div class="jumbotron text-center">
             <h2>View Celebrity Jokes</h2>
-            <Link className="btn btn-lg btn-success" to='/special'> Celebrity Jokes </Link>
-          </div> : <div className="jumbotron text-center"><h2>Get Access to Celebrity Jokes By Logging In</h2></div>
+            <Link class="btn btn-lg btn-success" href='/special'> Celebrity Jokes </Link>
+          </div> : <div class="jumbotron text-center"><h2>Get Access to Celebrity Jokes By Logging In</h2></div>
           }
         </div>
       </div>
@@ -1185,27 +1000,21 @@ class FoodJokes extends Component {
 }
 
 export default FoodJokes;
-
 ```
 
 We are enabling the link to celebrity jokes based on the login status of a user via the `isLoggedIn()` method.
 
 ### Add A Callback Component
 
-We will create a new component and call it `Callback.js`. This component will be activated when the `localhost:3000/callback` route is called and it will process the redirect from Auth0 and ensure we received the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
+We will create a new component by adding a `callback` folder with an `index.js` file to the `components` directory. This component will be activated when the `localhost:8080/callback` route is called and it will process the redirect from Auth0 and ensure we received the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
 
-_Callback.js_
+_callback/index.js_
 
 ```js
-
-import { Component } from 'react';
-import { setIdToken, setAccessToken } from '../utils/AuthService';
+import { h, Component } from 'preact';
+import { setIdToken, setAccessToken } from '../../utils/AuthService';
 
 class Callback extends Component {
-
-  constructor() {
-    super()
-  }
 
   componentDidMount() {
     setAccessToken();
@@ -1219,70 +1028,118 @@ class Callback extends Component {
 }
 
 export default Callback;
-
 ```
 
 Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we received an `id_token`, and `access_token`, we will be redirected back to the `/` page and will be in a logged-in state.
 
-### Add some values to Auth0 Dashboard
-
-Just before you try to log in or sign up, head over to your [Auth0 dashboard](https://manage.auth0.com/#/) and add `http://localhost:3000/callback` to the **Allowed Callback URLs** and `http://localhost:3000` to **Allowed Origins (CORS)**.
-
 ### Secure The Special Route
 
-We need to ensure that no one can go to the browser and just type `/special` to access the celebrity route.
+We need to ensure that no one can go to the browser and just type `/special` to access the celebrity route. In **ReactJS**, we can achieve that with the `onEnter` hook. Unfortunately, we don't have that in **Preact**. We need to improvise!
 
-Open up `index.js` and add an `onEnter` prop with a value of `requireAuth` to the `/special` route like so:
+What if we allow anyone access the route but only display useful content based on a users' authentication status?
+
+Open up `src/components/celebrityjokes/index.js` file and modify it like this:
 
 ```js
-....
-....
-import { requireAuth } from './utils/AuthService';
+import { h, Component } from 'preact';
+import { Link } from 'preact-router';
+import { getCelebrityData } from '../../utils/chucknorris-api';
+import { login, logout, isLoggedIn } from '../../utils/AuthService';
 
-const Root = () => {
-  return (
-    <div className="container">
-      <Router history={browserHistory}>
-        <Route path="/" component={FoodJokes}/>
-        <Route path="/special" component={CelebrityJokes} onEnter={requireAuth} />
-      </Router>
-    </div>
-  )
+class CelebrityJokes extends Component {
+
+  state = { jokes: [] };
+
+  getCelebrityJokes() {
+    getCelebrityData().then((jokes) => {
+      this.setState({ jokes });
+    });
+  }
+
+  componentDidMount() {
+    this.getCelebrityJokes();
+  }
+
+  render({}, { jokes }) {
+
+    if(!isLoggedIn()) {
+      return (
+        <div class="jumbotron text-center">
+          <h3> You need to be logged in to view celebrity jokes </h3>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h3 class="text-center">Privileged Chuck Norris Celebrity Jokes</h3>
+          <hr/>
+
+          { jokes.map((joke, index) => (
+                <div class="col-sm-6" key={index}>
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><span className="btn">#{ joke.id }</span></h3>
+                    </div>
+                    <div class="panel-body">
+                      <p> { joke.joke } </p>
+                    </div>
+                  </div>
+                </div>
+            ))}
+
+          <div class="col-sm-12">
+            <div class="jumbotron text-center">
+              <h2>View Food Jokes</h2>
+              <Link class="btn btn-lg btn-success" ='/'>Chuck Norris Food Jokes </Link>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
 }
+
+export default CelebrityJokes;
 
 ```
-_index.js_
+_celebrityjokes/index.js_
 
-Just one more thing before we test the app. Register the `/callback` route in the routes file like so:
+In the code above, if the user is not logged in, it simply gives the user a notice to log in to view the content. However, if the user is logged-in, it displays all the celebrity jokes.
+
+Just one more thing before we test the app. Register the `/callback` route in App component, `src/app.js` file like so:
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CelebrityJokes from './components/CelebrityJokes';
-import FoodJokes from './components/FoodJokes';
-import Callback from './components/Callback';
-import { Router, Route, browserHistory } from 'react-router';
-import { requireAuth } from './utils/AuthService';
+...
+...
+export default class App extends Component {
+  /** Gets fired when the route changes.
+   *  @param {Object} event   "change" event from [preact-router](http://git.io/preact-router)
+   *  @param {string} event.url The newly routed URL
+   */
+  handleRoute = e => {
+    this.currentUrl = e.url;
+  };
 
-const Root = () => {
-  return (
-    <div className="container">
-      <Router history={browserHistory}>
-        <Route path="/" component={FoodJokes}/>
-        <Route path="/special" component={CelebrityJokes} onEnter={requireAuth} />
-        <Route path="/callback" component={Callback} />
-      </Router>
-    </div>
-  )
+  render() {
+    return (
+      <div id="app">
+        <Nav />
+        <Router onChange={this.handleRoute}>
+          <FoodJokes path="/" />
+          <FoodJokes path="/foodjokes" />
+          <CelebrityJokes path="/special" />
+          <Callback path="/callback" />
+        </Router>
+      </div>
+    );
+  }
 }
-
-ReactDOM.render(<Root />, document.getElementById('root'));
 
 ```
 
 Now, try to log in.
 
-![Lock Login Widget](https://cdn2.auth0.com/blog/chucknorris/loginbox.png)
+![Lock Login Widget](https://cdn.auth0.com/blog/preact/loginbox.png)
 _Hosted Lock Login Widget_
 
 For the first time, the user will be shown a user consent dialog that will show the scope available. Once a user authorizes, it goes ahead to login the user and give them access based on the scopes.
@@ -1292,43 +1149,47 @@ _User presented with an option to authorize_
 
 **Note:** Since we are using `localhost` for our domain, once a user logs in the first time, subsequent logins will not need a user consent authorization dialog. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client.
 
-![Logged In and Unauthorized to see the celebrity content](https://cdn2.auth0.com/blog/chucknorris/unauthorized.png)
-_Logged In, but unauthorized to see the celebrity content_
+![Logged In and authorized to see the celebrity content](https://cdn.auth0.com/blog/preact/special.png)
+_Logged In, and authorized to see the celebrity content_
 
+Yaaaay! We have successfully logged in. And we can see the celebrity jokes rendered on the `/special` route.
 
-Oops! We have successfully logged in but the content of the celebrity jokes is not showing up and in the console, we are getting a `401 Unauthorized` error. Why?
+Log out, log in again and check that everything works fine. You have just successfully built a **Preact** app and added authentication to it!
 
-It's simple! We secured our endpoint earlier, but right now we are not passing the `access_token` to the backend yet. We need to send the access token along with our request as a header to enable the secured endpoint's recognition of the logged-in user.
+## Check The Bundle Size
 
-### Updating the ChuckNorris API helper
+Go ahead and run the command below to make our preact app ready for production.
 
-Go ahead and open up the `utils/chucknorris-api.js` file. We will tweak the `getCelebrityData` function a bit. Currently, it initiates a `GET` request only to fetch data from the API.
-
-Now, we will pass an option to send an `Authorization` header with a Bearer access token along with the `GET` request like so:
-
-```js
-...
-import { getAccessToken } from './AuthService';
-
-
-function getCelebrityData() {
-  const url = `${BASE_URL}/api/jokes/celebrity`;
-  return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
-}
-
+```bash
+npm run build
 ```
 
-The `/api/jokes/celebrity` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
+![App size](https://cdn.auth0.com/blog/preact/bundlesize.png)
+_app size before gzipping_
 
-Now, try to log in again.
+The bundle.js size before gzipping is **132kb**.
 
-![Working Chuck Norris World App](https://cdn.auth0.com/blog/react/working_chuck_norris_app.gif)
-_Working Chuck Norris World App_
+By default, *preact-boilerplate* was not configured to gzip your files. I installed the compression-webpack-plugin and submitted a [PR]() to enable further optimization via gzipping.
 
-Everything is working fine. Pat yourself on the back. You have just successfully built a **ReactJS** app and added authentication to it!
+
+![App size](https://cdn.auth0.com/blog/preact/gzippedappsize.png)
+_app size after gzipping_
+
+App size after gzipping is **39.3kb**.
+
+Clone the equivalent [React app](https://github.com/auth0-blog/reactjs-authentication-tutorial), run `npm install` to install the required modules, then go ahead and make it ready for production too by invoking the same command, `npm run build`.
+
+![App size](https://cdn.auth0.com/blog/react/gzippedappsize.png)
+_app size after gzipping_
+
+React app size after gzipping is **96.81kb**.
+
+Alas!, our preact app size is smaller than that of React.
 
 ## Conclusion
 
-**ReactJS** is an awesome front-end library to employ in building your user interfaces. It takes advantage of the Virtual DOM, it is fast and it has a bubbling community. There are several React plugins/addons that the community provides to allow you do almost anything in **ReactJS**.
+**Preact** is small enough that your code is the largest part of your application. It has one of the fastest Virtual DOM libraries out there, thus making it very fast.
 
-In addition, Auth0 can help secure your **ReactJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+Bulding a web experience with Preact means having less JavaScript code to download, parse and execute. I bet everyone wants that!
+
+In addition, Auth0 can help secure your **Preact** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
