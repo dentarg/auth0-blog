@@ -155,7 +155,7 @@ _Installing react-native_
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">With <a href="https://twitter.com/hashtag/npm5?src=hash">#npm5</a> about to come out, I thought I&#39;d update those benchmarks.<br><br>Here&#39;s the npm5 code I&#39;m working on, vs npm@4.6.1 on a popular repo <a href="https://t.co/KWPfbpE46p">pic.twitter.com/KWPfbpE46p</a></p>&mdash; ✨11x gayer Kat✨ (@maybekatz) <a href="https://twitter.com/maybekatz/status/865393382260056064">May 19, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-One of the benefits of Yarn over npm is speed, but with `npm@5`, you don't need to brew coffee anymore during waiting time! Your modules install before you say Jack! Well, literally not at that speed, but it takes lesser time to install node modules. Significant performance improvements of 20 to 100 percent!
+One of the benefits of Yarn over npm was faster package install, but with `npm@5`, you don't need to brew coffee anymore during waiting time! Your modules install before you say Jack! Well, literally not at that speed, but it takes lesser time to install node modules. Significant performance improvements of 20 to 100 percent!
 
 > Check out [5 things you can do with Yarn](https://auth0.com/blog/five-things-you-can-do-with-yarn/)
 
