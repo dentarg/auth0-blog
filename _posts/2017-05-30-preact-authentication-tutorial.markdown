@@ -366,8 +366,8 @@ Let's create a helper file to handle fetching the API. Create a `chucknorris-api
 Open up the file and add code to it like so:
 
 ```js
-
 import axios from 'axios';
+import { getAccessToken } from './AuthService';
 
 const BASE_URL = 'http://localhost:3333';
 
@@ -380,7 +380,7 @@ function getFoodData() {
 
 function getCelebrityData() {
   const url = `${BASE_URL}/api/jokes/celebrity`;
-  return axios.get(url).then(response => response.data);
+  return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
 }
 
 ```
@@ -616,7 +616,7 @@ We need to take care of one more component so that our app can function. The App
 
 This is the component where we get to define how routing should work in our application and also bind it to a div that holds the entire UI for the app.
 
-Open up `src/components/app.js` and add code to it like so:
+Open up `src/components/app.js` and replace the content with this:
 
 ```js
 import { h, Component } from 'preact';
@@ -733,7 +733,7 @@ _Adding scope_
 
 We need to secure the API so that the celebrity endpoint will only be accessible to authenticated users. We can secure it easily with Auth0.
 
-Open up your `server.js` file and replace the `YOUR-API-AUDIENCE-ATTRIBUTE`, and `YOUR-AUTH0-DOMAIN ` variables with the audience attribute of the API, and your auth0 domain respectively. Then add the `authCheck` middleware to the celebrity endpoint like so:
+Open up your `server.js` file and replace the `YOUR-API-AUDIENCE-ATTRIBUTE`, and `YOUR-AUTH0-DOMAIN ` variables with the audience attribute of the API, and your Auth0 domain respectively. Then add the `authCheck` middleware to the celebrity endpoint like so:
 
 ```js
 
@@ -756,6 +756,29 @@ Try accessing the `http://localhost:3333/api/jokes/celebrity` endpoint again fro
 
 ![Unauthorized Access](https://cdn.auth0.com/blog/react/unauthorized.png)
 _Unauthorized Access_
+
+Also, quickly open the `utils/chucknorris-api.js` file and modify the code to be like this below:
+
+```js
+import axios from 'axios';
+import { getAccessToken } from './AuthService';
+
+const BASE_URL = 'http://localhost:3333';
+
+export {getFoodData, getCelebrityData};
+
+function getFoodData() {
+  const url = `${BASE_URL}/api/jokes/food`;
+  return axios.get(url).then(response => response.data);
+}
+
+function getCelebrityData() {
+  const url = `${BASE_URL}/api/jokes/celebrity`;
+  return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
+}
+```
+
+Here, we are ensuring that the `access_token` is sent as an Authorization header to the `/api/jokes/celebrity` route. Without the right `access_token`, access should be denied!
 
 Next, let's add authentication to our front-end.
 
@@ -862,7 +885,7 @@ function isTokenExpired(token) {
 
 In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials.
 
-The auth0 package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
+The `auth0` package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
 The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing SPA Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
 
@@ -882,6 +905,8 @@ Open the client and change the **Client Type** to *Single Page Application*.
 > Changing the Client name is totally optional.
 
 Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:8080/callback`. Don't forget to add that URL to the **Allowed Callback URLs** and `http://localhost:8080` to the **Allowed Origins (CORS)**.
+
+Replace the **SCOPE** and **AUDIENCE** values also with the right values from the API section of the dashboard.
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1146,7 +1171,7 @@ Yaaaay! We have successfully logged in. And we can see the celebrity jokes rende
 
 Log out, log in again and check that everything works fine. You have just successfully built a **Preact** app and added authentication to it!
 
-## Check The Bundle Size
+## Comparing Preact and React Bundle Size
 
 Go ahead and run the command below to make our preact app ready for production.
 
@@ -1180,6 +1205,6 @@ Alas!, our Preact app size is smaller than that of ReactJS.
 
 **Preact** is small enough that your code is the largest part of your application. It has one of the fastest Virtual DOM libraries out there, thus making it very fast.
 
-Bulding a web experience with Preact means having less JavaScript code to download, parse and execute. I bet everyone wants that!
+Building a web experience with Preact means having less JavaScript code to download, parse and execute. I bet everyone wants that!
 
 In addition, Auth0 can help secure your **Preact** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
