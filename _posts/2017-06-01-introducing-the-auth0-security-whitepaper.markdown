@@ -23,12 +23,12 @@ related:
 - 5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 ---
 
-**TL;DR:** Auth0 takes security very seriously. If you want to learn how we handle security and protect your users, [download our security white paper](https://cdn.auth0.com/website/security/auth0s-information-security.pdf).
+**TL;DR:** Auth0 takes security very seriously. If you want to learn how we handle security and protect your users, [download our security white paper](https://cdn.auth0.com/website/security/auth0s-information-security-wp.pdf).
 
 ---
 
 
-At Auth0, we have built state-of-the-art security into our product so our subscribers can take advantage of cutting edge features designed to protect their users and business. But features aren't enough. We go beyond best practices in our security program, so other businesses can rely on us to help keep the bad guys out, and simplify letting the good guys in. You can find the security white paper that we have just released in [here](https://cdn.auth0.com/website/security/auth0s-information-security.pdf) or at the [Auth0's Security page](https://auth0.com/security).
+At Auth0, we have built state-of-the-art security into our product so our subscribers can take advantage of cutting edge features designed to protect their users and business. But features aren't enough. We go beyond best practices in our security program, so other businesses can rely on us to help keep the bad guys out, and simplify letting the good guys in. You can find the security white paper that we have just released in [here](https://cdn.auth0.com/website/security/auth0s-information-security-wp.pdf) or at the [Auth0's Security page](https://auth0.com/security).
 
 This white paper is an analysis and explanation of how we handle security. In this document, we have detailed our approach to this subject from many different perspectives. We discuss how we deal with *People and Processes*, how we handle *Disaster Recovery and Backup*, and much more. With this information, our subscribers can better understand how their data is protected and what measures we actively take to guarantee that sensitive data won't fall into the wrong hands.
 
