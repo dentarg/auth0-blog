@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "What's new in Node 8 and Npm 5?"
+title: "What's new in Node 8 and npm 5?"
 description: Node 8.0.0 and npm@5 were released a few days ago. Learn what's new in Node & npm!
-date: 2016-10-13 08:30
+date: 2017-06-03 08:30
 category: Hot Topic, Tools
 design:
   bg_color: "#1D6A8D"
@@ -40,7 +40,7 @@ Currently, this is an experimental feature behind a flag. This API will eliminat
 
 Native modules builders and users can start experimenting with this feature. More details can be found [here](https://medium.com/@nodejs/n-api-next-generation-node-js-apis-for-native-modules-169af5235b06).
 
-## 2. Better Promises Support
+## 2. Better Support for Promises
 
 This release includes a new `util.promisify()` API that allows developers to wrap standard callback-style APIs in a function that returns a Promise. Check out this sample code:
 
@@ -83,7 +83,6 @@ const myURL = new URL('/foo', 'https://example.org/');
 
 // result
 https://example.org/foo
-```
 
 const myURL = new URL('https://example.org/foo#bar');
 console.log(myURL.hash);
@@ -138,11 +137,13 @@ session.disconnect();
 
 Check out the full list of [changes here](https://nodejs.org/en/blog/release/v8.0.0/).
 
-Node.js 8.0.0 ships with npm 5. Let's highlight major changes in *npm 5*.
+> Note: Node.js 8.0.0 ships with **npm 5**.
+
+Let's highlight major changes in *npm 5*.
 
 ## npm@5
 
-The latest version of `npm` is `npm@5`. What's new in **npm@5**?
+**npm's** latest version is `npm@5`. What's new in **npm@5**?
 
 ### 1. Wicked Fast Install
 
@@ -191,19 +192,21 @@ All installs save by default with `npm@5`. Adding the `--save` flag is no longer
 `npm@5` shipped with a lot of changes that I might not be able to mention in this article. However, do well to check the full list of changes from the [GitHub repo](https://github.com/npm/npm/releases).
 
 
-## Aside: Using Auth0 with npm 5
+## Aside: Using Auth0 with npm@5
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our JavaScript apps by using the [Lock Widget](https://auth0.com/lock). You can easily install Auth0 lock widget from your terminal with Yarn like so:
+We can easily set up authentication in our JavaScript apps by using the [Lock Widget](https://auth0.com/lock). You can easily install Auth0 lock widget from your terminal with npm like so:
 
 ```bash
-yarn add auth0-lock
+npm install auth0-lock
 ```
 
-It installs the widget within seconds and locks down the exact version with the aid of the `yarn.lock` file. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with the JavaScript framework of your choice. Now head over to the [Quickstart docs](https://auth0.com/docs/quickstarts), select the type of app you want to build and follow the steps highlighted there.
+It installs the widget within seconds and locks down the exact files with `package-lock.json` file. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with the JavaScript framework of your choice. Now head over to the [Quickstart docs](https://auth0.com/docs/quickstarts), select the type of app you want to build and follow the steps highlighted there.
 
 
 ## Conclusion
 
-Yarn in its infancy has already brought significant improvements in the way JavaScript packages are fetched from global registries into local environments, especially with regard to speed and security. Will it grow to become the most popular choice among JavaScript developers? Have you switched yet? What are your thoughts about Yarn? Let me know in the comments section! 😊
+**Node.js 8** and **npm5** came loaded with lots of new features and significant improvements. I couldn't be more proud of the JavaScript and Open source community right now. Is [Yarn](https://github.com/yarnpkg/yarn)going to release something super amazing soon? Maybe a faster install experience? I'll be on the look out!
+
+Have you switched to Node.js 8 and npm@5 yet? What are your thoughts? Let me know in the comments section! 😊
