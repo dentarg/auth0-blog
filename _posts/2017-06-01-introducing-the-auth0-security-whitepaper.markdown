@@ -25,8 +25,8 @@ related:
 - 5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 ---
 
----
 **TL;DR:** Auth0 takes security very seriously. If you want to learn how we handle security and protect your users, [download our security whitepaper](https://cdn.auth0.com/website/security/auth0s-information-security.pdf).
+
 ---
 
 
