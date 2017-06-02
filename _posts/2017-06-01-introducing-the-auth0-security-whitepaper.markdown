@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Introducing the Auth0 Security Whitepaper"
-description: "Today we are releasing a whitepaper to describe our approach to security so that our subscribers can understand how their data is protected"
+title: "Introducing the Auth0 Security White paper"
+description: "Today we are releasing a white paper to describe our approach to security so that our subscribers can understand how their data is protected"
 date: 2017-06-01 13:10
 category: Announcements, Resource
 press_release: true
@@ -17,24 +17,22 @@ tags:
 - auth0
 - security
 - whitepaper
-- white
-- paper
 related:
 - introducing-auth0-extend-the-new-way-to-extend-your-saas
 - data-breach-response-planning-for-startups
 - 5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 ---
 
-**TL;DR:** Auth0 takes security very seriously. If you want to learn how we handle security and protect your users, [download our security whitepaper](https://cdn.auth0.com/website/security/auth0s-information-security.pdf).
+**TL;DR:** Auth0 takes security very seriously. If you want to learn how we handle security and protect your users, [download our security white paper](https://cdn.auth0.com/website/security/auth0s-information-security.pdf).
 
 ---
 
 
-At Auth0, we have built state-of-the-art security into our product so our subscribers can take advantage of cutting edge features designed to protect their users and business. But features aren't enough. We go beyond best practices in our security program, so other businesses can rely on us to help keep the bad guys out, and simplify letting the good guys in. You can find the security whitepaper that we have just released in [here](https://cdn.auth0.com/website/security/auth0s-information-security.pdf) or at the [Auth0's Security page](https://auth0.com/security).
+At Auth0, we have built state-of-the-art security into our product so our subscribers can take advantage of cutting edge features designed to protect their users and business. But features aren't enough. We go beyond best practices in our security program, so other businesses can rely on us to help keep the bad guys out, and simplify letting the good guys in. You can find the security white paper that we have just released in [here](https://cdn.auth0.com/website/security/auth0s-information-security.pdf) or at the [Auth0's Security page](https://auth0.com/security).
 
-This whitepaper is an analysis and explanation of how we handle security. In this document, we have detailed our approach to this subject from many different perspectives. We discuss how we deal with *People and Processes*, how we handle *Disaster Recovery and Backup*, and much more. With this information, our subscribers can better understand how their data is protected and what measures we actively take to guarantee that sensitive data won't fall into the wrong hands.
+This white paper is an analysis and explanation of how we handle security. In this document, we have detailed our approach to this subject from many different perspectives. We discuss how we deal with *People and Processes*, how we handle *Disaster Recovery and Backup*, and much more. With this information, our subscribers can better understand how their data is protected and what measures we actively take to guarantee that sensitive data won't fall into the wrong hands.
 
-Below, you can view the table of contents for the whitepaper. The whole document can be found [here](https://cdn.auth0.com/website/security/auth0s-information-security.pdf).
+Below, you can view the table of contents for the white paper. The whole document can be found [here](https://cdn.auth0.com/website/security/auth0s-information-security.pdf).
 
 ```bash
 - Introduction
@@ -74,7 +72,7 @@ Below, you can view the table of contents for the whitepaper. The whole document
 - Summary
 ```
 
-We hope that by releasing the security whitepaper, we can achieve greater transparency with our subscribers and the whole community of developers, security experts, and partners. We also hope that by making this information publicly available and concise in one document, interested parties will feel more confident about Auth0's practices and processes.
+We hope that by releasing the security white paper, we can achieve greater transparency with our subscribers and the whole community of developers, security experts, and partners. We also hope that by making this information publicly available and concise in one document, interested parties will feel more confident about Auth0's practices and processes.
 
 Lastly, we’d really love to encourage interested parties to analyze, question, and comment our approach to security. Please, feel free to ping us if you have any doubts or suggestions.
 
