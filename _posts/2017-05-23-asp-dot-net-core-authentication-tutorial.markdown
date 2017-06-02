@@ -24,7 +24,7 @@ related:
 - 2016-06-03-add-auth-to-native-desktop-csharp-apps-with-jwt
 ---
 
-**TL;DR:** ASP.NET Core, the rewritten, cross-platform, and open source version of ASP.NET framework is gaining popularity for been easy to use and for having a great performance when compared to modern solutions like Java, Go and Node.js. In this article we are going to use ASP.NET Core to create a simple RESTful API that handles grocery lists and then we are going to add authentication to secure this API.
+**TL;DR:** ASP.NET Core, the rewritten, cross-platform, and open source version of ASP.NET framework is gaining popularity for being easy to use and for having great performance when compared to modern solutions like Java, Go and Node.js. In this article we are going to use ASP.NET Core to create a simple RESTful API that handles grocery lists and then we are going to add authentication to secure this API.
 
 ## What is ASP.NET Core
 
@@ -32,12 +32,12 @@ ASP.NET Core is an open source redesign of the popular ASP.NET framework. This n
 
 ## ASP.NET Core vs ASP.NET Framework
 
-As mentioned, ASP.NET Core is a new framework and, as such, it has much less support and libraries available then its predecessor. [Microsoft has written a good article](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server) where it exposes when to use the new framework and when to use the old one. Basically, it says that developers should keep using the older version when they depend on third-party .NET libraries or NuGet packages that are not available for .NET Core, or when they are extending existing .NET applications.
+As mentioned, ASP.NET Core is a new framework and, as such, it has much less support and libraries available than its predecessor. [Microsoft has written a good article](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server) where it exposes when to use the new framework and when to use the old one. Basically, it says that developers should keep using the older version when they depend on third-party .NET libraries or NuGet packages that are not available for .NET Core, or when they are extending existing .NET applications.
 
 This article also highlights that the following use cases are better fitted with .NET Core:
 
-- When cross-platform is needed.
-- When microservices is the chosen architecture.
+- When cross-platform support is needed.
+- When microservices are the chosen architecture.
 - When the application will be dockerized (deployed on Docker containers).
 - When performance is a big priority (the article says that ASP.NET Core outperforms ASP.NET by a factor of 10).
 
@@ -456,7 +456,7 @@ This class, for the time being, contains only one public method, `Register`, whi
 * `ConvertToUnixTimestamp`—which is used to fill `iat` (issued at), `nbf` (not before), and `exp` (expiration) claims in the JWTs generated. These claims are used to validate if the token is indeed valid and are expected to contain a time represented in seconds passed after 1970.
 * `Errors` and `Error`—which are used to send error messages as JSON.
 * `GetToken`—a method that receives a set of key values pairs and generates a JWT adding all the values received alongside with the `iss`, `aud`, `nbf`, `iat`, and `exp` claims.
-* `GetIdToken` and `GetAccessToken`—which are the methods that generate the `access_token` and the `id_token` for users. If you are wondering [what is the difference between these two tokens and when to use one or another, take a look here](2017-04-11-why-should-use-accesstokens-to-secure-an-api).
+* `GetIdToken` and `GetAccessToken`—which are the methods that generate the `access_token` and the `id_token` for users. If you are wondering [what is the difference between these two tokens and when to use one or another, take a look here](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/).
 
 The `Credentials` class accepted by the `Register` method, has not been created yet, so let's do it now. Let's create a new file called `Credentials.cs` in the `Models` directory and add the following code to it:
 
