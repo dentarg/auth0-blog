@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What's new in Node 8 and npm 5?"
+title: "Node 8 and npm@5 release: What's new?"
 description: Node 8.0.0 and npm@5 were released a few days ago. Learn what's new in Node & npm!
 date: 2017-06-03 08:30
 category: Hot Topic, Tools
