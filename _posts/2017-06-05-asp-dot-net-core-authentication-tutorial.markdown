@@ -2,7 +2,7 @@
 layout: post
 title: "ASP.NET Core Authentication Tutorial"
 description: "Learn how to handle authentication on ASP.NET Core applications"
-date: 2017-05-23 16:58
+date: 2017-06-05 9:00
 category: Technical Guide, Microsoft, ASP Net Core
 author:
   name: "Bruno Krebs"
