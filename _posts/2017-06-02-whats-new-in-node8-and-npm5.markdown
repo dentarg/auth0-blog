@@ -5,8 +5,8 @@ description: Node 8.0.0 and npm@5 were released a few days ago. Learn what's new
 date: 2017-06-03 08:30
 category: Hot Topic, Tools
 design:
-  bg_color: "#1D6A8D"
-  image: https://cdn.auth0.com/blog/yarn-logo.png
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/nodenpm/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -20,6 +20,7 @@ tags:
 related:
 - 2016-09-06-use-nginx-plus-and-auth0-to-authenticate-api-clients
 - 2016-06-29-learn-more-about-our-jwt-chrome-debugger-extension
+- 2016-10-12-five-things-you-can-do-with-yarn
 ---
 
 ---
