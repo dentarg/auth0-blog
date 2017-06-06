@@ -57,8 +57,8 @@ As stated by this new regulation, companies of the financial industry that belon
 So, if you are a financial company, with a branch in the state of New York, we can help you to comply with the requirements defined in the **23 NYCRR 500** regulation. Over the years, we’ve defined a state of the art approach to security that layers protections throughout our entire application stack as well as regular security training and exercises for our workforce. Recently, we have released a [white paper](https://auth0.com/security) that details our approach to security so that suscribers can better understand how their data is protected.
 
 Below, you can view the table of contents for the white paper. The whole document can be found [on the Auth0's security webpage](https://auth0.com/security).
- +
- +```bash
+
+ ```bash
  +- Introduction
  +- Dedicated Security Team
  +  |- People and Processes
@@ -94,7 +94,7 @@ Below, you can view the table of contents for the white paper. The whole documen
  +  |- Security Team Review
  +  |- Privacy Considerations
  +- Summary
- +```
+ ```
 
 One of the reliable and interesting services that Auth0 can provide to companies of the financial industry, is the easy-to-adopt [Multi-Factor Authentication (MFA) solution](https://auth0.com/docs/multifactor-authentication). Exactly as referenced by the regulation, this method provides an additional layer of security, decreasing the likelihood of unauthorized access, as it requires users to identify themselves through two or more of the following methods:
 
