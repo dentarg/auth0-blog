@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to Protect Yourself From Security Oversights"
-description: "An inside look at how tech companies can improve their security — and what you can do to help yours, too"
+description: "An inside look at how tech companies can improve their security and what you can do to help yours, too"
 date: 2017-06-06 8:30
 category: Growth, Modern Authentication
 author:
@@ -21,7 +21,7 @@ related:
 - 2016-10-17-sso-login-key-benefits-and-implementation
 ---
 
-Sometimes it's easy to assume that big-name companies like Google or Microsoft have flawless security practices, but even the mighty make mistakes. While they generally do a good job of building robust security protections into their products, things invariably fall through the cracks, whether it be through weak user authentication or overzealous app permissions.
+Sometimes, it's easy to assume that big-name companies like Google or Microsoft have flawless security practices, but even the mighty make mistakes. While they generally do a good job of building robust security protections into their products, things invariably fall through the cracks, whether it be through weak user authentication or overzealous app permissions.
 
 These issues underscore the importance of rethinking how users and companies should approach their security concerns. An overreliance on the security practices of the tech giants fosters complacency, so it is important to take the lead in your own security needs. Not only does this protect your interests, it will allow you to learn from the mistakes of leaders and iterate on your own practices.
 
