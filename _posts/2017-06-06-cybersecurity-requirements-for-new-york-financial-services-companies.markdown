@@ -2,7 +2,7 @@
 layout: post
 title: "Attention! New Regulation for New York Financial Companies"
 description: "The New York State Department of Financial Services (DFS) has issued a new regulation that defines cybersecurity requirements for financial companies."
-date: 2017-05-18 14:05
+date: 2017-06-06 14:05
 category: Growth, Industries
 author:
   name: "Bruno Krebs"
@@ -10,17 +10,17 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: #000
-  image: https://cdn.auth0.com/blog/breach/logo.png
+  bg_color: "#636363"
+  image: https://cdn.auth0.com/blog/23-nycrr/logo.png
 tags:
 - security
 - cybersecurity
 - financial
 - auth0
 related:
-- 2017-05-11-data-breaches-by-the-numbers
-- 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
 - 2016-09-22-yahoo-confirms-data-breach-of-half-a-billion-user-accounts
+- 2016-08-16-how-real-state-companies-can-implement-open-id-connect-with-auth0
+- 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
 ---
 
 The New York State Department of Financial Services (DFS), the state's top banking regulator, proposed last year a set of cybersecurity requirements that must be implemented by banks, insurances and other services companies of the financial industry. This set of regulations, technically called [23 NYCRR 500](http://www.dfs.ny.gov/legal/regulations/adoptions/dfsrf500txt.pdf), aim on improving the overall security of information systems and data (nonpublic information) used by such companies.
@@ -54,7 +54,7 @@ The whole document includes a total of 18 topics (from where the excerpt above w
 
 As stated by this new regulation, companies of the financial industry that belongs to (or have branches in) the state of New York must define policies and procedures to ensure the security of systems and nonpublic information that are accessible by Third Party Service Providers. Auth0, as a security company that provides the best identity management solution possible, can help companies of this industry by providing, as a third party partner, identity and access management services based on the best security practices and tools available.
 
-If we were a financial company, with a branch in the state of New York, we would most likely be compliant to every single requirement defined in the **23 NYCRR 500** regulation. Over the years, we’ve defined a state of the art approach to security that layers protections throughout our entire application stack as well as regular security training and exercises for our workforce. Recently, we have released a [white paper](https://auth0.com/security) that details our approach to security so that customers can better understand how their data is protected.
+So, if you are a financial company, with a branch in the state of New York, we can help you to comply with the requirements defined in the **23 NYCRR 500** regulation. Over the years, we’ve defined a state of the art approach to security that layers protections throughout our entire application stack as well as regular security training and exercises for our workforce. Recently, we have released a [white paper](https://auth0.com/security) that details our approach to security so that suscribers can better understand how their data is protected.
 
 Below, you can view the table of contents for the white paper. The whole document can be found [on the Auth0's security webpage](https://auth0.com/security).
  +
