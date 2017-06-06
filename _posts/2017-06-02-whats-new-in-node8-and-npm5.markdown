@@ -25,7 +25,7 @@ related:
 
 ---
 
-**TL;DR:** Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It has gained massive adoption by developers and organizations around the world because of it's efficient, event-driven and non-blocking I/O model. Node.js makes it possible for developers to code the most popular language (JavaScript) in the world on the backend. Furthermore, Node.js's package manager,`npm`, houses the largest distribution of open source libraries in the world. Node.js and npm just had new major releases. In this article, we'll highlight 7 notable additions to Node.js and dabble into the new monst, **npm@5**.
+**TL;DR:** Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It has gained massive adoption by developers and organizations around the world because of it's efficient, event-driven and non-blocking I/O model. Node.js makes it possible for developers to code the most popular language (JavaScript) in the world on the backend. Furthermore, Node.js's package manager,`npm`, houses the largest distribution of open source libraries in the world. Node.js and npm just had new major releases. In this article, we'll highlight 7 notable additions to Node.js and dabble into the new monster, **npm@5**.
 
 ---
 
@@ -35,7 +35,7 @@ Node.js 8.0.0 was announced to the world on May 31, 2017. The previous Node.js v
 
 Currently, this is an experimental feature behind a flag. 30 percent of JavaScript modules rely indirectly on native modules.
 
-Existing native modules are written in C/C++ and directly depend on V8 or [NAN](https://github.com/nodejs/nan) APIs. This dependency requires native modules to be recompiled and updated for every major Node.js release. This is a burden for native modules maintainers. Furthermore, companies and products depending on these modules find it difficult to upgrade their Node.js versions in production because of potential massive code breakage.
+Existing native modules are written in C/C++ and directly depend on V8 or [Native Abstractions for Node.js (NAN)](https://github.com/nodejs/nan) APIs. This dependency requires native modules to be recompiled and updated for every major Node.js release. This is a burden for native modules maintainers. Furthermore, companies and products depending on these modules find it difficult to upgrade their Node.js versions in production because of potential massive code breakage.
 
 Now, the **N-API** is here to eliminate breakage of dependencies that happens between release lines with native modules. The full N-API functions can be found in the [documentation](https://nodejs.org/api/n-api.html).
 
