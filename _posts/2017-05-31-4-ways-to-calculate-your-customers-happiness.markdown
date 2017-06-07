@@ -11,11 +11,12 @@ author:
   mail: diego.poza@auth0.com
 design:
   bg_color: "#3F5C56"
-  image: "https://cdn.auth0.com/blog/personalize-user-experience/logo.png"
+  image: "https://cdn.auth0.com/blog/customer-hapiness/logo.png"
 tags:
-  - personalization
+  - customer
   - growth
   - identity
+  - happiness
 related:
   - 2017-03-24-360-view-of-customer-by-managing-identity
   - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
