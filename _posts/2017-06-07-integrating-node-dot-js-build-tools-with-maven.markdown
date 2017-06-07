@@ -2,7 +2,7 @@
 layout: post
 title: "Integrating Node.js Build Tools with Maven"
 description: "Let's learn how to integrate Node.js build tools, like gulp, into Maven's lifecycle."
-date: 2017-05-16 09:00
+date: 2017-06-07 09:00
 category: Technical Guide, Java
 author:
   name: "Bruno Krebs"
