@@ -56,6 +56,7 @@ What most companies have been doing up to this point is cobbling together their 
 But the omnichannel strategy has some pitfalls. It's not a real-time, flexible solution. It does not offer an easy way to compare information across channels to look for larger trends. It has thus far been doing an adequate job of helping brands present a unified experience across channels, but the effort that coordination takes is a drain.
 
 ![Shift from omnichannel strategy to unified commerce strategy](https://cdn.auth0.com/blog/channel/omni-single.png)
+_Source: [Fabacus Symphony](https://fabacus.com/symphony-api-eai/omnichannel-vs-unified-commerce)_
 
 Unified commerce is a way to circumvent some of these problems while still giving customers that sleek, consistent brand experience that customers want. It provides the single source of truth that omnichannel lacks by plugging every channel into one integrated system.
 
