@@ -10,8 +10,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#3F5C56"
-  image: "https://cdn.auth0.com/blog/personalize-user-experience/logo.png"
+  bg_color: "#32506D"
+  image: "https://cdn.auth0.com/blog/2016-social/logo.png"
 tags:
 - passwordless
 - auth0
