@@ -10,11 +10,11 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#3F5C56"
-  image: "https://cdn.auth0.com/blog/personalize-user-experience/logo.png"
+  bg_color: "#002D61"
+  image: "https://cdn.auth0.com/blog/healthcare-cloud/logo.png"
 tags:
-- personalization
-- growth
+- healthcare
+- cloud
 - identity
 - auth0
 related:
