@@ -58,43 +58,43 @@ So, if you are a financial company, with a branch in the state of New York, we c
 
 Below, you can view the table of contents for the white paper. The whole document can be found [on the Auth0's security webpage](https://auth0.com/security).
 
- ```bash
- +- Introduction
- +- Dedicated Security Team
- +  |- People and Processes
- +  |- Background Checks
- +  |- Security Awareness
- +  |- Access Requests
- +  |- Security Policies
- +  |- Privacy
- +- Secure Product Development
- +  |- Specification Compliance
- +  |- Authentication Experts
- +  |- Code Review
- +  |- Development Tools
- +  |- Secret Management
- +  |- White Hat Program
- +  |- OWASP Compliance
- +  |- Deployment Process
- +- Third-Party Compliance
- +  |- SOC II Type 2
- +  |- External Security Assessments
- +- Infrastructure and Data Security
- +  |- Cloud Security
- +  |- Infrastructure as Code
- +  |- Network Security
- +  |- Security Monitoring
- +  |- Authentication
- +  |- Data Encryption
- +  |- Laptop and Mobile Device Security
- +- Disaster Recovery and Backup
- +  |- Business Continuity Plan
- +  |- Backup Strategy
- +- Vendor security
- +  |- Security Team Review
- +  |- Privacy Considerations
- +- Summary
- ```
+```bash
+- Introduction
+- Dedicated Security Team
+  |- People and Processes
+  |- Background Checks
+  |- Security Awareness
+  |- Access Requests
+  |- Security Policies
+  |- Privacy
+- Secure Product Development
+  |- Specification Compliance
+  |- Authentication Experts
+  |- Code Review
+  |- Development Tools
+  |- Secret Management
+  |- White Hat Program
+  |- OWASP Compliance
+  |- Deployment Process
+- Third-Party Compliance
+  |- SOC II Type 2
+  |- External Security Assessments
+- Infrastructure and Data Security
+  |- Cloud Security
+  |- Infrastructure as Code
+  |- Network Security
+  |- Security Monitoring
+  |- Authentication
+  |- Data Encryption
+  |- Laptop and Mobile Device Security
+- Disaster Recovery and Backup
+  |- Business Continuity Plan
+  |- Backup Strategy
+- Vendor security
+  |- Security Team Review
+  |- Privacy Considerations
+- Summary
+```
 
 One of the reliable and interesting services that Auth0 can provide to companies of the financial industry, is the easy-to-adopt [Multi-Factor Authentication (MFA) solution](https://auth0.com/docs/multifactor-authentication). Exactly as referenced by the regulation, this method provides an additional layer of security, decreasing the likelihood of unauthorized access, as it requires users to identify themselves through two or more of the following methods:
 
