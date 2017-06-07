@@ -10,13 +10,12 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  bg_color: "#A46748"
-  image: "https://cdn.auth0.com/blog/dont-manage-identities/logo.png"
+  bg_color: "#5A010C"
+  image: "https://cdn.auth0.com/blog/security-questions/logo.png"
 tags:
 - identity
 - management
-- build
-- buy
+- security
 related:
 - 2016-12-29-2017-budget-planning
 - 2016-12-02-modern-authentication-for-your-clients-made-easy
