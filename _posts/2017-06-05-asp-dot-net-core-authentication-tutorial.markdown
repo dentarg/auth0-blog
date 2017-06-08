@@ -26,6 +26,8 @@ related:
 
 **TL;DR:** ASP.NET Core, the rewritten, cross-platform, and open source version of ASP.NET framework is gaining popularity for being easy to use and for having great performance when compared to modern solutions like Java, Go and Node.js. In this article we are going to use ASP.NET Core to create a simple RESTful API that handles grocery lists and then we are going to add authentication to secure this API.
 
+{% include tweet_quote.html quote_text="Creating secure RESTful APIs with ASP.NET Core is a piece of cake." %}
+
 ## What is ASP.NET Core
 
 ASP.NET Core is an open source redesign of the popular ASP.NET framework. This new version was developed to support modern cloud based applications, such as web applications, Internet of Things (IoT) devices, and mobile backends. There are a few differences between ASP.NET Core and its predecessor, the first big one is that the new version is cross-platform and can run on Windows, Mac and Linux. Another big difference is that [ASP.NET Core is fully open source and available on GitHub](https://github.com/aspnet/home).
@@ -40,6 +42,8 @@ This article also highlights that the following use cases are better fitted with
 - When microservices are the chosen architecture.
 - When the application will be dockerized (deployed on Docker containers).
 - When performance is a big priority (the article says that ASP.NET Core outperforms ASP.NET by a factor of 10).
+
+{% include tweet_quote.html quote_text="ASP.NET Core outperforms ASP.NET by a factor of 10" %}
 
 ## Installing .NET Core
 
@@ -488,9 +492,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_grocery_list.Models
 {
-  public class UserDbContext : IdentityDbContext<UserDbContext>
+  public class UserDbContext : IdentityDbContext<IdentityUser>
   {
-    public UserDbContext(DbContextOptions<IdentityDbContext> options)
+    public UserDbContext(DbContextOptions<UserDbContext> options)
             : base(options)
     {
       Database.EnsureCreated();
@@ -499,7 +503,7 @@ namespace dotnet_grocery_list.Models
 }
 ```
 
-And then we need to add the following two lines, with the `using` statements, as the first two lines of the `ConfigureServices` method in the `Startup` class:
+And then we need to make two changes in the add the `Startup` class. First we need to add two lines, with the `using` statements, as the first two lines of the `ConfigureServices`. And then we need to configure our app to use the identity framework:
 
 ```csharp
 // ... other imports
@@ -522,6 +526,13 @@ namespace dotnet_grocery_list
       // ... everything else in this method
     }
 
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+    {
+      // ... everything else
+      app.UseIdentity();
+
+      // app.UseMvc...
+    }
     // ... rest of the class
   }
 }
@@ -644,7 +655,9 @@ To make our ASP.NET Core application validate the tokens issued by our register 
 
 ```csharp
 // ... other using statements
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Text;
 
 namespace dotnet_grocery_list
@@ -717,6 +730,8 @@ curl -H "Authorization: Bearer $ACCESS_TOKEN" http://localhost:5000/api/groceryl
 > Note that we have used `jq` to extract the `access_token` generated, and then saved it in the `ACCESS_TOKEN` environment variable. `jq` is a lightweight and flexible command-line JSON processor, and [its web page with instructions on how to install and use can be found here](https://stedolan.github.io/jq/).
 
 If you need a reference for a ASP.NET Core application with authentication fully implemented, you can take a look at the [`auth` branch of this GitHub repository](https://github.com/auth0-blog/dotnet-core-auth/tree/auth).
+
+{% include tweet_quote.html quote_text="Creating secure RESTful APIs with ASP.NET Core is a piece of cake." %}
 
 ## Aside: Securing ASP.NET Core with Auth0
 
