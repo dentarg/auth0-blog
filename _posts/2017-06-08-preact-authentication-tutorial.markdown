@@ -2,7 +2,7 @@
 layout: post
 title: "Preact Authentication Tutorial"
 description: Preact is a fast 3kb React alternative with the same ES6 API. Learn how to build fast apps with Preact and add authentication the right way.
-date: 2017-05-30 8:30
+date: 2017-06-08 8:30
 category: Technical Guide, Frontend, Preact
 author:
   name: Prosper Otemuyiwa
