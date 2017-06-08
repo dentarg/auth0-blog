@@ -27,7 +27,7 @@ related:
 
 ---
 
-**TL;DR:** Preact is a JavaScript library that offers a fast 3kb alternative to React with the same ES6 API. Currently, Preact has over 9,000 stars on [GitHub](https://github.com/developit/preact). Preact gives the developer an edge to build super fast JavaScript web applications without the constant headache of performance improvement because of its lightweight footprint. In this tutorial, I'll show you how easy it is to build a web application with Preact and add authentication to it. We'll also compare the speed of this application with its [ReactJS equivalent](https://github.com/auth0-blog/reactjs-authentication-tutorial). Check out the [repo](https://github.com/auth0-blog/preact-authentication-tutorial) to get the code.
+**TL;DR:** Preact is a JavaScript library that offers a fast 3kb alternative to React with the same ES6 API. Currently, Preact has over 10,000 stars on [GitHub](https://github.com/developit/preact). Preact gives the developer an edge to build super fast JavaScript web applications without the constant headache of performance improvement because of its lightweight footprint. In this tutorial, I'll show you how easy it is to build a web application with Preact and add authentication to it. We'll also compare the speed of this application with its [ReactJS equivalent](https://github.com/auth0-blog/reactjs-authentication-tutorial). Check out the [repo](https://github.com/auth0-blog/preact-authentication-tutorial) to get the code.
 
 ---
 
