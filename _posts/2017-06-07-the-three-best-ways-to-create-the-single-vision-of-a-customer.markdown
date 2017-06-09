@@ -10,12 +10,13 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "#636363"
-  image: https://cdn.auth0.com/blog/23-nycrr/logo.png
+  bg_color: "#3D0249"
+  image: https://cdn.auth0.com/blog/singlevision/logo.png
 tags:
 - security
-- cybersecurity
-- financial
+- retail
+- customer
+- vision
 - auth0
 related:
 - 2016-09-22-yahoo-confirms-data-breach-of-half-a-billion-user-accounts
