@@ -30,7 +30,7 @@ related:
 
 Protocol buffers, or Protobuf, is a binary format created by Google to serialize data between different services. Google made this protocol open source and now it provides support, out of the box, to the most common languages, like JavaScript, Java, C#, Ruby and others. In our tests, it was demonstrated that this protocol performed up to **6 times faster** than JSON.
 
-{% include tweet_quote.html quote_text="Protobuf performs up to **6 times faster** than JSON." %}
+{% include tweet_quote.html quote_text="Protobuf performs up to 6 times faster than JSON." %}
 
 ## What is Protobuf
 

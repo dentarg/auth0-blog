@@ -38,7 +38,7 @@ Since we want our application to secure ours users' data, we will use JWT tokens
 
 Koa is web framework, just like [Express](http://expressjs.com/), that is developed by many of the same people that built Express—by the way, here is a [nice tutorial on how to secure an Angular 2 app backed by Express](https://auth0.com/blog/angular-2-authentication/). Unofficially known as Express' successor, Koa uses `async` functions to improve readability and robustness of applications. Writing middlewares to handle users requests become very easy and clear with Koa's approach, as we will see on our own grocery list application.
 
-{% include tweet_quote.html quote_text="Koa uses `async` functions to improve readability and robustness of apps." %}
+{% include tweet_quote.html quote_text="Koa uses async functions to improve readability and robustness of apps." %}
 
 ## Our Application - Grocery List
 

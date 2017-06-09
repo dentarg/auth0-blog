@@ -24,7 +24,7 @@ related:
 
 **TL;DR:** In this article we will see how easy it is to load balance *dockerized* Node.js applications with NGINX. We will create a simple Node.js application that serves an HTML file, containerize it with Docker, and containerize an NGINX instance that uses round-robin algorithm to load balance between two running instances of this application.
 
-{% include tweet_quote.html quote_text="Check out how easy it is to load balance *dockerized* Node.js applications with NGINX." %}
+{% include tweet_quote.html quote_text="Check out how easy it is to load balance dockerized Node.js applications with NGINX." %}
 
 ## Docker and Containers
 
