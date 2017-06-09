@@ -30,6 +30,8 @@ related:
 
 Protocol buffers, or Protobuf, is a binary format created by Google to serialize data between different services. Google made this protocol open source and now it provides support, out of the box, to the most common languages, like JavaScript, Java, C#, Ruby and others. In our tests, it was demonstrated that this protocol performed up to **6 times faster** than JSON.
 
+{% include tweet_quote.html quote_text="Protobuf performs up to 6 times faster than JSON." %}
+
 ## What is Protobuf
 
 [Protocol buffers](https://developers.google.com/protocol-buffers/docs/overview), usually referred as Protobuf, is a protocol developed by Google to allow serialization and deserialization of structured data. Google developed it with the goal to provide a better way, compared to XML, to make systems communicate. So they focused on making it simpler, smaller, faster and more maintainable then XML. But, as you will see in this article, this protocol even surpassed JSON with better performance, better maintainability and smaller size.
@@ -335,6 +337,8 @@ Not difficult to use `protobuf.js` library to exchange binary data, right? If yo
 ## Conclusion
 
 I have to be honest, I was hoping to come across a more favorable scenario for Protobuf. Of course, being able to handle, on a Java to Java communication, 50 thousand instances of `Person` objects in 25ms with Protobuf, while JSON took 150ms, is amazing. But on a JavaScript environment these gains are much lower.
+
+{% include tweet_quote.html quote_text="Protobuf protocol to exchange data between services can bring great performance." %}
 
 Nevertheless, considering that JSON is native to JavaScript engines, Protobuf still managed to be faster.
 

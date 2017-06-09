@@ -39,6 +39,8 @@ In this post I will show you that, with the right tools, it is possible to start
 - **Persistence layer** with a [MongoDB database](https://www.mongodb.com/) hosted by [mLab](https://mlab.com/)
 - **Static file hosting** via deployment to [GitHub Pages](https://pages.github.com/)
 
+{% include tweet_quote.html quote_text="Learn how create a serverless fullstack SPA with Angular, Express, Mongo GitHub Pages." %}
+
 Since the app that we are going to develop is quite simple in terms of features, it won't be necessary to have MongoDB running on our local environment. We will use mLab during development as well as production. The only tools that are expected to be installed are [NodeJS and NPM](https://docs.npmjs.com/getting-started/installing-node).
 
 Our application will have the following features:
@@ -789,6 +791,8 @@ The second step used to be handled by Angular CLI, but [this command has been re
 **Important**: do not forget to update the *Allowed Callback URLs* on your Auth0 account. The list of allowed URLs must have the URL where our app was exposed. This should be something like `https://brunokrebs.github.io/task-list/`.
 
 ![Angular application, with secured serverless REST API running on GitHub Pages](https://cdn.auth0.com/blog/serverless-angular/running-on-github-pages.png)
+
+{% include tweet_quote.html quote_text="GitHub pages is a great place to host your SPAs." %}
 
 ## Conclusion
 

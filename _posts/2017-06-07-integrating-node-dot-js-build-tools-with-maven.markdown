@@ -25,6 +25,8 @@ related:
 
 **TL;DR:** Single Page Applications (SPAs) have been the biggest web development trend for a while now. Developers from all around the world have started creating new applications based on this technique, and started migrating existing ones too. For many years, Java developers relied on technologies specific to the Java world, such as [JavaServer Faces](https://auth0.com/blog/developing-jsf-applications-with-spring-boot/). But, as JavaScript frameworks started to gain more power, become more popular and well supported, Java developers started migrating their front-end code to these frameworks. Today we will see how we integrate Node.js build tools, used to process JavaScript source code, into Maven's lifecycle.
 
+{% include tweet_quote.html quote_text="Integrate Node.js build tools into Maven's lifecycle is easy." %}
+
 ## Node.js Build Tools
 
 Being one of the most vibrant community of all times, it is no surprise that many build tools were developed to automate tasks like concatenation of source files, minification of JavaScript code, and so on. Luckily, all the popular tools were developed around a single technology, Node.js, which made it easier to integrate with other technologies, such as Maven.
@@ -359,6 +361,8 @@ java -jar target/nodejs-maven-0.0.1-SNAPSHOT.jar
 We will be able to see that our AngularJS code is indeed uglified by opening [http://localhost:8080/js/app.js](http://localhost:8080/js/app.js) in a web browser.
 
 If we run Maven without the profile definition, `-P production`, Maven will use the development profile (which is marked with `activeByDefault`) and build our application without uglifying our AngularJS code.
+
+{% include tweet_quote.html quote_text="Learn how to create SPAs based on Spring Boot RESTful APIs" %}
 
 ## Aside: Securing Spring Boot Applications with Auth0
 

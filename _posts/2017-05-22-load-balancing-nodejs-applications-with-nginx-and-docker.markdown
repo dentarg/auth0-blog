@@ -24,6 +24,8 @@ related:
 
 **TL;DR:** In this article we will see how easy it is to load balance *dockerized* Node.js applications with NGINX. We will create a simple Node.js application that serves an HTML file, containerize it with Docker, and containerize an NGINX instance that uses round-robin algorithm to load balance between two running instances of this application.
 
+{% include tweet_quote.html quote_text="Check out how easy it is to load balance dockerized Node.js applications with NGINX." %}
+
 ## Docker and Containers
 
 Docker is a software container platform. Developers use [Docker](https://www.docker.com/) to eliminate “works on my machine” problem when collaborating with co-workers. This is done by putting pieces of a software architecture on containers (a.k.a. *dockerize* or containerize).
@@ -137,6 +139,8 @@ docker run -p 8080:80 -d load-balance-nginx
 ```
 
 After issuing these commands, let's open a web browser and access `http://localhost:8080`. If everything went well, we will see a web page with one of the two messages: `First instance` or `Second instance`. If we hit reload on our web browser a few times, we will realized that from time to time the message displayed switches between `First instance` and `Second instance`. This is the round-robin load balancing algorithm in action.
+
+{% include tweet_quote.html quote_text="Learn how to load balancing Node.js apps with NGINX and Docker." %}
 
 > **Note:** To use the other algorithms available on NGINX, [check their documentation for more information](https://www.nginx.com/resources/admin-guide/load-balancer/).
 
