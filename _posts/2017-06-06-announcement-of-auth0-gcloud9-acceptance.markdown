@@ -10,8 +10,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  image: https://cdn.auth0.com/blog/go-beyond-up-auth/logo.png
-  bg_color: "#01B48F"
+  image: https://cdn.auth0.com/blog/gcloudacceptance/logo.png
+  bg_color: "#35354D"
 tags:
 - security
 - passwordless
