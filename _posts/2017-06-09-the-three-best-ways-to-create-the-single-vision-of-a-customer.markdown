@@ -2,13 +2,13 @@
 layout: post
 title: "The 3 Best Ways To Create the Single Vision of A Customer (And What to Do With It)"
 description: "Getting ahead in retail means catering to your customers, and a single vision of your customers can help you do just that"
-date: 2017-06-06 14:05
+date: 2017-06-09 14:05
 category: Growth, Industries
 author:
-  name: "Bruno Krebs"
-  url: "https://twitter.com/brunoskrebs"
-  mail: "bruno.krebs@auth0.com"
-  avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
   bg_color: "#3D0249"
   image: https://cdn.auth0.com/blog/singlevision/logo.png
