@@ -38,6 +38,8 @@ Since we want our application to secure ours users' data, we will use JWT tokens
 
 Koa is web framework, just like [Express](http://expressjs.com/), that is developed by many of the same people that built Express—by the way, here is a [nice tutorial on how to secure an Angular 2 app backed by Express](https://auth0.com/blog/angular-2-authentication/). Unofficially known as Express' successor, Koa uses `async` functions to improve readability and robustness of applications. Writing middlewares to handle users requests become very easy and clear with Koa's approach, as we will see on our own grocery list application.
 
+{% include tweet_quote.html quote_text="Koa uses `async` functions to improve readability and robustness of apps." %}
+
 ## Our Application - Grocery List
 
 The grocery list application will have a very simple and intuitive functionality. Visitors (unknown users) will be able to register themselves or, if they already have registered before, to sign in and manage their current list of items to buy at the grocery store. A user won't be able to have more than one list. The application will look like this:
@@ -1288,5 +1290,7 @@ Now if you want to add another identity provider, like Twitter, you just have to
 ## Conclusion
 
 As we could see, writing Koa web servers is very easy and we achieve very clean code through the use of `async` functions. It is almost as if we were reading code that runs entirely synchronous. Also, by using TypeScript on both the backend and the front-end, our code becomes more readable and reliable, due to the type safe approach of this programming language.
+
+{% include tweet_quote.html quote_text="Using TypeScript on both backend and front-end makes our code readable and reliable." %}
 
 Allied to that, we can see that although these technologies are relatively new, we already have support to a lot of things, like securing the communication with JWT tokens.
