@@ -10,12 +10,12 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#636363"
-  image: https://cdn.auth0.com/blog/23-nycrr/logo.png
+  bg_color: "#5D0070"
+  image: https://cdn.auth0.com/blog/hyperconnected-customers/logo.png
 tags:
 - security
-- cybersecurity
-- financial
+- customers
+- identity
 - auth0
 related:
 - 2016-09-22-yahoo-confirms-data-breach-of-half-a-billion-user-accounts
