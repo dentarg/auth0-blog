@@ -22,35 +22,37 @@ related:
 - 2016-09-20-securing-spring-boot-with-jwts
 ---
 
- **TL;DR:** On today's post, we are going to learn how to develop RESTful APIs with Kotlin, the thriving programming language that is eating Java's world. We will start by creating a small Spring Boot RESTful API, that handles CRUD operations, and then we are going to secure this API with Auth0, which brings to the table many security features such as Multifactor Authentication, integration with Social Providers, and so on. In the end, we will also see how to manage the JWTs by ourselves, replacing Auth0 with an in-house solution where we issue our own tokens.
+ **TL;DR:** In today's post, we are going to learn how to develop RESTful APIs with Kotlin, the thriving programming language that is eating Java's world. We will start by creating a small Spring Boot RESTful API that handles CRUD operations. After that we are going to secure this API with Auth0, which brings to the table many security features such as Multifactor Authentication, integration with Social Providers, and so on. In the end, we will also see how to manage the JWTs by ourselves, replacing Auth0 with an in-house solution where we issue our own tokens.
 
 ---
 
 ## What is Kotlin
 
-[Kotlin](https://kotlinlang.org/) is a programming language, developed by [JetBrains](https://www.jetbrains.com/), that runs on Java Virtual Machines (JVMs) and that can also be compiled to JavaScript. This programming language is statically typed—which means that variables, functions, expressions, etc, use pre-defined sets of types that can be checked on compile time—and aims on solving a lot of problems that comes along with Java. For example, compared to Java, a software written in Kotlin is expected to have roughly 40% less lines of code, while still being able to interoperate with the rich set of libraries available for Java.
+[Kotlin](https://kotlinlang.org/) is a programming language, developed by [JetBrains](https://www.jetbrains.com/), that runs on Java Virtual Machines (JVMs) and that can also be compiled to JavaScript. This programming language is statically typed, which means that variables, functions, and expressions use predefined sets of types that can be checked on compile time.
+
+One of its main goals is to solve the problems that comes along with Java. For example, compared to Java, a software written in Kotlin is expected to have roughly 40% less lines of code, while still being able to interoperate with the rich set of libraries available for Java.
 
 ## How Kotlin Differs from Java
 
-First of all, the syntax. Kotlin's syntax is somewhat similar to Java's one, but there are many differences. JetBrains states that Java developers will have an smooth learning curve when migrating to Kotlin. Although this might be true, becoming a Kotlin developer and writing idiomatic code in this new language is not that straight forward.
+First of all, the syntax. Kotlin's syntax is somewhat similar to Java's, but there are many differences. JetBrains states that Java developers will have an smooth learning curve when migrating to Kotlin. Although this might be true, becoming a Kotlin developer and writing idiomatic code in this new language is not that straightforward.
 
-If you start studying Kotlin's specifics, you will note that Kotlin is an advanced programming language with a glossary of its own. For example, Kotlin has features like [data classes](https://kotlinlang.org/docs/reference/data-classes.html), [sealed classes](https://kotlinlang.org/docs/reference/sealed-classes.html), [inline functions](https://kotlinlang.org/docs/reference/inline-functions.html), and etc. Most of these features can be mirrored on Java, but not without writing some pretty verbose code. And that's why I can assure, writing true idiomatic Kotlin source code is not as easy as JetBrains wants you to believe.
+If you start studying Kotlin's specifics, you will note that Kotlin is an advanced programming language with a glossary of its own. For example, Kotlin has features like [data classes](https://kotlinlang.org/docs/reference/data-classes.html), [sealed classes](https://kotlinlang.org/docs/reference/sealed-classes.html), [inline functions](https://kotlinlang.org/docs/reference/inline-functions.html), and more. Most of these features can be mirrored in Java, but not without writing some pretty verbose code. Therefore, writing true idiomatic Kotlin source code is not as easy as JetBrains wants you to believe.
 
-But fear not, JetBrains developed some tools that help developers translate Java source code to Kotlin. [Try Kotlin's website](https://try.kotlinlang.org) has a button labeled *Convert from Java* that one can paste some Java code and get Kotlin's version back. Besides that, [IntelliJ IDEA also has some features that enables developers to perform these conversions](https://www.jetbrains.com/help/idea/2017.1/converting-a-java-file-to-kotlin-file.html).
+But fear not, JetBrains developed some tools to help developers translate Java source code to Kotlin. The [Try Kotlin's website](https://try.kotlinlang.org) has a button labeled *Convert from Java* that one can paste some Java code and get Kotlin's version back. Besides that, [IntelliJ IDEA also has some features that enables developers to perform these conversions](https://www.jetbrains.com/help/idea/2017.1/converting-a-java-file-to-kotlin-file.html).
 
 ## Learning Kotlin
 
-If you have never used Kotlin before, you can still follow this blog post along. But it will do you no harm to study the language a little before. The following list exposes some resources where you can learn Kotlin:
+If you have never used Kotlin before, you can still follow along with this blog post. But it will do you no harm to study the language a little before. The following list contains some resources where you can learn Kotlin:
 
-- [Kotlin Reference](https://kotlinlang.org/docs/reference/)—where the details of Kotlin's syntax are explained
-- [Try Kotlin](https://try.kotlinlang.org)—where you can do some hands on practices to learn Kotlin.
-- [Kotlin in Action](https://manning.com/books/kotlin-in-action)—if you want to dive deep into this new language
+- [Kotlin Reference](https://kotlinlang.org/docs/reference/): where the details of Kotlin's syntax are explained
+- [Try Kotlin](https://try.kotlinlang.org): where you can do some hands-on exercises to learn Kotlin
+- [Kotlin in Action](https://manning.com/books/kotlin-in-action): if you want to dive deep into this new language
 
-But if you already have some experience with Kotlin, or is just wondering if developing a simple RESTful API with it will be easy, keep up.
+If you already have some experience with Kotlin or are just wondering if developing a simple RESTful API will be easy, read on.
 
 ## Starting a Spring Boot Kotlin Application
 
-[Spring Initializr's (no typos here) website](http://start.spring.io/) is a great way to start a Spring Boot application, and they already added Kotlin as one of the options for the chosen programming language (there are three available at the time of writing: Java, Kotlin, and Groovy). This website easily allows us to select what other libraries we want in our application. But, for the sake of simplicity, we will start by cloning [this GitHub repository](https://github.com/auth0-blog/kotlin-spring-boot) that I have prepared for this article, and then we are going to evolve from it.
+[Spring Initializr](http://start.spring.io/) is a great way to start a Spring Boot application, and they already added Kotlin as one of the options for the chosen programming language (there are three available at the time of writing: Java, Kotlin, and Groovy). This website easily allows us to select what other libraries we want in our application. However, for the sake of simplicity, we will start by cloning [this GitHub repository](https://github.com/auth0-blog/kotlin-spring-boot) that I have prepared for this article, and then we are going to evolve from it.
 
 ```bash
 git clone https://github.com/auth0-blog/kotlin-spring-boot/
@@ -61,7 +63,7 @@ This startup project already comes with [Spring Data JPA](http://projects.spring
 
 ### Creating a Kotlin Data Class
 
-As already mentioned, one of Kotlin's best feature is that it's a very concise programming language. Most of the boilerplate code that Java developers are used to—like *getters*, *setters*, *equals*, and *hashCode*—were dropped in favor of a succinct syntax. Well, actually *dropped* is not the correct term here. Methods like *equals* and *hashCode* are automatically derived by the compiler, but one can still explicitly define them if needed.
+As already mentioned, one of Kotlin's best features is that it's a very concise programming language. Most of the boilerplate code that Java developers are used to—like *getters*, *setters*, *equals*, and *hashCode*—were dropped in favor of a succinct syntax. Well, actually *dropped* is not the correct term here. Methods like *equals* and *hashCode* are automatically derived by the compiler, but one can still explicitly define them if needed.
 
 As the idea of our RESTful API is to enable users to manage a set of customers, our [Kotlin Data Class](https://kotlinlang.org/docs/reference/data-classes.html) is going to be called `Customer`. Let's start by creating a new directory called `model` in the `src/main/kotlin/com/auth0/samples/kotlinspringboot/` directory, and then let's add a file called `Customer.kt` in it with the following source code:
 
@@ -82,11 +84,11 @@ class Customer(
 )
 ```
 
-Note that, differently from Java, we defined the basic properties of the `Customer` class embraced in parenthesis after the class declaration. In Kotlin, [this is called a primary constructor](https://kotlinlang.org/docs/reference/classes.html#constructors). We could define these properties in the class's body, and we could also define other constructors as well, but for our case this is enough. Also note that we have added two annotations, `@Id` and `@GeneratedValue`, to the `id` property. This syntax is exactly equals to Java's syntax, so I think you won't have any trouble here.
+Note that, differently from Java, we defined the basic properties of the `Customer` class embraced in parentheses after the class declaration. In Kotlin, [this is called a primary constructor](https://kotlinlang.org/docs/reference/classes.html#constructors). We could define these properties in the class's body, and we could also define other constructors as well, but for our case this is enough. Also note that we have added two annotations, `@Id` and `@GeneratedValue`, to the `id` property. This syntax is identical to Java's syntax.
 
 ### Creating a Repository for Customer
 
-The `CustomerRepository` interface that we are going to create will be very similar to what we would do on a regular Java Spring Boot application. To keep things organized, let's first create a directory called `persistence` in the `src/main/kotlin/com/auth0/samples/kotlinspringboot/` directory. In this new directory we are going to create a file called `CustomerRepository.kt` and add the following code:
+The `CustomerRepository` interface that we are going to create will be very similar to what we would do on a regular Java Spring Boot application. To keep things organized, let's first create a directory called `persistence` in the `src/main/kotlin/com/auth0/samples/kotlinspringboot/` directory. In this new directory, we are going to create a file called `CustomerRepository.kt` and add the following code:
 
 ```kotlin
 package com.auth0.samples.kotlinspringboot.persistence
@@ -97,13 +99,13 @@ import org.springframework.data.repository.CrudRepository
 interface CustomerRepository : CrudRepository<Customer, Long>
 ```
 
-This interface has everything that we need to interact with the HSQLDB in-memory database that our project have. With it we can `save`, `delete`, `findAll`, and do a [lot more](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html). [Take a look at this resource if you need more info](https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html) about the `CrudRepository` interface that we just extended.
+This interface has everything that we need to interact with the HSQLDB in-memory database that our project has. With it, we can `save`, `delete`, `findAll`, and do a [lot more](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html). [Take a look at this resource if you need more info](https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html) about the `CrudRepository` interface that we just extended.
 
 ### Defining Customer RESTful Endpoints
 
-The RESTful endpoints that will handle users' request is also going to be similar to its Java counterpart. A little bit more succinct, but still pretty familiar for Java developers. You may also note that the import statements haven't changed. Although they are quite verbose, in my opinion this is a good thing. Like that, one can easily identify where a dependency comes from.
+The RESTful endpoints that will handle user requests is also going to be similar to its Java counterpart, a little bit more succinct, but still pretty familiar for Java developers. You may also note that the import statements haven't changed. Although they are quite verbose, in my opinion this is a good thing. Like that, one can easily identify where a dependency comes from.
 
-To create our class, let's start by creating a `controller` directory in the `src/main/kotlin/com/auth0/samples/kotlinspringboot/` directory. After that let's create a file called `CustomerController.kt` in this new directory and add the following code:
+To create our class, let's start by creating a `controller` directory in the `src/main/kotlin/com/auth0/samples/kotlinspringboot/` directory. After that, let's create a file called `CustomerController.kt` in this new directory and add the following code:
 
 ```kotlin
 package com.auth0.samples.kotlinspringboot.controller
@@ -146,16 +148,16 @@ class CustomerController(val repository: CustomerRepository) {
 }
 ```
 
-The source code of this class is pretty self-explanatory, but for the sake of completeness here it goes an explanation of it:
+The source code of this class is pretty self-explanatory, but for the sake of completeness here is an explanation of it:
 
-- `@RequestMapping("/customers")` annotation defines that all endpoints in this class will have the `/customers` prefix.
-- `@GetMapping` annotation defines `findAll` as being the method responsible for handling HTTP **GET** requests to `/customer`.
-- `@PostMapping` annotation defines `addCustomer` as being the method responsible for handling HTTP **POST** requests to `/customers`. Also, this method accepts a JSON version of customer and deserialize it to our `Customer` class automatically.
-- `@PutMapping("/{id}")` annotation defines `updateCustomer` being the method responsible for handling HTTP **PUT** requests to `/customers`. This method also accepts a `Customer` as the body of the request. The difference with the other method is that this one expects the request path to have an `{id}` of the Customer to be updated.
-- `@DeleteMapping("/{id}")` annotation defines `removeCustomer` being the method responsible for handling HTTP **DELETE** requests to `/customers`. `{id}`, in this case, defines the id of the customer to be deleted.
-- `@GetMapping("/{id}")` annotation defines `getById` being the method responsible for handling HTTP **GET** requests to `/customer/{id}`, where `{id}` defines which customer will be serialized as a response.
+- `@RequestMapping("/customers")` annotation declares that all endpoints in this class will have the `/customers` prefix.
+- `@GetMapping` annotation defines `findAll` as the method responsible for handling HTTP **GET** requests to `/customer`.
+- `@PostMapping` annotation defines `addCustomer` as the method responsible for handling HTTP **POST** requests to `/customers`. Also, this method accepts a JSON version of customer and deserialize it to our `Customer` class automatically.
+- `@PutMapping("/{id}")` annotation defines `updateCustomer` as the method responsible for handling HTTP **PUT** requests to `/customers`. This method also accepts a `Customer` as the body of the request. The difference between the put and post methods is that put expects the request path to have an `{id}` of the Customer to be updated.
+- `@DeleteMapping("/{id}")` annotation defines `removeCustomer` as the method responsible for handling HTTP **DELETE** requests to `/customers`. `{id}`, in this case, defines the id of the customer to be deleted.
+- `@GetMapping("/{id}")` annotation defines `getById` as the method responsible for handling HTTP **GET** requests to `/customer/{id}`, where `{id}` defines which customer will be serialized as a response.
 
-And that's it. We have now our first Kotlin RESTful API, backed by Spring Boot. If you want to play with it, type `mvn spring-boot:run` in the root directory of the application, and Spring Boot will startup. After that you can use the following commands to interact with the API:
+And that's it. We have now our first Kotlin RESTful API, backed by Spring Boot. If you want to play with it, type `mvn spring-boot:run` in the root directory of the application and Spring Boot will startup. After that, you can use the following commands to interact with the API:
 
 ```bash
 # adds a new customer
@@ -178,21 +180,19 @@ curl -H "Content-Type: application/json" -X PUT -d '{
 curl -X DELETE http://localhost:8080/customers/1
 ```
 
-If anything went wrong, you can compare your source code with the [`customers` branch on the GitHub repository](https://github.com/auth0-blog/kotlin-spring-boot/tree/customers).
+If anything went wrong, you can compare your source code with the [`customers` branch in the GitHub repository](https://github.com/auth0-blog/kotlin-spring-boot/tree/customers).
 
 ## Securing Kotlin RESTful APIs with Auth0
 
-As you will see, securing our API with Auth0 is very easy and brings a lot of great features to the table. With Auth0 we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
+As you will see, securing our API with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
 
 For starters, if you haven't done so yet, this is a good time to sign up for a [free Auth0 account](javascript:signup\(\)). Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. And this is exactly what the Kotlin app that we just built is, an API.
 
 ![Creating an API on Auth0's dashboard](https://cdn.auth0.com/blog/kotlin-jwts/create-auth0-api.png)
 
-**Note**, if you don't have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced). In this page, click in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
+When creating an API, we must define three fields: `Name`, which is just a friendly name for our new API; `Identifier`, which is a `String` that we will use when requesting an `access_token`; and the `Signing Algorithm`, which defines if this API will use a [symmetric or asymmetric algorithm](https://auth0.com/blog/json-web-token-signing-algorithms-overview/) to sign the `access_token`. In our case, we will fill these fields, respectively, with: `Kotlin RESTful API`; `kotlin-jwts`; and `RS256` (i.e. we will use an asymmetric algorithm).
 
-When creating an API, we must define three fields: `Name`, which is just a friendly name for our new API; `Identifier`, which is a `String` that we will use when requesting an `access_token`; and the `Signing Algorithm`, which defines if this API will use a [symmetric or asymmetric algorithm](https://auth0.com/blog/json-web-token-signing-algorithms-overview/) to sign the `access_token`. In our case, we will fill this fields, respectively, with: `Kotlin RESTful API`; `kotlin-jwts`; and `RS256` (i.e. we will use an asymmetric algorithm).
-
-Auth0 supports different [OAuth 2.0 flows to request access tokens](https://auth0.com/docs/api-auth). In our particular case, to keep the example simple, we are going to use the [APIs & Trusted Clients flow](https://auth0.com/docs/api-auth/grant/password). Keep in mind that this flow, although being the easiest one to implement, must be used **only** when the client app is **absolutely trusted**. Most situations will require other flows, and the ["Which OAuth 2.0 flow should I use?"](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) article on Auth0 can help on deciding which is the best approach.
+Auth0 supports different [OAuth 2.0 flows to request access tokens](https://auth0.com/docs/api-auth). In our particular case, to keep the example simple, we are going to use the [APIs & Trusted Clients flow](https://auth0.com/docs/api-auth/grant/password). Keep in mind that this flow, although being the easiest one to implement, must be used **only** when the client app is **absolutely trusted**. Most situations will require other flows, and the ["Which OAuth 2.0 flow should I use?"](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) article on Auth0 can help with choosing the best approach for your needs.
 
 To use the *APIs & Trusted Clients* flow, we must first configure the `Default Directory` property on our Auth0 account. To do so, head to the [Account settings](https://manage.auth0.com/#/account) page and add `Username-Password-Authentication` as the value of the `Default Directory` property.
 
@@ -274,7 +274,7 @@ And that's it. This is everything that we need to do to use Auth0 with our Kotli
 mvn spring-boot:run
 ```
 
-Before getting an access token to issue requests to our API, we first need to create a new user on Auth0. To do that we have to issue a `POST` request, which requires a `Content-Type` header with `application/json`, to `https://bkrebs.auth0.com/dbconnections/signup` with the following JSON body:
+Before getting an access token to issue requests to our API, we first need to create a new user on Auth0. To do that we have to issue a `POST` request to the `/dbconnections/signup` endpoint. This request requires a `Content-Type` header with `application/json` following JSON body:
 
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{
@@ -288,7 +288,7 @@ curl -H "Content-Type: application/json" -X POST -d '{
 # {"_id":"xxx","email_verified":false,"email":"user123@test.com"}
 ```
 
-After that we can get the `access_token` by issuing a `POST` request to `https://bkrebs.auth0.com/oauth/token`. This request must contain a JSON object in the body, which also requires a `Content-Type` header with `application/json`, that looks like:
+After that, we can get the `access_token` by issuing a `POST` request to `https://YOUR-DOMAIN.auth0.com/oauth/token`. This request must also contain a JSON object in the body and the `Content-Type` header:
 
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{
@@ -306,7 +306,7 @@ curl -H "Content-Type: application/json" -X POST -d '{
 
 Note that the `client_id` and `client_secret` properties, on both requests, **must be changed** accordingly. Their values can be found in the `Kotlin RESTful API (Test Client)` client that Auth0 created for us. Head to the [Clients page](https://manage.auth0.com/#/clients) to get them.
 
-Issuing this last request will give us an `access_token`. From now on, we will use this token in the header of the requests that we will send to our Kotlin API. So, if we query our endpoints with this `access_token`, we will be able to manage the set of customers again.
+Issuing this last request will give us an `access_token`. From now on, we will use this token in the header of the requests that we will send to our Kotlin API. Therefore, if we query our endpoints with this `access_token`, we will be able to manage the set of customers again.
 
 ```bash
 # no token = no access:
@@ -320,7 +320,7 @@ curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/customers
 
 ## Securing Kotlin with a Home Made Solution
 
-If, by whatever reason, we prefer not to have a RESTful API as secure as we would have with Auth0, with great features like [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), and prefer to take our chances by securing your API with a home made solution, we would have to proceed as explained in this section. First, we would need to remove Auth0's dependencies from `pom.xml`:
+If, for whatever reason, we prefer not to have a RESTful API as secure as we would have with Auth0, we would have to proceed as explained in this section. First, we would need to remove Auth0's dependencies from `pom.xml`:
 
 ```xml
 <dependency>
@@ -336,7 +336,7 @@ If, by whatever reason, we prefer not to have a RESTful API as secure as we woul
 </dependency>
 ```
 
-After that we could also remove the two properties that we've added to the `application.properties` file, as they won't be used anymore. Then, to issue and validate JWTs, we would need to add the following Maven dependency:
+After that, we could also remove the two properties that we've added to the `application.properties` file, as they won't be used anymore. Then, to issue and validate JWTs, we would need to add the following Maven dependency:
 
 ```xml
 <dependency>
@@ -369,7 +369,7 @@ class ApplicationUser(
 )
 ```
 
-Nothing new over here. Just another data class that holds users' properties. After that we will create the `ApplicationUserRepository.kt` class in the `persistence` package, with the following code:
+Nothing new over here. Just another data class that holds users' properties. After that, we will create the `ApplicationUserRepository.kt` class in the `persistence` package with the following code:
 
 ```kotlin
 package com.auth0.samples.kotlinspringboot.persistence
@@ -382,7 +382,7 @@ interface ApplicationUserRepository : CrudRepository<ApplicationUser, Long> {
 }
 ```
 
-In this case, the only difference when compared to `CustomerRepository` is that we defined a method called `findByUsername`. This method will be used by our home made solution to find users by their usernames. Now the last class, `SignUpController.kt`, will be created in the `controller` package with the following code:
+In this case, the only difference when compared to `CustomerRepository` is that we defined a method called `findByUsername`. This method will be used by our homegrown solution to find users by their usernames. Now the last class, `SignUpController.kt`, will be created in the `controller` package with the following code:
 
 ```kotlin
 package com.auth0.samples.kotlinspringboot.controller
@@ -411,7 +411,7 @@ The only endpoint defined in this controller is the `signUp` one, which allows n
 
 ### Issuing and Validating JWTs with Kotlin
 
-Now that we have our `User` data class mapped and an endpoint to allow new users to register themselves, we need to allow these users to sign in and also validate JWTs before enabling them to interact with our API. To achieve this, we will create two filters and one class: `JWTAuthenticationFilter`, `JWTAuthorizationFilter`, and `UserDetailsServiceImpl`. The first one, which will be responsible for the sign in feature, will be created in a new directory file called `JWTAuthenticationFilter.kt` in the same package as the `WebSecurity` class. This file will have the following source code:
+Now that we have our `User` data class mapped and an endpoint to allow new users to register themselves, we need to allow these users to sign in and also validate JWTs before enabling them to interact with our API. To achieve this, we will create two filters and one class: `JWTAuthenticationFilter`, `JWTAuthorizationFilter`, and `UserDetailsServiceImpl`. The first filter, which will be responsible for the sign in feature, will be created in a new directory file called `JWTAuthenticationFilter.kt` in the same package as the `WebSecurity` class. This file will have the following source code:
 
 ```kotlin
 package com.auth0.samples.kotlinspringboot
@@ -471,10 +471,10 @@ class JWTAuthenticationFilter(authManager: AuthenticationManager) : UsernamePass
 
 This filter defines two functions:
 
-- `attemptAuthentication`, which will parse the credentials from the user and try to authenticate it
-- and `successfulAuthentication`, which will generate a JWT to users if they successfully authenticated.
+- `attemptAuthentication`, which will parse the credentials from the user and try to authenticate them
+- and `successfulAuthentication`, which will generate a JWT if the user is successfully authenticated.
 
-Note that this filter, as the other one that we will create, uses some undefined constants like `SECRET` and `EXPIRATION_TIME`. To define these constants we will create a file called `SecurityConstants.kt` in this same directory with the following code:
+Note that both filters use some undefined constants like `SECRET` and `EXPIRATION_TIME`. To define these constants, we will create a file called `SecurityConstants.kt` in this same directory with the following code:
 
 ```kotlin
 package com.auth0.samples.kotlinspringboot
@@ -544,9 +544,9 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenti
 }
 ```
 
-This filter will get in action whenever a secured endpoint is requested and will start by checking if there is a token in the `Authorization` header. If it manages to find one, it will try to validate it and set the user in the `SecurityContext`. If no token is found, it will simply let the request move along the Spring Security filter chain, and then this request will be answered with a 401 (Unauthorized) status code.
+This filter will be utilized whenever a secured endpoint is requested and will start by checking if there is a token in the `Authorization` header. If it manages to find one, it will try to validate it and set the user in the `SecurityContext`. If no token is found, it will simply let the request move along the Spring Security filter chain, and then this request will be answered with a 401 (Unauthorized) status code.
 
-The last class that we will need to create is `UserDetailsServiceImpl`. This class will extend `UserDetailsService` class from Spring Security and will be responsible for finding users in our database so Spring Security can check their credentials. This class will be create in the main `kotlinspringboot` directory and will contain the following source code:
+The last class that we will need to create is `UserDetailsServiceImpl`. This class will extend the `UserDetailsService` class from Spring Security and will be responsible for finding users in our database so Spring Security can check their credentials. This class will be created in the main `kotlinspringboot` directory and will contain the following source code:
 
 ```kotlin
 package com.auth0.samples.kotlinspringboot
@@ -615,7 +615,7 @@ open class WebSecurity(val userDetailsService: UserDetailsService) : WebSecurity
 }
 ```
 
-After applying these changes, we can interact with our API again and check if its properly generating and validating JWTs:
+After applying these changes, we can interact with our API again and check if it's properly generating and validating JWTs:
 
 ```bash
 # run Kotlin app again
@@ -637,7 +637,7 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
 curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/customers
 ```
 
-As you can see, to create our own security solution with JWTs is not that hard. But it requires much more work than what we had to do to integrate with Auth0. And keep in mind that we didn't even addressed more advanced topics like [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), [social identity providers](https://auth0.com/docs/identityproviders), [enterprise connections (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and etc. Having to handle such cases, would require us a lot more work. And even if we managed to deliver these features in a satisfactory speed, we wouldn't have as many security measures as we would while using Auth0.
+As you can see, creating our own security solution with JWTs is not that hard. However, it requires much more work than what we had to do to integrate with Auth0. And keep in mind that we didn't even address more advanced topics like [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), [social identity providers](https://auth0.com/docs/identityproviders), [enterprise connections (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), etc. Handling such cases would require a lot more work. Even if we managed to deliver these features swiftly, we wouldn't have as many security measures as we would while using Auth0.
 
 ## Conclusion
 
