@@ -69,7 +69,7 @@ So, to sum up, here are the reasons to consider JavaScript or other popular inte
 
 {% include tweet_quote.html quote_text="Dynamic languages on a microcontroller give you easy code updates and other benefits!" %}
 
-> The Particle Photon, one of the devices we will test in this series, can perform remote updates over-the-air for compiled code. This mode of operation, however, limits the available ROM space for user apps to 128KB.
+> The Particle Photon, one of the devices we will test in this series, can perform remote updates for compiled code over-the-air. This mode of operation, however, limits the available ROM space for user apps to 128KB.
 
 ### The Cons
 Of course, there are some downsides to picking JavaScript. For starters JavaScript was never designed to run on small, memory-limited devices. As such, certain constructs in the language can consume lots of memory. Most JavaScript interpreters require at least 150KB of ROM and at least 32KB of RAM. Anything smaller than that and you will have to stick to C/C++ or use a scripting language designed for small systems, like [Lua](https://www.lua.org/).
@@ -176,7 +176,7 @@ If you are running our Docker image on a Linux host, flashing the compiled firmw
 
 If you take a peek at the script, you will notice we are now giving the container full access to our USB devices. This is necessary for the container to send the firmware image to the Photon. After a few seconds, your Photon will reboot and you will see a flashing blue LED. This is our Hello World running!
 
-<video width="600" src="https://cdn.auth0.com/blog/iot1/OnAndOff.m4v"></video>
+<video width="600" src="https://cdn.auth0.com/blog/iot1/OnAndOff.m4v" controls></video>
 
 ##### Flashing Using the CLI In Your Host (Any Host)
 If you prefer to flash the firmware manually, you can use Particle's command line tools to do so.
@@ -452,7 +452,7 @@ nc -lk 3000
 
 You should see `Hello from JS!` in the console where you run `nc`. You can also type there and after pressing `ENTER` you should see the message pop up in the logs where you are running `Minicom`.
 
-<video width="600" src="https://cdn.auth0.com/blog/iot1/TCP.mp4"></video>
+<video width="600" src="https://cdn.auth0.com/blog/iot1/TCP.mp4" controls></video>
 
 You can use this example to use the Photon to communicate with remote hosts over WiFi from JavaScript! Do note that all communication is done in the clear, as there is no encryption of any kind yet. We will fix this in future posts in this series. 
 
