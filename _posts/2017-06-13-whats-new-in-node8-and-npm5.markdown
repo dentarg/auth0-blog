@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Node 8 and npm@5 release: What's new?"
-description: Node 8.0.0 and npm@5 were released a few days ago. Learn what's new in Node & npm!
-date: 2017-06-03 08:30
-category: Hot Topic, Tools
+description: "Node 8.0.0 and npm@5 were released a few days ago. Learn what's new in Node & npm!"
+date: 2017-06-13 08:30
+category: Technical Guide, Backend, NodeJS
 design:
   bg_color: "#4A4A4A"
   image: https://cdn.auth0.com/blog/nodenpm/logo.png
@@ -13,6 +13,7 @@ author:
   mail: prosper.otemuyiwa@auth0.com
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
 tags:
+- nodejs
 - npm
 - yarn
 - javascript
