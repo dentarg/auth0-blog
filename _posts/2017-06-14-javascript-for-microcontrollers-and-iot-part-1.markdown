@@ -2,7 +2,7 @@
 layout: post
 title: "JavaScript for Microcontrollers and IoT: Part 1"
 description: "Learn about the different options for running JavaScript on microcontrollers and IoT platforms"
-date: 2017-06-13 12:30
+date: 2017-06-14 12:30
 category: Technical Guide
 author:
   name: Sebastián Peyrott
@@ -39,7 +39,7 @@ The rise of JavaScript as the lingua-franca for the web has expanded its reach t
 -----
 
 ## Introduction
-I am firm believer that even if something is possible, that doesn't mean it should necessarily be done. And that's also what I think about JavaScript in general. In contrast to many people out there, I think it is a very reasonable programming language, even in spite of its warts. However, that doesn't mean it should be used for *everything*. So, in a way, I want to be very clear about something upfront: picking any programming language, for any task, is more than just a matter of choice or taste. One way to see this is to think of programming languages as tools. Tools are designed for certain uses and applications. Of course, you can take a hammer and use it to hammer down a screw instead of a nail. Most likely, the result will be subpar. Worst case, bad things will happen. And this applies to programming languages. JavaScript was designed to be *dynamic*, to allow users to *iterate* between versions rapidly, and to get out of the way for small automation tasks and scripts (those that you would normally find on a website). It was also designed to be easy to pick up by beginners and people familiar with the syntax of Java. Keep this in mind for the next sections where we will explore how JavaScript fits in this mindset. For now, just remember: think of programming languages as tools, and "pick the right tool for the right job."
+I am a firm believer that even if something is possible, that doesn't mean it should necessarily be done. And that's also what I think about JavaScript in general. In contrast to many people out there, I think it is a very reasonable programming language, even in spite of its warts. However, that doesn't mean it should be used for *everything*. So, in a way, I want to be very clear about something upfront: picking any programming language, for any task, is more than just a matter of choice or taste. One way to see this is to think of programming languages as tools. Tools are designed for certain uses and applications. Of course, you can take a hammer and use it to hammer down a screw instead of a nail. Most likely, the result will be subpar. Worst case, bad things will happen. And this applies to programming languages. JavaScript was designed to be *dynamic*, to allow users to *iterate* between versions rapidly, and to get out of the way for small automation tasks and scripts (those that you would normally find on a website). It was also designed to be easy to pick up by beginners and people familiar with the syntax of Java. Keep this in mind for the next sections where we will explore how JavaScript fits in this mindset. For now, just remember: think of programming languages as tools, and "pick the right tool for the right job."
 
 If you are not familiar with microcontrollers, one way to think of them is to picture a really old system, with very little RAM and a slow CPU, and of course with a very small "disk". Of course, microcontrollers come in different sizes, and some of the big ones can stand up to bigger systems, but their purposes are different: microcontrollers are usually designed to provide a certain amount of *programmability* while remaining cost-effective and small. Bigger systems, like the ones used in your smartphone, are incredibly more powerful but they are also much more expensive. So, it should come as no suprise that microcontrollers are getting used more and more in the IoT craze. They are cheaper than bigger systems, and the recent technological advances make microcontroller platforms increasingly more powerful and compact. This allows powerful programmability even in cheap products, like your run-of-the-mill IoT kettle.
 
@@ -144,7 +144,7 @@ First, make sure to have [Docker](http://docker.io/) installed. Then, download o
 sudo docker pull sebadoom/jerryphoton
 ```
 
-The image is set up to allow compilation of local files easily. In other words, there is no need to rebuild the image every time you want to compile code. This is achieved through Docker's volumes, a feature that allows seamless mounting of host directories inside a container. To test this, clone our [Hello World](https://github.com/auth0-blog/javascript-for-microncontrollers-example) repository in a local directory.
+The image is set up to allow compilation of local files easily. In other words, there is no need to rebuild the image every time you want to compile code. This is achieved through Docker's volumes, a feature that allows seamless mounting of host directories inside a container. To test this, clone our [Hello World](https://github.com/auth0-blog/javascript-for-microcontrollers-example) repository in a local directory.
 
 ```sh
 git clone TODO
@@ -159,7 +159,7 @@ Now compile it!
 
 > The script uses `sudo` to run Docker, you may edit this file if root privileges are not required in your system.
 
-It may not look like much, but our simple Hello World is actually compiling JerryScript along with it! We will talk about later, for now this doesn't do much, since we haven't exposed any of Particle's functionality to JerryScript, but the code compiles! You can find the resulting firmware in the `dist` folder of the project.
+It may not look like much, but our simple Hello World is actually compiling JerryScript along with it! We will talk about that later, for now this doesn't do much, since we haven't exposed any of Particle's functionality to JerryScript, but the code compiles! You can find the resulting firmware in the `dist` folder of the project.
 
 As the script passes the `--rm` argument to Docker, the container gets automatically destroyed after running the command, so there is no need to manually clean-up containers afterwards. We will now see how to flash our newly compiled firmware.
 
@@ -205,7 +205,7 @@ The `particle flash` command can also be used to flash devices remotely, through
 We now have a simple Hello World running on the Photon. As an added benefit of using our Docker image, we are also sure JerryScript is compiling along with it. Now let's talk a bit about JerryScript.
 
 ### JerryScript
-Now that we have our Photon development environment up and running, we can take a closer look at JerryScript. If you are not familiar with interpreters, here's how things usually go. First, you set up the interpreter by calling an initialiation function. This creates a new instance of the interpreter. Then you either call another function to parse and execute a script, or you first call parse a function, which gets the script ready to run, and then call another function to run it. When you no longer need the interpreter, a finalization/destruction function is called. So far so good. Things start to get murkier when either the interpreter or the native environment need to interact with each other. For scripts to be useful, this is necessary! So we will have to get our hands dirty. For the example in this article we have integrated some of the Particle APIs in our JavaScript environment, so you are free to use them out of the box!
+Now that we have our Photon development environment up and running, we can take a closer look at JerryScript. If you are not familiar with interpreters, here's how things usually go. First, you set up the interpreter by calling an initialization function. This creates a new instance of the interpreter. Then you either call another function to parse and execute a script, or you first call parse a function, which gets the script ready to run, and then call another function to run it. When you no longer need the interpreter, a finalization/destruction function is called. So far so good. Things start to get murkier when either the interpreter or the native environment need to interact with each other. For scripts to be useful, this is necessary! So we will have to get our hands dirty. For the example in this article we have integrated some of the Particle APIs in our JavaScript environment, so you are free to use them out of the box!
 
 JerryScript comes with its own build system which is independent from the Particle one. Fortunately, JerryScript already includes all that's necessary to easily integrate both build systems. In fact, when you ran the Docker compile script before, you actually used this integration! If you are interested in the gritty details, have a look at the [JerryScript/Particle integration README](https://github.com/jerryscript-project/jerryscript/tree/master/targets/particle).
 
@@ -219,7 +219,7 @@ As we mentioned before, JavaScript was not designed for memory limited systems. 
 
 It may be possible to enable these with some tinkering, but we haven't tested them. In fact, we found that enabling any other single feature resulted in code that exceeded the ROM limits of the Photon. Take into account that the 1MB of flash memory is shared with the underlying firmware, so the space available for the interpreter is much less than that. Still, this is very featureful.
 
-To switch profiles, take a look at the `Makefile.particle` file in our example. There are some knobs that may be of interest to you. Profiles are [set in line 47](https://github.com/auth0-blog/javascript-for-microncontrollers-example/blob/master/Makefile.particle#L47).
+To switch profiles, take a look at the `Makefile.particle` file in our example. There are some knobs that may be of interest to you. Profiles are [set in line 47](https://github.com/auth0-blog/javascript-for-microcontrollers-example/blob/master/Makefile.particle#L47).
 
 Before diving into our example, let's take a closer look at the JerryScript API.
 
