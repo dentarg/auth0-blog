@@ -23,8 +23,8 @@ tags:
 - growth
 - security
 related:
-- 2017-02-10-ultimate-account-based-marketing-machine-with-account-selection
-- 2015-08-18-how-to-go-upmarket-and-grow-your-revenue-by-20x
+- the-history-behind-when-build-becomes-buy
+- how-to-use-social-login-to-drive-your-apps-growth
 ---
 
 It's a question many companies, big and small, ask themselves: should I build a new platform or software from scratch or should I invest in a ready-made product?
