@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CakeFest 2017 Summary - Day Two"
-description: "Day 2 of CakeFest. Catch up on every thing that went down at the CakePHP Conference 2017"
+description: "Day 2 of CakeFest. Catch up on every thing that went down at the CakePHP Conference 2017."
 date: 2017-06-14 08:30
 category: Technical Guide, Conferences, CakePHP
 author:
@@ -10,12 +10,16 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#4a4a4a"
-  image: "https://cdn.auth0.com/blog/laravel-auth/logo.png"
+  bg_color: "#2098A1"
+  image: "https://cdn.auth0.com/blog/cakefest/logo.png"
 tags:
 - CakePHP
 - CakePHP-3.4
 - CakeFest
+related:
+- 2016-07-27-laracon-summary-day-1
+- 2016-07-29-laracon-summary-day-2
+- 2016-07-30-laracon-summary-day-3
 ---
 
 Day Two of CakeFest consisted of more talks. Several speakers took to the stage, and [Mark Story](https://twitter.com/mark_story) also revealed plans about the future of CakePHP. Check out our recap of Day One to learn about the talks that happened on the first day.
@@ -75,6 +79,6 @@ _CakeFest Attendees_
 
 ## Conclusion
 
-The final day of CakeFest was amazing. The speakers were great, and the sessions were lively and very educative. Kudos to Megan and the team for organizing such an amazing event.
+The final day of CakeFest was amazing. The speakers were great, and the sessions were lively and very educative. Kudos to [Megan](https://twitter.com/megslalk) and the team for organizing such an amazing event.
 
 If you are new to *CakePHP*, check out this [excellent tutorial](https://auth0.com/blog/creating-your-first-cakephp-app) that introduces you to the framework and teaches you how to create your first app and add authentication to it.
