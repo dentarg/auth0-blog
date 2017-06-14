@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CakeFest 2017 Summary - Day One"
-description: "Catch up on every thing that went down in the CakePHP Conference 2017"
+description: "Catch up on every thing that went down at the CakePHP Conference 2017."
 date: 2017-06-14 08:30
 category: Technical Guide, Conferences, CakePHP
 author:
@@ -10,24 +10,28 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#4a4a4a"
-  image: "https://cdn.auth0.com/blog/laravel-auth/logo.png"
+  bg_color: "#2098A1"
+  image: "https://cdn.auth0.com/blog/cakefest/logo.png"
 tags:
 - CakePHP
 - CakePHP-3.4
 - CakeFest
+related:
+- 2016-07-27-laracon-summary-day-1
+- 2016-07-29-laracon-summary-day-2
+- 2016-07-30-laracon-summary-day-3
 ---
 
 The annual [CakeFest](https://cakefest.org) conference is upon us again. A lot of people are excited about the various talks that are lined up for this conference. The [schedule](https://cakefest.org/schedule) has been up on the cakefest website for a while now!
 
 In today's article, I'll recap all the talks that happened and the announcements coming out of CakeFest 2017.
 
-**[Larry Masters]** opened the conference with his keynote.
+**Larry Masters** opened the conference with his keynote.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">CakeFest 2017 Keynote Larry E. Masters <a href="https://twitter.com/PhpNut">@phpnut</a> <a href="https://t.co/ODipR2A4LJ">https://t.co/ODipR2A4LJ</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873523709318799360">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-He announced CakePHP's support for [@OSMIhelp](https://twitter.com/OSMIhelp) and talked about the CakePHP elephpants that would be available soon for PHP developers to buy!
+He announced CakePHP's support for [@OSMIhelp](https://twitter.com/OSMIhelp) and talked about the CakePHP elephpants that would be available soon for PHP developers to buy. Developers can now buy CakePHP swag from the [Official CakePHP Swag Shop](https://swag.cakephp.org).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The <a href="https://twitter.com/cakephp">@cakephp</a> community will once again be stepping up with a special fundraiser for <a href="https://twitter.com/OSMIhelp">@osmihelp</a> <a href="https://twitter.com/hashtag/CakeFest2017?src=hash">#CakeFest2017</a> <a href="https://twitter.com/hashtag/php?src=hash">#php</a> <a href="https://t.co/3hYwpRy9w2">https://t.co/3hYwpRy9w2</a> <a href="https://t.co/3n64hWHnD2">pic.twitter.com/3n64hWHnD2</a></p>&mdash; Ed Finkler (@funkatron) <a href="https://twitter.com/funkatron/status/873530826260189188">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -40,14 +44,14 @@ He announced CakePHP's support for [@OSMIhelp](https://twitter.com/OSMIhelp) and
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">10 ways to improve Jose Rodriguez <a href="https://twitter.com/jose_zap">@jose_zap</a> <a href="https://t.co/8RbpeD2PB0">https://t.co/8RbpeD2PB0</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873541328306544640">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Legendary Ed Finkler](https://twitter.com/funkatrin)** talked about **Mental Health in the Developer Community**. He spoke against encouraging workaholism. He talked about health issues in the work place and encouraged companies to help their employees maintain a balanced work life. The healthier an employeed, the greate the value he brings to the company. You can check out his [OSMI project](https://osmihelp.org) and contribute to the cause.
+**[Legendary Ed Finkler](https://twitter.com/funkatrin)** talked about **Mental Health in the Developer Community**. He spoke against encouraging workaholism. He talked about health issues in the work place and encouraged companies to help their employees maintain a balanced work life. The healthier an employee, the greater the value he or she brings to the company. You can check out his [OSMI project](https://osmihelp.org) and contribute to the cause.
 
 You can listen to his session:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ed Finkler - Stronger Than Fear <a href="https://twitter.com/funkatron">@funkatron</a> <a href="https://t.co/rXzO2bi9ZJ">https://t.co/rXzO2bi9ZJ</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873554203339141120">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**Stefan van Gastel** - Technical Lead, Mobile Apps Military Police at Dutch Ministry of Defence talked about **CakePHP in a containerized (CI/CD) environment**. He spoke on the benefits of managing your apps in containers. He also gave a detailed breakdown of how they do it at the Dutch Ministry of Defence.
+**Stefan van Gastel** - Technical Lead, Mobile Apps Military Police at Dutch Ministry of Defence talked about **CakePHP in a containerized (CI/CD) environment**. He spoke on the benefits of managing your apps in containers. He also gave a detailed breakdown of how it works at the Dutch Ministry of Defence.
 
 You can listen to his session:
 
@@ -91,16 +95,10 @@ You can listen to her session here:
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Cultivating community: Building powerful relationships by communicating with empathy - Sharon Steed <a href="https://twitter.com/sharonsteed">@sharonsteed</a> <a href="https://t.co/yvi8LwVA57">https://t.co/yvi8LwVA57</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873646769480925184">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-Day 1 ended with some ligthning talks.
-
-<video width="320" height="240" controls>
-  <source src="https://www.pscp.tv/cakephp/1lPJqykgOkNJb" type="video/mp4">
-  <source src="https://www.pscp.tv/cakephp/1lPJqykgOkNJb" type="video/ogg">
-Your browser does not support the video tag.
-</video>
+Day 1 ended with some [lightning talks](https://www.pscp.tv/cakephp/1lPJqykgOkNJb).
 
 ## Conclusion
 
 Day 1 of CakeFest was awesome. The sessions were great and the attendees really connected well.
 
-To conclude, if you are new to CakePHP, check out this excellent tutorial that introduces you to the framework and teaches you how to create your first app and add authentication to it.
+To conclude, if you are new to CakePHP, check out this [excellent tutorial](https://auth0.com/blog/creating-your-first-cakephp-app) that introduces you to the framework and teaches you how to create your first app and add authentication to it.
