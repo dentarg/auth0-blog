@@ -40,7 +40,7 @@ Existing native modules are written in C/C++ and directly depend on V8 or [Nativ
 
 Now, the **N-API** is here to eliminate breakage of dependencies that happens between release lines with native modules. The full N-API functions can be found in the [documentation](https://nodejs.org/api/n-api.html).
 
-**Note:** These 5 modules, [node-sass](Node-Sass), [canvas](https://github.com/jasongin/node-canvas) , [leveldown](https://github.com/boingoing/leveldown/) , [nanomsg](https://github.com/sampsongao/node-nanomsg), and [iotivity](https://github.com/gabrielschulhof/iotivity-node/tree/abi-stable) have successfully been ported to use N-API.
+**Note:** These 5 modules, [node-sass](https://github.com/sass/node-sass), [canvas](https://github.com/jasongin/node-canvas) , [leveldown](https://github.com/boingoing/leveldown/) , [nanomsg](https://github.com/sampsongao/node-nanomsg), and [iotivity](https://github.com/gabrielschulhof/iotivity-node/tree/abi-stable) have successfully been ported to use N-API.
 
 Native modules builders and users can start experimenting with this feature. More details can be found [here](https://medium.com/@nodejs/n-api-next-generation-node-js-apis-for-native-modules-169af5235b06).
 
