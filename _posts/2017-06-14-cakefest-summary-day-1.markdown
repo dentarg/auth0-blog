@@ -17,9 +17,8 @@ tags:
 - CakePHP-3.4
 - CakeFest
 related:
+- 2017-06-01-creating-your-first-cakephp-app
 - 2016-07-27-laracon-summary-day-1
-- 2016-07-29-laracon-summary-day-2
-- 2016-07-30-laracon-summary-day-3
 ---
 
 The annual [CakeFest](https://cakefest.org) conference is upon us again. A lot of people are excited about the various talks that are lined up for this conference. The [schedule](https://cakefest.org/schedule) has been up on the cakefest website for a while now!
