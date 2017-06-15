@@ -2,7 +2,7 @@
 layout: post
 title: "CakeFest 2017 Summary - Day One"
 description: "Catch up on every thing that went down at the CakePHP Conference 2017."
-date: 2017-06-14 08:30
+date: 2017-06-15 08:30
 category: Technical Guide, Conferences, CakePHP
 author:
   name: "Prosper Otemuyiwa"
@@ -21,7 +21,7 @@ related:
 - 2016-07-27-laracon-summary-day-1
 ---
 
-The annual [CakeFest](https://cakefest.org) conference is upon us again. A lot of people are excited about the various talks that are lined up for this conference. The [schedule](https://cakefest.org/schedule) has been up on the cakefest website for a while now!
+The annual [CakeFest](https://cakefest.org) conference is upon us again. A lot of people are excited about the various talks that are lined up for this conference. You can find the [schedule](https://cakefest.org/schedule) on the cakefest website, where all the talks are listed.
 
 In today's article, I'll recap all the talks that happened and the announcements coming out of CakeFest 2017.
 
