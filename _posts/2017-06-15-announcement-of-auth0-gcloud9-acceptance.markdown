@@ -2,8 +2,8 @@
 layout: post
 title: "Announcement of Auth0's G-Cloud 9 Acceptance"
 description: "Auth0's inclusion into the G-Cloud 9 Framework helps democratize access to robust identity management to the United Kingdom's public sector."
-date: 2017-06-06 8:30
-category: Growth, Modern Authentication
+date: 2017-06-15 14:30
+category: Announcemnt, Certifications
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
@@ -12,13 +12,16 @@ author:
 design:
   image: https://cdn.auth0.com/blog/gcloudacceptance/logo.png
   bg_color: "#35354D"
+press_release: true
+is_non-tech: true
 tags:
 - security
 - passwordless
 - social-login
 related:
-- 2016-11-23-how-passwordless-authentication-works
-- 2016-10-17-sso-login-key-benefits-and-implementation
+- why-hipaa-compliance-is-vital-your-business
+- announcing-auth0-eu-us-privacy-shield-certification
+- why-hipaa-compliance-is-vital-your-business
 ---
 
 Auth0 is excited to announce our inclusion into the Cloud Services Category of the G-Cloud 9 Framework, part of the United Kingdom's official [Digital Marketplace](https://www.digitalmarketplace.service.gov.uk/). Inclusion to this digital marketplace enables UK government agencies to purchase crucial cloud and security tools online without having to submit specific tenders or contracts to use these services. It is our hope that inclusion into this framework will help make robust identity and authentication management a more accessible and seamless experience for the public sector.
