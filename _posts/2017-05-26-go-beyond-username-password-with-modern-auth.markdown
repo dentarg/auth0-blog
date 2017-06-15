@@ -18,6 +18,7 @@ tags:
 - security
 - passwordless
 - social-login
+is_non-tech: true
 related:
 - 2016-11-23-how-passwordless-authentication-works
 - 2016-10-17-sso-login-key-benefits-and-implementation
