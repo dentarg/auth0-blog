@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CakeFest 2017 Summary - Day One"
-description: "Catch up on every thing that went down at the CakePHP Conference 2017."
+description: "Catch up on every thing that went down at the 2017 CakePHP Conference."
 date: 2017-06-15 08:30
 category: Technical Guide, Conferences, CakePHP
 author:
@@ -21,7 +21,7 @@ related:
 - 2016-07-27-laracon-summary-day-1
 ---
 
-The annual [CakeFest](https://cakefest.org) conference is upon us again. A lot of people are excited about the various talks that are lined up for this conference. You can find the [schedule](https://cakefest.org/schedule) on the cakefest website, where all the talks are listed.
+The annual [CakeFest](https://cakefest.org) conference is upon us again. A lot of people are excited about the various talks that are lined up. You can find the [schedule](https://cakefest.org/schedule) on the CakeFest website, where all the talks are listed.
 
 In today's article, I'll recap all the talks that happened and the announcements coming out of CakeFest 2017.
 
@@ -30,7 +30,7 @@ In today's article, I'll recap all the talks that happened and the announcements
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">CakeFest 2017 Keynote Larry E. Masters <a href="https://twitter.com/PhpNut">@phpnut</a> <a href="https://t.co/ODipR2A4LJ">https://t.co/ODipR2A4LJ</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873523709318799360">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-He announced CakePHP's support for [@OSMIhelp](https://twitter.com/OSMIhelp) and talked about the CakePHP elephpants that would be available soon for PHP developers to buy. Developers can now buy CakePHP swag from the [Official CakePHP Swag Shop](https://swag.cakephp.org).
+Larry announced CakePHP's support for [@OSMIhelp](https://twitter.com/OSMIhelp) and talked about the CakePHP elePHPants that would be available soon for PHP developers to buy. Developers can now buy CakePHP swag from the [Official CakePHP Swag Shop](https://swag.cakephp.org).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The <a href="https://twitter.com/cakephp">@cakephp</a> community will once again be stepping up with a special fundraiser for <a href="https://twitter.com/OSMIhelp">@osmihelp</a> <a href="https://twitter.com/hashtag/CakeFest2017?src=hash">#CakeFest2017</a> <a href="https://twitter.com/hashtag/php?src=hash">#php</a> <a href="https://t.co/3hYwpRy9w2">https://t.co/3hYwpRy9w2</a> <a href="https://t.co/3n64hWHnD2">pic.twitter.com/3n64hWHnD2</a></p>&mdash; Ed Finkler (@funkatron) <a href="https://twitter.com/funkatron/status/873530826260189188">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -43,9 +43,9 @@ He announced CakePHP's support for [@OSMIhelp](https://twitter.com/OSMIhelp) and
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">10 ways to improve Jose Rodriguez <a href="https://twitter.com/jose_zap">@jose_zap</a> <a href="https://t.co/8RbpeD2PB0">https://t.co/8RbpeD2PB0</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873541328306544640">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Legendary Ed Finkler](https://twitter.com/funkatrin)** talked about **Mental Health in the Developer Community**. He spoke against encouraging workaholism. He talked about health issues in the work place and encouraged companies to help their employees maintain a balanced work life. The healthier an employee, the greater the value he or she brings to the company. You can check out his [OSMI project](https://osmihelp.org) and contribute to the cause.
+**[Legendary Ed Finkler](https://twitter.com/funkatrin)** talked about **Mental Health in the Developer Community**. He spoke against encouraging workaholism. He talked about health issues in the work place and encouraged companies to help their employees maintain work life balance. The healthier an employee, the greater the value he or she brings to the company. You can check out his [OSMI project](https://osmihelp.org) and contribute to the cause.
 
-You can listen to his session:
+You can listen to his session below:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ed Finkler - Stronger Than Fear <a href="https://twitter.com/funkatron">@funkatron</a> <a href="https://t.co/rXzO2bi9ZJ">https://t.co/rXzO2bi9ZJ</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873554203339141120">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -66,21 +66,21 @@ You can check out my session here:
 
 These are my [slides](https://speakerdeck.com/unicodeveloper/progressive-web-apps-for-cakephp-developers-1).
 
-**[Jeff Kolesnikowicz](https://twitter.com/jkolez)** talked about **Realtime PHP using Websockets**. He explained the Realtime Architecture and showed a live demo about implementing realtime using websockets.
+**[Jeff Kolesnikowicz](https://twitter.com/jkolez)** talked about **Realtime PHP using Websockets**. He explained the realtime architecture and showed a live demo about implementing realtime using websockets.
 
 Check out his session here:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="pl" dir="ltr">Realtime PHP using websockets - Jeff Kolesnikowicz <a href="https://twitter.com/jkolez">@jkolez</a> <a href="https://t.co/CjeOwAfnCf">https://t.co/CjeOwAfnCf</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873605971594969088">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Ed Barnard](https://twitter.com/ewbarnard)**: Ed has been a programmer for over three decades. He talked about **CakePHP Prepared Statements Ease MySQL Table Design**. In my opinion, this was the most technical session of the conference. He talked about optimizing MySQL, writing great queries, awesome prepared statements and general database design.
+**[Ed Barnard](https://twitter.com/ewbarnard)**: Ed has been a programmer for over three decades. He talked about **CakePHP Prepared Statements Ease MySQL Table Design**. In my opinion, this was the most technical session of the conference. He talked about optimizing MySQL, writing great queries, utilizing prepared statements, and general database design.
 
 Check out his session here:
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">CakePHP Prepared Statements Ease MySQL Table Design - Ed Barnard  <a href="https://twitter.com/ewbarnard">@ewbarnard</a> <a href="https://t.co/0N4YoGSOsJ">https://t.co/0N4YoGSOsJ</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873617478445801472">June 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Jose Gonzalez](https://twitter.com/savant)**: Jose is a CakePHP core contributor. He talked about **Open Source Infrastructure** . He informed the audience about how the opensourceCakePHP build process is set up, and how he automates everything in a way that newbies can get along really well.
+**[Jose Gonzalez](https://twitter.com/savant)**: Jose is a CakePHP core contributor. He talked about **Open Source Infrastructure**. He informed the audience about how the **opensourceCakePHP** build process is set up, and how he automates everything in a way that newbies can get along really well.
 
 Check out his session here:
 
