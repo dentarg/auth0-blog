@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CakeFest 2017 Summary - Day One"
-description: "Catch up on every thing that went down at the 2017 CakePHP Conference."
+description: "Catch up on everything that went down at the 2017 CakePHP Conference."
 date: 2017-06-15 08:30
 category: Technical Guide, Conferences, CakePHP
 author:
