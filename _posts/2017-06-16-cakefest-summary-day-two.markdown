@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CakeFest 2017 Summary - Day Two"
-description: "Day 2 of CakeFest. Catch up on every thing that went down at the CakePHP Conference 2017."
+description: "Day 2 of CakeFest. Catch up on everything that went down at the 2017 CakePHP Conference."
 date: 2017-06-16 08:30
 category: Technical Guide, Conferences, CakePHP
 author:
@@ -22,9 +22,9 @@ related:
 - 2016-07-27-laracon-summary-day-1
 ---
 
-Day Two of CakeFest consisted of more talks. Several speakers took to the stage, and [Mark Story](https://twitter.com/mark_story) also revealed plans about the future of CakePHP. Check out our recap of Day One to learn about the talks that happened on the first day.
+Day two of CakeFest consisted of more talks. Several speakers took to the stage, and [Mark Story](https://twitter.com/mark_story) revealed plans for the future of CakePHP. Check out our recap of [Day One](https://auth0.com/blog/cakefest-summary-day-1/) to learn about the talks that happened on the first day.
 
-**[Heather White](https://twitter.com/CattyHeather)** talked about **Stepping Outside Your Comfort Zone: Learning to Teach**. She spoke about the different ways of learning. She also talked extensively about Adult learners.
+**[Heather White](https://twitter.com/CattyHeather)** talked about **Stepping Outside Your Comfort Zone: Learning to Teach**. She spoke about the different ways of learning. She also talked extensively about adult learners.
 
 You can listen to her session:
 
@@ -40,7 +40,7 @@ You can listen to his session:
 
 Check out his slides: [The Road Ahead - 3.4 and the path to 4.0](https://www.slideshare.net/markstory/cakephp-the-road-ahead)
 
-**[Viraj Khatavkar](https://twitter.com/virajkhatavkar)** talked about **Testing For People Who Hate Testing**. He evangelized the Test-driven approach (TDD). Furthermore, he live-coded a blog on stage by using the test-driven approach. And he made testing seem very easy to the attendees. Great session!
+**[Viraj Khatavkar](https://twitter.com/virajkhatavkar)** talked about **Testing For People Who Hate Testing**. He evangelized the test-driven development approach (TDD). Furthermore, he live-coded a blog on stage by using the test-driven approach and made testing seem very easy to the attendees. Great session!
 
 You can listen to his session:
 
@@ -48,7 +48,7 @@ You can listen to his session:
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-**[Legendary Femi Taiwo](https://twitter.com/dftaiwo)** talked about **Building for a Million Transactions Per Hour**. His talk was based around the 2015 Nigerian Presidential election case study. His team had 24 days to learn, design, develop and deploy an election software. Learn how his team succeeded despite the short notice and how they scaled to accomodate the large Nigerian population.
+**[Legendary Femi Taiwo](https://twitter.com/dftaiwo)** talked about **Building for a Million Transactions Per Hour**. His talk was based around the 2015 Nigerian Presidential election case study. His team had 24 days to learn, design, develop, and deploy an election based application. Learn how his team succeeded despite the short notice and how they scaled to accomodate the large Nigerian population.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/dftaiwo">@dftaiwo</a> killing it on &quot;Building for a million transactions per hour&quot; at <a href="https://twitter.com/cakephp">@cakephp</a> <a href="https://twitter.com/hashtag/CakeFest2017?src=hash">#CakeFest2017</a> <a href="https://twitter.com/hashtag/cakefest?src=hash">#cakefest</a> <a href="https://twitter.com/hashtag/CakePHP?src=hash">#CakePHP</a> 🔥🔥🔥🔥🔥 <a href="https://t.co/g1zmkzSmYQ">pic.twitter.com/g1zmkzSmYQ</a></p>&mdash; Prosper Otemuyiwa (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/873970685122686976">June 11, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -66,7 +66,7 @@ You can listen to his session:
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Machine Learning: one step closer to J-Day - Mariano Iglesias <a href="https://twitter.com/mgiglesias">@mgiglesias</a> <a href="https://t.co/LwCo9b7l6f">https://t.co/LwCo9b7l6f</a></p>&mdash; CakePHP (@cakephp) <a href="https://twitter.com/cakephp/status/873992535466680320">June 11, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-The Core CakePHP team came on stage for a lively session of Q & A. It was informative and also hilarious. Check out the [Q & A session here](https://twitter.com/cakephp/status/874012117107580928).
+The Core CakePHP team came on stage for a lively session of Q&A. It was informative and also hilarious. Check out the [Q & A session here](https://twitter.com/cakephp/status/874012117107580928).
 
 Finally, the conference ended with the cutting of the Cake.
 
@@ -75,10 +75,10 @@ Finally, the conference ended with the cutting of the Cake.
 ![CakeFest Attendees](https://cdn.auth0.com/blog/cakefest/attendees.png)
 _CakeFest Attendees_
 
-[Larry Masters](https:twitter.com/phpnut) has announced that next year's CakeFest will happen in NashVille.
+[Larry Masters](https:twitter.com/phpnut) has announced that next year's CakeFest will happen in Nashville.
 
 ## Conclusion
 
-The final day of CakeFest was amazing. The speakers were great, and the sessions were lively and very educative. Kudos to [Megan](https://twitter.com/megslalk) and the team for organizing such an amazing event.
+The final day of CakeFest was amazing. The speakers were great, and the sessions were lively and very informative. Kudos to [Megan](https://twitter.com/megslalk) and the team for organizing such an amazing event.
 
-If you are new to *CakePHP*, check out this [excellent tutorial](https://auth0.com/blog/creating-your-first-cakephp-app) that introduces you to the framework and teaches you how to create your first app and add authentication to it.
+If you are new to *CakePHP*, check out this [excellent tutorial](https://auth0.com/blog/creating-your-first-cakephp-app) that introduces you to the framework and teaches you how to create your first app as well as add authentication to it.
