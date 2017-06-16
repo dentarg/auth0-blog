@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Digital Transformation Webinar with Andras Cser and Auth0"
+title: "Join Us For a Digital Transformation Webinar Featuring Forrester's Andras Cser!"
 description: "Digital Transformation Beyond the Hype - What really matters and the role of identity."
-date: 2017-06-15 8:30
+date: 2017-06-16 8:30
 category: Announcements, Resource
 press_release: true
 author:
