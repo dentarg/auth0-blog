@@ -17,9 +17,9 @@ tags:
 - CakePHP-3.4
 - CakeFest
 related:
+- cakefest-summary-day-1
+- creating-your-first-cakephp-app
 - 2016-07-27-laracon-summary-day-1
-- 2016-07-29-laracon-summary-day-2
-- 2016-07-30-laracon-summary-day-3
 ---
 
 Day Two of CakeFest consisted of more talks. Several speakers took to the stage, and [Mark Story](https://twitter.com/mark_story) also revealed plans about the future of CakePHP. Check out our recap of Day One to learn about the talks that happened on the first day.
