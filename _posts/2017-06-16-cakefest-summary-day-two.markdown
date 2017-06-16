@@ -2,7 +2,7 @@
 layout: post
 title: "CakeFest 2017 Summary - Day Two"
 description: "Day 2 of CakeFest. Catch up on every thing that went down at the CakePHP Conference 2017."
-date: 2017-06-14 08:30
+date: 2017-06-16 08:30
 category: Technical Guide, Conferences, CakePHP
 author:
   name: "Prosper Otemuyiwa"
