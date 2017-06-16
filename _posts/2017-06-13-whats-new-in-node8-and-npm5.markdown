@@ -19,9 +19,8 @@ tags:
 - javascript
 - package manager
 related:
-- 2016-09-06-use-nginx-plus-and-auth0-to-authenticate-api-clients
+- building-and-authenticating-nodejs-apps
 - 2016-06-29-learn-more-about-our-jwt-chrome-debugger-extension
-- 2016-10-12-five-things-you-can-do-with-yarn
 ---
 
 ---
