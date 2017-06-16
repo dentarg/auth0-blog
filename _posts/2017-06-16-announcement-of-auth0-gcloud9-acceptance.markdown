@@ -2,7 +2,7 @@
 layout: post
 title: "Auth0 is now part of UK's official Digital Marketplace G-Cloud 9 framework"
 description: "Auth0's inclusion into the G-Cloud 9 Framework helps democratize access to robust identity management to the United Kingdom's public sector."
-date: 2017-06-16 8:30
+date: 2017-06-16 12:30
 category: Announcemnt, Certifications
 author:
   name: Diego Poza
