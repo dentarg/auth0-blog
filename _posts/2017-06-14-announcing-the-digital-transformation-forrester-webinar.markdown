@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Join Us For a Digital Transformation Webinar Featuring Forrester's Andras Cser!"
+title: "Digital Transformation Webinar With Forrester's Andras Cser"
 description: "Digital Transformation Beyond the Hype - What really matters and the role of identity."
 date: 2017-06-16 8:30
 category: Announcements, Resource
