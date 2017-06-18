@@ -40,6 +40,8 @@ Existing native modules are written in C/C++ and directly depend on V8 or [Nativ
 
 Now, the **N-API** is here to eliminate breakage of dependencies that happens between release lines with native modules. The full N-API functions can be found in the [documentation](https://nodejs.org/api/n-api.html).
 
+{% include tweet_quote.html quote_text="N-API is here to eliminate breakage of dependencies that happens between release lines with native modules." %}
+
 **Note:** These 5 modules, [node-sass](https://github.com/sass/node-sass), [canvas](https://github.com/jasongin/node-canvas) , [leveldown](https://github.com/boingoing/leveldown/) , [nanomsg](https://github.com/sampsongao/node-nanomsg), and [iotivity](https://github.com/gabrielschulhof/iotivity-node/tree/abi-stable) have successfully been ported to use N-API.
 
 Native modules builders and users can start experimenting with this feature. More details can be found [here](https://medium.com/@nodejs/n-api-next-generation-node-js-apis-for-native-modules-169af5235b06).
@@ -210,6 +212,8 @@ _Installing react-native_
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 One of the benefits of Yarn over npm was faster package install, but with `npm@5`, you don't need to brew coffee anymore during waiting time! Your modules install before you say Jack! Well, literally not at that speed, but it takes lesser time to install node modules. Significant performance improvements of 20 to 100 percent!
+
+{% include tweet_quote.html quote_text="With npm@5, you don't need to brew coffee anymore during waiting time!" %}
 
 ![Install express via npm 5](https://cdn.auth0.com/blog/nodenpm/installexpressnpm.png)
 _Installing express using npm 5_
