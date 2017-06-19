@@ -12,6 +12,7 @@ author:
 design:
   bg_color: "#4a4a4a"
   image: "https://cdn.auth0.com/blog/identity-firewall/logo.png"
+is_non-tech: true
 tags:
 - identity
 - firewall
