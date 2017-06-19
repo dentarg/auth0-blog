@@ -2,16 +2,17 @@
 layout: post
 title: "How To Keep Up With Hyper-Connected Consumers"
 description: "A unified strategy can help you understand your customers, and identity is the key to making it happen"
-date: 2017-06-07 14:05
+date: 2017-06-19 14:05
 category: Growth, Industries
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   bg_color: "#5D0070"
-  image: https://cdn.auth0.com/blog/hyperconnected-customers/logo.png
+  image: https://cdn.auth0.com/blog/hyperconnected-customers/logo2.png
+is_non-tech: true
 tags:
 - security
 - customers
