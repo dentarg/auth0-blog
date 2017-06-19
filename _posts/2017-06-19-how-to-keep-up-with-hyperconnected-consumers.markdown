@@ -10,7 +10,7 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  bg_color: "#5D0070"
+  bg_color: "#002A5A"
   image: https://cdn.auth0.com/blog/hyperconnected-customers/logo2.png
 is_non-tech: true
 tags:
