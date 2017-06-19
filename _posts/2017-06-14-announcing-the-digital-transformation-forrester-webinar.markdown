@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Digital Transformation Webinar With Forrester's Andras Cser"
-description: "Digital Transformation Beyond the Hype - What really matters and the role of identity."
+description: "Digital Transformation Beyond the Hype - Why it matters, and the importance of identity."
 date: 2017-06-16 8:30
 category: Announcements, Resource
 press_release: true
@@ -24,18 +24,18 @@ related:
 - 5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 ---
 
-We live in a world where everything, almost everything is going digital. Businesses and Organizations around the world are taking advantage of technology to move from *Local* to *Global*. They are rapidly adopting technologies such as *Serverless*, *Cloud*, and *Internet of Things (IOT)* to accelerate business processes.
+We live in a world where nearly everything is going digital. Businesses and organizations around the world are taking advantage of technology to move from *local* to *global*. They are rapidly adopting technologies such as *serverless*, *cloud*, and *Internet of Things (IOT)* to accelerate business processes.
 
-**Digital Transformation** is the accelerated transformation of processes, business activities and models via digital technologies to enhance impact across society in a strategic and prioritized way.
+**Digital transformation** is the accelerated transformation of processes, business activities, and models via digital technologies to enhance impact across society in a strategic and prioritized way.
 
-Digital Transformation offers immense benefits. Companies that achieve digital transformation before their competitors will have enough leverage to rule the market for a long time. With digital transformation, you can:
+Digital transformation offers immense benefits. Companies that achieve digital transformation before their competitors will have enough leverage to rule the market for a long time. With digital transformation, you can:
 
 * Deliver insights based on historical and real-time data.
-* Improve efficiency by automating as many things as possible, and use captured data to recognize areas of your business that needs intervention.
-* Be one step ahead of your competitors - Real-time data provides you with insights that might not be readily available to your competitors. Furthermore, it allows you to act now!
-* Deliver innovative outcomes by building new processes, services, applications that creates appreciable values for your customers.
+* Improve efficiency by automating as many things as possible and use captured data to recognize areas of your business that need intervention.
+* Be one step ahead of your competitors: real-time data provides you with insights that might not be readily available to your competitors. Furthermore, it allows you to act now!
+* Deliver innovative outcomes by building new processes, services, and applications that create appreciable values for your customers.
 
-At Auth0, we leverage digital transformation at the core. Therefore, it has provided us with a lot of freedom and power to explore expansive options for the products we build and the cutting edge features we add to these products to protect our subscribers, their users and business.
+At Auth0, we leverage digital transformation at the core. Digital transformation has provided us with a lot of freedom and power to explore expansive options for the products we build and the cutting edge features we add to these products to protect our subscribers, their users, and their businesses.
 
 We are organizing an *Exclusive Q & A session* with *Forrester's Andras Cser*. Join us for a webinar as we explore why identity plays a critical role in digital transformation projects.
 
