@@ -19,9 +19,9 @@ tags:
 - identity
 - auth0
 related:
-- 2016-09-22-yahoo-confirms-data-breach-of-half-a-billion-user-accounts
-- 2016-08-16-how-real-state-companies-can-implement-open-id-connect-with-auth0
-- 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
+- the-three-best-ways-to-create-the-single-vision-of-a-customer
+- the-firewall-of-the-future-is-identity 
+- go-beyond-username-password-with-modern-auth
 ---
 
 The relationship between brands and consumers has fundamentally shifted in the digital age.
@@ -71,7 +71,7 @@ Identity management is a key component of putting into place a unified commerce 
 
 * **Enable a single view of the consumer in real time.** IAM systems can store customer information in their unique profiles, allowing activity across different devices and channels to be consolidated in one place. From their preferences to their login history, and many other details that you can augment profiles with, customers become one person in one place, no matter how many different ways they interact with you.
 
-* Help streamline customer acquisition. Good identity management will keep your customers happy by creating a near-frictionless experience with social login for customers and it will store their social information for you to use later. It should also help you streamline your data-gathering by enabling you to progressively profile customers — that is, to gather information from them over time rather than flooding them with information requests at signup. And, of course your IAM should keep you up-to-date on the latest login, so when customers expect magic links, biometrics, and whatever future logins that may appear, you won't lose customers who expect the most streamlined, safest, and most cutting-edge digital experience.
+* **Help streamline customer acquisition.** Good identity management will keep your customers happy by creating a near-frictionless experience with social login for customers and it will store their social information for you to use later. It should also help you streamline your data-gathering by enabling you to progressively profile customers — that is, to gather information from them over time rather than flooding them with information requests at signup. And, of course your IAM should keep you up-to-date on the latest login, so when customers expect magic links, biometrics, and whatever future logins that may appear, you won't lose customers who expect the most streamlined, safest, and most cutting-edge digital experience.
 
 * **Drive efforts to engage customers, especially on digital platforms.** When all customer data is being collected and tracked in one place, whoever is involved in shaping the customer experience can have richer, deeper insights into patrons. This means that whether customers log onto their rewards center or step into a store they'll receive personalized attention. Even small details like recommendations for free samples based on order history can go a long way to deepening customer engagement through personalization.
 
