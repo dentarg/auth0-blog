@@ -2,7 +2,7 @@
 layout: post
 title: "Massive Data Leak Exposes 198 Million US Voters"
 description: "Sensitive personal information of 198 million Americans citizens, with potential political inclinations, were exposed by a data analysis firm."
-date: 2017-06-19 23:13
+date: 2017-06-20 10:00
 category: Hot Topics, Security, Breaches
 author:
   name: "Bruno Krebs"
