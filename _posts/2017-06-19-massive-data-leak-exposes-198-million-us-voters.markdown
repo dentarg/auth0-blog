@@ -41,7 +41,7 @@ The second directory, *target_point*, contained information about voters' likely
 
 The reporter responsible for the official announcement was able, after determining his identifier in the spreadsheets, to view his modeled policy preferences and political actions as calculated by the contractors. He stated, to his surprise, that the results forecasted by the companies were pretty accurate. Therefore, what we can see here is that a reckless action taken by Deep Root Analytics, ignoring the most basic security measures, exposed a very detailed and precise dossier about virtually all potential voters in America.
 
-{% include tweet_quote.html quote_text="Virtually all potential voters in America had their data leaked." %}
+{% include tweet_quote.html quote_text="Virtually all potential voters in America had their personal data leaked." %}
 
 To take a deeper look in the security breach details, [check the official announcement made by UpGuard](https://www.upguard.com/breaches/the-rnc-files).
 
