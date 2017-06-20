@@ -2,14 +2,14 @@
 layout: post
 title: "Digital Transformation Webinar With Forrester's Andras Cser"
 description: "Digital Transformation Beyond the Hype - Why it matters, and the importance of identity."
-date: 2017-06-16 8:30
-category: Announcements, Resource
-press_release: true
+date: 2017-06-20 12:30
+category: Announcements, Webinar
+is_non-tech: true
 author:
-  name: "Prosper Otemuyiwa"
-  url: "https://twitter.com/unicodeveloper"
-  mail: "prosper.otemuyiwa@auth0.com"
-  avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   bg_color: "#00563F"
   image: https://cdn.auth0.com/blog/digitaltransformation/logo.png
