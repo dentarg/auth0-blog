@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Massive Data Leak Exposes 198 Million US Voters"
-description: "Sensitive personal information of 198 million Americans citizens, with potential political inclinations, were exposed by a data analysis firm."
+description: "Sensitive personal information of 198 million Americans citizens, with potential political inclinations, was exposed by a data analysis firm."
 date: 2017-06-20 10:00
 category: Hot Topics, Security, Breaches
 author:
@@ -63,4 +63,4 @@ To check how we protect the most sensitive data of our customers and their users
 
 Security has always been hard and it will become even harder as companies continue to migrate to cloud solutions. One of the ways to approach security is by [keeping multiple layers that complement each other](https://auth0.com/blog/navy-data-leaked/). But, when it comes to sensitive data, like personal information, it is better to rely on companies where employees are fully focused on improving data security, at rest and in motion, like Auth0.
 
-While one can (and must) invest time on, at least, basic security checks and configuration, they will never be able to achieve the same level of security of companies that are specialized on handling sensitive data. [That's why sometimes it is better to buy external solutions, from reliable companies, then to build your own](https://auth0.com/blog/when-to-build-and-when-to-buy/).
+While one can (and must) invest time on, at least, basic security checks and configuration, they will never be able to achieve the same level of security of companies that are specialized on handling sensitive data. [That's why sometimes it is better to buy external solutions, from reliable companies, than building your own](https://auth0.com/blog/when-to-build-and-when-to-buy/).
