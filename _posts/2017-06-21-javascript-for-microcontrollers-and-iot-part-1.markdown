@@ -147,8 +147,8 @@ sudo docker pull sebadoom/jerryphoton
 The image is set up to allow compilation of local files easily. In other words, there is no need to rebuild the image every time you want to compile code. This is achieved through Docker's volumes, a feature that allows seamless mounting of host directories inside a container. To test this, clone our [Hello World](https://github.com/auth0-blog/javascript-for-microcontrollers-example) repository in a local directory.
 
 ```sh
-git clone TODO
-cd TODO
+git clone https://github.com/auth0-blog/javascript-for-microcontrollers-example
+cd javascript-for-microcontrollers-example
 ```
 
 Now compile it!
