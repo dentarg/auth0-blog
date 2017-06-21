@@ -157,7 +157,7 @@ Now compile it!
 ./compile.sh
 ```
 
-> The script uses `sudo` to run Docker, you may edit this file if root privileges are not required in your system.
+> The scripts use Docker. Some systems require elevated privileges to run Docker, in that case prepend `sudo` before calling each script.
 
 It may not look like much, but our simple Hello World is actually compiling JerryScript along with it! We will talk about that later, for now this doesn't do much, since we haven't exposed any of Particle's functionality to JerryScript, but the code compiles! You can find the resulting firmware in the `dist` folder of the project.
 
