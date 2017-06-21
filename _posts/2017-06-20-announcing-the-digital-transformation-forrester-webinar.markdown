@@ -24,9 +24,10 @@ related:
 - 5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 ---
 
----
 **TL;DR:** Auth0 is doing a joint webinar with Forrester about Digital Transformation and how that's linked to identity. [Register for the Webinar](https://register.gotowebinar.com/register/6951472434145730819): June 29th at 8am - 9am PST.
+
 ---
+
 We live in a world where nearly everything is going digital. Businesses and organizations around the world are taking advantage of technology to move from *local* to *global*. They are rapidly adopting technologies such as *serverless*, *cloud*, and *Internet of Things (IOT)* to accelerate business processes.
 
 **Digital transformation** is the accelerated transformation of processes, business activities, and models via digital technologies to enhance impact across society in a strategic and prioritized way.
