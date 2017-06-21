@@ -251,7 +251,7 @@ JerryScript is written in C to be as portable as possible (i.e. no C++ features)
 #### C/JavaScript Interaction
 For the embedded engine to be useful, we need some way to have it interact with the rest of the system. Most embedable engines provide a way to call C code from within, and a way for C call to call parts of the scripts.
 
-To call C code from within JavaScript one most associate a C function with a JavaScript function:
+To call C code from within JavaScript one must associate a C function with a JavaScript function:
 
 ```c
 static void my_c_function() {
