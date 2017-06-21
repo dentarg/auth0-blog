@@ -2,8 +2,8 @@
 layout: post
 title: "JavaScript for Microcontrollers and IoT: Part 1"
 description: "Learn about the different options for running JavaScript on microcontrollers and IoT platforms"
-date: 2017-06-14 12:30
-category: Technical Guide
+date: 2017-06-21 12:30
+category: Technical Guide, IoT, JavaScript
 author:
   name: Sebastián Peyrott
   url: https://twitter.com/speyrott?lang=en
@@ -28,7 +28,7 @@ tags:
 - embedded
 - embedded-javascript
 related:
-- 2015-11-06-surprised-turns-out-consumers-dont-trust-iot-security
+- 2017-04-27-interaction-based-auth-for-alexa-with-auth
 - 2017-01-16-a-brief-history-of-javascript
 ---
 
