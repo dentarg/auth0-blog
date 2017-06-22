@@ -24,6 +24,8 @@ related:
 
 **TL;DR:** On today's post we are going to learn how to create a simple Android application, written in Kotlin, and secure it with JWTs. We are going to use Auth0 to issue an `access_token` for us, and are going to use this token to communicate with an API. In the end, we will also talk about how we would handle tokens issued by a home made solution, instead of Auth0.
 
+{% include tweet_quote.html quote_text="Learn how to create a secure Android app with Kotlin." %}
+
 ## Is Kotlin a Good Choice for Android Development?
 
 Last May, at the Google I/O keynote, [the Android team announced first-class support for Kotlin](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/). So, yes, Kotlin is a good choice for Android development. Otherwise the Android team would never make a move like that. Besides that, [for the last 4 years, Android Studio has been based on the IntelliJ Platform](https://blog.jetbrains.com/blog/2013/05/15/intellij-idea-is-the-base-for-android-studio-the-new-ide-for-android-developers/). For those who don't know, [IntelliJ](https://www.jetbrains.com/idea/) is a product from [JetBrains](https://www.jetbrains.com/), the same creator of the Kotlin programming language. As such, we can rest assured that, when choosing Kotlin for our next project, the development experience will be smooth. At least from the perspective of the IDE support.
@@ -489,4 +491,142 @@ Second, we have to change the *Client Type* to *Native* to enable [PKCE](https:/
 
 Running our app now will show the list of to do items, and above it the login button saying *Please, Identify Yourself.*. If we click it, we will see the default sign-in & sign-up screen of Auth0.
 
-![Auth0 authentication screen](https://cdn.auth0.com/blog/kotlin-android/auth0-authentication.png)
+![Auth0 authentication screen](https://cdn.auth0.com/blog/kotlin-android/auth0-authentication-sm.png)
+
+### Using Access Tokens to Interact with the Backend
+
+We have successfully integrated our Kotlin app with Auth0 and managed to get an `access_token` back from it. We will now focus on using this token to communicate with the backend. We will start by adding an `EditText` and another `Button` on the layout of the `MainActivity`, and then we will use both of them to add new items to the to do list. To add these elements in our layout, let's open the `activity_main.xml` file and insert them as the first children of the `LinearLayout` element:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ... -->
+    <LinearLayout ...>
+        <EditText
+            android:id="@+id/item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:labelFor="@+id/item"
+            android:visibility="@{loggedIn ? View.VISIBLE : View.GONE}" />
+
+        <Button
+            android:id="@+id/add_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add item"
+            android:visibility="@{loggedIn ? View.VISIBLE : View.GONE}" />
+        <!-- ... -->
+    </LinearLayout>
+</layout>
+```
+
+Both elements are going to be shown only if the user is `loggedIn`, as defined in their `android:visibility` properties. We can now add a listener, that will trigger a POST request to the backend, to the new button. We achieve that by changing the `MainActivity` as follows:
+
+```kotlin
+package com.auth0.samples.kotlinapp
+
+// ...
+import android.widget.EditText
+import android.widget.Toast
+
+class MainActivity : AppCompatActivity() {
+
+    // ...
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // ...
+
+        val addItemButton = findViewById(R.id.add_item)
+        val itemEditText = findViewById(R.id.item) as EditText
+        addItemButton.setOnClickListener {
+            val item = itemEditText.text.toString()
+            addItem(queue, item, CredentialsManager.getAccessToken(), {
+                itemEditText.text.clear()
+                Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+                getItems(this, queue, listToDo)
+            })
+        }
+    }
+
+    // ...
+}
+```
+
+The listener of this button makes a call to `addItem`, which is a function that we still have to create. This function will be responsible for dispatching the POST HTTP request to the backend, with the `access_token` of the user. Let's create it in the `ToDoAPIUtils` class:
+
+```kotlin
+// ...
+import android.util.Log
+import com.android.volley.AuthFailureError
+import com.android.volley.toolbox.StringRequest
+
+// ...
+
+fun addItem(queue: RequestQueue, item: String, accessToken: String, done: () -> Unit) {
+    val postRequest = object : StringRequest(Request.Method.POST, ENDPOINT,
+            Response.Listener<String> {
+                done()
+            },
+            Response.ErrorListener {
+                error -> Log.w("APIRequest", error.toString())
+            }
+    ) {
+        @Throws(AuthFailureError::class)
+        override fun getBody(): ByteArray {
+            return item.toByteArray()
+        }
+
+        @Throws(AuthFailureError::class)
+        override fun getHeaders(): Map<String, String> {
+            val headers: Map<String, String> = hashMapOf(
+                    "Authorization" to "Bearer $accessToken",
+                    "Content-Type" to "text/plain"
+            )
+            return headers
+        }
+    }
+    //add POST REQUEST to queue
+    queue.add(postRequest)
+}
+```
+
+The `addItem` function that we defined above makes use of the `StringRequest` class provided by *Voley*. First, we instruct this class to behave as a POST request to the backend `ENDPOINT` (our RESTful API's URL). Then we define two listeners: one for a successful request, and the other for a failure (where we just log what went wrong).
+
+If everything works as expected we trigger the `done` callback, which is the last parameter accepted by the `addItem` function. Yeah, [we can easily pass callback functions like this in Kotlin](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions). This callback, which we defined in the last change to the `MainActivity` class, is responsible for updating the list of to do items after a successful POST request.
+
+We also overwritten two methods of the `StringRequest` class:
+
+- The `getBody` function to send the item (typed by the user) as a string in the body of the POST request.
+- The `getHeaders` function to mark the `Content-Type` of the request as `text/plain`, and to add the `access_token` of the authenticated user.
+
+These changes are everything that we need in our Kotlin app to properly communicate with the secured RESTful endpoint. Now, whenever a user types an item in the text input, our Kotlin app sends a request to the backend with the item and the `access_token`. The backend then gets this `access_token`, validates it [against a public key provided by Auth0](https://auth0.com/blog/navigating-rs256-and-jwks/) and then adds the item received to the to do list.
+
+If we run our application now, we will be able to use all its features. We will be able to see the public (read-only) list of to do items and then, if we authenticate ourselves, we will be able to update this list.
+
+## Building a Home Made Security Solution
+
+In case we don't want to rely on state-of-the-art features provided by Auth0, we can also develop our home made security solution with JWTs. We won't get into the nitty-gritty details of the refactoring process, but here it is an overview of the steps needed to grown our own solution:
+
+1. We would need to refactor our RESTful API to generate the `access_token` token for us, instead of only validating it.
+2. We would also need to refactor the backend to accept new sign ups, password retrieval and so on (features that Auth0 provides by default)
+3. We would need to add an activity, in our Kotlin app, to handle sign in and sign up.
+4. We would need to add another activity to handle password retrieval.
+
+The changes to the Kotlin app wouldn't be that hard if we avoid advanced features like [Passwordless feature](https://auth0.com/passwordless) and social providers (which are all trivial with Auth0). Regarding the backend refactoring, Auth0's blog provides many articles that addresses home made solutions on different languages and platforms, like:
+
+- [Securing Node.js with JWTs](https://auth0.com/blog/building-and-authenticating-nodejs-apps/)
+- [Securing Spring Boot with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/)
+- [Securing .NET Core with JWTs](https://auth0.com/blog/asp-dot-net-core-authentication-tutorial/)
+
+You can check these resources if you need to develop your own solution.
+
+## Conclusion
+
+Developing a secure Android application with Kotlin is trivial, as we managed to see in this blog post. If you had no previous Kotlin knowledge, chances are that you hadn't had trouble to follow along. Kotlin integration with existing Java libraries and frameworks make the process of learning it smooth. But, to use this language to its full power, a good amount of coding hours and studying is need.
+
+{% include tweet_quote.html quote_text="Developing a secure Android application with Kotlin is trivial." %}
+
+Furthermore, we also had a chance to see that securing Kotlin mobile applications with JWTs is easy. When we rely on a trustworthy identity management provider as Auth0, things become more smooth and secure. We didn't have to implement our own sign in and sign up features on the mobile app, not even on our backend. We just configured a few things on our free Auth0 account, and integrated an open-source library with our app.
+
+By using Auth0, we can also rest assured that if we need to enhance our app security with [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), add a [Passwordless feature](https://auth0.com/passwordless), or integrate with other identity manager providers like [Facebook](https://auth0.com/docs/connections/social/facebook) or [SAML](https://auth0.com/docs/protocols/saml), the process will be smooth and well documented as well.
