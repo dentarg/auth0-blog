@@ -194,7 +194,11 @@ When creating an API, we must define three fields: `Name`, which is just a frien
 
 Auth0 supports different [OAuth 2.0 flows to request access tokens](https://auth0.com/docs/api-auth). In our particular case, to keep the example simple, we are going to use the [APIs & Trusted Clients flow](https://auth0.com/docs/api-auth/grant/password). Keep in mind that this flow, although being the easiest one to implement, must be used **only** when the client app is **absolutely trusted**. Most situations will require other flows, and the ["Which OAuth 2.0 flow should I use?"](https://auth0.com/docs/api-auth/which-oauth-flow-to-use) article on Auth0 can help with choosing the best approach for your needs.
 
-To use the *APIs & Trusted Clients* flow, we must first configure the `Default Directory` property on our Auth0 account. To do so, head to the [Account settings](https://manage.auth0.com/#/account) page and add `Username-Password-Authentication` as the value of the `Default Directory` property.
+To use the *APIs & Trusted Clients* flow, we must first configure the `Default Directory` property on our Auth0 account. To do so, head to the [Account settings](https://manage.auth0.com/#/account) page and add `Username-Password-Authentication` as the value of the `Default Directory` property. This value is the name of the [database connection](https://manage.auth0.com/#/connections/database) that comes by default on any Auth0 account.
+
+We also need to enable the `Password` grant type [on the client](https://manage.auth0.com/#/clients). If we created the API as explained above, Auth0 will have automatically created a client called `Kotlin RESTful API (Test Client)`. Accessing its settings, we can click on the `Show Advanced Settings` option, check `Password` on the `Grant Types` tab and save the change.
+
+![Enabling password grant on an Auth0 Client](https://cdn.auth0.com/blog/kotlin-jwts/password-grant.png)
 
 ### Changing the Code
 
