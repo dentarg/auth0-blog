@@ -80,7 +80,7 @@ Now then, let's do something fun - facilitate our makeshift eyeball scanner!
 
 While there are many API's available for Image Recognition, there are no simplistic ones available for specifically comparing two images, so we're going to roll our own.  Whereas there are great arguments for choosing to use an existing API instead of building our own, it's a better learning experience in this case to do the latter.
 
-Image processing for recognition / comparison is a ***very*** deep topic and can be expanded into Machine Learning and simply get deeper and deeper.  For this article, we'll be building our Image Comparison system without the added benefit of Machine Learning.
+Image processing for recognition / comparison is a ***very*** deep topic and can be expanded into Machine Learning and simply get deeper and deeper.  For this article, we'll be building our Image Comparison system without the added benefit of Machine Learning.  Worth noting - in real world scenarios, Iris Scanners have very advanced cameras and flashes allowing deep factoring of individual Iris'.  For our proof of concept app, our mobile phone camera will suffice!
 
 For now, we're going to use the application [ImageMagick](https://github.com/ImageMagick/ImageMagick) for our comparison functionality.  This comes bundled with Ubuntu and is generally widely available.  If you're on a Mac and don't want to download it from the net/app store - you can use `Homebrew`.
 
