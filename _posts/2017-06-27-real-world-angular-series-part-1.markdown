@@ -313,15 +313,11 @@ Let's sign up and create our new database.
 6. Scroll down and give your database a name, like `mean`.
 7. Click the "Create new MongoDB deployment" button.
 
-<p align="center">
-<img alt="mLab new MongoDB deployment" src="https://cdn.auth0.com/blog/mean-series/mLab-new-deployment.png">
-</p>
+![mLab new MongoDB deployment](https://cdn.auth0.com/blog/mean-series/mLab-new-deployment.png)
 
 The new database can now be selected from our deployments. It should look something like this:
 
-<p align="center">
-<img alt="mLab MongoDB database" src="https://cdn.auth0.com/blog/mean-series/mLab-db.png">
-</p>
+![mLab MongoDB database](https://cdn.auth0.com/blog/mean-series/mLab-db.png)
 
 We now need to add a user in order to connect to our database. Click on the database to edit it.
 
@@ -329,9 +325,7 @@ We now need to add a user in order to connect to our database. Click on the data
 2. Enter a database username and password in the modal. These credentials will be needed to read and write to the database with Node.
 3. Make a note of the database's MongoDB URI. This should be in the format: `mongodb://<dbuser>:<dbpassword>@<ds111111>.mlab.com:<port>/<dbname>`.
 
-<p align="center">
-<img alt="mLab MongoDB URI" src="https://cdn.auth0.com/blog/mean-series/mLab-uri.png">
-</p>
+![mLab MongoDB URI](https://cdn.auth0.com/blog/mean-series/mLab-uri.png)
 
 Now we're ready to use our MongoDB database.
 
@@ -347,9 +341,7 @@ For easy database management, we can use an app called [MongoBooster](https://mo
 4. Enter the port number in the field after the `:`.
 5. Enter a name for the connection, such as `mLab - mean`.
 
-<p align="center">
-<img alt="Set up MongoBooster with MongoDB connection from mLab" src="https://cdn.auth0.com/blog/mean-series/mongobooster-connection.png">
-</p>
+![Set up MongoBooster with MongoDB connection from mLab](https://cdn.auth0.com/blog/mean-series/mongobooster-connection.png)
 
 Next, switch to the **Authentication** tab.
 
@@ -358,9 +350,7 @@ Next, switch to the **Authentication** tab.
 3. Enter the user name for the user you created in mLab.
 4. Enter the password you created for the user in mLab.
 
-<p align="center">
-<img alt="Set up MongoBooster with MongoDB authentication" src="https://cdn.auth0.com/blog/mean-series/mongobooster-auth.png">
-</p>
+![Set up MongoBooster with MongoDB authentication](https://cdn.auth0.com/blog/mean-series/mongobooster-auth.png)
 
 We should now be able to click the "Test Connection" button to confirm our configuration. If everything was entered correctly, we should receive a **Test Connection** dialog that confirms we were able to connect and authorize with a status of `OK`.
 
@@ -395,7 +385,7 @@ We added two ports to the callback URLs and allowed origins because we'll be run
 
 ### Set Up an API
 
-1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click on the "Create API" button.
+1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click the "Create API" button.
 2. Enter a name for the API (for example: `RSVP MEAN API`).
 3. Set the **Identifier** to your API endpoint URL. This identifier is the `audience` parameter on authorization calls. In our app, this is `http://localhost:8083/api/`.
 4. The **Signing Algorithm** should be "RS256".
@@ -416,7 +406,7 @@ $ npm install --save express body-parser express-jwt jwks-rsa method-override mo
 
 ### File Structure
 
-Create a new folder at the root of the project called `/server`. Inside this folder, add two new files: `/server/api.js` and `/server/config.js`. At the root of the project, create a `/server.js` file. The file structure should now look like this:
+Create a new folder at the root of the project called `server`. Inside this folder, add two new files: `server/api.js` and `server/config.js`. At the root of the project, create a `server.js` file. The file structure should now look like this:
 
 ```text
 ...
@@ -434,9 +424,10 @@ server.js
 Open the `server/config.js` file and add the following to it:
 
 ```js
+// server/config.js
 module.exports = {
   AUTH0_DOMAIN: '[YOUR_AUTH0_DOMAIN].auth0.com',
-  AUTH0_API_AUDIENCE: '[YOUR_AUTH0_API_NAME]' /* 'http://localhost:8083/api/' */,
+  AUTH0_API_AUDIENCE: '[YOUR_AUTH0_API_NAME]', /* likely 'http://localhost:8083/api/' */
   MONGO_URI: process.env.MONGO_URI || 'mongodb://[USER]:[PASSWORD]@[DS######].mlab.com:[PORT]/[DB_NAME]'
 };
 ```
@@ -530,7 +521,7 @@ if (process.env.NODE_ENV !== 'dev') {
 app.listen(port, () => console.log(`Server running on localhost:${port}`));
 ```
 
-Note that there are a few sections that are environment-dependent. For development, we want to be able to take advantage of the Angular CLI's ability to serve and watch files with [JIT](https://auth0.com/blog/glossary-of-modern-javascript-concepts-part-2#jit) without requiring an entire project build each time we want to check our work. In order to facilitate this, we'll start by separating our Node.js server from our Angular front end in development.
+Notice that there are a few sections that are environment-dependent. For development, we want to be able to take advantage of the Angular CLI's ability to serve and watch files with [JIT](https://auth0.com/blog/glossary-of-modern-javascript-concepts-part-2#jit) without requiring an entire project build each time we want to check our work. In order to facilitate this, we'll start by separating our Node.js server from our Angular front end in development.
 
 This way, we can run the Node API on [localhost:8083](http://localhost:8083) while the Angular app runs on [localhost:4200](http://localhost:4200). For _production_, we want the Node server to run the API _and_ use a static path to serve the front end. Our MEAN stack should pass routing to the compiled Angular app for deployment.
 
@@ -599,20 +590,20 @@ We should now be able to access both the Angular application and the API in the 
 
 > **Note:** We'll be using separate terminal windows a lot so we can keep watching the app and API while adding components with the Angular CLI.
 
-* Serve Angular app: `$ ng serve`
-* Serve Node API: `$ NODE_ENV=dev nodemon server.js`
+* Serve Angular app: `ng serve`
+* Serve Node API: `NODE_ENV=dev nodemon server.js`
 
 If we've done everything correctly, the Angular app will compile and show a success message in its terminal. We should also see a message in the Node server terminal confirming that the server is running and that we've successfully connected to MongoDB.
 
-We can then navigate to [localhost:4200](http://localhost:4200) to see our Angular app running in the browser:
+We can then navigate to [http://localhost:4200](http://localhost:4200) to see our Angular app running in the browser:
 
 ![Angular app works running on localhost on Node backend](https://cdn.auth0.com/blog/mean-series/app-works.jpg)
 
-We can also navigate to [localhost:8083/api](http://localhost:8083/api) to see our API running:
+We can also navigate to [http://localhost:8083/api](http://localhost:8083/api) to see our API running:
 
-![Node API works running on localhost](https://cdn.auth0.com/blog/mean-series/api-works.jpg)
+![Node API works running on localhost](https://cdn.auth0.com/blog/mean-series/api-works-final.jpg)
 
-> **Note:** Eventually we'll be serving everything from the Node server, but since this requires the Angular app to be built and no longer watched, we won't do this until later. However, if you'd like to see what this looks like now, you can run `$ ng build` followed by `$ node server`. This will build and serve the app _and_ API on [localhost:8083](http://localhost:8083).
+> **Note:** Eventually we'll be serving everything from the Node server, but since this requires the Angular app to be built and no longer watched, we won't do this until later. However, if you'd like to see what this looks like now, you can run `ng build` followed by `node server`. This will build and serve the app _and_ API on [http://localhost:8083](http://localhost:8083).
 
 Our Node API and Angular app are now up and running in a development environment!
 
@@ -674,10 +665,12 @@ We'll import the `Title` service and then add a property called `pageTitle` with
 
 Open `home.component.html` and add:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- src/app/pages/home/home.component.html -->
 <h1 class="text-center">{{pageTitle}}</h1>
-```
+{% endraw %}
+{% endhighlight %}
 
 The document title and heading should now show up in the browser. We have routing and a home component in place, so now we can get started on the global layout of our Angular app.
 
@@ -741,7 +734,7 @@ The `toggleNav()` method is executed when the user clicks the hamburger toggle b
 
 This click event is implemented in the `header.component.html` template:
 
-```html
+{% highlight html %}
 <!-- src/app/header/header.component.html -->
 <header id="header" class="header">
   <div class="header-page bg-primary">
@@ -762,7 +755,7 @@ This click event is implemented in the `header.component.html` template:
     </ul>
   </nav>
 </header>
-```
+{% endhighlight %}
 
 > **Note:** Please take a look at [Angular's binding syntax](https://angular.io/guide/template-syntax#binding-syntax-an-overview). Parentheses `()` indicate event binding and square brackets `[]` indicate expression binding.
 
@@ -903,12 +896,12 @@ This file provides styles for the nav and header as well as CSS to animate the h
 
 Our Footer component is very simple: just a static paragraph with a link to the source repo. Open the `footer.component.html` template and add:
 
-```html
+{% highlight html %}
 <!-- src/app/footer/footer.component.html -->
 <p class="text-center">
   MIT 2017
 </p>
-```
+{% endhighlight %}
 
 > **Note:** You could put something fancier here if you wish.
 
@@ -983,7 +976,7 @@ We'll use an observable [fromEvent](https://github.com/Reactive-Extensions/RxJS/
 
 Open the `app.component.html` file and add:
 
-```html
+{% highlight html %}
 <!-- src/app/app.component.html -->
 <div class="layout-overflow">
   <div
@@ -1004,7 +997,7 @@ Open the `app.component.html` file and add:
 
   </div> <!-- /.layout-canvas -->
 </div> <!-- /.layout-overflow -->
-```
+{% endhighlight %}
 
 We have several layouting containers to manage the off-canvas panel that slides in and out from the left side of the screen, pushing the rest of the content over. We also use the `navOpen` property to apply or remove `.nav-open` and `.nav-closed` classes on the `<div class="layout-canvas">` element with the [ngClass directive](https://angular.io/api/common/NgClass).
 
@@ -1059,7 +1052,7 @@ When the navigation is open, the layout canvas should slide over. We also have a
 
 That's it for the layout and global navigation! The app should look like this in the browser:
 
-![animated Angular app with global off-canvas navigation](/Users/kimmaida-auth0/Documents/Auth0/Blog/Angular Series/assets/layout-nav-animation.gif)
+![animated Angular app with global off-canvas navigation](https://cdn.auth0.com/blog/mean-series/layout-nav-animation.gif)
 
 Now that we have our structure and global components in place, we're ready to start developing features next time.
 
