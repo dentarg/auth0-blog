@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Real-World Angular Series - Part 1: MEAN Setup & Angular Architecture"
-description: "Build and Deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): MEAN Setup and Angular architecture."
+description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): MEAN setup and Angular architecture."
 date: 2017-06-27 8:30
 category: Technical guide
 banner:
@@ -118,7 +118,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 
 Now open the `src/index.html` file and add a link to the [Bootstrap](https://v4-alpha.getbootstrap.com/) CSS on CDN like so:
 
-```html
+{% highlight html %}
 <!-- src/index.html -->
 ...
 <head>
@@ -131,11 +131,8 @@ Now open the `src/index.html` file and add a link to the [Bootstrap](https://v4-
     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
     crossorigin="anonymous">
 </head>
-<body>
-  <app-root></app-root>
-</body>
-</html>
-```
+...
+{% endhighlight %}
 
 ### Global SCSS
 
