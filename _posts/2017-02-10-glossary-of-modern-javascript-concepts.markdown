@@ -87,7 +87,7 @@ In summary:
 
 ### Impure Functions
 
-An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure. Procedural functions with no utilized return value are also impure.
+An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure.
 
 Consider the following examples:
 
@@ -101,13 +101,6 @@ function showAlert() {
 var globalVal = 1;
 function incrementGlobalVal(x) {
   globalVal += x;
-}
-
-// impure function calling pure functions procedurally
-function proceduralFn() {
-  const result1 = pureFnFirst(1);
-  const result2 = pureFnLast(2);
-  console.log(`Done with ${result1} and ${result2}!`);
 }
 
 // impure function that resembles a pure function,
