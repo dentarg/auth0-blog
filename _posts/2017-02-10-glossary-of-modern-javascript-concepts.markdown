@@ -69,7 +69,8 @@ The `half(x)` function takes a number `x` and returns a value of half of `x`. If
 Pure functions only depend on what's passed to them. For example, a pure function cannot reference variables from a parent scope unless they are explicitly passed into the function as arguments. Even then, the function can _not modify_ the parent scope.
 
 ```js
-var someNum = 8;
+// some variable that is mutated
+let someNum = 8;
 
 // this is NOT a pure function
 function impureHalf() {
