@@ -154,7 +154,7 @@ end
 
 Running this script with the `crystal` command, I got the following results:
 
-~~~bash
+~~~ bash
 $ time crystal spawntest.cr
 
 real	0m1.129s
@@ -164,7 +164,7 @@ sys		0m0.276s
 
 Hmmmm, very interesting indeed!  Well, seen as Crystal is a compiled language and meant to be used to build small binaries that are easily distributed, it'd be a good idea to compile this small script and use *that* data instead!  I compiled the script using the `--release` flag - this tells the Crystal compiler to optimise the programme.
 
-~~~bash
+~~~ bash
 $ crystal build --release spawntest.cr
 
 $ time ./spawntest
@@ -292,7 +292,7 @@ I do hope this article has inspired you to give Crystal a try, and look forward 
 
   ***[ - @rbin](http://twitter.com/rbin)***
 
-<br />
+
 ## Handy Resources
 
  - [https://github.com/veelenga/awesome-crystal](https://github.com/veelenga/awesome-crystal) 
