@@ -6,10 +6,10 @@ date: 2017-06-23 8:30
 is_non-tech: true
 category: Growth, Industries
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+  mail: gonto@auth0.com
 design:
   bg_color: "#221F1F"
   image: https://cdn.auth0.com/blog/amazon/wholefoods.png
@@ -20,9 +20,9 @@ tags:
 - vision
 - auth0
 related:
-- 2016-09-22-yahoo-confirms-data-breach-of-half-a-billion-user-accounts
-- 2016-08-16-how-real-state-companies-can-implement-open-id-connect-with-auth0
-- 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
+- 2017-06-01-introducing-the-auth0-security-whitepaper
+- 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
+- 2017-04-17-how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing
 ---
 
 Amazon is poised to reinvent the grocery store from the ground up. They've been experimenting with cutting-edge retail automation through their Amazon Go experiment, leading to strong speculation about how they're going to enter the brick and mortar grocery market. Now we've got our answer: with Whole Foods.
