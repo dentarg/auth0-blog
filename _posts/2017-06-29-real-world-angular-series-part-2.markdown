@@ -23,6 +23,7 @@ tags:
 - node
 - mongodb
 - express
+- mean
 related:
 - 2017-06-27-real-world-angular-series-part-1
 - 2017-01-19-building-and-securing-a-koa-and-angular2-app-with-jwt
@@ -68,7 +69,7 @@ $ npm install angular2-jwt --save
 
 ### Environment Configuration
 
-Let's create a file to store information about our app's environment. We're currently developing on `localhost:4200`, but the app will be deployed on the Node server eventually, and in production, it will run on a reverse proxy. We'll need to make sure our development environment doesn't break our production environment and vice versa.
+Let's create a file to store information about our app's environment. We're currently developing on `localhost:4200`, but the app will be deployed on the Node server eventually, and in production, it will run on a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy). We'll need to make sure our development environment doesn't break our production environment and vice versa.
 
 Create a folder: `src/core`, then add a file there called `env.config.ts`:
 
@@ -844,7 +845,7 @@ export class EventModel {
 }
 ```
 
-We're naming the models `EventModel` (and `RsvpModel`) to avoid conflicts with existing `Event` constructors in intellisense. Optional members must be listed after required members. The `_id` property is optional because it only exists if retrieving data from the database, but not if we're creating _new_ records.
+We're naming the models `EventModel` (and `RsvpModel`) to avoid conflicts with existing `Event` constructors if your editor or IDE uses [intelligent code completion](https://en.wikipedia.org/wiki/Intelligent_code_completion). Optional members must be listed after required members. The `_id` property is optional because it only exists if retrieving data from the database, but not if we're creating _new_ records.
 
 Now add the RSVP model in `rsvp.model.ts`: 
 
