@@ -401,7 +401,7 @@ The only properties we'll need for display of the event list in the My RSVPs com
 
 After handling errors for retrieving RSVPs, we can then `find()` events with an `_id` present in the `_eventIdsArr`. This is done using the [MongoDB `$in` comparison query operator](https://docs.mongodb.com/manual/reference/operator/query/in/). We only want _upcoming_ events, so we'll indicate that `startDatetime` should be [greater than or equal to (`$gte`)](https://docs.mongodb.com/manual/reference/operator/query/gte/) the current datetime. We'll then pass the `_rsvpEventsProjection` we just created to get back only the properties we need.
 
-{% include tweet_quote.html quote_text="We can use #MongoDB comparison query operators to retrieve relational data." %}
+{% include tweet_quote.html quote_text="We can use MongoDB comparison query operators to retrieve relational data." %}
 
 After handling errors for retrieving events, we'll push any results found to an array and `send()` the array.
 
@@ -968,7 +968,7 @@ The final new method is `unscheduleRenewal()`:
 
 This method simply checks for the existence of a `refreshSub` subscription and unsubscribes from it. The method is called on logout, or if we need to subscribe to a new token expiration observable (`expiresIn$`).
 
-{% include tweet_quote.html quote_text="Using @auth0, we can silently renew JSON Web Tokens with ease." %}
+{% include tweet_quote.html quote_text="Using Auth0, we can silently renew JSON Web Tokens with ease." %}
 
 ### Update Auth0 Client Settings
 
