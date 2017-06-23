@@ -22,23 +22,23 @@ related:
 - 2015-06-29-using-smartlock-on-android-in-3-simple-steps
 ---
 
-**TL;DR:** On today's post we are going to learn how to create a simple Android application, written in Kotlin, and secure it with JWTs. We are going to use Auth0 to issue an `access_token` for us, and are going to use this token to communicate with an API. In the end, we will also talk about how we would handle tokens issued by a home made solution, instead of Auth0.
+**TL;DR:** In today's post we are going to learn how to create a simple Android application, written in Kotlin, and secure it with JWTs. We are going to use Auth0 to issue an `access_token` for us, and are going to use this token to communicate with an API. In the end, we will also talk about how we would handle tokens issued by a home made solution, instead of Auth0.
 
 {% include tweet_quote.html quote_text="Learn how to create a secure Android app with Kotlin." %}
 
 ## Is Kotlin a Good Choice for Android Development?
 
-Last May, at the Google I/O keynote, [the Android team announced first-class support for Kotlin](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/). So, yes, Kotlin is a good choice for Android development. Otherwise the Android team would never make a move like that. Besides that, [for the last 4 years, Android Studio has been based on the IntelliJ Platform](https://blog.jetbrains.com/blog/2013/05/15/intellij-idea-is-the-base-for-android-studio-the-new-ide-for-android-developers/). For those who don't know, [IntelliJ](https://www.jetbrains.com/idea/) is a product from [JetBrains](https://www.jetbrains.com/), the same creator of the Kotlin programming language. As such, we can rest assured that, when choosing Kotlin for our next project, the development experience will be smooth. At least from the perspective of the IDE support.
+Last May, at the Google I/O keynote, [the Android team announced first-class support for Kotlin](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/). So, yes, Kotlin is a good choice for Android development. Otherwise the Android team would never make a move like that. Besides that, [for the last 4 years, Android Studio has been based on the IntelliJ Platform](https://blog.jetbrains.com/blog/2013/05/15/intellij-idea-is-the-base-for-android-studio-the-new-ide-for-android-developers/). For those who don't know, [IntelliJ](https://www.jetbrains.com/idea/) is a product from [JetBrains](https://www.jetbrains.com/), the creator of the Kotlin programming language. As such, we can rest assured that, when choosing Kotlin for our next project, the development experience will be smooth. At least from the perspective of the IDE support.
 
 ## How Kotlin Differs From Java?
 
 Kotlin is a whole new programming language with a different syntax. Java developers won't have that much trouble when reading a project's source code written in Kotlin. Although, there are many differences and many cool features that Java developers should learn before diving into Kotlin.
 
-If you have never used Kotlin before, you can still follow this blog post along, as it won't have that much advanced subjects. But, for the sake of completeness, here it is a list of resources where you can learn more about Kotlin:
+If you have never used Kotlin before, you can still follow this blog post along, as it won't have that much advanced subjects. But, for the sake of completeness, here is a list of resources where you can learn more about Kotlin:
 
-- [Kotlin Reference](https://kotlinlang.org/docs/reference/)—where the details of Kotlin's syntax are explained
+- [Kotlin Reference](https://kotlinlang.org/docs/reference/)—where the details of Kotlin's syntax are explained.
 - [Try Kotlin](https://try.kotlinlang.org)—where you can do some hands on exercises to learn Kotlin.
-- [Kotlin in Action](https://manning.com/books/kotlin-in-action)—if you want to dive deep into this new language
+- [Kotlin in Action](https://manning.com/books/kotlin-in-action)—if you want to dive deep into this new language.
 
 Besides that, be aware that JetBrains has been investing a lot on tools to help Java developers migrate to Kotlin. For example, IntelliJ and Android Studio 3.0 are both shipped with tools that automatically translates Java source code to Kotlin.
 
@@ -50,11 +50,11 @@ To start a new project, you can take advantage of the *Create New Project* wizar
 git clone https://github.com/auth0-blog/kotlin-app.git
 ```
 
-After that we are going to open it on Android Studio through the *Open an existing Android Studio project* option:
+After that we are going to open it in Android Studio through the *Open an existing Android Studio project* option:
 
 ![Open an existing Android Studio project](https://cdn.auth0.com/blog/kotlin-android/open-project.png)
 
-If it is the first time that you are using Android Studio, you will also need to install an Android emulator or integrate your own Android device with the IDE. I had no trouble installing a new Android emulator locally through the IDE. But, for whatever reason, if you find yourself stuck, you can [check this resource to see if it helps](https://developer.android.com/training/basics/firstapp/running-app.html).
+If this is the first time that you are using Android Studio, you will also need to install an Android emulator or integrate your own Android device with the IDE. I had no trouble installing a new Android emulator locally through the IDE. But, for whatever reason, if you find yourself stuck, you can [check this resource to see if it helps](https://developer.android.com/training/basics/firstapp/running-app.html).
 
 To guarantee that everything is working as expected, let's start the application as it is. This can be done through the *Run app* button (a green play button on the top of the IDE) which will launch the app on the chosen emulator (or on your own device) with a *Hello World!* message.
 
@@ -64,13 +64,13 @@ To guarantee that everything is working as expected, let's start the application
 
 As mentioned, we are going to build a simple application. This application will consist of three features:
 
-1. A list of to do items. This list will be fetched from a RESTful API that will be publicly available.
+1. A list of to-do items. This list will be fetched from a RESTful API that will be publicly available.
 2. An input text and a button to allow users to add new items to the existing list. This will be available only to logged in users.
 3. Sign in and sign up functionality provided by Auth0. We are going to get an `access_token` from Auth0 and will use it to interact with a secured endpoint.
 
 ### Booting Up the RESTful API
 
-The RESTful API that we are going to use is an [Express](https://expressjs.com/) application that [can be found here](https://github.com/auth0-blog/nodejs-auth0/). Therefore, before starting developing the features mentioned on our Kotlin app, we are going to need to clone this repository.
+The RESTful API that we are going to use is an [Express](https://expressjs.com/) application that [can be found here](https://github.com/auth0-blog/nodejs-auth0/). Therefore, before developing the features mentioned on our Kotlin app, we are going to need to clone this repository.
 
 ```bash
 git clone https://github.com/auth0-blog/nodejs-auth0/
@@ -103,7 +103,7 @@ Be aware that the values exported above refer to my own account at Auth0. Your v
 After running the last command, `node index`, our RESTful API will be up and running. We can issue two simple requests to test it:
 
 ```bash
-# get To Do items
+# get to-do items
 curl http://localhost:8080
 # which will result on: ["Feed the dogs","Mow the lawn","Buy pizza"]
 
@@ -114,7 +114,7 @@ curl -d 'new item' -X POST -v http://localhost:8080
 
 ## Consuming the RESTful API with Kotlin
 
-To start developing our Kotlin to do application for Android, we are going to tackle the communication with the backend first. To interact with our RESTful API, we are going to make three changes in our project. First, we will need to add a dependency to [Volley](https://developer.android.com/training/volley/index.html). This can be achieved by changing the `./app/build.gradle` file like that:
+To start developing our Kotlin to-do application for Android, we are going to tackle the communication with the backend first. To interact with our RESTful API, we are going to make three changes in our project. First, we will need to add a dependency to [Volley](https://developer.android.com/training/volley/index.html). This can be achieved by changing the `./app/build.gradle` file like that:
 
 ```bash
 // ...
@@ -183,13 +183,13 @@ fun getItems(activity: Activity, queue: RequestQueue, listView: ListView) {
 }
 ```
 
-This file contains a single function (for now) that will issue `GET` requests to the backend and populate a `ListView` with the response. Note that in [Kotlin functions can be declared at top level in a file](https://kotlinlang.org/docs/reference/functions.html#function-scope), meaning you do not need to create a class to hold a function.
+This file contains a single function (for now) that will issue `GET` requests to the backend and populate a `ListView` with the response. Note that in [Kotlin, functions can be declared at the top level in a file](https://kotlinlang.org/docs/reference/functions.html#function-scope), meaning you do not need to create a class to hold a function.
 
 Another important aspect of the code above is that the `ENDPOINT` is hard-coded to `http://10.0.2.2:8080/`. This URL refers to the RESTful API that we have started before so, if you are not using an emulator, you might need to change this value to the local `IP` address of your computer.
 
-### Rendering To Do Items
+### Rendering To-Do Items
 
-As we already have the function that will retrieve items from our backend, we need now to use it to render them to the user. Since the list of items is publicly available, we are going to show it on the first view, the `activity_main.xml` layout that is referenced by the `MainActivity`. Let's define the contents of this file as follows:
+As we already have the function that will retrieve items from our backend, we will use it to render them to the user. Since the list of items is publicly available, we are going to show it on the first view, the `activity_main.xml` layout that is referenced by the `MainActivity`. Let's define the contents of this file as follows:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -235,13 +235,13 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-This is the last change that we need to make on our application to see the list of to do items. Let's run the app on the emulator (or on our own device) to see it.
+This is the last change that we need to make on our application to see the list of to-do items. Let's run the app on the emulator (or on our own device) to see it.
 
-![To Do list running on Android](https://cdn.auth0.com/blog/kotlin-android/todo-list.png)
+![To-Do list running on Android](https://cdn.auth0.com/blog/kotlin-android/todo-list.png)
 
 ## Securing Kotlin App with Auth0
 
-As we already rendered the public list of to do items in our app, we are now going to work on the authentication layer. This will enable our users to log into our app (and sign up as well), which will generate a JWT (JSON Web Tokens). This, called `access_token`, will be validated by our backend to allow or deny users to add new items to the to do list.
+As we already rendered the public list of to-do items in our app, we are now going to work on the authentication layer. This will enable our users to log into our app (and sign up as well), which will generate a JWT (JSON Web Token). This, called `access_token`, will be validated by our backend to allow or deny users to add new items to the to-do list.
 
 To integrate our app with Auth0, we need to add a dependency to [this open-source library](https://github.com/auth0/Auth0.Android). We do this by changing the `./app/build.gradle` file as follows:
 
@@ -331,7 +331,7 @@ object CredentialsManager {
 }
 ```
 
-Notice that we start the definition of this class with `object` instead of `class`. [This is the idiomatic way to define *singletons* in Kotlin](https://kotlinlang.org/docs/reference/object-declarations.html#object-declarations). As both exposed methods make use of a context, which will be always the same in our simple app, we have also added a method to set the context in the singleton.
+Notice that we start the definition of this class with `object` instead of `class`. [This is the idiomatic way to define *singletons* in Kotlin](https://kotlinlang.org/docs/reference/object-declarations.html#object-declarations). As both exposed methods make use of a context, which will always be the same in our simple app, we have also added a method to set the context in the singleton.
 
 After that, we will modify the `MainActivity` and its layout to add a button that, when clicked, starts the authentication process. Let's start by adding the authentication button in the `app/src/main/res/layout/activity_main.xml` file, which will end up as follows:
 
@@ -437,7 +437,7 @@ The `onCreate` function was changed to get a reference to the binding object rel
 - use a `demo` schema, which will help Android to trigger our app when a link starting with `demo://` is called
 - use the `kotlin-todo-app` audience, which is the name of the API that we've created on Auth0 management tool.
 
-To wrap the changes in our project, we need register an intent filter inside our main activity's tag and make this activity to be launched as a [single task](https://developer.android.com/guide/topics/manifest/activity-element.html). Let's open `./app/src/main/AndroidManifest.xml` and replace it with the following contents:
+To wrap the changes in our project, we need to register an intent filter inside our main activity's tag and make this activity to be launched as a [single task](https://developer.android.com/guide/topics/manifest/activity-element.html). Let's open `./app/src/main/AndroidManifest.xml` and replace it with the following contents:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -485,17 +485,17 @@ Before testing the integration with Auth0, we need to go back to [the *Clients* 
 demo://krebshaus.auth0.com/android/com.auth0.samples.kotlinapp/callback
 ```
 
-Of course, `krebshaus.auth0.com` domain in this URL must be changed accordingly to our domain on Auth0.
+Of course, `krebshaus.auth0.com` domain in this URL must be changed accordingly to your domain on Auth0.
 
 Second, we have to change the *Client Type* to *Native* to enable [PKCE](https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce).
 
-Running our app now will show the list of to do items, and above it the login button saying *Please, Identify Yourself.*. If we click it, we will see the default sign-in & sign-up screen of Auth0.
+Running our app now will show the list of to-do items, and above it the login button saying *Please, Identify Yourself.*. If we click it, we will see the default sign-in & sign-up screen of Auth0.
 
 ![Auth0 authentication screen](https://cdn.auth0.com/blog/kotlin-android/auth0-authentication-sm.png)
 
 ### Using Access Tokens to Interact with the Backend
 
-We have successfully integrated our Kotlin app with Auth0 and managed to get an `access_token` back from it. We will now focus on using this token to communicate with the backend. We will start by adding an `EditText` and another `Button` on the layout of the `MainActivity`, and then we will use both of them to add new items to the to do list. To add these elements in our layout, let's open the `activity_main.xml` file and insert them as the first children of the `LinearLayout` element:
+We have successfully integrated our Kotlin app with Auth0 and managed to get an `access_token` back from it. We will now focus on using this token to communicate with the backend. We will start by adding an `EditText` and another `Button` on the layout of the `MainActivity`, and then we will use both of them to add new items to the to-do list. To add these elements in our layout, let's open the `activity_main.xml` file and insert them as the first children of the `LinearLayout` element:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -591,22 +591,22 @@ fun addItem(queue: RequestQueue, item: String, accessToken: String, done: () -> 
 }
 ```
 
-The `addItem` function that we defined above makes use of the `StringRequest` class provided by *Voley*. First, we instruct this class to behave as a POST request to the backend `ENDPOINT` (our RESTful API's URL). Then we define two listeners: one for a successful request, and the other for a failure (where we just log what went wrong).
+The `addItem` function that we defined above makes use of the `StringRequest` class provided by *Volley*. First, we instruct this class to behave as a POST request to the backend `ENDPOINT` (our RESTful API's URL). Then we define two listeners: one for a successful request, and the other for a failure (where we just log what went wrong).
 
-If everything works as expected we trigger the `done` callback, which is the last parameter accepted by the `addItem` function. Yeah, [we can easily pass callback functions like this in Kotlin](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions). This callback, which we defined in the last change to the `MainActivity` class, is responsible for updating the list of to do items after a successful POST request.
+If everything works as expected we trigger the `done` callback, which is the last parameter accepted by the `addItem` function. Yeah, [we can easily pass callback functions like this in Kotlin](https://kotlinlang.org/docs/reference/lambdas.html#higher-order-functions). This callback, which we defined in the last change to the `MainActivity` class, is responsible for updating the list of to-do items after a successful POST request.
 
-We also overwritten two methods of the `StringRequest` class:
+We also overwrote two methods of the `StringRequest` class:
 
 - The `getBody` function to send the item (typed by the user) as a string in the body of the POST request.
 - The `getHeaders` function to mark the `Content-Type` of the request as `text/plain`, and to add the `access_token` of the authenticated user.
 
-These changes are everything that we need in our Kotlin app to properly communicate with the secured RESTful endpoint. Now, whenever a user types an item in the text input, our Kotlin app sends a request to the backend with the item and the `access_token`. The backend then gets this `access_token`, validates it [against a public key provided by Auth0](https://auth0.com/blog/navigating-rs256-and-jwks/) and then adds the item received to the to do list.
+These changes are everything that we need in our Kotlin app to properly communicate with the secured RESTful endpoint. Now, whenever a user types an item in the text input, our Kotlin app sends a request to the backend with the item and the `access_token`. The backend then gets this `access_token`, validates it [against a public key provided by Auth0](https://auth0.com/blog/navigating-rs256-and-jwks/) and then adds the item received to the to-do list.
 
-If we run our application now, we will be able to use all its features. We will be able to see the public (read-only) list of to do items and then, if we authenticate ourselves, we will be able to update this list.
+If we run our application now, we will be able to use all its features. We will be able to see the public (read-only) list of to-do items and then, if we authenticate ourselves, we will be able to update this list.
 
 ## Building a Home Made Security Solution
 
-In case we don't want to rely on state-of-the-art features provided by Auth0, we can also develop our home made security solution with JWTs. We won't get into the nitty-gritty details of the refactoring process, but here it is an overview of the steps needed to grown our own solution:
+In case we don't want to rely on state-of-the-art features provided by Auth0, we can also develop our home made security solution with JWTs. We won't get into the nitty-gritty details of the refactoring process, but here is an overview of the steps needed to grow our own solution:
 
 1. We would need to refactor our RESTful API to generate the `access_token` token for us, instead of only validating it.
 2. We would also need to refactor the backend to accept new sign ups, password retrieval and so on (features that Auth0 provides by default)
@@ -623,7 +623,7 @@ You can check these resources if you need to develop your own solution.
 
 ## Conclusion
 
-Developing a secure Android application with Kotlin is trivial, as we managed to see in this blog post. If you had no previous Kotlin knowledge, chances are that you hadn't had trouble to follow along. Kotlin integration with existing Java libraries and frameworks make the process of learning it smooth. But, to use this language to its full power, a good amount of coding hours and studying is need.
+Developing a secure Android application with Kotlin is trivial, as we managed to see in this blog post. If you had no previous Kotlin knowledge, chances are that you had no trouble following along. Kotlin integration with existing Java libraries and frameworks make the process of learning it smooth. But, to use this language to its full power, a good amount of coding hours and studying is need.
 
 {% include tweet_quote.html quote_text="Developing a secure Android application with Kotlin is trivial." %}
 
