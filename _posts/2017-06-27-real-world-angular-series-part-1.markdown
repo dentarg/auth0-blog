@@ -23,6 +23,7 @@ tags:
 - node
 - mongodb
 - express
+- mean
 related:
 - 2017-03-07-managing-state-in-angular-with-ngrx-store
 - 2017-01-19-building-and-securing-a-koa-and-angular2-app-with-jwt
@@ -133,6 +134,8 @@ Now open the `src/index.html` file and add a link to the [Bootstrap](https://v4-
 </head>
 ...
 {% endhighlight %}
+
+> **Note:** At the time of writing, we're using the v4 alpha version of Bootstrap to take advantage of newer features such as the flex grid. As with any pre-release tool, there may be bugs. If a later release is available, please upgrade. If you choose to downgrade to v3, be aware that many of the classes in the provided HTML templates _will not work_ and will need to be replaced.
 
 ### Global SCSS
 
