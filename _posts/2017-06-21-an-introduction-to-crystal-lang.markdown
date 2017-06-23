@@ -282,6 +282,17 @@ As a Polyglot programmer, I've had to learn a bunch of different programming par
 **Seeing this as an opportunity** instead of a foible - it's actually kind of cool, because this means we can write documentation ourselves and hack sample apps together to become early adopters and decent contributors in the Crystal community!
 
 
+## Aside - Auth0 & JWTs in Crystal 
+
+At the moment, there is no Crystal Auth0 library to use for end-to-end application securing.  However, there *is* a JWT library available for Crystal already [here](https://github.com/greyblake/crystal-jwt).
+
+If you were looking to secure routes of your API you could combine the above library with the Ruby example given in the [Auth0 docs](https://auth0.com/docs/quickstart/backend/ruby).  Naturally, this wouldn't work as a *direct* drop-in, but with some tweaking, you may be able to achieve what you're looking for.
+
+One thing to note here is that the Crystal-JWT library does not yet support the `RS256` algorithm, which is the preffered algorithm and only supports the `HS256` algorithm.  When setting up your application in the Auth0 control panel, make sure to select the `HS256` algorithm to reflect this.
+
+In my next series of articles, I will be writing specifically about using Auth0 in a ***NON-jwt*** context, and I'll make sure I demonstrate this in Crystal!
+
+
 ## Conclusion
 
 I like it!  Although relatively immature, Crystal is a promising language with a growing dev community surrounding it.  In my previous article about Auth0 Lock / Iris Image Recognition, I mentioned the fact that it'd be better to use the pHash / Blockhash libraries for a production environment.  If I was to build this system, I would most definitely use Crystal to bind to those C libraries.  I know that I'd be getting fantasticly close-to-C speeds, and with the ease and joy of writing Crystal!
