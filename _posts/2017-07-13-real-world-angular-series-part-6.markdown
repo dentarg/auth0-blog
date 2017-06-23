@@ -452,7 +452,7 @@ Reactive forms are synchronous. In addition, because the data model is generated
 
 Reactive forms yield lightweight templates, but can result in apparently complex component classes. The risk of indirection is higher for developers coming into a project. However, the gains include much more granular control, as well as the ability to implement robust, strongly customized validation—particularly when multiple form controls need to be validated as a group.
 
-{% include tweet_quote.html quote_text="#Angular reactive forms provide granular control and support robust custom validation." %}
+{% include tweet_quote.html quote_text="Angular reactive forms provide granular control and support robust custom validation." %}
 
 ### Event Form Requirements
 
@@ -1604,7 +1604,7 @@ Our validation should look and function like this:
 
 Angular's reactive forms are quite powerful. We've now explored how they give us plenty of flexibility to customize complex forms. 
 
-{% include tweet_quote.html quote_text="#Angular reactive forms allow us to build group-level custom validation." %}
+{% include tweet_quote.html quote_text="Angular reactive forms allow us to build group-level custom validation." %}
 
 ---
 
