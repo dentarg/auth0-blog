@@ -104,7 +104,7 @@ This endpoint does not require any authentication. We'll pass the `find()` query
 
 We also want to pass a [projection (see first example)](http://mongoosejs.com/docs/queries.html). Projections state which fields we want returned in the documents that match our query. If no projection is specified, all fields are returned. In our case, we don't need descriptions or locations in main event listings, so our projection will contain only the properties we _do_ want returned.
 
-{% include tweet_quote.html quote_text="Projections can be used with mongoose to return specific #MongoDB document properties." %}
+{% include tweet_quote.html quote_text="Projections can be used with mongoose to return specific MongoDB document properties." %}
 
 In the callback, we'll handle errors and iterate over any results, pushing them to an array that will be returned. We want an empty array if there are no events, since a lack of event documents simply means none have been created yet. Pretty straightforward!
 
@@ -362,7 +362,7 @@ export class LoadingComponent {
 
 We can remove the `OnInit` functionality and the `constructor` function. The template is very simple: just the host element with an image. We can style the host element using the [special selector `:host`](https://angular.io/guide/component-styles#host). (The _host_ element is the component's custom element, `<app-loading>` in this case.)
 
-{% include tweet_quote.html quote_text="#AngularCLI supports scaffolding components in a variety of ways using flags." %}
+{% include tweet_quote.html quote_text="Angular CLI supports scaffolding components in a variety of ways using flags." %}
 
 ### Add Loading Component to Callback Component
 
