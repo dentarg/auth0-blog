@@ -46,6 +46,8 @@ Besides that, be aware that JetBrains has been investing a lot on tools to help 
 
 To start a new project, you can take advantage of the *Create New Project* wizard that comes with Android Studio. Its usage is quite simple, and just a few steps are needed, [as shown in this tutorial](https://kotlinlang.org/docs/tutorials/kotlin-android.html). But, to speed things up, we are going to [clone this repository](https://github.com/auth0-blog/kotlin-app) in our local machine.
 
+> This post was made using **Android Studio 3 Canary 3**. New versions of the IDE should be supported as long as we update the versions of Kotlin's plugin and Gradle's wrapper.
+
 ```bash
 git clone https://github.com/auth0-blog/kotlin-app.git
 ```
@@ -241,7 +243,7 @@ This is the last change that we need to make on our application to see the list 
 
 ## Securing Kotlin App with Auth0
 
-As we already rendered the public list of to-do items in our app, we are now going to work on the authentication layer. This will enable our users to log into our app (and sign up as well), which will generate a JWT (JSON Web Token). This, called `access_token`, will be validated by our backend to allow or deny users to add new items to the to-do list.
+As we already rendered the public list of to-do items in our app, we are now going to work on the authentication layer. This will enable our users to log into our app (and sign up as well), which will generate a JWT (JSON Web Token). This JWT, called `access_token`, will be validated by our backend to allow or deny users to add new items to the to-do list.
 
 To integrate our app with Auth0, we need to add a dependency to [this open-source library](https://github.com/auth0/Auth0.Android). We do this by changing the `./app/build.gradle` file as follows:
 
@@ -257,7 +259,7 @@ android {
 
 dependencies {
     // ...
-    kapt "com.android.databinding:compiler:3.0.0-alpha4"
+    kapt 'com.android.databinding:compiler:3.0.0-alpha4'
     compile 'com.auth0.android:auth0:1.8.0'
 }
 
@@ -265,73 +267,6 @@ dependencies {
 ```
 
 Besides adding the new dependency, we have also configured our application to use [data binding](https://developer.android.com/topic/libraries/data-binding/index.html), which will be used to define when certain components must be rendered or hidden.
-
-The Auth0 library exposes an interface called `AuthCallback` that we will need to implement in order to handle the results of the sign-in and sign-up attempts. To define our own implementation we will create a file called `AuthenticationHandler.kt`, as a sibling to the `MainActivity` class, with the following source-code:
-
-```kotlin
-package com.auth0.samples.kotlinapp
-
-import android.app.Dialog
-import android.content.Context
-import android.widget.Toast
-import com.auth0.android.authentication.AuthenticationException
-import com.auth0.android.provider.AuthCallback
-import com.auth0.android.result.Credentials
-
-class AuthenticationHandler(val context: Context) : AuthCallback {
-    override fun onFailure(dialog: Dialog) {
-        val text = "Ops, something went wrong!"
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onFailure(exception: AuthenticationException) {
-        val text = "Ops, something went wrong!"
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onSuccess(credentials: Credentials) {
-        CredentialsManager.saveCredentials(credentials)
-    }
-}
-```
-
-Nothing too special about our implementation. When an error occurs, we just render a [`Toast`](https://developer.android.com/guide/topics/ui/notifiers/toasts.html) message saying that "something went wrong". And when the sign-in or sign-up process succeeds, we save the credentials to the `CredentialsManager`. This manager is not part of the library provided by Auth0, we actually have to implement it.
-
-The `CredentialsManager` will have two responsibilities: to hold the credentials of the logged-in user; and to provide a method to retrieve the `access_token` of this user. We will also create this class as a sibling to `MainActivity`, naming it as `CredentialsManager.kt`. This class will contain the following code:
-
-```kotlin
-package com.auth0.samples.kotlinapp
-
-import android.content.Context
-import com.auth0.android.result.Credentials
-
-object CredentialsManager {
-    private var context: Context? = null
-    private val PREFERENCES_NAME = "auth0"
-    private val ACCESS_TOKEN = "access_token"
-
-    fun setContext(context: Context) {
-        this.context = context
-    }
-
-    fun saveCredentials(credentials: Credentials) {
-        val sp = context?.getSharedPreferences(
-                PREFERENCES_NAME, Context.MODE_PRIVATE)
-
-        sp!!.edit().putString(ACCESS_TOKEN, credentials.accessToken)
-                .apply()
-    }
-
-    fun getAccessToken(): String {
-        val sp = context?.getSharedPreferences(
-                PREFERENCES_NAME, Context.MODE_PRIVATE)
-
-        return sp!!.getString(ACCESS_TOKEN, null)
-    }
-}
-```
-
-Notice that we start the definition of this class with `object` instead of `class`. [This is the idiomatic way to define *singletons* in Kotlin](https://kotlinlang.org/docs/reference/object-declarations.html#object-declarations). As both exposed methods make use of a context, which will always be the same in our simple app, we have also added a method to set the context in the singleton.
 
 After that, we will modify the `MainActivity` and its layout to add a button that, when clicked, starts the authentication process. Let's start by adding the authentication button in the `app/src/main/res/layout/activity_main.xml` file, which will end up as follows:
 
@@ -362,7 +297,7 @@ After that, we will modify the `MainActivity` and its layout to add a button tha
 </layout>
 ```
 
-> We would usually define labels and static texts in the `strings.xml` file. However, to simplify the tutorial, we will leave it defined in the layout file.
+> We would usually define labels and static texts in the `strings.xml` file. However, to simplify the tutorial, we will leave them defined in the layout file.
 
 We had to change the main element on this file to `layout` to correctly define a `loggedIn` variable. This variable is used in this layout to hide the login button when the user is successfully identified. Its value will be managed (and bound) by the `MainActivity` class.
 
@@ -389,8 +324,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        CredentialsManager.setContext(this)
-
         // setting up a Volley RequestQueue
         val queue = Volley.newRequestQueue(this)
 
@@ -415,27 +348,89 @@ class MainActivity : AppCompatActivity() {
     // Auth0 triggers an intent on a successful login
     override fun onNewIntent(intent: Intent) {
         if (WebAuthProvider.resume(intent)) {
-            binding?.loggedIn = true
             return
         }
         super.onNewIntent(intent)
     }
 
     private fun login() {
-        WebAuthProvider.init(Auth0("gQJPenvnoi7rA13KxYrSoB1FzleTg6S", "krebshaus.auth0.com"))
+        val account = Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain))
+        account.isOIDCConformant = true
+
+        WebAuthProvider.init(account)
                 .withScheme("demo")
                 .withAudience("kotlin-todo-app")
-                .start(this, AuthenticationHandler(this.applicationContext))
+                .start(this, object : AuthCallback {
+                    override fun onFailure(dialog: Dialog) {
+                        runOnUiThread { dialog.show() }
+                    }
+
+                    override fun onFailure(exception: AuthenticationException) {
+                        runOnUiThread {
+                            Toast.makeText(
+                                    this@MainActivity, "Ops, something went wrong!",
+                                    Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onSuccess(credentials: Credentials) {
+                        CredentialsManager.saveCredentials(credentials)
+                        binding?.loggedIn = true
+                    }
+                })
     }
 }
 ```
 
-> **Don't forget to** replace the parameters of the `WebAuthProvider.init` to your own Auth0 account details. The first parameter refers to the Client ID of *Kotlin To Do App (Test Client)*, the second parameter is your domain at Auth0.
+The `onCreate` function was changed to get a reference to the binding object related to the layout, in order to initialize the `loggedIn` variable as false, and to set the listener to the `loginButton`. The login function, which is called when the user clicks on the login button, triggers the `WebAuthProvider` component exposed by Auth0's library. This component has to be initialized with an instance of `Auth0`, which depends on the *Client ID* of the *Kotlin To Do App (Test Client)* and on our Auth0 domain. This is the same domain that we exported as an environment variable before running the backend application.
 
-The `onCreate` function was changed to get a reference to the binding object related to the layout, in order to initialize the `loggedIn` variable as false, and to set the listener to the `loginButton`. The login function, which is called when the user clicks on the login button, triggers the `WebAuthProvider` component exposed by Auth0's library. This component has to be initialized with the *Client ID* of the *Kotlin To Do App (Test Client)*  and with our Auth0 domain. This is the same domain that we exported as an environment variable before running the backend application. We also configured the Auth0 component to:
+Both of these properties, `auth0_client_id` and `auth0_domain`, are read from the `strings.xml` file. Let's open this file and add them with the values that we find in the *Kotlin To Do App (Test Client)* that was created for us on Auth0:
+
+```xml
+<resources>
+    <string name="app_name">KotlinApp</string>
+    <string name="auth0_client_id">4gDhRaCvv2ESmAlL0JAtYX3SD8OkFoi3</string>
+    <string name="auth0_domain">krebshaus.auth0.com</string>
+</resources>
+```
+
+Back to the modifications made to the `MainActivity` class, it is important to note that we also configured `WebAuthProvider` to:
 
 - use a `demo` schema, which will help Android to trigger our app when a link starting with `demo://` is called
 - use the `kotlin-todo-app` audience, which is the name of the API that we've created on Auth0 management tool.
+
+The `start` function of `WebAuthProvider` expects an implementation of [`AuthCallback`](https://github.com/auth0/Auth0.Android/blob/master/auth0/src/main/java/com/auth0/android/provider/AuthCallback.java) to handle the results of the sign-in and sign-up attempts. To define our implementation we have created an inline class that, when an error occurs, we just render a [`Toast`](https://developer.android.com/guide/topics/ui/notifiers/toasts.html) message saying that "something went wrong". And when the sign-in or sign-up process succeeds, we save the credentials to the `CredentialsManager`. This manager is not part of the library provided by Auth0, we actually have to implement it.
+
+The `CredentialsManager` will have two responsibilities: to hold the credentials of the logged-in user; and to provide a method to retrieve the `access_token` of this user. We will also create this class as a sibling to `MainActivity`, naming it as `CredentialsManager.kt`. This class will contain the following code:
+
+```kotlin
+package com.auth0.samples.kotlinapp
+
+import android.content.Context
+import com.auth0.android.result.Credentials
+
+object CredentialsManager {
+    private val PREFERENCES_NAME = "auth0"
+    private val ACCESS_TOKEN = "access_token"
+
+    fun saveCredentials(context: Context, credentials: Credentials) {
+        val sp = context.getSharedPreferences(
+                PREFERENCES_NAME, Context.MODE_PRIVATE)
+
+        sp!!.edit().putString(ACCESS_TOKEN, credentials.accessToken)
+                .apply()
+    }
+
+    fun getAccessToken(context: Context): String {
+        val sp = context.getSharedPreferences(
+                PREFERENCES_NAME, Context.MODE_PRIVATE)
+
+        return sp!!.getString(ACCESS_TOKEN, null)
+    }
+}
+```
+
+Notice that we start the definition of this class with `object` instead of `class`. [This is the idiomatic way to define *singletons* in Kotlin](https://kotlinlang.org/docs/reference/object-declarations.html#object-declarations).
 
 To wrap the changes in our project, we need to register an intent filter inside our main activity's tag and make this activity to be launched as a [single task](https://developer.android.com/guide/topics/manifest/activity-element.html). Let's open `./app/src/main/AndroidManifest.xml` and replace it with the following contents:
 
@@ -453,7 +448,8 @@ To wrap the changes in our project, we need to register an intent filter inside 
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:launchMode="singleTask">
+        <activity android:name=".MainActivity"
+                  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -467,7 +463,7 @@ To wrap the changes in our project, we need to register an intent filter inside 
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="krebsapp.auth0.com"
+                    android:host="@string/auth0_domain"
                     android:pathPrefix="/android/com.auth0.samples.kotlinapp/callback"
                     android:scheme="demo" />
             </intent-filter>
@@ -501,7 +497,9 @@ We have successfully integrated our Kotlin app with Auth0 and managed to get an 
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- ... -->
-    <LinearLayout ...>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <EditText
             android:id="@+id/item"
             android:layout_width="match_parent"
@@ -516,7 +514,7 @@ We have successfully integrated our Kotlin app with Auth0 and managed to get an 
             android:layout_height="wrap_content"
             android:text="Add item"
             android:visibility="@{loggedIn ? View.VISIBLE : View.GONE}" />
-        <!-- ... -->
+        <!-- ... login_button and list_todo remain untouched -->
     </LinearLayout>
 </layout>
 ```
@@ -541,7 +539,7 @@ class MainActivity : AppCompatActivity() {
         val itemEditText = findViewById(R.id.item) as EditText
         addItemButton.setOnClickListener {
             val item = itemEditText.text.toString()
-            addItem(queue, item, CredentialsManager.getAccessToken(), {
+            addItem(queue, item, CredentialsManager.getAccessToken(this), {
                 itemEditText.text.clear()
                 Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
                 getItems(this, queue, listToDo)
@@ -613,7 +611,7 @@ In case we don't want to rely on state-of-the-art features provided by Auth0, we
 3. We would need to add an activity, in our Kotlin app, to handle sign in and sign up.
 4. We would need to add another activity to handle password retrieval.
 
-The changes to the Kotlin app wouldn't be that hard if we avoid advanced features like [Passwordless feature](https://auth0.com/passwordless) and social providers (which are all trivial with Auth0). Regarding the backend refactoring, Auth0's blog provides many articles that addresses home made solutions on different languages and platforms, like:
+The changes to the Kotlin app wouldn't be that hard if we avoid advanced features like integrations with [*Active Directory* ](https://auth0.com/docs/connector) and [social providers](https://auth0.com/docs/identityproviders) (which are all trivial with Auth0). Regarding the backend refactoring, Auth0's blog provides many articles that addresses home made solutions on different languages and platforms, like:
 
 - [Securing Node.js with JWTs](https://auth0.com/blog/building-and-authenticating-nodejs-apps/)
 - [Securing Spring Boot with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/)
@@ -629,4 +627,4 @@ Developing a secure Android application with Kotlin is trivial, as we managed to
 
 Furthermore, we also had a chance to see that securing Kotlin mobile applications with JWTs is easy. When we rely on a trustworthy identity management provider as Auth0, things become more smooth and secure. We didn't have to implement our own sign in and sign up features on the mobile app, not even on our backend. We just configured a few things on our free Auth0 account, and integrated an open-source library with our app.
 
-By using Auth0, we can also rest assured that if we need to enhance our app security with [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), add a [Passwordless feature](https://auth0.com/passwordless), or integrate with other identity manager providers like [Facebook](https://auth0.com/docs/connections/social/facebook) or [SAML](https://auth0.com/docs/protocols/saml), the process will be smooth and well documented as well.
+By using Auth0, we can also rest assured that if we need to enhance our app security with [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), add a [*Breached Password Detection* feature](https://auth0.com/breached-passwords), or integrate with other identity manager providers like [Facebook](https://auth0.com/docs/connections/social/facebook) or [SAML](https://auth0.com/docs/protocols/saml), the process will be smooth and well documented as well.
