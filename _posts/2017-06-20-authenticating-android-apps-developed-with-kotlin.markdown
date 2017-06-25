@@ -138,7 +138,7 @@ The second change that we will need is to explicitly define that our Android app
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- ... -->
+    <!-- ... application definition -->
 
 </manifest>
 ```
@@ -187,7 +187,7 @@ fun getItems(activity: Activity, queue: RequestQueue, listView: ListView) {
 
 This file contains a single function (for now) that will issue `GET` requests to the backend and populate a `ListView` with the response. Note that in [Kotlin, functions can be declared at the top level in a file](https://kotlinlang.org/docs/reference/functions.html#function-scope), meaning you do not need to create a class to hold a function.
 
-Another important aspect of the code above is that the `ENDPOINT` is hard-coded to `http://10.0.2.2:8080/`. This URL refers to the RESTful API that we have started before so, if you are not using an emulator, you might need to change this value to the local `IP` address of your computer.
+Another important aspect of the code above is that the `ENDPOINT` is hard-coded to `http://10.0.2.2:8080/`. This URL refers to the RESTful API that we have started before so, if you are not using an emulator, you might need to change this value to the `IP` address of your computer on your local network.
 
 ### Rendering To-Do Items
 
@@ -306,14 +306,19 @@ Let's focus now on updating the `MainActivity` class to integrate it with Auth0'
 ```kotlin
 package com.auth0.samples.kotlinapp
 
+import android.app.Dialog
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ListView
+import android.widget.Toast
 import com.android.volley.toolbox.Volley
 import com.auth0.android.Auth0
+import com.auth0.android.authentication.AuthenticationException
+import com.auth0.android.provider.AuthCallback
 import com.auth0.android.provider.WebAuthProvider
+import com.auth0.android.result.Credentials
 import com.auth0.samples.kotlinapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -374,7 +379,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     override fun onSuccess(credentials: Credentials) {
-                        CredentialsManager.saveCredentials(credentials)
+                        CredentialsManager.saveCredentials(this@MainActivity, credentials)
                         binding?.loggedIn = true
                     }
                 })
@@ -389,6 +394,7 @@ Both of these properties, `auth0_client_id` and `auth0_domain`, are read from th
 ```xml
 <resources>
     <string name="app_name">KotlinApp</string>
+    <!-- replace the values with yours account details -->
     <string name="auth0_client_id">4gDhRaCvv2ESmAlL0JAtYX3SD8OkFoi3</string>
     <string name="auth0_domain">krebshaus.auth0.com</string>
 </resources>
@@ -473,8 +479,6 @@ To wrap the changes in our project, we need to register an intent filter inside 
 </manifest>
 ```
 
-> **Note that** we also have to properly change the `android:host` property above to our own domain.
-
 Before testing the integration with Auth0, we need to go back to [the *Clients* page in the management tool](https://manage.auth0.com/#/clients) and do two modifications. First, we have to configure the *Allowed Callback URLs* option of our client to accept the following url:
 
 ```bash
@@ -496,7 +500,7 @@ We have successfully integrated our Kotlin app with Auth0 and managed to get an 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- ... -->
+    <!-- ... data element with import and variable -->
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -526,7 +530,6 @@ package com.auth0.samples.kotlinapp
 
 // ...
 import android.widget.EditText
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -625,6 +628,6 @@ Developing a secure Android application with Kotlin is trivial, as we managed to
 
 {% include tweet_quote.html quote_text="Developing a secure Android application with Kotlin is trivial." %}
 
-Furthermore, we also had a chance to see that securing Kotlin mobile applications with JWTs is easy. When we rely on a trustworthy identity management provider as Auth0, things become more smooth and secure. We didn't have to implement our own sign in and sign up features on the mobile app, not even on our backend. We just configured a few things on our free Auth0 account, and integrated an open-source library with our app.
+Furthermore, we also had a chance to see that securing Kotlin mobile applications with JWTs is easy. When we rely on a trustworthy identity management provider as Auth0, things become even more smooth and secure. We didn't have to implement our own sign in and sign up features on the mobile app, not even on our backend. We just configured a few things on our free Auth0 account, and integrated an open-source library with our app.
 
 By using Auth0, we can also rest assured that if we need to enhance our app security with [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), add a [*Breached Password Detection* feature](https://auth0.com/breached-passwords), or integrate with other identity manager providers like [Facebook](https://auth0.com/docs/connections/social/facebook) or [SAML](https://auth0.com/docs/protocols/saml), the process will be smooth and well documented as well.
