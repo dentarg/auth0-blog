@@ -10,8 +10,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#380962"
-  image: https://cdn.auth0.com/blog/personalization/logo.png
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/blog-logo/brand-advocate.png
 tags:
 - retail
 - security
@@ -20,14 +20,14 @@ tags:
 - vision
 - auth0
 related:
-- 2016-09-22-yahoo-confirms-data-breach-of-half-a-billion-user-accounts
-- 2016-08-16-how-real-state-companies-can-implement-open-id-connect-with-auth0
-- 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
+- 2017-06-19-how-to-keep-up-with-hyperconnected-consumers
+- 2016-04-18-progressive-profiling
+- 2017-05-26-go-beyond-username-password-with-modern-auth
 ---
 
 Brand advocates are the holy grail of customers. They're a key part of growing your customer base because they love your product and encourage others to use it. Of course you wish every customer were a brand advocate.
 
-So, can you better connect with *regular* customers to turn them into all-important brand advocates? Creating that valuable, personal connection to your brand is difficult. Especially today, when you're communicating across multiple channels, and trying to stitch together your customers' behaviors from in-store purchases to tweets.
+So, can you better connect with *regular* customers to turn them into all-important brand advocates? Creating that valuable, personal connection to your brand is difficult. Especially today, when you're communicating across multiple channels, and trying to [stitch together your customers' behaviors](https://auth0.com/blog/how-to-keep-up-with-hyperconnected-consumers/) from in-store purchases to tweets.
 
 Identity management is your secret weapon for this — it helps consolidate customer information so you can add that personal touch whenever people log in or stroll into a store and interact with your brand.
 
@@ -35,7 +35,7 @@ Identity management is your secret weapon for this — it helps consolidate cust
 
 Login is the beginning of getting to know your customer. It's a great way to start collecting information about them that you can use to better their brand experience and personalize your interactions.
 
-One of the easiest ways to do this is to use social login. Customers often want an easy login that doesn't require them to open yet another account with yet another username and password, and social removes that barrier for customers. It also streamlines their login after they create an account; if they are logged into the social network, they'll be able to log in with one click and no keystrokes at all.
+One of the easiest ways to do this is to use [social login](https://auth0.com/learn/social-login/). Customers often want an easy login that doesn't require them to open yet another account with yet another username and password, and social removes that barrier for customers. It also streamlines their login after they create an account; if they are logged into the social network, they'll be able to log in with one click and no keystrokes at all.
 
 In addition, shopping is a social experience, something that's replicated on a lot of eCommerce sites. Referral programs that use customer's social login to suggest sharing rewards with friends, and even allowing personalized gift wrapping and messages through websites speak to the social nature of shopping. If you have any social rewards or features, social login is the way to go.
 
@@ -49,7 +49,7 @@ In this way, social login encourages a better relationship between brand and cus
 
 You want to build a relationship with your customers, and that means learning about them over time, it doesn't happen just because you ask a customer what they're like on day one. There's no way a customer would ever sit through a survey that asks everything you want to know about them, but they still want that personal touch.
 
-That's where progressive profiling comes in. Progressive profiling is slowly nudging the customer over time and learning about their preferences, likes, dislikes. It's also about knowing when the right time to ask for information is. You want to identify when customers will share the information you need, which probably aligns with how much they've realized the value of your product.
+That's where [progressive profiling](https://auth0.com/blog/progressive-profiling/) comes in. Progressive profiling is slowly nudging the customer over time and learning about their preferences, likes, dislikes. It's also about knowing when the right time to ask for information is. You want to identify when customers will share the information you need, which probably aligns with how much they've realized the value of your product.
 
 Progressive profiling is easy when done by triggering questions at login. Maybe the first login you only take their basic information, but the third or fourth time they log in, you ask them where they work or what types of deals they'd like to see from you in their inbox.
 
@@ -65,7 +65,7 @@ Gathering personal information from a customer can lead to forging a more meanin
 
 We've just discussed gathering information on customers to make their experience more personal. But where do you store that information, and who has access to it?
 
-With Auth0, each user in your system has a centralized profile where information is stored. Their login history, the information from their social login, progressive profiling, and other information you collect can be stored in that profile, which gives you a 360-degree view of the customer. You can set access so that everyone who is interacting with customers has real-time access to that information.
+With Auth0, each user in your system has a centralized profile where information is stored. Their login history, the information from their social login, progressive profiling, and other information you collect can be stored in that profile, which gives you a [360-degree view of the customer](https://auth0.com/blog/360-view-of-customer-by-managing-identity/). You can set access so that everyone who is interacting with customers has real-time access to that information.
 
 This profile within Auth0 also helps maintain a single view of your customer in other ways:
 
@@ -77,7 +77,7 @@ This profile within Auth0 also helps maintain a single view of your customer in 
 
 ## Better personalization with Auth0 Rules
 
-That centralized profile is also the perfect way to take advantage of the true power of a robust identity management system like Auth0. With Auth0 in particular, it's a great way to take advantage of Auth0 Rules, snippets of code that you add to kick in things like grabbing information from a user's profile.
+That centralized profile is also the perfect way to take advantage of the true power of a robust identity management system like Auth0. With Auth0 in particular, it's a great way to take advantage of [Auth0 Rules](https://auth0.com/docs/rules/current), snippets of code that you add to kick in things like grabbing information from a user's profile.
 
 While you can write your own Rule to help your marketing efforts, you can also rely on a library of existing rules. Many of them can help with bolstering personalization efforts in marketing. A couple that highlight this focus are:
 
