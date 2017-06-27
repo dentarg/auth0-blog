@@ -2,7 +2,7 @@
 layout: post
 title: "Real-World Angular Series - Part 1: MEAN Setup & Angular Architecture"
 description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): MEAN setup and Angular architecture."
-date: 2017-06-27 8:30
+date: 2017-06-28 8:30
 category: Technical guide
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
