@@ -9,7 +9,7 @@ author:
   url: "https://twitter.com/brunoskrebs"
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
-  design:
+design:
     bg_color: "#7F2833"
     image: https://cdn.auth0.com/blog/petya-ransomware/petya-logo.png
 related:
