@@ -135,7 +135,7 @@ Next we'll create a similar endpoint that will return _all_ events: `/api/events
   ...
 ```
 
-The code for this endpoint is very similar to the route fetching public events, but we'll include both the `jwtCheck` and `adminCheck` middleware. We'll also send `{}` as the query because we want to retrieve _all_ events in the database. We'll pass the same `_eventListProjection` to leave out locations and descriptions.
+The code for this endpoint is very similar to the route fetching public events, but we'll include both the `jwtCheck` and `adminCheck` middleware. We won't add any parameters to the query object because we want to retrieve _all_ events in the database. We'll pass the same `_eventListProjection` to leave out locations and descriptions.
 
 > **Note:** It's worthwhile to note that this endpoint is simply for admin display purposes. We want the admin to be able to see and interact with a _listing_ of public and private events. However, authenticated _users_ can still see private event details too, they just need to know the direct link and can't access them from a list.
 
@@ -387,7 +387,7 @@ Run the following command to generate the boilerplate:
 $ ng g service core/utils
 ```
 
-We'll begin using this service to add an `isLoaded()` utility. Then we'll create methods to manage the display of event dates. Each event has a start datetime and an end datetime. Start and end  dates for a single event may be different days _or_ the same day. We want a way to collapse same-day events into one date when displaying them in the UI. We also don't need to show times on the main listings, only on detail pages. Finally, we'll want a way to determine if an event already happened and is now in the past.
+We'll begin using this service to add an `isLoaded()` utility. Then we'll create methods to manage the display of event dates. Each event has a start datetime and an end datetime. Start and end dates for a single event may be different days _or_ the same day. We want a way to collapse same-day events into one date when displaying them in the UI. We also don't need to show times on the main listings, only on detail pages. Finally, we'll want a way to determine if an event already happened and is now in the past.
 
 We'll import and take advantage of [Angular's built-in `DatePipe`](https://angular.io/api/common/DatePipe) to help us craft some helper methods:
 
@@ -596,7 +596,7 @@ Next, we'll filter the array using the [`filter()` array method](https://develop
 
 This is done differently for various value types. The search handles strings, JavaScript Date objects, and UTC strings. If we want to ensure that the search doesn't query certain properties, we'll make sure to pass them in as `excludedProps` when calling the method in our components.
 
-> **Note:** We won't search properties with values that are any other types because our RSVP app doesn't need this. If you'd like to see a more robust implementation that handles strings, numbers,  booleans, and dates, please check out [this filter-sort service Gist on GitHub](https://gist.github.com/kmaida/49dadc4c6c44116727ee859e21a32a46#file-filter-sort-service-ts).
+> **Note:** We won't search properties with values that are any other types because our RSVP app doesn't need this. If you'd like to see a more robust implementation that handles strings, numbers, booleans, and dates, please check out [this filter-sort service Gist on GitHub](https://gist.github.com/kmaida/49dadc4c6c44116727ee859e21a32a46#file-filter-sort-service-ts).
 
 The `noSearchResults()` method simply accepts an array and a query and returns `true` if the array is empty and a query is present.
 
