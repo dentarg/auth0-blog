@@ -7,10 +7,11 @@ category: PR, Press
 press_release: true
 is_non-tech: true
 author:
-  name: "Martin Gontovnikas"
-  url: "http://twitter.com/mgonto"
-  mail: "gonto@auth0.com"
-  avatar: "https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60"
+  name: "Jon Gelsey"
+  mail: jon@auth0.com
+  url:  http://www.twitter.com/jgelsey
+  avatar: https://auth0.com/pages/about/img/jon.png
+  twitter: jgelsey
 design:
   image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
   bg_color: "#35354D"
