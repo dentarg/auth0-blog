@@ -42,8 +42,8 @@ Meritech Capital Partners is a leading provider of late-stage venture capital to
 
 For more information visit [https://auth0.com](https://auth0.com) or follow [@auth0 on Twitter](https://twitter.com/auth0).
 
-**For Editorial Contact:**
-Amber Moore
-GMK Communications for Auth0
-<a href="mailto:amber@gmkcommunications.com">amber@gmkcommunications.com</a>
+**For Editorial Contact:**<br>
+Amber Moore<br>
+GMK Communications for Auth0<br>
+<a href="mailto:amber@gmkcommunications.com">amber@gmkcommunications.com</a><br>
 503.943.9381
