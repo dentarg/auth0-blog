@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Real-World Angular Series - Part 4: Access Management, Admin, and Detail Pages"
-description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): access management, admin listing, and detail pages."
+description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): access management, display admin data, and detail pages."
 date: 2017-07-06 8:30
 category: Technical guide
 banner:
@@ -249,7 +249,7 @@ const routes: Routes = [
 ...
 ```
 
-We'll import our two new route guards and then add them to the `providers` array.
+We'll import our two route guards and then add them to the `providers` array.
 
 We're now ready to guard routes. The next step is to create protected routes!
 
@@ -489,7 +489,7 @@ Now let's open our `admin.component.html` template:
 {% endraw %}
 {% endhighlight %}
 
-Again, this is very similar to our Home component's implementation. However, we'll start with a paragraph greeting our admin user.We're showing icons in our event list indicating if an event is in the past (with the calendar icon) or if it has `viewPublic: false`. Also, we're only linking the title of the event to its detail page instead of the entire list item because we'll be adding "Edit" and "Delete" buttons to each event later.
+Again, this is very similar to our Home component's implementation. However, we'll start with a paragraph greeting our admin user. We're showing icons in our event list indicating if an event is in the past (with the calendar icon) or if it has `viewPublic: false`. Also, we're only linking the title of the event to its detail page instead of the entire list item because we'll be adding "Edit" and "Delete" buttons to each event later.
 
 Now open `admin.component.scss` to add a few styles for our event icons:
 
@@ -513,7 +513,7 @@ Because our Admin component and API route are protected, you'll have to log into
 
 If unauthenticated users attempt to access this page, they'll be prompted to log in. If they are admin upon logging in, they'll be granted access. If they don't have admin rights, they'll be redirected to the homepage by our admin route guard. If a user logs out from this page, they'll also be redirected to the homepage. Try it out!
 
-> **Security Note:** Even if a user was somehow able to circumvent the front end protection, the Node API would not return the events data without the correct admin role concealed in the opaque access token.
+> **Security Note:** Even if a user was somehow able to circumvent the front end protection, the Node API would not return the events data without the correct admin role concealed in the access token.
 
 That's all we'll do with the Admin page for now. Later on, we'll add links to _create_ and _update_ events.
 
