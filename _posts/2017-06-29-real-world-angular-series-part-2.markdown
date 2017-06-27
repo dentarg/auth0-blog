@@ -25,7 +25,7 @@ tags:
 - express
 - mean
 related:
-- 2017-06-27-real-world-angular-series-part-1
+- 2017-06-28-real-world-angular-series-part-1
 - 2017-01-19-building-and-securing-a-koa-and-angular2-app-with-jwt
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 
