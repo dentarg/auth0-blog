@@ -15,11 +15,14 @@ design:
   image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
   bg_color: "#35354D"
 tags:
-- hyphenated-tags
-- 
+- auth0
+- series-c
+- founding
+- investors
 related:
-- date-post-name
-- date-post-name
+- introducing-the-auth0-security-whitepaper
+- introducing-auth0-extend-the-new-way-to-extend-your-saas
+- auth0-raises-15M-to-enhance-its-identity-platform 
 ---
 
 **BELLEVUE, WA** — (Marketwire, June 27, 2017) - Auth0, the leading Identity as a Service platform, today announced it has raised $30 million in a Series C financing led by late-stage investor [Meritech Capital Partners](http://www.meritechcapital.com/) and that George Bischof, Managing Director at Meritech Capital Partners, has joined Auth0’s Board of Directors.  All existing major investors also participated, including Bessemer Venture Partners, Trinity Ventures, and K9 Ventures. NTT DOCOMO Ventures, Japan’s largest mobile carrier, and Telstra Ventures, the venture capital arm of Australia’s largest mobile carrier, participated as well, endorsing the easy-to-integrate enterprise scale platform that secures billions of logins every year. Auth0 will use the funds to further expand its geographic footprint, and to accelerate the growth of its identity platform with an increased subscriber and talent acquisition focus. 
@@ -41,9 +44,3 @@ Auth0 provides an enterprise-grade identity platform that secures billions of lo
 Meritech Capital Partners is a leading provider of late-stage venture capital to category- defining private technology companies, and has been one of the top performing venture firms of the past decade. With over $3 billion under management, Meritech leads investments into companies with proven and differentiated technology, rapidly-growing revenue and experienced management teams. Meritech investments in industry-leading companies include Box, Cloudera, Cornerstone OnDemand, Coupa, Facebook, Fortinet, Mulesoft, NetSuite, Proofpoint, PopCap, Salesforce.com, Sourcefire, Tableau and Zulily. Meritech is located in Palo Alto, CA and can be found at [www.meritechcapital.com](http://www.meritechcapital.com). 
 
 For more information visit [https://auth0.com](https://auth0.com) or follow [@auth0 on Twitter](https://twitter.com/auth0).
-
-**For Editorial Contact:**<br>
-Amber Moore<br>
-GMK Communications for Auth0<br>
-<a href="mailto:amber@gmkcommunications.com">amber@gmkcommunications.com</a><br>
-503.943.9381
