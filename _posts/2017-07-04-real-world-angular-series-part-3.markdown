@@ -3,7 +3,7 @@ layout: post
 title: "Real-World Angular Series - Part 3: Fetching and Displaying API Data"
 description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): fetching, displaying, and filtering data."
 date: 2017-07-03 8:30
-category: Technical guide
+category: Technical guide, Angular, Angular 4
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
