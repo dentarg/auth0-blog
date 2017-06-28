@@ -1060,7 +1060,7 @@ Now that we have our structure and global components in place, we're ready to st
 
 The Angular CLI uses [Codelyzer](https://github.com/mgechev/codelyzer) to lint Angular projects and raise warnings when the developer has used practices that do not adhere to the [Angular Style Guide](https://angular.io/guide/styleguide). Now might be a good time to run `$ ng lint` to lint our project and make sure there are no errors.
 
-{% include tweet_quote.html quote_text="Angular CLI lints projects and raises warnings when the dev doesn't adhere to the #Angular styleguide." %}
+{% include tweet_quote.html quote_text="Angular CLI lints projects and raises warnings when the dev doesn't adhere to the @angular styleguide." %}
 
 ---
 
