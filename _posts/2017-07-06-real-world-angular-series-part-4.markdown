@@ -3,7 +3,7 @@ layout: post
 title: "Real-World Angular Series - Part 4: Access Management, Admin, and Detail Pages"
 description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): access management, display admin data, and detail pages."
 date: 2017-07-06 8:30
-category: Technical guide
+category: Technical guide, Angular, Angular 4
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
