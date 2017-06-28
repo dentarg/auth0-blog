@@ -3,7 +3,7 @@ layout: post
 title: "Real-World Angular Series - Part 6: Reactive Forms and Custom Validation"
 description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): reactive forms and custom validation."
 date: 2017-07-13 8:30
-category: Technical guide
+category: Technical guide, Angular, Angular 4
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
