@@ -8,9 +8,10 @@ author:
   name: "Yomi Eluwande"
   url: "https://twitter.com/yomieluwande"
   mail: "yomi.eluwande@gmail.com"
+  avatar: https://cdn.auth0.com/blog/avatar/yomi-eluwande.png
 design:
-  bg_color: "#222425"
-  image: https://cdn.auth0.com/blog/blog/React-logo.png
+  bg_color: "#3666A5"
+  image: https://cdn.auth0.com/blog/auth0-pusher/logo.png
 tags:
 - reactjs
 - auth0
