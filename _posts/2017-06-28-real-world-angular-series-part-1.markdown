@@ -3,7 +3,7 @@ layout: post
 title: "Real-World Angular Series - Part 1: MEAN Setup & Angular Architecture"
 description: "Build and deploy a real-world app with MongoDB, Express, Angular, and Node (MEAN): MEAN setup and Angular architecture."
 date: 2017-06-28 8:30
-category: Technical guide
+category: Technical guide, Angular, Angular 4
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
@@ -591,7 +591,7 @@ We should now be able to access both the Angular application and the API in the 
 > **Note:** We'll be using separate terminal windows a lot so we can keep watching the app and API while adding components with the Angular CLI.
 
 * Serve Angular app: `ng serve`
-* Serve Node API: `NODE_ENV=dev nodemon server.js`
+* Serve Node API: `NODE_ENV=dev nodemon server`
 
 If we've done everything correctly, the Angular app will compile and show a success message in its terminal. We should also see a message in the Node server terminal confirming that the server is running and that we've successfully connected to MongoDB.
 
