@@ -31,7 +31,7 @@ related:
 
 ---
 
-**TL;DR:** This tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 2 of the tutorial series covers authentication, authorization, and data modeling.**
+**TL;DR:** This 8-part tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 2 of the tutorial series covers authentication, authorization, and data modeling.**
 
 ---
 
@@ -682,7 +682,7 @@ We now have admin authorization set up on both our API and in our Angular app. W
 
 We have our database, Angular app, authentication, and secured Node API structurally ready for further development. Now it's time to do some feature planning and data modeling. It's vitally important to plan an application's data structure before diving straight into writing endpoints and business logic.
 
-{% include tweet_quote.html quote_text="It's vital to plan an app's data structure before diving straight into writing endpoints and business logic." %}
+{% include tweet_quote.html quote_text="It's vital to plan data structure before writing endpoints and business logic." %}
 
 Let's consider our RSVP app's intended features at a high level, then we'll extrapolate what our database schema models should look like in order to bring these features to life.
 
