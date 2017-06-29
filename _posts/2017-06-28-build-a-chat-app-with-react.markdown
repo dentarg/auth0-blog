@@ -892,3 +892,8 @@ ReactJS works very well with Pusher because of its declarative, unidirectional d
 The combination of Pusher and Auth0 can be extended to build wonderful use cases and applications. We could add social sign-ins with Auth0 and implement a “Who’s Online” feature thanks to Pusher. The possibilities are endless. You can learn more about both services by visiting their websites([Pusher](http://pusher.com) and [Auth0](http://auth0.com)).
 
 You can check the [Github repository](https://github.com/yomete/pusher-auth0) for the source code.
+
+<div class="alert alert-info">
+<strong>About Yomi Eluwande:</strong><br />
+<p style="color: #097093;">Yomi Eluwande is a frontend developer and product designer. He enjoys making products that solve problems. He is currently interested in the intersection between code and design.</p>
+</div>
