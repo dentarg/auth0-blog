@@ -26,12 +26,11 @@ tags:
 - mean
 related:
 - 2017-03-07-managing-state-in-angular-with-ngrx-store
-- 2017-01-19-building-and-securing-a-koa-and-angular2-app-with-jwt
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 
 ---
 
-**TL;DR:** This tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 1 of the tutorial series covers MEAN setup and the architecture for our Angular app.**
+**TL;DR:** This 8-part tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 1 of the tutorial series covers MEAN setup and the architecture for our Angular app.**
 
 ---
 
@@ -337,7 +336,7 @@ For easy database management, we can use an app called [MongoBooster](https://mo
 
 1. In the upper left of the Connections prompt, click "Create" to set up a new connection.
 2. A **Connection Editor** dialog will appear with the **Basic** tab open.
-3. Enter the server address. This will be your MongoDB URI that we made note of early, something like: `<ds111111>.mlab.com`.
+3. Enter the server address. This will be the MongoDB URI that we made note of earlier, something like: `<ds111111>.mlab.com`.
 4. Enter the port number in the field after the `:`.
 5. Enter a name for the connection, such as `mLab - mean`.
 
