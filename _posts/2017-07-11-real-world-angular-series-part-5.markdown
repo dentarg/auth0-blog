@@ -26,7 +26,7 @@ tags:
 - mean
 related:
 - 2017-06-29-real-world-angular-series-part-2
-- 2017-07-04-real-world-angular-series-part-3
+- 2017-07-05-real-world-angular-series-part-3
 - 2017-07-06-real-world-angular-series-part-4
 
 ---
