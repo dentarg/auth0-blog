@@ -31,7 +31,7 @@ related:
 
 ---
 
-**TL;DR:** This tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 4 of the tutorial series covers access management with Angular, displaying admin data, and setting up detail pages with tabs.**
+**TL;DR:** This 8-part tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 4 of the tutorial series covers access management with Angular, displaying admin data, and setting up detail pages with tabs.**
 
 ---
 
@@ -61,7 +61,7 @@ We have two levels of authorization for various routes that require guards:
 1. Is the user authenticated?
 2. Does the authenticated user have admin privileges?
 
-{% include tweet_quote.html quote_text="Angular route guards determine whether a user should be allowed to access a specific route." %}
+{% include tweet_quote.html quote_text="Angular route guards determine whether a user is allowed to access a route." %}
 
 ### Redirecting To and From Login
 
@@ -738,7 +738,7 @@ Open the `event.component.scss` file:
 
 Let's discuss this briefly. We've already talked about the `:host` special selector in the past: it provides styles for the component's custom element. The `/deep/` (or alternatively, `>>>`) selector is another [Angular component special selector](https://angular.io/guide/component-styles#deep). Normally, styles only apply to their own component. This means any styles applied to the Event component would _not_ be inherited by the Event Detail or RSVP child components. The `/deep/` selector forces a style down through all child elements. Since both of our child components will have list groups with `<strong>` tags in them, we can use `:host /deep/` to propagate a ruleset. We might not want this style throughout our entire app, so we won't add it to our global `_base.scss`, but we'll need it in multiple children here.
 
-{% include tweet_quote.html quote_text="The /deep/ selector in Angular allows styles to affect nested components." %}
+{% include tweet_quote.html quote_text="Angular's /deep/ selector  allows styles to affect nested components." %}
 
 If you visit the Event component in the browser now, you should be able to switch between the two tabs.
 
