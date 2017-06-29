@@ -31,7 +31,7 @@ related:
 
 ---
 
-**TL;DR:** This tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 3 of the tutorial series covers fetching data from MongoDB with a Node API and displaying and filtering it with Angular.**
+**TL;DR:** This 8-part tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 3 of the tutorial series covers fetching data from MongoDB with a Node API and displaying and filtering it with Angular.**
 
 ---
 
