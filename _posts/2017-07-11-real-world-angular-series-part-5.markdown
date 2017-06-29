@@ -31,7 +31,7 @@ related:
 
 ---
 
-**TL;DR:** This tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 5 of the tutorial series covers simple animation and using a template-driven form to add and update data.**
+**TL;DR:** This 8-part tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 5 of the tutorial series covers simple animation and using a template-driven form to add and update data.**
 
 ---
 
@@ -502,7 +502,7 @@ I personally prefer Option 1 for animations because I find it easier to read the
 
 In both approaches, note that `overflow-y: 'hidden'` is included in both states. This style is needed by the animation, so it's included in the animation JS rather than in CSS. Needing to remember to apply it with CSS whenever we add the animation somewhere would prove cumbersome and not very future-proof. It's safer to include all animation-supporting styles with the animation itself.
 
-{% include tweet_quote.html quote_text="Animations in Angular are powerful and provide developers with authorship flexibility." %}
+{% include tweet_quote.html quote_text="Animations in Angular are powerful and provide devs with authorship flexibility." %}
 
 Hopefully you can see how animations like this can be expanded to support much more complexity. Check out the [Angular Animation docs](https://angular.io/guide/animations) for more examples and indepth documentation.
 
@@ -790,7 +790,7 @@ As the name implies, _template-driven forms_ place much of the form's logic, val
 
 Template-driven forms yield rather heavy HTML templates, but lighter classes. They're advantageous in that they don't add a lot of business logic in the JavaScript. However, the manner in which your class can act upon them is more limited when compared with reactive forms.
 
-{% include tweet_quote.html quote_text="Angular template-driven forms are declarative, and closely resemble forms in AngularJS." %}
+{% include tweet_quote.html quote_text="Angular template-driven forms are declarative and closely resemble forms in AngularJS." %}
 
 For our simple RSVP form component, a template-driven form is the ideal approach. The HTML is more transparent to the developer and we don't have particularly complex validation. Our class only needs to manage the necessary form model and submission endpoint depending on whether the user is creating or editing. We have one field that reacts to the value of another, which is easily implemented with a method that runs on the input's `change` event.
 
