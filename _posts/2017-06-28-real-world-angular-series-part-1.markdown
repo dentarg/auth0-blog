@@ -1065,4 +1065,4 @@ The Angular CLI uses [Codelyzer](https://github.com/mgechev/codelyzer) to lint A
 
 ## Summary
 
-We've covered setup and dependencies for the software and tools needed for our MEAN stack application. We've also established the basic layout and architecture of our Angular front end. In the next part of the Real-World Angular Series, we'll tackle authentication and authorization, feature planning, and data modeling.
+We've covered setup and dependencies for the software and tools needed for our MEAN stack application. We've also established the basic layout and architecture of our Angular front end. In the [next part of the Real-World Angular Series](https://auth0.com/blog/real-world-angular-series-part-2), we'll tackle authentication and authorization, feature planning, and data modeling.
