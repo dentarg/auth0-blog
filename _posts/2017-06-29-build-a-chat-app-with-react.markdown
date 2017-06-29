@@ -2,7 +2,7 @@
 layout: post
 title: "Build a Chat App with React, Auth0 and Pusher"
 description: "Learn how to integrate React, Pusher, and Auth0 to create realtime applications."
-date: 2017-06-28 08:00
+date: 2017-06-29 08:00
 category: Technical Guide, Frontend, ReactJS
 author:
   name: "Yomi Eluwande"
@@ -10,15 +10,15 @@ author:
   mail: "yomi.eluwande@gmail.com"
   avatar: https://cdn.auth0.com/blog/avatar/yomi-eluwande.png
 design:
-  bg_color: "#3666A5"
-  image: https://cdn.auth0.com/blog/auth0-pusher/logo.png
+  bg_color: "#003E85"
+  image: https://cdn.auth0.com/blog/react-pusher/logo.png
 tags:
 - reactjs
 - auth0
 - pusher
 related:
 - 2017-02-21-reactjs-authentication-tutorial
-- 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
+- 2017-05-18-get-realtime-auth-events-with-auth0-and-pusher
 ---
 
 **TL;DR:** In this tutorial, I’ll show you how to build a secure chat app with React and Pusher using the Auth0 authentication service and a Node + Express Backend Server. We will use Auth0 to authenticate users so they can access the chat feature of a website.
