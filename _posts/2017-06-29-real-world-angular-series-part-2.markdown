@@ -12,8 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo2.png
-  bg_color: "rgb(1, 70, 166)"
+  image: https://cdn.auth0.com/blog/angular/logo.png
+  bg_color: "#0143A3"
 tags:
 - javascript
 - angular
@@ -290,7 +290,7 @@ import { AuthService } from './auth/auth.service';
 
 Next we'll create a Callback component. This is where the app is redirected after authentication. This component simply shows a loading message until hash parsing is completed and the Angular app redirects back to the home page.
 
-> **Note:** Recall that we already added `http://localhost:4200/callback` and `http://localhost:8083/callback` to our [Auth0 Client](https://manage.auth0.com/#/clients) **Allowed Callback URLs** setting.
+> **Note:** Recall that we already added `http://localhost:4200/callback` and `http://localhost:3003/callback` to our [Auth0 Client](https://manage.auth0.com/#/clients) **Allowed Callback URLs** setting.
 
 Let's generate this component with the Angular CLI:
 
