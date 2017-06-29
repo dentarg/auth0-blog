@@ -31,7 +31,7 @@ related:
 
 ---
 
-**TL;DR:** This tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 8 of the tutorial series covers NgModule refactoring, lazy loading, and production deployment on VPS with nginx and SSL.**
+**TL;DR:** This 8-part tutorial series covers building and deploying a full-stack JavaScript application from the ground up with hosted [MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [Angular (v2+)](https://angular.io), and [Node.js](https://nodejs.org) (also known as MEAN stack). The completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/). **Part 8 of the tutorial series covers NgModule refactoring, lazy loading, and production deployment on VPS with nginx and SSL.**
 
 ---
 
@@ -538,7 +538,7 @@ Let's do a quick summary of the steps we need to take in order to deploy our app
 
 There are a quite a few steps here and we'll be relying on a few [tutorials from DigitalOcean's community](https://www.digitalocean.com/community/tutorials/) to get going.
 
-{% include tweet_quote.html quote_text="MEAN app deployment checklist: Ubuntu VPS, domain name, SSL certificate." %}
+{% include tweet_quote.html quote_text="MEAN deployment checklist: Ubuntu VPS, domain name, SSL certificate." %}
 
 Let's begin now!
 
