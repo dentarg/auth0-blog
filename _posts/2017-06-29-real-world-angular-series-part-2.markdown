@@ -90,7 +90,7 @@ This code detects the host environment and sets the app's base URI and base API 
 
 ### Authentication Configuration
 
-We'll store our Auth0 authentication configuration in a `auth.config.ts` file. Create the following blank file: `src/app/auth/auth.config.ts`.
+We'll store our Auth0 authentication configuration in an `auth.config.ts` file. Create the following blank file: `src/app/auth/auth.config.ts`.
 
 Open this file and customize the following code with your own [Auth0 client](https://manage.auth0.com/#/clients) and [API](https://manage.auth0.com/#/apis) information:
 
@@ -108,7 +108,7 @@ interface AuthConfig {
 
 export const AUTH_CONFIG: AuthConfig = {
   CLIENT_ID: '[AUTH0_CLIENT_ID]',
-  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN].auth0.com',
+  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]',
   AUDIENCE: '[YOUR_AUTH0_API_AUDIENCE]', // likely http://localhost:8083/api/
   REDIRECT: `${ENV.BASE_URI}/callback`,
   SCOPE: 'openid profile'
@@ -153,8 +153,8 @@ export class AuthService {
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
   constructor(private router: Router) {
-    // If authenticated, set local profile property,
-    // admin status, and update login status subject.
+    // If authenticated, set local profile property
+    // and update login status subject.
     // If not authenticated but there are still items
     // in localStorage, log out.
     const lsProfile = localStorage.getItem('profile');
@@ -496,7 +496,7 @@ Replace `[MY_FULL_GOOGLE_ACCOUNT_EMAIL]` with your own credentials. The rule tem
 
 When finished, click the "Save" button at the bottom of the page.
 
-### Create an Auth0 Rule to Add Claims to ID Token
+### Create an Auth0 Rule to Add Claims to Tokens
 
 Now we'll create a second rule that will add this metadata from the Auth0 database to the ID token that is returned to the Angular app upon successful authentication, as well as the access token that is sent to the API to authorize endpoints.
 
@@ -530,7 +530,7 @@ When finished, click the "Save" button to save this rule.
 
 The next thing we need to do is _sign in_ with our intended admin user. This will trigger the rules to execute and the app metadata will be added to our targeted account. Then the roles data will also be available in the tokens whenever the user logs in. 
 
-Since we've implemented login in our Angular app already, all we need to do is sign in with the account we specified in our `Set admin role for me` rule. Visit your Angular app in the browser at [https://localhost:4200](http://localhost:4200) and click the "Log In" link we added in the header.
+Since we've implemented login in our Angular app already, all we need to do is sign in with the account we specified in our `Set admin role for me` rule. Visit your Angular app in the browser at [http://localhost:4200](http://localhost:4200) and click the "Log In" link we added in the header.
 
 > **Note:** Recall that I used a Google account when setting up the `Set admin role for me` rule, so I'll log in using Google OAuth. (I enabled Google OAuth in [Auth0 Dashboard Social Connections](https://manage.auth0.com/#/connections/social) back in <a href="https://auth0.com/blog/real-world-angular-series-part-1#auth0-setup">Auth0 Account and Setup</a> in Part 1 of the tutorial series.)
 
@@ -571,7 +571,7 @@ module.exports = function(app, config) {
     if (roles.indexOf('admin') > -1) {
       next();
     } else {
-      res.status(401).send('Not authorized for admin access');
+      res.status(401).send({message: 'Not authorized for admin access'});
     }
   }
 
@@ -618,8 +618,8 @@ export class AuthService {
   isAdmin: boolean;
   ...
   constructor(private router: Router) {
-    // If authenticated, set local profile property, admin status,
-    // and update login status subject.
+    // If authenticated, set local profile property,
+    // admin status, and update login status subject.
     // If token is expired but user data still in localStorage, log out
     if (this.tokenValid) {
       this.userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -722,7 +722,7 @@ Let's consider our RSVP app's intended features at a high level, then we'll extr
 ### Users
 
 * Users should be able to view a list of all their own RSVPs in their profile
-* User data handled through Auth0 authentication and profile retrieval; users aren't stored in database
+* User data handled through Auth0 authentication and profile retrieval; users aren't stored in MongoDB
 * Users are associated with their RSVPs by user ID
 * In order to edit an RSVP, the user's ID must be verified with the user ID in the RSVP
 * Admin users can perform CRUD operations on events
