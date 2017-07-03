@@ -2,7 +2,7 @@
 layout: post
 title: "4 Ways to Calculate Your Customers' Happiness"
 description: "Taking a full view of your customers as people is the best way to understand their happiness"
-date: 2017-05-31 16:01
+date: 2017-07-03 16:01
 category: Growth, Growth Hacking
 author:
   name: Diego Poza
@@ -18,6 +18,7 @@ tags:
   - identity
   - happiness
 related:
+  - 2017-06-26-turn-your-customers-into-brand-advocates-through-personalization
   - 2017-03-24-360-view-of-customer-by-managing-identity
   - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
