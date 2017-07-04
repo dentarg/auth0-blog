@@ -540,6 +540,11 @@ Once you have an authenticated user, navigate to `localhost:8080/admin` and if a
 
 ## Aside: Authentication for Serverless Apps with Auth0
 
+<div class="alert alert-info">
+  <strong>Attention</strong><br />
+  <p style="color: #097093;">We have deprecated the APIs in this aside and the example below will no longer work for new Auth0 users. We are working on an improved solution and will share the details when they are available. We apologize for any inconvenience this may cause.</p> 
+</div> 
+
 We saw how we could use Cognito to handle user authentication. Before closing out the article, let's take a look at a second approach to user authentication. Auth0 can easily integrate into the AWS ecosystem and handle all of the user authentication duties and is much easier to implement than Cognito.
 
 We will use the Auth0 delegation API to exchange our Auth0 token for an AWS token. The [Amazon API Gateway Tutorial](https://auth0.com/docs/integrations/aws-api-gateway) will be our guide and has much more in-depth information on setting up token-based authentication with AWS. The delegation API we are using today is not limited to just AWS. It can be used with other serverless frameworks such as [Firebase](https://console.firebase.com) and more.
