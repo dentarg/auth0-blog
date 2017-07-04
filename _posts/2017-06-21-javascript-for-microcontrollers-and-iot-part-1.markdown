@@ -537,6 +537,8 @@ window.addEventListener('load', afterLoad);
 ## Conclusion
 We have taken an introductory look at the status of JavaScript development on microcontrollers. For this we picked JerryScript, a simple JavaScript engine developed by Samsung. We learned how to execute scripts and how to communicate between the C-side of things and the JavaScript-side. JerryScript is really simple to use, although it does have some quirks in its API, like the use of global objects for multiple instances. A potential future improvement for JerryScript would be to allow offline compilation of scripts to bytecode, so that scripts can be included in ROM in forms other than text. Both Duktape and V7, other small JavaScript engines, support this.
 
+> **Update:** a reader has pointed out in the comments that JerryScript does support offline compilation to bytecode. [Here are the necessary APIs](http://jerryscript.net/api-reference/#snapshot-functions). Awesome!
+
 On the hardware side we found the Particle Photon incredibly simple to use. Documentation is excellent, as well as the development tools. The Wiring API as implemented by Particle is simple yet effective, and we had no trouble bringing some of its functionality into the JavaScript interpreter. Our example allowed us to remotely upload and excute JavaScript, as well as use pins, TCP client sockets and timers. 
 
 We did find the memory available in the ROM to be somewhat limited when compiling most of the JerryScript features. There's so much you can do with 1MB of flash after all the functionality provided by the Particle firmware. It was enough for our tests, but will it be enough for running more complex apps? 
