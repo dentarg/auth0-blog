@@ -10,7 +10,7 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/polymer/Polymer-Logo-blog.png
+  image: https://cdn.auth0.com/blog/logos/polymer2.png
   bg_color: "#324090"
 tags:
 - polymer
@@ -18,6 +18,7 @@ tags:
 - javascript
 related:
 - 2016-09-29-angular-2-authentication
+- 2016-11-21-building-and-authenticating-nodejs-apps
 - 2016-08-17-aurelia-1.0-how-to-build-a-simple-secured-application
 ---
 

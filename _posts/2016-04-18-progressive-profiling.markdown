@@ -20,9 +20,9 @@ tags:
 - customer-information
 - customer-data
 related:
-- 2016-04-19-supercharge-your-registration-process
-- 2016-04-21-facebook-account-kit-passwordless-authentication
-- 2016-03-04-4-ways-to-turn-customer-support-into-a-growth-factor
+- 2017-03-24-360-view-of-customer-by-managing-identity
+- 2017-05-26-go-beyond-username-password-with-modern-auth
+- 2017-06-09-the-three-best-ways-to-create-the-single-vision-of-a-customer
 ---
 
 When a new user hits your site, you want to do everything in your power to reduce friction. You make sure all the information is there to help them make the right decision, and you set out your pricing plans clearly and concisely to show your true value.

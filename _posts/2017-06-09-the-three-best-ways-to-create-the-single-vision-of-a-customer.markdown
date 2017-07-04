@@ -77,7 +77,7 @@ That means checking to see what solutions are available out of the box, and how 
 
 Of course, you also want to check out what features your platforms are offering you individually, not just how you can integrate all your different platforms. Any integrations that will help you get the most out of your identity management are going to strengthen the vision you have of your customer.
 
-A great example of this is the new *Facebook integration for Auth0*. If you have customers who use Facebook, Facebook Analytics for Auth0 allows you to learn more about those users through analytics breakdowns of categories like spending habits and education.
+A great example of this is the new [Facebook integration for Auth0](https://auth0.com/learn/facebook-analytics/). If you have customers who use Facebook, Facebook Analytics for Auth0 allows you to learn more about those users through analytics breakdowns of categories like spending habits and education.
 
 ![Facebook Integration](https://cdn.auth0.com/blog/vision/facebookintegration.png)
 

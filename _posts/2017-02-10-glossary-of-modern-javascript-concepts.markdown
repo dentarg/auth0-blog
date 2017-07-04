@@ -69,7 +69,8 @@ The `half(x)` function takes a number `x` and returns a value of half of `x`. If
 Pure functions only depend on what's passed to them. For example, a pure function cannot reference variables from a parent scope unless they are explicitly passed into the function as arguments. Even then, the function can _not modify_ the parent scope.
 
 ```js
-var someNum = 8;
+// some variable that is mutated
+let someNum = 8;
 
 // this is NOT a pure function
 function impureHalf() {
@@ -87,7 +88,7 @@ In summary:
 
 ### Impure Functions
 
-An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure. Procedural functions with no utilized return value are also impure.
+An **impure function** mutates state outside its scope. Any function that has _side effects_ (see below) is impure.
 
 Consider the following examples:
 
@@ -101,13 +102,6 @@ function showAlert() {
 var globalVal = 1;
 function incrementGlobalVal(x) {
   globalVal += x;
-}
-
-// impure function calling pure functions procedurally
-function proceduralFn() {
-  const result1 = pureFnFirst(1);
-  const result2 = pureFnLast(2);
-  console.log(`Done with ${result1} and ${result2}!`);
 }
 
 // impure function that resembles a pure function,

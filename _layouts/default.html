@@ -55,7 +55,7 @@
 
       window.signup = function() {
         metricsLib.track('click:signup', getBasicInfo());
-        lock.show({ initialScreen: 'signUp' });
+        window.location.href = '/signup';
       }
 
       // Header
