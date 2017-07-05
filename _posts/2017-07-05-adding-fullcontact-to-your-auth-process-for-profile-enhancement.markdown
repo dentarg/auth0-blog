@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Adding FullContact to your Auth Process For Profile Enhancement"
-description: "An unsecured database allowed hackers to steal personal information from over 820,000 Cloudpets customers. Learn how this may affect you and what to do next."
+description: "Learn how to enhance your users profile by adding FullContact to your authentication process."
 date: 2017-07-05 8:30
 category: Growth, Growth Hacking
 author:
