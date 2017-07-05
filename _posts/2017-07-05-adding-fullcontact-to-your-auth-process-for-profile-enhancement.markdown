@@ -10,21 +10,22 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/this-the-season-for-cyber-criminals/logo.png
-  bg_color: "#191716"
+  image: https://cdn.auth0.com/blog/fullcontact/logo.png
+  bg_color: "#680D10"
 related:
   - 2016-11-30-different-ways-to-implement-multifactor
   - 2015-12-17-json-web-token-signing-algorithms-overview
 tags:
-  - security
-  - data-breach
-  - cloudpets
+  - fullcontact
+  - profile-enhancement
+  - authentication
+  - auth0
 ---
 
 
 **Profile Enhancement** is the ability to enhance user profiles by fetching user data from an external source. In an application, upon sign up of a new user, actions should be taken to automatically augment the user profile with additional public information. FullContact, the renown leading contact platform for professionals, teams, and businesses makes profile enhancement a breeze by providing substantial data.
 
-![]()
+![FullContact Signup](https://cdn.auth0.com/blog/fullcontact/signup.png)
 
 ## Typical Scenario
 
@@ -44,25 +45,25 @@ In this post, you’ll learn how to implement **Profile Enhancement** via **Full
 
 Browse to [fullcontact.com](https://www.fullcontact.com) and create a free account, as shown below.
 
-![]()
+![FullContact Signup](https://cdn.auth0.com/blog/fullcontact/signup.png)
 
 ## 2. Get Your API Key
 
 Head over to the [developer portal](https://portal.fullcontact.com/signin) and sign in with your credentials as shown below.
 
-![]()
+![Sign in to FullContact](https://cdn.auth0.com/blog/fullcontact/signin.png)
 
 _Sign In Page_
 
 You will go through a series of verifications for your account as shown below.
 
-![]()
+![Enable API access](https://cdn.auth0.com/blog/fullcontact/enableapiaccess.png)
 
 _Verification Process_
 
 Once you are verified successfully, you will be directed to the home page where your **API Key** will be displayed as shown below.
 
-![]()
+![Welcome](https://cdn.auth0.com/blog/fullcontact/welcome.png)
 
 Please take note of your **FullContact’s** API key, as you will be needing it later.
 
@@ -70,13 +71,13 @@ Please take note of your **FullContact’s** API key, as you will be needing it 
 
 In the [Auth0 Dashboard](https://manage.auth0.com) create your client Application, as shown in the following screenshot.
 
-![]()
+![Assign Type Of Application](https://cdn.auth0.com/blog/fullcontact/assigntypeofapplication.png)
 
 _Create an Auth0 app_
 
 Once you are done with that, head over to the **Settings** section of the dashboard and take note of your **Domain**, **Client ID** and **Client Secret** as shown below:
 
-![]()
+![Auth0 Credentials](https://cdn.auth0.com/blog/fullcontact/auth0credentials.png)
 
 _Get your Auth0 Credentials_
 
@@ -97,13 +98,13 @@ _auth0-variables.js_
 
 In the Auth0 dashboard, Click on the **Rules** section in the main navigation, then create a rule via the **“Create Rule”** button located at the top right of the page.
 
-![]()
+![Rules](https://cdn.auth0.com/blog/fullcontact/rules.png)
 
 _Create a new rule from the Auth0 Management Dashboard_
 
 A list of available rules existing on the Auth0 dashboard will be presented to you as shown in the diagram below. Choose the **“Enrich Profile with FullContact”** rule.
 
-![]()
+![Select Rules](https://cdn.auth0.com/blog/fullcontact/selectrules.png)
 
 _Click on the Enrich Profile with Full Contact Rule_
 
@@ -111,7 +112,7 @@ This rule is designed to get the user profile from FullContact using the users�
 
 After clicking on the rule, the rule editor will show up. Here, you can see the code that integrates **FullContact** with your login process.
 
-![]()
+![Rules Editor](https://cdn.auth0.com/blog/fullcontact/ruleseditor.png)
 
 _Rule Editor_
 
@@ -123,11 +124,11 @@ Get your **FullContact** API key and paste it in the **rule editor**. Replace `F
 
 Open up your browser and run the app like so:
 
-![]()
+![Auth0 Login Widget](https://cdn.auth0.com/blog/fullcontact/auth0loginwidget.png)
 
 Log into your application. You will see the user profile gotten from **FullContact** in the console as shown in the image below.
 
-![]()
+![Total information](https://cdn.auth0.com/blog/fullcontact/totalinfo.png)
 
 Just look at the enormous amount of data returned for this logged-in user. Facebook, Google, LinkedIn, GitHub and other forms of data that identifies the user. Oh yeah, that’s the power of **FullContact** in enhancing a user’s profile.
 
@@ -136,18 +137,3 @@ Just look at the enormous amount of data returned for this logged-in user. Faceb
 It is very simple to integrate **FullContact** in your authentication process when building an app that uses **Auth0**.
 
 **FullContact** allows you to enhance user profiles in your application without much ado. It handles it for you, so you don’t stress your users by giving lengthy forms that ask for personal data. Supercharge your application today with **FullContact** and **Auth0!**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
