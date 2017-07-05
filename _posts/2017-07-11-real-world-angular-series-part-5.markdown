@@ -793,32 +793,9 @@ For our simple RSVP form component, a template-driven form is the ideal approach
 
 > **Note:** The event form will need much more complex custom validation, so we'll utilize a reactive form at that time.
 
-### Ensure Forms Module is Present
+### Import the Forms Module
 
-The Angular CLI typically installs the `FormsModule` automatically when creating a new project, but let's verify that it's available and imported.
-
-Open the `package.json` file and make sure `@angular/forms` is in the `dependencies`:
-
-```js
-// package.json
-{
-  ...,
-  "dependencies": {
-    ...,
-    "@angular/forms": "^version",
-    ...
-  },
-  ...
-}
-```
-
-> **Note:** If the `forms` package is _not_ present, install it with the following command:
->
-> ```bash
-$ npm install @angular/forms --save
-```
-
-Now open the `app.module.ts` file and look for these lines:
+Let's add and import the Angular `FormsModule`. Open the `app.module.ts` file:
 
 ```typescript
 // src/app/app.module.ts
@@ -836,7 +813,7 @@ import { FormsModule } from '@angular/forms';
 ...
 ```
 
-Make sure the `FormsModule` is imported and included in the `imports` array.
+Import the `FormsModule` and add it to the NgModule's `imports` array.
 
 ### Create a Submitting Component
 
