@@ -480,7 +480,7 @@ However, reactive forms make this quite feasible. There are many moving parts in
 
 Let's get started!
 
-### Add Reactive Forms Module to App Module
+### Import the Reactive Forms Module
 
 The `ReactiveFormsModule` resides in `@angular/forms`, so all we need to do to add it to our project is open our `app.module.ts` file and make a couple small updates:
 
