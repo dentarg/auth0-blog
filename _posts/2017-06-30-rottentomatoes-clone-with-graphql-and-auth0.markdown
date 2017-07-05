@@ -10,8 +10,8 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#2098A1"
-  image: "https://cdn.auth0.com/blog/cakefest/logo.png"
+  bg_color: "#486B32"
+  image: "https://cdn.auth0.com/blog/rottentomatoes/logo.png"
 tags:
 - GraphQL
 - auth
@@ -268,11 +268,13 @@ class DisplayMovie extends React.Component {
 
       <div className='pa3 bg-black-05 ma3'>
         <div
+        {% raw %}
           style={{
             backgroundImage: `url(${this.props.movie.imageUrl})`,
             backgroundSize: 'cover',
             paddingBottom: '100%',
           }}
+        {% endraw %}
         />
         <div>
           <div className='movie'>
@@ -317,7 +319,9 @@ class CreateMovie extends React.Component {
         <h3 className="text-center"> Add Rotten Movie Ratings!</h3>
         <hr/>
         <div className='w-100 pa4 flex justify-center'>
+        {% raw %}
           <div style={{ maxWidth: 400 }} className=''>
+        {% endraw %}
             <label> Movie Title: </label>
             <input
               className='w-100 pa3 mv2'
