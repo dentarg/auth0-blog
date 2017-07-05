@@ -228,6 +228,8 @@ Object.keys(pins).forEach(k => {
     photon.pin.mode(pins[k], 'INPUT');
 });
 
+photon.pin.mode(pins.humidity, 'INPUT_PULLDOWN');
+
 function readSensors() {
     const dht = dht11.read(pins.humidity);
     return {
