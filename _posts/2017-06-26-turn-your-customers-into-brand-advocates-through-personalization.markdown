@@ -29,7 +29,7 @@ Brand advocates are the holy grail of customers. They're a key part of growing y
 
 So, can you better connect with *regular* customers to turn them into all-important brand advocates? Creating that valuable, personal connection to your brand is difficult. Especially today, when you're communicating across multiple channels, and trying to [stitch together your customers' behaviors](https://auth0.com/blog/how-to-keep-up-with-hyperconnected-consumers/) from in-store purchases to tweets.
 
-Identity management is your secret weapon for this — it helps consolidate customer information so you can add that personal touch whenever people log in or stroll into a store and interact with your brand.
+[Identity management is your secret weapon for this](https://auth0.com/b2c-customer-identity-management) — it helps consolidate customer information so you can add that personal touch whenever people log in or stroll into a store and interact with your brand.
 
 ## Use social login to kickstart personalization
 
@@ -41,7 +41,7 @@ In addition, shopping is a social experience, something that's replicated on a l
 
 ![Social brand](https://cdn.auth0.com/blog/customers/socialbrand.png)
 
-There's a lot more you can do on the back-end to kickstart your personalization as well. With Auth0, you can grab information from social login, like email, birthday and Facebook pages liked. You can use this across marketing efforts — those make for the start of a pretty good birthday coupon email, for example.
+There's a lot more you can do on the back-end to kickstart your personalization as well. [With Auth0](https://auth0.com/retail/), you can grab information from social login, like email, birthday and Facebook pages liked. You can use this across marketing efforts — those make for the start of a pretty good birthday coupon email, for example.
 
 In this way, social login encourages a better relationship between brand and customer, especially when that customer might not get to step into a brick and mortar store with their friends and make connections with salespeople and products.
 
