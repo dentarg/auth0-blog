@@ -23,7 +23,7 @@ related:
   - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
-When we talk about the power of identity management, we're quick to remind everyone that their customers are real people. We often encourage businesses to view their customers as more than just numbers, and this mentality is crucial when it comes to calculating your customers' happiness.
+When we talk about [the power of identity management](https://auth0.com/b2c-customer-identity-management), we're quick to remind everyone that their customers are real people. We often encourage businesses to view their customers as more than just numbers, and this mentality is crucial when it comes to calculating your customers' happiness.
 
 You have to understand their needs, their pain points and their relationship with your product in order to understand whether or not your customers are satisfied. You have to be willing to reach out and listen to them, taking the time and attention to connect with how your customers are feeling and what grievances they have.
 
