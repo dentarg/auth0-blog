@@ -1607,4 +1607,4 @@ Angular's reactive forms are quite powerful. We've now explored how they give us
 
 ## Summary
 
-In Part 6 of our Real-World Angular Series, we've covered reactive forms with custom validation. In the next part of the tutorial series, we'll delete events, list events a user has RSVPed to, and silently renew authentication tokens.
+In Part 6 of our Real-World Angular Series, we've covered reactive forms with custom validation. In the next part of the tutorial series, we'll delete events, list events a user has RSVPed to, and silently renew authentication tokens with Auth0.
