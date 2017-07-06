@@ -19,193 +19,324 @@ related:
 - 2013-05-22-SSO-with-Dropbox-only-a-checkbox-away
 ---
 
-**TL;DR;** In this blog post, I'm going to that it's possible to sign into Microsoft products with Google Apps users. This is a great example of unique integrations that only Auth0 can provide.
+**TL;DR;** In this blog post, we are going to learn how to enable Google Apps users to sign into Microsoft products, like Office 365, without needing an extra pair of credentials. The scenario described here can help many companies to achieve single sign-on between the most popular office suites available, enhancing employees productivity while keeping the authentication and authorization centralized in one of the providers.
 
-**https://login.microsoftonline.com/login.srf** logout url on https://manage.auth0.com/#/account/advanced
+## Google Apps (G Suite) Overview
 
-## Google Apps (G Suite)
+[G Suite](https://gsuite.google.com/), formerly known as Google Apps, is a set of cloud-based tools that help employees of organizations to work together online. Among the available tools, one will find an [spreadsheet editor (like Microsoft Excel)](https://gsuite.google.com/products/sheets/), a [graphical word processing program](https://gsuite.google.com/products/docs/), a [tool to create beautiful presentations](https://gsuite.google.com/products/slides/), a [huge email inbox](https://gsuite.google.com/products/gmail/), and [much more](https://gsuite.google.com/).
 
-## Microsoft Office 365
+## Microsoft Office 365 Overview
 
-## SSO on Office 365 with Google Apps - Scenario Overview
+Office 365 is a subscription service provided by Microsoft that comes along with popular tools like [Word](https://products.office.com/en/word), [Excel](https://products.office.com/en/excel), and [PowerPoint](https://products.office.com/en/powerpoint). Microsoft offers Office 365 plans for personal use and for businesses of all sizes.
+
+## SSO on Office 365 with Google Apps—Scenario Overview
+
+Let's imagine that we work on a company that has standardized everything on Google Apps. All identity, email inboxes, documents, etc, are shared and persisted on Google infrastructure. But, all of a sudden, a specific department of the company figured it out that they would achieve better performance by using [Microsoft Dynamics 365](https://www.microsoft.com/en-us/dynamics365/home).
+
+Out of the box, it's not possible for the employees of this department to use their existing Google Apps users to access the Microsoft tool. A possible solution, for this case, would be create a second user for every single employee, now on [Microsoft Azure Active Directory (AD)](https://support.office.com/en-us/article/Understanding-Office-365-identity-and-Azure-Active-Directory-06a189e7-5ec6-4af2-94bf-a22ea225a7a9). Azure AD is the authentication service that companies have to use to manage users that can access Microsoft tools.
+
+This might be a feasible solution for a couple of users, or when the company does not have security policies and programs well defined. Although, for companies that care about securing sensitive data and streamlining security measures, this is a no-go. The security department would have much more trouble to manage users between the two identity providers: Google Apps and Microsoft Azure AD.
+
+So how would we handle this issue?
+
+## SSO on Office 365 with Google Apps—Scenario Solution
+
+Auth0 provides an enterprise-grade identity platform that secures billions of log-ins every year. The company makes it easy to implement even the most complex identity solutions, just like the scenario described above. With Auth0, we can integrate the identity solution provided by Google Apps with Microsoft Azure AD. We achieve that by writing an [Auth0 Rule](https://auth0.com/docs/rules) that automates user provisioning on Microsoft Azure AD.
+
+That is, we first configure Auth0 to handle single sign-on with Google Apps users, and then we configure Microsoft to use Auth0 as the identity provider. Like that, whenever an user tries to access a Microsoft products, the user is redirected to [Auth0 login page](https://auth0.com/docs/hosted-pages/login) (where a *Login With Google* button will be available) and then the user gets auto-provisioned on Azure AD.
+
+The rest of this blog post shows exactly how to achieve this integration.
 
 ## Enabling SSO
 
-### Create Google Apps
+First of all, to perform this integration, it's expected that we already have two subscriptions: [Google Apps](https://gsuite.google.com/pricing.html), and [Office 365 for Businesses](https://products.office.com/en-us/business/office). As we are going to use Google Apps as our identity provider, it's also expected that this solution is properly configured (with some users).
+
+To use Auth0 as the identity management integration tool, we are going to [sign up](javascript:signup\(\)) for a *free* account now. For now, we won't make any configuration on our account, but let's keep the dashboard open as we will need to configure it soon.
+
+### Create Google Apps Project
+
+To properly enable single sign-on with Google on Auth0, we are going to need a Google Apps project. More specifically, we are going to need a *Google Client ID* and a *Client Secret*.
+
+1. While logged into our Google account, go to the [API Manager](https://console.developers.google.com/projectselector/apis/credentials).
+2. Create a new app by navigating to Credentials using the left-hand menu:
+![API Manager Credentials](https://cdn2.auth0.com/docs/media/articles/connections/social/google/credentials.png)
+3. While you are on the Credentials page, click on Create a project.
+4. In the dialog box that appears, provide a Project name, answer Google's email- and privacy-related questions, and click Create:
+![Create New Project](https://cdn2.auth0.com/docs/media/articles/connections/social/google/create-new-project.png)
+5. Google will take a moment to create your project. When the process completes, Google will prompt you to create the credentials you need.
+![Create Google Credentials](https://cdn2.auth0.com/docs/media/articles/connections/social/google/create-credentials.png)
+6. Click on *Create Credentials* to display a pop-up menu listing the types of credentials you can create. Select the *OAuth client ID* option.
+7. At this point, Google will display a warning banner that says, "To create an OAuth client ID, you must first set a product name on the consent screen." Click Configure consent screen to begin this process.
+![Configure Consent Screen](https://cdn2.auth0.com/docs/media/articles/connections/social/google/create-client-id.png)
+8. Provide a *Product Name* that will be shown to users when they log in through Google.
+![OAuth Consent Screen](https://cdn2.auth0.com/docs/media/articles/connections/social/google/oauth-consent-screen.png)
+9. Click Save.
+10. At this point, you will be prompted to provide additional information about your newly-created app.
+![Web App Credentials Configuration](https://cdn2.auth0.com/docs/media/articles/connections/social/google/create-client-id-config.png)
+11. Select Web application, and provide a name for your app.
+12. Under Restrictions, enter the following information (note that you have to replace **YOUR-AUTH0-DOMAIN** with your own Auth0 domain):
+    1. Authorized JavaScript origins: https://YOUR-AUTH0-DOMAIN.auth0.com
+    2. Authorized redirect URI: https://YOUR-AUTH0-DOMAIN.auth0.com/login/callback
+13. Click Create. Your *Client Id* and *Client Secret* will be displayed.
+![OAuth Client ID and Secret](https://cdn2.auth0.com/docs/media/articles/connections/social/google/oauth-client-info.png)
+14. Copy the *Client ID* and *Client Secret* to enter into the Connection settings in Auth0.
+
+### Configure Sign In with Google on Auth0
+
+As we have our Google Apps project properly created, and we have both *Client ID* and the *Client Secret*, we will now configure Sign In with Google on Auth0. The steps to achieve that are:
+
+1. Log into the [Auth0 Dashboard](https://manage.auth0.com/) and select [Connections > Social](https://manage.auth0.com/#/connections/social).
+2. Select the connection with the Google logo to access this connection's *Settings* page:
+![Sign In with Google on Auth0](https://cdn2.auth0.com/docs/media/articles/connections/social/google/goog-settings.png)
+3. Switch over to the *Settings* tab. Insert the *Client ID* and *Client Secret* copied from the Google API Manager.
 
 ### Create Azure AD Application
 
-1. Go to [Azure Portal](https://portal.azure.com)
-2. Choose *Azure Active Directory*
-3. Click on *New application registration*.
-    Resources: https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-integrating-applications
-4. Fill the name of the application (e.g. *Auth0 Provisioning*), the sign-on URL (e.g. http://digituz.com.br/auth0-provision) and select *Web app / API* as the *Application type*.
-5. Choose the recently create application and add a new key to it. Feel free to decide the *Description* and the *Duration* of the key, but remember to copy the *Client Key* after saving it. You won't be able to retrieve this key after you leave this page.
-6. Still in the configuration page of the application, you will need to enable the *Read and write directory data* permission to the *Windows Azure Active Directory* API. This will allow you to create new users in Azure AD through the graph API, which will be needed in a future step.
+The next step to enable the Google Apps users to sign into Microsoft products is to create an application on our Microsoft account. Let's follow the steps below to achieve that:
 
-Client ID: 2129dc62-dba9-459d-96a6-5ef43dc02858
-Client Key: UFdB62SNvK3NjGH6xx/eXXmFh07bvkRLQgSzhU3e0fs=
+1. Log into the [Azure Portal](https://portal.azure.com)
+2. Choose [*Azure Active Directory* in the left navigation](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview).
+3. Select *App registrations* in the new menu.
+4. Click on *New application registration*.
+5. Fill the form:
+    1. Input a name for the application (e.g. *Auth0 Provisioning*)
+    2. Select *Web app / API* as the *Application type*.
+    3. Insert a sign-on URL. Any valid url as this won't be really used.
+5. The recently created app will appear in the *App registrations* list. Select it.
+6. In the *Settings* blade (Microsoft call this lanes as blade), choose *Keys*.
+7. Input a *Description* (like *auth0 provision*) and choose a *Duration* for the new key.
+8. Click on save of the key and copy the *Client Key*. This key will be shown only once and it's needed for the Auth0 rule.
+![Creating a key on Azure AD apps registration](https://cdn.auth0.com/blog/googleapps-office365/azure-ad-app.png)
+9. Choose *Required permissions* and click *Add* in the new blade.
+10. Select the *Microsoft Graph* API and then check *Read and write directory data* under *Application Permissions*.
+11. Back in the *Required permissions*, click on the *Grant Permissions* button and then click *Yes* to grant the requested permissions.
 
-### Sinchronize
+### Add an Office 365 Single Sign-On Integration on Auth0
 
-1. Go to [the *Rules* page on the management tool of Auth0](https://manage.auth0.com/#/rules).
-2. Click on *Create Rule* (or *Create Your First Rule* if you have no other rules).
-3.
+To enable an *Office 365* single sign-on integration on Auth0, we first need to register our main domain on the *Admin center* of *Office 365*. To do that, follow these steps:
 
-## Conclusion
+1. Log into the [*Admin center*](https://portal.office.com/adminportal/).
+2. Head to [*Settings > Domains*](https://portal.office.com/adminportal/home#/Domains)
+3. Click on *Add domain*.
+4. Enter the domain of the company.
+5. Follow the instructions to verify the domain on Office 365.
 
-talk about other kind of integrations, like connecting to Office 365 with Dropbox and so on
+After verifying the domain, we can configure the *Office 365* single sign-on integration on Auth0 dashboard:
 
+1. Log into the [Auth0 Dashboard](https://manage.auth0.com/).
+2. Click on *SSO Integrations* in the left menu.
+3. Click on the *Create SSO Integration*.
+4. Choose *Office 365* and then on the *Create* button that appears.
+5. Execute the *Configuration Instructions* shown in the screen that appears.
+6. Choose the *Settings* tab in the *SSO Integration* created.
+7. Enter the subdomain that Microsoft generated (e.g. `mycompanyurl.onmicrosoft.com`) while subscribing to their products.
+8. Save the changes made.
+
+### Integrate Google Apps and Microsoft AAD with a Auth0 Rule
+
+The last steps that we need to perform to complete the integration between Google Apps and Microsoft Azure AD is to create an Auth0 Rule. To do that, let's execute the following steps:
+
+1. Go to the [*Advanced* tab of *Auth0 Dashboard*](https://manage.auth0.com/#/account/advanced).
+2. Add `https://login.microsoftonline.com/login.srf` as a *Allowed Logout URL*, to properly handle logouts.
+3. Select [Rules](https://manage.auth0.com/#/rules) in the left navigation.
+4. Click *Create Rule*.
+5. Choose the *empty rule* template.
+6. Enter a name for the new rule, something like *Microsoft AD provisioning*.
+7. Paste the following JavaScript code:
+
+> Read the comments in the source code to understand how this rule works.
 
 ```js
 function (user, context, callback) {
-    var rp = require('request-promise');
-    var uuidv4 = require('uuid');
+  // Requiring the Node.js packages that we are going to use.
+  // Check this website for a complete list of the packages available:
+  // https://tehsis.github.io/webtaskio-canirequire/
+  var rp = require('request-promise');
+  var uuidv4 = require('uuid');
 
-    var AAD_CUSTOM_DOMAIN = 'digituz.com.br';
-    var AAD_TENANT_NAME = 'digituz.onmicrosoft.com';
-    var AAD_CLIENT_ID = 'fc776c73-ce83-4d1e-9da4-ceca45460489';
-    var AAD_CLIENT_SECRET = 'ZqnwPIciNP07Wz7AQkx0RsM6mXWElny1tpKot8lizE0=';
-    var AAD_USAGE_LOCATION = 'US';
-    var AAD_USER_CREATE_DELAY = 15000;
-    var OFFICE365_KEY = 'O365_BUSINESS';
+  // The main domain of our company.
+  var AAD_CUSTOM_DOMAIN = 'mycompanyurl.com';
+  // The subdomain of the company on Microsoft.
+  var AAD_TENANT_NAME = 'mycompanyurl.onmicrosoft.com';
+  // The client ID generated while creating the Azure AD app.
+  var AAD_CLIENT_ID = 'fc885c73-ce83-4d1e-9fo3-kako45460489';
+  // The client secret generated while creating a key for the Azure AD app.
+  var AAD_CLIENT_SECRET = 'ZqnwPIsiMP07Wz7AQkx0RsD7mYTElny1tpKot8lizE9=';
+  // The location of the users that are going to access Microsoft products.
+  var AAD_USAGE_LOCATION = 'US';
+  // Azure AD needs a few seconds after creating a user, if we don't wait
+  // Azure AD won't recognize the user.
+  var AAD_USER_CREATE_DELAY = 15000;
+  // The key that represents the license that we want to give the new user.
+  // Take a look in the following url for a list of the existing licenses:
+  // https://gist.github.com/Lillecarl/3c4727e6dcd1334467e0
+  var OFFICE365_KEY = 'O365_BUSINESS';
 
-    var token;
-    var userPrincipalName;
-    var mailNickname = user.email.split('@')[0];
-    var uuid = uuidv4.v4();
-    var immutableId = new Buffer(uuid).toString('base64');
-    var userId;
+  // Global variables that we will use in the different steps while
+  // provisioning a new user.
+  var token;
+  var userPrincipalName;
+  var mailNickname = user.email.split('@')[0];
+  var uuid = uuidv4.v4();
+  var immutableId = new Buffer(uuid).toString('base64');
+  var userId;
 
-    if (user.app_metadata.office365_provisioned) {
-        return connectWithUser();
+  // If the user is already provisioned on Microsoft AD, we skip
+  // the rest of this rule
+  if (user.app_metadata.office365Provisioned) {
+    return connectWithUser();
+  }
+
+  // All the steps performed to provision new Microsoft AD users.
+  // The definition of each function occurs below.
+  getAzureADToken()
+    .then(createAzureADUser)
+    .then(getAvailableLicenses)
+    .then(assignOffice365License)
+    .then(saveUserMetadata)
+    .then(waitCreateDelay)
+    .then(connectWithUser)
+    .catch(callback);
+
+  // Requests an access_token to interact with Windows Graph API.
+  function getAzureADToken() {
+    var options = {
+      method: 'POST',
+      url: 'https://login.windows.net/' + AAD_TENANT_NAME + '/oauth2/token?api-version=1.5',
+      headers: {
+        'Content-type': 'application/json',
+        },
+      json: true,
+      form: {
+        client_id: AAD_CLIENT_ID,
+        client_secret: AAD_CLIENT_SECRET,
+        grant_type: 'client_credentials',
+        resource: 'https://graph.windows.net'
+      },
+    };
+
+    return rp(options);
+  }
+
+  // Gets the access_token requested above and assemble a new request
+  // to provision the new Microsoft AD user.
+  function createAzureADUser(response) {
+    token = response.access_token;
+    userPrincipalName = 'auth0-' + uuid + '@' + AAD_CUSTOM_DOMAIN;
+
+    var options = {
+      url: 'https://graph.windows.net/' + AAD_TENANT_NAME + '/users?api-version=1.6',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      json: true,
+      body: {
+          accountEnabled: true,
+        displayName: user.nickname,
+        mailNickname: mailNickname,
+        userPrincipalName: userPrincipalName,
+        passwordProfile: {
+          password: immutableId,
+          forceChangePasswordNextLogin: false
+        },
+        immutableId: immutableId,
+        usageLocation: AAD_USAGE_LOCATION
+      },
+    };
+
+    return rp(options);
+  }
+
+  // After provisioning the user, we issue a request to get the list
+  // of available Microsoft products licenses.
+  function getAvailableLicenses(response) {
+    userId = response.objectId;
+    var options = {
+      url: 'https://graph.windows.net/' + AAD_TENANT_NAME + '/subscribedSkus?api-version=1.6',
+      json: true,
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    };
+    return rp(options);
+  }
+
+  // With the licenses list, we iterate over it to get the id (skuId) of the
+  // license that we want to give to the new user (office 365 in this case).
+  // We also issue a new request to the Graph API to tie the user and the
+  // license together.
+  function assignOffice365License(response) {
+    var office365License;
+
+    for (var i = 0; i < response.value.length; i++) {
+      if (response.value[i].skuPartNumber === OFFICE365_KEY) {
+        office365License = response.value[i].skuId;
+        break;
+      }
     }
 
-    getAzureADToken()
-        .then(createAzureADUser)
-        .then(getAvailableLicenses)
-        .then(assignOffice365License)
-        .then(saveUserMetadata)
-        .then(waitCreateDelay)
-        .then(connectWithUser)
-        .catch(callback);
+    var options = {
+      url: ' https://graph.windows.net/' + AAD_TENANT_NAME + '/users/' + userId + '/assignLicense?api-version=1.6',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      json: true,
+      body: {
+        'addLicenses': [
+          {
+            'disabledPlans': [],
+            'skuId': office365License
+          }
+        ],
+        'removeLicenses': []
+      }
+    };
+    return rp(options);
+  }
 
-    function getAzureADToken() {
-        var options = {
-            method: 'POST',
-            url: 'https://login.windows.net/' + AAD_TENANT_NAME + '/oauth2/token?api-version=1.5',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            json: true,
-            form: {
-                client_id: AAD_CLIENT_ID,
-                client_secret: AAD_CLIENT_SECRET,
-                grant_type: 'client_credentials',
-                resource: 'https://graph.windows.net'
-            },
-        };
+  // After provisioning the user and giving a license to them, we record
+  // (on Auth) that this Google Apps user has been already provisioned. We
+  // also record its principal username and its immutableId to properly
+  // redirect them on future logins.
+  function saveUserMetadata() {
+    user.app_metadata = user.app_metadata || {};
 
-        return rp(options);
-    }
+    user.app_metadata.office365Provisioned = true;
+    user.app_metadata.office365UPN = userPrincipalName;
+    user.app_metadata.office365ImmutableId = immutableId;
 
-    function createAzureADUser(response) {
-        token = response.access_token;
-        userPrincipalName = 'auth0-' + uuid + '@' + AAD_CUSTOM_DOMAIN;
+    return auth0.users.updateAppMetadata(user.user_id, user.app_metadata);
+  }
 
-        var options = {
-            url: 'https://graph.windows.net/' + AAD_TENANT_NAME + '/users?api-version=1.6',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-            json: true,
-            body: {
-                accountEnabled: true,
-                displayName: user.nickname,
-                mailNickname: mailNickname,
-                userPrincipalName: userPrincipalName,
-                passwordProfile: {
-                    password: immutableId,
-                    forceChangePasswordNextLogin: false
-                },
-                immutableId: immutableId,
-                usageLocation: AAD_USAGE_LOCATION
-            },
-        };
+  // As mentioned, Windows Graph API needs around 10 seconds to finish
+  // provisioning new users (even though it returns ok straight away)
+  function waitCreateDelay() {
+    return new Promise(function (resolve) {
+      setTimeout(function() {
+        resolve();
+      }, AAD_USER_CREATE_DELAY);
+    });
+  }
 
-        return rp(options);
-    }
-
-    function getAvailableLicenses(response) {
-        userId = response.objectId;
-        var options = {
-            url: 'https://graph.windows.net/' + AAD_TENANT_NAME + '/subscribedSkus?api-version=1.6',
-            json: true,
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
-        };
-        return rp(options);
-    }
-
-    function assignOffice365License(response) {
-        var office365License;
-
-        for (var i = 0; i < response.value.length; i++) {
-            if (response.value[i].skuPartNumber === OFFICE365_KEY) {
-                office365License = response.value[i].skuId;
-                break;
-            }
-        }
-
-        var options = {
-            url: ' https://graph.windows.net/' + AAD_TENANT_NAME + '/users/' + userId + '/assignLicense?api-version=1.6',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-            json: true,
-            body: {
-                'addLicenses': [
-                    {
-                        'disabledPlans': [],
-                        'skuId': office365License
-                    }
-                ],
-                'removeLicenses': []
-            }
-        };
-        return rp(options);
-    }
-
-    function saveUserMetadata() {
-        user.app_metadata = user.app_metadata || {};
-
-        user.app_metadata.office365Provisioned = true;
-        user.app_metadata.office365UPN = userPrincipalName;
-        user.app_metadata.office365ImmutableId = immutableId;
-
-        return auth0.users.updateAppMetadata(user.user_id, user.app_metadata);
-    }
-
-    function waitCreateDelay() {
-        // Azure AD API doesn't recognize an user straight away.
-        // Therefore we need to wait a few seconds before enabling the user to move on
-        console.log('start waiting');
-        return new Promise(function (resolve) {
-            setTimeout(function() {
-                console.log('done waiting');
-                resolve();
-            }, AAD_USER_CREATE_DELAY);
-        });
-    }
-
-    function connectWithUser() {
-        user.upn = user.app_metadata.office365UPN;
-        user.inmutableid = user.app_metadata.office365ImmutableId;
-        return callback(null, user, context);
-    }
+  // Adds the principal username and immutableId to the user object and ends
+  // the rule.
+  function connectWithUser() {
+    user.upn = user.app_metadata.office365UPN;
+    user.inmutableid = user.app_metadata.office365ImmutableId;
+      return callback(null, user, context);
+  }
 }
 ```
+
+After copying and pasting the rule above, we need to replace the value of the following constants: `AAD_CUSTOM_DOMAIN`, `AAD_TENANT_NAME`, `AAD_CLIENT_ID`, `AAD_CLIENT_SECRET`. The first two constants refer to our company main domain, and the subdomain that Microsoft assigned to us while subscribing for their products. The last two constants refer to the app that we registered on the Azure Portal.
+
+Note that the rule above does not distinguish users by any means. Every new user, that connects to Microsoft products with a Google Apps user, will get an Office 365 license. You can tweak this rule at will to properly decide what licenses you are going to provision to what users. For example, you could easily change the rule to give a *Microsoft Dynamics 365* license to users of an specific Google Apps group, and to give *Office 365* to everybody else. The functions `getAvailableLicenses` and `assignOffice365License` above are the ones that hold the logic that define that everybody gets an *Office 365* license.
+
+## Conclusion
+
+The integration describe in this article enables companies to take the most of the enterprise tools provided by two of the most important companies around, Microsoft and Google. The approach shown enables companies to rely on a single source of truth (Google Apps in this case), when talking about identity management, to automatically provision users and licenses on another software provider (in that case Microsoft). But the strategy used here is generic. With Auth0 Rules we can integrate any other software providers that exposes APIs to manage resources and identities.
+
+Besides that, by using Auth0 we also get access to state-of-the-art features that can help protecting valuable information. For example, with Auth0 we can easily add [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication) to enhance the authentication security, or configure [Passwordless authentication](https://auth0.com/passwordless) to smooth the authentication process.
