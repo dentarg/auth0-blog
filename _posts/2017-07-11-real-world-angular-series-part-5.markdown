@@ -237,7 +237,7 @@ The constructor will take arguments for the `AuthService` so we can conditionall
 
 In our `ngOnInit()` method, we'll set the `footerTense` property to present or past tense based on whether the event is over or not. Then we'll `_getRSVPs()` from the API by the event ID, which was passed into the RSVP component as an input. The success method in the RSVPs subscription will call a private method called `_updateRsvpState()`. We'll discuss this below.
 
-The next function we'll create toggles our list of all people who have RSVPed so far. The `toggleShowRsvps()` method toggles a  boolean and sets the button text appropriately based on the state of the toggle.
+The next function we'll create toggles our list of all people who have RSVPed so far. The `toggleShowRsvps()` method toggles a boolean and sets the button text appropriately based on the state of the toggle.
 
 The private `_updateRsvpState()` method just calls a `_setUserRsvpGetAttending()` method right now. Later, when we've implemented the RSVP form, we'll update `_updateRsvpState()` to specifically handle changes from form submissions. The purpose of this function is to respond to any changes in RSVP data. Once we have a form in place, this could happen three ways: on initial load, when a new RSVP is added, or when a user updates their existing RSVP.
 
@@ -414,13 +414,13 @@ Now we're ready to use Angular animations in our app!
 
 ### Create Expand/Collapse Animation
 
-Animations in Angular are quite powerful, but we'll start with a basic standby: an expand/collapse sliding animation triggered by an NgIf. We'll implement this in a way that allows us to reuse it across components if we wish.
+Animations in Angular are quite powerful, but we'll start with a basic standby: an expand/collapse sliding animation triggered by NgIf. We'll implement this in a way that allows us to reuse it across components if we wish.
 
 Create a new blank file in the `src/app/core` folder called `expand-collapse.animation.ts`. This will be an animation factory that we'll export and be able to import into any component that needs it.
 
 > **Note:** There are actually a few ways we could author this animation. It's entirely up to you to craft the animation in whatever way makes the most sense to _you_. Two options will be presented and both achieve the same thing:
 
-```scss
+```typescript
 // src/app/core/expand-collapse.animation.ts
 import { trigger, transition, style, animate, state } from '@angular/animations';
 
