@@ -19,13 +19,13 @@ tags:
 The Highs and Lows of Crystal  (An Introduction to the Language)
 ====================================
 
-Crystal is a Statically-typed, compiled, systems programming language with the aims of being as fast as c/c++, and having a syntax as readable as Ruby.  This article is an introduction to the Crystal Language, through the eyes of a polyglot programmer.  Being a former programmer of both C and Ruby, I have been able to explore the ins-and-outs of Crystal with an objective mindset and give an unbiased opinion on its features; from it's low-level primitives to its familiar syntax, and everything inbetween.
+Crystal is a statically-typed, compiled, systems programming language with the aims of being as fast as c/c++, while having a syntax as readable as Ruby.  This article is an introduction to the Crystal Language, through the eyes of a polyglot programmer.  Being a former programmer of both C and Ruby, I have been able to explore the ins-and-outs of Crystal with an objective mindset and give an unbiased opinion on its features; from it's low-level primitives to its familiar syntax, and much inbetween.
 
-I first came accross Crystal when I saw [@sferik](https://twitter.com/sferik)  giving a talk on it in Poland back in 2015.  [Video here.](https://www.youtube.com/watch?v=Ysm4IU4aWoQ)  It was a great talk, and sparked my interest to Crystal right there and then.  When I initially checked out Crystal, I thought it looked awesome but I was too busy with all the other languages I was using on a daily basis to be able to focus my time properly on it.
+I first came across Crystal when I saw [@sferik](https://twitter.com/sferik)  giving a talk on it in Poland back in 2015.  [Video here.](https://www.youtube.com/watch?v=Ysm4IU4aWoQ)  It was a great talk, and sparked my interest to Crystal right there and then.  When I initially checked out Crystal, I thought it looked awesome but I was too busy with all the other languages I was using on a daily basis to be able to focus my time properly on it.
 
-Alongside being too busy, I couldn't really see why I'd use Crystal instead of using C/Erlang/Go/Ruby - languages that I already knew.  What I can say with confidence now though; is that whilst those languages may all be able to achieve the same end-goal, they're all *better* in different ways entirely.
+Alongside being too busy, I couldn't really see why I'd use Crystal instead of using C/Erlang/Go/Ruby - languages that I already knew.  What I can say with confidence now though; is that whilst those languages may all be able to achieve the same end-goal they're all *better* in their own, different ways entirely.
 
-When I want to build distributed apps, like my *Fist/Bump Heartbeat Monitor* - I use Erlang/Elixir.  When I want to build an API backend I use Golang.  When I want to spend the day with my brains scattered, and most probably in tears - I use C.  For readibility and demonstrations, I use Ruby.  When it comes to writing low-level systems such as daemons and obtuse Kernels, while it would be most performant to turn to C, it'd also take me a **LONG** time to do anything and the aforementioned tears would be very-likely present.  This is where Crystal comes in.
+When I want to build distributed apps, like my *Fist/Bump Heartbeat Monitor* - I use Erlang/Elixir.  When I want to build an API backend I use Golang.  When I want to spend the day with my brains scattered, and most probably in tears - I use C.  For readibility and demonstrations, I use Ruby.  When it comes to writing low-level systems such as daemons and obtuse Kernels, while it would be most performant to turn to C - it'd also take me a **LONG** time to achieve relatively little and the aforementioned tears would be very-likely flowing.  *This is where Crystal comes in.*
 
 Having a syntax *very* similar to Ruby means that the familiarity of Crystal is incredibly enticing.  Since the world is obsessed with web apps now, let's take a look at the code required to build a minimal web server in both Crystal and Ruby.
 
@@ -57,16 +57,16 @@ end
 Kemal.run
 ~~~
 
-The fact that you can use Ruby syntax highlighting natively for Crystal says everything!  Coming from Ruby to Crystal is a remarkably easy adaptation.  The fact is that you can actually copy and paste code from Ruby to Crystal and 90% of the time, it will run with no errors.  The creators of Crystal understand that Ruby is undoubtedly the most visually appealing language, and therefore built Crystal to take as much as possible from that.  You can even run Crystal programs using the `Ruby` shell command, since the syntax is valid for both languages!
+The fact that you can use Ruby syntax highlighting natively for Crystal says everything!  Coming from Ruby to Crystal is a remarkably easy adaptation.  The fact is; one copy and paste code from Ruby to Crystal and 90% of the time it will run with no errors.  The creators of Crystal understand that Ruby is undoubtedly the most visually appealing language, and therefore built Crystal to take as much influence as possible from a design perspective.  You can even run Crystal programs using the `Ruby` shell command and vice versa since the syntax is valid for both languages!
 
 
 ## Binding C
 
-One of the big selling points for Crystal is the ease of which you can call C libraries.  "Crystal allows you to bind to existing C libraries without writing a single line in C.  Additionally, it provides some conveniences like `out` and `to_unsafe` so writing bindings is as painless as possible."
+One of the big selling points for Crystal is the ease with which you can interface with C libraries.  "Crystal allows you to bind to existing C libraries without writing a single line in C.  Additionally, it provides some conveniences like `out` and `to_unsafe` so writing bindings is as painless as possible."
 
-Let's build a simple script in C; that says hi!  We'll then write a Crystal app to bind to our C library.  This is a great start point for anyone who wants to know about binding C in Crystal.
+Let's build a simple script in C that says "hi!".  We'll then write a Crystal app to bind to our C library.  This is a great start point for anyone who wants to know about binding C in Crystal.
 
-First off, let's create a project with Crystal's scaffolding tool:
+First off, let's create a project with Crystal's scaffolding tool (I'll cover this feature later).  Run:
 
 	$ crystal init app sayhi_c
 
@@ -84,7 +84,7 @@ Now we need to compile our C file into an object.  On Ubuntu or Mac using `gcc` 
 
 	$ gcc -c sayhi.c -o sayhi.o
 
-Once we've got our object file, we can bind it from within our Crystal app.  Open up our `sayhi_c.cr` file, and have it reflect the following:
+Using the `-o` flags allow us to create an Object filetype.  Once we've got our Object file, we can bind it from within our Crystal app.  Open up our `sayhi_c.cr` file, and have it reflect the following:
 
 ~~~ ruby
 require "./sayhi_c/*"
@@ -118,9 +118,9 @@ It's really easy to bind to C in Crystal, and is definitely one of the features 
 
 ## Concurrency Primitives
 
-One of my favourite parts of *Golang* is the `goroutine` threading system.  Working in the Database industry, I got a real passion for concurrency &amp; parallelism and when looking to a new language, one of the first things I explore are the concurrency primitives.  In Crystal, we can use the `Spawn` functionality in a very similar way to Golang or Elixir/Erlang.
+One of my favourite parts of *Golang* is the `goroutine` threading system.  Working in the Database industry, I got a real passion for concurrency &amp; parallelism and when looking to a new language, one of the first things I explore are the concurrency primitives.  In Crystal, we can use the `Spawn` functionality in a very similar way to `Goroutines` in Golang, `core.async` in Clojure, or the lightweight threading in Elixir/Erlang.
 
-For a simple test, I wrote two quick scripts to test the Spawn functionality in Crystal alongside Ruby.  We all know that Ruby is **not** a great language for threading, so I'm interested to see how much better Crystal really is.  Let's take the following example in ***Ruby***:
+For a simple test, I wrote two quick scripts to test the Spawn functionality in Crystal alongside Ruby.  We all know that Ruby is **not** a great language for threading, so I'm interested to see how much better Crystal is in small experiments.  Let's take the following example in ***Ruby***:
 
 ~~~ ruby
 1000.times.map do
@@ -137,10 +137,10 @@ $ time ruby spawntest.rb
 
 real	0m0.288s
 user	0m0.132s
-sys		0m0.116s
+sys	0m0.116s
 ~~~
 
-I ran this little script on one of my ancient laptops that only has 2gb of RAM and a terrible, *terrible* processor.  Now, porting this script to ***Crystal***, we can write:
+I ran this little script on one of my ancient laptops that runs only 2gb of RAM and a terrible, *terrible* processor.  Now, porting this script to ***Crystal***, we can write:
 
 ~~~ ruby
 channel = Channel(String).new
@@ -159,10 +159,10 @@ $ time crystal spawntest.cr
 
 real	0m1.129s
 user	0m0.952s
-sys		0m0.276s
+sys	0m0.276s
 ~~~
 
-Hmmmm, very interesting indeed!  Well, seen as Crystal is a compiled language and meant to be used to build small binaries that are easily distributed, it'd be a good idea to compile this small script and use *that* data instead!  I compiled the script using the `--release` flag - this tells the Crystal compiler to optimise the programme.
+Hmmmm, very interesting indeed!  Well, seen as Crystal is a compiled language and meant to be used to build small binaries that are easily distributed, it'd be a good idea to compile this small script and use *that* data instead!  I compiled the script using the `--release` flag - this tells the Crystal compiler to optimise the bytecode.
 
 ~~~ bash
 $ crystal build --release spawntest.cr
@@ -174,7 +174,7 @@ user	0m0.004s
 sys		0m0.000s
 ~~~
 
-As you can see, this result is markedly different.  Using the `--release` flag when building the Crystal executable cuts out a lot of bloating and optimises the executable to be as efficient as possible.  Obviously, the above test is a very naive use of the Spawn functionality, and unfortunately, I haven't had the opportunity to test in a load-heavy production environment. But soon I'll write another article benchmarking this in detail when I have a good usecase and get the chance to!
+As you can see, this result is markedly different.  Using the `--release` flag when building the Crystal executable cuts out a lot of bloating and optimises the executable to be as efficient as possible.  Obviously, the above test is a very naive use of the Spawn functionality, and unfortunately, I haven't had the opportunity to test in a load-heavy production environment. But soon I fully intend to, and I'll write another article benchmarking this in detail when I have a good usecase and get the chance to!
 
 
 ## Built-in Tooling in Crystal
@@ -183,7 +183,7 @@ One of the things I like most about Crystal is the excellent built-in tooling av
 
 #### Testing
 
-If you're coming from a Ruby/Rails background, I think you'll be ***very*** happy with the built-in testing framework that ships with Crystal.  It's rather reminiscent of *RSpec*, and will be really easy to use for anyone coming from that background.  Even if you're not from a Ruby/Rails background, it's a great testing tool and is super effective.
+If you're coming from a Ruby/Rails background, I think you'll be ***very*** happy with the built-in testing framework that ships with Crystal.  It's rather reminiscent of *RSpec*, and will be really easy to use for anyone coming from a similar background.  Even if you're not from a Ruby/Rails background, it's a great testing tool and is super effective.
 
 Using the `Greeter` demo app from the Crystal docs, we could write our Specs as follows:
 
@@ -206,7 +206,7 @@ describe Greeter do
 end
 ~~~
 
-As you can see, this test looks *very* familiar to any Rubyists, and is becoming the more preferred syntax for application testing.
+As you can see, this spec should look *very* familiar to any Rubyists, and is becoming the more preferred syntax for application testing across many languages - there being RSpec clone libraries across most languages now!
 
 #### Project Scaffold
 
@@ -259,7 +259,7 @@ dependencies:
 
 Crystal has a great inbuilt tool for generating documentation and formatting files.  The documentation that is generated is excellent - built in html/css and almost instantly ready to deploy.
 
-To generate documentation for a project, from the project dir we can simply run:
+To generate documentation, from the project root directory we can simply run:
 
 	$ crystal doc
 
@@ -292,12 +292,16 @@ One thing to note here is that the Crystal-JWT library does not yet support the 
 
 In my next series of articles, I will be writing specifically about using Auth0 in a ***NON-jwt*** context, and I'll make sure I demonstrate this in Crystal!
 
+Of course, if you're looking to secure a Crystal-based web app, you can always simply use [Auth0 Lock](https://auth0.com/docs/libraries/lock/v10) as a drop-in solution.  The documentation of which can be found [here](https://auth0.com/docs/libraries/lock/v10).
+
 
 ## Conclusion
 
-I like it!  Although relatively immature, Crystal is a promising language with a growing dev community surrounding it.  In my previous article about Auth0 Lock / Iris Image Recognition, I mentioned the fact that it'd be better to use the pHash / Blockhash libraries for a production environment.  If I was to build this system, I would most definitely use Crystal to bind to those C libraries.  I know that I'd be getting fantasticly close-to-C speeds, and with the ease and joy of writing Crystal!
+**I really rather like it!**
 
-I am very much looking forward to seeing where this language goes.  I think the adoption rate will increase and I'm excited to see startups using it in production systems.  I am currently experimenting in building a Crystal library for the Auth0 API.  I will write another article on building an API client in Crystal when I'm finished.
+Although relatively immature, Crystal is a promising language with a growing Dev community surrounding it.  In my previous article about Auth0 Lock / Iris Image Recognition, I mentioned the fact that it'd be better to use the pHash / Blockhash libraries for a production environment.  If I was to build that system, I would most definitely use Crystal to bind to those C libraries.  I know that I'd be getting fantastically close-to-C speeds, and with the ease and joy of writing Crystal!
+
+I am very much looking forward to seeing where this language goes.  I think the adoption rate will rapidly increase and I'm excited to see startups using it in production systems.  I am currently experimenting in building a Crystal library for the Auth0 API.  I will write another article on building an API client in Crystal when I'm finished.
 
 I do hope this article has inspired you to give Crystal a try, and look forward to hearing your feedback if/when you do!  If you need any help and want to ask any questions, [reach out to me](mailto:robin@percy.pw) - I'm happy to help!
 
