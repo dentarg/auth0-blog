@@ -5,10 +5,10 @@ description: "Better information and transaction storage could mean big things."
 date: 2017-04-10 8:30
 category: Growth, Identity
 author:
-  name: "Ado Kukic"
-  url: "https://twitter.com/kukicado"
-  mail: "ado@auth0.com"
-  avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
   image: https://cdn.auth0.com/blog/blockchain/logo.png
   bg_color: "#75499A"
@@ -31,7 +31,7 @@ From the power of an individual actor to the privatization of data, here are som
 
 ## The trust problem
 
-A blockchain is a database of transactions, each of which can be verified (owing to the [computational intensity of the block-creation task](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/)) by any third-party. No record can be modified retroactively, each one contains a link to the record that came before it, and most importantly, it's all peer-to-peer. 
+A blockchain is a database of transactions, each of which can be verified (owing to the [computational intensity of the block-creation task and public-key cryptography](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/)) by any third-party. No record can be modified retroactively, each one contains a link to the record that came before it, and most importantly, it's all peer-to-peer. 
 
 It is a decentralized system wherein all the devices together create a functioning service, rather than some central entity providing the base functionality. 
 
@@ -47,7 +47,7 @@ The manufacturer could see the details of payment to the peanut farmer, then the
 
 ![Tracking a record](https://cdn.auth0.com/blog/blockchain/factory-example.png)
 
-So, if the factory wanted to go back to check where a bad batch of peanut butter came from, they would be able to quickly retrace the life of that jar of peanut butter to find out where it originated. Since each transaction stores unique information from each party that can't be retroactively changed, the peanut butter pipeline is a reliable source of information for the factory.
+So, if the factory wanted to go back to check where a bad batch of peanut butter came from, they would be able to quickly retrace the life of that jar of peanut butter to find out where it originated. Since each transaction stores unique information from each party that can't be retroactively changed, the peanut butter pipeline is a reliable source of information for the factory. This inability to make retroactive changes is what makes blockchain technology stand out from other systems.
 
 ## The double spending problem
 
@@ -89,7 +89,7 @@ But in storing their information, these corporations may use their stored data a
 
 For example, if you apply for a loan, the bank collects information about you to verify you for that loan. In today's world, they can — and will — [share that information](https://www.fdic.gov/consumers/privacy/yourrights/) with telemarketers, the airlines, and other third parties who are trying to target you as a consumer. 
 
-Giving all of one's recordable data back to an individual would be a radical shift in the way that we can access and grant access to personal information about ourselves. It would also save us time and energy, since we wouldn't have to jump through bureaucratic hoops every time we wanted to recall a piece of information about ourselves, whether that's from the bank, government, or hospital. 
+Giving all of one's recordable data back to an individual would be a radical shift in the way that we can access and grant access to personal information about ourselves. It would also save us time and energy, since we wouldn't have to jump through bureaucratic hoops every time we wanted to recall a piece of information about ourselves, whether that's from the bank, government, or hospital. This identity would be shared within the particular blockchain, but there is no central blockchain. Many blockchains already exist and identity is not shared between them.
 
 For example, you might have to return and [sign a written request](https://www.berkshirehealthsystems.org/BMCMedicalRecords) form to get your own medical scans released to you, even if you are still technically the owner of that information about your person. 
 
@@ -101,7 +101,7 @@ It would still require an overarching entity to assign one unique identity to ea
 
 Instead of centralizing all of their data, people could also decide to split their information into a number of different blockchain “identities” for different things. 
 
-For example, household spending could be a joint blockchain identity for a family, while each spouse also maintains a separate, personal blockchain identity for their own spending. There might be a separate blockchain for a trust fund or property inheritance and yet another block chain for stock portfolios. 
+For example, household spending could be a joint blockchain identity for a family, while each spouse also maintains a separate, personal blockchain identity for their own spending. There might be a separate identity for a trust fund or property inheritance and yet another identity for stock portfolios. 
 
 While people might feel comfortable keeping all of these things linked to one account, many individuals today already have separate accounts and identities for different functions. 
 
@@ -123,7 +123,7 @@ But in a world of easily recorded public transactions, it could be enough to ver
 
 Just how much could we verify simply based on information encoded in blockchains? If everyone centralizes their identity with blockchain, will you be able to use that as an immediate verification for everything from medical insurance at a doctor's to employment status in a visa application? 
 
-Imagine reapplying for a visa and having all your employment records, previous visa applications, passport information, and relevant personal history available to the application just through your authorization. Although you are the “keeper” of your identity, governments and other entities would be able to trust that data instantly, and you would not have to reach into their bureaucracy — our current centers of verification — to get it. 
+Imagine reapplying for a visa and having all your employment records, previous visa applications, passport information, and relevant personal history available to the application just through your authorization. Although you are the “keeper” of your identity, governments and other entities would be able to trust that data instantly, and you would not have to reach into their bureaucracy — our current centers of verification — to get it. This is by no means a solved problem with blockchain technology today, but it is a step forward. Data privacy, especially with blockchain technology is an evolving work in progress.
 
 With the power and security of blockchains, it's possible that one day, we can use blockchain technology to build a single source of trust for transaction and identity. But it would take a huge buy in from the top down to get us there, which means that the government and industry standards would be necessary to pave the way.
 
