@@ -462,7 +462,7 @@ export const expandCollapse = trigger('expandCollapse', [
 
 This syntax is a departure from AngularJS's use of CSS classes for animation, but the strengths here are easily understandable once we know what we're looking at.
 
-First, we need to import `trigger`, `transition`, `style`, `animate`, and `state`. The `trigger()` animation method accepts a name for the animation trigger and an array. The name will be how we'll apply this animation in our templates (ie., `<div *ngIf="state" [@triggerName]>`).
+First, we need to import `trigger`, `transition`, `style`, `animate`, and `state`. The `trigger()` animation method accepts a name for the animation trigger and an array. The name will be how we'll apply this animation in our templates (i.e., `<div *ngIf="state" [@triggerName]>`).
 
 ### Angular Animation Methods
 
@@ -471,8 +471,8 @@ Let's talk briefly about the purpose of each of these methods:
 * `trigger()`: accepts a name for the animation _trigger_ and an array of state and transition methods to configure the animation
 * `state()`: accepts the name of the _state_ of the animation, such as `'active'` or `'inactive'`, and styles that should be applied conditionally when in that state
 * `style()`: sets CSS styles and can be passed in to configure a state, transition, or animation
-* `transition()`: accepts a string explaining which states are being transitioned and which direction the transition is going (ie., `'active => inactive'`), and any styles or animations to configure the transition
-* `animate()`: accepts a numeric duration in milliseconds, _or_ a CSS string specifying both the duration and easing (ie., `250` or `'250ms ease-in'`)
+* `transition()`: accepts a string explaining which states are being transitioned and which direction the transition is going (i.e., `'active => inactive'`), and any styles or animations to configure the transition
+* `animate()`: accepts a numeric duration in milliseconds, _or_ a CSS string specifying both the duration and easing (i.e., `250` or `'250ms ease-in'`)
 
 > **Note:** Style, transition, and animation methods passed as arguments can be singular or grouped in an array.
 
@@ -1239,7 +1239,7 @@ As mentioned, we'll add a parameter to our `_updateRsvpState()` method. The `cha
 
 If the user did _not_ have an RSVP in the initial RSVPs retrieved from the API, they _do_ have a `userRsvp`, and `changed` is `true`, we can safely assume the `userRsvp` has just been newly created by form submission, so we should push it to the `rsvps` array.
 
-Now we need to handle updating the array if the user _edited_ an existing RSVP. We'll do so in the `_setUserRsvpGetAttending()` method, which now also accepts a `changed` parameter. When we map the array and check for an existing RSVP with our user's ID, (`auth.userProfile.sub`), we can check to see if the RSVP was `changed`. If so, we'll update the user's corresponding RSVP in the array with the modified `userRsvp` data. If no changes were made (ie., on initialization of the component), we'll set the `userRsvp` as we were doing previously. The rest of this method remains the same: it will calculate the number of attending guests and update the list of all RSVPs, now accounting for any changes the user may have made by adding or updating their RSVP.
+Now we need to handle updating the array if the user _edited_ an existing RSVP. We'll do so in the `_setUserRsvpGetAttending()` method, which now also accepts a `changed` parameter. When we map the array and check for an existing RSVP with our user's ID, (`auth.userProfile.sub`), we can check to see if the RSVP was `changed`. If so, we'll update the user's corresponding RSVP in the array with the modified `userRsvp` data. If no changes were made (i.e., on initialization of the component), we'll set the `userRsvp` as we were doing previously. The rest of this method remains the same: it will calculate the number of attending guests and update the list of all RSVPs, now accounting for any changes the user may have made by adding or updating their RSVP.
 
 ### Update RSVP Component Template
 
