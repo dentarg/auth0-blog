@@ -422,8 +422,8 @@ Open the `server/config.js` file and add the following to it:
 ```js
 // server/config.js
 module.exports = {
-  AUTH0_DOMAIN: '[YOUR_AUTH0_DOMAIN]', // ie., kmaida.auth0.com
-  AUTH0_API_AUDIENCE: '[YOUR_AUTH0_API_NAME]', // ie., 'http://localhost:8083/api/'
+  AUTH0_DOMAIN: '[YOUR_AUTH0_DOMAIN]', // e.g., kmaida.auth0.com
+  AUTH0_API_AUDIENCE: '[YOUR_AUTH0_API_NAME]', // e.g., 'http://localhost:8083/api/'
   MONGO_URI: process.env.MONGO_URI || 'mongodb://[USER]:[PASSWORD]@[DS######].mlab.com:[PORT]/[DB_NAME]'
 };
 ```
