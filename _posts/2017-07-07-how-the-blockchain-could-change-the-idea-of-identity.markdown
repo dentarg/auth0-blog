@@ -2,7 +2,7 @@
 layout: post
 title: "How the Blockchain Could Change The Idea of Identity"
 description: "Better information and transaction storage could mean big things."
-date: 2017-04-10 8:30
+date: 2017-07-07 8:30
 category: Growth, Identity
 author:
   name: Diego Poza
@@ -13,6 +13,7 @@ design:
   image: https://cdn.auth0.com/blog/blockchain/logo.png
   bg_color: "#75499A"
 related:
+  - 2017-03-06-an-introduction-to-ethereum-and-smart-contracts
   - 2016-11-30-different-ways-to-implement-multifactor
   - 2015-12-17-json-web-token-signing-algorithms-overview
 tags:
