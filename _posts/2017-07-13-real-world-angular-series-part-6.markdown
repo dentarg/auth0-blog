@@ -99,7 +99,7 @@ Open the server `api.js` file and add the following route:
   ...
 ```
 
-Only admin users should be able to add, update or delete events. This endpoint needs `jwtCheck` _and_ `adminCheck` middleware. Then we'll use the `find()` method to look for an event with the request's `title`, `location`, and `startDatetime`. If an event exists that matches all these fields, it's safe to say that we're trying to create a duplicate of an existing event and we should send an error.
+Only admin users should be able to add, update or delete events. This endpoint needs `jwtCheck` _and_ `adminCheck` middleware functions. Then we'll use the `find()` method to look for an event with the request's `title`, `location`, and `startDatetime`. If an event exists that matches all these fields, it's safe to say that we're trying to create a duplicate of an existing event and we should send an error.
 
 If no `existingEvent` can be found, then we can create a `new Event()` with the data from the request body and `save()` it to MongoDB, handling errors if necessary and sending the new `event` data back in the response.
 
@@ -457,8 +457,8 @@ Let's outline the requirements for our event form. This will help us plan our lo
 
 * Title field with simple validation
 * Location field with simple validation
-* A valid start date (ie., `1/25/2018`) at least one day in the future
-* A valid start time (ie., `11:30 AM`)
+* A valid start date (e.g., `1/25/2018`) at least one day in the future
+* A valid start time (e.g., `11:30 AM`)
 * A valid end date in the future, later than or equal to the start date
 * A valid end time, later than or equal to the start date + time
 * Start / end dates and times should be able to be entered in any order while still validating appropriately with whatever information is currently available
@@ -1489,7 +1489,7 @@ Our inputs then need `formControlName`s matching the controls belonging to the n
 
 At the bottom of this form group, we'll add a `<p>` element alert to handle showing the custom dates/times group validation that we'll create. This message will conditionally indicate when the dates are out of range.
 
-The rest of the form fields should feel familiar and abide by the same rules as the first few that we created (ie., `title` and `location`).
+The rest of the form fields should feel familiar and abide by the same rules as the first few that we created (i.e., `title` and `location`).
 
 We want to disable our submit button if the form isn't valid. However, unlike template-driven forms, reactive forms [don't play nicely with a dynamic `[disabled]` directive](https://github.com/angular/angular/issues/11271). Instead, we'll use a dynamic _attribute_ (`[attr.disabled]`) on our submit button, setting it to `true` if the form is invalid or currently `submitting`. If the button should be enabled, we'll set it to `null` so that the `disabled` attribute is not activated.
 
