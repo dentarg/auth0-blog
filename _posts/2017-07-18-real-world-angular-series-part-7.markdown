@@ -698,7 +698,7 @@ Let's create a new file in the root of our project called `silent.html` and add 
   <script src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js"></script>
   <script>
     var AUTH0_CLIENT_ID = '[YOUR_CLIENT_ID]';
-    var AUTH0_DOMAIN = '[YOUR_DOMAIN]'; // ie., kmaida.auth0.com
+    var AUTH0_DOMAIN = '[YOUR_DOMAIN]'; // e.g., kmaida.auth0.com
 
     var webAuth = new auth0.WebAuth({
       clientID: AUTH0_CLIENT_ID,
