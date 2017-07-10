@@ -458,7 +458,7 @@ const config = require('./server/config');
  |--------------------------------------
  */
 
-mongoose.connect(config.MONGO_URI);
+mongoose.connect(config.MONGO_URI, { useMongoClient: true });
 const monDb = mongoose.connection;
 
 monDb.on('error', function() {
@@ -586,8 +586,20 @@ We should now be able to access both the Angular application and the API in the 
 
 > **Note:** We'll be using separate terminal windows a lot so we can keep watching the app and API while adding components with the Angular CLI.
 
-* Serve Angular app: `ng serve`
-* Serve Node API: `NODE_ENV=dev nodemon server`
+We can use this command to serve the Angular app:
+
+```bash
+$ ng serve
+```
+
+In another terminal, set the environment variable and then serve the Node API:
+
+```bash
+$ NODE_ENV=dev
+$ nodemon server
+```
+
+> **Note:** On Mac, these commands can be combined: `NODE_ENV=dev nodemon server`.
 
 If we've done everything correctly, the Angular app will compile and show a success message in its terminal. We should also see a message in the Node server terminal confirming that the server is running and that we've successfully connected to MongoDB.
 

@@ -132,7 +132,7 @@ export class AuthService {
 
   handleAuth() {
     // When Auth0 hash parsed, get profile
-    this.auth0.parseHash((err, authResult) => {
+    this._auth0.parseHash((err, authResult) => {
         ...
       } else if (err) {
         this._clearRedirect();
@@ -144,7 +144,7 @@ export class AuthService {
 
   private _getProfile(authResult) {
     // Use access token to retrieve user's profile and set session
-    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+    this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
         ...
         this.router.navigate([localStorage.getItem('authRedirect') || '/']);
@@ -760,7 +760,7 @@ export class AuthService {
   ...
   private _getProfile(authResult) {
     // Use access token to retrieve user's profile and set session
-    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+    this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       ...
       this._redirect();
       this._clearRedirect();
