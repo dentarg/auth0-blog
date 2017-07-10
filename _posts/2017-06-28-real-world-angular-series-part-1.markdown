@@ -595,8 +595,11 @@ $ ng serve
 In another terminal, set the environment variable and then serve the Node API:
 
 ```bash
-$ NODE_ENV=dev
+# Windows:
+$ SET NODE_ENV=dev
 $ nodemon server
+# OR Mac:
+$ NODE_ENV=dev nodemon server
 ```
 
 > **Note:** On Mac, these commands can be combined: `NODE_ENV=dev nodemon server`.
