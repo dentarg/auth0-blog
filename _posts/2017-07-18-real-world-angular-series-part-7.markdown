@@ -833,7 +833,7 @@ export class AuthService {
   ...
 
   renewToken() {
-    this.auth0.renewAuth({
+    this._auth0.renewAuth({
       redirectUri: AUTH_CONFIG.SILENT_REDIRECT,
       usePostMessage: true
     }, (err, authResult) => {
@@ -898,7 +898,7 @@ Now we'll create three new methods to implement token renewal. The first method 
 
 ```typescript
   renewToken() {
-    this.auth0.renewAuth({
+    this._auth0.renewAuth({
       redirectUri: AUTH_CONFIG.SILENT_REDIRECT,
       usePostMessage: true
     }, (err, authResult) => {
