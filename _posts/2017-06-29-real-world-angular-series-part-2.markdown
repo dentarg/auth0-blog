@@ -139,7 +139,7 @@ declare var auth0: any;
 @Injectable()
 export class AuthService {
   // Create Auth0 web auth instance
-  auth0 = new auth0.WebAuth({
+  private _auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.CLIENT_ID,
     domain: AUTH_CONFIG.CLIENT_DOMAIN,
     responseType: 'token id_token',
@@ -175,12 +175,12 @@ export class AuthService {
 
   login() {
     // Auth0 authorize request
-    this.auth0.authorize();
+    this._auth0.authorize();
   }
 
   handleAuth() {
     // When Auth0 hash parsed, get profile
-    this.auth0.parseHash((err, authResult) => {
+    this._auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this._getProfile(authResult);
@@ -193,7 +193,7 @@ export class AuthService {
 
   private _getProfile(authResult) {
     // Use access token to retrieve user's profile and set session
-    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+    this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
         this._setSession(authResult, profile);
       } else if (err) {
@@ -748,9 +748,6 @@ We'll start with `Event.js`. Open this file and add the following event schema:
  */
 
 const mongoose = require('mongoose');
-// FIX promise deprecation warning:
-// https://github.com/Automattic/mongoose/issues/4291
-mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
@@ -780,9 +777,6 @@ Now let's write the Rsvp schema in the `Rsvp.js` file:
  */
 
 const mongoose = require('mongoose');
-// FIX promise deprecation warning:
-// https://github.com/Automattic/mongoose/issues/4291
-mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 const rsvpSchema = new Schema({
@@ -796,8 +790,6 @@ const rsvpSchema = new Schema({
 
 module.exports = mongoose.model('Rsvp', rsvpSchema);
 ```
-
-> **Note:** We'll set `mongoose.Promise = global.Promise;` before declaring each Schema in order to address [a bug in mongoose that produces a promise deprecation warning](https://github.com/Automattic/mongoose/issues/4291). When this issue is resolved, we can remove this line from our models.
 
 Now we need to require our models in the API. Open the server `api.js` file and add the following:
 
