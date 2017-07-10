@@ -1,26 +1,30 @@
 ---
 layout: post
-title: "Combining Auth0's Lock with Iris recognition"
-description: "Using Ruby on Rails to combine Auth0 Lock with Iris Recognition for 2 Factor Authentication"
-date: 2017-06-08 09:40
+title: "Iris Recognition for Two Factor Authentication with Ruby on Rails"
+description: "Using Ruby on Rails to combine Auth0 Lock with Iris Recognition for Two Factor Authentication"
+date: 2017-07-10 09:40
 category: Technical Guide, Backend, Ruby
 author:
   name: "Robin Percy"
   url: "https://twitter.com/rbin"
   mail: "robin@percy.pw"
   avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
+  design: #5663AD 
+  image: https://cdn.auth0.com/blog/iris-recognition/logo.png
+  bg_color: 
 tags:
 - 2FA
 - Ruby
 - Rails
 - Image-Recognition
+related:
+- 2017-05-17-two-factor-authentication-using-biometrics
+- 2017-01-03-rails-5-with-auth0
+- 2016-11-03-auth0-lock-is-here-for-b2b-and-b2c
 ---
 
 
-Eyeball
-======
-
-### Combining Auth0's Lock with Basic Iris recognition for 2 Factor Auth
+Eyeb### Combining Auth0's Lock with Basic Iris recognition for 2 Factor Auth
 
 
 ## Technology Used
@@ -299,7 +303,7 @@ end
 
 ### Summary
 
-So there we have it!  As I'm sure you have already realised; this article is ***not*** meant to supply a ready-made system for you to use in production - far from!  I just wanted to give you an idea of some of the cool things we can do so simply with Auth0's Lock, and how easy it is to integrate it into our applications!
+So there we have it! It's important to note that this article is **not** meant to supply a production-ready system. I wanted to give you an idea of some of the cool things we can do easily with Auth0 Lock, and how simple it is to integrate into our applications!
 
 Building user systems from scratch takes a **long** time - and as Developers, we're utilising more and more API's on a daily basis.  Auth0 makes it incredibly simple for us to setup a highly secure, super scalable User System in a small fraction of the time it would have taken us to build it in-house.
 
