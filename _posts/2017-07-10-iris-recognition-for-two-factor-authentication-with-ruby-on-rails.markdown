@@ -99,7 +99,7 @@ For our application, we're going to use the ***Mean Absolute Error Count*** `MAE
 
 Let's take this sample image of a Medieval print, do some testing, then put it all together into our Rails app!  Assuming that the ImageMagick CLI is available in our bash profile, we can experiment with the following.. 
 
-![Print](https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301.jpg){width=200px} 
+![Print](https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301.jpg)
 
 To create a secondary image of this print, which is largely the same, we will use ImageMagick's `convert` function to *sharpen* the image colours, and apply a gaussian blur.  This will leave us with an image with the same dimensions, and with similar Pixel Channels.  Let's run:
 
@@ -107,7 +107,9 @@ To create a secondary image of this print, which is largely the same, we will us
 
 We should now have a second print image, that looks very similar, but does have subtle differences.
  
- ![New Print](https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301_blur.jpg){width=200px} 
+<div align="center">
+    <img src="https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301_blur.jpg" alt="New Print" width="500px" />
+</div>
  
  As mentioned above, we will use the *Mean Absolute Error Count* metric to get a pixel channel difference between the two images, from ImageMagick's CLI.
  
@@ -115,7 +117,9 @@ We should now have a second print image, that looks very similar, but does have 
 
 Upon running that command, we should get returned in our STDERR output the numeric Diff:  `4610`.  There will also be a third image file in our working directory called '24442301_DIFF.png' that highlights in the red spectrum pixel channel, the differences ImageMagick picked up between the two images:
 
-![Diff](https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301_DIFF.png){width=200px} 
+<div align="center">
+    <img src="https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301_DIFF.png" alt="Diff" width="500px" />
+</div>			
 
 This image may look a little strange to our human eyes, but to ImageMagick, it's the only way of factoring a Diff.  Whilst it's certainly an interesting image, it's pretty useless to us - we really only need the Diff figure - ***4610***.
 
@@ -144,11 +148,19 @@ Working on the figures we already have - calculating our sum using the equation 
 Now it's up to us to decide how much of a variation on this figure is acceptable and will allow a User to continue.  To decide on this, I did some experimenting with two photos of my right eye taken on my iPhone.
 
 
-![](https://s3.eu-west-2.amazonaws.com/iris-blog-images/eye1.jpg){ width="150px" align="left"}
+<div align="center">
+    <img src="https://s3.eu-west-2.amazonaws.com/iris-blog-images/eye1.jpg" alt="Right Eye" width="400px" />
+</div>
 
-![](https://s3.eu-west-2.amazonaws.com/iris-blog-images/eye2.jpg){ width="150px" align="left"}
 
-![](https://s3.eu-west-2.amazonaws.com/iris-blog-images/eye-diff.png){ width="150px"}
+<div align="center">
+    <img src="https://s3.eu-west-2.amazonaws.com/iris-blog-images/eye2.jpg" alt="Right Eye 02" width="400px" />
+</div>
+
+
+<div align="center">
+    <img src="https://s3.eu-west-2.amazonaws.com/iris-blog-images/eye-diff.png" alt="Right Eye diff" width="400" />
+</div>
 
 
 While the images don't look markedly different to me, the image processor must have seen a few things I didn't.  Once again, running the script using the `MAE` metric, and using the `-verbose` option; the results came out as follows:
@@ -238,7 +250,11 @@ Iris Stored URL is: <%= @iris_url %>
 
 If you run your Rails app now, and go through the initial ***Auth0 Lock*** successfully; you'll be redirected to the Iris/check page.  Your app should reflect the following:
 
-![Initial Iris Check Page](https://s3.eu-west-2.amazonaws.com/iris-blog-images/initial-iris-check-page.png){width="600px" align="center"} 
+
+<div align="center">
+    <img src="https://s3.eu-west-2.amazonaws.com/iris-blog-images/initial-iris-check-page.png" alt="Initial Iris Check Page" width="600" />
+</div>
+
 
 From this we know that our OmniAuth Hash is returning everything we need for our image comparison.  We would **not** usually display the iris_image_url, but for the sake of this demo I am for now.  We can access the User's details such as email address, name etc. allowing us to provide a greeting, but realistically, we only need the `iris_image_url` metadata, and we can move onto the final stage of our app build!
 
