@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How the Blockchain Could Change The Idea of Identity"
+title: "Opinion Piece: How the Blockchain Could Change The Idea of Identity"
 description: "Better information and transaction storage could mean big things."
 date: 2017-07-07 8:30
 category: Growth, Identity
@@ -66,21 +66,21 @@ That's a difficult question that we can't answer yet. So, now that we've got an 
 
 ## How blockchain could reshape the idea of identity
 
-### Centralization
+### Historically Verifiable Records
 
 A blockchain can provide more than just a record of a financial transaction or a log of where a shipping container has been. It can theoretically store a variety of data, including property ownership, financial, intellectual property, and even medical data. 
 
-With this type of storage, centralizing the disparate parts of one's identity would be much easier. Digital identity would more closely model the complexity of someone's actual identity — all their spending habits, their rental history, permanent records of legally binding agreements in one place. 
+With this type of storage, keeping a historic record of the disparate parts of one's identity would be much easier. Digital identity would more closely model the complexity of someone's actual identity — all their spending habits, their rental history, permanent records of legally binding agreements in one place. 
 
-This could radically simplify how digital identity is managed. If everyone kept their data in one central location, it would be simply a matter of giving relevant parties access to data. 
+For example, you go to a bank to ask for a loan. That bank needs to check your financial history to qualify you for the loan. If your financial data was stored in a blockchain your potential lender could rely on [the work other financial institutions did](https://www.americanbanker.com/news/how-blockchain-fits-into-the-future-of-digital-identity) to keep your data to easily qualify you.
 
-For example, you go to a bank to ask for a loan. That bank needs to check your financial history to qualify you for the loan. If all of your financial data was stored in one place — all your history with other banks, your mortgage, your on-time med school loan repayment — your potential lender could rely on [the work other financial institutions did](https://www.americanbanker.com/news/how-blockchain-fits-into-the-future-of-digital-identity) to keep your data to easily qualify you.
+Think of it like using an app through Facebook: the app asks you to share your email, location, and friends to use the app. However, instead of Facebook, in this case it's parts of your blockchain-backed data. It could be used, for example, by a real estate agent to show a landlord you are a reliable tenant — just by allowing their server access to that part of your history.
 
-Think of it like using an app through Facebook: the app asks you to share your email, location, and friends to use the app. However, instead of Facebook,in this case  it's your centralized blockchain identity. It could be used, for example, by a real estate agent to show a landlord you are a reliable tenant — just by allowing their server access to that part of your history.
+On the other hand, this poses interesting questions for privacy. Although it is not necessary to store data on the blockchain for cases like the above (for example, you could store a hash), you still need to keep your data somewhere. If this data is ever exposed, whomever gets access to it can verify it is you who owns it by looking at the blockchain. In a sense, this gives people with access to your data all the tools they need to associate the data with you. As long as there is one copy of the data somewhere, you can never take it back, it will always be mapped back to you.
 
 ### Privatization
 
-Since blockchain can store sensitive data, we might see a radical privatization of identity. 
+Since blockchains can store sensitive data, we might see a radical privatization of identity. 
 
 For example, individuals generally do not store all of their medical data themselves. In order to access that information, or to grant others to access that information, they have to go through large organizations (healthcare, hospitals), or small businesses (a local dentist, a pharmacy).
 
@@ -90,17 +90,11 @@ But in storing their information, these corporations may use their stored data a
 
 For example, if you apply for a loan, the bank collects information about you to verify you for that loan. In today's world, they can — and will — [share that information](https://www.fdic.gov/consumers/privacy/yourrights/) with telemarketers, the airlines, and other third parties who are trying to target you as a consumer. 
 
-Giving all of one's recordable data back to an individual would be a radical shift in the way that we can access and grant access to personal information about ourselves. It would also save us time and energy, since we wouldn't have to jump through bureaucratic hoops every time we wanted to recall a piece of information about ourselves, whether that's from the bank, government, or hospital. This identity would be shared within the particular blockchain, but there is no central blockchain. Many blockchains already exist and identity is not shared between them.
-
-For example, you might have to return and [sign a written request](https://www.berkshirehealthsystems.org/BMCMedicalRecords) form to get your own medical scans released to you, even if you are still technically the owner of that information about your person. 
-
-![Blockchain Identity](https://cdn.auth0.com/blog/blockchain/blockchain-identity.png)
-
-It would still require an overarching entity to assign one unique identity to each person, and monitor for false identities, just as the government organizes social security numbers. But it would largely remove the need for third parties to store personal information, which is a function in many fields today. 
+Giving all of one's recordable data back to an individual would be a radical shift in the way that we can access and grant access to personal information about ourselves. It would also save us time and energy, since we wouldn't have to jump through bureaucratic hoops every time we wanted to recall a piece of information about ourselves, whether that's from the bank, government, or hospital. This identity would be shared with specific actors and backed with proofs-of-existence in a blockchain. Many blockchains already exist and could be used for this.
 
 ### Separation
 
-Instead of centralizing all of their data, people could also decide to split their information into a number of different blockchain “identities” for different things. 
+Instead of centralizing all of their data, people could also decide to split their information into a number of different blockchain “identities” for different things. We call "identities" to the owners of specific transactions associated to a blockchain address.
 
 For example, household spending could be a joint blockchain identity for a family, while each spouse also maintains a separate, personal blockchain identity for their own spending. There might be a separate identity for a trust fund or property inheritance and yet another identity for stock portfolios. 
 
@@ -112,8 +106,6 @@ For example, spouses might keep separate bank accounts, and family money might r
 
 Or, if you could transfer blockchain identities as part of your will, it might make sense to keep different properties, intellectual information, and financial information about high-value assets like jewelry or art in different identities. 
 
-Even if the individual owner of these chains were all the same, if the blockchain identities are separate assembling a holistic view of an individual could become difficult, especially for third parties. It could also affect our personal behaviors towards the way that we manage and distribute our personal income, property, inheritance, and other assets.
-
 ### Verification
 
 We often feel apprehensive if we're completing a transaction with a stranger, especially online. That's why sites like Etsy, Airbnb and Ebay give you access to reviews and ratings based on user history. Airbnb, shown below, even has an option for verification through the site, to build a sense of trust and legitimacy.
@@ -122,16 +114,16 @@ We often feel apprehensive if we're completing a transaction with a stranger, es
 
 But in a world of easily recorded public transactions, it could be enough to verify an exchange partner as “trustworthy” simply by being able to look at their transaction record through their blockchain history, or to have some sort of transaction score attached to it. 
 
-Just how much could we verify simply based on information encoded in blockchains? If everyone centralizes their identity with blockchain, will you be able to use that as an immediate verification for everything from medical insurance at a doctor's to employment status in a visa application? 
+Just how much could we verify simply based on information encoded in blockchains? It depends on how and what we choose to store in the blockchain, but we are beginning to see that. For example, today people can prove they own a certain amount of money by simply signing a challenge with their private Bitcoin key. You can mathematically prove to anyone that you have enough money to enter a loan!
 
 Imagine reapplying for a visa and having all your employment records, previous visa applications, passport information, and relevant personal history available to the application just through your authorization. Although you are the “keeper” of your identity, governments and other entities would be able to trust that data instantly, and you would not have to reach into their bureaucracy — our current centers of verification — to get it. This is by no means a solved problem with blockchain technology today, but it is a step forward. Data privacy, especially with blockchain technology is an evolving work in progress.
 
-With the power and security of blockchains, it's possible that one day, we can use blockchain technology to build a single source of trust for transaction and identity. But it would take a huge buy in from the top down to get us there, which means that the government and industry standards would be necessary to pave the way.
+With the power and security of blockchains, it's possible that one day, we can use blockchain technology to build a source of trust for transactions and identity. But it would take a huge buy in from the top down to get us there, which means that the government and industry standards would be necessary to pave the way.
 
 ## Blockchain could mean big things
 
 Although some speculations surrounding blockchain seems hyperbolic, the truth is that we have no idea of where this technology could take us. Just as communications companies [never imagined](https://hbr.org/2017/01/the-truth-about-blockchain) that TCP/IP development would one day be used for video chat, the blockchain future could be the realm of sci-fi today. 
 
-For authentication and identity management, it's clear that blockchain will have an impact because it's a way to store digital information. This helps us to recognize that how we conceptualize the identity of an individual isn't set in stone, and the way that we build identities and personas for people will always continue to grow and change.
+For authentication and identity management, there is a good chance blockchains will have an impact. Identity is all about proving things about someone, and blockchains augment private-key proofs with historical records. They are essentially verifiable ledgers that can store and link to any type of information.
 
 What ways do you see blockchain changing identity — and how do you think that will affect the digital future?
