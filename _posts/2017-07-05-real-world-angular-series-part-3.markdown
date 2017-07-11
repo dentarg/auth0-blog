@@ -767,6 +767,7 @@ Finally, we'll unsubscribe from `eventListSub` in the `ngOnDestroy()` lifecycle 
 Now open the `home.component.html` template:
 
 {% highlight html %}
+{% raw %}
 <!-- src/app/pages/home/home.component.html -->
 <h1 class="text-center">{{pageTitle}}</h1>
 <app-loading *ngIf="loading"></app-loading>
@@ -823,6 +824,7 @@ Now open the `home.component.html` template:
   </p>
 
 </ng-template>
+{% endraw %}
 {% endhighlight %}
 
 In the template, we'll use the [structural directive NgIf](https://angular.io/guide/structural-directives#ngif-case-study) to dynamically load only the parts of the UI that should be revealed at a particular state of the component. The `<app-loading>` component shows if the `loading` property is `true`, and the event list or error should show if `loading` is `false` (but not `undefined`).
