@@ -791,29 +791,9 @@ Template-driven forms yield rather heavy HTML templates, but lighter classes. Th
 
 For our simple RSVP form component, a template-driven form is the ideal approach. The HTML is more transparent to the developer and we don't have particularly complex validation. Our class only needs to manage the necessary form model and submission endpoint depending on whether the user is creating or editing. We have one field that reacts to the value of another, which is easily implemented with a method that runs on the input's `change` event.
 
-> **Note:** The event form will need much more complex custom validation, so we'll utilize a reactive form at that time.
+We've already imported the requisite `FormsModule` in [Part 3](https://auth0.com/blog/real-world-angular-series-part-3/#angular-home-events) when we created our Home event list with a search field.
 
-### Import the Forms Module
-
-Let's add and import the Angular `FormsModule`. Open the `app.module.ts` file:
-
-```typescript
-// src/app/app.module.ts
-...
-import { FormsModule } from '@angular/forms';
-
-@NgModule({
-  ...,
-  imports: [
-    ...,
-    FormsModule
-  ],
-  ...
-})
-...
-```
-
-Import the `FormsModule` and add it to the NgModule's `imports` array.
+> **Note:** The event form will need much more complex custom validation, so we'll utilize a _reactive_ form at that time.
 
 ### Create a Submitting Component
 
