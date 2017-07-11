@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Creating your first drupal app and adding authentication"
-description: "Learn how to create your first drupal site and add authentication to it."
-date: 2017-06-13 08:30
+title: "Creating your first Drupal Site and adding authentication"
+description: "Learn how to create your first Drupal site and add authentication to it."
+date: 2017-07-11 08:30
 category: Technical Guide, Backend, Drupal
 design:
   bg_color: "#4A4A4A"
@@ -142,10 +142,13 @@ Now, run `composer update` in your terminal to install all the dependencies. Loo
 Go ahead and run your app again. Click on login. You wil be redirected to Auth0 Hosted Lock page and shown the sign in widget.
 
 ![Auth0 Login](https://cdn.auth0.com/blog/drupal/auth0login.png)
+_Log In_
 
 
 ![LoggedIn State](https://cdn.auth0.com/blog/drupal/loggedinstate.png)
+_LoggedIn State_
 
+Oh, snap! That's all? Is it that simple? Yes it is!
 
 ## Conclusion
 
