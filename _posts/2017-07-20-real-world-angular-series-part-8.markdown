@@ -627,7 +627,7 @@ The tool we need to obtain certificates from Let's Encrypt is called [certbot](h
 Let's obtain a certificate now with the following command:
 
 ```bash
-# ie, sudo certbot certonly --standalone -d kmaida.net -d www.kmaida.net -d rsvp.kmaida.net
+# e.g., sudo certbot certonly --standalone -d kmaida.net -d www.kmaida.net -d rsvp.kmaida.net
 $ sudo certbot certonly --standalone -d [example.com] -d [rsvp.example.com]
 ```
 
@@ -661,8 +661,8 @@ This schedules certbot to check to see if the certificate is close to expiring t
 > **Note:** You should double-check where your `certbot` and `systemctl` executables are located to ensure that the local paths in your cron job are correct. You can do this by running `which [cmd]`, like so:
 >
 >```bash
-$ which certbot # ie, /usr/bin/certbot
-$ which systemctl # ie, /usr/local/bin/systemctl
+$ which certbot # e.g., /usr/bin/certbot
+$ which systemctl # e.g., /usr/local/bin/systemctl
 ```
 >
 > If necessary, update the paths in the cron code with your appropriate paths.
@@ -770,7 +770,7 @@ We also need to update our `silent.html` file with our secure production URL, li
 
 Change the `redirectUri` and the `postMessage()` URL to your domain on HTTPS. This will prevent same origin errors on production when tokens are silently renewed.
 
-Check in this change and push to your Git remote.
+Commit this change and push to your Git repository's remote.
 
 ### Clone RSVP App on DigitalOcean VPS
 
@@ -912,6 +912,19 @@ We've now built and deployed a MEAN stack single page app to production, complet
 * Simple and complex forms with custom validation
 * Lazy loading
 * SSL
+
+### Series Recap
+
+You can view previous sections of the tutorial series here:
+
+1. [Real-World Angular Series - Part 1: MEAN Setup & Angular Architecture](https://auth0.com/blog/real-world-angular-series-part-1)
+2. [Real-World Angular Series - Part 2: Authentication and Data Modeling](https://auth0.com/blog/real-world-angular-series-part-2)
+3. [Real-World Angular Series - Part 3: Fetching and Displaying API Data](https://auth0.com/blog/real-world-angular-series-part-3)
+4. [Real-World Angular Series - Part 4: Access Management, Admin, and Detail Pages](https://auth0.com/blog/real-world-angular-series-part-4)
+5. [Real-World Angular Series - Part 5: Animation and Template-Driven Forms](https://auth0.com/blog/real-world-angular-series-part-5)
+6. [Real-World Angular Series - Part 6: Reactive Forms and Custom Validation](https://auth0.com/blog/real-world-angular-series-part-6)
+7. [Real-World Angular Series - Part 7: Relational Data and Token Renewal](https://auth0.com/blog/real-world-angular-series-part-7)
+8. [Real-World Angular Series - Part 8: Lazy Loading, Production Deployment, SSL](https://auth0.com/blog/real-world-angular-series-part-7) (Congratulations, you are here!)
 
 ### Homework
 
