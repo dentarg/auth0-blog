@@ -148,7 +148,7 @@ _Log In_
 ![LoggedIn State](https://cdn.auth0.com/blog/drupal/loggedinstate.png)
 _LoggedIn State_
 
-Oh, snap! That's all? Is it that simple? Yes it is!
+Oh, snap! That's all? Is it that simple? Yes it is! You can check out the [source code](https://github.com/auth0-blog/drupal-auth0-app) for reference.
 
 ## Conclusion
 
