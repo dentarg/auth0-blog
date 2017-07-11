@@ -68,7 +68,7 @@ $ npm install angular2-jwt --save
 
 Let's create a file to store information about our app's environment. We're currently developing on `localhost:4200`, but the app will be deployed on the Node server eventually, and in production, it will run on a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy). We'll need to make sure our development environment doesn't break our production environment and vice versa.
 
-Create a folder: `src/core`, then add a file there called `env.config.ts`:
+Create a folder: `src/app/core`, then add a file there called `env.config.ts`:
 
 ```typescript
 // src/app/core/env.config.ts

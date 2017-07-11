@@ -633,6 +633,28 @@ We can now search as well as sort our event arrays by date in our components.
 
 Our components should get and display lists of events. We've already created the API endpoints to return this data and implemented an API service to fetch it. Now we need to subscribe to and display it in our components.
 
+### Add Forms Module to App Module
+
+The first thing we'll need to do is add the `FormsModule` to our App module to allow us to use [NgModel](https://angular.io/api/forms/NgModel) in our templates for the search form field. Open the `app.module.ts` file:
+
+```typescript
+// src/app/app.module.ts
+...
+import { FormsModule } from '@angular/forms';
+...
+@NgModule({
+  ...,
+  imports: [
+    ...,
+    FormsModule
+  ],
+  ...
+})
+...
+```
+
+Import `FormsModule` and add it to the `imports` array in the NgModule.
+
 ### Show Public Events in Home Component
 
 Let's update our Home component to show the public upcoming events list. Open `home.component.ts`:
