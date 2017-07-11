@@ -381,6 +381,11 @@ With both of these running, navigate to your app and try logging in with the cre
 
 ## Aside: Using Angular 2 with Auth0
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This article uses an outdated Auth0 authentication approach.</strong> For improved security, it is <strong>strongly advised</strong> that you refer to the following updated tutorial instead: <a href="https://auth0.com/blog/angular-2-authentication/">Angular 2 Authentication Tutorial</a>. 
+</div>
+
 Auth0 issues **JSON Web Tokens** on every login for your users. That means that you can have a solid identity infrastructure, including [single sign-on](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog), user management, support for social (Facebook, Github, Twitter, etc.), enterprise (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
 We can add Auth0 to the app we just created really easily. There are just a few simple steps:
