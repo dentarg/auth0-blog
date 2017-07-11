@@ -195,9 +195,30 @@ We'll find RSVPs by matching the `eventId`, which will be passed with the reques
 
 Now that we have API routes for fetching events, we need to access these routes in our Angular app so we can _display_ events data.
 
+### Add HTTP Module to App Module
+
+First we'll need to import the `HttpModule` in our App module. Open the `app.module.ts` file:
+
+```typescript
+...
+import { HttpModule } from '@angular/http';
+...
+@NgModule({
+  ...
+  imports: [
+    ...,
+    HttpModule
+  ],
+  ...
+})
+...
+```
+
+Import `HttpModule` and include it in the `imports` array of the NgModule.
+
 ### Create API Service
 
-To do this, we'll create an API service. Let's generate the service now:
+Now we'll create an API service. Let's generate the service now:
 
 ```bash
 $ ng g service core/api
