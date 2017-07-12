@@ -26,7 +26,7 @@ tags:
 related:
 - angular-2-ngmodules
 - angular-2-testing-in-depth-services
-- angular-2-authentication
+- angular-testing-in-depth-components
 ---
 
 <div class="alert alert-info alert-icon">
@@ -48,7 +48,7 @@ if you are not familiar with the concepts.
 
 - [Services](https://auth0.com/blog/angular-2-testing-in-depth-services/)
 - HTTP Services (this article)
-- Components
+- [Components](https://auth0.com/blog/angular-testing-in-depth-components/)
 - Pipes
 - Routing
 

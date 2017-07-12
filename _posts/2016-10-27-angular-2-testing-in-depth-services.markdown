@@ -15,6 +15,7 @@ design:
   image: https://cdn.auth0.com/blog/angular/logo3.png
   bg_color: "#012C6C"
 tags:
+- angular2
 - testing
 - angular
 - typescript
@@ -22,7 +23,7 @@ tags:
 related:
 - angular-2-ngmodules
 - angular-testing-in-depth-http-services
-- angular-2-authentication
+- angular-testing-in-depth-components
 ---
 
 <div class="alert alert-info alert-icon">
@@ -42,7 +43,7 @@ We will start with simple use cases and then head for more complex ones.
 
 - Services (this article)
 - [Http Services](https://auth0.com/blog/angular-testing-in-depth-http-services/)
-- Components
+- [Components](https://auth0.com/blog/angular-testing-in-depth-components/)
 - Pipes
 - Routing
 
