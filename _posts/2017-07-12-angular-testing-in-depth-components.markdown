@@ -2,7 +2,7 @@
 layout: post
 title: "Angular Testing In Depth: Components"
 description: "Learn how to test Components in Angular. We will start with writing isolated tests for a component and finish with integration tests for the rendered component."
-date: 2017-05-31 08:30
+date: 2017-07-12 08:30
 category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
@@ -12,11 +12,8 @@ author:
   mail: "soos.gabor86@gmail.com"
   avatar: "https://secure.gravatar.com/avatar/9d2e715baab928f5bedb837bfcb70b2b"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angular2
 - testing
@@ -24,7 +21,7 @@ tags:
 - typescript
 - jasmine
 related:
-- angular-2-ngmodules
+- angular-2-authentication
 - angular-2-testing-in-depth-services
 - angular-testing-in-depth-http-services
 ---
