@@ -2,7 +2,7 @@
 layout: post_extend
 title: "From MongoDB to DynamoDB"
 description: Migrate your storage where the grass is greener
-date: 2017-07-10 09:23
+date: 2017-07-14 09:23
 is_extend: false
 category: Product
 author: 
@@ -36,7 +36,7 @@ Auth0 Extend uses storage to persist information about webtasks (their code, enc
 
 ### The MongoDB Honeymoon
 
-Back in 2014, when we were starting the work on [webtasks](https://webtask.io), the serverless technology underlying the Auth0 Extend product, the choice of Mongo for the storage layer was a no-brainer. Mongo was already used by Auth0 identity product and we have started building in-house expertise of this technology. 
+Back in 2014, when we were starting the work on [Auth0 Webtasks](https://webtask.io), the serverless technology underlying the Auth0 Extend product, the choice of Mongo for the storage layer was a no-brainer. Mongo was already used by Auth0 identity product and we have started building in-house expertise of this technology. 
 
 The killer feature of Mongo at the early stage of development was the flexility of the schema.
 
@@ -72,7 +72,7 @@ If you are looking for a storage system for transactional data, it is fundamenta
 
 ### DynamoDB Indexing in a Nutshell
 
-If you are new to DynamoDB and undertake data migration from another DB system like Mongo, I highly recommend you first read *through* DynamoDB docs. The prescription and guidance in there was absolutely necessary to successfuly migrate anything more complex than simple key/value pairs. 
+If you are new to DynamoDB and undertake data migration from another DB system like Mongo, I highly recommend you first read *through* [DynamoDB Developer Guide](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html). The prescription and guidance in there was absolutely necessary to successfuly migrate anything more complex than simple key/value pairs. 
 
 Storage in DynamoDB is organized into *tables*, with each table being an indepenent unit with its own indexes, capacity, and scalability configuration. DynamoDB tables are similar to MongoDB collections in that the data they hold is independent. 
 
@@ -258,7 +258,7 @@ var now = Date.now();
 db.collection('cron_jobs').findOne({
   deployment_key: 'auth0',
   next_available_at: { $lte: now }
-}, {
+}, null, {
   sort: { next_available_at: 1 }
 }, ...);
 ```
@@ -333,7 +333,5 @@ The work that lies ahead includes:
 * Designing a robust cross-region failover mechanism.
 * Stabilizing and performance tuning the new stack. 
 
-To support these, we are looking forward to exploring DynamoDB streams, auto-scaling, and in-memory caching. Stay tuned for more technical posts related to this space. In the meantime, if you are looking for a backstage story on another technological impeachment within our stack, check out [how we ditched Kafka to move to ZeroMQ](). 
+To support these, we are looking forward to exploring DynamoDB streams, auto-scaling, and in-memory caching. Stay tuned for more technical posts related to this space. In the meantime, if you are looking for a backstage story on another technological impeachment within our stack, check out [how we ditched Kafka to move to ZeroMQ](https://tomasz.janczuk.org/2015/09/from-kafka-to-zeromq-for-log-aggregation.html). 
  
-
-
