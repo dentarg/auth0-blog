@@ -11,8 +11,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: ""
-  bg_color: "#191716"
+  image: "https://cdn.auth0.com/blog/app-mod/logo.png"
+  bg_color: "#222228"
 tags:
 - identity
 - modernization
@@ -28,16 +28,24 @@ press_release: false
 
 Digital identity is at the core of any application - invisible yet crucial. We often take identity for granted as most of its magic happens behind the scenes. But identity plays a much larger role beyond the login screen for your applications. At a high level, we can break up identity into four distinct components: authentication, authorization, user profile, and security.
 
+![Authentication](https://cdn.auth0.com/blog/app-mod/authentication.png)
+
 ## Authentication
 
 Authentication dictates the way a user logs into your application. While in the past, a simple username and password form did the trick, today it is much more complicated. In addition to providing the traditional means of authentication, social connections through providers like Facebook and Twitter, enterprise federation and single sign on (SSO), and even passwordless authentication are becoming the norm. Implementing all of these various types of authentication methods in your application is a tiresome, repetitive, and expensive task.
+
+![Authorization](https://cdn.auth0.com/blog/app-mod/authorization.png)
 
 ## Authorization
 
 Authorization is tasked with ensuring the right users have the right access at the right time. Admins of your application should easily be able to make system wide changes, while regular users can only make changes to their accounts for example. From small businesses to large enterprises, access has to be fine tuned to ensure that the right users have access. Multiple departments, complex hierarchies and groups, and users moving throughout the system need up to date access to work effectively. Access is very important to making sure your application operates as intended and getting this aspect of identity right can be quite challenging.
 
+![Security](https://cdn.auth0.com/blog/app-mod/user-profile.png)
+
 ## User Profile
 The user profile is concerned with the data that your application has collected on each individual user. The better you know your users the better experience and personalization you can provide. With disparate networks and various sets of data floating all around the web, it can be difficult to get a clear understanding of your users, but companies that can will have an upper hand.
+
+![Security](https://cdn.auth0.com/blog/app-mod/security.png)
 
 ## Security
 
@@ -50,6 +58,8 @@ Looking at identity as a constantly evolving and unified view of your user base,
 Read our initial application modernization post to learn more about why application modernization is sweeping the software industry. In today’s post, we will look at how you can kickstart your modernization journey by tackling identity first.
 
 Identity has to be done right, not as an afterthought or side project, making it an ideal candidate for a service that needs to be separated out from the legacy behemoth applications. Identity requires ongoing efforts to secure and maintain but expertise is scarce. Much like how you generally wouldn’t build your own database or email platform, identity is best left to experts whose sole job is to ensure that your platform is as safe and secure as it can be, leaving your developers to focus on your organization's core competencies.
+
+![Modern Identity](https://cdn.auth0.com/blog/app-mod/auth0-identity.png)
 
 ## Modern Identity with Auth0
 
