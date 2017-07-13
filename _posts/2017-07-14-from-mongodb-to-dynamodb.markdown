@@ -60,7 +60,7 @@ At this point we made a tactical choice to revisit outsourcing the storage layer
 
 > Our core competency in Auth0 Extend was extending SaaS platforms with custom code, not managing our storage. 
 
-Since AWS is the primary cloud provider we target, we started looking at managed storage options in AWS. DynamoDB quickly emerged as a potential candidate that would allow us to satisfy our global aspirations without hiring an army or breaking the bank. It is tauted as being fast and reliable, and with recent additions of in-memory cache and auto-scaling, it became a very appealing target. The question remained: could we replicate the data access semantics we had with Mongo onto DynamoDB?
+Since AWS is the primary cloud provider we target, we started looking at managed storage options in AWS. DynamoDB quickly emerged as a potential candidate that would allow us to satisfy our global aspirations without hiring an army or breaking the bank. It is touted as being fast and reliable, and with recent additions of in-memory cache and auto-scaling, it became a very appealing target. The question remained: could we replicate the data access semantics we had with Mongo onto DynamoDB?
 
 ### MongoDB vs DynamoDB
 
