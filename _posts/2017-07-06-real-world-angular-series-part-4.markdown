@@ -698,9 +698,7 @@ Next, let's build out the `event.component.html` template file:
 
       <!-- Event RSVP tab -->
       <app-rsvp
-        *ngIf="utils.tabIs(tab, 'rsvp')"
-        [eventId]="event._id"
-        [eventPast]="eventPast"></app-rsvp>
+        *ngIf="utils.tabIs(tab, 'rsvp')"></app-rsvp>
     </div>
   </ng-template>
 
