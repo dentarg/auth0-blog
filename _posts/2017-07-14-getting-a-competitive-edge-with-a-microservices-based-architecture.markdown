@@ -11,8 +11,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: ""
-  bg_color: "#191716"
+  image: "https://cdn.auth0.com/blog/app-mod/logo.png"
+  bg_color: "#222228"
 tags:
 - modernization
 - app-modernization
@@ -35,7 +35,7 @@ Application modernization is the refactoring, repurposing or consolidation of le
 
 To remain competitive, organizations of all sizes are realizing that they need to be nimble, evolve fast, and maintain a healthy balance between customer expectations, business needs, and IT agility. Utilizing a microservices based architecture is a growing trend that helps achieve these goals. In this approach, applications are split into small sets of interconnected services based on business capability where each service has a well-defined boundary. 
 
-{Add Visualization of Microservices - Discussed with Ashwini on design }
+![Microservices](https://cdn.auth0.com/blog/app-mod/microservices-example.png)
 
 A good way to think about microservices is to think of them as individual lego pieces that come together to form something useful - like your ideal software. Each microservice can evolve independently based on the changing needs of the business. An easy way for organizations is to utilize SaaS vendors to fill in the feature and functionality gaps that are not core to the business, allowing the development teams to focus on building business value rather than re-inventing the wheel or so to speak.
 
@@ -52,7 +52,7 @@ Payment systems have seen major disruptions in recent years and users are adapti
 
 Given the number of communications channels available today, getting a consistent message to your users is harder than ever. Messaging is becoming more and more bi-directional and customers are increasingly engaging with organizations through social media, messaging bots, voice activated AI and more. Twilio is an example of a platform that provides messaging and communications services to handle SMS, voice, and other forms of communications to deliver consistent messaging across all channels.
 
-{ Image for Modern Identity }
+![Identity](https://cdn.auth0.com/blog/app-mod/identity.png)
 
 ### Identity
 
