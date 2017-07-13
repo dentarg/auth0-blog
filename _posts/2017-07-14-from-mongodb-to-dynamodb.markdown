@@ -22,7 +22,7 @@ Database systems are like presidents. Nominally they perform the same job, yet t
 
 ![Auth0 Extend](https://cdn.auth0.com/website/auth0-extend/images/landing-hero.svg)
 
-This post is about ditching MongoDB and moving to DynamoDB as part of our ongoing evolution of the [Auth0 Extend](https://auth0.com/extend/developers) product. I will cover the why and how, and share solutions to some of the challanges of this transition. 
+This post is about ditching MongoDB and moving to DynamoDB as part of our ongoing evolution of the [Auth0 Extend](https://auth0.com/extend/developers) product. I will cover the why and how, and share solutions to some of the challenges of this transition. 
 
 ---
 
@@ -32,72 +32,72 @@ This post is about ditching MongoDB and moving to DynamoDB as part of our ongoin
 
 > You can think of Auth0 Extend as a better alternative to webhooks: it is webhooks with authoring and serverless execution environment included.
 
-Auth0 Extend uses storage to persist information about webtasks (their code, encrypted configuration, metadata), CRON jobs (their schedules, status, execution history), as well as NPM modules available in various environments (their status, build history, location of pre-built artifacts). In addition to basic CRUD operations, Auth0 Extend also implements a specialized queue semantics on top persistent storage. In a distributed environment of our technology stack, achieving the desired guarantees requires the use of more advaned DB constructs. 
+Auth0 Extend uses storage to persist information about webtasks (their code, encrypted configuration, metadata), CRON jobs (their schedules, status, execution history), as well as NPM modules available in various environments (their status, build history, location of pre-built artifacts). In addition to basic CRUD operations, Auth0 Extend also implements a specialized queue semantics on top of persistent storage. In a distributed environment of our technology stack, achieving the desired guarantees requires the use of more advanced DB constructs. 
 
 ### The MongoDB Honeymoon
 
-Back in 2014, when we were starting the work on [Auth0 Webtasks](https://webtask.io), the serverless technology underlying the Auth0 Extend product, the choice of Mongo for the storage layer was a no-brainer. Mongo was already used by Auth0 identity product and we have started building in-house expertise of this technology. 
+Back in 2014, when we were starting the work on [Auth0 Webtasks](https://webtask.io), the serverless technology underlying the Auth0 Extend product, the choice of Mongo for the storage layer was a no-brainer. Mongo was already used with the  Auth0 identity product and we had started building in-house expertise of this technology. 
 
-The killer feature of Mongo at the early stage of development was the flexility of the schema.
+The killer feature of Mongo at that early stage of development was the flexibility of the schema.
 
-> Unless you are sending a space probe to Neptune and back, it is unlikey you are going to start a software project with a pre-determined schema of your data. 
+> Unless you are sending a space probe to Neptune and back, it is unlikely you are going to start a software project with a predetermined schema of your data. 
 
-Choosing a DB system that grants the flexibility to easily adjust the schema as the project evolves is key to enabling fast progress. 
+Choosing a DB system that allows you to easily adjust the schema as the project evolves is key to enabling fast progress. 
 
-So Mongo it was. We kept adding collections, modifying schemas, optimizing indexes for efficient ways of manipulating the data, and we had a great time. Until our Auth0 Extend platform stabilized and matured, the flexibility of Mongo was key in helping us quickly get to where we needed to be. 
+So Mongo it was. We kept adding collections, modifying schemas, optimizing indexes to efficiently manipulate the data, and we had a great time. Up until our Auth0 Extend platform stabilized and matured, the flexibility of Mongo was crucial in helping us quickly get to where we needed to be. 
 
-### Death in Paradise
+### Cracks in the Wall
 
-At this point any self-respecting post on moving from Mongo to DynamoDB would show a smoking gun: pathentically poor performance numbers, horrible reliability data, evidence of leaking fake data to Russian hackers, or at least proof of some sexual scandal. I am afraid I have to disappoint. 
+At this point any self-respecting post on moving from Mongo to DynamoDB would show a smoking gun: pathetically poor performance numbers, horrible reliability data, evidence of leaking fake data to Russian hackers, or at least proof of some sexual scandal. I am afraid I have to disappoint. 
 
 > MongoDB continues to work great for us. Functionality is great. Performance is great. Overall, Mongo is fantastic. 
 
 So what is the problem? Mongo creates jobs. Too many jobs. 
 
-In the early days of Auth0, we have experimented with a few SaaS providers offering hosted Mongo solutions. At the end of the day none allowed us to fully satisfy our requirements for locality of data, reliability, monitoring, and level of control needed to meet our SLAs. As a result we developed in-house capabilities necessary to maintain our own Mongo deployments on top of raw compute, either in AWS or on-premise. While this approach worked great for a limited number of deployments, it prevented us from quickly scaling out the Auth0 Extend offering to all AWS regions. Having to host our own Mongo instance in every AWS region was too much to handle for a small team. 
+In the early days of Auth0, we had experimented with a few SaaS providers offering hosted Mongo solutions. At the end of the day none allowed us to fully satisfy our requirements for locality of data, reliability, monitoring, and level of control needed to meet our SLAs. As a result we developed in-house capabilities necessary to maintain our own Mongo deployments on top of raw compute, either in AWS or on-premise. While this approach worked great for a limited number of deployments, it prevented us from quickly scaling out the Auth0 Extend offering to all AWS regions. Having to host our own Mongo instance in every AWS region was too much to handle for a small team. 
 
-At this point we made a tactical choice to revisit outsourcing storage, but have a broader look at the available options.
+At this point we made a tactical choice to revisit outsourcing the storage layer of our infrastructure and took a broader look at the available options.
 
 > Our core competency in Auth0 Extend was extending SaaS platforms with custom code, not managing our storage. 
 
-Since AWS is the primary cloud provider we target, we started looking at managed storage options in AWS. DynamoDB quickly emerged as potential candidate that would allow us to satisfy our global aspirations without hiring an army or breaking the bank. It is tauted to be fast and reliable, and with recent additions of in-memory cache and auto-scaling, it became a very appealing target. The question remained: could we replicate our data access semantics from Mongo onto DynamoDB?
+Since AWS is the primary cloud provider we target, we started looking at managed storage options in AWS. DynamoDB quickly emerged as a potential candidate that would allow us to satisfy our global aspirations without hiring an army or breaking the bank. It is tauted as being fast and reliable, and with recent additions of in-memory cache and auto-scaling, it became a very appealing target. The question remained: could we replicate the data access semantics we had with Mongo onto DynamoDB?
 
 ### MongoDB vs DynamoDB
 
-No two database systems are created equal, even if both label themselves as *document storage* systems. Both MongoDB and DynamoDB allow you to store JSON-like data with almost arbitrary schema. There is even a AWS migration tool that helps perform an automatic, naive import of data from Mongo to DynamoDB. 
+No two database systems are created equal, even if both label themselves as *document storage* systems. Both MongoDB and DynamoDB allow you to store JSON-like data with almost arbitrary schema. There is even an AWS migration tool that helps perform an automatic, naive import of data from Mongo to DynamoDB. 
 
 > The key difference between Mongo and DynamoDB is that the latter is much more prescriptive in how you can efficiently index and access the data. 
 
-If you are looking for a storage system for transactional data, it is fundamental that all databse operations can be optimized to execute very efficiently. MongoDB offerts much greater flexibility in indexing data for a variatey of access modes compared to DynamoDB. As a result the main challenge in moving from Mongo to DynamoDB is in designing your indexing strategy in DynamoDB to support the desired access modes. It may not always be possible. In our case it was. The rest of this post will show a few tricks we used. 
+If you are looking for a storage system for transactional data, it is crucial that all database operations can be optimized to execute very efficiently. MongoDB offers much greater flexibility in indexing data for a variety of access modes compared to DynamoDB. As a result the main challenge in moving from Mongo to DynamoDB is in designing your indexing strategy in DynamoDB to support the desired access modes. It may not always be possible. In our case it was. The rest of this post will show a few of the tricks we used. 
 
 ### DynamoDB Indexing in a Nutshell
 
-If you are new to DynamoDB and undertake data migration from another DB system like Mongo, I highly recommend you first read *through* [DynamoDB Developer Guide](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html). The prescription and guidance in there was absolutely necessary to successfuly migrate anything more complex than simple key/value pairs. 
+If you are new to DynamoDB and undertaking data migration from another DB system like Mongo, I highly recommend you first read *through* the [DynamoDB Developer Guide](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html). Successfully migrating anything more complex than simple key/value pairs requires following the guidance in the developer's guide.
 
-Storage in DynamoDB is organized into *tables*, with each table being an indepenent unit with its own indexes, capacity, and scalability configuration. DynamoDB tables are similar to MongoDB collections in that the data they hold is independent. 
+Storage in DynamoDB is organized into *tables*, with each table being an independent unit with its own indexes, capacity, and scalability configuration. DynamoDB tables are similar to MongoDB collections in that the data they hold is independent. 
 
 While DynamoDB allows storage of data with arbitrary schema, your ability to create indexes over that data is much more limited compared to Mongo: 
 
 * Each DynamoDB table must have a unique primary index. It is made up of one or two fields: a mandatory *partition key* (hash key) and an optional *sort key* (range key). The partition key dictates the placement of data within DynamoDB. For performance reasons it is recommended the values of the partition key are widely distributed. The sort key acts as a secondary key within a partition. 
 
-* Each DynamoDB table can have up to 5 *local secondary indexes*. These indexes must share the same partition key as the primary index of the table, but can have a different sort key. Local secondary index does not need to be unique. 
+* Each DynamoDB table can have up to 5 *local secondary indexes*. These indexes must share the same partition key as the primary index of the table, but can have a different sort key. Local secondary indexes do not need to be unique. 
 
-* Each DynamoDB table can have up to 5 *global secondary indexes*. The best way to think of the global seconday index is as a "peer table": a table that contains the same documents as the primary table, is eventually consistent with the primary table, but allows you to define its own index consisting of the partition key and sort key. 
+* Each DynamoDB table can also have up to 5 *global secondary indexes*. The best way to think of the global secondary index is as a "peer table". A global secondary index contains the same documents as the primary table, and will eventually become consistent with the primary table. However, you are allowed to define entirely new partition and sort keys for the global secondary index.
 
-DynamoDB supports three main ways to lookup data for reading or modification: the *getItem* operation retrieves a single item given its full primary key. The *query* operation retrieves a list of items based on exact match of the partition key and optional filter conditions over the sort key or any other fields within the table. Lastly, the *scan* operation allows you more flexibility in expressing conditions over any of the fields, but is inefficient because it scans the entire contents of the table. Needless to say, *query* is your friend if you care about leveraging indexes for efficient lookup. 
+DynamoDB supports three main ways to lookup data for reading or modification: the *getItem* operation retrieves a single item given its full primary key. The *query* operation retrieves a list of items based on an exact match of the partition key and optional filter conditions over the sort key or any other fields within the table. Lastly, the *scan* operation allows you more flexibility in expressing conditions over any of the fields, but is inefficient because it scans the entire contents of the table. Needless to say, *query* is your friend if you care about leveraging indexes for efficient lookup. 
 
-With these DynamoDB primitives in mind, let's have a look at a few cases of migration from Mongo constructs we used in Auth0 Extend.
+With these DynamoDB primitives in mind, let's have a look at a few examples of how we migrated away from Mongo constructs used in Auth0 Extend.
 
 ### Case 1: CRUD and List
 
-In Auth0 Extend, webtasks are stored in a single MongoDB collection. Each webtask can be uniquely identified with a *{webtask_container},{webtask_name}* pair, which is unique within a deployment of the webtask technology. However, a single Mongo database was designed to support multiple deployments. Given that, to arrive at a unique identifier of a webtask within a single database, the *{deployment_key},{webtask_container},{webtask_name}* triple must be used. 
+In Auth0 Extend, webtasks are stored in a single MongoDB collection. Each webtask can be uniquely identified with a *{webtask_container},{webtask_name}* pair, which is unique within a deployment of the webtask technology. However, a single Mongo database was designed to support multiple deployments. Given that, to arrive at a unique identifier of a webtask within a single database, the *{deployment_key},{webtask_container},{webtask_name}* triplet must be used. 
 
 To support efficient execution and management of webtasks, the system must support the following operations:
 
 * Efficient CRUD on a specific webtask. 
 * Listing of all webtasks in a given webtask container.
 
-Supporting both scenarios in MongoDB is very simple. A single complex index on *{deployment_key},{webtask_container},{webtask_name}* supports both efficient CRUD of a specific webtask as well as listing of webtasks within a specific container (in which case only the *{deployment_key},{webtask_contaier}* part of the index is used by the query), e.g.:
+Supporting both scenarios in MongoDB is very simple. A single complex index on *{deployment_key},{webtask_container},{webtask_name}* supports both efficient CRUD of a specific webtask as well as listing of all webtasks within a specific container (in which case only the *{deployment_key},{webtask_contaier}* part of the index is used by the query), e.g.:
 
 ```javascript
 // Read specific webtask
@@ -114,7 +114,7 @@ db.collection('webtasks').find({
 }, ...);
 ```
 
-The challange of the migration to DynamoDB is that a complex primary index in a DynamoDB table can only support up to two fields. Here is how you can still design an index that will efficiently support both CRUD and listing opertations: 
+The challenge with migrating to DynamoDB is that a complex primary index in a DynamoDB table can only support up to two fields. Here is how you can still design an index that will efficiently support both CRUD and listing operations: 
 
 * The partition key is a compound string of the form `{deployment_key}/{webtask_container}`. 
 * The sort key is the `{webtask_name}`. 
@@ -142,7 +142,7 @@ dynamodb.query({
 }, ...);
 ```
 
-The trick of composing the partition key of a DynamoDB table out of components that taken together make up the scope of a logical *list* operation proved to be a pattern we used extensively in other places to support efficient execution of the query. Note that the *query* operation in DynamoDB, while requiring a strict match on the partition key, allows more flexible conditions to be expressed over the sort key. For example, in addition to exactly matching the partition key, you can also efficiently match on the prefix of the sort key. 
+The trick of composing the partition key of a DynamoDB table out of components that taken together make up the scope of a logical *list* operation proved to be a pattern we used extensively in other places to support efficient execution of the queries. Note that the *query* operation in DynamoDB, while requiring a strict match on the partition key, allows more flexible conditions to be expressed over the sort key. For example, in addition to exactly matching the partition key, you can also efficiently match on the prefix of the sort key. 
 
 ### Case 2: Atomic Find and Update
 
@@ -180,7 +180,7 @@ db.collection('webtask_storage').findOneAndUpdate({
 });
 ```
 
-DynamoDB's *UpdateItem* operation supports similar semantics with a combination of *Key* clause to select the item to be updated using its primary key, and the *ConditionExpression* to ensure the item still has the expected version before it is updated: 
+DynamoDB's *UpdateItem* operation supports similar semantics with a combination of a *Key* clause to select the item to be updated using its primary key, and a *ConditionExpression* to ensure the item still has the expected version before it is updated: 
 
 ```javascript
 // Update a document with new_data only if 
@@ -230,7 +230,7 @@ The *ConditionExpression* allows you to ensure a specific document in the table 
 Auth0 Extend supports scheduled jobs. Scheduled jobs are like regular webtasks, except they are invoked automatically by the Auth0 Extend runtime following a pre-configured schedule. Scheduled jobs are persisted in the database and must be efficiently accessed in the following scenarios: 
 
 * The management APIs perform basic CRUD and List operations on CRON jobs. CRUD operations require that CRON jobs are uniquely identified with a *{deployment_key},{webtask_container},{webtask_name}* primary key. List operations are scoped to *{deplyment_key},{webtask_container}* pairs. 
-* The CRON daemon must be able to identify the next job to run. Each CRON job has a *{next_available_at}* property that contans the EPOCH time when the job is scheduled to run next. To choose the next job to run, the daemon must select a CRON job with the smallest value of *{next_available_at}* that is also less or equal to *now*. This selection is performed at the scope of a specific *{deployment_key}*. 
+* The CRON daemon must be able to identify the next job to run. Each CRON job has a *{next_available_at}* property that contains the EPOCH time when the job is scheduled to run next. To choose the next job to run, the daemon must select a CRON job with the smallest value of *{next_available_at}* that is also less or equal to *now*. This selection is performed at the scope of a specific *{deployment_key}*. 
 
 The Mongo implementation uses two indexes. One is a complex index on *{deployment_key},{webtask_container},{webtask_name}* which supports the CRUD and List operations: CRUD uses the full key to uniquely identify a CRON job, while List uses only the first two segments: *{deplyment_key},{webtask_container}*:
 
@@ -263,7 +263,7 @@ db.collection('cron_jobs').findOne({
 }, ...);
 ```
 
-Migrating this usage pattern to DynamoDB requires some careful planning to efficiently support all operations. 
+Migrating this usage pattern to DynamoDB required some careful planning to efficiently support all operations. 
 
 The CRUD and List operations can be supported with a complex primary key consisting of *{deployment_key}* partition key and a composite sort key of the form *{webtask_container}/{webtask_name}*. CRUD operations can then fully specify all components of the primary key, while the List operation can specify the exact partition key along with a prefix condition on sort key:
 
@@ -293,7 +293,7 @@ dynamodb.query({
 }, ...);
 ```
 
-Now why did we complicate the structure of the primary key compared to the pattern described in *Case 1* before? It was done so that we could efficiently support another index on the same table required by the dameon to select the next job to run. Given that the partition key of the primary key is the value of *{deployment_key}*, we then created a *local secondary index* with the same partition key and the value of *{next_available_at}* as the sort key. Using that index (called *work_queue*) we can efficiently query for the next CRON job to run: 
+Now why did we complicate the structure of the primary key compared to the pattern described in *Case 1* before? It was done so that we could efficiently support another index on the same table required by the daemeon to select the next job to run. Given that the partition key of the primary key is the value of *{deployment_key}*, we then created a *local secondary index* with the same partition key and the value of *{next_available_at}* as the sort key. Using that index (called *work_queue*) we can efficiently query for the next CRON job to run: 
 
 ```javascript
 var now = Date.now();
@@ -316,13 +316,15 @@ dynamodb.query({
 }, ...);
 ```
 
-The reason this works is that documents within a specific partition key are sorted using the index'es sort key, so limiting the result set to one document will naturally return the most overdue one. 
+The reason this works is that documents within a specific partition key are sorted using the index's sort key, so limiting the result set to one document will naturally return the entry the smallest *next_available_at* value.
+
+A similar effect could have been accomplished with a global secondary index. The benefit of using a local secondary index instead of a global one is that global indexes are more expensive to maintain: every write to the table also requires a write to the global index, increasing the total cost of the operation. 
 
 If you like solving crosswords you will also like designing DynamoDB indexes, especially *local secondary indexes*. 
 
 ### What's Next?
 
-We have succeeded moving Auth0 Extend data layer from MongoDB to DynamoDB. This enabled us to support our product in all AWS regions, something that would be much more difficult for us to sustain organizationally while self-hosting Mongo. 
+We successfully moved Auth0 Extend's data layer from MongoDB to DynamoDB. This enabled us to support our product in all AWS regions, something that would be much more difficult for us to sustain organizationally while self-hosting Mongo. 
 
 While we have achieved the "code complete, all tests passing" stage of the transition, we know it is just the beginning of the journey. 
 
@@ -331,7 +333,7 @@ While we have achieved the "code complete, all tests passing" stage of the trans
 The work that lies ahead includes: 
 
 * Designing a robust cross-region failover mechanism.
-* Stabilizing and performance tuning the new stack. 
+* Stabilization and performance tuning of the new stack.  
 
 To support these, we are looking forward to exploring DynamoDB streams, auto-scaling, and in-memory caching. Stay tuned for more technical posts related to this space. In the meantime, if you are looking for a backstage story on another technological impeachment within our stack, check out [how we ditched Kafka to move to ZeroMQ](https://tomasz.janczuk.org/2015/09/from-kafka-to-zeromq-for-log-aggregation.html). 
  
