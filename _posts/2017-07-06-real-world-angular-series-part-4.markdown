@@ -524,6 +524,30 @@ In our Home and Admin components, we linked individual events by their IDs. Now 
 $ ng g component pages/event
 ```
 
+### Add Event Component to Routing Module
+
+Let's add our Event component to our routing module. Open `app-routing.module.ts`:
+
+```typescript
+// src/app/app-routing.module.ts
+...
+import { EventComponent } from './pages/event/event.component';
+
+...
+{
+    path: 'event/:id',
+    component: EventComponent,
+    canActivate: [
+      AuthGuard
+    ]
+  },
+...
+```
+
+We'll import and add our `event/:id` route. The Event component requires authentication to access, so we'll also add `AuthGuard` to it. We can now access events in the browser by clicking on them from an event listing (from the Home or Admin pages).
+
+### Create Event Detail and RSVP Components
+
 Our Event component is going to have two tabs with child components: an Event Detail component and an RSVP component. The routed Event component will provide data to the child components via [input binding](https://angular.io/guide/component-interaction#pass-data-from-parent-to-child-with-input-binding), so we'll manage tab navigation with route parameters.
 
 > **Note:** The other alternative would be to use [Resolve](https://angular.io/api/router/Resolve) in the parent route to fetch API data and then use [child routes](https://angular.io/guide/router#child-routing-component) that observe the parent's resolve data. However, we are avoiding route resolves for reasons cited earlier in this tutorial, such as the appearance of sluggish navigation. However, feel free to explore this approach on your own if you prefer.
