@@ -111,6 +111,25 @@ This is a straightforward filter for objects in arrays. It accepts an array, a p
 
 We'll use this method in our RSVP component to separate the RSVPs into those who are attending and those who declined to attend.
 
+### Add Inputs to RSVP Component in Event Template
+
+In the next step, we'll set up our RSVP component class to support `@Input`s to utilize data from the parent Event component. To do so, we must first pass these inputs _into_ the RSVP component.
+
+Open `event.component.html`:
+
+```html
+<!-- src/app/pages/event/event.component.html -->
+...
+      <!-- Event RSVP content -->
+      <app-rsvp
+        *ngIf="utils.tabIs(tab, 'rsvp')"
+        [eventId]="event._id"
+        [eventPast]="eventPast"></app-rsvp>
+...
+```
+
+Add the `[eventId]` and `[eventPast]` attributes to the `<app-rsvp>` element to pass this data to the RSVP component, which we'll build out next.
+
 ### RSVP Component Class
 
 Let's start our RSVP component by displaying RSVP information. In <a href="https://auth0.com/blog/real-world-angular-series-part-3#api-events">API: Fetching Events</a>, we established an endpoint to retrieve RSVPs from MongoDB by passing an event ID. An HTTP observable was added to our `ApiService` called `getRsvpsByEventId$()`.
