@@ -220,6 +220,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
+    localStorage.removeItem('expires_at');
     localStorage.removeItem('authRedirect');
     // Reset local properties, update loggedIn$ stream
     this.userProfile = undefined;
