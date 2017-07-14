@@ -27,9 +27,9 @@ related:
 
 ## Securing RESTful APIs with JWTs
 
-*JSON Web Tokens*, commonly known as *JWTs*, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to rely on requests simply by validating the contents of these *JWTs*. That is, application that use *JWTs* no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
+*JSON Web Tokens*, commonly known as *JWTs*, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these *JWTs*. That is, application that use *JWTs* no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
 
-During the authentication process, when a user successfully logs in using their credentials, a *JSON Web Token* is returned and must be saved locally (typically in local storage). Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the *JWT*, typically in the `Authorization` header using the [*Bearer schema*](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), alongside with the request.
+During the authentication process, when a user successfully logs in using their credentials, a *JSON Web Token* is returned and must be saved locally (typically in local storage). Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the *JWT*, usually in the `Authorization` header using the [*Bearer schema*](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), alongside with the request.
 
 When a backend server receives a request with a *JWT*, the first thing to do is to validate the token. This consists of a series of steps, and if any of these fails then the request must be rejected. The following list shows the validation steps needed:
 
@@ -143,7 +143,7 @@ public interface ApplicationUserRepository extends JpaRepository<ApplicationUser
 
 We have also added a method called `findByUsername` to this interface. This method will be used when we implement the authentication feature.
 
-The endpoint that enables new users to register will be handled by a new [`@Controller` class](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html). We will call this controller as `UserController` and add it to the same package of the `User` class:
+The endpoint that enables new users to register will be handled by a new [`@Controller` class](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html). We will call this controller as `UserController` and add it to the same package of the `ApplicationUser` class:
 
 ```java
 package com.auth0.samples.authapi.user;
@@ -177,7 +177,7 @@ public class UserController {
 
 The implementation of the endpoint is quite simple. All it does is to encrypt the password of the new user (holding it as plain text wouldn't be a good idea), and then save it to the database. The encrypt process is handled by an instance of [`BCryptPasswordEncoder`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html), which is a class that belongs to the *Spring Security* framework.
 
-Right now we have two problems:
+Right now we have two gaps in our application:
 
 1. We didn't include the *Spring Security* framework as a dependency to our project.
 2. There is no default instance of `BCryptPasswordEncoder` that can be injected in the `UserController` class.
@@ -193,7 +193,7 @@ dependencies {
 }
 ```
 
-The second problem, the missing `BCryptPasswordEncoder` instance, we solve by adding a `@Bean` definition in the `Application` class:
+The second problem, the missing `BCryptPasswordEncoder` instance, we solve by implementing a method that generates an instance of `BCryptPasswordEncoder`. This method must be annotated with `@Bean` and we will add it in the `Application` class:
 
 ```java
 package com.auth0.samples.authapi;
@@ -214,7 +214,7 @@ public class Application {
 }
 ```
 
-We now support user registration, but we lack support for user authentication and authorization. Let's tackle these features next.
+This ends the user registration feature, but we still lack support for user authentication and authorization. Let's tackle these features next.
 
 ## User Authentication and Authorization on Spring Boot
 
@@ -229,7 +229,7 @@ Before proceeding to the development of these filters and classes, let's create 
 
 ### The Authentication Filter
 
-The first element that we are going to create is the class responsible for the authentication process. We are going to call this class as `JWTAuthenticationFilter`, and will implement it with the following code:
+The first element that we are going to create is the class responsible for the authentication process. We are going to call this class as `JWTAuthenticationFilter`, and we will implement it with the following code:
 
 ```java
 package com.auth0.samples.authapi.security;
@@ -306,7 +306,7 @@ Our custom authentication filter overwrites two methods of the base class:
 - `attemptAuthentication`: where we parse the user's credentials and issue them to the [`AuthenticationManager`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/authentication/AuthenticationManager.html).
 - `successfulAuthentication`: which is the method called when a user successfully logs in. We use this method to generate a *JWT* to this user.
 
-Our *IDE* will probably complain about the code in this class. First, because the code imports four constants from a class that we haven't created yet, `SecurityConstants`. Second, because this class generates *JWTs* with the help of a class called `Jwts`, which belongs to a library that we haven't added as dependency to our project.
+Our *IDE* will probably complain about the code in this class for two reasons. First, because the code imports four constants from a class that we haven't created yet, `SecurityConstants`. Second, because this class generates *JWTs* with the help of a class called `Jwts`, which belongs to a library that we haven't added as dependency to our project.
 
 Let's solve the missing dependency first. In the `./build.gradle` file, let's add the following line of code:
 
@@ -333,7 +333,7 @@ public class SecurityConstants {
 }
 ```
 
-This class contains all four constants referenced by the `JWTAuthenticationFilter` class, alongside with a `SIGN_UP_URL` constant which will be used later.
+This class contains all four constants referenced by the `JWTAuthenticationFilter` class, alongside with a `SIGN_UP_URL` constant that will be used later.
 
 ### The Authorization Filter
 
@@ -402,7 +402,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 }
 ```
 
-We have extended the [`BasicAuthenticationFilter`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/authentication/www/BasicAuthenticationFilter.html) to make *Spring* replace it in the *filter chain* with our custom implementation. The most important part of the filter that we've implemented is the private `getAuthentication` method. This method reads the *JWT* from the `Authorization` header, and then uses [`Jwts`](https://github.com/jwtk/jjwt/blob/master/src/main/java/io/jsonwebtoken/Jwts.java) to validate the token. If everything is in place, we set the user in the [`SecurityContext`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/context/SecurityContext.html) and allows the request to move on.
+We have extended the [`BasicAuthenticationFilter`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/authentication/www/BasicAuthenticationFilter.html) to make *Spring* replace it in the *filter chain* with our custom implementation. The most important part of the filter that we've implemented is the private `getAuthentication` method. This method reads the *JWT* from the `Authorization` header, and then uses [`Jwts`](https://github.com/jwtk/jjwt/blob/master/src/main/java/io/jsonwebtoken/Jwts.java) to validate the token. If everything is in place, we set the user in the [`SecurityContext`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/context/SecurityContext.html) and allow the request to move on.
 
 ### Integrating the Security Filters on Spring Boot
 
@@ -521,12 +521,12 @@ curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/tasks
 
 ## Securing Spring Applications with Auth0
 
-Securing *Spring* application with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
+Securing *Spring* applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
 
-To learn the best way to secure *Spring Security API endpoints*, [take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like *Spring*), [the *Auth0 Docs* webpage provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+[To learn the best way to secure *Spring Security API endpoints* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like *Spring*), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
 
 ## Conclusion
 
-Securing *RESTful Spring Boot API* with *JWTs* is not a hard task. This article showed that by creating a couple of classes, and extending a few others provided by *Spring Security*, we can protect our endpoints from unknown users, enable users to register themselves, and authenticate existing users.
+Securing *RESTful Spring Boot API* with *JWTs* is not a hard task. This article showed that by creating a couple of classes, and extending a few others provided by *Spring Security*, we can protect our endpoints from unknown users, enable users to register themselves, and authenticate existing users based on *JWTs*.
 
-Of course that for a production-ready application we would need some more features, like password retrieval, but the article demystified the most sensible parts of dealing with *JWTs* to authorize requests on *Spring Boot* applications.
+Of course that for a production-ready application we would need a few more features, like password retrieval, but the article demystified the most sensible parts of dealing with *JWTs* to authorize requests on *Spring Boot* applications.
