@@ -18,7 +18,7 @@ tags:
 
 ---
 
-Database systems are like presidents. Nominally they perform the same job, yet they exhibit a wide range of skills, traits of character, and performance. Choosing one should not be taken lightly. Changing from one to another is a big deal. You get to start fresh periodically, but in-between you are left with the drama of impeachment. 
+Persisting data is at the heart of the majority of web services today. The choice of a database system is one of the most important decisions you will make when selecting elements of your stack. Database technology, once selected, is one of the hardest to replace once the system is in production.
 
 ![Auth0 Extend](https://cdn.auth0.com/website/auth0-extend/images/landing-hero.svg)
 
@@ -50,7 +50,7 @@ So Mongo it was. We kept adding collections, modifying schemas, optimizing index
 
 At this point any self-respecting post on moving from Mongo to DynamoDB would show a smoking gun: pathetically poor performance numbers, horrible reliability data, evidence of leaking fake data to Russian hackers, or at least proof of some sexual scandal. I am afraid I have to disappoint. 
 
-> MongoDB continues to work great for us. Functionality is great. Performance is great. Overall, Mongo is fantastic. 
+> MongoDB continues to work great for us. Features are more than sufficient, performance is more than adequate, and reliability is where we need it to be. 
 
 So what is the problem? Mongo creates jobs. Too many jobs. 
 
@@ -328,12 +328,12 @@ We successfully moved Auth0 Extend's data layer from MongoDB to DynamoDB. This e
 
 While we have achieved the "code complete, all tests passing" stage of the transition, we know it is just the beginning of the journey. 
 
-> There is a large distance separating writing software from running a service, just like being elected a president is different from being a successful one.
+> There is a large distance separating writing software from running a service.
 
 The work that lies ahead includes: 
 
 * Designing a robust cross-region failover mechanism.
 * Stabilization and performance tuning of the new stack.  
 
-To support these, we are looking forward to exploring DynamoDB streams, auto-scaling, and in-memory caching. Stay tuned for more technical posts related to this space. In the meantime, if you are looking for a backstage story on another technological impeachment within our stack, check out [how we ditched Kafka to move to ZeroMQ](https://tomasz.janczuk.org/2015/09/from-kafka-to-zeromq-for-log-aggregation.html). 
+To support these, we are looking forward to exploring DynamoDB streams, auto-scaling, and in-memory caching. Stay tuned for more technical posts related to this space. In the meantime, if you are looking for a backstage story on another technological revolution within our stack, check out [how we ditched Kafka to move to ZeroMQ](https://tomasz.janczuk.org/2015/09/from-kafka-to-zeromq-for-log-aggregation.html). 
  
