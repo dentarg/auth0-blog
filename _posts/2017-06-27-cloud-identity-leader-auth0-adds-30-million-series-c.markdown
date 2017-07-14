@@ -40,7 +40,7 @@ Auth0 is an enterprise-grade platform for modern identity. It provides companies
 
 ## About Auth0
 
-Auth0 provides an enterprise-grade identity platform that secures billions of log-ins every year. The company makes it easy to implement even the most complex identity solutions for their web, mobile, IoT and internal applications, as well as sophisticated identity management for [B2B](https://auth0.com/b2b-enterprise-identity-management), [B2C](https://auth0.com/b2c-customer-identity-management), and [B2E](https://auth0.com/b2e-identity-management-for-employees) use cases. Auth0 has raised over $54 million from Meritech Capital Partners, NTT DOCOMO Ventures, Telstra Ventures, Trinity Ventures, Bessemer Venture Partners, K9 Ventures, Silicon Valley Bank, Founders Co-Op, Portland Seed Fund and NXTP Labs.
+-Auth0 provides an enterprise-grade identity platform that secures billions of log-ins every year. The company makes it easy to implement even the most complex identity solutions for their web, mobile, IoT and internal applications, as well as sophisticated identity management for employees, customers and partners. Auth0 has raised over $54 million from Meritech Capital Partners, NTT DOCOMO Ventures, Telstra Ventures, Trinity Ventures, Bessemer Venture Partners, K9 Ventures, Silicon Valley Bank, Founders Co-Op, Portland Seed Fund and NXTP Labs.
 
 ## About Meritech Capital Partners
 
