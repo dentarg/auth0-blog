@@ -27,9 +27,9 @@ related:
 
 Amazon is poised to reinvent the grocery store from the ground up. They've been experimenting with cutting-edge retail automation through their Amazon Go experiment, leading to strong speculation about how they're going to enter the brick and mortar grocery market. Now we've got our answer: with Whole Foods.
 
-The high-end organic retailer is likely going to be a pilot for applying the highly anticipated Amazon Go model: a way for consumers to shop without ever waiting in line for a register — a massive shift that brings identity to the center of the retail experience. This is a bold play that is going to change the way IAM works in retail, and forever change consumer expectations and behavior.
+The high-end organic retailer is likely going to be a pilot for applying the highly anticipated Amazon Go model: a way for consumers to shop without ever waiting in line for a register — a massive shift that brings identity to the center of the retail experience. This is a bold play that is going to change the way [IAM works in retail](√), and forever change consumer expectations and behavior.
 
-In this article, we're going to break down the underlying architecture of Amazon's retail automation model, its impact on consumers, and highlight the ways in which identity management stands as the keystone of this entire retail revolution.
+In this article, we're going to break down the underlying architecture of Amazon's retail automation model, its impact on consumers, and highlight the ways in which [identity management](https://auth0.com/b2c-customer-identity-management) stands as the keystone of this entire retail revolution.
 
 ## How Amazon Rethinks Shopper's Identities
 
