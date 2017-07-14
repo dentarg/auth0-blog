@@ -2,7 +2,7 @@
 layout: post_extend
 title: "From MongoDB to DynamoDB"
 description: Migrate your storage where the grass is greener
-date: 2017-07-14 09:23
+date: 2017-07-17 09:23
 is_extend: true
 category: Product
 author: 
