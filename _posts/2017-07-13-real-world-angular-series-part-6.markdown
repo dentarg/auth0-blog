@@ -195,7 +195,7 @@ Open the `api.service.ts` file and add these three methods:
     return this.authHttp
       .post(`${ENV.BASE_API}event/new`, event)
       .map(this._handleSuccess)
-      .catch(this._handleAuthError);
+      .catch(this._handleError);
   }
 
   // PUT existing event (admin only)
@@ -203,7 +203,7 @@ Open the `api.service.ts` file and add these three methods:
     return this.authHttp
       .put(`${ENV.BASE_API}event/${id}`, event)
       .map(this._handleSuccess)
-      .catch(this._handleAuthError);
+      .catch(this._handleError);
   }
 
   // DELETE existing event and all associated RSVPs (admin only)
@@ -211,7 +211,7 @@ Open the `api.service.ts` file and add these three methods:
     return this.authHttp
       .delete(`${ENV.BASE_API}event/${id}`)
       .map(this._handleSuccess)
-      .catch(this._handleAuthError);
+      .catch(this._handleError);
   }
   
   ...
