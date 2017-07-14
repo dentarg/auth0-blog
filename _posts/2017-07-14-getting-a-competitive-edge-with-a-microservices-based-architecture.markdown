@@ -56,9 +56,9 @@ Given the number of communications channels available today, getting a consisten
 
 ### Identity
 
-Digital identity is at the core of any application - invisible yet crucial. An application of any nature requires digital identities, to represent users and other entities interacting with it. With mobility, BYOD, IoT and smart entities becoming essential parts of the digital ecosystem, the “identity” piece of an application now has even more responsibilities and expectations than before.
+Digital identity is at the core of any application - invisible yet crucial. An application of any nature requires digital identities, to [represent users and other entities interacting with it](https://auth0.com/user-management). With mobility, BYOD, IoT and smart entities becoming essential parts of the digital ecosystem, the “identity” piece of an application now has even more responsibilities and expectations than before.
 
-Identity is complex. There’s username and password authentication, social connections, sign sign on, and these are just ways to login. Multifactor authentication, anomaly detection, securing sensitive data like passwords, and many other topics comprise identity and having your engineers try to build, manage, and secure all these is like expecting an elephant to win a sprint race. You need to use their expertise at the right place.
+Identity is complex. There’s username and password authentication, social connections, single sign on, and these are just ways to login. Multifactor authentication, anomaly detection, securing sensitive data like passwords, and many other topics comprise identity and having your engineers try to build, manage, and secure all these is like expecting an elephant to win a sprint race. You need to use their expertise at the right place.
 
 Auth0 takes a completely new approach to providing a modularized, pluggable identity service by simplifying the most complex identity challenges with a powerful, secure, extensible, and easy to integrate platform. We will cover how Auth0 can solve your identity challenges in an upcoming article on modernizing your applications.
 
