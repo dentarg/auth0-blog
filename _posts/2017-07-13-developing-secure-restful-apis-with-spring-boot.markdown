@@ -520,3 +520,15 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
 # remember to replace xxx.yyy.zzz with the JWT retrieved above
 curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/tasks
 ```
+
+## Securing Spring Applications with Auth0
+
+Securing *Spring* application with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
+
+To learn the best way to secure *Spring Security API endpoints*, [take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like *Spring*), [the *Auth0 Docs* webpage provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+
+## Conclusion
+
+Securing *RESTful Spring Boot API* with *JWTs* is not a hard task. This article showed that by creating a couple of classes, and extending a few others provided by *Spring Security*, we can protect our endpoints from unknown users, enable users to register themselves, and authenticate existing users.
+
+Of course that for a production-ready application we would need some more features, like password retrieval, but the article demystified the most sensible parts of dealing with *JWTs* to authorize requests on *Spring Boot* applications.
