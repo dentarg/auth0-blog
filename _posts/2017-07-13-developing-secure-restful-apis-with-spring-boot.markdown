@@ -129,7 +129,7 @@ This entity class contains three properties:
 - the `username` that will be used by users to identify themselves,
 - and the `password` which works as a passphrase to check the user identity.
 
-To manage the persistence layer of this entity, we will create an interface called `ApplicationUserRepository`. This interface will be an extension of [`JpaRepository`](http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)—which gives us access to some common methods like [`save`](http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html#save)—and will be created in the same package of the `User` class:
+To manage the persistence layer of this entity, we will create an interface called `ApplicationUserRepository`. This interface will be an extension of [`JpaRepository`](http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)—which gives us access to some common methods like [`save`](http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html#save)—and will be created in the same package of the `ApplicationUser` class:
 
 ```java
 package com.auth0.samples.authapi.user;
@@ -214,17 +214,7 @@ public class Application {
 }
 ```
 
-Running our application now, through the *IDE* or through `gradle bootRun`, will launch a version that already supports user registration:
-
-```bash
-# creates a new user in our API
-curl -H "Content-Type: application/json" -X POST -d '{
-    "username": "admin",
-    "password": "password"
-}' http://localhost:8080/users/sign-up
-```
-
-Unfortunately this is not enough. We do support user registration, but we lack support for user authentication and our endpoints are still available to unauthenticated users.
+We now support user registration, but we lack support for user authentication and authorization. Let's tackle these features next.
 
 ## User Authentication and Authorization on Spring Boot
 
@@ -516,7 +506,15 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
     "password": "password"
 }' http://localhost:8080/login
 
-# issue a new GET request, now passing the JWT
+# issue a POST request, passing the JWT, to create a task
+# remember to replace xxx.yyy.zzz with the JWT retrieved above
+curl -H "Content-Type: application/json" \
+-H "Authorization: Bearer xxx.yyy.zzz" \
+-X POST -d '{
+    "description": "Buy watermelon"
+}'  http://localhost:8080/tasks
+
+# issue a new GET request, passing the JWT
 # remember to replace xxx.yyy.zzz with the JWT retrieved above
 curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/tasks
 ```
