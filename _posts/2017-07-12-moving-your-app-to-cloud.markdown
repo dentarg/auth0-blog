@@ -10,8 +10,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#4A4A4A"
-  image: https://cdn.auth0.com/blog/blog-logo/brand-advocate.png
+  bg_color: "#284E7B"
+  image: https://cdn.auth0.com/blog/appCloud/logo.png
 tags:
 - retail
 - security
