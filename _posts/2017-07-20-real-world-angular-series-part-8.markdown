@@ -70,9 +70,6 @@ This command generates an `auth.module.ts` file in our existing `auth` folder. L
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
-import { AuthHttp } from 'angular2-jwt';
-import { Http, RequestOptions } from '@angular/http';
-import { authHttpFactory } from './auth-http.factory';
 
 @NgModule({
   imports: [
@@ -80,18 +77,13 @@ import { authHttpFactory } from './auth-http.factory';
   ],
   declarations: [],
   providers: [
-    AuthService,
-    {
-      provide: AuthHttp,
-      useFactory: authHttpFactory,
-      deps: [Http, RequestOptions]
-    }
+    AuthService
   ]
 })
 export class AuthModule { }
 ```
 
-This module now makes all the auth-related providers available to our application when imported.
+This module now makes the `AuthService` provider available to our application when imported.
 
 ### Create Core Module
 
@@ -108,7 +100,7 @@ Open the new `core.module.ts` file and add:
 import { NgModule } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -123,7 +115,7 @@ import { FooterComponent } from './../footer/footer.component';
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule
@@ -142,7 +134,7 @@ import { FooterComponent } from './../footer/footer.component';
     FilterSortService
   ],
   exports: [
-    HttpModule,
+    HttpClientModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
