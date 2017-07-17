@@ -180,7 +180,7 @@ import { DinoDetail } from './models/dino-detail.model';
 
 ```
 
-We'll import the `DinoDetail` model we just created. Then we'll create an HTTP observable that accepts an `id: number` as a parameter. The observable has a type annotation of `Observable<DinoDetail>`. The ID parameter is passed to the `GET` request. The handlers we set up in [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2) are then used for successes and errors. The `map` operator will return the API data as JSON and the `catch` operator will generate an observable that terminates with an error.
+We'll import the `DinoDetail` model we just created. Then we'll create an HTTP observable that accepts an `id: number` as a parameter. The observable has a type annotation of `Observable<DinoDetail>`. The ID parameter is passed to the `GET` request. The handlers we set up in [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2) are then used for successes and errors. The `catch` operator will generate an observable that terminates with an error.
 
 ## Using API Data in Detail Component
 
@@ -355,9 +355,7 @@ The first thing we need is the image asset for the loading state. This can be do
 
 ### Loading Component TypeScript
 
-Create a new folder called `ui` in the `ng2-dinos/src/app/core/` directory.
-
-This component will be one flat file, so we'll add some flags to the CLI to generate it:
+The loading component will be one flat file, so we'll add some flags to the CLI to generate it:
 
 ```bash
 ng g component core/ui/loading --it --is --flat
