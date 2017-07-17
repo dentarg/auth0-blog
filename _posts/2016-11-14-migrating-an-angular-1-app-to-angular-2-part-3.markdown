@@ -25,7 +25,7 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an AngularJS App to Angular book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <strong>Check out the Real-World Angular Series to learn how to build and deploy a full-featured MEAN stack application</strong>, from ideation to production! Start the series here: <a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series - Part 1: MEAN Setup and Angular Architecture</a>.
 </div>
 
 <div class="alert alert-info alert-icon">
@@ -46,7 +46,7 @@ The third and final part of the tutorial will cover:
 * Routing detail pages 
 * Dinosaur detail model and calling the [sample-nodeserver-dinos](https://github.com/auth0-blog/sample-nodeserver-dinos) API for dino information by ID
 * Loading states for API calls
-* Bonus: user authentication with Auth0 and JSON Web Tokens
+* Aside: user and API authentication with Auth0 and JSON Web Tokens
 
 > **Note:** Remember that we're _migrating_ an Angular 1 app to Angular 2 with a fresh build. We're not _upgrading_ the original Angular 1 codebase.
 
@@ -174,7 +174,6 @@ import { DinoDetail } from './models/dino-detail.model';
   getDino$(id: number): Observable<DinoDetail> {
     return this.http
       .get(`${this.baseUrl}dinosaur/${id}`)
-      .map(this.handleSuccess)
       .catch(this.handleError);
   }
 ...
@@ -358,7 +357,17 @@ The first thing we need is the image asset for the loading state. This can be do
 
 Create a new folder called `ui` in the `ng2-dinos/src/app/core/` directory.
 
-This component will only be one file so we'll create it manually instead of using the Angular CLI. This is good practice. Make a new file in the new `ng2-dinos/src/app/core/ui/` folder and call it `loading.component.ts`:
+This component will be one flat file, so we'll add some flags to the CLI to generate it:
+
+```bash
+ng g component core/ui/loading --it --is --flat
+```
+
+The `--it` flag is shorthand for `inline-template`. The `--is` is shorthand for `inline-styles`, and `--flat` indicates a containing folder should not be generated. 
+
+> **Note:** You can also add `--no-spec` when generating CLI files if you don't want test files.
+
+Open the new `loading.component.ts`:
 
 ```typescript
 // ng2-dinos/src/app/core/ui/loading.component.ts
@@ -600,319 +609,295 @@ Here are my refactoring suggestions from part three of our migration tutorial:
 * As with [Part 2](http://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-2), you may want to consider using additional `@NgModule`s to manage dependencies. Modules can make dependency management easier. Read the [Angular Modules docs](https://angular.io/docs/ts/latest/guide/ngmodule.html) and [Use @NgModule to Manage Dependencies in your Angular 2 Apps](https://auth0.com/blog/angular-2-ngmodules/) to learn more.
 * You could potentially abstract the template API error markup into its own component. The error message is currently different between the home and detail page components, but you could use data binding to pass a custom string into the component each time it's utilized. This might help with scalability if additional API calls will be made in new components in the future.
 
-## Aside: Authenticating an Angular 2 App with Auth0 Lock
+## Aside: Authenticate an Angular App and Node API with Auth0
 
-Now we're going to go beyond our migration and explore authenticating our Angular 2 ng2-dinos app with [Auth0](https://auth0.com)! We'll implement [Auth0's Lock widget](https://auth0.com/lock/) to manage user identity. The completed code for implementing Auth0 Lock with ng2-dinos is available in the [ng2-dinos authentication-with-auth0 branch on GitHub](https://github.com/auth0-blog/ng2-dinos/tree/authentication-with-auth0). 
+We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with an Angular application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [angular-auth0-aside repo on GitHub](https://github.com/auth0-blog/angular-auth0-aside).
 
-![Auth0 Lock implemented in Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-auth0.jpg)
+![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
-### Configure Your Auth0 Client
+### Features
 
-The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
+The [sample Angular application and API](https://github.com/auth0-blog/angular-auth0-aside) has the following features:
 
-1. Sign up for a [free Auth0 account](javascript:signup\(\)).
-2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
-3. Name your new app and select "Single Page Web Applications". 
-4. In the **Settings** for your newly created app, add `http://localhost:4200` to the Allowed Callback URLs and Allowed Origins (CORS).
-5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
+* Angular application generated with [Angular CLI](https://github.com/angular/angular-cli) and served at [http://localhost:4200](http://localhost:4200)
+* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a hosted [Lock](https://auth0.com/lock) instance
+* Node server protected API route `http://localhost:3001/api/dragons` returns JSON data for authenticated `GET` requests
+* Angular app fetches data from API once user is authenticated with Auth0
+* Profile page requires authentication for access using route guards
+* Authentication service uses a subject to propagate authentication status events to the entire app
+* User profile is fetched on authentication and stored in authentication service
+* Access token, ID token, profile, and token expiration are stored in local storage and removed upon logout
 
-### Setup and Dependencies
+### Sign Up for Auth0
 
-First we'll add the Auth0 Lock CDN link to our `index.html` file. We're using version 10.11 for our tutorial:
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 client app and API so Auth0 can interface with an Angular app and Node API.
 
-{% highlight html %}
-<!-- ng2-dinos/src/index.html -->
+### Set Up a Client App
 
-...
-  <!-- Auth0 Lock widget -->
-  <script src="https://cdn.auth0.com/js/lock/10.11/lock.min.js"></script>
-</head>
-...
-{% endhighlight %}
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
+2. Name your new app and select "Single Page Web Applications".
+3. In the **Settings** for your new Auth0 client app, add `http://localhost:4200/callback` to the **Allowed Callback URLs** and `http://localhost:4200` to the **Allowed Origins (CORS)**.
+4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and set the **JsonWebToken Signature Algorithm** to `RS256`.
+5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
 
-Next we need the [`angular2-jwt` helper library](https://github.com/auth0/angular2-jwt). Install this with npm:
+### Set Up an API
+
+1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:3001/api/`. The **Signing Algorithm** should be `RS256`.
+2. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. We'll implement our Node API in this fashion, using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+
+We're now ready to implement Auth0 authentication on both our Angular client and Node backend API.
+
+### Dependencies and Setup
+
+The Angular app utilizes the [Angular CLI](https://github.com/angular/angular-cli). Make sure you have the CLI installed globally:
 
 ```bash
-$ npm install angular2-jwt --save
+$ npm install -g @angular/cli
 ```
 
-### Create an Authentication Service
-
-We need an Angular 2 service to implement login functionality and authentication methods. We can use the CLI to generate the boilerplate in the `ng2-dinos/src/app/core/` folder:
+Once you've cloned [the project](https://github.com/auth0-blog/angular-auth0-aside), install the Node dependencies for both the Angular app and the Node server by running the following commands in the root of your project folder:
 
 ```bash
-$ ng g service core/auth
+$ npm install
+$ cd server
+$ npm install
 ```
 
-Open the new `auth.service.ts` file and add the following code. We'll go over this in detail below:
+The Node API is located in the [`/server` folder](https://github.com/auth0-blog/angular-auth0-aside/tree/master/server) at the root of our sample application.
 
-```typescript
-// ng2-dinos/src/app/core/auth.service.ts
+Open the [`server.js` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/server/server.js):
 
+```js
+// server/server.js
+...
+// @TODO: change [CLIENT_DOMAIN] to your Auth0 domain name.
+// @TODO: change [AUTH0_API_AUDIENCE] to your Auth0 API audience.
+var CLIENT_DOMAIN = '[CLIENT_DOMAIN]'; // e.g., youraccount.auth0.com
+var AUTH0_AUDIENCE = '[AUTH0_API_AUDIENCE]'; // http://localhost:3001/api in this example
+
+var jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
+    }),
+    aud: AUTH0_AUDIENCE,
+    issuer: `https://${CLIENT_DOMAIN}/`,
+    algorithm: 'RS256'
+});
+...
+//--- GET protected dragons route
+app.get('/api/dragons', jwtCheck, function (req, res) {
+  res.json(dragonsJson);
+});
+...
+```
+
+Change the `CLIENT_DOMAIN` variable to your Auth0 client domain. The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+
+> **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
+
+Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting the `.example` from the file extension. Then open the file and change the `[CLIENT_ID]` and `[CLIENT_DOMAIN]` strings to your Auth0 information:
+
+```js
+// src/app/auth/auth0-variables.ts
+...
+export const AUTH_CONFIG: AuthConfig = {
+  CLIENT_ID: '[CLIENT_ID]',
+  CLIENT_DOMAIN: '[CLIENT_DOMAIN]',
+  ...
+```
+
+Our app and API are now set up. They can be served by running `ng serve` from the root folder and `node server.js` from the `/server` folder.
+
+With the Node API and Angular app running, let's take a look at how authentication is implemented.
+
+### Authentication Service
+
+Authentication logic on the front end is handled with an `AuthService` authentication service: [`src/app/auth/auth.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth.service.ts).
+
+```js
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { tokenNotExpired } from 'angular2-jwt';
-
-// Avoid name not found warnings
-declare var Auth0Lock: any;
-declare var localStorage: any;
-declare var window: any;
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import * as auth0 from 'auth0-js';
+import { AUTH_CONFIG } from './auth0-variables';
+import { UserProfile } from './profile.model';
 
 @Injectable()
 export class AuthService {
-  // IMPORTANT: id_token should only be used on the client, NOT to secure APIs.
-  // If you need to authorize an API, see: https://github.com/auth0-blog/angular-auth0-aside/blob/master/angular-auth0-aside.markdown
-  lock = new Auth0Lock('[YOUR_AUTH0_CLIENT_ID]', '[YOUR_AUTH0_CLIENT_DOMAIN]', {
-    auth: {
-      redirectUrl: 'http://localhost:4200',
-      responseType: 'token'
-    }
+  // Create Auth0 web auth instance
+  // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
+  auth0 = new auth0.WebAuth({
+    clientID: AUTH_CONFIG.CLIENT_ID,
+    domain: AUTH_CONFIG.CLIENT_DOMAIN,
+    responseType: 'token id_token',
+    redirectUri: AUTH_CONFIG.REDIRECT,
+    audience: AUTH_CONFIG.AUDIENCE,
+    scope: AUTH_CONFIG.SCOPE
   });
-  userProfile: Object;
-  loginRedirect: string;
+  userProfile: UserProfile;
+
+  // Create a stream of logged in status to communicate throughout app
+  loggedIn: boolean;
+  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
   constructor(private router: Router) {
-    this.userProfile = JSON.parse(localStorage.getItem('profile'));
-    this.loginRedirect = localStorage.getItem('login_redirect');
+    // If authenticated, set local profile property and update login status subject
+    if (this.authenticated) {
+      this.userProfile = JSON.parse(localStorage.getItem('profile'));
+      this.setLoggedIn(true);
+    }
+  }
 
-    // Add callback for lock 'hash_parsed' event
-    // hash_parsed is needed because we're redirecting
-    this.lock.on('hash_parsed', (authResult) => {
-      if (authResult && authResult.idToken) {
-        // Successful authentication result
-        localStorage.setItem('id_token', authResult.idToken);
+  setLoggedIn(value: boolean) {
+    // Update login status subject
+    this.loggedIn$.next(value);
+    this.loggedIn = value;
+  }
 
-        // Get user profile
-        this.lock.getProfile(authResult.idToken, (error, profile) => {
-          if (error) {
-            throw Error('There was an error retrieving profile data.');
-          }
+  login() {
+    // Auth0 authorize request
+    this.auth0.authorize();
+  }
 
-          localStorage.setItem('profile', JSON.stringify(profile));
-          this.userProfile = profile;
-
-          // Redirect on successful login
-          if (this.loginRedirect) {
-            this.router.navigate([this.loginRedirect]);
-            localStorage.removeItem('login_redirect');
-            this.loginRedirect = undefined;
-          }
-        });
-      } else if (authResult && !authResult.idToken) {
-        // Authentication failed
-        throw Error(`There was an error authenticating: ${authResult}`);
+  handleAuth() {
+    // When Auth0 hash parsed, get profile
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        window.location.hash = '';
+        this._getProfile(authResult);
+        this.router.navigate(['/']);
+      } else if (err) {
+        this.router.navigate(['/']);
+        console.error(`Error: ${err.error}`);
       }
     });
   }
 
-  login() {
-    // Call the show method to display the Lock widget
-    this.lock.show();
-    // Store the redirect location when opening the login box
-    localStorage.setItem('login_redirect', window.location.pathname);
+  private _getProfile(authResult) {
+    // Use access token to retrieve user's profile and set session
+    this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+      this._setSession(authResult, profile);
+    });
+  }
+
+  private _setSession(authResult, profile) {
+    // Save session data and update login status subject
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('expires_at', authResult.expiresAt);
+    this.userProfile = profile;
+    this.setLoggedIn(true);
   }
 
   logout() {
-    // Remove token and profile
+    // Remove tokens and profile and update login status subject
+    localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
+    localStorage.removeItem('expires_at');
     this.userProfile = undefined;
+    this.setLoggedIn(false);
   }
 
-  get authenticated() {
-    // Check if there's an unexpired JWT
-    return tokenNotExpired('id_token');
+  get authenticated(): boolean {
+    // Check if current time is past access token's expiration
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return Date.now() < expiresAt;
   }
 
 }
 ```
 
-As always, first we'll talk about the imports. `Injectable` is necessary for any injectable service and is provided by the boilerplate. We'll want to use `Router` to redirect the authenticated user back to the route they logged in from. We also need `tokenNotExpired('id_token')` from `angular2-jwt` to get a user's authentication state.
+This service uses the config variables from `auth0-variables.ts` to instantiate an `auth0.js` WebAuth instance.
 
-In order to avoid TypeScript name not found warnings, we'll declare type annotations for `Auth0Lock`, `localStorage`, and `window`.
+An [RxJS `BehaviorSubject`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) is used to provide a stream of authentication status events that you can subscribe to anywhere in the app.
 
-> **Important Security Note:** An Auth0 `id_token` should [only be used on the client, _not_ to secure APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). An `access_token` should be used to make authenticated HTTP requests if necessary. If you need to authorize an API with Auth0, please read [Authenticating an Angular App and Node API with Auth0](https://github.com/auth0-blog/angular-auth0-aside/blob/master/angular-auth0-aside.markdown).
+The `login()` method authorizes the authentication request with Auth0 using your config variables. An Auth0 hosted Lock instance will be shown to the user and they can then log in.
 
-Then we'll create a new lock instance:
+> **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
 
-```typescript
-lock = new Auth0Lock('[YOUR_AUTH0_CLIENT_ID]', '[YOUR_AUTH0_CLIENT_DOMAIN]', {
-  auth: {
-    redirectUrl: 'http://localhost:4200',
-    responseType: 'token'
-  }
-});
-```
+We'll receive an `id_token`, `access_token`, and `expires_at` in the hash from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens, profile, and token expiration to local storage and updating the `loggedIn$` subject so that any subscribed components in the app are informed that the user is now authenticated.
 
-Replace `[YOUR_AUTH0_CLIENT_ID]` with your Auth0 client ID and  `[YOUR_AUTH0_CLIENT_DOMAIN]` with your Auth0 domain. These can both be found in your [Auth0 dashboard](https://manage.auth0.com/#/clients) client settings. Upon successful login, we'll redirect back to the app root so dynamic redirection can then take over.
+> **Note:** The profile takes the shape of [`profile.model.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/profile.model.ts) from the [OpenID standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
 
-Next we'll create a couple of properties to store data. We need to set the `userProfile` object locally after fetching it. We also want to be able to dynamically redirect the user back to the route they logged in from so we'll implement a `loginRedirect` string property.
-
-> **Note:** We want our login button to be in the global menu so users can sign in from anywhere in our app. If we didn't dynamically redirect them after authentication, we'd have to enter every possible app route in our Auth0 dashboard Allowed Callback URLs. Clearly this would _not_ be ideal. This tutorial will show you a method to easily manage dynamic redirection.
-
-Now we'll add some functionality to the constructor function. Make `Router` available. Then we'll check local storage for existing data. If the user's profile is available, let's set it. If `login_redirect` is already in local storage (ie., the user has just authenticated and is now redirected back to the app), we'll retrieve and set that as well.
-
-Next we need to implement a `hash_parsed` [Lock event callback](https://auth0.com/docs/libraries/lock/v10/api#on-event-callback-):
-
-```typescript
-this.lock.on('hash_parsed', (authResult) => { ... });
-```
-
-We need to use this low level event because the `authenticated` and `authorization_error` events aren't fired when using the `redirectUrl` option with Lock. Every time a new `Auth0Lock` object is initialized in redirect mode, a URL hash parse attempt is made. A successful login will return a result with a token. A failure will return an error. No hash present will return `null`. We can handle these cases in our `hash_parsed` event callback.
-
-On a successful authentication, we'll do the following:
-
-* Save the ID token to local storage
-* Use the token to [get the user's profile](https://auth0.com/docs/libraries/lock/v10/api#getprofile-token-callback-)
-* Save the profile to local storage and set our `userProfile` property
-* Redirect the user to the page they logged in from
-
-If authentication failed, we'll throw an error. If there was no hash (`null` result) when the hash parse attempt was made, we'll do nothing.
-
-We're handling what happens when a user authenticates in the constructor, and now we need a `login()` method. This will be called when the user clicks the "Log In" button. We'll [`show` the Lock widget](https://auth0.com/docs/libraries/lock/v10/api#show-options-) and save the user's current location to local storage so we can retrieve it to redirect them upon authentication.
-
-We also need a `logout()` method. This will simply remove the user's token and profile.
-
-Finally, we'll implement a way to check the current authentication state of the user. We can use a getter `get authenticated()` that returns the [`angular2-jwt` method `tokenNotExpired()`](https://github.com/auth0/angular2-jwt#checking-authentication-to-hideshow-elements-and-handle-routing).
-
-Our authentication service is now ready for use! We'll provide it at the app level in `app.module.ts`:
+The `handleAuth()` method can then be called in the [`app.component.ts` constructor](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.component.ts) like so:
 
 ```js
-// ng2-dinos/src/app/app.module.ts
-
+// src/app/app.component.ts
+import { AuthService } from './auth/auth.service';
 ...
-import { AuthService } from './core/auth.service';
-...
-
-@NgModule({
-  ...
-  providers: [
-    ...
-    AuthService
-  ],
-  ...
-})
-export class AppModule { }
-```
-
-Now let's implement the template functionality so users can log in and out.
-
-### Add Login to Header Component
-
-Let's add a login button in the menu area. When we're done with this step and the user is logged out, our navigation should look like this:
-
-![Log in Auth0 Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-log-in.jpg)
-
-We want to be able to use methods from the `AuthService` in our header template so let's open `header.component.ts`, inject `AuthService`, and make it available in the constructor:
-
-```typescript
-// ng2-dinos/src/app/header/header.component.ts
-
-...
-import { AuthService } from '../core/auth.service';
-...
-constructor(..., public auth: AuthService) { }
-...
-```
-
-Now we have access to `AuthService` methods in our `header.component.html` template. We can call them using `auth.[method_name]`. Let's add the login button:
-
-{% highlight html %}
-<!-- ng2-dinos/src/app/header/header.component.html -->
-
-...
-  <nav id="nav" class="nav" role="navigation">
-    <ul class="nav-list">...</ul>
-
-    <section class="authWrapper">
-      <!-- Logged out -->
-      <a
-        class="btn btn-primary"
-        (click)="auth.login()"
-        *ngIf="!auth.authenticated">Log In</a>
-    </section>
-
-  </nav>
-...
-{% endhighlight %}
-
-Below the navigation list element, we'll add a `<section class="authWrapper">` to contain anything having to do with login/logout. We'll add a login button with a `(click)` handler that executes the `auth.login()` method. We'll show this button with `*ngIf` if the user is not authenticated.
-
-Open the `header.component.scss` file and let's add a margin to our `.authWrapper` element:
-
-```scss
-/* ng2-dinos/src/app/header/header.component.scss */
-
-...
-.authWrapper {
-  margin: 6px;
-}
-```
-
-Users can now log in!
-
-### Add Greeting and Logout to Header Component
-
-When a user is authenticated, we want to display a greeting and a logout button in the navigation instead of the login button:
-
-![Log out Auth0 Angular 2 app](https://cdn.auth0.com/blog/ng1-to-ng2/ng2-dinos-authenticated.jpg)
-
-We can add this to our `header.component.html` template like so:
-
-{% highlight html %}
-{% raw %}
-<!-- ng2-dinos/src/app/header/header.component.html -->
-
-...
-    <section class="authWrapper">
-      <!-- Logged out -->
-      ...
-
-      <!-- Logged in -->
-      <div class="alert alert-info text-center" *ngIf="auth.authenticated">
-        <p *ngIf="auth.userProfile">Hello, {{auth.userProfile.name}}!</p>
-
-        <a
-          class="btn btn-danger"
-          (click)="auth.logout()"
-          >Log Out</a>
-      </div>
-    </section>
-...
-{% endraw %}
-{% endhighlight %}
-
-If the user is authenticated, we'll show an info alert box greeting them by name. A logout button will be provided with a `(click)` handler calling the `auth.logout()` method.
-
-Open the `header.component.scss` file and add one simple style to the `<p>` tag in the alert to add some margin:
-
-```scss
-/* ng2-dinos/src/app/header/header.component.scss */
-
-...
-.authWrapper {
-  margin: 6px;
-
-  .alert p {
-    margin-bottom: 10px;
+  constructor(private auth: AuthService) {
+    // Check for authentication and handle if hash present
+    auth.handleAuth();
   }
-}
+...
 ```
 
-We now have authentication in our Angular 2 ng2-dinos app!
+Finally, we have a `logout()` method that clears data from local storage and updates the `loggedIn$` subject. We also have an `authenticated` accessor to return current authentication status.
 
-### Next Steps
+Once [`AuthService` is provided in `app.module.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts#L32), its methods and properties can be used anywhere in our app, such as the [home component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/home).
 
-With Auth0 user authentication in place, we can do things like  authorize route access and call protected APIs with authenticated HTTP requests. To learn about how to implement this kind of functionality, check out these resources:
+The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until hash parsing is completed and the Angular app redirects back to the home page.
 
-* [Angular 2 Auth0 Quickstart: Authorization](https://auth0.com/docs/quickstart/spa/angular2/07-authorization)
-* [Angular 2 Auth0 Quickstart: Calling APIs](https://auth0.com/docs/quickstart/spa/angular2/08-calling-apis)
-* [Angular 2 Authentication Tutorial](https://auth0.com/blog/angular-2-authentication/)
-* [angular2-jwt Documentation](https://github.com/auth0/angular2-jwt)
-* [express-jwt Node JWT middleware](https://github.com/auth0/express-jwt)
+### Making Authenticated API Requests
+
+In order to make authenticated HTTP requests, we need to add a `Authorization` header with the access token in our [`api.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/api.service.ts).
+
+```js
+// src/app/api.service.ts
+...
+  getDragons$(): Observable<any[]> {
+    return this.http
+      .get(`${this.baseUrl}dragons`, {
+        headers: new HttpHeaders().set(
+          'Authorization', `Bearer ${localStorage.getItem('access_token')}`
+        )
+      })
+      .catch(this._handleError);
+  }
+...
+```
+
+### Final Touches: Route Guard and Profile Page
+
+A [profile page component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/profile) can show an authenticated user's profile information. However, we only want this component to be accessible if the user is logged in.
+
+With an [authenticated API request and login/logout](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/home/home.component.ts) implemented, the final touch is to protect our profile route from unauthorized access. The [`auth.guard.ts` route guard](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth.guard.ts) can check authentication and activate routes conditionally. The guard is implemented on specific routes of our choosing in the [`app-routing.module.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app-routing.module.ts) like so:
+
+```js
+// src/app/app-routing.module.ts
+...
+import { AuthGuard } from './auth/auth.guard';
+...
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [
+          AuthGuard
+        ]
+      },
+...
+```
+
+### More Resources
+
+That's it! We have an authenticated Node API and Angular application with login, logout, profile information, and protected routes. To learn more, check out the following resources:
+
+* [Why You Should Always Use Access Tokens to Secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/)
+* [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/)
+* [Access Token](https://auth0.com/docs/tokens/access-token)
+* [Verify Access Tokens](https://auth0.com/docs/api-auth/tutorials/verify-access-token)
+* [Call APIs from Client-side Web Apps](https://auth0.com/docs/api-auth/grant/implicit)
+* [How to implement the Implicit Grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant)
+* [Auth0.js v8 Documentation](https://auth0.com/docs/libraries/auth0js/v8)
+* [OpenID Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)
 
 ## Conclusion
 
-Our ng2-dinos app is complete! Make sure you've run `ng lint` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state. We've even covered adding authentication with Auth0 so we can authorize routes or make secure API calls in the future. 
+Our ng2-dinos app is complete! Make sure you've run `ng lint --type-check` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state.
 
 Hopefully you're now ready to dive into Angular migrations as well as new Angular 2 projects with confidence!
