@@ -55,13 +55,12 @@ Let's pick up right where we left off [last time](https://auth0.com/blog/real-wo
 * Session persistence
 * Factory to authorize HTTP requests with access token
 
-### Dependencies
+### Install Auth0.js
 
-First let's install a few dependencies. We need the [auth0-js](https://www.npmjs.com/package/auth0-js) package to interface with our [Auth0 account](https://auth0.com/blog/real-world-angular-series-part-1#auth0-setup). The [angular2-jwt](https://github.com/auth0/angular2-jwt) package provides helpers to authorize HTTP requests. Install both packages with npm from the project root:
+First let's install a new dependency. We need the [auth0-js](https://www.npmjs.com/package/auth0-js) package to interface with our [Auth0 account](https://auth0.com/blog/real-world-angular-series-part-1#auth0-setup). Install this package with npm from the project root:
 
 ```bash
 $ npm install auth0-js --save
-$ npm install angular2-jwt --save
 ```
 
 ### Environment Configuration
@@ -403,63 +402,6 @@ Once logged in, you should see your name and a link to log out in the upper righ
 ![Auth0 logged into Angular app](https://cdn.auth0.com/blog/mean-series/logged-in.jpg)
 
 You should also be able to close the browser and reopen it to find your session has persisted (unless enough time has passed for the token to expire).
-
-### AuthHttp Factory
-
-Now we have authentication working in the front end, but we also need to use the `access_token` to make authenticated _API_ requests. In order to facilitate this, we'll create an `AuthHttp` factory using [angular2-jwt](https://github.com/auth0/angular2-jwt#advanced-configuration).
-
-Add a new class called `auth-http.factory.ts` with the following command:
-
-```bash
-$ ng g class auth/auth-http.factory
-```
-
-Open the newly generated `auth-http.factory.ts` file and add: 
-
-```typescript
-// src/app/auth/auth-http.factory.ts
-import { Http, RequestOptions } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-
-export function authHttpFactory(http: Http, options: RequestOptions) {
-  return new AuthHttp(new AuthConfig({
-    tokenName: 'token',
-    tokenGetter: (() => localStorage.getItem('access_token'))
-  }), http, options);
-};
-```
-
-This factory will allow us to use an `authHttp` method in the place of `http` when we want to send an authenticated request. The angular2-jwt package will look for an `access_token` in local storage and use this as a Bearer `Authorization` header.
-
-In order to use this factory, we need to provide it in our `app.module.ts` like so:
-
-```typescript
-// src/app/app.module.ts
-...
-import { HttpModule, Http, RequestOptions } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
-import { authHttpFactory } from './auth/auth-http.factory';
-
-@NgModule({
-  ...
-  providers: [
-    ...,
-    {
-      provide: AuthHttp,
-      useFactory: authHttpFactory,
-      deps: [Http, RequestOptions]
-    }
-  ],
-  ...
-})
-...
-```
-
-Add `Http` and `RequestOptions` to the imports from `@angular/http`. Then import `AuthHttp` from angular2-jwt and the `authHttpFactory` we just created. Then we'll provide `AuthHttp` with its factory and dependencies. Now we can use `authHttp` as a method to make secure requests.
-
-{% include tweet_quote.html quote_text="Secure apps should always be authenticated on both the client and the API." %}
-
----
 
 ## <span id="admin-authorization"></span>Admin Authorization
 

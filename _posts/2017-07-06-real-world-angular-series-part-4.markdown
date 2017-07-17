@@ -738,31 +738,6 @@ Once the API call has been made and an event has been retrieved, we'll show an a
 
 Below the tab navigation, we'll load the Event Detail or RSVP component conditionally, passing in necessary data: the full `[event]` for Event Detail and `[eventId]` and `[eventPast]` for Rsvp.
 
-### Event Component Styles
-
-In preparation for both our Event Detail and RSVP components, let's add a ruleset to our Event component's styles to fix an issue with the way `<strong>` tags in [Bootstrap list groups](https://v4-alpha.getbootstrap.com/components/card/#list-groups) are displayed.
-
-Open the `event.component.scss` file:
-
-```scss
-/* src/app/pages/event/event.component.scss */
-/*--------------------
-    EVENT COMPONENT
---------------------*/
-
-:host /deep/ .list-group-item > strong {
-  padding-right: 5px;
-}
-```
-
-Let's discuss this briefly. We've already talked about the `:host` special selector in the past: it provides styles for the component's custom element. The `/deep/` (or alternatively, `>>>`) selector is another [Angular component special selector](https://angular.io/guide/component-styles#deep). Normally, styles only apply to their own component. This means any styles applied to the Event component would _not_ be inherited by the Event Detail or RSVP child components. The `/deep/` selector forces a style down through all child elements. Since both of our child components will have list groups with `<strong>` tags in them, we can use `:host /deep/` to propagate a ruleset. We might not want this style throughout our entire app, so we won't add it to our global `_base.scss`, but we'll need it in multiple children here.
-
-{% include tweet_quote.html quote_text="Angular's /deep/ selector  allows styles to affect nested components." %}
-
-If you visit the Event component in the browser now, you should be able to switch between the two tabs.
-
-> **Note:** The Event component is accessible by clicking any of the events in the Home or Admin component lists.
-
 ### Aside: "Private" Events
 
 Some of our events are set to `viewPublic: false`. If you recall, all this means is that these events don't show up in a public listing. They still appear in the Admin component listing and can also be direct-linked. If you're an admin and you have an event you'd like to share only with specific people, you can access the page through the Admin listing and email invitees the direct link, which might look something like this: `/event/590a642ef36d281a3dc29522`.
