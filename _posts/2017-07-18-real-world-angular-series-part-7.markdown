@@ -415,9 +415,10 @@ Let's add our new API endpoint to our API service. Open the `api.service.ts` fil
 ...
   // GET all events a specific user has RSVPed to (login required)
   getUserEvents$(userId: string): Observable<EventModel[]> {
-    return this.authHttp
-      .get(`${ENV.BASE_API}events/${userId}`)
-      .map(this._handleSuccess)
+    return this.http
+      .get(`${ENV.BASE_API}events/${userId}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
       .catch(this._handleError);
   }
   
