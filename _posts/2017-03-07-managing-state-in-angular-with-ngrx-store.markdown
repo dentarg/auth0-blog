@@ -1469,7 +1469,7 @@ In the `AuthService` class, we need to create a new Lock instance with our Auth0
 
 We'll create a property to store the user's profile information that we'll retrieve when a visitor authenticates. This has an  `Object` type.
 
-Because we'll be storing the user's profile and access token in local storage, the first thing we'll do in our constructor is check for an existing profile. If there's a profile in storage already, we'll set the `userProfile` property.
+Because we'll be storing the user's profile and ID token in local storage, the first thing we'll do in our constructor is check for an existing profile. If there's a profile in storage already, we'll set the `userProfile` property.
 
 Next we need to listen to the Lock instance for the [`hash_parsed` event](https://github.com/auth0/lock#onevent-callback). This is a low-level event that we'll use (instead of the `authenticated` event) in order to handle single page app redirection upon login.
 
@@ -1614,7 +1614,7 @@ Now our app feels more personalized.
 
 We can log in and out of our app, but that doesn't offer much more than simple personalization at the moment. Any visitor can still navigate to any route they wish if they simply enter URLs manually. Let's implement a route guard so that routes are activated only for logged in users.
 
-> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with an access token provided by Auth0 using an `Authorization` header. You can read more on how to do this using a [hosted Lock instance and implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant). The [`angular2-jwt` package](https://github.com/auth0/angular2-jwt) provides `AUTH_PROVIDERS` to help accomplish this. When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards.
+> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with an access token provided by Auth0 using an `Authorization` header. You can read more on how to do this using a [hosted Lock instance and implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).  When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards.
 
 Create a new file in `src/app/core` called `auth.guard.ts`:
 
