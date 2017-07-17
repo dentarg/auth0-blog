@@ -232,6 +232,9 @@ input:-ms-input-placeholder { /* IE 10+ */
 .opacity-half {
   opacity: .5;
 }
+.list-group-item > strong {
+  padding-right: 5px;
+}
 ```
 
 Bootstrap provides a CSS reset and plenty of styling. Our local `_base.scss` provides some basic helpers and improvements.

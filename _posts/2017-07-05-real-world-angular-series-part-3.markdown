@@ -195,26 +195,26 @@ We'll find RSVPs by matching the `eventId`, which will be passed with the reques
 
 Now that we have API routes for fetching events, we need to access these routes in our Angular app so we can _display_ events data.
 
-### Add HTTP Module to App Module
+### Add HTTP Client Module to App Module
 
-First we'll need to import the `HttpModule` in our App module. Open the `app.module.ts` file:
+First we'll need to import the `HttpClientModule` in our App module. Open the `app.module.ts` file:
 
 ```typescript
 ...
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 ...
 @NgModule({
   ...
   imports: [
     ...,
-    HttpModule
+    HttpClientModule
   ],
   ...
 })
 ...
 ```
 
-Import `HttpModule` and include it in the `imports` array of the NgModule.
+Import `HttpClientModule` and include it in the `imports` array of the NgModule.
 
 ### Create API Service
 
@@ -229,11 +229,9 @@ This command creates a file called `api.service.ts` in the `src/app/core` folder
 ```typescript
 // src/app/core/api.service.ts
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './../auth/auth.service';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ENV } from './env.config';
 import { EventModel } from './models/event.model';
@@ -243,47 +241,48 @@ import { RsvpModel } from './models/rsvp.model';
 export class ApiService {
 
   constructor(
-    private http: Http,
-    private authHttp: AuthHttp,
+    private http: HttpClient,
     private auth: AuthService) { }
+    
+  private get _authHeader(): string {
+    return `Bearer ${localStorage.getItem('access_token')}`;
+  }
 
   // GET list of public, future events
   getEvents$(): Observable<EventModel[]> {
     return this.http
       .get(`${ENV.BASE_API}events`)
-      .map(this._handleSuccess)
       .catch(this._handleError);
   }
   
   // GET all events - private and public (admin only)
   getAdminEvents$(): Observable<EventModel[]> {
-    return this.authHttp
-      .get(`${ENV.BASE_API}events/admin`)
-      .map(this._handleSuccess)
+    return this.http
+      .get(`${ENV.BASE_API}events/admin`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
       .catch(this._handleError);
   }
 
   // GET an event by ID (login required)
   getEventById$(id: string): Observable<EventModel> {
-    return this.authHttp
-      .get(`${ENV.BASE_API}event/${id}`)
-      .map(this._handleSuccess)
+    return this.http
+      .get(`${ENV.BASE_API}event/${id}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
       .catch(this._handleError);
   }
-  
+
   // GET RSVPs by event ID (login required)
   getRsvpsByEventId$(eventId: string): Observable<RsvpModel[]> {
-    return this.authHttp
-      .get(`${ENV.BASE_API}event/${eventId}/rsvps`)
-      .map(this._handleSuccess)
+    return this.http
+      .get(`${ENV.BASE_API}event/${eventId}/rsvps`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
       .catch(this._handleError);
   }
 
-  private _handleSuccess(res: Response) {
-    return res.json();
-  }
-
-  private _handleError(err: Response | any) {
+  private _handleError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Error: Unable to complete request.';
     if (err.message && err.message.indexOf('No JWT present') > -1) {
       this.auth.login();
@@ -294,15 +293,17 @@ export class ApiService {
 }
 ```
 
-We'll need to make unauthenticated _and_ authenticated requests, so we'll import both `Http` and `AuthHttp`. We also need `AuthService` to prompt login if no JWT is found when attempting to make an authenticated request. We'll create streams with our API calls so we'll import `Observable`, as well as the `map` and `catch` operators from RxJS. We need `ENV` from our environment config to get the appropriate API URIs. Finally, in order to declare the types for our event streams, we need the models (`EventModel` and `RsvpModel`) we created earlier.
+We'll need to make unauthenticated _and_ authenticated requests, so we'll import `HttpClient` and `HttpHeaders` (to add the `Authorization` header with access token) along with `HttpErrorResponse`. We also need `AuthService` to prompt login if no JWT is found when attempting to make an authenticated request. We'll create streams with our API calls so we'll import `Observable`, as well as the `catch` operator from RxJS. We need `ENV` from our environment config to get the appropriate API URIs. Finally, in order to declare the types for our event streams, we need the models (`EventModel` and `RsvpModel`) we created earlier.
 
-Once `Http`, `AuthHttp`, and `AuthService` are added to the constructor, we can use the HTTP methods to create observables of API data. We expect to receive streams of type `EventModel[]` (an array of events) for our two event list endpoints, a single `EventModel` when retrieving event details by ID, and `RsvpModel[]` when retrieving all RSVPs for an event.
+Once `HttpClient` and `AuthService` are added to the constructor, we can use the HTTP methods to create observables of API data. We expect to receive streams of type `EventModel[]` (an array of events) for our two event list endpoints, a single `EventModel` when retrieving event details by ID, and `RsvpModel[]` when retrieving all RSVPs for an event.
 
-Because we're taking advantage of [angular2-jwt](https://github.com/auth0/angular2-jwt), all we need to do to make authenticated requests is use `authHttp` instead of `http`. The `authHttp` method attaches the necessary `Authorization` header using the access token stored in local storage from the authentication service we created in <a href="https://auth0.com/blog/real-world-angular-series-part-2#angular-auth">Angular: Basic Authentication</a> in Part 2.
+In order to make authenticated requests, we'll need to set an `Authorization` header using the access token stored in local storage from the authentication service we created in <a href="https://auth0.com/blog/real-world-angular-series-part-2#angular-auth">Angular: Basic Authentication</a> in Part 2. We'll create an accessor method called `_authHeader` to return the necessary `Authorization` value with the currently stored access token. The token may change if authentication is silently renewed _during_ a session (we'll implement silent token renewal much later), so we'll fetch it from local storage on each request to ensure its validity.
 
-If we need to pass parameters to the request, such as with the `getEventById$(id)` and `getRsvpsByEventId$(eventId)` methods, we'll specify the arguments when calling the endpoint from our components.
+If we need to pass parameters to the request, such as with the `getEventById$(id)` and `getRsvpsByEventId$(eventId)` methods, we'll specify the arguments when calling the endpoint from our components. Our `HttpClient` methods (e.g., `get()`, `post()`, etc.) accept a parameter that uses an instance of `HttpHeaders().set()` to add authorization to that request. You can read more about this [in the Angular Http Docs here](https://angular.io/guide/http).
 
-Finally, we'll handle successes and errors. A successful API call returns the response as JSON while a failed call checks the error message and prompts a fresh login if necessary, canceling the observable and producing an error if something else went wrong.
+> **Note:** `HttpClient` is new as of Angular v4.3. If you are using a previous version of Angular, you should either upgrade or continue to use `Http` as per earlier documentation.
+
+Finally, we'll handle errors. A successful API call returns the response as the body (in our case, this returns JSON). This does not require any mapping on our end as of Angular v4.3. A failed call checks the error message and prompts a fresh login if necessary, canceling the observable and producing an error if something else went wrong.
 
 ### Provide API Service in App Module
 

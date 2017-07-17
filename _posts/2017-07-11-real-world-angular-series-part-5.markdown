@@ -662,19 +662,20 @@ Open the `api.service.ts` file and add these two methods:
 ...
   // POST new RSVP (login required)
   postRsvp$(rsvp: RsvpModel): Observable<RsvpModel> {
-    return this.authHttp
-      .post(`${ENV.BASE_API}rsvp/new`, rsvp)
-      .map(this._handleSuccess)
+    return this.http
+      .post(`${ENV.BASE_API}rsvp/new`, rsvp, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
       .catch(this._handleError);
   }
 
   // PUT existing RSVP (login required)
   editRsvp$(id: string, rsvp: RsvpModel): Observable<RsvpModel> {
-    return this.authHttp
-      .put(`${ENV.BASE_API}rsvp/${id}`, rsvp)
-      .map(this._handleSuccess)
+    return this.http
+      .put(`${ENV.BASE_API}rsvp/${id}`, rsvp, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
       .catch(this._handleError);
-  }
   
   ...
 ```
