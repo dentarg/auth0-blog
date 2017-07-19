@@ -75,7 +75,7 @@ According to this [benchmark](http://stefankrause.net/js-frameworks-benchmark4/w
 **Vuejs 2** is similar to React and Angular 2 in a few ways. There are few key concepts that will help you get started easily. I'll give a basic overview of these concepts to nourish your understanding of **Vuejs**. They are:
 
 * **Directives**
-* **Components** 
+* **Components**
 * **Template/JSX**
 
 You can decide to use *Vuejs 2* by simply invoking methods on a Vue instance or go the component-composing route.
@@ -254,7 +254,7 @@ data: {
 render (h) {
   return (
     <div id='message'>
-      { this.text } 
+      { this.text }
     </div>
   );
 }
@@ -297,7 +297,7 @@ Next, let's build an application with *Vuejs 2*.
 
 ![The Ultimate Startup Battle Ground](https://cdn.auth0.com/blog/vuejs/appscreenshot.png)
 
-The app we will build today is called `The Ultimate Startup Battle Ground`. Several startups are springing up all over the world. These startups are coming up with innovative technology but have limited funds. Our app hopes to alleviate the issue of funding by providing an up-to-date list of startup battles all over the world with details of sponsors and seed fund amount. The Ultimate Startup Battle Ground app will display a list of startup battles to the general public. 
+The app we will build today is called `The Ultimate Startup Battle Ground`. Several startups are springing up all over the world. These startups are coming up with innovative technology but have limited funds. Our app hopes to alleviate the issue of funding by providing an up-to-date list of startup battles all over the world with details of sponsors and seed fund amount. The Ultimate Startup Battle Ground app will display a list of startup battles to the general public.
 
 Interested startup founders can get hold of this list and ensure their team does not miss out on it. However, the app will also provide a list of secret startup battles. This list will only be accessible to registered members.
 
@@ -307,13 +307,13 @@ Interested startup founders can get hold of this list and ensure their team does
 
 Let's build an API to serve the list of startup battles to our app. We'll quickly build the API with [Node.js](https://nodejs.org). The API is simple. This is what we need:
 
-* An endpoint to serve public startup battles - `/api/battles/public`. 
+* An endpoint to serve public startup battles - `/api/battles/public`.
 * An endpoint to serve secret startup battles - `/api/battles/private`.
 * Secure the endpoint that serves secret startup battles, so that it can only be accessed by registered users.
 
 Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/vuejs2-authentication-tutorial/tree/master/server).
 
-**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one. 
+**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one.
 
 Your `server.js` should look like this:
 
@@ -413,7 +413,7 @@ The public startup battles endpoint should be `http://localhost:3333/api/battles
 
 The private startup battles endpoint should be `http://localhost:3333/api/battles/private`.
 
-Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with Vuejs 2. 
+Don't worry about the middleware in charge of securing our endpoint for now. We'll deal with that later. Now, let's build our frontend with Vuejs 2.
 
 ## Build The Front-End With Vuejs 2
 
@@ -596,7 +596,7 @@ By default, these two components will look similar in functionalities. They both
         </div>
       </div>
     </div>
-  
+
     <div class="col-sm-12">
       <div class="jumbotron text-center">
         <h2>View Private Startup Battles</h2>
@@ -675,7 +675,7 @@ All we are trying to do is tell **Vuejs** to load the data from the API just aft
 
 **Note:** You can add a loading indicator or spinner to present to the user while the data is been loaded from the API. This avoids flashing of blank screens. Check out [vuejs transition for loading data](https://laracasts.com/discuss/channels/vue/vuejs-transition-for-loading-data).
 
-We imported the `AppNav` component and registered it under the `components` property. The `name` property has a value of `publicBattles`. What that simply means is this. If we need to use this component in a template, then we would have it as `<publicBattles></publicBattles>`. 
+We imported the `AppNav` component and registered it under the `components` property. The `name` property has a value of `publicBattles`. What that simply means is this. If we need to use this component in a template, then we would have it as `<publicBattles></publicBattles>`.
 
 Let's take a good look at what is enclosed in the `<template>` tag. This is what is rendered on the screen.
 
@@ -718,7 +718,7 @@ Now, let's build the `PrivateBattles` component in the same way:
     <app-nav></app-nav>
     <h3 class="text-center">Secret Startup Battles</h3>
     <hr/>
-    
+
     <div class="col-sm-4" v-for="battle in privateBattles">
       <div class="panel panel-danger">
         <div class="panel-heading">
@@ -730,7 +730,7 @@ Now, let's build the `PrivateBattles` component in the same way:
         </div>
       </div>
     </div>
-    
+
     <div class="col-sm-12">
       <div class="jumbotron text-center">
         <h2>View Public Startup Battles</h2>
@@ -859,6 +859,8 @@ _Private Battles Page_
 The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **Vuejs 2** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
 
@@ -1023,11 +1025,11 @@ function isTokenExpired(token) {
 }
 ```
 
-In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
+In the code above, we are using an hosted version of [Auth0 Lock](https://auth0.com/lock) in the `login` method and passed in our credentials.
 
 The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
+The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
 
 Check the `Test` panel of your API from the dashboard. You'll see the test client like so:
 
@@ -1040,7 +1042,7 @@ Now, go to the clients area and check for the test client. You should see it in 
 
 Open the client and change the **Client Type** from `Non Interactive Client` to `Single Page Application`.
 
-Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`. 
+Copy the **CLIENT ID** and replace it with the value of `YOUR-AUTH0-CLIENT-ID` in the login URL. Replace your callback url with `http://localhost:8080/callback`.
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1097,7 +1099,7 @@ export default {
 </style>
 {% endraw %}
 {% endhighlight %}
- 
+
 
 _AppNav.vue_
 
@@ -1124,7 +1126,7 @@ Open up the `PublicBattles` Component and modify it like so:
         </div>
       </div>
     </div>
-    
+
     <div class="col-sm-12">
       <div class="jumbotron text-center" v-if="isLoggedIn()">
         <h2>View Private Startup Battles</h2>
@@ -1317,12 +1319,14 @@ function getPrivateStartupBattles() {
 
 The `/api/battles/private` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
 
-Now, try to log in again. 
+Now, try to log in again.
 
-Everything should work fine. Pat yourself on the back. You have just successfully built a **Vuejs 2** app and added authentication to it! 
+Everything should work fine. Pat yourself on the back. You have just successfully built a **Vuejs 2** app and added authentication to it!
 
 ## Conclusion
 
 **Vuejs 2** is a lightweight, fast and awesome library for building user interfaces. Its learning curve is gentle and its API is not complex to understand. It has a fast growing community and there are many components available to the public for different functionalities.
 
 In addition, Auth0 can help secure your **Vuejs 2** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

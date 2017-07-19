@@ -89,19 +89,19 @@ var a = 1;
 function outerFunc() {
   var b = 2;
   console.log(a + b);
-  
+
   function middleFunc() {
     var c = 3;
     console.log(a + b + c);
-    
+
     function innerFunc() {
       var d = 4;
       console.log(a + b + c + d);
     }
-    
+
     innerFunc(); // logs 10 (1 + 2 + 3 + 4)
   }
-  
+
   middleFunc(); // logs 6 (1 + 2 + 3)
 }
 
@@ -143,7 +143,7 @@ This is a function that returns another function. Let's update this example to a
 // Closures
 function whenMeetingJohn(salutation) {
   var greeting = salutation + ', John!';
-  
+
   function alertGreeting() {
     alert(greeting);
   }
@@ -155,7 +155,7 @@ atLunchToday(); // alerts "Hi, John!"
 whenMeetingJohn('Whassup')(); // alerts "Whassup, John!"
 ```
 
-This code is available to run at this [JSFiddle: JS Closures](https://jsfiddle.net/kmaida/c9wuupz8/). 
+This code is available to run at this [JSFiddle: JS Closures](https://jsfiddle.net/kmaida/c9wuupz8/).
 
 A **closure** is formed when a function (`alertGreeting`) _declared_ inside an outer function (`whenMeetingJohn`) references variables from the outer function's local scope (such as the `greeting` variable).
 
@@ -293,11 +293,11 @@ Let's implement the same example from above, but with AngularJS two-way data bin
 {% endraw %}
 {% endhighlight %}
 
-This code is available to run at [Plunker: AngularJS Two-Way Binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview). 
+This code is available to run at [Plunker: AngularJS Two-Way Binding](http://plnkr.co/edit/guuX5XYIYwI7OcoflTur?p=preview).
 
 In our controller, we set up the `$scope.text` model. In our template, we associate this model with the `<input>` using `ng-model="text"`. When we change the input value in the UI, the model will also be updated in the controller. We can see this in the `$watch()`.
 
-> **Note:** Using `$watch()` in a controller is debateable practice. We've done it here for _example purposes_. In your own AngularJS apps, take into consideration that there are alternatives to using `$watch()` in controllers (such as events), and if you do use `$watch()`, always [deregister your watches `$onDestroy`](https://www.bennadel.com/blog/2480-unbinding-watch-listeners-in-angularjs.htm). 
+> **Note:** Using `$watch()` in a controller is debateable practice. We've done it here for _example purposes_. In your own AngularJS apps, take into consideration that there are alternatives to using `$watch()` in controllers (such as events), and if you do use `$watch()`, always [deregister your watches `$onDestroy`](https://www.bennadel.com/blog/2480-unbinding-watch-listeners-in-angularjs.htm).
 
 This is two-way binding in AngularJS. As you can see, we didn't set up any events or handlers to explicitly signal the controller that the model was updated in the UI. The `text` data binding in the template automatically uses a [watcher](https://medium.com/@kentcdodds/counting-angularjs-watchers-11c5134dc2ef) to display changes to the model. We can also `$watch()` the model. Watching should generally be done in services or directive `link` functions, not in controllers.
 
@@ -413,7 +413,7 @@ To learn more about **change detection** in JS frameworks, check out the followi
 * [Shadow DOM](https://w3c.github.io/webcomponents/spec/shadow/)
 * [HTML Imports](https://w3c.github.io/webcomponents/spec/imports/)
 
-Web components allow us to architect and import custom elements that automatically associate JS behavior with templates and can utilize shadow DOM to provide CSS scoping and DOM encapsulation. 
+Web components allow us to architect and import custom elements that automatically associate JS behavior with templates and can utilize shadow DOM to provide CSS scoping and DOM encapsulation.
 
 Web components consist of a set of [web platform APIs](https://www.w3.org/standards/techs/components). There are libraries (such as [Polymer](https://www.polymer-project.org/)) and polyfills (such as [webcomponents.js](https://github.com/webcomponents/webcomponentsjs)) to bridge the gap between [current browser support](http://jonrimmer.github.io/are-we-componentized-yet/) and future web API support.
 
@@ -476,7 +476,7 @@ To create the `my-component` web component utilizing shadow DOM, our `my-compone
         var shadowRoot = this.attachShadow({mode:'open'});  
         var clone = doc.importNode(template, true);
         var myComponent;
-        
+
         shadowRoot.appendChild(clone);
         myComponent = shadowRoot.querySelector('.my-component');
 
@@ -575,16 +575,16 @@ import { DumbComponent } from './dumb.component';
   selector: 'my-smart-cmpnt',
   template: `
     <h1>I'm sorry for what I said when I was {{selectedOption}}.</h1>
-    
+
     <my-dumb-cmpnt
       [options]="optionsArr"
       (changedOption)="onOptionChange($event)"></my-dumb-cmpnt>
   `
 })
-export class SmartComponent { 
+export class SmartComponent {
   optionsArr = ['hungry', 'tired', 'debugging'];
   selectedOption = '______';
-  
+
   onOptionChange(e: string) {
     this.selectedOption = e;
   }
@@ -607,10 +607,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     </div>
   `
 })
-export class DumbComponent { 
+export class DumbComponent {
   @Input() options: Array;
   @Output() changedOption = new EventEmitter();
-  
+
   select(option) {
     this.changedOption.emit(option);
   }
@@ -734,7 +734,9 @@ One of the most complex features to implement in an application is user authenti
 
 ![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
-If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/learn/cloud-identity-access-management/) system quickly and easily for your JavaScript SPAs and [Node APIs](https://auth0.com/docs/architecture-scenarios/application/server-api/api-implementation-nodejs), Auth0 can help. Auth0 provides [Single Page Application QuickStart guides](https://auth0.com/docs/quickstart/spa), an [SDK for web](https://auth0.com/docs/libraries/auth0js), plenty of [documentation](https://auth0.com/docs), and [this blog's articles and tutorials](https://auth0.com/blog). You can [sign up for a free Auth0 account here](javascript:signup\(\)) to get started.
+If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/user-management) system quickly and easily for your JavaScript SPAs and [Node APIs](https://auth0.com/docs/architecture-scenarios/application/server-api/api-implementation-nodejs), Auth0 can help. Auth0 provides [Single Page Application QuickStart guides](https://auth0.com/docs/quickstart/spa), an [SDK for web](https://auth0.com/docs/libraries/auth0js), plenty of [documentation](https://auth0.com/docs), and [this blog's articles and tutorials](https://auth0.com/blog). You can [sign up for a free Auth0 account here](javascript:signup\(\)) to get started.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ---
 

@@ -83,7 +83,7 @@ _Dependency issue solved with CommonsChunkPlugin_
 
 ### 4. Programmatic API for Routing
 
-In the first major version of **Next.js**, dynamic routing was only possible with query strings. There was no way to acheive clean and fancy URLs and loading your own custom server code was a big challenge. With **Next.js 2**, those challenges are a thing of the past. 
+In the first major version of **Next.js**, dynamic routing was only possible with query strings. There was no way to acheive clean and fancy URLs and loading your own custom server code was a big challenge. With **Next.js 2**, those challenges are a thing of the past.
 
 ![Custom routing](https://cdn.auth0.com/blog/next/customrouting.png)
 _Issue raised last year_
@@ -118,7 +118,7 @@ const server = express()
 
 In the code sample above, you have set up a custom server. The path `/p/prosper` where `prosper` is the `:username` is resolved to `./pages/z` . The page gets access to the username parameter and can do whatever has been programmed in it. Check out this [example](https://github.com/zeit/next.js/blob/master/examples/custom-server).
 
-### 5. Pre-fetching Pages 
+### 5. Pre-fetching Pages
 
 **Next.js 2** comes bundled with an API that allows you prefetch pages. Any `<Link>` tag can accept a `prefetch` prop and prefetch the pages it links to in the background like so:
 
@@ -143,7 +143,7 @@ This gives you the performance of an SPA coupled with server rendering. Wow, tha
 
 When you build your app with `next build` and start your app, **Next.js 2** will serve your JavaScript files and other assets as immutable assets. This simply means that once the browser has downloaded any immutable asset, if you reload the browser page, your browser won't try to load these assets from the server again.
 
-Another gain for performance and speed. Whoop! Whoop! 
+Another gain for performance and speed. Whoop! Whoop!
 
 ### 7. Custom Babel and Webpack Configurations
 
@@ -169,7 +169,7 @@ To extend the usage of `Webpack` in Next.js, you can create a `next.config.js` f
 module.exports = {
   webpack: (config, { dev }) => {
     // Perform customizations to config
-    
+
     // Important: return the modified config
     return config
   }
@@ -255,7 +255,7 @@ _learnnextjs.com Landing page_
 ![Logged In view](https://cdn.auth0.com/blog/next20/loggedinview.png)
 _learnnextjs.com Logged in view_
 
-Oh, the [UI](https://github.com/arunoda/coursebook-ui) and [Backend](https://github.com/arunoda/coursebook-server) for [learnnextjs.com](https://learnnextjs.com) is open-source. This presents another opportunity to learn **Next.js 2.0** by going through its source code. 
+Oh, the [UI](https://github.com/arunoda/coursebook-ui) and [Backend](https://github.com/arunoda/coursebook-server) for [learnnextjs.com](https://learnnextjs.com) is open-source. This presents another opportunity to learn **Next.js 2.0** by going through its source code.
 
 ## Enter Next.js 2.2.0
 
@@ -280,7 +280,7 @@ In Next.js, all server-rendered pages now [support Etags](https://github.com/zei
 * New official examples on how to use Next.js with other technologies:
 
   - [Material UI](https://github.com/zeit/next.js/tree/master/examples/with-material-ui)
-  - [Socket.io](https://github.com/zeit/next.js/tree/master/examples/with-socket.io) 
+  - [Socket.io](https://github.com/zeit/next.js/tree/master/examples/with-socket.io)
   - [Semantic UI](https://github.com/zeit/next.js/tree/master/examples/with-semantic-ui)
   - [Firebase](https://github.com/zeit/next.js/tree/master/examples/with-firebase)
 
@@ -291,6 +291,8 @@ More information can be found in the [release notes](https://github.com/zeit/nex
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
 We can easily set up authentication in a **Next.js 2.0** apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 **Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/` or whatever url/port you are running on. Also set the `Allowed Origins (CORS)` to `http://localhost:3000/` or whatever domain url you are using, especially if it is hosted.
 
@@ -455,7 +457,7 @@ export default class SignedIn extends React.Component {
     setToken(token)
     this.props.url.pushTo('/')
   }
-  
+
   render () {
     return null
   }
@@ -579,9 +581,10 @@ _Not displaying valid content because the user cant access the secret page witho
 
 **Note:** Nextjs exposes virtually everything to the client. Secrets and environment variables are leaked to the frontend. So if you want to perform an API call and you need to validate a token based on a **secret**, then you will have to run a [custom express server](https://github.com/zeit/next.js/tree/master/examples/custom-server-express) so that your **secret** can be available only on the server. This also applies to other forms of operations that require loading some secret environment variables that the user of your app shouldn't have access to.
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 
-With **Next.js 2**, the [Github repo](https://github.com/zeit/next.js/) now has over 11,000 stars and we have seen lots of significant improvements & major upgrades from the initial version that was released last year. Kudos to the team behind this lovely tool and the JavaScript community for their continuous support. In fact, they already have plans for **Next.js 3**. 
+With **Next.js 2**, the [Github repo](https://github.com/zeit/next.js/) now has over 11,000 stars and we have seen lots of significant improvements & major upgrades from the initial version that was released last year. Kudos to the team behind this lovely tool and the JavaScript community for their continuous support. In fact, they already have plans for **Next.js 3**.
 
 Try out **Next.js 2** and let me know what you think in the comments section!

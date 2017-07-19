@@ -14,7 +14,7 @@ author:
 design:
   bg_color: "#154246"
   image: https://cdn2.auth0.com/blog/image-processing-in-python/logo.png
-tags: 
+tags:
 - python
 - pillow
 ---
@@ -255,6 +255,8 @@ greyscale_image.save('greyscale_image.jpg')
 ## Aside: Adding Auth0 Authentication to a Python Application
 Before concluding the article, let's take a look at how you can add authentication using Auth0 to a Python application. The application we'll look at is made with Flask, but the process is similar for other Python web frameworks.
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
 Instead of creating an application from scratch, I've put together a simple app that you can [download](https://github.com/echessa/python_image_processing) to follow along. It is a simple gallery application, that enables the user to upload images to a server and view the uploaded images.
 
 If you downloaded the project files, you will find two folders inside the main directory: `complete_without_auth0` and `complete_with_auth0`. As the name implies, `complete_without_auth0` is the project we'll start with and add Auth0 to.
@@ -388,6 +390,8 @@ if __name__ == '__main__':
 ### Setting up Auth0
 To set up the app with Auth0, first <a href="javascript:signup()">sign up</a> for an Auth0 account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Regular Web Applications** from the Client type list. On the next page, select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Set the **Allowed Callback URLs** to `http://localhost:3000/callback` and **Allowed Logout URLs** to `http://localhost:3000/` then save the changes with the button at the bottom of the page.
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+
 Back in your project, create a file labelled `.env` and save it at the root of the project. Add your Auth0 client credentials to this file. If you are using versioning, remember to not put this file under versioning. We'll use the value of `SECRET_KEY` as the app's secret key. You can/should change it.
 
 ```
@@ -473,7 +477,7 @@ modify the `index()` and `upload()` functions as shown.
 @app.route('/')
 def index():
     return render_template('index.html', env=env, logged_in=is_logged_in())
-    
+
 @app.route('/upload', methods=['GET', 'POST'])
 @requires_auth
 def upload():
@@ -621,15 +625,15 @@ When you are implementing the logout functionality in an application, there are 
  - **Application Session**: The first is the session inside the application. Even though your application uses Auth0 to authenticate users, you will still need to keep track of the fact that the user has logged in to your application. In a normal web application this is achieved by storing information inside a cookie. You need to log out the user from your application, by clearing their session.
  - **Auth0 session**: Next, Auth0 will also keep a session and store the user's information inside a cookie. Next time when a user is redirected to the Auth0 Lock screen, the user's information will be remembered. In order to logout a user from Auth0 you need to clear the SSO cookie.
  - **Identity Provider session**: The last layer is the Identity Provider, for example Facebook or Google. When you allow users to sign in with any of these providers, and they are already signed into the provider, they will not be prompted to sign in. They may simply be required to give permissions to share their information with Auth0 and in turn your application.
- 
+
  In the code above, we deal with the first two. If we had only cleared the session with `session.clear()`, then the user would be logged out of the app, but they won't be logged out of Auth0. On using the app again, authentication would be required to upload images. If they tried to login, the Lock widget will show the user account that is logged in on Auth0 and the user will only have to click on the email to get Auth0 to send their credentials back to the app which will then be saved to the session object. Here, the user will not be asked to reenter their passowrd.
- 
+
  ![Lock Widget](https://raw.githubusercontent.com/echessa/misc/master/image_a05.png)
- 
+
  You can see the problem here. After a user logs out of the app, another user can log in as them on that computer. Thus, it is also necessary to log the user out of Auth0. This is done with a redirect to `https://<YOUR_AUTH0_DOMAIN>/v2/logout`. Redirecting the user to this URL clears all single sign-on cookies set by Auth0 for the user.
- 
+
  Although not a common practice, you can force the user to also log out of their identity provider by adding a `federated` querystring parameter to the logout URL: `https://<YOUR_AUTH0_DOMAIN>/v2/logout?federated`
- 
+
  We add a `returnTo` parameter to the URL whose value is a URL that Auth0 should redirect to after logging out the user. For this to work, the URL has to have been added to the `Allowed Logout URLs` on the Auth0 Dashboard, which we did earlier.
 
 Finally, modify the `if_else` block in `index.html` as shown. We add a Logout link to the page if the user is logged in.

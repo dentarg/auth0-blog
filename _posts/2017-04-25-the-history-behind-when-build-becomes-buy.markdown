@@ -117,6 +117,12 @@ Anyone can now trust their compliance, authentication and security needs with a 
 
 Nor do they have to worry about the cost of revisions and upgrades for an in-house product. These can be expensive, time-consuming to handle and require constant involvement, especially as a business grows.
 
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
 ## To Buy or Not to Buy
 
 Products and services for enterprises and startups have come a long way in many areas of technology. While it used to make sense to build in-house, customer needs and expectations have become more complex. This change means technology has to adjust accordingly.
