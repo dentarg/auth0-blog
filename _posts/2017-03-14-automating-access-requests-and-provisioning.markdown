@@ -156,6 +156,12 @@ To handle this, we have an extremely light-weight HTTP server that receives the 
 Speaking of Redis, we also have a fairly standard caching layer for things that don’t change that often (resources, groups, users, tenant settings, API tokens, etc…) we proxy those through a layer of Local Cache -> Redis -> Mongo. A solid caching strategy is especially important when using GraphQL.
 ![Component Architecture](https://cdn.auth0.com/blog/access-request/diagram.png)
 
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
 ## Going Forward
 In its current state, Phenix is a fairly solid access request platform with some light provisioning. We are planning to keep building on top of this to create a robust provisioning engine with full connector support that handles all types of CRUD operations against target systems. We are also building a reconciliation engine to sync data into the system from other sources. 
 

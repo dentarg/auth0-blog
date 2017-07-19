@@ -62,7 +62,7 @@ getBookNo('boooks');
 // Error raised
 PHP Fatal error:  Uncaught TypeError: Argument 1 passed to getBookNo() must be of the type integer, string given, called in ....
 ```
-PHP 7 will throw a Fatal error as seen above once you typehint with scalar values. 
+PHP 7 will throw a Fatal error as seen above once you typehint with scalar values.
 
 ### Strong Type Check
 
@@ -74,7 +74,7 @@ function getBookNo(int $number) {
     return "This is it: " . $number;
 }
 
-echo getBookNo("8"); 
+echo getBookNo("8");
 
 // Result
 This is it: 8
@@ -89,14 +89,14 @@ function getBookNo(int $number) {
     return "This is it: " . $number;
 }
 
-echo getBookNo("8"); 
+echo getBookNo("8");
 
 // Result
 PHP Fatal error:  Uncaught TypeError: Argument 1 passed to getBookNo() must be of the type integer, string given, called in ......
 
 ```
 
-In PHP 5, if you pass in a float value, it automatically strips out the decimal parts and leaves you with an integer. Now in PHP 7, If you pass in a float value too, it will throw a Fatal error. When building a financial application, this feature comes in handy! 
+In PHP 5, if you pass in a float value, it automatically strips out the decimal parts and leaves you with an integer. Now in PHP 7, If you pass in a float value too, it will throw a Fatal error. When building a financial application, this feature comes in handy!
 
 Remember something like this in JavaScript? where you have to write `use "strict";` at the top of your JavaScript file.
 
@@ -263,11 +263,11 @@ With PHP 7, you can group them like so:
 // PHP 7
 namespace Unicodeveloper\Emoji;
 
-use Unicodeveloper\Emoji\Exceptions\{ 
+use Unicodeveloper\Emoji\Exceptions\{
     UnknownMethod, UnknownEmoji, UnknownUnicode, IsNull, function checkForInvalidEmoji, const INVALID_EMOJI };
 
 class Emoji {
-    
+
 }
 
 ```
@@ -279,7 +279,7 @@ An Anonymous class is essentially a local class without a name. Anonymous classe
 ```php
 
 new class($constructor, $args) {
-    
+
 }
 
 ```
@@ -411,7 +411,7 @@ $getName->call(new NameRegister());
 
 ```
 
-Check out the [PHP Manual: Closure::call](https://secure.php.net/manual/en/closure.call.php) for more information. 
+Check out the [PHP Manual: Closure::call](https://secure.php.net/manual/en/closure.call.php) for more information.
 
 ### Expectations and Assertions
 
@@ -420,7 +420,7 @@ Assertions are a debugging and development feature. The `assert()` function in P
 ```php
 
 zend.assertions = 1 // Enable assertion
-zend.assertions = 0 // Disable assertion 
+zend.assertions = 0 // Disable assertion
 zend.assertions = -1 // (production mode), don't generate or execute code
 
 ```
@@ -444,7 +444,7 @@ The `assert()` can now take in two arguments where the second argument is a cust
 class ProjectException extends AssertionError {}
 
 public function checkAuthenticityOfProject() {
-    
+
     /* ... */
 
     assert('$project instanceof \Unicodeveloper\Project', new ProjectException('$project was not a Project object'));
@@ -657,7 +657,7 @@ function square(array $number) {
         yield $num * $num;
     }  
 
-    yield from addition($number); 
+    yield from addition($number);
 };
 
 function addition(array $number) {
@@ -707,7 +707,7 @@ The `list()` language construct now allows you to unpack objects implementing th
 
 ```php
 
-$fruits = new ArrayObject(['banana', 'mango', 'apple']); 
+$fruits = new ArrayObject(['banana', 'mango', 'apple']);
 
 list($a, $b, $c) = $fruits;
 
@@ -731,8 +731,8 @@ In PHP 5.x, if you try to access a static value like so:
 
 ```php
 
-class Auth0 { 
-    static $lock = 'v10'; 
+class Auth0 {
+    static $lock = 'v10';
 }
 
 echo 'Auth0'::$lock;
@@ -748,8 +748,8 @@ Now, In PHP 7.x, it throws no error, it simply works!
 
 // PHP 7
 
-class Auth0 { 
-    static $lock = 'v10'; 
+class Auth0 {
+    static $lock = 'v10';
 }
 
 echo 'foo'::$lock;
@@ -873,7 +873,7 @@ _ReflectionFunctionAbstract API_
 
 ### Deprecated Features
 
-Using deprecated features in PHP will trigger an `E_DEPRECATED` error. 
+Using deprecated features in PHP will trigger an `E_DEPRECATED` error.
 
 * PHP 4 Style constructors are deprecated, and will be removed in the future. An example of a PHP 4 style of writing constructors(having the same name with the class) is this:
 
@@ -916,7 +916,7 @@ Using deprecated features in PHP will trigger an `E_DEPRECATED` error.
 
     ```js
 
-    <script language="php"> 
+    <script language="php">
     </script>
 
     ```
@@ -948,7 +948,7 @@ Here are backward incompatible changes you should be aware of:
 * `$HTTP_RAW_POST_DATA` was deprecated in PHP 5.6.0 and finally removed in PHP 7.0.0. Use [php://input](https://php.net/manual/en/wrappers.php.php#wrappers.php.input) as a replacement.
 * Switch statements can no longer have multiple default blocks. An **E_COMPILE_ERROR** will be triggered if you try to define more than one default block.
 * Functions can not have multiple parameters with the same name. `function slap($hand, $hand, $strength)`. An **E_COMPILE_ERROR** will be triggered as a result of this function.
-* Static calls made to a non-static method with an incompatible context will now result in the called method having an undefined `$this` variable and a deprecation warning being issued. 
+* Static calls made to a non-static method with an incompatible context will now result in the called method having an undefined `$this` variable and a deprecation warning being issued.
 
 You can check out the few other [PHP core functions](https://secure.php.net/manual/en/migration70.changed-functions.php) that have changed.
 
@@ -968,4 +968,6 @@ Going over the rundown of all these features as highlighted in this article and 
 
 Thanks to the PHP Manual and RFC documents. You can always reference them for more information.
 
-In the next and final part of this series, we'll convert a small PHP 5 app to PHP 7, then measure and report the performance difference. 
+In the next and final part of this series, we'll convert a small PHP 5 app to PHP 7, then measure and report the performance difference.
+
+> Looking for the best way to secure your PHP projects? [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication. This modern tool provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

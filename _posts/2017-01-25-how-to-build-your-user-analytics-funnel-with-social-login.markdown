@@ -32,6 +32,8 @@ But great companies know that the best way to get that data is not by asking —
 
 That's why social login is one of the most powerful analytics tools. With the option to log into your app using a social media account they've already set up, users save themselves the annoying step of creating a new username & password combination. And you save them the effort of telling you who they are.
 
+> Auth0 can help B2C companies to enrich the profile of their customers through an easy to use [Modern Customer Identity Management solution](https://auth0.com/b2c-customer-identity-management).
+
 With a few simple tools and pieces of code, you can use the information they've made publicly available to make better decisions about your marketing, product development, and user retention.
 
 Let's go step-by-step through what you need to start using your user data better, from signup and login to analysis.
@@ -131,7 +133,7 @@ With social login, enriching your user profiles with that kind of data is painle
 * **Retention analysis**: Segment your user base by activity and look at what kinds of users tend to stick around the longest, who takes the most advantage of your app, and who you should be trying to re-engage.
 * **Building customer personas**: Grouping your customers into representative personas is a powerful way to focus your marketing and product development efforts. But you don't need to do it all by intuition when you can use analytics to build quantitative models of who your users are, where they come from, and what they do.
 
-Auth0 users can use our pre-built Rules to send user information to a variety of applications.
+Auth0 users can use our pre-built Rules to send user information to a variety of applications. Besides that, we have recently released a product called [Auth0 Extend](https://auth0.com/extend/). This product enable companies to provide to their customers an easy to use extension point that accepts JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
 
 ### Slack
 
@@ -248,3 +250,5 @@ function (user, context, callback) {
 There are endless ways to use customer data to build a better application. The key is to keep experimenting until you find something that really works — when you find that, double down.
 
 There are no magic bullets. All you can do is look for an edge. Using analytics, however, you can find that edge a lot faster.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication on B2C, B2B, retail and CIAM products.

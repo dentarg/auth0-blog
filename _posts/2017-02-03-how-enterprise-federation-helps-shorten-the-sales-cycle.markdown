@@ -28,6 +28,8 @@ related:
 
 Enterprise customers are great. They're large, stable accounts that can represent a real win for your business. But they're also a unique challenge, and more complicated than small to medium-sized businesses (SMBs).
 
+> [Give your customers **enterprise identity integration**, frictionless SSO across your products and adaptive authentication with **MFA and Anomaly Detection**. All of this with a flip of a switch.](https://auth0.com/b2b-enterprise-identity-management)
+
 Selling to enterprise clients has always meant managing:
 
 * Long sales cycles
@@ -65,17 +67,17 @@ You've got to be able to handle these requirements to get your product in the do
 
 ## Safari Books case study
 
-A great example of how Auth0 can be easily integrated into to your app to open up enterprise possibilities is through Safari Books Online. 
+A great example of how Auth0 can be easily integrated into to your app to open up enterprise possibilities is through Safari Books Online.
 
 Safari Books Online was facing a predictable pattern of long sales cycles and new development time when they first started to go upmarket and sell their design resources, videos, and e-books services to the enterprise customer.
 
-At first, they tried to implement all the enterprise demands they were receiving in-house, but realized they couldn't upgrade their login quickly enough. Understanding what they stood to lose, [they sought out an IAM](https://auth0.com/learn/safari-case-study/). 
- 
+At first, they tried to implement all the enterprise demands they were receiving in-house, but realized they couldn't upgrade their login quickly enough. Understanding what they stood to lose, [they sought out an IAM](https://auth0.com/learn/safari-case-study/).
+
 Safari Books Online chose Auth0's secure enterprise login options to upgrade their platform and implement logins across enterprise requirements. This dramatically shortened their sales cycle and gave them the functionality they desperately needed.
 
-“Compared to the costs and resources required to build, host, and secure a custom solution, the [investment associated with a third-party authentication service like Auth0 was a sensible choice](https://auth0.com/learn/safari-case-study/),” said Safari engineering manager Cris Concepcion. 
+“Compared to the costs and resources required to build, host, and secure a custom solution, the [investment associated with a third-party authentication service like Auth0 was a sensible choice](https://auth0.com/learn/safari-case-study/),” said Safari engineering manager Cris Concepcion.
 
-Today, Safari Books Online is used by a wide range of enterprise clients, from Google to Tesla. 
+Today, Safari Books Online is used by a wide range of enterprise clients, from Google to Tesla.
 
 ## How enterprise sales work with Auth0
 
@@ -89,18 +91,18 @@ Auth0 acts as an intermediary between your app and your users. It seamlessly int
 
 Using Auth0 to ramp up your security and login doesn't just shorten your sales cycle for one customer, but also gives you the tools to fit your login to a wide variety of enterprise needs. If you configure compatibility between Auth0 and your app once, you've configured compatibility for 10+ identity providers in one fell swoop.
 
-Auth0 also gives you the power to add other critical features that enterprise customers want, like multi-factor authentication and single sign-on.
+Auth0 also gives you the power to add other critical features that enterprise customers want, like [multi-factor authentication](https://auth0.com/multifactor-authentication) and [single sign-on](https://auth0.com/learn/how-to-implement-single-sign-on/).
 
 ## The power of the enterprise customer
 
 Enterprise contracts can represent a big win for your business and are one of the best ways to maximize your revenue.
 
-The enterprise customer wants great solutions to their problems, and it's likely that a well-crafted product that works for SMBs will[ scale extremely well](https://auth0.com/blog/how-to-go-upmarket-and-grow-your-revenue-by-20x/?utm_source=twitter&utm_medium=sc&utm_campaign=saas_upmarket) to an enterprise venture. Add a few extra perks, like a designated point-person and a higher user limit, and you've paved the path to scale up.
+The enterprise customer wants great solutions to their problems, and it's likely that a well-crafted product that works for SMBs will [scale extremely well](https://auth0.com/blog/how-to-go-upmarket-and-grow-your-revenue-by-20x/?utm_source=twitter&utm_medium=sc&utm_campaign=saas_upmarket) to an enterprise venture. Add a few extra perks, like a designated point-person and a higher user limit, and you've paved the path to scale up.
 
 The key is to couple this with enterprise-ready security and identity management.
 
-If enterprise customers want employees to be able to sign in with their existing logins instead of creating more accounts, you can use Auth0's [single sign-on](https://auth0.com/docs/sso) to streamline your product's integration. If they want to hone in on security, you can offer [multifactor authentication](https://auth0.com/docs/multifactor-authentication) that requires both a login and an additional security precaution, like a fingerprint scan, or a verification code. 
+If enterprise customers want employees to be able to sign in with their existing logins instead of creating more accounts, you can use Auth0's [single sign-on](https://auth0.com/docs/sso) to streamline your product's integration. If they want to hone in on security, you can offer [multifactor authentication](https://auth0.com/multifactor-authentication) that requires both a login and an additional security precaution, like a fingerprint scan, or a verification code.
 
-Whatever their need, a good IAM integration will help you cater to it. 
+Whatever their need, a good IAM integration will help you cater to it.
 
-This will allow you to take that premium plan and charge a premium price. Better yet, when you use an IAM, that “premium plan” can be ready as soon as you decide to go after enterprise clients. When you offer enterprise login and security compatibility, you instantly open the door to a whole new — and efficient — revenue stream. 
+This will allow you to take that premium plan and charge a premium price. Better yet, when you use an IAM, that “premium plan” can be ready as soon as you decide to go after enterprise clients. When you offer enterprise login and security compatibility, you instantly open the door to a whole new — and efficient — revenue stream.

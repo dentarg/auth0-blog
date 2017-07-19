@@ -76,6 +76,8 @@ AUTH0_CLIENT_SECRET= #INSERT YOUR SECRET HERE
 AUTH0_DOMAIN= #INSERT YOUR SECRET HERE
 ```
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) so we can get started with modern authentication.
+
 ### Setup app secrets
 
 Instead of referring to the secrets directly in your code, fetch them once in the secrets file, where they should be, and refer them via this file throughout your code. Make the following changes to your `config/secrets.yml`
@@ -187,7 +189,7 @@ Replace `https://example.com` with the URL of your actual application.
 
 ![Lock](https://github.com/amingilani/auth0-rails5/raw/master/docs/lock.png)
 
-Auth0 provides a beautiful embedded login form called [Lock](https://auth0.com/docs/libraries/lock). It's designed to work with Auth0 and looks absolutely gorgeous. Replace the contents of `app/views/public_pages/home.html.erb`
+Auth0 provides a beautiful embedded login form called [Lock](https://auth0.com/lock). It's designed to work with Auth0 and looks absolutely gorgeous. Replace the contents of `app/views/public_pages/home.html.erb`
 
 {% highlight html %}
 <div id="root" style="width: 320px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px; box-sizing: border-box;">

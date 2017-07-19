@@ -26,9 +26,9 @@ tags:
 
 ## Intro
 
-In recent years, multifactor authentication has become quite the buzzword in information security. Products from Twitter to Instagram have implemented their own two-step login processes, responding to widespread user demand for better security and the ever-present reality of hackers cracking accounts and selling them across the internet.
+In recent years, [multifactor authentication](https://auth0.com/multifactor-authentication) has become quite the buzzword in information security. Products from Twitter to Instagram have implemented their own two-step login processes, responding to widespread user demand for better security and the ever-present reality of hackers cracking accounts and selling them across the internet.
 
-All this popularity has also led to the creation and perpetuation of various myths about multifactor authentication — what it is, what it's for — that can mislead developers and users alike.  
+All this popularity has also led to the creation and perpetuation of various myths about [multifactor authentication](https://auth0.com/multifactor-authentication) — what it is, what it's for — that can mislead developers and users alike.  
 
 Going with multifactor authentication is almost always going to be an improvement over not. But it's table stakes now. Sophisticated attackers aren't deterred by poorly configured multifactor authentication systems. To keep internal and user information secure, you need to know what you're doing.
 
@@ -50,7 +50,7 @@ There are three entire genres of factor—knowledge, possession, and inherence:
 
 Every multifactor authentication system out there is built upon some combination of these three basic factors. A simple password/secret question system would be made up of two separate knowledge factors, while one that asked you for an [RSA hardware token](https://www.rsa.com/en-us/products-services/identity-access-management/securid/hardware-tokens) in addition to your password would be made up of both knowledge and possession factors.
 
-A passwordless login system relies upon you being in possession of, and able to access, your email inbox. And so on. There are so many different forms of authentication out there now that you can freely choose whether you want something that maximizes ease of use, something that maximizes security through obscurity, or something in between.
+A [passwordless login system](https://auth0.com/passwordless) relies upon you being in possession of, and able to access, your email inbox. And so on. There are so many different forms of authentication out there now that you can freely choose whether you want something that maximizes ease of use, something that maximizes security through obscurity, or something in between.
 
 ## Myth #2: Your use case for MFA doesn't matter
 
@@ -118,6 +118,8 @@ It's available for both iOS and Android, and can be enabled with a [simple toggl
 
 ## Myths Busted
 
-There's no doubt that implementing multifactor authentication is one of the best ways to improve the security of a website or an app that doesn't have it. But as with any decision regarding the privacy and security of your users and their information, nothing is as simple as it appears at first glance.
+There's no doubt that [implementing multifactor authentication is one of the best ways to improve the security of a website or an app](https://auth0.com/multifactor-authentication) that doesn't have it. But as with any decision regarding the privacy and security of your users and their information, nothing is as simple as it appears at first glance.
 
 At [Auth0](https://auth0.com/), we want to make sure that MFA is something you can implement knowing that it will protect your accounts without harming the user experience. With [Guardian](https://auth0.com/guardian/), we're pushing that project forward, and we're really excited to have you try it out. Check it out!
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.

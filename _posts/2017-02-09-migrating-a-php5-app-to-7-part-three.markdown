@@ -26,7 +26,7 @@ related:
 
 ---
 
-You need to be aware that for the most part, PHP 5.x code can run on PHP 7. In PHP 7, there are some backwards incompatible changes, so applications built with PHP 5.x that use functions and language constructs that have been removed or have the internal implementation changed drastically will spit out errors while trying to run on PHP 7. 
+You need to be aware that for the most part, PHP 5.x code can run on PHP 7. In PHP 7, there are some backwards incompatible changes, so applications built with PHP 5.x that use functions and language constructs that have been removed or have the internal implementation changed drastically will spit out errors while trying to run on PHP 7.
 
 ## Tools to Aid Migration
 
@@ -59,7 +59,7 @@ Currently there is no tool out there that performs a 100% automatic conversion o
 
 ### PhpStorm PHP 7 Compatibility Inspection
 
-[PhpStorm](https://www.jetbrains.com/phpstorm) is a very smart PHP IDE, developed by [Jetbrains](https://www.jetbrains.com). 
+[PhpStorm](https://www.jetbrains.com/phpstorm) is a very smart PHP IDE, developed by [Jetbrains](https://www.jetbrains.com).
 
 ![PHPStorm](https://cdn.auth0.com/blog/php/phpstorm_debugging.png)
 _Source: Jetbrains.com_
@@ -85,9 +85,13 @@ We will build the first simple PHP 5 app very quickly. This is the scope of the 
 
 Building this app will require us to set up a database to store the users, write our registration and login code and manage the users session. Now, we won't employ the use of any framework because we don't want any form of overhead. Ordinarily, building this app would take a lot of time and setup but there is a service we can use to eliminate the hassle. Oh, yeah, Auth0 to the rescue!
 
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 ### Create and Configure Auth0 Client
 
 First thing we'll need to do is <a href="javascript:signup()">sign up for a free Auth0 account</a> and configure a new client.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 Now head over to [clients tab](https://manage.auth0.com/#/clients) and create a new one choosing 'Regular web Application' as the client type. Let's name it as something like 'Basic PHP WebApp'.
 
@@ -342,7 +346,7 @@ if (isset($_REQUEST['logout'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
- 
+
         <!-- font awesome from BootstrapCDN -->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -424,7 +428,7 @@ $userInfo = $auth0Oauth->getUser();
 
 Then, we moved on to instantiating the `Authentication` class.
 
-The `$auth0->get_oauth_client()` method by default stores user information in the PHP session, and we also instructed it to save the `refresh_token` and `id_token`. 
+The `$auth0->get_oauth_client()` method by default stores user information in the PHP session, and we also instructed it to save the `refresh_token` and `id_token`.
 
 `$starWarsNames` array contains some characters from Star Wars. Later in the code, a user will be assigned a random code name from this array.
 
@@ -447,7 +451,9 @@ This checks if the user submitted a request to log out, clears the session and r
 <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
 {% endhighlight %}
 
-We are making use of [Auth0 Lock widget](https://auth0.com/docs/libraries/lock), and we also using jQuery to call the lock methods and handle button click event.
+We are making use of [Auth0 Lock widget](https://auth0.com/lock), and we also using jQuery to call the lock methods and handle button click event.
+
+> [Lock is an embeddable login form for desktop, tablet and mobile devices.](https://auth0.com/lock) It provides the easiest way of securing your website and mobile apps.
 
 {% highlight html %}
 <!-- font awesome from BootstrapCDN -->
@@ -532,9 +538,9 @@ Awesome, now our first app is running on PHP 7 successfully!
 
 ## Work with Second App
 
-The second PHP app we will go through is an API. It is a simple Chuck Norris API. It has been built already with PHP 5 in mind. 
+The second PHP app we will go through is an API. It is a simple Chuck Norris API. It has been built already with PHP 5 in mind.
 
-Clone it from [Github](https://github.com/auth0-blog/basic-api) and run `composer install` to install all the dependencies. Then run the app on a PHP 5.x server. 
+Clone it from [Github](https://github.com/auth0-blog/basic-api) and run `composer install` to install all the dependencies. Then run the app on a PHP 5.x server.
 
 Open up [Postman](https://www.getpostman.com) and test the API like so:
 
@@ -574,7 +580,7 @@ This is the directory structure of our API app at the moment:
   |
   ----composer.lock
   |
-  ----index.php 
+  ----index.php
   |
   ----README.md
 
@@ -704,7 +710,7 @@ class Main {
 
 _PHP 7 Return Type Declarations added in Main.php_
 
-Another PHP 7 feature we can add is *function parameter typehinting*. We have a method, `getRandomJokes($randomNumber)` that accepts a `$randomNumber` which is an integer. 
+Another PHP 7 feature we can add is *function parameter typehinting*. We have a method, `getRandomJokes($randomNumber)` that accepts a `$randomNumber` which is an integer.
 
 Let's refactor that method, `getRandomJokes()`. We'll eliminate the `if` condition and just typehint the `$randomNumber` parameter like so:
 
@@ -748,13 +754,13 @@ _PHP 7 TypeError_
 
 We have been able to add some PHP 7 features. The app also runs on a PHP 7 server and everything just works fine!
 
-The source code of the PHP 7 version of the API can be found on the [`php7 branch` on GitHub](https://github.com/auth0-blog/basic-api/tree/php7). 
+The source code of the PHP 7 version of the API can be found on the [`php7 branch` on GitHub](https://github.com/auth0-blog/basic-api/tree/php7).
 
 ## Performance
 
 PHP 7 runs on the new Zend engine 3.0, thus making your apps see up to 2x faster performance and 50% better memory consumption than PHP 5.6. It also allows you to serve more concurrent users without adding any hardware.
 
-[Rasmus Ledorf](https://twitter.com/rasmus), *Creator of PHP* and inventor of the SQL LIMIT clause did some benchmarking with a few popular PHP projects with the various versions of PHP from PHP 5.4 up until PHP 7.0 and also benchmarked against HHVM 3.6.1. 
+[Rasmus Ledorf](https://twitter.com/rasmus), *Creator of PHP* and inventor of the SQL LIMIT clause did some benchmarking with a few popular PHP projects with the various versions of PHP from PHP 5.4 up until PHP 7.0 and also benchmarked against HHVM 3.6.1.
 
 Let's take a good look at the benchmarks. The test box specs Rasmus used are:
 
@@ -813,7 +819,7 @@ Check out the following benchmarks:
 
 ## Conclusion
 
-We have successfully covered how to upgrade your development and server environments from PHP 5 to PHP 7, gone through the features PHP 7 offers and also migrated two apps from PHP 5 to PHP 7. 
+We have successfully covered how to upgrade your development and server environments from PHP 5 to PHP 7, gone through the features PHP 7 offers and also migrated two apps from PHP 5 to PHP 7.
 
 Woot! Woot! It's been quite a journey highlighting everything PHP 7 has to offer. PHP has grown tremendously over the years from a toy language to a full-blown fast and enterprise language.
 

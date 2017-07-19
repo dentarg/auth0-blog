@@ -5,7 +5,7 @@ description: "Yes, your login can help you raise your conversion rate — here's
 date: 2017-03-08 8:30
 category: Growth, Generic
 is_non-tech: true
-author: 
+author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
@@ -36,13 +36,15 @@ If this has you nodding along, you might be suffering from a problem at login. E
 
 One of the best ways to improve your conversion rates is to use social login. Why? Because it's one of the easiest ways for people to sign-up. The benefits of social sign-up are clear — anywhere from a [20-60% increase](https://www.quora.com/What-impact-does-social-login-have-on-conversion-rates) in conversion — and it works for users because they don't have yet another name and password to remember. One click and they're in.
 
-![Auth0 Widget](https://cdn.auth0.com/blog/login/Auth0Widget.png) 
+![Auth0 Widget](https://cdn.auth0.com/blog/login/Auth0Widget.png)
 
 This means that, when a user finds your app, they can sign-up almost without thinking about it — there's nothing to make them stop and consider whether or not it's worth the effort to sign-up before they've even seen what you can really do.
 
-In the same vein, you can setup your login with a smart sign-up form. With this, your users don't have to fill in a whole form during sign-up, because you've filled it in for them. An example of this is [frictionless sign-up](https://segment.com/blog/frictionless-signup-forms-by-clearbit-segment/), an integration by [Segment](http://segment.com/) that you can use with your login. A user puts in their email, to get their sign-up started. Then, the Segment integration retrieves and fills in their name and job information filled out, speeding up the sign-up process. 
+In the same vein, you can setup your login with a smart sign-up form. With this, your users don't have to fill in a whole form during sign-up, because you've filled it in for them. An example of this is [frictionless sign-up](https://segment.com/blog/frictionless-signup-forms-by-clearbit-segment/), an integration by [Segment](http://segment.com/) that you can use with your login. A user puts in their email, to get their sign-up started. Then, the Segment integration retrieves and fills in their name and job information filled out, speeding up the sign-up process.
 
 Taking the hassle out of your users' sign-up experience is a no brainer, and with the broad range of social login options available, there's no reason you can't add a few networks and tricks to your login or sign-up form.
+
+> Auth0 can help B2C companies to enrich the profile of their customers through an easy to use [Modern Customer Identity Management solution](https://auth0.com/b2c-customer-identity-management). Increase brand loyalty with better conversion, boost your revenue with new user acquisition, and secure customer identity with state-of-the-art technology.
 
 ## 2. Show Them Their Friends
 
@@ -58,15 +60,15 @@ For example, if you and your buddy are really into soccer, you might be much mor
 ![Invite](https://cdn.auth0.com/blog/app/wwc_invite_receipt.jpg)
 _Source: https://blog.branch.io/how-to-deep-link-on-facebook_
 
-Showing people their friends as soon as they get past the login page is also a great motivator to stay on social apps. The trick is to configure your social login to acquire their friends from their profile. 
+Showing people their friends as soon as they get past the login page is also a great motivator to stay on social apps. The trick is to configure your social login to acquire their friends from their profile.
 
 ![Facebook setup](https://cdn.auth0.com/blog/config/facebook-setup.png)
 
-Immediately seeing their friends will make people feel like your app is a natural extension of their network. Showing potential users right at sign-up that they know people who are active on your app will drive them to convert because they have a natural desire to see what their friends are up to — and what they've missed out on. 
+Immediately seeing their friends will make people feel like your app is a natural extension of their network. Showing potential users right at sign-up that they know people who are active on your app will drive them to convert because they have a natural desire to see what their friends are up to — and what they've missed out on.
 
 ## 3. Personalize Their First Experience
 
-Just as showing people their friends when they sign-up is a good way to demonstrate the value of your app, personalizing a user's first experience can help you get people from signing up and onboarding to being a dedicated user. 
+Just as showing people their friends when they sign-up is a good way to demonstrate the value of your app, personalizing a user's first experience can help you get people from signing up and onboarding to being a dedicated user.
 
 One easy way to connect from the very first login is to use geography to your advantage. Whether you're showing them recommendations in the area, getting regional news on their feed, or sampling a rainy day playlist to match the weather, using their location to customize what they see at sign-up will help them feel welcomed, and let them know that they can personalize their own experience.
 
@@ -75,12 +77,14 @@ For example, Foursquare asks for a user's location during sign-up. Then, when th
 ![Personalize](https://cdn.auth0.com/blog/personalize/foursquare.png)
 _Source: https://www.useronboard.com/how-foursquare-onboards-new-users/?slide=66_
 
-Another way you can hook users into your app is by connecting them to their interests. No matter the focus of your app, there's a way to connect users with what's relevant to their life. If you know a user likes the NBA, you could suggest they follower players or teams. If they're a film buff, have them save the location of their favorite theatre. 
+Another way you can hook users into your app is by connecting them to their interests. No matter the focus of your app, there's a way to connect users with what's relevant to their life. If you know a user likes the NBA, you could suggest they follower players or teams. If they're a film buff, have them save the location of their favorite theatre.
 
 This is another place where configuring social login can help you — just as you pulled their friends from their profile, you can also look at pages they've liked or followed. This will help you curate options to show your new users as they work through sign-up and onboarding — which will encourage them to actually get into your app.
 
 ## Give New Users What They Want
 
-The consistent factor between all three methods to improve retention that we've discussed is simply giving users what they want. Social login reduces friction by eliminating the need for users to remember another username and password. Showing users their friends at sign-up plays into our desire to connect with our friends, while personalizing from the first login connects users directly with their interests. 
+The consistent factor between all three methods to improve retention that we've discussed is simply giving users what they want. Social login reduces friction by eliminating the need for users to remember another username and password. Showing users their friends at sign-up plays into our desire to connect with our friends, while personalizing from the first login connects users directly with their interests.
 
-The old saying *there's no second chance at a first impression *is never more true than when configuring your login. Driving conversions means catering to your users from your very first interaction. Setting up your login with your users' wants in mind is a great way to raise your conversion rate. 
+The old saying *there's no second chance at a first impression *is never more true than when configuring your login. Driving conversions means catering to your users from your very first interaction. Setting up your login with your users' wants in mind is a great way to raise your conversion rate.
+
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

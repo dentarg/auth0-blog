@@ -252,9 +252,9 @@ To learn more about **immutability and mutability**, check out the following res
 
 ## <span id="imperative-declarative"></span>Imperative and Declarative Programming
 
-While some languages were designed to be **imperative** (C, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and <a href="https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx">C#</a>) can support both programming paradigms. 
+While some languages were designed to be **imperative** (C, PHP) or **declarative** (SQL, HTML), JavaScript (and others like [Java](http://openjdk.java.net/projects/lambda/) and <a href="https://msdn.microsoft.com/en-us/library/bb534803(v=vs.110).aspx">C#</a>) can support both programming paradigms.
 
-Most developers familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS. 
+Most developers familiar with even the most basic JavaScript have written imperative code: instructions informing the computer _how_ to achieve a desired result. If you've written a `for` loop, you've written imperative JS.
 
 Declarative code tells the computer _what_ you want to achieve rather than how, and the computer takes care of how to achieve the end result without explicit description from the developer. If you've used `Array.map`, you've written declarative JS.
 
@@ -377,7 +377,7 @@ atLunchToday(); // alerts "Hi!"
 
 ### Higher-order Function Takeaways
 
-The nature of JavaScript functions as first-class objects make them prime for facilitating <a href="#functional-programming" target="_self">functional programming</a>. 
+The nature of JavaScript functions as first-class objects make them prime for facilitating <a href="#functional-programming" target="_self">functional programming</a>.
 
 To learn more about **higher-order functions**, check out the following resources:
 
@@ -397,7 +397,7 @@ Now we've learned about purity, statelessness, immutability, declarative program
 
 **Functional programming** encompasses the above concepts in the following ways:
 
-* Core functionality is implemented using pure functions without side effects. 
+* Core functionality is implemented using pure functions without side effects.
 * Data is immutable.
 * Functional programs are stateless.
 * Imperative container code manages side effects and executes declarative, pure core code.*
@@ -409,7 +409,7 @@ Let's explore an example. Say we have some text copy and we want to get its word
 ```js
 const fpCopy = `Functional programming is powerful and enjoyable to write. It's very cool!`;
 
-// remove punctuation from string 
+// remove punctuation from string
 const stripPunctuation = (str) =>
   str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 
@@ -431,7 +431,7 @@ const getKeywords = (arr) =>
 // process copy to prep the string, create an array, count words, and get keywords
 function processCopy(str, prepFn, arrFn, countFn, kwFn) {
   const copyArray = arrFn(prepFn(str));
-  
+
   console.log(`Word count: ${countFn(copyArray)}`);
   console.log(`Keywords: ${kwFn(copyArray)}`);
 }
@@ -474,14 +474,14 @@ To demonstrate the concept of observables, let's consider a simple example: resi
 ```js
 // create window resize stream
 // throttle resize events
-const resize$ = 
+const resize$ =
   Rx.Observable
     .fromEvent(window, 'resize')
     .throttleTime(350);
 
 // subscribe to the resize$ observable
 // log window width x height
-const subscription = 
+const subscription =
   resize$.subscribe((event) => {
     let t = event.target;
     console.log(`${t.innerWidth}px x ${t.innerHeight}px`);
@@ -560,12 +560,12 @@ We'll use RxJS and create a stream of input events to implement our functionalit
 const confCodeInput = document.getElementById('confirmation-code');
 const attemptedCode = document.getElementById('attempted-code');
 
-const confCodes$ = 
+const confCodes$ =
   Rx.Observable
     .fromEvent(confCodeInput, 'input')
     .map(e => e.target.value)
     .filter(code => code.length === 6);
-    
+
 const subscription = confCodes$.subscribe(
   (value) => attemptedCode.innerText = value,
   (event) => { console.warn(`Error: ${event}`); },
@@ -627,7 +627,7 @@ In fact, let's talk briefly about [Evan Czapliki](http://people.seas.harvard.edu
 
 The traditional definition of FRP can be difficult to grasp, especially for developers who don't have experience with languages like Haskell or Elm. However, the term has come up more frequently in the front-end ecosystem, so let's shed some light on its application in JavaScript.
 
-In order to reconcile what you may have read about FRP in JS, it's important to understand that [Rx*](https://www.sitepoint.com/functional-reactive-programming-rxjs/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _not_ consistent with the two primary fundamentals of Conal Elliot's definition of FRP. [Elliot states that Rx* and Bacon.js are not FRP. Instead, they are "compositional event systems _inspired_ by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525). 
+In order to reconcile what you may have read about FRP in JS, it's important to understand that [Rx*](https://www.sitepoint.com/functional-reactive-programming-rxjs/), [Bacon.js](https://baconjs.github.io/), [Angular](http://blog.angular-university.io/functional-reactive-programming-for-angular-2-developers-rxjs-and-observables/), and others are _not_ consistent with the two primary fundamentals of Conal Elliot's definition of FRP. [Elliot states that Rx* and Bacon.js are not FRP. Instead, they are "compositional event systems _inspired_ by FRP"](https://stackoverflow.com/questions/5875929/specification-for-a-functional-reactive-programming-language#comment36554089_5878525).
 
 Functional reactive programming, _as it relates specifically to JavaScript implementations_, refers to programming in a <a href="#functional-programming" target="_self">functional</a> style while creating and reacting to <a href="#observables" target="_self">streams</a>. This is fairly far from Elliot's original formulation (which [specifically _excludes_ streams as a component](http://conal.net/talks/essence-and-origins-of-frp-lambdajam-2015.pdf)), but is nevertheless inspired by traditional FRP.
 
@@ -638,7 +638,7 @@ Let's take a look at an example to demonstrate the basic principles of _FRP-insp
 ```js
 // create a time observable that adds an item every 1 second
 // map so resulting stream contains event values
-const time$ = 
+const time$ =
   Rx.Observable
     .timer(0, 1000)
     .timeInterval()
@@ -647,7 +647,7 @@ const time$ =
 // create a mouse movement observable
 // throttle to every 350ms
 // map so resulting stream pushes objects with x and y coordinates
-const move$ = 
+const move$ =
   Rx.Observable
     .fromEvent(document, 'mousemove')
     .throttleTime(350)
@@ -655,7 +655,7 @@ const move$ =
 
 // merge time + mouse movement streams
 // complete after 10 seconds
-const source$ = 
+const source$ =
   Rx.Observable
     .merge(time$, move$)
     .takeUntil(Rx.Observable.timer(10000));
@@ -663,10 +663,10 @@ const source$ =
 // subscribe to merged source$ observable
 // if value is a number, createTimeset()
 // if value is a coordinates object, addPoint()
-const subscription = 
+const subscription =
   source$.subscribe(
     // onNext
-    (x) => { 
+    (x) => {
       if (typeof x === 'number') {
         createTimeset(x);
       } else {
@@ -721,7 +721,7 @@ FRP encodes actions that react to events using pure functions that map state fro
 Finally, consider this quote from the [first edition of Eloquent JavaScript](http://eloquentjavascript.net/1st_edition/) (the [second edition is available here](http://eloquentjavascript.net)):
 
 > "Fu-Tzu had written a small program that was full of global state and dubious shortcuts. Reading it, a student asked 'You warned us against these techniques, yet I find them in your program. How can this be?'
-> 
+>
 > Fu-Tzu said 'There is no need to fetch a water hose when the house is not on fire.' {This is not to be read as an encouragement of sloppy programming, but rather as a warning against neurotic adherence to rules of thumb.}"
 >
 > —_Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)_
@@ -742,6 +742,16 @@ To learn more about **functional reactive programming (FRP)**, check out the fol
 * [Rx* is not FRP](https://twitter.com/ReactiveX/status/483625917491970048)
 
 ---
+
+## Aside: JavaScript use at Auth0
+
+At Auth0 we are [heavy users of JavaScript](https://github.com/auth0). From our [Lock library](https://auth0.com/lock) to our backend, JavaScript powers the core of our operations. We find its asynchronous nature and the low entry barrier for new developers essential to our success. We are eager to see where the language is headed and the impact it will have in its ecosystem.
+
+<a href="javascript:signup()">Sign up for a free Auth0 account</a> and take a first-hand look at a production ready ecosystem written in JavaScript. And don't worry, we have [client libraries for all popular frameworks and platforms](https://auth0.com/docs/quickstarts)!
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
+Recently, we have released a product called [Auth0 Extend](https://auth0.com/extend/). This product enable companies to provide to their customers an easy to use extension point that accepts JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
 
 ## Conclusion
 

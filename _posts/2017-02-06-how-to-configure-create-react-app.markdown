@@ -110,7 +110,7 @@ class App extends Component {
   }
 
   render() {
-    
+
     const { employeeID, position } = this.getEnvValues();
 
     return (
@@ -202,11 +202,11 @@ Your app will spin up with the new template like so:
 
 ## Aside: Using create-react-app with Auth0
 
-Authentication is a very key part of various applications. Auth0 helps you to:
+Authentication is a very key part of various applications. Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. We also help you to:
 
 * Add authentication through more traditional username/password databases.
 * Add support for linking different user accounts with the same user.
-* Support for generating signed Json Web Tokens to call your APIs and flow the user identity securely.
+* Support for generating signed JSON Web Tokens to call your APIs and flow the user identity securely.
 * Analytics of how, when and where users are logging in.
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 * Achieve [SSO(Single Sign On)](https://auth0.com/docs/sso) seamlessly.
@@ -219,7 +219,7 @@ create-react-app my-app --scripts-version auth0-react-scripts
 
 Once it is done installing, go ahead and:
 
-* Grab your *Client id* and *Auth0 domain* from the [Auth0 dashboard](https://manage.auth0.com). 
+* Grab your *Client id* and *Auth0 domain* from the [Auth0 dashboard](https://manage.auth0.com).
 * Create a *.env* file in the root of the `my-app` project and add *client id* and *Auth0 domain* values to **REACT_APP_AUTH0_CLIENT_ID** and **REACT_APP_AUTH0_DOMAIN** respectively.
 * Run the app.
 
@@ -234,12 +234,14 @@ _Login Screen_
 _Logged In_
 
 
-Viola! You now have a fresh React app with full authentication powered by Auth0 ready for use. 
+Voilà! You now have a fresh React app with full authentication powered by [Auth0 ready for use](https://auth0.com/).
 
 [Sign up](javascript:signup\(\)) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
 ## Conclusion
 
-Great programmers constantly sharpen their tools daily to increase productivity. *CRA* is a great tool for quickly building React Applications. In addition, having your own customized fork of `react-scripts` helps you and your team easily add all the configurations you need. You'll need to maintain your fork, and [make sure it is synced](https://help.github.com/articles/fork-a-repo/#keep-your-fork-synced) with the upstream to have all updates. [Backstroke](https://github.com/1egoman/backstroke) is a bot that can help you with this. 
+Great programmers constantly sharpen their tools daily to increase productivity. *CRA* is a great tool for quickly building React Applications. In addition, having your own customized fork of `react-scripts` helps you and your team easily add all the configurations you need. You'll need to maintain your fork, and [make sure it is synced](https://help.github.com/articles/fork-a-repo/#keep-your-fork-synced) with the upstream to have all updates. [Backstroke](https://github.com/1egoman/backstroke) is a bot that can help you with this.
 
 Have a very productive time hacking away!

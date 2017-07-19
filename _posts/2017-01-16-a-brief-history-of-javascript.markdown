@@ -47,7 +47,7 @@ At the moment there was a lot of pressure to come up with a working prototype as
 
 > At the moment this was all going on, engineers at Netscape started studying Java in detail. They went so far as starting to develop their own Java Virtual Machine. This VM, however, was quickly shot down on the grounds that it would never achieve perfect bug-for-bug compatibility with Sun's, a sound engineering call at the time.
 
-There was a lot of internal pressure to pick one language as soon as possible. Python, Tcl, Scheme itself were all possible candidates. So Eich had to work fast. He had two advantages over the alternatives: freedom to pick the right set of features, and a direct line to those who made the calls. Unfortunately, he also had a big disadvantage: no time. Lots of important decisions had to be made and very little time was available to make them. JavaScript, a.k.a. Mocha, was born in this context. In a matter of weeks a working prototype was functional, and so it was integrated into Netscape Communicator. 
+There was a lot of internal pressure to pick one language as soon as possible. Python, Tcl, Scheme itself were all possible candidates. So Eich had to work fast. He had two advantages over the alternatives: freedom to pick the right set of features, and a direct line to those who made the calls. Unfortunately, he also had a big disadvantage: no time. Lots of important decisions had to be made and very little time was available to make them. JavaScript, a.k.a. Mocha, was born in this context. In a matter of weeks a working prototype was functional, and so it was integrated into Netscape Communicator.
 
 What was meant to be a Scheme for the browser turned into something very different. The pressure to close the deal with Sun and make Mocha a scripting companion to Java forced Eich's hand. A Java-like syntax was required, and familiar semantics for many common idioms was also adopted. So Mocha was not like Scheme at all. It looked like a dynamic Java, but underneath it was a very different beast: a premature lovechild of Scheme and Self, with Java looks.
 
@@ -70,7 +70,7 @@ Although JavaScript was born in a hurry, several powerful features were part of 
 > Whether any existing language could be used, instead of inventing a new one, was also not something I decided. The diktat from upper engineering management was that the language must “look like Java”. That ruled out Perl, Python, and Tcl, along with Scheme. Later, in 1996, John Ousterhout came by to pitch Tk and lament the missed opportunity for Tcl. I’m not proud, but I’m happy that I chose Scheme-ish first-class functions and Self-ish (albeit singular) prototypes as the main ingredients. The Java influences, especially y2k Date bugs but also the primitive vs. object distinction (e.g., string vs. String), were unfortunate. - **[Brendan Eich's blog: Popularity](https://brendaneich.com/2008/04/popularity/)**
 
 #### Java-like Syntax
-Although keeping the syntax close to Java was not the original idea behind JavaScript, marketing forces changed that. In retrospective, although a different syntax might have been more convenient for certain features, it is undeniable that a familiar syntax has helper JavaScript gain ground easily. 
+Although keeping the syntax close to Java was not the original idea behind JavaScript, marketing forces changed that. In retrospective, although a different syntax might have been more convenient for certain features, it is undeniable that a familiar syntax has helper JavaScript gain ground easily.
 
 Compare this Java example:
 
@@ -190,7 +190,7 @@ Work on the standard for JavaScript was started in November 1996. The identifica
 
 > JavaScript and Java are cornerstone technologies of the Netscape ONE platform for developing Internet and Intranet applications. In the short time since their introduction last year, the new languages have seen rapid developer acceptance with more than 175,000 Java applets and more than 300,000 JavaScript-enabled pages on the Internet today according to www.hotbot.com. - [Netscape Press Release](https://web.archive.org/web/19981203070212/http://cgi.netscape.com/newsref/pr/newsrelease289.html)
 
-Standardization was an important step for such a young language, but a great call nonetheless. It opened up JavaScript to a wider audience, and gave other potential implementors voice in the evolution of the language. It also served the purpose of keeping other implementors in check. Back then, it was feared Microsoft or others would stray too far from the default implementation and cause fragmentation. 
+Standardization was an important step for such a young language, but a great call nonetheless. It opened up JavaScript to a wider audience, and gave other potential implementors voice in the evolution of the language. It also served the purpose of keeping other implementors in check. Back then, it was feared Microsoft or others would stray too far from the default implementation and cause fragmentation.
 
 For trademark reasons, the ECMA committee was not able to use JavaScript as the name. The alternatives were not liked by many either, so after some discussion it was decided that the language described by the standard would be called ECMAScript. Today, JavaScript is just the commercial name for ECMAScript.
 
@@ -209,12 +209,12 @@ The second version of the standard, ECMAScript 2, was released to fix inconsiste
 An interesting quirk of this version of JavaScript is that errors that are not caught at compile time (which are in general left as unspecified) leave to the whim of the interpreter what to do about them. This is because exceptions were not part of the language yet.
 
 ### ECMAScript 3: The First Big Changes
-Work continued past ECMAScript 2 and the first big changes to the language saw the light. This version brought in: 
+Work continued past ECMAScript 2 and the first big changes to the language saw the light. This version brought in:
 
-- Regular expressions 
-- The do-while block 
+- Regular expressions
+- The do-while block
 - Exceptions and the try/catch blocks
-- More built-in functions for strings and arrays 
+- More built-in functions for strings and arrays
 - Formatting for numeric output
 - The `in` and `instanceof` operators
 - Much better error handling
@@ -308,7 +308,7 @@ The end for ECMAScript 4 came in the year 2008, when Eich sent an email with the
 
 The [conclusions](https://mail.mozilla.org/pipermail/es-discuss/2008-August/003400.html) from that meeting were to:
 
-1. Focus work on ES3.1 with full collaboration of all parties, and target two interoperable implementations by early next year. 
+1. Focus work on ES3.1 with full collaboration of all parties, and target two interoperable implementations by early next year.
 2. Collaborate on the next step beyond ES3.1, which will include syntactic extensions but which will be more modest than ES4 in both semantic and syntactic innovation.
 3. Some ES4 proposals have been deemed unsound for the Web, and are off the table for good: packages, namespaces and early binding. This conclusion is key to Harmony.
 4. Other goals and ideas from ES4 are being rephrased to keep consensus in the committee; these include a notion of classes based on existing ES3 concepts combined with proposed ES3.1 extensions.
@@ -340,9 +340,9 @@ package {
         private var _yLocation:int;
         private var _rectangleWidth:int;
         private var _rectangleHeight:int;
-        
-        public function MyRectangle_v3(outlineWeight:Number, color:uint, 
-                                       xLocation:int, yLocation:int, 
+
+        public function MyRectangle_v3(outlineWeight:Number, color:uint,
+                                       xLocation:int, yLocation:int,
                                        rectangleWidth:int, rectangleHeight:int) {            
             _outlineWeight = outlineWeight;
             _color = color;
@@ -351,7 +351,7 @@ package {
             _rectangleWidth = rectangleWidth;
             _rectangleHeight = rectangleHeight;
         }  
-        
+
         public function draw():void{
             graphics.lineStyle(_outlineWeight);
             graphics.beginFill(_color);
@@ -400,12 +400,12 @@ ECMAScript 5 was a rather modest update to ECMAScript 3, it included:
 - Reserved words as property names
 - New `Object` methods (`create`, `defineProperty`, `keys`, `seal`, `freeze`, `getOwnPropertyNames`, etc.)
 - New `Array` methods (`isArray`, `indexOf`, `every`, `some`, `map`, `filter`, `reduce`, etc.)
-- `String.prototype.trim` and property access 
+- `String.prototype.trim` and property access
 - New `Date` methods (`toISOString`, `now`, `toJSON`)
 - Function `bind`
 - JSON
 - Immutable global objects (`undefined`, `NaN`, `Infinity`)
-- Strict mode 
+- Strict mode
 - Other minor changes (`parseInt` ignores leading zeroes, thown functions have proper `this` values, etc.)
 
 None of the changes required syntactic changes. Getters and setters were already unofficially supported by various browsers at the time. The new `Object` methods improve "programming in the large" by giving programmers more tools to ensure certain invariants are enforced (`Object.seal`, `Object.freeze`, `Object.createProperty`). Strict mode also became a strong tool in this area by preventing many common sources for errors. The additional `Array` methods improve certain functional patterns (`map`, `reduce`, `filter`, `every`, `some`). The other big change is JSON: a JavaScript-inspired data format that is now natively supported through `JSON.stringify` and `JSON.parse`. Other changes make small improvements in several areas based on practical experience. All-in-all, ECMAScript 5 was a modest improvement that helped JavaScript become a more usable language, for both small scripts, and bigger projects. Still, there were many good ideas from ECMAScript 4 that got scrapped and would see a return through the ECMAScript Harmony proposal.
@@ -430,7 +430,7 @@ A short summary of the new features follows:
 - Template strings
 - Promises
 - Generators, iterables, iterators and `for..of`
-- Default arguments for functions and the rest operator 
+- Default arguments for functions and the rest operator
 - Spread syntax
 - Destructuring
 - Module syntax
@@ -438,7 +438,7 @@ A short summary of the new features follows:
 - Proxies and Reflection
 - Symbols
 - Typed arrays
-- Support for subclassing built-ins 
+- Support for subclassing built-ins
 - Guaranteed tail-call optimization
 - Simpler Unicode support
 - Binary and octal literals
@@ -493,7 +493,7 @@ async function apiDoSomethingMoreComplex(withThis) {
     const urlA = '...';
     const urlB = '...';
 
-    try { 
+    try {
         let result = await httpLib.request(urlA, withThis);
         const parsed = parseResult(result);
         await database.update(updateStatement, parsed);
@@ -538,9 +538,13 @@ At first sight, this might appear to compromise the growth of JavaScript, but in
 At the moment, development versions of Chrome, Firefox and Microsoft Edge support a draft of the WebAssembly specification and are capable of running [demo apps](http://webassembly.org/demo/).
 
 ## Aside: JavaScript use at Auth0
-At Auth0 we are [heavy users of JavaScript](https://github.com/auth0). From our [Lock library](https://github.com/auth0/lock) to our backend, JavaScript powers the core of our operations. We find its asynchronous nature and the low entry barrier for new developers essential to our success. We are eager to see where the language is headed and the impact it will have in its ecosystem. 
+At Auth0 we are [heavy users of JavaScript](https://github.com/auth0). From our [Lock library](https://auth0.com/lock) to our backend, JavaScript powers the core of our operations. We find its asynchronous nature and the low entry barrier for new developers essential to our success. We are eager to see where the language is headed and the impact it will have in its ecosystem.
 
 <a href="javascript:signup()">Sign up for a free Auth0 account</a> and take a first-hand look at a production ready ecosystem written in JavaScript. And don't worry, we have [client libraries for all popular frameworks and platforms](https://auth0.com/docs/quickstarts)!
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
+Recently, we have released a product called [Auth0 Extend](https://auth0.com/extend/). This product enable companies to provide to their customers an easy to use extension point that accepts JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
 
 ## Conclusion
 The history of JavaScript has been long and full of bumps. It was proposed as a "Scheme for the web". Early on it got Java-like syntax strapped on. Its first prototype was developed in a matter of weeks. It suffered the perils of marketing and got three names in less than two years. It was then standardized and got a name that sounded like a [skin disease](http://www.infoworld.com/article/2653798/application-development/javascript-creator-ponders-past--future.html). After three successful releases, the fourth got caught up in development hell for almost 8 years. Fingers got pointed around. Then, by the sheer success of a single feature (AJAX), the community got its act back together and development was resumed. Version 4 was scrapped and a minor revision, known by everyone as version 3.1, got renamed to version 5. Version 6 spent many years in development (again) but this time the committee succeeded, but nonetheless decided to change the name again, this time to 2015. This revision was big and took a lot of time to get implemented. But finally, new air was breathed into JavaScript. The community is as active as ever. Node.js, V8 and other projects have brought JavaScript to places it was never thought for. Asm.js, WebAssembly are about to take it even further. And the active proposals in different stages are all making JavaScript's future as bright as ever. It's been a long road, full of bumps, and JavaScript is still one of the most successful languages ever. That's a testament in itself. Always bet on JavaScript.

@@ -75,7 +75,9 @@ The last command is responsible for packaging our application with the developme
 
 The first thing that we are going to take care of in our application is security. Security must be a first priority in any application that handles sensitive, third party data like the task list that we are about to develop.
 
-To start, <a href="javascript:signup()">sign up for a free Auth0 account</a> and take note of `Client ID` and `Domain`. Both values are going to be used to configure [Lock](https://auth0.com/docs/libraries/lock): an embeddable login system.
+To start, <a href="javascript:signup()">sign up for a free Auth0 account</a> and take note of `Client ID` and `Domain`. Both values are going to be used to configure [Lock](https://auth0.com/lock): an embeddable login system.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 **Important**: Auth0 requires a list of *Allowed Callback URLs*. This list contains all the URLs to which Auth0 can redirect a user to after issuing a JWT. Therefore we must configure at least two URLs: `http://localhost:4200/` and the URL where our app will be exposed, something like: `https://brunokrebs.github.io/task-list/`. This URL will be defined when we release to GitHub Pages.
 
@@ -375,6 +377,8 @@ wt init me@somewhere.com
 ```
 
 You will be asked to enter the verification code that was sent to your email address. This is the final step in the Webtask account configuration.
+
+> Recently, we have released a product called [Auth0 Extend](https://auth0.com/extend/) (which is backed by the Webtask engine). This product enables companies to provide an easy extension point where customers can run arbitrary JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
 
 ### Deploying Our Serverless REST API
 
@@ -801,3 +805,5 @@ As we could see, when we choose the right tools, it gets easy to achieve great a
 We didn't even have to worry about building, supporting and securing servers to host our web application or our database. If we had to manage these tasks by ourselves, we would take much more time and wouldn't be as confident about our app's security, fault tolerance and scalability.
 
 And this is just the beginning. Freeing ourselves from all these issues enables us to focus 100% on our ideas and on what makes our applications unique.
+
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

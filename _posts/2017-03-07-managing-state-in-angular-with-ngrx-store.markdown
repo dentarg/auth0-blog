@@ -34,6 +34,8 @@ related:
 
 **TL;DR:** In this article, we'll explore managing state with an immutable data store in an [Angular](http://angular.io) application using [ngrx/store](https://github.com/ngrx/store): reactive Redux for Angular. We'll also authenticate our app with [Auth0](https://auth0.com) and implement route authorization with route guards. The final code can be cloned from [this GitHub repository](https://github.com/auth0-blog/pet-tags-ngrx).
 
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 ---
 
 ## Managing State in Angular Apps
@@ -254,7 +256,7 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  
+
 }
 ```
 
@@ -274,7 +276,7 @@ Now let's add some HTML to the `app.component.html` template. Replace the curren
 </div>
 {% endhighlight %}
 
-We'll use Bootstrap styles to add a grid and a heading. Then we'll add the [`<router-outlet>`](https://angular.io/docs/ts/latest/api/router/index/RouterOutlet-directive.html) directive. This is where our views will render when we change routes in our single page app. At this point, the app will throw an error until we establish routing and page components. Let's do that next. 
+We'll use Bootstrap styles to add a grid and a heading. Then we'll add the [`<router-outlet>`](https://angular.io/docs/ts/latest/api/router/index/RouterOutlet-directive.html) directive. This is where our views will render when we change routes in our single page app. At this point, the app will throw an error until we establish routing and page components. Let's do that next.
 
 ## Create Page Components
 
@@ -1052,7 +1054,7 @@ Like the tag text component, we'll only display the extras if the user has alrea
 toggleClipHandler() {
   this.store.dispatch({
     type: TOGGLE_CLIP
-  }); 
+  });
 }
 
 toggleGemsHandler() {
@@ -1367,14 +1369,20 @@ We'll now protect our application so that only authenticated users can access it
 The first thing we'll need is an Auth0 account. Follow these simple steps to get started:
 
 1. Sign up for a [free Auth0 account](javascript:signup\(\)).
-2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
-3. Name your new app and select "Single Page Web Applications". 
+2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create).
+3. Name your new app and select "Single Page Web Applications".
 4. In the **Settings** for your newly created app, add `http://localhost:4200` to the Allowed Callback URLs and Allowed Origins (CORS).
 5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
 ### Set Up Dependencies
 
-We need the [Auth0 Lock](https://auth0.com/docs/libraries/lock) library. This provides the login widget and methods. We'll include the CDN-provided script for Lock in the `<head>` of our `index.html` file, like so:
+We need the [Auth0 Lock](https://auth0.com/lock) library. This provides the login widget and methods.
+
+> [Lock is an embeddable login form for desktop, tablet and mobile devices.](https://auth0.com/lock) It provides the easiest way for securing your website and mobile apps.
+
+We'll include the CDN-provided script for Lock in the `<head>` of our `index.html` file, like so:
 
 {% highlight html %}
 <!-- src/app/index.html -->
@@ -1518,7 +1526,7 @@ import { AuthService } from './../../core/auth.service';
       this.router.navigate(['/create']);
     }
   }
-  
+
 }
 ```
 
@@ -1594,7 +1602,7 @@ import { AuthService } from './../../core/auth.service';
 ...
 ```
 
-Import the `AuthService` and make it publicly available in the constructor. 
+Import the `AuthService` and make it publicly available in the constructor.
 
 Next open the `create.component.html` template and add a personalized greeting after `Hello`:
 
@@ -1644,7 +1652,7 @@ We need to inject the route guard in our routing module, so we need to import `I
 
 The `AuthGuard` class implements [`CanActivate`](https://angular.io/docs/ts/latest/api/router/index/CanActivate-interface.html), a guard which determines if a route can be activated or not. We'll make `AuthService` and `Router` available privately to the constructor.
 
-Our `canActivate()` method checks if the user is authenticated. If they are, the route can be activated so we'll `return true`. Otherwise, we'll redirect to the Home page so the user can log in and `return false`: the route cannot be activated. 
+Our `canActivate()` method checks if the user is authenticated. If they are, the route can be activated so we'll `return true`. Otherwise, we'll redirect to the Home page so the user can log in and `return false`: the route cannot be activated.
 
 ### App Routing Module with Route Guard
 
@@ -1712,6 +1720,3 @@ Here are some additional resources for learning how to manage state with stores:
 * [Getting Started with Redux - Dan Abramov on Egghead.io](https://egghead.io/courses/getting-started-with-redux)
 
 While Angular makes it reasonably straightforward to share and pass data in smaller apps with services and component communication, managing global application state can rapidly become a mess and a headache in complex apps. Global stores like ngrx/store greatly aid in organizing and compartmentalizing state management. Hopefully you're now prepared to tackle building your own Angular apps with ngrx/store!
-
-
-

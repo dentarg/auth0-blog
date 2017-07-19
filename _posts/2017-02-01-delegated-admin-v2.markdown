@@ -29,6 +29,8 @@ related:
 
 **TL;DR** The Delegated Administration Dashboard extension exposes the [Users](https://manage.auth0.com/#/users) tab of the Auth0 [dashboard](https://manage.auth0.com) allowing you to easily and securely grant limited access for privileged user accounts. The extension exposes a number of hooks allowing you to provide a customized and fine-grained experience. Today, we will look at how the Delegated Admin extension can help a growing organization simplify their user management workflow by giving subordinate accounts access to create, edit, and further manage various user accounts throughout the organization.
 
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 ---
 
 Building modern applications is only half the battle. As your app grows, the need for excellent management and maintenance tools becomes key. User management is one area where you don't want to get this wrong. If you are using [Auth0](https://auth0.com) for managing modern identity in your applications and are at a point where you need more control over user management, then I would like to introduce you to our **[Delegated Administration Dashboard](https://auth0.com/docs/extensions/delegated-admin)** extension.
@@ -49,6 +51,8 @@ The Delegated Administration extension will allow CloudCakes to better delegate 
 
 To use the Delegated Administration Dashboard you will need to have an active Auth0 account. If you don't already have one, you can <a href="javascript:signup()">sign up for free</a>.
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
 ### Create a New Client
 
 The first thing we are going to do is create a new Auth0 client to house the user accounts that will have access to the users dashboard. This client will essentially act as the command center for the users dashboard.
@@ -59,7 +63,7 @@ To create the client, navigate to the Auth0 dashboard and click on the **New Cli
 
 With the new client created, go ahead and copy its **Client ID**. Navigate to the bottom of the **Settings** tab in this newly created client and click on the **Show Advanced Settings** link. From here, navigate to the **OAuth** tab and in the **Allowed APPs/APIs** section paste in the **Client ID**. Additionally in this section, change the **JsonWebToken Signature Algorithm** to **RS256**.
 
-![Auth0 Advanced Client Settings](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/advanced-client-settings.png) 
+![Auth0 Advanced Client Settings](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/advanced-client-settings.png)
 
 Finally, scroll up to the **Allowed Callback URLs** section and here we will add the url that will be used to access the Users Dashboard. The url will follow this structure `https://YOUR-AUTH0-USERNAME.LOCALE.webtask.io/auth0-delegated-admin/login`, so since I am in the US and my username is `adobot` the URL I will add is `https://adobot.us.webtask.io/auth0-delegated-admin/login`. Save your changes and navigate to the [Extensions](https://manage.auth0.com/#/extensions) tab in the main menu.
 
@@ -71,13 +75,13 @@ To create the database connection, head over to the [Database Connections](https
 
 ![Auth0 Create DB Connection](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/create-db-connection.png)
 
-Once the connection is created go back to the client you are going to use for the Users Dashboard and enable just this newly created connection for it. This will ensure that only users that are stored in this database can login and access the Users Dashboard. 
+Once the connection is created go back to the client you are going to use for the Users Dashboard and enable just this newly created connection for it. This will ensure that only users that are stored in this database can login and access the Users Dashboard.
 
 ### Enabling the Delegated Admin Extension
 
 To enable the Delegation Admin Dashboard extension, you will just need the Client ID you copied earlier. From the Extensions section, navigate to the very bottom where you will find the the Delegation Admin Dashboard extension, click on it, and a modal dialog will pop up asking you to input some data before enabling the extension.
 
-![Enabling Delegated Administration Dashboard Extension](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/enable-delegated-admin-extension.png) 
+![Enabling Delegated Administration Dashboard Extension](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/enable-delegated-admin-extension.png)
 
 The two fields you will need to provide data for are the **EXTENSION_CLIENT_ID** and **Title**. Extension Client ID will be the Client ID you copied earlier and the title can be anything. You can also optionally add a link to a CSS file to customize the look and feel of the Users Dashboard, but we'll omit that here. Click **Install** to enable the extension.
 
@@ -97,7 +101,7 @@ The Delegation Administration Dashboard supports two unique user roles: **Admini
 
 To grant one of these roles to our user, we'll need to edit the `app_metadata` for the user and add a `role` attribute. Let's give our newly created user the **Administrator** role. Go to their account in the Auth0 dashboard, click **Edit** in the Metadata section, and for **App Metadata** add the following code:
 
-```js 
+```js
 {
   "roles": "Delegated Admin - Administrator"
 }
@@ -124,7 +128,7 @@ The user roles in the previous section give us some control, but in many instanc
 
 The department field can be set to any string value and you can have as many departments as you see fit. Hooks will give us additional functionality and combined with our metadata will allow us to grant fine-grained control over each user account. If you are familiar with how [Rules](https://auth0.com/docs/rules) work with the Auth0 platform, you'll feel right at home. Essentially, hooks, like rules, run whenever an action triggers them such as creating a new user account or viewing a page. Hooks are written in the pattern of:
 
-```js 
+```js
 function(ctx, callback) {
   /*
     Perform any type of logic
@@ -140,11 +144,11 @@ Let's see how we can extend the capabilities of the Users Dashboard with Hooks. 
 
 #### Filter Hooks
 
-Filter Hooks allow us to control the list of users that can be accessed by the logged in account. This hook is called whenever the user lands on the Users Dashboard. For our CloudCakes example, let's assume that a manager of each CloudCakes franchise can only see the users that have done business with their specific franchise. 
+Filter Hooks allow us to control the list of users that can be accessed by the logged in account. This hook is called whenever the user lands on the Users Dashboard. For our CloudCakes example, let's assume that a manager of each CloudCakes franchise can only see the users that have done business with their specific franchise.
 
 In the Auth0 dashboard, each franchise has it's own custom database connection. For example, `CloudCakes-Franchise-2479` is a database connection containing the users that signed up with CloudCakes Store 2479. We'll also assume that the `department` of each manager is `Franchise Owner`. Finally, we'll assume that each franchise owner has an additional `app_metadata` value for the franchise that they own, let's say `franchise_owned` is the field. A sample `app_metadata` therefore may be:
 
-```js 
+```js
 {
   "roles": "Delegated Admin - User",
   "department": "Franchise Owner",
@@ -154,7 +158,7 @@ In the Auth0 dashboard, each franchise has it's own custom database connection. 
 
 What we want to do is only display users that belong to CloudCakes Store 2479. Let's see how we can accomplish this with a Filter Hook.
 
-```js 
+```js
 function(ctx, callback) {
   // Get the department from the current user's metadata.
   var department = ctx.request.user.app_metadata && ctx.request.user.app_metadata.department;
@@ -191,7 +195,7 @@ will return the list of users belonging to a franchise but also all of the other
 
 Access hooks determine what actions a logged in account is allowed to do with the user accounts they can view. For example, certain accounts may only be able to read data, while others may be able to edit or delete user accounts. In the CloudCakes example, we'd want the logged in user to be able to only read the data of other franchise owners, but they should be allowed to do everything with users belonging to their connection. Let's see how we would implement this functionality.
 
-```js 
+```js
 function(ctx, callback) {
 
   // Get the department from the current user's metadata.
@@ -274,7 +278,7 @@ You may be asking yourself how do you assign membership roles. If you are planni
 
 The Membership Hook will allow you to add a field in the Create User UI that will allow an account to assign a membership to the account being created. In CloudCakes case we will assign the membership to the `department` in our `app_metadata`. The simplest way to do this is as follows:
 
-```js 
+```js
 function(ctx, callback) {
   return callback(null, {
     memberships: [ "Executive", "IT", "Franchise Owner" ]
@@ -286,11 +290,11 @@ Now when the logged in account goes to create a new user from the Users Dashboar
 
 ![Create User with Membership](https://cdn.auth0.com/blog/delegated-admin-cloud-cakes/create-with-membership.png)
 
-### Settings Query 
+### Settings Query
 
 There is one final hook that we can implement in the Users Dashboard, the settings query. This will allow us to customize the look and feel of Users Dashboard experience. We can edit such settings as which connections to display when creating a new user, which CSS stylesheet to load, or even change the wording of the different sections. For CloudCakes, we want to make sure that when a franchise owner goes to create a new user, the user is automatically created in their database connection. We won't even give them the option of seeing all the other connections. Let's see how we would implement this.
 
-```js 
+```js
 function(ctx, callback) {
   var department = ctx.request.user.app_metadata && ctx.request.user.app_metadata.department;
 

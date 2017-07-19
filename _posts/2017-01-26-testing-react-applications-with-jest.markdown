@@ -14,7 +14,7 @@ author:
 design:
   bg_color: "#4a4a4a"
   image: https://cdn.auth0.com/blog/testing-react-with-jest/logo.png
-tags: 
+tags:
 - react
 - jest
 - testing
@@ -36,7 +36,7 @@ The following are some of the features that Jest offers.
  - **Performance** - Jest run tests in parallel processes thus minimizing test runtime.
  - **Mocking** - Jest allows you to [mock](http://stackoverflow.com/a/2666006/1380071) objects in your test files. It supports [function mocking](https://facebook.github.io/jest/docs/mock-functions.html#content), [manual mocking](https://facebook.github.io/jest/docs/manual-mocks.html#content) and [timer mocking](https://facebook.github.io/jest/docs/timer-mocks.html#content). You can mock specific objects or turn on automatic mocking with [automock](https://facebook.github.io/jest/docs/configuration.html#automock-boolean) which will mock every component/object that the component/object test depends on.
  - **Snapshot testing** - When using Jest to test a [React](https://facebook.github.io/react/) or [React Native](https://facebook.github.io/react-native/) application, you can write a snapshot test that will save the output of a rendered component to file and compare the component's output to the snapshot on subsequent runs. This is useful in knowing when your component changes its behaviour.
- - **Code coverage support** - This is provided with Jest with no additional packages or configuration. 
+ - **Code coverage support** - This is provided with Jest with no additional packages or configuration.
  - **Test isolation and sandboxing** - With Jest, no two tests will ever conflict with each other, nor will there ever be a global or module local state that is going to cause trouble. Sandboxed test files and automatic global state resets for every test.
  - **Integrates with other testing libraries** - Jest works well with other testing libraries (e.g. [Enzyme](https://github.com/airbnb/enzyme), [Chai](http://chaijs.com/)).
 
@@ -111,9 +111,9 @@ Jest looks for tests to run using the following conventions:
  - Files with .test.js suffix.
  - Files with .spec.js suffix.
  - Files with .js suffix inside a folder named __tests__.
- 
+
 Other than `.js` files, it also automatically considers files and tests with the `jsx` extension.
- 
+
 For our project, we'll store the test files inside a __tests__ folder. In the `app` folder, create a folder named `__tests__`.
 
 For the first test, we'll write a simple test that ensures that Jest was set up correctly and that it can run a test successfully.
@@ -477,6 +477,8 @@ Before concluding the article, let's take a look at how you can add authenticati
 
 To get started, first <a href="javascript:signup()">sign up</a> for an Auth0 account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Single Page Web Applications** from the Client type list. On the next page, select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Set the **Allowed Callback URLs** and **Allowed Origins (CORS)** to `http://localhost:3000/` and save the changes with the button at the bottom of the page.
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
 We'll add the Auth0 [Lock widget](https://auth0.com/lock) to our app, which provides an interface for the user to login and/or signup.
 
 Create a folder named `utils` in the `app` folder and add a `AuthService.js` file to it. Add the following to the file.
@@ -709,6 +711,8 @@ beforeAll(() => {
 ```
 
 Run the tests with `npm test` and they should all pass.
+
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 

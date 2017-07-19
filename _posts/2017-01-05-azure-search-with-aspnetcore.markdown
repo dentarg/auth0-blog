@@ -60,7 +60,7 @@ A simple and visual representation of these Types and Attributes are visible dur
 
 ![Index fields and attributes](https://cdn.auth0.com/blog/azure-search/searchatts.png)
 
-Alternatively, you can use the [REST API](https://docs.microsoft.com/rest/api/searchservice/Create-Index) to achieve the same result. 
+Alternatively, you can use the [REST API](https://docs.microsoft.com/rest/api/searchservice/Create-Index) to achieve the same result.
 
 Now that our index is ready, we need to load in data; we have several options:
 
@@ -91,7 +91,7 @@ Fortunately, we can do this with [Custom Scoring Profiles](https://docs.microsof
 
 - A name (following [Naming Rules](https://docs.microsoft.com/en-us/rest/api/searchservice/Naming-rules)).
 - A group of one or more **searchable fields** and a **weight** for each of them. The weight is just a relative value of relevance among the selected fields. For example, in a document that represents a news article with a title, summary, and body, I could assign a weight of 1 to the body, a weight of 2 to the summary (because it's twice as important), and a weight of 3.5 to the title (weights can have decimals).
-- Optionally, **scoring functions** will alter the result of the document score for certain scenarios. Available scoring functions are: 
+- Optionally, **scoring functions** will alter the result of the document score for certain scenarios. Available scoring functions are:
     - "freshness": For boosting documents that are older or newer (on an Edm.DataTimeOffset field). For example, raising the score of the current month's news above the rest.
     - "magnitude": For boosting documents based on numeric field (Edm.Int32, Edm.Int64, and Edm.Double) values. Mostly used to boost items given their price (cheaper items are ranked higher) or number of downloads, but can be applied to any custom logic you can think of.
     - "distance": For boosting documents based on their location (Edm.GeographyPoint fields). The most common scenario is the "Show the results closer to me" feature on search apps.
@@ -141,6 +141,8 @@ You will initially need your Auth0 ClientId, Secret, and Domain, which you can o
 
 ![Auth0 ClientId and Secret](https://cdn.auth0.com/blog/azure-search/auth0creds.png)
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) so we can get started with modern authentication.
+
 Authentication will be handled by [OpenID Connect](https://auth0.com/docs/protocols/oidc), so we will need to configure it first. We need [ASP.NET Core’s OpenID Connect package](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.OpenIdConnect/), so we’ll add that to our dependencies:
 
 ```javascript
@@ -159,7 +161,7 @@ public void ConfigureServices(IServiceCollection services)
     services.AddAuthentication(
         options => options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
     services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));
-    
+
     // Configure OIDC
     services.Configure<OpenIdConnectOptions>(options =>
     {
@@ -180,8 +182,8 @@ public void ConfigureServices(IServiceCollection services)
         // Set response type to code
         options.ResponseType = "code";
 
-        // Set the callback path, so Auth0 will call back to http://localhost:5000/signin-auth0 
-        // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard 
+        // Set the callback path, so Auth0 will call back to http://localhost:5000/signin-auth0
+        // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard
         options.CallbackPath = new PathString("/signin-auth0");
 
         // Configure the Claims Issuer to be Auth0
@@ -196,7 +198,7 @@ public void ConfigureServices(IServiceCollection services)
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<OpenIdConnectOptions> oidcOptions)
 {
 
-    
+
     app.UseCookieAuthentication(new CookieAuthenticationOptions
     {
         AutomaticAuthenticate = true,
@@ -212,13 +214,13 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions
 
 Let’s start customizing our users’ profiles by creating a custom sign-up experience using [Auth0’s Lock](https://auth0.com/docs/libraries/lock/v10/custom-signup). We can achieve this by creating an MVC [AccountController](https://github.com/ealsur/auth0search/blob/master/Controllers/AccountController.cs) and a [Login view](https://github.com/ealsur/auth0search/blob/master/Views/Account/Login.cshtml), which will hold the Lock’s code, and use an [extension](https://github.com/ealsur/auth0search/blob/master/Extensions/Auth0Extensions.cs#L54) to create the OpenID Connect context information.
 
-The syntax is pretty clear; once we add the Lock javascript library we can proceed to initialize it using the `additionalSignUpFields` attribute, which is an [Array of objects](https://auth0.com/docs/libraries/lock/v10/customization#additionalsignupfields-array-) that describe new data fields for our users to fill during sign-up:
+The syntax is pretty clear; once we add the [Lock](https://auth0.com/lock) javascript library we can proceed to initialize it using the `additionalSignUpFields` attribute, which is an [Array of objects](https://auth0.com/docs/libraries/lock/v10/customization#additionalsignupfields-array-) that describe new data fields for our users to fill during sign-up:
 
 ```javascript
 additionalSignUpFields: [{
       name: "address",                              
       placeholder: "enter your address",            
-      icon: "/images/location.png", 
+      icon: "/images/location.png",
       prefill: "street 123",                        
       validator: function(value) {                  
         // only accept addresses with more than 10 chars
@@ -235,11 +237,11 @@ additionalSignUpFields: [{
         {value: "ar", label: "Argentina"}
       ],
       prefill: "us",  
-      icon: "/images/country.png" 
+      icon: "/images/country.png"
 }]
 ```
 
-This example will prompt for two extra fields: one a text value, the other a restricted option on a selector. 
+This example will prompt for two extra fields: one a text value, the other a restricted option on a selector.
 
 Our Lock (with some other extra fields) will end up looking like this:
 
@@ -252,7 +254,7 @@ All these extra fields get stored on our Azure DocumentDB database inside the **
 ### Indexing users
 If you recall one of the features we mentioned earlier, Azure Search is capable of pulling data with **indexers** from Azure DocumentDB databases automatically.
 
-We can start by creating an Azure Search account. The service includes a **free tier** that has all the features of the paid ones with some capacity restrictions (10,000 documents), which are enough for tests and proofs of concept. 
+We can start by creating an Azure Search account. The service includes a **free tier** that has all the features of the paid ones with some capacity restrictions (10,000 documents), which are enough for tests and proofs of concept.
 
 Once our account is created, we will need to set up the import pipeline by selecting **Import data**:
 
@@ -272,7 +274,7 @@ Once the source is set, Azure Search probes the database for one document and pr
 
 ![Index structure](https://cdn.auth0.com/blog/azure-search/searchimport_index.png)
 
-We will mark each field’s attributes depending on the search experience we want to provide. Data that comes from closed value lists are good Filterable/Facetable candidates while open text data is probably best suited for Searchable. 
+We will mark each field’s attributes depending on the search experience we want to provide. Data that comes from closed value lists are good Filterable/Facetable candidates while open text data is probably best suited for Searchable.
 
 Additionally, we will create a **Suggester** that will use our users’ email to provide an auto-complete experience later on:
 
@@ -336,7 +338,7 @@ public void ConfigureServices(IServiceCollection services)
 
     //Injecting Azure Search service
     services.AddSingleton<ISearchService>(new SearchService(Configuration["search:accountName"],Configuration["search:queryKey"] ));
-    
+
     //Other things like Mvc
 }
 ```
@@ -380,5 +382,5 @@ And even an auto-complete [experience](https://github.com/ealsur/auth0search/blo
 Code samples for each experience are available at the repository.
 
 ## Conclusion
-Azure Search is a scalable and powerful search engine that takes the infrastructure problem out of our hands and provides us with an easy-to-use API and visual tooling in the Azure Portal. 
+Azure Search is a scalable and powerful search engine that takes the infrastructure problem out of our hands and provides us with an easy-to-use API and visual tooling in the Azure Portal.
 Once again, we can see how great services and technologies can be integrated to achieve a better user experience. Azure Search adds an almost-limitless search feature on top of Auth0 and Azure DocumentDB that, paired with ASP.NET Core, yields a cross-platform and efficient solution.

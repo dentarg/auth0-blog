@@ -4,15 +4,15 @@ title: "Create a Docker dashboard with TypeScript, React and Socket.io"
 description: Let's create a functioning web-based dashboard for Docker!
 date: 2017-03-02 08:45
 category: Technical Guide, Frontend, React
-author: 
+author:
   name: Steve Hobbs
   url: http://twitter.com/elkdanger
   mail: elkdanger@gmail.com
   avatar: https://en.gravatar.com/userimage/3841188/bc8fc1f1ebb326d59bab456cac894bdf.jpeg
-design: 
+design:
   bg_color: "#394D54"
   image: https://cdn.auth0.com/blog/docker/logo.png
-tags: 
+tags:
 - reactjs
 - typescript
 - docker
@@ -90,7 +90,7 @@ It should ideally be version 3 or greater.
 
 ### TypeScript
 
-We will need to install the [TypeScript](https://www.npmjs.com/package/typescript) compiler for our application to work; luckily we can do this through NPM. 
+We will need to install the [TypeScript](https://www.npmjs.com/package/typescript) compiler for our application to work; luckily we can do this through NPM.
 
 Now that we have NPM installed from the previous step, we can install TypeScript using the following command:
 
@@ -172,7 +172,7 @@ Next, create an `index.html` file in the root of the project with the following 
     <div id="app">
         Docker Dashboard!
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
@@ -465,7 +465,7 @@ Here we have defined a component that can render a single container. We also dec
 
 The goal of this component is to not only display the current status of the component, but also to handle the start/stop button - this is something we'll flesh out later once we get into the socket.io goodness.
 
-The other interesting this component can do, is slightly alter its appearance depending on whether the container is running or not. It has a green header when it's running, and a grey header when it's not. It does this by simply switching the Css class depending on the status. 
+The other interesting this component can do, is slightly alter its appearance depending on whether the container is running or not. It has a green header when it's running, and a grey header when it's not. It does this by simply switching the Css class depending on the status.
 
 We'll need to install the `classnames` package for this to work, along with its TypeScript reference typings. To do that, drop into the command line once more:
 
@@ -593,7 +593,7 @@ render() {
     return (
         <div className="container">
             <h1 className="page-header">Docker Dashboard</h1>
-            
+
             <ContainerList title="Running" containers={this.state.containers} />
             <ContainerList title="Stopped containers" containers={this.state.stoppedContainers} />
         </div>
@@ -755,7 +755,7 @@ The workflow we're going to implement looks like this:
 Let's start with the button. Alter the button inside your `ContainerListItem` component so that it handles the click event using a method called `onActionButtonClick`:
 
 ```javascript
-<button onClick={this.onActionButtonClick.bind(this)} 
+<button onClick={this.onActionButtonClick.bind(this)}
     className="btn btn-default">{buttonText}</button>
 ```
 
@@ -830,7 +830,7 @@ setInterval(refreshContainers, 2000)
 
 Now, once your app is running, dive into the command line and stop one of your containers using `docker stop <container id or name>`, and you should see the container stop inside your dashboard too!
 
-Furthermore, thanks to the power of socket.io, you should be able to open your dashboard in multiple browsers and _see them all update at the same time_. Go ahead and try browsing your dashboard on your mobile device too! 
+Furthermore, thanks to the power of socket.io, you should be able to open your dashboard in multiple browsers and _see them all update at the same time_. Go ahead and try browsing your dashboard on your mobile device too!
 
 ## Starting brand new containers
 
@@ -996,10 +996,10 @@ export class NewContainerDialog extends React.Component<ModalProperties, ModalSt
                     <div className={inputClass}>
                         <label htmlFor="imageName" className="col-sm-3 control-label">Image name</label>
                         <div className="col-sm-9">
-                            <input type="text" 
-                                className="form-control" 
+                            <input type="text"
+                                className="form-control"
                                 onChange={this.onImageNameChange.bind(this)}
-                                id="imageName" 
+                                id="imageName"
                                 placeholder="e.g mongodb:latest"/>
                         </div>
                     </div>
@@ -1039,7 +1039,7 @@ Next, we need to define what happens when the user clicks the button on the moda
 runImage() {
     if (this.state.isValid && this.props.onRunImage)
         this.props.onRunImage(this.state.imageName)
-        
+
     return this.state.isValid
 }
 ```
@@ -1141,6 +1141,12 @@ socket.on('image.error', (args: any) => {
 
 Here we simply throw an alert if Docker encounters an error running the image. Armed with your new-found React knowledge, I'm sure you can now come up with some fancy UI to make this a lot prettier!
 
+## Aside: Securing React Applications with Auth0
+
+Are you building a product with React? We at Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) and the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) so you can get started with modern authentication in no time.
+
 ## Wrapping up
 
 By now you should have a useful but somewhat basic Docker dashboard, and hopefully the journey has been worth it! With all the socket.io goodness, be sure to play around with loading your app from multiple sources, like your desktop browser and mobile phone, and watch them all keep in sync!
@@ -1150,4 +1156,3 @@ Some things you could continue on with to make it a lot more useful, include:
 * Using the Docker API to pull images instead of simply running them.
 * Using the Docker API to stream the container logs to the client through Socket.io.
 * Extending the container dialog form to include options for port mapping, volumes, container name and more!.
-
