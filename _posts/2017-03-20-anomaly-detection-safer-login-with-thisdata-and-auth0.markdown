@@ -55,6 +55,8 @@ In the [Auth0 Dashboard](https://manage.auth0.com/), create a new client and cho
 
 ![Set up an Auth0 app client](https://cdn.auth0.com/blog/thisdata/3-1-set-up-auth0-app.png)
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 Once you’ve created a client, head over to the **Settings** section of the dashboard and take note of your **Domain**, **Client ID**, and **Client Secret** as shown below.
 
 ![Set up an Auth0 app and grab client information](https://cdn.auth0.com/blog/thisdata/3-2-auth0-secrets.png)
@@ -84,7 +86,7 @@ This rule is designed to detect phished or compromised user accounts. Even if th
 * Tor usage
 * Location & Velocity
 * Risky IP addresses
-* Machine Learning 
+* Machine Learning
 * ...and much more.
 
 ThisData has a risk score that is attached to every login event. A higher risk score indicates a more significant anomaly was  detected. If the risk is high, the user can still log in, but we can also send a notification to their email address to verify it was really them.
@@ -141,3 +143,4 @@ It is super simple to integrate ThisData into your authentication process when b
 
 Cyber-attacks are on the rise, so taking these simple security precautions helps ensure that your users and apps are safe. Make your applications more secure today with ThisData and Auth0!
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

@@ -111,7 +111,7 @@ This is an example showcasing a HMAC-based signing algorithm:
 
 const encodedHeader = base64(utf8(JSON.stringify(header)));
 const encodedPayload = base64(utf8(JSON.stringify(payload)));
-const signature = base64(hmac(`${encodedHeader}.${encodedPayload}`, 
+const signature = base64(hmac(`${encodedHeader}.${encodedPayload}`,
                               secret, sha256));
 const jwt = `${encodedHeader}.${encodedPayload}.${signature}`;
 
@@ -131,7 +131,7 @@ const payload = {
 
 const secretKey = 'secret';
 
-const token = jwt.sign(payload, secretKey, { 
+const token = jwt.sign(payload, secretKey, {
     algorithm: 'HS256',
     expiresIn: '10m' // if ommited, the token will not expire
 });
@@ -140,7 +140,7 @@ const token = jwt.sign(payload, secretKey, {
 
 ### RS256
 
-RSA is a public-key algorithm. Public-key algorithms generate split keys: one public key and one private key. 
+RSA is a public-key algorithm. Public-key algorithms generate split keys: one public key and one private key.
 
 For public-key signing algorithms:
 
@@ -148,7 +148,7 @@ For public-key signing algorithms:
 
 const encodedHeader = base64(utf8(JSON.stringify(header)));
 const encodedPayload = base64(utf8(JSON.stringify(payload)));
-const signature = base64(rsassa(`${encodedHeader}.${encodedPayload}`, 
+const signature = base64(rsassa(`${encodedHeader}.${encodedPayload}`,
                                 privateKey, sha256));
 const jwt = `${encodedHeader}.${encodedPayload}.${signature}`;
 
@@ -171,7 +171,7 @@ Both `PEM` files are simple text files. Their contents can be copied and pasted 
 ```js
 
 // You can get this from private_key.pem above.
-const privateRsaKey = `<YOUR-PRIVATE-RSA-KEY>`; 
+const privateRsaKey = `<YOUR-PRIVATE-RSA-KEY>`;
 
 const signed = jwt.sign(payload, privateRsaKey, {
     algorithm: 'RS256',
@@ -188,7 +188,7 @@ const publicRsaKey = `<YOUR-PUBLIC-RSA-KEY>`;
 const decoded = jwt.verify(signed, publicRsaKey, {
     // Never forget to make this explicit to prevent
     // signature stripping attacks.
-    algorithms: ['RS256'], 
+    algorithms: ['RS256'],
 });
 
 ```
@@ -200,7 +200,7 @@ ECDSA algorithms also make use of public keys. We can use OpenSSL to generate th
 ```bash
 
 # Generate a private key (prime256v1 is the name of the parameters used
-# to generate the key, this is the same as P-256 in the JWA spec). 
+# to generate the key, this is the same as P-256 in the JWA spec).
 openssl ecparam -name prime256v1 -genkey -noout -out ecdsa_private_key.pem
 
 # Derive the public key from the private key
@@ -213,7 +213,7 @@ If you open these files you will note that there is much less data in them. This
 ```js
 
 // You can get this from private_key.pem above.
-const privateEcdsaKey = `<YOUR-PRIVATE-ECDSA-KEY>`; 
+const privateEcdsaKey = `<YOUR-PRIVATE-ECDSA-KEY>`;
 
 const signed = jwt.sign(payload, privateEcdsaKey, {
     algorithm: 'ES256',
@@ -230,7 +230,7 @@ const publicEcdsaKey = `<YOUR-PUBLIC-ECDSA-KEY>`;
 const decoded = jwt.verify(signed, publicEcdsaKey, {
     // Never forget to make this explicit to prevent
     // signature stripping attacks.
-    algorithms: ['ES256'], 
+    algorithms: ['ES256'],
 });
 
 ```
@@ -239,7 +239,7 @@ const decoded = jwt.verify(signed, publicEcdsaKey, {
 
 ## Brute Forcing a HS256 JSON Web Token
 
-As secure as `HS256` is, especially when implemented the right way, brute-forcing a JSON web token signed with small and medium sized shared-secrets using **HS256** is still very possible. 
+As secure as `HS256` is, especially when implemented the right way, brute-forcing a JSON web token signed with small and medium sized shared-secrets using **HS256** is still very possible.
 
 Recently, I came across a [tool](https://github.com/brendan-rius/c-jwt-cracker) written in C on GitHub. It is a multi-threaded JWT brute force cracker. With a huge computing power, this tool can find the secret key of a `HS256` **JSON Web token**.
 
@@ -277,7 +277,7 @@ The specs of my MacBook are mentioned below:
 * Memory 8GB 1867 MHz DDR3
 * Graphics Intel Iris Graphics 6100 1536 MB
 
-Go ahead and clone the `jwt-cracker` from [GitHub](https://github.com/brendan-rius/c-jwt-cracker). 
+Go ahead and clone the `jwt-cracker` from [GitHub](https://github.com/brendan-rius/c-jwt-cracker).
 
 An example JWT signed with `HS256` and a secret, `Sn1f` is:
 
@@ -320,7 +320,7 @@ From the results shown above, it cracked the token and got our secret, which is 
 
 Let's take another look at the keys we used to generate the tokens that were cracked easily. What are the key sizes? The first key, `Sn1f` is 32-bit.
 
-> 1 character = 8 bits 
+> 1 character = 8 bits
 
 The second key, `secret` is 48-bit. This is simply too short to be a valid key. In fact, the [JSON Web Algorithms RFC 7518](https://tools.ietf.org/html/rfc7518#page-7) states that a key of the same size as the hash output (for instance, 256 bits for "HS256") or larger MUST be used with the HS256 algorithm.
 
@@ -328,7 +328,9 @@ I therefore recommend that anyone trying to generate a JSON Web token and signin
 
 ## Using Auth0 to sign JWT with RS256
 
-With [Auth0](https://auth0.com), you can easily generate JWTs for authentication and authorization. By default, we use HS256 to sign the JWTs generated, but we also allow customs to use RS256 if their use case calls for it. The [Auth0 Lock](https://auth0.com/docs/libraries/lock) library returns a signed JWT that you can store on the client side and use for future requests to your APIs.
+With [Auth0](https://auth0.com), you can easily generate JWTs for authentication and authorization. By default, we use HS256 to sign the JWTs generated, but we also allow customers to use RS256 if their use case calls for it. The [Auth0 Lock](https://auth0.com/lock) library returns a signed JWT that you can store on the client side and use for future requests to your APIs.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 In the vast majority of use cases you would never need to change the signing algorithm, but on the off chance that you do, let's see how to accomplish it with Auth0.
 
@@ -352,6 +354,7 @@ Switching to **RS256** is as easy as selecting the option from the dropdown on t
 ![Switch to RS256](https://cdn.auth0.com/blog/bruteforceattack/switch_to_rs256.png)
 _Default is HS256, Switching to RS256 is simple_
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 
@@ -360,4 +363,3 @@ JSON Web Tokens (JWTs) are lightweight and can easily be used across platforms a
 We have also been able to show that brute forcing of HS256 JWTs is certainly possible, when used with short and weak secret keys. Unfortunately, this is a limitation of most shared-key approaches. All cryptographic constructions, including HS256, are insecure if used with short keys, so ensure that implementations satisfy the standardized requirements.
 
 As a rule of thumb, make sure to pick a shared-key as long as the length of the hash. For HS256 that would be a 256-bit key (or 32 bytes) minimum. Luckily, if you are an Auth0 customer you have nothing to worry about as we follow all the standards and best practices when generating secret keys.
-

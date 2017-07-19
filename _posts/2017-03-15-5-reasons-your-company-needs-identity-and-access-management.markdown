@@ -39,7 +39,7 @@ And that's where outsourcing your identity management comes in. There are many r
 
 ## 1. Attracting more users
 
-If your business is B2B or B2C, you're always thinking about attracting new users. Maybe you:
+If your business is [B2B](https://auth0.com/b2b-enterprise-identity-management) or [B2C](https://auth0.com/b2c-customer-identity-management), you're always thinking about attracting new users. Maybe you:
 
 * Step up your game to craft some killer [ads for social media](https://adespresso.com/) and A/B test your ads with a platform like AdEspresso to get the best results from your ad budget.
 * Reconfigure your onboarding process to help people realize the value of your product from their first session.
@@ -108,6 +108,8 @@ With Auth0, you can streamline your internal systems with a [single sign-on](htt
 ![Single Sign On](https://cdn.auth0.com/blog/flow/bg-login.png)
 
 A robust IAM system will also allow you to implement the correct permissions and add new accounts without having to think twice. Oh, and any industry requirements that crop up? Using an IAM solution takes the headaches out of adopting new protocols for your login if ever they come your way.
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Leave your login to the professionals
 

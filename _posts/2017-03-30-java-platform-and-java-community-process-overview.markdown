@@ -237,6 +237,8 @@ What about you, what do you think about the Java platform, the *JCP* program and
 
 Auth0 makes it easy for developers to implement even the most complex identity solutions for their web, mobile, and internal applications. Need proof? Check out how easy it is to secure a RESTful Spring Boot application with Auth0.
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 For starters, we would need to include a couple of dependencies. Let's say that we are using the [Apache Maven](https://maven.apache.org/) build manager. In that case, we would open our `pom.xml` file and add the following dependencies:
 
 ```xml
@@ -310,6 +312,8 @@ auth0.secret=TjpxsT2pMt9Jj6Np45GSPnTnHY-Y-LFyv6fUGGH_EGQLD4_ONBuymn3zxfcCnpdJ
 auth0.issuer=https://bkrebs.auth0.com/
 ```
 
-Making these small changes would give us a high level of security alongside with a very extensible authentication solution. With Auth0, we could easily integrate our authentication mechanism with different [social identity providers](https://auth0.com/docs/identityproviders#social)—like Facebook, Google, Twitter, GitHub, etc—and also with [enterprise solutions like Active Directory and SAML](https://auth0.com/docs/identityproviders#enterprise). Besides that, [adding Multifactor Authentication to the application would become a piece of cake](https://auth0.com/docs/multifactor-authentication).
+Making these small changes would give us a high level of security alongside with a very extensible authentication solution. With Auth0, we could easily integrate our authentication mechanism with different [social identity providers](https://auth0.com/docs/identityproviders#social)—like Facebook, Google, Twitter, GitHub, etc—and also with [enterprise solutions like Active Directory and SAML](https://auth0.com/docs/identityproviders#enterprise). Besides that, [adding Multifactor Authentication to the application would become a piece of cake](https://auth0.com/multifactor-authentication).
 
 Want more? Take a look at [Auth0's solutions](https://auth0.com/docs) and at an article that thoroughly describes how to secure a [Spring Application with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/).
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
