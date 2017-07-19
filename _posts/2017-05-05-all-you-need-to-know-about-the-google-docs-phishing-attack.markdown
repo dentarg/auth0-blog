@@ -42,7 +42,7 @@ If the user gave the fake app posing as *Google Docs* permission, it had the abi
 
 ## Swift Combat Action From Google
 
-Once Google got wind of this phishing scam, they swept into action by disabling the malicious accounts, removed fake pages and pushed updates through Safe Browsing to users within an hour. It is highly commendable that Google nipped it in the bud early enough. 
+Once Google got wind of this phishing scam, they swept into action by disabling the malicious accounts, removed fake pages and pushed updates through Safe Browsing to users within an hour. It is highly commendable that Google nipped it in the bud early enough.
 
 ![Google Action](https://cdn2.auth0.com/blog/phishingscam/reddit.png)
 _Googlers taking charge_
@@ -57,7 +57,7 @@ If you already gave the fake *Google Docs* app permission, here is how to protec
 
 ## How to Avoid Phishing Scams
 
-Phishing scams have been around for a long time and they aren't going anywhere soon. Just last year, there was a case of a hacker who [stole nude pictures from celebrities](http://www.bbc.com/news/technology-36702837) via a phishing scam that targeted iCloud accounts. 
+Phishing scams have been around for a long time and they aren't going anywhere soon. Just last year, there was a case of a hacker who [stole nude pictures from celebrities](http://www.bbc.com/news/technology-36702837) via a phishing scam that targeted iCloud accounts.
 
 Here are a few tips to help you avoid falling victim to these scams.
 
@@ -67,15 +67,15 @@ Here are a few tips to help you avoid falling victim to these scams.
 4. **Regularly update your browser**.
 5. **Beware of pop ups**: Virtually all browsers allow you to block pop-ups, so you can set that as the default action. You can allow pop-ups sparingly when you actually need them.
 
-## Aside: Implementing API Authorization with Auth0 
+## Aside: Implementing API Authorization with Auth0
 
-This phishing attack took advantage of the OAuth protocol, a convenient way for internet accounts to link with third-party applications. Users don't have to hand over any password information. They just grant permission to a third party app. 
+This phishing attack took advantage of the OAuth protocol, a convenient way for internet accounts to link with third-party applications. Users don't have to hand over any password information. They just grant permission to a third party app.
 
 One of the features Auth0 provides is [API Authentication and Authorization using the OAuth 2.0 authorization framework](https://auth0.com/docs/api-auth). Auth0's API authorization features allow you to manage the authorization requirements for server-to-server and client-to-server applications. If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use).
 
 In addition, our *ODIC Conformant Authentication* pipeline allows you to create third-party clients for your APIs and display consent dialogs for authorization.
 
-If a user is authenticating through a third-party client and is requesting authorization to access the user's information or perform some action at an API on their behalf, they will see a consent dialog like so: 
+If a user is authenticating through a third-party client and is requesting authorization to access the user's information or perform some action at an API on their behalf, they will see a consent dialog like so:
 
 ![Consent Dialog](https://cdn2.auth0.com/docs/media/articles/hosted-pages/consent-dialog.png)
 _Consent Dialog_
@@ -90,6 +90,8 @@ Location: https://fabrikam.com/contoso_social#
     &state=...
 
 ```
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 

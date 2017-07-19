@@ -43,7 +43,9 @@ We can't wait to see you there!
 
 ### About Auth0
 
-Auth0 provides frictionless authentication and authorization for developers. The company makes it easy for developers to implement even the most complex identity solutions for their web, mobile, and internal applications. Ultimately, Auth0 allows developers to control how a person’s identity is used with the goal of making the internet safer.
+Auth0 provides [frictionless authentication and authorization for developers](https://auth0.com/user-management). The company makes it easy for developers to implement even the most complex [identity solutions for their web, mobile, and internal applications](https://auth0.com/lock). Ultimately, Auth0 allows developers to control how a person’s identity is used with the goal of making the internet safer.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 For more information visit [https://auth0.com](https://auth0.com) or follow [@auth0](https://twitter.com/auth0) on Twitter.
 
