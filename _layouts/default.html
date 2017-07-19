@@ -216,13 +216,11 @@
     try {
       window.abTestingLib.load({ fetchFn: function () { return $.get('https://ab.it.auth0.com/?application=website'); }});
       window.abTestingLib.integration('auth0metrics').start({ metrics: window.metricsLib});
-      window.abTestingLib.start().then(enhanceAnalytics);
-
-      window.abTestingLib.onReady(function (ab) {
+      window.abTestingLib.start().then(enhanceAnalytics).then(function () {
         try {
           window.abLoaded = true;
           // Save experiments on the global scope
-          window.experiments = ab.getExperiments();
+          window.experiments = window.abTestingLib.getExperiments();
           executeABExperiments();
 
         } catch (e) {
