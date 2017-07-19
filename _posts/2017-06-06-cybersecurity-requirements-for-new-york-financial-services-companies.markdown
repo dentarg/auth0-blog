@@ -96,7 +96,7 @@ Below, you can view the table of contents for the white paper. The whole documen
 - Summary
 ```
 
-One of the reliable and interesting services that Auth0 can provide to companies of the financial industry, is the easy-to-adopt [Multi-Factor Authentication (MFA) solution](https://auth0.com/docs/multifactor-authentication). Exactly as referenced by the regulation, this method provides an additional layer of security, decreasing the likelihood of unauthorized access, as it requires users to identify themselves through two or more of the following methods:
+One of the reliable and interesting services that Auth0 can provide to companies of the financial industry, is the easy-to-adopt [Multi-Factor Authentication (MFA) solution](https://auth0.com/multifactor-authentication). Exactly as referenced by the regulation, this method provides an additional layer of security, decreasing the likelihood of unauthorized access, as it requires users to identify themselves through two or more of the following methods:
 
 - *Knowledge*: Something the user knows (e.g. a password).
 - *Possession*: Something the user has (e.g. a cell phone).
@@ -105,3 +105,9 @@ One of the reliable and interesting services that Auth0 can provide to companies
 The upside of adopting the MFA solution ([or any other solution for that matter](https://auth0.com/b2b-enterprise-identity-management)) provided by Auth0, is that it helps companies getting up to speed real quickly while resting assured that they are relying on a partner that has security as the first goal.
 
 If you work for a company in the financial industry, or for any other company that cares about security and data integrity, [check out some case studies to understand how companies all around the world have successfully implemented secure identity management in their applications](https://auth0.com/b2b-enterprise-identity-management). We are on a mission to [lower the number of data breaches, and we don't want you and your users to be another victim](https://auth0.com/blog/data-breaches-by-the-numbers/).
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.

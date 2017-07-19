@@ -24,11 +24,11 @@ related:
 - 2016-10-17-sso-login-key-benefits-and-implementation
 ---
 
-**TL;DR:** Learn how to leave usernames and passwords behind with social and passwordless authentication with Auth0's Identity and Access Management solution.
+**TL;DR:** Learn how to leave usernames and passwords behind with social and [passwordless authentication](https://auth0.com/passwordless) with Auth0's [Identity and Access Management solution](https://auth0.com/user-management).
 
 ---
 
-After months and months of developing your new app, it's finally ready to launch. You feel confident that you've got all the features and functionality you need. But with all of that work, you've let your login fall by the wayside. A simple a username and a password will do the trick, right? 
+After months and months of developing your new app, it's finally ready to launch. You feel confident that you've got all the features and functionality you need. But with all of that work, you've let your login fall by the wayside. A simple a username and a password will do the trick, right?
 
 Wrong. In the age of modern authentication, you need to go beyond usernames and passwords to protect customer information and give users frictionless logins that they trust. Embracing login as identity management rather than as a simple gate to access is imperative.
 
@@ -38,7 +38,7 @@ Here's what you need to know.
 
 Between the growing number of passwords users have to remember and the multiple steps needed to reset a forgotten password, users are demanding easier login options.
 
-Making it as easy as possible for them to visit your site means they'll [stick around longer](https://blog.fullstory.com/the-best-products-will-win-7ec43a93186#.onq2r8lau). By removing the friction usually associated with activating a new account or simply signing in, you'll reduce your abandon rate. 
+Making it as easy as possible for them to visit your site means they'll [stick around longer](https://blog.fullstory.com/the-best-products-will-win-7ec43a93186#.onq2r8lau). By removing the friction usually associated with activating a new account or simply signing in, you'll reduce your abandon rate.
 
 Using modern authentication practices, [Auth0](https://auth0.com) has built a system that can be quickly integrated into your site to give users the easy access they've been asking for. [Social login](https://auth0.com/learn/social-login/) and [passwordless authentication](https://auth0.com/passwordless) are two options that provide freedom from usernames and passwords.
 
@@ -91,8 +91,14 @@ From the dashboard, you can easily track logs and be confident in knowing that s
 
 ## Moving Forward with Modern Authentication
 
-Now more than ever, authentication involves more than just supporting usernames and passwords. Modern authentication puts the emphasis on creating and protecting identity for users, whether they're an individual using an app or enterprise employees. 
+Now more than ever, authentication involves more than just supporting usernames and passwords. Modern authentication puts the emphasis on creating and protecting identity for users, whether they're an individual using an app or enterprise employees.
 
-Usernames and passwords aren't going to disappear, but authentication is complex, and it's only going to get harder to manage. 
+Usernames and passwords aren't going to disappear, but authentication is complex, and it's only going to get harder to manage.
 
 There's no need to struggle to keep up using in-house solutions when you can rely on experts that live and breathe identity management. Your IAM solution can support everything you want to offer your users, while letting you focus on the product that got users to sign up in the first place.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.

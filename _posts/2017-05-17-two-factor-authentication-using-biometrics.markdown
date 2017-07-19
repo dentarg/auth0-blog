@@ -27,7 +27,7 @@ ___
 
 ## Traditional Two-Factor Authentication
 
-The majority of existing two-factor or multifactor authentication implementations rely on the users mobile phone to perform ownership-based checks.
+The majority of existing [two-factor or multifactor authentication](https://auth0.com/multifactor-authentication) implementations rely on the users mobile phone to perform ownership-based checks.
 
 These checks range from the use of codes delivered over SMS to push notifications or time-based one-time password (TOTP) applications. All the methods are a significant improvement over just username and password credentials and they are available to everyone that already has a phone; which is a huge audience.
 
@@ -226,9 +226,11 @@ channel.bind("update", function() { /* (...) */ });
 
 ## Test-Drive
 
-All of the source code used as the basis for this article is available at: [Auth0 Voice Factor Extension](https://github.com/auth0/auth0-extension-voice-factor) repository. The easiest way for you to get started with it is to install it as an extension within your own Auth0 account; just follow the instructions contained in the repository [*README*](https://github.com/auth0/auth0-extension-voice-factor#install-as-auth0-extension) file.
+All of the source code used as the basis for this article is available at: [Auth0 Voice Factor Extension](https://github.com/auth0/auth0-extension-voice-factor) repository. The easiest way for you to get started with it is to install it as an extension within your own [Auth0 account](https://auth0.com/); just follow the instructions contained in the repository [*README*](https://github.com/auth0/auth0-extension-voice-factor#install-as-auth0-extension) file.
 
 If you don't yet have an Auth0 account don't worry, **you can [sign up](javascript:signup\(\)) for a free account today**. Besides the Auth0 account, a fully functional deployment also requires a [VoiceIt](https://www.voiceit-tech.com/) account used for processing all the voice enrollment and authentication requests.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 Additionally, you can provide a [Twilio](https://www.twilio.com/) account if you want to enable the completion of the voice authentication requests through phone calls and a [Pusher](https://pusher.com/) account if you want to receive real-time progress information for those same calls.
 
@@ -237,3 +239,9 @@ Additionally, you can provide a [Twilio](https://www.twilio.com/) account if you
 Biometric authentication may still be far from mainstream adoption and may even be overkill for most applications out there. However, this article shows that by leveraging Auth0 extensibility points coupled with a third-party voice authentication service, it's very simple to add an additional layer of security for applications that demand an additional level of security.
 
 Another benefit of biometrics as second authentication factor is that it's less of a burden for end-users. No one likes the hassle of buying a new phone and getting locked out of online accounts due to multifactor authentication enrollments associated with the old phone that you may or may not have anymore.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.

@@ -78,7 +78,7 @@ We'll use the [Angular CLI](https://github.com/angular/angular-cli) to create an
 $ npm install -g @angular/cli
 ```
 
-The other thing you'll likely want is an Angular Language Service extension for your editor or IDE of choice. The Angular Language Service provides Angular intellisense and autocompletion. To learn more about the Language Service, check out [this summary of Day 3 of ng-conf 2017](https://auth0.com/blog/ngconf2017-summary-day3/). Check your editor's extension database for "Angular Language Service" and install if found ([instructions for VS Code, WebStorm, and Sublime Text are available here](http://brianflove.com/2017/04/11/angular-language-service/)). 
+The other thing you'll likely want is an Angular Language Service extension for your editor or IDE of choice. The Angular Language Service provides Angular intellisense and autocompletion. To learn more about the Language Service, check out [this summary of Day 3 of ng-conf 2017](https://auth0.com/blog/ngconf2017-summary-day3/). Check your editor's extension database for "Angular Language Service" and install if found ([instructions for VS Code, WebStorm, and Sublime Text are available here](http://brianflove.com/2017/04/11/angular-language-service/)).
 
 ### Create an Angular Project
 
@@ -137,7 +137,7 @@ Now open the `src/index.html` file and add a link to the [Bootstrap](https://v4-
 
 We'll now add some SCSS to manage global styling for our application. This will support basic layout and media queries.
 
-First, open your `src/assets` folder and an `scss` folder. Now find the `src/styles.scss` file and move it into `src/assets/scss`. 
+First, open your `src/assets` folder and an `scss` folder. Now find the `src/styles.scss` file and move it into `src/assets/scss`.
 
 Next, open the `.angular-cli.json` file. Find the `styles` property and change it to the following:
 
@@ -361,7 +361,7 @@ Close the test dialog and click the "Save" button. We can now select and connect
 
 ## <span id="auth0-setup"></span>Auth0 Account and Setup
 
-Our Angular application and Node API will use the IDaaS (Identity-as-a-Service) platform [Auth0](https://auth0.com) for authentication and route authorization. 
+Our Angular application and Node API will use the IDaaS (Identity-as-a-Service) platform [Auth0](https://auth0.com) for authentication and route authorization.
 
 ![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
@@ -369,10 +369,12 @@ Our Angular application and Node API will use the IDaaS (Identity-as-a-Service) 
 
 You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 client app and API so Auth0 can interface with an Angular app and Node API.
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+
 ### Set Up a Client App
 
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
-2. Give your new app a name (for example: `RSVP MEAN App`) and select "Single Page Web Applications". 
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
+2. Give your new app a name (for example: `RSVP MEAN App`) and select "Single Page Web Applications".
 3. In the **Settings** for your new Auth0 client app, add `http://localhost:8083/callback` and `http://localhost:4200/callback` to the **Allowed Callback URLs**.
 4. In **Allowed Origins (CORS)**, add `http://localhost:8083` and `http://localhost:4200`.
 5. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and change the **JsonWebToken Signature Algorithm** to "RS256".
@@ -558,7 +560,7 @@ module.exports = function(app, config) {
     issuer: `https://${config.AUTH0_DOMAIN}/`,
     algorithm: 'RS256'
   });
-  
+
 /*
  |--------------------------------------
  | API Routes
@@ -1075,6 +1077,12 @@ Now that we have our structure and global components in place, we're ready to st
 The Angular CLI uses [Codelyzer](https://github.com/mgechev/codelyzer) to lint Angular projects and raise warnings when the developer has used practices that do not adhere to the [Angular Style Guide](https://angular.io/guide/styleguide). Now might be a good time to run `ng lint` to lint our project and make sure there are no errors.
 
 {% include tweet_quote.html quote_text="Angular CLI lints projects and raises warnings when the dev doesn't adhere to the @angular styleguide." %}
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ---
 

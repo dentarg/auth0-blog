@@ -735,13 +735,15 @@ If you need a reference for a ASP.NET Core application with authentication fully
 
 ## Aside: Securing ASP.NET Core with Auth0
 
-Auth0’s goal is to provide the best identity management solution for customers. As a company that primes for security, we have invested a lot of time and effort to develop the best and easiest solution to help companies to properly handle their users' sensitive data. We allow developers to easily extend the security of their applications with features like [Passwordless](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/multifactor-authentication), and [Breached Passwords Detection](https://auth0.com/breached-passwords).
+Auth0’s goal is to provide the [best identity management solution for customers](https://auth0.com/user-management). As a company that primes for security, we have invested a lot of time and effort to develop the best and easiest solution to help companies to properly handle their users' sensitive data. We allow developers to easily extend the security of their applications with features like [Passwordless](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/multifactor-authentication), and [Breached Passwords Detection](https://auth0.com/breached-passwords).
 
 To learn how you can secure your ASP.NET Core application with Auth0, check the [quickstart documentation over here](https://auth0.com/docs/quickstart/webapp/aspnet-core). After that you can learn how to turn on the security features mentioned above by checking the following resources:
 
 * [Multifactor Made Easy](https://auth0.com/multifactor-authentication)
 * [Log in without Passwords. Easy and Secure.](https://auth0.com/passwordless)
 * [Protect your users and services from password leaks](https://auth0.com/breached-passwords)
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ## Conclusion
 

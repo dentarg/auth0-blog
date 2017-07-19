@@ -25,9 +25,9 @@ related:
 - 2017-02-08-is-multifactor-authentication-the-best-way-to-secure-your-accounts-myths-and-reality
 ---
 
-Retail is more complex than ever before. Customers are shopping any brand, everywhere on any device on multiple platforms. As if that weren't enough pandemonium for retailers, the digital age has ushered in entirely new models that never existed before, like selling on social media, or buying online and picking up in-store.
+[Retail is more complex than ever before](https://auth0.com/retail/). Customers are shopping any brand, everywhere on any device on multiple platforms. As if that weren't enough pandemonium for retailers, the digital age has ushered in entirely new models that never existed before, like selling on social media, or buying online and picking up in-store.
 
-In a retail world with this much choice and this much freedom for a consumer, it's hard to recreate who your customers are. And, between in-store associates, merchandizers, marketers, digital content creators, social media managers, there are tons of people who need and can benefit from that information.
+In a [retail](https://auth0.com/retail/) world with this much choice and this much freedom for a consumer, it's hard to recreate who your customers are. And, between in-store associates, merchandizers, marketers, digital content creators, social media managers, there are tons of people who need and can benefit from that information.
 
 But you need a single vision of your customers for everything from sales to streamlining your digital experience. That means powerful systems that offer you the ability to track customers, centralize their information, and move their data internally to make this happen.
 
@@ -35,9 +35,9 @@ A cornerstone of this is your identity management system. Here are three key way
 
 ## Must-have #1: Centralized Identity Management
 
-A single vision of your customers begins with a single digital identity, each customer has their information stored in one central profile.
+A single vision of your [customers begins with a single digital identity](https://auth0.com/b2c-customer-identity-management), each customer has their information stored in one central profile.
 
-This calls for an identity management system that can handle logins from any device and funnel information on customers directly to their profile.
+This calls for an [identity management system](https://auth0.com/user-management) that can handle logins from any device and funnel information on customers directly to their profile.
 
 For retailers, Auth0 creates a single profile for every user in your system, and it can store information on their logins, their devices, their history, and centralize other data you want available on customers. You can link accounts back together, so if a user uses Facebook login one time and Google the next, their info still gets back to one profile.
 
@@ -87,4 +87,10 @@ This allows you to easily give your users a better, more personal experience acr
 
 From marketing to sales to product, knowing your customers is a key part of building and maintaining your business. As the digital world offers consumers more and more possibility, forging that personalized connection is more important than ever before.
 
-Building and enriching the single view of a customer is great way to get to know your customers. Using identity management to get there offers you an already-integrated and flexible solution that already fits your business. Don't be intimidated, use your CIAM to your full advantage to put yourself ahead, especially in ecommerce and retail.
+Building and enriching the single view of a customer is great way to get to know your customers. Using identity management to get there offers you an already-integrated and flexible solution that already fits your business. Don't be intimidated, use your [CIAM](https://auth0.com/b2c-customer-identity-management) to your full advantage to put yourself ahead, especially in ecommerce and retail.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.

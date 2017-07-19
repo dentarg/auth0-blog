@@ -29,7 +29,7 @@ Amazon is poised to reinvent the grocery store from the ground up. They've been 
 
 The high-end organic retailer is likely going to be a pilot for applying the highly anticipated Amazon Go model: a way for consumers to shop without ever waiting in line for a register — a massive shift that brings identity to the center of the retail experience. This is a bold play that is going to change the way [IAM works in retail](√), and forever change consumer expectations and behavior.
 
-In this article, we're going to break down the underlying architecture of Amazon's retail automation model, its impact on consumers, and highlight the ways in which [identity management](https://auth0.com/b2c-customer-identity-management) stands as the keystone of this entire retail revolution.
+In this article, we're going to break down the underlying architecture of Amazon's retail automation model, its impact on consumers, and highlight the ways in which [identity management](https://auth0.com/b2c-customer-identity-management) stands as the keystone of this entire [retail revolution](https://auth0.com/retail/).
 
 ## How Amazon Rethinks Shopper's Identities
 
@@ -89,3 +89,9 @@ As retail automation becomes more reliant on customer identity to function, reta
 Amazon's bold acquisition of Whole Foods indicates its willingness to radically upend one of the most staid and reliable sectors of consumer spending. While Amazon Go is a clear model for what Amazon wants to do in the grocery space, it's still unclear as to how it will apply this model to Whole Foods.
 
 Regardless, it is clear that the future of retail is just as much about identity management as it is about the waning days of the cashier age. Amazon is betting that consumers are willing opt-into the necessary identity procedures that enable them to take advantage of seamless checkout and billing procedures. With Whole Foods now in its portfolio, Amazon will surely have plenty of room to experiment and refine this new paradigm of the retail experience.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.

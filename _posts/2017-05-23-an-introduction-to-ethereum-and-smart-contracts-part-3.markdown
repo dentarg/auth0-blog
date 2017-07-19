@@ -16,7 +16,7 @@ design:
 tags:
 - ethereum
 - contracts
-- contract 
+- contract
 - smart-contract
 - smart-contracts
 - bitcoin
@@ -55,7 +55,7 @@ The objective of the system is to make it possible for any third-party to allow 
 3. The third-party backend produces a challenge string and signs a JWT with the challenge embedded in it.
 4. The user sends the challenge string to the `login` method of the `Login` contract already available on Ethereum.
 5. The backend watches the Ethereum network for the challenge string. It must be sent by the owner of the Ethereum address that was input in step 2.
-6. If the challenge is seen by the backend within a reasonable timeframe, the user is then marked as logged in using the Ethereum address from step 2 as the identifier. A new JWT with full access to the third-party website is issued. 
+6. If the challenge is seen by the backend within a reasonable timeframe, the user is then marked as logged in using the Ethereum address from step 2 as the identifier. A new JWT with full access to the third-party website is issued.
 
 There are a series of problems with this approach. Namely:
 
@@ -103,13 +103,13 @@ To keep the user's Ethereum address separate from the authentication process, a 
 pragma solidity ^0.4.2;
 
 contract Mapper {
-    
+
     event AddressMapped(address primary, address secondary);
     event Error(uint code, address sender);
-    
+
     mapping (address => address) public primaryToSecondary;
     mapping (address => bool) public secondaryInUse;
-    
+
     modifier secondaryAddressMustBeUnique(address secondary) {
         if(secondaryInUse[secondary]) {
             Error(1, msg.sender);
@@ -117,15 +117,15 @@ contract Mapper {
         }
         _;
     }
-    
-    function mapAddress(address secondary) 
+
+    function mapAddress(address secondary)
         secondaryAddressMustBeUnique(secondary) {
         // If there is no mapping, this does nothing
         secondaryInUse[primaryToSecondary[msg.sender]] = false;
 
         primaryToSecondary[msg.sender] = secondary;
         secondaryInUse[secondary] = true;
-        
+
         AddressMapped(msg.sender, secondary);
     }
 }
@@ -189,7 +189,7 @@ Our initial approach sported a key element from blockchain based systems: it was
 Since this is just a proof-of-concept and getting your feet wet with Ethereum can be a bit hard at first, here is a step by step guide for new users to test the system. Please note that this is just a test system so it uses Ethereum's testnet. In other words, no hard guarantees are provided with regard to the integrity of the data stored in the Ethereum testnet, do not put important stuff in the accounts created in this guide, they won't be protected by the same guarantees as the Ethereum mainnet.
 
 ### Get an Ethereum Wallet
-To perform operations in Ethereum you need a wallet. A wallet is an application that allows you to interact with the rest of the network. Wallets store the private-keys for your Ethereum addresses. For simplicity we will be using [Metamask](https://metamask.io/). Metamask is a browser-based wallet that runs locally as a Chrome extension. Keys are stored locally and transactions are signed with them. These are then sent to the rest of the network through a Metamask operated public node. 
+To perform operations in Ethereum you need a wallet. A wallet is an application that allows you to interact with the rest of the network. Wallets store the private-keys for your Ethereum addresses. For simplicity we will be using [Metamask](https://metamask.io/). Metamask is a browser-based wallet that runs locally as a Chrome extension. Keys are stored locally and transactions are signed with them. These are then sent to the rest of the network through a Metamask operated public node.
 
 #### 1. Get Metamask
 Go to the [Chrome Webstore](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn) and install Metamask.
@@ -273,14 +273,16 @@ What we have seen in this post seems complicated, and indeed authentication can 
 
 <a href="javascript:signup()">Sign up</a> for a free account and get started!
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+
 > Note: authentication for Ethereum accounts as discussed in this post is not available through Auth0. If you are interested in having this option using Auth0, let us know in the comments.
 
 ## Aside: GFT
 ![GFT Logo](https://cdn.auth0.com/blog/ethereum3/GFT_Logo_RGB.jpg)
 GFT Technologies SE (GFT) is a business change and technology consultancy trusted by the world's leading financial services institutions to solve their most critical challenges. Specifically defining answers to the current constant of regulatory change – whilst innovating to meet the demands of the digital revolution. GFT brings together advisory, creative and technology capabilities with innovation culture and specialist knowledge of the finance sector, to transform the clients' businesses.
- 
+
 Utilising the CODE_n innovation platform, GFT is able to provide international start-ups, technology pioneers and established companies access to a global network, which enables them to tap into the disruptive trends in financial services markets and harness them for their out of the box thinking.
- 
+
 Founded in 1987, GFT is represented in twelve countries with a global team of around 5,000 employees. The GFT share is listed on the Frankfurt Stock Exchange in the TecDAX (ISIN: DE0005800601). For more information visit [www.gft.com](https://www.gft.com).
 
 ## Conclusion

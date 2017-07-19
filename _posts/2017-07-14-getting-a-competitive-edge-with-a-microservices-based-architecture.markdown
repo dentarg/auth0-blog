@@ -31,9 +31,9 @@ Monolithic applications slow organizations down. Long development cycles, high i
 
 Application modernization is the refactoring, repurposing or consolidation of legacy software to align it more closely with current business needs. Whether you call it application modernization, digital transformation, platform refactoring, or re-architecting the need to have software that meets the needs of your business is a priority. Nine out of ten decision makers claim that legacy software is keeping them from achieving their goals.
 
-## Transitioning from Legacy Monoliths to Microservices 
+## Transitioning from Legacy Monoliths to Microservices
 
-To remain competitive, organizations of all sizes are realizing that they need to be nimble, evolve fast, and maintain a healthy balance between customer expectations, business needs, and IT agility. Utilizing a microservices based architecture is a growing trend that helps achieve these goals. In this approach, applications are split into small sets of interconnected services based on business capability where each service has a well-defined boundary. 
+To remain competitive, organizations of all sizes are realizing that they need to be nimble, evolve fast, and maintain a healthy balance between customer expectations, business needs, and IT agility. Utilizing a microservices based architecture is a growing trend that helps achieve these goals. In this approach, applications are split into small sets of interconnected services based on business capability where each service has a well-defined boundary.
 
 ![Microservices](https://cdn.auth0.com/blog/app-mod/microservices-example.png)
 
@@ -58,7 +58,7 @@ Given the number of communications channels available today, getting a consisten
 
 Digital identity is at the core of any application - invisible yet crucial. An application of any nature requires digital identities, to [represent users and other entities interacting with it](https://auth0.com/user-management). With mobility, BYOD, IoT and smart entities becoming essential parts of the digital ecosystem, the “identity” piece of an application now has even more responsibilities and expectations than before.
 
-Identity is complex. There’s username and password authentication, social connections, single sign on, and these are just ways to login. Multifactor authentication, anomaly detection, securing sensitive data like passwords, and many other topics comprise identity and having your engineers try to build, manage, and secure all these is like expecting an elephant to win a sprint race. You need to use their expertise at the right place.
+Identity is complex. There’s username and password authentication, social connections, single sign on, and these are just ways to login. [Multifactor authentication](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), anomaly detection, securing sensitive data like passwords, and many other topics comprise identity and having your engineers try to build, manage, and secure all these is like expecting an elephant to win a sprint race. You need to use their expertise at the right place.
 
 Auth0 takes a completely new approach to providing a modularized, pluggable identity service by simplifying the most complex identity challenges with a powerful, secure, extensible, and easy to integrate platform. We will cover how Auth0 can solve your identity challenges in an upcoming article on modernizing your applications.
 

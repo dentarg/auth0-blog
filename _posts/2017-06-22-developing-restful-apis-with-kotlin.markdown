@@ -22,7 +22,7 @@ related:
 - 2016-09-20-securing-spring-boot-with-jwts
 ---
 
- **TL;DR:** In today's post, we are going to learn how to develop RESTful APIs with Kotlin, the thriving programming language that is eating Java's world. We will start by creating a small Spring Boot RESTful API that handles CRUD operations. After that we are going to secure this API with Auth0, which brings to the table many security features such as Multifactor Authentication, integration with Social Providers, and so on. In the end, we will also see how to manage the JWTs by ourselves, replacing Auth0 with an in-house solution where we issue our own tokens.
+ **TL;DR:** In today's post, we are going to learn how to develop RESTful APIs with Kotlin, the thriving programming language that is eating Java's world. We will start by creating a small Spring Boot RESTful API that handles CRUD operations. After that we are going to [secure this API with Auth0](https://auth0.com/user-management), which brings to the table many security features such as [Multifactor Authentication](https://auth0.com/multifactor-authentication), integration with Social Providers, and so on. In the end, we will also see how to manage the JWTs by ourselves, replacing Auth0 with an in-house solution where we issue our own tokens.
 
 ---
 
@@ -187,6 +187,8 @@ If anything went wrong, you can compare your source code with the [`customers` b
 As you will see, securing our API with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
 
 For starters, if you haven't done so yet, this is a good time to sign up for a [free Auth0 account](javascript:signup\(\)). Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. And this is exactly what the Kotlin app that we just built is, an API.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ![Creating an API on Auth0's dashboard](https://cdn.auth0.com/blog/kotlin-jwts/create-auth0-api.png)
 
@@ -641,7 +643,7 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
 curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/customers
 ```
 
-As you can see, creating our own security solution with JWTs is not that hard. However, it requires much more work than what we had to do to integrate with Auth0. And keep in mind that we didn't even address more advanced topics like [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication), [social identity providers](https://auth0.com/docs/identityproviders), [enterprise connections (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), etc. Handling such cases would require a lot more work. Even if we managed to deliver these features swiftly, we wouldn't have as many security measures as we would while using Auth0.
+As you can see, creating our own security solution with JWTs is not that hard. However, it requires much more work than what we had to do to integrate with Auth0. And keep in mind that we didn't even address more advanced topics like [Multifactor Authentication](https://auth0.com/multifactor-authentication), [social identity providers](https://auth0.com/user-management), [enterprise connections (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), etc. Handling such cases would require a lot more work. Even if we managed to deliver these features swiftly, we wouldn't have as many security measures as we would while using Auth0.
 
 ## Conclusion
 

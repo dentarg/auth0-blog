@@ -344,7 +344,7 @@ export class HeaderComponent implements OnInit {
 }
 ```
 
-We'll import our `AuthService` and declare it in the constructor function. 
+We'll import our `AuthService` and declare it in the constructor function.
 
 > **Note:** We're using `public` because the authentication service's methods will be used in the template, not just in the class.
 
@@ -471,7 +471,7 @@ When finished, click the "Save" button to save this rule.
 
 ### Sign In with Admin Account
 
-The next thing we need to do is _sign in_ with our intended admin user. This will trigger the rules to execute and the app metadata will be added to our targeted account. Then the roles data will also be available in the tokens whenever the user logs in. 
+The next thing we need to do is _sign in_ with our intended admin user. This will trigger the rules to execute and the app metadata will be added to our targeted account. Then the roles data will also be available in the tokens whenever the user logs in.
 
 Since we've implemented login in our Angular app already, all we need to do is sign in with the account we specified in our `Set admin role for me` rule. Visit your Angular app in the browser at [http://localhost:4200](http://localhost:4200) and click the "Log In" link we added in the header.
 
@@ -570,9 +570,9 @@ export class AuthService {
       this.setLoggedIn(true);
     }
   }
-  
+
   ...
-  
+
   private _setSession(authResult, profile) {
     // Save session data and update login status subject
     ...
@@ -596,7 +596,7 @@ export class AuthService {
     this.isAdmin = undefined;
     this.setLoggedIn(false);
   }
-  
+
   ...
 ```
 
@@ -610,7 +610,7 @@ Next we'll update the `_setSession()` function. After setting the local `userPro
 
 Finally, we'll remove `isAdmin` data from local storage and the service in the `logout()` method.
 
-We now have the ability to check whether or not a user has admin privileges on the client side. 
+We now have the ability to check whether or not a user has admin privileges on the client side.
 
 > **Security Note:** This should never be done on the client-side _alone_. Always ensure that API routes are protected as well, as we've done in the API middleware section above.
 
@@ -645,7 +645,7 @@ Let's consider our RSVP app's intended features at a high level, then we'll extr
 * End date and time
 * Description
 * Public listing vs. requires a link to view
-  
+
 ### RSVPs
 
 * Any authenticated user can RSVP for an event that is in the future, either via direct link or from the homepage listing
@@ -661,7 +661,7 @@ Let's consider our RSVP app's intended features at a high level, then we'll extr
 * Attending / Not attending
 * Number of additional (+1) guests (only applicable if attending)
 * Comments
-  
+
 ### Users
 
 * Users should be able to view a list of all their own RSVPs in their profile
@@ -779,7 +779,7 @@ export class EventModel {
 
 We're naming the models `EventModel` (and `RsvpModel`) to avoid conflicts with existing `Event` constructors if your editor or IDE uses [intelligent code completion](https://en.wikipedia.org/wiki/Intelligent_code_completion). Optional members must be listed after required members. The `_id` property is optional because it only exists if retrieving data from the database, but not if we're creating _new_ records.
 
-Now add the RSVP model in `rsvp.model.ts`: 
+Now add the RSVP model in `rsvp.model.ts`:
 
 ```typescript
 // src/app/core/models/rsvp.model.ts
@@ -883,6 +883,12 @@ The database should then look something like this in MongoBooster:
 MongoBooster makes it simple to manipulate collections and documents as well as query the database with both the Mongo shell _and_ a GUI. It's a handy tool to have at your disposal for any MongoDB project, and particularly useful if you need to work with a database that is not hosted on your local machine.
 
 We now have some seed documents to work with so we can get our API and Angular app up and running with data available right off the bat.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ---
 

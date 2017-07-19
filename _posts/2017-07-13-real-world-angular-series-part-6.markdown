@@ -95,7 +95,7 @@ Open the server `api.js` file and add the following route:
       });
     });
   });
-  
+
   ...
 ```
 
@@ -134,7 +134,7 @@ Now add the following `PUT` route to edit events: `/api/event/:id`.
       });
     });
   });
-  
+
   ...
 ```
 
@@ -173,7 +173,7 @@ Add the following `/api/event/:id` `DELETE` API route to the `api.js` file:
       });
     });
   });
-  
+
   ...
 ```
 
@@ -216,7 +216,7 @@ Open the `api.service.ts` file and add these three methods:
       })
       .catch(this._handleError);
   }
-  
+
   ...
 ```
 
@@ -408,13 +408,13 @@ Open the `update-event.component.html` template next and add the following:
 
   <!-- Error loading event -->
   <p *ngIf="error" class="alert alert-danger">
-    <strong>Error:</strong> Event data could not be retrieved. View <a routerLink="/admin" class="alert-link">Admin Events</a>. 
+    <strong>Error:</strong> Event data could not be retrieved. View <a routerLink="/admin" class="alert-link">Admin Events</a>.
   </p>
 </ng-template>
 {% endraw %}
 {% endhighlight %}
 
-If the event API call succeeded, we'll show the event form component, passing in the `[event]` data to prefill our edit form. If an error occurred, we'll show a message with a link back to the Admin page. 
+If the event API call succeeded, we'll show the event form component, passing in the `[event]` data to prefill our edit form. If an error occurred, we'll show a message with a link back to the Admin page.
 
 ### Add Link to Header Component Template
 
@@ -468,7 +468,7 @@ Let's outline the requirements for our event form. This will help us plan our lo
 * Option to make the event public or not
 * Description field with simple max character validation
 
-As you can see, the bulk of complex validation has to do with dates / times and comparing datetimes to _each other_ as well as the _current_ date. Implementing this kind of group validation would be incredibly difficult with a template-driven form. 
+As you can see, the bulk of complex validation has to do with dates / times and comparing datetimes to _each other_ as well as the _current_ date. Implementing this kind of group validation would be incredibly difficult with a template-driven form.
 
 However, reactive forms make this quite feasible. There are many moving parts involved though, so let's do a little bit of architectural planning as well. Here's what we'll need in order to implement our reactive form with group validation:
 
@@ -1580,7 +1580,7 @@ import { dateRangeValidator } from './../../../core/forms/date-range.validator';
         ...
       }, { validator: dateRangeValidator })
     });
-    
+
 ...
 ```
 
@@ -1602,9 +1602,15 @@ Our validation should look and function like this:
   <img src="https://cdn.auth0.com/blog/mean-series/datesGroup-validation.gif" alt="Angular custom group validation date range">
 </p>
 
-Angular's reactive forms are quite powerful. We've now explored how they give us plenty of flexibility to customize complex forms. 
+Angular's reactive forms are quite powerful. We've now explored how they give us plenty of flexibility to customize complex forms.
 
 {% include tweet_quote.html quote_text="Angular reactive forms allow us to build group-level custom validation." %}
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ---
 

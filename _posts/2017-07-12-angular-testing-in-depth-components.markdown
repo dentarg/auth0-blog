@@ -33,7 +33,7 @@ related:
 
 Components enable us to display content on our website. The Angular compiler parses component templates and
 displays them according to the given state. The business logic inside the components can be tested with
-traditional unit tests just like services. But what happens with the displayed HTML 
+traditional unit tests just like services. But what happens with the displayed HTML
 from the template and the interaction with other components? In this tutorial I'll show you
 how to test the rendered components, starting from isolated unit tests to fully integrated ones.
 
@@ -54,7 +54,7 @@ if you are not familiar with the concepts.
 The component we will test is a login form. It doesn't directly access the Authentication service,
 instead it just informs the parent component about the submission through an `Output` property.
 The form consists of two fields: an email and a password field.
-The email address can be preloaded through an `Input` property 
+The email address can be preloaded through an `Input` property
 if it is passed down from the wrapping parent component.
 
 <p align="center">
@@ -66,10 +66,10 @@ With reactive forms, we can add validation to the fields and access their values
 I've chosen reactive forms because they are more flexible and easier to test than template-driven forms.
 Template-driven forms can only be tested through the DOM, making test writing harder.
 
-If you are not familiar with reactive forms, it is recommended to read 
+If you are not familiar with reactive forms, it is recommended to read
 [this part from the official documentation](https://angular.io/docs/ts/latest/guide/reactive-forms.html).
 
-The [`FormBuilder`](https://angular.io/docs/ts/latest/api/forms/index/FormBuilder-class.html) 
+The [`FormBuilder`](https://angular.io/docs/ts/latest/api/forms/index/FormBuilder-class.html)
 is created inside the constructor and adds validation to the input fields.
 When the `email` input changes, the [`ngOnChanges`](https://angular.io/docs/ts/latest/api/core/index/OnChanges-class.html)
 lifecycle hook passes it down to the field.
@@ -113,7 +113,7 @@ export class LoginFormComponent {
 ```
 
 The template only includes tags that are necessary for the form to function.
-The value of the `formControlName` property will be the reference name 
+The value of the `formControlName` property will be the reference name
 when we access our inputs inside the form controls.
 With the `[formGroup]` property, we fire up the form handling with the components `FormGroup` and
 listen to form submissions with `(ngSubmit)`.
@@ -152,17 +152,17 @@ describe('Isolated', () => {
       imports: [FormsModule, ReactiveFormsModule]
     });
   });
-    
+
   beforeEach(inject([LoginFormComponent], (loginForm: LoginFormComponent) => {
     subject = loginForm;
   }));
-    
+
   it('should send credentials on submit', () => {
     subject.submitted.subscribe(({ email, password }) => {
       expect(email).toEqual(expectedEmail);
       expect(password).toEqual(expectedPassword);
     });
-    
+
     subject.onSubmit({ email: expectedEmail, password: expectedPassword });
   });
 });
@@ -175,7 +175,7 @@ because the `EventEmitter` acts synchronously.
 
 Isolated tests are good when you want to focus on the component's logic.
 These tests are also much faster than any other solution.
-The only downsides are that it won't detect errors in the template 
+The only downsides are that it won't detect errors in the template
 nor check the interactions with other components.
 
 ### Shallow tests
@@ -187,10 +187,10 @@ The key difference compared to isolated tests is that here the component is comp
 Inside the `beforeEach` block, the component class moves to the `declarations` property instead of `providers`.
 Before we can create an instance of the component, it has to be compiled.
 The `compileComponents` method does the task asynchronously. It can't be synchronous,
-because templates and styles can be referenced with relative urls 
+because templates and styles can be referenced with relative urls
 and the fetching of these resources is asynchronous by nature.
 We have to wait for these tasks to complete. We can do the waiting with the `async` helper function.
-In the background, `async` creates a new zone 
+In the background, `async` creates a new zone
 and waits until every asynchronous operation is finished within that zone.
 This way, we don't have to fiddle with Jasmine's `done` callback.
 
@@ -203,42 +203,42 @@ describe('Shallow', () => {
     });
     TestBed.compileComponents();
   }));
-  
+
   it('should send credentials on submit', () => {
     let fixture = TestBed.createComponent(LoginFormComponent);
     let component: LoginFormComponent = fixture.componentInstance;
     let element = fixture.nativeElement;
-    
+
     fixture.detectChanges();
-    
+
     element.querySelector('#login-email').value = expectedEmail;
     element.querySelector('#login-email').dispatchEvent(new Event('input'));
     element.querySelector('#login-password').value = expectedPassword;
     element.querySelector('#login-password').dispatchEvent(new Event('input'));
-    
+
     fixture.detectChanges();
-    
+
     component.submitted.subscribe(({ email, password }) => {
       expect(email).toEqual(expectedEmail);
       expect(password).toEqual(expectedPassword);
     });
-    
+
     element.querySelector('button[type="submit"]').click();
   });
 });
 ```
 
-With the `createComponent` method, we will have access to the component instance(`componentInstance`) 
+With the `createComponent` method, we will have access to the component instance(`componentInstance`)
 and the generated HTML fragment (`nativeElement`). We test the same thing as before:
-what is emitted on the output at form submission. 
+what is emitted on the output at form submission.
 The big difference is that we fill the inputs and click the submit button.
-Filling the inputs with valid data is necessary 
+Filling the inputs with valid data is necessary
 because the form validation leaves the submit button disabled as long as the inputs contain invalid data.
 
-To make the component work, we have to call the `detectChanges` method after every change. 
+To make the component work, we have to call the `detectChanges` method after every change.
 The `detectChanges` method does the synchronization of the component instance and the generated HTML.
 Otherwise the component won't know that the input's value has changed.
-When we modify an input, triggering the `input` event manually is also necessary 
+When we modify an input, triggering the `input` event manually is also necessary
 because this is the event that Angular listens for.
 
 Also before doing anything inside the `nativeElement`, we have to call `detectChanges` first.
@@ -311,8 +311,14 @@ The modification of the input fields is the same, but the assertions are differe
 This time we don't write assertions for the login form, but write them for the wrapper component instead.
 This way, we ensure the bindings are correct.
 
-There is no considerable slowdown compared to shallow tests. Integration tests need a bit more setup upfront, 
+There is no considerable slowdown compared to shallow tests. Integration tests need a bit more setup upfront,
 but we can test the interactions between the components.
+
+## Aside: Securing Angular Applications with Auth0
+
+Are you building a product with Angular? We at Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ### Summary
 
@@ -322,11 +328,11 @@ we don't compile the template, just focus on the callable methods, like with a s
 If we also want to test the template, we will have to compile that component.
 These are shallow tests. They are slower, but test more parts.
 The last missing aspect is the interaction with other components. This can be tested with integration tests.
-The extra element here is that we need to write a wrapper component around the component under test 
+The extra element here is that we need to write a wrapper component around the component under test
 and observe it through the wrapping component.
 
 Either type we choose, we have to find the right balance between speed and how deeply we test the components.
-It is optimal if we test business through isolation tests 
+It is optimal if we test business through isolation tests
 and add some shallow and integration tests to ensure interactions and the template are valid.
 
 To see the tests in action, check out

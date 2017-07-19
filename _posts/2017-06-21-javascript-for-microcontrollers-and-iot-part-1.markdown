@@ -58,7 +58,7 @@ The big benefits of higher level languages compared to assembly, C or C++ lie in
 
 Another benefit has to do with the way code runs in microcontrollers. Typically, the microcontroller reads machine code from the ROM. The ROM is usually written by following a special procedure, so changing it is not convenient. This limits the options for doing code updates or easily iterating between program versions. An interpreter can either read its program from RAM or ROM, opening up the possibility of code updates without flashing. Of course, this comes with its own set of tradeoffs: RAM gets erased after rebooting, so the program needs to be reloaded each time. RAM is also very limited, so the program has to be small. The expressive nature of high-level languages helps a lot in this regard: with very few lines of code, complex behavior and logic can be expressed.
 
-These benefits apply to most higher level, interpreted or JITted languages, but JavaScript brings some benefits of its own. For starters, JavaScript has a huge community with tons of libraries. Most of these libraries won't work on a microcontroller because they require system-level support (from Node.js or browsers), but some of them will, which is very useful. JavaScript is easy to pick up by C and C++ programmers due to its syntactic similarity, so developers used to embedded programming will have little trouble reading a JavaScript codebase. Furthermore, if you recall the introduction, we mentioned JavaScript was designed to write small scripts for common automation tasks and quick iteration. Microcontrollers are usually used in this same scenario! Small pieces of logic interacting with hardware devices for automation or reporting tasks. 
+These benefits apply to most higher level, interpreted or JITted languages, but JavaScript brings some benefits of its own. For starters, JavaScript has a huge community with tons of libraries. Most of these libraries won't work on a microcontroller because they require system-level support (from Node.js or browsers), but some of them will, which is very useful. JavaScript is easy to pick up by C and C++ programmers due to its syntactic similarity, so developers used to embedded programming will have little trouble reading a JavaScript codebase. Furthermore, if you recall the introduction, we mentioned JavaScript was designed to write small scripts for common automation tasks and quick iteration. Microcontrollers are usually used in this same scenario! Small pieces of logic interacting with hardware devices for automation or reporting tasks.
 
 So, to sum up, here are the reasons to consider JavaScript or other popular interpreted languages for microcontroller programming:
 
@@ -181,7 +181,7 @@ If you take a peek at the script, you will notice we are now giving the containe
 ##### Flashing Using the CLI In Your Host (Any Host)
 If you prefer to flash the firmware manually, you can use Particle's command line tools to do so.
 
-1. Install `particle-cli`. The `particle` command is a Node.js application, so Node must be installed on your system: 
+1. Install `particle-cli`. The `particle` command is a Node.js application, so Node must be installed on your system:
 
 ```sh
 npm install -g particle-cli
@@ -258,7 +258,7 @@ static void my_c_function() {
     printf("Hello!\n");
 }
 
-static jerry_value_t 
+static jerry_value_t
 my_c_function_wrapper(const jerry_value_t func,
                       const jerry_value_t thiz,
                       const jerry_value_t *args,
@@ -272,16 +272,16 @@ void setup() {
 
     // Create a JavaScript function from a C function wrapper
     jerry_value_t func = jerry_create_external_function(my_c_function_wrapper);
-    
+
     // Create a JavaScript string to use as method name
     jerry_value_t prop = jerry_create_string((const jerry_char_t*)"myCFunction");
 
     // Get JerryScript's global object (what you would call window in a browser)
     jerry_value_t global = jerry_get_global_object();
-        
+
     // Bind the 'func' function inside the 'global' object to the 'prop' name
     jerry_set_property(global, prop, func);
-    
+
     // Release all temporaries
     jerry_release_value(global);
     jerry_release_value(prop);
@@ -414,7 +414,7 @@ Our example comes with a simple method to upload new JavaScript scripts without 
 
 This script uses `nc` (GNU Netcat) to upload the script to the device. You are free to use any other tool to open a socket and send the data. The script that gets uploaded is `test.js`. Edit the `upload-script.sh` script to upload any other JavaScript file. Do note that scripts are parsed from RAM, so there is limit to the size of the scripts you can upload.
 
-The `test.js` script uses the `photon.TCPClient` object to attempt to connect to another host on port 3000. You can use `nc` (in listening mode: `nc -lk 3000`) to send and receive data to JavaScript code running on the Photon. 
+The `test.js` script uses the `photon.TCPClient` object to attempt to connect to another host on port 3000. You can use `nc` (in listening mode: `nc -lk 3000`) to send and receive data to JavaScript code running on the Photon.
 
 ```javascript
 var s = photon.TCPClient();
@@ -454,7 +454,7 @@ You should see `Hello from JS!` in the console where you run `nc`. You can also 
 
 <video width="600" src="https://cdn.auth0.com/blog/iot1/TCP.mp4" controls></video>
 
-You can use this example to use the Photon to communicate with remote hosts over WiFi from JavaScript! Do note that all communication is done in the clear, as there is no encryption of any kind yet. We will fix this in future posts in this series. 
+You can use this example to use the Photon to communicate with remote hosts over WiFi from JavaScript! Do note that all communication is done in the clear, as there is no encryption of any kind yet. We will fix this in future posts in this series.
 
 ## Aside: JavaScript at Auth0
 At [Auth0](https://auth0.com/) we use JavaScript heavily. Using our authentication and authorization server from your JavaScript web apps is a piece of cake. Here's one simple example using ECMAScript 2015 features and the [Auth0.js library](https://github.com/auth0/auth0.js). You could use this to expose an authenticated API from your Photon by using `TCPServer` and checking the validity of a JWT.
@@ -534,13 +534,15 @@ window.addEventListener('load', afterLoad);
 
 [Get the fully working generic example](https://github.com/auth0-blog/es2015-rundown-example) and <a href="javascript:signup()">signup</a> for a free account to try it yourself!
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+
 ## Conclusion
 We have taken an introductory look at the status of JavaScript development on microcontrollers. For this we picked JerryScript, a simple JavaScript engine developed by Samsung. We learned how to execute scripts and how to communicate between the C-side of things and the JavaScript-side. JerryScript is really simple to use, although it does have some quirks in its API, like the use of global objects for multiple instances. A potential future improvement for JerryScript would be to allow offline compilation of scripts to bytecode, so that scripts can be included in ROM in forms other than text. Both Duktape and V7, other small JavaScript engines, support this.
 
 > **Update:** a reader has pointed out in the comments that JerryScript does support offline compilation to bytecode. [Here are the necessary APIs](http://jerryscript.net/api-reference/#snapshot-functions). Awesome!
 
-On the hardware side we found the Particle Photon incredibly simple to use. Documentation is excellent, as well as the development tools. The Wiring API as implemented by Particle is simple yet effective, and we had no trouble bringing some of its functionality into the JavaScript interpreter. Our example allowed us to remotely upload and excute JavaScript, as well as use pins, TCP client sockets and timers. 
+On the hardware side we found the Particle Photon incredibly simple to use. Documentation is excellent, as well as the development tools. The Wiring API as implemented by Particle is simple yet effective, and we had no trouble bringing some of its functionality into the JavaScript interpreter. Our example allowed us to remotely upload and excute JavaScript, as well as use pins, TCP client sockets and timers.
 
-We did find the memory available in the ROM to be somewhat limited when compiling most of the JerryScript features. There's so much you can do with 1MB of flash after all the functionality provided by the Particle firmware. It was enough for our tests, but will it be enough for running more complex apps? 
+We did find the memory available in the ROM to be somewhat limited when compiling most of the JerryScript features. There's so much you can do with 1MB of flash after all the functionality provided by the Particle firmware. It was enough for our tests, but will it be enough for running more complex apps?
 
 Stay tuned for future posts where we will attempt to use JavaScript to write a useful remote monitoring app on the Photon. Hack on!

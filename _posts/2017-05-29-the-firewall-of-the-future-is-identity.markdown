@@ -23,7 +23,7 @@ related:
 - 2017-03-20-anomaly-detection-safer-login-with-thisdata-and-auth0
 ---
 
-It's estimated by the analysts at [MarketsandMarkets](http://www.marketsandmarkets.com/Market-Reports/identity-access-management-iam-market-1168.html) that the total identity management market will grow from $8 billion in 2016 to nearly $15 billion by 2021.
+It's estimated by the analysts at [MarketsandMarkets](http://www.marketsandmarkets.com/Market-Reports/identity-access-management-iam-market-1168.html) that the total [identity management](https://auth0.com/user-management) market will grow from $8 billion in 2016 to nearly $15 billion by 2021.
 
 In total, it's expected that businesses worldwide are going to spend just over [$100 billion](http://fortune.com/2016/10/12/cybersecurity-global-spending/) on cybersecurity software and services by 2020, up from $73 billion today.
 
@@ -93,11 +93,11 @@ But the fact that accounts can be compromised from many directions and through m
 
 Three of the major methods for reducing attack points are:
 
-* **[Multifactor authentication](https://auth0.com/learn/multifactor-authentication/)**: The requiring of multiple authentication stages for users to be identified—can operate through Time-based One-Time Password (TOTP), mobile verification, hardware, SMS, etc. Also, can solely be triggered through context—a new geographic location for login, a specific time of day, or a specific type of network.    
+* **[Multifactor authentication](https://auth0.com/multifactor-authentication/)**: The requiring of multiple authentication stages for users to be identified—can operate through Time-based One-Time Password (TOTP), mobile verification, hardware, SMS, etc. Also, can solely be triggered through context—a new geographic location for login, a specific time of day, or a specific type of network.    
 * **[Breached password detection](https://auth0.com/breached-passwords)**: Continuously updating a list of credentials identified as breached, so all user attempts to login or signup with them can be verified as non-breached, and matches can be blocked.
 * **[Anomaly detection](https://auth0.com/learn/anomaly-detection/):** Monitoring network traffic and alerting users upon outlier events—logins from new IP addresses or devices, multiple failed login events in a short period of time, using [Tor network](http://lifehacker.com/what-is-tor-and-should-i-use-it-1527891029), and others.
 
-Multifactor authentication, breached password detection, and anomaly detection are just three of the risk based security features that Auth0 offers customers. But these are the kinds of things that businesses need to be pursuing in this age when breaches are frequent, breaches are significant, and the amount of customer data in the cloud grows larger and larger each day.
+[Multifactor authentication]](https://auth0.com/multifactor-authentication/), [breached password detection](https://auth0.com/breached-passwords), and [anomaly detection](https://auth0.com/learn/anomaly-detection/) are just three of the risk based security features that Auth0 offers customers. But these are the kinds of things that businesses need to be pursuing in this age when breaches are frequent, breaches are significant, and the amount of customer data in the cloud grows larger and larger each day.
 
 ## Intelligent and Adaptive Security
 
@@ -106,3 +106,5 @@ Even the most dedicated and advanced attackers can be caught out when the right 
 Says security expert [the Grugq](https://grugq.tumblr.com/post/142637754018/elusive-midday-bandit-robs-11th-bank-fbi-patch): If a [small-time robber takes $70](https://grugq.tumblr.com/post/142637754018/elusive-midday-bandit-robs-11th-bank-fbi-patch) one day, and then two weeks later takes $350, and then one week later takes $1000, investigators can infer how much they're spending per day ($50~) and precisely when the next robbery will occur (in 3 weeks~). “If they’ve profiled more, such as his geographic operations zone, and what type of bank he usually targets,” he continues, “They can place assets in the area and be ready for him.”
 
 Risk based security is part of acknowledging the world we live in today. Breaches are going to happen. Attacks are going to happen. Don't hope that the flood will never come—build above sea level, mitigate its effects, and above all, protect what really matters.
+
+> [Give your customers **enterprise identity integration**, frictionless SSO across your products and adaptive authentication with **MFA and Anomaly Detection**. All of this with a flip of a switch.](https://auth0.com/b2b-enterprise-identity-management)

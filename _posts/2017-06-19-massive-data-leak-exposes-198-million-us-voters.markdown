@@ -49,7 +49,7 @@ To take a deeper look in the security breach details, [check the official announ
 
 At Auth0 security is of the utmost importance. Our authentication and authorization services let you set up multiple policies that greatly improves the security of your web and native applications. Some features that customers can benefit from are:
 
-- [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication?utm_source=blog&utm_medium=sc&utm_campaign=navy_leak),
+- [Multifactor Authentication](https://auth0.com/multifactor-authentication?utm_source=blog&utm_medium=sc&utm_campaign=navy_leak),
 - [Automatic Breached Password Detection](https://auth0.com/docs/anomaly-detection?utm_source=blog&utm_medium=sc&utm_campaign=navy_leak#breached-password-detection),
 - [Custom Rules](https://auth0.com/docs/rules?utm_source=blog&utm_medium=sc&utm_campaign=navy_leak),
 - [Passwordless Authentication](https://auth0.com/passwordless/?utm_source=blog&utm_medium=sc&utm_campaign=navy_leak),
@@ -58,6 +58,8 @@ At Auth0 security is of the utmost importance. Our authentication and authorizat
 To check how we protect the most sensitive data of our customers and their users, visit our [Security & Privacy webpage](https://auth0.com/security). There you are going to find an overview about our security approach, and a list of certifications and compliance capabilities. You will also find a link to our *Information Security White Paper* with a detailed explanation about our security measures, practices, and certifications.
 
 <a href="javascript:signup()">Sign up today</a> and try a free account to get a taste of how easy these features can be set up on application of any size.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ## Conclusion
 

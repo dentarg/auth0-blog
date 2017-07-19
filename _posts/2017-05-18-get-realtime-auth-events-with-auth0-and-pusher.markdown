@@ -22,7 +22,7 @@ related:
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
-[Auth0](https://auth0.com) is a service that allows you to easily authenticate the users of your application using methods like social network logins and passwordless systems.
+[Auth0](https://auth0.com) is a service that allows you to easily authenticate the users of your application using methods like social network logins and [passwordless systems](https://auth0.com/passwordless).
 
 [Pusher](https://pusher.com) is a platform that allows you to build scalable realtime apps via WebSockets with a simple Publish/Subscribe model and other features.
 
@@ -57,6 +57,8 @@ Next, copy your cluster ID (next to the app title, in this example `mt1`), App I
 ## Setting up an Auth0 rule
 
 Create a free account at [https://auth0.com/signup](https://auth0.com/signup).
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 Next, create a client. Give it a name and choose the Single Page Web Application type.
 
@@ -101,7 +103,7 @@ The function has the following arguments:
 - `user`. The object with the user information. This will vary depending on the identity provider the user used to authenticate, but you can see the general structure of this object [here](https://auth0.com/docs/user-profile/user-profile-structure).
 - `context`: An object containing information of the authentication. You can find a complete list of context properties [here](https://auth0.com/docs/rules/context).
 - `callback`. A function to send the result of the function and the (potentially modified) user and context objects back to the login app. It's important to always call this function, or else the script will timeout.
- 
+
 So let's start by requiring the Pusher module:
 
 ``` javascript
@@ -178,7 +180,7 @@ function (user, context, callback) {
   if (user.app_metadata.signedUp) {
     event = 'user-loggedIn';
   } else {
-    user.app_metadata.signedUp = true; 
+    user.app_metadata.signedUp = true;
     auth0.users.updateAppMetadata(user.user_id, user.app_metadata);
   }
 
@@ -323,7 +325,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [], 
+      events: [],
     };
     this.updateEvents = this.updateEvents.bind(this);
   }
@@ -420,6 +422,8 @@ Click on the *Login* button and sign up with either your Google account or by en
 When you log in or sign up in one app, the event will be shown in the other one.
 
 ![React app final](https://cdn2.auth0.com/blog/auth0-pusher/getting-authentication-events-in-realtime-with-auth0-and-pusher-final-app.gif)
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 
 ## Conclusion
 
