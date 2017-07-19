@@ -137,7 +137,7 @@ Now open the `src/index.html` file and add a link to the [Bootstrap](https://v4-
 
 We'll now add some SCSS to manage global styling for our application. This will support basic layout and media queries.
 
-First, open your `src/assets` folder and an `scss` folder. Now find the `src/styles.scss` file and move it into `src/assets/scss`. 
+First, open your `src/assets` folder and create a new `scss` folder. Now find the `src/styles.scss` file and move it into `src/assets/scss`. 
 
 Next, open the `.angular-cli.json` file. Find the `styles` property and change it to the following:
 
