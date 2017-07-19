@@ -2,7 +2,7 @@
 layout: post
 title: "JavaScript for Microcontrollers and IoT: Building a Sensor Hub"
 description: "Build a sensor hub using JavaScript and the Particle Photon"
-date: 2017-07-07 12:30
+date: 2017-07-19 12:30
 category: Technical Guide, IoT, JavaScript
 author:
   name: Sebastián Peyrott
@@ -32,6 +32,7 @@ tags:
 related:
 - 2017-06-21-javascript-for-microcontrollers-and-iot-part-1
 - 2017-01-16-a-brief-history-of-javascript
+-
 ---
 
 We continue exploring JavaScript as a language for embedded development using JerryScript and the Particle Photon. In this post we will use the code we wrote for our first post to build a sensor hub with remote monitoring and alarms through e-mails. This is the second post in the series. Take a look at [the first post where we got JerryScript up and running on the Particle Photon](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/).
