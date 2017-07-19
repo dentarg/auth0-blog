@@ -34,6 +34,8 @@ related:
 
 The rise of JavaScript as the lingua-franca for the web has expanded its reach to unthinkable places. What begun as a [beginner friendly language aimed at designers (and initially cooked up in 10-days)](https://auth0.com/blog/a-brief-history-of-javascript/) is now everywhere: servers, workstations, databases, desktop environments and even internet of things devices. However, the low-end nature of certain microcontroller platforms makes it somewhat difficult for beginners to use JavaScript. In this post we will take a brief look at the different options for running JavaScript on small devices, and we will also pick one of them and get one JavaScript engine running on it. Stay with us and let's see where the journey takes us!
 
+**Update:** part 2 is live: [JavaScript for Microcontrollers and IoT: Building a Sensor Hub](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/)
+
 {% include tweet_quote.html quote_text="JavaScript on a microcontroller? Let's check it out!" %}
 
 -----
@@ -544,3 +546,5 @@ On the hardware side we found the Particle Photon incredibly simple to use. Docu
 We did find the memory available in the ROM to be somewhat limited when compiling most of the JerryScript features. There's so much you can do with 1MB of flash after all the functionality provided by the Particle firmware. It was enough for our tests, but will it be enough for running more complex apps? 
 
 Stay tuned for future posts where we will attempt to use JavaScript to write a useful remote monitoring app on the Photon. Hack on!
+
+**Update:** part 2 is live: [JavaScript for Microcontrollers and IoT: Building a Sensor Hub](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/)
