@@ -23,7 +23,7 @@ related:
 - 2016-12-23-auth0-named-in-seattle-10-hottest-ventures-2016
 ---
 
-**BELLEVUE, WA** - [Polaris](http://www.polaris.com/), a powersports company specializing in the manufacture of ATVs, side-by-sides, motorcycles, snow machines, and more, has chosen Auth0 as their identity management platform for multiple use cases within their ecosystem of applications and portals. Their dealer portal services external businesses (B2B) as well as internal Polaris employees (B2E). Their [Ride Command](https://ridecommand.polaris.com/) application is available to consumers as a mobile app as well as in-dash in motorcycles and some snow machines (B2C).
+**BELLEVUE, WA** - [Polaris](http://www.polaris.com/), a powersports company specializing in the manufacture of ATVs, side-by-sides, motorcycles, snow machines, and more, has chosen Auth0 as their identity management platform for multiple use cases within their ecosystem of applications and portals. Their dealer portal services external businesses ([B2B](https://auth0.com/b2b-enterprise-identity-management)) as well as internal Polaris employees ([B2E](https://auth0.com/b2e-identity-management-for-employees)). Their [Ride Command](https://ridecommand.polaris.com/) application is available to consumers as a mobile app as well as in-dash in motorcycles and some snow machines ([B2C](https://auth0.com/b2c-customer-identity-management)).
 
 ![Polaris Ride Command with Auth0](https://cdn.auth0.com/blog/polaris/polaris-ridecommand.jpg)
 
@@ -36,5 +36,7 @@ Read more in our [Polaris Case Study](https://auth0.com/learn/polaris-case-study
 ### About Auth0
 
 Auth0 provides frictionless authentication and authorization for developers. The company makes it easy for developers to implement even the most complex identity solutions for their web, mobile, and internal applications. Ultimately, Auth0 allows developers to control how a person’s identity is used with the goal of making the internet safer. As of August, 2016, Auth0 has raised over $24m from Trinity Ventures, Bessemer Venture Partners, K9 Ventures, Silicon Valley Bank, Founders Co-Op, Portland Seed Fund and NXTP Labs, and the company is further financially backed with a credit line from Silicon Valley Bank.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 For more information visit [https://auth0.com](https://auth0.com) or follow [@auth0](https://twitter.com/auth0) on Twitter.

@@ -37,7 +37,7 @@ The final day of ng-conf 2017 was comprised of single track speaker sessions. Yo
 ## Keynote
 
 **Speakers:** [Brad Green](https://twitter.com/bradlygreen), [Rob Wormald](https://twitter.com/robwormald)
-  
+
 ### Major Takeaways (TL;DR)
 
 * Almost 200 Google apps are built with Angular.
@@ -76,7 +76,7 @@ The benefits of TypeScript are:
 
 Google still can't use the Angular CLI. Google has their own build tools: Blaze and Closure. Currently there is an open source version of Blaze called [Bazel](http://bazel.build).
 
-There is a project inside the Angular team called ABC: Angular with Bazel and Closure. Google is going to start implementing this on the Angular core and then move it to Angular Material and then early adopters to address big scale. 
+There is a project inside the Angular team called ABC: Angular with Bazel and Closure. Google is going to start implementing this on the Angular core and then move it to Angular Material and then early adopters to address big scale.
 
 Google is trying to move the outside world and the way things are done within Google closer together.
 
@@ -84,7 +84,7 @@ Google is trying to move the outside world and the way things are done within Go
 
 The Angular team is trying to build "apps that people love to use". But how do we measure love?
 
-Rob Wormald discussed some statistics: 
+Rob Wormald discussed some statistics:
 
 * 53% of mobile visits are abandoned if it takes more than 3 seconds to lead.
 * 1 out of 2 people expect a page to load in less than 2 seconds.
@@ -138,7 +138,7 @@ In this strategy, you upgrade child components first, then upgrade the component
 
 ### Managing URL
 
-URL is a global, mutable object that the user can interact with directly, making management difficult during a gradual migration. With single ownership of routes, sibling outlets can be used to manage this: the AngularJS `ng-view` and Angular `router-outlet` would both be present, but only one is active at a time. With mixed ownership, one part of the URL is managed by AngularJS and the other is managed by Angular. We can control this by writing a custom URL handling strategy and extracting and merging URLs. 
+URL is a global, mutable object that the user can interact with directly, making management difficult during a gradual migration. With single ownership of routes, sibling outlets can be used to manage this: the AngularJS `ng-view` and Angular `router-outlet` would both be present, but only one is active at a time. With mixed ownership, one part of the URL is managed by AngularJS and the other is managed by Angular. We can control this by writing a custom URL handling strategy and extracting and merging URLs.
 
 > **Note:** These same principles apply to state management.
 
@@ -188,7 +188,7 @@ In the future, the Language Service wants to:
 ---
 
 ## Form Validation
-  
+
 For every form element in the DOM, there's a corresponding form control object. Validators are just functions that take a form control instance to return validation errors or `null`. Angular allows you to build your own custom validators. When composing multiple validators, it's helpful to return error maps rather than a simple boolean.
 
 In some cases, you have server validation. Async validators can handle this and are simply functions that return an observable from a request. Observables need to be completed (`http.get` does this for you).
@@ -230,12 +230,12 @@ This becomes easy to reason about, with practice. Data flow is predictable. It's
 ---
 
 ## Reducing Package Size and Complexity with NgModule
-  
+
 [AngularFire2](https://github.com/angular/angularfire2) is the official Angular library for Firebase. Compared to AngularJS, Angular is less magical and has a smaller footprint with tree shaking. In other frameworks, complexity is often hidden way under the surface so it takes a lot of experience to increase the performance of your app.
 
 [Firebase](https://firebase.google.com/) is Google's backend business service. Firebase has taken over most of Google's mobile and Java SDKs. Firebase has monolithic SDKs for iOS, Android, and the mobile web. The keystone of Firebase is its realtime database. The database streams any writes to all connected clients within a matter of milliseconds.
 
-In AngularFire2, observables wrap callbacks and promises. This is a more Angular-style API. AngularFire2 uses observables throughout. Any data that changes will stream to you. 
+In AngularFire2, observables wrap callbacks and promises. This is a more Angular-style API. AngularFire2 uses observables throughout. Any data that changes will stream to you.
 
 ### So what's the problem?
 
@@ -248,7 +248,7 @@ In addition to NgModule, other steps can be taken to reduce package size. Fireba
 ---
 
 ## Addicted to AngularJS
-  
+
 Many projects are big apps maintained by small teams and they don't have the time or resources to re-develop AngularJS apps in Angular.
 
 NgUpgrade allows you run AngularJS and Angular at the same time in a hybrid application. In a hybrid app, each element is owned by _either_ AngularJS or Angular.
@@ -256,7 +256,7 @@ NgUpgrade allows you run AngularJS and Angular at the same time in a hybrid appl
 1. **Bootstrap a hybrid app**: two frameworks running side by side with injectors that know about each other.
 2. **Downgrading components**: "downgrade" means to make an Angular component or service available to AngularJS. Downgrade components and use them in AngularJS HTML templates. Syntax and structural directives still need to be in AngularJS.
 3. **Downgrading services**: use a helper function that ensures the instance you get in AngularJS is the exact same instance you use in Angular.
-4. **Upgrading components**: "upgrade" means to make an AngularJS component and make it available to Angular. AngularJS components can be wrapped by an Angular component facade. 
+4. **Upgrading components**: "upgrade" means to make an AngularJS component and make it available to Angular. AngularJS components can be wrapped by an Angular component facade.
 5. **Upgrading services**: create a provider inside Angular that gives it access to the same instance.
 
 > **Note:** ngUpgrade is still in active development.
@@ -324,7 +324,7 @@ Closure Compiler is optimized for ES2015 sources. It's recommended to publish FE
 Serverless is:
 
 * Fully managed: you don't have to think about servers
-* Only pay for what you use and no up front provisioning 
+* Only pay for what you use and no up front provisioning
 * Scales up or down as necessary
 
 [Firebase](https://firebase.google.com/) is "Backend as a Service" (BaaS). Firebase is multiplatform and provides a realtime database with realtime synchronization and offline support to reconcile your requests from when you were disconnected. Firebase also handles authentication out of the box, including anonymous login, email and password, social, and existing auth system integration.
@@ -361,13 +361,13 @@ You can take advantage of improvements to bundle size by simply staying up to da
 
 ### 4. Import carefully
 
-It's easy to take a bundle that was reasonable before and make it unreasonable by importing incorrectly. For example, importing RxJS bare (`import 'rxjs'`), you add every single feature and operator in RxJS. Instead, selectively include the pieces you need. The same is true of Angular Material. Using the source map explorer, you can determine if there are better ways to import libraries. 
+It's easy to take a bundle that was reasonable before and make it unreasonable by importing incorrectly. For example, importing RxJS bare (`import 'rxjs'`), you add every single feature and operator in RxJS. Instead, selectively include the pieces you need. The same is true of Angular Material. Using the source map explorer, you can determine if there are better ways to import libraries.
 
 > **Note:** Tree shaking will help long term, but in general the tools that we use every day aren't capable of doing this at this time. We do expect this to get better in the future.
 
 ### 5. Lazy load
 
-Lazy loading is very easy. You take a module of your application and all its dependencies and refer to the module in routes. 
+Lazy loading is very easy. You take a module of your application and all its dependencies and refer to the module in routes.
 
 Recommendations:
 
@@ -435,6 +435,8 @@ It's a great time to explore Angular for your single page JavaScript application
 * [Angular 2 Authentication Tutorial](https://auth0.com/blog/angular-2-authentication/)
 
 You can [sign up for a free Auth0 account here](javascript:signup\(\))!
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 
 ---
 

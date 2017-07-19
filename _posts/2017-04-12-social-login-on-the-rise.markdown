@@ -26,7 +26,7 @@ related:
 
 The popularity of social login is on the [rise](https://auth0.com/blog/analysis-of-social-connection-data/).
 
-For users, it provides a seamless, frictionless way to login to the sites and apps that they use most frequently. 
+For users, it provides a seamless, frictionless way to login to the sites and apps that they use most frequently.
 
 For developers, it provides a way to quickly implement a secure signup and login system—and creates tons of opportunities for [personalization of the user experience](https://auth0.com/blog/how-to-use-social-login-to-drive-your-apps-growth/).
 
@@ -42,15 +42,15 @@ With these three social login options you could give the vast majority of your u
 
 ![Social Connections Growth](https://cdn.auth0.com/blog/social-login-on-the-rise/social-connections-usage.png)
 
-Because of all those users, companies of that size also have a ton to lose in the event of a password breach, and they employ some of the world's top security experts to make sure that never happens. 
+Because of all those users, companies of that size also have a ton to lose in the event of a password breach, and they employ some of the world's top security experts to make sure that never happens.
 
-Smaller sites just don't have the same kinds of incentives pushing them to put security first. Sometimes even well-known sites, like [Gawker](http://www.pcmag.com/article2/0,2817,2484486,00.asp), just aren't thinking that someone would try and compromise their users' information. That's largely because they don't face the same kind of public cataclysm that a Google or a Facebook would face in the same kind of situation. 
+Smaller sites just don't have the same kinds of incentives pushing them to put security first. Sometimes even well-known sites, like [Gawker](http://www.pcmag.com/article2/0,2817,2484486,00.asp), just aren't thinking that someone would try and compromise their users' information. That's largely because they don't face the same kind of public cataclysm that a Google or a Facebook would face in the same kind of situation.
 
-When holes in the security systems of larger, more well-known sites are discovered, they do tend to make the news—which can easily bias you to think that they're insecure. The truth is that these incidents are almost always the results of white hat hackers exposing flaws for the purpose of bolstering their reputations or collecting on lucrative [bug bounties](https://www.facebook.com/whitehat). 
+When holes in the security systems of larger, more well-known sites are discovered, they do tend to make the news—which can easily bias you to think that they're insecure. The truth is that these incidents are almost always the results of white hat hackers exposing flaws for the purpose of bolstering their reputations or collecting on lucrative [bug bounties](https://www.facebook.com/whitehat).
 
 ## Password Reuse is Still a Problem
 
-The one major flaw with social login, if we're pragmatic about how users really behave, is password reuse. 59% of people have reported using the same password [across multiple sites](http://betanews.com/2015/07/30/59-percent-of-consumers-reuse-passwords/). That makes their accounts significantly more vulnerable, because a breach anywhere can lead to multiple compromised accounts. 
+The one major flaw with social login, if we're pragmatic about how users really behave, is password reuse. 59% of people have reported using the same password [across multiple sites](http://betanews.com/2015/07/30/59-percent-of-consumers-reuse-passwords/). That makes their accounts significantly more vulnerable, because a breach anywhere can lead to multiple compromised accounts.
 
 This problem gets worse when you're talking about a social account linked to many different apps and sites. If you use the same password across different sites, and your password is hacked on a site that takes security less seriously, attackers could gain access to your main social media account. If you're using that account to log in elsewhere, you could suddenly have a huge problem on your hands.
 
@@ -58,9 +58,9 @@ Back in 2011, when the service Trapster was hacked, [that's exactly what happene
 
 ![Account Hacked Tweet](https://cdn.auth0.com/blog/social-login-on-the-rise/10701069image2.png)
 
-The lesson here is that if you're using social login, you should absolutely make sure that the password you're using for your Google/Facebook/etc. account is unique from all the other passwords you use. 
+The lesson here is that if you're using social login, you should absolutely make sure that the password you're using for your Google/Facebook/etc. account is unique from all the other passwords you use.
 
-Better yet, implement multifactor authentication on that account. Most people don't want to have MFA on every single account that they have across the internet, but if it's at least implemented on your main Google or Facebook account, then you have a higher bar of security on the one site or app where you need it the most—you'll have the best annoyance:value ratio that you can get. 
+Better yet, implement multifactor authentication on that account. Most people don't want to have MFA on every single account that they have across the internet, but if it's at least implemented on your main Google or Facebook account, then you have a higher bar of security on the one site or app where you need it the most—you'll have the best annoyance:value ratio that you can get.
 
 ## Privacy Settings Need to be Monitored
 
@@ -100,3 +100,5 @@ Setting up social login in Auth0 is easy:
 4. Select the attributes and permissions you want to get from the provider, and hit save.
 
 What are you waiting for? [Check it out today](https://auth0.com/) 😄
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.

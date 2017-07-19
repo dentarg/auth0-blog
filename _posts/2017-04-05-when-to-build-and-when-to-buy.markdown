@@ -87,6 +87,12 @@ If there's zero or minimal interruption to customer experience with this approac
 
 There's no disruption to customer experience but now you're in a better position to serve them and boost your [retention rates](https://amplitude.com/mobile-analytics).
 
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
 ## It's Time to Make a Decision
 
 Because of the costs involved with both building yourself and buying an out-of-the-box solution, it's important that you're clear on what you want to achieve. It might seem less expensive to build, but if it's beyond the scope of your core business, it'll cost more in the long-term to maintain it. It's very hard to build and maintain as you grow.

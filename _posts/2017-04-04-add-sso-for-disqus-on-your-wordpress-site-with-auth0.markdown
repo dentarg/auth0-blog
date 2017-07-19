@@ -36,9 +36,11 @@ related:
 ## Configuring Auth0 for WordPress
 There’s already plenty of good information for how to set up the WordPress plugin for Auth0.  Simply follow [these steps](https://auth0.com/docs/cms) and you'll have Auth0 integrated in no time.
 
-Make sure you get to the point where the [Lock](https://www.google.com/url?q=https://auth0.com/lock&sa=D&ust=1487712650254000&usg=AFQjCNGgfaHnBtRJcZNxH4tVKkaV_vyeVA) widget is displayed when attempting to log in:
+Make sure you get to the point where the [Lock](https://auth0.com/lock) widget is displayed when attempting to log in:
 
 ![Login Widget](https://cdn.auth0.com/blog/auth0-disqus-wordpress-sso/login-widget.png)
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ## Adding Disqus
 To utilize Disqus, you need a Disqus account.  Signing up for an account will enable you to configure your applications to use Disqus. We’ll enable SSO for this primary account. Note, you can only configure one SSO domain, so if you have multiple sites, you may have to create a special account for each site.  I used my Auth0 email and set a password.  I then created this demo organization:
