@@ -12,7 +12,7 @@ author:
   avatar: "https://s.gravatar.com/avatar/53f70144dc9d7c76455fa91f858d4cec?s=200"
 design: 
   bg_color: "#3445dc"
-  image: "https://cdn.auth0.com/website/extend/developer/blocks-graphic.svg"
+  image: "https://cdn.auth0.com/blog/website-extend/blocks-graphic01.png"
 tags: 
 - extend
 
