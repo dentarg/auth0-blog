@@ -809,7 +809,7 @@ On the server, execute the following commands:
 
 ```bash
 $ cd server
-$ sudo nano config.js # paste your config.js contents
+$ sudo nano config.js # in this file, paste your config.js contents
 ```
 
 Save and exit with `Ctrl` + `x` and then `y`. 
@@ -819,7 +819,7 @@ Save and exit with `Ctrl` + `x` and then `y`.
 > ```bash
 $ cd server
 $ sudo mv config.js.SAMPLE config.js
-$ sudo nano config.js # make changes to reflect your config.js contents
+$ sudo nano config.js # in this file, make changes to reflect your config.js contents
 ```
 
 ### Configure Nginx for the App
@@ -836,7 +836,7 @@ $ sudo mv default default.bak
 Now we can create a _new_ file to store our app's nginx server blocks. Name the file after your _full_ domain with `.conf` as an extension, like so:
 
 ```bash
-$ sudo nano /etc/nginx/conf.d/[YOUR_DOMAIN].conf # ie, rsvp.kmaida.net.conf
+$ sudo nano /etc/nginx/conf.d/[YOUR_DOMAIN].conf # e.g., rsvp.kmaida.net.conf
 ```
 
 Configuration files in the `conf.d` folder are already imported in the `/etc/nginx/nginx.conf` file, so it's a great way to keep our configurations organized, especially if we'll have additional domains on our VPS in the future.
@@ -888,13 +888,13 @@ $ sudo systemctl start nginx
 
 You should now be able to access your site in the browser. It should redirect to a secure connection if `https` is not specified when entering the URL.
 
-> **Note:** We haven't updated our Auth0 Client settings yet, so we'll get an error if we try to log in, but we'll fix that next!
+> **Note:** We haven't updated our Auth0 Client settings yet, so we'll get an error if we try to log in. We'll fix that next!
 
 ---
 
 ## <span id="prod-settings"></span>Production Auth0 Settings
 
-There's only one step left, and that's to update Auth0 Client settings to accommodate the production environment.
+There's only one step left, and that's to update our app's Auth0 Client settings to accommodate the production environment.
 
 Log into Auth0 and head to your [Auth0 Dashboard Clients](https://manage.auth0.com/#/clients). Select your RSVP app Client and add the production URLs to your settings:
 
