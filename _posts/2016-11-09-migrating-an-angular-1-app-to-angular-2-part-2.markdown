@@ -953,7 +953,7 @@ Here is my refactoring suggestion from part two of our migration tutorial:
 
 ## Conclusion
 
-Our ng2-dinos app now calls an API and supports searching! We've successfully migrated the main dinosaurs listing, dino cards, and search form. We've covered HTTP observables and building a filtering service. Make sure you've run `ng lint --type-check` and corrected any issues. With clean code, we shouldn't have any errors.
+Our ng2-dinos app now calls an API and supports searching! We've successfully migrated the main dinosaurs listing, dino cards, and search form. We've covered HTTP observables and building a filtering service. Make sure you've run `ng lint` and corrected any issues. With clean code, we shouldn't have any errors.
 
 In the final part of the tutorial, we'll create a dinosaur detail component with routing and we'll show loading states while waiting for API calls to complete.
 
