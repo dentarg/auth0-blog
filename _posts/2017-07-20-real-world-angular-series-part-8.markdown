@@ -809,7 +809,7 @@ On the server, execute the following commands:
 
 ```bash
 $ cd server
-$ sudo nano config.js # paste your config.js contents
+$ sudo nano config.js # in this file, paste your config.js contents
 ```
 
 Save and exit with `Ctrl` + `x` and then `y`. 
@@ -819,7 +819,7 @@ Save and exit with `Ctrl` + `x` and then `y`.
 > ```bash
 $ cd server
 $ sudo mv config.js.SAMPLE config.js
-$ sudo nano config.js # make changes to reflect your config.js contents
+$ sudo nano config.js # in this file, make changes to reflect your config.js contents
 ```
 
 ### Configure Nginx for the App
@@ -836,7 +836,7 @@ $ sudo mv default default.bak
 Now we can create a _new_ file to store our app's nginx server blocks. Name the file after your _full_ domain with `.conf` as an extension, like so:
 
 ```bash
-$ sudo nano /etc/nginx/conf.d/[YOUR_DOMAIN].conf # ie, rsvp.kmaida.net.conf
+$ sudo nano /etc/nginx/conf.d/[YOUR_DOMAIN].conf # e.g., rsvp.kmaida.net.conf
 ```
 
 Configuration files in the `conf.d` folder are already imported in the `/etc/nginx/nginx.conf` file, so it's a great way to keep our configurations organized, especially if we'll have additional domains on our VPS in the future.
