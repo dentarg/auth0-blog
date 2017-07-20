@@ -896,6 +896,6 @@ That's it! We have an authenticated Node API and Angular application with login,
 
 ## Conclusion
 
-Our ng2-dinos app is complete! Make sure you've run `ng lint --type-check` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state.
+Our ng2-dinos app is complete! Make sure you've run `ng lint` and corrected any issues. With clean code, we shouldn't have any errors. We've successfully migrated the dinosaur detail pages and implemented a simple loading state.
 
 Hopefully you're now ready to dive into Angular migrations as well as new Angular 2 projects with confidence!
