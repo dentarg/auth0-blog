@@ -12,11 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angular2
 - angular
@@ -28,7 +25,7 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an AngularJS App to Angular book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <strong>Check out the Real-World Angular Series to learn how to build and deploy a full-featured MEAN stack application</strong>, from ideation to production! Start the series here: <a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series - Part 1: MEAN Setup and Angular Architecture</a>.
 </div>
 
 <div class="alert alert-info alert-icon">
@@ -489,17 +486,39 @@ export class Dino {
 }
 ```
 
+### Add HTTP Client Module to App Module
+
+Now we have the "shape" of a dinosaur defined. Let's work on getting the data from the API.
+
+First we need to import the `HttpClientModule` in our `app.module.ts`:
+
+```typescript
+// ng2-dinos/src/app/app.module.ts
+
+...
+import { HttpClientModule } from '@angular/common/http';
+...
+@NgModule({
+  ...,
+  imports: [
+    ...,
+    HttpClientModule
+  ],
+  ...
+```
+
+Import `HttpClientModule` from `@angular/common/http` and then add it to the NgModule's `imports` array.
+
 ### Get API Data with Dinos Service
 
-Now we have the "shape" of a dinosaur defined. Let's work on getting the data from the API in our `dinos.service.ts`:
+Next let's fetch the API data in our `dinos.service.ts`:
 
 ```typescript
 // ng2-dinos/src/app/core/dinos.service.ts
 
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Dino } from './models/dino.model';
@@ -508,20 +527,15 @@ import { Dino } from './models/dino.model';
 export class DinosService {
   private baseUrl = 'http://localhost:3001/api/';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getAllDinos$(): Observable<Dino[]> {
     return this.http
       .get(`${this.baseUrl}dinosaurs`)
-      .map(this.handleSuccess)
       .catch(this.handleError);
   }
 
-  private handleSuccess(res: Response) {
-    return res.json();
-  }
-
-  private handleError(err: Response | any) {
+  private handleError(err: HttpErrorResponse | any) {
     let errorMsg = err.message || 'Unable to retrieve data';
     return Observable.throw(errorMsg);
   }
@@ -531,11 +545,11 @@ export class DinosService {
 
 This is pretty straightforward and it doesn't look that much different from our [ng1-dinos Dinos service](https://github.com/auth0-blog/ng1-dinos/blob/master/src/app/core/Dinos.service.js). Aside from Angular 2 format, the primary difference is that we're returning typed observables instead of promises (and we haven't added the API call to get a single dinosaur's details by `id` yet—we'll do that later).
 
-Starting from the top: we import our dependencies. Services are _injectable_. The CLI adds the `Injectable` class for us. We also need `Http` and `Response` from `@angular/http`, `Observable` from RxJS, and `map` and `catch` operators. Finally we need our `Dino` model.
+Starting from the top: we import our dependencies. Services are _injectable_. The CLI adds the `Injectable` class for us. We also need `HttpClient` and `HttpErrorResponse` from `@angular/common/http`, `Observable` from RxJS, and the `catch` operator. Finally we need our `Dino` model.
 
 > **Note:** RxJS [observables are preferable over promises](https://angular-2-training-book.rangle.io/handout/observables/observables_vs_promises.html). Angular 2's `http.get` returns an observable but we _could_ convert it to a promise with `.toPromise()` if we had to (but we won't in this tutorial). 
 
-We set our private API `baseUrl` property and make `private http: Http` available in the constructor function. 
+We set our private API `baseUrl` property and make `private http: HttpClient` available in the constructor function. 
 
 Then we define our `getAllDinos$()` function. The `$` at the end of the function name indicates that an observable is returned and we can subscribe to it. The `getAllDinos$(): Observable<Dino[]>` type annotation declares that we expect an array of items matching the `Dino` model we created previously.
 
@@ -554,19 +568,12 @@ We want the dinos service to be a singleton. Unlike Angular 1, Angular 2 service
 import { DinosService } from './core/dinos.service';
 
 @NgModule({
-  declarations: [
-    ...
-  ],
-  imports: [
-    ...
-  ],
+  ...,
   providers: [
     ...,
     DinosService
   ],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+  ...
 ```
 
 We import the `DinosService` and then add it to the `providers` array. It's now available for use in our components.
@@ -946,8 +953,8 @@ Here is my refactoring suggestion from part two of our migration tutorial:
 
 ## Conclusion
 
-Our ng2-dinos app now calls an API and supports searching! We've successfully migrated the main dinosaurs listing, dino cards, and search form. We've covered HTTP observables and building a filtering service. Make sure you've run `ng lint` and corrected any issues. With clean code, we shouldn't have any errors.
+Our ng2-dinos app now calls an API and supports searching! We've successfully migrated the main dinosaurs listing, dino cards, and search form. We've covered HTTP observables and building a filtering service. Make sure you've run `ng lint --type-check` and corrected any issues. With clean code, we shouldn't have any errors.
 
-In the final part of the tutorial, we'll create a dinosaur detail component with routing and we'll show loading states while waiting for API calls to complete. We'll also go over how to add authentication to our Angular 2 app (a feature we didn't have in ng1-dinos).
+In the final part of the tutorial, we'll create a dinosaur detail component with routing and we'll show loading states while waiting for API calls to complete.
 
 Migrating an existing application can be a great way to learn a new framework or technology. We experience familiar and new patterns and implement real-world features. Please join me again for the final lesson: [Migrating an AngularJS App to Angular - Part 3](https://auth0.com/blog/migrating-an-angular-1-app-to-angular-2-part-3)!

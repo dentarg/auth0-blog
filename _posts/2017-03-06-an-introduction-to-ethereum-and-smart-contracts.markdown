@@ -159,7 +159,7 @@ Secondly, our model does not consider the speed of propagation of transactions. 
 
 Lastly, a malicious node could inject invalid transactions to cause a targeted denial of service. This could be used to favor certain transactions over others.
 
-Votes do not fix these problems because they are inherent to the design of the system. Whatever is used to favor one transaction over the other cannot be left to choice. As long as a single node, or group of nodes, can, in some way, favor some transactions over others, the system cannot work. It is precisely this element that made the design of cryptocurrencies such a hard endeavor. A strike of genius was needed to overcome such a profound design issue.
+Votes do not fix these problems because they are inherent to the design of the system. Whatever is used to favor one transaction over the other cannot be left to choice. As long as a single node, or group of nodes, can, in some way, favor some transactions over others, the system cannot work. It is precisely this element that made the design of cryptocurrencies such a hard endeavor. A stroke of genius was needed to overcome such a profound design issue.
 
 > The problem of malicious nodes casting a vote in distributed systems is best known as [The Byzantine Generals Problem](http://research.microsoft.com/en-us/um/people/lamport/pubs/byz.pdf). Although there is mathematical proof that this problem can be overcome as long as there is a certain ratio of non-malicious nodes, this does not solve the problem for cryptocurrencies: nodes are cheap to add. Therefore, a different solution is necessary.
 

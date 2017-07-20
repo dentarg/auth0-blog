@@ -12,11 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angular2
 - angular
@@ -28,7 +25,7 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an AngularJS App to Angular book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <strong>Check out the Real-World Angular Series to learn how to build and deploy a full-featured MEAN stack application</strong>, from ideation to production! Start the series here: <a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series - Part 1: MEAN Setup and Angular Architecture</a>.
 </div>
 
 <div class="alert alert-info alert-icon">
@@ -114,10 +111,8 @@ You should have [NodeJS with npm](https://nodejs.org) installed already.
 Next, install the [Angular CLI](https://github.com/angular/angular-cli) globally with the following command:
 
 ```bash
-$ npm install -g angular-cli
+$ npm install -g @angular/cli
 ```
-
-> **Note:** At the time of update, the Angular CLI has entered release candidate but is still not final. If you encounter errors using it, please consult the [angular-cli GitHub issues](https://github.com/angular/angular-cli/issues/) for resolutions.
 
 ### Initialize ng2-dinos
 
@@ -137,21 +132,21 @@ We should be able to view the site in the browser at [http://localhost:4200](htt
 
 ![Migrating Angular 1 app to Angular 2: Angular 2 app initialized](https://cdn.auth0.com/blog/ng1-to-ng2/app-works.jpg)
 
-Take a look at the file structure for your new ng2-dinos app. You may notice there are test files and configuration, but **we won't cover testing in this tutorial**. If you'd like to learn more about testing Angular 2, check out [Testing in the Angular docs](https://angular.io/docs/ts/latest/guide/testing.html) and articles like [Angular 2 Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/) and [Three Ways to Test Angular 2 Components](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d#.m3gh6p8bb).
+Take a look at the file structure for your new ng2-dinos app. You may notice there are test files and configuration, but **we won't cover testing in this tutorial**. If you'd like to learn more about testing Angular, check out [Testing in the Angular docs](https://angular.io/docs/ts/latest/guide/testing.html) and articles like [Angular 2 Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/) and [Three Ways to Test Angular 2 Components](https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d#.m3gh6p8bb).
 
 ### Linting and Style Guide
 
 The Angular CLI provides code linting with [TSLint](https://palantir.github.io/tslint/) and [Codelyzer](https://github.com/mgechev/codelyzer). TSLint provides TypeScript linting and Codelyzer provides TSLint rules that adhere to the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html). We can view all of these linting rules at `ng2-dinos/tslint.json`. We can lint our project using the following command:
 
 ```bash
-$ ng lint
+$ ng lint --type-check
 ```
 
 This tutorial follows the Style Guide and adheres to the default rules in the TSLint config file. It's good to lint your project periodically to make sure your code is clean and free of linter errors.
 
 > **Note:** The Angular CLI TSLint `"eofline": true` rule requires [files to end with a _newline_](https://palantir.github.io/tslint/rules/eofline/). This is [standard convention](http://stackoverflow.com/questions/729692/why-should-text-files-end-with-a-newline). If you want to avoid lots of newline errors when linting, make sure that your files include this.
 
-## Customizing Our Angular 2 Project for Migration
+## Customizing Our Angular Project for Migration
 
 Now that we have a working starter project for our ng2-dinos app, we want to restructure it and add some libraries.
 
@@ -873,7 +868,7 @@ Keep an eye out for more refactoring suggestions in the next lessons.
 
 ## Conclusion
 
-We now have the basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint`, our app should be free of linter errors.
+We now have the basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint --type-check`, our app should be free of linter errors.
 
 In the next parts of the tutorial, we'll enable navigation by creating page components and implementing routing. Then we'll call the API and use HTTP and observables to get and display dinosaur data and detail subpages, create type models, learn about filtering, implement error handling, and show loading states. We'll even address authentication.
 

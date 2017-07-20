@@ -18,11 +18,8 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60design
 design:
-  image: https://angular.io/resources/images/logos/standard/shield-large.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
+  image: https://cdn.auth0.com/blog/angular/logo.png
   bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
 tags:
 - authentication
 - angular2
@@ -383,6 +380,11 @@ In the sample [GitHub repo](https://github.com/auth0-blog/angular2-authenticatio
 With both of these running, navigate to your app and try logging in with the credentials `gonto` for both the username and password. If all worked as expected, you will be redirected to the home page and can make calls to the API.
 
 ## Aside: Using Angular 2 with Auth0
+
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This article uses an outdated Auth0 authentication approach.</strong> For improved security, it is <strong>strongly advised</strong> that you refer to the following updated tutorial instead: <a href="https://auth0.com/blog/angular-2-authentication/">Angular 2 Authentication Tutorial</a>. 
+</div>
 
 Auth0 issues **JSON Web Tokens** on every login for your users. That means that you can have a solid identity infrastructure, including [single sign-on](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog), user management, support for social (Facebook, Github, Twitter, etc.), enterprise (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 

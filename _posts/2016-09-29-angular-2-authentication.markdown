@@ -12,11 +12,8 @@ author:
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angular2
 - angular2-jwt

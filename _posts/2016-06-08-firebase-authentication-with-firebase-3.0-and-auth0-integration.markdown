@@ -1,4 +1,5 @@
 ---
+published: false
 layout: post
 title: "Firebase Authentication with the Firebase 3.0 SDK and Auth0 Integration"
 description: "Build a serverless Firebase app using the new Firebase 3.0 SDK. Secure your app with Firebase authentication and learn about custom authentication through Auth0."

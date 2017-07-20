@@ -907,7 +907,7 @@ We've now built and deployed a MEAN stack single page app to production, complet
 
 ### Series Recap
 
-You can view previous sections of the tutorial series here:
+You can view all sections of the tutorial series here:
 
 1. [Real-World Angular Series - Part 1: MEAN Setup & Angular Architecture](https://auth0.com/blog/real-world-angular-series-part-1)
 2. [Real-World Angular Series - Part 2: Authentication and Data Modeling](https://auth0.com/blog/real-world-angular-series-part-2)
@@ -927,6 +927,7 @@ There were a few topics that I didn't cover in this tutorial series in the inter
 * [Angular - Testing](https://angular.io/guide/testing)
 * [Angular Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/)
 * [Angular Testing In Depth: HTTP Services](https://auth0.com/blog/angular-testing-in-depth-http-services/)
+* [Angular Testing In Depth: Components](https://auth0.com/blog/angular-testing-in-depth-components)
 * [How to correctly test Angular 4 application with Auth0 integration](https://stackoverflow.com/questions/43784314/how-to-correctly-test-angular4-application-with-auth0-integration)
 
 #### Self-hosted MongoDB

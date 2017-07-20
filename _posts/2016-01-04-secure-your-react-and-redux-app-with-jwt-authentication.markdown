@@ -833,6 +833,11 @@ With the middleware and the quotes component in place, we should be able fetch q
 
 ## Aside: Using Auth0 in Your Redux Application
 
+<div class="alert alert-info">
+  <strong>Attention</strong><br />
+  <p style="color: #097093;">This tutorial uses an outdated version of our API. We are working to update it to the latest version with working code and examples. We apologize for any inconvenience this may cause.</p> 
+</div> 
+
 Adding authentication to any app is easy with Auth0 and we can implement a Redux flow in a few simple steps. Don't have an Auth0 account yet? <a href="javascript:signup()">Create a Free Account</a> to follow along with these steps!
 
 First, add the Auth0 Lock script to your `index.html` file.

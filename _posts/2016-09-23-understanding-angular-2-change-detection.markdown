@@ -12,11 +12,8 @@ author:
   mail: "wojtek.kwiatek@gmail.com"
   avatar: "https://en.gravatar.com/userimage/102277541/a28d70be6ae2b9389db9ad815cab510e.png?size=200"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angular2
 - angularjs

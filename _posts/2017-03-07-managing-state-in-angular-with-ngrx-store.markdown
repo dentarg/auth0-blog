@@ -12,11 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4deb2db17135af46f17d5cda3b58fd0d.png"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angular
 - angular2
@@ -31,8 +28,8 @@ related:
 ---
 
 <div class="alert alert-info alert-icon">
-  <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an AngularJS App to Angular book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <i class="icon-budicon-500"></i>
+  <strong>Ngrx version 4 has been released.</strong> This article uses version 3, but will be updated shortly to v4. Thank you for your patience while the content is upgraded!
 </div>
 
 **TL;DR:** In this article, we'll explore managing state with an immutable data store in an [Angular](http://angular.io) application using [ngrx/store](https://github.com/ngrx/store): reactive Redux for Angular. We'll also authenticate our app with [Auth0](https://auth0.com) and implement route authorization with route guards. The final code can be cloned from [this GitHub repository](https://github.com/auth0-blog/pet-tags-ngrx).
@@ -1472,7 +1469,7 @@ In the `AuthService` class, we need to create a new Lock instance with our Auth0
 
 We'll create a property to store the user's profile information that we'll retrieve when a visitor authenticates. This has an  `Object` type.
 
-Because we'll be storing the user's profile and access token in local storage, the first thing we'll do in our constructor is check for an existing profile. If there's a profile in storage already, we'll set the `userProfile` property.
+Because we'll be storing the user's profile and ID token in local storage, the first thing we'll do in our constructor is check for an existing profile. If there's a profile in storage already, we'll set the `userProfile` property.
 
 Next we need to listen to the Lock instance for the [`hash_parsed` event](https://github.com/auth0/lock#onevent-callback). This is a low-level event that we'll use (instead of the `authenticated` event) in order to handle single page app redirection upon login.
 
@@ -1617,7 +1614,7 @@ Now our app feels more personalized.
 
 We can log in and out of our app, but that doesn't offer much more than simple personalization at the moment. Any visitor can still navigate to any route they wish if they simply enter URLs manually. Let's implement a route guard so that routes are activated only for logged in users.
 
-> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with an access token provided by Auth0 using an `Authorization` header. You can read more on how to do this using a [hosted Lock instance and implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant). The [`angular2-jwt` package](https://github.com/auth0/angular2-jwt) provides `AUTH_PROVIDERS` to help accomplish this. When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards.
+> **Important Security Note:** In our simple demo app, authentication is simply for routing because we don't have a server component. _Client-side authentication does not confer security features._ If you're building an authenticated app with a server, you'll need to authorize API requests with an access token provided by Auth0 using an `Authorization` header. You can read more on how to do this using a [hosted Lock instance and implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).  When making API calls in an authenticated app, we would secure our server requests _in addition to_ implementing presentational route guards.
 
 Create a new file in `src/app/core` called `auth.guard.ts`:
 

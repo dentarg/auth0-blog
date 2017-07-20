@@ -12,11 +12,8 @@ author:
   mail: "gonto@auth0.com"
   avatar: "https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60"
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  image_size: "75%"
-  image_bg_color: "rgb(1, 70, 166)"
-  bg_color: "rgb(1, 70, 166)"
-  bg_merge: true
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - angular2
 - ngmodule
