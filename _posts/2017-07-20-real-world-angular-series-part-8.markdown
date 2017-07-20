@@ -888,13 +888,13 @@ $ sudo systemctl start nginx
 
 You should now be able to access your site in the browser. It should redirect to a secure connection if `https` is not specified when entering the URL.
 
-> **Note:** We haven't updated our Auth0 Client settings yet, so we'll get an error if we try to log in, but we'll fix that next!
+> **Note:** We haven't updated our Auth0 Client settings yet, so we'll get an error if we try to log in. We'll fix that next!
 
 ---
 
 ## <span id="prod-settings"></span>Production Auth0 Settings
 
-There's only one step left, and that's to update Auth0 Client settings to accommodate the production environment.
+There's only one step left, and that's to update our app's Auth0 Client settings to accommodate the production environment.
 
 Log into Auth0 and head to your [Auth0 Dashboard Clients](https://manage.auth0.com/#/clients). Select your RSVP app Client and add the production URLs to your settings:
 
