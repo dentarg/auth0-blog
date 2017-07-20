@@ -1,7 +1,7 @@
 ---
 layout: post_extend
-title: "I built a Twitter bot using Webtask and Data.gov"
-description: Learn how to use Webtask to build a twitter bot that pulls data from Data.gov and does sentiment analysis
+title: "I built a Twitter bot using Auth0 Webtasks and Data.gov"
+description: Learn how to use Auth0 Webtasks to build a twitter bot that pulls data from Data.gov and does sentiment analysis
 date: 2017-07-19 08:30
 is_extend: true
 category: Product
@@ -17,18 +17,18 @@ tags:
 - extend
 ---
 
-# I built a Twitter bot using Webtask and Data.gov
+# I built a Twitter bot using Auth0 Webtasks and Data.gov
 
 I wanted to build something small, fun, and socially-engaging. I have been following [Darius Kazemi][kazemi-website] ([@TinySubversions][kazemi-twitter]) and the community of bot makers at [Botwiki][botwiki-website] ([@Botwikidotorg][botwiki-twitter]), and I decided a Twitter bot was the way to go. I have also been following the US Executive Order 13792 pretty closely. The order directs the US Department of Interior to review whether to downsize "certain national monuments" or sell their oil and mineral rights for profit. The Department has an open ["Opportunity for Public Comment."][docket] I thought this would be a good chance to tinker with lightweight sentiment analysis of the public comments.
 
-I needed a good place to host my small project, and Webtask turned out to be a great fit! I didn't want sacrifice my time on infrastructure and hosting when I wanted to focus on this bot idea. I got to attend Glenn Block's Auth0 Webtask workshop at .NET Fringe this year, and he fired me up to do this.
+I needed a good place to host my small project, and Auth0's free [Webtask.io][webtask-io] offering turned out to be a great fit! I didn't want to sacrifice my time on infrastructure and hosting when I wanted to focus on this bot idea. I got to attend Glenn Block's Auth0 Webtasks workshop at .NET Fringe this year, and he fired me up to do this.
 
-The Webtask editor is nice, but I have a set of development tools I like. I also wanted to import npm modules to handle the sentiment analysis and Twitter posting. The Webtask CLI is perfect for this.
+The [Auth0 Webtask.io Editor][webtask-io-editor] is nice, but I have a set of development tools I like. I also wanted to import npm modules to handle the sentiment analysis and Twitter posting. The Auth0 Webtasks CLI is perfect for this.
 
 ```bash
 # Install the CLI globally
 npm i -g wt-cli
-# Log in to Webtask
+# Log in to my Webtask.io account
 wt-init
 ```
 
@@ -43,7 +43,7 @@ npm init
 npm install --save twitter sentence-tokenizer sentiment md5 node-fetch
 ```
 
-I prefer writing ES6, so I'll be adding `'use latest'` to the top of my scripts. I want to split my logic into a couple of different modules, so I'll use the CLI to bundle my scripts (`-b`). While I'm hacking, I also want to have automatically update the Webtask when I save, so I'll have the CLI watch for changes (`-w`). Finally, I have some API keys that I don't want to hard-code, so I'll create a file called `.secrets` to hold on to those for me. (And add `.secrets` to `.gitignore` so it doesn't accidentally get committed!)
+I prefer writing ES6, so I'll be adding `'use latest'` to the top of my scripts. I want to split my logic into a couple of different modules, so I'll use the CLI to bundle my scripts (`-b`). While I'm hacking, I also want to have automatically update my webtask when I save, so I'll have the CLI watch for changes (`-w`). Finally, I have some API keys that I don't want to hard-code, so I'll create a file called `.secrets` to hold on to those for me. (And add `.secrets` to `.gitignore` so it doesn't accidentally get committed!)
 
 ```bash
 wt create -b -w --secrets-file .secrets .
@@ -51,7 +51,7 @@ wt create -b -w --secrets-file .secrets .
 
 The first of my secrets to go in the `.secrets` file is my Data.gov API key. (It's free and [easy to sign up][data-gov] for, and provides access to other US government data besides Regulations.gov.) Next, I created a new Twitter account called [@EO13792Bot][eo13792bot-twitter] and created a [Twitter app][twitter-apps] for it. I copied the Consumer Key and Secret, and the Access Token and Secret into the `.secrets` file.
 
-There are four distinct parts to this Webtask:
+There are four distinct parts to this webtask:
 
 * [Regulations.gov API client][regulations-gov-api-client]
 * [Text analyzer][text-analyzer]
@@ -111,7 +111,7 @@ export default (commentText) => {
 
 The [comment selector and formatter][comment-selector-and-formatter] exports a function that ultimately returns a single comment to tweet. It gets the comments from the Regulations.gov API client and maps each comment through the text analyzer. It takes in a list of hashes from previous tweets to exclude those comments. It also ensures that the pull quote can fit into a tweet.
 
-The tweeter as the main body of the Webtask. It initializes the Twitter client, gets the list of hashes out of the Webtask context storage, and calls the comment selector and formatter to pick its tweet. Once it successfully tweets, the hash is added to the list in context storage.
+The tweeter is the main body of the webtask. It initializes the Twitter client, gets the list of hashes out of the webtask context storage, and calls the comment selector and formatter to pick its tweet. Once it successfully tweets, the hash is added to the list in context storage.
 
 Source: [quoter/src/index.js][tweeter]
 ```javascript
@@ -152,7 +152,7 @@ module.exports = (ctx, cb) => {
         ctx.storage.set(backlog, console.error);
         return document;
       })
-      // Then hit the Webtask's callback and end this request
+      // Then hit the webtask's callback and end this request
       .then(cb.bind(null, null))
       // If anything went wrong with the above, handle it
       .catch(err => {
@@ -163,7 +163,7 @@ module.exports = (ctx, cb) => {
 }
 ```
 
-Testing this work is as simple as hitting the Webtask endpoint in a browser. However, I wanted this to run on its own, checking for comments and tweeting every 10 minutes. I set up the Webtask on a schedule with a simple change to the Webtask CLI command:
+Testing this work is as simple as hitting the webtask's endpoint in a browser. However, I wanted this to run on its own, checking for comments and tweeting every 10 minutes. I set up the webtask on a schedule with a simple change to the CLI command:
 
 ```bash
 wt cron schedule -b --secrets-file .secrets 10m .
@@ -197,3 +197,5 @@ I've made the source for [@EO13792Bot][eo13792bot-twitter] available on [GitHub]
 [comment-selector-and-formatter]: https://github.com/thzinc/eo13792bot/blob/master/quoter/src/tweetUtils.js
 [tweeter]: https://github.com/thzinc/eo13792bot/blob/master/quoter/src/index.js
 [package-file]: https://github.com/thzinc/eo13792bot/blob/master/quoter/package.json
+[webtask-io]: https://webtask.io/
+[webtask-io-editor]: https://webtask.io/make
