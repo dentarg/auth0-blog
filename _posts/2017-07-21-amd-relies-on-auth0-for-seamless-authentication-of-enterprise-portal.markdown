@@ -12,8 +12,8 @@ author:
   mail: jeana.tahnk@auth0.com
   avatar: https://pbs.twimg.com/profile_images/1891692507/JeanaTahnk2_crop_400x400.jpg
 design:
-  image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
-  bg_color: "#35354D"
+  image: https://cdn.auth0.com/blog/amd-auth/logo.png
+  bg_color: "#009A2C"
 tags:
 - auth0
 - security
