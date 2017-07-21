@@ -29,7 +29,7 @@ It's easy to get locked into an authentication service.
 
 Once you've put all that time and effort into system integration and training employees to use the new service, it's really hard to leave. Some authentication providers even purposely try to make moving off them difficult because they think ([mistakenly](https://auth0.com/blog/why-using-open-standards-helps-close-enterprise-deals/)) that it will help them retain customers.
 
-The problem is, your security needs are constantly changing. If your provider can't keep up you'll either need to drop clients or go through the arduous process of switching providers, neither of which is an attractive option.
+The problem is, your security needs are constantly changing. If your provider can't keep up, you'll either need to drop clients or go through the arduous process of switching providers, neither of which is an attractive option.
 
 What you really need is to be able to add your own code on the fly. Many services now have webhooks so you can do just that. It's a great idea, but webhooks have limited capability and force *you* to be responsible for hosting them. This can defeat the purpose of having third-party authentication in the first place.
 
@@ -41,13 +41,13 @@ Short answer: yes. As your company grows, so do your security needs. No matter h
 
 For example, any enterprise customer you woo is going to be using a ton of internal tools already. If you can't alter your application so it can integrate with all these tools, you're never going to make the sell.
 
-![]()
+![Communication tools](https://cdn.auth0.com/blog/communication/tools.png)
 
 But you still don't want to resort to figuring out your own security. Why?
 
 * **It's too much work:** Developing your own identity security is hard work, and you can't commit so much time and personnel to a process that doesn't add value to your product.
 * **Scaling isn't easy:** As you grow, [scaling your security needs](https://auth0.com/learn/build-or-buy-20-identity-management-questions/) is going to become a problem. You may be able to handle a single identity provider for 1,000 customers, but extending that to fully operational identity management for 100,000 customers later on is a different story.
-* **Mistakes are deadly:** There are so many small ways to go wrong in identity management—you can't risk ruining your reputation. It's not worth trying to save money by implementing your own security if you end up missing a tiny but essential detail. [The Ponemon Institute](https://www-01.ibm.com/common/ssi/cgi-bin/ssialias?htmlfid=SEL03130WWEN) found that a data breach costs on average $3.62 million in support, investigation, and loss of customers, you can't afford that.
+* **Mistakes are deadly:** There are so many small ways to go wrong in identity management, you can't risk ruining your reputation. It's not worth trying to save money by implementing your own security if you end up missing a tiny but essential detail. [The Ponemon Institute](https://www-01.ibm.com/common/ssi/cgi-bin/ssialias?htmlfid=SEL03130WWEN) found that a data breach costs on average $3.62 million in support, investigation, and loss of customers, you can't afford that.
 
 That's why you need to find an authentication provider who allows you to easily add features on your own.
 
@@ -85,7 +85,7 @@ Instead of using webhooks, we have [Webtasks](https://webtask.io/), which allow 
 
 ### WE DO THE HARD WORK FOR YOU
 
-With Webtasks we can [execute custom Node.js code](https://auth0.com/blog/extensibility-through-code-using-webtasks/) securely in a multi-tenant environment with low latency. Essentially, Webtasks allow you to add customized code to extend Auth0 without a server. That means you can get all the functionality of a webhook without any of the hosting requirements. We do all the work of sustaining your extension while you just write the code. And you can write your code directly into our platform—no need to have a separate setup.
+With Webtasks we can [execute custom Node.js code](https://auth0.com/blog/extensibility-through-code-using-webtasks/) securely in a multi-tenant environment with low latency. Essentially, Webtasks allow you to add customized code to extend Auth0 without a server. That means you can get all the functionality of a webhook without any of the hosting requirements. We do all the work of sustaining your extension while you just write the code. And you can write your code directly into our platform, no need to have a separate setup.
 
 ![Auth0 Rules](https://cdn.auth0.com/blog/diagram/auth0rules.png)
 
@@ -93,7 +93,7 @@ All this comes with our strong isolation guarantee that your code will not inter
 
 ### YOU CAN DO MORE
 
-Unlike one-way webhooks, Auth0 Rules execute as a part of the authentication transaction—so you can use your Rules to customize the process itself.
+Unlike one-way webhooks, Auth0 Rules execute as a part of the authentication transaction, so you can use your Rules to customize the process itself.
 
 ![Webtask Extensibility](https://cdn.auth0.com/blog/webtask/extensibility.png)
 
