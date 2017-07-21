@@ -48,7 +48,7 @@ So Mongo it was. We kept adding collections, modifying schemas, optimizing index
 
 ### Cracks in the Wall
 
-At this point any self-respecting post on moving from Mongo to DynamoDB would show a smoking gun: pathetically poor performance numbers, horrible reliability data, evidence of leaking fake data to Russian hackers, or at least proof of some sexual scandal. I am afraid I have to disappoint. 
+At this point any self-respecting post on moving from Mongo to DynamoDB would show a smoking gun: pathetically poor performance numbers, horrible reliability data, evidence of leaking fake data to Russian hackers, or at least proof of some scandal. I am afraid I have to disappoint. 
 
 > MongoDB continues to work great for us. Features are more than sufficient, performance is more than adequate, and reliability is where we need it to be. 
 
