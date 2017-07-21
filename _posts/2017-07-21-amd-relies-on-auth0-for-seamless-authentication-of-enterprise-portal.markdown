@@ -7,10 +7,10 @@ category: PR, Press
 press_release: true
 is_non-tech: true
 author:
-  name: Jeana Tahnk
-  url: https://twitter.com/JeanaTahnk
-  mail: jeana.tahnk@auth0.com
-  avatar: https://pbs.twimg.com/profile_images/1891692507/JeanaTahnk2_crop_400x400.jpg
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   image: https://cdn.auth0.com/blog/amd-auth/logo.png
   bg_color: "#009A2C"
