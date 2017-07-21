@@ -2,7 +2,7 @@
 layout: post
 title: "The Role of Identity in Application Modernization"
 description: "Learn why identity is the right component to modernize first in your digital transformation journey."
-date: 2017-07-17 08:30
+date: 2017-07-21 08:30
 category: Growth, Identity, Microservices, App Modernization
 is_non-tech: true
 author:
@@ -21,7 +21,7 @@ tags:
 - microservices-based-architecture
 related:
 - 5-reasons-your-company-needs-identity-and-access-management
-- 4-ways-to-calculate-your-customers-happiness
+- getting-a-competitive-edge-with-a-microservices-based-architecture
 - turn-your-customers-into-brand-advocates-through-personalization
 press_release: false
 ---
