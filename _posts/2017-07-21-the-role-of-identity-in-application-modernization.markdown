@@ -55,7 +55,7 @@ Finally, the security part of the modern identity story ensures that user data i
 
 Looking at identity as a constantly evolving and unified view of your user base, rather than a one-and-done requirement, will help you understand the importance of this component in your application. Application modernization is the refactoring, repurposing or consolidation of legacy software to align it more closely with current business needs. Whether you call it application modernization, digital transformation, platform refactoring or re-architecting, the need to have a software that meets the needs of your business is a priority. 
 
-Read our initial application modernization post to learn more about why application modernization is sweeping the software industry. In today’s post, we will look at how you can kickstart your modernization journey by tackling identity first.
+[Read our initial application modernization post](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/) to learn more about why application modernization is sweeping the software industry. In today’s post, we will look at how you can kickstart your modernization journey by tackling identity first.
 
 Identity has to be done right, not as an afterthought or side project, making it an ideal candidate for a service that needs to be separated out from the legacy behemoth applications. Identity requires ongoing efforts to secure and maintain but expertise is scarce. Much like how you generally wouldn’t build your own database or email platform, identity is best left to experts whose sole job is to ensure that your platform is as safe and secure as it can be, leaving your developers to focus on your organization's core competencies.
 
