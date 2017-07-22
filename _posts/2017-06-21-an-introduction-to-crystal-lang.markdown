@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Highs & Lows of Crystal - an intro to Crystal Lang"
+title: "The Highs & Lows of Crystal - an Introduction to Crystal Lang"
 description: "Crystal Language claims to be as fast as C and as easy to learn as Ruby.  Here, I put it to the test and give my 2 cents!"
 date: 2017-06-21 15:54
 category: Technical Guide
@@ -15,11 +15,7 @@ tags:
 - Systems Programming
 ---
 
-
-The Highs and Lows of Crystal  (An Introduction to the Language)
-====================================
-
-Crystal is a statically-typed, compiled, systems programming language with the aims of being as fast as c/c++, while having a syntax as readable as Ruby.  This article is an introduction to the Crystal Language, through the eyes of a polyglot programmer.  Being a former programmer of both C and Ruby, I have been able to explore the ins-and-outs of Crystal with an objective mindset and give an unbiased opinion on its features; from it's low-level primitives to its familiar syntax, and much inbetween.
+Crystal is a statically-typed, compiled, systems programming language with the aims of being as fast as c/c++, while having a syntax as readable as Ruby.  This article is an introduction to the Crystal Language, through the eyes of a polyglot programmer.  Being a former programmer of both C and Ruby, I have been able to explore the ins-and-outs of Crystal with an objective mindset and give an unbiased opinion on its features; from it's low-level primitives to its familiar syntax, and much in-between.
 
 I first came across Crystal when I saw [@sferik](https://twitter.com/sferik)  giving a talk on it in Poland back in 2015.  [Video here.](https://www.youtube.com/watch?v=Ysm4IU4aWoQ)  It was a great talk, and sparked my interest to Crystal right there and then.  When I initially checked out Crystal, I thought it looked awesome but I was too busy with all the other languages I was using on a daily basis to be able to focus my time properly on it.
 
@@ -64,11 +60,13 @@ The fact that you can use Ruby syntax highlighting natively for Crystal says eve
 
 One of the big selling points for Crystal is the ease with which you can interface with C libraries.  "Crystal allows you to bind to existing C libraries without writing a single line in C.  Additionally, it provides some conveniences like `out` and `to_unsafe` so writing bindings is as painless as possible."
 
-Let's build a simple script in C that says "hi!".  We'll then write a Crystal app to bind to our C library.  This is a great start point for anyone who wants to know about binding C in Crystal.
+Let's build a simple script in C that says "hi!".  We'll then write a Crystal app to bind to our C library.  This is a great starting point for anyone who wants to know about binding C in Crystal.
 
 First off, let's create a project with Crystal's scaffolding tool (I'll cover this feature later).  Run:
 
-	$ crystal init app sayhi_c
+~~~ bash
+$ crystal init app sayhi_c
+~~~
 
 Then head into the directory `sayhi_c/src/sayhi_c` and let's create a file `sayhi.c` with the following contents:
 
@@ -82,7 +80,9 @@ void hi(const char * name){
 
 Now we need to compile our C file into an object.  On Ubuntu or Mac using `gcc` we can run:
 
-	$ gcc -c sayhi.c -o sayhi.o
+~~~ bash
+$ gcc -c sayhi.c -o sayhi.o
+~~~
 
 Using the `-o` flags allow us to create an Object filetype.  Once we've got our Object file, we can bind it from within our Crystal app.  Open up our `sayhi_c.cr` file, and have it reflect the following:
 
@@ -257,17 +257,21 @@ dependencies:
 
 #### Documentation & Formatting
 
-Crystal has a great inbuilt tool for generating documentation and formatting files.  The documentation that is generated is excellent - built in html/css and almost instantly ready to deploy.
+Crystal has a great built-in tool for generating documentation and formatting files.  The documentation that is generated is excellent - built-in html/css and almost instantly ready to deploy.
 
 To generate documentation, from the project root directory we can simply run:
 
-	$ crystal doc
+~~~ bash
+$ crystal doc
+~~~
 
 This will create a docs directory, with a doc/index.html entry point. All files inside the root src directory of the project from which we ran the command will be considered.
 
-Alongside this, the inbuilt *Formatter* tool is a great feature of the language.  We can run the formatter over our project by running:
+Alongside this, the built-in *Formatter* tool is a great feature of the language.  We can run the formatter over our project by running:
 
-	$ crystal tool format
+~~~ bash
+$ crystal tool format
+~~~
 
 We can use this tool to unify code styles and to submit documentation improvements to Crystal itself.  The formatter is also very fast, so very little time is lost if you format the entire project's codebase instead of just a single file.
 
@@ -277,9 +281,9 @@ We can use this tool to unify code styles and to submit documentation improvemen
 
 Like anything in this world, Crystal can't possibly be perfect!  There are two ***very*** small issues that I find with it...
 
-As a Polyglot programmer, I've had to learn a bunch of different programming paradigms.  While this isn't a fault in Crystal, the fact that it's Object Orientated is pretty much the only thing I'm not too keen on in Crystal.  Other than that; being a relatively young &amp; immature language, there's often a lack of documentation available when you want to do something incredibly specific.
+As a Polyglot programmer, I've had to learn a bunch of different programming paradigms.  While this isn't a fault in Crystal, the fact that it's object orientated is pretty much the only thing I'm not too keen on in Crystal.  Other than that; being a relatively young &amp; immature language, there's often a lack of documentation available when you want to do something incredibly specific.
 
-**Seeing this as an opportunity** instead of a foible - it's actually kind of cool, because this means we can write documentation ourselves and hack sample apps together to become early adopters and decent contributors in the Crystal community!
+Seeing this as an opportunity instead of a foible - it's actually kind of cool, because this means we can write documentation ourselves and hack sample apps together to become early adopters and decent contributors in the Crystal community!
 
 
 ## Aside - Auth0 & JWTs in Crystal 
@@ -303,10 +307,7 @@ Although relatively immature, Crystal is a promising language with a growing Dev
 
 I am very much looking forward to seeing where this language goes.  I think the adoption rate will rapidly increase and I'm excited to see startups using it in production systems.  I am currently experimenting in building a Crystal library for the Auth0 API.  I will write another article on building an API client in Crystal when I'm finished.
 
-I do hope this article has inspired you to give Crystal a try, and look forward to hearing your feedback if/when you do!  If you need any help and want to ask any questions, [reach out to me](mailto:robin@percy.pw) - I'm happy to help!
-
-  ***[ - @rbin](http://twitter.com/rbin)***
-
+I do hope this article has inspired you to give Crystal a try, and look forward to hearing your feedback if/when you do!  If you need any help and want to ask questions, [reach out to me via email](mailto:robin@percy.pw) and [@rbin](http://twitter.com/rbin) on twitter, I'm happy to help!
 
 ## Handy Resources
 
