@@ -13,7 +13,7 @@ author:
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   image: https://cdn.auth0.com/blog/amd-auth/logo.png
-  bg_color: "#009A2C"
+  bg_color: "#00563F"
 tags:
 - auth0
 - security
