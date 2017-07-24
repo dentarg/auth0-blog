@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why You Need to Care About Net Neutrality"
-description: "Brand advocates are your best and most authentic influencers — so how can you create more of them?"
+description: "The future of the web affects everyone, and here's where it could be headed."
 date: 2017-06-26 8:30
 category: Growth, Industries, Retail
 author:
