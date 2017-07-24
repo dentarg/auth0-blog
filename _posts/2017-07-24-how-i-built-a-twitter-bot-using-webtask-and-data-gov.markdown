@@ -1,8 +1,8 @@
 ---
 layout: post_extend
-title: "I built a Twitter bot using Auth0 Webtasks and Data.gov"
+title: "How I built a Twitter bot using Auth0 Webtasks and Data.gov"
 description: Learn how to use Auth0 Webtasks to build a twitter bot that pulls data from Data.gov and does sentiment analysis
-date: 2017-07-19 08:30
+date: 2017-07-24 08:30
 is_extend: true
 category: Product
 author: 
@@ -12,7 +12,7 @@ author:
   avatar: "https://s.gravatar.com/avatar/eaeac922b9f3cc9fd18cb9629b9e79f6?s=80"
 design: 
   bg_color: "#3445dc"
-  image: "https://cdn.auth0.com/website/extend/developer/blocks-graphic.svg"
+  image: "https://cdn.auth0.com/blog/website-extend/blocks-graphic01.png"
 tags: 
 - extend
 ---
