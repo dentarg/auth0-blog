@@ -61,6 +61,7 @@ There are four distinct parts to this webtask:
 The Regulations.gov API client exports a function to get the latest comments for a given docket. ([DOI-2017-0002][docket], in this case.) After testing requests against the API, it was necessary to add a timeout to `fetch`.
 
 Source: [quoter/src/regulations-gov-api.js][regulations-gov-api-client]
+
 ```javascript
 export default (apiKey, docketId, count) => new Promise((resolve, reject) => {
     fetch(`${baseUrl}/documents.json?api_key=${apiKey}&dktid=${docketId}&dct=PS&sb=postedDate&so=DESC&rpp=${count}`)
@@ -77,6 +78,7 @@ export default (apiKey, docketId, count) => new Promise((resolve, reject) => {
 The text analyzer exports a function to analyze a single comment. I found sentences with the most "negative" sentiment analysis score were [subjectively] the most interesting. I decided to use the most "negative" sentence from a comment as its "pull quote" candidate for tweeting. The text analyzer also hashes the comment to only consider identical "form letter" comments once.
 
 Source: [quoter/src/analyzer.js][text-analyzer]
+
 ```javascript
 export default (commentText) => {
   // The Tokenizer has a notion of words describing itself. Not used here.
@@ -114,6 +116,7 @@ The [comment selector and formatter][comment-selector-and-formatter] exports a f
 The tweeter is the main body of the webtask. It initializes the Twitter client, gets the list of hashes out of the webtask context storage, and calls the comment selector and formatter to pick its tweet. Once it successfully tweets, the hash is added to the list in context storage.
 
 Source: [quoter/src/index.js][tweeter]
+
 ```javascript
 module.exports = (ctx, cb) => {
   const docketId = 'DOI-2017-0002';
@@ -172,6 +175,7 @@ wt cron schedule -b --secrets-file .secrets 10m .
 In order to make my code a little more usable by other developers and to save myself from having to remember all the switches for the CLI, I added two scripts to my `package.json` file. Also, I added `wt-cli` as a dev dependency.
 
 Source: [quoter/package.json][package-file]
+
 ```json
 "scripts": {
     "start": "wt create -w -b --secrets-file ../.secrets .",
