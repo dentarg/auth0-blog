@@ -880,7 +880,19 @@ Make sure you've replaced `[YOUR_DOMAIN]` and `[YOUR_CERTIFICATE]` with your own
 
 The first `server` block redirects our domain's traffic from HTTP (port `80`) to HTTPS (port `443`). The second block listens on port `443` and uses the SSL certificate and key as well as the SSL configuration. The `location` block then sets the `localhost` location and establishes necessary headers and settings. When you're finished, save this file.
 
-We're almost done! Let's start nginx:
+We're almost done! Let's start our app's Node webserver. Change directories to your `mean-rsvp` folder on your VPS. This is likely to be:
+
+```bash
+$ cd /mean-rsvp
+```
+
+Once you're in your project folder, start the webserver with PM2 with the following command:
+
+```bash
+$ sudo pm2 start server.js
+```
+
+The final step is to start the nginx reverse proxy:
 
 ```bash
 $ sudo systemctl start nginx
