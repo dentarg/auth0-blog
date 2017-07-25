@@ -23,26 +23,26 @@ related:
 - 2017-05-09-developing-jsf-applications-with-spring-boot
 ---
 
-**TL;DR** In this blog post, we will learn how to handle authentication and authorization on *RESTful APIs* written with *Spring Boot*. We will clone, from *GitHub*, a simple *Spring Boot* application that exposes public endpoints, and then we will secure these endpoints with *Spring Security* and *JWTs*.
+**TL;DR** In this blog post, we will learn how to handle authentication and authorization on *RESTful APIs* written with *Spring Boot*. We will clone, from *GitHub*, a simple Spring Boot application that exposes public endpoints, and then we will secure these endpoints with *Spring Security* and *JWTS*.
 
 ## Securing RESTful APIs with JWTs
 
-*JSON Web Tokens*, commonly known as *JWTs*, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these *JWTs*. That is, application that use *JWTs* no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
+*JSON Web Tokens*, commonly known as JWTs, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these JWTS. That is, applications that use JWTS no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
 
-During the authentication process, when a user successfully logs in using their credentials, a *JSON Web Token* is returned and must be saved locally (typically in local storage). Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the *JWT*, usually in the `Authorization` header using the [*Bearer schema*](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), alongside with the request.
+During the authentication process, when a user successfully logs in using their credentials, a JSON Web Token is returned and must be saved locally (typically in local storage). Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the JWT, usually in the `Authorization` header using the [*Bearer schema*](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), along with the request.
 
-When a backend server receives a request with a *JWT*, the first thing to do is to validate the token. This consists of a series of steps, and if any of these fails then the request must be rejected. The following list shows the validation steps needed:
+When a backend server receives a request with a JWT, the first thing to do is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
 
 - Check that the JWT is well formed
 - Check the signature
 - Validate the standard claims
 - Check the Client permissions (scopes)
 
-We won't get into the nitty-gritty details about *JWTs* in this article but, if needed, [this resource can provide more about information about *JWTs*](https://auth0.com/docs/jwt) and this [resource about *JWT* validation](https://auth0.com/docs/api-auth/tutorials/verify-access-token).
+We won't get into the nitty-gritty details about JWTS in this article but, if needed, [this resource can provide more about information about JWTS](https://auth0.com/docs/jwt) and this [resource about JWT validation](https://auth0.com/docs/api-auth/tutorials/verify-access-token).
 
 ## The RESTful Spring Boot API Overview
 
-The *RESTful Spring Boot API* that we are going to secure is a task list manager. The task list is kept globally, which means that all users will see and interact with the same list. To clone and run this application, let's issue the following commands:
+The RESTful Spring Boot API that we are going to secure is a task list manager. The task list is kept globally, which means that all users will see and interact with the same list. To clone and run this application, let's issue the following commands:
 
 ```bash
 # clone the starter project
@@ -54,7 +54,7 @@ cd spring-boot-auth
 gradle bootRun
 ```
 
-If everything works as expected, our *RESTful Spring Boot API* will be up and running. To test it, we can use a tool like [*Postman*](https://www.getpostman.com/) or [*curl*](https://curl.haxx.se/) to issue request to the available endpoints:
+If everything works as expected, our RESTful Spring Boot API will be up and running. To test it, we can use a tool like [Postman](https://www.getpostman.com/) or [curl](https://curl.haxx.se/) to issue request to the available endpoints:
 
 ```bash
 # issue a GET request to see the (empty) list of tasks
@@ -76,14 +76,14 @@ curl -X DELETE http://localhost:8080/tasks/1
 
 All the endpoints used in the commands above are defined in the `TaskController` class, which belongs to the `com.auth0.samples.authapi.task` package. Besides this class, this package contains two other classes:
 
-- `Task`: which is the entity model that represents tasks in the application.
-- `TaskRepository`: which is the class responsible for handling the persistence of `Tasks`.
+- `Task`: the entity model that represents tasks in the application.
+- `TaskRepository`: the class responsible for handling the persistence of `Tasks`.
 
-The persistence layer of our application is backed by an in-memory database called [*HSQLDB*](http://hsqldb.org/). We would typically use a production-ready database like *PostgreSQL* or *MySQL* on real applications but, for this tutorial, this in-memory database will be enough.
+The persistence layer of our application is backed by an in-memory database called [*HSQLDB*](http://hsqldb.org/). We would typically use a production-ready database like *PostgreSQL* or *MySQL* on real applications, but for this tutorial this in-memory database will be enough.
 
 ## Enabling User Registration on Spring Boot APIs
 
-Now that we took a look at the endpoints that our *RESTful Spring Boot API* exposes, we are going to start securing it. The first step is to allow new users to register themselves. The classes that we will create in this feature will belong to a new package called `com.auth0.samples.authapi.user`. Let's create this package and add a new entity class called `ApplicationUser` to it:
+Now that we took a look at the endpoints that our RESTful Spring Boot API exposes, we are going to start securing it. The first step is to allow new users to register themselves. The classes that we will create in this feature will belong to a new package called `com.auth0.samples.authapi.user`. Let's create this package and add a new entity class called `ApplicationUser` to it:
 
 ```java
 package com.auth0.samples.authapi.user;
@@ -127,7 +127,7 @@ This entity class contains three properties:
 
 - the `id` that works as the primary identifier of a user instance in the application,
 - the `username` that will be used by users to identify themselves,
-- and the `password` which works as a passphrase to check the user identity.
+- and the `password` to check the user identity.
 
 To manage the persistence layer of this entity, we will create an interface called `ApplicationUserRepository`. This interface will be an extension of [`JpaRepository`](http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)—which gives us access to some common methods like [`save`](http://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html#save)—and will be created in the same package of the `ApplicationUser` class:
 
@@ -143,7 +143,7 @@ public interface ApplicationUserRepository extends JpaRepository<ApplicationUser
 
 We have also added a method called `findByUsername` to this interface. This method will be used when we implement the authentication feature.
 
-The endpoint that enables new users to register will be handled by a new [`@Controller` class](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html). We will call this controller as `UserController` and add it to the same package of the `ApplicationUser` class:
+The endpoint that enables new users to register will be handled by a new [`@Controller` class](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/stereotype/Controller.html). We will call this controller `UserController` and add it to the same package as the `ApplicationUser` class:
 
 ```java
 package com.auth0.samples.authapi.user;
@@ -175,14 +175,14 @@ public class UserController {
 }
 ```
 
-The implementation of the endpoint is quite simple. All it does is to encrypt the password of the new user (holding it as plain text wouldn't be a good idea), and then save it to the database. The encrypt process is handled by an instance of [`BCryptPasswordEncoder`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html), which is a class that belongs to the *Spring Security* framework.
+The implementation of the endpoint is quite simple. All it does is encrypt the password of the new user (holding it as plain text wouldn't be a good idea) and then save it to the database. The encryption process is handled by an instance of [`BCryptPasswordEncoder`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html), which is a class that belongs to the Spring Security framework.
 
 Right now we have two gaps in our application:
 
-1. We didn't include the *Spring Security* framework as a dependency to our project.
+1. We didn't include the Spring Security framework as a dependency to our project.
 2. There is no default instance of `BCryptPasswordEncoder` that can be injected in the `UserController` class.
 
-The first problem we solve by adding the *Spring Security* framework dependency to the `./build.gradle` file:
+The first problem we solve by adding the Spring Security framework dependency to the `./build.gradle` file:
 
 ```gradle
 ...
@@ -220,16 +220,16 @@ This ends the user registration feature, but we still lack support for user auth
 
 To support both authentication and authorization in our application, we are going to:
 
-- implement an authentication filter to issue *JWTs* to users sending credentials,
-- implement an authorization filter to validate requests containing *JWTs*,
-- create a custom implementation of [`UserDetailsService`](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) to help *Spring Security* loading user-specific data in the framework,
+- implement an authentication filter to issue JWTS to users sending credentials,
+- implement an authorization filter to validate requests containing JWTS,
+- create a custom implementation of [`UserDetailsService`](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) to help Spring Security loading user-specific data in the framework,
 - and extend the [`WebSecurityConfigurerAdapter`](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html) class to customize the security framework to our needs.
 
 Before proceeding to the development of these filters and classes, let's create a new package called `com.auth0.samples.authapi.security`. This package will hold all the code related to our app's security.
 
 ### The Authentication Filter
 
-The first element that we are going to create is the class responsible for the authentication process. We are going to call this class as `JWTAuthenticationFilter`, and we will implement it with the following code:
+The first element that we are going to create is the class responsible for the authentication process. We are going to call this class `JWTAuthenticationFilter`, and we will implement it with the following code:
 
 ```java
 package com.auth0.samples.authapi.security;
@@ -299,14 +299,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 }
 ```
 
-Note that the authentication filter that we created extends the [`UsernamePasswordAuthenticationFilter` class](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.html). When we add a new filter to *Spring Security*, we can explicitly define where in the *filter chain* we want that filter, or we can let the framework figure it out by itself. By extending the filter provided within the security framework, *Spring* can automatically identify the best place to put it in the security chain.
+Note that the authentication filter that we created extends the [`UsernamePasswordAuthenticationFilter` class](http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.html). When we add a new filter to Spring Security, we can explicitly define where in the *filter chain* we want that filter, or we can let the framework figure it out by itself. By extending the filter provided within the security framework, Spring can automatically identify the best place to put it in the security chain.
 
 Our custom authentication filter overwrites two methods of the base class:
 
 - `attemptAuthentication`: where we parse the user's credentials and issue them to the [`AuthenticationManager`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/authentication/AuthenticationManager.html).
-- `successfulAuthentication`: which is the method called when a user successfully logs in. We use this method to generate a *JWT* to this user.
+- `successfulAuthentication`: which is the method called when a user successfully logs in. We use this method to generate a JWT for this user.
 
-Our *IDE* will probably complain about the code in this class for two reasons. First, because the code imports four constants from a class that we haven't created yet, `SecurityConstants`. Second, because this class generates *JWTs* with the help of a class called `Jwts`, which belongs to a library that we haven't added as dependency to our project.
+Our IDE will probably complain about the code in this class for two reasons. First, because the code imports four constants from a class that we haven't created yet, `SecurityConstants`. Second, because this class generates JWTS with the help of a class called `Jwts`, which belongs to a library that we haven't added as dependency to our project.
 
 Let's solve the missing dependency first. In the `./build.gradle` file, let's add the following line of code:
 
@@ -319,7 +319,7 @@ dependencies {
 }
 ```
 
-This will add the [*Java JWT: JSON Web Token for Java and Android* library](https://github.com/jwtk/jjwt) to our project, and will solve the issue of the missing classes. Now we have to create the `SecurityConstants` class:
+This will add the [Java JWT: JSON Web Token for Java and Android library](https://github.com/jwtk/jjwt) to our project, and will solve the issue of the missing classes. Now we have to create the `SecurityConstants` class:
 
 ```java
 package com.auth0.samples.authapi.security;
@@ -333,7 +333,7 @@ public class SecurityConstants {
 }
 ```
 
-This class contains all four constants referenced by the `JWTAuthenticationFilter` class, alongside with a `SIGN_UP_URL` constant that will be used later.
+This class contains all four constants referenced by the `JWTAuthenticationFilter` class, alongside a `SIGN_UP_URL` constant that will be used later.
 
 ### The Authorization Filter
 
@@ -402,11 +402,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 }
 ```
 
-We have extended the [`BasicAuthenticationFilter`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/authentication/www/BasicAuthenticationFilter.html) to make *Spring* replace it in the *filter chain* with our custom implementation. The most important part of the filter that we've implemented is the private `getAuthentication` method. This method reads the *JWT* from the `Authorization` header, and then uses [`Jwts`](https://github.com/jwtk/jjwt/blob/master/src/main/java/io/jsonwebtoken/Jwts.java) to validate the token. If everything is in place, we set the user in the [`SecurityContext`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/context/SecurityContext.html) and allow the request to move on.
+We have extended the [`BasicAuthenticationFilter`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/web/authentication/www/BasicAuthenticationFilter.html) to make Spring replace it in the *filter chain* with our custom implementation. The most important part of the filter that we've implemented is the private `getAuthentication` method. This method reads the JWT from the `Authorization` header, and then uses [`Jwts`](https://github.com/jwtk/jjwt/blob/master/src/main/java/io/jsonwebtoken/Jwts.java) to validate the token. If everything is in place, we set the user in the [`SecurityContext`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/context/SecurityContext.html) and allow the request to move on.
 
 ### Integrating the Security Filters on Spring Boot
 
-Now that we have both security filters properly created, we have to configure them on the *Spring Security filter chain*. To do that, we are going to create a new class called `WebSecurity` in the `com.auth0.samples.authapi.security` package:
+Now that we have both security filters properly created, we have to configure them on the Spring Security filter chain. To do that, we are going to create a new class called `WebSecurity` in the `com.auth0.samples.authapi.security` package:
 
 ```java
 package com.auth0.samples.authapi.security;
@@ -448,12 +448,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 }
 ```
 
-We have annotated this class with `@EnableWebSecurity` and made it extend `WebSecurityConfigurerAdapter` to take advantage of the default [web security configuration provided by *Spring Security*](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-security.html). This allows us to fine-tune the framework to our needs by overwriting two methods:
+We have annotated this class with `@EnableWebSecurity` and made it extend `WebSecurityConfigurerAdapter` to take advantage of the default [web security configuration provided by Spring Security](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-security.html). This allows us to fine-tune the framework to our needs by overwriting two methods:
 
-- `configure(HttpSecurity http)`: a method where we can define which resources are public and which are secured—in our case we set the `SIGN_UP_URL` endpoint as being public and everything else as being secured—and also configure custom security filter in the *Spring Security filter chain*.
+- `configure(HttpSecurity http)`: a method where we can define which resources are public and which are secured. In our case, we set the `SIGN_UP_URL` endpoint as being public and everything else as being secured. We also configure custom security filter in the Spring Security filter chain.
 - `configure(AuthenticationManagerBuilder auth)`: a method where we defined a custom implementation of [`UserDetailsService`](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/core/userdetails/UserDetailsService.html) to load user-specific data in the security framework. We have also used this method to set the encrypt method used by our application (`BCryptPasswordEncoder`).
 
-*Spring Security* doesn't comes with a concrete implementation of `UserDetailsService` that we could use out of the box with our in-memory database. Therefore, we create a new class called `UserDetailsServiceImpl` in the `com.auth0.samples.authapi.user` package to provide one:
+Spring Security doesn't come with a concrete implementation of `UserDetailsService` that we could use out of the box with our in-memory database. Therefore, we create a new class called `UserDetailsServiceImpl` in the `com.auth0.samples.authapi.user` package to provide one:
 
 ```java
 package com.auth0.samples.authapi.user;
@@ -485,9 +485,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 }
 ```
 
-The only method that we had to implement is the `loadUserByUsername` one. When a user tries to authenticate, this method receives its username, searches in the database for a record containing it, and (if found) returns an instance of `User`. The properties of this instance (`username` and `password`) are then checked against the credentials passed by the user in the login request. This last process is executed outside this class, by the *Spring Security* framework.
+The only method that we had to implement is `loadUserByUsername`. When a user tries to authenticate, this method receives the username, searches the database for a record containing it, and (if found) returns an instance of `User`. The properties of this instance (`username` and `password`) are then checked against the credentials passed by the user in the login request. This last process is executed outside this class, by the Spring Security framework.
 
-We can now rest assured that our endpoints won't be publicly exposed and that we can support authentication and authorization with *JWTs* on *Spring Boot* properly. To check everything, let's run our application (through the *IDE* or through `gradle bootRun`) and issue the following requests:
+We can now rest assured that our endpoints won't be publicly exposed and that we can support authentication and authorization with JWTS on Spring Boot properly. To check everything, let's run our application (through the IDE or through `gradle bootRun`) and issue the following requests:
 
 ```bash
 # issues a GET request to retrieve tasks with no JWT
@@ -521,12 +521,12 @@ curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/tasks
 
 ## Securing Spring Applications with Auth0
 
-Securing *Spring* applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
+Securing Spring applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
 
-[To learn the best way to secure *Spring Security API endpoints* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like *Spring*), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+[To learn the best way to secure *Spring Security API endpoints* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like Spring), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
 
 ## Conclusion
 
-Securing *RESTful Spring Boot API* with *JWTs* is not a hard task. This article showed that by creating a couple of classes, and extending a few others provided by *Spring Security*, we can protect our endpoints from unknown users, enable users to register themselves, and authenticate existing users based on *JWTs*.
+Securing RESTful Spring Boot API with JWTS is not a hard task. This article showed that by creating a couple of classes and extending a few others provided by Spring Security, we can protect our endpoints from unknown users, enable users to register themselves, and authenticate existing users based on JWTS.
 
-Of course that for a production-ready application we would need a few more features, like password retrieval, but the article demystified the most sensible parts of dealing with *JWTs* to authorize requests on *Spring Boot* applications.
+Of course that for a production-ready application we would need a few more features, like password retrieval, but the article demystified the most sensible parts of dealing with JWTS to authorize requests on Spring Boot applications.
