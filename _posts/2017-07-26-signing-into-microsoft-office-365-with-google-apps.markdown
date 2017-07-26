@@ -2,21 +2,25 @@
 layout: post
 title: "Signing into Microsoft Office 365 with Google Apps"
 description: "Let's check how to sign into Microsoft products, like Office 365, with Google Apps users."
-date: 2017-06-27 09:18
+date: 2017-07-26 09:18
 category: Technical Guide, Identity, Single Sign On
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
+design:
+  image: https://cdn.auth0.com/blog/office365-googleapps/logo.png
+  bg_color: "#295399"
 tags:
 - google apps
 - microsoft
 - identity
 - sso
 related:
-- 2013-05-29-Authenticate-users-with-Amazon-accounts
-- 2013-05-22-SSO-with-Dropbox-only-a-checkbox-away
+- 2017-05-26-go-beyond-username-password-with-modern-auth
+- 2016-10-17-sso-login-key-benefits-and-implementation
+- 2017-07-21-the-role-of-identity-in-application-modernization
 ---
 
 **TL;DR;** In this blog post, we are going to learn how to allow Google Apps users to sign into Microsoft products, like Office 365, without needing an extra pair of credentials. The scenario described here can help many companies to achieve single sign-on between the most popular office suites available, enhancing employee productivity while keeping authentication and authorization centralized in one of the providers.
