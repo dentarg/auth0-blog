@@ -1,6 +1,6 @@
 ---
 layout: post_extend
-title: "From MongoDB to DynamoDB"
+title: "From Hosting MongoDB to DynamoDB"
 description: Migrate your storage where the grass is greener
 date: 2017-07-17 09:23
 is_extend: true
@@ -22,7 +22,7 @@ Persisting data is at the heart of the majority of web services today. The choic
 
 ![Auth0 Extend](https://cdn.auth0.com/website/auth0-extend/images/landing-hero.svg)
 
-This post is about ditching MongoDB and moving to DynamoDB as part of our ongoing evolution of the [Auth0 Extend](https://auth0.com/extend/developers) product. I will cover the why and how, and share solutions to some of the challenges of this transition. 
+This post is about ditching hosting MongoDB and moving to DynamoDB as part of our ongoing evolution of the [Auth0 Extend](https://auth0.com/extend/developers) product. I will cover the why and how, and share solutions to some of the challenges of this transition. 
 
 ---
 
@@ -52,7 +52,7 @@ At this point any self-respecting post on moving from Mongo to DynamoDB would sh
 
 > MongoDB continues to work great for us. Features are more than sufficient, performance is more than adequate, and reliability is where we need it to be. 
 
-So what is the problem? Mongo creates jobs. Too many jobs. 
+So what is the problem? Hosting your own Mongo creates jobs. Too many jobs. 
 
 In the early days of Auth0, we had experimented with a few SaaS providers offering hosted Mongo solutions. At the end of the day none allowed us to fully satisfy our requirements for locality of data, reliability, monitoring, and level of control needed to meet our SLAs. As a result we developed in-house capabilities necessary to maintain our own Mongo deployments on top of raw compute, either in AWS or on-premise. While this approach worked great for a limited number of deployments, it prevented us from quickly scaling out the Auth0 Extend offering to all AWS regions. Having to host our own Mongo instance in every AWS region was too much to handle for a small team. 
 
