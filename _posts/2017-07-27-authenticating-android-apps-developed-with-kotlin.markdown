@@ -2,7 +2,7 @@
 layout: post
 title: "Authenticating Android Apps Developed in Kotlin"
 description: "Let's learn how to develop a simple, but secure, Android application in Kotlin."
-date: 2017-06-20 09:45
+date: 2017-07-27 09:45
 category: Technical Guide, Mobile, Android
 author:
   name: "Bruno Krebs"
@@ -19,7 +19,8 @@ tags:
 - security
 related:
 - 2016-02-08-how-to-authenticate-on-android-using-social-logins
-- 2015-06-29-using-smartlock-on-android-in-3-simple-steps
+- 2017-01-18-how-to-create-a-kotlin-app-and-secure-it-using-jwt
+- 2017-06-22-developing-restful-apis-with-kotlin
 ---
 
 **TL;DR:** In today's post we are going to learn how to create a simple Android application, written in Kotlin, and secure it with JWTs. We are going to use Auth0 to issue an `access_token` for us, and are going to use this token to communicate with an API. In the end, we will also talk about how we would handle tokens issued by a home made solution, instead of Auth0.
