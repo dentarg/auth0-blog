@@ -4,6 +4,7 @@ title: "From Hosting MongoDB to DynamoDB"
 description: Migrate your storage where the grass is greener
 date: 2017-07-17 09:23
 is_extend: true
+alias: /how-to-migrate-from-mongodb-to-dynamodb/
 category: Product
 author: 
   name: "Tomasz Janczuk"
