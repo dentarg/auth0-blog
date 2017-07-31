@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "2016 Social Passwordless and SSO Data: What Can We Learn?"
+title: "2016 Social, Passwordless and SSO Data: What Can We Learn?"
 description: "Username and password still dominates, but not for long"
-date: 2017-05-31 19:00
+date: 2017-07-31 19:00
 category: Growth, Identity
 author:
   name: Diego Poza
@@ -10,8 +10,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#32506D"
-  image: "https://cdn.auth0.com/blog/2016-social/logo.png"
+  bg_color: "#001D3F"
+  image: "https://cdn.auth0.com/blog/passwordless-data-2016/logo.png"
 tags:
 - passwordless
 - auth0
@@ -19,8 +19,9 @@ tags:
 - credentials
 - statistics
 related:
+- 2016-09-09-analysis-of-passwordless-connections
+- 2017-05-26-go-beyond-username-password-with-modern-auth
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
-- 2017-03-24-360-view-of-customer-by-managing-identity
 ---
 
 In 2017 we have more options than ever before for strong password management. Between [social](https://auth0.com/docs/extensions/custom-social-extensions#social), [enterprise,](https://auth0.com/docs/extensions/custom-social-extensions#enterprise) and [Passwordless](https://auth0.com/docs/extensions/custom-social-extensions#passwordless) connections, companies that are ready to offer more than username and password have several good options.
