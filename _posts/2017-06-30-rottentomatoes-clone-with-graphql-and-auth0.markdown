@@ -23,7 +23,7 @@ related:
 
 ---
 
-**TL;DR:** In this tutorial, we'll cover how to build a slim clone of the popular rotten tomatoes app. GraphQL, the query language for APIs created by Facebook will play a role in building the backend for this app and we'll use React and Apollo (GraphQLThe completed code is available in the [mean-rsvp-auth0 GitHub repo](https://github.com/auth0-blog/mean-rsvp-auth0/).
+**TL;DR:** In this tutorial, we'll cover how to build a slim clone of the popular rotten tomatoes app. GraphQL, the query language for APIs created by Facebook will play a role in building the backend for this app and we'll use React and Apollo. The completed code is available in the [rotten-tomatoes repo](https://github.com/auth0-blog/rottentomatoes-clone).
 
 ---
 
