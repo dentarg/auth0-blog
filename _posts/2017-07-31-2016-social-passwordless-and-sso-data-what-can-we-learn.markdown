@@ -78,7 +78,7 @@ Using our data from 2016, we ran the same growth estimates for Passwordless impl
 
 At this point we can see that Passwordless is projected to overtake U/P in mid 2020:
 
-### Editorial Note: Insert graph here. We didn't have the REQUISITE data to mock up this one ourselves.
+![Forecast (U/P vs Passwordless](https://cdn.auth0.com/blog/2016-social/up-vs-passwordless-2020.png)
 
 When looking at our first chart in this post, Passwordless seems like a small player. Among Auth0 users and our users' users, 67% of logins are still U/P.
 
