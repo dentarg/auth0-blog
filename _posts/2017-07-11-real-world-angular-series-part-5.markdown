@@ -132,7 +132,7 @@ In the next step, we'll set up our RSVP component class to support `@Input`s to 
 
 Open `event.component.html`:
 
-```html
+{% highlight html %}
 <!-- src/app/pages/event/event.component.html -->
 ...
       <!-- Event RSVP content -->
@@ -141,7 +141,7 @@ Open `event.component.html`:
         [eventId]="event._id"
         [eventPast]="eventPast"></app-rsvp>
 ...
-```
+{% endhighlight %}
 
 Add the `[eventId]` and `[eventPast]` attributes to the `<app-rsvp>` element to pass this data to the RSVP component, which we'll build out next.
 
