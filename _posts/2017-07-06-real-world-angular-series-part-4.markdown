@@ -549,7 +549,7 @@ Let's add our Event component to our routing module. Open `app-routing.module.ts
 import { EventComponent } from './pages/event/event.component';
 
 ...
-{
+  {
     path: 'event/:id',
     component: EventComponent,
     canActivate: [
