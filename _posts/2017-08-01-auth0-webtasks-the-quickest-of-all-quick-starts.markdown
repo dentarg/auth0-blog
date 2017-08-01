@@ -14,7 +14,7 @@ design:
   bg_color: "#3445dc"
   image_size: "95%"
   image_bg_color: "#D8E6FF"
-  image: "https://cdn.auth0.com/website/blog/extend/webtasks-getting-started/stopwatch.png"
+  image: "https://cdn.auth0.com/website/blog/extend/webtasks-getting-started/stopwatch2.png"
 tags: 
   - extend
   - Auth0 Webtasks
