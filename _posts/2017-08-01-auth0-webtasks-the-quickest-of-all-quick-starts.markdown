@@ -4,7 +4,7 @@ title: "Auth0 Webtasks: The Quickest of All Quick Starts"
 description: "How fast can you stand up an HTTPS endpoint on the internet? With Auth0 Webtasks, you can go from code to done in less than a minute."
 date: 2017-08-01 10:00
 is_extend: true
-category: Product
+category: Extend, Webtask
 author: 
   name: "Randall Tombaugh"
   url: "https://github.com/rwtombaugh"
