@@ -2,11 +2,11 @@
 layout: post
 title: "Create a Drupal Site and Add Authentication with Auth0"
 description: "Learn how to create your first Drupal site and add authentication to it with Auth0."
-date: 2017-07-11 08:30
-category: Technical Guide, Backend, Drupal
+date: 2017-08-02 08:30
+category: Technical Guide, Backend, PHP
 design:
-  bg_color: "#1C6E92"
-  image: https://cdn.auth0.com/blog/drupal/logo.png
+  bg_color: "#044A75"
+  image: https://cdn.auth0.com/blog/drupal01/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -14,12 +14,14 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
 tags:
 - drupal
+- php
 - auth0
 - authentication
 - cms
 related:
-- creating-your-first-symfony-app-and-adding-authentication
+- 2017-05-08-the-ultimate-guide-to-deploying-php-applications
 - creating-your-first-laravel-app-and-adding-authentication
+- 2017-06-01-creating-your-first-cakephp-app
 ---
 
 ---
@@ -96,9 +98,9 @@ This is good. However, it is limited. If you want other forms of authentication 
 
 ## Authentication With Auth0
 
-[Auth0](https://auth0.com) is a cloud-based service that makes authentication a breeze. It allows us to issue [JSON Web Tokens(JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="javascript:signup()">sign up</a> for a free one now.
+[Auth0](https://auth0.com) is a cloud-based service that makes authentication a breeze. It allows us to issue [JSON Web Tokens(JWTs)](https://jwt.io). [Auth0 offers a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication right away.
 
-There is a community maintained [Auth0 Drupal Plugin](https://github.com/auth0/auth0-drupal) that provides Single Sign On, Social Login, SAML and AD/LDAP Integration and User Management.
+There is a community maintained [Auth0 Drupal Plugin](https://github.com/auth0/auth0-drupal) that provides Single Sign On, Social Login, SAML and AD/LDAP Integration and [User Management](https://auth0.com/user-management).
 
 * Download the [auth0-drupal zip file](https://github.com/auth0/auth0-drupal/archive/master.zip)
 * Head over to `http://localhost:8000/admin/modules/install`
@@ -158,4 +160,4 @@ Oh, snap! That's all? Is it that simple? Yes it is! You can check out the [sourc
 
 Well done! You have just built your first site with Drupal. As we saw in this tutorial, you can easily add authentication to your Drupal sites/apps. This tutorial is designed to help you get started on building your own web sites and applications with Drupal. You can leverage the knowledge gained here to build bigger and better web sites.
 
-In addition, Auth0 can help secure your apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [Single Sign On (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management) and [B2E](https://auth0.com/b2e-identity-management-for-employees) organization with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [Single Sign On (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on what really matters: growing your business.
