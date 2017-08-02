@@ -124,7 +124,7 @@ And just for the sake of completeness, here's an animated gif of me entering the
 
 But in all seriousness, to download the tool, create an account, deploy the code and execute it within the span of time that an animated gif executes is pretty impressive.
 
-![And Now From the Command Line](https://cdn.auth0.com/website/blog/extend/webtasks-getting-started/cmd-line.gif)
+![And Now From the Command Line](https://cdn.auth0.com/website/blog/extend/webtasks-getting-started/cmd-line2.gif)
 
 ---
 
