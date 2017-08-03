@@ -30,17 +30,17 @@ related:
 
 We want to build an application that displays a list of movies with the appropriate poster, title and user ratings. Everyone should be able to see the ratings of these movies, but only the reviewers can add movies and ratings. We'll assume there is a poll of user votes where the reviewers just get the ratings in form of percentages and add to the platform.
 
-We'll make use of GraphQL to build the data schema for the application. In fact, we don't need to worry about spinning up our own backend with a custom database and configuring the APIs. We'll make use of Graphcool(https://graph.cool). Graphcool gives developers a production-ready GraphQL backend to build better apps faster.
+We'll make use of GraphQL to build the data schema for the application. In fact, we don't need to worry about spinning up our own backend with a custom database and configuring the APIs. We'll make use of [Graphcool](https://graph.cool). Graphcool gives developers a production-ready GraphQL backend to build better apps faster.
 
 ## Brief Introduction to GraphQL
 
 GraphQL is a query language for APIs created by Facebook that offers declarative data fetching in the client and is already used by companies such as Coursera and GitHub.
 
-A GraphQL server exposes a schema that describes its API including queries (to fetch data) and mutations (to modify data).
+A GraphQL server exposes a schema that describes its API including queries to fetch data and mutations, to modify data.
 
 This allows clients to specify their data requirements with queries and send it to one GraphQL endpoint, instead of collecting information from multiple endpoints as is typical with REST. While queries are a very easy and quick way for clients to get exactly the data they need in one request, the GraphQL server has to parse and validate the query, check which fields are included and return the underlying data from the database.
 
-The type-safe schema unlocks new possibilities for tooling, as demonstrated by GraphQL which is maintained by Facebook. With features like auto completion (as shown in the gif) and an included documentation it offers a great developer experience.
+The type-safe schema unlocks new possibilities for tooling, as demonstrated by GraphQL which is maintained by Facebook. Check out how GitHub employs [GraphQL for its API](https://githubengineering.com/the-github-graphql-api/).
 
 ## Building Rotten Tomatoes Schema
 
@@ -181,7 +181,7 @@ type File implements Node {
 
 ```
 
-Run `graphcool push` from your terminal to update the schema on your GraphCool backend. You can go to the Playground on GraphCool to try out GraphQL queries for your newly created Schema.
+Run `graphcool push` from your terminal to update the schema on your GraphCool backend. You can go to the [Playground on GraphCool](https://console.graph.cool) to try out GraphQL queries for your newly created Schema.
 
 ### Build The Frontend
 
