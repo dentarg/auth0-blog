@@ -13,8 +13,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn2.auth0.com/blog/get-ready-for-gdpr/logo.png
-  bg_color: "#000040"
+  image: https://cdn.auth0.com/blog/gdpr-fake-news/cordery-logo.png
+  bg_color: "#222228"
 tags:
 - gdpr
 - compliance
@@ -29,6 +29,8 @@ With the [General Data Protection Regulation (GDPR)](https://auth0.com/blog/get-
 ## GDPR: The Fight Against Fake News
 
 Since the announcement of GDPR, fake news has been circulating about the upcoming EU data privacy regulation. False rumors have been perpetuated in webinars or at events. Such misconceptions can cause major issues for organizations. For example, if the CFO of a financial institution is told that GDPR doesn't apply to financial services, budgets can be substantially withdrawn due to misinformation.
+
+![GDPR - The Fight Against Fake News webinar, featuring Jonathan Armstrong of Cordery](https://cdn.auth0.com/blog/gdpr-fake-news/gdpr-webinar.png)
 
 To read an introduction to GDPR and how it affects businesses and organizations, please check out [Get Ready for GDPR](https://auth0.com/blog/get-ready-for-gdpr/). You can also [go here to read the regulation itself](http://eur-lex.europa.eu/legal-content/EN/TXT/?uri=uriserv%3AOJ.L_.2016.119.01.0001.01.ENG).
 
