@@ -43,6 +43,6 @@ The **GDPR: The Fight Against Fake News** webinar addresses several _false_ conc
 
 All of the above are inaccurate, and Jonathan Armstrong explains why in the webinar. He also responds to several more fake news items that have been circulating since the announcement of GDPR.
 
-With GDPR approaching enforcement on May 25, 2018, it's more important than ever to be knowledgeable about the regulation and its impact. In addition, learn how organizations can benefit from improved businesses processes in their preparation for GDPR. Don't be fooled by GDPR fake news: get informed by checking out the webinar below.
+With GDPR approaching enforcement on May 25, 2018, it's more important than ever to be knowledgeable about the regulation and its impact. In addition, learn how organizations can benefit from improved business processes in their preparation for GDPR. Don't be fooled by GDPR fake news: get informed by checking out the webinar below.
 
 [**GDPR: The Fight Against Fake News Webinar**](https://auth0-1.wistia.com/medias/7sjsrhd2lt)
