@@ -2,7 +2,7 @@
 layout: post
 title: "Build a Rotten Tomatoes Clone with GraphQL and Auth0"
 description: "Learn how to build a simple rotten tomatoes clone using GraphQL and adding authentication to it with Auth0."
-date: 2017-06-29 8:30
+date: 2017-08-03 8:30
 category: Technical guide, GraphQL, Authentication
 author:
   name: "Prosper Otemuyiwa"
@@ -10,17 +10,16 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  bg_color: "#486B32"
-  image: "https://cdn.auth0.com/blog/rottentomatoes/logo.png"
+  bg_color: "#222228"
+  image: "https://cdn.auth0.com/blog/graphql-auth0/logo.png"
 tags:
 - GraphQL
 - auth
 - GraphCool
 - authentication
 related:
-- cakefest-summary-day-1
-- creating-your-first-cakephp-app
-- 2016-07-27-laracon-summary-day-1
+- 2017-01-24-optimizing-react
+- 2017-02-21-reactjs-authentication-tutorial
 
 ---
 
