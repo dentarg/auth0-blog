@@ -16,6 +16,7 @@ tags:
 - GraphQL
 - auth
 - GraphCool
+- authentication
 related:
 - cakefest-summary-day-1
 - creating-your-first-cakephp-app
@@ -23,7 +24,7 @@ related:
 
 ---
 
-**TL;DR:** In this tutorial, we'll cover how to build a slim clone of the popular rotten tomatoes app. GraphQL, the query language for APIs created by Facebook will play a role in building the backend for this app and we'll use React and Apollo. The completed code is available in the [rotten-tomatoes repo](https://github.com/auth0-blog/rottentomatoes-clone).
+**TL;DR:** In this tutorial, we'll cover how to build a slim clone of the popular Rotten Tomatoes app. GraphQL, the query language for APIs created by Facebook will play a role in building the backend for this app and we'll use React and Apollo. The completed code is available in the [rotten-tomatoes repo](https://github.com/auth0-blog/rottentomatoes-clone).
 
 ---
 
@@ -394,7 +395,7 @@ In the code above, we have new buddies. The `graphql-tag` and `react-apollo` pac
 npm install graphql-tag react-apollo apollo-client
 ```
 
-**Note:** I added one more package. The [Apollo Client](http://dev.apollodata.com/react).
+**Note:** I added one more package for us to install via the terminal. The [Apollo Client](http://dev.apollodata.com/react). I'll explain what it does later on in the article.
 
 * `graphql-tag` provides functionality for parsing the JavaScript template literals that will contain our GraphQL queries and mutations.
 * `react-apollo` implements React-specific bindings for Apollo
@@ -742,7 +743,7 @@ function isTokenExpired(token) {
 }
 ```
 
-In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials.
+In the code above, we are using an hosted version of Auth0 in the `login` method and passed in our credentials.
 
 The auth0 package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
@@ -954,4 +955,4 @@ GraphQL has now made it impossible for just any user to create a movie. You have
 
 In this tutorial, we covered how easy it is to build a product with a backend like GraphCool and add authentication to it easily using Auth0.
 
-In addition, Auth0 can help secure yourapps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
