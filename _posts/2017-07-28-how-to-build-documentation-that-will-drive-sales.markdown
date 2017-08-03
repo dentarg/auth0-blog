@@ -108,4 +108,4 @@ Developers rely on APIs to reduce their workload, so use your documentation to r
 
 Documentation is a reflection of your API. If your documentation is quick, simple, and personalized it says your API will be too, and thus worth buying.
 
-To learn more about creating great documentation, [check out my talk](https://www.youtube.com/watch?v=lw9R2qMCdqk) from the Forward 2 Web Summit.
+To learn more about creating great documentation, [check out this talk from our VP of Marketing](https://www.youtube.com/watch?v=lw9R2qMCdqk) at the Forward 2 Web Summit.
