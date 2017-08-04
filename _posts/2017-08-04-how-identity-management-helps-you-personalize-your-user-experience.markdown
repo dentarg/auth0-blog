@@ -2,13 +2,13 @@
 layout: post
 title: "How Identity Management Helps You Personalize Your User Experience"
 description: "Keep up with product customization by letting your IAM do the heavy lifting"
-date: 2017-04-04 17:10
+date: 2017-08-04 17:10
 category: Growth, Growth Hacking
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   bg_color: "#3F5C56"
   image: "https://cdn.auth0.com/blog/personalize-user-experience/logo.png"
@@ -18,7 +18,7 @@ tags:
 - identity
 - auth0
 related:
-- 2017-03-17-analyzing-identity-in-movies
+- 2017-07-21-the-role-of-identity-in-application-modernization
 - 2017-03-24-360-view-of-customer-by-managing-identity
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
