@@ -15,7 +15,7 @@ design:
 tags:
 - GraphQL
 - auth
-- GraphCool
+- Graphcool
 - authentication
 related:
 - 2017-01-24-optimizing-react
@@ -126,9 +126,9 @@ This query will return a response from the GraphQL Server (Graphcool) like this:
 
 Without much ado, let's go ahead and build our application.
 
-## Use GraphCool
+## Use Graphcool
 
-[GraphCool](https://www.graph.cool) is a serverless GraphQL backend that enables mobile and web developers to build production ready apps faster. You don't have spin up your own GraphQL server or think of spinning up a separate database.
+[Graphcool](https://www.graph.cool) is a serverless GraphQL backend that enables mobile and web developers to build production ready apps faster. You don't have spin up your own GraphQL server or think of spinning up a separate database.
 
 Go ahead and install graphcool:
 
@@ -180,7 +180,7 @@ type File implements Node {
 
 ```
 
-Run `graphcool push` from your terminal to update the schema on your GraphCool backend. You can go to the [Playground on GraphCool](https://console.graph.cool) to try out GraphQL queries for your newly created Schema.
+Run `graphcool push` from your terminal to update the schema on your Graphcool backend. You can go to the [Playground on Graphcool](https://console.graph.cool) to try out GraphQL queries for your newly created Schema.
 
 ### Build The Frontend
 
@@ -484,7 +484,7 @@ export default graphql(FeedQuery)(ListMovie)
 
 This component above is responsible for displaying the list of movies on the landing page.
 
-This query fetches all the movies from GraphCool and orders them.
+This query fetches all the movies from Graphcool and orders them.
 
 ```js
 
@@ -912,7 +912,7 @@ We have successfully handled authentication on the frontend, but something is mi
 
 ### Secure GraphQL endpoints
 
-Head over to GraphCool. Thankfully, it ships with Permission systems and Auth0. Click on the `User System` as shown below. Also, click on the `Configure Auth Provider` highlighted below:
+Head over to Graphcool. Thankfully, it ships with Permission systems and Auth0. Click on the `User System` as shown below. Also, click on the `Configure Auth Provider` highlighted below:
 
 ![Configure Auth Provider](https://cdn.auth0.com/blog/rottentomatoes/configure-auth-provider.png)
 
@@ -952,6 +952,6 @@ GraphQL has now made it impossible for just any user to create a movie. You have
 
 ## Conclusion
 
-In this tutorial, we covered how easy it is to build a product with a backend like GraphCool and add authentication to it easily using Auth0.
+In this tutorial, we covered how easy it is to build a product with a backend like Graphcool and add authentication to it easily using Auth0.
 
 In addition, Auth0 can help secure your apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
