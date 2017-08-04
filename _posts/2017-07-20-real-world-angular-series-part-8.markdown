@@ -763,19 +763,13 @@ We also need to update our `silent.html` file with our secure production URL, li
 ...
   <script>
     ...
-    const webAuth = new auth0.WebAuth({
-      ...,
-      redirectUri: 'https://[YOUR_DOMAIN]'
-    });
-
-    webAuth.parseHash(window.location.hash, function (err, response) {
-      parent.postMessage(err || response, 'https://[YOUR_DOMAIN]');
-    });
+    const URL = 'https://[YOUR_DOMAIN]';
+    ...
   </script>
 ...
 {% endhighlight %}
 
-Change the `redirectUri` and the `postMessage()` URL to your domain on HTTPS. This will prevent same origin errors on production when tokens are silently renewed.
+Change the `URL` constant that is used in the `redirectUri` and the `postMessage()` URL to your domain on HTTPS. This will prevent same origin errors on production when tokens are silently renewed.
 
 Commit this change and push to your Git repository's remote.
 
