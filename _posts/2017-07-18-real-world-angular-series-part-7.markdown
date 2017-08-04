@@ -713,19 +713,20 @@ Let's create a new file in the root of our project called `silent.html` and add 
   <meta charset="utf-8">
   <script src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js"></script>
   <script>
-    var AUTH0_CLIENT_ID = '[YOUR_CLIENT_ID]';
-    var AUTH0_DOMAIN = '[YOUR_DOMAIN]'; // e.g., kmaida.auth0.com
+    const AUTH0_CLIENT_ID = '[YOUR_CLIENT_ID]';
+    const AUTH0_DOMAIN = '[YOUR_DOMAIN]'; // e.g., kmaida.auth0.com
+    const URL = 'http://localhost:4200';
 
-    var webAuth = new auth0.WebAuth({
+    const webAuth = new auth0.WebAuth({
       clientID: AUTH0_CLIENT_ID,
       domain: AUTH0_DOMAIN,
       scope: 'openid profile',
       responseType: 'token id_token',
-      redirectUri: 'http://localhost:4200'
+      redirectUri: URL
     });
 
     webAuth.parseHash(window.location.hash, function (err, response) {
-      parent.postMessage(err || response, 'http://localhost:4200');
+      parent.postMessage(err || response, URL);
     });
   </script>
 </head>
@@ -735,7 +736,7 @@ Let's create a new file in the root of our project called `silent.html` and add 
 
 When we call the [auth0.js `renewAuth()` method](https://auth0.com/docs/libraries/auth0js/v8#using-renewauth-to-acquire-new-tokens), this is the page that we want to redirect to after the token is renewed in the iframe. Change `[YOUR_CLIENT_ID]` and `[YOUR_DOMAIN]` to the appropriate information for your [Auth0 Client](https://manage.auth0.com/#/clients). We can then send the [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) back to the parent (the Angular app).
 
-> **Note:** When we're ready to deploy our app to production, we'll need to change the `redirectUri` to our production URL.
+> **Note:** When we're ready to deploy our app to production, we'll need to change the `URL` variable to our production URL. Alternately, if we want to test the production build locally, we would change this to `http://localhost:8083` to do so.
 
 ### Update Server to Serve Silent Callback File
 
