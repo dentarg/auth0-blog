@@ -590,7 +590,7 @@ One more thing. We need to reference bootstrap for styling. Add the link to boot
 ...
 ```
 
-Modify the `src/App.css` file to contain the code [here]().
+Modify the `src/App.css` file to contain the code [here](https://github.com/auth0-blog/rottentomatoes-clone/blob/master/src/App.css).
 
 Now, run your app. There should be nothing on the landing page because you haven't added any movies. Head over to the `/create` URL and add a new movie.
 
