@@ -254,7 +254,7 @@ export default Nav;
 
 ## Build the DisplayMovie and CreateMovie Component
 
-The `DisplayMovie` component will be responsible for displaying the details of each movie. Create a `component/DisplayMovie.js` file and the following code:
+The `DisplayMovie` component will be responsible for displaying the details of each movie. Create a `components/DisplayMovie.js` file and the following code:
 
 ```js
 
@@ -434,7 +434,7 @@ This code above injects the `addMovie` function to the props of our `CreateMovie
 
 ## Build the ListMovie Component
 
-The `ListMovie` component will be responsible for displaying the list of movies on the landing page. Create a `component/ListMovie.js` file and the following code:
+The `ListMovie` component will be responsible for displaying the list of movies on the landing page. Create a `components/ListMovie.js` file and the following code:
 
 ```js
 
