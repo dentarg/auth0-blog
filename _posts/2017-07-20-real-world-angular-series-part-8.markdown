@@ -735,6 +735,29 @@ Congratulations! We're now set up to use SSL. We'll do a little more configurati
 
 We're in the home stretch now: deployment! There are a couple of minor things we'll need to do before we deploy our application.
 
+### Update Auth Config and Rebuild
+
+We need to update our auth config file for production and rebuild the app to accommodate our production domain.
+
+Open `auth.config.ts` and make the following change:
+
+```typescript
+// src/app/auth/auth.config.ts
+...
+  SILENT_REDIRECT: `${ENV.BASE_URI}/silent`,
+...
+```
+
+The app will now use the proper redirect to silently renew tokens on our production domain.
+
+Since we made a change to our Angular files, we'll need to do another production build. Now run:
+
+```bash
+$ ng build --prod
+```
+
+The production bundles will be rebuilt and the `/dist` folder contents updated with our change.
+
 ### Don't Ignore Dist Folder
 
 Our production app lives in the `/dist` directory in our project folder. By default, the Angular CLI has a `.gitignore` file that excludes this directory from source control. However, we need this folder to be in the Git repo if we want to avoid installing the Angular CLI on the server. This is very easy to fix.
