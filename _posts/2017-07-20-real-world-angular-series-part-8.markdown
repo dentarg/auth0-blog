@@ -774,7 +774,7 @@ In the `.gitignore` file in the project root, simply comment out `/dist`:
 
 Commit this change. This also allows us to commit our production `/dist` folder.
 
-> **Important Note:** Make sure your repo is located somewhere that is accessible to your VPS server through Git, such as on [GitHub](https://github.com) or [BitBucket](https://bitbucket.org). Alternatively, you can clone the app from the sample repo for this tutorial series, which is located at [https://github.com/auth0-blog/mean-rsvp-auth0](https://github.com/auth0-blog/mean-rsvp-auth0). If you clone the app from the sample repo, make sure you update the `src/app/auth/auth.config.ts` file with your own client settings before doing a production build.
+> **Important Note:** Make sure your repo is located somewhere that is accessible to your VPS server through Git, such as on [GitHub](https://github.com) or [BitBucket](https://bitbucket.org). Alternatively, you can clone the app from the sample repo for this tutorial series, which is located at [https://github.com/auth0-blog/mean-rsvp-auth0](https://github.com/auth0-blog/mean-rsvp-auth0). If you clone the app from the sample repo, make sure you update the files indicated in the repo's README and still follow these production deployment steps.
 
 ### Update Silent File
 
