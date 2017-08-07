@@ -151,7 +151,7 @@ tcp_server_available(const jerry_value_t func,
 }
 ```
 
-> If you don't understand the signatures of these C++ functions read the [first post in this series, where we explore the integration of JerryScript on the Particle Photon]https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/).
+> If you don't understand the signatures of these C++ functions read the [first post in this series, where we explore the integration of JerryScript on the Particle Photon](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/).
 
 We can now use this object from within JavaScript like so:
 
@@ -379,7 +379,7 @@ You may have noticed that the part of this function that writes to the socket is
 ### The JWT Decoding and Verification Functions
 As we mentioned before, we are going to use the basic JWT decoding and verification functions from the [JWT Handbook](https://auth0.com/e-books/jwt-handbook). These functions are clean-room implementations of all the algorithms, down to `Base64` encoding. These functions were written for educational purposes and are not ideal from a performance and security point of view. However, they are very small and the code is clear enough to be easily debugged. 
 
-> Disclaimer: do not use these functions in production, they were not tested in the wild and are only meant for educational purposes. Clarity of implementation was the main criteria used when they were written.
+> **DISCLAIMER:** do not use these functions in production, they were not tested in the wild and are only meant for educational purposes. Clarity of implementation was the main criteria used when they were written. You should not consider them secure.
 
 The clean room implementation of HMAC signatures used in the [JWT Handbook](https://auth0.com/e-books/jwt-handbook) relies heavily on ECMAScript 2015 features. In particular, `TypedArray` classes are used everywhere. Fortunately for us JerryScript developers are already working on an implementation of typed arrays. However, at the time we wrote this, the implementations were incomplete. Nonetheless they are perfectly usable with a couple of adaptations. We also relied on ECMAScript 2015 new methods for `String`. These are also easy to replace. Let's take a look:
 
