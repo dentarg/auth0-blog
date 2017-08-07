@@ -13,7 +13,7 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/gdpr-fake-news/cordery-logo.png
+  image: https://cdn.auth0.com/blog/gdpr-webinar/logo.png
   bg_color: "#222228"
 tags:
 - gdpr
