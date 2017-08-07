@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JavaScript for Microcontrollers and IoT: A Webserver"
+title: "JavaScript for Microcontrollers and IoT: A Web Server"
 description: "Up the ante using JavaScript to build a simple webserver with a microcontroller"
 date: 2017-08-07 12:30
 category: Technical Guide, IoT, JavaScript
