@@ -38,44 +38,44 @@ related:
 - 2017-06-21-javascript-for-microcontrollers-and-iot-part-1
 ---
 
-In [our last post from the JavaScript for Microcontrollers and IoT series]() we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small, in particular in contrast to the amout of C code that was necessary to write. In this post we take our sensor hub and expand it using JavaScript to act as a webserver in our local network. The webserver will display the readings from the sensors only for authenticated users. Will it be as easy as it looks? Read on to find out!
+In [our last post from the JavaScript for Microcontrollers and IoT series](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small, in particular in contrast to the amout of C code that was necessary to write. In this post we take our sensor hub and expand it using JavaScript to act as a webserver in our local network. The webserver will display the readings from the sensors only for authenticated users. Will it be as easy as it looks? Read on to find out!
 
 {% include tweet_quote.html quote_text="Make a webserver using JavaScript on a microcontroller!" %}
 
 -----
 
 ## Introduction
-In [our last post]() we finally used all the code we developed for the [first post]() for something useful. We created a small script that was in charge of reading values from sensors and then sending that information to different destinations. We sent the code to the cloud, to be handled by a [Webtask]() that in turn could do useful stuff with it (like sending an email when thresholds were exceeded), and we also sent the readings to a computer in the local network. However, there was no way for a user in the local network to simply take a look at the readings (unless they set up a webserver on a computer). We also came to the conclusion that the added complexity of setting up a JavaScript interpreter and then exposing the C API through it was simply not worth it for small scripts. Things could be different if the JavaScript code were bigger, or, in other words, if most of the development happened on the JavaScript side of things. So for this post we decided to run the experiment: let's write something bigger in JavaScript and see where that gets us.
+In [our last post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we finally used all the code we developed for the [first post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/) for something useful. We created a small script that was in charge of reading values from sensors and then sending that information to different destinations. We sent the code to the cloud, to be handled by a [Webtask](https://webtask.io/) that in turn could do useful stuff with it (like sending an email when thresholds were exceeded), and we also sent the readings to a computer in the local network. However, there was no way for a user in the local network to simply take a look at the readings (unless they set up a webserver on a computer). We also came to the conclusion that the added complexity of setting up a JavaScript interpreter and then exposing the C API through it was simply not worth it for small scripts. Things could be different if the JavaScript code were bigger, or, in other words, if most of the development happened on the JavaScript side of things. So for this post we decided to run the experiment: let's write something bigger in JavaScript and see where that gets us.
 
 ## The Plan
 We already have the sensor hub, so the next logical step is to have some way to see the readings from any smart device in the local network. One simple way to do that is to simply have a webpage served by the microcontroller. We could put the readings there!
 
 Now, if you recall what we saw of the Particle API in previous posts, you may remember we did have TCP sockets and WiFi. That's great! However for this we are missing a key part of the puzzle: an HTTP server. But what we want to do should be simple enough, and luckily, HTTP is, for the most part, rather simple for small tasks like ours. Could be integrate a small HTTP server using JavaScript in our sensor-hub example? It turns out we can.
 
-For our example we have decided to use [http-parser-js](), a JavaScript-only implementation of [Node's HTTP parser](). Node's HTTP parser is written in C, so we could actually use that instead, but the point of using JavaScript on a microcontroller is to write less error prone C code and more JavaScript. The JavaScript version should be simpler to use, as long as our interpreter is up to the task.
+For our example we have decided to use [http-parser-js](https://github.com/creationix/http-parser-js), a JavaScript-only implementation of [Node's HTTP parser](https://github.com/nodejs/http-parser). Node's HTTP parser is written in C, so we could actually use that instead, but the point of using JavaScript on a microcontroller is to write less error prone C code and more JavaScript. The JavaScript version should be simpler to use, as long as our interpreter is up to the task.
 
-Using [http-parser-js]() we developed a small example that passes data from Particle's TCP API to the parser and then back to user-specified handlers, in the spirit of the rather simple Express library (although with a completely different, and much simpler API).
+Using [http-parser-js](https://github.com/creationix/http-parser-js) we developed a small example that passes data from Particle's TCP API to the parser and then back to user-specified handlers, in the spirit of the rather simple Express library (although with a completely different, and much simpler API).
 
-We also decided to add a small authentication screen to the sensor readings page. Since our example is only meant to run on the local network, as there is no SSL/TLS available on the Particle API yet, this is mostly for educational or testing purposes. For this we will use [auth0.js](), which let's us add authentication to a page with only a few lines of code.
+We also decided to add a small authentication screen to the sensor readings page. Since our example is only meant to run on the local network, as there is no SSL/TLS available on the Particle API yet, this is mostly for educational or testing purposes. For this we will use [auth0.js](https://github.com/auth0/auth0.js), which let's us add authentication to a page with only a few lines of code.
 
-An interesting side of adding authentication is actually having the microcontroller validate the credentials. Since [Auth0]() implements [OpenID Connect](), we will learn how to validate [JWT tokens]() on the microcontroller too! For this task we decided to use our clean-room implementation of [JWT HMAC signatures from the JWT Handbook](). Why? Because it has no external dependencies and it is very small. Of course, for production uses you should prefer a well tested library with better error handling and not an educational one. Still, this poses an interesting challenge for our interpreter of choice: [JerryScript]().
+An interesting side of adding authentication is actually having the microcontroller validate the credentials. Since [Auth0](https://auth0.com/) implements [OpenID Connect](http://openid.net/connect/), we will learn how to validate [JWTs](https://auth0.com/e-books/jwt-handbook) on the microcontroller too! For this task we decided to use our clean-room implementation of [JWT HMAC signatures from the JWT Handbook](https://github.com/auth0/jwt-handbook-samples/blob/master/hmac.js). Why? Because it has no external dependencies and it is very small. Of course, for production uses you should prefer a well tested library with better error handling and not an educational one. Still, this poses an interesting challenge for our interpreter of choice: [JerryScript](http://jerryscript.net/).
 
-Some of the libraries we decided to use for this require [ECMAScript 2015](). [JerryScript](), the interepreter we have been using so far, only support ECMAScript 5.1, so we will also learn to use a transpiler and bundler to accomplish our mission. For this task we will be using [Rollup]() and [Babel](). Rollup produces very small code, and size is always important when working with microcontrollers.
+Some of the libraries we decided to use for this require [ECMAScript 2015](https://auth0.com/blog/a-rundown-of-es6-features/). [JerryScript](http://jerryscript.net/), the interepreter we have been using so far, only support ECMAScript 5.1, so we will also learn to use a transpiler and bundler to accomplish our mission. For this task we will be using [Rollup](https://github.com/rollup/rollup) and [Babel](https://babeljs.io/). Rollup produces very small code, and size is always important when working with microcontrollers.
 
 To sum up:
 - We will expand our JerryPhoton library to support inconming TCP connections (listening TCP sockets).
-- We will parse HTTP requests using [http-parser-js]().
+- We will parse HTTP requests using [http-parser-js](https://github.com/creationix/http-parser-js).
 - We will write a small HTTP class that will read the HTTP request and dispatch it to the right handler.
 - We will convert all the JavaScript code into a single bundle using only ECMAScript 5.1.
 - We will embed an HTML web page inside our JavaScript code using Rollup and then serve it according to the HTTP request.
-- We will validate JWTs to protect API endpoints using our educational, clean-room implementation of [HMAC signatures]() from the [JWT Handbook]().
-- We will rely on [auth0.js]() to perform the authentication for us.
+- We will validate JWTs to protect API endpoints using our educational, clean-room implementation of [HMAC signatures](https://github.com/auth0/jwt-handbook-samples/blob/master/hmac.js) from the [JWT Handbook](https://auth0.com/e-books/jwt-handbook).
+- We will rely on [auth0.js](https://github.com/auth0/auth0.js) to perform the authentication for us.
 
 Looks like quite a ride, so buckle up!
 
 ## Implementation
 ### Incoming TCP Connections
-The Particle API provides a convenient class to handle incoming TCP connections: [TCPServer](). Fortunately, `TCPServer` instances return `TCPClient` instances once the connection is established, so most of the hard work is already done in JerryPhoton (which provides a wrapper for `TCPClient` instances in JavaScriṕt). We just need to create a new JavaScript object to expose the functionality (`ṕhoton.TCPServer`) and include a single method in it: `available`.
+The [Particle API](https://docs.particle.io/reference/firmware/photon/#tcpserver) provides a convenient class to handle incoming TCP connections: [TCPServer](https://docs.particle.io/reference/firmware/photon/#tcpserver). Fortunately, `TCPServer` instances return `TCPClient` instances once the connection is established, so most of the hard work is already done in JerryPhoton (which provides a wrapper for `TCPClient` instances in JavaScript). We just need to create a new JavaScript object to expose the functionality (`ṕhoton.TCPServer`) and include a single method in it: `available`.
 
 This is simple enough:
 
@@ -151,7 +151,7 @@ tcp_server_available(const jerry_value_t func,
 }
 ```
 
-> If you don't understand the signatures of these C++ functions read the [first post in this series, where we explore the integration of JerryScript on the Particle Photon]().
+> If you don't understand the signatures of these C++ functions read the [first post in this series, where we explore the integration of JerryScript on the Particle Photon]https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/).
 
 We can now use this object from within JavaScript like so:
 
@@ -166,9 +166,9 @@ while(true) {
 ```
 
 ### Transpiling and Bundling Code
-Before starting to work with our JavaScript code, we need to set up a way to bundle everything in a single JavaScript file so we can easily include it in our project. We also need a transpiler to convert ECMAScript 2015 code to ECMAScript 5.1 code. Let's take a look at how to do that with [Rollup]() and [Babel]().
+Before starting to work with our JavaScript code, we need to set up a way to bundle everything in a single JavaScript file so we can easily include it in our project. We also need a transpiler to convert ECMAScript 2015 code to ECMAScript 5.1 code. Let's take a look at how to do that with [Rollup](https://github.com/rollup/rollup) and [Babel](https://babeljs.io/).
 
-Rollup's main feature is to let you mix up JavaScript code with different module systems. In particular, Rollup was conceived to handle integration between CommonJS modules and ECMAScript 2015 modules seamlessly. There are other module bundlers that can do this, like [Webpack](), but Rollup is very simple to configure for minimum code size with the least possible amount of added support code in the resulting bundle. Our Rollup configuration is as follows:
+Rollup's main feature is to let you mix up JavaScript code with different module systems. In particular, Rollup was conceived to handle integration between CommonJS modules and ECMAScript 2015 modules seamlessly. There are other module bundlers that can do this, like [Webpack](https://webpack.github.io/), but Rollup is very simple to configure for minimum code size with the least possible amount of added support code in the resulting bundle. Our Rollup configuration is as follows:
 
 ```javascript
 import resolve from 'rollup-plugin-node-resolve';
@@ -216,12 +216,12 @@ As you can see we are using a number of plugins. These plugins give us the follo
 - **commonjs**: handles `require` and `module.exports` usage from within modules.
 - **strip**: removes the use of common debugging calls like `assert`. We do not want (to save space) nor have that functionality in our interpreter so we need to remove that.
 - **html**: takes an HTML file and embeds it in the bundle inside a string. We will use this to integrate our webpage inside our bundle.
-- **uglify**: space is everything: we need to keep the size of the bundle as small as possible, so [Uglify]() can help us to achieve that. Uglify does not support ECMAScript 2015 modules yet, so we need to use a specific minifier that can do that: that is what `uglify-es` provides.
+- **uglify**: space is everything: we need to keep the size of the bundle as small as possible, so [Uglify](https://github.com/mishoo/UglifyJS) can help us to achieve that. Uglify does not support ECMAScript 2015 modules yet, so we need to use a specific minifier that can do that: that is what `uglify-es` provides.
 
 With this pipeline we will get a single JavaScript file with all we need. If you want to take a look at how the resulting code compares to the original code, comment the `uglify` call in the `plugins` array. The resulting code is pretty readable and has very little added support code.
 
 #### Wait, how are we going to upload this to the microcontroller?
-Another thing we need is to find a way to get the bundle into the microcontroller. We will now be working with larger amounts of code, so we cannot use the simple upload functionality we developed in [post 1](). The upload functionality allowed us to dynamically run JavaScript code sent through a TCP socket. This was great, but to do so the code was first copied into RAM and then run from there. The Particle Photon does not have too much RAM, son we cannot waste it by keeping our script there. Fortunately there is way to embed our JavaScript bundle into the ROM!
+Another thing we need is to find a way to get the bundle into the microcontroller. We will now be working with larger amounts of code, so we cannot use the simple upload functionality we developed in [post 1](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/). The upload functionality allowed us to dynamically run JavaScript code sent through a TCP socket. This was great, but to do so the code was first copied into RAM and then run from there. The Particle Photon does not have too much RAM, son we cannot waste it by keeping our script there. Fortunately there is way to embed our JavaScript bundle into the ROM!
 
 The Particle API does not have a concept of a file or resource system, therefore anything that must be available to the C code in form of data must also be included in the code itself. Fortunately for us this is very easy to do with some minor shell scripting. Once we have the JavaScript bundle we can convert it to a C-array using `xxd`, a tool to produce textual binary dumps. `xxd` conveniently provides an option to produce C-arrays as output.
 
@@ -249,7 +249,7 @@ sed -i -e 's/^unsigned/static const/' src/main.bundle.h
 The last command, `sed`, is necessary because we want to make sure our C-array gets stored in ROM and not in RAM. To tell the C compiler that, we need to make the array `static` and `const`. We also change the type from `unsigned char` to just `char`. This makes no difference for the data in it and matches the signature of the `jerryphoton::eval()` function.
 
 ### Integrating the HTTP Parser
-The first library that we are goint to integrate is the HTTP parser ([http-parser-js]()). This library is a simple JavaScript-only HTTP parser meant to work as a drop-in replacement for Node.js's C-based parser. It provides the exact same JavaScript API. However, since this parser was written with Node in mind, certain minor adaptations must be performed before we can use it in JerryScript. We'll talk about them here.
+The first library that we are goint to integrate is the HTTP parser ([http-parser-js](https://github.com/creationix/http-parser-js)). This library is a simple JavaScript-only HTTP parser meant to work as a drop-in replacement for Node.js's C-based parser. It provides the exact same JavaScript API. However, since this parser was written with Node in mind, certain minor adaptations must be performed before we can use it in JerryScript. We'll talk about them here.
 
 The first and biggest change has to do with the use of Node's `Buffer` object. `Buffer` is a Node-specific object and we can't use it here. There are two ways we could fix this here: we can rely on JerryScript's limited support for ECMAScript 2015's `TypedArray`, or we can use JavaScript strings. After taking a look at the code that uses `Buffer` we decided to go the `String` route. Let's take a look at the code:
 
@@ -377,11 +377,11 @@ function sendResponse(client, status, type, data) {
 You may have noticed that the part of this function that writes to the socket is a bit contrived. This is necessary to keep RAM usage withing acceptable levels. Since we will be using this function to send an HTML page to a browser, depending on the size of the HTML page, it may be necessary to create a very big buffer to send the data (data from the JavaScript side is copied in the C side). To keep this at reasonable levels, we send the data in chunks: one 256-byte chunk at a time. You can experiment with different sizes of chunks, but we found that for our simple usage, this worked without problems.
 
 ### The JWT Decoding and Verification Functions
-As we mentioned before, we are going to use the basic JWT decoding and verification functions from the [JWT Handbook](). These functions are clean-room implementations of all the algorithms, down to `Base64` encoding. These functions were written for educational purposes and are not ideal from a performance and security point of view. However, they are very small and the code is clear enough to be easily debugged. 
+As we mentioned before, we are going to use the basic JWT decoding and verification functions from the [JWT Handbook](https://auth0.com/e-books/jwt-handbook). These functions are clean-room implementations of all the algorithms, down to `Base64` encoding. These functions were written for educational purposes and are not ideal from a performance and security point of view. However, they are very small and the code is clear enough to be easily debugged. 
 
 > Disclaimer: do not use these functions in production, they were not tested in the wild and are only meant for educational purposes. Clarity of implementation was the main criteria used when they were written.
 
-The clean room implementation of HMAC signatures used in the [JWT Handbook]() relies heavily on ECMAScript 2015 features. In particular, `TypedArray` classes are used everywhere. Fortunately for us JerryScript developers are already working on an implementation of typed arrays. However, at the time we wrote this, the implementations were incomplete. Nonetheless they are perfectly usable with a couple of adaptations. We also relied on ECMAScript 2015 new methods for `String`. These are also easy to replace. Let's take a look:
+The clean room implementation of HMAC signatures used in the [JWT Handbook](https://auth0.com/e-books/jwt-handbook) relies heavily on ECMAScript 2015 features. In particular, `TypedArray` classes are used everywhere. Fortunately for us JerryScript developers are already working on an implementation of typed arrays. However, at the time we wrote this, the implementations were incomplete. Nonetheless they are perfectly usable with a couple of adaptations. We also relied on ECMAScript 2015 new methods for `String`. These are also easy to replace. Let's take a look:
 
 #### String
 The only `String` method that was used from ECMAScript 2015 is `endsWith`. This method takes a string and checks whether the string used as `this` ends with the specified string. If it does, it returns `true`, otherwise it returns `false`.
@@ -401,7 +401,7 @@ export function endsWith(thiz, str) {
 Unfortunately this means we must now find all uses of `endsWith` and change them. You can find this function in `utils.js`.
 
 #### TypedArray
-The [JWT Handbook]() examples make use of two unimplemented methods in JerryScript: `set` and `fill`. The `set` method provides a way to set the contents of a typed array with the elements from another array (either a common array or a typed array). The `fill` method, on the other hand, sets a number of elements all to the same value.
+The [JWT Handbook](https://auth0.com/e-books/jwt-handbook) examples make use of two unimplemented methods in JerryScript: `set` and `fill`. The `set` method provides a way to set the contents of a typed array with the elements from another array (either a common array or a typed array). The `fill` method, on the other hand, sets a number of elements all to the same value.
 
 ```javascript
 export function fill(arr, elem) {
@@ -698,7 +698,7 @@ function logoutClicked() {
 parseHash();
 ```
 
-By using the [auth0.js]() library, authentication and authorization is just a matter of calling `auth0client.authorize`. This will send the user to the Auth0 login page. After the user is authenticated, the authorization server will redirect the user back to our sensor site with the right access token for our API. This is what our `parseHash` function does: it gets the token from the URL and stores it in local storage.
+By using the [auth0.js](https://github.com/auth0/auth0.js) library, authentication and authorization is just a matter of calling `auth0client.authorize`. This will send the user to the Auth0 login page. After the user is authenticated, the authorization server will redirect the user back to our sensor site with the right access token for our API. This is what our `parseHash` function does: it gets the token from the URL and stores it in local storage.
 
 To use Auth0 you will first need to perform a couple of simple steps, which we describe below.
 
@@ -706,7 +706,7 @@ To use Auth0 you will first need to perform a couple of simple steps, which we d
 To use Auth0 to authenticate, authorize and get an access token for our API we need to perform two steps: first we need to create a client (this identifies our client application to the authorization server), and second we need to create an API endpoint so that we can request access tokens for it. If you haven't signed up for Auth0, [sign up now](javascript:signup\(\)). You can use the free tier for this example!
 
 ##### Create a Client
-1. Go to the [Auth0 dashboard]() and select [Clients](https://manage.auth0.com/#/clients).
+1. Go to the [Auth0 dashboard](https://manage.auth0.com) and select [Clients](https://manage.auth0.com/#/clients).
 2. Click on `Create Client`.
 3. Choose a name and put it in the text field near the top.
 4. Select `Regular Web Applications`.
@@ -715,7 +715,7 @@ To use Auth0 to authenticate, authorize and get an access token for our API we n
 7. Go down and find the `Allowed Callback URLs` field. Set the IP address of your Particle Photon there as an URL. Example: `http://192.168.1.134/`. You should make sure the Particle Photon gets assigned the same IP address always (most modern WiFi routers keep track of this).
 
 ##### Create an API endpoint
-1. Go to the [Auth0 dashboard]() and select [APIs](https://manage.auth0.com/#/apis).
+1. Go to the [Auth0 dashboard](https://manage.auth0.com) and select [APIs](https://manage.auth0.com/#/apis).
 2. Click on `Create API`.
 3. Choose a name. In the `Identifier` field put `/get-sensor-data`. This is what the access token will carry in the `aud` (audience) claim. For the algorithm pick `HS256`. Click on `Create`.
 4. Go to `Settings` and take note of the `signing secret`. Set it in `main.js`.
@@ -729,9 +729,9 @@ Another change that was necessary was to enable typed arrays and regular express
 
 Let's see it in action!
 
-<video width="600" controls src=""></video>
+<video width="600" controls src="https://cdn.auth0.com/blog/iot3/iot3-sample.mp4"></video>
 
-[Get the full code]() for this example. If you need help flashing the compiled firmware, [refer to the previous post]().
+[Get the full code](https://github.com/auth0-blog/javascript-for-microncontrollers-example-sensor-webserver) for this example. If you need help flashing the compiled firmware, [refer to the previous post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/).
 
 ### Conclusion
 In our previous post we managed to get something useful running on JavaScript but we didn't really develop a full fledged application. For this post, however, we upped the ante and managed to run our own webserver doing most of the work using only JavaScript. We handled connections, HTTP parsing, request dispatching, and JWT validation with HS256 (HMAC + SHA256). We also integrated a Node library (`http-parser-js`) and wrote all of our code using ECMAScript 2015 with modules. The result is over 1000 lines of JavaScript, or around 15KiB of minified JavaScript. This all runs on a 120MHz ARM CPU and uses less than 42KB of RAM!
@@ -740,4 +740,4 @@ The development experience was not without trouble. JerryScript remains rough in
 
 So now that we have gone over the experience of developing something bigger using JavaScript, has it changed our opinion from the last post that JavaScript only makes sense for microcontrollers if you don't need to fall back to C often? To be honest, no, it has not changed. Using existing libraries has been tremendously helpful, but we still had to debug them and find out the very specific differences between JerryScript and other more common JavaScript engines. This took some time. We also estimate that the performance of doing HTTP parsing and JWT decoding and verification on an interpreter is much slower than doing them in C code. For our case it has not resulted in problems, but bigger codebases may struggle to be performant. Things may be different using a different JavaScript engine. What we have seen so far is very good, but not entirely production ready. Using JavaScript through JerryScript on the Particle Photon remains an interesting option for smaller teams or hobbyists.
 
-In our next post we will take a look at the [ESP8266]() (finally) and [Espruino](), a different firmware that comes with an integrated JavaScript interpreter and most of its API already exposed through it. We will see if a different development environment results in a more "production-ready" experience. Until then, hack on!
+In our next post we will take a look at the [ESP8266](https://espressif.com/en/products/hardware/esp8266ex/overview) (finally) and [Espruino](http://www.espruino.com/), a different firmware that comes with an integrated JavaScript interpreter and most of its API already exposed through it. We will see if a different development environment results in a more "production-ready" experience. Until then, hack on!
