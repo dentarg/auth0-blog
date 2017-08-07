@@ -93,20 +93,18 @@ Add the following code to the `API Routes` section of the `api.js` file:
 
   // GET list of public events starting in the future
   app.get('/api/events', (req, res) => {
-    Event.find({viewPublic: true, startDatetime: { $gte: new Date() }},
-      _eventListProjection, (err, events) => {
-        let eventsArr = [];
-        if (err) {
-          return res.status(500).send({message: err.message});
-        }
-        if (events) {
-          events.forEach(event => {
-            eventsArr.push(event);
-          });
-        }
-        res.send(eventsArr);
+    Event.find({viewPublic: true, startDatetime: { $gte: new Date() }}, _eventListProjection, (err, events) => {
+      let eventsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
       }
-    );
+      if (events) {
+        events.forEach(event => {
+          eventsArr.push(event);
+        });
+      }
+      res.send(eventsArr);
+    });
   });
   
   ...
@@ -130,18 +128,17 @@ Next we'll create a similar endpoint that will return _all_ events: `/api/events
   // GET list of all events, public and private (admin only)
   app.get('/api/events/admin', jwtCheck, adminCheck, (req, res) => {
     Event.find({}, _eventListProjection, (err, events) => {
-        let eventsArr = [];
-        if (err) {
-          return res.status(500).send({message: err.message});
-        }
-        if (events) {
-          events.forEach(event => {
-            eventsArr.push(event);
-          });
-        }
-        res.send(eventsArr);
+      let eventsArr = [];
+      if (err) {
+        return res.status(500).send({message: err.message});
       }
-    );
+      if (events) {
+        events.forEach(event => {
+          eventsArr.push(event);
+        });
+      }
+      res.send(eventsArr);
+    });
   });
   
   ...
