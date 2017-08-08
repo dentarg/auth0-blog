@@ -2,11 +2,11 @@
 layout: post
 title: "Ionic Framework: Getting Started"
 description: "Learn how to use Ionic to build cross platform mobile apps and add authentication the right way"
-date: 2017-08-02 08:30
+date: 2017-08-08 08:30
 category: Technical Guide, Mobile, Ionic
 design:
-  bg_color: "#044A75"
-  image: https://cdn.auth0.com/blog/drupal01/logo.png
+  bg_color: "#2C508A"
+  image: https://cdn.auth0.com/blog/get-started-ionic/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -20,7 +20,7 @@ tags:
 related:
 - 2016-02-18-ionic-2-authentication-how-to-secure-your-mobile-app-with-jwt
 - alternatives-to-native-mobile-app-development
-- 2017-06-01-creating-your-first-cakephp-app
+- authenticating-android-apps-developed-with-kotlin
 ---
 
 ---
@@ -339,7 +339,7 @@ Next, let's add authentication to the app.
 
 ## Adding Authentication to Our App
 
-I'll show you how to easily add authentication to our **Ionic** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
+Ionic developers [choose Auth0](https://ionicframework.com/survey/2017#data-backend) as one of the top 3 technologies to manager user authenticationin their apps due to its easy implementation. Let me show you how it's done!
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
