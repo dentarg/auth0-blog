@@ -10,8 +10,8 @@ author:
   mail: jokhessa@gmail.com
   avatar: https://s.gravatar.com/avatar/f820da721cd1faa5ef4b5e14af3f1ed5
 design:
-  bg_color: "#1C233F"
-  image: https://raw.githubusercontent.com/echessa/various_learning/master/misc/realm_images/realm.png
+  bg_color: "#39477F"
+  image: https://cdn.auth0.com/blog/realm-android/logo.png
 tags: 
 - android
 - realm
