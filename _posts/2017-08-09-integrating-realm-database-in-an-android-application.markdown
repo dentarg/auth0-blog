@@ -2,7 +2,7 @@
 layout: post
 title: Integrating Realm Database in an Android Application
 description: Learn how to integrate the Realm mobile database in an Android application.
-date: 2017-03-13 12:57
+date: 2017-08-09 12:57
 category: Technical Guide, Mobile, Android
 author:
   name: Joyce Echessa
@@ -15,9 +15,13 @@ design:
 tags: 
 - android
 - realm
+- database
+- mobile
+- crud
+- open source
 related:
-- 2015-06-29-using-smartlock-on-android-in-3-simple-steps
-- 2016-02-08-how-to-authenticate-on-android-using-social-logins
+- 2017-07-27-authenticating-android-apps-developed-with-kotlin
+- 2017-01-11-alternatives-to-native-mobile-app-development
 ---
 
 ## Introduction
