@@ -30,8 +30,6 @@ Tech company culture is always a hot topic. There's a constant stream of blog po
 
 These are important discussions, and they're always worth having. Company culture should be fluid. It should evolve as a company scales, and change and adapt if it stifles growth or cohesiveness. Culture can also erode: it's not a permanent institution that maintains itself without effort. Regular, open discussions about company values are a vital part of a successful, evolving culture.
 
-![Dilbert - company culture](https://cdn.auth0.com/blog/culture/dilbert.jpg)
-
 We value transparency at Auth0, both for current _and_ prospective employees. We've shared [how we hire engineers](https://auth0.com/blog/how-we-hire-engineers/) (this general process is roughly equivalent across most departments in the company in addition to Engineering), and we'd now like to share our culture and values!
 
 ## Culture and Values at Auth0
