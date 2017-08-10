@@ -2,7 +2,7 @@
 layout: post
 title: "Implementing JWT Authentication on Spring Boot APIs"
 description: "Let's learn the correct way to secure Spring Boot RESTful APIs with JWTs."
-date: 2017-07-13 18:23
+date: 2017-08-10 18:23
 category: Technical Guide, Java, Spring Boot
 author:
   name: "Bruno Krebs"
@@ -10,13 +10,14 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "#222228"
+  bg_color: "#3F6426"
   image: https://cdn.auth0.com/blog/spring-boot-auth/logo.png
 tags:
 - spring-boot
 - jwt
 - java
 - security
+- RESTful APIs
 related:
 - 2017-04-28-incrementally-changing-your-database-with-java-and-flyway
 - 2017-03-30-java-platform-and-java-community-process-overview
