@@ -24,7 +24,9 @@ related:
 - 2016-06-02-ruby-authentication-secure-rack-apps-with-jwt
 ---
 
----
+<div class="alert alert-warning alert-icon">
+  The approach exposed in this article is <strong>out-of-date</strong> and is left here for reference only. Please, <a href="/blog/implementing-jwt-authentication-on-spring-boot">check out a <strong>better and up-to-date</strong> approach on how to secure Spring Boot applications with JWTs here.</a>
+</div>
 
 **TL;DR:** Spring Boot is a technology that makes it easy to create Java and Groovy applications utilizing the full power of Spring, with minimal setup. It allows you to create applications that 'just run' without hassle; and even the project setup becomes a breeze. Read on to find out how to set up a fully-functioning project and secure it with JWT in almost no time!
 
@@ -161,6 +163,10 @@ We have some pretty similar code to our original 'Hello World', but now we are r
 ```
 
 ## Securing Spring Boot Application With JWT
+
+<div class="alert alert-warning alert-icon">
+  <a href="/blog/implementing-jwt-authentication-on-spring-boot">A <strong>better and easier</strong> way on how to secure Spring Boot with JWTs is explained here. Take a look!</a>
+</div>
 
 At this point, our application is exposed to everyone. Anyone can query our webserver and request a list of all the users. We'd prefer that it's only exposed to people who are logged in. For this purpose, we will secure our application with JSON Web Tokens (JWTs).
 
