@@ -96,7 +96,7 @@ Each year, Auth0 pays all expenses to bring employees to one location to meet fa
 ![Auth0 2017 company offsite: "Authziro" award winners with Senior Leadership Team](https://cdn.auth0.com/blog/culture/authziros-2017.jpg)
 _Auth0 2017 company offsite: "Authziro" award winners with Senior Leadership Team_
 
-### The Connection Between Company Culture and Diversity & Inclusion
+### The Connection Between Company Culture and Diversity and Inclusion
 
 Auth0 is expanding quickly. In this time of rapid growth, it's even more important to pay attention to our culture and evolve and scale it in order to preserve the respect, dedication, and passion that has propelled us to the place we're at now.
 
@@ -113,6 +113,3 @@ A collaborative and respectful culture fosters equal treatment for everyone, reg
 At Auth0, our culture is very important to us, and we're dedicated to continually improving it. We're also working hard to find more ways to reach out to a diverse range of talented individuals who would like to join us. If you have any suggestions for us, we're always looking to improve. If you'd like to see what it's like to work with us, we encourage you to check out our [job openings](https://auth0.com/jobs#job-openings) and get in touch!
 
 ![Auth0 offsite 2017](https://cdn.auth0.com/blog/culture/offsite.jpg)
-
-
-
