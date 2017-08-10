@@ -13,8 +13,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/culture/Logo.png
+  bg_color: "#222228"
 tags:
 - culture
 - diversity
@@ -45,7 +45,7 @@ At Auth0, our values are:
 * Customer obsession
 * Intense mutual respect, trust, and accountability
 * High performance
-* Collaborative
+* Collaboration
 * Continuous learning
 * Radical transparency
 * Passion
@@ -110,6 +110,10 @@ A collaborative and respectful culture fosters equal treatment for everyone, reg
 
 ## Conclusion
 
-At Auth0, our culture is very important to us, and we're dedicated to continually improving it. We're also working hard to find more ways to reach out to a diverse range of talented individuals who would like to join us. If you have any suggestions for us, we're always looking to improve. If you'd like to see what it's like to work with us, we encourage you to check out our [job openings](https://auth0.com/jobs#job-openings) and get in touch!
+At Auth0, our culture is very important to us, and we're dedicated to continually improving it. We're also working hard to find more ways to reach out to a diverse range of talented individuals who would like to join us. If you have any suggestions for us, we're always looking to improve.
+
+If you'd like to see what it's like to work with us, we encourage you to check out our [job openings](https://auth0.com/jobs#job-openings) and get in touch! In addition, we have community initiatives and are always looking for people who are interested in contributing via our [Guest Author](https://auth0.com/guest-authors) and [Auth0 Ambassador](https://auth0.com/ambassador-program) programs. In the spirit of transparency, we also have many open-source libraries that welcome contributors, such as [auth0.js](https://github.com/auth0/auth0.js), [Lock](https://github.com/auth0/lock), and [more in our GitHub](https://github.com/auth0). 
+
+We'd love to work with you!
 
 ![Auth0 offsite 2017](https://cdn.auth0.com/blog/culture/offsite.jpg)
