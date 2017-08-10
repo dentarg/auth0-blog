@@ -11,14 +11,14 @@ author:
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
   bg_color: "#7370B3"
-  image: https://cdn.auth0.com/blog/create-kotlin-app/logo.png
+  image: https://cdn.auth0.com/blog/kotlin-android/logo.png
 tags:
 - android
 - kotlin
 - authentication
 - security
 related:
-- 2016-02-08-how-to-authenticate-on-android-using-social-logins
+- integrating-realm-database-in-an-android-application
 - 2017-01-18-how-to-create-a-kotlin-app-and-secure-it-using-jwt
 - 2017-06-22-developing-restful-apis-with-kotlin
 ---
