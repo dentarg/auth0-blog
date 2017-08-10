@@ -2,7 +2,7 @@
 layout: post
 title: "Our Culture and Values at Auth0"
 description: "We're a distributed company with a collaborative culture and we're always striving to improve ourselves."
-date: 2017-08-15 8:30
+date: 2017-08-14 8:30
 category: Growth, Generic
 is_non-tech: true
 banner:
