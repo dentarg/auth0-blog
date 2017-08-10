@@ -30,7 +30,7 @@ Tech company culture is always a hot topic. There's a constant stream of blog po
 
 These are important discussions, and they're always worth having. Company culture should be fluid. It should evolve as a company scales, and change and adapt if it stifles growth or cohesiveness. Culture can also erode: it's not a permanent institution that maintains itself without effort. Regular, open discussions about company values are a vital part of a successful, evolving culture.
 
-![Dilbert - company culture](/Users/kimmaida-auth0/Documents/Auth0/Blog/Culture assets/dilbert.jpg)
+![Dilbert - company culture](https://cdn.auth0.com/blog/culture/dilbert.jpg)
 
 We value transparency at Auth0, both for current _and_ prospective employees. We've shared [how we hire engineers](https://auth0.com/blog/how-we-hire-engineers/) (this general process is roughly equivalent across most departments in the company in addition to Engineering), and we'd now like to share our culture and values!
 
@@ -78,7 +78,7 @@ However, perks are only a minor component of _culture_. A company can have perks
 
 Perks are integrated into the culture at Auth0. Employees and senior leadership are tremendously hard-working, while we also understand and value the necessity of vacations, social time, and expenses that promote continuous learning (such as software and events).
 
-![Auth0 employees together at offsite in Cancun, Mexico](/Users/kimmaida-auth0/Documents/Auth0/Blog/Culture assets/logo-assemble.gif)
+![Auth0 employees together at offsite in Cancun, Mexico](https://cdn.auth0.com/blog/culture/logo-assemble.gif)
 _Auth0 2017 company offsite in Cancún, Mexico_
 
 ### The Culture of a Distributed Workforce
@@ -93,7 +93,7 @@ Our employees are very self-directed and are responsible for managing their own 
 
 Each year, Auth0 pays all expenses to bring employees to one location to meet face to face. We have sessions, awards, team-building and leisure activities, and dine and socialize together as a company. This is a tremendously enjoyable and valuable time, and its importance for a distributed workforce cannot be understated.
 
-![Auth0 2017 company offsite: "Authziro" award winners with Senior Leadership Team](/Users/kimmaida-auth0/Documents/Auth0/Blog/Culture assets/authziros-2017.jpg)
+![Auth0 2017 company offsite: "Authziro" award winners with Senior Leadership Team](https://cdn.auth0.com/blog/culture/authziros-2017.jpg)
 _Auth0 2017 company offsite: "Authziro" award winners with Senior Leadership Team_
 
 ### The Connection Between Company Culture and Diversity & Inclusion
@@ -106,13 +106,13 @@ There is a connection between _company culture_ and _diversity and inclusion_. T
 
 {% include tweet_quote.html quote_text="Auth0's values emphasize respect, trust, & collaboration, providing an inclusive environment for all employees." %}
 
-A collaborative and respectful culture fosters equal treatment for everyone, regardless of age, race, gender, seniority, or position level. We are dedicated to upholding these cultural values as we grow as a company. It's important 
+A collaborative and respectful culture fosters equal treatment for everyone, regardless of age, race, gender, seniority, or position level. We are dedicated to upholding these cultural values as we grow as a company.
 
 ## Conclusion
 
 At Auth0, our culture is very important to us, and we're dedicated to continually improving it. We're also working hard to find more ways to reach out to a diverse range of talented individuals who would like to join us. If you have any suggestions for us, we're always looking to improve. If you'd like to see what it's like to work with us, we encourage you to check out our [job openings](https://auth0.com/jobs#job-openings) and get in touch!
 
-![Auth0 offsite 2017](/Users/kimmaida-auth0/Documents/Auth0/Blog/Culture assets/offsite.jpg)
+![Auth0 offsite 2017](https://cdn.auth0.com/blog/culture/offsite.jpg)
 
 
 
