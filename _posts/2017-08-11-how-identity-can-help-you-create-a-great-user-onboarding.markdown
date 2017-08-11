@@ -2,19 +2,20 @@
 layout: post
 title: "How Identity Can Help You Create a Great User Onboarding"
 description: "Identity management can be a tool that enhances your onboarding efforts to help you create great user onboarding experiences. Find out how."
-date: 2017-04-10 8:30
+date: 2017-08-11 8:30
 category: Onboarding
 author:
-  name: "Ado Kukic"
-  url: "https://twitter.com/kukicado"
-  mail: "ado@auth0.com"
-  avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   image: https://cdn.auth0.com/blog/how-identity-helps-user-onboarding/logo.png
   bg_color: "#8BA371"
 related:
-  - 2016-11-30-different-ways-to-implement-multifactor
-  - 2015-12-17-json-web-token-signing-algorithms-overview
+  - 2017-06-26-turn-your-customers-into-brand-advocates-through-personalization
+  - 2017-08-04-how-identity-management-helps-you-personalize-your-user-experience
+  - 2017-05-26-go-beyond-username-password-with-modern-auth
 tags:
   - onboarding
   - user-experience
