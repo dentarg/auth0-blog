@@ -38,7 +38,7 @@ We value transparency at Auth0, both for current _and_ prospective employees. We
 
 **Values** guide us in our day-to-day interactions and decision-making.
 
-At Auth0, our values are:
+At Auth0, our values include a strong focus on:
 
 * Customer obsession
 * Intense mutual respect, trust, and accountability
@@ -65,7 +65,7 @@ In an anonymous culture survey of current Auth0 employees, people overwhelmingly
 As stated above, our culture is the _personality_ of our company and its aspirations. When looking at company job postings, it can be easy to misinterpret culture as just a list of benefits and perks. Auth0 has many perks, including:
 
 * Flex hours
-* Unlimited vacation
+* Extensive vacation
 * Free food and snacks in the offices
 * MacBook Pros
 * Software, hardware, and trip expensing
