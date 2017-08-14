@@ -32,6 +32,8 @@ All this popularity has also led to the creation and perpetuation of various myt
 
 Going with multifactor authentication is almost always going to be an improvement over not. But it's table stakes now. Sophisticated attackers aren't deterred by poorly configured multifactor authentication systems. To keep internal and user information secure, you need to know what you're doing.
 
+> Give your customers enterprise identity integration, frictionless SSO across your products and adaptive authentication with MFA and Anomaly Detection. [All of this with a flip of a switch](https://auth0.com/b2b-enterprise-identity-management).
+
 ## Myth #1: There are only a few different forms of MFA
 
 An authentication [factor](https://auth0.com/identity-glossary) is a vector through which identity can be confirmed or denied, from fingerprint scanners to passwords, from USB sticks to PIN codes. The commonly used term “multifactor authentication” simply refers to an authentication scheme that uses **more than one** of these methods.

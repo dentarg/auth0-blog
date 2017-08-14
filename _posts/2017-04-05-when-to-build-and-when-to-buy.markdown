@@ -99,4 +99,6 @@ Because of the costs involved with both building yourself and buying an out-of-t
 
 On the flip side, if you can find a platform or system that caters to your needs perfectly, take advantage of it. The solution should be scalable and easy for you to maintain over time. With this option, you can focus on what you do best and delegate your infrastructural needs to specialized people.
 
+> Give your customers enterprise identity integration, frictionless SSO across your products and adaptive authentication with MFA and Anomaly Detection. [All of this with a flip of a switch](https://auth0.com/b2b-enterprise-identity-management).
+
 There's no right option here; it really depends on your business type and what you'd like to achieve. The path to build versus buy isn't always clear-cut, but with the right approach, you'll do what's best for your company. Fully understand your needs and what you need to reach your goals.

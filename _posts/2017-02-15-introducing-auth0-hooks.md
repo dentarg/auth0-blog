@@ -66,7 +66,7 @@ This is just the beginning. We are going to be adding many more extensibility po
 
 Introduction of Auth0 Hooks does not affect any existing Auth0 Rules. Your rules continue to work unchanged.
 
-Auth0 Hooks provide a foundation for a new extensibility mechanism in Auth0. All future extensibility points in the platfrom will build on top of Auth0 Hooks. We are also planning to add support in Auth0 Hooks for the same things you use Auth0 Rules for today.   
+Auth0 Hooks provide a foundation for a new extensibility mechanism in Auth0. All future extensibility points in the platform will build on top of Auth0 Hooks. We are also planning to add support in Auth0 Hooks for the same things you use Auth0 Rules for today.   
 
 ## Differences with Auth0 Rules
 
@@ -83,5 +83,7 @@ If you have been using Auth0 Rules before, these are some of the key differences
 We have recently released a product called [Auth0 Extend](https://auth0.com/extend/). This product enables companies to provide an easy extension point where customers can run arbitrary JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
 
 ## Learn more
+
+> Give your customers enterprise identity integration, frictionless SSO across your products and adaptive authentication with MFA and Anomaly Detection. [All of this with a flip of a switch](https://auth0.com/b2b-enterprise-identity-management).
 
 Check out the [Auth0 Hooks documentation](https://auth0.com/docs/auth0-hooks) or head over directly to the [Auth0 Hooks management dashboard](https://manage.auth0.com/#/hooks) to create your first hook.  

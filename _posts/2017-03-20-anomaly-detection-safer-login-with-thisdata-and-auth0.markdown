@@ -143,4 +143,4 @@ It is super simple to integrate ThisData into your authentication process when b
 
 Cyber-attacks are on the rise, so taking these simple security precautions helps ensure that your users and apps are safe. Make your applications more secure today with ThisData and Auth0!
 
-> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+> Increase productivity, collaboration, efficiency and security in your organization [through consolidated identity](https://auth0.com/b2e-identity-management-for-employees).

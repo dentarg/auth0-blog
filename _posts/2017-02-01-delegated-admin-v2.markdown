@@ -320,4 +320,6 @@ Combining Auth0 with the Delegated Administration Dashboard allowed CloudCakes t
 
 The Delegated Administration Dashboard extension is a great tool for giving limited access to only the Users dashboard of Auth0. It allows organizations to enforce fine-grained permissions for users accessing the dashboard and removes the need for giving full-access to the Auth0 dashboard. Hooks allow the Users Dashboard to meet the needs of any user management workflow whether it's limiting access or enforcing specific criteria. If your organization needs a better way to manage your Auth0 users, give the Delegated Admin extension a try today. If you don't already have an Auth0 account, <a href="javascript:signup()">sign up for free</a> to get started.
 
+> Give your customers enterprise identity integration, frictionless SSO across your products and adaptive authentication with MFA and Anomaly Detection. [All of this with a flip of a switch](https://auth0.com/b2b-enterprise-identity-management).
+
 {% include tweet_quote.html quote_text="The Delegated Admin extension makes is a great tool for giving limited access to the Auth0 dashboard." %}

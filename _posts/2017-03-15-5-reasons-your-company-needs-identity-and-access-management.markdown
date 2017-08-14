@@ -113,7 +113,7 @@ A robust IAM system will also allow you to implement the correct permissions and
 
 ## Leave your login to the professionals
 
-The best way to take full advantage of all that an IAM solution can offer you is to outsource your identity management. Unless you decide to sink your resources into building a full-scale identity management team, you simply won't be able to tap into the benefits that a robust IAM solution can offer you.
+The best way to take full advantage of all that an IAM solution can offer you is to outsource your identity management. Unless you decide to sink your resources into building a full-scale identity management team, you simply won't be able to tap into the benefits that a robust IAM solution can offer you. Besides that, outsourcing identity management can help you increase productivity, collaboration, efficiency and security in your organization [through consolidated identity](https://auth0.com/b2e-identity-management-for-employees).
 
 Identity management is more than a simple login. It can offer a real value to your business, for everything from employee quality of life to revenue generation, and it has the potential to be an integral component of your success.
 

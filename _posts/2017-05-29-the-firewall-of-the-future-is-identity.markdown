@@ -31,6 +31,8 @@ That's about an 8% Compound Annual Growth Rate (CAGR) in overall cybersecurity s
 
 The amount being spent on identity management is projected to increase faster than the amount spent on security as a whole—and that has a lot to do with the growing recognition of how important properly secured, audited and compliant identity management is to preserving network security.  
 
+> Increase productivity, collaboration, efficiency and security in your organization [through consolidated identity](https://auth0.com/b2e-identity-management-for-employees).
+
 ## The Problem with Simply Spending More on Security
 
 Just looking at the overall amount of money being spent on network security, you might think that companies are responding well to the increased threat of breaches—and the constant drumbeat of networks being compromised/passwords being leaked that we hear in the news.
