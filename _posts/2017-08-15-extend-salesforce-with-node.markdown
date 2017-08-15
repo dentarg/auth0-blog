@@ -14,7 +14,7 @@ design:
   bg_color: "#3445dc"
   image_size: "100%"
   image_bg_color: "#3445dc"
-  image: "https://cdn.auth0.com/website/blog/extend/auth0-extend-salesforce-with-node/salesforce_header.svg"
+  image: "https://cdn.auth0.com/auth0-extend/assets/sfdc-blog.svg"
 tags: 
   - extend
   - Auth0 Webtasks
