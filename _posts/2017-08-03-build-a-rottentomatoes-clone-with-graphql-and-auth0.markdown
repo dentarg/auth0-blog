@@ -606,10 +606,7 @@ Awesome! Right now, everyone can view and create movies. Next, let's make sure o
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Rotten Tomatoes** and for the identifier I'll set it as **http://rottentomatoes.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
-
-![Creating the Rotten Tomatoes API](https://cdn.auth0.com/blog/rottentomatoes/api.png)
-_Creating the Rotten Tomatoes API_
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new client. Change the **Client Type** to `Regular Web Application` and **Token Endpoint Authentication Method** to `Basic`. Scroll down to `Advanced Settings > OAuth`, ensure the **JsonWebToken Signature Algorithm** is set to `HS256`.
 
 ### Create the Auth Service
 
@@ -630,14 +627,12 @@ import decode from 'jwt-decode';
 import { browserHistory } from 'react-router';
 import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
-const ACCESS_TOKEN_KEY = 'access_token';
-
 
 const CLIENT_ID = '{AUTH0_CLIENT_ID}';
 const CLIENT_DOMAIN = 'AUTH0_DOMAIN';
 const REDIRECT = 'YOUR_CALLBACK_URL';
 const SCOPE = 'openid email profile';
-const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
+const AUDIENCE = 'https://<AUTH0_DOMAIN>/userinfo';
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -646,7 +641,7 @@ var auth = new auth0.WebAuth({
 
 export function login() {
   auth.authorize({
-    responseType: 'token id_token',
+    responseType: 'id_token',
     redirectUri: REDIRECT,
     audience: AUDIENCE,
     scope: SCOPE
@@ -655,7 +650,6 @@ export function login() {
 
 export function logout() {
   clearIdToken();
-  clearAccessToken();
   clearProfile();
   browserHistory.push('/');
 }
@@ -670,23 +664,16 @@ export function getIdToken() {
   return localStorage.getItem(ID_TOKEN_KEY);
 }
 
-export function getAccessToken() {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
-}
-
 function clearIdToken() {
   localStorage.removeItem(ID_TOKEN_KEY);
 }
 
-function clearAccessToken() {
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
-}
-
 function clearProfile() {
   localStorage.removeItem('profile');
+  localStorage.removeItem('userId');
 }
 
-// Helper function that will allow us to extract the access_token and id_token
+// Helper function that will allow us to extract the id_token
 export function getAndStoreParameters() {
   auth.parseHash(window.location.hash, function(err, authResult) {
     if (err) {
@@ -694,7 +681,6 @@ export function getAndStoreParameters() {
     }
 
     setIdToken(authResult.idToken);
-    setAccessToken(authResult.accessToken);
   });
 }
 
@@ -704,11 +690,6 @@ export function getEmail() {
 
 export function getName() {
   return getProfile().nickname;
-}
-
-// Get and store access_token in local storage
-export function setAccessToken(accessToken) {
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
 }
 
 // Get and store id_token in local storage
@@ -746,13 +727,9 @@ In the code above, we are using an hosted version of Auth0 in the `login` method
 
 The auth0 package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
-The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing SPA Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
+The parameters that you do not have yet are the `{AUTH0_CLIENT_ID}` and the `{YOUR_CALLBACK_URL}`. Copy the **CLIENT ID** of your newly created client on the Auth0 dashboard and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:3000/callback`. Don't forget to add that to the **Allowed Callback URLs** and `http://localhost:3000` to the **Allowed Origins (CORS)**.
 
-A client was created automatically when you created the API. Now, go to the clients area and check for the test client that was created. You should see it in your list of clients. Open the client and change the **Client Type** to *Single Page Application*.
-
-> Non interactive clients are meant to be used in machine to machine interactions. We are using an SPA to interact with the API so the client should be an SPA client. Check out [Implicit Grant](https://auth0.com/docs/api-auth/grant/implicit) and [client credentials exchange](https://auth0.com/docs/api-auth/grant/client-credentials) for more information.
-
-Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:3000/callback`. Don't forget to add that to the **Allowed Callback URLs** and `http://localhost:3000` to the **Allowed Origins (CORS)**.
+Ensure you also replace the value of `<AUTH0_DOMAIN>` in `const AUDIENCE = 'https://<AUTH0_DOMAIN>/userinfo';` to your auth0 domain.
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -808,7 +785,7 @@ We also hid the `/create` link by checking the authentication status of the user
 
 ### Add A Callback Component
 
-We will create a new component and call it `Callback.js`. This component will be activated when the `localhost:3000/callback` route is called and it will process the redirect from Auth0 and ensure we received the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
+We will create a new component and call it `Callback.js`. This component will be activated when the `localhost:3000/callback` route is called and it will process the redirect from Auth0 and ensure we received the right data back after a successful authentication. The component will store the `id_token`.
 
 _Callback.js_
 
@@ -836,6 +813,7 @@ class Callback extends Component {
     this.props.createUser({ variables })
       .then((response) => {
           console.log("Response from create user", response);
+          localStorage.setItem('userId', response.data.createUser.id);
           this.props.router.replace('/')
       }).catch((e) => {
         console.error("Error of life ", e)
@@ -869,7 +847,7 @@ export default graphql(createUser, {name: 'createUser'})(
 )
 ```
 
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our Callback component will make sure to properly process and store those tokens in localStorage. If all is well, meaning we received an `id_token`, and `access_token`, we will be redirected back to the `/` page and will be in a logged-in state.
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` to this request, and our Callback component will make sure to properly process and store the token in localStorage. If all is well, meaning we received an `id_token`, we will be redirected back to the `/` page and will be in a logged-in state.
 
 ### Add some values to Auth0 Dashboard
 
@@ -906,7 +884,8 @@ _Hosted Lock Login Widget_
 ![Logged in Page](https://cdn.auth0.com/blog/rottentomatoes/loginout.png)
 _Logged in Page_
 
-Now you are logged in. Perfect! A user can't create a new movie without been authenticated.
+Now you are logged in. Perfect!
+
 
 We have successfully handled authentication on the frontend, but something is missing. Our GraphQL endpoints are not secured. Anybody can get access to our endpoints and make fetch queries and mutations.
 
@@ -925,7 +904,11 @@ Click on Integrations and enable Auth0
 Copy your Auth0 Client Credentials and paste it here.
 ![Add Client Details](https://cdn.auth0.com/blog/rottentomatoes/add-client-details.png)
 
-Now, Click on Permissions. We need to restrict permission on the type of user that perform certain operations.
+After you are done correctly configuring and integrating Auth0, try to sign up a new user.
+
+A new user will be created in your graphcool dashboard. Remember our createUser mutation? Yes, it creates a new user in the graphcool backend.
+
+Now, head back to graphcool and click on Permissions. We need to restrict permission on the type of user that can perform certain operations.
 
 ![Permissions](https://cdn.auth0.com/blog/rottentomatoes/permissions.png)
 
@@ -947,7 +930,50 @@ Now, run your app and try to create a movie. Aha! Something went wrong, it doesn
 
 ![Insufficient Permission](https://cdn.auth0.com/blog/rottentomatoes/insufficient-permission.png)
 
-GraphQL has now made it impossible for just any user to create a movie. You have to be authenticated to have the privilege! Whoop! Whoop!
+GraphQL has now made it impossible for just any user to create a movie. You have to be authenticated to have the privilege. Let's fix that.
+
+Open the `createMovie.js` file and update it to send the userId of the logged-in user while creating a new movie:
+
+```js
+...
+state = {
+    description: '',
+    imageUrl: '',
+    avgRating: 0,
+    reviewer: localStorage.getItem('userId')
+}
+...
+...
+handleMovie = () => {
+    const {description, imageUrl, avgRating, reviewer } = this.state
+    this.props.addMovie({ description, imageUrl, avgRating, reviewer })
+      .then(() => {
+        this.props.router.push('/')
+    })
+}
+
+const addMutation = gql`
+  mutation addMovie($description: String!, $imageUrl: String!, $avgRating: Int!, $reviewer: ID!) {
+    createMovie(description: $description, imageUrl: $imageUrl, avgRating: $avgRating, reviewerId: $reviewer) {
+      id
+      description
+      imageUrl
+      avgRating
+    }
+  }
+`
+
+export default graphql(addMutation, {
+  props: ({ ownProps, mutate }) => ({
+    addMovie: ({ description, imageUrl, avgRating, reviewer }) =>
+      mutate({
+        variables: { description, imageUrl, avgRating, reviewer },
+      })
+  })
+})(withRouter(CreateMovie))
+```
+
+Now, try to create a movie again. You'll discover that you can create a movie successfully without any issues.
 
 
 ## Conclusion
