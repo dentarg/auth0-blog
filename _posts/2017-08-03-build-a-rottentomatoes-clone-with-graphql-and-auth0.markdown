@@ -944,6 +944,7 @@ state = {
 }
 ...
 ...
+...
 handleMovie = () => {
     const {description, imageUrl, avgRating, reviewer } = this.state
     this.props.addMovie({ description, imageUrl, avgRating, reviewer })
@@ -974,7 +975,6 @@ export default graphql(addMutation, {
 ```
 
 Now, try to create a movie again. You'll discover that you can create a movie successfully without any issues.
-
 
 ## Conclusion
 
