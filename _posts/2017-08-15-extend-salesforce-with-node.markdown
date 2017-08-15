@@ -23,6 +23,15 @@ related:
   - 2017-05-16-introducing-auth0-extend-the-new-way-to-extend-your-saas
   - 2017-05-19-serverless-webhooks-with-auth0-extend
   - 2016-06-28-building-serverless-apps-with-webtask
+banner: 
+  action: https://auth0.com/extend/salesforce
+  text: Extend for Salesforce with Node 8
+  cta: Try It Out
+
+---
+
+**tl;dr**: Extend for Salesforce lets you implement triggers in Node 8 with full access to 400k NPM modules. Check it out [auth0.com/extend/salesforce](https://auth0.com/extend/salesforce).
+
 ---
 
 Salesforce is a powerful and mature SaaS CRM platform that developers can customize to meet their organization's business needs. For instance, you can author custom triggers which attach to the lifecycle of Salesforce objects. One catch, you need to learn Apex. If you are a NodeJS/Javascript developer, who has never worked with Apex, this can be a big jump. You need to move to a new language and ecosystem. That is until now.
