@@ -1,19 +1,20 @@
 ---
 layout: post_extend
-title: "From MongoDB to DynamoDB"
+title: "From Hosting MongoDB to DynamoDB"
 description: Migrate your storage where the grass is greener
 date: 2017-07-17 09:23
 is_extend: true
+alias: /how-to-migrate-from-mongodb-to-dynamodb/
 category: Product
-author:
+author: 
   name: "Tomasz Janczuk"
   url: "https://twitter.com/tjanczuk"
   mail: "tomek@auth0.com"
   avatar: "https://s.gravatar.com/avatar/53f70144dc9d7c76455fa91f858d4cec?s=200"
-design:
+design: 
   bg_color: "#3445dc"
-  image: "https://cdn.auth0.com/website/extend/developer/blocks-graphic.svg"
-tags:
+  image: "https://cdn.auth0.com/blog/website-extend/blocks-graphic01.png"
+tags: 
 - extend
 
 ---
@@ -22,11 +23,11 @@ Persisting data is at the heart of the majority of web services today. The choic
 
 ![Auth0 Extend](https://cdn.auth0.com/website/auth0-extend/images/landing-hero.svg)
 
-This post is about ditching MongoDB and moving to DynamoDB as part of our ongoing evolution of the [Auth0 Extend](https://auth0.com/extend/developers) product. I will cover the why and how, and share solutions to some of the challenges of this transition.
+This post is about ditching hosting MongoDB and moving to DynamoDB as part of our ongoing evolution of the [Auth0 Extend](https://auth0.com/extend/developers) product. I will cover the why and how, and share solutions to some of the challenges of this transition.
 
 ---
 
-### What are the Data Needs of Auth0 Extend?
+### What are the Data Needs of Auth0 Extend? 
 
 [Auth0 Extend](https://auth0.com/extend/developers) is a managed service that can be integrated into a SaaS product to support authoring and execution of custom code that customers write to extend the SaaS platform.
 
@@ -48,11 +49,11 @@ So Mongo it was. We kept adding collections, modifying schemas, optimizing index
 
 ### Cracks in the Wall
 
-At this point any self-respecting post on moving from Mongo to DynamoDB would show a smoking gun: pathetically poor performance numbers, horrible reliability data, evidence of leaking fake data to Russian hackers, or at least proof of some sexual scandal. I am afraid I have to disappoint.
+At this point any self-respecting post on moving from Mongo to DynamoDB would show a smoking gun: pathetically poor performance numbers, horrible reliability data, evidence of leaking fake data to Russian hackers, or at least proof of some scandal. I am afraid I have to disappoint.
 
 > MongoDB continues to work great for us. Features are more than sufficient, performance is more than adequate, and reliability is where we need it to be.
 
-So what is the problem? Mongo creates jobs. Too many jobs.
+So what is the problem? Hosting your own Mongo creates jobs. Too many jobs.
 
 In the early days of Auth0, we had experimented with a few SaaS providers offering hosted Mongo solutions. At the end of the day none allowed us to fully satisfy our requirements for locality of data, reliability, monitoring, and level of control needed to meet our SLAs. As a result we developed in-house capabilities necessary to maintain our own Mongo deployments on top of raw compute, either in AWS or on-premise. While this approach worked great for a limited number of deployments, it prevented us from quickly scaling out the Auth0 Extend offering to all AWS regions. Having to host our own Mongo instance in every AWS region was too much to handle for a small team.
 
@@ -341,4 +342,5 @@ The work that lies ahead includes:
 * Designing a robust cross-region failover mechanism.
 * Stabilization and performance tuning of the new stack.  
 
-To support these, we are looking forward to exploring DynamoDB streams, auto-scaling, and in-memory caching. Stay tuned for more technical posts related to this space. In the meantime, if you are looking for a backstage story on another technological revolution within our stack, check out [how we ditched Kafka to move to ZeroMQ](https://tomasz.janczuk.org/2015/09/from-kafka-to-zeromq-for-log-aggregation.html).
+To support these, we are looking forward to exploring DynamoDB streams, auto-scaling, and in-memory caching. Stay tuned for more technical posts related to this space. In the meantime, if you are looking for a backstage story on another technological revolution within our stack, check out [how we ditched Kafka to move to ZeroMQ](https://tomasz.janczuk.org/2015/09/from-kafka-to-zeromq-for-log-aggregation.html). 
+

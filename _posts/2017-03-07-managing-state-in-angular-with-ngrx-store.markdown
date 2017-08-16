@@ -28,8 +28,8 @@ related:
 ---
 
 <div class="alert alert-info alert-icon">
-  <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an AngularJS App to Angular book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <i class="icon-budicon-500"></i>
+  <strong>Ngrx version 4 has been released.</strong> This article uses version 3, but will be updated shortly to v4. Thank you for your patience while the content is upgraded!
 </div>
 
 **TL;DR:** In this article, we'll explore managing state with an immutable data store in an [Angular](http://angular.io) application using [ngrx/store](https://github.com/ngrx/store): reactive Redux for Angular. We'll also authenticate our app with [Auth0](https://auth0.com) and implement route authorization with route guards. The final code can be cloned from [this GitHub repository](https://github.com/auth0-blog/pet-tags-ngrx).

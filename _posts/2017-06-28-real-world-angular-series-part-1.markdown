@@ -31,6 +31,21 @@ related:
 
 ---
 
+## Real-World Angular Series
+
+You can view all sections of the tutorial series here:
+
+1. [Real-World Angular Series - Part 1: MEAN Setup & Angular Architecture](https://auth0.com/blog/real-world-angular-series-part-1) (you are here!)
+2. [Real-World Angular Series - Part 2: Authentication and Data Modeling](https://auth0.com/blog/real-world-angular-series-part-2)
+3. [Real-World Angular Series - Part 3: Fetching and Displaying API Data](https://auth0.com/blog/real-world-angular-series-part-3)
+4. [Real-World Angular Series - Part 4: Access Management, Admin, and Detail Pages](https://auth0.com/blog/real-world-angular-series-part-4)
+5. [Real-World Angular Series - Part 5: Animation and Template-Driven Forms](https://auth0.com/blog/real-world-angular-series-part-5)
+6. [Real-World Angular Series - Part 6: Reactive Forms and Custom Validation](https://auth0.com/blog/real-world-angular-series-part-6)
+7. [Real-World Angular Series - Part 7: Relational Data and Token Renewal](https://auth0.com/blog/real-world-angular-series-part-7)
+8. [Real-World Angular Series - Part 8: Lazy Loading, Production Deployment, SSL](https://auth0.com/blog/real-world-angular-series-part-8)
+
+---
+
 ## Part 1: MEAN Setup and Angular Architecture
 
 The first part of this tutorial will cover how to set up the cloud-hosted MongoDB database, Node server, and front end for our real-world Angular application.
@@ -137,7 +152,7 @@ Now open the `src/index.html` file and add a link to the [Bootstrap](https://v4-
 
 We'll now add some SCSS to manage global styling for our application. This will support basic layout and media queries.
 
-First, open your `src/assets` folder and an `scss` folder. Now find the `src/styles.scss` file and move it into `src/assets/scss`.
+First, open your `src/assets` folder and create a new `scss` folder. Now find the `src/styles.scss` file and move it into `src/assets/scss`.
 
 Next, open the `.angular-cli.json` file. Find the `styles` property and change it to the following:
 

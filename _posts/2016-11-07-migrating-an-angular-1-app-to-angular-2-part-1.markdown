@@ -139,7 +139,7 @@ Take a look at the file structure for your new ng2-dinos app. You may notice the
 The Angular CLI provides code linting with [TSLint](https://palantir.github.io/tslint/) and [Codelyzer](https://github.com/mgechev/codelyzer). TSLint provides TypeScript linting and Codelyzer provides TSLint rules that adhere to the [Angular 2 Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html). We can view all of these linting rules at `ng2-dinos/tslint.json`. We can lint our project using the following command:
 
 ```bash
-$ ng lint --type-check
+$ ng lint
 ```
 
 This tutorial follows the Style Guide and adheres to the default rules in the TSLint config file. It's good to lint your project periodically to make sure your code is clean and free of linter errors.
@@ -868,7 +868,7 @@ Keep an eye out for more refactoring suggestions in the next lessons.
 
 ## Conclusion
 
-We now have the basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint --type-check`, our app should be free of linter errors.
+We now have the basic architecture for our ng2-dinos app! We've successfully migrated global styles, custom off-canvas navigation, header, and footer. We've covered Angular 2 setup, components, child-to-parent component communicaton, binding syntax, and even touched on observables. If we run `ng lint`, our app should be free of linter errors.
 
 In the next parts of the tutorial, we'll enable navigation by creating page components and implementing routing. Then we'll call the API and use HTTP and observables to get and display dinosaur data and detail subpages, create type models, learn about filtering, implement error handling, and show loading states. We'll even address authentication.
 
