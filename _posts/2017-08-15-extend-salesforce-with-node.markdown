@@ -102,7 +102,7 @@ Secrets are a secure storage feature of Extend for Salesforce. The values are en
 
 ---
 
-You will be using the slack-notify NPM module to send mesages to Slack. You will need to add it as a dependency.
+You will be using the slack-notify NPM module to send messages to Slack. You will need to add it as a dependency.
 
 - Click the wrench icon in the upper left-hand corner of the editor
 - Select NPM Modules
