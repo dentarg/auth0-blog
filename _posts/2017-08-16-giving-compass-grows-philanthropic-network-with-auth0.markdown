@@ -7,10 +7,10 @@ category: PR, Press
 press_release: true
 is_non-tech: true
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   image: https://cdn.auth0.com/blog/giving-compass/logo.png
   bg_color: "#4D613F"
@@ -32,7 +32,7 @@ With a leadership team that hailed from the tech world, it was important to Givi
 
 Auth0 was implemented in less than a week and provided Giving Compass with the solid technology foundation in which to grow its network. Thanks to the rapid integration, Giving Compass has saved more than 100 hours of identity-related development and testing (an estimated $25,000 thus far). It has also witnessed a 25% increase in conversions with social login functionality, resulting in 97 out of 100 people completing the signup process.
 
-For more details on how authentication helped propel Giving Compass and it’s mission, please read the full case study here.
+For more details on how authentication helped propel Giving Compass and it’s mission, we will be publishing a case study soon.
 
 ## About Auth0
 
