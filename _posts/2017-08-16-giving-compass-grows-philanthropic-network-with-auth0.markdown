@@ -24,7 +24,7 @@ related:
 - 2016-08-24-auth0-raises-15M-to-enhance-its-identity-platform
 ---
 
-**BELLEVUE, WA**—Auth0, the leading Identity-as-a-Service (IDaaS) platform, has helped [Giving Compass](http://www.givingcompass.com) make philanthropy easier. As a growing nonprofit geared towards connecting, educating, and helping people take action to make a positive impact, Giving Compass is relying on Auth0’s robust authentication platform to create a secure and easily accessible platform for its growing network of philanthropists.
+**BELLEVUE, WA**—Auth0, the leading Identity-as-a-Service (IDaaS) platform, has helped [Giving Compass](http://www.givingcompass.com) make philanthropy easier. As a growing nonprofit geared towards connecting, educating, and helping people take action to give with impact, Giving Compass is relying on Auth0’s robust authentication platform to create a secure and easily accessible platform for its growing network of philanthropists.
 
 With a leadership team that hailed from the tech world, it was important to Giving Compass that they put technology first to help further their mission for good. After a thorough evaluation of identity providers, Auth0 was selected for its ease of use, as well as the ability to provide social login for users while keeping member data completely secure.
 
