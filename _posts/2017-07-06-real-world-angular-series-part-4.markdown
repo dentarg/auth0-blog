@@ -168,9 +168,9 @@ export class AuthService {
       ...
     });
   }
-  
+
   ...
-  
+
   private _clearRedirect() {
     // Remove redirect from localStorage
     localStorage.removeItem('authRedirect');
@@ -185,7 +185,7 @@ export class AuthService {
     // Return to homepage
     this.router.navigate(['/']);
   }
-  
+
   ...
 ```
 
@@ -743,7 +743,7 @@ Next, let's build out the `event.component.html` template file:
 
   <!-- Error loading events -->
   <p *ngIf="error" class="alert alert-danger">
-    <strong>Oops!</strong> There was an error retrieving information for this event. 
+    <strong>Oops!</strong> There was an error retrieving information for this event.
   </p>
 </ng-template>
 {% endraw %}
@@ -778,9 +778,9 @@ export class AuthService {
       this._clearRedirect();
     });
   }
-  
+
   ...
-  
+
   private _redirect() {
     // Redirect with or without 'tab' query parameter
     // Note: does not support additional params besides 'tab'
@@ -795,7 +795,7 @@ export class AuthService {
       this.router.navigate(navArr, tabObj);
     }
   }
-  
+
 ...
 ```
 
@@ -872,7 +872,7 @@ This child component lives inside the Event component and all it needs to do is 
 
 The event `description` is set with the `[innerHTML]` DOM property directive so that, [after automatic sanitization](https://angular.io/guide/security#sanitization-and-security-contexts), it will render safe markup if any is present.
 
-Last, we'll add a link to edit the event if the user is an admin. 
+Last, we'll add a link to edit the event if the user is an admin.
 
 > **Note:** Right now, this "Edit" link won't go anywhere since we haven't created the Update Event component or route. We'll add the component later and then the link will function.
 
@@ -881,6 +881,12 @@ We're now finished with our Event Detail tab component! It should look something
 ![Angular MEAN app - event detail component](https://cdn.auth0.com/blog/mean-series/event-details.jpg)
 
 Now that we have our event details, we're ready to implement the logic to manage RSVPs next time.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ---
 

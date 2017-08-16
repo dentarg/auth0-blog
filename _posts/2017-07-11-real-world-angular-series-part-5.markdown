@@ -368,7 +368,7 @@ Let's write the markup for our RSVP component. Open `rsvp.component.html`:
   <!-- Error loading RSVPs -->
   <div *ngIf="error" class="card-block">
     <p class="alert alert-danger">
-      <strong>Oops!</strong> There was an error retrieving RSVPs for this event. 
+      <strong>Oops!</strong> There was an error retrieving RSVPs for this event.
     </p>
   </div>
 </ng-template>
@@ -576,7 +576,7 @@ We should now see our animation in the browser when we click the button to toggl
 
 ## <span id="api-rsvps"></span>API: Create and Update RSVPs
 
-It's time to provide a way for users to add and update RSVPs. The first thing we'll need to do is create endpoints in our Node API. 
+It's time to provide a way for users to add and update RSVPs. The first thing we'll need to do is create endpoints in our Node API.
 
 ### POST New RSVP
 
@@ -616,7 +616,7 @@ Open the server `api.js` file and add the following `/api/rsvp/new` endpoint:
       });
     });
   });
-  
+
   ...
 ```
 
@@ -654,13 +654,13 @@ Next add the following `/api/rsvp/:id` endpoint to edit existing RSVPs:
       });
     });
   });
-  
+
   ...
 ```
 
 This `PUT` endpoint also requires authentication. It uses `findById()` to get the existing RSVP from the database so it can be updated, accounting for errors if the RSVP cannot be found or if the `userId` in the RSVP doesn't match the authenticated user.
 
-> **Note:** When adding entries to MongoDB through our API endpoints, you may notice `__v` properties appearing in your collection documents in MongoBooster or mLab. This is a [versionKey automatically set by mongoose](http://mongoosejs.com/docs/guide.html#versionKey). 
+> **Note:** When adding entries to MongoDB through our API endpoints, you may notice `__v` properties appearing in your collection documents in MongoBooster or mLab. This is a [versionKey automatically set by mongoose](http://mongoosejs.com/docs/guide.html#versionKey).
 
 We'll then update this RSVP's editable properties with data sent with the `PUT` request. These include `name`, `attending` status, number of additional `guests`, and `comments`. An existing RSVP's `userId` and `eventId` should _not_ be modified. After updating, we'll `save()` our changes and handle any errors, sending the updated RSVP data back in the response.
 
@@ -691,7 +691,7 @@ Open the `api.service.ts` file and add these two methods:
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
-  
+
   ...
 ```
 
@@ -726,14 +726,14 @@ export class RsvpComponent implements OnInit, OnDestroy {
   ...
   showEditForm = false;
   editBtnText = 'Edit My RSVP';
-  
+
   ...
-  
+
   toggleEditForm(setVal?: boolean) {
     this.showEditForm = setVal !== undefined ? setVal : !this.showEditForm;
     this.editBtnText = this.showEditForm ? 'Cancel Edit' : 'Edit RSVP';
   }
-  
+
   onSubmitRsvp(e) {
     if (e.rsvp) {
       this.userRsvp = e.rsvp;
@@ -743,11 +743,11 @@ export class RsvpComponent implements OnInit, OnDestroy {
       this.toggleEditForm(false);
     }
   }
-  
+
   ...
 ```
 
-If the user has already RSVPed, we want to show a button that will toggle between their existing RSVP information and the form that allows them to edit their response. We'll create a few methods and properties to support this. 
+If the user has already RSVPed, we want to show a button that will toggle between their existing RSVP information and the form that allows them to edit their response. We'll create a few methods and properties to support this.
 
 We'll also emit an event from our RSVP form component when a user has submitted the form. This will allow our RSVP component to react to changes the user has made via the form, updating things like the attendee count, the list of all RSVPs, and showing the create or edit versions of the form. We'll implement more functionality to support this later, after we've set up the form.
 
@@ -763,7 +763,7 @@ Next, open the `rsvp.component.html` file:
       <ul *ngIf="!showEditForm" class="list-group list-group-flush">
         ...
       </ul>
-      
+
       <div class="card-block">
         <button
           class="btn btn-info"
@@ -786,7 +786,7 @@ Next, open the `rsvp.component.html` file:
         (submitRsvp)="onSubmitRsvp($event)"></app-rsvp-form>
     </div>
   </ng-template>
-  
+
   ...
 {% endraw %}
 {% endhighlight %}
@@ -1128,7 +1128,7 @@ First we have the `<form>` element. In response to an `(ngSubmit)` event, we'll 
 
 > **Note:** If we didn't want to access any properties of the form in the template, we wouldn't need to set this template reference variable. The reference provides _access_ to the directive for the template, but would _exist_ on any `<form>` element regardless of whether or not we accessed it.
 
-We'll also be adding template reference variables to any fields that need [NgModel directive](https://angular.io/api/forms/NgModel) access in the template, such as for showing validation error messages. 
+We'll also be adding template reference variables to any fields that need [NgModel directive](https://angular.io/api/forms/NgModel) access in the template, such as for showing validation error messages.
 
 > **Note:** If we wanted to access the [NgForm](https://angular.io/api/forms/NgForm) in the class, we could pass it as a parameter to the `onSubmit()` handler. This would give our handler access to all the properties of the form that the HTML accesses with the template reference variable `#rsvpForm`. However, this would only be available at the time of submission, unlike reactive forms, which have access to everything on _any_ form change. Regardless, our RSVP form is quite simple and the `formRsvp` property stores all the data we need for submission, so it isn't necessary to pass the form to the `onSubmit()` method.
 
@@ -1178,16 +1178,16 @@ export class RsvpComponent implements OnInit, OnDestroy {
   ...
   showEditForm: boolean;
   editBtnText: string;
-  
+
   ...
-  
+
   ngOnInit() {
     ...
     this.toggleEditForm(false);
   }
-  
+
   ...
-  
+
   toggleEditForm(setVal?: boolean) {
     this.showEditForm = setVal !== undefined ? setVal : !this.showEditForm;
     this.editBtnText = this.showEditForm ? 'Cancel Edit' : 'Edit My RSVP';
@@ -1240,7 +1240,7 @@ export class RsvpComponent implements OnInit, OnDestroy {
     });
     ...
   }
-  
+
 ...
 ```
 
@@ -1310,6 +1310,12 @@ If we already have an RSVP, we can toggle the form open to modify our response. 
 Clicking the "Cancel Edit" button closes the form and returns to displaying our existing RSVP information.
 
 As soon as we've added or updated an RSVP, we should be able to see any changes we made reflected in the guest count in the footer and the full list of RSVPs if we expand and view it.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ---
 

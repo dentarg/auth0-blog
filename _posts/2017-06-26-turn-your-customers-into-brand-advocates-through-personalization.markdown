@@ -77,7 +77,7 @@ This profile within Auth0 also helps maintain a single view of your customer in 
 
 ## Better personalization with Auth0 Rules
 
-That centralized profile is also the perfect way to take advantage of the true power of a robust identity management system like Auth0. With Auth0 in particular, it's a great way to take advantage of [Auth0 Rules](https://auth0.com/docs/rules/current), snippets of code that you add to kick in things like grabbing information from a user's profile.
+That centralized profile is also the perfect way to take advantage of the [true power of a robust identity management system like Auth0](https://auth0.com/user-management). With Auth0 in particular, it's a great way to take advantage of [Auth0 Rules](https://auth0.com/docs/rules/current), snippets of code that you add to kick in things like grabbing information from a user's profile.
 
 While you can write your own Rule to help your marketing efforts, you can also rely on a library of existing rules. Many of them can help with bolstering personalization efforts in marketing. A couple that highlight this focus are:
 
@@ -102,3 +102,5 @@ Making your best customers your brand advocates means fostering deep customer en
 The best way to get into that personalization is to capture all the information your customer is giving you and make that accessible for marketers, sales people, and anyone who could help the customer benefit through personalization. You're aiming to nurture your customer relationship over that user's lifetime. Paying attention to and asking them about their likes, dislikes, and habits is a key component of that.
 
 This is a tough task, but using your identity management to track and store information takes what you already have, **login**, and turns it into a valuable tool for encouraging customers to become brand advocates.
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.

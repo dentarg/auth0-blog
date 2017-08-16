@@ -16,7 +16,7 @@ tags:
 - frameworks
 - graphql
 - instagram
-- authentication 
+- authentication
 - authorization
 related:
 - building-and-authenticating-nodejs-apps
@@ -184,7 +184,7 @@ Mutations have responses too. In this case we get the id of the new post in retu
       }
     }
 
-``` 
+```
 
 Now that we saw queries and mutations in action, we can think about authentication and authorization.
 
@@ -236,7 +236,7 @@ They are then logged into the application and can create new posts.
 
 ```
 
-New users will then have to finish the sign up process on a separate page
+New users will then have to finish the sign up process on a separate page.
 
 ![Finish Sign Up Process](https://cdn.auth0.com/blog/graph/separatepage.gif)
 
@@ -271,7 +271,7 @@ and obtain its name:
 
 ```
 
-Note that we also pass in the JWT obtained from Auth0 Lock to associate the new user with the Auth0 user id embedded in the token. If another token that includes the Auth0 user id will be supplied in subsequent requests to the GraphQL server, the request can be associated with the according user. Here, we can simply continue to include the JWT in the *Authorization* header after logging in. If we use the *user* query now:
+Note that we also pass in the [JWT obtained from Auth0 Lock](https://auth0.com/lock) to associate the new user with the Auth0 user id embedded in the token. If another token that includes the Auth0 user id will be supplied in subsequent requests to the GraphQL server, the request can be associated with the according user. Here, we can simply continue to include the JWT in the *Authorization* header after logging in. If we use the *user* query now:
 
 ```js
 
@@ -297,7 +297,7 @@ we will obtain a valid response instead of *null*:
 
 ```
 
-We can use the *user* query in the frontend application to show buttons for logout and creating new posts. 
+We can use the *user* query in the frontend application to show buttons for logout and creating new posts.
 
 An authenticated user can then create a new post by specifying a description and url for the image which will be used for the *createPost* that we saw above.
 
@@ -320,10 +320,14 @@ Then the GraphQL server can determine whether an incoming request is authorized 
 
 On the other hand, if the request is authenticated and contains the *createPost* mutation, the server would grant the request permission, due to the *Authenticated users can create posts* rule.
 
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 ## Conclusion
 
 That's it! In this article we learned the basics of GraphQL by building an Instagram clone. We saw how to authenticate GraphQL requests using Auth0 and combine that with permission rules on the GraphQL server. To see how the application looks like, you can play around with [the hosted version of our Instagram clone](http://apollo-auth0.netlify.com).
 
 To setup a GraphQL backend in less than 5 minutes, check out [Graphcool](https://graph.cool). Auth0 integration comes out-of-the-box and works nicely together with the advanced permission system.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wSkZFfuAToM" frameborder="0" allowfullscreen></iframe>

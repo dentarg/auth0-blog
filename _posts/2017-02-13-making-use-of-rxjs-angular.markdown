@@ -414,6 +414,12 @@ export class AppComponent {
 }
 ```
 
+## Aside: Securing JavaScript Software with Auth0
+
+Are you building a product with JavaScript? We at Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication). [We offer a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
+We provide the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 ## Conclusion
 Angular has a lot more features than meets the eye. RxJS is, in my personal opinion, one of the best of them. It can rocket the app to the next level in term of maintainability and clarity. The future is more declarative, less imperative code.
 

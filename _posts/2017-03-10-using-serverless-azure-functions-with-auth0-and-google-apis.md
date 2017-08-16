@@ -28,7 +28,9 @@ related:
 
 Without a doubt, authentication for web apps is one of the most complex features to implement correctly. If you’re not careful, it will eat a large chunk of your development time. Worse, if you don't get it exactly right you're left vulnerable to being hacked, which will take even more of your precious time, not to mention damaging your reputation. Therefore, it's nice to have Auth0 around to help mitigate this problem with their flexible service along with some of the best documents and support in the business. I picked a complex case as my first attempt at auth for a Single Page App (SPA) Software as a Service (SaaS) product.
 
-This post is the story of my experience along with some working JavaScript code for [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) with [Auth0](https://www.auth0.com). 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
+This post is the story of my experience along with some working JavaScript code for [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) with [Auth0](https://www.auth0.com).
 
 ##Serverless Architecture
 Azure Functions are part of Microsoft’s offering in the relatively new Serverless Architecture space. Sometime referred to as Functions as a Service (FaaS), Serverless Architecture allows you to concentrate your development offerts on you ‘Business Logic’ or backend application code. In this extension of Platform As a Service (PaaS), Microsoft manage all the lower layers of the hardware and software stack for you. For example: servers, operating systems, web servers and even platforms such as Node.js.  Note that serverless code is event driven and triggers may be HTTP requests but can also be from other sources such as a database update. This [introductory article](https://www.martinfowler.com/bliki/Serverless.html) on MartinFlower.com explains a web app use of Serverless Architecture and also links to a very thorough post by Mike Roberts.  
@@ -45,6 +47,8 @@ That all seemed fairly straightforward after spending some time learning the bas
 ##Getting Nowhere Very Slowly
 
 After exploring the Google APIs with some experimental code accessing them directly from the SPA I wanted to pull my hair out. The Picasa API in particular is very flaky in how it handles CORS and authentication. Plan B was to use Auth0 to do all the heavy lifting. My hope was their Lock widget would solve the technical issues relatively easily. For example, Lock handles the `nonce` and `state` attributes used to stop hacking. Lock is also flexible in user experience options, for example it easily allows the addition of extra services. However, I soon found out the `access_token` that Lock provides to a SPA is not usable in Google APIs and it was hard to find any answers.
+
+> [Lock is an embeddable login form for desktop, tablet and mobile devices.](https://auth0.com/lock) It provides the easiest way for securing your website and mobile apps.
 
 At this point, I started to think that backend access was going to be the solution. In addition to reliable access there's also the question of what to do when tokens expire. We need to avoid having the user keep logging in, so refresh tokens will be required which must be stored securely in the backend, as they effectively allow endless access. Several other design requirements pointed to backend access, and using Azure Functions meant a rapid development and relatively low DevOps requirements. Win - win.
 
@@ -73,9 +77,9 @@ In order for this to work, you need to have the following configured:
 * Auth0 non-interactive client for backend access to Auth0 management API - [Call an Identity Provider API](Call an Identity Provider API)
 * Azure account and an [Azure Functions App](https://azure.microsoft.com/en-us/services/functions/)
 
-You should also read: 
+You should also read:
 
-* [Auth0 Overview](https://auth0.com/docs/overview) 
+* [Auth0 Overview](https://auth0.com/docs/overview)
 * [Identity Provider Access Tokens](https://auth0.com/docs/tokens/idp)
 * [Lock for Web](https://auth0.com/docs/libraries/lock)
 * [Create your first Azure Function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function)
@@ -97,7 +101,7 @@ Here is a simple vanilla HTML and JavaScript example that allows the user to sig
   <pre id="profile"/>
 
   <script>
- 
+
   function getGoogleAlbums(accessToken) {
     var AZUREFUNCTION = 'AZURE FUNCTION URL HERE'
     var xmlhttp = new XMLHttpRequest()
@@ -147,7 +151,7 @@ Here is a simple vanilla HTML and JavaScript example that allows the user to sig
       localStorage.setItem('profile', JSON.stringify(profile));
     });
   });  
-    
+
   document.getElementById('btn-login').addEventListener('click', function() {
     lock.show();
   })
@@ -178,10 +182,10 @@ Here is a simple vanilla HTML and JavaScript example that allows the user to sig
 
 Now for the Azure Functions backend code. This is a JavaScript HTTP Azure Function with the method set to `GET`. Tokens are passed from the frontend code above in a URL parameter.
 
-Note, this initial block of constants should not normally be included in the main code (if only to stop you accidently checking your secrets into GitHub). Rather it’s good practice to place them in the Function App Service’s Settings and reference them from the code. 
+Note, this initial block of constants should not normally be included in the main code (if only to stop you accidently checking your secrets into GitHub). Rather it’s good practice to place them in the Function App Service’s Settings and reference them from the code.
 
 ```js
-// constants 
+// constants
 const AUTH0_DOMAIN_URL = 'https://DOMAIN.auth0.com'
 const AUTH0_API_ID = 'https://API_ID'
 const AUTH0_SIGNING_CERTIFICATE = `-----BEGIN CERTIFICATE-----
@@ -358,7 +362,7 @@ module.exports = (options) => {
       });
     };
   };
-}; 
+};
 ```
 
 ##Running the Code
@@ -384,3 +388,5 @@ Auth0 provides all the features needed to access Google APIs with a user’s cre
 Azure Functions provides an ideal way to create the backend code in Node.js without the need to create and configure servers or Node itself. An HTTP function is easy to create and configure via the Azure Functions control panel, or everything can be done locally and then deployed to Azure.
 
 Best of all, both Auth0 and Azure Functions provide free subscriptions that allow you to explore them in detail. Have fun!
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.

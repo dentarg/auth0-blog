@@ -40,4 +40,6 @@ Read the [case study](https://auth0.com/learn/bluetooth-case-study/) to learn mo
 
 Auth0 provides frictionless authentication and authorization for developers. The company makes it easy for developers to implement even the most complex identity solutions for their web, mobile, and internal applications. Ultimately, Auth0 allows developers to control how a person’s identity is used with the goal of making the internet safer. As of August, 2016, Auth0 has raised over $24m from Trinity Ventures, Bessemer Venture Partners, K9 Ventures, Silicon Valley Bank, Founders Co-Op, Portland Seed Fund and NXTP Labs, and the company is further financially backed with a credit line from Silicon Valley Bank.
 
+> Increase productivity, collaboration, efficiency and security in your organization [through consolidated identity](https://auth0.com/b2e-identity-management-for-employees).
+
 For more information visit [https://auth0.com](https://auth0.com) or follow [@auth0](https://twitter.com/auth0) on Twitter.

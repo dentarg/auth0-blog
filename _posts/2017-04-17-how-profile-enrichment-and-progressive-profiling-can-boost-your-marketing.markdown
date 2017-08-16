@@ -85,6 +85,12 @@ Keeping more information on your users turns them from a single datapoint into a
 * **Boost your conversions.** Let's say someone signed up for your free trial. Of course, you grabbed their email, worked your API magic, and came back with information on their company and position there. Now that you know they work for a mid-sized PR company, you can help your marketing and sales people connect with that user to help them realize the value of your product in the PR space. If they connect with questions, you can point them right to the things that matter most to PR people.
 * **Customize your marketing campaigns.** When you have demographic data on users, you can translate that to better marketing campaigns. Maybe you find that 25% of users are startups with fewer than 30 people, or that the majority of your enterprise customers generate reports on a weekly basis. Or maybe you find that teen boys in cities use your app more than any other group. Any of these pieces of information can help you shape marketing campaigns that speak directly to the interests of those groups.
 
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
 ## Conclusion
 
 To market effectively, you need to understand both your product and your customers. Understanding your product is the easy part — you spend every day with it. But getting to know your customers is a unique challenge.

@@ -122,6 +122,8 @@ First off, forget about teaching your users to create better passwords. People k
 
 The most effective way to protect against breaches is to mandate the use of multi-factor authentication, at the very least when you have users logging in from unfamiliar IP addresses or other unusual circumstances.
 
-At Auth0, we log approximately 16,000 login attempts using compromised passwords each month. These attacks target users not using modern authentication options like social connections or passwordless authentication. By putting the needs of our users first, we can use tools like our [Breached Password Detection](https://auth0.com/breached-passwords) feature to detect that users are typically exposed to six fraudulent login attempts each month.
+At Auth0, we log approximately 16,000 login attempts using compromised passwords each month. These attacks target users not using [modern authentication](https://auth0.com/user-management) options like social connections or [passwordless authentication](https://auth0.com/passwordless). By putting the needs of our users first, we can use tools like our [Breached Password Detection](https://auth0.com/breached-passwords) feature to detect that users are typically exposed to six fraudulent login attempts each month.
 
-For the safety of your users, use this approach and enable [password breach detection](https://auth0.com/blog/announcing-password-breach-detection/). Make sure you have a [data breach response plan](https://auth0.com/blog/data-breach-response-planning-for-startups/)—it could be the difference between a cataclysmic breach and a disaster averted.
+For the safety of your users, use this approach and enable [password breach detection](https://auth0.com/breached-passwords). Make sure you have a [data breach response plan](https://auth0.com/blog/data-breach-response-planning-for-startups/)—it could be the difference between a cataclysmic breach and a disaster averted.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.

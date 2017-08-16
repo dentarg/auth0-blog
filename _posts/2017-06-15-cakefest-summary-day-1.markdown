@@ -96,6 +96,12 @@ You can listen to her session here:
 
 Day 1 ended with some [lightning talks](https://www.pscp.tv/cakephp/1lPJqykgOkNJb).
 
+## Aside: Securing PHP Applications with Auth0
+
+Are you building a product with PHP? We at Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
 ## Conclusion
 
 Day 1 of CakeFest was awesome. The sessions were great and the attendees really connected well.

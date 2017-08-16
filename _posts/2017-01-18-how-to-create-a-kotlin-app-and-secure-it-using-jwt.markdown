@@ -30,6 +30,8 @@ related:
 
 **TL;DR** In this article, we’ll learn how to create a simple application using Kotlin, a statically typed programming language that targets the Java Virtual Machine (JVM). We’ll secure all communication with our application using JSON Web Tokens (JWTs).
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication on different frameworks and technologies.
+
 ---
 
 In this article, we’ll learn how to create a simple application using [Kotlin](https://kotlinlang.org/), a statically typed programming language that targets the Java Virtual Machine (JVM). We’ll secure all communication with our application using [JSON Web Tokens (JWT’s)](https://jwt.io/).
@@ -73,7 +75,7 @@ class Student() {
 }
 
 class Student {
-  // If the class has just one default parameterless constructor, 
+  // If the class has just one default parameterless constructor,
   // the parenthesis area optional
 }
 
@@ -83,8 +85,8 @@ class Student; // if the class is empty, the curlies are optional.
 To create an object of the Student class:
 
 ```kotlin
-// Kotlin does not have the new keyword. 
-// This creates a read-only / assign-once 
+// Kotlin does not have the new keyword.
+// This creates a read-only / assign-once
 // variable of type Student.
 val student : Student = Student();
 
@@ -120,21 +122,21 @@ To create an object of the Student class and use it:
 
 ```kotlin
 // creates a read-only, nullable variable of type Student
-val student : Student? = Student(“Lisa”, null); 
+val student : Student? = Student(“Lisa”, null);
 ```
 
 To create a class with optional parameters in its constructor:
 
 ```kotlin
-class Student(val name : String, 
-              var age : Int? = null, 
+class Student(val name : String,
+              var age : Int? = null,
               var gender : String = “Male”);
-          
+
 // optional argument omitted. Nullable student.
 val joe : Student? = Student(“Joe Bloggs”, 20);
 
-// Provided an explicit value for all 
-// arguments including the optional argument. 
+// Provided an explicit value for all
+// arguments including the optional argument.
 // Non-nullable student.
 val lisa : Student = Student(“Lisa Hendricks”, 18, “Female”);
 ```
@@ -202,8 +204,8 @@ To create a class of that kind, you’ll simply add the keyword `data` before th
 
 ```kotlin
 data class Student(val name : String) {
-  // A class with one read-only, 
-  // non-nullable property that has 
+  // A class with one read-only,
+  // non-nullable property that has
   // only a getter for its name property
 }
 ```
@@ -225,9 +227,9 @@ Annotations:
 You can annotate a method, constructor, or class like in any other language:
 
 ```kotlin
-@annotationForClass class 
+@annotationForClass class
       @annotationForConstructor Student(@propertyAnnotation val name : String) {
-      
+
     @methodAnnotation fun display() {
         //
     }
@@ -242,7 +244,7 @@ class ThisClassCannotBeInherited;
 open class ThisClassCan;
 
 open class ThisClassCanAlsoBeInherited {
-    
+
   fun thisMethodCannotBeOverriden() {
   }
 
@@ -279,7 +281,7 @@ To create a Singleton object:
 
 ```kotlin
 object IAmASingletonObject {
-  
+
   val firstProperty : String;
 }
 ```
@@ -300,9 +302,9 @@ If you mark an object declaration with the `companion` keyword, the members of t
 class User(val userName : String,  val password : String?) {
 
   companion object Validator {
-  
+
     public fun isValid() : Boolean {
-      
+
       // access containing object’s members
       If (userName.equals(“Joe”) {
     //
@@ -336,11 +338,11 @@ Here’s what the high-level component architecture for Bookyard would look like
 Assuming the servlet application is running, when the user launches the client application, a login dialog will appear.
 
 ![Bookyard Login Dialog](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/BookyardLogin.png)
- 
+
 A successful login will dismiss the login dialog and display a window listing the recommended books for the logged-in user.
 
 ![Book Recommendations Window](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/RecommendationsWindow.png)
- 
+
 Please ignore the aesthetical anomalies of the graphical user interface.
 
 
@@ -352,7 +354,7 @@ Consider a traditional web application that resides on a single server. That’s
 
 You had two parties:
 
-1. A web server that had some server-side code that ran on the remote server and also some client-side code that ran on the browser. 
+1. A web server that had some server-side code that ran on the remote server and also some client-side code that ran on the browser.
 
    Since both the client code and the server code were part of a single application usually written by a single developer or company, the server-side code and the client-side code could be considered a single entity or a single application.
 
@@ -379,7 +381,7 @@ Below is a diagrammatic representation of this simple sequence of three interact
 Under this regime, when the user sends in a request to either of the servers (**A** or **B**), each of them checks to see whether the user has an authentication token or not. If he doesn’t, they redirect his request to the authorization server, whose duty is to ask the user for his user name and password, authenticate his identity, and issue him an authentication token upon successful login.
 
 ![Simple Authentication Server Workflow -- Step 2](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/Simple-2.png)
- 
+
 The user’s request is then redirected automatically back to the original URL he intended to get the data from-i.e., one of **server A** or **server B**. This time, his request carries with it the token, so either of the servers fulfills his request.
 
 ![Simple Authentication Server Workflow -- Step 3](https://raw.githubusercontent.com/Sathyaish/Auth0/master/Article/images/Simple-3.png)
@@ -453,10 +455,10 @@ OAuth 2.0 access tokens are opaque and can be any string—even the string “He
 
 ## What is a JSON Web Token (JWT)?
 
-The access token is essentially a string sent in the header of the HTTP response by the authorization server to the client. 
+The access token is essentially a string sent in the header of the HTTP response by the authorization server to the client.
 
 With every subsequent request, the client sends this string back to the server in one of three ways:
-1. As a part of the URL in a GET request, 
+1. As a part of the URL in a GET request,
 2. As the part of the body in a POST request, or
 3. (The preferred way) sent as part of the Authorization HTTP header in the following form:
 
@@ -501,7 +503,7 @@ HMACSHA256(
   base64UrlEncode(header) + "." +
   base64UrlEncode(payload),
   secret);
-  
+
 ```
 
 When sending the JWT, you send in the header and payload parts encoded as base64 URL. Then you add another period at the end of these two parts and append the signature derived from the algorithm above to the end of this string. Therefore, an example JWT might look like this (newlines added for readability):
@@ -579,7 +581,7 @@ import bookyard.contracts.IAuthenticationManager;
 import bookyard.contracts.OperationResult;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-public class APIAuthenticationManager : 
+public class APIAuthenticationManager :
                    IAuthenticationManager<String> {
 
     override public fun authenticateUser(
@@ -609,7 +611,7 @@ public class APIAuthenticationManager :
 
             // deserialize the response into an OperationResult<String>
             val mapper : ObjectMapper = ObjectMapper();
-            val result : OperationResult<String> = 
+            val result : OperationResult<String> =
                     mapper.readValue<OperationResult<String>>(
                     responseString,
                     object: TypeReference<OperationResult<String>>() { })
@@ -641,7 +643,7 @@ package bookyard.contracts;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-data class OperationResult<T> 
+data class OperationResult<T>
         @JsonCreator constructor(
             @JsonProperty("successful") val successful : Boolean,
         @JsonProperty("errorMessage") val errorMessage : String?,
@@ -698,12 +700,12 @@ package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
 
-    override fun doGet(request : HttpServletRequest, 
+    override fun doGet(request : HttpServletRequest,
                        response : HttpServletResponse) {
         val msg: String = "HTTP GET method not supported.";
 
         try {
-            
+
              response.sendError(
                   HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
 
@@ -724,12 +726,12 @@ package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
 
-    override fun doPost(request : HttpServletRequest, 
+    override fun doPost(request : HttpServletRequest,
                                          response : HttpServletResponse) {
         this.doPostInternal(request, response);
     }
 
-    private fun doPostInternal(request: HttpServletRequest, 
+    private fun doPostInternal(request: HttpServletRequest,
             response: HttpServletResponse) {
         try
         {
@@ -737,12 +739,12 @@ open class LoginServlet : HttpServlet() {
 
             if(appId == null || appId.length == 0)
             {
-                val result : OperationResult<String?> = 
-                        OperationResult<String?>(false, 
+                val result : OperationResult<String?> =
+                        OperationResult<String?>(false,
                           "Bad Request. Missing appId.", null);
 
                 val mapper : ObjectMapper = ObjectMapper();
-                val resultString : String? = 
+                val resultString : String? =
                            mapper.writeValueAsString(result);
                 response.getWriter().append(resultString);
                 return;
@@ -754,12 +756,12 @@ open class LoginServlet : HttpServlet() {
 
             if (appSecret == null || appSecret.length == 0)
             {
-                val result : OperationResult<String> = 
-                      OperationResult<String>(false, 
+                val result : OperationResult<String> =
+                      OperationResult<String>(false,
                              "Server error: appSecret not set.", null);
 
                 val mapper : ObjectMapper = ObjectMapper();
-                val resultString : String = 
+                val resultString : String =
                               mapper.writeValueAsString(result);
                 response.getWriter().append(resultString);
                 return;
@@ -767,13 +769,13 @@ open class LoginServlet : HttpServlet() {
 
           // To be continued in the next code snippet
            …
-            
+
         }
         catch(ex : Exception)
         {
             ex.printStackTrace();
 
-            val result : OperationResult<String> = 
+            val result : OperationResult<String> =
                      OperationResult<String>(false, ex.message, null);
             val mapper : ObjectMapper = ObjectMapper();
             val resultString : String = mapper.writeValueAsString(result);
@@ -793,7 +795,7 @@ package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
 
-    private fun doPostInternal(request: HttpServletRequest, 
+    private fun doPostInternal(request: HttpServletRequest,
                     response: HttpServletResponse) {
         try
         {
@@ -805,8 +807,8 @@ open class LoginServlet : HttpServlet() {
 
             if (jwsClaims == null)
             {
-                val result : OperationResult<String> = 
-                        OperationResult<String>(false, 
+                val result : OperationResult<String> =
+                        OperationResult<String>(false,
                         "Invalid request: Bad request format.", null);
 
                 val mapper : ObjectMapper = ObjectMapper();
@@ -822,23 +824,23 @@ open class LoginServlet : HttpServlet() {
                 if (!body.get("sub").toString()
             .contentEquals(Constants().JWT_SUBJECT_LOGIN_REQUEST))
                 {
-                    val result : OperationResult<String> = 
-                OperationResult<String>(false, 
+                    val result : OperationResult<String> =
+                OperationResult<String>(false,
                 "Bad request format. Invalid subject.", null);
 
                     val mapper : ObjectMapper = ObjectMapper();
-                    val resultString : String = 
+                    val resultString : String =
                              mapper.writeValueAsString(result);
                     response.getWriter().append(resultString);
                     return;
                 }
 
-                
+
             }
         }
         catch(ex : Exception)
         {
-            
+
         }
     }
 }
@@ -867,24 +869,24 @@ open class LoginServlet : HttpServlet() {
                 // get the user name and password from the JWT payload
                 val userName : String = body.get("userName").toString();
                 val password : String = body.get("password").toString();
-                
-                
+
+
                 // Authenticate the user in the database. Make sure
                 // that a user for the specified userName and password
-                // exists and is a user of an application with the 
+                // exists and is a user of an application with the
                 // specified appId, and that the appId indeed has the specified
                 // appSecret.
-                val operationResultOfUser : OperationResult<User> = 
+                val operationResultOfUser : OperationResult<User> =
                         DatabaseAuthenticationManager()
                         .authenticateUser(userName, password, appId, appSecret);
 
                 if (operationResultOfUser.successful == false) {
-                    val result : OperationResult<String> = 
-                    OperationResult<String>(false, 
+                    val result : OperationResult<String> =
+                    OperationResult<String>(false,
                     operationResultOfUser.errorMessage, null);
-                    
+
                     val mapper : ObjectMapper = ObjectMapper();
-                    val resultString : String = 
+                    val resultString : String =
                       mapper.writeValueAsString(result);
                     response.getWriter().append(resultString);
                     return;
@@ -892,18 +894,18 @@ open class LoginServlet : HttpServlet() {
 
                 val user : User? = operationResultOfUser.data;
                 if (user == null) {
-                    val result : OperationResult<String> = 
+                    val result : OperationResult<String> =
                     OperationResult<String>(false, "Invalid login", null);
-                    
+
                     val mapper : ObjectMapper = ObjectMapper();
-                    val resultString : String = 
+                    val resultString : String =
                       mapper.writeValueAsString(result);
                     response.getWriter().append(resultString);
                     return;
                 }
-                
+
                 // To be continued in the next snippet
-                            
+
             }
         }
         catch(ex : Exception)
@@ -922,12 +924,12 @@ package bookyard.server;
 
 open class LoginServlet : HttpServlet() {
 
-    private fun doPostInternal(request: HttpServletRequest, 
+    private fun doPostInternal(request: HttpServletRequest,
                           response: HttpServletResponse) {
         try
         {
             ...
-            
+
             val claims : HashMap<String, Any?> =  
                                  HashMap<String, Any?>();
             claims.put("iss", "Bookyard Server");
@@ -959,21 +961,21 @@ open class LoginServlet : HttpServlet() {
 
             if (!saved)
             {
-                val result : OperationResult<String> = 
-                    OperationResult<String>(false, 
+                val result : OperationResult<String> =
+                    OperationResult<String>(false,
                             "Internal server error", null);
-                    
+
                 val mapper : ObjectMapper = ObjectMapper();
-                val resultString : String = 
+                val resultString : String =
                   mapper.writeValueAsString(result);
                 response.getWriter().append(resultString);
                 return;
             }
 
-            val result : OperationResult<String> = 
+            val result : OperationResult<String> =
                  OperationResult<String>(true, null, accessToken);
             val mapper : ObjectMapper = ObjectMapper();
-            val resultString : String = 
+            val resultString : String =
                 mapper.writeValueAsString(result);
             response.getWriter().append(resultString);
             return;
@@ -999,12 +1001,12 @@ btnLogin.addActionListener(object : ActionListener {
     override fun actionPerformed(e : ActionEvent) {
 
         // Send an authentication request to the server
-        val authMgr : IAuthenticationManager<String> = 
+        val authMgr : IAuthenticationManager<String> =
                APIAuthenticationManager();
-               
+
         // Get a deserialized OperationResult<String> object
-        val result : OperationResult<String> = 
-                    authMgr.authenticateUser(userName, 
+        val result : OperationResult<String> =
+                    authMgr.authenticateUser(userName,
                         password, appId, appSecret);
 
         if (result.successful) {
@@ -1017,14 +1019,14 @@ btnLogin.addActionListener(object : ActionListener {
             // property of the OperationResult<T> object
             // we received from the server
             val accessToken : String? = result.data;
-            
+
             // Open the book recommendations window
             // giving it the access token we received from
             // the server. It will need this access token to
             // make any subsequent requests to the server.
-            val bookRecommendationsFrame : JFrame = 
+            val bookRecommendationsFrame : JFrame =
                   BookRecommendationsFrame(accessToken);
-                  
+
             bookRecommendationsFrame.setSize(500, 500);
             bookRecommendationsFrame.setVisible(true);
         }
@@ -1048,13 +1050,13 @@ package bookyard.client;
 public class BookRecommendationsFrame(var accessToken : String?) : JFrame() {
 
     ...
-    
+
     private fun getBookRecommendations(accessToken : String?) : BookRecommendations? {
 
         try
         {
             // Get the recommendatations url to hit
-            val recommendationsUrl : String = 
+            val recommendationsUrl : String =
               Constants().recommendationsUrl;
 
             // construct the authorization header with
@@ -1064,7 +1066,7 @@ public class BookRecommendationsFrame(var accessToken : String?) : JFrame() {
 
             // Put the authorization header in the request
             // headers map
-            val headers : MutableMap<String, String> = 
+            val headers : MutableMap<String, String> =
                                      HashMap<String, String>();
             headers.put(authorizationHeaderKey, authorizationHeaderValue);
 
@@ -1079,10 +1081,10 @@ public class BookRecommendationsFrame(var accessToken : String?) : JFrame() {
 
             System.out.println(responseString);
 
-            // deserialize the response into an 
+            // deserialize the response into an
             // OperationResult<BookRecommendations>
             val mapper : ObjectMapper = ObjectMapper();
-            val result : OperationResult<BookRecommendations> = 
+            val result : OperationResult<BookRecommendations> =
                 mapper.readValue<OperationResult<BookRecommendations>>(
                     responseString,
                     object :  TypeReference<OperationResult<BookRecommendations>>() { });
@@ -1217,7 +1219,7 @@ package bookyard.server;
 @WebServlet("/recommend")
 public class RecommendServlet : HttpServlet() {
 
-    override protected fun doPost(request : HttpServletRequest, 
+    override protected fun doPost(request : HttpServletRequest,
     response : HttpServletResponse) {
 
         val user : User? = request
@@ -1231,25 +1233,25 @@ public class RecommendServlet : HttpServlet() {
         // Get recommendations from the database
         // based on the user's likes, which are also
         // in the database
-        val recommendations : BookRecommendations? = 
+        val recommendations : BookRecommendations? =
                           getBookRecommendations(user);
 
         if (recommendations == null)
         {
             println("Failed to retrieve user's book recommendations from the database.");
 
-            val result : OperationResult<BookRecommendations> = 
-             OperationResult<BookRecommendations>(false, 
+            val result : OperationResult<BookRecommendations> =
+             OperationResult<BookRecommendations>(false,
               "Internal Server Error", null);
 
             val mapper : ObjectMapper = ObjectMapper();
-            val resultString : String = 
+            val resultString : String =
              mapper.writeValueAsString(result);
             response.getWriter().append(resultString);
             return;
         }
 
-        val result : OperationResult<BookRecommendations> = 
+        val result : OperationResult<BookRecommendations> =
           OperationResult<BookRecommendations>(true, null, recommendations);
 
         val mapper : ObjectMapper = ObjectMapper();
@@ -1485,4 +1487,7 @@ To know more about the toolset, the modules in the project, known issues, and ho
 ## Summary
 
 In this article, we learned how to use the Kotlin programming language, which is a statically typed programming language that targets the Java Virtual Machine. We described the function of the Bookyard application.
+
 Then, we meandered about ways we could use token-based authentication and authorization to secure an application. We learned what OAuth 2.0 is, what JSON Web Tokens (JWTs) are, and how we used JWTs to secure the Bookyard application.
+
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

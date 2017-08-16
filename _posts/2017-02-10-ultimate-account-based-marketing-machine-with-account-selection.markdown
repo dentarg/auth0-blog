@@ -23,13 +23,15 @@ related:
 - supercharge-your-registration-process
 ---
 
-David Ogilvy was far ahead of this time. He was known as the King of Madison Avenue. Though often viewed by his peers as eccentric (and even bizarre – he was known to wear capes to board meetings), he got many things right. One particular quote that still stands out and is applicable in today’s B2B word is this: 
+David Ogilvy was far ahead of this time. He was known as the King of Madison Avenue. Though often viewed by his peers as eccentric (and even bizarre – he was known to wear capes to board meetings), he got many things right. One particular quote that still stands out and is applicable in today’s B2B word is this:
 
 > “Don’t count the people you reach; reach the people that count.”
 
-Traditional demand gen has been about reaching more people. However, when taking an account based approach, being able to reach the right people is one of the core principles. 
-Selecting accounts is a combination of art and science, intuition and logic. Companies combine gut feel, historical performance, and sometimes predictive data science to develop an Ideal Customer Profile, tier their accounts, then allocate their resources properly to work said accounts. 
+Traditional demand gen has been about reaching more people. However, when taking an account based approach, being able to reach the right people is one of the core principles.
+Selecting accounts is a combination of art and science, intuition and logic. Companies combine gut feel, historical performance, and sometimes predictive data science to develop an Ideal Customer Profile, tier their accounts, then allocate their resources properly to work said accounts.
 Get this wrong, and you’ll be burning money. Get this right, and you’ll be printing money at will. That’s why this is the foundation for every good Account Based Marketing program. In fact, it goes beyond that – it’s the core of [Account Based Everything (ABE)](http://www.engagio.com/hello-account-based-everything-and-goodbye-account-based-marketing/).
+
+> [Give your customers **enterprise identity integration**, frictionless SSO across your products and adaptive authentication with **MFA and Anomaly Detection**. All of this with a flip of a switch.](https://auth0.com/b2b-enterprise-identity-management)
 
 ## How Should You Select Your Target Accounts?
 
@@ -40,11 +42,11 @@ The process of choosing target accounts comes down to a specific definition (ICP
 * Pain points
 * Behaviors
 * Intent data
-* Strategy 
+* Strategy
 
 One way to decide on your ICP is to reverse engineer your existing best customers to see what they have in common. Another is to analyze the best customers of your closest competitors: where are they winning and why?
 
-Once you know the specific profile of an ideal account, it’s time to actually pick the accounts; to name the companies you’ll be targeting. On this front, there’s a [maturity spectrum](http://www.engagio.com/account-selection-maturity-model/), with increasing accuracy and sophistication as you move up. 
+Once you know the specific profile of an ideal account, it’s time to actually pick the accounts; to name the companies you’ll be targeting. On this front, there’s a [maturity spectrum](http://www.engagio.com/account-selection-maturity-model/), with increasing accuracy and sophistication as you move up.
 
 ![Maturity Spectrum](https://cdn.auth0.com/blog/ultimate-abm-machine/abm-tiers.png)
 
@@ -54,10 +56,10 @@ The accuracy and completeness of your account selection improves as you move up 
 
 ## How Should You Tier Your Target Accounts?
 
-Not all accounts are the same, so you'll also need to organize your target accounts into tiers, based on how valuable they might be (and how much research and personalization will go into each one.) 
+Not all accounts are the same, so you'll also need to organize your target accounts into tiers, based on how valuable they might be (and how much research and personalization will go into each one.)
 We take a tiered approach where Tier 1 is a classic ABE/ABM approach, Tier 2 is a lighter approach, and Tier 3 is a hybrid approach.
 
-**Tier 1** – These accounts get the “full” Account Based Everything treatment – meaning each one gets deep research, a customized plan, personalized content, bespoke campaigns, and lots of one-to-one attention.  You map out each buying center, understand where there may be revenue potential, build out the organization chart and see which contacts you know and which you need to know, research key business priorities and individual motivations, and identify relationships and connections to the account.  You publish detailed account dossiers, maintain them quarterly, and even have internal chat groups or forums dedicated to each account. 
+**Tier 1** – These accounts get the “full” Account Based Everything treatment – meaning each one gets deep research, a customized plan, personalized content, bespoke campaigns, and lots of one-to-one attention.  You map out each buying center, understand where there may be revenue potential, build out the organization chart and see which contacts you know and which you need to know, research key business priorities and individual motivations, and identify relationships and connections to the account.  You publish detailed account dossiers, maintain them quarterly, and even have internal chat groups or forums dedicated to each account.
 
 **Tier 2** – These accounts also get individual research, but perhaps it’s limited to a few key talking points for each account. These accounts may not get completely personalized Plays and custom content, but they should still get highly relevant touches based on their industry and persona. Instead of one-to-one campaigns, these accounts get one-to-few campaigns. Instead of fully bespoke content, perhaps you take content written for their industry and customize it with their logo on the cover and a personalized first and last paragraph.
 
@@ -92,6 +94,8 @@ Across a sample of Engagio customers, the median number of accounts per account 
 As you can see, there’s a lot that goes into establishing the base for your Account Based Everything program. We’ve just scratched the surface of the first step. To learn more about the WHO (and the WHAT and the WHERE) of Account Based Sales Development, download [The Clear & Complete Guide to Account Based Sales Development](http://www.engagio.com/clear-and-complete-guide-to-account-based-sales-development/).
 
 How many accounts does your team manage, on average? How did you make this decision?
+
+> Auth0 can help B2C companies to enrich the profile of their customers through an easy to use [Modern Customer Identity Management solution](https://auth0.com/b2c-customer-identity-management).
 
 <div class="alert alert-info">
 <strong>About Brandon Redlinger:</strong><br />

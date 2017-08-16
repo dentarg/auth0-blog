@@ -384,3 +384,5 @@ So let's recap. We have learned how to profile our application using a component
 As you can see, optimizing the work React has to do does not have to be hard. Using the profiler, going back and optimizing the application is made simple. Using immutable data structures makes things even easier. If you want an easy way to ensure all complex structures will be immutable, I recommend looking into the [Immutable.js](https://facebook.github.io/immutable-js/) library.
 
 I hope this has made more clear what React does under the hood and how to make things faster. Let me know what you think in the comments!
+
+> Looking for the **best way to secure your React projects**? [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication. This modern tool provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

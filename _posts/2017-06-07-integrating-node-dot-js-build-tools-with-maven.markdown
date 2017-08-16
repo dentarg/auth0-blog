@@ -366,11 +366,13 @@ If we run Maven without the profile definition, `-P production`, Maven will use 
 
 ## Aside: Securing Spring Boot Applications with Auth0
 
-One of the most complex features to implement in an application is user authentication and identity management. [Security for authentication and identity](https://auth0.com/docs/security) is [an entire glossary](https://auth0.com/identity-glossary) unto itself.
+One of the most complex features to implement in an application is [user authentication and identity management](https://auth0.com/user-management). [Security for authentication and identity](https://auth0.com/docs/security) is [an entire glossary](https://auth0.com/identity-glossary) unto itself.
 
 ![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
-If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/learn/cloud-identity-access-management/) system quickly and easily for your Spring Boot application, Auth0 can help. Take a look at [Securing Spring Boot with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/) to properly secure your application.
+If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/user-management) system quickly and easily for your Spring Boot application, Auth0 can help. Take a look at [Securing Spring Boot with JWTs](https://auth0.com/blog/securing-spring-boot-with-jwts/) to properly secure your application.
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 
 ## Conclusion
 

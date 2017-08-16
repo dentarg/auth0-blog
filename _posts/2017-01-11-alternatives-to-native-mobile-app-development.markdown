@@ -15,8 +15,8 @@ design:
 tags:
 - frameworks
 - cross-platform
-- xamarin 
-- ionic 
+- xamarin
+- ionic
 - phonegap
 - progressive-web-apps
 - react-native
@@ -48,12 +48,12 @@ In addition to the framework, Ionic boasts an entire ecosystem to get developers
 
 {% include tweet_quote.html quote_text="Ionic enables the development of mobile apps built with web technologies like HTML, CSS, and JS." %}
 
-### Pros 
+### Pros
 * Build mobile apps with familiar web technologies such as HTML, CSS, and JavaScript.
 * Ionic View allows you to share your Ionic app without requiring a user to download it.
 * Target iOS and Android devices with a single code base.
 
-### Cons 
+### Cons
 * Ionic apps use [WebView](https://developer.android.com/reference/android/webkit/WebView.html), which means the app is for all intents and purposes a web application, so performance can be slow compared to native applications.
 * Ionic requires deep knowledge of Angular to get the most out of the framework.
 * Not suitable for complex mobile applications such as games or graphics intensive programs.
@@ -68,12 +68,12 @@ There is often confusion in the developer community regarding PhoneGap and Cordo
 
 {% include tweet_quote.html quote_text="Cordova allows you to build cross-platform mobile apps with web technologies of your choice." %}
 
-### Pros 
+### Pros
 * Build cross-platform mobile apps with web technologies of your choice.
 * PhoneGap build allows you to compile your PhoneGap apps into iOS and Android apps without having to install any additional SDKs.
 * Extensive third-party plugin library offering integrations such as mobile payments, testing frameworks, and more.
 
-### Cons 
+### Cons
 * PhoneGap, like Ionic, uses WebView which results in performance challenges.
 * Lack of standard UI library.
 * Not suitable for complex mobile applications such as games or graphics intensive programs.
@@ -102,13 +102,13 @@ Xamarin is not a code once, run everywhere solution. While you can achieve a hig
 
 ![React Native](https://cdn.auth0.com/blog/alternatives-to-native-mobile-development/react-native-logo.png)
 
-[React Native](https://facebook.github.io/react-native/) comes to us from [Facebook](https://facebook.com) and presents a framework for building cross-platform mobile applications with [React](https://facebook.github.io/react/). React Native is comparable to Xamarin, wherein apps created with React Native are indistinguishable from native iOS and Android apps written in Objective-C or Java. 
+[React Native](https://facebook.github.io/react-native/) comes to us from [Facebook](https://facebook.com) and presents a framework for building cross-platform mobile applications with [React](https://facebook.github.io/react/). React Native is comparable to Xamarin, wherein apps created with React Native are indistinguishable from native iOS and Android apps written in Objective-C or Java.
 
 React Native combines the easy to learn syntax of React but also enables developers to write Objective-C, Swift, or Java when needed for additional performance or tuning. This means that developers can use existing native libraries in their React Native apps. React Native also comes with many UI components such as buttons, sliders, and modals that allow developers to get up and running quickly.
 
 {% include tweet_quote.html quote_text="React allows developers to build native iOS and Android apps with React and JavaScript." %}
 
-### Pros 
+### Pros
 * Since React Native apps run native APIs, the performance is comparable to true native apps.
 * You can use native libraries and write Objective-C, Swift, or Java if needed to further optimize performance.
 * The standard UI component library is extensive and provides many features out-of-the-box.
@@ -133,20 +133,22 @@ Progressive Web Apps are unique for two major reasons. While they can be "instal
 * App will be indexed and discoverable through search engines.
 * App does not need to go through the App Store or Google Play to be "installed" on a user's mobile device.
 
-### Cons 
+### Cons
 * Limited support for PWA on iOS.
 * Lack of access to many native APIs.
 * App won't be accessible through App Store or Google Play.
 
 ## Authentication with Hybrid App Frameworks
 
-Mobile applications present various user and identity challenges. Luckily, [Auth0](https://auth0.com) has your back. Our identity solution is platform agnostic and we have plenty of resources to get you up and running as quickly as possible. <a href="javascript:signup()">Sign up</a> for a free Auth0 account, and then follow any of these guides to get user authentication for your app in no time at all:
+Mobile applications present various user and identity challenges. Luckily, [Auth0](https://auth0.com) has your back. Our [identity solution is platform agnostic](https://auth0.com/user-management) and we have plenty of resources to get you up and running as quickly as possible. <a href="javascript:signup()">Sign up</a> for a free Auth0 account, and then follow any of these guides to get user authentication for your app in no time at all:
 
 * **Ionic** - [Quickstart (Ionic)](https://auth0.com/docs/quickstart/native/ionic), [Quickstart (Ionic 2)](https://auth0.com/docs/quickstart/native/ionic2), [Tutorial](https://auth0.com/blog/ionic-2-authentication-how-to-secure-your-mobile-app-with-jwt/)
 * **PhoneGap** - [Quickstart](https://auth0.com/docs/quickstart/native/phonegap)
 * **Xamarin** - [Quickstart](https://auth0.com/docs/quickstart/native/xamarin), [Tutorial](https://auth0.com/blog/xamarin-authentication-and-cross-platform-app-development/)
 * **React Native** - [Quickstart (iOS)](https://auth0.com/docs/quickstart/native/react-native-ios), [Quickstart (Android)](https://auth0.com/docs/quickstart/native/react-native-android)
 * **Progressive Web Apps** - [Tutorial](https://auth0.com/blog/introduction-to-progressive-apps-part-one/)
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) so we can get started with modern authentication.
 
 ## Conclusion
 

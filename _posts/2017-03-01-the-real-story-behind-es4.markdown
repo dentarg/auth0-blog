@@ -66,7 +66,7 @@ From the beginning, Macromedia saw the importance of taking its product to the W
 
 In November 1996, Macromedia acquired FutureSplash and promptly renamed it Flash. This made Macromedia the sole owner of the two most important vector-based animation tools for the Web: Shockwave and Flash. For a time, both players and authoring tools coexisted, but after a few years Flash emerged as the winner.
 
-The combined power of the web platform, getting bigger and bigger by the day, and the push from content creators caused Flash to evolve rapidly. The next big step for animation software was to become a platform for interactive applications, much like Java offered at the moment, but catering to designers and with special focus on animation performance and authoring tools. The power of a certain programmability first came to Flash in version 2 (1997) with *actions*. 
+The combined power of the web platform, getting bigger and bigger by the day, and the push from content creators caused Flash to evolve rapidly. The next big step for animation software was to become a platform for interactive applications, much like Java offered at the moment, but catering to designers and with special focus on animation performance and authoring tools. The power of a certain programmability first came to Flash in version 2 (1997) with *actions*.
 
 "Actions" were simple operations that could be triggered by user interaction. These operations did not resemble a full programming language. Rather, they were limited to simple "goto-style" operations in the animation timeline.
 
@@ -92,7 +92,7 @@ Two long years passed between when work halted in 2003 until it was resumed. In 
 
 - Internet Explorer, the free browser bundled with Windows by Microsoft, succeeded in crushing Netscape out of the browser market.
 - Firefox was released by Mozilla in 2004.
-- A new standard integrating XML processing into JavaScript was released in 2004: ECMAScript for XML (E4X, ECMA-357). It gained little traction outside certain browser implementations. 
+- A new standard integrating XML processing into JavaScript was released in 2004: ECMAScript for XML (E4X, ECMA-357). It gained little traction outside certain browser implementations.
 - Macromedia was acquired by Adobe in 2005.
 
 Although it may seem these events are not related, they all played a part in the reactivation of TC-39.
@@ -104,7 +104,7 @@ Microsoft, by the time Firefox was released, had mostly stagnated with regards t
 
 Macromedia, and then Adobe after its acquisition, started a push toward integration of their internal ActionScript work into ECMA in 2003. They had spent a considerable amount of technical effort on ActionScript, and it would only be in their best interest to see that work integrated into ECMAScript. They had the users, the implementation, and the experience to use as leverage inside the committee.
 
-At this point, Brendan Eich, now part of Mozilla, was concerned about Microsoft's stagnation with regards to web technologies. He knew web development was based on consensus, and, at the moment, the biggest player was Microsoft. He needed their involvement if things were to move forward. Taking notice of Macromedia's renewed interest in restarting the work on ECMAScript 4, he realized now was a good time to get the ball rolling. 
+At this point, Brendan Eich, now part of Mozilla, was concerned about Microsoft's stagnation with regards to web technologies. He knew web development was based on consensus, and, at the moment, the biggest player was Microsoft. He needed their involvement if things were to move forward. Taking notice of Macromedia's renewed interest in restarting the work on ECMAScript 4, he realized now was a good time to get the ball rolling.
 
 At the same time, there was interest in the community in standardizing a set of extensions to ECMAScript 3 meant to make it easier to manipulate XML data. A prototype of this had been developed by BEA Systems in 2002 and integrated into Mozilla Rhino, an alternative JavaScript engine written in Java. BEA Systems took their extension to ECMA; thus, ECMAScript for XML (E4X, ECMA-357) was born in 2004.
 
@@ -118,8 +118,8 @@ Adobe decided to take one more step to make sure things moved forward. In Novemb
 
 > A colorful fact of history is that Macromedia [wanted to integrate Sun's J2ME JVM into Flash](https://twitter.com/BrendanEich/status/834124316476219392) for ActionScript 3. The internal name for this project was "Maelstrom." For [legal and strategic reasons](https://twitter.com/BrendanEich/status/834149931405283328) this plan never came to fruition and Tamarin was born instead.
 
-## The Fallout 
-Work on ECMAScript was progressing and a [draft design document](http://www.ecmascript.org/es4/spec/overview.pdf) with an outline of the expected features of ECMAScript 4 was released. The list of features had become quite long. By 2007, TC-39 was composed of more players than at the beginning. Of particular importance were newcomers Yahoo and Opera. 
+## The Fallout
+Work on ECMAScript was progressing and a [draft design document](http://www.ecmascript.org/es4/spec/overview.pdf) with an outline of the expected features of ECMAScript 4 was released. The list of features had become quite long. By 2007, TC-39 was composed of more players than at the beginning. Of particular importance were newcomers Yahoo and Opera.
 
 Microsoft, for their own part, [were not sold on the idea of ECMAScript 4](https://blogs.msdn.microsoft.com/cwilso/2007/10/31/what-i-think-about-es4/). Allen Wirfs-Brock, Microsoft's representative at TC-39, viewed the language as [too complex for its own good](https://blogs.msdn.microsoft.com/jscript/2008/08/20/ecmascript-3-and-beyond-the-road-to-harmony/). His reasons were strictly technical, though internally, Microsoft also had strategic concerns. Internal discussions at Microsoft eventually converged on a the idea that ECMAScript 4 should take a different course.
 
@@ -136,7 +136,7 @@ A meeting in Oslo, Norway, had been planned for the committee to establish a way
 
 The [iconic meeting took place in 2008](https://mail.mozilla.org/pipermail/es-discuss/2008-August/003400.html). In it, the committee made the hard decision: ECMAScript 4 was dead. A new version of ECMAScript was to be expected, and a change in direction for future work was drafted. Brendan Eich broke the official news in an iconic email. The conclusions of this meeting were to:
 
-1. Focus work on ES3.1 with full collaboration from all parties, and target two interoperable implementations by early next year. 
+1. Focus work on ES3.1 with full collaboration from all parties, and target two interoperable implementations by early next year.
 2. Collaborate on the next step beyond ES3.1, which will include syntactic extensions but which will be more modest than ES4 in both semantic and syntactic innovation.
 3. Some ES4 proposals have been deemed unsound for the Web, and are off the table for good: packages, namespaces and early binding. This conclusion is key to Harmony.
 4. Other goals and ideas from ES4 are being rephrased to keep consensus in the committee; these include a notion of classes based on existing ES3 concepts combined with proposed ES3.1 extensions.
@@ -160,9 +160,13 @@ JScript .NET, on the other hand, had been largely left untouched since the early
 ![ECMAScript history timeline](https://cdn.auth0.com/blog/es4/timeline2.png)
 
 ## Aside: JavaScript use at Auth0
-At Auth0 we are [heavy users of JavaScript](https://github.com/auth0). From our [Lock library](https://github.com/auth0/lock) to our back end, JavaScript powers the core of our operations. We find its asynchronous nature and the low entry barrier for new developers essential to our success. We are eager to see where the language is headed and the impact it will have in its ecosystem. 
+At Auth0 we are [heavy users of JavaScript](https://github.com/auth0). From our [Lock library](https://github.com/auth0/lock) to our back end, JavaScript powers the core of our operations. We find its asynchronous nature and the low entry barrier for new developers essential to our success. We are eager to see where the language is headed and the impact it will have in its ecosystem.
 
 <a href="javascript:signup()">Sign up for a free Auth0 account</a> and take a firsthand look at a production-ready ecosystem written in JavaScript. And don't worry, we have [client libraries for all popular frameworks and platforms](https://auth0.com/docs/quickstarts)!
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
+Recently, we have released a product called [Auth0 Extend](https://auth0.com/extend/). This product enable companies to provide to their customers an easy to use extension point that accepts JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
 
 ## Conclusion
 JavaScript has a bumpy history. The era of ECMAScript 4 development (1999-2008) is of particular value to language designers and technical committees. It serves as a clear example of how aiming for a release too big for its own weight can result in development hell and stagnation. It is also a stark reminder that even when you have an implementation and are at the forefront of development, things can go in a completely different direction (Adobe, Microsoft). Being cutting-edge is always a bet. On the other hand, the new process established by the Harmony proposal has started to show progress, and where ECMAScript 4 failed in the past, the newer ECMAScript has succeeded. Progress cannot be stopped when it comes to the Web. Exciting years are ahead, and they cannot come soon enough.

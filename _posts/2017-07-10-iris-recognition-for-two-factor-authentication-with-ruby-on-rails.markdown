@@ -29,15 +29,15 @@ related:
  * Auth0 Lock
  * ImageMagick for custom Image Comparison
  * Amazon S3
- 
- 
+
+
 ## What, Why?
 
 Social engineering methods are increasingly being used to gain access to User Credentials.  While the provider maybe as secure as can be, they are not always the source of credential leaks.  Obtaining usernames and passwords by effectively 'tricking' people into handing them over is becoming more and more common.
 
-If a miscreant is to get hold of your account login details, naturally they will be able to access sensitive data.  Of course, there are already many methods available to combat this, such as mobile 2 factor auth; I wanted to take a slightly different **(more fun)** approach to combat the situation. 
+If a miscreant is to get hold of your account login details, naturally they will be able to access sensitive data.  Of course, there are already many methods available to combat this, such as mobile 2 factor auth; I wanted to take a slightly different **(more fun)** approach to combat the situation.
 
-The idea behind *'Eyeball'* is to offer a multi-factor authentication scenario in which we use Auth0's Lock as first-line login, then upon success offer Iris recognition as second-line.  This means that if a User's account details are compromised, the offender would also have to have access to the User's eyeball.  (Much less likely!)
+The idea behind *'Eyeball'* is to offer a [multi-factor authentication](https://auth0.com/multifactor-authentication) scenario in which we use Auth0's Lock as first-line login, then upon success offer Iris recognition as second-line.  This means that if a User's account details are compromised, the offender would also have to have access to the User's eyeball.  (Much less likely!)
 
 From a technical standpoint, we will be building our own Image Comparison application utilising the ImageMagick subsystem.
 
@@ -97,7 +97,7 @@ And to find out a little about each of them, see [these docs.](https://www.image
 
 For our application, we're going to use the ***Mean Absolute Error Count*** `MAE` option.  This will give us the normalized, average pixel channel error distance.
 
-Let's take this sample image of a Medieval print, do some testing, then put it all together into our Rails app!  Assuming that the ImageMagick CLI is available in our bash profile, we can experiment with the following.. 
+Let's take this sample image of a Medieval print, do some testing, then put it all together into our Rails app!  Assuming that the ImageMagick CLI is available in our bash profile, we can experiment with the following..
 
 ![Print](https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301.jpg)
 
@@ -106,13 +106,13 @@ To create a secondary image of this print, which is largely the same, we will us
 	> convert 24442301.jpg -sharpen 0x9 -blur 2x2 24442301_blur.jpg
 
 We should now have a second print image, that looks very similar, but does have subtle differences.
- 
+
 <div align="center">
     <img src="https://s3.eu-west-2.amazonaws.com/iris-blog-images/24442301_blur.jpg" alt="New Print" width="500px" />
 </div>
- 
+
  As mentioned above, we will use the *Mean Absolute Error Count* metric to get a pixel channel difference between the two images, from ImageMagick's CLI.
- 
+
  	> compare -metric MAE 24442301.jpg 24442301_blur.jpg  24442301_DIFF.png
 
 Upon running that command, we should get returned in our STDERR output the numeric Diff:  `4610`.  There will also be a third image file in our working directory called '24442301_DIFF.png' that highlights in the red spectrum pixel channel, the differences ImageMagick picked up between the two images:
@@ -176,7 +176,7 @@ While the images don't look markedly different to me, the image processor must h
 	    all: 6182.12 (0.0943331)
 	writing raw profile: type=exif, length=8188
 	eye1.jpg=>eye-diff.png JPEG 1280x960 1280x960+0+0 8-bit sRGB 851KB 1.060u 0:00.980
-	
+
 So the match from this came out at ***87.45%***.  From this we can safely set the minimum match level in our App at around 85%.  Again, this level depends entirely on your security requirements but considering this is just a sample app **and not to be used in production** - ours doesn't matter all too much!
 
 ## Integration into our Rails App
@@ -185,7 +185,7 @@ So now we have our image recognition working, we need to integrate it into our a
 
 Go ahead and add these to your Gemfile &amp; bundle.
 
-~~~ 
+~~~
 gem 'omniauth', '~> 1.3.1'
 gem 'omniauth-auth0', '~> 1.4.1'
 gem 'carrierwave', '~> 1.0'
@@ -196,7 +196,7 @@ You can see how to integrate an Image uploader by following the docs [here](http
 
 So once we've got our Image uploader in the frontend of our app, we can use the uploaded image from Carrierwave, to compare to our stored image.  We need to call the Auth0 API to get our stored `iris_image_url` from the user's metadata, and compare the two with our image comparison hack.
 
-Before that, we need to actually integrate our comparison algorithm into our Rails app. 
+Before that, we need to actually integrate our comparison algorithm into our Rails app.
 
 ### Comparison method in Rails App
 
@@ -322,7 +322,7 @@ Building user systems from scratch takes a **long** time - and as Developers, we
 
 Iris recognition is an incredibly complex topic when used in real-world scenarios - this Article is meant to inspire you with a basic idea on how one could be integrated with Auth0, and how you can utilise it as a second-line login system alongside ***Lock.***  For a more secure and realistic image comparison, check out the aformentioned pHash and Blockhash algorithms.
 
-I'm always more than happy to chat through ideas on improving production security, and **any** ideas to do with cool new tech - so if you have any questions / comments, please [reach out to me!](mailto:robin@percy.pw) 
+I'm always more than happy to chat through ideas on improving production security, and **any** ideas to do with cool new tech - so if you have any questions / comments, please [reach out to me!](mailto:robin@percy.pw)
 
 Thanks for reading!
 *** - [@rbin](http://twitter.com/rbin) ***

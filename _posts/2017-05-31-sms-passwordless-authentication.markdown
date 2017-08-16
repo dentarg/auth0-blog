@@ -25,14 +25,14 @@ related:
 
 ---
 
-**TL;DR:** Passwordless is not a new concept in the world of authentication. Platforms like Slack and Whatsapp already adopt this form of authentication. There are different forms of strategy that requires authentication without passwords. However, there are different forms of passwordless authentication. In this article, you'll get to understand how SMS passwordless authentication works and build an app alongside. Check out the [repo](https://github.com/auth0-blog/swapart) to get the code.
+**TL;DR:** [Passwordless](https://auth0.com/passwordless) is not a new concept in the world of authentication. Platforms like Slack and Whatsapp already adopt this form of authentication. There are different forms of strategy that requires authentication without passwords. However, there are different forms of passwordless authentication. In this article, you'll get to understand how SMS passwordless authentication works and build an app alongside. Check out the [repo](https://github.com/auth0-blog/swapart) to get the code.
 
 
 ---
 
 ## What is SMS Passwordless Authentication?
 
-SMS Passwordless authentication is a type of authentication where users do not need to login with passwords. This form of authentication totally makes passwords obsolete. With this form of authentication, users are presented with the option of logging in simply via a one time unique code that is delivered via text message.
+[SMS Passwordless authentication](https://auth0.com/passwordless) is a type of authentication where users do not need to login with passwords. This form of authentication totally makes passwords obsolete. With this form of authentication, users are presented with the option of logging in simply via a one time unique code that is delivered via text message.
 
 ## Benefits of Passwordless Authentication
 
@@ -221,6 +221,8 @@ _Submit and be logged in_
 _Check out the token saved in the localStorage_
 
 You can go further and use the token to determine the `logged-in` and `logged-out` auth status of a user.
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 
 ## Conclusion
 

@@ -164,7 +164,7 @@ Click the **Next** button to move to the following step.
 
 ### Step 2 - Skill Interaction Model
 
-Click the **Add a Slot Type** button and provide `PIZZA_SIZE` for the slot type name and some sample values, for example: 
+Click the **Add a Slot Type** button and provide `PIZZA_SIZE` for the slot type name and some sample values, for example:
 
 ```
 Small
@@ -219,7 +219,7 @@ After configuring the URL, enable the **Account Linking** process and provide th
 * For the Authorization Grant Type, choose **Auth Code Grant**.
 * For the Access Token URI, use an URL based on the following template **https://[your auth0 account].auth0.com/oauth/token**.
 * For the Client Secret, use the client secret of the client application created in step 2 of the Auth0 section of this guide.
-* For the Client Authentication Scheme, choose **HTTP Basic**. 
+* For the Client Authentication Scheme, choose **HTTP Basic**.
 * For the Privacy Policy URL, if the skill will be deployed to Webtask, use an URL based on the following template **https://TEMP.run.webtask.io/pod/app#/policy**, otherwise, use a suitable URL.
 
 ![Alexa Account Linking Settings](https://cdn2.auth0.com/blog/alexa-auth/account-linking.png)
@@ -301,7 +301,7 @@ wt create -n pod --secrets-file src\runtimes\secrets.ini build\bundle.js
 
 After the previous command executes successfully, you will be given the Webtask URL to your application in the form of `https://wt-00000.run.webtask.io`. This application includes the API called by Alexa located at `/pod/alexa/`, a mostly internal API located at `/pod/api/`, and a back-end web application available at `/pod/app/`. You can use the last one to quickly check if the deploy went smoothly.
 
-Make note of the Webtask URL that you were given. We will now go back and update the URL in our Amazon Developer console and change the dummy URL we placed for step 3 of the Amazon based configuration. Be sure to append the correct `/pod/alexa` endpoint so that the full URL reads: 
+Make note of the Webtask URL that you were given. We will now go back and update the URL in our Amazon Developer console and change the dummy URL we placed for step 3 of the Amazon based configuration. Be sure to append the correct `/pod/alexa` endpoint so that the full URL reads:
 
 ```
 https://wt-00000.run.webtask.io/pod/alexa
@@ -383,9 +383,15 @@ If the code matches what was in your email, Alexa will respond with a success me
 
 Follow the on-screen instructions on how to activate the microphone and talk to Alexa. Given Echosim.io is aimed at providing an online simulation of an Echo device, you'll have to use the skill invocation name you configured in order to first activate the correct skill.
 
+## Aside: Platform Extensibility for your SaaS
+
+We have recently released a product called [Auth0 Extend](https://auth0.com/extend/). This product enables companies to provide an easy extension point where customers can run arbitrary JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
+
 ## Conclusion
 
 In this post we took a look at how you can create an Alexa skill and pair it with [Auth0](https://auth0.com) for enhanced security. We also introduced you to [Webtask](https://webtask.io), our serverless offering that made it effortless to deploy an Alexa skill implementation. [Sign up]((javascript:signup\(\)) for a free Auth0 account and add interaction-based authentication to your Alexa skills in no time at all.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ### Special Thanks
 

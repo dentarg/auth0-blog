@@ -49,7 +49,7 @@ Don't worry, you'll have answers to your many questions soon! There are some key
 
 These key concepts are:
 
-* **Components - The Types and API** 
+* **Components - The Types and API**
 * **Props**
 * **State**
 * **JSX**
@@ -74,7 +74,7 @@ class CustomComponent extends React.Component {
 
 So, your component will now be `<CustomComponent></CustomComponent>`.
 
-React provides some methods that are triggered at various points from creating a component up until the component is destroyed. This is called the [Component's Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html). You can declare methods to hook into the component's lifecycle to control the behaviour of components in your app. Some examples of these lifecycle hooks are `componentDidMount()`, `componentWillMount()`, `componentWillUnmount()`, `shouldComponentUpdate()`, `componentWillUpdate()` and more. 
+React provides some methods that are triggered at various points from creating a component up until the component is destroyed. This is called the [Component's Lifecycle](https://facebook.github.io/react/docs/state-and-lifecycle.html). You can declare methods to hook into the component's lifecycle to control the behaviour of components in your app. Some examples of these lifecycle hooks are `componentDidMount()`, `componentWillMount()`, `componentWillUnmount()`, `shouldComponentUpdate()`, `componentWillUpdate()` and more.
 
 * **componentWillMount()** : This method is called before the component is initially rendered. So it is called before the `render` method is executed. You can't perform any type of DOM manipulation here because the component isn't available in the DOM yet.
 * **componentDidMount()** : This method is called right after the component has been rendered. So it is called immediately after the `render` method has been executed. It's the best place to perform network and AJAX calls.
@@ -82,7 +82,7 @@ React provides some methods that are triggered at various points from creating a
 * **shouldComponentUpdate()** : This method determines if a re-rendering should occur or not. It is never called on initial rendering and it's always called before the render method.
 * **componentWillUpdate()** : This method is called as soon as `shouldComponentUpdate` returns true. It is called just before the component is rendered with new data.
 
-There are also methods like [`render`](https://facebook.github.io/react/docs/rendering-elements.html) and [`setState`](https://facebook.github.io/react/docs/state-and-lifecycle.html) that you can use to render an element on the DOM and set the state of a component respectively. 
+There are also methods like [`render`](https://facebook.github.io/react/docs/rendering-elements.html) and [`setState`](https://facebook.github.io/react/docs/state-and-lifecycle.html) that you can use to render an element on the DOM and set the state of a component respectively.
 
 Take this example for a spin and watch how these lifecycle hooks work. Observe the sequence of logs in the browser console.
 
@@ -109,7 +109,7 @@ class Experiment extends Component {
     console.log("I am just rendering like a boss");
     return <div>I got rendered!</div>;
   }
-  
+
 }
 
 render(
@@ -227,7 +227,7 @@ Next, let's build an application with *ReactJS*.
 
 ![Chuck Norris World](https://cdn.auth0.com/blog/react/app.png)
 
-The app we will build today is called Chuck Norris World. Our app is an eye into the world of Chuck Norris and his greatness. The Chuck Norris World app will display different jokes about the legend. A list of common food jokes will be available to the general public, while the celebrity jokes will only be accessible to registered members. 
+The app we will build today is called Chuck Norris World. Our app is an eye into the world of Chuck Norris and his greatness. The Chuck Norris World app will display different jokes about the legend. A list of common food jokes will be available to the general public, while the celebrity jokes will only be accessible to registered members.
 
 **Note:** These days, celebrities demand a lot of cash for jokes made at their expense, and Chuck Norris isn't helping matters. Always cracking jokes about them, sigh!
 
@@ -235,11 +235,11 @@ The app we will build today is called Chuck Norris World. Our app is an eye into
 
 Let's build an API to serve the list of jokes to our app. We'll quickly build the API with [Node.js](https://nodejs.org). The API is simple. This is what we need:
 
-* An endpoint to serve jokes about food - `/api/jokes/food`. 
+* An endpoint to serve jokes about food - `/api/jokes/food`.
 * An endpoint to serve jokes about celebrities - `/api/jokes/celebrity`.
 * Secure the endpoint that serves celebrity jokes, so that it can only be accessed by registered users.
 
-Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/master/server). 
+Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/master/server).
 
 Your `server.js` should look like this:
 
@@ -297,7 +297,7 @@ app.get('/api/jokes/food', (req, res) => {
   {
     id: 99996,
     joke: 'When Chuck Norris goes to out to eat, he orders a whole chicken, but he only eats its soul.'
-  } 
+  }
   ];
   res.json(foodJokes);
 })
@@ -327,7 +327,7 @@ app.get('/api/jokes/celebrity', (req,res) => {
   {
     id: 88886,
     joke: "Hellen Keller's favorite color is Chuck Norris."
-  } 
+  }
   ];
   res.json(CelebrityJokes);
 })
@@ -638,7 +638,7 @@ Now, we took advantage of one of the **ReactJS** lifecycle hooks, `componentDidM
 
 All we are trying to do is tell **ReactJS** to load the data from the API immediately the `FoodJokes` component gets rendered.
 
-Finally, we rendered the component with the **ReactJS** `render` method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant. 
+Finally, we rendered the component with the **ReactJS** `render` method. This is the method that does the actual rendering on the screen.  As seen in the code below, we extracted the loaded jokes from the state into a `jokes` constant.
 
 We looped through the `jokes` constant which is now an array to display the contents on the screen.
 
@@ -714,7 +714,7 @@ class CelebrityJokes extends Component {
                 </div>
               </div>
           ))}
-  
+
         <div className="col-sm-12">
           <div className="jumbotron text-center">
             <h2>View Food Jokes</h2>
@@ -862,6 +862,8 @@ The majority of the apps we use on a daily basis have a means of authenticating 
 
 Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
 Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
 
 From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Chuck Norris World API** and for the identifier I'll set it as **http://chucknorrisworld.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
@@ -910,7 +912,7 @@ app.get('/api/jokes/celebrity', authCheck, (req,res) => {
   {
     id: 88886,
     joke: "Hellen Keller's favorite color is Chuck Norris."
-  } 
+  }
   ];
   res.json(CelebrityJokes);
 })
@@ -1037,7 +1039,7 @@ function isTokenExpired(token) {
 }
 ```
 
-In the code above, we are using an hosted version of Auth0 Lock in the `login` method and passed in our credentials. 
+In the code above, we are using an [hosted version of Auth0 Lock](https://auth0.com/lock) in the `login` method and passed in our credentials.
 
 The auth0 package calls the Auth0's `authorize` endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
 
@@ -1062,7 +1064,7 @@ Let's quickly go ahead to change the title of the client to `Chuck Norris World`
 
 > Changing the Client name is totally optional.
 
-Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:3000/callback`. Don't forget to add that to the **Allowed Callback URLs** and `http://localhost:3000` to the **Allowed Origins (CORS)**. 
+Copy the **CLIENT ID** and replace it with the value of `AUTH0_CLIENT_ID` in the variable `CLIENT_ID`. Replace your callback url with `http://localhost:3000/callback`. Don't forget to add that to the **Allowed Callback URLs** and `http://localhost:3000` to the **Allowed Origins (CORS)**.
 
 We also checked whether the token has expired via the `getTokenExpirationDate` and `isTokenExpired` methods. The `isLoggedIn` method returns `true` or `false` based on the presence and validity of a user `id_token`.
 
@@ -1092,15 +1094,15 @@ class Nav extends Component {
             <Link to="/">Food Jokes</Link>
           </li>
           <li>
-            { 
+            {
              ( isLoggedIn() ) ? <Link to="/special">Celebrity Jokes</Link> :  ''
             }
-          
+
           </li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
           <li>
-           { 
+           {
              (isLoggedIn()) ? ( <button className="btn btn-danger log" onClick={() => logout()}>Log out </button> ) : ( <button className="btn btn-info log" onClick={() => login()}>Log In</button> )
            }
           </li>
@@ -1112,7 +1114,7 @@ class Nav extends Component {
 
 export default Nav;
 
-``` 
+```
 _Nav.js_
 
 > **Note:** We used an arrow function to wrap and execute the onClick handlers like so: `{() => login()}` . Check out how to [handle events in react with arrow function](https://medium.com/@machnicki/handle-events-in-react-with-arrow-functions-ede88184bbb#.ekwwbituw) to understand why we used arrow functions.
@@ -1320,15 +1322,17 @@ function getCelebrityData() {
 
 The `/api/jokes/celebrity` endpoint will receive the token in the header and validate the user. If it is valid, the content will be provided to us.
 
-Now, try to log in again. 
+Now, try to log in again.
 
 ![Working Chuck Norris World App](https://cdn.auth0.com/blog/react/working_chuck_norris_app.gif)
 _Working Chuck Norris World App_
 
-Everything is working fine. Pat yourself on the back. You have just successfully built a **ReactJS** app and added authentication to it! 
+Everything is working fine. Pat yourself on the back. You have just successfully built a **ReactJS** app and added authentication to it!
 
 ## Conclusion
 
-**ReactJS** is an awesome front-end library to employ in building your user interfaces. It takes advantage of the Virtual DOM, it is fast and it has a bubbling community. There are several React plugins/addons that the community provides to allow you do almost anything in **ReactJS**. 
+**ReactJS** is an awesome front-end library to employ in building your user interfaces. It takes advantage of the Virtual DOM, it is fast and it has a bubbling community. There are several React plugins/addons that the community provides to allow you do almost anything in **ReactJS**.
 
-In addition, Auth0 can help secure your **ReactJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your **ReactJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [anomaly detection](https://auth0.com/breached-passwords), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

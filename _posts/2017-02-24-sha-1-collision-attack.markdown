@@ -40,13 +40,15 @@ According to [Wikipedia](https://en.wikipedia.org/wiki/Cryptographic_hash_functi
 
 In 2005, researchers discovered potential [vulnerabilities](http://www.darkreading.com/vulnerabilities---threats/researchers-warn-against-continuing-use-of-sha-1-crypto-standard/d/d-id/1322565) in the SHA-1 algorithm and by 2010 many organizations stopped it as it was deemed [insecure](https://www.entrust.com/understanding-sha-1-vulnerabilities-ssl-longer-secure/). The potential vulnerabilities had not been proven, until today, when CWI Institute and Google demonstrated a practical collision attack against SHA-1. The researchers were able to provide two unique PDF files that produced the same exact SHA-1 hash value.
 
+> Auth0 can improve software security with the breached password detection feature. [This feature protects and notifies your users when their credentials are leaked by a data breach of a third party](https://auth0.com/breached-passwords). You can optionally prevent access until the user has reset their password.
+
 ![Data Integrity](https://cdn.auth0.com/blog/sha1-collision/example.png)
 
 <p><small>Source: <a href="http://shattered.io/static/infographic.pdf" target="_blank">shattered.io</a></small></p>
 
 The team published a practical technique showing how to generate a collision bringing the fears that SHA-1 was insecure to reality. The technique outlined required years of research and immense computation resources. From the research published, it would take a cluster of 110 powerful GPU’s running computations 24 hours a day for an entire year to cause a collision, or about 6,500 years on a single-CPU. So while this attack vector is fairly impractical, it is not impossible.
 
-{% include tweet_quote.html quote_text="The SHA1 collision attack required 9,223,372,036,854,775,808 SHA1 computations." %} 
+{% include tweet_quote.html quote_text="The SHA1 collision attack required 9,223,372,036,854,775,808 SHA1 computations." %}
 
 This is a big deal because even though many organization have stopped using SHA-1, underlying systems still often rely on SHA-1. Software updates, ISO checksums, PGP signatures, digital certificate signatures, git, and others still make use of SHA-1 for data integrity. If a malicious party were able to create a collision for a popular piece of software for example, and distributed it on the web, they could infect many unsuspecting users causing all sorts of damage.
 
@@ -54,4 +56,6 @@ On the bright side, the typical user does not have to worry too much. Certificat
 
 For most, security is not actively thought about, but for us at [Auth0](https://auth0.com), security is the only thing we think about. Ok, not the only thing, but it’s up there. In addition to embracing open authentication standards like [OAuth](https://oauth.net/2/) and [OpenID](http://openid.net/), we follow industry standards and best practices for security and when this popped up on our radar we just had to share it. Learn more about our security practices [here](https://auth0.com/security).
 
-For more info on the SHA-1 collision attack be sure to check out [shattered.io](http://shattered.io/) and Google’s Security Blog [post](https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html). If you are using SHA-1, please switch to a more secure hasing algorithm like [SHA-256](https://en.wikipedia.org/wiki/SHA-2). 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
+For more info on the SHA-1 collision attack be sure to check out [shattered.io](http://shattered.io/) and Google’s Security Blog [post](https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html). If you are using SHA-1, please switch to a more secure hasing algorithm like [SHA-256](https://en.wikipedia.org/wiki/SHA-2).

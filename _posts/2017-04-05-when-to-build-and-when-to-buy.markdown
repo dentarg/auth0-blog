@@ -87,10 +87,18 @@ If there's zero or minimal interruption to customer experience with this approac
 
 There's no disruption to customer experience but now you're in a better position to serve them and boost your [retention rates](https://amplitude.com/mobile-analytics).
 
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
 ## It's Time to Make a Decision
 
 Because of the costs involved with both building yourself and buying an out-of-the-box solution, it's important that you're clear on what you want to achieve. It might seem less expensive to build, but if it's beyond the scope of your core business, it'll cost more in the long-term to maintain it. It's very hard to build and maintain as you grow.
 
 On the flip side, if you can find a platform or system that caters to your needs perfectly, take advantage of it. The solution should be scalable and easy for you to maintain over time. With this option, you can focus on what you do best and delegate your infrastructural needs to specialized people.
+
+> Give your customers enterprise identity integration, frictionless SSO across your products and adaptive authentication with MFA and Anomaly Detection. [All of this with a flip of a switch](https://auth0.com/b2b-enterprise-identity-management).
 
 There's no right option here; it really depends on your business type and what you'd like to achieve. The path to build versus buy isn't always clear-cut, but with the right approach, you'll do what's best for your company. Fully understand your needs and what you need to reach your goals.

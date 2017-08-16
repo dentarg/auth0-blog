@@ -22,7 +22,7 @@ related:
 ---
 
 
-**TL;DR:** Many PHP applications are still running on PHP 5.x, not ready to take full advantage of the awesome features that PHP 7 offers. A lot of developers have not made the switch because of certain fears of compatibility issues, migration challenges and the strange awkward feeling that migrating will take away a big chunk of their time. In this tutorial, you'll learn how to upgrade your PHP 5 application to PHP 7 starting from upgrading your development environment. 
+**TL;DR:** Many PHP applications are still running on PHP 5.x, not ready to take full advantage of the awesome features that PHP 7 offers. A lot of developers have not made the switch because of certain fears of compatibility issues, migration challenges and the strange awkward feeling that migrating will take away a big chunk of their time. In this tutorial, you'll learn how to upgrade your PHP 5 application to PHP 7 starting from upgrading your development environment.
 
 ---
 
@@ -259,7 +259,7 @@ Laravel Homestead is an official, pre-packaged Vagrant box that provides you a w
 * Memcached
 * Beanstalkd
 
-1. Install [VirtualBox 5.1](https://www.virtualbox.org/wiki/Downloads), or [VMWare](https://www.vmware.com), and [Vagrant](https://www.vagrantup.com/downloads.html). 
+1. Install [VirtualBox 5.1](https://www.virtualbox.org/wiki/Downloads), or [VMWare](https://www.vmware.com), and [Vagrant](https://www.vagrantup.com/downloads.html).
 
 2. Now that you have Vagrant and VirtualBox or VMware installed, go ahead and download the Laravel Homestead box like so:
 
@@ -275,7 +275,7 @@ Follow the instructions on the [Laravel Homestead documentation](https://laravel
 
 ### php7dev
 
-Another Vagrant image is **[php7dev](https://github.com/rlerdorf/php7dev)** by Rasmus Ledorf (Creator of PHP). It is a Debian 8 Vagrant image which is preconfigured for testing PHP apps and developing extensions across many versions of PHP. You can gloriously switch between PHP versions by using the `newphp` command. 
+Another Vagrant image is **[php7dev](https://github.com/rlerdorf/php7dev)** by Rasmus Ledorf (Creator of PHP). It is a Debian 8 Vagrant image which is preconfigured for testing PHP apps and developing extensions across many versions of PHP. You can gloriously switch between PHP versions by using the `newphp` command.
 
 Follow the instructions on the [README](https://github.com/rlerdorf/php7dev) to find out how to install, configure and use.
 
@@ -312,7 +312,7 @@ _Invoke the secure command_
 ![Secure Blog](https://cdn.auth0.com/blog/valet/secure.png)
 _Site is served over https locally_
 
-Very awesome! 
+Very awesome!
 
 Out of the box, Valet supports [Laravel](https://laravel.com), [Lumen](https://lumen.laravel.com), [Symfony](https://symfony.com), [Zend](https://framework.zend.com), [CakePHP 3](https://cakephp.org), [Wordpress](https://wordpress.org), [Bedrock](https://roots.io/bedrock), [Craft](https://craftcms.com), [Statamic](https://statamic.com) and [Jigsaw](http://jigsaw.tighten.co). However, you can extend Valet with your own [custom drivers](https://laravel.com/docs/5.3/valet#custom-valet-drivers).
 
@@ -376,7 +376,9 @@ There are different ways of setting up a PHP 7 development environment. The few 
 
 ## Conclusion
 
-We have successfully covered various ways of setting up a PHP 7 development environment. The first step to migrating an app from a specific language version to another is ensuring that the development environment supports the new version. 
+We have successfully covered various ways of setting up a PHP 7 development environment. The first step to migrating an app from a specific language version to another is ensuring that the development environment supports the new version.
+
+> Looking for the best way to secure your PHP projects? [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication. This modern tool provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 Do you have other ways of setting up PHP 7 development environments? Are you currently using an awesome tool to run your PHP 7 apps? Please let me know in the comments section.
 

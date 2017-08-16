@@ -40,7 +40,7 @@ In fact, many companies have moved their infrastructure to the cloud in order to
 
 A generic PHP application involves the common *LAMP (Linux, Apache, Mysql and PHP)* stack.
 
-- **Linux:** The operating system that runs the other software packages. 
+- **Linux:** The operating system that runs the other software packages.
 - **Apache:** The web server that runs the PHP code. A popular alternative software is *Nginx*.
 - **MySQL:** The database. A popular alternative software is PostgreSQL.
 - **PHP:** The server-side language for building the application.
@@ -61,11 +61,13 @@ If you don't have an account, go ahead and create one on [heroku.com](https://ww
 Make sure you follow these steps below:
 
 - Create a `.env` file from `.env.example`.
-- You need to have an account with [Auth0](https://auth0.com/signup). 
+- You need to have an account with [Auth0](https://auth0.com/signup).
 - Go to your [Auth0 Dashboard](https://manage.auth0.com/#/) and click the "create a new client" button.
 - Name your new app and select "Regular Web Applications".
 - In the Settings for your new Auth0 client app, add `http://localhost:8000` to the Allowed Callback URLs.
 - Copy out your *client id*, *client secret*, *domain* and *callback url*. Ensure you assign them to the right variables in your `.env` file.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 Now, we have a `composer.json` file which contains the list of packages that the application needs. Go ahead and run `composer install` on your local machine to install these packages. Get [composer here](https://getcomposer.org/download/) if you don't have it installed already.
 
@@ -140,7 +142,7 @@ Click on the **Deploy branch**. Heroku will scan through your `composer.lock` fi
 ![Deploy](https://cdn2.auth0.com/blog/ultimateguide/deployprocess.png)
 _Deploy finally_
 
-Click on the **View** button to check out your app. 
+Click on the **View** button to check out your app.
 
 ![Ooops](https://cdn2.auth0.com/blog/ultimateguide/herokuoops.png)
 _Error 500_
@@ -208,7 +210,7 @@ Finally, you can use the [Heroku Scheduler](https://devcenter.heroku.com/article
 
 ## Google Cloud
 
-The [Google Cloud platform](https://cloud.google.com) is a giant and trusted cloud platform that a lot of companies all over the world have adopted in deploying and hosting their apps. Your apps will be running on the same infrastructure that powers all of Google's products. What other form of confidence do you need to assure you that your application will scale well enough to serve your thousands and millions of users easily? 
+The [Google Cloud platform](https://cloud.google.com) is a giant and trusted cloud platform that a lot of companies all over the world have adopted in deploying and hosting their apps. Your apps will be running on the same infrastructure that powers all of Google's products. What other form of confidence do you need to assure you that your application will scale well enough to serve your thousands and millions of users easily?
 
 Google Cloud offers different options for hosting PHP apps. The platform offers [App Engine (Full managed)](https://cloud.google.com/appengine/), [Compute Engine (Scalabe VMs)](https://cloud.google.com/compute/) and [Container Engine (Kubernetes Clusters)](https://cloud.google.com/container-engine/).
 
@@ -216,7 +218,7 @@ In our case, we'll use App Engine. It abstracts the infrastucture away. Let's ju
 
 When using Google App Engine, you can choose the **Standard** or **Flexible** environment. The latter, like the name implies allows you to install any PHP extension that works on Debian Linux, has a configurable Nginx web server, writable filesystem, latest PHP versions and allows you to run deployment scripts using `composer.json`.
 
-We'll use the flexible environment. So, go ahead and [create a new project](https://console.cloud.google.com/projectselector/appengine/create?lang=flex_php&st=true). Click on **Create**, give the project a name, select the region you'll like to serve your app and enable billing. 
+We'll use the flexible environment. So, go ahead and [create a new project](https://console.cloud.google.com/projectselector/appengine/create?lang=flex_php&st=true). Click on **Create**, give the project a name, select the region you'll like to serve your app and enable billing.
 
 > **Note:** You won't be charged without your permission.
 
@@ -251,7 +253,7 @@ env_variables:
 
 Now, deploy your application from your console by running `gcloud app deploy`.
 
-**Note:** Now grab the URL, in my case it is `https://starwars-166515.appspot.com/` and add to **Allowed Origins(CORS)** and **Allowed Callback URLs** in your [Auth0 dashboard](https://manage.auth0.com). Also add the URL to `AUTH0_CALLBACK_URL` in your `.env` file. 
+**Note:** Now grab the URL, in my case it is `https://starwars-166515.appspot.com/` and add to **Allowed Origins(CORS)** and **Allowed Callback URLs** in your [Auth0 dashboard](https://manage.auth0.com). Also add the URL to `AUTH0_CALLBACK_URL` in your `.env` file.
 
 Run `gcloud app deploy` again to provision a new version of the app. Check out your app now. It should be live like so:
 
@@ -333,7 +335,7 @@ You can either use the Cloud Foundry CLI or the Bluemix user interface to set en
   ![Dashboard - App running](https://cdn2.auth0.com/blog/ultimateguideibm/dashboardapprunning.png)
 
 - Click on the app. You'll be redirected to another page with more details about the app.
-- Select **Runtime** from the left panel. 
+- Select **Runtime** from the left panel.
 
   ![Click on Runtime](https://cdn2.auth0.com/blog/ultimateguideibm/select_runtime.png)
 
@@ -394,8 +396,8 @@ With Microsoft Azure, you can deploy via:
 
 In our case, we'll set up deployment with Git.
 
-1. First, create an [account with Microsoft Azure](https://portal.azure.com). 
-  
+1. First, create an [account with Microsoft Azure](https://portal.azure.com).
+
     ![Dashboard](https://cdn2.auth0.com/blog/ultimateguidems/dashboard.png)
     _Dashboard_
 2. Click on **New** on the left panel.
@@ -415,7 +417,7 @@ In our case, we'll set up deployment with Git.
     ![App services](https://cdn2.auth0.com/blog/ultimateguidems/appservices.png)
     _New app_
 
-8. Click on the app, choose *Deployment options*, then click on `GitHub`. 
+8. Click on the app, choose *Deployment options*, then click on `GitHub`.
 9. Authorize GitHub to access your repo. Choose the Project. Choose the branch. In my case, I have an `azure` branch. That's the branch I'll use for deploying my code to the Azure platform.
 
     ![Configuration on your app](https://cdn2.auth0.com/blog/ultimateguidems/configuration.png)
@@ -436,13 +438,13 @@ In our case, we'll set up deployment with Git.
 
     ![Add extension](https://cdn2.auth0.com/blog/ultimateguidems/addextension.png)
 
-13. Now, make a little change to your app and push again to GitHub. You should see it deploying like so: 
+13. Now, make a little change to your app and push again to GitHub. You should see it deploying like so:
 
     ![Make a change](https://cdn2.auth0.com/blog/ultimateguidems/make_a_change.png)
 
     ![Deployment details](https://cdn2.auth0.com/blog/ultimateguidems/deploymentdetails.png)
 
-14. Now check out your app again. It should be [live](http://starwarzapp.azurewebsites.net) & working! 
+14. Now check out your app again. It should be [live](http://starwarzapp.azurewebsites.net) & working!
 
     ![Landing Page](https://cdn2.auth0.com/blog/ultimateguidems/landingpage.png)
 
@@ -535,7 +537,7 @@ For caching, Amazon Web Services offers [ElastiCache](https://aws.amazon.com/ela
 - [Redis](https://aws.amazon.com/elasticache/redis).
 - Memcached.
 
-Amazon ElastiCache automatically detects and replaces failed nodes, reducing the overhead associated with self-managed infrastructures and provides a resilient system that mitigates the risk of overloaded databases, which slow website and application load times. Through integration with [Amazon CloudWatch](https://aws.amazon.com/cloudwatch), Amazon ElastiCache provides enhanced visibility into key performance metrics associated with your Redis or Memcached nodes. 
+Amazon ElastiCache automatically detects and replaces failed nodes, reducing the overhead associated with self-managed infrastructures and provides a resilient system that mitigates the risk of overloaded databases, which slow website and application load times. Through integration with [Amazon CloudWatch](https://aws.amazon.com/cloudwatch), Amazon ElastiCache provides enhanced visibility into key performance metrics associated with your Redis or Memcached nodes.
 
 Companies like [AirBnb](https://www.airbnb.com), [Healthguru](http://www.healthguru.com), [PlaceIQ](http://www.placeiq.com) and [Tokyo Data Network](http://www.tdn.co.jp) use ElastiCache for caching at multiple layers spanning HTML fragments, results of expensive DB queries, ephemeral session data and search results.
 
@@ -558,7 +560,7 @@ Laravel Forge allows you to easily do the following apart from provisioning serv
 - Easily manage jobs and queues.
 - Collaboration with your team by sharing your server's management dashboard with co-workers.
 
-Matt Stauffer has an [amazing post on deploying your first Laravel app to Forge](https://mattstauffer.co/blog/getting-your-first-site-up-and-running-in-laravel-forge). 
+Matt Stauffer has an [amazing post on deploying your first Laravel app to Forge](https://mattstauffer.co/blog/getting-your-first-site-up-and-running-in-laravel-forge).
 
 James Fairhurst also has a [great guide on using Laravel Forge to setup an AWS Server](https://medium.com/@james_fairhurst/using-laravel-forge-to-setup-an-aws-server-7da83f760a56).
 
@@ -566,7 +568,7 @@ Finally, the most popular educational PHP platform, [laracasts.com](https://lara
 
 ## Envoyer
 
-[Envoyer](https://envoyer.io) is a platform that allows zero downtime PHP deployment. It allows you integrate with various services such as Gitlab, Slack, Bitbucket e.t.c. 
+[Envoyer](https://envoyer.io) is a platform that allows zero downtime PHP deployment. It allows you integrate with various services such as Gitlab, Slack, Bitbucket e.t.c.
 
 With Envoyer, you can perform:
 
@@ -589,5 +591,7 @@ It works with *Laravel*, *Symfony*, *CakePHP*, *Yiiframework*, *Zend*, *FuelPHP*
 ## Conclusion
 
 There is no way we can cover all the different options available for deploying PHP applications. PHP is an enterprise language that has evolved over the years, thus calling for more efficient ways for deploying PHP apps from a local machine to production. Hopefully, this guide covers all your basic needs for deploying your PHP apps to all the major cloud providers. However, there is another resource I recommend for extensive knowledge in [learning to deploy PHP applications](http://www.deployingphpapplications.com).
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 How have you been handling your deployments? Please, let me know in the comments section below!

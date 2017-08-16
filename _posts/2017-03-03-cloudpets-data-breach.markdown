@@ -29,7 +29,7 @@ The database contained information for 820,000+ users containing emails, bcrypt 
 
 [Troy Hunt](https://twitter.com/troyhunt) wrote an excellent [article](https://www.troyhunt.com/data-from-connected-cloudpets-teddy-bears-leaked-and-ransomed-exposing-kids-voice-messages/) covering this incident. Some highlights include that the database used was publicly accessible and did not even require a password to access. Cloudpets was also notified at least four times that their database was exposed and the reporters never heard back from the company. Finally, staging and test databases were also discovered which had production data that could have also been compromised.
 
-Aside from the devops failure to secure the database properly, password requirements for user accounts were non-existant. Although the passwords were stored as bcrypt hashes, Troy was able to use [Hashcat](https://hashcat.net/hashcat/) and find valid passwords such as "qwe", "password", and "123456". 
+Aside from the devops failure to secure the database properly, password requirements for user accounts were non-existant. Although the passwords were stored as bcrypt hashes, Troy was able to use [Hashcat](https://hashcat.net/hashcat/) and find valid passwords such as "qwe", "password", and "123456".
 
 ![Cracked Bcrypt Hashes](https://cdn.auth0.com/blog/cloudpets-data-breach/cracked-bcrypt-hashes.png)
 
@@ -39,7 +39,7 @@ Since the database has been publicly exposed since at least December 25, 2016, i
 
 ## Personal Information Security Guide
 
-Even if you don't have a Cloudpets account, it may be a good time to review our [personal information security guide](https://auth0.com/blog/personal-information-security-identity-guide/) which has plenty of tips on securing your personal information online, best practices for choosing good passwords, and much more. 
+Even if you don't have a Cloudpets account, it may be a good time to review our [personal information security guide](https://auth0.com/blog/personal-information-security-identity-guide/) which has plenty of tips on securing your personal information online, best practices for choosing good passwords, and much more.
 
 Top things to remember when it comes to choosing a good password:
 
@@ -53,3 +53,5 @@ Top things to remember when it comes to choosing a good password:
 Managing identity is a complex and difficult task. At [Auth0](https://auth0.com), our goal is to make identity simple for developers. A recent feature we launched called [Breached Password Detection](https://auth0.com/breached-passwords) can help alert your users that their credentials have been compromised in a data breach when they login to your app. We are still working on getting and adding credentials from this breach to our database to better protect your users. This feature helps your users stay safe, but also protects your apps from malicious access. Additionally, Auth0 meets the standards for various [password strength requirements](https://auth0.com/docs/connections/database/password-strength), provides [multifactor authentication](https://auth0.com/multifactor-authentication), and more.
 
 If you want to make identity simple and secure for your applications, <a href="javascript:signup()">give Auth0 a try</a>.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.

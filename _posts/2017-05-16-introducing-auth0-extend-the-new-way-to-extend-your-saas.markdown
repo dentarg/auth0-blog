@@ -38,7 +38,7 @@ Watch this short video below to discover how Extend can help you:
 
 # Why you need extensibility
 
-If you're a decision-maker for an SaaS product, then you're constantly dealing with a stream of requirements for new features. These requirements arise from sales calls with prospective customers, or they come from your existing base. It may be that your SaaS needs to integrate with an external system the customer uses, or that there's some custom validation logic that's an absolute requirement. 
+If you're a decision-maker for an SaaS product, then you're constantly dealing with a stream of requirements for new features. These requirements arise from sales calls with prospective customers, or they come from your existing base. It may be that your SaaS needs to integrate with an external system the customer uses, or that there's some custom validation logic that's an absolute requirement.
 
 Regardless of the requirement, feature requests inevitably end up on an ever growing product backlog. Resources on your team are finite, so unless there's a critical mass of interest in the feature, or enough high-paying customers, there's a good chance those features will never get done.
 <p><p><p>
@@ -61,11 +61,12 @@ Webhooks offer distinct advantages that make them an attractive choice for exten
 * They can be authored in a number of programming languages.
 * They can use whatever third-party dependencies they need.
 
-Here's the catch, though: a Webhook _is_ a service. Just like any other service, it needs to be properly designed, hosted somewhere, managed, and monitored by someone, and that someone is often your customer. The burden has shifted: the backlog hasn't gone away, it's just moved to a different backlog. 
+Here's the catch, though: a Webhook _is_ a service. Just like any other service, it needs to be properly designed, hosted somewhere, managed, and monitored by someone, and that someone is often your customer. The burden has shifted: the backlog hasn't gone away, it's just moved to a different backlog.
 
 As a result, there are _a lot_ of extensions that simply won't be built, because standing up and managing a Webhook is a hassle. A picture tells a thousand words, [Tomek](https://tomasz.janczuk.org/) said it best with this one.
 
 <img src="https://cdn.auth0.com/website/blog/extend/graph2.png"/>
+
 # How Auth0 Extend is better
 
 Auth0 Extend gives you the power of Webhooks and more, without the pain.
@@ -79,7 +80,7 @@ Just look at the screenshot of our Zero CRM sample, and see how easy it is to em
 
 # Auth0 Extend, more revenue and happier customers
 
-> According to the numbers, rules resulted in more than 10x retention from our customers, 
+> According to the numbers, rules resulted in more than 10x retention from our customers,
 > and customers using rules represent 70% of our cloud-based revenue.
 
 Having Extend in our own product opened new doors and directly translated into new business. Our Sales Engineers jumped on rules as a key way to land deals, such as integrating with external systems that are a deal-breaker. Our field and developer success teams use rules continually to address our customers' emerging requirements. According to the numbers, rules resulted in more than 10x retention from our customers, and customers using rules represent 70% of our cloud-based revenue.
@@ -88,6 +89,12 @@ Having Extend in our own product opened new doors and directly translated into n
 
 Can you imagine the flexibility of your users being able to quickly and easily extend _your_ product through code without having to leave your SaaS or deploy and manage servers? Developers just love Auth0 Extend because of how simple it is to create extensions. No servers, no hosting--just code.
 
-Auth0 Extend can help you just as it has helped Auth0 and customers such as [Stamplay](https://stamplay.com), [Meteor Development Group](https://meteor.com), and [Graphcool](https://graph.cool). 
+Auth0 Extend can help you just as it has helped Auth0 and customers such as [Stamplay](https://stamplay.com), [Meteor Development Group](https://meteor.com), and [Graphcool](https://graph.cool).
 
 Learn more at https://www.auth0.com/extend and sign up for our free developer account [here](https://auth0.com/extend/try). You can also follow us on our new [@auth0_extend](https://twitter.com/auth0_extend) Twitter account. There's much more to come for Auth0 Extend, so stay tuned!
+
+# Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.

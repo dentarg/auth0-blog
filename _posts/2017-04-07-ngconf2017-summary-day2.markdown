@@ -121,7 +121,7 @@ In a nutshell, the steps to do this are:
 
 ## Using Directives
 
-Mike Brocchi talked about utilizing directives in Angular. When building out an application, we build out a component tree, but where do we go from there? If we want to reuse logic, we factor it out into a service. What happens if we have behavior in the component that we want to be able to use elsewhere? The answer is directives, which are underused in the current version of Angular. 
+Mike Brocchi talked about utilizing directives in Angular. When building out an application, we build out a component tree, but where do we go from there? If we want to reuse logic, we factor it out into a service. What happens if we have behavior in the component that we want to be able to use elsewhere? The answer is directives, which are underused in the current version of Angular.
 
 There are three types of directives:
 
@@ -133,7 +133,7 @@ Mike focused on attribute-based directives. With directives, we can add behavior
 
 Directives provide a way to share both logic and behavior throughout an application _without_ the burden of unneeded templates. They are underused in the current version of Angular, but can provide powerful shared functionality.
 
---- 
+---
 
 ## Aside: Auth0 for Angular
 
@@ -147,10 +147,12 @@ It's a great time to explore Angular for your single page JavaScript application
 
 You can [sign up for a free Auth0 account here](javascript:signup\(\))!
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+
 ---
 
 ## Conclusion
 
-Day 2 of ng-conf 2017 was packed with workshops, networking, and fun activities. Day 3 will be normal single track sessions. 
+Day 2 of ng-conf 2017 was packed with workshops, networking, and fun activities. Day 3 will be normal single track sessions.
 
 You can tune into the [ng-conf 2017 livestream here](https://www.ng-conf.org/livestream) as well as watch recorded streams from previous days.

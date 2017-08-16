@@ -27,7 +27,7 @@ related:
 
 ---
 
-Web components allow for reusability and the ability to associate JS behaviour with your markup. Developers can search for existing components created by other developers on the [web components registry](https://www.webcomponents.org). In the absence of suitable existing custom elements, developers can create theirs and make it available for others by publishing it to the registry. 
+Web components allow for reusability and the ability to associate JS behaviour with your markup. Developers can search for existing components created by other developers on the [web components registry](https://www.webcomponents.org). In the absence of suitable existing custom elements, developers can create theirs and make it available for others by publishing it to the registry.
 
 ## What are Web Components?
 
@@ -46,7 +46,7 @@ We'll talk about these specifications in the latter part of this post. But let's
 
 The first step is to browse the [element registry](https://www.webcomponents.org). Check for the components that you are interested in, then go through the README to know how to import it and use in your web applications.
 
-The web component registry has two main sections: 
+The web component registry has two main sections:
 
 * [elements](https://www.webcomponents.org/elements): These are custom elements in the registry.
 * [collections](https://www.webcomponents.org/collections): These are sets of custom elements. An example is the [awesome-chart-elements collection](https://www.webcomponents.org/collection/StartPolymer/awesome-chart-elements) that contains eight awesome elements for working with charts in a web app.
@@ -232,7 +232,7 @@ So when you call `<file-bag><p>This is a file bag </p></file-bag>` in the browse
   </file-bag>
 {% endhighlight %}
 
-The main idea behind *Shadow DOM* is to mask all of the markup behind a custom element in the shadows. If you inspect the element in the browser, you won't see any of the markup apart from the attributes of the element. They are hidden under shadow roots. Browser vendors have been using *Shadow DOM* for years to natively implement elements such as `<input>`, `<audio>`, `<video>` and many others. Another benefit is that all the styling and scripts inside the custom element won't accidentally leak out and affect anything else on the page. 
+The main idea behind *Shadow DOM* is to mask all of the markup behind a custom element in the shadows. If you inspect the element in the browser, you won't see any of the markup apart from the attributes of the element. They are hidden under shadow roots. Browser vendors have been using *Shadow DOM* for years to natively implement elements such as `<input>`, `<audio>`, `<video>` and many others. Another benefit is that all the styling and scripts inside the custom element won't accidentally leak out and affect anything else on the page.
 
 You can reference the [shadow DOM specification](https://w3c.github.io/webcomponents/spec/shadow/) for a lot more information.
 
@@ -362,7 +362,7 @@ The next step is to actually create the custom element. Now add a `<script>` tag
 
             // get the value of the "embed" attribute
             var embed = this.getAttribute("embed");
-            
+
             var video = shadowRoot.querySelector( ".vimeo" );
             this.createAndPlay(embed, video);
         }
@@ -391,7 +391,7 @@ The next step is to actually create the custom element. Now add a `<script>` tag
 
 {% endhighlight %}
 
-We have the `constructor`, `connectedCallback` and `createAndPlay` method. In the constructor, we called the `super()` method to have access to the methods and properties of `HTMLElement`. 
+We have the `constructor`, `connectedCallback` and `createAndPlay` method. In the constructor, we called the `super()` method to have access to the methods and properties of `HTMLElement`.
 
 The `connectedCallback` method is a lifecycle hook that our custom element provides. So, we have deferred the work of setting up the shadow root, getting the value of the embed attribute and also calling the `createAndPlay` in this hook. As I mentioned earlier, this method is called whenever the custom element is inserted into the DOM.
 
@@ -489,7 +489,7 @@ _Source: webcomponentjs_
 
 To be safe, it is recommended to use [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs), to provide support for many browsers.
 
-We used `webcomponentsjs` during the course of building our own custom element. [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs) is a suite of polyfills supporting the [Web Components](http://webcomponents.org). These polyfills are intended to work in the latest version of browsers. 
+We used `webcomponentsjs` during the course of building our own custom element. [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs) is a suite of polyfills supporting the [Web Components](http://webcomponents.org). These polyfills are intended to work in the latest version of browsers.
 
 **Note:** Web Components capabilities are disabled by default in Firefox. To enable them, go to the `about:config` page and dismiss any warning that appears. Then search for the preference called **dom.webcomponents.enabled**, and set it to true.
 
@@ -497,15 +497,15 @@ We used `webcomponentsjs` during the course of building our own custom element. 
 
 There are libraries available that make it easier to build web components. Some of these libaries are:
 
-* [Bosonic](https://bosonic.github.io) 
-* [Polymer](https://www.polymer-project.org) 
+* [Bosonic](https://bosonic.github.io)
+* [Polymer](https://www.polymer-project.org)
 * [SkateJS](https://github.com/skatejs/skatejs)
 * [X-Tag](https://x-tag.github.io)
 
  All the libraries highlighted here offer tools to cut down boilerplate code and make creating new components easier. **Polymer** and **Bosonic** also offer a library of ready made Web Components, but Polymer remains the most widely used amongst developers. Check out this [awesome tutorial on building apps with Polymer and Web components](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components).
 
 ## Aside: Easy Authentication with Auth0
-You can use [Auth0 Lock](https://auth0.com/docs/libraries/lock) for authentication in your web apps. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app like so:
+You can use [Auth0 Lock](https://auth0.com/lock) for authentication in your web apps. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app like so:
 
 ```js
 
@@ -531,6 +531,8 @@ lock.on("authenticated", function(authResult) {
 
 ```
 
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
 **Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 
@@ -555,7 +557,7 @@ You can also use the [custom auth0-lock polymer web component](https://github.co
 
 {% highlight html %}
 
-<auth0-lock autoLogin="true" 
+<auth0-lock autoLogin="true"
             domain="AUTH0_DOMAIN"
             clientId="AUTH0_CLIENTID"
             profile="{{profile}}"></auth0-lock>
@@ -577,6 +579,8 @@ You can also use the [custom auth0-lock polymer web component](https://github.co
 </script>
 
 {% endhighlight %}
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 Web components have a lot more benefits than meets the eye. Web Components allow for less code, modular code and more reuse in our apps.

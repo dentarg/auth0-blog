@@ -23,7 +23,7 @@ related:
 
 **TL;DR:** In this tutorial, I’ll show you how to build a secure chat app with React and Pusher using the Auth0 authentication service and a Node + Express Backend Server. We will use Auth0 to authenticate users so they can access the chat feature of a website.
 
-[Auth0](http://auth0.com) is a platform that allows developers add authentication to their applications easily. It offers products like [Lock](https://auth0.com/docs/libraries/lock/v10), [Passwordless Authentication](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication) and [Breached Password Detection](https://auth0.com/breached-passwords). It’s a service that helps to eliminate the headaches of authentication when building modern applications.
+[Auth0](http://auth0.com) is a platform that allows developers add authentication to their applications easily. It offers products like [Lock](https://auth0.com/docs/libraries/lock/v10), [Passwordless Authentication](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/multifactor-authentication) and [Breached Password Detection](https://auth0.com/breached-passwords). It’s a service that helps to eliminate the headaches of authentication when building modern applications.
 
 [Pusher](http://pusher.com) is a platform that builds realtime and scalable infrastructures for developers so you can spend more time building awesome features. Pusher offers features like [Presence Channels](https://pusher.com/docs/client_api_guide/client_presence_channels), [Pub/Sub Messaging](https://pusher.com/docs) and [Access Control](https://pusher.com/docs/authenticating_users).
 

@@ -28,7 +28,7 @@ related:
 
 ---
 
-Our relationship with technology is constantly evolving. Whether it's an app to help manage our daily activities or the latest tech device, technology is changing on a day-to-day basis to adapt to our needs. These advances are making our lives easier and more productive. 
+Our relationship with technology is constantly evolving. Whether it's an app to help manage our daily activities or the latest tech device, technology is changing on a day-to-day basis to adapt to our needs. These advances are making our lives easier and more productive.
 
 To that end, there's no shortage of movies that explore the role technology will play in the future. But when we take a minute to separate the fact from fiction, what are we left with? What do these movies tell us about what's to come?
 
@@ -47,7 +47,7 @@ What makes the use of identity in this film interesting is the use of biometric 
 ![Minority Report and its take on identity and data collection](https://cdn.auth0.com/blog/id-in-movies/minority-report.jpeg)
 [Source](https://www.psychologytoday.com/blog/side-effects/201511/the-biological-citizen-neuropolitics-aim-and-danger)
 
-This extensive use of one's identity in the future will give retailers the opportunity to provide highly sophisticated and personalized advertising experiences. Only ads that cater to you as an individual—rather than to your demographic—would be presented. In the case of *Minority Report*, [predictive analysis](https://auth0.com/blog/machine-learning-for-everyone/) based on historical purchases is used to enhance marketing and advertising strategies by singling out customers. 
+This extensive use of one's identity in the future will give retailers the opportunity to provide highly sophisticated and personalized advertising experiences. Only ads that cater to you as an individual—rather than to your demographic—would be presented. In the case of *Minority Report*, [predictive analysis](https://auth0.com/blog/machine-learning-for-everyone/) based on historical purchases is used to enhance marketing and advertising strategies by singling out customers.
 
 How do we know identity will be used this way in the future? It's already happening. For [Gmail](http://mail.google.com) users, inboxes have become a hotspot for ads. Based on the sites users have visited and the types of emails received, inbox ads become increasingly more targeted.
 
@@ -58,11 +58,11 @@ Gone are the days of zero targeting, when everyone was served the same ads. Cust
 
 If *Minority Report* is any indication of what we can expect, ads of the future will be more important for the simple fact that they'll be even more personalized and targeted to individuals. Marketers can focus on specific categories and not just general characteristics of a much broader target audience.
 
-##_Her_: Identity and Personalized Experiences 
+##_Her_: Identity and Personalized Experiences
 
 In the 2013 film *Her*, Theodore Twombly is a lonely, recent divorcee. In an attempt to soothe his growing depression, he purchases an artificial intelligence personal assistant. Because of its ability to adapt based on interactions, it gives itself the name “Samantha,” and he falls in love with it. Or rather, he falls in love with the illusion of the type of relationship he desperately needs.
 
-The film explores how this growing relationship provides him with the support and understanding he's been unable to achieve with other people. 
+The film explores how this growing relationship provides him with the support and understanding he's been unable to achieve with other people.
 
 While the film takes place in the future, we're shown how technology can blend seamlessly into our lives and adapt to our preferences.
 
@@ -71,7 +71,7 @@ While the film takes place in the future, we're shown how technology can blend s
 
 Although the concept of developing an emotional relationship with technology seems far-fetched, we already see hints of a deepening bond as technology becomes increasingly more integrated with our day-to-day lives. There's Google Home, Amazon's Alexa, and Apple's Siri. As the Internet of Things takes off, we're going to see more of this type of integration of technology into our everyday lives. And we'll probably also see more [parents using it to troll their kids](https://www.youtube.com/watch?v=EDvnnifS858&feature=player_embedded).
 
-This technology is different from anything that's preceded it because it's designed to understand our identity and utilize that understanding to reduce our need to go out and find information ourselves. Google has taken this concept and created products that enable us to seek and find the information we need faster. 
+This technology is different from anything that's preceded it because it's designed to understand our identity and utilize that understanding to reduce our need to go out and find information ourselves. Google has taken this concept and created products that enable us to seek and find the information we need faster.
 
 This enhanced user experience means that we're getting information before we even search for it. Take Google Now for instance. It provides users with recommendations based on usage.
 
@@ -84,9 +84,9 @@ Similar to the movie *Her*, users can interact with Google Home to give the illu
 
 ## _Gattaca_: Identity and Biometric Identification
 
-In the movie *Gattaca,* genetic engineering and state-sanctioned eugenics are used to determine a person's propensity to excel or fail. This approach divides society into two groups, essentially the “haves” (valids) and the “haves-not” (in-valids). 
+In the movie *Gattaca,* genetic engineering and state-sanctioned eugenics are used to determine a person's propensity to excel or fail. This approach divides society into two groups, essentially the “haves” (valids) and the “haves-not” (in-valids).
 
-Vincent Freeman is deemed an in-valid because he's conceived naturally without the use of genetic selection. Despite his genetic “inferiority”, he's determined to become an astronaut. 
+Vincent Freeman is deemed an in-valid because he's conceived naturally without the use of genetic selection. Despite his genetic “inferiority”, he's determined to become an astronaut.
 
 In order to mask his true genetics, he uses the identity (blood, skin, hair, eyelashes, urine, and saliva) of a paralyzed man—a valid—by falsifying a finger-prick blood test to gain access to opportunities that would typically be out of reach.
 
@@ -99,16 +99,18 @@ Despite the obvious physical differences between Vincent and Jerome, we're shown
 ![Gattaca biometrics blood test](https://cdn.auth0.com/blog/id-in-movies/gattaca-test.jpg)
 [Source](http://brainknowsbetter.com/news?offset=1359840646311)
 
-Though *Gattaca* was based on fiction, there's now an increased reliance on the use of [biometric identification](https://auth0.com/blog/analysis-of-passwordless-connections/) to determine what access people should have. Most cell phones come equipped with face recognition software or fingerprint encryption to unlock them. 
+Though *Gattaca* was based on fiction, there's now an increased reliance on the use of [biometric identification](https://auth0.com/blog/analysis-of-passwordless-connections/) to determine what access people should have. Most cell phones come equipped with face recognition software or fingerprint encryption to unlock them.
+
+> Passwordless enables users to log in without passwords while keeping everything simple and secure. [Checkout Auth0 solution to learn more](https://auth0.com/passwordless).
 
 A sufficiently motivated hacker is going to be able to break biometrics because since it's not based on any inherent aspect of your body but rather on a digitized version of your identity, it can be misused. In other words, your fingerprint is really being stored as a digital image.
 
 ![Passwordless login with biometric fingerprint TouchID](https://cdn.auth0.com/blog/id-in-movies/fingerprint.png)
 [Source](https://mic.com/articles/149860/our-fingerprints-are-portals-into-our-digital-lives-but-the-laws-haven-t-caught-up)
 
-Every time you put your finger on the sensor, it's producing a different image. Because you always put your finger on a different part of the sensor, the digital image needs to be flexible enough to account for that fact. 
+Every time you put your finger on the sensor, it's producing a different image. Because you always put your finger on a different part of the sensor, the digital image needs to be flexible enough to account for that fact.
 
-Fortunately, we keep our customers up to date on the [latest changes in cybersecurity](https://hacked.com/auth0-integrates-identity-authentication-interview/), thereby making sure their identity is always safe. 
+Fortunately, we keep our customers up to date on the [latest changes in cybersecurity](https://hacked.com/auth0-integrates-identity-authentication-interview/), thereby making sure their identity is always safe.
 
 As _Gattaca_ demonstrates, as we move into a world that relies more on biometric identity, we have to understand that we can't be so stringent with what determines personal identity and resilience. If not managed properly, authentication procedures have the potential to create biased class systems or categories.
 
@@ -121,3 +123,5 @@ As our daily interaction with technology grows, it's important to remember that 
 This, in turn, allows for more technology to integrate into our lives. Technology then acts more as a companion, rather than simple tools to do our bidding. Algorithms will give our technology more indication into who we truly are at our core.
 
 To quote science fiction writer William Gibson, _“the future is already here.”_
+
+> Auth0 can help B2C companies to enrich the profile of their customers through an easy to use [Modern Customer Identity Management solution](https://auth0.com/b2c-customer-identity-management).

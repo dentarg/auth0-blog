@@ -94,7 +94,7 @@ export class UpdateEventComponent implements OnInit, OnDestroy {
         this.tab = queryParams['tab'] || 'edit';
       });
   }
-  
+
   ...
 
   ngOnDestroy() {
@@ -403,13 +403,13 @@ Open the server `api.js` file and add the following route:
       }
     });
   });
-  
+
   ...
 ```
 
 We'll first use `find()` to get all RSVPs with a `userId` matching the user ID passed as a parameter to the route. We'll send a projection of `eventId`, which means that the returned results will only contain this single key/value. We'll then create an array of event IDs (`_eventIdsArr`) using the Array `.map()` method to get just the ID strings. We can then use this array to `find()` _only_ events that have `_id`s matching items in the array.
 
-The only properties we'll need for display of the event list in the My RSVPs component are `title`, `startDatetime`, and `endDatetime`. We'll create a projection for these called `_rsvpEventsProjection`. 
+The only properties we'll need for display of the event list in the My RSVPs component are `title`, `startDatetime`, and `endDatetime`. We'll create a projection for these called `_rsvpEventsProjection`.
 
 After handling errors for retrieving RSVPs, we can then `find()` events with an `_id` present in the `_eventIdsArr`. This is done using the [MongoDB `$in` comparison query operator](https://docs.mongodb.com/manual/reference/operator/query/in/). We only want _upcoming_ events, so we'll indicate that `startDatetime` should be [greater than or equal to (`$gte`)](https://docs.mongodb.com/manual/reference/operator/query/gte/) the current datetime. We'll then pass the `_rsvpEventsProjection` we just created to get back only the properties we need.
 
@@ -436,7 +436,7 @@ Let's add our new API endpoint to our API service. Open the `api.service.ts` fil
       })
       .catch(this._handleError);
   }
-  
+
 ...
 ```
 
@@ -444,7 +444,7 @@ Let's add our new API endpoint to our API service. Open the `api.service.ts` fil
 
 ## <span id="angular-my-rsvps"></span>Angular: My RSVPs (Profile)
 
-We now have an API endpoint providing a list of upcoming events a user has responded to. Let's make a My RSVPs (profile) component to display this information to the authenticated user. 
+We now have an API endpoint providing a list of upcoming events a user has responded to. Let's make a My RSVPs (profile) component to display this information to the authenticated user.
 
 ### Create My RSVPs Component
 
@@ -836,7 +836,7 @@ export class AuthService {
   }
 
   ...
-  
+
   logout(noRedirect?: boolean) {
     ...
     // Unschedule access token renewal
@@ -1001,6 +1001,12 @@ For testing, you can change the access token expiration time in your [Auth0 Dash
 </p>
 
 > **Note:** Make sure to change the token expiration back once you're finished testing your renewal implementation.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ---
 

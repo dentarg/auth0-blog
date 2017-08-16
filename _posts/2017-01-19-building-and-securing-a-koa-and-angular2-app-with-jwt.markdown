@@ -852,13 +852,15 @@ And then finally we have reached the point where we have a fully functional groc
 
 Creating the authentication mechanisnm was not the hardest task but, for every single application that we build, we will have to recreate or reuse at least two components: one for the front-end application, that will show sign in and sign up forms; and one to handle identity persistence and retrieval.
 
-Further more, if we want to support identity providers (like Google, Facebook, GitHub, etc), multifactor authentication, and so on, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and more secure.
+Further more, if we want to support identity providers (like Google, Facebook, GitHub, etc), [multifactor authentication](https://auth0.com/multifactor-authentication), and so on, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and more secure.
 
 > **Note:** the refactoring below can be found fully implemented in the `auth0` branch of the [Grocery List app repository](https://github.com/auth0-blog/grocery-list/tree/jwt) on GitHub.
 
 ### Configuring Your Auth0 Client
 
 If you haven't done so yet, this is a good time to <a href="javascript:signup()">sign up for a free Auth0 account</a>, after which we can take a look at how we need to alter our grocery list to allow for Auth0 to manage our login.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 When we first reach Auth0's [dashboard](https://dashboard.auth0.com), we are asked what identity providers we want to use. Since our application is intended for end users, we can choose only Google, which shall cover many of the users around. Those that are not covered can still input an e-mail address and a password to sign up.
 
@@ -1138,7 +1140,7 @@ export class AuthenticationService {
 }
 ```
 
-From now on, the authentication process will be handled by Auth0 Hosted Lock, a solution provided by Auth0 that makes easy securing websites. To use the hosted solution we need to redirect the user to `http://{YOUR-AUTH0-DOMAIN}/authorize` with a few query parameters. These parameters are filled by the methods that we have just defined.
+From now on, the authentication process will be handled by [Auth0 Hosted Lock, a solution provided by Auth0 that makes easy securing websites](https://auth0.com/lock). To use the hosted solution we need to redirect the user to `http://{YOUR-AUTH0-DOMAIN}/authorize` with a few query parameters. These parameters are filled by the methods that we have just defined.
 
 Now we need to update the `src/client/app/app.component.html` file by removing the `Sign Up` link, that is leading to a component that we already removed, and updating the `Sign In` link to redirect the user to Auth0 Hosted Lock. Update this file as follows:
 
@@ -1286,6 +1288,8 @@ export class AppComponent {
 We are now ready to run our Grocery List application with Auth0 identity management. By issuing `npm run dev` command we shall be able to use it, accessing it on [http://localhost:3000/](http://localhost:3000/), and sign in with Google or any other e-mail address as before.
 
 Now if you want to add another identity provider, like Twitter, you just have to go to Auth0's dashboard and configure it. No changes to the source code are needed. Sweet, right?
+
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 

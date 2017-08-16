@@ -38,7 +38,7 @@ This year's ng-conf opened with a theme of _empathy and inclusivity_. The code o
 ## Keynote
 
 **Speakers:** [Igor Minar](https://twitter.com/IgorMinar), [Stephen Fluin](https://twitter.com/stephenfluin), Brian Martin
-  
+
 ### Major Takeaways (TL;DR)
 
 * Angular fosters a community of inclusivity and wants to enable creation of apps that people love to use and developers love to build.
@@ -103,7 +103,7 @@ Finally, Igor spoke about **what's next** for Angular. Angular will continue to 
 **Semantic versioning** was specified with **time-based releases**:
 
 * Patch releases: `4.0.x` (every week)
-* Minor releases: `4.x.0` (every month during the first three periods of the release cycle), contain new features and/or automated updates 
+* Minor releases: `4.x.0` (every month during the first three periods of the release cycle), contain new features and/or automated updates
 * Major releases: `x.0.0` (every 6 months), will have new features but still support simple upgrades so a major version update doesn't result in an obstacle
 
 Igor also talked about **how Angular is used at Google**. All Google apps use the latest pre-release version of Angular with a large test suite, upgraded pull request by pull request. The version of Angular used at Google is latest in the master branch. The Angular team encourages users to stay as close to head as they're comfortable with. This way, they will receive the latest features and fixes and these are the versions that will afford compatibility with the latest tools.
@@ -153,7 +153,7 @@ Joe Eames announced the [Unofficial Angular Docs](http://ngdoc.io/) as a communi
 
 [**WebVR**](https://webvr.info/) is an open standard and requires [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to create rich and immersive environments. [A-frame](https://aframe.io/) framework for building VR web experiences is similar to Angular. Therefore, can we implement WebVR with Angular?
 
-In order to implement WebVR in Angular, several things are needed. Custom renderers need to abstract away the creation of DOM elements and addition of styles and components to a scene. Third party libraries and polyfills are also currently necessary to produce stereoscopy and duplicate camera. Finally, WebVR in Angular needs to run outside of zones to be removed from change detection. 
+In order to implement WebVR in Angular, several things are needed. Custom renderers need to abstract away the creation of DOM elements and addition of styles and components to a scene. Third party libraries and polyfills are also currently necessary to produce stereoscopy and duplicate camera. Finally, WebVR in Angular needs to run outside of zones to be removed from change detection.
 
 Currently, performance starts to bottleneck. However, in the future, compilers could potentially take Angular components and compile to native VR headset applications.
 
@@ -173,7 +173,7 @@ An ES2015 module is simply a code file with `export` / `import`. ES2015 modules 
 
 ## Using Components with Intent
 
-Initially, Angular's ability to componetize can lead to developers wanting to "componetize all the things"! However, there are costs to doing this: 
+Initially, Angular's ability to componetize can lead to developers wanting to "componetize all the things"! However, there are costs to doing this:
 
 * Component tax: every component costs resources to render, execute, and compile.
 * Payload tax: creating lots of components increases the overall JavaScript payload.
@@ -181,7 +181,7 @@ Initially, Angular's ability to componetize can lead to developers wanting to "c
 * Container element tax: we usually default to custom elements, but we can cut down on extra containers by using attributes instead.
 * Tree coupling tax: the Decision and Presentation pattern utilizes smart parent components with dumb child components, but this can result in deep nesting for no good purpose other than chaining and passthrough.
 
-Ultimately, everything has a tax and the trick is to take a balanced approach so that decisions are made with intent. We can combine Decision/Presentation with services, observables, or Redux to solve problems and decouple when necessary. 
+Ultimately, everything has a tax and the trick is to take a balanced approach so that decisions are made with intent. We can combine Decision/Presentation with services, observables, or Redux to solve problems and decouple when necessary.
 
 > _"As developers, we're always battling to put queen size sheets on a king size bed."_ —Justin Schwartzenberger
 
@@ -212,7 +212,7 @@ The **expression sandbox** prevented developers from being able to reference the
 
 ### Important guidelines:
 
-1. Don't mix server templates with client templates. 
+1. Don't mix server templates with client templates.
 2. Don't generate template source code by concatenating user input and templates.
 3. Be suspicious. User content might show up in unexpected places.
 4. Hack your app. It's fun. (Don't do it in production.)
@@ -262,7 +262,7 @@ For most developers, the primary upgrade pain points are **time and priority**. 
 * Bring in Webpack.
 * Use TypeScript.
 
-Finally, it was emphasized that if there is a legitimate reason why you cannot upgrade, know that the Angular team and community feels your pain and will do their best to help you move forward. The **"You can sit with us"** mantra from ng-conf 2016 was repeated: empathy is important. 
+Finally, it was emphasized that if there is a legitimate reason why you cannot upgrade, know that the Angular team and community feels your pain and will do their best to help you move forward. The **"You can sit with us"** mantra from ng-conf 2016 was repeated: empathy is important.
 
 > _"If you're experienced, take the time to help somebody out."_ —Sergio Cruze
 
@@ -277,7 +277,7 @@ There are two types of memory leaks:
 * Contrived examples
 * The real ones you find in your giant application that the contrived example didn't show you at all
 
-Some memory leaks in Angular are easy to solve, such as `console.log` removal and long-lived observables. Chrome devtools provides a timeline view that gives great insights into overall performance. This can show when the leak happening, allowing the devleper to determine if it be isolated to some certain event and how big it is. 
+Some memory leaks in Angular are easy to solve, such as `console.log` removal and long-lived observables. Chrome devtools provides a timeline view that gives great insights into overall performance. This can show when the leak happening, allowing the devleper to determine if it be isolated to some certain event and how big it is.
 
 Final takeaways were:
 
@@ -296,7 +296,7 @@ The Angular CLI is a small tool with a lot of big ambitions: it wants to fit you
 He then touched on `ng eject` (ejection of the `webpack.config.js` and Webpack dependencies for customization), concluding that segment with:
 
 > _"Please eject responsibly."_ —Hans Larsen
- 
+
 ### What's coming for CLI v1.x?
 
 Future 1.x releases aim to reduce the size of bundles with more aggressive tree-shaking. There are also plans to increase performance of AOT compiling so that you can _develop_ in AOT instead of JIT and reduce production bugs. Error messaging will also be improved with actionable items detailing _how_ to fix errors.
@@ -378,7 +378,7 @@ The solution? Build something no business could ever want. Justin designed own p
 
 In conclusion: **it's okay to build stuff for fun!** Negative feelings are a symptom, not the problem. When performing root cause analysis, reflect on your feels and accept those emotions as being valid. Then ideas will just come down, so find a creative outlet for those ideas.
 
---- 
+---
 
 ## Aside: Auth0 for Angular
 
@@ -392,13 +392,12 @@ Angular v4 was just released, the Angular CLI has a stable release, and Angular 
 
 You can [sign up for a free Auth0 account here](javascript:signup\(\))!
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+
 ---
 
 ## Conclusion
 
-Day 1 of ng-conf 2017 was packed with information and great sessions. Day 2 is a Fair Day, comprised of activities for entertainment and networking as well as dozens of workshops running simultaneously. Day 3 returns to single track sessions. 
+Day 1 of ng-conf 2017 was packed with information and great sessions. Day 2 is a Fair Day, comprised of activities for entertainment and networking as well as dozens of workshops running simultaneously. Day 3 returns to single track sessions.
 
 You can tune into the [ng-conf 2017 livestream here](https://www.ng-conf.org/livestream) as well as watch recorded streams from previous days.
-
-
-

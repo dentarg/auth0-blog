@@ -36,7 +36,7 @@ Acquisitions in the software industry are a norm. What is surprising about this 
 
 {% include tweet_quote.html quote_text="Stormpath customers have until August 18, 2017 to migrate off the platform as it is being shut down!" %}
 
-At [Auth0](https://auth0.com), our goal is to provide the best authentication and identity management solution that is also simple and easy for developers to work with. 
+At [Auth0](https://auth0.com), our goal is to provide the best authentication and identity management solution that is also simple and easy for developers to work with.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/auth0">@auth0</a> should open user migration to everyone from <a href="https://twitter.com/goStormpath">@goStormpath</a> and gain all those clients that can&#39;t move to okta. <a href="https://twitter.com/hashtag/wearesorry?src=hash">#wearesorry</a></p>&mdash; Tom Compagno (@TomCompagno) <a href="https://twitter.com/TomCompagno/status/838825630078660608">March 6, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -45,7 +45,7 @@ At [Auth0](https://auth0.com), our goal is to provide the best authentication an
 
 ## Custom Database Migration Made Easy with Auth0
 
-The most important thing you are probably concerned with right now is how to migrate your existing users with minimal impact to your applications. At Auth0 we hope to greatly reduce your stress and anxiety with our painless user import functionality. 
+The most important thing you are probably concerned with right now is how to migrate your existing users with minimal impact to your applications. At Auth0 we hope to greatly reduce your stress and anxiety with our painless user import functionality.
 
 The way this feature works is by setting up a [custom database connection](https://auth0.com/docs/connections/database/mysql) and connecting it to your Stormpath account. When your users login the first time, they will enter their existing Stormpath credentials and, if authenticated successfully, we will automatically migrate that user account from Stormpath into Auth0. Your users will not have to change their password or jump through any additional hoops and you can decide what data to port over from Stormpath. Next time the user logs in, Auth0 will detect that they have been migrated and authenticate them with their Auth0 account.
 
@@ -56,6 +56,8 @@ Talk is cheap, so let me actually walk you through the steps.
 ### Implementing the Database Migration Scripts
 
 First of all you will need an Auth0 account. <a href="javascript:signup()">Signup for free here.</a> With your account created, let's setup a custom database connection. In your Auth0 [management dashboard](https://manage.auth0.com), navigate to the [database connections](https://manage.auth0.com/#/connections/database) section.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ![Create DB Connection](https://cdn.auth0.com/blog/migrate-stormpath-users/create-db-connection.png)
 
@@ -213,6 +215,8 @@ Click on the **Login** button to login to your application. Clicking the **Login
 
 ![Angular 2 Login with Lock](https://cdn.auth0.com/blog/migrate-stormpath-users/lock.png)
 
+> [Lock is an embeddable login form for desktop, tablet and mobile devices.](https://auth0.com/lock) It provides the easiest way for securing your website and mobile apps.
+
 Notice that you are instantly logged in. If we look at the response data from the transaction we'll see that the user is coming from the **Stormpath-Users** connection alongside other data that we imported. Let's make sure that this user was migrated to Auth0 as well. To check this we'll navigate to the [Users](https://manage.auth0.com/#/users) section of the Auth0 dashboard and we'll now see the user we logged in with.
 
 ![User Migrated](https://cdn.auth0.com/blog/migrate-stormpath-users/migrated.png)
@@ -244,7 +248,7 @@ With this update in place, you should be able to build the application by runnin
 mvn spring-boot:run -Drun.arguments="--auth0.secret=YOUR_SECRET_KEY"
 ```
 
-If the application was built successfully, you will be able to access the API at `localhost:4000`. The two routes that are exposed by this application that we care about are `/public` and `/secure`. The `/public` route will be accessible by everyone, while the `/secure` route will return a successful response only if the user is authenticated and passes the correct credentials. 
+If the application was built successfully, you will be able to access the API at `localhost:4000`. The two routes that are exposed by this application that we care about are `/public` and `/secure`. The `/public` route will be accessible by everyone, while the `/secure` route will return a successful response only if the user is authenticated and passes the correct credentials.
 
 ![Accessing Public API](https://cdn.auth0.com/blog/migrate-stormpath-users/public-api.png)
 
@@ -260,7 +264,7 @@ We also used Angular 2 to add some dynamic classes. So if the user is logged in 
 
 I hope the user migration functionality I showed in this post helps with your use case. This gradual migration works great because it is transparent to your end-users. As the deadline approaches and Stormpath prepares to shut down their service, you may need to speed up the migration process. Auth0 can help here as well. You can [bulk import](https://auth0.com/docs/tutorials/bulk-importing-users-into-auth0) your existing user datastore into Auth0 or since we already wrote the **Get User** script you can send out a mass email to your users letting them know they need to change their password and by clicking on the link in the email their accounts will be migrated to Auth0.
 
-Now that your migrates woes have been taken care of, let's briefly talk about what Auth0 brings to the table besides authentication and authorization. Many features that Auth0 provides can be enabled with the flip of a switch. [Multifactor authentication](https://auth0.com/multifactor-authentication) is one such feature. You can enable MFA using our in-house MFA solution, [Guardian](https://auth0.com/multifactor-authentication), with just the flip of a switch. 
+Now that your migrates woes have been taken care of, let's briefly talk about what Auth0 brings to the table besides authentication and authorization. Many features that Auth0 provides can be enabled with the flip of a switch. [Multifactor authentication](https://auth0.com/multifactor-authentication) is one such feature. You can enable MFA using our in-house MFA solution, [Guardian](https://auth0.com/multifactor-authentication), with just the flip of a switch.
 
 If you are already using a 3rd party MFA solution or have your own custom solution, you can continue to use it as well. The Auth0 [Rules](https://auth0.com/docs/rules) extensibility platform allows you to take control of the authorization workflow. Here you can configure any number of events such as triggering 3rd party MFA, performing progressive profiling, and much more.
 
@@ -271,3 +275,5 @@ We want to make your switch to Auth0 as painless as possible, so we are making t
 Stormpath will be shutting down their authentication and authorization API's this coming August. Customers have until August 18, 2017 to move off the platform. At Auth0, we hope to give existing Stormpath customers an easy and smooth transition plan. Our database migration feature can start migrating your users today!
 
 If you are affected by the Stormpath news and want to easily migrate your users, give Auth0 a try, <a href="javascript:signup()">sign up for a free account</a> and get started today.
+
+> Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

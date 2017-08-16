@@ -40,19 +40,19 @@ Fortunately, I found Intercom supports [Webhooks](https://docs.intercom.com/inte
 
 <img src="https://uploads.intercomcdn.com/i/o/17010148/7d640259791c81c11d48ef01/New-create-webhook-form.png"/>
 
-Notice the dialog requires you to provide `WEBHOOK URL`. This means you need to stand up an endpoint in order to get that URL. Looking in the [documentation](https://developers.intercom.com/v2.0/docs/webhooks) Intercom recommends developing locally using Sinatra, and exposing the endpoint using Ngrok. This means first you have to install a bunch of tools to develop and run locally. You'll then install deployment tools in order to deploy to a cloud provider like Heroku. Along the way you have plenty of reading to do. Feels very ancient. 
+Notice the dialog requires you to provide `WEBHOOK URL`. This means you need to stand up an endpoint in order to get that URL. Looking in the [documentation](https://developers.intercom.com/v2.0/docs/webhooks) Intercom recommends developing locally using Sinatra, and exposing the endpoint using Ngrok. This means first you have to install a bunch of tools to develop and run locally. You'll then install deployment tools in order to deploy to a cloud provider like Heroku. Along the way you have plenty of reading to do. Feels very ancient.
 
 ![Facepalm](https://cdn.auth0.com/website/blog/extend/intercomslack/facepalm.jpg)
 
 ## Serverless Webhooks to the rescue
-Thankfully we have a really easy way today to spin up a Webhook endpoint, and we don't need to run anything locally for development or deployment. The answer is [Serverless](https://auth0.com/blog/what-is-serverless/). If you are shaking your head at the name, YES, of course there are servers, the main difference is there are not servers you have to directly worry about or manage. Let's move on. 
+Thankfully we have a really easy way today to spin up a Webhook endpoint, and we don't need to run anything locally for development or deployment. The answer is [Serverless](https://auth0.com/blog/what-is-serverless/). If you are shaking your head at the name, YES, of course there are servers, the main difference is there are not servers you have to directly worry about or manage. Let's move on.
 
 Using a Serverless platform, you can easily write the code for a Webhook endpoint and have it spin up on-demand in the cloud. There's a number of different options you can choose from and Serverless vendors differ in terms of the experience of creating a Webhook endpoint. Some require you to install tools and do development locally and some require you to jump through extra setup hoops. *Not Webtask*, it shines in this respect. Every Webtask you create IS a Webhook endpoint. Further, you can develop, test and deploy it completely in the browser in JavaScript, and with great support for NPM modules.
 
 For me these qualities of Webtask made it an obvious choice to use for implementing my Webhook.
 
 ## Designing the Webtask
-The diagram below shows at high level what I was trying to accomplish. 
+The diagram below shows at high level what I was trying to accomplish.
 
 ![Flow diagram](https://cdn.auth0.com/website/blog/extend/intercomslack/flow.png)
 
@@ -61,7 +61,7 @@ Whenever Webtask receives a notification, it will look at the contents, if it is
 The devil is of course in the details on each of the above. Next, I'll show you the process I to went through to implement it.
 
 ## Quickly setting up a Webhook to inspect the payload.
-Rather than read through documentation, when I work with APIs, I often start with exploring the actual payload. For APIs that I am calling, `curl` is often an easy way to do this. In the case of Webhooks, you need an endpoint in order to receive the Webhook. As I said, I didn't want to have to install anything locally. Thankfully with Webtask you don't have to. You can create a Webtask very quickly and plug it in as a Webhook to start seeing the data that is being sent, in this case from Intercom. 
+Rather than read through documentation, when I work with APIs, I often start with exploring the actual payload. For APIs that I am calling, `curl` is often an easy way to do this. In the case of Webhooks, you need an endpoint in order to receive the Webhook. As I said, I didn't want to have to install anything locally. Thankfully with Webtask you don't have to. You can create a Webtask very quickly and plug it in as a Webhook to start seeing the data that is being sent, in this case from Intercom.
 
 To create the webtask, open the browser to [https://webtask.io/make](https://webtask.io/make). Once you do you'll get a sign in prompt, where you can quickly log in with a variety of credentials including Github. Then you'll be taken to a screen to choose what kind of Webtask you want to create.
 
@@ -100,7 +100,7 @@ Now click create Webhook. Doing this will send a ping request to the Webhook, an
 
 <a href="https://cdn.auth0.com/website/blog/extend/intercomslack/webhook_ping.png" target="_blank"><img src="https://cdn.auth0.com/website/blog/extend/intercomslack/webhook_ping.png"></a>
 
-The current output is not that helpful yet, however the important thing is you're now setup to iteratively develop the real functionality, and you haven't installed _anything_ locally. 
+The current output is not that helpful yet, however the important thing is you're now setup to iteratively develop the real functionality, and you haven't installed _anything_ locally.
 
 ## Inspecting a real notification
 
@@ -114,11 +114,11 @@ Check the email that you received and reply. The response should trigger the Web
 
 You can see a gist of the full contents of the log viewer [here](https://gist.github.com/7a64df0bea309f2e413451920b58d72e).
 
-Looking at the payload there are some elements that pop out that you'll need in order to create notifications similar to those created by the Intercom Slack plugin. 
+Looking at the payload there are some elements that pop out that you'll need in order to create notifications similar to those created by the Intercom Slack plugin.
 
 * The app id (app_id). This will be needed for generating URLs.
-* The subject of the original message `data.item.conversation_message.subject`. You'll need this in order to route to the correct channel. 
-* The response message `data.item.conversation_parts.conversation_parts[0].body` which is in HTML format. 
+* The subject of the original message `data.item.conversation_message.subject`. You'll need this in order to route to the correct channel.
+* The response message `data.item.conversation_parts.conversation_parts[0].body` which is in HTML format.
 * The topic `topic`. Currently it is 'conversation.user.replied'. Looking in the docs I can also see that this can be 'conversation.admin.replied' if the reply is from an Intercom admin.
 * The `user` and `assignee` information.
 
@@ -144,7 +144,7 @@ module.exports = function(context, cb) {
   function isAuth0ExtendMessage(item) {
     return (item.conversation_message !== null && item.conversation_message.subject.indexOf(subject) > -1);
   }
-  
+
   function createMessage(color, msgText, channel) {
     var message = {
       channel: channel,
@@ -162,26 +162,26 @@ module.exports = function(context, cb) {
     var from = parts.author.name;
     var to;
     var color;
-    
+
     if (parts.author.type === 'user') {
       to = item.assignee.name;
       var fromUrl = `https://app.intercom.io/apps/${body.app_id}/users/${parts.author.id}`;
       color = "#4277f4";
       msgText = `<${fromUrl}|${from}> replied to <${conversationUrl}|a conversation> with ${to}\n\n${text}`;
-    } 
-    else 
+    }
+    else
     {
       to = item.user.name;
       color = "#f4b541";
-      
+
       msgText = `${from} replied to <${conversationUrl}|a conversation> with ${to}\n\n${text}`;
     }
 
     var channel;
 
-    if (isAuth0ExtendMessage(item)) 
+    if (isAuth0ExtendMessage(item))
       channel = "mktg_intercom_extend"
-    else 
+    else
       channel = "mktg_intercom";
 
     var message = createMessage(color, msgText, channel);
@@ -204,7 +204,7 @@ module.exports = function(context, cb) {
 
     var message = composeMessage(text);
     slack.send(message);
-  } 
+  }
 
   cb(null, null);
 };
@@ -217,9 +217,9 @@ You'll notice throughout the code the code references parameters of the `context
 
 Here is what the code is doing at a high level.
 
-* Checks to see if there is a `body`, and if it has a `data` and `data.item` field. 
+* Checks to see if there is a `body`, and if it has a `data` and `data.item` field.
 * Extracts the text from the HTML response message. Trims the text if it is too large.
-* Determines the channel by checking if the subject matches 
+* Determines the channel by checking if the subject matches
 * Composes the message to Send to Slack. This part of the code does a few gymnastics to build up the a message that is almost identical in format to the existing Intercom Slack integration messages.
 * Sends the message to Slack.
 
@@ -229,7 +229,7 @@ Save the task. With everything wired up, send another test message as you did ea
 
 <img src="https://cdn.auth0.com/website/blog/extend/intercomslack/slack-notification.png"/>
 
-Success! 
+Success!
 
 ## Aside: Going beyond Webhooks with Auth0 Extend
 Using Webhooks today for Intercom's extensibility places a burden. You have to sign up for a separate hosting provider, possibly install local tools, create your Webhook implementation, deploy it, and then configure the URL in Intercom. You are not done there though, you also have to now manage this extension for the long haul. Serverless platforms like Webtask make that easier, but that still doesn't remove the maintenance and monitoring burden. You still have to research the different options, stand up the endpoint, and maintain it.
@@ -240,10 +240,13 @@ What if that textbox could go away? What if you could just edit the code right i
 
 <img src="https://cdn.auth0.com/website/blog/extend/intercomslack/intercom_video.gif">
 
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
+
 ## Recap
-In this post you've seen how to customize Intercom via Webhooks to have custom routing logic for Slack messages. You've learned how to use the Webtask Editor to create a Serverless Webhook endpoint and how you can use the editor to explore the Webhook payload. 
+In this post you've seen how to customize Intercom via Webhooks to have custom routing logic for Slack messages. You've learned how to use the Webtask Editor to create a Serverless Webhook endpoint and how you can use the editor to explore the Webhook payload.
 
 Tell us what your experiences have been creating Webhooks. Have you used Serverless platforms to do it? We look forward to hearing from you.
-
-
-

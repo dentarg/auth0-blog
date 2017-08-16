@@ -49,7 +49,7 @@ Identity management has a role to play in GDPR to help you work out whether data
 New rights are being introduced and existing ones tweaked, including.
 
 * A new Right To Data Portability;
-* An extended Right To Be Forgotten (called the Right to Erasure); 
+* An extended Right To Be Forgotten (called the Right to Erasure);
 * An enhanced Subject Access Right - to be free and with a shorter time to reply.
 
 ## Data Protection Impact Assessments ("DPIAs")
@@ -66,9 +66,15 @@ Breaches must be reported to a regulator within 72 hours and those affected by t
 
 ### Greater Penalties
 
-Increased enforcement will come about with the new regime, backed up by greater sanctions. 
+Increased enforcement will come about with the new regime, backed up by greater sanctions.
 
 There are fines of up to €20 million or 4% of the global annual revenue of a business (whichever is the greater), with likely higher reputational damage resulting and the possibility of civil actions too. This is the big stick for data protection compliance, but, getting it right will avoid major headaches.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ## What you need to do now?
 
@@ -76,11 +82,11 @@ Start preparing now and read our FAQs at [www.bit.ly/gdprfaq](https://www.bit.ly
 
 <div class="alert alert-info">
 <strong>About Jonathan Armstrong:</strong><br />
-<p style="color: #097093;">Jonathan is an experienced lawyer with Cordery in the UK with a concentration on compliance and technology. His practice includes advising multinational companies on matters involving risk, compliance and technology across Europe. He has handled legal matters in more than 60 countries involving data breach, bribery and corruption, corporate governance, ethics code implementation, reputation, internal investigations, marketing, branding and global privacy policies.</p> 
- 
+<p style="color: #097093;">Jonathan is an experienced lawyer with Cordery in the UK with a concentration on compliance and technology. His practice includes advising multinational companies on matters involving risk, compliance and technology across Europe. He has handled legal matters in more than 60 countries involving data breach, bribery and corruption, corporate governance, ethics code implementation, reputation, internal investigations, marketing, branding and global privacy policies.</p>
+
 <p style="color: #097093;">Jonathan is one of three co-authors of the LexisNexis definitive work on technology risk, "Managing Risk: Technology & Communications". He is a frequent broadcaster for the BBC and other channels.</p>
- 
+
 <p style="color: #097093;">Jonathan was ranked as the 14th most influential figure in global data security by Onalytica in their 2016 Data Security Top 100 Influencers and Brands Survey.</p>
- 
+
 <p style="color: #097093;">In addition to being a lawyer, Jonathan is a Fellow of The Chartered Institute of Marketing. He has spoken at conferences in the U.S., Canada, China, Brazil, Singapore, Vietnam, Dubai and across Europe. Jonathan qualified as a lawyer in the UK in 1991 and has focused on compliance and technology matters for more than 20 years.</p>
-</div> 
+</div>

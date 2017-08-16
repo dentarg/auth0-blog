@@ -26,21 +26,21 @@ related:
 - 2015-10-29-extensibility-through-code-using-webtasks
 ---
 
-Auth0 Hooks are a new extensibility mechanism in Auth0 that allows you to customize the behavior of our platform using Node.js. 
+Auth0 Hooks are a new extensibility mechanism in Auth0 that allows you to customize the behavior of our platform using Node.js.
 
 -----
 
 ## Developers love code and extensibility
 
-Customization flexibility has always been an integral part of the Auth0 platform. Until now, you could use [Auth0 Rules](https://auth0.com/docs/rules) to execute arbitrary Node.js code during an authorization transaction. Today, we are introducing [Auth0 Hooks](https://auth0.com/docs/auth0-hooks), a new and improved mechanism to extend the Auth0 platform using code. 
+Customization flexibility has always been an integral part of the Auth0 platform. Until now, you could use [Auth0 Rules](https://auth0.com/docs/rules) to execute arbitrary Node.js code during an authorization transaction. Today, we are introducing [Auth0 Hooks](https://auth0.com/docs/auth0-hooks), a new and improved mechanism to extend the Auth0 platform using code.
 
 ![Auth0 Hooks in Webtask Editor](https://cdn.auth0.com/hooks/assets/wt-editor-auth0-hooks.png)  
 
 ## Better developer experience
 
-While Auth0 Hooks are building on the same underlying [Webtask](https://webtask.io) technology we have developed to run Auth0 Rules, several aspects of the developer experience are improved: 
+While Auth0 Hooks are building on the same underlying [Webtask](https://webtask.io) technology we have developed to run Auth0 Rules, several aspects of the developer experience are improved:
 
-* Using the [management dashboard](https://auth0.com/docs/auth0-hooks/dashboard) you can create, move in and out of production, and edit hooks for selected extensibility points in the Auth0 platform. 
+* Using the [management dashboard](https://auth0.com/docs/auth0-hooks/dashboard) you can create, move in and out of production, and edit hooks for selected extensibility points in the Auth0 platform.
 
 ![Auth0 Hooks dashboard](https://cdn.auth0.com/hooks/assets/manage-hooks.png)  
 
@@ -64,20 +64,26 @@ This is just the beginning. We are going to be adding many more extensibility po
 
 ## Auth0 Hooks vs Auth0 Rules
 
-Introduction of Auth0 Hooks does not affect any existing Auth0 Rules. Your rules continue to work unchanged. 
+Introduction of Auth0 Hooks does not affect any existing Auth0 Rules. Your rules continue to work unchanged.
 
-Auth0 Hooks provide a foundation for a new extensibility mechanism in Auth0. All future extensibility points in the platfrom will build on top of Auth0 Hooks. We are also planning to add support in Auth0 Hooks for the same things you use Auth0 Rules for today.   
+Auth0 Hooks provide a foundation for a new extensibility mechanism in Auth0. All future extensibility points in the platform will build on top of Auth0 Hooks. We are also planning to add support in Auth0 Hooks for the same things you use Auth0 Rules for today.   
 
 ## Differences with Auth0 Rules
 
-If you have been using Auth0 Rules before, these are some of the key differences in the development experience when moving on to Auth0 Hooks: 
+If you have been using Auth0 Rules before, these are some of the key differences in the development experience when moving on to Auth0 Hooks:
 
 * In Auth0 Rules, you are editing code on the Auth0 management dashboard. When using Auth0 Hooks, you edit code in the Webtask Editor.  
 * When using Auth0 Rules, you are specifying rule configuration common to all rules on the Auth0 management dashboard. Auth0 Hooks allow you to specify secret configuration directly in the Webtask Editor, and separately for each hook.  
-* When developing Auth0 Rules, you can dry run a rule from within the Auth0 management dashboard. Auth0 Hooks can be tested from within the Webtask Editor using the integrated runner and access to real-time logs. 
+* When developing Auth0 Rules, you can dry run a rule from within the Auth0 management dashboard. Auth0 Hooks can be tested from within the Webtask Editor using the integrated runner and access to real-time logs.
 * There is no command line tool to manipulate Auth0 Rules. Auth0 Hooks come with the [Auth0 CLI](https://auth0.com/docs/auth0-hooks/cli) tool, and can also be manipulated using the lower level [Webtask CLI](https://webtask.io/cli) tool.  
 * Auth0 management HTTP APIs offer a way to manipulate Auth0 Rules using any HTTP client. Auth0 Hooks are managed using [Webtask management APIs](https://webtask.io/docs/101).  
 
+## Aside: Auth0 Extend
+
+We have recently released a product called [Auth0 Extend](https://auth0.com/extend/). This product enables companies to provide an easy extension point where customers can run arbitrary JavaScript code. With [Auth0 Extend](https://auth0.com/extend/), customers can create custom business rules, scheduled jobs, or connect to the ecosystem by integrating with other SaaS systems, like Marketo, Salesforce, and Concur. All using plain JavaScript and NPM modules.
+
 ## Learn more
+
+> Give your customers enterprise identity integration, frictionless SSO across your products and adaptive authentication with MFA and Anomaly Detection. [All of this with a flip of a switch](https://auth0.com/b2b-enterprise-identity-management).
 
 Check out the [Auth0 Hooks documentation](https://auth0.com/docs/auth0-hooks) or head over directly to the [Auth0 Hooks management dashboard](https://manage.auth0.com/#/hooks) to create your first hook.  

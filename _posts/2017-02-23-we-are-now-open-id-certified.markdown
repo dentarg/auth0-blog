@@ -57,7 +57,6 @@ With OpenID, users don't need traditional authentication tokens like a username 
 
 Before OpenID, people built site-specific networks with their own signup and login systems. The idea that you could select your own identity provider for logging into a website and a common standard that would connect all these systems didn't exist. Some big players, like Facebook, had built their own solutions for SSO. But the decentralized OpenID model was so powerful and beneficial that even they eventually adopted it. Like VentureBeat's Eric Eldon [wrote](http://venturebeat.com/2009/04/14/single-sign-on-service-openid-getting-more-usage/) upon its release,
 
-
 > *The point of OpenID, as all of these companies seem to accept, is that users don’t want to use just any one service to sign in everywhere. Instead, users should have the choice to log into any site using any other identity. Making it easier for people to log in anywhere just means more people will log in overall — and potentially become users of any of these companies.*
 
 Think of OpenID as your driver's license for the entire internet.
@@ -75,3 +74,9 @@ You've carried rounds and rounds of tests to check your OpenID specs. The result
 Certification ensures credibility. In your own testing, you can pick and choose what aspects of your OpenID implementation you want to test. Certification involves meeting a set of minimum criteria that are standard across the board, and your results (and the process you used to get there) are open for public oversight.
 
 When you're done, you can prove that your [OpenID implementation](https://auth0.com/learn/how-auth0-uses-identity-industry-standards/) is conformant with the [official specs](http://openid.net/certification/) — not just for your customers and potential customers, but for yourself.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a product and want to support OAuth and OpenID Connect? We at Auth0, can help help you with that while you keep focused on what matters the most to you, the special features of your product.
+
+[Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication). [We offer a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.

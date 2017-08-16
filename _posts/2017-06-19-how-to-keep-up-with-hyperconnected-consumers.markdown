@@ -20,7 +20,7 @@ tags:
 - auth0
 related:
 - the-three-best-ways-to-create-the-single-vision-of-a-customer
-- the-firewall-of-the-future-is-identity 
+- the-firewall-of-the-future-is-identity
 - go-beyond-username-password-with-modern-auth
 ---
 
@@ -34,9 +34,9 @@ The best answer we have right now is a unified commerce strategy, one where all 
 
 ## Consumers of today are ahead of retailers
 
-The consumer of today is steeped in technology, and it can be a nightmare for retailers, because consumers don't care about how hard they are to track.
+The consumer of today is steeped in technology, and it can be a nightmare for [retailers](https://auth0.com/retail/), because consumers don't care about how hard they are to track.
 
-They might sign up on your site with an email one day but use social login five months later when they forgot their password. They put things in their cart that they end up purchasing in-store. They browse on their phone during their commute but make that purchase when they get to their job on their work computer (who hasn't?).
+They might sign up on your site with an [email one day but use social login five months later](https://auth0.com/user-management) when they forgot their password. They put things in their cart that they end up purchasing in-store. They browse on their phone during their commute but make that purchase when they get to their job on their work computer (who hasn't?).
 
 ![Sephora social media following](https://cdn.auth0.com/blog/sephora/social-media.png)
 
@@ -67,7 +67,7 @@ This will only be more important as more technology and more platforms come alon
 
 ## Identity's role in unified commerce
 
-Identity management is a key component of putting into place a unified commerce strategy. Sophisticated identity management systems like Auth0 are central to getting all digital streams routed to one place because they:
+[Identity management](https://auth0.com/user-management) is a key component of putting into place a unified commerce strategy. Sophisticated identity management systems like [Auth0](https://auth0.com/) are central to getting all digital streams routed to one place because they:
 
 * **Enable a single view of the consumer in real time.** IAM systems can store customer information in their unique profiles, allowing activity across different devices and channels to be consolidated in one place. From their preferences to their login history, and many other details that you can augment profiles with, customers become one person in one place, no matter how many different ways they interact with you.
 
@@ -81,4 +81,4 @@ Especially for companies looking for a way to easily consolidate customer inform
 
 As we grow more digital, with more devices to interconnect and more ways to buy than ever before, identity will only continue to grow as one of the central pieces to the puzzle that is tracking your customers. Whether you're trying to better engage with them, get better metrics for customer engagement, or better plot how people are getting to purchase, using identity as a central component of your unified commerce strategy is a good strategic move.
 
-In order to take advantage of all that identity has to offer, you need a robust and flexible platform for identity, and that's where Auth0 comes in. With the flexibility to tailor your back-end system to your needs, but the robustness to support you on every platform, Auth0 is ready to launch into the future of retail.
+In order to take advantage of all that identity has to offer, you need a robust and flexible platform for identity, and that's where Auth0 comes in. With the flexibility to tailor your back-end system to your needs, but the robustness to support you on every platform, Auth0 is ready to launch into the [future of retail](https://auth0.com/retail/).

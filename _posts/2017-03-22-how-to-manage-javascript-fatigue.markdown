@@ -122,11 +122,13 @@ It's ideal to know how and why something works so it's less magical, but [that _
 
 ## Aside: Use Auth0 For Authentication in JS Apps
 
-Taking advantage of knowledge, tools, and solutions from others is extremely valuable when combating JS fatigue. Authentication can be one of the most complex, time-consuming features to build for _any_ application. Developers who are already learning a new toolchain, library, or framework can become even more overwhelmed building secure, complicated features like authentication. 
+Taking advantage of knowledge, tools, and solutions from others is extremely valuable when combating JS fatigue. Authentication can be one of the most complex, time-consuming features to build for _any_ application. Developers who are already learning a new toolchain, library, or framework can become even more overwhelmed building secure, complicated features like authentication.
 
 If you have a JS app that needs authentication, Auth0 can bear the load for any framework. Auth0's [Single Page Application QuickStart guides](https://auth0.com/docs/quickstart/spa) and [Auth0 SDK for Web](https://auth0.com/docs/libraries/auth0js) provide indepth documentation for robust identity and user management in JS apps. Auth0 makes authentication straightforward, greatly reducing fatigue and cognitive burden for busy developers.
 
 Don't be hesitant to utilize the proper tools and services that will help you do your job and do it well. We're much less fatigued by new things when we have help completing difficult tasks. If authentication is one of your primary needs, you can learn more in the [Auth0 docs](https://auth0.com/docs) or [sign up for a free account here](https://auth0.com/signup).
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ## Conclusion
 
@@ -136,6 +138,8 @@ If you look at the JS world through a **telescope**, you can see _one thing very
 
 If you view the world as a panorama through a **wide-angle lens**, you get a vast, comprehensive picture but it's hard to know where to look. Everything in the scene competes for your attention and you can get easily distracted when trying to focus if something else catches your eye. This can be exhausting.
 
-Now consider a normal **pair of glasses**. You can see everything more clearly, but still focus your attention on one (or a few) things without losing sight of what's in your periphery. 
+Now consider a normal **pair of glasses**. You can see everything more clearly, but still focus your attention on one (or a few) things without losing sight of what's in your periphery.
 
 When viewing the modern JavaScript landscape, glasses are a good approach. Don't feel like you have to take in all your surroundings at once, but don't blind yourself to the larger world either. Focus your time and effort on what's in front of you while surveying occasionally for potential improvements. Hopefully you'll find yourself feeling more refreshed and enthusiastic about the great things JavaScript has in store for the future.
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

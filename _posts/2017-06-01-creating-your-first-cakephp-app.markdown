@@ -651,6 +651,8 @@ _Logout button_
 
 We can easily set up authentication in our CakePHP apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now.
 
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+
 * Navigate to the Auth0 [management dashboard](https://manage.auth0.com/).
 * Create a new client
 

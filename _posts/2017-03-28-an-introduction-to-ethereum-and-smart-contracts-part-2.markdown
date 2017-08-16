@@ -16,7 +16,7 @@ design:
 tags:
 - ethereum
 - contracts
-- contract 
+- contract
 - smart-contract
 - smart-contracts
 - bitcoin
@@ -28,7 +28,7 @@ related:
 - build-a-serverless-slack-bot-with-webtask
 ---
 
-[Bitcoin](https://www.bitcoin.com) took the world by suprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we will take a closer look at how Ethereum works and what makes it different from Bitcoin and other blockchains. Read on!
+[Bitcoin](https://www.bitcoin.com) took the world by surprise in the year 2009 and popularized the idea of decentralized secure monetary transactions. The concepts behind it, however, can be extended to much more than just digital currencies. [Ethereum](https://www.ethereum.org) attempts to do that, marrying the power of decentralized transactions with a Turing-complete contract system. In this post we will take a closer look at how Ethereum works and what makes it different from Bitcoin and other blockchains. Read on!
 
 This is post 2 from a three-post series about Ethereum. [Read post 1 if you haven't done so.](https://auth0.com/blog/an-introduction-to-ethereum-and-smart-contracts/)
 
@@ -46,7 +46,7 @@ A blockchain is a distributed, verifiable datastore. It works by marrying public
 
 Each transaction in the blockchain is signed by the rightful owner of the resource being traded in the transaction. When new coins (resources) are created they are assigned to an owner. This owner, in turn, can prepare new transactions that send those coins to others by simply embedding the new owner's public key in the transaction and then signing the transaction with his or her private-key. In this way, a verifiable link of transactions is created; each new transaction, with a new owner, pointing to the previous transaction, with the previous owner.
 
-To order these transactions and prevent the [double-spending problem](https://en.wikipedia.org/wiki/Double-spending), blockchains use the *proof-of-work*. The proof-of-work is a procedure that establishes a cost for grouping transactions in a certain order and adding them to the blockchain. These groups of transactions are called *blocks*. Each block points to a previous block in the chain, thus the name *blockchain*. By making blocks costly to make and making sure each new block points to the previous block, any potential attacker wanting to modify the history of transactions as represented by the blockchain must pay the cost of each block modified. Since blocks point to previous blocks, modifying an old block requires paying the cost for *all* blocks after it, making changes to old blocks very costly. A blockchain compounds the difficulty of modifying the blockchain by making the cost of creating blocks be of computational nature. In other words, to create new blocks, a certain amount of CPU power must be spent. Since CPU power is dependent on the advancement of technology, it is very hard for any single malicious entity to amass enough CPU power to outspend the rest of the network. A practical attack against a blockchain-based network usually requires a single entity controlling more than 50% of the combined CPU power of the network. The bigger the network, the harder it is to perform. 
+To order these transactions and prevent the [double-spending problem](https://en.wikipedia.org/wiki/Double-spending), blockchains use the *proof-of-work*. The proof-of-work is a procedure that establishes a cost for grouping transactions in a certain order and adding them to the blockchain. These groups of transactions are called *blocks*. Each block points to a previous block in the chain, thus the name *blockchain*. By making blocks costly to make and making sure each new block points to the previous block, any potential attacker wanting to modify the history of transactions as represented by the blockchain must pay the cost of each block modified. Since blocks point to previous blocks, modifying an old block requires paying the cost for *all* blocks after it, making changes to old blocks very costly. A blockchain compounds the difficulty of modifying the blockchain by making the cost of creating blocks be of computational nature. In other words, to create new blocks, a certain amount of CPU power must be spent. Since CPU power is dependent on the advancement of technology, it is very hard for any single malicious entity to amass enough CPU power to outspend the rest of the network. A practical attack against a blockchain-based network usually requires a single entity controlling more than 50% of the combined CPU power of the network. The bigger the network, the harder it is to perform.
 
 But, as we saw in our first post in this series, blockchains are more than just that. Transactions, by their very nature, can do more than just send resources from owner A to owner B. In fact, the very act of doing so can be described as a very simple program: the sender produces a computation (transaction) that can only be performed if the receiver produces, at some point in the future, the right inputs. In the case of a standard monetary transaction, the right input would be the proof of ownership from the receiver. In other words, the receiver can only spend the coins he received if he proves he is the rightful owner of those coins. It may seem a bit contrived but it really isn't. When you perform a wire transfer, you prove you are the owner of an account through some sort of authentication procedure. For a home-banking system that could simply be a username and a password. At a bank, it would be your ID or debit-card. These procedures are usually hardwired into the system, but with blockchains it needn't be so.
 
@@ -130,7 +130,7 @@ To better understand Solidity, let's take a look at one example:
 pragma solidity ^0.4.2;
 
 contract OwnerClaims {
-  
+
     string constant public defaultKey = "default";
 
     mapping(address => mapping(string => string)) private owners;
@@ -141,7 +141,7 @@ contract OwnerClaims {
 
     function getClaim(address owner, string key) constant returns (string) {
         return owners[owner][key];
-    } 
+    }
 
     function setDefaultClaim(string value) {
         setClaim(defaultKey, value);
@@ -221,7 +221,7 @@ To that end, this is the Ethereum contract we will use:
 pragma solidity ^0.4.2;
 
 contract Login {
-  
+
     event LoginAttempt(address sender, string challenge);
 
     function login(string challenge) {
@@ -240,10 +240,10 @@ What follows is our backend code. First, let's see how to watch for Ethereum eve
 ```javascript
 const LoginContract = require('./login_contract.js');
 
-const loginContract = LoginContract.at(process.env.LOGIN_CONTRACT_ADDRESS || 
+const loginContract = LoginContract.at(process.env.LOGIN_CONTRACT_ADDRESS ||
                       '0xf7b06365e9012592c8c136b71c7a2475c7a94d71');
 
-// LoginAttempt is the name of the event that signals logins in the 
+// LoginAttempt is the name of the event that signals logins in the
 // Login contract. This is specified in the login.sol file.
 const loginAttempt = loginContract.LoginAttempt();
 
@@ -304,8 +304,8 @@ app.post('/login', (req, res) => {
     const challenge = cuid();
     challenges[req.body.address] = challenge;
 
-    const token = jwt.sign({ 
-        address: req.body.address, 
+    const token = jwt.sign({
+        address: req.body.address,
         access: 'finishLogin'
     }, secret);
 
@@ -325,8 +325,8 @@ app.post('/finishLogin', validateJwt, (req, res) => {
         delete successfulLogins[req.jwt.address];
         delete challenges[req.jwt.address];
 
-        const token = jwt.sign({ 
-            address: req.jwt.address, 
+        const token = jwt.sign({
+            address: req.jwt.address,
             access: 'full'
         }, secret);
 
@@ -368,7 +368,7 @@ Building and deploying the example is not as straightforward as it may seem due 
 #### 1. Get an Ethereum node client
 There are several Ethereum node clients. A popular one is [go-ethereum](https://github.com/ethereum/go-ethereum), a client written in Go. Download it and install it.
 
-Ethereum, as other cryptocurrencies do, has different versions of the blockchain with different parameters. There are essentially two blockchains: the main official blockchain and a test blockchain. The main blockchain never undoes operations once they are confirmed. Since some operations require money, the main blockchain is not ideal for testing. The test blockchain, on the other hand, is much less strict about forks and changes. It is also simpler to mine "Ether", Ethereum's currency. 
+Ethereum, as other cryptocurrencies do, has different versions of the blockchain with different parameters. There are essentially two blockchains: the main official blockchain and a test blockchain. The main blockchain never undoes operations once they are confirmed. Since some operations require money, the main blockchain is not ideal for testing. The test blockchain, on the other hand, is much less strict about forks and changes. It is also simpler to mine "Ether", Ethereum's currency.
 
 We could use the test network for our example here. However, running a client node for any of the public networks is problematic for one reason: to be able to start doing transactions, the client must first *verify* all previous transactions in the blockchain. That means that bootstrapping a new client node takes quite a bit of time. Fortunately there is an alternative: we can create a new, pristine private Ethereum blockchain to run our tests. To do so, run go-ethereum using the following command line:
 
@@ -495,6 +495,12 @@ Now switch back to the login page. After a few seconds the login will be complet
 This example shows how a typical Ethereum user can use his existing Ethereum account to login to any third party website supporting Ethereum. And all of this is done without a central server. Although authentication is not performed by the owner of the website, there is no central authority validating the user: it is the Ethereum network that does so.
 
 [Grab the full example.](https://github.com/auth0-blog/ethereum-login-sample)
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 ## Conclusion
 We have taken a deeper look at Ethereum: a decentralized, blockchain-based framework for developing applications. Applications run on each node, and each state transition produced by them is validated and recorded by the blockchain. The power of the approach extends the concepts of Bitcoin to more than just monetary transactions or simple non-Turing complete contracts. The power of distributed apps is just beginning to be tapped. In the next post in the series we will take a look at an actual application developed on the Ethereum network: a two-factor authentication system for Ethereum users using a mobile validator application. Stay tuned!

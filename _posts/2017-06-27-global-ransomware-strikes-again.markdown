@@ -53,3 +53,9 @@ Researchers are saying that the this new outbreak is hitting systems via the sam
 Although no solutions were found for retrieving data from computers affected by Petya so far, you can review and [update your devices](https://www.theverge.com/2017/4/15/15311846/microsoft-windows-shadow-brokers-nsa-hacks-patched) and also check that your approach to security is good. Recently we wrote a blog post that shares some good practices regarding [Personal Information Security Guide for Family and Friends](https://auth0.com/blog/personal-information-security-identity-guide/).
 
 Be sure to check out this [guide](https://auth0.com/blog/personal-information-security-identity-guide/) to learn how to secure your wireless network, backup your data so that it is not lost if you become a victim of ransomware such as WannaCry, detect phishing scams, and more.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.

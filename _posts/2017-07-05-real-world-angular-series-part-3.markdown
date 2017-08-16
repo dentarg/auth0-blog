@@ -78,7 +78,7 @@ We'll start with an `/api/events` endpoint that retrieves all public events with
 
 Recall that we already created and required our `Event` and `Rsvp` [mongoose schema](http://mongoosejs.com/docs/guide.html) in <a href="https://auth0.com/blog/real-world-angular-series-part-2#data-modeling">Part 2: Data Modeling</a>. We can now use those schema to execute [MongoDB collection methods](https://docs.mongodb.com/manual/reference/method/js-collection/) with [mongoose](http://mongoosejs.com/docs/queries.html).
 
-Add the following code to the `API Routes` section of the `api.js` file: 
+Add the following code to the `API Routes` section of the `api.js` file:
 
 ```js
 // server/api.js
@@ -88,7 +88,7 @@ Add the following code to the `API Routes` section of the `api.js` file:
  | API Routes
  |--------------------------------------
  */
- 
+
  const _eventListProjection = 'title startDatetime endDatetime viewPublic';
 
   // GET list of public events starting in the future
@@ -106,7 +106,7 @@ Add the following code to the `API Routes` section of the `api.js` file:
       res.send(eventsArr);
     });
   });
-  
+
   ...
 ```
 
@@ -140,7 +140,7 @@ Next we'll create a similar endpoint that will return _all_ events: `/api/events
       res.send(eventsArr);
     });
   });
-  
+
   ...
 ```
 
@@ -167,7 +167,7 @@ Now we'll fetch an event by ID with an `/api/event/:id` endpoint:
       res.send(event);
     });
   });
-  
+
   ...
 ```
 
@@ -184,7 +184,7 @@ Finally, we'll retrieve a list of all the RSVPs for a specific event: `/api/even
   app.get('/api/event/:eventId/rsvps', jwtCheck, (req, res) => {
     Rsvp.find({eventId: req.params.eventId}, (err, rsvps) => {
       let rsvpsArr = [];
-      if (err) { 
+      if (err) {
         return res.status(500).send({message: err.message});
       }
       if (rsvps) {
@@ -195,7 +195,7 @@ Finally, we'll retrieve a list of all the RSVPs for a specific event: `/api/even
       res.send(rsvpsArr);
     });
   });
-  
+
   ...
 ```
 
@@ -255,7 +255,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private auth: AuthService) { }
-    
+
   private get _authHeader(): string {
     return `Bearer ${localStorage.getItem('access_token')}`;
   }
@@ -266,7 +266,7 @@ export class ApiService {
       .get(`${ENV.BASE_API}events`)
       .catch(this._handleError);
   }
-  
+
   // GET all events - private and public (admin only)
   getAdminEvents$(): Observable<EventModel[]> {
     return this.http
@@ -431,7 +431,7 @@ import { DatePipe } from '@angular/common';
 export class UtilsService {
 
   constructor(private datePipe: DatePipe) { }
-  
+
   isLoaded(loading: boolean): boolean {
     return loading === false;
   }
@@ -537,7 +537,7 @@ import { DatePipe } from '@angular/common';
 export class FilterSortService {
 
   constructor(private datePipe: DatePipe) { }
-  
+
   private _objArrayCheck(array: any[]): boolean {
     // Checks if the first item in the array is an object
     // (assumes same-shape for all array items)
@@ -548,7 +548,7 @@ export class FilterSortService {
     const check = !!(array.length && item0 !== null && Object.prototype.toString.call(item0) === '[object Object]');
     return check;
   }
-  
+
   search(array: any[], query: string, excludeProps?: string|string[], dateFormat?: string) {
     // Match query to strings and Date objects / ISO UTC strings
     // Optionally exclude properties from being searched
@@ -586,7 +586,7 @@ export class FilterSortService {
     });
     return filteredArray;
   }
-  
+
   noSearchResults(arr: any[], query: string): boolean {
     // Check if array searched by query returned any results
     return !!(!arr.length && query);
@@ -824,7 +824,7 @@ Now open the `home.component.html` template:
         </a>
       </section>
     </ng-template>
-    
+
     <!-- No upcoming public events available -->
     <p *ngIf="!eventList.length" class="alert alert-info">
       No upcoming public events available.
@@ -833,7 +833,7 @@ Now open the `home.component.html` template:
 
   <!-- Error loading events -->
   <p *ngIf="error" class="alert alert-danger">
-    <strong>Oops!</strong> There was an error retrieving event data. 
+    <strong>Oops!</strong> There was an error retrieving event data.
   </p>
 
 </ng-template>
@@ -871,6 +871,12 @@ When an error occurs fetching events data, the homepage should look like this:
 ![Angular RSVP homepage with events](https://cdn.auth0.com/blog/mean-series/home-error.jpg)
 
 > **Note:** We can easily test API errors by stopping the Node API server in the terminal and reloading the Angular application in the browser. Without the API accessible, it will show an error.
+
+## Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
 ---
 

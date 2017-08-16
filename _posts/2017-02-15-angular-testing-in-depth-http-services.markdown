@@ -355,6 +355,12 @@ it('should be called with proper arguments', (done) => {
 });
 ```
 
+## Aside: Securing Angular Applications with Auth0
+
+Are you building a product with Angular? We at Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication). [We offer a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
+We provide the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
+
 ### Conclusion: What we've learned about Angular HTTP testing
 
 In this tutorial, we managed to:
