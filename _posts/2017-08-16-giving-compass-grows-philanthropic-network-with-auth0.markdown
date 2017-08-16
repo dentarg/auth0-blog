@@ -12,10 +12,12 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  image: https://cdn.auth0.com/blog/auth0-japanese-localization/hero.png
-  bg_color: "16214D"
+  image: https://cdn.auth0.com/blog/giving-compass/logo.png
+  bg_color: "#4D613F"
 tags:
 - auth0
+- security
+- philanthropic
 related:
 - 2017-07-21-amd-relies-on-auth0-for-seamless-authentication-of-enterprise-portal
 - 2017-06-27-cloud-identity-leader-auth0-adds-30-million-series-c
