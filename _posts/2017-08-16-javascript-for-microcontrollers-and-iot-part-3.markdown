@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "JavaScript for Microcontrollers and IoT: A Web Server"
-description: "Up the ante using JavaScript to build a simple webserver with a microcontroller"
-date: 2017-08-07 12:30
+description: "Up the ante using JavaScript to build a simple webserver with a microcontroller."
+date: 2017-08-16 12:30
 category: Technical Guide, IoT, JavaScript
 author:
   name: Sebastián Peyrott
@@ -38,23 +38,23 @@ related:
 - 2017-06-21-javascript-for-microcontrollers-and-iot-part-1
 ---
 
-In [our last post from the JavaScript for Microcontrollers and IoT series](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small, in particular in contrast to the amout of C code that was necessary to write. In this post we take our sensor hub and expand it using JavaScript to act as a webserver in our local network. The webserver will display the readings from the sensors only for authenticated users. Will it be as easy as it looks? Read on to find out!
+In [our last post from the JavaScript for Microcontrollers and IoT series](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small in contrast to the amout of C code that was necessary to write. In this post we take our sensor hub and expand it using JavaScript to act as a webserver in our local network. The webserver will display readings from the sensors but only for authenticated users. Will it be as easy as it looks? Read on to find out!
 
 {% include tweet_quote.html quote_text="Make a webserver using JavaScript on a microcontroller!" %}
 
 -----
 
 ## Introduction
-In [our last post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we finally used all the code we developed for the [first post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/) for something useful. We created a small script that was in charge of reading values from sensors and then sending that information to different destinations. We sent the code to the cloud, to be handled by a [Webtask](https://webtask.io/) that in turn could do useful stuff with it (like sending an email when thresholds were exceeded), and we also sent the readings to a computer in the local network. However, there was no way for a user in the local network to simply take a look at the readings (unless they set up a webserver on a computer). We also came to the conclusion that the added complexity of setting up a JavaScript interpreter and then exposing the C API through it was simply not worth it for small scripts. Things could be different if the JavaScript code were bigger, or, in other words, if most of the development happened on the JavaScript side of things. So for this post we decided to run the experiment: let's write something bigger in JavaScript and see where that gets us.
+In [our last post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we finally used all the code we developed in the [first post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/) for something useful. We created a small script that was in charge of reading values from sensors and then sending that information to different destinations. We sent the code to the cloud, to be handled by a [Webtask](https://webtask.io/) that in turn could do useful stuff with it (like sending an email when thresholds were exceeded), and we also sent the readings to a computer in the local network. However, there was no way for a user in the local network to simply take a look at the readings (unless they set up a webserver on a computer). We also came to the conclusion that the added complexity of setting up a JavaScript interpreter and then exposing the C API through it was simply not worth it for small scripts. Things could be different if the JavaScript code were bigger, or, in other words, if most of the development happened on the JavaScript side of things. So for this post we decided to run the experiment: let's write something bigger in JavaScript and see where that gets us.
 
 ## The Plan
 We already have the sensor hub, so the next logical step is to have some way to see the readings from any smart device in the local network. One simple way to do that is to simply have a webpage served by the microcontroller. We could put the readings there!
 
-Now, if you recall what we saw of the Particle API in previous posts, you may remember we did have TCP sockets and WiFi. That's great! However for this we are missing a key part of the puzzle: an HTTP server. But what we want to do should be simple enough, and luckily, HTTP is, for the most part, rather simple for small tasks like ours. Could be integrate a small HTTP server using JavaScript in our sensor-hub example? It turns out we can.
+Now, if you recall what we saw of the Particle API in previous posts, you may remember we did have TCP sockets and WiFi. That's great! However for this we are missing a key part of the puzzle: an HTTP server. What we want to do should be simple enough, and luckily, HTTP is, for the most part, rather simple for small tasks like ours. Could we integrate a small HTTP server using JavaScript in our sensor-hub example? It turns out we can.
 
 For our example we have decided to use [http-parser-js](https://github.com/creationix/http-parser-js), a JavaScript-only implementation of [Node's HTTP parser](https://github.com/nodejs/http-parser). Node's HTTP parser is written in C, so we could actually use that instead, but the point of using JavaScript on a microcontroller is to write less error prone C code and more JavaScript. The JavaScript version should be simpler to use, as long as our interpreter is up to the task.
 
-Using [http-parser-js](https://github.com/creationix/http-parser-js) we developed a small example that passes data from Particle's TCP API to the parser and then back to user-specified handlers, in the spirit of the rather simple Express library (although with a completely different, and much simpler API).
+Using [http-parser-js](https://github.com/creationix/http-parser-js) we developed a small example that passes data from Particle's TCP API to the parser and then back to user-specified handlers, in the spirit of the rather simple [Express](https://expressjs.com/) library (although with a completely different, and much simpler API).
 
 We also decided to add a small authentication screen to the sensor readings page. Since our example is only meant to run on the local network, as there is no SSL/TLS available on the Particle API yet, this is mostly for educational or testing purposes. For this we will use [auth0.js](https://github.com/auth0/auth0.js), which let's us add authentication to a page with only a few lines of code.
 
@@ -63,7 +63,7 @@ An interesting side of adding authentication is actually having the microcontrol
 Some of the libraries we decided to use for this require [ECMAScript 2015](https://auth0.com/blog/a-rundown-of-es6-features/). [JerryScript](http://jerryscript.net/), the interepreter we have been using so far, only support ECMAScript 5.1, so we will also learn to use a transpiler and bundler to accomplish our mission. For this task we will be using [Rollup](https://github.com/rollup/rollup) and [Babel](https://babeljs.io/). Rollup produces very small code, and size is always important when working with microcontrollers.
 
 To sum up:
-- We will expand our JerryPhoton library to support inconming TCP connections (listening TCP sockets).
+- We will expand our JerryPhoton library to support incoming TCP connections (listening TCP sockets).
 - We will parse HTTP requests using [http-parser-js](https://github.com/creationix/http-parser-js).
 - We will write a small HTTP class that will read the HTTP request and dispatch it to the right handler.
 - We will convert all the JavaScript code into a single bundle using only ECMAScript 5.1.
@@ -221,7 +221,7 @@ As you can see we are using a number of plugins. These plugins give us the follo
 With this pipeline we will get a single JavaScript file with all we need. If you want to take a look at how the resulting code compares to the original code, comment the `uglify` call in the `plugins` array. The resulting code is pretty readable and has very little added support code.
 
 #### Wait, how are we going to upload this to the microcontroller?
-Another thing we need is to find a way to get the bundle into the microcontroller. We will now be working with larger amounts of code, so we cannot use the simple upload functionality we developed in [post 1](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/). The upload functionality allowed us to dynamically run JavaScript code sent through a TCP socket. This was great, but to do so the code was first copied into RAM and then run from there. The Particle Photon does not have too much RAM, son we cannot waste it by keeping our script there. Fortunately there is way to embed our JavaScript bundle into the ROM!
+Another thing we need is to find a way to get the bundle into the microcontroller. We will now be working with larger amounts of code, so we cannot use the simple upload functionality we developed in [post 1](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/). The upload functionality allowed us to dynamically run JavaScript code sent through a TCP socket. This was great, but to do so the code was first copied into RAM and then run from there. The Particle Photon does not have a lot of RAM, son we cannot waste it by keeping our script there. Fortunately there is way to embed our JavaScript bundle into the ROM!
 
 The Particle API does not have a concept of a file or resource system, therefore anything that must be available to the C code in form of data must also be included in the code itself. Fortunately for us this is very easy to do with some minor shell scripting. Once we have the JavaScript bundle we can convert it to a C-array using `xxd`, a tool to produce textual binary dumps. `xxd` conveniently provides an option to produce C-arrays as output.
 
@@ -249,7 +249,7 @@ sed -i -e 's/^unsigned/static const/' src/main.bundle.h
 The last command, `sed`, is necessary because we want to make sure our C-array gets stored in ROM and not in RAM. To tell the C compiler that, we need to make the array `static` and `const`. We also change the type from `unsigned char` to just `char`. This makes no difference for the data in it and matches the signature of the `jerryphoton::eval()` function.
 
 ### Integrating the HTTP Parser
-The first library that we are goint to integrate is the HTTP parser ([http-parser-js](https://github.com/creationix/http-parser-js)). This library is a simple JavaScript-only HTTP parser meant to work as a drop-in replacement for Node.js's C-based parser. It provides the exact same JavaScript API. However, since this parser was written with Node in mind, certain minor adaptations must be performed before we can use it in JerryScript. We'll talk about them here.
+The first library that we are going to integrate is the HTTP parser ([http-parser-js](https://github.com/creationix/http-parser-js)). This library is a simple JavaScript-only HTTP parser meant to work as a drop-in replacement for Node.js's C-based parser. It provides the exact same JavaScript API. However, since this parser was written with Node in mind, certain minor adaptations must be performed before we can use it in JerryScript. We'll talk about them here.
 
 The first and biggest change has to do with the use of Node's `Buffer` object. `Buffer` is a Node-specific object and we can't use it here. There are two ways we could fix this here: we can rely on JerryScript's limited support for ECMAScript 2015's `TypedArray`, or we can use JavaScript strings. After taking a look at the code that uses `Buffer` we decided to go the `String` route. Let's take a look at the code:
 
@@ -479,7 +479,7 @@ setInterval(() => {
 }, 0);
 ```
 
-Here we see we have a function that gets repeatedly executed as fast as possible after giving the system some time to process other stuff. The function checks whether there is a new connection available, and if there is and it remains connected, it attempts to read data from it. This is done for all active connections, which are stored inside the `httpClients` array. All disconnected TCP connections are discarded after each loop (and collected by the garbage collector eventually). A new instance of the`HTTP` class is created for each new connection. The handler for HTTP requests is the `handler` function, which simply checks for one of two endpoints: the main page, and the endpoint that returns sensor data. The `page` variable is where the HTML file the serves as our main page is stored as a string.
+Here we see we have a function that gets repeatedly executed as fast as possible after giving the system some time to process other stuff. The function checks whether there is a new connection available, and if there is and it remains connected, it attempts to read data from it. This is done for all active connections, which are stored inside the `httpClients` array. All disconnected TCP connections are discarded after each loop (and collected by the garbage collector eventually). A new instance of the`HTTP` class is created for each new connection. The handler for HTTP requests is the `handler` function, which simply checks for one of two endpoints: the main page, and the endpoint that returns sensor data. The `page` variable is where the HTML file that serves as our main page is stored as a string.
 
 Other functions from the `main.js` file:
 
@@ -698,7 +698,7 @@ function logoutClicked() {
 parseHash();
 ```
 
-By using the [auth0.js](https://github.com/auth0/auth0.js) library, authentication and authorization is just a matter of calling `auth0client.authorize`. This will send the user to the Auth0 login page. After the user is authenticated, the authorization server will redirect the user back to our sensor site with the right access token for our API. This is what our `parseHash` function does: it gets the token from the URL and stores it in local storage.
+By using the [auth0.js](https://github.com/auth0/auth0.js) library, authentication and authorization is just a matter of calling `auth0Client.authorize`. This will send the user to the Auth0 login page. After the user is authenticated, the authorization server will redirect the user back to our sensor site with the right access token for our API. This is what our `parseHash` function does: it gets the token from the URL and stores it in local storage.
 
 To use Auth0 you will first need to perform a couple of simple steps, which we describe below.
 
