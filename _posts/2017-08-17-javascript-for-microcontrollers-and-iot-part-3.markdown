@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "JavaScript for Microcontrollers and IoT: A Web Server"
-description: "Up the ante using JavaScript to build a simple webserver with a microcontroller."
-date: 2017-08-16 12:30
+description: "Up the ante using JavaScript to build a simple web server with a microcontroller."
+date: 2017-08-17 12:30
 category: Technical Guide, IoT, JavaScript
 author:
   name: Sebastián Peyrott
@@ -38,14 +38,14 @@ related:
 - 2017-06-21-javascript-for-microcontrollers-and-iot-part-1
 ---
 
-In [our last post from the JavaScript for Microcontrollers and IoT series](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small in contrast to the amout of C code that was necessary to write. In this post we take our sensor hub and expand it using JavaScript to act as a webserver in our local network. The webserver will display readings from the sensors but only for authenticated users. Will it be as easy as it looks? Read on to find out!
+In [our last post from the JavaScript for Microcontrollers and IoT series](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small in contrast to the amout of C code that was necessary to write. In this post we take our sensor hub and expand it using JavaScript to act as a web server in our local network. The web server will display readings from the sensors but only for authenticated users. Will it be as easy as it looks? Read on to find out!
 
-{% include tweet_quote.html quote_text="Make a webserver using JavaScript on a microcontroller!" %}
+{% include tweet_quote.html quote_text="Make a web server using JavaScript on a microcontroller!" %}
 
 -----
 
 ## Introduction
-In [our last post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we finally used all the code we developed in the [first post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/) for something useful. We created a small script that was in charge of reading values from sensors and then sending that information to different destinations. We sent the code to the cloud, to be handled by a [Webtask](https://webtask.io/) that in turn could do useful stuff with it (like sending an email when thresholds were exceeded), and we also sent the readings to a computer in the local network. However, there was no way for a user in the local network to simply take a look at the readings (unless they set up a webserver on a computer). We also came to the conclusion that the added complexity of setting up a JavaScript interpreter and then exposing the C API through it was simply not worth it for small scripts. Things could be different if the JavaScript code were bigger, or, in other words, if most of the development happened on the JavaScript side of things. So for this post we decided to run the experiment: let's write something bigger in JavaScript and see where that gets us.
+In [our last post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we finally used all the code we developed in the [first post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-1/) for something useful. We created a small script that was in charge of reading values from sensors and then sending that information to different destinations. We sent the code to the cloud, to be handled by a [Webtask](https://webtask.io/) that in turn could do useful stuff with it (like sending an email when thresholds were exceeded), and we also sent the readings to a computer in the local network. However, there was no way for a user in the local network to simply take a look at the readings (unless they set up a web server on a computer). We also came to the conclusion that the added complexity of setting up a JavaScript interpreter and then exposing the C API through it was simply not worth it for small scripts. Things could be different if the JavaScript code were bigger, or, in other words, if most of the development happened on the JavaScript side of things. So for this post we decided to run the experiment: let's write something bigger in JavaScript and see where that gets us.
 
 ## The Plan
 We already have the sensor hub, so the next logical step is to have some way to see the readings from any smart device in the local network. One simple way to do that is to simply have a webpage served by the microcontroller. We could put the readings there!
@@ -734,7 +734,7 @@ Let's see it in action!
 [Get the full code](https://github.com/auth0-blog/javascript-for-microncontrollers-example-sensor-webserver) for this example. If you need help flashing the compiled firmware, [refer to the previous post](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/).
 
 ### Conclusion
-In our previous post we managed to get something useful running on JavaScript but we didn't really develop a full fledged application. For this post, however, we upped the ante and managed to run our own webserver doing most of the work using only JavaScript. We handled connections, HTTP parsing, request dispatching, and JWT validation with HS256 (HMAC + SHA256). We also integrated a Node library (`http-parser-js`) and wrote all of our code using ECMAScript 2015 with modules. The result is over 1000 lines of JavaScript, or around 15KiB of minified JavaScript. This all runs on a 120MHz ARM CPU and uses less than 42KB of RAM!
+In our previous post we managed to get something useful running on JavaScript but we didn't really develop a full fledged application. For this post, however, we upped the ante and managed to run our own web server doing most of the work using only JavaScript. We handled connections, HTTP parsing, request dispatching, and JWT validation with HS256 (HMAC + SHA256). We also integrated a Node library (`http-parser-js`) and wrote all of our code using ECMAScript 2015 with modules. The result is over 1000 lines of JavaScript, or around 15KiB of minified JavaScript. This all runs on a 120MHz ARM CPU and uses less than 42KB of RAM!
 
 The development experience was not without trouble. JerryScript remains rough in the edges for now. Some constructs are not handled correctly (for example, the common immediately invoked function expression appears to fail), typed arrays remain incomplete, and using polyfills by adding or changing methods in a prototype does not work as expected. These are all common patterns or tools in the JavaScript world, and there may be more small differences in behavior between it and the more powerful V8 or SpiderMonkey implementations.
 
