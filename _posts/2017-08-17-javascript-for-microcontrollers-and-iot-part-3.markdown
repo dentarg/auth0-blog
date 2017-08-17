@@ -38,7 +38,7 @@ related:
 - 2017-06-21-javascript-for-microcontrollers-and-iot-part-1
 ---
 
-In [our last post from the JavaScript for Microcontrollers and IoT series](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small in contrast to the amout of C code that was necessary to write. In this post we take our sensor hub and expand it using JavaScript to act as a web server in our local network. The web server will display readings from the sensors but only for authenticated users. Will it be as easy as it looks? Read on to find out!
+In [our last post from the JavaScript for Microcontrollers and IoT series,](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-2/) we talked about building a sensor hub. We succeeded, but our use of JavaScript remained small in contrast to the amount of C code that was necessary to write. In this post, we take our sensor hub and expand it using JavaScript to act as a web server in our local network. The web server will display readings from the sensors but only for authenticated users. Will it be as easy as it looks? Read on to find out!
 
 {% include tweet_quote.html quote_text="Make a web server using JavaScript on a microcontroller!" %}
 
