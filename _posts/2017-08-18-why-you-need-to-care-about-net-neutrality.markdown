@@ -122,3 +122,7 @@ There's still time to have your comments heard before the FCC makes as decision 
 Send thoughtful, well-reasoned [comments](https://www.battleforthenet.com/july12/) to the FCC to advocate for what matters to you. There's a lot of information out there about the impact of getting ride of net neutrality but don't just copy and paste what you see online. Give some thought to the impact the rollback will have on you and explain that in detail.
 
 The hope is that comments from the public will be enough to make the FCC take a step back and reconsider their proposal.
+
+## Conclusion
+
+For the internet to continue being a neutral, powerful source of information, its contents and distribution need to remain unbiased and free from third-party interests. 'Neutrality' means giving innovation, creativity, and information-exchange a fair shot. What kind of internet do you want? The power is in your hands.
