@@ -327,7 +327,75 @@ public class Attempt {
 }
 ```
 
+Again, nothing particularly new about the implementation of this class. The only perceptible difference for the other entities is that this one has two properties marked as `@ManyToOne`. Since *many* attempts will be made *by one* `user`, and that these attempts will refer to different `alternatives`, we annotated both properties with `@ManyToOne`. Besides that we also created a property to hold when the attempt was made (`date`) and created a `boolean` property called `correct` to indicate if the user managed to answer the question properly or not. With these properties we will be able to, in the future, provide some nice charts and some intelligence to our users.
+
+As this was the last entity that we needed to create, we can now focus on creating the database schema that will support our application. We will solve this question by using Liquibase.
+
 ## Managing the Database Schema with Liquibase
+
+To manage the database structure of our application and to keep it synced with the entities that compose our system, we will use Liquibase. What is great about this tool is that it supports a wide variety of languages to manage the schema. For example, we can define and refactor the database by using XML, YAML, JSON, and SQL formats. What it is even greater is that Spring Boot provides a great support for Liquibase as we will see in this section.
+
+Enough said, let's focus on solving our problem. First of all, we need to configure the database connection on our Spring Boot application. Spring Boot will provide this configuration both for JPA/Hibernate and for Liquibase. The properties to communicate with the database will be set on the `./src/main/resources/application.properties`:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost/questionmark
+spring.datasource.username=postgres
+spring.datasource.password=mysecretpassword
+spring.datasource.driver-class-name=org.postgresql.Driver
+```
+
+The first property, `spring.datasource.url`, defines the address of our database. As we are running a dockerized PostgreSQL container and are bridging the default PostgreSQL port between our machine and the Docker container, we can reach the database by passing `jdbc:postgresql://localhost/questionmark`. The second property defines the user that we will use to communicate with the database, `postgres` in that case. The third property defines `mysecretpassword` as the password for `postgres` (the same that we passed when creating our dockerized PostgreSQL container). The last property defines the `org.postgresql.Driver` class as the driver responsible for managing the communication.
+
+With these properties set, we can work on the Liquibase configuration. This will be quite easy, we are simply going to tell Liquibase to apply all the changesets available in a specific folder. To do that let's create a master Liquibase file called `db.changelog-master.yaml` in the `src/main/resources/db/changelog/` folder. We will probably need to create `db` and its child `changelog` as they are not provided by Spring Boot. The master file will have the following content:
+
+```yaml
+databaseChangeLog:
+    - includeAll:
+        path: db/changelog/changes/
+```
+
+Note that the `path` value provided is relative to `src/main/resources`, and therefore we will need to create a folder called `changes` inside `src/main/resources/db/changelog/`. Inside this new folder we are going to create a new file called `v0001.sql`. This SQL file will contain the commands to create the tables that will support our application:
+
+```sql
+create table "user" (
+  id varchar(255) not null,
+  name varchar(50) not null,
+  primary key (id)
+);
+
+create table exam (
+  id bigserial not null,
+  title varchar(50) not null,
+  description varchar(512) not null,
+  primary key (id)
+);
+
+create table question (
+  id bigserial not null,
+  exam_id bigint not null references exam (id),
+  question_order bigint not null,
+  description text not null,
+  primary key (id)
+);
+
+create table alternative (
+  id bigserial not null,
+  question_id bigint not null references question (id),
+  alternative_order bigint not null,
+  description text not null,
+  correct boolean not null,
+  primary key (id)
+);
+
+create table attempt (
+  id bigserial not null,
+  user_id varchar(255) not null references "user" (id),
+  alternative_id bigint not null references alternative (id),
+  correct boolean not null,
+  date timestamp without time zone not null,
+  primary key (id)
+);
+```
 
 ## Aside: Securing Spring Boot Apps with Auth0
 
