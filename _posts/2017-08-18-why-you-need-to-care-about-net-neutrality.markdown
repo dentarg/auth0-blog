@@ -2,27 +2,27 @@
 layout: post
 title: "Why You Need to Care About Net Neutrality"
 description: "The future of the web affects everyone, and here's where it could be headed."
-date: 2017-06-26 8:30
-category: Growth, Industries, Retail
+date: 2017-08-18 8:30
+category: Hot Topics, Trends
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#394F68"
-  image: https://cdn.auth0.com/blog/netneutrality/logo.png
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/net_neutrality/logo.png
 tags:
-- retail
-- security
-- retail
-- customer
+- net-neutrality
+- internet-service-providers
+- federal-communications-comission
+- internet-service-providers
 - vision
 - auth0
 related:
-- 2017-06-19-how-to-keep-up-with-hyperconnected-consumers
-- 2016-04-18-progressive-profiling
-- 2017-05-26-go-beyond-username-password-with-modern-auth
+- 22017-07-25-dont-pass-on-the-new-nist-password-guidelines
+- 2017-08-07-gdpr-fight-against-fake-news
+- 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
 ---
 
 Just like a newborn baby, when the internet made its public debut, no one could have predicted just how powerful it would grow to be.
@@ -95,7 +95,7 @@ _[Source](http://techminders.blogspot.ca/2015/04/in-future-ispinternet-service-p
 
 Or let's say a potential customer wants to search for a specific company or product. Slow speeds or an additional cost to access the content could lead to frustrated users who can't easily access the products they need. This has the potential to hurt SaaS based businesses if customers start to believe that latency is unpredictable. For example, one day a site loads quickly and easily and on another day it takes longer or doesn't load at all.
 
-Something else to consider with latency is the move from monolith architecture to microservice architecture. The monolith approach was attractive because it meant fast builds that got MVPs up and running quickly, especially for startups. But as apps grow in size and complexity, so do coding and architecture requirements. Growth slows down as a result.
+Something else to consider with latency is [the move from monolith architecture to microservice architecture](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/). The monolith approach was attractive because it meant fast builds that got MVPs up and running quickly, especially for startups. But as apps grow in size and complexity, so do coding and architecture requirements. Growth slows down as a result.
 
 Microservice architecture has become a better option because it breaks down apps into individual services which helps developers build out each one separately over time vs. the who app at once. So as apps grow and receive more calls, the flow works better.
 
@@ -117,7 +117,7 @@ You've probably heard, “Speak now or forever hold your peace,” right? Well, 
 
 On July 12, [10 million people](https://www.recode.net/2017/7/13/15964766/net-neutrality-protest-day-of-action-2017-data-fcc) saw the protest ads. [2 million](https://techcrunch.com/2017/07/13/net-neutrality-day-of-action-spurs-millions-to-speak-out-for-online-freedoms/) of these people then went on to submit comments to the FCC. But with tech users in the billions, this is just the beginning.
 
-There's still time to have your comments heard before the FCC makes as decision later this year. Before they make a decision, they'll respond to all comments on Aug 16.
+There's still time to have your comments heard before the FCC makes as decision later this year. Before they make a decision, they'll respond to all comments on Aug 30.
 
 Send thoughtful, well-reasoned [comments](https://www.battleforthenet.com/july12/) to the FCC to advocate for what matters to you. There's a lot of information out there about the impact of getting ride of net neutrality but don't just copy and paste what you see online. Give some thought to the impact the rollback will have on you and explain that in detail.
 
