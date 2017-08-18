@@ -139,7 +139,7 @@ To summarize, the changes made in this file added:
 As we already have all the dependencies properly set on our application, let's start creating the entities (classes) that we want JPA/Hibernate to manage. We will create five entities. The first one will be called `Exam` and we will create it in a new package called `com.questionmarks.model` with the following code:
 
 ```java
-// ./src/main/java/com/questionmark/model/Exam.java file
+// ./src/main/java/com/questionmarks/model/Exam.java file
 
 package com.questionmarks.model;
 
@@ -175,10 +175,10 @@ Besides this somewhat magical annotation, we also:
 - added `@GeneratedValue` with the `GenerationType.IDENTITY)` strategy to indicate that the primary key value will be assigned by the persistence provider (i.e. PostgreSQL)
 - added `@NotNull` to both `title` and `description` properties to avoid persisting empty data for these fields.
 
-Most of the annotations used in the `Exam` entity are going also to be used in the other entities, as they provide the basis for JPA/Hibernate to function. The next entity that we are going to create will be called `Question`. Let's create this class inside the `com.questionmark.model` package with the following code:
+Most of the annotations used in the `Exam` entity are going also to be used in the other entities, as they provide the basis for JPA/Hibernate to function. The next entity that we are going to create will be called `Question`. Let's create this class inside the `com.questionmarks.model` package with the following code:
 
 ```java
-// ./src/main/java/com/questionmark/model/Question.java file
+// ./src/main/java/com/questionmarks/model/Question.java file
 
 package com.questionmarks.model;
 
@@ -218,7 +218,7 @@ Besides the annotations that we already covered while creating the `Exam` entity
 
 This basically means that an exam will have many questions and that there will be a *foreign key* in the `question` table that points to the `exam`. Soon we will create these tables and these relationships in our database with the help of Liquibase.
 
-The third entity that we will map will be `Alternative`. As we are developing an application that provides multiple choice questions, we need to map these choices (alternatives) to make record which is the right one and also which alternative the user chose. Let's create the `Alternative` class in the `com.questionmark.model` package with the following code:
+The third entity that we will map will be `Alternative`. As we are developing an application that provides multiple choice questions, we need to map these choices (alternatives) to make record which is the right one and also which alternative the user chose. Let's create the `Alternative` class in the `com.questionmarks.model` package with the following code:
 
 ```java
 // ./src/main/java/com/questionmarks/model/Alternative.java file
@@ -338,13 +338,13 @@ To manage the database structure of our application and to keep it synced with t
 Enough said, let's focus on solving our problem. First of all, we need to configure the database connection on our Spring Boot application. Spring Boot will provide this configuration both for JPA/Hibernate and for Liquibase. The properties to communicate with the database will be set on the `./src/main/resources/application.properties`:
 
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost/questionmark
+spring.datasource.url=jdbc:postgresql://localhost/questionmarks
 spring.datasource.username=postgres
 spring.datasource.password=mysecretpassword
 spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
-The first property, `spring.datasource.url`, defines the address of our database. As we are running a dockerized PostgreSQL container and are bridging the default PostgreSQL port between our machine and the Docker container, we can reach the database by passing `jdbc:postgresql://localhost/questionmark`. The second property defines the user that we will use to communicate with the database, `postgres` in that case. The third property defines `mysecretpassword` as the password for `postgres` (the same that we passed when creating our dockerized PostgreSQL container). The last property defines the `org.postgresql.Driver` class as the driver responsible for managing the communication.
+The first property, `spring.datasource.url`, defines the address of our database. As we are running a dockerized PostgreSQL container and are bridging the default PostgreSQL port between our machine and the Docker container, we can reach the database by passing `jdbc:postgresql://localhost/questionmarks`. The second property defines the user that we will use to communicate with the database, `postgres` in that case. The third property defines `mysecretpassword` as the password for `postgres` (the same that we passed when creating our dockerized PostgreSQL container). The last property defines the `org.postgresql.Driver` class as the driver responsible for managing the communication.
 
 With these properties set, we can work on the Liquibase configuration. This will be quite easy, we are simply going to tell Liquibase to apply all the changesets available in a specific folder. To do that let's create a master Liquibase file called `db.changelog-master.yaml` in the `src/main/resources/db/changelog/` folder. We will probably need to create `db` and its child `changelog` as they are not provided by Spring Boot. The master file will have the following content:
 
@@ -397,6 +397,24 @@ create table attempt (
 );
 ```
 
+That was the last change that we needed to make in our application to make Liquibase responsible for running refactorings in our database. Running our application now, through the IDE or through the `./gradlew bootRun`, will result in the following output:
+
+```text
+...
+2017-08-18 19:16:20 INFO -- [main] liquibase : classpath:/db/changelog/db.changelog-master.yaml: db/changelog/changes/v0001.sql::raw::includeAll: Custom SQL executed
+2017-08-18 19:16:20 INFO -- [main] liquibase : classpath:/db/changelog/db.changelog-master.yaml: db/changelog/changes/v0001.sql::raw::includeAll: ChangeSet db/changelog/changes/v0001.sql::raw::includeAll ran successfully in 43ms
+...
+2017-08-18 19:16:22 INFO -- [main] app       : Started ServerApplication in 5.032 seconds (JVM running for 5.989)
+```
+
+Therefore, as we can see everything worked as expected. Liquibase managed to apply the schema defined in the `v0001.sql`, and the application started successfully. This means that Spring Boot was able to run the application and that JPA/Hibernate found the tables needed to support our entities.
+
 ## Aside: Securing Spring Boot Apps with Auth0
 
-## Querying the Database
+Securing Spring applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
+
+[To learn the best way to secure *Spring Security API endpoints* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like Spring), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+
+## Next Steps: Defining a RESTful API and Querying the Database
+
+So far we have defined five entities that will hold the data that our application manages and integrated PostgreSQL, with the help of Spring Data JPA, to persist this data. We also have successfully configured Liquibase to automatically run scripts that will keep our database synced up with the entities structure. What we now is to start defining the RESTful endpoints of our API that will support external clients (e.g. web application and iOS/Android mobile apps). This feature will be addressed in another article that will be released soon. Stay tuned!
