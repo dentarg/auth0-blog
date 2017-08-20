@@ -446,9 +446,9 @@ const alarmWaitMs = 5000;
 In the first video we can see the lock being unlocked (blue LED) when a valid fingerprint is read. In the second video we can see the lock being unlocked without a time limit when a critical condition is detected (gas leak). When the gas leak stops, a valid fingerprint can reset the lock to its normal state.
 
 ## Aside: JavaScript at Auth0
-At [Auth0](https://auth0.com/) we use JavaScript heavily. Using our authentication and authorization server from your JavaScript web apps is a piece of cake. Here's one simple example using ECMAScript 2015 features and the [Auth0.js library](https://github.com/auth0/auth0.js). You could use this to expose an authenticated API from your Photon by using `TCPServer` and checking the validity of a JWT.
+At [Auth0](https://auth0.com/) we use JavaScript heavily. Using our authentication and authorization server from your JavaScript web apps is a piece of cake. Here's one simple example using ECMAScript 2015 features and the [Auth0.js library](https://github.com/auth0/auth0.js). You could use this to expose an authenticated API from your Espruino app by using the HTTP library and checking the validity of a JWT.
 
-This is the main client-side script to authenticate and authorize a user to access an API. It also updates the DOM to show some user data. You can send this as part of a HTML page served directly from the Photon.
+This is the main client-side script to authenticate and authorize a user to access an API. It also updates the DOM to show some user data. You can send this as part of a HTML page served directly from the ESP8266. We showed how to do this in [post 3 of this series using the Particle Photon](https://auth0.com/blog/javascript-for-microcontrollers-and-iot-part-3/).
 
 ```javascript
 const auth0 = new window.auth0.WebAuth({
