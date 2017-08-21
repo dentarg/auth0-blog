@@ -28,6 +28,8 @@ Throughout this post we will create the basis of an application called *Question
 
 Before diving into integrating these technologies, let's first take a look at their definition.
 
+{% include tweet_quote.html quote_text="Using JPA, Liquibase, and PostgreSQL on Spring Boot is easy." %}
+
 ## What is Spring Data JPA?
 
 [Spring Data JPA](https://projects.spring.io/spring-data-jpa/) is the Spring module that adds support and extends [JPA](http://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html). JPA (which stands for *Java Persistence API*) is a [Java specification](https://auth0.com/blog/java-platform-and-java-community-process-overview/) for accessing, persisting, and managing data between Java objects/classes and relational databases (e.g. PostgreSQL, MySQL, SQLServer, etc). The process of mapping object-oriented entities to entity-relationship models is also know as ORM (Object-Relation Mapping) and JPA is the contract defined by the Java community to manage such mappings.
@@ -92,7 +94,7 @@ If we choose to bootstrap our application with [Spring Initilizr](http://start.s
 - Project Metadata Artifact: **questionmarks**
 - Selected Dependencies: let's leave this empty
 
-Note that although this blog post will show the configuration for Gradle, we could easily use Maven. Let's just keep in mind that if we choose **Maven Project** the dependency configuration will be different. Besides that, the Spring Boot version does *not* need to be *1.5.6*. The examples here must probably work with older and newer versions.
+Note that although during this blog post we will use Gradle, we could easily use Maven instead. Let's just keep in mind that if we choose **Maven Project** the dependency configuration will be different. Besides that, the Spring Boot version does *not* need to be *1.5.6*. The examples here must probably work with older and newer versions.
 
 After that we just need to import the new Spring Boot project in our preferred IDE (Integrated Development Environment).
 
@@ -110,7 +112,7 @@ The three commands above will give us the same result of using the Spring Initil
 
 ## Importing Dependencies
 
-Now that we have our basic Spring Boot application set, we can change our dependency management tool (Gradle) to import the tools that we will use. To do that, let's open the `./build.gradle` file and change it as follows:
+Now that we have our basic Spring Boot application set, we can change our dependency management tool configuration (Gradle) to import the libraries that we will use. To do that, let's open the `./build.gradle` file and change it as follows:
 
 ```js
 // everything else ...
@@ -126,11 +128,11 @@ dependencies {
 }
 ```
 
-To summarize, the changes made in this file added:
+The changes made in this file added:
 
 - A compile only dependency to Project Lombok, which will make our code look cleaner.
-- A compile dependency to [Spring Boot Web Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web), which facilitates the development of RESTful APIs and also adds a transitive dependency to [Java Bean Validation](http://www.baeldung.com/javax-validation).
-- A compile dependency to Spring Data JPA, which also gives us Hibernate.
+- A compile dependency to [Spring Boot Web Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web), which facilitates the development of RESTful APIs and adds a transitive dependency to [Java Bean Validation](http://www.baeldung.com/javax-validation).
+- A compile dependency to Spring Data JPA, which gives us Hibernate.
 - A compile dependency to Liquibase, which will help us managing the database.
 - A runtime dependency to [PostgreSQL JDBC Driver](https://jdbc.postgresql.org/), which will enable Hibernate to communicate with the database.
 
@@ -168,14 +170,16 @@ public class Exam {
 
 This class, although quite small and simple, has some interesting characteristics. The main one, for those who are not familiar with Lombok, is the `@Data` annotation. As explained by [the documentation](https://projectlombok.org/features/Data), `@Data` is a convenient shortcut annotation that bundles the features of `@ToString`, `@EqualsAndHashCode`, `@Getter`, `@Setter` and `@RequiredArgsConstructor` together. In other words, `@Data` generates all the boilerplate that is normally associated with simple POJOs (Plain Old Java Objects) and beans: getters for all fields, setters for all non-final fields, and appropriate toString, equals and hashCode implementations that involve the fields of the class, and a constructor that initializes all final fields, as well as all non-final fields with no initializer that have been marked with `@NonNull`, in order to ensure the field is never null.
 
+{% include tweet_quote.html quote_text="Avoid Plain Old #java Objects boilerplate with Lombok" %}
+
 Besides this somewhat magical annotation, we also:
 
-- added `@Entity` to mark this class is an entity that will be managed by JPA/Hibernate
-- added `@Id` to indicate that the `id` property is the primary key of this entity.
-- added `@GeneratedValue` with the `GenerationType.IDENTITY)` strategy to indicate that the primary key value will be assigned by the persistence provider (i.e. PostgreSQL)
-- added `@NotNull` to both `title` and `description` properties to avoid persisting empty data for these fields.
+- Added `@Entity` to mark this class as an entity that will be managed by JPA/Hibernate.
+- Added `@Id` to indicate that the `id` property is the primary key of this entity.
+- Added `@GeneratedValue` with the `GenerationType.IDENTITY` strategy to indicate that the primary key value will be assigned by the persistence provider (i.e. PostgreSQL).
+- Added `@NotNull` to both `title` and `description` properties to avoid persisting empty data for these fields.
 
-Most of the annotations used in the `Exam` entity are going also to be used in the other entities, as they provide the basis for JPA/Hibernate to function. The next entity that we are going to create will be called `Question`. Let's create this class inside the `com.questionmarks.model` package with the following code:
+Most of the annotations used in the `Exam` entity are also going to be used in the other entities, as they provide the basis for JPA/Hibernate to function. The next entity that we are going to create will be called `Question`. Let's create this class inside the `com.questionmarks.model` package with the following code:
 
 ```java
 // ./src/main/java/com/questionmarks/model/Question.java file
@@ -218,7 +222,7 @@ Besides the annotations that we already covered while creating the `Exam` entity
 
 This basically means that an exam will have many questions and that there will be a *foreign key* in the `question` table that points to the `exam`. Soon we will create these tables and these relationships in our database with the help of Liquibase.
 
-The third entity that we will map will be `Alternative`. As we are developing an application that provides multiple choice questions, we need to map these choices (alternatives) to make record which is the right one and also which alternative the user chose. Let's create the `Alternative` class in the `com.questionmarks.model` package with the following code:
+The third entity that we will map is `Alternative`. As we are developing an application that provides multiple choice questions, we need to map these choices (alternatives) to keep track of which is the right one and also which alternative the user chooses while answering a question. Let's create the `Alternative` class in the `com.questionmarks.model` package with the following code:
 
 ```java
 // ./src/main/java/com/questionmarks/model/Alternative.java file
@@ -256,7 +260,7 @@ public class Alternative {
 }
 ```
 
-This class doesn't use any new annotation, or any new feature. It simply uses the `@Data` annotation to avoid the boilerplate code, the JPA annotations to mark as a managed entity with a primary key, and the `@ManyToOne` along with `@JoinColumn` to indicate that many alternatives may exist to a single question.
+This class doesn't use any new annotation, or any new feature. It simply uses the `@Data` annotation to avoid the boilerplate code, the JPA annotations to mark it as a managed entity with a primary key, and the `@ManyToOne` along with `@JoinColumn` to indicate that many alternatives may exist to a single question.
 
 Both the `Alternative` and `Question` entities have two properties in common. A text (`String`) property to hold the `description` of the alternative/question, and a numerical (`long`) order that defines on what order the alternative will be shown in the question, or the question will be shown in the exam. Besides that, `Alternative` has a `boolean` property called `correct` to indicate if it is the correct answer or not.
 
@@ -271,7 +275,6 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -281,9 +284,9 @@ public class User {
 }
 ```
 
-Contrastingly to the other entities that we have created, `User` does not have a numerical (`long`) id, but a textual (`String`) primary key. Besides that it doesn't have usual properties like email, name, and password. These unusual characteristics have an explanation. As we don't want to handle sensitive data and we don't want to waste valuable time trying to write authentication mechanisms, we are going to use [Auth0](https://auth0.com) to manage users for us. All we will have to do is to persist a unique id that will be sent for us through JWTs (JSON Web Tokens).
+Contrastingly to the other entities that we have created, `User` does not have a numerical (`long`) id, but a textual (`String`) primary key. Besides that it doesn't have usual properties like email, name, and password. These unusual characteristics have an explanation. As we don't want to handle sensitive data and we don't want to waste valuable time trying to write secure authentication mechanisms, we are going to use [Auth0](https://auth0.com) to manage user authentication for us. Therefore, all we will have to do is to persist a unique id that will be sent for us through JWTs (JSON Web Tokens).
 
-This approach will free us to focus on the core functionality while we rest assure that one of the most critical parts of our application (security and authentication) will be supported by a huge team of experts: Auth0!
+This approach will free us to focus on the core functionality while we rest assured that one of the most critical parts of our application (security and authentication) will be supported by a great team of experts: Auth0!
 
 Finally, the last entity that we will create will be called `Attempt`. This class will represent the attempts that users make to answer a question.
 
@@ -327,7 +330,7 @@ public class Attempt {
 }
 ```
 
-Again, nothing particularly new about the implementation of this class. The only perceptible difference for the other entities is that this one has two properties marked as `@ManyToOne`. Since *many* attempts will be made *by one* `user`, and that these attempts will refer to different `alternatives`, we annotated both properties with `@ManyToOne`. Besides that we also created a property to hold when the attempt was made (`date`) and created a `boolean` property called `correct` to indicate if the user managed to answer the question properly or not. With these properties we will be able to, in the future, provide some nice charts and some intelligence to our users.
+Again, nothing particularly new about the implementation of this class. The only perceptible difference for the other entities is that this one has two properties marked as `@ManyToOne`. Since *many* attempts will be made *by one* `user`, and that these attempts will refer to different `alternatives`, we annotated both properties with `@ManyToOne`. Besides that we also created a property to hold when the attempt was made (`date`) and created a `boolean` property called `correct` to indicate if the user answered the question correctly or not. With these properties we will be able to, in the future, provide some nice charts and some intelligence to our users.
 
 As this was the last entity that we needed to create, we can now focus on creating the database schema that will support our application. We will solve this question by using Liquibase.
 
@@ -335,7 +338,9 @@ As this was the last entity that we needed to create, we can now focus on creati
 
 To manage the database structure of our application and to keep it synced with the entities that compose our system, we will use Liquibase. What is great about this tool is that it supports a wide variety of languages to manage the schema. For example, we can define and refactor the database by using XML, YAML, JSON, and SQL formats. What it is even greater is that Spring Boot provides a great support for Liquibase as we will see in this section.
 
-Enough said, let's focus on solving our problem. First of all, we need to configure the database connection on our Spring Boot application. Spring Boot will provide this configuration both for JPA/Hibernate and for Liquibase. The properties to communicate with the database will be set on the `./src/main/resources/application.properties`:
+{% include tweet_quote.html quote_text="Liquibase facilitates database migrations on Spring Boot applications." %}
+
+Enough said, let's focus on solving the problem. First of all, we need to configure the database connection on our Spring Boot application. Spring Boot will provide this configuration both for JPA/Hibernate and for Liquibase. The properties to communicate with the database will be set in the `./src/main/resources/application.properties` file:
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost/questionmarks
@@ -344,9 +349,9 @@ spring.datasource.password=mysecretpassword
 spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
-The first property, `spring.datasource.url`, defines the address of our database. As we are running a dockerized PostgreSQL container and are bridging the default PostgreSQL port between our machine and the Docker container, we can reach the database by passing `jdbc:postgresql://localhost/questionmarks`. The second property defines the user that we will use to communicate with the database, `postgres` in that case. The third property defines `mysecretpassword` as the password for `postgres` (the same that we passed when creating our dockerized PostgreSQL container). The last property defines the `org.postgresql.Driver` class as the driver responsible for managing the communication.
+The first property, `spring.datasource.url`, defines the address of our database. As we are running a dockerized PostgreSQL container and are bridging the default PostgreSQL port between our machine and the Docker container, we can reach the database by passing `jdbc:postgresql://localhost/questionmarks`. The second property defines the user that will communicate with the database, `postgres` in this case. The third property defines `mysecretpassword` as the password for `postgres` (the same that we passed when creating our dockerized PostgreSQL container). The last property defines the `org.postgresql.Driver` class as the driver responsible for handling the communication.
 
-With these properties set, we can work on the Liquibase configuration. This will be quite easy, we are simply going to tell Liquibase to apply all the changesets available in a specific folder. To do that let's create a master Liquibase file called `db.changelog-master.yaml` in the `src/main/resources/db/changelog/` folder. We will probably need to create `db` and its child `changelog` as they are not provided by Spring Boot. The master file will have the following content:
+With these properties set, we can work on the Liquibase configuration. This will be an easy task, we are simply going to tell Liquibase to apply all the changesets available in a specific folder. To do that let's create a master Liquibase file called `db.changelog-master.yaml` in the `src/main/resources/db/changelog/` folder. We will probably need to create the `db` folder and its child `changelog` as they are not provided by Spring Boot. The master file will have the following content:
 
 ```yaml
 databaseChangeLog:
@@ -354,7 +359,7 @@ databaseChangeLog:
         path: db/changelog/changes/
 ```
 
-Note that the `path` value provided is relative to `src/main/resources`, and therefore we will need to create a folder called `changes` inside `src/main/resources/db/changelog/`. Inside this new folder we are going to create a new file called `v0001.sql`. This SQL file will contain the commands to create the tables that will support our application:
+Note that the `path` value provided is relative to `src/main/resources`, and therefore we will need to create a folder called `changes` inside `src/main/resources/db/changelog/`. In this new folder we are going to create a new file called `v0001.sql`. This SQL file will contain the commands to create the tables that will support the entities of our application:
 
 ```sql
 create table "user" (
@@ -407,14 +412,14 @@ That was the last change that we needed to make in our application to make Liqui
 2017-08-18 19:16:22 INFO -- [main] app       : Started ServerApplication in 5.032 seconds (JVM running for 5.989)
 ```
 
-Therefore, as we can see everything worked as expected. Liquibase managed to apply the schema defined in the `v0001.sql`, and the application started successfully. This means that Spring Boot was able to run the application and that JPA/Hibernate found the tables needed to support our entities.
+Therefore, as we can see, everything worked as expected. Liquibase managed to apply the schema defined in the `v0001.sql`, and the application started successfully. This means that Spring Boot was able to run the application and that JPA/Hibernate found the tables needed to support our entities.
 
 ## Aside: Securing Spring Boot Apps with Auth0
 
-Securing Spring applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
+Securing Spring applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/user-management), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
 
 [To learn the best way to secure *Spring Security API endpoints* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like Spring), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
 
 ## Next Steps: Defining a RESTful API and Querying the Database
 
-So far we have defined five entities that will hold the data that our application manages and integrated PostgreSQL, with the help of Spring Data JPA, to persist this data. We also have successfully configured Liquibase to automatically run scripts that will keep our database synced up with the entities structure. What we now is to start defining the RESTful endpoints of our API that will support external clients (e.g. web application and iOS/Android mobile apps). This feature will be addressed in another article that will be released soon. Stay tuned!
+So far we have defined five entities that will hold the data that flows on our application. We also integrated PostgreSQL, with the help of Spring Data JPA, to persist this data and configured Liquibase to automatically run scripts that keep our database synced up with the entities structure. What we need now is to start defining the RESTful endpoints of our API that will support external clients (e.g. web application and iOS/Android mobile apps). This feature will be addressed in another article that will be released soon. Stay tuned!
