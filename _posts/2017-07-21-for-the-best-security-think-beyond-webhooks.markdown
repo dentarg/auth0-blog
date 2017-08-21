@@ -97,7 +97,7 @@ Unlike one-way webhooks, Auth0 Rules execute as a part of the authentication tra
 
 ![Webtask Extensibility](https://cdn.auth0.com/blog/webtask/extensibility.png)
 
-Webtasks have more than [600 Node.js modules](https://auth0.com/blog/extensibility-through-code-using-webtasks/) installed, so you should be able to implement whatever scenario you want, whenever you want. It's easy to add extra authentication requirements or create an interaction with an external system as your security needs change.
+Webtasks have full access to more than 400k modules hosted on [NPM](https://www.npmjs.com/), so you should be able to implement whatever scenario you want, whenever you want. It's easy to add extra authentication requirements or create an interaction with an external system as your security needs change.
 
 To make things even easier we also provide Rule templates for some of the more common extensions, which range from getting a Slack notification when a new user signs up to adding multi-factor authentication.
 
