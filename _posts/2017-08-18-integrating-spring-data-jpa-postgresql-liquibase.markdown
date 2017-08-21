@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Integrating Spring Data JPA, PostgreSQL and Liquibase"
-description: "Let's learn how to integrate Spring Data JPA, PostgreSQL and Liquibase to manage our persistence layer."
+title: "Integrating Spring Data JPA, PostgreSQL, and Liquibase"
+description: "Let's learn how to integrate Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer of a Spring Boot application."
 date: 2017-08-18 16:46
 category: Technical Guide, Java, Spring Boot
 author:
@@ -22,35 +22,35 @@ related:
 - 2017-03-30-java-platform-and-java-community-process-overview
 ---
 
-**TL;DR**: In this blog post, we are going to learn how to use Spring Data JPA along with Liquibase and PostgreSQL to manage the persistence layer of Spring Boot applications. We are also going to use Project Lombok to avoid writing some tedious boilerplate code that Java and JPA require.
+**TL;DR**: In this blog post, we are going to learn how to use Spring Data JPA, along with Liquibase and PostgreSQL, to manage the persistence layer of a Spring Boot application. We are also going to use Project Lombok to avoid writing some tedious boilerplate code that Java and JPA require.
 
-Throughout this post we will create the basis of an application called *QuestionMarks*. The idea is that this application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions will be organized in different exams. For example, there could be an exam called *JavaScript Interview* that would hold a set of JavaScript related questions to help users to prepare for interviews. Of course, in this article we won't build the whole application as it would take a lot of time and would make the article huge, but we will be able to see the technologies mentioned before in action and working together.
+Throughout this post we will create the basis of an application called *QuestionMarks*. The idea is that this application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions will be grouped in different exams. For example, there could be an exam called *JavaScript Interview* that would hold a set of JavaScript related questions to help users to prepare for interviews. Of course, in this article we won't build the whole application as it would take a lot of time and would make the article huge, but we will be able to see the technologies aforementioned in action.
 
-Before diving into the integration these technologies, let's take a look at the definition of them.
+Before diving into integrating these technologies, let's first take a look at their definition.
 
 ## What is Spring Data JPA?
 
-[Spring Data JPA](https://projects.spring.io/spring-data-jpa/) is the Spring module that adds support and extends [JPA](http://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html). JPA (which stands for *Java Persistence API*) is a [Java specification](https://auth0.com/blog/java-platform-and-java-community-process-overview/) for accessing, persisting, and managing data between Java objects/classes and a relational databases (e.g. PostgreSQL, MySQL, SQLServer, etc). The process of mapping object-oriented entities to entity-relationship models is also know as ORM (Object-Relation Mapping) and JPA is the contract defined by the Java community to manage such mappings.
+[Spring Data JPA](https://projects.spring.io/spring-data-jpa/) is the Spring module that adds support and extends [JPA](http://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html). JPA (which stands for *Java Persistence API*) is a [Java specification](https://auth0.com/blog/java-platform-and-java-community-process-overview/) for accessing, persisting, and managing data between Java objects/classes and relational databases (e.g. PostgreSQL, MySQL, SQLServer, etc). The process of mapping object-oriented entities to entity-relationship models is also know as ORM (Object-Relation Mapping) and JPA is the contract defined by the Java community to manage such mappings.
 
-As JPA is just an specification, we will need an implementation to do the heavy work for us. [Hibernate](http://hibernate.org/) is the most popular implementation of the JPA specification, and actually the specification itself was created based on Hibernate. Besides that, when we import Spring Data JPA on Spring, we also get Hibernate by default. Therefore, there is no reason to search for another JPA implementation.
+As JPA is just an specification, we will need an implementation to do the dirty work for us (creating the SQL queries). [Hibernate](http://hibernate.org/) is the most popular implementation of the JPA specification, and actually the specification itself was created based on Hibernate. Besides that, when we import Spring Data JPA on Spring, we also get Hibernate by default. Therefore, there is no reason to search for another JPA implementation.
 
 > For the sake of completeness, here is a list of existing Hibernate alternatives: [Oracle TopLink](http://www.oracle.com/technetwork/middleware/toplink/index-085257.html), [Apache OpenJPA](http://openjpa.apache.org/), [DataNucleus](http://www.datanucleus.org/), and [ObjectDB](http://www.objectdb.com/java/jpa).
 
 ## What is Liquibase?
 
-[Liquibase](http://www.liquibase.org/) is a tool that help developers to source control the database. In other words, with Liquibase we can keep our database schema and data synced with our Java entities. This is achieved by creating, in our project, files that contain [changesets](http://www.liquibase.org/documentation/changeset.html) to be run on the database. These changesets are instructions to change/refactor the database. We will see Liquibase and its changesets in a while.
+[Liquibase](http://www.liquibase.org/) is a tool that help developers to source control the database. In other words, with Liquibase we can keep our database schema and data synced with our Java entities. This is achieved by creating, in our Java project, files that contain [changesets](http://www.liquibase.org/documentation/changeset.html) to be run on the database. These changesets are instructions to change/refactor the database. We will see Liquibase and its changesets in action in a while.
 
 ## What is PostgreSQL?
 
-Probably [PostgreSQL](https://www.postgresql.org/) does not need presentations, but to keep things consistent here it is: PostgreSQL is a powerful, open source object-relational database system. It has more than 15 years of active development and a proven architecture that has earned it a strong reputation for reliability, data integrity, and correctness.
+Probably [PostgreSQL](https://www.postgresql.org/) does not need presentations, but for those who don't know here it is: PostgreSQL is a powerful, open source object-relational database system. It has more than 15 years of active development and a proven architecture that has earned it a strong reputation for reliability, data integrity, and correctness.
 
 As a database server, its primary functions are to store data securely and return that data in response to requests from other software applications. It can handle workloads ranging from small single-machine applications to large internet-facing applications with many concurrent users.
 
 ### Launching a Dockerized PostgreSQL Instance
 
-Since we are going to need a PostgreSQL server running locally to test the integration of the tools mentioned above, [Docker](https://www.docker.com/) might come in handy. Instead of installing PostgreSQL in our machine, let's use Docker to make this database disposable. Like this, if we need a newer version of PostgreSQL, or if we need a completely different database server, we won't need to struggle to update or uninstall PostgreSQL.
+Since we are going to need a PostgreSQL server running locally to test the integration of the tools in question, [Docker](https://www.docker.com/) might come in handy. Instead of installing PostgreSQL directly in our machine, we will use Docker to make this database disposable. Like this, if we need a newer version of PostgreSQL, or if we need a completely different database server, we won't need to struggle to update or uninstall PostgreSQL.
 
-Of course we will need Docker installed on our development machine, but the process of installing it is really simple: [for MacOS check this link](https://www.docker.com/docker-mac), [for Windows this link](https://www.docker.com/docker-windows), and [for Ubuntu this link](https://docs.docker.com/engine/installation/linux/ubuntu/).
+Of course we will need Docker installed on our development machine, but the process of installing it is really simple ([for MacOS check this link](https://www.docker.com/docker-mac), [for Windows this link](https://www.docker.com/docker-windows), and [for Ubuntu this link](https://docs.docker.com/engine/installation/linux/ubuntu/)) and opens a whole world of disposable, containerized services (e.g. [PostgreSQL](https://hub.docker.com/_/postgres/), [MySQL](https://hub.docker.com/_/mysql/), [NGINX](https://hub.docker.com/_/nginx/), [NodeJS](https://hub.docker.com/_/node/), etc).
 
 After having Docker installed on our machine, we can issue the following command to run a dockerized instance of PostgreSQL:
 
@@ -92,7 +92,7 @@ If we choose to bootstrap our application with [Spring Initilizr](http://start.s
 - Project Metadata Artifact: **questionmarks**
 - Selected Dependencies: let's leave this empty
 
-Note that although this blog post will show the configuration for Gradle, we could easily use Maven. Just keep in mind that if we choose **Maven Project** the dependency configuration will be different. Besides that the Spring Boot version does *not* need to be *1.5.6*. The examples here must probably work with older and newer versions.
+Note that although this blog post will show the configuration for Gradle, we could easily use Maven. Let's just keep in mind that if we choose **Maven Project** the dependency configuration will be different. Besides that, the Spring Boot version does *not* need to be *1.5.6*. The examples here must probably work with older and newer versions.
 
 After that we just need to import the new Spring Boot project in our preferred IDE (Integrated Development Environment).
 
