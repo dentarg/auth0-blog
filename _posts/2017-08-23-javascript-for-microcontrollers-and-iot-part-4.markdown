@@ -180,7 +180,7 @@ Take note of the IP address that was assigned to the ESP8266. Alternatively, rem
 One cool thing you can do after setting up WiFi is to tell the IDE to connect to the board using WiFi! That's right, you don't need to use USB to upload or test code once WiFi is setup. How cool is that?
 
 1. Click on the `Gear` icon on the top right corner of the screen. 
-2. Now go to `Communications` on the left
+2. Now go to `Communications` on the left.
 3. In the `Connect over TCP Address` input box put the IP address you got when setting up WiFi. Then close the window.
 4. Now click on the `Plug` icon on the top left corner of the screen. Select the `TCP/IP` option.
 
