@@ -35,7 +35,7 @@ The problem is, your security needs are constantly changing. If your provider ca
 
 What you really need is to be able to add your own code on the fly. Many services now have webhooks so you can do just that. It's a great idea, but webhooks have limited capability and force *you* to be responsible for hosting them. This can defeat the purpose of having third-party authentication in the first place.
 
-All of these struggles and pains lie behind our creation of [Webtasks](https://webtask.io/). Webtasks can run backend code, without a backend. We use them to execute [Auth0 Rules](https://auth0.com/docs/rules/current), which are customizations you can add to our service, right on our platform. Our Rules are serverless extensions, so you can add all the security features you want without the hassle.
+All of these struggles and pains lie behind our creation of [Auth0 Extend](https://auth0.com/extend/) and the underlying [Webtasks](https://webtask.io/) platform. Webtasks can run backend code, without a backend. We use them to execute [Auth0 Rules](https://auth0.com/docs/rules/current), which are customizations you can add to our service, right on our platform. Our Rules are serverless extensions, so you can add all the security features you want without the hassle.
 
 ## Are extensions really necessary?
 
