@@ -11,8 +11,8 @@ author:
   mail: "bobby.johnson@auth0.com"
   avatar: "https://cdn.auth0.com/website/blog/profiles/bobbyjohnson.png"
 design:
-  bg_color: "#4A4A4A"
-  image: https://cdn.auth0.com/blog/webhooks/logo.png
+  bg_color: "#3445DC"
+  image: https://cdn.auth0.com/blog/beyond-webhooks/logo.png
 tags:
   - extend
   - Auth0 Webtasks
