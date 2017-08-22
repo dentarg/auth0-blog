@@ -1,28 +1,30 @@
 ---
-layout: post
+layout: post_extend
 title: "For the Best Security, Think Beyond Webhooks"
 description: "Don't limit yourself to webhooks. With Auth0, you can fully customize your identity management."
-date: 2017-07-21 8:30
-category: Growth, Industries, Security
-author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+date: 2017-08-22 8:30
+is_extend: true
+category: Extend, Technical, Webtasks
+author: 
+  name: "Bobby Johnson"
+  url: "https://twitter.com/NotMyself"
+  mail: "bobby.johnson@auth0.com"
+  avatar: "https://cdn.auth0.com/website/blog/profiles/bobbyjohnson.png"
 design:
   bg_color: "#4A4A4A"
   image: https://cdn.auth0.com/blog/webhooks/logo.png
 tags:
-- retail
-- security
-- retail
-- customer
-- vision
-- auth0
+  - extend
+  - Auth0 Webtasks
+  - Webtasks
+  - Identity
+  - serverless
+  - webhooks
+  - extensibility
 related:
-- 2017-06-19-how-to-keep-up-with-hyperconnected-consumers
-- 2016-04-18-progressive-profiling
-- 2017-05-26-go-beyond-username-password-with-modern-auth
+  - 2017-05-16-introducing-auth0-extend-the-new-way-to-extend-your-saas
+  - 2017-05-19-serverless-webhooks-with-auth0-extend
+  - 2017-08-15-extend-salesforce-with-node
 ---
 
 It's easy to get locked into an authentication service.
