@@ -173,11 +173,115 @@ The next time that we run our application, Liquibase will read this file and run
 
 ### Creating DTOs
 
-ExamCreationDTO.java
+As we have changed the `Exam` entity to hold some sensitive properties that we don't want users to change directly, we are going to create two DTOs to better handle user requests. The first DTO will be responsible for the creation of new exams and, as such, will be called `ExamCreationDTO`. We will create this DTO class in a new package called `dto` inside the `com.questionmarks.model` package. This class will contain the following source code:
 
-ExamUpdateDTO.java
+```java
+package com.questionmarks.model.dto;
 
-ExamUT.java
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+public class ExamCreationDTO {
+    @NotNull
+    private String title;
+
+    @NotNull
+    private String description;
+
+    @JsonIgnore
+    private final LocalDateTime createdAt = LocalDateTime.now();
+
+    @JsonIgnore
+    private final LocalDateTime editedAt = LocalDateTime.now();
+}
+```
+
+Users willing to create new exams will need to send requests containing the structure defined in our new DTO. That is, they will need to send nothing more and nothing less then a `title` and a `description`. Both the `createdAt` and the `editedAt` properties are populated by the DTO itself. If any user tries to send values through these properties, our application will ignore them as they are marked with `@JsonIgnore`. Besides that, the `published` property that we've added to the `Exam` entity was completely hidden from the outside world, as the DTO didn't include it.
+
+The second DTO that we will create will be responsible for the update of existing exams. We will call this DTO as `ExamUpdateDTO` and will include it in the `com.questionmarks.model.dto` package with the following code:
+
+```java
+package com.questionmarks.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+public class ExamUpdateDTO {
+    @Id
+    @NotNull
+    private long id;
+
+    @NotNull
+    private String title;
+
+    @NotNull
+    private String description;
+
+    @JsonIgnore
+    private final LocalDateTime editedAt = LocalDateTime.now();
+}
+```
+
+The difference from the other DTO is that this one includes the `id` property of the exam that it wants to update, and it doesn't have the `createdAt` property since it wouldn't make sense to update this field.
+
+From the perspective of the DTOs this is pretty much what we need to be able to securely handle the creation and updates of exams. From now on we are going to focus on streamlining the process of mapping DTOs to entities to avoid having to manually manipulating these mappings.
+
+But wait! Before proceeding to the next tasks, let's create a small unit test to guarantee that ModelMapper is in fact capable of mapping our DTOs to the `Exam` entity. Let's create a new package called `model` inside the `com.questionmarks` package that resides in the test code (in the `./src/test/java/com/questionmarks/` folder) and then create a class called `ExamUT` inside it with the following code:
+
+```java
+package com.questionmarks.model;
+
+import com.questionmarks.model.dto.ExamCreationDTO;
+import com.questionmarks.model.dto.ExamUpdateDTO;
+import org.junit.Test;
+import org.modelmapper.ModelMapper;
+
+import static org.junit.Assert.assertEquals;
+
+public class ExamUT {
+    private static final ModelMapper modelMapper = new ModelMapper();
+
+    @Test
+    public void checkExamMapping() {
+        ExamCreationDTO creation = new ExamCreationDTO();
+        creation.setTitle("Testing title");
+        creation.setDescription("Testing description");
+
+        Exam exam = modelMapper.map(creation, Exam.class);
+        assertEquals(creation.getTitle(), exam.getTitle());
+        assertEquals(creation.getDescription(), exam.getDescription());
+        assertEquals(creation.getCreatedAt(), exam.getCreatedAt());
+        assertEquals(creation.getEditedAt(), exam.getEditedAt());
+
+        ExamUpdateDTO update = new ExamUpdateDTO();
+        update.setTitle("New title");
+        update.setDescription("New description");
+
+        modelMapper.map(update, exam);
+        assertEquals(update.getTitle(), exam.getTitle());
+        assertEquals(update.getDescription(), exam.getDescription());
+        assertEquals(creation.getCreatedAt(), exam.getCreatedAt());
+        assertEquals(update.getEditedAt(), exam.getEditedAt());
+    }
+}
+```
+
+The only `@Test` defined in this class creates an instance of `ExamCreationDTO` with a specific `title` and `description` and then uses an instance of `ModelMapper` to generate a new `Exam`. It then checks if this `Exam` contains the same `title`, `description`, `createdAt`, and `editedAt` values as the ones held by `ExamCreationDTO`.
+
+Lastly, it creates an instance of `ExamUpdateDTO` and applies it to the `Exam` instance created before to checks if the `title`, `description`, and `editedAt` properties were updated and if the `createdAt` property remained unchanged. Running the tests now, through the IDE or through the `gradle test` command, should gives us a positive result. Therefore, we can now build the rest of the engine to map DTOs to entities.
 
 ### Automating DTO to Entity Mapping
 
