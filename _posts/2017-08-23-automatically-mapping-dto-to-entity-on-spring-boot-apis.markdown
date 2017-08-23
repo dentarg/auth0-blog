@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Automatically Mapping DTO to Entity on Spring Boot APIs"
-description: "Let's learn how ModelMapper can help us automate the mapping process of DTOs to entities Spring Boot APIs."
+description: "Let's learn how ModelMapper can help us automate the mapping process of DTOs into entities Spring Boot APIs."
 date: 2017-08-23 08:00
 category: Technical Guide, Java, Spring Boot
 author:
@@ -119,15 +119,57 @@ git checkout post-2
 
 Since we haven't created any endpoints in the previous article, there wouldn't have a good reason to run the application now. Running it would do no harm, and Liquibase would create the tables structures to support the five entities already created. But waiting to run it after developing our endpoints will produce the same effect.
 
+After that we just need to import the Spring Boot project in our preferred IDE (Integrated Development Environment).
+
 ### Adding Dependencies
 
-build.gradle
+Having the QuestionMarks project cloned and imported on our IDE, we can start evolving it to handle automatic mapping of DTOs. The first step we need to take is to add ModelMapper as a dependency in our `./build.gradle` file. We will also add a dependency to [`hibernate-java8` library](https://mvnrepository.com/artifact/org.hibernate/hibernate-java8). We will need this artifact to be able to map Java8-specific classes to columns on our database.
+
+```gradle
+// ... other definitions
+
+dependencies {
+	// ... other dependencies
+  compile('org.modelmapper:modelmapper:1.1.0')
+  compile('org.hibernate:hibernate-java8:5.1.0.Final')
+}
+```
 
 ### Refactoring the Exam Entity
 
-Exam.java
+To witness the real advantage of using DTOs, and to have a more meaningful example of the mapping process in action, we are going to refactor the `Exam` entity a little bit. We are going to add two date properties on it to keep track of when the exam was created and when it was last edited, and we are going to add a flag that indicates if it's published (available to the open public) or not. Let's open the `./src/main/java/com/questionmarks/model/Exam.java` file and add the following lines of code:
 
-v0002.sql
+```java
+// ... other imports
+import java.time.LocalDateTime;
+
+// ... annotations
+public class Exam {
+    // ... other properties
+
+    @NotNull
+    private LocalDateTime createdAt;
+
+    @NotNull
+    private LocalDateTime editedAt;
+
+    @NotNull
+    private boolean published;
+}
+```
+
+Note that without the `hibernate-java8` library imported in the last section, JPA/Hibernate wouldn't be able to automatically map `LocalDateTime` to the database. Fortunately this library exists to help us, otherwise we would need to create our own converters.
+
+We also have to add the new properties (as columns) to the PostgreSQL database that supports our application. Since in the last article we set up Liquibase to handle schema migrations, we just have to create a new file with the commands to add the new columns. We will call this file as `v0002.sql` and will add it to the `./src/main/resources/db/changelog/changes/` folder with the following content:
+
+```sql
+alter table exam
+  add column created_at timestamp without time zone not null default now(),
+  add column edited_at timestamp without time zone not null default now(),
+  add column published boolean not null default false;
+```
+
+The next time that we run our application, Liquibase will read this file and run these commands to add three columns. The SQL commands will also populate these columns with some default values for any pre-existing records. Besides that, there is nothing else that we need to change to make JPA/Hibernate aware of the columns and capable of handling it.
 
 ### Creating DTOs
 
