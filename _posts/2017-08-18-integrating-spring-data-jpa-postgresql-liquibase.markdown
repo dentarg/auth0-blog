@@ -89,10 +89,10 @@ Next step is to bootstrap a Spring Boot application. We have two alternatives eq
 
 If we choose to bootstrap our application with [Spring Initilizr](http://start.spring.io/), we will need to fill the form available with the following values:
 
-- Generate a **Gradle Project** with **Java** and Spring Boot **1.5.6**
-- Project Metadata Group: **com**
-- Project Metadata Artifact: **questionmarks**
-- Selected Dependencies: let's leave this empty
+- Generate a **Gradle Project** with **Java** and Spring Boot **1.5.6**.
+- Project Metadata Group: **com**.
+- Project Metadata Artifact: **questionmarks**.
+- Selected Dependencies: let's leave this empty.
 
 Note that although during this blog post we will use Gradle, we could easily use Maven instead. Let's just keep in mind that if we choose **Maven Project** the dependency configuration will be different. Besides that, the Spring Boot version does *not* need to be *1.5.6*. The examples here must probably work with older and newer versions.
 
@@ -133,7 +133,7 @@ The changes made in this file added:
 - A compile only dependency to Project Lombok, which will make our code look cleaner.
 - A compile dependency to [Spring Boot Web Starter](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web), which facilitates the development of RESTful APIs and adds a transitive dependency to [Java Bean Validation](http://www.baeldung.com/javax-validation).
 - A compile dependency to Spring Data JPA, which gives us Hibernate.
-- A compile dependency to Liquibase, which will help us managing the database.
+- A compile dependency to Liquibase, which will help us manage the database.
 - A runtime dependency to [PostgreSQL JDBC Driver](https://jdbc.postgresql.org/), which will enable Hibernate to communicate with the database.
 
 ## Mapping Entities with JPA
@@ -336,7 +336,7 @@ As this was the last entity that we needed to create, we can now focus on creati
 
 ## Managing the Database Schema with Liquibase
 
-To manage the database structure of our application and to keep it synced with the entities that compose our system, we will use Liquibase. What is great about this tool is that it supports a wide variety of languages to manage the schema. For example, we can define and refactor the database by using XML, YAML, JSON, and SQL formats. What it is even greater is that Spring Boot provides a great support for Liquibase as we will see in this section.
+To manage the database structure of our application and to keep it synced with the entities that compose our system, we will use Liquibase. What is great about this tool is that it supports a wide variety of languages to manage the schema. For example, we can define and refactor the database by using XML, YAML, JSON, and SQL formats. Furthermore, Spring Boot provides a great support for Liquibase as we will see in this section.
 
 {% include tweet_quote.html quote_text="Liquibase facilitates database migrations on Spring Boot applications." %}
 
@@ -422,4 +422,4 @@ Securing Spring applications with Auth0 is very easy and brings a lot of great f
 
 ## Next Steps: Defining a RESTful API and Querying the Database
 
-So far we have defined five entities that will hold the data that flows on our application. We also integrated PostgreSQL, with the help of Spring Data JPA, to persist this data and configured Liquibase to automatically run scripts that keep our database synced up with the entities structure. What we need now is to start defining the RESTful endpoints of our API that will support external clients (e.g. web application and iOS/Android mobile apps). This feature will be addressed in another article that will be released soon. Stay tuned!
+So far, we have defined five entities that will hold the data that flows on our application. We also integrated PostgreSQL, with the help of Spring Data JPA, to persist this data and configured Liquibase to automatically run scripts that keep our database synced up with the entities structure. What we need now is to start defining the RESTful endpoints of our API that will support external clients (e.g. web application and iOS/Android mobile apps). This feature will be addressed in another article that will be released soon. Stay tuned!
