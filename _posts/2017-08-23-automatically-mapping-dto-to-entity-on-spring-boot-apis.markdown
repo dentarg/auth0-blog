@@ -78,9 +78,46 @@ That is, only by defining the structure that we want to expose and by calling `m
 
 ## What Will We Build?
 
+From now on, we are going to focus on using DTOs to expose entities of a Spring Boot RESTful API. We are going to use ModelMapper to map from the entities that compose this API to DTOs, and vice-versa. As we don't want to spend too much time setting up a new project from the ground, we are going to take advantage of the QuestionMarks project that we stated building in the previous article. There is **no need** to read the full article, we will clone the [GitHub repository that supports the project](https://github.com/auth0-blog/questionmarks-server), and we are going to checkout a specific [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) that will gives us a solid basis to focus on what we are interested on.
+
+The idea behind QuestionMarks is that this application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions will be grouped in different exams. For example, there could be an exam called *JavaScript Interview* that would hold a set of JavaScript related questions to help users to prepare for interviews. Of course, in this article we won't build the whole application as it would take a lot of time and would make the article huge, but we will be able to see the technologies aforementioned in action.
+
+During the previous article, we have integrated Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer. We haven't created any RESTful endpoint before, as we didn't have a good way to expose entities. That is the main goal of this article.
+
 ### Launching PostgreSQL
 
+Before cloning the existing project, we need to setup a PostgreSQL instance to support our database operations and persistence. As stated in the previous article, Docker can be a great solution to launch applications without installing them on our development machine.
+
+We do need Docker installed, but the process of installing it is quite simple ([for MacOS check this link](https://www.docker.com/docker-mac), [for Windows this link](https://www.docker.com/docker-windows), and [for Ubuntu this link](https://docs.docker.com/engine/installation/linux/ubuntu/)). Having Docker properly installed, we can run a dockerized instance of PostgreSQL as follows:
+
+```bash
+docker run --name questionmarks-psql \
+    -p 5432:5432 \
+    -e POSTGRES_DB=questionmarks \
+    -e POSTGRES_PASSWORD=mysecretpassword \
+    -d postgres
+```
+
+Note that if we do not want to launch PostgreSQL inside a Docker instance, or if we do have another PostgreSQL instance already available, we will need to guarantee that we have a database called `questionmarks` on it, and that the `postgres` user has `mysecretpassword` as password. Or, we can change these values in the `./src/main/resources/application.properties` file:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost/questionmarks
+spring.datasource.username=postgres
+spring.datasource.password=mysecretpassword
+spring.datasource.driver-class-name=org.postgresql.Driver
+```
+
 ### Cloning QuestionMarks
+
+Next step is to clone the [GitHub repository that supports QuestionMarks](https://github.com/auth0-blog/questionmarks-server), and checkout the specific tag for this article. We achieve that by issuing the following commands:
+
+```bash
+git clone https://github.com/auth0-blog/questionmarks-server.git
+cd questionmarks-server
+git checkout post-2
+```
+
+Since we haven't created any endpoints in the previous article, there wouldn't have a good reason to run the application now. Running it would do no harm, and Liquibase would create the tables structures to support the five entities already created. But waiting to run it after developing our endpoints will produce the same effect.
 
 ### Adding Dependencies
 
