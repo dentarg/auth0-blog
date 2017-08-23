@@ -2,17 +2,25 @@
 layout: post
 title: "The Highs & Lows of Crystal - an Introduction to Crystal Lang"
 description: "Crystal Language claims to be as fast as C and as easy to learn as Ruby.  Here, I put it to the test and give my 2 cents!"
-date: 2017-06-21 15:54
-category: Technical Guide
+date: 2017-08-23 15:54
+category: Technical Guide, Backend, Crystal
 author:
   name: "Robin Percy"
   url: "https://twitter.com/rbin"
   mail: "robin@percy.pw"
   avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
+design:
+  bg_color: "#000000"
+  image: https://cdn.auth0.com/blog/crystal-lang/logo.png
 tags:
 - Crystal Language
 - Low-Level Programming
 - Systems Programming
+- Ruby on Rails
+- C
+related:
+- 2017-01-03-rails-5-with-auth0
+- 2016-11-21-building-and-authenticating-nodejs-apps 
 ---
 
 Crystal is a statically-typed, compiled, systems programming language with the aims of being as fast as c/c++, while having a syntax as readable as Ruby.  This article is an introduction to the Crystal Language, through the eyes of a polyglot programmer.  Being a former programmer of both C and Ruby, I have been able to explore the ins-and-outs of Crystal with an objective mindset and give an unbiased opinion on its features; from it's low-level primitives to its familiar syntax, and much in-between.
