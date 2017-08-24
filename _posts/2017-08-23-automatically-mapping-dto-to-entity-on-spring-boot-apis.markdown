@@ -516,6 +516,28 @@ It's important highlight that this last method uses the `id` sent through the `D
 Running the application now, through our IDE or through the `gradle bootRun` command, will start our application and allow users to interact with the endpoints created. The following list of commands shows how to use [curl](https://curl.haxx.se/) to create, update, and retrieve exams, using the DTOs created:
 
 ```bash
+# retrieves all exams
+curl http://localhost:8080/exams
+
+# adds a new exam
+curl -X POST -H "Content-Type: application/json" -d '{
+    "title": "JavaScript",
+    "description": "JS developers."
+}' http://localhost:8080/exams
+
+# adds another exam while ignoring fields not included in the DTO
+curl -X POST -H "Content-Type: application/json" -d '{
+    "title": "Python Interview Questions",
+    "description": "An exam focused on helping Python developers.",
+    "published": true
+}' http://localhost:8080/exams
+
+# updates the first exam changing its title and description
+curl -X PUT -H "Content-Type: application/json" -d '{
+    "id": 1,
+    "title": "JavaScript Interview Questions",
+    "description": "An exam focused on helping JS developers."
+}' http://localhost:8080/exams
 ```
 
 ## Aside: Securing Spring Boot Apps with Auth0
