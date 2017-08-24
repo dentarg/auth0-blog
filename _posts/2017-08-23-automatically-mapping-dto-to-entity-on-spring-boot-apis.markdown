@@ -283,15 +283,15 @@ The only `@Test` defined in this class creates an instance of `ExamCreationDTO` 
 
 Lastly, it creates an instance of `ExamUpdateDTO` and applies it to the `Exam` instance created before to checks if the `title`, `description`, and `editedAt` properties were updated and if the `createdAt` property remained unchanged. Running the tests now, through the IDE or through the `gradle test` command, should gives us a positive result. Therefore, we can now build the rest of the engine to map DTOs to entities.
 
-### Automating DTO to Entity Mapping
+### Mapping DTOs to Entities Automatically
 
-Although the ModelMapper library contains an [extension specifically designed for Spring](http://modelmapper.org/user-manual/spring-integration/), we won't use it because it doesn't help us exactly how we want. Since we are going to build a RESTful API that handles DTOs and we want these DTOs to be converted to our entities as automatically as possible, we will create our own set of generic classes to do the magic for us.
+Although the ModelMapper library contains an [extension specifically designed for Spring](http://modelmapper.org/user-manual/spring-integration/), we won't use it because it doesn't help us exactly how we need. Since we are going to build a RESTful API that handles DTOs and we want these DTOs to be converted to our entities as automatically as possible, we will create our own set of generic classes to do the magic for us.
 
-The most attentive readers will have noted that the `id` property in the `ExamUpdateDTO` class was marked with `@Id`. We have used this annotation because we will develop our solution in a way that integrates Spring MVC, JPA/Hibernate, and ModelMapper to fetch instances of existing entities persisted in the database based on these `@Ids`. For the DTOs that do not include `@Id` properties, we will simply generate new entities based on the values sent, without querying the database.
+The most attentive readers will have noted that the `id` property in the `ExamUpdateDTO` class was marked with `@Id`. We added this annotation because our solution will integrate Spring MVC, JPA/Hibernate, and ModelMapper to fetch instances of existing entities persisted in the database with the value of these `@Ids`. For the DTOs that do not include `@Id` properties, we will simply generate new entities based on the values sent, without querying the database.
 
 We could restrict our solution to handle only instances of `Exam` and its DTOs, but as the QuestionMarks project grows, new DTOs and new entities will need to be converted among each other. Therefore, it makes sense to create a generic solution to handle scenarios for any entities and DTOs that arise.
 
-The first artifact that we will create will be an annotation that we will use to activate the automatic mapping of DTOs into entities. We will create a new package called `util` inside the `com.questionmarks` package, and will create a `DTO` interface on it with the following code:
+The first artifact that we will create will be an annotation that activates the automatic mapping of DTOs into entities. We will create a new package called `util` inside the `com.questionmarks` package, and will create a `DTO` interface on it with the following code:
 
 ```java
 package com.questionmarks.util;
@@ -308,7 +308,7 @@ public @interface DTO {
 }
 ```
 
-This interface actually creates an annotation, as it is defined as `@interface`, and it aims to be used on method parameters (`@Target(ElementType.PARAMETER)`) on runtime (`@Retention(RetentionPolicy.RUNTIME)`). The only property that this annotation exposes is `value`, and its goal is to define from what DTO the entity will be created/updated.
+This interface actually creates an annotation, as it's defined as `@interface`, and it aims to be used on method parameters (`@Target(ElementType.PARAMETER)`) on runtime (`@Retention(RetentionPolicy.RUNTIME)`). The only property that this annotation exposes is `value`, and its goal is to define from which DTO the entity will be created/updated.
 
 The next element that we will create is the class responsible for the hard lifting. This class will get the request made by a user, which should comply to the structure of some DTO, and will transform the DTO on an specific entity. This class will also be responsible for querying the database in the case the DTO sent contains an `@Id`. Let's call this class as `DTOModelMapper` and create it inside the `com.questionmarks.util` package with the following source code:
 
@@ -398,18 +398,18 @@ public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
 }
 ```
 
-So far this is the most complex class that we have created, but let's break it in small pieces to understand what is going on:
+So far, this is the most complex class that we have created, but let's break it in small pieces to understand what is going on:
 
-1. This class extends `RequestResponseBodyMethodProcessor`. We take advantage of this processor to avoid having to write the whole process of converting requests into classes. For those who are used to Spring MVC, the class extended is the one that process and populates [`@RequestBody` parameters](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html), which means that it takes, e.g., a JSON body and transforms on an instance of a class. In our case we tweak the base class to populate an instance of the DTO instead.
-2. This class contains a static instance of `ModelMapper`. This instance is used to map DTOs to entities.
+1. This class extends `RequestResponseBodyMethodProcessor`. We take advantage of this processor to avoid having to write the whole process of converting requests into classes. For those who are used to Spring MVC, the class extended is the one that process and populates [`@RequestBody` parameters](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html). This means that it takes, e.g., a JSON body and transforms on an instance of a class. In our case we tweak the base class to populate an instance of the DTO instead.
+2. This class contains a static instance of `ModelMapper`. This instance is used to map all DTOs into entities.
 3. This class contains an instance of `EntityManager`. We inject an entity manager in this class to be able to query the database for existing entities based on the `id` passed through DTOs.
-4. We overwrite the `supportsParameter` method. Without overwriting this method, our new class would be applied for `@RequestBody` parameters, just like the base class. Therefore we need to tweak it to make it apply for `@DTO` annotations.
-5. We overwrite `validateIfApplicable`. The base class runs [bean validation](http://beanvalidation.org/) only if the parameter is marked with `@Valid` or `@Validated`. We have changed this behavior to apply bean validation on all DTOs.
-6. We overwrite `resolveArgument`. This is the most important method in our implementation. We tweak it to embed the `ModelMapper` instance in the process and make it map DTOs to entities. But before mapping, we check if we are handling a new entity, or if we have to apply the changes proposed by a DTO in an existing entity (retrieve from the database).
-7. We overwrite the `readWithMessageConverters` method. The base class simply takes the parameter type and converts the request into an instance of it. We overwrite this method to make the conversion first to the type defined in the `DTO` annotation, and leave the mapping from the DTO to the entity to the `resolveArgument` method.
+4. We overwrite the `supportsParameter` method. Without overwriting this method, our new class would be applied for `@RequestBody` parameters, just like the base class. Therefore we need to tweak it to make it apply for `@DTO` annotations only.
+5. We overwrite `validateIfApplicable`. The base class runs [bean validation](http://beanvalidation.org/) only if the parameter is marked with `@Valid` or `@Validated`. We change this behavior to apply bean validation on all DTOs.
+6. We overwrite `resolveArgument`. This is the most important method in our implementation. We tweak it to embed the `ModelMapper` instance in the process and make it map DTOs into entities. But before mapping, we check if we are handling a new entity, or if we have to apply the changes proposed by the DTO in an existing entity.
+7. We overwrite the `readWithMessageConverters` method. The base class simply takes the parameter type and converts the request into an instance of it. We overwrite this method to make the conversion to the type defined in the `DTO` annotation, and leave the mapping from the DTO to the entity to the `resolveArgument` method.
 8. We define a `getEntityId` method. This method iterates over the fields of the DTO being populate to check if there is one marked with `@Id`. If it finds, it returns the value of the field so `resolveArgument` can query the database with it.
 
-Although large, the implementation of this class is not hard to understand. In summary, what it does is to populate an instance of a DTO, defined in the `@DTO` annotation, and then map the properties of this DTO into an entity. What makes it a little bit more magic is that instead of always populating a new instance of an entity, it first checks if there is a `@Id` property in the DTO to see if it needs to fetch a pre-existing entity from the database or not. See, not that hard.
+Although large, the implementation of this class is not hard to understand. In summary, what it does is to populate an instance of a DTO, defined in the `@DTO` annotation, and then maps the properties of this DTO into an entity. What makes it a little bit more magic is that instead of always populating a new instance of an entity, it first checks if there is an `@Id` property in the DTO to see if it needs to fetch a pre-existing entity from the database or not.
 
 To activate the `DTOModelMapper` class in our Spring Boot application, we will need to extend `WebMvcConfigurerAdapter` to add it as an argument resolver. Let's create a class called `WebMvcConfig` in the `com.questionmarks` package with the following content:
 
@@ -448,9 +448,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 }
 ```
 
-When an instance of the `WebMvcConfig` configuration class is created by Spring, it gets two components injected: `ApplicationContext` and `EntityManager`. The latter is used to create the `DTOModelMapper` and help it querying the database, as explained before. The `ApplicationContext` is used to create an instance of [`ObjectMapper`](https://fasterxml.github.io/jackson-databind/javadoc/2.5/com/fasterxml/jackson/databind/ObjectMapper.html). This mapper provides functionality for converting between Java objects and matching JSON constructs, which is needed by the `DTOModelMapper` and its superclass, `RequestResponseBodyMethodProcessor`.
+When an instance of the `WebMvcConfig` configuration class is created by Spring, it gets two components injected: `ApplicationContext` and `EntityManager`. The latter is used to create the `DTOModelMapper` and help it querying the database as explained before. The `ApplicationContext` is used to create an instance of [`ObjectMapper`](https://fasterxml.github.io/jackson-databind/javadoc/2.5/com/fasterxml/jackson/databind/ObjectMapper.html). This mapper provides functionality for converting between Java objects and matching JSON structures, which is needed by the `DTOModelMapper` and its superclass, `RequestResponseBodyMethodProcessor`.
 
-With the `WebMvcConfig` properly configured in our project, we can now take advantage of the `@DTO` annotation on RESTful APIs to automatically map DTOs to entities. To see this in action, we are going to create a controller to expose the endpoints that accept requests to create and update exams, and also an endpoint to list all the existing exams. But before creating this controller, we are going to create an class that will enable us to handle exam persistence. We are going to call this class as `ExamRepository`, and are going to create it in a new package called `com.questionmarks.persistence` with the following code:
+With the `WebMvcConfig` properly configured in our project, we can now take advantage of the `@DTO` annotation on RESTful APIs to automatically map DTOs into entities. To see this in action, we are going to create a controller to expose the endpoints that accept requests to create and update exams, and also an endpoint to list all the existing exams. But before creating this controller, we are going to create a class that will enable us to handle exam persistence. We are going to call this class as `ExamRepository`, and are going to create it in a new package called `com.questionmarks.persistence` with the following code:
 
 ```java
 package com.questionmarks.persistence;
@@ -462,7 +462,7 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
 }
 ```
 
-As the `JpaRepository` interface contains methods like `save(Exam exam)`, `findAll()`, and `delete(Exam exam)`, we won't need to implement anything else on it. Therefore, we can create the controller that will use this repository interface and expose the endpoints aforementioned. Let's create a new package called `com.questionmarks.controller` and add this a class called `ExamRestController` on it:
+As the `JpaRepository` interface contains methods like `save(Exam exam)`, `findAll()`, and `delete(Exam exam)`, we won't need to implement anything else on it. Therefore, we can create the controller that will use this repository interface and expose the endpoints aforementioned. Let's create a new package called `com.questionmarks.controller` and add a class called `ExamRestController` on it:
 
 ```java
 package com.questionmarks.controller;
@@ -509,7 +509,7 @@ public class ExamRestController {
 }
 ```
 
-The implementation of this class ended up being quite simple. We just created three methods, one for each endpoint, and injected the `ExamRepository` interface through the constructor. The first method defined, `getExams`, was defined to handle `GET` requests and return a list of exams. The second endpoint, `newExam`, was defined to handle `POST` requests that contains `ExamCreationDTO` and, with the help of `DTOModelMapper`, converts to new instances of `Exam`. The third and last method, called `editExam`, defined an endpoint to handle `PUT` requests and to convert `ExamUpdateDTO` objects into existing instances of `Exam`.
+The implementation of this class ended up being quite simple. We just created three methods, one for each endpoint, and injected the `ExamRepository` interface through the constructor. The first method defined, `getExams`, was implemented to handle `GET` requests and to return a list of exams. The second endpoint, `newExam`, was implemented to handle `POST` requests that contains `ExamCreationDTO` and, with the help of `DTOModelMapper`, to convert to new instances of `Exam`. The third and last method, called `editExam`, defined an endpoint to handle `PUT` requests and to convert `ExamUpdateDTO` objects into existing instances of `Exam`.
 
 It's important highlight that this last method uses the `id` sent through the `DTO` to find a persisted instance of `Exam`, and then replaces three properties on it before providing to the method. The properties replaced are `title`, `description`, and `editedAt`, exactly as defined in the `ExamUpdateDTO`.
 
