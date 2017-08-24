@@ -11,7 +11,7 @@ author:
   mail: prosper.otemuyiwa@auth0.com
 design:
   bg_color: "#361374"
-  image: https://cdn.auth0.com/blog/preact/logo.png
+  image: https://cdn.auth0.com/blog/loopback/logo.png
 tags:
 - loopback
 - backend
