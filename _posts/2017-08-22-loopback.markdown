@@ -26,7 +26,7 @@ related:
 
 ---
 
-**TL;DR:**  In this tutorial, I'll show you how to leverage Loopback to build out your REST APIs quickly. Check out the [repo](https://github.com/auth0-blog/preact-authentication-tutorial) to get the code.
+**TL;DR:**  In this tutorial, I'll show you how to leverage Loopback to build out your REST APIs quickly. Check out the [repo](https://github.com/auth0-blog/loopback-starwars-api) to get the code.
 
 ---
 
