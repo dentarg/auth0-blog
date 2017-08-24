@@ -2,7 +2,7 @@
 layout: post
 title: "Developing RESTful APIs with Loopback"
 description: Learn how to build and secure RESTful APIs with Loopback.
-date: 2017-06-08 8:30
+date: 2017-08-24 8:30
 category: Technical Guide, Backend, Loopback
 author:
   name: Prosper Otemuyiwa
@@ -10,7 +10,7 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#361374"
+  bg_color: "#07582A"
   image: https://cdn.auth0.com/blog/loopback/logo.png
 tags:
 - loopback
@@ -32,7 +32,7 @@ related:
 
 ## RESTful API Overview
 
-API (Application Programming Interface) endpoints are the connections between your application and the rest of the developer community. You can decide to open up your data source to the world by crafting API endpoints that developers can consume. Furthermore, developing application that will require clients for different platforms such as Desktop, Android, iOS and windows platform will most likely need a RESTful API for all the clients to access data seamlessly, unless of course you are engaging GraphQL, the alternate option to RESTful APIs.
+API (Application Programming Interface) endpoints are the connections between your application and the rest of the developer community. You can decide to open up your data source to the world by crafting API endpoints that developers can consume. Furthermore, developing an application that will require clients for different platforms such as Desktop, Android, iOS and windows platform will most likely need a RESTful API for all the clients to access data seamlessly, unless of course you are engaging GraphQL, the alternate option to RESTful APIs.
 
 If you have built a RESTful API from scratch before now, you'll understand that there are a lot of processes you have to follow, a lot of code to write, and a lot of testing to do to ensure your APIs work correctly and are designed to become very robust as painless as possible. Loopback was designed to fast-track those processes and take away the pain of developing RESTful APIs from scratch.
 
@@ -55,7 +55,7 @@ If you have built a RESTful API from scratch before now, you'll understand that 
 
 ## Application Overview
 
-In this tutorial, we'll build a RESTful API for a Star Wars application. A Star Wars API, **SWAPI** already exist. Rather than crafting a new API, we'll build a clone of the API. The objective of building the API clone is to learn how to craft APIs quickly with Loopback. Consider a case where you are asked to design an API for a new interesting HBO show, e.g Game of Thrones that has caught the attention of Google & Facebook.
+In this tutorial, we'll build a RESTful API for Star Wars. A Star Wars API, **SWAPI** already exists. Rather than crafting an entirely different API, we'll build a clone of the Star Wars API. The objective of building the API clone is to learn how to craft APIs quickly with Loopback. Consider a case where you are assigned the task of designing an API for a new interesting HBO show, e.g Game of Thrones, that has caught the attention of Google & Facebook.
 
 ## Explore SWAPI (Star Wars API) Design
 
@@ -71,33 +71,33 @@ We will explore the API endpoints for Swapi(Star Wars API). There are six endpoi
 
 1. **Planets** - This resource is about the planetary bodies in the Star Wars Universe.
 
-* GET - `/planets` returns a list of all the planets.
-* GET - `/planets/<id>` returns the details of a specific planet.
+    * GET - `/planets` returns a list of all the planets.
+    * GET - `/planets/<id>` returns the details of a specific planet.
 
 2. **People** - This resource deals with characters in the Star Wars Universe.
 
-* GET - `/people` returns a list of all the characters.
-* GET - `/planets/<id>` returns the details of a specific character.
+    * GET - `/people` returns a list of all the characters.
+    * GET - `/planets/<id>` returns the details of a specific character.
 
 3. **Starships** - This resource is about the transport crafts that have hyperdrive capability in the Star Wars Universe.
 
-* GET - `/starships` returns a list of all the starships.
-* GET - `/starships/<id>` returns the details of a specific starship.
+    * GET - `/starships` returns a list of all the starships.
+    * GET - `/starships/<id>` returns the details of a specific starship.
 
 4. **Vehicles** - This resource is about the transport crafts that do not have hyperdrive capability.
 
-* GET - `/vehicles` returns a list of all the vehicles.
-* GET - `/vehicles/<id>` returns the details of vehicle.
+    * GET - `/vehicles` returns a list of all the vehicles.
+    * GET - `/vehicles/<id>` returns the details of vehicle.
 
 5. **Species** - This resource is about the type of character in the Star Wars Universe.
 
-* GET - `/species` returns a list of all the species.
-* GET - `/species/<id>` returns the details of a specific specie.
+    * GET - `/species` returns a list of all the species.
+    * GET - `/species/<id>` returns the details of a specific specie.
 
 6. **Films** - This resource is about the episodes of the Star Wars film
 
-* GET - `/films` returns a list of all the episodes.
-* GET - `/films/<id>` returns the details of a specific film.
+    * GET - `/films` returns a list of all the episodes.
+    * GET - `/films/<id>` returns the details of a specific film.
 
 In the analysis above, you'll observe that all the calls for the endpoints are `GET` requests. We'll ensure that the other HTTP verbs, `POST`, `PUT`, and `DELETE` will be active for these endpoints when building the API.
 
@@ -235,14 +235,13 @@ It will prompt you for a name. Enter `mysqlDs`.
 
 Next, select `MySQL`as the connector for `mysqlDs` and hit Enter. Go ahead and supply the `host`, `port`, `user` and `password` values for the connection string. And enter `Yes` to install the **loopback-connector-mysql** tool.
 
-The connection details can be found at `server/datasources.json`. Feel free to edit anytime.
+The connection details can be found at `server/datasources.json`. Feel free to edit the file anytime.
 
 ## Connect API to MySQL
 
 Open up `server/model-config.json` and change the value of the `dataSource` property from `db` to `mysqlDs` for each of the models.
 
 _server/model-config.json_
-**By default**
 
 ```js
 ...
@@ -268,8 +267,9 @@ _server/model-config.json_
 }
 ```
 
-_server/model-config.json_
 **After changing to mysqlDs**
+
+_server/model-config.json_
 
 ```js
 ...
@@ -302,7 +302,7 @@ We'll go ahead and create tables for each of the models in MySQL. There are two 
 * Create tables manually in MySQL database
 * Programmatically create the tables.
 
-Let's go with the second option. It's more effective. And we need test data. We'll write an automigration script.
+Let's go with the second option. It's more effective. And we need test data. We'll write an automigration script to programmatically create the tables.
 
 Create a new file, `server/boot/create-data-tables.js` and add code to it:
 
@@ -418,7 +418,7 @@ module.exports = function(app) {
 };
 ```
 
-This bunch of code simply creates the tables and seeds them with the data provided. Whenever your app is initialzied, this script will run and ensure the tables exist and are seeded with the right data.
+The bunch of code above simply create the tables and seeds them with the data provided. Whenever your app is initialized, the script will run and ensure the tables exist and are seeded with the right data.
 
 Head over to your console and start your app again:
 
@@ -456,11 +456,11 @@ Yes, we see three records. Our data was persisted successfully. You can test out
 
 The majority of the APIs we use on a daily basis have a means of authorizing users to make changes to them. We'll go ahead and secure some of these API endpoints with JSON Web Tokens.
 
-*JSON Web Tokens*, commonly known as JWTs, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these JWTS. That is, applications that use JWTS no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
+*JSON Web Tokens*, commonly known as JWTs, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these JWTs. That is, applications that use JWTs no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
 
 Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the JWT, usually in the `Authorization` header using the [*Bearer schema*](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), along with the request.
 
-The API receives a request with a JWT, the first thing to do is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
+The API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
 
 - Check that the JWT is well formed
 - Check the signature
@@ -475,9 +475,9 @@ For starters, if you haven't done so yet, this is a good time to sign up for a [
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
 
-From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Star Wars API** and for the identifier I'll set it as **https://starwarsapi.com**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Star Wars API**, and for the identifier I'll set it as **https://starwarsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
 
 ![New API to be created](https://cdn.auth0.com/blog/loopback/newapitobecreated.png)
 _Create a New API_
@@ -488,7 +488,7 @@ _Creating the Star Wars API_
 ![Define the scopes](https://cdn.auth0.com/blog/loopback/starwarscope.png)
 _You can define scopes in this section_
 
-Head over to your terminal and install the following:
+Head over to your terminal and install the following node modules:
 
 ```bash
 npm install express-jwt jwks-rsa --save
@@ -562,9 +562,14 @@ boot(app, __dirname, function(err) {
 });
 ```
 
-In the code above, we required `express-jwt` and `jwks-rsa` modules. The `authCheck` variable does the check to validate the access tokens that are sent as headers. It validates the `audience`, `issuer` and algorithm used to sign the token.
+In the code above, we required `express-jwt` and `jwks-rsa` modules.
 
-**Note:** Replace the `YOUR-API-AUDIENCE-ATTRIBUTE` and `YOUR-AUTH0-DOMAIN` placeholders with the API audience and auth0 domain values from your Auth0 dashboard.
+* The `expres-jwt` module is an express middleware that validates a JSON Web Token and set the `req.user` with the attributes.
+* The `jwks-rsa` module is a library that helps retrieve RSA public keys from a JSON Web Key Set endpoint.
+
+The `authCheck` variable does the check to validate the access tokens that are sent as Authorization headers. It validates the `audience`, `issuer` and algorithm used to sign the token.
+
+**Note:** Replace the `YOUR-API-AUDIENCE-ATTRIBUTE` and `YOUR-AUTH0-DOMAIN` placeholders with the API audience and Auth0 domain values from your Auth0 dashboard.
 
 ```js
 app.use(authCheck);
@@ -591,6 +596,8 @@ Now use this `access token` in Postman by sending it as an Authorization header 
 _Accessing the endpoint securely_
 
 Aha! It validates the access token and returns the right data.
+
+Wondering how to integrate the secure API with a frontend? Check out our amazing [React](https://auth0.com/blog/reactjs-authentication-tutorial/) and [Vue.js authentication tutorials](https://auth0.com/blog/vuejs2-authentication-tutorial/).
 
 ## Conclusion
 
