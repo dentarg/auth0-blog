@@ -2,7 +2,7 @@
 layout: post
 title: "JavaScript for Microcontrollers and IoT: Espruino and the ESP8266"
 description: "Find out how Espruino's JavaScript engine works on top of the popular ESP8266 microcontroller."
-date: 2017-08-23 12:30
+date: 2017-08-24 12:30
 category: Technical Guide, IoT, JavaScript
 author:
   name: Sebastián Peyrott
