@@ -32,15 +32,15 @@ For example, lets say that we were communicating with a RESTful API that exposes
 
 Another advantage of using DTOs on RESTful APIs written in Java (and on Spring Boot), is that they can help hiding implementation details of domain objects (aka. entities). Exposing entities through endpoints can become a security issue if we do not carefully handle what properties can be changed through what operations.
 
-As an example, let's imagine a Java API that exposes user details and accepts user updates through two endpoints. The first endpoint would handle `GET` requests and return user data, and the second endpoint would accept `PUT` requests to update these details. If this application didn't take advantage of DTOs, all the properties of the user would be exposed in the first endpoint (e.g. password) and the second endpoint would have to be very selective on what properties would accept when updating a user (e.g. not everybody can update the roles of a user). To overcome this situation, DTOs can come in handy by exposing only what the first endpoint is intended to expose, and by helping the second endpoint to restrict what it accepts. This characteristic helps us keeping the integrity of the data in our applications.
+As an example, let's imagine a Java API that exposes user details and accepts user updates through two endpoints. The first endpoint would handle `GET` requests and return user data, and the second endpoint would accept `PUT` requests to update these details. If this application didn't take advantage of DTOs, all the properties of the user would be exposed in the first endpoint (e.g. password) and the second endpoint would have to be very selective on what properties would accept when updating a user (e.g. not everybody can update the roles of a user). To overcome this situation, DTOs can come in handy by exposing only what the first endpoint is intended to expose, and by helping the second endpoint to restrict what it accepts. This characteristic helps us to keep the integrity of the data in our applications.
 
 {% include tweet_quote.html quote_text="DTOs can help us keeping the integrity of data on Java applications." %}
 
-Throughout this article, we will take advantage of DTOs to help us handling situations like that. As we will see, this design pattern will introduce a few more classes to our application, but will improve its security.
+Throughout this article, we will take advantage of DTOs to help us handle situations like that. As we will see, this design pattern will introduce a few more classes to our application, but will improve its security.
 
 ## ModelMapper Introduction
 
-To avoid having to write cumbersome/boilerplate code to map DTOs into entities and vice-versa, we are going to use a library called [ModelMapper](http://modelmapper.org/). The goal of ModelMapper is to make object mapping easy by automatically determining how one object model maps to another. This library is quite powerful and accepts a whole bunch of configurations to streamline the mapping process, but it also favor convention over configuration by providing a default behavior that fits most cases.
+To avoid having to write cumbersome/boilerplate code to map DTOs into entities and vice-versa, we are going to use a library called [ModelMapper](http://modelmapper.org/). The goal of ModelMapper is to make object mapping easy by automatically determining how one object model maps to another. This library is quite powerful and accepts a whole bunch of configurations to streamline the mapping process, but it also favors convention over configuration by providing a default behavior that fits most cases.
 
 The [user manual of this library](http://modelmapper.org/user-manual/) is well written and can be a valuable resource if time comes where we need to tweak the mapping process. To give a little taste of what this library can do, let's say that we had a `User` like that:
 
@@ -80,11 +80,11 @@ That is, only by defining the structure that we want to expose and by calling `m
 
 ## What Will We Build?
 
-From now on, we are going to focus on using DTOs to expose entities of a Spring Boot RESTful API. We are going to use ModelMapper to map from the entities that compose this API to DTOs, and vice-versa. As we don't want to spend too much time setting up a new project from the ground, we are going to take advantage of the QuestionMarks project that we stated building in the previous article. There is **no need** to read the full article, we will clone the [GitHub repository that supports the project](https://github.com/auth0-blog/questionmarks-server), and we are going to checkout a specific [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) that will gives us a solid basis to focus on what we are interested on.
+From now on, we are going to focus on using DTOs to expose entities of a Spring Boot RESTful API. We are going to use ModelMapper to map from the entities that compose this API to DTOs, and vice-versa. As we don't want to spend too much time setting up a new project from the ground, we are going to take advantage of the QuestionMarks project that we stated building in the previous article. There is **no need** to read the full article, we will clone the [GitHub repository that supports the project](https://github.com/auth0-blog/questionmarks-server), and we are going to checkout a specific [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) that will give us a solid basis to focus on what we are interested on.
 
 The idea behind QuestionMarks is that this application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions will be grouped in different exams. For example, there could be an exam called *JavaScript Interview* that would hold a set of JavaScript related questions to help users to prepare for interviews. Of course, in this article we won't build the whole application as it would take a lot of time and would make the article huge, but we will be able to see the technologies aforementioned in action.
 
-During the previous article, we have integrated Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer. We haven't created any RESTful endpoint before, as we didn't have a good way to expose entities. That is the main goal of this article.
+Throughout the previous article, we have integrated Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer. We didn't created any RESTful endpoint before, as there was no good way of exposing entities. That is the main goal of this article.
 
 ### Launching PostgreSQL
 
@@ -119,7 +119,7 @@ cd questionmarks-server
 git checkout post-2
 ```
 
-Since we haven't created any endpoints in the previous article, there wouldn't have a good reason to run the application now. Running it would do no harm, and Liquibase would create the tables structures to support the five entities already created. But waiting to run it after developing our endpoints will produce the same effect.
+Since we haven't created any endpoints in the previous article, there wouldn't be a good reason to run the application now. Running it would do no harm, and Liquibase would create the tables structures to support the five entities already created. But waiting to run it after developing our endpoints will produce the same effect.
 
 After that we just need to import the Spring Boot project in our preferred IDE (Integrated Development Environment).
 
@@ -162,7 +162,7 @@ public class Exam {
 
 Note that without the `hibernate-java8` library imported in the last section, JPA/Hibernate wouldn't be able to automatically map `LocalDateTime` to the database. Fortunately this library exists to help us, otherwise we would need to create our own converters.
 
-We also have to add the new properties (as columns) to the PostgreSQL database that supports our application. Since in the last article we set up Liquibase to handle schema migrations, we just have to create a new file with the commands to add the new columns. We will call this file as `v0002.sql` and will add it to the `./src/main/resources/db/changelog/changes/` folder with the following content:
+We also have to add the new properties (as columns) to the PostgreSQL database that supports our application. Since in the last article we set up Liquibase to handle schema migrations, we just have to create a new file with the commands to add the new columns. We will call this file `v0002.sql` and will add it to the `./src/main/resources/db/changelog/changes/` folder with the following content:
 
 ```sql
 alter table exam
@@ -515,7 +515,7 @@ public class ExamRestController {
 
 The implementation of this class ended up being quite simple. We just created three methods, one for each endpoint, and injected the `ExamRepository` interface through the constructor. The first method defined, `getExams`, was implemented to handle `GET` requests and to return a list of exams. The second endpoint, `newExam`, was implemented to handle `POST` requests that contains `ExamCreationDTO` and, with the help of `DTOModelMapper`, to convert to new instances of `Exam`. The third and last method, called `editExam`, defined an endpoint to handle `PUT` requests and to convert `ExamUpdateDTO` objects into existing instances of `Exam`.
 
-It's important highlight that this last method uses the `id` sent through the `DTO` to find a persisted instance of `Exam`, and then replaces three properties on it before providing to the method. The properties replaced are `title`, `description`, and `editedAt`, exactly as defined in the `ExamUpdateDTO`.
+It's important to highlight that this last method uses the `id` sent through the `DTO` to find a persisted instance of `Exam`, and then replaces three properties on it before providing to the method. The properties replaced are `title`, `description`, and `editedAt`, exactly as defined in the `ExamUpdateDTO`.
 
 Running the application now, through our IDE or through the `gradle bootRun` command, will start our application and allow users to interact with the endpoints created. The following list of commands shows how to use [curl](https://curl.haxx.se/) to create, update, and retrieve exams, using the DTOs created:
 
@@ -552,6 +552,6 @@ Securing Spring applications with Auth0 is very easy and brings a lot of great f
 
 ## Next Steps: Exception Handling and I18N
 
-With the `@DTO` annotation and its companion `DTOModelMapper`, we have built a solid basis that allow us to easily hide implementation details about our entities. Together, they smooth the development process of RESTful endpoints by automatically mapping DTOs into entities and also by validating the data sent through these DTOs. Now, what we are missing is a proper way to handle exceptions thrown during these validations, and also unexpected exceptions that might occur during the flight.
+With the `@DTO` annotation and its companion `DTOModelMapper`, we have built a solid basis that allow us to easily hide implementation details about our entities. Together, they smoothen the development process of RESTful endpoints by automatically mapping DTOs into entities and also by validating the data sent through these DTOs. Now, what we are missing is a proper way to handle exceptions thrown during these validations, and also unexpected exceptions that might occur during the flight.
 
-We want to provide an experience as great as possible for whomever consume our API, and this includes giving well formatted error messages. More than that, we wan't to be able to communicate with users that speak other languages, besides English. Therefore, in the next article, we are going to tackle exception handling and I18N (Internationalization) on Spring Boot APIs. Stay tuned!
+We want to provide an experience as great as possible for whomever consume our API, and this includes giving well formatted error messages. More than that, we want to be able to communicate with users that speak other languages, besides English. Therefore, in the next article, we are going to tackle exception handling and I18N (Internationalization) on Spring Boot APIs. Stay tuned!
