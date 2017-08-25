@@ -27,7 +27,7 @@ related:
 
 With more and more advancements in cloud database software, AI, and other fields of emerging tech, healthcare is seeing huge advantages to going digital. As new innovations in healthcare gain speed, everything from medical chatbots to widespread iPad usage presents an exciting opportunity to better patient care.
 
-New technology is helping healthcare become more individualized and more personal. As the shift to full digitization continues, the healthcare sector has the opportunity to better connect doctors and patients and ensure safekeeping of medical records, and [identity management is the key that connects everything together](https://auth0.com/learn/identity-management-matters-healthcare/).
+New technology is helping healthcare become more individualized and more personal. As the shift to full digitization continues, the healthcare sector has the opportunity to better connect doctors and patients and ensure safekeeping of medical records, and [identity management is the chain that connects everything together](https://auth0.com/learn/identity-management-matters-healthcare/).
 
 ## Giving Patients the Tools to Feel Secure
 
