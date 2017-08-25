@@ -2,7 +2,7 @@
 layout: post
 title: "How Identity Can Empower Healthcare"
 description: "As healthcare goes digital, identity management can help patients feel safe and secure."
-date: 2017-05-31 17:49
+date: 2017-08-25 17:49
 category: Growth, Industries
 author:
   name: Martin Gontovnikas
@@ -16,15 +16,18 @@ tags:
 - healthcare
 - identity
 - management
+- hiipa
+- digital transformation
+- 
 related:
-- 2016-12-29-2017-budget-planning
-- 2016-12-02-modern-authentication-for-your-clients-made-easy
-- 2016-11-03-auth0-lock-is-here-for-b2b-and-b2c
+- the-role-of-identity-in-application-modernization
+- 2017-05-26-go-beyond-username-password-with-modern-auth
+- 2017-05-29-the-firewall-of-the-future-is-identity
 ---
 
 With more and more advancements in cloud database software, AI, and other fields of emerging tech, healthcare is seeing huge advantages to going digital. As new innovations in healthcare gain speed, everything from medical chatbots to widespread iPad usage presents an exciting opportunity to better patient care.
 
-New technology is helping healthcare become more individualized and more personal. As the shift to full digitization continues, the healthcare sector has the opportunity to better connect doctors and patients and ensure safekeeping of medical records.
+New technology is helping healthcare become more individualized and more personal. As the shift to full digitization continues, the healthcare sector has the opportunity to better connect doctors and patients and ensure safekeeping of medical records, and [identity management is the key that connects everything together](https://auth0.com/learn/identity-management-matters-healthcare/).
 
 ## Giving Patients the Tools to Feel Secure
 
@@ -74,4 +77,4 @@ When you have all your patients' records on an EMR system, they become quickly a
 
 The technological future of healthcare is exciting. Advancements across the industry promise better doctor-patient communication, smoother visits to hospitals and doctors' offices, and increased efficiency for administrators.
 
-Moving records from a file cabinet to a cloud-based storage system also provides the healthcare industry with new opportunities to improve relationships with patients. Beyond just arming doctors with iPads, the shift to digital allows providers to build trust with their patients by letting them know about data encryption and fraud score practices. The digitization process is already underway, and identity management can help providers with this valuable shift.
+Moving records from a file cabinet to a cloud-based storage system also provides the healthcare industry with new opportunities to improve relationships with patients. Beyond just arming doctors with iPads, the shift to digital allows providers to build trust with their patients by letting them know about data encryption and fraud score practices. The digitization process is already underway, and [identity management can help providers with this valuable shift](https://auth0.com/blog/the-role-of-identity-in-application-modernization/).
