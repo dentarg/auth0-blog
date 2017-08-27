@@ -45,6 +45,8 @@ If you have built a RESTful API from scratch before now, you'll understand that 
 * Incorporate model relationships and access controls for complex APIs.
 * Extend your APIs.
 
+{% include tweet_quote.html quote_text="Loopback is a highly extensible open-source Node.js framework that can be used to build dynamic end-to-end REST APIs" %}
+
 **Loopback** runs on-premises or in the cloud. It also provides several [add-on components](https://loopback.io/doc/en/lb2/LoopBack-components.html) for file management, 3rd-party login, OAuth2, Storage providers e.t.c. Simply put, Loopback allows you to create REST APIs in minutes. It does that by:
 
 * Providing a CLI tool for use.
@@ -603,6 +605,8 @@ Wondering how to integrate the secure API with a frontend? Check out our amazing
 
 ## Conclusion
 
-**Loopback** is a great Node.js framework to design and build your APIs quickly as shown in this tutorial. It is a project backed up by IBM and the Strongloop team. They are committed to maintaining and improving on this amazing open source project.
+**Loopback** is a great Node.js framework that can be used to design and build your APIs quickly as shown in this tutorial. It is a project backed up by IBM and the Strongloop team. They are committed to maintaining and improving on this amazing open source project.
+
+{% include tweet_quote.html quote_text="Loopback is a great Node.js framework that can be used to design and build your APIs quickly" %}
 
 In addition, Auth0 can help secure your **API** easily. Auth0 provides more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
