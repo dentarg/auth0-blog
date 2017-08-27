@@ -6,7 +6,7 @@ date: 2017-08-24 8:30
 category: Technical Guide, Backend, Loopback
 author:
   name: Prosper Otemuyiwa
-  url: https://twitter.com/unicodeveloper?lang=en
+  url: https://twitter.com/unicodeveloper
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
@@ -32,34 +32,34 @@ related:
 
 ## RESTful API Overview
 
-API (Application Programming Interface) endpoints are the connections between your application and the rest of the developer community. You can decide to open up your data source to the world by crafting API endpoints that developers can consume. Furthermore, developing an application that will require clients for different platforms such as Desktop, Android, iOS and windows platform will most likely need a RESTful API for all the clients to access data seamlessly, unless of course you are engaging GraphQL, the alternate option to RESTful APIs.
+API (Application Programming Interface) endpoints are the connections between your application and the rest of the developer community. You can decide to open up your data source to the world by crafting API endpoints that developers can consume. Furthermore, developing an application that will require clients for different platforms such as Desktop, Android, iOS and Windows platform will most likely need a RESTful API for all the clients to access data seamlessly. Unless of course you are engaging [GraphQL](http://graphql.org), the alternate option to RESTful APIs.
 
-If you have built a RESTful API from scratch before now, you'll understand that there are a lot of processes you have to follow, a lot of code to write, and a lot of testing to do to ensure your APIs work correctly and are designed to become very robust as painless as possible. Loopback was designed to fast-track those processes and take away the pain of developing RESTful APIs from scratch.
+If you have built a RESTful API from scratch before now, you'll understand that there are a lot of processes you have to follow, a lot of code to write, and a lot of testing to do to ensure your APIs work correctly. Loopback was designed to fast-track those processes and take away the pain of developing RESTful APIs from scratch.
 
 ## What is Loopback
 
-**Loopback** is a highly extensible open-source Node.js framework that can be used to build dynamic end-to-end REST APIs. With little or no code, loopback hands you the power to:
+**Loopback** is a highly extensible open-source Node.js framework that can be used to build dynamic end-to-end REST APIs. With little or no code, Loopback hands you the power to:
 
 * Quickly create APIs.
-* Connect your APIs to data sources such as relational databases, MongoDB, REST APIs etc.
+* Connect your APIs to data sources such as relational databases, MongoDB, REST APIs, etc.
 * Incorporate model relationships and access controls for complex APIs.
 * Extend your APIs.
 
-**Loopback** runs on-premises or in the cloud. It also provides several add-on components for file management, 3rd-party login, OAuth2, Storage providers e.t.c. Simply put, loopback allows you to create REST APIs in minutes. It does that by:
+**Loopback** runs on-premises or in the cloud. It also provides several [add-on components](https://loopback.io/doc/en/lb2/LoopBack-components.html) for file management, 3rd-party login, OAuth2, Storage providers e.t.c. Simply put, Loopback allows you to create REST APIs in minutes. It does that by:
 
 * Providing a CLI tool for use.
 * Providing a built-in API explorer.
 * Allowing a developer create models based on a particular schema.
-* Allowing a developer also create dynamic models in the absence of a schema.
-* Providing SDKs for iOS, Android and AngularJS to easily create client apps.
+* Allowing a developer to create dynamic models in the absence of a schema.
+* Providing SDKs for iOS, Android, and AngularJS to easily create client apps.
 
 ## Application Overview
 
-In this tutorial, we'll build a RESTful API for Star Wars. A Star Wars API, **SWAPI** already exists. Rather than crafting an entirely different API, we'll build a clone of the Star Wars API. The objective of building the API clone is to learn how to craft APIs quickly with Loopback. Consider a case where you are assigned the task of designing an API for a new interesting HBO show, e.g Game of Thrones, that has caught the attention of Google & Facebook.
+In this tutorial, we'll build a RESTful API for Star Wars. A Star Wars API, **[SWAPI](https://swapi.co/)** already exists. Rather than crafting an entirely different API, we'll build a clone of the Star Wars API. The objective of building the API clone is to learn how to craft APIs quickly with Loopback. Consider a case where you are assigned the task of designing an API for a new interesting HBO show, e.g Game of Thrones, that has caught the attention of Google & Facebook.
 
 ## Explore SWAPI (Star Wars API) Design
 
-We will explore the API endpoints for Swapi(Star Wars API). There are six endpoints for the Star Wars API:
+We will explore the API endpoints for SWAPI(Star Wars API). There are six endpoints for the Star Wars API:
 
 * Planets - `/planets`
 * People  - `/people`
@@ -89,12 +89,12 @@ We will explore the API endpoints for Swapi(Star Wars API). There are six endpoi
     * GET - `/vehicles` returns a list of all the vehicles.
     * GET - `/vehicles/<id>` returns the details of vehicle.
 
-5. **Species** - This resource is about the type of character in the Star Wars Universe.
+5. **Species** - This resource is about the type of characters in the Star Wars Universe.
 
     * GET - `/species` returns a list of all the species.
     * GET - `/species/<id>` returns the details of a specific specie.
 
-6. **Films** - This resource is about the episodes of the Star Wars film
+6. **Films** - This resource is about the episodes of the Star Wars film.
 
     * GET - `/films` returns a list of all the episodes.
     * GET - `/films/<id>` returns the details of a specific film.
@@ -103,10 +103,10 @@ In the analysis above, you'll observe that all the calls for the endpoints are `
 
 ## Getting Started: Building Star Wars API
 
-Let's get started. Go ahead and install loopback:
+Let's get started. Go ahead and install Loopback:
 
 ```bash
-npm install -g loopback
+npm install -g loopback-cli
 ```
 
 Once you are done installing, go ahead and run the loopback command:
@@ -115,7 +115,7 @@ Once you are done installing, go ahead and run the loopback command:
 lb
 ```
 
-The loopback CLI is an interactive wizard. A series of questions will be asked such as the name of the application, directory to store the project, the version of loopback you prefer and the kind of application you want loopback to provision. Answer the questions:
+The Loopback CLI is an interactive wizard. A series of questions will be asked such as the name of the application, directory to store the project, the version of loopback you prefer and the kind of application you want loopback to provision. Answer the questions:
 
 ![Loopback CLI: Getting Started](https://cdn.auth0.com/blog/loopback/gettingstarted.png)
 
@@ -123,7 +123,7 @@ Next, move into the `starwars` directory from the terminal.
 
 ## Create Models
 
-We'll create all the models needed for this API. As mentioned earlier, we have 6 resources, `People`, `Films`, `Starships`, `Species` and `Planets`. In our API, we'll deal with just 5.
+We'll create all the models needed for this API. As mentioned earlier, we have 6 resources, `People`, `Films`, `Starships`, `Species`, `Vehicles` and `Planets`. In our API, we'll deal with just 5.
 
 ```bash
 lb model
@@ -131,7 +131,7 @@ lb model
 
 It will prompt you for a model name: Enter `People`. Next, select `db(memory)` as the data source. Go ahead and select `PersistedModel` as the model's base class. Hit `Enter` to expose People via the REST API.
 
-Next, select `common` model. Selecting this ensures that the models are stored in the `common` directory. You can also decide to store them in the `server` directory only.
+Next, select `common` model. Selecting this ensures that the models are stored in the `common` directory. You can also decide to store them in the `server` directory only. The server directory is used to store server-side models while the common directory stores models that can potentially used by both server and client Loopback APIs.
 
 Now, you are going to define properties for the `People` model. The properties are:
 
@@ -142,7 +142,7 @@ Now, you are going to define properties for the `People` model. The properties a
 * Property name: eye_color, Property type: string, Required? Yes
 * Property name: name, Property type: string, Required? Yes
 
-Repeat the same process for the `Films`, `Vehicles`, `Starships`, `Species` and `Planets` models with these properties:
+Repeat the same process for the `Films`, `Starships`, `Species` and `Planets` models with these properties:
 
 **Note:** You'll have to run `lb model` on your terminal everytime you need to create a new model.
 
@@ -180,7 +180,7 @@ Repeat the same process for the `Films`, `Vehicles`, `Starships`, `Species` and 
 
 Once you are done provisioning all the models, head over to the `common/models` directory. In this directory, you'll see all the models in `.js` and `.json` files. For example, `people.js` and `people.json` file.
 
-Next, test the API. Run the command below in your terminal:
+Next, test the API. Run the command below in the root path of the project:
 
 ```bash
 node .
@@ -196,7 +196,7 @@ Here, you can see the structure of the Species resource. Clicking the `Try it ou
 
 **Note:** The API explorer allows you test the REST API operations during development.
 
-Let's make a POST request to the `/api/film` endpoint using the explorer.
+Let's make a POST request to the `/api/film` endpoint using the explorer. Head over to `http://localhost:3000/explorer/#!/Films/Films_create`.
 
 ![Step by step](https://cdn.auth0.com/blog/loopback/stepbystep.png)
 
@@ -205,6 +205,8 @@ In the diagram above, I highlighted three steps:
 1. Click on the text-area box that contains the parameter type. Once clicked, it immediately appears in box 2.
 2. Edit the JSON in the box.
 3. Click the `Try it out` button to execute the POST operation
+
+**Note:** If you are making a POST request to create a new record, remove the `id` attribute and value from the JSON in the box. `id` is automatically assigned.
 
 ![Result of POST operation](https://cdn.auth0.com/blog/loopback/tryitout.png)
 _Result of POST operation_
@@ -217,7 +219,7 @@ Try making a POST request to the films endpoint with Postman.
 
 ![POST request to the Film API endpoint](https://cdn.auth0.com/blog/loopback/postreqfilm.png)
 
-Voila! Be careful, our API is not connected to any data source yet. Therefore, only one record can exist at a time. Creation of a new record will override the existing record.
+Voila! Be careful, our API is not connected to any data source yet.
 
 Next, let's connect our API to a data source.
 
@@ -418,7 +420,7 @@ module.exports = function(app) {
 };
 ```
 
-The bunch of code above simply create the tables and seeds them with the data provided. Whenever your app is initialized, the script will run and ensure the tables exist and are seeded with the right data.
+The bunch of code above simply creates the tables and seeds them with the data provided. Whenever your app is initialized, the script will run and ensure the tables exist and are seeded with the right data.
 
 Head over to your console and start your app again:
 
@@ -460,7 +462,7 @@ The majority of the APIs we use on a daily basis have a means of authorizing use
 
 Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the JWT, usually in the `Authorization` header using the [*Bearer schema*](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), along with the request.
 
-The API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
+When the API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
 
 - Check that the JWT is well formed
 - Check the signature
@@ -475,9 +477,9 @@ For starters, if you haven't done so yet, this is a good time to sign up for a [
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new API client.
 
-From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Star Wars API**, and for the identifier I'll set it as **https://starwarsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
+Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Star Wars API**, and for the identifier I'll set it as **https://starwarsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
 
 ![New API to be created](https://cdn.auth0.com/blog/loopback/newapitobecreated.png)
 _Create a New API_
