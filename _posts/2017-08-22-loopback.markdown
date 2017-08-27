@@ -141,8 +141,6 @@ Now, you are going to define properties for the `People` model. The properties a
 * Property name: height, Property type: number, Required? Yes
 * Property name: mass, Property type: number, Required? Yes
 * Property name: gender, Property type: string, Required? Yes
-* Property name: eye_color, Property type: string, Required? Yes
-* Property name: name, Property type: string, Required? Yes
 
 Repeat the same process for the `Films`, `Starships`, `Species` and `Planets` models with these properties:
 
