@@ -947,7 +947,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
     // Subscribe to form value changes
     this.formChangeSub = this.eventForm
       .valueChanges
-      .subscribe(data => this._onValueChanged(data));
+      .subscribe(data => this._onValueChanged());
 
     // If edit: mark fields dirty to trigger immediate
     // validation in case editing an event that is no
@@ -967,7 +967,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
     this._onValueChanged();
   }
 
-  private _onValueChanged(data?: any) {
+  private _onValueChanged() {
     if (!this.eventForm) { return; }
     const _setErrMsgs = (control: AbstractControl, errorsObj: any, field: string) => {
       if (control && control.dirty && control.invalid) {
@@ -1029,14 +1029,14 @@ export class EventFormComponent implements OnInit, OnDestroy {
       this.submitEventSub = this.api
         .postEvent$(this.submitEventObj)
         .subscribe(
-          this._handleSubmitSuccess.bind(this),
-          this._handleSubmitError.bind(this)
+          data => this._handleSubmitSuccess(data),
+          err => this._handleSubmitError(err)
         );
     } else {
       this.submitEventSub = this.api
         .editEvent$(this.event._id, this.submitEventObj)
         .subscribe(
-          res => this._handleSubmitSuccess(res),
+          data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)
         );
     }
@@ -1137,7 +1137,7 @@ Next we'll create the `_buildForm()` method:
     // Subscribe to form value changes
     this.formChangeSub = this.eventForm
       .valueChanges
-      .subscribe(data => this._onValueChanged(data));
+      .subscribe(data => this._onValueChanged());
 
     // If edit: mark fields dirty to trigger immediate
     // validation in case editing an event that is no
@@ -1175,7 +1175,7 @@ There is a possibility that we can prefill the event form with data that is no l
 Finally, we'll call the `_onValueChanged()` method so that it runs on initialization. This method looks like this:
 
 ```typescript
-  private _onValueChanged(data?: any) {
+  private _onValueChanged() {
     if (!this.eventForm) { return; }
     const _setErrMsgs = (control: AbstractControl, errorsObj: any, field: string) => {
       if (control && control.dirty && control.invalid) {
