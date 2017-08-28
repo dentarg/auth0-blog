@@ -440,15 +440,14 @@ The first step is to log into your Auth0 dashboard and [create a new Rule](https
 
 This opens up a JavaScript template. We only want to assign an `admin` role to our _own_ account at this time. It'd be a good idea to change the name of this rule so we can see at a glance what it does. I changed the name of the rule to `Set admin role for me`. We can easily modify `line 6` of the template where it checks the user's email for `indexOf()` a specific email domain.
 
-I'll change this to my full Google email address because that is the OAuth account that I want to assign the `admin` role to. I'm also using social connections with Facebook and Twitter, and it's important to keep in mind that some connections don't return an `email` field. Therefore, I need to modify the rule so that it checks that `user.email` exists before using `indexOf()`. I'll modify the `addRolesToUser()` function to use the following:
+I'll change this to my full Google email address because that is the OAuth account that I want to assign the `admin` role to. I'm also using social connections with Facebook and Twitter, and it's important to keep in mind that some connections don't return an `email` field. Therefore, I need to modify the rule so that it checks that `user.email` exists before using a comparison. I'll modify the `addRolesToUser()` function to the following:
 
 ```js
-if (user.email && user.email.indexOf('[MY_FULL_GOOGLE_ACCOUNT_EMAIL]') > -1) {
+if (user.email && user.email === '[MY_FULL_GOOGLE_ACCOUNT_EMAIL]') {
+  ...
 ```
 
-Replace `[MY_FULL_GOOGLE_ACCOUNT_EMAIL]` with your own credentials. The rule template should then look like this:
-
-![Auth0 rule to set user admin role](https://cdn.auth0.com/blog/mean-series/rule-admin-role.png)
+Replace `[MY_FULL_GOOGLE_ACCOUNT_EMAIL]` with your own credentials. We're replacing `indexOf()` with a strict equality expression `===` because we want to match a full email address rather than just a domain as in the example rule template.
 
 > **Note:** If you want to use a non-Google account, make sure you identify the account by an appropriate property. Not all properties are returned by all connection types. You can also be more explicit regarding the details of the account if you want _all_ accounts with that email to be set as administrators, or if you want only a Google account versus a username/password account to match the check. You can check your [Auth0 Users](https://manage.auth0.com/#/users) or test your [Auth0 Social Connections](https://manage.auth0.com/#/connections/social) to see what kind of data is returned and stored from logins from different identity providers.
 
@@ -479,8 +478,6 @@ function (user, context, callback) {
 The `namespace` identifier can be any non-Auth0 HTTP or HTTPS URL and does not have to point to an actual resource. Auth0 enforces this [recommendation from OIDC regarding additional claims](https://openid.net/specs/openid-connect-core-1_0.html#AdditionalClaims) and will silently exclude any claims that do not have a namespace. You can read more about [implementing custom claims with Auth0 here](https://auth0.com/docs/scopes/preview#example-add-custom-claims).
 
 The key for our custom claim will be `http://myapp.com/roles`. This is how we'll retrieve the `roles` array from the ID and access tokens in our Angular app and Node API. Our rule assigns the Auth0 user's `app_metadata.roles` to this property.
-
-![create add user role to ID and access tokens](https://cdn.auth0.com/blog/mean-series/rule-add-metadata.png)
 
 When finished, click the "Save" button to save this rule.
 
