@@ -188,29 +188,155 @@ The `RestException` class contains some characteristics that are worth mentionin
 
 The last things that catches the eyes are the `@AllArgsConstructor` and the `@Getter` annotations. These annotations are provided by [Lombok](https://projectlombok.org/) and they automatically create boilerplate code for us. The first annotation, [`@AllArgsConstructor`](https://projectlombok.org/features/constructor), creates a constructor in the class with two parameters, one for each property defined in the class. The second annotation, [`@Getter`](https://projectlombok.org/features/GetterSetter), defines `get` methods for the `message` and `args` properties.
 
-## Creating the I18N Messages
-
-messages.properties
-
-messages_pt_BR.properties
-
 ## Globally Handling Exceptions on Spring Boot
 
-RestMessage.java
+Every message that our Spring Boot API is going to send to the user will be serialized as a JSON object. Therefore, we need to create a class to represent a structured message. Let's call this class `RestMessage` and add to the `com.questionmarks.util` package with the following code:
 
-As the idea is to serialize instances of this class as JSON objects back to the user, we are going to need to tweak the serialization process a little. By default, Jackson serializes all properties in an instance, having them values or not. To avoid adding a bunch of `null` in these JSON objects, let's edit the `application.properties` file by adding the following line:
+```java
+package com.questionmarks.util;
+
+import lombok.Getter;
+
+import java.util.List;
+
+@Getter
+public class RestMessage {
+    private String message;
+    private List<String> messages;
+
+    public RestMessage(List<String> messages) {
+        this.messages = messages;
+    }
+
+    public RestMessage(String message) {
+        this.message = message;
+    }
+}
+```
+
+In contrast to `RestException`, we haven't used any Lombok annotation to create the constructors of this class. As of the time of writing, no feature provided by Lombok creates separate constructors for each property. Therefore, we needed to add the code by ourselves, but at least we could take advantage of the `@Getter` annotation again.
+
+As the idea is to serialize instances of this class as JSON objects back to the user, we are going to tweak the serialization process a little. By default, [Jackson](https://github.com/FasterXML/jackson) (the JSON serializer used by Spring Boot) serializes all properties in an instance, having them values or not. To avoid adding a bunch of `null` in these JSON objects, let's edit the `application.properties` file by adding the following line:
 
 ```properties
 spring.jackson.default-property-inclusion=non_null
 ```
 
-RestExceptionHandler.java
+With this configuration in place, we can move ahead and implement the class that will handle all exceptions thrown throughout the execution of requests in our application. Let's call this class `RestExceptionHandler` and create it in the main package (`com.questionmark`):
+
+```java
+package com.questionmarks;
+
+import com.questionmarks.util.RestException;
+import com.questionmarks.util.RestMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
+@ControllerAdvice
+public class RestExceptionHandler {
+    private static final String UNEXPECTED_ERROR = "Exception.unexpected";
+    private final MessageSource messageSource;
+
+    @Autowired
+    public RestExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    @ExceptionHandler(RestException.class)
+    public ResponseEntity<RestMessage> handleIllegalArgument(RestException ex, Locale locale) {
+        String errorMessage = messageSource.getMessage(ex.getMessage(), ex.getArgs(), locale);
+        return new ResponseEntity<>(new RestMessage(errorMessage), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<RestMessage> handleArgumentNotValidException(MethodArgumentNotValidException ex, Locale locale) {
+        BindingResult result = ex.getBindingResult();
+        List<String> errorMessages = result.getAllErrors()
+                .stream()
+                .map(objectError -> messageSource.getMessage(objectError, locale))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(new RestMessage(errorMessages), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<RestMessage> handleExceptions(Exception ex, Locale locale) {
+        String errorMessage = messageSource.getMessage(UNEXPECTED_ERROR, null, locale);
+        ex.printStackTrace();
+        return new ResponseEntity<>(new RestMessage(errorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+```
+
+As this class' implementation is not that trivial, let's take a closer look at the details.
+
+### Making the Exception Handler Global
+
+To make our exception handler implementation global, we have used the [`@ControllerAdvice`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html) annotation. This annotation is an specialization of `@Component` and enable developers to apply, among other things, `@ExceptionHandler` methods globally to all controllers in an application.
+
+This means that the methods defined in this class that handle exceptions will apply to all `@Controllers` that we define in our application. This help us avoiding having to define a base class that the controllers have to extend or having to define exception handlers on each controller.
+
+### Injecting an I18N Message Resource
+
+Since we aim to support multiple languages, we have defined the constructor of this class to get an instance of [`MessageSource`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/MessageSource.html) injected. This instance enables us to search for (I18N) messages defined in `messages.properties` files, or on its variations for other languages, based on codes.
+
+As an example, in this class we've defined a private constant called `UNEXPECTED_ERROR`. The value of this constant is `Exception.unexpected` and will point to a message that tells the user that the error was not expected. We will define the messages and its localizations in a while.
+
+### Handling RestExceptions
+
+To handle exceptions derived from (or instance of) `RestException`, we define a method called `handleIllegalArgument` and annotate it with `@ExceptionHandler(RestException.class)`. Whenever an exception of this class is catch by the method, the code message set in the exception is passed to the `MessageSource` instance to get a localized message explaining the error. Besides that, the `args` property and the current `locale` are passed alongside with the message code so Spring can interpolate the localized final message replacing any placeholders.
+
+```java
+String errorMessage = messageSource
+          .getMessage(ex.getMessage(), ex.getArgs(), locale);
+```
+
+### Handling Bean Validation Exceptions
+
+In the previous article, we've developed a solution that transforms DTOs into entities and that triggers the bean validation for these DTOs automatically. This means that, for example, if we define a property as `@NotNull` in a DTO and a user sends an instance that contains `null` as the value property, a `MethodArgumentNotValidException` is thrown saying that this situation is not valid.
+
+To catch this exception and provide a better message, we have defined a method called `handleArgumentNotValidException` and set it to handle `MethodArgumentNotValidExceptions`. Since multiple validation errors might occur, we map the error codes to messages defined in `messages.properties` files.
+
+```java
+List<String> errorMessages = result.getAllErrors()
+    .stream()
+    .map(objectError -> messageSource.getMessage(objectError, locale))
+    .collect(Collectors.toList());
+```
+
+### Handling Unexpected Exceptions
+
+The last method defined in the `RestExceptionHandler` class is responsible for handling exceptions that we have not foreseen. For example, let's say that for some reason Spring is unable to inject a `Repository` instance in a controller, and we try to use this null reference to hit the database. In this situation a `NullPointerException` will be thrown by the application and this method will catch it. Since our application was not expecting this error to occur, and we don't have much to say to the user, we just use the `UNEXPECTED_ERROR` constant to search for a localized message that tells the user that something went wrong.
+
+```java
+String errorMessage = messageSource.getMessage(UNEXPECTED_ERROR, null, locale);
+ex.printStackTrace();
+```
+
+We also call `printStackTrace` method in the exception to log its details to be able to analyze it later.
+
+## Using the Global Exception Handler
 
 ExamCreationDTO.java
 
 ExamUpdateDTO.java
 
 DTOModelMapper.java
+
+## Creating the I18N Messages
+
+messages.properties
+
+messages_pt_BR.properties
 
 ## Aside: Securing Spring Boot Apps with Auth0
 
