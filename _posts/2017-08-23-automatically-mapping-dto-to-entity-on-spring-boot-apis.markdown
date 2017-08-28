@@ -224,7 +224,7 @@ import java.time.LocalDateTime;
 public class ExamUpdateDTO {
     @Id
     @NotNull
-    private long id;
+    private Long id;
 
     @NotNull
     private String title;
