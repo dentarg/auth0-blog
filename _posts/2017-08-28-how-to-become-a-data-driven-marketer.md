@@ -18,7 +18,6 @@ tags:
 - analytics
 - marketing
 - data
-- 
 related:
 - 2017-04-17-how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing
 - 2017-04-12-social-login-on-the-rise
