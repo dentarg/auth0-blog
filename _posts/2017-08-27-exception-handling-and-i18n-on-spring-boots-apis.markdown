@@ -63,15 +63,130 @@ spring.datasource.password=mysecretpassword
 spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
+### Cloning QuestionMarks
+
+Next step is to clone the [GitHub repository that supports QuestionMarks](https://github.com/auth0-blog/questionmarks-server) and checkout a specific tag for this article. We achieve that by issuing the following commands:
+
+```bash
+git clone https://github.com/auth0-blog/questionmarks-server.git
+cd questionmarks-server
+git checkout post-3
+```
+
+Now we need to import the Spring Boot project in our preferred IDE (Integrated Development Environment). Most Java IDEs provide an easy way to import projects based on [Gradle](https://gradle.org/), which is the build tool used in the QuestionMarks application. After that, let's run the application, through the IDE or through the `gradle bootRun` command, and interact with it a little:
+
+```bash
+# running through the command line
+gradle bootRun
+
+# creates a new exam
+curl -X POST -H "Content-Type: application/json" -d '{
+    "title": "JavaScript",
+    "description": "JS developers."
+}' http://localhost:8080/exams
+
+# lists all exams (probably just the one above)
+curl http://localhost:8080/exams
+
+# updates the first exam changing its title and description
+curl -X PUT -H "Content-Type: application/json" -d '{
+    "id": 1,
+    "title": "JavaScript Interview Questions",
+    "description": "An exam focused on helping JS developers."
+}' http://localhost:8080/exams
+
+# tries to update an exam without informing the id
+curl -X PUT -H "Content-Type: application/json" -d '{
+    "title": "JavaScript Interview Questions",
+    "description": "An exam focused on helping JS developers."
+}' http://localhost:8080/exams
+```
+
+The last command issued above will produce an error message that looks like this:
+
+```json
+{"timestamp":1503943673649,"status":400,"error":"Bad Request","exception":"org.springframework.web.bind.MethodArgumentNotValidException","errors":[{"codes":["NotNull.exam.id","NotNull.id","NotNull.java.lang.Long","NotNull"],"arguments":[{"codes":["exam.id","id"],"arguments":null,"defaultMessage":"id","code":"id"}],"defaultMessage":"may not be null","objectName":"exam","field":"id","rejectedValue":null,"bindingFailure":false,"code":"NotNull"}],"message":"Validation failed for object='exam'. Error count: 1","path":"/exams"}
+```
+
+Although possible, it's not that easy to understand what exactly went wrong during the execution of the request. Let's improve this message.
+
 ## Implementing a Validator Utility
 
-Check.java
+The first thing that we are going to do in our application is to create a utility class called `Check`. This class will contain some helper methods to validate common situations. For example, with it we will be able to check if a reference is null and, if that's the case, throw an exception containing a message code and some arguments. Let's create this class in the `com.questionmarks.util` package with the following code:
 
-RestException.java
+```java
+package com.questionmarks.util;
 
-application.properties
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
-### Unit Testing Validator
+import java.util.Collection;
+import java.util.Map;
+
+public final class Check {
+    public static void isNull(Object object, String message, Object... args) {
+        if (object != null) {
+            throw new RestException(message, args);
+        }
+    }
+
+    public static void isTrue(boolean expression, String message, Object... args) {
+        if (!expression) {
+            throw new RestException(message, args);
+        }
+    }
+
+    public static void notNull(Object object, String message, Object... args) {
+        if (object == null) {
+            throw new RestException(message, args);
+        }
+    }
+
+    public static void notEmpty(Object[] array, String message, Object... args) {
+        if (ObjectUtils.isEmpty(array)) {
+            throw new RestException(message, args);
+        }
+    }
+
+    public static void notEmpty(Collection<?> collection, String message, Object... args) {
+        if (CollectionUtils.isEmpty(collection)) {
+            throw new RestException(message, args);
+        }
+    }
+
+    public static void notEmpty(Map<?, ?> map, String message, Object... args) {
+        if (CollectionUtils.isEmpty(map)) {
+            throw new RestException(message, args);
+        }
+    }
+
+    public static void notEmpty(String text, String message, Object... args) {
+        if (text == null || "".equals(text.trim())) {
+            throw new RestException(message, args);
+        }
+    }
+}
+```
+
+Besides the helper method that guarantees that a reference is `notNull`, the utility class also provides methods to check if something (`String`, `Map`, `Collection`, or `Array`) is empty, if some expression `isTrue`, and if a reference `isNull`. All the methods provided in the class throw an exception called `RestException` when their assertion fails. This class doesn't exist yet, so let's create it in the `com.questionmarks.util` package with the following code:
+
+```java
+package com.questionmarks.util;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class RestException extends RuntimeException {
+    private String message;
+    private Object[] args;
+}
+```
+
+The `RestException` class contains some characteristics that are worth mentioning. First of all, it is an extension of `RuntimeException` and, therefore, it's an unchecked exception. This means that we don't need to encapsulate calls to methods that throw instances of this exception on `try-catch` blocks. Second of all, this class defines two properties: `message` and `args`. We will use the `message` property to store the message code that we want to send to the user whenever an error occurs, and we will use `args` to store variables that will be interpolated in the message before sending it. We will take a closer look at the process in a while.
+
+The last things that catches the eyes are the `@AllArgsConstructor` and the `@Getter` annotations. These annotations are provided by [Lombok](https://projectlombok.org/) and they automatically create boilerplate code for us. The first annotation, [`@AllArgsConstructor`](https://projectlombok.org/features/constructor), creates a constructor in the class with two parameters, one for each property defined in the class. The second annotation, [`@Getter`](https://projectlombok.org/features/GetterSetter), defines `get` methods for the `message` and `args` properties.
 
 ## Creating the I18N Messages
 
@@ -82,6 +197,12 @@ messages_pt_BR.properties
 ## Globally Handling Exceptions on Spring Boot
 
 RestMessage.java
+
+As the idea is to serialize instances of this class as JSON objects back to the user, we are going to need to tweak the serialization process a little. By default, Jackson serializes all properties in an instance, having them values or not. To avoid adding a bunch of `null` in these JSON objects, let's edit the `application.properties` file by adding the following line:
+
+```properties
+spring.jackson.default-property-inclusion=non_null
+```
 
 RestExceptionHandler.java
 
