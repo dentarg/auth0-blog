@@ -2,7 +2,7 @@
 layout: post
 title: "How to Become a Data-Driven Marketer"
 description: "Learn about a data-informed marketing approach with buyer personas and lead generation."
-date: 2017-03-20 8:30
+date: 2017-08-28 8:30
 category: Growth
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -18,9 +18,11 @@ tags:
 - analytics
 - marketing
 - data
+- 
 related:
-- date-post-name
-- date-post-name
+- 2017-04-17-how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing
+- 2017-04-12-social-login-on-the-rise
+- 2017-06-09-the-three-best-ways-to-create-the-single-vision-of-a-customer
 ---
 
 **TL;DR:** Data is a powerful marketing tool, but there's more to it than you think. Learn about how your marketing approach should use data in combination with buyer personas and lead generation.
