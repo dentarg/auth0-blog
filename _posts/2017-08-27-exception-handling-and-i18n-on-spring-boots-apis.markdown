@@ -326,11 +326,104 @@ We also call `printStackTrace` method in the exception to log its details to be 
 
 ## Using the Global Exception Handler
 
-ExamCreationDTO.java
+Now that we have a global exception handler in place, let's change some classes to see it working. In the previous article we've created two DTOs to handle the insertion and update of exams, `ExamCreationDTO` and `ExamUpdateDTO`. Both of them used only `@NotNull` annotation to avoid null values on their properties. Let's start incrementing the `ExamCreationDTO` class to add a new validation:
 
-ExamUpdateDTO.java
+```java
+package com.questionmarks.model.dto;
 
-DTOModelMapper.java
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+public class ExamCreationDTO {
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String title;
+
+    @NotNull
+    @Size(min = 1, max = 512)
+    private String description;
+
+    @JsonIgnore
+    private final LocalDateTime createdAt = LocalDateTime.now();
+
+    @JsonIgnore
+    private final LocalDateTime editedAt = LocalDateTime.now();
+}
+```
+
+The difference between this version and the one created in the previous article is that now we use `@Size` annotations to guarantee that `title` and `description` won't exceed the limits defined in the database. To keep everything consistent, let's add the same annotation to the same fields but in the `ExamUpdateDTO` class:
+
+```java
+package com.questionmarks.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+public class ExamUpdateDTO {
+    @Id
+    @NotNull
+    private Long id;
+
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String title;
+
+    @NotNull
+    @Size(min = 1, max = 512)
+    private String description;
+
+    @JsonIgnore
+    private final LocalDateTime editedAt = LocalDateTime.now();
+}
+```
+
+From now on, when the bean validation process gets triggered on instances of these classes, `title` and `description` on both classes are checked to guarantee that no null values are set on it, and that the values don't exceed the limits defined. Case one or more of these validations fail, an instance of `MethodArgumentNotValidException` is thrown indicating what properties failed. For example, if the user sends a `title` with more than 50 characters, the bean validation process will produce an exception with the following code: `Size.exam.title`. The exception handler will then get this code and search in the `messages.properties` file for an associated message.
+
+We will define these messages in the next sections, but first let's make just one more change in our application. We will refactor the `DTOModelMapper` class to validate if the application managed to find the object persisted with the `id` provided on a DTO. For those who didn't read the previous article, this class is responsible for the automatic mapping of DTOs into entities and, for DTOs that include `@Id` properties, it tries to fetch records from the database. Let's refactor the `resolveArgument` method in this class to include a call to `Check.notNull()` method, as follows:
+
+```java
+package com.questionmarks.util;
+
+// ... imports
+
+public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
+    // ...
+
+    @Override
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        Object dto = super.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
+        Object id = getEntityId(dto);
+        if (id == null) {
+            return modelMapper.map(dto, parameter.getParameterType());
+        } else {
+            Object persistedObject = entityManager.find(parameter.getParameterType(), id);
+            Check.notNull(persistedObject, "Exception.notFound",
+                    parameter.getParameterType().getSimpleName(), id);
+            modelMapper.map(dto, persistedObject);
+            return persistedObject;
+        }
+    }
+
+    // ...
+}
+```
+
+By adding the `Check.notNull` call to the `else` block, we guarantee that the program is able to find an entity with the `id` passed before proceeding with the execution. Case no entity is found, a `RestException` is thrown with the `Exception.notFound` code and with the *simple name* (`getSimpleName`) of the class alongside with the `id` provided.
 
 ## Creating the I18N Messages
 
