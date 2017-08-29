@@ -462,7 +462,7 @@ Exception.unexpected=Um erro inesperado ocorreu durante a execução da sua requ
 
  The official language in Brazil is Portuguese (`pt`), but as the language spoke there is quite different from Portugal, we opted to have a translation crafted specially for Brazilians. This is everything we need to do to support the Portuguese variation spoken in Brazil. Now, whenever a user express that they want messages in Brazilian Portuguese, Spring Boot will search the `messages_pt_BR.properties` file to get the appropriate message.
 
- In the next section we will see how to interact with the API to get user-friendly messages in both languages, English and Brazilian Portuguese.
+ In the next section we will see how to interact with the API to get user-friendly messages in both languages: English and Brazilian Portuguese.
 
 ## Aside: Securing Spring Boot Apps with Auth0
 
