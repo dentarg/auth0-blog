@@ -2,7 +2,7 @@
 layout: post
 title: "BackboneJS: Getting Started"
 description: Learn how to quickly build apps with BackboneJS.
-date: 2017-02-21 8:30
+date: 2017-08-29 8:30
 category: Technical Guide, Frontend, BackboneJS
 author:
   name: Prosper Otemuyiwa
@@ -19,9 +19,10 @@ tags:
 - authentication
 - web-app
 - auth0
+- framework
 related:
-- 2015-04-09-adding-authentication-to-your-react-flux-app
-- 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
+- 2017-04-18-vuejs2-authentication-tutorial
+- 2017-05-11-emberjs-authentication-tutorial
 - 2016-09-29-angular-2-authentication
 ---
 
