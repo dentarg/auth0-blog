@@ -464,6 +464,72 @@ Exception.unexpected=Um erro inesperado ocorreu durante a execução da sua requ
 
  In the next section we will see how to interact with the API to get user-friendly messages in both languages: English and Brazilian Portuguese.
 
+## Interacting with a Localized Spring Boot API
+
+Before start testing our API, let's run the application. This can be accomplished through our IDE or through the `gradle bootRun` command. When the API finishes bootstrapping, we can send the following request to add a new exam:
+
+```bash
+# adds a new exam
+curl -X POST -H "Content-Type: application/json" -d '{
+    "title": "Another show exam",
+    "description": "Another show exam desc"
+}' http://localhost:8080/exams
+```
+
+The command above must work without problems and no output message is expected from the API. Now, if we send the following request:
+
+```bash
+# tries to add a new exam without a title
+curl -X POST -H "Content-Type: application/json" -d '{
+    "description": "Another show exam desc"
+}' http://localhost:8080/exams
+```
+
+It's expected a message sent back from our API, since we didn't define a title, saying "Please, provide a title to the exam.". As the message is structured as JSON, the output from Spring Boot is:
+
+```json
+{"messages":["Please, provide a title to the exam."]}}
+```
+
+This proves that `RestExceptionHandler` got in action and crafted a better message for the user. But let's say that we prefer to get messages in Brazilian Portuguese, how do we do? Easy! We just need to inform the API which language we want through the `Accept-Language` header in the request:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -H "Accept-Language: pt-BR" -d '{
+  "description": "Another show exam desc"
+}' http://localhost:8080/exams
+```
+
+And the output provided by Spring Boot will be in Portuguese:
+
+```json
+{"messages":["Por favor, informe um título para o exame."]}
+```
+
+For the sake of completeness, let's see placeholders getting replaced when we send a title that is too long:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{
+  "title": "This title is too long to be accepted and Spring Boot will complain about it",
+  "description": "Another show exam desc"
+}' http://localhost:8080/exams
+```
+
+As we haven't defined the `Accept-Language` header in the request above, and as the title exceeded the limits, Spring Boot will send us the following message:
+
+```json
+{"messages":["Exam title must contain between 1 and 50 characters."]}
+```
+
+Both the `{1}` and `{2}` placeholders in the original, English message, got replaced by the `min` and `max` values set in the `@Size` annotation configured in the `ExamCreationDTO`.
+
 ## Aside: Securing Spring Boot Apps with Auth0
 
+Securing Spring applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/user-management), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
+
+[To learn the best way to secure *Spring Security API endpoints* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like Spring), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+
 ## Next Steps: Integration Testing on Spring Boot APIs
+
+There we go, we now have a proper exception handler in place, fully integrated with bean validation and that is easy to use. We are now ready to add the missing endpoints that our to-be-developed frontend applications will need. As we want these new endpoints to function properly, in the next article we are going to create these endpoints alongside with integration tests.
+
+Throughout the article, we are going to use libraries such as JUnit and Hamcrest to simulate interactions with the RESTful API to guarantee that everything works as expected. Stay tuned!
