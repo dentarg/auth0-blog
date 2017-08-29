@@ -427,9 +427,42 @@ By adding the `Check.notNull` call to the `else` block, we guarantee that the pr
 
 ## Creating the I18N Messages
 
-messages.properties
+Last thing we need to have a Spring Boot API that supports multiple languages, is to map the messages that we will send to our users, and translate them to other languages. The messages in English will be stored in a new file called `messages.properties` that we are going to create in the `src/main/resources/` folder. Let's add the following messages:
 
-messages_pt_BR.properties
+```properties
+NotNull.exam.id=Please, inform the exam''s id to be updated.
+NotNull.exam.title=Please, provide a title to the exam.
+NotNull.exam.description=Please, provide a description to the exam.
+Size.exam.title=Exam title must contain between {2} and {1} characters.
+Size.exam.description=Exam description must contain between {2} and {1} characters.
+Exception.notFound=No record of {0} could be found with id {1}.
+Exception.unexpected=An unexpected error occurred while processing your request.
+```
+
+Whenever a validation fails, Spring Boot generates a code that starts with the annotation name (e.g. `Size`), then it adds the entity where the validation failed (e.g. `exam`), and lastly it adds the property (e.g. `description`). Like that, it's easy to know what messages we need to map when dealing with bean validation.
+
+For some messages, we have defined placeholders like `{0}` and `{1}`. These placeholders are replaced by Spring to provide a better explanation to users. For example, if the size of an exam's `title` is too long, Spring gets the message referenced by `Size.exam.title` and replace `{2}` and `{1}` with the minimum and maximum length set in the `@Size` annotation.
+
+In the messages added above, only two didn't follow the pattern explained: `Exception.notFound` and `Exception.unexpected`. The former have been created when refactoring the `DTOModelMapper` class, and the latter have been defined to tell users about errors that we didn't expect.
+
+### Supporting Other Languages
+
+To give alternative languages for users, we need to create other files with translated versions of the messages above. The names of these files must start with `messages` followed by an underscore and the [ISO code of the language](https://en.wikipedia.org/wiki/ISO_639-1) chose (e.g. `_pt`). Optionally, we can add another underscore followed by the [ISO code of an specific region](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) (e.g. `_BR`). This pattern enables us to provide messages to multiple languages and its variations.
+
+In this article, we are going to create a file called `messages_pt_BR.properties`, in the `src/main/resources/` folder, to support users from Brazil (`BR`):
+
+```properties
+NotNull.exam.id=Por favor, informe o id do exame a ser editado.
+NotNull.exam.title=Por favor, informe um título para o exame.
+NotNull.exam.description=Por favor, informe uma descrição para o exame.
+Size.exam.title=O título do exame deve conter entre {2} e {1} caracteres.
+Size.exam.description=A descrição do exame deve conter entre {2} e {1} caracteres.
+Exception.unexpected=Um erro inesperado ocorreu durante a execução da sua requisição.
+```
+
+ The official language in Brazil is Portuguese (`pt`), but as the language spoke there is quite different from Portugal, we opted to have a translation crafted specially for Brazilians. This is everything we need to do to support the Portuguese variation spoken in Brazil. Now, whenever a user express that they want messages in Brazilian Portuguese, Spring Boot will search the `messages_pt_BR.properties` file to get the appropriate message.
+
+ In the next section we will see how to interact with the API to get user-friendly messages in both languages, English and Brazilian Portuguese.
 
 ## Aside: Securing Spring Boot Apps with Auth0
 
