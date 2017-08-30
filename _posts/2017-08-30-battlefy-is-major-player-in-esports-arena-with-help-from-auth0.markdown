@@ -2,7 +2,7 @@
 layout: post
 title: "Battlefy is Major Player in eSports Arena with Help From Auth0"
 description: "Authentication increases security of user data and provides scalable platform to continue growth in booming industry"
-date: 2017-08-21 17:51
+date: 2017-08-30 17:51
 category: PR, Press
 press_release: true
 is_non-tech: true
