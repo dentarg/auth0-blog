@@ -24,18 +24,33 @@ related:
 - 2016-08-24-auth0-raises-15M-to-enhance-its-identity-platform
 ---
 
-**BELLEVUE, WA**—Auth0, the leading Identity-as-a-Service (IDaaS) platform, has helped [Giving Compass](http://www.givingcompass.com) make philanthropy easier. As a growing nonprofit geared towards connecting, educating, and helping people take action to give with impact, Giving Compass is relying on Auth0’s robust authentication platform to create a secure and easily accessible platform for its growing network of philanthropists.
+**BELLEVUE, WA**—Auth0, the leading Identity-as-a-Service (IDaaS) platform, has helped [Giving Compass](https://givingcompass.org/about/?r=a0) stay secure while pursuing its mission. Giving Compass is a nonprofit organizing the world’s information to make it easier to give well.
 
-With a leadership team that hailed from the tech world, it was important to Giving Compass that they put technology first to help further their mission for good. After a thorough evaluation of identity providers, Auth0 was selected for its ease of use, as well as the ability to provide social login for users while keeping member data completely secure.
+Giving Compass is relying on Auth0’s robust authentication platform to create a secure and easily accessible platform for its growing network of philanthropists. 
+
+With a leadership team that hailed from the tech world, it was important to Giving Compass that they put technology first to help further their mission for good. After a thorough evaluation of identity providers, Auth0 was selected for its ease of use, as well as the ability to provide social login for users while keeping member data completely secure. 
 
 “Writing the code for authentication is always a nightmare, and it's the first potential door to a cyberattack,” said Luis Salazar, Co-Founder and Interim CEO, Giving Compass. “Peace of mind by having something that is proven and super easy to implement is the number one reason we chose Auth0. It just works.”
 
-Auth0 was implemented in less than a week and provided Giving Compass with the solid technology foundation in which to grow its network. Thanks to the rapid integration, Giving Compass has saved more than 100 hours of identity-related development and testing (an estimated $25,000 thus far). It has also witnessed a 25% increase in conversions with social login functionality, resulting in 97 out of 100 people completing the signup process.
+Auth0 was implemented in less than a week and provided Giving Compass with the solid technology foundation in which to grow its network. Thanks to the rapid integration, Giving Compass has saved more than 100 hours of identity-related development and testing (an estimated $25,000 thus far). It has also witnessed a 25% increase in conversions with social login functionality, resulting in 97 out of 100 people completing the signup process. 
 
-For more details on how authentication helped propel Giving Compass and it’s mission, we will be publishing a case study soon.
+For more details on how authentication helped propel Giving Compass and it’s mission, we will publish a case study soon. 
+
+[Join](https://givingcompass.org/join/?r=a0) Giving Compass as a secure user.
 
 ## About Auth0
 
 Auth0 provides an enterprise-grade identity platform that secures billions of log-ins every year. The company makes it easy to implement even the most complex identity solutions for their web, mobile, IoT and internal applications, as well as sophisticated identity management for employees, customers and partners. Auth0 has raised more than $54 million from Meritech Capital Partners, NTT DOCOMO Ventures, Telstra Ventures, Trinity Ventures, Bessemer Venture Partners, and K9 Ventures.
 
 For more information visit [https://auth0.com](https://auth0.com) or follow [@auth0 on Twitter](https://twitter.com/auth0).
+
+## About Giving Compass
+
+Headquartered in Seattle, WA, Giving Compass is a nonprofit organizing the world’s information to make it easier to give well. Giving Compass guides donors who want to give with intention and impact on a journey to learn, connect with others, and take action to drive meaningful change in communities and the world. Learn more at www.givingcompass.org.
+
+## Contact:
+Shelly Kurtz, CMO
+Giving Compass
+206-999-9030
+shelly@giving.tech
+www.givingcompass.org
