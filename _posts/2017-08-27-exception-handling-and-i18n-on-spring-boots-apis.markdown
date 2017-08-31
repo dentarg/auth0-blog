@@ -26,9 +26,9 @@ related:
 
 I18N is a short name invented for the term internationalization. The number eighteen (18) refers to the number of characters between the first letter in the word, I, and the last one, N. Internationalization is the process of developing software that can be localized for multiple languages and cultures easily. For developers, internationalizing means abstracting all the texts that users can get from an application. This abstraction usually occurs by replacing these texts by unique codes that refer to them, and by organizing them by language. Whenever an user starts interacting with the application, they define the preferred language (automatically or manually) and the application starts providing messages according to the language informed.
 
-For example, on a web browser like Firefox or Google Chrome, the menus and help messages that the user can see are shown accordingly to the main language set on the operational system. Although this default configuration is usually what the user expects, software providers normally add an option so the default language can be overwritten.
+For example, on a web browser like Firefox or Google Chrome, the menus and help messages that the user can see are shown according to the main language set on the operating system. Although this default configuration is usually what the user expects, software providers normally add an option so the default language can be overwritten.
 
-Throughout this article we are going to see how can we internationalize a Spring Boot API, even for occasions where errors (expected or not) occur in the application.
+Throughout this article we are going to see how can we internationalize a [Spring Boot API](https://projects.spring.io/spring-boot/), even for occasions where errors (expected or not) occur in the application.
 
 ## What Will We Build?
 
@@ -38,7 +38,7 @@ As we don't want to spend too much time setting up a new project from the ground
 
 The idea behind QuestionMarks is that the application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions are grouped in different exams. For example, there could be an exam called *JavaScript Interview* that would hold a set of JavaScript related questions to help users to prepare for interviews. In this article we won't build the whole application as it would take a lot of time and would make the article huge, but we will be able to see the technologies aforementioned in action.
 
-Throughout previous articles, we have integrated Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer. Therefore, we will need to launch a PostgreSQL instance to support the application. We also created a nice feature that allow us to automatically map DTOs into entities while validating their data. The problem now is that if the data is not valid, or if an unexpected error occurs, our application will not provide user-friendly messages. To overcome this issue, we are going to enhance QuestionMarks to handle these errors and encapsulate (or replace) messages in a structured way.
+Throughout previous articles, we have integrated Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer. Therefore, we will need to launch a PostgreSQL instance to support the application. We also created a nice feature that allow us to automatically map [DTOs](https://martinfowler.com/eaaCatalog/dataTransferObject.html) into entities while validating their data. The problem now is that if the data is not valid, or if an unexpected error occurs, our application will not provide user-friendly messages. To overcome this issue, we are going to enhance QuestionMarks to handle these errors and encapsulate (or replace) messages in a structured way.
 
 ### Launching PostgreSQL
 
@@ -460,7 +460,7 @@ Size.exam.description=A descrição do exame deve conter entre {2} e {1} caracte
 Exception.unexpected=Um erro inesperado ocorreu durante a execução da sua requisição.
 ```
 
- The official language in Brazil is Portuguese (`pt`), but as the language spoke there is quite different from Portugal, we opted to have a translation crafted specially for Brazilians. This is everything we need to do to support the Portuguese variation spoken in Brazil. Now, whenever a user express that they want messages in Brazilian Portuguese, Spring Boot will search the `messages_pt_BR.properties` file to get the appropriate message.
+ The official language in Brazil is Portuguese (`pt`), but as the language spoken there is quite different from Portugal, we opted to have a translation crafted specially for Brazilians. This is everything we need to do to support the Portuguese variation spoken in Brazil. Now, whenever a user express that they want messages in Brazilian Portuguese, Spring Boot will search the `messages_pt_BR.properties` file to get the appropriate message.
 
  In the next section we will see how to interact with the API to get user-friendly messages in both languages: English and Brazilian Portuguese.
 
