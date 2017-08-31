@@ -47,10 +47,3 @@ For more information visit [https://auth0.com](https://auth0.com) or follow [@au
 ## About Giving Compass
 
 Headquartered in Seattle, WA, Giving Compass is a nonprofit organizing the world’s information to make it easier to give well. Giving Compass guides donors who want to give with intention and impact on a journey to learn, connect with others, and take action to drive meaningful change in communities and the world. Learn more at www.givingcompass.org.
-
-## Contact:
-Shelly Kurtz, CMO
-Giving Compass
-206-999-9030
-shelly@giving.tech
-www.givingcompass.org
