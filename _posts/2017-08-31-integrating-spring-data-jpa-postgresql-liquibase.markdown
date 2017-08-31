@@ -2,7 +2,7 @@
 layout: post
 title: "Integrating Spring Data JPA, PostgreSQL, and Liquibase"
 description: "Let's learn how to integrate Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer of a Spring Boot application."
-date: 2017-08-18 16:46
+date: 2017-08-31 16:46
 category: Technical Guide, Java, Spring Boot
 author:
   name: "Bruno Krebs"
