@@ -29,7 +29,7 @@ related:
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-500"></i>
-  <strong>We just added a new updated article that covers the same topic. You can find it here: <a href="hhttps://auth0.com/blog/vuejs2-authentication-tutorial/">Vuejs 2 Authentication Tutorial</a>.</strong>
+  <strong>We just added a new updated article that covers the same topic. You can find it here: <a href="https://auth0.com/blog/vuejs2-authentication-tutorial/">Vuejs 2 Authentication Tutorial</a>.</strong>
 </div>
 ---
 
