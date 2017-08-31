@@ -22,9 +22,15 @@ tags:
 - pug
 - express
 related:
-- 2015-11-13-build-an-app-with-vuejs
-- 2016-04-13-authentication-in-golang
-- 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
+- 2016-09-29-angular-2-authentication
+- 2017-02-21-reactjs-authentication-tutorial
+- 2017-04-18-vuejs2-authentication-tutorial
+---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>We just added a new updated article that covers the same topic. You can find it here: <a href="https://auth0.com/blog/vuejs2-authentication-tutorial/">Vuejs 2 Authentication Tutorial</a>.</strong>
+</div>
 ---
 
 > **TL;DR** VueJS has a new version coming out. Check out [all the changes here](https://github.com/vuejs/vue/issues/2873). There is a working example of [an application built using this new version here](https://vuejs2-authentication.herokuapp.com). The code can [be found on Github](https://github.com/searsaw/vue2-auth). Get out there and make something awesome!
