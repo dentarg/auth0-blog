@@ -4,7 +4,7 @@ title: "Build an App with Vue.js: From Authentication to Calling an API"
 description: "Learn how to build a Vue.js app and how to easily get up and running with JWT authentication."
 date: 2015-11-16 12:00
 alias: /2015/11/13/build-an-app-with-vuejs/
-category: Technical Guide, Framework Authentication, VueJS
+category: Technical Guide, FrontEnd, VueJS
 author:
   name: Ryan Chenkie
   url: https://twitter.com/ryanchenkie?lang=en
@@ -22,11 +22,15 @@ tags:
 - jwt
 - authentication
 related:
-- 2016-01-13-rise-of-the-high-boilerplate-framework-a-look-at-falcor-and-relay
-- 2016-04-20-angularjs-authentication-screencast-series-part-2
-- 2016-03-07-hapijs-authentication-secure-your-api-with-json-web-tokens
+- 2016-09-29-angular-2-authentication
+- 2017-02-21-reactjs-authentication-tutorial
+- 2017-04-18-vuejs2-authentication-tutorial
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>We just added a new updated article that covers the same topic. You can find it here: <a href="hhttps://auth0.com/blog/vuejs2-authentication-tutorial/">Vuejs 2 Authentication Tutorial</a>.</strong>
+</div>
 ---
 
 **TL;DR:** There are a ton of great JavaScript frameworks out there, and it can be a little overwhelming to keep up with them all. The learning curve for these frameworks can also be a bit steep. [Vue.js](http://vuejs.org/) is a breath of fresh air in this regard. In this tutorial, we'll see how easy it is to get up and running with a Vue.js app and how we can easily add authentication to it. Check out the [repo](https://github.com/auth0/vue-jwt-authentication) to get the code.
