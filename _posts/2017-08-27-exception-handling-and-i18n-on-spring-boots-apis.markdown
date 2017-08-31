@@ -30,6 +30,8 @@ For example, on a web browser like Firefox or Google Chrome, the menus and help 
 
 Throughout this article we are going to see how can we internationalize a [Spring Boot API](https://projects.spring.io/spring-boot/), even for occasions where errors (expected or not) occur in the application.
 
+{% include tweet_quote.html quote_text="Supporting multiple languages on Spring Boot apps is easy." %}
+
 ## What Will We Build?
 
 As we don't want to spend too much time setting up a new project from the ground, we are going to take advantage of the QuestionMarks project that we started building in previous articles. There is **no need** to read all the articles, although it would be a good idea as they provide good Spring Boot techniques. We will clone the [GitHub repository that supports the project](https://github.com/auth0-blog/questionmarks-server), and we are going to checkout a specific [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) that will give us a solid basis to focus on what we are interested on, I18N and exception handling.
@@ -284,6 +286,8 @@ As this class' implementation is not that trivial, let's take a closer look at t
 To make our exception handler implementation global, we have used the [`@ControllerAdvice`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html) annotation. This annotation is an specialization of `@Component` and enable developers to apply, among other things, `@ExceptionHandler` methods globally to all controllers in an application.
 
 This means that the methods defined in this class that handle exceptions will apply to all `@Controllers` that we define in our application. This help us avoiding having to define a base class that the controllers have to extend or having to define exception handlers on each controller.
+
+{% include tweet_quote.html quote_text="Global exception handler on Spring Boot RESTful APIs are awesome!" %}
 
 ### Injecting an I18N Message Resource
 
