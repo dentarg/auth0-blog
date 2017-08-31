@@ -18,8 +18,8 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60design
 design:
-  image: https://cdn.auth0.com/blog/angular/logo.png
-  bg_color: "rgb(1, 70, 166)"
+  image: https://cdn.auth0.com/blog/angular/logo3.png
+  bg_color: "#012C6C"
 tags:
 - authentication
 - angular2
@@ -33,9 +33,9 @@ tags:
 - example
 - talk
 related:
-- 2015-08-11-create-your-first-ember-2-dot-0-app-from-authentication-to-calling-an-api
-- 2015-04-09-adding-authentication-to-your-react-flux-app
-- 2015-08-05-creating-your-first-aurelia-app-from-authentication-to-calling-an-api
+- 2016-09-29-angular-2-authentication
+- 2017-02-21-reactjs-authentication-tutorial
+- 2017-04-18-vuejs2-authentication-tutorial
 ---
 
 <div class="alert alert-info alert-icon">
