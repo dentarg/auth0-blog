@@ -2,13 +2,13 @@
 layout: post
 title: "Why Healthcare Is Moving To The Cloud (But Isn't There Yet)"
 description: "Cloud computing is going to revolutionize healthcare"
-date: 2017-05-31 17:34
+date: 2017-09-01 17:34
 category: Growth, Industries
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   bg_color: "#002D61"
   image: "https://cdn.auth0.com/blog/healthcare-cloud/logo.png"
@@ -17,9 +17,12 @@ tags:
 - cloud
 - identity
 - auth0
+- hiipa
+- digital transformation
 related:
-- 2017-03-24-360-view-of-customer-by-managing-identity
-- 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
+- 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
+- 2017-05-26-go-beyond-username-password-with-modern-auth
+- 2017-08-25-how-identity-can-empower-healthcare
 ---
 
 The advent of cloud computing has revolutionized the way we shop, travel, communicate, and store personal data. It's been a huge part of the digital revolution. The healthcare industry—home to tons of analog records and a spiderweb of business from single person practices to university hospitals—has lagged behind.
@@ -46,7 +49,7 @@ Many parts of healthcare are, however, still stuck in an analog, or mixed analog
 
 Coordinating record transfers across institutions can be difficult, obtaining full copies of your own records can be slow, and tracking things, like which prescriptions you started when, often get lost in the cracks.  
 
-We've also seen the advent of standardized procedures, such as the HIPAA (Health Insurance Portability and Accountability Act of 1996) compliance, which is a standard that outlines protections for the data privacy of medical information, and a series of declarations about individual privacy and medical data by the Council of Europe, among others.
+We've also seen the advent of standardized procedures, such as the [HIPAA (Health Insurance Portability and Accountability Act of 1996)](https://auth0.com/learn/why-hipaa-compliance-is-vital-your-business/) compliance, which is a standard that outlines protections for the data privacy of medical information, and a series of declarations about individual privacy and medical data by the Council of Europe, among others.
 
 These are living documents that are constantly being reformed to fit the contemporary era, which can make keeping up compliance a continuing cost.
 
