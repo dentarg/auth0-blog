@@ -17,7 +17,7 @@ tags:
 - dto
 - modelmapper
 related:
-- 2017-08-18-integrating-spring-data-jpa-postgresql-liquibase
+- 2017-08-31-integrating-spring-data-jpa-postgresql-liquibase
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 - 2017-04-28-incrementally-changing-your-database-with-java-and-flyway
 ---
@@ -34,7 +34,7 @@ Another advantage of using DTOs on RESTful APIs written in Java (and on Spring B
 
 As an example, let's imagine a Java API that exposes user details and accepts user updates through two endpoints. The first endpoint would handle `GET` requests and return user data, and the second endpoint would accept `PUT` requests to update these details. If this application didn't take advantage of DTOs, all the properties of the user would be exposed in the first endpoint (e.g. password) and the second endpoint would have to be very selective on what properties would accept when updating a user (e.g. not everybody can update the roles of a user). To overcome this situation, DTOs can come in handy by exposing only what the first endpoint is intended to expose, and by helping the second endpoint to restrict what it accepts. This characteristic helps us to keep the integrity of the data in our applications.
 
-{% include tweet_quote.html quote_text="DTOs can help us keeping the integrity of data on Java applications." %}
+{% include tweet_quote.html quote_text="DTOs can help us to keep the integrity of data on Java applications." %}
 
 Throughout this article, we will take advantage of DTOs to help us handle situations like that. As we will see, this design pattern will introduce a few more classes to our application, but will improve its security.
 
