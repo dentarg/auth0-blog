@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Automatically Mapping DTO to Entity on Spring Boot APIs"
-description: "Let's learn how ModelMapper can help us automate the mapping process of DTOs into entities Spring Boot APIs."
-date: 2017-08-23 08:00
+description: "Let's learn how ModelMapper can help us automate the mapping process of DTOs into entities on Spring Boot APIs."
+date: 2017-09-05 08:00
 category: Technical Guide, Java, Spring Boot
 author:
   name: "Bruno Krebs"
