@@ -10,19 +10,19 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#4A4A4A"
-  image: https://cdn.auth0.com/blog/laravel-auth/logo.png
+  bg_color: "#23588C"
+  image: https://cdn.auth0.com/blog/nette/logo.png
 tags:
-- laravel
+- nette
 - api
 - jwts
 - authentication
 - web-app
 - auth0
 related:
-- 2015-11-13-build-an-app-with-vuejs
-- 2016-04-13-authentication-in-golang
-- 2016-06-02-ruby-authentication-secure-rack-apps-with-jwt
+- 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
+- 2016-07-26-creating-your-first-symfony-app-and-adding-authentication
+- 2017-06-01-creating-your-first-cakephp-app
 ---
 
 ---
@@ -31,18 +31,14 @@ related:
 
 ---
 
-**Nette** is a free, open-source PHP framework designed for building web applications. **Nette** is a set of decoupled and reusable PHP packages that will make your work easier. And **Nette** is also known as the quick and comfortable web development in PHP because it has the tools that allows you to bang out PHP applications rather quickly. **Nette** has a bundle of tools that makes it one of the popular PHP frameworks out there. These tools include:
-
-* Tracy
-* Latte
-* Tester
+**Nette** is a free, open-source PHP framework designed for building web applications. **Nette** is a set of decoupled and reusable PHP packages that will make your work easier. And **Nette** is also known as the quick and comfortable web development in PHP because it has the tools that allows you to bang out PHP applications rather quickly. **Nette** has a bundle of tools that makes it one of the popular PHP frameworks out there. These tools include, **Tracy**, **Latte** and **Tester**.
 
 * **Tracy:** is a library that helps you to log errors, dump variables, observe memory consumption and measure execution time of scripts and queries. After activating Tracy on your web application, a debugger bar shows up.
 
-![Tracy debug bar](https://files.nette.org/git/tracy/tracy-bar.png)
-_Tracy debug bar_
+  ![Tracy debug bar](https://files.nette.org/git/tracy/tracy-bar.png)
+  _Tracy debug bar_
 
-This tool also provides the `Debugger::dump()` function which dumps the content of a variable far better than `var_dump`. Logging with Tracy will involve invoking the `Debugger::log()` function. In production mode, Tracy automatically captures all errors and exceptions into a text log.
+This tool also provides the `Debugger::dump()` function which dumps the content of a variable far better than `var_dump`. Logging with Tracy involves invoking the `Debugger::log()` function. In production mode, Tracy automatically captures all errors and exceptions into a text log.
 
 Another useful development magic Tracy offers is the debugger stopwatch with a precision of microseconds. Just call the `Debugger::timer()` function. For multiple measurements, you can write code like this:
 
@@ -61,13 +57,15 @@ Tracy also has an integration with [Firelogger](https://addons.mozilla.org/cs/fi
 
 * **Latte:** is a template engine for PHP. It has intuitive syntax and compiles templates to plain optimized PHP code.
 
-```php
+{% highlight html %}
+{% raw %}
 <ul n:if="$items">
 {foreach $items as $item}
     <li id="item-{$iterator->counter}">{$item|capitalize}</li>
 {/foreach}
 </ul>
-```
+{% endraw %}
+{% endhighlight %}
 
 The best way to install Latte is via composer.
 
@@ -91,7 +89,6 @@ $html = $latte->renderToString('template.latte', $parameters);
 ```
 
 Latte has a set of standard filters. You can call a filter by using thhe pipe symbol. Check out the code below:
-
 
 {% highlight html %}
 {% raw %}
@@ -125,7 +122,7 @@ Understand more about how Latte works by visiting the [documentation](https://la
 
 **Nette**  has a [collection of plugins and extensions](https://componette.com) for easy use in your application. It also has an [active community](https://forum.nette.org).
 
-We'll be building a simple character listing app with **Nette**. Our app will simply list **10 Game of Thrones characters** and their real names. Once we add authentication to the app, all logged-in users will have the privilege of knowing these celebrity characters personally.
+We'll be building a simple character listing app with **Nette**. Our app will simply list **10 Game of Thrones characters** and their real names. Once we add authentication to the app, all logged-in users will have the privilege of knowing their names. Non logged-in users won't have access to any data.
 
 **Note:** Check out how we built this small secure app with [Laravel](https://auth0.com/blog/creating-your-first-laravel-app-and-adding-authentication/).
 
@@ -155,7 +152,7 @@ The other directories namely:
 
 ## Setting Up The Controller
 
-In Nette, the Presenters are the controllers. They connect the Models and the views. We already have the HomePagePresenter, so let's take advantage of it.
+In Nette, the presenters are the controllers. They connect the models and the views. We already have the _HomePagePresenter_. Let's use it.
 
 Open up `app/presents/HomepagePresenter.php` and configure it like so:
 
@@ -165,7 +162,6 @@ Open up `app/presents/HomepagePresenter.php` and configure it like so:
 namespace App\Presenters;
 
 use Nette;
-
 
 class HomepagePresenter extends Nette\Application\UI\Presenter
 {
@@ -190,9 +186,9 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 }
 ```
 
-`renderDefault()` means we are going to render what we have defined in this function in a view called `default.latte`.
+`renderDefault()` means we are going to render what we have defined in the function above in a view called `default.latte`.
 
-`$this->template->characters = $characters;` indicates that we are passing the `$characters` array variable to the `default.latte` view.
+`$this->template->characters = $characters` indicates that we are passing the `$characters` array variable to the `default.latte` view.
 
 ## Setting Up The View
 
@@ -498,10 +494,10 @@ Head over to `app/presenters/templates/Homepage/default.latte` and replace every
 In the code above, we have some variables and function call:
 
 * `$user->isLoggedIn()`: The `$user` variable is an [object](https://api.nette.org/2.4/Nette.Security.User.html) that is injected into the templates by default from Nette presenters and components. It represents the user. There are methods that can be called on it such as `isLoggedIn`, `login`, `logout`, etc. Here, we use to determine if the user is logged in or not.
-* `$user->getIdentity()->nickname`: The `$user->getIdentity()` function call is used to get the identity of the user. Identity represents a set of user information, as returned by the authenticator in use. In our app, we used a custom authenticator, auth0Authenticator. And that gives us the full range of [user information](https://auth0.com/docs/user-profile) that Auth0 returns. Therefore, we can access every Auth0 user attribute like so:
+* `$user->getIdentity()->nickname`: The `$user->getIdentity()` function call is used to get the identity of the user. Identity represents a set of user information, as returned by the authenticator in use. In our app, we used a custom authenticator, _auth0Authenticator_. And that gives us the full range of [user information](https://auth0.com/docs/user-profile) that Auth0 returns. Therefore, we can access every Auth0 user attribute like so:
 
 ```bash
-$user->getIdentity()->nickname // returns user's name
+$user->getIdentity()->nickname // returns user name
 $user->getIdentity()->email // returns user email
 ```
 
