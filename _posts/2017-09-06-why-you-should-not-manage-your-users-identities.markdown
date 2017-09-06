@@ -2,13 +2,13 @@
 layout: post
 title: "Why You Should Not Manage Your Users' Identities"
 description: "The risk far outweighs the reward if you aren't an identity management specialist"
-date: 2017-04-04 19:48
+date: 2017-09-06 19:48
 category: Technical Guide, Security
 author:
-  name: Martin Gontovnikas
-  url: http://twitter.com/mgonto
-  mail: gonto@auth0.com
-  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
   bg_color: "#A46748"
   image: "https://cdn.auth0.com/blog/dont-manage-identities/logo.png"
@@ -18,9 +18,9 @@ tags:
 - build
 - buy
 related:
-- 2016-12-29-2017-budget-planning
-- 2016-12-02-modern-authentication-for-your-clients-made-easy
-- 2016-11-03-auth0-lock-is-here-for-b2b-and-b2c
+- 2017-08-11-how-identity-can-help-you-create-a-great-user-onboarding
+- 2017-07-21-the-role-of-identity-in-application-modernization
+- 2017-04-05-when-to-build-and-when-to-buy
 ---
 
 When it comes time to add a login system to your product, it seems like a pretty easy feature to fit in. After all, you're building an entire product, you can surely handle building a way to create a username and password system. It wouldn't even take that long to add Facebook login!
