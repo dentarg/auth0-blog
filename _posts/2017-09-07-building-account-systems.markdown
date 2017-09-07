@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Building Account Systems"
-description: "The risk far outweighs the reward if you aren't an identity management specialist"
+description: "Focus on your core competency. Outsource your login systems"
 date: 2017-09-06 19:48
-category: Technical Guide, Security
+category: Growth
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
