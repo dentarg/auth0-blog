@@ -84,9 +84,7 @@ If you simply must use passwords, perhaps you don’t want to try explaining to 
 * Some savvy users realise they can’t think of a hard-to-guess answer so just use it as a second password field, meaning they then can’t recover when they forget.
 * There is a long list of high profile celebrity and VIP hacks that worked by abusing password recovery flows. You don’t want this to be you.
 
-Google had severe problems with secret questions. A couple of my old colleagues published research on it that’s worth reading or watching (video below)
-
-![A talk on secret questions/answers at Google](https://youtu.be/h8YwQvJm7rk)
+Google had severe problems with secret questions. A couple of my old colleagues published research on it that’s worth reading or [watching.](https://youtu.be/h8YwQvJm7rk)
 
 Some examples of problematic Q/As:
 
@@ -101,7 +99,7 @@ Not surprisingly, professional account systems do not use knowledge of secret Q/
 
 CAPTCHAs are a frequent feature of many login forms. They’re also something I did a bit of work on at Google. Unfortunately, CAPTCHAs are these days extremely low value and often implemented badly.
 
-![CAPTCHAs](https://cdn-images-1.medium.com/max/1600/1*_RLdNjTDj6VzHRsIit5ODg.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*_RLdNjTDj6VzHRsIit5ODg.gif)
 _All these CAPTCHAs are uselessly weak_
 
 The thing to understand about CAPTCHAs is they’re only useful for imposing a very basic throttle on automated attacks. They will not protect your account system against bulk registrations. Other than account security I also spent some years working on Google signup abuse. We routinely saw spammers solve tens of millions of our hardest CAPTCHAs. There are professional CAPTCHA solving firms like [DeathByCaptcha](http://www.deathbycaptcha.com/user/login) that use a mix of OCR and human solving. Ordinary CAPTCHAs block blind people from signing up, which may be a problem, but speech recognition based CAPTCHAs are either trivially solved by computers or unsolvable by humans.
