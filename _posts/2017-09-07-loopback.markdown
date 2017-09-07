@@ -2,7 +2,7 @@
 layout: post
 title: "Developing RESTful APIs with Loopback"
 description: Learn how to build and secure RESTful APIs with Loopback.
-date: 2017-08-24 8:30
+date: 2017-09-07 8:30
 category: Technical Guide, Backend, Loopback
 author:
   name: Prosper Otemuyiwa
@@ -18,15 +18,18 @@ tags:
 - javascript
 - authentication
 - auth0
+- nodejs
+- restful
+- api
 related:
-- 2017-05-11-emberjs-authentication-tutorial
+- 2017-06-22-developing-restful-apis-with-kotlin
 - 2016-01-04-reactjs-authentication-tutorial
-- 2016-09-29-angular-2-authentication
+- 2016-11-21-building-and-authenticating-nodejs-apps
 ---
 
 ---
 
-**TL;DR:**  In this tutorial, I'll show you how to leverage Loopback to build out your REST APIs quickly. Check out the [repo](https://github.com/auth0-blog/loopback-starwars-api) to get the code.
+**TL;DR:**  In this tutorial, I'll show you how to leverage [Loopback](https://loopback.io/) to build out your REST APIs quickly. Check out the [repo](https://github.com/auth0-blog/loopback-starwars-api) to get the code.
 
 ---
 
