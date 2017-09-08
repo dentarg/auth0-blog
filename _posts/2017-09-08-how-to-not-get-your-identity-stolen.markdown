@@ -2,7 +2,7 @@
 layout: post
 title: "How to Not Get Your Identity Stolen"
 description: "Practical advice for mitigating your risk of identity theft."
-date: 2017-04-10 8:30
+date: 2017-09-08 8:30
 category: Growth, Identity
 author:
   name: "Ado Kukic"
@@ -13,12 +13,14 @@ design:
   image: https://cdn.auth0.com/blog/how-to-not-get-your-identity-stolen/logo.png
   bg_color: "#000000"
 related:
-  - 2016-11-30-different-ways-to-implement-multifactor
-  - 2015-12-17-json-web-token-signing-algorithms-overview
+  - 2017-09-06-why-you-should-not-manage-your-users-identities
+  - 2017-03-20-anomaly-detection-safer-login-with-thisdata-and-auth0
+  - 2016-12-15-personal-information-security-identity-guide
 tags:
   - identity
   - identity-management
   - identity-tips
+  - security
 ---
 
 Nobody wants to get their identity stolen. In fact, it's probably one thing that is pretty much universally feared. Not only is it scary to think that someone else could access your personal information and take your debit card on a joyride, it can also be a hassle to get everything back in order after suffering from identity theft.
