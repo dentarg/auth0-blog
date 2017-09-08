@@ -35,23 +35,20 @@ Almost half of all Americans may have been affected by this data breach. **Your 
 
 ## What Should I Do?
 
-You _can_ check to see if your data has been exposed by visiting [Equifax's 2017 Incident Potential Impact website](https://www.equifaxsecurity2017.com/potential-impact/) and clicking the "Check Potential Impact" button. However, before doing so, please make sure you read and understand the Terms of Service as well as the following article: [By signing up on Equifax’s help site, you risk giving up your legal rights](https://www.washingtonpost.com/news/the-switch/wp/2017/09/08/what-to-know-before-you-check-equifaxs-data-breach-website/?utm_term=.5f7b92ed1765). If you agree to the terms, you can fill in your last name and last six digits of your Social Security number to find out if your data has potentially been leaked and receive a date to come back to enroll in free credit monitoring for a year. The [Federal Trade Commission also has detailed instructions available here](https://www.consumer.ftc.gov/blog/2017/09/equifax-data-breach-what-do).
+You _can_ check to see if your data has been exposed by visiting [Equifax's 2017 Incident Potential Impact website](https://www.equifaxsecurity2017.com/potential-impact/) and clicking the "Check Potential Impact" button. However, before doing so, please make sure you read and understand the Terms of Service as well as the following article: [By signing up on Equifax’s help site, you risk giving up your legal rights](https://www.washingtonpost.com/news/the-switch/wp/2017/09/08/what-to-know-before-you-check-equifaxs-data-breach-website/?utm_term=.5f7b92ed1765), particularly the right to participate in a class action lawsuit against Equifax. If you agree to the terms, you can fill in your last name and last six digits of your Social Security number to find out if your data has potentially been leaked and receive a date to come back to enroll in free credit monitoring for a year. The [Federal Trade Commission also has detailed instructions available here](https://www.consumer.ftc.gov/blog/2017/09/equifax-data-breach-what-do).
 
 Another thing you can do is actively check your bank and credit card statements regularly. If you see any suspicious or unusual activity, report it immediately to your financial institution. Don't become complacent and stop checking a week or two after a breach. Staying aware and vigilant with your accounts is important at all times. [Unfortunately, large data breaches have occurred many times in the past](http://money.cnn.com/2017/09/07/technology/business/biggest-breaches-ever/index.html), and in the digital age, we should be as prepared as possible to face more in the future.
 
-In addition, you can monitor your own credit by requesting a free copy from each of the three major CRAs once a year. If requests are staggered between the agencies, you can check your credit once every four months. You can also [freeze your credit](http://clark.com/personal-finance-credit/credit-freeze-and-thaw-guide/) if you choose. If you do this, make sure you freeze it with all three major CRAs, not just Equifax.
+In addition, you can monitor your own credit by requesting a free copy from each of the three major CRAs once a year. If requests are staggered between the agencies, you can check your credit once every four months. You may wish to use services such as [Credit Karma](https://www.creditkarma.com/) to obtain free scores to monitor your own credit. You can also [freeze your credit](http://clark.com/personal-finance-credit/credit-freeze-and-thaw-guide/) if you choose. If you do this, make sure you freeze it with all three major CRAs, not just Equifax.
 
 ## Aside: Use Auth0 to Protect Your Users From Data Breaches
 
-Auth0 provides breached password detection that can be enabled simply and easily. The Auth0 security team maintains a database of third party breached credentials. This database is updated daily. On each login, user credentials are checked against the leaked passwords database. If a breach is suspected, the user is notified and cannot log in until they change the compromised password.
+Auth0 provides [breached password detection](https://auth0.com/breached-passwords) that can be enabled simply and easily. The Auth0 security team maintains a database of third party breached credentials. This database is updated daily. On each login, user credentials are checked against the leaked passwords database. If a breach is suspected, the user is notified and cannot log in until they change the compromised password.
 
 <video autoplay="" loop="" width="600">
   <source src="https://cdn.auth0.com/blog/breach/lock-2.m4v">
 <img src="https://cdn.auth0.com/blog/breach/lock.gif">
 </video>
 
-Read about [Breached Passwords](https://auth0.com/breached-passwords) and [Anomaly Detection](https://auth0.com/docs/anomaly-detection) to learn more about how to protect users and their credentials with Auth0. You can also <a href="javascript:signup()">sign up for a free Auth0 account</a>!
-
-
-
+Read about [Breached Passwords](https://auth0.com/breached-passwords) and [Anomaly Detection](https://auth0.com/docs/anomaly-detection) to learn more about how to protect users and their credentials with Auth0. You can also <a href="javascript:signup()">sign up for a free Auth0 account and start protecting your users today</a>!
 
