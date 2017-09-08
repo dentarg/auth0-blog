@@ -44,6 +44,7 @@ The credential verification process and the email verification process occur thr
 
 ## Consolidating Identity with Auth0
 
+
 ### Creating an Auth0 API
 
 - Sample App
