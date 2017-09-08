@@ -78,16 +78,37 @@ Soon, we will address the implementation of both scripts, but first let's create
 
 ### Creating an Auth0 API
 
-- Sample App
-- http://sample-app/
-- RS256
+As explained on [Auth0's documentation](https://auth0.com/docs/apis), an API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. This definition fits perfectly for both applications that contain the users that we want to merge and import into our Auth0 account. Therefore, we need an API to represent these applications to properly secure them against unauthenticated requests.
+
+To create an API, let's head to the [API page on Auth0's management dashboard](https://manage.auth0.com/#/apis) and click on the "Create API" button. This will bring up a form with three fields: Name, Identifier, and Signing Algorithm.
+
+The `name` is just a friendly identifier that helps us to remember what this API represents. As this API will represent the legacy Identity Providers that we have, let's give it some name like "Legacy IdP". We won't need this name elsewhere, but it's good to give an easy to remember name like that in other to keep things tidy.
+
+The `identifier` is an important setting that is used both when requesting an `access_token` and when validating these tokens. Also known as `audience`, whenever a request is made to a protected endpoint, the `audience` of the token is checked against the `audience` configured in the application.
+
+[In the `index.js` file that contains the code running on both applications](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/index.js), we can see that the Node.js/Express application is set to accept only tokens targeting the `legacy-idp` audience. Therefore, let's set the `identifier` property of our new API to `legacy-idp`.
+
+```js
+// ...
+const jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://bkrebs.auth0.com/.well-known/jwks.json"
+    }),
+    audience: 'legacy-idp',
+    issuer: "https://bkrebs.auth0.com/",
+    algorithms: ['RS256']
+});
+// ...
+```
+
+The last property that we need to set is the "Signing Algorithm". There are two options to fill this property: `RS256` and `HS256`. The best and most secure algorithm to be used is `RS256`, as it is an asymmetric algorithm that uses public/private key. Therefore, let's use `RS256` as the Signing Algorithm.
+
+After filling the form with the values above, we can click on the Create button to persist our new API.
 
 ### Creating an Auth0 Client
 
 - Non Interactive Clients
 - Consolidating Identity
-
-### Creating a Database Connection
-
-- use my own database (custom database)
-- Import Users to Auth0 (settings)
