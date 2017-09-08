@@ -60,7 +60,21 @@ Since the applications are expecting JWTs with the `https://bkrebs.auth0.com/` i
 
 ## Consolidating Identities with Auth0
 
+After creating our account on Auth0, or reusing an existing one, the first step is to create a Database Connection. Let's start by visiting the [Database Connections page](https://manage.auth0.com/#/connections/database) in the management dashboard, where we will click in the [Create DB Connection button](https://manage.auth0.com/#/connections/database/new). In the form that is shown to us, we will simply define a name to the connection, something like `profile-consolidation`, and hit the Create button.
 
+After that we will be redirected to the settings page of the new connection. Auth0 allows us to securely store and manage credentials (email and password) either in an Auth0 Database or in our own custom database. As we already have two databases, we will go to the Custom Database tab and activate the "Use my own database" switch.
+
+![Activating custom database on Auth0](https://cdn.auth0.com/blog/g-cards/custom-database.jpg)
+
+Turning on this option will make this connection dependent on our custom databases forever, as it will always interact with them when users try to sign in, sign up, change password, and so on. This is not exactly what we want. Our goal is to take the most of Auth0 to merge users from multiple applications in a reliable and secure database. Therefore, we will go back to the Setting tab and switch on the "Import Users to Auth0" option. This option, as explained in the Settings page, is used when we want to gradually migrate users to the Auth0 user store.
+
+Now, if we go back to the Custom Database tab, we will see that it no longer has five Database Action Scripts (as shown in the screenshot above). We only get two scripts after turning on the option to migrate users.
+
+The first script, called Login, is used to authenticate a user against the credentials stored in our databases. The Login script is executed both when a user attempts to log in or immediately after signing up (as a verification that the user was successfully signed up).
+
+The second script, called Get User, is used to retrieve a user profile from your existing database, without authenticating the user. This script is used to check if a user exists before executing flows that do not require authentication (like sign up and password reset).
+
+Soon, we will address the implementation of both scripts, but first let's create the [API representation](https://auth0.com/docs/apis) of our applications and a [Client](https://auth0.com/docs/clients) to properly secure them against unknown requests.
 
 ### Creating an Auth0 API
 
