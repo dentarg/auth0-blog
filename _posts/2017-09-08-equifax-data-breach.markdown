@@ -13,8 +13,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/equifax/equifax.png
+  bg_color: "#3F0D14"
 tags:
 - data-breaches
 - equifax
