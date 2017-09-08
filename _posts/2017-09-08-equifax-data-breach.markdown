@@ -23,6 +23,7 @@ tags:
 related:
 - 2016-09-22-yahoo-confirms-data-breach-of-half-a-billion-user-accounts
 - 2016-03-17-data-breach-response-planning-for-startups
+- 2017-09-08-how-to-not-get-your-identity-stolen
 ---
 
 ## 143 Million Consumers Compromised in Equifax Data Breach
