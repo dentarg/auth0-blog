@@ -56,7 +56,7 @@ In our scenario, the Auth0 rules that we are going to create will retrieve an `a
 - issuer: 'https://bkrebs.auth0.com/'
 - algorithms: ['RS256']
 
-Since the applications are expecting JWTs with the `https://bkrebs.auth0.com/` issuer, we will use in our exercise a `client_id` and a `client_secret` previously configured on my own Auth0 account (`bkrebs`). For the sake of completeness, we will recreate these properties to understand the process, but we won't use them.
+Since the applications are expecting JWTs with the `https://bkrebs.auth0.com/` issuer, we will use in our exercise a `client_id` and a `client_secret` previously configured on my own Auth0 account (`bkrebs`). But, for the sake of completeness, we will recreate these properties to understand the process, but we won't use them.
 
 ## Consolidating Identities with Auth0
 
