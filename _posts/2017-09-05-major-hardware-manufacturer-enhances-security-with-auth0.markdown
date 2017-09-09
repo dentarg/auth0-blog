@@ -126,3 +126,126 @@ Considering that our rules will be run automatically when users try to authentic
 Clicking on this button will redirect us to the "Quick Start" tab on the newly created client. On this page we can choose the API that we created in the previous section, "Legacy IdP". As we haven't configured the API to accept connections from this new client, the dashboard will warn us that we have to navigate to the API to authorize the client. Let's click on this button and turn on the switch for the "Legacy IdP Rules" client on the page shown.
 
 ![Authorizing Clients to consume APIs](https://cdn.auth0.com/blog/g-cargs/authorizing-clients.jpg)
+
+### Merging Profiles on Authentication
+
+Now that we have both the API and the Client properly created, we can configure the Login script in our database connection. To do that, let's access the "Custom Database" tab in the database connection that we created before (which we called `profile-consolidation`). On this tab we will replace the default source code presented by the following one:
+
+```js
+function login(email, password, callback) {
+  "use strict";
+  const request = require('request-promise@1.0.2');
+  const Promise = require('bluebird@3.4.6');
+
+  const authenticate = Promise.coroutine(function *() {
+    const getTokenOptions = {
+      method: 'POST',
+      url: 'https://bkrebs.auth0.com/oauth/token',
+      headers: {'content-type': 'application/json'},
+      body: '{"client_id":"BvEdrxK2T2f36Hnttintbe4yIEjUC5P2", "client_secret":"13rf3mN0ciOEckabpE4TF4LYstBfOa19DYUBED7-MMzEM-CjR2ig_kifTfyy3Hoh","audience":"legacy-idp","grant_type":"client_credentials"}'
+    };
+
+    // gets an access token to communicate with the legacy identity resources
+    const tokenResponse = yield request(getTokenOptions);
+    const accessToken = JSON.parse(tokenResponse).access_token;
+
+    //gets the user profile from the both application
+    let profileApp1 = {};
+    let profileApp2 = {};
+    try {
+      profileApp1 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-1.tk/users/authenticate'));
+    } catch (e) { }
+
+    try {
+      profileApp2 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-2.tk/users/authenticate'));
+    } catch (e) { }
+
+    // removes null properties from both profile to make merge (assign) unaware of them
+    Object.keys(profileApp1).forEach((key) => (profileApp1[key] === null) && delete profileApp1[key]);
+    Object.keys(profileApp2).forEach((key) => (profileApp2[key] === null) && delete profileApp2[key]);
+
+    // merges both profiles
+    const profile = Object.assign({}, profileApp1, profileApp2, { email });
+    return callback(null, profile);
+  });
+
+  authenticate().catch(function(e) {
+    return callback(new Error(e));
+  });
+
+  function legacyAuth(accessToken, url) {
+    const options = {
+      method: 'POST',
+      url: url,
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'content-type': 'application/json'
+      },
+      body: '{ "email": "' + email + '", "password": "' + password + '" }'
+    };
+    return request(options);
+  }
+}
+```
+
+To better understand what the code above does, let's break it into smaller pieces and inspect each part. The first thing we do in the script above is to require to two libraries: `request-promise` and `bluebird`. The `request-promise` library is used to send HTTP requests to the legacy identity providers. The second library, `bluebird`, we use to be able to `yield` promises, which make our code less verbose.
+
+```js
+const request = require('request-promise@1.0.2');
+const Promise = require('bluebird@3.4.6');
+```
+
+After requiring both libraries, the next step is to use `bluebird` to create a function that handles both the authentication and profile merging processes. Immediately after the function definition, we trigger it and define a callback to be executed when any error occurs. These errors are catch and used to end the whole authentication process.
+
+```js
+  const authenticate = Promise.coroutine(function *() {
+    // ...
+  });
+
+  authenticate().catch(function(e) {
+    return callback(new Error(e));
+  });
+```
+
+Inside the `authenticate` function, the first think we do is to send a request to Auth0 to get an `access_token`. We will use this token to authenticate the rule when issuing request to the legacy identity providers.
+
+```js
+const getTokenOptions = {
+  method: 'POST',
+  url: 'https://bkrebs.auth0.com/oauth/token',
+  headers: {'content-type': 'application/json'},
+  body: '{"client_id":"BvEdrxK2T2f36Hnttintbe4yIEjUC5P2", "client_secret":"13rf3mN0ciOEckabpE4TF4LYstBfOa19DYUBED7-MMzEM-CjR2ig_kifTfyy3Hoh","audience":"legacy-idp","grant_type":"client_credentials"}'
+};
+
+// gets an access token to communicate with the legacy identity resources
+const tokenResponse = yield request(getTokenOptions);
+const accessToken = JSON.parse(tokenResponse).access_token;
+```
+
+With the `access_token` on hand, we try to authenticate the user on both applications. As users can have a profile on one application but not on the other, we nest both calls on distinct `try-catch` blocks. If the authentication succeeds, one of the profile objects is replaced. If it fails, the profile object remains untouched (i.e. `{}`).
+
+```js
+let profileApp1 = {};
+let profileApp2 = {};
+try {
+  profileApp1 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-1.tk/users/authenticate'));
+} catch (e) { }
+
+try {
+  profileApp2 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-2.tk/users/authenticate'));
+} catch (e) { }
+```
+
+After fetching the profile(s) from the legacy identity providers, we remove any `null` properties from it and merge them into one single `profile` object that is returned to Auth0.
+
+```js
+// removes null properties from both profile to make merge (assign) unaware of them
+Object.keys(profileApp1).forEach((key) => (profileApp1[key] === null) && delete profileApp1[key]);
+Object.keys(profileApp2).forEach((key) => (profileApp2[key] === null) && delete profileApp2[key]);
+
+// merges both profiles
+const profile = Object.assign({}, profileApp1, profileApp2, { email });
+return callback(null, profile);
+```
+
+The last piece of code defined in the rule is the `legacyAuth` function. This function is used by the code excerpt that fetches the user profiles. What it does is simply to assemble a `POST` request that carries the `access_token` on the `Authorization` header.
