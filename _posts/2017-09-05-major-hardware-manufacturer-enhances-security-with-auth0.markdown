@@ -60,7 +60,7 @@ Since the applications are expecting JWTs with the `https://bkrebs.auth0.com/` i
 
 ## Consolidating Identities with Auth0
 
-After creating our account on Auth0, or reusing an existing one, the first step is to create a Database Connection. Let's start by visiting the [Database Connections page](https://manage.auth0.com/#/connections/database) in the management dashboard, where we will click in the [Create DB Connection button](https://manage.auth0.com/#/connections/database/new). In the form that is shown to us, we will simply define a name to the connection, something like `profile-consolidation`, and hit the Create button.
+After creating our account on Auth0, or reusing an existing one, the first step is to create a Database Connection. Let's start by visiting the [Database Connections page](https://manage.auth0.com/#/connections/database) in the management dashboard, where we will click in the [Create DB Connection button](https://manage.auth0.com/#/connections/database/new). In the form that is shown to us, we will simply define a name to the connection, `profile-consolidation`, and hit the Create button.
 
 After that we will be redirected to the settings page of the new connection. Auth0 allows us to securely store and manage credentials (email and password) either in an Auth0 Database or in our own custom database. As we already have two databases, we will go to the Custom Database tab and activate the "Use my own database" switch.
 
@@ -188,7 +188,7 @@ function login(email, password, callback) {
 }
 ```
 
-To better understand what the code above does, let's break it into smaller pieces and inspect each part. The first thing we do in the script above is to require to two libraries: `request-promise` and `bluebird`. The `request-promise` library is used to send HTTP requests to the legacy identity providers. The second library, `bluebird`, we use to be able to `yield` promises, which make our code less verbose.
+To better understand what the code above does, let's break it into smaller pieces and inspect each part. The first thing we do in the script above is to require to two libraries: `request-promise` and `bluebird`. The `request-promise` library is used to send HTTP requests to the legacy identity providers. The second library, `bluebird`, is used to allow us to `yield` promises, which makes our code less verbose.
 
 ```js
 const request = require('request-promise@1.0.2');
@@ -207,7 +207,7 @@ After requiring both libraries, the next step is to use `bluebird` to create a f
   });
 ```
 
-Inside the `authenticate` function, the first think we do is to send a request to Auth0 to get an `access_token`. We will use this token to authenticate the rule when issuing request to the legacy identity providers.
+Inside the `authenticate` function, the first think we do is to send a request to Auth0 to get an `access_token`. We will use this token to authenticate the rule when issuing requests to the legacy identity providers.
 
 ```js
 const getTokenOptions = {
@@ -236,7 +236,7 @@ try {
 } catch (e) { }
 ```
 
-After fetching the profile(s) from the legacy identity providers, we remove any `null` properties from it and merge them into one single `profile` object that is returned to Auth0.
+After fetching the profile(s) from the identity providers, we remove any `null` properties from the objects and merge them into one single `profile` object that is returned to Auth0.
 
 ```js
 // removes null properties from both profile to make merge (assign) unaware of them
@@ -248,4 +248,19 @@ const profile = Object.assign({}, profileApp1, profileApp2, { email });
 return callback(null, profile);
 ```
 
-The last piece of code defined in the rule is the `legacyAuth` function. This function is used by the code excerpt that fetches the user profiles. What it does is simply to assemble a `POST` request that carries the `access_token` on the `Authorization` header.
+The last piece of code defined in the rule is the `legacyAuth` function. This function is used to fetch user profiles. It achieves its goal by assembling and issuing a `POST` request that carries the `access_token`, on the `Authorization` header, with the user email and password on the request body.
+
+```js
+function legacyAuth(accessToken, url) {
+  const options = {
+    method: 'POST',
+    url: url,
+    headers: {
+      'Authorization': 'Bearer ' + accessToken,
+      'content-type': 'application/json'
+    },
+    body: '{ "email": "' + email + '", "password": "' + password + '" }'
+  };
+  return request(options);
+}
+```
