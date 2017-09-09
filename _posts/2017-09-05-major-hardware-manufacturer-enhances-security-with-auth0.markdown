@@ -110,5 +110,19 @@ After filling the form with the values above, we can click on the Create button 
 
 ### Creating an Auth0 Client
 
-- Non Interactive Clients
-- Consolidating Identity
+Besides the API to represent the legacy identity provider, we will also need to create a [Client](https://auth0.com/docs/clients) to represent the Auth0 rules that will communicate with our applications. Let's head to [the Client page on the Auth0 management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button.
+
+Clicking on it will bring up a form that asks for two types of information. The first one is the name of the client that we are creating. This name won't be that important as it exists only to help us remembering what the client is used for. So let's give a name like "Legacy IdP Rules".
+
+The second information that the form asks for is the client type. There are four types available:
+
+- Native: We use this type when we want to create a client to represent a mobile or desktop app that natively runs on a device.
+- Single Page Web App: We use this type when we want to create a client to represent a SPA written with some JavaScript library (e.g. React, Angular, or Ember).
+- Regular Web App: We use this type when we want to create a client that represents old-school web apps (those that refresh the whole page when the user clicks on a link or button).
+- Non Interactive Clients: We use this type when we want to create a client that represents a CLI (Command Line Interface) app, or a service that runs on the background.
+
+Considering that our rules will be run automatically when users try to authenticate or to retrieve passwords, the best category for the client that we are creating is "Non Interactive Clients". After choosing the Client Type we can click on the "Create" button.
+
+Clicking on this button will redirect us to the "Quick Start" tab on the newly created client. On this page we can choose the API that we created in the previous section, "Legacy IdP". As we haven't configured the API to accept connections from this new client, the dashboard will warn us that we have to navigate to the API to authorize the client. Let's click on this button and turn on the switch for the "Legacy IdP Rules" client on the page shown.
+
+![Authorizing Clients to consume APIs](https://cdn.auth0.com/blog/g-cargs/authorizing-clients.jpg)
