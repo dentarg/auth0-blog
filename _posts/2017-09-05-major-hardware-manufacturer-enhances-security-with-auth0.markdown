@@ -76,7 +76,7 @@ The second script, called Get User, is used to retrieve a user profile from your
 
 Soon, we will address the implementation of both scripts, but first let's create the [API representation](https://auth0.com/docs/apis) of our applications and a [Client](https://auth0.com/docs/clients) to properly secure them against unknown requests.
 
-### Creating an Auth0 API
+## Creating an Auth0 API
 
 As explained on [Auth0's documentation](https://auth0.com/docs/apis), an API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. This definition fits perfectly for both applications that contain the users that we want to merge and import into our Auth0 account. Therefore, we need an API to represent these applications to properly secure them against unauthenticated requests.
 
@@ -108,7 +108,7 @@ The last property that we need to set is the "Signing Algorithm". There are two 
 
 After filling the form with the values above, we can click on the Create button to persist our new API.
 
-### Creating an Auth0 Client
+## Creating an Auth0 Client
 
 Besides the API to represent the legacy identity provider, we will also need to create a [Client](https://auth0.com/docs/clients) to represent the Auth0 rules that will communicate with our applications. Let's head to [the Client page on the Auth0 management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button.
 
@@ -127,7 +127,7 @@ Clicking on this button will redirect us to the "Quick Start" tab on the newly c
 
 ![Authorizing Clients to consume APIs](https://cdn.auth0.com/blog/g-cargs/authorizing-clients.jpg)
 
-### Merging Profiles on Authentication
+## Merging Profiles on Authentication
 
 Now that we have both the API and the Client properly created, we can configure the Login script in our database connection. To do that, let's access the "Custom Database" tab in the database connection that we created before (which we called `profile-consolidation`). On this tab we will replace the default source code presented by the following one:
 
@@ -264,3 +264,83 @@ function legacyAuth(accessToken, url) {
   return request(options);
 }
 ```
+
+### Testing the Authentication Process
+
+Having all pieces together on the Login script, we can save it and then test to see the merging process in action. As explained before, the sample applications are populated with two different sets of users. [The first application is filled with the following users](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/db/node-1-users.sql):
+
+<table class="table">
+  <tr>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Address</th>
+    <th>City</th>
+  </tr>
+  <tr>
+    <th>bruno@spam4.me</th>
+    <th>123456</th>
+    <th>Bruno</th>
+    <th></th>
+    <th></th>
+    <th>New York</th>
+  </tr>
+  <tr>
+    <th>serena@spam4.me</th>
+    <th>123456</th>
+    <th>Serena</th>
+    <th>Williams</th>
+    <th></th>
+    <th>New York</th>
+  </tr>
+</table>
+
+And [the second one contains the following users](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/db/node-2-users.sql):
+
+<table class="table">
+  <tr>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Address</th>
+    <th>City</th>
+  </tr>
+  <tr>
+    <th>bruno@spam4.me</th>
+    <th>123456</th>
+    <th>Bruno</th>
+    <th>Krebs</th>
+    <th>5th Avenue</th>
+    <th></th>
+  </tr>
+  <tr>
+    <th>venus@spam4.me</th>
+    <th>123456</th>
+    <th>Venus</th>
+    <th>Williams</th>
+    <th></th>
+    <th>New York</th>
+  </tr>
+</table>
+
+Note that the user identified with the `bruno@spam4.me` email exists on both applications. Although present on both apps, the first one doesn't know the user surname nor its address. Whereas the second app knows its surname and address but it doesn't know its city. Therefore, if we use this user when testing the login script, we shall end up with a profile that contains all the properties (surname, address, and city).
+
+To verify if this is what we get, let's:
+
+- Access the [Database Connections page](https://manage.auth0.com/#/connections/database).
+- Click on the Try button (the last button, labeled with a play icon) of the `profile-consolidation` database.
+- Fill the form with `bruno@spam4.me` in the email field and `123456` in the password field.
+- Click on the Log In button on the bottom of the form.
+
+This shall bring up a screen saying that the authentication process worked and with the consolidated profile, as follows:
+
+![Authentication process result](https://cdn.auth0.com/blog/g-cards/profile-consolidation.jpg)
+
+Besides the user that has an account on both legacy apps, there are two more users that have accounts on one application or another. `serena@spam4.me` has an account on the first application, but not on the second one, and `venus@spam4.me` vice versa. Therefore, if we test the authentication process again with one of these users, we shall end up with the exact profile from the application where the user exists.
+
+
+## Conclusion
+
+All these pieces together allow us to refactor our applications to use Auth0 as the new consolidated authentication mechanism. After refactoring these applications
