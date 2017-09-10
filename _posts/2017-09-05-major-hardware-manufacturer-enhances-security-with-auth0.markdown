@@ -340,7 +340,18 @@ This shall bring up a screen saying that the authentication process worked and w
 
 Besides the user that has an account on both legacy apps, there are two more users that have accounts on one application or another. `serena@spam4.me` has an account on the first application, but not on the second one, and `venus@spam4.me` vice versa. Therefore, if we test the authentication process again with one of these users, we shall end up with the exact profile from the application where the user exists.
 
+## Refactoring Legacy Applications to use Auth0
+
+Besides implementing the Login script to verify user credentials and merge profiles from multiple sources, we also need to refactor legacy applications to replace its current authentication mechanism. That is, whenever users reach the application and try to login, we need to show them the Auth0 login screen instead of the old one. Not only that, the application must understand that the user is authenticated. Although this might sound as more hard work, Auth0 smoothes the refactoring process by providing open source libraries to the most common used technologies, and by providing great documentation and examples.
+
+Heading to [Auth0 Docs](https://auth0.com/docs), we can see that technologies are organized by application type (Native App, SPAs, Web App, and Backend). Choosing one of these types, opens up a range of popular technologies that we can choose from to learn how the integration works. For example, if we choose the Web App type, we will see a screen that contains documentation to technologies like [ASP.NET](https://auth0.com/docs/quickstart/webapp/aspnet), [Apache](https://auth0.com/docs/quickstart/webapp/apache), [Go](https://auth0.com/docs/quickstart/webapp/golang), [Java](https://auth0.com/docs/quickstart/webapp/java), [Node.js](https://auth0.com/docs/quickstart/webapp/nodejs), [PHP](https://auth0.com/docs/quickstart/webapp/php), and [so on](https://auth0.com/docs/quickstart/webapp).
 
 ## Conclusion
 
-All these pieces together allow us to refactor our applications to use Auth0 as the new consolidated authentication mechanism. After refactoring these applications
+The scenario that the hardware manufacturer was dealing with before moving to Auth0 is pretty common. Companies all around the world usually have multiple applications that support their operations and, more often than not, each application contains its own identity management system. This kind of situation has many disadvantages.
+
+For example, its not trivial to keep track of multiple credentials spread around multiple applications. The more apps we add to our daily operations, the more credentials we have to manage. Besides that, this can introduce a security issue as not all software providers have the knowledge required, or the time necessary, to implement all the security measures needed to keep our sensitive data secure.
+
+Gladly, as we saw throughout this article, using Auth0 to consolidate identities from multiple applications is quite trivial. In just a few minutes we can set up an Auth0 account that can communicate to as many legacy applications as needed to fetch users and merge on a single source of truth. Moreover, having a single identity provider makes it easier to enhance security with features like [Multifactor Authentication](https://auth0.com/docs/multifactor-authentication) and [Passwordless](https://auth0.com/passwordless).
+
+{% include tweet_quote.html quote_text="Having a single IdP makes it easy to enhance security with Multifactor Authentication and Passwordless." %}
