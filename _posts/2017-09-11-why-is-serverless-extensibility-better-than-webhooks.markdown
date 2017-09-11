@@ -1,7 +1,7 @@
 ---
 layout: post_extend
 title: "Why is Serverless Extensibility better than Webhooks?"
-description: "Webhooks are a clean and simple way to add extensibility points into your SaaS, but Serverless Extensibiliy removes several points of friction on your customers."
+description: "Webhooks are a clean and simple way to add extensibility points into your SaaS, but Serverless Extensibility removes several points of friction on your customers."
 date: 2017-09-11 10:21
 is_extend: true
 category: Extend, Business
@@ -68,7 +68,7 @@ Webhooks are deceptively simple on the surface. Many platforms offer Webhooks, b
 
 ## Serverless Extensibility, Going Beyond Webhooks
 
-A new approach is starting to emerge in the industry, one that we call Serverless Extensibility. Instead of placing the burden on customers, SasS products can leverage a Serverless platform to allow users to author and execute extensions directly in the product.
+A new approach is starting to emerge in the industry, one that we call Serverless Extensibility. Instead of placing the burden on customers, SaaS products can leverage a Serverless platform to allow users to author and execute extensions directly in the product.
 
 ![Serverless Extensibility](https://cdn.auth0.com/website/blog/extend/why-is-serverless-extensibility-better-than-webhooks/serverless-extensibility.png)
 
