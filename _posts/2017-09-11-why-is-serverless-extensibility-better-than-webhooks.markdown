@@ -82,7 +82,7 @@ Serverless Extensibility makes it much easier and faster to customize your produ
 
 Here at Auth0, we have been working on extensibility for a while. We are known for offering the simplest set of tools to solve the most complex identity use cases. With Auth0 Identity, you can easily authenticate and authorize apps and APIs with any identity provider running on any stack, device, or cloud.
 
-For several years customers have been able to execute arbitrary Node.js code during the authorization process using [Rules](https://auth0.com/docs/rules/current). Several templates are available or create an empty Rule to customize right in the management dashboard.
+For several years customers have been able to execute arbitrary Node.js code during the authorization process using [Rules](https://auth0.com/docs/rules/current). Several templates are available or they can create an empty Rule to customize right in the management dashboard.
 
 Recently, we added [Hooks](https://auth0.com/docs/hooks) allowing users to customize the behavior of Auth0 at credential exchange, or at pre and post user registration extension points.
 
