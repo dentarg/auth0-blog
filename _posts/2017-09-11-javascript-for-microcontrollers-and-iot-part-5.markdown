@@ -45,7 +45,7 @@ In [our last post from the JavaScript for Microcontrollers and IoT series](https
 
 Throughout the JavaScript for Microcontrollers and IoT series we have explored different alternatives for adding JavaScript to microcontroller platforms. We have also learned how to use both C and JavaScript libraries. However, one missing part of the puzzle we have left out so far is secure communications.
 
-When we explored the Particle Photon as an alternative, its firmware gave us an option for secure communications: its connection to the Particle Cloud. The Particle Cloud is a series of online services provided by Particle, the developers of the Photon. This is very convenient: easy to use, encrypted, and capable of acting as a gateway to other online services. The Particle Cloud allowed us to send our sensor data to a Webtask securely. This is great! However, for some applications, relying on an external cloud platform is not an option. Furthermore, the Particle Cloud has its own limitations that may not be adequate for our purposes. We need an alternative.
+When we explored the Particle Photon as an alternative, its firmware gave us an option for secure communications: its connection to the [Particle Cloud](https://www.particle.io/products/platform/particle-cloud). The Particle Cloud is a series of online services provided by Particle, the developers of the Photon. This is very convenient: easy to use, encrypted, and capable of acting as a gateway to other online services. The Particle Cloud allowed us to send our sensor data to a Webtask securely. This is great! However, for some applications, relying on an external cloud platform is not an option. Furthermore, the Particle Cloud has its own limitations that may not be adequate for our purposes. We need an alternative.
 
 ![Particle Cloud](https://cdn.auth0.com/blog/iot5/particle-cloud.png)
 
@@ -74,7 +74,7 @@ It is up to the entities that control the set of trusted certificates to make su
 Once a certificate is validated and the domain matches the common name, a secure communications channel can be established. For this, TLS makes use of a key-exchange algorithm. These algorithms rely on the server's certificate and asymmetric encryption to negotiate a new shared key between the server and the client. There are several different algorithms for this supported by TLS. Once this key is established the communication switches to symmetric encryption. Symmetric encryption is more efficient than asymmetric encryption and thus is more suitable for exchanging data with the server after the initial handshake. TLS supports different symmetric algorithms for this as well, but most of time one of the variants of [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) is picked.
 
 ### Mbed TLS
-Mbed TLS is a C library. It requires a C99 compiler and is highly configurable. We will remove anything that is not necessary such as file access, old-version support (SSLv3), Berkeley/BSD/Linux sockets, etc. to keep code size to a minimum.
+[Mbed TLS](https://tls.mbed.org/) is a C library. It requires a C99 compiler and is highly configurable. We will remove anything that is not necessary such as file access, old-version support (SSLv3), Berkeley/BSD/Linux sockets, etc. to keep code size to a minimum.
 
 #### A Big Warning
 Before going forward a big note of caution is required. Some of the algorithms required by TLS rely on a good entropy source. An entropy source is a source of randomness. This is usually used to feed the random number generator (RNG) used internally by Mbed TLS. This poses a problem: there is no good entropy source in the Particle Photon available out of the box. Note that a pseudo random number generator (PRNG) (such as the one provided by the Particle Firmware) is not good enough.
@@ -84,12 +84,12 @@ One option is to [construct your own](http://robseward.com/misc/RNG2/) ([another
 ## The Example
 For our example we will turn once more to our sensor hub example. However, we will use the version from the third post and build on top of that. The sensor hub example from our third post does the following:
 
-- It continually monitors each sensor looking for critical conditions. If a critical condition is detected it sends an alarm event to the the Particle Cloud.
+- It continually monitors each sensor looking for critical conditions. If a critical condition is detected, it sends an alarm event to the the Particle Cloud.
 - It periodically sends a report of the sensors' current values to a local server.
 
 For this post we will change the example to do the following:
 
-- It will continually monitor each sensor looking for critical conditions. If a critical condition is detected it will send a HTTP request to a Webtask.
+- It will continually monitor each sensor looking for critical conditions. If a critical condition is detected, it will send a HTTP request to a Webtask.
 - It will periodically send a report to the same Webtask regardless of a critical condition using a HTTP request.
 
 Webtasks require TLS, so all HTTP requests will be encrypted.
@@ -422,5 +422,11 @@ If you are on a different platform, check the [first post](https://auth0.com/blo
 [Get the full example](https://github.com/auth0-blog/javascript-for-microncontrollers-example-tls).
 
 ## Conclusion
-We have pushed the Particle Photon to its limits. We integrated a JavaScript interpreter plus a TLS library and had them play together. We filled up all usable ROM and RAM and, luckily, it worked! However, we cannot recommend going this route for production. We had to microtune memory use to make sure everything worked together. Either go for a bigger microcontroller, or forego one element: JavaScript or TLS. We think it would be a good idea for Particle developers to expose the Mbed TLS library embedded in the firmware so that user applications could link against it. Having two copies of the same library in a memory limited device is wasteful. We are also very interested in seeing how Espruino behaves for TLS use on validated hardware, but, sadly, we don't have any in our power for now. If you choose to use Mbed TLS on the Particle Photon don't forget to get a hardware random number generator, not having one defeats the purpose of using TLS in the first place! As we have seen, once TLS is available, microcontrollers become much more powerful, and a whole host of preexisting services, like Webtasks, become immediately available. This concludes our JavaScript for Microcontrollers and IoT series for now. If you would like us to explore something else in relation to IoT, let us know in the comments. Hack on!
+We have pushed the Particle Photon to its limits. We integrated a JavaScript interpreter plus a TLS library and had them play together. We filled up all usable ROM and RAM and, luckily, it worked! However, we cannot recommend going this route for production. We had to microtune memory use to make sure everything worked together. Either go for a bigger microcontroller, or forego one element: JavaScript or TLS. We think it would be a good idea for Particle developers to expose the Mbed TLS library embedded in the firmware so that user applications could link against it. Having two copies of the same library in a memory limited device is wasteful. 
+
+We are also very interested in seeing how Espruino behaves for TLS use on validated hardware, but, sadly, we don't have any in our power for now. If you choose to use Mbed TLS on the Particle Photon don't forget to get a hardware random number generator, not having one defeats the purpose of using TLS in the first place! As we have seen, once TLS is available, microcontrollers become much more powerful, and a whole host of preexisting services, like Webtasks, become immediately available.
+
+{% include tweet_quote.html quote_text="Once TLS is available, microcontrollers can take advantage of preexisting services, like Webtasks" %}
+
+This concludes our JavaScript for Microcontrollers and IoT series for now. If you would like us to explore something else in relation to IoT, let us know in the comments. Hack on!
 
