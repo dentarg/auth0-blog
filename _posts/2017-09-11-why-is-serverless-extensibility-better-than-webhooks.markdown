@@ -60,7 +60,7 @@ In a big company, this is even more of a challenge. Budgets need to be considere
 
 All of this contributes to taking longer to deliver the value the customer wanted in the first place.
 
-{% include tweet_quote.html quote_text="Webhooks sounds simple on the surface, but that simplicity is deceptive." %}
+{% include tweet_quote.html quote_text="Webhooks are deceptively simple on the surface." %}
 
 Webhooks are deceptively simple on the surface. Many platforms offer Webhooks, but consuming them has a high barrier to entry. Your customers need to think carefully about pursuing them. They are committing to the maintenance of that infrastructure for a very long time. All of this contributes to taking longer to deliver the value the customer wanted in the first place.
 
