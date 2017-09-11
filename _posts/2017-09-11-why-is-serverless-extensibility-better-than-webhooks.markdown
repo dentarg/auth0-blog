@@ -74,7 +74,7 @@ A new approach is starting to emerge in the industry, one that we call Serverles
 
 Users can now create custom extensions within the product using an inline code editor, choosing from a pre-defined selection. At runtime, The SaaS calls out to a Serverless provider to securely execute the code.
 
-AServerless Extensibility makes it much easier and faster to customize your product and get the value to your users. Not only that, but it saves your customers money as they substantially reduce up-front development cost, and they no longer have to deal with ongoing hosting and maintenance. Removing that friction and cost means higher user retention, which our data shows can be as high as 10x.
+Serverless Extensibility makes it much easier and faster to customize your product and get the value to your users. Not only that, but it saves your customers money as they substantially reduce up-front development cost, and they no longer have to deal with ongoing hosting and maintenance. Removing that friction and cost means higher user retention, which our data shows can be as high as 10x.
 
 ## Serverless Extensibility in the Wild
 
