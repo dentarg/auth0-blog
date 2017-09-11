@@ -99,7 +99,7 @@ With Twilio, you can provision a phone number that accepts calls, faxes, MMS or 
 Twilio recently augmented their Webhook based extensibility with [Twilio Functions](https://www.twilio.com/blog/2017/05/introducing-twilio-functions.html). In the introduction presentation at Signal 2017, Carter Rabasa explained the reasoning this way.
 
 > **"The first thing that Twilio tells you to do is download a web application. And then we ask you to go deploy that web application to some server, somewhere."**<br />
-> [Carter Rabasa](https://www.youtube.com/watch?v=PKodXk6L5Eo) - Product Manager @ Twilio
+> Carter Rabasa - Product Manager @ Twilio
 
 Now you can easily create a function that handles incoming voice calls or messages right in the Twilio console. When saved, the function is deployed to a serverless environment and can now be attached to incoming events.
 
@@ -111,12 +111,12 @@ Using Twilio Functions enables customers to now on board much more quickly to us
 
 Stamplay is a business automation platform that provides the ability to connect any application, database or service regardless of if data is sitting in the cloud or on-premises.
 
-With Stamplay you can plug in a large and growing [list of integrations](https://stamplay.com/product#integrations) and use them to orchestrate communication between systems based on event triggers. It offers a beautiful point and click task editor that allows any business professional to wire together interactions.
+With Stamplay you can plug in a large and growing list of integrations and use them to orchestrate communication between systems based on event triggers. It offers a beautiful point and click task editor that allows any business professional to wire together interactions.
 
 In January of 2016, Stamplay released Code Blocks a built in extensibility point that solved a specific need in their product. Giuliano Lacobelli introduced it this way.
 
 > **"Sometimes you cannot get around the need for some custom code."**<br />
-> [Giuliano Lacobelli](https://blog.stamplay.com/code-blocks-101-d4741b107ec0) - Co-Founder @ Stamplay
+> Giuliano Lacobelli - Co-Founder @ Stamplay
 
 Now Stamplay customers can create custom integrations within the inline editor, and use them directly on Stamplay's drag and drop environment.
 
