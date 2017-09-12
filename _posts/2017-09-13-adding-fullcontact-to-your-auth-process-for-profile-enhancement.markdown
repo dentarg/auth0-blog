@@ -2,7 +2,7 @@
 layout: post
 title: "Adding FullContact to your Auth Process For Profile Enhancement"
 description: "Learn how to enhance your users profile by adding FullContact to your authentication process."
-date: 2017-07-05 8:30
+date: 2017-09-13 8:30
 category: Growth, Growth Hacking
 author:
   name: "Prosper Otemuyiwa"
@@ -10,11 +10,12 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/fullcontact/logo.png
-  bg_color: "#680D10"
+  image: https://cdn.auth0.com/blog/fullcontact/logo02.png
+  bg_color: "#2A2626"
 related:
-  - 2016-11-30-different-ways-to-implement-multifactor
-  - 2015-12-17-json-web-token-signing-algorithms-overview
+  - 2017-04-17-how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing
+  - 2017-03-24-360-view-of-customer-by-managing-identity
+  - 2017-05-26-go-beyond-username-password-with-modern-auth
 tags:
   - fullcontact
   - profile-enhancement
@@ -37,7 +38,7 @@ Now, the user has an enhanced profile because data has been fetched from an exte
 
 ## Let's Get Started
 
-[FullContact](https://www.fullcontact.com/home-2) keep contacts in sync across multiple devices and gives you up-to-date contacts with public data, including photos, jobs, and social profiles. It views company profiles for your contacts, including size, founded date, and many more.
+[FullContact](https://www.fullcontact.com/) keep contacts in sync across multiple devices and gives you up-to-date contacts with public data, including photos, jobs, and social profiles. It views company profiles for your contacts, including size, founded date, and many more.
 
 In this post, you’ll learn how to implement **Profile Enhancement** via **FullContact** in your [Auth0](https://auth0.com) app in just 5 simple steps.
 
