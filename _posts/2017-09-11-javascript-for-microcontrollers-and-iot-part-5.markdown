@@ -2,7 +2,7 @@
 layout: post
 title: "JavaScript for Microcontrollers and IoT: SSL/TLS"
 description: "Find out how to add TLS to the Particle Photon to secure your communications."
-date: 2017-09-11 12:30
+date: 2017-09-12 12:30
 category: Technical Guide, IoT, JavaScript
 author:
   name: Sebastián Peyrott
