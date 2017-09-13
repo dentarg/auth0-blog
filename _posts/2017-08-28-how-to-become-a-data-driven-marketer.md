@@ -3,7 +3,8 @@ layout: post
 title: "How to Become a Data-Driven Marketer"
 description: "Learn about a data-informed marketing approach with buyer personas and lead generation."
 date: 2017-08-28 8:30
-category: Growth
+category: Growth, Data
+is_non-tech: true
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
