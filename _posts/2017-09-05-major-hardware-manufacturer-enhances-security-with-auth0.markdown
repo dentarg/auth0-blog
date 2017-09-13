@@ -35,7 +35,7 @@ Fortunately for the manufacturer, and for companies facing similar scenarios, Au
 
 To simulate the manufacturer's scenario, we will use two Node.js applications that are dependent on different databases. There are some users with the same credentials (email and password) on each application and some users that exist only on one application or the other. When a user exists on both applications, some details of their personal data will differ on one account and the other. These differences were created to show how merging profiles from different applications is easy with Auth0.
 
-To follow along with this article and see the profile consolidation in practice, we will just need to [sign up for a free Auth0 account](javascript:signup\(\)) and configure a few settings on it. This Auth0 account will then communicate with both apps, hosted [here](http://node-app-1.tk/) and [here](http://node-app-2.tk/), to perform the following steps:
+To follow along with this article and see the profile consolidation in practice, we will just need to [sign up for a free Auth0 account](javascript:signup\(\)) and configure a few settings on it. This Auth0 account will then communicate with both apps, hosted [here](https://node-app-1.now.sh/) and [here](https://node-app-2.now.sh/), to perform the following steps:
 
 - Check, during sign in, if a credential is valid or not.
 - Check, during a password retrieval or a sign up, if an email address exists on one of the applications.
@@ -153,11 +153,11 @@ function login(email, password, callback) {
     let profileApp1 = {};
     let profileApp2 = {};
     try {
-      profileApp1 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-1.tk/users/authenticate'));
+      profileApp1 = JSON.parse(yield legacyAuth(accessToken, 'https://node-app-1.now.sh/users/authenticate'));
     } catch (e) { }
 
     try {
-      profileApp2 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-2.tk/users/authenticate'));
+      profileApp2 = JSON.parse(yield legacyAuth(accessToken, 'https://node-app-2.now.sh/users/authenticate'));
     } catch (e) { }
 
     // removes null properties from both profile to make merge (assign) unaware of them
@@ -228,11 +228,11 @@ With the `access_token` on hand, we try to authenticate the user on both applica
 let profileApp1 = {};
 let profileApp2 = {};
 try {
-  profileApp1 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-1.tk/users/authenticate'));
+  profileApp1 = JSON.parse(yield legacyAuth(accessToken, 'https://node-app-1.now.sh/users/authenticate'));
 } catch (e) { }
 
 try {
-  profileApp2 = JSON.parse(yield legacyAuth(accessToken, 'http://node-app-2.tk/users/authenticate'));
+  profileApp2 = JSON.parse(yield legacyAuth(accessToken, 'https://node-app-2.now.sh/users/authenticate'));
 } catch (e) { }
 ```
 
@@ -267,7 +267,7 @@ function legacyAuth(accessToken, url) {
 
 ### Testing the Authentication Process
 
-Now that we have all the pieces together in the Login script, we can save it and then test to see the merging process in action. As explained before, the sample applications are populated with two different sets of users. [The first application is filled with the following users](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/db/node-1-users.sql):
+Now that we have all the pieces together in the Login script, we can save it and then test to see the merging process in action. As explained before, the sample applications are populated with two different sets of users. [The first application is filled with the following users](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/db/node-1-users.json):
 
 <table class="table">
   <tr>
@@ -296,7 +296,7 @@ Now that we have all the pieces together in the Login script, we can save it and
   </tr>
 </table>
 
-And [the second one contains the following users](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/db/node-2-users.sql):
+And [the second one contains the following users](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/db/node-2-users.json):
 
 <table class="table">
   <tr>
