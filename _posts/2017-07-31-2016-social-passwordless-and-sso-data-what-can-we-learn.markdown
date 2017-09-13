@@ -4,6 +4,7 @@ title: "2016 Social, Passwordless and SSO Data: What Can We Learn?"
 description: "Username and password still dominates, but not for long"
 date: 2017-07-31 19:00
 category: Growth, Identity
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
