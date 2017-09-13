@@ -3,7 +3,8 @@ layout: post
 title: "Why You Should Not Manage Your Users' Identities"
 description: "The risk far outweighs the reward if you aren't an identity management specialist"
 date: 2017-09-06 19:48
-category: Technical Guide, Security
+category: Growth, Identity, Authentication
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
