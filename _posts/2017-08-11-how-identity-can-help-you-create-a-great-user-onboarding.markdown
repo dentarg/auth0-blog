@@ -3,7 +3,8 @@ layout: post
 title: "How Identity Can Help You Create a Great User Onboarding"
 description: "Identity management can be a tool that enhances your onboarding efforts to help you create great user onboarding experiences. Find out how."
 date: 2017-08-11 8:30
-category: Onboarding
+category: Growth, Identity, Authentication
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
