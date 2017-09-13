@@ -4,6 +4,7 @@ title: "How Identity Management Helps You Personalize Your User Experience"
 description: "Keep up with product customization by letting your IAM do the heavy lifting"
 date: 2017-08-04 17:10
 category: Growth, Growth Hacking
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
