@@ -4,6 +4,7 @@ title: "Adding FullContact to your Auth Process For Profile Enhancement"
 description: "Learn how to enhance your users' profile by adding FullContact to your authentication process."
 date: 2017-09-13 8:30
 category: Growth, Growth Hacking
+is_non-tech: true
 author:
   name: "Prosper Otemuyiwa"
   url: "https://twitter.com/unicodeveloper"
