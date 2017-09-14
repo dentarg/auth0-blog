@@ -26,6 +26,16 @@ related:
 
 ## Bootstrapping a Flask Application
 
+### Virtual Environments (virtualenv)
+
+> Note: Macbooks ship with Python 2. Installing Python 3 alongside with this version produces `python3` and `pip3` commands, and not `python` (which refers to Python 2) or `pip`.
+
+```bash
+pip3 install pipenv
+pip3 install virtualenv
+virtualenv env
+```
+
 ## Aside: Securing Python APIs with Auth0
 
 ## Next Steps
