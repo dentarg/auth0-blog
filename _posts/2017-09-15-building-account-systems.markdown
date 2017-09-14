@@ -2,13 +2,13 @@
 layout: post
 title: "Building Account Systems"
 description: "Focus on your core competency. Outsource your login systems"
-date: 2017-09-06 19:48
-category: Growth
+date: 2017-09-15 8:30
+category: Growth, BuildBuy
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Mike Hearn
+  url: https://blog.plan99.net/
+  avatar: https://cdn-images-1.medium.com/fit/c/200/200/0*vCXpXuEWOU7lPZ5C.jpeg
+  mail: mikea@plan99.net
 design:
   bg_color: "#54615A"
   image: "https://cdn.auth0.com/blog/dont-manage-identities/logo.png"
@@ -179,3 +179,9 @@ There is far more I could write about account systems. Defending your site again
 But it’s fair to say the task is deceptively large. That’s why I keep recommending you bite the bullet and outsource your account management to the big boys. Fiddling with CAPTCHAs is not your core business. Writing design documents for “log out” is not your core business. Diagnosing why you’re bleeding users who forgot their password is not your core business. Diagnosing why SMS message delivery to Peru isn’t reliable isn’t your core business. Every dollar you spend on these things is a dollar your competitors who use “Sign in with …” are spending on their core business.
 
 So throw out your password database, and don’t look back.
+
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Thanks to Mike Hearn for letting us repost his blog post. You can find more amazing content from him in his personal blog: <a href="https://blog.plan99.net/">Mike's blog<a/>.</strong>
+</div>
