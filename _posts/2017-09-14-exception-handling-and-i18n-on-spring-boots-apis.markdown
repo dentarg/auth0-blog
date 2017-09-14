@@ -38,17 +38,17 @@ Throughout this article we are going to see how can we internationalize a [Sprin
 
 ## What Will We Build?
 
-As we don't want to spend too much time setting up a new project from the ground, we are going to take advantage of the QuestionMarks project that we started building in previous articles. There is **no need** to read all the articles, although it would be a good idea as they provide good Spring Boot techniques. We will clone the [GitHub repository that supports the project](https://github.com/auth0-blog/questionmarks-server), and we are going to checkout a specific [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) that will give us a solid basis to focus on what we are interested on, I18N and exception handling.
+As we don't want to spend too much time setting up a new project from the ground, we are going to take advantage of the QuestionMarks project that we started building in [previous articles](https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase/). There is **no need** to read all the articles, although it would be a good idea as they provide good Spring Boot techniques. We will clone the [GitHub repository that supports the project](https://github.com/auth0-blog/questionmarks-server), and we are going to checkout a specific [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) that will give us a solid basis to focus on what we are interested on, I18N and exception handling.
 
 ### QuestionMarks Summary
 
 The idea behind QuestionMarks is that the application will enable users to practice and enhance their knowledge by answering a set of multiple choice questions. To provide a better organization, these questions are grouped in different exams. For example, there could be an exam called *JavaScript Interview* that would hold a set of JavaScript related questions to help users to prepare for interviews. In this article we won't build the whole application as it would take a lot of time and would make the article huge, but we will be able to see the technologies aforementioned in action.
 
-Throughout previous articles, we have integrated Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer. Therefore, we will need to launch a PostgreSQL instance to support the application. We also created a nice feature that allow us to automatically map [DTOs](https://martinfowler.com/eaaCatalog/dataTransferObject.html) into entities while validating their data. The problem now is that if the data is not valid, or if an unexpected error occurs, our application will not provide user-friendly messages. To overcome this issue, we are going to enhance QuestionMarks to handle these errors and encapsulate (or replace) messages in a structured way.
+Throughout previous articles, [we have integrated Spring Data JPA, PostgreSQL, and Liquibase to manage the persistence layer](https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase/). Therefore, we will need to launch a PostgreSQL instance to support the application. We also created a nice feature that allow us to [automatically map DTOs into entities while validating their data](https://auth0.com/blog/automatically-mapping-dto-to-entity-on-spring-boot-apis/). The problem now is that if the data is not valid, or if an unexpected error occurs, our application will not provide user-friendly messages. To overcome this issue, we are going to enhance QuestionMarks to handle these errors and encapsulate (or replace) messages in a structured way.
 
 ### Launching PostgreSQL
 
-Before cloning the existing project, we need to setup a PostgreSQL instance to support our database operations and the persistence layer. As stated in the first article, Docker can be a great solution to launch applications without installing them on our development machine.
+Before cloning the existing project, we need to setup a PostgreSQL instance to support our database operations and the persistence layer. As stated in the [first article](https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase/), Docker can be a great solution to launch applications without installing them on our development machine.
 
 We do need Docker installed, but the process of installing it is quite simple ([for MacOS check this link](https://www.docker.com/docker-mac), [for Windows this link](https://www.docker.com/docker-windows), and [for Ubuntu this link](https://docs.docker.com/engine/installation/linux/ubuntu/)). Having Docker properly installed, we can run a dockerized instance of PostgreSQL as follows:
 
@@ -310,7 +310,7 @@ String errorMessage = messageSource
 
 ### Handling Bean Validation Exceptions
 
-In the previous article, we've developed a solution that transforms DTOs into entities and that triggers the bean validation for these DTOs automatically. This means that, for example, if we define a property as `@NotNull` in a DTO and a user sends an instance that contains `null` as the value property, a `MethodArgumentNotValidException` is thrown saying that this situation is not valid.
+In the previous article, [we've developed a solution that transforms DTOs into entities and that triggers the bean validation for these DTOs automatically](https://auth0.com/blog/automatically-mapping-dto-to-entity-on-spring-boot-apis/). This means that, for example, if we define a property as `@NotNull` in a DTO and a user sends an instance that contains `null` as the value property, a `MethodArgumentNotValidException` is thrown saying that this situation is not valid.
 
 To catch this exception and provide a better message, we have defined a method called `handleArgumentNotValidException` and set it to handle `MethodArgumentNotValidExceptions`. Since multiple validation errors might occur, we map the error codes to messages defined in `messages.properties` files.
 
@@ -334,7 +334,7 @@ We also call `printStackTrace` method in the exception to log its details to be 
 
 ## Using the Global Exception Handler
 
-Now that we have a global exception handler in place, let's change some classes to see it working. In the previous article we've created two DTOs to handle the insertion and update of exams, `ExamCreationDTO` and `ExamUpdateDTO`. Both of them used only `@NotNull` annotation to avoid null values on their properties. Let's start incrementing the `ExamCreationDTO` class to add a new validation:
+Now that we have a global exception handler in place, let's change some classes to see it working. [In the previous article](https://auth0.com/blog/automatically-mapping-dto-to-entity-on-spring-boot-apis/) we've created two DTOs to handle the insertion and update of exams, `ExamCreationDTO` and `ExamUpdateDTO`. Both of them used only `@NotNull` annotation to avoid null values on their properties. Let's start incrementing the `ExamCreationDTO` class to add a new validation:
 
 ```java
 package com.questionmarks.model.dto;
@@ -366,7 +366,7 @@ public class ExamCreationDTO {
 }
 ```
 
-The difference between this version and the one created in the previous article is that now we use `@Size` annotations to guarantee that `title` and `description` won't exceed the limits defined in the database. To keep everything consistent, let's add the same annotation to the same fields but in the `ExamUpdateDTO` class:
+The difference between this version and the one created in the [previous article](https://auth0.com/blog/automatically-mapping-dto-to-entity-on-spring-boot-apis/) is that now we use `@Size` annotations to guarantee that `title` and `description` won't exceed the limits defined in the database. To keep everything consistent, let's add the same annotation to the same fields but in the `ExamUpdateDTO` class:
 
 ```java
 package com.questionmarks.model.dto;
@@ -402,7 +402,7 @@ public class ExamUpdateDTO {
 
 From now on, when the bean validation process gets triggered on instances of these classes, `title` and `description` on both classes are checked to guarantee that no null values are set on it, and that the values don't exceed the limits defined. Case one or more of these validations fail, an instance of `MethodArgumentNotValidException` is thrown indicating what properties failed. For example, if the user sends a `title` with more than 50 characters, the bean validation process will produce an exception with the following code: `Size.exam.title`. The exception handler will then get this code and search in the `messages.properties` file for an associated message.
 
-We will define these messages in the next sections, but first let's make just one more change in our application. We will refactor the `DTOModelMapper` class to validate if the application managed to find the object persisted with the `id` provided on a DTO. For those who didn't read the previous article, this class is responsible for the automatic mapping of DTOs into entities and, for DTOs that include `@Id` properties, it tries to fetch records from the database. Let's refactor the `resolveArgument` method in this class to include a call to `Check.notNull()` method, as follows:
+We will define these messages in the next sections, but first let's make just one more change in our application. We will refactor the `DTOModelMapper` class to validate if the application managed to find the object persisted with the `id` provided on a DTO. For those who didn't read the [previous article](https://auth0.com/blog/automatically-mapping-dto-to-entity-on-spring-boot-apis/), this class is responsible for the automatic mapping of DTOs into entities and, for DTOs that include `@Id` properties, it tries to fetch records from the database. Let's refactor the `resolveArgument` method in this class to include a call to `Check.notNull()` method, as follows:
 
 ```java
 package com.questionmarks.util;
