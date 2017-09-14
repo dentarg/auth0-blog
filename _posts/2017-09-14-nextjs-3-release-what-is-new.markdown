@@ -60,7 +60,7 @@ button.addEventListener('click', event => {
 });
 ```
 
-This helps to load functionality on demand.
+This helps to load functionality on demand. Next.js supports server side rendering for dynamic imports which makes it incredibly awesome for you to avoid displaying the clients blank pages, flickering or loading spinners.
 
 ### 2. Static Export Support
 
@@ -134,6 +134,27 @@ One more thing. _undefined is not a function_ is now obsolete. Next.js now corre
 
 ![Undefined is now a function](https://res.cloudinary.com/zeit-inc/image/upload/front/blog/next3/5.gif)
 _Source: Next.js Blog_
+
+### 7. Dynamic React Components
+
+Next.js now ships with a powerful opt-in utility called `next/dynamic` which helps you to create dynamically loaded React Components easily.
+
+Before now, code splitting was route based. In Next.js 3, you will be able to load code as a function of the data that the user gets.
+
+```js
+import dynamic from 'next/dynamic'
+const DialogComponent = dynamic(import('../components/DialogBox'))
+
+export default () => (
+  <div>
+    <Header />
+    <DialogComponent />
+    <p>Weclome to the landing Page</p>
+  </div>
+)
+```
+
+**Note:** If the dynamic component is loaded in the initial rendering, server-rendering also works. Awesome!
 
 ## Aside: Authenticating a Next.js 3.0 App with Auth0
 
