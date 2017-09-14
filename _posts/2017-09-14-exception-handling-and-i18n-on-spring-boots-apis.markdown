@@ -2,7 +2,7 @@
 layout: post
 title: "Exception Handling and I18N on Spring Boots APIs"
 description: "Let's learn how to properly handle exceptions on Spring Boot APIs while providing multi-language support (I18N) for the messages."
-date: 2017-08-27 20:08
+date: 2017-09-14 20:08
 category: Technical Guide, Java, Spring Boot
 author:
   name: "Bruno Krebs"
@@ -16,9 +16,13 @@ tags:
 - spring-boot
 - i18n
 - exception-handling
+- api
+- docker
+- postgresql
+- liquibase
 related:
-- 2017-08-23-automatically-mapping-dto-to-entity-on-spring-boot-apis
-- 2017-08-18-integrating-spring-data-jpa-postgresql-liquibase
+- 2017-09-05-automatically-mapping-dto-to-entity-on-spring-boot-apis
+- 2017-08-31-integrating-spring-data-jpa-postgresql-liquibase
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 ---
 
