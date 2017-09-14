@@ -6,6 +6,7 @@
 <body itemscope itemtype="http://schema.org/WebPage">
 
     <div id="header"></div>
+    <aside id="popup"></aside>
     {% include popup_notification.html %}
     <script>
     (function () {
@@ -126,7 +127,10 @@
         return Auth0WebHeaderProps;
       }
 
+      var SlidingPopup = window.Auth0SlidingPopup.default;
       ReactDOM.render(React.createElement(Header, null), document.getElementById('header'));
+      ReactDOM.render(React.createElement(SlidingPopup, { source: 'blog' }), document.getElementById('popup'));
+
     })();
     </script>
     <div id="pjax">
