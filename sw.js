@@ -1,15 +1,17 @@
- var link;
+var link='';
 self.addEventListener('push', function (event) {
     event.waitUntil(
         fetch('last.json').then(function (response) {
             return response.json();
         }).then(function(data){
-            link = data.link + '?utm_source=notifications-chrome&utm_medium=sc&utm_campaign=notifications';
+            data = data || {};
+            link = data.link;
             return self.registration.showNotification('New article in Auth0 blog!', {
-                body: data.title,
-                icon: data.thumbnail,
+                body: data.title || '',
+                icon: data.thumbnail || 'https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/badge.png',
                 tag: 'Auth0-blog-post-notification'
             })
+           
         })
     );
 });
@@ -26,8 +28,12 @@ self.addEventListener('notificationclick', function(event) {
                     return client.focus();
             }
             if (clients.openWindow) {
-                return clients.openWindow(link);
+                return clients.openWindow(link + '?utm_source=notifications-chrome&utm_medium=sc&utm_campaign=notifications');
             }
         })
     );
+});
+
+self.addEventListener('install', function(event) {
+    self.skipWaiting();
 });
