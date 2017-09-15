@@ -10,8 +10,8 @@ author:
   avatar: https://cdn-images-1.medium.com/fit/c/200/200/0*vCXpXuEWOU7lPZ5C.jpeg
   mail: mikea@plan99.net
 design:
-  bg_color: "#54615A"
-  image: "https://cdn.auth0.com/blog/dont-manage-identities/logo.png"
+  bg_color: "#653F8B"
+  image: "https://cdn.auth0.com/blog/building-account-systems/logo.png"
 tags:
 - identity
 - management
