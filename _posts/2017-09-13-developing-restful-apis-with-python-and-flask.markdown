@@ -20,7 +20,7 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 ---
 
-TL;DR; Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start by creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few more endpoints to insert and retrieve instances of these classes. In the end, will take a look on how to deploy the API to production. Hope you enjoy!
+TL;DR; Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start by creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few more endpoints to insert and retrieve instances of these classes. In the end, will take a look on how to run the API on a Docker container. Hope you enjoy!
 
 {% include tweet_quote.html quote_text="Flask allows Python developers to create lightweight RESTful APIs." %}
 
@@ -28,24 +28,26 @@ TL;DR; Throughout this article, we are going to use Flask and Python to develop 
 
 This article is divided in the following sections:
 
-1. Why Python?
-2. Why Flask?
-3. Bootstrapping a Flask Application
-4. Creating a RESTful Endpoint with Flask
-5. Mapping Models with Python Classes
-6. Serializing and Deserializing Objects with Marshmallow
-7. Deploying Flask to Production
-8. Securing Python APIs with Auth0
-9. Next Steps
+1. <a href="#why-python" target="self">Why Python?</a>
+2. <a href="#why-flask" target="self">Why Flask?</a>
+3. <a href="#bootstrapping-flask" target="self">Bootstrapping a Flask Application</a>
+4. <a href="#restful-flask" target="self">Creating a RESTful Endpoint with Flask</a>
+5. <a href="#python-classes" target="self">Mapping Models with Python Classes</a>
+6. <a href="#marshmallow-serilization" target="self">Serializing and Deserializing Objects with Marshmallow</a>
+7. <a href="#flask-on-docker" target="self">Dockerizing Flask Applications</a>
+8. <a href="#securing-python-apis" target="self">Securing Python APIs with Auth0</a>
+9. <a href="#next-steps" target="self">Next Steps</a>
 
-## Why Python?
+## <span id="why-python"></span> Why Python?
 
 - Popular
 - Great features
 - Great documentation
 - Good performance
 
-## Why Flask?
+Starting to learn Python? https://docs.python.org/3/tutorial/index.html
+
+## <span id="why-flask"></span> Why Flask?
 
 Pretty much the same reasons for why choosing Python.
 
@@ -55,7 +57,7 @@ Pretty much the same reasons for why choosing Python.
 - Great documentation
 - Good performance
 
-## Bootstrapping a Flask Application
+## <span id="bootstrapping-flask"></span> Bootstrapping a Flask Application
 
 ### Virtual Environments (virtualenv)
 
@@ -67,14 +69,21 @@ pip3 install virtualenv
 virtualenv env
 ```
 
-## Creating a RESTful Endpoint with Flask
+## <span id="restful-flask"></span> Creating a RESTful Endpoint with Flask
 
-## Mapping Models with Python Classes
+https://docs.python.org/3/tutorial/datastructures.html#dictionaries
 
-## Serializing and Deserializing Objects with Marshmallow
+## <span id="python-classes"></span> Mapping Models with Python Classes
 
-## Deploying Flask to Production
+https://docs.python.org/3/library/enum.html
+https://docs.python.org/3/tutorial/classes.html
 
-## Securing Python APIs with Auth0
+## <span id="marshmallow-serilization"></span> Serializing and Deserializing Objects with Marshmallow
 
-## Next Steps
+## <span id="flask-on-docker"></span> Dockerizing Flask Applications
+
+https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-14-04
+
+## <span id="securing-python-apis"></span> Securing Python APIs with Auth0
+
+## <span id="next-steps"></span> Next Steps
