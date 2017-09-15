@@ -148,7 +148,7 @@ The power of prototypes made JavaScript extremely flexible, sparking the develop
 Prototypes have made JavaScript appear deceptively simple, empowering library authors.
 
 #### A Big Quirk: Primitives vs Objects
-Perhaps one of the biggest mistakes in the hurried development of JavaScript was making certain objects that behave similarly have different types. For instance, the type of a string literal (`"Hello world"`) is not identical to the type of the `String` object (`new String('Hello world')`). This sometimes enforces unnecesarry and confusing typechecks.
+Perhaps one of the biggest mistakes in the hurried development of JavaScript was making certain objects that behave similarly have different types. For instance, the type of a string literal (`"Hello world"`) is not identical to the type of the `String` object (`new String('Hello world')`). This sometimes enforces unnecessary and confusing typechecks.
 
 ```javascript
 > typeof "hello world"
