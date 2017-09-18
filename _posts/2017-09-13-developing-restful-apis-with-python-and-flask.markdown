@@ -20,7 +20,7 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 ---
 
-TL;DR; Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start by creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few more endpoints to insert and retrieve instances of these classes. In the end, will take a look on how to run the API on a Docker container. Hope you enjoy!
+**TL;DR;** Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start by creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few endpoints to insert and retrieve instances of these classes. In the end, will take a look on how to run the API on a Docker container. Hope you enjoy!
 
 {% include tweet_quote.html quote_text="Flask allows Python developers to create lightweight RESTful APIs." %}
 
@@ -40,14 +40,11 @@ This article is divided in the following sections:
 
 ## <span id="why-python"></span> Why Python?
 
-- Popular
-- Great features
-- Great documentation
-- Good performance
+Nowadays, choosing Python to develop applications is becoming a very popular choice. [As StackOverflow recently analyzed](https://stackoverflow.blog/2017/09/06/incredible-growth-python/), Python is one of the fastest-growing programming languages, having surpassed even Java on the number of questions asked on the platform. On GitHub, the language shows signs of mass adoption as well, featuring the third position on the number of [opened Pull Requests in 2016](https://octoverse.github.com/).
 
-Just testing
+![Stack Overflow Trends showing Python growth](https://cdn.auth0.com/blog/python-restful/trends.jpg)
 
-Starting to learn Python? https://docs.python.org/3/tutorial/index.html
+The huge community that is forming around Python, is improving every aspect of the language. More and more open source libraries are being released to address many different subjects, like [Artificial Intelligence](https://github.com/aimacode/aima-python), [Machine Learning](https://github.com/rasbt/python-machine-learning-book), and [web development](https://github.com/pallets/flask). Besides the great support provided by the overall community, the [Python Software Foundation also provides an excellent documentation](https://docs.python.org/3/) where new adopters can learn its essence fast.
 
 ## <span id="why-flask"></span> Why Flask?
 
