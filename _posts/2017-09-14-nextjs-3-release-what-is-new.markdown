@@ -2,7 +2,7 @@
 layout: post
 title: "Next.js 3.0 release: What's New?"
 description: Next.js 3.0 has officially been released. What's new? What improvements were made? Learn how to build highly performant Universal JavaScript apps with this new release.
-date: 2017-04-24 08:30
+date: 2017-09-14 08:30
 category: Hot Topics, Frameworks, Next.js
 design:
   bg_color: "#222228"
@@ -162,4 +162,4 @@ You can check out how to implement authentication with Auth0 in the [Next.js 1.0
 
 ## Conclusion
 
-With **Next.js 3**, the [Github repo](https://github.com/zeit/next.js/) now has over 16,000 stars and we have seen lots of significant improvements & major upgrades from the initial version that was released last year. Kudos to the team behind this lovely tool and the JavaScript community for their continuous support. In fact, they already have plans for **[Next.js 4](https://zeit.co/blog/next3#4.0-and-beyond)**.
+With **Next.js 3**, the [GitHub repo](https://github.com/zeit/next.js/) now has over 16,000 stars and we have seen lots of significant improvements & major upgrades from the initial version that was released last year. Kudos to the team behind this project and the JavaScript community for their continuous support. In fact, they already have plans for **[Next.js 4](https://zeit.co/blog/next3#4.0-and-beyond)**.
