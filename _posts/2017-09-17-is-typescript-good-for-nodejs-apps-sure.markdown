@@ -27,6 +27,9 @@ TL;DR:
 ## Nest Build Blocks
 
 ### Controllers
+
+Controllers, on Nest, are the objects responsible for handling incoming requests. As we will see, controllers are classes
+
 ### Components
 ### Modules
 ### Middlewares
@@ -37,7 +40,7 @@ TL;DR:
 
 ## Bootstrapping a Nest Application
 
-Two alternatives: cloning GitHub repository or
+Three alternatives: cloning GitHub repository, https://github.com/nestjs/nest-cli, or
 
 - npm install
 - ./src/modules/app.module.ts
@@ -45,6 +48,8 @@ Two alternatives: cloning GitHub repository or
 - ./index.js
 - ./tsconfig.json
 - tslint.json
+
+won't clone or use nest-cli to learn the Nest way.
 
 ## Creating Nest Controllers
 
@@ -67,4 +72,8 @@ Two alternatives: cloning GitHub repository or
 - comment on GitHub about that the idea is to release this blog post as soon as possible to see the traction
 - if the community show interest, we can further elaborate securing Nest with Auth0. Who knows, we might even create a OSS module to easily handle this on Nest
 
-## Next: Automated Tests, i18n, Database Integration
+## Final Thoughts
+
+WebSockets, Automated Tests, i18n, Database Integration
+
+Conclusion
