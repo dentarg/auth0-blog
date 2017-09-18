@@ -58,6 +58,58 @@ Being lightweight, easy to adopt, with great documentation, and popular, makes F
 
 ## <span id="bootstrapping-flask"></span> Bootstrapping a Flask Application
 
+First and foremost, we will need to install some dependencies on our development machine. If we are using some recent version of a popular Linux distribution (like Ubuntu), chances are that we already have Python 3 installed on our computer. If we are running Windows, then [we will probably need to install Python 3](https://www.python.org/downloads/windows/), as this operational system does not ship with any version at all. When it comes to Macbooks, the scenario is that Python 2 comes installed by default and we have to [install Python 3 by ourselves](http://docs.python-guide.org/en/latest/starting/install3/osx/).
+
+After installing Python 3 on our machine, we can check that we have everything set up as expected by running the following commands:
+
+```bash
+python --version
+# Python 3.6.2
+
+pip --version
+# pip 9.0.1 from ...
+```
+
+Note that the commands above might produce different outputs in case we have a different Python version. What is important is that the `python` command is pointing to a Python 3 executable, and not Python 2. If `python` points to Python 2, we can try replacing `python` and `pip` by `python3` and `pip3`. If we need that, then we have to remember to replace all commands in this article to use the correct version.
+
+
+
+
+
+
+
+
+
+```bash
+pip3 install Flask
+```
+
+Note that Macbooks ship with Python 2 by default. Therefore, `pip` and `python` commands point to this version. Throughout this article, we are going to use Python 3, which might be executed with `pip3` and `python3` commands. To check Python and Pip versions, issue the following commands:
+
+```bash
+
+```
+
+ It's just a matter of creating a single file, which we will call `hello.py`, and add five lines of code. After that, we just need to run Python passing this file as parameter and voilà!
+
+```bash
+# create the single file app on the current directory
+touch hello.py
+
+# add the Hello World app source code to the file
+echo '
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello_world():
+    return "Hello, World!"
+' >> hello.py
+
+# run the file
+python3 hello.py
+```
+
 ### Virtual Environments (virtualenv)
 
 > Note: Macbooks ship with Python 2. Installing Python 3 alongside with this version produces `python3` and `pip3` commands, and not `python` (which refers to Python 2) or `pip`.
