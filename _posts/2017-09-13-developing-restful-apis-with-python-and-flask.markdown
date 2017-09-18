@@ -58,57 +58,70 @@ Being lightweight, easy to adopt, with great documentation, and popular, makes F
 
 ## <span id="bootstrapping-flask"></span> Bootstrapping a Flask Application
 
-First and foremost, we will need to install some dependencies on our development machine. If we are using some recent version of a popular Linux distribution (like Ubuntu), chances are that we already have Python 3 installed on our computer. If we are running Windows, then [we will probably need to install Python 3](https://www.python.org/downloads/windows/), as this operational system does not ship with any version at all. When it comes to Macbooks, the scenario is that Python 2 comes installed by default and we have to [install Python 3 by ourselves](http://docs.python-guide.org/en/latest/starting/install3/osx/).
+First and foremost, we will need to install some dependencies on our development machine. Basically, what we will need to install is [Python 3](https://docs.python.org/3/), [Pip (Python Package Index)](https://pypi.python.org/pypi/pip), and [Flask](http://flask.pocoo.org/). Fortunately, the process of installing these dependencies is quite simple.
 
-After installing Python 3 on our machine, we can check that we have everything set up as expected by running the following commands:
+### Installing Python 3
+
+If we are using some recent version of a popular Linux distribution (like Ubuntu), chances are that we already have Python 3 installed on our computer. If we are running Windows, then [we will probably need to install Python 3](https://www.python.org/downloads/windows/), as this operational system does not ship with any version at all. When it comes to Macbooks, the scenario is that Python 2 comes installed by default and we have to [install Python 3 by ourselves](http://docs.python-guide.org/en/latest/starting/install3/osx/).
+
+After installing Python 3 on our machine, we can check that we have everything set up as expected by running the following command:
 
 ```bash
 python --version
 # Python 3.6.2
+```
 
+Note that the command above might produce a different output in case we have a different Python version. What is important is that the output begins with `Python 3`, and not `Python 2`. If we get the latter, we can try issuing `python3 --version`. If this command produces the correct output, then we have to remember to replace all commands throughout the article.
+
+### Installing Pip
+
+[Pip, which stands for Python Package Index](https://pypi.python.org/pypi/pip), is the recommended tool for installing Python packages. While the [official installation page](https://pip.pypa.io/en/stable/installing/) states that `pip` is already installed if we're using Python 2 >= `2.7.9` or Python 3 >= `3.4`, installing Python through `apt` on Ubuntu doesn't install `pip`. Therefore, let's check if we do need to install `pip` separately, or if we already have it.
+
+```bash
+# we might need to change pip by pip3
 pip --version
-# pip 9.0.1 from ...
+# pip 9.0.1 ...
 ```
 
-Note that the commands above might produce different outputs in case we have a different Python version. What is important is that the `python` command is pointing to a Python 3 executable, and not Python 2. If `python` points to Python 2, we can try replacing `python` and `pip` by `python3` and `pip3`. If we need that, then we have to remember to replace all commands in this article to use the correct version.
+If the command above produces an output similar to `pip 9.0.1 ...`, then we are good to go. Otherwise, we can follow the instructions [here to install it](https://pip.pypa.io/en/stable/installing/).
 
+### Installing Flask
 
-
-
-
-
-
-
+We already know what Flask is and some of its capabilities. Therefore, let's focus on installing it on our machine and testing to see if we can get a basic Flask application running. First step is to use `pip` to install Flask:
 
 ```bash
-pip3 install Flask
+# we might need to change pip by pip3
+pip install Flask
 ```
 
-Note that Macbooks ship with Python 2 by default. Therefore, `pip` and `python` commands point to this version. Throughout this article, we are going to use Python 3, which might be executed with `pip3` and `python3` commands. To check Python and Pip versions, issue the following commands:
+After installing the package, we will create a file called `hello.py` and add five lines of code to it. As we will use this file just to check if Flask was correctly installed, we don't need to nest it on a new directory.
 
-```bash
-
-```
-
- It's just a matter of creating a single file, which we will call `hello.py`, and add five lines of code. After that, we just need to run Python passing this file as parameter and voilà!
-
-```bash
-# create the single file app on the current directory
-touch hello.py
-
-# add the Hello World app source code to the file
-echo '
+```python
 from flask import Flask
 app = Flask(__name__)
+
 
 @app.route("/")
 def hello_world():
     return "Hello, World!"
-' >> hello.py
-
-# run the file
-python3 hello.py
 ```
+
+These 5 lines of code is everything we need to handle HTTP requests and return a "Hello, World!" message. To run it, we need to export a environment variable called `FLASK_APP` and then execute `flask`:
+
+```bash
+# flask depends on this env variable to find the main file
+export FLASK_APP=hello.py
+
+# now we just need to ask flask to run
+flask run
+
+# * Serving Flask app "hello"
+# * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+
+After executing these commands, we can reach our application by opening a browser and navigating to `http://127.0.0.1:5000/` or by issuing `curl http://127.0.0.1:5000/`.
+
+![Hello world with Flask](https://cdn.auth0.com/blog/python-restful/hello-world.jpg)
 
 ### Virtual Environments (virtualenv)
 
