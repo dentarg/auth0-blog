@@ -48,13 +48,13 @@ The huge community that is forming around Python, is improving every aspect of t
 
 ## <span id="why-flask"></span> Why Flask?
 
-Pretty much the same reasons for why choosing Python.
+When it comes to web development on Python, there are two frameworks that are widely used: [Django](https://github.com/django/django) and [Flask](https://github.com/pallets/flask). Django is older, more mature, and a little bit more popular. On GitHub, this framework has around 28k stars, 1.5k contributors, ~170 releases, and more than 11k forks. On StackOverflow, roughly 1.2% of questions asked on a specific month are related to Django.
 
-- Popular
-- Lightweight
-- Great features
-- Great documentation
-- Good performance
+Flask, although less popular, is not far behind. On GitHub, Flask has almost 30k stars, ~445 contributors, ~21 releases, and almost 10k forks. On StackOverflow, up to 0.2% of questions asked on a specific month are related to Flask.
+
+Even though Django looks like a better choice, for being older and having a slightly bigger community, Flask has its strengths. From the ground up, Flask was thought with scalability and simplicity in mind. Flask applications are known for being lightweight, mainly when compared to its Django counterparts. Flask developers call it a microframework, where micro ([as explained here](http://flask.pocoo.org/docs/0.12/foreword/#what-does-micro-mean)) means that the goal is to keep the core simple but extensible. Flask won’t make many decisions for you, such as what database to use or what template engine to choose. Lastly, Flask also contains an [extensive documentation](http://flask.pocoo.org/docs/0.12/) that address almost everything that developers need to know.
+
+Being lightweight, easy to adopt, with great documentation, and popular, makes Flask a very good option for developing RESTful APIs.
 
 ## <span id="bootstrapping-flask"></span> Bootstrapping a Flask Application
 
