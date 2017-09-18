@@ -37,11 +37,11 @@ For companies in some specialized industries, that percentage can dip even lower
 
 Despite this, the majority of IAMs still charge them every single month for _every single user_ they have on the books:
 
-[Charges](https://cdn.auth0.com/blog/iam/charges.png)
+![Charges](https://cdn.auth0.com/blog/iam/charges.png)
 
-[Another pricing](https://cdn.auth0.com/blog/iam/another-charges.png)
+![Another pricing](https://cdn.auth0.com/blog/iam/another-charges.png)
 
-[Centrify App Services](https://cdn.auth0.com/blog/iam/centrifyappservices.png)
+![Centrify App Services](https://cdn.auth0.com/blog/iam/centrifyappservices.png)
 
 This pricing system can cost businesses millions of dollars a year because while they may have a total of 5 million users signed up with their service, only a given 100,000 use the service with any regularity.
 
@@ -59,7 +59,8 @@ While not exactly the same type of business, Americans only visit their doctors 
 
 Avoiding the topic of consumption when talking about pricing is a [common problem](https://hbr.org/2002/09/pricing-and-the-psychology-of-consumption). Companies try to get you to pay upfront for services, knowing you probably won't use them to the fullest extent possible.
 
-[Payments](https://cdn.auth0.com/blog/iam/payments.gif)
+![Payments](https://cdn.auth0.com/blog/iam/payments.gif)
+
 (Source: [HBR](https://hbr.org/2002/09/pricing-and-the-psychology-of-consumption)) _When you pay annually for a service, your usage drops off steadily throughout the year as the financial impact of payment becomes a distant memory._
 
 However, businesses that mask how much you've spent on a service (vs. how much value you've gotten out of it) often wind up “trading off long-term customer retention for short-term increases in sales.”
@@ -87,10 +88,9 @@ That's a price point that just doesn't make sense if you're a business with a lo
 It's not just insurance and healthcare that face these kinds of problems. Government agencies experience them too, as we can see from a FEMA Request for Information drafted while the agency was in search of a new IAM solution:
 
 
-<blockquote> It is a desire of the Agency to obtain a pricing approach that supports the **variable nature of the size of the FEMA user community**. During periods after large disasters and other events, the Agency user-base may substantially increase in size for a period of time. The vendors should provide creative pricing structures, where possible **such that FEMA does not have to pay / pay less for accounts that are infrequently used**, but still active (e.g., FEMA’s Disaster Reserve Workforce needs quick access when they are activated, but may not be active for long periods of time). </blockquote>
+**Note:** It is a desire of the Agency to obtain a pricing approach that supports the **variable nature of the size of the FEMA user community**. During periods after large disasters and other events, the Agency user-base may substantially increase in size for a period of time. The vendors should provide creative pricing structures, where possible **such that FEMA does not have to pay / pay less for accounts that are infrequently used**, but still active (e.g., FEMA’s Disaster Reserve Workforce needs quick access when they are activated, but may not be active for long periods of time).
 
 (Source: [FCW](https://fcw.com/articles/2009/01/27/fema-seeks-it.aspx))
-
 
 FEMA doesn't want their IAM to charge them for hundreds of thousands of users when the total number in the Agency's userbase will be far lower the majority of the time. Nor do insurance providers, healthcare companies, or any business with these kinds of variable levels of activity. When they do, they're effectively subsidizing the price paid by B2C and B2B products with much higher activity-to-user ratios.
 
