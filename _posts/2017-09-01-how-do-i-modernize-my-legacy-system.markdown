@@ -11,8 +11,9 @@ author:
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
+is_non-tech: true
 design:
-  image: 
+  image:
   bg_color: "#"
 tags:
 - legacy
@@ -21,15 +22,15 @@ tags:
 related:
 - 2017-07-21-the-role-of-identity-in-application-modernization
 - 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
-- 2017-08-22-for-the-best-security-think-beyond-webhooks 
+- 2017-08-22-for-the-best-security-think-beyond-webhooks
 ---
 
 
 If you're dealing with a legacy system, you might need a complete overhaul. It's likely that many services have become outdated over the last 10 years you've had it, and patches don't really work long-term.
 
-Legacy systems aren't good for business or your engineers' sanity—they keep you from introducing modern features while forcing the team to run around fixing bugs. However, a lot of companies stick with their legacy systems even when they know how badly they [n](https://auth0.com/blog/the-role-of-identity-in-application-modernization/)[eed to modernize](https://auth0.com/blog/the-role-of-identity-in-application-modernization/). A major factor holding teams back is that you can't do an overhaul all at once. 
+Legacy systems aren't good for business or your engineers' sanity, they keep you from introducing modern features while forcing the team to run around fixing bugs. However, a lot of companies stick with their legacy systems even when they know how badly they [need to modernize](https://auth0.com/blog/the-role-of-identity-in-application-modernization/). A major factor holding teams back is that you can't do an overhaul all at once.
 
-That's ok—you just need to find your pain points, prioritize, and get started with some quick wins. We'll first talk about how legacy systems are damaging, and then lead you through how to locate the places in your system that need the most work, how to prioritize by cost, benefits, and alternatives, and how to update one piece at a time.
+That's ok, you just need to find your pain points, prioritize, and get started with some quick wins. We'll first talk about how legacy systems are damaging, and then lead you through how to locate the places in your system that need the most work, how to prioritize by cost, benefits, and alternatives, and how to update one piece at a time.
 
 ## How legacy systems hurt you
 
@@ -48,7 +49,7 @@ _[Source](http://dilbert.com/strip/2006-12-08)]_
 * As your system accumulates little patches over time, it becomes more complicated and more prone to breakages.
 * Legacy systems don't rely on open standards, so integrating with new technology is sometimes impossible.
 
-Despite all these problems, companies ~~are~~ often loathe ~~to spend~~ spending the time and money to replace these systems because it can cripple their short-term ability to innovate. They also risk eroding customer confidence in the product if a [customer might experience](https://www.zendesk.com/resources/why-companies-should-invest-in-the-customer-experience/) adverse—if temporary—effects. 
+Despite all these problems, companies ~~are~~ often loathe ~~to spend~~ spending the time and money to replace these systems because it can cripple their short-term ability to innovate. They also risk eroding customer confidence in the product if a [customer might experience](https://www.zendesk.com/resources/why-companies-should-invest-in-the-customer-experience/) adverse—if temporary—effects.
 
 For example, a football stats app may not want to make drastic changes which could cause downtime right before the playoffs, the night before the Super Bowl, right before the draft, or when fantasy football starts, leaving them feeling like there might not be any good moment to tackle upgrades.
 
@@ -69,17 +70,17 @@ If your system does need an upgrade pretty much everywhere, how do you know wher
 
 The first thing you need to do when looking to modernize your system is to [find your pain points](https://www.altexsoft.com/whitepapers/legacy-system-modernization-how-to-transform-the-enterprise-for-digital-future/) by following these three steps:
 
-* Check which parts of your technology stack are no longer supported by their vendors
-* Conduct an architecture audit to determine how each area is performing, and how patched it is already
-* Create a flowchart, using a tool like [Gliffy](https://www.gliffy.com/), of how different parts of your legacy system work together
+* Check which parts of your technology stack are no longer supported by their vendors.
+* Conduct an architecture audit to determine how each area is performing, and how patched it is already.
+* Create a flowchart, using a tool like [Gliffy](https://www.gliffy.com/), of how different parts of your legacy system work together.
 
-The architecture audit is what comes to mind first when looking for pain points, but the other two steps are just as important. Checking for vendor support tells you how easy it will be to get help and updates for parts of your system, and the flowchart will reveal dependencies—one section may only appear weak because it's dependent on another one, which is actually the problem.
+The architecture audit is what comes to mind first when looking for pain points, but the other two steps are just as important. Checking for vendor support tells you how easy it will be to get help and updates for parts of your system, and the flowchart will reveal dependencies, one section may only appear weak because it's dependent on another one, which is actually the problem.
 
 After you've created your list of pain points, you can perform a cost-benefit analysis for replacing those individual parts of your system with a new service, or simply patching them up. The short-term costs of replacement will always loom, but when you calculate the long-term saved repair costs, increased efficiency, and customer satisfaction, you may find that this outweighs the negatives.
 
 ## Prioritizing improvements
 
-Once you know how much you'll gain (and lose) from replacing the parts of your system that hurt you the most, you need to be able to prioritize. 
+Once you know how much you'll gain (and lose) from replacing the parts of your system that hurt you the most, you need to be able to prioritize.
 
 Distill your cost-benefit analysis of each of your pain points into the answers to three questions:
 
@@ -87,7 +88,7 @@ Distill your cost-benefit analysis of each of your pain points into the answers 
 2. How much time/effort will we need to pull off this replacement?
 3. How helpful would just patching this part be in the long-run?
 
-This will form the basis of selection for what to work on first. 
+This will form the basis of selection for what to work on first.
 
 ![Prioritizing Improvements](https://cdn.auth0.com/blog/modernize-legacy-system/prioritizing-improvements.png)
 
@@ -101,27 +102,27 @@ Now we'll discuss how to get started on those improvements. The two things to fo
 
 ### Moving toward Microservices
 
-You should look to remove pain points from the rest of your stack rather than simply replacing them. Following this process will guide you toward a microservice-based system, in which an application in separated into small sets of services. Once your monolithic legacy system is reconfigured as microservices, each service can further evolve without disrupting the rest of your system.
+You should look to remove pain points from the rest of your stack rather than simply replacing them. Following this process will guide you toward a microservice-based system, in which an application is separated into small sets of services. Once your monolithic legacy system is reconfigured as microservices, each service can further evolve without disrupting the rest of your system.
 
 ![Moving toward Microservices](https://cdn.auth0.com/blog/modernize-legacy-system/moving-toward-microservices.png)
 [*[source](http://soolan.com/microservice-architecture-implementation/)*]
 
-Keeping microservices in mind will help you today and in the future when small parts of your system can be easily updated as needed.  You don't want to keep your system monolithic and end up with the same complicated, entangled mess 5-10 years in the future. 
+Keeping microservices in mind will help you today and in the future when small parts of your system can be easily updated as needed.  You don't want to keep your system monolithic and end up with the same complicated, entangled mess 5-10 years in the future.
 
-### the quick first step
+### The quick first step
 
 Every app is going to have a slightly different list of priorities. But three areas that are usually a great place to start for quick and high value are [payments, messaging, and identity](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/). These areas all have comprehensive solutions which let you offload critical functionality to a 3rd party SaaS product in a snap.
 
-* **Payments. **Customers have come to expect a seamless online payment system, and there's no point to risking turning them off by relying on your legacy system when platforms like Stripe and Zuora provide fast, well-trusted payment processing. 
+* **Payments. **Customers have come to expect a seamless online payment system, and there's no point to risking turning them off by relying on your legacy system when platforms like Stripe and Zuora provide fast, well-trusted payment processing.
 * **Messaging. **Messaging too has become an essential part of any app as customers no longer only interact with a product through email. But with products like Twilio, your team doesn't have to worry about any of it.
-* **Digital identity.** Identity is one of the most complex items a company has to deal with—and one tiny mistake can result in a devastating data breach. Trying to constantly make changes to keep up with security protocols by adding [multifactor identification](https://auth0.com/learn/get-started-with-mfa/) and breached password detection to your legacy system is a disaster waiting to happen. When you work with providers like Auth0, all the facets of identity—[authentication, authorization, user profiles, and security](https://auth0.com/blog/the-role-of-identity-in-application-modernization/)—are taken care of by us.
+* **Digital identity.** Identity is one of the most complex items a company has to deal with, and one tiny mistake can result in a devastating data breach. Trying to constantly make changes to keep up with security protocols by adding [multifactor identification](https://auth0.com/learn/get-started-with-mfa/) and breached password detection to your legacy system is a disaster waiting to happen. When you work with providers like Auth0, all the facets of identity, [authentication, authorization, user profiles, and security](https://auth0.com/blog/the-role-of-identity-in-application-modernization/) are taken care of by us.
 
 When you get started on modernizing your system, the rest of it will still be problematic. You want your first steps to be handled by experts, far away from your hiccuping legacy system. But once you get those first steps done, you'll already be so far ahead of your old system.
 
 ## Upgrade before you get left behind
 
-Modernizing a legacy system can seem impossible, but breaking it down into small pieces will help you get started. 
+Modernizing a legacy system can seem impossible, but breaking it down into small pieces will help you get started.
 
-This is a task you cannot procrastinate on—it will just get harder and harder to maintain your legacy system. Switch over now and reap the benefits of a modern system instead of waiting to be forced into a more painful, more expensive switch later on.
+This is a task you cannot procrastinate on, it will just get harder and harder to maintain your legacy system. Switch over now and reap the benefits of a modern system instead of waiting to be forced into a more painful, more expensive switch later on.
 
 Don't be like the [52%](http://www.techradar.com/news/more-than-half-of-businesses-still-rely-on-windows-xp) of businesses that still run instances on the long outdated Windows XP—you're better than that.
