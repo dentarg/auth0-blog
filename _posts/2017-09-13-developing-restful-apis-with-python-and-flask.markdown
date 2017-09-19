@@ -83,11 +83,11 @@ pip --version
 # pip 9.0.1 ...
 ```
 
-If the command above produces an output similar to `pip 9.0.1 ...`, then we are good to go. Otherwise, we can follow the instructions [here to install it](https://pip.pypa.io/en/stable/installing/).
+If the command above produces an output similar to `pip 9.0.1 ...`, then we are good to go. Otherwise, we can follow the instructions [here to install Pip](https://pip.pypa.io/en/stable/installing/).
 
 ### Installing Flask
 
-We already know what Flask is and some of its capabilities. Therefore, let's focus on installing it on our machine and testing to see if we can get a basic Flask application running. First step is to use `pip` to install Flask:
+We already know what Flask is and its capabilities. Therefore, let's focus on installing it on our machine and testing to see if we can get a basic Flask application running. First step is to use `pip` to install Flask:
 
 ```bash
 # we might need to change pip by pip3
@@ -106,7 +106,7 @@ def hello_world():
     return "Hello, World!"
 ```
 
-These 5 lines of code is everything we need to handle HTTP requests and return a "Hello, World!" message. To run it, we need to export a environment variable called `FLASK_APP` and then execute `flask`:
+These 5 lines of code are everything we need to handle HTTP requests and return a "Hello, World!" message. To run it, we need to export a environment variable called `FLASK_APP` and then execute `flask`:
 
 ```bash
 # flask depends on this env variable to find the main file
@@ -119,19 +119,37 @@ flask run
 # * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
+> On Ubuntu, we might need to edit the $PATH variable to be able to run flask directly. To do that, let's `touch ~/.bash_profile` and then `echo "export PATH=$PATH:~/.local/bin" >> ~/.bash_profile`.
+
 After executing these commands, we can reach our application by opening a browser and navigating to `http://127.0.0.1:5000/` or by issuing `curl http://127.0.0.1:5000/`.
 
 ![Hello world with Flask](https://cdn.auth0.com/blog/python-restful/hello-world.jpg)
 
 ### Virtual Environments (virtualenv)
 
-> Note: Macbooks ship with Python 2. Installing Python 3 alongside with this version produces `python3` and `pip3` commands, and not `python` (which refers to Python 2) or `pip`.
+Although PyPA—the [Python Packaging Authority group](https://www.pypa.io/en/latest/)—recommends `pip` as the tool for installing Python packages, we will need to use another package to manage our project's dependencies. It's true that `pip` supports [package management through the `requirements.txt` file](https://pip.pypa.io/en/stable/user_guide/#requirements-files), but the tool lacks some features to be used on serious projects running on different production and development machines. Among its issues, the ones that cause more problems are:
+
+- `pip` installs packages globally, making it hard to manage multiple versions of the same package on the same machine.
+- `requirements.txt` need all dependencies and sub-dependencies listed explicitly, a manual process that is tedious and error-prone.
+
+To solve these issues, we are going to use Pipenv. [Pipenv is a dependency manager](https://github.com/kennethreitz/pipenv) that isolates projects on private environments, allowing packages to be installed per project. If you’re familiar with NPM or Ruby’s bundler, it's similar in spirit to those tools.
 
 ```bash
-pip3 install pipenv
-pip3 install virtualenv
-virtualenv env
+pip install pipenv
 ```
+
+Now, to start creating a serious Flask application, let's create a new folder that will hold our project source code. After that, we will use `pipenv` to start our project and manage our dependencies.
+
+```bash
+pipenv --three
+
+pipenv install flask
+```
+
+The first command creates our virtual environment, where all our dependencies will be installed, and the second one will add Flask as our first dependency. If we check our current directory, we will see that two files are created after executing these commands:
+
+1. `Pipfile`, a file that contains details about our project, like the Python version that we are using and the packages that our project needs.
+2. `Pipenv.lock,` a file that contains exactly what version of each package that our project depends on, and its transitive dependencies.
 
 ## <span id="restful-flask"></span> Creating a RESTful Endpoint with Flask
 
