@@ -743,7 +743,7 @@ Now our microphone icons are aligned.
 
 It's time to test out our speech recognition feature! The app should now look like this in the browser:
 
-![Angular app Madlibs listen component](https://cdn.auth0.com/blog/madlibs/listen-component.jpg)
+![RxJS Angular app Madlibs listen component](https://cdn.auth0.com/blog/madlibs/listen-component.jpg)
 
 > **Note:** Make sure you're using a browser that supports Web Speech API, such as Google Chrome.
 
@@ -1263,7 +1263,7 @@ These component styles override the Bootstrap defaults specifying the dark place
 
 Our app should now look like this:
 
-![Madlibs app with Listen and Words Form components](https://cdn.auth0.com/blog/madlibs/listen-words-form.jpg)
+![Madlibs RxJS Angular app with Listen and Words Form components](https://cdn.auth0.com/blog/madlibs/listen-words-form.jpg)
 
 Now is a great time to test out the functionality of our Listen component and Words Form component. Try clicking the "Listen" button and issuing spoken commands. It takes a second or two for the Web Speech API to assess speech, but once it does, your spoken words should appear in the appropriate form fields.
 
