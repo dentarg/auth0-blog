@@ -119,7 +119,7 @@ flask run
 # * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
-> On Ubuntu, we might need to edit the $PATH variable to be able to run flask directly. To do that, let's `touch ~/.bash_profile` and then `echo "export PATH=$PATH:~/.local/bin" >> ~/.bash_profile`.
+> On Ubuntu, we might need to edit the $PATH variable to be able to run flask directly. To do that, let's `touch ~/.bash_aliases` and then `echo "export PATH=$PATH:~/.local/bin" >> ~/.bash_aliases`.
 
 After executing these commands, we can reach our application by opening a browser and navigating to `http://127.0.0.1:5000/` or by issuing `curl http://127.0.0.1:5000/`.
 
@@ -138,18 +138,80 @@ To solve these issues, we are going to use Pipenv. [Pipenv is a dependency manag
 pip install pipenv
 ```
 
-Now, to start creating a serious Flask application, let's create a new folder that will hold our project source code. After that, we will use `pipenv` to start our project and manage our dependencies.
+Now, to start creating a serious Flask application, let's create a new directory that will hold our project source code. In this article, we will create a small RESTful API that allows users to manage incomes and expenses. Therefore, we will create a directory with a meaningful name, something like `cashman`. After that, we will use `pipenv` to start our project and manage our dependencies.
 
 ```bash
+# create our project directory and move to it
+mkdir cashman && cd cashman
+
+# use pipenv to create a virtualenv for our project
 pipenv --three
 
+# install flask a dependency on our project
 pipenv install flask
 ```
 
-The first command creates our virtual environment, where all our dependencies will be installed, and the second one will add Flask as our first dependency. If we check our current directory, we will see that two files are created after executing these commands:
+The second command creates our virtual environment, where all our dependencies will be installed, and the third one will add Flask as our first dependency. If we check our project's directory, we will see that two files are created after executing these commands:
 
 1. `Pipfile`, a file that contains details about our project, like the Python version that we are using and the packages that our project needs.
 2. `Pipenv.lock,` a file that contains exactly what version of each package that our project depends on, and its transitive dependencies.
+
+### Python Modules
+
+As other mainstream programming languages, [Python also has the concept of modules](https://docs.python.org/3/tutorial/modules.html) to enable developers to organize source code according to subjects/functionalities. Similar to what Java calls packages, or what C# calls namespaces, modules in Python are files organized in directories that can be imported by other Python scripts. To create a module on a Python application, we just need to create a folder and add an empty file called `__init__.py` to it.
+
+Let's create our first module on our application. This is going to be our main module, with the script that defines our RESTful endpoints. Inside the directory that we created for our application, let's create another one with the same name, `cashman`. The main `cashman` directory created before will hold metadata about our project, like what dependencies it has, while this new one will be our module with our Python scripts.
+
+```bash
+# create source code's root
+mkdir cashman && cd cashman
+
+# create an empty __init__.py file
+touch __init__.py
+```
+
+Inside the main module, let's create a script called `index.py`. On this script, we will define the first endpoint of our application.
+
+```python
+from flask import Flask
+app = Flask(__name__)
+
+
+@app.route("/")
+def hello_world():
+    return "Hello, World!"
+```
+
+Just like in the previous example, our application right now does nothing besides returning a "Hello, world!" message. We will start improving it in a second, but first let's create an executable file called `bootstrap.sh` in the main directory of our application.
+
+```bash
+# move to the main directory
+cd ..
+
+# create the file
+touch bootstrap.sh
+
+# make it executable
+chmod +x bootstrap.sh
+```
+
+The goal of this file it to facilitate the start up of our application. Its source code will be the following:
+
+```sh
+#!/bin/bash
+export FLASK_APP=./cashman/index.py
+source $(pipenv --venv)/bin/activate
+flask run -h 0.0.0.0
+```
+
+The first command defines the main script to be executed by Flask, just like we did when we ran the "Hello, world!" application. The second one activates the virtual environment, created by pipenv, so our application can find and execute its dependencies. Lastly, we run our Flask application listening to all interfaces on the computer (`-h 0.0.0.0`).
+
+To check that this script is working correctly, we can issue `./bootstrap.sh` now. This will give us a similar result to when we executed the "Hello, world!" application.
+
+```bash
+# * Serving Flask app "cashman.index"
+# * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+```
 
 ## <span id="restful-flask"></span> Creating a RESTful Endpoint with Flask
 
