@@ -29,7 +29,7 @@ related:
 
 ---
 
-This is **Part 2** of our 2-part tutorial. [Part 1](https://auth0.com/blog/going-in-depth-with-rxjs-angular-web-speech-part-1) of our Madlibs app tutorial covered the following:
+This is **Part 2** of our 2-part tutorial. [RxJS Advanced Tutorial Part 1](https://auth0.com/blog/rxjs-advanced-tutorial-with-angular-web-speech-part-1) covered the following:
 
 * Introduction to reactive programming with Rx* and observables
 * Setting up our Angular app
@@ -1013,7 +1013,7 @@ Open the [`server.js` file](https://github.com/auth0-blog/angular-auth0-aside/bl
 // @TODO: change [CLIENT_DOMAIN] to your Auth0 domain name.
 // @TODO: change [AUTH0_API_AUDIENCE] to your Auth0 API audience.
 var CLIENT_DOMAIN = '[CLIENT_DOMAIN]'; // e.g., youraccount.auth0.com
-var AUTH0_AUDIENCE = '[AUTH0_API_AUDIENCE]'; // http://localhost:3001/api in this example
+var AUTH0_AUDIENCE = '[AUTH0_API_AUDIENCE]'; // http://localhost:3001/api/ in this example
 
 var jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
@@ -1022,7 +1022,7 @@ var jwtCheck = jwt({
       jwksRequestsPerMinute: 5,
       jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
     }),
-    aud: AUTH0_AUDIENCE,
+    audience: AUTH0_AUDIENCE,
     issuer: `https://${CLIENT_DOMAIN}/`,
     algorithm: 'RS256'
 });
@@ -1034,7 +1034,7 @@ app.get('/api/dragons', jwtCheck, function (req, res) {
 ...
 ```
 
-Change the `CLIENT_DOMAIN` variable to your Auth0 client domain. The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+Change the `CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://localhost:3001/api/`). The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
