@@ -31,9 +31,9 @@ related:
 
 ---
 
-**Nette** is a free, open-source PHP framework designed for building web applications. **Nette** is a set of decoupled and reusable PHP packages that will make your work easier. And **Nette** is also known as the quick and comfortable web development in PHP because it has the tools that allows you to bang out PHP applications rather quickly. **Nette** has a bundle of tools that makes it one of the popular PHP frameworks out there. These tools include, **Tracy**, **Latte** and **Tester**.
+**Nette** is a free, open-source PHP framework designed for building web applications. **Nette** is a set of decoupled and reusable PHP packages that will make your work easier. And **Nette** is also known as the quick and comfortable web development framework in PHP because it has the tools that allow you to bang out PHP applications rather quickly. **Nette** has a bundle of tools that makes it one of the popular PHP frameworks out there. These tools include, **Tracy**, **Latte** and **Tester**.
 
-* **Tracy:** is a library that helps you to log errors, dump variables, observe memory consumption and measure execution time of scripts and queries. After activating Tracy on your web application, a debugger bar shows up.
+* **Tracy:** is a library that helps you log errors, dump variables, observe memory consumption and measure execution time of scripts and queries. After activating Tracy on your web application, a debugger bar shows up.
 
   ![Tracy debug bar](https://files.nette.org/git/tracy/tracy-bar.png)
   _Tracy debug bar_
@@ -53,7 +53,7 @@ $excelMakingElapsed = Debugger::timer('excel-making');
 $pdfMakingElapsed = Debugger::timer('pdf-making');
 ```
 
-Tracy also has an integration with [Firelogger](https://addons.mozilla.org/cs/firefox/addon/firelogger/). Understand more about how tracy works by visiting the [documentation](https://tracy.nette.org/) for more information.
+Tracy also has an integration with [Firelogger](https://addons.mozilla.org/cs/firefox/addon/firelogger/). Learn more about how tracy works by visiting the [documentation](https://tracy.nette.org/) for more information.
 
 * **Latte:** is a template engine for PHP. It has intuitive syntax and compiles templates to plain optimized PHP code.
 
@@ -116,9 +116,9 @@ Then we can use it in a template like this:
 {% endraw %}
 {% endhighlight %}
 
-Understand more about how Latte works by visiting the [documentation](https://latte.nette.org) for more information.
+Learn more about how Latte works by visiting the [documentation](https://latte.nette.org) for more information.
 
-* **Tester:** is a productive and enjoyable unit testing framework developed by the Nette team. It is used by the Nette framework for testing. It offers lots of Assertion helpers and annotations for TestCase methods. Understand more about how Tester works by visiting the [documentation](https://tester.nette.org) for more information.
+* **Tester:** is a productive and enjoyable unit testing framework developed by the Nette team. It is used by the Nette framework for testing. It offers lots of Assertion helpers and annotations for TestCase methods. Learn more about how Tester works by visiting the [documentation](https://tester.nette.org) for more information.
 
 **Nette**  has a [collection of plugins and extensions](https://componette.com) for easy use in your application. It also has an [active community](https://forum.nette.org).
 
@@ -134,18 +134,18 @@ If you are developing on a Mac OS X or Linux, you need to configure write privil
 
 ## Explore Directory Structure
 
-The app directory is the **bulk** of your Nette application. It houses the following directories:
+The app directory is the **bulk** of your Nette application. It contains the following directories:
 
 ![Nette Directory Structure](https://cdn.auth0.com/blog/loopback/nettedirectorystructure.png)
 
-  * `config` - Contains all your configuration files such as database connection, session expirty time et.c
+  * `config` - Contains all your configuration files such as database connection, session expiry time, etc.
   * `presenters` - Contains all your presenter classes and templates
   * `router` - Contains configuration for your app URLs.
 
 The other directories namely:
 
-  * `log` contains your app log files. You can get all the error message logs here
-  * `temp` contains your app's temporary files such as cache and session files
+  * `log` contains your app log files. You can get all the error message logs here.
+  * `temp` contains your app's temporary files such as cache and session files.
   * `vendor` contains your app dependencies.
   * `www` is the only directory accessible from the web. It is supposed to store publicly available files such as images, javascript and css files.
 
@@ -308,7 +308,7 @@ auth0: Auth0\SDK\Auth0([
     'domain' : '{AUTH0_TENANT_DOMAIN}',
     'client_id' : '{AUTH0_REGULAR_WEBSITE_CLIENT_ID}',
     'client_secret' : '{AUTH0_REGULAR_WEBSITE_CLIENT_SECRET}',
-    'redirect_uri' : 'http://localhost/callback',
+    'redirect_uri' : 'http://localhost:8080/callback',
     'persist_user' : false,
     'store': false
     'debug' : true
@@ -360,7 +360,7 @@ class AuthenticationPresenter extends Presenter {
 }
 ```
 
-In the code above, you can see that the Auth0 service is been injected into the presenter using the `@inject` annotation. The `actionLogin` method is responsible for invoking the login function that will redirect the user to Auth0 hosted login page.
+In the code above, you can see that the Auth0 service is being injected into the presenter using the `@inject` annotation. The `actionLogin` method is responsible for invoking the login function that will redirect the user to Auth0 hosted login page.
 
 The `actionLogout` method is responsible for clearing the sessions and any Auth0 data stored in the app. It logs the user out and redirects back to the home page.
 
