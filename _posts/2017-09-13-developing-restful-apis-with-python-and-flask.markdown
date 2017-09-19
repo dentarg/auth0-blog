@@ -464,7 +464,49 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 ## <span id="flask-on-docker"></span> Dockerizing Flask Applications
 
-https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-14-04
+As we are planning to eventually release our API in the cloud, we are going to create a `Dockerfile` to describe what is needed to run the application on a Docker container. We need to [install Docker on our development machine](https://docs.docker.com/engine/installation/) to test and run dockerized instances of our project. Defining a Docker recipe (`Dockerfile`) will help us running the API on different environments. That is, in the future, we will also install Docker and run our program on environments like [production](https://en.wikipedia.org/wiki/Deployment_environment#Production) and [staging](https://en.wikipedia.org/wiki/Deployment_environment#Staging).
+
+Let's create the `Dockerfile` in the root directory of our project with the following code:
+
+```bash
+# Using lightweight alpine image
+FROM python:3.6-alpine
+
+# Installing packages
+RUN apk update
+RUN pip install pipenv
+
+# Defining working directory and adding source code
+WORKDIR /usr/src/app
+COPY Pipfile Pipfile.lock bootstrap.sh ./
+COPY cashman ./cashman
+
+# Install API dependencies
+RUN pipenv install
+
+# Start app
+EXPOSE 5000
+ENTRYPOINT ["/usr/src/app/bootstrap.sh"]
+```
+
+The first item in the recipe defines that we are going to create our Docker container based on the default [Python 3 Docker image](https://hub.docker.com/_/python/). After that, we update APK and install pipenv. Having `pipenv`, we define the working directory that we will use in the image, and we copy the code needed to bootstrap and run the application. On the fourth step, we use `pipenv` to install all our Python dependencies. Lastly, we define that our image will communicate through port `5000` and that this image, when executed, needs to run the `bootstrap.sh` script to start Flask.
+
+To create and run a Docker container based on the `Dockerfile` that we created, we can execute the following commands:
+
+```bash
+# build the image
+docker build -t cashman .
+
+# run a new docker container named cashman
+docker run --name cashman \
+    -d -p 5000:5000 \
+    cashman
+
+# fetch incomes from the dockerized instance
+curl http://localhost:5000/incomes/
+```
+
+The `Dockerfile` is simple, but effective, and using it is similarly easy. With these commands and this `Dockerfile`, we can run as many instances of our API as we need with no trouble. It's just a matter of defining another port on the host, or even another host.
 
 ## <span id="securing-python-apis"></span> Securing Python APIs with Auth0
 
