@@ -468,4 +468,25 @@ https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications
 
 ## <span id="securing-python-apis"></span> Securing Python APIs with Auth0
 
+Securing Python APIs with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get:
+
+- A solid [identity management solution](https://auth0.com/user-management), including [single sign-on](https://auth0.com/docs/sso/single-sign-on).
+- [User management](https://auth0.com/docs/user-profile).
+- Support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders).
+- [Enterprise identity providers (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise).
+- Our [own database of users](https://auth0.com/docs/connections/database/mysql).
+
+[To learn the best way to secure *Python APIs* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/python). Besides providing tutorials for backend technologies (like Python, Java, and PHP), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+
 ## <span id="next-steps"></span> Next Steps
+
+In this article we learned about the basic components needed to develop a well structured Flask application. We took a look on how to use `pipenv` to manage the dependencies of our API. After that, we installed and used Flask and Marshmallow to create endpoints capable of receiving and sending JSON responses. In the end we also took a look on how to dockerize the API, which will facilitate the release of the application to the cloud.
+
+Although well structured, our API is not that useful yet. Among the things that we can improve, we are going to cover in the next article the following topics:
+
+- Database persistence with SQLAlchemy.
+- Global Exception Handling.
+- Internationalization (i18n).
+- Security with JWTs.
+
+Stay tuned!
