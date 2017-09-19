@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Going In-depth With RxJS, Angular, & Web Speech - Part 1"
+title: "Going In-depth With RxJS, Angular, & Web Speech: Part 1"
 description: "Build an app to learn about the power and flexibility of RxJS in Angular while exploring speech recognition with Web Speech API."
 date: 2017-09-20 8:30
 category: Technical guide, Angular, Angular 4, Javascript, RxJS, Web API
@@ -67,7 +67,9 @@ _Observables_ are a vital part of RxJS and now Angular. When learning about obse
 
 Consider an array. An array is a collection of values. With a normal array, you theoretically have the collection of all values available to you from the beginning. Of course, we know this isn't always the case: in fact, it's common practice to _push_ additional values to an array in response to events, or to create new arrays _from_ other arrays with methods like [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map), [filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter), and [reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce). Traditionally, if we do this with a normal array, we need to use _callbacks_ in order to tell our scripting code that the array has a new value.
 
-On the other hand, an observable "stream" represents a _collection over time_. A stream may (or may not) have an initial value, and over time, more values are added to it. We can _subscribe_ to the observable stream to be notified whenever a new value has been added. This is an ideal way to react to collections over time. 
+On the other hand, an observable "stream" represents a _collection over time_. A stream may (or may not) have an initial value, and over time, more values are added to it. We can _subscribe_ to the observable stream to be notified whenever a new value has been added. This is an ideal way to react to collections over time.
+
+{% include tweet_quote.html quote_text="An observable is a stream that represents a collection over time." %}
 
 For example, say we have a shopping cart. Every time a user successfully adds an item to their cart, we then want to run some code. (This code might display a toast with the name of the item, update a count of all items in the cart, update the cart subtotal, etc.) We could do this with a state container such as [Redux](http://redux.js.org/) or [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md), or we could simply use an observable and subscribe to it to react each time a new value is added.
 
@@ -78,6 +80,8 @@ We'll implement several observables in the app that we'll build in this tutorial
 [ReactiveX, or Rx*](http://reactivex.io/rxjs/), is an API for asynchronous programming with observable streams. The JavaScript implementation is [RxJS, which is available on GitHub](https://github.com/Reactive-Extensions/RxJS). As mentioned, Angular comes packaged with RxJS, so it's to our great advantage to make use of it wherever it might help.
 
 _Reactive programming_, in a nutshell, is based on propagating and responding to incoming events over time in a [declarative](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#imperative-declarative) manner. Observables, which are streams of collections over time, are ideal for this.
+
+{% include tweet_quote.html quote_text="Reactive programming is based on propagating and responding to incoming events over time, declaratively." %}
 
 You can read more about [reactive programming here](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#reactive-programming).
 
