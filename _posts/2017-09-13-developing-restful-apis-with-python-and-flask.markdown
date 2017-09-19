@@ -103,7 +103,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "Hello, World!"
+  return "Hello, World!"
 ```
 
 These 5 lines of code are everything we need to handle HTTP requests and return a "Hello, World!" message. To run it, we need to export a environment variable called `FLASK_APP` and then execute `flask`:
@@ -179,7 +179,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "Hello, World!"
+  return "Hello, World!"
 ```
 
 Just like in the previous example, our application right now does nothing besides returning a "Hello, world!" message. We will start improving it in a second, but first let's create an executable file called `bootstrap.sh` in the main directory of our application.
@@ -223,19 +223,19 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 incomes = [
-    { 'description': 'salary', 'amount': 5000 }
+  { 'description': 'salary', 'amount': 5000 }
 ]
 
 
 @app.route('/incomes')
 def get_incomes():
-    return jsonify(incomes)
+  return jsonify(incomes)
 
 
 @app.route('/incomes', methods=['POST'])
 def add_income():
-    incomes.append(request.get_json())
-    return '', 204
+  incomes.append(request.get_json())
+  return '', 204
 ```
 
 Since we are improving our application, we have removed the endpoint that returned "Hello, world!" to users. On its place we defined an endpoint to handle HTTP `GET` request to return incomes, and another endpoint to handle HTTP `POST` requests to add new incomes. Right now, we are manipulating incomes as [dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries) to facilitate the process. We will soon create classes to represent incomes and expenses.
@@ -263,8 +263,117 @@ curl localhost:5000/incomes
 
 ## <span id="python-classes"></span> Mapping Models with Python Classes
 
-https://docs.python.org/3/library/enum.html
-https://docs.python.org/3/tutorial/classes.html
+Using dictionaries on a very simple use case like the one before is enough. However, for more complex applications that deal with different entities and have multiple business rules, we might need to encapsulate our data into [Python classes](https://docs.python.org/3/tutorial/classes.html).
+
+To learn the process of mapping entities (like incomes) as classes, we will refactor our application. The first thing that we will do is to create a submodule to hold all our entities. Let's create a directory called `model` inside the `cashman` module (we are talking about the `cashman` subdirectory, not the main one) and add an empty file called `__init__.py` on it.
+
+```bash
+# create model directory inside the cashman module
+mkdir -p cashman/model
+
+# initialize it as a module
+touch cashman/model/__init__.py
+```
+
+### Mapping a Python Superclass
+
+Inside this new module/directory, we will create three classes: `Transaction`, `Income`, `Expense`. The first class will be the base for the two others, and we will call it `Transaction`. Let's create a file called `transaction.py` in the `model` directory with the following code:
+
+```python
+import datetime as dt
+
+from marshmallow import Schema, fields, post_load
+
+
+class Transaction(object):
+  def __init__(self, description, amount, type):
+    self.description = description
+    self.amount = amount
+    self.created_at = dt.datetime.now()
+    self.type = type
+
+  def __repr__(self):
+    return '<Transaction(name={self.description!r})>'.format(self=self)
+
+
+class TransactionSchema(Schema):
+  description = fields.Str()
+  amount = fields.Number()
+  created_at = fields.Date()
+  type = fields.Str()
+```
+
+Note that besides the `Transaction` class, we also defined a `TransactionSchema`. We will use the latter to deserialize and serialize instances of `Transaction` from and to JSON objects. This class inherits from another superclass called `Schema` that is defined on a package yet to be installed.
+
+```bash
+# installing marshmallow as a project dependency
+pipenv install marshmallow
+```
+
+[`marshmallow` is a popular Python package](https://marshmallow.readthedocs.io/en/latest/) for converting complex datatypes, such as objects, to and from native Python datatypes. Basically, we can use this package to validate, serialize, and deserialize data. We won't dive into validation in this article, as it will be the subject of another one. Though, as mentioned, we will use `marshmallow` to serialize and deserialize entities through our endpoints.
+
+### Mapping Income and Expense as Python Classes
+
+To keep things more organized and meaningful, we won't expose the `Transaction` class on our endpoints. We will create two specializations to handle the requests: `Income` and `Expense`. Let's create a file called `income.py` inside the `model` module with the following code:
+
+```python
+from marshmallow import post_load
+
+from .transaction import Transaction, TransactionSchema
+from .transaction_type import TransactionType
+
+
+class Income(Transaction):
+  def __init__(self, description, amount):
+    super(Income, self).__init__(description, amount, TransactionType.INCOME)
+
+  def __repr__(self):
+    return '<Income(name={self.description!r})>'.format(self=self)
+
+
+class IncomeSchema(TransactionSchema):
+  @post_load
+  def make_income(self, data):
+    return Income(**data)
+```
+
+The only value that this class adds for our application, is that it hardcodes the type of the transaction. This type is a [Python enumerator](https://docs.python.org/3/library/enum.html), which we still have to create, that will help us filtering transactions in the future. Let's create another file, called `transaction_type.py`, inside `model` to represent this enumerator:
+
+```python
+from enum import Enum
+
+
+class TransactionType(Enum):
+  INCOME = "INCOME"
+  EXPENSE = "EXPENSE"
+```
+
+The code of the enumerator is quite simple. It just defines a class called `TransactionType` that inherits from `Enum` and that defines two types: `INCOME` and `EXPENSE`.
+
+Lastly, let's create the class that represents expenses. To do that, let's add a new file called `expense.py` inside `model` with the following code:
+
+```python
+from marshmallow import post_load
+
+from .transaction import Transaction, TransactionSchema
+from .transaction_type import TransactionType
+
+
+class Expense(Transaction):
+  def __init__(self, description, amount):
+    super(Expense, self).__init__(description, -abs(amount), TransactionType.EXPENSE)
+
+  def __repr__(self):
+    return '<Expense(name={self.description!r})>'.format(self=self)
+
+
+class ExpenseSchema(TransactionSchema):
+  @post_load
+  def make_expense(self, data):
+    return Expense(**data)
+```
+
+Similar to `Income`, this class hardcodes the type of the transaction, but now it passes `EXPENSE` to the superclass. What makes it different is that it forces the  `amount` passed to be negative. Therefore, no matter if the user sends a positive or a negative value, we will store it as negative to facilitate calculations.
 
 ## <span id="marshmallow-serilization"></span> Serializing and Deserializing Objects with Marshmallow
 
