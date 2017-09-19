@@ -377,6 +377,91 @@ Similar to `Income`, this class hardcodes the type of the transaction, but now i
 
 ## <span id="marshmallow-serilization"></span> Serializing and Deserializing Objects with Marshmallow
 
+Having the `Transaction` superclass and its specializations properly implemented, we can now enhance our endpoints to deal with these classes. Let's replace `./cashman/index.py` contents to:
+
+```bash
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+transactions = [
+  Income('Salary', 5000),
+  Income('Dividends', 200),
+  Expense('pizza', 50),
+  Expense('Rock Concert', 100)
+]
+
+
+@app.route('/incomes')
+def get_incomes():
+  schema = IncomeSchema(many=True)
+  incomes = schema.dump(
+    filter(lambda t: t.type == TransactionType.INCOME, transactions)
+  )
+  return jsonify(incomes.data)
+
+
+@app.route('/incomes', methods=['POST'])
+def add_income():
+  income = IncomeSchema().load(request.get_json())
+  transactions.append(income.data)
+  return "", 204
+
+
+@app.route('/expenses')
+def get_expenses():
+  schema = ExpenseSchema(many=True)
+  expenses = schema.dump(
+      filter(lambda t: t.type == TransactionType.EXPENSE, transactions)
+  )
+  return jsonify(expenses.data)
+
+
+@app.route('/expenses', methods=['POST'])
+def add_expense():
+  expense = ExpenseSchema().load(request.get_json())
+  transactions.append(expense.data)
+  return "", 204
+
+
+if name == "main":
+    app.run()
+```
+
+The new version that we just implemented starts by redefining the `incomes` variable into a list of `Expenses` and `Incomes`, now called `transactions`. Besides that, we have also changed the implementation of both methods that deal with incomes. On the endpoint used to retrieve incomes, we defined an instance of `IncomeSchema` to produce JSON representation of incomes. We also used [`filter`](https://docs.python.org/3/library/functions.html#filter) to extract incomes only from the `transactions` list. In the end we send the array of JSON incomes back to users.
+
+The endpoint responsible for accepting new incomes was also refactored. The change on this endpoint was the addition of `IncomeSchema` to load an instance of `Income` based on the JSON data sent by the user. As the `transactions` list deals with instances of `Transaction` and its subclasses, we just added the new `Income` in that list.
+
+The other two endpoints responsible for dealing with expenses, `get_expenses` and `add_expense`, are almost copies of its `income` counterparts. The differences are:
+
+- instead of dealing with instances of `Income`, we deal with instances of `Expense` to accept new expenses,
+- and instead of filtering by `TransactionType.INCOME` we filter by `TransactionType.EXPENSE`, to send expenses back to the user.
+
+This finishes the implementation of our API. If we run our Flask application now, we will be able to interact with the endpoints, as shown here:
+
+```bash
+# start the application
+./bootstrap.sh &
+
+# get expenses
+curl http://localhost:5000/expenses/
+
+# add a new expense
+curl -X POST -H "Content-Type: application/json" -d '{
+    "amount": 20,
+    "description": "lottery ticket"
+}' http://localhost:5000/expenses/
+
+# get incomes
+curl http://localhost:5000/incomes/
+
+# add a new income
+curl -X POST -H "Content-Type: application/json" -d '{
+    "amount": 300.0,
+    "description": "loan payment"
+}' http://localhost:5000/incomes/
+```
+
 ## <span id="flask-on-docker"></span> Dockerizing Flask Applications
 
 https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-14-04
