@@ -88,7 +88,7 @@ $latte->render('template.latte', $parameters);
 $html = $latte->renderToString('template.latte', $parameters);
 ```
 
-Latte has a set of standard filters. You can call a filter by using thhe pipe symbol. Check out the code below:
+Latte has a set of standard filters. You can call a filter by using the pipe symbol. Check out the code below:
 
 {% highlight html %}
 {% raw %}
@@ -308,7 +308,7 @@ auth0: Auth0\SDK\Auth0([
     'domain' : '{AUTH0_TENANT_DOMAIN}',
     'client_id' : '{AUTH0_REGULAR_WEBSITE_CLIENT_ID}',
     'client_secret' : '{AUTH0_REGULAR_WEBSITE_CLIENT_SECRET}',
-    'redirect_uri' : 'http://localhost:8080/callback',
+    'redirect_uri' : 'http://localhost:8000/callback',
     'persist_user' : false,
     'store': false
     'debug' : true
