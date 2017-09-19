@@ -2,7 +2,7 @@
 layout: post
 title: "Building an app with Nette and adding authentication"
 description: Learn how to build your first Nette application and add authentication to it.
-date: 2017-08-25 8:30
+date: 2017-09-19 8:30
 category: Technical Guide, PHP, Nette
 author:
   name: Prosper Otemuyiwa
