@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Going In-depth With RxJS, Angular, & Web Speech: Part 2"
+title: "RxJS Advanced Tutorial With Angular & Web Speech: Part 2"
 description: "Build an app to learn about the power and flexibility of RxJS in Angular while exploring speech recognition with Web Speech API."
 date: 2017-09-26 8:30
 category: Technical guide, Angular, Angular 4, Javascript, RxJS, Web API
