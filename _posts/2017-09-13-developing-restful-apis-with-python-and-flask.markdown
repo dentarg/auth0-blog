@@ -215,7 +215,51 @@ To check that this script is working correctly, we can issue `./bootstrap.sh` no
 
 ## <span id="restful-flask"></span> Creating a RESTful Endpoint with Flask
 
-https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+Now that we have our application structured, we can start defining some relevant endpoints. As mentioned before, the goal of our application is to help users to manage incomes and expenses. To get our feet wet, we will start by defining two endpoints to handle incomes. Let's replace the contents of the `./cashman/index.py` file to:
+
+```python
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+incomes = [
+    { 'description': 'salary', 'amount': 5000 }
+]
+
+
+@app.route('/incomes')
+def get_incomes():
+    return jsonify(incomes)
+
+
+@app.route('/incomes', methods=['POST'])
+def add_income():
+    incomes.append(request.get_json())
+    return '', 204
+```
+
+Since we are improving our application, we have removed the endpoint that returned "Hello, world!" to users. On its place we defined an endpoint to handle HTTP `GET` request to return incomes, and another endpoint to handle HTTP `POST` requests to add new incomes. Right now, we are manipulating incomes as [dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries) to facilitate the process. We will soon create classes to represent incomes and expenses.
+
+To interact with both endpoints that we have created, we can start our application and issue some HTTP requests:
+
+```bash
+# start the cashman application
+./bootstrap.sh &
+
+# get incomes
+curl http://localhost:5000/incomes
+
+# add new income
+curl -X POST -H "Content-Type: application/json" -d '{
+  "description": "lottery",
+  "amount": 1000.0
+}' http://localhost:5000/incomes
+
+# check if lottery was added
+curl localhost:5000/incomes
+```
+
+![Interacting with Flask endpoints](https://cdn.auth0.com/blog/python-restful/incomes.jpg)
 
 ## <span id="python-classes"></span> Mapping Models with Python Classes
 
