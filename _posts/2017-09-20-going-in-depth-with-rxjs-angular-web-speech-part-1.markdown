@@ -12,8 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/madlibs/Logo.png
+  bg_color: "#222228"
 tags:
 - rxjs
 - angular
@@ -24,7 +24,7 @@ related:
 - 2017-02-13-making-use-of-rxjs-angular
 ---
 
-**TL;DR:** In this tutorial series, we'll learn how to build a small app with some big concepts. We'll cover reactive programming with [Reactive Extensions (Rx*)](http://reactivex.io/), JS framework component interaction in [Angular](https://angular.io), and speech recognition with the [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API). The completed Madlibs app code can be found at [this GitHub repo](https://github.com/auth0-blog/madlibs).
+**TL;DR:** In this 2-part tutorial series, we'll learn how to build a small app with some big concepts. We'll cover reactive programming with [Reactive Extensions (Rx*)](http://reactivex.io/), JS framework component interaction in [Angular](https://angular.io), and speech recognition with the [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API). The completed Madlibs app code can be found at [this GitHub repo](https://github.com/auth0-blog/madlibs).
 
 ---
 
