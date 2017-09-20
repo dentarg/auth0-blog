@@ -304,7 +304,7 @@ Next, let's take a closer look at the `getNouns$()` method (and the two methods 
 
 Notice that there are three HTTP requests declared as constants in the `getNouns$()` function: one each for retrieving a person, place, and thing. Each `GET` request expects a `responseType: 'text'`. Each [text request](https://angular.io/guide/http#requesting-non-json-data) is then `map`ped with our `_stringSuccessHandler` and has a `catch` method with our `_errorHandler` in case something went wrong. Recall that our app expects an _array_ of nouns that includes _one person_, _two places_, and _two things_. Now that we have `nounPerson$`, `nounPlace$`, and `nounThing$` observables set up, we can use the [RxJS combination operator `forkJoin`](https://www.learnrxjs.io/operators/combination/forkjoin.html) to execute all observables at the same time and then emit the last value from each one once they are all complete.
 
-We'll `return Observable.forkJoin()`, passing in the array of observables we'd like to use in the expected order. If all requests are successful, subscribing to this observable will return an array of:
+We'll `return Observable.forkJoin()`, passing in the array of observables we'd like to use in the expected order. If all requests are successful, subscribing to this observable will produce an array that looks like this:
 
 ```js
 [person, place, place, thing, thing]
@@ -424,7 +424,7 @@ export class GenerateWordsComponent implements OnDestroy {
 }
 ```
 
-First we'll add some imports. The `OnDestroy` lifecycle hook is necessary to clean up subscriptions when the component is destroyed. `Output` and `EventEmitter` are needed to emit an event from this component to a parent. Then we'll import our `MadlibsService` to get API data, as well as `Subscription` from RxJS.
+First we'll add some imports. The [`OnDestroy` lifecycle hook](https://angular.io/guide/lifecycle-hooks#ondestroy) is necessary to clean up subscriptions when the component is destroyed. `Output` and `EventEmitter` are needed to [emit an event from this component to a parent](https://angular.io/guide/component-interaction#parent-listens-for-child-event). Then we'll import our `MadlibsService` to get API data, as well as [`Subscription` from RxJS](http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html).
 
 We'll `implement` the `OnDestroy` lifecycle hook when we export our `GenerateWordsComponent` class.
 
@@ -506,7 +506,7 @@ Open the `listen.component.html` template and at the top, add the `<app-generate
   ...
 {% endhighlight %}
 
-This element listens for the `(fetchedWords)` event and runs the `onFetchedAPIWords()` handler when the event is emitted.
+This element listens for the `(fetchedWords)` event and runs the `onFetchedAPIWords($event)` handler when the event is emitted, sending the `$event` data as a parameter.
 
 If speech recognition is supported, the app should now look like this in the browser:
 
@@ -527,9 +527,9 @@ Now open the `keyboard.component.html` template. Below the unordered list in the
 ...
 {% endhighlight %}
 
-Now both the Listen and Keyboard components support word generation with the API. Make sure the API is running locally and check the app out in the browser.
+Now both the Listen and Keyboard components support word generation with the API. Make sure the API is running locally.
 
-If speech recognition is not supported, the app should now look like this in the browser:
+If speech recognition is _not_ supported, the app should now look like this in the browser:
 
 ![Madlibs RxJS Angular app with Generate Words component - no speech recognition](https://cdn.auth0.com/blog/madlibs/generate-words-keyboard.jpg)
 
@@ -537,7 +537,7 @@ If speech recognition is not supported, the app should now look like this in the
 
 You (or the user) should now be able to click the "Generate Words" button whether speech recognition is supported or not. The form should populate with words retrieved from the API. If the user clicks the button again, new random words should be fetched and will overwrite any existing words.
 
-In browsers that support speech recognition, the user should be able to delete API-generated words and then use the speech commands to fill them back in. In any browser, the user can edit or replace any words manually by typing in the form.
+In browsers that support speech recognition, the user should be able to delete API-generated words and then use the speech commands to fill them back in. In any browser, the user can edit or replace words manually by typing in the form.
 
 ## Progress Bar Component
 
@@ -645,9 +645,7 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
   private _setupProgress() {
     this.progress$ = Observable
       .timer(0, 50)
-      .timeInterval()
-      .takeUntil(Observable.timer(2600))
-      .map(e => e.value);
+      .takeUntil(Observable.timer(2850));
   }
 
   private _getPronoun() {
@@ -708,11 +706,11 @@ Let's take a closer look at the private `_setupProgress()` method:
   }
 ```
 
-Here we're _creating_ a custom observable. This observable uses the [RxJS timer operator](http://reactivex.io/documentation/operators/timer.html). It emits the first value after `0` seconds, and then emits subsequent values every `50` milliseconds.
+Here we're _creating_ a custom observable. This observable uses the [RxJS `timer` operator](http://reactivex.io/documentation/operators/timer.html). It emits the first value after `0` seconds, and then emits subsequent values every `50` milliseconds.
 
 > **Note:** We want to emit values often to make the animation of our progress bar reasonably smooth in the browser.
 
-The [RxJS takeUntil operator](http://reactivex.io/documentation/operators/takeuntil.html) discards any items emitted by our timer observable after a second observable (passed as a parameter) emits or terminates. This way, we can end our timer observable once a certain amount of time has elapsed. In this case, we'll run our first timer observable until a second one has run for `2800`ms. This way, the `progress$` observable emits values from 0 to 49. We'll work with these values when we _subscribe_ to the `progress$` observable.
+The [RxJS `takeUntil` operator](http://reactivex.io/documentation/operators/takeuntil.html) discards any items emitted by our `timer` observable after a second observable (passed as a parameter) emits or terminates. This way, we can end our `timer` observable once a certain amount of time has elapsed. In this case, we'll run our first `timer` observable until a second one has run for `2850`ms. This way, the `progress$` observable runs for long enough to emit values from 0 to 49. We'll work with these values when we _subscribe_ to the `progress$` observable.
 
 #### Get Pronoun and Set Up Submit
 
@@ -751,7 +749,7 @@ When a value is successfully emitted, we'll set our `progress` property to the v
 
 We also want to create a string value with a `%` symbol after it to style the width of the progress bar, so we'll set the `width` property appropriately.
 
-If an error occurs, we'll log it to thte console with a warning.
+If an error occurs, we'll log it to the console with a warning.
 
 When the observable completes, we'll use the Madlibs service's `setMadlibReady()` setter method with an argument of `true`. This will update the service's `madlibReady` property, which is accessible throughout the app.
 
@@ -781,7 +779,7 @@ Then open the `progress-bar.component.html` template and add the following marku
 
 Most of the markup is standard Bootstrap CSS. However, we have a `[style.width]` attribute which is data bound to our component's `width` property: a string that consists of a number and percentage symbol. As this member is updated by our `progressSub` subscription, the width of the progress bar UI element will change dynamically. The `attr.aria-valuenow` attribute will also be updated with the `progress` property.
 
-> **Note:** In Angular, the declarative attributes are _not_ HTML attributes. Instead, they're _properties_ of the DOM node. You can read more about this [shift in the mental model in the documentation here](https://angular.io/guide/template-syntax#html-attribute-vs-dom-property).
+> **Note:** In Angular, the declarative data-bound attributes are _not_ HTML attributes. Instead, they're _properties_ of the DOM node. You can read more about this [shift in the mental model in the documentation here](https://angular.io/guide/template-syntax#html-attribute-vs-dom-property).
 
 ### Progress Bar Component Styles
 
@@ -822,13 +820,13 @@ Open the `words-form.component.html` template:
 
 First we'll add `*ngIf="!generating"` to the "Go!" button. This will remove the button after clicking, allowing us to show the progress bar in its place.
 
-Next we'll add our `<app-progress-bar>` element below the "Go!" button near the bottom of our template. We'll use the `[hidden]` binding to hide the Progress Bar component except when `generating` is truthy. 
+Next we'll add our `<app-progress-bar>` element below the "Go!" button near the bottom of our template. We'll use the `[hidden]` binding to hide the Progress Bar component except when `generating` is true. 
 
-Why aren't we using NgIf for the progress bar? NgIf doesn't load the component into the template at all until its expression is truthy. However, using `[hidden]` means the component is already initialized in the template on load. This will ensure that it's ready to go with the appropriate subscriptions already set up as soon as we might need to _display_ it. Because it subscribes to the `submit$` subject, if we didn't load the component until after the user clicked the "Go!" button, the progress bar wouldn't initialize properly.
+Why aren't we using NgIf for the progress bar? NgIf doesn't load the component into the template at all until its expression is truthy. However, using `[hidden]` means the component initializes (but remains hidden) when the parent template loads. This will ensure the Progress Bar component is ready to go with the appropriate subscriptions already set up as soon as we might need to _display_ it. Because it subscribes to the `submit$` subject, if we used NgIf and therefore didn't load the component until after the user clicked the "Go!" button, the progress bar wouldn't initialize properly.
 
 ## Madlib Component
 
-Our final component is the Madlib component. This component uses the user's words to create a silly, customized story.
+Our final component is the Madlib component. This component utilizes the user's words to create a silly, customized story.
 
 Create the component with the Angular CLI like so:
 
@@ -868,9 +866,9 @@ export class MadlibComponent {
 }
 ```
 
-This is a simple component. Most of the meat and potatoes will be in the template, which displays the actual story. We need to import the `MadlibsService`, to gain access to the stored data. We'll make this available to our template publicly in the constructor function.
+This is a simple component. Most of the meat and potatoes will be in the template, which displays the actual story. We need to import the `MadlibsService` to gain access to the stored data. We'll make this available to our template publicly in the constructor function.
 
-Then we need a simple `aOrAn()` method that returns different capitalizations of "a" or "an" depending on the word it precedes and whether or not it starts a sentence. If the `word` argument starts with a vowel, we'll return "an". If not, we'll return "a". We'll also implement logic for sentence capitalization.
+Then we need a simple `aOrAn()` method that returns different capitalizations of "a" or "an" depending on the word it precedes and whether or not it's at the beginning of a sentence. If the `word` argument starts with a vowel, we'll return "an". If not, we'll return "a". We'll also implement logic for sentence capitalization.
 
 ### Madlib Component Template
 
@@ -941,7 +939,7 @@ Now open the `app.component.html` template and make the following updates:
 </div>
 {% endhighlight %}
 
-We'll wrap the Listen and Keyboard components in an `<ng-template>` with an `[ngIf]` directive and an expression that is true when Madlib service's properties `madlibReady` _or_ `pronoun` are falsey. Either of these would indicate that the madlib story is not ready.
+We'll wrap the Listen and Keyboard components in an `<ng-template>` with an `[ngIf]` directive and an expression that is true when the Madlibs service's properties `madlibReady` _or_ `pronoun` are falsey. Either of these would indicate that the madlib story is not ready.
 
 We'll then add the `<app-madlib>` element and display it if both `madlibReady` and `pronoun` are truthy. This ensures we have all the data necessary to display a complete madlib story.
 
@@ -951,7 +949,7 @@ Try out your madlib! The Madlib component should look something like this in the
 
 ## Aside: Authenticate an Angular App and Node API with Auth0
 
-We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with an Angular application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [angular-auth0-aside repo on GitHub](https://github.com/auth0-blog/angular-auth0-aside).
+We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with an Angular application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [angular-auth0-aside repo on GitHub](https://github.com/auth0-blog/angular-auth0-aside), or as a bonus, you can try integrating these features into the Madlibs app that you've just built!
 
 ![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
@@ -1239,4 +1237,6 @@ That's it! We have an authenticated Node API and Angular application with login,
 
 ## Conclusion
 
-We covered a lot while building a fun little app that generates madlibs. Hopefully you now have a better understanding of Angular, speech recognition, and Rx*. We were able to experience a rapidly-approaching future for web interactivity with the Web Speech API, and we learned about RxJS observables and component communication in Angular. Finally, we learned how to authenticate an Angular app and Node API with Auth0, which you can integrate into your Madlibs app if you wish as a little bit of homework.
+We covered a lot while building a fun little app that generates madlibs. We were able to experience a rapidly-approaching future for web interactivity with the Web Speech API, and we learned about RxJS observables and component communication in Angular. Finally, we learned how to authenticate an Angular app and Node API with Auth0, which you can integrate into your Madlibs app if you wish as a little bit of homework.
+
+Hopefully you now have a better understanding of Angular, speech recognition, and RxJS and are prepared to build your own more complex apps with these technologies!
