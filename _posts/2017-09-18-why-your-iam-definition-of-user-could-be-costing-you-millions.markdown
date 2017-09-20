@@ -13,8 +13,8 @@ author:
   mail: diego.poza@auth0.com
 is_non-tech: true
 design:
-  image:
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/iam/logo.png
+  bg_color: "#0D346C"
 tags:
 - legacy
 - modernization
@@ -77,9 +77,9 @@ Let's say you're an insurance company and only about 5% of your overall users ac
 
 We give away Auth0 support for up to 7,000 active users for free. However, you could support 140,000 _registered _users on that plan if only 5% of your users log in every month.
 
-When you're ready for multifactor authentication, compliance-ready reporting and enterprise connections, you can upgrade to a fuller plan and _still _pay per active user—just $1,025/mo with 7,000 active users and 100 enterprise customers.
+When you're ready for multifactor authentication, compliance-ready reporting and enterprise connections, you can upgrade to a fuller plan and _still _pay per active user, just $1,025/mo with 7,000 active users and 100 enterprise customers.
 
-[Auth0 Pricing](https://cdn.auth0.com/blog/auth0/pricing.png)
+![Auth0 Pricing](https://cdn.auth0.com/blog/auth0/pricing.png)
 
 If you have 140,000 overall users, but only 5% log in every month, you're still going to pay $4 per _every _user every month. That's $560,000 every month.
 
@@ -102,4 +102,4 @@ We believe transparency and pay-for-what-you-use pricing help us get our pricing
 
 If you need secure login, enterprise connections, and multifactor authentication, but the level of activity among your user base is unevenly distributed or highly variable, we believe you should pay a different amount than a product where 50% of all users are active on a monthly basis.
 
-Not just because it can be a cost savings for you, but because it means that you're paying for the services you're receiving, and no more—not subsidizing all of the social apps and networks of the world. 
+Not just because it can be a cost savings for you, but because it means that you're paying for the services you're receiving, and no more, not subsidizing all of the social apps and networks of the world. 
