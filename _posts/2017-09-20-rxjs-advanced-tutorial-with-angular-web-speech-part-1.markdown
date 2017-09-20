@@ -605,7 +605,7 @@ In the `constructor()` method, we'll pass the `SpeechService` and declare it `pu
 
 The `ngOnInit()` lifecycle function will execute when the component is ready and should run any initialization code necessary. First we'll call the `SpeechService`'s `init()` method to set up the speech recognition commands and callbacks. Then we'll run functions we'll create shortly to subscribe to the `words$` and `errors$` observables.
 
-We'll have buttons in the UI to start and stop listening. We'll change the text on the button to indicate to the user whether the app is actively listening or not. To determine this, we'll use an accessor method called `btnLabel()` that checks the Speech service's `listening` property and returns a string that either says `"Listening..."` or `"Listen"` for the button.
+We'll have buttons in the UI to start and stop listening. We'll change the text on the "Listen" button to indicate to the user whether the app is actively listening or not. To determine this, we'll use an accessor method called `btnLabel()` that checks the Speech service's `listening` property and returns a string that either says `"Listening..."` or `"Listen"` for the button.
 
 Next we have the three methods that set up speech recognition subscriptions: `_listenNouns()`, `_listenVerbs()`, and `_listenAdjs()`. Let's look at `_listenNouns()` for example:
 
@@ -625,7 +625,7 @@ Next we have the three methods that set up speech recognition subscriptions: `_l
 
 This function filters and maps the `words$` observable before subscribing. The `filter` operator is used to return only objects with a `type` of `'noun'`. The `map` operator is then used to return only the value of the `word` property in each object. This gives us a stream that only contains the nouns spoken by the user. We can then `subscribe()` to this stream. For each value emitted, we'll run a `_setError()` function (which we'll create shortly) and then simply `console.log` the part of speech and the word itself.
 
-We'll create two similar functions for verbs and adjectives. You may notice that our subscriptions, right now, don't actually perform any real functionality. That's fine because at the moment, we just want to make sure our speech recognition works. Integrating with a form and limiting the number of words of each type is something we'll do a little later.
+We'll create two similar functions for verbs and adjectives. You may notice that our subscriptions, right now, don't perform any real functionality. That's fine because at the moment, we just want to make sure our speech recognition works. Integrating with a form and limiting the number of words of each type is something we'll do a little later.
 
 Next we'll create our errors subscription and the `_setError()` method we referenced earlier:
 
@@ -851,13 +851,12 @@ We can now utilize these classes in other components, so it's time to make some 
 
 ## Update Listen Component
 
-Recall that we're just logging words (as strings) to the console right now in our Listen component. It's time to update the component to use our new `Word` type.
+Recall that we're just logging words (as strings) to the console right now in our Listen component. It's time to update the component to store arrays of words.
 
 Before we update the code itself, let's briefly review our goals. We want to:
 
-* Store nouns, verbs, and adjectives in arrays of type `Word[]`. There should be five words in each array.
-* When words are recognized from Web Speech API, we need to convert the results from strings to `Word` objects.
-* Show an error when a user tries to continue speaking words when there are already five for that type.
+* Store nouns, verbs, and adjectives in arrays of type `string[]`. There should be five words in each array.
+* Show an error when a user tries to continue speaking words when there are already five for that part of speech.
 * If the user manually deletes any words using the form, spoken commands should then fill in the missing words appropriately where there are openings.
 
 Now let's develop the functionality to facilitate these goals.
@@ -1007,7 +1006,7 @@ Now that we have an `arrayFull` property, we need to utilize it in our template.
 
 In the element containing our error messaging, we'll update the `*ngIf` to check if `errorMsg || arrayFull`. Using `ng-template` syntax, we'll show the `errorMsg` if it is present. If `arrayFull`, we'll show a message informing the user which array is full and that their last Web Speech attempt failed.
 
-> **Note:** The Angular [NgIf directive](https://angular.io/api/common/NgIf) can be used with an `<ng-template [ngIf]="...">` element if you don't want to render an extra container in the markup. In many other cases, we'll already have a container wrapping whatever we want to show or hide, so we would use `<div *ngIf="...">`.
+> **Note:** The Angular [NgIf directive](https://angular.io/api/common/NgIf) can be used with an `<ng-template [ngIf]>` element if you don't want to render an extra container in the markup. In many cases, we already have a container wrapping whatever we want to show or hide, so we use `<div *ngIf>`.
 
 ## Words Form Component
 
@@ -1052,7 +1051,7 @@ We'll add this component to our Listen component. Open the `listen.component.htm
   [adjs]="adjs"></app-words-form>
 {% endhighlight %}
 
-Until we add the TypeScript, we'll receive an error when compiling because we've declared that the `<app-words-form>` component takes inputs (`[nouns]`, `[verbs]`, and `[adjs]`), but we haven't yet set these inputs up in the component class. Let's do so now.
+Until we add our TypeScript, we'll receive an error when compiling because we've declared that the `<app-words-form>` component takes inputs (`[nouns]`, `[verbs]`, and `[adjs]`), but we haven't yet set these inputs up in the component class. Let's do so now.
 
 ### Words Form Component Class
 
@@ -1106,7 +1105,9 @@ export class WordsFormComponent {
 }
 ```
 
-First we'll import [Input](https://angular.io/guide/component-interaction#pass-data-from-parent-to-child-with-input-binding) and our `MadlibsService`. The `Input` decorator allows us to pass data from a parent component to a child component. We implemented this above in the template when we added the `<app-words-form>` element in the Listen component. We can now use the decorator to define, in the `WordsFormComponent` class, what these inputs are called and that their type annotations should be arrays of strings:
+First we'll import [Input](https://angular.io/guide/component-interaction#pass-data-from-parent-to-child-with-input-binding) and our `MadlibsService`.
+
+The `@Input()` decorator allows us to pass data from a parent component to a child component. We implemented this above in the template when we added the `<app-words-form>` element in the Listen component. We can now use the decorator to define, in the `WordsFormComponent` class, what these inputs are called and that their type annotations should be arrays of strings:
 
 ```js
   @Input() nouns: string[];
@@ -1122,7 +1123,7 @@ The constructor makes the `MadlibsService` available to the component.
 
 The next method, `trackWords()`, is a `trackBy` function. [Angular uses this option to track changes](https://angular.io/api/common/NgForOf#change-propagation) to the contents of the `ngFor` iterator using the return value of this function. This enables us to make changes to the array contents (via the repeated input fields) while making sure these changes are propagated appropriately in the DOM. The `trackWords()` function in our case simply takes the `index` of the iterated item as an argument and returns it. Each index in a loop is unique, so this serves to track changes to the items while preserving their order in the array.
 
-The `getPlaceholder()` method takes the part of speech as `type` and the iteration `index`, then returns the corresponding item from the `this.placeholders` property. We can use this function to display the appropriate placeholder text in each input field even when the input fields are inside a loop.
+The `getPlaceholder()` method takes the part of speech as `type` and the iteration `index`, then returns the corresponding item from the `placeholders` property. We can use this function to display the appropriate placeholder text in each input field even when the input fields are inside a loop.
 
 Finally, the `done()` method will be executed when the user submits the words form. It calls the `submit()` method from `MadlibsService` and passes the nouns, verbs, and adjectives to it. It also sets the `generating` property to `true`.
 
@@ -1192,7 +1193,9 @@ Open the `words-form.component.html` template and add this code:
 
 Here we have the template-driven form. When words are spoken via the Web Speech API, they automatically fill in the appropriate fields. The user can also enter or edit the words manually. Let's go over this code more thoroughly.
 
-The `<form>` element has a `(submit)` event that executes the `done()` method. This is attached to the form itself, so when we add a `<button>` to the form, this is the method that will run when that button is clicked. We'll also add `#wordsForm="ngForm"`. This is a template variable. It creates a reference to the [NgForm directive](https://angular.io/guide/forms#the-ngform-directive) (which Angular applies under the hood). This `wordsForm` template variable allows us to reference properties and methods of the NgForm directive in the template. This is useful for logic that does things like check whether the form is valid. (We'll take advantage of this later in the form code.)
+The `<form>` element has a `(submit)` event that executes the `done()` method. This is attached to the form itself, so when we add a `<button>` to the form, this is the method that will run when that button is clicked.
+
+We'll also add `#wordsForm="ngForm"`. This is a template variable. It creates a reference to the [NgForm directive](https://angular.io/guide/forms#the-ngform-directive) (which Angular applies under the hood). This `wordsForm` template variable allows us to reference properties and methods of the NgForm directive in the template. This is useful for logic that does things like check whether the form is valid. (We'll take advantage of this later in the form code.)
 
 We'll create three columns in our Words Form template UI using [Bootstrap CSS](https://v4-alpha.getbootstrap.com/layout/grid/#responsive-classes). Each column contains a heading, a help link, short text instructions, and the input fields for a specific part of speech.
 
@@ -1278,7 +1281,7 @@ Try a variety of things:
 
 If we've done everything correctly, all of the above scenarios should be accounted for and the app should respond appropriately. Once all word fields have been populated, the "Go!" button to submit the form should enable (though it won't do anything visible yet).
 
-If everything works as expected, congratulations! You've implemented the Web Speech API with Angular.
+If everything works as expected, congratulations! You've implemented speech recognition with Angular.
 
 ## Aside: Securing Applications with Auth0
 
@@ -1290,7 +1293,7 @@ Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B
 
 In Part 1 of our 2-part tutorial, we covered basic concepts of reactive programming and observables and an introduction to speech recognition. We set up our Madlibs app and implemented speech recognition and an editable form where users can enter and modify words to eventually generate a madlibs story.
 
-In the next part of our tutorial, we'll implement fallback functionality for browsers that don't support speech recognition. We'll also fetch words from an API if the user doesn't want to enter their own, and we'll learn about RxJS operators that make managing HTTP requests easy. Of course, we'll also generate our madlib story with the user's words. As a final bonus, we'll learn how to authenticate an Angular app and Node API with Auth0.
+In the next part of our tutorial, we'll implement fallback functionality for browsers that don't support speech recognition. We'll also fetch words from an API if the user doesn't want to enter their own, and we'll learn about RxJS operators that make it easy to manage and combine observables. Of course, we'll also generate our madlib story with the user's words. As a final bonus, we'll learn how to authenticate an Angular app and Node API with Auth0.
 
 When you're finished with both parts, you should be ready to tackle more advanced reactive programming projects with Angular!
 
