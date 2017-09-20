@@ -3,7 +3,7 @@ layout: post
 title: "RxJS Advanced Tutorial With Angular & Web Speech: Part 2"
 description: "Build an app to learn about the power and flexibility of RxJS in Angular while exploring speech recognition with Web Speech API."
 date: 2017-09-26 8:30
-category: Technical Guide, Angular, Angular2 Series
+category: Technical Guide, Angular, Angular 4
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
