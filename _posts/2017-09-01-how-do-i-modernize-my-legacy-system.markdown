@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How Do I Modernize my Legacy System?"
-description: "Don't be daunted by how much of your system needs replacing—we'll show you how to get started."
+description: "Don't be daunted by how much of your system needs replacing. We'll show you how to get started."
 date: 2017-09-01 8:30
 category: Growth
 banner:
@@ -13,8 +13,8 @@ author:
   mail: diego.poza@auth0.com
 is_non-tech: true
 design:
-  image:
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/modernize/logo.png
+  bg_color: "#376326"
 tags:
 - legacy
 - modernization
@@ -43,13 +43,14 @@ Legacy systems are structures that run on outdated technology, but that a compan
 
 
 ![How legacy systems hurt you](https://cdn.auth0.com/blog/modernize-legacy-system/legacy-systems-dilbert.png)
-_[Source](http://dilbert.com/strip/2006-12-08)]_
+
+_[Source](http://dilbert.com/strip/2006-12-08)_
 
 * Legacy systems often have backdoors to databases built in, making you an easy target for hackers.
 * As your system accumulates little patches over time, it becomes more complicated and more prone to breakages.
 * Legacy systems don't rely on open standards, so integrating with new technology is sometimes impossible.
 
-Despite all these problems, companies ~~are~~ often loathe ~~to spend~~ spending the time and money to replace these systems because it can cripple their short-term ability to innovate. They also risk eroding customer confidence in the product if a [customer might experience](https://www.zendesk.com/resources/why-companies-should-invest-in-the-customer-experience/) adverse—if temporary—effects.
+Despite all these problems, companies ~~are~~ often loathe ~~to spend~~ spending the time and money to replace these systems because it can cripple their short-term ability to innovate. They also risk eroding customer confidence in the product if a [customer might experience](https://www.zendesk.com/resources/why-companies-should-invest-in-the-customer-experience/) adverse, if temporary, effects.
 
 For example, a football stats app may not want to make drastic changes which could cause downtime right before the playoffs, the night before the Super Bowl, right before the draft, or when fantasy football starts, leaving them feeling like there might not be any good moment to tackle upgrades.
 
@@ -92,7 +93,7 @@ This will form the basis of selection for what to work on first.
 
 ![Prioritizing Improvements](https://cdn.auth0.com/blog/modernize-legacy-system/prioritizing-improvements.png)
 
-Check out our diagram above: You want to take on the problems that will get you the most value quickly. Notice that our chart shows preference for 'minimal time to replace' over 'higher benefit' (compare rows 3+4, or 5+6)—that's because every bit that you update and separate from the rest of your legacy system declutters it and frees up your engineers' time.
+Check out our diagram above: You want to take on the problems that will get you the most value quickly. Notice that our chart shows preference for 'minimal time to replace' over 'higher benefit' (compare rows 3+4, or 5+6), that's because every bit that you update and separate from the rest of your legacy system declutters it and frees up your engineers' time.
 
 Taking the time to dissect and prioritize at the beginning will ultimately make your modernization a shorter, easier process. It transforms your daunting update into a feasible plan.
 
@@ -125,4 +126,4 @@ Modernizing a legacy system can seem impossible, but breaking it down into small
 
 This is a task you cannot procrastinate on, it will just get harder and harder to maintain your legacy system. Switch over now and reap the benefits of a modern system instead of waiting to be forced into a more painful, more expensive switch later on.
 
-Don't be like the [52%](http://www.techradar.com/news/more-than-half-of-businesses-still-rely-on-windows-xp) of businesses that still run instances on the long outdated Windows XP—you're better than that.
+Don't be like the [52%](http://www.techradar.com/news/more-than-half-of-businesses-still-rely-on-windows-xp) of businesses that still run instances on the long outdated Windows XP, you're better than that.
