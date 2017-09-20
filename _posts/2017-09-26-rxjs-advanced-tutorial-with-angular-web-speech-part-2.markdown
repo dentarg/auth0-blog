@@ -3,7 +3,7 @@ layout: post
 title: "RxJS Advanced Tutorial With Angular & Web Speech: Part 2"
 description: "Build an app to learn about the power and flexibility of RxJS in Angular while exploring speech recognition with Web Speech API."
 date: 2017-09-26 8:30
-category: Technical guide, Angular, Angular 4, Javascript, RxJS, Web API
+category: Technical Guide, Angular, Angular2 Series
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
@@ -143,7 +143,7 @@ $ node server
 
 This will install the required dependencies and then run the API on `localhost:8084`. You should be able to visit the API in the browser at [http://localhost:8084/api](http://localhost:8084/api) to confirm it's working properly. You can then access its endpoints. Check out the [repository's README](https://github.com/kmaida/madlibs-api/blob/master/README.md) to see all the available endpoints. You can try them out in the browser to see what they return (for example, [http://localhost:8084/api/noun](http://localhost:8084/api/noun)). Take a minute to become familiar with the API and its endpoints and give some thought to how we might leverage the API in our application to generate arrays of the different parts of speech.
 
-### Intended Functionality
+### Intended Functionality to Generate Words With API
 
 Now that you have the madlibs API set up and running and you've familiarized yourself with how it works, let's consider what our intended functionality is.
 
