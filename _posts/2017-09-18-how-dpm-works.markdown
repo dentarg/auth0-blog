@@ -13,8 +13,8 @@ author:
   mail: diego.poza@auth0.com
 is_non-tech: true
 design:
-  image:
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/dpm/logo.png
+  bg_color: "#3B6DAA"
 tags:
 - legacy
 - modernization
