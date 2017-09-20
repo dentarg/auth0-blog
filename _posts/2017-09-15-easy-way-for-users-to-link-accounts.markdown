@@ -28,21 +28,21 @@ related:
 A few months ago, Diego Poza wrote an article on [The 3 Best Ways To Create the Single Vision of A Customer](https://auth0.com/blog/the-three-best-ways-to-create-the-single-vision-of-a-customer/).
 In it he said the number one must-have is Centralized Identity Management. He 
 described that in Auth0, if a user signed in with their Facebook login, then 
-their Google account the next, they would have two accounts. Auth0 already
+their Google account next, they would have two accounts. Auth0 already
 provides rules for allowing these accounts to be linked back together 
 automatically, but we're happy to announce a new option that gives the
-user a choice as to whether they'd like to link the accounts together.
+user a choice as to whether they'd like to link the accounts or not.
 
-This happens as part of our Account Link extension. It's extremely simple to setup 
-and can save your users a lot of hassle.
+This happens as part of our Account Link extension. It's extremely simple to
+set up and can save your users a lot of hassle.
 
 Let's walk through how this gets presented to your users to demonstrate how the
 functionality is helpful. Let's say one of your users has the email address
 `spencer@example.com`. They've used this email address to sign up for Facebook,
 Twitter, Google Apps, and your site. If your site offers all of these social
-sign in options, and database users, it can be understandably hard for a user
+sign in options and database users, it can be understandably hard for a user
 to remember what account they used to sign up for your site. Like in our
-example above, we'll sign up that `spencer@example.com` signed up with their
+example above, we'll assume that `spencer@example.com` signed up with their
 Facebook account originally, but now that they're back on the site they can't
 remember. They incorrectly guess they used Google to sign in.
 
@@ -50,7 +50,7 @@ With the extension enabled, instead of being taken to your site with a new
 account, they are sent to a prompt from the extension, notifying them that they
 appear to already have an account registered with that email address on your
 site. The most prominent option is to continue linking the accounts. When
-**Continue** is clicked, the user will be redirected to login with the account
+**Continue** is clicked, the user will be redirected to log in with the account
 that's already detected on your site. Assuming their authentication is
 successful, they'll be redirected to your site successfully as their original
 account, with the new account merged in as an identity of the original. This
@@ -59,10 +59,10 @@ then, conveniently, lets them sign in with either option to the same account.
 ![Image of extension page]()
 <!-- Image in docs going through code review -->
 
-But let's assume the opposite for a moment, that your user has intentionally
+But let's assume the opposite for a moment: that your user has intentionally
 tried to create a second account with a different provider. Not a problem! They
 can simply click the small, diminished link saying, "I want to skip this and
-create a new account." option and they'll continue to your site logged in as a
+create a new account." and they'll continue to your site logged in as a
 new user under their new provider.
 
 Providing the ability to link accounts through the Account Link extension
