@@ -77,7 +77,7 @@ We'll implement several observables in the app that we'll build in this tutorial
 
 ### Reactive Programming and RxJS
 
-[ReactiveX, or Rx*](http://reactivex.io/rxjs/), is an API for asynchronous programming with observable streams. The JavaScript implementation is [RxJS, which is available on GitHub](https://github.com/Reactive-Extensions/RxJS). As mentioned, Angular comes packaged with RxJS, so it's to our great advantage to make use of it wherever it might help.
+[ReactiveX, or Rx*](http://reactivex.io/rxjs/), is an API for asynchronous programming with observable streams. The JavaScript implementation is [RxJS, which is available on GitHub](https://github.com/reactivex/rxjs). As mentioned, Angular comes packaged with RxJS, so it's to our great advantage to make use of it wherever it might help.
 
 _Reactive programming_, in a nutshell, is based on propagating and responding to incoming events over time in a [declarative](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#imperative-declarative) manner. Observables, which are streams of collections over time, are ideal for this.
 
@@ -93,11 +93,11 @@ For our app, we're specifically interested in the [speech recognition](https://d
 
 At the time of writing, this is [only supported in Chrome](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility), so we will build our app with progressive enhancement in mind.
 
-We will use the lightweight [annyang](https://github.com/TalAter/annyang) JS library to work with speech recognition more easily in our application.
+We will use the lightweight [Annyang](https://github.com/TalAter/annyang) JS library to work with speech recognition more easily in our application.
 
 ## What We'll Build
 
-We're going to build an [ad libitum](https://en.wikipedia.org/wiki/Ad_libitum) web app inspired by [Mad Libs games](https://en.wikipedia.org/wiki/Mad_Libs)! Our `madlibs` app will have the following features:
+We're going to build an [ad libitum](https://en.wikipedia.org/wiki/Ad_libitum) web app inspired by [Mad Libs games](https://en.wikipedia.org/wiki/Mad_Libs)! Our own Madlibs app will have the following features:
 
 * The app requires 5 nouns, 5 verbs, and 5 adjectives to generate a short, silly story.
 * Words can be generated automatically through a provided Node [madlibs-api](https://github.com/kmaida/madlibs-api).
@@ -109,9 +109,9 @@ In Chrome, our app will look like this when it's finished:
 
 ![Madlibs app with Angular and speech recognition](https://cdn.auth0.com/blog/madlibs/final-chrome.jpg)
 
-> **Note:** In other browsers that don't support speech recognition, the "Speak to Play" feature will not be displayed. Users will still be able to generate words automatically or type them manually.
+> **Note:** In other browsers that don't support speech recognition, the "Speak to Play" feature will not be displayed. Users will still be able to generate words using the API or type them manually.
 
-Though our Madlibs app is relatively small, it has a lot of features and robust functionality, so we'll build it over a short series of tutorial articles.
+Though our Madlibs app is relatively small, it has a lot of features and robust functionality, so we'll build it over a short series of two tutorial articles.
 
 > **Note:** This tutorial moves quickly over the core Angular concepts. It's recommended that you have some experience with Angular before tackling the Madlibs app. You can check out the [Angular Tour of Heroes tutorial](https://angular.io/tutorial) or my [Real-World Angular Series](https://auth0.com/blog/real-world-angular-series-part-1/) to learn about Angular in-depth before beginning this tutorial. 
 
@@ -140,20 +140,22 @@ We'll use the Angular CLI to generate a new Angular project. In a folder of your
 $ ng new madlibs --style=scss
 ```
 
-A new Angular project called `madlibs` will be generated with SCSS support. To start the app's server, navigate into the new project folder and run the serve command like so:
+A new Angular project called `madlibs` will be generated with SCSS support. To start the app's server, navigate into the new project folder and run the `serve` command like so:
 
 ```bash
 $ cd madlibs
 $ ng serve
 ```
 
-The app will run at `http://localhost:4200` and looks like this in the browser:
+The app will run at `http://localhost:4200` and should look something like this in the browser:
 
 ![new Angular app works](https://cdn.auth0.com/blog/madlibs/app-works.jpg)
 
 ### Add Bootstrap and Annyang From CDN
 
-We'll add [Bootstrap v4-alpha](https://v4-alpha.getbootstrap.com/) for CSS styling and [annyang](https://github.com/TalAter/annyang) for speech recognition using CDNs.
+We'll add [Bootstrap](https://v4-alpha.getbootstrap.com/) for CSS styling and [Annyang](https://github.com/TalAter/annyang) for speech recognition using CDNs.
+
+> **Note:** This tutorial uses an alpha version of Bootstrap v4, latest available at the time of writing. If a newer v4 release is available at the time of reading, please feel free to upgrade and make changes as necessary to the CSS in your app.
 
 Open your app's `index.html` file and add the following CDN links to the document `<head>`:
 
@@ -174,7 +176,7 @@ We now have access to Bootstrap's styles and Annyang's Web Speech API helpers in
 
 ## Web Speech Service
 
-The first thing we'll do is create a service in our Angular app that we can use to interact with the Web Speech API via the Annyang library. Once we have a service that interfaces with speech recognition, we can then build a component for our app that listens to the user's voice and stores the words they speak for use in the madlib story.
+The first thing we'll do is create a _service_ in our Angular app that we can use to interact with the Web Speech API via the Annyang library. Once we have a service that interfaces with speech recognition, we can build a component that listens to the user's voice and stores the words they speak for use in the app.
 
 ### Generate a Service
 
@@ -184,11 +186,11 @@ Create a new service using the Angular CLI from the root of the `madlibs` projec
 $ ng g service speech
 ```
 
-We can use `ng g ...` as a shortcut for `ng generate ...`.
+We can use `ng g` as a shortcut for `ng generate`.
 
-> **Note:** For brevity, this tutorial will not cover testing. The CLI automatically generates `.spec.ts` files for testing. You can add your own tests, or choose not to generate these files by adding the `--no-spec` flag to `ng g` commands. To learn more about testing in Angular, check out the following articles on testing [components](https://auth0.com/blog/angular-testing-in-depth-components/) and [services](https://auth0.com/blog/angular-2-testing-in-depth-services/).
+> **Note:** For brevity, this tutorial will not cover testing. The CLI automatically generates `.spec.ts` files for testing. You can add your own tests, or choose not to generate these files by adding the `--no-spec` flag to `ng g` commands. To learn more about testing in Angular, check out the following articles on [testing components](https://auth0.com/blog/angular-testing-in-depth-components/) and [testing services](https://auth0.com/blog/angular-2-testing-in-depth-services/).
 
-### Provide Service in App Module
+### Provide Speech Service in App Module
 
 The service will be generated but you'll see a warning in the command line stating that it must be _provided_ to be used. Let's do that now.
 
@@ -207,14 +209,14 @@ import { SpeechService } from './speech.service';
   ...
 ```
 
-We'll `import` our `SpeechService` and then add it to the `providers` array in the `@NgModule` declaration. This makes the Speech service available to any component in our app.
+We'll import our `SpeechService` and then add it to the `providers` array in the `@NgModule` declaration. This _provides_ the Speech service to any component in our app.
 
 ### Speech Service Functionality
 
 Before we start coding, let's plan what we want our Speech service to do. The speech recognition feature in our app should work like this:
 
-* After granting microphone access in the browser, the user can click a button to start listening to what they will say.
-* The user says what type of word they want to enter followed by the word, such as: `"verb running"`, `"noun cat"`, `"adjective red"`, etc.
+* After granting microphone access in the browser, the user can click a button that will allow the app to start listening to what they will say.
+* The user says what part of speech they want to enter followed by a word, such as: `"verb running"`, `"noun cat"`, `"adjective red"`, etc.
 * The words are filled into editable form fields so the user can modify them if desired.
 * If speech recognition did not understand what the user said, the user should be shown a message asking them to try again.
 * The user can click a button to tell the browser to stop listening.
@@ -333,9 +335,9 @@ To do this, we'll use _subjects_. [Rx Subjects](https://github.com/ReactiveX/rxj
 
 Each `new Subject<T>()` needs a type annotation, so we'll declare `words$` as a stream of objects with `string` keys and `string` values. The `errors$` stream will contain objects with `string` keys and values of `any` type.
 
-We'll create a `listening` member to track whether or not the microphone is actively listening for the user's speech input and set it to `false` by default. The `constructor()` function accepts a private `zone` argument typed `NgZone`. We'll use and explain this in more detail soon.
+We'll create a `listening` property to track whether or not the microphone is actively listening for the user's speech input and set it to `false` by default. The `constructor()` function accepts a private `zone` argument typed `NgZone`. We'll use and explain this in more detail soon.
 
-We can then create a `speechSupported` accessor function (getter) that will tell us whether Web Speech API is supported in the user's browser. Annyang allows us to do this simply by checking for its existence.
+We can then create a `speechSupported` accessor function (getter) that will tell us whether the Web Speech API is supported in the user's browser. Annyang enables us to do this simply by checking for its existence.
 
 Next we'll create an `init()` method to add commands and callbacks with Annyang. The first part of this method looks like this:
 
