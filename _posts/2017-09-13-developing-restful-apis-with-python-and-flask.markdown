@@ -20,7 +20,7 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 ---
 
-**TL;DR;** Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start by creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few endpoints to insert and retrieve instances of these classes. In the end, will take a look on how to run the API on a Docker container. Hope you enjoy!
+**TL;DR;** Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few endpoints to insert and retrieve instances of these classes. In the end, will take a look on how to run the API on a Docker container. Hope you enjoy!
 
 {% include tweet_quote.html quote_text="Flask allows Python developers to create lightweight RESTful APIs." %}
 
@@ -28,15 +28,15 @@ related:
 
 This article is divided in the following sections:
 
-1. <a href="#why-python" target="self">Why Python?</a>
-2. <a href="#why-flask" target="self">Why Flask?</a>
-3. <a href="#bootstrapping-flask" target="self">Bootstrapping a Flask Application</a>
-4. <a href="#restful-flask" target="self">Creating a RESTful Endpoint with Flask</a>
-5. <a href="#python-classes" target="self">Mapping Models with Python Classes</a>
-6. <a href="#marshmallow-serilization" target="self">Serializing and Deserializing Objects with Marshmallow</a>
-7. <a href="#flask-on-docker" target="self">Dockerizing Flask Applications</a>
-8. <a href="#securing-python-apis" target="self">Securing Python APIs with Auth0</a>
-9. <a href="#next-steps" target="self">Next Steps</a>
+1. <a href="#why-python" target="_self">Why Python?</a>
+2. <a href="#why-flask" target="_self">Why Flask?</a>
+3. <a href="#bootstrapping-flask" target="_self">Bootstrapping a Flask Application</a>
+4. <a href="#restful-flask" target="_self">Creating a RESTful Endpoint with Flask</a>
+5. <a href="#python-classes" target="_self">Mapping Models with Python Classes</a>
+6. <a href="#marshmallow-serilization" target="_self">Serializing and Deserializing Objects with Marshmallow</a>
+7. <a href="#flask-on-docker" target="_self">Dockerizing Flask Applications</a>
+8. <a href="#securing-python-apis" target="_self">Securing Python APIs with Auth0</a>
+9. <a href="#next-steps" target="_self">Next Steps</a>
 
 ## <span id="why-python"></span> Why Python?
 
@@ -52,7 +52,7 @@ When it comes to web development on Python, there are two frameworks that are wi
 
 Flask, although less popular, is not far behind. On GitHub, Flask has almost 30k stars, ~445 contributors, ~21 releases, and almost 10k forks. On StackOverflow, up to 0.2% of questions asked on a specific month are related to Flask.
 
-Even though Django looks like a better choice, for being older and having a slightly bigger community, Flask has its strengths. From the ground up, Flask was thought with scalability and simplicity in mind. Flask applications are known for being lightweight, mainly when compared to its Django counterparts. Flask developers call it a microframework, where micro ([as explained here](http://flask.pocoo.org/docs/0.12/foreword/#what-does-micro-mean)) means that the goal is to keep the core simple but extensible. Flask won’t make many decisions for you, such as what database to use or what template engine to choose. Lastly, Flask also contains an [extensive documentation](http://flask.pocoo.org/docs/0.12/) that address almost everything that developers need to know.
+Even though Django looks like a better choice, for being older and having a slightly bigger community, Flask has its strengths. From the ground up, Flask was thought with scalability and simplicity in mind. Flask applications are known for being lightweight, mainly when compared to its Django counterparts. Flask developers call it a microframework, where micro ([as explained here](http://flask.pocoo.org/docs/0.12/foreword/#what-does-micro-mean)) means that the goal is to keep the core simple but extensible. Flask won’t make many decisions for us, such as what database to use or what template engine to choose. Lastly, Flask also contains an [extensive documentation](http://flask.pocoo.org/docs/0.12/) that address everything that developers need to start.
 
 Being lightweight, easy to adopt, with great documentation, and popular, makes Flask a very good option for developing RESTful APIs.
 
@@ -71,7 +71,7 @@ python --version
 # Python 3.6.2
 ```
 
-Note that the command above might produce a different output in case we have a different Python version. What is important is that the output begins with `Python 3`, and not `Python 2`. If we get the latter, we can try issuing `python3 --version`. If this command produces the correct output, then we have to remember to replace all commands throughout the article.
+Note that the command above might produce a different output in case we have a different Python version. What is important is that the output begins with `Python 3`, and not `Python 2`. If we get the latter, we can try issuing `python3 --version`. If this command produces the correct output, then we have to replace all commands throughout the article.
 
 ### Installing Pip
 
@@ -80,10 +80,10 @@ Note that the command above might produce a different output in case we have a d
 ```bash
 # we might need to change pip by pip3
 pip --version
-# pip 9.0.1 ...
+# pip 9.0.1 ... (python 3.X)
 ```
 
-If the command above produces an output similar to `pip 9.0.1 ...`, then we are good to go. Otherwise, we can follow the instructions [here to install Pip](https://pip.pypa.io/en/stable/installing/).
+If the command above produces an output similar to `pip 9.0.1 ... (python 3.X)`, then we are good to go. If we get `pip 9.0.1 ... (python 2.X)`, then we can try replacing `pip` by `pip3`. If we are unable to find Pip for Python 3 on our machine, we can follow the instructions [here to install Pip](https://pip.pypa.io/en/stable/installing/).
 
 ### Installing Flask
 
@@ -119,7 +119,7 @@ flask run
 # * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
-> On Ubuntu, we might need to edit the $PATH variable to be able to run flask directly. To do that, let's `touch ~/.bash_aliases` and then `echo "export PATH=$PATH:~/.local/bin" >> ~/.bash_aliases`.
+> On Ubuntu, we might need to edit the `$PATH` variable to be able to run flask directly. To do that, let's `touch ~/.bash_aliases` and then `echo "export PATH=$PATH:~/.local/bin" >> ~/.bash_aliases`.
 
 After executing these commands, we can reach our application by opening a browser and navigating to `http://127.0.0.1:5000/` or by issuing `curl http://127.0.0.1:5000/`.
 
@@ -138,7 +138,7 @@ To solve these issues, we are going to use Pipenv. [Pipenv is a dependency manag
 pip install pipenv
 ```
 
-Now, to start creating a serious Flask application, let's create a new directory that will hold our project source code. In this article, we will create a small RESTful API that allows users to manage incomes and expenses. Therefore, we will create a directory with a meaningful name, something like `cashman`. After that, we will use `pipenv` to start our project and manage our dependencies.
+Now, to start creating a serious Flask application, let's create a new directory that will hold our source code. In this article, we will create *Cashman*, a small RESTful API that allows users to manage incomes and expenses. Therefore, we will create a directory called `cashman`. After that, we will use `pipenv` to start our project and manage our dependencies.
 
 ```bash
 # create our project directory and move to it
@@ -158,9 +158,9 @@ The second command creates our virtual environment, where all our dependencies w
 
 ### Python Modules
 
-As other mainstream programming languages, [Python also has the concept of modules](https://docs.python.org/3/tutorial/modules.html) to enable developers to organize source code according to subjects/functionalities. Similar to what Java calls packages, or what C# calls namespaces, modules in Python are files organized in directories that can be imported by other Python scripts. To create a module on a Python application, we just need to create a folder and add an empty file called `__init__.py` to it.
+Like other mainstream programming languages, [Python also has the concept of modules](https://docs.python.org/3/tutorial/modules.html) to enable developers to organize source code according to subjects/functionalities. Similar to Java packages and C# namespaces, modules in Python are files organized in directories that can be imported by other Python scripts. To create a module on a Python application, we just need to create a folder and add an empty file called `__init__.py` to it.
 
-Let's create our first module on our application. This is going to be our main module, with the script that defines our RESTful endpoints. Inside the directory that we created for our application, let's create another one with the same name, `cashman`. The main `cashman` directory created before will hold metadata about our project, like what dependencies it has, while this new one will be our module with our Python scripts.
+Let's create our first module on our application. This is going to be our main module, with all our RESTful endpoints. Inside the directory that we created for our application, let's create another one with the same name, `cashman`. The main `cashman` directory created before will hold metadata about our project, like what dependencies it has, while this new one will be our module with our Python scripts.
 
 ```bash
 # create source code's root
@@ -182,7 +182,7 @@ def hello_world():
   return "Hello, World!"
 ```
 
-Just like in the previous example, our application right now does nothing besides returning a "Hello, world!" message. We will start improving it in a second, but first let's create an executable file called `bootstrap.sh` in the main directory of our application.
+Just like in the previous example, our application simply returns a "Hello, world!" message. We will start improving it in a second, but first let's create an executable file called `bootstrap.sh` in the main directory of our application.
 
 ```bash
 # move to the main directory
@@ -204,7 +204,7 @@ source $(pipenv --venv)/bin/activate
 flask run -h 0.0.0.0
 ```
 
-The first command defines the main script to be executed by Flask, just like we did when we ran the "Hello, world!" application. The second one activates the virtual environment, created by pipenv, so our application can find and execute its dependencies. Lastly, we run our Flask application listening to all interfaces on the computer (`-h 0.0.0.0`).
+The first command defines the main script to be executed by Flask, just like we did when we ran the "Hello, world!" application. The second one activates the virtual environment, created by `pipenv`, so our application can find and execute its dependencies. Lastly, we run our Flask application listening to all interfaces on the computer (`-h 0.0.0.0`).
 
 To check that this script is working correctly, we can issue `./bootstrap.sh` now. This will give us a similar result to when we executed the "Hello, world!" application.
 
@@ -238,7 +238,9 @@ def add_income():
   return '', 204
 ```
 
-Since we are improving our application, we have removed the endpoint that returned "Hello, world!" to users. On its place we defined an endpoint to handle HTTP `GET` request to return incomes, and another endpoint to handle HTTP `POST` requests to add new incomes. Right now, we are manipulating incomes as [dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries) to facilitate the process. We will soon create classes to represent incomes and expenses.
+Since we are improving our application, we have removed the endpoint that returned "Hello, world!" to users. On its place we defined an endpoint to handle HTTP `GET` request to return incomes, and another endpoint to handle HTTP `POST` requests to add new incomes. These endpoints are annotated with `@app.route` to define that they listen to requests on the `/incomes` endpoint. [Flask provides a great documentation on what exactly it does](http://flask.pocoo.org/docs/0.12/api/#flask.Flask.route).
+
+Right now, we are manipulating incomes as [dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries) to facilitate the process. We will soon create classes to represent incomes and expenses.
 
 To interact with both endpoints that we have created, we can start our application and issue some HTTP requests:
 
@@ -263,7 +265,7 @@ curl localhost:5000/incomes
 
 ## <span id="python-classes"></span> Mapping Models with Python Classes
 
-Using dictionaries on a very simple use case like the one before is enough. However, for more complex applications that deal with different entities and have multiple business rules, we might need to encapsulate our data into [Python classes](https://docs.python.org/3/tutorial/classes.html).
+Using dictionaries on a very simple use case like the one before is enough. However, for more complex applications that deal with different entities and have multiple business rules and validations, we might need to encapsulate our data into [Python classes](https://docs.python.org/3/tutorial/classes.html).
 
 To learn the process of mapping entities (like incomes) as classes, we will refactor our application. The first thing that we will do is to create a submodule to hold all our entities. Let's create a directory called `model` inside the `cashman` module (we are talking about the `cashman` subdirectory, not the main one) and add an empty file called `__init__.py` on it.
 
@@ -337,7 +339,7 @@ class IncomeSchema(TransactionSchema):
     return Income(**data)
 ```
 
-The only value that this class adds for our application, is that it hardcodes the type of the transaction. This type is a [Python enumerator](https://docs.python.org/3/library/enum.html), which we still have to create, that will help us filtering transactions in the future. Let's create another file, called `transaction_type.py`, inside `model` to represent this enumerator:
+The only value that this class adds for our application is that it hardcodes the type of the transaction. This type is a [Python enumerator](https://docs.python.org/3/library/enum.html), which we still have to create, that will help us filtering transactions in the future. Let's create another file, called `transaction_type.py`, inside `model` to represent this enumerator:
 
 ```python
 from enum import Enum
@@ -382,6 +384,10 @@ Having the `Transaction` superclass and its specializations properly implemented
 ```bash
 from flask import Flask, jsonify, request
 
+from cashman.model.expense import Expense, ExpenseSchema
+from cashman.model.income import Income, IncomeSchema
+from cashman.model.transaction_type import TransactionType
+
 app = Flask(__name__)
 
 transactions = [
@@ -424,7 +430,7 @@ def add_expense():
   return "", 204
 
 
-if name == "main":
+if __name__ == "__main__":
     app.run()
 ```
 
@@ -478,7 +484,7 @@ RUN pip install pipenv
 
 # Defining working directory and adding source code
 WORKDIR /usr/src/app
-COPY Pipfile Pipfile.lock bootstrap.sh ./
+COPY Pipfile Pipfile.lock 'rap.sh ./
 COPY cashman ./cashman
 
 # Install API dependencies
