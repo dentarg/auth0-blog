@@ -13,8 +13,8 @@ author:
   mail: diego.poza@auth0.com
 is_non-tech: true
 design:
-  image:
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/pam/logo.png
+  bg_color: "#332754"
 tags:
 - legacy
 - modernization
@@ -41,7 +41,7 @@ Software for businesses is booming. But hundreds of applications running on unsa
 
 While the complexities of managing access across so many tools and devices is a huge challenge, the benefits of the digital workplace are ushering in a new era of productivity where employees can work anytime, in any place with anyone around the world. [Digital transformation](https://www.interana.com/blog/curiosity-got-cat-promoted/) is moving fast, and it's your job to stay ahead of the game.
 
-[The complexity of one employee's digital workspace](https://cdn.auth0.com/blog/employee/complexity.png)
+![The complexity of one employee's digital workspace](https://cdn.auth0.com/blog/employee/complexity.png)
 
 [[Source](http://www.zdnet.com/blog/hinchcliffe/)]
 
@@ -76,6 +76,7 @@ IAM tools that offer [multifactor authentication ](https://auth0.com/multifactor
 MFA is one of the best ways to identify and verify a user. By asking them for several pieces of information through various stages, the user must demonstrate knowledge (E.g. password or pin number) and possession (E.g. mobile phone). For example, a user is prompted to input their password, which triggers an SMS message with a unique code.
 
 ![Multifactor](https://cdn.auth0.com/blog/productivity/multifactor.png)
+
 [[Source](http://it.miami.edu/_assets/images/multifactor1.png)]
 
 
