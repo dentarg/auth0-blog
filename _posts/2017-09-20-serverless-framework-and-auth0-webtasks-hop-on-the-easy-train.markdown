@@ -1,0 +1,330 @@
+---
+layout: post_extend
+title: "Serverless and Auth0 Webtasks, hop on the easy train"
+description: "Learn how you can use the Serverless Framework and Auth0 Webtasks with the new Serverless Webtasks plugin."
+date: 2017-09-20 10:21
+is_extend: true
+category: Extend, Serverless
+author:
+  name: "Glenn Block"
+  url: "https://twitter.com/gblock"
+  mail: "glenn.block@auth0.com"
+  avatar: "https://cdn.auth0.com/blog/profiles/glennblock.jpg"
+design: 
+  bg_color: "#3445DC"
+  image: "https://cdn.auth0.com/website/blog/extend/serverless/serverlesslogo.png"
+tags: 
+  - extend
+  - serverless
+  - tools
+  - extensibility
+related:
+  - 2017-05-16-introducing-auth0-extend-the-new-way-to-extend-your-saas
+  - 2017-05-19-serverless-webhooks-with-auth0-extend
+  - 2017-09-11-why-is-serverless-extensibility-better-than-webhooks
+---
+
+![Easy Train](https://cdn.auth0.com/website/blog/extend/serverless/easy-train.jpg)
+
+If you are developing solutions using a Serverless architecture than there's a good chance you've heard of the [Serverless Framework](https://serverless.com/). Serverless provides a tool that makes it much easier for you to deploy functions to the cloud, by handling all the setup and plumbing for you.
+
+Initally Serverless was only available for AWS. Recently times have changed, and you can now use Serverless for a growing list of providers. 
+
+Today we're announcing the new Auth0 Webtasks plugin for Serverless! In this post I'll show you how you can hop on the easy train and start using it right away. 
+
+## Why
+
+For a while we've been getting requests to enable using Auth0 Webtasks with Serverless. The main reasons we heard, are the same reasons developers love to use Webtasks in the first place:
+
+* It is really easy to ramp up with.
+* Ultra fast deployment. 
+* Simple to use.
+* Great HTTP fidelity, really simple to deploy Webhooks or create simple APIs.
+* Low latency.
+* It is free! 
+
+The ramp up is something the community told us was particularly attractive. In fact, some went so far as to say we'd be the best ramp up ever for Serverless! We think they are right.
+
+## The Ramp up
+
+Let's walk through the setup. It is just 15 steps. **NOT!**  Getting started with Serverless and Auth0 Webtasks is simple as simple can be:
+
+### Install the latest version of the Serverless framework: 
+
+```
+$ npm install -g serverless
+```
+
+### Create an account with Auth0 Webtasks
+
+Use the following command to setup your account.
+
+```
+$ serverless config credentials --provider webtasks
+```
+
+You will be asked to supply a phone number or email. Once you do you'll get sent an verification code. Enter the code and you are *Done* with the setup! 
+
+How was that for easy?
+
+## Hello Webtasks
+
+### Create a new service
+Now that Auth0 Webtasks is configured, you can go create your first service using the new `webtask-nodejs` template.
+
+```
+$ serverless create --template webtasks-nodejs --path my-service
+```
+
+This will scaffold out a basic service in the `my-service` directory: `handler.js`, `serverless.yml` and `package.json`.
+
+Now go install the packages, which will bring down the serverless-webtasks plugin.
+
+```
+$ npm install
+```
+
+### Deploy
+Go deploy the service.
+
+```
+$ serverless deploy
+```
+
+Within _seconds_ you should get a response indicating your service has been deployed. 
+
+### Invoke the service
+With the service deployed you can now invoke it.
+
+```
+$ serverless invoke --function main
+```
+
+If everything has worked properly, you should see the following response:
+
+```
+{
+    "statusCode": 200,
+    "body": "{\"message\":\"Go Serverless & Webtasks! Your function executed successfully!\"}"
+}
+```
+
+*Piece of cake!*
+
+
+### Handler code
+If you open handler.js you'll see the following code. 
+
+```javascript
+'use strict';
+
+module.exports = (context, cb) => {
+    const message = 'Go Serverless & Webtasks! Your function executed successfully!';
+    cb(null, { message });
+};
+```
+
+A few things to note:
+
+* Auth0 Webtasks are Node.js functions.
+  * With the new Serverless plugin, you can author your handlers in **Node 8**. This gives you access to new ES7 features like the `await` keyword. At this point, existing Webtasks customers are probably drooling wondering why they can't use Node 8? This is only available today for the Serverless community through our new plugin!
+  * Webtasks support several different [programming models](https://webtask.io/docs/model), with this being the most common. 
+* Each Webtask is exposed directly as an HTTP endpoint. There is no special gateway or binding configuration, it is immediately available. 
+* The context object. The [context](https://webtask.io/docs/context) which allow you access the request body, query string params, secrets and more.
+* The callback object.  This is a standard node callback, which you invoke to tell Webtask the request has completed.
+
+## Going further with Express, Pug and Nexmo.
+
+Now that you've seen the basics, let's go into a more advanced use case and see where Webtasks really shines. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create tasks that have multiple routes, use connect middleware, etc. 
+
+Let's add a new endpoint to our service that will serve up a webpage that we can use send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a `pug` template with a form to collect the phone number and messag. The second endoint will be posted to from the form and use `Nexmo` to send an SMS message.
+
+### Configure the new handler and variables
+
+Open up the serverless.yml file and add a new handler called `smssend`. Also configure the environment to read from a new secrets.yml file that you are going to create in the root.
+
+Your serverless.yml body should look like the following:
+
+```
+service: 
+  name: webtasks-nodejs  # NOTE: update this with your service name
+
+provider:
+  name: webtasks
+
+# you can define service wide environment variables here
+  environment: ${file(secrets.yml)}
+
+functions:
+  main:
+    handler: handler
+  smssend:
+    handler: smssend
+
+plugins:
+  - '@webtask/serverless-webtasks'
+```
+
+## Sign up for Nexmo and set secrets
+You'll need a Nexmo account. You can sign up for a free on [here](https://dashboard.nexmo.com/sign-up). Once you've signed up, you'll be able to log in to the dashboard. From there you can grab your `api_key` and `api_secret` and `from` values from the curl snippet.
+
+Create a new secrets.yml file in the root of your service, and the three key/values pairs you copied from Nexmo. The file should look similar to the following.
+
+```
+api_key: 0ae2ea9d
+api_secret: 0878134fa9051cc4
+from: 12036768629
+```
+
+## Install packages
+There are several npm packages you'll need. Use the following command to install them.
+
+```
+npm install --save webtask-tools body-parser express nexmo pug
+```
+
+Here is a list of the modules that you have installed.
+
+* webtask-tools - provides a helper for building Express webtasks
+* express - used for having multiple routes in our task
+* body-parser - middleware used for parsing the HTML FORM body that will be posted.
+* pug - used for rendering the HTML page
+* nexmo - user for sending SMS messages.
+
+## Create the task
+Create a new smssend.js file and paste the following
+
+```javascript
+
+// require modules
+var express = require('express');
+var fromExpress = require('webtask-tools').fromExpress;
+var bodyParser = require('body-parser');
+var Nexmo = require('nexmo');
+var pug = require('pug');
+var app = express();
+
+// configure to support form url encoding
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// define a route for returning the HTML page
+app.get('/', (req, res) => {
+  res.send(renderView());
+});
+
+// define a route for sending the SMS message
+app.post('/send', (req,res) => {
+  // to get the context in an Express Webtask, you access webtaskContext off of the request.
+  var ctx = req.webtaskContext;
+
+  // grab the secrets
+  var secrets = ctx.secrets;
+  var api_key = secrets.api_key;
+  var api_secret = secrets.api_secret;
+  var from = secrets.from;
+
+  // initialize Nexmo
+  var nexmo = new Nexmo({
+      apiKey: api_key,
+      apiSecret: api_secret,
+    });
+
+  // output the posted body to the logs
+  console.log(req.body);
+
+  // send the message
+  nexmo.message.sendSms(from, req.body.to, req.body.message, (err, data) => {
+    const status = err ? 400 : 200;
+    const message = err ? err.message : 'Sent!';
+    res.writeHead(status, { 'Content-Type': 'text/html' });
+    return res.end('<h1>' + message + '</h1>');
+  });
+});
+
+// the page
+var page=`
+h1 Serverless SMS
+form(action='/webtasks-nodejs-dev-smssend/send' method='POST' enctype='application/x-www-form-urlencoded')
+  table
+    tr
+      td 
+        p Phone # (including country code)
+      td 
+        input(name='to' type='text')
+    tr
+      td 
+        p Message
+      td 
+        input(name='message' type='text')
+    tr
+      td(colspan='2')
+        input(type='submit' text='Send')
+    tr`;
+
+// render the page using pug
+function renderView() {
+  return pug.render(page);
+}
+
+module.exports = fromExpress(app); 
+```
+
+Here is what the code is doing at a high level:
+
+* Initializes modules, creates an express app, and configures the body-parser middleware.
+* Defines the root route. The handler calls a function which uses `pug` to render the page. 
+* Defines the send route. The handler accesses the `context` to grab the secrets that were previously defined in the `secrets.yml` file which hang off the `secrets` object. Next the Nexmo object is initialized and invoked to send the SMS. HTML Output is returned to the user to inform whether or not the send was successful.
+
+## Deploy and Run
+```
+serverless deploy
+```
+
+After deploying you should see that multiple endpoints have been created.  The `severless-webtasks` plugin allows you have multiple handlers in your service, and will automatically create a seperate endpoint / webtask for each one.
+
+```
+$ serverless deploy
+Serverless: Packaging service...
+Serverless: Packaging disabled for function: "main"
+Serverless: Packaging disabled for function: "smssend"
+Serverless: Deploying function: main...
+Serverless: Deploying function: smssend...
+Serverless: Successfully deployed function: main
+Serverless: Successfully deployed function: smssend
+Service Information
+service: webtasks-nodejs
+stage: dev
+endpoints:
+  * - https://$$$$$$$$$$.sandbox.auth0-extend.com/webtasks-nodejs-dev-main
+  * - https://$$$$$$$$$$.sandbox.auth0-extend.com/webtasks-nodejs-dev-smssend
+functions:
+  main: webtasks-nodejs-dev-main
+  smssend: webtasks-nodejs-dev-smssend
+$ my-service glennblock$
+```
+
+Copy the url for the `smssend` endpoint and then open your browser and paste it into the address bar. You should see the following form. (I am not a UX developer :-))
+
+![smspage](https://cdn.auth0.com/website/blog/extend/serverless/smspage.jpg)
+
+Enter in the destination phone number including the country code, and enter a message. Then click "Send". In a few seconds, you should receive an SMS message!
+
+![message](https://cdn.auth0.com/website/blog/extend/serverless/sms1.png)
+
+## Move to Production
+
+Up until now, you've been deploying to the dev stage, which is the default. Now that app works, you can go deploy it to production.
+
+```
+serverless deploy --stage prod
+```
+
+Once the deployment is done, you'll see the URLs for your production endpoints.
+
+
+
+
+
+
+
+
