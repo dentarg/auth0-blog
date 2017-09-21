@@ -63,8 +63,7 @@ In your fresh project directory, create an `index.html` file. Now, back to the o
 
 Copy paste it into your index.html file like so:
 
-
-```html
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +93,7 @@ Copy paste it into your index.html file like so:
 
 **Note:** We referenced the Firebase and FirebaseUI library too. The firebaseUI library provides simple, customizable UI bindings on top of Firebase SDKS to eliminate boilerplate code and promote best practices.
 
-This the style file code. So, create a `style.css` file and add the code to it.
+This is the style file code. Create a `style.css` file and add the code to it.
 
 _style.css_
 
@@ -156,10 +155,10 @@ body {
 
 ### Step 2: Set Up HTML Body Structure
 
-Head over to your `index.html` file and add code to the body element like so:
+Head over to your `index.html` file and add code to the body like so:
 
-```html
-....
+
+```
 <body>
   <div id="container">
       <h3>Firebase Phone Number Auth. Demo</h3>
@@ -196,7 +195,7 @@ Head over to your `index.html` file and add code to the body element like so:
 </html>
 ```
 
-We are fleshing out our app little by little. The `firebaseui-container` div will contain our login button. Now, the `app.js` file will contain our app logic for authentication. This leads us to the next stage.
+We are fleshing out our app little by little. The `firebaseui-container` div will contain our login button. The `app.js` file will contain the app logic for authentication. This leads us to the next stage.
 
 ### Step 3: Set up Phone Number Authentication
 
@@ -311,7 +310,7 @@ window.addEventListener('load', initApp);
 
 Relax. Let's step through the code to understand what's really happening here.
 
-The `getUiConfig` function is responsible for configuring the kind of authentication provider we want. Phone Number and twitter login was specified here. The `reCaptchaParameters` option is configured to have the invisible reCaptcha.
+The `getUiConfig` function is responsible for configuring the kind of authentication provider we want. The `Phone Number` and `Twitter login` options were specified here. The `reCaptchaParameters` option is configured to have the invisible reCaptcha.
 
 Two sign in flows are available in Firebase:
 
@@ -320,7 +319,7 @@ Two sign in flows are available in Firebase:
 
 Here, we choose the `popup` option for convenience.
 
-The first property in the `getUiConfig` is the `callbacks`. `signInSuccess` is one of the available callbacks. It takes in the `currentUser`, `credential` and `redirectUrl` and calls the `handleSignedInUser` function.
+The first property in the `getUiConfig` is the `callbacks`. `signInSuccess` is one of the available callbacks. It takes in the `currentUser`, `credential` and `redirectUrl` arguments, then calls the `handleSignedInUser` function.
 
 The callback returns `false`, meaning the page is not automatically redirected.
 
@@ -344,12 +343,11 @@ var handleSignedInUser = function(user) {
     document.getElementById('photo').style.display = 'none';
   }
 };
-
 ```
 
 The function displays the user's details on the screen. The `handleSignedOutUser` function does the same thing too when the user signs out.
 
-The function below simply listen to authentication state changes and displays the right UI based on those changes.
+The function below simply listens to authentication state changes and displays the right UI based on those changes.
 
 ```js
 firebase.auth().onAuthStateChanged(function(user) {
@@ -386,7 +384,9 @@ var initApp = function() {
     ![Form](https://cdn.auth0.com/blog/firebasephoneauth/form.png)
 
 * Recieve the short code sent by Firebase to your phone.
-    ![Short code](https://cdn.auth0.com/blog/firebasephoneauth/code.png)
+    <div class="phone-mockup">
+      <img src="https://cdn.auth0.com/blog/firebasephoneauth/code.png" alt="Auth0's SMS received">
+    </div>
 
 * Input the short code into the verification form.
     ![Input Short code](https://cdn.auth0.com/blog/firebasephoneauth/verifyphonenumber.png)
@@ -412,7 +412,9 @@ Auth0 also supports passwordless authentication. In Auth0's SMS authentication, 
 
 Users then receive a text message with a one-time password:
 
-![auth0-sms](https://cdn.auth0.com/blog/sms-authentication/auth0-sms.png)
+<div class="phone-mockup">
+  <img src="https://cdn.auth0.com/blog/sms-authentication/auth0-sms.png" alt="Auth0's SMS received">
+</div>
 
 And then have five minutes to input that password into the app:
 
