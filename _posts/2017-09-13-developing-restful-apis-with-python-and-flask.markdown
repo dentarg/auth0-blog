@@ -10,8 +10,8 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "#3F6426"
-  image: https://cdn.auth0.com/blog/spring-boot-auth/logo.png
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/python-restful/logo.png
 tags:
 - python
 - flask
