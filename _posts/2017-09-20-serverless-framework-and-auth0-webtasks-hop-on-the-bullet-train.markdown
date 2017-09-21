@@ -358,7 +358,7 @@ provider: webtasks
 Now the next time you deploy that service, it will use your Extend instance!
 
 ## Summary and Next steps
-This is just the tip of the iceberg of what you can do with the new `severless-webtasks` plugin. [David Well's](https://twitter.com/davidwells) from the Serverless team has a great [post](https://serverless.com/blog/serverless-webtasks/) talking about the new plugin where he includes a list of common use cases.
+This is just the tip of the iceberg of what you can do with the new `severless-webtasks` plugin. [David Well's](https://twitter.com/davidwells) from the Serverless team has a great [post](https://serverless.com/blog/serverless-webtasks/) on the release where he includes a list of common use cases.
 
 * setting up webhook listeners
 * running chat bots & slack automation
@@ -371,9 +371,11 @@ This is just the tip of the iceberg of what you can do with the new `severless-w
 
 Go check out his post which includes additional resources, several videos, and more! In the videos, you'll also learn how you can use scheduled events.
 
-You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). The plugin is open source, and you can grab the source, file bugs, or contribute (PRs welcome!) in our repo [here](https://github.com/auth0/serverless-webtasks). To learn more about Auth0 Webtasks, head over to [https://webtask.io].
+You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). The plugin is open source, and you can grab the source, file bugs, or contribute (PRs welcome!) in our repo [here](https://github.com/auth0/serverless-webtasks). To learn more about Auth0 Webtasks, head [here](https://webtask.io).
 
-Special thanks to David Wells, and the rest of the Serverless team for helping us make this a reality!
+So what are you waiting for? Take it for a spin! Let us know about your experience with using Auth0 Webtasks and Serverless!
 
-Let us know about your experience with using Auth0 Webtasks and Serverless!
+*Special thanks to David Wells, and the rest of the Serverless team for helping us make this a reality!*
+
+**Like the new plugin? Give us some love on [Product Hunt](https://www.producthunt.com/posts/serverless-auth0-webtasks)!**
 
