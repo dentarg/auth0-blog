@@ -10,8 +10,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#23588C"
-  image: https://cdn.auth0.com/blog/nette/logo.png
+  bg_color: "#4236C9"
+  image: https://cdn.auth0.com/blog/firebasephoneauth/logo.png
 tags:
 - firebase
 - phone
