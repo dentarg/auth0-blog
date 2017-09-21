@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Phone Number Authentication With Firebase"
-description: Learn how firebase phone number authentication works.
+description: Learn how Firebase phone number authentication works.
 date: 2017-09-19 8:30
 category: Technical Guide, JavaScript, Firebase
 author:
@@ -31,9 +31,9 @@ related:
 
 ---
 
-Firebase Phone Number authentication offers a form of passwordless authentication, where users are authenticated on their access to another secure platform, instead of authenticated based on their possession of a password.
+Firebase Phone Number authentication offers a form of passwordless authentication, wherein users are authenticated on their access to another secure platform, instead of authenticated based on their possession of a password.
 
-The secure platform in the case of Firebase phone number authentication is the user's cell phone. Authentication requires the users to have both the correct cell phone number, and physical access to that phone. However, authentication using only a phone number can also be less secure than the other available methods because possession of a phone number can be easily transferred between users.
+The secure platform in the case of Firebase phone number authentication is the user's cell phone. Authentication requires the users to have both the correct cell phone number and physical access to that phone. However, authentication using only a phone number can also be less secure than the other available methods because possession of a phone number can be easily transferred between users.
 
 ## Firebase Authentication Flow
 
@@ -42,13 +42,13 @@ The authentication flow is really simple.
 * A user logs on to your web app and is presented with a login field that asks for their phone number.
 * The user enters their phone number into the login field.
 * Firebase's reCAPTCHA verifier swings into action by ensuring that the phone number verification request comes from one of the app's allowed domains.
-* Once the user clicks login, a verification code is sent to the user's phone.
+* Once the user clicks `Log In`, a verification code is sent to the user's phone.
 * The user is now requested to type the verification code they received by SMS.
 * Firebase validates the verification code. If correct, a new user account is created and linked to the phone number.
 
 ## Setting Up Phone Number Authentication With Firebase
 
-If you don't already have a Firebase account, [signup](https://console.firebase.google.com) for one.
+If you don't already have a Firebase account, [sign up](https://console.firebase.google.com) for one.
 
 * Create a new project
 * Open the **Authentication** section by the left side bar.
@@ -57,11 +57,11 @@ If you don't already have a Firebase account, [signup](https://console.firebase.
 
 ### Step 1: Set Up Firebase Config
 
-In your fresh project directory, create an `index.html` file. Now, back to the overview screen for your project and click on it. Then click `Add Firebase to your Web app`, a popup will show like so:
+In your fresh project directory, create an `index.html` file. Now, go back to the overview screen for your project and click on it. Then click `Add Firebase to your Web app`.  A popup will show like so:
 
 ![Popup](https://cdn.auth0.com/blog/firebasephoneauth/credentials.png)
 
-Copy paste it into your index.html file like so:
+Copy and paste it into your `index.html` file like so:
 
 ```
 <!DOCTYPE html>
@@ -91,9 +91,9 @@ Copy paste it into your index.html file like so:
 </html>
 ```
 
-**Note:** We referenced the Firebase and FirebaseUI library too. The firebaseUI library provides simple, customizable UI bindings on top of Firebase SDKS to eliminate boilerplate code and promote best practices.
+**Note:** We referenced the Firebase and FirebaseUI libraries. The FirebaseUI library provides simple, customizable UI bindings on top of Firebase SDKs to eliminate boilerplate code and promote best practices.
 
-This is the style file code. Create a `style.css` file and add the code to it.
+Create a `style.css` file and add the code to it:
 
 _style.css_
 
@@ -223,10 +223,9 @@ function getUiConfig() {
       {
         provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
         recaptchaParameters: {
-          //size: getRecaptchaMode()
-          type: 'image', // 'audio'
-          size: 'invisible', 'normal' or 'compact'
-          badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
+          type: 'image', // another option is 'audio'
+          size: 'invisible', // other options are 'normal' or 'compact'
+          badge: 'bottomleft' // 'bottomright' or 'inline' applies to invisible.
         }
       }
     ],
@@ -312,6 +311,12 @@ Relax. Let's step through the code to understand what's really happening here.
 
 The `getUiConfig` function is responsible for configuring the kind of authentication provider we want. The `Phone Number` and `Twitter login` options were specified here. The `reCaptchaParameters` option is configured to have the invisible reCaptcha.
 
+The `reCaptchaParameters` options for our reCaptcha:
+
+* **type:** We selected the _image_ type. Another option is _audio_.
+* **size:** We selected _invisible_ size. Other options are _normal_ or _compact_.
+* **badge:** We selected the reCaptcha badge to come in from the _bottomleft_, other options are _bottomright_ or _inline_.
+
 Two sign in flows are available in Firebase:
 
 * `redirect`, the default, will perform a full page redirect to the sign-in page of the provider (Google, Facebook...). This is recommended for mobile apps.
@@ -323,7 +328,7 @@ The first property in the `getUiConfig` is the `callbacks`. `signInSuccess` is o
 
 The callback returns `false`, meaning the page is not automatically redirected.
 
-The `handleSignedInUser` function as seen below:
+The `handleSignedInUser` function consists of the following:
 
 ```js
 /**
@@ -345,7 +350,7 @@ var handleSignedInUser = function(user) {
 };
 ```
 
-The function displays the user's details on the screen. The `handleSignedOutUser` function does the same thing too when the user signs out.
+The function displays the user's details on the screen. The `handleSignedOutUser` function does the same thing when the user signs out.
 
 The function below simply listens to authentication state changes and displays the right UI based on those changes.
 
@@ -357,9 +362,9 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 ```
 
-The _delete_ function is pretty straight-forward.
+The _delete_ function is pretty straightforward.
 
-The _initApp_ function simply adds event listeners to the _sign-out_ and _delete-account_ buttons. When any of these buttons are clicked, it executes the function that is bound to it.
+The _initApp_ function simply adds event listeners to the _sign-out_ and _delete-account_ buttons. When any of these buttons are clicked, they execute their respective handler functions.
 
 ```js
 var initApp = function() {
@@ -380,7 +385,7 @@ var initApp = function() {
 * Click on the `Sign in with phone` button.
     ![Sign in with Phone](https://cdn.auth0.com/blog/firebasephoneauth/landing.png)
 
-* Choose our country, input your phone number and click `Verify`.
+* Choose your country, input your phone number and click `Verify`.
     ![Form](https://cdn.auth0.com/blog/firebasephoneauth/form.png)
 
 * Recieve the short code sent by Firebase to your phone.
@@ -398,7 +403,7 @@ var initApp = function() {
     ![LoggedIn User](https://cdn.auth0.com/blog/firebasephoneauth/loggedin.png)
 
 
-Check your firebase project console, the `users` tab will reflect the newly logged-in user.
+In your firebase project console, the `users` tab will reflect the newly logged-in user.
 
 ![Firebase User Console](https://cdn.auth0.com/blog/firebasephoneauth/firebaseuserbase.png)
 
@@ -416,7 +421,7 @@ Users then receive a text message with a one-time password:
   <img src="https://cdn.auth0.com/blog/sms-authentication/auth0-sms.png" alt="Auth0's SMS received">
 </div>
 
-And then have five minutes to input that password into the app:
+They then have five minutes to input that password into the app:
 
 ![sms-confirmation](https://cdn.auth0.com/blog/sms-authentication/sms-confirmation.png)
 
@@ -442,10 +447,10 @@ Check out how to authenticate users using passwordless on [Single Page Apps](htt
 
 ## Wrapping Up
 
-Well done! You have learned how to authenticate users using phone numbers with Firebase. You should know that phone numbers that end users provide for authentication will be sent and stored by Google to improve their spam and abuse prevention across Google services, including but not limited to Firebase.
+Well done! You have learned how to authenticate users using phone numbers with Firebase. You should know that phone numbers that end-users provide for authentication will be sent and stored by Google to improve their spam and abuse prevention across Google services, including but not limited to Firebase.
 
-As developers, you should ensure they have appropriate end-user consent prior to using the Firebase Authentication phone number sign-in service.
+As developers, you should ensure that users have appropriate end-user consent prior to using the Firebase Authentication phone number sign-in service.
 
 One more thing. To prevent abuse, Firebase enforces a limit on the number of SMS messages that can be sent to a single phone number within a period of time. If you exceed this limit, phone number verification requests might be throttled. If you encounter this issue during development, use a different phone number for testing, or try the request again later.
 
-Please, let me know if you have any questions or observations in the comment section. 😊
+Please let me know if you have any questions or observations in the comment section. 😊
