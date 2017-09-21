@@ -30,7 +30,7 @@ If you are developing solutions using Serverless architecture than there's a goo
 
 Initally Serverless was only available for AWS Lambda. Recently times have changed, and you can now use Serverless for a growing list of providers. 
 
-Today we're announcing the new Auth0 Webtasks plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) subscription. In this post I'll show you how to use the new plugin to rapidly develop at maximum velocity. 
+Today we're announcing the new Auth0 Webtasks plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) paid subscription. In this post I'll show you how to use the new plugin to rapidly develop at maximum velocity. 
 
 ## Why
 For a while we've been getting requests to enable using Auth0 Webtasks with Serverless, including from the Serverless team. The main reasons we heard, are the same reasons developers love to use Webtasks:
@@ -326,8 +326,7 @@ functions:
   smssend: webtasks-nodejs-prod-smssend
 $ 
 ```
-
-Once the deployment is done, you'll see the URLs for your production endpoints. Combining stages with Github branches, gives you the power to implement you dev/test/prod worksflows.
+Once the deployment is done, you'll see the URLs for your production endpoints. Combining stages with Github branches, gives you the power to implement your own dev/test/prod workflows.
 
 ## Next steps
 This is just the tip of the iceberg. You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). 
