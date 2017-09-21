@@ -187,7 +187,7 @@ Here is a list of the modules that you have installed.
 * pug - used for rendering the HTML page
 * nexmo - user for sending SMS messages.
 
-## Create the task
+## Create the handler
 Create a new smssend.js file and paste the following
 
 ```javascript
