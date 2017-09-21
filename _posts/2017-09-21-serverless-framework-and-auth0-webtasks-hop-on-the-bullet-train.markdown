@@ -12,7 +12,7 @@ author:
   avatar: "https://cdn.auth0.com/blog/profiles/glennblock.jpg"
 design: 
   bg_color: "#3445DC"
-  image: "https://cdn.auth0.com/website/blog/extend/serverless/serverlesslogo.png"
+  image: "https://cdn.auth0.com/blog/serverless-webtask/logo.png"
 tags: 
   - extend
   - serverless
