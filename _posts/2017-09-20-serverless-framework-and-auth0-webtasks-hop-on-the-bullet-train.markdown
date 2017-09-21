@@ -333,7 +333,7 @@ $
 Once the deployment is done, you'll see the URLs for your production endpoints. Combining stages with Github branches, gives you the power to implement your own dev/test/prod workflows.
 
 ## Using your Auth0 Extend subscription.
-The freemium Sandbox is great for fairly low-volume / periodic executions (around 1 per second max). If you are a paid Extend customer you have much greater throughput at your disposal you can use your subscription with the new plugin. To do this, first install wt-cli.
+The freemium Sandbox is great for fairly low-volume / periodic executions (around 1 per second max). If you are a paid Extend customer you have much greater throughput at your disposal and you can use your subscription with the new plugin. To do this, first install wt-cli.
 
 ```
 npm install wt-cli -g
