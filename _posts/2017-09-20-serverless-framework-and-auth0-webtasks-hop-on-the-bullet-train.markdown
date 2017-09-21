@@ -132,7 +132,7 @@ A few things to note:
 ## Going further with Express, Pug and Nexmo.
 Now that you've seen the basics, let's go into a more advanced use case where Webtasks really shine. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create handlers that have multiple routes, use connect middleware, etc. 
 
-Let's add a new endpoint to our service that will serve up a web page that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a Pug` template with a form to collect the phone number and message. The second endpoint will be posted to from the form and use Nexmo's messaging service to send an SMS message.
+Let's add a new endpoint to our service that will serve up a web page that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a `Pug` template with a form to collect the phone number and message. The second endpoint will be posted to from the form and use Nexmo's messaging service to send an SMS message.
 
 ### Configure the new handler and variables
 Open up the serverless.yml file and add a new handler called `smssend`. Also configure the environment to read from a new secrets.yml file that you are going to create in the root.
@@ -267,9 +267,9 @@ module.exports = fromExpress(app);
 
 Here is what the code is doing at a high level:
 
-* Initializes modules, creates an express app, and configures the body-parser middleware.
-* Defines the root route. The handler calls a function which uses `pug` to render the page. 
-* Defines the send route. The handler accesses the `context` to grab the secrets that were previously defined in the `secrets.yml` file. Next, the Nexmo object is initialized and invoked to send the SMS. HTML Output is returned to the user to inform whether or not the send was successful.
+* Initializes modules, creates an Express app, and configures the `body-parser` middleware.
+* Defines the root route. The handler calls a function which renders a `pug` page. 
+* Defines the send route. The handler accesses the `context` to grab the secrets that were previously defined in the `secrets.yml` file. Next, Nexmo is initialized and invoked to send the SMS. HTML Output is returned to the user to inform whether or not the send was successful.
 
 ## Deploy and Run
 ```
