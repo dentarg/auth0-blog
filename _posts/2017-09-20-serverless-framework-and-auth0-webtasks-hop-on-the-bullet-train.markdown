@@ -35,7 +35,7 @@ Today we're announcing the new [Auth0 Webtasks](https:/webtask.io) plugin for Se
 *Note*: The Sandbox has a soft limit of 1 execution per second (eps)
 
 ## Why
-For a while, we've been getting requests to enable using Auth0 Webtasks with Serverless. When I was at Serverless Austin, I heard this directly from the Serverless team. The main reasons we heard, are the same reasons developers love to use Webtasks:
+For a while, we've been getting requests to enable using Auth0 Webtasks with Serverless. When we were at Serverlessconf Austin, we heard this directly from the Serverless team. The main reasons we heard, are the same reasons developers love to use Webtasks:
 
 * It is effortless to ramp up.
 * Ultra-fast deployment. 
