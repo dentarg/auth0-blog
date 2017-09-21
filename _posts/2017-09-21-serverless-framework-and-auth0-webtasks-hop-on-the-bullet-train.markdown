@@ -30,7 +30,7 @@ If you are developing solutions using Serverless architecture then there's a goo
 
 Initially Serverless was only available for AWS Lambda. Recently times have changed, and you can now use Serverless for a growing list of providers. 
 
-Today we're announcing the new [Auth0 Webtasks](https:/webtask.io) plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) paid subscription. In this post, I'll show you can use the new plugin to develop at maximum velocity. 
+Today we're announcing the new [Auth0 Webtasks](https://webtask.io) plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) paid subscription. In this post, I'll show you can use the new plugin to develop at maximum velocity. 
 
 *Note*: The Sandbox has a soft limit of 1 execution per second (eps)
 
