@@ -4,7 +4,7 @@ title: "Serverless and Auth0 Webtasks, hop on the bullet train"
 description: "Learn how you can use the Serverless Framework and Auth0 Webtasks with the new Serverless Webtasks plugin."
 date: 2017-09-20 10:21
 is_extend: true
-category: Extend, Serverless
+category: Extend, Webtask, Serverless
 author:
   name: "Glenn Block"
   url: "https://twitter.com/gblock"
@@ -26,11 +26,13 @@ related:
 
 <img width="75%" src="https://cdn.auth0.com/website/blog/extend/serverless/bullet_train.jpg"/>
 
-If you are developing solutions using Serverless architecture than there's a good chance you've heard of the [Serverless Framework](https://serverless.com/). Serverless provides a tool that makes it much easier for you to deploy functions to the cloud, by handling all the setup and plumbing for you.
+If you are developing solutions using Serverless architecture then there's a good chance you've heard of the [Serverless Framework](https://serverless.com/). Serverless provides a tool that makes it much easier for you to deploy functions to the cloud, by handling all the setup and plumbing for you.
 
-Initally Serverless was only available for AWS Lambda. Recently times have changed, and you can now use Serverless for a growing list of providers. 
+Initially Serverless was only available for AWS Lambda. Recently times have changed, and you can now use Serverless for a growing list of providers. 
 
-Today we're announcing the new Auth0 Webtasks plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) paid subscription. In this post I'll show you how to use the new plugin to rapidly develop at maximum velocity. 
+Today we're announcing the new [Auth0 Webtasks](https:/webtask.io) plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) paid subscription. In this post I'll show you can use the new plugin to rapidly develop at maximum velocity. 
+
+*Note*: The Sandbox has a soft limit of 1 execution per second (eps)
 
 ## Why
 For a while we've been getting requests to enable using Auth0 Webtasks with Serverless, including from the Serverless team. The main reasons we heard, are the same reasons developers love to use Webtasks:
@@ -86,8 +88,8 @@ Go deploy the service.
 $ serverless deploy
 ```
 
-Within _seconds_ you should get a response indicating your service has been deployed. 
-
+Within _seconds_ you should get a response indicating your service has been deployed. Just look at how fast it deployed when I measured with the `time` command.
+<p align="center"><img width="75%" src="https://cdn.auth0.com/website//blog/extend/serverless/deploy_time"/></p>
 ### Invoke the service
 With the service deployed you can now invoke it.
 
@@ -121,14 +123,14 @@ module.exports = (context, cb) => {
 A few things to note:
 
 * Auth0 Webtasks are Node.js functions.
-  * With the new Serverless plugin, you can author your handlers in **Node 8**. This gives you access to new ES7 features like the `await` keyword.
+  * With the new Serverless plugin, you can author your handlers in **Node 8**. This gives you access to new ES7 features like the `await` keyword. Support for Node 8 is something new that we're rolling out today specifically for the Serverless community!
   * Webtasks support several different [programming models](https://webtask.io/docs/model). The example above shows the most common form. 
 * Each Webtask is exposed directly as an HTTP endpoint. There is no special gateway or binding configuration, it is immediately available. 
-* The context object. The [context](https://webtask.io/docs/context) which allow you access the request body, query string params, secrets and more.
-* The callback object.  This is a standard node callback, which you invoke to tell Webtask the request has completed.
+* The [context](https://webtask.io/docs/context) object allows you to access the request body, query string params, secrets and more.
+* The callback object is a standard node callback, which you invoke to tell Webtask the request has completed.
 
 ## Going further with Express, Pug and Nexmo.
-Now that you've seen the basics, let's go into a more advanced use case and see where Webtasks really shine. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create tasks that have multiple routes, use connect middleware, etc. 
+Now that you've seen the basics, let's go into a more advanced use case and see where Webtasks really shine. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create handlers that have multiple routes, use connect middleware, etc. 
 
 Let's add a new endpoint to our service that will serve up a webpage that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a Pug` template with a form to collect the phone number and message. The second endpoint will be posted to from the form and use Nexmo's messaging service to send an SMS message.
 
@@ -167,6 +169,8 @@ api_key: 0ae2ea9d
 api_secret: 0878134fa9051cc4
 from: 12036768629
 ```
+
+*Note*: If you are publishing your service to a git repo, please add this file to your `.gitignore` before you do it ;-).
 
 ## Install packages
 There are several npm packages you'll need. Use the following command to install them.
@@ -272,7 +276,7 @@ Here is what the code is doing at a high level:
 serverless deploy
 ```
 
-After deploying you should see that multiple endpoints have been created.  The `severless-webtasks` plugin allows you have multiple handlers in your service, and will automatically create a seperate endpoint / webtask for each one.
+After deploying you should see that multiple endpoints have been created.  The `severless-webtasks` plugin allows you have multiple handlers in your service, and will automatically create a separate endpoint / webtask for each one.
 
 ```
 $ serverless deploy
@@ -328,9 +332,48 @@ $
 ```
 Once the deployment is done, you'll see the URLs for your production endpoints. Combining stages with Github branches, gives you the power to implement your own dev/test/prod workflows.
 
-## Next steps
-This is just the tip of the iceberg. You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). 
+## Using your Auth0 Extend subscription.
+The freemium Sandbox is great for fairly low-volume / periodic executions (around 1 per second max). If you are a paid Extend customer you have much greater throughput at your disposal you can use your subscription with the new plugin. To do this, first install wt-cli.
 
+```
+npm install wt-cli -g
+```
+
+Create a profile for your Extend instance as specified in our docs [here](https://auth0.com/extend/docs/developer-guide#enabling-command-line-tool-for-your-users)
+
+```
+wt init -p {profile-name} \
+  --url {host_url} \
+  --token {tenant_webtask_token} \
+  --container {webtask_container}
+```
+
+Once your profile is created, you can configure your service to deploy using that profile. Open your `serverless.yml` file and add your profile under the webtasks provider.
+
+```
+provider: webtasks
+  profile: my-extend-profile
+```
+
+Now the next time you deploy that service, it will use your Extend instance!
+
+## Summary and Next steps
+This is just the tip of the iceberg of what you can do with the new `severless-webtasks` plugin. [David Well's](https://twitter.com/davidwells) from the Serverless team has a great [post](https://serverless.com/blog/serverless-webtasks/) talking about the new plugin where he includes a list of common use cases.
+
+* setting up webhook listeners
+* running chat bots & slack automation
+* glue code & data transformation
+* backend apis for static sites
+* handling site forms
+* github automation
+* payment processing with stripe
+* ...(use your imagination)
+
+Go check out his post which includes additional resources, several videos, and more! In the videos you'll also learn how you can use scheduled events.
+
+You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). The plugin is open source, and you can grab the source, file bugs, or contribute (PRs welcome!) in our repo [here](https://github.com/auth0/serverless-webtasks). To learn more about Auth0 Webtasks, head over to [https://webtask.io].
+
+Let us know about your experience with using Auth0 Webtasks and Serverless!
 
 
 
