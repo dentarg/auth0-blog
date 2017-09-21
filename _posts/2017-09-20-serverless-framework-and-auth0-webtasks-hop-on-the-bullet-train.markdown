@@ -351,14 +351,15 @@ wt init -p {profile-name} \
 Once you have created your profile, you can configure your service to deploy using that profile. Open your `serverless.yml` file and add your profile under the webtasks provider.
 
 ```
-provider: webtasks
+provider: 
+  name: webtasks
   profile: my-extend-profile
 ```
 
 Now the next time you deploy that service, it will use your Extend instance!
 
 ## Summary and Next steps
-In this post you've seen how you can move at bullet speed in developing Serverless applications using Auth0 Webtasks. This is just the tip of the iceberg of what you can do with the new `severless-webtasks` plugin. [David Well's](https://twitter.com/davidwells) from the Serverless team has a great [post](https://serverless.com/blog/serverless-webtasks/) on the release where he includes a list of common use cases.
+In this post you've seen how you can move at bullet speed in developing Serverless applications using Auth0 Webtasks. This is just the tip of the iceberg of what you can do with the new `severless-webtasks` plugin. [David Wells](https://twitter.com/davidwells) from the Serverless team has a great [post](https://serverless.com/blog/serverless-webtasks/) on the release where he includes a list of common use cases.
 
 * setting up webhook listeners
 * running chat bots & slack automation
