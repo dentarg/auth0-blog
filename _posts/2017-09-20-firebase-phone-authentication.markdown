@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Firebase Phone Authentication"
-description: Learn how to build your first Nette application and add authentication to it.
+title: "Phone Number Authentication With Firebase"
+description: Learn how firebase phone number authentication works.
 date: 2017-09-19 8:30
-category: Technical Guide, PHP, Nette
+category: Technical Guide, JavaScript, Firebase
 author:
   name: Prosper Otemuyiwa
   url: https://twitter.com/unicodeveloper?lang=en
@@ -27,499 +27,423 @@ related:
 
 ---
 
-**TL;DR:** In this tutorial, I'll show you how easy it is to build a web application with Nette and add authentication to it. Check out the [repo](https://github.com/auth0/nette-auth0-got) to get the code.
+**TL;DR:** In this tutorial, I'll show you how easy it is to authenticate users using phone numbers with Firebase. Check out the [repo](https://github.com/auth0/firebase-phone-auth) to get the code.
 
 ---
 
-**Nette** is a free, open-source PHP framework designed for building web applications. **Nette** is a set of decoupled and reusable PHP packages that will make your work easier. And **Nette** is also known as the quick and comfortable web development framework in PHP because it has the tools that allow you to bang out PHP applications rather quickly. **Nette** has a bundle of tools that makes it one of the popular PHP frameworks out there. These tools include, **Tracy**, **Latte** and **Tester**.
+Firebase Phone Number authentication offers a form of passwordless authentication, where users are authenticated on their access to another secure platform, instead of authenticated based on their possession of a password.
 
-* **Tracy:** is a library that helps you log errors, dump variables, observe memory consumption and measure execution time of scripts and queries. After activating Tracy on your web application, a debugger bar shows up.
+The secure platform in the case of Firebase phone number authentication is the user's cell phone. Authentication requires the users to have both the correct cell phone number, and physical access to that phone. However, authentication using only a phone number can also be less secure than the other available methods because possession of a phone number can be easily transferred between users.
 
-  ![Tracy debug bar](https://files.nette.org/git/tracy/tracy-bar.png)
-  _Tracy debug bar_
+## Firebase Authentication Flow
 
-This tool also provides the `Debugger::dump()` function which dumps the content of a variable far better than `var_dump`. Logging with Tracy involves invoking the `Debugger::log()` function. In production mode, Tracy automatically captures all errors and exceptions into a text log.
+The authentication flow is really simple.
 
-Another useful development magic Tracy offers is the debugger stopwatch with a precision of microseconds. Just call the `Debugger::timer()` function. For multiple measurements, you can write code like this:
+* A user logs on to your web app and is presented with a login field that asks for their phone number.
+* The user enters their phone number into the login field.
+* Firebase's reCAPTCHA verifier swings into action by ensuring that the phone number verification request comes from one of the app's allowed domains.
+* Once the user clicks login, a verification code is sent to the user's phone.
+* The user is now requested to type the verification code they received by SMS.
+* Firebase validates the verification code. If correct, a new user account is created and linked to the phone number.
 
-```php
-Debugger::timer('pdf-making');
-// some code
+## Setting Up Phone Number Authentication With Firebase
 
-Debugger::timer('excel-making');
-// some code
+If you don't already have a Firebase account, [signup](https://console.firebase.google.com) for one.
 
-$excelMakingElapsed = Debugger::timer('excel-making');
-$pdfMakingElapsed = Debugger::timer('pdf-making');
+* Create a new project
+* Open the **Authentication** section by the left side bar.
+* On the **Sign-in Method** page, enable the **Phone Number** sign-in method.
+* Ensure that your domain is listed in the **Authorized Domains** section. `localhost` is listed by default.
+
+### Step 1: Set Up Firebase Config
+
+In your fresh project directory, create an `index.html` file. Now, back to the overview screen for your project and click on it. Then click `Add Firebase to your Web app`, a popup will show like so:
+
+![Popup](https://cdn.auth0.com/blog/firebasephoneauth/credentials.png)
+
+Copy paste it into your index.html file like so:
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Firebase Phone Authentication</title>
+  <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDGQQUw4xRJagflxcmct5k5Bqgc4x1_Yik",
+      authDomain: "phoneauth-bbe99.firebaseapp.com",
+      databaseURL: "https://phoneauth-bbe99.firebaseio.com",
+      projectId: "phoneauth-bbe99",
+      storageBucket: "phoneauth-bbe99.appspot.com",
+      messagingSenderId: "1071451028890"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.css" />
+  <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+</body>
+</html>
 ```
 
-Tracy also has an integration with [Firelogger](https://addons.mozilla.org/cs/firefox/addon/firelogger/). Learn more about how tracy works by visiting the [documentation](https://tracy.nette.org/) for more information.
+**Note:** We referenced the Firebase and FirebaseUI library too. The firebaseUI library provides simple, customizable UI bindings on top of Firebase SDKS to eliminate boilerplate code and promote best practices.
 
-* **Latte:** is a template engine for PHP. It has intuitive syntax and compiles templates to plain optimized PHP code.
+This the style file code. So, create a `style.css` file and add the code to it.
 
-{% highlight html %}
-{% raw %}
-<ul n:if="$items">
-{foreach $items as $item}
-    <li id="item-{$iterator->counter}">{$item|capitalize}</li>
-{/foreach}
-</ul>
-{% endraw %}
-{% endhighlight %}
-
-The best way to install Latte is via composer.
+_style.css_
 
 ```bash
-composer require latte/latte
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.hidden {
+  display: none;
+}
+
+#user-info {
+  border: 1px solid #CCC;
+  clear: both;
+  margin: 0 auto 20px;
+  max-width: 400px;
+  padding: 10px;
+  text-align: left;
+}
+
+#photo-container {
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  float: left;
+  height: 80px;
+  margin-right: 10px;
+  width: 80px;
+}
+
+#photo {
+  height: 80px;
+  margin: 0;
+  width: 80px;
+}
+
+@media (max-width: 300px) {
+  #photo-container,
+  #photo {
+    height: 40px;
+    width: 40px;
+  }
+}
 ```
 
-And activate it by invoking it like:
+### Step 2: Set Up HTML Body Structure
 
-```php
-$latte = new Latte\Engine;
+Head over to your `index.html` file and add code to the body element like so:
 
-$latte->setTempDirectory('/path/to/tempdir');
-
-$parameters['items'] = ['one', 'two', 'three'];
-
-// render to output
-$latte->render('template.latte', $parameters);
-// or render to string
-$html = $latte->renderToString('template.latte', $parameters);
+```html
+....
+<body>
+  <div id="container">
+      <h3>Firebase Phone Number Auth. Demo</h3>
+      <div id="loading">Loading...</div>
+      <div id="loaded" class="hidden">
+        <div id="main">
+          <div id="user-signed-in" class="hidden">
+            <div id="user-info">
+              <div id="photo-container">
+                <img id="photo">
+              </div>
+              <div id="name"></div>
+              <div id="email"></div>
+              <div id="phone"></div>
+              <div class="clearfix"></div>
+            </div>
+            <p>
+              <button id="sign-out">Sign Out</button>
+              <button id="delete-account">Delete account</button>
+            </p>
+          </div>
+          <div id="user-signed-out" class="hidden">
+            <h4>You are signed out.</h4>
+            <div id="firebaseui-spa">
+              <h3>Single Page App mode:</h3>
+              <div id="firebaseui-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
 ```
 
-Latte has a set of standard filters. You can call a filter by using the pipe symbol. Check out the code below:
+We are fleshing out our app little by little. The `firebaseui-container` div will contain our login button. Now, the `app.js` file will contain our app logic for authentication. This leads us to the next stage.
 
-{% highlight html %}
-{% raw %}
-<h1>{$heading|upper}</h1>
-<h1>{$heading|lower|capitalize}</h1>
-<h1>{$heading|truncate:20,''}</h1>
-{% endraw %}
-{% endhighlight %}
+### Step 3: Set up Phone Number Authentication
 
-You can add a custom filter by calling the `addFilter` function on Latte:
+Create an `app.js` file and add the code below to it:
 
-```php
-$latte = new Latte\Engine;
+```js
+/**
+ * @return {!Object} The FirebaseUI config.
+ */
+function getUiConfig() {
+  return {
+    'callbacks': {
+      // Called when the user has been successfully signed in.
+      'signInSuccess': function(user, credential, redirectUrl) {
+        handleSignedInUser(user);
+        // Do not redirect.
+        return false;
+      }
+    },
+    // Opens IDP Providers sign-in flow in a popup.
+    'signInFlow': 'popup',
+    'signInOptions': [
+      // The Provider you need for your app. We need the Phone Auth
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      {
+        provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        recaptchaParameters: {
+          //size: getRecaptchaMode()
+          type: 'image', // 'audio'
+          size: 'invisible', 'normal' or 'compact'
+          badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
+        }
+      }
+    ],
+    // Terms of service url.
+    'tosUrl': 'https://www.google.com'
+  };
+}
 
-$latte->addFilter('clear', function ($str) {
-    return trim($str, 'Sd'); // eliminates Sd from the string
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+/**
+ * Displays the UI for a signed in user.
+ * @param {!firebase.User} user
+ */
+var handleSignedInUser = function(user) {
+  document.getElementById('user-signed-in').style.display = 'block';
+  document.getElementById('user-signed-out').style.display = 'none';
+  document.getElementById('name').textContent = user.displayName;
+  document.getElementById('email').textContent = user.email;
+  document.getElementById('phone').textContent = user.phoneNumber;
+  if (user.photoURL){
+    document.getElementById('photo').src = user.photoURL;
+    document.getElementById('photo').style.display = 'block';
+  } else {
+    document.getElementById('photo').style.display = 'none';
+  }
+};
+
+
+/**
+ * Displays the UI for a signed out user.
+ */
+var handleSignedOutUser = function() {
+  document.getElementById('user-signed-in').style.display = 'none';
+  document.getElementById('user-signed-out').style.display = 'block';
+  ui.start('#firebaseui-container', getUiConfig());
+};
+
+// Listen to change in auth state so it displays the correct UI for when
+// the user is signed in or not.
+firebase.auth().onAuthStateChanged(function(user) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('loaded').style.display = 'block';
+  user ? handleSignedInUser(user) : handleSignedOutUser();
+});
+
+/**
+ * Deletes the user's account.
+ */
+var deleteAccount = function() {
+  firebase.auth().currentUser.delete().catch(function(error) {
+    if (error.code == 'auth/requires-recent-login') {
+      // The user's credential is too old. She needs to sign in again.
+      firebase.auth().signOut().then(function() {
+        // The timeout allows the message to be displayed after the UI has
+        // changed to the signed out state.
+        setTimeout(function() {
+          alert('Please sign in again to delete your account.');
+        }, 1);
+      });
+    }
+  });
+};
+
+/**
+ * Initializes the app.
+ */
+var initApp = function() {
+  document.getElementById('sign-out').addEventListener('click', function() {
+    firebase.auth().signOut();
+  });
+  document.getElementById('delete-account').addEventListener(
+      'click', function() {
+        deleteAccount();
+      });
+};
+
+window.addEventListener('load', initApp);
+```
+
+Relax. Let's step through the code to understand what's really happening here.
+
+The `getUiConfig` function is responsible for configuring the kind of authentication provider we want. Phone Number and twitter login was specified here. The `reCaptchaParameters` option is configured to have the invisible reCaptcha.
+
+Two sign in flows are available in Firebase:
+
+* `redirect`, the default, will perform a full page redirect to the sign-in page of the provider (Google, Facebook...). This is recommended for mobile apps.
+* The `popup` flow will open a popup to the sign-in page of the provider. If the popup is blocked by the browser, it will fall back to a full page redirect.
+
+Here, we choose the `popup` option for convenience.
+
+The first property in the `getUiConfig` is the `callbacks`. `signInSuccess` is one of the available callbacks. It takes in the `currentUser`, `credential` and `redirectUrl` and calls the `handleSignedInUser` function.
+
+The callback returns `false`, meaning the page is not automatically redirected.
+
+The `handleSignedInUser` function as seen below:
+
+```js
+/**
+ * Displays the UI for a signed in user.
+ * @param {!firebase.User} user
+ */
+var handleSignedInUser = function(user) {
+  document.getElementById('user-signed-in').style.display = 'block';
+  document.getElementById('user-signed-out').style.display = 'none';
+  document.getElementById('name').textContent = user.displayName;
+  document.getElementById('email').textContent = user.email;
+  document.getElementById('phone').textContent = user.phoneNumber;
+  if (user.photoURL){
+    document.getElementById('photo').src = user.photoURL;
+    document.getElementById('photo').style.display = 'block';
+  } else {
+    document.getElementById('photo').style.display = 'none';
+  }
+};
+
+```
+
+The function displays the user's details on the screen. The `handleSignedOutUser` function does the same thing too when the user signs out.
+
+The function below simply listen to authentication state changes and displays the right UI based on those changes.
+
+```js
+firebase.auth().onAuthStateChanged(function(user) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('loaded').style.display = 'block';
+  user ? handleSignedInUser(user) : handleSignedOutUser();
 });
 ```
 
-Then we can use it in a template like this:
+The _delete_ function is pretty straight-forward.
 
-{% highlight html %}
-{% raw %}
-<p>{$sentence|clear}</p>
-{% endraw %}
-{% endhighlight %}
+The _initApp_ function simply adds event listeners to the _sign-out_ and _delete-account_ buttons. When any of these buttons are clicked, it executes the function that is bound to it.
 
-Learn more about how Latte works by visiting the [documentation](https://latte.nette.org) for more information.
-
-* **Tester:** is a productive and enjoyable unit testing framework developed by the Nette team. It is used by the Nette framework for testing. It offers lots of Assertion helpers and annotations for TestCase methods. Learn more about how Tester works by visiting the [documentation](https://tester.nette.org) for more information.
-
-**Nette**  has a [collection of plugins and extensions](https://componette.com) for easy use in your application. It also has an [active community](https://forum.nette.org).
-
-We'll be building a simple character listing app with **Nette**. Our app will simply list **10 Game of Thrones characters** and their real names. Once we add authentication to the app, all logged-in users will have the privilege of knowing their names. Non logged-in users won't have access to any data.
-
-**Note:** Check out how we built this small secure app with [Laravel](https://auth0.com/blog/creating-your-first-laravel-app-and-adding-authentication/).
-
-## Let's get started
-
-Nette utilizes [Composer](http://getcomposer.org/) to manage its dependencies. So, before using Nette, make sure you have Composer installed on your machine. We can install Nette by issuing the Composer `create-project` command in your terminal like so: `composer create-project nette/web-project GOT`.
-
-If you are developing on a Mac OS X or Linux, you need to configure write privileges to the web server by doing `cd GOT && chmod -R a+rw temp log`.
-
-## Explore Directory Structure
-
-The app directory is the **bulk** of your Nette application. It contains the following directories:
-
-![Nette Directory Structure](https://cdn.auth0.com/blog/loopback/nettedirectorystructure.png)
-
-  * `config` - Contains all your configuration files such as database connection, session expiry time, etc.
-  * `presenters` - Contains all your presenter classes and templates
-  * `router` - Contains configuration for your app URLs.
-
-The other directories namely:
-
-  * `log` contains your app log files. You can get all the error message logs here.
-  * `temp` contains your app's temporary files such as cache and session files.
-  * `vendor` contains your app dependencies.
-  * `www` is the only directory accessible from the web. It is supposed to store publicly available files such as images, javascript and css files.
-
-
-## Setting Up The Controller
-
-In Nette, the presenters are the controllers. They connect the models and the views. We already have the _HomePagePresenter_. Let's use it.
-
-Open up `app/presents/HomepagePresenter.php` and configure it like so:
-
-```php
-<?php
-
-namespace App\Presenters;
-
-use Nette;
-
-class HomepagePresenter extends Nette\Application\UI\Presenter
-{
-
-  public function renderDefault() {
-
-    $characters = [
-         'Daenerys Targaryen' => 'Emilia Clarke',
-         'Jon Snow'           => 'Kit Harington',
-         'Arya Stark'         => 'Maisie Williams',
-         'Melisandre'         => 'Carice van Houten',
-         'Khal Drogo'         => 'Jason Momoa',
-         'Tyrion Lannister'   => 'Peter Dinklage',
-         'Ramsay Bolton'      => 'Iwan Rheon',
-         'Petyr Baelish'      => 'Aidan Gillen',
-         'Brienne of Tarth'   => 'Gwendoline Christie',
-         'Lord Varys'         => 'Conleth Hill'
-    ];
-
-    $this->template->characters = $characters;
-  }
-}
+```js
+var initApp = function() {
+  document.getElementById('sign-out').addEventListener('click', function() {
+    firebase.auth().signOut();
+  });
+  document.getElementById('delete-account').addEventListener(
+      'click', function() {
+        deleteAccount();
+      });
+};
 ```
 
-`renderDefault()` means we are going to render what we have defined in the function above in a view called `default.latte`.
+### Step 4: Run the App
 
-`$this->template->characters = $characters` indicates that we are passing the `$characters` array variable to the `default.latte` view.
+**Note:** The twitter button login does not work. It is just there to beautify the UI and give the user a feel that there is an alternative login option. In production, there should always be alternative login options.
 
-## Setting Up The View
+* Click on the `Sign in with phone` button.
+    ![Sign in with Phone](https://cdn.auth0.com/blog/firebasephoneauth/landing.png)
 
-Views are present in the `app/presenters/templates` directory. Our presenter is `HomepagePresenter`. This simply indicates that our default view is in the `app/presenters/templates/Homepage` directory.
+* Choose our country, input your phone number and click `Verify`.
+    ![Form](https://cdn.auth0.com/blog/firebasephoneauth/form.png)
 
-Nette follows convention. Presenter templates can be found in `app/presenters/templates/{PresenterName}/{viewName}.latte`.
+* Recieve the short code sent by Firebase to your phone.
+    ![Short code](https://cdn.auth0.com/blog/firebasephoneauth/code.png)
 
-Open up `app/presenters/templates/Homepage/default.latte` and modify it to look like this:
+* Input the short code into the verification form.
+    ![Input Short code](https://cdn.auth0.com/blog/firebasephoneauth/verifyphonenumber.png)
 
-{% highlight html %}
-{% raw %}
-{block content}
-    <h1 n:block="title"></h1>
+* Click continue. Firebase will verify the code.
+    ![Verify](https://cdn.auth0.com/blog/firebasephoneauth/verifyingandloggingin.png)
 
-    <div class="container">
-      <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-              <div class="panel panel-success">
-                  <div class="panel-heading">List of Game of Thrones Characters</div>
-                    <table class="table">
-                        <tr>
-                            <th>Character</th>
-                            <th>Real Name</th>
-                        </tr>
-                        {foreach $characters as $key => $value}
-                          <tr>
-                            <td>{$key}</td><td>{$value}</td>
-                          </tr>
-                        {/foreach}
-                    </table>
-              </div>
-          </div>
-      </div>
-    </div>
-{/block}
-{% endraw %}
-{% endhighlight %}
+* Logged In User
+    ![LoggedIn User](https://cdn.auth0.com/blog/firebasephoneauth/loggedin.png)
 
-By default, the layout template is located in `app/presenters/templates/@layout.latte`. It contains the format for presenting data in the templates.
 
-```bash
-{include content}
-```
+Check your firebase project console, the `users` tab will reflect the newly logged-in user.
 
-The code above inserts a block named `content` into the main template.
+![Firebase User Console](https://cdn.auth0.com/blog/firebasephoneauth/firebaseuserbase.png)
 
-```bash
-{block content}
-```
-
-You can then place items within the content block which is what we did in our default view.
-
-Just before checking it out, head over to `app/presenters/templates/@layout.latte` and add the link to bootstrap within the head tag like this:
-
-```bash
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-```
-
-The `$characters` array variable passed from the presenter was injected into the default view. And we iterated through it to display the Game of thrones characters.
-
-Head over to your terminal, make sure you are in the `GOT` root directory and ensure you configure write privileges to the web server if you are working on a Mac OS X or Linux system by running this command:
-
-```bash
-chmod -R a+rw temp log
-```
-
-Now, run the application:
-
-```bash
-php -S localhost:8000 -t www
-```
-
-Your application should look like this:
-
-![Homepage](https://cdn.auth0.com/blog/nette/homepage.png)
-_Homepage_
-
-![Tracy debug bar - Homepage](https://cdn.auth0.com/blog/nette/tracydisplay.png)
-_Tracy in action_
-
-![Tracy debug bar - System Info](https://cdn.auth0.com/blog/nette/displaysysteminfo.png)
-
-Check out Tracy in action. Very easy to know the memory consumption stats and execution time.
-
-## Setting Up Authentication With Auth0
+## Aside: Passwordless Authentication With Auth0
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Nette apps by using Auth0. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now.
+Auth0 also supports passwordless authentication. In Auth0's SMS authentication, users enter their phone number into a login field:
 
-> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
+![sms-lock](https://cdn.auth0.com/blog/sms-authentication/sms-lock.png)
 
-* Navigate to the Auth0 [management dashboard](https://manage.auth0.com/).
-* Create a new client and select the type of app as `Regular Web Applications`.
+Users then receive a text message with a one-time password:
 
-    ![Create a new client](https://cdn.auth0.com/blog/nette/createclient.png)
+![auth0-sms](https://cdn.auth0.com/blog/sms-authentication/auth0-sms.png)
 
-* Take note of the *client_id*, *domain*, and *secret*. You'll need it soon.
+And then have five minutes to input that password into the app:
 
-    ![Client details](https://cdn.auth0.com/blog/nette/clientdetails.png)
+![sms-confirmation](https://cdn.auth0.com/blog/sms-authentication/sms-confirmation.png)
 
+If this is a user’s first time logging in, a new account is created for their phone number. If their phone number matches an existing account, they are authenticated and logged into that account.
 
-### Step 1: Install and Configure Auth0 PHP package
+Integrating is as simple as including the `lock-passwordless` script and invoking it like so:
 
-Go ahead and install the [official Auth0 PHP Plugin](https://github.com/auth0/auth0-php) via composer.
-
-```bash
- composer require auth0/auth0-php
 ```
+ <button id="signin-sms">Login</button>
 
-### Step 2: Register Auth0 as a Nette Service
-
-Head over to `app/config/config.neon` and add the following under `services:`:
-
-```bash
-auth0: Auth0\SDK\Auth0([
-    'domain' : '{AUTH0_TENANT_DOMAIN}',
-    'client_id' : '{AUTH0_REGULAR_WEBSITE_CLIENT_ID}',
-    'client_secret' : '{AUTH0_REGULAR_WEBSITE_CLIENT_SECRET}',
-    'redirect_uri' : 'http://localhost:8000/callback',
-    'persist_user' : false,
-    'store': false
-    'debug' : true
-  ])
-```
-
-We need to create a new presenter, `AuthenticationPresenter` to handle our authentication logic.
-
-_app/presenters/AuthenticationPresenter.php_
-
-```php
-<?php
-
-namespace App\Presenters;
-
-use \Tracy\Debugger;
-use \Nette\Http\IResponse;
-use \Nette\Application\UI\Presenter;
-use \Nette\Application\BadRequestException;
-use \Nette\Security\AuthenticationException;
-
-class AuthenticationPresenter extends Presenter {
-
-  /** @var \Auth0\SDK\Auth0 @inject */
-  public $auth0;
-
-  public function actionLogin() {
-    $this->auth0->login();
-  }
-
-  public function actionLogout() {
-    $this->auth0->logout();
-    $this->getUser()->logout();
-
-    $this->redirect('Homepage:');
-  }
-
-  public function actionCallback($code) {
-    try {
-      $this->getUser()->login($code);
-
-      $this->redirect('Homepage:');
-    } catch (AuthenticationException $e) {
-      Debugger::log($e, Debugger::ERROR);
-      throw new ForbiddenRequestException('User not authenticated', IResponse::S403_FORBIDDEN, $e);
+  <script src="//cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
+  <script type="text/javascript">
+    document.getElementById('signin-sms').onclick = function () {
+      var pwdless = new Auth0LockPasswordless('client-id', 'app-domain');
+      pwdless.sms(function (err, profile, id_token) {
+        // Passwordless Authentication handler
+      });
     }
-  }
-
-}
+  </script>
 ```
 
-In the code above, you can see that the Auth0 service is being injected into the presenter using the `@inject` annotation. The `actionLogin` method is responsible for invoking the login function that will redirect the user to Auth0 hosted login page.
-
-The `actionLogout` method is responsible for clearing the sessions and any Auth0 data stored in the app. It logs the user out and redirects back to the home page.
-
-The `actionCallback` method is responsible for handling the authentication flow. When the authentication is successful from Auth0, it performs a client credential exchange and returns an authorization code.
-
-### Step 3: Configure Auth0 Authenticator
-
-Head over to `app/config/config.neon` and add the following under `services:`:
-
-```bash
-services:
-  auth0Authenticator: App\Model\Auth0Authenticator
-```
-
-Now, create a `model/Auth0Authenticator.php` file inside the `app` directory.
-
-Add code to the file like this:
-
-```php
-<?php
-
-namespace App\Model;
-
-use \Tracy\Debugger;
-use \Auth0\SDK\Auth0;
-use \Nette\Security\Identity;
-use \Nette\Security\IIdentity;
-use \Nette\Security\IAuthenticator;
-use \Nette\Security\AuthenticationException;
-
-class Auth0Authenticator implements IAuthenticator {
-
-  /** @var \Auth0\SDK\Auth0 */
-  private $auth0;
-
-  public function __construct(Auth0 $auth0) {
-    $this->auth0 = $auth0;
-  }
-
-  /**
-   *  @param $args[0] Authorization Code
-   *  @throws AuthenticationException
-   */
-  public function authenticate(array $args) : IIdentity {
-    if (sizeof($args) > 0 && !empty($args[0])) {
-      $code = $args[0];
-
-      if ($this->auth0->exchange()) {
-        return new Identity($this->auth0->getUser()['email'], NULL, $this->auth0->getUser());
-      } else {
-        throw new AuthenticationException('Auth0 code not exchanged successfully; user not authenticated.');
-      }
-    } else {
-      throw new AuthenticationException('Auth0 code not provided; user not authenticated.');
-    }
-  }
-
-}
-```
-
-This is where the credentials exchange happen, and the user info is gotten from Auth0 and injected into Nette via the Identity class.
-
-### Step 4: Configure Routing
-
-The default login and logout routes are `/authentication/login`, and `/authentication/logout` respectively. We'll change them to `/login` and `/logout` respectively.
-
-Open up `app/router/RouterFactory.php` and add the following routes:
-
-```php
-...
-$router[] = new Route('login', 'Authentication:login');
-$router[] = new Route('logout', 'Authentication:logout');
-$router[] = new Route('callback', 'Authentication:callback');
-$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
-```
-
-We also added the `callback` route.
-
-**Note:** Head over to your Auth0 client and configure the callback route in **Allowed Callback URLs**.
-
-![Add Callback Route](https://cdn.auth0.com/blog/nette/callback.png)
-_Add Callback Route_
-
-### Step 5: Configure The View
-
-Head over to `app/presenters/templates/Homepage/default.latte` and replace everything with the code below:
-
-
-{% highlight html %}
-{% raw %}
-{block content}
-    <h1 n:block="title"></h1>
-
-    <div class="container">
-      <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-            {if $user->isLoggedIn()}
-            <div class="panel panel-info">
-              <div class="panel-heading">You are now logged in, {$user->getIdentity()->nickname} </div>
-            </div>
-            {/if}
-            <div class="panel panel-success">
-              <div class="panel-heading">List of Game of Thrones Characters</div>
-              {if $user->isLoggedIn()}
-                <table class="table">
-                    <tr>
-                        <th>Character</th>
-                        <th>Real Name</th>
-                    </tr>
-                    {foreach $characters as $key => $value}
-                      <tr>
-                        <td>{$key}</td><td>{$value}</td>
-                      </tr>
-                    {/foreach}
-                </table>
-              {/if}
-            </div>
-            {if !$user->isLoggedIn()}
-              <a href="{link Authentication:login}" class="btn btn-info"> You need to login to see the list 😜😜 >></a>
-            {/if}
-            {if $user->isLoggedIn()}
-              <a href="{link Authentication:logout}" class="btn btn-info"> Logout >></a>
-            {/if}
-          </div>
-      </div>
-    </div>
-{/block}
-{% endraw %}
-{% endhighlight %}
-
-In the code above, we have some variables and function call:
-
-* `$user->isLoggedIn()`: The `$user` variable is an [object](https://api.nette.org/2.4/Nette.Security.User.html) that is injected into the templates by default from Nette presenters and components. It represents the user. There are methods that can be called on it such as `isLoggedIn`, `login`, `logout`, etc. Here, we use to determine if the user is logged in or not.
-* `$user->getIdentity()->nickname`: The `$user->getIdentity()` function call is used to get the identity of the user. Identity represents a set of user information, as returned by the authenticator in use. In our app, we used a custom authenticator, _auth0Authenticator_. And that gives us the full range of [user information](https://auth0.com/docs/user-profile) that Auth0 returns. Therefore, we can access every Auth0 user attribute like so:
-
-```bash
-$user->getIdentity()->nickname // returns user name
-$user->getIdentity()->email // returns user email
-```
-
-**Note:** Check out [Nette's Access control](https://doc.nette.org/en/2.4/access-control) for a deeper understanding of how the user object works.
-
-### Step 6: Run Your App
-
-Now that everything is in place, go ahead and run your app.
-
-![Homepage](https://cdn.auth0.com/blog/nette/start.png)
-_Homepage_
-
-![About to Login](https://cdn.auth0.com/blog/nette/hostedlogin.png)
-_Auth0 Hosted Login_
-
-![LoggedIn](https://cdn.auth0.com/blog/nette/loggedin.png)
-_User is logged in_
+Check out how to authenticate users using passwordless on [Single Page Apps](https://auth0.com/docs/connections/passwordless#passwordless-on-single-page-apps), [Regular Web Apps](https://auth0.com/docs/connections/passwordless#passwordless-on-regular-web-apps), [iOS](https://auth0.com/docs/connections/passwordless#passwordless-on-ios) and [Android](https://auth0.com/docs/connections/passwordless#passwordless-on-android).
 
 ## Wrapping Up
 
-Well done! You have just built your first app with Nette. It focuses on simplicity, clarity and getting work done. As we saw in this tutorial, you can easily add authentication to your Nette apps.
+Well done! You have learned how to authenticate users using phone numbers with Firebase. You should know that phone numbers that end users provide for authentication will be sent and stored by Google to improve their spam and abuse prevention across Google services, including but not limited to Firebase.
 
-This tutorial is designed to help you get started on building and adding authentication to your own apps with the Nette framework. You can leverage the knowledge gained here to build bigger and better apps.
+As developers, you should ensure they have appropriate end-user consent prior to using the Firebase Authentication phone number sign-in service.
+
+One more thing. To prevent abuse, Firebase enforces a limit on the number of SMS messages that can be sent to a single phone number within a period of time. If you exceed this limit, phone number verification requests might be throttled. If you encounter this issue during development, use a different phone number for testing, or try the request again later.
 
 Please, let me know if you have any questions or observations in the comment section. 😊
