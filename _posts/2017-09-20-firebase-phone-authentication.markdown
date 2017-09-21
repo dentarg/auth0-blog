@@ -13,16 +13,16 @@ design:
   bg_color: "#23588C"
   image: https://cdn.auth0.com/blog/nette/logo.png
 tags:
-- nette
-- api
-- jwts
+- firebase
+- phone
+- passwordless
 - authentication
 - web-app
 - auth0
 related:
-- 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
-- 2016-07-26-creating-your-first-symfony-app-and-adding-authentication
-- 2017-06-01-creating-your-first-cakephp-app
+- 2016-05-14-how-passwordless-sms-authentication-can-improve-your-app
+- 2016-01-27-setting-up-passwordless-authentication-with-the-auth0-dashboard
+- 2017-04-21-facebook-account-kit-passwordless-authentication
 ---
 
 ---
