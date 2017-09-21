@@ -137,7 +137,7 @@ A few things to note:
 
 Now that you've seen the basics, let's go into a more advanced use case and see where Webtasks really shines. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create tasks that have multiple routes, use connect middleware, etc. 
 
-Let's add a new endpoint to our service that will serve up a webpage that we can use send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a `pug` template with a form to collect the phone number and messag. The second endoint will be posted to from the form and use `Nexmo` to send an SMS message.
+Let's add a new endpoint to our service that will serve up a webpage that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a `pug` template with a form to collect the phone number and messag. The second endoint will be posted to from the form and use `Nexmo` to send an SMS message.
 
 ### Configure the new handler and variables
 
