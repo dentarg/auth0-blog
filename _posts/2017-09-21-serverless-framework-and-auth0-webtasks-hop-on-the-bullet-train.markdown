@@ -2,7 +2,7 @@
 layout: post_extend
 title: "Serverless and Auth0 Webtasks, hop on the bullet train"
 description: "Learn how you can use the Serverless Framework and Auth0 Webtasks with the new Serverless Webtasks plugin."
-date: 2017-09-20 10:21
+date: 2017-09-21 10:21
 is_extend: true
 category: Extend, Webtask, Serverless
 author:
