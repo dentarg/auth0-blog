@@ -327,10 +327,7 @@ functions:
 $ 
 ```
 
-Once the deployment is done, you'll see the URLs for your production endpoints. 
-
-
-
+Once the deployment is done, you'll see the URLs for your production endpoints. Combining stages with Github branches, gives you the power to implement you dev/test/prod worksflows.
 
 ## Next steps
 This is just the tip of the iceberg. You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). 
