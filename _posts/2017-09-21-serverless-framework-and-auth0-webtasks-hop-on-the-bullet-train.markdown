@@ -54,20 +54,8 @@ Let's walk through the setup which is just a few steps.  Getting started with Se
 $ npm install -g serverless
 ```
 
-### Create an account with Auth0 Webtasks
-Use the following command to setup your account.
-
-```
-$ serverless config credentials --provider webtasks
-```
-
-You will be asked to supply a phone number or email. Once you do you'll get sent a verification code. Enter the code and you are **DONE** with the setup! 
-
-Didn't I say it was simple?
-
-## Hello Webtasks
 ### Create a new service
-Now that Auth0 Webtasks is configured, you can create your first service using the new `webtask-nodejs` template.
+Now that serverless is installed, you can create your first service using the new `webtask-nodejs` template.
 
 ```
 $ serverless create --template webtasks-nodejs --path my-service
@@ -80,6 +68,17 @@ Now install the packages, which will bring down the serverless-webtasks plugin.
 ```
 $ npm install
 ```
+
+### Create an account with Auth0 Webtasks
+Use the following command to setup your account.
+
+```
+$ serverless config credentials --provider webtasks
+```
+
+You will be asked to supply a phone number or email. Once you do you'll get sent a verification code. Enter the code and you are **DONE** with the setup! 
+
+Didn't I say it was simple?
 
 ### Deploy
 Go deploy the service.
