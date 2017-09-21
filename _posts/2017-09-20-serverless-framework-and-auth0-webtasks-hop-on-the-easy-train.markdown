@@ -166,7 +166,7 @@ plugins:
 ```
 
 ## Sign up for Nexmo and set secrets
-You'll need a Nexmo account. You can sign up for a free on [here](https://dashboard.nexmo.com/sign-up). Once you've signed up, you'll be able to log in to the dashboard. From there you can grab your `api_key` and `api_secret` and `from` values from the curl snippet.
+You'll need a Nexmo account. You can sign up for a free trial account [here](https://dashboard.nexmo.com/sign-up). Once you've signed up, you'll be able to log in to the dashboard. From there you can grab your `api_key` and `api_secret` and `from` values from the curl snippet.
 
 Create a new secrets.yml file in the root of your service, and the three key/values pairs you copied from Nexmo. The file should look similar to the following.
 
