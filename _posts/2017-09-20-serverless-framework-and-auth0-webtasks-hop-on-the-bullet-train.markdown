@@ -30,23 +30,23 @@ If you are developing solutions using Serverless architecture then there's a goo
 
 Initially Serverless was only available for AWS Lambda. Recently times have changed, and you can now use Serverless for a growing list of providers. 
 
-Today we're announcing the new [Auth0 Webtasks](https:/webtask.io) plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) paid subscription. In this post I'll show you can use the new plugin to rapidly develop at maximum velocity. 
+Today we're announcing the new [Auth0 Webtasks](https:/webtask.io) plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) paid subscription. In this post, I'll show you can use the new plugin to develop at maximum velocity. 
 
 *Note*: The Sandbox has a soft limit of 1 execution per second (eps)
 
 ## Why
-For a while we've been getting requests to enable using Auth0 Webtasks with Serverless, including from the Serverless team. The main reasons we heard, are the same reasons developers love to use Webtasks:
+For a while, we've been getting requests to enable using Auth0 Webtasks with Serverless, including from the Serverless team. The main reasons we heard, are the same reasons developers love to use Webtasks:
 
-* It is really easy to ramp up with.
-* Ultra fast deployment. 
+* It is effortless to ramp up.
+* Ultra-fast deployment. 
 * Simple to use.
 * Great HTTP fidelity, really simple to deploy Webhooks or create simple APIs.
 * Low latency.
 * It is free! 
 
-The ramp up is something we heard was particularly attractive. In fact, some went so far as to say we'd have the best ramp up ever for Serverless! We think they are right.
+The ramp-up is something we heard was particularly attractive. In fact, some went so far as to say we'd have the best ramp-up ever for Serverless! We think they are right.
 
-## The Ramp up
+## The Ramp-up
 Let's walk through the setup which is just a few steps.  Getting started with Serverless and Auth0 Webtasks is simple as simple can be:
 
 ### Install the latest version of the Serverless framework: 
@@ -67,7 +67,7 @@ Didn't I say it was simple?
 
 ## Hello Webtasks
 ### Create a new service
-Now that Auth0 Webtasks is configured, you can go create your first service using the new `webtask-nodejs` template.
+Now that Auth0 Webtasks is configured, you can create your first service using the new `webtask-nodejs` template.
 
 ```
 $ serverless create --template webtasks-nodejs --path my-service
@@ -75,7 +75,7 @@ $ serverless create --template webtasks-nodejs --path my-service
 
 This will scaffold out a basic service in the `my-service` directory: `handler.js`, `serverless.yml` and `package.json`.
 
-Now go install the packages, which will bring down the serverless-webtasks plugin.
+Now install the packages, which will bring down the serverless-webtasks plugin.
 
 ```
 $ npm install
@@ -88,7 +88,7 @@ Go deploy the service.
 $ serverless deploy
 ```
 
-Within _seconds_ you should get a response indicating your service has been deployed. Just look at how fast it deployed when I measured with the `time` command.
+Within _seconds_ you should get a response indicating your service is deployed. I measured the deployment with the `time` command, look how fast it was!
 <p align="center"><img width="75%" src="https://cdn.auth0.com/website//blog/extend/serverless/deploy_time"/></p>
 ### Invoke the service
 With the service deployed you can now invoke it.
@@ -130,9 +130,9 @@ A few things to note:
 * The callback object is a standard node callback, which you invoke to tell Webtask the request has completed.
 
 ## Going further with Express, Pug and Nexmo.
-Now that you've seen the basics, let's go into a more advanced use case and see where Webtasks really shine. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create handlers that have multiple routes, use connect middleware, etc. 
+Now that you've seen the basics, let's go into a more advanced use case where Webtasks really shine. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create handlers that have multiple routes, use connect middleware, etc. 
 
-Let's add a new endpoint to our service that will serve up a webpage that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a Pug` template with a form to collect the phone number and message. The second endpoint will be posted to from the form and use Nexmo's messaging service to send an SMS message.
+Let's add a new endpoint to our service that will serve up a web page that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a Pug` template with a form to collect the phone number and message. The second endpoint will be posted to from the form and use Nexmo's messaging service to send an SMS message.
 
 ### Configure the new handler and variables
 Open up the serverless.yml file and add a new handler called `smssend`. Also configure the environment to read from a new secrets.yml file that you are going to create in the root.
@@ -160,7 +160,7 @@ plugins:
 ```
 
 ## Sign up for Nexmo and set secrets
-You'll need a Nexmo account. You can sign up for a free trial account [here](https://dashboard.nexmo.com/sign-up). Once you've signed up, you'll be able to log in to the dashboard. From there you can grab your `api_key` and `api_secret` and `from` values from the curl snippet.
+You'll need a Nexmo account. You can sign up for a free trial account [here](https://dashboard.nexmo.com/sign-up). Once you've signed up, you'll be able to log in the dashboard. From there you can grab your `api_key` and `api_secret` and `from` values from the curl snippet.
 
 Create a new secrets.yml file in the root of your service, and the three key/values pairs you copied from Nexmo. The file should look similar to the following.
 
@@ -269,14 +269,14 @@ Here is what the code is doing at a high level:
 
 * Initializes modules, creates an express app, and configures the body-parser middleware.
 * Defines the root route. The handler calls a function which uses `pug` to render the page. 
-* Defines the send route. The handler accesses the `context` to grab the secrets that were previously defined in the `secrets.yml` file which hang off the `secrets` object. Next the Nexmo object is initialized and invoked to send the SMS. HTML Output is returned to the user to inform whether or not the send was successful.
+* Defines the send route. The handler accesses the `context` to grab the secrets that were previously defined in the `secrets.yml` file. Next, the Nexmo object is initialized and invoked to send the SMS. HTML Output is returned to the user to inform whether or not the send was successful.
 
 ## Deploy and Run
 ```
 serverless deploy
 ```
 
-After deploying you should see that multiple endpoints have been created.  The `severless-webtasks` plugin allows you have multiple handlers in your service, and will automatically create a separate endpoint / webtask for each one.
+After deploying you should see that multiple endpoints have been created.  The `severless-webtasks` plugin allows you to have multiple handlers for your service, and will automatically create a separate endpoint / webtask for each one.
 
 ```
 $ serverless deploy
@@ -299,16 +299,16 @@ functions:
 $ 
 ```
 
-Copy the url for the `smssend` endpoint and then open your browser and paste it into the address bar. You should see the following form. (I am not a UX developer :-))
+Copy the URL for the `smssend` endpoint and then open your browser and paste it into the address bar. You should see the following form. (I am not a UX developer :-))
 
 ![smspage](https://cdn.auth0.com/website/blog/extend/serverless/smspage.jpg)
 
-Enter in the destination phone number including the country code, and enter a message. Then click "Send". In a few seconds, you should receive an SMS message!
+Enter the destination phone number including the country code, and enter a message. Then click "Send". In a few seconds, you should receive an SMS message!
 
 ![message](https://cdn.auth0.com/website/blog/extend/serverless/sms1.png)
 
 ## Move to Production
-Up until now, you've been deploying to the dev stage, which is the default. Now that you are confident the app works, you can go deploy it to to the prod stage.
+Up until now, you've been deploying to the dev stage, which is the default. Now that you are confident the app works, you can deploy it to to the prod stage.
 
 ```
 $ serverless deploy --stage prod
@@ -333,7 +333,7 @@ $
 Once the deployment is done, you'll see the URLs for your production endpoints. Combining stages with Github branches, gives you the power to implement your own dev/test/prod workflows.
 
 ## Using your Auth0 Extend subscription.
-The freemium Sandbox is great for fairly low-volume / periodic executions (around 1 per second max). If you are a paid Extend customer you have much greater throughput at your disposal and you can use your subscription with the new plugin. To do this, first install wt-cli.
+The freemium Sandbox is great for fairly low-volume / periodic executions (around 1 per second max). If you are a paid Extend customer, you have much greater throughput at your disposal and you can use your subscription with the new plugin. To do this, first install wt-cli.
 
 ```
 npm install wt-cli -g
@@ -348,7 +348,7 @@ wt init -p {profile-name} \
   --container {webtask_container}
 ```
 
-Once your profile is created, you can configure your service to deploy using that profile. Open your `serverless.yml` file and add your profile under the webtasks provider.
+Once you have created your profile, you can configure your service to deploy using that profile. Open your `serverless.yml` file and add your profile under the webtasks provider.
 
 ```
 provider: webtasks
@@ -369,19 +369,11 @@ This is just the tip of the iceberg of what you can do with the new `severless-w
 * payment processing with stripe
 * ...(use your imagination)
 
-Go check out his post which includes additional resources, several videos, and more! In the videos you'll also learn how you can use scheduled events.
+Go check out his post which includes additional resources, several videos, and more! In the videos, you'll also learn how you can use scheduled events.
 
 You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). The plugin is open source, and you can grab the source, file bugs, or contribute (PRs welcome!) in our repo [here](https://github.com/auth0/serverless-webtasks). To learn more about Auth0 Webtasks, head over to [https://webtask.io].
 
+Special thanks to David Wells, and the rest of the Serverless team for helping us make this a reality!
+
 Let us know about your experience with using Auth0 Webtasks and Serverless!
-
-
-
-
-
-
-
-
-
-
 
