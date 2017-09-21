@@ -59,9 +59,9 @@ Use the following command to setup your account.
 $ serverless config credentials --provider webtasks
 ```
 
-You will be asked to supply a phone number or email. Once you do you'll get sent a verification code. Enter the code and you are *Done* with the setup! 
+You will be asked to supply a phone number or email. Once you do you'll get sent a verification code. Enter the code and you are **DONE** with the setup! 
 
-How was that for easy?
+Didn't I say it was simple?
 
 ## Hello Webtasks
 ### Create a new service
