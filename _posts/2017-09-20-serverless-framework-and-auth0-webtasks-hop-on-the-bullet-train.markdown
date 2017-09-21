@@ -24,16 +24,16 @@ related:
   - 2017-09-11-why-is-serverless-extensibility-better-than-webhooks
 ---
 
-<img width="50%" src="https://cdn.auth0.com/website/blog/extend/serverless/bullet_train.jpg"/>
+<img width="75%" src="https://cdn.auth0.com/website/blog/extend/serverless/bullet_train.jpg"/>
 
 If you are developing solutions using Serverless architecture than there's a good chance you've heard of the [Serverless Framework](https://serverless.com/). Serverless provides a tool that makes it much easier for you to deploy functions to the cloud, by handling all the setup and plumbing for you.
 
-Initally Serverless was only available for AWS. Recently times have changed, and you can now use Serverless for a growing list of providers. 
+Initally Serverless was only available for AWS Lambda. Recently times have changed, and you can now use Serverless for a growing list of providers. 
 
-Today we're announcing the new Auth0 Webtasks plugin for Serverless! In this post I'll show you how to use the new plugin to develop at maxium velocity. 
+Today we're announcing the new Auth0 Webtasks plugin for Serverless! You can use it with our freemium Sandbox, or with your [Auth0 Extend](https://auth0.com/extend) subscription. In this post I'll show you how to use the new plugin to rapidly develop at maximum velocity. 
 
 ## Why
-For a while we've been getting requests to enable using Auth0 Webtasks with Serverless. The main reasons we heard, are the same reasons developers love to use Webtasks in the first place:
+For a while we've been getting requests to enable using Auth0 Webtasks with Serverless, including from the Serverless team. The main reasons we heard, are the same reasons developers love to use Webtasks:
 
 * It is really easy to ramp up with.
 * Ultra fast deployment. 
@@ -42,10 +42,10 @@ For a while we've been getting requests to enable using Auth0 Webtasks with Serv
 * Low latency.
 * It is free! 
 
-The ramp up is something the community told us was particularly attractive. In fact, some went so far as to say we'd be the best ramp up ever for Serverless! We think they are right.
+The ramp up is something we heard was particularly attractive. In fact, some went so far as to say we'd have the best ramp up ever for Serverless! We think they are right.
 
 ## The Ramp up
-Let's walk through the setup. It is just 15 steps. **NOT!**  Getting started with Serverless and Auth0 Webtasks is simple as simple can be:
+Let's walk through the setup which is just a few steps.  Getting started with Serverless and Auth0 Webtasks is simple as simple can be:
 
 ### Install the latest version of the Serverless framework: 
 ```
@@ -59,7 +59,7 @@ Use the following command to setup your account.
 $ serverless config credentials --provider webtasks
 ```
 
-You will be asked to supply a phone number or email. Once you do you'll get sent an verification code. Enter the code and you are *Done* with the setup! 
+You will be asked to supply a phone number or email. Once you do you'll get sent a verification code. Enter the code and you are *Done* with the setup! 
 
 How was that for easy?
 
@@ -130,7 +130,7 @@ A few things to note:
 ## Going further with Express, Pug and Nexmo.
 Now that you've seen the basics, let's go into a more advanced use case and see where Webtasks really shines. As I mentioned earlier, Webtasks give you strong HTTP fidelity. You can even use `Express` to create tasks that have multiple routes, use connect middleware, etc. 
 
-Let's add a new endpoint to our service that will serve up a webpage that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a `pug` template with a form to collect the phone number and messag. The second endoint will be posted to from the form and use `Nexmo` to send an SMS message.
+Let's add a new endpoint to our service that will serve up a webpage that we can use to send an SMS message. We'll use `Express` to create a webtask that has 2 routes. The first will render a Pug` template with a form to collect the phone number and message. The second endpoint will be posted to from the form and use Nexmo's messaging service to send an SMS message.
 
 ### Configure the new handler and variables
 Open up the serverless.yml file and add a new handler called `smssend`. Also configure the environment to read from a new secrets.yml file that you are going to create in the root.
@@ -328,6 +328,9 @@ $
 ```
 
 Once the deployment is done, you'll see the URLs for your production endpoints. 
+
+
+
 
 ## Next steps
 This is just the tip of the iceberg. You can find out more on the plugin in the Serverless [documentation](https://www.serverless.com/framework/docs/providers/webtasks/guide/intro). 
