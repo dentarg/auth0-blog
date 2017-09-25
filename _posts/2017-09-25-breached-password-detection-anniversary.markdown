@@ -57,5 +57,5 @@ This level of protection, bolstered by additional Auth0 measures like [Single Si
 
 What are you waiting for? 
 
-**Contact us today to learn more about how you can protect your data and customers with Breached Password Detection.**
+Try Auth0 for free today to learn more about how you can protect your data and customers with Breached Password Detection.
 
