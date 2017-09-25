@@ -29,7 +29,7 @@ related:
 
 ---
 
-This is **Part 2** of our 2-part tutorial. [RxJS Advanced Tutorial Part 1](https://auth0.com/blog/rxjs-advanced-tutorial-with-angular-web-speech-part-1) covered the following:
+This is **Part 2** of our 2-part tutorial. [RxJS Advanced Tutorial With Angular & Web Speech: Part 1](https://auth0.com/blog/rxjs-advanced-tutorial-with-angular-web-speech-part-1) covered the following:
 
 * Introduction to reactive programming with Rx* and observables
 * Setting up our Angular app
