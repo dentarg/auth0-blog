@@ -38,7 +38,7 @@ Another alarming breach was recently uncovered: a new, highly sophisticated spam
 
 Millions of emails and passwords are compromised every day, as clearly evident by Onliner, and yet there is a very simple solution that can avert this cyber-crisis or dramatically mitigate its disastrous effects: **[Breached Password Detection](https://auth0.com/breached-passwords).** 
 
-![Breached-Password-Getty-Image] (https://cdn.auth0.com/blog/breached-password/secondary.jpg)
+![Breached Passwords Getty-Image](https://cdn.auth0.com/blog/breached-password/secondary.jpg)
 
 ##Breached Password Detection
 Auth0’s Breached Password Detection just celebrated its [one-year anniversary](https://auth0.com/blog/announcing-password-breach-detection/), and in the past year alone has protected millions of passwords. Our continuously-updated database of breached credentials containing hundreds of millions of entries serves as the clearinghouse for the legitimacy of any password-based logins. Any matches are denied and blocked in real-time; and users are instantly alerted to the attempt, forcing them to change their passwords immediately. 
