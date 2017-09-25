@@ -26,7 +26,7 @@ related:
 
 [On September 24, 2017 Gigya announced that they will be acquired by SAP](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/). [Gigya](http://gigya.com) offers a Customer Identity and Access Management (IAM) platform. [SAP](https://www.sap.com/index.html) is buying Gigya to enhance its [Hybris Profile service](https://www.yaas.io/products/saphybrisprofile.html). Gigya currently manages 1.3 billion customer identities.
 
-![SAP acquires Gigya](/Users/kimmaida-auth0/Documents/Auth0/Blog/External Requests/gigya assets/gigya.jpg)
+![SAP acquires Gigya](https://cdn.auth0.com/blog/gigya/gigya.jpg)
 
 With this news, Gigya customers should be very interested in learning more about SAP's plans for an integration strategy. The acquisition announcement stated the following:
 
@@ -56,7 +56,7 @@ An Auth0 **Client** represents your application and allows use of Auth0 for user
 
 Doing so will present a screen like the one pictured below:
 
-![Auth0 new client form](/Users/kimmaida-auth0/Documents/Auth0/Blog/External Requests/gigya assets/new-client.jpg)
+![Auth0 new client form](https://cdn.auth0.com/blog/gigya/new-client.jpg)
 
 Enter a **Name** for your Client and [select the type of technology](https://auth0.com/docs/clients#client-types), then click the **Create** button.
 
@@ -68,7 +68,7 @@ At this stage, there are two options to move your Gigya database contents into A
 
 If you'd like to import your users to Auth0, the next step is to create a database. You can click the **Connections** > **Database** item in the sidebar of the Dashboard, or visit [the Database section of the Dashboard directly via this link](https://manage.auth0.com/#/connections/database). Click the **+ CREATE DB CONNECTION** button to create a new database in Auth0. You will be presented with the following screen:
 
-![New Auth0 database connection](/Users/kimmaida-auth0/Documents/Auth0/Blog/External Requests/gigya assets/new-db.jpg)
+![New Auth0 database connection](https://cdn.auth0.com/blog/gigya/new-db.jpg)
 
 Fill in your desired database **Name** and other settings you would like and click the **Create** button. You will then be presented with the settings for your new database.
 
@@ -90,7 +90,7 @@ You can now import users one of two different ways. First we'll cover using an A
 
 Once the extension is installed, you can click it to open an import/export interface that looks something like this:
 
-![Auth0 user import/export extension](/Users/kimmaida-auth0/Documents/Auth0/Blog/External Requests/gigya assets/import-users-ext.jpg)
+![Auth0 user import/export extension](https://cdn.auth0.com/blog/gigya/import-users-ext.jpg)
 
 You can now drag your export JSON file into the designed upload area and select the database you created earlier. Click the **Start Importing Users** button and your import will be underway.
 
@@ -98,7 +98,7 @@ You can now drag your export JSON file into the designed upload area and select 
 
 As an alternative option to using the User Import/Export extension, you can follow the instructions in the **[Bulk Import Users to Auth0 documentation](https://auth0.com/docs/tutorials/bulk-importing-users-into-auth0)** to leverage the [Auth0 Management API](https://auth0.com/docs/api/management/v2) to create a **[job to add your users to your database](https://auth0.com/docs/api/management/v2#!/Jobs/post_users_imports)**. Simply upload your exported users JSON file and fill in the provided form to generate a curl command to import users:
 
-![Auth0 management API import users create job](/Users/kimmaida-auth0/Documents/Auth0/Blog/External Requests/gigya assets/import-users-api.jpg)
+![Auth0 management API import users create job](https://cdn.auth0.com/blog/gigya/import-users-api.jpg)
 
 ## Set Up Automatic Migration From Gigya to Auth0
 
