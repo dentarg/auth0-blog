@@ -2,8 +2,8 @@
 layout: post
 title: "Breached Password Detection: Protect Your Users’ Data Before It’s Too Late"
 description: "Recent breach affecting up to 711M email addresses shows critical need for protection and detection."
-date: 2017-09-15 17:34
-category: Product
+date: 2017-09-25 17:34
+category: Product, Features, Breached Password Detection
 is_non-tech: true
 author:
   name: Jeana Tahnk
@@ -26,6 +26,8 @@ related:
 No business is immune to the threat of breached passwords and devastating hacks. We’ve seen it one too many times with the [largest businesses](https://auth0.com/blog/data-breaches-by-the-numbers/) in the world falling victim to database leaks — Yahoo, eBay, Target, and most recently, [Equifax](https://auth0.com/blog/equifax-data-breach/), possibly one of the largest breaches in history. Cyber criminals hacked into the Equifax database, stealing names, social security numbers, birth dates, addresses, and private information of up to **143M people**. As a result, Equifax now faces a [multibillion dollar lawsuit](https://www.bloomberg.com/news/articles/2017-09-08/equifax-sued-over-massive-hack-in-multibillion-dollar-lawsuit) for its negligence. 
 
 There’s no denying that the impact of any database hack is crushing, both financially and for customer trust. 
+
+![Breached Passwords Counter](https://cdn.auth0.com/blog/breached-passwords/counter.png)
 
 Another alarming breach was recently uncovered: a new, highly sophisticated spambot called **Onliner** that has infiltrated systems worldwide, targeting a whopping **711M email addresses**. Troy Hunt, a Microsoft developer, well-known security researcher and creator of [haveibeenpwned.com](https://haveibeenpwned.com/) (HIBP), outlined the insidious nature of this spambot in a [recent blog post](https://www.troyhunt.com/inside-the-massive-711-million-record-onliner-spambot-dump/) that highlights the diversity of the data that was breached. Notable examples, like: 
 
