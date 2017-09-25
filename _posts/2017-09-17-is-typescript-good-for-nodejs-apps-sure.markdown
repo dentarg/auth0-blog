@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Is TypeScript Good for Nodejs Web Apps? Sure, Meet Nest!"
+title: "TypeScript on Node.js Web Apps? Yes, Meet Nest!"
 description: ""
 date: 2017-09-17 00:21
 category: Technical Guide
@@ -24,12 +24,9 @@ TL;DR:
 
 ## Nest? Is it a new Framework?
 
-## Nest Build Blocks
+## Nest Building Blocks
 
 ### Controllers
-
-Controllers, on Nest, are the objects responsible for handling incoming requests. As we will see, controllers are classes
-
 ### Components
 ### Modules
 ### Middlewares
@@ -38,39 +35,26 @@ Controllers, on Nest, are the objects responsible for handling incoming requests
 ### Guards
 ### Interceptors
 
-## Bootstrapping a Nest Application
+## Building a Nest Application
 
-Three alternatives: cloning GitHub repository, https://github.com/nestjs/nest-cli, or
+Now that we understand the building blocks available on Nest, let's create a small application with this framework. Through this app, we will be able to see some of the core concepts of Nest in action.
 
-- npm install
-- ./src/modules/app.module.ts
-- ./src/server.ts
-- ./index.js
-- ./tsconfig.json
-- tslint.json
+Nest provides two easy ways to start a new application. We could clone [the Nest TypeScript Starter project available on GitHub](https://github.com/kamilmysliwiec/nest-typescript-starter), or we could use the [CLI tool for Nest applications](https://github.com/nestjs/nest-cli). Both alternatives are equally good and provide a solid foundation to build apps. Though, as we want to understand how a Nest application is built, we are going to create a new one from scratch.
 
-won't clone or use nest-cli to learn the Nest way.
+### What We'll Build
+
+During this article, we are going to create a small RESTful API that enables users to create, retrieve, update, and delete companies. To keep things simple, we will handle companies without interacting with any external database. That is, we will hold companies in memory just while the application is up and running.
+
+The application, although small, will help us understand from what pieces a Nest application is made of and how these pieces work together. In the end, we will have the same configuration we would get by using the Nest CLI tool or by cloning the starter project.
 
 ## Creating Nest Controllers
 
 ### Handling Get Requests on Nest
-
 ### Handling Post Requests on Nest
-
-- install and configure bodyParser
-- import controller on app.module.ts
 
 ## Validating Data on Nest
 
-- install the [`class-validator` package](https://github.com/pleerock/class-validator)
-- create ValidationPipe.ts
-- create HttpExceptionFilter.ts
-
 ## Aside: Securing Nest Applications with Auth0
-
-- Short note about the possibility of creating a Middleware (or anything else) to encapsulate JWT validation.
-- comment on GitHub about that the idea is to release this blog post as soon as possible to see the traction
-- if the community show interest, we can further elaborate securing Nest with Auth0. Who knows, we might even create a OSS module to easily handle this on Nest
 
 ## Final Thoughts
 
