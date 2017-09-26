@@ -20,7 +20,7 @@ tags:
 - javascript
 - web api
 related:
-- 2017-09-20-going-in-depth-with-rxjs-angular-web-speech-part-1
+- 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
 - 2017-06-28-real-world-angular-series-part-1
 - 2017-02-13-making-use-of-rxjs-angular
 ---

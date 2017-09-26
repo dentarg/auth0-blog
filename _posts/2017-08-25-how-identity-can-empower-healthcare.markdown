@@ -4,6 +4,7 @@ title: "How Identity Can Empower Healthcare"
 description: "As healthcare goes digital, identity management can help patients feel safe and secure."
 date: 2017-08-25 17:49
 category: Growth, Industries
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

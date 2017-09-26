@@ -4,6 +4,7 @@ title: "Why Healthcare Is Moving To The Cloud (But Isn't There Yet)"
 description: "Cloud computing is going to revolutionize healthcare"
 date: 2017-09-01 17:34
 category: Growth, Industries
+is_non-tech: true
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto

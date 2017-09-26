@@ -4,6 +4,7 @@ title: "How to Not Get Your Identity Stolen"
 description: "Practical advice for mitigating your risk of identity theft."
 date: 2017-09-08 8:30
 category: Growth, Identity
+is_non-tech: true
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"

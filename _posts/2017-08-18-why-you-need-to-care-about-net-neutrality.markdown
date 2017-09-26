@@ -4,6 +4,7 @@ title: "Why You Need to Care About Net Neutrality"
 description: "The future of the web affects everyone, and here's where it could be headed."
 date: 2017-08-18 8:30
 category: Hot Topics, Trends
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza

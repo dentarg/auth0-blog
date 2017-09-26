@@ -4,6 +4,7 @@ title: "How to Build Documentation That Will Drive Sales"
 description: "Your API documentation can make or break a sale. Learn how to unleash its full potential."
 date: 2017-07-28 8:30
 category: Growth, Industries, Retail
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
