@@ -27,11 +27,44 @@ TL;DR:
 ## Nest Building Blocks
 
 ### Modules
+
+[Modules on Nest.js are the most basic building blocks](http://docs.nestjs.com/modules). Through modules we encapsulate related code that composes our application, like components and controllers. To start Nest.js, we need to inform the root module of our application. Although not needed, breaking an app into multiple modules is advised, as it helps keeping different matters encapsulated.
+
+For example, let's say that we have an application that manages users and their personal finances. Even though personal finances are related to users, we would rather avoid [high coupling](https://en.wikipedia.org/wiki/Coupling_(computer_programming)) between the classes and [low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science)) by splitting them into separate modules.
+
+Defining a module on Nest.js is simple:
+
+```typescript
+import { Module } from '@nestjs/common';
+import { UsersService } from './users.service';
+
+@Module({
+    components: [UsersService],
+    exports: [UsersService]
+})
+export class UsersModule {}
+```
+
+In this case, we are exporting a module called `UsersModule` that contains a single component, `UsersService`. As this component is defined in the `exports` property of the `@Module` decorator, other modules that import `UsersModule` will be able to use it.
+
+To start a new Nest.js application using `UsersModule` as the root module is as simple as calling `NestFactory` like this:
+
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { UsersModule } from './modules/users.module';
+
+async function bootstrap() {
+    const app = await NestFactory.create(UsersModule);
+    await app.listen(3000);
+}
+bootstrap();
+```
+
+Running this code will trigger a Nest.js application and bootstrap all components defined on `UsersModule`.
+
 ### Controllers
 
-As in many other platforms (like [Spring](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-controller) and [ASP.NET](https://msdn.microsoft.com/en-us/library/dd410269(v=vs.98).aspx)), Controllers on Nest.js are responsible for handling HTTP requests.
-
-To define a new controller on a module, we need to:
+As in many other platforms (like [Spring](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-controller) and [ASP.NET](https://msdn.microsoft.com/en-us/library/dd410269(v=vs.98).aspx)), Controllers on Nest.js are responsible for handling HTTP requests. To define a new controller on a module, we need to:
 
 - create a new class
 - decorate the class with `@Controller()`
