@@ -136,6 +136,43 @@ export class CheckoutService {
 ```
 
 ### Middlewares
+
+Whenever we want to act on a request before it reaches a controller, we can create a [`Middleware`](http://docs.nestjs.com/middlewares). On Nest.js, middlewares are classes that implement the [`NestMiddleware` interface](https://github.com/nestjs/nest/blob/master/src/common/interfaces/middlewares/nest-middleware.interface.ts) and that are decorated with `@Middleware()`. This interface expects us to define a concrete implementation of the `resolve` method to return a [Express middleware](https://expressjs.com/en/guide/writing-middleware.html): `(req, res, next) => void`.
+
+Below we can see an example of a middleware that enables [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin):
+
+```typescript
+import { Middleware, NestMiddleware, ExpressMiddleware } from '@nestjs/common';
+
+@Middleware()
+export class CorsMiddleware implements NestMiddleware {
+    resolve(...args: any[]): ExpressMiddleware {
+        return (req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            next();
+        };
+    }
+}
+```
+
+To activate this middleware, we need to make our module implement `NestModule` to provide a concrete method definition of `configure`:
+
+```
+import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
+import { CorsMiddleware } from './cors.middleware';
+
+@Module({})
+export class ApplicationModule implements NestModule {
+    configure(consumer: MiddlewaresConsumer): void {
+        consumer.apply(CorsMiddleware).forRoutes(
+            { path: '/example', method: RequestMethod.GET }
+        );
+    }
+}
+```
+
+In this case, `CorsMiddleware` has been activated only for `GET` requests that aim the `/example` path on our application. [The official documentation provides further explanation on how to use middlewares](http://docs.nestjs.com/middlewares).
+
 ### Exception Filters
 ### Pipes
 ### Guards
