@@ -174,6 +174,52 @@ export class ApplicationModule implements NestModule {
 In this case, `CorsMiddleware` has been activated only for `GET` requests that aim the `/example` path on our application. [The official documentation provides further explanation on how to use middlewares](http://docs.nestjs.com/middlewares).
 
 ### Exception Filters
+
+One great feature provided by Nest.js is the addition of a layer responsible for catching unhandled exceptions. On this layer we can define custom [Exception Filters](http://docs.nestjs.com/exception-filters). To define an exception filter, we have to:
+
+1. create a class that implements the `ExceptionFilter`,
+2. decorate it with `@Catch()`,
+3. and implement the `catch(exception: HttpException, response)` method.
+
+For example, let's suppose that we have a custom exception called `BusinessException`. If we want to provide a default message to users whenever this exception occurs, we can create a exception filter like this:
+
+```typescript
+import { ExceptionFilter, Catch } from '@nestjs/common';
+import { BusinessException } from './business.exception.ts';
+
+@Catch(BusinessException)
+export class BusinessExceptionFilter implements ExceptionFilter {
+  catch(exception: BusinessException, response) {
+    response.status(status).json({
+      message: 'Oh, no! You are not doing business right!',
+    });
+  }
+}
+```
+
+Then we can make a controller use this exception handler by using the `@UseFilters()` decorator:
+
+```typescript
+import { UseFilters } from `@nestjs/common`;
+
+@UseFilters(new BusinessExceptionFilter())
+export class BusinessController {}
+```
+
+Or we can make it a global exception handler by making our app instance use it:
+
+```typescript
+async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+
+  // Adding global exception handler
+  app.useGlobalFilters(new HttpExceptionFilter());
+
+  await app.listen(3000);
+}
+bootstrap();
+```
+
 ### Pipes
 ### Guards
 ### Interceptors
