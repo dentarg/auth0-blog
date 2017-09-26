@@ -108,6 +108,8 @@ The automatic database migration flow is as follows:
 
 ![Auth0 automatic database migration](https://cdn2.auth0.com/docs/media/articles/connections/database/migrating-diagram.png)
 
+You can learn more about this process here: [Migrate A User Database to Auth0](https://auth0.com/learn/migrate-user-database-auth0/).
+
 **This approach requires that the customer's Gigya account and APIs remain active until the migration is complete.** If you're interested in taking this approach, you can set up a Custom Database in Auth0 and enable automatic migration by following the instructions here: **[Auth0: Enable Automatic Migration](https://auth0.com/docs/connections/database/migrating#enable-automatic-migration)**.
 
 ## Conclusion
