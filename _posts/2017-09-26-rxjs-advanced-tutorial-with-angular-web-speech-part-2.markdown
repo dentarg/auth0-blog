@@ -49,7 +49,7 @@ Let's pick up right where we left off.
 
 ## Angular App Keyboard Component
 
-[Not all browsers support speech recognition](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility). If we view our app right now in a browser that doesn't, we'll see nothing but a heading. An app that doesn't work in most browsers isn't useful. Let's make a Keyboard component to use in place of the Listen component so users with unsupported browsers can still create a fun madlib with the Words Form.
+[Not all browsers support speech recognition](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility). If we view our app right now in a browser that doesn't, we'll see nothing but a header. An app that doesn't work in most browsers isn't useful. Let's make a Keyboard component to use in place of the Listen component so users with unsupported browsers can still create a fun madlib using the Words Form component.
 
 {% include tweet_quote.html quote_text="An app that doesn't work in most browsers isn't useful: implement fallbacks for browsers that don't support features." %}
 
