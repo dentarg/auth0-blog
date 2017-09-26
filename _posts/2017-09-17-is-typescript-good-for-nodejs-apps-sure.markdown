@@ -220,10 +220,6 @@ async function bootstrap() {
 bootstrap();
 ```
 
-### Pipes
-### Guards
-### Interceptors
-
 ## Building a Nest Application
 
 Now that we understand the building blocks available on Nest, let's create a small application with this framework. Through this app, we will be able to see some of the core concepts of Nest in action.
