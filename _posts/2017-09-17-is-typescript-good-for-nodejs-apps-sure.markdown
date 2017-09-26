@@ -99,6 +99,42 @@ export class ApplicationModule {}
 ```
 
 ### Components
+
+Nest.js allows developers to create components that can be injected into other components or controllers. A component usually plays one of two roles on Nest.js applications. The first one is the `Service` role, when a component contains some business logic. The second one is the `Repository` role, when a component abstracts away the interaction with databases.
+
+For example, let's say that we have a `Service` that handles checkouts on a store. To allow a checkout to consolidate, the `Service` has to interact with a `Repository` to check if there are enough items on the inventory for the desired product. In this scenario, we would have the `Service` defined as follows:
+
+```typescript
+import { Component } from '@nestjs/common';
+
+@Component()
+export class CheckoutService {
+  constructor(private readonly inventoryRepository: InventoryRepository) {}
+
+  checkout(cart: ShoppingCart) {
+    for (let item of cart.items) {
+      let inventory = this.inventoryRepository.getInventory(item.product);
+      if (inventory.size < item.quantity) {
+        throw new Error("Not enough items");
+      }
+    }
+    // ...
+  }
+}
+```
+
+The `CheckoutService`, in this case, is a `@Component()` that can be injected on a controller or on another component. Besides that, the component itself depends on a repository called `InventoryRepository`. This repository is then used to retrieve the inventory for a specific product, so the service can check if there are enough items to be sold.
+
+As Nest.js heavily uses the [Dependency Injection design pattern](https://angular.io/guide/dependency-injection), it's easy to manage dependencies between the building blocks. We just have to define dependencies in the constructor of a controller or component, and Nest.js will provide an instance for us.
+
+```typescript
+// ...
+export class CheckoutService {
+  constructor(private readonly inventoryRepository: InventoryRepository) {}
+  // ...
+}
+```
+
 ### Middlewares
 ### Exception Filters
 ### Pipes
