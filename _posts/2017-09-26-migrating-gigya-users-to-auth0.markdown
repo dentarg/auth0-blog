@@ -50,7 +50,7 @@ Let's explore how these features work.
 
 ## Set Up Client in Auth0
 
-Once you have an [Auth0 account](javascript:signup\(\)), you will need a [Client](https://auth0.com/docs/clients) and a [Database Connection](https://auth0.com/docs/connections/database).
+You can <a href="javascript:signup()">sign up for a free Auth0 account</a>. Once you have your account, you will need a [Client](https://auth0.com/docs/clients) and a [Database Connection](https://auth0.com/docs/connections/database).
 
 An Auth0 **Client** represents your application and allows use of Auth0 for user authentication. You can create a new Client by signing into your [Auth0 Dashboard](https://manage.auth0.com/#/)  and clicking on the **+ NEW CLIENT** button.
 
@@ -92,7 +92,7 @@ Once the extension is installed, you can click it to open an import/export inter
 
 ![Auth0 user import/export extension](https://cdn.auth0.com/blog/gigya/import-users-ext.jpg)
 
-You can now drag your export JSON file into the designed upload area and select the database you created earlier. Click the **Start Importing Users** button and your import will be underway.
+You can now drag your export JSON file into the designated upload area and select the database you created earlier. Click the **Start Importing Users** button and your import will be underway.
 
 ### Import Users to Auth0 with Management API
 
