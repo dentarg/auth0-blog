@@ -34,11 +34,29 @@ With this news, Gigya customers should be very interested in learning more about
 
 SAP has announced that the acquisition will allow them to offer a cloud-based data platform for user data collection and that Gigya's 300+ employees will become part of the SAP Hybris business unit.
 
-## What Does This Mean for Gigya Customers?
+## Assessing an IAM Platform
 
-It is currently unclear whether Gigya's services and APIs will remain intact after the business transaction with SAP is completed.
+It is currently unclear whether Gigya's services and APIs will remain functionally equivalent after the business transaction with SAP is completed. At the time of writing, SAP has not announced its _integration strategy_ for Gigya. This creates uncertainty for customers.
 
-When [Microsoft acquired LinkedIn](https://techcrunch.com/2016/12/08/microsoft-officially-closes-its-26-2b-acquisition-of-linkedin/), the professional social networking community was integrated more directly with Microsoft properties such as Office and Active Directory, but LinkedIn itself remained its own entity, promoting continued innovation and self-sufficiency. LinkedIn users saw very little change in how they interacted with the platform. On the other hand, [Okta's acquisition of Stormpath resulted in the complete shutdown of Stormpath's service and APIs](https://www.networkworld.com/article/3177227/security/okta-acquires-stormpath-to-boost-its-identity-services-for-developers.html). At the time of writing, SAP has not announced its integration strategy for Gigya. This creates uncertainty for customers.
+There are several features and key interests to look for when assessing a new IAM platform, or _re-assessing_ your existing platform when it is acquired by a different company. Let's explore them now:
+
+### Customer and Platform Support
+
+Excellent **customer support** is a key feature of any product, and especially so with products offered as-a-service. Make sure  the platform has a robust and responsive support system with a dedicated and knowledgeable team of experts who can assist with both administrator and developer needs.
+
+Continued **platform support and development** is vital as well. A product should be actively supported and improved. Potential customers should look for continued innovation, features, and added support for new security regulations, technologies, and applications.
+
+### Core Competency of the Company
+
+When assessing the future of a platform that has been bought by a different company, it's especially important to assess the core competency of the acquiring company. **Core competency** refers to the main strengths and technical capacity of the company in the marketplace.
+
+For example, if you are responsible for a healthcare institution and you have an IAM solution already, you likely chose that solution with certain things in mind, such as HIPAA compliance, enterprise federation, and auditing and monitoring capabilities. However, if your current platform is then acquired by a company whose core competency is limited to retail and e-commerce, your platform's support for the features you need may decrease significantly or even be discontinued altogether.
+
+### Flexibility to Manage Multiple Business Use Cases on a Single Platform
+
+A platform's **ability to fully support multiple business use cases** is a key feature to look for. Regardless of your _current_ primary use case, you should assess the product's capability to use a single platform for [B2B](https://auth0.com/b2b-enterprise-identity-management), [B2C](https://auth0.com/b2c-customer-identity-management), [B2E](https://auth0.com/b2e-identity-management-for-employees), [IoT](https://auth0.com/docs/tutorials/authenticating-devices-using-mqtt), [Cloud IAM](https://auth0.com/learn/cloud-identity-access-management/), and more. This flexibility means that as your business grows and expands its needs, your IAM platform will enable and support that growth with ease.
+
+### Security and Compliance
 
 ## Conclusion
 
