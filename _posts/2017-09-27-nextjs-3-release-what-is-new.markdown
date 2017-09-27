@@ -2,7 +2,7 @@
 layout: post
 title: "Next.js 3.0 Release: What's New?"
 description: Next.js 3.0 has officially been released. What's new? What improvements were made? Learn how to build highly performant Universal JavaScript apps with this new release.
-date: 2017-09-14 08:30
+date: 2017-09-27 08:30
 category: Hot Topics, Frameworks, Next.js
 design:
   bg_color: "#222228"
