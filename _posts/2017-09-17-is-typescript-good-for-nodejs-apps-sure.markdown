@@ -232,7 +232,7 @@ During this article, we are going to create a small RESTful API that enables use
 
 The application, although small, will help us understand from what pieces a Nest application is made of and how these pieces work together. In the end, we will have the same configuration we would get by using the Nest CLI tool or by cloning the starter project.
 
-### Basic Structure
+### Initializing NPM
 
 A Nest application is nothing more than a Node.js app. As such, we will create a new directory to hold the source code of our app, and will use NPM to manage our dependencies. We achieve that by running the following commands:
 
@@ -247,7 +247,11 @@ cd nest-companies
 npm init -y
 ```
 
-The last command, [`npm init -y`](https://docs.npmjs.com/cli/init), starts the `nest-companies` directory as a Node.js project by creating the [`package.json`](https://docs.npmjs.com/files/package.json) file with the [default properties](https://github.com/auth0-blog/nest-companies/commit/d4f60e7244ca1976d71bf8fbcd14b6fe9a072093). With this file in place, we can add the minimum dependencies to boot a Nest application. To do that, we use `npm` as follows:
+The last command, [`npm init -y`](https://docs.npmjs.com/cli/init), starts the `nest-companies` directory as a Node.js project by creating the [`package.json`](https://docs.npmjs.com/files/package.json) file with the [default properties](https://github.com/auth0-blog/nest-companies/commit/d4f60e7244ca1976d71bf8fbcd14b6fe9a072093).
+
+### Adding Dependencies
+
+With this file in place, we can add the minimum dependencies to boot a Nest application. To do that, we use `npm` as follows:
 
 ```bash
 npm i @nestjs/common \
@@ -264,33 +268,106 @@ npm i -D @types/node \
 
 There is no way we can create a Nest app with less dependencies than this. Therefore it's worthwhile to understand why we have to add each dependency above.
 
-The first dependency, [`@nestjs/common`](https://github.com/nestjs/nest/tree/master/src/common), adds the most commonly used components on a Nest application. For example, having this dependency we can define a [Module](https://docs.nestjs.com/modules) for our application, as we will see soon.
+- The first dependency, [`@nestjs/common`](https://github.com/nestjs/nest/tree/master/src/common), adds the most commonly used components on a Nest application. For example, having this dependency we can define a [Module](https://docs.nestjs.com/modules) for our application, as we will see soon.
 
-The second dependency, [`@nestjs/core`](https://github.com/nestjs/nest/tree/master/src/core), defines the core functionality of Nest.js. Through this library, we can create, among other things, an instance of [NestApplication](https://github.com/nestjs/nest/blob/master/src/core/nest-application.ts) to run our Nest.js module.
+- The second dependency, [`@nestjs/core`](https://github.com/nestjs/nest/tree/master/src/core), defines the core functionality of Nest.js. Through this library, we can create, among other things, an instance of [NestApplication](https://github.com/nestjs/nest/blob/master/src/core/nest-application.ts) to run our Nest.js module.
 
-The third dependency, [`@nestjs/microservices`](https://github.com/nestjs/nest/tree/master/src/microservices), won't be used by us directly. Even though this library is internally used by `@nestjs/common`, we need to add it as a dependency because Nest.js team marked it as a [peer dependency](https://docs.npmjs.com/files/package.json#peerdependencies). An issue on GitHub has been created a while ago to discuss [why @nestjs/core is required as a peerDependency on `@nestjs/common`](https://github.com/nestjs/nest/issues/116). Though, as nothing concrete has been achieved yet, we need to add the dependency explicitly.
+- The third dependency, [`@nestjs/microservices`](https://github.com/nestjs/nest/tree/master/src/microservices), won't be used by us directly. Even though this library is internally used by `@nestjs/common`, we need to add it as a dependency because Nest.js team marked it as a [peer dependency](https://docs.npmjs.com/files/package.json#peerdependencies). An issue on GitHub has been created a while ago to discuss [why @nestjs/core is required as a peerDependency on `@nestjs/common`](https://github.com/nestjs/nest/issues/116). Though, as nothing concrete has been achieved yet, we need to add the dependency explicitly.
 
-Just like the `@nestjs/microservices`, `@nestjs/websockets` also is also required internally by one Nest.js library. Though marked as a peer dependency. Therefore, the solution for now is the same, explicitly add it as a dependency of our project.
+- Just like the `@nestjs/microservices`, `@nestjs/websockets` also is also required internally by one Nest.js library. Though marked as a peer dependency. Therefore, the solution for now is the same, explicitly add it as a dependency of our project.
 
-The fifth dependency is a well-known library: `rxjs`. As this [library's README file on GitHub states](https://github.com/Reactive-Extensions/RxJS), `rxjs` is a set of libraries to compose asynchronous and event-based programs using observable collections and [Array#extras](https://blogs.msdn.microsoft.com/ie/2010/12/13/ecmascript-5-part-2-array-extras/) style composition in JavaScript.
+- The fifth dependency is a well-known library: `rxjs`. As this [library's README file on GitHub states](https://github.com/Reactive-Extensions/RxJS), `rxjs` is a set of libraries to compose asynchronous and event-based programs using observable collections and [Array#extras](https://blogs.msdn.microsoft.com/ie/2010/12/13/ecmascript-5-part-2-array-extras/) style composition in JavaScript.
 
-[TypeScript](https://www.typescriptlang.org/), the sixth dependency, is a superset of JavaScript that compiles to clean JavaScript output. This language adds types, classes, and modules to JavaScript. It helps developers to be more productive and produce more reliable code through tooling that supports autocompletion and type checking. The whole Nest.js framework has been written in TypeScript, and using this language is advised when developing applications with this framework.
+- [TypeScript](https://www.typescriptlang.org/), the sixth dependency, is a superset of JavaScript that compiles to clean JavaScript output. This language adds types, classes, and modules to JavaScript. It helps developers to be more productive and produce more reliable code through tooling that supports autocompletion and type checking. The whole Nest.js framework has been written in TypeScript, and using this language is advised when developing applications with this framework.
 
-The last runtime dependency, [`reflect-metadata`](https://github.com/rbuckton/reflect-metadata), is also used internally by Nest.js framework while it's marked as a peer dependency. This library gives Nest.js the ability to manage decorators on runtime through a reflective API. Being a peer dependency, we also explicitly define it in our project.
+- The last runtime dependency, [`reflect-metadata`](https://github.com/rbuckton/reflect-metadata), is also used internally by Nest.js framework while it's marked as a peer dependency. This library gives Nest.js the ability to manage decorators on runtime through a reflective API. Being a peer dependency, we also explicitly define it in our project.
 
 Besides these seven runtime dependencies, we also needed to define two [development dependencies](https://docs.npmjs.com/files/package.json#devdependencies) on our app. The first one, `@types/node`, provides TypeScript definition of the Node.js API. With it, we can use count on TypeScript to check if our code is valid while interacting with Node.js directly. The second development dependency, [`ts-node`](https://github.com/TypeStrong/ts-node), allows us to execute TypeScript files directly without transpiling it to JavaScript first. Using this library on production is not advised, as it adds a lot of burden to the process.
 
-- index.js
+### Bootstrapping Nest.js Applications
 
-```js
-require('ts-node/register');
-require('./src/server');  
+After installing all dependencies, we now have to create the following files to bootstrap a Nest.js application:
+
+1. A file that contains the definition of the root module of our application.
+2. A file to create a Nest.js instance with our root module.
+3. A file to load `ts-node` to run our source code without transpiling it.
+4. A file to configure TypeScript to our needs.
+
+The third file will be used only during development. On other environments, like [staging](https://en.wikipedia.org/wiki/Deployment_environment#Staging) or production, we would run a pre-transpiled version of our app.
+
+Before creating these files, let's create two directories to hold our source code:
+
+```bash
+# creating src and modules folders
+mkdir -p src/modules
 ```
 
-- src/server.ts
+We will define our root module by creating a file called `app.module.ts` in the `modules` directory and by adding the following code to it:
 
 ```typescript
+import {Module} from '@nestjs/common';
 
+@Module({
+    modules: [],
+    controllers: []
+})
+export class ApplicationModule { }
+```
+
+To start the Nest.js application with this module we will create a file called `server.ts` in the `src` directory with the following code:
+
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { ApplicationModule } from './modules/app.module';
+
+async function bootstrap() {
+    const app = await NestFactory.create(ApplicationModule);
+    await app.listen(3000);
+}
+bootstrap();
+```
+
+Then we will create the file that will load `ts-node` and execute our application. We will call this file `index.js` and add it to the root directory of our project with the following code:
+
+```javascript
+require('ts-node/register');
+require('./src/server');
+```
+
+Lastly, we will indicate that our project is a TypeScript project by creating a file called `tsconfig.json` in the root directory with the following code:
+
+```json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "allowJs": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
+```
+
+Note that the most important properties in this configuration for a Nest.js application is the presence of
+`emitDecoratorMetadata` and `experimentalDecorators`. We need to activate decorators on any Nest.js application since the framework heavily uses this TypeScript feature to define controllers, modules, components, etc.
+
+Having these four files in place, we can now start our application by running the following command:
+
+```bash
+node index
 ```
 
 ## Creating Nest Controllers
