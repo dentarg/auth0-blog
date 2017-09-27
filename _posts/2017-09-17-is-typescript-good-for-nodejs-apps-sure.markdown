@@ -293,16 +293,16 @@ After installing all dependencies, we now have to create the following files to 
 3. A file to load `ts-node` to run our source code without transpiling it.
 4. A file to configure TypeScript to our needs.
 
-The third file will be used only during development. On other environments, like [staging](https://en.wikipedia.org/wiki/Deployment_environment#Staging) or production, we would run a pre-transpiled version of our app.
+Note that the third file will be used only during development. On other environments, like [staging](https://en.wikipedia.org/wiki/Deployment_environment#Staging) or production, we would run a pre-transpiled version of our app.
 
-Before creating these files, let's create two directories to hold our source code:
+Before creating these files, let's create a directory to hold our source code:
 
 ```bash
-# creating src and modules folders
-mkdir -p src/modules
+# creating src folder
+mkdir -p src
 ```
 
-We will define our root module by creating a file called `app.module.ts` in the `modules` directory and by adding the following code to it:
+We will define our root module by creating a file called `app.module.ts` in the `src` directory and by adding the following code to it:
 
 ```typescript
 import {Module} from '@nestjs/common';
@@ -318,7 +318,7 @@ To start the Nest.js application with this module we will create a file called `
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
-import { ApplicationModule } from './modules/app.module';
+import { ApplicationModule } from './app.module';
 
 async function bootstrap() {
     const app = await NestFactory.create(ApplicationModule);
@@ -372,12 +372,47 @@ node index
 
 ## Creating Nest Controllers
 
-### Handling Get Requests on Nest
-### Handling Post Requests on Nest
+Even though our application is up and running, we can't do much with it now as there are no controllers to accept requests. Therefore, let's create our first Nest.js controller. We will define this controller in a new file called `companies.controller.ts` that we are going to create in the `src` directory with the following code:
+
+```typescript
+import {Controller, Get} from '@nestjs/common';
+
+@Controller('companies')
+export class CompaniesController {
+
+    @Get()
+    getCompanies() {
+        return ["Coke", "Apple", "Tesla"]
+    }
+}
+```
+
+This controller is as simple as it gets. For now, we defined a single endpoint that responds with a list of companies when users send HTTP requests to the `/companies` path. To make this controller available, we need to add it in the `controllers` property of the `@Module` decorator of our root module (`./src/app.module.ts`):
+
+```typescript
+import {Module} from '@nestjs/common';
+import {CompaniesController} from './companies.controller';
+
+@Module({
+    modules: [],
+    controllers: [CompaniesController]
+})
+export class ApplicationModule { }
+```
+
+If we run our application again, we will be able to get the list of companies as shown here:
+
+```bash
+# starting the application
+node index
+
+# getting the list of companies
+curl localhost:3000/companies
+
+# ["Coke","Apple","Tesla"]
+```
 
 ## Validating Data on Nest
-
-## Aside: Securing Nest Applications with Auth0
 
 ## Final Thoughts
 
