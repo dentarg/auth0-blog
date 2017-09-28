@@ -370,7 +370,7 @@ Having these four files in place, we can now start our application by running th
 node index
 ```
 
-## Creating Nest Controllers
+### Creating Nest Controllers
 
 Even though our application is up and running, we can't do much with it now as there are no controllers to accept requests. Therefore, let's create our first Nest.js controller. We will define this controller in a new file called `companies.controller.ts` that we are going to create in the `src` directory with the following code:
 
@@ -411,6 +411,64 @@ curl localhost:3000/companies
 
 # ["Coke","Apple","Tesla"]
 ```
+
+### Serializing Classes on Nest.js
+
+On real applications we would usually be interested on handling more properties besides the company name. To do this, we will create a class that represents a company, add more properties to it, and refactor our controller to use with this class.
+
+Let's create this class in a new file called `company.ts` in the `./src/` directory with the following code:
+
+```typescript
+export class Company {
+    name: string;
+    industry: string;
+    address: string;
+
+    constructor(name: string, industry: string, address: string) {
+        this.name = name;
+        this.industry = industry;
+        this.address = address;
+    }
+}
+```
+
+In this case, we've created a simple representation of company with two properties: the `name` of the company and the `industry` where the company acts. After creating this class, let's refactor the `CompaniesController` class as follows:
+
+```typescript
+import {Controller, Get} from '@nestjs/common';
+import {Company} from './company';
+
+@Controller('companies')
+export class CompaniesController {
+
+    private companies = [
+      new Company("Coke", "Soda"),
+      new Company("Apple", "Computers"),
+      new Company("Tesla", "Cars")
+    ];
+
+    @Get()
+    getCompanies() {
+        return this.companies;
+    }
+}
+```
+
+The changes to the controller, although small, gives us a more realistic scenario that we would face while developing production ready Nest.js applications. We started by importing the `Company` class into our controller. After that we defined a static array containing three instances of `Company`. Then we ended up changing the `getCompanies()` method implementation to return this array instead of an array of strings.
+
+Running the application and issuing a `GET` request to `/companies` will now return the list of companies with their name and industry:
+
+```typescript
+# starting the application
+node index
+
+# getting the list of companies
+curl localhost:3000/companies
+
+# [{"name":"Coke","industry":"Soda"} ,{"name":"Apple","industry":"Computers"} ,{"name":"Tesla","industry":"Cars"}]
+```
+
+Note that, on Nest.js, we don't need to instruct the controller to send the response as JSON. We simply return what we want and the framework serializes the returned object(s) as JSON.
 
 ## Validating Data on Nest
 
