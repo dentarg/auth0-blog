@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "SAP to Acquire Gigya IAM Platform"
-description: "Learn what features to assess when your IAM product changes ownership."
-date: 2017-09-26 8:30
+title: "SAP To Buy Gigya: What's Next for Identity Management?"
+description: "Learn what features to assess when your IAM platform changes ownership."
+date: 2017-10-03 8:30
 category: Announcements
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
