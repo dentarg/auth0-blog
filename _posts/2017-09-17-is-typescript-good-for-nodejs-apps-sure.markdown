@@ -470,7 +470,62 @@ curl localhost:3000/companies
 
 Note that, on Nest.js, we don't need to instruct the controller to send the response as JSON. We simply return what we want and the framework serializes the returned object(s) as JSON.
 
-## Validating Data on Nest
+### Deserializing Classes on Nest.js
+
+Even though Nest.js serializes responses as JSON by default, the other way around is not true. To accept JSON requests and transform them into instances of our classes, we need to install and configure [`body-parser`](https://github.com/expressjs/body-parser) manually. Luckily, the process is simple. First we install the package by issuing `npm install body-parser`, then we update the `./src/server.ts` file to make our app use `body-parser`:
+
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { ApplicationModule } from './app.module';
+import * as bodyParser from 'body-parser';
+
+async function bootstrap() {
+    const app = await NestFactory.create(ApplicationModule);
+    app.use(bodyParser.json());
+    await app.listen(3000);
+}
+bootstrap();
+```
+
+With these two extra lines of code (the `import` statement and `app.use(...)`), we can now accept requests with JSON objects. Let's test this feature by adding a new method in the `CompaniesController` class to accept `POST` requests:
+
+```typescript
+import {Controller, Get, Post, Body} from '@nestjs/common';
+import {Company} from './company';
+
+@Controller('companies')
+export class CompaniesController {
+    // companies array definition ...
+    // getCompanies method definition ...
+
+    @Post()
+    createCompany(@Body() company: Company) {
+        this.companies.push(company);
+    }
+}
+```
+
+The `createCompany` method that we just created contains two decorators. The first one, `@Post()`, indicates that this method is responsible for handling `POST` requests targeted to `/companies`. The second decorator, `@Body()`, indicates that the framework needs to deserialize the request body into an instance of `Company`. With these changes, we can now add new companies to the array of companies that is defined in the `CompaniesController` class:
+
+```bash
+# starting the application
+node index
+
+# getting the list of companies
+curl localhost:3000/companies
+
+# [{"name":"Coke","industry":"Soda"} ,{"name":"Apple","industry":"Computers"} ,{"name":"Tesla","industry":"Cars"}]
+
+curl -X POST -d '{
+  "name" :"Nestle",
+  "industry": "Foods"
+}' -H "Content-Type: application/json" localhost:3000/companies
+
+# getting the new list of companies
+curl localhost:3000/companies
+
+# [{"name":"Coke","industry":"Soda"}, {"name":"Apple","industry":"Computers"} ,{"name":"Tesla","industry":"Cars"}, {"name" :"Nestle","industry": "Foods"}]
+```
 
 ## Final Thoughts
 
