@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Nest.js Brings the Power of TypeScript to Expressjs"
-description: "Let's learn about Nest.js, the new framework that takes advantage of TypeScript to create reliable and well structured Expressjs applications."
+title: "Nest.js Brings TypeScript to Node.js and Express"
+description: "Let's learn about Nest.js, the new framework that takes advantage of TypeScript to create reliable and well structured Express applications."
 date: 2017-09-17 00:21
 category: Technical Guide
 author:
@@ -13,18 +13,19 @@ design:
   bg_color: "#3F6426"
   image: https://cdn.auth0.com/blog/spring-boot-auth/logo.png
 tags:
-- nest
+- nest.js
 - nodejs
 - typescript
 related:
 - 2017-09-07-developing-restful-apis-with-loopback
+- 2017-08-29-backbonejs-getting-started
 ---
 
 **TL;DR:** In this article we are going to learn about Nest.js, a framework for building Node.js web applications. Why Nest.js? Because, although Node.js already contains a lot of libraries to develop web applications, none of them effectively address one of the most important subjects: the architecture. As we will see, Nest.js introduces various building blocks that help developers to better organize Node.js applications.
 
 ## Nest.js Introduction
 
-[Nest.js](http://docs.nestjs.com/) is a new framework in the already cluttered Node.js landscape. What makes it different from other frameworks is that Nest.js leverages [TypeScript](https://www.typescriptlang.org/) to help developers effortless build highly testable, scalable, loosely coupled, and easily maintainable applications. For example, when building an application, developers will define TypeScript classes decorated with `@Controller()` to handle HTTP request. Developers will also create classes that implements the `NestMiddleware` interface to define [Expressjs middlewares](http://expressjs.com/en/guide/using-middleware.html).
+[Nest.js](http://docs.nestjs.com/) is a new framework in the already cluttered Node.js landscape. What makes it different from other frameworks is that Nest.js leverages [TypeScript](https://www.typescriptlang.org/) to help developers effortless build highly testable, scalable, loosely coupled, and easily maintainable applications. For example, when building an application, developers will define TypeScript classes decorated with `@Controller()` to handle HTTP request. Developers will also create classes that implements the `NestMiddleware` interface to define [Express middlewares](http://expressjs.com/en/guide/using-middleware.html).
 
 For those who already know and use [Angular](https://angular.io/), the syntax and the components that Nest.js introduces to backend development will be quite familiar.
 
@@ -141,7 +142,7 @@ export class CheckoutService {
 
 ### Middlewares
 
-Whenever we want to act on a request before it reaches a controller, we can create a [`Middleware`](http://docs.nestjs.com/middlewares). On Nest.js, middlewares are classes that implement the [`NestMiddleware` interface](https://github.com/nestjs/nest/blob/master/src/common/interfaces/middlewares/nest-middleware.interface.ts) and that are decorated with `@Middleware()`. This interface expects us to define a concrete implementation of the `resolve` method to return an [Expressjs middleware](https://expressjs.com/en/guide/writing-middleware.html): `(req, res, next) => void`.
+Whenever we want to act on a request before it reaches a controller, we can create a [`Middleware`](http://docs.nestjs.com/middlewares). On Nest.js, middlewares are classes that implement the [`NestMiddleware` interface](https://github.com/nestjs/nest/blob/master/src/common/interfaces/middlewares/nest-middleware.interface.ts) and that are decorated with `@Middleware()`. This interface expects us to define a concrete implementation of the `resolve` method to return an [Express middleware](https://expressjs.com/en/guide/writing-middleware.html): `(req, res, next) => void`.
 
 Below we can see an example of a middleware that enables [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin):
 
@@ -297,9 +298,9 @@ After installing all dependencies, we now have to create the following files to 
 3. A file to load `ts-node` to run our source code without transpiling it.
 4. A file to configure TypeScript to our needs.
 
-Note that the third file will be used only during development. On other environments, like [staging](https://en.wikipedia.org/wiki/Deployment_environment#Staging) or production, we would run a pre-transpiled version of our app.
+Note that the third file will be used during development only. On other environments, like [staging](https://en.wikipedia.org/wiki/Deployment_environment#Staging) or production, we would run a pre-transpiled version of our app.
 
-Before creating these files, let's create a directory to hold our source code:
+Before creating these files, let's create a directory to hold the source code:
 
 ```bash
 # creating src folder
@@ -531,8 +532,96 @@ curl localhost:3000/companies
 # [{"name":"Coke","industry":"Soda"}, {"name":"Apple","industry":"Computers"} ,{"name":"Tesla","industry":"Cars"}, {"name" :"Nestle","industry": "Foods"}]
 ```
 
+## Securing Nest.js Applications
+
+Nest.js framework creates, in the end, just an Express application. Therefore, we can easily use JWTs to secure Nest.js applications with [Auth0](https://auth0.com). To do that, we'll need an [Auth0](https://auth0.com/) account to manage authentication. [To sign up for a free Auth0 account, let's follow this link](https://auth0.com/signup). Next, let's set up an Auth0 API to represent our app.
+
+To create the API, let's go to [APIs in our Auth0 dashboard](https://manage.auth0.com/#/apis) and click on the "Create API" button. There we can enter `nest-companies` as the name for the API and set the Identifier to our API endpoint URL. In this case, this is `http://localhost:3000/`. The Signing Algorithm must be **RS256**.
+
+Having created the API, we can now implement Auth0 authentication on our Nest.js application. The first step is to install three dependencies:
+
+```bash
+npm install express-jwt \
+            jwks-rsa \
+            @types/express-jwt
+```
+
+The first dependency, `express-jwt`, facilitates the creation of a middleware that validates JWTs. The second dependency, `jwks-rsa`, is a library to retrieve RSA public keys from a JWKS (JSON Web Key Set) endpoint. The third one, `@types/express-jwt`, provides the TypeScript definition of the `express-jwt` library. We don't need to install a TypeScript definition of [`jwks-rsa` because this library already ships with one](https://github.com/auth0/node-jwks-rsa/blob/master/index.d.ts).
+
+Following the Nest.js way of doing things, we are going to create a `@Middleware()` to set up `express-jwt` and `jwks-rsa` in our app. Let's create this middleware in a new file called `authentication.middleware.ts` in the `./src` directory with the following code:
+
+```typescript
+import { Middleware, NestMiddleware, ExpressMiddleware } from '@nestjs/common';
+import * as jwt from 'express-jwt';
+import {expressJwtSecret} from 'jwks-rsa';
+
+@Middleware()
+export class AuthenticationMiddleware implements NestMiddleware {
+    resolve(...args: any[]): ExpressMiddleware {
+        return jwt({
+            secret: expressJwtSecret({
+                cache: true,
+                rateLimit: true,
+                jwksRequestsPerMinute: 5,
+                jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
+            }),
+            audience: 'http://localhost:3000/',
+            issuer: 'https://${CLIENT_DOMAIN}/',
+            algorithm: 'RS256'
+        });
+    }
+}
+```
+
+Note that we need to replace both `${CLIENT_DOMAIN}` placeholders in the code above by our own Auth0 client domain. In my case, I will replace these placeholders with `bkrebs.auth0.com` so the app can check that `https://bkrebs.auth0.com/` is the issuer and check keys on the [`https://bkrebs.auth0.com/.well-known/jwks.json`](https://bkrebs.auth0.com/.well-known/jwks.json) JWKS.
+
+Then, to activate this middleware and make our endpoints secure, we need to refactor `ApplicationModule` as follows:
+
+```typescript
+import {Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
+import {CompaniesController} from './companies.controller';
+import {AuthenticationMiddleware} from './authentication.middleware';
+
+@Module({
+    modules: [],
+    controllers: [CompaniesController]
+})
+export class ApplicationModule implements NestModule {
+    configure(consumer: MiddlewaresConsumer): void {
+        consumer.apply(AuthenticationMiddleware).forRoutes(
+            { path: '/**', method: RequestMethod.ALL }
+        );
+    }
+}
+```
+
+In this case we are securing all endpoints in our application (`/**`) from all request methods (`GET`, `POST`, etc). To see the middleware in action, we need to restart our application, fetch a JWT from Auth0, then send it in the `Authorization` header of our requests:
+
+```bash
+# start the application
+node index
+
+# fetch JWT from Auth0
+curl -X POST -H 'content-type: application/json' -d '{
+    "client_id": "$CLIENT_ID",
+    "client_secret":"$CLIENT_SECRET",
+    "audience":"http://localhost:3000/",
+    "grant_type":"client_credentials"
+}' https://bkrebs.auth0.com/oauth/token
+
+# copy the access_token and issue in the Authorization header
+curl -H 'authorization: Bearer $JWT' http://localhost:3000/companies
+
+# trying to access the enpoint without a JWT won't work
+curl http://localhost:3000/companies
+```
+
+Note that we need to replace `$CLIENT_ID` and `$CLIENT_SECRET` in the second command above. We can get these values from the [`nest-companies (Test Client)` client that Auth0 generated](https://manage.auth0.com/#/clients) for us. Besides that, we also need to replace `$JWT` in the third command with the `access_token` returned by Auth0.
+
+![Test client created by Auth0 for our Nest.js application.](https://cdn.auth0.com/blog/nestjs/test-client.jpg)
+
 ## Final Thoughts
 
-WebSockets, Automated Tests, i18n, Database Integration
+Nest.js is a new framework that already counts on a mature approach for building web applications on Node.js. From the very beginning, the authors of this framework followed best practices and managed to create a well structured framework. As we saw in this article, creating applications with Nest.js is easy, flexible, and intuitive. Added to this, TypeScript enhances the code quality of applications built with Nest.js by introducing type safety in our backend applications and by facilitating the development process (e.g. eventual refactorings).
 
-Conclusion
+Although we covered many important piecies of this framework in this article, there is a lot more to talk about. In a future article we are going to cover more advanced topics like WebSockets, Automated Tests, i18n, Database Integration, etc. Stay tuned!
