@@ -251,7 +251,7 @@ cd nest-companies
 npm init -y
 ```
 
-The last command, [`npm init -y`](https://docs.npmjs.com/cli/init), starts the `nest-companies` directory as a Node.js project by creating the [`package.json`](https://docs.npmjs.com/files/package.json) file with the [default properties](https://github.com/auth0-blog/nest-companies/commit/d4f60e7244ca1976d71bf8fbcd14b6fe9a072093).
+The last command, [`npm init -y`](https://docs.npmjs.com/cli/init), starts the `nest-companies` directory as a Node.js project by creating the [`package.json`](https://docs.npmjs.com/files/package.json) file with [default properties](https://github.com/auth0-blog/nest-companies/commit/d4f60e7244ca1976d71bf8fbcd14b6fe9a072093).
 
 ### Adding Dependencies
 
@@ -276,9 +276,9 @@ There is no way we can create a Nest.js app with less dependencies than this. Th
 
 - The second dependency, [`@nestjs/core`](https://github.com/nestjs/nest/tree/master/src/core), defines the core functionality of Nest.js. Through this library, we can create, among other things, an instance of [NestApplication](https://github.com/nestjs/nest/blob/master/src/core/nest-application.ts) to run our Nest.js module.
 
-- The third dependency, [`@nestjs/microservices`](https://github.com/nestjs/nest/tree/master/src/microservices), won't be used by us directly. Even though this library is internally used by `@nestjs/common`, we need to add it as a dependency because Nest.js team marked it as a [peer dependency](https://docs.npmjs.com/files/package.json#peerdependencies). An issue on GitHub has been created a while ago to discuss [why @nestjs/core is required as a peerDependency on `@nestjs/common`](https://github.com/nestjs/nest/issues/116). Though, as nothing concrete has been achieved yet, we need to add the dependency explicitly.
+- The third dependency, [`@nestjs/microservices`](https://github.com/nestjs/nest/tree/master/src/microservices), won't be used by us directly. Even though this library is internally used by `@nestjs/common`, we need to add it as a dependency because Nest.js team marked it as a [peer dependency](https://docs.npmjs.com/files/package.json#peerdependencies). An issue on GitHub has been created a while ago to discuss [why `@nestjs/core` is required as a peerDependency on `@nestjs/common`](https://github.com/nestjs/nest/issues/116). Though, as nothing concrete has been achieved yet, we need to add the dependency explicitly.
 
-- Just like the `@nestjs/microservices`, `@nestjs/websockets` also is also required internally by one Nest.js library. Though marked as a peer dependency. Therefore, the solution for now is the same, explicitly add it as a dependency of our project.
+- Just like the `@nestjs/microservices`, `@nestjs/websockets` also is also required internally by Nest.js. Therefore, the solution for now is the same, explicitly add it as a dependency of our project.
 
 - The fifth dependency is a well-known library: `rxjs`. As this [library's README file on GitHub states](https://github.com/Reactive-Extensions/RxJS), `rxjs` is a set of libraries to compose asynchronous and event-based programs using observable collections and [Array#extras](https://blogs.msdn.microsoft.com/ie/2010/12/13/ecmascript-5-part-2-array-extras/) style composition in JavaScript.
 
@@ -286,7 +286,7 @@ There is no way we can create a Nest.js app with less dependencies than this. Th
 
 - The last runtime dependency, [`reflect-metadata`](https://github.com/rbuckton/reflect-metadata), is also used internally by Nest.js framework while it's marked as a peer dependency. This library gives Nest.js the ability to manage decorators on runtime through a reflective API. Being a peer dependency, we also explicitly define it in our project.
 
-Besides these seven runtime dependencies, we also needed to define two [development dependencies](https://docs.npmjs.com/files/package.json#devdependencies) on our app. The first one, `@types/node`, provides TypeScript definition of the Node.js API. With it, we can use count on TypeScript to check if our code is valid while interacting with Node.js directly. The second development dependency, [`ts-node`](https://github.com/TypeStrong/ts-node), allows us to execute TypeScript files directly without transpiling it to JavaScript first. Using this library on production is not advised, as it adds a lot of burden to the process.
+Besides these seven runtime dependencies, we also needed to define two [development dependencies](https://docs.npmjs.com/files/package.json#devdependencies) on our app. The first one, `@types/node`, provides TypeScript definition for the Node.js API. With it, we can use count on TypeScript to check if our code is valid while interacting with Node.js directly. The second development dependency, [`ts-node`](https://github.com/TypeStrong/ts-node), allows us to execute TypeScript files directly without prior transpilation to Javascript. Using this library on production is not advised, as it adds a lot of burden to the process.
 
 ### Bootstrapping Nest.js Applications
 
