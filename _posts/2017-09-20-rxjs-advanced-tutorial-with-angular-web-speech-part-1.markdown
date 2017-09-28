@@ -818,10 +818,10 @@ Open the new `words.ts` file and add the following:
 // src/app/words.ts
 export class Words {
   constructor(
-    public array: Word[] = []
+    public array: string[] = []
   ) {
     for (let i = 0; i < 5; i++) {
-      array.push(new Word(i, ''));
+      array.push('');
     }
   }
 }
