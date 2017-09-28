@@ -21,7 +21,7 @@ related:
 - 2017-08-29-backbonejs-getting-started
 ---
 
-**TL;DR:** In this article we are going to learn about Nest.js, a framework for building Node.js web applications. Why Nest.js? Because, although Node.js already contains a lot of libraries to develop web applications, none of them effectively address one of the most important subjects: the architecture. As we will see, Nest.js introduces various building blocks that help developers to better organize Node.js applications.
+**TL;DR:** In this article we are going to learn about Nest.js, a framework for building Node.js web applications. Why Nest.js? Because, although Node.js already contains a lot of libraries to develop web applications, none of them effectively address one of the most important subjects: the architecture. As we will see, Nest.js introduces various building blocks that help developers to better organize Node.js applications. [This GitHub repository contains the final code developed throughout this article!](https://github.com/auth0-blog/nest-companies)
 
 {% include tweet_quote.html quote_text="Nest.js provides a great way to build Node.js applications with TypeScript!" %}
 
