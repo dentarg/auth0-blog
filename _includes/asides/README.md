@@ -1,9 +1,11 @@
 # Auth0 Asides
 
-Auth0 Aside includes can be used when:
+Auth0 Aside includes may be used when:
 
 * it is illogical to integrate Auth0 into the tutorial's main content
 * tutorial has no application sample (is conceptual or is a technical announcement)
+
+> ⚠ **IMPORTANT:** It is _strongly preferred_ that Auth0 be integrated into the main content of your post, or that Asides be specifically tailored to the app sample used in the tutorial. These generic Aside includes should used _sparingly_.
 
 ## How to Use Asides in Posts
 
@@ -35,4 +37,4 @@ If you are the author of a generic Aside, you must **make sure** you keep the co
 
 When you create a new Aside, add a link to it here along with author's name so all writers know who to contact in case they need to use your Aside and have questions.
 
-* [angular.markdown](in [auth0-blog](https://github.com/auth0-blog)) - Kim
+* [angular.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/angular.markdown) - Kim
