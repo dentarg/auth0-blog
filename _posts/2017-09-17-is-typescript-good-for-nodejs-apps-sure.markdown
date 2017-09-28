@@ -141,7 +141,7 @@ export class CheckoutService {
 
 ### Middlewares
 
-Whenever we want to act on a request before it reaches a controller, we can create a [`Middleware`](http://docs.nestjs.com/middlewares). On Nest.js, middlewares are classes that implement the [`NestMiddleware` interface](https://github.com/nestjs/nest/blob/master/src/common/interfaces/middlewares/nest-middleware.interface.ts) and that are decorated with `@Middleware()`. This interface expects us to define a concrete implementation of the `resolve` method to return a [Express middleware](https://expressjs.com/en/guide/writing-middleware.html): `(req, res, next) => void`.
+Whenever we want to act on a request before it reaches a controller, we can create a [`Middleware`](http://docs.nestjs.com/middlewares). On Nest.js, middlewares are classes that implement the [`NestMiddleware` interface](https://github.com/nestjs/nest/blob/master/src/common/interfaces/middlewares/nest-middleware.interface.ts) and that are decorated with `@Middleware()`. This interface expects us to define a concrete implementation of the `resolve` method to return an [Expressjs middleware](https://expressjs.com/en/guide/writing-middleware.html): `(req, res, next) => void`.
 
 Below we can see an example of a middleware that enables [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin):
 
@@ -159,9 +159,9 @@ export class CorsMiddleware implements NestMiddleware {
 }
 ```
 
-To activate this middleware, we need to make our module implement `NestModule` to provide a concrete method definition of `configure`:
+To activate this middleware, we need to make our module implement `NestModule` to provide a concrete method definition of the `configure` method:
 
-```
+```typescript
 import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
 import { CorsMiddleware } from './cors.middleware';
 
@@ -185,7 +185,7 @@ One great feature provided by Nest.js is the addition of a layer responsible for
 2. decorate it with `@Catch()`,
 3. and implement the `catch(exception: HttpException, response)` method.
 
-For example, let's suppose that we have a custom exception called `BusinessException`. If we want to provide a default message to users whenever this exception occurs, we can create a exception filter like this:
+For example, let's suppose that we have a custom exception called `BusinessException`. If we want to provide a default message to users whenever this exception occurs, we can create an exception filter like this:
 
 ```typescript
 import { ExceptionFilter, Catch } from '@nestjs/common';
