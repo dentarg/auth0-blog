@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SAP To Buy Gigya: What's Next for Identity Management?"
+title: "SAP to Acquire Gigya: What's Next for Identity Management?"
 description: "Learn what features to assess when your IAM platform changes ownership."
 date: 2017-10-03 8:30
 category: Announcements
