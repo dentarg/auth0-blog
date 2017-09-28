@@ -70,8 +70,8 @@ Running this code will trigger a Nest.js application and bootstrap all component
 
 As in many other platforms (like [Spring](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-controller) and [ASP.NET](https://msdn.microsoft.com/en-us/library/dd410269(v=vs.98).aspx)), controllers on Nest.js are responsible for handling HTTP requests. To define a new controller on a module we need to:
 
-- create a new class
-- decorate the class with `@Controller()`
+- create a new class,
+- decorate the class with `@Controller()`,
 - and add the controller to the module definition.
 
 As we want this controller to expose some content or accept new data, we also need to create a method marked with one endpoint decorator (e.g. `@Get` or `@Post`). Therefore, this is the minimum code we need to create a controller:
