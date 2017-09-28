@@ -2,8 +2,8 @@
 
 Auth0 Aside includes can be used when:
 
-* It is illogical to integrate Auth0 into the tutorial's main tutorial content
-* Tutorial has no application sample (is conceptual or is a technical announcement)
+* it is illogical to integrate Auth0 into the tutorial's main content
+* tutorial has no application sample (is conceptual or is a technical announcement)
 
 ## How to Use Asides in Posts
 
