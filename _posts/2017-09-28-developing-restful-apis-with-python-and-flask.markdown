@@ -2,7 +2,7 @@
 layout: post
 title: "Developing RESTful APIs with Python and Flask"
 description: "Let's learn how to develop RESTful APIs with Python and Flask."
-date: 2017-09-13 15:29
+date: 2017-09-28 15:29
 category: Technical Guide, Python
 author:
   name: "Bruno Krebs"
