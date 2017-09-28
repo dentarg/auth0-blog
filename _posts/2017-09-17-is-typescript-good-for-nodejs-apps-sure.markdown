@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "TypeScript on Node.js Web Apps? Yes, Meet Nest!"
-description: ""
+title: "Nest.js Brings the Power of TypeScript to Expressjs"
+description: "Let's learn about Nest.js, the new framework that takes advantage of TypeScript to create reliable and well structured Expressjs applications."
 date: 2017-09-17 00:21
 category: Technical Guide
 author:
