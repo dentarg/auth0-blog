@@ -28,7 +28,7 @@ related:
 
 For those who already know and use [Angular](https://angular.io/), the syntax and the components that Nest.js introduces to backend development will be quite familiar.
 
-Let's take a look at the most important and basic building blocks used to compose Nest.js applications.
+Let's take a look at the most important building blocks used to compose Nest.js applications.
 
 ### Modules
 
