@@ -5,7 +5,7 @@ Auth0 Aside includes may be used when:
 * it is illogical to integrate Auth0 into the tutorial's main content
 * tutorial has no application sample (is conceptual or is a technical announcement)
 
-> ⚠ **IMPORTANT:** It is _strongly preferred_ that Auth0 be integrated into the main content of your post, or that Asides be specifically tailored to the app sample used in the tutorial. These generic Aside includes should used _sparingly_.
+> ⚠ **IMPORTANT:** It is _strongly preferred_ that Auth0 be integrated into the main content of your post, or that Asides be specifically tailored to the app sample used in the tutorial. These generic Aside includes should be used _sparingly_.
 
 ## How to Use Asides in Posts
 
