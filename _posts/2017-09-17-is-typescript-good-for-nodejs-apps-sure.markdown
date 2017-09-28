@@ -536,7 +536,7 @@ curl localhost:3000/companies
 
 ## Securing Nest.js Applications
 
-Nest.js framework creates, in the end, just an Express application. Therefore, we can easily use JWTs to secure Nest.js applications with [Auth0](https://auth0.com). To do that, we'll need an [Auth0](https://auth0.com/) account to manage authentication. [To sign up for a free Auth0 account, let's follow this link](https://auth0.com/signup). Next, let's set up an Auth0 API to represent our app.
+Nest.js framework creates, in the end, just an Express application. Therefore, we can easily use JWTs to secure Nest.js applications with [Auth0](https://auth0.com) and get [state-of-the-art user management features](https://auth0.com/user-management). To do that, we'll need an [Auth0](https://auth0.com/) account to manage authentication. [To sign up for a free Auth0 account, let's follow this link](https://auth0.com/signup). Next, let's set up an Auth0 API to represent our app.
 
 {% include tweet_quote.html quote_text="Securing Nest.js applications with JWTs is easy!" %}
 
