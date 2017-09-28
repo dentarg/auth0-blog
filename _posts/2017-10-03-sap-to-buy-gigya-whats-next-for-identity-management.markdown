@@ -42,9 +42,7 @@ SAP has announced that the acquisition will allow them to offer a cloud-based da
 
 It is currently unclear whether Gigya's services and APIs will remain functionally equivalent after the business transaction with SAP is completed. At the time of writing, SAP has not announced its _integration strategy_ for Gigya. This may create uncertainty for customers.
 
-There are several features and key interests to look for when re-assessing your IAM platform when it is acquired by a different company.
-
-Let's explore them now:
+There are several features and key interests to look for when re-assessing your IAM platform when it is acquired by a different company. Let's explore them now:
 
 ### Customer and Platform Support
 
