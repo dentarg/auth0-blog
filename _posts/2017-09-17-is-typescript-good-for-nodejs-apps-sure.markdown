@@ -23,6 +23,8 @@ related:
 
 **TL;DR:** In this article we are going to learn about Nest.js, a framework for building Node.js web applications. Why Nest.js? Because, although Node.js already contains a lot of libraries to develop web applications, none of them effectively address one of the most important subjects: the architecture. As we will see, Nest.js introduces various building blocks that help developers to better organize Node.js applications.
 
+{% include tweet_quote.html quote_text="Nest.js provides a great way to build Node.js applications with TypeScript!" %}
+
 ## Nest.js Introduction
 
 [Nest.js](http://docs.nestjs.com/) is a new framework in the already cluttered Node.js landscape. What makes it different from other frameworks is that Nest.js leverages [TypeScript](https://www.typescriptlang.org/) to help developers effortless build highly testable, scalable, loosely coupled, and easily maintainable applications. For example, when building an application, developers will define TypeScript classes decorated with `@Controller()` to handle HTTP request. Developers will also create classes that implements the `NestMiddleware` interface to define [Express middlewares](http://expressjs.com/en/guide/using-middleware.html).
@@ -535,6 +537,8 @@ curl localhost:3000/companies
 ## Securing Nest.js Applications
 
 Nest.js framework creates, in the end, just an Express application. Therefore, we can easily use JWTs to secure Nest.js applications with [Auth0](https://auth0.com). To do that, we'll need an [Auth0](https://auth0.com/) account to manage authentication. [To sign up for a free Auth0 account, let's follow this link](https://auth0.com/signup). Next, let's set up an Auth0 API to represent our app.
+
+{% include tweet_quote.html quote_text="Securing Nest.js applications with JWTs is easy!" %}
 
 To create the API, let's go to [APIs in our Auth0 dashboard](https://manage.auth0.com/#/apis) and click on the "Create API" button. There we can enter `nest-companies` as the name for the API and set the Identifier to our API endpoint URL. In this case, this is `http://localhost:3000/`. The Signing Algorithm must be **RS256**.
 
