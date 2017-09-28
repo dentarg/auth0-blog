@@ -34,13 +34,17 @@ With this news, current Gigya customers will be very interested in learning more
 
 > "Gigya’s consent-based identity data platform and SAP Hybris® Profile data matching and enrichment capabilities to be integrated" —[Gigya Press Release](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/)
 
+{% include tweet_quote.html quote_text="SAP acquisition of Gigya: current Gigya customers will be interested to learn plans for integration." %}
+
 SAP has announced that the acquisition will allow them to offer a cloud-based data platform for user data collection and that Gigya's 300+ employees will become part of the SAP Hybris business unit.
 
 ## Assessing an IAM Platform
 
 It is currently unclear whether Gigya's services and APIs will remain functionally equivalent after the business transaction with SAP is completed. At the time of writing, SAP has not announced its _integration strategy_ for Gigya. This may create uncertainty for customers.
 
-There are several features and key interests to look for when re-assessing your IAM platform when it is acquired by a different company. Let's explore them now:
+There are several features and key interests to look for when re-assessing your IAM platform when it is acquired by a different company.
+
+Let's explore them now:
 
 ### Customer and Platform Support
 
@@ -85,6 +89,8 @@ Your IAM platform should support multiple deployment options to best suit the cu
 SAP and Gigya have an acquisition agreement in place. At the time of writing, there is no announced integration strategy for Gigya customers to review and consider. Hopefully additional clarity around the future of Gigya's product and customers is coming in the near future. Depending on what SAP plans for Gigya's IAM platform, it may be prudent to consider all possibilities, including potential opportunities with other IAM offerings.
 
 When assessing IAM platforms, there are many key features you should investigate to ensure that the resulting product and service fully continues to address all your identity management needs.
+
+{% include tweet_quote.html quote_text="Assess support, company core competency, flexibility, and extensibility when choosing an IAM platform." %}
 
 ## About Auth0
 
