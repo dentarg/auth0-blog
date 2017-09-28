@@ -20,11 +20,15 @@ related:
 - 2017-09-07-developing-restful-apis-with-loopback
 ---
 
-TL;DR:
+**TL;DR:** In this article we are going to learn about Nest.js, a framework for building Node.js web applications. Why Nest.js? Because, although Node.js already contains a lot of libraries to develop web applications, none of them effectively address one of the most important subjects: the architecture. As we will see, Nest.js introduces various building blocks that help developers to better organize Node.js applications.
 
-## Nest? Is it a new Framework?
+## Nest.js Introduction
 
-## Nest Building Blocks
+[Nest.js](http://docs.nestjs.com/) is a new framework in the already cluttered Node.js landscape. What makes it different from other frameworks is that Nest.js leverages [TypeScript](https://www.typescriptlang.org/) to help developers effortless build highly testable, scalable, loosely coupled, and easily maintainable applications. For example, when building an application, developers will define TypeScript classes decorated with `@Controller()` to handle HTTP request. Developers will also create classes that implements the `NestMiddleware` interface to define [Expressjs middlewares](http://expressjs.com/en/guide/using-middleware.html).
+
+For those who already know and use [Angular](https://angular.io/), the syntax and the components that Nest.js introduces to backend development will be quite familiar.
+
+Let's take a look at the most important and basic building blocks used to compose Nest.js applications.
 
 ### Modules
 
