@@ -224,21 +224,21 @@ async function bootstrap() {
 bootstrap();
 ```
 
-## Building a Nest Application
+## Building a Nest.js Application
 
-Now that we understand the building blocks available on Nest, let's create a small application with this framework. Through this app, we will be able to see some of the core concepts of Nest in action.
+Now that we understand the building blocks available on Nest.js, let's create a small application with this framework. Through this app, we will be able to see some of the core concepts of Nest.js in action.
 
-Nest provides two easy ways to start a new application. We could clone [the Nest TypeScript Starter project available on GitHub](https://github.com/kamilmysliwiec/nest-typescript-starter), or we could use the [CLI tool for Nest applications](https://github.com/nestjs/nest-cli). Both alternatives are equally good and provide a solid foundation to build apps. Though, as we want to understand how a Nest application is built, we are going to create a new one from scratch.
+Nest.js provides two easy ways to start a new application. We could clone [the Nest.js TypeScript Starter project available on GitHub](https://github.com/kamilmysliwiec/nest-typescript-starter), or we could use the [CLI tool for Nest.js applications](https://github.com/nestjs/nest-cli). Both alternatives are equally good and provide a solid foundation to build apps. Though, as we want to understand how a Nest.js application is built, we are going to create a new one from scratch.
 
 ### What We'll Build
 
-During this article, we are going to create a small RESTful API that enables users to create, retrieve, update, and delete companies. To keep things simple, we will handle companies without interacting with any external database. That is, we will hold companies in memory just while the application is up and running.
+During the rest of the article, we are going to create a small RESTful API that enables users to create and retrieve companies. To keep things simple, we will handle companies without interacting with any external database. That is, we will hold companies in memory and instances of companies will be lost on a eventual reboot.
 
-The application, although small, will help us understand from what pieces a Nest application is made of and how these pieces work together. In the end, we will have the same configuration we would get by using the Nest CLI tool or by cloning the starter project.
+The application, although small, will help us understand from what pieces a Nest.js application is made of and how these pieces work together. In the end, we will have the same configuration we would get by using the Nest.js CLI tool or by cloning the starter project.
 
 ### Initializing NPM
 
-A Nest application is nothing more than a Node.js app. As such, we will create a new directory to hold the source code of our app, and will use NPM to manage our dependencies. We achieve that by running the following commands:
+A Nest.js application is nothing more than a Node.js app. As such, we will create a new directory to hold the source code of our app, and will use NPM to manage our dependencies. We achieve that by running the following commands:
 
 ```bash
 # create a new directory
@@ -255,7 +255,7 @@ The last command, [`npm init -y`](https://docs.npmjs.com/cli/init), starts the `
 
 ### Adding Dependencies
 
-With this file in place, we can add the minimum dependencies to boot a Nest application. To do that, we use `npm` as follows:
+With this file in place, we can add the minimum dependencies to boot a Nest.js application. To do that, we use `npm` as follows:
 
 ```bash
 npm i @nestjs/common \
@@ -270,9 +270,9 @@ npm i -D @types/node \
          ts-node
 ```
 
-There is no way we can create a Nest app with less dependencies than this. Therefore it's worthwhile to understand why we have to add each dependency above.
+There is no way we can create a Nest.js app with less dependencies than this. Therefore it's worthwhile to understand why we have to add each dependency above.
 
-- The first dependency, [`@nestjs/common`](https://github.com/nestjs/nest/tree/master/src/common), adds the most commonly used components on a Nest application. For example, having this dependency we can define a [Module](https://docs.nestjs.com/modules) for our application, as we will see soon.
+- The first dependency, [`@nestjs/common`](https://github.com/nestjs/nest/tree/master/src/common), adds the most commonly used components on a Nest.js application. For example, having this dependency we can define a [Module](https://docs.nestjs.com/modules) for our application, as we will see soon.
 
 - The second dependency, [`@nestjs/core`](https://github.com/nestjs/nest/tree/master/src/core), defines the core functionality of Nest.js. Through this library, we can create, among other things, an instance of [NestApplication](https://github.com/nestjs/nest/blob/master/src/core/nest-application.ts) to run our Nest.js module.
 
@@ -374,7 +374,7 @@ Having these four files in place, we can now start our application by running th
 node index
 ```
 
-### Creating Nest Controllers
+### Creating Nest.js Controllers
 
 Even though our application is up and running, we can't do much with it now as there are no controllers to accept requests. Therefore, let's create our first Nest.js controller. We will define this controller in a new file called `companies.controller.ts` that we are going to create in the `src` directory with the following code:
 
