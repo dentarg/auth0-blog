@@ -14,8 +14,16 @@ design:
   image: https://cdn.auth0.com/blog/nestjs/logo.png
 tags:
 - nest.js
+- nestjs
+- nest
 - nodejs
 - typescript
+- rest
+- restful
+- http
+- api
+- http-request
+- backend
 related:
 - 2017-09-07-developing-restful-apis-with-loopback
 - 2017-08-29-backbonejs-getting-started
