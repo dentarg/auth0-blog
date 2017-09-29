@@ -3,7 +3,7 @@ layout: post
 title: "Nest.js Brings TypeScript to Node.js and Express"
 description: "Let's learn about Nest.js, the new framework that takes advantage of TypeScript to create reliable and well structured Express applications."
 date: 2017-09-17 00:21
-category: Technical Guide
+category: Technical Guide, Node.js, Nest.js
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
@@ -161,7 +161,7 @@ import { Middleware, NestMiddleware, ExpressMiddleware } from '@nestjs/common';
 
 @Middleware()
 export class CorsMiddleware implements NestMiddleware {
-    resolve(...args: any[]): ExpressMiddleware {
+    resolve(): ExpressMiddleware {
         return (req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*');
             next();
@@ -569,7 +569,7 @@ import {expressJwtSecret} from 'jwks-rsa';
 
 @Middleware()
 export class AuthenticationMiddleware implements NestMiddleware {
-    resolve(...args: any[]): ExpressMiddleware {
+    resolve(): ExpressMiddleware {
         return jwt({
             secret: expressJwtSecret({
                 cache: true,
@@ -634,6 +634,6 @@ Note that we need to replace `$CLIENT_ID` and `$CLIENT_SECRET` in the second com
 
 ## Final Thoughts
 
-Nest.js is a new framework that already counts on a mature approach for building web applications on Node.js. From the very beginning, the authors of this framework followed best practices and managed to create a well structured framework. As we saw in this article, creating applications with Nest.js is easy, flexible, and intuitive. Added to this, TypeScript enhances the code quality of applications built with Nest.js by introducing type safety in our backend applications and by facilitating the development process (e.g. eventual refactorings).
+Nest.js is a new framework that relies on a mature approach for building web applications on Node.js. From the very beginning, the authors of this framework followed best practices and managed to create a well structured framework. As we saw in this article, creating applications with Nest.js is easy, flexible, and intuitive. Added to this, TypeScript enhances the code quality of applications built with Nest.js by introducing type safety in our backend applications and by facilitating the development process (e.g. eventual refactorings).
 
 Although we covered many important piecies of this framework in this article, there is a lot more to talk about. In a future article we are going to cover more advanced topics like WebSockets, Automated Tests, i18n, Database Integration, etc. Stay tuned!
