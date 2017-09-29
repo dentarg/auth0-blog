@@ -18,6 +18,9 @@ tags:
 - migration
 - gigya
 - sap
+- iam
+- identity
+- authentication
 related:
 - 2017-10-02-sap-to-acquire-gigya-whats-next-for-identity-management
 - 2017-03-06-how-to-migrate-your-existing-stormpath-users-to-auth0
