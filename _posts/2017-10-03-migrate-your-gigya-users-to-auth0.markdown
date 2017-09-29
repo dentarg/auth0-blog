@@ -12,8 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/gigya/gigya-logo.png
+  bg_color: "#204498"
 tags:
 - migration
 - gigya
@@ -29,7 +29,7 @@ related:
 
 ![SAP acquires Gigya](https://cdn.auth0.com/blog/gigya/gigya.jpg)
 
-## Migrating to Auth0's Identity & Access Management Platform
+## How to Migrate to Auth0 IAM Platform
 
 At [Auth0](https://auth0.com), our goal is to provide the best authentication and identity management solution that is also simple and easy for developers to work with. This means that migration into (and out of) the Auth0 platform is straightforward for developers while also providing a seamless experience for users.
 
@@ -112,9 +112,3 @@ Migrating users into and out of [Auth0](https://auth0.com)'s Identity and Access
 {% include tweet_quote.html quote_text="Migrating users into and out of Auth0's Identity and Access Management platform is simple!" %}
 
 If you'd like to explore what Auth0 has to offer, simply **<a href="javascript:signup()">sign up for a free account</a>** and try it out! You can also check out our [Pricing](https://auth0.com/pricing) and read what [customers have to say about Auth0](https://auth0.com/resources/case-studies).
-
-
-
-
-
-
