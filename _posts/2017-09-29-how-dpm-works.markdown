@@ -2,7 +2,7 @@
 layout: post
 title: "How Data Protection Manager (DPM) Works"
 description: "DPM, a Microsoft tool, lets you back up various forms of enterprise data in real time."
-date: 2017-09-18 8:30
+date: 2017-09-29 8:30
 category: Growth
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
