@@ -23,19 +23,19 @@ related:
 - 2017-03-06-how-to-migrate-your-existing-stormpath-users-to-auth0
 ---
 
-## SAP to Acquire Gigya 
+## Gigya to be Acquired by SAP 
 
-[On September 24, 2017 Gigya announced that they will be acquired by SAP](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/). [Gigya](http://gigya.com) offers a Customer Identity and Access Management (IAM) platform. [SAP](https://www.sap.com/index.html) is buying Gigya to enhance its [Hybris Profile service](https://www.yaas.io/products/saphybrisprofile.html). 
+[SAP](https://www.sap.com/index.html) announced an agreement to acquire [Gigya](http://www.gigya.com/)'s Customer Identity and Access Management (IAM) platform on September 24, 2017. The acquisition announcement should be very interesting to current Gigya customers. To learn about key features to reassess when your IAM platform is acquired, please check out [SAP to Acquire Gigya: What's Next for Identity Management?](https://auth0.com/blog/sap-to-acquire-gigya-whats-next-for-identity-management)
 
 ![SAP acquires Gigya](https://cdn.auth0.com/blog/gigya/gigya.jpg)
-
-To learn more about key features to reassess when your IAM platform is acquired, please check out [SAP to Acquire Gigya: What's Next for Identity Management?](https://auth0.com/blog/sap-to-acquire-gigya-whats-next-for-identity-management)
 
 ## Migrating to Auth0's Identity & Access Management Platform
 
 At [Auth0](https://auth0.com), our goal is to provide the best authentication and identity management solution that is also simple and easy for developers to work with. This means that migration into (and out of) the Auth0 platform is straightforward for developers while also providing a seamless experience for users.
 
-Auth0 supports [bulk user import](https://auth0.com/docs/tutorials/bulk-importing-users-into-auth0) to migrate an export file (via JSON) of existing users from another service into Auth0. Auth0 is also offering the [database migration feature](https://auth0.com/docs/connections/database/migrating) **free** to all Gigya customers.
+Auth0 supports [bulk user import](https://auth0.com/docs/tutorials/bulk-importing-users-into-auth0) as well as a [user import/export extension](https://auth0.com/docs/extensions/user-import-export) to migrate existing users from another service into Auth0. Auth0 is also offering the [database migration feature](https://auth0.com/docs/connections/database/migrating) **free** to all Gigya customers.
+
+{% include tweet_quote.html quote_text="Auth0 provides several easy-to-use features for migrating users into and out of the platform." %}
 
 Let's explore how these features work.
 
@@ -108,6 +108,8 @@ You can learn more about this process here: [Migrate A User Database to Auth0](h
 ## Conclusion
 
 Migrating users into and out of [Auth0](https://auth0.com)'s Identity and Access Management platform is simple! Auth0 provides a powerful and easy-to-use IAM solution for admins, developers, and end users. The Auth0 platform supplies [robust extensibility](https://auth0.com/docs/topics/extensibility) and friendly [user interface tools to help administrators manage user identities](https://auth0.com/user-management), including password resets, provisioning, blocking, and deleting users. Migration of users to and from Auth0 is easy, as is [social IdP](https://auth0.com/learn/social-login/) implementation, [enterprise federation](https://auth0.com/b2b-enterprise-identity-management), [Single Sign-On](https://auth0.com/learn/how-to-implement-single-sign-on/), and security features such as [Multifactor Authentication](https://auth0.com/learn/multifactor-authentication/), and [Breached Password Detection](https://auth0.com/breached-passwords).
+
+{% include tweet_quote.html quote_text="Migrating users into and out of Auth0's Identity and Access Management platform is simple!" %}
 
 If you'd like to explore what Auth0 has to offer, simply **<a href="javascript:signup()">sign up for a free account</a>** and try it out! You can also check out our [Pricing](https://auth0.com/pricing) and read what [customers have to say about Auth0](https://auth0.com/resources/case-studies).
 
