@@ -27,12 +27,7 @@ related:
 
 After the February 1st, 2017 Gitlab incident, in which six hours of production data were accidentally deleted, the importance of making and maintaining adequate system [backups became very clear to the world](https://about.gitlab.com/2017/02/10/postmortem-of-database-outage-of-january-31/).
 
-
-Emphasis on maintaining.
-
-
 As we saw in that incident, a lot of companies make backups. What they seem to forget is that backups are just one part of the equation. It's equally important to consider how those backups will be accessed during an outage, whether it will be possible to restore them in a timely fashion, and what tests need to be consistently run to ensure adequate restore.
-
 
 If you work within a Microsoft ecosystem, then Data Protection Manager (DPM) is a powerful option for creating and managing backups of all of your data.
 
