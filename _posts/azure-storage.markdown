@@ -9,25 +9,30 @@ author:
   name: Victor Moreno
   url: https://twitter.com/vmorenoz
   mail: victor.e.moreno@outlook.com
-  avatar: 
+  avatar: https://pbs.twimg.com/profile_images/621531844719173632/ZgTus250_200x200.jpg
 design:
-  bg_color: "#454A75"
-  image: 
-  image_size: "100%"
+  bg_color: "#0072C6"
+  image: https://cdn2.auth0.com/blog/azure-logs-analytics/logo.png
 tags:
-- Blob Storage
-- Table Storage
-- Queue Storage
-- File Storage
+- azure
+- storage
+- azure-storage
+- blob
+- blob-storage
+- table
+- table-storage
+- queue
+- queue-storage
+- file
+- file-storage
 related:
-- Azure
+- 2017-01-05-azure-search-with-aspnetcore
+- 2017-04-13-auth0-to-azure-log-analytics
 ---
 
 ## What is Azure Storage?
 
-Azure Storage is more than a lot of space to place files, it provides different types of storage on the cloud, like: tables, queues, blobs, and files.
-
-First of all, it's necessary to talk about "account storage" as this is how Microsoft Azure organises accounts.
+Azure Storage is more than a lot of space to place files. The Microsoft cloud storage solution provides different types of storage on the cloud, like: tables, queues, blobs, and files. Before talking about each type, it's necessary to talk about "account storage" as this is how Microsoft Azure organises accounts.
 
 An account storage provides a unique namespace for Azure Storage objects, through our account we'll be billed depending of the use. Every account storage gives us "urls" for access all the objects such as: tables, queues, blobs or files. And example would be:
 
