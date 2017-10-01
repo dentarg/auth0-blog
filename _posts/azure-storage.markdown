@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introduction to Azure Storage"
-description: "This article will help you to know multiples ways to Storage information on the Microsoft Cloud"
+description: "This article will help you to know multiples ways to Storage information in the Microsoft Cloud"
 date: 2017-09-12 12:30
 category: Technical Guide, Microsoft, Azure
 author:
