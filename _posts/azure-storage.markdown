@@ -6,7 +6,7 @@ description: "This article will help you to know multiples ways to Storage infor
 date: 2017-09-12 12:30
 category: Technical Guide, Microsoft, Azure
 author:
-  name: V?ctor Moreno
+  name: Victor Moreno
   url: https://twitter.com/vmorenoz
   mail: victor.e.moreno@outlook.com
   avatar: 
@@ -153,6 +153,8 @@ I invite you to look into this project from GitHub dedicated to [File Storage](h
 
 ## Aside: Securing XYZ Applications with Auth0
 
+This section will be filled with more information.
+
 ## Some conclusions about Azure Storage
 
 As we can see, Azure Storage offer us multiples ways to store information on the cloud, now we are going to answer some questions in order to clarify the opportunities for our projects and necessities:
@@ -173,4 +175,3 @@ Queue Storage helps to make our applications scalable and less sensitive to indi
 + When should we use File Storage?
 
 File Storage helps to access our file repositories on the cloud safety, avoiding to use file systems based on typical servers. It uses HTTPS and SMB for securing data in transit and the access to Storage Account is restricted to users having access to Storage Account Key or SAS to ensure security of your data at all stages data lifecycle.
-
