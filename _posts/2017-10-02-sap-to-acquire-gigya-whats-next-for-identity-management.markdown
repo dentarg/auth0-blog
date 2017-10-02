@@ -10,7 +10,7 @@ author:
   name: "Kim Maida"
   url: "https://twitter.com/kimmaida"
   mail: "kim.maida@auth0.com"
-  avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
+  avatar: "https://secure.gravatar.com/avatar/a208cda2b3b21dc8d7896507f5ff60fc"
 design:
   image: https://cdn.auth0.com/blog/gigya/Logo.png
   bg_color: "#285AA6"
@@ -34,9 +34,9 @@ With this news, current Gigya customers will be very interested in learning more
 
 > "Gigya’s consent-based identity data platform and SAP Hybris® Profile data matching and enrichment capabilities to be integrated" —[Gigya Press Release](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/)
 
-{% include tweet_quote.html quote_text="SAP acquisition of Gigya: current Gigya customers will be interested to learn plans for integration." %}
-
 SAP has announced that the acquisition will allow them to offer a cloud-based data platform for user data collection and that Gigya's 300+ employees will become part of the SAP Hybris business unit.
+
+{% include tweet_quote.html quote_text="SAP acquisition of Gigya: current Gigya customers will be interested to learn plans for integration." %}
 
 ## Assessing an IAM Platform
 
