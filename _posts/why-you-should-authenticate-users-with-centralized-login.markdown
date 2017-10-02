@@ -26,23 +26,36 @@ related:
 
 ---
 
-## OUTLINE
+## Introduction
 
-* Introduction
-  * What is centralized login?
-  * What is embedded login?
-* Why centralized login is recommended over embedded login
-  * Security (MITM attacks)
-  * Passwordless
-  * SSO
-  * Maintainability
-  * Developer ease
-  * Native experience
-  * Good UI
-      * Customizable!
-      * CNAME functionality to keep the same domain on centralized login to land before EOY (https://www.notion.so/How-to-setup-a-custom-domain-6f6a376f72ac4fd0830bbbf1f1fa73da)
-  * NOTE: When it's not appropriate to use centralized login
-* App sample showing how to implement centralized login with Auth0 
-  * CNAME to be implemented by EOY
-  * [tutorial to be updated with additional instructions when CNAME officially drops]
-* Conclusion
+### What is Centralized Login?
+
+### What is Embedded Login?
+
+## Why You Should Use Centralized Login
+
+### Security
+
+MITM attacks
+
+### Passwordless
+
+### Single Sign-On
+
+### Easier to Implement and Maintain
+
+Developer ease of use
+
+### Better Experience on Native Mobile
+
+iOS, Android
+
+### User Experience
+
+Customizble UI, CNAME functionality to keep the same domain on centralized login to land before EOY (https://www.notion.so/How-to-setup-a-custom-domain-6f6a376f72ac4fd0830bbbf1f1fa73da)
+
+## When _Not_ to Use Centralized Login
+
+## How to Implement Centralized Login with Auth0
+
+## Conclusion
