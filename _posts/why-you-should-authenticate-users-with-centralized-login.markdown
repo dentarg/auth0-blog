@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Why You Should Authenticate Users with Hosted Login"
-description: "Learn why hosted login is more secure and flexible than embedded login."
+title: "Why You Should Authenticate Users with Centralized Login"
+description: "Learn why centralized login is more secure and flexible than embedded login."
 date: 2017-10-05 8:30
 category: Technical guide, Thing, Thing2, PR, Press
 banner:
@@ -28,21 +28,21 @@ related:
 
 ## OUTLINE
 
-> Note: Are we using "hosted login" as official terminology??
-
 * Introduction
-  * What is hosted login?
+  * What is centralized login?
   * What is embedded login?
-* Why hosted login is recommended over embedded login
+* Why centralized login is recommended over embedded login
   * Security (MITM attacks)
   * Passwordless
   * SSO
   * Maintainability
   * Developer ease
   * Native experience
-  * Good user experience
-    * Customizable!
-    * CNAME functionality to keep the same domain on hosted login to land before EOY (https://www.notion.so/How-to-setup-a-custom-domain-6f6a376f72ac4fd0830bbbf1f1fa73da)
-  * NOTE: When it's not appropriate to use hosted login
-* App sample showing how to implement hosted login with Auth0 [to be updated with additional instructions when CNAME drops!]
+  * Good UI
+      * Customizable!
+      * CNAME functionality to keep the same domain on centralized login to land before EOY (https://www.notion.so/How-to-setup-a-custom-domain-6f6a376f72ac4fd0830bbbf1f1fa73da)
+  * NOTE: When it's not appropriate to use centralized login
+* App sample showing how to implement centralized login with Auth0 
+  * CNAME to be implemented by EOY
+  * [tutorial to be updated with additional instructions when CNAME officially drops]
 * Conclusion
