@@ -20,7 +20,7 @@ To include an Auth0 Aside in your post markdown, use the following syntax:
 Auth0 Asides **must**:
 
 * have instructions on how to set up an Auth0 Client
-* authenticate the app using hosted login
+* authenticate the app using centralized login
 * have a supporting sample repo at [auth0-blog](https://github.com/auth0-blog)
 
 Auth0 Asides **should**: 
