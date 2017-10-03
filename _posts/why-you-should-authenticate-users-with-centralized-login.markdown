@@ -40,35 +40,35 @@ High standards of security and ease of use have been set for modern authenticati
 
 ### What is Embedded Login?
 
-**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain or in a WebView (in the case of native apps). Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that need to be addressed; for example, [Google no longer supports an embedded approach when implementing OAuth](https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html).
+**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain or in a WebView (in the case of native apps). Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html).
 
-## "A Tale of Scale, Featuring Authentication"
+## A Tale of Two Companies
 
-Let's begin with a hypothetical timeline from the perspective of the tech team of an imaginary company with an imaginary product. This story can help us visualize and relate to the challenges many companies face when implementing authentication in a way that doesn't afford enough flexibility.
+Let's begin with two hypothetical timelines from the perspective of tech teams at companies with imaginary products. These examples can help us visualize and relate to the challenges many companies face when implementing authentication in a way that doesn't afford enough flexibility.
 
-The tech team at our make-believe company (let's call them Company Omega) has produced the following timeline of sentiments:
+### Company A
 
-Day 1: 
+The engineering team at our first make-believe company (let's call them Company A) has produced the following timeline of sentiments:
 
-```
-“Year 1: we are doing great, people are crazy about it. We will release an API so that third party tools can upload videos”
+* **Year 0**: We're building an online video streaming service. Login is performed using an embedded username and password form on the homepage.
+* **Year 1**: We're doing great! People love our service. We're now developing an API so that third party tools can upload videos to the service.
+* **Year 2**: Due to high demand, we're building native mobile apps for Android and iOS. Users need to sign in every time they open the app.
+* **Year 3**: We've been acquired by Google! However, our proprietary authentication does _not_ integrate easily with other systems. It's become a nightmare to overhaul authentication for our site, mobile apps, and APIs! 😩
 
-[2:49] 
-“Year 2: let’s build a mobile app to make a native experience”
+### Company B
 
-[2:49] 
-“Year 3: Google bought us! Now we need to plug into their system… nightmare”
+Now let's consider a second make-believe company called Company B. Their engineering team's timeline looks like this:
 
-[2:49] 
-this also expands into why implementing Oauth2 from day one is a good strategic investment
+* **Year 0**: We're building an online photo storage and sharing service. Login is centralized and implemented with OAuth 2.0 and Google as a social Identity Provider (IdP).
+* **Year 1**: We're doing great! People love our service. We're now developing an API so that third party tools can upload photos to the service. API security and third party authentication has been easy with OAuth.
+* **Year 2**: Due to high demand, we're building native mobile apps for Android and iOS. We avoided authenticating our mobile apps in embedded WebView. This way, our users won't have to sign in again if they're already authenticated on their phone with another app that uses Google OAuth.
+* **Year 3**: We've been acquired by Google! Integration was fast and easy! 🎉
 
-[2:50] 
-when someone buys your company, you will be much easier to integrate with
-```
+These scenarios are heavily simplified, but they still demonstrate a few of the advantages of starting with centralized login and [OAuth protocols](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-12) from the beginning. Doing so helps you future-proof your applications, making it easy to grow and integrate with other systems.
 
-## <span id="why-use-centralized-login"></span>Why You Should Use Centralized Login
+## <span id="why-use-centralized-login"></span>Why Centralized Login is Considered Best Practice
 
-Centralized login has many advantages over an embedded login approach, including better security, improved Single Sign-On, simpler maintainability, native app implementation, and more. Let's explore these in more detail. 
+Centralized login has many advantages over an embedded login approach, including better security, improved Single Sign-On, simpler maintainability, native app implementation, and more. Let's explore these in more detail.
 
 ### Security
 
