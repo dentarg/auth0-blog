@@ -72,9 +72,11 @@ Centralized login has many advantages over an embedded login approach, including
 
 ### Security
 
-Cross-origin authentication, MITM attacks
+Centralized login is more secure than embedded login. Authentication takes place over the same domain, eliminating cross-origin requests. Cross-origin authentication is inherently more dangerous. Collecting user credentials in an application served from one origin and then sending them to another origin can present certain security vulnerabilities. [Phishing attacks](https://auth0.com/blog/all-you-need-to-know-about-the-google-docs-phishing-attack/) are more likely, as are [man-in-the-middle attacks](https://auth0.com/docs/security/common-threats#man-in-the-middle-mitm-attacks). Centralized login does not send information between origins, thereby negating cross-origin concerns.
 
 ### Single Sign-On
+
+
 
 ### Easier to Implement and Maintain
 
