@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why You Should Authenticate Users with Centralized Login"
+title: "Authentication Best Practices: Centralized Login"
 description: "Learn why centralized login is more secure and flexible than embedded login."
 date: 2017-10-05 8:30
 category: Technical guide, Thing, Thing2, PR, Press
