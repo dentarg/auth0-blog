@@ -24,7 +24,7 @@ related:
 
 Recently, [we've]({% post_url  2017-08-01-auth0-webtasks-the-quickest-of-all-quick-starts %}) shown you how quickly you can stand up an HTTPS endpoint on the internet using Auth0 Webtasks with the Webtasks sandbox [webtask.io](https://webtask.io/). Shockingly, it takes less than a minute.
 
-The ease with witch you can deploy that endpoint and glue together the services you use like Github and Slack make Webtask.io very powerful.
+The ease with which you can deploy that endpoint and glue together the services you use like Github and Slack make Webtask.io very powerful.
 
 However, if you create a webtask that sends messages to Slack channels when triggered by Github, you wouldn't want anyone but Github to be able to invoke your webtask.
 
