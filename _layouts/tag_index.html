@@ -11,7 +11,7 @@ is_tag_index: true
   <div class="archive">
 
   {% for post in site.tags[page.tag] limit: 3 %}
-    {% unless post.draft %}
+    {% unless post.hide_from_index %}
       {% include archive_post.html %}
     {% endunless %}
   {% endfor %}
