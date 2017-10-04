@@ -112,9 +112,13 @@ We will also tell the compiler to process files under `./src`, a directory that 
 
 ### Compiler Options
 
-The options used in the configuration file so far are just a small subset of what TypeScript supports. For example,
+The options used in the configuration file above are just a small subset of what TypeScript supports. For example, we could instruct the compiler to handle decorators, to support `jsx` files, or even to transpile pure JavaScript files. The official website contains a [list of all options, with their description, available on TypeScript](https://www.typescriptlang.org/docs/handbook/compiler-options.html), but below there is the explanation of a few commonly used options:
 
-The official website contains a [list of all options available on TypeScript](https://www.typescriptlang.org/docs/handbook/compiler-options.html) with their description.
+- `allowJs`: this option makes TypeScript compiler process JavaScript as well. For example, if we create a JavaScript file that uses generator (ECMAScript 2015 feature), and use TypeScript to compile JavaScript targeting ECMAScript 5, the compiler would replace the generator function with JavaScript code capable of running on the target.
+- `noImplicitAny`: this options makes the compiler to complain whenever it finds a variable declaration that can accept any type, but that [doesn't explicitly defines it](https://basarat.gitbooks.io/typescript/docs/options/noImplicitAny.html).
+- `experimentalDecorators`: this option enables decorators on a TypeScript project. By default, [decorators](https://tc39.github.io/proposal-decorators/) are disabled since they are not part of any official JavaScript version yet.
+- `emitDecoratorMetadata`: this option, alongside with the presence of the `reflect-metadata` package, will [preserve type information in object's metadata](http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4).
+- `watch`: this option makes TypeScript compiler run indefinitely. With it, whenever a source file is changed, the compiling process is triggered automatically to generate the new version.
 
 ## TypeScript Features
 
