@@ -158,7 +158,304 @@ export default () => (
 
 ## Aside: Authenticating a Next.js 3.0 App with Auth0
 
-You can check out how to implement authentication with Auth0 in the [Next.js 1.0](https://auth0.com/blog/building-universal-apps-with-nextjs/) and [Next.js 2.0 release](https://auth0.com/blog/build-better-universal-apps-with-nextjs2/) tutorials.
+**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
+
+We can easily set up authentication in a **Next.js 3.0** apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
+**Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/auth/signed-in` or whatever url/port you are running on. And set the `Allowed Origins (CORS)` to `http://localhost:3000/` or whatever domain url you are using, especially if it is hosted. Furthermore; set the `Allowed Logout URLs` to `http://localhost:3000/`.
+
+> Here, we use Lock, so it's important to go to `Dashboard >> Clients >> Settings >> Show Advanced Settings >> OAuth >> OIDC Conformant flag` and switch off the `OIDC Conformat` flag because it uses the legacy authentication pipeline. It's easier to upgrade to next 3.0 without breaking changes. Check out the [OIDC Conformant Authentication Adoption Guide](https://auth0.com/docs/api-auth/tutorials/adoption).
+
+Authentication in a Next.js app could be a little complicated because you have to ensure that the server-rendered pages are authenticated, meaning they need to have access to the token.
+
+In the example below, the token returned from Auth0 is stored in LocalStorage and also as a cookie.
+
+Check out the [completed app on Github](https://github.com/auth0-blog/next3-auth0).
+
+**Note**: Don't forget to rename the `config.sample.json` file to `config.json` and add your credentials.
+
+_utils/auth.js_
+
+```js
+
+import jwtDecode from 'jwt-decode'
+import Cookie from 'js-cookie'
+
+const getQueryParams = () => {
+  const params = {}
+  window.location.href.replace(/([^(?|#)=&]+)(=([^&]*))?/g, ($0, $1, $2, $3) => {
+    params[$1] = $3
+  })
+  return params
+}
+
+export const extractInfoFromHash = () => {
+  if (!process.browser) {
+    return undefined
+  }
+  const {id_token, state} = getQueryParams()
+  return {token: id_token, secret: state}
+}
+
+export const setToken = (token) => {
+  if (!process.browser) {
+    return
+  }
+  window.localStorage.setItem('token', token)
+  window.localStorage.setItem('user', JSON.stringify(jwtDecode(token)))
+  Cookie.set('jwt', token)
+}
+
+export const unsetToken = () => {
+  if (!process.browser) {
+    return
+  }
+  window.localStorage.removeItem('token')
+  window.localStorage.removeItem('user')
+  window.localStorage.removeItem('secret')
+  Cookie.remove('jwt')
+
+  window.localStorage.setItem('logout', Date.now())
+}
+
+export const getUserFromCookie = (req) => {
+  if (!req.headers.cookie) {
+    return undefined
+  }
+  const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
+  if (!jwtCookie) {
+    return undefined
+  }
+  const jwt = jwtCookie.split('=')[1]
+  return jwtDecode(jwt)
+}
+
+export const getUserFromLocalStorage = () => {
+  const json = window.localStorage.user
+  return json ? JSON.parse(json) : undefined
+}
+
+export const setSecret = (secret) => window.localStorage.setItem('secret', secret)
+
+export const checkSecret = (secret) => window.localStorage.secret === secret
+
+```
+
+_utils/lock.js_
+
+```js
+
+import { setSecret } from './auth'
+
+import uuid from 'uuid'
+
+const getLock = (options) => {
+  const config = require('../config.json')
+  const Auth0Lock = require('auth0-lock').default
+  return new Auth0Lock(config.AUTH0_CLIENT_ID, config.AUTH0_CLIENT_DOMAIN, options)
+}
+
+const getBaseUrl = () => `${window.location.protocol}//${window.location.host}`
+
+const getOptions = (container) => {
+  const secret = uuid.v4()
+  setSecret(secret)
+  return {
+    container,
+    closable: false,
+    auth: {
+      responseType: 'token',
+      redirectUrl: `${getBaseUrl()}/auth/signed-in`,
+      params: {
+        scope: 'openid profile email',
+        state: secret
+      }
+    }
+  }
+}
+
+export const show = (container) => getLock(getOptions(container)).show()
+export const logout = () => getLock().logout({ returnTo: getBaseUrl() })
+
+```
+
+_pages/auth/sign-in.js_
+
+```js
+
+import React from 'react'
+
+import defaultPage from '../../hocs/defaultPage'
+import { show } from '../../utils/lock'
+
+const CONTAINER_ID = 'put-lock-here'
+
+class SignIn extends React.Component {
+  componentDidMount () {
+    show(CONTAINER_ID)
+  }
+  render () {
+    return <div id={CONTAINER_ID} />
+  }
+}
+
+export default defaultPage(SignIn)
+
+```
+
+Display the login page once the sign-in component gets mounted.
+
+![Sign in](https://cdn.auth0.com/blog/secret/sign-in.png)
+_Sign-in page_
+
+_pages/auth/signed-in.js_
+
+```js
+
+import React, { PropTypes } from 'react'
+
+import { setToken, checkSecret, extractInfoFromHash } from '../../utils/auth'
+
+export default class SignedIn extends React.Component {
+  static propTypes = {
+    url: PropTypes.object.isRequired
+  }
+
+  componentDidMount () {
+    const {token, secret} = extractInfoFromHash()
+    if (!checkSecret(secret) || !token) {
+      console.error('Something happened with the Sign In request')
+    }
+    setToken(token)
+    this.props.url.pushTo('/')
+  }
+
+  render () {
+    return null
+  }
+}
+
+```
+
+Grab the token and secret from Auth0 as it returns to the callback which is the signed-in page, save it and redirect to the index page.
+
+![Signed in](https://cdn.auth0.com/blog/signedin/authenticated.png)
+_Secret page shows that the user is signed in and can access it_
+
+_pages/index.js_
+
+```js
+
+import React, { PropTypes } from 'react'
+import Link from 'next/link'
+
+import defaultPage from '../hocs/defaultPage'
+
+const SuperSecretDiv = () => (
+  <div>
+    This is a super secret div.
+    <style jsx>{`
+      div {
+        background-color: #ecf0f1;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        border-radius: 2px;
+        padding: 10px;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 100;
+        margin-bottom: 30px;
+      }
+    `}</style>
+  </div>
+)
+
+const createLink = (href, text) => (
+  <a href={href}>
+    {text}
+    <style jsx>{`
+      a {
+        color: #333;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #ccc;
+        text-decoration: none;
+        font-weight: 400;
+        line-height: 30px;
+        transition: border-bottom .2s;
+      }
+
+      a:hover {
+        border-bottom-color: #333;
+      }
+    `}</style>
+  </a>
+)
+
+const Index = ({ isAuthenticated }) => (
+  <div>
+    {isAuthenticated && <SuperSecretDiv />}
+    <div className='main'>
+      <h1>Hello, friend!</h1>
+      <p>
+        This is a super simple example of how to use {createLink('https://github.com/zeit/next.js', 'next.js')} and {createLink('https://auth0.com/', 'Auth0')} together.
+      </p>
+      {!isAuthenticated && (
+        <p>
+          You're not authenticated yet. Maybe you want to <Link href='/auth/sign-in'>{createLink('/auth/sign-in', 'sign in')}</Link> and see what happens?
+        </p>
+      )}
+      {isAuthenticated && (
+        <p>
+          Now that you're authenticated, maybe you should try going to our <Link href='/secret'>{createLink('/secret', 'super secret page')}</Link>!
+        </p>
+      )}
+    </div>
+    <style jsx>{`
+      .main {
+        max-width: 750px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 40;
+        font-weight: 200;
+        line-height: 40px;
+      }
+
+      p {
+        font-size: 20px;
+        font-weight: 200;
+        line-height: 30px;
+      }
+    `}</style>
+  </div>
+)
+
+Index.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
+}
+
+export default defaultPage(Index)
+
+```
+
+The index page is server-rendered. It checks if the user is authenticated or not and renders content based on the status.
+
+The [secret page](https://github.com/auth0-blog/next3-auth0/blob/master/pages/secret.js) too checks if the user is logged in and determines content based on the user's status.
+
+![Secret page unauthorized](https://cdn.auth0.com/blog/secret/notloggedin.png)
+_Not displaying valid content because the user cant access the secret page without signing in_
+
+**Note:** Nextjs exposes virtually everything to the client. Secrets and environment variables are leaked to the frontend. So if you want to perform an API call and you need to validate a token based on a **secret**, then you will have to run a [custom express server](https://github.com/zeit/next.js/tree/master/examples/custom-server-express) so that your **secret** can be available only on the server. This also applies to other forms of operations that require loading some secret environment variables that the user of your app shouldn't have access to.
+
+> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 
