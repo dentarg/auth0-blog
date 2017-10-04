@@ -38,6 +38,35 @@ Besides enabling developers to check the correctness of their code before runnin
 
 ## Installing TypeScript
 
+To compile and transpile TypeScript into JavaScript, we need to install the command-line compiler. As this compiler is in fact a Node.js program, we first need to [install Node.js and NPM](https://nodejs.org/en/download/current/) to, after that, install the compiler as a Node.js package:
+
+```bash
+# installing TypeScript compiler
+npm install -g typescript
+```
+
+This will make the `tsc` (TypeScript Compiler) command available globally on our machine. To test the installation, let's create a simple TypeScript file called `index.ts` with the following code:
+
+```typescript
+console.log(1);
+```
+
+And then let's use the compiler to transform it to JavaScript:
+
+```bash
+# compiling index.ts
+tsc index
+```
+
+This will generate a new file called `index.js` with the exact same code of the TypeScript file. To execute this new file, let's use Node.js:
+
+```bash
+# this will output 1
+node index
+```
+
+Although the compiler did nothing else besides creating a JavaScript file and copying the original code to it, these steps helped us to validate that our TypeScript installation is on a good shape and ready to handle the next steps.
+
 ## Creating a TypeScript Project
 
 ### Installing TypeScript
