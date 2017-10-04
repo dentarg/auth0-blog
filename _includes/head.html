@@ -4,6 +4,7 @@
     <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 
     {% include sharing_metas.html %}
+    {% include locales.html %}
 
     {% if page.is_tag_index or page.switch_index %}
       <title>{{ page.tag | capitalize }} - Auth0 Blog</title>
