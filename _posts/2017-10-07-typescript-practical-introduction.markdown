@@ -86,7 +86,35 @@ touch tsconfig.json
 
 ### TypeScript Configuration
 
+As TypeScript can aim different environments (like ECMAScript 3 and ECMAScript 2015) and can be configured to validate different things (like [implicit any](https://basarat.gitbooks.io/typescript/docs/options/noImplicitAny.html)), we use the `tsconfig.json` file to adjust the compiler to our needs. In our practical introduction to TypeScript, we will create a small program that runs on our terminal, through Node.js, to help us manage projects and its tasks.
+
+Node.js is based on [Chrome V8](https://developers.google.com/v8/), one of the most up-to-date JavaScript engines available. The version 6 of Node.js ships with a Chrome V8 version capable of supporting 95% of the ECMAScript 2015 specification, [as shown by Node Green](http://node.green/), while the version 8 is capable of supporting 99%. In respect of ECMAScript 2017, both versions support 23% and 73% of the specification, respectively. Therefore, the best choice is to configure our project to be compiled to ECMAScript 2015, which will enable users with Node.js 6 and 8 to run our program without trouble.
+
+Besides configuring the compiler to target ECMAScript 2015, we will also configure other three characteristics:
+
+- `module`, to instruct TypeScript to use the [CommonJS module format](http://requirejs.org/docs/commonjs.html).
+- `removeComments`, to avoid adding comments in the generated JavaScript files.
+- `sourceMap`, to help us debugging the code generated.
+
+We will also tell the compiler to process files under `./src`, a directory that we will create to add our TypeScript source code, and nothing else. To perform these configurations, let's open the `tsconfig.json` file and add the following content to it:
+
+```typescript
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "removeComments": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*"]
+}
+```
+
 ### Compiler Options
+
+The options used in the configuration file so far are just a small subset of what TypeScript supports. For example,
+
+The official website contains a [list of all options available on TypeScript](https://www.typescriptlang.org/docs/handbook/compiler-options.html) with their description.
 
 ## TypeScript Features
 
