@@ -30,6 +30,10 @@ related:
 
 ## What is TypeScript
 
+[TypeScript](https://www.typescriptlang.org/) is a programming language, built by [Microsoft](https://www.microsoft.com), that extends JavaScript. The language has been built as an open source, [licensed under the Apache License 2.0](https://github.com/Microsoft/TypeScript/blob/master/LICENSE.txt), so the developer community can use it freely. Among its features, a remarkable one is that TypeScript brings [type safety](https://en.wikipedia.org/wiki/Type_system#Type_checking) to one of the most flexible, dynamic programming languages around: JavaScript. This characteristic enables developers to be very productive even on large codebases by introducing and facilitating tools and practices like static checking and code refactoring.
+
+Besides enabling developers to check the correctness of their code before running it, TypeScript also brings to the table the state of the art JavaScript. That is, with TypeScript we can take advantage of the latests features of JavaScript, like those introduced on ECMAScript 2015, and features that are still under consideration (e.g. decorators). As the developers of TypeScript knew that applications written in the language would face a wide variety of environments (JavaScript engines), they made it easy to compile and [transpile](https://en.wikipedia.org/wiki/Source-to-source_compiler) TypeScript to the most different targets, like ECMAScript 3 and above.
+
 ### Advantages and Disadvantages
 
 ## Installing TypeScript
@@ -65,3 +69,5 @@ related:
 ## Aside: Securing TypeScript with Auth0
 
 ## Conclusion
+
+Although bringing type safety to JavaScript, TypeScript does it without being intrusive. That is, it helps us static checking variable types when we want, but don't force us to.
