@@ -69,7 +69,20 @@ Although the compiler did nothing else besides creating a JavaScript file and co
 
 ## Creating a TypeScript Project
 
-### Installing TypeScript
+To create a TypeScript project, everything that we need is a `tsconfig.json` file. The presence of this file in a directory denotes that this directory is the root of a TypeScript project. This file, among other things, instructs the compiler on which files to compile, which files to ignore, and what environment to target (e.g. ECMAScript 3).
+
+To create our first TypeScript project, let's create a new directory and add the TypeScript configuration file to it:
+
+```bash
+# create the root directory of our TypeScript project
+mkdir project-manager-ts
+
+# move the working directory to it
+cd project-manager-ts
+
+# create an empty tsconfig.json file
+touch tsconfig.json
+```
 
 ### TypeScript Configuration
 
