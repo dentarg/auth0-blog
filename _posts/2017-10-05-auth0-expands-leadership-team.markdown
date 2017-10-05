@@ -4,20 +4,20 @@ title: "Auth0 Strengthens Leadership Team with Key Appointments"
 description: Industry leaders join company to drive next stage of growth
 date: 2017-10-05 16:36
 category: Announcements, Press
+press_release: true
 is_non-tech: true
 author:
   name: Jeana Tahnk
   url: http://twitter.com/jeanatahnk
   mail: jeana.tahnk@auth0.com
   avatar: https://pbs.twimg.com/profile_images/1891692507/JeanaTahnk2_crop_400x400.jpg
-press_release: true
 design:
   bg_color: "#090909"
   image: https://cdn.auth0.com/blog/customer-data/customer-data-icon.png
 tags: 
 - leadership
-- company news
-- executive team
+- company-news
+- executive-team
 - auth0
 related:
 - 2017-06-27-cloud-identity-leader-auth0-adds-30-million-series-c
