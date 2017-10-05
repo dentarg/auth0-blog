@@ -1,16 +1,16 @@
 ---
 layout: post
-title: "RxJS Advanced Tutorial With Angular & Web Speech: Part 2"
-description: "Build an app to learn about the power and flexibility of RxJS in Angular while exploring speech recognition with Web Speech API."
+title: "Developing Web Apps and RESTful APIs with KeystoneJS"
+description: "Learn how to build and secure RESTful APIs with KeystoneJS"
 date: 2017-09-26 8:30
 category: Technical Guide, JavaScript, KeystoneJS
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
-  name: "Kim Maida"
-  url: "https://twitter.com/KimMaida"
-  mail: "kim.maida@auth0.com"
-  avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
+  name: "Prosper Otemuyiwa"
+  url: "https://twitter.com/unicodeveloper"
+  mail: "prosper.otemuyiwa@auth0.com"
+  avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
   image: https://cdn.auth0.com/blog/madlibs/Logo.png
   bg_color: "#222228"
@@ -18,11 +18,12 @@ tags:
 - keystonejs
 - angular
 - javascript
-- web api
+- authentication
+- auth
 related:
-- 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
-- 2017-06-28-real-world-angular-series-part-1
-- 2017-02-13-making-use-of-rxjs-angular
+- 2017-09-19-building-an-app-with-Nette-and-adding-authentication
+- 2017-09-07-developing-restful-apis-with-loopback
+- 2017-08-10-implementing-jwt-authentication-on-spring-boot
 ---
 
 **TL;DR:** In this tutorial, I'll show you how easy it is to build a web application with KeystoneJS and add authentication to it. Check out the [repo](https://github.com/auth0/nette-auth0-got) to get the code.
@@ -31,501 +32,918 @@ related:
 
 **KeystoneJS** is an open-source Node.js based CMS and web application framework created by [Jed Watson](https://twitter.com/jedwatson) in 2013. KeystoneJS makes it very easy to build database-driven websites, applications & APIs. The framework is built upon Express and MongoDB. MongoDB is a very powerful document data store.
 
-A lot of folks already use **KeystoneJS** to power their CMSes. It's a great tool for quickly banging out a blog or forum or any form of managment system that really needs a content management system.
+A lot of folks already use **KeystoneJS** to power their CMSes. It's a great tool for quickly banging out a blog, portal, forum or any form of managment system that really needs a content management system.
 
-## Keystone Architecture
+## KeystoneJS Architecture
 
 KeystoneJS uses the Model View Template pattern. In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business and data access realm.
 
-* **Data Access - Model**:
+* **Data Access - Model**: This is the data access layer. It defines how data is been interacted with in the application. Validation, behaviour, and transformation of data.
 
-* **Tracy:** is a library that helps you log errors, dump variables, observe memory consumption and measure execution time of scripts and queries. After activating Tracy on your web application, a debugger bar shows up.
+* **Business Logic - View**: In a typical framework, the view simply presents data to the screen. In KeystoneJS, it serves as the busines logic layer that contains the logic that accesses the model, otherwise known as controllers. It serves as a connect between the models and templates.
 
-  ![Tracy debug bar](https://files.nette.org/git/tracy/tracy-bar.png)
-  _Tracy debug bar_
+* **Presentation - Templates**: This is the presentation layer. It displays data on the screen.
 
-This tool also provides the `Debugger::dump()` function which dumps the content of a variable far better than `var_dump`. Logging with Tracy involves invoking the `Debugger::log()` function. In production mode, Tracy automatically captures all errors and exceptions into a text log.
+## KeystoneJS Features
 
-Another useful development magic Tracy offers is the debugger stopwatch with a precision of microseconds. Just call the `Debugger::timer()` function. For multiple measurements, you can write code like this:
+KeystoneJS provides a standardized set of components that allows developers build web applications quickly with JavaScript. It has a number of features that makes it a worthy framework to consider when looking for a good tool for your next project.
 
-```php
-Debugger::timer('pdf-making');
-// some code
+* **Session Management** : KeystoneJS ships with session management and authentication features out of the box.
+* **Routing**: KeystoneJS provides a router that allows you to express how your web application or API routes should look like.
+* **Form Validation**: KeystoneJS provides form validation out of the box.
+* **Modularity**: KeystoneJS configures express for you. It also uses Mongoose to connect seamlessly with MongoDB and it separates views, routes and templates nicely by providing their specific directories.
+* **Admin UI**: KeystoneJS has an auto-generated Admin UI that saves you a lot of time and makes managing data from your database so easy.
+* **Email Administration**: With KeystoneJS, you can set up, preview and send template-based emails for your application seamlessly. It offers a Mandrill integration out of the box.
 
-Debugger::timer('excel-making');
-// some code
+## KeystoneJS Key Requirements
 
-$excelMakingElapsed = Debugger::timer('excel-making');
-$pdfMakingElapsed = Debugger::timer('pdf-making');
-```
+In order to use KeystoneJS, you need to have the following tools installed on your machine.
 
-Tracy also has an integration with [Firelogger](https://addons.mozilla.org/cs/firefox/addon/firelogger/). Learn more about how tracy works by visiting the [documentation](https://tracy.nette.org/) for more information.
+* **Node.js**: Navigate to the [node.js website](https://nodejs.org/en/download/) and install the latest version on your machine.
+* **Mongodb**: Navigate to the [mongodb website](https://www.mongodb.com/download-center?ct=false#atlas) and install the mongodb community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
+* Familiarity with database concepts, and working knowledge of JavaScript.
 
-* **Latte:** is a template engine for PHP. It has intuitive syntax and compiles templates to plain optimized PHP code.
+## Building a Blog Rapidly With KeystoneJS
 
-{% highlight html %}
-{% raw %}
-<ul n:if="$items">
-{foreach $items as $item}
-    <li id="item-{$iterator->counter}">{$item|capitalize}</li>
-{/foreach}
-</ul>
-{% endraw %}
-{% endhighlight %}
+I mentioned earlier that KeystoneJS is a tool for rapidly building out web applications. What you might not be aware of is that it is even easier to set up a blog with KeystoneJS. Let's quickly go through how to setup one.
 
-The best way to install Latte is via composer.
+### Use Keystone Yeoman Generator
+
+Run the following command in your terminal to install the powerful [Yeoman](http://yeoman.io/) generator for KeystoneJS:
 
 ```bash
-composer require latte/latte
+npm install -g generator-keystone
 ```
 
-And activate it by invoking it like:
+Create a `blog` directory and `cd` into it.
 
-```php
-$latte = new Latte\Engine;
-
-$latte->setTempDirectory('/path/to/tempdir');
-
-$parameters['items'] = ['one', 'two', 'three'];
-
-// render to output
-$latte->render('template.latte', $parameters);
-// or render to string
-$html = $latte->renderToString('template.latte', $parameters);
+```
+mkdir && cd blog
 ```
 
-Latte has a set of standard filters. You can call a filter by using the pipe symbol. Check out the code below:
+>> Make sure you already have Yeoman installed. Otherwise, run `npm install -g yo`.
 
-{% highlight html %}
-{% raw %}
-<h1>{$heading|upper}</h1>
-<h1>{$heading|lower|capitalize}</h1>
-<h1>{$heading|truncate:20,''}</h1>
-{% endraw %}
-{% endhighlight %}
+Now, run the generator.
 
-You can add a custom filter by calling the `addFilter` function on Latte:
+```
+yo keystone
+```
 
-```php
-$latte = new Latte\Engine;
+A wizard comes up and several questions are asked, including if you want a blog, image gallery and contact form. Answer the questions like I did in the image below:
 
-$latte->addFilter('clear', function ($str) {
-    return trim($str, 'Sd'); // eliminates Sd from the string
+![KeystoneJS generator wizard](https://cdn.auth0.com/blog/keystonejs/generator.png)
+_Keystone wizard_
+
+Go ahead and run your newly created project with the following command:
+
+```bash
+node keystone
+```
+
+The blog should run on port 3000 by default. Check out your new blog on `http://localhost:3000`.
+
+![Homepage](https://cdn.auth0.com/blog/keystonejs/bloghomepage.png)
+_Homepage_
+
+Sign in to the AdminUI with the credentials you passed in during the wizard generation process.
+
+![AdminUI Sign In](https://cdn.auth0.com/blog/keystonejs/adminlogin.png)
+_AdminUI Sign In_
+
+_Admin Dashboard_
+![Admin Dashboard](https://cdn.auth0.com/blog/keystonejs/adminloggedin.png)
+
+Try to create new posts and mark them as published. Also create new users. The Admin UI makes it so easy to do that. Check out the blog, _http://localhost:3000/blog_ itself and see the posts.
+
+You might be asking some questions already. How do I change the style of the blog? How do I create pages? Let's look into that now.
+
+### Create Pages
+
+Head over to the codebase. In the directory structure, you'll see a `models` directory that contains `Post`, `PostCategory`, `User` and `Enquiry` models.
+
+Create a `Page.js` model inside the `models` directory and add code to it like so:
+
+```js
+var keystone = require('keystone');
+var Types = keystone.Field.Types;
+
+/**
+ * Page Model
+ * ==========
+ */
+
+var Page = new keystone.List('Page', {
+  map: { name: 'title' },
+  autokey: { path: 'slug', from: 'title', unique: true },
+});
+
+Page.add({
+  title: { type: String, required: true },
+  state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
+  publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
+  image: { type: Types.CloudinaryImage },
+  content: {
+    brief: { type: Types.Html, wysiwyg: true, height: 150 },
+    extended: { type: Types.Html, wysiwyg: true, height: 400 },
+  }
+});
+
+Page.schema.virtual('content.full').get(function () {
+  return this.content.extended || this.content.brief;
+});
+
+Page.defaultColumns = 'title, state|20%';
+Page.register();
+```
+
+It's similar to the Post model. I specified the Page model attributes and in the Admin UI we only want to display page title and state, which is why I have `Page.defaultColumns = 'title, state|20%';`. 20% refers to the column width. Rerun your app, `node keystone` and go to `http://localhost:3000/keystone/pages`. You should be able to create new pages now.
+
+Let's add `Pages` to the Admin UI top navigation for easy access. Open `keystone.js` file located in the root of our project directory and add a new route to `keystone.set(nav)` section like so:
+
+```js
+// Configure the navigation bar in Keystone's Admin UI
+keystone.set('nav', {
+  posts: ['posts', 'post-categories'],
+  enquiries: 'enquiries',
+  users: 'users',
+  pages: 'pages'
 });
 ```
 
-Then we can use it in a template like this:
+**Note:** If you don't want to keep rerunning your app over and over again, you can install a node module called `nodemon`. Then just run: `nodemon keystone`. Once we make any change to our app, it automatically restarts the server.
 
-{% highlight html %}
-{% raw %}
-<p>{$sentence|clear}</p>
-{% endraw %}
-{% endhighlight %}
+Now, check your Admin UI:
 
-Learn more about how Latte works by visiting the [documentation](https://latte.nette.org) for more information.
+![Admin UI pages](https://cdn.auth0.com/blog/keystonejs/adminuipages.png)
+_Admin UI Pages Nav_
 
-* **Tester:** is a productive and enjoyable unit testing framework developed by the Nette team. It is used by the Nette framework for testing. It offers lots of Assertion helpers and annotations for TestCase methods. Learn more about how Tester works by visiting the [documentation](https://tester.nette.org) for more information.
+Now, let's configure Pages to show on the user facing end.
 
-**Nette**  has a [collection of plugins and extensions](https://componette.com) for easy use in your application. It also has an [active community](https://forum.nette.org).
+Head over to `routes/views` and create a `page.js` file. Add code to it:
 
-We'll be building a simple character listing app with **Nette**. Our app will simply list **10 Game of Thrones characters** and their real names. Once we add authentication to the app, all logged-in users will have the privilege of knowing their names. Non logged-in users won't have access to any data.
+```js
+var keystone = require('keystone');
 
-**Note:** Check out how we built this small secure app with [Laravel](https://auth0.com/blog/creating-your-first-laravel-app-and-adding-authentication/).
+exports = module.exports = function (req, res) {
 
-## Let's get started
+  var view = new keystone.View(req, res);
+  var locals = res.locals;
 
-Nette utilizes [Composer](http://getcomposer.org/) to manage its dependencies. So, before using Nette, make sure you have Composer installed on your machine. We can install Nette by issuing the Composer `create-project` command in your terminal like so: `composer create-project nette/web-project GOT`.
+  // Set locals
+  locals.section = 'pages';
+  locals.filters = {
+    post: req.params.page,
+  };
+  locals.data = {
+    posts: [],
+  };
 
-If you are developing on a Mac OS X or Linux, you need to configure write privileges to the web server by doing `cd GOT && chmod -R a+rw temp log`.
+  // Load the current post
+  view.on('init', function (next) {
 
-## Explore Directory Structure
+    var q = keystone.list('Page').model.findOne({
+      state: 'published',
+      slug: locals.filters.post,
+    });
 
-The app directory is the **bulk** of your Nette application. It contains the following directories:
+    q.exec(function (err, result) {
+      locals.data.post = result;
+      next(err);
+    });
 
-![Nette Directory Structure](https://cdn.auth0.com/blog/loopback/nettedirectorystructure.png)
+  });
 
-  * `config` - Contains all your configuration files such as database connection, session expiry time, etc.
-  * `presenters` - Contains all your presenter classes and templates
-  * `router` - Contains configuration for your app URLs.
+  // Load other posts
+  view.on('init', function (next) {
 
-The other directories namely:
+    var q = keystone.list('Page').model.find().where('state', 'published').sort('-publishedDate').limit('4');
 
-  * `log` contains your app log files. You can get all the error message logs here.
-  * `temp` contains your app's temporary files such as cache and session files.
-  * `vendor` contains your app dependencies.
-  * `www` is the only directory accessible from the web. It is supposed to store publicly available files such as images, javascript and css files.
+    q.exec(function (err, results) {
+      locals.data.posts = results;
+      next(err);
+    });
 
+  });
 
-## Setting Up The Controller
-
-In Nette, the presenters are the controllers. They connect the models and the views. We already have the _HomePagePresenter_. Let's use it.
-
-Open up `app/presents/HomepagePresenter.php` and configure it like so:
-
-```php
-<?php
-
-namespace App\Presenters;
-
-use Nette;
-
-class HomepagePresenter extends Nette\Application\UI\Presenter
-{
-
-  public function renderDefault() {
-
-    $characters = [
-         'Daenerys Targaryen' => 'Emilia Clarke',
-         'Jon Snow'           => 'Kit Harington',
-         'Arya Stark'         => 'Maisie Williams',
-         'Melisandre'         => 'Carice van Houten',
-         'Khal Drogo'         => 'Jason Momoa',
-         'Tyrion Lannister'   => 'Peter Dinklage',
-         'Ramsay Bolton'      => 'Iwan Rheon',
-         'Petyr Baelish'      => 'Aidan Gillen',
-         'Brienne of Tarth'   => 'Gwendoline Christie',
-         'Lord Varys'         => 'Conleth Hill'
-    ];
-
-    $this->template->characters = $characters;
-  }
-}
+  // Render the view
+  view.render('page');
+};
 ```
 
-`renderDefault()` means we are going to render what we have defined in the function above in a view called `default.latte`.
+This is page view. It manipulates the data from the model and renders a template. It basically pulls in the slug of the page from the URL and checks if that page slug exists in the database. It renders the result to the view.
 
-`$this->template->characters = $characters` indicates that we are passing the `$characters` array variable to the `default.latte` view.
+Next step, add the page template. Go to `templates/views`,create a `page.pug` file and add code to it like so:
 
-## Setting Up The View
+```
+{% extends "../layouts/default.twig" %}
 
-Views are present in the `app/presenters/templates` directory. Our presenter is `HomepagePresenter`. This simply indicates that our default view is in the `app/presenters/templates/Homepage` directory.
-
-Nette follows convention. Presenter templates can be found in `app/presenters/templates/{PresenterName}/{viewName}.latte`.
-
-Open up `app/presenters/templates/Homepage/default.latte` and modify it to look like this:
-
-{% highlight html %}
-{% raw %}
-{block content}
-    <h1 n:block="title"></h1>
-
-    <div class="container">
-      <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-              <div class="panel panel-success">
-                  <div class="panel-heading">List of Game of Thrones Characters</div>
-                    <table class="table">
-                        <tr>
-                            <th>Character</th>
-                            <th>Real Name</th>
-                        </tr>
-                        {foreach $characters as $key => $value}
-                          <tr>
-                            <td>{$key}</td><td>{$value}</td>
-                          </tr>
-                        {/foreach}
-                    </table>
-              </div>
-          </div>
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+        <article>
+          <p>
+            <a href="/blog">&larr; back to the blog</a>
+          </p>
+          <hr>
+          {% if not data.post %}
+            <h2>Invalid Page.</h2>
+          {% else %}
+            <header>
+              <h1>{{ data.post.title }}</h1>
+              <h5>Posted</h5>
+              {% if data.post.publishedDate %}
+                on {{ data.post.publishedDate|date("M d, Y") }}
+              {% endif %}
+              {% if data.post.categories and data.post.categories.length %}
+                in
+                {% for cat in data.post.categories %}
+                  <a href="/blog/{{ cat.key }}">{{ cat.name }}</a>
+                  {% if not loop.last %}, {% endif %}
+                {% endfor %}
+              {% endif %}
+            </header>
+            <div class="post">
+              {% if data.post.image.exists %}
+                <div class="image-wrap">
+                  <img src="{{ data.post._.image.fit(750,450) }}" class="img-responsive">
+                </div>
+              {% endif %}
+              {{ data.post.content.full | raw }}
+            </div>
+          {% endif %}
+        </article>
       </div>
     </div>
-{/block}
-{% endraw %}
-{% endhighlight %}
-
-By default, the layout template is located in `app/presenters/templates/@layout.latte`. It contains the format for presenting data in the templates.
-
-```bash
-{include content}
+  </div>
+{% endblock %}
 ```
 
-The code above inserts a block named `content` into the main template.
+Finally, we'll define a new route for pages.
 
-```bash
-{block content}
-```
+Head over to `routes/index.js` file, navigate to the routes section and add `app.get('/pages/:page', routes.views.page);` like so:
 
-You can then place items within the content block which is what we did in our default view.
-
-Just before checking it out, head over to `app/presenters/templates/@layout.latte` and add the link to bootstrap within the head tag like this:
-
-```bash
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-```
-
-The `$characters` array variable passed from the presenter was injected into the default view. And we iterated through it to display the Game of thrones characters.
-
-Head over to your terminal, make sure you are in the `GOT` root directory and ensure you configure write privileges to the web server if you are working on a Mac OS X or Linux system by running this command:
-
-```bash
-chmod -R a+rw temp log
-```
-
-Now, run the application:
-
-```bash
-php -S localhost:8000 -t www
-```
-
-Your application should look like this:
-
-![Homepage](https://cdn.auth0.com/blog/nette/homepage.png)
-_Homepage_
-
-![Tracy debug bar - Homepage](https://cdn.auth0.com/blog/nette/tracydisplay.png)
-_Tracy in action_
-
-![Tracy debug bar - System Info](https://cdn.auth0.com/blog/nette/displaysysteminfo.png)
-
-Check out Tracy in action. Very easy to know the memory consumption stats and execution time.
-
-## Setting Up Authentication With Auth0
-
-**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
-
-We can easily set up authentication in our Nette apps by using Auth0. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now.
-
-> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
-
-* Navigate to the Auth0 [management dashboard](https://manage.auth0.com/).
-* Create a new client and select the type of app as `Regular Web Applications`.
-
-    ![Create a new client](https://cdn.auth0.com/blog/nette/createclient.png)
-
-* Take note of the *client_id*, *domain*, and *secret*. You'll need it soon.
-
-    ![Client details](https://cdn.auth0.com/blog/nette/clientdetails.png)
-
-
-### Step 1: Install and Configure Auth0 PHP package
-
-Go ahead and install the [official Auth0 PHP Plugin](https://github.com/auth0/auth0-php) via composer.
-
-```bash
- composer require auth0/auth0-php
-```
-
-### Step 2: Register Auth0 as a Nette Service
-
-Head over to `app/config/config.neon` and add the following under `services:`:
-
-```bash
-auth0: Auth0\SDK\Auth0([
-    'domain' : '{AUTH0_TENANT_DOMAIN}',
-    'client_id' : '{AUTH0_REGULAR_WEBSITE_CLIENT_ID}',
-    'client_secret' : '{AUTH0_REGULAR_WEBSITE_CLIENT_SECRET}',
-    'redirect_uri' : 'http://localhost:8000/callback',
-    'persist_user' : false,
-    'store': false
-    'debug' : true
-  ])
-```
-
-We need to create a new presenter, `AuthenticationPresenter` to handle our authentication logic.
-
-_app/presenters/AuthenticationPresenter.php_
-
-```php
-<?php
-
-namespace App\Presenters;
-
-use \Tracy\Debugger;
-use \Nette\Http\IResponse;
-use \Nette\Application\UI\Presenter;
-use \Nette\Application\BadRequestException;
-use \Nette\Security\AuthenticationException;
-
-class AuthenticationPresenter extends Presenter {
-
-  /** @var \Auth0\SDK\Auth0 @inject */
-  public $auth0;
-
-  public function actionLogin() {
-    $this->auth0->login();
-  }
-
-  public function actionLogout() {
-    $this->auth0->logout();
-    $this->getUser()->logout();
-
-    $this->redirect('Homepage:');
-  }
-
-  public function actionCallback($code) {
-    try {
-      $this->getUser()->login($code);
-
-      $this->redirect('Homepage:');
-    } catch (AuthenticationException $e) {
-      Debugger::log($e, Debugger::ERROR);
-      throw new ForbiddenRequestException('User not authenticated', IResponse::S403_FORBIDDEN, $e);
-    }
-  }
-
-}
-```
-
-In the code above, you can see that the Auth0 service is being injected into the presenter using the `@inject` annotation. The `actionLogin` method is responsible for invoking the login function that will redirect the user to Auth0 hosted login page.
-
-The `actionLogout` method is responsible for clearing the sessions and any Auth0 data stored in the app. It logs the user out and redirects back to the home page.
-
-The `actionCallback` method is responsible for handling the authentication flow. When the authentication is successful from Auth0, it performs a client credential exchange and returns an authorization code.
-
-### Step 3: Configure Auth0 Authenticator
-
-Head over to `app/config/config.neon` and add the following under `services:`:
-
-```bash
-services:
-  auth0Authenticator: App\Model\Auth0Authenticator
-```
-
-Now, create a `model/Auth0Authenticator.php` file inside the `app` directory.
-
-Add code to the file like this:
-
-```php
-<?php
-
-namespace App\Model;
-
-use \Tracy\Debugger;
-use \Auth0\SDK\Auth0;
-use \Nette\Security\Identity;
-use \Nette\Security\IIdentity;
-use \Nette\Security\IAuthenticator;
-use \Nette\Security\AuthenticationException;
-
-class Auth0Authenticator implements IAuthenticator {
-
-  /** @var \Auth0\SDK\Auth0 */
-  private $auth0;
-
-  public function __construct(Auth0 $auth0) {
-    $this->auth0 = $auth0;
-  }
-
-  /**
-   *  @param $args[0] Authorization Code
-   *  @throws AuthenticationException
-   */
-  public function authenticate(array $args) : IIdentity {
-    if (sizeof($args) > 0 && !empty($args[0])) {
-      $code = $args[0];
-
-      if ($this->auth0->exchange()) {
-        return new Identity($this->auth0->getUser()['email'], NULL, $this->auth0->getUser());
-      } else {
-        throw new AuthenticationException('Auth0 code not exchanged successfully; user not authenticated.');
-      }
-    } else {
-      throw new AuthenticationException('Auth0 code not provided; user not authenticated.');
-    }
-  }
-
-}
-```
-
-This is where the credentials exchange happen, and the user info is gotten from Auth0 and injected into Nette via the Identity class.
-
-### Step 4: Configure Routing
-
-The default login and logout routes are `/authentication/login`, and `/authentication/logout` respectively. We'll change them to `/login` and `/logout` respectively.
-
-Open up `app/router/RouterFactory.php` and add the following routes:
-
-```php
+```js
 ...
-$router[] = new Route('login', 'Authentication:login');
-$router[] = new Route('logout', 'Authentication:logout');
-$router[] = new Route('callback', 'Authentication:callback');
-$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+app.get('/', routes.views.index);
+app.get('/blog/:category?', routes.views.blog);
+app.get('/blog/post/:post', routes.views.post);
+app.all('/contact', routes.views.contact);
+app.get('/pages/:page', routes.views.page);
 ```
 
-We also added the `callback` route.
+Now, let's add a Page to our user-facing navigation. One of the pages I created from the backend is Page `team`. This is how to add it:
 
-**Note:** Head over to your Auth0 client and configure the callback route in **Allowed Callback URLs**.
+Head over to `routes/middleware.js` and add `{ label: 'Team', key: 'team', href: '/pages/team' }` to the list of navLinks like so:
 
-![Add Callback Route](https://cdn.auth0.com/blog/nette/callback.png)
-_Add Callback Route_
+```js
+...
+exports.initLocals = function (req, res, next) {
+  res.locals.navLinks = [
+    { label: 'Home', key: 'home', href: '/' },
+    { label: 'Blog', key: 'blog', href: '/blog' },
+    { label: 'Team', key: 'team', href: '/pages/team' },
+    { label: 'Contact', key: 'contact', href: '/contact' },
+  ];
+  res.locals.user = req.user;
+  next();
+};
+```
 
-### Step 5: Configure The View
+That's all.
 
-Head over to `app/presenters/templates/Homepage/default.latte` and replace everything with the code below:
+Check your app, you should see a `Team` nav item or whatever page you created.
+
+![Team page](https://cdn.auth0.com/blog/keystonejs/teampage.png)
+
+We have just built a blog with a functional Admin UI within few minutes. You can add more functionalities or extend it to be a hotel or ticket or booking or any type of management system.
+
+Instead of building another application, let's look at how to build a functional API with KeystoneJS.
+
+## Building a Star Wars API Rapidly With KeystoneJS
+
+Let's build a Star Wars API with KeystoneJS. The Star Wars API will grant developers access to all the star wars data they have ever wanted. Well, this is a KeystoneJS tutorial therefore data will be very limited, but we'll put the API structure in place and learn how to secure it.
+
+* Create an `api` folder inside the `routes` directory. This is where we will place our logic for fetching data from the database and returning to the user.
+
+* Let's create models for our API. We'll have three models namely, _People_, _Starship_ and _Planet_. Each of these models will have certain attributes. Let's outline them:
+
+People:
+  - name
+  - height
+  - mass
+  - gender
+
+Starship:
+  - name
+  - model
+  - manufacturer
+  - crew
+
+Planet:
+  - name
+  - diameter
+  - population
+  - rotation_period
+
+Now, let's create the models. Create `models/People.js`, `models/Starship.js`, and `models/Planet.js` respectively and add code to them like so:
+
+_models/People.js_
+
+```js
+var keystone = require('keystone');
+var Types = keystone.Field.Types;
+
+/**
+ * People Model
+ * ==========
+ */
+var People = new keystone.List('People');
+
+People.add({
+  name: { type: Types.Name, required: true },
+  height: { type: Types.Number, required: true, initial: false },
+  mass: { type: Types.Number, required: true, initial: false },
+  gender: { type: String },
+});
 
 
-{% highlight html %}
-{% raw %}
-{block content}
-    <h1 n:block="title"></h1>
+/**
+ * Registration
+ */
+People.register();
+```
 
-    <div class="container">
-      <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-            {if $user->isLoggedIn()}
-            <div class="panel panel-info">
-              <div class="panel-heading">You are now logged in, {$user->getIdentity()->nickname} </div>
-            </div>
-            {/if}
-            <div class="panel panel-success">
-              <div class="panel-heading">List of Game of Thrones Characters</div>
-              {if $user->isLoggedIn()}
-                <table class="table">
-                    <tr>
-                        <th>Character</th>
-                        <th>Real Name</th>
-                    </tr>
-                    {foreach $characters as $key => $value}
-                      <tr>
-                        <td>{$key}</td><td>{$value}</td>
-                      </tr>
-                    {/foreach}
-                </table>
-              {/if}
-            </div>
-            {if !$user->isLoggedIn()}
-              <a href="{link Authentication:login}" class="btn btn-info"> You need to login to see the list 😜😜 >></a>
-            {/if}
-            {if $user->isLoggedIn()}
-              <a href="{link Authentication:logout}" class="btn btn-info"> Logout >></a>
-            {/if}
-          </div>
-      </div>
-    </div>
-{/block}
-{% endraw %}
-{% endhighlight %}
+_models/Starship.js_
 
-In the code above, we have some variables and function call:
+```js
+var keystone = require('keystone');
+var Types = keystone.Field.Types;
 
-* `$user->isLoggedIn()`: The `$user` variable is an [object](https://api.nette.org/2.4/Nette.Security.User.html) that is injected into the templates by default from Nette presenters and components. It represents the user. There are methods that can be called on it such as `isLoggedIn`, `login`, `logout`, etc. Here, we use to determine if the user is logged in or not.
-* `$user->getIdentity()->nickname`: The `$user->getIdentity()` function call is used to get the identity of the user. Identity represents a set of user information, as returned by the authenticator in use. In our app, we used a custom authenticator, _auth0Authenticator_. And that gives us the full range of [user information](https://auth0.com/docs/user-profile) that Auth0 returns. Therefore, we can access every Auth0 user attribute like so:
+/**
+ * Starship Model
+ * ==========
+ */
+var Starship = new keystone.List('Starship');
+
+Starship.add({
+  name: { type: String, required: true },
+  model: { type: String, required: true, initial: false  },
+  manufacturer: { type: String, required: true, initial: false  },
+  crew: { type: Number, required: true, initial: false },
+});
+
+
+/**
+ * Registration
+ */
+Starship.register();
+```
+
+_models/Planet.js_
+
+```js
+var keystone = require('keystone');
+var Types = keystone.Field.Types;
+
+/**
+ * Planet Model
+ * ==========
+ */
+var Planet = new keystone.List('Planet');
+
+Planet.add({
+  name: { type: Types.Name, required: true },
+  diameter: { type: Types.Number, required: true, initial: false  },
+  population: { type: Types.Number, required: true, initial: false },
+  rotation_period: { type: Types.Number, required: true, initial: false  },
+});
+
+
+/**
+ * Registration
+ */
+Planet.register();
+```
+
+These models are basically our Database Schemas.
+
+The next step is to create a Keystone view-like logic. In this case, we are dealing with APIs, so we will write them in a different way. Inside the `routes/api` directory, create these three files, `people.js`, `planet.js` and `starship.js` respectively.
+
+Go ahead and add code to them like so:
+
+_routes/api/people.js_
+
+```js
+var keystone = require('keystone');
+
+var People = keystone.list('People');
+
+/**
+ * List People
+ */
+exports.list = function(req, res) {
+  People.model.find(function(err, items) {
+
+    if (err) return res.json({ err: err });
+
+    res.json({
+      people: items
+    });
+
+  });
+}
+
+/**
+ * Get People by ID
+ */
+exports.get = function(req, res) {
+  People.model.findById(req.params.id).exec(function(err, item) {
+
+    if (err) return res.json({ err: err });
+    if (!item) return res.json('not found');
+
+    res.json({
+      people: item
+    });
+
+  });
+}
+
+
+/**
+ * Create a Post
+ */
+exports.create = function(req, res) {
+
+  var item = new People.model(),
+    data = (req.method == 'POST') ? req.body : req.query;
+
+  item.getUpdateHandler(req).process(data, function(err) {
+
+    if (err) return res.json({ error: err });
+
+    res.json({
+      people: item
+    });
+
+  });
+}
+
+/**
+ * Patch People by ID
+ */
+exports.update = function(req, res) {
+
+  People.model.findById(req.params.id).exec(function(err, item) {
+
+    if (err) return res.json({ err: err });
+    if (!item) return res.json({ err: 'not found' });
+
+    var data = (req.method == 'PUT') ? req.body : req.query;
+
+    item.getUpdateHandler(req).process(data, function(err) {
+
+      if (err) return res.json({ err: err });
+
+      res.json({
+        people: item
+      });
+
+    });
+
+  });
+}
+
+/**
+ * Delete People by ID
+ */
+exports.remove = function(req, res) {
+  People.model.findById(req.params.id).exec(function (err, item) {
+
+    if (err) return res.json({ dberror: err });
+    if (!item) return res.json('not found');
+
+    item.remove(function (err) {
+      if (err) return res.json({ dberror: err });
+
+      return res.json({
+        success: true
+      });
+    });
+
+  });
+}
+```
+
+_routes/api/planet.js_
+
+```js
+var keystone = require('keystone');
+
+var Planet = keystone.list('Planet');
+
+/**
+ * List Planets
+ */
+exports.list = function(req, res) {
+  Planet.model.find(function(err, items) {
+
+    if (err) return res.json({ err: err });
+
+    res.json({
+      planets: items
+    });
+
+  });
+}
+
+/**
+ * Get Planet by ID
+ */
+exports.get = function(req, res) {
+  Planet.model.findById(req.params.id).exec(function(err, item) {
+
+    if (err) return res.json({ err: err });
+    if (!item) return res.json('not found');
+
+    res.json({
+      planet: item
+    });
+
+  });
+}
+
+
+/**
+ * Create a Planet
+ */
+exports.create = function(req, res) {
+
+  var item = new Planet.model(),
+    data = (req.method == 'POST') ? req.body : req.query;
+
+  item.getUpdateHandler(req).process(data, function(err) {
+
+    if (err) return res.json({ error: err });
+
+    res.json({
+      planet: item
+    });
+
+  });
+}
+
+/**
+ * Patch Planet by ID
+ */
+exports.update = function(req, res) {
+  Planet.model.findById(req.params.id).exec(function(err, item) {
+
+    if (err) return res.json({ err: err });
+    if (!item) return res.json({ err: 'not found' });
+
+    var data = (req.method == 'PUT') ? req.body : req.query;
+
+    item.getUpdateHandler(req).process(data, function(err) {
+
+      if (err) return res.json({ err: err });
+
+      res.json({
+        planet: item
+      });
+
+    });
+
+  });
+}
+
+/**
+ * Delete Planet by ID
+ */
+exports.remove = function(req, res) {
+  Planet.model.findById(req.params.id).exec(function (err, item) {
+
+    if (err) return res.json({ dberror: err });
+    if (!item) return res.json('not found');
+
+    item.remove(function (err) {
+      if (err) return res.json({ dberror: err });
+
+      return res.json({
+        success: true
+      });
+    });
+
+  });
+}
+```
+
+_routes/api/starship.js_
+
+```js
+var keystone = require('keystone');
+
+var Starship = keystone.list('Starship');
+
+/**
+ * List Starships
+ */
+exports.list = function(req, res) {
+  Starship.model.find(function(err, items) {
+
+    if (err) return res.json({ err: err });
+
+    res.json({
+      starships: items
+    });
+
+  });
+}
+
+/**
+ * Get Starship by ID
+ */
+exports.get = function(req, res) {
+  Starship.model.findById(req.params.id).exec(function(err, item) {
+
+    if (err) return res.json({ err: err });
+    if (!item) return res.json('not found');
+
+    res.json({
+      starship: item
+    });
+
+  });
+}
+
+
+/**
+ * Create a Starship
+ */
+exports.create = function(req, res) {
+
+  var item = new Starship.model(),
+    data = (req.method == 'POST') ? req.body : req.query;
+
+  item.getUpdateHandler(req).process(data, function(err) {
+
+    if (err) return res.json({ error: err });
+
+    res.json({
+      starship: item
+    });
+
+  });
+}
+
+/**
+ * Patch Starship by ID
+ */
+exports.update = function(req, res) {
+  Starship.model.findById(req.params.id).exec(function(err, item) {
+
+    if (err) return res.json({ err: err });
+    if (!item) return res.json({ err: 'not found' });
+
+    var data = (req.method == 'PUT') ? req.body : req.query;
+
+    item.getUpdateHandler(req).process(data, function(err) {
+
+      if (err) return res.json({ err: err });
+
+      res.json({
+        starship: item
+      });
+
+    });
+
+  });
+}
+
+/**
+ * Delete Starship by ID
+ */
+exports.remove = function(req, res) {
+  Starship.model.findById(req.params.id).exec(function (err, item) {
+
+    if (err) return res.json({ dberror: err });
+    if (!item) return res.json('not found');
+
+    item.remove(function (err) {
+      if (err) return res.json({ dberror: err });
+
+      return res.json({
+        success: true
+      });
+    });
+
+  });
+}
+```
+
+Let's analyze the code above. We have four functions in each of the files. `list`, `create`, `update` and `remove`. These functions are mapped to HTTP operations like so:
+
+* `list` - /GET
+* `create` - /POST
+* `update` - /PUT
+* `remove` - /DELETE
+
+For example, if you make a POST request to `/people` API endpoint, the `create` function will be invoked.
+
+- The `list` function checks the document for all the resources for an API endpoint.
+- The `create` function creates a new resource for an API endpoint.
+- The `update` function checks if a resource exists and allows the resource to be updated for an API endpoint.
+- The `remove` function checks if a resource exists and deletes it for an API endpoint.
+
+Now, we need to map these functions to the API routes for a functional API to exist. Head over to the `routes/index.js` file. In the Route binding section, add this code to it like so:
+
+```js
+// Setup Route Bindings
+exports = module.exports = function (app) {
+  // Views
+  app.get('/', routes.views.index);
+
+  // API
+  app.get('/api/people', routes.api.people.list);
+  app.get('/api/people/:id', routes.api.people.get);
+  app.post('/api/people', routes.api.people.create);
+  app.put('/api/people/:id', routes.api.people.update);
+  app.delete('/api/people/:id', routes.api.people.remove);
+
+  app.get('/api/planets', routes.api.planet.list);
+  app.get('/api/planets/:id', routes.api.planet.get);
+  app.post('/api/planets', routes.api.planet.create);
+  app.put('/api/planets/:id', routes.api.planet.update);
+  app.delete('/api/planets/:id', routes.api.planet.remove);
+
+  app.get('/api/starships', routes.api.starship.list);
+  app.get('/api/starships/:id', routes.api.starship.get);
+  app.post('/api/starships', routes.api.starship.create);
+  app.put('/api/starships/:id', routes.api.starship.update);
+  app.delete('/api/starships/:id', routes.api.starship.remove);
+
+
+  // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
+  // app.get('/protected', middleware.requireUser, routes.views.protected);
+
+};
+```
+
+Finally, test the API routes with [Postman](https://www.getpostman.com/).
+
+![KeystoneJS GET operation](https://cdn.auth0.com/blog/keystonejs/read.png)
+_People GET operation_
+
+![KeystoneJS POST operation](https://cdn.auth0.com/blog/keystonejs/create.png)
+_People POST operation_
+
+![KeystoneJS DELETE operation](https://cdn.auth0.com/blog/keystonejs/delete.png)
+_People DELETE operation_
+
+Our API works. Awesome!!!
+
+## Securing a Star Wars API with Auth0
+
+Right now, anyone can make `GET` and `POST` requests to all of the endpoints present in our API. In a real-world scenario, we should restrict `POST`, `DELETE` and `PUT` requests to certain registered and authorized users.
+
+We'll go ahead and secure some of these API endpoints with JSON Web Tokens.
+
+JSON Web Tokens, commonly known as JWTs, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these JWTs. That is, applications that use JWTs no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
+
+Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the JWT, usually in the _Authorization_ header using the [Bearer schema](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), along with the request.
+
+When the API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
+
+* Check that the JWT is well formed
+* Check the signature
+* Validate the standard claims
+* Check the Client permissions (scopes)
+
+We will make use of Auth0 to issue our JSON Web Tokens. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
+
+For starters, if you haven't done so yet, this is a good time to sign up for a [free Auth0 account](javascript:signup\(\)). Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. And we are dealing with an API here, SWAPI (Star Wars API).
+
+> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+
+Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new API client.
+
+Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want.
+
+The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Star Wars API**, and for the identifier I'll set it as **https://starwarsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
+
+![New API to be created](https://cdn.auth0.com/blog/loopback/newapitobecreated.png)
+_Create a New API_
+
+![Star Wars API](https://cdn.auth0.com/blog/loopback/starwarsapi.png)
+_Creating the Star Wars API_
+
+![Define the scopes](https://cdn.auth0.com/blog/loopback/starwarscope.png)
+_You can define scopes in this section_
+
+Head over to your terminal and install the following node modules:
 
 ```bash
-$user->getIdentity()->nickname // returns user name
-$user->getIdentity()->email // returns user email
+npm install express-jwt jwks-rsa --save
 ```
 
-**Note:** Check out [Nette's Access control](https://doc.nette.org/en/2.4/access-control) for a deeper understanding of how the user object works.
+Open your `routes/index.js` file. Just before the route bindings, add this code:
 
-### Step 6: Run Your App
+```js
+...
+var authCheck = jwt({
+  secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        // YOUR-AUTH0-DOMAIN name e.g https://prosper.auth0.com
+        jwksUri: "{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+    issuer: '{YOUR-AUTH0-DOMAIN}',
+    algorithms: ['RS256']
+});
+```
 
-Now that everything is in place, go ahead and run your app.
+Also, make sure you require the `express-jwt` and `jwks-rsa` modules at the top of the file.
 
-![Homepage](https://cdn.auth0.com/blog/nette/start.png)
-_Homepage_
+```js
+var jwt = require('express-jwt');
+var jwks = require('jwks-rsa');
+```
 
-![About to Login](https://cdn.auth0.com/blog/nette/hostedlogin.png)
-_Auth0 Hosted Login_
+Add the `authCheck` function to the endpoints as a middleware like so:
 
-![LoggedIn](https://cdn.auth0.com/blog/nette/loggedin.png)
-_User is logged in_
+```js
+// Setup Route Bindings
+exports = module.exports = function (app) {
+  // Views
+  app.get('/', routes.views.index);
 
-## Wrapping Up
+  // API
+  app.get('/api/people', routes.api.people.list);
+  app.get('/api/people/:id', routes.api.people.get);
+  app.post('/api/people', authCheck, routes.api.people.create);
+  app.put('/api/people/:id', authCheck, routes.api.people.update);
+  app.delete('/api/people/:id', authCheck, routes.api.people.remove);
 
-Well done! You have just built your first app with Nette. It focuses on simplicity, clarity and getting work done. As we saw in this tutorial, you can easily add authentication to your Nette apps.
+  app.get('/api/planets', routes.api.planet.list);
+  app.get('/api/planets/:id', routes.api.planet.get);
+  app.post('/api/planets', authCheck, routes.api.planet.create);
+  app.put('/api/planets/:id', authCheck, routes.api.planet.update);
+  app.delete('/api/planets/:id', authCheck, routes.api.planet.remove);
 
-This tutorial is designed to help you get started on building and adding authentication to your own apps with the Nette framework. You can leverage the knowledge gained here to build bigger and better apps.
+  app.get('/api/starships', routes.api.starship.list);
+  app.get('/api/starships/:id', routes.api.starship.get);
+  app.post('/api/starships', authCheck, routes.api.starship.create);
+  app.put('/api/starships/:id', authCheck, routes.api.starship.update);
+  app.delete('/api/starships/:id', authCheck, routes.api.starship.remove);
+
+
+  // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
+  // app.get('/protected', middleware.requireUser, routes.views.protected);
+
+};
+```
+
+* The `express-jwt` module is an express middleware that validates a JSON Web Token and set the `req.user` with the attributes.
+* The `jwks-rsa` module is a library that helps retrieve RSA public keys from a JSON Web Key Set endpoint.
+
+The `authCheck` variable does the check to validate the access tokens that are sent as Authorization headers. It validates the `audience`, `issuer` and algorithm used to sign the token.
+
+**Note:** Replace the `YOUR-API-AUDIENCE-ATTRIBUTE` and `YOUR-AUTH0-DOMAIN` placeholders with the API audience and Auth0 domain values from your Auth0 dashboard.
+
+We just secured all the `post`, `put`, and `delete` API endpoints with JWT. If a user accesses these API endpoint/route without a valid access token or no token at all, it returns an error. Try it out.
+
+![Invalid token](https://cdn.auth0.com/blog/keystonejs/authorizationerror.png)
+_Accessing the POST people endpoint without an access token_
+
+Now, let's test it with a valid access token. Head over to the `test` tab of your newly created API on your Auth0 dashboard.
+
+Grab the Access token from the _Test_ tab
+
+![Get the Access token](https://cdn.auth0.com/blog/keystonejs/gettoken.png)
+_Grab the Access Token_
+
+Now use this `access token` in Postman by sending it as an Authorization header to make a POST request to `api/people` endpoint.
+
+![Accessing the endpoint securely](https://cdn.auth0.com/blog/keystonejs/authorizationbearer.png)
+_Accessing the endpoint securely_
+
+It validates the access token and successfully makes the POST request.
+
+Wondering how to integrate the secure API with a frontend? Check out our amazing [React](https://auth0.com/blog/reactjs-authentication-tutorial/) and [Vue.js authentication tutorials](https://auth0.com/blog/vuejs2-authentication-tutorial/).
+
+
+## Conclusion
+
+Well done! You have learned how to build a blog and an API with KeystoneJS. The KeystoneJS tutorial focuses on building a content management system as fast as possible and fleshing out secure APIs.
+
+KeystoneJS definitely saves a developer a lot of time during development because of the pretty-packed amazing features.
+
+{% include tweet_quote.html quote_text="KeystoneJS definitely saves a developer a lot of time during development because of the pretty-packed amazing features." %}
+
+In addition, Auth0 can help secure your **API** easily. Auth0 provides more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
 
 Please, let me know if you have any questions or observations in the comment section. 😊
