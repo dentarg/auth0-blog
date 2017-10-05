@@ -172,21 +172,21 @@ We start the definition of this class by using the `export` keyword. Exporting t
 
 #### Defining the Task Class
 
-Next, we will create `Task`, a concrete class that represents a task that needs to be executed. Users will be able to order tasks by priority, flag them as finished, and set a title to tasks (which will be inherited from `Entity`). To define this class, let's create a file called `task.ts` in the `./src` directory with the following code:
+Next, we will create `Task`, a concrete class that represents a task that needs to be executed. Users will be able to order tasks by priority, flag them as completed, and set a title to tasks (which will be inherited from `Entity`). To define this class, let's create a file called `task.ts` in the `./src` directory with the following code:
 
 ```typescript
 import {Entity} from "./entity";
 
 export class Task extends Entity {
-  private _finished: boolean;
+  private _completed: boolean;
   private _priority: number;
 
-  get finished(): boolean {
-    return this._finished;
+  get completed(): boolean {
+    return this._completed;
   }
 
-  set finished(value: boolean) {
-    this._finished = value;
+  set completed(value: boolean) {
+    this._completed = value;
   }
 
   get priority(): number {
@@ -199,7 +199,7 @@ export class Task extends Entity {
 }
 ```
 
-As this class will inherit characteristics from `Entity`, we start this file by adding the `import` statement to bring the definition of `Entity`. After that we define the `Task` class and make it extend `Entity`. Besides that, there is nothing too special about this class. It contains only two properties (`_finished` and `_priority`) with its accessors. Note that we don't define a constructor on `Task` because we will use the one inherited from `Entity`.
+As this class will inherit characteristics from `Entity`, we start this file by adding the `import` statement to bring the definition of `Entity`. After that we define the `Task` class and make it extend `Entity`. Besides that, there is nothing too special about this class. It contains only two properties (`_completed` and `_priority`) with its accessors. Note that we don't define a constructor on `Task` because we will use the one inherited from `Entity`.
 
 #### Defining the Story Class
 
@@ -291,6 +291,8 @@ export class Project extends Entity {
 We start the definition of `Project` by importing `Entity` to inherit its characteristics. After that we define two properties: `_released` and `_stories`. The functionality provided by `Project` is quite similar to `Story`. The difference is that instead of dealing with an array of tasks, a `Project` deals with an array of `Stories`. These stories are manipulated through three methods: `addStory`, `stories`, and `removeStory`. The resemblance between these three methods and the ones defined on `Story` to deal of `Tasks` is big, and therefore do not require explanation.
 
 ### Interfaces
+
+After defining all classes, we realize that some of them share a common characteristic that is spread in the concrete classes.
 
 ### Decorators
 
