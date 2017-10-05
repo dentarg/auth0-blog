@@ -4,6 +4,7 @@ title: "Nest.js Brings TypeScript to Node.js and Express"
 description: "Let's learn about Nest.js, the new framework that takes advantage of TypeScript to create reliable and well structured Express applications."
 date: 2017-10-05 00:21
 category: Technical Guide, Node.js, Nest.js
+alias: /is-typescript-good-for-nodejs-apps-sure/
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
