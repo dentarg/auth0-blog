@@ -172,14 +172,36 @@ We start the definition of this class by using the `export` keyword. Exporting t
 
 #### Defining the Task Class
 
-Next, we will create `Task`, a concrete class that represents a task that needs to be executed. Tasks can be ordered by priority and can have an attribute to identify if the task has been finished or not. To define this class, let's create a file called `task.ts` in the `./src` directory with the following code:
+Next, we will create `Task`, a concrete class that represents a task that needs to be executed. Users will be able to order tasks by priority, flag them as finished, and set a title to tasks (which will be inherited from `Entity`). To define this class, let's create a file called `task.ts` in the `./src` directory with the following code:
 
 ```typescript
+import {Entity} from "./entity";
+
+export class Task extends Entity {
+  private _finished: boolean;
+  private _priority: number;
+
+  get finished(): boolean {
+    return this._finished;
+  }
+
+  set finished(value: boolean) {
+    this._finished = value;
+  }
+
+  get priority(): number {
+    return this._priority;
+  }
+
+  set priority(value: number) {
+    this._priority = value;
+  }
+}
 ```
 
-```typescript
+As this class will inherit characteristics from `Entity`, we start this file by adding the `import` statement to bring the definition of `Entity`. After that we define the `Task` class and make it extend `Entity`. Besides that, there is nothing too special about this class. It contains only two properties (`_finished` and `_priority`) with its accessors. Note that we don't define a constructor on `Task` because we will use the one inherited from `Entity`.
 
-```
+#### Defining the Story Class
 
 The third class that we will create will be `Story`, a concrete class that represents a user story. A story can be subdivided into multiple tasks to facilitate the execution, but only one person is responsible for executing the story and its tasks. Besides that, a story contains a title (inherited from `Entity`) and a flag that identifies if the story has been finished or not. To define the `Story` class, let's create a file called `story.ts` in the `./src` directory with the following code:
 
