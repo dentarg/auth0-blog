@@ -22,6 +22,22 @@ related:
 - date-postname
 ---
 
-**October, 2017:** The [Internet Engineering Task Force (IETF)](https://www.ietf.org/) released the RFC (Request For Comments) for the best current practices when using OAuth 2.0 with native mobile applications. 
+**TL;DR:** In October, 2017, the [Internet Engineering Task Force (IETF)](https://www.ietf.org/) released the Best Current Practices (BCP) when using OAuth 2.0 with native mobile applications. This BCP states that OAuth 2.0 authorization requests from native apps should _only_ be made through external user-agents, primarily the user's browser.
 
 ---
+
+## OAuth 2.0 Best Current Practice for Native Apps
+
+## Security Considerations
+
+### Authorization and Implicit Grant
+
+### Clients
+
+### User Agents
+
+## About Auth0
+
+### Auth0 Centralized Login
+
+### Additional Links & Resources
