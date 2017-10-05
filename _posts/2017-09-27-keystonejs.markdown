@@ -26,7 +26,7 @@ related:
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 ---
 
-**TL;DR:** In this tutorial, I'll show you how easy it is to build a web application with KeystoneJS and add authentication to it. Check out the [repo](https://github.com/auth0/nette-auth0-got) to get the code.
+**TL;DR:** In this tutorial, I'll show you how easy it is to build a web application and secure an API with KeystoneJS. Check out the [repo](https://github.com/auth0/keystonejs-auth) to get the code.
 
 ---
 
