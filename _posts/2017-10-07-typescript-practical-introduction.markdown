@@ -126,7 +126,7 @@ Now that we understand how to bootstrap a TypeScript project and configure the c
 
 ### Functions and Variables
 
-### Classes
+### TypeScript Classes
 
 In TypeScript, classes are very similar to what other object-oriented programming languages provide. That is, a class is the contract definition of what is supported by the instances of this class (objects). Besides that, a class can also inherit functionality from other classes and even from interfaces (more on that in the next section). One feature that distinguishes classes in TypeScript from most of the other languages, is that classes support only a single constructor. Although this might sound limiting, we will see that by supporting optional parameters, TypeScript mitigates this limitation.
 
@@ -134,37 +134,43 @@ To better understand these concepts, let's start creating our project management
 
 ![Class diagram of the project management program that will be created with TypeScript](https://cdn.auth0.com/blog/typescript-intro/class-diagram.jpg)
 
-The first class that we will create will be `Entity`. This is an abstract class that defines common characteristics that will be inherited by the other classes. To define this class, let's create a file called `entity.ts` in the `./src` directory with the following code:
+#### Defining the Entity Class
+
+The first class that we will create is `Entity`. This is an abstract class that defines common characteristics that will be inherited by the other classes. To define this class, let's create a file called `entity.ts` in the `./src` directory with the following code:
 
 ```typescript
 export class Entity {
-    private _id: number;
-    private _title: string;
-    private _creationDate: Date;
+  private _id: number;
+  private _title: string;
+  private _creationDate: Date;
 
-    constructor(title: string) {
-        this._title = title;
-    }
+  constructor(id: number, title: string) {
+    this._id = id;
+    this._title = title;
+    this._creationDate = new Date();
+  }
 
-    get id(): number {
-        return this._id;
-    }
+  get id(): number {
+    return this._id;
+  }
 
-    get title(): string {
-        return this._title;
-    }
+  get title(): string {
+    return this._title;
+  }
 
-    set title(title: string) {
-        this._title = title;
-    }
+  set title(title: string) {
+    this._title = title;
+  }
 
-    get creationDate(): Date {
-        return this._creationDate;
-    }
+  get creationDate(): Date {
+    return this._creationDate;
+  }
 }
 ```
 
-Note that we have added an underscore before the properties names. We do that to differentiate the property accessors (getters and setters) from the properties itself. We will use this approach when defining the other classes as well. Another important thing to note is that we used the `export` keyword. Exporting the class is essential so we can import it in other files, as we will see in the next class definition.
+We start the definition of this class by using the `export` keyword. Exporting the class is essential so we can import it in other files, as we will see in the definition of the other classes. After that, we define three properties: `_id`, `_title`, and `_creationDate`. Starting properties with underscore is important to differentiate them from their accessors (getters and setters). With the properties properly defined, we add the constructor of the class. This constructor accepts two parameters: a number to use it as the `_id` of the project; and a string to set in the `_title` property. The constructor also automatically defines the `_creationDate` to the current date. The last thing we do in this class definition is to add the getters and setters of the properties.
+
+#### Defining the Task Class
 
 Next, we will create `Task`, a concrete class that represents a task that needs to be executed. Tasks can be ordered by priority and can have an attribute to identify if the task has been finished or not. To define this class, let's create a file called `task.ts` in the `./src` directory with the following code:
 
