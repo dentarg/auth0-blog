@@ -15,14 +15,14 @@ design:
   bg_color: "#2d5487"
   image: https://cdn.auth0.com/blog/customer-data/customer-data-icon.png
 tags: 
-- trinity
-- founding
-- series-B
+- leadership
+- company news
+- executive team
 - auth0
 related:
-- 2015-09-30-auth0-introduces-passwordless-authentication
+- 2017-06-27-cloud-identity-leader-auth0-adds-30-million-series-c
 - 2016-12-23-auth0-named-in-seattle-10-hottest-ventures-2016
-- 2015-08-25-auth0-adds-saas-luminaries-to-its-board-of-directors
+- 2016-08-24-auth0-raises-15M-to-enhance-its-identity-platform
 ---
 **BELLEVUE, WA - OCTOBER 5, 2017** - Auth0, a global leader in Identity-as-a-Service (IDaaS), announced four additions to its executive team, further strengthening its core leadership. The recent expansion of the leadership team is in response to Auth0’s rapidly accelerating growth in revenue, enterprise customers, and headcount. 
 
