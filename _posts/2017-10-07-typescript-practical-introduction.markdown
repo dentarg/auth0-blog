@@ -128,6 +128,57 @@ Now that we understand how to bootstrap a TypeScript project and configure the c
 
 ### Classes
 
+In TypeScript, classes are very similar to what other object-oriented programming languages provide. That is, a class is the contract definition of what functionality instances of this class (objects) will support. Besides that, a class can also inherit functionality from other classes and even from interfaces (more on that in the next section). To better understand the concept, let's start our project management program by defining the four classes shown in the following diagram.
+
+![Class diagram of the project management program that will be created with TypeScript](https://cdn.auth0.com/blog/typescript-intro/class-diagram.jpg)
+
+The first class that we will create will be `Entity`. This is an abstract class that defines common characteristics that will be inherited by the other classes. To define this class, let's create a file called `entity.ts` in the `./src` directory with the following code:
+
+```typescript
+export class Entity {
+    private _id: number;
+    private _title: string;
+    private _creationDate: Date;
+
+    constructor(title: string) {
+        this._title = title;
+    }
+
+    get id(): number {
+        return this._id;
+    }
+
+    get title(): string {
+        return this._title;
+    }
+
+    set title(title: string) {
+        this._title = title;
+    }
+
+    get creationDate(): Date {
+        return this._creationDate;
+    }
+}
+```
+
+Note that we have added an underscore before the properties names. We do that to differentiate the property accessors (getters and setters) from the properties itself. We will use this approach when defining the other classes as well. Another important thing to note is that we used the `export` keyword. Exporting the class is essential so we can import it in other files, as we will see in the next class definition.
+
+Next, we will create the  `Project` class. This will be a concrete class that represents a project. A project contains zero or more stories, can be archived when finished, and can have a title (inherited from `Entity`). To define this class, let's create a file called `project.ts` in the `./src` directory with the following code:
+
+```typescript
+```
+
+The third class that we will create will be `Story`, a concrete class that represents a user story. A story can be subdivided into multiple tasks to facilitate the execution, but only one person is responsible for executing the story and its tasks. Besides that, a story contains a title (inherited from `Entity`) and a flag that identifies if the story has been finished or not. To define the `Story` class, let's create a file called `story.ts` in the `./src` directory with the following code:
+
+```typescript
+```
+
+The fourth and final class that we will create will be `Task`, a concrete class that represents a task that needs to be executed. Tasks can be ordered by priority inside a story and also have an attribute to identify if the task has been finished or not. To define this class, let's create a file called `task.ts` in the `./src` directory with the following code:
+
+```typescript
+```
+
 ### Interfaces
 
 ### Decorators
