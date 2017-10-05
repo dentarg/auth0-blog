@@ -255,7 +255,40 @@ For the first two properties, `_finished` and `_responsible`, we define both acc
 
 #### Defining the Story Class
 
-The fourth and final class that we will create will `Project` class. This will be a concrete class that represents a project. A project contains zero or more stories, can be archived when finished, and can have a title (inherited from `Entity`). To define this class, let's create a file called `project.ts` in the `./src` directory and add the following code:
+The fourth and final class that we will create will be the `Project` class. A project contains zero or more stories, can be archived when finished, and can have a title (inherited from `Entity`). To define this class, let's create a file called `project.ts` in the `./src` directory and add the following code:
+
+```typescript
+import {Entity} from "./entity";
+import {Story} from "./story";
+
+export class Project extends Entity {
+  private _archived: boolean;
+  private _stories: Array<Story>;
+
+  get archived(): boolean {
+    return this._archived;
+  }
+
+  set archived(value: boolean) {
+    this._archived = value;
+  }
+
+  public addStory(story: Story) {
+    this._stories.push(story);
+  }
+
+  get stories(): Array<Story> {
+    return this._stories;
+  }
+
+  public removeStory(story: Story) {
+    let storyPosition = this._stories.indexOf(story);
+    this._stories.splice(storyPosition, 1);
+  }
+}
+```
+
+We start the definition of `Project` by importing `Entity` to inherit its characteristics. After that we define two properties: `_archived` and `_stories`. The functionality provided by `Project` is quite similar to `Story`. The difference is that instead of dealing with an array of tasks, a `Project` deals with an array of `Stories`. These stories are manipulated through three methods: `addStory`, `stories`, and `removeStory`. The resemblance between these three methods and the ones defined on `Story` to deal of `Tasks` is big, and therefore do not require explanation.
 
 ### Interfaces
 
