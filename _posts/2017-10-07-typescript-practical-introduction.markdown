@@ -255,22 +255,22 @@ For the first two properties, `_completed` and `_responsible`, we define both ac
 
 #### Defining the Project Class
 
-The fourth and final class that we will create will be the `Project` class. A project contains zero or more stories, can be archived when finished, and can have a title (inherited from `Entity`). To define this class, let's create a file called `project.ts` in the `./src` directory and add the following code:
+The fourth and final class that we will create will be the `Project` class. A project contains zero or more stories, can be released when finished, and can have a title (inherited from `Entity`). To define this class, let's create a file called `project.ts` in the `./src` directory and add the following code:
 
 ```typescript
 import {Entity} from "./entity";
 import {Story} from "./story";
 
 export class Project extends Entity {
-  private _archived: boolean;
+  private _released: boolean;
   private _stories: Array<Story>;
 
-  get archived(): boolean {
-    return this._archived;
+  get released(): boolean {
+    return this._released;
   }
 
-  set archived(value: boolean) {
-    this._archived = value;
+  set released(value: boolean) {
+    this._released = value;
   }
 
   public addStory(story: Story) {
@@ -288,9 +288,7 @@ export class Project extends Entity {
 }
 ```
 
-We start the definition of `Project` by importing `Entity` to inherit its characteristics. After that we define two properties: `_archived` and `_stories`. The functionality provided by `Project` is quite similar to `Story`. The difference is that instead of dealing with an array of tasks, a `Project` deals with an array of `Stories`. These stories are manipulated through three methods: `addStory`, `stories`, and `removeStory`. The resemblance between these three methods and the ones defined on `Story` to deal of `Tasks` is big, and therefore do not require explanation.
-
-
+We start the definition of `Project` by importing `Entity` to inherit its characteristics. After that we define two properties: `_released` and `_stories`. The functionality provided by `Project` is quite similar to `Story`. The difference is that instead of dealing with an array of tasks, a `Project` deals with an array of `Stories`. These stories are manipulated through three methods: `addStory`, `stories`, and `removeStory`. The resemblance between these three methods and the ones defined on `Story` to deal of `Tasks` is big, and therefore do not require explanation.
 
 ### Interfaces
 
