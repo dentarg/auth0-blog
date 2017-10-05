@@ -2,7 +2,7 @@
 layout: post
 title: "Developing Web Apps and RESTful APIs with KeystoneJS"
 description: "Learn how to build and secure RESTful APIs with KeystoneJS"
-date: 2017-09-26 8:30
+date: 2017-10-05 8:30
 category: Technical Guide, JavaScript, KeystoneJS
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
@@ -77,15 +77,15 @@ npm install -g generator-keystone
 
 Create a `blog` directory and `cd` into it.
 
-```
+```bash
 mkdir && cd blog
 ```
 
->> Make sure you already have Yeoman installed. Otherwise, run `npm install -g yo`.
+> Make sure you already have Yeoman installed. Otherwise, run `npm install -g yo`.
 
 Now, run the generator.
 
-```
+```bash
 yo keystone
 ```
 
@@ -131,7 +131,6 @@ var Types = keystone.Field.Types;
  * Page Model
  * ==========
  */
-
 var Page = new keystone.List('Page', {
   map: { name: 'title' },
   autokey: { path: 'slug', from: 'title', unique: true },
@@ -156,7 +155,9 @@ Page.defaultColumns = 'title, state|20%';
 Page.register();
 ```
 
-It's similar to the Post model. I specified the Page model attributes and in the Admin UI we only want to display page title and state, which is why I have `Page.defaultColumns = 'title, state|20%';`. 20% refers to the column width. Rerun your app, `node keystone` and go to `http://localhost:3000/keystone/pages`. You should be able to create new pages now.
+It's similar to the Post model. I specified the Page model attributes and in the Admin UI we only want to display page title and state, which is why I have `Page.defaultColumns = 'title, state|20%';`. 20% refers to the column width.
+
+Rerun your app with `node keystone` and go to `http://localhost:3000/keystone/pages`. You should be able to create new pages now.
 
 Let's add `Pages` to the Admin UI top navigation for easy access. Open `keystone.js` file located in the root of our project directory and add a new route to `keystone.set(nav)` section like so:
 
@@ -170,7 +171,7 @@ keystone.set('nav', {
 });
 ```
 
-**Note:** If you don't want to keep rerunning your app over and over again, you can install a node module called `nodemon`. Then just run: `nodemon keystone`. Once we make any change to our app, it automatically restarts the server.
+**Note:** If you don't want to keep stopping and running your app over and over again, you can install a node module called `nodemon`. Then just run: `nodemon keystone`. Once we make any change to our app, it automatically restarts the server.
 
 Now, check your Admin UI:
 
@@ -230,11 +231,12 @@ exports = module.exports = function (req, res) {
 };
 ```
 
-This is page view. It manipulates the data from the model and renders a template. It basically pulls in the slug of the page from the URL and checks if that page slug exists in the database. It renders the result to the view.
+This is page view. It manipulates the data from the model and renders a template. It basically pulls in the slug of the page from the URL and checks if that page slug exists in the database. And it renders the result to the view.
 
 Next step, add the page template. Go to `templates/views`,create a `page.pug` file and add code to it like so:
 
-```
+{% highlight html %}
+{% raw %}
 {% extends "../layouts/default.twig" %}
 
 {% block content %}
@@ -277,7 +279,8 @@ Next step, add the page template. Go to `templates/views`,create a `page.pug` fi
     </div>
   </div>
 {% endblock %}
-```
+{% endraw %}
+{% endhighlight %}
 
 Finally, we'll define a new route for pages.
 
@@ -472,7 +475,7 @@ exports.get = function(req, res) {
 
 
 /**
- * Create a Post
+ * Create a People
  */
 exports.create = function(req, res) {
 
