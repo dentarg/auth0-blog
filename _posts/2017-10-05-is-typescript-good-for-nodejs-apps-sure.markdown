@@ -2,7 +2,7 @@
 layout: post
 title: "Nest.js Brings TypeScript to Node.js and Express"
 description: "Let's learn about Nest.js, the new framework that takes advantage of TypeScript to create reliable and well structured Express applications."
-date: 2017-09-17 00:21
+date: 2017-10-05 00:21
 category: Technical Guide, Node.js, Nest.js
 author:
   name: "Bruno Krebs"
@@ -27,6 +27,7 @@ tags:
 related:
 - 2017-09-07-developing-restful-apis-with-loopback
 - 2017-08-29-backbonejs-getting-started
+- 2016-11-21-building-and-authenticating-nodejs-apps
 ---
 
 **TL;DR:** In this article we are going to learn about Nest.js, a framework for building Node.js web applications. Why Nest.js? Because, although Node.js already contains a lot of libraries to develop web applications, none of them effectively address one of the most important subjects: the architecture. As we will see, Nest.js introduces various building blocks that help developers to better organize Node.js applications. [This GitHub repository contains the final code developed throughout this article!](https://github.com/auth0-blog/nest-companies)
