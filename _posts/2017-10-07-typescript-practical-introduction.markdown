@@ -203,10 +203,57 @@ As this class will inherit characteristics from `Entity`, we start this file by 
 
 #### Defining the Story Class
 
-The third class that we will create will be `Story`, a concrete class that represents a user story. A story can be subdivided into multiple tasks to facilitate the execution, but only one person is responsible for executing the story and its tasks. Besides that, a story contains a title (inherited from `Entity`) and a flag that identifies if the story has been finished or not. To define the `Story` class, let's create a file called `story.ts` in the `./src` directory with the following code:
+The third class that we will create will be `Story`, a concrete class that represents a user story. A story can be subdivided into multiple tasks to facilitate its execution, but only one person is responsible for a story and its tasks. Besides that, a story contains a title (inherited from `Entity`) and a flag that identifies if the story has been finished or not. To define the `Story` class, let's create a file called `story.ts` in the `./src` directory with the following code:
 
 ```typescript
+import {Entity} from "./entity";
+import {Task} from "./task";
+
+export class Story extends Entity {
+  private _finished: boolean;
+  private _responsible: string;
+  private _tasks: Array<Task> = [];
+
+  get finished(): boolean {
+    return this._finished;
+  }
+
+  set finished(value: boolean) {
+    this._finished = value;
+  }
+
+  get responsible(): string {
+    return this._responsible;
+  }
+
+  set responsible(value: string) {
+    this._responsible = value;
+  }
+
+  public addTask(task: Task) {
+    this._tasks.push(task);
+  }
+
+  get tasks(): Array<Task> {
+    return this._tasks;
+  }
+
+  public removeTask(task: Task): void {
+    let taskPosition = this._tasks.indexOf(task);
+    this._tasks.splice(taskPosition, 1);
+  }
+}
 ```
+
+Just like `Task`, we start `Story` by making it extend `Entity` to inherit its characteristics. After that we define three properties:
+
+- `_finished`: a flag that identifies if the `Story` has been completed or not.
+- `_responsible`: a string that defines who is in charge of executing the story and its tasks.
+- `_tasks`: an array that contains zero or more instances of `Task` to be executed by the person responsible.
+
+For the first two properties, `_finished` and `_responsible`, we define both accessors to enable their manipulation. For the `_tasks` property we add three methods. The first one, `addTask`, accepts an instance of `Task` to add to the array. The second one is the accessor to get all instances of `Task`. The third one, `removeTask`, receives a task to remove it from the array of tasks.
+
+#### Defining the Story Class
 
 The fourth and final class that we will create will `Project` class. This will be a concrete class that represents a project. A project contains zero or more stories, can be archived when finished, and can have a title (inherited from `Entity`). To define this class, let's create a file called `project.ts` in the `./src` directory and add the following code:
 
