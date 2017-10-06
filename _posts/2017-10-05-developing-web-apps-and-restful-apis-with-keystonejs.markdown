@@ -30,37 +30,40 @@ related:
 
 ---
 
-**KeystoneJS** is an open-source Node.js based CMS and web application framework created by [Jed Watson](https://twitter.com/jedwatson) in 2013. KeystoneJS makes it very easy to build database-driven websites, applications & APIs. The framework is built upon Express and MongoDB. MongoDB is a very powerful document data store.
+**KeystoneJS** is an open-source Node.js based CMS and web application framework created by [Jed Watson](https://twitter.com/jedwatson) in 2013. KeystoneJS makes it very easy to build database-driven websites, applications & APIs. The framework is built upon [Express](https://expressjs.com) and [MongoDB](https://www.mongodb.com).
 
-A lot of folks already use **KeystoneJS** to power their CMSes. It's a great tool for quickly banging out a blog, portal, forum or any form of managment system that really needs a content management system.
+**Express** is a minimalist web framework for Node.js. It provides a myriad of HTTP utility methods and middleware at your disposal. **MongoDB** is a very powerful non-relational database.
+
+A lot of folks such as [MacMillan](http://www.macmillanconnect.com.au/), [Suitshop](http://www.suitshop.com.au) already use **KeystoneJS** to power their CMSes. It's a great tool for quickly developing a blog, portal, forum or any form of managment system that really needs a content management system.
 
 ## KeystoneJS Architecture
 
-KeystoneJS uses the Model View Template pattern. In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business and data access realm.
+KeystoneJS uses the Model View Template pattern. In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business, and data access realm.
 
-* **Data Access - Model**: This is the data access layer. It defines how data is been interacted with in the application. Validation, behaviour, and transformation of data.
+* **Data Access - Model**: This is the data access layer. It defines how data is being interacted with in the application. Validation, behaviour, and transformation of data.
 
-* **Business Logic - View**: In a typical framework, the view simply presents data to the screen. In KeystoneJS, it serves as the busines logic layer that contains the logic that accesses the model, otherwise known as controllers. It serves as a connect between the models and templates.
+* **Business Logic - View**: In a typical framework, the view simply presents data to the screen. In KeystoneJS, it serves as the busines logic layer that contains the logic that accesses the model, otherwise known as controllers. It serves as a bridge between the models and templates.
 
 * **Presentation - Templates**: This is the presentation layer. It displays data on the screen.
 
 ## KeystoneJS Features
 
-KeystoneJS provides a standardized set of components that allows developers build web applications quickly with JavaScript. It has a number of features that makes it a worthy framework to consider when looking for a good tool for your next project.
+KeystoneJS provides a standardized set of components that allows developers to build web applications quickly with JavaScript. It has a number of features that makes it a worthy framework to consider when looking for a good tool for your next project.
 
 * **Session Management** : KeystoneJS ships with session management and authentication features out of the box.
 * **Routing**: KeystoneJS provides a router that allows you to express how your web application or API routes should look like.
 * **Form Validation**: KeystoneJS provides form validation out of the box.
-* **Modularity**: KeystoneJS configures express for you. It also uses Mongoose to connect seamlessly with MongoDB and it separates views, routes and templates nicely by providing their specific directories.
+* **Modularity**: KeystoneJS configures Express for you. It also uses [Mongoose](http://mongoosejs.com) to connect seamlessly with MongoDB and it separates views, routes and templates nicely by providing their specific directories.
 * **Admin UI**: KeystoneJS has an auto-generated Admin UI that saves you a lot of time and makes managing data from your database so easy.
-* **Email Administration**: With KeystoneJS, you can set up, preview and send template-based emails for your application seamlessly. It offers a Mandrill integration out of the box.
+* **Email Administration**: With KeystoneJS, you can set up, preview and send template-based emails for your application seamlessly. It offers a [Mandrill](https://www.mandrill.com) integration out of the box.
 
 ## KeystoneJS Key Requirements
 
 In order to use KeystoneJS, you need to have the following tools installed on your machine.
 
-* **Node.js**: Navigate to the [node.js website](https://nodejs.org/en/download/) and install the latest version on your machine.
-* **Mongodb**: Navigate to the [mongodb website](https://www.mongodb.com/download-center?ct=false#atlas) and install the mongodb community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
+* **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine.
+* **MongoDB**: Navigate to the [mongodb website](https://www.mongodb.com/download-center?ct=false#atlas) and install the MongoDB community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
+* **Yeoman**: Make sure yeoman is installed on your machine by running `npm install -g yo`.
 * Familiarity with database concepts, and working knowledge of JavaScript.
 
 ## Building a Blog Rapidly With KeystoneJS
@@ -80,8 +83,6 @@ Create a `blog` directory and `cd` into it.
 ```bash
 mkdir && cd blog
 ```
-
-> Make sure you already have Yeoman installed. Otherwise, run `npm install -g yo`.
 
 Now, run the generator.
 
@@ -119,7 +120,7 @@ You might be asking some questions already. How do I change the style of the blo
 
 ### Create Pages
 
-Head over to the codebase. In the directory structure, you'll see a `models` directory that contains `Post`, `PostCategory`, `User` and `Enquiry` models.
+Head over to the code directory. In the directory structure, you'll see a `models` directory that contains `Post`, `PostCategory`, `User` and `Enquiry` models.
 
 Create a `Page.js` model inside the `models` directory and add code to it like so:
 
@@ -231,7 +232,7 @@ exports = module.exports = function (req, res) {
 };
 ```
 
-This is page view. It manipulates the data from the model and renders a template. It basically pulls in the slug of the page from the URL and checks if that page slug exists in the database. And it renders the result to the view.
+This is a page view. It manipulates the data from the model and renders a template. It basically pulls in the slug of the page from the URL and checks if that page slug exists in the database. And it renders the result to the view.
 
 Next step, add the page template. Go to `templates/views`,create a `page.pug` file and add code to it like so:
 
@@ -295,7 +296,7 @@ app.all('/contact', routes.views.contact);
 app.get('/pages/:page', routes.views.page);
 ```
 
-Now, let's add a Page to our user-facing navigation. One of the pages I created from the backend is Page `team`. This is how to add it:
+Now, let's add a Page to our user-facing navigation. One of the pages I created from the backend is a page called `team`. This is how to add it:
 
 Head over to `routes/middleware.js` and add `{ label: 'Team', key: 'team', href: '/pages/team' }` to the list of navLinks like so:
 
@@ -319,15 +320,15 @@ Check your app, you should see a `Team` nav item or whatever page you created.
 
 ![Team page](https://cdn.auth0.com/blog/keystonejs/teampage.png)
 
-We have just built a blog with a functional Admin UI within few minutes. You can add more functionalities or extend it to be a hotel or ticket or booking or any type of management system.
+We have just built a blog with a functional Admin UI within just a few minutes. You can add more functionalities or extend it to be a hotel or ticket or booking or any type of management system.
 
 Instead of building another application, let's look at how to build a functional API with KeystoneJS.
 
 ## Building a Star Wars API Rapidly With KeystoneJS
 
-Let's build a Star Wars API with KeystoneJS. The Star Wars API will grant developers access to all the star wars data they have ever wanted. Well, this is a KeystoneJS tutorial therefore data will be very limited, but we'll put the API structure in place and learn how to secure it.
+Let's build a Star Wars API with KeystoneJS. The Star Wars API will grant developers access to all the Star Wars data they have ever wanted. Well, this is a KeystoneJS tutorial therefore the data will be very limited, but we'll put the API structure in place and learn how to secure it.
 
-* Create an `api` folder inside the `routes` directory. This is where we will place our logic for fetching data from the database and returning to the user.
+* Create an `api` folder inside the `routes` directory. This is where we will place our logic for fetching data from the database and returning it to the user.
 
 * Let's create models for our API. We'll have three models namely, _People_, _Starship_ and _Planet_. Each of these models will have certain attributes. Let's outline them:
 
@@ -541,214 +542,17 @@ exports.remove = function(req, res) {
 
 _routes/api/planet.js_
 
-```js
-var keystone = require('keystone');
-
-var Planet = keystone.list('Planet');
-
-/**
- * List Planets
- */
-exports.list = function(req, res) {
-  Planet.model.find(function(err, items) {
-
-    if (err) return res.json({ err: err });
-
-    res.json({
-      planets: items
-    });
-
-  });
-}
-
-/**
- * Get Planet by ID
- */
-exports.get = function(req, res) {
-  Planet.model.findById(req.params.id).exec(function(err, item) {
-
-    if (err) return res.json({ err: err });
-    if (!item) return res.json('not found');
-
-    res.json({
-      planet: item
-    });
-
-  });
-}
-
-
-/**
- * Create a Planet
- */
-exports.create = function(req, res) {
-
-  var item = new Planet.model(),
-    data = (req.method == 'POST') ? req.body : req.query;
-
-  item.getUpdateHandler(req).process(data, function(err) {
-
-    if (err) return res.json({ error: err });
-
-    res.json({
-      planet: item
-    });
-
-  });
-}
-
-/**
- * Patch Planet by ID
- */
-exports.update = function(req, res) {
-  Planet.model.findById(req.params.id).exec(function(err, item) {
-
-    if (err) return res.json({ err: err });
-    if (!item) return res.json({ err: 'not found' });
-
-    var data = (req.method == 'PUT') ? req.body : req.query;
-
-    item.getUpdateHandler(req).process(data, function(err) {
-
-      if (err) return res.json({ err: err });
-
-      res.json({
-        planet: item
-      });
-
-    });
-
-  });
-}
-
-/**
- * Delete Planet by ID
- */
-exports.remove = function(req, res) {
-  Planet.model.findById(req.params.id).exec(function (err, item) {
-
-    if (err) return res.json({ dberror: err });
-    if (!item) return res.json('not found');
-
-    item.remove(function (err) {
-      if (err) return res.json({ dberror: err });
-
-      return res.json({
-        success: true
-      });
-    });
-
-  });
-}
-```
+[Planet API code here](https://github.com/auth0-blog/keystonejs-auth/blob/master/routes/api/planet.js)
 
 _routes/api/starship.js_
 
-```js
-var keystone = require('keystone');
-
-var Starship = keystone.list('Starship');
-
-/**
- * List Starships
- */
-exports.list = function(req, res) {
-  Starship.model.find(function(err, items) {
-
-    if (err) return res.json({ err: err });
-
-    res.json({
-      starships: items
-    });
-
-  });
-}
-
-/**
- * Get Starship by ID
- */
-exports.get = function(req, res) {
-  Starship.model.findById(req.params.id).exec(function(err, item) {
-
-    if (err) return res.json({ err: err });
-    if (!item) return res.json('not found');
-
-    res.json({
-      starship: item
-    });
-
-  });
-}
-
-
-/**
- * Create a Starship
- */
-exports.create = function(req, res) {
-
-  var item = new Starship.model(),
-    data = (req.method == 'POST') ? req.body : req.query;
-
-  item.getUpdateHandler(req).process(data, function(err) {
-
-    if (err) return res.json({ error: err });
-
-    res.json({
-      starship: item
-    });
-
-  });
-}
-
-/**
- * Patch Starship by ID
- */
-exports.update = function(req, res) {
-  Starship.model.findById(req.params.id).exec(function(err, item) {
-
-    if (err) return res.json({ err: err });
-    if (!item) return res.json({ err: 'not found' });
-
-    var data = (req.method == 'PUT') ? req.body : req.query;
-
-    item.getUpdateHandler(req).process(data, function(err) {
-
-      if (err) return res.json({ err: err });
-
-      res.json({
-        starship: item
-      });
-
-    });
-
-  });
-}
-
-/**
- * Delete Starship by ID
- */
-exports.remove = function(req, res) {
-  Starship.model.findById(req.params.id).exec(function (err, item) {
-
-    if (err) return res.json({ dberror: err });
-    if (!item) return res.json('not found');
-
-    item.remove(function (err) {
-      if (err) return res.json({ dberror: err });
-
-      return res.json({
-        success: true
-      });
-    });
-
-  });
-}
-```
+[Starship API code here](https://github.com/auth0-blog/keystonejs-auth/blob/master/routes/api/starship.js)
 
 Let's analyze the code above. We have four functions in each of the files. `list`, `create`, `update` and `remove`. These functions are mapped to HTTP operations like so:
 
 * `list` - /GET
 * `create` - /POST
+* `get` - /GET
 * `update` - /PUT
 * `remove` - /DELETE
 
@@ -756,6 +560,7 @@ For example, if you make a POST request to `/people` API endpoint, the `create` 
 
 - The `list` function checks the document for all the resources for an API endpoint.
 - The `create` function creates a new resource for an API endpoint.
+- The `get` function checks the document store for a single resource for an API endpoint.
 - The `update` function checks if a resource exists and allows the resource to be updated for an API endpoint.
 - The `remove` function checks if a resource exists and deletes it for an API endpoint.
 
@@ -804,13 +609,13 @@ _People POST operation_
 ![KeystoneJS DELETE operation](https://cdn.auth0.com/blog/keystonejs/delete.png)
 _People DELETE operation_
 
-Our API works. Awesome!!!
+Our API works. Awesome!
 
 ## Securing a Star Wars API with Auth0
 
 Right now, anyone can make `GET` and `POST` requests to all of the endpoints present in our API. In a real-world scenario, we should restrict `POST`, `DELETE` and `PUT` requests to certain registered and authorized users.
 
-We'll go ahead and secure some of these API endpoints with JSON Web Tokens.
+We'll go ahead and secure some of these API endpoints with [JSON Web Tokens](https://jwt.io).
 
 JSON Web Tokens, commonly known as JWTs, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these JWTs. That is, applications that use JWTs no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
 
@@ -943,9 +748,9 @@ Wondering how to integrate the secure API with a frontend? Check out our amazing
 
 Well done! You have learned how to build a blog and an API with KeystoneJS. The KeystoneJS tutorial focuses on building a content management system as fast as possible and fleshing out secure APIs.
 
-KeystoneJS definitely saves a developer a lot of time during development because of the pretty-packed amazing features.
+KeystoneJS definitely saves a developer a lot of time during development because of the amazing out-of-the-box features.
 
-{% include tweet_quote.html quote_text="KeystoneJS definitely saves a developer a lot of time during development because of the pretty-packed amazing features." %}
+{% include tweet_quote.html quote_text="KeystoneJS definitely saves a developer a lot of time during development because of the amazing out-of-the-box features." %}
 
 In addition, Auth0 can help secure your **API** easily. Auth0 provides more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
 
