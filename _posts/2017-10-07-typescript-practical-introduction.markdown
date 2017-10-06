@@ -290,9 +290,48 @@ export class Project extends Entity {
 
 We start the definition of `Project` by importing `Entity` to inherit its characteristics. After that we define two properties: `_released` and `_stories`. The functionality provided by `Project` is quite similar to `Story`. The difference is that instead of dealing with an array of tasks, a `Project` deals with an array of `Stories`. These stories are manipulated through three methods: `addStory`, `stories`, and `removeStory`. The resemblance between these three methods and the ones defined on `Story` to deal of `Tasks` is big, and therefore do not require explanation.
 
-### Interfaces
+### TypeScript Interfaces
 
-After defining these classes, we realize that two of them share a common characteristic. The `Task` and `Story` classes both define a `_completed` property that works as a flag  identifying if the work related to them has finished.
+Interfaces, on TypeScript, enable developers to perform type checking during compile time. That is, using an interface makes the TypeScript compiler check if the variable in question fills the contract (have the structure) defined by the interface. As occurs on other programming languages, interfaces do not require an object to have exactly the same structure as defined by the interface. To be considered valid, objects can have any shape, as long as they define the functions and properties required by the interface.
+
+For example, let's say that we want to trigger an email whenever a `Task` or a `Story` is marked as completed. Instead of creating two different functions to deal with each type in separately we can define an interface called `Completable` as follows:
+
+```typescript
+export interface Completable {
+  title: string;
+  completed: boolean;
+  completedAt?: Date;
+}
+```
+
+Then we can use this interface as the type of the parameter accepted by the function that triggers the email:
+
+```typescript
+import {Completable} from "./completable";
+
+export function sendCompletionEmail(completable: Completable) {
+  if (!completable.completed) {
+    // ignore uncompleted entities
+    console.error(`Please, complete ${completable.title} before sending email.`);
+    return;
+  }
+  console.log(`Sending email about ${completable.title}`);
+  // ...
+}
+```
+
+Note that TypeScript does not force us to explicitly implement the `Completable` interface. The compiler, when run, simply checks the structure of the object being passed to see if it fits what the interface requires. Although TypeScript is flexible on that matter, it's a good practice to explicitly implement the interface. The code snippet below shows how we make `Task` implement `Completable`.
+
+```typescript
+import {Entity} from "./entity";
+import {Completable} from "./completable";
+
+export class Task extends Entity implements Completable {
+  // ... nothing else changes here
+}
+```
+
+An avid reader will notice that the `Completable` interface defined contains two properties that are not part of `Task` and `Story`. The first one, `title`, which is required by the interface is available because both classes inherit a property with the same name and shape from `Entity`. The second one, `completedAt`, is a property that is not defined on any class. TypeScript, when compiling our code, does not complain about this because the property is marked as optional through the question mark sign added after the property name.
 
 ### Decorators
 
