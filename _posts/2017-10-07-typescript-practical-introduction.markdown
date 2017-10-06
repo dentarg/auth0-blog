@@ -90,11 +90,12 @@ As TypeScript can aim different environments (like ECMAScript 3 and ECMAScript 2
 
 Node.js is based on [Chrome V8](https://developers.google.com/v8/), one of the most up-to-date JavaScript engines available. The version 6 of Node.js ships with a Chrome V8 version capable of supporting 95% of the ECMAScript 2015 specification, [as shown by Node Green](http://node.green/), while the version 8 is capable of supporting 99%. In respect of ECMAScript 2017, both versions support 23% and 73% of the specification, respectively. Therefore, the best choice is to configure our project to be compiled to ECMAScript 2015, which will enable users with Node.js 6 and 8 to run our program without trouble.
 
-Besides configuring the compiler to target ECMAScript 2015, we will also configure other three characteristics:
+Besides configuring the compiler to target ECMAScript 2015, we will also configure other four characteristics:
 
 - `module`, to instruct TypeScript to use the [CommonJS module format](http://requirejs.org/docs/commonjs.html).
 - `removeComments`, to avoid adding comments in the generated JavaScript files.
 - `sourceMap`, to help us debugging the code generated.
+- `outDir`, to define where the compiled code will reside.
 
 We will also tell the compiler to process files under `./src`, a directory that we will create to add our TypeScript source code, and nothing else. To perform these configurations, let's open the `tsconfig.json` file and add the following content to it:
 
@@ -104,7 +105,8 @@ We will also tell the compiler to process files under `./src`, a directory that 
     "module": "commonjs",
     "target": "es2015",
     "removeComments": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "./bin"
   },
   "include": ["src/**/*"]
 }
