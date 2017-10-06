@@ -64,10 +64,52 @@ Azure Table Storage are made of three main components:
 
 ![Table Storage Structure](http://bit.ly/2fYEqL8 "Table Storage Structure")
 
-I invite you to look into this project from GitHub dedicated to [Table Storage](https://github.com/vemoreno/TableStorageWithCsharp). It will help you to manage data in Table Storage with Microsoft Azure using C# .Net: 
+Below you will find fragments of code related to Azure Table Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [Table Storage](https://github.com/vemoreno/TableStorageWithCsharp). 
 
-- create/delete tables
-- add/remove/get/update/query entities
+```C#
+public void Create_a_table()
+{
+	//Retrieve the storage account from the connection string.
+
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);            
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+
+	// Create the table client.
+	CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+	// Retrieve a reference to the table.
+	CloudTable table = tableClient.GetTableReference("Demo");
+
+	// Create the table if it doesn't exist.
+	table.CreateIfNotExists();
+	MessageBox.Show("Table created", "Entity", MessageBoxButtons.OK);
+}
+
+public void Add_an_entity_to_a_table()
+{
+	//Retrieve the storage account from the connection string.
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+
+	// Create the table client.
+	CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+	// Create the CloudTable object that represents the "Demo" table.
+	CloudTable table = tableClient.GetTableReference("Demo");
+
+	// Create a new customer entity.
+	CustomerEntity customer1 = new CustomerEntity("Harp", "Walter");
+	customer1.Email = "Walter@contoso.com";
+	customer1.PhoneNumber = "425-555-0101";
+
+	// Create the TableOperation object that inserts the customer entity.
+	TableOperation insertOperation = TableOperation.Insert(customer1);
+
+	// Execute the insert operation.
+	table.Execute(insertOperation);
+	MessageBox.Show("Entity added", "Entity", MessageBoxButtons.OK);
+}
+```
 
 ## What is Azure Blob Storage?
 
@@ -99,11 +141,48 @@ storagesample.blob.core.windows.net/mycontainer/blob1.txt
 
 The above link defines how the blob can be referenced by https protocol.
 
-I invite you to look into this project from GitHub dedicated to [Blob Storage](https://github.com/vemoreno/BlobStorageWithCsharp). It will help you to manage data with Blob Storage with Microsoft Azure using C# .Net: 
+Below you will find fragments of code related to Azure Blob Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [Blob Storage](https://github.com/vemoreno/BlobStorageWithCsharp)
 
--	create containers. 
--	upload/list/download/delete/write blobs.
+```C#
+public void Create_container()
+{
+	// Retrieve storage account from connection string.
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
 
+	// Create the blob client.
+	CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+	// Retrieve a reference to a container.
+	CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+
+	// Create the container if it doesn't already exist.
+	container.CreateIfNotExists();
+}
+
+public void Upload_a_blob_into_a_container()
+{
+	// Retrieve storage account from connection string.
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+
+	// Create the blob client.
+	CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+	// Retrieve reference to a previously created container.
+	CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+
+	// Retrieve reference to a blob named "myblob".
+	CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
+
+	// Create or overwrite the "myblob" blob with contents from a local file.
+	string fullPath= Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + "pin.png";
+	using (var fileStream = System.IO.File.OpenRead(fullPath))
+	{
+		blockBlob.UploadFromStream(fileStream);
+	}
+}
+```
 ## What is Azure Queue Storage?
 
 Microsoft Azure provide us instant messaging on the cloud between applications using Queue Storage. Thanks to this service we can process big amounts of messages and get access from anywhere through HTTP / HTTPS calls. Some features or Queue Storage are:
@@ -114,11 +193,45 @@ Microsoft Azure provide us instant messaging on the cloud between applications u
 
 ![Queue Storage Structure](http://bit.ly/2yP7Ym3 "Queue Storage Structure")
 
-I invite you to look into this project from GitHub dedicated to [Queue Storage](https://github.com/vemoreno/QueueStorageWithCsharp). It will help you to manage data with Queue Storage with Microsoft Azure using C# .Net: 
+Below you will find fragments of code related to Azure Queue Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [Queue Storage](https://github.com/vemoreno/QueueStorageWithCsharp)
 
-- create/delete queues
-- insert/peek/change/dequeue/get/delete messages.
+```C#
+public void Create_a_Queue()
+{
+	// Retrieve storage account from connection string.
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
 
+	// Create the queue client.
+	CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+
+	// Retrieve a reference to a container.
+	CloudQueue queue = queueClient.GetQueueReference("myqueue");
+
+	// Create the queue if it doesn't already exist
+	queue.CreateIfNotExists();
+}
+
+public void Insert_a_message_into_a_queue()
+{
+	// Retrieve storage account from connection string.
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+
+	// Create the queue client.
+	CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+
+	// Retrieve a reference to a queue.
+	CloudQueue queue = queueClient.GetQueueReference("myqueue");
+
+	// Create the queue if it doesn't already exist.
+	queue.CreateIfNotExists();
+
+	// Create a message and add it to the queue.
+	CloudQueueMessage message = new CloudQueueMessage("Hello, World");
+	queue.AddMessage(message);
+}
+```
 ## What is Azure File Storage?
 
 Another way of store information on Microsoft Azure is File Storage. It's a service offering shared resources on the Cloud. Applications executing locally, on virtual machines or any other service inside Microsoft Azure can mount a shared resource of files in Azure. 
@@ -134,11 +247,77 @@ A "File Share" is an SMB space in Azure. All directories and files must be creat
 
 ![File Storage Structure](http://bit.ly/2g0xtcp "File Storage Structure")
 
-I invite you to look into this project from GitHub dedicated to [File Storage](https://github.com/vemoreno/FileStorageWithCsharp). It will help you to manage data with File Storage with Microsoft Azure using C# .Net: 
+Below you will find fragments of code related to Azure File Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [File Storage](https://github.com/vemoreno/FileStorageWithCsharp)
 
-- Set restrictions
-- Access/copy/manage shared files.
+```C#
+public void Access_the_file_share_programmatically()
+{
+	// Retrieve storage account from connection string.
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+	
+	// Create a CloudFileClient object for credentialed access to File storage.
+	CloudFileClient fileClient = storageAccount.CreateCloudFileClient();
 
+	// Get a reference to the file share we created previously.
+	CloudFileShare share = fileClient.GetShareReference("logs");
+	
+	// Ensure that the share exists.
+	if (share.Exists())
+	{
+		// Get a reference to the root directory for the share.
+		CloudFileDirectory rootDir = share.GetRootDirectoryReference();
+
+		// Get a reference to the directory we created previously.
+		CloudFileDirectory sampleDir = rootDir.GetDirectoryReference("CustomLogs");
+
+		// Ensure that the directory exists.
+		if (sampleDir.Exists())
+		{
+			// Get a reference to the file we created previously.
+			CloudFile file = sampleDir.GetFileReference("Log1.txt");
+
+			// Ensure that the file exists.
+			if (file.Exists())
+			{
+				// Write the contents of the file to the console window.
+				Console.WriteLine(file.DownloadTextAsync().Result);
+			}
+		}
+	}
+}
+
+public void Set_the_maximum_size_for_a_file_share()
+{
+	// Parse the connection string for the storage account.
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+
+	// Create a CloudFileClient object for credentialed access to File storage.
+	CloudFileClient fileClient = storageAccount.CreateCloudFileClient();
+
+	// Get a reference to the file share we created previously.
+	CloudFileShare share = fileClient.GetShareReference("logs");
+
+	// Ensure that the share exists.
+	if (share.Exists())
+	{
+		// Check current usage stats for the share.
+		// Note that the ShareStats object is part of the protocol layer for the File service.
+		Microsoft.WindowsAzure.Storage.File.Protocol.ShareStats stats = share.GetStats();
+		Console.WriteLine("Current share usage: {0} GB", stats.Usage.ToString());
+
+		// Specify the maximum size of the share, in GB.
+		// This line sets the quota to be 10 GB greater than the current usage of the share.
+		share.Properties.Quota = 10 + stats.Usage;
+		share.SetProperties();
+
+		// Now check the quota for the share. Call FetchAttributes() to populate the share's properties.
+		share.FetchAttributes();
+		Console.WriteLine("Current share quota: {0} GB", share.Properties.Quota);
+	}
+}
+```
 ## Aside: Securing XYZ Applications with Auth0
 
 This section will be filled with more information.
