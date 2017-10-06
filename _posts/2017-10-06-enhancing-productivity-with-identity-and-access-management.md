@@ -2,8 +2,8 @@
 layout: post
 title: "Enhancing Productivity With Identity and Access Management"
 description: "Security measures should augment productivity, not impede it"
-date: 2017-09-18 8:30
-category: Growth
+date: 2017-10-06 8:30
+category: Growth, Identity, Auth0
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
@@ -18,7 +18,14 @@ design:
 tags:
 - legacy
 - modernization
-- digital transformation
+- digital-transformation
+- identity
+- authorization
+- authentication
+- single-sign-on
+- multifactor-authentication
+- 
+- 
 related:
 - 2017-07-21-the-role-of-identity-in-application-modernization
 - 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
@@ -63,7 +70,7 @@ Once users create their single sign-on (SSO) credentials, they'll no longer have
 
 ![Single Sign On](https://cdn.auth0.com/blog/productivity/singlesignon.png)
 
-Single sign-on drastically reduces IT help desk tickets and centralizes admin tasks like password resets. When a password is revised, the change automatically updates every app and system connected to the SSO.  IT no longer spends all day helping users with access issues, while your employees enjoy a seamless, more productive work experience.
+Single sign-on drastically reduces IT help desk tickets and centralizes admin tasks like password resets. When a password is revised, the change automatically updates every app and system connected to the SSO. IT no longer spends all day helping users with access issues, while your employees enjoy a seamless, more productive work experience.
 
 ### Added security that provides flexibility
 
