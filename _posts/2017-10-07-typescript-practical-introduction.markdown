@@ -292,7 +292,7 @@ We start the definition of `Project` by importing `Entity` to inherit its charac
 
 ### Interfaces
 
-After defining all classes, we realize that some of them share a common characteristic that is spread in the concrete classes.
+After defining these classes, we realize that two of them share a common characteristic. The `Task` and `Story` classes both define a `_completed` property that works as a flag  identifying if the work related to them has finished.
 
 ### Decorators
 
