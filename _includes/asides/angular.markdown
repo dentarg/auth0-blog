@@ -2,14 +2,14 @@
 
 We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with an Angular application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [angular-auth0-aside repo on GitHub](https://github.com/auth0-blog/angular-auth0-aside).
 
-![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
+![Auth0 centralized login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
 ### Features
 
 The [sample Angular application and API](https://github.com/auth0-blog/angular-auth0-aside) has the following features:
 
 * Angular application generated with [Angular CLI](https://github.com/angular/angular-cli) and served at [http://localhost:4200](http://localhost:4200)
-* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a hosted [Lock](https://auth0.com/lock) instance
+* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a centralized [Lock](https://auth0.com/lock) instance
 * Node server protected API route `http://localhost:3001/api/dragons` returns JSON data for authenticated `GET` requests
 * Angular app fetches data from API once user is authenticated with Auth0
 * Profile page requires authentication for access using route guards
@@ -206,7 +206,7 @@ This service uses the config variables from `auth0-variables.ts` to instantiate 
 
 An [RxJS `BehaviorSubject`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) is used to provide a stream of authentication status events that you can subscribe to anywhere in the app.
 
-The `login()` method authorizes the authentication request with Auth0 using your config variables. An Auth0 hosted Lock instance will be shown to the user and they can then log in.
+The `login()` method authorizes the authentication request with Auth0 using your config variables. An Auth0 centralized login page will be shown to the user and they can then log in.
 
 > **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
 
