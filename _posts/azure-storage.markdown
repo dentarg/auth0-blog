@@ -64,7 +64,7 @@ Azure Table Storage are made of three main components:
 
 ![Table Storage Structure](http://bit.ly/2fYEqL8 "Table Storage Structure")
 
-Below you will find fragments of code related to Azure Table Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [Table Storage](https://github.com/vemoreno/TableStorageWithCsharp). 
+Below you will find C# code fragments that show common operations on Azure Table Storage, if you are interested to see all the operations (create/ delete tables, add/ remove/ get/ update/ query entities), I invite you to look into this project from GitHub dedicated to [Table Storage](https://github.com/vemoreno/TableStorageWithCsharp).
 
 ```C#
 public void Create_a_table()
@@ -117,7 +117,7 @@ Blob mean "Binary Large Object" and can represent any kind of file like images, 
 
 ### Block Blobs 
 
-Block Blobs allow us to handle big files (blobs) with efficiency. Their main features are:
+[Block Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) allow us to handle big files (blobs) with efficiency. Their main features are:
 
 - A single blob can be divided into many blocks, but can never exceed 50,000 blocks.
 - Together, these blocks cannot exceed 200 GB.
@@ -127,7 +127,7 @@ Block Blobs allow us to handle big files (blobs) with efficiency. Their main fea
 
 ### Page Blobs 
 
-Page Blobs perform incredibly well on random read/write operations. This characteristic makes Page Blobs the perfect solution for virtual machines and OS data disks. Their main features are:
+[Page Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) perform incredibly well on random read/write operations. This characteristic makes Page Blobs the perfect solution for virtual machines and OS data disks. Their main features are:
 
 - Capacity of 1 TB of size.
 - Compound by a collection of 512 bytes.
@@ -135,13 +135,14 @@ Page Blobs perform incredibly well on random read/write operations. This charact
 
 ![Page Blobs Structure](http://bit.ly/2fAyabL "Page Blobs Structure")
 
-Both blobs share a concept called "container". A container is part of the name for every blob and group unlimited number of blobs. It can be like a folder in the windows system files, and example could be: 
+Both blobs share a concept called "container", some features of container are:
 
-storagesample.blob.core.windows.net/mycontainer/blob1.txt
+- A container provides a grouping of a set of blobs. 
+- All blobs must be in a container. 
+- An account can contain an unlimited number of containers. 
+- A container can store an unlimited number of blobs. Note that the container name must be lowercase.
 
-The above link defines how the blob can be referenced by https protocol.
-
-Below you will find fragments of code related to Azure Blob Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [Blob Storage](https://github.com/vemoreno/BlobStorageWithCsharp)
+Below you will find C# code fragments that show common operations on Azure Blob Storage, if you are interested to see all the operations (create containers, upload/ list/ download/ delete/ write blobs), I invite you to look into this project from GitHub dedicated to [Blob Storage](https://github.com/vemoreno/BlobStorageWithCsharp).
 
 ```C#
 public void Create_container()
@@ -193,7 +194,7 @@ Microsoft Azure provide us instant messaging on the cloud between applications u
 
 ![Queue Storage Structure](http://bit.ly/2yP7Ym3 "Queue Storage Structure")
 
-Below you will find fragments of code related to Azure Queue Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [Queue Storage](https://github.com/vemoreno/QueueStorageWithCsharp)
+Below you will find C# code fragments that show common operations on Azure Queue Storage, if you are interested to see all the operations (create/ delete queues, insert/ peek/ change/ dequeue/ get/ delete messages), I invite you to look into this project from GitHub dedicated to [Queue Storage](https://github.com/vemoreno/QueueStorageWithCsharp).
 
 ```C#
 public void Create_a_Queue()
@@ -247,7 +248,7 @@ A "File Share" is an SMB space in Azure. All directories and files must be creat
 
 ![File Storage Structure](http://bit.ly/2g0xtcp "File Storage Structure")
 
-Below you will find fragments of code related to Azure File Storage common operations with C#, if you are interested to see all the operations, I invite you to look into this project from GitHub dedicated to [File Storage](https://github.com/vemoreno/FileStorageWithCsharp)
+Below you will find C# code fragments that show common operations on Azure File Storage, if you are interested to see all the operations (set restrictions, access/ copy/ manage shared files), I invite you to look into this project from GitHub dedicated to [File Storage](https://github.com/vemoreno/FileStorageWithCsharp)
 
 ```C#
 public void Access_the_file_share_programmatically()
