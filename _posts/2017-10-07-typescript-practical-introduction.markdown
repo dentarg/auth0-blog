@@ -365,13 +365,103 @@ An avid reader will notice that the `Completable` interface defines two properti
 
 [To learn more about interfaces on TypeScript, take a look at the official documentation](https://www.typescriptlang.org/docs/handbook/interfaces.html).
 
-### Decorators
+### TypeScript Decorators
 
-### Iterators and Generators
+Decorators offer a declarative syntax to modify the shape of classes and properties declarations. For the time being, decorators are not supported by vanilla JavaScript, but there is a [proposal (currently on stage 2) to add support to them](https://github.com/tc39/proposal-decorators) on future versions. Fortunately, as TypeScript already supports this feature, we will be able to develop elegant solutions to [cross-cutting concerns](https://en.wikipedia.org/wiki/Cross-cutting_concern) like logging and transactions.
 
-### Modules
+To understand how this feature works, let's say that we are interested on measuring and logging the performance of a few functions on our program. Instead of changing the code inside all these functions, we can take advantage of decorators to decouple the performance logging from the code itself. Decorators, in the end, are just function wrappers. That is, to create a decorator, we create a function that wraps the call to the original function and change the behavior of it however we like.
 
-### Namespaces
+To see this in action, let's create a file called `log.ts` in the `./src` directory and add the following code:
+
+```typescript
+export function Log() {
+  return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+    // 1 - keep a reference to the original function
+    let originalFunction = descriptor.value || descriptor.get;
+
+    // 2 - wrap the call to the original function to log when it
+    function wrapper() {
+      let startedAt = +new Date();
+      let returnValue = originalFunction.apply(this);
+      let endedAt = +new Date();
+      console.log(`${propertyKey} executed in ${(endedAt - startedAt)} milliseconds`);
+      return returnValue;
+    }
+
+    // 3 - reassigns the original function to reference the wrapper
+    if (descriptor.value) descriptor.value = wrapper;
+    else if (descriptor.get) descriptor.get = wrapper;
+  };
+}
+```
+
+The first step in our new `Log` decorator is to assign a new variable that references the original function. As we want to be able to add this decorator to methods and [property accessors](https://www.typescriptlang.org/docs/handbook/classes.html#accessors), we need to reference `descriptor.value` or `descriptor.get`. The latter, `descriptor.get`, is the reference to accessors and the first the reference to normal methods. After that, we define our wrapper to perform the following actions:
+
+1. Take note of when the original function is being called.
+2. Call the original function and keep a reference to whatever is the returning value (if any).
+3. Take note of when the original function finishes its job.
+4. Log the difference between the two times so we can see how many milliseconds it took to complete the call.
+5. Return the value got from the original function call.
+
+The last step executed by the `Log` decorator declaration is to replace the original function with the wrapper. Replacing it makes the wrapper getting called whenever we reference a method/accessor decorated with `@Log()`, and enables us to see how long it takes the execution of the original method.
+
+Before using the `@Log()` decorator, we need to instruct TypeScript to support this feature. This is done by adding the following line to `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "experimentalDecorators": true
+  },
+  // ...
+}
+```
+
+After that we can add `@Log()` to methods and accessors to measure their performance. As all methods that we have created so far are extremely fast, let's simulate a slow method and add the decorator to it. To do that, let's open the `entity.ts` file and make the following changes:
+
+```typescript
+import {Log} from "./log";
+
+export class Entity {
+  // ...
+
+  @Log()
+  get title(): string {
+    Entity.wait(1572);
+    return this._title;
+  }
+
+  // ...
+
+  private static wait(ms) {
+    let start = Date.now();
+    let now = start;
+    while (now - start < ms) {
+      now = Date.now();
+    }
+  }
+}
+```
+
+As it's possible to see in the code above, the changes needed to use the decorator are simple. We just need to import it in the class that we want to probe and add the decorator to whatever methods/accessors we are interested in. The static method created, called `wait`, is only used to simulate slow scenarios. This method takes a number of milliseconds as parameters and halts the program execution until this time elapses.
+
+Compiling and running the code now will produce almost the same result as before. The difference is that now we will be able to see how long our code takes to access the title property of an `Entity`:
+
+```bash
+tsc
+node ./bin/index
+
+# > title executed in 1572 milliseconds
+# > Please, complete 'Weirdo flying bug' before sending email.
+# > title executed in 1572 milliseconds
+# > Sending email about 'Weirdo flying bug'
+```
+
+### TypeScript Iterators and TypeScript Generators
+
+### TypeScript Modules
+
+### TypeScript Namespaces
 
 ## TypeScript Types Definition
 
