@@ -2,7 +2,7 @@
 layout: post
 title: "Build Personalized Marketing With Identity Management"
 description: "To attract customers, you need to appeal to their individual needs"
-date: 2017-04-04 19:24
+date: 2017-10-09 19:24
 category: Growth, Growth Hacking
 author:
   name: Martin Gontovnikas
@@ -18,7 +18,7 @@ tags:
 - identity
 - management
 related:
-- 2017-03-17-analyzing-identity-in-movies
+- 2017-08-04-how-identity-management-helps-you-personalize-your-user-experience
 - 2017-03-24-360-view-of-customer-by-managing-identity
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
