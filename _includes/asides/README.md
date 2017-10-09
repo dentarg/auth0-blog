@@ -4,6 +4,7 @@ Auth0 Aside includes may be used when:
 
 * it is illogical to integrate Auth0 into the tutorial's main content
 * tutorial has no application sample (is conceptual or is a technical announcement)
+* business article doesn't require a tutorial aside, but does need information on Auth0 (in this case, use the [about-auth0.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/about-auth0.markdown) aside)
 
 > ⚠ **IMPORTANT:** It is _strongly preferred_ that Auth0 be integrated into the main content of your post, or that Asides be specifically tailored to the app sample used in the tutorial. These generic Aside includes should be used _sparingly_.
 
@@ -15,15 +16,15 @@ To include an Auth0 Aside in your post markdown, use the following syntax:
 {% include asides/{technology}.markdown %}
 ```
 
-## Requirements
+## Technical Aside Requirements
 
-Auth0 Asides **must**:
+Technical Auth0 Asides **must**:
 
 * have instructions on how to set up an Auth0 Client
 * authenticate the app using centralized login
 * have a supporting sample repo at [auth0-blog](https://github.com/auth0-blog)
 
-Auth0 Asides **should**: 
+Technical Auth0 Asides **should**: 
 
 * have one image, [such as the one here](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 * show authentication of an API as well as a Client, if reasonable
@@ -36,5 +37,11 @@ If you are the author of a generic Aside, you must **make sure** you keep the co
 ## Author List (for contact)
 
 When you create a new Aside, add a link to it here along with author's name so all writers know who to contact in case they need to use your Aside and have questions.
+
+### Non-Technical Aside
+
+* [about-auth0.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/about-auth0.markdown) - Jeana
+
+### Technical Asides
 
 * [angular.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/angular.markdown) - Kim
