@@ -28,6 +28,10 @@ related:
 
 ## OAuth 2.0 Best Current Practice for Native Apps
 
+### Authorization Flow for Native Apps Using the Browser
+
+### Initiating and Receiving Authorization Requests
+
 ## Security Considerations
 
 ### Authorization and Implicit Grant
@@ -39,5 +43,7 @@ related:
 ## About Auth0
 
 ### Auth0 Centralized Login
+
+## Conclusion
 
 ### Additional Links & Resources
