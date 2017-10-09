@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hardware Manufacturer Consolidates Identity with Auth0"
+title: "Consolidating Multiple Identity Sources with Auth0"
 description: "Let's learn how Auth0 helped a major graphics card manufacturer to consolidate identity for multiple applications."
 date: 2017-09-05 15:51
 category: Technical Guide, Security
@@ -29,9 +29,9 @@ This kind of scenario, although common, is not good for the end user or the owne
 
 Fortunately for the manufacturer, and for companies facing similar scenarios, Auth0 facilitates the consolidation of identities in situations like that.
 
-{% include tweet_quote.html quote_text="Consolidating users from multiple applications is easy with Auth0." %}
+{% include tweet_quote.html quote_text="Consolidating multiple identity sources is easy with Auth0." %}
 
-## Simulating Multiple Apps
+## Creating Multiple Identities Sources
 
 To simulate the manufacturer's scenario, we will use two Node.js applications that are dependent on different databases. There are some users with the same credentials (email and password) on each application and some users that exist only on one application or the other. When a user exists on both applications, some details of their personal data will differ on one account and the other. These differences were created to show how merging profiles from different applications is easy with Auth0.
 
@@ -58,7 +58,7 @@ In our scenario, the Auth0 rules that we are going to create will retrieve an `a
 
 Since the applications are expecting JWTs with the `https://bkrebs.auth0.com/` issuer, we will use a `client_id` and a `client_secret` previously configured on my own Auth0 account (`bkrebs`). For the sake of thoroughness, we will recreate these properties to understand the process, but we won't use them.
 
-## Consolidating Identities with Auth0
+## Consolidating Multiple Identities with Auth0
 
 After creating our account on Auth0, or reusing an existing one, the first step is to create a Database Connection. Let's start by visiting the [Database Connections page](https://manage.auth0.com/#/connections/database) in the management dashboard, where we will click on the [Create DB Connection button](https://manage.auth0.com/#/connections/database/new). In the form that is shown to us, we will simply define a name for the connection, `profile-consolidation`, and hit the Create button.
 
@@ -339,6 +339,67 @@ This will bring up a screen saying that the authentication process worked, displ
 ![Authentication process result](https://cdn.auth0.com/blog/g-cards/profile-consolidation.jpg)
 
 Besides the user that has an account on both legacy apps, there are two more users that have accounts on one application or another. `serena@spam4.me` has an account on the first application, but not on the second one, and `venus@spam4.me` vice versa. Therefore, if we test the authentication process again with one of these users, we will end up with the exact profile from the application where the user exists.
+
+### Managing Password Retrieval
+
+Being Auth0 an enterprise-ready solution for identity management, it must come as no surprise that features like password retrieval/reset is supported out of the box. Although this feature is shipped by default, when merging profiles from multiple identities sources, we must *teach* Auth0 how to verify if a user exists on any of these sources. To do that, let's add the following code to the "Get User" subsection of the "Custom Database" tab:
+
+```js
+function login(email, password, callback) {
+  "use strict";
+  const request = require('request-promise@1.0.2');
+  const Promise = require('bluebird@3.4.6');
+
+  const authenticate = Promise.coroutine(function *() {
+    const getTokenOptions = {
+      method: 'POST',
+      url: 'https://bkrebs.auth0.com/oauth/token',
+      headers: {'content-type': 'application/json'},
+      body: '{"client_id":"BvEdrxK2T2f36Hnttintbe4yIEjUC5P2", "client_secret":"13rf3mN0ciOEckabpE4TF4LYstBfOa19DYUBED7-MMzEM-CjR2ig_kifTfyy3Hoh","audience":"legacy-idp","grant_type":"client_credentials"}'
+    };
+
+    // gets an access token to communicate with the legacy identity resources
+    const tokenResponse = yield request(getTokenOptions);
+    const accessToken = JSON.parse(tokenResponse).access_token;
+
+    //gets the user profile from the both application
+    let profileApp1 = {};
+    let profileApp2 = {};
+    try {
+      profileApp1 = JSON.parse(yield legacyAuth(accessToken, 'https://node-app-1.now.sh/users/' + email));
+    } catch (e) { }
+
+    try {
+      profileApp2 = JSON.parse(yield legacyAuth(accessToken, 'https://node-app-2.now.sh/users/' + email));
+    } catch (e) { }
+
+    // removes null properties from both profile to make merge (assign) unaware of them
+    Object.keys(profileApp1).forEach((key) => (profileApp1[key] === null) && delete profileApp1[key]);
+    Object.keys(profileApp2).forEach((key) => (profileApp2[key] === null) && delete profileApp2[key]);
+
+    // merges both profiles
+    const profile = Object.assign({}, profileApp1, profileApp2, { email });
+    return callback(null, profile);
+  });
+
+  authenticate().catch(function(e) {
+    return callback(new Error(e));
+  });
+
+  function legacyAuth(accessToken, url) {
+    const options = {
+      method: 'GET',
+      url: url,
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    };
+    return request(options);
+  }
+}
+```
+
+Attentive readers will notice that the code to check if a user exists on any of the legacy identity sources is quite similar to the code used to log users in. The only real difference is that instead of sending users credentials in a POST request to `/users/authenticate`, we now issue a GET request to `/users/:email` replacing `:email` with the email address informed by the user. With this code in place, Auth0 now have the means to securely enable users to create new passwords for their accounts.
 
 ## Refactoring Legacy Applications to use Auth0
 
