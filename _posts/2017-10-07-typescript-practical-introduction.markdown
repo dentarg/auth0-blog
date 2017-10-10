@@ -142,6 +142,7 @@ console.log(addOne(age));
 Running it on Node.js, or on any browser for that matter, would output `thirty two1` without generating any warning. Nothing new here, it's just JavaScript behaving as flexible as always. But, what if we want to guarantee that the our `addOne` function accepts only numbers when called? We could change the code to validate the [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) the parameter during runtime... or we could use TypeScript to restrict that during compile time:
 
 ```typescript
+// note that we restricted age to accept numbers only
 function addOne(age: number): number {
     return age + 1;
 }
@@ -154,8 +155,8 @@ Now, using the TypeScript compiler to generate JavaScript will produce an error 
 
 `String` and `number` are two of the [basic types that TypeScript supports](https://www.typescriptlang.org/docs/handbook/basic-types.html). Besides these types, TypeScript also supports:
 
-- `Boolean`: flags that contain true or false values.
-- `Array`: collections of typed elements.
+- `Boolean`: flag that contains true or false values.
+- `Array`: collection of typed elements.
 - `Tuple`: similar to `array`, but with a fixed number of typed elements.
 - `Enum`: friendly names to sets of numeric values.
 - `Any`: an indicator that a variable/parameter can be anything at all.
