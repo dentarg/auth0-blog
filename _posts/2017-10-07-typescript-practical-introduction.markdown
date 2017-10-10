@@ -468,7 +468,7 @@ An avid reader will notice that the `Completable` interface defines two properti
 
 Decorators offer a declarative syntax to modify the shape of classes and properties declarations. For the time being, decorators are not supported by vanilla JavaScript, but there is a [proposal (currently on stage 2) to add support to them](https://github.com/tc39/proposal-decorators) on future versions. Fortunately, as TypeScript already supports this feature, we will be able to develop elegant solutions to [cross-cutting concerns](https://en.wikipedia.org/wiki/Cross-cutting_concern) like logging and transactions.
 
-To understand how this feature works, let's say that we are interested on measuring and logging the performance of a few functions on our program. Instead of changing the code inside all these functions, we can take advantage of decorators to decouple the performance logging from the code itself. Decorators, in the end, are just function wrappers. That is, to create a decorator, we create a function that wraps the call to the original function and change the behavior of it however we like.
+To understand how this feature works, let's say that we are interested on measuring and logging the time spent by a few functions on our program. Instead of changing the code inside all these functions, we can take advantage of decorators to decouple the performance logging from the code itself. Decorators, in the end, are just function wrappers. That is, to create a decorator, we create a function that wraps the call to the original function and change the behavior of it however we like.
 
 To see this in action, let's create a file called `log.ts` in the `./src` directory and add the following code:
 
@@ -598,10 +598,6 @@ for (let task of tasks) {
 ```
 
 As we can see, using the `for..of` statement makes much more sense, as we automatically get a reference to the objects in question inside the loop.
-
-## TypeScript Types Definition
-
-### DefinitelyTyped
 
 ## Aside: Securing TypeScript with Auth0
 
