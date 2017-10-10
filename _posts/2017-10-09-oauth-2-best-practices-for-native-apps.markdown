@@ -36,6 +36,8 @@ The IETF ([Internet Engineering Task Force](https://www.ietf.org/)) recently rel
 
 Using the browser to make native app authorization requests results in better security. It also enables use of the user's current authentication state, making single sign-on possible. In addition, authorization flow support can be implemented without changing the OAuth protocol itself, since the request and response are predefined by URIs. We'll go into the security and implementation advantages in more detail below.
 
+{% include tweet_quote.html quote_text="Using the browser to make native app authorization requests results in better security." %}
+
 ### Authorization Flow for Native Apps Using the Browser
 
 The authorization flow for native apps using the browser acts as illustrated in the following diagram:
@@ -52,6 +54,8 @@ The authorization flow for native apps using the browser acts as illustrated in 
 > _Figure 1, [OAuth 2.0 for Native Apps](https://www.rfc-editor.org/rfc/rfc8252.txt)_
 
 URIs are used for OAuth 2.0 on the web for authorization requests and responses. Similarly, URIs can also be used in native apps. This brings the same advantages to the native environment, such as the ability to use a single sign-on session and additional security afforded by an authentication context that is separated from the app. In addition, supporting and implementing the same approach in web and native apps reduces complexity and increases interoperability.
+
+{% include tweet_quote.html quote_text="Implementing external user agents in both web & native apps reduces complexity and increases interop." %}
 
 ### Initiating and Receiving Authorization Requests
 
