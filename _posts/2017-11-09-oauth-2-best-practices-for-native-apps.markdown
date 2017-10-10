@@ -43,7 +43,7 @@ Using the browser to make native app authorization requests results in better se
 
 The authorization flow for native apps using the browser acts as illustrated in the following diagram:
 
-![Authorization flow for native apps using the browser](/Users/kimmaida-auth0/Documents/Auth0/Blog/OAuth 2 assets/oauth-native-apps.png)
+![Authorization flow for OAuth 2.0 in native apps using the browser](https://cdn.auth0.com/blog/oauth2bcp/oauth-native-apps.png)
 
 > 1. Client app opens a browser tab with the authorization request.
 2. Authorization endpoint receives the authorization request, authenticates the user, and obtains authorization. Authenticating the user may involve chaining to other authentication systems.
