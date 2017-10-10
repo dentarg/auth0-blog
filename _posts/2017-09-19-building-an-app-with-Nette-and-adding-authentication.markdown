@@ -27,7 +27,7 @@ related:
 
 ---
 
-**TL;DR:** In this tutorial, I'll show you how easy it is to build a web application with Nette and add authentication to it. Check out the [repo](https://github.com/auth0/nette-auth0-got) to get the code.
+**TL;DR:** In this tutorial, I'll show you how easy it is to build a web application with Nette and add authentication to it. Check out the [repo](https://github.com/auth0-blog/nette-auth0-got) to get the code.
 
 ---
 
