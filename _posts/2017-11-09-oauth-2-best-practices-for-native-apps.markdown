@@ -3,7 +3,7 @@ layout: post
 title: "OAuth 2.0 Best Practices for Native Apps"
 description: "The IETF has released Best Current Practice (BCP) for OAuth 2.0 in native apps. Learn about it now."
 date: 2017-10-11 8:30
-category: Announcement
+category: Growth, Best Practices, OAuth
 banner:
   text: "Auth0 makes it easy to add authentication to your native application."
 author:
@@ -15,11 +15,12 @@ design:
   image: https://cdn.auth0.com/blog/...
   bg_color: "#"
 tags:
-- hyphenated-tags
-- 
+- oauth
+- ietf
+- best-practices
 related:
-- date-postname
-- date-postname
+- 2016-04-20-everything-you-wanted-to-know-about-oauth-2-but-were-too-afraid-to-ask
+- 2015-09-23-what-is-and-how-does-single-sign-on-work
 ---
 
 **TL;DR:** In October, 2017, the [Internet Engineering Task Force (IETF)](https://www.ietf.org/) released the [Best Current Practices (BCP) when using OAuth 2.0 with native mobile applications](https://www.rfc-editor.org/rfc/rfc8252.txt). This BCP states that OAuth 2.0 authorization requests from native apps should _only_ be made through external user agents, primarily the user's browser.
