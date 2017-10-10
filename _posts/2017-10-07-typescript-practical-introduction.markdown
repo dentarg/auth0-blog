@@ -213,6 +213,21 @@ Steps three and four use these variables to create two rankings and to push them
 
 To learn more about the [basic types of TypeScript, take a look at the documentation](https://www.typescriptlang.org/docs/handbook/basic-types.html). The official website also contains a section that talks about [advanced types](https://www.typescriptlang.org/docs/handbook/advanced-types.html), like the `type` that we declared in the first step of the example above.
 
+### TypeScript Modules
+
+Another feature that TypeScript inherits from ECMAScript 2015 is the support of modules. Modules on both languages (JavaScript and TypeScript) are a way to encapsulate code into their own scope. That is, when we create a module and add some code to it, we are not letting anything (variables, functions, etc) scape silently. Everything that we want to provide externally needs to be explicitly exported by our module and explicitly imported by other modules/scripts.
+
+For example, if we change the code in the previous section by adding the following line:
+
+```typescript
+// steps 1 to 6 ...
+
+// 7 -
+export { printRankings, RankingTuple };
+```
+
+We are then able to import the `printRankings` function and the `RankingTuple` type definition on other modules/files to use them. Throughout this article, we are going to define and export multiple classes and import them into other files. As each of these classes will be defined on their own file, they can be considered separate modules. To learn more about modules, check out the [official documentation](https://www.typescriptlang.org/docs/handbook/modules.html).
+
 ### TypeScript Classes
 
 In TypeScript, classes are very similar to what other object-oriented programming languages provide. That is, a class is the contract definition of what is supported by the instances of this class (objects). Besides that, a class can also inherit functionality from other classes and even from interfaces (more on that in the next section). One feature that distinguishes classes in TypeScript from most of the other languages, is that classes support only a single constructor. Although this might sound limiting, we will see that by supporting optional parameters, TypeScript mitigates this limitation.
@@ -584,8 +599,6 @@ for (let task of tasks) {
 ```
 
 As we can see, using the `for..of` statement makes much more sense, as we automatically get a reference to the objects in question inside the loop.
-
-### TypeScript Modules
 
 ### TypeScript Namespaces
 
