@@ -34,8 +34,6 @@ related:
 
 Besides enabling developers to check the correctness of their code before running it, TypeScript also brings to the table the state of the art JavaScript. That is, with TypeScript we can take advantage of the latests features of JavaScript, like those introduced on ECMAScript 2015, and features that are still under consideration (e.g. decorators). As the developers of TypeScript knew that applications written in the language would face a wide variety of environments (JavaScript engines), they made it easy to compile and [transpile](https://en.wikipedia.org/wiki/Source-to-source_compiler) TypeScript to the most different targets, like ECMAScript 3 and above.
 
-### Advantages and Disadvantages
-
 ## Installing TypeScript
 
 To compile and transpile TypeScript into JavaScript, we need to install the command-line compiler. As this compiler is in fact a Node.js program, we first need to [install Node.js and NPM](https://nodejs.org/en/download/current/) to, after that, install the compiler as a Node.js package:
@@ -126,9 +124,94 @@ The options used in the configuration file above are just a small subset of what
 
 Now that we understand how to bootstrap a TypeScript project and configure the compiler, let's start learning about the features provided by TypeScript. Although the features that we are going to cover here (and a few more) are throughly explained in the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/basic-types.html), this article will focus on a more practical approach. We will learn the basic concepts of the most important features and put them to work together.
 
-### TypeScript Functions and Variables
+### TypeScript Types, Variables, and Functions
 
+Before creating anything that matters, we need to learn about the most important features of TypeScript: types, variables, and functions. TypeScript became popular over the last couple of years because it enables developers to define strongly typed variables, parameters, and return values while still using JavaScript (which on its nature is weakly typed and extremely flexible). For example, developing on JavaScript, the following code is perfectly valid:
 
+```javascript
+function addOne(age) {
+    return age + 1;
+}
+
+let age = 32;
+// ...
+age = "thirty two";
+
+console.log(addOne(age));
+```
+
+Running it on Node.js, or on any browser for that matter, would output `thirty two1` without generating any warning. Nothing new here, it's just JavaScript behaving as flexible as always. But, what if we want to guarantee that the our `addOne` function accepts only numbers when called? We could change the code to validate the [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) the parameter during runtime... or we could use TypeScript to restrict that during compile time:
+
+```typescript
+function addOne(age: number): number {
+    return age + 1;
+}
+
+console.log(addOne(32));
+console.log(addOne("thirty two"));
+```
+
+Now, using the TypeScript compiler to generate JavaScript will produce an error saying that the `Argument of type '"thirty two"' is not assignable to parameter of type 'number'.`. This is the most valuable feature of TypeScript. Based on this feature amazing tools and IDE integrations can be created to improve tasks like code refactoring. Being able to define types during design time help us avoid mistakes like passing the wrong variable type to functions.
+
+`String` and `number` are two of the [basic types that TypeScript supports](https://www.typescriptlang.org/docs/handbook/basic-types.html). Besides these types, TypeScript also supports:
+
+- `Boolean`: flags that contain true or false values.
+- `Array`: collections of typed elements.
+- `Tuple`: similar to `array`, but with a fixed number of typed elements.
+- `Enum`: friendly names to sets of numeric values.
+- `Any`: an indicator that a variable/parameter can be anything at all.
+- `Void`: to indicate that a function wont return anything.
+- `Never`: to indicate that a function always throws an exception or never finishes its execution.
+
+These types enable us to create solutions to whatever problem we face. With them, we can develop code that guarantees that the correct types are being passed around and, if we need to represent more complex entities, we can define classes that contain any arbitrary number of type variables (as we will see in the next section). To provide an overview of what TypeScript makes possible, let's take a look in the following code:
+
+```typescript
+// 1 - declaring a tuple
+type RankingTuple = [number, string, boolean];
+
+// 2 - defining typed variables
+let position: number;
+let playerName: string;
+let finishedGame: boolean;
+let ranking: RankingTuple;
+let hallOfFame: Array<RankingTuple> = [];
+
+// 3 - creating a ranking
+position = 1;
+playerName = "Bruno Krebs";
+finishedGame = true;
+ranking = [position, playerName, finishedGame];
+hallOfFame.push(ranking);
+
+// 4 - creating another ranking
+position = 2;
+playerName = "Maria Helena";
+finishedGame = true;
+ranking = [position, playerName, finishedGame];
+hallOfFame.push(ranking);
+
+// 5 - defining a function that logs all rankings
+function printRankings(rankings: Array<RankingTuple>): void {
+  for (let ranking of rankings) {
+    console.log(ranking);
+  }
+}
+
+// 6 - calling the function
+printRankings(hallOfFame);
+```
+
+The first step executed by the code above creates a tuple that accepts three objects: a number, a string, and a boolean. This tuple represents a ranking where the number is the position, the string is the name of the person in that position, and the boolean indicates whether the player has finished the game or not. In the second step, we define five typed variables to hold:
+
+1. a player's position,
+2. a player's name,
+3. a flag that indicates if the player has finished the game or not,
+4. a reference to an object that complies to the ranking tuple,
+5. and an array of rankings.
+
+Steps three and four use these variables to create two rankings and to push them to the array of rankings (`hallOfFame`). Step five defines a function that iterates over an array of rankings and prints them. The last step simply calls the function defined in the previous step passing the array of rankings (`hallOfFame`). Note that all these steps were defined in a way that the compiler is able to validate everything before runtime. For example, trying to push something else than a tuple that contains exactly a number, a string, and a boolean to `hallOfFame` would generate an error. Another example is that trying to capture the return value of a call to `printRankings` would also generate an error, since this function explicitly defines that it returns nothing (`: void`).
+
+To learn more about the [basic types of TypeScript, take a look at the documentation](https://www.typescriptlang.org/docs/handbook/basic-types.html). The official website also contains a section that talks about [advanced types](https://www.typescriptlang.org/docs/handbook/advanced-types.html), like the `type` that we declared in the first step of the example above.
 
 ### TypeScript Classes
 
