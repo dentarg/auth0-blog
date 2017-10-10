@@ -595,6 +595,40 @@ As we can see, using the `for..of` statement makes much more sense, as we automa
 
 ## Aside: Securing TypeScript with Auth0
 
+Auth0, a global leader in Identity-as-a-Service (IDaaS), provides thousands of customers in every market sector with the only identity solution they need for their web, mobile, IoT, and internal applications. As such, it must come with no surprise that Auth0 provides extremely easy ways to secure applications written in any popular technology, like JavaScript and TypeScript. Auth0 solutions and libraries can be used to secure TypeScript applications developed to run in the front-end and in the backend. For example, the following code snippet creates an [Express middleware](http://expressjs.com/en/guide/using-middleware.html) to secure APIs:
+
+```typescript
+import * as jwt from 'express-jwt';
+import {expressJwtSecret} from 'jwks-rsa';
+
+export function securityMiddleware() {
+  return jwt({
+    secret: expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
+    }),
+    audience: 'http://localhost:3000/',
+    issuer: 'https://${CLIENT_DOMAIN}/',
+    algorithm: 'RS256'
+  });
+}
+```
+
+To use this middleware, we need to execute 6 easy steps:
+
+1. Install `express-jwt`, its type definition (`@types/express-jwt`), and the `jwks-rsa` library.
+2. Create a [free Auth0 account](https://auth0.com/signup).
+3. Set up [an Auth0 API](https://auth0.com/docs/apis) to represent our backend.
+4. Replace `${CLIENT_DOMAIN}` in the code above with our Auth0 domain (e.g. `bkrebs.auth0.com`).
+5. Configure `securityMiddleware` to intercept calls to API endpoints.
+6. Integrate our front-end application with Auth0 to get the tokens that are going to use to talk to the backend.
+
+After that we get access to state-of-the-art security and identity management features like [single sign-on](https://auth0.com/learn/how-to-implement-single-sign-on/), [user management](https://auth0.com/user-management), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), enterprise (Active Directory, LDAP, SAML, etc.), and [multifactor authentication](https://auth0.com/docs/multifactor-authentication).
+
+To learn how to use Auth0 to secure front-end applications, or other backend frameworks and programming languages, [take a look at the documentation](https://auth0.com/docs). You will see that it's very easy to secure applications with Auth0.
+
 ## Conclusion
 
 Although bringing type safety to JavaScript, TypeScript does it without being intrusive. That is, it helps us static checking variable types when we want, but don't force us to do it. Besides that, TypeScript is becoming more and more popular recently. Great frameworks, like [Angular](https://github.com/angular) in the front-end and [Nest](https://docs.nestjs.com/) in the backend, are being developed with TypeScript and IDEs are getting better on supporting this technology. Also, the community is investing time to create type definitions for well-stablished libraries like [jQuery](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jquery) and [lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash), which enhances their usage in this type-safe version of JavaScript. Considering all these factors, the only possible conclusion is that the future of TypeScript is very promising.
