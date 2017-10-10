@@ -2,7 +2,7 @@
 layout: post
 title: "Developing Web Apps and RESTful APIs with KeystoneJS"
 description: "Learn how to build and secure RESTful APIs with KeystoneJS"
-date: 2017-10-05 8:30
+date: 2017-10-10 8:30
 category: Technical Guide, JavaScript, KeystoneJS
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
