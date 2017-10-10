@@ -163,10 +163,10 @@ Now, using the TypeScript compiler to generate JavaScript will produce an error 
 - `Void`: to indicate that a function wont return anything.
 - `Never`: to indicate that a function always throws an exception or never finishes its execution.
 
-These types enable us to create solutions to whatever problem we face. With them, we can develop code that guarantees that the correct types are being passed around and, if we need to represent more complex entities, we can define classes that contain any arbitrary number of type variables (as we will see in the next section). To provide an overview of what TypeScript makes possible, let's take a look in the following code:
+These types enable us to create solutions to whatever problem we face. With them, we can develop code that guarantees that the correct types are being passed around and, if we need to represent more complex entities, we can define classes that contain any arbitrary number of typed variables (as we will see in the next section). To provide an overview of what TypeScript makes possible, let's take a look in the following code:
 
 ```typescript
-// 1 - declaring a tuple
+// 1 - declaring a type
 type RankingTuple = [number, string, boolean];
 
 // 2 - defining typed variables
@@ -201,7 +201,7 @@ function printRankings(rankings: Array<RankingTuple>): void {
 printRankings(hallOfFame);
 ```
 
-The first step executed by the code above creates a tuple that accepts three objects: a number, a string, and a boolean. This tuple represents a ranking where the number is the position, the string is the name of the person in that position, and the boolean indicates whether the player has finished the game or not. In the second step, we define five typed variables to hold:
+The first step executed by the code above creates a a type (tuple) that accepts three objects: a number, a string, and a boolean. This tuple represents a ranking where the number is the position, the string is the name of the person in that position, and the boolean indicates whether the player has finished the game or not. In the second step, we define five typed variables to hold:
 
 1. a player's position,
 2. a player's name,
