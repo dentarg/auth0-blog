@@ -12,14 +12,17 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/madlibs/Logo.png
-  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/keystonejs/keystonejs-logo.png
+  bg_color: "#4A4A4A"
 tags:
 - keystonejs
 - angular
 - javascript
 - authentication
 - auth
+- nodejs
+- restful
+- api
 related:
 - 2017-09-19-building-an-app-with-Nette-and-adding-authentication
 - 2017-09-07-developing-restful-apis-with-loopback
