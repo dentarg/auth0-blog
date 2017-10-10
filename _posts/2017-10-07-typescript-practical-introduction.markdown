@@ -457,7 +457,46 @@ node ./bin/index
 # > Sending email about 'Weirdo flying bug'
 ```
 
-### TypeScript Iterators and TypeScript Generators
+### TypeScript Iterators
+
+Whenever we want to loop over objects in a collection (array, map, or set) we take advantage of the [iterator feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator). Although TypeScript does not add anything special on top of what has been introduced on ECMAScript 2015, we will, for the sake of completeness, take a glimpse on how to use iterators. TypeScript/JavaScript provides two ways to go over objects on a collection: by using the `for..of` statement, and by referencing objects by its indexes.
+
+The latter (referencing its indexes) is the classical way, probably seem by all seasoned developers:
+
+```typescript
+import {Task} from "./task";
+
+let tasks:Array<Task> = [
+  new Task(1, "Buy milk"),
+  new Task(2, "Buy cheese"),
+  new Task(3, "Pay bills"),
+  new Task(4, "Clean the house")
+];
+
+for (let i = 0; i < tasks.length; i++) {
+  let task = tasks[i];
+  console.log(task.title);
+}
+```
+
+The other way, using the `for..of` statement, provides a more elegant way to achieve the same result:
+
+```typescript
+import {Task} from "./task";
+
+let tasks:Array<Task> = [
+  new Task(1, "Buy milk"),
+  new Task(2, "Buy cheese"),
+  new Task(3, "Pay bills"),
+  new Task(4, "Clean the house")
+];
+
+for (let task of tasks) {
+  console.log(task.title);
+}
+```
+
+As we can see, using the `for..of` statement makes much more sense, as we automatically get a reference to the objects in question inside the loop.
 
 ### TypeScript Modules
 
