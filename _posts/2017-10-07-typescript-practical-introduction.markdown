@@ -600,8 +600,6 @@ for (let task of tasks) {
 
 As we can see, using the `for..of` statement makes much more sense, as we automatically get a reference to the objects in question inside the loop.
 
-### TypeScript Namespaces
-
 ## TypeScript Types Definition
 
 ### DefinitelyTyped
