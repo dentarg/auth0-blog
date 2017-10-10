@@ -215,18 +215,17 @@ To learn more about the [basic types of TypeScript, take a look at the documenta
 
 ### TypeScript Modules
 
-Another feature that TypeScript inherits from ECMAScript 2015 is the support of modules. Modules on both languages (JavaScript and TypeScript) are a way to encapsulate code into their own scope. That is, when we create a module and add some code to it, we are not letting anything (variables, functions, etc) scape silently. Everything that we want to provide externally needs to be explicitly exported by our module and explicitly imported by other modules/scripts.
+Another feature that TypeScript inherits from ECMAScript 2015 is the support to modules. Modules on both languages (JavaScript and TypeScript) are a way to encapsulate code into their own scope. That is, when we create a module and add some code to it, we are not letting anything (like variables, functions, etc) scape silently. Everything that we want to provide externally needs to be explicitly exported by our module and explicitly imported by other modules/scripts.
 
 For example, if we change the code in the previous section by adding the following line:
 
 ```typescript
 // steps 1 to 6 ...
 
-// 7 -
 export { printRankings, RankingTuple };
 ```
 
-We are then able to import the `printRankings` function and the `RankingTuple` type definition on other modules/files to use them. Throughout this article, we are going to define and export multiple classes and import them into other files. As each of these classes will be defined on their own file, they can be considered separate modules. To learn more about modules, check out the [official documentation](https://www.typescriptlang.org/docs/handbook/modules.html).
+We are then able to import the `printRankings` function and the `RankingTuple` type definition on other modules/files to use them. Throughout this article, we are going to define and export multiple classes and import them into other files. As each of these classes will be defined on their own files, they can be considered separate modules. To learn more about modules, check out the [official documentation](https://www.typescriptlang.org/docs/handbook/modules.html).
 
 ### TypeScript Classes
 
