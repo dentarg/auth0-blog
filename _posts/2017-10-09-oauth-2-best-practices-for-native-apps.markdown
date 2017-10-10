@@ -2,7 +2,7 @@
 layout: post
 title: "OAuth 2.0 Best Practices for Native Apps"
 description: "The IETF has released Best Current Practice (BCP) for OAuth 2.0 in native apps. Learn about it now."
-date: 2017-10-05 8:30
+date: 2017-10-11 8:30
 category: Announcement
 banner:
   text: "Auth0 makes it easy to add authentication to your native application."
@@ -79,14 +79,30 @@ It is _not_ recommended to implement [implicit grant flow](https://auth0.com/doc
 
 In most cases, native apps are considered public clients and must be registered with the authorization server. Authorization servers must also register a client's complete redirect URI. If an authorization request does not match the registered redirect URI, the request must be rejected.
 
-
+User consent or interaction should be required before the authorization server can process an authorization request automatically. If the user has previously approved a request for the same client ID in the past, the request should be processed automatically.
 
 ### User Agents
 
-## About Auth0
+Embedded user agents should not be used to masquerade as an external user agent. Authorization servers can protect against these fake agents by requiring an authentication factor only available to genuine external user agents.
 
-### Auth0 Centralized Login
+Cross-Site Request Forgery (CSRF) attacks should also be mitigated by using the `state` parameter to link client requests and responses. More details are available in section 5.3.5 of [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819).
+
+The user's browser is the recommended external user agent. Embedded user agents must not be used for authorization requests. Authorization servers may detect and block requests from embedded user agents, as they are unsafe for third parties, such as the authorization server itself. The reason for this is because the app can then access not only the OAuth authorizationg grant, but also the user's full authentication credentials. The app could then potentially record or use this information maliciously. In addition, embedded user agents don't share authentication state with other apps or the browser and therefore disabling single sign-on benefits.
 
 ## Conclusion
 
-### Additional Links & Resources
+If you're a native app developer, it's very important to adhere to best current practices. Please take the time to read over the [OAuth 2.0 for Native Apps](https://www.rfc-editor.org/rfc/rfc8252.txt) RFC yourself. Using an external user agent for OAuth 2.0 authorization requests provides better security as well as an improved user experience as it enables [single sign-on](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/) across the device's apps and browser.
+
+### Centralized Login with Auth0
+
+[Auth0](https://auth0.com) provides a [centralized login approach (also called hosted login)](https://auth0.com/docs/hosted-pages/login) that adheres to the OAuth 2.0 Best Current Practice for native apps. Centralized login provides the most secure experience and is also easy to implement for developers. A URI is used to trigger an authentication request and the centralized login page is shown to users. This login page can use the [Auth0 Lock widget](https://auth0.com/lock) or your own custom UI. After authorization, the user is returned to your app via your provided redirect. Auth0 provides extensive documentation to help you easily implement the appropriate flows to keep your apps secure and user-friendly as well.
+
+Check out the following resources to learn more about implementing Auth0 with centralized login in your native apps in accordance with the OAuth 2.0 Best Current Practice:
+
+* [Hosted Login Page](https://auth0.com/docs/hosted-pages/login)
+* [OAuth 2.0](https://auth0.com/docs/protocols/oauth2)
+* [Calling APIs from Mobile Apps (Authorization Code PKCE)](https://auth0.com/docs/api-auth/grant/authorization-code-pkce)
+* [iOS Swift Quickstart - Login](https://auth0.com/docs/quickstart/native/ios-swift/00-login)
+* [Android Quickstart - Login](https://auth0.com/docs/quickstart/native/android/00-login)
+
+You can sign up for a <a href="javascript:signup()">free Auth0 account now</a> and get started right away, or check out [Auth0's pricing here](https://auth0.com/pricing).
