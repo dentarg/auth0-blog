@@ -126,7 +126,9 @@ The options used in the configuration file above are just a small subset of what
 
 Now that we understand how to bootstrap a TypeScript project and configure the compiler, let's start learning about the features provided by TypeScript. Although the features that we are going to cover here (and a few more) are throughly explained in the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/basic-types.html), this article will focus on a more practical approach. We will learn the basic concepts of the most important features and put them to work together.
 
-### Functions and Variables
+### TypeScript Functions and Variables
+
+
 
 ### TypeScript Classes
 
@@ -456,6 +458,8 @@ node ./bin/index
 # > title executed in 1572 milliseconds
 # > Sending email about 'Weirdo flying bug'
 ```
+
+[To learn more about decorators on TypeScript, take a look at official documentation](https://www.typescriptlang.org/docs/handbook/decorators.html).
 
 ### TypeScript Iterators
 
