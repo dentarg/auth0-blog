@@ -27,7 +27,7 @@ related:
 
 ---
 
-**TL;DR:** In this tutorial, I'll show you how easy it is to authenticate users using phone numbers with Firebase. Check out the [repo](https://github.com/auth0/firebase-phone-auth) to get the code.
+**TL;DR:** In this tutorial, I'll show you how easy it is to authenticate users using phone numbers with Firebase. Check out the [repo](https://github.com/auth0-blog/firebase-phone-auth) to get the code.
 
 ---
 
