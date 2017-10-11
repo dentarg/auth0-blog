@@ -125,7 +125,7 @@ Blob, an acronym to "Binary Large OBject", is a collection of binary data that c
 
 ### Block Blobs
 
-[Block Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) allow developers to handle big files (blobs) with efficiency. Their main features are:
+[Block Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) allow developers to handle big files with efficiency. Block Blobs main features on Azure Storage are:
 
 - A single blob can be divided into many blocks, but can never exceed 50,000 blocks.
 - Together, these blocks cannot exceed 200 GB.
