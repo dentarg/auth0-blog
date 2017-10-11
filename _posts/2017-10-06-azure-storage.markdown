@@ -67,7 +67,7 @@ In the following sections we will learn how to create tables on Azure Table Stor
 
 ### Creating Tables on Azure Table Storage
 
-In this section we are going to take a look into a C# code snippet that shows how to use Azure Table Storage. Let's start by learning how to create tables:
+In this section we are going to learn how to create tables on Azure Table Storage. The following C# code snippet shows four easy steps to create a demo table:
 
 ```C#
 public CloudTable CreateDemoTable()
@@ -89,13 +89,13 @@ public CloudTable CreateDemoTable()
 }
 ```
 
-The first step is to create an instance of `StorageCredentials`. To do this, we just need to pass our `Account` and `Key`. These information can be retrieved as shown in the following screen:
+The first step creates an instance of `StorageCredentials`. To do this, we just need to pass our `Account` name and account `Key`. These information can be retrieved as shown in the following screen:
 
 ![Retrieving account name and account key from Azure Storage](https://i.stack.imgur.com/6rIuv.png)
 
-After that we can create an instance of `CloudStorageAccount` passing the reference for the `StorageCredentials`. Then, in the third step, we use `CloudStorageAccount` to create a new table by calling `storageAccount.CreateCloudTableClient()`.
+After that we create an instance of `CloudStorageAccount` passing the reference for the `StorageCredentials`. Then, in the third step, we call the `CreateCloudTableClient()` method of our `CloudStorageAccount` to create a new `CloudTableClient`.
 
-Step four consists of getting a reference to a table called `Demo` and creating it if it doesn't exist.
+Step four consists of using `CloudTableClient` to get a reference to a table called `Demo` and creating it on Azure Table Storage if it doesn't exist.
 
 ### Adding Entities to a Table on Azure Table Storage
 
