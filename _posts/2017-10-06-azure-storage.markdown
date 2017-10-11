@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "4 ways to store inside Azure Storage"
-description: "This article will teach you to know multiples ways to store information in the Microsoft Cloud"
-date: 2017-09-12 12:30
+title: "Azure Storage Introduction"
+description: "In this article we will learn about the multiple ways that Microsoft Azure Storage enables us to store information."
+date: 2017-10-06 08:00
 category: Technical Guide, Microsoft, Azure
 author:
-  name: Victor Moreno
+  name: Víctor Moreno
   url: https://twitter.com/vmorenoz
   mail: victor.e.moreno@outlook.com
   avatar: https://pbs.twimg.com/profile_images/621531844719173632/ZgTus250_200x200.jpg
@@ -31,14 +31,14 @@ related:
 
 ## What is Azure Storage?
 
-Azure Storage is more than a lot of space to place files. The Microsoft cloud storage solution provides different types of storage on the cloud, like: 
-[tables](https://docs.microsoft.com/en-us/azure/cosmos-db/table-storage-how-to-use-dotnet), 
-[queues](https://docs.microsoft.com/en-us/azure/storage/queues/storage-dotnet-how-to-use-queues),
-[blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs), and 
-[files](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction). 
-Before talking about each type, it's necessary to talk about "account storage" as this is how Microsoft Azure organises accounts.
+Azure Storage is the Microsoft solution for cloud storage. Their solution provides four different types of storage:
 
-An account storage provides a unique namespace for Azure Storage objects, and Microsoft bills customers, based on what they use, through their account storages. Every account storage contains a subdomain that is used to access the different storage types:
+- [Table Storage](https://docs.microsoft.com/en-us/azure/cosmos-db/table-storage-how-to-use-dotnet)
+- [Queue Storage](https://docs.microsoft.com/en-us/azure/storage/queues/storage-dotnet-how-to-use-queues)
+- [Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs)
+- [File Storage](https://docs.microsoft.com/en-us/azure/storage/files/storage-files-introduction)
+
+Before diving into the details about each type, let's talk about *account storages*. An account storage provides a unique namespace for Azure Storage objects. Based on what customers use, Microsoft bills them through their account storages. Every account storage contains a subdomain that is used to access the different storage types. For example, if we had an account storage id called `storagesample` we would get the following subdomain:
 
 - storagesample.blob.core.windows.net
 - storagesample.table.core.windows.net
@@ -47,45 +47,54 @@ An account storage provides a unique namespace for Azure Storage objects, and Mi
 
 ## What is Azure Table Storage?
 
-Azure Table Storage is a service that stores structured NoSQL data in the cloud, providing a key/attribute store with a schemaless design, these are it's main characteristics:
+Azure Table Storage is a service that stores NoSQL data in the cloud. This storage type enables us to store schemaless data in a key/value fashion. These are the main characteristics of Azure Table Storage:
 
-- Tables are independent of each other, because don't share an schema.
+- Tables are independent of each other.
 - Features like foreign keys, joins, and custom indexes don't exist.
 - Table schemas are flexible. It's not mandatory to have all fields on all records.
 
-Azure Table Storage are made of three main components:
+Each table on Azure Table Storage is composed of five main components:
 
-- Entities: We can see them as rows or typical records in relational databases.
-- Properties: All table storages must contains at least three properties:
-  + Partition key: String type that contains no more than 1 KB. It covers one or more entities in the table, making blocks of entities and grouping them with an ID.
-  + Row key: A string that contains no more than 1KB and that is used to uniquely identify one entity inside a table partitions.  
-  + Timestamp: A property that stores the time when an entity was inserted or updated in the table.
-- Partitions: They are a collection of entities in a table sharing the same partition key in order to group data like several tables, but inside one object.
+- Entities: We can see them as rows (typical records) in relational databases.
+- Partition keys: String type that contains no more than 1 KB. It covers one or more entities in the table, making blocks of entities and grouping them with an ID.
+- Row key: A string that contains no more than 1KB and that is used to uniquely identify one row inside a table partitions.  
+- Timestamp: A property that stores the time when an entity was inserted or updated in the table.
+- Partitions: A collection of entities in a table sharing the same partition key in order to group data like several tables, but inside one object.
 
-![Table Storage Structure](http://bit.ly/2fYEqL8 "Table Storage Structure")
+![Table Storage structure on Microsoft Azure Storage](https://cdn.auth0.com/blog/azure-storage/table-storage.png)
 
-Below you will find C# code fragments that show common operations on Azure Table Storage, if you are interested to see all the operations (create/ delete tables, add/ remove/ get/ update/ query entities), I invite you to look into this project from GitHub dedicated to [Table Storage](https://github.com/vemoreno/TableStorageWithCsharp).
+### Creating Tables on Azure Table Storage
+
+In this section we are going to take a look into a C# code snippet that shows how to use Azure Table Storage. Let's start by learning how to create tables:
 
 ```C#
-public void Create_a_table()
+public void CreateTable()
 {
-	//Retrieve the storage account from the connection string.
+	// 1 - Retrieve the storage account
+	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);       
 
-	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);            
+  // 2 - Create a CloudStorageAccount instance
 	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
 
-	// Create the table client.
+	// 3 - Create the table client.
 	CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
 
-	// Retrieve a reference to the table.
+	// 4 - Retrieve a reference to the table.
 	CloudTable table = tableClient.GetTableReference("Demo");
-
-	// Create the table if it doesn't exist.
-	table.CreateIfNotExists();
-	MessageBox.Show("Table created", "Entity", MessageBoxButtons.OK);
+  table.CreateIfNotExists();
 }
+```
 
-public void Add_an_entity_to_a_table()
+The first step is to create an instance of `StorageCredentials`. To do this, we just need to pass our `Account` and `Key`. These information can be retrieved as shown in the following screen:
+
+![Retrieving account name and account key from Azure Storage](https://i.stack.imgur.com/6rIuv.png)
+
+After that we can create an instance of `CloudStorageAccount` passing the reference for the `StorageCredentials`. Then, in the third step, we use `CloudStorageAccount` to create a new table by calling `storageAccount.CreateCloudTableClient()`.
+
+Step four consists of getting a reference to a table called `Demo` and creating it if it doesn't exist.
+
+```C#
+public void AddEntity()
 {
 	//Retrieve the storage account from the connection string.
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
@@ -111,11 +120,13 @@ public void Add_an_entity_to_a_table()
 }
 ```
 
+To see all the operations (like create/remove tables, and add/remove/get/update query entities), take a look into [this Table Storage GitHub repository](https://github.com/vemoreno/TableStorageWithCsharp).
+
 ## What is Azure Blob Storage?
 
 Blob mean "Binary Large Object" and can represent any kind of file like images, videos, documents, programs, etc. Azure Storage supports two types of blobs: "Block blobs" and "Page blobs":
 
-### Block Blobs 
+### Block Blobs
 
 [Block Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) allow us to handle big files (blobs) with efficiency. Their main features are:
 
@@ -125,7 +136,7 @@ Blob mean "Binary Large Object" and can represent any kind of file like images, 
 
 ![Block Blobs Structure](http://bit.ly/2xHlWcg "Block Blobs Structure")
 
-### Page Blobs 
+### Page Blobs
 
 [Page Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) perform incredibly well on random read/write operations. This characteristic makes Page Blobs the perfect solution for virtual machines and OS data disks. Their main features are:
 
@@ -137,9 +148,9 @@ Blob mean "Binary Large Object" and can represent any kind of file like images, 
 
 Both blobs share a concept called "container", some features of container are:
 
-- A container provides a grouping of a set of blobs. 
-- All blobs must be in a container. 
-- An account can contain an unlimited number of containers. 
+- A container provides a grouping of a set of blobs.
+- All blobs must be in a container.
+- An account can contain an unlimited number of containers.
 - A container can store an unlimited number of blobs. Note that the container name must be lowercase.
 
 Below you will find C# code fragments that show common operations on Azure Blob Storage, if you are interested to see all the operations (create containers, upload/ list/ download/ delete/ write blobs), I invite you to look into this project from GitHub dedicated to [Blob Storage](https://github.com/vemoreno/BlobStorageWithCsharp).
@@ -188,7 +199,7 @@ public void Upload_a_blob_into_a_container()
 
 Microsoft Azure provide us instant messaging on the cloud between applications using Queue Storage. Thanks to this service we can process big amounts of messages and get access from anywhere through HTTP / HTTPS calls. Some features or Queue Storage are:
 
-- Messages can have a maximum size of 64 Kb. 
+- Messages can have a maximum size of 64 Kb.
 - Any queue can store millions of messages (the limit is our account storage).
 - Asynchronous processing, using threads for run every queue.
 
@@ -235,7 +246,7 @@ public void Insert_a_message_into_a_queue()
 ```
 ## What is Azure File Storage?
 
-Another way of store information on Microsoft Azure is File Storage. It's a service offering shared resources on the Cloud. Applications executing locally, on virtual machines or any other service inside Microsoft Azure can mount a shared resource of files in Azure. 
+Another way of store information on Microsoft Azure is File Storage. It's a service offering shared resources on the Cloud. Applications executing locally, on virtual machines or any other service inside Microsoft Azure can mount a shared resource of files in Azure.
 File Storage is flexible and can be handled through the following clients:
 
 - Azure Portal.
@@ -244,7 +255,7 @@ File Storage is flexible and can be handled through the following clients:
 - Azure Libraries with .Net and other frameworks.
 
 With File Storage is possible replace file systems based on typical servers hosted on-premises environments. File Storage is secure because use the Server Message Block (SMB) Protocol and Common Internet File (CIFS).
-A "File Share" is an SMB space in Azure. All directories and files must be created in a parent share. An account can contain an unlimited number of shares, and a share can store an unlimited number of files, up to the 5 TB total capacity of the file share. 
+A "File Share" is an SMB space in Azure. All directories and files must be created in a parent share. An account can contain an unlimited number of shares, and a share can store an unlimited number of files, up to the 5 TB total capacity of the file share.
 
 ![File Storage Structure](http://bit.ly/2g0xtcp "File Storage Structure")
 
@@ -256,13 +267,13 @@ public void Access_the_file_share_programmatically()
 	// Retrieve storage account from connection string.
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
 	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
-	
+
 	// Create a CloudFileClient object for credentialed access to File storage.
 	CloudFileClient fileClient = storageAccount.CreateCloudFileClient();
 
 	// Get a reference to the file share we created previously.
 	CloudFileShare share = fileClient.GetShareReference("logs");
-	
+
 	// Ensure that the share exists.
 	if (share.Exists())
 	{
@@ -331,8 +342,8 @@ As we can see, Azure Storage offer us multiples ways to store information on the
 Table Storage is useful when we don't need to store data that are linked to each other, like tables on a relational database. Table Storage does support tables, but their schema is flexible and we cannot join different tables to get a specific result.
 
 + When should we use Blob Storage?
-Block blobs are ideal for storing text or binary files, such as documents and media files. Append blobs are similar to block blobs in that they are made up of blocks, but they are optimized for append operations, so they are useful for logging scenarios. 
-Page blobs can be up to 1 TB in size, and are more efficient for frequent read/write operations. Azure Virtual Machines use page blobs as OS and data disks. 
+Block blobs are ideal for storing text or binary files, such as documents and media files. Append blobs are similar to block blobs in that they are made up of blocks, but they are optimized for append operations, so they are useful for logging scenarios.
+Page blobs can be up to 1 TB in size, and are more efficient for frequent read/write operations. Azure Virtual Machines use page blobs as OS and data disks.
 
 + When should we use Queue Storage?
 Queue Storage helps to make our applications scalable and less sensitive to individual component failure. If part of our architecture goes down, messages are buffered, and then naturally picked up by other message processing nodes, which maintains the integrity of workload.
