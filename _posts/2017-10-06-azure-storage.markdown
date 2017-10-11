@@ -99,12 +99,12 @@ Step four consists of using `CloudTableClient` to get a reference to a table cal
 
 ### Adding Entities to a Table on Azure Table Storage
 
-Now that we know how to create tables on Azure Table Storage, let's learn how to use them to add new entities. In the following example we use a class called `CustomerEntity`. [The implementation details of the `CustomerEntity` class can be found here](https://github.com/vemoreno/TableStorageWithCsharp/blob/master/AzureTableStorage/AzureTableStorage/Models/MyTableEntity.cs).
+Now that we know how to create tables on Azure Table Storage, let's learn how to use them to add new entities. In the following example we use a class called `CustomerEntity`. [The implementation details of this class can be found here](https://github.com/vemoreno/TableStorageWithCsharp/blob/master/AzureTableStorage/AzureTableStorage/Models/MyTableEntity.cs).
 
 ```C#
 public void AddEntity()
 {
-  // 1 - retrieve demo table reference
+  // 1 - retrieve demo table reference from last sample
 	CloudTable table = CreateDemoTable();
 
 	// 2 - create an instance of CustomerEntity
@@ -116,6 +116,8 @@ public void AddEntity()
 	table.Execute(TableOperation.Insert(customer));
 }
 ```
+
+The process to create entities into Azure Table Storage, as we can see, is quite simple. The first step is to retrieve a reference to `CloudTable`. After that we create a new `CustomerEntity`, with some arbitrary `Email` and `PhoneNumber`. Then, in the third and last step, we instruct `CloudTable` to execute an insert `TableOperation`, passing the customer instance that we just created.
 
 ## What is Azure Blob Storage?
 
