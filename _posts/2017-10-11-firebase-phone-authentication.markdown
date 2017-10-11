@@ -2,8 +2,8 @@
 layout: post
 title: "Phone Number Authentication With Firebase"
 description: Learn how Firebase phone number authentication works.
-date: 2017-09-19 8:30
-category: Technical Guide, JavaScript, Firebase
+date: 2017-10-11 8:30
+category: Technical Guide, Data, Firebase
 author:
   name: Prosper Otemuyiwa
   url: https://twitter.com/unicodeveloper?lang=en
