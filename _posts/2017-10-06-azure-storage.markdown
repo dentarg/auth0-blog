@@ -47,28 +47,30 @@ Before diving into the details about each type, let's talk about *account storag
 
 ## What is Azure Table Storage?
 
-Azure Table Storage is a service that stores NoSQL data in the cloud. This storage type enables us to store schemaless data in a key/value fashion. These are the main characteristics of Azure Table Storage:
+Azure Table Storage is a service that stores NoSQL data in the cloud. This storage type enables developers to store schemaless data in a key/value fashion. The main characteristics of Azure Table Storage are:
 
-- Tables are independent of each other.
+- Tables are independent from each other.
 - Features like foreign keys, joins, and custom indexes don't exist.
-- Table schemas are flexible. It's not mandatory to have all fields on all records.
+- Table schemas are flexible. That is, it's not mandatory to have all fields on all records.
 
 Each table on Azure Table Storage is composed of five main components:
 
-- Entities: We can see them as rows (typical records) in relational databases.
-- Partition keys: String type that contains no more than 1 KB. It covers one or more entities in the table, making blocks of entities and grouping them with an ID.
-- Row key: A string that contains no more than 1KB and that is used to uniquely identify one row inside a table partitions.  
-- Timestamp: A property that stores the time when an entity was inserted or updated in the table.
-- Partitions: A collection of entities in a table sharing the same partition key in order to group data like several tables, but inside one object.
+- Entities: We can see these as rows (typical records) on relational databases.
+- Partition keys: Strings that contain no more than 1 KB of data. They cover one or more entities in a table, grouping them as blocks of entities that share an ID.
+- Row keys: Strings that contain no more than 1 KB of data. They are used to uniquely identify rows inside tables.
+- Timestamps: Properties that store when entities were inserted or updated.
+- Partitions: Collections of entities in a table. Partitions are identified by their partition key in order to group them like several tables, but inside one object.
 
 ![Table Storage structure on Microsoft Azure Storage](https://cdn.auth0.com/blog/azure-storage/table-storage.png)
+
+In the following sections we will learn how to create tables on Azure Table Storage and how to add entities to them. To see other operations (like table removal or how to update entities), we can check [this Table Storage GitHub repository](https://github.com/vemoreno/TableStorageWithCsharp).
 
 ### Creating Tables on Azure Table Storage
 
 In this section we are going to take a look into a C# code snippet that shows how to use Azure Table Storage. Let's start by learning how to create tables:
 
 ```C#
-public void CreateTable()
+public CloudTable CreateDemoTable()
 {
 	// 1 - Retrieve the storage account
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);       
@@ -82,6 +84,8 @@ public void CreateTable()
 	// 4 - Retrieve a reference to the table.
 	CloudTable table = tableClient.GetTableReference("Demo");
   table.CreateIfNotExists();
+
+  return table;
 }
 ```
 
@@ -93,34 +97,25 @@ After that we can create an instance of `CloudStorageAccount` passing the refere
 
 Step four consists of getting a reference to a table called `Demo` and creating it if it doesn't exist.
 
+### Adding Entities to a Table on Azure Table Storage
+
+Now that we know how to create tables on Azure Table Storage, let's learn how to use them to add new entities. In the following example we use a class called `CustomerEntity`. [The implementation details of the `CustomerEntity` class can be found here](https://github.com/vemoreno/TableStorageWithCsharp/blob/master/AzureTableStorage/AzureTableStorage/Models/MyTableEntity.cs).
+
 ```C#
 public void AddEntity()
 {
-	//Retrieve the storage account from the connection string.
-	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
-	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+  // 1 - retrieve demo table reference
+	CloudTable table = CreateDemoTable();
 
-	// Create the table client.
-	CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+	// 2 - create an instance of CustomerEntity
+	CustomerEntity customer = new CustomerEntity("Harp", "Walter");
+	customer.Email = "walter@contoso.com";
+	customer.PhoneNumber = "425-555-0101";
 
-	// Create the CloudTable object that represents the "Demo" table.
-	CloudTable table = tableClient.GetTableReference("Demo");
-
-	// Create a new customer entity.
-	CustomerEntity customer1 = new CustomerEntity("Harp", "Walter");
-	customer1.Email = "Walter@contoso.com";
-	customer1.PhoneNumber = "425-555-0101";
-
-	// Create the TableOperation object that inserts the customer entity.
-	TableOperation insertOperation = TableOperation.Insert(customer1);
-
-	// Execute the insert operation.
-	table.Execute(insertOperation);
-	MessageBox.Show("Entity added", "Entity", MessageBoxButtons.OK);
+	// 3 - insert customer into demo table
+	table.Execute(TableOperation.Insert(customer));
 }
 ```
-
-To see all the operations (like create/remove tables, and add/remove/get/update query entities), take a look into [this Table Storage GitHub repository](https://github.com/vemoreno/TableStorageWithCsharp).
 
 ## What is Azure Blob Storage?
 
