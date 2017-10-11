@@ -121,11 +121,11 @@ The process to create entities into Azure Table Storage, as we can see, is quite
 
 ## What is Azure Blob Storage?
 
-Blob mean "Binary Large Object" and can represent any kind of file like images, videos, documents, programs, etc. Azure Storage supports two types of blobs: "Block blobs" and "Page blobs":
+Blob, an acronym to "Binary Large OBject", is a collection of binary data that can represent any kind of file (like images, videos, documents, programs, etc). Microsoft Azure enables developers to store two types of blobs: *Block Blobs* and *Page Blobs*. In the following sections, we are going to learn about these types and how to store blobs into a Microsoft Azure Storage account.
 
 ### Block Blobs
 
-[Block Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) allow us to handle big files (blobs) with efficiency. Their main features are:
+[Block Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) allow developers to handle big files (blobs) with efficiency. Their main features are:
 
 - A single blob can be divided into many blocks, but can never exceed 50,000 blocks.
 - Together, these blocks cannot exceed 200 GB.
