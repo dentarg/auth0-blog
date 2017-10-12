@@ -30,8 +30,6 @@ related:
 
 [SAP](https://www.sap.com/index.html) announced an agreement to acquire [Gigya](http://www.gigya.com/)'s Customer Identity and Access Management (IAM) platform on September 24, 2017. The acquisition announcement should be very interesting to current Gigya customers. To learn about key features to reassess when your IAM platform is acquired, please check out [SAP to Acquire Gigya: What's Next for Identity Management?](https://auth0.com/blog/sap-to-acquire-gigya-whats-next-for-identity-management)
 
-![SAP acquires Gigya](https://cdn.auth0.com/blog/gigya/gigya.jpg)
-
 ## How to Migrate to Auth0 IAM Platform
 
 At [Auth0](https://auth0.com), our goal is to provide the best authentication and identity management solution that is also simple and easy for developers to work with. This means that migration into (and out of) the Auth0 platform is straightforward for developers while also providing a seamless experience for users.
