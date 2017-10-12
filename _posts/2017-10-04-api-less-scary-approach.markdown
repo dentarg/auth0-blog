@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "API : The Less Scary Approach"
-description: "Complete beginner introduction to API and implementation"
+title: "API's: A Look Into What They Are and How They Work"
+description: "A complete introduction to API's for beginners. Learn what API's are, how they work, and write your first API."
 date: 2017-10-04 13:00
 category: Technical Guide, Backend
 banner:
@@ -24,7 +24,7 @@ related:
 
 ---
 
-# Introduction to API
+# Introduction to API's
 
 ![API](https://cdn-images-1.medium.com/max/2000/1*w3FVjskCNAY1vNCMu936Sw.gif)
 
@@ -35,28 +35,28 @@ _Image source : [Wikibon](http://wikibon.org/blog/cloud-api-standards/)_
 > > An Application Programming Interface (API) is a set of subroutine definitions, protocols, and tools for building application software…
 — Wikipedia
 
-These definitions are just combinations of multiple unfamiliar terms which most likely scare you at first read and you then end up spending a whole day trying to look up every term most times forgetting why you were there in the first place the chain just never ends.
+These definitions are combinations of multiple unfamiliar terms which seem like nonsense and scary at first. You can spend a whole day trying to look up every term above and forget what you were searching for in the first place and the chain just never ends.
 
-This happens to everyone. What you should never do is give up. Well, we are here to discuss API in a less scary way, let’s get started!
+This happens to everyone. What you should never do is give up. We are here to discuss APIs in a less scary way, let’s get started!
 
 ## To Do:
-* What API is.
-* Why API.
-* Simple App using Auth0 API
+* Explain what an API is.
+* Discuss why you would build an API
+* Build a simple app using the Auth0 API
 
-The magnificent, “Application Programming Interface”, highly exalted in the previous definitions above is simply a messenger. Think of API as a waiter. You go to your favorite classy restaurant to buy food, you have to place your order ( make a request ) somehow right? Someone walks up to you with list of meals available, the waiter ( API ) . The well dressed waiter takes your order, goes to the kitchen to get your order and comes back with the meal.
+The magnificent, “Application Programming Interface” or API, highly exalted in the previous definitions above is simply a messenger. Think of an API as a waiter. You go to your favorite classy restaurant to buy food, you have to place your order ( make a request ) right? Someone walks up to you with list of meals available, the waiter ( API ) . The waiter takes your order, goes to the kitchen to process your order and comes back with the meal.
 
 ![waiter image](https://cdn-images-1.medium.com/max/1600/1*du7nMX43KrP-h3c9ckeKTQ.jpeg)
 
 ## How requests were made before APIs
 
-Take a look at the cheap restaurants, where there are no waiters, no menu list, you just walk straight to the kitchen to get your meal. I believe you know how messy and inconvenient that can get, lots of customers barking their orders, each struggling to get attention. You don’t want to be caught up in that mess.
+Take a look at cheap restaurants, where there are no waiters, no menu, you just walk straight to the kitchen to get your meal. I believe you know how messy and inconvenient that can get, lots of customers barking their orders, each struggling to get attention. You don’t want to be caught up in that mess.
 
-Well, before APIs, clients interacted with the data store directly which has lots of downsides to it; the biggest of which is the lack of security.
+Well, before APIs, clients interacted with the data store directly, which had lots of downsides to it; the biggest of which is the lack of security.
 
 ---
 
-In computing, APIs take the request from the user of an app (Web, Mobile, etc.) to get / send something. Say you just placed an order for a MacBook from an online store. The online store’s API takes the order information and sends to the Server to process the order, then returns with a response, notifying you whether it was successful or not. The Data has to be represented in a way (format) both the app and the server will understand, just the way the menu is written in a specific language you and the waiter understand so he can place the right order for you at the kitchen. The modern / generally accepted format is JSON (JavaScript Object Notation). The order information (data) will look like this:
+In computing, APIs take the request from the user of an app (web client, mobile app, etc.) to get / send something. Say you just placed an order for a MacBook from an online store. The online stores API takes the order information and sends it to the server to process the order, then returns a response, notifying you whether it was successful or not. The data has to be represented in a format that both the app and the server will understand, just the way the menu is written in a specific language you and the waiter understand so he can place the right order for you at the kitchen. The generally accepted format is JSON (JavaScript Object Notation). The order information may look like this:
 
 ```javascript
 { 
@@ -71,25 +71,23 @@ This data is then carried by the API (messenger) to the Data Store, which saves 
 ```javascript
 {
    "status": true,
-   "message": "Your order has been successfully placed, Kindly
+   "message": "Your order has been successfully placed, kindly
              anticipate delivery in couple days"
 }
 ```
-Upon receipt of this response, the client APP traverses the data to fetch the needed info. Most times the message is the only thing the user of the app gets to see, others are abstracted. 
+Upon receipt of this response, the client app traverses the data to fetch the needed info. Most times the message is the only thing the user of the app gets to see, others are abstracted. 
 
 ---
 
 ## Why do you need an API?
 
-Let’s say you want to display motivational quotes on a section of your web site. You might decide to write all these quotes or copy them off the internet, then save in your database. But don’t forget you need sufficient amount of these, you don’t want to bore your readers with same quotes all the time. So imagine the stress to get these quotes and save everything in the database and fetch every time, that’s some overhead right there.
-
-Note: This is just a use case for APIs, your db is still very much important.
+Let’s say you want to display motivational quotes on a section of your website. You might decide to write all these quotes or copy them off the internet, then save them in your database. But don’t forget you need a sufficient amount of these, you don’t want to bore your readers with same quotes all the time. So imagine the stress of getting these quotes and saving everything in the database.
 
 ![take orders](https://cdn-images-1.medium.com/max/1600/1*o5dz30z2iTiZm2SGZlH14A.jpeg)
 
 _Image source: [The Bitchy Waiter](http://thebitchywaiter.com/2014/02)_
 
-Some rather hardworking & kind folk has most likely done something similar and was kind enough to make it open. So anytime you need to get quote, you only need to send a request to the API, describing exactly what you want based on the author’s documentation.
+Some rather hardworking and kind folk have most likely already built something like this and made it accessible via an API. So anytime you need to get quote, you only need to send a request to this API, describing exactly what you want based on the API's documentation.
 APIs are accessed though endpoints. Endpoints refers to the location of the resources on a particular server. So when a request hits the API, it knows just what you want and how to respond to the call.
 Take a look at a sample endpoints from [talaikis.com](https://talaikis.com/random_quotes_api/) :
 
@@ -97,7 +95,7 @@ Take a look at a sample endpoints from [talaikis.com](https://talaikis.com/rando
 * https://talaikis.com/api/quotes/random — Returns One Random Quote.
 * https://talaikis.com/api/quotes  — Returns 100 random quotes at a time.
 
-From the above, call to those endpoints returns different resource. The first returns a random quote everytime it’s called, while the other gives random 100. For your app, I believe the first is just perfect, the user never gets bored!
+From the above, calls to those endpoints returns different resource. The first returns a random quote every time it’s called, while the other returns 100 random quotes. For your app, I believe the first endpoint is just perfect, so we'll use it!
 
 NOTE: Before you can make use of any API, you have to read the documentation, know the type of request it takes, queries, parameters and the structure of the expected response.
 
@@ -123,25 +121,20 @@ Response:
 }
 ```
 
-Does that look familiar? Yea, that’s JSON again. So we got our quote from one call, now you can simply set a timer to make the call multiple times to generate random quote at intervals.
+Does that look familiar? Yea, that’s JSON again. We've used a simple external API to get the data we needed with relative ease.
 
-The above is just one of a thousand reasons you should start using API. I will highlight some below:
-
-* Security — API makes this possible because you get to abstract your project complexity and Database structure hiding some vulnerabilities you might have…
-* Partner Connectivity — Imagine you own a huge company that sells airtime to retailers via the internet, you need something to connect you to the numerous customers, that’s API.
-
-There’s a lot more we can do with API, but that’s all we will cover for now.
+There’s a lot more we can do with API, but that’s all we will cover for now. Next, let's build a full application that uses various APIs to get a feel for how to work with them.
 
 ---
 
 # Quotes Web App
 ## To Do:
-* Building Quotes WebApp with ExpressJS
-* Quick intro to Auth0
-* Using Auth0 for User Authentication
+* Build a Quotes Application
+* Introduce Auth0
+* Use Auth0 for User Authentication in our application
 
-## Building Qoutes Web App with ExpressJS
-(This session assumes you know basic nodejs & express framework, if not take time out to read up here)
+## Building a Quotes Application with ExpressJS
+(This session assumes you know basic nodejs & express framework, if not take time out to read up [here](https://goo.gl/vCjXwJ))
 
 Create an ExpressJS (a framework built on top of Node) project using express-generator. Run the commands below to setup express and create a new project.
 
@@ -151,7 +144,7 @@ $ express quotesGenerator
 $ cd quotesGenerator
 ```
 
-The second command creates a folder and basic files to start up your project, open the folder with your favorite IDE / Text Editor.
+The second command creates a folder and basic files to start up your project, open the folder with your favorite IDE or text editor.
 
 Run the command below to install the dependencies described in `package.json`.
 
@@ -159,7 +152,7 @@ Run the command below to install the dependencies described in `package.json`.
 $ npm install
 ```
 
-## Install more dependencies:
+## Install additional dependencies:
 
 ```bash
 $ npm install connect-flash express-session passport hbs --save
@@ -183,9 +176,9 @@ const flash = require('connect-flash');
 // set up hbs for templating
 app.set('view engine', 'hbs');
 
-//Replace the line below app.use(cookieParser()) with the codes below;
+//Replace the line below app.use(cookieParser()) with the code below;
 
-//required for passport
+//required for passport to maintain user state/data.
 app.use(
   session({
     secret: 'APP_SECRET',
@@ -371,7 +364,7 @@ Give it a name and select **“Regular Web Application (with refresh)”**.
 
 ![create client](https://cdn-images-1.medium.com/max/1600/1*kLKm3HnLnMxSBaFVsnIm1g.png)
 
-Next is to choose the technology for the project which is NodeJs.
+Next, choose the technology for the project, which in our case is NodeJs.
 Navigate to the settings tab, take note of your __domain__, __client id__ and __client secret__.
 
 ![client details](https://cdn-images-1.medium.com/max/1600/1*rZS0Mrotwusp3xovgsuL8A.png)
@@ -424,7 +417,7 @@ passport.deserializeUser(function(user, done) {
 });
 ```
 
-Place this snippet just above the part we set the view engine.
+Place this snippet just above the part where we set the view engine.
 
 Replace the placeholder values with the credentials on your [dashboard](https://manage.auth0.com/login#/clients). I recommend that you load them from environment variables to prevent your credentials from been leaked. Make sure your `app.js` file looks like this.
 
@@ -437,7 +430,7 @@ Head over to your Auth0 dashboard and register a callback url in __Allowed Callb
 localhost:3000/callback
 ```
 
-Replace the content ofindex.jsfile in routes folder with this:
+Replace the content of `index.js` file in routes folder with this:
 
 _routes/index.js_
 
@@ -485,7 +478,7 @@ router.get(
 );
 ```
 
-Open `users.js`, let’s modify that to send data of logged in use to the view, `profile.hbs`.
+Open `users.js`, let’s modify that to send data of logged in user to the view, `profile.hbs`.
 
 _users.js_
 
@@ -525,7 +518,7 @@ _views/profile.hbs_
 </div>
 ```
 
-You will notice that i have replaced the hardcoded names with the user details rendered with the view.
+You will notice that I have replaced the hardcoded names with the user details rendered with the view.
 
 Add a check to `index.hbs` to ensure user is logged in before they can see the quotes using the `connect-ensure-login`.
 
@@ -632,7 +625,7 @@ _localhost:3000/user_
 
 ## Conclusion
 
-Well Done! You have just built a simple web app using ExpressJS Framework as Backend and Auth0 to authenticate and manage users. This tutorial was designed to help you understand APIs and how they work. Now you can use the knowledge gained to build even better apps with scalable user management and authentication using Auth0.
+Well Done! You have just built a simple web app using ExpressJS framework as a backend and Auth0 to authenticate and manage users. This tutorial was designed to help you understand APIs and how they work. Now you can use the knowledge gained to build even better apps with scalable user management and authentication using Auth0.
 
 You can find the repo for the app [here](https://github.com/biodunch/quotesGenApp). Also I’ve deployed a demo on [heroku](https://quotesgen.herokuapp.com).
 
