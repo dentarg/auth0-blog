@@ -28,8 +28,6 @@ related:
 
 [On September 24, 2017 Gigya announced that they will be acquired by SAP](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/). [Gigya’s](http://gigya.com) Customer Identity and Access Management (IAM) platform, which currently manages 1.3 billion customer identities, will be integrated into SAP’s Hybris Profile Service.
 
-![SAP acquires Gigya](https://cdn.auth0.com/blog/gigya/gigya.jpg)
-
 With this news, current Gigya customers will be very interested in learning more about SAP's plans for an integration strategy. The acquisition announcement stated the following:
 
 > "Gigya’s consent-based identity data platform and SAP Hybris® Profile data matching and enrichment capabilities to be integrated" —[Gigya Press Release](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/)
