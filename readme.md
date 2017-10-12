@@ -67,7 +67,7 @@ design:
 
 ### Blog post Multi Language
 
-This parameters are necessary for each version of Blog post
+These parameters are required for each version of Blog post
 
 ```
 ---
@@ -78,7 +78,7 @@ alternate_locale_de:  Set the name of the post url in German (filename without t
 alternate_locale_jp:  Set the name of the post url in Jananese (filename without the date).  example: jp-name-blog-post-url
 ---
 ```
-It is suggested to put the language code after of the date and before the name of the blog post for each version. for example:
+It is suggested to put the language code after the date and before the name of the blog post for each version. For example:
 
 ```
 	-  2017-10-05-name-blog-post-url.markdown
