@@ -24,10 +24,11 @@ related:
 
 ---
 
-## Introduction to API
+# Introduction to API
 
 ![API](https://cdn-images-1.medium.com/max/2000/1*w3FVjskCNAY1vNCMu936Sw.gif)
 
+_Image source : [Wikibon](http://wikibon.org/blog/cloud-api-standards/)_
 > > An API is a set of functions and procedures that allow the creation of applications which access the features or data of an operating system, application, or other service
 — Google
 
@@ -85,6 +86,8 @@ Let’s say you want to display motivational quotes on a section of your web sit
 Note: This is just a use case for APIs, your db is still very much important.
 
 ![take orders](https://cdn-images-1.medium.com/max/1600/1*o5dz30z2iTiZm2SGZlH14A.jpeg)
+
+_Image source: [The Bitchy Waiter](http://thebitchywaiter.com/2014/02)_
 
 Some rather hardworking & kind folk has most likely done something similar and was kind enough to make it open. So anytime you need to get quote, you only need to send a request to the API, describing exactly what you want based on the author’s documentation.
 APIs are accessed though endpoints. Endpoints refers to the location of the resources on a particular server. So when a request hits the API, it knows just what you want and how to respond to the call.
