@@ -12,7 +12,7 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/a208cda2b3b21dc8d7896507f5ff60fc"
 design:
-  image: https://cdn.auth0.com/blog/gigya/Logo.png
+  image: https://cdn.auth0.com/blog/gigya/logo01.png
   bg_color: "#285AA6"
 tags:
 - migration
