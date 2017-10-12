@@ -2,7 +2,7 @@
 layout: post
 title: "Consolidating Multiple Identity Sources with Auth0"
 description: "Let's learn how Auth0 helped a major graphics card manufacturer to consolidate identity for multiple applications."
-date: 2017-09-05 15:51
+date: 2017-10-12 15:51
 category: Technical Guide, Security
 author:
   name: "Bruno Krebs"
@@ -10,8 +10,8 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "#3F6426"
-  image: https://cdn.auth0.com/blog/spring-boot-auth/logo.png
+  bg_color: "#563FB8"
+  image: https://cdn.auth0.com/blog/graphic-cards-use-case/logo.png
 tags:
 - security
 - identity
@@ -19,6 +19,7 @@ tags:
 related:
 - 2017-08-30-battlefy-is-major-player-in-esports-arena-with-help-from-auth0
 - 2017-07-21-the-role-of-identity-in-application-modernization
+- 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
 ## Overview
