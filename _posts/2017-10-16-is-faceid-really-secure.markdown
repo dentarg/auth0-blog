@@ -7,13 +7,13 @@ category: Growth, Security, Identity
 banner:
   text: "Auth0 makes it easy to add authentication to your iOS application."
 author:
-  name: ""
-  url: "https://twitter.com/..."
-  mail: "...@auth0.com"
-  avatar: ""
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 design:
   image: https://cdn.auth0.com/blog/faceid/Logo.png
-  bg_color: "#"
+  bg_color: "#653F8B"
 tags:
 - hyphenated-tags
 - 
