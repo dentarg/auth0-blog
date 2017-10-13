@@ -121,7 +121,7 @@ The process to create entities into Azure Table Storage, as we can see, is quite
 
 ## What is Azure Blob Storage?
 
-Blob, an acronym to "Binary Large OBject", is a collection of binary data that can represent any kind of file (like images, videos, documents, programs, etc). Microsoft Azure enables developers to store two types of blobs: *Block Blobs* and *Page Blobs*. In the following sections, we are going to learn about these types and how to store blobs into a Microsoft Azure Storage account.
+Blob, an acronym to "Binary Large OBject", is a collection of binary data that can represent any kind of file (like images, videos, documents, programs, etc). Microsoft Azure enables developers to store two types of blobs: *Block Blobs* and *Page Blobs*. In the following sections, we are going to learn about these types and how to store them into Microsoft Azure Storage accounts.
 
 ### Block Blobs
 
@@ -131,19 +131,21 @@ Blob, an acronym to "Binary Large OBject", is a collection of binary data that c
 - Together, these blocks cannot exceed 200 GB.
 - Each block can have a maximum size of 4MB.
 
-![Block Blobs Structure](http://bit.ly/2xHlWcg "Block Blobs Structure")
+![Block Blobs Structure on Azure Storage](https://cdn.auth0.com/blog/azure-storage/blob-storage.png)
 
 ### Page Blobs
 
-[Page Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) perform incredibly well on random read/write operations. This characteristic makes Page Blobs the perfect solution for virtual machines and OS data disks. Their main features are:
+[Page Blobs](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-dotnet-how-to-use-blobs#blob-service-concepts) perform incredibly well on random read/write operations. This characteristic makes Page Blobs the perfect solution for virtual machines and OS data disks. Page Blobs main features on Azure Storage are:
 
 - Capacity of 1 TB of size.
-- Compound by a collection of 512 bytes.
+- Compound by a collection of 512-byte pages optimized for random read and write operations.
 - Each write operation alter several pages at the same time.
 
-![Page Blobs Structure](http://bit.ly/2fAyabL "Page Blobs Structure")
+![Page Blobs Structure on Azure Storage](https://cdn.auth0.com/blog/azure-storage/page-blob.png)
 
-Both blobs share a concept called "container", some features of container are:
+### Using Azure Blob Storage
+
+Both Page Blobs and Block Blobs share a concept called *containers*. Some features of containers, in this context, are:
 
 - A container provides a grouping of a set of blobs.
 - All blobs must be in a container.
@@ -152,40 +154,46 @@ Both blobs share a concept called "container", some features of container are:
 
 Below you will find C# code fragments that show common operations on Azure Blob Storage, if you are interested to see all the operations (create containers, upload/ list/ download/ delete/ write blobs), I invite you to look into this project from GitHub dedicated to [Blob Storage](https://github.com/vemoreno/BlobStorageWithCsharp).
 
+The following code snippets show how to create a new container, or how to get the reference to an existing container called `demo-container`:
+
 ```C#
-public void Create_container()
+public void CreateContainer()
 {
-	// Retrieve storage account from connection string.
+  // Retrieve the storage account
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+
+  // Create a CloudStorageAccount instance
 	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
 
 	// Create the blob client.
 	CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
 	// Retrieve a reference to a container.
-	CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+	CloudBlobContainer container = blobClient.GetContainerReference("demo-container");
 
 	// Create the container if it doesn't already exist.
 	container.CreateIfNotExists();
+
+  return container;
 }
+```
 
-public void Upload_a_blob_into_a_container()
+After creating the container we can upload a blob to it, as shown in the following snippet:
+
+```C#
+public void UploadBlobToContainer()
 {
-	// Retrieve storage account from connection string.
-	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
-	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
+  // Get the "demo-container" container reference
+	CloudBlobContainer container = CreateContainer();
 
-	// Create the blob client.
-	CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-	// Retrieve reference to a previously created container.
-	CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
-
-	// Retrieve reference to a blob named "myblob".
+	// Retrieve reference to a blob called "myblob".
 	CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
 
-	// Create or overwrite the "myblob" blob with contents from a local file.
-	string fullPath= Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + "pin.png";
+	// Create or overwrite the "myblob" blob with contents from a local file
+	string fullPath = Path.GetDirectoryName(
+    Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())
+  ) + "pin.png";
+  
 	using (var fileStream = System.IO.File.OpenRead(fullPath))
 	{
 		blockBlob.UploadFromStream(fileStream);
