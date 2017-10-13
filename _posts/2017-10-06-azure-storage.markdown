@@ -193,13 +193,14 @@ public void UploadBlobToContainer()
 	string fullPath = Path.GetDirectoryName(
     Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())
   ) + "pin.png";
-  
+
 	using (var fileStream = System.IO.File.OpenRead(fullPath))
 	{
 		blockBlob.UploadFromStream(fileStream);
 	}
 }
 ```
+
 ## What is Azure Queue Storage?
 
 Microsoft Azure provide us instant messaging on the cloud between applications using Queue Storage. Thanks to this service we can process big amounts of messages and get access from anywhere through HTTP / HTTPS calls. Some features or Queue Storage are:
@@ -339,19 +340,24 @@ public void Set_the_maximum_size_for_a_file_share()
 
 This section will be filled with more information.
 
-## Some conclusions about Azure Storage
+## Frequently Asked Questions
 
-As we can see, Azure Storage offer us multiples ways to store information on the cloud, now we are going to answer some questions in order to clarify the opportunities for our projects and necessities:
+As we can see, Azure Storage offers developers multiple ways to store information in the cloud. Now that we know a little bit more about Azure Storage, let's look into some frequently asked questions:
 
-+ When should we use Table Storage?
-Table Storage is useful when we don't need to store data that are linked to each other, like tables on a relational database. Table Storage does support tables, but their schema is flexible and we cannot join different tables to get a specific result.
+### When should we use Table Storage?
 
-+ When should we use Blob Storage?
-Block blobs are ideal for storing text or binary files, such as documents and media files. Append blobs are similar to block blobs in that they are made up of blocks, but they are optimized for append operations, so they are useful for logging scenarios.
-Page blobs can be up to 1 TB in size, and are more efficient for frequent read/write operations. Azure Virtual Machines use page blobs as OS and data disks.
+Table Storage is useful when we don't need to store data that are linked to each other, like tables on a relational database. Table Storage does support tables, but their schema is flexible and we cannot join different tables through queries. To achieve similar results, we need to this in memory.
 
-+ When should we use Queue Storage?
-Queue Storage helps to make our applications scalable and less sensitive to individual component failure. If part of our architecture goes down, messages are buffered, and then naturally picked up by other message processing nodes, which maintains the integrity of workload.
+### When should we use Blob Storage?
 
-+ When should we use File Storage?
-File Storage helps to access our file repositories on the cloud safety, avoiding to use file systems based on typical servers. It uses HTTPS and SMB for securing data in transit and the access to Storage Account is restricted to users having access to Storage Account Key or SAS to ensure security of your data at all stages data lifecycle.
+Block blobs are ideal for storing text or binary files, such as documents and media files. Append blobs are similar to block blobs in that they are made up of blocks. Though, as they are optimized for append operations, they are useful for logging scenarios.
+
+Page blobs can have up to 1 TB of data and are more efficient for frequent read/write operations. Azure Virtual Machines use page blobs as their main storage.
+
+### When should we use Queue Storage?
+
+Queue Storage helps developers to create scalable applications that are less sensitive to individual component failure. If part of our architecture goes down, messages are buffered, and then naturally picked up by other message processing nodes, which maintains the integrity of workload.
+
+### When should we use File Storage?
+
+File Storage is a great way to share files in the cloud. It uses HTTPS and SMB to secure data at rest and in-transit and the access to Storage Account is restricted to users having access to Storage Account Key.
