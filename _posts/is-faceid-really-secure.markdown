@@ -60,7 +60,7 @@ For all of this to work, the user has to have their eyes open and looking at the
 
 Apple isn't the first tech company to use facial recognition on a mobile device. But unlike the others that have been fooled into unlocking based on [a picture of the user](http://www.businessinsider.com/samsung-galaxy-s8-facial-recognition-is-a-security-flaw-2017-4), Apple assures users that FaceID is harder to crack. The chance of one user looking at someone else's phone and unlocking it is one in a million.
 
-Manage growing pains to optimize safe usability
+## Manage Growing Pains to Optimize Safe Usability
 
 Things that have users running to social media to vent their worries range from hacks like 3D face recognition to data used to track their every move. Let's take a closer look at the facts and weed out the fiction to see if these concerns do pose a real threat.
 
@@ -76,6 +76,8 @@ _[Source](https://techcrunch.com/2017/09/12/face-id-is-replacing-touch-id-on-the
 Even though SR Labs in Berlin was able to make a plaster mold of someone's head to hack into Microsoft's Hello facial recognition system, TrueDepth makes tricking FaceID really hard. For starters, the sensors and camera capture the contour and shape of users' faces. After running their own tests, Apple is confident that it would be incredibly hard to replicate that experiment with FaceID.
 
 To build trust in your users, take a similar approach and test user theories and concerns on your hardware. Then share the results with your users. In Apple's case, the tests offered clarification on just how complex TrueDepth is and what makes it so hard to beat. The more secure you can show your product to be, the more likely users are to entrust their security to you.
+
+{% include tweet_quote.html quote_text="To build trust in your users, take a similar approach and test user theories and concerns on your hardware." %}
 
 ### Mass Public Scans to Identify People
 
@@ -94,6 +96,8 @@ For Apple's part, they have to update their [transparency reports](https://www.w
 ### Mass Surveillance by the Government to Track People
 
 Platforms like Facebook that use facial recognition to tag people in pictures, don't control the [operating system that](https://www.wired.com/story/apples-faceid-could-be-a-powerful-tool-for-mass-spying/) "controls the cameras on phones, tablets, and laptops that stare at us every day." Companies like Apple control the devices. What makes the FaceID unique is that Apple controls the hardware, the operating system, and the features within it.
+
+{% include tweet_quote.html quote_text="What makes the FaceID unique is that Apple controls the hardware, the operating system, and the features within it." %}
 
 And because Apple has ownership, users are concerned that governments could issue an order asking Apple to dig into its data and share users' personal data with them. This already happens with [Upstream](https://www.wired.com/story/apples-faceid-could-be-a-powerful-tool-for-mass-spying/) in the States, where hundreds of millions of emails get tracked every year. In Australia, law-enforcement have the right to [monitor the browsing history](http://www.smh.com.au/technology/technology-news/data-retention-and-the-end-of-australians-digital-privacy-20150827-gj96kq.html) of people without asking for permission first. And UK intelligence agencies have access to email, social media messages, and web browsing messages.
 
@@ -131,6 +135,8 @@ Here are examples of what tech companies should consider as they innovate new pr
 * **Use [2-factor authentication](https://auth0.com/learn/two-factor-authentication/).** Traditional 2-factor authentication uses a password paired with an auto-generated, random PIN. Biometric 2-factor authentication can instead use a face scan combined with a retinal scan or fingerprint to verify the user and add another layer of security. Since not all users take their data privacy [as seriously as they should](https://www.troyhunt.com/face-id-touch-id-pins-no-id-and-pragmatic-security/), companies can help by making 2-factor authentication mandatory.
 * **Limit where face recognition can be used,** especially until the kinks are worked out. For example, use it to unlock phones but not to make payments. Someone other than the user accessing private messages is intrusive, but a stranger accessing private financial information is damaging.
 * **Store face scans locally, on devices.** Meaning even if there's a request for scanned data, it isn't available to the company to share. For an added layer of protection, companies can [encrypt the data with a key](https://www.wired.com/story/apples-faceid-could-be-a-powerful-tool-for-mass-spying/) that they don't have access to. This leaves users with power and ownership of their data and helps companies protect user privacy.
+
+{% include tweet_quote.html quote_text="Don't lock users into one password option. Use MFA. Limit where face recognition can be used." %}
 
 ## Taking the Next Step
 
