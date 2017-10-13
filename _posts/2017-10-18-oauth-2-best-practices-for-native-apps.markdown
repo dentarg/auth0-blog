@@ -16,14 +16,17 @@ design:
   bg_color: "#"
 tags:
 - oauth
+- oauth-2
 - ietf
 - best-practices
+- native-apps
+- centralized-login
 related:
 - 2016-04-20-everything-you-wanted-to-know-about-oauth-2-but-were-too-afraid-to-ask
 - 2015-09-23-what-is-and-how-does-single-sign-on-work
 ---
 
-**TL;DR:** In October, 2017, the [Internet Engineering Task Force (IETF)](https://www.ietf.org/) released the [Best Current Practices (BCP) when using OAuth 2.0 with native mobile applications](https://www.rfc-editor.org/rfc/rfc8252.txt). This BCP states that OAuth 2.0 authorization requests from native apps should _only_ be made through external user agents, primarily the user's browser.
+**TL;DR:** In October, 2017, the [Internet Engineering Task Force (IETF)](https://www.ietf.org/) released the [Best Current Practices (BCP) when using OAuth 2.0 with native mobile applications](https://www.rfc-editor.org/rfc/rfc8252.txt). This BCP states that OAuth 2.0 authorization requests from native apps should _only_ be made through external user agents, primarily the user's browser. We'll discuss what this means for developers and users and any security considerations involved.
 
 ---
 
