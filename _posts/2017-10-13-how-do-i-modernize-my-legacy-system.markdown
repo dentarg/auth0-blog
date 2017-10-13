@@ -2,15 +2,15 @@
 layout: post
 title: "How Do I Modernize my Legacy System?"
 description: "Don't be daunted by how much of your system needs replacing. We'll show you how to get started."
-date: 2017-09-01 8:30
+date: 2017-10-13 8:30
 category: Growth
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/modernize/logo.png
