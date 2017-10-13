@@ -152,12 +152,10 @@ Both Page Blobs and Block Blobs share a concept called *containers*. Some featur
 - An account can contain an unlimited number of containers.
 - A container can store an unlimited number of blobs. Note that the container name must be lowercase.
 
-Below you will find C# code fragments that show common operations on Azure Blob Storage, if you are interested to see all the operations (create containers, upload/ list/ download/ delete/ write blobs), I invite you to look into this project from GitHub dedicated to [Blob Storage](https://github.com/vemoreno/BlobStorageWithCsharp).
-
 The following code snippets show how to create a new container, or how to get the reference to an existing container called `demo-container`:
 
 ```C#
-public void CreateContainer()
+public CloudBlobContainer CreateContainer()
 {
   // Retrieve the storage account
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
@@ -201,55 +199,60 @@ public void UploadBlobToContainer()
 }
 ```
 
+To learn about other operations—like how to list, download, and delete blobs—take a look into this [GitHub repository](https://github.com/vemoreno/BlobStorageWithCsharp).
+
 ## What is Azure Queue Storage?
 
-Microsoft Azure provide us instant messaging on the cloud between applications using Queue Storage. Thanks to this service we can process big amounts of messages and get access from anywhere through HTTP / HTTPS calls. Some features or Queue Storage are:
+Microsoft Azure provides instant messaging on the cloud between applications through [Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues/). Due to this service, we can process big amounts of messages and get access to them from anywhere through HTTP/HTTPS calls. Some features of Queue Storage are:
 
-- Messages can have a maximum size of 64 Kb.
-- Any queue can store millions of messages (the limit is our account storage).
-- Asynchronous processing, using threads for run every queue.
+- Messages can have a maximum size of 64 KB of data.
+- Any queue can store millions of messages.
+- Great for asynchronous processing.
 
-![Queue Storage Structure](http://bit.ly/2yP7Ym3 "Queue Storage Structure")
+![Queue Storage Structure on Azure Storage](https://cdn.auth0.com/blog/azure-storage/queue-storage.png)
 
-Below you will find C# code fragments that show common operations on Azure Queue Storage, if you are interested to see all the operations (create/ delete queues, insert/ peek/ change/ dequeue/ get/ delete messages), I invite you to look into this project from GitHub dedicated to [Queue Storage](https://github.com/vemoreno/QueueStorageWithCsharp).
+The following code snippets show how to create a new Queue Storage, or how to get the reference to an existing container called `my-queue`:
 
 ```C#
-public void Create_a_Queue()
+public CloudQueue CreateQueue()
 {
-	// Retrieve storage account from connection string.
+  // Retrieve the storage account
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
+
+  // Create a CloudStorageAccount instance
 	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
 
-	// Create the queue client.
+	// Create a Queue Storage client
 	CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
-	// Retrieve a reference to a container.
-	CloudQueue queue = queueClient.GetQueueReference("myqueue");
+	// Retrieve a reference to a container
+	CloudQueue queue = queueClient.GetQueueReference("my-queue");
 
 	// Create the queue if it doesn't already exist
 	queue.CreateIfNotExists();
+
+  return queue
 }
+```
 
-public void Insert_a_message_into_a_queue()
+After creating the Queue Storage, we can insert messages into it, as shown in the following snippet:
+
+```C#
+public void InsertMessage()
 {
-	// Retrieve storage account from connection string.
-	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
-	CloudStorageAccount storageAccount = new CloudStorageAccount(Credentials, false);
-
-	// Create the queue client.
-	CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-
-	// Retrieve a reference to a queue.
-	CloudQueue queue = queueClient.GetQueueReference("myqueue");
-
-	// Create the queue if it doesn't already exist.
-	queue.CreateIfNotExists();
+	// Retrieve a reference to my-queue
+	CloudQueue queue = CreateQueue();
 
 	// Create a message and add it to the queue.
 	CloudQueueMessage message = new CloudQueueMessage("Hello, World");
 	queue.AddMessage(message);
 }
 ```
+
+Below you will find C# code fragments that show common operations on Azure Queue Storage, if you are interested to see all the operations (create/ delete queues, insert/ peek/ change/ dequeue/ get/ delete messages), I invite you to look into this project from GitHub dedicated to [Queue Storage]().
+
+To learn about other operations—like how to peek, change, and dequeue messages—take a look into this [GitHub repository](https://github.com/vemoreno/QueueStorageWithCsharp).
+
 ## What is Azure File Storage?
 
 Another way of store information on Microsoft Azure is File Storage. It's a service offering shared resources on the Cloud. Applications executing locally, on virtual machines or any other service inside Microsoft Azure can mount a shared resource of files in Azure.
