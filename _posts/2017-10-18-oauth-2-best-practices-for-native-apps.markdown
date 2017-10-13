@@ -73,7 +73,7 @@ The authorization server must offer at least three redirect URI options for the 
 
 You can read about these three options in detail in Section 7 of [OAuth 2.0 for Native Apps](https://www.rfc-editor.org/rfc/rfc8252.txt).
 
-## Security Considerations
+## OAuth 2.0 Security Considerations for Native Apps
 
 When implementing OAuth 2.0, there are a number of security considerations that developers must be mindful of when using best current practice with an external user agent. We'll go over a few of them now.
 
