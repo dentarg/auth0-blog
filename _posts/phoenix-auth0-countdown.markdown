@@ -23,7 +23,7 @@ related:
 -
 ---
 **TL;DR:**
-Personally I've been stuck under a rock as a PHP developer. Fortunately for me, Elixir (like PHP) is a dynamically typed. It builds on Erlang and with the Erlang VM, almost immediately, you can be up and running. If your app compiles, it's already deployable.
+Personally I've been stuck under a rock as a PHP developer. Fortunately for me, Elixir (like PHP) is a dynamically typed language. It builds on Erlang and with the Erlang VM. Almost immediately, you can be up and running. If your app compiles, it's already deployable. Phoenix is genuinely exciting to use and you can't escape it if you're looking for a familiar framework to build on in Elixir. If your Elixir app compiles, it's already deployable and the how-to-guides come ready to talk you through to getting it online with Heroku.
 
 - Sentence about countdown (and why?)
 - Sentence about auth
@@ -31,11 +31,11 @@ Personally I've been stuck under a rock as a PHP developer. Fortunately for me, 
 ---
 
 ## Elixir
-Personally I've been stuck under a rock as a PHP developer. I've missed plenty of cool languages come (and go) while playing with PHP and Elixir is no exception. Fortunately for me, Elixir (like PHP) is a dynamically typed. My brain didn't have to work *too* hard to build something cool. Elixir builds on Erlang and leverages the Erlang VM. It's got a super small footprint and suprisingly robust, so almost immediately, you can be up and running. Phoenix is genuinely exciting to use and you can't escape it if you're looking for a familiar framework to build on in Elixir.
+Personally I've been stuck under a rock as a PHP developer. I've missed plenty of cool languages while playing with PHP - and Elixir is no exception. Fortunately for me, Elixir (like PHP) is a dynamically typed language. My brain didn't have to work *too* hard to build something cool. Elixir builds on Erlang and leverages the Erlang VM. It's got a super small footprint and is suprisingly robust. Almost immediately, you can be up and running.
 
 ***It doesn't stop there.***
 
-If your Elixir environment compiles, it's already deployable and the guides come ready to talk you to getting it online with Heroku.
+If your Elixir app compiles, it's already deployable and the how-to-guides come ready to talk you through to getting it online with Heroku.
 
 > Elixir is a functional, concurrent, general-purpose programming language that runs on the Erlang virtual machine (BEAM). Elixir builds on top of Erlang and shares the same abstractions for building distributed, fault-tolerant applications.
 
