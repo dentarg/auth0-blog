@@ -49,7 +49,7 @@ Phoenix is an MVC framework written in Elixir and will be welcoming and comforta
 
 ## My first Phoenix app
 
-With holiday season fast approaching and a growing family, we're now counting down the days to sit at home in-front of our (fake) fireplace :)
+With holiday season fast approaching and a growing family, we're now counting down the days to sit at home in-front of our (fake) fireplace and open some presents! :)
 
 ***So I thought why not?***
 
