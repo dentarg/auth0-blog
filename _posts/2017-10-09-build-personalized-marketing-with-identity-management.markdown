@@ -9,6 +9,7 @@ author:
   url: http://twitter.com/mgonto
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+is_non-tech: true
 design:
   bg_color: "#2A1416"
   image: "https://cdn.auth0.com/blog/personalized-marketing/logo.png"
