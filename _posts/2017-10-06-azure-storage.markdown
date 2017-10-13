@@ -255,7 +255,8 @@ To learn about other operations—like how to peek, change, and dequeue messages
 
 ## What is Azure File Storage?
 
-Another way of store information on Microsoft Azure is File Storage. It's a service offering shared resources on the Cloud. Applications executing locally, on virtual machines or any other service inside Microsoft Azure can mount a shared resource of files in Azure.
+Another way of store information on Microsoft Azure is through File Storage. This service offers shared resources on the cloud. Applications executing locally, on virtual machines, or any other service inside Microsoft Azure can mount a shared resource of files in Azure.
+
 File Storage is flexible and can be handled through the following clients:
 
 - Azure Portal.
@@ -263,15 +264,16 @@ File Storage is flexible and can be handled through the following clients:
 - API Rest.
 - Azure Libraries with .Net and other frameworks.
 
-With File Storage is possible replace file systems based on typical servers hosted on-premises environments. File Storage is secure because use the Server Message Block (SMB) Protocol and Common Internet File (CIFS).
+With File Storage it is possible to replace file systems based on typical servers hosted on-premises environments. File Storage is secure because use the Server Message Block (SMB) Protocol and Common Internet File (CIFS).
+
 A "File Share" is an SMB space in Azure. All directories and files must be created in a parent share. An account can contain an unlimited number of shares, and a share can store an unlimited number of files, up to the 5 TB total capacity of the file share.
 
-![File Storage Structure](http://bit.ly/2g0xtcp "File Storage Structure")
+![File Storage Structure on Azure Store](https://cdn.auth0.com/blog/azure-storage/file-storage.png)
 
-Below you will find C# code fragments that show common operations on Azure File Storage, if you are interested to see all the operations (set restrictions, access/ copy/ manage shared files), I invite you to look into this project from GitHub dedicated to [File Storage](https://github.com/vemoreno/FileStorageWithCsharp)
+The following C# code snippet shows how to programmatically interact with File Storage on Azure Storage:
 
 ```C#
-public void Access_the_file_share_programmatically()
+public void AccessFileStorage()
 {
 	// Retrieve storage account from connection string.
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
@@ -308,7 +310,7 @@ public void Access_the_file_share_programmatically()
 	}
 }
 
-public void Set_the_maximum_size_for_a_file_share()
+public void SetMaxSize()
 {
 	// Parse the connection string for the storage account.
 	StorageCredentials Credentials = new StorageCredentials(this.Account, this.Key);
@@ -339,6 +341,9 @@ public void Set_the_maximum_size_for_a_file_share()
 	}
 }
 ```
+
+To learn more about how to deal with File Storage on Azure—like how to access, copy, or manage shared files—take a look into this [GitHub repository](https://github.com/vemoreno/FileStorageWithCsharp).
+
 ## Aside: Securing XYZ Applications with Auth0
 
 This section will be filled with more information.
