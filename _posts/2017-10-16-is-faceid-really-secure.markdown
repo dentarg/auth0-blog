@@ -12,7 +12,7 @@ author:
   mail: "...@auth0.com"
   avatar: ""
 design:
-  image: https://cdn.auth0.com/blog/...
+  image: https://cdn.auth0.com/blog/faceid/Logo.png
   bg_color: "#"
 tags:
 - hyphenated-tags
