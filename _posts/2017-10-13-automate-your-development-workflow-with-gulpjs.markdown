@@ -22,7 +22,7 @@ tags:
 related:
 - 2016-10-12-five-things-you-can-do-with-yarn
 - 2016-11-16-a-rundown-of-es6-features
-- 2017-02-14-glossary-of-modern-javascript-concepts
+- 2017-02-10-glossary-of-modern-javascript-concepts
 ---
 
 ---
@@ -33,7 +33,9 @@ related:
 
 **[GulpJS](https://gulpjs.com)** is a JavaScript task runner that lets you automate several tasks during development. These tasks involve minifying JavaScript and CSS files, automatically refreshing the browser once a file has been edited, compiling CSS preprocessors, running tests, compressing images, and several others. GulpJS solves the problem of repetition.
 
-**GulpJS** is a build tool that helps you as a developer get rid of manually running such tasks as mentioned above during development for every project. Once you set up Gulp, it automates the most frustrating tasks, supercharges your performance, and lets you focus on building your app logic.
+{% include tweet_quote.html quote_text="GulpJS solves the problem of repetition." %}
+
+**GulpJS** is a build tool that helps you as a developer get rid of manually running such tasks as mentioned above during development for every project. Once you set up GulpJS, it automates the most frustrating tasks, supercharges your performance, and lets you focus on building your app logic.
 
 ## GulpJS Requirements
 
@@ -152,11 +154,13 @@ We have these requirements listed above. How do we approach tackling these tasks
 
 ## Project Lingo - Install GulpJS Plugins
 
-Yes, GulpJS has an amazing [ecosystem of Plugins](https://gulpjs.com/plugins). For every task a developer tries to accomplish, there is probably a GulpJS plugin out there for automating such task. Go ahead and install the following plugins via your terminal:
+Yes, GulpJS has an amazing [ecosystem of plugins](https://gulpjs.com/plugins). For every task a developer tries to accomplish, there is probably a GulpJS plugin out there for automating such task. Go ahead and install the following plugins via your terminal:
 
 ```bash
 npm install gulp-imagemin gulp-less gulp-jshint gulp-concat gulp-uglify gulp-rename --save-dev
 ```
+
+{% include tweet_quote.html quote_text="GulpJS has an amazing ecosystem of plugins." %}
 
 A quick breakdown of what each of these plugins aim to accomplish.
 
