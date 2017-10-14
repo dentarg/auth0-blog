@@ -129,7 +129,7 @@ gulp run-this-common-task
 ```
 
 ![GulpJS - Run common task](https://cdn.auth0.com/blog/gulp/run-common-task.png)
-_Gulp: Run common task_
+_GulpJS: Run common task_
 
 The task had just one job - Log a sentence to the console. And it successfully executed this task.
 
