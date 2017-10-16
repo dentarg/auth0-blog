@@ -26,15 +26,15 @@ related:
 - 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
 ---
 
-**TL;DR:** In this article we are going to learn the basic features of TypeScript through practical examples. We are going to start with a small introduction to TypeScript, then we are going to create a TypeScript project and use its features to learn the language in practice.
+**TL;DR:** In this article we are going to learn the basic features of TypeScript through practical examples. We'll start with a small introduction to TypeScript, then we are going to create a TypeScript project and use its features to learn the language in practice.
 
 ## What is TypeScript
 
-[TypeScript](https://www.typescriptlang.org/) is a programming language, built by [Microsoft](https://www.microsoft.com), that extends JavaScript. The language has been built as an open source, [licensed under the Apache License 2.0](https://github.com/Microsoft/TypeScript/blob/master/LICENSE.txt), so the developer community can use it freely. Among its features, a remarkable one is that TypeScript brings [type safety](https://en.wikipedia.org/wiki/Type_system#Type_checking) to one of the most flexible, dynamic programming languages around: JavaScript. This characteristic enables developers to be very productive even on large codebases by introducing and facilitating tools and practices like static checking and code refactoring.
+[TypeScript](https://www.typescriptlang.org/) is a programming language, built by [Microsoft](https://www.microsoft.com), that extends JavaScript. The language has been built as an open source project, [licensed under the Apache License 2.0](https://github.com/Microsoft/TypeScript/blob/master/LICENSE.txt), so the developer community can use it freely. Among its features, a remarkable one is that TypeScript brings [type safety](https://en.wikipedia.org/wiki/Type_system#Type_checking) to one of the most flexible, dynamic programming languages around: JavaScript. This characteristic enables developers to be very productive even on large codebases by introducing and facilitating tools and practices like static checking and code refactoring.
 
 {% include tweet_quote.html quote_text="TypeScript brings type safety to one of the most flexible, dynamic programming languages around: JavaScript." %}
 
-Besides enabling developers to check the correctness of their code before running it, TypeScript also brings to the table the state of the art features of JavaScript. That is, with TypeScript we can take advantage of the latests features of JavaScript, like those introduced by ECMAScript 2015, and features that are still under consideration (e.g. decorators). As the developers of TypeScript knew that applications written in the language would face a wide variety of environments (i.e. JavaScript engines), they made it easy to compile and [transpile](https://en.wikipedia.org/wiki/Source-to-source_compiler) TypeScript to the most different targets, like ECMAScript 3 and above.
+Besides enabling developers to check the correctness of their code before running it, TypeScript also brings to the table the state of the art features of JavaScript. That is, with TypeScript we can take advantage of the latest features of JavaScript, like those introduced by ECMAScript 2015, and features that are still under consideration (e.g. decorators). As the developers of TypeScript knew that applications written in the language would face a wide variety of environments (i.e. JavaScript engines), they made it easy to compile and [transpile](https://en.wikipedia.org/wiki/Source-to-source_compiler) TypeScript to different targets, like ECMAScript 3 and above.
 
 ## Installing TypeScript
 
@@ -65,7 +65,7 @@ This will generate a new file called `index.js` with the exact same code of the 
 node index
 ```
 
-Although the compiler did nothing else besides creating a JavaScript file and copying the original code to it, these steps helped us to validate that our TypeScript installation is on a good shape and ready to handle the next steps.
+Although the compiler did nothing else besides creating a JavaScript file and copying the original code to it, these steps helped us to validate that our TypeScript installation is in good shape and ready to handle the next steps.
 
 ## Creating a TypeScript Project
 
@@ -203,7 +203,7 @@ function printRankings(rankings: Array<RankingTuple>): void {
 printRankings(hallOfFame);
 ```
 
-The first step executed by the code above creates a a type (tuple) that accepts three objects: a number, a string, and a boolean. This tuple represents a ranking where the number is the position, the string is the name of the person in that position, and the boolean indicates whether the player has finished the game or not. In the second step, we define five typed variables to hold:
+The first step executed by the code above creates a type (tuple) that accepts three objects: a number, a string, and a boolean. This tuple represents a ranking where the number is the position, the string is the name of the person in that position, and the boolean indicates whether the player has finished the game or not. In the second step, we define five typed variables to hold:
 
 1. a player's position,
 2. a player's name,
@@ -217,7 +217,7 @@ To learn more about the [basic types of TypeScript, take a look at the documenta
 
 ### TypeScript Modules
 
-Another feature that TypeScript inherits from ECMAScript 2015 is the support to modules. Modules on both languages (JavaScript and TypeScript) are a way to encapsulate code into their own scope. That is, when we create a module and add some code to it, we are not letting anything (like variables, functions, etc) scape silently. Everything that we want to provide externally needs to be explicitly exported by our module and explicitly imported by other modules/scripts.
+Another feature that TypeScript inherits from ECMAScript 2015 is the support to modules. Modules in both languages (JavaScript and TypeScript) are a way to encapsulate code into their own scope. That is, when we create a module and add some code to it, we are not letting anything (like variables, functions, etc) escape silently. Everything that we want to provide externally needs to be explicitly exported by our module and explicitly imported by other modules/scripts.
 
 For example, if we change the code in the previous section by adding the following line:
 
@@ -395,7 +395,7 @@ We start the definition of `Project` by importing `Entity` to inherit its charac
 
 ### TypeScript Interfaces
 
-Interfaces, on TypeScript, exist to perform type checking during compile time. That is, using an interface makes the TypeScript compiler check if variables fill the contract (have the structure) defined by the interface. As occurs on other programming languages, TypeScript do not require an object to have the exact same structure as defined by the interface. To be considered valid, objects can have any shape as long as they define the functions and properties required by the interface that they implement.
+Interfaces, on TypeScript, exist to perform type checking during compile time. That is, using an interface makes the TypeScript compiler check if variables fill the contract (have the structure) defined by the interface. As occurs in other programming languages, TypeScript do not require an object to have the exact same structure as defined by the interface. To be considered valid, objects can have any shape as long as they define the functions and properties required by the interface that they implement.
 
 For example, let's say that we want to trigger an email whenever a `Task` or `Story` is marked as completed. Instead of creating two different functions to deal with each type in separately, we can define an interface to represent completable items. To practice, let's create a file called `completable.ts` in the `./src` directory with the following source code:
 
@@ -472,7 +472,7 @@ Decorators offer a declarative syntax to modify the shape of classes and propert
 
 {% include tweet_quote.html quote_text="TypeScript decorators enable developers to create elegant solutions to cross-cutting concerns like logging and transactions." %}
 
-To understand how this feature works, let's say that we are interested on measuring and logging the time spent by a few functions on our program. Instead of changing the code inside all these functions, we can take advantage of decorators to decouple the performance logging from the code itself. Decorators, in the end, are just function wrappers. That is, to create a decorator, we create a function that wraps the call to the original function and change the behavior of it however we like.
+To understand how this feature works, let's say that we are interested in measuring and logging the time spent by a few functions on our program. Instead of changing the code inside all these functions, we can take advantage of decorators to decouple the performance logging from the code itself. Decorators, in the end, are just function wrappers. That is, to create a decorator, we create a function that wraps the call to the original function and change the behavior of it however we like.
 
 To see this in action, let's create a file called `log.ts` in the `./src` directory and add the following code:
 
@@ -566,7 +566,7 @@ node ./bin/index
 
 Whenever we want to loop over objects in a collection (array, map, or set) we take advantage of the [iterator feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator). Although TypeScript does not add anything special on top of what has been introduced on ECMAScript 2015, we will, for the sake of completeness, take a glimpse on how to use iterators. TypeScript/JavaScript provides two ways to go over objects on a collection: by using the `for..of` statement, and by referencing objects by its indexes.
 
-The latter (referencing its indexes) is the classical way, probably seem by all seasoned developers:
+The latter (referencing its indexes) is the classical way, probably seen by all seasoned developers:
 
 ```typescript
 import {Task} from "./task";
@@ -641,4 +641,4 @@ To learn how to use Auth0 to secure front-end applications, or other backend fra
 
 ## Conclusion
 
-Although bringing type safety to JavaScript, TypeScript does it without being intrusive. That is, it helps us static checking variable types when we want, but don't force us to do it. Besides that, TypeScript is becoming more and more popular recently. Great frameworks, like [Angular](https://github.com/angular) in the front-end and [Nest](https://docs.nestjs.com/) in the backend, are being developed with TypeScript and IDEs are getting better on supporting this technology. Also, the community is investing time to create type definitions for well-stablished libraries like [jQuery](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jquery) and [lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash), which enhances their usage in this type-safe version of JavaScript. Considering all these factors, the only possible conclusion is that the future of TypeScript is very promising.
+Although bringing type safety to JavaScript, TypeScript does it without being intrusive. That is, it helps us static checking variable types when we want, but don't force us to do it. Besides that, TypeScript is becoming more and more popular recently. Great frameworks, like [Angular](https://github.com/angular) in the front-end and [Nest](https://docs.nestjs.com/) in the backend, are being developed with TypeScript and IDEs are getting better on supporting this technology. Also, the community is investing time to create type definitions for well-established libraries like [jQuery](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/jquery) and [lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash), which enhances their usage in this type-safe version of JavaScript. Considering all these factors, the only possible conclusion is that the future of TypeScript is very promising.
