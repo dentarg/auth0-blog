@@ -344,9 +344,61 @@ public void SetMaxSize()
 
 To learn more about how to deal with File Storage on Azure—like how to access, copy, or manage shared files—take a look into this [GitHub repository](https://github.com/vemoreno/FileStorageWithCsharp).
 
-## Aside: Securing XYZ Applications with Auth0
+## Aside: Securing .NET Applications with Auth0
 
-This section will be filled with more information.
+One of the most complex features to implement in an application is [user authentication and identity management](https://auth0.com/user-management). [Security for authentication and identity](https://auth0.com/docs/security) is [an entire glossary](https://auth0.com/identity-glossary) unto itself.
+
+![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
+
+If we need to implement a robust, highly customizable [identity and access management](https://auth0.com/learn/cloud-identity-access-management/) system quickly and easily for our .NET applications, Auth0 can help. As shown in this [quickstart ASP.NET Web API (OWIN) Authorization](https://auth0.com/docs/quickstart/backend/webapi-owin), we need to perform four simple steps. First, we create a Resource Server (API) in our Auth0 account.
+
+![Create a Resource Server (API)](https://cdn2.auth0.com/docs/media/articles/api-auth/create-api.png)
+
+Then we update the `web.config` file in our project with the correct Domain and API Identifier for our API, e.g.
+
+```xml
+<appSettings>
+  <add key="Auth0Domain" value="bkrebs.auth0.com" />
+  <add key="Auth0ApiIdentifier" value="https://bkrebs.auth0.com/api/v2/" />
+</appSettings>
+```
+
+After that, we install two NuGet packages:
+
+```bash
+Install-Package Microsoft.Owin.Security.Jwt
+Install-Package Auth0.OpenIdConnectSigningKeyResolver
+```
+
+And then we update the `Configuration` method of our `Startup` class to add a call to `UseJwtBearerAuthentication` passing in the configured `JwtBearerAuthenticationOptions`.
+
+```C#
+// Startup.cs
+
+public void Configuration(IAppBuilder app)
+{
+    var domain = $"https://{ConfigurationManager.AppSettings["Auth0Domain"]}/";
+    var apiIdentifier = ConfigurationManager.AppSettings["Auth0ApiIdentifier"];
+
+    var keyResolver = new OpenIdConnectSigningKeyResolver(domain);
+    app.UseJwtBearerAuthentication(
+        new JwtBearerAuthenticationOptions
+        {
+            AuthenticationMode = AuthenticationMode.Active,
+            TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidAudience = apiIdentifier,
+                ValidIssuer = domain,
+                IssuerSigningKeyResolver = (token, securityToken, identifier, parameters) => keyResolver.GetSigningKey(identifier)
+            }
+        });
+
+    // Configure Web API
+    WebApiConfig.Configure(app);
+}
+```
+
+[The full set of instructions on how to use Auth0 to secure ASP.NET Web APIs (OWIN) can be found here](https://auth0.com/docs/quickstart/backend/webapi-owin). Auth0 also can be easily integrated with [ASP.NET Core Web API](https://auth0.com/docs/quickstart/backend/aspnet-core-webapi) and [a lot of other platforms and frameworks](https://auth0.com/docs).
 
 ## Frequently Asked Questions
 
