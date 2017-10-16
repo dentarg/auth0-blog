@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Azure Storage Introduction"
-description: "In this article we will learn about the multiple ways that Microsoft Azure Storage enables us to store information."
+description: "In this article we will learn about the many ways that Microsoft Azure Storage enables us to store information."
 date: 2017-10-06 08:00
 category: Technical Guide, Microsoft, Azure
 author:
@@ -249,8 +249,6 @@ public void InsertMessage()
 }
 ```
 
-Below you will find C# code fragments that show common operations on Azure Queue Storage, if you are interested to see all the operations (create/ delete queues, insert/ peek/ change/ dequeue/ get/ delete messages), I invite you to look into this project from GitHub dedicated to [Queue Storage]().
-
 To learn about other operations—like how to peek, change, and dequeue messages—take a look into this [GitHub repository](https://github.com/vemoreno/QueueStorageWithCsharp).
 
 ## What is Azure File Storage?
@@ -260,7 +258,7 @@ Another way of store information on Microsoft Azure is through File Storage. Thi
 File Storage is flexible and can be handled through the following clients:
 
 - Azure Portal.
-- Power Shell.
+- PowerShell.
 - API Rest.
 - Azure Libraries with .Net and other frameworks.
 
