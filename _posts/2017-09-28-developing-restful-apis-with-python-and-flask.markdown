@@ -284,7 +284,7 @@ Inside this new module/directory, we will create three classes: `Transaction`, `
 ```python
 import datetime as dt
 
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields
 
 
 class Transaction(object):
@@ -480,7 +480,7 @@ FROM python:3.6-alpine
 
 # Installing packages
 RUN apk update
-RUN pip install pipenv
+RUN pip install --no-cache-dir pipenv
 
 # Defining working directory and adding source code
 WORKDIR /usr/src/app
