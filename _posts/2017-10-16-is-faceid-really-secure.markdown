@@ -11,15 +11,20 @@ author:
   url: "https://twitter.com/diegopoza"
   mail: "diego.poza@auth0.com"
   avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
+is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/faceid/Logo.png
   bg_color: "#653F8B"
 tags:
-- hyphenated-tags
-- 
+- face-id
+- authentication
+- biometric-identity
+- apple
+- security
 related:
 - 2017-09-08-how-to-not-get-your-identity-stolen
 - 2017-10-11-firebase-phone-authentication
+- 2017-05-04-the-state-of-biometric-identity-in-2017
 ---
 
 **TL;DR:** There's still lots to learn from FaceID, but Apple has set the tone for how other tech companies should address user privacy and security concerns. Read on to learn about the security and implications for FaceID.
