@@ -14,15 +14,12 @@ RUN \
 
 ADD nginx.conf /etc/nginx/nginx.conf
 
-# install gems
-RUN gem install jekyll -v 2.4.0
-RUN gem install psych -v 2.0.5
-RUN gem install rdiscount -v 2.1.7.1
-RUN gem install stringex -v  2.5.2
-RUN gem install stylus -v  1.0.1
-
 ADD . /data
 WORKDIR /data
+COPY Gemfile /data
+
+# install gems
+RUN bundle install
 
 ENV JEKYLL_ENV production
 
