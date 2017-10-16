@@ -10,8 +10,8 @@ author:
   mail: victor.e.moreno@outlook.com
   avatar: https://pbs.twimg.com/profile_images/621531844719173632/ZgTus250_200x200.jpg
 design:
-  bg_color: "#0072C6"
-  image: https://cdn2.auth0.com/blog/azure-logs-analytics/logo.png
+  bg_color: "#134E69"
+  image: https://cdn.auth0.com/blog/azure-storage/microsoft-azure-logo.png
 tags:
 - azure
 - storage
