@@ -484,7 +484,7 @@ RUN pip install pipenv
 
 # Defining working directory and adding source code
 WORKDIR /usr/src/app
-COPY Pipfile Pipfile.lock 'rap.sh ./
+COPY Pipfile Pipfile.lock bootstrap.sh ./
 COPY cashman ./cashman
 
 # Install API dependencies
