@@ -13,11 +13,21 @@ design:
   bg_color: "#563FB8"
   image: https://cdn.auth0.com/blog/graphic-cards-use-case/logo.png
 tags:
-- security
-- identity
+- python
+- sqlalchemy
+- sql
+- flask
+- persistence
+- data
+- database
 - auth0
 related:
-- 2017-08-30-battlefy-is-major-player-in-esports-arena-with-help-from-auth0
-- 2017-07-21-the-role-of-identity-in-application-modernization
-- 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
+- 2017-09-28-developing-restful-apis-with-python-and-flask
+- 2017-04-20-image-processing-in-python-with-pillow
 ---
+
+## SQLAlchemy Introduction
+
+### SQLAlchemy Engines
+
+### SQLAlchemy Dialects
