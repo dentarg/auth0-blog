@@ -38,7 +38,9 @@ The IETF ([Internet Engineering Task Force](https://www.ietf.org/)) recently rel
 >
 > -_[OAuth 2.0 for Native Apps](https://www.rfc-editor.org/rfc/rfc8252.txt)_
 
-Using the browser to make native app authorization requests results in better security. It also enables use of the user's current authentication state, making single sign-on possible. In addition, authorization flow support can be implemented without changing the OAuth protocol itself, since the request and response are predefined by URIs. We'll go into the security and implementation advantages in more detail below.
+Using the browser to make native app authorization requests results in better security. It also enables use of the user's current authentication state, making single sign-on possible. Embedded user agents are unsafe for third parties. If used, the app has access to the OAuth authorization grant as well as the user's credentials, leaving this data vulnerable to recording or malicious use. Embedded user agents also don't share authentication state, meaning no single sign-on benefits can be conferred.
+
+We'll go into the security and implementation advantages of using the browser for authorization requests in more detail below.
 
 {% include tweet_quote.html quote_text="Using the browser to make native app authorization requests results in better security." %}
 
@@ -57,15 +59,15 @@ The authorization flow for native apps using the browser acts as illustrated in 
 >
 > _Figure 1, [OAuth 2.0 for Native Apps](https://www.rfc-editor.org/rfc/rfc8252.txt)_
 
-URIs are used for OAuth 2.0 on the web for authorization requests and responses. Similarly, URIs can also be used in native apps. This brings the same advantages to the native environment, such as the ability to use a single sign-on session and additional security afforded by an authentication context that is separated from the app. In addition, supporting and implementing the same approach in web and native apps reduces complexity and increases interoperability.
+URIs are used for OAuth 2.0 on the web for authorization requests and responses. Similarly, URIs can also be used in native apps. When the built-in browser is employed by the user for all native app logins, certain advantages are conferred, such as the ability to use a single sign-on session stored in a central location and additional security afforded by an authentication context that is separated from the app. Browser security is also a major focus of vendors, and they tent to manage security and sessions policies quite well. In addition, supporting and implementing the same approach in web and native apps reduces complexity and increases interoperability.
 
 {% include tweet_quote.html quote_text="Implementing external user agents in both web & native apps reduces complexity and increases interop." %}
 
 ### Initiating and Receiving Authorization Requests
 
-Native apps now must request user authorization by creating a URI with the appropriate [grant type specified in the OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749#section-4.1). They must also supply a redirect URI that the native app can receive and parse appropriately. This must be implemented using an _external user agent_. Use of the device browser is recommended.
+Native apps now must request user authorization by creating a URI with the appropriate [grant type specified in the OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749#section-4.1). The app then redirects the user to this request URI. A redirect URI that the native app can receive and parse appropriately must also be supplied. This must be implemented using an _external user agent_. Use of the device browser is recommended.
 
-The authorization server must offer at least three redirect URI options for the response sent back to the native app:
+The authorization server must permit at least three redirect URI options for the response sent back to the native app:
 
 * Private-Use URI Scheme Redirection
 * Claimed "https" Scheme URI Redirection
@@ -79,7 +81,7 @@ When implementing OAuth 2.0, there are a number of security considerations that 
 
 ### Authorization Code and Grant Flow
 
-Using the redirect options above means that the authorization code can only be received by native apps on the same device. While this increases security, it does still mean that another app on the same device could potentially intercept the code. The [Proof Key for Code Exchange (PKCE) protocol](https://tools.ietf.org/html/rfc7636) was created to defend against this attack vector. Public apps as well as servers should use PKCE, and servers should reject authorization requests from apps that do not.
+Using the redirect options above means that the authorization code can only be received by native apps on the same device. While this increases security, it does still mean that another app on the same device could potentially intercept the code. The [Proof Key for Code Exchange (PKCE) protocol](https://tools.ietf.org/html/rfc7636) was created to defend against this attack vector. Public apps as well as servers _must_ use PKCE, and servers should reject authorization requests from apps that do not.
 
 It is _not_ recommended to implement [implicit grant flow](https://auth0.com/docs/api-auth/grant/implicit) in native apps because this flow cannot be protected by PKCE. Instead, [authorization code grant flow with PKCE](https://auth0.com/docs/api-auth/grant/authorization-code-pkce) should be used.
 
@@ -87,7 +89,7 @@ It is _not_ recommended to implement [implicit grant flow](https://auth0.com/doc
 
 In most cases, native apps are considered public clients and must be registered with the authorization server. Authorization servers must also register a client's complete redirect URI. If an authorization request does not match the registered redirect URI, the request must be rejected.
 
-User consent or interaction should be required before the authorization server can process an authorization request automatically.
+User authentication and consent will be required by the authorization server, as per any other web browser based OAuth 2.0 flows.
 
 ### User Agents
 
@@ -95,7 +97,7 @@ Embedded user agents should not be used to masquerade as an external user agent.
 
 Cross-Site Request Forgery (CSRF) attacks should also be mitigated by using the `state` parameter to link client requests and responses. More details are available in section 5.3.5 of [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819).
 
-The user's browser is the recommended external user agent. Embedded user agents must not be used for authorization requests. Authorization servers may detect and block requests from embedded user agents, as they are unsafe for third parties, such as the authorization server itself. The reason for this is because the app can then access not only the OAuth authorizationg grant, but also the user's full authentication credentials. The app could then potentially record or use this information maliciously. In addition, embedded user agents don't share authentication state with other apps or the browser and therefore disabling single sign-on benefits.
+The user's browser is the recommended external user agent. Embedded user agents must not be used for authorization requests. Authorization servers may detect and block requests from embedded user agents, as they are unsafe for third parties, such as the authorization server itself. The reason for this is because the app can then access not only the OAuth authorization grant, but also the user's full authentication credentials. The app could then potentially record or use this information maliciously. In addition, embedded user agents don't share authentication state with other apps or the browser and therefore disabling single sign-on benefits.
 
 ## Conclusion
 
