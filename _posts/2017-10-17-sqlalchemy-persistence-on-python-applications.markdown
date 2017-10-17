@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "SQLAlchemy Persistence on Python Applications"
-description: "Let's learn how to persist data with SQLAlchemy on Python applications."
+title: "SQLAlchemy Tutorial for Python Developers"
+description: "Let's learn how to use SQLAlchemy to persist and query data on Python applications."
 date: 2017-10-17 09:03
 category: Technical Guide, Python, SQLAlchemy
 author:
@@ -28,6 +28,50 @@ related:
 
 ## SQLAlchemy Introduction
 
+### SQLAlchemy DBAPI
+
+http://docs.sqlalchemy.org/en/rel_1_1/glossary.html#term-dbapi
+https://www.python.org/dev/peps/pep-0249/
+
 ### SQLAlchemy Engines
 
+http://docs.sqlalchemy.org/en/rel_1_1/core/engines.html#sqlalchemy.create_engine
+
+### SQLAlchemy Connection Pools
+
+http://docs.sqlalchemy.org/en/rel_1_1/core/pooling.html
+
+QueuePool
+
+Characteristics: none of them "pre create" connections
+
+- pool_size
+- max_overflow
+- pool_recycle
+- pool_timeout
+
 ### SQLAlchemy Dialects
+
+### SQLAlchemy ORM
+
+### SQLAlchemy Data Types
+
+## SQLAlchemy in Practice
+
+### What Will We Build
+
+### Cloning Project
+
+### Running PostgreSQL
+
+### Installing SQLAlchemy Dependencies
+
+### Mapping Classes with SQLAlchemy
+
+### Persisting Data with SQLAlchemy
+
+### Querying Data with SQLAlchemy
+
+## Securing Python APIs with Auth0
+
+## Next Steps
