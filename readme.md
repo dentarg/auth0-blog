@@ -86,6 +86,9 @@ It is suggested to put the language code after the date and before the name of t
 	-  2017-10-06-jp-name-blog-post-url.markdown
 ```
 
+### Grammarly
+
+All blog posts should be checked with the Grammarly app before publication. Please read the [Grammarly instructions here](https://github.com/auth0/blog/blob/master/grammarly.markdown).
 
 ## Prerequisites
 
