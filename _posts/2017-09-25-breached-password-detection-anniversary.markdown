@@ -4,6 +4,7 @@ title: "Breached Password Detection: Protect Your Users’ Data Before It’s To
 description: "Recent breach affecting up to 711M email addresses shows critical need for protection and detection."
 date: 2017-09-25 17:34
 category: Product, Features, Breached Password Detection
+press_release: true
 is_non-tech: true
 author:
   name: Jeana Tahnk

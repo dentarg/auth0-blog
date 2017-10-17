@@ -284,7 +284,7 @@ Inside this new module/directory, we will create three classes: `Transaction`, `
 ```python
 import datetime as dt
 
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields
 
 
 class Transaction(object):
@@ -450,22 +450,22 @@ This finishes the implementation of our API. If we run our Flask application now
 ./bootstrap.sh &
 
 # get expenses
-curl http://localhost:5000/expenses/
+curl http://localhost:5000/expenses
 
 # add a new expense
 curl -X POST -H "Content-Type: application/json" -d '{
     "amount": 20,
     "description": "lottery ticket"
-}' http://localhost:5000/expenses/
+}' http://localhost:5000/expenses
 
 # get incomes
-curl http://localhost:5000/incomes/
+curl http://localhost:5000/incomes
 
 # add a new income
 curl -X POST -H "Content-Type: application/json" -d '{
     "amount": 300.0,
     "description": "loan payment"
-}' http://localhost:5000/incomes/
+}' http://localhost:5000/incomes
 ```
 
 ## <span id="flask-on-docker"></span> Dockerizing Flask Applications
@@ -480,11 +480,11 @@ FROM python:3.6-alpine
 
 # Installing packages
 RUN apk update
-RUN pip install pipenv
+RUN pip install --no-cache-dir pipenv
 
 # Defining working directory and adding source code
 WORKDIR /usr/src/app
-COPY Pipfile Pipfile.lock 'rap.sh ./
+COPY Pipfile Pipfile.lock bootstrap.sh ./
 COPY cashman ./cashman
 
 # Install API dependencies

@@ -12,7 +12,7 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/a208cda2b3b21dc8d7896507f5ff60fc"
 design:
-  image: https://cdn.auth0.com/blog/gigya/Logo.png
+  image: https://cdn.auth0.com/blog/gigya/logo01.png
   bg_color: "#285AA6"
 tags:
 - migration
@@ -26,9 +26,7 @@ related:
 
 ## SAP to Acquire Gigya
 
-[On September 24, 2017 Gigya announced that they will be acquired by SAP](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/). [Gigya’s](http://gigya.com) Customer Identity and Access Management (IAM) platform, which currently manages 1.3 billion customer identities, will be integrated into SAP’s Hybris Profile Service. 
-
-![SAP acquires Gigya](https://cdn.auth0.com/blog/gigya/gigya.jpg)
+[On September 24, 2017 Gigya announced that they will be acquired by SAP](http://www.gigya.com/gigya-the-market-leader-in-customer-identity-and-access-management-to-be-acquired-by-sap/). [Gigya’s](http://gigya.com) Customer Identity and Access Management (IAM) platform, which currently manages 1.3 billion customer identities, will be integrated into SAP’s Hybris Profile Service.
 
 With this news, current Gigya customers will be very interested in learning more about SAP's plans for an integration strategy. The acquisition announcement stated the following:
 
@@ -56,7 +54,7 @@ When selecting a company that provides an IAM platform, you should look for one 
 
 This also ensures that the IAM platform maintains **independence from any software that might utilize it**. An IAM platform should support easy integration with a large variety of IdPs (including enterprise Identity Providers such as Active Directory as well as social providers like Facebook) and applications. For example, a company may sell a specific suite of applications. They may also offer an IAM platform that enables authentication and shared identity across all applications in that suite. However, if the IAM platform is tightly coupled with a specific set of integrated software components, you should carefully assess whether the platform has good support for IdPs or applications _outside_ that ecosystem.
 
-In addition, an excellent IAM platform should **integrate easily with other best-of-breed platforms**. Integration with services in areas such as Business Intelligence and Analytics enable your IAM to collect more data and enrich customer identities, better serving your business. 
+In addition, an excellent IAM platform should **integrate easily with other best-of-breed platforms**. Integration with services in areas such as Business Intelligence and Analytics enable your IAM to collect more data and enrich customer identities, better serving your business.
 
 ### Flexibility to Manage Multiple Business Use Cases on a Single Platform
 
@@ -92,7 +90,6 @@ When assessing IAM platforms, there are many key features you should investigate
 
 ## About Auth0
 
-[Auth0](https://auth0.com)'s platform for Identity and Access Management is powerful and straightforward to use for admins, developers, and end users. Auth0 provides [robust extensibility](https://auth0.com/docs/topics/extensibility) and friendly [user interface tools to help administrators manage user identities](https://auth0.com/user-management), including password resets, provisioning, blocking, and deleting users. Migration of users to and from Auth0 is easy, as is [social IdP](https://auth0.com/learn/social-login/) implementation, [enterprise federation](https://auth0.com/b2b-enterprise-identity-management), [Single Sign-On](https://auth0.com/learn/how-to-implement-single-sign-on/), and security features such as [Multifactor Authentication](https://auth0.com/learn/multifactor-authentication/), and [Breached Password Detection](https://auth0.com/breached-passwords).
+{% include asides/about-auth0.markdown %}
 
 If you'd like to explore what Auth0 has to offer, simply <a href="javascript:signup()">sign up for a free account</a> and try it out! You can also check out our [Pricing](https://auth0.com/pricing) and read what [customers have to say about Auth0](https://auth0.com/resources/case-studies).
-

@@ -65,6 +65,28 @@ design:
 ---
 ```
 
+### Blog post Multi Language
+
+These parameters are required for each version of Blog post
+
+```
+---
+lang: Set the language code of the post ( en | jp | es | de )
+alternate_locale_en:  Set the name of the post url  in English (filename without the date).  example: name-blog-post-url
+alternate_locale_es:  Set the name of the post url in Spanish (filename without the date).   example: es-name-blog-post-url
+alternate_locale_de:  Set the name of the post url in German (filename without the date).    example: de-name-blog-post-url
+alternate_locale_jp:  Set the name of the post url in Jananese (filename without the date).  example: jp-name-blog-post-url
+---
+```
+It is suggested to put the language code after the date and before the name of the blog post for each version. For example:
+
+```
+	-  2017-10-05-name-blog-post-url.markdown
+	-  2017-10-05-es-name-blog-post-url.markdown
+	-  2017-10-06-jp-name-blog-post-url.markdown
+```
+
+
 ## Prerequisites
 
 1.  Install Ruby (2.0.0-p195 or later)

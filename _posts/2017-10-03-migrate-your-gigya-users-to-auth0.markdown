@@ -12,7 +12,7 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/gigya/gigya-logo.png
+  image: https://cdn.auth0.com/blog/gigya/logo02.png
   bg_color: "#204498"
 tags:
 - migration
@@ -29,8 +29,6 @@ related:
 ## Gigya to be Acquired by SAP 
 
 [SAP](https://www.sap.com/index.html) announced an agreement to acquire [Gigya](http://www.gigya.com/)'s Customer Identity and Access Management (IAM) platform on September 24, 2017. The acquisition announcement should be very interesting to current Gigya customers. To learn about key features to reassess when your IAM platform is acquired, please check out [SAP to Acquire Gigya: What's Next for Identity Management?](https://auth0.com/blog/sap-to-acquire-gigya-whats-next-for-identity-management)
-
-![SAP acquires Gigya](https://cdn.auth0.com/blog/gigya/gigya.jpg)
 
 ## How to Migrate to Auth0 IAM Platform
 

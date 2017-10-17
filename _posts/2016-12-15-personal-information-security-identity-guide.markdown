@@ -12,7 +12,7 @@ author:
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
   bg_color: "#222228"
-  image: "https://cdn.auth0.com/blog/personal-info-security-guide/logo.png"
+  image: "https://cdn.auth0.com/blog/security-whitepaper/logo.png"
 tags:
 - Security
 - Identity

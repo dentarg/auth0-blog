@@ -87,7 +87,7 @@ It is _not_ recommended to implement [implicit grant flow](https://auth0.com/doc
 
 In most cases, native apps are considered public clients and must be registered with the authorization server. Authorization servers must also register a client's complete redirect URI. If an authorization request does not match the registered redirect URI, the request must be rejected.
 
-User consent or interaction should be required before the authorization server can process an authorization request automatically. If the user has previously approved a request for the same client ID in the past, the request should be processed automatically.
+User consent or interaction should be required before the authorization server can process an authorization request automatically.
 
 ### User Agents
 
@@ -103,11 +103,11 @@ If you're a native app developer, it's very important to adhere to best current 
 
 ### Centralized Login with Auth0
 
-[Auth0](https://auth0.com) provides a [centralized login approach (also called hosted login)](https://auth0.com/docs/hosted-pages/login) that adheres to the OAuth 2.0 Best Current Practice for native apps. Centralized login provides the most secure experience and is also easy to implement for developers. A URI is used to trigger an authentication request and the centralized login page is shown to users. This login page can use the [Auth0 Lock widget](https://auth0.com/lock) or your own custom UI. After authorization, the user is returned to your app via your provided redirect. Auth0 provides extensive documentation to help you easily implement the appropriate flows to keep your apps secure and user-friendly as well.
+[Auth0](https://auth0.com) provides a [centralized login approach](https://auth0.com/docs/hosted-pages/login) that adheres to the OAuth 2.0 Best Current Practice for native apps. Centralized login provides the most secure experience and is also easy to implement for developers. A URI is used to trigger an authentication request and the centralized login page is shown to users. This login page can use the [Auth0 Lock widget](https://auth0.com/lock) or your own custom UI. After authorization, the user is returned to your app via your provided redirect. Auth0 provides extensive documentation to help you easily implement the appropriate flows to keep your apps secure and user-friendly as well.
 
 Check out the following resources to learn more about implementing Auth0 with centralized login in your native apps in accordance with the OAuth 2.0 Best Current Practice:
 
-* [Hosted Login Page](https://auth0.com/docs/hosted-pages/login)
+* [Centralized Login Page](https://auth0.com/docs/hosted-pages/login)
 * [OAuth 2.0](https://auth0.com/docs/protocols/oauth2)
 * [Calling APIs from Mobile Apps (Authorization Code PKCE)](https://auth0.com/docs/api-auth/grant/authorization-code-pkce)
 * [iOS Swift Quickstart - Login](https://auth0.com/docs/quickstart/native/ios-swift/00-login)
