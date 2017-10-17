@@ -2,7 +2,7 @@
 layout: post
 title: "Automate Your Development Workflow With GulpJS"
 description: Learn how to use GulpJS to automate time-consuming tasks in your development workflow.
-date: 2017-10-12 8:30
+date: 2017-10-17 8:30
 category: Technical Guide, JavaScript, GulpJS
 author:
   name: Prosper Otemuyiwa
@@ -10,8 +10,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#4236C9"
-  image: https://cdn.auth0.com/blog/firebasephoneauth/logo.png
+  bg_color: "#5F2021"
+  image: https://cdn.auth0.com/blog/gulpjs/logo.png
 tags:
 - gulp
 - gulp.js
@@ -20,8 +20,8 @@ tags:
 - task-runner
 - automation
 related:
-- 2016-10-12-five-things-you-can-do-with-yarn
-- 2016-11-16-a-rundown-of-es6-features
+- 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
+- 2017-10-05-nestjs-brings-typescript-to-nodejs-and-express
 - 2017-02-10-glossary-of-modern-javascript-concepts
 ---
 
