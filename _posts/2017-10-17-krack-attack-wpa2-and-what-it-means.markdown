@@ -37,8 +37,7 @@ When a user goes to join a WiFi network, be it on their laptop, tablet or phone,
 
 The 4 step process is reflected in the following image, with the `AP` being the *Access Point (Network)* and the `STA` representing the device:
 
-	[AWAITING IMAGE FROM Barbara.]
-
+![WiFi 4-way handshake process](https://cdn.auth0.com/blog/krack-attack/wifi-4-way-handshake.png)
 
 After *step 3* in this process, the session key is installed and will be used to encrypt normal data frames.  The Access Point will retransmit step 3 of the handshake, however, if it does not receive an appropriate response or acknowledgement.  As a result of this, the client may receive step 3 multiple times, reinstalling the *same* session key each time, and thereby resetting both the *incremental transmit packet number (nonce)* and *receive replay counter* used by the data-confidentiality protocol.
 
