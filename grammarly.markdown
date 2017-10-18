@@ -24,7 +24,7 @@ Prior to submitting a new blog post for review via Pull Request, please make sur
 
 Grammarly currently does not support Markdown file import, so you will need to copy and paste your post content into a new file.
 
-In the **My Grammarly** home screen of the app, click the **New** icon to create a file. Then paste the contents of your post into the editor. Fortunately, Grammarly is good at ignoring things like code blocks so you shoudn't need to worry about being repeatedly told that `someFunction() {` is improper grammar.
+In the **My Grammarly** home screen of the app, click the **New** icon to create a file. Then paste the contents of your post into the editor. Fortunately, Grammarly is good at ignoring things like code blocks so you shouldn't need to worry about being repeatedly told that `someFunction() {` is improper grammar.
 
 When you paste your text, Grammarly sends the content to its servers and runs a grammar check. The number of issues is shown in the bottom right of the app. **Critical Issues** should be addressed. **Advanced Issues** are only available to paid users.
 
