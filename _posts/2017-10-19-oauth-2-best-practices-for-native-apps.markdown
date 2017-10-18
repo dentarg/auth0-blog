@@ -2,7 +2,7 @@
 layout: post
 title: "OAuth 2.0 Best Practices for Native Apps"
 description: "The IETF has released Best Current Practice (BCP) for OAuth 2.0 in native apps. Learn about it now."
-date: 2017-10-18 8:30
+date: 2017-10-19 8:30
 category: Growth, Best Practices, OAuth
 banner:
   text: "Auth0 makes it easy to add authentication to your native application."
