@@ -49,7 +49,7 @@ Using the KRACK exploit, a malicious agent can force these *nonce* resets by rep
 
 In short, the most vulnerable devices outed so far are *Android* and *Linux* devices due to the `wpa_supplicant` WiFi client that is commonly used.  That being said, this statement is taken directly from the vulnerability researcher, Mathy:
 
->	"Any device that uses Wi-Fi is likely vulnerable."
+{% include tweet_quote.html quote_text="Any device that uses Wi-Fi is likely vulnerable to the KRACK vulnerability." %}
 
 Unlike most vulnerabilities that are found in small or isolated components of systems, this vulnerability comes from within the WPA2 protocol itself.  The attack is against the 4-way handshake, and does not exploit access points themselves, but instead targets clients (devices such as laptops, tablets and phones).  This means that although a router may be updated and running the latest firmware, it is relatively unimportant, as whichever OS the connecting device is running on may be using the exploitable WPA2 protocol.
 
@@ -106,6 +106,8 @@ For other vendors, the [WiFi Alliance are working to mitigate](https://www.wi-fi
 
 
 ## Conclusion
+
+{% include tweet_quote.html quote_text="As with most security vulnerabilities, the most important thing to consider here is patching your software as soon as you can." %}
 
 As with most large or small security vulnerabilities, the biggest thing to consider here is ***patching your software*** as soon as you can.  With new updates and patches being released on an almost hourly basis as the moment, keep an eye on your vendor to ensure you grab yours as soon as applicable.
 
