@@ -46,9 +46,9 @@ Hackers have proven they can break through the most sophisticated cyber security
 
 Companies are finally waking up and implementing data protection strategies using data encryption, tokenization, and de-identification tactics to protect the actual data behind the security.
 
-* **Data Encryption **converts information into another form, kinda like a secret code. The only way to read the data is to decipher it with a unique key. Modern encryption uses algorithms that make it extremely hard to crack.
-* **Tokenization** replaces your data with unique symbols that retain all the information without compromising it. When the token is processed through the right tokenization system, it reveals the actual data.
-* **Data de-identification **separates personal identifiers such as name or social security number with its related data, making it hard for hackers to figure out which data belongs to each individual.
+- **Data Encryption*** converts information into another form, kinda like a secret code. The only way to read the data is to decipher it with a unique key. Modern encryption uses algorithms that make it extremely hard to crack.
+- ***Tokenization*** replaces your data with unique symbols that retain all the information without compromising it. When the token is processed through the right tokenization system, it reveals the actual data.
+- ***Data de-identification*** separates personal identifiers such as name or social security number with its related data, making it hard for hackers to figure out which data belongs to each individual.
 
 With an imminent threat of cyber attacks by a group of criminals that have a proven track record of breaking into the most advanced security systems, every company should be encrypting their data, no matter what. 
 
