@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SQLAlchemy Tutorial for Python Developers"
+title: "SQLAlchemy ORM Tutorial for Python Developers"
 description: "Let's learn how to use SQLAlchemy to persist and query data on Python applications."
 date: 2017-10-17 09:03
 category: Technical Guide, Python, SQLAlchemy
