@@ -15,6 +15,8 @@ design:
 tags:
 - python
 - sqlalchemy
+- orm
+- object-relational-mapping
 - sql
 - flask
 - persistence
