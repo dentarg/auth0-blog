@@ -2,13 +2,14 @@
 layout: post
 title: "WPA2 KRACK Attack: The WiFi Hack and What it Means"
 description: "A new security vulnerability has been found in the WPA2 WiFi protocol.  We will look at the details of this, and how to mitigate it."
-date: 2017-10-17 08:30
-category: Security
+date: 2017-10-18 08:30
+category: Hot Topics, Security
 author:
   name: "Robin Percy"
   url: "https://twitter.com/rbin"
   mail: "robin.percy@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
+is_non-tech: true
 design:
   bg_color: "#4F350B"
   image: https://cdn.auth0.com/blog/wpa2/wpa2-krack-attack.png
