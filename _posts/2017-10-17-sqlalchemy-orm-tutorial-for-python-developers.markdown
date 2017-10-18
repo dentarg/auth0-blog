@@ -52,10 +52,6 @@ Characteristics: none of them "pre create" connections
 
 ### SQLAlchemy Dialects
 
-### SQLAlchemy ORM
-
-### SQLAlchemy Data Types
-
 ### SQLAlchemy Sessions
 
 http://docs.sqlalchemy.org/en/rel_1_1/orm/session_basics.html
@@ -63,6 +59,10 @@ http://docs.sqlalchemy.org/en/rel_1_1/orm/session_basics.html
 Keep in mind, the Session is just a workspace for your objects, local to a particular database connection - if you think of an application thread as a guest at a dinner party, the Session is the guest’s plate and the objects it holds are the food (and the database…the kitchen?)!
 
 The Session begins in an essentially stateless form. Once queries are issued or other objects are persisted with it, it requests a connection resource from an Engine that is associated either with the Session itself or with the mapped Table objects being operated upon. This connection represents an ongoing transaction, which remains in effect until the Session is instructed to commit or roll back its pending state.
+
+## SQLAlchemy ORM
+
+### SQLAlchemy Data Types
 
 ### SQLAlchemy Relationship Patterns
 
@@ -135,7 +135,7 @@ class Class(Base):
 
 In this case we had to create a helper table to persist the association between instances of `Student` and instances of `Class`, as this wouldn't be possible without an extra table. Note that, to make SQLAlchemy aware of the helper table, we passed it in the `secondary` parameter of the `relationship` function.
 
-The above code snippets show just a subset of the mapping options available on SQLAlchemy. To learn more about [relationship patterns and other ways to create this associations, take a look at the official documentation](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
+The above code snippets show just a subset of the mapping options available on SQLAlchemy. In the following sections, we are going to take a deeper look into each one of the available relationship patterns. Besides that, [the official documentation is a great reference to learn more about relationship patterns on SQLAlchemy](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
 
 ## SQLAlchemy in Practice
 
