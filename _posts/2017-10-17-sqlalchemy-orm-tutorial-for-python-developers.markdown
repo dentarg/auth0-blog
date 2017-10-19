@@ -72,6 +72,34 @@ As usually production-ready programs need to override these defaults (to fine-tu
 
 ### SQLAlchemy Dialects
 
+As SQLAlchemy is a facade that enables Python developers to create applications that communicate to different database engines through the same API, we need to make use of *Dialects*. Most of the popular relational databases available out there adhere to the SQL (Structured Query Language) standard, but they also introduce proprietary variations. These variations are the solely responsible for the existence of dialects.
+
+For example, let's say that we want to fetch the first 10 rows of a table called `people`. If our data was being held by a Microsoft SQL Server database engine, SQLAlchemy would need to issue the following query:
+
+```sql
+SELECT TOP 10 * FROM people;
+```
+
+But, if our data was persisted on MySQL instance, then SQLAlchemy would need to issue:
+
+```sql
+SELECT * FROM people LIMIT 10;
+```
+
+Therefore, to know exactly what query to issue, SQLAlchemy needs to know the type of the database that it is dealing with. This is exactly what *Dialects* do, they make SQLAlchemy aware of the dialect it needs to talk.
+
+On its core, SQLAlchemy includes the following list of dialects:
+
+- [Firebird](http://docs.sqlalchemy.org/en/latest/dialects/firebird.html)
+- [Microsoft SQL Server](http://docs.sqlalchemy.org/en/latest/dialects/mssql.html)
+- [MySQL](http://docs.sqlalchemy.org/en/latest/dialects/mysql.html)
+- [Oracle](http://docs.sqlalchemy.org/en/latest/dialects/oracle.html)
+- [PostgreSQL](http://docs.sqlalchemy.org/en/latest/dialects/postgresql.html)
+- [SQLite](http://docs.sqlalchemy.org/en/latest/dialects/sqlite.html)
+- [Sybase](http://docs.sqlalchemy.org/en/latest/dialects/sybase.html)
+
+Dialects for other database engines, like [Amazon Redshift](https://pypi.python.org/pypi/sqlalchemy-redshift), are supported as external projects, but can be easily installed. [Check out the official documentation on SQLAlchemy Dialects to learn more](http://docs.sqlalchemy.org/en/latest/dialects/).
+
 ### SQLAlchemy Sessions
 
 http://docs.sqlalchemy.org/en/rel_1_1/orm/session_basics.html
