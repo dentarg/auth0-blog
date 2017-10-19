@@ -30,14 +30,28 @@ related:
 
 ## SQLAlchemy Introduction
 
-### SQLAlchemy DBAPI
+### Python DBAPI
 
-http://docs.sqlalchemy.org/en/rel_1_1/glossary.html#term-dbapi
-https://www.python.org/dev/peps/pep-0249/
+The [Python DBAPI (acronym for DataBase API)](https://www.python.org/dev/peps/pep-0249/) was created to specify how Python modules that interact with databases should expose their interfaces. Although we won't interact with this API directly—we will use SQLAlchemy as a facade to it—it's good to know that it defines how common functions like `connect`, `close`, `commit`, and `rollback` must behave. This means that, whenever we use a Python module that adheres to the specification, we can rest assured that we will find these functions and that they will behave as expected.
+
+In this article, we are going to install and use the most popular PostgreSQL DBAPI implementation available: [`psycopg`](http://initd.org/psycopg/). [There are other Python drivers that communicate with PostgreSQL](https://wiki.python.org/moin/PostgreSQL) as well, but `psycopg` is the best candidate since it fully implements the DBAPI specification and has a great support from the community.
+
+To better understand the DBAPI specification, what functions it requires, and how these functions behave, take a look [into the Python Enhancement Proposal that introduced it](https://www.python.org/dev/peps/pep-0249/). Also, to learn about what other database engines we can use (like MySQL or Oracle), [take a look at the official list of database interfaces available](https://wiki.python.org/moin/DatabaseInterfaces).
 
 ### SQLAlchemy Engines
 
-http://docs.sqlalchemy.org/en/rel_1_1/core/engines.html#sqlalchemy.create_engine
+Whenever we want to use SQLAlchemy to interact with a database, we need to create an *Engine*. Engines, on SQLAlchemy, are used to manage two important factors: *Pools* and *Dialects*. The following two sections will provide an explanation of what these two concepts are, but for now it suffices to say that SQLAlchemy uses them to interact with DBAPI functions.
+
+To create an engine and start interacting with databases, we have to import the `create_engine` function from the `sqlalchemy` library and issue a call to it:
+
+```python
+from sqlalchemy import create_engine
+engine = create_engine('postgresql://dbuser:dbpassword@localhost:5431/sqlalchemy-orm-tutorial')
+```
+
+This example creates a PostgreSQL engine to communicate with an instance running locally on port `5432` (the default one). It also defines that it will use `dbuser` and `dbpassword` as the credentials to interact with the `sqlalchemy-orm-tutorial` database. Note that, creating an engine does *not* connect to the database instantly. This process is postponed to when it's really needed (like when we submit a query, or when create/update a row in a table).
+
+Since SQLAlchemy relies on the DBAPI specification to interact with databases, the most common database management systems available are supported. PostgreSQL, MySQL, Oracle, Microsoft SQL Server, and SQLite are all examples of engines that we can use along side with SQLAlchemy. [To learn more about the options available to create SQLAlchemy engines, take a look into the official documentation](http://docs.sqlalchemy.org/en/rel_1_1/core/engines.html).
 
 ### SQLAlchemy Connection Pools
 
