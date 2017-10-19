@@ -28,6 +28,8 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 ---
 
+**TL;DR:** In this article, we will learn how to use SQLAlchemy as the ORM (Object Relational Database) library to communicate with relational database engines. First, we will learn about some core concepts of SQLAlchemy (like engines and connection pools), then we will learn how to map Python classes and its relationships to database tables, and finally we will learn how to retrieve (query) data from these tables. [The code snippets used in this article can be found in this GitHub repository](https://github.com/auth0/node-jwks-rsa/releases/tag/1.2.1).
+
 ## SQLAlchemy Introduction
 
 ### Python DBAPI
