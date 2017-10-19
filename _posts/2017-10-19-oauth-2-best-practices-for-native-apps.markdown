@@ -59,7 +59,7 @@ The authorization flow for native apps using the browser acts as illustrated in 
 >
 > _Figure 1, [OAuth 2.0 for Native Apps](https://www.rfc-editor.org/rfc/rfc8252.txt)_
 
-URIs are used for OAuth 2.0 on the web for authorization requests and responses. Similarly, URIs can also be used in native apps. When the built-in browser is employed by the user for all native app logins, certain advantages are conferred, such as the ability to use a single sign-on session stored in a central location and additional security afforded by an authentication context that is separated from the app. Browser security is also a major focus of vendors, and they tent to manage security and sessions policies quite well. In addition, supporting and implementing the same approach in web and native apps reduces complexity and increases interoperability.
+URIs are used for OAuth 2.0 on the web for authorization requests and responses. Similarly, URIs can also be used in native apps. When the built-in browser is employed by the user for all native app logins, certain advantages are conferred, such as the ability to use a single sign-on session stored in a central location and additional security afforded by an authentication context that is separated from the app. Browser security is also a major focus of vendors, and they tend to manage security and sessions policies quite well. In addition, supporting and implementing the same approach in web and native apps reduces complexity and increases interoperability.
 
 {% include tweet_quote.html quote_text="Implementing external user agents in both web & native apps reduces complexity and increases interop." %}
 
