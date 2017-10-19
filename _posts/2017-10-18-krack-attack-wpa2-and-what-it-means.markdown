@@ -9,7 +9,6 @@ author:
   url: "https://twitter.com/rbin"
   mail: "robin.percy@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
-is_non-tech: true
 design:
   bg_color: "#4F350B"
   image: https://cdn.auth0.com/blog/wpa2/wpa2-krack-attack.png
