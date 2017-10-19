@@ -32,6 +32,12 @@ related:
 
 ## SQLAlchemy Introduction
 
+SQLAlchemy is a library that facilitates the communication between Python programs and databases. Most of the times, this library is used as an [Object Relational Mapper (ORM)](https://en.wikipedia.org/wiki/Object-relational_mapping) tool that translates Python classes to tables on relational databases and that automatically converts function calls to SQL statements. SQLAlchemy provides a standard interface that allows developers to create database-agnostic code to communicate with a wide variety of database engines.
+
+As we will see in this article, SQLAlchemy relies on common design patterns (like [Object Pools](https://sourcemaking.com/design_patterns/object_pool)) to allow developers to easily create and ship enterprise-grade, production-ready applications. Besides that, with SQLAlchemy, boilerplate code to handle tasks like database connections is abstracted away to let developers focus on business logic.
+
+Before diving in the ORM features provided by SQLAlchemy, we need to learn how the core works. The following sections will introduce important concepts that every Python developer needs to understand before dealing with SQLAlchemy applications.
+
 ### Python DBAPI
 
 The [Python DBAPI (acronym for DataBase API)](https://www.python.org/dev/peps/pep-0249/) was created to specify how Python modules that interact with databases should expose their interfaces. Although we won't interact with this API directly—we will use SQLAlchemy as a facade to it—it's good to know that it defines how common functions like `connect`, `close`, `commit`, and `rollback` must behave. This means that, whenever we use a Python module that adheres to the specification, we can rest assured that we will find these functions and that they will behave as expected.
