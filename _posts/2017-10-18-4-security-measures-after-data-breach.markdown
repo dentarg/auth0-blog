@@ -10,8 +10,8 @@ author:
   mail: "email@auth0.com"
   avatar: ""
 design:
-  bg_color: "#FFFFFF"
-  image: https://cdn.auth0.com/blog/image.jpg
+  bg_color: "#6B5282"
+  image: https://cdn.auth0.com/blog/mitigate/security-measures-main.png
 tags:
 - security
 - data
@@ -28,7 +28,7 @@ If you're not getting hacked today, then you have time to add new security measu
 
 ![hacked](https://cdn.auth0.com/blog/data-breach-mitigate/banner_2.jpg)
 
-And if you're recouping from a breach, you definitely want to double down on security so you can regain your consumers' confidence. It is possible, and with some thoughtful upgrades, you'll be able to move past your mistakes.
+If you're recouping from a breach, you definitely want to double down on security so you can regain your consumers' confidence. It is possible, and with some thoughtful upgrades, you'll be able to move past your mistakes.
 
 While there is no magic security system that will guarantee 100% protection, these four measures will bring you closer to an impenetrable defense.
 
@@ -46,9 +46,9 @@ Hackers have proven they can break through the most sophisticated cyber security
 
 Companies are finally waking up and implementing data protection strategies using data encryption, tokenization, and de-identification tactics to protect the actual data behind the security.
 
-- **Data Encryption*** converts information into another form, kinda like a secret code. The only way to read the data is to decipher it with a unique key. Modern encryption uses algorithms that make it extremely hard to crack.
-- ***Tokenization*** replaces your data with unique symbols that retain all the information without compromising it. When the token is processed through the right tokenization system, it reveals the actual data.
-- ***Data de-identification*** separates personal identifiers such as name or social security number with its related data, making it hard for hackers to figure out which data belongs to each individual.
+* **Data Encryption **converts information into another form, kinda like a secret code. The only way to read the data is to decipher it with a unique key. Modern encryption uses algorithms that make it extremely hard to crack.
+* **Tokenization** replaces your data with unique symbols that retain all the information without compromising it. When the token is processed through the right tokenization system, it reveals the actual data.
+* **Data de-identification **separates personal identifiers such as name or social security number with its related data, making it hard for hackers to figure out which data belongs to each individual.
 
 With an imminent threat of cyber attacks by a group of criminals that have a proven track record of breaking into the most advanced security systems, every company should be encrypting their data, no matter what. 
 
@@ -74,6 +74,8 @@ Implementing an IAM technology to ensure the right users are securely accessing 
 When more than [80% of breaches](https://digitalguardian.com/blog/enterprise-data-security-breaches-experts-how-companies-can-protect-themselves-big-data) originate from static user credentials, restricting and managing access to critical data becomes a no-brainer. 
 
 ## 3.  Hack Yourself to Anticipate Future Attacks
+
+{% include tweet_quote.html quote_text="Find the weak spots in your ecosystem of technologies. How can you possibly keep up?  Hack yourself!" %}
 
 Hackers spend every minute of every day inventing new ways to attack your systems, trying to find the weak spots in your ecosystem of technologies. How can you possibly keep up?  Hack yourself.
 
@@ -119,6 +121,8 @@ The threat of a cyber attack is now a part of everyday business, but that doesn'
 Every major data breach that doesn't happen to your company is not only a stark reminder to be diligent; it is also an opportunity to learn from their mistakes.
 
 Equifax didn't encrypt their data, even after Anthem suffered a similar breach three years earlier. Target gave too many people access to data that they didn't even need. At the other end of the spectrum, companies like Google and Facebook pay people to hack their systems, keeping them one step ahead of the real criminals.
+
+{% include tweet_quote.html quote_text="Create a culture where your employees are always concerned about protecting the company's data." %}
 
 Create a culture where your employees are always concerned about protecting the company's data, you're always improving your systems and you're implementing the right tools to manage authorized users.
 
