@@ -514,17 +514,7 @@ curl http://localhost:5000/incomes/
 
 The `Dockerfile` is simple but effective, and using it is similarly easy. With these commands and this `Dockerfile`, we can run as many instances of our API as we need with no trouble. It's just a matter of defining another port on the host, or even another host.
 
-## <span id="securing-python-apis"></span> Securing Python APIs with Auth0
-
-Securing Python APIs with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get:
-
-- A solid [identity management solution](https://auth0.com/user-management), including [single sign-on](https://auth0.com/docs/sso/single-sign-on)
-- [User management](https://auth0.com/docs/user-profile)
-- Support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders)
-- [Enterprise identity providers (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise)
-- Our [own database of users](https://auth0.com/docs/connections/database/mysql)
-
-[To learn the best way to secure *Python APIs* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/python). Besides providing tutorials for backend technologies (like Python, Java, and PHP), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+{% include asides/python.markdown %}
 
 ## <span id="next-steps"></span> Next Steps
 
