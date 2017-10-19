@@ -10,8 +10,8 @@ author:
   mail: "email@auth0.com"
   avatar: ""
 design:
-  bg_color: "#FFFFFF"
-  image: https://cdn.auth0.com/blog/image.jpg
+  bg_color: "#526C33"
+  image: https://cdn.auth0.com/blog/predictive-analytics/predictive-analytics-main.png
 tags:
 - analytics
 - predictive-analytics
@@ -102,7 +102,7 @@ Take [Microsoft](https://www.microsoft.com/itshowcase/Article/Content/770/Predic
 
 ### IAM security
 
-When you have a good IAM in place, you can use predictive analytics to help keep you and your users more secure. 
+{% include tweet_quote.html quote_text="When you have a good IAM in place, you can use predictive analytics to help keep you and your users more secure." %}
 
 One of the best examples of this is anomaly detection, a security measure that flags unusual behaviors to keep users safe. For example, Auth0 offers [brute force protection](https://auth0.com/docs/anomaly-detection), which allows you to trigger security measures if someone makes too many attempts on a login. 
 
@@ -116,6 +116,8 @@ With an IAM system like Auth0, turning on security features like brute force pro
 
 
 ## Keep looking into the crystal ball
+
+{% include tweet_quote.html quote_text="When you start to see the power of what your data can do, you'll want to dive in with both feet." %}
 
 Predictive analytics isn't a short-haul adventure. And when you start to see the power of what your data can do, you'll want to dive in with both feet. 
 
