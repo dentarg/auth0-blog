@@ -55,16 +55,20 @@ Since SQLAlchemy relies on the DBAPI specification to interact with databases, t
 
 ### SQLAlchemy Connection Pools
 
-http://docs.sqlalchemy.org/en/rel_1_1/core/pooling.html
+Connection pooling is one of the most traditional implementations of the [object pool pattern](https://sourcemaking.com/design_patterns/object_pool). Object pools are used as caches of pre-initialized objects ready to use. That is, instead of spending time to create objects that are frequently needed (like connections to databases) the program fetches an existing object from the pool, uses it as desired, and puts back when done.
 
-QueuePool
+The main reason why programs take advantage of this design pattern is to improve performance. In the case of database connections, opening and maintaining a connection is expensive, time-consuming, and wastes resources. Besides that, this pattern allows easier management of the number of connections that an application might use simultaneously.
 
-Characteristics: none of them "pre create" connections
+[There are various implementations of the connection pool pattern available on SQLAlchemy ](http://docs.sqlalchemy.org/en/rel_1_1/core/pooling.html#api-documentation-available-pool-implementations). For example, creating an `Engine` through the `create_engine()` function usually generates a [QueuePool](http://docs.sqlalchemy.org/en/rel_1_1/core/pooling.html#sqlalchemy.pool.QueuePool). This kind of pool comes configured with some reasonable defaults, like a maximum pool size of 5 connections.
 
-- pool_size
-- max_overflow
-- pool_recycle
-- pool_timeout
+As usually production-ready programs need to override these defaults (to fine-tune pools to their needs), most of the different implementations of connection pools provide a similar set of configuration options. The following list shows the most common options with their descriptions:
+
+- `pool_size`: Sets the number of connections that the pool will handle.
+- `max_overflow`: Specifies how many exceeding connections (relative to `pool_size`) the pool supports.
+- `pool_recycle`: Configures the maximum age (in seconds) of connections in the pool.
+- `pool_timeout`: Identifies how many seconds the program will wait before giving up on getting a connection from the pool.
+
+[To learn more about connection pools on SQLAlchemy, check out the official documentation](http://docs.sqlalchemy.org/en/rel_1_1/core/pooling.html).
 
 ### SQLAlchemy Dialects
 
