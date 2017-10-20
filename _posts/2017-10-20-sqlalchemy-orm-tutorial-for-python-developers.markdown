@@ -108,15 +108,13 @@ On its core, SQLAlchemy includes the following list of dialects:
 
 Dialects for other database engines, like [Amazon Redshift](https://pypi.python.org/pypi/sqlalchemy-redshift), are supported as external projects, but can be easily installed. [Check out the official documentation on SQLAlchemy Dialects to learn more](http://docs.sqlalchemy.org/en/latest/dialects/).
 
-### SQLAlchemy Sessions
-
-http://docs.sqlalchemy.org/en/rel_1_1/orm/session_basics.html
-
-Keep in mind, the Session is just a workspace for your objects, local to a particular database connection - if you think of an application thread as a guest at a dinner party, the Session is the guest’s plate and the objects it holds are the food (and the database…the kitchen?)!
-
-The Session begins in an essentially stateless form. Once queries are issued or other objects are persisted with it, it requests a connection resource from an Engine that is associated either with the Session itself or with the mapped Table objects being operated upon. This connection represents an ongoing transaction, which remains in effect until the Session is instructed to commit or roll back its pending state.
-
 ## SQLAlchemy ORM
+
+ORM, which stands for *Object Relational Mapper*, is the specialization of the [*Data Mapper* design pattern](https://martinfowler.com/eaaCatalog/dataMapper.html) that addresses relational databases like MySQL, Oracle, and PostgreSQL. As explained by Martin Fowler in the article, *Mappers* are responsible for moving data between objects and a database while keeping them independent of each other. As object-oriented programming languages and relational databases structure data on different ways, we need specialized code to translate from one schema to the other.
+
+For example, on a programming language like Python we can create a `Product` class and an `Order` class to relate as many instances as needed from one class to another (i.e. `Product` can contain a list with instances of `Order` and vice-versa). Though, on relational databases we need three entities (tables), one to persist products, another one to persist orders, and a third one to relate (through foreign key) products and orders.
+
+As we will see in the following sections, [SQLAlchemy ORM](http://docs.sqlalchemy.org/en/latest/orm/) is a great *Data Mapper* solution to translate Python classes into/from tables and to move data between instances of these classes and rows of these tables.
 
 ### SQLAlchemy Data Types
 
@@ -193,6 +191,14 @@ In this case, we had to create a helper table to persist the association between
 
 The above code snippets show just a subset of the mapping options available on SQLAlchemy. In the following sections, we are going to take a deeper look into each one of the available relationship patterns. Besides that, [the official documentation is a great reference to learn more about relationship patterns on SQLAlchemy](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
 
+### SQLAlchemy Sessions
+
+http://docs.sqlalchemy.org/en/rel_1_1/orm/session_basics.html
+
+Keep in mind, the Session is just a workspace for your objects, local to a particular database connection - if you think of an application thread as a guest at a dinner party, the Session is the guest’s plate and the objects it holds are the food (and the database…the kitchen?)!
+
+The Session begins in an essentially stateless form. Once queries are issued or other objects are persisted with it, it requests a connection resource from an Engine that is associated either with the Session itself or with the mapped Table objects being operated upon. This connection represents an ongoing transaction, which remains in effect until the Session is instructed to commit or roll back its pending state.
+
 ## SQLAlchemy in Practice
 
 ### What Will We Build
@@ -207,7 +213,7 @@ The above code snippets show just a subset of the mapping options available on S
 
 ### Persisting Data with SQLAlchemy
 
-### Querying Data with SQLAlchemy
+### Querying Data with SQLAlchemy ORM
 
 {% include asides/python.markdown %}
 
