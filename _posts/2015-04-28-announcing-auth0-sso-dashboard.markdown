@@ -23,6 +23,11 @@ related:
 - 2015-09-28-5-steps-to-add-modern-authentication-to-legacy-apps-using-jwts
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>Update:</strong> The Single-Sign-On Dashboard referred in this article is now deprecated and has been replaced with the extension that can be found here: <a href="https://auth0.com/docs/extensions/sso-dashboard">Auth0 Extension: Single Sign-On (SSO) Dashboard</a>.
+</div>
+
 **tl;dr**: Control which apps your users can access with an SSO dashboard. Download the [code](https://github.com/auth0/auth0-sso-dashboard) or [deploy to Heroku](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fauth0%2Fauth0-sso-dashboard) in 5 minutes.
 
 Today, we are excited to announce the release of the Auth0 [Open Source Single-Sign-On Dashboard](https://github.com/auth0/auth0-sso-dashboard). This SSO dashboard is designed to solve a problem familiar to many people. Organizations of all sizes maintain a variety of different applications to handle various business functions like accounting, HR, development, support, etc. Remembering usernames and passwords and login urls for all of these apps is a pain. With this app we take another step in simplifying the authentication experience.
