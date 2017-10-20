@@ -5,8 +5,8 @@ description: "ReactJS 16 was released a month ago. Learn what's new in ReactJS!"
 date: 2017-10-19 08:30
 category: Technical Guide, Frontend, ReactJS
 design:
-  bg_color: "#4A4A4A"
-  image: https://cdn.auth0.com/blog/nodenpm/logo.png
+  bg_color: "#1A1A1A"
+  image: https://cdn.auth0.com/blog/reactjs16/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
