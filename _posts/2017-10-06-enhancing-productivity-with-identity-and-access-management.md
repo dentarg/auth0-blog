@@ -24,8 +24,8 @@ tags:
 - authentication
 - single-sign-on
 - multifactor-authentication
-- 
-- 
+-
+-
 related:
 - 2017-07-21-the-role-of-identity-in-application-modernization
 - 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
