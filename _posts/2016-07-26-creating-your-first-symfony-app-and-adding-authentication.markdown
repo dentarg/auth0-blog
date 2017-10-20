@@ -27,7 +27,7 @@ related:
 
 ---
 
-**TL;DR:** Symfony is a PHP framework, made up of a lot of decoupled and reusable components. It's a framework that promotes standardization and professionalism, supports best practices and interoperability of applications. In this tutorial, I'll show you how easy it is to build a web application with Symfony and add authentication to it without banging your head on a wall! Check out the [repo](https://github.com/auth0/symfony-got) to get the code.
+**TL;DR:** Symfony is a PHP framework, made up of a lot of decoupled and reusable components. It's a framework that promotes standardization and professionalism, supports best practices and interoperability of applications. In this tutorial, I'll show you how easy it is to build a web application with Symfony and add authentication to it without banging your head on a wall! Check out the [repo](https://github.com/auth0-blog/symfony-got) to get the code.
 
 ---
 
