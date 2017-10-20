@@ -28,7 +28,7 @@ related:
 
 ---
 
-**TL;DR:** Laravel is a great PHP framework. Currently, it is the most starred PHP project on [Github](https://github.com) and a lot of companies and people all over the world use it to build amazing applications. In this tutorial, I'll show you how easy it is to build a web application with Laravel and add authentication to it without breaking a sweat. Check out the [repo](https://github.com/auth0/laravel-auth0-got) to get the code.
+**TL;DR:** Laravel is a great PHP framework. Currently, it is the most starred PHP project on [Github](https://github.com) and a lot of companies and people all over the world use it to build amazing applications. In this tutorial, I'll show you how easy it is to build a web application with Laravel and add authentication to it without breaking a sweat. Check out the [repo](https://github.com/auth0-blog/laravel-auth0-got) to get the code.
 
 ---
 
