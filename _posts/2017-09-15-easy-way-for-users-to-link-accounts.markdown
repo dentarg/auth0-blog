@@ -56,7 +56,7 @@ successful, they'll be redirected to your site successfully as their original
 account, with the new account merged in as an identity of the original. This
 then, conveniently, lets them sign in with either option to the same account.
 
-![Image of extension page]()
+![Image of extension page](https://cdn2.auth0.com/docs/media/articles/extensions/account-link/hosted-page-example.png)
 <!-- Image in docs going through code review -->
 
 But let's assume the opposite for a moment: that your user has intentionally
