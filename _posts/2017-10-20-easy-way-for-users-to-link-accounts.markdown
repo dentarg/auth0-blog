@@ -33,7 +33,7 @@ provides rules for allowing these accounts to be linked back together
 automatically, but we're happy to announce a new option that gives the
 user a choice as to whether they'd like to link the accounts or not.
 
-This happens as part of our (Account Link extension)[https://auth0.com/docs/extensions/account-link]. It's extremely simple to
+This happens as part of our [Account Link extension](https://auth0.com/docs/extensions/account-link). It's extremely simple to
 set up and can save your users a lot of hassle.
 
 Let's walk through how this gets presented to your users to demonstrate how the
