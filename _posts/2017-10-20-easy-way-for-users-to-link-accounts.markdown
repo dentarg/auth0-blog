@@ -2,16 +2,16 @@
 layout: post
 title: "An Easy Way for Users to Link Accounts"
 description: "Give your users a choice to link their accounts when accidentally using another provider with the same email address."
-date: 2017-09-15 20:30
-category: Extension
+date: 2017-10-20 20:30
+category: Announcements, Feature
 author:
   name: "Matthew Machuga"
   url: "https://twitter.com/machuga"
   mail: "matthew.machuga@auth0.com"
   avatar: https://gravatar.com/avatar/8f9f6a577da77a9add9cadbb90e66b75
 design:
-  bg_color: "#653F8B"
-  image: "https://cdn.auth0.com/blog/building-account-systems/logo.png"
+  bg_color: "#4E0D61"
+  image: "https://cdn.auth0.com/blog/account-link-extension/logo.png"
 tags:
 - identity
 - management
@@ -33,7 +33,7 @@ provides rules for allowing these accounts to be linked back together
 automatically, but we're happy to announce a new option that gives the
 user a choice as to whether they'd like to link the accounts or not.
 
-This happens as part of our Account Link extension. It's extremely simple to
+This happens as part of our (Account Link extension)[https://auth0.com/docs/extensions/account-link]. It's extremely simple to
 set up and can save your users a lot of hassle.
 
 Let's walk through how this gets presented to your users to demonstrate how the
@@ -73,4 +73,9 @@ most common intent.
 You can install it from the [Extensions Gallery](https://manage.auth0.com/#extensions)
 and give your users a choice that will make their experience, and your management, easier.
 
+# Aside: Securing Applications with Auth0
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
 
