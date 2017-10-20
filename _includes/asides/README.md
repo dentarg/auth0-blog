@@ -45,3 +45,7 @@ When you create a new Aside, add a link to it here along with author's name so a
 ### Technical Asides
 
 * [angular.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/angular.markdown) - Kim
+
+### Market Basket Links Aside
+
+* [market-basket-links-about.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/market-basket-links-about.markdown) - Bruno
