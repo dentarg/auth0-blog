@@ -118,9 +118,34 @@ As we will see in the following sections, [SQLAlchemy ORM](http://docs.sqlalchem
 
 ### SQLAlchemy Data Types
 
+While using SQLAlchemy, we can rest assured that we will get support for the most common data types found on relational databases. [For example, booleans, dates, times, strings, and numeric values are a just a subset of the types that SQLAlchemy provides abstractions for](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#generic-types). Besides these basic types, [SQLAlchemy includes support to a few vendor-specific types (like JSON)](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sql-standard-and-multiple-vendor-types) and also allows developers to [create custom types and redefine existing ones](http://docs.sqlalchemy.org/en/latest/core/custom_types.html).
+
+To understand how we use SQLAlchemy data types to map properties of Python classes into columns on a relation database table, let's analyze the following example:
+
+```python
+class Product(Base):
+    __tablename__ = 'products'
+    id=Column(Integer, primary_key=True)
+    title=Column('title', String(32))
+    in_stock=Column('in_stock', Boolean)
+    quantity=Column('quantity', Integer)
+    price=Column('price', Numeric)
+```
+
+In the code snippet above, we are defining a class called `Product` that has 6 properties. Let's take a look at what these properties do:
+
+- The `__tablename__` property tells to SQLAlchemy that rows of the `products` table must be mapped to this class.
+- The `id` property identifies that this is the `primary_key` in the table and that its type is `Integer`.
+- The `title` property indicates that a column in the table has the same name of the property and that its type is `String`.
+- The `in_stock` property indicates that a column in the table has the same name of the property and that its type is `Boolean`.
+- The `quantity` property indicates that a column in the table has the same name of the property and that its type is `Integer`.
+- The `price` property indicates that a column in the table has the same name of the property and that its type is `Numeric`.
+
+Seasoned developers will notice that (usually) relational databases do not have data types with these exact names. SQLAlchemy uses these types as generic representations to what databases support and use the dialect configured to understand what types they translate to. For example, on a PostgreSQL database, the title would be mapped to a `varchar` column.
+
 ### SQLAlchemy Relationship Patterns
 
-SQLAlchemy supports four types of relationship between classes: [One To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-many), [Many To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-one), [One To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one), and [Many To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-many).
+Now that we know what ORM is and have look into data types, let's learn how do we use SQLAlchemy to map relationships between classes to relationships between tables. SQLAlchemy supports four types of relationships: [One To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-many), [Many To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-one), [One To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one), and [Many To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-many).
 
 The first type, *One To Many*, is used to mark that an instance of a class can be associated with many instances of another class. For example, on a blog engine, an instance of the `Article` class could be associated with many instances of the `Comment` class. In this case, we would map the mentioned classes and its relation as follows:
 
