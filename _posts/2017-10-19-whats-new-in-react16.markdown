@@ -28,7 +28,7 @@ related:
 
 ---
 
-**TL;DR:** ReactJS is a UI library that has gained massive adoption by developers and organizations around the world because of it's efficient and reactive model. In this article, we'll highlight notable additions to ReactJS 16  and dabble into the architecture it runs on.
+**TL;DR:** ReactJS is a UI library that has gained massive adoption by developers and organizations around the world because of it's efficient and reactive model. In this article, we'll highlight notable additions to ReactJS 16 and dabble into the architecture it runs on.
 
 ---
 
@@ -46,23 +46,23 @@ Questions have been flying around as to why Facebook decided to rewrite the inte
 
 2. Support for graceful and efficient error handling using error boundaries in ReactJS. It was difficult to add this frequently-demanded feature to the previously existing ReactJS architecture, so it needed to be re-designed from the ground up.
 
-3. The need for a new foundation that is immensely extensible and powerful enough to accomodate new idea implementation going forward. Furthermore, the support for long standing features such as having fragments, returning text from render, unification of the scheduling of different subtrees and simple, non-complex ways to write custom renderers for React.
+3. The need for a new foundation that is immensely extensible and powerful enough to accomodate new idea implementation going forward. Furthermore, the support for long standing features such as having fragments, returning text from render, unification of the scheduling of different subtrees and simple, non-complex ways to write custom renderers for ReactJS.
 
 ## React Fiber
 
 Let's talk a bit about **React Fiber**. As I mentioned earlier, React Fiber has been in development for a while. And there was a website made specially just to track the progress of React Fiber; [isfiberreadyyet.com](http://isfiberreadyyet.com).
 
-_React Fiber_ is a complete, backwards compatible rewrite of the React core which enables sophisticated scheduling of rendering work. It is a reimplementation of ReactJS's core algorithm. The goal of React Fiber is to increase its suitability for app development in sections like gestures, animation and layouts. One key feature is the support for **incremental rendering**. _Incremental rendering_ is the ability to split the rendering process into chunks and spread it out over multiple frames.
+_React Fiber_ is a complete, backwards compatible rewrite of the ReactJS core which enables sophisticated scheduling of rendering work. It is a reimplementation of ReactJS's core algorithm. The goal of React Fiber is to increase its suitability for app development in sections like gestures, animation and layouts. One key feature is the support for **incremental rendering**. _Incremental rendering_ is the ability to split the rendering process into chunks and spread it out over multiple frames.
 
 _React Fiber_ is a reimplementation of a stack frame specialised for ReactJS components. Each fibre can be thought of as a virtual stack frame where information from the frame is preserved in memory on the heap, and because info is saved on the heap, you can control and play with the data structures and process the relevant information as needed.
 
 _React Fiber_ allows smooth rendering of the UI by pausing once in a while and checking for more important updates rather than waiting for all the changes to be propagated throughout the entirety of the component tree before updating the UI. The task scheduling ability of _React Fiber_ makes this possible.
 
-In ReactJS, we have two important players, the **Reconciler** and the **Renderer**. The **Renderer** is a pluggable section of ReactJS that allows rendering of the UI to happen across and outside the DOM. It was originally created for the DOM but was later adapted to support native platforms. ReactJS has the _[React DOM Renderer](https://github.com/facebook/react/tree/master/src/renderers/dom) - reners ReactJS components to the DOM_, _[React Native Renderer](https://github.com/facebook/react/tree/master/src/renderers/native) - renders ReactJS components to native views_, and the _[React Test Renderer](https://github.com/facebook/react/tree/master/src/renderers/testing) - renders ReactJS components to JSON trees_.
+In ReactJS, we have two important players, the **Reconciler** and the **Renderer**. The **Renderer** is a pluggable section of ReactJS that allows rendering of the UI to happen across and outside the DOM. It was originally created for the DOM but was later adapted to support native platforms. ReactJS has the _[ReactJS DOM Renderer](https://github.com/facebook/react/tree/master/src/renderers/dom) - reners ReactJS components to the DOM_, _[ReactJS Native Renderer](https://github.com/facebook/react/tree/master/src/renderers/native) - renders ReactJS components to native views_, and the _[ReactJS Test Renderer](https://github.com/facebook/react/tree/master/src/renderers/testing) - renders ReactJS components to JSON trees_.
 
 The **Reconciler** is used by the renderer to perform updates to the DOM. Whenever a component updates, be it _mounting_, _unmounting_ or any form of update, the reconciler (_known as the stack reconciler_) processes the component tree from top to bottom synchronously in a single pass, checks for changes on the tree, then passes on these changes to the renderer. In previous versions of ReactJS, the reconciler did not have the ability to pause work, thus making performance suboptimal when deep updates occur and the CPU time is limited.
 
-{% include tweet_quote.html quote_text="In ReactJS, we have two important players, the Reconciler and the Renderer." %}
+{% include tweet_quote.html quote_text="In ReactJS, we have two important players - the Reconciler and the Renderer." %}
 
 With React Fiber, the new reconciler has the ability to do the following:
 
@@ -82,7 +82,7 @@ Check out more information on [Reconciliation](https://reactjs.org/docs/reconcil
 
 Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. ReactJS 16 ships with some new features.
 
-* **Error handling using Error boundaries**: In React 16, the error handling has been greatly improved. Before now, ReactJS applications break when a runtime error occurs and requires a page refresh to recover from the broken state. The component is unmounted each time any error throw in the constructor, render method and lifecycle methods. In React 16, error boundaries have been introduced to capture errors and display a fallback UI instead of unmounting the component every time. **Error boundaries** are simply ReactJS components that catch JavaScript errors anywhere in a component and child trees, log those errors and display a fallback UI. It is important to know that error boundaries catch errors thrown in the constructor, render and lifecycle methods. The new lifecycle hook method that makes a class component an error boundary is `componentDidCatch(error, info)`. This method works like a try/catch block for components. Create an error boundary component once and call it everywhere it's needed in your application.
+* **Error handling using Error boundaries**: In ReactJS 16, the error handling has been greatly improved. Before now, ReactJS applications break when a runtime error occurs and requires a page refresh to recover from the broken state. The component is unmounted each time any error throw in the constructor, render method and lifecycle methods. In ReactJS 16, error boundaries have been introduced to capture errors and display a fallback UI instead of unmounting the component every time. **Error boundaries** are simply ReactJS components that catch JavaScript errors anywhere in a component and child trees, log those errors and display a fallback UI. It is important to know that error boundaries catch errors thrown in the constructor, render and lifecycle methods. The new lifecycle hook method that makes a class component an error boundary is `componentDidCatch(error, info)`. This method works like a try/catch block for components. Create an error boundary component once and call it everywhere it's needed in your application.
 
     ```js
     class ErrorBoundary extends React.Component {
@@ -108,7 +108,7 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
     }
     ```
 
-* **Support for Defining Custom DOM Attributes**: Before now, if you used a custom DOM attribute, ReactJS would skip it. In React 16, unknown attributes will be passed onto the DOM. A typical example is shown below:
+* **Support for Defining Custom DOM Attributes**: Before now, if you used a custom DOM attribute, ReactJS would skip it. In ReactJS 16, unknown attributes will be passed onto the DOM. A typical example is shown below:
 
     ```
     <div alein="skullIsland" />
@@ -126,7 +126,7 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
 
 **Note:** Using the canonical ReactJS naming for known attributes still remain the same.
 
-* **Fragments and Strings as new render return types**: In React 16, you can now return an array of multiple elements from a component's render method.
+* **Fragments and Strings as new render return types**: In ReactJS 16, you can now return an array of multiple elements from a component's render method.
 
     ```js
     render() {
@@ -165,9 +165,9 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
     ```
     _A typical example_
 
-* **Improved Server-side rendering**: The server renderer was completely rewritten in ReactJS 16to be very fast. Server-side rendering in ReactJS 16is about three times faster than ReactJS 15because the server renderer supports _streaming_. This makes sending of data from the server to the client faster than usual. In React 16, there are two different methods for rendering on the client side, _render()_ and _hydrate()_. _render()_ as we already know for rendering content solely on the client side, _hydrate()_ for rendering on top of server-side rendered markup. Furthermore, ReactJS 16is better at hydrating server-rendered HTML once it reaches the client. It no longer requires the initial render to exactly match the result from the server. Instead, it will attempt to reuse as much of the existing DOM as possible.
+* **Improved Server-side rendering**: The server renderer was completely rewritten in ReactJS 16 to be very fast. Server-side rendering in ReactJS 16 is about three times faster than ReactJS 15 because the server renderer supports _streaming_. This makes sending of data from the server to the client faster than usual. In ReactJS 16, there are two different methods for rendering on the client side, _render()_ and _hydrate()_. _render()_ as we already know for rendering content solely on the client side, _hydrate()_ for rendering on top of server-side rendered markup. Furthermore, ReactJS 16 is better at hydrating server-rendered HTML once it reaches the client. It no longer requires the initial render to exactly match the result from the server. Instead, it will attempt to reuse as much of the existing DOM as possible.
 
-{% include tweet_quote.html quote_text="In React 16, there are two different methods for rendering on the client side, render() and hydrate()." %}
+{% include tweet_quote.html quote_text="In ReactJS 16, there are two different methods for rendering on the client side, render() and hydrate()." %}
 
     ```js
       import { hydrate } from "react-dom"
@@ -175,19 +175,19 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
       hydrate(<Profile />, document.getElementById("profile-container"));
     ```
 
-> **Note:** _render()_ can still be used to render on top of server-side rendered markup, but its recommended to use _hydrate()_ now for that type of rendering in React 16.
+> **Note:** _render()_ can still be used to render on top of server-side rendered markup, but it's recommended to use _hydrate()_ now for that type of rendering in ReactJS 16 .
 
 
-![ReactJS 16vs ReactJS 15server-side rendering](https://cdn-images-1.medium.com/max/1600/1*E5Pmh6HSeybcF7C686B9pA.png)
+![ReactJS 16 vs ReactJS 15 server-side rendering](https://cdn-images-1.medium.com/max/1600/1*E5Pmh6HSeybcF7C686B9pA.png)
 _Source: hackernoon.com_
 
-ReactJS 16does not support error boundaries and portals in server-side rendering.
+ReactJS 16 does not support error boundaries and portals in server-side rendering.
 
-For more information, check out this [excellent article on Server-side rendering in React 16.](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)
+For more information, check out this [excellent article on Server-side rendering in ReactJS 16.](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)
 
-## ReactJS 16Deprecations and Breaking Changes
+## ReactJS 16 Deprecations and Breaking Changes
 
-There a few deprecations and a number of breaking changes in React 16.
+There a few deprecations and a number of breaking changes in ReactJS 16.
 
 * Discontinued support for React Addons.
 * Calling `setState` with null no longer triggers an update.
@@ -198,16 +198,16 @@ There a few deprecations and a number of breaking changes in React 16.
 * Previously, changing the ref to a component would always detach the ref before that component's render is called. Now, we change the ref later, when applying the changes to the DOM.
 * As I mentioned earlier, hydrating a server rendered container now has an explicit API. Use _ReactDOM.hydrate_ instead of _ReactDOM.render_ if you're reviving server rendered HTML. Keep using _ReactDOM.render_ if you're just doing client-side rendering.
 
-For more information, check out the full list of [deprections and breaking changes on Github](https://github.com/facebook/react/releases/tag/v16.0.0).
+For more information, check out the full list of [deprections and breaking changes on GitHub](https://github.com/facebook/react/releases/tag/v16.0.0).
 
-There are lots of performance observation and testing done by apps that have made the upgrade to React 16. And so far, there have been a lot of cheer and positive feedback for React 16. In fact, Twitter Lite already uses React 16.
+There are lots of performance observation and testing done by apps that have made the upgrade to ReactJS 16. And so far, there have been a lot of cheer and positive feedback for ReactJS 16. In fact, Twitter Lite already uses ReactJS 16.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Twitter Lite is now on React v16. We&#39;ve seen from 5 to 32% increase in performance on React components. 🎉👏</p>&mdash; Paul Armstrong (@paularmstrong) <a href="https://twitter.com/paularmstrong/status/920700461388361728?ref_src=twsrc%5Etfw">October 18, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 The Twitter Lite engineering team discovered that the app's bundle size reduced a little and there were very clear improvements on large trees.
 
-## Aside: Using Auth0 with React 16
+## Aside: Using Auth0 with ReactJS 16
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/user-management), support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
@@ -433,7 +433,7 @@ _src/Callback/Callback.js_
   export default Callback;
 ```
 
-When a user authenticates at the Auth0 hosted login page, they are redirected to your application. Their URL contains a hash fragment with their authentication information. The handleAuthentication method in the Auth service processes the hash.
+When a user authenticates at the Auth0 hosted login page, they are redirected back to your application. Their URL contains a hash fragment with their authentication information. The handleAuthentication method in the Auth service processes the hash.
 
 Call the handleAuthentication method after you render the Callback route. The method processes the authentication hash fragment when the Callback component initializes.
 
@@ -472,7 +472,7 @@ export const makeMainRoutes = () => {
 }
 ```
 
-Check out a complete ReactJS application running on _React 16_ with a Node.js API backend on [GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/react16). This app accompanies the [ReactJS Authentication tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). Go ahead and run the _react16_ branch!
+Check out a complete ReactJS application running on _ReactJS 16_ with a Node.js API backend on [GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/react16). This app accompanies the [ReactJS Authentication tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). Go ahead and run the _react16_ branch!
 
 ## Conclusion
 
@@ -480,4 +480,4 @@ ReactJS is an awesome front-end library to employ in building your user interfac
 
 **ReactJS 16** came loaded with lots of new features and significant improvements. Kudos to the ReactJS team and the JavaScript Open source community for all their efforts in making ReactJS a better tool.
 
-Have you switched to ReactJS 16yet? What are your thoughts? Let me know in the comments section! 😊
+Have you switched to ReactJS 16 yet? What are your thoughts? Let me know in the comments section! 😊
