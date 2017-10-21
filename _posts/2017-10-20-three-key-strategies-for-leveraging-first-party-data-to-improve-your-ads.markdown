@@ -14,7 +14,7 @@ author:
 is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/strategies/logo.png
-  bg_color: "#332754"
+  bg_color: "#56416C"
 tags:
 - legacy
 - modernization
