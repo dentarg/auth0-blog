@@ -13,7 +13,7 @@ author:
   mail: diego.poza@auth0.com
 is_non-tech: true
 design:
-  image: https://cdn.auth0.com/blog/pam/logo.png
+  image: https://cdn.auth0.com/blog/strategies/logo.png
   bg_color: "#332754"
 tags:
 - legacy
