@@ -16,15 +16,13 @@ design:
   image: https://cdn.auth0.com/blog/strategies/logo.png
   bg_color: "#56416C"
 tags:
-- legacy
+- strategty
 - modernization
 - digital-transformation
 - identity
 - authorization
 - authentication
-- single-sign-on
-- multifactor-authentication
--
+- social-login
 related:
 - 2017-07-21-the-role-of-identity-in-application-modernization
 - 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
