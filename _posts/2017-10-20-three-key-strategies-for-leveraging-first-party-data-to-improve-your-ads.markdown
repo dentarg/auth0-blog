@@ -51,6 +51,7 @@ If you set yourself up well, first-party data is your highest-quality, cheapest 
 
 As software becomes more and more embedded in advertising, first-party data's role will increase. Programmatic advertising, wherein software is responsible for automating key parts of running an ad, like choosing target demographics, is already on the rise. This isn't as complicated as it sounds, tools like [AdEspresso](https://adespresso.com/), which automates Facebook ads, have been on the market for years. “More than [50%](http://west.gannettuscp.com/images/uploads/attachments/eMarketer_US_Digital_Display_Advertising_Trends-Eight_Developments_to_Watch_for_in_2016.pdf) of all US digital video ad spending will flow via automation in 2016,” and advertisers will be reliant on data to help these programs make better decisions.
 
+
 As much of the leg work of advertising is automated in this way, knowing more details about your consumers will allow you to maximize the power of automation. A unified view of subscriber demographic and behavior will be critical to make this strategy relevant. Consumers are already shifting to expect relevant, timely advertising across channels, and a mix of information and programming will be key to delivering this in the future.
 
 So, now that we know what first-party data is and how it's important, let's look at how you can use it to make better, more cost-effective ads.
@@ -62,6 +63,8 @@ Social logins are great for both consumers and companies. With a good identity m
 An important way that social login helps you better collect information yourself is by adding a layer of transparency. Consumers generally feel uncomfortable if they find out a company is gathering all their information to do what they will with. A prime example of this? Unroll.me [selling](https://theintercept.com/2017/04/24/stop-using-unroll-me-right-now-it-sold-your-data-to-uber/) their first-party data to other companies, like Uber, causing widespread outrage.
 
 Social logins give your consumers choice, because they can opt-in to what information they want to share. When a user signs in for the first time, you can notify them what data you'd like to receive (e.g. location, friends list) and have them check or uncheck what they feel comfortable sharing.
+
+{% include tweet_quote.html quote_text="Social logins give your consumers choice, because they can opt-in to what information they want to share." %}
 
 This builds trust with your consumer, while still allowing you to get the data you need.
 
@@ -84,6 +87,8 @@ It can also negatively impact the way you remarket to customers. If you don't ha
 ![Central Profile](https://cdn.auth0.com/blog/digital/centralprofile.png)
 
 Relevance and personalization are key when it comes to ads today. Nobody wants to see irrelevant ads, and people will mark ads on social as annoying or unnecessary when they get flooded by them. Some will even go so far as to use an ad blocker, which proves how impersonal and spammy ads can seem.
+
+{% include tweet_quote.html quote_text="Relevance and personalization are key when it comes to ads today." %}
 
 You can cut down on irrelevant ads by linking accounts because you have a full picture in your first-party data on any given customer. This helps you serve each individual user better, but also helps you [better identify trends and behaviors](https://www.interana.com/blog/10-stories-companies-changed-users-behavior/) that you would otherwise botch because it looks like several people are doing the actions of one.
 
