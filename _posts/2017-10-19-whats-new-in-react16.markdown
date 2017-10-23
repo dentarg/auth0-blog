@@ -46,21 +46,21 @@ Questions have been flying around as to why Facebook decided to rewrite the inte
 
 2. Support for graceful and efficient error handling using error boundaries in ReactJS. It was difficult to add this frequently-demanded feature to the previously existing ReactJS architecture, so it needed to be re-designed from the ground up.
 
-3. The need for a new foundation that is immensely extensible and powerful enough to accomodate new idea implementation going forward. Furthermore, the support for long standing features such as having fragments, returning text from render, unification of the scheduling of different subtrees and simple, non-complex ways to write custom renderers for ReactJS.
+3. The need for a new foundation that is immensely extensible and powerful enough to accommodate new idea implementation going forward. Furthermore, the support for longstanding features such as having fragments, returning text from _render_, unification of the scheduling of different subtrees and simple, non-complex ways to write custom renderers for ReactJS.
 
 ## React Fiber
 
 Let's talk a bit about **React Fiber**. As I mentioned earlier, React Fiber has been in development for a while. And there was a website made specially just to track the progress of React Fiber; [isfiberreadyyet.com](http://isfiberreadyyet.com).
 
-_React Fiber_ is a complete, backwards compatible rewrite of the ReactJS core which enables sophisticated scheduling of rendering work. It is a reimplementation of ReactJS's core algorithm. The goal of React Fiber is to increase its suitability for app development in sections like gestures, animation and layouts. One key feature is the support for **incremental rendering**. _Incremental rendering_ is the ability to split the rendering process into chunks and spread it out over multiple frames.
+_React Fiber_ is a complete, backward compatible rewrite of the ReactJS core which enables sophisticated scheduling of rendering work. It is a reimplementation of ReactJS's core algorithm. The goal of React Fiber is to increase its suitability for app development in sections like gestures, animation, and layouts. One key feature is the support for **incremental rendering**. _Incremental rendering_ is the ability to split the rendering process into chunks and spread it out over multiple frames.
 
-_React Fiber_ is a reimplementation of a stack frame specialised for ReactJS components. Each fibre can be thought of as a virtual stack frame where information from the frame is preserved in memory on the heap, and because info is saved on the heap, you can control and play with the data structures and process the relevant information as needed.
+_React Fiber_ is a reimplementation of a stack frame specialized for ReactJS components. Each fiber can be thought of as a virtual stack frame where information from the frame is preserved in memory on the heap, and because the info is saved on the heap, you can control and play with the data structures and process the relevant information as needed.
 
 _React Fiber_ allows smooth rendering of the UI by pausing once in a while and checking for more important updates rather than waiting for all the changes to be propagated throughout the entirety of the component tree before updating the UI. The task scheduling ability of _React Fiber_ makes this possible.
 
-In ReactJS, we have two important players, the **Reconciler** and the **Renderer**. The **Renderer** is a pluggable section of ReactJS that allows rendering of the UI to happen across and outside the DOM. It was originally created for the DOM but was later adapted to support native platforms. ReactJS has the _[ReactJS DOM Renderer](https://github.com/facebook/react/tree/master/src/renderers/dom) - reners ReactJS components to the DOM_, _[ReactJS Native Renderer](https://github.com/facebook/react/tree/master/src/renderers/native) - renders ReactJS components to native views_, and the _[ReactJS Test Renderer](https://github.com/facebook/react/tree/master/src/renderers/testing) - renders ReactJS components to JSON trees_.
+In ReactJS, we have two important players, the **Reconciler** and the **Renderer**. The **Renderer** is a pluggable section of ReactJS that allows rendering of the UI to happen across and outside the DOM. It was originally created for the DOM but was later adapted to support native platforms. ReactJS has the _[ReactJS DOM Renderer](https://github.com/facebook/react/tree/master/src/renderers/dom) - renders ReactJS components to the DOM_, _[ReactJS Native Renderer](https://github.com/facebook/react/tree/master/src/renderers/native) - renders ReactJS components to native views_, and the _[ReactJS Test Renderer](https://github.com/facebook/react/tree/master/src/renderers/testing) - renders ReactJS components to JSON trees_.
 
-The **Reconciler** is used by the renderer to perform updates to the DOM. Whenever a component updates, be it _mounting_, _unmounting_ or any form of update, the reconciler (_known as the stack reconciler_) processes the component tree from top to bottom synchronously in a single pass, checks for changes on the tree, then passes on these changes to the renderer. In previous versions of ReactJS, the reconciler did not have the ability to pause work, thus making performance suboptimal when deep updates occur and the CPU time is limited.
+The **Reconciler** is used by the renderer to perform updates to the DOM. Whenever a component updates, be it _mounting_, _unmounting_ or any form of update, the reconciler (_known as the stack reconciler_) processes the component tree from top to bottom synchronously in a single pass, checks for changes in the tree, then passes on these changes to the renderer. In previous versions of ReactJS, the reconciler did not have the ability to pause work, thus making performance suboptimal when deep updates occur and the CPU time is limited.
 
 {% include tweet_quote.html quote_text="In ReactJS, we have two important players - the Reconciler and the Renderer." %}
 
@@ -74,7 +74,7 @@ With React Fiber, the new reconciler has the ability to do the following:
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The Fiber Triangle demo now lets you toggle time-slicing on and off. Makes it much easier to see the effect. Thanks <a href="https://twitter.com/giamir?ref_src=twsrc%5Etfw">@giamir</a> for the PR! 🎉 <a href="https://t.co/qhsWUIyXPf">pic.twitter.com/qhsWUIyXPf</a></p>&mdash; Andrew Clark (@acdlite) <a href="https://twitter.com/acdlite/status/846456239693344769?ref_src=twsrc%5Etfw">March 27, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-> **Note:** Work is the result of an update. Updates are computations perfomed during the traversal of the component trees.
+> **Note:** Work is the result of an update. Updates are computations performed during the traversal of the component trees.
 
 Check out more information on [Reconciliation](https://reactjs.org/docs/reconciliation.html) and the [React Fiber Architecture](https://github.com/acdlite/react-fiber-architecture).
 
@@ -175,7 +175,7 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
       hydrate(<Profile />, document.getElementById("profile-container"));
     ```
 
-> **Note:** _render()_ can still be used to render on top of server-side rendered markup, but it's recommended to use _hydrate()_ now for that type of rendering in ReactJS 16 .
+> **Note:** _render()_ can still be used to render on top of server-side rendered markup, but it's recommended to use _hydrate()_ now for that type of rendering in ReactJS 16.
 
 
 ![ReactJS 16 vs ReactJS 15 server-side rendering](https://cdn-images-1.medium.com/max/1600/1*E5Pmh6HSeybcF7C686B9pA.png)
@@ -189,14 +189,14 @@ For more information, check out this [excellent article on Server-side rendering
 
 There a few deprecations and a number of breaking changes in ReactJS 16.
 
-* Discontinued support for React Addons.
+* Discontinued support for React Add-ons.
 * Calling `setState` with null no longer triggers an update.
 * Calling `setState` directly inside the _render()_ method always causes an update.
 * `setState` callbacks now fire immediately after _componentDidMount_ or _componentDidUpdate_.
 * The `componentDiDUpdate` lifecycle no longer accepts the `prevContext` parameter.
 * `ReactDOM.render()` and `ReactDOM.unstable_renderIntoContainer()` now return `null` if called from inside a lifecycle method.
 * Previously, changing the ref to a component would always detach the ref before that component's render is called. Now, we change the ref later, when applying the changes to the DOM.
-* As I mentioned earlier, hydrating a server rendered container now has an explicit API. Use _ReactDOM.hydrate_ instead of _ReactDOM.render_ if you're reviving server rendered HTML. Keep using _ReactDOM.render_ if you're just doing client-side rendering.
+* As I mentioned earlier, hydrating a server-rendered container now has an explicit API. Use _ReactDOM.hydrate_ instead of _ReactDOM.render_ if you're reviving server rendered HTML. Keep using _ReactDOM.render_ if you're just doing the client-side rendering.
 
 For more information, check out the full list of [deprections and breaking changes on GitHub](https://github.com/facebook/react/releases/tag/v16.0.0).
 
@@ -217,7 +217,7 @@ The Twitter Lite engineering team discovered that the app's bundle size reduced 
 
 We can easily set up authentication in our JavaScript apps by using the [Auth0 Centralized Login Page](https://auth0.com/docs/hosted-pages/login).
 
-First install `react@16` and `auth0-js`from your terminal with npm like so:
+First, install `react@16` and `auth0-js` from your terminal with npm like so:
 
 ```bash
 npm install --save react@^16.0.0 auth0-js
@@ -476,7 +476,7 @@ Check out a complete ReactJS application running on _ReactJS 16_ with a Node.js 
 
 ## Conclusion
 
-ReactJS is an awesome front-end library to employ in building your user interfaces. It is faster now, because it runs on _React Fiber_ and allows you to build faster and smoother UIs for your web and native applications.
+ReactJS is an awesome front-end library to employ in building your user interfaces. It is faster now because it runs on _React Fiber_ and allows you to build faster and smoother UIs for your web and native applications.
 
 **ReactJS 16** came loaded with lots of new features and significant improvements. Kudos to the ReactJS team and the JavaScript Open source community for all their efforts in making ReactJS a better tool.
 
