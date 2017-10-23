@@ -24,7 +24,7 @@ tags:
   - login
 ---
 
-Most of the time on the Auth0 blog, we talk about loging in and signing up as though it's obvious that everyone will do it. However, asking users to sign up for your product isn't always an easy decision to make. Some people are worried about the friction it causes, or if it's necessary for their product. Sometimes, worries about maintaining secure logins make asking for signups seem like more trouble than not asking users to sign up at all. 
+Most of the time on the Auth0 blog, we talk about logging in and signing up as though it's obvious that everyone will do it. However, asking users to sign up for your product isn't always an easy decision to make. Some people are worried about the friction it causes, or if it's necessary for their product. Sometimes, worries about maintaining secure logins make asking for signups seem like more trouble than not asking users to sign up at all. 
 
 As experts on signup and login, we've thought of — and encountered — use case after use case, and find that asking users to log in almost always offers benefits to both the business and the user. From security to enterprise concerns to customer support, the power that login has to better your product is something you should seriously consider as you build and grow your business.
 
@@ -107,3 +107,9 @@ So, if you are thinking about ditching your login, do some exploratory work and 
 If you're trying to decide whether or not to add a login feature to your product, don't fall prey to thinking that all login is is a box for a username and password that only creates friction for your users. When you're actually thinking about what login can do for you, it's clear that there's a host of benefits for both you *and *your users that simply aren't possible if you don't require a login.
 
 Of course, making these benefits a reality means implementing a more sophisticated login than that box for your username and password, and that's where Auth0 is ready to help. When you implement that sophisticated login, you're letting it lead you to better customer experiences, no matter the product.
+
+**Aside: Securing Applications with Auth0**
+
+Are you building a [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management), or [B2E](https://auth0.com/b2e-identity-management-for-employees) tool? Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
+
+[We offer a generous **free tier**](https://auth0.com/pricing) so you can get started with modern authentication.
