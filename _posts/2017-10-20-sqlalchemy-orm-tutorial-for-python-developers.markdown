@@ -147,6 +147,8 @@ Seasoned developers will notice that (usually) relational databases do not have 
 
 Now that we know what ORM is and have look into data types, let's learn how do we use SQLAlchemy to map relationships between classes to relationships between tables. SQLAlchemy supports four types of relationships: [One To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-many), [Many To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-one), [One To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one), and [Many To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-many).
 
+> Note that this section will be an overview of all these types, but the on the *SQLAlchemy ORM in Practice* action we will do a hands on to practice mapping classes into tables and to learn how to insert, extract, and remove data from these tables.
+
 The first type, *One To Many*, is used to mark that an instance of a class can be associated with many instances of another class. For example, on a blog engine, an instance of the `Article` class could be associated with many instances of the `Comment` class. In this case, we would map the mentioned classes and its relation as follows:
 
 ```python
@@ -218,11 +220,25 @@ The above code snippets show just a subset of the mapping options available on S
 
 ### SQLAlchemy Sessions
 
-http://docs.sqlalchemy.org/en/rel_1_1/orm/session_basics.html
+Sessions, on SQLAlchemy ORM, are the implementation of the [Unit of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html) design pattern. As explained by Martin Fowler, a Unit of Work is used to maintain a list of objects affected by a business transaction and to coordinate the writing out of these changes. This basically means that all changes tracked by Sessions (Units of Works) will be applied to the underlying database together, or none of them will. In other words, Sessions are used to guarantee the database consistency.
 
-Keep in mind, the Session is just a workspace for your objects, local to a particular database connection - if you think of an application thread as a guest at a dinner party, the Session is the guest’s plate and the objects it holds are the food (and the database…the kitchen?)!
+[The official SQLAlchemy ORM documentation about Sessions](http://docs.sqlalchemy.org/en/rel_1_1/orm/session_basics.html) gives a great explanation how changes are tracked, how to get sessions, and how to create ad-hoc sessions. However, in this article, we will use the most basic form of session creation:
 
-The Session begins in an essentially stateless form. Once queries are issued or other objects are persisted with it, it requests a connection resource from an Engine that is associated either with the Session itself or with the mapped Table objects being operated upon. This connection represents an ongoing transaction, which remains in effect until the Session is instructed to commit or roll back its pending state.
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+# create an engine
+engine = create_engine('postgresql://dbuser:dbpassword@localhost:5431/sqlalchemy-orm-tutorial')
+
+# create a configured "Session" class
+Session = sessionmaker(bind=engine)
+
+# create a Session
+session = Session()
+```
+
+As we can see from the code snippet above, we only need one step to get sessions. We need to create a session factory that is bound to the SQLAlchemy engine. After that, we can just issue calls to this session factory to get our sessions.
 
 ## SQLAlchemy in Practice
 
