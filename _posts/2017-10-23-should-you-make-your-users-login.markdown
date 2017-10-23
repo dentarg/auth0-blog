@@ -2,23 +2,26 @@
 layout: post
 title: "Should You Make Your Users Log In?"
 description: "Pros, cons, and exceptions to asking users to create an account."
-date: 2017-04-10 8:30
+date: 2017-10-23 8:30
 category: Growth, Identity, User Experience
+is_non-tech: true
 author:
-  name: "Ado Kukic"
-  url: "https://twitter.com/kukicado"
-  mail: "ado@auth0.com"
-  avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 design:
   image: https://cdn.auth0.com/blog/should-you-make-your-users-login/logo.png
   bg_color: "#676363"
 related:
-  - 2016-11-30-different-ways-to-implement-multifactor
-  - 2015-12-17-json-web-token-signing-algorithms-overview
+  - 2016-10-17-bad-login-experiences
+  - 2017-04-12-social-login-on-the-rise
+  - 2017-08-04-how-identity-management-helps-you-personalize-your-user-experience
 tags:
   - user-experience
   - identity-management
   - identity
+  - login
 ---
 
 Most of the time on the Auth0 blog, we talk about logging in and signing up as though it's obvious that everyone will do it. However, asking users to sign up for your product isn't always an easy decision to make. Some people are worried about the friction it causes, or if it's necessary for their product. Sometimes, worries about maintaining secure logins make asking for signups seem like more trouble than not asking users to sign up at all. 
