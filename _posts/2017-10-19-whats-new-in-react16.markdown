@@ -62,7 +62,7 @@ In ReactJS, we have two important players, the **Reconciler** and the **Renderer
 
 The **Reconciler** is used by the renderer to perform updates to the DOM. Whenever a component updates, be it _mounting_, _unmounting_ or any form of update, the reconciler (_known as the stack reconciler_) processes the component tree from top to bottom synchronously in a single pass, checks for changes in the tree, then passes on these changes to the renderer. In previous versions of ReactJS, the reconciler did not have the ability to pause work, thus making performance suboptimal when deep updates occur and the CPU time is limited.
 
-{% include tweet_quote.html quote_text="In ReactJS, we have two important players - the Reconciler and the Renderer." %}
+{% include tweet_quote.html quote_text=" In ReactJS, we have two important players - the Reconciler and the Renderer." %}
 
 With React Fiber, the new reconciler has the ability to do the following:
 
