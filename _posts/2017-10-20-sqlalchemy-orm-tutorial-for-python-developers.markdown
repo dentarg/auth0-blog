@@ -242,9 +242,25 @@ As we can see from the code snippet above, we only need one step to get sessions
 
 ## SQLAlchemy in Practice
 
-### What Will We Build
+Now that we got a better understanding of the most important pieces of SQLAlchemy, it's time to start practicing it. In the following sections, we will create a small project based on [`pipenv`](https://github.com/kennethreitz/pipenv)—a Python dependency manager—and add some classes to it. Then we will map these classes to tables persisted on a PostgreSQL database and learn how to query data.
 
-### Cloning Project
+### Starting the Tutorial Project
+
+To create our tutorial project, we have to have Python installed on our machine, and `pipenv` installed as a global Python package. If needed, head to the download page of Python to install it. The following commands will setup the project and depend on Python:
+
+```python
+# install pipenv globally
+pip install pipenv
+
+# create a new directory for our project
+mkdir sqlalchemy-tutorial
+
+# change working directory to it
+cd sqlalchemy-tutorial
+
+# create a Python 3 project
+pipenv --three
+```
 
 ### Running PostgreSQL
 
