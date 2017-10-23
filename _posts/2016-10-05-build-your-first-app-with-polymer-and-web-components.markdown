@@ -22,11 +22,16 @@ related:
 - 2016-08-17-aurelia-1.0-how-to-build-a-simple-secured-application
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-487"></i>
+  This tutorial utilizes Polymer v1.x. Please keep in mind that Polymer v2 may differ. You can check the <a href="https://www.polymer-project.org/">Polymer documentation</a> for more details while we work to bring you a new tutorial that covers version 2 of the library.
+</div>
+
 **TL;DR:** [Google Polymer](https://www.polymer-project.org/1.0/) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available at [this GitHub repo](https://github.com/auth0-blog/polymer-with-jwt-api).
 
 ## What Are Web Components?
 
-_Components_ are generally understood to be modular pieces of code that provide UI and/or scripting in a reusable package. Many JS frameworks use the term "components" (ie., [Angular 2](http://learnangular2.com/components/), [React](https://facebook.github.io/react/docs/reusable-components.html), [Ember](http://emberjs.com/api/classes/Ember.Component.html)). However, to understand Polymer, we'll do a quick crash-course on a specific kind of component: _web_ components. 
+_Components_ are generally understood to be modular pieces of code that provide UI and/or scripting in a reusable package. Many JS frameworks use the term "components" (e.g., [Angular](http://learnangular2.com/components/), [React](https://facebook.github.io/react/docs/reusable-components.html), [Ember](http://emberjs.com/api/classes/Ember.Component.html)). However, to understand Polymer, we'll do a quick crash-course on a specific kind of component: _web_ components. 
 
 **Web components** are [reusable](http://webcomponents.org) [widgets](https://developer.mozilla.org/en-US/docs/Web/Web_Components) that can be assembled like building blocks in web documents and apps. They are a set of browser features that are being added to the [W3C HTML and DOM specification](https://www.w3.org/standards/techs/components). A web component is composed of four standards: 
 
