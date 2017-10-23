@@ -24,7 +24,7 @@ tags:
   - login
 ---
 
-Most of the time on the Auth0 blog, we talk about logging in and signing up as though it's obvious that everyone will do it. However, asking users to sign up for your product isn't always an easy decision to make. Some people are worried about the friction it causes, or if it's necessary for their product. Sometimes, worries about maintaining secure logins make asking for signups seem like more trouble than not asking users to sign up at all. 
+Most of the time on the Auth0 blog, we talk about loging in and signing up as though it's obvious that everyone will do it. However, asking users to sign up for your product isn't always an easy decision to make. Some people are worried about the friction it causes, or if it's necessary for their product. Sometimes, worries about maintaining secure logins make asking for signups seem like more trouble than not asking users to sign up at all. 
 
 As experts on signup and login, we've thought of — and encountered — use case after use case, and find that asking users to log in almost always offers benefits to both the business and the user. From security to enterprise concerns to customer support, the power that login has to better your product is something you should seriously consider as you build and grow your business.
 
