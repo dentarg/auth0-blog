@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Building your first Crystal Web App &amp; Authenticating with JWTs"
-description: "Continuing on from my Introduction to Crystal article, this time we're going to build our first Crystal Web App and Authenticate Users via JSON Web Tokens."
+title: "Building Your First Crystal Web App & Authenticating with JWTs"
+description: "Continuing on from my Introduction to Crystal article, this time we're going to build our first Crystal web app and authenticate users via JSON Web Tokens."
 date: 2017-10-23 08:30
 category: Technical Guide
 author:
@@ -36,7 +36,7 @@ I wrote a technical article back in June titled ["The Highs &amp; Lows of Crysta
 
 Today I'd like to share a guide on building your first Web App with *Crystal,* and using *JSON Web Tokens* (JWTs) to authenticate users in said application.  Before we dive into the technical tutorial, for those who haven't read the previous article, and perhaps don't know about Crystal Language at all, I'd like to quickly introduce it.
 
-{% include tweet_quote.html quote_text="Crystal is a statically-typed, garbage collected language, boasting the speed, efficiency and type safety of a *compiled* language." %}
+{% include tweet_quote.html quote_text="Crystal is a statically-typed, garbage collected language, boasting the speed, efficiency and type safety of a compiled language." %}
 
 Crystal was introduced by its creator, Ary Borenszweig, back in mid-2014 as a general purpose, object-oriented language with the aim of giving speeds close to C/C++ and being heavily syntactically influenced by Ruby.  Crystal is a statically-typed, garbage collected language, boasting the speed, efficiency and type safety of a *compiled* language.
 
