@@ -248,7 +248,7 @@ Now that we got a better understanding of the most important pieces of SQLAlchem
 
 To create our tutorial project, we have to have Python installed on our machine, and `pipenv` installed as a global Python package. If needed, head to the download page of Python to install it. The following commands will setup the project and depend on Python:
 
-```python
+```bash
 # install pipenv globally
 pip install pipenv
 
@@ -263,6 +263,37 @@ pipenv --three
 ```
 
 ### Running PostgreSQL
+
+To be able to practice our new skills and to learn how to query data on SQLAlchemy, we will need a database to to support our examples. As already mentioned, SQLAlchemy provides support for many different databases engines, but the instructions that follow will focus on PostgreSQL. There are many ways to get an instance of PostgreSQL. One of them is to use some cloud provider like [Heroku](https://www.heroku.com) or [ElephantSQL](https://www.elephantsql.com) (both of them have free tiers). Another possibility is to [install PostgreSQL locally on our current environment](https://wiki.postgresql.org/wiki/Detailed_installation_guides). A third option is to run a PostgreSQL instance inside a Docker container.
+
+The third option is the best one because it has the performance of an instance running locally, it's free forever, and because it's easy to create and destroy Docker instances. The only (small) disadvantage is that we need to [install Docker locally](https://docs.docker.com/engine/installation/).
+
+After having Docker installed, we can create and destroy _dockerized_ PostgreSQL instances with the following commands:
+
+```bash
+# create a PostgreSQL instance
+docker run --name sqlalchemy-orm-psql \
+    -e POSTGRES_PASSWORD=dbpassword \
+    -e POSTGRES_USER=dbuser \
+    -e POSTGRES_DB=sqlalchemy-orm-tutorial \
+    -p 5432:5432 \
+    -d postgres
+
+# stop instance
+docker stop sqlalchemy-orm-psql
+
+# destroy instance
+docker rm sqlalchemy-orm-psql
+```
+
+The first command, the one that creates the PostgreSQL instance, contains a few parameters that are worth inspecting:
+
+- `--name`: Defines the name of the Docker instance
+- `-e POSTGRES_PASSWORD`: Defines the password to connect to PostgreSQL.
+- `-e POSTGRES_USER`: Defines the user to connect to PostgreSQL.
+- `-e POSTGRES_DB`: Defines the main (and only) database available in the PostgreSQL instance.
+- `-p 5432:5432`: Defines that the local `5432` port will tunnel connections to the same port in the Docker instance.
+- `-d postgres`: Defines that this Docker instance will be created based in the [official PostgreSQL repository](https://hub.docker.com/_/postgres/).
 
 ### Installing SQLAlchemy Dependencies
 
