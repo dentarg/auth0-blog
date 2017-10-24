@@ -151,7 +151,7 @@ Check out his [session on Youtube](https://www.youtube.com/watch?v=_srJ7eHS3IM).
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Wordpress + PWA 🚀🚀🚀 <a href="https://t.co/vQuQxAblUk">pic.twitter.com/vQuQxAblUk</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922613789593358336?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Sam Dutton](https://twitter.com/sw12)** and **[Rowan Merewood](https://twitter.com/rowan_m)**gave a talk titled **Progressively improving e-commerce**. They mentioned that _$123 billion_ was spent on mobile e-commerce in 2016 in the US alone. They also highlighted that most purchases on mobile are now on the web but conversion rates are lower than on desktop. They talked about how to build a better landing and browsing pages, reduce login and checkout friction, and implement network-resilient, offline-enabled search. Their session can be [found on Youtube](https://www.youtube.com/watch?v=F2GRAYyTF9Y).
+**[Sam Dutton](https://twitter.com/sw12)** and **[Rowan Merewood](https://twitter.com/rowan_m)** gave a talk titled **Progressively improving e-commerce**. They mentioned that _$123 billion_ was spent on mobile e-commerce in 2016 in the US alone. They also highlighted that most purchases on mobile are now on the web but conversion rates are lower than on desktop. They talked about how to build a better landing and browsing pages, reduce login and checkout friction, and implement network-resilient, offline-enabled search. Their session can be [found on Youtube](https://www.youtube.com/watch?v=F2GRAYyTF9Y).
 
 **John Pallet** and **Francois Beaufort** talked about **Building a Modern Media Experience**. They highlighted best practices for building mobile web media. The best practices included how to pre-load your media assets, handle playback controls, autoplay and offline. Check out their [session on Youtube](https://www.youtube.com/watch?v=WRSEJCKu7zA).
 
@@ -173,6 +173,6 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 
 ## Conclusion
 
-Chrome Dev Summit, Day 1, was amazing. The talks were mind-blowing. It's exciting that Google, Microsoft, Mozilla, Firefox, and Samsung are coming together to make the web more accessible, faster and better for everyone. Thanks to *Kosamari* and ** for entertaining developers throughout the event. Already looking forward to **#Day2** and the fresh inspiring moments it will bring along with it!
+Chrome Dev Summit, Day 1, was amazing. The talks were mind-blowing. It's exciting that Google, Microsoft, Mozilla, Firefox, and Samsung are coming together to make the web more accessible, faster and better for everyone. Thanks to *Kosamari* and *Una* for entertaining developers throughout the event. Already looking forward to **#Day2** and the fresh inspiring moments it will bring along with it!
 
 If you were around for _#ChromeDevsummit2017 - Day 1_, let me know the talks you really loved in the comment section. 😃
