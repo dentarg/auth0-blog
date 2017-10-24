@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Chrome Developer Summit 2017 Summary - Day 1"
-description: "Check out our summary of the Chrome Developer Summit - Day 1."
+description: "Check out our summary of the Chrome Developer Summit 2017, Day 1."
 date: 2017-10-24 08:30
 category: Technical Guide, Conferences, Chrome Developer Summit
 author:
@@ -16,18 +16,19 @@ tags:
 - Chrome
 - Summit
 - ChromeDevSummit
+- ChromeDevSummit2017
 related:
-- 2016-07-27-laracon-summary-day-1
+- 2016-11-15-chromedevsummit-summary
 - 2016-07-29-laracon-summary-day-2
 - 2015-07-30-laracon-summary-day-3
 ---
 
 
-The first day of the fifth Chrome Developer Summit 2017 consisted of an opening keynote, five talks and a Leadership Panel. As expected, several developers came from around the world for the summit. A lot of the talks were centered around improving web performance and driving progressive web app experiences to the user.
+The first day of the fifth Chrome Developer Summit 2017 consisted of an opening keynote, five talks, and a Leadership Panel. As expected, several developers came from around the world for the summit. A lot of the talks were centered around improving web performance and driving progressive web app experiences to the user.
 
 According to [Ben Galbraith](https://twitter.com/bgalbs), *Product Lead for the Chrome Web Platform Team*, and [Dion Almer](https://twitter.com/dalmaer), *Developer Relations Lead* who gave the keynote, the Webkit and Microsoft Edge teams have announced that they are working on adding service worker support to their browsers. Check out the [keynote on Youtube](https://youtu.be/1-g1rvkORQ8).
 
-**[Thao Tran](https://twitter.com/thaotran)** and **[Chris Wilson](https://twitter.com/cwilso)**presented the first talk of the summit. Their talk was titled **A New bar for Web Experiences**. Chris said something profound; _It's not just good enough to provide a service anymore, you have to prioritize your user experience_. They emphasized about how Progressive Web Apps are just a higher bar for user experience. They announced that Magento is getting onboard with PWA for their mobile ecommerce platform. A case study about [Ele.me](https://h5.ele.me) which serves 260 million users was presented by Chris. _Ele.me_ rolled out a progressive web app that allows users with flaky user connections have an awesome user experience. Thao talked about websites using AMP to provide better user experiences. Web sites such as [Overstock](https://www.overstock.com/) and [Tasty.co](https://tasty.co/). Oh, Thao mentioned that four billion AMP Pages now run on twenty-five million domainsCheck out the [session on Youtube](https://www.youtube.com/watch?v=PsgW-0M67TQ)
+**[Thao Tran](https://twitter.com/thaotran)** and **[Chris Wilson](https://twitter.com/cwilso)**presented the first talk of the summit. Their talk was titled **A New bar for Web Experiences**. Chris said something profound; _It's not just good enough to provide a service anymore, you have to prioritize your user experience_. They emphasized about how Progressive Web Apps are just a higher bar for user experience. They announced that Magento is getting onboard with PWA for their mobile e-commerce platform. A case study about [Ele.me](https://h5.ele.me) which serves 260 million users was presented by Chris. _Ele.me_ rolled out a progressive web app that allows users with flaky user connections have an awesome user experience. Thao talked about websites using AMP to provide better user experiences. Websites such as [Overstock](https://www.overstock.com/) and [Tasty.co](https://tasty.co/). Oh, Thao mentioned that four billion AMP Pages now run on twenty-five million domainsCheck out the [session on Youtube](https://www.youtube.com/watch?v=PsgW-0M67TQ)
 
 {% include tweet_quote.html quote_text="It's not just good enough to provide a service anymore, you have to prioritize your user experience." %}
 
@@ -64,7 +65,7 @@ Check out his [session](https://www.youtube.com/watch?v=_sLa0qhuqcA).
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Microsoft will be listing PWAs in the Windows store 😱😱😱😱😱😱😱 <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/bDHJd8o16b">pic.twitter.com/bDHJd8o16b</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922545235225276420?ref_src=twsrc%5Etfw">October 23, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Ewa Gasperowicz](https://twitter.com/devnook)** gave a talk titled **Kickstart your PWA journey**. She covered how to take a web site and turn it into a Progressive Web App. She called it, _The Process_. **The Process** includes the following steps: _Analyze_, _Prioritize_, _Choose tools_, _Implement_, and _Evaluate_. **Analyze** involves auditing your website before you start making improvements using tools like Lighthouse, Chrome DevTools, WebPageTest, etc. **Prioritize** involves ensuring your web site is PWA-ready. This means making sure that the website optimizes images, leverages browser caching, doesn't run on blocking JavaScript code, etc. Furthermore, it involves the following:
+**[Ewa Gasperowicz](https://twitter.com/devnook)** gave a talk titled **Kickstart your PWA journey**. She covered how to take a website and turn it into a Progressive Web App. She called it, _The Process_. **The Process** includes the following steps: _Analyze_, _Prioritize_, _Choose tools_, _Implement_, and _Evaluate_. **Analyze** involves auditing your website before you start making improvements using tools like Lighthouse, Chrome DevTools, WebPageTest, etc. **Prioritize** involves ensuring your website is PWA-ready. This means making sure that the website optimizes images, leverages browser caching, doesn't run on blocking JavaScript code, etc. Furthermore, it involves the following:
 
 * Users on 3G? Focus on offline.
 * User Acquisition? Focus on performance.
@@ -73,7 +74,7 @@ Check out his [session](https://www.youtube.com/watch?v=_sLa0qhuqcA).
 
  **Choose tools** involves choosing the right tools for turning your website into a PWA. One such tool is [Workbox - JavaScript libraries for Offline Caching](https://github.com/GoogleChrome/workbox). **Implement** involves different patterns for different projects. Noteworthy are the following:
 
- * Don't block transitions on network.
+ * Don't block transitions on the network.
  * Use Skeleton screens to avoid blank screens while content is been loaded.
  * Prevent content jumping.
  * Cache the right things at the right time.
@@ -91,7 +92,7 @@ Ewa mentioned four selective Image strategies for PWA:
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">4 Selective Image Strategies for PWA cc <a href="https://twitter.com/cloudinary?ref_src=twsrc%5Etfw">@cloudinary</a> <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://twitter.com/hashtag/PWAJourney?src=hash&amp;ref_src=twsrc%5Etfw">#PWAJourney</a> <a href="https://t.co/WqcaZKV6lh">pic.twitter.com/WqcaZKV6lh</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922557993698258944?ref_src=twsrc%5Etfw">October 23, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**Evaluate** involves measuring performance at the end of the project. Comparing the audits fron the initial report with the report at the end of the PWA implementation and providing business justifications for your new implementation. She emphasized that metrics are helpful, but they are only metrics. Nothing is better than actually checking user reactions to your product. Pay special attention to analytics and the voice of your users.
+**Evaluate** involves measuring performance at the end of the project. Comparing the audits from the initial report with the report at the end of the PWA implementation and providing business justifications for your new implementation. She emphasized that metrics are helpful, but they are only metrics. Nothing is better than actually checking user reactions to your product. Pay special attention to analytics and the voice of your users.
 
 {% include tweet_quote.html quote_text="Metrics are helpful, but they are only metrics." %}
 
@@ -105,7 +106,7 @@ Check out her [session on Youtube](https://www.youtube.com/watch?v=goafiwzhKMI).
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Performance <a href="https://twitter.com/addyosmani?ref_src=twsrc%5Etfw">@addyosmani</a> <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/vkquyPU69Q">pic.twitter.com/vkquyPU69Q</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922577844403716096?ref_src=twsrc%5Etfw">October 23, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-Addy Osmani mentioned [httparchive](https://beta.httparchive.org) that is available for everyone today. It's a platform that provides all the data you need for performance comparison. He re-iterated that everyone is responsible for performance.
+Addy Osmani mentioned [httparchive](https://beta.httparchive.org) that is available for everyone today. It's a platform that provides all the data you need for performance comparison. He reiterated that everyone is responsible for performance.
 
 {% include tweet_quote.html quote_text="Loading is a journey - Addy Osmani." %}
 
@@ -114,7 +115,7 @@ _State of the Web on Mobile_
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">State of the Mobile Web <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/ez2zkr4aNw">pic.twitter.com/ez2zkr4aNw</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922580306393104384?ref_src=twsrc%5Etfw">October 23, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-During Addy's session, the _Chrome User Experience Report_ was announced. This report is available as a public dataset on [Google Big Query](https://bigquery.cloud.google.com) and it provides real world performance user experience metrics. The initial release focuses on metrics that capture loading experience.
+During Addy's session, the _Chrome User Experience Report_ was announced. This report is available as a public dataset on [Google Big Query](https://bigquery.cloud.google.com) and it provides real-world performance user experience metrics. The initial release focuses on metrics that capture loading experience.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Percentage of fast loads on <a href="https://t.co/L7B8WTKL5k">https://t.co/L7B8WTKL5k</a> <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://twitter.com/hashtag/BigQuery?src=hash&amp;ref_src=twsrc%5Etfw">#BigQuery</a> <a href="https://t.co/UUBUgMJZU0">pic.twitter.com/UUBUgMJZU0</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922581393611173888?ref_src=twsrc%5Etfw">October 23, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -137,7 +138,7 @@ _Tinder Performance Budget and Strategy_
 
 Check out his [session on Youtube](https://www.youtube.com/watch?v=_srJ7eHS3IM).
 
-**[Jeff Posnick](https://twitter.com/jeffposnick)**, gave a talk on **Workbox: Flexible PWA Libraries**. [Workbox](https://github.com/GoogleChrome/workbox) is a set of libraries that work together to power your progressive web app's service worker. He mentioned that a service worker, properly configured, makes your web app fast and reliable. With Workbox, all you need to focus on is configuration rather than writing tons of boilerplate code. Jeff stated that _Pinterest_ already uses Workbox for precaching. Check out his [session on Youtube](https://www.youtube.com/watch?v=DtuJ55tmjps).
+**[Jeff Posnick](https://twitter.com/jeffposnick)**, gave a talk on **Workbox: Flexible PWA Libraries**. [Workbox](https://github.com/GoogleChrome/workbox) is a set of libraries that work together to power your progressive web app's service worker. He mentioned that a service worker, properly configured, makes your web app fast and reliable. With Workbox, all you need to focus on is configuration rather than writing tons of boilerplate code. Jeff stated that _Pinterest_ already uses Workbox for pre-caching. Check out his [session on Youtube](https://www.youtube.com/watch?v=DtuJ55tmjps).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">WorkBox - PWA Made extra easy! <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://twitter.com/hashtag/Performance?src=hash&amp;ref_src=twsrc%5Etfw">#Performance</a> <a href="https://t.co/PNl1JwJWCo">pic.twitter.com/PNl1JwJWCo</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922592899338002432?ref_src=twsrc%5Etfw">October 23, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -150,9 +151,9 @@ Check out his [session on Youtube](https://www.youtube.com/watch?v=_srJ7eHS3IM).
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Wordpress + PWA 🚀🚀🚀 <a href="https://t.co/vQuQxAblUk">pic.twitter.com/vQuQxAblUk</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922613789593358336?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Sam Dutton](https://twitter.com/sw12)** and **[Rowan Merewood](https://twitter.com/rowan_m)**gave a talk titled **Progressively improving e-commerce**. They mentioned that _$123 billion_ was spent on mobile e-commerce in 2016 in the US alone. They also highlighted that most purchases on mobile are now on the web but conversion rates are lower than on desktop. They talked about how to build better landing and browsing pages, reduce login and checkout friction, and implement network-resilient, offline-enabled search. Their session can be [found on Youtube](https://www.youtube.com/watch?v=F2GRAYyTF9Y).
+**[Sam Dutton](https://twitter.com/sw12)** and **[Rowan Merewood](https://twitter.com/rowan_m)**gave a talk titled **Progressively improving e-commerce**. They mentioned that _$123 billion_ was spent on mobile e-commerce in 2016 in the US alone. They also highlighted that most purchases on mobile are now on the web but conversion rates are lower than on desktop. They talked about how to build a better landing and browsing pages, reduce login and checkout friction, and implement network-resilient, offline-enabled search. Their session can be [found on Youtube](https://www.youtube.com/watch?v=F2GRAYyTF9Y).
 
-**[John Pallet](https://twitter.com/robertnyman) and [Francois Beaufort](https://twitter.com/RickByers)** talked about **Building a Modern Media Experience**. They higlighted best practices for building mobile web media. The best practices included how to pre-load your media assets, handle playback controls, autoplay and offline. Check out their [session on Youtube](https://www.youtube.com/watch?v=WRSEJCKu7zA).
+**John Pallet** and **Francois Beaufort** talked about **Building a Modern Media Experience**. They higlighted best practices for building mobile web media. The best practices included how to pre-load your media assets, handle playback controls, autoplay and offline. Check out their [session on Youtube](https://www.youtube.com/watch?v=WRSEJCKu7zA).
 
 In between talks, there was a **Leadership Panel** that consisted of _Darin Fisher_, _Paris Tabriz_, _Grace Kloba_, _Thao Tran_, _Tal Oppenheimer_, _Matthew McNulty_, _Alex Komoroske_, and _Alex Russell._ Several brilliant questions were asked by the audience. Check out the [answers given by the panel to the audience](https://www.youtube.com/watch?v=TU8fy8PHAl0).
 
