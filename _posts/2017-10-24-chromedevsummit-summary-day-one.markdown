@@ -19,8 +19,8 @@ tags:
 - ChromeDevSummit2017
 related:
 - 2016-11-15-chromedevsummit-summary
-- 2016-07-29-laracon-summary-day-2
-- 2015-07-30-laracon-summary-day-3
+- 2016-12-19-introduction-to-progressive-apps-part-one
+- 2017-10-05-nestjs-brings-typescript-to-nodejs-and-express
 ---
 
 
