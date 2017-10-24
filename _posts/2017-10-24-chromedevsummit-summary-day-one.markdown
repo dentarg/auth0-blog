@@ -153,7 +153,7 @@ Check out his [session on Youtube](https://www.youtube.com/watch?v=_srJ7eHS3IM).
 
 **[Sam Dutton](https://twitter.com/sw12)** and **[Rowan Merewood](https://twitter.com/rowan_m)**gave a talk titled **Progressively improving e-commerce**. They mentioned that _$123 billion_ was spent on mobile e-commerce in 2016 in the US alone. They also highlighted that most purchases on mobile are now on the web but conversion rates are lower than on desktop. They talked about how to build a better landing and browsing pages, reduce login and checkout friction, and implement network-resilient, offline-enabled search. Their session can be [found on Youtube](https://www.youtube.com/watch?v=F2GRAYyTF9Y).
 
-**John Pallet** and **Francois Beaufort** talked about **Building a Modern Media Experience**. They higlighted best practices for building mobile web media. The best practices included how to pre-load your media assets, handle playback controls, autoplay and offline. Check out their [session on Youtube](https://www.youtube.com/watch?v=WRSEJCKu7zA).
+**John Pallet** and **Francois Beaufort** talked about **Building a Modern Media Experience**. They highlighted best practices for building mobile web media. The best practices included how to pre-load your media assets, handle playback controls, autoplay and offline. Check out their [session on Youtube](https://www.youtube.com/watch?v=WRSEJCKu7zA).
 
 In between talks, there was a **Leadership Panel** that consisted of _Darin Fisher_, _Paris Tabriz_, _Grace Kloba_, _Thao Tran_, _Tal Oppenheimer_, _Matthew McNulty_, _Alex Komoroske_, and _Alex Russell._ Several brilliant questions were asked by the audience. Check out the [answers given by the panel to the audience](https://www.youtube.com/watch?v=TU8fy8PHAl0).
 
@@ -163,16 +163,16 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 
 * Add authentication through more traditional username/password databases.
 * Add support for linking different user accounts with the same user.
-* Support for generating signed Json Web Tokens to call your APIs and flow the user identity securely.
+* Support for generating signed JSON Web Tokens to call your APIs and flow the user identity securely.
 * Analytics of how, when and where users are logging in.
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
-* Achieve [SSO(Single Sign On)](https://auth0.com/docs/sso) seamlessly.
+* Achieve [SSO(Single Sign-On)](https://auth0.com/docs/sso) seamlessly.
 
 [Sign up](javascript:signup\(\)) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
 
 
 ## Conclusion
 
-Chrome Dev Summit, Day 1, was amazing. The talks were mind-blowing. It's exciting that Google, Microsoft, Mozilla, Firefox and Samsung are coming together to make the web more accessible, faster and better for everyone. Thanks to *Kosamari* and ** for entertaining developers throughout the event. Already looking forward to **#Day2** and the fresh inspiring moments it will bring along with it!
+Chrome Dev Summit, Day 1, was amazing. The talks were mind-blowing. It's exciting that Google, Microsoft, Mozilla, Firefox, and Samsung are coming together to make the web more accessible, faster and better for everyone. Thanks to *Kosamari* and ** for entertaining developers throughout the event. Already looking forward to **#Day2** and the fresh inspiring moments it will bring along with it!
 
 If you were around for _#ChromeDevsummit2017 - Day 1_, let me know the talks you really loved in the comment section. 😃
