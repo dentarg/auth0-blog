@@ -423,6 +423,60 @@ The difference between this version and the previous one is that:
 - we created a `movies_actors_association` table that connects rows of `actors` and rows of `movies`;
 - and we added the `actors` property to `Movie` and configured the `movies_actors_association` as the intermediary table.
 
+The next class that we will create is `Stuntman`. In our tutorial, a particular `Actor` will have only one `Stuntman` and this `Stuntman` will work only with this `Actor`. This means that we need to create the `Stuntman` class and a _One To One_ relationship between these classes. To accomplish that, let's create a file called `stuntman.py` and add the following code to it:
+
+```python
+# coding=utf-8
+
+from sqlalchemy import Column, String, Integer, Boolean
+from sqlalchemy.orm import relationship, backref
+
+from .base import Base
+
+
+class Stuntman(Base):
+    __tablename__ = 'stuntmen'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    active = Column(Boolean)
+    actor = relationship("Actor", backref=backref("stuntman", uselist=False))
+
+    def __init__(self, name, active, actor):
+        self.name = name
+        self.active = active
+        self.actor = actor
+```
+
+In this class, we have defined that the `actor` property references an instance of `Actor` and that this actor will get a property called `stuntman` that is not a list (`uselist=False`). That is, whenever we load an instance of `Stuntman`, SQLAlchemy will also load and populate the `Actor` associated with this stuntman.
+
+The fourth and final class that we will map in our tutorial is `ContactDetails`. Instances of this class will hold a `phone_number` and an `address` of a particular `Actor`, and one `Actor` will be able to have many `ContactDetails` associated. Therefore, we will need to use the _Many To One_ relationship pattern to map this association. To create this class and this association, let's create a file called `contact_details.py` and add the following source code to it:
+
+```python
+# coding=utf-8
+
+from sqlalchemy import Column, String, Integer
+from sqlalchemy.orm import relationship
+
+from .base import Base
+
+
+class ContactDetails(Base):
+    __tablename__ = 'contact_details'
+
+    id = Column(Integer, primary_key=True)
+    phone_number = Column(String)
+    address = Column(String)
+    actor = relationship("Actor", back_populates="contact_details")
+
+    def __init__(self, phone_number, address, actor):
+        self.phone_number = phone_number
+        self.address = address
+        self.actor = actor
+```
+
+As we can see, creating a _Many To One_ association is pretty similar to creating a _One To One_ association. The difference is that in the latter we instructed SQLAlchemy not to use lists. This instruction ends up restricting the association to a single instance instead of a list of instances.
+
 ### Persisting Data with SQLAlchemy
 
 ### Querying Data with SQLAlchemy ORM
