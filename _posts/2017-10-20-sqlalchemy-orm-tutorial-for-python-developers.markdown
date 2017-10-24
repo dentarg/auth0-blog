@@ -54,10 +54,10 @@ To create an engine and start interacting with databases, we have to import the 
 
 ```python
 from sqlalchemy import create_engine
-engine = create_engine('postgresql://dbuser:dbpassword@localhost:5431/sqlalchemy-orm-tutorial')
+engine = create_engine('postgresql://usr:pass@localhost:5432/sqlalchemy')
 ```
 
-This example creates a PostgreSQL engine to communicate with an instance running locally on port `5432` (the default one). It also defines that it will use `dbuser` and `dbpassword` as the credentials to interact with the `sqlalchemy-orm-tutorial` database. Note that, creating an engine does *not* connect to the database instantly. This process is postponed to when it's really needed (like when we submit a query, or when create/update a row in a table).
+This example creates a PostgreSQL engine to communicate with an instance running locally on port `5432` (the default one). It also defines that it will use `usr` and `pass` as the credentials to interact with the `sqlalchemy` database. Note that, creating an engine does *not* connect to the database instantly. This process is postponed to when it's really needed (like when we submit a query, or when create/update a row in a table).
 
 Since SQLAlchemy relies on the DBAPI specification to interact with databases, the most common database management systems available are supported. PostgreSQL, MySQL, Oracle, Microsoft SQL Server, and SQLite are all examples of engines that we can use along side with SQLAlchemy. [To learn more about the options available to create SQLAlchemy engines, take a look into the official documentation](http://docs.sqlalchemy.org/en/rel_1_1/core/engines.html).
 
@@ -218,6 +218,14 @@ In this case, we had to create a helper table to persist the association between
 
 The above code snippets show just a subset of the mapping options available on SQLAlchemy. In the following sections, we are going to take a deeper look into each one of the available relationship patterns. Besides that, [the official documentation is a great reference to learn more about relationship patterns on SQLAlchemy](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
 
+### SQLAlchemy ORM Cascade
+
+Whenever rows in a particular table are updated or deleted, rows in other tables might need to suffer changes as well. These changes can be simple updates, which is called a cascade update, or full deletes, known as cascade delete. For example, let's say that we have a table called `shopping_carts`, a table called `products`, and a third one called `shopping_carts_products` that connects shopping carts to products. If, for some reason, we need to delete rows from `shopping_carts` we will need to delete the related rows from `shopping_carts_products` as well. Otherwise we will end up with a lot of garbage and unfulfilled references in our database.
+
+To make these kind of operation easily to maintain, SQLAlchemy ORM enables developers to map cascade behavior when using `relationship()` constructs. Like that, when operations are performed on _parent_ objects, _child_ objects get update (or deleted) as well.
+
+In the _SQLAlchemy in Practice_ section, we will see this concept in action. However, if more information about this feature is needed, the [SQLAlchemy documentation provides a good chapter about Cascades](http://docs.sqlalchemy.org/en/latest/orm/cascades.html).
+
 ### SQLAlchemy Sessions
 
 Sessions, on SQLAlchemy ORM, are the implementation of the [Unit of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html) design pattern. As explained by Martin Fowler, a Unit of Work is used to maintain a list of objects affected by a business transaction and to coordinate the writing out of these changes. This basically means that all changes tracked by Sessions (Units of Works) will be applied to the underlying database together, or none of them will. In other words, Sessions are used to guarantee the database consistency.
@@ -229,7 +237,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 # create an engine
-engine = create_engine('postgresql://dbuser:dbpassword@localhost:5431/sqlalchemy-orm-tutorial')
+engine = create_engine('postgresql://usr:pass@localhost:5432/sqlalchemy')
 
 # create a configured "Session" class
 Session = sessionmaker(bind=engine)
@@ -273,9 +281,9 @@ After having Docker installed, we can create and destroy _dockerized_ PostgreSQL
 ```bash
 # create a PostgreSQL instance
 docker run --name sqlalchemy-orm-psql \
-    -e POSTGRES_PASSWORD=dbpassword \
-    -e POSTGRES_USER=dbuser \
-    -e POSTGRES_DB=sqlalchemy-orm-tutorial \
+    -e POSTGRES_PASSWORD=pass \
+    -e POSTGRES_USER=usr \
+    -e POSTGRES_DB=sqlalchemy \
     -p 5432:5432 \
     -d postgres
 
@@ -321,7 +329,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('postgresql://dbuser:dbpassword@localhost:5432/sqlalchemy-orm-tutorial')
+engine = create_engine('postgresql://usr:pass@localhost:5432/sqlalchemy')
 Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
@@ -398,8 +406,8 @@ from .base import Base
 
 movies_actors_association = Table(
     'movies_actors', Base.metadata,
-    Column('movie_id', Integer, ForeignKey('movie.id')),
-    Column('actor_id', Integer, ForeignKey('actor.id'))
+    Column('movie_id', Integer, ForeignKey('movies.id')),
+    Column('actor_id', Integer, ForeignKey('actors.id'))
 )
 
 
@@ -477,7 +485,13 @@ class ContactDetails(Base):
 
 As we can see, creating a _Many To One_ association is pretty similar to creating a _One To One_ association. The difference is that in the latter we instructed SQLAlchemy not to use lists. This instruction ends up restricting the association to a single instance instead of a list of instances.
 
-### Persisting Data with SQLAlchemy
+### Persisting Data with SQLAlchemy ORM
+
+Now that we have created our classes, let's create a file called `main.py` and generate some instances of these classes to persist to the database. In this file, let's add the following code:
+
+```python
+
+```
 
 ### Querying Data with SQLAlchemy ORM
 
