@@ -173,6 +173,6 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 
 ## Conclusion
 
-Chrome Dev Summit, Day 1, was amazing. The talks were mind-blowing. It's exciting that Google, Microsoft, Mozilla, Firefox, and Samsung are coming together to make the web more accessible, faster and better for everyone. Thanks to *Kosamari* and *Una* for entertaining developers throughout the event. Already looking forward to **#Day2** and the fresh inspiring moments it will bring along with it!
+Chrome Dev Summit, Day 1, was amazing. The talks were mind-blowing. It's exciting that Google, Microsoft, Mozilla, Firefox, and Samsung are coming together to make the web more accessible, faster and better for everyone. Thanks to *[Kosamari](https://twitter.com/kosamari)* and *[Monica](https://twitter.com/notwaldorf)* for entertaining developers throughout the event. Already looking forward to **#Day2** and the fresh inspiring moments it will bring along with it!
 
 If you were around for _#ChromeDevsummit2017 - Day 1_, let me know the talks you really loved in the comment section. 😃
