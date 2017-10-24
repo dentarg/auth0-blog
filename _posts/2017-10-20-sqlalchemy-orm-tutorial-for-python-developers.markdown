@@ -487,13 +487,15 @@ As we can see, creating a _Many To One_ association is pretty similar to creatin
 
 ### Persisting Data with SQLAlchemy ORM
 
-Now that we have created our classes, let's create a file called `main.py` and generate some instances of these classes to persist to the database. In this file, let's add the following code:
+Now that we have created our classes, let's create a file called `inserts.py` and generate some instances of these classes to persist to the database. In this file, let's add the following code:
 
 ```python
 
 ```
 
 ### Querying Data with SQLAlchemy ORM
+
+### Removing Data with SQLAlchemy ORM
 
 {% include asides/python.markdown %}
 
