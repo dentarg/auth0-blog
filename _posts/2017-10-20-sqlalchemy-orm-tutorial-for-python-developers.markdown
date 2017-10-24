@@ -246,7 +246,7 @@ Now that we got a better understanding of the most important pieces of SQLAlchem
 
 ### Starting the Tutorial Project
 
-To create our tutorial project, we have to have Python installed on our machine, and `pipenv` installed as a global Python package. If needed, head to the download page of Python to install it. The following commands will setup the project and depend on Python:
+To create our tutorial project, we have to have Python installed on our machine and `pipenv` installed as a global Python package. The following commands will install `pipenv` and setup the project. These commands are dependent on Python, so be [sure to have it installed before proceeding](https://www.python.org/downloads/):
 
 ```bash
 # install pipenv globally
@@ -266,7 +266,7 @@ pipenv --three
 
 To be able to practice our new skills and to learn how to query data on SQLAlchemy, we will need a database to to support our examples. As already mentioned, SQLAlchemy provides support for many different databases engines, but the instructions that follow will focus on PostgreSQL. There are many ways to get an instance of PostgreSQL. One of them is to use some cloud provider like [Heroku](https://www.heroku.com) or [ElephantSQL](https://www.elephantsql.com) (both of them have free tiers). Another possibility is to [install PostgreSQL locally on our current environment](https://wiki.postgresql.org/wiki/Detailed_installation_guides). A third option is to run a PostgreSQL instance inside a Docker container.
 
-The third option is the best one because it has the performance of an instance running locally, it's free forever, and because it's easy to create and destroy Docker instances. The only (small) disadvantage is that we need to [install Docker locally](https://docs.docker.com/engine/installation/).
+The third option is probably the best choice because it has the performance of an instance running locally, it's free forever, and because it's easy to create and destroy Docker instances. The only (small) disadvantage is that we need to [install Docker locally](https://docs.docker.com/engine/installation/).
 
 After having Docker installed, we can create and destroy _dockerized_ PostgreSQL instances with the following commands:
 
@@ -297,7 +297,131 @@ The first command, the one that creates the PostgreSQL instance, contains a few 
 
 ### Installing SQLAlchemy Dependencies
 
+In this tutorial, we will need to install only two packages: `sqlalchemy` and `psycopg2`. The first dependency refers to SQLAlchemy itself and the second one, `psycopg2`, is the PostgreSQL driver that SQLAlchemy will use to communicate with the database. To install these dependencies, we will use `pipenv` as shown:
+
+```bash
+# install sqlalchemy and psycopg2
+pipenv install sqlalchemy psycopg2
+```
+
+This command will download both libraries and make them available in our [Python virtual environment](https://github.com/kennethreitz/pipenv#basic-concepts).
+
 ### Mapping Classes with SQLAlchemy
+
+After starting the _dockerized_ PostgreSQL instance and installing the Python dependencies, we can start mapping Python classes to database tables. In this tutorial we will map four simple classes that represent movies, actors, stuntmen, and contact details. The following diagram illustrates these entities' characteristics and their relations.
+
+![Mapping Python classes with SQLAlchemy](https://cdn.auth0.com/blog/sqlalchemy-tutorial/class_diagram.jpg)
+
+To start, we will create a file called `base.py` in the main directory of our project and add the following code to it:
+
+```python
+# coding=utf-8
+
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine('postgresql://dbuser:dbpassword@localhost:5432/sqlalchemy-orm-tutorial')
+Session = sessionmaker(bind=engine)
+
+Base = declarative_base()
+```
+
+This code creates:
+
+- a SQLAlchemy Engine that will interact with our _dockerized_ PostgreSQL database,
+- a SQLAlchemy ORM session factory bound to this engine,
+- and a base class for our classes definitions.
+
+Now let's create and map the `Movie` class. To do this, let's create a new file called `movie.py` and add to it the following code:
+
+```python
+# coding=utf-8
+
+from sqlalchemy import Column, String, Integer, Date
+
+from .base import Base
+
+
+class Movie(Base):
+   __tablename__ = 'movies'
+
+   id = Column(Integer, primary_key=True)
+   title = Column(String)
+   release_date = Column(Date)
+
+   def __init__(self, title, release_date):
+       self.title = title
+       self.release_date = release_date
+```
+
+The definition of this class and its mapping characteristics is quite simple. We start by making this class extend the `Base` class defined in the `base.py` module and then we add four properties to it:
+
+1. A `__tablename__` to indicate what is the name of the table that will support this class.
+2. An `id` to represent the primary key in the table.
+3. A `title` of type `String`.
+4. A `release_date` of type `Date`.
+
+The next class that we will create and map is the `Actor` class. Let's create a file called `actor.py` and add the following code to it:
+
+```python
+# coding=utf-8
+
+from sqlalchemy import Column, String, Integer, Date
+
+from .base import Base
+
+
+class Actor(Base):
+    __tablename__ = 'actors'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    birthday = Column(Date)
+
+    def __init__(self, name, birthday):
+        self.name = name
+        self.birthday = birthday
+```
+
+The definition of this class is pretty similar to the previous one. The differences are that the `Actor` has a `name` instead of a `title`, a `birthday` instead of a `release_date`, and that it points to a table called `actors` instead of `movies`.
+
+As many movies can have many actors and vice-versa, we will need to create a _Many To Many_ relationship between these two classes. Let's create this relationship by updating the `movie.py` file as follows:
+
+```python
+# coding=utf-8
+
+from sqlalchemy import Column, String, Integer, Date, Table, ForeignKey
+from sqlalchemy.orm import relationship
+
+from .base import Base
+
+movies_actors_association = Table(
+    'movies_actors', Base.metadata,
+    Column('movie_id', Integer, ForeignKey('movie.id')),
+    Column('actor_id', Integer, ForeignKey('actor.id'))
+)
+
+
+class Movie(Base):
+    __tablename__ = 'movies'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    release_date = Column(Date)
+    actors = relationship("Actor", secondary=movies_actors_association)
+
+    def __init__(self, title, release_date):
+        self.title = title
+        self.release_date = release_date
+        self.actors = []
+```
+
+The difference between this version and the previous one is that:
+
+- we imported three new entities: `Table`, `ForeignKey`, and `relationship`;
+- we created a `movies_actors_association` table that connects rows of `actors` and rows of `movies`;
+- and we added the `actors` property to `Movie` and configured the `movies_actors_association` as the intermediary table.
 
 ### Persisting Data with SQLAlchemy
 
