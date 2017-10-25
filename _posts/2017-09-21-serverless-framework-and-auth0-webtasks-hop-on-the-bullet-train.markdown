@@ -145,7 +145,7 @@ service:
 provider:
   name: webtasks
 
-# you can define service wide environment variables here
+  # you can define service wide environment variables here
   environment: ${file(secrets.yml)}
 
 functions:

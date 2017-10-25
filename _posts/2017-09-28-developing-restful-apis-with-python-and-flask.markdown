@@ -284,7 +284,7 @@ Inside this new module/directory, we will create three classes: `Transaction`, `
 ```python
 import datetime as dt
 
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields
 
 
 class Transaction(object):
@@ -450,22 +450,22 @@ This finishes the implementation of our API. If we run our Flask application now
 ./bootstrap.sh &
 
 # get expenses
-curl http://localhost:5000/expenses/
+curl http://localhost:5000/expenses
 
 # add a new expense
 curl -X POST -H "Content-Type: application/json" -d '{
     "amount": 20,
     "description": "lottery ticket"
-}' http://localhost:5000/expenses/
+}' http://localhost:5000/expenses
 
 # get incomes
-curl http://localhost:5000/incomes/
+curl http://localhost:5000/incomes
 
 # add a new income
 curl -X POST -H "Content-Type: application/json" -d '{
     "amount": 300.0,
     "description": "loan payment"
-}' http://localhost:5000/incomes/
+}' http://localhost:5000/incomes
 ```
 
 ## <span id="flask-on-docker"></span> Dockerizing Flask Applications
@@ -480,11 +480,11 @@ FROM python:3.6-alpine
 
 # Installing packages
 RUN apk update
-RUN pip install pipenv
+RUN pip install --no-cache-dir pipenv
 
 # Defining working directory and adding source code
 WORKDIR /usr/src/app
-COPY Pipfile Pipfile.lock 'rap.sh ./
+COPY Pipfile Pipfile.lock bootstrap.sh ./
 COPY cashman ./cashman
 
 # Install API dependencies
@@ -514,17 +514,7 @@ curl http://localhost:5000/incomes/
 
 The `Dockerfile` is simple but effective, and using it is similarly easy. With these commands and this `Dockerfile`, we can run as many instances of our API as we need with no trouble. It's just a matter of defining another port on the host, or even another host.
 
-## <span id="securing-python-apis"></span> Securing Python APIs with Auth0
-
-Securing Python APIs with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get:
-
-- A solid [identity management solution](https://auth0.com/user-management), including [single sign-on](https://auth0.com/docs/sso/single-sign-on)
-- [User management](https://auth0.com/docs/user-profile)
-- Support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders)
-- [Enterprise identity providers (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise)
-- Our [own database of users](https://auth0.com/docs/connections/database/mysql)
-
-[To learn the best way to secure *Python APIs* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/python). Besides providing tutorials for backend technologies (like Python, Java, and PHP), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+{% include asides/python.markdown %}
 
 ## <span id="next-steps"></span> Next Steps
 
