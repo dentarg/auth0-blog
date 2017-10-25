@@ -26,7 +26,7 @@ related:
 
 The second and final day of the fifth Chrome Developer Summit 2017 consisted of about nine talks and a Framework Panel. These talks were centered around VR, AR, Media, Polymer and developer tooling.
 
-**[Tal Oppenheimer](https://twitter.com/taloppenheimer)** gave the opening talk titled **The Web for the Entire World**. She highlighted the top ten countries by internet usage. It's amazing _China, _India_, and _Nigeria_ are on that list.
+**[Tal Oppenheimer](https://twitter.com/taloppenheimer)** gave the opening talk titled **The Web for the Entire World**. She highlighted the top ten countries by internet usage. It's amazing _China_, _India_, and _Nigeria_ are on that list.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Top 10 Countries by Internet Usage <br><br>Nigeria 💥💥💅💅<a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://twitter.com/hashtag/NextBillionUsers?src=hash&amp;ref_src=twsrc%5Etfw">#NextBillionUsers</a> <a href="https://t.co/WQlUn6xwNt">pic.twitter.com/WQlUn6xwNt</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922871766657089536?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -40,13 +40,13 @@ Check out her [session on Youtube](https://www.youtube.com/watch?v=eG0ILA2k5qo)
 
 **[Paul Irish](https://twitter.com/paul_irish)** and **[Eric Bidelman](https://twitter.com/ebidel)** gave an amazing talk on **Modern Tooling, Testing, and Automation**. They uncovered new features in DevTools and unleashed Puppeteer, a new Node library for controlling headless Chrome. We have some crazy new features in Chrome DevTools. These features include:
 
-* CSS Grid Layout Inspection
-* Color contrast evaluation
-* Local Overrides: This feature actually blew my mind. Developers like myself have secretly wished over time that there should be a way to make changes to the HTML structure, CSS and JavaScript of a website and have those changes persist even if the browser is reloaded for the purpose of development. _Local overrides_ takes care of that effectively. It allows you create a folder, and save these temporary changes to disk.
+* CSS Grid Layout Inspection.
+* Color contrast evaluation.
+* Local Overrides - This feature actually blew my mind. Developers like myself have secretly wished over time that there should be a way to make changes to the HTML structure, CSS and JavaScript of a website and have those changes persist even if the browser is reloaded for the purpose of development. _Local overrides_ takes care of that effectively. It allows you create a folder, and save these temporary changes to disk.
 * Performance Monitor to show live streaming metrics.
 * Filter Sidebar to enable filtering of errors in the console by _user messages_, _errors_, _warnings_ and _info_.
 * Group Similar Checkbox to enable grouping of similar or repeating errors.
-* Top-level await in Console
+* Top-level await in Console.
 * Storage Usage Summary for Progressive Web Apps. The _Clear Storage_ section now provides a graphical allocation of storage used by a PWA.
 * Service Worker Upgrades - New _Push_ and _Sync_ feature in DevTools for the definition of custom payload in testing push notifications and background sync.
 
@@ -60,11 +60,14 @@ Paul talked about improvements made to _Lighthouse_. A year ago, Lighthouse had 
 
 Eric talked about **Puppeteer**. Puppeteer is a modern Node.js library for headless Chrome. It has many powers such as:
 
-* Intercepting network requests
-* Running code in page
-* Creating PDFs
+* Intercepting network requests.
+* Running code in page.
+* Creating PDFs.
 
 and so many others.
+
+
+{% include tweet_quote.html quote_text="Puppeteer is a modern Node.js library for headless Chrome." %}
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">The many powers of Puppeteer 🔥 <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/godSvAiSu3">pic.twitter.com/godSvAiSu3</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922887043234926593?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -81,6 +84,9 @@ Check out their [session on Youtube](https://www.youtube.com/watch?v=7-XnEMrQnn4
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 V8 just recently move to a new architecture. The V8 Ignition, an interpreter, allows for fast startup and low memory consumption. Furthermore, the V8 TurboFan, an optimizing compiler, enables peak performance and max optimization. Thomas talked about how developers can now use ES2015+ without transpiling and still get optimal performance in the browser.
+
+
+{% include tweet_quote.html quote_text="The V8 Ignition, an interpreter, allows for fast startup and low memory consumption." %}
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Turn off ES2015 transpiling <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/wSKsClBkrm">pic.twitter.com/wSKsClBkrm</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922908961417728000?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -115,7 +121,7 @@ Check out their [session on Youtube](https://www.youtube.com/watch?v=PpuAqLCraAQ
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-**[Mat Scales](https://twitter.com/sw12)** talked about **Creating Media on the Web**. Mat covered some of the new web APIs that make media creation seamless. In his talk, the Instagram team showed how they built their PWA leveraging some new Web APIs. The Instagram team uses Workbox for precaching, WebGL and Shaka Player. Furthermore, they showed how the offline functionality was implemented.
+**[Mat Scales](https://twitter.com/sw12)** talked about **Creating Media on the Web**. Mat covered some of the new web APIs that make media creation seamless. In his talk, the Instagram team showed how they built their PWA leveraging some new Web APIs. The Instagram team uses [Workbox](https://github.com/GoogleChrome/workbox) for precaching, [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and [Shaka Player](https://github.com/google/shaka-player). Furthermore, they showed how the offline functionality was implemented.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Instagram PWA in Action 🔥🔥🔥 <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/z8eOxz3NDs">pic.twitter.com/z8eOxz3NDs</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922976320736305153?ref_src=twsrc%5Etfw">October 25, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
