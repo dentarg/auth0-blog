@@ -220,11 +220,16 @@ The above code snippets show just a subset of the mapping options available on S
 
 ### SQLAlchemy ORM Cascade
 
-Whenever rows in a particular table are updated or deleted, rows in other tables might need to suffer changes as well. These changes can be simple updates, which is called a cascade update, or full deletes, known as cascade delete. For example, let's say that we have a table called `shopping_carts`, a table called `products`, and a third one called `shopping_carts_products` that connects shopping carts to products. If, for some reason, we need to delete rows from `shopping_carts` we will need to delete the related rows from `shopping_carts_products` as well. Otherwise we will end up with a lot of garbage and unfulfilled references in our database.
+Whenever rows in a particular table are updated or deleted, rows in other tables might need to suffer changes as well. These changes can be simple updates, which are called cascade updates, or full deletes, known as cascade deletes. For example, let's say that we have a table called `shopping_carts`, a table called `products`, and a third one called `shopping_carts_products` that connects the first two tables. If, for some reason, we need to delete rows from `shopping_carts` we will need to delete the related rows from `shopping_carts_products` as well. Otherwise we will end up with a lot of garbage and unfulfilled references in our database.
 
-To make these kind of operation easily to maintain, SQLAlchemy ORM enables developers to map cascade behavior when using `relationship()` constructs. Like that, when operations are performed on _parent_ objects, _child_ objects get update (or deleted) as well.
+To make this kind of operation easily to maintain, SQLAlchemy ORM enables developers to map cascade behavior when using `relationship()` constructs. Like that, when operations are performed on _parent_ objects, _child_ objects get updated/deleted as well. The following list provides a brief explanation about the most used cascade strategies on SQLAlchemy ORM:
 
-In the _SQLAlchemy in Practice_ section, we will see this concept in action. However, if more information about this feature is needed, the [SQLAlchemy documentation provides a good chapter about Cascades](http://docs.sqlalchemy.org/en/latest/orm/cascades.html).
+- `save-update`: Indicates that when a parent object is saved/updated, child objects are saved/updated as well.
+- `delete`: Indicates that when a parent object is deleted, children of this object will be deleted as well.
+- `delete-orphan`: Indicates that when a child object looses reference to a parent, it will get deleted.
+- `merge`: Indicates that `merge()` operations propagate from parent to children.
+
+If more information about this feature is needed, the [SQLAlchemy documentation provides a good chapter about Cascades](http://docs.sqlalchemy.org/en/latest/orm/cascades.html).
 
 ### SQLAlchemy Sessions
 
