@@ -312,7 +312,7 @@ In this tutorial, we will need to install only two packages: `sqlalchemy` and `p
 pipenv install sqlalchemy psycopg2
 ```
 
-This command will download both libraries and make them available in our [Python virtual environment](https://github.com/kennethreitz/pipenv#basic-concepts).
+This command will download both libraries and make them available in our [Python virtual environment](https://github.com/kennethreitz/pipenv#basic-concepts). Note that to run the scripts that we are going to create, we first need to spawn the virtual environment shell. That is, before executing `python somescript.py`, we need to execute `pipenv shell`. Otherwise, Python won't be able to find the installed dependencies, as they are just available in our new virtual environment.
 
 ### Mapping Classes with SQLAlchemy
 
@@ -566,7 +566,7 @@ This code is split into 10 sections. Let's inspecting them:
 9. The ninth section uses the current session to save the movies, actors, contact details, and stuntmen created. Note that we haven't explicitly saved actors. This is not needed because SQLAlchemy, by default, uses the [`save-update` cascade strategy](http://docs.sqlalchemy.org/en/latest/orm/cascades.html#cascade-save-update).
 10. The tenth section commits the current session to the database and closes it.
 
-To run this Python script, we can simply issue the `python inserts.py` command in the main directory of our database. Running it will create 5 tables in the PostgreSQL database and populate these tables with the data that we created. In the next section we will learn how to query these tables.
+To run this Python script, we can simply issue the `python inserts.py` command (let's not to run `pipenv shell` first) in the main directory of our database. Running it will create 5 tables in the PostgreSQL database and populate these tables with the data that we created. In the next section we will learn how to query these tables.
 
 ### Querying Data with SQLAlchemy ORM
 
