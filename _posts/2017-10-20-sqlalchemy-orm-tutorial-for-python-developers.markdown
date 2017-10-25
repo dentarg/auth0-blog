@@ -585,15 +585,15 @@ from stuntman import Stuntman
 # 2 - extract a session
 session = Session()
 
-# 3 - extract movies
+# 3 - extract all movies
 movies = session.query(Movie).all()
 
-# 4 - log movies' details
+# 4 - print movies' details
 for movie in movies:
     print(f'{movie.title} was released on {movie.release_date}')
 ```
 
-The code snippet above shows how easy it's to use SQLAlchemy ORM to query data. To retrieve all movies from the database, we just needed to fetch a session from the session factory, use it to get a query associated with `Movie`, and then call the `all()` function on this query object. The Query API provides dozens of useful functions like `all()`. In the following list, we can see a brief explanation about the most important ones:
+The code snippet above, that can be ran with `python queries.py`, shows how easy it's to use SQLAlchemy ORM to query data. To retrieve all movies from the database, we just needed to fetch a session from the session factory, use it to get a query associated with `Movie`, and then call the `all()` function on this query object. The Query API provides dozens of useful functions like `all()`. In the following list, we can see a brief explanation about the most important ones:
 
 - `count()`: Returns the total number of rows of a query.
 - `filter()`: Filters the query by applying a criteria.
@@ -606,10 +606,25 @@ The code snippet above shows how easy it's to use SQLAlchemy ORM to query data. 
 - `limit()`: Limits the number of rows returned by a query.
 - `order_by()`: Sets an order in the rows returned by a query.
 
-To see all functions supported and their description, take a look at [the official documentation](http://docs.sqlalchemy.org/en/latest/orm/query.html).
+To explore the usage of some of these functions, let's append the following code to the `queries.py` script:
+
+```python
+# 1 - imports
+from datetime import date
+
+# other imports and sections...
+
+# 5 - get movies after 15-01-01
+session.query(Movie).filter(Movie.release_date > date(2015,1,1)).all()
+```
+
+
+To see other functions supported and their description, take a look at [the official documentation](http://docs.sqlalchemy.org/en/latest/orm/query.html).
 
 ### Removing Data with SQLAlchemy ORM
 
 {% include asides/python.markdown %}
 
 ## Next Steps
+
+We have covered a lot of ground in this article. We've learned about basic SQLAlchemy concepts like Engines, Connection Pools, and Dialects. After that, we've learned about how SQLAlchemy addresses ORM topics like Relationship Patterns, Cascade strategies, and the Query API. In the end, we applied this knowledge in a small exercise. In summary, we had the chance to learn and practice the most important pieces of SQLAlchemy and SQLAlchemy ORM. In the next article, we are going to use these new skill to implement RESTful APIs with Flask—the Python microframework for the web. Stay tuned!
