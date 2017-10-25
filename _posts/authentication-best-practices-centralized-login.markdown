@@ -19,12 +19,12 @@ tags:
 - authentication
 - best-practices
 - security
+- centralized-login
 related:
-- date-postname
-- date-postname
+- 2017-10-19-oauth-2-best-practices-for-native-apps
 ---
 
-**TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
+**TL;DR:** Centralized login is the best practice strategy for authenticating with a provider. Learn why centralized login is the most secure and flexibile approach. You can explore an authenticated MEAN stack application with Auth0 centralized login and passwordless at the [messageboard GitHub repo here](https://www.github.com/auth0-blog/messageboard).
 
 ---
 
@@ -44,7 +44,7 @@ High standards of security and ease of use have been set for modern authenticati
 
 ## A Tale of Two Companies
 
-Let's begin with two hypothetical timelines from the perspective of tech teams at companies with imaginary products. These examples can help us visualize and relate to the challenges many companies face when implementing authentication in a way that doesn't afford enough flexibility.
+Let's begin with two hypothetical timelines from the perspective of tech teams at companies with imaginary products. These examples can help us visualize and relate to the challenges presented when implementing authentication in a way that doesn't afford enough flexibility.
 
 ### Company A
 
@@ -64,9 +64,9 @@ Now let's consider a second make-believe company called Company B. Their enginee
 * **Year 2**: Due to high demand, we're building native mobile apps for Android and iOS. We avoided authenticating our mobile apps in embedded WebView. This way, our users won't have to sign in again if they're already authenticated on their phone with another app that uses Google OAuth.
 * **Year 3**: We've been acquired by Google! Integration was fast and easy! 🎉
 
-These scenarios are heavily simplified, but they still demonstrate a few of the advantages of starting with centralized login and [OAuth protocols](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-12) from the beginning. Doing so helps you future-proof your applications, making it easy to grow and integrate with other systems.
+These scenarios are simplified, but they still demonstrate a few of the advantages of starting with centralized login and [OAuth protocols](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-12) from the beginning. Doing so helps you future-proof your applications, making it easy to grow and integrate with other systems.
 
-## <span id="why-use-centralized-login"></span>Why Centralized Login is Considered Best Practice
+## <span id="why-use-centralized-login"></span>Why Centralized Login is Best Practice
 
 Centralized login has many advantages over an embedded login approach, including better security, improved Single Sign-On, simpler maintainability, native app implementation, and more. Let's explore these in more detail.
 
@@ -74,26 +74,26 @@ Centralized login has many advantages over an embedded login approach, including
 
 Centralized login is more secure than embedded login. Authentication takes place over the same domain, eliminating cross-origin requests. Cross-origin authentication is inherently more dangerous. Collecting user credentials in an application served from one origin and then sending them to another origin can present certain security vulnerabilities. [Phishing attacks](https://auth0.com/blog/all-you-need-to-know-about-the-google-docs-phishing-attack/) are more likely, as are [man-in-the-middle attacks](https://auth0.com/docs/security/common-threats#man-in-the-middle-mitm-attacks). Centralized login does not send information between origins, thereby negating cross-origin concerns.
 
+Embedded user agents are unsafe for third parties, including the authorization server itself. If an embedded login is used, the app has access to both the authorization grant and the user's authentication credentials. As a consequence, this data is left vulnerable to recording or malicious use.
+
 ### Single Sign-On
 
-
+Centralized login orchestrates single sign-on between multiple apps while providing cookies from the same origin. Once a user has logged in using a centralized login, a cookie is created and stored. Any future calls to the authentication provider's authorization endpoint will then check the cookie. If the user has already signed on, the login page will not be shown again and the user will be logged in via SSO. On the other hand, embedded user agents don't share authentication state, meaning that they cannot be used for SSO.
 
 ### Easier to Implement and Maintain
 
-Developer ease of use
+Centralized login is easier to implement as well as maintain for app developers. Cross-origin authentication is inherently more dangerous, but centralized login mitigates this risk entirely. A centralized login page is already fully implemented, negating the need for the developer to build out the login UI if a custom UI is not required. The authorization server providing the centralized login page can also ensure a consistent and secure experience across all apps that utilize it.
 
-### Better Experience on Native Mobile
+### Best Practice on Native Mobile
 
-iOS, Android
+The [OAuth 2.0 Best Current Practice for Native Apps RFC](https://www.rfc-editor.org/rfc/rfc8252.txt) requires that _only_ external user agents, such as centralized login, should be used for authenticating with OAuth 2.0 in native mobile applications. This is considered best practice for reasons cited above, including security and single sign-on. You can [read more about the OAuth 2.0 BCP for Native Apps here](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/).
 
 ### User Experience
 
-Customizable UI, CNAME functionality to keep the same domain on centralized login to land before EOY (https://www.notion.so/How-to-setup-a-custom-domain-6f6a376f72ac4fd0830bbbf1f1fa73da)
+Centralized login has clear benefits for security and maintainability. It also provides a comfortable and consistent user experience that confers the benefits of SSO. With Auth0, the [centralized login](https://auth0.com/docs/hosted-pages/login) page is a [fully customizable UI](https://auth0.com/docs/hosted-pages/login#3-customization). In addition, Auth0's [CNAME](https://en.wikipedia.org/wiki/CNAME_record) functionality to persist the same domain across the centralized login page and the app is scheduled to launch before the end of 2017. Modern users are very familiar with being redirected to an authorization provider's login page to authenticate (e.g., Google or Facebook OAuth), in turn gaining the benefits of single sign-on and not being required to repeatedly log into other apps on the same device as long as they are using the same authentication provider.
 
-## When _Not_ to Use Centralized Login
+## Aside: How to Implement Centralized Login and Passwordless with Auth0
 
-## How to Implement Centralized Login with Auth0
-
-Passwordless?
+![Auth0 centralized login with email passwordless](https://cdn.auth0.com/blog/centralized-login/auth0_login_passwordless-email.jpg)
 
 ## Conclusion
