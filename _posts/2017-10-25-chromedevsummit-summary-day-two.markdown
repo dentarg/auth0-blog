@@ -56,7 +56,7 @@ Check out her [session on Youtube](https://www.youtube.com/watch?v=eG0ILA2k5qo)
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">What’s happening in Console now?<br><br>The Chrome Team is working! <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/2HFbujT2dU">pic.twitter.com/2HFbujT2dU</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922885286127947776?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-Paul talked about improvements made to _Lighthouse_. A year ago, Lighthouse had just about fifty key issue and metrics. Today, Lighthouse has over a hundred metrics. He also highlighted a new project called, _Project Lantern_, for critical path analysis and modeling.
+Paul talked about improvements made to _Lighthouse_. A year ago, Lighthouse had just about fifty key issues and metrics. Today, Lighthouse has over a hundred metrics. He also highlighted a new project called, _Project Lantern_, for critical path analysis and modeling.
 
 Eric talked about **Puppeteer**. Puppeteer is a modern Node.js library for headless Chrome. It has many powers such as:
 
@@ -83,7 +83,7 @@ Check out their [session on Youtube](https://www.youtube.com/watch?v=7-XnEMrQnn4
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ignition &amp; TurboFan - V8 Machinery <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/1OciMM8a2k">pic.twitter.com/1OciMM8a2k</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922906036834467841?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-V8 just recently move to a new architecture. The V8 Ignition, an interpreter, allows for fast startup and low memory consumption. Furthermore, the V8 TurboFan, an optimizing compiler, enables peak performance and max optimization. Thomas talked about how developers can now use ES2015+ without transpiling and still get optimal performance in the browser.
+V8 just recently moved to a new architecture. The V8 Ignition, an interpreter, allows for fast startup and low memory consumption. Furthermore, the V8 TurboFan, an optimizing compiler, enables peak performance and max optimization. Thomas talked about how developers can now use ES2015+ without transpiling and still get optimal performance in the browser.
 
 
 {% include tweet_quote.html quote_text="The V8 Ignition, an interpreter, allows for fast startup and low memory consumption." %}
@@ -151,7 +151,7 @@ Check out the [session on Youtube](https://www.youtube.com/watch?v=UTZVXlcUK1w).
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">WebAR Next Steps <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/oEQTVJpe1C">pic.twitter.com/oEQTVJpe1C</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922989938647343104?ref_src=twsrc%5Etfw">October 25, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-In between talks, there was a **Framework Panel** that consisted of _Addy Osmani_, _Andrew Clark_, _Jason Miller_, _Steve Orvell_, _Rob Wormald_, _Tracy Lee_, _Chad Hietala_, _Sean Larkin_, _Malte Ubl_, and _Alex Russell_. The audience asked several high-engaging questions. Check out the [answers given by the panel to the audience](https://www.youtube.com/watch?v=q5HDhQtpDRU).
+In between talks, there was a **Framework Panel** that consisted of _Addy Osmani_, _Andrew Clark_, _Jason Miller_, _Steve Orvell_, _Rob Wormald_, _Tracy Lee_, _Chad Hietala_, _Sean Larkin_, _Malte Ubl_, and _Alex Russell_. The audience asked several highly-engaging questions. Check out the [answers given by the panel to the audience](https://www.youtube.com/watch?v=q5HDhQtpDRU).
 
 **Aside: Authenticating with Auth0**
 
