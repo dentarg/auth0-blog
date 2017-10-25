@@ -490,8 +490,82 @@ As we can see, creating a _Many To One_ association is pretty similar to creatin
 Now that we have created our classes, let's create a file called `inserts.py` and generate some instances of these classes to persist to the database. In this file, let's add the following code:
 
 ```python
+# coding=utf-8
 
+# 1 - imports
+from datetime import date
+
+from actor import Actor
+from base import Session, engine, Base
+from contact_details import ContactDetails
+from movie import Movie
+from stuntman import Stuntman
+
+# 2 - generate database schema
+Base.metadata.create_all(engine)
+
+# 3 - create a new session
+session = Session()
+
+# 4 - create movies
+bourne_identity = Movie("The Bourne Identity", date(2002, 10, 11))
+furious_7 = Movie("Furious 7", date(2015, 4, 2))
+pain_and_gain = Movie("Pain & Gain", date(2013, 8, 23))
+
+# 5 - creates actors
+matt_damon = Actor("Matt Damon", date(1970, 10, 8))
+dwayne_johnson = Actor("Dwayne Johnson", date(1972, 5, 2))
+mark_wahlberg = Actor("Mark Wahlberg", date(1971, 6, 5))
+
+# 6 - add actors to movies
+bourne_identity.actors = [matt_damon]
+furious_7.actors = [dwayne_johnson]
+pain_and_gain.actors = [dwayne_johnson, mark_wahlberg]
+
+# 7 - add contact details to actors
+matt_contact = ContactDetails("415 555 2671", "Burbank, CA", matt_damon)
+dwayne_contact = ContactDetails("423 555 5623", "Glendale, CA", dwayne_johnson)
+dwayne_contact_2 = ContactDetails("421 444 2323", "West Hollywood, CA", dwayne_johnson)
+mark_contact = ContactDetails("421 333 9428", "Glendale, CA", mark_wahlberg)
+
+# 8 - create stuntmen
+matt_stuntman = Stuntman("John Doe", True, matt_damon)
+dwayne_stuntman = Stuntman("John Roe", True, dwayne_johnson)
+mark_stuntman = Stuntman("Richard Roe", True, mark_wahlberg)
+
+# 9 - persists data
+session.add(bourne_identity)
+session.add(furious_7)
+session.add(pain_and_gain)
+
+session.add(matt_contact)
+session.add(dwayne_contact)
+session.add(dwayne_contact_2)
+session.add(mark_contact)
+
+session.add(matt_stuntman)
+session.add(dwayne_stuntman)
+session.add(mark_stuntman)
+
+# 10 - commit and close session
+session.commit()
+session.close()
 ```
+
+This code is split into 10 sections. Let's inspecting them:
+
+1. The first section imports the classes that we created, the SQLAlchemy engine, the Base class, the Session factory, and `date` from the `datetime` module.
+2. The second section instructs SQLAlchemy to generate the database schema. This generation occurs based on the declarations that we made while creating the four main classes that compose our tutorial.
+3. The third section extracts a new session from the Session factory.
+4. The fourth section creates three instances of the `Movie` class.
+5. The fifth section creates three instances of the `Actor` class.
+6. The sixth section adds actors to movies. Note that the _Pain & Gain_ movie references two actors: _Dwayne Johnson_ and _Mark Wahlberg_.
+7. The seventh section creates instances of the `ContactDetails` class and defines what actors these instances are associated to.
+8. The eighth section defines three stuntmen and also defines what actors these stuntmen are associated to.
+9. The ninth section uses the current session to save the movies, actors, contact details, and stuntmen created. Note that we haven't explicitly saved actors. This is not needed because SQLAlchemy, by default, uses the [`save-update` cascade strategy](http://docs.sqlalchemy.org/en/latest/orm/cascades.html#cascade-save-update).
+10. The tenth section commits the current session to the database and closes it.
+
+To run this Python script, we can simply issue the `python inserts.py` command in the main directory of our database. Running it will create 5 tables in the PostgreSQL database and populate these tables with the data that we created. In the next section we will learn how to query these tables.
 
 ### Querying Data with SQLAlchemy ORM
 
