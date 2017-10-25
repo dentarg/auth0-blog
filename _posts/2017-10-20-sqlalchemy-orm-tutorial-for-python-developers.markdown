@@ -346,21 +346,29 @@ Now let's create and map the `Movie` class. To do this, let's create a new file 
 ```python
 # coding=utf-8
 
-from sqlalchemy import Column, String, Integer, Date
+from sqlalchemy import Column, String, Integer, Date, Table, ForeignKey
+from sqlalchemy.orm import relationship
 
-from .base import Base
+from base import Base
+
+movies_actors_association = Table(
+    'movies_actors', Base.metadata,
+    Column('movie_id', Integer, ForeignKey('movies.id')),
+    Column('actor_id', Integer, ForeignKey('actors.id'))
+)
 
 
 class Movie(Base):
-   __tablename__ = 'movies'
+    __tablename__ = 'movies'
 
-   id = Column(Integer, primary_key=True)
-   title = Column(String)
-   release_date = Column(Date)
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    release_date = Column(Date)
+    actors = relationship("Actor", secondary=movies_actors_association)
 
-   def __init__(self, title, release_date):
-       self.title = title
-       self.release_date = release_date
+    def __init__(self, title, release_date):
+        self.title = title
+        self.release_date = release_date
 ```
 
 The definition of this class and its mapping characteristics is quite simple. We start by making this class extend the `Base` class defined in the `base.py` module and then we add four properties to it:
@@ -377,7 +385,7 @@ The next class that we will create and map is the `Actor` class. Let's create a 
 
 from sqlalchemy import Column, String, Integer, Date
 
-from .base import Base
+from base import Base
 
 
 class Actor(Base):
@@ -436,10 +444,10 @@ The next class that we will create is `Stuntman`. In our tutorial, a particular 
 ```python
 # coding=utf-8
 
-from sqlalchemy import Column, String, Integer, Boolean
+from sqlalchemy import Column, String, Integer, Boolean, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
-from .base import Base
+from base import Base
 
 
 class Stuntman(Base):
@@ -448,6 +456,7 @@ class Stuntman(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     active = Column(Boolean)
+    actor_id = Column(Integer, ForeignKey('actors.id'))
     actor = relationship("Actor", backref=backref("stuntman", uselist=False))
 
     def __init__(self, name, active, actor):
@@ -463,10 +472,10 @@ The fourth and final class that we will map in our tutorial is `ContactDetails`.
 ```python
 # coding=utf-8
 
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .base import Base
+from base import Base
 
 
 class ContactDetails(Base):
@@ -475,7 +484,8 @@ class ContactDetails(Base):
     id = Column(Integer, primary_key=True)
     phone_number = Column(String)
     address = Column(String)
-    actor = relationship("Actor", back_populates="contact_details")
+    actor_id = Column(Integer, ForeignKey('actors.id'))
+    actor = relationship("Actor", backref="contact_details")
 
     def __init__(self, phone_number, address, actor):
         self.phone_number = phone_number
