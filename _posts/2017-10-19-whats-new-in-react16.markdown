@@ -28,17 +28,17 @@ related:
 
 ---
 
-**TL;DR:** ReactJS is a UI library that has gained massive adoption by developers and organizations around the world because of it's efficient and reactive model. In this article, we'll highlight notable additions to ReactJS 16 and dabble into the architecture it runs on.
+**TL;DR:** ReactJS is a UI library that has gained massive adoption by developers and organizations around the world because of its efficient and reactive model. In this article, we'll highlight notable additions to ReactJS 16 and dabble into the architecture it runs on.
 
 ---
 
-ReactJS is a JavaScript library, built and maintained by Facebook. As at the time of this writing, ReactJS has over 78,000 stars on [GitHub](https://github.com/facebook/react). And many web platforms such as _Twitter_, _Airbnb_, _Lyft_, _Dropbox_, _Pinterest_, _Whatsapp_ and _Instagram_ use ReactJS to build their user interfaces. The ReactJS developer community is very robust. In fact, the community is so robust that when Facebook decided to implement the [BSD+ Patents license](https://code.facebook.com/posts/112130496157735/explaining-react-s-license/), there was a public outcry from the community. The complaints from developers were on every other blog, forum, meetups, and conferences. Developers and software shops around the world are pretty excited and relieved that ReactJS has been re-licensed under the **MIT** license.
+ReactJS is a JavaScript library, built and maintained by Facebook. At the time of writing, ReactJS has over 78,000 stars on [GitHub](https://github.com/facebook/react). And many web platforms such as _Twitter_, _Airbnb_, _Lyft_, _Dropbox_, _Pinterest_, _Whatsapp_ and _Instagram_ use ReactJS to build their user interfaces. The ReactJS developer community is very robust. In fact, the community is so robust that when Facebook decided to implement the [BSD+ Patents license](https://code.facebook.com/posts/112130496157735/explaining-react-s-license/), there was a public outcry from the community. The complaints from developers were on every other blog and forum as well as at meetups and conferences. Developers and software shops around the world are pretty excited and relieved that ReactJS has been re-licensed under the **MIT** license.
 
 ReactJS 16 was announced to the world on September 26, 2017. Facebook has been working on releasing this new version for a while now. It's great that there is a new release, but ReactJS 16 is a very special release. What's exciting about this new ReactJS release is the fact that it was entirely rewritten from scratch while ensuring that the public API remains unchanged. This major release brings a lot of new features, deprecations, and changes.
 
 ## ReactJS API-Compatible Rewrite - Why?
 
-Questions have been flying around as to why Facebook decided to rewrite the internals of ReactJS while keeping the public API essentially unchanged. Facebook has been working on **React Fiber**, which is a reimplementation of ReactJS's core algorithm for about two years now. The goal of _React Fiber_ is to enable **incremental rendering** - the ability to split rendering work into chunks and spread it out over multiple frames. In addition, the ability to pause, abort, or reuse work as new updates come in and the ability to assign priority to different types of updates. There are many reasons as to why it was rewritten but I'll highlight a few reasons.
+Questions have been flying around as to why Facebook decided to rewrite the internals of ReactJS while keeping the public API essentially unchanged. Facebook has been working on **React Fiber**, which is a reimplementation of ReactJS's core algorithm for about two years now. The goal of _React Fiber_ is to enable **incremental rendering**—the ability to split rendering work into chunks and spread it out over multiple frames. In addition, the ability to pause, abort, or reuse work as new updates come in and the ability to assign priority to different types of updates. There are many reasons as to why it was rewritten but I'll highlight a few reasons.
 
 {% include tweet_quote.html quote_text="The goal of React Fiber is to enable incremental rendering." %}
 
@@ -58,11 +58,11 @@ _React Fiber_ is a reimplementation of a stack frame specialized for ReactJS com
 
 _React Fiber_ allows smooth rendering of the UI by pausing once in a while and checking for more important updates rather than waiting for all the changes to be propagated throughout the entirety of the component tree before updating the UI. The task scheduling ability of _React Fiber_ makes this possible.
 
-In ReactJS, we have two important players, the **Reconciler** and the **Renderer**. The **Renderer** is a pluggable section of ReactJS that allows rendering of the UI to happen across and outside the DOM. It was originally created for the DOM but was later adapted to support native platforms. ReactJS has the _[ReactJS DOM Renderer](https://github.com/facebook/react/tree/master/src/renderers/dom) - renders ReactJS components to the DOM_, _[ReactJS Native Renderer](https://github.com/facebook/react/tree/master/src/renderers/native) - renders ReactJS components to native views_, and the _[ReactJS Test Renderer](https://github.com/facebook/react/tree/master/src/renderers/testing) - renders ReactJS components to JSON trees_.
+In ReactJS, we have two important players: the **Reconciler** and the **Renderer**. The **Renderer** is a pluggable section of ReactJS that allows rendering of the UI to happen across and outside the DOM. It was originally created for the DOM but was later adapted to support native platforms. ReactJS has the _[ReactJS DOM Renderer](https://github.com/facebook/react/tree/master/src/renderers/dom) - renders ReactJS components to the DOM_, _[ReactJS Native Renderer](https://github.com/facebook/react/tree/master/src/renderers/native) - renders ReactJS components to native views_, and the _[ReactJS Test Renderer](https://github.com/facebook/react/tree/master/src/renderers/testing) - renders ReactJS components to JSON trees_.
 
 The **Reconciler** is used by the renderer to perform updates to the DOM. Whenever a component updates, be it _mounting_, _unmounting_ or any form of update, the reconciler (_known as the stack reconciler_) processes the component tree from top to bottom synchronously in a single pass, checks for changes in the tree, then passes on these changes to the renderer. In previous versions of ReactJS, the reconciler did not have the ability to pause work, thus making performance suboptimal when deep updates occur and the CPU time is limited.
 
-{% include tweet_quote.html quote_text=" In ReactJS, we have two important players - the Reconciler and the Renderer." %}
+{% include tweet_quote.html quote_text=" In ReactJS, we have two important players: the Reconciler and the Renderer." %}
 
 With React Fiber, the new reconciler has the ability to do the following:
 
@@ -80,9 +80,9 @@ Check out more information on [Reconciliation](https://reactjs.org/docs/reconcil
 
 ## ReactJS 16 Features
 
-Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. ReactJS 16 ships with some new features.
+Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_, ReactJS 16 ships with some new features.
 
-* **Error handling using Error boundaries**: In ReactJS 16, the error handling has been greatly improved. Before now, ReactJS applications break when a runtime error occurs and requires a page refresh to recover from the broken state. The component is unmounted each time any error throw in the constructor, render method and lifecycle methods. In ReactJS 16, error boundaries have been introduced to capture errors and display a fallback UI instead of unmounting the component every time. **Error boundaries** are simply ReactJS components that catch JavaScript errors anywhere in a component and child trees, log those errors and display a fallback UI. It is important to know that error boundaries catch errors thrown in the constructor, render and lifecycle methods. The new lifecycle hook method that makes a class component an error boundary is `componentDidCatch(error, info)`. This method works like a try/catch block for components. Create an error boundary component once and call it everywhere it's needed in your application.
+* **Error handling using Error boundaries**: In ReactJS 16, the error handling has been greatly improved. Before now, ReactJS applications broke whenever a runtime error occurred and required a page refresh to recover from the broken state. The component is unmounted each time any error throw in the constructor, render method and lifecycle methods. In ReactJS 16, error boundaries have been introduced to capture errors and display a fallback UI instead of unmounting the component every time. **Error boundaries** are simply ReactJS components that catch JavaScript errors anywhere in a component and child trees, log those errors and display a fallback UI. It is important to know that error boundaries catch errors thrown in the constructor, render and lifecycle methods. The new lifecycle hook method that makes a class component an error boundary is `componentDidCatch(error, info)`. This method works like a try/catch block for components. Create an error boundary component once and call it everywhere it's needed in your application.
 
     ```js
     class ErrorBoundary extends React.Component {
@@ -111,16 +111,16 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
 * **Support for Defining Custom DOM Attributes**: Before now, if you used a custom DOM attribute, ReactJS would skip it. In ReactJS 16, unknown attributes will be passed onto the DOM. A typical example is shown below:
 
     ```
-    <div alein="skullIsland" />
+    <div alien="skullIsland" />
 
-    // will be displayed in ReactJS 15as:
+    // will be displayed in ReactJS 15 as:
     <div />
     ```
 
     ```js
-    <div alein="skullIsland" />
+    <div alien="skullIsland" />
 
-    // will be displayed in ReactJS 16as:
+    // will be displayed in ReactJS 16 as:
     <div alien="skullIsland" />
     ```
 
@@ -139,14 +139,14 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
       ];
     }
     ```
-    _returning arrays_
+    _Returning arrays_
 
     ```js
     render() {
       return 'Boss, I just returned a string. Can you believe it? ReactJS 16  is dope!';
     }
     ```
-    _returning a string_
+    _Returning a string_
 
 * **Portals**: This is a concept allows you to render children into a DOM node that exists outside of the hierarchy of the parent component. In layman terms, it simply means a child can be inserted into a different location in the DOM via Portals. For example, your app has a section component with a paragraph element as its child. Portals can be used to make the paragraph child element break out of its container.
 
@@ -165,7 +165,7 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
     ```
     _A typical example_
 
-* **Improved Server-side rendering**: The server renderer was completely rewritten in ReactJS 16 to be very fast. Server-side rendering in ReactJS 16 is about three times faster than ReactJS 15 because the server renderer supports _streaming_. This makes sending of data from the server to the client faster than usual. In ReactJS 16, there are two different methods for rendering on the client side, _render()_ and _hydrate()_. _render()_ as we already know for rendering content solely on the client side, _hydrate()_ for rendering on top of server-side rendered markup. Furthermore, ReactJS 16 is better at hydrating server-rendered HTML once it reaches the client. It no longer requires the initial render to exactly match the result from the server. Instead, it will attempt to reuse as much of the existing DOM as possible.
+* **Improved server-side rendering**: The server renderer was completely rewritten in ReactJS 16 to be very fast. In addition, server-side rendering in ReactJS 16 is about three times faster than ReactJS 15 because the server renderer supports _streaming_. This makes sending of data from the server to the client faster than usual. In ReactJS 16, there are two different methods for rendering on the client side, `render()` and `hydrate()`. `render()` as we already know for rendering content solely on the client side, `hydrate()` for rendering on top of server-side rendered markup. Furthermore, ReactJS 16 is better at hydrating server-rendered HTML once it reaches the client. It no longer requires the initial render to exactly match the result from the server. Instead, it will attempt to reuse as much of the existing DOM as possible.
 
 {% include tweet_quote.html quote_text="In ReactJS 16, there are two different methods for rendering on the client side, render() and hydrate()." %}
 
@@ -175,7 +175,7 @@ Apart from the fact that ReactJS 16 runs on the new engine, _React Fiber_. React
       hydrate(<Profile />, document.getElementById("profile-container"));
     ```
 
-> **Note:** _render()_ can still be used to render on top of server-side rendered markup, but it's recommended to use _hydrate()_ now for that type of rendering in ReactJS 16.
+> **Note:** `render()` can still be used to render on top of server-side rendered markup, but it's recommended to use `hydrate()` now for that type of rendering in ReactJS 16.
 
 
 ![ReactJS 16 vs ReactJS 15 server-side rendering](https://cdn-images-1.medium.com/max/1600/1*E5Pmh6HSeybcF7C686B9pA.png)
@@ -183,7 +183,7 @@ _Source: hackernoon.com_
 
 ReactJS 16 does not support error boundaries and portals in server-side rendering.
 
-For more information, check out this [excellent article on Server-side rendering in ReactJS 16.](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)
+For more information, check out this [excellent article on server-side rendering in ReactJS 16.](https://hackernoon.com/whats-new-with-server-side-rendering-in-react-16-9b0d78585d67)
 
 ## ReactJS 16 Deprecations and Breaking Changes
 
@@ -191,16 +191,16 @@ There a few deprecations and a number of breaking changes in ReactJS 16.
 
 * Discontinued support for React Add-ons.
 * Calling `setState` with null no longer triggers an update.
-* Calling `setState` directly inside the _render()_ method always causes an update.
-* `setState` callbacks now fire immediately after _componentDidMount_ or _componentDidUpdate_.
-* The `componentDiDUpdate` lifecycle no longer accepts the `prevContext` parameter.
+* Calling `setState` directly inside the `render()` method always causes an update.
+* `setState` callbacks now fire immediately after `componentDidMount` or `componentDidUpdate`.
+* The `componentDidUpdate` lifecycle no longer accepts the `prevContext` parameter.
 * `ReactDOM.render()` and `ReactDOM.unstable_renderIntoContainer()` now return `null` if called from inside a lifecycle method.
-* Previously, changing the ref to a component would always detach the ref before that component's render is called. Now, we change the ref later, when applying the changes to the DOM.
-* As I mentioned earlier, hydrating a server-rendered container now has an explicit API. Use _ReactDOM.hydrate_ instead of _ReactDOM.render_ if you're reviving server rendered HTML. Keep using _ReactDOM.render_ if you're just doing the client-side rendering.
+* Previously, changing the ref to a component would always detach the ref before that component's render was called. Now, we change the ref later, when applying the changes to the DOM.
+* As I mentioned earlier, hydrating a server-rendered container now has an explicit API. Use `ReactDOM.hydrate` instead of `ReactDOM.render` if you're reviving server rendered HTML. Keep using `ReactDOM.render` if you're just doing the client-side rendering.
 
-For more information, check out the full list of [deprections and breaking changes on GitHub](https://github.com/facebook/react/releases/tag/v16.0.0).
+For more information, check out the full list of [deprecations and breaking changes on GitHub](https://github.com/facebook/react/releases/tag/v16.0.0).
 
-There are lots of performance observation and testing done by apps that have made the upgrade to ReactJS 16. And so far, there have been a lot of cheer and positive feedback for ReactJS 16. In fact, Twitter Lite already uses ReactJS 16.
+There has been a lot of performance observation and testing done by apps that have made the upgrade to ReactJS 16. And so far, there have been a lot of cheer and positive feedback for ReactJS 16. In fact, Twitter Lite already uses ReactJS 16.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Twitter Lite is now on React v16. We&#39;ve seen from 5 to 32% increase in performance on React components. 🎉👏</p>&mdash; Paul Armstrong (@paularmstrong) <a href="https://twitter.com/paularmstrong/status/920700461388361728?ref_src=twsrc%5Etfw">October 18, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -231,7 +231,7 @@ npm install -g create-react-app
 create-react-app my-app
 ```
 
-_Create an Auth Service_
+### Create an Auth Service
 
 ```js
 import auth0 from 'auth0-js';
@@ -252,14 +252,13 @@ export default class Auth {
 }
 ```
 
-Get the real values of `YOUR_AUTH0_DOMAIN_`, and `YOUR_CLIENT_ID` from your [Auth0 dashboard](https://manage.auth0.com).
+Get the real values of `YOUR_AUTH0_DOMAIN`, and `YOUR_CLIENT_ID` from your [Auth0 dashboard](https://manage.auth0.com).
 ![Client details from Dashboard](https://cdn2.auth0.com/docs/media/articles/dashboard/client_settings.png)
 _Client Details from Dashboard_
 
-Configure your callback URL in the **Allowed Callback URLs** field in your [Client Settings](https://manage.auth0.com/#/applications/YOUR_CLIENT_ID/settings).
+Configure your callback URL in the **Allowed Callback URLs** field in your **Client Settings**.
 
-
-_Import the Auth Service into the component of your choice in your app_
+### Import the Auth Service into the component of your choice in your app
 
 ```js
 // App.js
@@ -269,11 +268,11 @@ const auth = new Auth();
 auth.login();
 ```
 
-When the user clicks on `login`, he or she is directed to the hosted login page.
-![Hosted-login](https://cdn2.auth0.com/docs/media/articles/web/hosted-login.png)
+We will be adding the `login` button later, this button will allow the user to be redireced to the centralized login page.
+![Centralized Login](https://cdn2.auth0.com/docs/media/articles/web/hosted-login.png)
 
 
-Check out more methods added to the Auth Service below for setting a session with the _access_token_ and _id_token_ gotten from the Auth0 server during credentials exchange.
+Check out more methods added to the Auth Service below for setting a session with the _access_token_ and _id_token_ retrieved from the Auth0 server during credentials exchange.
 
 _Auth Service_
 
@@ -338,6 +337,7 @@ import createHistory from 'history/createBrowserHistory'
 
 export default createHistory()
 ```
+
 
 Find a sample component below with controls for users to log in and out of your application.
 
@@ -410,7 +410,9 @@ class App extends Component {
 export default App;
 ```
 
-When you use the Auth0 hosted login page, your users are taken away from your application. After they authenticate, the users automatically return to your application and a client-side session is set for them. You can select any URL in your application for your users to return to. We recommend creating a dedicated callback route. With a callback route, you can display a loading indicator while the application sets up a client-side session.
+When you use the Auth0 centralized login page, your users are taken away from your application. After they authenticate, the users automatically return to your application and a client-side session is set for them. You can select any URL in your application for your users to return to. We recommend creating a dedicated callback route. With a callback route, you can display a loading indicator while the application sets up a client-side session.
+
+> Check out why [centralized login](https://auth0.com/docs/hosted-pages/login#why-use-the-hosted-login-page) is better than embedded.
 
 _src/Callback/Callback.js_
 
@@ -420,11 +422,10 @@ _src/Callback/Callback.js_
 
   class Callback extends Component {
     render() {
-      const style = //...
 
       return (
-        <div style={style}>
-          <img src={loading} alt="loading"/>
+        <div>
+          <p> Loading... </p>
         </div>
       );
     }
@@ -433,9 +434,9 @@ _src/Callback/Callback.js_
   export default Callback;
 ```
 
-When a user authenticates at the Auth0 hosted login page, they are redirected back to your application. Their URL contains a hash fragment with their authentication information. The handleAuthentication method in the Auth service processes the hash.
+When a user authenticates at the Auth0 centralized login page, they are redirected back to your application. Their URL contains a hash fragment with their authentication information. The `handleAuthentication` method in the Auth service processes the hash.
 
-Call the handleAuthentication method after you render the Callback route. The method processes the authentication hash fragment when the Callback component initializes.
+Call the `guideAuth` method after you render the `Callback` route. The method processes the authentication hash fragment when the Callback component initializes.
 
 _src/routes.js_
 
@@ -450,7 +451,7 @@ import history from './history';
 
 const auth = new Auth();
 
-const handleAuthentication = (nextState, replace) => {
+const guideAuth = (nextState, replace) => {
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication();
   }
@@ -463,7 +464,7 @@ export const makeMainRoutes = () => {
         <Route path="/" render={(props) => <App auth={auth} {...props} />} />
         <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
         <Route path="/callback" render={(props) => {
-          handleAuthentication(props);
+          guideAuth(props);
           return <Callback {...props} />
         }}/>
       </div>
@@ -472,12 +473,12 @@ export const makeMainRoutes = () => {
 }
 ```
 
-Check out a complete ReactJS application running on _ReactJS 16_ with a Node.js API backend on [GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/react16). This app accompanies the [ReactJS Authentication tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). Go ahead and run the _react16_ branch!
+Check out a [complete ReactJS application running on ReactJS 16 with a Node.js API backend on GitHub](https://github.com/auth0-blog/reactjs-authentication-tutorial/tree/react16). This app accompanies the [ReactJS Authentication tutorial](https://auth0.com/blog/reactjs-authentication-tutorial). Go ahead and run the _react16_ branch!
 
 ## Conclusion
 
-ReactJS is an awesome front-end library to employ in building your user interfaces. It is faster now because it runs on _React Fiber_ and allows you to build faster and smoother UIs for your web and native applications.
+ReactJS is an awesome front-end library to employ in building your user interfaces. It is faster now because it runs on _React Fiber_ and allows you to build more performant, smoothe UIs for your web and native applications.
 
-**ReactJS 16** came loaded with lots of new features and significant improvements. Kudos to the ReactJS team and the JavaScript Open source community for all their efforts in making ReactJS a better tool.
+**ReactJS 16** came loaded with lots of new features and significant improvements. Kudos to the ReactJS team and the JavaScript open source community for all their efforts in making ReactJS a better tool.
 
 Have you switched to ReactJS 16 yet? What are your thoughts? Let me know in the comments section! 😊
