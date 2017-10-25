@@ -318,7 +318,7 @@ This command will download both libraries and make them available in our [Python
 
 After starting the _dockerized_ PostgreSQL instance and installing the Python dependencies, we can start mapping Python classes to database tables. In this tutorial we will map four simple classes that represent movies, actors, stuntmen, and contact details. The following diagram illustrates these entities' characteristics and their relations.
 
-![Mapping Python classes with SQLAlchemy](https://cdn.auth0.com/blog/sqlalchemy-tutorial/class_diagram.jpg)
+![Mapping Python classes with SQLAlchemy](https://cdn.auth0.com/blog/sqlalchemy-tutorial/class_diagram_tuto.jpg)
 
 To start, we will create a file called `base.py` in the main directory of our project and add the following code to it:
 
