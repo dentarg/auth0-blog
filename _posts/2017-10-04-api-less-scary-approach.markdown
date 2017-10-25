@@ -3,7 +3,7 @@ layout: post
 title: "API's: A Look Into What They Are and How They Work"
 description: "A complete introduction to API's for beginners. Learn what API's are, how they work, and write your first API."
 date: 2017-10-04 13:00
-category: Technical Guide, Backend
+category: Technical Guide, Backend, API, ExpressJs
 banner:
     text: "Auth0 makes it easy to add authentication to your application."
 author:
@@ -41,8 +41,8 @@ This happens to everyone. What you should never do is give up. We are here to di
 
 ## To Do:
 * Explain what an API is.
-* Discuss why you would build an API
-* Build a simple app using the Auth0 API
+* Discuss why you would build an API.
+* Build a simple app using the Auth0 API.
 
 The magnificent, “Application Programming Interface” or API, highly exalted in the previous definitions above is simply a messenger. Think of an API as a waiter. You go to your favorite classy restaurant to buy food, you have to place your order ( make a request ) right? Someone walks up to you with list of meals available, the waiter ( API ) . The waiter takes your order, goes to the kitchen to process your order and comes back with the meal.
 
@@ -52,11 +52,11 @@ The magnificent, “Application Programming Interface” or API, highly exalted 
 
 Take a look at cheap restaurants, where there are no waiters, no menu, you just walk straight to the kitchen to get your meal. I believe you know how messy and inconvenient that can get, lots of customers barking their orders, each struggling to get attention. You don’t want to be caught up in that mess.
 
-Well, before APIs, clients interacted with the data store directly, which had lots of downsides to it; the biggest of which is the lack of security.
+Well, before APIs, clients interacted with the data store directly, which had lots of downsides to it; the biggest of which was the lack of security.
 
 ---
 
-In computing, APIs take the request from the user of an app (web client, mobile app, etc.) to get / send something. Say you just placed an order for a MacBook from an online store. The online stores API takes the order information and sends it to the server to process the order, then returns a response, notifying you whether it was successful or not. The data has to be represented in a format that both the app and the server will understand, just the way the menu is written in a specific language you and the waiter understand so he can place the right order for you at the kitchen. The generally accepted format is JSON (JavaScript Object Notation). The order information may look like this:
+In computing, APIs take the request from the user of an app (web client, mobile app, etc.) to get or send a. Say you just placed an order for a MacBook from an online store. The online store's API takes the order information and sends it to the server to process the order, then returns a response, notifying you whether it was successful or not. The data has to be represented in a format that both the app and the server will understand, just the way the menu is written in a specific language you and the waiter understand so he can place the right order for you at the kitchen. The generally accepted format is JSON (JavaScript Object Notation). The order information may look like this:
 
 ```javascript
 { 
@@ -66,7 +66,7 @@ In computing, APIs take the request from the user of an app (web client, mobile 
 }
 ```
 
-This data is then carried by the API (messenger) to the Data Store, which saves the order information and API returns with response for the Client. Example response :
+The API (messenger) sends this data to the Data Store, which saves the order information and API returns with response for the Client. Example response :
 
 ```javascript
 {
@@ -75,29 +75,28 @@ This data is then carried by the API (messenger) to the Data Store, which saves 
              anticipate delivery in couple days"
 }
 ```
-Upon receipt of this response, the client app traverses the data to fetch the needed info. Most times the message is the only thing the user of the app gets to see, others are abstracted. 
+Upon receipt of this response, the client app traverses the data to fetch the needed info. The user gets to see only this message, others are abstracted. 
 
 ---
 
 ## Why do you need an API?
 
-Let’s say you want to display motivational quotes on a section of your website. You might decide to write all these quotes or copy them off the internet, then save them in your database. But don’t forget you need a sufficient amount of these, you don’t want to bore your readers with same quotes all the time. So imagine the stress of getting these quotes and saving everything in the database.
+Let’s say you want to display motivational quotes on a section of your website. You might decide to write all these quotes or copy them off the internet and save them in your database. But don’t forget you need a sufficient amount of these, you don’t want to bore your readers with same quotes all the time. So imagine the stress of getting these quotes and saving everything in the database.
 
 ![take orders](https://cdn-images-1.medium.com/max/1600/1*o5dz30z2iTiZm2SGZlH14A.jpeg)
 
 _Image source: [The Bitchy Waiter](http://thebitchywaiter.com/2014/02)_
 
-Some rather hardworking and kind folk have most likely already built something like this and made it accessible via an API. So anytime you need to get quote, you only need to send a request to this API, describing exactly what you want based on the API's documentation.
-APIs are accessed though endpoints. Endpoints refers to the location of the resources on a particular server. So when a request hits the API, it knows just what you want and how to respond to the call.
-Take a look at a sample endpoints from [talaikis.com](https://talaikis.com/random_quotes_api/) :
+APIs are accessed though endpoints. Endpoints present an interface via which a resource or group of resources can be accessed. So when a request hits the API, it knows just what you want and how to respond to the call.
+Take a look at these endpoints from [talaikis.com](https://talaikis.com/random_quotes_api/) :
 
 ### Endpoints available:
-* https://talaikis.com/api/quotes/random — Returns One Random Quote.
-* https://talaikis.com/api/quotes  — Returns 100 random quotes at a time.
+* [https://talaikis.com/api/quotes/random](https://talaikis.com/api/quotes/random) — returns one random Quote.
+* [https://talaikis.com/api/quotes](https://talaikis.com/api/quotes)  — returns 100 random quotes at a time.
 
-From the above, calls to those endpoints returns different resource. The first returns a random quote every time it’s called, while the other returns 100 random quotes. For your app, I believe the first endpoint is just perfect, so we'll use it!
+From the code above, calls made to those endpoints return different resources. The first returns a random quote every time it’s called, while the other returns 100 random quotes. For your app, I believe the first endpoint is just perfect, so we'll use it!
 
-NOTE: Before you can make use of any API, you have to read the documentation, know the type of request it takes, queries, parameters and the structure of the expected response.
+__NOTE__: Before you can make use of any API, you have to read the documentation, know the type of request it takes, queries, parameters and the structure of the expected response.
 
 A sample request using [`jQuery.getJSON()`](https://www.w3schools.com/jquery/jquery_ref_ajax.asp) method to call the first endpoint:
 
@@ -121,22 +120,22 @@ Response:
 }
 ```
 
-Does that look familiar? Yea, that’s JSON again. We've used a simple external API to get the data we needed with relative ease.
+Does that look familiar? Yea, that’s JSON again. We've used a simple external API to get the data we needed with ease.
 
-There’s a lot more we can do with API, but that’s all we will cover for now. Next, let's build a full application that uses various APIs to get a feel for how to work with them.
+There’s a lot more we can do with the API, but that’s all we will cover for now. Next, let's build a full application that utilizes various APIs to get a feel of how to work with them.
 
 ---
 
 # Quotes Web App
 ## To Do:
-* Build a Quotes Application
-* Introduce Auth0
-* Use Auth0 for User Authentication in our application
+* Build a Quotes Application.
+* Introduce Auth0.
+* Use Auth0 for User Authentication in our application.
 
 ## Building a Quotes Application with ExpressJS
-(This session assumes you know basic nodejs & express framework, if not take time out to read up [here](https://goo.gl/vCjXwJ))
+This session assumes you know basic Node.js & Express framework, if not take time out to read up [here](https://goo.gl/vCjXwJ)
 
-Create an ExpressJS (a framework built on top of Node) project using express-generator. Run the commands below to setup express and create a new project.
+Create an ExpressJS (a framework built on top of Node) project using [express-generator](https://www.npmjs.com/package/express-generator). Run the commands below to setup express and create a new project.
 
 ```bash
 $ npm install -g express-generator
@@ -144,7 +143,7 @@ $ express quotesGenerator
 $ cd quotesGenerator
 ```
 
-The second command creates a folder and basic files to start up your project, open the folder with your favorite IDE or text editor.
+The second command creates a folder and basic files to start up your project. Open the folder with your favorite IDE or text editor.
 
 Run the command below to install the dependencies described in `package.json`.
 
@@ -159,7 +158,7 @@ $ npm install connect-flash express-session passport hbs --save
 ```
 
 * [connect-flash](https://github.com/jaredhanson/connect-flash) stores flash messages in the session.
-* [express-session](https://github.com/expressjs/session) a nodejs middleware for handling sessions.
+* [express-session](https://github.com/expressjs/session) is a nodejs middleware for handling sessions.
 * [passport](https://github.com/jaredhanson/passport) is an authentication middleware for nodejs
 * [hbs](https://handlebarsjs.com/) is a templating engine for nodejs.
 
@@ -311,7 +310,7 @@ _views/index.hbs_
 </script>
 ```
 
-This is the landing page, it displays random post everytime it’s loaded. The tiny script embedded in it calls the talaikis.com quotes api to obtain random quote.
+This is the landing page. It displays random post everytime it’s loaded. The tiny script embedded in it calls the [talaikis.com](talaikis.com) quotes api to obtain random quote.
 
 _views/profile.hbs_
 
@@ -346,17 +345,13 @@ _profile page_
 
 ![profile page](https://cdn-images-1.medium.com/max/1600/1*g3b-RfCQwhAzoMnpjenrww.png)
 
-So that’s all we got for now but we want to be a little stingy with the quotes, users have to be logged in to see them, this is where Auth0 comes in.
+That's all we have for now but let's be a little stingy with access to the quotes. Users should have to log in to see them. This is where Auth0 comes in.
 
 ## What is Auth0?
 
-![auth0](https://cdn-images-1.medium.com/max/1600/1*k0tT97Exkku4h3KBOexREQ.png)
+**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code. If you don't already have an Auth0 account, [sign up](https://auth0.com/signup) for one now."
 
-Auth0 provides modern identity platform with [user management](https://auth0.com/user-management), [multifactor authentication](https://auth0.com/multifactor-authentication), [lock](https://auth0.com/lock), [paswordless login](https://auth0.com/passwordless) amongst others.
-
-Auth0 issues [JSON Web Tokens](https://jwt.io/) on every login for your users with support for social identity providers (Facebook, Github, Twitter, etc.) amongst others. First thing, create a free account on Auth0.com if you don’t already have one, done ?
-
-On your dashboard, create a new client, a client is simply the app we want to manage.
+On your [dashboard](https://manage.auth0.com/), create a new client, a client is simply the app we want to manage.
 
 ![client dashboard](https://cdn-images-1.medium.com/max/1600/1*n31Js4KvIqHT_RJUb0nRBA.png)
 
@@ -364,7 +359,7 @@ Give it a name and select **“Regular Web Application (with refresh)”**.
 
 ![create client](https://cdn-images-1.medium.com/max/1600/1*kLKm3HnLnMxSBaFVsnIm1g.png)
 
-Next, choose the technology for the project, which in our case is NodeJs.
+Next, choose the technology for the project, which in our case is Node.js.
 Navigate to the settings tab, take note of your __domain__, __client id__ and __client secret__.
 
 ![client details](https://cdn-images-1.medium.com/max/1600/1*rZS0Mrotwusp3xovgsuL8A.png)
@@ -380,7 +375,7 @@ $ npm install passport-auth0 connect-ensure-login --save
 * [connect-ensure-login](https://github.com/jaredhanson/connect-ensure-login) middleware ensures that a user is logged in.
 
 ## Step 2: Configure the Middlewares
-Create a new instance of the Auth0Strategy strategy. Enter your Auth0 client details as configuration values. Tell passport to use the strategy.
+Create a new instance of the __Auth0Strategy__ strategy. Enter your Auth0 client details as configuration values. Tell passport to use the strategy.
 
 Update the app.js file to include this configuration.
 
@@ -478,7 +473,7 @@ router.get(
 );
 ```
 
-Open `users.js`, let’s modify that to send data of logged in user to the view, `profile.hbs`.
+Open `users.js`, let’s modify that to send the data of a logged in user to the view.
 
 _users.js_
 
@@ -551,7 +546,7 @@ _views/index.hbs_
 </script>
 ```
 
-Let’s update layout.hbs to toggle the login/logout based on user’s logged in state.
+Let’s update _layout.hbs_ to toggle the login/logout based on the user’s logged in state.
 
 _layout.hbs_
 
@@ -625,12 +620,12 @@ _localhost:3000/user_
 
 ## Conclusion
 
-Well Done! You have just built a simple web app using ExpressJS framework as a backend and Auth0 to authenticate and manage users. This tutorial was designed to help you understand APIs and how they work. Now you can use the knowledge gained to build even better apps with scalable user management and authentication using Auth0.
+Well Done! You have just built a simple web app using ExpressJS framework as a backend and Auth0 to authenticate and manage users. This tutorial was designed to help you understand APIs and how they work. Now you can use the knowledge gained here to build even better apps with scalable user management and authentication using Auth0.
 
-You can find the repo for the app [here](https://github.com/biodunch/quotesGenApp). Also I’ve deployed a demo on [heroku](https://quotesgen.herokuapp.com).
+Check out the repo for the app on [GitHub](https://github.com/biodunch/quotesGenApp). Also I’ve deployed a demo on [heroku](https://quotesgen.herokuapp.com).
 
 Kindly let me know if you have any questions or recommendations in the comment section.
 
-This [link](https://www.computersciencezone.org/50-most-useful-apis-for-developers) contains list of useful APIs for programmers. Have fun tearing them down.
+For more information, check out [this list](https://www.computersciencezone.org/50-most-useful-apis-for-developers) of useful APIs for programmers. Have fun tearing them down.
 
 Read up and Practice More!
