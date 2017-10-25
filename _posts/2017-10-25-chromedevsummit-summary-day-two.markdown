@@ -2,7 +2,7 @@
 layout: post
 title: "Chrome Developer Summit 2017 Summary - Day 2"
 description: "Check out our summary of the Chrome Developer Summit 2017, Day 2."
-date: 2017-10-24 08:30
+date: 2017-10-25 08:30
 category: Technical Guide, Conferences, Chrome Developer Summit
 author:
   name: "Prosper Otemuyiwa"
@@ -24,9 +24,9 @@ related:
 ---
 
 
-The second and final day of the fifth Chrome Developer Summit 2017 consisted of about nine talks, and a Framework Panel. These talks were centered around VR, AR, Media, Polymer and developer tooling.
+The second and final day of the fifth Chrome Developer Summit 2017 consisted of about nine talks and a Framework Panel. These talks were centered around VR, AR, Media, Polymer and developer tooling.
 
-**[Tal Oppenheimer](https://twitter.com/taloppenheimer)** gave the opening talk titled **The Web for the Entire World**. She highlighted the top ten countries by internet usage. It's amazing _China, _India_, and _Nigeria_ are in that list.
+**[Tal Oppenheimer](https://twitter.com/taloppenheimer)** gave the opening talk titled **The Web for the Entire World**. She highlighted the top ten countries by internet usage. It's amazing _China, _India_, and _Nigeria_ are on that list.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Top 10 Countries by Internet Usage <br><br>Nigeria 💥💥💅💅<a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://twitter.com/hashtag/NextBillionUsers?src=hash&amp;ref_src=twsrc%5Etfw">#NextBillionUsers</a> <a href="https://t.co/WQlUn6xwNt">pic.twitter.com/WQlUn6xwNt</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922871766657089536?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -38,7 +38,7 @@ Tal shared how many of the quickly growing countries still have data costs above
 
 Check out her [session on Youtube](https://www.youtube.com/watch?v=eG0ILA2k5qo)
 
-**[Paul Irish](https://twitter.com/paul_irish)** and **[Eric Bidelman](https://twitter.com/ebidel)** gave an amazing talk on **Modern Tooling, Testing and Automation**. They uncovered new features in DevTools and unleashed Puppeteer, a new Node library for controlling headless Chrome. We have some crazy new features in Chrome DevTools. These features include:
+**[Paul Irish](https://twitter.com/paul_irish)** and **[Eric Bidelman](https://twitter.com/ebidel)** gave an amazing talk on **Modern Tooling, Testing, and Automation**. They uncovered new features in DevTools and unleashed Puppeteer, a new Node library for controlling headless Chrome. We have some crazy new features in Chrome DevTools. These features include:
 
 * CSS Grid Layout Inspection
 * Color contrast evaluation
@@ -48,7 +48,7 @@ Check out her [session on Youtube](https://www.youtube.com/watch?v=eG0ILA2k5qo)
 * Group Similar Checkbox to enable grouping of similar or repeating errors.
 * Top-level await in Console
 * Storage Usage Summary for Progressive Web Apps. The _Clear Storage_ section now provides a graphical allocation of storage used by a PWA.
-* Service Worker Upgrades - New _Push_ and _Sync_ feature in DevTools for definition of custom payload in testing push notifications and background sync.
+* Service Worker Upgrades - New _Push_ and _Sync_ feature in DevTools for the definition of custom payload in testing push notifications and background sync.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Local Overrides with DevTools<br><br>Mind Fucking Blowing!! 😱🔥🔥😱😱😱😱😱😱😱🔥🔥🔥🔥🔥<br><br>Reload your page &amp; changes will still remain. Damn!!<a href="https://twitter.com/hashtag/chromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#chromeDevSummit</a> <a href="https://t.co/H17zjQVYMM">pic.twitter.com/H17zjQVYMM</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922880938014662658?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -73,9 +73,9 @@ and so many others.
 
 Check out their [session on Youtube](https://www.youtube.com/watch?v=7-XnEMrQnn4).
 
-**[Sam Saccone](https://twitter.com/samccone)** talked about **The future of performance on the Web**. Sam shared cutting edge performance techniques and higlighted what the future of loading on the web may hold. Check out his [session on Youtube](https://www.youtube.com/watch?v=DKyHVGh666s).
+**[Sam Saccone](https://twitter.com/samccone)** talked about **The future of performance on the Web**. Sam shared cutting-edge performance techniques and highlighted what the future of loading on the web may hold. Check out his [session on Youtube](https://www.youtube.com/watch?v=DKyHVGh666s).
 
-**[Thomas Nattestad](https://twitter.com/thomasnat1)** gave a talk titled **V8 today and in the future**. Thomas shared the work the V8 team has done to improve the performance of JavaScript on the browser. V8's mission is to speed up real-world performance for modern JavaScript, and enable developers to build a faster future web. The V8 team pays attention to two major test suites, _speedometer_ and _ares6_. He mentioned that V8 is now twenty-two and forty percent faster on _speedometer_ and _ares6_ respectively.
+**[Thomas Nattestad](https://twitter.com/thomasnat1)** gave a talk titled **V8 today and in the future**. Thomas shared the work the V8 team has done to improve the performance of JavaScript on the browser. V8's mission is to speed up real-world performance for modern JavaScript and enable developers to build a faster future web. The V8 team pays attention to two major test suites, _speedometer_, and _ares6_. He mentioned that V8 is now twenty-two and forty percent faster on _speedometer_ and _ares6_ respectively.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ignition &amp; TurboFan - V8 Machinery <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/1OciMM8a2k">pic.twitter.com/1OciMM8a2k</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922906036834467841?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -87,7 +87,7 @@ V8 just recently move to a new architecture. The V8 Ignition, an interpreter, al
 
 Check out his [session on Youtube](https://www.youtube.com/watch?v=7rx9fSUG8H0).
 
-**[Alex Danilo](https://twitter.com/alexanderdanilo)** and **[Deepti Gandluri](https://twitter.com/dptig)** talked about **Real World Assembly**. Web Assembly is a new capablity for the web. It delivers a performant run-time to allow compiled languages such as C++ to be used in Web applications. Alex and Deepti demoed several real world applications that leverage Web Assembly to run fast in the web browser. One of such applications is _WebSight_. WebSight was compiled to Wasm(Web Assembly) and witnessed significant performance gains. Construct3, an in-browser editor, is another application that combines the best of web with the best of native. Worthy of note is [Google Earth](https://www.google.com/earth) that leverages WASM runtime to give users a very good user experience.
+**[Alex Danilo](https://twitter.com/alexanderdanilo)** and **[Deepti Gandluri](https://twitter.com/dptig)** talked about **Real World Assembly**. Web Assembly is a new capability for the web. It delivers a performant run-time to allow compiled languages such as C++ to be used in Web applications. Alex and Deepti demoed several real-world applications that leverage Web Assembly to run fast in the web browser. One of such applications is _WebSight_. [WebSight](https://www.websightjs.com) was compiled to Wasm(Web Assembly) and witnessed significant performance gains. [Construct3](https://www.construct.net), an in-browser editor, is another application that combines the best of the web with the best of native. Worthy of note is [Google Earth](https://www.google.com/earth) that leverages WASM runtime to give users a very good user experience.
 
 Deepti highlighted a few things we should look out for in the future of Web Assembly:
 
@@ -109,7 +109,7 @@ Check out their [session on Youtube](https://www.youtube.com/watch?v=PpuAqLCraAQ
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Redux ❤️ @ <a href="https://twitter.com/hashtag/ChromedevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromedevSummit</a> from <a href="https://twitter.com/TaylorTheSavage?ref_src=twsrc%5Etfw">@TaylorTheSavage</a>.Redux + web components = state mangement &amp; dev experience bliss cc <a href="https://twitter.com/dan_abramov?ref_src=twsrc%5Etfw">@dan_abramov</a> <a href="https://twitter.com/acemarke?ref_src=twsrc%5Etfw">@acemarke</a> <a href="https://t.co/S4d2Wjd10E">pic.twitter.com/S4d2Wjd10E</a></p>&mdash; Amal Hussein (@nomadtechie) <a href="https://twitter.com/nomadtechie/status/922949747870011395?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-**[Justin Fagnani](https://twitter.com/justinfagnani)** gave a talk on **lit-HTML**. Justin talked about html templating and announced the release of lit-HTML. lit-HTML is a next-generation templating library that combines powerful web platform primitives such as JavaScript tagged template literals and HTML templates to help you build expressive templates for efficient DOM manipulation. Check out his [session on Youtube](https://www.youtube.com/watch?v=Io6JjgckHbg).
+**[Justin Fagnani](https://twitter.com/justinfagnani)** gave a talk on **lit-HTML**. Justin talked about HTML templating and announced the release of lit-HTML. lit-HTML is a next-generation templating library that combines powerful web platform primitives such as JavaScript tagged template literals and HTML templates to help you build expressive templates for efficient DOM manipulation. Check out his [session on Youtube](https://www.youtube.com/watch?v=Io6JjgckHbg).
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Lit-html is a game changer for bridging the gap between JS &amp; HTML. Love <a href="https://twitter.com/reactjs?ref_src=twsrc%5Etfw">@reactjs</a>? Then you will love lit-html.My fav talk @ <a href="https://twitter.com/hashtag/ChromedevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromedevSummit</a> <a href="https://t.co/wEwDYuydj9">pic.twitter.com/wEwDYuydj9</a></p>&mdash; Amal Hussein (@nomadtechie) <a href="https://twitter.com/nomadtechie/status/922959571601186816?ref_src=twsrc%5Etfw">October 24, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -131,7 +131,19 @@ Check out their [session on Youtube](https://www.youtube.com/watch?v=PpuAqLCraAQ
 
 Check out the [session on Youtube](https://www.youtube.com/watch?v=UTZVXlcUK1w).
 
-**John Pallet** and **Francois Beaufort** talked about **Building a Modern Media Experience**. They highlighted best practices for building mobile web media. The best practices included how to pre-load your media assets, handle playback controls, autoplay and offline. Check out their [session on Youtube](https://www.youtube.com/watch?v=WRSEJCKu7zA).
+**Josh Carpenter** and **Brandon Jones** talked about **The Future of Immersive Experiences on the Web with VR and AR**. They highlighted best practices for building immersive WebVR experiences that work on desktop, mobile and in VR headsets. They also talked about the future of augmented reality on the web. Check out their [session on Youtube](https://www.youtube.com/watch?v=rqXbLb1Bd7o).
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Web VR tools <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/C6gbPyJfU5">pic.twitter.com/C6gbPyJfU5</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922984021906223104?ref_src=twsrc%5Etfw">October 25, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">WebVR across platforms <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/8hkj14b88T">pic.twitter.com/8hkj14b88T</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922984258829893634?ref_src=twsrc%5Etfw">October 25, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Augmented Reality on the Web <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/PoWLirKzfO">pic.twitter.com/PoWLirKzfO</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922989220783833088?ref_src=twsrc%5Etfw">October 25, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">WebAR Next Steps <a href="https://twitter.com/hashtag/ChromeDevSummit?src=hash&amp;ref_src=twsrc%5Etfw">#ChromeDevSummit</a> <a href="https://t.co/oEQTVJpe1C">pic.twitter.com/oEQTVJpe1C</a></p>&mdash; Chrome Dev Summit 🔥 (@unicodeveloper) <a href="https://twitter.com/unicodeveloper/status/922989938647343104?ref_src=twsrc%5Etfw">October 25, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 In between talks, there was a **Framework Panel** that consisted of _Addy Osmani_, _Andrew Clark_, _Jason Miller_, _Steve Orvell_, _Rob Wormald_, _Tracy Lee_, _Chad Hietala_, _Sean Larkin_, _Malte Ubl_, and _Alex Russell_. The audience asked several high-engaging questions. Check out the [answers given by the panel to the audience](https://www.youtube.com/watch?v=q5HDhQtpDRU).
 
@@ -151,6 +163,6 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 
 ## Conclusion
 
-Chrome Dev Summit, 2017 was a success. It was an amazing gathering of developers from all over the world. The talks were fantastic, the booth demos were intrigueing and I can boldly say that the Chrome team did a great job in putting this conference together. Huge thanks to *[Kosamari](https://twitter.com/kosamari)* and *[Monica](https://twitter.com/notwaldorf)*, amazing MC's, for entertaining developers throughout the event. If you missed the first day of the summit, [here is a recap](https://auth0.com/blog/chromedevsummit-summary-day-one/).
+Chrome Dev Summit, 2017 was a success. It was an amazing gathering of developers from all over the world. The talks were fantastic, the booth demos were intriguing and I can boldly say that the Chrome team did a great job in putting this conference together. Huge thanks to *[Kosamari](https://twitter.com/kosamari)* and *[Monica](https://twitter.com/notwaldorf)*, amazing MC's, for entertaining developers throughout the event. If you missed the first day of the summit, [here is a recap](https://auth0.com/blog/chromedevsummit-summary-day-one/).
 
 Were you around for the summit? Did you attend sessions for both days? Let me know about your experiences in the comment section. 😃
