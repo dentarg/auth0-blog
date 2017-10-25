@@ -555,9 +555,9 @@ session.close()
 
 This code is split into 10 sections. Let's inspecting them:
 
-1. The first section imports the classes that we created, the SQLAlchemy engine, the Base class, the Session factory, and `date` from the `datetime` module.
+1. The first section imports the classes that we created, the SQLAlchemy engine, the Base class, the session factory, and `date` from the `datetime` module.
 2. The second section instructs SQLAlchemy to generate the database schema. This generation occurs based on the declarations that we made while creating the four main classes that compose our tutorial.
-3. The third section extracts a new session from the Session factory.
+3. The third section extracts a new session from the session factory.
 4. The fourth section creates three instances of the `Movie` class.
 5. The fifth section creates three instances of the `Actor` class.
 6. The sixth section adds actors to movies. Note that the _Pain & Gain_ movie references two actors: _Dwayne Johnson_ and _Mark Wahlberg_.
@@ -569,6 +569,44 @@ This code is split into 10 sections. Let's inspecting them:
 To run this Python script, we can simply issue the `python inserts.py` command in the main directory of our database. Running it will create 5 tables in the PostgreSQL database and populate these tables with the data that we created. In the next section we will learn how to query these tables.
 
 ### Querying Data with SQLAlchemy ORM
+
+As we will see, querying data with SQLAlchemy ORM is quite simple. This library provides an intuitive, fluent API that enables developers to write queries that are easy to read and to maintain. On SQLAlchemy ORM, all queries start with a [Query Object](http://docs.sqlalchemy.org/en/latest/orm/query.html) that is extracted from the current session and that is associated with a particular mapped class. To see this API in action, let's create a file called `queries.py` and add to it the following source code:
+
+```python
+# coding=utf-8
+
+# 1 - imports
+from base import Session
+from movie import Movie
+from actor import Actor
+from contact_details import ContactDetails
+from stuntman import Stuntman
+
+# 2 - extract a session
+session = Session()
+
+# 3 - extract movies
+movies = session.query(Movie).all()
+
+# 4 - log movies' details
+for movie in movies:
+    print(f'{movie.title} was released on {movie.release_date}')
+```
+
+The code snippet above shows how easy it's to use SQLAlchemy ORM to query data. To retrieve all movies from the database, we just needed to fetch a session from the session factory, use it to get a query associated with `Movie`, and then call the `all()` function on this query object. The Query API provides dozens of useful functions like `all()`. In the following list, we can see a brief explanation about the most important ones:
+
+- `count()`: Returns the total number of rows of a query.
+- `filter()`: Filters the query by applying a criteria.
+- `delete()`: Removes from the database the rows matched by a query.
+- `distinct()`: Applies a [distinct statement](https://www.w3schools.com/sql/sql_distinct.asp) to a query.
+- `exists()`: Adds an [exists operator](https://www.w3schools.com/sql/sql_exists.asp) to a subquery.
+- `first()`: Returns the first row in a query.
+- `get()`: Returns the row referenced by the primary key parameter passed as argument.
+- `join()`: Creates a [SQL join](https://www.w3schools.com/sql/sql_join.asp) in a query.
+- `limit()`: Limits the number of rows returned by a query.
+- `order_by()`: Sets an order in the rows returned by a query.
+
+To see all functions supported and their description, take a look at [the official documentation](http://docs.sqlalchemy.org/en/latest/orm/query.html).
 
 ### Removing Data with SQLAlchemy ORM
 
