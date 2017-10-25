@@ -346,16 +346,9 @@ Now let's create and map the `Movie` class. To do this, let's create a new file 
 ```python
 # coding=utf-8
 
-from sqlalchemy import Column, String, Integer, Date, Table, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, Date
 
 from base import Base
-
-movies_actors_association = Table(
-    'movies_actors', Base.metadata,
-    Column('movie_id', Integer, ForeignKey('movies.id')),
-    Column('actor_id', Integer, ForeignKey('actors.id'))
-)
 
 
 class Movie(Base):
@@ -364,7 +357,6 @@ class Movie(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     release_date = Column(Date)
-    actors = relationship("Actor", secondary=movies_actors_association)
 
     def __init__(self, title, release_date):
         self.title = title
@@ -410,7 +402,7 @@ As many movies can have many actors and vice-versa, we will need to create a _Ma
 from sqlalchemy import Column, String, Integer, Date, Table, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .base import Base
+from base import Base
 
 movies_actors_association = Table(
     'movies_actors', Base.metadata,
@@ -430,7 +422,6 @@ class Movie(Base):
     def __init__(self, title, release_date):
         self.title = title
         self.release_date = release_date
-        self.actors = []
 ```
 
 The difference between this version and the previous one is that:
