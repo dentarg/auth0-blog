@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "SQLAlchemy ORM Tutorial for Python Developers"
-description: "Let's learn how to use SQLAlchemy to persist and query data on Python applications."
+description: "Let's learn how to use SQLAlchemy ORM to persist and query data on Python applications."
 date: 2017-10-20 08:00
 category: Technical Guide, Python, SQLAlchemy
 author:
@@ -29,6 +29,8 @@ related:
 ---
 
 **TL;DR:** In this article, we will learn how to use SQLAlchemy as the ORM (Object Relational Database) library to communicate with relational database engines. First, we will learn about some core concepts of SQLAlchemy (like engines and connection pools), then we will learn how to map Python classes and its relationships to database tables, and finally we will learn how to retrieve (query) data from these tables. [The code snippets used in this article can be found in this GitHub repository](https://github.com/auth0/node-jwks-rsa/releases/tag/1.2.1).
+
+{% include tweet_quote.html quote_text="Learn how to use SQLAlchemy ORM to persist and query data on Python applications." %}
 
 ## SQLAlchemy Introduction
 
@@ -676,6 +678,8 @@ Mark Wahlberg has a house in Glendale
 ```
 
 As we can see, using the API is straightforward and generates a code that is readable. To see other functions supported by the Query API, and their description, take a look at [the official documentation](http://docs.sqlalchemy.org/en/latest/orm/query.html).
+
+{% include tweet_quote.html quote_text="Querying data with SQLAlchemy ORM is easy and intuitive." %}
 
 {% include asides/python.markdown %}
 
