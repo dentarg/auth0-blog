@@ -576,11 +576,10 @@ As we will see, querying data with SQLAlchemy ORM is quite simple. This library 
 # coding=utf-8
 
 # 1 - imports
-from base import Session
-from movie import Movie
 from actor import Actor
+from base import Session
 from contact_details import ContactDetails
-from stuntman import Stuntman
+from movie import Movie
 
 # 2 - extract a session
 session = Session()
@@ -589,8 +588,10 @@ session = Session()
 movies = session.query(Movie).all()
 
 # 4 - print movies' details
+print('\n### All movies:')
 for movie in movies:
     print(f'{movie.title} was released on {movie.release_date}')
+print('')
 ```
 
 The code snippet above, that can be ran with `python queries.py`, shows how easy it's to use SQLAlchemy ORM to query data. To retrieve all movies from the database, we just needed to fetch a session from the session factory, use it to get a query associated with `Movie`, and then call the `all()` function on this query object. The Query API provides dozens of useful functions like `all()`. In the following list, we can see a brief explanation about the most important ones:
@@ -615,13 +616,61 @@ from datetime import date
 # other imports and sections...
 
 # 5 - get movies after 15-01-01
-session.query(Movie).filter(Movie.release_date > date(2015,1,1)).all()
+movies = session.query(Movie) \
+    .filter(Movie.release_date > date(2015, 1, 1)) \
+    .all()
+
+print('### Recent movies:')
+for movie in movies:
+    print(f'{movie.title} was released after 2015')
+print('')
+
+# 6 - movies that Dwayne Johnson participated
+the_rock_movies = session.query(Movie) \
+    .join(Actor, Movie.actors) \
+    .filter(Actor.name == 'Dwayne Johnson') \
+    .all()
+
+print('### Dwayne Johnson movies:')
+for movie in the_rock_movies:
+    print(f'The Rock starred in {movie.title}')
+print('')
+
+# 7 - get actors that have house in Glendale
+glendale_stars = session.query(Actor) \
+    .join(ContactDetails) \
+    .filter(ContactDetails.address.ilike('%glendale%')) \
+    .all()
+
+print('### Dwayne Johnson movies:')
+for actor in glendale_stars:
+    print(f'{actor.name} has a house in Glendale')
+print('')
 ```
 
+The fifth section of the updated script uses the `filter()` function to fetch only movies that were released after January the first, 2015. The sixth section shows how to use `join()` to fetch instances of `Movie` that the `Actor` Dwayne Johnson participated in. The seventh and last section, shows the usage of `join()` and `ilike()` functions to retrieve the actors that have house in Glendale.
 
-To see other functions supported and their description, take a look at [the official documentation](http://docs.sqlalchemy.org/en/latest/orm/query.html).
+Running the new version of the script (`python queries.py`) now will result in the following output:
 
-### Removing Data with SQLAlchemy ORM
+```text
+### All movies:
+The Bourne Identity was released on 2002-10-11
+Furious 7 was released on 2015-04-02
+No Pain No Gain was released on 2013-08-23
+
+### Recent movies:
+Furious 7 was released after 2015
+
+### Dwayne Johnson movies:
+The Rock starred in No Pain No Gain
+The Rock starred in Furious 7
+
+### Dwayne Johnson movies:
+Dwayne Johnson has a house in Glendale
+Mark Wahlberg has a house in Glendale
+```
+
+As we can see, using the API is straightforward and generates a code that is readable. To see other functions supported by the Query API, and their description, take a look at [the official documentation](http://docs.sqlalchemy.org/en/latest/orm/query.html).
 
 {% include asides/python.markdown %}
 
