@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Authentication Best Practices: Centralized Login"
-description: "Learn why centralized login is more secure and flexible than embedded login."
-date: 2017-10-05 8:30
+title: "Authentication Provider Best Practices: Centralized Login"
+description: "Learn why centralized login is the most secure and flexible strategy when authenticating with a provider."
+date: 2017-10-30 8:30
 category: Technical guide, Centralized login, Angular
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -73,6 +73,10 @@ These scenarios are simplified, but they still demonstrate a few of the advantag
 ## <span id="why-use-centralized-login"></span>Why Centralized Login is Best Practice
 
 Centralized login has many advantages over an embedded login approach, including better security, improved Single Sign-On, simpler maintainability, native app implementation, and more. Let's explore these in more detail.
+
+![Auth0 centralized login page](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+
+{% include tweet_quote.html quote_text="Centralized login provides security, SSO, maintainability, best practice native app implementation, and more." %}
 
 ### Security
 
@@ -408,4 +412,6 @@ We now have a real-world MEAN stack application with Auth0 centralized login and
 
 Centralized login is the most secure and maintainable standards-based approach to logging in with an authentication provider. Unlike embedded login, it is safer from cross-origin attack vectors and poses no danger to the authorization server. Centralized login is [best current practice for native mobile apps](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/), and OAuth providers like [Google no longer support embedded login strategies](https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html).
 
-Auth0 provides a [secure, customizable centralized login strategy](https://auth0.com/docs/hosted-pages/login) that works with [social IdPs](https://auth0.com/docs/connections#social) (such as Google, Facebook, Twitter, etc.), [enterprise IdPs](https://auth0.com/docs/connections#enterprise) (such as Active Directory, ADFS, LDAP, etc.), custom [OAuth 2.0 integrations](https://auth0.com/docs/protocols/oauth2), [username/password databases](https://auth0.com/docs/connections#database-and-custom-connections), [passwordless authentication](https://auth0.com/docs/connections/passwordless) (with SMS, email, or TouchID), and more.
+{% include tweet_quote.html quote_text="Centralized login is safer from cross-origin attack vectors and poses no danger to the authorization server." %}
+
+Auth0 provides a [secure, customizable centralized login strategy](https://auth0.com/docs/hosted-pages/login) that works with [social IdPs](https://auth0.com/docs/connections#social) (such as Google, Facebook, Twitter, etc.), [enterprise IdPs](https://auth0.com/docs/connections#enterprise) (such as Active Directory, ADFS, LDAP, etc.), custom [OAuth 2.0 integrations](https://auth0.com/docs/protocols/oauth2), [username/password databases](https://auth0.com/docs/connections#database-and-custom-connections), [passwordless authentication](https://auth0.com/docs/connections/passwordless) (with SMS, email, or TouchID), and more. You can [sign up for a free Auth0 account](https://auth0.com/signup) to try out these features and more to modernize your app's authentication and follow standards-based best practices.
