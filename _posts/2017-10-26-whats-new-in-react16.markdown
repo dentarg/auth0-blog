@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "React 16 Release: What’s New?"
-description: "ReactJS 16 brings mayor changes to the popular JavaScript library for building user interfaces. Learn what's new in ReactJS!"
+description: "ReactJS 16 brings major changes to the popular JavaScript library for building user interfaces. Learn what's new in ReactJS!"
 date: 2017-10-26 08:30
 category: Technical Guide, Frontend, ReactJS
 design:
