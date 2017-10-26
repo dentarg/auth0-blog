@@ -28,17 +28,17 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 ---
 
-**TL;DR:** In this article, we will learn how to use SQLAlchemy as the ORM (Object Relational Database) library to communicate with relational database engines. First, we will learn about some core concepts of SQLAlchemy (like engines and connection pools), then we will learn how to map Python classes and its relationships to database tables, and finally we will learn how to retrieve (query) data from these tables. [The code snippets used in this article can be found in this GitHub repository](https://github.com/auth0/node-jwks-rsa/releases/tag/1.2.1).
+**TL;DR:** In this article, we will learn how to use SQLAlchemy as the ORM (Object Relational Database) library to communicate with relational database engines. First, we will learn about some core concepts of SQLAlchemy (like engines and connection pools), then we will learn how to map Python classes and its relationships to database tables, and finally we will learn how to retrieve (query) data from these tables. [The code snippets used in this article can be found in this GitHub repository](https://github.com/auth0-blog/sqlalchemy-orm-tutorial).
 
 {% include tweet_quote.html quote_text="Learn how to use SQLAlchemy ORM to persist and query data on Python applications." %}
 
 ## SQLAlchemy Introduction
 
-SQLAlchemy is a library that facilitates the communication between Python programs and databases. Most of the times, this library is used as an [Object Relational Mapper (ORM)](https://en.wikipedia.org/wiki/Object-relational_mapping) tool that translates Python classes to tables on relational databases and that automatically converts function calls to SQL statements. SQLAlchemy provides a standard interface that allows developers to create database-agnostic code to communicate with a wide variety of database engines.
+[SQLAlchemy](https://www.sqlalchemy.org) is a library that facilitates the communication between Python programs and databases. Most of the times, this library is used as an [Object Relational Mapper (ORM)](https://en.wikipedia.org/wiki/Object-relational_mapping) tool that translates Python classes to tables on relational databases and automatically converts function calls to SQL statements. SQLAlchemy provides a standard interface that allows developers to create database-agnostic code to communicate with a wide variety of database engines.
 
 As we will see in this article, SQLAlchemy relies on common design patterns (like [Object Pools](https://sourcemaking.com/design_patterns/object_pool)) to allow developers to create and ship enterprise-grade, production-ready applications easily. Besides that, with SQLAlchemy, boilerplate code to handle tasks like database connections is abstracted away to let developers focus on business logic.
 
-Before diving in the ORM features provided by SQLAlchemy, we need to learn how the core works. The following sections will introduce important concepts that every Python developer needs to understand before dealing with SQLAlchemy applications.
+Before diving into the ORM features provided by SQLAlchemy, we need to learn how the core works. The following sections will introduce important concepts that every Python developer needs to understand before dealing with SQLAlchemy applications.
 
 ### Python DBAPI
 
@@ -71,7 +71,7 @@ The main reason why programs take advantage of this design pattern is to improve
 
 [There are various implementations of the connection pool pattern available on SQLAlchemy ](http://docs.sqlalchemy.org/en/rel_1_1/core/pooling.html#api-documentation-available-pool-implementations). For example, creating an `Engine` through the `create_engine()` function usually generates a [QueuePool](http://docs.sqlalchemy.org/en/rel_1_1/core/pooling.html#sqlalchemy.pool.QueuePool). This kind of pool comes configured with some reasonable defaults, like a maximum pool size of 5 connections.
 
-As usually production-ready programs need to override these defaults (to fine-tune pools to their needs), most of the different implementations of connection pools provide a similar set of configuration options. The following list shows the most common options with their descriptions:
+As usual production-ready programs need to override these defaults (to fine-tune pools to their needs), most of the different implementations of connection pools provide a similar set of configuration options. The following list shows the most common options with their descriptions:
 
 - `pool_size`: Sets the number of connections that the pool will handle.
 - `max_overflow`: Specifies how many exceeding connections (relative to `pool_size`) the pool supports.
@@ -136,7 +136,7 @@ class Product(Base):
 
 In the code snippet above, we are defining a class called `Product` that has six properties. Let's take a look at what these properties do:
 
-- The `__tablename__` property tells to SQLAlchemy that rows of the `products` table must be mapped to this class.
+- The `__tablename__` property tells SQLAlchemy that rows of the `products` table must be mapped to this class.
 - The `id` property identifies that this is the `primary_key` in the table and that its type is `Integer`.
 - The `title` property indicates that a column in the table has the same name of the property and that its type is `String`.
 - The `in_stock` property indicates that a column in the table has the same name of the property and that its type is `Boolean`.
@@ -147,9 +147,9 @@ Seasoned developers will notice that (usually) relational databases do not have 
 
 ### SQLAlchemy Relationship Patterns
 
-Now that we know what ORM is and have look into data types, let's learn how do we use SQLAlchemy to map relationships between classes to relationships between tables. SQLAlchemy supports four types of relationships: [One To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-many), [Many To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-one), [One To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one), and [Many To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-many).
+Now that we know what ORM is and have look into data types, let's learn how to use SQLAlchemy to map relationships between classes to relationships between tables. SQLAlchemy supports four types of relationships: [One To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-many), [Many To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-one), [One To One](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#one-to-one), and [Many To Many](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html#many-to-many).
 
-> Note that this section will be an overview of all these types, but the on the *SQLAlchemy ORM in Practice* action we will do a hands-on to practice mapping classes into tables and to learn how to insert, extract, and remove data from these tables.
+> Note that this section will be an overview of all these types, but in the *SQLAlchemy ORM in Practice* action we will do a hands-on to practice mapping classes into tables and to learn how to insert, extract, and remove data from these tables.
 
 The first type, *One To Many*, is used to mark that an instance of a class can be associated with many instances of another class. For example, on a blog engine, an instance of the `Article` class could be associated with many instances of the `Comment` class. In this case, we would map the mentioned classes and its relation as follows:
 
@@ -166,7 +166,7 @@ class Comment(Base):
     article_id = Column(Integer, ForeignKey('article.id'))
 ```
 
-The second type, *Many To One*, refers to the same relationship describe above but from the other perspective. To give a different example, let's say that we want to map the relationship between instances of `Tire` to an instance of a `Car`. As many tires belong to one car and this car contains many tires, we would map this relation as follows:
+The second type, *Many To One*, refers to the same relationship described above but from the other perspective. To give a different example, let's say that we want to map the relationship between instances of `Tire` to an instance of a `Car`. As many tires belong to one car and this car contains many tires, we would map this relation as follows:
 
 ```python
 class Tire(Base):
@@ -224,7 +224,7 @@ The above code snippets show just a subset of the mapping options supported by S
 
 Whenever rows in a particular table are updated or deleted, rows in other tables might need to suffer changes as well. These changes can be simple updates, which are called cascade updates, or full deletes, known as cascade deletes. For example, let's say that we have a table called `shopping_carts`, a table called `products`, and a third one called `shopping_carts_products` that connects the first two tables. If, for some reason, we need to delete rows from `shopping_carts` we will need to delete the related rows from `shopping_carts_products` as well. Otherwise we will end up with a lot of garbage and unfulfilled references in our database.
 
-To make this kind of operation easily to maintain, SQLAlchemy ORM enables developers to map cascade behavior when using `relationship()` constructs. Like that, when operations are performed on _parent_ objects, _child_ objects get updated/deleted as well. The following list provides a brief explanation of the most used cascade strategies on SQLAlchemy ORM:
+To make this kind of operation easy to maintain, SQLAlchemy ORM enables developers to map cascade behavior when using `relationship()` constructs. Like that, when operations are performed on _parent_ objects, _child_ objects get updated/deleted as well. The following list provides a brief explanation of the most used cascade strategies on SQLAlchemy ORM:
 
 - `save-update`: Indicates that when a parent object is saved/updated, child objects are saved/updated as well.
 - `delete`: Indicates that when a parent object is deleted, children of this object will be deleted as well.
@@ -257,7 +257,7 @@ As we can see from the code snippet above, we only need one step to get sessions
 
 ## SQLAlchemy in Practice
 
-Now that we got a better understanding of the most important pieces of SQLAlchemy, it's time to start practicing it. In the following sections, we will create a small project based on [`pipenv`](https://github.com/kennethreitz/pipenv)—a Python dependency manager—and add some classes to it. Then we will map these classes to tables persisted on a PostgreSQL database and learn how to query data.
+Now that we got a better understanding of the most important pieces of SQLAlchemy, it's time to start practicing it. In the following sections, we will create a small project based on [`pipenv`](https://github.com/kennethreitz/pipenv)—a Python dependency manager—and add some classes to it. Then we will map these classes to tables persisted to a PostgreSQL database and learn how to query data.
 
 ### Starting the Tutorial Project
 
@@ -303,7 +303,7 @@ docker rm sqlalchemy-orm-psql
 
 The first command, the one that creates the PostgreSQL instance, contains a few parameters that are worth inspecting:
 
-- `--name`: Defines the name of the Docker instance
+- `--name`: Defines the name of the Docker instance.
 - `-e POSTGRES_PASSWORD`: Defines the password to connect to PostgreSQL.
 - `-e POSTGRES_USER`: Defines the user to connect to PostgreSQL.
 - `-e POSTGRES_DB`: Defines the main (and only) database available in the PostgreSQL instance.
@@ -348,7 +348,7 @@ This code creates:
 - a SQLAlchemy ORM session factory bound to this engine,
 - and a base class for our classes definitions.
 
-Now let's create and map the `Movie` class. To do this, let's create a new file called `movie.py` and add to it the following code:
+Now let's create and map the `Movie` class. To do this, let's create a new file called `movie.py` and add the following code to it:
 
 ```python
 # coding=utf-8
@@ -560,7 +560,7 @@ session.commit()
 session.close()
 ```
 
-This code is split into 10 sections. Let's inspecting them:
+This code is split into 10 sections. Let's inspect them:
 
 1. The first section imports the classes that we created, the SQLAlchemy engine, the Base class, the session factory, and `date` from the `datetime` module.
 2. The second section instructs SQLAlchemy to generate the database schema. This generation occurs based on the declarations that we made while creating the four main classes that compose our tutorial.
@@ -601,7 +601,7 @@ for movie in movies:
 print('')
 ```
 
-The code snippet above—that can be run with `python queries.py`,—shows how easy it's to use SQLAlchemy ORM to query data. To retrieve all movies from the database, we just needed to fetch a session from the session factory, use it to get a query associated with `Movie`, and then call the `all()` function on this query object. The Query API provides dozens of useful functions like `all()`. In the following list, we can see a brief explanation about the most important ones:
+The code snippet above—that can be run with `python queries.py`,—shows how easy it is to use SQLAlchemy ORM to query data. To retrieve all movies from the database, we just needed to fetch a session from the session factory, use it to get a query associated with `Movie`, and then call the `all()` function on this query object. The Query API provides dozens of useful functions like `all()`. In the following list, we can see a brief explanation about the most important ones:
 
 - `count()`: Returns the total number of rows of a query.
 - `filter()`: Filters the query by applying a criteria.
@@ -655,7 +655,7 @@ for actor in glendale_stars:
 print('')
 ```
 
-The fifth section of the updated script uses the `filter()` function to fetch only movies that were released after January the first, 2015. The sixth section shows how to use `join()` to fetch instances of `Movie` that the `Actor` Dwayne Johnson participated in. The seventh and last section, shows the usage of `join()` and `ilike()` functions to retrieve the actors that have house in Glendale.
+The fifth section of the updated script uses the `filter()` function to fetch only movies that were released after January the first, 2015. The sixth section shows how to use `join()` to fetch instances of `Movie` that the `Actor` Dwayne Johnson participated in. The seventh and last section, shows the usage of `join()` and `ilike()` functions to retrieve actors that have houses in Glendale.
 
 Running the new version of the script (`python queries.py`) now will result in the following output:
 
