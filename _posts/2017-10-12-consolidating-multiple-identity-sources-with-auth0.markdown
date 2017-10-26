@@ -346,7 +346,7 @@ Besides the user that has an account on both legacy apps, there are two more use
 Being Auth0 an enterprise-ready solution for identity management, it must come as no surprise that features like password retrieval/reset is supported out of the box. Although this feature is shipped by default, when merging profiles from multiple identities sources, we must *teach* Auth0 how to verify if a user exists on any of these sources. To do that, let's add the following code to the "Get User" subsection of the "Custom Database" tab:
 
 ```js
-function login(email, password, callback) {
+function getByEmail(email, callback) {
   "use strict";
   const request = require('request-promise@1.0.2');
   const Promise = require('bluebird@3.4.6');
