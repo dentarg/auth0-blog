@@ -11,12 +11,13 @@ author:
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 is_non-tech: true
 design:
-  bg_color: "#2A1416"
-  image: "https://cdn.auth0.com/blog/personalized-marketing/logo.png"
+  bg_color: "#4A4A4A"
+  image: "https://cdn.auth0.com/blog/iam-mobile/logo.png"
 tags:
 - identity
 - management
 - mobile
+- millennials
 related:
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 - 2017-03-24-360-view-of-customer-by-managing-identity
