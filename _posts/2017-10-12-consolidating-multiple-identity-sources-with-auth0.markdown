@@ -109,6 +109,35 @@ The last property that we need to set is the "Signing Algorithm". There are two 
 
 After filling the form with the values above, we can click on the "Create" button to persist our new API.
 
+### Defining OAuth 2.0 Scopes on Auth0 APIs
+
+[OAuth 2.0 recommends](https://auth0.com/docs/protocols/oauth2) that clients should specify what scopes they want to have when interested in communicating with an API. Scopes, on OAuth 2.0, represent permissions that clients have when dealing with resources that they don't own. For example, in our scenario we are creating an API that stands for two legacy identity providers. As we don't want the client that we are going to create to have unlimited access to these application, we can restrict its access by setting what scopes the client will get in its token. To do that, let's head to the "Scopes" tab of our brand new API and add two scopes:
+
+- Scope name: `authenticate:app1`; Scope description: "Auth on Legacy IdP1"
+- Scope name: `authenticate:app2`; Scope description: "Auth on Legacy IdP2"
+
+![Setting Scopes on Auth0 APIs](https://cdn.auth0.com/blog/g-cards/scopes.jpg)
+
+Defining scopes like that wouldn't suffice. We would also have to restrict access in the backend. Fortunately, this has been taken care of already, as we can see in the [`index.js` file of our legacy IdPs](https://github.com/auth0-blog/graphic-cards-case-study/blob/master/index.js):
+
+```js
+// ...
+app.use((req, res, next) => {
+    let requiredScope = null;
+    if (process.env.app === 'node-1') {
+        requiredScope = "authenticate:app1";
+    } else {
+        requiredScope = "authenticate:app2";
+    }
+    if (!req.user || !req.user.scope || !req.user.scope.indexOf(requiredScope)) {
+        res.sendStatus(401);
+        return;
+    }
+    next();
+});
+// ...
+```
+
 ## Creating an Auth0 Client
 
 Besides the API to represent the legacy identity provider, we will also need to create a [Client](https://auth0.com/docs/clients) to represent the Auth0 Database Action Scripts that will communicate with our applications. Let's head to [the Client page on the Auth0 management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button.
@@ -124,9 +153,12 @@ The second piece of information that the form asks for is the client type. There
 
 Considering that the Database Action Scripts will be run automatically when users try to authenticate or to retrieve passwords, the best category for the client that we are creating is "Non Interactive Clients". After choosing the Client Type we can click on the "Create" button.
 
-Clicking on this button will redirect us to the "Quick Start" tab on the newly created client. On this page we can choose the API that we created in the previous section, "Legacy IdP". As we haven't configured the API to accept connections from this new client, the dashboard will warn us that we have to navigate to the API to authorize the client. Let's click on this button and turn on the switch for the "Legacy IdP Action Script" client on the page shown.
+Clicking on this button will redirect us to the "Quick Start" tab on the newly created client. On this page we can choose the API that we created in the previous section, "Legacy IdP". As we haven't configured the API to accept connections from this new client, the dashboard will warn us that we have to navigate to the API to authorize the client. Let's click on this button and do two things:
 
-![Authorizing Clients to consume APIs](https://cdn.auth0.com/blog/g-cargs/authorizing-clients.jpg)
+1. Let's turn on the switch for the "Legacy IdP Action Script" client on the page shown.
+2. Let's enable both scopes created before (`authenticate:app1` and `authenticate:app2`) in this client.
+
+![Authorizing Clients to consume APIs](https://cdn.auth0.com/blog/g-cards/authorizing-client-and-apis.jpg)
 
 ## Merging Profiles on Authentication
 
