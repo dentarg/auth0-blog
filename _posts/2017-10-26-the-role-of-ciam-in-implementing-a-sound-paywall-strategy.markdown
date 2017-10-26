@@ -47,6 +47,8 @@ Metered paywalls give users access to a fixed amount of articles before they are
 
 If your company consistently delivers high-quality content, the metered paywall can be very effective. Over the past year, the NY Times has increased first quarter [circulation revenues](https://www.forbes.com/sites/greatspeculations/2017/05/04/new-york-times-digital-subscriptions-continue-to-drive-growth/#714b6047295c) by 11% with digital-only subscription revenue growing at 40% year-over-year to $76 million.
 
+{% include tweet_quote.html quote_text="Soft paywalls can hook potential customers." %}
+
 ### How CIAM Helps Convert Your Anonymous Users
 
 Metered paywalls are most effective when you can accurately track users to ensure they don't go beyond their article limit, while also [leveraging their behavioral data](https://amplitude.com/blog/2016/09/21/interpret-emotion-intent-through-behavioral-analytics/) to recommend additional articles that they would like to read in order to improve a conversion.
@@ -64,6 +66,8 @@ Freemium gives publishers control over the content and services that are set asi
 ![Insider content series from ESPN](https://cdn.auth0.com/blog/ciam-role/insider-content.png)
 
 As the trend towards paid subscriptions continues to grow, the freemium model has become a popular strategy for lesser-known content providers who need exposure before they can prove themselves as a subscription business. But for larger companies, like ESPN, there is still a benefit in collecting user data from their free users to develop more relevant products.
+
+{% include tweet_quote.html quote_text="Freemium content is a great way to get known before trying to upsell." %}
 
 ### How CIAM Removes The Friction To Sign Up For Free Content
 
