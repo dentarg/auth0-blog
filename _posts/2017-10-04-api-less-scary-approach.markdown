@@ -56,7 +56,7 @@ Well, before APIs, clients interacted with the data store directly, which had lo
 
 ---
 
-In computing, APIs take the request from the user of an app (web client, mobile app, etc.) to get or send a. Say you just placed an order for a MacBook from an online store. The online store's API takes the order information and sends it to the server to process the order, then returns a response, notifying you whether it was successful or not. The data has to be represented in a format that both the app and the server will understand, just the way the menu is written in a specific language you and the waiter understand so he can place the right order for you at the kitchen. The generally accepted format is JSON (JavaScript Object Notation). The order information may look like this:
+In computing, APIs take the request from the user of an app (web client, mobile app, etc.) to get or send a resource. Say you just placed an order for a MacBook from an online store. The online store's API takes the order information and sends it to the server to process the order, then returns a response, notifying you whether it was successful or not. The data has to be represented in a format that both the app and the server will understand, just the way the menu is written in a specific language you and the waiter understand so he can place the right order for you at the kitchen. The generally accepted format is JSON (JavaScript Object Notation). The order information may look like this:
 
 ```javascript
 { 
