@@ -47,27 +47,27 @@ Before diving into the details about each type, let's talk about *account storag
 
 ## What is Azure Table Storage?
 
-Azure Table Storage is a service that stores NoSQL data in the cloud. This storage type enables developers to store schemaless data in a key/value fashion. The main characteristics of Azure Table Storage are:
+Azure Table Storage is a service that stores NoSQL data in the cloud. This storage type enables developers to store schema-less data in a key/value fashion. The main characteristics of Azure Table Storage are:
 
-- Tables are independent from each other.
+- Tables are independent of each other.
 - Features like foreign keys, joins, and custom indexes don't exist.
 - Table schemas are flexible. That is, it's not mandatory to have all fields on all records.
 
 Each table on Azure Table Storage is composed of five main components:
 
 - Entities: We can see these as rows (typical records) on relational databases.
-- Partition keys: Strings that contain no more than 1 KB of data. They cover one or more entities in a table, grouping them as blocks of entities that share an ID.
-- Row keys: Strings that contain no more than 1 KB of data. They are used to uniquely identify rows inside tables.
+- Partition keys: Strings that contain no more than 1 KB of data. They cover one or more entities in a table, grouping them into blocks of entities that share an ID.
+- Row keys: Strings that contain no more than 1 KB of data. They are used to identify rows inside tables uniquely.
 - Timestamps: Properties that store when entities were inserted or updated.
-- Partitions: Collections of entities in a table. Partitions are identified by their partition key in order to group them like several tables, but inside one object.
+- Partitions: Collections of entities in a table. Partitions are identified by their partition key to group them like several tables but inside one object.
 
 ![Table Storage structure on Microsoft Azure Storage](https://cdn.auth0.com/blog/azure-storage/table-storage.png)
 
-In the following sections we will learn how to create tables on Azure Table Storage and how to add entities to them. To see other operations (like table removal or how to update entities), we can check [this Table Storage GitHub repository](https://github.com/vemoreno/TableStorageWithCsharp).
+In the following sections, we will learn how to create tables on Azure Table Storage and how to add entities to them. To see other operations (like table removal or how to update entities), we can check [this Table Storage GitHub repository](https://github.com/vemoreno/TableStorageWithCsharp).
 
 ### Creating Tables on Azure Table Storage
 
-In this section we are going to learn how to create tables on Azure Table Storage. The following C# code snippet shows four easy steps to create a demo table:
+In this section, we are going to learn how to create tables on Azure Table Storage. The following C# code snippet shows four easy steps to create a demo table:
 
 ```C#
 public CloudTable CreateDemoTable()
@@ -89,7 +89,7 @@ public CloudTable CreateDemoTable()
 }
 ```
 
-The first step creates an instance of `StorageCredentials`. To do this, we just need to pass our `Account` name and account `Key`. These information can be retrieved as shown in the following screen:
+The first step creates an instance of `StorageCredentials`. To do this, we just need to pass our `Account` name and account `Key`. This information can be retrieved as shown in the following screen:
 
 ![Retrieving account name and account key from Azure Storage](https://i.stack.imgur.com/6rIuv.png)
 
@@ -99,7 +99,7 @@ Step four consists of using `CloudTableClient` to get a reference to a table cal
 
 ### Adding Entities to a Table on Azure Table Storage
 
-Now that we know how to create tables on Azure Table Storage, let's learn how to use them to add new entities. In the following example we use a class called `CustomerEntity`. [The implementation details of this class can be found here](https://github.com/vemoreno/TableStorageWithCsharp/blob/master/AzureTableStorage/AzureTableStorage/Models/MyTableEntity.cs).
+Now that we know how to create tables on Azure Table Storage, let's learn how to use them to add new entities. In the following example, we use a class called `CustomerEntity`. [The implementation details of this class can be found here](https://github.com/vemoreno/TableStorageWithCsharp/blob/master/AzureTableStorage/AzureTableStorage/Models/MyTableEntity.cs).
 
 ```C#
 public void AddEntity()
@@ -117,11 +117,11 @@ public void AddEntity()
 }
 ```
 
-The process to create entities into Azure Table Storage, as we can see, is quite simple. The first step is to retrieve a reference to `CloudTable`. After that we create a new `CustomerEntity`, with some arbitrary `Email` and `PhoneNumber`. Then, in the third and last step, we instruct `CloudTable` to execute an insert `TableOperation`, passing the customer instance that we just created.
+The process to create entities into Azure Table Storage, as we can see, is quite simple. The first step is to retrieve a reference to `CloudTable`. After that, we create a new `CustomerEntity`, with some arbitrary `Email` and `PhoneNumber`. Then, in the third and last step, we instruct `CloudTable` to execute an insert `TableOperation`, passing the customer instance that we just created.
 
 ## What is Azure Blob Storage?
 
-Blob, an acronym to "Binary Large OBject", is a collection of binary data that can represent any kind of file (like images, videos, documents, programs, etc). Microsoft Azure enables developers to store two types of blobs: *Block Blobs* and *Page Blobs*. In the following sections, we are going to learn about these types and how to store them into Microsoft Azure Storage accounts.
+Blob, an acronym to "Binary Large OBject", is a collection of binary data that can represent any type of file (like images, videos, documents, programs, etc). Microsoft Azure enables developers to store two types of blobs: *Block Blobs* and *Page Blobs*. In the following sections, we are going to learn about these types and how to store them into Microsoft Azure Storage accounts.
 
 ### Block Blobs
 
@@ -176,7 +176,7 @@ public CloudBlobContainer CreateContainer()
 }
 ```
 
-After creating the container we can upload a blob to it, as shown in the following snippet:
+After creating the container, we can upload a blob to it, as shown in the following snippet:
 
 ```C#
 public void UploadBlobToContainer()
@@ -203,7 +203,7 @@ To learn about other operations—like how to list, download, and delete blobs�
 
 ## What is Azure Queue Storage?
 
-Microsoft Azure provides instant messaging on the cloud between applications through [Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues/). Due to this service, we can process big amounts of messages and get access to them from anywhere through HTTP/HTTPS calls. Some features of Queue Storage are:
+Microsoft Azure provides instant messaging on the cloud between applications through [Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues/). Due to this service, we can process significant amounts of messages and get access to them from anywhere through HTTP/HTTPS calls. Some features of Queue Storage are:
 
 - Messages can have a maximum size of 64 KB of data.
 - Any queue can store millions of messages.
@@ -253,7 +253,7 @@ To learn about other operations—like how to peek, change, and dequeue messages
 
 ## What is Azure File Storage?
 
-Another way of store information on Microsoft Azure is through File Storage. This service offers shared resources on the cloud. Applications executing locally, on virtual machines, or any other service inside Microsoft Azure can mount a shared resource of files in Azure.
+Another way of store information on Microsoft Azure is through File Storage. This service offers shared resources in the cloud. Applications executing locally, on virtual machines, or any other service inside Microsoft Azure can mount a shared resource of files in Azure.
 
 File Storage is flexible and can be handled through the following clients:
 
@@ -262,13 +262,13 @@ File Storage is flexible and can be handled through the following clients:
 - API Rest.
 - Azure Libraries with .Net and other frameworks.
 
-With File Storage it is possible to replace file systems based on typical servers hosted on-premises environments. File Storage is secure because use the Server Message Block (SMB) Protocol and Common Internet File (CIFS).
+With File Storage, it is possible to replace file systems based on typical servers hosted on-premises environments. File Storage is secure because it uses the Server Message Block (SMB) Protocol and Common Internet File (CIFS).
 
 A "File Share" is an SMB space in Azure. All directories and files must be created in a parent share. An account can contain an unlimited number of shares, and a share can store an unlimited number of files, up to the 5 TB total capacity of the file share.
 
 ![File Storage Structure on Azure Store](https://cdn.auth0.com/blog/azure-storage/file-storage.png)
 
-The following C# code snippet shows how to programmatically interact with File Storage on Azure Storage:
+The following C# code snippet shows how to interact with File Storage on Azure Storage programmatically:
 
 ```C#
 public void AccessFileStorage()
