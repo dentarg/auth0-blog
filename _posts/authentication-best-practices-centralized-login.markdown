@@ -28,7 +28,7 @@ related:
 - 2017-10-19-oauth-2-best-practices-for-native-apps
 ---
 
-**TL;DR:** Centralized login is the best practice strategy for authenticating with a provider. Learn why centralized login is the most secure and flexibile approach. You can explore an authenticated MEAN stack application with Auth0 centralized login and passwordless at the [mean-messageboard GitHub repo here](https://www.github.com/auth0-blog/mean-messageboard).
+**TL;DR:** Centralized login is the best practice strategy for authenticating with a provider. Learn why centralized login is the most secure and flexible approach. You can explore an authenticated MEAN stack application with Auth0 centralized login and passwordless at the [mean-messageboard GitHub repo here](https://www.github.com/auth0-blog/mean-messageboard).
 
 ---
 
@@ -55,7 +55,7 @@ Let's begin with two hypothetical timelines from the perspective of tech teams a
 The engineering team at our first make-believe company (let's call them Company A) has produced the following timeline of sentiments:
 
 * **Year 0**: We're building an online video streaming service. Login is performed using an embedded username and password form on the homepage.
-* **Year 1**: We're doing great! People love our service. We're now developing an API so that third party tools can upload videos to the service.
+* **Year 1**: We're doing great! People love our service. We're now developing an API so that third-party tools can upload videos to the service.
 * **Year 2**: Due to high demand, we're building native mobile apps for Android and iOS. Users need to sign in every time they open the app.
 * **Year 3**: We've been acquired by Google! However, our proprietary authentication does _not_ integrate easily with other systems. It's become a nightmare to overhaul authentication for our site, mobile apps, and APIs! 😩
 
@@ -64,7 +64,7 @@ The engineering team at our first make-believe company (let's call them Company 
 Now let's consider a second make-believe company called Company B. Their engineering team's timeline looks like this:
 
 * **Year 0**: We're building an online photo storage and sharing service. Login is centralized and implemented with OAuth 2.0 and Google as a social Identity Provider (IdP).
-* **Year 1**: We're doing great! People love our service. We're now developing an API so that third party tools can upload photos to the service. API security and third party authentication has been easy with OAuth.
+* **Year 1**: We're doing great! People love our service. We're now developing an API so that third-party tools can upload photos to the service. API security and third-party authentication have been easy with OAuth.
 * **Year 2**: Due to high demand, we're building native mobile apps for Android and iOS. We avoided authenticating our mobile apps in embedded WebView. This way, our users won't have to sign in again if they're already authenticated on their phone with another app that uses Google OAuth.
 * **Year 3**: We've been acquired by Google! Integration was fast and easy! 🎉
 
@@ -104,7 +104,7 @@ Let's implement Auth0 centralized login and passwordless with a MEAN stack appli
 
 ### Dependencies
 
-First make sure you have the following dependencies installed and set up according to their provided documentation:
+First, make sure you have the following dependencies installed and set up according to their provided documentation:
 
 * [Node.js with npm](https://nodejs.org)
 * [Angular CLI](https://cli.angular.io)
@@ -151,7 +151,7 @@ Now we're ready to use our MongoDB database.
 3. In the **Settings** for your new Auth0 Client app, add `http://localhost:4200/callback, http://localhost:8085/callback` to the **Allowed Callback URLs**.
 4. Add `http://localhost:4200, http://localhost:8085` to the **Allowed Web Origins**.
 5. Add `http://localhost:4200, http://localhost:8085` to the **Allowed Origins (CORS)**.
-6. Make sure that **Use Auth0 instead of the IdP to do Single Sign On** is enabled.
+6. Make sure that **Use Auth0 instead of the IdP to do Single Sign-On** is enabled.
 7. At the bottom of the **Settings** section, click the "Show Advanced Settings" link. Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
 8. Click the "Save Changes" button.
 
