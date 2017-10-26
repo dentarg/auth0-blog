@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "React 16 Release: What’s New?"
-description: "ReactJS 16 was released a month ago. Learn what's new in ReactJS!"
-date: 2017-10-19 08:30
+description: "ReactJS 16 brings mayor changes to the popular JavaScript library for building user interfaces. Learn what's new in ReactJS!"
+date: 2017-10-26 08:30
 category: Technical Guide, Frontend, ReactJS
 design:
   bg_color: "#1A1A1A"
@@ -22,8 +22,8 @@ tags:
 - authentication
 related:
 - 2017-02-21-reactjs-authentication-tutorial
-- 2017-05-25-emberjs-authentication-tutorial
-- 2017-06-08-preact-authentication-tutorial
+- 2017-01-24-optimizing-react
+- 2017-01-26-testing-react-applications-with-jest
 ---
 
 ---
