@@ -10,8 +10,8 @@ author:
   mail: "diego.poza@auth0.com"
   avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 design:
-  bg_color: #000
-  image: "https://cdn.auth0.com/blog/account-link-extension/logo.png"
+  bg_color: #526C33
+  image: "https://cdn.auth0.com/blog/ciam-role/logo.png"
 tags:
 - ciam
 - paywall
