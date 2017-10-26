@@ -28,6 +28,8 @@ Even traditional workplaces are being liberated by technology to allow work to b
 
 So yes, you want to keep workers happy and be attractive to the best and the brightest of the new generation in the workforce. But you also need security, which gets harder the more your employees move around and portable devices they use. Public wifi? Work computers that leave the office? Workers traveling with a personal *and* work cell phone — it's a security nightmare.
 
+{% include tweet_quote.html quote_text="Millenials are ending the 9am to 5pm but this don't need to be a security issue." %}
+
 Here's how you can give employees what they want *and* stay secure to the highest available standards.
 
 ## Outsource your security management
