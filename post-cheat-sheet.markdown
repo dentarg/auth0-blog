@@ -125,7 +125,7 @@ text
 
 > **Important Note:** Make sure this is updated to reflect the appropriate application type, allowed callback / CORS settings, and API identifier when pasting into a post.
 
-![Auth0 hosted login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 ### Sign Up for Auth0
 
