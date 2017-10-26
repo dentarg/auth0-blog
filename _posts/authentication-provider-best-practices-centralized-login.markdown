@@ -26,6 +26,7 @@ tags:
 - passwordless
 related:
 - 2017-10-19-oauth-2-best-practices-for-native-apps
+- 2017-05-11-google-blocks-oauth-requests-from-embedded-browsers
 ---
 
 **TL;DR:** Centralized login is the best practice strategy for authenticating with a provider. Learn why centralized login is the most secure and flexible approach. You can explore an authenticated MEAN stack application with Auth0 centralized login and passwordless at the [mean-messageboard GitHub repo here](https://www.github.com/auth0-blog/mean-messageboard).
@@ -44,7 +45,7 @@ High standards of security and ease of use have been set for modern authenticati
 
 ### What is Embedded Login?
 
-**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain or in a WebView (in the case of native apps). Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html).
+**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain or in a WebView (in the case of native apps). Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
 
 ## A Tale of Two Companies
 
@@ -82,7 +83,7 @@ Centralized login has many advantages over an embedded login approach, including
 
 Centralized login is more secure than embedded login. Authentication takes place over the same domain, eliminating cross-origin requests. Cross-origin authentication is inherently more dangerous. Collecting user credentials in an application served from one origin and then sending them to another origin can present certain security vulnerabilities. [Phishing attacks](https://auth0.com/blog/all-you-need-to-know-about-the-google-docs-phishing-attack/) are more likely, as are [man-in-the-middle attacks](https://auth0.com/docs/security/common-threats#man-in-the-middle-mitm-attacks). Centralized login does not send information between origins, thereby negating cross-origin concerns.
 
-Embedded user agents are unsafe for third parties, including the authorization server itself. If an embedded login is used, the app has access to both the authorization grant and the user's authentication credentials. As a consequence, this data is left vulnerable to recording or malicious use.
+Embedded user agents are unsafe for third parties, including the authorization server itself. If an embedded login is used, the app has access to both the authorization grant and the user's authentication credentials. As a consequence, this data is left vulnerable to recording or malicious use. Even if the app is trusted, allowing it to access the authorization grant as well as the user's _full_ credentials is unecessary. This violates the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) and increases the potential for attack.
 
 ### Single Sign-On
 
@@ -90,7 +91,7 @@ Centralized login orchestrates [single sign-on](https://auth0.com/docs/sso/curre
 
 ### Easier to Implement and Maintain
 
-Centralized login is easier to implement as well as maintain for app developers. Cross-origin authentication is inherently more dangerous, but centralized login mitigates this risk entirely. A centralized login page is already fully implemented, negating the need for the developer to build out the login UI if a custom UI is not required. The authorization server providing the centralized login page can also ensure a consistent and secure experience across all apps that utilize it.
+Centralized login is easier to implement as well as maintain for app developers. Cross-origin authentication is inherently more dangerous, but centralized login mitigates this risk entirely. Developers do not need to manage the dangers of cross-origin attack vectors if they use centralized login instead of embedded login. A centralized login page is also already fully implemented, negating the need for the developer to build out their own embedded login UI. The authorization server providing the centralized login page can also ensure a consistent and secure experience across all apps that utilize it.
 
 ### Best Practice on Native Mobile
 
@@ -410,7 +411,7 @@ We now have a real-world MEAN stack application with Auth0 centralized login and
 
 ## Conclusion
 
-Centralized login is the most secure and maintainable standards-based approach to logging in with an authentication provider. Unlike embedded login, it is safer from cross-origin attack vectors and poses no danger to the authorization server. Centralized login is [best current practice for native mobile apps](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/), and OAuth providers like [Google no longer support embedded login strategies](https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html).
+Centralized login is the most secure and maintainable standards-based approach to logging in with an authentication provider. Unlike embedded login, it is safer from cross-origin attack vectors and poses no danger to the authorization server. Centralized login is the [best current practice for native mobile apps](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/), and OAuth providers like [Google no longer support embedded login strategies](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
 
 {% include tweet_quote.html quote_text="Centralized login is safer from cross-origin attack vectors and poses no danger to the authorization server." %}
 
