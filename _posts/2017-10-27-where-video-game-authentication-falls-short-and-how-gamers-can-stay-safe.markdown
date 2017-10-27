@@ -5,7 +5,7 @@ description: "Video game security could be better, and you should know why."
 date: 2017-10-27 18:37
 category: Growth, Industries
 author:
-  name: Diego Poza
+  name: Ramiro Nuñez Dosio
   url: https://twitter.com/ramirond_
   avatar: https://cdn.auth0.com/blog/avatar/ramiro.png
   mail: ramiro.nunez@auth0.com
