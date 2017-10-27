@@ -2,13 +2,13 @@
 layout: post
 title: "Where Video Game Authentication Falls Short (And How Gamers Can Stay Safe)"
 description: "Video game security could be better, and you should know why."
-date: 2017-05-31 18:37
+date: 2017-10-27 18:37
 category: Growth, Industries
 author:
   name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  url: https://twitter.com/ramirond_
+  avatar: https://cdn.auth0.com/blog/avatar/ramiro.png
+  mail: ramiro.nunez@auth0.com
 design:
   bg_color: "#4A4A4A"
   image: "https://cdn.auth0.com/blog/secure-games/logo.png"
@@ -19,6 +19,7 @@ tags:
 related:
 - 2017-03-24-360-view-of-customer-by-managing-identity
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
+- 2017-03-17-analyzing-identity-in-movies
 ---
 
 [Half of American adults play some form of video game](http://www.pewinternet.org/2015/12/15/gaming-and-gamers/), and many of those games require users to create an account and log in. From phone apps and MMORPGs to systems like PlayStation and Xbox, identity is an integral part of the ability to interact with other people in live action games, to save progress and to organize different accounts on one device.
