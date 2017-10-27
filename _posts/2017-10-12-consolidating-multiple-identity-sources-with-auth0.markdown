@@ -41,7 +41,7 @@ To follow along with this article and see the profile consolidation in practice,
 - Check, during sign in, if a credential is valid or not.
 - Check, during a password retrieval or a sign up, if an email address exists on one of the applications.
 
-The credential verification and the email verification processes occur through requests made by Auth0 to both applications. These requests are issued by two Auth0 Database Action Scripts that we will configure in our account. In both cases, if the user does exist and contains profiles on both application, these profiles are merged and saved on Auth0. If the user exists on only one of the applications, this single profile is used.
+The credential verification and the email verification processes occur through requests made by Auth0 to both applications. These requests are issued by two Auth0 [Database Action Scripts](https://auth0.com/docs/connections/database/custom-db#3-provide-action-scripts) that we will configure in our account. In both cases, if the user does exist and contains profiles on both application, these profiles are merged and saved on Auth0. If the user exists on only one of the applications, this single profile is used.
 
 ## Security Notes
 
@@ -111,7 +111,7 @@ After filling the form with the values above, we can click on the "Create" butto
 
 ### Defining OAuth 2.0 Scopes on Auth0 APIs
 
-[OAuth 2.0 recommends](https://auth0.com/docs/protocols/oauth2) that clients should specify what scopes they want to have when interested in communicating with an API. Scopes, on OAuth 2.0, represent permissions that clients have when dealing with resources that they don't own. For example, in our scenario we are creating an API that stands for two legacy identity providers. As we don't want the client that we are going to create to have unlimited access to these application, we can restrict its access by setting what scopes the client will get in its token. To do that, let's head to the "Scopes" tab of our brand new API and add two scopes:
+[OAuth 2.0 recommends](https://auth0.com/docs/protocols/oauth2) that clients should specify what scopes they want to have when interested in communicating with an API. Scopes, on OAuth 2.0, represent permissions that clients have when dealing with resources that they don't own. For example, in our scenario we are creating an API that stands for two legacy identity providers. As we don't want the client that we are going to create to have unlimited access to these applications, we can restrict its access by setting what scopes the client will get in its token. To do that, let's head to the "Scopes" tab of our brand new API and add two scopes:
 
 - Scope name: `authenticate:app1`; Scope description: "Auth on Legacy IdP1"
 - Scope name: `authenticate:app2`; Scope description: "Auth on Legacy IdP2"
