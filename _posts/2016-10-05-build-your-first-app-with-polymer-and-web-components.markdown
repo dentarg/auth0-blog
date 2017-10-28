@@ -83,7 +83,7 @@ npm install -g bower
 Install the Polymer CLI: 
 
 ```bash
-npm install -g polymer-CLI
+npm install -g polymer-cli
 ```
 
 We also need to have a sample Node API running. Clone the [NodeJS JWT Authentication sample repo](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) and follow the instructions in the README to get it up and running on [http://localhost:3001](http://localhost:3001).
