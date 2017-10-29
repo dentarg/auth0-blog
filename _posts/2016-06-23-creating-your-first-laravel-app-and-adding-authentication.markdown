@@ -272,7 +272,12 @@ The `users` and `password_resets` table will be created on running this command.
 
 ## Path Customization
 
-Open up `AuthController.php` in `app/Http/Controllers/Auth` directory. There is a `$redirectTo` variable like so:
+The following three files found in `app/Http/Controllers/Auth` directory contain a `protected $redirectTo = '/home';` variable.
+    * LoginController.php
+    * RegisterController.php
+    * ResetPasswordController.php
+
+These can be configured to whatever route you want the user to be redirected to just after registration or login. In our case, the user should be redirected to the landing page, so we would want to change this to the example below:
 
 ```php
 /**
@@ -282,7 +287,6 @@ Open up `AuthController.php` in `app/Http/Controllers/Auth` directory. There is 
 */
 protected $redirectTo = '/';
 ```
-It can be configured to whatever route you want the user to be redirected to just after registration or login. In our case, the user should be redirected to the landing page, so we don't need to change anything.
 
 Now, go ahead and register. It should register you successfully and log you in like so:
 
