@@ -299,7 +299,7 @@ Middlewares provide a convenient mechanism for filtering HTTP requests entering 
 
 Let's check out how the `auth` middleware works.
 
-Add a new route to your `routes.php` file like so:
+Add a new route to your `routes/web.php` file like so:
 
 ```php
 Route::get('/got', [
