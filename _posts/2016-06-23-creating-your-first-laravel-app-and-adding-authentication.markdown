@@ -68,6 +68,8 @@ It's actually faster to spin up a new app using the `laravel` command like so: `
 
 If you used the `laravel` installer command to create a new app, then you have to run `composer install` immediately after the previous command to install all the dependencies.
 
+Once the `laravel` installer or composer install is complete, change directory into GOT and run the following command to use the provided server: `php artisan serve --port=8080`
+
 ## Explore Directory Structure
 
 Laravel applications follow the **Model-View-Controller** design pattern.
@@ -158,7 +160,7 @@ where `<modelName>` represents the name of the Model you want to create.
 
 ## Setting Up The Routes
 
-Open up `app/Http/routes.php` and configure it like so:
+Open up `routes/web.php` and configure it like so:
 
 ```php
 /*
@@ -197,7 +199,7 @@ As you can see, some files have been copied into our application, the routes hav
 
 Now, the views needed for authentication are in the `resources/views/auth` directory. The base layout for our application has also been configured in the `resources/views/layouts` directory. All of these views use the Bootstrap CSS framework, but you are free to customize them however you wish.
 
-Open up your `welcome.blade.php` and configure it like so:
+Open up your `welcome.blade.php` and replace the contents with the code below:
 
 {% highlight html %}
 @extends('layouts.app')
