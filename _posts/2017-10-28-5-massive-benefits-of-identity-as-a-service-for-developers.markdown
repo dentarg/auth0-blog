@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "5 Massive Benefits Of Identity As A Service For Developers"
-description: <A SHORT DESCRIPTION OF THE POST>
+description: "Identity as a service provides lots of benefits for companies and developers looking to iterate quickly. Focus on building customer value not authentication."
 date: 2017-10-28 16:55
 category: 
 author: 
@@ -11,6 +11,9 @@ author:
   avatar: https://secure.gravatar.com/avatar/605c451dd844eedb6b4b3f1e8619280b
 design: 
   bg_color: "#1A1A1A"
+tags:
+- IdentityService
+- Developer
 ---
 The old adage goes, “don’t reinvent the wheel”. We say this over and over again as developers. Yet we are often sucked down rabbit trails where we end up doing the one thing we don’t want to do. Reinventing the wheel.
 
