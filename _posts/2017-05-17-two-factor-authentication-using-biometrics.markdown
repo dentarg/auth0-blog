@@ -21,6 +21,13 @@ related:
 experimental: true
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 **TL;DR** You can replace the use of traditional multifactor possession factors (phone codes, special-purpose hardware) in 2FA implementations with the use of inherence factors (voice biometrics) by leveraging [Auth0](https://auth0.com/) extensibility points and voice recognition services (VoiceIt). Additionally, by integrating a communications platform (Twilio) you can let your users complete the voice authentication step through their own phones.
 
 ___
