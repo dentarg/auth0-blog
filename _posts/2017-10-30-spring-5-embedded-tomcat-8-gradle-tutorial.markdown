@@ -22,3 +22,27 @@ related:
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 - 2017-04-28-incrementally-changing-your-database-with-java-and-flyway
 ---
+
+**TL;DR:** In this article, we are going to learn how to use Gradle to structure a Spring 5 project with Tomcat 8 embedded. We will start from an empty directory and will analyze each step needed to create an application that is distributed as an über/fat jar. [This GitHub repository](https://github.com/auth0-blog/embedded-spring-5) is what we will get after following the steps describe here.
+
+## Why Spring 5
+
+### Spring vs Spring Boot
+
+## Why Embedded Tomcat 8
+
+## Why Gradle
+
+## Creating the Project
+
+### Generating a Gradle Project
+
+### Embedding Tomcat 8
+
+### Bootstrapping Spring 5
+
+### Supporting JSON Content on Spring 5
+
+## Aside: Securing Spring Applications with Auth0
+
+## Conclusion
