@@ -2,13 +2,14 @@
 layout: post
 title: "Are Your Security Questions As Safe As You Think?"
 description: "They safeguard your account, but they're not exactly all they're cracked up to be."
-date: 2017-05-31 17:06
+date: 2017-10-30 17:06
 category: Growth, Security
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+is_non-tech: true
 design:
   bg_color: "#5A010C"
   image: "https://cdn.auth0.com/blog/security-questions/logo.png"
@@ -18,8 +19,8 @@ tags:
 - security
 related:
 - 2016-12-29-2017-budget-planning
-- 2016-12-02-modern-authentication-for-your-clients-made-easy
-- 2016-11-03-auth0-lock-is-here-for-b2b-and-b2c
+- 2017-10-27-where-video-game-authentication-falls-short-and-how-gamers-can-stay-safe
+- 2017-10-13-how-do-i-modernize-my-legacy-system
 ---
 
 You set up your security questions when you sign up (sometimes) and totally forget about them. Then, one day, you inevitably forget your password and find yourself robotically entering your place of birth, your dog's name, and your mom's birthday to get access to your account.
