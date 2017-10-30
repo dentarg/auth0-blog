@@ -95,4 +95,42 @@ Distill your cost-benefit analysis of each of your pain points into the answers 
 2. How much time/effort will we need to pull off this replacement?
 3. How helpful would just patching this part be in the long-run?
 
-This will form the basis of selection 
+
+This will form the basis of selection for what to work on first.
+
+![Prioritizing Improvements](https://cdn.auth0.com/blog/modernize-legacy-system/prioritizing-improvements.png)
+
+Check out our diagram above: You want to take on the problems that will get you the most value quickly. Notice that our chart shows preference for 'minimal time to replace' over 'higher benefit' (compare rows 3+4, or 5+6), that's because every bit that you update and separate from the rest of your legacy system declutters it and frees up your engineers' time.
+
+Taking the time to dissect and prioritize at the beginning will ultimately make your modernization a shorter, easier process. It transforms your daunting update into a feasible plan.
+
+## Updating one section at a time
+
+Now we'll discuss how to get started on those improvements. The two things to focus on are a microservices-based approach and getting yourself some quick wins!
+
+### Moving toward Microservices
+
+You should look to remove pain points from the rest of your stack rather than simply replacing them. Following this process will guide you toward a microservice-based system, in which an application is separated into small sets of services. Once your monolithic legacy system is reconfigured as microservices, each service can further evolve without disrupting the rest of your system.
+
+![Moving toward Microservices](https://cdn.auth0.com/blog/modernize-legacy-system/moving-toward-microservices.png)
+[*[source](http://soolan.com/microservice-architecture-implementation/)*]
+
+Keeping microservices in mind will help you today and in the future when small parts of your system can be easily updated as needed.  You don't want to keep your system monolithic and end up with the same complicated, entangled mess 5-10 years in the future.
+
+### The quick first step
+
+Every app is going to have a slightly different list of priorities. But three areas that are usually a great place to start for quick and high value are [payments, messaging, and identity](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/). These areas all have comprehensive solutions which let you offload critical functionality to a 3rd party SaaS product in a snap.
+
+* **Payments. **Customers have come to expect a seamless online payment system, and there's no point to risking turning them off by relying on your legacy system when platforms like Stripe and Zuora provide fast, well-trusted payment processing.
+* **Messaging. **Messaging too has become an essential part of any app as customers no longer only interact with a product through email. But with products like Twilio, your team doesn't have to worry about any of it.
+* **Digital identity.** Identity is one of the most complex items a company has to deal with, and one tiny mistake can result in a devastating data breach. Trying to constantly make changes to keep up with security protocols by adding [multifactor identification](https://auth0.com/learn/get-started-with-mfa/) and breached password detection to your legacy system is a disaster waiting to happen. When you work with providers like Auth0, all the facets of identity, [authentication, authorization, user profiles, and security](https://auth0.com/blog/the-role-of-identity-in-application-modernization/) are taken care of by us.
+
+When you get started on modernizing your system, the rest of it will still be problematic. You want your first steps to be handled by experts, far away from your hiccuping legacy system. But once you get those first steps done, you'll already be so far ahead of your old system.
+
+## Upgrade before you get left behind
+
+Modernizing a legacy system can seem impossible, but breaking it down into small pieces will help you get started.
+
+This is a task you cannot procrastinate on, it will just get harder and harder to maintain your legacy system. Switch over now and reap the benefits of a modern system instead of waiting to be forced into a more painful, more expensive switch later on.
+
+Don't be like the [52%](http://www.techradar.com/news/more-than-half-of-businesses-still-rely-on-windows-xp) of businesses that still run instances on the long outdated Windows XP, you're better than that.
