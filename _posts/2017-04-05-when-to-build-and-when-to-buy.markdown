@@ -27,6 +27,12 @@ related:
 - how-to-use-social-login-to-drive-your-apps-growth
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 It's a question many companies, big and small, ask themselves: should I build a new platform or software from scratch or should I invest in a ready-made product?
 
 With such a big decision to make, how exactly do you figure out what to do?

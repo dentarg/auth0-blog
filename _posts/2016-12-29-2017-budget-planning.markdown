@@ -25,6 +25,13 @@ related:
 - 2016-07-22-customer-data-is-king-four-ways-to-know-your-customers-better
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 2017 is coming and with it so do many tough decisions for startups and small businesses alike. Budget planning is perhaps the hardest of them. In this short article we will take a look at what is important for tech startups, how to aim for success in the coming year, and why you should consider authentication an important part of your budget. Read on!
 
 {% include tweet_quote.html quote_text="Budget planning is tough, and authentication should be a part of it" %}

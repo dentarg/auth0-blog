@@ -27,6 +27,11 @@ related:
 - 2014-07-02-wordpress-single-sign-on
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 **TL;DR:** As companies and organizations grow, they have to deal with an increasing number of applications and services. More often than not, these applications and services need authentication to manage access. Maintaining multiple sets of credentials to log in to different applications within an organization can be excruciating. **SSO login** can take away that pain. In this post, I'll show you how **SSO login** works and discuss the key benefits of integrating SSO login into your application development workflow.

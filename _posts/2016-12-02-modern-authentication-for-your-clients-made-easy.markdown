@@ -23,6 +23,11 @@ related:
 - create-a-desktop-app-with-angular-2-and-electron
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 **TL;DR** Whether you're a small consultancy working with a few clients or have been around for some time, the authentication needs of your customers are likely similar. Legacy authentication via username and password is not enough. Your customers are demanding multifactor authentication, single sign-on, and greater security. Building these features in-house is complex, but with Auth0 it doesn't have to be.

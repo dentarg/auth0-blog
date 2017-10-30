@@ -23,6 +23,11 @@ related:
 
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 **TL;DR:** Security is a key aspect of software development. Securing your authentication and authorization process can't be overemphasized. Over the years, developers have come up with different strategies for handling authentication in a way that provides maximum security for the user. One of the latest strategies is authenticating without passwords. Popular applications like Medium, Slack, and WhatsApp widely support and encourage passwordless authentication. In this article, you'll get to understand the nitty-gritty of passwordless authentication.
