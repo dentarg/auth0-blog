@@ -160,7 +160,9 @@ where `<modelName>` represents the name of the Model you want to create.
 
 ## Setting Up The Routes
 
-Open up `routes/web.php` and configure it like so:
+Open up `app/Http/routes.php` and configure it like so:
+
+**Note:** If using Laravel 5.3, 5.4 or 5.5, then the relevant routes file is `routes/web.php`
 
 ```php
 /*
@@ -299,7 +301,9 @@ Middlewares provide a convenient mechanism for filtering HTTP requests entering 
 
 Let's check out how the `auth` middleware works.
 
-Add a new route to your `routes/web.php` file like so:
+Add a new route to your `app/Http/routes.php` file like so:
+
+**Note:** If using Laravel 5.3, 5.4 or 5.5, then the relevant routes file is `routes/web.php`
 
 ```php
 Route::get('/got', [
