@@ -25,6 +25,13 @@ related:
 - 2017-01-25-how-to-build-your-user-analytics-funnel-with-social-login
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 **TL;DR:** Innovation drives technology and **innovation labs** are critical for propelling the technology industry forward. Find out about innovative accomplishments with identity, and why identity matters for innovation labs.
 
 ---
