@@ -25,6 +25,11 @@ related:
 - xamarin-authentication-and-cross-platform-app-development
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 **TL;DR** The Delegated Administration Dashboard extension exposes the [Users](https://manage.auth0.com/#/users) tab of the Auth0 [dashboard](https://manage.auth0.com) allowing you to easily and securely grant limited access for privileged user accounts. The extension exposes a number of hooks allowing you to provide a customized and fine-grained experience. Today, we will look at how the Delegated Admin extension can help a growing organization simplify their user management workflow by giving subordinate accounts access to create, edit, and further manage various user accounts throughout the organization.
