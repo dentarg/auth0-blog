@@ -26,6 +26,13 @@ related:
 - 2017-03-06-how-to-migrate-your-existing-stormpath-users-to-auth0
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 ## Gigya to be Acquired by SAP 
 
 [SAP](https://www.sap.com/index.html) announced an agreement to acquire [Gigya](http://www.gigya.com/)'s Customer Identity and Access Management (IAM) platform on September 24, 2017. The acquisition announcement should be very interesting to current Gigya customers. To learn about key features to reassess when your IAM platform is acquired, please check out [SAP to Acquire Gigya: What's Next for Identity Management?](https://auth0.com/blog/sap-to-acquire-gigya-whats-next-for-identity-management)
