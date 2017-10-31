@@ -268,6 +268,49 @@ public class ProductController {
 
 ### Creating an Executable Distribution
 
+```groovy
+group 'com.auth0.samples'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+mainClassName = 'com.auth0.samples.Main'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.0.47'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.1.RELEASE'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+}
+```
+
+```bash
+./gradlew runShadow
+
+./gradlew shadowJar
+java -jar build/libs/spring5-app-1.0-SNAPSHOT-all.jar
+```
+
 ```bash
 curl localhost:8080/products
 
