@@ -27,6 +27,10 @@ related:
 
 ## Why Spring 5
 
+[Spring](https://spring.io/) is [the most popular framework available for the Java platform](https://zeroturnaround.com/rebellabs/java-web-frameworks-index-by-rebellabs/). As such, developers using Spring can count on a huge, thriving community. [The framework contains more than 11k forks on GitHub](https://github.com/spring-projects/spring-framework) and [more than 120k question asked on StackOverflow](https://stackoverflow.com/questions/tagged/spring) are related to it.
+
+This framework enables developers to easily create robust Java enterprise applications.
+
 ### Spring vs Spring Boot
 
 ## Why Embedded Tomcat 8
