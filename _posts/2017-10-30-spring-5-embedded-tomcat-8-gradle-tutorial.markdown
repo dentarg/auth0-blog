@@ -322,6 +322,83 @@ curl -X POST -H "Content-Type: application/json" -d '{
 }' localhost:8080/products
 ```
 
-## Aside: Securing Spring Applications with Auth0
+### Securing Spring 5 Applications with Auth0
+
+```groovy
+// ...
+
+repositories {
+    jcenter()
+    maven {
+        url 'http://repo.spring.io/milestone/'
+    }
+}
+
+dependencies {
+    // ... tomcat, spring, jackson
+    compile('com.auth0:auth0-spring-security-api:1.0.0-rc.3') {
+        exclude module: 'spring-security-config'
+        exclude module: 'spring-security-core'
+        exclude module: 'spring-security-web'
+    }
+    compile('org.springframework.security:spring-security-config:5.0.0.RC1')
+    compile('org.springframework.security:spring-security-web:5.0.0.RC1')
+}
+```
+
+Create a class called `WebSecurityConfig` in the `com.auth0.samples` package:
+
+```java
+package com.auth0.samples;
+
+import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String TOKEN_AUDIENCE = "spring5";
+    private static final String TOKEN_ISSUER = "https://bkrebs.auth0.com/";
+    private static final String HELLO_WORLD_ENDPOINT = "/hello";
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        JwtWebSecurityConfigurer
+                .forRS256(TOKEN_AUDIENCE, TOKEN_ISSUER)
+                .configure(http)
+                .authorizeRequests()
+                .antMatchers(HELLO_WORLD_ENDPOINT).permitAll()
+                .anyRequest().authenticated().and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+}
+```
+
+Create a class called `SecurityWebApplicationInitializer` in the `com.auth0.samples` package:
+
+```java
+package com.auth0.samples;
+
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+
+public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
+}
+```
+
+```bash
+CLIENT_ID="d85mVhuL6EPYitTES37pA8rbi716IYCA"
+CLIENT_SECRET="AeeFp-g5YGwxFOWwLVMdxialnxOnoyuwGXoE5kPiHs8kGJeC2FJ0BCj6xTLlNKkY"
+
+JWT=$(curl -X POST -H 'content-type: application/json' -d '{
+    "client_id": "'$CLIENT_ID'",
+    "client_secret": "'$CLIENT_SECRET'",
+    "audience":"spring5",
+    "grant_type":"client_credentials"
+}' https://bkrebs.auth0.com/oauth/token | jq .access_token)
+
+curl -H "Authorization: Bearer "$JWT http://localhost:8080/products
+```
 
 ## Conclusion
