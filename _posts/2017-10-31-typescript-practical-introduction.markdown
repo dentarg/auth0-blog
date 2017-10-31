@@ -2,7 +2,7 @@
 layout: post
 title: "TypeScript Practical Introduction"
 description: "Let's learn TypeScript features through practical examples."
-date: 2017-10-07 08:00
+date: 2017-10-31 08:00
 category: Technical Guide, TypeScript
 author:
   name: "Bruno Krebs"
@@ -22,8 +22,9 @@ tags:
 - definetely-typed
 - definitelytyped
 related:
-- 2017-09-27-nextjs-3-release-what-is-new
-- 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
+- 2017-10-05-nestjs-brings-typescript-to-nodejs-and-express
+- 2017-03-02-docker-dashboard-with-react-typescript-socketio
+- 2016-11-21-building-and-authenticating-nodejs-apps
 ---
 
 **TL;DR:** In this article we are going to learn the basic features of TypeScript through practical examples. We'll start with a small introduction to TypeScript, then we are going to create a TypeScript project and use its features to learn the language in practice.
