@@ -7,10 +7,10 @@ category: Technical guide, Trusted Key
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: "YOUR NAME"
-  url: "https://twitter.com/YOUR_TWITTER"
-  mail: "YOUR_EMAIL@auth0.com"
-  avatar: "https://en.gravatar.com/userimage/YOUR_GRAVATAR"
+  name: "Keith Kowal"
+  url: "https://twitter.com/trustedkey"
+  mail: "info@trustedkey.com"
+  avatar: "https://cdn.auth0.com/blog/trusted-key/keith.jpg"
 design:
   image: https://cdn.auth0.com/blog/trusted-key/Logo.png
   bg_color: "#000154"
