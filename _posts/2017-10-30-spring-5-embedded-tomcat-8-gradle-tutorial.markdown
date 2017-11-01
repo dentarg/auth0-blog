@@ -75,14 +75,16 @@ After executing the last command, we will have the `com.auth0.sample` package an
 
 ### Embedding Tomcat 8
 
+To embed and bootstrap an instance of Tomcat 8, the first thing we need to do is to add it as a dependency to our project. We do that by adding a single line to the `dependencies` section of the `build.gradle` file, as shown below:
+
 ```groovy
 // ...
 dependencies {
-    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.0.47'
+    compile('org.apache.tomcat.embed:tomcat-embed-jasper:8.0.47')
 }
 ```
 
-create new file `Main` in the `com.auth0.samples` package:
+After adding the Tomcat 8 dependency, we have to create a class called `Main` in the `com.auth0.samples` package to bootstrap the server:
 
 ```java
 package com.auth0.samples;
@@ -93,7 +95,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-    private static final int PORT = getPort();
+    private static final int PORT = 8080;
 
     public static void main(String[] args) throws Exception {
         String appBase = ".";
@@ -104,14 +106,6 @@ public class Main {
         tomcat.addWebapp("", appBase);
         tomcat.start();
         tomcat.getServer().await();
-    }
-
-    private static int getPort() {
-        String port = System.getenv("PORT");
-        if (port != null) {
-            return Integer.valueOf(port);
-        }
-        return 8080;
     }
 
     // based on AbstractEmbeddedServletContainerFactory
@@ -131,6 +125,11 @@ public class Main {
     }
 }
 ```
+
+As we can see, running an instance of Tomcat 8 programmatically is quite easy. We just create a new instance of the `Tomcat` class, set a few properties on it, and call the `start()` method. Two things that are worthy to mention is that:
+
+1. The server port is hard coded in the code above (`8080`).
+2. Even though we won't use, the latest version of Tomcat requires us to define a base directory. Therefore, we simply create a temporary directory, through the `createTempDir()` method, that is marked to be excluded when the JVM ends its execution.
 
 ### Bootstrapping Spring 5
 
