@@ -220,11 +220,15 @@ The only way to run this project now, is an IDE. As we don't want to be dependen
 
 ### Creating an Executable Distribution
 
+To make Gradle package our application as an executable `jar` file (also called fat/über jar), we will take advantage of a popular Gradle plugin called [Shadow](http://imperceptiblethoughts.com/shadow/). This plugin is easy to use, well supported by the community, and have a great, thorough documentation. To configure it, let's replace the contents of the `build.gradle` file with the following code:
+
 ```groovy
 group 'com.auth0.samples'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+
+// 1 - apply application and shadow plugins
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
 
@@ -232,6 +236,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 mainClassName = 'com.auth0.samples.Main'
 
+// 2 - define the dependency to the shadow plugin
 buildscript {
     repositories {
         jcenter()
@@ -241,6 +246,7 @@ buildscript {
     }
 }
 
+// 3 - merge service descriptors
 shadowJar {
     mergeServiceFiles()
 }
@@ -252,27 +258,41 @@ repositories {
 dependencies {
     compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.0.47'
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.1.RELEASE'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
 }
 ```
 
+There are three things that we need to understand in the script above:
+
+1. To use Shadow, we need to apply two plugins. The first one is the [`application`](https://docs.gradle.org/current/userguide/application_plugin.html) plugin, which adds useful tasks to package compiled Java classes (note that this plugin doesn't add dependencies to the package created). The second one is the Shadow plugin itself, which is responsible for defining the main class to be executed and also adds all runtime dependencies to the final `jar` file.
+2. We need to declare the dependency to the Shadow plugin in the [buildscript block](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block) of our Gradle configuration file.
+3. We need to configure the Shadow plugin to [merge service descriptor files](http://imperceptiblethoughts.com/shadow/#controlling_jar_content_merging). This is needed because the `SpringServletContainerInitializer` class mentioned before is a service declared in a service descriptor inside Spring 5. The servlet container (Tomcat 8 in our case) knows that it needs to execute this class due to this service descriptor.
+
+The Shadow plugin, when correctly configured, adds a few [tasks](http://imperceptiblethoughts.com/shadow/#default_java_groovy_tasks) to our build configuration. Among them, there are two that we will use frequently:
+
 ```bash
+# compile, package, and run the application
 ./gradlew runShadow
 
+# compile and package the application
 ./gradlew shadowJar
+
+# run the packaged application
 java -jar build/libs/spring5-app-1.0-SNAPSHOT-all.jar
 ```
 
+The `runShadow` does three things: it compiles our source code, packages our application on an executable fat/über `jar` file, and then executes this `jar`. The second one, `shadowJar`, is pretty similar but it does not execute the application. It simply prepares our application to be distributed. That is, it create the executable `jar` file. The last command included in the code snippet above shows how to execute the fat/über `jar` without Gradle. Yes, after packaging the application, we don't need Gradle anymore.
+
+Let's run the application now, through one of the options explained above, and issue a `GET` HTTP request to the endpoint created in the `HelloWorldController` class:
+
 ```bash
-curl localhost:8080/products
+# run the application
+./gradlew runShadow
 
-curl -X DELETE localhost:8080/products/1
-
-curl -X POST -H "Content-Type: application/json" -d '{
-  "title": "Milk",
-  "price": 0.95
-}' localhost:8080/products
+# issue a GET request
+curl localhost:8080/hello
 ```
+
+The response to this request will be the message defined in the `sayHello` method of our controller: "Hello from Spring 5 and embedded Tomcat 8!".
 
 ### Supporting JSON Content on Spring 5
 
@@ -355,6 +375,17 @@ public class ProductController {
         products.remove(index);
     }
 }
+```
+
+```bash
+curl localhost:8080/api/products
+
+curl -X DELETE localhost:8080/api/products/1
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "title": "Milk",
+  "price": 0.95
+}' localhost:8080/api/products
 ```
 
 ### Securing Spring 5 Applications with Auth0
