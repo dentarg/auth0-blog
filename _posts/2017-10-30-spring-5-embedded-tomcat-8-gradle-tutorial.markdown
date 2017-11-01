@@ -133,15 +133,19 @@ As we can see, running an instance of Tomcat 8 programmatically is quite easy. W
 
 ### Bootstrapping Spring 5
 
+Having the Tomcat 8 dependency configured and the code to initialize the server created, we can now focus on configuring Spring 5 in our project. The first step is to add the [`spring-webmvc`](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) dependency. To do that, let's open the `build.gradle` file and add the following line to the `dependencies` section:
+
 ```groovy
 // ...
 dependencies {
-    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.0.47'
-    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.1.RELEASE'
+    // ... tomcat dependency
+    compile('org.springframework:spring-webmvc:5.0.1.RELEASE')
 }
 ```
 
-create new file `SpringAppConfig` in the `com.auth0.samples` package:
+This is the only Spring dependency that we will need for the time being. We don't need to add [`spring-core`](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html) explicitly because `spring-webmvc` declares it as a transitive dependency. Gradle downloads this kind of dependency and makes it available in the scopes needed automatically.
+
+The next step is to create the class that we will use to configure Spring 5 programmatically. We will call this class `SpringAppConfig` and create it in the `com.auth0.samples` package with the following code:
 
 ```java
 package com.auth0.samples;
@@ -180,11 +184,20 @@ public class SpringAppConfig implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
     }
-
 }
 ```
 
-Create new package `com.auth0.samples.controller` and add new class `HelloWorldController`:
+To better understand what this class does, let's take a look at its key concepts. First, let's analyze the three annotations that we added to the class:
+
+- `@Configuration`: This annotation indicates that the class in question might create Spring beans programmatically. This annotation is required by the next one.
+- `@EnableWebMvc`: This annotation, used alongside with `@Configuration`, [makes Spring import the configuration needed to work as a MVC framework](https://docs.spring.io/spring/docs/5.0.1.RELEASE/javadoc-api/org/springframework/web/servlet/config/annotation/WebMvcConfigurationSupport.html).
+- `@ComponentScan`: This annotation makes Spring scan the packages configured (i.e. `com.auth0.samples`) to assemble Spring beans (like MVC controllers) for us.
+
+The next important concept that we need to understand is the [`WebApplicationInitializer`](https://docs.spring.io/spring/docs/5.0.1.RELEASE/javadoc-api/org/springframework/web/WebApplicationInitializer.html) interface. Implementing this interface makes Spring automatically detect our configuration class and also makes any Servlet 3.0+ environment (like Tomcat 8) run it through the [`SpringServletContainerInitializer`](https://docs.spring.io/spring/docs/5.0.1.RELEASE/javadoc-api/org/springframework/web/SpringServletContainerInitializer.html) class. That is, we are capable of bootstrapping a Spring 5 context only by implementing this class.
+
+The last important thing that we need to analyze is the implementation of the `onStartup` method. When Spring executes our `WebApplicationInitializer` extension, this is the method that it calls. In this method, we basically do two things. First, we start a Spring context that accepts annotated classes and register our main Spring configuration class on it. Like that, every other component that we define through annotations will be properly managed. Second, we register a `DispatcherServlet` instance to handle and dispatch incoming requests to the controllers that we create.
+
+We now have a project that bootstraps a Spring 5 context automatically when started. To test it, let's create a new package called `com.auth0.samples.controller` and add to it a class named `HelloWorldController` with the following code:
 
 ```java
 package com.auth0.samples.controller;
@@ -203,7 +216,63 @@ public class HelloWorldController {
 }
 ```
 
-**Talk about WebApplicationInitializer and SpringServletContainerInitializer**
+The only way to run this project now, is an IDE. As we don't want to be dependent on IDEs, it is a good time to learn how to package the application in a single, executable `jar` file.
+
+### Creating an Executable Distribution
+
+```groovy
+group 'com.auth0.samples'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+mainClassName = 'com.auth0.samples.Main'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.0.47'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.1.RELEASE'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+}
+```
+
+```bash
+./gradlew runShadow
+
+./gradlew shadowJar
+java -jar build/libs/spring5-app-1.0-SNAPSHOT-all.jar
+```
+
+```bash
+curl localhost:8080/products
+
+curl -X DELETE localhost:8080/products/1
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "title": "Milk",
+  "price": 0.95
+}' localhost:8080/products
+```
 
 ### Supporting JSON Content on Spring 5
 
@@ -286,62 +355,6 @@ public class ProductController {
         products.remove(index);
     }
 }
-```
-
-### Creating an Executable Distribution
-
-```groovy
-group 'com.auth0.samples'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-apply plugin: 'application'
-apply plugin: 'com.github.johnrengelman.shadow'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-mainClassName = 'com.auth0.samples.Main'
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
-    }
-}
-
-shadowJar {
-    mergeServiceFiles()
-}
-
-repositories {
-    jcenter()
-}
-
-dependencies {
-    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.0.47'
-    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.1.RELEASE'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
-}
-```
-
-```bash
-./gradlew runShadow
-
-./gradlew shadowJar
-java -jar build/libs/spring5-app-1.0-SNAPSHOT-all.jar
-```
-
-```bash
-curl localhost:8080/products
-
-curl -X DELETE localhost:8080/products/1
-
-curl -X POST -H "Content-Type: application/json" -d '{
-  "title": "Milk",
-  "price": 0.95
-}' localhost:8080/products
 ```
 
 ### Securing Spring 5 Applications with Auth0
