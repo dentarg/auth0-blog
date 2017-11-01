@@ -12,8 +12,8 @@ author:
   mail: "YOUR_EMAIL@auth0.com"
   avatar: "https://en.gravatar.com/userimage/YOUR_GRAVATAR"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/trusted-key/Logo.png
+  bg_color: "#000154"
 tags:
 - trusted-key
 - identity
