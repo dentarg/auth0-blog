@@ -48,6 +48,10 @@ Also, as this approach fits perfectly in the microservices architecture that is 
 
 ## Why Gradle
 
+When it comes to dependency management and build tools on Java projects, there are two mainstream solutions to choose from: [Gradle](https://gradle.org/) and [Maven](https://maven.apache.org/). Both solutions are supported by huge communities, are constantly being developed, and are stable and extensible. Besides that, both Maven and Gradle fetch dependencies on similar ways and from similar sources (usually from Maven repositories). In the end, choosing one solution or another is normally just a matter of taste or familiarity. There are certain [edge scenarios that one solution performs better than the other](https://www.journaldev.com/7971/gradle). However, on most cases, both solutions will attend all our needs.
+
+In this article, we are going to use Gradle for one singular reason: brevity. Maven configuration files are usually too verbose (they are expressed on XML files). On the other hand, Gradle configuration files are expressed on [Groovy](http://groovy-lang.org/), a JVM dynamic programming language known for having a concise and tidy syntax.
+
 ## Creating the Project
 
 ### Generating a Gradle Project
