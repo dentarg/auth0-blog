@@ -23,6 +23,12 @@ related:
 - 2016-08-24-announcing-password-breach-detection
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 ## Background
 
 Authentication has always been the core of Auth0. But once you know who your users are, you’ll probably also need to know what they can do. Therefore, after authenticating users, you’ll need to authorize them. There are so many different ways to do this, from complex products to home-grown solutions. Using our rules engine, you could also consume this information during the login process.

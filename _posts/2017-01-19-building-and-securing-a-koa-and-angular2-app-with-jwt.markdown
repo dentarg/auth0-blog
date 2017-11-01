@@ -741,7 +741,7 @@ The above HTML code is the template that the `GroceryListComponent` expects to f
 
 ### Defining the Routes and their Guard
 
-We are getting really close to having a fully functional grocery list application, but there are a few more steps that we have to take. First we will need to define a [guard](https://angular.io/docs/ts/latest/guide/router.html#!#guards), called `AuthenticatedGuard`, that will prevent the users to reach the grocery list component if they did not authenticate. For that, let's create a file called `authenticated.guard.ts` under `./src/client/app/` with the code snippet below:
+We are getting really close to having a fully functional grocery list application, but there are a few more steps that we have to take. First we will need to define a [guard](https://angular.io/guide/router#milestone-5-route-guards), called `AuthenticatedGuard`, that will prevent the users to reach the grocery list component if they did not authenticate. For that, let's create a file called `authenticated.guard.ts` under `./src/client/app/` with the code snippet below:
 
 ```typescript
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from "@angular/router";
