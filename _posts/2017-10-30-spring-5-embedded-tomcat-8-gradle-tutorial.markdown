@@ -35,6 +35,17 @@ This framework enables developers to easily create robust Java enterprise applic
 
 ## Why Embedded Tomcat 8
 
+First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contains the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programatically.
+
+What triggered this change is that the new approach has many advantages. For example:
+
+1. To run a new instance of the application it is just a matter of executing a single command.
+2. All dependencies of the application are declared explicitly in the application code.
+3. The responsibility for running the application isn’t spread across different teams.
+4. The application is guaranteed to be run in the correct server version, mitigating issues.
+
+Also, as this approach fits perfectly in the microservices architecture that is eating the software development world, it makes totally sense to embed application servers. That's why we will learn how to embed Tomcat 8, the most popular Java server, on Spring applications.
+
 ## Why Gradle
 
 ## Creating the Project
@@ -405,6 +416,69 @@ curl -H "Authorization: Bearer "$JWT http://localhost:8080/products
 
 ### Serving Static Content
 
-https://cdn1.iconfinder.com/data/icons/freeline/32/alarm_alert_clock_event_history_schedule_time_watch-512.png
+```groovy
+// ...
+dependencies {
+  // ...
+  compile('jstl:jstl:1.2')
+}
+```
+
+
+```java
+// ... other imports
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+
+// ... annotations
+public class SpringAppConfig implements WebApplicationInitializer {
+    @Bean
+    public ViewResolver internalResourceViewResolver() {
+        InternalResourceViewResolver bean = new InternalResourceViewResolver();
+        bean.setViewClass(JstlView.class);
+        bean.setPrefix("/WEB-INF/");
+        bean.setSuffix(".jsp");
+        return bean;
+    }
+
+    // ... onStartup method
+}
+```
+
+```jsp
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<html>
+  <body>
+    <h1>Hello!</h1>
+    <p>The server's current time is:</p>
+    <p>
+      <fmt:formatDate type="both" value="${now}"
+          dateStyle="short" timeStyle="short" />
+    </p>
+  </body>
+</html>
+```
+
+```java
+package com.auth0.samples.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Date;
+
+@Controller
+public class HomeController {
+
+    @RequestMapping("/")
+    public String home(Model model) {
+        model.addAttribute("now", new Date());
+        return "index";
+    }
+}
+```
 
 ## Conclusion
