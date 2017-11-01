@@ -30,13 +30,13 @@ related:
 
 ## Introducing Authenticated Identities
 
-Trying to authorize user access based on real-life identity has always presented a significant technical challenge for website and application providers. Age verification is commonly attempted for mature content, and just as commonly circumvented by 14-yr old boys claiming to be born in 1972. Real-name policies have a colorful internet history, and is a sure-fire topic to start a dinner argument. Regardless of your outlook it is reasonable to assume that as technology makes authenticated identity solutions more practical to implement, there will be more service providers looking to implement enhanced age verification and real-name policies to meet the needs of regulators, and to differentiate their online experience.
+Trying to authorize user access based on real-life identity has always presented a significant technical challenge for website and application providers. Age verification is commonly attempted for mature content, and just as commonly circumvented by 14-yr old boys claiming to be born in 1972. Real-name policies have a colorful internet history and are a sure-fire topic to start a dinner argument. Regardless of your outlook, it is reasonable to assume that as technology makes authenticated identity solutions more practical to implement, there will be more service providers looking to implement enhanced age verification and real-name policies to meet the needs of regulators and to differentiate their online experience.
  
-A few key technologies are making real life identity verification closer to reality. First, advances in Optical Character Recognition (OCR), identity documents embedded with barcodes/NFC, and facial recognition allows smart devices such as mobile phones to reliably extract Identity information from government issued documents and confirm ownership with the person pictured on the ID. Second, public key cryptography allows that identity information to be securely stored using technologies such as Apple’s Secure Enclave, and safely transported. Finally, blockchain technologies are enabling “self-sovereign” identity solutions that allow users to create a digital wallet to store their identity and be in full control of what information leaves that wallet in the form of signed identity tokens, which will in turn increase users’ willingness to participate in such identity transfers.
+A few key technologies are making real-life identity verification closer to reality. First, advances in Optical Character Recognition (OCR), identity documents embedded with barcodes/NFC, and facial recognition allows smart devices such as mobile phones to reliably extract Identity information from government-issued documents and confirm ownership with the person pictured on the ID. Second, public key cryptography allows that identity information to be securely stored using technologies such as Apple’s Secure Enclave, and safely transported. Finally, blockchain technologies are enabling “self-sovereign” identity solutions that allow users to create a digital wallet to store their identity and be in full control of what information leaves that wallet in the form of signed identity tokens, which will, in turn, increase users’ willingness to participate in such identity transfers.
 
-{% include tweet_quote.html quote_text="Technologies like OCR, public key, and blockchain are making real life identity verification closer to reality." %}
+{% include tweet_quote.html quote_text="Technologies like OCR, public key, and blockchain are making real-life identity verification closer to reality." %}
  
-To help illustrate these principles we will demonstrate importing real life identities using Auth0 and Trusted Keys Digital Identity Wallet.
+To help illustrate these principles we will demonstrate importing real-life identities using Auth0 and Trusted Keys Digital Identity Wallet.
 
 ## Setting up the Trusted Key App
 
@@ -54,7 +54,7 @@ The Trusted Key App is a secure self-sovereign Digital Identity Wallet based on 
 
 <p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/app-dl.jpg" alt="Trusted key app add driver's license"></p>
 
-A key aspect of this process is that users are not able to edit or modify the Identity information extracted from the ID. This means that any identity information provided by the Trusted Key App is derived from a government issued ID document, and the user’s ownership confirmed through the selfie process, resulting in an authenticated identity.
+A key aspect of this process is that users are not able to edit or modify the Identity information extracted from the ID. This means that any identity information provided by the Trusted Key App is derived from a government-issued ID document, and the user’s ownership confirmed through the selfie process, resulting in an authenticated identity.
  
 For more information please see the [Trusted Key App user guide here](https://www.trustedkey.com/product/trusted-key-app-user-guide/).
 
@@ -66,13 +66,13 @@ For more information please see the [Trusted Key App user guide here](https://ww
 
 <p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/register-app.jpg" alt="Register new trusted key app"></p>
 
-**Step 3**: Once you have logged into the Trusted Key Developer Portal click on “Register New App” where you will be asked to enter your app name and callback URI. You can get your [Auth0 callback URI here](https://auth0.com/docs/extensions/custom-social-extensions#provide-your-callback-url-to-the-identity-provider). The portal will then provision you with a Client ID and Client Secret to use in your API calls to the Trusted Key Platform. Copy both values for the Auth0 setup.
+**Step 3**: Once you have logged into the Trusted Key Developer Portal click on “Register New App” where you will be asked to enter your app name and callback URI. You can get your [Auth0 callback URI here](https://auth0.com/docs/extensions/custom-social-extensions#provide-your-callback-url-to-the-identity-provider). The portal will then provision a Client ID and Client Secret to use in your API calls to the Trusted Key Platform. Copy both values for the Auth0 setup.
 
 <p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/register-app2.jpg" alt="Trusted key app configuration with Auth0"></p>
 
 ## Setting Up Auth0
 
-[Auth0](https://auth0.com) is an ideal platform for easy configuration of connections to third party Identity Providers such as Trusted Key, combined with a powerful backend for vetting, adding, and managing users. The setup process starts with [signing up for a free Auth0 account](https://auth0.com/signup) and then following the below steps:
+[Auth0](https://auth0.com) is an ideal platform for easy configuration of connections to third-party Identity Providers such as Trusted Key, combined with a powerful backend for vetting, adding, and managing users. The setup process starts with [signing up for a free Auth0 account](https://auth0.com/signup) and then following the below steps:
 
 **Step 1**: In your Auth0 dashboard, go to “Extensions” in the left sidebar close to the bottom. Choose “Custom Social Connections”. If you have not previously used this extension you will be asked to install it. Once installed in “Installed Extensions” click on “Custom Social Connections”. Within the Custom Social Connections page click “+ New Connection”. To help understand setting up authenticated identities we will compare a standard setup with an authenticated identity sample setup.
 
@@ -90,19 +90,19 @@ For more information please see the [Trusted Key App user guide here](https://ww
 * **Basic User Profile Agent**:
 
 ```js
-// Call oauth2 API with the accesstoken and create the profile
+// Call oauth2 API with the access token and create the profile
 function(access_token, context, callback) {
     request.get('https://wallet.trustedkey.com/oauth/user', {
-	    'headers': {
-  	        'Authorization': 'Bearer ' + access_token,
-  	        'User-Agent': 'Auth0'
-	    }
+        'headers': {
+              'Authorization': 'Bearer ' + access_token,
+              'User-Agent': 'Auth0'
+        }
     }, (error, response, body) => {
-	    if (error) {
+        if (error) {
             return callback(error);
         }
-	    if (response.statusCode !== 200) {
-  	        return callback(new Error('StatusCode:' + response.statusCode));
+        if (response.statusCode !== 200) {
+              return callback(new Error('StatusCode:' + response.statusCode));
         }
 
         return callback(null, JSON.parse(body));
@@ -126,35 +126,35 @@ You also have the option to force users to provide authenticated identity detail
 // Call oauth2 API with the accesstoken and create the profile
 function(access_token, context, callback) {
     request.get('https://wallet.trustedkey.com/oauth/user', {
-	    'headers': {
-  	        'Authorization': 'Bearer ' + access_token,
-  	        'User-Agent': 'Auth0'
-	    }
+        'headers': {
+              'Authorization': 'Bearer ' + access_token,
+              'User-Agent': 'Auth0'
+        }
     }, (error, response, body) => {
-	    if (error) {
+        if (error) {
             return callback(error);
         }
 
-	    if (response.statusCode !== 200) {
-  	        return callback(new Error('StatusCode:' + response.statusCode));
+        if (response.statusCode !== 200) {
+              return callback(new Error('StatusCode:' + response.statusCode));
         }
 
-	    const ui = JSON.parse(body);
+        const ui = JSON.parse(body);
 
-	    if(!ui.given_name) {
-  	        return callback(new Error("First Name missing. Please rescan your ID in the Trusted Key App"));
+        if(!ui.given_name) {
+              return callback(new Error("First Name missing. Please rescan your ID in the Trusted Key App"));
         }
 
         if(!ui.family_name) {
-  	        return callback(new Error("Family Name missing. Please rescan your ID in the Trusted Key App"));
+              return callback(new Error("Family Name missing. Please rescan your ID in the Trusted Key App"));
         }
 
         if(!ui.birthdate) {
-  	        return callback(new Error("Birthdate missing. Please rescan your ID in the Trusted Key App"));
+              return callback(new Error("Birthdate missing. Please rescan your ID in the Trusted Key App"));
         }
 
         if(!ui.gender) {
-  	        return callback(new Error("Gender is missing. Please rescan your ID in the Trusted Key App"));
+              return callback(new Error("Gender is missing. Please rescan your ID in the Trusted Key App"));
         }
 
         return callback(null, ui);
@@ -166,7 +166,7 @@ When finished your Authenticated Identity Custom Social Connection should look s
 
 <p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/auth0-trusted-key.jpg" alt="Auth0 Trusted Key settings"></p>
 
-When you finish filling out the fields you can save your new social connection, and then click “Try” at the bottom of the page. You will be taken to the Trusted Key login. Enter your email address and then confirm the login using your Trusted Key App. If everything works correctly you’ll get a confirmation message and an output where you can review the raw identity data provided from the Trusted Key App.
+When you finish filling out the fields you can save your new social connection, and then click “Try” at the bottom of the page. You will be taken to the Trusted Key login. Enter your email address and then confirm the login using your Trusted Key App. If everything works correctly you’ll get a confirmation message and an output where you can review the raw identity data provided by the Trusted Key App.
 
 <p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/trusted-key-app-code.jpg" alt="Auth0 Trusted identity data"></p>
 
@@ -174,9 +174,9 @@ Upon exiting the window make sure your Trusted Key custom social connection is t
 
 ## Testing it Out
 
-To provide a “real life” example we set up a demo WordPress website. We then downloaded and installed the “Login by Auth0” WordPress plugin. After activating the login you will be asked to login to your Auth0 Account, and a client will automatically be set up in your Auth0 dashboard. In the WordPress Admin settings under Settings > General > Membership make sure the “Anyone can Register” box is checked.
+To provide a “real life” example we set up a demo WordPress website. We then downloaded and installed the “Login by Auth0” WordPress plugin. After activating the login you will be asked to log into your Auth0 Account, and a client will automatically be set up in your Auth0 dashboard. In the WordPress Admin settings under Settings > General > Membership make sure the “Anyone can Register” box is checked.
  
-On your WordPress website if you go to login with the Auth0 module there should be a button reflecting the name you choose for your Trusted Key Social Connection—in this case we called it “Trusted-Key”.
+On your WordPress website if you go to login with the Auth0 module there should be a button reflecting the name you choose for your Trusted Key Social Connection—in this case, we called it “Trusted-Key”.
 
 <p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/trusted-key-login.jpg" alt="Auth0 trusted key login demo"></p>
 
