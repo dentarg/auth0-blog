@@ -35,7 +35,7 @@ This framework enables developers to easily create robust Java enterprise applic
 
 ## Why Embedded Tomcat 8
 
-First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contains the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programatically.
+First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contains the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programmatically.
 
 What triggered this change is that the new approach has many advantages. For example:
 
@@ -54,7 +54,10 @@ In this article, we are going to use Gradle for one singular reason: brevity. Ma
 
 ## Creating the Project
 
+Now that we understand why we chose to use Gradle, Spring 5, and an embedded Tomcat 8 server, let's see how to put all these pieces together. The first thing that we will do is to learn how to create a Gradle project from scratch. After that, we will understand how to add the Tomcat 8 dependency and how to bootstrap it programmatically. Lastly, we will see how to configure and secure a Spring 5 project that works as a RESTful API and that handles JSP (JavaServer Pages) files.
+
 ### Generating a Gradle Project
+
 
 talk about installing Gradle
 talk about gradle wrapper
