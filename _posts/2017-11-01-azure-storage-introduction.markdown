@@ -2,7 +2,7 @@
 layout: post
 title: "Azure Storage Introduction"
 description: "In this article we will learn about the many ways that Microsoft Azure Storage enables us to store information."
-date: 2017-10-06 08:00
+date: 2017-11-01 08:00
 category: Technical Guide, Microsoft, Azure
 author:
   name: Víctor Moreno
@@ -27,6 +27,7 @@ tags:
 related:
 - 2017-01-05-azure-search-with-aspnetcore
 - 2017-04-13-auth0-to-azure-log-analytics
+- 2016-10-11-auth0-with-azure-documentdb
 ---
 
 ## What is Azure Storage?
