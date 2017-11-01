@@ -54,19 +54,24 @@ In this article, we are going to use Gradle for one singular reason: brevity. Ma
 
 ## Creating the Project
 
-Now that we understand why we chose to use Gradle, Spring 5, and an embedded Tomcat 8 server, let's see how to put all these pieces together. The first thing that we will do is to learn how to create a Gradle project from scratch. After that, we will understand how to add the Tomcat 8 dependency and how to bootstrap it programmatically. Lastly, we will see how to configure and secure a Spring 5 project that works as a RESTful API and that handles JSP (JavaServer Pages) files.
+Now that we understand why we chose to use Gradle, Spring 5, and an embedded Tomcat 8 server, let's see how to put all these pieces together. The first thing that we will do is to clone an empty Gradle project. After that, we will understand how to add the Tomcat 8 dependency and how to bootstrap it programmatically. Lastly, we will see how to configure and secure a Spring 5 project that works as a RESTful API and that handles JSP (JavaServer Pages) files.
 
-### Generating a Gradle Project
+### Cloning the Gradle Project
 
-
-talk about installing Gradle
-talk about gradle wrapper
+There are multiple ways we can create a new Gradle project. For example, if we have Gradle installed on our machines, we could easily issue `gradle init` to get the basic files created for ourselves. However, to avoid having to install Gradle everywhere, we will clone a [GitHub repository](https://github.com/auth0-blog/spring5-app) that already contains these files. The following commands will clone the repository for us and create the main package:
 
 ```bash
+# clone basic files
 git clone https://github.com/auth0-blog/spring5-app.git
+
+# change working directory to it
 cd spring5-app
+
+# create the main package
 mkdir -p src/main/java/com/auth0/samples/
 ```
+
+After executing the last command, we will have the `com.auth0.sample` package and all the Gradle files that we will need.
 
 ### Embedding Tomcat 8
 
