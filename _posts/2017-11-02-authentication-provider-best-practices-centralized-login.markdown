@@ -50,7 +50,7 @@ High standards of security and ease of use have been set for modern authenticati
 ![centralized vs. embedded login](https://cdn.auth0.com/blog/centralized-login/centralized-embedded-diagram.jpg)
 
 1. **Centralized Login** - When clicking a button or link to authenticate in both the browser and native app, the centralized login URL at [accounts.google.com](https://accounts.google.com) is loaded.
-2. **Embedded Login** - When clicking a button or link to authenticate in the browser, an embedded modal is opened on the same domain, prompting the user to log in. The mobile app also displays input fields within the app.
+2. **Embedded Login** - When clicking a button or link to authenticate in the browser, an overlay modal is opened on the same domain, prompting the user to log in. The mobile app also displays input fields within the app.
 
 ## A Tale of Two Companies
 
