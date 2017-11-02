@@ -97,26 +97,31 @@ Centralized login is easier to implement as well as maintain for app developers.
 
 The [OAuth 2.0 Best Current Practice for Native Apps RFC](https://www.rfc-editor.org/rfc/rfc8252.txt) requires that _only_ external user agents, such as centralized login, should be used for authenticating with OAuth 2.0 in native mobile applications. This is considered best practice for reasons cited above, including security and single sign-on. You can [read more about the OAuth 2.0 BCP for Native Apps here](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/).
 
+<p style="text-align: center; font-size: 12px;"><img src="https://cdn.auth0.com/blog/centralized-login/google-login-mobile.jpg" alt="Google login on mobile app"><br>
+<em>Native mobile apps that use OAuth 2.0 (such as Gmail, YouTube, and others) use the device browser as an external user agent for centralized login.</em></p>
+
+
+
 ### User Experience
 
-Modern users are very familiar with being sent to an authorization provider's centralized login page to authenticate (e.g., OAuth with Google, Facebook, GitHub, etc.), in turn gaining the benefits of single sign-on and not being required to repeatedly log into other apps on the same device as long as they are using the same authentication provider.
+Modern users are comfortable with signing in at the authorization provider's centralized login page to authenticate (e.g., OAuth with Google, Facebook, GitHub, etc.), in turn gaining the benefits of single sign-on and not being required to repeatedly log into other apps on the same device as long as they are using the same authentication provider.
 
 ![centralized login with Facebook](https://cdn.auth0.com/blog/centralized-login/facebook-login.jpg)
 
+These login pages are on the authorization provider's domain. However, most people don't even notice the redirect because the modern flow of centralized login functions so seamlessly. After signing in, they're brought back to the application and are now authenticated. The user experience of centralized login is easy and natural, and is the standard expectation for users of modern web and mobile apps. In addition to being more secure, it provides transparency. In doing so, the user is assured that they are securely logging in with a trusted and familiar entity.
+
 ![centralized login with GitHub](https://cdn.auth0.com/blog/centralized-login/github-login.jpg)
-
-These login pages are on the authentication provider's domain. However, most people don't notice this at all because the modern flow of centralized login functions seamlessly. After signing in, we're brought back to the application and are now authenticated. The user experience of centralized login is easy and natural.
-
-## Auth0 Centralized Login
-
-Centralized login has clear benefits for security and maintainability. It also provides a comfortable and consistent user experience that confers the benefits of SSO. In keeping with app modernization and current best practices, Auth0 provides a robust [centralized login](https://auth0.com/docs/hosted-pages/login) solution with integrations for dozens of [social identity providers](https://auth0.com/docs/identityproviders#social), [enterprise identity providers](https://auth0.com/docs/identityproviders#enterprise), [database and custom connections](https://auth0.com/docs/identityproviders#database-and-custom-connections), and features like [passwordless](https://auth0.com/passwordless). With Auth0, the centralized login page is a [fully customizable UI](https://auth0.com/docs/hosted-pages/login#3-customization). In addition, Auth0's [CNAME](https://en.wikipedia.org/wiki/CNAME_record) functionality to persist the same domain across the centralized login page and the app is scheduled to launch before the end of 2017.
-
-![Auth0 centralized login page](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 ## Conclusion
 
-Centralized login is the most secure and maintainable standards-based approach to logging in with an authentication provider. Unlike embedded login, it is safer from cross-origin attack vectors and poses no danger to the authorization server. Centralized login is the [best current practice for native mobile apps](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/), and OAuth providers like [Google no longer support embedded login strategies](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
+Centralized login is the most secure and maintainable standards-based approach to logging in with an authentication provider. Unlike embedded login, it is safer from cross-origin attack vectors and poses no danger to the authorization server. Centralized login is the [best current practice for native mobile apps](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/), and OAuth providers like [Google no longer support embedded login strategies](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/). It also provides a comfortable and consistent user experience that confers the benefits of SSO.
 
 {% include tweet_quote.html quote_text="Centralized login is safer from cross-origin attack vectors and poses no danger to the authorization server." %}
 
-Auth0 provides a [secure, customizable centralized login strategy](https://auth0.com/docs/hosted-pages/login) that works with [social IdPs](https://auth0.com/docs/connections#social) (such as Google, Facebook, Twitter, etc.), [enterprise IdPs](https://auth0.com/docs/connections#enterprise) (such as Active Directory, ADFS, LDAP, etc.), custom [OAuth 2.0 integrations](https://auth0.com/docs/protocols/oauth2), [username/password databases](https://auth0.com/docs/connections#database-and-custom-connections), [passwordless authentication](https://auth0.com/docs/connections/passwordless) (with SMS, email, or TouchID), and more. You can [sign up for a free Auth0 account](https://auth0.com/signup) to try out these features and more to modernize your app's authentication and follow standards-based best practices.
+In keeping with app modernization and current best practices, [Auth0](https://auth0.com) provides a robust [centralized login](https://auth0.com/docs/hosted-pages/login) solution with integrations for dozens of [social identity providers](https://auth0.com/docs/identityproviders#social), [enterprise identity providers](https://auth0.com/docs/identityproviders#enterprise), custom [OAuth 2.0 integrations](https://auth0.com/docs/protocols/oauth2), [username/password databases](https://auth0.com/docs/connections#database-and-custom-connections), features like [passwordless authentication](https://auth0.com/passwordless) (with SMS, email, or TouchID), and more.
+
+With Auth0, the centralized login page is a [fully customizable UI](https://auth0.com/docs/hosted-pages/login#3-customization). In addition, Auth0's [CNAME](https://en.wikipedia.org/wiki/CNAME_record) functionality to persist the same domain across the centralized login page and the app is scheduled to launch before the end of 2017.
+
+![Auth0 centralized login page](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+
+You can [sign up for a free Auth0 account](https://auth0.com/signup) to try out these features and more to modernize your app's authentication and follow standards-based best practices.
