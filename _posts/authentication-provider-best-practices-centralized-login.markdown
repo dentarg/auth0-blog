@@ -73,9 +73,7 @@ These scenarios are simplified, but they still demonstrate a few of the advantag
 
 ## <span id="why-use-centralized-login"></span>Why Centralized Login is Best Practice
 
-Centralized login has many advantages over an embedded login approach, including better security, improved Single Sign-On, simpler maintainability, native app implementation, and more. Let's explore these in more detail.
-
-![Auth0 centralized login page](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+Centralized login has many advantages over an embedded login approach, including better security, single sign-on benefits, simpler maintainability, modern user experience, and more. Let's explore these in more detail.
 
 {% include tweet_quote.html quote_text="Centralized login provides security, SSO, maintainability, best practice native app implementation, and more." %}
 
@@ -89,6 +87,8 @@ Embedded user agents are unsafe for third parties, including the authorization s
 
 Centralized login orchestrates [single sign-on](https://auth0.com/docs/sso/current) (SSO) between multiple apps while providing cookies from the same origin. Once a user has logged in using a centralized login, a cookie is created and stored. Any future calls to the authentication provider's authorization endpoint will then check the cookie. If the user has already signed on, the login page will not be shown again and the user will be logged in via SSO. On the other hand, embedded user agents don't share authentication state, meaning that they cannot be used for SSO.
 
+![centralized login with Google](https://cdn.auth0.com/blog/centralized-login/google-login.jpg)
+
 ### Easier to Implement and Maintain
 
 Centralized login is easier to implement as well as maintain for app developers. Cross-origin authentication is inherently more dangerous, but centralized login mitigates this risk entirely. Developers do not need to manage the dangers of cross-origin attack vectors if they use centralized login instead of embedded login. A centralized login page is also already fully implemented, negating the need for the developer to build out their own embedded login UI. The authorization server providing the centralized login page can also ensure a consistent and secure experience across all apps that utilize it.
@@ -99,315 +99,19 @@ The [OAuth 2.0 Best Current Practice for Native Apps RFC](https://www.rfc-editor
 
 ### User Experience
 
-Centralized login has clear benefits for security and maintainability. It also provides a comfortable and consistent user experience that confers the benefits of SSO. With Auth0, the [centralized login](https://auth0.com/docs/hosted-pages/login) page is a [fully customizable UI](https://auth0.com/docs/hosted-pages/login#3-customization). In addition, Auth0's [CNAME](https://en.wikipedia.org/wiki/CNAME_record) functionality to persist the same domain across the centralized login page and the app is scheduled to launch before the end of 2017. Modern users are very familiar with being redirected to an authorization provider's login page to authenticate (e.g., Google or Facebook OAuth), in turn gaining the benefits of single sign-on and not being required to repeatedly log into other apps on the same device as long as they are using the same authentication provider.
+Modern users are very familiar with being sent to an authorization provider's centralized login page to authenticate (e.g., OAuth with Google, Facebook, GitHub, etc.), in turn gaining the benefits of single sign-on and not being required to repeatedly log into other apps on the same device as long as they are using the same authentication provider.
 
-## Aside: Centralized Login and Passwordless in a MEAN App with Auth0
+![centralized login with Facebook](https://cdn.auth0.com/blog/centralized-login/facebook-login.jpg)
 
-Let's implement Auth0 centralized login and passwordless with a MEAN stack application that has been prepared for integration. This is a real-world message board application.
+![centralized login with GitHub](https://cdn.auth0.com/blog/centralized-login/github-login.jpg)
 
-![Auth0 centralized login with email passwordless](https://cdn.auth0.com/blog/centralized-login/auth0_login_passwordless-email.jpg)
+These login pages are on the authentication provider's domain. However, most people don't notice this at all because the modern flow of centralized login functions seamlessly. After signing in, we're brought back to the application and are now authenticated. The user experience of centralized login is easy and natural.
 
-### Dependencies
+## Auth0 Centralized Login
 
-First, make sure you have the following dependencies installed and set up according to their provided documentation:
+Centralized login has clear benefits for security and maintainability. It also provides a comfortable and consistent user experience that confers the benefits of SSO. In keeping with app modernization and current best practices, Auth0 provides a robust [centralized login](https://auth0.com/docs/hosted-pages/login) solution with integrations for dozens of [social identity providers](https://auth0.com/docs/identityproviders#social), [enterprise identity providers](https://auth0.com/docs/identityproviders#enterprise), [database and custom connections](https://auth0.com/docs/identityproviders#database-and-custom-connections), and features like [passwordless](https://auth0.com/passwordless). With Auth0, the centralized login page is a [fully customizable UI](https://auth0.com/docs/hosted-pages/login#3-customization). In addition, Auth0's [CNAME](https://en.wikipedia.org/wiki/CNAME_record) functionality to persist the same domain across the centralized login page and the app is scheduled to launch before the end of 2017.
 
-* [Node.js with npm](https://nodejs.org)
-* [Angular CLI](https://cli.angular.io)
-
-You will also need to sign up for the following free accounts:
-
-* [mLab](https://mlab.com/signup)
-* [Auth0](https://auth0.com/signup)
-
-To acquire and set up the MEAN app, you will need to clone the [mean-messageboard repository](https://github.com/auth0-blog/mean-messageboard) and install it by running `npm install` locally from its root directory.
-
-### Create an mLab Mongo Database
-
-Once you have created a [free mLab account](https://mlab.com/signup), create a new database with mLab.
-
-1. Log into [mLab](https://mlab.com). In **MongoDB Deployments**, click the "Create new" button.
-2. Select your desired Cloud Provider and Region.
-3. Change the Plan to **Single-node** and select the free "Sandbox" option.
-4. Scroll down and give your database a name, like `mean`.
-5. Click the "Create new MongoDB deployment" button.
-
-![mLab new MongoDB deployment](https://cdn.auth0.com/blog/mean-series/mLab-new-deployment.png)
-
-The new database can now be selected from our deployments. It should look something like this:
-
-![mLab MongoDB database](https://cdn.auth0.com/blog/mean-series/mLab-db.png)
-
-We now need to add a user in order to connect to our database. Click on the database to edit it.
-
-1. Select the **Users** tab and click the "Add database user" button.
-2. Enter a database username and password in the modal. These credentials will be needed to read and write to the database with Node.
-3. Make a note of the database's MongoDB URI. This should be in the format: `mongodb://<dbuser>:<dbpassword>@<ds111111>.mlab.com:<port>/<dbname>`.
-
-![mLab MongoDB URI](https://cdn.auth0.com/blog/mean-series/mLab-uri.png)
-
-Now we're ready to use our MongoDB database.
-
-> **Note:** If you prefer, you can host MongoDB locally. [Follow these instructions](https://docs.mongodb.com/manual/installation/) to install MongoDB on your operating system.
-
-### Set Up an Auth0 Client App
-
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[Create a New Client](https://manage.auth0.com/#/clients/create)" button.
-2. Give your new app a **name**, select **Single Page Web Applications**, then click the "Create" button.
-3. In the **Settings** for your new Auth0 Client app, add `http://localhost:4200/callback, http://localhost:8085/callback` to the **Allowed Callback URLs**.
-4. Add `http://localhost:4200, http://localhost:8085` to the **Allowed Web Origins**.
-5. Add `http://localhost:4200, http://localhost:8085` to the **Allowed Origins (CORS)**.
-6. Make sure that **Use Auth0 instead of the IdP to do Single Sign-On** is enabled.
-7. At the bottom of the **Settings** section, click the "Show Advanced Settings" link. Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
-8. Click the "Save Changes" button.
-
-### Set Up Auth0 Passwordless Login
-
-1. Go to **Connections** -> [**Passwordless**](https://manage.auth0.com/#/connections/passwordless) and enable the **Email** toggle.
-2. In the Email passwordless settings screen, add `{ "scope": "openid profile" }` to **Authentication Parameters**.
-3. Click the "Save" button.
-4. Click the **Apps** tab at the top of the window and find your newly-created Client. Toggle its switch on to enable it.
-5. Click the "Save" button.
-6. Go to [**Hosted Pages**](https://manage.auth0.com/#/login_page). Toggle on the **Customize Login Page** option. This will enable you to modify the provided template.
-7. Using the **Default Templates** dropdown, switch to **Lock (Passwordless)**.
-8. Click the "Save" button.
-
-### Set Up an API in Auth0
-
-Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 Dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to `http://localhost:8085/api/`. The **Signing Algorithm** should be `RS256`.
-
-### Add Database and Auth0 Configuration to App
-
-Now we'll add our MongoDB database and Auth0 Client information to our MEAN app. We can do so with the following simple steps, starting from the root of our message board project:
-
-1. Open the `server/config.js.sample` file. Replace `[AUTH0_DOMAIN]` with your Auth0 domain and replace `[MONGODB_URI]` with your complete mLab MongoDB URI. Then remove `.sample` from the file name.
-2. Open the `src/app/auth/auth0-variables.ts.sample` file. Replace `[AUTH0_CLIENT]` and `[AUTH0_DOMAIN]` with your Auth0 Client ID and domain. Then remove `.sample` from the file name.
-
-### Authentication Service
-
-The Angular app's `src/auth/auth.service.ts` file uses [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) to implement the centralized login page. The code looks like this, with functionality detailed in the comments:
-
-```typescript
-...
-
-@Injectable()
-export class AuthService {
-  // Create Auth0 web auth instance
-  private _auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.CLIENT_ID,
-    domain: AUTH_CONFIG.CLIENT_DOMAIN,
-    responseType: 'token id_token',
-    redirectUri: AUTH_CONFIG.REDIRECT,
-    audience: AUTH_CONFIG.AUDIENCE,
-    scope: AUTH_CONFIG.SCOPE
-  });
-  userProfile: any;
-  // Create a stream of logged in status to communicate throughout app
-  loggedIn: boolean;
-  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
-  // Subscribe to token expiration stream
-  refreshSub: Subscription;
-  authStatePending = false;
-  authError: any;
-
-  constructor(private router: Router) {
-    // If authenticated, set local profile property,
-    // update login status, schedule renewal.
-    // If not authenticated but there are still items
-    // in localStorage, log out.
-    const lsProfile = localStorage.getItem('profile');
-
-    if (this.tokenValid) {
-      this.userProfile = JSON.parse(lsProfile);
-      this.setLoggedIn(true);
-      this.scheduleRenewal();
-    } else if (!this.tokenValid && lsProfile) {
-      this.logout();
-    }
-  }
-
-  setLoggedIn(value: boolean) {
-    // Update login status subject
-    this.loggedIn$.next(value);
-    this.loggedIn = value;
-  }
-
-  login(redirect?: string) {
-    // Set redirect after login
-    const _redirect = redirect ? redirect : this.router.url;
-    localStorage.setItem('authRedirect', _redirect);
-    // Auth0 authorize request calls the centralized login page
-    // User should then be prompted for their email and be
-    // sent a passwordless code to enter in the login page
-    this._auth0.authorize();
-  }
-
-  handleAuth() {
-    this.authStatePending = window.location.hash ? true : false;
-    // When user enters code at centralized login page, they
-    // are redirected back to app; this method is called by
-    // the root app component on load to parse the hash that
-    // is returned from Auth0 centralized login.
-    // When Auth0 hash parsed, execute _getProfile()
-    this._auth0.parseHash(
-      (err, authResult) => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          window.location.hash = '';
-          this._getProfile(authResult);
-        } else if (err) {
-          this._clearRedirect();
-          this.router.navigate(['/']);
-          console.error(`Error authenticating: ${err.error}`);
-          this.authStatePending = false;
-          this.authError = {
-            message: 'There was an error authenticating. Please try again.'
-          };
-        }
-      }
-    );
-  }
-
-  private _getProfile(authResult) {
-    // Use access token to retrieve user's profile and set session
-    this._auth0.client.userInfo(authResult.accessToken,
-      (err, profile) => {
-        if (profile) {
-          this._setSession(authResult, profile);
-          this._redirect();
-        } else if (err) {
-          console.warn(`Error retrieving profile: ${err.error}`);
-        }
-      }
-    );
-  }
-
-  private _setSession(authResult, profile?) {
-    // Set tokens and expiration in localStorage
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + Date.now());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-    this.authError = undefined;
-    // If initial login, set profile
-    if (profile) {
-      localStorage.setItem('profile', JSON.stringify(profile));
-      this.userProfile = profile;
-    }
-    // Update login status in loggedIn$ stream
-    this.setLoggedIn(true);
-    this.authStatePending = false;
-    // Schedule access token renewal
-    this.scheduleRenewal();
-  }
-
-  private _redirect() {
-    const redirect = localStorage.getItem('authRedirect');
-    if (redirect && redirect.indexOf('#') > -1) {
-      const redirectArr = redirect.split('#');
-      const url = redirectArr[0];
-      const fragment = redirectArr[1];
-      this.router.navigate([url], { fragment: fragment });
-    } else {
-      this.router.navigate([redirect || '/']);
-    }
-  }
-
-  private _clearRedirect() {
-    // Remove redirect from localStorage
-    localStorage.removeItem('authRedirect');
-  }
-
-  logout(noRedirect?: boolean) {
-    // Ensure all auth items removed from localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('profile');
-    localStorage.removeItem('expires_at');
-    this._clearRedirect();
-    // Reset local properties, update loggedIn$ stream
-    this.userProfile = undefined;
-    this.setLoggedIn(false);
-    this.authStatePending = false;
-    // Unschedule access token renewal
-    this.unscheduleRenewal();
-    // Return to homepage
-    if (noRedirect !== true) {
-      this.router.navigate(['/']);
-    }
-  }
-
-  get tokenValid(): boolean {
-    // Check if current time is past access token's expiration
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return Date.now() < expiresAt;
-  }
-
-  renewToken() {
-    // Acquire new tokens silently in an iFrame, causing no
-    // disruption to the user's experience
-    this._auth0.checkSession({},
-      (err, authResult) => {
-        if (authResult && authResult.accessToken) {
-          this._setSession(authResult);
-        } else if (err) {
-          console.warn(`Could not renew token: ${err.errorDescription}`);
-          // Log out without redirecting to clear auth data
-          this.logout(true);
-          // Log in again
-          this.login();
-        }
-      }
-    );
-  }
-
-  scheduleRenewal() {
-    // If user isn't authenticated, do nothing
-    if (!this.tokenValid) { return; }
-    // Unsubscribe from previous expiration observable
-    this.unscheduleRenewal();
-    // Create and subscribe to expiration observable
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    const expiresIn$ = Observable.of(expiresAt).flatMap(
-      expires => {
-        const now = Date.now();
-        // Use timer to track delay until expiration
-        // to run the refresh at the proper time
-        return Observable.timer(Math.max(1, expires - now));
-      }
-    );
-    // Subscribe to expiresIn$ observable and renew token
-    this.refreshSub = expiresIn$.subscribe(
-      () => {
-        this.renewToken();
-        this.scheduleRenewal();
-      }
-    );
-  }
-
-  unscheduleRenewal() {
-    if (this.refreshSub) {
-      this.refreshSub.unsubscribe();
-    }
-  }
-
-}
-```
-
-When the user clicks a "Log In" button in the app, the `login()` method is called. This sends an authentication request to our Auth0 centralized login page using our WebAuth instance (a constant named `_auth0` here) and the [auth0.js](https://github.com/auth0/auth0-js) `authorize()` method. Auth0, as the authentication provider, logs the user in and then redirects back to our app with the user's JSON Web Tokens and token expiration data in the browser URL hash. The app's `app.component.ts` class executes the authentication service's `handleAuth()` method to use the `parseHash()` method from auth0.js to extract the necessary data from the hash and utilize it in our app.
-
-In addition, the `auth.service.ts` contains functionality to [silently renew tokens](https://auth0.com/docs/libraries/auth0js/v8#using-checksession-to-acquire-new-tokens) when they are about to expire. This ensures that the user does not unexpectedly lose access in the middle of a browser session.
-
-### Try It Out
-
-Try it out by running the following two commands from the project root:
-
-```bash
-$ ng serve
-$ NODE_ENV=dev node server
-```
-
-You should now be able to run the app and authenticate. You should then also be able to post to the message board, sending your access token to the provided Node API.
-
-We now have a real-world MEAN stack application with Auth0 centralized login and passwordless authentication! 
+![Auth0 centralized login page](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 ## Conclusion
 
