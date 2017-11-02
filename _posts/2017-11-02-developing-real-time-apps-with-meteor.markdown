@@ -39,9 +39,11 @@ related:
 
 **Meteor** is a project backed by the _Meteor Development Group_ company. They are friends of the open source community. The _MDG_ group also manages [Apollo](http://dev.apollodata.com), the flexible production ready GraphQL client for React and Native apps. Meteor as a JavaScript platform has built a community around it over the years. Currently, there is a [discussion forum](https://forums.meteor.com), [Stack Overflow channel](http://stackoverflow.com/questions/tagged/meteor), and [Atmosphere - a repository of community packages](https://atmospherejs.com). In addition, there is a community-curated list of meteor packages and resources on GitHub known as [Awesome Meteor](https://github.com/Urigo/awesome-meteor).
 
+There are several websites and applications that run on Meteor. A few of them are [Favro - a collaboration app](https://www.favro.com/), [Reaction commerce - OSS platform for e-commerce sites](https://reactioncommerce.com/), [Oculus Health](https://www.oculushealth.com/) and [Game Raven - An online gaming community](https://gameraven.com/).
+
 ## Meteor Features
 
-KeystoneJS provides a standardized set of components that allows developers to build web applications quickly with JavaScript. It has a number of features that makes it a worthy framework to consider when looking for a good tool for your next project.
+Meteor provides a lot out of the box. It ships with a lot of features that makes it worthy to consider when looking for a framework for your next project.
 
 * **Session Management** : KeystoneJS ships with session management and authentication features out of the box.
 * **Routing**: KeystoneJS provides a router that allows you to express how your web application or API routes should look like.
