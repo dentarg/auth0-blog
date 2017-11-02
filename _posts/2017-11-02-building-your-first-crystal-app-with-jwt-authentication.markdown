@@ -2,7 +2,7 @@
 layout: post
 title: "Building Your First Crystal Web App & Authenticating with JWTs"
 description: "Continuing on from my Introduction to Crystal article, this time we're going to build our first Crystal web app and authenticate users via JSON Web Tokens."
-date: 2017-10-23 08:30
+date: 2017-11-02 08:30
 category: Technical Guide
 author:
   name: "Robin Percy"
