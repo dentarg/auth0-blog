@@ -15,14 +15,16 @@ design:
   image: https://cdn.auth0.com/blog/keystonejs/keystonejs-logo.png
   bg_color: "#4A4A4A"
 tags:
-- keystonejs
-- angular
+- meteor
+- meteorjs
+- mdg
+- opensource
 - javascript
 - authentication
 - auth
-- nodejs
+- real-time
 - restful
-- api
+- fullstack
 related:
 - 2017-09-19-building-an-app-with-Nette-and-adding-authentication
 - 2017-09-07-developing-restful-apis-with-loopback
@@ -33,29 +35,11 @@ related:
 
 ---
 
-Meteor is a full-stack JavaScript platform for developing modern web and mobile applications. Meteor includes a key set of technologies for building connected-client reactive applications, a build tool, and a curated set of packages from the Node.js and general JavaScript community.
+**Meteor** is a full-stack JavaScript platform for developing modern web and mobile applications. Meteor includes a key set of technologies for building connected-client reactive applications, a build tool, and a curated set of packages from the Node.js and general JavaScript community. It allows you develop in just one language, JavaScript, in all environments: server, web and mobile.
 
-* Meteor allows you to develop in one language, JavaScript, in all environments: application server, web browser, and mobile device.
-* Meteor uses data on the wire, meaning the server sends data, not HTML, and the client renders it.
-* Meteor embraces the ecosystem, bringing the best parts of the extremely active JavaScript community to you in a careful and considered way.
-* Meteor provides full stack reactivity, allowing your UI to seamlessly reflect the true state of the world with minimal development effort.
+**Meteor** is a project backed by the _Meteor Development Group_ company. They are friends of the open source community. The _MDG_ group also manages [Apollo](http://dev.apollodata.com), the flexible production ready GraphQL client for React and Native apps. Meteor as a JavaScript platform has built a community around it over the years. Currently, there is a [discussion forum](https://forums.meteor.com), [Stack Overflow channel](http://stackoverflow.com/questions/tagged/meteor), and [Atmosphere - a repository of community packages](https://atmospherejs.com). In addition, there is a community-curated list of meteor packages and resources on GitHub known as [Awesome Meteor](https://github.com/Urigo/awesome-meteor).
 
-
-**Express** is a minimalist web framework for Node.js. It provides a myriad of HTTP utility methods and middleware at your disposal. **MongoDB** is a very powerful non-relational database.
-
-A lot of folks such as [MacMillan](http://www.macmillanconnect.com.au/), [Suitshop](http://www.suitshop.com.au) already use **KeystoneJS** to power their CMSes. It's a great tool for quickly developing a blog, portal, forum or any form of managment system that really needs a content management system.
-
-## KeystoneJS Architecture
-
-KeystoneJS uses the Model View Template pattern. In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business, and data access realm.
-
-* **Data Access - Model**: This is the data access layer. It defines how data is being interacted with in the application. Validation, behaviour, and transformation of data.
-
-* **Business Logic - View**: In a typical framework, the view simply presents data to the screen. In KeystoneJS, it serves as the busines logic layer that contains the logic that accesses the model, otherwise known as controllers. It serves as a bridge between the models and templates.
-
-* **Presentation - Templates**: This is the presentation layer. It displays data on the screen.
-
-## KeystoneJS Features
+## Meteor Features
 
 KeystoneJS provides a standardized set of components that allows developers to build web applications quickly with JavaScript. It has a number of features that makes it a worthy framework to consider when looking for a good tool for your next project.
 
@@ -66,7 +50,7 @@ KeystoneJS provides a standardized set of components that allows developers to b
 * **Admin UI**: KeystoneJS has an auto-generated Admin UI that saves you a lot of time and makes managing data from your database so easy.
 * **Email Administration**: With KeystoneJS, you can set up, preview and send template-based emails for your application seamlessly. It offers a [Mandrill](https://www.mandrill.com) integration out of the box.
 
-## KeystoneJS Key Requirements
+## Meteor Key Requirements
 
 In order to use KeystoneJS, you need to have the following tools installed on your machine.
 
@@ -75,7 +59,18 @@ In order to use KeystoneJS, you need to have the following tools installed on yo
 * **Yeoman**: Make sure yeoman is installed on your machine by running `npm install -g yo`.
 * Familiarity with database concepts, and working knowledge of JavaScript.
 
-## Building a Blog Rapidly With KeystoneJS
+
+## Understanding Key Concepts in Meteor
+
+KeystoneJS uses the Model View Template pattern. In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business, and data access realm.
+
+* **Data Access - Model**: This is the data access layer. It defines how data is being interacted with in the application. Validation, behaviour, and transformation of data.
+
+* **Business Logic - View**: In a typical framework, the view simply presents data to the screen. In KeystoneJS, it serves as the busines logic layer that contains the logic that accesses the model, otherwise known as controllers. It serves as a bridge between the models and templates.
+
+* **Presentation - Templates**: This is the presentation layer. It displays data on the screen.
+
+## Build a Real-time Web App With Meteor
 
 I mentioned earlier that KeystoneJS is a tool for rapidly building out web applications. What you might not be aware of is that it is even easier to set up a blog with KeystoneJS. Let's quickly go through how to setup one.
 
@@ -620,7 +615,7 @@ _People DELETE operation_
 
 Our API works. Awesome!
 
-## Securing a Star Wars API with Auth0
+## Securing Meteor Applications with Auth0
 
 Right now, anyone can make `GET` and `POST` requests to all of the endpoints present in our API. In a real-world scenario, we should restrict `POST`, `DELETE` and `PUT` requests to certain registered and authorized users.
 
@@ -755,11 +750,9 @@ Wondering how to integrate the secure API with a frontend? Check out our amazing
 
 ## Conclusion
 
-Well done! You have learned how to build a blog and an API with KeystoneJS. The KeystoneJS tutorial focuses on building a content management system as fast as possible and fleshing out secure APIs.
+Well done! You have learned how to build a real-time web app with Meteor. It's a platform that enables you to cut down on development time. Meteor makes it incredibly easy to also flesh out an API like you can do with [KeystoneJS](https://auth0.com/blog/developing-web-apps-and-restful-apis-with-keystonejs) and [Loopback](https://auth0.com/blog/developing-restful-apis-with-loopback/).
 
-KeystoneJS definitely saves a developer a lot of time during development because of the amazing out-of-the-box features.
-
-{% include tweet_quote.html quote_text="KeystoneJS definitely saves a developer a lot of time during development because of the amazing out-of-the-box features." %}
+{% include tweet_quote.html quote_text="Meteor is a platform that enables you to cut down on development time." %}
 
 In addition, Auth0 can help secure your **API** easily. Auth0 provides more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
 
