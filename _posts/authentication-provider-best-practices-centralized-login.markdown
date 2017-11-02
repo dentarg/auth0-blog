@@ -29,7 +29,7 @@ related:
 - 2017-05-11-google-blocks-oauth-requests-from-embedded-browsers
 ---
 
-**TL;DR:** Centralized login is the best practice strategy for authenticating with a provider. Learn why centralized login is the most secure and flexible approach. You can explore an authenticated MEAN stack application with Auth0 centralized login and passwordless at the [mean-messageboard GitHub repo here](https://www.github.com/auth0-blog/mean-messageboard).
+**TL;DR:** Centralized login is the best practice strategy for authenticating with an authorization provider. Learn why centralized login is the most secure and standards-based modern approach.
 
 ---
 
