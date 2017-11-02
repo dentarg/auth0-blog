@@ -48,11 +48,11 @@ The Trusted Key App is a secure self-sovereign Digital Identity Wallet based on 
  
 **Step 2**: Go through the onboarding process and create a PIN and register an email address.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/app-enter-email.jpg" alt="Trusted key app setup"></p>
+<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/enter.email.png" alt="Trusted key app setup"></p>
 
 **Step 3**: On the “My Identity” screen select “Add an ID” and “Driver’s License”. The App will take you through a process where you will take a picture of the front and back of your license and then automatically extract the information from the ID for review. The Trusted Key App supports driver licenses from around the world, and if you don’t have a driver’s license you can try another identity card such as a National ID. The App will then take a selfie that confirms you are a kicking breathing human, and that your face matches the picture on the ID.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/app-dl.jpg" alt="Trusted key app add driver's license"></p>
+<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/idphoto.png" alt="Trusted key app add driver's license"></p>
 
 A key aspect of this process is that users are not able to edit or modify the Identity information extracted from the ID. This means that any identity information provided by the Trusted Key App is derived from a government-issued ID document, and the user’s ownership confirmed through the selfie process, resulting in an authenticated identity.
  
@@ -64,11 +64,11 @@ For more information please see the [Trusted Key App user guide here](https://ww
 
 **Step 2**: Click on “Sign up with Trusted Key App” in the upper navigation bar. You will be asked to enter the email address you registered on the Trusted Key App. You will get a notification on the Trusted Key mobile app asking for authorization to access the Developer Portal. Confirm the login.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/register-app.jpg" alt="Register new trusted key app"></p>
+![Register new trusted key app](https://cdn.auth0.com/blog/trusted-key/register.new.app.png)
 
 **Step 3**: Once you have logged into the Trusted Key Developer Portal click on “Register New App” where you will be asked to enter your app name and callback URI. You can get your [Auth0 callback URI here](https://auth0.com/docs/extensions/custom-social-extensions#provide-your-callback-url-to-the-identity-provider). The portal will then provision a Client ID and Client Secret to use in your API calls to the Trusted Key Platform. Copy both values for the Auth0 setup.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/register-app2.jpg" alt="Trusted key app configuration with Auth0"></p>
+![Trusted key app configuration with Auth0](https://cdn.auth0.com/blog/trusted-key/clientid.secret.png)
 
 ## Setting Up Auth0
 
@@ -76,7 +76,7 @@ For more information please see the [Trusted Key App user guide here](https://ww
 
 **Step 1**: In your Auth0 dashboard, go to “Extensions” in the left sidebar close to the bottom. Choose “Custom Social Connections”. If you have not previously used this extension you will be asked to install it. Once installed in “Installed Extensions” click on “Custom Social Connections”. Within the Custom Social Connections page click “+ New Connection”. To help understand setting up authenticated identities we will compare a standard setup with an authenticated identity sample setup.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/auth0.jpg" alt="Auth0 extensions"></p>
+![Auth0 extensions](https://cdn.auth0.com/blog/trusted-key/auth0.extension.png)
 
 ### Standard Trusted Key Social Connection Setup
 
@@ -164,11 +164,11 @@ function(access_token, context, callback) {
 
 When finished your Authenticated Identity Custom Social Connection should look something like this:
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/auth0-trusted-key.jpg" alt="Auth0 Trusted Key settings"></p>
+![Auth0 Trusted Key settings](https://cdn.auth0.com/blog/trusted-key/custom.social.connection.png)
 
 When you finish filling out the fields you can save your new social connection, and then click “Try” at the bottom of the page. You will be taken to the Trusted Key login. Enter your email address and then confirm the login using your Trusted Key App. If everything works correctly you’ll get a confirmation message and an output where you can review the raw identity data provided by the Trusted Key App.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/trusted-key-app-code.jpg" alt="Auth0 Trusted identity data"></p>
+![Auth0 Trusted identity data](https://cdn.auth0.com/blog/trusted-key/app.test.png)
 
 Upon exiting the window make sure your Trusted Key custom social connection is turned on.
 
@@ -178,7 +178,7 @@ To provide a “real life” example we set up a demo WordPress website. We then
  
 On your WordPress website if you go to login with the Auth0 module there should be a button reflecting the name you choose for your Trusted Key Social Connection—in this case, we called it “Trusted-Key”.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/trusted-key-login.jpg" alt="Auth0 trusted key login demo"></p>
+<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/login.png" alt="Auth0 trusted key login demo"></p>
 
 Click on the login button and the Trusted Key window should appear. Enter the email address associated with your Trusted Key Wallet, and then confirm the login using the Trusted Key App. You should now be registered and logged into the WordPress website.
  
@@ -186,7 +186,7 @@ Back in the Auth0 dashboard if we look at “Users” in the left-hand toolbar w
  
 Now that you have the user’s authentic identity information you have a wide range of choices on how to use that data to create customized registration and user experiences. Auth0 provides a powerful set of capabilities in their rules engine or database setup. You also have the option to set up policies or custom flows in the website front end.
 
-<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/id.jpg" alt="Auth0 trusted key identity data"></p>
+<p align="center"><img src="https://cdn.auth0.com/blog/trusted-key/userprofile1.png" alt="Auth0 trusted key identity data"></p>
 
 ## Conclusion
 
