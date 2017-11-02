@@ -20,10 +20,7 @@ tags:
 - best-practices
 - security
 - centralized-login
-- angular
-- mean
-- node
-- passwordless
+- mobile
 related:
 - 2017-10-19-oauth-2-best-practices-for-native-apps
 - 2017-05-11-google-blocks-oauth-requests-from-embedded-browsers
