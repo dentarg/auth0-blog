@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Authentication Provider Best Practices: Centralized Login"
-description: "Learn why centralized login is the most secure and flexible strategy when authenticating with a provider."
+description: "Learn why centralized login is the most secure, standards-based strategy when authenticating with a provider."
 date: 2017-11-02 8:30
 category: Technical guide, Centralized login, Angular
 banner:
@@ -26,7 +26,7 @@ related:
 - 2017-05-11-google-blocks-oauth-requests-from-embedded-browsers
 ---
 
-**TL;DR:** To have successful application, sooner rather than later you will need a centralized account system, as opposed to embedding the login on your application. This is more secure, standard-based, maintainable, and future proof. This is where the industry is moving, and in this post, we will explore this trend.
+**TL;DR:** To maintain a successful application, sooner rather than later you will need a centralized account system, as opposed to embedding login within your application. This is more secure, standard-based, maintainable, and future proof. This is where the industry is moving, and in this post, we will explore this trend.
 
 ---
 
@@ -36,7 +36,7 @@ High standards of security and ease of use have been set for modern authenticati
 
 ### What is Centralized Login?
 
-**Centralized login** refers to a [method of login hosted by the authentication provider](https://auth0.com/docs/hosted-pages/login) for your app or site. A link or button in your app triggers an authentication request and users are then presented with a login experience provided by the authentication provider. Because authentication is taking place on the same domain as the login, credentials are not sent across origins. Centralized login is the most _secure_ way to authenticate users, as well as the most _flexible_. We'll cover <a href="#why-use-centralized-login" target="_self">how and why</a> in much more detail below.
+**Centralized login** refers to a [method of login hosted by the authentication provider](https://auth0.com/docs/hosted-pages/login) for your app or site. A link or button in your app triggers an authentication request and users are then presented with a login experience provided by the authentication provider. Because authentication is taking place on the same domain as the login, credentials are not sent across origins. Centralized login is the most _secure_ way to authenticate users, as well as the most _standards-based_. We'll cover <a href="#why-use-centralized-login" target="_self">how and why</a> in much more detail below.
 
 ### What is Embedded Login?
 
