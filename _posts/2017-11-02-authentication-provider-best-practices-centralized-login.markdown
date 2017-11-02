@@ -2,7 +2,7 @@
 layout: post
 title: "Authentication Provider Best Practices: Centralized Login"
 description: "Learn why centralized login is the most secure and flexible strategy when authenticating with a provider."
-date: 2017-10-30 8:30
+date: 2017-11-02 8:30
 category: Technical guide, Centralized login, Angular
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -29,7 +29,7 @@ related:
 - 2017-05-11-google-blocks-oauth-requests-from-embedded-browsers
 ---
 
-**TL;DR:** Centralized login is the best practice strategy for authenticating with an authorization provider. Learn why centralized login is the most secure and standards-based modern approach.
+**TL;DR:** To have successful application, sooner rather than later you will need a centralized account system, as opposed to embedding the login on your application. This is more secure, standard-based, maintainable, and future proof. This is where the industry is moving, and in this post, we will explore this trend.
 
 ---
 
@@ -37,15 +37,20 @@ related:
 
 High standards of security and ease of use have been set for modern authentication platforms and APIs. Users expect seamless logins that work across apps and entities without requiring them to log in over and over on the same device. Companies and developers expect robust security for their data and top-notch protection for their customers, preferably without incurring intensive implementation or maintenance overhead.
 
-[Auth0](https://auth0.com)'s Identity and Access Management (IAM) platform strives to satisfy these needs. In doing so, we'll cover why using **centralized login** to authenticate your users is the most secure and easy-to-use approach for both developers and users.
-
 ### What is Centralized Login?
 
 **Centralized login** refers to a [method of login hosted by the authentication provider](https://auth0.com/docs/hosted-pages/login) for your app or site. A link or button in your app triggers an authentication request and users are then presented with a login experience provided by the authentication provider. Because authentication is taking place on the same domain as the login, credentials are not sent across origins. Centralized login is the most _secure_ way to authenticate users, as well as the most _flexible_. We'll cover <a href="#why-use-centralized-login" target="_self">how and why</a> in much more detail below.
 
 ### What is Embedded Login?
 
-**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain or in a WebView (in the case of native apps). Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
+**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain with text inputs, or in the case of native apps, with inputs or an embedded WebView. Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
+
+### What Does Centralized vs. Embedded Login Look Like?
+
+![centralized vs. embedded login](https://cdn.auth0.com/blog/centralized-login/centralized-embedded-diagram.jpg)
+
+1. **Centralized Login** - When clicking a button or link to authenticate in both the browser and native app, the centralized login URL at [accounts.google.com](https://accounts.google.com) is loaded.
+2. **Embedded Login** - When clicking a button or link to authenticate in the browser, an embedded modal is opened on the same domain, prompting the user to log in. The mobile app also displays input fields within the app.
 
 ## A Tale of Two Companies
 
