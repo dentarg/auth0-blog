@@ -45,7 +45,7 @@ High standards of security and ease of use have been set for modern authenticati
 
 **Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain with text inputs, or in the case of native apps, with inputs or an embedded WebView. Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
 
-### What Does Centralized vs. Embedded Login Look Like?
+### What Do Centralized and Embedded Login Look Like?
 
 ![centralized vs. embedded login](https://cdn.auth0.com/blog/centralized-login/centralized-embedded-diagram.jpg)
 
@@ -102,10 +102,8 @@ Centralized login is easier to implement as well as maintain for app developers.
 
 The [OAuth 2.0 Best Current Practice for Native Apps RFC](https://www.rfc-editor.org/rfc/rfc8252.txt) requires that _only_ external user agents, such as centralized login, should be used for authenticating with OAuth 2.0 in native mobile applications. This is considered best practice for reasons cited above, including security and single sign-on. You can [read more about the OAuth 2.0 BCP for Native Apps here](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/).
 
-<p style="text-align: center; font-size: 12px;"><img src="https://cdn.auth0.com/blog/centralized-login/google-login-mobile.jpg" alt="Google login on mobile app"><br>
+<p style="text-align: center; font-size: 16px;"><img src="https://cdn.auth0.com/blog/centralized-login/google-login-mobile.jpg" alt="Google login on mobile app"><br>
 <em>Native mobile apps that use OAuth 2.0 (such as Gmail, YouTube, and others) use the device browser as an external user agent for centralized login.</em></p>
-
-
 
 ### User Experience
 
