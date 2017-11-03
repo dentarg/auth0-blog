@@ -35,7 +35,7 @@ related:
 
 ---
 
-**Meteor** is a full-stack JavaScript platform for developing modern web and mobile applications. Meteor includes a key set of technologies for building connected-client reactive applications, a build tool, and a curated set of packages from the Node.js and general JavaScript community. It allows you develop in just one language, JavaScript, in all environments: server, web and mobile.
+**Meteor** is a full-stack JavaScript platform for developing modern web and mobile applications. Meteor provides a suite of technologies for building connected-client reactive applications, APIs, and a curated set of packages from the Node.js and general JavaScript community. It allows you develop in just one language, JavaScript, in all environments: server, web and mobile.
 
 **Meteor** is a project backed by the _Meteor Development Group_ company. They are friends of the open source community. The _MDG_ group also manages [Apollo](http://dev.apollodata.com), the flexible production ready GraphQL client for React and Native apps. Meteor as a JavaScript platform has built a community around it over the years. Currently, there is a [discussion forum](https://forums.meteor.com), [Stack Overflow channel](http://stackoverflow.com/questions/tagged/meteor), and [Atmosphere - a repository of community packages](https://atmospherejs.com). In addition, there is a community-curated list of meteor packages and resources on GitHub known as [Awesome Meteor](https://github.com/Urigo/awesome-meteor).
 
@@ -45,12 +45,12 @@ There are several websites and applications that run on Meteor. A few of them ar
 
 Meteor provides a lot out of the box. It ships with a lot of features that makes it worthy to consider when looking for a framework for your next project.
 
-* **Session Management** : KeystoneJS ships with session management and authentication features out of the box.
-* **Routing**: KeystoneJS provides a router that allows you to express how your web application or API routes should look like.
-* **Form Validation**: KeystoneJS provides form validation out of the box.
-* **Modularity**: KeystoneJS configures Express for you. It also uses [Mongoose](http://mongoosejs.com) to connect seamlessly with MongoDB and it separates views, routes and templates nicely by providing their specific directories.
-* **Admin UI**: KeystoneJS has an auto-generated Admin UI that saves you a lot of time and makes managing data from your database so easy.
-* **Email Administration**: With KeystoneJS, you can set up, preview and send template-based emails for your application seamlessly. It offers a [Mandrill](https://www.mandrill.com) integration out of the box.
+* **Authentication** : Meteor ships with session management and authentication features out of the box.
+* **Real-time Feature**: Meteor is built from the ground up on the Distributed Data Protocol (DDP) to allow data transfer in both directions. In Meteor, you create publication endpoints that can push data from server to client.
+* **Routing**: Meteor provides a `flow-router` package that allows client-side routing.
+* **Custom Templating Engines**:  Meteor ships with its own templating engine but allows you to use other view libraries.
+* **Packaging for Mobile**: Meteor allows you to easily package your web app into an Android an iOs app. With meteor, you can build for mobile.
+* **Galaxy**: The Meteor Development Group (MDG) provides a service to run Meteor apps. [Galaxy](https://galaxy.meteor.com) is a distributed system that runs on Amazon AWS. It saves you a lot of trouble in configuring and deploying your app to production.
 
 ## Meteor Key Requirements
 
@@ -64,17 +64,17 @@ In order to use Meteor, you need to have the following tools installed on your m
 
 ## Understanding Key Concepts in Meteor
 
-KeystoneJS uses the Model View Template pattern. In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business, and data access realm.
+Meteor uses the Publish and subscribe model. Check out this [excellent article on how publications and data loading works in Meteor](https://guide.meteor.com/data-loading.html). In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business, and data access realm.
 
-* **Data Access - Model**: This is the data access layer. It defines how data is being interacted with in the application. Validation, behaviour, and transformation of data.
+* **Data Layer**: This is the data access layer. The data layer is typically stored in MongoDB.
 
-* **Business Logic - View**: In a typical framework, the view simply presents data to the screen. In KeystoneJS, it serves as the busines logic layer that contains the logic that accesses the model, otherwise known as controllers. It serves as a bridge between the models and templates.
+* **View Layer**: In a typical framework, the view simply presents data to the screen. In Meteor, there are template files. These files containes the view logic that accesses the Mongo Schemas. The view logic is typically placed in the `client/imports/ui` directory.
 
-* **Presentation - Templates**: This is the presentation layer. It displays data on the screen.
+* **Business Logic Layer**: In Meteor, the `client` and `server` directories exist.  The business logic is typically placed in the `client/imports/api` directory. However, any sensitive code that you don’t want served to the client, such as code containing passwords or authentication mechanisms, should be kept in the `server/` directory.
 
 ## Build a Real-time Web App With Meteor
 
-In this tutorial, we'll build a simple application called **SlangBucket**. This app will allow users to add all sorts of slangs with their respective meanings. The _SlangBucket_ is almost a mini-UrbanDictionary. Users will be able to add and delete slangs from the bucket.
+In this tutorial, we'll build a simple application called **SlangBucket**. This app will allow users to add all sorts of slangs with their respective meanings. The _SlangBucket_ is a mini version of [Urban Dictionary](https://www.urbandictionary.com/). Users will be able to add and delete slangs from the bucket.
 
 ### Install Meteor and Scaffold SlangBucket
 
@@ -768,6 +768,9 @@ In the code above, it subscribes to the slangs publication once the body templat
 
 Run the app again. The app should work!
 
+## Extra Functionality - Packages
+
+There are lots of packages available for Meteor on [AtmosphereJS](https://atmospherejs.com). If there is a feature you want to implement, there is a high probability that it has been done by a developer before now and made available as a package. Explore!
 
 ## Securing Meteor Applications with Auth0
 
