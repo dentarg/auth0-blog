@@ -54,43 +54,26 @@ $ npm install
 
 The Node API is located in the [`/server` folder](https://github.com/auth0-blog/angular-auth0-aside/tree/master/server) at the root of our sample application.
 
-Open the [`server.js` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/server/server.js):
+Find the [`config.js.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/server/config.js.example) and **remove** the `.example` extension from the filename. Then open the file:
 
 ```js
-// server/server.js
-...
-// @TODO: change [CLIENT_DOMAIN] to your Auth0 domain name.
-// @TODO: change [AUTH0_API_AUDIENCE] to your Auth0 API audience.
-var CLIENT_DOMAIN = '[CLIENT_DOMAIN]'; // e.g., youraccount.auth0.com
-var AUTH0_AUDIENCE = '[AUTH0_API_AUDIENCE]'; // http://localhost:3001/api/ in this example
-
-var jwtCheck = jwt({
-    secret: jwks.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
-    }),
-    audience: AUTH0_AUDIENCE,
-    issuer: `https://${CLIENT_DOMAIN}/`,
-    algorithm: 'RS256'
-});
-...
-//--- GET protected dragons route
-app.get('/api/dragons', jwtCheck, function (req, res) {
-  res.json(dragonsJson);
-});
-...
+// server/config.js
+// (formerly config.js.example)
+module.exports = {
+  CLIENT_DOMAIN: '[CLIENT_DOMAIN]', // e.g. 'you.auth0.com'
+  AUTH0_AUDIENCE: 'http://localhost:3001/api/'
+};
 ```
 
 Change the `CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://localhost:3001/api/`). The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
-Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting the `.example` from the file extension. Then open the file and change the `[CLIENT_ID]` and `[CLIENT_DOMAIN]` strings to your Auth0 information:
+Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting `.example` from the file extension. Then open the file and change the `[CLIENT_ID]` and `[CLIENT_DOMAIN]` strings to your Auth0 information:
 
 ```js
 // src/app/auth/auth0-variables.ts
+// (formerly auth0-variables.ts.example)
 ...
 export const AUTH_CONFIG: AuthConfig = {
   CLIENT_ID: '[CLIENT_ID]',
