@@ -54,12 +54,12 @@ Meteor provides a lot out of the box. It ships with a lot of features that makes
 
 ## Meteor Key Requirements
 
-In order to use KeystoneJS, you need to have the following tools installed on your machine.
+In order to use Meteor, you need to have the following tools installed on your machine.
 
-* **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine.
+* If you are operating on a windows machine, you need to have [Chocolatey](https://chocolatey.org/install) installed.
+* If you are operating on an OS X or Linux machine, you do not need to have any special tool installed. Your terminal should be able to make a `curl` request.
+* iOS development requires the latest Xcode.
 * **MongoDB**: Navigate to the [mongodb website](https://www.mongodb.com/download-center?ct=false#atlas) and install the MongoDB community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
-* **Yeoman**: Make sure yeoman is installed on your machine by running `npm install -g yo`.
-* Familiarity with database concepts, and working knowledge of JavaScript.
 
 
 ## Understanding Key Concepts in Meteor
@@ -74,548 +74,700 @@ KeystoneJS uses the Model View Template pattern. In a typical framework architec
 
 ## Build a Real-time Web App With Meteor
 
-I mentioned earlier that KeystoneJS is a tool for rapidly building out web applications. What you might not be aware of is that it is even easier to set up a blog with KeystoneJS. Let's quickly go through how to setup one.
+In this tutorial, we'll build a simple application called **SlangBucket**. This app will allow users to add all sorts of slangs with their respective meanings. The _SlangBucket_ is almost a mini-UrbanDictionary. Users will be able to add and delete slangs from the bucket.
 
-### Use Keystone Yeoman Generator
+### Install Meteor and Scaffold SlangBucket
 
-Run the following command in your terminal to install the powerful [Yeoman](http://yeoman.io/) generator for KeystoneJS:
-
-```bash
-npm install -g generator-keystone
-```
-
-Create a `blog` directory and `cd` into it.
+Linux and Mac users can run the following command in the terminal to install Meteor:
 
 ```bash
-mkdir && cd blog
+curl https://install.meteor.com/ | sh
 ```
 
-Now, run the generator.
+Windows users can install Meteor like so:
 
 ```bash
-yo keystone
+choco install meteor
 ```
 
-A wizard comes up and several questions are asked, including if you want a blog, image gallery and contact form. Answer the questions like I did in the image below:
+> The command above will install the latest version of Meteor. At the time of this writing, Meteor's latest version is 1.6.
 
-![KeystoneJS generator wizard](https://cdn.auth0.com/blog/keystonejs/generator.png)
-_Keystone wizard_
+Next, go ahead and create the _SlangBucket_ app like so:
 
-Go ahead and run your newly created project with the following command:
+```
+meteor create slangbucket
+```
+
+The command above will create a new `slangbucket` directory with some boilerplate files.
+
+Run the following command to get the app up and running in the browser:
 
 ```bash
-node keystone
+cd slangbucket
+meteor
 ```
 
-The blog should run on port 3000 by default. Check out your new blog on `http://localhost:3000`.
+Open the URL, `http://localhost:3000`, in the web browser to see the app running.
 
-![Homepage](https://cdn.auth0.com/blog/keystonejs/bloghomepage.png)
-_Homepage_
+![Slang Bucket - Default page](https://cdn.auth0.com/blog/slangbucket/default.png)
+_Slang Bucket: Default page_
 
-Sign in to the AdminUI with the credentials you passed in during the wizard generation process.
+### Directory Structure
 
-![AdminUI Sign In](https://cdn.auth0.com/blog/keystonejs/adminlogin.png)
-_AdminUI Sign In_
+Open up the `slangbucket` code repository in an editor. These are the files that were created when you ran the command to scaffold the app.
 
-_Admin Dashboard_
-![Admin Dashboard](https://cdn.auth0.com/blog/keystonejs/adminloggedin.png)
+- client
+  - main.js        # a JavaScript entry point loaded on the client
+  - main.html      # an HTML file that defines view templates
+  - main.css       # a CSS file to define your app's styles
+- server
+  - main.js        # a JavaScript entry point loaded on the server
+- package.json     # a control file for installing NPM packages
+- .meteor          # internal Meteor files
+- .gitignore       # a control file for git
 
-Try to create new posts and mark them as published. Also create new users. The Admin UI makes it so easy to do that. Check out the blog, _http://localhost:3000/blog_ itself and see the posts.
+### Select Templating Engine
 
-You might be asking some questions already. How do I change the style of the blog? How do I create pages? Let's look into that now.
+Meteor ships with a templating engine called `Blaze`. Blaze renders responses from HTML files and has a very familiar expression language. It uses double braces, `{{ }}`, and `{{> }}`.
 
-### Create Pages
+* `{{> }}` - Used to include Meteor templates in HTML files
+* `{{ }}` - Used to display data and logic from JavaScript files in the view(HTML) files.
 
-Head over to the code directory. In the directory structure, you'll see a `models` directory that contains `Post`, `PostCategory`, `User` and `Enquiry` models.
+Meteor is very configurable. You can use _Angular_ and _React_ with Meteor. If you want to use React as the view library, all you need to do is add react:
 
-Create a `Page.js` model inside the `models` directory and add code to it like so:
+```
+meteor npm install --save react react-dom
+```
+
+And configure it like so:
+
+_client/main.html_
+
+```
+<head>
+  <title>Todo List</title>
+</head>
+
+<body>
+  <div id="render-target"></div>
+</body>
+```
+
+_client/main.jsx_
 
 ```js
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { render } from 'react-dom';
 
-/**
- * Page Model
- * ==========
- */
-var Page = new keystone.List('Page', {
-  map: { name: 'title' },
-  autokey: { path: 'slug', from: 'title', unique: true },
+import App from '../imports/ui/App.jsx';
+
+Meteor.startup(() => {
+  render(<App />, document.getElementById('render-target'));
 });
-
-Page.add({
-  title: { type: String, required: true },
-  state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
-  publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
-  image: { type: Types.CloudinaryImage },
-  content: {
-    brief: { type: Types.Html, wysiwyg: true, height: 150 },
-    extended: { type: Types.Html, wysiwyg: true, height: 400 },
-  }
-});
-
-Page.schema.virtual('content.full').get(function () {
-  return this.content.extended || this.content.brief;
-});
-
-Page.defaultColumns = 'title, state|20%';
-Page.register();
 ```
 
-It's similar to the Post model. I specified the Page model attributes and in the Admin UI we only want to display page title and state, which is why I have `Page.defaultColumns = 'title, state|20%';`. 20% refers to the column width.
+Your UI elements can now be written with JSX.
 
-Rerun your app with `node keystone` and go to `http://localhost:3000/keystone/pages`. You should be able to create new pages now.
+If you want to use Angular, all you need to do is remove `blaze`:
 
-Let's add `Pages` to the Admin UI top navigation for easy access. Open `keystone.js` file located in the root of our project directory and add a new route to `keystone.set(nav)` section like so:
+```bash
+meteor remove blaze-html-templates
+```
+
+And replace it with the UI package for Angular:
+
+```bash
+meteor add angular-templates
+```
+
+Furthermore, install `angular` and `angular-meteor`:
+
+```bash
+meteor npm install --save angular angular-meteor
+```
+
+Go ahead and configure your templates like so:
+
+_client/main.html_
+
+```
+<head>
+  <title>Todo List</title>
+</head>
+
+<body>
+  <div class="container" ng-app="slang-bucket">
+
+  </div>
+</body>
+```
+
+_client/main.js_
 
 ```js
-// Configure the navigation bar in Keystone's Admin UI
-keystone.set('nav', {
-  posts: ['posts', 'post-categories'],
-  enquiries: 'enquiries',
-  users: 'users',
-  pages: 'pages'
-});
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
+
+angular.module('simple-todos', [
+  angularMeteor
+]);
 ```
 
-**Note:** If you don't want to keep stopping and running your app over and over again, you can install a node module called `nodemon`. Then just run: `nodemon keystone`. Once we make any change to our app, it automatically restarts the server.
+In this tutorial, we'll use the default Meteor templating engine, **Blaze**.
 
-Now, check your Admin UI:
+### Create SlangBucket Views and Display Static Data
 
-![Admin UI pages](https://cdn.auth0.com/blog/keystonejs/adminuipages.png)
-_Admin UI Pages Nav_
+First, add bootstrap by running the command below:
 
-Now, let's configure Pages to show on the user facing end.
-
-Head over to `routes/views` and create a `page.js` file. Add code to it:
-
-```js
-var keystone = require('keystone');
-
-exports = module.exports = function (req, res) {
-
-  var view = new keystone.View(req, res);
-  var locals = res.locals;
-
-  // Set locals
-  locals.section = 'pages';
-  locals.filters = {
-    post: req.params.page,
-  };
-  locals.data = {
-    posts: [],
-  };
-
-  // Load the current post
-  view.on('init', function (next) {
-
-    var q = keystone.list('Page').model.findOne({
-      state: 'published',
-      slug: locals.filters.post,
-    });
-
-    q.exec(function (err, result) {
-      locals.data.post = result;
-      next(err);
-    });
-
-  });
-
-  // Load other posts
-  view.on('init', function (next) {
-
-    var q = keystone.list('Page').model.find().where('state', 'published').sort('-publishedDate').limit('4');
-
-    q.exec(function (err, results) {
-      locals.data.posts = results;
-      next(err);
-    });
-
-  });
-
-  // Render the view
-  view.render('page');
-};
+```bash
+meteor add twbs:bootstrap
 ```
 
-This is a page view. It manipulates the data from the model and renders a template. It basically pulls in the slug of the page from the URL and checks if that page slug exists in the database. And it renders the result to the view.
+Create a new directory, _imports_ in the _slangbucket_ project folder. Inside the _imports_ directory, create a _ui_ folder.
 
-Next step, add the page template. Go to `templates/views`,create a `page.pug` file and add code to it like so:
+Go ahead and create the following files:
 
-{% highlight html %}
-{% raw %}
-{% extends "../layouts/default.twig" %}
+_ui/body.html_
 
-{% block content %}
+```
+<body>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-        <article>
-          <p>
-            <a href="/blog">&larr; back to the blog</a>
-          </p>
-          <hr>
-          {% if not data.post %}
-            <h2>Invalid Page.</h2>
-          {% else %}
-            <header>
-              <h1>{{ data.post.title }}</h1>
-              <h5>Posted</h5>
-              {% if data.post.publishedDate %}
-                on {{ data.post.publishedDate|date("M d, Y") }}
-              {% endif %}
-              {% if data.post.categories and data.post.categories.length %}
-                in
-                {% for cat in data.post.categories %}
-                  <a href="/blog/{{ cat.key }}">{{ cat.name }}</a>
-                  {% if not loop.last %}, {% endif %}
-                {% endfor %}
-              {% endif %}
-            </header>
-            <div class="post">
-              {% if data.post.image.exists %}
-                <div class="image-wrap">
-                  <img src="{{ data.post._.image.fit(750,450) }}" class="img-responsive">
-                </div>
-              {% endif %}
-              {{ data.post.content.full | raw }}
-            </div>
-          {% endif %}
-        </article>
-      </div>
+    <header>
+      <h1 class="text-center">Slang Bucket</h1>
+    </header>
+
+    <div class="col-sm-12">
+      {{#each slangs}}
+        {{> slang}}
+      {{/each}}
     </div>
   </div>
-{% endblock %}
-{% endraw %}
-{% endhighlight %}
+</body>
 
-Finally, we'll define a new route for pages.
+<template name="slang">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><span class="btn">{{ slang }}</span></h3>
+      </div>
+      <div class="panel-body">
+        <p> {{ definition }} </p>
+      </div>
+    </div>
+</template>
+```
 
-Head over to `routes/index.js` file, navigate to the routes section and add `app.get('/pages/:page', routes.views.page);` like so:
+_ui/body.js_
+
+```js
+import { Template } from 'meteor/templating';
+
+import './body.html';
+
+Template.body.helpers({
+  slangs: [
+    { slang: "Yoruba Demon",
+      definition: "Nigerian guy (yoruba) who goes after a young lady's heart with no intention of loving her. They are typically met at parties, and would mostly wear white agbada."
+    },
+    { slang: "Bye Felicia",
+      definition: "The perfect dismissal phrase for waving goodbye to someone or something unimportant."
+    },
+    { slang: "GOAT",
+      definition: "An acronym for praising someone doing well in a certain activity. 'Greatest of all time'."
+    },
+    { slang: "Low key",
+      definition: "Keeping some activity or news under wraps."
+    },
+  ],
+});
+```
+
+Head over to `client/main.js`. Remove everything there and replace with:
+
+```js
+import '../imports/ui/body.js';
+```
+
+Right now, your web app should look like this:
+
+![Meteor - Static Data](https://cdn.auth0.com/blog/slangbucket/staticdata.png)
+_Meteor: Static Data_
+
+What's happening in the code above?
+
+The `client/main.js` loads up the `body.js` file. In the `body.js` file, we have a couple of things going on. The `body.html` file is been imported. You can pass data into templates from JavaScript code using the `Template.body.helpers`. Here, we defined a `slangs` helper that returns an array of objects.
+
+In `body.html`, we invoked the data returned from the `slangs` helper with the code below:
+
+```
+{{#each slangs}}
+  {{> slang}}
+{{/each}}
+```
+
+It loops through the array and inserts a slang template for each value. The slang template is shown below:
+
+```
+<template name="slang">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><span class="btn">{{ slang }}</span></h3>
+    </div>
+    <div class="panel-body">
+      <p> {{ definition }} </p>
+    </div>
+  </div>
+</template>
+```
+
+### Data Storage
+
+Currently, our data is stored in an array. Let's move our data to MongoDB. Meteor uses MongoDB by default. Meteor provides a way of storing and manipulating data from both the client and server side. However, there are ways to ensure that no one can inject data into the database from the browser's dev tools.
+
+Create a new `imports/api` directory. We'll put our database logic in this directory.
+
+Go ahead and create an `imports/api/slangs.js` file and add code to it like so:
+
+```js
+import { Mongo } from 'meteor/mongo';
+
+export const Slangs = new Mongo.Collection('slangs');
+```
+
+Import the module on the server to enable the creation of the collection and data-sending to the client.
+
+_server/main.js_
+
+```js
+import { Slangs } from '../imports/api/slangs.js';
+
+import { Meteor } from 'meteor/meteor';
+
+Meteor.startup(function () {
+    // code to run on server at startup
+});
+```
+
+Update `body.js` to fetch slangs from the Slangs collection rather than an a static array.
+
+_imports/ui/body.js_
+
+```js
+import { Template } from 'meteor/templating';
+
+import { Slangs } from '../api/slangs.js';
+
+import './body.html';
+
+Template.body.helpers({
+  slangs() {
+    return Slangs.find({}, { sort: { createdAt: -1 } });
+  },
+});
+```
+
+> **Note: Check out the app. Nothing seems to appear again. Yes, nothing shows because our database is currently empty.
+
+Let's add data to the database. We can decide to enter data from the mongo console via the terminal or we can write a script. The former is very tedious.
+
+Go to _server/main.js_ and update code to be like so:
+
+```js
+import { Slangs } from '../imports/api/slangs.js';
+
+import { Meteor } from 'meteor/meteor';
+
+Meteor.startup(() => {
+  Slangs.insert({slang: "Yoruba Demon", definition: "Nigerian guy (yoruba) who goes after a young lady's heart with no intention of loving her. They are typically met at parties, and would mostly wear white agbada."});
+  Slangs.insert({slang: "Bye Felicia", definition: "The perfect dismissal phrase for waving goodbye to someone or something unimportant."});
+  Slangs.insert({slang: "GOAT", definition: "An acronym for praising someone doing well in a certain activity. 'Greatest of all time'."});
+  Slangs.insert({slang: "Low key", definition: "Keeping some activity or news under wraps."});
+});
+```
+
+When the server starts up, it automatically inserts the data defined here into the database. Now, run your app again, you should see the data. Slick!
+
+> Note: Once it populates the database once, go ahead and remove the code to avoid duplicate insertion of data.
+
+### Add New Slangs
+
+Let's add a form to our app to enable users add new slangs. Within the body tag, update the code to be like so:
+
+_imports/ui/body.html_
+
+```
+...
+<div class="container">
+    <header>
+      <h1 class="text-center">Slang Bucket</h1>
+    </header>
+
+    <div class="col-sm-12">
+      <form class="new-slang">
+        <div class="form-group">
+          <input type="text" name="slang" class="form-control" placeholder="Add new slangs" required="required" />
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="definition" placeholder="Add new slang definitions" required></textarea>
+        </div>
+         <div class="form-group">
+          <input class="btn btn-small btn-info" type="submit" value="Add New Slang" />
+        </div>
+      </form>
+
+      {{#each slangs}}
+        {{> slang}}
+      {{/each}}
+    </div>
+  </div>
+...
+```
+
+Add the JavaScript code to listen to the submit event on the form:
+
+_imports/ui/body.js_
 
 ```js
 ...
-app.get('/', routes.views.index);
-app.get('/blog/:category?', routes.views.blog);
-app.get('/blog/post/:post', routes.views.post);
-app.all('/contact', routes.views.contact);
-app.get('/pages/:page', routes.views.page);
+Template.body.events({
+  'submit .new-slang'(event) {
+    // Prevent default browser form submit
+    event.preventDefault();
+
+    // Get value from form element
+    const target = event.target;
+    const slang = target.slang.value;
+    const definition = target.definition.value;
+
+    // Insert a task into the collection
+    Slangs.insert({
+      slang,
+      definition,
+      createdAt: new Date(), // current time
+    });
+
+    // Clear form
+    target.slang.value = '';
+    target.definition.value = '';
+  },
+});
 ```
 
-Now, let's add a Page to our user-facing navigation. One of the pages I created from the backend is a page called `team`. This is how to add it:
+In the code above, it listens to the submit event of the form, grab the values and inserts them into the database. Run your app and try it out. Yes, it works!
 
-Head over to `routes/middleware.js` and add `{ label: 'Team', key: 'team', href: '/pages/team' }` to the list of navLinks like so:
+### Delete Slangs
+
+Let's add functionality to delete existing slangs. Let's move the slang template to its own file. Create two files: `imports/ui/slang.html` and `imports/ui/task.js`.
+
+_imports/ui/slang.html_
+
+```
+<template name="slang">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><span class="btn">{{ slang }}</span> <button class="delete btn btn-danger pull-right">&times;</button></h3>
+      </div>
+      <div class="panel-body">
+        <p> {{ definition }} </p>
+      </div>
+    </div>
+</template>
+```
+
+> **Note: Make sure you remove the slang template that was in the `body.html` file.
+
+_imports/ui/slang.js_
+
+```js
+import { Template } from 'meteor/templating';
+
+import { Slangs } from '../api/slangs.js';
+
+import './slang.html';
+
+Template.slang.events({
+  'click .delete'() {
+    Slangs.remove(this._id);
+  },
+});
+```
+
+In the code above, we imported the slang template, `slang.html`. And we have a click event that invokes the remove method when a user clicks the delete button on a slang.
+
+`this` refers to an individual slang object in the collection. `_id` is the unique field that MongoDB assigns to a document in a collection. With this `_id`, we can do almost anything, `delete`, `update`, and `create`.
+
+One more thing. Import `slang.js` into the `body.js` file:
 
 ```js
 ...
-exports.initLocals = function (req, res, next) {
-  res.locals.navLinks = [
-    { label: 'Home', key: 'home', href: '/' },
-    { label: 'Blog', key: 'blog', href: '/blog' },
-    { label: 'Team', key: 'team', href: '/pages/team' },
-    { label: 'Contact', key: 'contact', href: '/contact' },
-  ];
-  res.locals.user = req.user;
-  next();
-};
+import './slang.js';
+...
 ```
 
-That's all.
+Run your app, click the delete button on any slang and watch it disappear instantly. It removes it from the UI and deletes it from the database.
 
-Check your app, you should see a `Team` nav item or whatever page you created.
+### Add Authentication
 
-![Team page](https://cdn.auth0.com/blog/keystonejs/teampage.png)
+Meteor ships with an authentication system. Go ahead and install the auth packages via the terminal:
 
-We have just built a blog with a functional Admin UI within just a few minutes. You can add more functionalities or extend it to be a hotel or ticket or booking or any type of management system.
+```bash
+meteor add accounts-ui accounts-password
+```
 
-Instead of building another application, let's look at how to build a functional API with KeystoneJS.
+Add the authentication drop-down widget to the _body.html_ file like so:
 
-## Building a Star Wars API Rapidly With KeystoneJS
+```
+<body>
+  <div class="container">
+    <header>
+      <h1 class="text-center">Slang Bucket</h1>
+    </header>
 
-Let's build a Star Wars API with KeystoneJS. The Star Wars API will grant developers access to all the Star Wars data they have ever wanted. Well, this is a KeystoneJS tutorial therefore the data will be very limited, but we'll put the API structure in place and learn how to secure it.
+    <div class="col-sm-12">
 
-* Create an `api` folder inside the `routes` directory. This is where we will place our logic for fetching data from the database and returning it to the user.
+      {{> loginButtons}}
+    ....
 
-* Let's create models for our API. We'll have three models namely, _People_, _Starship_ and _Planet_. Each of these models will have certain attributes. Let's outline them:
+```
 
-People:
-  - name
-  - height
-  - mass
-  - gender
-
-Starship:
-  - name
-  - model
-  - manufacturer
-  - crew
-
-Planet:
-  - name
-  - diameter
-  - population
-  - rotation_period
-
-Now, let's create the models. Create `models/People.js`, `models/Starship.js`, and `models/Planet.js` respectively and add code to them like so:
-
-_models/People.js_
+Create an _imports/startup/accounts-config.js_ file and add the code below to it like so:
 
 ```js
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+import { Accounts } from 'meteor/accounts-base';
 
-/**
- * People Model
- * ==========
- */
-var People = new keystone.List('People');
-
-People.add({
-  name: { type: Types.Name, required: true },
-  height: { type: Types.Number, required: true, initial: false },
-  mass: { type: Types.Number, required: true, initial: false },
-  gender: { type: String },
+Accounts.ui.config({
+  passwordSignupFields: 'USERNAME_ONLY',
 });
-
-
-/**
- * Registration
- */
-People.register();
 ```
 
-_models/Starship.js_
+Also import the _imports/startup/accounts-config.js_ file in _client/main.js_:
 
 ```js
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+import '../imports/startup/accounts-config.js';
+import '../imports/ui/body.js';
+```
 
-/**
- * Starship Model
- * ==========
- */
-var Starship = new keystone.List('Starship');
+Right now, we should be able to create an account. However, authentication is useless if we can't restrict access to some functionalities. Let's make sure only registered users can add new slangs. In addition, we can also reference the username of the user that added a slang.
 
-Starship.add({
-  name: { type: String, required: true },
-  model: { type: String, required: true, initial: false  },
-  manufacturer: { type: String, required: true, initial: false  },
-  crew: { type: Number, required: true, initial: false },
+A quick breakdown. We'll need to add new attributes to our `Slang` collection.
+
+* **adderID**: this will hold the `_id` of the user that added the slang.
+* **username**: this will hold the `username` of the user that added the slang.
+
+> **Note: There are other efficient ways to handle the authentication schema of this app. However, for the sake of this tutorial, we'll keep things simple.
+
+Open up `imports/ui/body.js` and modify it like so:
+
+_imports/ui/body.js_
+
+```js
+import { Meteor } from 'meteor/meteor';
+...
+...
+// Insert a task into the collection
+Slangs.insert({
+  slang,
+  definition,
+  createdAt: new Date(), // current time
+  adderID: Meteor.userId(),
+  username: Meteor.user().username,
 });
-
-
-/**
- * Registration
- */
-Starship.register();
+...
 ```
 
-_models/Planet.js_
+Open up `imports/ui/body.html` and modify it like so:
+
+```
+...
+ {{> loginButtons}}
+
+      {{#if currentUser}}
+      <form class="new-slang">
+        <div class="form-group">
+          <input type="text" name="slang" class="form-control" placeholder="Add new slangs" required="required" />
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="definition" placeholder="Add new slang definitions" required></textarea>
+        </div>
+         <div class="form-group">
+          <input class="btn btn-small btn-info" type="submit" value="Add New Slang" />
+        </div>
+      </form>
+      {{/if}}
+...
+```
+
+In the code above, we added the `{{#if currentUser}}` block helper. `currentUser` is a built-in helper that refers to the logged-in user. If the user is logged-in, show the _add new slang_ form else hide the form.
+
+Now, run your app.
+
+![Meteor - Nonlogged-in user](https://cdn.auth0.com/blog/slangbucket/non-loggedinuser.png)
+_User not logged in_
+
+No user is logged in, so no form to add new slangs. Now, create an account.
+
+![Meteor - Log In](https://cdn.auth0.com/blog/slangbucket/login.png)
+_User about to log in_
+
+![Meteor - Loggedin User](https://cdn.auth0.com/blog/slangbucket/loggedinuser.png)
+_User is logged in_
+
+Here, the user is logged in, so he or she is able to create a new slang.
+
+One more thing, let's display the username of the logged-in user next to the slang.
+
+Update `imports/ui/slang.html` to the code below:
+
+```
+<template name="slang">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><span class="btn">{{ slang }}</span><button class="delete btn btn-danger pull-right">&times;</button></h3>
+      <span>@{{username}}</span>
+    </div>
+    <div class="panel-body">
+      <p> {{ definition }} </p>
+    </div>
+  </div>
+</template>
+```
+
+![Meteor - Username of Slang Adder](https://cdn.auth0.com/blog/slangbucket/username.png)
+_Username displayed next to Slang_
+
+### Eliminate Client Update
+
+Meteor is robust. They factored in the fact that people usually create quick demos so user can update the database directly from the client side. However, in a real-world project, you want to be sure that the server validates everything that comes into the app and allows users to complete an action only if they are authorized!
+
+The first step is to remove the `insecure` package. Meteor ships with this built-in package. This is the package that allows us to edit the database from the client.
+
+```bash
+meteor remove insecure
+```
+
+Next, we need to add some code to ensure validation happens right before the database methods are executed.
+
+Open up `imports/api/slangs.js`. Add code to it like so:
 
 ```js
-var keystone = require('keystone');
-var Types = keystone.Field.Types;
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
 
-/**
- * Planet Model
- * ==========
- */
-var Planet = new keystone.List('Planet');
+export const Slangs = new Mongo.Collection('slangs');
 
-Planet.add({
-  name: { type: Types.Name, required: true },
-  diameter: { type: Types.Number, required: true, initial: false  },
-  population: { type: Types.Number, required: true, initial: false },
-  rotation_period: { type: Types.Number, required: true, initial: false  },
+Meteor.methods({
+  'slangs.insert'(slang, definition) {
+    check(slang, String);
+    check(definition, String);
+
+    // Make sure the user is logged in before inserting a task
+    if (! Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Slangs.insert({
+      slang,
+      definition,
+      createdAt: new Date(),
+      adderID: Meteor.userId(),
+      username: Meteor.user().username,
+    });
+  },
+  'slangs.remove'(slangId) {
+    check(slangId, String);
+
+    Slangs.remove(slangId);
+  },
 });
-
-
-/**
- * Registration
- */
-Planet.register();
 ```
 
-These models are basically our Database Schemas.
+Next, let's update the sections of the app that were executing some database operations.
 
-The next step is to create a Keystone view-like logic. In this case, we are dealing with APIs, so we will write them in a different way. Inside the `routes/api` directory, create these three files, `people.js`, `planet.js` and `starship.js` respectively.
-
-Go ahead and add code to them like so:
-
-_routes/api/people.js_
+_imports/ui/body.js_
 
 ```js
-var keystone = require('keystone');
+...
+...
+Template.body.events({
+  'submit .new-slang'(event) {
+    // Prevent default browser form submit
+    event.preventDefault();
 
-var People = keystone.list('People');
+    // Get value from form element
+    const target = event.target;
+    const slang = target.slang.value;
+    const definition = target.definition.value;
 
-/**
- * List People
- */
-exports.list = function(req, res) {
-  People.model.find(function(err, items) {
+    // Insert a slang into the collection
+    Meteor.call('slangs.insert', slang, definition);
 
-    if (err) return res.json({ err: err });
-
-    res.json({
-      people: items
-    });
-
-  });
-}
-
-/**
- * Get People by ID
- */
-exports.get = function(req, res) {
-  People.model.findById(req.params.id).exec(function(err, item) {
-
-    if (err) return res.json({ err: err });
-    if (!item) return res.json('not found');
-
-    res.json({
-      people: item
-    });
-
-  });
-}
-
-
-/**
- * Create a People
- */
-exports.create = function(req, res) {
-
-  var item = new People.model(),
-    data = (req.method == 'POST') ? req.body : req.query;
-
-  item.getUpdateHandler(req).process(data, function(err) {
-
-    if (err) return res.json({ error: err });
-
-    res.json({
-      people: item
-    });
-
-  });
-}
-
-/**
- * Patch People by ID
- */
-exports.update = function(req, res) {
-
-  People.model.findById(req.params.id).exec(function(err, item) {
-
-    if (err) return res.json({ err: err });
-    if (!item) return res.json({ err: 'not found' });
-
-    var data = (req.method == 'PUT') ? req.body : req.query;
-
-    item.getUpdateHandler(req).process(data, function(err) {
-
-      if (err) return res.json({ err: err });
-
-      res.json({
-        people: item
-      });
-
-    });
-
-  });
-}
-
-/**
- * Delete People by ID
- */
-exports.remove = function(req, res) {
-  People.model.findById(req.params.id).exec(function (err, item) {
-
-    if (err) return res.json({ dberror: err });
-    if (!item) return res.json('not found');
-
-    item.remove(function (err) {
-      if (err) return res.json({ dberror: err });
-
-      return res.json({
-        success: true
-      });
-    });
-
-  });
-}
+    // Clear form
+    target.slang.value = '';
+    target.definition.value = '';
+  },
+});
 ```
 
-_routes/api/planet.js_
+We replaced the _slang insert section_ with ` Meteor.call('slangs.insert', slang, definition);`.
 
-[Planet API code here](https://github.com/auth0-blog/keystonejs-auth/blob/master/routes/api/planet.js)
-
-_routes/api/starship.js_
-
-[Starship API code here](https://github.com/auth0-blog/keystonejs-auth/blob/master/routes/api/starship.js)
-
-Let's analyze the code above. We have four functions in each of the files. `list`, `create`, `update` and `remove`. These functions are mapped to HTTP operations like so:
-
-* `list` - /GET
-* `create` - /POST
-* `get` - /GET
-* `update` - /PUT
-* `remove` - /DELETE
-
-For example, if you make a POST request to `/people` API endpoint, the `create` function will be invoked.
-
-- The `list` function checks the document for all the resources for an API endpoint.
-- The `create` function creates a new resource for an API endpoint.
-- The `get` function checks the document store for a single resource for an API endpoint.
-- The `update` function checks if a resource exists and allows the resource to be updated for an API endpoint.
-- The `remove` function checks if a resource exists and deletes it for an API endpoint.
-
-Now, we need to map these functions to the API routes for a functional API to exist. Head over to the `routes/index.js` file. In the Route binding section, add this code to it like so:
+_imports/ui/slang.js_
 
 ```js
-// Setup Route Bindings
-exports = module.exports = function (app) {
-  // Views
-  app.get('/', routes.views.index);
+...
 
-  // API
-  app.get('/api/people', routes.api.people.list);
-  app.get('/api/people/:id', routes.api.people.get);
-  app.post('/api/people', routes.api.people.create);
-  app.put('/api/people/:id', routes.api.people.update);
-  app.delete('/api/people/:id', routes.api.people.remove);
-
-  app.get('/api/planets', routes.api.planet.list);
-  app.get('/api/planets/:id', routes.api.planet.get);
-  app.post('/api/planets', routes.api.planet.create);
-  app.put('/api/planets/:id', routes.api.planet.update);
-  app.delete('/api/planets/:id', routes.api.planet.remove);
-
-  app.get('/api/starships', routes.api.starship.list);
-  app.get('/api/starships/:id', routes.api.starship.get);
-  app.post('/api/starships', routes.api.starship.create);
-  app.put('/api/starships/:id', routes.api.starship.update);
-  app.delete('/api/starships/:id', routes.api.starship.remove);
-
-
-  // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-  // app.get('/protected', middleware.requireUser, routes.views.protected);
-
-};
+Template.slang.events({
+  'click .delete'() {
+    Meteor.call('slangs.remove', this._id);
+  },
+});
 ```
 
-Finally, test the API routes with [Postman](https://www.getpostman.com/).
+We replaced the _slang remove_ code with `Meteor.call('slangs.remove', this._id);`.
 
-![KeystoneJS GET operation](https://cdn.auth0.com/blog/keystonejs/read.png)
-_People GET operation_
+`Meteor.call` sends a request to the server to run the method in a secure environment via an AJAX.
 
-![KeystoneJS POST operation](https://cdn.auth0.com/blog/keystonejs/create.png)
-_People POST operation_
+### Security Concerns - Filter Data
 
-![KeystoneJS DELETE operation](https://cdn.auth0.com/blog/keystonejs/delete.png)
-_People DELETE operation_
+With emphasis on security, we need to control which data Meteor sends to the client-side database. Go ahead and remove the `autopublish` package via the terminal:
 
-Our API works. Awesome!
+```bash
+meteor remove autopublish
+```
+
+Without the `autopublish` package, no data will be sent to the client and no access will be granted to the database. Therefore, the app will not show any data on the screen. To combat this scenario, we'll have to explicitly request the data from the server to the client. Meteor uses the `Meteor.publish` and `Meteor.subscribe` methods to accomplish this feat.
+
+Open _imports/api/slangs.js_ and add this code to it:
+
+```js
+...
+...
+
+if (Meteor.isServer) {
+  // This code only runs on the server
+  Meteor.publish('slangs', function tasksPublication() {
+    return Slangs.find();
+  });
+}
+...
+```
+
+The code above adds a publication for all slangs. Next, let's subscribe to this publication.
+
+Open _imports/ui/body.js_ and add this code to it:
+
+```js
+...
+Template.body.onCreated(function bodyOnCreated() {
+  Meteor.subscribe('slangs');
+});
+...
+```
+
+In the code above, it subscribes to the slangs publication once the body template is created. Now, our app is secure.
+
+Run the app again. The app should work!
+
 
 ## Securing Meteor Applications with Auth0
 
