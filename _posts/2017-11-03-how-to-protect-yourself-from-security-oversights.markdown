@@ -2,13 +2,14 @@
 layout: post
 title: "How to Protect Yourself From Security Oversights"
 description: "An inside look at how tech companies can improve their security and what you can do to help yours, too"
-date: 2017-06-06 8:30
+date: 2017-11-03 8:30
 category: Growth, Modern Authentication
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
+is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/protect-yourself/logo.png
   bg_color: "#0054B6"
@@ -17,8 +18,9 @@ tags:
 - passwordless
 - social-login
 related:
-- 2016-11-23-how-passwordless-authentication-works
-- 2016-10-17-sso-login-key-benefits-and-implementation
+- 2017-10-30-are-your-security-questions-as-safe-as-you-think
+- 2017-10-27-where-video-game-authentication-falls-short-and-how-gamers-can-stay-safe
+- 2017-10-16-is-faceid-really-secure
 ---
 
 Sometimes, it's easy to assume that big-name companies like Google or Microsoft have flawless security practices, but even the mighty make mistakes. While they generally do a good job of building robust security protections into their products, things invariably fall through the cracks, whether it be through weak user authentication or overzealous app permissions.
