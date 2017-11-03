@@ -503,8 +503,7 @@ Open the `listen.component.ts` file and let's add the first phase of our code:
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SpeechService } from './../speech.service';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listen',
