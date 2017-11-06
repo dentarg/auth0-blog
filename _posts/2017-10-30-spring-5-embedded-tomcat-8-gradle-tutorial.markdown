@@ -511,3 +511,7 @@ As we can see in the code snippet above, issuing requests to unsecured endpoints
 Another important thing that we need to note is that the commands above are using two bash variables: `CLIENT_ID` and `CLIENT_SECRET`. These variables were extracted from an API configured on a free Auth0 account. To learn more about APIs and Auth0, take a look into [the official documentation](https://auth0.com/docs/quickstart/backend/java-spring-security/01-authorization).
 
 ## Conclusion
+
+Throughout this article, we learned about some interesting topics like embedded application servers and how to configure a Spring 5 project to use one. We also learned how to create a Java executable file using a Gradle plugin called Shadow and how to add support to JSON messages on Spring 5. Lastly, we saw that configuring a security layer on a Spring 5 project is straightforward.
+
+Having managed to address all these topics in a short article like that is a proof that Spring 5 is becoming more like Spring Boot. Although Spring Boot is a few miles ahead when talking about ease of use, we can see that it's quite easy to bootstrap Spring 5 applications that support important features like JSON messages and security.
