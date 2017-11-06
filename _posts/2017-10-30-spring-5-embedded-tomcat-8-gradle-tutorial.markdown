@@ -52,6 +52,8 @@ What triggered this change is that the new approach has many advantages. For exa
 
 Also, as this approach fits perfectly in the microservices architecture that is eating the software development world, it makes sense to embed application servers. That's why we will learn how to embed Tomcat 8, the most popular Java server, on Spring applications.
 
+{% include tweet_quote.html quote_text="Embedding Tomcat 8 in Spring 5 apps is easy!" %}
+
 ## Why Gradle
 
 When it comes to dependency management and build tools on Java projects, there are two mainstream solutions to choose from: [Gradle](https://gradle.org/) and [Maven](https://maven.apache.org/). Both solutions are supported by huge communities, are constantly being developed, and are stable and extensible. Besides that, both Maven and Gradle fetch dependencies on similar ways and from similar sources (usually from Maven repositories). In the end, choosing one solution or another is normally just a matter of taste or familiarity. There are certain [edge scenarios that one solution performs better than the other](https://www.journaldev.com/7971/gradle). However, in most cases, both solutions will attend all our needs.
@@ -409,6 +411,8 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "price": 0.95
 }' localhost:8080/api/products
 ```
+
+{% include tweet_quote.html quote_text="Spring 5 can be easily secured with JWTs." %}
 
 ### Securing Spring 5 Applications with Auth0
 
