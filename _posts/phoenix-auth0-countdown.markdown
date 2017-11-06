@@ -26,12 +26,13 @@ related:
 - 2016-08-04-creating-your-first-elm-app-part-1
 ---
 
-**TL;DR:** [Elixir](https://elixir-lang.org) (like PHP) is a dynamically typed language with lots of helpful documentation. It builds on [Erlang](http://www.erlang.org) and the Erlang VM. You can be up and running almost immediately. If your app compiles, it's already deployable. The [Phoenix framework for Elixir apps](http://phoenixframework.org) is genuinely exciting to use. Let's build an easy-to-use application that manages upcoming events, built with the Phoenix Framework and authenticated with [Auth0](https://auth0.com). The final code can be found at the [auth0-elixir-countdown GitHub repo](https://github.com/lukeoliff/auth0-elixir-countdown).
+**TL;DR:** The [Elixir language](https://elixir-lang.org) (like PHP) is a dynamically typed language with lots of helpful documentation. It builds on [Erlang](http://www.erlang.org) and the Erlang VM. You can be up and running almost immediately. If your app compiles, it's already deployable. The [Phoenix framework for Elixir apps](http://phoenixframework.org) is genuinely exciting to use. Let's build an easy-to-use application that manages upcoming events, built with the Phoenix framework and authenticated with [Auth0](https://auth0.com). The final code can be found at the [auth0-elixir-countdown GitHub repo](https://github.com/lukeoliff/auth0-elixir-countdown).
 
 ---
 
-## Elixir
-Personally, I've been stuck under a rock as a developer. I've missed plenty of cool languages whilst playing with PHP—and [Elixir](https://elixir-lang.org) is no exception. Fortunately for me, Elixir (like PHP) is a dynamically typed language with lots of helpful documentation. My brain didn't have to work ***too*** hard to build something practical and fun. Elixir builds on [Erlang](http://www.erlang.org) and leverages the Erlang VM. Its got a super small footprint and is surprisingly robust. You can be up and running almost immediately.
+## Elixir language
+
+Personally, I've been stuck under a rock as a developer. I've missed plenty of cool languages whilst playing with PHP—and the [Elixir language](https://elixir-lang.org) is no exception. Fortunately for me, Elixir (like PHP) is a dynamically typed language with lots of helpful documentation. My brain didn't have to work ***too*** hard to build something practical and fun. Elixir builds on [Erlang](http://www.erlang.org) and leverages the Erlang VM. Its got a super small footprint and is surprisingly robust. You can be up and running almost immediately.
 
 ***It doesn't stop there.***
 
@@ -41,15 +42,15 @@ If your Elixir app compiles, it's practically deployable already and the how-to 
 
 > **Note:** This article was written assuming you have a good understanding of functional programming languages. Elixir is a functional, concurrent, general-purpose programming language. It runs on the Erlang virtual machine (BEAM). Elixir builds on top of Erlang and shares the same abstractions for building distributed, fault-tolerant applications. Check out Elixir School for [lessons about the Elixir programming language](https://elixirschool.com/en/).
 
-## Phoenix
+## Phoenix framework
 
-You can't escape [Phoenix](http://phoenixframework.org) if you're looking for a good framework to build on in Elixir. They portray themselves as a fresh approach to tried and tested MVC development. Phoenix genuinely excites me. One aspect is just how well we can separate our concerns across an extremely well thought out, logical structure. Another is that it provides a fantastic command line interface.
+You can't escape the [Phoenix framework](http://phoenixframework.org) if you're looking for a good framework to build on in Elixir. They portray themselves as a fresh approach to tried and tested MVC development. Phoenix genuinely excites me. One aspect is just how well we can separate our concerns across an extremely well thought out, logical structure. Another is that it provides a fantastic command line interface.
 
-{% include tweet_quote.html quote_text="You can't escape Phoenix if you're looking for a good framework to build on in Elixir!" %}
+{% include tweet_quote.html quote_text="You can't escape Phoenix framework if you're looking for a good framework to build on in Elixir!" %}
 
 Phoenix is an MVC framework written in Elixir and will be welcoming and comfortable to use for anyone familiar with [Rails](http://rubyonrails.org/) or [Django](https://www.djangoproject.com/).
 
-> Phoenix provides the best of both worlds: high developer productivity and high application performance. It also has some interesting new twists like channels for implementing realtime features and pre-compiled templates for blazing speed.
+> The Phoenix framework provides the best of both worlds: high developer productivity and high application performance. It also has some interesting new twists like channels for implementing realtime features and pre-compiled templates for blazing speed.
 
 ## What should we build?
 
@@ -64,9 +65,9 @@ So, I thought, why not build an application where I can see countdowns to my fav
 
 ### Install Elixir
 
-Follow the Elixir install guide here: http://elixir-lang.org/install.html
+Follow the Elixir language install guide here: http://elixir-lang.org/install.html
 
-Next, we run a `mix` command to install the Hex package manager. Mix is a build tool that provides tasks for creating, compiling, and testing Elixir projects, managing its dependencies, and more. If you know Ruby well, Mix is Rake, Bundler, and RubyGems combined.
+Next, we run a `mix` command to install the Hex package manager. Mix is a build tool that provides tasks for creating, compiling, and testing Elixir language projects, managing its dependencies, and more. If you know Ruby well, Mix is Rake, Bundler, and RubyGems combined.
 
 Now use mix to install hex: https://hexdocs.pm/mix/1.0.5/Mix.Tasks.Local.Hex.html
 
@@ -91,7 +92,7 @@ Now we can install Phoenix v1.3.0:
     $ mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new-1.3.0.ez
 ```
 
-### Requirements
+### Other requirements
 
 To follow this guide fully, make sure you also have PostgreSQL and npm installed.
 
@@ -102,7 +103,7 @@ If you choose to use another database provider, make sure you edit the configura
 
 - https://phoenixframework.readme.io/docs/using-mysql
 
-## Skeleton Phoenix Application
+## Our skeleton application
 
 Now we can create a new application with the Phoenix framework. Let's call our application "countdown".
 
@@ -128,7 +129,7 @@ When prompted, fetch and install dependencies.
     Fetch and install dependencies? [Yn] Y
 ```
 
-It will fetch and compile Elixir and NPM dependencies.
+It will fetch and compile our dependencies.
 
 ```bash
     * running mix deps.get
