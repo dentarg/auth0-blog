@@ -282,7 +282,7 @@ java -jar build/libs/spring5-app-1.0-SNAPSHOT-all.jar
 
 The `runShadow` does three things: it compiles our source code, packages our application on an executable fat/über `jar` file, and then executes this `jar`. The second one, `shadowJar`, is pretty similar but it does not execute the application. It simply prepares our application to be distributed. That is, it create the executable `jar` file. The last command included in the code snippet above shows how to execute the fat/über `jar` without Gradle. Yes, after packaging the application, we don't need Gradle anymore.
 
-Let's run the application now, through one of the options explained above, and issue a `GET` HTTP request to the endpoint created in the `HelloWorldController` class:
+Let's run the application now and issue a `GET` HTTP request to the endpoint created in the `HelloWorldController` class:
 
 ```bash
 # run the application
@@ -296,6 +296,10 @@ The response to this request will be the message defined in the `sayHello` metho
 
 ### Supporting JSON Content on Spring 5
 
+Without question, one of the most used messages formats on applications today is [JSON](http://www.json.org/). RESTful APIs usually use this kind of message format to communicate with front-end clients written for a wide variety of devices (e.g. Android and iOS phones, web browsers, wearable devices, etc). In Spring 5, adding support to JSON is very easy. It's just a matter of adding [Jackson](https://github.com/FasterXML/jackson) as a dependency and we are ready to start writing controllers that exchange JSON messages.
+
+To see this in action, let's open the `build.gradle` file and add the following dependency:
+
 ```groovy
 // ...
 dependencies {
@@ -304,7 +308,7 @@ dependencies {
 }
 ```
 
-Create `com.auth0.samples.model` package and add a `Product` class to it:
+After that, let's create a new package called `model` inside the `com.auth0.samples` package and add a class called `Product` to it:
 
 ```java
 package com.auth0.samples.model;
@@ -332,7 +336,7 @@ public class Product {
 }
 ```
 
-Create a new controller called `ProductController` in the `com.auth0.samples.controller` package:
+We will use this class to do two things: to send and accept JSON messages that contain product details. Let's create a new controller called `ProductController` in the `com.auth0.samples.controller` package to exchange products as JSON messages:
 
 ```java
 package com.auth0.samples.controller;
@@ -377,11 +381,23 @@ public class ProductController {
 }
 ```
 
+This class is quite simple, it's just a [Spring MVC `@RestController`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html) that exposes three methods/endpoints:
+
+- `getProducts`: This endpoint, when hit by a HTTP `GET` request, sends all `products` in a JSON array.
+- `addProduct`: This endpoint, when hit by a HTTP `POST` request, accepts new products as JSON messages.
+- `deleteProduct`: This endpoint, when hit by a HTTP `DELETE` request, removes a product from the array of products based on the `index` sent by the user.
+
+After creating this controller, we are ready to send and receive JSON messages. To test this new feature, let's start our application (`./gradlew runShadow`) and issue the following commands:
+
 ```bash
+# get the array of procuts
 curl localhost:8080/api/products
 
+# remove product on the second position of the array
+# (arrays are 0 indexed)
 curl -X DELETE localhost:8080/api/products/1
 
+# add a new product to the array
 curl -X POST -H "Content-Type: application/json" -d '{
   "title": "Milk",
   "price": 0.95
