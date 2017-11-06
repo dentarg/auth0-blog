@@ -22,6 +22,7 @@ tags:
 related:
 - 2017-03-06-an-introduction-to-ethereum-and-smart-contracts
 - 2017-10-16-is-faceid-really-secure
+- 2017-05-04-the-state-of-biometric-identity-in-2017
 ---
 
 **TL;DR:** Learn how “self-sovereign” digital wallet Trusted Key can be leveraged with Auth0 to easily manage authenticated identity.
@@ -174,7 +175,7 @@ Upon exiting the window make sure your Trusted Key custom social connection is t
 
 ## Testing it Out
 
-To provide a “real life” example we set up a demo WordPress website. We then downloaded and installed the “Login by Auth0” WordPress plugin. After activating the login you will be asked to log into your Auth0 Account, and a client will automatically be set up in your Auth0 dashboard. In the WordPress Admin settings under Settings > General > Membership make sure the “Anyone can Register” box is checked.
+To provide a “real life” example we set up a demo WordPress website. We then downloaded and installed the [“Login by Auth0”](https://auth0.com/wordpress) WordPress plugin. After activating the login you will be asked to log into your Auth0 Account, and a client will automatically be set up in your Auth0 dashboard. In the WordPress Admin settings under Settings > General > Membership make sure the “Anyone can Register” box is checked.
  
 On your WordPress website if you go to login with the Auth0 module there should be a button reflecting the name you choose for your Trusted Key Social Connection—in this case, we called it “Trusted-Key”.
 
