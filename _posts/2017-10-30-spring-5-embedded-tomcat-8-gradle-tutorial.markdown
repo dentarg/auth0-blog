@@ -33,6 +33,12 @@ As such, when starting a new Java project, Spring is an option that **must** be 
 
 ### Spring vs Spring Boot
 
+In the past, Spring was known for being hard to setup and for depending on huge configuration files. This was not a big problem as most of the applications out there were [monoliths](https://en.wikipedia.org/wiki/Monolithic_application). This kind of application usually supports many different areas and solves a wide variety of problems inside companies. Therefore, it was quite common to know companies that had only one or two applications to support their daily operations. In scenarios like that, having these huge configuration files and a hard process to setup a new project was not a problem.
+
+However, this paradigm is getting out dated. Nowadays, many companies around the world are relying more in the [microservices architecture and its benefits](https://auth0.com/blog/an-introduction-to-microservices-part-1/). As this architecture relies on multiple applications, each one specialized on a particular subject, using a framework that is hard to setup was something that developers were starting to avoid. This is why the team responsible for Spring decided to create a new project called Spring Boot.
+
+As described in [the official site of the Spring Boot framework](https://projects.spring.io/spring-boot/), this framework makes it easy to create stand-alone, production-grade Spring based applications that "just run". They decided to take an opinionated view of the Spring platform and third-party libraries so we can get started with minimum work.
+
 ## Why Embedded Tomcat 8
 
 First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contains the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programmatically.
