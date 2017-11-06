@@ -406,6 +406,10 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 ### Securing Spring 5 Applications with Auth0
 
+Another feature that serious applications cannot overlook is security. On today's apps, personal/sensitive data are being exchanged between clients and servers like never before. Luckily, with the help of [Auth0](https://auth0.com/), adding a production-ready security layer to a Spring 5 project is easy. We just need to use and configure an [open-source library](https://github.com/auth0/auth0-spring-security-api), provided by Auth0, that tightly integrates with Spring Security (the security module of Spring). Let's see how to do this now.
+
+The first step is to open our `build.gradle` file and do four things: add a new maven repository; add the Auth0 library dependency; add the `spring-security-config` library; and add the `spring-security-web` library:
+
 ```groovy
 // ...
 
@@ -428,7 +432,9 @@ dependencies {
 }
 ```
 
-Create a class called `WebSecurityConfig` in the `com.auth0.samples` package:
+Adding a new Maven repository was needed because we are going to use Spring Security 5, a version of this module that hasn't reached [General Availability](https://en.wikipedia.org/wiki/Software_release_life_cycle#General_availability_.28GA.29) yet. Besides that, we explicitly removed `spring-security-*` transitive dependencies from the Auth0 library because they reference the fourth version of Spring Security.
+
+After changing our build file, we have to create a class to configure Spring Security and the Auth0 library. Let's call this class `WebSecurityConfig` and add it in the `com.auth0.samples` package:
 
 ```java
 package com.auth0.samples;
@@ -460,7 +466,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-Create a class called `SecurityWebApplicationInitializer` in the `com.auth0.samples` package:
+This class contains four constants:
+
+- `TOKEN_AUDIENCE` is the [JWT audience](https://tools.ietf.org/html/rfc7519#section-4.1.3) that we expect to see in JWT claims.
+- `TOKEN_ISSUER` is the issuer that we expect to see on these JWTs.
+- `API_ENDPOINT` is a regular expression that we use to restrict access to all URLs under `/api`.
+- `PUBLIC_URLS` is a regular expression that we use to identify every other URL.
+
+Besides these constants, the `WebSecurityConfig` class contains only one method. This method is used to fine-tune the Spring Security module to use the Auth0 and to configure how different URLs must be treated. For example, `.mvcMatchers(API_ENDPOINT).fullyAuthenticated()` configures Spring Security to accept only authenticated requests (requests with JWTs) to URLs that start with `/api`.
+
+The last thing we need to do is to create a class that extends the `AbstractSecurityWebApplicationInitializer` class provided by Spring Security. [This is needed to apply the `springSecurityFilterChain` filter for every URL in our application](https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html#abstractsecuritywebapplicationinitializer-with-spring-mvc). Therefore, let's call our class `SecurityWebApplicationInitializer` and add it in the `com.auth0.samples` package:
 
 ```java
 package com.auth0.samples;
@@ -471,7 +486,13 @@ public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplic
 }
 ```
 
+Now we can restart our application (e.g. `./gradlew runShadow`) and issue requests as follows:
+
 ```bash
+# issuing requests to unsecured endpoints
+curl localhost:8080/hello
+
+# issuing requests to secured endpoints
 CLIENT_ID="d85mVhuL6EPYitTES37pA8rbi716IYCA"
 CLIENT_SECRET="AeeFp-g5YGwxFOWwLVMdxialnxOnoyuwGXoE5kPiHs8kGJeC2FJ0BCj6xTLlNKkY"
 
@@ -485,71 +506,8 @@ JWT=$(curl -X POST -H 'content-type: application/json' -d '{
 curl -H "Authorization: Bearer "$JWT http://localhost:8080/products
 ```
 
-### Serving Static Content
+As we can see in the code snippet above, issuing requests to unsecured endpoints has not changed. Besides that, we can see that issuing requests to secured endpoints now need an `Authorization` header with a JWT. In this case, we need to fetch a valid JWT from Auth0 (note that we use a command-line JSON processor called [`jq`](https://github.com/stedolan/jq) to extract the JWT to a bash variable). After that, we append this JWT to the `Authorization` of every request we issue to secured endpoints.
 
-```groovy
-// ...
-dependencies {
-  // ...
-  compile('jstl:jstl:1.2')
-}
-```
-
-
-```java
-// ... other imports
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
-
-// ... annotations
-public class SpringAppConfig implements WebApplicationInitializer {
-    @Bean
-    public ViewResolver internalResourceViewResolver() {
-        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        bean.setViewClass(JstlView.class);
-        bean.setPrefix("/WEB-INF/");
-        bean.setSuffix(".jsp");
-        return bean;
-    }
-
-    // ... onStartup method
-}
-```
-
-```jsp
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-  <body>
-    <h1>Hello!</h1>
-    <p>The server's current time is:</p>
-    <p>
-      <fmt:formatDate type="both" value="${now}"
-          dateStyle="short" timeStyle="short" />
-    </p>
-  </body>
-</html>
-```
-
-```java
-package com.auth0.samples.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Date;
-
-@Controller
-public class HomeController {
-
-    @RequestMapping("/")
-    public String home(Model model) {
-        model.addAttribute("now", new Date());
-        return "index";
-    }
-}
-```
+Another important thing that we need to note is that the commands above are using two bash variables: `CLIENT_ID` and `CLIENT_SECRET`. These variables were extracted from an API configured on a free Auth0 account. To learn more about APIs and Auth0, take a look into [the official documentation](https://auth0.com/docs/quickstart/backend/java-spring-security/01-authorization).
 
 ## Conclusion
