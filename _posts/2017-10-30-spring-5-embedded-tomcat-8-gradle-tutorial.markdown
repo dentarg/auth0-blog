@@ -23,38 +23,38 @@ related:
 - 2017-04-28-incrementally-changing-your-database-with-java-and-flyway
 ---
 
-**TL;DR:** In this article, we are going to learn how to use Gradle to structure a Spring 5 project with Tomcat 8 embedded. We will start from an empty directory and will analyze each step needed to create an application that is distributed as an über/fat jar. [This GitHub repository](https://github.com/auth0-blog/embedded-spring-5) contains a branch called `complete` with the final code that we will have after following the steps describe here.
+**TL;DR:** In this article, we are going to learn how to use Gradle to structure a Spring 5 project with Tomcat 8 embedded. We will start from an empty directory and will analyze each step needed to create an application that is distributed as an über/fat jar. [This GitHub repository](https://github.com/auth0-blog/embedded-spring-5) contains a branch called `complete` with the final code that we will have after following the steps described here.
 
 ## Why Spring
 
-[Spring](https://spring.io/) is [the most popular framework available for the Java platform](https://zeroturnaround.com/rebellabs/java-web-frameworks-index-by-rebellabs/). Developers using Spring can count on a huge, thriving community that is always ready to help. For example, [the framework contains more than 11k forks on GitHub](https://github.com/spring-projects/spring-framework) and [more than 120k questions asked on StackOverflow](https://stackoverflow.com/questions/tagged/spring) are related to it. Besides that, Spring provides an extense and up-to-date documentation that teaches the inner workings of the framework.
+[Spring](https://spring.io/) is [the most popular framework available for the Java platform](https://zeroturnaround.com/rebellabs/java-web-frameworks-index-by-rebellabs/). Developers using Spring can count on a huge, thriving community that is always ready to help. For example, [the framework contains more than 11k forks on GitHub](https://github.com/spring-projects/spring-framework) and [more than 120k questions asked on StackOverflow](https://stackoverflow.com/questions/tagged/spring) are related to it. Besides that, Spring provides extensive and up-to-date documentation that covers the inner workings of the framework.
 
 As such, when starting a new Java project, Spring is an option that **must** be considered.
 
-### Spring vs Spring Boot
+### Spring vs. Spring Boot
 
-In the past, Spring was known for being hard to setup and for depending on huge configuration files. This was not a big problem as most of the applications out there were [monoliths](https://en.wikipedia.org/wiki/Monolithic_application). This kind of application usually supports many different areas and solves a wide variety of problems inside companies. Therefore, it was quite common to know companies that had only one or two applications to support their daily operations. In scenarios like that, having these huge configuration files and a hard process to setup a new project was not a problem.
+In the past, Spring was known for being hard to set up and for depending on huge configuration files. This was not a big problem as most of the applications out there were [monoliths](https://en.wikipedia.org/wiki/Monolithic_application). This kind of application usually supports many different areas and solves a wide variety of problems inside companies. Therefore, it was quite common to know companies that had only one or two applications to support their daily operations. In scenarios like that, having these huge configuration files and a hard process to set up a new project was not a problem.
 
-However, this paradigm is getting out dated. Nowadays, many companies around the world are relying more in the [microservices architecture and its benefits](https://auth0.com/blog/an-introduction-to-microservices-part-1/). As this architecture relies on multiple applications, each one specialized on a particular subject, using a framework that is hard to setup was something that developers were starting to avoid. This is why the team responsible for Spring decided to create a new project called Spring Boot.
+However, this paradigm is getting outdated. Nowadays, many companies around the world are relying more on the [microservices architecture and its benefits](https://auth0.com/blog/an-introduction-to-microservices-part-1/). As this architecture relies on multiple applications, each one specialized on a particular subject, using a framework that is hard to setup was something that developers were starting to avoid. This is why the team responsible for Spring decided to create a new project called Spring Boot.
 
 As described in [the official site of the Spring Boot framework](https://projects.spring.io/spring-boot/), this framework makes it easy to create stand-alone, production-grade Spring based applications that "just run". They decided to take an opinionated view of the Spring platform and third-party libraries so we can get started with minimum work.
 
 ## Why Embedded Tomcat 8
 
-First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contains the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programmatically.
+First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc.) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contain the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programmatically.
 
 What triggered this change is that the new approach has many advantages. For example:
 
-1. To run a new instance of the application it is just a matter of executing a single command.
+1. To run a new instance of the application, it is just a matter of executing a single command.
 2. All dependencies of the application are declared explicitly in the application code.
 3. The responsibility for running the application isn’t spread across different teams.
 4. The application is guaranteed to be run in the correct server version, mitigating issues.
 
-Also, as this approach fits perfectly in the microservices architecture that is eating the software development world, it makes totally sense to embed application servers. That's why we will learn how to embed Tomcat 8, the most popular Java server, on Spring applications.
+Also, as this approach fits perfectly in the microservices architecture that is eating the software development world, it makes sense to embed application servers. That's why we will learn how to embed Tomcat 8, the most popular Java server, on Spring applications.
 
 ## Why Gradle
 
-When it comes to dependency management and build tools on Java projects, there are two mainstream solutions to choose from: [Gradle](https://gradle.org/) and [Maven](https://maven.apache.org/). Both solutions are supported by huge communities, are constantly being developed, and are stable and extensible. Besides that, both Maven and Gradle fetch dependencies on similar ways and from similar sources (usually from Maven repositories). In the end, choosing one solution or another is normally just a matter of taste or familiarity. There are certain [edge scenarios that one solution performs better than the other](https://www.journaldev.com/7971/gradle). However, on most cases, both solutions will attend all our needs.
+When it comes to dependency management and build tools on Java projects, there are two mainstream solutions to choose from: [Gradle](https://gradle.org/) and [Maven](https://maven.apache.org/). Both solutions are supported by huge communities, are constantly being developed, and are stable and extensible. Besides that, both Maven and Gradle fetch dependencies on similar ways and from similar sources (usually from Maven repositories). In the end, choosing one solution or another is normally just a matter of taste or familiarity. There are certain [edge scenarios that one solution performs better than the other](https://www.journaldev.com/7971/gradle). However, in most cases, both solutions will attend all our needs.
 
 In this article, we are going to use Gradle for one singular reason: brevity. Maven configuration files are usually too verbose (they are expressed on XML files). On the other hand, Gradle configuration files are expressed on [Groovy](http://groovy-lang.org/), a JVM dynamic programming language known for having a concise and tidy syntax.
 
@@ -134,7 +134,7 @@ public class Main {
 
 As we can see, running an instance of Tomcat 8 programmatically is quite easy. We just create a new instance of the `Tomcat` class, set a few properties on it, and call the `start()` method. Two things that are worthy to mention is that:
 
-1. The server port is hard coded in the code above (`8080`).
+1. The server port is hardcoded in the code above (`8080`).
 2. Even though we won't use, the latest version of Tomcat requires us to define a base directory. Therefore, we simply create a temporary directory, through the `createTempDir()` method, that is marked to be excluded when the JVM ends its execution.
 
 ### Bootstrapping Spring 5
@@ -197,11 +197,11 @@ To better understand what this class does, let's take a look at its key concepts
 
 - `@Configuration`: This annotation indicates that the class in question might create Spring beans programmatically. This annotation is required by the next one.
 - `@EnableWebMvc`: This annotation, used alongside with `@Configuration`, [makes Spring import the configuration needed to work as a MVC framework](https://docs.spring.io/spring/docs/5.0.1.RELEASE/javadoc-api/org/springframework/web/servlet/config/annotation/WebMvcConfigurationSupport.html).
-- `@ComponentScan`: This annotation makes Spring scan the packages configured (i.e. `com.auth0.samples`) to assemble Spring beans (like MVC controllers) for us.
+- `@ComponentScan`: This annotation makes Spring scan the packages configured (i.e., `com.auth0.samples`) to assemble Spring beans (like MVC controllers) for us.
 
 The next important concept that we need to understand is the [`WebApplicationInitializer`](https://docs.spring.io/spring/docs/5.0.1.RELEASE/javadoc-api/org/springframework/web/WebApplicationInitializer.html) interface. Implementing this interface makes Spring automatically detect our configuration class and also makes any Servlet 3.0+ environment (like Tomcat 8) run it through the [`SpringServletContainerInitializer`](https://docs.spring.io/spring/docs/5.0.1.RELEASE/javadoc-api/org/springframework/web/SpringServletContainerInitializer.html) class. That is, we are capable of bootstrapping a Spring 5 context only by implementing this class.
 
-The last important thing that we need to analyze is the implementation of the `onStartup` method. When Spring executes our `WebApplicationInitializer` extension, this is the method that it calls. In this method, we basically do two things. First, we start a Spring context that accepts annotated classes and register our main Spring configuration class on it. Like that, every other component that we define through annotations will be properly managed. Second, we register a `DispatcherServlet` instance to handle and dispatch incoming requests to the controllers that we create.
+The last important thing that we need to analyze is the implementation of the `onStartup` method. When Spring executes our `WebApplicationInitializer` extension, this is the method that it calls. In this method, we do two things. First, we start a Spring context that accepts annotated classes and register our main Spring configuration class on it. Like that, every other component that we define through annotations will be properly managed. Second, we register a `DispatcherServlet` instance to handle and dispatch incoming requests to the controllers that we create.
 
 We now have a project that bootstraps a Spring 5 context automatically when started. To test it, let's create a new package called `com.auth0.samples.controller` and add to it a class named `HelloWorldController` with the following code:
 
@@ -222,7 +222,7 @@ public class HelloWorldController {
 }
 ```
 
-The only way to run this project now, is an IDE. As we don't want to be dependent on IDEs, it is a good time to learn how to package the application in a single, executable `jar` file.
+The only way to run this project now is through an IDE. As we don't want to be dependent on IDEs, it is a good time to learn how to package the application in a single, executable `jar` file.
 
 ### Creating an Executable Distribution
 
@@ -286,7 +286,7 @@ The Shadow plugin, when correctly configured, adds a few [tasks](http://impercep
 java -jar build/libs/spring5-app-1.0-SNAPSHOT-all.jar
 ```
 
-The `runShadow` does three things: it compiles our source code, packages our application on an executable fat/über `jar` file, and then executes this `jar`. The second one, `shadowJar`, is pretty similar but it does not execute the application. It simply prepares our application to be distributed. That is, it create the executable `jar` file. The last command included in the code snippet above shows how to execute the fat/über `jar` without Gradle. Yes, after packaging the application, we don't need Gradle anymore.
+The `runShadow` does three things: it compiles our source code, packages our application on an executable fat/über `jar` file, and then executes this `jar`. The second one, `shadowJar`, is pretty similar but it does not execute the application. It simply prepares our application to be distributed. That is, it creates the executable `jar` file. The last command included in the code snippet above shows how to execute the fat/über `jar` without Gradle. Yes, after packaging the application, we don't need Gradle anymore.
 
 Let's run the application now and issue a `GET` HTTP request to the endpoint created in the `HelloWorldController` class:
 
@@ -302,7 +302,7 @@ The response to this request will be the message defined in the `sayHello` metho
 
 ### Supporting JSON Content on Spring 5
 
-Without question, one of the most used messages formats on applications today is [JSON](http://www.json.org/). RESTful APIs usually use this kind of message format to communicate with front-end clients written for a wide variety of devices (e.g. Android and iOS phones, web browsers, wearable devices, etc). In Spring 5, adding support to JSON is very easy. It's just a matter of adding [Jackson](https://github.com/FasterXML/jackson) as a dependency and we are ready to start writing controllers that exchange JSON messages.
+Without question, one of the most used messages formats on applications today is [JSON](http://www.json.org/). RESTful APIs usually use this kind of message format to communicate with front-end clients written for a wide variety of devices (e.g. Android and iOS phones, web browsers, wearable devices, etc.). In Spring 5, adding support to JSON is very easy. It's just a matter of adding [Jackson](https://github.com/FasterXML/jackson) as a dependency and we are ready to start writing controllers that exchange JSON messages.
 
 To see this in action, let's open the `build.gradle` file and add the following dependency:
 
@@ -387,7 +387,7 @@ public class ProductController {
 }
 ```
 
-This class is quite simple, it's just a [Spring MVC `@RestController`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html) that exposes three methods/endpoints:
+This class is quite simple; it's just a [Spring MVC `@RestController`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html) that exposes three methods/endpoints:
 
 - `getProducts`: This endpoint, when hit by a HTTP `GET` request, sends all `products` in a JSON array.
 - `addProduct`: This endpoint, when hit by a HTTP `POST` request, accepts new products as JSON messages.
@@ -396,10 +396,10 @@ This class is quite simple, it's just a [Spring MVC `@RestController`](https://d
 After creating this controller, we are ready to send and receive JSON messages. To test this new feature, let's start our application (`./gradlew runShadow`) and issue the following commands:
 
 ```bash
-# get the array of procuts
+# get the array of products
 curl localhost:8080/api/products
 
-# remove product on the second position of the array
+# remove product in the second position of the array
 # (arrays are 0 indexed)
 curl -X DELETE localhost:8080/api/products/1
 
@@ -412,7 +412,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 ### Securing Spring 5 Applications with Auth0
 
-Another feature that serious applications cannot overlook is security. On today's apps, personal/sensitive data are being exchanged between clients and servers like never before. Luckily, with the help of [Auth0](https://auth0.com/), adding a production-ready security layer to a Spring 5 project is easy. We just need to use and configure an [open-source library](https://github.com/auth0/auth0-spring-security-api), provided by Auth0, that tightly integrates with Spring Security (the security module of Spring). Let's see how to do this now.
+Another feature that serious applications cannot overlook is security. On today's apps, personal/sensitive data are being exchanged between clients and servers like never before. Luckily, with the help of [Auth0](https://auth0.com/), adding a production-ready security layer to a Spring 5 project is easy. We just need to use and configure an [open-source library](https://github.com/auth0/auth0-spring-security-api), provided by Auth0, which tightly integrates with Spring Security (the security module of Spring). Let's see how to do this now.
 
 The first step is to open our `build.gradle` file and do four things: add a new maven repository; add the Auth0 library dependency; add the `spring-security-config` library; and add the `spring-security-web` library:
 
@@ -514,10 +514,10 @@ curl -H "Authorization: Bearer "$JWT http://localhost:8080/products
 
 As we can see in the code snippet above, issuing requests to unsecured endpoints has not changed. Besides that, we can see that issuing requests to secured endpoints now need an `Authorization` header with a JWT. In this case, we need to fetch a valid JWT from Auth0 (note that we use a command-line JSON processor called [`jq`](https://github.com/stedolan/jq) to extract the JWT to a bash variable). After that, we append this JWT to the `Authorization` of every request we issue to secured endpoints.
 
-Another important thing that we need to note is that the commands above are using two bash variables: `CLIENT_ID` and `CLIENT_SECRET`. These variables were extracted from an API configured on a free Auth0 account. To learn more about APIs and Auth0, take a look into [the official documentation](https://auth0.com/docs/quickstart/backend/java-spring-security/01-authorization).
+Another important thing that we need to note is that the commands above are using two bash variables: `CLIENT_ID` and `CLIENT_SECRET`. These variables were extracted from an API configured on a free Auth0 account. To learn more about APIs and Auth0, take a look at [the official documentation](https://auth0.com/docs/quickstart/backend/java-spring-security/01-authorization).
 
 ## Conclusion
 
 Throughout this article, we learned about some interesting topics like embedded application servers and how to configure a Spring 5 project to use one. We also learned how to create a Java executable file using a Gradle plugin called Shadow and how to add support to JSON messages on Spring 5. Lastly, we saw that configuring a security layer on a Spring 5 project is straightforward.
 
-Having managed to address all these topics in a short article like that is a proof that Spring 5 is becoming more like Spring Boot. Although Spring Boot is a few miles ahead when talking about ease of use, we can see that it's quite easy to bootstrap Spring 5 applications that support important features like JSON messages and security.
+Having managed to address all these topics in a short article like that is proof that Spring 5 is becoming more like Spring Boot. Although Spring Boot is a few miles ahead when talking about ease of use, we can see that it's quite easy to bootstrap Spring 5 applications that support essential features like JSON messages and security.
