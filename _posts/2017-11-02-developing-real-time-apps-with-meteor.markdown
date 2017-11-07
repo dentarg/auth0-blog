@@ -35,7 +35,7 @@ related:
 
 ---
 
-**Meteor** is a full-stack JavaScript platform for developing modern web and mobile applications. Meteor provides a suite of technologies for building connected-client reactive applications, APIs, and a curated set of packages from the Node.js and general JavaScript community. It allows you develop in just one language, JavaScript, in all environments: server, web and mobile.
+**Meteor** is a full-stack JavaScript platform for developing modern web and mobile applications. Meteor provides a suite of technologies for building connected-client reactive applications, APIs, and a curated set of packages from the Node.js and general JavaScript community. It allows you develop in just one language, JavaScript, in all environments: server, web, and mobile.
 
 **Meteor** is a project backed by the _Meteor Development Group_ company. They are friends of the open source community. The _MDG_ group also manages [Apollo](http://dev.apollodata.com), the flexible production ready GraphQL client for React and Native apps. Meteor as a JavaScript platform has built a community around it over the years. Currently, there is a [discussion forum](https://forums.meteor.com), [Stack Overflow channel](http://stackoverflow.com/questions/tagged/meteor), and [Atmosphere - a repository of community packages](https://atmospherejs.com). In addition, there is a community-curated list of meteor packages and resources on GitHub known as [Awesome Meteor](https://github.com/Urigo/awesome-meteor).
 
@@ -45,7 +45,7 @@ There are several websites and applications that run on Meteor. A few of them ar
 
 Meteor provides a lot out of the box. It ships with a lot of features that makes it worthy to consider when looking for a framework for your next project.
 
-* **Authentication** : Meteor ships with session management and authentication features out of the box.
+* **Authentication**: Meteor ships with session management and authentication features out of the box.
 * **Real-time Feature**: Meteor is built from the ground up on the Distributed Data Protocol (DDP) to allow data transfer in both directions. In Meteor, you create publication endpoints that can push data from server to client.
 * **Routing**: Meteor provides a `flow-router` package that allows client-side routing.
 * **Custom Templating Engines**:  Meteor ships with its own templating engine but allows you to use other view libraries.
@@ -64,15 +64,15 @@ In order to use Meteor, you need to have the following tools installed on your m
 
 ## Understanding Key Concepts in Meteor
 
-Meteor uses the Publish and subscribe model. Check out this [excellent article on how publications and data loading works in Meteor](https://guide.meteor.com/data-loading.html). In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business, and data access realm.
+Meteor uses the Publish and subscribe model. Check out this [excellent article on how publications and data loading works in Meteor](https://guide.meteor.com/data-loading.html). In a typical framework architecture, there exists a separation of concern of functionalities; presentation, business, and data access realm.
 
 {% include tweet_quote.html quote_text="Meteor uses the Publish and subscribe model." %}
 
 * **Data Layer**: This is the data access layer. The data layer is typically stored in MongoDB.
 
-* **View Layer**: In a typical framework, the view simply presents data to the screen. In Meteor, there are template files. These files containes the view logic that accesses the Mongo Schemas. The view logic is typically placed in the `client/imports/ui` directory.
+* **View Layer**: In a typical framework, the view simply presents data to the screen. In Meteor, there are template files. These files contains the view logic that accesses the Mongo Schemas. The view logic is typically placed in the `client/imports/ui` directory.
 
-* **Business Logic Layer**: In Meteor, the `client` and `server` directories exist.  The business logic is typically placed in the `client/imports/api` directory. However, any sensitive code that you don’t want served to the client, such as code containing passwords or authentication mechanisms, should be kept in the `server/` directory.
+* **Business Logic Layer**: In Meteor, the `client` and `server` directories exist.  The business logic is typically placed in the `client/imports/api` directory. However, any sensitive code that you don’t want to be served to the client, such as code containing passwords or authentication mechanisms, should be kept in the `server/` directory.
 
 ## Build a Real-time Web App With Meteor
 
@@ -350,7 +350,7 @@ Meteor.startup(function () {
 });
 ```
 
-Update `body.js` to fetch slangs from the Slangs collection rather than an a static array.
+Update `body.js` to fetch slangs from the Slangs collection rather than a static array.
 
 _imports/ui/body.js_
 
@@ -393,7 +393,7 @@ When the server starts up, it automatically inserts the data defined here into t
 
 ### Add New Slangs
 
-Let's add a form to our app to enable users add new slangs. Within the body tag, update the code to be like so:
+Let's add a form to our app to enable users to add new slangs. Within the body tag, update the code to be like so:
 
 _imports/ui/body.html_
 
@@ -455,7 +455,7 @@ Template.body.events({
 });
 ```
 
-In the code above, it listens to the submit event of the form, grab the values and inserts them into the database. Run your app and try it out. Yes, it works!
+In the code above, it listens to the submit event of the form, grabs the values and inserts them into the database. Run your app and try it out. Yes, it works!
 
 ### Delete Slangs
 
@@ -639,7 +639,7 @@ _Username displayed next to Slang_
 
 ### Eliminate Client Update
 
-Meteor is robust. They factored in the fact that people usually create quick demos so user can update the database directly from the client side. However, in a real-world project, you want to be sure that the server validates everything that comes into the app and allows users to complete an action only if they are authorized!
+Meteor is robust. They factored in the fact that people usually create quick demos so a user can update the database directly from the client side. However, in a real-world project, you want to be sure that the server validates everything that comes into the app and allows users to complete an action only if they are authorized!
 
 The first step is to remove the `insecure` package. Meteor ships with this built-in package. This is the package that allows us to edit the database from the client.
 
@@ -731,7 +731,7 @@ We replaced the _slang remove_ code with `Meteor.call('slangs.remove', this._id)
 
 ### Security Concerns - Filter Data
 
-With emphasis on security, we need to control which data Meteor sends to the client-side database. Go ahead and remove the `autopublish` package via the terminal:
+With an emphasis on security, we need to control which data Meteor sends to the client-side database. Go ahead and remove the `autopublish` package via the terminal:
 
 ```bash
 meteor remove autopublish
@@ -784,7 +784,7 @@ Whenever the user wants to access a protected route or resource (an endpoint), t
 
 When the API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
 
-* Check that the JWT is well formed
+* Check that the JWT is well-formed
 * Check the signature
 * Validate the standard claims
 * Check the Client permissions (scopes)
@@ -799,7 +799,7 @@ Login to your Auth0 [management dashboard](https://manage.auth0.com) and create 
 
 Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want.
 
-The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Slang API**, and for the identifier I'll set it as **https://slangsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
+The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Slang API**, and for the identifier, I'll set it as **https://slangsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
 
 ![New API to be created](https://cdn.auth0.com/blog/meteor/creatingslangapi.png)
 _Create a New API_
@@ -878,7 +878,7 @@ app.get('/api/slangs', authCheck, (req, res) => {
 
 The `authCheck` variable does the check to validate the access tokens that are sent as Authorization headers. It validates the `audience`, `issuer` and `algorithm` used to sign the token.
 
-Now, run your app with [Postman]() again.
+Now, run your app with [Postman](https://www.getpostman.com/) again.
 
 ![Invalid token](https://cdn.auth0.com/blog/meteor/notoken.png)
 _Accessing the endpoint without an access token_
