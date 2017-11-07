@@ -76,9 +76,9 @@ Meteor uses the Publish-subscribe model. Check out this [excellent article on ho
 
 ## Build a Real-time Web App With Meteor
 
-In this tutorial, we'll build a simple application called **SlangBucket**. This app will allow users to add all sorts of slangs with their respective meanings. The _SlangBucket_ is a mini version of [Urban Dictionary](https://www.urbandictionary.com/). Users will be able to add and delete slangs from the bucket.
+In this tutorial, we'll build a simple application called **Slang Bucket**. This app will allow users to add all sorts of slangs with their respective meanings. The _Slang Bucket_ is a mini version of [Urban Dictionary](https://www.urbandictionary.com/). Users will be able to add and delete slangs from the bucket.
 
-### Install Meteor and Scaffold SlangBucket
+### Install Meteor and Scaffold Slang Bucket
 
 Linux and Mac users can run the following command in the terminal to install Meteor:
 
@@ -94,7 +94,7 @@ choco install meteor
 
 > The command above will install the latest version of Meteor. At the time of this writing, Meteor's latest version is 1.6.
 
-Next, go ahead and create the _SlangBucket_ app like so:
+Next, go ahead and create the _Slang Bucket_ app like so:
 
 ```
 meteor create slangbucket
@@ -218,7 +218,7 @@ angular.module('simple-todos', [
 
 In this tutorial, we'll use the default Meteor templating engine, **Blaze**.
 
-### Create SlangBucket Views and Display Static Data
+### Create Slang Bucket Views and Display Static Data
 
 First, add bootstrap by running the command below:
 
