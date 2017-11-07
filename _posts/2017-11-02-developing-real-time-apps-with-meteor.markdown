@@ -846,7 +846,7 @@ Next, go ahead and add the following code:
 
 ```js
 ...
-var authCheck = jwt({
+const authCheck = jwt({
   secret: jwks.expressJwtSecret({
         cache: true,
         rateLimit: true,
@@ -861,7 +861,7 @@ var authCheck = jwt({
 });
 
 app.get('/api/slangs', (req, res) => {
-  var slangs = Slangs.find().fetch();
+  const slangs = Slangs.find().fetch();
   res.status(200).json({ message: slangs });
 });
 ```
@@ -876,7 +876,7 @@ Now, go ahead and modify the route code by adding the `authCheck` variable as a 
 ```js
 ...
 app.get('/api/slangs', authCheck, (req, res) => {
-  var slangs = Slangs.find().fetch();
+  const slangs = Slangs.find().fetch();
   res.status(200).json({ message: slangs });
 });
 ```
