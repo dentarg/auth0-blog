@@ -774,9 +774,7 @@ There are lots of packages available for Meteor on [AtmosphereJS](https://atmosp
 
 ## Securing Meteor Applications with Auth0
 
-Right now, anyone can make `GET` and `POST` requests to all of the endpoints present in our API. In a real-world scenario, we should restrict `POST`, `DELETE` and `PUT` requests to certain registered and authorized users.
-
-We'll go ahead and secure some of these API endpoints with [JSON Web Tokens](https://jwt.io).
+Meteor is a hybrid framework that takes care of your client and server needs. In addition, it's very easy to create server-side APIs. Right now, let's go ahead and secure our Meteor API with [JSON Web Tokens](https://jwt.io).
 
 JSON Web Tokens, commonly known as JWTs, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these JWTs. That is, applications that use JWTs no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
 
@@ -799,24 +797,45 @@ Login to your Auth0 [management dashboard](https://manage.auth0.com) and create 
 
 Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want.
 
-The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Star Wars API**, and for the identifier I'll set it as **https://starwarsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
+The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Slang API**, and for the identifier I'll set it as **https://slangsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
 
-![New API to be created](https://cdn.auth0.com/blog/loopback/newapitobecreated.png)
+![New API to be created](https://cdn.auth0.com/blog/meteor/creatingslangapi.png)
 _Create a New API_
 
-![Star Wars API](https://cdn.auth0.com/blog/loopback/starwarsapi.png)
-_Creating the Star Wars API_
-
-![Define the scopes](https://cdn.auth0.com/blog/loopback/starwarscope.png)
-_You can define scopes in this section_
+![Slangs API](https://cdn.auth0.com/blog/meteor/nameofapi.png)
+_Creating the Slangs API_
 
 Head over to your terminal and install the following node modules:
 
 ```bash
-npm install express-jwt jwks-rsa --save
+meteor npm install express express-jwt jwks-rsa --save
 ```
 
-Open your `routes/index.js` file. Just before the route bindings, add this code:
+Open your `server/main.js` file. Add this code at the top:
+
+```js
+import express from 'express';
+import jwt from 'express-jwt';
+import { expressJwtSecret } from 'jwks-rsa';
+
+const app = express();
+WebApp.connectHandlers.use(app);
+```
+
+In the code above, we imported `express`, `express-jwt`, and `jwks-rsa`.
+
+* The `express-jwt` module is an express middleware that validates a JSON Web Token and set the `req.user` with the attributes.
+* The `jwks-rsa` module is a library that helps retrieve RSA public keys from a JSON Web Key Set endpoint.
+
+Then the code just below the `imports` statements starts up express server and hooks it into the port Meteor uses:
+
+```js
+...
+const app = express();
+WebApp.connectHandlers.use(app);
+```
+
+Next, go ahead and add the following code:
 
 ```js
 ...
@@ -833,60 +852,34 @@ var authCheck = jwt({
     issuer: '{YOUR-AUTH0-DOMAIN}',
     algorithms: ['RS256']
 });
+
+app.get('/api/slangs', (req, res) => {
+  var slangs = Slangs.find().fetch();
+  res.status(200).json({ message: slangs });
+});
 ```
-
-Also, make sure you require the `express-jwt` and `jwks-rsa` modules at the top of the file.
-
-```js
-var jwt = require('express-jwt');
-var jwks = require('jwks-rsa');
-```
-
-Add the `authCheck` function to the endpoints as a middleware like so:
-
-```js
-// Setup Route Bindings
-exports = module.exports = function (app) {
-  // Views
-  app.get('/', routes.views.index);
-
-  // API
-  app.get('/api/people', routes.api.people.list);
-  app.get('/api/people/:id', routes.api.people.get);
-  app.post('/api/people', authCheck, routes.api.people.create);
-  app.put('/api/people/:id', authCheck, routes.api.people.update);
-  app.delete('/api/people/:id', authCheck, routes.api.people.remove);
-
-  app.get('/api/planets', routes.api.planet.list);
-  app.get('/api/planets/:id', routes.api.planet.get);
-  app.post('/api/planets', authCheck, routes.api.planet.create);
-  app.put('/api/planets/:id', authCheck, routes.api.planet.update);
-  app.delete('/api/planets/:id', authCheck, routes.api.planet.remove);
-
-  app.get('/api/starships', routes.api.starship.list);
-  app.get('/api/starships/:id', routes.api.starship.get);
-  app.post('/api/starships', authCheck, routes.api.starship.create);
-  app.put('/api/starships/:id', authCheck, routes.api.starship.update);
-  app.delete('/api/starships/:id', authCheck, routes.api.starship.remove);
-
-
-  // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-  // app.get('/protected', middleware.requireUser, routes.views.protected);
-
-};
-```
-
-* The `express-jwt` module is an express middleware that validates a JSON Web Token and set the `req.user` with the attributes.
-* The `jwks-rsa` module is a library that helps retrieve RSA public keys from a JSON Web Key Set endpoint.
-
-The `authCheck` variable does the check to validate the access tokens that are sent as Authorization headers. It validates the `audience`, `issuer` and algorithm used to sign the token.
 
 **Note:** Replace the `YOUR-API-AUDIENCE-ATTRIBUTE` and `YOUR-AUTH0-DOMAIN` placeholders with the API audience and Auth0 domain values from your Auth0 dashboard.
 
-We just secured all the `post`, `put`, and `delete` API endpoints with JWT. If a user accesses these API endpoint/route without a valid access token or no token at all, it returns an error. Try it out.
+Run your app by going to the `/api/slangs` route. You should see the set of slangs displayed.
 
-![Invalid token](https://cdn.auth0.com/blog/keystonejs/authorizationerror.png)
-_Accessing the POST people endpoint without an access token_
+Now, go ahead and modify the route code by adding the `authCheck` variable as a middleware.
+
+
+```js
+...
+app.get('/api/slangs', authCheck, (req, res) => {
+  var slangs = Slangs.find().fetch();
+  res.status(200).json({ message: slangs });
+});
+```
+
+The `authCheck` variable does the check to validate the access tokens that are sent as Authorization headers. It validates the `audience`, `issuer` and `algorithm` used to sign the token.
+
+Now, run your app with [Postman]() again.
+
+![Invalid token](https://cdn.auth0.com/blog/meteor/notoken.png)
+_Accessing the endpoint without an access token_
 
 Now, let's test it with a valid access token. Head over to the `test` tab of your newly created API on your Auth0 dashboard.
 
@@ -895,15 +888,9 @@ Grab the Access token from the _Test_ tab
 ![Get the Access token](https://cdn.auth0.com/blog/keystonejs/gettoken.png)
 _Grab the Access Token_
 
-Now use this `access token` in Postman by sending it as an Authorization header to make a POST request to `api/people` endpoint.
+Now use this `access token` in Postman by sending it as an Authorization header to make a GET request to `api/slangs` endpoint.
 
-![Accessing the endpoint securely](https://cdn.auth0.com/blog/keystonejs/authorizationbearer.png)
-_Accessing the endpoint securely_
-
-It validates the access token and successfully makes the POST request.
-
-Wondering how to integrate the secure API with a frontend? Check out our amazing [React](https://auth0.com/blog/reactjs-authentication-tutorial/) and [Vue.js authentication tutorials](https://auth0.com/blog/vuejs2-authentication-tutorial/).
-
+It validates the access token and successfully makes the request.
 
 ## Conclusion
 
