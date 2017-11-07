@@ -64,7 +64,7 @@ In order to use Meteor, you need to have the following tools installed on your m
 
 ## Understanding Key Concepts in Meteor
 
-Meteor uses the Publish and subscribe model. Check out this [excellent article on how publications and data loading works in Meteor](https://guide.meteor.com/data-loading.html). In a typical framework architecture, there exists a separation of concern of functionalities; presentation, business, and data access realm.
+Meteor uses the Publish-subscribe model. Check out this [excellent article on how publications and data loading works in Meteor](https://guide.meteor.com/data-loading.html). In a typical framework architecture, there exists a separation of concern of functionalities; presentation, business, and data access realm.
 
 {% include tweet_quote.html quote_text="Meteor uses the Publish and subscribe model." %}
 
