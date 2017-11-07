@@ -132,8 +132,8 @@ Open up the `slangbucket` code repository in an editor. These are the files that
 
 Meteor ships with a templating engine called `Blaze`. Blaze renders responses from HTML files and has a very familiar expression language. It uses double braces, `{{ }}`, and `{{> }}`.
 
-* `{{> }}` - Used to include Meteor templates in HTML files
-* `{{ }}` - Used to display data and logic from JavaScript files in the view(HTML) files.
+* **{{> }}** - Used to include Meteor templates in HTML files
+* **{{ }}** - Used to display data and logic from JavaScript files in the view(HTML) files.
 
 Meteor is very configurable. You can use _Angular_ and _React_ with Meteor. If you want to use React as the view library, all you need to do is add react:
 
@@ -232,7 +232,8 @@ Go ahead and create the following files:
 
 _ui/body.html_
 
-```
+{% highlight html %}
+{% raw %}
 <body>
   <div class="container">
     <header>
@@ -247,6 +248,7 @@ _ui/body.html_
   </div>
 </body>
 
+
 <template name="slang">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -257,7 +259,8 @@ _ui/body.html_
       </div>
     </div>
 </template>
-```
+{% endraw %}
+{% endhighlight %}
 
 _ui/body.js_
 
@@ -301,11 +304,13 @@ The `client/main.js` loads up the `body.js` file. In the `body.js` file, we have
 
 In `body.html`, we invoked the data returned from the `slangs` helper with the code below:
 
-```
+{% highlight html %}
+{% raw %}
 {{#each slangs}}
   {{> slang}}
 {{/each}}
-```
+{% endraw %}
+{% endhighlight %}
 
 It loops through the array and inserts a slang template for each value. The slang template is shown below:
 
@@ -556,7 +561,7 @@ A quick breakdown. We'll need to add new attributes to our `Slang` collection.
 * **adderID**: this will hold the `_id` of the user that added the slang.
 * **username**: this will hold the `username` of the user that added the slang.
 
-> **Note: There are other efficient ways to handle the authentication schema of this app. However, for the sake of this tutorial, we'll keep things simple.
+> **Note:** There are other efficient ways to handle the authentication schema of this app. However, for the sake of this tutorial, we'll keep things simple.
 
 Open up `imports/ui/body.js` and modify it like so:
 
