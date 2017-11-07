@@ -66,6 +66,8 @@ In order to use Meteor, you need to have the following tools installed on your m
 
 Meteor uses the Publish and subscribe model. Check out this [excellent article on how publications and data loading works in Meteor](https://guide.meteor.com/data-loading.html). In a typical framework architecture, there exists a seperation of concern of functionalities; presentation, business, and data access realm.
 
+{% include tweet_quote.html quote_text="Meteor uses the Publish and subscribe model." %}
+
 * **Data Layer**: This is the data access layer. The data layer is typically stored in MongoDB.
 
 * **View Layer**: In a typical framework, the view simply presents data to the screen. In Meteor, there are template files. These files containes the view logic that accesses the Mongo Schemas. The view logic is typically placed in the `client/imports/ui` directory.
