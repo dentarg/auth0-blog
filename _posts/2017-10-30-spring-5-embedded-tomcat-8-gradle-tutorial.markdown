@@ -37,11 +37,11 @@ In the past, Spring was known for being hard to set up and for depending on huge
 
 However, this paradigm is getting outdated. Nowadays, many companies around the world are relying more on the [microservices architecture and its benefits](https://auth0.com/blog/an-introduction-to-microservices-part-1/). As this architecture relies on multiple applications, each one specialized on a particular subject, using a framework that is hard to setup was something that developers were starting to avoid. This is why the team responsible for Spring decided to create a new project called Spring Boot.
 
-As described in [the official site of the Spring Boot framework](https://projects.spring.io/spring-boot/), this framework makes it easy to create stand-alone, production-grade Spring based applications that "just run". They decided to take an opinionated view of the Spring platform and third-party libraries so we can get started with minimum work.
+As described in [the official site of the Spring Boot framework](https://projects.spring.io/spring-boot/), this framework makes it easy to create stand-alone, production-grade Spring based applications that "just run". They decided to take an opinionated view of the Spring platform and third-party libraries so we can get started with minimal work.
 
 ## Why Embedded Tomcat 8
 
-First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc.) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contain the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programmatically.
+First of all, let's understand what _embedded_ means. For a long time, Java developers shipped their applications as `war` (Web ARchive) and `ear` (Enterprise ARchive) files. These files, after being bundled, were deployed on application servers (like Tomcat, WildFly, WebSphere, etc.) that were already up and running on production servers. For the last couple of years, developers around the world started changing this paradigm. Instead of shipping applications that had to be deployed on running servers, they started shipping applications that contain the server inside the bundle. That is, they started creating `jar` (Java ARchive) files that are executable and that starts the server programmatically.
 
 What triggered this change is that the new approach has many advantages. For example:
 
@@ -62,7 +62,7 @@ In this article, we are going to use Gradle for one singular reason: brevity. Ma
 
 ## Creating the Project
 
-Now that we understand why we chose to use Gradle, Spring 5, and an embedded Tomcat 8 server, let's see how to put all these pieces together. The first thing that we will do is to clone an empty Gradle project. After that, we will understand how to add the Tomcat 8 dependency and how to bootstrap it programmatically. Lastly, we will see how to configure and secure a Spring 5 project that works as a RESTful API and that handles JSP (JavaServer Pages) files.
+Now that we understand why we chose to use Gradle, Spring 5, and an embedded Tomcat 8 server, let's see how to put all these pieces together. The first thing that we will do is to clone an empty Gradle project. After that, we will explore adding the Tomcat 8 dependency and how to bootstrap it programmatically. Lastly, we will see how to configure and secure a Spring 5 project that works as a RESTful API and that handles JSP (JavaServer Pages) files.
 
 ### Cloning the Gradle Project
 
@@ -134,10 +134,10 @@ public class Main {
 }
 ```
 
-As we can see, running an instance of Tomcat 8 programmatically is quite easy. We just create a new instance of the `Tomcat` class, set a few properties on it, and call the `start()` method. Two things that are worthy to mention is that:
+As we can see, running an instance of Tomcat 8 programmatically is quite easy. We just create a new instance of the `Tomcat` class, set a few properties on it, and call the `start()` method. Two things worth mentioning are:
 
 1. The server port is hardcoded in the code above (`8080`).
-2. Even though we won't use, the latest version of Tomcat requires us to define a base directory. Therefore, we simply create a temporary directory, through the `createTempDir()` method, that is marked to be excluded when the JVM ends its execution.
+2. Even though we won't use it, the latest version of Tomcat requires us to define a base directory. Therefore, we simply create a temporary directory (through the `createTempDir()` method) that is marked to be excluded when the JVM ends its execution.
 
 ### Bootstrapping Spring 5
 
@@ -228,7 +228,7 @@ The only way to run this project now is through an IDE. As we don't want to be d
 
 ### Creating an Executable Distribution
 
-To make Gradle package our application as an executable `jar` file (also called fat/über jar), we will take advantage of a popular Gradle plugin called [Shadow](http://imperceptiblethoughts.com/shadow/). This plugin is easy to use, well supported by the community, and have a great, thorough documentation. To configure it, let's replace the contents of the `build.gradle` file with the following code:
+To make Gradle package our application as an executable `jar` file (also called fat/über jar), we will take advantage of a popular Gradle plugin called [Shadow](http://imperceptiblethoughts.com/shadow/). This plugin is easy to use, well supported by the community, and has a great, thorough documentation. To configure it, let's replace the contents of the `build.gradle` file with the following code:
 
 ```groovy
 group 'com.auth0.samples'
@@ -304,7 +304,7 @@ The response to this request will be the message defined in the `sayHello` metho
 
 ### Supporting JSON Content on Spring 5
 
-Without question, one of the most used messages formats on applications today is [JSON](http://www.json.org/). RESTful APIs usually use this kind of message format to communicate with front-end clients written for a wide variety of devices (e.g. Android and iOS phones, web browsers, wearable devices, etc.). In Spring 5, adding support to JSON is very easy. It's just a matter of adding [Jackson](https://github.com/FasterXML/jackson) as a dependency and we are ready to start writing controllers that exchange JSON messages.
+Without question, one of the most used message formats on applications today is [JSON](http://www.json.org/). RESTful APIs usually use this kind of message format to communicate with front-end clients written for a wide variety of devices (e.g. Android and iOS phones, web browsers, wearable devices, etc.). In Spring 5, adding support to JSON is very easy. It's just a matter of adding [Jackson](https://github.com/FasterXML/jackson) as a dependency and we are ready to start writing controllers that exchange JSON messages.
 
 To see this in action, let's open the `build.gradle` file and add the following dependency:
 
@@ -416,9 +416,9 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 ### Securing Spring 5 Applications with Auth0
 
-Another feature that serious applications cannot overlook is security. On today's apps, personal/sensitive data are being exchanged between clients and servers like never before. Luckily, with the help of [Auth0](https://auth0.com/), adding a production-ready security layer to a Spring 5 project is easy. We just need to use and configure an [open-source library](https://github.com/auth0/auth0-spring-security-api), provided by Auth0, which tightly integrates with Spring Security (the security module of Spring). Let's see how to do this now.
+Another feature that serious applications cannot overlook is security. In modern applications, personal and sensitive data is being exchanged between clients and servers like never before. Luckily, with the help of [Auth0](https://auth0.com/), adding a production-ready security layer to a Spring 5 project is easy. We just need to use and configure an [open-source library](https://github.com/auth0/auth0-spring-security-api), provided by Auth0, which tightly integrates with Spring Security (the security module of Spring). Let's see how to do this now.
 
-The first step is to open our `build.gradle` file and do four things: add a new maven repository; add the Auth0 library dependency; add the `spring-security-config` library; and add the `spring-security-web` library:
+The first step is to open our `build.gradle` file and do four things: Add a new maven repository, add the Auth0 library dependency, add the `spring-security-config` library, and add the `spring-security-web` library:
 
 ```groovy
 // ...
@@ -483,7 +483,7 @@ This class contains four constants:
 - `API_ENDPOINT` is a regular expression that we use to restrict access to all URLs under `/api`.
 - `PUBLIC_URLS` is a regular expression that we use to identify every other URL.
 
-Besides these constants, the `WebSecurityConfig` class contains only one method. This method is used to fine-tune the Spring Security module to use the Auth0 and to configure how different URLs must be treated. For example, `.mvcMatchers(API_ENDPOINT).fullyAuthenticated()` configures Spring Security to accept only authenticated requests (requests with JWTs) to URLs that start with `/api`.
+Besides these constants, the `WebSecurityConfig` class contains only one method. This method is used to fine-tune the Spring Security module to use Auth0 and to configure how different URLs must be treated. For example, `.mvcMatchers(API_ENDPOINT).fullyAuthenticated()` configures Spring Security to accept only authenticated requests (requests with JWTs) to URLs that start with `/api`.
 
 The last thing we need to do is to create a class that extends the `AbstractSecurityWebApplicationInitializer` class provided by Spring Security. [This is needed to apply the `springSecurityFilterChain` filter for every URL in our application](https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html#abstractsecuritywebapplicationinitializer-with-spring-mvc). Therefore, let's call our class `SecurityWebApplicationInitializer` and add it in the `com.auth0.samples` package:
 
@@ -518,7 +518,7 @@ curl -H "Authorization: Bearer "$JWT http://localhost:8080/products
 
 As we can see in the code snippet above, issuing requests to unsecured endpoints has not changed. Besides that, we can see that issuing requests to secured endpoints now need an `Authorization` header with a JWT. In this case, we need to fetch a valid JWT from Auth0 (note that we use a command-line JSON processor called [`jq`](https://github.com/stedolan/jq) to extract the JWT to a bash variable). After that, we append this JWT to the `Authorization` of every request we issue to secured endpoints.
 
-Another important thing that we need to note is that the commands above are using two bash variables: `CLIENT_ID` and `CLIENT_SECRET`. These variables were extracted from an API configured on a free Auth0 account. To learn more about APIs and Auth0, take a look at [the official documentation](https://auth0.com/docs/quickstart/backend/java-spring-security/01-authorization).
+Another important thing that we need to note is that the commands above are using two bash variables: `CLIENT_ID` and `CLIENT_SECRET`. These variables were extracted from an API configured on a [free Auth0 account](https://auth0.com/pricing). To learn more about APIs and Auth0, take a look at [the official documentation](https://auth0.com/docs/quickstart/backend/java-spring-security/01-authorization).
 
 ## Conclusion
 
