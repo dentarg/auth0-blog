@@ -15,9 +15,9 @@ design:
   bg_color: "#090909"
   image: https://cdn.auth0.com/blog/customer-data/customer-data-icon.png
 tags:
-- leadership
+- culture
 - company-news
-- executive-team
+- inclusion
 - auth0
 related:
 - 2017-10-05-auth0-expands-leadership-team
