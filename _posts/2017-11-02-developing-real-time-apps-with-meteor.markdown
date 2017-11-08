@@ -130,10 +130,10 @@ Open up the `slangbucket` code repository in an editor. These are the files that
 
 ### Select Templating Engine
 
-Meteor ships with a templating engine called `Blaze`. Blaze renders responses from HTML files and has a very familiar expression language. It uses double braces, `{{ }}`, and `{{> }}`.
+Meteor ships with a templating engine called `Blaze`. Blaze renders responses from HTML files and has a very familiar expression language. It uses double braces, {% raw %}{{ }}{% endraw %}, and {% raw %}{{> }}{% endraw %}.
 
-* **{{> }}** - Used to include Meteor templates in HTML files
-* **{{ }}** - Used to display data and logic from JavaScript files in the view(HTML) files.
+* {% raw %}{{> }}{% endraw %} - Used to include Meteor templates in HTML files
+* {% raw %}{{ }}{% endraw %} - Used to display data and logic from JavaScript files in the view(HTML) files.
 
 Meteor is very configurable. You can use _Angular_ and _React_ with Meteor. If you want to use React as the view library, all you need to do is add react:
 
@@ -200,7 +200,6 @@ _client/main.html_
 
 <body>
   <div class="container" ng-app="slang-bucket">
-
   </div>
 </body>
 ```
@@ -314,7 +313,8 @@ In `body.html`, we invoked the data returned from the `slangs` helper with the c
 
 It loops through the array and inserts a slang template for each value. The slang template is shown below:
 
-```
+{% highlight html %}
+{% raw %}
 <template name="slang">
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -325,7 +325,8 @@ It loops through the array and inserts a slang template for each value. The slan
     </div>
   </div>
 </template>
-```
+{% endraw %}
+{% endhighlight %}
 
 ### Data Storage
 
@@ -402,7 +403,9 @@ Let's add a form to our app to enable users to add new slangs. Within the body t
 
 _imports/ui/body.html_
 
-```
+
+{% highlight html %}
+{% raw %}
 ...
 <div class="container">
     <header>
@@ -428,7 +431,8 @@ _imports/ui/body.html_
     </div>
   </div>
 ...
-```
+{% endraw %}
+{% endhighlight %}
 
 Add the JavaScript code to listen to the submit event on the form:
 
@@ -468,7 +472,8 @@ Let's add functionality to delete existing slangs. We need to move the slang tem
 
 _imports/ui/slang.html_
 
-```
+{% highlight html %}
+{% raw %}
 <template name="slang">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -479,9 +484,10 @@ _imports/ui/slang.html_
       </div>
     </div>
 </template>
-```
+{% endraw %}
+{% endhighlight %}
 
-> **Note: Make sure you remove the slang template that was in the `body.html` file.
+> **Note:** Make sure you remove the slang template that was in the `body.html` file.
 
 _imports/ui/slang.js_
 
@@ -523,7 +529,8 @@ meteor add accounts-ui accounts-password
 
 Add the authentication drop-down widget to the _body.html_ file like so:
 
-```
+{% highlight html %}
+{% raw %}
 <body>
   <div class="container">
     <header>
@@ -534,8 +541,8 @@ Add the authentication drop-down widget to the _body.html_ file like so:
 
       {{> loginButtons}}
     ....
-
-```
+{% endraw %}
+{% endhighlight %}
 
 Create an `imports/startup/accounts-config.js` file and add the code below to it like so:
 
@@ -547,7 +554,7 @@ Accounts.ui.config({
 });
 ```
 
-Also import the _imports/startup/accounts-config.js_ file in _client/main.js_:
+Also import the `imports/startup/accounts-config.js` file in `client/main.js`:
 
 ```js
 import '../imports/startup/accounts-config.js';
@@ -584,7 +591,8 @@ Slangs.insert({
 
 Open up `imports/ui/body.html` and modify it like so:
 
-```
+{% highlight html %}
+{% raw %}
 ...
  {{> loginButtons}}
 
@@ -602,13 +610,14 @@ Open up `imports/ui/body.html` and modify it like so:
       </form>
       {{/if}}
 ...
-```
+{% endraw %}
+{% endhighlight %}
 
-In the code above, we added the `{{#if currentUser}}` block helper. `currentUser` is a built-in helper that refers to the logged-in user. If the user is logged-in, show the _add new slang_ form, or else hide the form.
+In the code above, we added the {% raw %}{{#if currentUser}}{% endraw %} block helper. `currentUser` is a built-in helper that refers to the logged-in user. If the user is logged-in, show the _add new slang_ form, or else hide the form.
 
 Now, run your app.
 
-![Meteor - Nonlogged-in user](https://cdn.auth0.com/blog/slangbucket/non-loggedinuser.png)
+![Meteor - Nonlogged-in user](https://cdn.auth0.com/blog/slangbucket/nonloggedinuser.png)
 _User not logged in_
 
 No user is logged in, so no form to add new slangs. Now, create an account.
@@ -625,7 +634,8 @@ One more thing, let's display the username of the logged-in user next to the sla
 
 Update `imports/ui/slang.html` to the code below:
 
-```
+{% highlight html %}
+{% raw %}
 <template name="slang">
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -637,7 +647,9 @@ Update `imports/ui/slang.html` to the code below:
     </div>
   </div>
 </template>
-```
+{% endraw %}
+{% endhighlight %}
+
 
 ![Meteor - Username of Slang Adder](https://cdn.auth0.com/blog/slangbucket/username.png)
 _Username displayed next to Slang_
