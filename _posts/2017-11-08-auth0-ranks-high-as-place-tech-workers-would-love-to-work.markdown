@@ -11,8 +11,8 @@ author:
   mail: jeana.tahnk@auth0.com
   avatar: https://pbs.twimg.com/profile_images/1891692507/JeanaTahnk2_crop_400x400.jpg
 design:
-  bg_color: "#090909"
-  image: https://cdn.auth0.com/blog/customer-data/customer-data-icon.png
+  bg_color: "#00387A"
+  image: https://cdn.auth0.com/blog/auth0-hired/logo.png
 tags: 
 - culture
 - diversity
