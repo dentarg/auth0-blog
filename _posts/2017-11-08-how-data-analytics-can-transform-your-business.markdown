@@ -2,7 +2,7 @@
 layout: post
 title: "How Data Analytics Can Transform Your Business"
 description: "How data-driven insights can give your business a huge competitive advantage."
-date: 2017-11-03 8:30
+date: 2017-11-08 8:30
 category: Growth, Data
 author:
   name: Diego Poza
@@ -28,6 +28,7 @@ Formula 1 races are not won by the size of the engine, the aerodynamics of the c
 Each car is equipped with over 150 sensors that track key performance stats in real time such as fuel efficiency, tire pressure, brake heat, GPS and wind speeds. Each sensor is a data source that is analyzed to help answer specific questions during the race that gives the team a competitive advantage.
 
 ![Data Analytics - F1 Team](https://www.metasphere.co.uk/wp-content/uploads/2014/09/bmw-saub-f1-08-half-2012-11-515x364.jpg)
+
 _[Source](https://www.metasphere.co.uk/telemetry-data-journey-f1/)_
 
 For example, Formula 1 analysts can use the data to determine which laps the car should stop for a pit stop. Would it be faster to do a pit stop at lap 10 or lap 14? In a sport where seconds matter, the right answer can help the team win.
@@ -72,7 +73,7 @@ The benefits of using data analytics to drive decisions can impact every aspect 
 
 **Transforming Operations**
 
-UPS put tracking sensors on over 10,000 delivery trucks in an effort to optimize their routes. Their analytics project started with a simple question: *Can we reduce fuel consumption by finding faster routes for our drivers?* They now save 10 million gallons (http://edition.cnn.com/2017/02/16/world/ups-trucks-no-left-turns/index.html) of gas and eliminated 12.1 million miles of driving per year.
+UPS put tracking sensors on over 10,000 delivery trucks in an effort to optimize their routes. Their analytics project started with a simple question: *Can we reduce fuel consumption by finding faster routes for our drivers?* They now save [10 million gallons](http://edition.cnn.com/2017/02/16/world/ups-trucks-no-left-turns/index.html) of gas and eliminated 12.1 million miles of driving per year.
 
 **Transforming Customer Relationships**
 
