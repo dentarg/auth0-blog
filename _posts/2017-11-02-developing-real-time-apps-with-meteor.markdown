@@ -43,13 +43,13 @@ There are several websites and applications that run on Meteor. A few of them ar
 
 ## Meteor Features
 
-Meteor provides a lot out of the box. It ships with a lot of features that makes it worthy to consider when looking for a framework for your next project.
+Meteor provides a lot out of the box. It ships with many features that make it worth considering when looking for a framework for your next project.
 
 * **Authentication**: Meteor ships with session management and authentication features out of the box.
 * **Real-time Feature**: Meteor is built from the ground up on the Distributed Data Protocol (DDP) to allow data transfer in both directions. In Meteor, you create publication endpoints that can push data from server to client.
 * **Routing**: Meteor provides a `flow-router` package that allows client-side routing.
 * **Custom Templating Engines**:  Meteor ships with its own templating engine but allows you to use other view libraries.
-* **Packaging for Mobile**: Meteor allows you to easily package your web app into an Android an iOs app. With meteor, you can build for mobile.
+* **Packaging for Mobile**: Meteor allows you to easily package your web app into Android and iOS apps. With meteor, you can build for mobile.
 * **Galaxy**: The Meteor Development Group (MDG) provides a service to run Meteor apps. [Galaxy](https://galaxy.meteor.com) is a distributed system that runs on Amazon AWS. It saves you a lot of trouble in configuring and deploying your app to production.
 
 ## Meteor Key Requirements
@@ -373,7 +373,7 @@ Template.body.helpers({
 });
 ```
 
-> **Note: Check out the app. Nothing seems to appear again. Yes, nothing shows because our database is currently empty.
+> **Note:** Run the app. Nothing seems to appear again. Yes, nothing shows because our database is currently empty.
 
 Let's add data to the database. We can decide to enter data from the mongo console via the terminal or we can write a script. The former is very tedious.
 
@@ -394,7 +394,7 @@ Meteor.startup(() => {
 
 When the server starts up, it automatically inserts the data defined here into the database. Now, run your app again, you should see the data. Slick!
 
-> Note: Once it populates the database once, go ahead and remove the code to avoid duplicate insertion of data.
+> **Note:** Once it populates the database once, go ahead and remove the code to avoid duplicate insertion of data.
 
 ### Add New Slangs
 
@@ -464,7 +464,7 @@ In the code above, it listens to the submit event of the form, grabs the values 
 
 ### Delete Slangs
 
-Let's add functionality to delete existing slangs. Let's move the slang template to its own file. Create two files: `imports/ui/slang.html` and `imports/ui/task.js`.
+Let's add functionality to delete existing slangs. We need to move the slang template to its own file. Create two files: `imports/ui/slang.html` and `imports/ui/task.js`.
 
 _imports/ui/slang.html_
 
@@ -499,9 +499,9 @@ Template.slang.events({
 });
 ```
 
-In the code above, we imported the slang template, `slang.html`. And we have a click event that invokes the remove method when a user clicks the delete button on a slang.
+In the code above, we imported the slang template, `slang.html`, and we have a _click_ event that invokes the `remove` method when a user clicks on a slang's delete button.
 
-`this` refers to an individual slang object in the collection. `_id` is the unique field that MongoDB assigns to a document in a collection. With this `_id`, we can do almost anything, `delete`, `update`, and `create`.
+`this` refers to an individual slang object in the collection. `_id` is the unique field that MongoDB assigns to a document in a collection. With this `_id`, we can do almost anything: `delete`, `update`, and `create`.
 
 One more thing. Import `slang.js` into the `body.js` file:
 
@@ -537,7 +537,7 @@ Add the authentication drop-down widget to the _body.html_ file like so:
 
 ```
 
-Create an _imports/startup/accounts-config.js_ file and add the code below to it like so:
+Create an `imports/startup/accounts-config.js` file and add the code below to it like so:
 
 ```js
 import { Accounts } from 'meteor/accounts-base';
@@ -554,7 +554,7 @@ import '../imports/startup/accounts-config.js';
 import '../imports/ui/body.js';
 ```
 
-Right now, we should be able to create an account. However, authentication is useless if we can't restrict access to some functionalities. Let's make sure only registered users can add new slangs. In addition, we can also reference the username of the user that added a slang.
+Right now, we should be able to create an account. However, authentication is useless if we can't restrict access to functionality. Let's make sure only registered users can add new slangs. In addition, we can also reference the username of the user that added a slang.
 
 A quick breakdown. We'll need to add new attributes to our `Slang` collection.
 
@@ -604,7 +604,7 @@ Open up `imports/ui/body.html` and modify it like so:
 ...
 ```
 
-In the code above, we added the `{{#if currentUser}}` block helper. `currentUser` is a built-in helper that refers to the logged-in user. If the user is logged-in, show the _add new slang_ form else hide the form.
+In the code above, we added the `{{#if currentUser}}` block helper. `currentUser` is a built-in helper that refers to the logged-in user. If the user is logged-in, show the _add new slang_ form, or else hide the form.
 
 Now, run your app.
 
@@ -732,7 +732,7 @@ Template.slang.events({
 
 We replaced the _slang remove_ code with `Meteor.call('slangs.remove', this._id);`.
 
-`Meteor.call` sends a request to the server to run the method in a secure environment via an AJAX.
+`Meteor.call` sends a request to the server to run the method in a secure environment via an AJAX request.
 
 ### Security Concerns - Filter Data
 
@@ -773,7 +773,7 @@ Template.body.onCreated(function bodyOnCreated() {
 
 In the code above, it subscribes to the slangs publication once the body template is created. Now, our app is secure.
 
-Run the app again. The app should work!
+Run the app again. Everything should be in full working order!
 
 ## Extra Functionality - Packages
 
@@ -785,9 +785,11 @@ Meteor is a hybrid framework that takes care of your client and server needs. In
 
 JSON Web Tokens, commonly known as JWTs, are tokens that are used to authenticate users on applications. This technology has gained popularity over the past few years because it enables backends to accept requests simply by validating the contents of these JWTs. That is, applications that use JWTs no longer have to hold cookies or other session data about their users. This characteristic facilitates scalability while keeping applications secure.
 
+{% include tweet_quote.html quote_text="Applications that use JWTs no longer have to hold cookies or other session data about their users." %}
+
 Whenever the user wants to access a protected route or resource (an endpoint), the user agent must send the JWT, usually in the _Authorization_ header using the [Bearer schema](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html), along with the request.
 
-When the API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
+When the API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fail, the request must be rejected. The following list shows the validation steps needed:
 
 * Check that the JWT is well-formed
 * Check the signature
@@ -804,7 +806,7 @@ Login to your Auth0 [management dashboard](https://manage.auth0.com) and create 
 
 Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want.
 
-The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Slang API**, and for the identifier, I'll set it as **https://slangsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
+The identifier will be used to identify your API, and this field cannot be changed once set. For our example, I'll name the API, **Slang API**, and for the identifier, I'll set it as **https://slangsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
 
 ![New API to be created](https://cdn.auth0.com/blog/meteor/creatingslangapi.png)
 _Create a New API_
@@ -831,7 +833,7 @@ WebApp.connectHandlers.use(app);
 
 In the code above, we imported `express`, `express-jwt`, and `jwks-rsa`.
 
-* The `express-jwt` module is an express middleware that validates a JSON Web Token and set the `req.user` with the attributes.
+* The `express-jwt` module is an express middleware that validates a JSON Web Token and sets the `req.user` with the attributes.
 * The `jwks-rsa` module is a library that helps retrieve RSA public keys from a JSON Web Key Set endpoint.
 
 Then the code just below the `imports` statements starts up express server and hooks it into the port Meteor uses:
@@ -843,6 +845,8 @@ WebApp.connectHandlers.use(app);
 ```
 
 Next, go ahead and add the following code:
+
+_server/main.js_
 
 ```js
 ...
@@ -872,6 +876,7 @@ Run your app by going to the `/api/slangs` route. You should see the set of slan
 
 Now, go ahead and modify the route code by adding the `authCheck` variable as a middleware.
 
+_server/main.js_
 
 ```js
 ...
@@ -901,7 +906,7 @@ It validates the access token and successfully makes the request.
 
 ## Conclusion
 
-Well done! You have learned how to build a real-time web app with Meteor. It's a platform that enables you to cut down on development time. Meteor makes it incredibly easy to also flesh out an API like you can do with [KeystoneJS](https://auth0.com/blog/developing-web-apps-and-restful-apis-with-keystonejs) and [Loopback](https://auth0.com/blog/developing-restful-apis-with-loopback/).
+Well done! You have learned how to build a real-time web app with Meteor, and authenticate it using JWTs. It's a platform that enables you to cut down on development time. Meteor makes it incredibly easy to also flesh out an API like you can do with [KeystoneJS](https://auth0.com/blog/developing-web-apps-and-restful-apis-with-keystonejs) and [Loopback](https://auth0.com/blog/developing-restful-apis-with-loopback/).
 
 {% include tweet_quote.html quote_text="Meteor is a platform that enables you to cut down on development time." %}
 
