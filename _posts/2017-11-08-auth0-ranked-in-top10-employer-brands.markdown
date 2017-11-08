@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Auth0 Ranked As One of Seattles Top 10 Employer Brands, According to Hired"
+title: "Auth0 Ranked As One of Seattle's Top 10 Employer Brands, According to Hired"
 description: Auth0 listed alongside other elite tech companies as a place people would love to work
 date: 2017-11-08 8:30
 category: Announcements, Press
