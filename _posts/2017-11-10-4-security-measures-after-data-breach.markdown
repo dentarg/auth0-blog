@@ -2,13 +2,14 @@
 layout: post
 title: "4 Security Measures Companies Implement After a Breach"
 description: "Sometimes, data breaches happen.  Taking preventative measures is incredibly important, but knowing how to mitigate after a breach should also be a priority."
-date: 2017-10-18 09:00
+date: 2017-11-10 09:00
 category: Security
 author:
-  name: "As Yet Unspecified"
-  url: ""
-  mail: "email@auth0.com"
-  avatar: ""
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+is_non-tech: true
 design:
   bg_color: "#6B5282"
   image: https://cdn.auth0.com/blog/mitigate/security-measures-main.png
@@ -36,7 +37,7 @@ While there is no magic security system that will guarantee 100% protection, the
 
 [Data encryption](https://digitalguardian.com/blog/what-data-encryption) makes your data really hard to read, and most hackers don't have the mathematical muscle or the patience to decrypt secure data. If your organization is responsible for the sensitive data of millions of people, you would definitely encrypt it, right?
 
-In 2014, hackers stole millions of customer records from Anthem, the second-largest health insurer in the US. The data was highly sensitive, yet Anthem failed to encrypt it. Fast forward three years to the recent Equifax breach where the personal data of over 140 million people were stolen. Equifax mind-bogglingly [failed to encrypt](https://www.cbsnews.com/news/equifax-ex-ceo-hacked-data-wasnt-encrypted/) their stolen data as well.
+In 2014, hackers stole millions of customer records from Anthem, the second-largest health insurer in the US. The data was highly sensitive, yet Anthem failed to encrypt it. Fast forward three years to the recent Equifax breach where the personal data of over 140 million people were stolx`en. Equifax mind-bogglingly [failed to encrypt](https://www.cbsnews.com/news/equifax-ex-ceo-hacked-data-wasnt-encrypted/) their stolen data as well.
 
 Hackers have proven they can break through the most sophisticated cyber security systems in the world. Traditional perimeter and network security like firewalls, intrusion detection, and antivirus systems are useless once the thieves or malware is inside your database.
 
