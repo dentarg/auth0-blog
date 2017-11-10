@@ -5,8 +5,8 @@ description: "Angular 5, also known as pentagonal-donut brings some new features
 date: 2017-11-10 08:30
 category: Technical Guide, Angular, Angular 5
 design:
-  bg_color: "#1A1A1A"
-  image: https://cdn.auth0.com/blog/reactjs16/logo.png
+  bg_color: "#012C6C"
+  image: https://cdn.auth0.com/blog/angular5/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -26,11 +26,11 @@ related:
 
 ---
 
-**TL;DR:** Angular is an all-encompassing JavaScript framework that is massively used all over the world by developers for building web, desktop, and mobile applications. In this article, I'll cover the new features in Angular 5 and several other changes and deprecations.
+**TL;DR:** Angular is an all-encompassing JavaScript framework that is frequently used by developers all over the world for building web, desktop, and mobile applications. In this article, I'll cover the new features in Angular 5 and several other changes and deprecations.
 
 ---
 
-Angular is built and maintained by Google. At the time of this writing, Angular has over 29,000 stars on [GitHub](https://github.com/angular/angular). It is a platform that combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. And web platforms such as _Google Adwords_, _Google Fiber_, _Adsense_, and _Winc_ use Angular to build their user interfaces.
+Angular is built and [maintained by Google.](https://developers.google.com/experts/all/technology/angular) At the time of this writing, Angular has over 29,000 stars on [GitHub](https://github.com/angular/angular). It is a platform that combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Web platforms such as _Google Adwords_, _Google Fiber_, _Adsense_, and _Winc_ use Angular to build their user interfaces.
 
 Angular 5 was announced to the world on November 1, 2017. The previous Angular version was 4.4.0. This release focused on making Angular smaller and faster to use. Let's go through the major changes in version 5.
 
@@ -92,7 +92,7 @@ Angular 5 ships with new number, date, and currency pipes that increase standard
 
 ## 4. Improved Decorator Support
 
-Angular 5 now supports expression lowering in decorators for lambdas and the value of `useValue`, `useFactory`, and `data` in object literals. Furthermore, a lambda can be used instead of a named function like so:
+Angular 5 now supports expression lowering in decorators for lambdas, and the value of `useValue`, `useFactory`, and `data` in object literals. Furthermore, a lambda can be used instead of a named function like so:
 
 _In Angular 5_
 
@@ -114,7 +114,7 @@ _Before Angular 5_
 
 ## 5. Build Optimization
 
-The Angular team focused on making Angular 5 faster, smaller and easier to use. In Angular 5, production builds created with the Angular CLI will now apply the build optimizer by default. The build optimizer removes Angular decorators from your app's runtime codes thereby reducing the size of your bundle and increasing the boot speed of your application. In addition, the build optimizer removes part of your application that is not needed during runtime via tree-shaking. This action leads to a decreased bundle and faster application speed.
+The Angular team focused on making Angular 5 faster, smaller and easier to use. In Angular 5, production builds created with the Angular CLI will now apply the build optimizer by default. The build optimizer removes Angular decorators from your app's runtime codes thereby reducing the size of your bundle and increasing the boot speed of your application. In addition, the build optimizer removes part of your application that is not needed during runtime via tree-shaking. This action leads to a decreased bundle size, and faster application speed.
 
 {% include tweet_quote.html quote_text="In Angular 5, production builds created with the Angular CLI will now apply the build optimizer by default." %}
 
@@ -134,7 +134,7 @@ ng serve --aot
 
 [Angular.io](https://angular.io) was used as a case study and the compiler pipeline saved 95% of the build time when an incremental AOT build was performed on it.
 
-> **Note:** TypeScript transforms are a new feature introduced as part of TypeScript 2.3 that allows hooking into the standard TypeScript compilation pipeline.
+> **Note:** TypeScript transforms are a new feature introduced as part of TypeScript 2.3, that allows hooking into the standard TypeScript compilation pipeline.
 
 ## 8. Forms Validation
 
@@ -243,13 +243,13 @@ In Angular 5, we have better support for service workers via the `[@angular/serv
 
 ## Deprecations and Other Updates
 
-* `NgFor` has been removed as it was deprecated since v4. Use `NgForOf` instead. This does not impact the use of *ngFor in your templates.
+* `NgFor` has been removed as it was deprecated since v4. Use `NgForOf` instead. This does not impact the use of `*ngFor` in your templates.
 * The compiler option `enableLegacyTemplate` is now disabled by default as the `<template>` element was deprecated since v4. Use `<ng-template>` instead. The option `enableLegacyTemplate` and the `<template>` element will both be removed in Angular v6.
 * The method `ngGetContentSelectors()` has been removed as it was deprecated since v4. Use `ComponentFactory.ngContentSelectors` instead.
 * `ReflectiveInjector` is now deprecated. Use `Injector.create` as a replacement.
 * `NgProbeToken` has been removed from `@angular/platform-browser` as it was deprecated since v4. Import it from `@angular/core` instead.
 
-Check out for other [Angular 5 updates here](https://github.com/angular/angular/blob/master/CHANGELOG.md).
+Check out other [Angular 5 updates here](https://github.com/angular/angular/blob/master/CHANGELOG.md).
 
 ## Upgrading to Angular 5
 
