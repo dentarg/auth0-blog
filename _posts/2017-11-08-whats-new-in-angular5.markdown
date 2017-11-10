@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Angular 5 Release: What’s New?"
-description: "Angular 5, also known as pentagonal-donut brings some new features to the popular JavaScript framework for building mobile, desktop and web applications. Learn what's new in Angular!"
+description: "Angular 5 brings some new features to the popular JavaScript framework for building mobile, desktop and web applications. Learn what's new in Angular!"
 date: 2017-11-10 08:30
 category: Technical Guide, Angular, Angular 5
 design:
@@ -34,7 +34,7 @@ Angular is built and [maintained by Google.](https://developers.google.com/exper
 
 Angular 5 was announced to the world on November 1, 2017. The previous Angular version was 4.4.0. This release focused on making Angular smaller and faster to use. Let's go through the major changes in version 5.
 
-## 1. Http deprecated, HttpClient here to Stay
+## 1. Http Deprecated, HttpClient Here to Stay
 
 Before version 4.3, the `@angular/http` module was used for making HTTP requests in Angular applications. The Angular team has now deprecated `Http` in version 5. The `HttpClient` API from `@angular/common/http` package that shipped in version 4.3 is now recommended for use in all apps. The `HttpClient` API features include:
 
@@ -239,7 +239,7 @@ providers: [
 
 In Angular 5, we have better support for service workers via the `[@angular/service-worker](https://github.com/angular/angular/tree/master/packages/service-worker)` package. The service worker package is a conceptual derivative of the `@angular/service-worker` package that was maintained at [github.com/angular/mobile-toolkit](github.com/angular/mobile-toolkit), but has been rewritten to support use-cases across a much wider variety of applications.
 
-> **Note:** Right now you will have to manually integrate the package because it's not fully integrated with the CLI yet.
+> **Note:** Right now you will have to manually integrate the package because it's not fully integrated with the CLI v1.5 yet. It is available as beta in version 1.6 of the CLI.
 
 ## Deprecations and Other Updates
 
