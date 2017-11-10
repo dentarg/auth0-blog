@@ -30,7 +30,7 @@ related:
 
 ---
 
-Angular is built and [maintained by Google.](https://developers.google.com/experts/all/technology/angular) At the time of this writing, Angular has over 29,000 stars on [GitHub](https://github.com/angular/angular). It is a platform that combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Web platforms such as _Google Adwords_, _Google Fiber_, _Adsense_, and _Winc_ use Angular to build their user interfaces.
+Angular is built and [maintained by Google.](https://developers.google.com/experts/all/technology/angular). It is a platform that combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Web platforms such as _Google Adwords_, _Google Fiber_, _Adsense_, and _Winc_ use Angular to build their user interfaces.
 
 Angular 5 was announced to the world on November 1, 2017. The previous Angular version was 4.4.0. This release focused on making Angular smaller and faster to use. Let's go through the major changes in version 5.
 
