@@ -15,10 +15,10 @@ design:
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
 tags:
+- auth0
 - culture
 - company-news
 - inclusion
-- auth0
 related:
 - 2017-10-05-auth0-expands-leadership-team
 - 2017-06-27-cloud-identity-leader-auth0-adds-30-million-series-c
