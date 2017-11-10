@@ -2,7 +2,7 @@
 layout: post
 title: "Angular 5 Release: What’s New?"
 description: "Angular 5, also known as pentagonal-donut brings some new features to the popular JavaScript framework for building mobile, desktop and web applications. Learn what's new in Angular!"
-date: 2017-10-26 08:30
+date: 2017-11-10 08:30
 category: Technical Guide, Angular, Angular 5
 design:
   bg_color: "#1A1A1A"
@@ -20,13 +20,13 @@ tags:
 - authentication
 related:
 - 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
-- 2017-06-28-real-world-angular-series-part-1
-- 2017-02-13-making-use-of-rxjs-angular
+- 2017-06-13-whats-new-in-node8-and-npm5
+- 2017-10-26-whats-new-in-react16
 ---
 
 ---
 
-**TL;DR:** Angular is an all-encompassing JavaScript framework that is massively used all over the world by developers for building web, desktop and mobile applications. In this article, I'll cover the new features in Angular 5 and several other changes and deprecations.
+**TL;DR:** Angular is an all-encompassing JavaScript framework that is massively used all over the world by developers for building web, desktop, and mobile applications. In this article, I'll cover the new features in Angular 5 and several other changes and deprecations.
 
 ---
 
@@ -95,7 +95,7 @@ _In Angular 5_
 
 ```js
   Component({
-    provider: [{provide: SOME_TOKEN, useFactory: () => null}]
+    provider: [{provide: 'token', useFactory: () => null}]
   })
   export class MyClass {}
 ```
@@ -104,7 +104,7 @@ _Before Angular 5_
 
 ```js
   Component({
-    provider: [{provide: SOME_TOKEN, useValue: SomeEnum.OK}]
+    provider: [{provide: 'token', useValue: calculated()}]
   })
   export class MyClass {}
 ```
@@ -115,9 +115,9 @@ The Angular team focused on making Angular 5 faster, smaller and easier to use. 
 
 ## 6. Angular Universal Transfer API
 
-The Angular Universal team has added [Domino](https://github.com/fgnass/domino) to the platform-server. This simply means more DOM manipulations can happen out of the box within server side contexts.
+The Angular Universal team has added [Domino](https://github.com/fgnass/domino) to the `platform-server`. This simply means more DOM manipulations can happen out of the box within server-side contexts.
 
-Furthermore, two modules, `ServerTransferStateModule` and `BrowserTransferModule` has been added to Angular Universal. These modules allow you to generate information as part of your rendering with platform-server, and then transfer it to the client side to avoid re-generation of the same information. In summary, it transfers state from the server which means developers do not need to make a second HTTP request once the application makes it to the client.
+Furthermore, two modules, `ServerTransferStateModule` and `BrowserTransferModule` has been added to Angular Universal. These modules allow you to generate information as part of your rendering with platform-server and then transfer it to the client side to avoid re-generation of the same information. In summary, it transfers state from the server which means developers do not need to make a second HTTP request once the application makes it to the client.
 
 ## 7. Faster Compiler
 
@@ -133,7 +133,7 @@ ng serve --aot
 
 ## 8. Forms Validation
 
-In Angular 5, forms now have the ability to decide when the validity and value of a field or form is updated via on `blur` or on `submit`, instead of every input event.
+In Angular 5, forms now have the ability to decide when the validity and value of a field or form are updated via on `blur` or on `submit`, instead of every input event.
 
 _Example Usage_
 
@@ -151,19 +151,73 @@ _Another Example_
 {% endraw %}
 {% endhighlight %}
 
+In the case of Reactive forms, you can add the option like so:
+
+```js
+ngOnInit() {
+  this.newUserForm = this.fb.group({
+    userName: ['Bob', { updateOn: 'blur', validators: [Validators.required] }]
+  });
+}
+```
+
 ## 9. Animations
 
 In Angular 5, we have two new transition aliases, `:increment` and `:decrement`.
 
 ```js
-transition(':increment')
+...
+animations: [
+  trigger('bannerAnimation', [
+   transition(":increment", group([
+     query(':enter', [
+       style({ left: '100%' }),
+       animate('0.5s ease-out', style('*'))
+     ]),
+     query(':leave', [
+       animate('0.5s ease-out', style({ left: '-100%' }))
+     ])
+   ])),
+   transition(":decrement", group([
+     query(':enter', [
+       style({ left: '-100%' }),
+       animate('0.5s ease-out', style('*'))
+     ]),
+     query(':leave', [
+       animate('0.5s ease-out', style({ left: '100%' }))
+     ])
+   ])),
+ ])
+]
+```
 
-transition(':decrement')
+Animation queries now support negative limits, in which case elements are matched from the end rather than from the beginning like so:
+
+```js
+...
+animations: [
+ trigger(
+   'myAnimation',
+   [
+     transition(
+         '* => go',
+         [
+           query(
+               '.item',
+               [
+                 style({opacity: 0}),
+                 animate('1s', style({opacity: 1})),
+               ],
+               {limit: -3}),
+        ]),
+   ]),
+]
+...
 ```
 
 ## 10. New Router Lifecycle Events
 
-Some new lifecycle events have been aded to the router. The events are `GuardsCheckStart`, `ChildActivationStart`, `ActivationStart`, `GuardsCheckEnd`, `ResolveStart`, `ResolveEnd`, `ActivationEnd`, and `ChildActivationEnd`. With these events, developers can track the cycle of the router from the start of running guards through to completion of activation.
+Some new lifecycle events have been added to the router. The events are `GuardsCheckStart`, `ChildActivationStart`, `ActivationStart`, `GuardsCheckEnd`, `ResolveStart`, `ResolveEnd`, `ActivationEnd`, and `ChildActivationEnd`. With these events, developers can track the cycle of the router from the start of running guards through to completion of activation.
 
 Furthermore, you can now configure the router to reload a page when it receives a request to navigate to the same URL.
 
@@ -178,7 +232,7 @@ providers: [
 
 ## 11. Better Support for Service Workers
 
-In Angular 5, we have better support for service workers via the `[@angular/service-worker](https://github.com/angular/angular/tree/master/packages/service-worker)` package. The service worker package is a conceptual derivative of the `@angular/service-worker` package that was maintained at [github.com/angular/mobile-toolkit](github.com/angular/mobile-toolkit), but has been rewritten to support use across a much wider variety of applications.
+In Angular 5, we have better support for service workers via the `[@angular/service-worker](https://github.com/angular/angular/tree/master/packages/service-worker)` package. The service worker package is a conceptual derivative of the `@angular/service-worker` package that was maintained at [github.com/angular/mobile-toolkit](github.com/angular/mobile-toolkit), but has been rewritten to support use-cases across a much wider variety of applications.
 
 > **Note:** Right now you will have to manually integrate the package because it's not fully integrated with the CLI yet.
 
@@ -192,7 +246,12 @@ In Angular 5, we have better support for service workers via the `[@angular/serv
 
 Check out for other [Angular 5 updates here](https://github.com/angular/angular/blob/master/CHANGELOG.md).
 
-## Aside: Using Auth0 with Angular 5
+## Upgrading to Angular 5
+
+The Angular team built a [nifty tool](https://angular-update-guide.firebaseapp.com/) to make upgrading as easy as possible.
+
+![Angular 5 Upgrade](https://cdn.auth0.com/blog/angular5/upgrade.png)
+_Angular 5 upgrade tool_
 
 {% include asides/angular.markdown %}
 
