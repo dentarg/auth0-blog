@@ -53,6 +53,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 In Angular 5, you can now give multiple names to your components and directives while exporting. Exporting a component with multiple names can help your users migrate without breaking changes.
 
+{% include tweet_quote.html quote_text="Exporting a component with multiple names can help your users migrate without breaking changes." %}
+
+
 _Example Usage:_
 
 ```js
@@ -113,11 +116,13 @@ _Before Angular 5_
 
 The Angular team focused on making Angular 5 faster, smaller and easier to use. In Angular 5, production builds created with the Angular CLI will now apply the build optimizer by default. The build optimizer removes Angular decorators from your app's runtime codes thereby reducing the size of your bundle and increasing the boot speed of your application. In addition, the build optimizer removes part of your application that is not needed during runtime via tree-shaking. This action leads to a decreased bundle and faster application speed.
 
+{% include tweet_quote.html quote_text="In Angular 5, production builds created with the Angular CLI will now apply the build optimizer by default." %}
+
 ## 6. Angular Universal Transfer API
 
 The Angular Universal team has added [Domino](https://github.com/fgnass/domino) to the `platform-server`. This simply means more DOM manipulations can happen out of the box within server-side contexts.
 
-Furthermore, two modules, `ServerTransferStateModule` and `BrowserTransferModule` has been added to Angular Universal. These modules allow you to generate information as part of your rendering with platform-server and then transfer it to the client side to avoid re-generation of the same information. In summary, it transfers state from the server which means developers do not need to make a second HTTP request once the application makes it to the client.
+Furthermore, two modules, `ServerTransferStateModule` and `BrowserTransferModule` have   been added to Angular Universal. These modules allow you to generate information as part of your rendering with platform-server and then transfer it to the client side to avoid re-generation of the same information. In summary, it transfers state from the server which means developers do not need to make a second HTTP request once the application makes it to the client.
 
 ## 7. Faster Compiler
 
