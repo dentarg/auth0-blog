@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "4 Security Measures Companies Implement After a Breach"
-description: "Sometimes, data breaches happen.  Taking preventative measures is incredibly important, but knowing how to mitigate after a breach should also be a priority."
+description: "Sometimes, data breaches happen. Taking preventative measures is incredibly important, but knowing how to mitigate after a breach should also be a priority."
 date: 2017-11-10 09:00
-category: Security
+category: Hot Topics, Security, Breaches
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -37,7 +37,7 @@ While there is no magic security system that will guarantee 100% protection, the
 
 [Data encryption](https://digitalguardian.com/blog/what-data-encryption) makes your data really hard to read, and most hackers don't have the mathematical muscle or the patience to decrypt secure data. If your organization is responsible for the sensitive data of millions of people, you would definitely encrypt it, right?
 
-In 2014, hackers stole millions of customer records from Anthem, the second-largest health insurer in the US. The data was highly sensitive, yet Anthem failed to encrypt it. Fast forward three years to the recent Equifax breach where the personal data of over 140 million people were stolx`en. Equifax mind-bogglingly [failed to encrypt](https://www.cbsnews.com/news/equifax-ex-ceo-hacked-data-wasnt-encrypted/) their stolen data as well.
+In 2014, hackers stole millions of customer records from Anthem, the second-largest health insurer in the US. The data was highly sensitive, yet Anthem failed to encrypt it. Fast forward three years to the recent Equifax breach where the personal data of over 140 million people were stolen. Equifax mind-bogglingly [failed to encrypt](https://www.cbsnews.com/news/equifax-ex-ceo-hacked-data-wasnt-encrypted/) their stolen data as well.
 
 Hackers have proven they can break through the most sophisticated cyber security systems in the world. Traditional perimeter and network security like firewalls, intrusion detection, and antivirus systems are useless once the thieves or malware is inside your database.
 
@@ -110,7 +110,7 @@ Companies are helping employees avoid data security errors in two ways:
 
 1. Educating employees with comprehensive and constant security training. Whether it's handling data, recognizing spam emails and social engineering practices, employees need to know how to identify and address security issues. Investing in training can be the most important security measure you implement as it strengthens the weakest link.
 
-2. Implementing[ two-factor authentication](https://auth0.com/learn/two-factor-authentication/) adds another layer of security on your employees' devices by requiring people to verify their identity in two ways, such as a password and an SMS code. This eliminates the concern of an employee losing a device or inadvertently sharing their password. Even if their password is stolen, the account can't be accessed without the second factor like a physical device or a biological feature, such as a fingerprint.
+2. Implementing [two-factor authentication](https://auth0.com/learn/two-factor-authentication/) adds another layer of security on your employees' devices by requiring people to verify their identity in two ways, such as a password and an SMS code. This eliminates the concern of an employee losing a device or inadvertently sharing their password. Even if their password is stolen, the account can't be accessed without the second factor like a physical device or a biological feature, such as a fingerprint.
 
 ![Computer Human Error](https://cdn.auth0.com/blog/data-breach-mitigate/c02a44df96e32340d96e334e61a5ec04--computer-humor-computer-programming.jpg) 
 
