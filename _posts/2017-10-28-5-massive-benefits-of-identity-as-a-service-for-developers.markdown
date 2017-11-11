@@ -77,7 +77,7 @@ Identity as a service provides developers with users identity. An identity witho
 
 Moving your users' identity to a service that focuses on that is an all-around good idea. This doesn’t mean you are not accountable for the authentication of your application. You still are, but it becomes much simpler and far harder to screw up.
 
-### Interested In Reading More?
+### More From Kyle Galbraith
 I have begun putting a book together that focuses on learning AWS by actually using it. Instead of getting lost in the documentation, focus on a problem and learn the services that help you solve it as you are using them. If you are interested in learning more about AWS, sign up to staty updated on the progress of the book [Learning AWS By Using It](https://www.kylegalbraith.com/learn-aws).
 
 
