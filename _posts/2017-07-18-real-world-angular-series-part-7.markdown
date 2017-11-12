@@ -693,99 +693,11 @@ We'll link the authenticated user's name to the `/my-rsvps` route. We'll also ad
 
 You may have noticed throughout development that your access token periodically expires if the same session is left open for longer than two hours. This can result in unexpected loss of access to the API, or the UI still displaying elements that aren't actually accessible to unauthenticated users.
 
-In order to prevent session disruption, we're going to implement automatic authentication renewal with Auth0. The [auth0.js library](https://auth0.com/docs/libraries/auth0js/v8) has a method for performing silent authentication to [acquire new tokens](https://auth0.com/docs/libraries/auth0js/v8#using-renewauth-to-acquire-new-tokens).
+In order to prevent session disruption, we're going to implement automatic authentication renewal with Auth0. The [auth0.js library](https://auth0.com/docs/libraries/auth0js/v8) has a method for performing silent authentication to [acquire new tokens](https://auth0.com/docs/libraries/auth0js/v8#using-checksession-to-acquire-new-tokens).
 
 > **Important Note:** If you are using [Auth0 social connections](https://manage.auth0.com/#/connections/social) in your app, please make sure that you have set the connections up to use your _own_ client app keys. If you're using Auth0 dev keys, token renewal will always return `login_required`. Each social connection's details has a link with explicit instructions on how to acquire your own key for the particular IdP.
 
 Token renewal with silent authentication will _not_ reload our app or redirect users to the hosted Auth0 login page. The renewal will take place behind the scenes in an iframe, preventing disruption of the user experience.
-
-### Add Silent Callback HTML File
-
-In order to handle the silent renewal in the iframe, we need a static callback page that lives _outside_ our Angular app.
-
-Let's create a new file in the root of our project called `silent.html` and add the following code:
-
-{% highlight html %}
-<!-- silent.html -->
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <script src="https://cdn.auth0.com/js/auth0/8.7/auth0.min.js"></script>
-  <script>
-    const AUTH0_CLIENT_ID = '[YOUR_CLIENT_ID]';
-    const AUTH0_DOMAIN = '[YOUR_DOMAIN]'; // e.g., kmaida.auth0.com
-    const URL = 'http://localhost:4200';
-
-    const webAuth = new auth0.WebAuth({
-      clientID: AUTH0_CLIENT_ID,
-      domain: AUTH0_DOMAIN,
-      scope: 'openid profile',
-      responseType: 'token id_token',
-      redirectUri: URL
-    });
-
-    webAuth.parseHash(window.location.hash, function (err, response) {
-      parent.postMessage(err || response, URL);
-    });
-  </script>
-</head>
-<body></body>
-</html>
-{% endhighlight %}
-
-When we call the [auth0.js `renewAuth()` method](https://auth0.com/docs/libraries/auth0js/v8#using-renewauth-to-acquire-new-tokens), this is the page that we want to redirect to after the token is renewed in the iframe. Change `[YOUR_CLIENT_ID]` and `[YOUR_DOMAIN]` to the appropriate information for your [Auth0 Client](https://manage.auth0.com/#/clients). We can then send the [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) back to the parent (the Angular app).
-
-> **Note:** When we're ready to deploy our app to production, we'll need to change the `URL` variable to our production URL. Alternately, if we want to test the production build locally, we would change this to `http://localhost:8083` to do so.
-
-### Update Server to Serve Silent Callback File
-
-Now we have a static `silent.html` page, but there's no way to access it. Let's update our `server.js` to serve this static file when it's requested:
-
-```js
-// server.js
-...
-/*
- |--------------------------------------
- | App
- |--------------------------------------
- */
-
-...
-
-// Serve static silent.html file at /silent
-app.use('/silent', express.static(path.join(__dirname, './silent.html')));
-
-// Set static path to Angular app in dist
-...
-```
-
-> **Important Note:** We need to make sure we place the `app.use('/silent...` line _above_ the static path that serves the Angular `./dist` folder in the `App` block. This will ensure that it is [looked up first by Express](https://expressjs.com/en/starter/static-files.html).
-
-If you visit this page in the browser at [http://localhost:8083/silent.html](http://localhost:8083/silent.html), the proper file should be sent. The page should appear blank, so review the developer tools to make sure it was served as expected.
-
-### Update Auth Config
-
-We'll need a new redirect configuration variable to use with our `renewAuth()` call. Open the `auth.config.ts` file and add it like so:
-
-```typescript
-// src/app/auth/auth.config.ts
-...
-
-interface AuthConfig {
-  ...
-  SILENT_REDIRECT: string;
-  ...
-};
-
-export const AUTH_CONFIG: AuthConfig = {
-  ...,
-  SILENT_REDIRECT: 'http://localhost:8083/silent',
-  ...
-};
-```
-
-Now we can access this data along with all of our other front end Auth0 configuration settings.
 
 ### Update Auth Service to Support Token Renewal
 
@@ -850,20 +762,19 @@ export class AuthService {
   ...
 
   renewToken() {
-    this._auth0.renewAuth({
-      redirectUri: AUTH_CONFIG.SILENT_REDIRECT,
-      usePostMessage: true
-    }, (err, authResult) => {
-      if (authResult && authResult.accessToken) {
-        this._setSession(authResult);
-      } else if (err) {
-        console.warn(`Could not renew token: ${err.errorDescription}`);
-        // Log out without redirecting to clear auth data
-        this.logout(true);
-        // Log in again
-        this.login();
+    this._auth0.checkSession({},
+      (err, authResult) => {
+        if (authResult && authResult.accessToken) {
+          this._setSession(authResult);
+        } else if (err) {
+          console.warn(`Could not renew token: ${err.errorDescription}`);
+          // Log out without redirecting to clear auth data
+          this.logout(true);
+          // Log in again
+          this.login();
+        }
       }
-    });
+    );
   }
 
   scheduleRenewal() {
@@ -915,24 +826,23 @@ Now we'll create three new methods to implement token renewal. The first method 
 
 ```typescript
   renewToken() {
-    this._auth0.renewAuth({
-      redirectUri: AUTH_CONFIG.SILENT_REDIRECT,
-      usePostMessage: true
-    }, (err, authResult) => {
-      if (authResult && authResult.accessToken) {
-        this._setSession(authResult);
-      } else if (err) {
-        console.warn(`Could not renew token: ${err.errorDescription}`);
-        // Log out without redirecting to clear auth data
-        this.logout(true);
-        // Log in again
-        this.login();
+    this._auth0.checkSession({},
+      (err, authResult) => {
+        if (authResult && authResult.accessToken) {
+          this._setSession(authResult);
+        } else if (err) {
+          console.warn(`Could not renew token: ${err.errorDescription}`);
+          // Log out without redirecting to clear auth data
+          this.logout(true);
+          // Log in again
+          this.login();
+        }
       }
-    });
+    );
   }
 ```
 
-This method uses [auth0.js to acquire new tokens](https://auth0.com/docs/libraries/auth0js/v8#using-renewauth-to-acquire-new-tokens) using the `renewAuth()` method on our existing `_auth0` web auth instance. We'll set `redirectUri` to the silent redirect page. We'll also set the `usePostMessage: true` option. This uses [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to implement cross-origin communication between our parent app and the silent authentication taking place in an iframe. On successful acquisition of a new access token, we'll call `_setSession()` to start a new session. If an error occurs, we'll execute `logout(true)` (without redirection) to quietly clear authentication data, then we'll prompt the user to log in again.
+This method uses [auth0.js to acquire new tokens](https://auth0.com/docs/libraries/auth0js/v8#using-checksession-to-acquire-new-tokens) using the `checkSession()` method on our existing `_auth0` web auth instance. This approach uses [`postMessage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) under the hood to implement cross-origin communication between our parent app and the silent authentication taking place in an iframe. On successful acquisition of a new access token, we'll call `_setSession()` to start a new session. If an error occurs, we'll execute `logout(true)` (without redirection) to quietly clear authentication data, then we'll prompt the user to log in again.
 
 > **Note:** As written, the hosted login redirect will happen automatically without forewarning the user. Keep in mind that this _only_ occurs if silent authentication _fails_ for some reason. If you'd like to notify the user _before_ automatically prompting them to log in again or give them a choice to stay logged out and return to the homepage, you should do so here.
 
@@ -986,15 +896,15 @@ This method simply checks for the existence of a `refreshSub` subscription and u
 
 ### Update Auth0 Client Settings
 
-In order to avoid getting a `403 Forbidden` error when silently renewing authentication, we need to make sure our Auth0 Client's callback settings are updated to allow our new `/silent` route.
+In order to avoid getting a `403 Forbidden` error when silently renewing authentication, we need to make sure our Auth0 Client's allowed origin settings are updated.
 
-Go to your [Auth0 Dashboard Clients](https://manage.auth0.com/#/clients/) section and select your app's Client. In the **Allowed Callback URLs**, add `http://localhost:8083/silent` to the list. Save your changes.
+Go to your [Auth0 Dashboard Clients](https://manage.auth0.com/#/clients/) section and select your app's Client. In the **Allowed Web Origins**, add `http://localhost:8083` to the list. Save your changes. This enables the domain to be used with [web message response mode](https://auth0.com/docs/protocols/oauth2#how-response-mode-works).
 
 > **Note:** Recall that we are using the `loggedIn` property to track authentication state in templates (rather than `auth.tokenValid`). This is ideal because `loggedIn` is updated on the fly as the state changes. We also won't get a flash of a logged-out state during a successful token renewal.
 
 ### Test Token Expiration and Renewal
 
-For testing, you can change the access token expiration time in your [Auth0 Dashboard APIs](https://manage.auth0.com/#/apis). Select the API you set up for this application. You can then change the **Token Expiration For Browser Flows (Seconds)** value. It is `7200` seconds by default (2 hours). For testing token renewal, you can change this value to something much shorter. Test it out with the setting at `30` seconds. If you open your browser's Network panel, your login should be persisted and you should see activity every 30 seconds indicating successful silent token renewal.
+For testing, you can change the access token expiration time in your [Auth0 Dashboard APIs](https://manage.auth0.com/#/apis). Select the API you set up for this application. You can then change the **Token Expiration For Browser Flows (Seconds)** value. It is `7200` seconds by default (2 hours). For testing token renewal, you can change this value to something much shorter. Test it out with the setting at `20` seconds. If you open your browser's Network panel, your login should be persisted and you should see activity (a call to the `authorize` endpoint) every 20 seconds indicating successful silent token renewal.
 
 <p align="center">
 <img alt="Auth0 dashboard APIs change token expiration" src="https://cdn.auth0.com/blog/mean-series/auth0-dash-token-expiration.png">
