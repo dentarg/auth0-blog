@@ -2,7 +2,7 @@
 layout: post
 title: "Authentication Provider Best Practices: Centralized Login"
 description: "Learn why centralized login is the most secure, standards-based strategy when authenticating with a provider."
-date: 2017-11-02 8:30
+date: 2017-11-17 8:30
 category: Technical guide, Centralized login, Angular
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -40,7 +40,7 @@ High standards of security and ease of use have been set for modern authenticati
 
 ### What is Embedded Login?
 
-**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on a web app's domain with text inputs, or in the case of native apps, with inputs or an embedded WebView. Credentials are then sent to the authentication provider for login. In a web app, this is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
+**Embedded login** refers to a method of authentication wherein credentials are entered via an experience that is _embedded_ on an app's domain with text inputs and are then sent to an authentication provider for verification and login. This is a _cross-origin_ request. Embedded logins present a range of potential security and implementation challenges that cause issues for developers and users; as a matter of fact, [Google no longer supports an embedded approach when implementing OAuth](https://auth0.com/blog/google-blocks-oauth-requests-from-embedded-browsers/).
 
 ### What Do Centralized and Embedded Login Look Like?
 
@@ -49,29 +49,21 @@ High standards of security and ease of use have been set for modern authenticati
 1. **Centralized Login** - When clicking a button or link to authenticate in both the browser and native app, the centralized login URL at [accounts.google.com](https://accounts.google.com) is loaded.
 2. **Embedded Login** - When clicking a button or link to authenticate in the browser, an overlay modal is opened on the same domain, prompting the user to log in. The mobile app also displays input fields within the app.
 
-## A Tale of Two Companies
+## Why Centralized Login is a Long-Term Investment
 
-Let's begin with two hypothetical timelines from the perspective of tech teams at companies with imaginary products. These examples can help us visualize and relate to the challenges presented when implementing authentication in a way that doesn't afford enough flexibility.
+Let's look at a hypothetical example using a timeline from an imaginary company. Let's say our make-believe company, "SourceCentral", provides public and private source control repository hosting. Their timeline looks something like this:
 
-### Company A
+**Year 0:** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs, since we are still small and only have one service.
 
-The engineering team at our first make-believe company (let's call them Company A) has produced the following timeline of sentiments:
+**Year 1:** Lots of people have signed up and outlook is great! People love our service. We're now developing an API so that we can better serve our customerbase of developers who want to be able to integrate our service with third parties, but...
 
-* **Year 0**: We're building an online video streaming service. Login is performed using an embedded username and password form on the homepage.
-* **Year 1**: We're doing great! People love our service. We're now developing an API so that third-party tools can upload videos to the service.
-* **Year 2**: Due to high demand, we're building native mobile apps for Android and iOS. Users need to sign in every time they open the app.
-* **Year 3**: We've been acquired by Google! However, our proprietary authentication does _not_ integrate easily with other systems. It's become a nightmare to overhaul authentication for our site, mobile apps, and APIs! 😩
+**Year 2:** ...authentication has been a huge challenge now that we have an API that requires authorization as well as third party integrations. 😧 To address the complexities and issues this is presenting, we're implementing OAuth in order to provide a much more _centralized_ authentication and authorization process for our product and APIs.
 
-### Company B
+**Year 3:** With a centralized login approach, we're now able to leverage Single Sign-On. Our customers love this, and we've added Multi-factor Authentication as well. This was easy with a centralized login; instead of having to change every single service, we only had to do it once! It's much easier to maintain and enhance.
 
-Now let's consider a second make-believe company called Company B. Their engineering team's timeline looks like this:
+**Years 4, 5, 6, etc:** We're rolling out new properties and apps at a steady pace. We have a desktop app, a community, chat hosting for repositories, and several other services as well. Securing and authenticating all our new services is a non-issue with centralized authentication! 🎉
 
-* **Year 0**: We're building an online photo storage and sharing service. Login is centralized and implemented with OAuth 2.0 and Google as a social Identity Provider (IdP).
-* **Year 1**: We're doing great! People love our service. We're now developing an API so that third-party tools can upload photos to the service. API security and third-party authentication have been easy with OAuth.
-* **Year 2**: Due to high demand, we're building native mobile apps for Android and iOS. We avoided authenticating our mobile apps in embedded WebView. This way, our users won't have to sign in again if they're already authenticated on their phone with another app that uses Google OAuth.
-* **Year 3**: We've been acquired by Google! Integration was fast and easy! 🎉
-
-These scenarios are simplified, but they still demonstrate a few of the advantages of starting with centralized login and [OAuth protocols](https://tools.ietf.org/html/draft-ietf-oauth-native-apps-12) from the beginning. Doing so helps you future-proof your applications, making it easy to grow and integrate with other systems.
+This is a hypothetical timeline, but many companies have undergone very similar processes over the years, including (in case you haven't already guessed!) [GitHub](https://github.com). Implementing centralized login is a long-term investment. Doing so _early_ paves the way for growth, development, maintainability, and new feature integration far into the future.
 
 ## <span id="why-use-centralized-login"></span>Why Centralized Login is Best Practice
 
