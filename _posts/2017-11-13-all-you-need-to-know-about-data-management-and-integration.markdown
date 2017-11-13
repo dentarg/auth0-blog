@@ -2,25 +2,29 @@
 layout: post
 title: "All you need to know about Data Management and Integration (DMI)"
 description: Learn how DMI practices will help you Organize and make sense of all your valuable data.
-date: 2017-11-10 9:30
+date: 2017-11-13 9:30
 category: Growth, Generic
 is_non-tech: true
-author:
-  name: Jeana Tahnk
-  url: http://twitter.com/jeanatahnk
-  mail: jeana.tahnk@auth0.com
-  avatar: https://pbs.twimg.com/profile_images/1891692507/JeanaTahnk2_crop_400x400.jpg
+author:  
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  bg_color: "#00387A"
-  image: https://cdn.auth0.com/blog/auth0-hired/logo.png
+  bg_color: #531D6D"
+  image: https://cdn.auth0.com/blog/data-management-integration/logo.png
 tags:
-- culture
-- diversity
-- inclusion
+- data
+- data-management
+- data-integration
+- data-governance
+- data-analysis
+- digital-transformation
+- dmi
 related:
-- 2017-08-14-our-culture-and-values-at-auth0
-- 2016-03-22-how-we-hire-engineers
-- 2016-05-20-21-tips-for-remote-working
+- 2017-10-13-how-do-i-modernize-my-legacy-system
+- 2017-09-29-how-dpm-works
+- 2017-08-28-how-to-become-a-data-driven-marketer
 ---
 
 Chocolate soufflés are just like data-driven insights — they are rich, transformative and really hard to create.
