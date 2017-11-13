@@ -53,17 +53,15 @@ High standards of security and ease of use have been set for modern authenticati
 
 Let's look at a hypothetical example using a timeline from an imaginary company. Let's say our make-believe company, "SourceCentral", provides public and private source control repository hosting. Their timeline looks something like this:
 
-**Year 0:** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs, since we are still small and only have one service.
-
-**Year 1:** Lots of people have signed up and outlook is great! People love our service. We're now developing an API so that we can better serve our customerbase of developers who want to be able to integrate our service with third parties, but...
-
-**Year 2:** ...authentication has been a huge challenge now that we have an API that requires authorization as well as third party integrations. 😧 To address the complexities and issues this is presenting, we're implementing OAuth in order to provide a much more _centralized_ authentication and authorization process for our product and APIs.
-
-**Year 3:** With a centralized login approach, we're now able to leverage Single Sign-On. Our customers love this, and we've added Multi-factor Authentication as well. This was easy with a centralized login; instead of having to change every single service, we only had to do it once! It's much easier to maintain and enhance.
-
-**Years 4, 5, 6, etc:** We're rolling out new properties and apps at a steady pace. We have a desktop app, a community, chat hosting for repositories, and several other services as well. Securing and authenticating all our new services is a non-issue with centralized authentication! 🎉
+* **Year 0:** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs, since we are still small and only have one service.
+* **Year 1:** Lots of people have signed up and outlook is great! People love our service. We're now developing an API so that we can better serve our customerbase of developers who want to be able to integrate our service with third parties, but...
+* **Year 2:** ...authentication has been a huge challenge now that we have an API that requires authorization as well as third party integrations. 😧 To address the complexities and issues this is presenting, we're implementing OAuth in order to provide a much more _centralized_ authentication and authorization process for our product and APIs.
+* **Year 3:** With a centralized login approach, we're now able to leverage Single Sign-On. Our customers love this, and we've added Multi-factor Authentication as well. This was easy with a centralized login; instead of having to change every single service, we only had to do it once! It's much easier to maintain and enhance.
+* **Years 4, 5, 6, etc:** We're rolling out new properties and apps at a steady pace. We have a desktop app, a community, chat hosting for repositories, and several other services as well. Securing and authenticating all our new services is a non-issue with centralized authentication! 🎉
 
 This is a hypothetical timeline, but many companies have undergone very similar processes over the years, including (in case you haven't already guessed!) [GitHub](https://github.com). Implementing centralized login is a long-term investment. Doing so _early_ paves the way for growth, development, maintainability, and new feature integration far into the future.
+
+{% include tweet_quote.html quote_text="Centralized login is a long-term investment. Implementing early paves the way for growth and new feature integration far into the future." %}
 
 ## <span id="why-use-centralized-login"></span>Why Centralized Login is Best Practice
 
