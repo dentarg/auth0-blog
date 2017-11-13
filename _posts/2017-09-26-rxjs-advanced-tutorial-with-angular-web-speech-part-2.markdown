@@ -186,9 +186,8 @@ Now open the `madlibs.service.ts` file. We'll add our HTTP requests to this file
 // src/app/madlibs.service.ts
 ...
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class MadlibsService {

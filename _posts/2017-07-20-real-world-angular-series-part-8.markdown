@@ -82,7 +82,7 @@ This command generates an `auth.module.ts` file in our existing `auth` folder. L
 
 ```typescript
 // src/app/auth/auth.module.ts
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
 
@@ -90,15 +90,25 @@ import { AuthService } from './auth.service';
   imports: [
     CommonModule
   ],
-  declarations: [],
-  providers: [
-    AuthService
-  ]
+  declarations: []
 })
-export class AuthModule { }
+export class AuthModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AuthModule,
+      providers: [
+        AuthService
+      ]
+    };
+  }
+}
 ```
 
-This module now makes the `AuthService` provider available to our application when imported.
+This module now makes the `AuthService` provider available to our application when imported. It's important to note that in addition to importing `NgModule`, we also import `ModuleWithProviders`. We then create a static `forRoot()` method in the exported module class that returns an object that includes any necessary providers. The `forRoot()` method may look familiar; recall that we used it when implementing our app routing module.
+
+Why do we need to do this?
+
+Services provided at the module level should only have one instance (they should be _singletons_). However, if we are lazy loading modules, there's a possibility that services can be provided more than once, which can result in unintended multiple instances. This way, rather than providing the service in the module, we can call the `forRoot()` method on modules when they are imported in order to provide any associated services.
 
 ### Create Core Module
 
@@ -112,7 +122,7 @@ Open the new `core.module.ts` file and add:
 
 ```typescript
 // src/app/core/core.module.ts
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -141,13 +151,6 @@ import { FooterComponent } from './../footer/footer.component';
     LoadingComponent,
     SubmittingComponent
   ],
-  providers: [
-    Title,
-    DatePipe,
-    ApiService,
-    UtilsService,
-    FilterSortService
-  ],
   exports: [
     HttpClientModule,
     RouterModule,
@@ -159,10 +162,23 @@ import { FooterComponent } from './../footer/footer.component';
     SubmittingComponent
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        Title,
+        DatePipe,
+        ApiService,
+        UtilsService,
+        FilterSortService
+      ]
+    };
+  }
+}
 ```
 
-We'll move HTTP and forms modules to our core module, as well as the title service and necessary features in the `src/app/core` directory and our header and footer. We'll import the appropriate modules, services, and components. We also need to _add_ `RouterModule` in order to support the Header component's navigation directives. We'll add the modules to the NgModule's `imports` array, the components to the `declarations` array, and the services to the `providers` array. Then we'll also need to `export` the modules and components if we want to be able to use them in the components of other NgModules.
+We'll move HTTP and forms modules to our core module, as well as the title service and necessary features in the `src/app/core` directory and our header and footer. We'll import the appropriate modules and components. We also need to _add_ `RouterModule` in order to support the Header component's navigation directives. We'll add the modules to the NgModule's `imports` array, the components to the `declarations` array. Then we'll also need to `export` the modules and components if we want to be able to use them in the components of other NgModules. Finally, we'll use the `forRoot()` method to add the services to the `providers` array in the `ModuleWithProviders` object.
 
 > **Note:** We are _not_ moving the `BrowserAnimationsModule`. This is because this module is in `@angular/platform-browser`. Because `BrowserModule` needs to be imported in the app module, all ancillary modules from `@angular/platform-browser` need to be imported in the _same_ module. Otherwise, we will get a `BrowserModule has already been loaded` error when we implement lazy loading.
 
@@ -183,13 +199,15 @@ import { CoreModule } from './core/core.module';
   ...
   imports: [
     ...
-    AuthModule,
-    CoreModule
+    AuthModule.forRoot(),
+    CoreModule.forRoot()
   ],
   ...
 ```
 
-We'll import the two new modules we created at the top of the file, and also add them to the `imports` array in the `@NgModule()`.  We also need to clean up the `app.module.ts` file so we don't have duplicates of anything; this will cause compiler errors. Make sure all the imports and references to moved features have been removed.
+We'll import the two new modules we created at the top of the file, and also add them to the `imports` array in the `@NgModule()`. Recall that we then need to call `forRoot()` in order to provide their services and ensure that they are only provided _once_. (When we call these shared modules in any lazy loaded modules we create later, we should _not_ call `forRoot()` again, we can simply provide them to take advantage of the app module's single instance.)
+
+We also need to clean up the `app.module.ts` file so we don't have duplicates of anything; this will cause compiler errors. Make sure all the imports and references to moved features have been removed.
 
 > **Note:** Your IDE's intellisense and any Angular compiler errors in the browser should help you clean this up fairly easily.
 
@@ -723,7 +741,7 @@ ssl_dhparam /etc/ssl/certs/dhparam.pem;
 
 The first section is comprised of strong SSL security settings from [cipherli.st](https://cipherli.st)'s nginx example. In the code above, the `resolver` parameter is set to [Google's DNS resolvers](https://developers.google.com/speed/public-dns/) (`8.8.8.8` and `8.8.4.4`).
 
-It's important to note that we also changed the `X-Frame-Options` to `SAMEORIGIN`. This is because Auth0's token renewal takes place in an iframe. If we don't allow the `/silent` callback to open in an iframe, we _cannot_ renew authentication silently for our app.
+It's important to note that we also changed the `X-Frame-Options` to `SAMEORIGIN`. This is because Auth0's token renewal takes place in an iframe. If we don't allow the call to take place in an iframe, we _cannot_ renew authentication silently for our app.
 
 Last, we'll add the Diffie-Hellman `ssl-params.conf` file we created above. Exit this file and confirm that changes should be saved.
 
@@ -734,29 +752,6 @@ Congratulations! We're now set up to use SSL. We'll do a little more configurati
 ## <span id="deploy"></span>Deploy Application on Digital Ocean
 
 We're in the home stretch now: deployment! There are a couple of minor things we'll need to do before we deploy our application.
-
-### Update Auth Config and Rebuild
-
-We need to update our auth config file for production and rebuild the app to accommodate our production domain.
-
-Open `auth.config.ts` and make the following change:
-
-```typescript
-// src/app/auth/auth.config.ts
-...
-  SILENT_REDIRECT: `${ENV.BASE_URI}/silent`,
-...
-```
-
-The app will now use the proper redirect to silently renew tokens on our production domain.
-
-Since we made a change to our Angular files, we'll need to do another production build. Now run:
-
-```bash
-$ ng build --prod
-```
-
-The production bundles will be rebuilt and the `/dist` folder contents updated with our change.
 
 ### Don't Ignore Dist Folder
 
@@ -775,26 +770,6 @@ In the `.gitignore` file in the project root, simply comment out `/dist`:
 Commit this change. This also allows us to commit our production `/dist` folder.
 
 > **Important Note:** Make sure your repo is located somewhere that is accessible to your VPS server through Git, such as on [GitHub](https://github.com) or [BitBucket](https://bitbucket.org). Alternatively, you can clone the app from the sample repo for this tutorial series, which is located at [https://github.com/auth0-blog/mean-rsvp-auth0](https://github.com/auth0-blog/mean-rsvp-auth0). If you clone the app from the sample repo, make sure you update the files indicated in the repo's README and still follow these production deployment steps.
-
-### Update Silent File
-
-We also need to update our `silent.html` file with our secure production URL, like so:
-
-{% highlight html %}
-<!-- silent.html -->
-<!doctype html>
-...
-  <script>
-    ...
-    const URL = 'https://[YOUR_DOMAIN]';
-    ...
-  </script>
-...
-{% endhighlight %}
-
-Change the `URL` constant that is used in the `redirectUri` and the `postMessage()` URL to your domain on HTTPS. This will prevent same origin errors on production when tokens are silently renewed.
-
-Commit this change and push to your Git repository's remote.
 
 ### Clone RSVP App on DigitalOcean VPS
 
@@ -906,7 +881,7 @@ $ cd /mean-rsvp
 Once you're in your project folder, start the webserver with PM2 with the following command:
 
 ```bash
-$ sudo pm2 start server.js
+$ sudo pm2 start server.js --name="mean-rsvp"
 ```
 
 The final step is to start the nginx reverse proxy:
@@ -927,8 +902,8 @@ There's only one step left, and that's to update our app's Auth0 Client settings
 
 Log into Auth0 and head to your [Auth0 Dashboard Clients](https://manage.auth0.com/#/clients). Select your RSVP app Client and add the production URLs to your settings:
 
-* **Allowed Callback URLs** - `https://[YOUR_DOMAIN]/callback`, `https://[YOUR_DOMAIN]/silent`
-* **Allowed Origins (CORS)** - `https://[YOUR_DOMAIN]`
+* **Allowed Callback URLs** - `https://[YOUR_DOMAIN]/callback`
+* **Allowed Web Origins** - `https://[YOUR_DOMAIN]`
 
 > **Note:** Take note that these are secure URLs using HTTPS.
 
