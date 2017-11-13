@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "All you need to know about Data Management and Integration (DMI)"
-description: Learn how DMI practices will help you Organize and make sense of all your valuable data.
+description: Learn how DMI practices will help you organize and make sense of all your valuable data.
 date: 2017-11-13 9:30
 category: Growth, Generic
 is_non-tech: true
@@ -60,7 +60,7 @@ Data analysts currently waste most of their time, up to [80%](https://www.forbes
 
 A soufflé is actually not that hard to make, *if* you know how to prepare the right ingredients. For example, the most important ingredient is egg whites, but if the egg whites have any traces of egg yolk, your soufflé will fail.
 
-Most people don't think about the quality of their data, but, like the tainted egg whites, if your data is dirty (https://en.wikipedia.org/wiki/Dirty_data) your insights will not be trustworthy.
+Most people don't think about the quality of their data, but, like the tainted egg whites, if your [data is dirty] (https://en.wikipedia.org/wiki/Dirty_data) your insights will not be trustworthy.
 
 ![Data Management](http://4.bp.blogspot.com/-ZiFiWxQAOoU/VSoMfSxSKCI/AAAAAAAAPyw/tNBVivLmdSI/s1600/005b.jpg)
 _[Source](Source)_
