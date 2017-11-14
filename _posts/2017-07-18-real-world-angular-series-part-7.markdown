@@ -898,7 +898,7 @@ This method simply checks for the existence of a `refreshSub` subscription and u
 
 In order to avoid getting a `403 Forbidden` error when silently renewing authentication, we need to make sure our Auth0 Client's allowed origin settings are updated.
 
-Go to your [Auth0 Dashboard Clients](https://manage.auth0.com/#/clients/) section and select your app's Client. In the **Allowed Web Origins**, add `http://localhost:8083` to the list. Save your changes. This enables the domain to be used with [web message response mode](https://auth0.com/docs/protocols/oauth2#how-response-mode-works).
+Go to your [Auth0 Dashboard Clients](https://manage.auth0.com/#/clients/) section and select your app's Client. In the **Allowed Web Origins**, add `http://localhost:4200` and `http://localhost:8083` to the list. Save your changes. This enables both our Angular server and Node server domains to be used with [web message response mode](https://auth0.com/docs/protocols/oauth2#how-response-mode-works).
 
 > **Note:** Recall that we are using the `loggedIn` property to track authentication state in templates (rather than `auth.tokenValid`). This is ideal because `loggedIn` is updated on the fly as the state changes. We also won't get a flash of a logged-out state during a successful token renewal.
 
