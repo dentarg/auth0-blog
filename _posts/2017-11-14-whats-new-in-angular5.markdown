@@ -2,7 +2,7 @@
 layout: post
 title: "Angular 5 Release: What’s New?"
 description: "Angular 5 brings some new features to the popular JavaScript framework for building mobile, desktop and web applications. Learn what's new in Angular!"
-date: 2017-11-10 08:30
+date: 2017-11-14 08:30
 category: Technical Guide, Angular, Angular 5
 design:
   bg_color: "#012C6C"
@@ -20,8 +20,8 @@ tags:
 - authentication
 related:
 - 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
-- 2017-06-13-whats-new-in-node8-and-npm5
-- 2017-10-26-whats-new-in-react16
+- 2016-09-29-angular-2-authentication
+- 2017-06-28-real-world-angular-series-part-1
 ---
 
 ---
