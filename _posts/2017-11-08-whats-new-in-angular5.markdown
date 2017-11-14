@@ -49,7 +49,7 @@ Before version 4.3, the `@angular/http` module was used for making HTTP requests
 import { HttpClientModule } from '@angular/common/http';
 ```
 
-## 2. Support for Multiple Export Alias
+## 2. Support for Multiple Export Alias in Angular 5
 
 In Angular 5, you can now give multiple names to your components and directives while exporting. Exporting a component with multiple names can help your users migrate without breaking changes.
 
@@ -90,7 +90,7 @@ Angular 5 ships with new number, date, and currency pipes that increase standard
   export class AppModule { }
 ```
 
-## 4. Improved Decorator Support
+## 4. Improved Decorator Support in Angular 5
 
 Angular 5 now supports expression lowering in decorators for lambdas, and the value of `useValue`, `useFactory`, and `data` in object literals. Furthermore, a lambda can be used instead of a named function like so:
 
@@ -124,7 +124,7 @@ The Angular Universal team has added [Domino](https://github.com/fgnass/domino) 
 
 Furthermore, two modules, `ServerTransferStateModule` and `BrowserTransferModule` have   been added to Angular Universal. These modules allow you to generate information as part of your rendering with platform-server and then transfer it to the client side to avoid re-generation of the same information. In summary, it transfers state from the server which means developers do not need to make a second HTTP request once the application makes it to the client.
 
-## 7. Faster Compiler
+## 7. Faster Compiler in Angular 5
 
 A lot of improvements have been made to the Angular compiler to make it faster. The Angular compiler now leverages TypeScript transforms. You can take advantage of it by running:
 
@@ -136,7 +136,7 @@ ng serve --aot
 
 > **Note:** TypeScript transforms are a new feature introduced as part of TypeScript 2.3, that allows hooking into the standard TypeScript compilation pipeline.
 
-## 8. Forms Validation
+## 8. Forms Validation in Angular 5
 
 In Angular 5, forms now have the ability to decide when the validity and value of a field or form are updated via on `blur` or on `submit`, instead of every input event.
 
@@ -166,7 +166,7 @@ ngOnInit() {
 }
 ```
 
-## 9. Animations
+## 9. Animations in Angular 5
 
 In Angular 5, we have two new transition aliases, `:increment` and `:decrement`.
 
@@ -220,7 +220,7 @@ animations: [
 ...
 ```
 
-## 10. New Router Lifecycle Events
+## 10. New Router Lifecycle Events in Angular 5
 
 Some new lifecycle events have been added to the router. The events are `GuardsCheckStart`, `ChildActivationStart`, `ActivationStart`, `GuardsCheckEnd`, `ResolveStart`, `ResolveEnd`, `ActivationEnd`, and `ChildActivationEnd`. With these events, developers can track the cycle of the router from the start of running guards through to completion of activation.
 
@@ -235,7 +235,7 @@ providers: [
 ]
 ```
 
-## 11. Better Support for Service Workers
+## 11. Better Support for Service Workers in Angular 5
 
 In Angular 5, we have better support for service workers via the `[@angular/service-worker](https://github.com/angular/angular/tree/master/packages/service-worker)` package. The service worker package is a conceptual derivative of the `@angular/service-worker` package that was maintained at [github.com/angular/mobile-toolkit](github.com/angular/mobile-toolkit), but has been rewritten to support use-cases across a much wider variety of applications.
 
