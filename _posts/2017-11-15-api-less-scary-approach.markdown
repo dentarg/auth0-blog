@@ -2,8 +2,8 @@
 layout: post
 title: "API's: A Look Into What They Are and How They Work"
 description: "A complete introduction to API's for beginners. Learn what API's are, how they work, and write your first API."
-date: 2017-10-04 13:00
-category: Technical Guide, Backend, API, ExpressJs
+date: 2017-11-15 13:00
+category: Technical Guide, Backend, API
 banner:
     text: "Auth0 makes it easy to add authentication to your application."
 author:
@@ -12,8 +12,8 @@ author:
     mail: "biodunch@gmail.com"
     avatar: "https://en.gravatar.com/userimage/102410915/af10368821da83614ac2ce480baa5439.jpg"
 design:
-    image: https://goo.gl/5ejbBP
-    bg_color: "#FF4500"
+    image: https://cdn.auth0.com/blog/api-introduction/logo.png
+    bg_color: "#202226"
 tags:
 - api
 - javascript
@@ -21,6 +21,9 @@ tags:
 - auth0
 - authentication
 related:
+- 2017-06-22-developing-restful-apis-with-kotlin
+- 2017-09-28-developing-restful-apis-with-python-and-flask
+- 2017-09-07-developing-restful-apis-with-loopback
 
 ---
 
