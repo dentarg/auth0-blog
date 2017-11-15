@@ -24,7 +24,7 @@ related:
 ---
 
 # tl;dr
-![hiring process](https://cdn.auth0.com/blog/hire-engineers/hiring-process.png)
+![hiring process](https://cdn.auth0.com/blog/hire-engineers/hiring-process2.png)
 
 # The full version
 Hiring is a key aspect of helping Auth0 grow. We are doing great, there's lots of things we want to get done in the short term and building a team that can handle this growth is paramount for continuing success.
