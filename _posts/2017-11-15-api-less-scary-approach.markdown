@@ -1,19 +1,19 @@
 ---
 layout: post
-title: "API's: A Look Into What They Are and How They Work"
+title: "APIs: A Look Into What They Are and How They Work"
 description: "A complete introduction to API's for beginners. Learn what API's are, how they work, and write your first API."
 date: 2017-11-15 13:00
 category: Technical Guide, Backend, API
 banner:
-    text: "Auth0 makes it easy to add authentication to your application."
+  text: "Auth0 makes it easy to add authentication to your application."
 author:
-    name: "Biodun Chris"
-    url: "https://twitter.com/biodunch"
-    mail: "biodunch@gmail.com"
-    avatar: "https://en.gravatar.com/userimage/102410915/af10368821da83614ac2ce480baa5439.jpg"
+  name: "Biodun Chris"
+  url: "https://twitter.com/biodunch"
+  mail: "biodunch@gmail.com"
+  avatar: "https://en.gravatar.com/userimage/102410915/af10368821da83614ac2ce480baa5439.jpg"
 design:
-    image: https://cdn.auth0.com/blog/api-introduction/logo.png
-    bg_color: "#202226"
+  image: https://cdn.auth0.com/blog/api-introduction/logo.png
+  bg_color: "#202226"
 tags:
 - api
 - javascript
@@ -27,15 +27,15 @@ related:
 
 ---
 
-# Introduction to API's
+# Introduction to APIs
 
 ![API](https://cdn-images-1.medium.com/max/2000/1*w3FVjskCNAY1vNCMu936Sw.gif)
 
 _Image source : [Wikibon](http://wikibon.org/blog/cloud-api-standards/)_
-> > An API is a set of functions and procedures that allow the creation of applications which access the features or data of an operating system, application, or other service
+> An API is a set of functions and procedures that allow the creation of applications which access the features or data of an operating system, application, or other service
 — Google
 
-> > An Application Programming Interface (API) is a set of subroutine definitions, protocols, and tools for building application software…
+> An Application Programming Interface (API) is a set of subroutine definitions, protocols, and tools for building application software…
 — Wikipedia
 
 These definitions are combinations of multiple unfamiliar terms which seem like nonsense and scary at first. You can spend a whole day trying to look up every term above and forget what you were searching for in the first place and the chain just never ends.
@@ -218,6 +218,7 @@ app.use(function(req, res, next) {
 ```
 
 Next thing is to create the views:
+
 * Index.hbs
 * Profile.hbs
 * error.hbs
@@ -237,7 +238,8 @@ The file above display errors while developing with stack traces. The double cur
 
 _views/layout.hbs_
 
-```hbs
+{% highlight html %}
+{% raw %}
 <html>
 
 <head>
@@ -285,13 +287,15 @@ _views/layout.hbs_
 </body>
 
 </html>
-```
+{% endraw %}
+{% endhighlight %}
 
 This is a parent view every other view file will have to inherit from. I have included the required assets we need; bootstrap.min.css, jquery.min.js, bootstrap.min.js.
 
 _views/index.hbs_
 
-```hbs
+{% highlight html %}
+{% raw %}
 <h1>Famous Quotes</h1>
  
 <blockquote>
@@ -311,13 +315,15 @@ _views/index.hbs_
     })
   })
 </script>
-```
+{% endraw %}
+{% endhighlight %}
 
 This is the landing page. It displays random post everytime it’s loaded. The tiny script embedded in it calls the [talaikis.com](talaikis.com) quotes api to obtain random quote.
 
 _views/profile.hbs_
 
-```hbs
+{% highlight html %}
+{% raw %}
 <div class="col-sm-4 col-sm-offset-4" style="margin-top:100px">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -331,7 +337,8 @@ _views/profile.hbs_
         </div>
     </div>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
 ## Run the App
 Start up your server if it’s not running.
@@ -370,6 +377,7 @@ Navigate to the settings tab, take note of your __domain__, __client id__ and __
 ## Step 1: Install the Middleware Dependencies
 
 Make sure you are in the root directory of the project, then run the command:
+
 ```bash
 $ npm install passport-auth0 connect-ensure-login --save
 ```
@@ -420,11 +428,12 @@ Place this snippet just above the part where we set the view engine.
 Replace the placeholder values with the credentials on your [dashboard](https://manage.auth0.com/login#/clients). I recommend that you load them from environment variables to prevent your credentials from been leaked. Make sure your `app.js` file looks like this.
 
 ## Step 3: Configure the Callback URL
+
 Head over to your Auth0 dashboard and register a callback url in __Allowed Callback URLs__ like this:
 
 ![callback url configuration](https://cdn-images-1.medium.com/max/1600/1*rEdRYdYB21aXJgNxQklohg.png)
 
-```
+```text
 localhost:3000/callback
 ```
 
@@ -500,7 +509,8 @@ Modify `profile.hbs` to use data provided by the route above.
 
 _views/profile.hbs_
 
-```hbs
+{% highlight html %}
+{% raw %}
 <div class="col-sm-4 col-sm-offset-4" style="margin-top:100px">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -514,7 +524,8 @@ _views/profile.hbs_
         </div>
     </div>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
 You will notice that I have replaced the hardcoded names with the user details rendered with the view.
 
@@ -522,7 +533,8 @@ Add a check to `index.hbs` to ensure user is logged in before they can see the q
 
 _views/index.hbs_
 
-```hbs
+{% highlight html %}
+{% raw %}
 {{#if loggedIn }}
   <h1>Famous Quotes</h1>
   <blockquote>
@@ -547,13 +559,15 @@ _views/index.hbs_
     })
   })
 </script>
-```
+{% endraw %}
+{% endhighlight %}
 
 Let’s update _layout.hbs_ to toggle the login/logout based on the user’s logged in state.
 
 _layout.hbs_
 
-```hbs
+{% highlight html %}
+{% raw %}
 <html>
 
 <head>
@@ -605,7 +619,8 @@ _layout.hbs_
 </body>
 
 </html>
-```
+{% endraw %}
+{% endhighlight %}
 
 ## Run the App
 
