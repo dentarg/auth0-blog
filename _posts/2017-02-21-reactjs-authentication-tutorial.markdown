@@ -23,6 +23,8 @@ related:
 - 2015-04-09-adding-authentication-to-your-react-flux-app
 - 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
 - 2016-09-29-angular-2-authentication
+lang: en
+alternate_locale_jp: 2017-02-21-jp-reactjs-authentication-tutorial
 ---
 
 ---
