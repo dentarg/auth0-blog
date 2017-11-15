@@ -2,7 +2,7 @@
 layout: post
 title: "Vuejs 2 認証チュートリアル"
 description: Vuejs 2 でアプリを素早く構築する方法や認証を正しく追加する方法について学びます。
-date: 2017-11-15 8:30
+date: 2017-04-18 8:30
 category: Technical Guide, Frontend, VueJS
 author:
   name: Prosper Otemuyiwa
