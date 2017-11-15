@@ -19,9 +19,8 @@ tags:
 - web-app
 - auth0
 related:
-- 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
-- 2016-09-29-angular-2-authentication
-- 2017-02-21-reactjs-authentication-tutorial
+- jp-angular-2-authentication
+- jp-reactjs-authentication
 lang: jp
 alternate_locale_en: vuejs2-authentication-tutorial
 ---
