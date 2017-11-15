@@ -228,11 +228,13 @@ Create those files inside your view directory and rename any `.jade` file to `.h
 
 _views/error.hbs_
 
-```hbs
+{% highlight html %}
+{% raw %}
 <h2>{{message}}</h2>
 <h2>{{error.message}}</h2>
 <pre>{{error.stack}}</pre>
-```
+{% endraw %}
+{% endhighlight %}
 
 The file above display errors while developing with stack traces. The double curly braces allows us to get variables passed from the server-side, you will be seeing more of it.
 
