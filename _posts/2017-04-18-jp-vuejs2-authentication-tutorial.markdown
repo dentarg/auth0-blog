@@ -23,7 +23,7 @@ related:
 - 2016-09-29-angular-2-authentication
 - 2017-02-21-reactjs-authentication-tutorial
 lang: jp
-alternate_locale_en: 2017-04-18-vuejs2-authentication-tutorial
+alternate_locale_en: vuejs2-authentication-tutorial
 ---
 
 **TL; DR：** Vuejs はウェブ上のユーザーインタフェイスを構築するためのプログレッシブな JavaScript フレームワークです。ReactJS の後に追って発売され、時間と共に開発者が自分の日常業務に取り入れ始めました。実際、Vuejs 2.0 の発売に伴い、その採用と利用は世界的に急増しました。現在、Vuejs は [Github](https://github.com/vuejs/vue)で 49,000 個以上のスターがつけられています。本チュートリアルでは、Vuejs 2 を使って Web アプリケーションを構築する方法やそれに認証を追加する方法について説明します。コードを取得するには、 [レポジトリ](https://github.com/auth0-blog/vuejs2-authentication-tutorial)をチェックしてください。
