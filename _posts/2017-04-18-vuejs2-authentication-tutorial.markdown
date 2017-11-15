@@ -23,7 +23,7 @@ related:
 - 2016-09-29-angular-2-authentication
 - 2017-02-21-reactjs-authentication-tutorial
 lang: en
-alternate_locale_jp: 2017-04-18-jp-vuejs2-authentication-tutorial
+alternate_locale_jp: jp-vuejs2-authentication-tutorial
 ---
 
 ---
