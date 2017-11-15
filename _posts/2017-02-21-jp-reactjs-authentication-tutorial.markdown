@@ -20,9 +20,8 @@ tags:
 - web-app
 - auth0
 related:
-- 2015-04-09-adding-authentication-to-your-react-flux-app
-- 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
-- 2016-09-29-angular-2-authentication
+- jp-vuejs2-authentication
+- jp-angular-2-authentication
 lang: jp
 alternate_locale_en: reactjs-authentication-tutorial
 ---
