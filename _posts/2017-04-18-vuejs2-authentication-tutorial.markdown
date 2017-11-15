@@ -22,6 +22,8 @@ related:
 - 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
 - 2016-09-29-angular-2-authentication
 - 2017-02-21-reactjs-authentication-tutorial
+lang: en
+alternate_locale_jp: 2017-04-18-jp-vuejs2-authentication-tutorial
 ---
 
 ---
@@ -363,13 +365,11 @@ app.get('/api/battles/private', authCheck, (req,res) => {
 app.listen(3333);
 console.log('Listening on localhost:3333');
 ```
+_server.js_
 
 Check out the [full server.js file here](https://github.com/auth0-blog/vuejs2-authentication-tutorial/blob/master/server/server.js).
 
 **Note:** Your `YOUR-AUTH0-DOMAIN` should be replaced with your auth0 domain.
-
-_server.js_
-
 
 Your `package.json` file should look like this:
 
@@ -913,7 +913,6 @@ We'll create an authentication helper to handle everything about authentication 
 Before we add code, you need to install `jwt-decode` and `auth0-js` node package like so:
 
 ```bash
-
 npm install jwt-decode auth0-js --save
 
 ```
@@ -1099,7 +1098,6 @@ export default {
 </style>
 {% endraw %}
 {% endhighlight %}
-
 
 _AppNav.vue_
 
