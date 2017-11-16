@@ -2,7 +2,7 @@
 layout: post
 title: "Spring 5, Embedded Tomcat 8, and Gradle: a Quick Tutorial"
 description: "Let's learn how to use Gradle to structure and bootstrap a Spring 5 project running on an embedded Tomcat 8 instance."
-date: 2017-10-30 09:48
+date: 2017-11-16 09:48
 category: Technical Guide, Java, Spring
 author:
   name: "Bruno Krebs"
@@ -21,6 +21,7 @@ tags:
 related:
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 - 2017-04-28-incrementally-changing-your-database-with-java-and-flyway
+- 2017-08-31-integrating-spring-data-jpa-postgresql-liquibase
 ---
 
 **TL;DR:** In this article, we are going to learn how to use Gradle to structure a Spring 5 project with Tomcat 8 embedded. We will start from an empty directory and will analyze each step needed to create an application that is distributed as an über/fat jar. [This GitHub repository](https://github.com/auth0-blog/embedded-spring-5) contains a branch called `complete` with the final code that we will have after following the steps described here.
