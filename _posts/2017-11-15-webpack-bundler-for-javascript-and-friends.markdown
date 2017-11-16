@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Webpack: A Gentle Introduction to the Module Bundler for JavaScript and Friends"
-description: Learn the nitty-gritty of Webpack and how to configure it as a build system in your applications.
+description: Learn the basics of Webpack and how to configure it in your web applications.
 date: 2017-11-15 8:30
 category: Technical Guide, JavaScript, Webpack
 author:
@@ -221,7 +221,7 @@ In the code above, we have an entry point, `factory.js`. This config file tells 
 
 Create an `index.html` file in the root directory.
 
-% highlight html %}
+{% highlight html %}
 {% raw %}
     <!DOCTYPE html>
     <html lang="en">
@@ -277,191 +277,225 @@ By now, you should understand the basics of using Webpack in a project. Webpack 
 
 ## Webpack Use Case: Project Asokoro
 
-Remember the _Project Lingo_ we [architected with GulpJS?](https://auth0.com/blog/automate-your-development-workflow-with-gulpjs/). The people of Asokoro were very happy with the results. Now, they want the same results with _Project Asokoro_, but a little more.
+Remember the _Project Lingo_ we [architected with GulpJS?](https://auth0.com/blog/automate-your-development-workflow-with-gulpjs/). The people of Asokoro were very happy with the results. Now, they want the same results with _Project Asokoro_.
 
 **Project Asokoro** is a project that we have embarked upon for the people of _Asokoro_. It does exactly what **Project Lingo** does. _Project Lingo_ allows a mere human click a button, input a destination and Lingo automatically teleports the human to their preferred destination in approximately 5 minutes.
 
-In _Project Asokoro_, we'll have a bunch of JavaScript, Less and Image files. We need to compress and optimize these files so that Asokoro can be super-fast. I mean, you don't want Asokoro taking over an hour to teleport a human because of our in-efficient developer work-flow. We also don't want investors running way.
+In _Project Asokoro_, we'll have a bunch of JavaScript, Sass and Image files. We need to compress and optimize these files so that Asokoro can be super-fast. I mean, you don't want Asokoro taking over an hour to teleport a human because of our in-efficient developer work-flow. We also don't want investors running way.
 
 This is what we need to do:
 
 * Concatenate all our JavaScript files into just one file. This will make sure our app makes one HTTP request while serving JavaScript rather than multiple HTTP requests.
-* Compile our Less files into CSS. The browser understands CSS, not LESS.
+* Compile our Sass files into CSS. The browser understands CSS, not Sass.
 * Compress all our image files.
 
 We have these requirements listed above. How do we approach tackling these tasks with Webpack?
 
-## Project Asokoro - Install Webpack Plugins
+## Project Asokoro - Install Webpack Loaders and Plugins
 
-Yes, GulpJS has an amazing [ecosystem of plugins](https://gulpjs.com/plugins). For every task a developer tries to accomplish, there is probably a GulpJS plugin out there for automating such task. Go ahead and install the following plugins via your terminal:
+Let's continue from where we stopped earlier. Create a new `scss` folder in the root directory and add a `service.scss` file to it.
 
-```bash
-npm install gulp-imagemin gulp-less gulp-jshint gulp-concat gulp-uglify gulp-rename --save-dev
-```
+_service.scss_
 
-{% include tweet_quote.html quote_text="GulpJS has an amazing ecosystem of plugins." %}
+{% highlight html %}
+{% raw %}
+$color: rgb(255, 123, 123);
+$font-weight: 300;
 
-A quick breakdown of what each of these plugins aim to accomplish.
+h2 {
+  color: $color;
+  font-weight: $font-weight;
+}
 
-* **[gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin)** - Minify PNG, JPEG, GIF and SVG images.
-* **[gulp-less](https://www.npmjs.com/package/gulp-less)** - Compile Less files to CSS.
-* **[gulp-jshint](https://www.npmjs.com/package/gulp-jshint)** - Automatically detect errors and problems in our JavaScript code. Lint it!
-* **[gulp-uglify](https://www.npmjs.com/package/gulp-uglify)** - Minify JavaScript files.
-* **[gulp-rename](https://www.npmjs.com/package/gulp-rename)** - Rename a file.
-* **[gulp-concat](https://www.npmjs.com/package/gulp-concat)** - Concatenate all the JavaScript files into one file.
+span {
+    font-weight: $font-weight;
+    color: rgb(255, 69, 69) ;
+}
+{% endraw %}
+{% endhighlight %}
 
-## Project Lingo - Rewrite GulpFile
-
-Open up the `gulpfile.js` file and modify it to this code below:
+Head over to `js/factory.js` and import the sass file like so:
 
 ```js
-const gulp = require('gulp');
-
-const imagemin = require('gulp-imagemin');
-const jshint = require('gulp-jshint');
-const concat = require('gulp-concat');
-const less = require('gulp-less');
-const uglify = require('gulp-uglify');
-const rename = require('gulp-rename');
-
-// Lint Task
-gulp.task('lint', () => {
-    return gulp.src('js/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-});
-
-// Compile Project Lingo Less files
-gulp.task('less', () => {
-    return gulp.src('less/*.less')
-        .pipe(less())
-        .pipe(gulp.dest('dist/css'));
-});
-
-// Concatenate & Minify Project Lingo JS files
-gulp.task('scripts', () => {
-    return gulp.src('js/*.js')
-        .pipe(concat('build.js'))
-        .pipe(gulp.dest('dist'))
-        .pipe(rename('build.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/js'));
-});
-
-// Compress all Project Lingo image files
-gulp.task('compress-images', () => {
-     gulp.src('images/*')
-        .pipe(imagemin())
-        .pipe(gulp.dest('dist/images'))
-});
-
-// Watch Files For Changes
-gulp.task('watch', () => {
-
-    // JavaScript changes
-    gulp.watch('js/*.js', ['lint', 'scripts']);
-
-    // Less changes
-    gulp.watch('less/*.less', ['less']);
-
-    // Image changes
-    gulp.watch('images/*', ['compress-images']);
-});
-
-// Run Project Lingo Task
-gulp.task('lingo', ['less', 'scripts', 'compress-images', 'watch']);
+import './service.js';
+import '../scss/service.scss';
 ```
 
-In the code above, we have six tasks. Let's examine what each of these tasks do.
+Go ahead and install the following loaders and plugins via your terminal:
 
-* **lint task** - This task checks all the JavaScript files in our `js` directory and runs them through `jshint`. Jshint ensures that the JavaScript code is well-written and rid of errors. If there are any errors, it reports them to the console.
+```bash
+npm install sass-loader node-sass extract-text-webpack-plugin css-loader style-loader --save-dev
+```
 
-    ```js
-    gulp.task('lint', () => {
-    return gulp.src('js/*.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-    });
-    ```
-* **less task** - This task checks all the Less files in our `less` directory, compiles them to CSS and copies them to a `dist/css` directory. If you use sass more often, there is a [gulp-sass](https://www.npmjs.com/package/gulp-sass) plugin available to compile your sass files to CSS.
+A quick breakdown of what each of these plugins and loaders aim to accomplish.
 
-    ```js
-    gulp.task('less', () => {
-        return gulp.src('less/*.less')
-            .pipe(less())
-            .pipe(gulp.dest('dist/css'));
-    });
-    ```
-* **scripts task** - This task checks all the JavaScript files in our `js` directory, concatenates them into a single file, `build.js`, copies the file into a `dist/js` directory, renames the file to `build.min.js` and uglifies it.
+* **[sass-loader](https://github.com/webpack-contrib/sass-loader)** - Loads a SASS/SCSS file and compiles it to CSS. It requires `node-sass` to work.
+* **[node-sass](https://github.com/sass/node-sass)** - This libarary allows you to natively compile `.scss` files to `css` at incredible speed and automatically via a connect middleware.
+* **[extract-text-webpack-plugin](https://webpack.js.org/plugins/extract-text-webpack-plugin/)** - Extract text from a bundle, or bundles, into a separate file.
+* **[css-loader](https://github.com/webpack-contrib/css-loader)** - The `css-loader` interprets `@import` and `url()` like `import/require()` and resolves them.
+* **[style-loader](https://github.com/webpack-contrib/style-loader)** - Add CSS to the DOM.
 
-    ```js
-    gulp.task('scripts', () => {
-        return gulp.src('js/*.js')
-            .pipe(concat('build.js'))
-            .pipe(gulp.dest('dist'))
-            .pipe(rename('build.min.js'))
-            .pipe(uglify())
-            .pipe(gulp.dest('dist/js'));
-    });
-    ```
-* **compress-images task** - This task checks all the files in our `images` directory, compresses them and copies them to a `dist/images` directory.
+## Project Asokoro - Rewrite Webpack Config File
 
-    ```js
-    gulp.task('compress-images', () => {
-         gulp.src('images/*')
-            .pipe(imagemin())
-            .pipe(gulp.dest('dist/images'))
-    });
-    ```
-* **watch task** - This task listen for changes made in our files and automatically run all our tasks again.
+Open up the `webpack.config.js` file and modify it to this code below:
 
-    ```js
-    gulp.task('watch', () => {
+```js
+const path = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-        // JavaScript changes
-        gulp.watch('js/*.js', ['lint', 'scripts']);
+module.exports = {
+  entry: './js/factory.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use: [{
+            loader: 'css-loader'
+          }, {
+            loader: 'sass-loader'
+          }],
+          fallback: 'style-loader'
+        })
+      }
+    ]
+  },
+  plugins: [
+    new ExtractTextPlugin('bundle.css')
+  ]
+};
+```
 
-        // Less changes
-        gulp.watch('less/*.less', ['less']);
+In the code above, we have the `extract-text-webpack-plugin`. It extracts all the CSS code into `/dist/bundle.css`. Webpack roams the source code for `.scss` files, then uses `css-loader` and `sass-loader` to load and embed the stylesheets into the JavaScript bundle.
 
-        // Image changes
-        gulp.watch('images/*, ['compress-images']);
-    });
-    ```
-* **lingo task** - This task is the father of all tasks. At the terminal, all we need to do is run `gulp lingo` and all the tasks defined in our gulfile will run in one command!
+Quickly add link to the `bundle.css` in `index.html` like so:
 
-    ```js
-    gulp.task('lingo', ['less', 'scripts', 'compress-images', 'watch']);
-    ```
 
-So, head over to the terminal, and try `gulp lingo` and watch all the tasks run. It's that simple.
+{% highlight html %}
+{% raw %}
+    <link rel="stylesheet" type="text/css" href="dist/bundle.css" />
+{% endraw %}
+{% endhighlight %}
 
-**Note:** Ensure you have a `js`, `less` and `images` folder with multiple JavaScript, Less and image files respectively.
+Now, run the build again, `npm run build` and check out the app in the browser.
 
-## Webpack Loaders And Plugins
+![Webpack - New Page](https://cdn.auth0.com/blog/webpack/newpage.png)
 
-As demonstrated in _Project Lingo_, we took advantage of the Gulp Plugins ecosystem. Gulp Plugins are building blocks for your gulpfile.
+The styling was applied to the page and our JavaScript code still logs to the console.
 
-There are several plugins available at [https://gulpjs.com/plugins](https://gulpjs.com/plugins/). Head over there, search for any plugin that might suit your use case and take advantage of it.
+## Project Asokoro - Compressing Images
 
-Check out other popular plugins that you might immediately find useful.
+Head over to your terminal and install these two loaders:
 
-* **gulp-util** - Contains all sorts of utility functions such as color-coding and logging.
-* **gulp-nodemon** - Automatically restarts your Node.js server using `nodemon`.
-* **gulp-strip-debug** - Removes all `console` and `debugging` statements.
-* **gulp-htmlclean** - Minify HTML code.
+```bash
+npm install file-loader image-webpack-loader
+```
 
-## Gulp Recipes
+A quick breakdown of what these loaders aim to accomplish.
 
-There are some tasks that you might want to implement, but not necessarily know the right way to go about it. Apart from the Gulp Plugins that exist, there are recipes that you can take advantage of. Some of the recipes you can use directly in your project include:
+* **[file-loader](https://github.com/webpack-contrib/file-loader)** - Instructs webpack to emit the required object as file and to return its public URL.
+* **[image-webpack-loader](https://github.com/tcoopman/image-webpack-loader)** - Minify PNG, JPEG, GIF and SVG images with `imagemin`.
 
-* [Running tasks in series](https://github.com/gulpjs/gulp/blob/master/docs/recipes/running-tasks-in-series.md)
-* [Browserify builds with Watchify](https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md)
-* [Templating with Swig and YAML front-matter](https://github.com/gulpjs/gulp/blob/master/docs/recipes/templating-with-swig-and-yaml-front-matter.md)
-* [Deleting files and folders before running builds](https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md)
-* [Run Grunt Tasks from Gulp](https://github.com/gulpjs/gulp/blob/master/docs/recipes/run-grunt-tasks-from-gulp.md)
+Update `index.html` to have this div with class _lili_:
 
-Check out a great list of [Gulp Recipes](https://github.com/gulpjs/gulp/tree/master/docs/recipes).
+{% highlight html %}
+{% raw %}
+<div>
+  <h2> Project Asokoro.... <span>The Joy of Webpack</span></h2>
+
+  <div class="lili"></div>
+</div>
+{% endraw %}
+{% endhighlight %}
+
+Update `service.scss` file to have this piece of code.
+
+_service.scss_
+
+{% highlight html %}
+{% raw %}
+.lili {
+  border: 1px solid black;
+  background-image: url('../image/lambo.jpg');
+  width: 1000px;
+  height: 1000px;
+}
+{% endraw %}
+{% endhighlight %}
+
+> **Note:** Create an `image` directory and add the `lambo.jpg` file to it.
+
+The `lambo.jpg` can be found [here](https://cdn.auth0.com/blog/webpack/lambo.jpg).
+
+Update `webpack.config.js` to have the `file-loader` and `image-webpack-loader`.
+
+```js
+...
+{
+    test:  /\.(gif|png|jpe?g|svg)$/i,
+    use: [
+      'file-loader',
+      {
+        loader: 'image-webpack-loader',
+        options: {
+          bypassOnDebug: true,
+        },
+      },
+    ],
+}
+...
+```
+
+In the code above, the `file-loader` loads any image file with these extensions and emits the file with a name that is the result of the MD5 hash of the file's contents in the `dist` directory. The `image-webpack-loader` compresses the file.
+
+Now, run your build, `npm run build` and check your app in the browser.
+
+![Webpack - Index Page](https://cdn.auth0.com/blog/webpack/bundlingimages.png)
+
+Check out your code editor, you should see a new compressed version of the image in the `dist` directory.
+
+![Webpack - Compressed and Uncompressed](https://cdn.auth0.com/blog/webpack/filestructure.png)
+_Compressed and Uncompressed_
+
+Furthermore, check out the version of the image that is served to the browser.
+
+![Webpack - Image served to the browser](https://cdn.auth0.com/blog/webpack/servedtothebrowser.png)
+
+![Webpack - Image loaded in CSS](https://cdn.auth0.com/blog/webpack/compressedservedincss.png)
+
+
+There are several [loaders](https://webpack.js.org/loaders/) and [plugins](https://webpack.js.org/plugins/) available for Webpack. Head over there, search for any plugin that might suit your use case and take advantage of it.
+
+## Webpack Performance Budgets
+
+[Addy Osmani](https://twitter.com/addyosmani) submitted an [RFC](https://github.com/webpack/webpack/issues/3216) on October 31, 2016 about Webpack Performance Budgets. His argument was that many of the apps bundled with Webpack ship a large, single bundle that ends up pegging the main thread and taking longer than it should for web applications to be interactive.
+
+![Webpack - Trace on Chrome](https://cloud.githubusercontent.com/assets/110953/19858610/5aaeea68-9f3f-11e6-8a14-d4ee64b92f66.jpg)
+
+Webpack 2.2 shipped with the _Performance Budget_ feature. And made the feature an opt-out. By default, Webpack prescribes some default performance budgets (for entry points and assets). You can adjust them to suit your use case. All you need to do is add a _performance_ entry in your `webpack.config.js` and customize the _maxAssetSize_, _maxEntryPointSize_ and _hints_ attribute.
+
+Let's try it in _Project Asokoro_. Add a performance entry to the `webpack.config.js` like so:
+
+_webpack.config.js_
+
+```js
+...
+performance: {
+    maxAssetSize: 100,
+    maxEntrypointSize: 100,
+    hints: 'warning'
+}
+```
+
+After running Webpack, this is the result shown below:
+
+![Webpack Performance Budgets](https://cdn.auth0.com/blog/webpack/performance-budgets.png)
+
+Learn more about [Webpack Performance Budgets here.](https://medium.com/webpack/webpack-performance-budgets-13d4880fbf6d)
 
 ## Aside: Webpack and JavaScript at Auth0
 
