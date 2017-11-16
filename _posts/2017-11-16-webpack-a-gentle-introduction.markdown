@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Webpack: A Gentle Introduction to the Module Bundler for JavaScript and Friends"
-description: Learn the basics of Webpack and how to configure it in your web applications.
-date: 2017-11-15 8:30
+title: "Webpack: A Gentle Introduction to the Module Bundler"
+description: Learn the basics of Webpack and how to configure it in your web application.
+date: 2017-11-16 8:30
 category: Technical Guide, JavaScript, Webpack
 author:
   name: Prosper Otemuyiwa
@@ -18,7 +18,6 @@ tags:
 - transpiler
 - build
 - javascript
-- task-runner
 - automation
 related:
 - 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
@@ -28,15 +27,15 @@ related:
 
 ---
 
-**TL;DR:** In this tutorial, I'll introduce you to Webpack and show you how to set up a build system with it in your application.
+**TL;DR:** In this tutorial, I'll introduce you to Webpack and show you how to configure it for performance optimization in your web application. Check out the [repo](https://github.com/auth0-blog/webpack-gentle-introduction) to get the code.
 
 ---
 
-**[Webpack](https://webpack.js.org)** is an aggressive and powerful module bundler for JavaScript applications. It packages all the modules in your application into one or more bundles _(often, just one)_ and serves it to the browser. However, Webpack is more than just a module bundler. With the help of loaders and plugins, it can transform, minify and optimize all types of files before serving them as one bundle to the browser. It takes in various assets, such as JavaScript, CSS, Fonts, Images and HTML, and then transforms these assets into a format that’s convenient to consume through a browser. The true power of Webpack is the sum of its parts.
+**[Webpack](https://webpack.js.org)** is an aggressive and powerful module bundler for JavaScript applications. It packages all the modules in your application into one or more bundles _(often, just one)_ and serves it to the browser. However, Webpack is more than just a module bundler. With the help of loaders and plugins, it can transform, minify and optimize all types of files before serving them as one bundle to the browser. It takes in various assets, such as JavaScript, CSS, Fonts, Images, and HTML, and then transforms these assets into a format that’s convenient to consume through a browser. The true power of Webpack is the sum of its parts.
 
 {% include tweet_quote.html quote_text="The true power of Webpack is the sum of its parts." %}
 
-**Webpack** is a JavaScript library, built and maintained by [Tobias Koppers and the team](https://twitter.com/wsokra). It is very well adopted and backed by the developer community. Virtually every JavaScript framework and project uses Webpack.
+**Webpack** is a JavaScript library, built and maintained by [Tobias Koppers and the team](https://twitter.com/wsokra). It is very well known and backed by the developer community. Virtually every JavaScript framework and project uses Webpack.
 
 ![Webpack - Backers](https://cdn.auth0.com/blog/webpack/backers.png)
 _Webpack - Backers_
@@ -49,20 +48,22 @@ Currently, many web platforms use Webpack during development. Such platforms inc
 
 ## Webpack - The Core Concepts
 
-Webpack is popularly addressed as a beast in the JavaScript community. A lot of developers know how to use Webpack but are constantly confused as to how it actually works under the hood. Is it magic? Is Sean Larkin a sourcerer? What about Tobias? Is he a first-generation spell-caster? Well, I'll address this quite simply. I ask that you just grab your cup of coffee and follow along.
+Webpack is popularly addressed as a beast in the JavaScript community. A lot of developers know how to use Webpack but are constantly confused as to how it actually works under the hood. Is it magic? Is Sean Larkin a sorcerer? What about Tobias? Is he a first-generation spell-caster? Well, I'll address this quite simply. I ask that you just grab your cup of coffee and follow along.
 
 Webpack builds a dependency graph when it processes your application. It starts from a list of modules defined in its config file (`webpack.config.js`) and recursively builds a dependency graph that includes every module your application needs, then packages all of those modules into a small number of bundles to be loaded by the browser.
 
+{% include tweet_quote.html quote_text="Webpack builds a dependency graph when it processes your application." %}
+
 There are four core concepts you need to grasp to understand how Webpack functions:
 
-* Entry
-* Output
-* Loaders
-* Plugins
+* **Entry**
+* **Output**
+* **Loaders**
+* **Plugins**
 
 ### Entry
 
-Every Webpack setup has one or more _entry points._ The entry point tells Webpack where to start building its dependency graph from. Webpack starts processing the module at the entry point and roams around the application source code to look for other modules that depends on the entry module. Every direct or indirect dependency is captured, processes and outputted into a bundle(s).
+Every Webpack setup has one or more _entry points._ The entry point tells Webpack where to start building its dependency graph from. Webpack starts processing the module at the entry point and roams around the application source code to look for other modules that depend on the entry module. Every direct or indirect dependency is captured, processes and outputted into a bundle(s).
 
 _webpack.config.js_
 
@@ -98,7 +99,7 @@ Only one output point can be specified in a Webpack setup. The _output_ config p
 const config = {
     entry: './app/prosper.js',
     output: {
-        path: /unicodeveloper/project/public/dist,
+        path: '/unicodeveloper/project/public/dist',
         filename: 'app.bundle.js'
     }
 };
@@ -134,7 +135,7 @@ In the code above, the `html-loader` processes HTML files and exports as strings
 
 ### Plugins
 
-Earlier in the post, I mentioned that loaders are like transformers. Plugins are _super-man-like_ in their operations. They can do a lot more tasks than loaders. In fact, just any thing ranging from deleting files, to backing up files on services like [Cloudinary](https://cloudinary.com), to copying files, etc. Check out the example below:
+Earlier in the post, I mentioned that loaders are like transformers. Plugins are _super-man-like_ in their operations. They can do a lot more tasks than loaders. In fact, just anything ranging from deleting files, to backing up files on services like [Cloudinary](https://cloudinary.com), to copying files, etc. Check out the example below:
 
 ```js
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -178,9 +179,9 @@ npm install webpack -g
 
 ## Setting Up Webpack in an Application
 
-Create a new project directory. Head over to the terminal and run `npm init` to create a `package.json` file inside the directory.
+Create a new project directory. Head over to the terminal and run `npm init` to create a `package.json` inside the directory.
 
-Next, go ahead and add `webpack` as a dependency to the project.
+Next, go ahead and add `webpack` to the project.
 
 ```bash
 npm install webpack -D
@@ -259,7 +260,7 @@ _package.json_
 }
 ```
 
-With this action, we can just run `npm run build` from the terminal. The command will invoke webpack. Go ahead and try it out.
+With this action, we can just run `npm run build` from the terminal. The command will invoke `webpack`. Go ahead and try it out.
 
 ```bash
 npm run build
@@ -277,11 +278,11 @@ By now, you should understand the basics of using Webpack in a project. Webpack 
 
 ## Webpack Use Case: Project Asokoro
 
-Remember the _Project Lingo_ we [architected with GulpJS?](https://auth0.com/blog/automate-your-development-workflow-with-gulpjs/). The people of Asokoro were very happy with the results. Now, they want the same results with _Project Asokoro_.
+Remember the _**Project Lingo**_ we [architected with GulpJS?](https://auth0.com/blog/automate-your-development-workflow-with-gulpjs/) The people of Asokoro were very happy with the results. Now, they want the same results with _**Project Asokoro**_.
 
-**Project Asokoro** is a project that we have embarked upon for the people of _Asokoro_. It does exactly what **Project Lingo** does. _Project Lingo_ allows a mere human click a button, input a destination and Lingo automatically teleports the human to their preferred destination in approximately 5 minutes.
+_**Project Asokoro**_ is a project that we have embarked upon for the people of _Asokoro_. It does exactly what _**Project Lingo**_ does. _**Project Lingo**_ allows a mere human click a button, input a destination and Lingo automatically teleports the human to their preferred destination in approximately 5 minutes.
 
-In _Project Asokoro_, we'll have a bunch of JavaScript, Sass and Image files. We need to compress and optimize these files so that Asokoro can be super-fast. I mean, you don't want Asokoro taking over an hour to teleport a human because of our in-efficient developer work-flow. We also don't want investors running way.
+In _**Project Asokoro**_, we'll have a bunch of JavaScript, Sass and Image files. We need to compress and optimize these files so that Asokoro can be super-fast. I mean, you don't want Asokoro taking over an hour to teleport a human because of our in-efficient developer work-flow. We also don't want investors running way.
 
 This is what we need to do:
 
@@ -327,7 +328,7 @@ Go ahead and install the following loaders and plugins via your terminal:
 npm install sass-loader node-sass extract-text-webpack-plugin css-loader style-loader --save-dev
 ```
 
-A quick breakdown of what each of these plugins and loaders aim to accomplish.
+A quick breakdown of what each of these plugins and loaders aims to accomplish.
 
 * **[sass-loader](https://github.com/webpack-contrib/sass-loader)** - Loads a SASS/SCSS file and compiles it to CSS. It requires `node-sass` to work.
 * **[node-sass](https://github.com/sass/node-sass)** - This libarary allows you to natively compile `.scss` files to `css` at incredible speed and automatically via a connect middleware.
@@ -370,9 +371,9 @@ module.exports = {
 };
 ```
 
-In the code above, we have the `extract-text-webpack-plugin`. It extracts all the CSS code into `/dist/bundle.css`. Webpack roams the source code for `.scss` files, then uses `css-loader` and `sass-loader` to load and embed the stylesheets into the JavaScript bundle.
+In the code above, we have the `extract-text-webpack-plugin`. It extracts all the CSS code into `/dist/bundle.css`. Webpack roams the source code for `.scss` files then use `css-loader` and `sass-loader` to load and embed the stylesheets into the JavaScript bundle.
 
-Quickly add link to the `bundle.css` in `index.html` like so:
+Quickly add a link to the `bundle.css` in `index.html` like so:
 
 
 {% highlight html %}
@@ -586,7 +587,7 @@ Go ahead and check out our [quickstarts](https://auth0.com/docs/quickstarts) for
 
 ## Conclusion
 
-You have now learned the core concepts of Webpack and how to configure it in an application. You can leverage this gentle introduction for understanding of intermediate and advanced concepts. [Sean Larkin](https://twitter.com/thelarkinn) has some awesome Webpack courses on [Webpack Academy](https://webpack.academy)
+You have now learned the core concepts of Webpack and how to configure it in an application. You can leverage this gentle introduction for an understanding of intermediate and advanced concepts. [Sean Larkin](https://twitter.com/thelarkinn) has some awesome Webpack courses on [Webpack Academy](https://webpack.academy)
 
 As at the time of this writing, Webpack is the most popular build tool amongst web developers. It is a beast that can be tamed to do your bidding in your JavaScript projects.
 
