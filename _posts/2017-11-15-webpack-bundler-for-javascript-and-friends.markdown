@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Webpack: Bundler for JavaScript and Friends"
+title: "Webpack: A Gentle Introduction to the Module Bundler for JavaScript and Friends"
 description: Learn the nitty-gritty of Webpack and how to configure it as a build system in your applications.
 date: 2017-11-15 8:30
 category: Technical Guide, JavaScript, Webpack
@@ -32,133 +32,266 @@ related:
 
 ---
 
-**[Webpack](https://webpack.js.org)** is a module bundler for JavaScript applications. It packages all the modules in your application into one or more bundles _(often, just one)_ and serves it to the browser. However, Webpack is more than just a module bundler. With the help of loaders and plugins, it can transform, minify and optimize all types of files before serving them as one bundle to the browser. It takes in various assets, such as JavaScript, CSS, Fonts, Images and HTML, and then transforms these assets into a format that’s convenient to consume through a browser. The true power of Webpack is the sum of its parts.
+**[Webpack](https://webpack.js.org)** is an aggressive and powerful module bundler for JavaScript applications. It packages all the modules in your application into one or more bundles _(often, just one)_ and serves it to the browser. However, Webpack is more than just a module bundler. With the help of loaders and plugins, it can transform, minify and optimize all types of files before serving them as one bundle to the browser. It takes in various assets, such as JavaScript, CSS, Fonts, Images and HTML, and then transforms these assets into a format that’s convenient to consume through a browser. The true power of Webpack is the sum of its parts.
 
 {% include tweet_quote.html quote_text="The true power of Webpack is the sum of its parts." %}
 
-**Webpack** is a JavaScript library, built and maintained by [Tobias Koppers and the team](https://twitter.com/wsokra). It is very well adopted in the developer community. Virtually every JavaScript framework and project uses Webpack.
+**Webpack** is a JavaScript library, built and maintained by [Tobias Koppers and the team](https://twitter.com/wsokra). It is very well adopted and backed by the developer community. Virtually every JavaScript framework and project uses Webpack.
 
-Currently, many web platforms use Webpack during development. Such platforms include Auth0, Netflix, Instagram, Airbnb, KhanAcademy, Trivago and more. The [documentation](https://webpack.js.org/concepts/) is very detailed, and there is a vibrant community of users. Webpack currently exists in two GitHub Organizations, [Webpack](https://github.com/webpack) and [Webpack-contrib](https://github.com/webpack-contrib). The _Webpack_ org consists of projects such as Webpack, Webpack-cli, webpack-canary while the _Webpack-contrib_ org consists ofoIn addition, a plethora of ReactJS addons exist on GitHub for easy inclusion in your project for whatever functionality you are trying to build.
+![Webpack - Backers](https://cdn.auth0.com/blog/webpack/backers.png)
+_Webpack - Backers_
+
+![Webpack - Sponsors](https://cdn.auth0.com/blog/webpack/sponsors.png)
+_Webpack - Sponsors_
+
+Currently, many web platforms use Webpack during development. Such platforms include Auth0, Netflix, Instagram, Airbnb, KhanAcademy, Trivago and more. The [documentation](https://webpack.js.org/concepts/) is very detailed, and there is a vibrant community of users. Webpack currently exists in two GitHub Organizations, [Webpack](https://github.com/webpack) and [Webpack-contrib](https://github.com/webpack-contrib). The _Webpack_ org consists of projects such as [webpack](https://github.com/webpack/webpack), [webpack-cli](https://github.com/webpack/webpack-cli), [tapable](https://github.com/webpack/tapable), while the _Webpack-contrib_ org consists of mostly plugins and loaders.
 
 
-**Webpack** is a tool that helps you as a developer provision build systems that automates the most frustrating tasks, improves performance via _optimization_ and _code splitting_ and let you focus on the core business logic of your application.
+## Webpack - The Core Concepts
 
-## GulpJS Requirements
+Webpack is popularly addressed as a beast in the JavaScript community. A lot of developers know how to use Webpack but are constantly confused as to how it actually works under the hood. Is it magic? Is Sean Larkin a sourcerer? What about Tobias? Is he a first-generation spell-caster? Well, I'll address this quite simply. I ask that you just grab your cup of coffee and follow along.
 
-In order to use GulpJS, you need to have the following tools installed on your machine.
+Webpack builds a dependency graph when it processes your application. It starts from a list of modules defined in its config file (`webpack.config.js`) and recursively builds a dependency graph that includes every module your application needs, then packages all of those modules into a small number of bundles to be loaded by the browser.
 
-* **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine.
-* **GulpJS**: Install Gulp globally in your terminal so that the `gulp` command can be run from any directory.
+There are four core concepts you need to grasp to understand how Webpack functions:
 
-```bash
-npm install gulp-cli -g
-```
+* Entry
+* Output
+* Loaders
+* Plugins
 
-## GulpJS Features
+### Entry
 
-GulpJS provides a standardized API. The API methods allow you accomplish whatever work you want done with Gulp. See below a quick run down of the API methods:
+Every Webpack setup has one or more _entry points._ The entry point tells Webpack where to start building its dependency graph from. Webpack starts processing the module at the entry point and roams around the application source code to look for other modules that depends on the entry module. Every direct or indirect dependency is captured, processes and outputted into a bundle(s).
 
-* `gulp.task` - Define a task.
-
-    ```js
-    gulp.task('dosometask', () => {
-      // Do some task
-    });
-    ```
-* `gulp.src` - Read a file or set of files in.
-
-    ```js
-      gulp.src('client/templates/*.jade')
-      .pipe(jade())
-      .pipe(minify())
-      .pipe(gulp.dest('build/minified_templates'));
-    ```
-
-* `gulp.dest` - Write files out to a directory.
-
-    ```js
-    gulp.src('./client/templates/*.jade')
-    .pipe(jade())
-    .pipe(gulp.dest('./build/templates'))
-    .pipe(minify())
-    .pipe(gulp.dest('./build/minified_templates'));
-    ```
-
-    ```js
-    gulp.src('client/js/**/*.js') // Matches 'client/js/somedir/somefile.js' and resolves `base` to `client/js/`
-    .pipe(minify())
-    .pipe(gulp.dest('build'));  // Writes 'build/somedir/somefile.js'
-
-    gulp.src('client/js/**/*.js', { base: 'client' })
-      .pipe(minify())
-      .pipe(gulp.dest('build'));  // Writes 'build/js/somedir/somefile.js'
-    ```
-
-* `gulp.watch` - Watch files and do something when a file changes.
-
-    ```js
-    gulp.watch('js/**/*.js', function(event) {
-      console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-    });
-    ```
-
-Next, let's look at how we can actually use GulpJS in an application. We need to create a gulpfile.
-
-## Setting Up GulpFile in an Application
-
-In a typical project, GulpJS needs some form of instructions to guide it in automating your tasks. These instructions are written in a file called the `gulpfile`. Let's go ahead and create this file.
-
-Make sure you are in a new project directory. Inside the directory, create a `gulpfile.js` file.
-
-In the `gulpfile.js` file, add this code to it like so:
+_webpack.config.js_
 
 ```js
-var gulp = require('gulp');
+const config = {
+  entry: './app/prosper.js'
+};
 
-gulp.task('run-this-common-task', function(){
-    console.log('This is a simple task. Now, run it');
-});
+module.exports = config;
+
 ```
 
-We just added a very simple task to the gulpfile. You need to always require the `gulp` node module before you can define and run tasks.
+_webpack.config.js - separate entries_
 
-Before running the task, go ahead and install gulp locally in your project like so:
+```js
+const config = {
+  entry: {
+    app: './src/app.js',
+    vendors: './src/vendors.js'
+  }
+};
+
+module.exports = config;
+```
+
+> **Note:** Just simply re-iterating. Multiple entry points can be specified in a Webpack config file.
+
+### Output
+
+Only one output point can be specified in a Webpack setup. The _output_ config property tells Webpack where to place the bundle(s) it creates and how to name them. It is as simple as specifying the `output` property in the config file like so:
+
+```js
+const config = {
+    entry: './app/prosper.js',
+    output: {
+        path: /unicodeveloper/project/public/dist,
+        filename: 'app.bundle.js'
+    }
+};
+
+module.exports = config;
+```
+
+`output.filename` - The name of the _bundle_ webpack produces.
+`output.path` - The directory to write `app.bundle.js` to.
+
+### Loaders
+
+Loaders are like transformers. With loaders, Webpack can process any type of file, not just JavaScript files. Loaders transform these files into modules that can be included in the app's dependency graph and bundle. Check out the example below:
+
+```js
+const config = {
+  entry: './app/prosper.js',
+  output: {
+    path: '/unicodeveloper/project/public/dist',
+    filename: 'app.bundle.js'
+  },
+  module: {
+    rules: [
+      { test: /\.(html)$/, use: 'html-loader' }
+    ]
+  }
+};
+
+module.exports = config;
+```
+
+In the code above, the `html-loader` processes HTML files and exports as strings. There are several loaders such as [css-loader](https://github.com/webpack-contrib/css-loader), [less-loader](https://github.com/webpack-contrib/less-loader), [coffee-loader](https://github.com/webpack-contrib/coffee-loader) and many more.
+
+### Plugins
+
+Earlier in the post, I mentioned that loaders are like transformers. Plugins are _super-man-like_ in their operations. They can do a lot more tasks than loaders. In fact, just any thing ranging from deleting files, to backing up files on services like [Cloudinary](https://cloudinary.com), to copying files, etc. Check out the example below:
+
+```js
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+
+const config = {
+  entry: './app/prosper.js',
+  output: {
+    path: '/unicodeveloper/project/public/dist',
+    filename: 'app.bundle.js'
+  },
+  module: {
+    rules: [
+      { test: /\.(html)$/, use: 'html-loader' }
+    ]
+  },
+  plugins: [
+    new CompressionWebpackPlugin({test: /\.js/})
+  ]
+};
+
+module.exports = config;
+```
+
+In the code above, the `compression-webpack-plugin` compresses all the JavaScript files before serving them to the browser. There are several [plugins](https://webpack.js.org/plugins) such as [AggressiveSplittingPlugin](https://webpack.js.org/plugins/aggressive-splitting-plugin/), [CommonsChunkPlugin](https://webpack.js.org/plugins/commons-chunk-plugin/), [18nWebpackPlugin](https://webpack.js.org/plugins/i18n-webpack-plugin/) and many more.
+
+## Webpack Requirements
+
+In order to use Webpack, you need to have the following tools installed on your machine.
+
+* **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine. Verify that `npm` works by running `npm` in your terminal.
+* **Webpack**: Install Webpack globally in your terminal so that the `webpack` command can be run from any directory.
 
 ```bash
-npm install --save-dev gulp
+npm install webpack -g
 ```
 
-Now, run your task with gulp:
+> **Note:** It's optional to install webpack globally and not recommended because it locks your all projects to a specific version of Webpack. You can as well just add it a dev-dependency while working on your project.
+
+
+## Setting Up Webpack in an Application
+
+Create a new project directory. Head over to the terminal and run `npm init` to create a `package.json` file inside the directory.
+
+Next, go ahead and add `webpack` as a dependency to the project.
 
 ```bash
-gulp run-this-common-task
+npm install webpack -D
 ```
 
-![GulpJS - Run common task](https://cdn.auth0.com/blog/gulp/run-common-task.png)
-_GulpJS: Run common task_
+![Webpack - Dev Dependency](https://cdn.auth0.com/blog/webpack/devdependency.png)
+_package.json_
 
-The task had just one job - Log a sentence to the console. And it successfully executed this task.
+Create a `js` folder inside the directory with two files, `service.js` and `factory.js`.
 
-Let's take a stab at something that gives us a better overview of the different kind of operations gulp can handle in your application.
+_js/factory.js_
 
-## GulpJS Use Case: Project Lingo
+```js
+import './service.js';
+```
 
-This is a practical use case. We are going to paint a scenario of the tasks we need to accomplish in _Project Lingo_. Before we define such tasks, what the heck is _Project Lingo_?
+_js/service.js_
 
-**Lingo** is a project that we have embarked upon in Company TechnoVille. _Project Lingo_ is set to take over the world in ways you can't imagine. One of such ways is allowing a mere human click a button, input a destination and Lingo automatically teleports the human to their preferred destination in approximately 5 minutes.
+```js
+console.log("This is a functioning service.");
+```
 
-In _Project Lingo_, we have a bunch of JavaScript, Less and Image files. We need to compress and optimize these files so that Lingo can be super-fast. I mean, you don't want Lingo taking 3 hours to teleport a human because of our in-efficient developer work-flow. We also don't want investors running way & Project Lingo dying when we could have done something about it.
+Create a `webpack.config.js` file in the root directory and add the following code to it like so:
+
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './js/factory.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  }
+};
+```
+
+In the code above, we have an entry point, `factory.js`. This config file tells Webpack to start processing the dependency graph from this file, which is dependent on `service.js`. And outputs the result of its operation to `bundle.js` which is written to a new `dist` directory.
+
+Create an `index.html` file in the root directory.
+
+% highlight html %}
+{% raw %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Test Webpack</title>
+    </head>
+    <script type="text/javascript" src="dist/bundle.js"></script>
+    <body>
+      <h2> Testing Webpack.... </h2>
+    </body>
+    </html>
+{% endraw %}
+{% endhighlight %}
+
+One last step. Head over to `package.json`. Add `webpack` to the `scripts` section like so:
+
+_package.json_
+
+```js
+{
+  "name": "testwebpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^3.8.1"
+  }
+}
+```
+
+With this action, we can just run `npm run build` from the terminal. The command will invoke webpack. Go ahead and try it out.
+
+```bash
+npm run build
+```
+
+![Webpack build](https://cdn.auth0.com/blog/webpack/build.png)
+_Build_
+
+Now, open your `index.html` in the browser. You should see the result of `service.js` in the console.
+
+![Webpack Results](https://cdn.auth0.com/blog/webpack/index.png)
+_Index file - Results from Webpack_
+
+By now, you should understand the basics of using Webpack in a project. Webpack can do a lot more. Let's examine a use case that gives us a better overview of using loaders and plugins with Webpack in a JavaScript project.
+
+## Webpack Use Case: Project Asokoro
+
+Remember the _Project Lingo_ we [architected with GulpJS?](https://auth0.com/blog/automate-your-development-workflow-with-gulpjs/). The people of Asokoro were very happy with the results. Now, they want the same results with _Project Asokoro_, but a little more.
+
+**Project Asokoro** is a project that we have embarked upon for the people of _Asokoro_. It does exactly what **Project Lingo** does. _Project Lingo_ allows a mere human click a button, input a destination and Lingo automatically teleports the human to their preferred destination in approximately 5 minutes.
+
+In _Project Asokoro_, we'll have a bunch of JavaScript, Less and Image files. We need to compress and optimize these files so that Asokoro can be super-fast. I mean, you don't want Asokoro taking over an hour to teleport a human because of our in-efficient developer work-flow. We also don't want investors running way.
 
 This is what we need to do:
 
 * Concatenate all our JavaScript files into just one file. This will make sure our app makes one HTTP request while serving JavaScript rather than multiple HTTP requests.
 * Compile our Less files into CSS. The browser understands CSS, not LESS.
 * Compress all our image files.
-* Detect errors and potential problems in our JavaScript code. We need to make sure Lingo developers are writing quality JavaScript code.
 
-We have these requirements listed above. How do we approach tackling these tasks with GulpJS?
+We have these requirements listed above. How do we approach tackling these tasks with Webpack?
 
-## Project Lingo - Install GulpJS Plugins
+## Project Asokoro - Install Webpack Plugins
 
 Yes, GulpJS has an amazing [ecosystem of plugins](https://gulpjs.com/plugins). For every task a developer tries to accomplish, there is probably a GulpJS plugin out there for automating such task. Go ahead and install the following plugins via your terminal:
 
@@ -305,7 +438,7 @@ So, head over to the terminal, and try `gulp lingo` and watch all the tasks run.
 
 **Note:** Ensure you have a `js`, `less` and `images` folder with multiple JavaScript, Less and image files respectively.
 
-## Gulp Plugins
+## Webpack Loaders And Plugins
 
 As demonstrated in _Project Lingo_, we took advantage of the Gulp Plugins ecosystem. Gulp Plugins are building blocks for your gulpfile.
 
@@ -330,7 +463,7 @@ There are some tasks that you might want to implement, but not necessarily know 
 
 Check out a great list of [Gulp Recipes](https://github.com/gulpjs/gulp/tree/master/docs/recipes).
 
-## Aside: Task Automation and JavaScript at Auth0
+## Aside: Webpack and JavaScript at Auth0
 
 At [Auth0](https://auth0.com/) we use JavaScript heavily in development and automate tasks using build tools such as Webpack. Using our authentication and authorization server from your JavaScript web apps is a piece of cake.
 
@@ -419,8 +552,8 @@ Go ahead and check out our [quickstarts](https://auth0.com/docs/quickstarts) for
 
 ## Conclusion
 
-You have now learned how to automate your development workflow with GulpJS. This GulpJS tutorial simply covers how Gulp - the task runner and automation tool works and how it can automate common tasks in your application. I am rest assured _Project Lingo_ is now highly performant. All thanks to the optimization techniques we deployed using GulpJS.
+You have now learned the core concepts of Webpack and how to configure it in an application. You can leverage this gentle introduction for understanding of intermediate and advanced concepts. [Sean Larkin](https://twitter.com/thelarkinn) has some awesome Webpack courses on [Webpack Academy](https://webpack.academy)
 
-There are other tasks runners and automation tools you should check out. Examples are [Grunt](https://gruntjs.com), [Broccoli](https://github.com/broccolijs/broccoli), [Brunch](https://brunch.io) and [Webpack](https://github.com/webpack/webpack). As at the time of this writing, Webpack is the most popular build tool/task runner amongst web developers.
+As at the time of this writing, Webpack is the most popular build tool amongst web developers. It is a beast that can be tamed to do your bidding in your JavaScript projects.
 
-Do you still use GulpJS? Are you now in the league of Webpackers? Are there specific reasons you would choose one over the other? Please let me know in the comment section. 😊
+What's your experience with using Webpack? Let me know in the comments section.😊
