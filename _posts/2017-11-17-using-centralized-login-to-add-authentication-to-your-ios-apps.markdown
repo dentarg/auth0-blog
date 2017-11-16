@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Using Centralized Login to Add Authentication to Your iOS Apps"
+title: "Add Authentication To Your iOS Apps with Centralized Login"
 description: "In this tutorial we implement centralized logins for iOS both manually and using the Auth0 SDK."
 date: 2017-11-17 12:30
 category: Technical Guide, iOS, Mobile
@@ -83,7 +83,7 @@ In essence, a native application can delegate the authentication/authorization s
 
 [Auth0, which fully conforms to the OpenID Connect specification](https://auth0.com/blog/we-are-now-open-id-certified/), provides an authorization server capable of authenticating and authorizing users through many identity providers using mobile web browsers. The next sections in this post will detail how to implement this for iOS apps both hitting OpenID Connect endpoints manually and using the Auth0 SDK. Additionally, we will also see how to customize the different screens that are displayed by the web browser during the process, improving the UI/UX integration with the rest of the applications.
 
-## Implementation
+## Add Authentication To Your iOS App
 For [our example](https://github.com/auth0-blog/centralized-login-ios), we will implement two iOS apps using Swift. Our applications will use Auth0 as the authorization server. Auth0 allows clients to login using different identity providers and many more features (such as passwordless logins, classical username + password, etc.) One application will interact with the authorization server directly by following the usual OpenID Connect process for authentication. It will use Safari as the application handling the credentials and the login flow. The other application will use the Auth0 for iOS library to further simplify our code. This library can interact with Safari for us, making things even easier! Both applications fully implement the recommended procedure for mobile authentication, it is up to you to pick whatever you prefer for your own apps.
 
 ### Setting Up Auth0
