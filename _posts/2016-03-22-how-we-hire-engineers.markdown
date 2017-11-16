@@ -47,7 +47,7 @@ After that we take a look at the CV to _try_ to assess relevant experience and t
   <img style="margin: 10px; max-width: 150px; max-height:89px" src="https://cdn.auth0.com/blog/hire-engineers/screener.png">
   <h2 style="display: inline-block;">The screener</h2>
 </div>
-The next thing do is learn more about the candidate. To do this we send them a short screener -- an idea we got from [this intercom post](https://blog.intercom.io/how-we-hire-engineers-part-1/)-- with questions that look like this (they might vary a bit depending on the specific position):
+The next thing to do is learn more about the candidate. To do this we send them a short screener -- an idea we got from [this intercom post](https://blog.intercom.io/how-we-hire-engineers-part-1/)-- with questions that look like this (they might vary a bit depending on the specific position):
 
 1. What's your proudest professional achievement? It can be a personal project or something you did at work/school. Just a short paragraph is fine, but we’d love to know why you're proud of it.
 2. Tell us about an article/blog post/github repo you found recently, why you liked it, and why we should check it out.
