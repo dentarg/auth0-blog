@@ -16,7 +16,7 @@ sitemap:
       <xhtml:link
             rel="alternate"
             hreflang="en"
-            href="{{ site.url }}/blog/{{post.alternate_locale_en}}"
+            href="{{ site.url }}/blog/{{post.alternate_locale_en}}/"
             />
       {% endif %}
       {% endunless %}
@@ -25,7 +25,7 @@ sitemap:
       <xhtml:link
             rel="alternate"
             hreflang="es"
-            href="{{ site.url }}/blog/{{post.alternate_locale_es}}"
+            href="{{ site.url }}/blog/{{post.alternate_locale_es}}/"
             />
       {% endif %}
       {% endunless %}
@@ -34,7 +34,7 @@ sitemap:
       <xhtml:link
             rel="alternate"
             hreflang="de"
-            href="{{ site.url }}/blog/{{post.alternate_locale_de}}"
+            href="{{ site.url }}/blog/{{post.alternate_locale_de}}/"
         />
       {% endif %}
       {% endunless %}
@@ -43,7 +43,7 @@ sitemap:
       <xhtml:link
             rel="alternate"
             hreflang="jp"
-            href="{{ site.url }}/blog/{{post.alternate_locale_jp}}"
+            href="{{ site.url }}/blog/{{post.alternate_locale_jp}}/"
         />
       {% endif %}
       {% endunless %}

@@ -23,6 +23,8 @@ related:
 - 2015-04-09-adding-authentication-to-your-react-flux-app
 - 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
 - 2016-09-29-angular-2-authentication
+lang: en
+alternate_locale_jp: jp-reactjs-authentication-tutorial
 ---
 
 ---
@@ -456,7 +458,6 @@ Let's create a helper file to handle fetching the API. Create a `chucknorris-api
 Open up the file and add code to it like so:
 
 ```js
-
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3333';
@@ -597,6 +598,7 @@ class FoodJokes extends Component {
 export default FoodJokes;
 
 ```
+
 _FoodJokes.js_
 
 > **Note:** Learn why I use [`super()` in the class constructor](http://cheng.logdown.com/posts/2016/03/26/683329).
@@ -1237,8 +1239,8 @@ We need to ensure that no one can go to the browser and just type `/special` to 
 Open up `index.js` and add an `onEnter` prop with a value of `requireAuth` to the `/special` route like so:
 
 ```js
-....
-....
+...
+
 import { requireAuth } from './utils/AuthService';
 
 const Root = () => {

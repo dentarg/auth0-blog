@@ -91,7 +91,6 @@ Authentication logic on the front end is handled with an `AuthService` authentic
 
 ```js
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
@@ -115,7 +114,7 @@ export class AuthService {
   loggedIn: boolean;
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
-  constructor(private router: Router) {
+  constructor() {
     // If authenticated, set local profile property and update login status subject
     if (this.authenticated) {
       this.userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -140,9 +139,7 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this._getProfile(authResult);
-        this.router.navigate(['/']);
       } else if (err) {
-        this.router.navigate(['/']);
         console.error(`Error: ${err.error}`);
       }
     });
@@ -214,7 +211,34 @@ Finally, we have a `logout()` method that clears data from local storage and upd
 
 Once [`AuthService` is provided in `app.module.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts#L32), its methods and properties can be used anywhere in our app, such as the [home component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/home).
 
-The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until hash parsing is completed and the Angular app redirects back to the home page.
+### Callback Component
+
+The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until the login process is completed. It subscribes to the `loggedIn$` Behavior Subject from our Authentication service in order to redirect back to the home page once the user is logged in, like so:
+
+```js
+// src/app/callback/callback.component.ts
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from './../auth/auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-callback',
+  templateUrl: './callback.component.html',
+  styleUrls: ['./callback.component.css']
+})
+export class CallbackComponent implements OnInit {
+
+  constructor(private auth: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.auth.loggedIn$.subscribe(
+      loggedIn => loggedIn ? this.router.navigate(['/']) : null
+    )
+  }
+
+}
+```
 
 ### Making Authenticated API Requests
 
