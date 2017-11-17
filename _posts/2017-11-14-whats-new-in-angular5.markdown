@@ -237,7 +237,7 @@ providers: [
 
 ## 11. Better Support for Service Workers in Angular 5
 
-In Angular 5, we have better support for service workers via the `[@angular/service-worker](https://github.com/angular/angular/tree/master/packages/service-worker)` package. The service worker package is a conceptual derivative of the `@angular/service-worker` package that was maintained at [github.com/angular/mobile-toolkit](github.com/angular/mobile-toolkit), but has been rewritten to support use-cases across a much wider variety of applications.
+In Angular 5, we have better support for service workers via the [@angular/service-worker](https://github.com/angular/angular/tree/master/packages/service-worker) package. The service worker package is a conceptual derivative of the `@angular/service-worker` package that was maintained at [github.com/angular/mobile-toolkit](github.com/angular/mobile-toolkit), but has been rewritten to support use-cases across a much wider variety of applications.
 
 > **Note:** Right now you will have to manually integrate the package because it's not fully integrated with the CLI v1.5 yet. It is available as beta in version 1.6 of the CLI.
 
