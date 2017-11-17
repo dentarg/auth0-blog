@@ -125,7 +125,7 @@ These action creators are quite simple. They simply returns objects that contain
 
 ### Creating Redux Reducers
 
-We are going to add the business logic of our tutorial app in the reducer that we are going to create in this section. This reducer will have a `switch` statement that, based on an action, will trigger the proper function to generate a new state. Let's open the `src/reducers.js` file and add the following reducer definition to it:
+We are going to add the business logic of our tutorial app in the reducer that we are going to create in this section. This reducer will have a `switch` statement that, based on an action, will trigger the proper function to generate the new state. Let's open the `src/reducers.js` file and add the following reducer definition to it:
 
 ```js
 import {ADD_EXPENSE, REMOVE_EXPENSE} from "./actions";
@@ -167,4 +167,92 @@ function removeExpense(state, expense) {
 
 To decide exactly what function to call (`addExpense` or `removeExpense`), the reducer created by this file (`expenses`) compares the `action.type` with both `ADD_EXPENSE` and `REMOVE_EXPENSE` constants. After identifying the correct function, it triggers this function passing the current `state` of the application and the `expense` in question.
 
-Creating an automated test to validate the behavior of this reducer is easy. As reducers are pure functions, we don't need to mock anything. We just need to generate some expenses and actions samples, trigger our reducer with them, and check the output generated.
+### Testing Redux Reducers with Jest
+
+It is easy to create an automated test to validate the behavior of this reducer. As reducers are pure functions, we don't need to mock anything. We just need to generate some samples of expenses and actions, trigger our reducer with them, and check the generated output. Let's install the `jest` test runner and `babel` to help us testing the reducer.
+
+```bash
+npm i -D jest babel-jest babel-preset-es2015
+```
+
+Also, let's update the `scripts` property in the `package.json` file so we can easily run `jest`:
+
+```js
+{
+  // ...
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  }
+  // ...
+}
+```
+
+With these scripts in place, we can create the test suite that will validate the `expenses` reducer. Let's create a file called `reducers.test.js` alongside with `reducers.js` and define two tests in a new test suite, as follows:
+
+```js
+import {initialState, addExpense, removeExpense} from './actions';
+import expenses from './reducers';
+
+describe('reducers', () => {
+    it('should be able to add expenses', () => {
+        const stateStep1 = expenses(initialState, addExpense({
+            id: 1,
+            amount: 20
+        }));
+        expect(stateStep1.expenses.length).toEqual(1);
+        expect(stateStep1.balance).toEqual(20);
+
+        const stateStep2 = expenses(stateStep1, addExpense({
+            id: 2,
+            amount: 10
+        }));
+        expect(stateStep2.expenses.length).toEqual(2);
+        expect(stateStep2.balance).toEqual(30);
+    });
+
+    it('should be able to remove expenses', () => {
+        const stateStep1 = expenses(initialState, addExpense({
+            id: 1,
+            amount: 55
+        }));
+        expect(stateStep1.expenses.length).toEqual(1);
+        expect(stateStep1.balance).toEqual(55);
+
+        const stateStep2 = expenses(stateStep1, addExpense({
+            id: 2,
+            amount: 36
+        }));
+        expect(stateStep2.expenses.length).toEqual(2);
+        expect(stateStep2.balance).toEqual(91);
+
+        const stateStep3 = expenses(stateStep2, removeExpense({
+            id: 1
+        }));
+        expect(stateStep3.expenses.length).toEqual(1);
+        expect(stateStep3.balance).toEqual(36);
+    });
+});
+```
+
+The test suite and its tests are a little bit verbose, but they are easy to understand. We start by importing `initialState`, `addExpense`, and `removeExpense` from the `src/actions.js` file. After that, we import the `expenses` reducer from its source. Lastly, we use the `describe` function to define the test suite and the `it` function to create two tests.
+
+Both tests are pretty similar. Therefore, let's analyze the first one to understand how it works. The first step executed by this test calls the `expenses` reducer passing to it the `initialState` and the `addExpense` action creator. As the parameter of this action creator, we pass an expense with `id = 1` and `amount = 20`. We then check if the result of the `expenses` execution, the `stateStep1`, contains a single expense and if the `balance` is equal 20. After that, we execute a similar process that validates that the `expenses` reducer accepts a new expense and updates the `balance` accordingly. The difference in the second test is that, after adding two expenses, we use the reducer to remove one.
+
+Let's run the `npm test` command to verify our implementation. If we followed the steps above correctly, we should get an output similar this:
+
+```
+> redux-node@1.0.0 test /Users/brunokrebs/git/tmp/redux-node
+> jest
+
+ PASS  src/reducers.test.js
+  reducers
+    ✓ should be able to add expenses (3ms)
+    ✓ should be able to remove expenses (1ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        0.754s, estimated 1s
+Ran all test suites.
+```
