@@ -10,8 +10,8 @@ author:
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
   mail: prosper.otemuyiwa@auth0.com
 design:
-  bg_color: "#5F2021"
-  image: https://cdn.auth0.com/blog/gulpjs/logo.png
+  bg_color: "#165B91"
+  image: https://cdn.auth0.com/blog/webpack/logo.png
 tags:
 - webpack
 - bundler
