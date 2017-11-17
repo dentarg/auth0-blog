@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Redux in Action"
-description: "Let's learn about Redux through practical examples."
+description: "A practical tutorial that teaches Redux through examples."
 date: 2017-11-17 13:05
 category: Technical Guide, JavaScript, Redux
 author:
