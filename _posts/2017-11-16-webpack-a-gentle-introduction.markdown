@@ -63,7 +63,7 @@ There are four core concepts you need to grasp to understand how Webpack functio
 
 ### Entry
 
-Every Webpack setup has one or more _entry points._ The entry point tells Webpack where to start building its dependency graph from. Webpack starts processing the module at the entry point and roams around the application source code to look for other modules that depend on the entry module. Every direct or indirect dependency is captured, processes and outputted into a bundle(s).
+Every Webpack setup has one or more _entry points._ The entry point tells Webpack where to start building its dependency graph from. Webpack starts processing the module at the entry point and roams around the application source code to look for other modules that depend on the entry module. Every direct or indirect dependency is captured, processed and outputted into a bundle(s).
 
 _webpack.config.js_
 
@@ -89,7 +89,7 @@ const config = {
 module.exports = config;
 ```
 
-> **Note:** Just simply re-iterating. Multiple entry points can be specified in a Webpack config file.
+> **Note:** Just simply reiterating. Multiple entry points can be specified in a Webpack config file.
 
 ### Output
 
@@ -131,7 +131,7 @@ const config = {
 module.exports = config;
 ```
 
-In the code above, the `html-loader` processes HTML files and exports as strings. There are several loaders such as [css-loader](https://github.com/webpack-contrib/css-loader), [less-loader](https://github.com/webpack-contrib/less-loader), [coffee-loader](https://github.com/webpack-contrib/coffee-loader) and many more.
+In the code above, the `html-loader` processes HTML files and exports them as strings. There are several loaders such as [css-loader](https://github.com/webpack-contrib/css-loader), [less-loader](https://github.com/webpack-contrib/less-loader), [coffee-loader](https://github.com/webpack-contrib/coffee-loader) and many more.
 
 ### Plugins
 
@@ -165,16 +165,9 @@ In the code above, the `compression-webpack-plugin` compresses all the JavaScrip
 
 ## Webpack Requirements
 
-In order to use Webpack, you need to have the following tools installed on your machine.
+In order to use Webpack, you need to have the tool mentioned below installed on your machine.
 
 * **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine. Verify that `npm` works by running `npm` in your terminal.
-* **Webpack**: Install Webpack globally in your terminal so that the `webpack` command can be run from any directory.
-
-```bash
-npm install webpack -g
-```
-
-> **Note:** It's optional to install webpack globally and not recommended because it locks your all projects to a specific version of Webpack. You can as well just add it a dev-dependency while working on your project.
 
 
 ## Setting Up Webpack in an Application
@@ -282,7 +275,7 @@ Remember the _**Project Lingo**_ we [architected with GulpJS?](https://auth0.com
 
 _**Project Asokoro**_ is a project that we have embarked upon for the people of _Asokoro_. It does exactly what _**Project Lingo**_ does. _**Project Lingo**_ allows a mere human click a button, input a destination and Lingo automatically teleports the human to their preferred destination in approximately 5 minutes.
 
-In _**Project Asokoro**_, we'll have a bunch of JavaScript, Sass and Image files. We need to compress and optimize these files so that Asokoro can be super-fast. I mean, you don't want Asokoro taking over an hour to teleport a human because of our in-efficient developer work-flow. We also don't want investors running way.
+In _**Project Asokoro**_, we'll have a bunch of JavaScript, Sass and Image files. We need to compress and optimize these files so that Asokoro can be super-fast. I mean, you don't want Asokoro taking over an hour to teleport a human because of our inefficient developer work-flow. We also don't want investors running way.
 
 This is what we need to do:
 
@@ -502,7 +495,7 @@ Learn more about [Webpack Performance Budgets here.](https://medium.com/webpack/
 
 At [Auth0](https://auth0.com/) we use JavaScript heavily in development and automate tasks using build tools such as Webpack. Using our authentication and authorization server from your JavaScript web apps is a piece of cake.
 
-> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+> [Auth0 offers a **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
 It's as easy as installing the `auth0-js` and `jwt-decode` node modules like so:
 
