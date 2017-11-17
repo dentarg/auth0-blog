@@ -24,9 +24,9 @@ related:
 - creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between
 ---
 
-<div class="alert alert-info alert-icon">
+<div class="alert alert-danger alert-icon">
   <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <strong>This post is out of date.</strong> The Angular framework has undergone many changes since the publication of this post and the method of authentication utilized in this post is not up-to-date with current best practices. Please read <strong><a href="https://auth0.com/blog/real-world-angular-series-part-8/#ngmodules" target="_blank">Real-World Angular Series Part 8 - Refactor NgModules</a></strong> to learn about managing NgModules in modern Angular!
 </div>
 
 ---
