@@ -72,3 +72,7 @@ In the snippet exhibited, we can see that we use the `initialState` to generate 
 Although simple, the code snippet used above shows another concept that is quite important when using Redux. The state **does not** change. What happens is that we have to generate a new state (or return the same) when using Redux. The pros of creating new states instead of updating the current one is that, by following this paradigm, we enable [traceability](https://en.wikipedia.org/wiki/Traceability) in our application's state. By enabling traceability in our app, we also enable other great features like the possibility to [time travel](https://github.com/gaearon/redux-devtools).
 
 Understanding this three concepts (four with state immutability), we are ready to start using Redux in practice. In the following sections, we are going to create a small web API, based on Node.js and Express, that takes advantage of Redux and the [Redux DevTools](https://github.com/gaearon/redux-devtools) to manage state and allow time traveling. In the last section, we are going to take a brief look at how to use Redux with React (they are such good friends:)).
+
+## Using Redux
+
+You might have noticed that we haven't used Redux in the previous section. A great characteristic of Redux is that it relies on simple concepts and structures. As we will see
