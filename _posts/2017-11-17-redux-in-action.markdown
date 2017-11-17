@@ -75,4 +75,50 @@ Understanding this three concepts (four with state immutability), we are ready t
 
 ## Using Redux
 
-You might have noticed that we haven't used Redux in the previous section. A great characteristic of Redux is that it relies on simple concepts and structures. As we will see
+You might have noticed that we haven't used Redux in the previous section. A great characteristic of Redux is that it relies on simple concepts and structures. As we will see, introducing Redux to manage states in apps is easy. The Redux library itself is quite small, performatic, and intuitive.
+
+To keep things organized, let's create a new Node.js project, and add actions and reducers to it. In a terminal, let's issue the following commands:
+
+```bash
+# create a dir to our project
+mkdir redux-node
+
+# change working directory to it
+cd redux-node
+
+# initialize the directory as a NPM project
+npm init -y
+
+# create the source folder
+mkdir src
+
+# create files for the main app, actions, and reducers
+touch src/index.js src/actions.js src/reducers.js
+```
+
+These commands will give us a brand new project with the basic structure that we will need. To makes our lives easier and before proceeding with the next steps, let's open this project on an IDE (like WebStorm and Visual Studio Code).
+
+### Creating Redux Actions
+
+Now, let's open the `src/actions.js` file and add the following action creators and action types:
+
+```js
+// action types
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+
+// action creators
+export const addExpense = expense => ({
+    type: ADD_EXPENSE,
+    expense
+});
+
+export const removeExpense = expense => ({
+    type: REMOVE_EXPENSE,
+    expense
+});
+```
+
+These action creators are quite simple. They simply returns objects that contain the appropriate `type` (to indicate it is a removal or an addition) and an `expense` as the payload. We won't invest time creating automated tests to these action creators, as they are trivial.
+
+### Creating Redux Reducers
