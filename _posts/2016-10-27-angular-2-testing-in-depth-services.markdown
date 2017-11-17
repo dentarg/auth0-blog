@@ -323,7 +323,9 @@ The only drawback here is that every method of the class must be implemented and
 whenever the original class changes.
 The original class can be extended optionally in order to override only specific methods.
 
-### Conclusion: What we've learned about Angular Testing
+{% include asides/angular.markdown %}
+
+## Conclusion: What we've learned about Angular Testing
 
 In this tutorial, we managed to:
 
