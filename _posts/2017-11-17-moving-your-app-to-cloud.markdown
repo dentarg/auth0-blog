@@ -2,9 +2,10 @@
 layout: post
 title: "Moving Your App to the Cloud"
 description: "Integrating cloud security services into your app not only keeps you and your users safe, it can actually accelerate your development process."
-date: 2017-07-12 8:30
+date: 2017-11-17 8:30
 category: Growth, Industries, Retail
-author:
+is_non-tech: true   
+author:     
   name: Diego Poza
   url: https://twitter.com/diegopoza
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
@@ -20,9 +21,9 @@ tags:
 - vision
 - auth0
 related:
-- 2017-06-19-how-to-keep-up-with-hyperconnected-consumers
-- 2016-04-18-progressive-profiling
-- 2017-05-26-go-beyond-username-password-with-modern-auth
+- 2017-09-01-why-healthcare-is-moving-to-the-cloud-but-isnt-there-yet
+- 2017-10-13-how-do-i-modernize-my-legacy-system
+- 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
 ---
 
 Over the course of the 2010s, cloud computing has shifted from being a bleeding edge solution to a standard expectation in data management. Not only has it allowed consumers and the enterprise to flexibly scale their storage needs, it has also redefined the software industry towards a cloud-based service model.
