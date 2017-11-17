@@ -22,6 +22,8 @@ related:
 - 2017-11-16-spring-5-embedded-tomcat-8-gradle-tutorial
 ---
 
+**TL;DR:** Actually, the idea is to create an article that is not too long at all (TL;DR stands for _Too Long; Didn't Read_ 😊). However, to summarize it in a few words, the idea here is to show through practical, short examples how Redux works and what are its main concepts. To find the code that we are going to create throughout the article, please check [this GitHub repository](https://github.com/auth0-blog/redux-in-action).
+
 ## What is Redux
 
 Mostly used with React, Redux is storage facility that helps JavaScript applications to manage state. Note that I started the introductory sentence with "Mostly used". What I mean is that we do not have to use Redux with React. We don't even need a browser to use Redux. We can use it to control the state of a Node.js backend application, for example.
@@ -119,6 +121,50 @@ export const removeExpense = expense => ({
 });
 ```
 
-These action creators are quite simple. They simply returns objects that contain the appropriate `type` (to indicate it is a removal or an addition) and an `expense` as the payload. We won't invest time creating automated tests to these action creators, as they are trivial.
+These action creators are quite simple. They simply returns objects that contain a `type`, to indicate if it is a removal or an addition, and an `expense` as the payload. We won't invest time creating automated tests to these action creators, as they are trivial.
 
 ### Creating Redux Reducers
+
+We are going to add the business logic of our tutorial app in the reducer that we are going to create in this section. This reducer will have a `switch` statement that, based on an action, will trigger the proper function to generate a new state. Let's open the `src/reducers.js` file and add the following reducer definition to it:
+
+```js
+import {ADD_EXPENSE, REMOVE_EXPENSE} from "./actions";
+
+export default expenses;
+
+export const initialState = {
+    expenses: [],
+    balance: 0
+};
+
+function expenses(state = initialState, action) {
+    switch (action.type) {
+        case ADD_EXPENSE:
+            return addExpense(state, action.expense);
+        case REMOVE_EXPENSE:
+            return removeExpense(state, action.expense);
+    }
+}
+
+function addExpense(state, expense) {
+    return {
+        ...state,
+        expenses: [...state.expenses, expense],
+        balance: state.balance + expense.amount
+    }
+}
+
+function removeExpense(state, expense) {
+    const expenseIndex = state.expenses.findIndex(item => item.id === expense.id);
+    const expenseAmount = state.expenses[expenseIndex].amount;
+    return {
+        ...state,
+        expenses: state.expenses.filter(item => item.id !== expense.id),
+        balance: state.balance - expenseAmount
+    }
+}
+```
+
+To decide exactly what function to call (`addExpense` or `removeExpense`), the reducer created by this file (`expenses`) compares the `action.type` with both `ADD_EXPENSE` and `REMOVE_EXPENSE` constants. After identifying the correct function, it triggers this function passing the current `state` of the application and the `expense` in question.
+
+Creating an automated test to validate the behavior of this reducer is easy. As reducers are pure functions, we don't need to mock anything. We just need to generate some expenses and actions samples, trigger our reducer with them, and check the output generated.
