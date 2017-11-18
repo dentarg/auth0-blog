@@ -191,8 +191,8 @@ Also, let's update the `scripts` property in the `package.json` file so we can e
 With these scripts in place, we can create the test suite that will validate the `expenses` reducer. Let's create a file called `reducers.test.js` alongside with `reducers.js` and define two tests in a new test suite, as follows:
 
 ```js
-import {initialState, addExpense, removeExpense} from './actions';
-import expenses from './reducers';
+import {addExpense, removeExpense} from './actions';
+import expenses, {initialState} from './reducers';
 
 describe('reducers', () => {
     it('should be able to add expenses', () => {
@@ -232,12 +232,16 @@ describe('reducers', () => {
         expect(stateStep3.expenses.length).toEqual(1);
         expect(stateStep3.balance).toEqual(36);
     });
+
+    it('should return the default state', () => {
+        expect(expenses()).toEqual(initialState);
+    });
 });
 ```
 
-The test suite and its tests are a little bit verbose, but they are easy to understand. We start by importing `initialState`, `addExpense`, and `removeExpense` from the `src/actions.js` file. After that, we import the `expenses` reducer from its source. Lastly, we use the `describe` function to define the test suite and the `it` function to create two tests.
+The test suite and its tests are a little bit verbose, but they are easy to understand. We start by importing the `addExpense` and `removeExpense` action creators. After that, we import the `expenses` reducer from its source alongside with the `initialState`. Lastly, we use the `describe` function to define the test suite and the `it` function to create three tests.
 
-Both tests are pretty similar. Therefore, let's analyze the first one to understand how it works. The first step executed by this test calls the `expenses` reducer passing to it the `initialState` and the `addExpense` action creator. As the parameter of this action creator, we pass an expense with `id = 1` and `amount = 20`. We then check if the result of the `expenses` execution, the `stateStep1`, contains a single expense and if the `balance` is equal 20. After that, we execute a similar process that validates that the `expenses` reducer accepts a new expense and updates the `balance` accordingly. The difference in the second test is that, after adding two expenses, we use the reducer to remove one.
+The first two tests are pretty similar. Therefore, let's analyze the first one to understand how they work. The first step executed by this test calls the `expenses` reducer passing to it the `initialState` and the `addExpense` action creator. As the parameter of this action creator, we pass an expense with `id = 1` and `amount = 20`. We then check if the result of the `expenses` execution, the `stateStep1`, contains a single expense and if the `balance` is equal 20. After that, we execute a similar process that validates that the `expenses` reducer accepts a new expense and updates the `balance` accordingly. The difference in the second test is that, after adding two expenses, we use the reducer to remove one.
 
 Let's run the `npm test` command to verify our implementation. If we followed the steps above correctly, we should get an output similar this:
 
@@ -249,10 +253,11 @@ Let's run the `npm test` command to verify our implementation. If we followed th
   reducers
     ✓ should be able to add expenses (3ms)
     ✓ should be able to remove expenses (1ms)
+    ✓ should return the default state
 
 Test Suites: 1 passed, 1 total
-Tests:       2 passed, 2 total
+Tests:       3 passed, 3 total
 Snapshots:   0 total
-Time:        0.754s, estimated 1s
+Time:        0.834s, estimated 1s
 Ran all test suites.
 ```
