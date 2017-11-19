@@ -38,7 +38,7 @@ To learn how to properly use Redux, we have to understand three basic concepts o
 
 The second concept is called _reducer_. Reducer is nothing but a [pure function](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#purity) that gets our app's current state and generates a new state based on an _action_. Actions are the third concept that we are interested in. To define an action to be applied to our state, we simply create an object with a `type` and any arbitrary number (`0..N`) of properties.
 
-![Redux data flow.](https://cdn.auth0.com/blog/redux-tutorial/redux-graph.png)
+![Redux data flow.µ](https://cdn.auth0.com/blog/redux-tutorial/redux-graph.png)
 
 For example, we can have as the current state a simple JavaScript object that contains a person’s name. To change this state (object), we use a reducer that, based on an action, updates the person with arbitrary data. The following code snippet illustrates these concepts.
 
