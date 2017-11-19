@@ -137,12 +137,14 @@ export const initialState = {
     balance: 0
 };
 
-function expenses(state = initialState, action) {
+function expenses(state = initialState, action = {}) {
     switch (action.type) {
         case ADD_EXPENSE:
             return addExpense(state, action.expense);
         case REMOVE_EXPENSE:
             return removeExpense(state, action.expense);
+        default:
+            return state;
     }
 }
 
@@ -155,12 +157,11 @@ function addExpense(state, expense) {
 }
 
 function removeExpense(state, expense) {
-    const expenseIndex = state.expenses.findIndex(item => item.id === expense.id);
-    const expenseAmount = state.expenses[expenseIndex].amount;
+    const persistedExpense = state.expenses.find(item => item.id === expense.id);
     return {
         ...state,
         expenses: state.expenses.filter(item => item.id !== expense.id),
-        balance: state.balance - expenseAmount
+        balance: state.balance - persistedExpense.amount
     }
 }
 ```
@@ -169,7 +170,7 @@ To decide exactly what function to call (`addExpense` or `removeExpense`), the r
 
 ### Testing Redux Reducers with Jest
 
-It is easy to create an automated test to validate the behavior of this reducer. As reducers are pure functions, we don't need to mock anything. We just need to generate some samples of expenses and actions, trigger our reducer with them, and check the generated output. Let's install the `jest` test runner and `babel` to help us testing the reducer.
+It is easy to create an automated test to validate the behavior of this reducer. As reducers are pure functions, we don't need to mock anything. We just need to generate some samples of expenses and actions, trigger our reducer with them, and check the generated output. Let's install the [`jest`](https://facebook.github.io/jest/) test runner and [`babel`](https://babeljs.io/) to help us testing the reducer.
 
 ```bash
 npm i -D jest babel-jest babel-preset-es2015
@@ -241,7 +242,7 @@ describe('reducers', () => {
 
 The test suite and its tests are a little bit verbose, but they are easy to understand. We start by importing the `addExpense` and `removeExpense` action creators. After that, we import the `expenses` reducer from its source alongside with the `initialState`. Lastly, we use the `describe` function to define the test suite and the `it` function to create three tests.
 
-The first two tests are pretty similar. Therefore, let's analyze the first one to understand how they work. The first step executed by this test calls the `expenses` reducer passing to it the `initialState` and the `addExpense` action creator. As the parameter of this action creator, we pass an expense with `id = 1` and `amount = 20`. We then check if the result of the `expenses` execution, the `stateStep1`, contains a single expense and if the `balance` is equal 20. After that, we execute a similar process that validates that the `expenses` reducer accepts a new expense and updates the `balance` accordingly. The difference in the second test is that, after adding two expenses, we use the reducer to remove one.
+The first two tests are pretty similar. Therefore, let's analyze the first one to understand how they work. The first step executed by this test calls the `expenses` reducer passing to it the `initialState` and the `addExpense` action creator. As the parameter of this action creator, we pass an expense with `id = 1` and `amount = 20`. We then check if the result of the `expenses` execution, the `stateStep1`, contains a single expense and if the `balance` is equal 20. After that, we execute a similar process that validates if the `expenses` reducer accepts a new expense and updates the `balance` accordingly. The difference in the second test is that, after adding two expenses, we use the reducer to remove an expense.
 
 Let's run the `npm test` command to verify our implementation. If we followed the steps above correctly, we should get an output similar this:
 
@@ -261,3 +262,7 @@ Snapshots:   0 total
 Time:        0.834s, estimated 1s
 Ran all test suites.
 ```
+
+### Defining a Redux Store
+
+So far, we haven't the central piece of Redux, the Redux Store. We have only defined two functions to create Redux Actions and a Redux Reducer.
