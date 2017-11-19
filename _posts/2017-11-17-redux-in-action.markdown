@@ -324,7 +324,7 @@ To run our code, we need to use the [`babel-node`](https://babeljs.io/docs/usage
 
 After that, we can simply issue `npm start` and we will see Babel run our code and assert that we get the expected state.
 
-{% include asides/javascript-at-auth0.html %}
+{% include asides/javascript-at-auth0.markdown %}
 
 ## Conclusion
 
