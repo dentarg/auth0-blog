@@ -22,7 +22,7 @@ related:
 - 2017-11-16-spring-5-embedded-tomcat-8-gradle-tutorial
 ---
 
-**TL;DR:** Actually, the idea is to create an article that is not too long at all (TL;DR stands for _Too Long; Didn't Read_ 😊). However, to summarize in a few words, the idea here is to show through practical, short examples how Redux works and what are its main concepts. To find the final code that we are going to create in this article, please check [this GitHub repository](https://github.com/auth0-blog/redux-in-action).
+**TL;DR:** Actually, the idea is to create an article that is not too long at all (TL;DR stands for _Too Long; Didn't Read_ 😊). However, to summarize in a few words, the idea here is to show through practical, short examples how Redux works and what are its main pieces. To find the final code that we are going to create in this article, please check [this GitHub repository](https://github.com/auth0-blog/redux-in-action).
 
 ## What is Redux
 
@@ -71,9 +71,9 @@ console.assert(
 
 In the snippet exhibited, we can see that we use the `initialState` to generate a `newState`. This new state is the product of calling the `reducer` function with the `updateAction` object and the `initialState`. After passing the state and the action to the reducer, we get a new state where we can still find the name of the person, and the new `birthday` property correctly applied.
 
-Although simple, the code snippet used above shows another concept that is quite important when using Redux. The state **does not** change. What happens is that we have to generate a new state (or return the same) when using Redux. The pros of creating new states instead of updating the current one is that, by following this paradigm, we enable [traceability](https://en.wikipedia.org/wiki/Traceability) in our application's state. By enabling traceability in our app, we also enable other great features like the possibility to [time travel](https://github.com/gaearon/redux-devtools).
+Although simple, the code snippet used above shows another concept that is quite important when using Redux. The state **does not** change. What happens is that we have to generate a new state (or return the same) when using Redux. The pros of creating new states instead of updating the current one is that, by following this paradigm, we enable [traceability](https://en.wikipedia.org/wiki/Traceability) in our application's state. By enabling traceability, we also enable other great features like the possibility to [time travel](https://github.com/gaearon/redux-devtools).
 
-After understanding these three concepts (well, four with state immutability), we are ready to start using Redux in practice. In the following sections, we are going to create a small Node.js script that takes uses Redux to manage state.
+After understanding these three concepts (well, four with state immutability), we are ready to start using Redux in practice. In the following sections, we are going to create a small Node.js script that uses Redux to manage state.
 
 ## Using Redux
 
