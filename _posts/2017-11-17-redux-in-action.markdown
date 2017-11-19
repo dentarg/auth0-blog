@@ -98,11 +98,11 @@ mkdir src
 touch src/index.js src/actions.js src/reducers.js
 ```
 
-These commands will give us a brand new project with the basic structure that we will need. To makes our lives easier and before proceeding with the next steps, let's open this project on an IDE (like WebStorm and Visual Studio Code).
+These commands will give us a brand new project with the basic structure that we will need. To makes our lives easier and before proceeding with the next steps, let's open this project on an IDE (like WebStorm or Visual Studio Code).
 
 ### Creating Redux Actions
 
-Now, let's open the `src/actions.js` file and add the following action creators and action types:
+Now, let's open the `src/actions.js` file and add the following action creators and action types to it:
 
 ```js
 // action types
@@ -121,7 +121,7 @@ export const removeExpense = expense => ({
 });
 ```
 
-These action creators are quite simple. They simply returns objects that contain a `type`, to indicate if it is a removal or an addition, and an `expense` as the payload. We won't invest time creating automated tests to these action creators, as they are trivial.
+These action creators are quite simple. They simply returns objects that contain `type`, to indicate if it is a removal or an addition, and an `expense` as the payload. We won't invest time creating automated tests to these action creators, as they are trivial.
 
 ### Creating Redux Reducers
 
@@ -166,7 +166,7 @@ function removeExpense(state, expense) {
 }
 ```
 
-To decide exactly what function to call (`addExpense` or `removeExpense`), the reducer created by this file (`expenses`) compares the `action.type` with both `ADD_EXPENSE` and `REMOVE_EXPENSE` constants. After identifying the correct function, it triggers this function passing the current `state` of the application and the `expense` in question.
+To decide exactly what function to call (`addExpense` or `removeExpense`), the reducer created by this file (`expenses`) compares the `action.type` with both `ADD_EXPENSE` and `REMOVE_EXPENSE` constants. After identifying the correct type, it triggers the proper function passing the current `state` of the application and the `expense` in question.
 
 ### Testing Redux Reducers with Jest
 
@@ -267,7 +267,7 @@ Ran all test suites.
 
 So far, we haven't used the central piece of Redux, the Redux Store. We have only defined two functions to create Redux Actions and a Redux Reducer. Now it's time to create a Redux Store and put our reducer and our action creators to work.
 
-As we want to use modern JavaScript in our code, let's install `babel-cli` and a plugin:
+As we want to use modern JavaScript code, let's install `babel-cli` and a plugin:
 
 ```bash
 npm i -D babel-cli babel-plugin-transform-object-rest-spread
@@ -307,7 +307,7 @@ console.assert(store.getState().expenses.length === 2);
 
 Pretty simple, right? To create a Redux Store, all we had to do was to import the `createStore` function from Redux and call it passing our reducer. Interacting with the store was not hard either. After importing the action creators, we simply called the `dispatch` function of the store, passing to it actions created by our action creators (`addExpense` and `removeExpense`).
 
-In the end, to verify that the store ended up in the correct state after sending the four actions, we added two `console.assert` calls. The first one showed that the `balance` is indeed 75, and the second one guaranteed that we finished with two expenses in the last state.
+In the end, to verify that the store ended up in the correct state, we added two `console.assert` calls. The first one showed that the `balance` is indeed 75, and the second one guaranteed that we finished with two expenses in the last state.
 
 To run our code, we need to use the [`babel-node`](https://babeljs.io/docs/usage/cli/#babel-node) command provided by Babel. To easily run this command, let's edit the `package.json` file and add the following record to the `script` property:
 
@@ -328,6 +328,6 @@ After that, we can simply issue `npm start` and we will see Babel run our code a
 
 ## Conclusion
 
-As we can see, Redux is an easy technology to reason about. Although not hard, correctly understanding its three main pieces (the store, reducers, and actions) is important before we move to other topics, like integrating with React. the single source of truth.
+As we can see, Redux is an easy technology to reason about. Although not hard, correctly understanding its three main pieces (the store, reducers, and actions) is important before we move to other topics, like integrating with React. Together, Redux and React form a great foundation for modern Single Page Apps that has a great performance and that is easy to maintain.
 
-By the way, in our blog we have a create article that shows how to [secure React and Redux Apps with JWTs](https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/ ).
+By the way, in our blog we have an article that shows how to properly [secure React and Redux Apps with JWTs](https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/). Take a look at it if you are going to use these technologies in your next project.
