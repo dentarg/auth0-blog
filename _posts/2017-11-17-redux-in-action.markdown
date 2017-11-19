@@ -11,7 +11,7 @@ author:
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
   bg_color: "rgb(25, 25, 25)"
-  image: https://cdn.auth0.com/blog/react-js/react.png
+  image: https://github.com/reactjs/redux/blob/master/logo/logo.png?raw=true
   image_size: "80%"
   image_bg_color: "rgb(25, 25, 25)"
 tags:
@@ -26,11 +26,19 @@ related:
 
 ## What is Redux
 
-Mostly used with React, Redux is a storage facility that helps JavaScript applications to manage state. Note that I started the introductory sentence with "Mostly used". What I mean is that we do not have to use Redux with React. We don't even need a browser to use Redux. We can use it to control the state of a Node.js backend application, for example.
+Mostly used with React, Redux is a _storage facility_ that helps JavaScript applications to _manage state_. Note that I started the introductory sentence with "Mostly used". What I mean is that we do not have to use Redux with React. We don't even need a browser to use Redux. We can use it to control the state of a Node.js backend application, for example.
+
+The biggest advantage of Redux is that this facility works as the single source of truth for our data. That is, whenever we want to know the state of our application, we have to look into a single place, the Redux Store. Another advantage of Redux, as we will see in the next section, is that to manage the state, we have only to deal with simple objects and pure functions. Redux does not rely on fancy, extensive APIs. It is quite the opposite actually.
+
+{% include tweet_quote.html quote_text="Redux is as simple as it gets." %}
+
+## Learning Redux
 
 To learn how to properly use Redux, we have to understand three basic concepts of this library. The first one is called _store_. When using Redux to manage our state, we let it keep an updated version of this state in the store. This is the main purpose of this piece of Redux. The store exists to hold (store) the current state of our data and to become the single source of truth.
 
 The second concept is called _reducer_. Reducer is nothing but a [pure function](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#purity) that gets our app's current state and generates a new state based on an _action_. Actions are the third concept that we are interested in. To define an action to be applied to our state, we simply create an object with a `type` and any arbitrary number (`0..N`) of properties.
+
+![Redux data flow.](https://cdn.auth0.com/blog/redux-tutorial/redux-graph.png)
 
 For example, we can have as the current state a simple JavaScript object that contains a person’s name. To change this state (object), we use a reducer that, based on an action, updates the person with arbitrary data. The following code snippet illustrates these concepts.
 
@@ -324,10 +332,12 @@ To run our code, we need to use the [`babel-node`](https://babeljs.io/docs/usage
 
 After that, we can simply issue `npm start` and we will see Babel run our code and assert that we get the expected state.
 
+{% include tweet_quote.html quote_text="I just finished a Redux tutorial." %}
+
 {% include asides/javascript-at-auth0.markdown %}
 
 ## Conclusion
 
-As we can see, Redux is an easy technology to reason about. Although not hard, correctly understanding its three main pieces (the store, reducers, and actions) is important before we move to other topics, like integrating with React. Together, Redux and React form a great foundation for modern Single Page Apps that has a great performance and that is easy to maintain.
+As we can see, Redux is an easy technology to reason about. Although not hard, correctly understanding its three main pieces (the store, reducers, and actions) is important before we move to other topics, like integrating with front-end frameworks. However, once we learn Redux's concepts, we can integrate it with, for example, React to get a great foundation for modern Single Page Apps.
 
 By the way, in our blog we have an article that shows how to properly [secure React and Redux Apps with JWTs](https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/). Take a look at it if you are going to use these technologies in your next project.
