@@ -1,6 +1,6 @@
 ## Aside: JavaScript at Auth0
 
-At [Auth0](https://auth0.com/), we make heavy use of full-stack JavaScript to help our customers to secure mission-critical applications. We also created a serverless platform, called [Auth0 Extend](https://auth0.com/extend/), that enables our customers to run arbitrary JavaScript functions securely. Therefore, it must come as no surprise that using our authentication and authorization servers from your JavaScript web apps is a piece of cake.
+At [Auth0](https://auth0.com/), we make heavy use of full-stack JavaScript to help our customers to [manage user identities including password resets, creating and provisioning, blocking and deleting users](https://auth0.com/user-management). We also created a serverless platform, called [Auth0 Extend](https://auth0.com/extend/), that enables customers to run arbitrary JavaScript functions securely. Therefore, it must come as no surprise that using our identity management platform on JavaScript web apps is a piece of cake.
 
 > [Auth0 offers a **free tier**](https://auth0.com/pricing) to get started with modern authentication. Check it out!
 
