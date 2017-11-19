@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Redux in Action"
+title: "Redux Tutorial"
 description: "A practical tutorial that teaches Redux through examples."
 date: 2017-11-17 13:05
 category: Technical Guide, JavaScript, Redux
@@ -22,7 +22,7 @@ related:
 - 2017-11-16-spring-5-embedded-tomcat-8-gradle-tutorial
 ---
 
-**TL;DR:** Actually, the idea is to create an article that is not too long at all (TL;DR stands for _Too Long; Didn't Read_ 😊). However, to summarize it in a few words, the idea here is to show through practical, short examples how Redux works and what are its main concepts. To find the code that we are going to create throughout the article, please check [this GitHub repository](https://github.com/auth0-blog/redux-in-action).
+**TL;DR:** Actually, the idea is to create an article that is not too long at all (TL;DR stands for _Too Long; Didn't Read_ 😊). However, to summarize in a few words, the idea here is to show through practical, short examples how Redux works and what are its main concepts. To find the final code that we are going to create in this article, please check [this GitHub repository](https://github.com/auth0-blog/redux-in-action).
 
 ## What is Redux
 
@@ -265,4 +265,69 @@ Ran all test suites.
 
 ### Defining a Redux Store
 
-So far, we haven't the central piece of Redux, the Redux Store. We have only defined two functions to create Redux Actions and a Redux Reducer.
+So far, we haven't used the central piece of Redux, the Redux Store. We have only defined two functions to create Redux Actions and a Redux Reducer. Now it's time to create a Redux Store and put our reducer and our action creators to work.
+
+As we want to use modern JavaScript in our code, let's install `babel-cli` and a plugin:
+
+```bash
+npm i -D babel-cli babel-plugin-transform-object-rest-spread
+```
+
+The plugin simply guarantees that we can use the spread operator with Babel. After installing both dependencies, let's open the `index.js` file and add the following code:
+
+```js
+import {createStore} from 'redux';
+import {addExpense, removeExpense} from './actions';
+import expenses from './reducers';
+
+const store = createStore(expenses);
+
+store.dispatch(addExpense({
+    id: 1,
+    amount: 45
+}));
+
+store.dispatch(addExpense({
+    id: 2,
+    amount: 20
+}));
+
+store.dispatch(addExpense({
+    id: 3,
+    amount: 30
+}));
+
+store.dispatch(removeExpense({
+    id: 2
+}));
+
+console.assert(store.getState().balance === 75);
+console.assert(store.getState().expenses.length === 2);
+```
+
+Pretty simple, right? To create a Redux Store, all we had to do was to import the `createStore` function from Redux and call it passing our reducer. Interacting with the store was not hard either. After importing the action creators, we simply called the `dispatch` function of the store, passing to it actions created by our action creators (`addExpense` and `removeExpense`).
+
+In the end, to verify that the store ended up in the correct state after sending the four actions, we added two `console.assert` calls. The first one showed that the `balance` is indeed 75, and the second one guaranteed that we finished with two expenses in the last state.
+
+To run our code, we need to use the [`babel-node`](https://babeljs.io/docs/usage/cli/#babel-node) command provided by Babel. To easily run this command, let's edit the `package.json` file and add the following record to the `script` property:
+
+```js
+{
+  // ...
+  "scripts": {
+    "start": "babel-node src/",
+    // ...
+  },
+  // ...
+}
+```
+
+After that, we can simply issue `npm start` and we will see Babel run our code and assert that we get the expected state.
+
+{% include asides/javascript-at-auth0.html %}
+
+## Conclusion
+
+As we can see, Redux is an easy technology to reason about. Although not hard, correctly understanding its three main pieces (the store, reducers, and actions) is important before we move to other topics, like integrating with React.
+
+By the way, in our blog we have a create article that shows how to [secure React and Redux Apps with JWTs](https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/ ).
