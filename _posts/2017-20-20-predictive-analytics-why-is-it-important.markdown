@@ -3,7 +3,7 @@ layout: post
 title: "Predictive Analytics: Why Is It Important?"
 description: "Explore how staying a step ahead of your customers can revolutionize your company."
 date: 2017-20-20 08:30
-category: Growth, Data, 
+category: Growth, Data
 is_non-tech: true   
 author:
   name: Diego Poza
@@ -17,6 +17,11 @@ tags:
 - analytics
 - predictive-analytics
 - data
+- data-science
+- machine-learning
+- user-behavior
+- customer-behavior
+- progressive-profiling
 ---
 
 **TL;DR:**  Predictive analytics is the term used to describe using data to make highly informed guesses about future outcomes.  In this article, we will explore the technique and see the benefits.
