@@ -26,7 +26,7 @@ related:
 - 2016-08-04-creating-your-first-elm-app-part-1
 ---
 
-**TL;DR:** The [Elixir language](https://elixir-lang.org) (like PHP) is a dynamically typed language with lots of helpful documentation. It builds on [Erlang](http://www.erlang.org) and the Erlang VM. You can be up and running almost immediately. If your app compiles, it's already deployable. The [Phoenix framework for Elixir apps](http://phoenixframework.org) is genuinely exciting to use. Let's build an easy-to-use application that manages upcoming events, built with the Phoenix framework and authenticated with [Auth0](https://auth0.com). The final code can be found at the [auth0-elixir-countdown GitHub repo](https://github.com/lukeoliff/auth0-elixir-countdown).
+**TL;DR:** The [Elixir language](https://elixir-lang.org) is dynamically typed with lots of helpful documentation. It builds on [Erlang](http://www.erlang.org) and the Erlang VM. You can be up and running almost immediately. If your app compiles, it's already deployable. The [Phoenix framework for Elixir apps](http://phoenixframework.org) is genuinely exciting to use. Let's build an easy-to-use application that manages upcoming events, built with the Phoenix Framework and authenticated with [Auth0](https://auth0.com). The final code can be found at the [auth0-elixir-countdown GitHub repo](https://github.com/lukeoliff/auth0-elixir-countdown).
 
 ---
 
@@ -44,9 +44,9 @@ If your Elixir app compiles, it's practically deployable already and the how-to 
 
 ## Phoenix framework
 
-You can't escape the [Phoenix framework](http://phoenixframework.org) if you're looking for a good framework to build on in Elixir. They portray themselves as a fresh approach to tried and tested MVC development. Phoenix genuinely excites me. One aspect is just how well we can separate our concerns across an extremely well thought out, logical structure. Another is that it provides a fantastic command line interface.
+You can't escape the [Phoenix framework](http://phoenixframework.org) if you're looking for a good tool to build on in Elixir. They portray themselves as a fresh approach to tried and tested MVC development. Phoenix genuinely excites me. One aspect is just how well we can separate our concerns across an extremely well thought out, logical structure. Another is that it provides a fantastic command line interface.
 
-{% include tweet_quote.html quote_text="You can't escape Phoenix framework if you're looking for a good framework to build on in Elixir!" %}
+{% include tweet_quote.html quote_text="You can't escape Phoenix framework if you're looking for a good tool to build on in Elixir!" %}
 
 Phoenix is an MVC framework written in Elixir and will be welcoming and comfortable to use for anyone familiar with [Rails](http://rubyonrails.org/) or [Django](https://www.djangoproject.com/).
 
@@ -67,7 +67,7 @@ So, I thought, why not build an application where I can see countdowns to my fav
 
 Follow the Elixir language install guide here: http://elixir-lang.org/install.html
 
-Next, we run a `mix` command to install the Hex package manager. Mix is a build tool that provides tasks for creating, compiling, and testing Elixir language projects, managing its dependencies, and more. If you know Ruby well, Mix is Rake, Bundler, and RubyGems combined.
+Next, we run a `mix` command to install the Hex package manager. Mix is a build tool that provides tasks for creating, compiling, and testing Elixir projects, managing its dependencies, and more. If you know Ruby well, Mix is Rake, Bundler, and RubyGems combined.
 
 Now use mix to install hex: https://hexdocs.pm/mix/1.0.5/Mix.Tasks.Local.Hex.html
 
@@ -103,7 +103,7 @@ If you choose to use another database provider, make sure you edit the configura
 
 - https://phoenixframework.readme.io/docs/using-mysql
 
-## Our skeleton application
+## Our Phoenix application skeleton
 
 Now we can create a new application with the Phoenix framework. Let's call our application "countdown".
 
