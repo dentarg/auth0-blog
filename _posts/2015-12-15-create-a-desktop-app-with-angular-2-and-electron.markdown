@@ -27,6 +27,11 @@ related:
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This post is out of date.</strong> Angular and Electron have undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. We are currently working to bring you an updated tutorial on this topic!
+</div>
+
 ---
 **TL;DR:** Electron is an open-source project from GitHub that lets us create cross-platform desktop applications with web technologies. It doesn't matter which specific framework we use; if it works for the web, it works for Electron. We can use Angular 2 for Electron apps, and in this tutorial, we explore how to get a desktop image size calculator app wired up. Check out the [code on GitHub](https://github.com/auth0/angular2-electron).
 
