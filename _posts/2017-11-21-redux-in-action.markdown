@@ -2,7 +2,7 @@
 layout: post
 title: "Redux Tutorial"
 description: "A practical tutorial that teaches Redux through examples."
-date: 2017-11-17 13:05
+date: 2017-11-21 13:05
 category: Technical Guide, JavaScript, Redux
 author:
   name: "Bruno Krebs"
