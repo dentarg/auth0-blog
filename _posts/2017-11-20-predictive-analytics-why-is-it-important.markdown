@@ -2,7 +2,7 @@
 layout: post
 title: "Predictive Analytics: Why Is It Important?"
 description: "Explore how staying a step ahead of your customers can revolutionize your company."
-date: 2017-20-20 08:30
+date: 2017-11-20 08:30
 category: Growth, Data
 is_non-tech: true   
 author:
