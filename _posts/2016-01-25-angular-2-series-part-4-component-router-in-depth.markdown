@@ -30,6 +30,11 @@ related:
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This post is out of date.</strong> Angular has undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Please check out our updated tutorial here: <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1/">Real-World Angular Series</a></strong>.
+</div>
+
 ---
 
 **TL;DR:** The new component router in Angular 2 comes with a lot of features and a slightly different approach to setting up routing. In this article we take a look at the router's features by implementing them in a simple Github user explorer application. Follow along here or take a look at [the repo](https://github.com/auth0/angular2-routing) to get started with the code.

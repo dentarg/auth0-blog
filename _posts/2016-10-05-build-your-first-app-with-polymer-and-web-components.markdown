@@ -22,9 +22,9 @@ related:
 - 2016-08-17-aurelia-1.0-how-to-build-a-simple-secured-application
 ---
 
-<div class="alert alert-info alert-icon">
+<div class="alert alert-danger alert-icon">
   <i class="icon-budicon-487"></i>
-  This tutorial utilizes Polymer v1.x. Please keep in mind that Polymer v2 may differ. You can check the <a href="https://www.polymer-project.org/">Polymer documentation</a> for more details while we work to bring you a new tutorial that covers version 2 of the library.
+  <strong>This post is out of date.</strong> Polymer has undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. We are working on bringing you an updated tutorial on this topic!
 </div>
 
 **TL;DR:** [Google Polymer](https://www.polymer-project.org/1.0/) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available at [this GitHub repo](https://github.com/auth0-blog/polymer-with-jwt-api).

@@ -18,6 +18,11 @@ tags:
 description: "Following our blog post about how to use JWTs on AngularJS, we've decided to go one step further to make this simpler. We've created a library called"
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>The angular-jwt library has been deprecated.</strong> The angular-jwt library is no longer maintained. Decoding JWTs on the front end is not recommended, and all other features of the library are easily implemented in AngularJS without the use of an additional library.
+</div>
+
 Following our blog post about [how to use JWTs on AngularJS](https://auth0.com/blog/2014/01/07/angularjs-authentication-with-cookies-vs-token/#comment-1506375766), we've decided to go one step further to make this simpler.
 
 **We've created a library called [angular-jwt](https://github.com/auth0/angular-jwt)** to handle some of the common problems that arise when dealing with JWTs. We'll soon be using this library in our own [Angular SDK](https://github.com/auth0/auth0-angular) to handle JWTs as well.

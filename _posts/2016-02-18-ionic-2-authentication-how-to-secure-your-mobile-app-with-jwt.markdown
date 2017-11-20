@@ -28,6 +28,11 @@ related:
 - 2015-08-11-create-your-first-ember-2-dot-0-app-from-authentication-to-calling-an-api
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This post is out of date.</strong> The Angular and Ionic frameworks have undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. We are working on bringing you an updated tutorial on this topic!
+</div>
+
 **TL;DR:** Ionic 2 Beta, which is built on Angular, has been released, and brings with it some excellent features. In this article we explore how to add JWT authentication to an Ionic 2 app. Check out [the repo](https://github.com/auth0/ionic2-auth) to go straight to the code.
 
 ---

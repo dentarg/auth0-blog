@@ -38,9 +38,9 @@ related:
 - 2017-04-18-vuejs2-authentication-tutorial
 ---
 
-<div class="alert alert-info alert-icon">
+<div class="alert alert-danger alert-icon">
   <i class="icon-budicon-500"></i>
-  <strong>We just added a new updated article that covers the same topic. You can find it here: <a href="https://auth0.com/blog/angular-2-authentication/">Angular 2 Authentication Tutorial</a>.</strong>
+  <strong>This post is out of date.</strong> The Angular framework has undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Check out the <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1/">Real-World Angular Series</a></strong> for a full tutorial on building, authenticating, and deploying a real-world Angular app!
 </div>
 
 ----
