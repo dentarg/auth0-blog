@@ -2,13 +2,14 @@
 layout: post
 title: "Predictive Analytics: Why Is It Important?"
 description: "Explore how staying a step ahead of your customers can revolutionize your company."
-date: 2017-10-18 08:30
-category: Analytics
+date: 2017-20-20 08:30
+category: Growth, Data, 
+is_non-tech: true   
 author:
-  name: "As Yet Unspecified"
-  url: ""
-  mail: "email@auth0.com"
-  avatar: ""
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
 design:
   bg_color: "#526C33"
   image: https://cdn.auth0.com/blog/predictive-analytics/predictive-analytics-main.png
