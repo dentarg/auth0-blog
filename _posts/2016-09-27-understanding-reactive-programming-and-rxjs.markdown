@@ -235,49 +235,78 @@ The first thing we do is create a stream that will output a value at a specified
 
 Reload the page one last time, and add a few zip codes. You will see them added to the page, like normal. If you wait 20 seconds, you will see our message in the console that tells us things have been updated. Depending on how much the temperature has changed in those 20 seconds, you may not see anything change on page. If you want the iterval to run more or less often, you can change the number that we gave `Rx.Observable.interval` to suit your needs.
 
-## Using With Auth0 Lock
+## Aside: Authentication With Auth0
 
-Now, say you're using streams like a boss. You decide you want to use [Auth0 Lock](https://auth0.com/lock) for your application's authentication solution. How would we implement it? Well, it's super simple. Most of the work is handled by the library. We just need to make sure the Lock modal shows on a button click. Let's do it!
+Now, say you're using streams like a boss. You decide you want to use [Auth0](https://auth0.com) for your application's authentication solution.
 
-First, we need to include the library, initialize Lock, and add a login button that will show the modal.
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+
+How would we implement it? Well, it's super simple. Most of the work is handled by the library. We just need to make sure the [centralized login page](https://auth0.com/docs/hosted-pages/login) is launched on a button click. Let's do it!
+
+### Sign Up for Auth0
+
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 Client so Auth0 can interface with your site.
+
+### Set Up a Client
+
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
+2. Name your new app, select "Single Page Web Applications", and click the "Create" button. 
+3. In the **Settings** for your new Auth0 client app, add `http://localhost:8080` (or whatever URL you'll be using for your webserver) to the **Allowed Callback URLs**.
+4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
+5. Click the "Save Changes" button.
+6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
+
+### Implement Auth0
+
+First, we need to include the `auth0.js` library, initialize a WebAuth instance, and add a login button that will launch the page.
 
 ```html
-  <button id="login">Login</button>
-  <script src="http://cdn.auth0.com/js/lock/10.x.y/lock.min.js"></script>
+...
+<head>
+  ...
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.2/Rx.min.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
   <script>
-    // Initiating our Auth0Lock
-    var lock = new Auth0Lock(
-      'YOUR_CLIENT_ID',
-      'YOUR_NAMESPACE'
-    );
-
-    // Listening for the authenticated event
-    lock.on("authenticated", function(authResult) {
-      // Use the token in authResult to getProfile() and save it to localStorage
-      lock.getProfile(authResult.idToken, function(error, profile) {
-        if (error) {
-          // Handle error
-          return;
-        }
-
-        localStorage.setItem('idToken', authResult.idToken);
-        localStorage.setItem('profile', JSON.stringify(profile));
-      });
+    const webAuth = new auth0.WebAuth({
+      domain: '[YOUR_AUTH0_DOMAIN]', // e.g., you.auth0.com
+      clientID: '[YOUR_AUTH0_CLIENT_ID]',
+      scope: 'openid profile email',
+      responseType: 'token id_token',
+      redirectUri: 'http://localhost:8080' // your webserver URL
+    });
+    
+    webAuth.parseHash({ hash: window.location.hash }, (err, authResult) => {
+      if (err) {
+        return console.error(err);
+      }
+      if (authResult) {
+        webAuth.client.userInfo(authResult.accessToken, (err, user) => {
+          localStorage.setItem('profile', JSON.stringify(user));
+          localStorage.setItem('access_token', authResult.accessToken);
+          localStorage.setItem('id_token', authResult.idToken);
+          localStorage.setItem('expiration', authResult.expiresIn * 1000 + Date.now());
+        });
+      }
+      window.location.hash = '';
     });
   </script>
+</head>
+<body>
+  <button id="login">Log In</button>
+  ...
 ```
 
-The only thing left is to turn the click events from the button into a stream, and open the modal whenever we see a piece of data on that stream.
+The only thing left is to turn the click events from the button into a stream, and launch the centralized login page whenever we see a piece of data on that stream. Execute the following code after the document is ready (before the closing `</body>` tag):
 
 ```javascript
-Rx.Observable
+const source = Rx.Observable
   .fromEvent(document.getElementById('login'), 'click')
-  .forEach(() => lock.open());
+  .subscribe(() => webAuth.authorize());
 ```
 
-That's it! You're set.
+That's it! You now have access to the user's profile, ID token, access token, and token expiration. You can use this information to protect and personalize your site, authorize API requests, and more. 
 
-> **Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+> **Note:** If you want to use Auth0 authentication to authorize _API requests_, always use the [access token to do so](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 ## Gotta Stream Them All
 
