@@ -26,9 +26,9 @@ lang: en
 alternate_locale_jp: jp-angular-2-authentication
 ---
 
-<div class="alert alert-info alert-icon">
-  <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This post is out of date.</strong> The Angular CLI and framework have undergone breaking changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Please check out our <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong> to learn how to build and authenticate an Angular app. We will also update this tutorial soon. Thank you for your patience!
 </div>
 
 ---
