@@ -3,6 +3,7 @@ layout: post_extend
 title: "Securing Webtasks Part 2: Using Middleware"
 description: "Learn how to quickly secure your Auth0 Webtasks using middleware so only authorized callers can execute them."
 date: 2017-11-21 12:00
+is_extend: true
 category: Extend, Technical, Webtasks
 author:
   name: "Bobby Johnson"

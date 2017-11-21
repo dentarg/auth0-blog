@@ -3,6 +3,7 @@ layout: post_extend
 title: "Securing Webtasks Part 1: Shared Secret Authorization"
 description: "Learn how to quickly secure your Auth0 Webtasks with a shared secret so only authorized callers can execute them."
 date: 2017-10-04 8:30
+is_extend: true
 category: Extend, Technical, Webtasks
 author:
   name: "Bobby Johnson"
