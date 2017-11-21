@@ -16,6 +16,7 @@ design:
   image_size: "100%"
   image_bg_color: "#B6C5CA"
   blog_series: false
+published: false  
 tags:
 - auth0
 - passwordless
