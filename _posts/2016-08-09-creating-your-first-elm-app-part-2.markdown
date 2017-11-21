@@ -742,13 +742,13 @@ If everything compiles and works as expected, we're done with our basic Chuck No
 
 Auth0 provides registration, login, and authentication with JSON Web Tokens. We can add Auth0 authentication to an Elm app by setting up a couple of additional Elm modules and importing them for use in an app's `Main.elm` file. [Marcus Griep](http://twitter.com/neoeinstein) has a great [Elm Workshop with 0.17 available on GitHub](https://github.com/Cimpress-MSWLSC/elm-workshop/blob/master/elm-workshop.md) that includes an [Auth0.elm module](https://github.com/Cimpress-MSWLSC/elm-workshop/blob/master/src/Auth0.elm) and an [Authentication.elm module](https://github.com/Cimpress-MSWLSC/elm-workshop/blob/master/src/Authentication.elm).
 
-These modules are great resources to help you implement Auth0 with Elm. We will introduce and build on them in a new app to demonstrate how to use Auth0's lock widget with JSON Web Tokens. The modules will be imported into our `Main.elm` file and we'll use JS interop to interface with [Auth0's lock component](https://auth0.com/docs/libraries/lock).
+These modules are great resources to help you implement Auth0 with Elm. We will introduce and build on them in a new app to demonstrate how to use [auth0.js](https://github.com/auth0/auth0.js/) with JSON Web Tokens. The modules will be imported into our `Main.elm` file and we'll use JS interop to interface with [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login).
 
-![elm with Auth0](https://cdn.auth0.com/blog/elm-auth/aside-auth0.jpg)
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 You can download the complete code for the Elm app with Auth0 integration at [this GitHub repo](https://github.com/auth0-blog/elm-with-auth0).
 
-> **Important security note:** In this demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+> **Important security note:** In this demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. You can do this with the token provided by Auth0.
 
 ### Sign Up for Auth0
 
@@ -757,76 +757,84 @@ The first thing we'll need is an Auth0 account. Follow these simple steps to get
 1. Sign up for a [free Auth0 account](javascript:signup\(\)).
 2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
 3. Name your new app and select "Single Page Web Applications". 
-4. In the **Settings** for your newly created app, add `http://localhost:8888` to the Allowed Callback URLs and Allowed Origins (CORS).
+4. In the **Settings** for your newly created app, add `http://localhost:8888` to the Allowed Callback URLs.
 
-### Auth0 Lock Interop and Local Storage
+### Auth0.js Interop and Local Storage
 
-In our `src/index.html` file, we'll use JavaScript to implement ports that instantiate the Auth0 lock and log out:
+In our `src/index.html` file, we'll use JavaScript to implement ports that call the Auth0 `authorize()` endpoint to log in, and log out:
 
 {% highlight html %}
 <!-- index.html -->
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <title>Elm with Auth0</title>
-        <script src="Main.js"></script>
-        <script src="Auth0.js"></script>
-        <script src="Authentication.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
-    
-    <body>
-    </body>
-    
-    <script src="http://cdn.auth0.com/js/lock/10.11.0/lock.min.js"></script>
-    <script>
-        var options = {
-            allowedConnections: ['Username-Password-Authentication']
-        };
-        var lock = new Auth0Lock('[YOUR_CLIENT_ID]', '[YOUR_CLIENT_DOMAIN]', options);
-        var storedProfile = localStorage.getItem('profile');
-        var storedToken = localStorage.getItem('token');
-        var authData = storedProfile && storedToken ? { profile: JSON.parse(storedProfile), token: storedToken } : null;
-        var elmApp = Elm.Main.fullscreen(authData);
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Elm with Auth0</title>
+    <script src="Main.js"></script>
+    <script src="Auth0.js"></script>
+    <script src="Authentication.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  
+  <body>
+  </body>
 
-        // Show Auth0 lock subscription
-        elmApp.ports.auth0showLock.subscribe(function(opts) {
-            lock.show();
+  <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
+  <script>
+    var webAuth = new auth0.WebAuth({
+      domain: '[YOUR_AUTH0_DOMAIN]', // e.g., you.auth0.com
+      clientID: '[YOUR_AUTH0_CLIENT_ID]',
+      scope: 'email',
+      responseType: 'token',
+      redirectUri: 'http://localhost:8888'
+    });
+    var storedProfile = localStorage.getItem('profile');
+    var storedToken = localStorage.getItem('token');
+    var authData = storedProfile && storedToken ? { profile: JSON.parse(storedProfile), token: storedToken } : null;
+    var elmApp = Elm.Main.fullscreen(authData);
+
+    // Auth0 authorize subscription
+    elmApp.ports.auth0authorize.subscribe(function(opts) {
+      webAuth.authorize();
+    });
+
+    // Log out of Auth0 subscription
+    elmApp.ports.auth0logout.subscribe(function(opts) {
+      localStorage.removeItem('profile');
+      localStorage.removeItem('token');
+    });
+
+    // Watching for hash after redirect
+    webAuth.parseHash({ hash: window.location.hash }, function(err, authResult) {
+      if (err) {
+        return console.error(err);
+      }
+      if (authResult) {
+        webAuth.client.userInfo(authResult.accessToken, function(err, profile) {
+          var result = { err: null, ok: null };
+          var token = authResult.accessToken;
+
+          if (err) {
+            result.err = err.details;
+            // Ensure that optional fields are on the object
+            result.err.name = result.err.name ? result.err.name : null;
+            result.err.code = result.err.code ? result.err.code : null;
+            result.err.statusCode = result.err.statusCode ? result.err.statusCode : null;
+          }
+          if (authResult) {
+            result.ok = { profile: profile, token: token };
+            localStorage.setItem('profile', JSON.stringify(profile));
+            localStorage.setItem('token', token);
+          }
+          elmApp.ports.auth0authResult.send(result);
         });
-
-        // Log out of Auth0 subscription
-        elmApp.ports.auth0logout.subscribe(function(opts) {
-            localStorage.removeItem('profile');
-            localStorage.removeItem('token');
-        });
-
-        // Listening for the authenticated event
-        lock.on("authenticated", function(authResult) {
-            // Use the token in authResult to getProfile() and save it to localStorage
-            lock.getProfile(authResult.idToken, function(err, profile) {
-                var result = { err: null, ok: null };
-                var token = authResult.idToken;
-
-                if (!err) {
-                    result.ok = { profile: profile, token: token };
-                    localStorage.setItem('profile', JSON.stringify(profile));
-                    localStorage.setItem('token', token);
-                } else {
-                    result.err = err.details;
-
-                    // Ensure that optional fields are on the object
-                    result.err.name = result.err.name ? result.err.name : null;
-                    result.err.code = result.err.code ? result.err.code : null;
-                    result.err.statusCode = result.err.statusCode ? result.err.statusCode : null;
-                }
-                elmApp.ports.auth0authResult.send(result);
-            });
-        });
-    </script>
-</html>    
+        window.location.hash = '';
+      }
+    });
+  </script>
+</html>
 {% endhighlight html %}
 
 First we need to add our compiled Elm files as well as the Auth0 lock widget JavaScript file:
@@ -838,21 +846,24 @@ First we need to add our compiled Elm files as well as the Auth0 lock widget Jav
 
 ...
 
-<script src="http://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+<script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 {% endhighlight html %}
 
-Then we'll instantiate a lock instance:
+Then we'll create an Auth0 WebAuth instance:
 
 ```js
-var options = { allowedConnections: ['Username-Password-Authentication'] };
-var lock = new Auth0Lock('[YOUR_CLIENT_ID]', '[YOUR_CLIENT_DOMAIN]', options);
+var webAuth = new auth0.WebAuth({
+  domain: '[YOUR_AUTH0_DOMAIN]', // e.g., you.auth0.com
+  clientID: '[YOUR_AUTH0_CLIENT_ID]',
+  scope: 'email',
+  responseType: 'token',
+  redirectUri: 'http://localhost:8888'
+});
 ```
 
-Replace `[YOUR_CLIENT_ID]` and `[YOUR_CLIENT_DOMAIN]` with your app client's ID and domain from your Auth0 dashboard.
+Replace `[YOUR_AUTH0_CLIENT_ID]` and `[YOUR_AUTH0_DOMAIN]` with your app client's ID and domain from your [Auth0 dashboard Client settings](https://manage.auth0.com/#/clients).
 
-> **Note:** Make sure to add your app's domain (and port, if applicable) to your app client's Allowed Callback URLs, Allowed Logout URLs, and Allowed Origins (CORS) in [your Auth0 Dashboard](https://manage.auth0.com/#/clients).
-
-Next we'll set up the JS to instantiate the Elm application with flags and ports to interoperate with the lock widget and `localStorage`. We'll request a stored profile and token and if available, we'll recreate an object that matches the record we'll use in the `Auth0.elm` module for a `LoggedInUser`. Then we'll create ports to show the lock widget and perform logout, adding and removing items from local storage accordingly.
+Next we'll set up the JS to instantiate the Elm application with flags and ports to interoperate with the lock widget and `localStorage`. We'll request a stored profile and token and if available, we'll recreate an object that matches the record we'll use in the `Auth0.elm` module for a `LoggedInUser`. Then we'll create ports to call the `authorize()` endpoint and log out, adding and removing items from local storage accordingly. Finally, we'll parse the hash and retrieve the profile when the user logs in at the centralized login page and is redirected back to our app, sending the resulting data to our Elm app via an `auth0authResult` port.
 
 ### Auth0 Module
 
@@ -894,10 +905,6 @@ type alias Options =
 type alias UserProfile =
     { email : String
     , email_verified : Bool
-    , name : String
-    , nickname : String
-    , picture : String
-    , user_id : String
     }
 
 
@@ -934,8 +941,8 @@ mapResult result =
 
         ( Nothing, Just user ) ->
             Ok user
-            
-            
+
+
 defaultOpts : Options
 defaultOpts =
     {}
@@ -967,13 +974,13 @@ import Auth0
 type alias Model =
     { state : Auth0.AuthenticationState
     , lastError : Maybe Auth0.AuthenticationError
-    , showLock : Auth0.Options -> Cmd Msg
+    , authorize : Auth0.Options -> Cmd Msg
     , logOut : () -> Cmd Msg
     }
 
 
 init : (Auth0.Options -> Cmd Msg) -> (() -> Cmd Msg) -> Maybe Auth0.LoggedInUser -> Model
-init showLock logOut initialData =
+init authorize logOut initialData =
     { state =
         case initialData of
             Just user ->
@@ -982,7 +989,7 @@ init showLock logOut initialData =
             Nothing ->
                 Auth0.LoggedOut
     , lastError = Nothing
-    , showLock = showLock
+    , authorize = authorize
     , logOut = logOut
     }
 
@@ -991,7 +998,6 @@ type Msg
     = AuthenticationResult Auth0.AuthenticationResult
     | ShowLogIn
     | LogOut
-    
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -1009,7 +1015,7 @@ update msg model =
                 ( { model | state = newState, lastError = error }, Cmd.none )
 
         ShowLogIn ->
-            ( model, model.showLock Auth0.defaultOpts )
+            ( model, model.authorize Auth0.defaultOpts )
 
         LogOut ->
             ( { model | state = Auth0.LoggedOut }, model.logOut () )
@@ -1040,7 +1046,7 @@ isLoggedIn model =
             False
 ```
 
-We need to import the `Auth0` module so we can reference it. The model provides a way for our `Main` Elm module to send data into the `Authentication` module. We'll do this by passing arguments to `Authentication`'s `init` function from the `Main` module. We'll establish a `Msg` union type and then in our `update` function, we can handle authentication results, show the lock widget, and log out. 
+We need to import the `Auth0` module so we can reference it. The model provides a way for our `Main` Elm module to send data into the `Authentication` module. We'll do this by passing arguments to `Authentication`'s `init` function from the `Main` module. We'll establish a `Msg` union type and then in our `update` function, we can handle authentication results, call the Auth0 `authorize` endpoint to log in at the centralized login page, and log out. 
 
 ### Implementing Auth0 in Main.elm
 
@@ -1077,7 +1083,7 @@ type alias Model =
 
 init : Maybe Auth0.LoggedInUser -> ( Model, Cmd Msg )
 init initialUser =
-    ( Model (Authentication.init auth0showLock auth0logout initialUser), Cmd.none )
+    ( Model (Authentication.init auth0authorize auth0logout initialUser), Cmd.none )
 
 
 -- Messages
@@ -1088,7 +1094,7 @@ type Msg
 
 -- Ports
 
-port auth0showLock : Auth0.Options -> Cmd msg
+port auth0authorize : Auth0.Options -> Cmd msg
 port auth0authResult : (Auth0.RawAuthenticationResult -> msg) -> Sub msg
 port auth0logout : () -> Cmd msg
 
@@ -1126,9 +1132,7 @@ view model =
                         [ p [] [ text "Please log in" ] ]
 
                     Just user ->
-                        [ p [] [ img [ src user.picture ] [] ]
-                        , p [] [ text ("Hello, " ++ user.name ++ "!") ]
-                        ]
+                        [ p [] [ text ("Hello, " ++ user.email ++ "!") ] ]
                 )
             , p []
                 [ button
@@ -1144,9 +1148,9 @@ view model =
                     ]
                     [ text
                         (if Authentication.isLoggedIn model.authModel then
-                            "Logout"
+                            "Log Out"
                             else
-                            "Login"
+                            "Log In"
                         )
                     ]
                 ]
@@ -1158,11 +1162,11 @@ We'll use `programWithFlags` because we want to check for an existing user and t
 
 In the `init` function, we will `init` `Authentication` and pass in arguments for the ports that show the lock and log out. We'll also pass the initial user from local storage if available (recall that we set this up in `index.html` to mirror the `LoggedInUser` type from the `Auth0` module).
 
-We need to subscribe to the `auth0authResult` port to listen for external input from Auth0 lock logins.
+We need to subscribe to the `auth0authResult` port to listen for external input from Auth0 hash parsing.
 
 > **Note:** `>>` represents function chaining. 
 
-Finally, the view displays a message and button to open the lock widget if there is no authentication data in storage, and a greeting with the user's avatar along with a logout button if there is.
+Finally, the view displays a message and button to log in if there is no authentication data in storage, and a greeting with the user's email along with a logout button if there is.
 
 ## Elm: Now and Future
 
