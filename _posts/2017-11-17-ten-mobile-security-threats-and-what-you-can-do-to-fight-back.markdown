@@ -55,6 +55,7 @@ When your employees visit Google Play or the App Store to download apps that loo
 Most people just glance the list of permissions and agree without reviewing them in great detail. This lack of scrutiny leaves devices and enterprises vulnerable to mobile threats.
 
 ![10 Mobile Security Threats - Malicious Apps](http://ift.tt/1hXHw9N)
+
 [Source](http://www.photoshopcs6download.com/tag/hongkiat-test/page/65)
 
 Dave Jevans, CEO and CTO of Marble Security [explains](https://www.esecurityplanet.com/mobile-security/10-trickiest-mobile-security-threats.html), “enterprises face a far greater threat from the millions of generally available apps on their employees' devices than from mobile malware.”
@@ -122,6 +123,7 @@ In [Google's case](https://www.forbes.com/sites/thomasbrewster/2017/05/26/google
 Mobile devices are branching out from cell phones and tablets to include wearable tech, like smart watches or devices in the office, like video conferencing tools. Basically, anything that's used to improve workplace efficiency, productivity and service quality has a product for that purpose.
 
 ![IoT Mobile Security Threats](https://www.cyren.com/tl_files/assets_cyren/images/blog/Yearbook_Graphics-05_small.jpg)
+
 [Source](https://blog.cyren.com/articles/an-assessment-of-industrial-iot-threats-in-2015-and-beyond)
 
 Cybercriminals are aware of this expansion, after all, Gartner predicts the number of connected devices will reach [20.8 billion](https://www.esecurityplanet.com/network-security/ransomware-and-the-internet-of-things-a-growing-threat.html) by 2020.
@@ -139,7 +141,7 @@ Depending on the sites employees visit on their mobile devices, malware can be d
 All devices with the malware on them are added to a network of other affected devices — called a botnet — that allow hackers to send spammy emails and other click fraud campaigns that spread the malware to even more devices.
 
 ![Botnets](https://cdn.keycdn.com/support/wp-content/uploads/2015/12/botnet.png)
-[Botnets](https://www.keycdn.com/support/what-is-a-botnet/)
+[Source](https://www.keycdn.com/support/what-is-a-botnet/)
 
 As an enterprise it's harmful to you that malware can disrupt networks or steal confidential customer information.
 
@@ -153,7 +155,7 @@ With all of the ways to [secure mobile devices](https://auth0.com/blog/is-passwo
 
 For people who do go through the effort of creating a password or PIN, they typically default to codes that are easy to crack. Like 0000, 1234 or birthday month and day.
 
-![No password protection](http://www.netimperative.com/2016/01/worst-25-passwords-prove-were-all-idiots/)
+![No password protection](http://www.netimperative.com/wp-content/uploads/2016/01/worst-passwords-1.jpg)
 [Source](http://www.netimperative.com/2016/01/worst-25-passwords-prove-were-all-idiots/)
 
 Unlike secure sites, mobile devices don't force users to create a password or PIN. And even when users do create them, devices don't confirm the strength of the password or PIN.
