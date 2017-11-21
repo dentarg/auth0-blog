@@ -2,7 +2,7 @@
 layout: post
 title: "Developing Real-time Apps with Meteor"
 description: "Let’s learn how to use Meteor to build a real-time web application and add authentication to it"
-date: 2017-11-02 8:30
+date: 2017-11-21 8:30
 category: Technical Guide, JavaScript, Meteor
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
