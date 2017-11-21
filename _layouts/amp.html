@@ -29,14 +29,15 @@
     {% if paginator.page > 1 %}
     <meta name="robots" content="noindex, noarchive, follow" />
     {% endif %}
-
 <script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
 <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
 {% if page.is_post_index %}
   <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
 {% endif %}
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<meta name="amp-link-variable-allowed-insecure-origin" content="https://auth0.com/signup">
 
 <style amp-custom>
   @font-face {
@@ -73,4 +74,46 @@
       {{content}}
     </div>
   </body>
+  <amp-analytics>
+    <script type="application/json">
+      {
+        "requests": {
+          "proxyMetrics": "http://localhost:3002/amp-analytics",
+          "pageview": "${proxyMetrics}/?dwEndpoint=${dwEndpoint}&segmentKey=${segmentKey}&type=${type}&label=${label}&${extraUrlParams}"
+        },
+        "extraUrlParams": {
+          "userAgent": "${userAgent}",
+          "title":"${title}",
+          "userId": "${clientId(cid-scope-cookie-fallback-name)}",
+          "referrer": "${documentReferrer}",
+          "path": "${sourcePath}",
+          "url": "${sourceUrl}"
+        },
+        "vars": {
+          "dwEndpoint": "https://dwh-tracking.it.auth0.com/dwh-metrics",
+          "segmentKey": "aaB6w2BsRwUcGbRSUY7X22FPAa1NL3BL",
+          "label": "AMP-Blog",
+          "type": "page"
+        },
+        "triggers": {
+          "trackPageview": {
+            "on": "visible",
+            "request": "pageview"
+          },
+          "trackSignupClick": {
+            "on": "click",
+            "selector": "#amp-signup",
+            "request": "pageview",
+            "extraUrlParams": {
+              "eventName": "amp-blog:signup",
+              "trackData":  "{sample: 'data for track'}"
+            },
+            "vars": {
+              "type": "track"
+            }
+          }
+        }
+      }
+    </script>
+  </amp-analytics>
 </html>
