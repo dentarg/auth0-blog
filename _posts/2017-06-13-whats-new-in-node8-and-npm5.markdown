@@ -2,7 +2,7 @@
 layout: post
 title: "Node 8 and npm@5 release: What's new?"
 description: "Node 8.0.0 and npm@5 were released a few days ago. Learn what's new in Node & npm!"
-date: 2017-12-13 08:30
+date: 2017-06-13 08:30
 category: Technical Guide, Backend, NodeJS
 design:
   bg_color: "#4A4A4A"
