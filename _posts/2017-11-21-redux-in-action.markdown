@@ -85,7 +85,7 @@ After understanding these three concepts (well, four with state immutability), w
 
 ## Using Redux
 
-You might have noticed that we haven't used Redux in the previous section. A great characteristic of Redux is that it relies on simple concepts and structures. As we will see, introducing Redux to manage states in apps is easy. The Redux library itself is quite small, performatic, and intuitive.
+You might have noticed that we haven't used Redux in the previous section. A great characteristic of Redux is that it relies on simple concepts and structures. As we will see, introducing Redux to manage states in apps is easy. The Redux library itself is quite small, have a great performance, and is really intuitive.
 
 To keep things organized, let's create a new Node.js project, and add actions and reducers to it. In a terminal, let's issue the following commands:
 
