@@ -172,7 +172,7 @@ For our login button, we will add a handler in the view controller that will ope
 @IBAction func buttonClick(_ sender: Any) {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     if appDelegate.tokens == nil {
-        appDelegate.authServer.authorize(useSfAuthSession: sfAuthSessionSwitch.isOn, handler: { (success) in
+        appDelegate.authServer.authorize(viewController: self, useSfAuthSession: sfAuthSessionSwitch.isOn, handler: { (success) in
             if !success {
                 //TODO: show error
                 self.updateUI()
@@ -191,7 +191,7 @@ For our login button, we will add a handler in the view controller that will ope
 The `authorize` function is simple enough:
 
 ```swift
-func authorize(useSfAuthSession: Bool, handler: @escaping (Bool) -> Void) {
+func authorize(viewController: UIViewController, useSfAuthSession: Bool, handler: @escaping (Bool) -> Void) {
     guard let challenge = generateCodeChallenge() else {
         // TODO: handle error
         handler(false)
@@ -214,15 +214,17 @@ func authorize(useSfAuthSession: Bool, handler: @escaping (Bool) -> Void) {
     
     if useSfAuthSession {
         sfAuthSession = SFAuthenticationSession(url: urlComp.url!, callbackURLScheme: "auth0test1", completionHandler: { (url, error) in
-            if error != nil {
-                handler(false)
+            guard error == nil else {
+                return handler(false)
             }
             
             handler(url != nil && self.parseAuthorizeRedirectUrl(url: url!))
         })
         sfAuthSession?.start()
     } else {
-        UIApplication.shared.open(urlComp.url!, options: [:], completionHandler: handler)
+        sfSafariViewController = SFSafariViewController(url: urlComp.url!)
+        viewController.present(sfSafariViewController!, animated: true)
+        handler(true)
     }
 }
 ```
@@ -265,10 +267,12 @@ The `parseAuthorizedRedirectUrl` method is simple enough as well:
 ```swift
 func parseAuthorizeRedirectUrl(url: URL) -> Bool {
     guard let urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+        sfSafariViewController?.dismiss(animated: true, completion: nil)
         return false
     }
     
     if urlComp.queryItems == nil {
+        sfSafariViewController?.dismiss(animated: true, completion: nil)
         return false
     }
     
@@ -279,6 +283,8 @@ func parseAuthorizeRedirectUrl(url: URL) -> Bool {
             receivedState = item.value
         }
     }
+    
+    sfSafariViewController?.dismiss(animated: true, completion: nil)
     
     return receivedCode != nil && receivedState != nil
 }
