@@ -143,3 +143,9 @@ You'll need an [Auth0](https://auth0.com) account to manage authentication. You 
 ### Set Up an API
 
 Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:[PORT]/api/`. The **Signing Algorithm** should be `RS256`.
+
+# Include Generic Aside
+
+```
+{% include asides/{technology}.markdown %}
+```
