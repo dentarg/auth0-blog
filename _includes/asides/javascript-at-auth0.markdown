@@ -14,8 +14,6 @@ npm install jwt-decode auth0-js --save
 ```
 
 ```js
-import auth0 from 'auth0-js';
-
 const auth0 = new auth0.WebAuth({
     clientID: "YOUR-AUTH0-CLIENT-ID",
     domain: "YOUR-AUTH0-DOMAIN",
@@ -86,4 +84,6 @@ function afterLoad() {
 window.addEventListener('load', afterLoad);
 ```
 
-Go ahead and check out our [quickstarts](https://auth0.com/docs/quickstarts) for how to implement authentication using different languages and frameworks in your apps.
+Get [the full example using this code](https://github.com/auth0-blog/es2015-rundown-example).
+
+Go ahead and check out our [quickstarts](https://auth0.com/docs/quickstarts) to learn how to implement authentication using different languages and frameworks in your apps.
