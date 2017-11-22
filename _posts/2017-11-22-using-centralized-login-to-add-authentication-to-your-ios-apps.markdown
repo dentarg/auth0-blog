@@ -2,7 +2,7 @@
 layout: post
 title: "Add Authentication To Your iOS Apps with Centralized Login"
 description: "In this tutorial we implement centralized logins for iOS both manually and using the Auth0 SDK."
-date: 2017-11-17 12:30
+date: 2017-11-22 12:30
 category: Technical Guide, iOS, Mobile
 author:
   name: Sebastián Peyrott
@@ -10,8 +10,8 @@ author:
   mail: speyrott@auth0.com
   avatar: https://en.gravatar.com/userimage/92476393/001c9ddc5ceb9829b6aaf24f5d28502a.png?size=200
 design:
-  bg_color: "#454A75"
-  image: https://cdn.auth0.com/blog/oauth2bcp/oauthlogo.png
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/centralized_login_ios/logo.png
   image_size: "100%"
 tags:
 - ios
@@ -31,6 +31,7 @@ tags:
 - lock
 related:
 - 2017-10-19-oauth-2-best-practices-for-native-apps
+- 2016-10-04-compare-mvvm-and-viper-architectures
 ---
 
 In this post, we will take a look at the recommended approach to perform authentication in native iOS apps. We will use Auth0's Centralized Login feature to increase security and follow [OAuth2](https://tools.ietf.org/html/rfc6749) and its [recommended practices](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/) on iOS. We will also learn how to use the new [SFAuthenticationSession](https://developer.apple.com/documentation/safariservices/sfauthenticationsession) class from iOS 11. Read on!
