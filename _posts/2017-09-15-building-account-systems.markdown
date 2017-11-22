@@ -172,7 +172,7 @@ One way to solve this is by buying a separate top-level domain to send your acco
 
 If you have passwords, you have a database attackers want (and frequently get). They don’t care about your company directly, they just want the passwords so they can try them at higher value targets. Yet data breaches are embarrassing and can lead to big penalties even if the direct impact on your customers is low. A database of OAuth tokens is of far less value to attackers and thus you’re much less likely to be attacked.
 
-{%include asides/market-basket-links-about.markdown %}
+{% include asides/market-basket-links-about.markdown %}
 
 ## Conclusion
 
