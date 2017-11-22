@@ -2,7 +2,7 @@
 layout: post
 title: "Node 8 and npm@5 release: What's new?"
 description: "Node 8.0.0 and npm@5 were released a few days ago. Learn what's new in Node & npm!"
-date: 2017-06-13 08:30
+date: 2017-12-13 08:30
 category: Technical Guide, Backend, NodeJS
 design:
   bg_color: "#4A4A4A"
@@ -264,17 +264,97 @@ All installs save by default with `npm@5`. Adding the `--save` flag is no longer
 
 ## Aside: Using Auth0 with npm@5
 
-**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/user-management), support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
+**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/user-management), support for social identity providers (Facebook, GitHub, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
 > Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 
-We can easily set up authentication in our JavaScript apps by using the [Lock Widget](https://auth0.com/lock). You can easily install Auth0 lock widget from your terminal with npm like so:
+We can easily set up authentication in our JavaScript apps by using [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login).
+
+![Centralized Login Page](https://cdn2.auth0.com/docs/media/articles/web/hosted-login.png)
+_Centralized Login Page_
+
+It's as easy as installing the `auth0-js` and `jwt-decode` node modules like so:
 
 ```bash
-npm install auth0-lock
+npm install auth0-js jwt-decode --save
 ```
 
-It installs the widget within seconds and locks down the exact files with `package-lock.json` file. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with the JavaScript framework of your choice. Now head over to the [Quickstart docs](https://auth0.com/docs/quickstarts), select the type of app you want to build and follow the steps highlighted there.
+And using them like so:
+
+```js
+import auth0 from 'auth0-js';
+
+const auth0 = new auth0.WebAuth({
+    clientID: "YOUR-AUTH0-CLIENT-ID",
+    domain: "YOUR-AUTH0-DOMAIN",
+    scope: "openid email profile YOUR-ADDITIONAL-SCOPES",
+    audience: "YOUR-API-AUDIENCES", // See https://auth0.com/docs/api-auth
+    responseType: "token id_token",
+    redirectUri: "http://localhost:9000" //YOUR-REDIRECT-URL
+});
+
+function logout() {
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
+    window.location.href = "/";
+}
+
+function showProfileInfo(profile) {
+    var btnLogin = document.getElementById('btn-login');
+    var btnLogout = document.getElementById('btn-logout');
+    var avatar = document.getElementById('avatar');
+    document.getElementById('nickname').textContent = profile.nickname;
+    btnLogin.style.display = "none";
+    avatar.src = profile.picture;
+    avatar.style.display = "block";
+    btnLogout.style.display = "block";
+}
+
+function retrieveProfile() {
+    var idToken = localStorage.getItem('id_token');
+    if (idToken) {
+        try {
+            const profile = jwt_decode(idToken);
+            showProfileInfo(profile);
+        } catch (err) {
+            alert('There was an error getting the profile: ' + err.message);
+        }
+    }
+}
+
+auth0.parseHash(window.location.hash, (err, result) => {
+    if(err || !result) {
+        // Handle error
+        return;
+    }
+
+    // You can use the ID token to get user information in the frontend.
+    localStorage.setItem('id_token', result.idToken);
+    // You can use this token to interact with server-side APIs.
+    localStorage.setItem('access_token', result.accessToken);
+    retrieveProfile();
+});
+
+function afterLoad() {
+    // buttons
+    var btnLogin = document.getElementById('btn-login');
+    var btnLogout = document.getElementById('btn-logout');
+
+    btnLogin.addEventListener('click', function () {
+        auth0.authorize();
+    });
+
+    btnLogout.addEventListener('click', function () {
+        logout();
+    });
+
+    retrieveProfile();
+}
+
+window.addEventListener('load', afterLoad);
+```
+
+It installs the `auth0-js` library within seconds and locks down the exact files with `package-lock.json` file. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with the JavaScript framework of your choice. Now head over to the [Quickstart docs](https://auth0.com/docs/quickstarts), select the type of app you want to build and follow the steps highlighted there.
 
 
 ## Conclusion
