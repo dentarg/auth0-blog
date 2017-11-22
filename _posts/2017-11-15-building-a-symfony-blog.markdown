@@ -31,10 +31,6 @@ related:
 
 * TODO: Talk about Symfony
 
-## Prerequisites
-
-* TODO: Step by step instruction on registering and setting up Auth0
-
 ## Implementation of a basic Symfony blog
 
 ### Installing Symfony
