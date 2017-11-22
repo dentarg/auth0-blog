@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "10 Mobile Security Threats (and What You Can do to Fight Back to Protect Your Data)"
+title: "10 Mobile Security Threats (and What You Can do to Fight Back)"
 description: The increased use of mobile devices has led to an uptick in mobile security threats. now, enterprises have to be more diligent than ever to protect their private data.
 date: 2017-11-17 9:30
 category: Growth, Generic
