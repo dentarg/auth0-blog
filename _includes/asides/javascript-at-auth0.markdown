@@ -4,6 +4,9 @@ At [Auth0](https://auth0.com/), we make heavy use of full-stack JavaScript to he
 
 > [Auth0 offers a **free tier**](https://auth0.com/pricing) to get started with modern authentication. Check it out!
 
+![Centralized Login Page](https://cdn2.auth0.com/docs/media/articles/web/hosted-login.png)
+_Centralized Login Page_
+
 It's as easy as installing the [`auth0-js`](https://github.com/auth0/auth0.js) and [`jwt-decode`](https://github.com/auth0/jwt-decode) node modules like so:
 
 ```bash
