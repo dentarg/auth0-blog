@@ -57,7 +57,7 @@ A service worker is a bit like a proxy server between the application and the br
 
 The service worker API is an attempt to replace the **HTML5 Application Cache**. Nothing is perfect, but AppCache has a host of issues that frustrate developers trying to create offline experiences. One of the biggest issues is that apps won't work at all unless AppCache is set up just right, which means debugging is very tricky. With AppCache, only same-origin resources can be cached, and when it comes to updating resources, it's all or nothing—we can't update cached items individually.
 
-Service workers really shine when stacked up against AppCache. They give us a lot of fine-grained control, so we're able to customize the process of serving an offline experience. Some of this ability is because service workers use promises, which allow us to respond to both `success` and `error` conditions.  
+Service workers really shine when stacked up against AppCache. They give us a lot of fine-grained control, so we're able to customize the process of serving an offline experience. Some of this ability is because service workers use promises, which allow us to respond to both `success` and `error` conditions.
 
 ## Registering a Service Worker
 
@@ -102,7 +102,7 @@ The first step is to create our app just as we would normally.
         <input type="text" class="form-control" placeholder="Enter a new todo">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
-    </form>        
+    </form>
   </div>
 
   ...
@@ -245,33 +245,7 @@ local.sync(remote, {
 });
 ```
 
-## Aside: Authentication is Easy with Auth0
-
-Auth0 issues [JSON Web Tokens](http://jwt.io) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social (Facebook, Github, Twitter, etc.), enterprise (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
-
-You can use [Lock](https://auth0.com/docs/libraries/lock) for your offline-first web app. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app.
-
-```js
-// Initialize Auth0Lock with your `clientID` and `domain`
-var lock = new Auth0Lock('xxxxxx', '<account>.auth0.com');
-
-// and deploy it
-var login = document.querySelector('a#login')
-
-login.onclick = function (e) {
-  e.preventDefault();
-  lock.show(function onLogin(err, profile, id_token) {
-    if (err) {
-      // There was an error logging the user in
-      return alert(err.message);
-    }
-
-    // User is logged in
-  });
-};
-```
-
-![lock auth0](https://i.cloudup.com/6opoEX_Z9z.png)
+{% include asides/javascript-at-auth0.markdown %}
 
 **Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
