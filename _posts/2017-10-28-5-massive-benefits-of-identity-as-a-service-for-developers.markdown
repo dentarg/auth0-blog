@@ -12,8 +12,11 @@ author:
 design: 
   bg_color: "#1A1A1A"
 tags:
-- IdentityService
-- Developer
+- identity
+- user
+- management
+- service
+- auth0
 ---
 The old adage goes, “don’t reinvent the wheel”. We say this over and over again as developers. Yet we are often sucked down rabbit trails where we end up doing the one thing we don’t want to do: reinventing the wheel.
 
