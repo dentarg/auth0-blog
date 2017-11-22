@@ -2,7 +2,7 @@
 layout: post
 title: "Introduction to Progressive Web Apps (Push Notifications) - Part 3"
 description: Progressive Web Apps are the future. Learn how to make your mobile web app native-like by making it work offline, load instantly and send push notifications.
-date: 2016-12-28 08:30
+date: 2017-12-28 08:30
 category: Technical Guide, Architecture, Progressive Web Apps
 design:
   bg_color: "#222228"
@@ -66,7 +66,7 @@ Create a new JavaScript file `js/notification.js` in your project. Reference the
 
  <script src="./js/notification.js"></script>
 
-``` 
+```
 
 ..and add the following code the `notification.js` like so:
 
@@ -78,7 +78,7 @@ Create a new JavaScript file `js/notification.js` in your project. Reference the
   //Push notification button
   var fabPushElement = document.querySelector('.fab__push');
   var fabPushImgElement = document.querySelector('.fab__image');
-  
+
   //To check `push notification` is supported or not
   function isPushSupported() {
     //To check `push notification` permission is denied by user
@@ -113,7 +113,7 @@ Create a new JavaScript file `js/notification.js` in your project. Reference the
       });
   }
 
-  // Ask User if he/she wants to subscribe to push notifications and then 
+  // Ask User if he/she wants to subscribe to push notifications and then
   // ..subscribe and send push notification
   function subscribePush() {
     navigator.serviceWorker.ready.then(function(registration) {
@@ -285,7 +285,7 @@ _Change push status to ash when inactive/unsubscribed_
 The `changePushStatus` function simply changes the color of the button to indicate wether the user has subscribed or not.
 
 ```js
-// Ask User if he/she wants to subscribe to push notifications and then 
+// Ask User if he/she wants to subscribe to push notifications and then
   // ..subscribe and send push notification
   function subscribePush() {
     navigator.serviceWorker.ready.then(function(registration) {
@@ -362,7 +362,7 @@ _Subscription in the console_
 
 ```
 
-This code is responsible for unsubscribing from push notification. A toast message indicates the unsubscription, then goes ahead to change the color of the button and delete the subscription ID. 
+This code is responsible for unsubscribing from push notification. A toast message indicates the unsubscription, then goes ahead to change the color of the button and delete the subscription ID.
 
 **Note:** The function that deletes subscription ID has been commented out for now.
 
@@ -442,11 +442,11 @@ Lucky enough, I have coded the [API service](https://github.com/unicodeveloper/p
 
 ![PWA API Server](https://cdn.auth0.com/blog/pwa/pwa-api.png)
 
-_PWA API Server running locally_ 
+_PWA API Server running locally_
 
 Make sure you create a `.env` file like so:
 
-![Env file with values](https://cdn.auth0.com/blog/pwa/env_file.png) 
+![Env file with values](https://cdn.auth0.com/blog/pwa/env_file.png)
 
 _.env file for pwa-api_
 
@@ -494,10 +494,10 @@ notifyUsers: function(req, res){
             console.error(err);
         } else {
           return res.json(response);
-        } 
+        }
       });
     });
-   
+
   },
 
   .....
@@ -514,7 +514,7 @@ Now, go back to `notification.js` and uncomment the `saveSubscriptionID` and `de
   //Push notification button
   var fabPushElement = document.querySelector('.fab__push');
   var fabPushImgElement = document.querySelector('.fab__image');
-  
+
   //To check `push notification` is supported or not
   function isPushSupported() {
     //To check `push notification` permission is denied by user
@@ -549,7 +549,7 @@ Now, go back to `notification.js` and uncomment the `saveSubscriptionID` and `de
       });
   }
 
-  // Ask User if he/she wants to subscribe to push notifications and then 
+  // Ask User if he/she wants to subscribe to push notifications and then
   // ..subscribe and send push notification
   function subscribePush() {
     navigator.serviceWorker.ready.then(function(registration) {
@@ -671,7 +671,7 @@ Oops, there is an error in our console.
 
 ![Manifest Error](https://cdn.auth0.com/blog/pwa/manifest_error.png)
 
-Don't fret! The reason why we are encountering this issue is because we don't have a `manifest.json` file in our web app yet. 
+Don't fret! The reason why we are encountering this issue is because we don't have a `manifest.json` file in our web app yet.
 
 Now, the interesting thing here is this: Creating a `manifest.json` file will solve this challenge and add another feature to our app. With a `manifest.json` file, we'll be able to add our app to a users device homescreen and make the app installable. Viola!!!
 
@@ -744,7 +744,7 @@ Let's quickly highlight what these keys represent in our web app manifest file.
 * **icons:**  represents the applications' icon set for the homescreen, splash screen and task switcher.
 * **author:** is a custom key that represents the author of the app
 * **gcm_sender_id:** represents the `sender_id` from Firebase Cloud messaging that is used to identify the application. Replace the `sender_id` value here with that from your dashboard
-    
+
   ![Sender ID from Firebase Cloud Messaging](https://cdn.auth0.com/blog/pwa/sender_id.png)
 
 
@@ -847,7 +847,7 @@ Here, the code above listens to the event that is fired when a user clicks on th
 
 We have been manually making a post request via *Postman*. Practically, we want the user to get a notification once a commit has been made to the GitHub repository, `https://github.com/unicodeveloper/resources-i-like/`. So, how do we automate this process?
 
-Ever heard of Webhooks? Yes, [GitHub Webhooks](https://developer.github.com/webhooks) to the rescue! 
+Ever heard of Webhooks? Yes, [GitHub Webhooks](https://developer.github.com/webhooks) to the rescue!
 
 **Note:** Use the repository url of your choice, because you will have to make commits and see that this works as you go through this tutorial.
 
@@ -882,11 +882,11 @@ Install **Ngrok**. From your terminal, use ngrok to ping the port of the API ser
 
 _Ngrok pinging the local API server_
 
-So use whatever url it outputs on the terminal from ngrok in the webhook. 
+So use whatever url it outputs on the terminal from ngrok in the webhook.
 
 **Note:** Ngrok outputs both `http` and `https` URLs, so feel free to use any of them. They still map to your local server.
 
-Now, once you have added the webhook, GitHub immediately does a test `POST` ping to the hook to determine if it is all properly set up. 
+Now, once you have added the webhook, GitHub immediately does a test `POST` ping to the hook to determine if it is all properly set up.
 
 ![Delivery](https://cdn.auth0.com/blog/pwa/test_delivery.png)
 
@@ -904,7 +904,7 @@ Yes!!!! the process has been totally automated.
 
 ## Host PWA
 
-One of the requirements of a PWA is to have its content served via HTTPS. [Firebase hosting](https://firebase.google.com/docs/hosting/) is a very good option for deploying our app to a server that supports HTTPS.  
+One of the requirements of a PWA is to have its content served via HTTPS. [Firebase hosting](https://firebase.google.com/docs/hosting/) is a very good option for deploying our app to a server that supports HTTPS.
 
 Our [app](https://ril-pwa.firebaseapp.com) is now live. I also hosted the [API](https://rilapi.herokuapp.com/api) on heroku.
 
@@ -928,59 +928,13 @@ _App now on Homescreen_
 
 The [PWA](https://github.com/unicodeveloper/pwa-commits) and [API code](https://github.com/unicodeveloper/pwa-api) is on GitHub.
 
-
-## Aside: Easy Authentication with Auth0
-
-You can use [Auth0 Lock](https://auth0.com/docs/libraries/lock) for your progressive web app. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app like so:
-
-```js
-
-// Initiating our Auth0Lock
-var lock = new Auth0Lock(
-  'YOUR_CLIENT_ID',
-  'YOUR_AUTH0_DOMAIN'
-);
-
-// Listening for the authenticated event
-lock.on("authenticated", function(authResult) {
-  // Use the token in authResult to getProfile() and save it to localStorage
-  lock.getProfile(authResult.idToken, function(error, profile) {
-    if (error) {
-      // Handle error
-      return;
-    }
-
-    localStorage.setItem('idToken', authResult.idToken);
-    localStorage.setItem('profile', JSON.stringify(profile));
-  });
-});
-
-```
-
-**Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
-
-_Implementing Lock_
-
-```js
-
-document.getElementById('btn-login').addEventListener('click', function() {
-  lock.show();
-});
-
-```
-
-_Showing Lock_
-
-
-![Auth0 Lock Screen](https://cdn.auth0.com/blog/nexthrone-auth0lock.png)
-
-_Auth0 Lock Screen_
+{% include asides/javascript-at-auth0.markdown %}
 
 In the case of an offline-first app, authenticating the user against a remote database won't be possible when network connectivity is lost. However, with service workers, you have full control over which pages and scripts are loaded when the user is offline. This means you can configure your `offline.html` file to display a useful message stating the user needs to regain connectivity to login again instead of displaying the Lock login screen.
 
 ## Conclusion
 
-We have been able to successfully make our app work offline, load instantly, receive push notifications, and also installable. 
+We have been able to successfully make our app work offline, load instantly, receive push notifications, and also installable.
 
 Progressive Web Apps have a checklist. I highlighted the requirements in [Part 1](https://auth0.com/blog/introduction-to-progressive-apps-part-one) . However, there is a tool, [Lighthouse](https://github.com/GoogleChrome/lighthouse) for auditing an [app for progressive web app features](https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app). It is available as a [chrome extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) and also a [CLI](https://github.com/GoogleChrome/lighthouse#install-cli).
 
