@@ -116,7 +116,7 @@ With Yarn, the presence of a lock file and an install algorithm ensures that the
 
 ## Aside: Using Auth0 with Yarn
 
-**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
+**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, GitHub, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
 We can easily set up authentication in our JavaScript apps by using [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). You can easily install the `auth0-js` library from your terminal with Yarn like so:
 
