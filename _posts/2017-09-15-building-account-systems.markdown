@@ -172,6 +172,8 @@ One way to solve this is by buying a separate top-level domain to send your acco
 
 If you have passwords, you have a database attackers want (and frequently get). They don’t care about your company directly, they just want the passwords so they can try them at higher value targets. Yet data breaches are embarrassing and can lead to big penalties even if the direct impact on your customers is low. A database of OAuth tokens is of far less value to attackers and thus you’re much less likely to be attacked.
 
+{%include asides/market-basket-links-about.markdown %}
+
 ## Conclusion
 
 There is far more I could write about account systems. Defending your site against malicious account hacking/signup is an entire book all by itself. I can’t write that book but you can watch [this video of a talk I gave in 2012](https://www.youtube.com/watch?v=XwsaZ4-3muA) instead, if you’re curious.
