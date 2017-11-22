@@ -1141,11 +1141,7 @@ socket.on('image.error', (args: any) => {
 
 Here we simply throw an alert if Docker encounters an error running the image. Armed with your new-found React knowledge, I'm sure you can now come up with some fancy UI to make this a lot prettier!
 
-## Aside: Securing React Applications with Auth0
-
-Are you building a product with React? We at Auth0, can help you focus on what matters the most to you, the special features of your product. [Auth0](https://auth0.com/) can help you make your product secure with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
-
-[We offer a generous **free tier**](https://auth0.com/pricing) and the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) so you can get started with modern authentication in no time.
+{% include asides/react.markdown %}
 
 ## Wrapping up
 
