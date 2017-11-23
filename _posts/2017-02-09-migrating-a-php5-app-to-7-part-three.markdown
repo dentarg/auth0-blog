@@ -227,18 +227,17 @@ _app.css_
 ```js
 
 $(document).ready(function() {
-
-    var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, { auth: {
-          redirectUrl: AUTH0_CALLBACK_URL
-          , responseType: 'code'
-          , params: {
-              scope: 'openid'
-          }
-      }});
+    var webAuth = new auth0.WebAuth({
+        domain: AUTH0_DOMAIN,
+        clientID: AUTH0_CLIENT_ID
+    });
 
     $('.btn-login').click(function(e) {
-      e.preventDefault();
-      lock.show();
+        e.preventDefault();
+        webAuth.authorize({
+            responseType: 'code',
+            redirectUri: AUTH0_CALLBACK_URL
+        });
     });
 });
 
@@ -338,7 +337,7 @@ if (isset($_REQUEST['logout'])) {
 <html>
     <head>
         <script src="http://code.jquery.com/jquery-3.0.0.min.js" type="text/javascript"></script>
-        <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+        <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 
         <script type="text/javascript" src="//use.typekit.net/iws6ohy.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
