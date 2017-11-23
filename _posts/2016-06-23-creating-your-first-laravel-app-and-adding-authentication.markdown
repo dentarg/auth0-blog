@@ -308,7 +308,7 @@ Now, log out, then try to access that route, you will be redirected back to the 
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Laravel apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Laravel**.
+We can easily set up authentication in our Laravel apps with [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Laravel**.
 
 ### Step 1: Install and Configure Auth0 plugin
 
@@ -316,7 +316,7 @@ Follow the instructions [here](https://auth0.com/docs/quickstart/webapp/laravel)
 
 ### Step 2: Register the callback
 
-Head over to your Auth0 [dashboard](https://manage.auth0.com/#/applications/) and register a callback like so: `http://laravel-auth0.dev/auth0/callback` and logout URL `http://laravel-auth0.dev/logout`.
+Head over to your Auth0 [dashboard](https://manage.auth0.com/#/applications/) and register Allowed Callback URLs `http://laravel-auth0.dev/auth0/callback`, Allowed Logout URLs `http://laravel-auth0.dev/logout` and Allowed Origins (CORS) `http://laravel-auth0.dev/`.
 
 Open up your routes and add this:
 
@@ -326,7 +326,7 @@ Route::get('/auth0/callback', function() {
 });
 ```
 
-### Step 3: Include Auth0's Lock Widget
+### Step 3: Include Auth0's Centralized Login Page
 
 Open up `welcome.blade.php` and configure it like so:
 
@@ -334,32 +334,30 @@ Open up `welcome.blade.php` and configure it like so:
 @extends('layouts.app')
 
 @section('content')
-<script src="//cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+<script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 <script type="text/javascript">
-
-  var lock = new Auth0Lock('YOUR_AUTH0_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
-
-
-  function signin() {
-    lock.show({
-        callbackURL: 'YOUR_AUTH0_CALLBACK_URL'
-      , responseType: 'code'
-      , authParams: {
-        scope: 'openid email'  // Learn about scopes: https://auth0.com/docs/scopes
-      }
+    var webAuth = new auth0.WebAuth({
+        domain: 'YOUR_AUTH0_DOMAIN',
+        clientID: 'YOUR_AUTH0_CLIENT_ID'
     });
-  }
+
+    function signin() {
+        webAuth.authorize({
+            responseType: "code",
+            redirectUri: 'YOUR_AUTH0_CALLBACK_URL'
+        });
+    }
 </script>
 <button onclick="window.signin();">Login</button>
 @endsection
 {% endhighlight %}
 
-When the login button is clicked, the auth0 lock widget comes up:
+When the login button is clicked, users are redirected to Auth0's Centralized Login Page.
 
-![Auth0 Lock Widget](https://cdn.auth0.com/blog/laravel-auth/auth0-lock.png)
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 
-### Step 4: Configure & Use Lock Widget in Routes.php
+### Step 4: Configure Routes.php
 
 Add this to your `routes.php` file:
 
@@ -376,7 +374,7 @@ Now, once a user registers, it stores the user information in your Auth0 dashboa
 
 Access can be restricted with **Auth0 Middleware**, just add this `'auth0.jwt' => 'Auth0\Login\Middleware\Auth0JWTMiddleware'` in the `$routeMiddleware` array in `app/Http/Kernel.php`. Then use `auth0.jwt` middleware on your routes.
 
-With Auth0, you can have all your users information stored without having to run your own database. You can configure the Lock UI, It provides powerful analytics about users signing up on your platform such as, the browser the user logged in with, the location, device, number of logins and more out of the box!
+With Auth0, you can have all your users' information stored without having to run your own database. Auth0 provides powerful analytics about users signing up on your platform such as the browser the user logged in with, the location, device, number of logins and more, out of the box!
 
 ![User Information](https://cdn.auth0.com/blog/laravel-auth/user-information.png)
 
