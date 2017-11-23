@@ -510,7 +510,7 @@ _Index Page_
 
 Now, signup & signin.
 
-![Signing In](https://cdn.auth0.com/blog/app/signin.png)
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 _Sign In_
 
 When you are logged in, you should be assigned a Star Wars codename like so:
