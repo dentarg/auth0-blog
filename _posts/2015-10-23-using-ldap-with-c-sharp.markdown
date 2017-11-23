@@ -343,33 +343,38 @@ To enable LDAP for your Auth0 apps, first go to `Connections` -> `Enterprise` ->
 
 The following examples use the LDAP server setup for our C# example above.
 
-### Auth0 + LDAP using our 'lock' library
-Once you have enabled LDAP in the dashboard and set up the connector, you can follow the usual steps for our [lock library](https://auth0.com/docs/libraries/lock). Logging in using an email and password just works!
+### Auth0 + LDAP using our 'Auth0.js' library
+Once you have enabled LDAP in the dashboard and set up the connector, you can follow the usual steps for our [Auth0.js library](https://github.com/auth0/auth0.js). Logging in using an email and password just works!
 
 Showing the login popup on your page is as easy as:
 
 ```javascript
-// Initialize Auth0Lock with your `clientID` and `domain`
-var lock = new Auth0Lock('xxxxxx', '<account>.auth0.com');
+const auth0 = new auth0.WebAuth({
+    clientID: "YOUR-AUTH0-CLIENT-ID",
+    domain: "YOUR-AUTH0-DOMAIN",
+    scope: "openid email profile YOUR-ADDITIONAL-SCOPES",
+    audience: "YOUR-API-AUDIENCES", // See https://auth0.com/docs/api-auth
+    responseType: "token id_token",
+    redirectUri: "http://localhost:9000" //YOUR-REDIRECT-URL
+});
 
-// and deploy it
-var login = document.querySelector('a#login')
+auth0.authorize();
 
-login.onclick = function (e) {
-  e.preventDefault();
-  lock.show(function onLogin(err, profile, id_token) {
-    if (err) {
-      // There was an error logging the user in
-      return alert(err.message);
+auth0.parseHash(window.location.hash, (err, result) => {
+    if(err || !result) {
+        // Handle error
+        return;
     }
 
-    // User is logged in
-  });
-};
+    // You can use the ID token to get user information in the frontend.
+    localStorage.setItem('id_token', result.idToken);
+    // You can use this token to interact with server-side APIs.
+    localStorage.setItem('access_token', result.accessToken);
+});
 ```
 
 ### Auth0 + LDAP using our REST API
-If you cannot or don't want to use the *lock* library, you can log in using our [RESTful API for database, passwordless and LDAP users](https://auth0.com/docs/auth-api#!#post--oauth-ro).
+If you cannot or don't want to use the *Auth0.js* library, you can log in using our [RESTful API for database, passwordless and LDAP users](https://auth0.com/docs/auth-api#!#post--oauth-ro).
 
 ```
 curl -H 'Content-Type: application/json' -X POST -d '{ "client_id":"FyFnhDX2kSqtpMZ6pGe6QpQuJmD7s4dj", "username":"test", "password":"test" }' https://speyrott.auth0.com/oauth/ro
