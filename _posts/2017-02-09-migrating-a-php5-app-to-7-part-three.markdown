@@ -447,12 +447,12 @@ This checks if the user submitted a request to log out, clears the session and r
 
 {% highlight html %}
 <script src="http://code.jquery.com/jquery-3.0.0.min.js" type="text/javascript"></script>
-<script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+<script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 {% endhighlight %}
 
-We are making use of [Auth0 Lock widget](https://auth0.com/lock), and we also using jQuery to call the lock methods and handle button click event.
+We are making use of [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login), and we also using jQuery to call the methods and handle button click event.
 
-> [Lock is an embeddable login form for desktop, tablet and mobile devices.](https://auth0.com/lock) It provides the easiest way of securing your website and mobile apps.
+> [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login) is the most secure way to easily authenticate users for your applications. 
 
 {% highlight html %}
 <!-- font awesome from BootstrapCDN -->
