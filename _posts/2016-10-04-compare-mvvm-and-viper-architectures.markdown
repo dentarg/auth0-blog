@@ -40,7 +40,7 @@ We'll explore two popular alternatives to MVC: MVVM and VIPER. Both are gaining 
 
 ## Example
 
-We'll build a Contacts app. You can follow the example in [this repository](https://github.com/auth0-tutorials/mvvm_viper/). The starter folders for both MVVM and VIPER sections contain the initial setup and only need the code from the tutorial to work.
+We'll build a Contacts app. You can follow the example in [this repository](https://github.com/auth0-blog/mvvm_viper). The starter folders for both MVVM and VIPER sections contain the initial setup and only need the code from the tutorial to work.
 
 The app has two screens: the first is a list of contacts, displayed in table view with their full name and a placeholder profile image.
 
@@ -340,7 +340,7 @@ Comparing to MVVM, Viper has a few key differences in the distribution of respon
 - Entities are plain data structures, transferring the access logic that usually belongs to model to the interactor.
 - ViewModelController responsibilities are shared between interactor and presenter.
 
-Again, it's time to get our hands dirty and explore the VIPER architecture with an example app. For the sake of simplicity, we will explore only the Contact List module. The code for the Add Contact module can be found in the starter project (_VIPER Contacts Starter_ folder in [this repository](https://github.com/auth0-tutorials/mvvm_viper/)).
+Again, it's time to get our hands dirty and explore the VIPER architecture with an example app. For the sake of simplicity, we will explore only the Contact List module. The code for the Add Contact module can be found in the starter project (_VIPER Contacts Starter_ folder in [this repository](https://github.com/auth0-blog/mvvm_viper)).
 
 > Note: If you consider making your application based in VIPER, please do not create all files manually - you can check a VIPER code generator like [VIPER gen](https://github.com/pepibumur/viper-module-generator?utm_source=swifting.io) or [Generamba](https://github.com/rambler-ios/Generamba).
 
@@ -589,73 +589,67 @@ Since the wireframe is responsible for creating a module, it is convenient to se
 
 The router layer provides a good opportunity to [avoid using storyboards segues](https://www.toptal.com/ios/ios-user-interfaces-storyboards-vs-nibs-vs-custom-code) and deal with view controller transitions on code. Since storyboards don't offer a decent solution for passing data between view controllers, this doesn't always mean more code. All we get is more reusability.
 
-## Aside: Using Lock for iOS
+## Aside: Using Auth0.swift for iOS
 
 Auth0 is an authentication broker that supports social identity providers (Facebook, Twitter, Github, etc.) as well as enterprise identity providers (Active Directory, LDAP, Google Apps and Salesforce). In other words, you can include single sign-on, quick authentication and simple user management using only a few lines of code.
 
-It's quite easy to integrate Auth0 Lock into an iOS project, as we will see in the next few steps:
+It's quite easy to integrate [Auth0.swift](https://github.com/auth0/Auth0.swift) library into an iOS project, as we will see in the next few steps:
 
 ### Step 0
 If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps. Also, create a new client in the dashboard - it's pretty easy and straightforward.
 
 ### Step 1
-Lock is available on [CocoaPods](https://cocoapods.org/) and [Carthage](https://github.com/Carthage/Carthage). [Create a new project with CocoaPods](https://guides.cocoapods.org/) or use an existing one. Then add the following line to your Podfile:
+Auth0.swift is available on [CocoaPods](https://cocoapods.org/) and [Carthage](https://github.com/Carthage/Carthage). [Create a new project with CocoaPods](https://guides.cocoapods.org/) or use an existing one. Then add the following line to your Podfile:
 
 ```ruby
-pod 'Lock', '~> 1.27'
+pod 'Auth0', '~> 1.9'
 ```
 
-Don't forget to add `import Lock` to every necessary file.
+Then use `import Auth0` in every file where you need access to `Auth0.swift`.
 
 ### Step 2
-Create a new file named Auth0.plist. In both Auth0.plist and Info.plist files, add the following string entries:
+Create a new file named `Auth0.plist` and add the following string entries:
 
-* **Auth0ClientId**: The client ID of your Auth0 application.
-* **Auth0Domain**: Your Auth0 account domain.
+* **ClientId**: The client ID of your Auth0 application.
+* **Domain**: Your Auth0 account domain.
 
 These values can be found in the [client dashboard](https://app.auth0.com/#/applications).
 
 ### Step 2
-Set up your AppDelegate class with the following code:
+If you need to support iOS versions older than 11, set up your `AppDelegate class` with the following code:
 
 ```swift
-private func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-     A0Lock.shared().applicationLaunched(options: launchOptions)
-    return true
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+    return Auth0.resumeAuth(url, options: options)
 }
 ```
 
 ### Step 3
-`A0LockViewController` will handle Email/Password, Enterprise and Social authentication based on your Application's connections enabled in your Auth0's Dashboard.
-
-First, instantiate A0LockViewController and register the authentication callback that will receive the authenticated user's credentials. Finally, present it as a model-view controller:
+The `Auth0.webAuth()` call presents a Safari window that can be used for logging in. This window is configured according to your settings in the Auth0 dashboard and can include social logins, passwordless logins, traditional username/password databases and much more.
 
 ```swift
-let lock = A0Lock.shared()
-if let controller = lock.newLockViewController() {
-    controller.closable = true
-
-    controller.onAuthenticationBlock = {(profile, token) in
-        // Do something with token & profile. e.g.: save them.
-        // Lock will not save the Token and the profile for you.
-        // And dismiss the UIViewController.
-        self.dismiss(animated: true, completion: nil)
+Auth0
+    .webAuth()
+    .audience("https://{YOUR_AUTH0_DOMAIN}/userinfo")
+    .start { result in
+        switch result {
+        case .success(let credentials):
+            print("Obtained credentials: \(credentials)")
+        case .failure(let error):
+            print("Failed with \(error)")
+        }
     }
-    lock.present(controller, from: self)
-}
 ```
 
-Then you'll see a beautiful and customizable login screen:
+You can call this function from any the view controllers.
 
-![Auth0 Login Screen](https://cdn.auth0.com/blog/mvvm-vs-viper/auth0-login-screen.png)
-
-And that's it - your integration is done in just a few minutes.
+Then you'll see a beautiful and customizable login screen. And that's it - your integration is done in just a few minutes.
 
 **Important API Security Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a specific OAuth flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 issues both `accessTokens` and `idTokens`, and the latter should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 ## Conclusion
 
-You can find all projects (VIPER and MVVM - Starter and Final) in [this repository](https://github.com/auth0-tutorials/mvvm_viper/).
+You can find all projects (VIPER and MVVM - Starter and Final) in [this repository](https://github.com/auth0-blog/mvvm_viper).
 
 As you can see, MVVM and VIPER might be different, but are not necessarily exclusive. The MVVM pattern only says that, besides view and model, there should be a view model layer. But it doesn't say how this view model is created, nor how the data is retrieved - not all responsibilities are clearly defined. It's open and can be implemented in many different ways.
 
