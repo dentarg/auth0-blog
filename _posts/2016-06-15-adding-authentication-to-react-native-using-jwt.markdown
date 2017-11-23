@@ -23,6 +23,11 @@ related:
 - 2015-12-08-converting-your-web-app-to-mobile
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This post is out of date.</strong> Our <em>React Native Lock</em> library is now deprecated in favor of the <a href="https://github.com/auth0/react-native-auth0">React Native toolkit for Auth0 API</a>. Thank you for your patience while we work on bringing you an updated tutorial. We have a <a href="https://auth0.com/docs/quickstart/native/react-native/">React Native quickstart guide</a> that might be helpful in the meantime.
+</div>
+
 ## TL;DR
 We're going to look at getting started with a very simple React Native app and the use of JSON Web Tokens to provide authentication for it. React Native is an innovative way to use a common language to build native apps for multiple platforms, and JWTs go nicely along with it to provide stateless authentication for our users that integrates well with almost any service we would need. A perfect combination! Let's get started!
 
