@@ -39,8 +39,6 @@ related:
 ---
 ---
 
-
-
 **TL;DR**: You can check out a React Flux app with authentication implemented in [this Github repository](https://github.com/auth0/react-flux-jwt-authentication-sample)
 
 ---
