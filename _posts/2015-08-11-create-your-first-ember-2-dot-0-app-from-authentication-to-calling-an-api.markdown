@@ -34,7 +34,7 @@ related:
 
 <div class="alert alert-danger alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>This post is out of date.</strong> The EmberJS framework and Auth0's has been through many changes since the publication of this article. Please check out our new <a href="https://auth0.com/blog/emberjs-authentication-tutorial/">EmberJS Authentication Tutorial</a> to learn how to quickly build ambitious apps with EmberJS 2 and add authentication the right way.
+  <strong>This post is out of date.</strong> The EmberJS framework has been through many deprecations and changes since the publication of this article. Please check out our new <a href="https://auth0.com/blog/emberjs-authentication-tutorial/">EmberJS Authentication Tutorial</a> to learn how to quickly build ambitious apps with EmberJS 2 and add authentication the right way.
 </div>
 
 > This is a guest post by [Diego Poza](https://twitter.com/diegopoza). He is a systems engineer who is passionate about technology. He works as a developer lead and specializes in emerging technologies, architecture, and technical writing. You can follow him on his [blog](http://southworks.com/blog/author/dpoza/)
