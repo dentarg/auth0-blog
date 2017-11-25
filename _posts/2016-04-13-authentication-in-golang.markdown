@@ -541,7 +541,7 @@ func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		secret := []byte("{YOUR-API-CLIENT-SECRET}")
 		secretProvider := auth0.NewKeyProvider(secret)
-		audience := "{YOUR-AUTH0-API-AUDIENCE}"
+		audience := []string{"{YOUR-AUTH0-API-AUDIENCE}"}
 
 		configuration := auth0.NewConfiguration(secretProvider, audience, "https://{YOUR-AUTH0-DOMAIN}.auth0.com/", jose.HS256)
 		validator := auth0.NewValidator(configuration)
@@ -611,7 +611,7 @@ Next, we’ll implement the login system on the frontend that will allow users t
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>We R VR</title>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://cdn.auth0.com/js/auth0/8.5/auth0.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0/9.0/auth0.min.js"></script>
     <script type="text/javascript" src="static/js/auth0-variables.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 
@@ -664,11 +664,11 @@ var App = React.createClass({
       if (err) {
         return console.log(err);
       }
-      console.log(authResult);
       if(authResult !== null && authResult.accessToken !== null && authResult.idToken !== null){
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('profile', JSON.stringify(authResult.idTokenPayload));
+	window.location = window.location.href.substr(0, window.location.href.indexOf('#'))
       }
     });
   },
@@ -738,6 +738,7 @@ var LoggedIn = React.createClass({
     localStorage.removeItem('id_token');
     localStorage.removeItem('access_token');
     localStorage.removeItem('profile');
+    location.reload();
   },
   getInitialState: function() {
     return {
