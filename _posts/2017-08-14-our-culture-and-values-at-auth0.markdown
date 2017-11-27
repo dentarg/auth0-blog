@@ -5,6 +5,7 @@ description: "We're a distributed company with a collaborative culture and we're
 date: 2017-08-14 8:30
 category: Growth, Generic
 is_non-tech: true
+updated: 2017-11-27 8:30
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
