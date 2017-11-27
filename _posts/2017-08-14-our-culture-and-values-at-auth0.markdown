@@ -38,23 +38,25 @@ We value transparency at Auth0, both for current _and_ prospective employees. We
 
 **Values** guide us in our day-to-day interactions and decision-making.
 
-At Auth0, our values include a strong focus on:
+At Auth0:
 
-* Customer obsession
-* Intense mutual respect, trust, and accountability
-* High performance
-* Collaboration
-* Continuous learning
-* Radical transparency
-* Passion
+* We are obsessed with delivering **customer value**
+* We **trust** and **respect** each other
+* We hold ourselves to **high standards**
+* We win through **collaboration**
+* We continuously **experiment, learn, and innovate**
+* We are radically **transparent**
+* We are **passionate**
 
-We _strongly_ value the ability to refine, add, and remove values that, as a collective body, we feel would benefit from modification. Companies aren't static, and our values shouldn't be either. In fact, our values are currently undergoing revision as a result of a culture evaluation exercise all employees participated in at our most recent (at time of writing) company offsite at the end of July, 2017.
+You can read about [our company values in more detail here](https://auth0.com/careers/culture).
+
+We _strongly_ value the ability to refine, add, and remove values that, as a collective body, we feel would benefit from modification. Companies aren't static, and our values shouldn't be either.
 
 {% include tweet_quote.html quote_text="Companies aren't static, and company cultural values shouldn't be either." %}
 
-We have somewhat less formal policies as well, such as "No BAP". To put it simply, this means:
+Our values on trust and respect also include a "No BAP" policy. To put it simply, this means:
 
-* No BS
+* No Bull$hit
 * No A$$holes
 * No Politics
 
@@ -66,17 +68,17 @@ In an anonymous culture survey of current Auth0 employees, people overwhelmingly
 
 As stated above, our culture is the _personality_ of our company and its aspirations. When looking at company job postings, it can be easy to misinterpret culture as just a list of benefits and perks. Auth0 has many perks, including:
 
-* Flex hours
-* Extensive vacation
-* Free food and snacks in the offices
+* Flex hours: set the hours that work best for you
+* Lots of vacation time: ranging from extensive to unlimited, governed by regional laws
+* Free food and snacks in the headquarters offices
 * MacBook Pros
-* Software, hardware, and trip expensing
-* All-expenses paid international offsite
+* Expensing for software, hardware, home office equipment, co-working space, and travel
+* Annual all-expenses paid international company offsite and team offsites
 * Etc.
 
-However, perks are only a minor component of _culture_. A company can have perks that sound great on paper, but if the culture doesn't truly support the use of those perks, they become pointless, or even damaging. For example, if employees are told they have unlimited vacation but then are shamed for taking advantage of it, this becomes a _dark perk_. If a company has an arcade machine and a sofa that sit unused because the culture discourages taking breaks, the perk backfires.
+However, perks are only a minor component of _culture_. A company can have perks that sound great on paper, but if the culture doesn't truly support the _use_ of those perks, they become pointless, or even damaging. For example, if employees are told they have unlimited vacation but then are shamed for taking advantage of it, this becomes a _dark perk_. If a company has an arcade machine and a sofa that gather dust because the culture discourages taking breaks, the perk backfires.
 
-Perks are integrated into the culture at Auth0. Employees and senior leadership are tremendously hard-working, while we also understand and value the necessity of vacations, social time, and expenses that promote continuous learning (such as software and events).
+Perks are integrated into the culture at Auth0. Employees and senior leadership are tremendously hard-working, while we also understand and value the necessity of vacations, social time, and expenses that promote both a comfortable work environment (onsite or remote) and continuous learning.
 
 ![Auth0 employees together at offsite in Cancun, Mexico](https://cdn.auth0.com/blog/culture/logo-assemble.gif)
 _Auth0 2017 company offsite in Cancún, Mexico_
@@ -91,16 +93,16 @@ Our employees are very self-directed and are responsible for managing their own 
 
 > People manage this in different ways; some set daily reminders that alert them to eat meals, go outside, stop working in the evening, etc.
 
-Each year, Auth0 pays all expenses to bring employees to one location to meet face to face. We have sessions, awards, team-building and leisure activities, and dine and socialize together as a company. This is a tremendously enjoyable and valuable time, and its importance for a distributed workforce cannot be understated.
+Each year, Auth0 pays all expenses to bring employees to one location to meet face to face (so if thinking of applying, make sure you have a passport!). We have sessions, awards, team-building, leisure activities, and dine and socialize together as a company. This is a tremendously enjoyable and valuable time, and its importance for a distributed workforce cannot be understated.
 
-![Auth0 2017 company offsite: "Authziro" award winners with Senior Leadership Team](https://cdn.auth0.com/blog/culture/authziros-2017.jpg)
-_Auth0 2017 company offsite: "Authziro" award winners with Senior Leadership Team_
+![Auth0 2017 company offsite: company award winners with Senior Leadership Team](https://cdn.auth0.com/blog/culture/authziros-2017.jpg)
+_Auth0 2017 company offsite: company award winners with Senior Leadership Team_
 
 ### The Connection Between Company Culture and Diversity and Inclusion
 
 Auth0 is expanding quickly. In this time of rapid growth, it's even more important to pay attention to our culture and evolve and scale it in order to preserve the respect, dedication, and passion that has propelled us to the place we're at now.
 
-New initiatives are being formed. We're taking strides to diversify further. As a distributed, international company, we have awesome opportunities to attract amazing talent across global cultures. In addition, we'd love to attract many talented people across genders.
+New initiatives are being formed. We're taking strides to diversify further. As a distributed, international company, we have awesome opportunities to attract amazing talent across global cultures. In addition, we aim to attract many talented people across genders.
 
 There is a connection between _company culture_ and _diversity and inclusion_. This connection exists even if current levels of diversity don't yet meet aspirations! A company that places strong emphasis on respect, trust, and collaboration fosters a welcoming and inclusive environment for _every_ employee. Incoming candidates experience this first-hand during the [hiring process](https://auth0.com/blog/how-we-hire-engineers/), as we interface heavily with people throughout the interviews and exercises.
 
@@ -112,7 +114,7 @@ A collaborative and respectful culture fosters equal treatment for everyone, reg
 
 At Auth0, our culture is very important to us, and we're dedicated to continually improving it. We're also working hard to find more ways to reach out to a diverse range of talented individuals who would like to join us. If you have any suggestions for us, we're always looking to improve.
 
-If you'd like to see what it's like to work with us, we encourage you to check out our [job openings](https://auth0.com/jobs#job-openings) and get in touch! In addition, we have community initiatives and are always looking for people who are interested in contributing via our [Guest Author](https://auth0.com/guest-authors) and [Auth0 Ambassador](https://auth0.com/ambassador-program) programs. In the spirit of transparency, we also have many open-source libraries that welcome contributors, such as [auth0.js](https://github.com/auth0/auth0.js), [Lock](https://github.com/auth0/lock), and [more in our GitHub](https://github.com/auth0). 
+If you'd like to see what it's like to work with us, we encourage you to check out our [job openings](https://auth0.com/careers) and get in touch! In addition, we have community initiatives and are always looking for people who are interested in contributing via our [Guest Author](https://auth0.com/guest-authors) and [Auth0 Ambassador](https://auth0.com/ambassador-program) programs. In the spirit of transparency, we also have many open-source libraries that welcome contributors, such as [auth0.js](https://github.com/auth0/auth0.js), [Lock](https://github.com/auth0/lock), and [more in our GitHub](https://github.com/auth0). 
 
 We'd love to work with you!
 
