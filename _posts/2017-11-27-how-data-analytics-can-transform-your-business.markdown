@@ -2,25 +2,26 @@
 layout: post
 title: "How Data Analytics Can Transform Your Business"
 description: "How data-driven insights can give your business a huge competitive advantage."
-date: 2017-11-08 8:30
+date: 2017-11-27 8:30
 category: Growth, Data
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 is_non-tech: true
 design:
-  image: https://cdn.auth0.com/blog/protect-yourself/logo.png
-  bg_color: "#0054B6"
+  image: https://cdn.auth0.com/blog/predictive-analytics/predictive-analytics-main.png
+  bg_color: "#526C33"
 tags:
 - data
 - analytics
 - data-analytics
+- 
 related:
-- 2017-10-30-are-your-security-questions-as-safe-as-you-think
-- 2017-10-27-where-video-game-authentication-falls-short-and-how-gamers-can-stay-safe
-- 2017-10-16-is-faceid-really-secure
+- 2017-11-20-predictive-analytics-why-is-it-important
+- 2017-10-13-how-do-i-modernize-my-legacy-system
+- 2017-11-13-all-you-need-to-know-about-data-management-and-integration
 ---
 
 Formula 1 races are not won by the size of the engine, the aerodynamics of the car or even the skill of the driver. The difference between winning and losing a race comes down to an unlikely racing tactic: data analytics.
