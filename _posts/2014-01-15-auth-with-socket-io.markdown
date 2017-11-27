@@ -138,3 +138,5 @@ As stated before, this is much simpler than using cookies and sessions, and it i
 The complete sample is available for [download here](https://github.com/auth0/socketio-jwt/tree/master/example).
 
 You could use a very similar approach with WebSockets, [this is an example with __einaros/ws__](https://gist.github.com/jfromaniello/8418116).
+
+{% include asides/javascript-at-auth0.markdown %}
