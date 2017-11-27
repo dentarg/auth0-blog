@@ -618,7 +618,9 @@ Open the `progress-bar.component.ts` file:
 // src/app/progress-bar/progress-bar.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/takeUntil';
 import { MadlibsService } from './../madlibs.service';
 
 @Component({
