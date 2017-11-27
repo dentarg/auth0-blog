@@ -391,11 +391,11 @@ You'll need an [Auth0](https://auth0.com) account to manage authentication. You 
 1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
 2. Give your new app a name (for example: `RSVP MEAN App`) and select "Single Page Web Applications".
 3. In the **Settings** for your new Auth0 client app, add `http://localhost:8083/callback` and `http://localhost:4200/callback` to the **Allowed Callback URLs**.
-4. In **Allowed Origins (CORS)**, add `http://localhost:8083` and `http://localhost:4200`.
-5. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and change the **JsonWebToken Signature Algorithm** to "RS256".
+4. In **Allowed Web Origins**, add `http://localhost:8083` and `http://localhost:4200`.
+5. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and make sure the **JsonWebToken Signature Algorithm** is set to "RS256".
 6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
 
-We added two ports to the callback URLs and allowed origins because we'll be running and testing the app from both during development. Port `4200` is the port the Angular CLI serves the Angular app from. Port `8083` is the port our Node API and server uses: this will be necessary in order to test the production build. When we launch to a production URL, we can either create a new production Auth0 Client or add our production URL to the client as well.
+We added two ports to the callback URLs and allowed web origins because we'll be running and testing the app from both during development. Port `4200` is the port the Angular CLI serves the Angular app from. Port `8083` is the port our Node API and server uses: this will be necessary in order to test the production build. When we launch to a production URL, we can either create a new production Auth0 Client or add our production URL to the client as well.
 
 > **Note:** If you set up social connections, enter App/Client IDs as per the instructions for each connection instead of leaving those fields blank and using Auth0 dev keys. This will be important for token renewal and deployment later.
 
@@ -965,7 +965,9 @@ Open the `app.component.ts` file:
 ```typescript
 // src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-root',

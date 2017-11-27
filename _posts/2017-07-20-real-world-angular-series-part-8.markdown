@@ -881,8 +881,10 @@ $ cd /mean-rsvp
 Once you're in your project folder, start the webserver with PM2 with the following command:
 
 ```bash
-$ sudo pm2 start server.js --name="mean-rsvp"
+$ sudo pm2 start server.js --name "mean-rsvp"
 ```
+
+> **Note:** If you already have other Node webservers running with PM2 on your VPS, you should specify the full path to your `server.js` file when `pm2 start`ing your new webserver for the first time. After the initial start, you can distinguish the servers from each other by `name`, which is much easier than distinguishing them by ID.
 
 The final step is to start the nginx reverse proxy:
 
@@ -909,7 +911,7 @@ Log into Auth0 and head to your [Auth0 Dashboard Clients](https://manage.auth0.c
 
 If you have [social connections](https://manage.auth0.com/#/connections/social) set up for login, make sure they aren't using Auth0 dev keys. There will be an orange `!` icon next to any that are. If so, you'll need to provide your own App or Client ID instead of leaving the field blank. Each connection has instructions on how to obtain your own ID.
 
-After saving your changes in the Auth0 dashboard, you should be able to log into your production application!
+After saving your changes in the Auth0 dashboard, you should be able to log into your production application! Try logging in as the admin user and adding some events.
 
 ---
 
