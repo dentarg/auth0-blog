@@ -709,7 +709,10 @@ Open the `auth.service.ts` file and let's get started:
 // src/app/core/auth/auth.service.ts
 ...
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class AuthService {
@@ -785,7 +788,7 @@ export class AuthService {
     // Create and subscribe to expiration observable
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     const expiresIn$ = Observable.of(expiresAt)
-      .flatMap(
+      .mergeMap(
         expires => {
           const now = Date.now();
           // Use timer to track delay until expiration
@@ -857,7 +860,7 @@ The next new method is `scheduleRenewal()`:
     // Create and subscribe to expiration observable
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     const expiresIn$ = Observable.of(expiresAt)
-      .flatMap(
+      .mergeMap(
         expires => {
           const now = Date.now();
           // Use timer to track delay until expiration
@@ -876,7 +879,7 @@ The next new method is `scheduleRenewal()`:
   }
 ```
 
-If the user is authenticated, we'll do a cleanup check and then create an observable called `expiresIn$`. We'll use the [`flatMap()` RxJS operator](http://reactivex.io/documentation/operators/flatmap.html) to flatten the stream. We'll then utilize an [`Observable.timer()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/timer.md) that produces a value (`0`) when the current access token expires.
+If the user is authenticated, we'll do a cleanup check and then create an observable called `expiresIn$`. We'll use the [`mergeMap()` RxJS operator](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-mergeMap) to flatten the stream. We'll then utilize an [`Observable.timer()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/timer.md) that produces a value (`0`) when the current access token expires.
 
 Then we'll subscribe to the `expiresIn$` observable. As declared with our properties earlier, this subscription is called `refreshSub`. When the `0` value is produced indicating the token is expired, we'll call `renewToken()` and `scheduleRenewal()` to set the session and reset the timer with the fresh token's expiration countdown.
 

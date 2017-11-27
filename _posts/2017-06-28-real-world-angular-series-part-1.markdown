@@ -965,7 +965,9 @@ Open the `app.component.ts` file:
 ```typescript
 // src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-root',
