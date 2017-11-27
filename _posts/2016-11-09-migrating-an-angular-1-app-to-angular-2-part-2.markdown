@@ -518,7 +518,7 @@ Next let's fetch the API data in our `dinos.service.ts`:
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
 import { Dino } from './models/dino.model';
