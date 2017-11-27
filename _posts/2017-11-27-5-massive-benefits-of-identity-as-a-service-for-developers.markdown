@@ -2,15 +2,17 @@
 layout: post
 title: "5 Massive Benefits Of Identity As A Service For Developers"
 description: "Identity as a service provides lots of benefits for companies and developers looking to iterate quickly. Focus on building customer value not authentication."
-date: 2017-10-28 16:55
-category: 
+date: 2017-11-27 16:55
+category: Growth, Identity, Auth0
+is_non-tech: true
 author: 
   name: Kyle Galbraith
   url: https://twitter.com/kylegalbraith
   mail: kyle.galbraith459@gmail.com
   avatar: https://secure.gravatar.com/avatar/605c451dd844eedb6b4b3f1e8619280b
 design: 
-  bg_color: "#1A1A1A"
+  bg_color: "#312E87"
+  image: https://cdn.auth0.com/blog/idaas-benefits/logo.png
 tags:
 - identity
 - user
