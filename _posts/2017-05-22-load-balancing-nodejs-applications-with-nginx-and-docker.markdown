@@ -144,7 +144,7 @@ After issuing these commands, let's open a web browser and access `http://localh
 
 > **Note:** To use the other algorithms available on NGINX, [check their documentation for more information](https://www.nginx.com/resources/admin-guide/load-balancer/).
 
-{% include aside/node.markdown %}
+{% include asides/node.markdown %}
 
 ## Conclusion
 

@@ -848,7 +848,13 @@ Note that we have added five imports - being three components, the `Routing` dec
 
 And then finally we have reached the point where we have a fully functional grocery list. To see it working just issue `npm run dev` in the root folder of our project and, when it finishes the building process, head to [http://localhost:3000/](http://localhost:3000/) and play with our app.
 
-{% include aside/node.markdown %}
+## Aside: Softening the Authentication Burden with Auth0
+
+Creating the authentication mechanisnm was not the hardest task but, for every single application that we build, we will have to recreate or reuse at least two components: one for the front-end application, that will show sign in and sign up forms; and one to handle identity persistence and retrieval.
+
+Further more, if we want to support identity providers (like Google, Facebook, GitHub, etc), [multifactor authentication](https://auth0.com/multifactor-authentication), and so on, then our task will start to become harder. But fear not, [Auth0](https://auth0.com) is here to make our lives easier and more secure.
+
+> **Note:** the refactoring below can be found fully implemented in the `auth0` branch of the [Grocery List app repository](https://github.com/auth0-blog/grocery-list/tree/jwt) on GitHub.
 
 ### Configuring Your Auth0 Client
 
