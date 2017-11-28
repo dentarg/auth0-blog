@@ -19,6 +19,7 @@ tags:
 - Ruby on Rails
 - C
 related:
+- 2017-11-02-building-your-first-crystal-app-with-jwt-authentication
 - 2017-01-03-rails-5-with-auth0
 - 2016-11-21-building-and-authenticating-nodejs-apps 
 ---
@@ -296,16 +297,15 @@ Seeing this as an opportunity instead of a foible - it's actually kind of cool, 
 
 ## Aside - Auth0 & JWTs in Crystal 
 
-At the moment, there is no Crystal Auth0 library to use for end-to-end application securing.  However, there *is* a JWT library available for Crystal already [here](https://github.com/greyblake/crystal-jwt).
+**Update:** - I have written about [securing a Crystal web app with Auth0 &amp; JWT's here.](https://auth0.com/blog/building-your-first-crystal-app-with-jwt-authentication/)
 
-If you were looking to secure routes of your API you could combine the above library with the Ruby example given in the [Auth0 docs](https://auth0.com/docs/quickstart/backend/ruby).  Naturally, this wouldn't work as a *direct* drop-in, but with some tweaking, you may be able to achieve what you're looking for.
+At the moment, there is no Crystal-Auth0 library to use for end-to-end application securing.  However, there *is* a JWT library available for Crystal already [here](https://github.com/greyblake/crystal-jwt).
 
 One thing to note here is that the Crystal-JWT library does not yet support the `RS256` algorithm, which is the preffered algorithm and only supports the `HS256` algorithm.  When setting up your application in the Auth0 control panel, make sure to select the `HS256` algorithm to reflect this.
 
 In my next series of articles, I will be writing specifically about using Auth0 in a ***NON-jwt*** context, and I'll make sure I demonstrate this in Crystal!
 
-Of course, if you're looking to secure a Crystal-based web app, you can always simply use [Auth0 Lock](https://auth0.com/docs/libraries/lock/v10) as a drop-in solution.  The documentation of which can be found [here](https://auth0.com/docs/libraries/lock/v10).
-
+Of course, if you're looking to secure a Crystal-based web app, you can always simply use the [Auth0 Centralised Login](https://auth0.com/docs/hosted-pages/login).  The Centralised Login will allow you to have immediate drop-in user management functionality.
 
 ## Conclusion
 
