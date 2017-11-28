@@ -31,10 +31,10 @@ At Auth0, we deeply care about **security, compliance, and identity**, and as lu
 
 ## Session: IAM for Enterprises: How Vanguard Strikes the Balance Between Agility, Governance, and Security
 
-This session was hosted by AWS Security Consultant Reef Dsouza and Senior Security Architect for [Vanguard](https://investor.vanguard.com/corporate-portal/), Rajeev Sharma. Reef set the stage by sharing some best practices when it comes to Identity and Access Managememnt (IAM) and how AWS can help. Some general tips shared include:
+This session was hosted by AWS Security Consultant Reef Dsouza and Senior Security Architect for [Vanguard](https://investor.vanguard.com/corporate-portal/), Rajeev Sharma. Reef set the stage by sharing some best practices when it comes to Identity and Access Management (IAM) and how AWS can help. Some general tips shared include:
 
 * **Defense in Depth** - multiple layers of security.
-* **Separation of Duties** - well defined roles and permissions.
+* **Separation of Duties** - well-defined roles and permissions.
 * **Principle of Least Privilege** - users should only have access to what they absolutely need.
 
 Rajeev went on to explain how Vanguard, one of the largest investment companies in the world, applied these guidelines when moving their architecture to the AWS cloud and the numerous benefits that it brought them. 
@@ -55,7 +55,7 @@ Quint Van Deman of AWS hosted this **chalk talk**, which consisted of a 10-15 mi
 
 ![AWS Credentials](https://cdn.auth0.com/blog/aws-reinvent-2017/credentials.jpg)
 
-One of the key takeaways from this session was that having a centralized source of truth and federating that identity throghout your infrastructure was superior to having multiple identity stores for the different applications in your infrastructure. [Learn more about Single Sign On](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/) and [how you can call AWS APIs with Auth0 tokens](https://auth0.com/docs/integrations/aws).
+One of the key takeaways from this session was that having a centralized source of truth and federating that identity throughout your infrastructure was superior to having multiple identity stores for the different applications in your infrastructure. [Learn more about Single Sign On](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/) and [how you can call AWS APIs with Auth0 tokens](https://auth0.com/docs/integrations/aws).
 
 ## Session: Evolution of Serverless Architectures Through the Lens of Community
 
@@ -65,7 +65,7 @@ Serverless is taking the development world by storm. This was a very enlightenin
 
 Auth0's [Webtask](https://webtask.io) also got a shout-out, as did [Auth0's identity solution](https://auth0.com). Sam closed out his talk by sharing some emerging patterns in the serverless community, especially [application modernization and microservices, which you can learn much more about here](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/).
 
-Finally, Hernan Garcia of [CityWallet](https://www.citywallet.net/) gave a real world example of how he and his team achieved success with a serverless architecture when their more traditional methods failed and put their startup at risk.
+Finally, Hernan Garcia of [CityWallet](https://www.citywallet.net/) gave a real-world example of how he and his team achieved success with a serverless architecture when their more traditional methods failed and put their startup at risk.
 
 ## Session: Compliance and Top Security Threats in the Cloud—Are You Protected?
 
