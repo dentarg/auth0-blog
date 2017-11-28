@@ -471,6 +471,6 @@ app.use(function(err, req, res, next) {
 
 ## Conclusion
 
-Node Js is a powerful language and framework for building modern applications. The community support through NPM is unrivaled and Auth0 can help secure your Node Js apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+Node Js is a powerful language and framework for building modern applications. The community support through NPM is unrivaled and Auth0 can help secure your Node Js apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
 
 {% include tweet_quote.html quote_text="With Auth0, you can add authentication to your Node Js app in minutes." %}
