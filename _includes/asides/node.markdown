@@ -46,7 +46,56 @@ After creating it, we have to go to the "Scopes" tab of the API and define the d
 
 ![Defining OAuth scopes in the new Auth0 API](https://cdn.auth0.com/blog/spring-boot-aside/defining-oauth-scopes.png)
 
-### Installing Node.js Dependencies
+### Securing Express with Auth0
+
+The first thing to do to secure an Express API with Auth0 is to install three dependencies with NPM: `npm i express-jwt jwks-rsa express-jwt-authz`. Let's create a file called `auth0.js` and use these dependencies:
+
+```javascript
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
+const jwtAuthz = require('express-jwt-authz');
+
+const tokenGuard = jwt({
+  // Fetch the signing key based on the KID in the header and
+  // the singing keys provided by the JWKS endpoint.
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+  }),
+
+  // Validate the audience and the issuer.
+  audience: process.env.AUTH0_AUDIENCE,
+  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+  algorithms: ['RS256']
+});
+
+module.exports = function (scopes) {
+  const scopesGuard = jwtAuthz(scopes || []);
+  return function mid(req, res, next) {
+    tokenGuard(req, res, (err) => {
+      err ? res.status(500).send(err) : scopesGuard(req, res, next);
+    });
+  }
+};
+```
+
+The goal of this script is to export an [Express middleware](http://expressjs.com/en/guide/using-middleware.html) that guarantees that requests have an `access_token` issued by a trust-worthy party, in this case Auth0. The middleware will also accept an array of scopes. When filtering requests, the middleware will check that these scopes exist in the `access_token`. Note that this script expects to find an environment variable called `AUTH0_DOMAIN`. We will set this variable soon, but it is important to understand that this variable defines how the middleware finds the signing keys.
+
+After creating this middleware, we can update our `index.js` file to import and use it:
+
+```javascript
+// ... other requires
+const auth0 = require('./auth0');
+
+app.get('/contacts', auth0(['read:contacts']), (req, res) => res.send(contacts));
+app.post('/contacts', auth0(['add:contacts']), (req, res) => {
+  contacts.push(req.body);
+  res.send();
+});
+```
+
+In this case, we have replaced the previous definition of our endpoints to use the new middleware. We also restricted access to these endpoints to users that contain the right combination of scopes. That is, to get contacts the user must have to `read:contacts` scope to get contacts and `add:contacts` to add.
 
 ### Creating an Auth0 Client
 
