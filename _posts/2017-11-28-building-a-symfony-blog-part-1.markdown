@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Building a Symfony blog Part 1"
-description: In this tutorial we create an open blog in Symfony which allows users to sign up and become authors, using Auth0 to authenticate
-date: 2017-11-24 14:39
+description: Learn how to create a blog in Symfony and authenticate.g
+date: 2017-11-28 22:04
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
