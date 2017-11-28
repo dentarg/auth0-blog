@@ -25,16 +25,28 @@ related:
 
 ---
 
-* TODO: Add server start somewhere in article
-* TODO: Add log in link
-* TODO: Replace any reference to entries or admin_entries with index?
-* TODO: Index page to have link to admin if authenticated.
-
 ## Introduction
 
 ### What is Symfony?
 
+[Symfony](https://symfony.com) is an Open Source PHP framework originally created by [Sensiolabs](https://sensiolabs.com/), an interactive agency. The [Symfony PHP framework](https://symfony.com) comes with a very large and active community. This framework has become very popular, mainly due to the vast number of reusable PHP components, not just limited to the Framework itself, but can be found throughout the PHP community, such as Drupal, WordPress, phpBB and Laravel.
+
+[Symfony Components](https://symfony.com/components) are a set of decoupled and reusable PHP libraries. They are becoming the standard foundation on which the best PHP  applications are built on. You can use any of these components in your own applications independently from the [Symfony Framework](https://symfony.com). Below you will find a list of some of the components that are used in this article as an example.
+
+* [Asset](https://symfony.com/components/Asset) - Manages URL generation and versioning of web assets such as CSS stylesheets, JavaScript files and image files
+* [Config](https://symfony.com/components/Config) - Helps you find, load, combine, autofill and validate configuration values.
+* [Console](https://symfony.com/components/Console) - Eases the creation of beautiful and testable command line interfaces
+* [Dotenv](https://symfony.com/components/Dotenv) - Parses .env files to make environment variables stored in them accessible via getenv(), $_ENV or $_SERVER.
+* [Form](https://symfony.com/components/Form) - Provides tools to easy creating, processing and reusing HTML forms.
+* [HttpKernel](https://symfony.com/components/HttpKernel) - Provides the building blocks to create flexible and fast HTT]()P-based frameworks
+* [Routing](https://symfony.com/components/Routing) - Maps an HTTP request to a set of configuration variables
+* [Security](https://symfony.com/components/Security) - Provides an infrastructure for sophisticated authorization systems.
+* [Templating](https://symfony.com/components/Templating) - Provides all the tools needed to build any kind of template system.
+* [Yaml](https://symfony.com/components/Yaml) - Loads and dumps YAML files.
+
 ### What will we build
+
+In this article we will be looking at how to install a new version of the Symfony PHP framework, along with making use of Doctrine to create 2 new database tables, Author and BlogPosts in order to store our blog data in. Following this we will be making use of doctrine migrations to pre-populate our newly created database tables with some dummy data to allow you to see the blog at work. Once the initial set up is complete, we will cover making use of Auth0 to authenticate users allowing them to access a restricted section of the blog, to create their own author entry in the database.
 
 ## Bootstrapping Symfony
 
@@ -109,6 +121,10 @@ try {
 
 Run the following command `php bin/console doctrine:database:create`, which will create a database with the value of `DATABASE_NAME` in the `.env` file.
 
+Now that the basic configuration has been set up, lets run the following command: `php bin/console server:start`
+
+You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000` So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
+
 ### Creating a new Author entity
 
 Create new Author entity by running the following command `php bin/console doctrine:generate:entity`
@@ -118,7 +134,7 @@ When it asks for the Entity shortcut name, type in: `AppBundle:Author`
 Keep the default on `Configuration format`, but this next step we need to add all of the properties on our Author. Please refer to the image below for the entries required for an Author table:
 
 ![Creating an Author entity](http://localhost/example-images/create-author-entity.png)
-__NOTE__: If you cannot see the image below, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php)
+__NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php)
 
 ### Creating a new BlogPost entity
 
@@ -129,7 +145,7 @@ When it asks for the Entity shortcut name, type in: `AppBundle:BlogPost`
 Keep the default on `Configuration format`, but the next step is to add all of the properties on the BlogPost. Please refer to the image below for the entries required for a BlogPost table:
 
 ![Creating an Author entity](http://localhost/example-images/create-blogpost-entity.png)
-__NOTE__: If you cannot see the image below, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php)
+__NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php)
 
 
 You may have noticed that we've added a created_at, updated_at and author. These fields all need some extra changes to be made in the entity file itself. So open `src/AppBundle/Entity/BlogPost.php`
@@ -473,6 +489,7 @@ class Auth0ResourceOwner extends GenericOAuth2ResourceOwner
         $resolver->setNormalizer('authorization_url', $normalizer);
         $resolver->setNormalizer('access_token_url', $normalizer);
         $resolver->setNormalizer('infos_url', $normalizer);
+        $resolver->setNormalizer('audience', $normalizer);
     }
 }
 {% endhighlight %}
@@ -575,16 +592,14 @@ security:
 
 The config above is setting up urls/sections in your blog that require the user to be authenticated.
 
-* TODO: Add Login in DefaultController
-
 ### Create an author page
 
 Lets create our admin blog controller by running the following command: `php bin/console generate:controller`
 
-If you follow the instructions as shown by the input, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called AdminController, you'll also have 3 new templates in `src/AppBundle/Resources/views/Admin/`
+If you follow the instructions as shown by the input, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called AdminController, you'll also have a new template in `src/AppBundle/Resources/views/Admin/`
 
-* TODO: Add screenshot
-* TODO: Add note to say if unable to see image, then give link to repo for them to copy the entity.
+![Creating an Admin Controller](http://localhost/example-images/create-admin-controller.png)
+__NOTE__: If you cannot see the image, the full controller can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
 
 First thing we will want to do is create a new form. This is a class that allows us to validate the users input, such as creating an author. So in `src/AppBundle` create a new directory called `Form`
 And within that directory create a new file named `AuthorFormType.php`. Below will be the code used in your new file:
@@ -767,9 +782,9 @@ Paste the code below into the action, this retrieves the authenticated user with
 // Check whether user already has an author.
 if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName())) {
    // Redirect to dashboard.
-   $this->addFlash('error','Unable to create author, author already exists!');
+   $this->addFlash('error', 'Unable to create author, author already exists!');
 
-   return $this->redirectToRoute('entries');
+   return $this->redirectToRoute('homepage');
 }
 {% endhighlight %}
 
@@ -787,9 +802,9 @@ if ($form->isValid()) {
     $this->entityManager->flush($author);
 
     $request->getSession()->set('user_is_author', true);
-    $this->addFlash('success','Congratulations! You are now an author.');
+    $this->addFlash('success', 'Congratulations! You are now an author.');
 
-    return $this->redirectToRoute('entries');
+    return $this->redirectToRoute('homepage');
 }
 {% endhighlight %}
 
@@ -832,8 +847,6 @@ In our template for this action, we just want the user to have all of the form f
 {% block title %}{% endblock %}
 
 {% block body %}
-    {% include 'AppBundle:includes:nav_bar.html.twig' %}
-
     <div class="container">
         <div class="blog-header">
             <h2 class="blog-title">Creating your author</h2>
@@ -891,8 +904,6 @@ In our template for this action, we just want the user to have all of the form f
 {% endblock %}
 {% endraw %}
 {% endhighlight %}
-
-* TODO: show screenshot
 
 ### Creating event listener to ensure author exists before accessing further functionality
 
@@ -969,7 +980,7 @@ class CheckIsAuthorListener
             return;
         }
 
-        $route = $this->router->generate('admin_author_create');
+        $route = $this->router->generate('author_create');
 
         // Check we are not already attempting to create an author!
         if (0 === strpos($event->getRequest()->getPathInfo(), $route)) {
@@ -990,7 +1001,7 @@ class CheckIsAuthorListener
                 'Your author access is being set up, this may take up to 30 seconds. Please try again shortly.'
             );
 
-            $route = $this->router->generate('entries');
+            $route = $this->router->generate('homepage');
         } else {
             $this->session->getFlashBag()->add(
                 'warning',
@@ -1013,18 +1024,43 @@ AppBundle\EventListener\Author\CheckIsAuthorListener:
         - { name: kernel.event_listener, event: kernel.controller }
 ```
 
+It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So for the time being we're going to product a link in the Homepage page.
+
+Open the file `app/Resources/views/default/index.html.twig` and replace the entire contents with:
+
+{% highlight html %}
+{% raw %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            {% if app.user %}
+                <li><a href="{{ path("author_create") }}">Admin</a></li>
+                <li><a href="{{ logout_url("secured_area") }}">Logout</a></li>
+            {% else %}
+                <li class="active"><a href="/connect/auth0">Login</a></li>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% endraw %}
+{% endhighlight %}
+
+As you can see here, we're providing a link if the user isn't logged in, to log in. And if they are logged in, there are 2 links, one to log out, one to access the admin section (For this purpose it's to create a new author).
+
 ## Next Steps
 
 In the next article, we will be covering installing Bootstrap, a framework, to make the blog nicer visually.
 We will be allowing people to:
 
-1 - See a list of blog posts
-2 - Read a specific blog post
-3 - Find out more about the author
+* See a list of blog posts
+* Read a specific blog post
+* Find out more about the author
 
 Authenticated authors will be able to:
 
-1 - Create a new blog post
-2 - See all of their own blog posts
-3 - Delete their own blog posts from the system.
+* Create a new blog post
+* See all of their own blog posts
+* Delete their own blog posts from the system.
 
