@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Redux Tutorial"
+title: "Redux: A Practical Tutorial"
 description: "A practical tutorial that teaches Redux through examples."
-date: 2017-11-21 13:05
+date: 2017-11-28 13:05
 category: Technical Guide, JavaScript, Redux
 author:
   name: "Bruno Krebs"
@@ -10,16 +10,17 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "rgb(25, 25, 25)"
-  image: https://github.com/reactjs/redux/blob/master/logo/logo.png?raw=true
-  image_size: "80%"
-  image_bg_color: "rgb(25, 25, 25)"
+  bg_color: "461A8D"
+  image: https://cdn.auth0.com/blog/redux-tutorial/logo.png
 tags:
 - redux
 - node
 - javascript
+- react
 related:
 - 2017-11-16-spring-5-embedded-tomcat-8-gradle-tutorial
+- 2017-02-21-reactjs-authentication-tutorial
+- 2017-10-26-whats-new-in-react16
 ---
 
 **TL;DR:** Actually, the idea is to create an article that is not too long at all (TL;DR stands for _Too Long; Didn't Read_ 😊). However, to summarize in a few words, the idea here is to show through practical, short examples how Redux works and what are its main pieces. To find the final code that we are going to create in this article, please check [this GitHub repository](https://github.com/auth0-blog/redux-in-action).
