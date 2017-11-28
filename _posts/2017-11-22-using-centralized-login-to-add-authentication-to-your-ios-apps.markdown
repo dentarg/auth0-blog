@@ -80,7 +80,7 @@ Mobile apps have been, for a long time, designing their own authentication and a
 
 For web applications, this process has always been handled by the web browser. Web browsers allow identity providers and services to communicate with each other, while at the same time temporarily controlling each step of the authentication/authorization process. Mobile apps, by virtue of preferring native login screens, have strayed from this path. It is for this reason that the [IETF has drafted a document](https://www.rfc-editor.org/rfc/rfc8252.txt) detailing the advantages of also having mobile apps use the web-browser for authorization.
 
-In essence, a native application can delegate the authentication/authorization steps to an authorization server through the web browser. Web browsers on all mobile platforms provide ways for the results of these operations to be sent back to the application that requested them. Furthermore, web browsers are fully prepared by the OS vendor to handle these operations securely.
+In essence, a native application can delegate the authentication/authorization steps to an authorization server through the web browser. Web browsers on all mobile platforms provide ways for the results of these operations to be sent back to the application that requested them. Furthermore, web browsers are fully prepared by the OS vendor to handle these operations securely. 
 
 [Auth0, which fully conforms to the OpenID Connect specification](https://auth0.com/blog/we-are-now-open-id-certified/), provides an authorization server capable of authenticating and authorizing users through many identity providers using mobile web browsers. The next sections in this post will detail how to implement this for iOS apps both hitting OpenID Connect endpoints manually and using the Auth0 SDK. Additionally, we will also see how to customize the different screens that are displayed by the web browser during the process, improving the UI/UX integration with the rest of the applications.
 
@@ -95,7 +95,7 @@ Since our example will use Auth0 as the authorization server, it is first necess
 3. Set a name, select `Native` and click on `Create`.
 4. Go to `Settings` and put the right value in the `Allowed Callback URLs` field.
   - For our first example, the right value for the `Allowed Callbacks URLs` field is: `auth0test1://test`.
-  - For our second example, the right value for the `Allowed Callbacks URLs` field is:
+  - For our second example, the right value for the `Allowed Callbacks URLs` field is: 
 
 ```
 Auth0.Centralized-Login-Test-2://speyrott.auth0.com/ios/Auth0.Centralized-Login-Test-2/callback
@@ -119,7 +119,7 @@ Now let's create a simple sample project.
 Before getting our hands dirty with code, let's take a short overview of how authentication and authorization work in the context of OpenID Connect and OAuth2 for mobile apps. The following endpoints are accessed using HTTP requests. Parameters are passed as part of the URL.
 
 #### The `/authorize` Endpoint
-The common OpenID Connect procedure for logins begins by sending an HTTP `GET` request to a special endpoint in the authorization server: the `/authorize` endpoint. This endpoint takes a series of parameters that tell the authorization server what type of request is being made, along with what details the client is requesting the server to provide after a successful authorization flow. This also tells the authorization server what type of authentication and authorization is required before moving forward.
+The common OpenID Connect procedure for logins begins by sending an HTTP `GET` request to a special endpoint in the authorization server: the `/authorize` endpoint. This endpoint takes a series of parameters that tell the authorization server what type of request is being made, along with what details the client is requesting the server to provide after a successful authorization flow. This also tells the authorization server what type of authentication and authorization is required before moving forward. 
 
 The following arguments are required to be passed to the `/authorize` endpoint:
 
@@ -199,7 +199,7 @@ func authorize(viewController: UIViewController, useSfAuthSession: Bool, handler
     }
 
     savedState = generateRandomBytes()
-
+    
     var urlComp = URLComponents(string: domain + "/authorize")!
 
     urlComp.queryItems = [
@@ -211,13 +211,13 @@ func authorize(viewController: UIViewController, useSfAuthSession: Bool, handler
         URLQueryItem(name: "scope", value: "id_token profile"),
         URLQueryItem(name: "redirect_uri", value: "auth0test1://test"),
     ]
-
+    
     if useSfAuthSession {
         sfAuthSession = SFAuthenticationSession(url: urlComp.url!, callbackURLScheme: "auth0test1", completionHandler: { (url, error) in
             guard error == nil else {
                 return handler(false)
             }
-
+            
             handler(url != nil && self.parseAuthorizeRedirectUrl(url: url!))
         })
         sfAuthSession?.start()
@@ -270,12 +270,12 @@ func parseAuthorizeRedirectUrl(url: URL) -> Bool {
         sfSafariViewController?.dismiss(animated: true, completion: nil)
         return false
     }
-
+    
     if urlComp.queryItems == nil {
         sfSafariViewController?.dismiss(animated: true, completion: nil)
         return false
     }
-
+    
     for item in urlComp.queryItems! {
         if item.name == "code" {
             receivedCode = item.value
@@ -283,9 +283,9 @@ func parseAuthorizeRedirectUrl(url: URL) -> Bool {
             receivedState = item.value
         }
     }
-
+    
     sfSafariViewController?.dismiss(animated: true, completion: nil)
-
+    
     return receivedCode != nil && receivedState != nil
 }
 ```
@@ -300,9 +300,9 @@ func getToken(handler: @escaping (Tokens?) -> Void) {
         handler(nil)
         return
     }
-
+    
     let urlComp = URLComponents(string: domain + "/oauth/token")!
-
+    
     let body = [
         "grant_type": "authorization_code",
         "client_id": clientId,
@@ -310,12 +310,12 @@ func getToken(handler: @escaping (Tokens?) -> Void) {
         "code_verifier": codeVerifier,
         "redirect_uri": "auth0test1://test",
     ]
-
+    
     var request = URLRequest(url: urlComp.url!)
     request.httpMethod = "POST"
     request.httpBody = try? JSONSerialization.data(withJSONObject: body)
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+    
     let task = URLSession.shared.dataTask(with: request) {
         (data, response, error) in
         if(error != nil || data == nil) {
@@ -323,19 +323,19 @@ func getToken(handler: @escaping (Tokens?) -> Void) {
             handler(nil)
             return
         }
-
+        
         guard let json = try? JSONSerialization.jsonObject(with: data!) as? [String: Any],
               let accessToken = json!["access_token"] as? String
         else {
             handler(nil)
             return
         }
-
+        
         handler(Tokens(accessToken: accessToken,
                         idToken: json!["id_token"] as? String,
                         refreshToken: json!["refresh_token"] as? String))
     }
-
+    
     task.resume()
 }
 ```
@@ -347,7 +347,7 @@ According to the scopes requested in our previous `/authorize` call, we will get
 ```swift
 func getProfile(accessToken: String, handler: @escaping (Profile?) -> Void) {
     let urlComp = URLComponents(string: domain + "/userinfo")!
-
+    
     let urlSessionConfig = URLSessionConfiguration.default;
     urlSessionConfig.httpAdditionalHeaders = [
         AnyHashable("Authorization"): "Bearer " + accessToken
@@ -360,7 +360,7 @@ func getProfile(accessToken: String, handler: @escaping (Profile?) -> Void) {
             handler(nil)
             return
         }
-
+        
         guard let json = try? JSONSerialization.jsonObject(with: data!) as? [String: String] else {
             handler(nil)
             // TODO: handle error
@@ -370,7 +370,7 @@ func getProfile(accessToken: String, handler: @escaping (Profile?) -> Void) {
         let result = Profile(name: json?["name"], email: json?["email"])
         handler(result)
     }
-
+    
     task.resume()
 }
 ```
@@ -426,9 +426,9 @@ func generateRandomBytes() -> String? {
 }
 
 class AuthorizationServer {
-
+  
   //(...)
-
+  
   private func generateCodeChallenge() -> String? {
       codeVerifier = generateRandomBytes()
       guard codeVerifier != nil else {
@@ -456,33 +456,33 @@ We will start from the same basic clean template as before: a single page iOS ap
           .webAuth(clientId: clientId, domain: domain)
           .scope("openid token profile")
           .start { result in
-
+              
               switch result {
-
+              
               case .success(let credentials):
                   Auth0
                       .authentication(clientId: clientId, domain: domain)
                       .userInfo(withAccessToken: credentials.accessToken!)
                       .start { result in
-
+              
                           switch result {
-
+                          
                           case .success(let profile):
                               self.profile = profile
-
+                          
                           case .failure(let error):
                               print("Failed with \(error)")
                               self.profile = nil
                           }
-
+                          
                           self.updateUI()
                   }
-
+              
               case .failure(let error):
                   self.profile = nil
                   print("Failed with \(error)")
               }
-
+              
               self.updateUI()
       }
   }
@@ -570,21 +570,21 @@ We have edited the default script in the default HTML page to look like this:
   var prompt = config.prompt;
   var languageDictionary;
   var language;
-
+  
   if (config.dict && config.dict.signin && config.dict.signin.title) {
     languageDictionary = { title: config.dict.signin.title };
   } else if (typeof config.dict === 'string') {
     language = config.dict;
   }
   var loginHint = config.extraParams.login_hint;
-
+  
   var logo;
   var color;
   if(config.clientID === 'iV2lnrgSBw64uzf1x0MN3svQTYQYcBl2') {
     logo = 'https://upload.wikimedia.org/wikipedia/commons/5/54/Emojione_1F60E.svg'
     color = 'green'
   }
-
+  
   var lock = new Auth0Lock(config.clientID, config.auth0Domain, {
     auth: {
       redirectUrl: config.callbackURL,
@@ -630,3 +630,4 @@ If you are planning to support more than one social login option, or you are pla
 
 ## Conclusion
 Centralized logins are safer than embedded login widgets or pages. Relying on the OS's browser allows special security features to be used for your application to prevent credentials theft, and also allows password managers and single sign-on solutions to work across different applications. Furthermore, centralized login pages can be customized for a better user experience and to match the design guidelines of your application. [Auth0 Lock](https://auth0.com/docs/libraries/lock/v10) can be used as the solution for centralized logins by having the authorization server use it during authentication, further reducing the amount of work that needs to be done for custom and 100% functional login solution. On the iOS side, the [Auth0.swift](https://github.com/auth0/Auth0.swift) library makes it a breeze to support as many social login providers and login options as required, all with just a few lines of non-invasive code! [Sign up for a free Auth0 account](javascript:signup\(\)) today and start working on your iOS apps by focusing on what matters: the logic, not the login widget.
+
