@@ -11,7 +11,7 @@
       {% endif %}
     </p>
     {% if current.banner.action == nil %}
-      <a href="javascript:signup()" class="signup-button btn btn-success btn-md">Use Auth0 for Free</a>
+      <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)" class="signup-button btn btn-success btn-md">Use Auth0 for Free</a>
     {% else %}
       <a href="{{ current.banner.action }}" class="signup-button btn btn-success btn-md">
         {% if current.banner.cta == nil %}
