@@ -34,7 +34,7 @@ related:
 - 2016-10-04-compare-mvvm-and-viper-architectures
 ---
 
-In this post, we will take a look at the recommended approach to perform authentication in native iOS apps. We will use Auth0's Centralized Login feature to increase security and follow [OAuth2](https://tools.ietf.org/html/rfc6749) and its [recommended practices](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/) on iOS. We will also learn how to use the new [SFAuthenticationSession](https://developer.apple.com/documentation/safariservices/sfauthenticationsession) class from iOS 11. Read on!
+In this post, we will take a look at the recommended approach to performing authentication in native iOS apps. We will use Auth0's Centralized Login feature to increase security and follow [OAuth2](https://tools.ietf.org/html/rfc6749) and its [recommended practices](https://auth0.com/blog/oauth-2-best-practices-for-native-apps/) on iOS. We will also learn how to use the new [SFAuthenticationSession](https://developer.apple.com/documentation/safariservices/sfauthenticationsession) class from iOS 11. Read on!
 
 {% include tweet_quote.html quote_text="Increase security for your iOS apps using Auth0's Centralized Login!" %}
 
