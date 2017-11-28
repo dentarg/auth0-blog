@@ -23,11 +23,11 @@ related:
 - 2017-11-13-all-you-need-to-know-about-data-management-and-integration
 ---
 
-The AWS re:Invent conference is back in Las Vegas this week and with it brings **five** days of awesome talks, deep-dives, and of course huge announcements that promise to boost developer productivity, make DevOps simpler, and help companies grow and scale. This year the conference is spread across five hotels on the Las Vegas Strip and will feature over 1,500 different talks. I would love to be able to attend each one, but since I can't be in 100 places at once, I will share what I learned at the talks I could attend as well as the general announcements that Amazon will have when they host their keynotes on Wednesday and Thursday this week.
+The AWS re:Invent conference is back in Las Vegas this week and with it comes **five** days of awesome talks, deep-dives, and of course, huge announcements that promise to boost developer productivity, make DevOps simpler, and help companies grow and scale. This year the conference is spread across five hotels on the Las Vegas Strip and features over 1,500 different talks. I would love to be able to attend each one, but since I can't be in 100 places at once, I will share what I learned at the talks I could attend as well as the general announcements that Amazon will have when they host their keynotes on Wednesday and Thursday this week.
 
 ![AWS Registration](https://cdn.auth0.com/blog/aws-reinvent-2017/registration.jpg)
 
-At Auth0, we deeply care about **security, compliance, and identity**, and as luck would have it re:Invent features 117 sessions on just that. The other topic that I focused on today was **serverless** computing and I learned a ton. Since there was no keynote today, below are things I learned at the breakout sessions.
+At Auth0, we deeply care about **security, compliance, and identity**, and as luck would have it, re:Invent features 117 sessions on just that. The other topic that I focused on today was **serverless** computing and I learned a ton. Since there was no keynote today, below are things I learned at the breakout sessions.
 
 ## Session: IAM for Enterprises: How Vanguard Strikes the Balance Between Agility, Governance, and Security
 
@@ -35,19 +35,19 @@ This session was hosted by AWS Security Consultant Reef Dsouza and Senior Securi
 
 * **Defense in Depth** - multiple layers of security.
 * **Separation of Duties** - well defined roles and permissions.
-* **Principle of Least Privilege** - users should only have access to what they absolutley need.
+* **Principle of Least Privilege** - users should only have access to what they absolutely need.
 
 Rajeev went on to explain how Vanguard, one of the largest investment companies in the world, applied these guidelines when moving their architecture to the AWS cloud and the numerous benefits that it brought them. 
 
-Many of the best practices that Reef shared, we at [Auth0](https://auth0.com) have been very vocal about as well. [Read](https://auth0.com/blog/5-ways-to-make-your-app-more-secure-in-less-than-20-minutes/) our five tips on how you can make your app more secure in less than 20 minutes.  
+Many of the best practices that Reef shared, we at [Auth0](https://auth0.com) have been very vocal about as well. [Read our five tips on how you can make your app more secure in less than 20 minutes](https://auth0.com/blog/5-ways-to-make-your-app-more-secure-in-less-than-20-minutes/).  
 
 ## Session: Serverless for Security Officers: Paradigm Walkthrough and Comprehensive Security Best Practices
 
-This session, hosted by Jonathan Desrocher, Eugene Yu, and Henrik Johansson focused on best security practices as they pertain to serverless applications. Serverless applications are gaining more and more momentum, and whether you go with [AWS Lambda](https://aws.amazon.com/lambda/), [Auth0 Webtask](https://webtask.io), or another serverless platform, you are sure to have questions on the various security considerations these platform arise.
+This session, hosted by Jonathan Desrocher, Eugene Yu, and Henrik Johansson, focused on best security practices as they pertain to serverless applications. Serverless applications are gaining more and more momentum, and whether you go with [AWS Lambda](https://aws.amazon.com/lambda/), [Auth0 Webtask](https://webtask.io), or another serverless platform, you are sure to have questions on the various security considerations that arise when using these platforms.
 
 ![Serverless Security Paradigm](https://cdn.auth0.com/blog/aws-reinvent-2017/security.jpg)
 
-The good news is that essentially all the best secrutiy practices that pertain to traditional applications also apply to serverless applications as well. The bad news, each function is a potential attack vector, so requires a bit more effort and attention to properly secure. Additionally, with serverless the platform provider takes on a much larger role when it comes to securing the application, but at the end of the day, security is everyone's responsibility.
+The good news is that essentially all the best security practices that pertain to traditional applications also apply to serverless applications as well. The bad news is that each function is a potential attack vector, so they require a bit more effort and attention to properly secure. Additionally, with serverless, the platform provider takes on a much larger role when it comes to securing the application, but at the end of the day, security is everyone's responsibility.
 
 ## Session: Credentials, Credentials, Credentials, Oh My!
 
@@ -55,21 +55,21 @@ Quint Van Deman of AWS hosted this **chalk talk**, which consisted of a 10-15 mi
 
 ![AWS Credentials](https://cdn.auth0.com/blog/aws-reinvent-2017/credentials.jpg)
 
-One of the key takeaways from this session was that having a centralized source of truth and federating that identity throghout your infrastructure was superior to having multiple identity stores for the different applications in your infrastructure. [Learn more](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/) about Single Sign On and [how you can call AWS API's](https://auth0.com/docs/integrations/aws) with Auth0 tokens.
+One of the key takeaways from this session was that having a centralized source of truth and federating that identity throghout your infrastructure was superior to having multiple identity stores for the different applications in your infrastructure. [Learn more about Single Sign On](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/) and [how you can call AWS APIs with Auth0 tokens](https://auth0.com/docs/integrations/aws).
 
-## Session: Evolution of Serverless Architectures through the Lens of Community
+## Session: Evolution of Serverless Architectures Through the Lens of Community
 
-Serverless is taking the development world by storm. This was a very enlightening talk by Peter Sbarski and Sam Kroonenburg of [A Cloud Guru](https://acloud.guru/), one of the early adopters of serverless technology. Sam, the founder of A Cloud Guru, even showed that their production account had no active Amazon EC2 instances. This session focused on the growth of serverless architectures over the last three years and highlighted some of providers as well as consumers of serverless technologies. Sam also covered the growing community around serverless which included quotes from many prominent members of the community, serverless meetups around the world, and even a conference!
+Serverless is taking the development world by storm. This was a very enlightening talk by Peter Sbarski and Sam Kroonenburg of [A Cloud Guru](https://acloud.guru/), one of the early adopters of serverless technology. Sam, the founder of A Cloud Guru, even showed that their production account had no active Amazon EC2 instances. This session focused on the growth of serverless architectures over the last three years and highlighted some of the providers as well as consumers of serverless technologies. Sam also covered the growing community around serverless which included quotes from many prominent members of the community, serverless meetups around the world, and even a conference!
 
 ![Auth0 at AWS](https://cdn.auth0.com/blog/aws-reinvent-2017/auth0.png)
 
-Auth0's [Webtask](https://webtask.io) also got a shout-out, as did the Auth0's [identity](https://auth0.com) solution. Sam closed out his talk by sharing some emerging patterns in the serverless community, especially application modernization and microservices, which you can learn much more about [here](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/).
+Auth0's [Webtask](https://webtask.io) also got a shout-out, as did [Auth0's identity solution](https://auth0.com). Sam closed out his talk by sharing some emerging patterns in the serverless community, especially [application modernization and microservices, which you can learn much more about here](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/).
 
 Finally, Hernan Garcia of [CityWallet](https://www.citywallet.net/) gave a real world example of how he and his team achieved success with a serverless architecture when their more traditional methods failed and put their startup at risk.
 
-## Session: Compliance and Top Security Threats in the Cloud -- Are You Protected?
+## Session: Compliance and Top Security Threats in the Cloud—Are You Protected?
 
-We closed out the day with a very information session on top security threats that organizations face by Teri Radichel of [WatchGuard Tecnologies](https://www.watchguard.com/) and Boyan Dimitrov of [Sixt](https://www.sixt.com/). The top threats included were:
+We closed out the day with a very informational session on top security threats that organizations face by Teri Radichel of [WatchGuard Technologies](https://www.watchguard.com/) and Boyan Dimitrov of [Sixt](https://www.sixt.com/). The top threats included were:
 
 * **Unprotected keys and credentials.**
 * **Broad permissions for engineers.**
@@ -83,18 +83,18 @@ We closed out the day with a very information session on top security threats th
 
 Teri discussed how these threats led to large data breaches such as the [Equifax Data Breach](https://auth0.com/blog/equifax-data-breach/) that leaked the Social Security Numbers of almost all Americans and the [WannaCry Ransomware](https://auth0.com/blog/a-massive-ransomware-attack-targets-organizations-around-the-globe/) which locked out banks, airlines, and even hospitals. 
 
-Boyan discussed strategies on how to mitigate risk and the key take away from him was that compliance does not equal security. Many of the companies that experienced data breaches were compliant with many standards and organizations but were still breached. Security is something that must be constantly monitored to be effective.
+Boyan discussed strategies on how to mitigate risk and the key takeaway was that compliance does not equal security. Many of the companies that experienced data breaches were compliant with many standards and organizations but were still breached. Security is something that must be constantly monitored to be effective.
 
 ## Aside: Auth0 and AWS
 
 If you are using AWS to manage your infrastructure, whether it be traditional, serverless, or a mix, and are looking to better manage identity in your applications, Auth0 can help you to:
 
-* Add authentication through more traditional username/password databases.
+* Add authentication through traditional username/password databases.
 * Add support for linking different user accounts with the same user.
 * Support for generating signed JSON Web Tokens to call your APIs and flow the user identity securely.
-* Analytics of how, when and where users are logging in.
+* Analytics of how, when, and where users are logging in.
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
-* Achieve [SSO(Single Sign-On)](https://auth0.com/docs/sso) seamlessly.
+* Achieve [SSO (Single Sign-On)](https://auth0.com/docs/sso) seamlessly.
 
 [Sign up](javascript:signup\(\)) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
 
