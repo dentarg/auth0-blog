@@ -587,7 +587,7 @@ var AddFeedbackHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 })
 ```
 
-The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, [sign up](javascript:signup\(\)) for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new API client by clicking the **Create API** button.
+The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new API client by clicking the **Create API** button.
 
 ![Create We-R-VR API Client](https://cdn2.auth0.com/blog/go-auth/create-api-client.png)
 

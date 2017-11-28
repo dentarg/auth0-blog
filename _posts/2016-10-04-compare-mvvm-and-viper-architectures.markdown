@@ -596,7 +596,7 @@ Auth0 is an authentication broker that supports social identity providers (Faceb
 It's quite easy to integrate [Auth0.swift](https://github.com/auth0/Auth0.swift) library into an iOS project, as we will see in the next few steps:
 
 ### Step 0
-If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps. Also, create a new client in the dashboard - it's pretty easy and straightforward.
+If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now to follow along with the other steps. Also, create a new client in the dashboard - it's pretty easy and straightforward.
 
 ### Step 1
 Auth0.swift is available on [CocoaPods](https://cocoapods.org/) and [Carthage](https://github.com/Carthage/Carthage). [Create a new project with CocoaPods](https://guides.cocoapods.org/) or use an existing one. Then add the following line to your Podfile:

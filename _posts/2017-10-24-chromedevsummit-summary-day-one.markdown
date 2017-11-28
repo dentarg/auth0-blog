@@ -168,7 +168,7 @@ The [Credential Management API](https://developers.google.com/web/updates/2016/0
 * Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 * Achieve [SSO(Single Sign-On)](https://auth0.com/docs/sso) seamlessly.
 
-[Sign up](javascript:signup\(\)) for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> for a free account today and enjoy fast, seamless, and hassle-free authentication in your apps.
 
 
 ## Conclusion

@@ -341,7 +341,7 @@ Next, let's add authentication to the app.
 
 Ionic developers [choose Auth0](https://ionicframework.com/survey/2017#data-backend) as one of the top 3 technologies to manager user authenticationin their apps due to its easy implementation. Let me show you how it's done!
 
-Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
+Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
 Once you are done creating the new account, you will be prompted to create a new client, so create one and name it anything you want. Make sure you select the type of app as `Native` during the creation of the client. Take note of your client details in the settings tab.
 
@@ -656,4 +656,4 @@ That's it!
 
 Getting started with the Ionic framework is not a hassle. As long as the right tools are installed, Ionic quickly turns you into a mobile app developer with your JavaScript and Angular skills.
 
-Furthermore, Auth0 can help secure your [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management) and [B2E](https://auth0.com/b2e-identity-management-for-employees) organization with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [Single Sign On (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on what really matters: growing your business.
+Furthermore, Auth0 can help secure your [B2C](https://auth0.com/b2c-customer-identity-management), [B2B](https://auth0.com/b2b-enterprise-identity-management) and [B2E](https://auth0.com/b2e-identity-management-for-employees) organization with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [Single Sign On (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on what really matters: growing your business.
