@@ -863,7 +863,7 @@ _server/main.js_
 ```js
 ...
 const authCheck = jwt({
-  secret: jwks.expressJwtSecret({
+  secret: expressJwtSecret({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
@@ -892,7 +892,7 @@ _server/main.js_
 
 ```js
 ...
-app.get('/api/slangs', authCheck, (req, res) => {
+app.get('/api/slangs', authCheck, Meteor.bindEnvironment(function(req, res) {
   const slangs = Slangs.find().fetch();
   res.status(200).json({ message: slangs });
 });
