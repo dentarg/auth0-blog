@@ -1,12 +1,21 @@
 ## Aside: Securing Spring APIs with Auth0
 
-Securing applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/user-management),
-[single sign-on](https://auth0.com/docs/sso/single-sign-on) feature, support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders) and support for [enterprise identity providers (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise).
+Securing applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get solid [identity management solution](https://auth0.com/user-management),
+[single sign-on](https://auth0.com/docs/sso/single-sign-on), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), and support for [enterprise identity providers (Active Directory, LDAP, SAML, custom, etc.)](https://auth0.com/enterprise).
 
-In this section, we are going to learn how to use Auth0 to secure Spring APIs. As we will see, the process is simple and fast. First, we need to create an API on our [free Auth0 account](https://auth0.com/signup). To do that, we have to go to [the APIs section of the management dashboard](https://manage.auth0.com/#/apis) and click on "Create API". On the dialog that appears, we can give our API a friendly name (like "Contacts API") and an identifier (e.g. "https://contacts.mycompany.com").
+In the following sections, we are going to learn how to use Auth0 to secure Spring APIs. As we will see, the process is simple and fast.
 
+### Creating the API
 
-The second step is to import a dependency called `auth0-spring-security-api`:
+First, we need to create an API on our [free Auth0 account](https://auth0.com/signup). To do that, we have to go to [the APIs section of the management dashboard](https://manage.auth0.com/#/apis) and click on "Create API". On the dialog that appears, we can name our API as "Contacts API" (the name isn't really important) and identify it as `https://contacts.mycompany.com` (we will use this value later).
+
+After creating it, we have to go to the "Scopes" tab of the API and define the desired scopes. For this sample, we will define two scopes: `read:contacts` and `add:contacts`. They will represent two different operations (read and add) over the same entity (contacts).
+
+![Defining OAuth scopes in the new Auth0 API](https://cdn.auth0.com/blog/spring-boot-aside/defining-oauth-scopes.png)
+
+### Registering the Auth0 Dependency
+
+The second step is to import a dependency called [`auth0-spring-security-api`](https://mvnrepository.com/artifact/com.auth0/auth0-spring-security-api). This can be done on a Maven project by including the following configuration to `pom.xml` ([it's not harder to do this on Gradle, Ivy, and so on](https://mvnrepository.com/artifact/com.auth0/auth0-spring-security-api)):
 
 ```xml
 <project ...>
@@ -22,7 +31,9 @@ The second step is to import a dependency called `auth0-spring-security-api`:
 </project>
 ```
 
-On the third step, we need to create a class to extend the [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html) class. In this extension, we will use `JwtWebSecurityConfigurer` to integrate Auth0 and Spring Security:
+### Integrating Auth0 with Spring Security
+
+The third step consists of extending the  [WebSecurityConfigurerAdapter](https://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html) class. In this extension, we use `JwtWebSecurityConfigurer` to integrate Auth0 and Spring Security:
 
 ```java
 package com.auth0.samples.secure;
@@ -55,9 +66,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-After integrating them, we can easily secure our endpoints (methods on controllers) with Spring Security annotations:
+As we don't want to hard code credentials in the code, we make `SecurityConfig` depend on two environment properties:
 
+- `auth0.apiAudience`: This is the value that we set as the identifier of the API that we created at Auth0 (`https://contacts.mycompany.com`).
+- `auth0.issuer`: This is our domain at Auth0, including the HTTP protocol. For example: `https://bk-samples.auth0.com/`.
+
+Let's set them in a properties file on our Spring application (e.g. `application.properties`):
+
+```bash
+auth0.issuer:https://bk-samples.auth0.com/
+auth0.apiAudience:https://contacts.mycompany.com/
 ```
+
+### Securing Endpoints with Auth0
+
+After integrating Auth0 and Spring Security, we can easily secure our endpoints with Spring Security annotations:
+
+```java
 package com.auth0.samples.secure;
 
 import com.google.common.collect.Lists;
@@ -92,29 +117,25 @@ public class ContactController {
 }
 ```
 
+Note that the integration allows us to use [the `hasAuthority` Spring EL Expression](https://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html) to restrict access to endpoints based on the `scope` of the `access_token`. Let's see how to get this token now.
 
+### Creating an Auth0 Client
 
-```bash
-curl http://localhost:8080/contacts/
+As the focus of this section is to secure Spring APIs with Auth0, [we are going to use a live Angular app that has a configurable Auth0 client](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). To use this app we need to create an Auth0 Client that represents it. Let's head to the [Clients section of the management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button to create this client.
 
-curl -H "Authorization: Bearer "$TOKEN http://localhost:8080/contacts/
+On the popup shown, let's set the name of this new client as "Contacts Client" and choose "Single Page Web App" as the client type. After hitting the "Create" button, we have to go to the "Settings" tab of this client and change two properties. First, we have to set `http://auth0.digituz.com.br/` in the "Allowed Web Origins" property. Second, we have to set `http://auth0.digituz.com.br/callback` in the "Allowed Callback URLs" property.
 
-curl -X POST -H "Authorization: Bearer "$TOKEN -H 'content-type: application/json' -d '{
-  "name": "Elon Musk",
-  "phone": "42"
-}' http://localhost:8080/contacts/
+That's it, we can save the client and head to [the sample Angular app secured with Auth0](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). On it, we just need to set the correct values to the four properties:
 
-curl -X POST -H 'content-type: application/json' -d '{
-  "grant_type":"password",
-  "username":"brunokrebs",
-  "password":"123456",
-  "audience":"https://bkrebs.auth0.com/api/v2/",
-  "scope":"read:contacts",
-  "client_id": "3qu4Cxt4h2x9Em7Cj0s7Zg5FxhQLjiiK",
-  "client_secret": "sUOIf4Psed68nU4hZvHlkRE2vCgUJF4UHlymKOJrgpn6oL8NJ3bOvdA1Y4ajo3IW"
-}' https://bkrebs.auth0.com/oauth/token
-```
+- `clientID`: We have to copy this value from the "Client ID" field of the "Settings" tab of "Contacts Client".
+- `domain`: We can also copy this value from the "Settings" tab of "Contacts Client".
+- `audience`: We have to set this property to meet the identifier of the "Contacts API" that we created earlier.
+- `scope`: This property will define the `authority` that the `access_token` will get access to in the backend API. For example: `read:contacts` or both `read:contacts add:contacts`.
 
-```
-TOKEN="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik4wTTROVVJETXpZMVFUbENRalpCTlRFd05VRkRRa1pFT1VWR1FUZEdRVUkwT1RFMVJEUXdRZyJ9.eyJpc3MiOiJodHRwczovL2JrLXNhbXBsZXMuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTAwMTEyNjYzOTA4ODgwMjU1MDU4IiwiYXVkIjoiaHR0cDovL3NwcmluZy1ib290LWFzaWRlLmF1dGgwc2FtcGxlcy5jb20vIiwiaWF0IjoxNTExNDU2MDgwLCJleHAiOjE1MTE0NjMyODAsImF6cCI6ImxPV1owZ1U0OThtVlNzbjQwaEtMZXNFSkRRYmNmUThBIiwic2NvcGUiOiJyZWFkOmNvbnRhY3RzIn0.jXt_fdt_QkEAP1bWMvYMIUs7-ZDblwKagKLW90nntYmgz-EZqsRKJwVXABdWlWqAAcpzs4Su6cOJQuXuhywmoClW0ODfxgSRJg5161UaCgCo3EsAjVWsil9-QFLTqufWYrp5ERTOLYuWmDq-B3hTxrULLU2j9IEsTXoav9JysHnwM90_VCEJ2rjho5l99_Sdr1Jwfe_ZfM2qu_PCA9OFGVQxF_OjHDcV-vvMdeY_qbGZsOPGaIpGr2RjveSdeMR0jQYE1WXdeuV6hhJOARLsB0peppoX93HbF-e3m5rv8kY-1jcdn87YhcK_gQ3Ff5aVxU72GjSoRu_VwQzW_nvajw"
-```
+Then we can hit the "Sign In with Auth0" button.
+
+![Using the Angular app with the configurable Auth0 Client](https://cdn.auth0.com/blog/angular-generic-client/signing-in.png)
+
+After signing in, we can use the application to submit requests to our secured Spring API. For example, if we issue a GET request to `http://localhost:8080/contacts/`, the Angular app will include the `access_token` in the `Authorization` header and our API will respond with a list of contacts.
+
+![Getting a response from a secure Spring API](https://cdn.auth0.com/blog/angular-generic-client/issuing-secured-requests.png)
