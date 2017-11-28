@@ -467,7 +467,7 @@ app.use(function(err, req, res, next) {
 });
 ```
 
-{% include aside/node.markdown %}
+{% include asides/node.markdown %}
 
 ## Conclusion
 

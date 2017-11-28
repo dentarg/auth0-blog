@@ -334,7 +334,7 @@ return $http(post).then(function() {
 
 Not difficult to use `protobuf.js` library to exchange binary data, right? If you want, you can also check the JavaScript code, that I used to compare Protobuf and JSON performance, directly on [my GitHub repo](https://github.com/brunokrebs/auth0-speed-test/blob/master/src/main/resources/static/index.html#L46).
 
-{% include aside/node.markdown %}
+{% include asides/node.markdown %}
 
 ## Conclusion
 
