@@ -48,7 +48,7 @@ After creating it, we have to go to the "Scopes" tab of the API and define the d
 
 ### Securing Express with Auth0
 
-The first thing to do to secure an Express API with Auth0 is to install three dependencies with NPM: `npm i express-jwt jwks-rsa express-jwt-authz`. Let's create a file called `auth0.js` and use these dependencies:
+Now that we have registered the API in our Auth0 account, let's secure the Express API with Auth0. Let's start by installing three dependencies with NPM: `npm i express-jwt jwks-rsa express-jwt-authz`. Then, let's create a file called `auth0.js` and use these dependencies:
 
 ```javascript
 const jwt = require('express-jwt');
@@ -80,7 +80,12 @@ module.exports = function (scopes) {
 };
 ```
 
-The goal of this script is to export an [Express middleware](http://expressjs.com/en/guide/using-middleware.html) that guarantees that requests have an `access_token` issued by a trust-worthy party, in this case Auth0. The middleware will also accept an array of scopes. When filtering requests, the middleware will check that these scopes exist in the `access_token`. Note that this script expects to find an environment variable called `AUTH0_DOMAIN`. We will set this variable soon, but it is important to understand that this variable defines how the middleware finds the signing keys.
+The goal of this script is to export an [Express middleware](http://expressjs.com/en/guide/using-middleware.html) that guarantees that requests have an `access_token` issued by a trust-worthy party, in this case Auth0. The middleware also accepts an array of scopes. When filtering requests, this middleware will check that these scopes exist in the `access_token`. Note that this script expects to find two environment variables:
+
+- `AUTH0_AUDIENCE`: the identifier of our API (`https://contacts.mycompany.com/`)
+- `AUTH0_DOMAIN`: our domain at Auth0 (in my case `bk-samples.auth0.com`)
+
+We will set these variable soon, but it is important to understand that the domain variable defines how the middleware finds the signing keys.
 
 After creating this middleware, we can update our `index.js` file to import and use it:
 
@@ -95,11 +100,21 @@ app.post('/contacts', auth0(['add:contacts']), (req, res) => {
 });
 ```
 
-In this case, we have replaced the previous definition of our endpoints to use the new middleware. We also restricted access to these endpoints to users that contain the right combination of scopes. That is, to get contacts the user must have to `read:contacts` scope to get contacts and `add:contacts` to add.
+In this case, we have replaced the previous definition of our endpoints to use the new middleware. We also restricted their access to users that contain the right combination of scopes. That is, to get contacts users must have the `read:contacts` scope and to create new records they must have the `add:contacts` scope.
+
+Running the application now is slightly different, as we need to set the environment variables:
+
+```
+export AUTH0_DOMAIN=bk-sample.auth0.com
+export AUTH0_AUDIENCE="https://contacts.mycompany.com/"
+node index
+```
+
+Let's keep this API running before moving on.
 
 ### Creating an Auth0 Client
 
-As the focus of this section is to secure Node.js applications with Auth0, [we are going to use a live Angular app that has a configurable Auth0 client](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). Before using this app, we need to create an Auth0 Client that represents it. Let's head to the [Clients section of the management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button to create this client.
+As the focus of this section is to secure Node.js applications with Auth0, [we are going to use a live Angular app that has a configurable Auth0 client](http://auth0.digituz.com.br/?clientID=ssII6Fu1qfFI4emuNeXeadMv8iTQn1hJ&domain=bk-samples.auth0.com&audience=https:%2F%2Fcontacts.mycompany.com%2F&scope=read:contacts). Before using this app, we need to create an Auth0 Client that represents it. Let's head to the ["Clients" section of the management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button to create this client.
 
 On the popup shown, let's set the name of this new client as "Contacts Client" and choose "Single Page Web App" as the client type. After hitting the "Create" button, we have to go to the "Settings" tab of this client and set `http://auth0.digituz.com.br/callback` in the "Allowed Callback URLs" field.
 
