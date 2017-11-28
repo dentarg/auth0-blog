@@ -51,7 +51,7 @@ The good news is that essentially all the best security practices that pertain t
 
 ## Session: Credentials, Credentials, Credentials, Oh My!
 
-Quint Van Deman of AWS hosted this **chalk talk**, which consisted of a 10-15 minute presentation on best practices when it comes to managing the various credentials in the AWS ecosystem, and then a 45 minute Q&A session where he asked the auidence for use cases and worked out best practices for those use cases. We covered many complex use cases involving the various AWS credential services including Cognito, Secure Token Service (STS), and various forms of credential exchanges whether interal at AWS or exchanging credentials from a third party service like Auth0.
+Quint Van Deman of AWS hosted this **chalk talk**, which consisted of a 10-15 minute presentation on best practices when it comes to managing the various credentials in the AWS ecosystem, and then a 45 minute Q&A session where he asked the audience for use cases and worked out best practices for those use cases. We covered many complex use cases involving the various AWS credential services including Cognito, Secure Token Service (STS), and various forms of credential exchanges whether internal at AWS or exchanging credentials from a third party service like Auth0.
 
 ![AWS Credentials](https://cdn.auth0.com/blog/aws-reinvent-2017/credentials.jpg)
 
