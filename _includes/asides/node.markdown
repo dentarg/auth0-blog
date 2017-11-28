@@ -40,7 +40,7 @@ We can run and test our application by issuing `node index` in the project root 
 
 ### Registering the API at Auth0
 
-First, we need to create an API on our free Auth0 account. To do that, we have to go to the APIs section of the management dashboard and click on "Create API". On the dialog that appears, we can name our API as "Contacts API" (the name isn't really important) and identify it as https://contacts.mycompany.com (we will use this value later).
+After creating our application, we need to register it as an API on Auth0. Therefore, let's head to the API section of our management dashboard (we can create a free account if we don't have one yet) and click on "Create API". On the dialog that appears, we can name our API as "Contacts API" (the name isn't really important) and identify it as https://contacts.mycompany.com (we will use this value later).
 
 After creating it, we have to go to the "Scopes" tab of the API and define the desired scopes. For this sample, we will define two scopes: read:contacts and add:contacts. They will represent two different operations (read and add) over the same entity (contacts).
 
