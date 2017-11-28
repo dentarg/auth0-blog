@@ -10,7 +10,7 @@ author:
   mail: "bruno.krebs@auth0.com"
   avatar: "https://www.gravatar.com/avatar/76ea40cbf67675babe924eecf167b9b8?s=60"
 design:
-  bg_color: "461A8D"
+  bg_color: "#461A8D"
   image: https://cdn.auth0.com/blog/redux-tutorial/logo.png
 tags:
 - redux
