@@ -78,8 +78,8 @@
     <script type="application/json">
       {
         "requests": {
-          "proxyMetrics": "http://localhost:3002/amp-analytics",
-          "pageview": "${proxyMetrics}/?dwEndpoint=${dwEndpoint}&segmentKey=${segmentKey}&type=${type}&label=${label}&${extraUrlParams}"
+          "proxyMetrics": "https://dwh-tracking.it.auth0.com/amp-analytics",
+          "pageview": "${proxyMetrics}/?type=${type}&label=${label}&${extraUrlParams}"
         },
         "extraUrlParams": {
           "userAgent": "${userAgent}",
@@ -90,8 +90,6 @@
           "url": "${sourceUrl}"
         },
         "vars": {
-          "dwEndpoint": "https://dwh-tracking.it.auth0.com/dwh-metrics",
-          "segmentKey": "aaB6w2BsRwUcGbRSUY7X22FPAa1NL3BL",
           "label": "AMP-Blog",
           "type": "page"
         },
@@ -105,8 +103,7 @@
             "selector": "#amp-signup",
             "request": "pageview",
             "extraUrlParams": {
-              "eventName": "amp-blog:signup",
-              "trackData":  "{sample: 'data for track'}"
+              "eventName": "amp-blog:signup"
             },
             "vars": {
               "type": "track"
