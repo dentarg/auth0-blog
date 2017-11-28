@@ -12,11 +12,16 @@ author:
 is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/aws-reinvent-2017/logo.png
-  bg_color: "#000000"
+  bg_color: "#222228"
 tags:
 - aws
 - reinvent
 - auth0
+- amazon
+- serverless
+- identity
+- compliance
+- security
 related:
 - 2015-10-22-5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 - 2017-07-21-the-role-of-identity-in-application-modernization/
