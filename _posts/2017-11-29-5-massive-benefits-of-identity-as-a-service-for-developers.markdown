@@ -2,7 +2,7 @@
 layout: post
 title: "5 Massive Benefits Of Identity As A Service For Developers"
 description: "Identity as a service provides lots of benefits for companies and developers looking to iterate quickly. Focus on building customer value not authentication."
-date: 2017-11-27 16:55
+date: 2017-11-29 16:55
 category: Growth, Identity, Auth0
 is_non-tech: true
 author: 
