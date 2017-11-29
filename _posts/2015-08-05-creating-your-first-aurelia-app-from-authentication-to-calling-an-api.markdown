@@ -28,6 +28,11 @@ related:
 - 2015-12-17-json-web-token-signing-algorithms-overview
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This post is out of date.</strong> The Aurelia framework and its dependencies have undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Thank you for your patience while we work on bringing you an updated tutorial!
+</div>
+
 -----
 
 **TL;DR**: Aurelia is a great client-side JavaScript framework and adding JWT authentication to Aurelia apps is easy with the [aurelia-auth package](https://github.com/paulvanbladel/aurelia-auth). Check out the [GitHub repo](https://github.com/chenkie/aurelia-jwt-auth) for this article to find out how to add authentication to your Aurelia app.
