@@ -36,7 +36,7 @@ Fortunately for the manufacturer, and for companies facing similar scenarios, Au
 
 To simulate the manufacturer's scenario, we will use two Node.js applications that are dependent on different databases. There are some users with the same credentials (email and password) on each application and some users that exist only on one application or the other. When a user exists on both applications, some details of their personal data will differ on one account and the other. These differences were created to show how merging profiles from different applications is easy with Auth0.
 
-To follow along with this article and see the profile consolidation in practice, we will just need to [sign up for a free Auth0 account](javascript:signup\(\)) and configure a few settings on it. This Auth0 account will then communicate with both apps, hosted [here](https://node-app-1.now.sh/) and [here](https://node-app-2.now.sh/), to perform the following steps:
+To follow along with this article and see the profile consolidation in practice, we will just need to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a> and configure a few settings on it. This Auth0 account will then communicate with both apps, hosted [here](https://node-app-1.now.sh/) and [here](https://node-app-2.now.sh/), to perform the following steps:
 
 - Check, during sign in, if a credential is valid or not.
 - Check, during a password retrieval or a sign up, if an email address exists on one of the applications.

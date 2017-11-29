@@ -228,7 +228,7 @@ You may have noticed we disabled SSL version 3 in both Apache and Nginx config e
 ## Aside: TLS at Auth0
 As a security conscious company, we use TLS *everywhere* at Auth0. Not only secure transports are essential for logins, single-sign-on and other features we provide (those JWTs need to be safely passed to your users!), but it is also essential for privacy. You will find even our public docs are TLS-enabled. You can be sure no man-in-the-middle is showing you bad info on how to set up our product. And this is important: what if you gave a malicious user access to your login system? TLS is easy to set up. There is no excuse for not having it available everywhere.
 
-Interested in our product? <a href="javascript:signup()">Sign up for free</a> and start using it today!
+Interested in our product? <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up for free</a> and start using it today!
 
 ## Conclusion
 If I had to sum this article up in two words they would be: [HTTPS Everywhere](https://www.eff.org/https-everywhere). Cryptography might be hard, but setting up a TLS enabled server is not. The services are out there, free certificates are available, paid ones are not that expensive, and every single relevant software stack out there supports TLS. There is just no excuse for leaving your users exposed to privacy and security issues by using an insecure transport. Obviously, HTTPS is just the tip of the iceberg. Security is hard, and so is designing secure systems. HTTPS helps, so enable it today. Your users will thank you for it.

@@ -312,7 +312,7 @@ JSX 自体を Vue で表すそのパワーがわかりますか？素晴らし�
 
 [GitHub の Node.js バックエンド](https://github.com/auth0-blog/vuejs2-authentication-tutorial/tree/master/server)に移動し、フェッチします。
 
-**注：** 今回はAuth0 を使用してバックエンドをセキュアにしますので、Auth0アカウントを持っているか確認するか、 [サインアップ](javascript:signup(\))してアカウントを作成します。
+**注：** 今回はAuth0 を使用してバックエンドをセキュアにしますので、Auth0アカウントを持っているか確認するか、 [サインアップ](https://auth0.com/signup)してアカウントを作成します。
 
 `server.js` は次のように表示されます。
 
@@ -852,7 +852,7 @@ _プライベートバトルページ_
 
 日常的に使用するほとんどのアプリにはユーザーを認証する機能があります。では、 **Vuejs 2** アプリケーションに認証機能を追加する方法について説明します。認証サービスとして [Auth0](https://auth0.com/) を使用します。
 
-Auth0 は [JSON Web トークン (JWTs)](https://jwt.io/)の発行を可能にします。Auth0 のアカウントを持っていない場合は、無料で [サインアップ](javascript:signup())してアカウントを作成してください。
+Auth0 は [JSON Web トークン (JWTs)](https://jwt.io/)の発行を可能にします。Auth0 のアカウントを持っていない場合は、無料で [サインアップ](https://auth0.com/signup))してアカウントを作成してください。
 
 [**Auth0 が提供するfreeアカウントを利用して**](https://auth0.com/pricing)で先進認証を開始します。
 
@@ -1318,6 +1318,6 @@ function getPrivateStartupBattles() {
 
 **Vuejs 2** はユーザーインターフェースを構築するための軽量で高速の素晴らしいライブラリです。その習熟曲線はゆるやかで、その API を理解するには難しくありません。急速に拡大しているコミュニティで、さまざまな機能のコンポーネントが一般に提供されています。
 
-また、Auth0 はユーザー名とパスワードによる認証だけでなく、 **Vuejs 2** アプリをセキュアにする助けになります。これは、 [多要素認証](https://auth0.com/docs/multifactor-authentication)、 [異常検出](https://auth0.com/docs/anomaly-detection)、組織連携、 [シングルサインオン (SSO)](https://auth0.com/docs/sso)、その他の機能を提供します。 [サインアップ](javascript:signup(/))して、アプリに固有な構築機能を活用してください。
+また、Auth0 はユーザー名とパスワードによる認証だけでなく、 **Vuejs 2** アプリをセキュアにする助けになります。これは、 [多要素認証](https://auth0.com/docs/multifactor-authentication)、 [異常検出](https://auth0.com/docs/anomaly-detection)、組織連携、 [シングルサインオン (SSO)](https://auth0.com/docs/sso)、その他の機能を提供します。 [サインアップ](https://auth0.com/signup)して、アプリに固有な構築機能を活用してください。
 
 > Auth0 はパスワードのリセット、作成とプロビジョニング、ユーザーのブロックと削除を含む、シンプルで非常に使いやすい [ユーザー ID を管理する管理者を助けるユーザーインターフェースツール](https://auth0.com/user-management)を提供しています
