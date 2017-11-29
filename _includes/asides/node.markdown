@@ -105,7 +105,7 @@ In this case, we have replaced the previous definition of our endpoints to use t
 Running the application now is slightly different, as we need to set the environment variables:
 
 ```
-export AUTH0_DOMAIN=bk-sample.auth0.com
+export AUTH0_DOMAIN=bk-samples.auth0.com
 export AUTH0_AUDIENCE="https://contacts.mycompany.com/"
 node index
 ```
