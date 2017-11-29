@@ -732,16 +732,7 @@ _Creating a new employee_
 ![Editing an employee details](https://cdn.auth0.com/blog/addressbook/edit.png)
 _Editing an employee details_
 
-
-## Adding Authentication to Your BackboneJS App
-
-The majority of the apps we use on a daily basis have a means of authenticating users. Adding authentication to your BackboneJS apps is as easy as using [Auth0](https://auth0.com/) in your JQuery apps.
-
-Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
-
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new client. Select `Single Page Application` during creation.
-
-BackboneJS relies heavily on JQuery. So, go ahead and follow this [amazing quickstart](https://auth0.com/docs/quickstart/spa/jquery/01-login) to add authentication to the app.
+{% include asides/javascript-at-auth0.markdown %}
 
 ## Conclusion
 
