@@ -115,4 +115,4 @@ Check out the following resources to learn more about implementing Auth0 with ce
 * [iOS Swift Quickstart - Login](https://auth0.com/docs/quickstart/native/ios-swift/00-login)
 * [Android Quickstart - Login](https://auth0.com/docs/quickstart/native/android/00-login)
 
-You can sign up for a <a href="javascript:signup()">free Auth0 account now</a> and get started right away, or check out [Auth0's pricing here](https://auth0.com/pricing).
+You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account now</a> and get started right away, or check out [Auth0's pricing here](https://auth0.com/pricing).

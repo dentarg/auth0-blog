@@ -334,6 +334,8 @@ return $http(post).then(function() {
 
 Not difficult to use `protobuf.js` library to exchange binary data, right? If you want, you can also check the JavaScript code, that I used to compare Protobuf and JSON performance, directly on [my GitHub repo](https://github.com/brunokrebs/auth0-speed-test/blob/master/src/main/resources/static/index.html#L46).
 
+{% include asides/node.markdown %}
+
 ## Conclusion
 
 I have to be honest, I was hoping to come across a more favorable scenario for Protobuf. Of course, being able to handle, on a Java to Java communication, 50 thousand instances of `Person` objects in 25ms with Protobuf, while JSON took 150ms, is amazing. But on a JavaScript environment these gains are much lower.

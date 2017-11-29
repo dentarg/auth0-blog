@@ -473,7 +473,7 @@ We'll obviously want to change the name of the application and also provide a un
 
 ## Aside: Authentication with Auth0
 
-No matter which framework you use with your Electron app, you can easily add authentication to it with Auth0! Our Lock widget allows you to get up and running quickly. Sign up for your <a href="javascript:signup()">free Auth0 account</a> to work with these directions.
+No matter which framework you use with your Electron app, you can easily add authentication to it with Auth0! Our Lock widget allows you to get up and running quickly. Sign up for your <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a> to work with these directions.
 
 Before getting started with the code, you'll need to whitelist the `file://*` protocol in your Auth0 dashboard. This can be done in the **Allowed Origins (CORS)** area.
 

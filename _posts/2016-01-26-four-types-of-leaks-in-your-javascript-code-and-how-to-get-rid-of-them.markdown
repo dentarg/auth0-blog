@@ -386,7 +386,7 @@ function afterLoad() {
 window.addEventListener('load', afterLoad);
 ```
 
-[Get the fully working example](https://github.com/auth0-blog/es2015-rundown-example) and <a href="javascript:signup()">signup</a> for a free account to try it yourself!
+[Get the fully working example](https://github.com/auth0-blog/es2015-rundown-example) and <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">signup</a> for a free account to try it yourself!
 
 ## Conclusion
 Memory leaks can and do happen in garbage collected languages such as JavaScript. These can go unnoticed for some time, and eventually they will wreak havoc. For this reason, memory profiling tools are essential for finding memory leaks. Profiling runs should be part of the development cycle, especially for mid or big-sized applications. Start doing this to give your users the best possible experience. Hack on!

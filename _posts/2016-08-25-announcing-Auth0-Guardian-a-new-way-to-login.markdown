@@ -75,4 +75,4 @@ Take a look at the [docs](https://auth0.com/docs/multifactor-authentication/guar
 
 If you want to limit MFA only to certain clients, you can edit the associated rule in that same page. For more information about Auth0 rules, read the [docs](https://auth0.com/docs/multifactor-authentication/guardian/dev-guide). You may also need to setup a SMS provider, in case you want to provide users with that alternative. This all explained in the [administrators's guide](https://auth0.com/docs/multifactor-authentication/guardian/admin-guide).
 
-<a href="javascript:signup()">Sign-up now</a> and start using Auth0 and Guardian for free!
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign-up now</a> and start using Auth0 and Guardian for free!

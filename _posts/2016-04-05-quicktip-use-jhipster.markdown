@@ -339,7 +339,7 @@ request.start(new BaseCallback<UserProfile>() {
 });
 ```
 
-For simpler use cases there is also `spring-security-auth0`, a library to easily secure request paths using Auth0 and Spring. See the [docs](https://auth0.com/docs/server-apis/java-spring-security) to find if this fits your use case the best. Or <a href="javascript:signup()">sign up</a> and try it yourself!
+For simpler use cases there is also `spring-security-auth0`, a library to easily secure request paths using Auth0 and Spring. See the [docs](https://auth0.com/docs/server-apis/java-spring-security) to find if this fits your use case the best. Or <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> and try it yourself!
 
 ## Conclusion
 Java frameworks are complex beasts. Dependency injection, broad applications, and great flexibility come at a cost: getting started can be quite a burden. Fortunately JHipster can take a lot of that pain away, as long as the choice of preselected tools is what you had in mind. If Angular.js + Spring is your cup of tea, forget about the boilerplate and get started in a few minutes. Try it, you might be pleasantly surprised.

@@ -164,7 +164,7 @@ Create an `index.html` file in your directory and add this piece of code to it:
 {% endraw %}
 {% endhighlight %}
 
-If you don't have an Auth0 account: <a href="javascript:signup()">Sign up for free</a>.
+If you don't have an Auth0 account: <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up for free</a>.
 
 Now, create a JavaScript file, `auth0-variables.js`. We'll add auth0 variables to this file
 
