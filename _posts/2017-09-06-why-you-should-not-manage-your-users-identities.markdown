@@ -24,6 +24,13 @@ related:
 - 2017-04-05-when-to-build-and-when-to-buy
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 When it comes time to add a login system to your product, it seems like a pretty easy feature to fit in. After all, you're building an entire product, you can surely handle building a way to create a username and password system. It wouldn't even take that long to add Facebook login!
 
 This is exactly the kind of thinking that can get startups into trouble. By the time you figure out how difficult identity management is to build from scratch, you'll have wasted countless hours on it. Not to mention, anything you put in place is unlikely to properly secure your users data.

@@ -55,7 +55,7 @@ Talk is cheap, so let me actually walk you through the steps.
 
 ### Implementing the Database Migration Scripts
 
-First of all you will need an Auth0 account. <a href="javascript:signup()">Signup for free here.</a> With your account created, let's setup a custom database connection. In your Auth0 [management dashboard](https://manage.auth0.com), navigate to the [database connections](https://manage.auth0.com/#/connections/database) section.
+First of all you will need an Auth0 account. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Signup for free here.</a> With your account created, let's setup a custom database connection. In your Auth0 [management dashboard](https://manage.auth0.com), navigate to the [database connections](https://manage.auth0.com/#/connections/database) section.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
@@ -274,6 +274,6 @@ We want to make your switch to Auth0 as painless as possible, so we are making t
 
 Stormpath will be shutting down their authentication and authorization API's this coming August. Customers have until August 18, 2017 to move off the platform. At Auth0, we hope to give existing Stormpath customers an easy and smooth transition plan. Our database migration feature can start migrating your users today!
 
-If you are affected by the Stormpath news and want to easily migrate your users, give Auth0 a try, <a href="javascript:signup()">sign up for a free account</a> and get started today.
+If you are affected by the Stormpath news and want to easily migrate your users, give Auth0 a try, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account</a> and get started today.
 
 > Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

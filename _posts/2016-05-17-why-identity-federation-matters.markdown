@@ -28,6 +28,12 @@ related:
 - 2016-05-10-how-fingerprint-auth-gives-you-security
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 ## What Is Federated Identity Management?
 
 In the early days of the web, your digital identities were dispersed across all the different sites and applications that you used:

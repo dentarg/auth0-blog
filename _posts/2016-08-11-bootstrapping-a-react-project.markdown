@@ -81,7 +81,7 @@ var Main = React.createClass({
   render: function() {
     return (
       <div>
-        The easiest way to add authentication to your app is via Auth0!
+        Hello there!
       </div>
     );
   }
@@ -92,7 +92,7 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
-        The easiest way to add authentication to your app is via Auth0!
+        Howdy!
       </div>
     );
   }
@@ -344,14 +344,6 @@ _Authentication flow_
 
 A comprehensive example of adding authentication to a **ReactJS** app is [here](https://auth0.com/blog/2015/04/09/adding-authentication-to-your-react-flux-app/). Using Redux? [Here](https://auth0.com/blog/2016/01/04/secure-your-react-and-redux-app-with-jwt-authentication/) is a good example of setting up authentication in your **ReactJS** application.
 
-### Implementing Authentication with Auth0
-
-**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code. Multifactor Authentication, Single sign-on and passwordless-login is also a breeze with **Auth0**.
-
-With Auth0, you can add authentication to any app in under 10 minutes and implement features like social login, multifactor auth, and single sign-on at the flip of a switch. It is the easiest way to add authentication to your app!
-
-A full implementation of Authentication with Auth0 in a **ReactJS** application is [here](https://auth0.com/docs/quickstart/spa/react).
-
 ## Data Persistence
 
 Without a backend, you can persist data in your Single Page App by using Firebase. In a **Reactjs** app, all you simply need is [ReactFire](https://github.com/firebase/reactfire). It is a **ReactJS** mixin for easy Firebase integration. With ReactFire, it only takes a few lines of JavaScript to integrate Firebase data into React apps via the ReactFireMixin.
@@ -464,6 +456,7 @@ Facebook uses [Jest](https://github.com/facebook/jest) to test React application
 
 A lot of tools have been mentioned in this post in relation to setting up different parts of a **ReactJS** app. If you don't intend writing your app from scratch, there are lots of generators and boilerplates that tie all these tools together to give you a great starting point for your app. One fantastic example is [React Starter Kit](https://github.com/kriasoft/react-starter-kit). It has a [Yeoman generator](https://www.npmjs.com/package/generator-react-fullstack). It's an isomorphic web app boilerplate that contains almost everything you need to build a **ReactJS** app. Another boilerplate is [React Static boilerplate](https://github.com/kriasoft/react-static-boilerplate), it helps you build a web app that can be hosted directly from CDNs like Firebase and Github Pages. Other alternatives are [React redux starter kit](https://github.com/davezuko/react-redux-starter-kit) and [React webpack generator](https://github.com/newtriks/generator-react-webpack). Recently, a nice and effective tool called [`create-react-app`](https://github.com/facebookincubator/create-react-app) was released by the guys at Facebook. It's a CLI tool that helps create React apps with no build configuration!
 
+{% include asides/react.markdown %}
 
 ## Conclusion
 

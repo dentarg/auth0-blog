@@ -270,7 +270,7 @@ We are a web company. As such, we have deployed specific optimizations for certa
 
 For the [docs area](https://auth0.com/docs) we are using *isomorphic JavaScript* which gives us great startup times and easy integration between our backend and frontend teams.
 
-Want to see our code in action? <a href="javascript:signup()">Sign-up</a>.
+Want to see our code in action? <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign-up</a>.
 
 Are you a web developer with a taste for speed? Are you interested in working in an awesome development team? Show us how we can optimize our site along with a short intro about yourself to <a href="mailto:jobs@auth0.com">jobs@auth0.com</a>.
 

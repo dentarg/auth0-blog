@@ -147,34 +147,32 @@ Both RSA and ECDSA algorithms are more complex than HMAC. If you are interested 
 The main difference between RSA and ECDSA lies in speed and key size. ECDSA requires smaller keys to achieve the same level of security as RSA. This makes it a great choice for small JWTs. RSA, however, is usually faster than ECDSA. As usual, pick the one that best aligns with your requirements.
 
 ## Aside: JWTs are everywhere at Auth0
-At Auth0 we rely heavily on the features of JWTs. All of our APIs handle authentication and authorization through JWTs. For instance, our Lock library returns a JWT that you can store client side and use for future requests to your own APIs. Thanks to JWS and JWE, the contents of the client-side JWTs are safe.
+At Auth0 we rely heavily on the features of JWTs. All of our APIs handle authentication and authorization through JWTs. For instance, our [Auth0.js library](https://jquery.com/) returns a JWT that you can store client side and use for future requests to your own APIs. Thanks to JWS and JWE, the contents of the client-side JWTs are safe.
 
-The following code shows a client-side script that performs authentication using our Lock library (plus jQuery) and stores the returned JWT as a local storage item:
+The following code shows a client-side script that performs authentication using our [Auth0.js](https://github.com/auth0/auth0.js) library (plus [jQuery](https://jquery.com/)) and stores the returned JWT as a local storage item:
 
 ```
-var lock = null;
-$(document).ready(function() {
-   lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_ACCOUNT.auth0.com');
+const auth0 = new auth0.WebAuth({
+    clientID: "YOUR-AUTH0-CLIENT-ID",
+    domain: "YOUR-AUTH0-DOMAIN",
+    scope: "openid email profile YOUR-ADDITIONAL-SCOPES",
+    audience: "YOUR-API-AUDIENCES", // See https://auth0.com/docs/api-auth
+    responseType: "token id_token",
+    redirectUri: "http://localhost:9000" //YOUR-REDIRECT-URL
 });
 
-var userProfile;
+auth0.authorize();
 
-$('.btn-login').click(function(e) {
-  e.preventDefault();
-  lock.show(function(err, profile, token) {
-    if (err) {
-      // Error callback
-      alert('There was an error');
-    } else {
-      // Success callback
-
-      // Save the JWT token.
-      localStorage.setItem('userToken', token);
-
-      // Save the profile
-      userProfile = profile;
+auth0.parseHash(window.location.hash, (err, result) => {
+    if(err || !result) {
+        // Handle error
+        return;
     }
-  });
+
+    // You can use the ID token to get user information in the frontend.
+    localStorage.setItem('id_token', result.idToken);
+    // You can use this token to interact with server-side APIs.
+    localStorage.setItem('access_token', result.accessToken);
 });
 ```
 
@@ -185,7 +183,7 @@ $.ajaxSetup({
   'beforeSend': function(xhr) {
     if (localStorage.getItem('userToken')) {
       xhr.setRequestHeader('Authorization',
-            'Bearer ' + localStorage.getItem('userToken'));
+            'Bearer ' + localStorage.getItem('access_token'));
     }
   }
 });

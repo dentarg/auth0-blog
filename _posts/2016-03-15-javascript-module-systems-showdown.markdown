@@ -339,12 +339,7 @@ You may find yourself trying to move away from legacy code using one module syst
 
 As System.js does all the job on-the-fly, using ES2015 modules should generally be left to a transpiler during the build step in production mode. When not in production mode, System.js can call the transpiler for you, providing seamless transition between production and debugging environments.
 
-## Aside: What We Use At Auth0
-At Auth0 we use JavaScript heavily. For our server-side code we use CommonJS-style Node.js modules. For certain client-side code we prefer AMD. For our React-based [Passwordless Lock library](https://github.com/auth0/lock-passwordless) we have opted for ES2015 modules.
-
-Like what you see? <a href="javascript:signup()">Signup</a> and start using Auth0 in your projects today.
-
-Are you a developer and like our code? If so, [apply](https://auth0.com/jobs) for an engineering position now. We have an awesome team!
+{% include asides/javascript-at-auth0.markdown %}
 
 ## Conclusion
 Building modules and handling dependencies was cumbersome in the past. Newer solutions, in the form of libraries or ES2015 modules, have taken most of the pain away. If you are looking at starting a new module or project, ES2015 is the right way to go. It will always be supported and current support using transpilers and polyfills is excellent. On the other hand, if you prefer to stick to plain ES5 code, the usual split between AMD for the client and CommonJS/Node for the server remains the usual choice. Don't forget to leave us your thoughts in the comments section below. Hack on!

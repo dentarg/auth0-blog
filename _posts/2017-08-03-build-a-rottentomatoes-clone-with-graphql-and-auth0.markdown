@@ -604,7 +604,7 @@ Awesome! Right now, everyone can view and create movies. Next, let's make sure o
 
 ## Add Authentication to Your App
 
-Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
+Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
 Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new client. Change the **Client Type** to `Regular Web Application` and **Token Endpoint Authentication Method** to `Basic`. Scroll down to `Advanced Settings > OAuth`, ensure the **JsonWebToken Signature Algorithm** is set to `HS256`.
 
@@ -979,4 +979,4 @@ Now, try to create a movie again. You'll discover that you can create a movie su
 
 In this tutorial, we covered how easy it is to build a product with a backend like Graphcool and add authentication to it easily using Auth0.
 
-In addition, Auth0 can help secure your apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.

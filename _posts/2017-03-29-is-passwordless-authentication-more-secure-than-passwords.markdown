@@ -25,6 +25,11 @@ related:
 - how-passwordless-sms-authentication-can-improve-your-app
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 One place where both businesses and consumers agree is login safety. For consumers, it's important that they trust the login of their apps and websites because they are handing over sensitive, personal information. For businesses, keeping that information safe is of the utmost importance — nobody wants to send out a [notification that their system has been breeched](http://arstechnica.com/security/2016/06/how-linkedins-password-sloppiness-hurts-us-all/).

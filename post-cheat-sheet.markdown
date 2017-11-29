@@ -123,13 +123,13 @@ text
 
 ## Copy-Paste Auth0 Centralized Login Setup for SPAs
 
-> **Important Note:** Make sure this is updated to reflect the appropriate application type, allowed callback / CORS settings, and API identifier when pasting into a post.
+> **Important Note:** Make sure this is updated to reflect the appropriate application type, allowed callback settings, and API identifier when pasting into a post.
 
 ![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 ### Sign Up for Auth0
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
 
 ### Set Up a Client App
 

@@ -24,6 +24,13 @@ related:
 - growth-hacking-is-dead-long-live-growth-hacking
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 The popularity of social login is on the [rise](https://auth0.com/blog/analysis-of-social-connection-data/).
 
 For users, it provides a seamless, frictionless way to login to the sites and apps that they use most frequently.

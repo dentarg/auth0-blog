@@ -23,6 +23,13 @@ related:
 - 5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 **TL;DR:** Auth0 takes security very seriously. If you want to learn how we handle security and protect your users, [download our security white paper](https://cdn.auth0.com/website/security/auth0s-information-security-wp.pdf).
 
 ---

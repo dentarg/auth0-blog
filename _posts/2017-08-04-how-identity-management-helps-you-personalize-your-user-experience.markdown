@@ -24,6 +24,12 @@ related:
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 When it comes to appealing to customers, slowly but surely, personalization has become the name of the game. From Netflix's personalized recommendations algorithm to Amazon's suggested items, users are learning to expect that the interactions they have with a digital product or company will be catered to them.
 
 However, most companies don't have the manpower to create a constantly updating algorithm that allows each user to experience a totally individualized version of their product. In fact, most companies leave personalization to a minimum, because it can be difficult to keep track of data for individual users and then put that data to work.
