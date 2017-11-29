@@ -38,7 +38,7 @@ We are maintaning a fork of [Grack](https://github.com/blog/642-smart-http-suppo
 
 ### 1-  Signup to Auth0
 
-<a onclick="javascript:signup();" href="#">Create an Account (free)</a>.
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Create an Account (free)</a>.
 
 
 ### 2- Register an application

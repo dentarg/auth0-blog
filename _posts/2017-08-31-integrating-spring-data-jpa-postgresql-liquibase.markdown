@@ -414,11 +414,7 @@ That was the last change that we needed to make in our application to make Liqui
 
 Therefore, as we can see, everything worked as expected. Liquibase managed to apply the schema defined in the `v0001.sql`, and the application started successfully. This means that Spring Boot was able to run the application and that JPA/Hibernate found the tables needed to support our entities.
 
-## Aside: Securing Spring Boot Apps with Auth0
-
-Securing Spring applications with Auth0 is very easy and brings a lot of great features to the table. With Auth0, we only have to write a few lines of code to get a solid [identity management solution](https://auth0.com/user-management), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and our [own database of users](https://auth0.com/docs/connections/database/mysql).
-
-[To learn the best way to secure *Spring Security API endpoints* with Auth0, take a look at this tutorial](https://auth0.com/docs/quickstart/backend/java-spring-security). Besides providing tutorials for backend technologies (like Spring), [the *Auth0 Docs* webpage also provides tutorials for *Mobile/Native apps* and *Single-Page applications*](https://auth0.com/docs).
+{% include asides/spring-boot.markdown %}
 
 ## Next Steps: Defining a RESTful API and Querying the Database
 

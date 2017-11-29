@@ -81,7 +81,7 @@ cd nodejs-auth0
 npm install
 ```
 
-As our RESTful API will be protected by Auth0, we are going to [sign up](javascript:signup\(\)) for a *free* account now (i.e. if we don't already have one). As Auth0 manages identity based on standards, like OAuth and OpenID Connect, we will follow the best practices and [create an API representation of our backend in the web-based management tool](https://manage.auth0.com/#/apis). On this page, let's click the *Create API* button and fill the form as shown below:
+As our RESTful API will be protected by Auth0, we are going to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a *free* account now (i.e. if we don't already have one). As Auth0 manages identity based on standards, like OAuth and OpenID Connect, we will follow the best practices and [create an API representation of our backend in the web-based management tool](https://manage.auth0.com/#/apis). On this page, let's click the *Create API* button and fill the form as shown below:
 
 ![Creating API Auth0](https://cdn.auth0.com/blog/kotlin-android/create-api-auth0.png)
 

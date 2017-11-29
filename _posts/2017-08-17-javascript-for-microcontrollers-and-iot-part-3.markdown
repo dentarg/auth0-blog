@@ -703,7 +703,7 @@ By using the [auth0.js](https://github.com/auth0/auth0.js) library, authenticati
 To use Auth0 you will first need to perform a couple of simple steps, which we describe below.
 
 #### Setting Up Auth0
-To use Auth0 to authenticate, authorize and get an access token for our API we need to perform two steps: first we need to create a client (this identifies our client application to the authorization server), and second we need to create an API endpoint so that we can request access tokens for it. If you haven't signed up for Auth0, [sign up now](javascript:signup\(\)). You can use the free tier for this example!
+To use Auth0 to authenticate, authorize and get an access token for our API we need to perform two steps: first we need to create a client (this identifies our client application to the authorization server), and second we need to create an API endpoint so that we can request access tokens for it. If you haven't signed up for Auth0, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up now</a>. You can use the free tier for this example!
 
 ##### Create a Client
 1. Go to the [Auth0 dashboard](https://manage.auth0.com) and select [Clients](https://manage.auth0.com/#/clients).

@@ -77,7 +77,7 @@ Until this issue is resolved, our advice is to simply revoke the application's p
 ## Let the experts do the hard work
 Authentication and authorization are hard. Even when using the [excellent documentation provided by Google](https://developers.google.com/identity/sign-in/ios/sign-in) for their single-sign-on solution, bugs and mistakes happen. And when you are growing as fast as Pokémon GO, mistakes can be costly.
 
-Our single-sign-on solution gives applications only minimal access to account details by default. Google, Facebook, Twitter and many other login providers are all supported and available under one click. Using a simple, safe-by-default solution can make all the difference between a costly mistake and smooth sailing. <a href="javascript:signup()">Try Auth0 now</a> and focus on your app, not logins.
+Our single-sign-on solution gives applications only minimal access to account details by default. Google, Facebook, Twitter and many other login providers are all supported and available under one click. Using a simple, safe-by-default solution can make all the difference between a costly mistake and smooth sailing. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Try Auth0 now</a> and focus on your app, not logins.
 
 These are our default permissions for Google sign-in: 
 

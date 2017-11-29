@@ -52,6 +52,6 @@ Top things to remember when it comes to choosing a good password:
 
 Managing identity is a complex and difficult task. At [Auth0](https://auth0.com), our goal is to make identity simple for developers. A recent feature we launched called [Breached Password Detection](https://auth0.com/breached-passwords) can help alert your users that their credentials have been compromised in a data breach when they login to your app. We are still working on getting and adding credentials from this breach to our database to better protect your users. This feature helps your users stay safe, but also protects your apps from malicious access. Additionally, Auth0 meets the standards for various [password strength requirements](https://auth0.com/docs/connections/database/password-strength), provides [multifactor authentication](https://auth0.com/multifactor-authentication), and more.
 
-If you want to make identity simple and secure for your applications, <a href="javascript:signup()">give Auth0 a try</a>.
+If you want to make identity simple and secure for your applications, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">give Auth0 a try</a>.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
