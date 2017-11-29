@@ -75,7 +75,7 @@ Let's pick up right where we left off [last time](https://auth0.com/blog/real-wo
 First let's install a new dependency. We need the [auth0-js](https://www.npmjs.com/package/auth0-js) package to interface with our [Auth0 account](https://auth0.com/blog/real-world-angular-series-part-1#auth0-setup). Install this package with npm from the project root:
 
 ```bash
-$ npm install auth0-js --save
+$ npm install @types/auth0-js --save
 ```
 
 ### Environment Configuration
@@ -146,9 +146,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AUTH_CONFIG } from './auth.config';
 import * as auth0 from 'auth0-js';
-
-// Avoid name not found warnings
-declare var auth0: any;
 
 @Injectable()
 export class AuthService {
