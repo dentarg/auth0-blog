@@ -866,7 +866,7 @@ _現在のアプリケーション_
 
 日常的に使用するほとんどのアプリにはユーザーを認証する機能があります。 **ReactJS** アプリケーションに認証機能を簡単に追加する方法について説明します。認証サービスとして [Auth0](https://auth0.com/)を使用します。
 
-Auth0 は [JSON Web トークン (JWTs)](https://jwt.io/)の発行を可能にします。Auth0 のアカウントを持っていない場合は、無料で [サインアップ](javascript:signup\(\))してアカウントを作成してください。
+Auth0 は [JSON Web トークン (JWTs)](https://jwt.io/)の発行を可能にします。Auth0 のアカウントを持っていない場合は、無料で [サインアップ](https://auth0.com/signup)してアカウントを作成してください。
 
 [**Auth0 が提供するFree アカウント**](https://auth0.com/pricing) **を利用して** 先進認証を開始します。
 
@@ -1335,6 +1335,6 @@ _Chuck Norris World アプリを処理する_
 
 **ReactJS** は素晴らしいフロントエンドのライブラリで、ユーザーインターフェイスの構築に使用されます。仮想 DOM を利用し、高速で盛んなコミュニティがあります。React プラグイン/アドオンが複数あり、コミュニティはユーザーが **ReactJS** でほとんどすべてができるようにします。
 
-また、Auth0 はユーザー名とパスワードによる認証だけでなく、 **ReactJS** アプリをセキュアにする助けになります。これは、 [多要素認証](https://auth0.com/multifactor-authentication), [異常検出](https://auth0.com/breached-passwords)、 [組織連携](https://auth0.com/docs/identityproviders)、 [シングルサインオン (SSO)](https://auth0.com/docs/sso)、その他の機能を提供します。 [サインアップ](javascript:signup(/))して、アプリに固有な構築機能を活用してください。
+また、Auth0 はユーザー名とパスワードによる認証だけでなく、 **ReactJS** アプリをセキュアにする助けになります。これは、 [多要素認証](https://auth0.com/multifactor-authentication), [異常検出](https://auth0.com/breached-passwords)、 [組織連携](https://auth0.com/docs/identityproviders)、 [シングルサインオン (SSO)](https://auth0.com/docs/sso)、その他の機能を提供します。 [サインアップ](https://auth0.com/signup)して、アプリに固有な構築機能を活用してください。
 
 Auth0 はパスワードのリセット、作成やプロビジョニング、ユーザーのブロックと削除を含む、シンプルで非常に使いやすい [ユーザー ID を管理する管理者を助けるユーザーインターフェースツール](https://auth0.com/user-management)を提供しています。

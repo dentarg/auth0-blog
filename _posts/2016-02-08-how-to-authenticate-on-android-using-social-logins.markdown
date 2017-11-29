@@ -715,7 +715,7 @@ If you've read this far you probably realized supporting several social logins p
 ![Auth0 social login switches](https://cdn.auth0.com/blog/social_login_android/dashboard-social-login-switches.png)
 
 #### 1. Sign up
-Go to [https://auth0.com/](https://auth0.com/) and <a href="javascript:signup()">sign-up</a>.
+Go to [https://auth0.com/](https://auth0.com/) and <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign-up</a>.
 
 #### 2. Create an empty Android project
 Click on `File` -> `New` -> `New Project` and follow the steps. A project like the one we created for our sample above will do just fine.

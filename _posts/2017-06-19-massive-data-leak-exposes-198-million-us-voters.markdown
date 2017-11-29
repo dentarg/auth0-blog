@@ -57,7 +57,7 @@ At Auth0 security is of the utmost importance. Our authentication and authorizat
 
 To check how we protect the most sensitive data of our customers and their users, visit our [Security & Privacy webpage](https://auth0.com/security). There you are going to find an overview about our security approach, and a list of certifications and compliance capabilities. You will also find a link to our *Information Security White Paper* with a detailed explanation about our security measures, practices, and certifications.
 
-<a href="javascript:signup()">Sign up today</a> and try a free account to get a taste of how easy these features can be set up on application of any size.
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up today</a> and try a free account to get a taste of how easy these features can be set up on application of any size.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

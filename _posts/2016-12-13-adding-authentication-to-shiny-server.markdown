@@ -190,7 +190,7 @@ In most installations, the system-wide Nginx configuration file is located at `/
 ## Step 3: Setting up and Auth0 Account for shiny-auth0
 Since authentication will be handled by Auth0, a free Auth0 account is required to work with shiny-auth0. Don't panic, it's as simple as signing-up and setting a few knobs here and there. Let's take a look.
 
-First, head over to [https://auth0.com](https://auth0.com) and <a href="javascript:signup()">signup</a>. Follow the steps to fill in your details. For simple use cases, a free account is more than enough. With a free account you get up to 7000 users. If you need more than that, check our [pricing](https://auth0.com/pricing/) page.
+First, head over to [https://auth0.com](https://auth0.com) and <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">signup</a>. Follow the steps to fill in your details. For simple use cases, a free account is more than enough. With a free account you get up to 7000 users. If you need more than that, check our [pricing](https://auth0.com/pricing/) page.
 
 After you have completed the signup process, access the [Auth0 Dashboard](https://manage.auth0.com) and create a new client for our shiny-auth0 app. This client will let you setup how your users will log-in through shiny-auth0. You have several options you must consider: will you use a standard username/password database? Or will you allow social logins (through Facebook or Google, for example)? It is up to you to decide what fits best your use case. For simplicity, we will go with a simple social login through Google. We will only allow certain users access to our Shiny Server.
 

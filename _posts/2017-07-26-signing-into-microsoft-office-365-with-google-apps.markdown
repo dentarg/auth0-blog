@@ -55,7 +55,7 @@ The rest of this blog post shows exactly how to achieve this integration.
 
 First, it's expected that we already have two subscriptions: [Google Apps](https://gsuite.google.com/pricing.html) and [Office 365 for Businesses](https://products.office.com/en-us/business/office). As we are going to use Google Apps as our identity provider, it's also expected that this solution is properly configured and some users registered.
 
-To use Auth0 as the identity management integration tool, we are going to [sign up](javascript:signup\(\)) for a *free* account. For now, we won't make any configuration on our account, but let's keep the dashboard open as we will need to make changes to it soon.
+To use Auth0 as the identity management integration tool, we are going to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a *free* account. For now, we won't make any configuration on our account, but let's keep the dashboard open as we will need to make changes to it soon.
 
 ### Create Google Apps Project
 

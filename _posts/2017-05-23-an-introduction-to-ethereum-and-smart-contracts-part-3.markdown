@@ -271,7 +271,7 @@ There are also a couple of helper libraries that were developed for this PoC, th
 ## Aside: Easy Authentication with Auth0
 What we have seen in this post seems complicated, and indeed authentication can be a complex matter. Fortunately, with our help it needn't be so. Check our [quickstarts](https://auth0.com/docs/quickstarts) and implement authentication and authorization in your apps in a breeze.
 
-<a href="javascript:signup()">Sign up</a> for a free account and get started!
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> for a free account and get started!
 
 > Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 
