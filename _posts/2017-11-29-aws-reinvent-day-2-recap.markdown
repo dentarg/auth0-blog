@@ -30,7 +30,9 @@ related:
 
 Day two of AWS re:Invent was in many ways similar to day one. There was no huge keynote, that is coming tomorrow, but there were a few announcements that I think the developer community will enjoy very much. Just because there was no keynote, doesn't mean there weren't amazing talks, demos, and so much more to do. Here is my recap of day two!
 
-## Announcement: AWS AppSync - Fully Managed Serverless GraphQL  
+## Announcement: AWS AppSync - Fully Managed Serverless GraphQL
+
+![AWS AppSync](https://cdn.auth0.com/blog/aws-reinvent-2017/aws-appsync.png)
 
 [GraphQL](http://graphql.org/) is challenging the way we write API's. It allows clients to ask only for the data they need and in many ways can be seen as superior to the tried and true [REST pattern](https://en.wikipedia.org/wiki/Representational_state_transfer). Today, AWS announced a fully managed serverless GraphQL service called [AWS AppSync](https://aws.amazon.com/blogs/aws/introducing-amazon-appsync/) that promises to give developers the tools to build powerful data-driven apps with ease.
 
@@ -63,7 +65,11 @@ Working with video on the Internet has always been a challenge and I am personal
 
 ## Session: Serverless Authentication and Authorization: Identity Management for Serverless Applications
 
+![Signup and Login](https://cdn.auth0.com/blog/aws-reinvent-2017/signup.jpg)
+
 The first session I attended today was focused on serverless authentication and authorization and I have to say it was one of my favorite sessions I've attended. Justin Pirtle and Vladimir Budilov led the session by explaining why [modern identity management](https://auth0.com/blog/the-role-of-identity-in-application-modernization/) is important and then solidified it with a really great demo. They focused on [AWS Cognito](https://aws.amazon.com/cognito/) and [Identity Federation](https://aws.amazon.com/iam/details/manage-federation/) to show how you can implement a modern identity infrastructure with little effort. What made the talk really effective was that they started small with the simplest authentication use case, and kept adding complexity over time, and showing how you can achieve higher and higher levels of security.
+
+![AWS Cognito Process](https://cdn.auth0.com/blog/aws-reinvent-2017/process.jpg)
 
 Cognito, like Auth0, handles authentication by signing and sending [JSON Web Tokens](https://jwt.io/introduction/) when a user is successfully authenticated. The AWS Identity Federation solution can work with any provider, including Auth0, and it was really great to see support for MFA, Hooks managed through serverless Lambda functions, and much more. If you are interested in using Auth0 with AWS, check out [integration docs](https://auth0.com/docs/integrations/aws).
 
@@ -71,6 +77,8 @@ Cognito, like Auth0, handles authentication by signing and sending [JSON Web Tok
 ## Session: Build a Serverless, Face-Recognizing IoT Security System with Amazon Rekognition and MongoDB Stitch
 
 This session was led by [MongoDB](https://www.mongodb.com/) CTO and Co-Founder, Eliot Horowitz, and focused on two big topics: **building serverless applications** and **security**. Eliot introduced a new framework for building applications called [Stitch](https://www.mongodb.com/cloud/stitch), which is essentially a REST API for your MongoDB database. Stitch can be used to augment your existing applications or power your entire backend.
+
+![Stitch](https://cdn.auth0.com/blog/aws-reinvent-2017/stitch.jpg)
 
 Eliot showcased and live-coded four demos. The first was showing how to add Stitch to an existing application by adding commenting functionality to a blog. The second and third demo focused on showing running your entire application backend from Stitch with various rules and permissions and third-party service integrations. The fourth demo was the exciting one!
 
@@ -83,6 +91,8 @@ For the fourth demo, Eliot's had a door with a smart lock installed and showed h
 
 The first IoT session I attended was hosted by [SalesForce](https://www.salesforce.com/) and run by SalesForce VP of IOT Lindsey Irvice and Mark Relph, AWS Head of Business Development for IoT and Emerging Technology. In this talk, Lindsey frames IoT and AI as the fourth industrial revolution and shares some very powerful stories that back that assertion.
 
+![IoT Revolution](https://cdn.auth0.com/blog/aws-reinvent-2017/revolution.jpg)
+
 IoT is comprised of three concepts: smart "things", the cloud, and analytics and intellgience. A smart device by itself is not very useful. It is when it's connected to the cloud where actionable events can occur that a "thing" gains usefulness. Finally, having analytics and data on what that "thing" is doing and constantly improving is what will drive the next wave of IoT smart devices.
 
 The demo that was presented cemented these three concepts. They showed a small solar panel device that was connected to AWS IoT that would send status updates on it's health. If the solar panel was unable to process light or had a malfunction, it would alert a service technician that something was wrong and in many cases was able to tell the technician exactly what was wrong. Gathering analytics on all the solar panel "things" a company could better keep track of their panels and even anticipate when they would need maintenance before sending out a technical to the field for manual evaluations.
@@ -90,6 +100,8 @@ The demo that was presented cemented these three concepts. They showed a small s
 ## Session: The future of location services is here. Revolutionizing the user experience with machine learning and AI.
 
 The second IoT session I attended focused on improving the user experience with machine learning and AI. Eric Motazedi and Matthew Lancaster of [Accenture](https://www.accenture.com/us-en/new-applied-now) introduced Rhythm.io, a platform for building revolutionary user experiences leveraging the power of location, machine learning, and serverless technologies.
+
+![Rhythm](https://cdn.auth0.com/blog/aws-reinvent-2017/rhythm.jpg)
 
 Rhythm allows developers to build experiences that focus on giving humans the tools to build more personalized experiences. The demo they gave was focused on a hotel guest checking into a hotel. Rather than going to a registration desk, the guest would simply get out of their car, walk towards the enterance of the hotel, and be automatically checked in. Their room could also be personalized by setting the temperature for example to their preferred temperature. Going a step further, when the Rhythm framework detects that a guest is checking in, it could alert the bellman of who the guest is, so that they can greet them by name. 
 
