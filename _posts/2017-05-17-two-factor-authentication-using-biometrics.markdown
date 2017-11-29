@@ -21,6 +21,13 @@ related:
 experimental: true
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 **TL;DR** You can replace the use of traditional multifactor possession factors (phone codes, special-purpose hardware) in 2FA implementations with the use of inherence factors (voice biometrics) by leveraging [Auth0](https://auth0.com/) extensibility points and voice recognition services (VoiceIt). Additionally, by integrating a communications platform (Twilio) you can let your users complete the voice authentication step through their own phones.
 
 ___
@@ -228,7 +235,7 @@ channel.bind("update", function() { /* (...) */ });
 
 All of the source code used as the basis for this article is available at: [Auth0 Voice Factor Extension](https://github.com/auth0/auth0-extension-voice-factor) repository. The easiest way for you to get started with it is to install it as an extension within your own [Auth0 account](https://auth0.com/); just follow the instructions contained in the repository [*README*](https://github.com/auth0/auth0-extension-voice-factor#install-as-auth0-extension) file.
 
-If you don't yet have an Auth0 account don't worry, **you can [sign up](javascript:signup\(\)) for a free account today**. Besides the Auth0 account, a fully functional deployment also requires a [VoiceIt](https://www.voiceit-tech.com/) account used for processing all the voice enrollment and authentication requests.
+If you don't yet have an Auth0 account don't worry, **you can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free account today**. Besides the Auth0 account, a fully functional deployment also requires a [VoiceIt](https://www.voiceit-tech.com/) account used for processing all the voice enrollment and authentication requests.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

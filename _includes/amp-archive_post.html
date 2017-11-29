@@ -20,6 +20,7 @@ Archives include: "by tags" and "by time" archives.
     <a href="{{ site.baseurl }}{{current.url}}" title="Published: {{ current.date | date: "%B %d, %Y" }}" itemprop="url">
       <time datetime="{{ current.date | date: "%B %d, %Y" }}" class="post-time published updated">{{ current.date | date: "%B %d, %Y" }}</time>
       <meta itemprop="datePublished" content='{{ current.date | date: "%Y-%m-%d" }}'/>
+      <meta itemprop="dateModified" content='{{ current.date | date: "%Y-%m-%d" }}'/>
       <span class="post-category" itemprop="articleSection">{% for tags in current.tags limit: 1 %}{{ tags }}{% endfor %}</span>
       <h1 class="post-title" itemprop="headline">
         {{ current.title }}

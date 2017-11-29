@@ -27,9 +27,9 @@ related:
 - 2016-11-07-migrating-an-angular-1-app-to-angular-2-part-1
 ---
 
-<div class="alert alert-info alert-icon">
-  <i class="icon-budicon-500"></i>
-  <strong>Ngrx version 4 has been released.</strong> This article uses version 3, but will be updated shortly to v4. Thank you for your patience while the content is upgraded!
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>Angular 5 and ngrx/store v4 have been released.</strong> This article uses Angular 4 and ngrx/store 2. The tutorial is currently <em>not compatible</em> with the most recent releases of Angular and NgRx, and the method of authentication utilized in this post is not up-to-date with current best practices. We are in the process of updating the article to the latest versions. Thank you for your patience while we make these changes!
 </div>
 
 **TL;DR:** In this article, we'll explore managing state with an immutable data store in an [Angular](http://angular.io) application using [ngrx/store](https://github.com/ngrx/store): reactive Redux for Angular. We'll also authenticate our app with [Auth0](https://auth0.com) and implement route authorization with route guards. The final code can be cloned from [this GitHub repository](https://github.com/auth0-blog/pet-tags-ngrx).
@@ -1368,7 +1368,7 @@ We'll now protect our application so that only authenticated users can access it
 
 The first thing we'll need is an Auth0 account. Follow these simple steps to get started:
 
-1. Sign up for a [free Auth0 account](javascript:signup\(\)).
+1. Sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>.
 2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create).
 3. Name your new app and select "Single Page Web Applications".
 4. In the **Settings** for your newly created app, add `http://localhost:4200` to the Allowed Callback URLs and Allowed Origins (CORS).

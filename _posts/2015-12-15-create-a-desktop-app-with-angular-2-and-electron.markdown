@@ -27,6 +27,11 @@ related:
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This post is out of date.</strong> Angular and Electron have undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. We are currently working to bring you an updated tutorial on this topic!
+</div>
+
 ---
 **TL;DR:** Electron is an open-source project from GitHub that lets us create cross-platform desktop applications with web technologies. It doesn't matter which specific framework we use; if it works for the web, it works for Electron. We can use Angular 2 for Electron apps, and in this tutorial, we explore how to get a desktop image size calculator app wired up. Check out the [code on GitHub](https://github.com/auth0/angular2-electron).
 
@@ -468,7 +473,7 @@ We'll obviously want to change the name of the application and also provide a un
 
 ## Aside: Authentication with Auth0
 
-No matter which framework you use with your Electron app, you can easily add authentication to it with Auth0! Our Lock widget allows you to get up and running quickly. Sign up for your <a href="javascript:signup()">free Auth0 account</a> to work with these directions.
+No matter which framework you use with your Electron app, you can easily add authentication to it with Auth0! Our Lock widget allows you to get up and running quickly. Sign up for your <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a> to work with these directions.
 
 Before getting started with the code, you'll need to whitelist the `file://*` protocol in your Auth0 dashboard. This can be done in the **Allowed Origins (CORS)** area.
 

@@ -83,7 +83,7 @@ I also really wanted to utilize [JSON Web Tokens (JWT)](https://jwt.io/introduct
 
 <span <span style="font-weight:700">TJ:</span> Auth0’s [documentation](https://auth0.com/docs) is fantastic, it was easy to find an example for [React & Go](https://auth0.com/docs/quickstart/spa/react/golang) in order to get started right away. The provided open-source [Go JWT middleware](https://github.com/auth0/go-jwt-middleware) worked as-advertised.
 
-Going with <a href="javascript:signup()">Auth0</a> meant I didn’t have to spend days fiddling with half-baked solutions, which is especially frustrating with new specifications such as OpenID Connect. With Auth0 I was able to just focus on building my application, instead of re-inventing auth.
+Going with <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Auth0</a> meant I didn’t have to spend days fiddling with half-baked solutions, which is especially frustrating with new specifications such as OpenID Connect. With Auth0 I was able to just focus on building my application, instead of re-inventing auth.
 
 {% include tweet_quote.html quote_text="Going with Auth0 meant I didn’t have to spend days fiddling with half-baked solutions." %}
 

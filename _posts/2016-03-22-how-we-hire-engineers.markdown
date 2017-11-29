@@ -24,7 +24,7 @@ related:
 ---
 
 # tl;dr
-![hiring process](https://cdn.auth0.com/blog/hire-engineers/hiring-process.png)
+![hiring process](https://cdn.auth0.com/blog/hire-engineers/hiring-process2.png)
 
 # The full version
 Hiring is a key aspect of helping Auth0 grow. We are doing great, there's lots of things we want to get done in the short term and building a team that can handle this growth is paramount for continuing success.
@@ -47,7 +47,7 @@ After that we take a look at the CV to _try_ to assess relevant experience and t
   <img style="margin: 10px; max-width: 150px; max-height:89px" src="https://cdn.auth0.com/blog/hire-engineers/screener.png">
   <h2 style="display: inline-block;">The screener</h2>
 </div>
-The next thing do is learn more about the candidate. To do this we send them a short screener -- an idea we got from [this intercom post](https://blog.intercom.io/how-we-hire-engineers-part-1/)-- with questions that look like this (they might vary a bit depending on the specific position):
+The next thing to do is learn more about the candidate. To do this we send them a short screener -- an idea we got from [this intercom post](https://blog.intercom.io/how-we-hire-engineers-part-1/)-- with questions that look like this (they might vary a bit depending on the specific position):
 
 1. What's your proudest professional achievement? It can be a personal project or something you did at work/school. Just a short paragraph is fine, but we’d love to know why you're proud of it.
 2. Tell us about an article/blog post/github repo you found recently, why you liked it, and why we should check it out.

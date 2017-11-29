@@ -255,7 +255,7 @@ It would also be interesting to see how the companies that created Falcor and Re
 
 ## Aside: Falcor and Relay Authentication is Easy with Auth0
 
-Auth0 simplifies common authentication needs like social login, multi-factor authentication, and single sign-on. You can [sign up for an account](javascript:signup\(\)) and get 7,000 regular active users for free.
+Auth0 simplifies common authentication needs like social login, multi-factor authentication, and single sign-on. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for an account</a> and get 7,000 regular active users for free.
 
 To add Authentication to Falcor, simply install and setup **express-jwt** and **jwks-rsa** with your Auth0 credentials and add the middleware to your route. Also set up an API like so:
 

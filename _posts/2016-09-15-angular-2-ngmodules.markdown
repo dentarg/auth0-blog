@@ -24,9 +24,9 @@ related:
 - creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between
 ---
 
-<div class="alert alert-info alert-icon">
+<div class="alert alert-danger alert-icon">
   <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+  <strong>This post is out of date.</strong> The Angular framework has undergone many changes since the publication of this post and the method of authentication utilized in this post is not up-to-date with current best practices. Please read <strong><a href="https://auth0.com/blog/real-world-angular-series-part-8/#ngmodules" target="_blank">Real-World Angular Series Part 8 - Refactor NgModules</a></strong> to learn about managing NgModules in modern Angular!
 </div>
 
 ---
@@ -359,4 +359,4 @@ Stay tuned. We will be releasing a follow up post early next week that will walk
 
 ## Conclusion
 
-NgModule is a great and welcome addition to the Angular 2 framework. Managing dependencies in an application is never an easy task, but the `@NgModule` decorator is a great leap towards getting it right. If you aren't already using it in your Angular 2 applications, updating to RC5 and beyond is well worth it for this functionality alone. If you are building Angular 2 applications and are looking to do authentication right, check out our [Angular 2 JWT library](https://github.com/auth0/angular2-jwt) and [sign up](javascript:signup\(\)) for a free Auth0 account to get up and running in no time.
+NgModule is a great and welcome addition to the Angular 2 framework. Managing dependencies in an application is never an easy task, but the `@NgModule` decorator is a great leap towards getting it right. If you aren't already using it in your Angular 2 applications, updating to RC5 and beyond is well worth it for this functionality alone. If you are building Angular 2 applications and are looking to do authentication right, check out our [Angular 2 JWT library](https://github.com/auth0/angular2-jwt) and <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free Auth0 account to get up and running in no time.
