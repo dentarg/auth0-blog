@@ -25,6 +25,12 @@ related:
 - 2016-04-14-safely-use-best-customer-retention-tactics
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 About [60% of users](https://www.passwordboss.com/password-habits-survey-part-1/) have admitted to reusing passwords to avoid having to remember multiple sign ins. Logging in to a site is so annoying for most people they're willing to compromise their security to make it easier. 
 
 Your company's login is the first impression of its services. For customers, the login experience is a proxy for how your product and customer service will fare later. If your login is inconvenient, unclear, takes too long, sticky or clunky, you could be losing customers who will never come back. 

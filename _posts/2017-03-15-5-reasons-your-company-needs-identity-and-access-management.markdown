@@ -27,8 +27,12 @@ related:
 - 2017-03-08-three-easy-practical-steps-you-can-take-to-drive-more-users-to-convert
 ---
 
----
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
 
+---
 [Identity management](https://resources.auth0.com/build-vs-buy-evaluating-identity-management/?utm_source=blog) seems like just a small piece of the puzzle that keeps your business running smoothly. If there's basic functionality for your system that gets people where they need to be, you should be all set, right?
 
 Unfortunately, it isn't that simple.

@@ -741,7 +741,7 @@ The above HTML code is the template that the `GroceryListComponent` expects to f
 
 ### Defining the Routes and their Guard
 
-We are getting really close to having a fully functional grocery list application, but there are a few more steps that we have to take. First we will need to define a [guard](https://angular.io/docs/ts/latest/guide/router.html#!#guards), called `AuthenticatedGuard`, that will prevent the users to reach the grocery list component if they did not authenticate. For that, let's create a file called `authenticated.guard.ts` under `./src/client/app/` with the code snippet below:
+We are getting really close to having a fully functional grocery list application, but there are a few more steps that we have to take. First we will need to define a [guard](https://angular.io/guide/router#milestone-5-route-guards), called `AuthenticatedGuard`, that will prevent the users to reach the grocery list component if they did not authenticate. For that, let's create a file called `authenticated.guard.ts` under `./src/client/app/` with the code snippet below:
 
 ```typescript
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from "@angular/router";
@@ -858,7 +858,7 @@ Further more, if we want to support identity providers (like Google, Facebook, G
 
 ### Configuring Your Auth0 Client
 
-If you haven't done so yet, this is a good time to <a href="javascript:signup()">sign up for a free Auth0 account</a>, after which we can take a look at how we need to alter our grocery list to allow for Auth0 to manage our login.
+If you haven't done so yet, this is a good time to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>, after which we can take a look at how we need to alter our grocery list to allow for Auth0 to manage our login.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

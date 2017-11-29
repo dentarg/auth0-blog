@@ -29,6 +29,7 @@
           <div class="date">
             <time datetime="{{ current.date | date: "%B %d, %Y" }}" class="published updated">{{ current.date |  date: "%B %d, %Y" }}</time>
             <meta itemprop="datePublished" content='{{ current.date | date: "%Y-%m-%d" }}'/>
+            <meta itemprop="dateModified" content='{{ current.date | date: "%Y-%m-%d" }}'/>
           </div>
 
           {% include social_buttons.html %}

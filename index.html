@@ -18,9 +18,11 @@ latest_tab: active
       <div id="archive-container">
         <ul class="archive" id="archive">
           {% for post in paginator.posts %}
-          {% unless post.hide_from_index %}
-          {% include archive_post.html %}
-          {% endunless %}
+            {% unless post.hide_from_index %}
+              {% unless post.press_release %}
+               {% include archive_post.html %}
+              {% endunless %}
+            {% endunless %}
           {% endfor %}
         </ul>
 

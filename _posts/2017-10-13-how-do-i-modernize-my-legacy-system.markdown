@@ -25,6 +25,12 @@ related:
 - 2017-08-22-for-the-best-security-think-beyond-webhooks
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 
 If you're dealing with a legacy system, you might need a complete overhaul. It's likely that many services have become outdated over the last 10 years you've had it, and patches don't really work long-term.
 
@@ -88,6 +94,7 @@ Distill your cost-benefit analysis of each of your pain points into the answers 
 1. What will the company gain from replacing this portion of our system?
 2. How much time/effort will we need to pull off this replacement?
 3. How helpful would just patching this part be in the long-run?
+
 
 This will form the basis of selection for what to work on first.
 

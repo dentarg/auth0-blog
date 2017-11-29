@@ -75,7 +75,7 @@ The last command is responsible for packaging our application with the developme
 
 The first thing that we are going to take care of in our application is security. Security must be a first priority in any application that handles sensitive, third party data like the task list that we are about to develop.
 
-To start, <a href="javascript:signup()">sign up for a free Auth0 account</a> and take note of `Client ID` and `Domain`. Both values are going to be used to configure [Lock](https://auth0.com/lock): an embeddable login system.
+To start, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a> and take note of `Client ID` and `Domain`. Both values are going to be used to configure [Lock](https://auth0.com/lock): an embeddable login system.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

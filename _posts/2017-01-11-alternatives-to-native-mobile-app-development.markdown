@@ -140,7 +140,7 @@ Progressive Web Apps are unique for two major reasons. While they can be "instal
 
 ## Authentication with Hybrid App Frameworks
 
-Mobile applications present various user and identity challenges. Luckily, [Auth0](https://auth0.com) has your back. Our [identity solution is platform agnostic](https://auth0.com/user-management) and we have plenty of resources to get you up and running as quickly as possible. <a href="javascript:signup()">Sign up</a> for a free Auth0 account, and then follow any of these guides to get user authentication for your app in no time at all:
+Mobile applications present various user and identity challenges. Luckily, [Auth0](https://auth0.com) has your back. Our [identity solution is platform agnostic](https://auth0.com/user-management) and we have plenty of resources to get you up and running as quickly as possible. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> for a free Auth0 account, and then follow any of these guides to get user authentication for your app in no time at all:
 
 * **Ionic** - [Quickstart (Ionic)](https://auth0.com/docs/quickstart/native/ionic), [Quickstart (Ionic 2)](https://auth0.com/docs/quickstart/native/ionic2), [Tutorial](https://auth0.com/blog/ionic-2-authentication-how-to-secure-your-mobile-app-with-jwt/)
 * **PhoneGap** - [Quickstart](https://auth0.com/docs/quickstart/native/phonegap)

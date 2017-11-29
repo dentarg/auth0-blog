@@ -54,43 +54,26 @@ $ npm install
 
 The Node API is located in the [`/server` folder](https://github.com/auth0-blog/angular-auth0-aside/tree/master/server) at the root of our sample application.
 
-Open the [`server.js` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/server/server.js):
+Find the [`config.js.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/server/config.js.example) and **remove** the `.example` extension from the filename. Then open the file:
 
 ```js
-// server/server.js
-...
-// @TODO: change [CLIENT_DOMAIN] to your Auth0 domain name.
-// @TODO: change [AUTH0_API_AUDIENCE] to your Auth0 API audience.
-var CLIENT_DOMAIN = '[CLIENT_DOMAIN]'; // e.g., youraccount.auth0.com
-var AUTH0_AUDIENCE = '[AUTH0_API_AUDIENCE]'; // http://localhost:3001/api/ in this example
-
-var jwtCheck = jwt({
-    secret: jwks.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://${CLIENT_DOMAIN}/.well-known/jwks.json`
-    }),
-    audience: AUTH0_AUDIENCE,
-    issuer: `https://${CLIENT_DOMAIN}/`,
-    algorithm: 'RS256'
-});
-...
-//--- GET protected dragons route
-app.get('/api/dragons', jwtCheck, function (req, res) {
-  res.json(dragonsJson);
-});
-...
+// server/config.js
+// (formerly config.js.example)
+module.exports = {
+  CLIENT_DOMAIN: '[CLIENT_DOMAIN]', // e.g. 'you.auth0.com'
+  AUTH0_AUDIENCE: 'http://localhost:3001/api/'
+};
 ```
 
 Change the `CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://localhost:3001/api/`). The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
-Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting the `.example` from the file extension. Then open the file and change the `[CLIENT_ID]` and `[CLIENT_DOMAIN]` strings to your Auth0 information:
+Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting `.example` from the file extension. Then open the file and change the `[CLIENT_ID]` and `[CLIENT_DOMAIN]` strings to your Auth0 information:
 
 ```js
 // src/app/auth/auth0-variables.ts
+// (formerly auth0-variables.ts.example)
 ...
 export const AUTH_CONFIG: AuthConfig = {
   CLIENT_ID: '[CLIENT_ID]',
@@ -108,7 +91,6 @@ Authentication logic on the front end is handled with an `AuthService` authentic
 
 ```js
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
@@ -132,7 +114,7 @@ export class AuthService {
   loggedIn: boolean;
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
-  constructor(private router: Router) {
+  constructor() {
     // If authenticated, set local profile property and update login status subject
     if (this.authenticated) {
       this.userProfile = JSON.parse(localStorage.getItem('profile'));
@@ -157,9 +139,7 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this._getProfile(authResult);
-        this.router.navigate(['/']);
       } else if (err) {
-        this.router.navigate(['/']);
         console.error(`Error: ${err.error}`);
       }
     });
@@ -231,7 +211,34 @@ Finally, we have a `logout()` method that clears data from local storage and upd
 
 Once [`AuthService` is provided in `app.module.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts#L32), its methods and properties can be used anywhere in our app, such as the [home component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/home).
 
-The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until hash parsing is completed and the Angular app redirects back to the home page.
+### Callback Component
+
+The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until the login process is completed. It subscribes to the `loggedIn$` Behavior Subject from our Authentication service in order to redirect back to the home page once the user is logged in, like so:
+
+```js
+// src/app/callback/callback.component.ts
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from './../auth/auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-callback',
+  templateUrl: './callback.component.html',
+  styleUrls: ['./callback.component.css']
+})
+export class CallbackComponent implements OnInit {
+
+  constructor(private auth: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.auth.loggedIn$.subscribe(
+      loggedIn => loggedIn ? this.router.navigate(['/']) : null
+    )
+  }
+
+}
+```
 
 ### Making Authenticated API Requests
 

@@ -26,6 +26,13 @@ related:
 - 2017-08-25-how-identity-can-empower-healthcare
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 The advent of cloud computing has revolutionized the way we shop, travel, communicate, and store personal data. It's been a huge part of the digital revolution. The healthcare industry—home to tons of analog records and a spiderweb of business from single person practices to university hospitals—has lagged behind.
 
 Comprehensive cloud computing is the future of healthcare, and it's coming. Since the mid-00s, healthcare's digitalization has benefitted patients, providers, and insurers.

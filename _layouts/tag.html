@@ -17,9 +17,11 @@ is_tag_index: true
         <div id="archive-container">
           <div class="archive" id="archive" >
             {% for post in paginator.posts limit: 4 %}
-            {% unless post.hide_from_index %}
-            {% include archive_post.html %}
-            {% endunless %}
+              {% unless post.hide_from_index %}
+                {% unless post.press_release %}
+                  {% include archive_post.html %}
+                {% endunless %}   
+              {% endunless %}
             {% endfor %}
           </div>
 

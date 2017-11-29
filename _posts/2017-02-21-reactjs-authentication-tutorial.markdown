@@ -23,6 +23,8 @@ related:
 - 2015-04-09-adding-authentication-to-your-react-flux-app
 - 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
 - 2016-09-29-angular-2-authentication
+lang: en
+alternate_locale_jp: jp-reactjs-authentication-tutorial
 ---
 
 ---
@@ -456,7 +458,6 @@ Let's create a helper file to handle fetching the API. Create a `chucknorris-api
 Open up the file and add code to it like so:
 
 ```js
-
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3333';
@@ -597,6 +598,7 @@ class FoodJokes extends Component {
 export default FoodJokes;
 
 ```
+
 _FoodJokes.js_
 
 > **Note:** Learn why I use [`super()` in the class constructor](http://cheng.logdown.com/posts/2016/03/26/683329).
@@ -860,7 +862,7 @@ _Current Application_
 
 The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **ReactJS** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
 
-Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
+Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
@@ -1237,8 +1239,8 @@ We need to ensure that no one can go to the browser and just type `/special` to 
 Open up `index.js` and add an `onEnter` prop with a value of `requireAuth` to the `/special` route like so:
 
 ```js
-....
-....
+...
+
 import { requireAuth } from './utils/AuthService';
 
 const Root = () => {
@@ -1333,6 +1335,6 @@ Everything is working fine. Pat yourself on the back. You have just successfully
 
 **ReactJS** is an awesome front-end library to employ in building your user interfaces. It takes advantage of the Virtual DOM, it is fast and it has a bubbling community. There are several React plugins/addons that the community provides to allow you do almost anything in **ReactJS**.
 
-In addition, Auth0 can help secure your **ReactJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [anomaly detection](https://auth0.com/breached-passwords), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your **ReactJS** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [anomaly detection](https://auth0.com/breached-passwords), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
 
 > Auth0 provides the simplest and easiest to use [User interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
