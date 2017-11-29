@@ -30,6 +30,11 @@ related:
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>The angular2-jwt library has been deprecated.</strong> The angular2-jwt library is no longer maintained. Decoding JWTs on the front end is not recommended, and all other features of the library are easily implemented in Angular without the use of an additional library. Please check out our full-featured <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong> to learn how to implement authentication in Angular.
+</div>
+
 ---
 **TL;DR:** We've just released **[angular2-jwt](https://github.com/auth0/angular2-jwt)**, an open-source library for working with JWTs in Angular 2. With it, you can do authenticated HTTP requests, check the user's JWT, and more. Read on for more details, or check out the [repo](https://github.com/auth0/angular2-jwt).
 
@@ -284,7 +289,7 @@ When the user clicks the **Login** button, they will be shown the Lock widget.
 
 Once the user authenticates, their profile and JWT will be saved in local storage. Logging out is then simply a matter of removing those items.
 
-Already excited about implementing this? <a href='javascript:signup()'>Sign up</a> for your free Auth0 account!
+Already excited about implementing this? <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> for your free Auth0 account!
 
 ## Wrapping Up
 

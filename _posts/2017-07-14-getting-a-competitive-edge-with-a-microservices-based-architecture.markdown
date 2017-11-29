@@ -25,6 +25,13 @@ related:
 press_release: false
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 Traditionally, companies have built “monolithic” applications that addressed many business needs and intertwined business logic, user interfaces, and other components all in one. As the business grew, so did this application, adding more and more features, becoming harder and harder to maintain, deploy, test, and secure. These types of applications are commonplace today, however present numerous challenges to organizations looking to respond quickly, reliably, and efficiently to today’s changing business needs.
 
 Monolithic applications slow organizations down. Long development cycles, high infrastructure and licensing costs, often single points of failure, and difficulty scaling are just some of the risks and challenges posed by these applications. Not to mention the difficulty of testing and fixing bugs, addressing vulnerabilities in such complex systems, and challenges integrating new technologies into the mix. In short, legacy architectures and monolithic applications are not compatible with today’s business demands.

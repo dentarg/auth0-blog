@@ -26,6 +26,13 @@ related:
 press_release: false
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 Digital identity is at the core of any application - invisible yet crucial. We often take identity for granted as most of its magic happens behind the scenes. But identity plays a much larger role beyond the login screen for your applications. At a high level, we can break up identity into four distinct components: authentication, authorization, user profile, and security.
 
 ![Authentication](https://cdn.auth0.com/blog/app-mod/authentication.png)

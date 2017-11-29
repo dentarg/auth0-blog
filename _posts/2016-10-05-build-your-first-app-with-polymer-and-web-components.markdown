@@ -22,9 +22,9 @@ related:
 - 2016-08-17-aurelia-1.0-how-to-build-a-simple-secured-application
 ---
 
-<div class="alert alert-info alert-icon">
+<div class="alert alert-danger alert-icon">
   <i class="icon-budicon-487"></i>
-  This tutorial utilizes Polymer v1.x. Please keep in mind that Polymer v2 may differ. You can check the <a href="https://www.polymer-project.org/">Polymer documentation</a> for more details while we work to bring you a new tutorial that covers version 2 of the library.
+  <strong>This post is out of date.</strong> Polymer has undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. We are working on bringing you an updated tutorial on this topic!
 </div>
 
 **TL;DR:** [Google Polymer](https://www.polymer-project.org/1.0/) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available at [this GitHub repo](https://github.com/auth0-blog/polymer-with-jwt-api).
@@ -1170,7 +1170,7 @@ When users are logged in, they'll see something like this:
 
 The first thing you'll need is an Auth0 account. Follow these simple steps to get started:
 
-1. Sign up for a [free Auth0 account](javascript:signup\(\)).
+1. Sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>.
 2. In your **Auth0 Dashboard**, [create a new client](https://manage.auth0.com/#/clients/create). 
 3. Name your new app and select "Single Page Web Applications". 
 4. In the **Settings** for your newly created app, add `http://localhost:8080` to the Allowed Callback URLs and Allowed Logout URLs.

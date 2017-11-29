@@ -27,6 +27,11 @@ related:
 - 2014-07-02-wordpress-single-sign-on
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 **TL;DR:** As companies and organizations grow, they have to deal with an increasing number of applications and services. More often than not, these applications and services need authentication to manage access. Maintaining multiple sets of credentials to log in to different applications within an organization can be excruciating. **SSO login** can take away that pain. In this post, I'll show you how **SSO login** works and discuss the key benefits of integrating SSO login into your application development workflow.
@@ -89,7 +94,7 @@ With Auth0, SSO login is just a few clicks away. **Auth0** provides out-of-the-b
 
 We also support industry standards such as **SAML**, **WS-Fed**, and **OAuth 2.0** so you can hook up any third-party application you need.
 
-If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now to enable SSO login for your applications. Check out the comprehensive [SSO login docs](https://auth0.com/docs/sso) to learn how to implement SSO for your apps. In addition, you can dive straight into the [code samples](https://github.com/auth0-samples/auth0-sso-sample) that show how to implement SSO login between *Single Page Apps* and *Regular Web Apps* using Auth0.
+If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now to enable SSO login for your applications. Check out the comprehensive [SSO login docs](https://auth0.com/docs/sso) to learn how to implement SSO for your apps. In addition, you can dive straight into the [code samples](https://github.com/auth0-samples/auth0-sso-sample) that show how to implement SSO login between *Single Page Apps* and *Regular Web Apps* using Auth0.
 
 ## Conclusion
 

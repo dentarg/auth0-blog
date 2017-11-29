@@ -28,11 +28,9 @@ tags:
 
 ---
 
-<div class="alert alert-info alert-icon">
-  <i class="icon-budicon-487"></i>
-  <p><strong>Attention:</strong> Due to recent changes in our API and our wishes to maintain security best practices, the <a href="https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/">use of id_token for API authorization is being deprecated</a>. We are working diligently to update this and other articles that use id_token for API authorization.</p>
-
-<p>Applications should instead use the access_token for API authorization. While we update this article, please check out the <a href="https://auth0.com/docs/tokens/access-token">docs for latest guidance and instructions</a> on how to generate access_tokens from Auth0. Thank you.</p>
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This post is out of date.</strong> Angular has undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Please check out our updated tutorial here: <strong><a href="https://auth0.com/blog/real-world-angular-series-part-6/">Real-World Angular Series: Reactive Forms and Custom Validation</a></strong>.
 </div>
 
 **TL;DR:** HTML forms might seem like a trivial matter, but they are important to get right. In this tutorial we will look at how to implement forms with Angular 2 and learn about the classes provided by the framework to do so. We'll see how to introduce validation to our forms, and even create a real-life asynchronous validator to check some input against an API. Check out the [repo](https://github.com/auth0-blog/angular2-forms) to go straight to the code.
@@ -408,7 +406,7 @@ With Auth0, all of this is done for us out of the box, and we don't need to worr
 
 ### Step 0: Sign Up for Auth0 and Configure
 
-If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now to follow along with the other steps.
 
 ### Step 1: Add Auth0Lock to Your App
 

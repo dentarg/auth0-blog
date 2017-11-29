@@ -35,13 +35,13 @@ related:
 
 When Apple unveiled the new iPhone X earlier this month, the shocking [price tag](http://www.businessinsider.com/apple-iphone-x-prices-around-the-world-2017-9) wasn't the only thing to get attention. On its list of [innovative features](https://www.wired.com/2017/09/everything-apple-announced-at-its-2017-iphone-event/), one has garnered more attention than the others.
 
-We're talking about FaceID. It's part of the new era of biometric technology aimed at making device logins unique based on physical characteristics—in this case, FaceID lets users unlock their phones just by looking at them. 
+We're talking about FaceID. It's part of the new era of biometric technology aimed at making device logins unique based on physical characteristics—in this case, FaceID lets users unlock their phones just by looking at them.
 
 But despite the convenience it offers, users are wary. They get that biometrics are more sophisticated now but don't understand the long-term implications for their security and privacy. Because their face is their password, they want to know what companies are doing to safeguard against hacks.
 
-With that in mind, what can you do to protect your users' information? And what can you do to educate them on how your system works? Here at Auth0, we live and breath security so here's a breakdown of what you can do. 
+With that in mind, what can you do to protect your users' information? And what can you do to educate them on how your system works? Here at Auth0, we live and breath security so here's a breakdown of what you can do.
 
-## How Apple is Innovating Facial Recognition 
+## How Apple is Innovating Facial Recognition
 
 Biometrics have become more sophisticated in a way that consumers are having a hard time understanding. They understand that a face or fingerprint scan verifies their identity—[30%] (http://www.b-secur.com/the-increasing-popularity-of-biometric-authentication/) of mobile phones use a fingerprint scanner to unlock them—but what isn't clear is how it works.
 
@@ -73,7 +73,7 @@ Things that have users running to social media to vent their worries range from 
 
 With facial recognition, the main concern is how easy it could be to fool facial recognition software. For example, how easy would it be for one user to hold up a picture of another user or wear a mask of someone else's face to get access?
 
-The idea of printing 3D images of peoples faces and then using them to hack into their phones is strictly theoretical right now. No one has done it, but it might be possible to confuse a piece of hardware into thinking that a living, breathing person is looking into the camera. Users are worried that at some point in the near future, these printouts could be used to unlock phones and get access to personal information. 
+The idea of printing 3D images of peoples faces and then using them to hack into their phones is strictly theoretical right now. No one has done it, but it might be possible to confuse a piece of hardware into thinking that a living, breathing person is looking into the camera. Users are worried that at some point in the near future, these printouts could be used to unlock phones and get access to personal information.
 
 ![Apple presenting 3D facial recognition for FaceID](https://cdn.auth0.com/blog/faceid/image.png)
 _[Source](https://techcrunch.com/2017/09/12/face-id-is-replacing-touch-id-on-the-new-iphone-x/)_
@@ -86,7 +86,7 @@ To build trust in your users, take a similar approach and test user theories and
 
 ### Mass Public Scans to Identify People
 
-People are constantly looking at their phones which makes it possible for mass scans to monitor them—if that were allowed. Users are concerned that if that happens, their profiles—including name, location, and habits—can be shared with other companies or authorities without their knowledge. This would [make them](https://www.wired.com/story/apples-faceid-could-be-a-powerful-tool-for-mass-spying/) “vulnerable to other facial-recognition systems with fewer security and privacy protections." 
+People are constantly looking at their phones which makes it possible for mass scans to monitor them—if that were allowed. Users are concerned that if that happens, their profiles—including name, location, and habits—can be shared with other companies or authorities without their knowledge. This would [make them](https://www.wired.com/story/apples-faceid-could-be-a-powerful-tool-for-mass-spying/) “vulnerable to other facial-recognition systems with fewer security and privacy protections."
 
 Meaning, if users are scanned while they're looking at their phone and then their name and location are shared with other businesses that don't have the same experience managing data as the original company, their data will be at risk in case of a breach or hack. No one wants to walk around with [anti-surveillance makeup](https://www.theatlantic.com/technology/archive/2014/07/makeup/374929/), so you have to find a way to show your users why their fears are unfounded.
 
@@ -108,11 +108,11 @@ And because Apple has ownership, users are concerned that governments could issu
 
 ![FaceID tool of mass surveillance](https://cdn.auth0.com/blog/faceid/tweet.png)
 
-As a result of this surveillance, users are concerned that face recognition is another way to access more personal information. They're flocking to platforms like Twitter to voice their opinion and educate other users on the issues. 
+As a result of this surveillance, users are concerned that face recognition is another way to access more personal information. They're flocking to platforms like Twitter to voice their opinion and educate other users on the issues.
 
-Apple has always put its user privacy first, and they need to continue to publicly assert that as their modus operandi. 
+Apple has always put its user privacy first, and they need to continue to publicly assert that as their modus operandi.
 
-A good example is Apple's recent software update that prevents advertisers from following Safari users as they browse the web. Advertisers won't be able to track the sites users visit and then show relevant ads. Advertisers aren't pleased because [14.9%](https://www.theguardian.com/technology/2017/sep/18/apple-stopping-ads-follow-you-around-internet-sabotage-advertising-industry-ios-11-and-macos-high-sierra-safari-internet) of people on the internet use Safari. But from Apple's perspective, they're ensuring that users can browse with a level of anonymity. 
+A good example is Apple's recent software update that prevents advertisers from following Safari users as they browse the web. Advertisers won't be able to track the sites users visit and then show relevant ads. Advertisers aren't pleased because [14.9%](https://www.theguardian.com/technology/2017/sep/18/apple-stopping-ads-follow-you-around-internet-sabotage-advertising-industry-ios-11-and-macos-high-sierra-safari-internet) of people on the internet use Safari. But from Apple's perspective, they're ensuring that users can browse with a level of anonymity.
 
 Even when pushed by law enforcement to release sensitive information [relevant to prosecution](https://gizmodo.com/apple-wont-turn-over-your-phones-data-to-police-if-your-1636197341), Apple hasn't buckled to pressure. For example, iOS 8 phones and beyond are encrypted in a way that Apple can't crack user password. And if they can't crack them, they can't give law enforcement any information from a user's phone even when presented with a search warrant.
 
@@ -136,7 +136,7 @@ With the growth of the Internet of Things, there's the expectation that everythi
 
 Here are examples of what tech companies should consider as they innovate new products:
 
-* **Don't lock users into [one password option](https://auth0.com/blog/is-passwordless-authentication-more-secure-than-passwords/).** Let them choose how they want to secure their data. For example, the iPhone X defaults to FaceID during setup, but users can press the home button five times to activate the PIN password option.
+* **Don't lock users into [one password option](https://auth0.com/blog/is-passwordless-authentication-more-secure-than-passwords/).** Let them choose how they want to secure their data. For example, the iPhone 8 defaults to FaceID during setup, but users can press the home button five times to activate the PIN password option.
 * **Use [2-factor authentication](https://auth0.com/learn/two-factor-authentication/).** Traditional 2-factor authentication uses a password paired with an auto-generated, random PIN. Biometric 2-factor authentication can instead use a face scan combined with a retinal scan or fingerprint to verify the user and add another layer of security. Since not all users take their data privacy [as seriously as they should](https://www.troyhunt.com/face-id-touch-id-pins-no-id-and-pragmatic-security/), companies can help by making 2-factor authentication mandatory.
 * **Limit where face recognition can be used,** especially until the kinks are worked out. For example, use it to unlock phones but not to make payments. Someone other than the user accessing private messages is intrusive, but a stranger accessing private financial information is damaging.
 * **Store face scans locally, on devices.** Meaning even if there's a request for scanned data, it isn't available to the company to share. For an added layer of protection, companies can [encrypt the data with a key](https://www.wired.com/story/apples-faceid-could-be-a-powerful-tool-for-mass-spying/) that they don't have access to. This leaves users with power and ownership of their data and helps companies protect user privacy.

@@ -23,6 +23,13 @@ related:
 - 2016-04-19-supercharge-your-registration-process
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 There’s a Technology Basics White Paper first published in 2002 entitled *“Username and Password – A Dying Security Model.”* This paper documents the **HIGH** risk level associated with legacy authentication (using username and password) and predicted that secure access methods using *Biometrics*, [*Single Sign On (SSO)*](https://auth0.com/learn/how-to-implement-single-sign-on/), [*One Time Password Tokens* (a.k.a *passwordless*)](https://auth0.com/passwordless) and [*Multi-Factor Authentication*](https://auth0.com/multifactor-authentication), would quickly replace the use of traditional passwords.
 
 Fast forward to a decade and a half later and the majority of companies are still using username and password authentication. We all agree that legacy authentication is not good enough, so why do most companies still use them?

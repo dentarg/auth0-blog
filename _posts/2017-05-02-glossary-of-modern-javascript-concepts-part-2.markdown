@@ -734,7 +734,7 @@ One of the most complex features to implement in an application is user authenti
 
 ![Auth0 hosted login screen](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 
-If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/user-management) system quickly and easily for your JavaScript SPAs and [Node APIs](https://auth0.com/docs/architecture-scenarios/application/server-api/api-implementation-nodejs), Auth0 can help. Auth0 provides [Single Page Application QuickStart guides](https://auth0.com/docs/quickstart/spa), an [SDK for web](https://auth0.com/docs/libraries/auth0js), plenty of [documentation](https://auth0.com/docs), and [this blog's articles and tutorials](https://auth0.com/blog). You can [sign up for a free Auth0 account here](javascript:signup\(\)) to get started.
+If you need to implement a robust, highly customizable [identity and access management](https://auth0.com/user-management) system quickly and easily for your JavaScript SPAs and [Node APIs](https://auth0.com/docs/architecture-scenarios/application/server-api/api-implementation-nodejs), Auth0 can help. Auth0 provides [Single Page Application QuickStart guides](https://auth0.com/docs/quickstart/spa), an [SDK for web](https://auth0.com/docs/libraries/auth0js), plenty of [documentation](https://auth0.com/docs), and [this blog's articles and tutorials](https://auth0.com/blog). You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account here</a> to get started.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

@@ -66,4 +66,4 @@ To enable password breach protection, you only need to [toggle an option in the 
 
 You can also read the docs and learn more about [Anomaly Detection](https://auth0.com/docs/anomaly-detection).
 
-If you haven't signed-up, do it now! <a href="javascript:signup()">Try Auth0 and password breach protection for free</a>.
+If you haven't signed-up, do it now! <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Try Auth0 and password breach protection for free</a>.

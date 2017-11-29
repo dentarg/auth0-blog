@@ -89,7 +89,7 @@ Building this app will require us to set up a database to store the users, write
 
 ### Create and Configure Auth0 Client
 
-First thing we'll need to do is <a href="javascript:signup()">sign up for a free Auth0 account</a> and configure a new client.
+First thing we'll need to do is <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a> and configure a new client.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

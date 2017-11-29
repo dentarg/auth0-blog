@@ -34,6 +34,13 @@ related:
 - 2016-04-21-facebook-account-kit-passwordless-authentication
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 [Single-sign-on (SSO)](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog) authentication is now required more than ever. Nowadays, almost every website requires some form of authentication to access its features and content. With the number of websites and services rising, a centralized login system has become a necessity. In this two-piece post we will study how **SSO authentication** is implemented for the web and provide a working example using OpenID Connect (in part 2). Read on!
 
 -----

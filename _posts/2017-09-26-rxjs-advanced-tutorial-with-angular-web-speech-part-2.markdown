@@ -186,9 +186,11 @@ Now open the `madlibs.service.ts` file. We'll add our HTTP requests to this file
 // src/app/madlibs.service.ts
 ...
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/zip';
+import 'rxjs/add/observable/forkJoin';
 
 @Injectable()
 export class MadlibsService {
@@ -619,7 +621,9 @@ Open the `progress-bar.component.ts` file:
 // src/app/progress-bar/progress-bar.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/takeUntil';
 import { MadlibsService } from './../madlibs.service';
 
 @Component({

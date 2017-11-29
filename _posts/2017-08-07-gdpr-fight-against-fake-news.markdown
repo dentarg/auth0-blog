@@ -24,6 +24,13 @@ related:
 - 2016-10-06-announcing-auth0-eu-us-privacy-shield-certification
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 With the [General Data Protection Regulation (GDPR)](https://auth0.com/blog/get-ready-for-gdpr/) set to come into force May 25, 2018, [Jonathan Armstrong](https://twitter.com/armstrongjp), technology and compliance lawyer with [Cordery](http://www.corderycompliance.com/), hosted a webinar with Auth0 to discuss and clarify the truths behind rumors and misconceptions regarding GDPR and what it means.
 
 ## GDPR: The Fight Against Fake News
