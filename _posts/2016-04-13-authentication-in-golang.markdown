@@ -360,7 +360,7 @@ Before we can start working with React, we'll need to do some setup in our `inde
 Let's go ahead and create the `app.jsx` file in our static directory. We will place the entirety of our React application in this file. We'll break our app into React components. Once our UI is complete, we will integrate our React frontend with our Go backend. We will additionally secure our application with Auth0.
 
 <div class="try-banner">
-    <a href="javascript:signup()" class="signup-button btn btn-success btn-lg" style="background-image: none; font-family: avenir-next-web,'Avenir Next','Helvetica Neue',Hevetica,sans-serif;">Try Auth0 for Free</a>
+    <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)" class="signup-button btn btn-success btn-lg" style="background-image: none; font-family: avenir-next-web,'Avenir Next','Helvetica Neue',Hevetica,sans-serif;">Try Auth0 for Free</a>
 </div>
 
 ### Building React Components
@@ -587,7 +587,7 @@ var AddFeedbackHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 })
 ```
 
-The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, [sign up](javascript:signup\(\)) for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new API client by clicking the **Create API** button.
+The major difference you'll notice is that we are no longer generating the token ourself. We have a new `authMiddleware` middleware function that will validate tokens coming from Auth0. If you haven't already, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free Auth0 account. Navigate to the [APIs](https://manage.auth0.com/#/apis) section and create a new API client by clicking the **Create API** button.
 
 ![Create We-R-VR API Client](https://cdn2.auth0.com/blog/go-auth/create-api-client.png)
 

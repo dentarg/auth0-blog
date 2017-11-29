@@ -572,7 +572,7 @@ Let's go through the simple steps of adding Auth0 to your app.
 
 ### Sign Up
 
-If you haven't already done so, sign up for your [free Auth0 account](javascript:signup\(\)).
+If you haven't already done so, sign up for your <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>.
 
 ### Install angular2-jwt for Authenticated HTTP Requests
 
