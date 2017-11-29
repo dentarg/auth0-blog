@@ -24,6 +24,13 @@ related:
 - growth-hacking-is-dead-long-live-growth-hacking
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 ## Introduction
 
 The data protection and security landscape is all set for change next year with the new EU General Data Protection Regulation (“GDPR”). There will be regulatory burdens, but you can also use GDPR to bring some focus on what you do and improve your security stance.  Remember...

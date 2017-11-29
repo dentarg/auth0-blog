@@ -68,6 +68,8 @@ It's actually faster to spin up a new app using the `laravel` command like so: `
 
 If you used the `laravel` installer command to create a new app, then you have to run `composer install` immediately after the previous command to install all the dependencies.
 
+Once the `laravel` installer or composer install is complete, change directory into GOT and run the following command to use the provided server: `php artisan serve --port=8080`
+
 ## Explore Directory Structure
 
 Laravel applications follow the **Model-View-Controller** design pattern.
@@ -160,6 +162,8 @@ where `<modelName>` represents the name of the Model you want to create.
 
 Open up `app/Http/routes.php` and configure it like so:
 
+**Note:** If using Laravel 5.3, 5.4 or 5.5, then the relevant routes file is `routes/web.php`
+
 ```php
 /*
 |--------------------------------------------------------------------------
@@ -197,7 +201,7 @@ As you can see, some files have been copied into our application, the routes hav
 
 Now, the views needed for authentication are in the `resources/views/auth` directory. The base layout for our application has also been configured in the `resources/views/layouts` directory. All of these views use the Bootstrap CSS framework, but you are free to customize them however you wish.
 
-Open up your `welcome.blade.php` and configure it like so:
+Open up your `welcome.blade.php` and replace the contents with the code below:
 
 {% highlight html %}
 @extends('layouts.app')
@@ -270,7 +274,12 @@ The `users` and `password_resets` table will be created on running this command.
 
 ## Path Customization
 
-Open up `AuthController.php` in `app/Http/Controllers/Auth` directory. There is a `$redirectTo` variable like so:
+The following three files found in `app/Http/Controllers/Auth` directory contain a `protected $redirectTo = '/home';` variable.
+    * LoginController.php
+    * RegisterController.php
+    * ResetPasswordController.php
+
+These can be configured to whatever route you want the user to be redirected to just after registration or login. In our case, the user should be redirected to the landing page, so we would want to change this to the example below:
 
 ```php
 /**
@@ -280,7 +289,6 @@ Open up `AuthController.php` in `app/Http/Controllers/Auth` directory. There is 
 */
 protected $redirectTo = '/';
 ```
-It can be configured to whatever route you want the user to be redirected to just after registration or login. In our case, the user should be redirected to the landing page, so we don't need to change anything.
 
 Now, go ahead and register. It should register you successfully and log you in like so:
 
@@ -293,7 +301,9 @@ Middlewares provide a convenient mechanism for filtering HTTP requests entering 
 
 Let's check out how the `auth` middleware works.
 
-Add a new route to your `routes.php` file like so:
+Add a new route to your `app/Http/routes.php` file like so:
+
+**Note:** If using Laravel 5.3, 5.4 or 5.5, then the relevant routes file is `routes/web.php`
 
 ```php
 Route::get('/got', [
@@ -308,7 +318,7 @@ Now, log out, then try to access that route, you will be redirected back to the 
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Laravel apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Laravel**.
+We can easily set up authentication in our Laravel apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Laravel**.
 
 ### Step 1: Install and Configure Auth0 plugin
 

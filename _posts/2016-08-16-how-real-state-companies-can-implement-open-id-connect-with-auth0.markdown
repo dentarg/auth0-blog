@@ -23,6 +23,13 @@ related:
 - 2016-07-01-why-staying-agile-is-key-to-startup-success
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Research conducted a comprehensive analysis of our identity platform and determined that using Auth0 can yield a 548% ROI and $9.9M in savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 At the Real Estate Standards Organization's annual conference in Austin last October, the issue of identity authentication had top billing. The big announcement? Widespread and wholesale encouragement to adopt the Open ID identity management standard across the industry.
 
 Today, it's more than a recommendation. All National Association of REALTORS affiliated listing services **[are now required](http://www.reso.org/new-reso-web-api-standard-3-reasons-implement/)** to adopt the Open ID Connect standard. This is huge, because the seamless management of identity has historically been a big problem for the increasingly digital real estate industry. 

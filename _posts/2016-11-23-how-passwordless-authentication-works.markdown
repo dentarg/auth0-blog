@@ -23,6 +23,11 @@ related:
 
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 **TL;DR:** Security is a key aspect of software development. Securing your authentication and authorization process can't be overemphasized. Over the years, developers have come up with different strategies for handling authentication in a way that provides maximum security for the user. One of the latest strategies is authenticating without passwords. Popular applications like Medium, Slack, and WhatsApp widely support and encourage passwordless authentication. In this article, you'll get to understand the nitty-gritty of passwordless authentication.
@@ -100,7 +105,7 @@ With Auth0, passwordless authentication is dead simple to implement. There are d
 We can also easily configure our applications to use **Auth0 Lock** for passwordless authentication. Let's quickly create an application that implements magic link by following the steps below:
 
 - Clone this [repo](https://github.com/auth0-samples/auth0-jquery-passwordless-sample)
-- Create an <a href="javascript:signup()">Auth0 account for free</a>
+- Create an <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Auth0 account for free</a>
 - On the dashboard, click on the red `Create Client` button to create a new app like so:
 ![Create a Passwordless Application](https://cdn.auth0.com/blog/passwordlessApp.png)
 
@@ -145,6 +150,6 @@ If you don't want to go through the process of creating an app, there is an onli
 
 There is no doubt that passwords have become more susceptible to being compromised in recent years. [Passwordless](https://auth0.com/passwordless/) authentication aims to eliminate authentication vulnerabilities. This recent [analysis of passwordless connections](https://auth0.com/blog/analysis-of-passwordless-connections/) shows that passwordless adoption is increasing. Passwordless authentication is also very useful and gaining ground in the IoT world. It's easier, friendlier, and faster to be authenticated into an IoT device via Touch ID, push notification, or even a onetime passcode than with traditional means. If you really care about security, you should look into passwordless authentication!
 
-We have covered how to implement practical passwordless authentication in an application using magic links. You can follow a similar process to achieve the same objective using a onetime code via SMS. <a href="javascript:signup()">Sign up for Auth0</a> and implement passwordless authentication today!
+We have covered how to implement practical passwordless authentication in an application using magic links. You can follow a similar process to achieve the same objective using a onetime code via SMS. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up for Auth0</a> and implement passwordless authentication today!
 
 {% include tweet_quote.html quote_text="If you care about security, you should look into passwordless authentication" %}

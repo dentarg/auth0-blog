@@ -33,7 +33,7 @@ Here's how:
 
 ##1. Signup to Auth0
 
-No credit card, no commitment. <a href="#" onclick="javascript:signup();">Signup here for a free trial</a>.
+No credit card, no commitment. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Signup here for a free trial</a>.
 
 ##2. Register your app
 Go to __Applications__ and click on __NEW__. Select __WS-Fed (WIF) Web App__.

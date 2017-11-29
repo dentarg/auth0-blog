@@ -25,6 +25,13 @@ related:
 - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 In 2017 we have more options than ever before for strong password management. Between [social](https://auth0.com/docs/extensions/custom-social-extensions#social), [enterprise,](https://auth0.com/docs/extensions/custom-social-extensions#enterprise) and [Passwordless](https://auth0.com/docs/extensions/custom-social-extensions#passwordless) connections, companies that are ready to offer more than username and password have several good options.
 
 This is great news, considering that [59% of consumers](https://www.passwordboss.com/password-habits-survey-part-1/) will admit that they reuse the same password—simply because it's too hard to remember a unique password for every account. In 2017, companies are offering simpler, safer options than just traditional username and password. And we're already seeing a big shift happen.

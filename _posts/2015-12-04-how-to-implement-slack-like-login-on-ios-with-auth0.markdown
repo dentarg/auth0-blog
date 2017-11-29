@@ -16,6 +16,7 @@ design:
   image_size: "100%"
   image_bg_color: "#B6C5CA"
   blog_series: false
+published: false  
 tags:
 - auth0
 - passwordless
@@ -55,7 +56,7 @@ Before diving straight into our example, if you are already familiar with our [L
 We will use our iOS passwordless email example as a base for the following steps. Get the [full code](https://github.com/auth0/Mobile-Samples.iOS), go to the `Passwordless-Email/Lock/Swift` folder and open the Xcode workspace.
 
 ## Step 1: Set your Auth0 client ID and domain
-Open the `info.plist` file in Xcode and set your Auth0 client ID and domain in the list of properties. If don't have an Auth0 account, <a href="javascript:signup()">signup</a> and [create your first app](https://auth0.com/docs).
+Open the `info.plist` file in Xcode and set your Auth0 client ID and domain in the list of properties. If don't have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">signup</a> and [create your first app](https://auth0.com/docs).
 
 ![Auth0 info.plist client ID and domain](https://cdn.auth0.com/blog/iosmagiclink/auth0-client-id-domain.png)
 

@@ -23,6 +23,13 @@ related:
 - 2016-02-03-getting-started-with-auth0-lock-series-implementing-lock
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 People look at social login as just an easier way to log in. That’s true, but it’s a bit simplistic.
 
 What gets overlooked is how the very best companies and stickiest products maximize social login not just at login but at every step of the customer journey. They pull user information to create more personal onboarding experiences and they pull social data to make addictive notifications that bring users back to the app.

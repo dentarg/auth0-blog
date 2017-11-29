@@ -26,6 +26,13 @@ related:
 - 2017-03-06-how-to-migrate-your-existing-stormpath-users-to-auth0
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
+
 ## Gigya to be Acquired by SAP 
 
 [SAP](https://www.sap.com/index.html) announced an agreement to acquire [Gigya](http://www.gigya.com/)'s Customer Identity and Access Management (IAM) platform on September 24, 2017. The acquisition announcement should be very interesting to current Gigya customers. To learn about key features to reassess when your IAM platform is acquired, please check out [SAP to Acquire Gigya: What's Next for Identity Management?](https://auth0.com/blog/sap-to-acquire-gigya-whats-next-for-identity-management)
@@ -42,7 +49,7 @@ Let's explore how these features work.
 
 ## Set Up an Auth0 Client
 
-You can **<a href="javascript:signup()">sign up for a free Auth0 account</a>**. Once you have your account, you will need a [Client](https://auth0.com/docs/clients) and a [Database Connection](https://auth0.com/docs/connections/database).
+You can **<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>**. Once you have your account, you will need a [Client](https://auth0.com/docs/clients) and a [Database Connection](https://auth0.com/docs/connections/database).
 
 An Auth0 **Client** represents your application and allows use of Auth0 for user authentication. You can create a new Client by signing into your [Auth0 Dashboard](https://manage.auth0.com/#/)  and clicking on the **+ NEW CLIENT** button.
 
@@ -112,4 +119,4 @@ Migrating users into and out of [Auth0](https://auth0.com)'s Identity and Access
 
 {% include tweet_quote.html quote_text="Migrating users into and out of Auth0's Identity and Access Management platform is simple!" %}
 
-If you'd like to explore what Auth0 has to offer, simply **<a href="javascript:signup()">sign up for a free account</a>** and try it out! You can also check out our [Pricing](https://auth0.com/pricing) and read what [customers have to say about Auth0](https://auth0.com/resources/case-studies).
+If you'd like to explore what Auth0 has to offer, simply **<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account</a>** and try it out! You can also check out our [Pricing](https://auth0.com/pricing) and read what [customers have to say about Auth0](https://auth0.com/resources/case-studies).

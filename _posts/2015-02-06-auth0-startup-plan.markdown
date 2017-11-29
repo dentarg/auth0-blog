@@ -23,7 +23,7 @@ related:
 - 2015-11-05-announcing-our-new-pricing-including-a-production-ready-free-account
 ---
 
-Following last month's [new pricing announcement](https://auth0.com/pricing) and new free and full-featured [developer plan](javascript:signup\(\)), today we are adding a **Startup Plan** to our pricing.
+Following last month's [new pricing announcement](https://auth0.com/pricing) and new free and full-featured <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">developer plan</a>, today we are adding a **Startup Plan** to our pricing.
 
 ### Startup Plan
 

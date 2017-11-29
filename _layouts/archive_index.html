@@ -9,7 +9,9 @@ sitemap:
 <ul>
 {% for post in page.period_posts %}
   {% unless post.hide_from_index %}
-    {% include archive_post.html %}
+    {% unless post.press_release %}
+    	{% include archive_post.html %}
+  	{% endunless %}  	
   {% endunless %}
 {% endfor %}
 </ul>

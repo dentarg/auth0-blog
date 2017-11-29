@@ -243,7 +243,7 @@ This command creates a file called `api.service.ts` in the `src/app/core` folder
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './../auth/auth.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import { ENV } from './env.config';
 import { EventModel } from './models/event.model';
@@ -452,9 +452,10 @@ export class UtilsService {
   eventDatesTimes(start, end): string {
     // Display single-day events as "1/7/2018, 5:30 PM - 7:30 PM"
     // Display multi-day events as "8/12/2017, 8:00 PM - 8/13/2017, 10:00 AM"
-    const startDate = this.datePipe.transform(start, 'shortDate');
+    const _shortDate = 'M/d/yyyy';
+    const startDate = this.datePipe.transform(start, _shortDate);
     const startTime = this.datePipe.transform(start, 'shortTime');
-    const endDate = this.datePipe.transform(end, 'shortDate');
+    const endDate = this.datePipe.transform(end, _shortDate);
     const endTime = this.datePipe.transform(end, 'shortTime');
 
     if (startDate === endDate) {

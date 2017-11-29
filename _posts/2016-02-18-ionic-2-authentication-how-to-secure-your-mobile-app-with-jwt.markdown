@@ -28,6 +28,11 @@ related:
 - 2015-08-11-create-your-first-ember-2-dot-0-app-from-authentication-to-calling-an-api
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This post is out of date.</strong> The Angular and Ionic frameworks have undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. We are working on bringing you an updated tutorial on this topic!
+</div>
+
 **TL;DR:** Ionic 2 Beta, which is built on Angular, has been released, and brings with it some excellent features. In this article we explore how to add JWT authentication to an Ionic 2 app. Check out [the repo](https://github.com/auth0/ionic2-auth) to go straight to the code.
 
 ---
@@ -386,7 +391,7 @@ Setting up username and password authentication with a Node server is simple eno
 
 ### Step 0: Sign Up for Auth0 and Configure the Callback URL
 
-If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now to follow along with the other steps.
 
 In your dashboard, you need to specify an **Allowed Callback URL** for mobile:
 
