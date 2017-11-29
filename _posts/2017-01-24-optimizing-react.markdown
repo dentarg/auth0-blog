@@ -377,6 +377,8 @@ Here we are using the `filter` method. This method returns a new array reference
 
 Go ahead and give it a try. Make sure everything is working. Profile some stuff to make sure we have removed all wasted calculations and unnecessary operations on the DOM.
 
+{% include asides/react.markdown %}
+
 # Wrapping Up
 
 So let's recap. We have learned how to profile our application using a component that wraps `react-addons-perf`. We figured out the best value to use for the `key` prop - a unique, consistent value. Lastly, we learned how React figures out what changes need to be made to the actual DOM and how to tell React when it needs to recalculate when a component needs to be updated in the new virtual DOM representation.

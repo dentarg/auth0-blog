@@ -50,7 +50,7 @@ The [Node Package Mananger](https://www.npmjs.com/) or npm is one of the biggest
 
 NPM was revolutionary and to this day remains one of the best package managers around. It was not the first package manager: [NuGet](https://www.nuget.org/) exists for the .Net platform, [pip](https://pypi.python.org/pypi/pip) for Python, [gems](https://rubygems.org/) for Ruby, and so on, but the simplicity of NPM has had a major role in Node's success.
 
-### Ecosystem 
+### Ecosystem
 
 Node Js is not limited to building web applications. With [Electron](http://electron.atom.io/) for example, you can build native desktop applications with Node; we even have a tutorial on how to [here](https://auth0.com/blog/create-a-desktop-app-with-angular-2-and-electron/). Utilities and build systems are very popular candidates with Node Js, [Bower](https://bower.io/) is a popular front-end package manager built with Node, while [Gulp](http://gulpjs.com/), [Grunt](http://gruntjs.com/), and [WebPack](https://webpack.github.io/) are task runners and build systems built with Node that can improve workflows and increase developer efficiency.
 
@@ -116,7 +116,7 @@ app.js - // This file will be our entry point into the application
     |- style.css - // We'll store our global styles here
 |- routes
   |- index.js - // In this file we'll define our routes for the application
-|- views - // We'll place all of our UI views here 
+|- views - // We'll place all of our UI views here
   |- error.jade - // Our view for the error
   |- index.jade - // Our main homepage view
   ...
@@ -220,11 +220,11 @@ router.get('/user', function(req, res, next) {
 module.exports = router;
 ```
 
-Before moving on, let me briefly explain how routing in Express works. When we define a route, say our `/user` route, and pass the callback function, we are telling Express that when the browser points to `localhost:3000/user`, the specified callback function will be called. 
+Before moving on, let me briefly explain how routing in Express works. When we define a route, say our `/user` route, and pass the callback function, we are telling Express that when the browser points to `localhost:3000/user`, the specified callback function will be called.
 
-The `req` parameter will have all the details of the request such as the IP address, parameters passed with the route, and even items we attach to it through Express middleware. 
+The `req` parameter will have all the details of the request such as the IP address, parameters passed with the route, and even items we attach to it through Express middleware.
 
-The `res` parameter handles our response from the server to the browser. Here we can return a view, an error, JSON data, and so on. Finally, we can optionally add a `next` parameter. 
+The `res` parameter handles our response from the server to the browser. Here we can return a view, an error, JSON data, and so on. Finally, we can optionally add a `next` parameter.
 
 Calling `next` will exit the current function and move down the middleware stack. The way requests are processed in Express Js is that they go through a stack of functions. At the end of each function, you can either call `next` to go the next function in the stack, or call `res` and send a response to the browser. Once an appropriate `res` method has been called, the execution of that request is stopped. Middleware is a great way to separate our code into logical pieces. For example, we can have middleware that transforms our request or checks to see if a user is logged in before continuing. We'll see how to do that in the next section.
 
@@ -286,7 +286,7 @@ app.use('/', routes);
 
 With this change saved, restart your Node server and now navigate to `localhost:3000/users` and you should just see the text "Your are on the users page" displayed. If we go to a route that we haven't defined like `localhost:3000/yo`, we'll get the 404 page like we'd expect. Alright, so far so good. We have our routes working, next let's go ahead and build our UI views.
 
-### Building the UI 
+### Building the UI
 
 Next, let's build our views. Node Js and Express are very extensible and we have a lot of choices and options when choosing a templating engine for our application. In this tutorial we will use [Jade](https://pugjs.org/api/getting-started.html) (recently renamed to Pug). Jade is perhaps one of the oldest view engines, but other options such as [EJS](http://www.embeddedjs.com/), [Mustache](https://mustache.github.io/), [Dust](http://www.dustjs.com/), and so on exist. In our `app.js` file, we already declared that our view engine is going to be Jade, and that our views will be stored in a directory titled views. In this tutorial, we won't go over the Jade/Pug syntax, so if you are unfamiliar, please check out the [official tutorial](https://pugjs.org/language/tags.html).
 
@@ -312,8 +312,8 @@ Next, let's build our homepage. Our homepage will just display the name of our a
 extends layout
 
 block content  
-  h1 
-    i.fa.fa-lg.fa-pie-chart 
+  h1
+    i.fa.fa-lg.fa-pie-chart
     span Awesome Polls
   h2 Welcome to the Awesome Polls Administrator website.
   p To access the polls, please login.
@@ -350,7 +350,7 @@ block content
       span Awesome Polls
     div.pull-right
       img(src="#{user.picture}", style="height:24px; border-radius: 30px;")  
-      strong(style="margin: 0px 10px;") #{user.nickname} 
+      strong(style="margin: 0px 10px;") #{user.nickname}
       a(href="/logout") Logout
   br
   div.jumbotron
@@ -445,14 +445,14 @@ router.get('/polls', ensureLoggedIn, function(req, res){
 })
 
 router.get('/user', ensureLoggedIn, function(req, res, next) {
-  // Same thing for our 
+  // Same thing for our
   res.render('user', { env: env, user: req.user });
 });
 
 module.exports = router;
 ```
 
-This completes our controller's implementation. We did a lot in this section. We saw how we could send data between our server and front end, how to use the excellent Node Js request library to make calls to an external API, and also how to secure our routes and prevent unauthorized access. We haven't built the user authentication system just yet, we'll do that next. 
+This completes our controller's implementation. We did a lot in this section. We saw how we could send data between our server and front end, how to use the excellent Node Js request library to make calls to an external API, and also how to secure our routes and prevent unauthorized access. We haven't built the user authentication system just yet, we'll do that next.
 
 Before we close out this section, let's make one quick change to our `app.js` file. If you recall, in our `app.js` file we built our error handler. In the last section, we created a pretty view for our errors, so let's make sure we're using that view.
 
@@ -467,159 +467,10 @@ app.use(function(err, req, res, next) {
 });
 ```
 
-## Aside: Node Js Authentication with Auth0
-
-We set up a great foundation and our app is looking good. The final piece of the puzzle is to get authentication up and running, so users can log in and view the polls. We'll use [Auth0](https://auth0.com) to accomplish this, but the [Passport.js](http://passportjs.org/) library has strategies for all major authentication frameworks and providers.
-
-To get started, you'll need an [Auth0](https://auth0.com) account. If you don't already have one, you can sign up for a free account [here](javascript:signup\(\)). Once you have an account, log in and navigate to the [management dashboard](https://manage.auth0.com) and retrieve your Auth0 app specific keys. The three items you'll need specifically are: **Client Id**, **Client Secret**, and **Domain**.
-
-Once you have these three items, go ahead and open up the `.env` file we created and create a variable for each of these. Your completed `.env` file should look like this:
-
-```
-AUTH0_CLIENT_ID=mRgDS6qIasvBPUrqGwlG37anUNbh2OPD
-AUTH0_DOMAIN=YOUR-AUTH0-DOMAIN.auth0.com
-AUTH0_CLIENT_SECRET=cVQNk5uUFc8qTYF0MW7rkT5tEoCgkXo9VS1BAXoR1zdYdPvNxR0f5bBcjD32dMS
-```
-
-Next, open up the `app.js` file. Here we will create our Auth0 authentication strategy. Check out the changes below. We are including the original code we've written so far, but have commented it out so you can see the changes we are adding.
-
-```js
-// We have commented out the existing code so that you can see where to add the new code.
-
-//DO NOT COMMENT OUT ANYTHING IN YOUR FILE
-
-// var express = require('express');
-// var path = require('path');
-// var logger = require('morgan');
-// var cookieParser = require('cookie-parser');
-// var bodyParser = require('body-parser');
-// var session = require('express-session');
-// var dotenv = require('dotenv');
-// Passport is the most popular Node Js authentication library
-var passport = require('passport');
-// We are including the Auth0 authentication strategy for Passport
-var Auth0Strategy = require('passport-auth0');
-
-// dotenv.load();
-
-//var routes = require('./routes/index');
-
-// This will configure Passport to use Auth0
-var strategy = new Auth0Strategy({
-    domain:       process.env.AUTH0_DOMAIN,
-    clientID:     process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL:  'http://localhost:3000/callback'
-  }, function(accessToken, refreshToken, extraParams, profile, done) {
-    // profile has all the information from the user
-    return done(null, profile);
-  });
-
-// Here we are adding the Auth0 Strategy to our passport framework
-passport.use(strategy);
-
-// The searlize and deserialize user methods will allow us to get the user data once they are logged in.
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
-
-// var app = express();
-
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
-
-// app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
-// app.use(session({
-//  secret: 'shhhhhhhhh',
-//  resave: true,
-//  saveUninitialized: true
-// }));
-// We are also adding passport to our middleware flow
-app.use(passport.initialize());
-app.use(passport.session());
-// app.use(express.static(path.join(__dirname, 'public')));
-
-//app.use('/', routes);
-
-// app.use(function(req, res, next) {
-//  var err = new Error('Not Found');
-//  err.status = 404;
-//  next(err);
-// });
-
-// app.use(function(err, req, res, next) {
-//  res.status(err.status || 500);
-//  res.render('error', {
-//    message: err.message,
-//    error: err
-//  });
-// });
-
-// app.listen(3000);
-```
-
-We have created an Auth0 authentication strategy and registered it with our application. We already have a login route, but we haven't implemented the UI, let's do that next. Open up the `login.jade` file and add the following code.
-
-```jade
-extends layout
-
-block content  
-  div(id="root" style="width: 280px; margin: 40px auto; padding: 10px;")
-
-  script.
-    var lock = new Auth0Lock('#{env.AUTH0_CLIENT_ID}', '#{env.AUTH0_DOMAIN}', { auth: {
-          redirectUrl: '#{env.AUTH0_CALLBACK_URL}'
-        , responseType: 'code'
-        , params: {
-          scope: 'openid profile'
-        }
-      }});
-    lock.show();
-```
-
-![Awesome Polls Login Page](https://cdn.auth0.com/blog/nodejs-awesome-polls/login.png)
-
-We will make use of the Auth0 [Lock](https://auth0.com/lock) widget for our authentication flow. Lock allows us to easily and effortlessly add a login box that can handle traditional username and password, social, and enterprise login methods as well as additional features like multifactor authentication all with the flip of a switch.
-
-You may have noticed in the `login.jade` file, we are requiring some data from the `env` variable, but we are currently not passing those specific variables. Let's fix that. Open up the `index.js` page in the `routes` directory and let's make some final adjustments here as well.
-
-```js
-// ...
-var env = {
-  AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
-  AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
-  AUTH0_CALLBACK_URL: 'http://localhost:3000/callback'
-};
-
-// ...
-
-// We are also going to implement the callback route which will redirect the logged in user to the polls page if authentication succeeds.
-router.get('/callback',
-  passport.authenticate('auth0', { failureRedirect: '/' }),
-  function(req, res) {
-    res.redirect(req.session.returnTo || '/polls');
-  });
-```
-
-We are now finally ready to test our application. Restart the server and head over to `localhost:3000`. You will be greeted with the homepage.
-
-Click on the login button, and you will be sent to the `/login` page, where the Lock widget will be opened and you will be able to sign up or log in. Log in, or sign up if you haven't alrady created a test account, and you will be redirected to the `/polls` page.
-
-On this page, you will be able to see the results of all 50 states. We got this data using the Node Js request library and querying the Huffington Post API.
-
-Finally, click on the logout link in the top right corner, and your user will be logged out and sent back to the homepage. Now that you are logged out, try accessing the `/polls` page and notice that since you are no longer logged in, you are redirected to the `/login` page.
-
-Congrats! You just built an entire Node Js app and added authentication to it.
+{% include asides/node.markdown %}
 
 ## Conclusion
 
-Node Js is a powerful language and framework for building modern applications. The community support through NPM is unrivaled and Auth0 can help secure your Node Js apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+Node Js is a powerful language and framework for building modern applications. The community support through NPM is unrivaled and Auth0 can help secure your Node Js apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
 
 {% include tweet_quote.html quote_text="With Auth0, you can add authentication to your Node Js app in minutes." %}

@@ -12,9 +12,9 @@ Auth0 Aside includes may be used when:
 
 To include an Auth0 Aside in your post markdown, use the following syntax:
 
-```
+<pre>
 {% include asides/{technology}.markdown %}
-```
+</pre>
 
 ## Technical Aside Requirements
 
@@ -24,7 +24,7 @@ Technical Auth0 Asides **must**:
 * authenticate the app using centralized login
 * have a supporting sample repo at [auth0-blog](https://github.com/auth0-blog)
 
-Technical Auth0 Asides **should**: 
+Technical Auth0 Asides **should**:
 
 * have one image, [such as the one here](https://cdn2.auth0.com/blog/angular-aside/angular-aside-login.jpg)
 * show authentication of an API as well as a Client, if reasonable
@@ -42,10 +42,14 @@ When you create a new Aside, add a link to it here along with author's name so a
 
 * [about-auth0.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/about-auth0.markdown) - Jeana
 
+### Market Basket Links Aside (semi-technical, but no code)
+
+* [market-basket-links-about.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/market-basket-links-about.markdown) - Bruno
+
 ### Technical Asides
 
 * [angular.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/angular.markdown) - Kim
-
-### Market Basket Links Aside
-
-* [market-basket-links-about.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/market-basket-links-about.markdown) - Bruno
+* [javascript-at-auth0.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/javascript-at-auth0.markdown) - Bruno & Sebastian
+* [python.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/python.markdown) - Bruno
+* [react.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/react.markdown) - Bruno
+* [spring-boot.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/spring-boot.markdown) - Bruno

@@ -191,7 +191,7 @@
       <!-- end jekyll-search-->
     {% endif %}
 
-    <!--- btn ontact us  --->
+    <!-- btn ontact us -->
     <script type="text/javascript">
       var Auth0ContactForm = window.Auth0ContactForm.default;
       var contactFormOptions = {
@@ -616,6 +616,13 @@
     </script>
 
 
+    <script>
+      $(function () {
+        $('.tweet-quote').on('click', function () {
+          metricsLib.track('blog:share:twitter_quote');
+        });
+      });
+    </script>
 
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

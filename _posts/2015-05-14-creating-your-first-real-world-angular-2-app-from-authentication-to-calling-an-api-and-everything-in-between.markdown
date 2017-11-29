@@ -392,7 +392,7 @@ We can add Auth0 to the app we just created really easily. There are just a few 
 
 ### Step 0: Sign Up for Auth0
 
-If you don't already have any Auth0 account, [sign up](javascript:signup\(\)) for one now to follow along with the other steps.
+If you don't already have any Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now to follow along with the other steps.
 
 ### Step 1: Add Auth0Lock to Your App
 

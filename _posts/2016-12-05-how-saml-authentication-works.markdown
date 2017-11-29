@@ -419,6 +419,6 @@ Auth0 also provides several options:
 
 ## Conclusion
 
-We have covered how SAML authentication works and also went through some steps to implement it in an application. You want to implement SAML authentication in your app? <a href="javascript:signup()">Sign up for Auth0</a> and implement SAML authentication seamlessly today!
+We have covered how SAML authentication works and also went through some steps to implement it in an application. You want to implement SAML authentication in your app? <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up for Auth0</a> and implement SAML authentication seamlessly today!
 
 [Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

@@ -162,7 +162,7 @@ JScript .NET, on the other hand, had been largely left untouched since the early
 ## Aside: JavaScript use at Auth0
 At Auth0 we are [heavy users of JavaScript](https://github.com/auth0). From our [Lock library](https://github.com/auth0/lock) to our back end, JavaScript powers the core of our operations. We find its asynchronous nature and the low entry barrier for new developers essential to our success. We are eager to see where the language is headed and the impact it will have in its ecosystem.
 
-<a href="javascript:signup()">Sign up for a free Auth0 account</a> and take a firsthand look at a production-ready ecosystem written in JavaScript. And don't worry, we have [client libraries for all popular frameworks and platforms](https://auth0.com/docs/quickstarts)!
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up for a free Auth0 account</a> and take a firsthand look at a production-ready ecosystem written in JavaScript. And don't worry, we have [client libraries for all popular frameworks and platforms](https://auth0.com/docs/quickstarts)!
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

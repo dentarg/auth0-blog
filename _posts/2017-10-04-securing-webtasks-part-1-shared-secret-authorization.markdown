@@ -3,6 +3,7 @@ layout: post_extend
 title: "Securing Webtasks Part 1: Shared Secret Authorization"
 description: "Learn how to quickly secure your Auth0 Webtasks with a shared secret so only authorized callers can execute them."
 date: 2017-10-04 8:30
+is_extend: true
 category: Extend, Technical, Webtasks
 author:
   name: "Bobby Johnson"
@@ -22,7 +23,7 @@ related:
   - 2017-08-22-for-the-best-security-think-beyond-webhooks
 ---
 
-Recently, [we've]({% post_url  2017-08-01-auth0-webtasks-the-quickest-of-all-quick-starts %}) shown you how quickly you can stand up an HTTPS endpoint on the internet using Auth0 Webtasks with the Webtasks sandbox [webtask.io](https://webtask.io/). Shockingly, it takes less than a minute.
+Recently, [we've](https://auth0.com/blog/auth0-webtasks-the-quickest-of-all-quick-starts/) shown you how quickly you can stand up an HTTPS endpoint on the internet using Auth0 Webtasks with the Webtasks sandbox [webtask.io](https://webtask.io/). Shockingly, it takes less than a minute.
 
 The ease with which you can deploy that endpoint and glue together the services you use like Github and Slack make Webtask.io very powerful.
 
@@ -75,7 +76,7 @@ Modify the webtask code using this JavaScript and click the **Save** button.
 
 ```javascript
 module.exports = function(context, cb) {
-  if(context.data.secret !== 'open-sesame') {
+  if(context.query.secret !== 'open-sesame') {
     cb(new Error('Not Authorized'));
   } else {
     cb(null, { question: 'Am I secure?', answer: 'Yes!' });

@@ -145,7 +145,7 @@ It's a great time to explore Angular for your single page JavaScript application
 * [Managing State in Angular with ngrx/store](https://auth0.com/blog/managing-state-in-angular-with-ngrx-store/)
 * [Angular 2 Authentication Tutorial](https://auth0.com/blog/angular-2-authentication/)
 
-You can [sign up for a free Auth0 account here](javascript:signup\(\))!
+You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account here</a>!
 
 > Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 

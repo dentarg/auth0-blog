@@ -92,4 +92,4 @@ When assessing IAM platforms, there are many key features you should investigate
 
 {% include asides/about-auth0.markdown %}
 
-If you'd like to explore what Auth0 has to offer, simply <a href="javascript:signup()">sign up for a free account</a> and try it out! You can also check out our [Pricing](https://auth0.com/pricing) and read what [customers have to say about Auth0](https://auth0.com/resources/case-studies).
+If you'd like to explore what Auth0 has to offer, simply <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account</a> and try it out! You can also check out our [Pricing](https://auth0.com/pricing) and read what [customers have to say about Auth0](https://auth0.com/resources/case-studies).

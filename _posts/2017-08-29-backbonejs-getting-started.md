@@ -737,7 +737,7 @@ _Editing an employee details_
 
 The majority of the apps we use on a daily basis have a means of authenticating users. Adding authentication to your BackboneJS apps is as easy as using [Auth0](https://auth0.com/) in your JQuery apps.
 
-Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
+Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
 Login to your Auth0 [management dashboard](https://manage.auth0.com) and create a new client. Select `Single Page Application` during creation.
 
@@ -747,4 +747,4 @@ BackboneJS relies heavily on JQuery. So, go ahead and follow this [amazing quick
 
 **BackboneJS** is a library that can be used to build your user interfaces. Right now, it has not undergone updates in over a year. And many web applications that initially used it heavily have either moved away to new JS libraries or are currently rewriting their frontend to make use of another tool.
 
-In addition, Auth0 can help secure your apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.

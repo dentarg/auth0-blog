@@ -26,9 +26,9 @@ lang: en
 alternate_locale_jp: jp-angular-2-authentication
 ---
 
-<div class="alert alert-info alert-icon">
-  <i class="icon-budicon-664"></i>
-  <strong>Get the "Migrating an Angular 1 App to Angular 2 book" for Free.</strong> Spread the word and <a href="https://auth0.com/e-books/migrating-to-angular2">download it now!</a>
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This post is out of date.</strong> The Angular CLI and framework have undergone breaking changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Please check out our <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong> to learn how to build and authenticate an Angular app. We will also update this tutorial soon. Thank you for your patience!
 </div>
 
 ---
@@ -433,7 +433,7 @@ Now we are ready to test our app. If you would like more information on how @NgM
 
 ## Adding Authentication to Your Angular 2 App
 
-The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular 2 application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
+The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular 2 application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
 Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
 
@@ -862,4 +862,4 @@ You just wrote and authenticated an Angular 2.0 app. Congrats!
 
 Angular 2 is finally out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular 2 components and services. We implemented token based authentication with Auth0 and Lock. But that's just scratching the surface.
 
-Angular 2 provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular 2 apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+Angular 2 provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular 2 apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.

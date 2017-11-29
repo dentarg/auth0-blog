@@ -669,7 +669,7 @@ Pat yourself on the back because you have just created an application that perfo
 ## Aside: Adding Auth0 Authentication to the Application
 Before we conclude, we'll look at how authentication can be added to an Android app using Auth0.
 
-To get started, first <a href="javascript:signup()">sign up</a> for an Auth0 account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Native** from the Client type list. On the next page, select **Android** as the Native SDK. After the client has been created, you will see a page with a quickstart guide. Select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Add the following to the **Allowed Callback URLs** and save the changes with the button at the bottom of the page.
+To get started, first <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for an Auth0 account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Native** from the Client type list. On the next page, select **Android** as the Native SDK. After the client has been created, you will see a page with a quickstart guide. Select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Add the following to the **Allowed Callback URLs** and save the changes with the button at the bottom of the page.
 
 Replace `YOUR_AUTH0_DOMAIN` and `YOUR_APP_PACKAGE_NAME` with your specific values.
 

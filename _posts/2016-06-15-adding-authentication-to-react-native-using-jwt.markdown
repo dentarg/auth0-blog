@@ -23,6 +23,11 @@ related:
 - 2015-12-08-converting-your-web-app-to-mobile
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This post is out of date.</strong> Our <em>React Native Lock</em> library is now deprecated in favor of the <a href="https://github.com/auth0/react-native-auth0">React Native toolkit for Auth0 API</a>. Thank you for your patience while we work on bringing you an updated tutorial. We have a <a href="https://auth0.com/docs/quickstart/native/react-native/">React Native quickstart guide</a> that might be helpful in the meantime.
+</div>
+
 ## TL;DR
 We're going to look at getting started with a very simple React Native app and the use of JSON Web Tokens to provide authentication for it. React Native is an innovative way to use a common language to build native apps for multiple platforms, and JWTs go nicely along with it to provide stateless authentication for our users that integrates well with almost any service we would need. A perfect combination! Let's get started!
 
@@ -34,7 +39,7 @@ We're going to look at getting started with a very simple React Native app and t
 
 Speaking of choices, we have many, many choices out there that can help us with user authentication. One such method of authentication in our React Native app is [JSON Web Tokens][7]. The advantages to using JWTs over other, more _traditional_ authentication methods are many. The app will be stateless, and we don’t have to worry about issues like load balancing with sessions, or cookie problems. We can authenticate users across multiple domains, integrate easily with other authentication services, and reduce the load on our servers. Sounds great, right?
 
-Here’s the thing. We, as developers, don’t need more complication in our apps, in our projects, or in our lives. User authentication is always a pain. _Someone_ always wants more [SSO authentication](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/)options. _Someone_ always wants better security. _Someone_ always finds vulnerabilities. And yes, there are vulnerabilities in any system. But mitigating the _chances_ of problems of all kinds - technical problems, server problems, cookie problems, hacking problems - is what we’re all trying to do all the time, isn’t it? An easy-to-implement token-based authentication system provides just that. If we’re building a React Native app, we are probably intending to cover multiple platforms with minimal changes. Let’s take it one step further and have the same stateless authentication procedures for all versions of our app, too.
+Here’s the thing. We, as developers, don’t need more complication in our apps, in our projects, or in our lives. User authentication is always a pain. _Someone_ always wants more [SSO authentication](https://auth0.com/blog/what-is-and-how-does-single-sign-on-work/) options. _Someone_ always wants better security. _Someone_ always finds vulnerabilities. And yes, there are vulnerabilities in any system. But mitigating the _chances_ of problems of all kinds - technical problems, server problems, cookie problems, hacking problems - is what we’re all trying to do all the time, isn’t it? An easy-to-implement token-based authentication system provides just that. If we’re building a React Native app, we are probably intending to cover multiple platforms with minimal changes. Let’s take it one step further and have the same stateless authentication procedures for all versions of our app, too.
 
 ### What We’re Building
 

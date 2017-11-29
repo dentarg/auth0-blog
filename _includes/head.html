@@ -33,7 +33,7 @@
     <script src="https://cdn.auth0.com/website/web-header/4.0.36/web-header.js"></script>
     <script src="//npmcdn.com/auth0-contact-form@2.0.7/cdn/contact-form.js"></script>
     <link rel="stylesheet" href="//npmcdn.com/auth0-contact-form@2.0.7/cdn/contact-form.css" />
-    <script src="https://cdn.auth0.com/website/sliding-popup/1.0.26/sliding-popup.js"></script>
+    <script src="https://cdn.auth0.com/website/sliding-popup/1.0.27/sliding-popup.js"></script>
     <script src="//cdn.auth0.com/js/m/metrics-1.min.js"></script>
     <script type="text/javascript">
       !function(){
@@ -113,15 +113,13 @@
       {% endif %}
     {% endif %}
 
-    <!-- amphtml
-
     {% if page.is_tag_index %}
       <link rel="amphtml" href="https://auth0.com/blog/{{site.ampdir}}"/>
     {% else %}
       {% if page.url %}
         <link rel="amphtml" href="https://auth0.com{{ site.baseurl }}/{{site.ampdir}}{{page.url | replace:'index.html',''}}" />
       {% endif %}
-    {% endif %} -->
+    {% endif %}
 
 
     {% if page.is_tag_index %}

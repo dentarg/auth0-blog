@@ -315,7 +315,7 @@ Let's build an API to serve the list of startup battles to our app. We'll quickl
 
 Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/vuejs2-authentication-tutorial/tree/master/server).
 
-**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one.
+**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one.
 
 Your `server.js` should look like this:
 
@@ -858,7 +858,7 @@ _Private Battles Page_
 
 The majority of the apps we use on a daily basis have a means of authenticating users. I'll show you how to easily add authentication to our **Vuejs 2** application. We'll use [Auth0](https://auth0.com/) as our authentication service.
 
-Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for a free one now.
+Auth0 allows us to issue [JSON Web Tokens (JWTs)](https://jwt.io). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
@@ -1325,6 +1325,6 @@ Everything should work fine. Pat yourself on the back. You have just successfull
 
 **Vuejs 2** is a lightweight, fast and awesome library for building user interfaces. Its learning curve is gentle and its API is not complex to understand. It has a fast growing community and there are many components available to the public for different functionalities.
 
-In addition, Auth0 can help secure your **Vuejs 2** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. [Sign up](javascript:signup\(\)) today so you can focus on building features unique to your app.
+In addition, Auth0 can help secure your **Vuejs 2** apps with more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
 
 > Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.

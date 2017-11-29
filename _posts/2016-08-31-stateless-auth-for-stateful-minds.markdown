@@ -316,7 +316,7 @@ app.post('/auth', (req, res) => {
 
 Implementing CSRF mitigation techniques is left as an exercise for the reader. 
 
-Get the [full example](https://github.com/auth0/jwt-handbook-samples/tree/master/stateless-sessions) and check how it works! If you want to run your own version, you will need to <a href="javascript:signup()">sign up for a free Auth0 account</a>.
+Get the [full example](https://github.com/auth0/jwt-handbook-samples/tree/master/stateless-sessions) and check how it works! If you want to run your own version, you will need to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>.
 
 ## Conclusion
 Tokens, by virtue of being able to be validated on their own, require less queries in the backend. Additionally, custom data may be embedded in them, simplifying the flow of certain common operations such as authorization. The size of tokens may be a problem as the information contained in them gets bigger. Chatty architectures may worsen the symptoms in that case. For most scenarios, tokens are a great choice.
