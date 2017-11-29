@@ -2,7 +2,7 @@
 layout: post
 title: "AWS re:Invent Day 2 Recap"
 description: "AWS re:Invent continues with day two. Here is our recap of the exciting announcements and interesting talks we were able to attend."
-date: 2017-11-29 8:30
+date: 2017-11-29 17:30
 category: Growth, Conferences, AWS
 author:
   name: Ado Kukic
@@ -25,7 +25,7 @@ tags:
 related:
 - 2017-11-28-5-aws-reinvent-day-1-recap
 - 2017-07-21-the-role-of-identity-in-application-modernization
-- 2017-11-13-all-you-need-to-know-about-data-management-and-integration
+- 2017-08-03-build-a-rottentomatoes-clone-with-graphql-and-auth0
 ---
 
 Day two of AWS re:Invent was in many ways similar to day one. There was no huge keynote, that is coming tomorrow, but there were a few announcements that I think the developer community will enjoy very much. Just because there was no keynote doesn't mean there weren't amazing talks, demos, and so much more to do. Here is my recap of day two!
