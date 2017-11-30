@@ -17,10 +17,12 @@ tags:
 - shopping
 - cyber-attacks
 - security
+- infosec
+- retail
 related:
-- 2016-10-25-how-the-biggest-attack-in-internet-was-perpetrated
-- 2016-06-21-avoiding-password-reuse-attacks
-- 2015-11-30-top-5-cyber-monday-security-threats-and-what-to-do-about-them
+- 2017-06-01-introducing-the-auth0-security-whitepaper
+- 2016-12-15-personal-information-security-identity-guide
+- 2017-10-30-are-your-security-questions-as-safe-as-you-think
 
 ---
 

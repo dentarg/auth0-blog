@@ -5,15 +5,15 @@ description: "React Router and rrtr have reconciled. Explore React Router altern
 date: 2016-04-19 08:30
 alias: /2016/04/19/react-router-alternatives/
 category: Technical Guide, Frontend, React
-author: 
+author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicadnan"
   mail: "ado@auth0.com"
   avatar: "https://s.gravatar.com/avatar/99c4080f412ccf46b9b564db7f482907?s=200"
-design: 
+design:
   bg_color: "#333333"
   image: "https://cdn.auth0.com/blog/react-router-alt/react.png"
-tags: 
+tags:
 - React
 - React-Router
 - rrtr
@@ -108,7 +108,7 @@ const router = new Router(on => {
     const component = await next();
     return component && <App context={state.context}>{component}</App>;
   });
-  
+
   on('/admin', async (state, next) => {
     // Ensure user is logged in
     authorize(state, next);
@@ -136,7 +136,7 @@ const router = new Router5()
   .addNode('messages', '/messages', canActivate: isLoggedIn)
   // Plugins
   .usePlugin(loggerPlugin())
-  
+
 export default router;
 ```
 
@@ -146,48 +146,7 @@ For additional resources on router5 check out their [Github repo](https://github
 
 If you are feeling adventurous and up for a challenge, [James K Nelson](https://twitter.com/james_k_nelson) has written a great [tutorial](http://jamesknelson.com/routing-with-raw-react/) on building your own routing solution with React. His tutorial covers a lot and is a great starting point for learning and understanding how state based routing works.
 
-## Aside: Auth0 Makes it Easy to Protect Routes
-
-Whether you are using React Router, router5, or building your own - Auth0 can help with authentication. [Sign up](javascript:signup\(\)) for your free account to get started. You can follow the in-depth [documentation](https://auth0.com/docs/quickstart/spa/react/no-api) for adding authentication to a React app but we'll still give you a sneak peek below. 
-
-We'll show a quick example of how you can use the [**jwt-decode**](https://github.com/auth0/jwt-decode) library to ensure that a users token is valid. We'll assume that the user already has a token and we'll check to see if this token is expired. Our code looks like:
-
-```
-export function tokenIsExpired() {
-  let jwt = localStorage.getItem('id_token')
-  if(jwt) {
-    let jwtExp = jwt_decode(jwt).exp;
-    let expiryDate = new Date(0);
-    expiryDate.setUTCSeconds(jwtExp);
-    
-    if(new Date() < expiryDate) {
-      return false;
-    }
-  }
-
-  return true;
-}
-```
-
-If we were to use the Universal Router code example from above, we could easily integrate our `tokenIsExpired()` method to check if a token is valid. Let's do this. We'll enhance our `authorize` method and check for the token and it's expiration. If the token is not present or is present but expired, we'll route the user to the login page, otherwise we'll send them to their intended route.
-
-```
-...
-
-const authorize = (state, next) => {
-  // Check if user has active JWT
-  if(tokenIsExpired())  {
-    state.redirect = '/login'; next();
-  } else {
-    next();
-  }
-}
-
-...
-
-```
-
-With just a few lines of code we were able to protect our routes. The **jwt-decode** library works great for React application and can be used in any of the discussed routers as well as React Router.
+{% include asides/react.markdown %}
 
 ## Conclusion
 
