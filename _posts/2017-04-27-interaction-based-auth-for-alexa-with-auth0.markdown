@@ -50,7 +50,7 @@ This guide will take you through all the necessary steps required to deploy and 
 
 In order to deploy and run this sample skill you'll need to ensure the provision of the following accounts:
 
-* Auth0 account - [Sign up]((javascript:signup\(\)) for Free - [https://auth0.com/](https://auth0.com/)
+* Auth0 account - <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> for Free - [https://auth0.com/](https://auth0.com/)
 * Amazon Developer account - [https://developer.amazon.com/home.html](https://developer.amazon.com/home.html)
 * (Optional, but recommended) Twilio account - [https://www.twilio.com/](https://www.twilio.com/)
 * (Optional) Pusher account - [https://pusher.com/](https://pusher.com/)
@@ -389,7 +389,7 @@ We have recently released a product called [Auth0 Extend](https://auth0.com/exte
 
 ## Conclusion
 
-In this post we took a look at how you can create an Alexa skill and pair it with [Auth0](https://auth0.com) for enhanced security. We also introduced you to [Webtask](https://webtask.io), our serverless offering that made it effortless to deploy an Alexa skill implementation. [Sign up]((javascript:signup\(\)) for a free Auth0 account and add interaction-based authentication to your Alexa skills in no time at all.
+In this post we took a look at how you can create an Alexa skill and pair it with [Auth0](https://auth0.com) for enhanced security. We also introduced you to [Webtask](https://webtask.io), our serverless offering that made it effortless to deploy an Alexa skill implementation. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> for a free Auth0 account and add interaction-based authentication to your Alexa skills in no time at all.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

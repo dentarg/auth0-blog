@@ -858,7 +858,7 @@ Further more, if we want to support identity providers (like Google, Facebook, G
 
 ### Configuring Your Auth0 Client
 
-If you haven't done so yet, this is a good time to <a href="javascript:signup()">sign up for a free Auth0 account</a>, after which we can take a look at how we need to alter our grocery list to allow for Auth0 to manage our login.
+If you haven't done so yet, this is a good time to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>, after which we can take a look at how we need to alter our grocery list to allow for Auth0 to manage our login.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 

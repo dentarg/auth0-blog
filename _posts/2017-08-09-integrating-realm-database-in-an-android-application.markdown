@@ -669,7 +669,7 @@ Pat yourself on the back because you have just created an application that perfo
 ## Aside: Adding Auth0 Authentication to the Application
 Before we conclude, we'll look at how authentication can be added to an Android app using Auth0.
 
-To get started, first <a href="javascript:signup()">sign up</a> for an Auth0 account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Native** from the Client type list. On the next page, select **Android** as the Native SDK. After the client has been created, you will see a page with a quickstart guide. Select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Add the following to the **Allowed Callback URLs** and save the changes with the button at the bottom of the page.
+To get started, first <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for an Auth0 account, then navigate to the [Dashboard](https://manage.auth0.com/). Click on the **New Client** button and fill in the name of the client (or leave it at its default. Select **Native** from the Client type list. After the client has been created, you will see a page with a quickstart guide. Select the **Settings** tab where the client ID, client Secret and Domain can be retrieved. Add the following to the **Allowed Callback URLs** and save the changes with the button at the bottom of the page.
 
 Replace `YOUR_AUTH0_DOMAIN` and `YOUR_APP_PACKAGE_NAME` with your specific values.
 
@@ -680,53 +680,37 @@ https://YOUR_AUTH0_DOMAIN/android/YOUR_APP_PACKAGE_NAME/callback
 You'll require the Client ID and Domain for your client application. You can find these values on your Auth0 dashboard. We'll add them to the app's `strings.xml` file so that they are accessible to the rest of the app.
 
 ```xml
-<string name="auth0_client_id">YOUR_AUTH0_CLIENT_ID</string>
-<string name="auth0_domain">YOUR_AUTH0_DOMAIN</string>
+<string name="com_auth0_client_id">YOUR_AUTH0_CLIENT_ID</string>
+<string name="com_auth0_domain">YOUR_AUTH0_DOMAIN</string>
 ```
 
-To add a login/register screen to the application, we'll use the [Lock](https://github.com/auth0/Lock.Android) Activity which contains default templates (that can be customized) for login with email/password, sign up, social providers integration, and also password recovery.
+To add a login/register screen to the application, we'll use the [Auth0.Android library](https://github.com/auth0/Auth0.Android) which will allow us to display a [Centralized Login](https://auth0.com/docs/hosted-pages/login) page for our Android apps with support for social connections and the usual username/password form.
 
-To add Lock to your project, first add the following dependency and sync your gradle files.
+To add Auth0.Android to your project, first add the following dependency and sync your gradle files.
 
 ```groovy
-compile 'com.auth0.android:lock:2.5.0'
+compile 'com.auth0.android:auth0:1.12.0'
 ```
 
-Add the following permissions to the manifest file.
+You will also need to add the `manifestPlaceholders` options to the `defaultConfig` section:
+
+```groovy
+android {
+    // (...)
+    defaultConfig {
+        // (...)
+        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "https"]
+    }
+    // (...)
+}
+```
+
+Then, add the following permissions to the manifest file.
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
-
-Then add the following to the manifest file inside the `application` tag.
-
-    <!-- Auth0 Lock -->
-    <activity
-        android:name="com.auth0.android.lock.LockActivity"
-        android:label="@string/app_name"
-        android:launchMode="singleTask"
-        android:screenOrientation="portrait"
-        android:theme="@style/Lock.Theme">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-
-            <data
-                android:host="@string/auth0_domain"
-                android:pathPrefix="/android/YOUR_APP_PACKAGE/callback"
-                android:scheme="https" />
-        </intent-filter>
-    </activity>
-
-    <activity
-        android:name="com.auth0.android.provider.WebAuthActivity"
-        android:theme="@style/Lock.Theme" />
-    <!-- Auth0 Lock End -->
-
-Replace `YOUR_APP_PACKAGE` with your app's package name.
 
 In your main package, create a class named `LoginActivity` and add the following to it.
 
@@ -734,69 +718,78 @@ In your main package, create a class named `LoginActivity` and add the following
 package com.echessa.tasky;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.auth0.android.Auth0;
-import com.auth0.android.lock.AuthenticationCallback;
-import com.auth0.android.lock.Lock;
-import com.auth0.android.lock.LockCallback;
-import com.auth0.android.lock.utils.LockException;
+import com.auth0.android.authentication.AuthenticationAPIClient;
+import com.auth0.android.authentication.AuthenticationException;
+import com.auth0.android.callback.BaseCallback;
+import com.auth0.android.provider.AuthCallback;
+import com.auth0.android.provider.WebAuthProvider;
 import com.auth0.android.result.Credentials;
+import com.auth0.android.result.UserProfile;
+import com.echessa.tasky.utils.CredentialsManager;
 
 public class LoginActivity extends Activity {
-
-    private Lock mLock;
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
-        mLock = Lock.newBuilder(auth0, mCallback)
-                //Add parameters to the builder
-                .build(this);
-        startActivity(mLock.newIntent(this));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Your own Activity code
-        mLock.onDestroy(this);
-        mLock = null;
     }
 
-    private final LockCallback mCallback = new AuthenticationCallback() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final Auth0 account = new Auth0(this);
+
+        WebAuthProvider.init(account)
+                       .withConnectionScope("openid", "offline_access")
+                       .start(LoginActivity.this, mCallback);
+    }
+
+    private void showToastText(final String text) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private final AuthCallback mCallback = new AuthCallback() {
         @Override
-        public void onAuthentication(Credentials credentials) {
-            Toast.makeText(LoginActivity.this, "Log In - Success", Toast.LENGTH_SHORT).show();
+        public void onSuccess(Credentials credentials) {
+            showToastText("Log In - Success");
             startActivity(new Intent(LoginActivity.this, TaskListActivity.class));
             finish();
         }
 
         @Override
-        public void onCanceled() {
-            Toast.makeText(LoginActivity.this, "Log In - Cancelled", Toast.LENGTH_SHORT).show();
+        public void onFailure(Dialog dialog) {
+            showToastText("Log In - Cancelled");
         }
 
         @Override
-        public void onError(LockException error) {
-            Toast.makeText(LoginActivity.this, "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
+        public void onFailure(AuthenticationException exception) {
+            showToastText("Log In - Error Occurred");
         }
     };
-
 }
 ```
 
 In the above code, we make the added class into an Activity. We'll set this Activity as the first activity that gets called on app launch.
 
-In the activity's `onCreate()` method, we instantiate an `Auth0` object with the client credentials we got from Auth0. We then create a Lock widget and launch it with a call to `startActivity()`.
+In the activity's `onResume()` method, we instantiate an `Auth0` object. This object reads the values of the Auth0 domain and client ID from the `strings.xml` file. We can then instantiate a `WebAuthProvider` object that will display a login page for us.
 
-With the launched widget, the user will be able to login or register for an account.
-
-When the activity is about to exit, you should clean up any used resources. We include an `onDestroy()` function and destroy the instantiated Lock.
-
-We then include some callback functions that will be called after the authentication call to Auth0. We have the `onAuthentication()` that is called on successful authentication. Here, we display a message in a Toast and redirect the user to the `TaskListActivity` activity. We also include the `onCanceled()` callback that is called when authentication is cancelled and an `onError()` callback that is called in case of an authentication error.
+We then include some callback functions that will be called after the authentication call to Auth0. We have the `onSuccess()` that is called on successful authentication. Here, we display a message in a Toast and redirect the user to the `TaskListActivity` activity. We also include the `onFailure()` callbacks that are called when authentication is cancelled or in case of an authentication error.
 
 Add the LoginActivity to the manifest file as shown below and also remove the `intent-filter` tag from the `TaskListActivity` specification. We've instead added it to LoginActivity and made this activity the Launcher activity.
 
@@ -814,9 +807,9 @@ Add the LoginActivity to the manifest file as shown below and also remove the `i
 </activity>
 ```
 
-Run the app. If everything went well, you should see the Auth0 Lock widget and you should be able to create an account and be logged in.
+Run the app. If everything went well, you should see the Auth0 login screen and you should be able to create an account and be logged in.
 
-![Lock widget](https://raw.githubusercontent.com/echessa/various_learning/master/misc/realmio/image_03.png)
+![Login screen](https://cdn.auth0.com/blog/realm-android-update/login.png)
 
 In this app, we won't associate the To Do tasks to a particular user. Any logged in user will be able to see the tasks saved to a device. Later on we'll see how you can get the user's Auth0 details, incase you want to associate the data shown to a particular user.
 
@@ -838,7 +831,7 @@ To keep a user's session, we'll be working with the following key objects.
  Constants.java
  
  ```java
- package com.echessa.tasky.utils;
+package com.echessa.tasky.utils;
 
 class Constants {
     final static String REFRESH_TOKEN = "refresh_token";
@@ -922,6 +915,7 @@ Modify `LoginActivity` as shown.
 package com.echessa.tasky;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -930,99 +924,95 @@ import com.auth0.android.Auth0;
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.authentication.AuthenticationException;
 import com.auth0.android.callback.BaseCallback;
-import com.auth0.android.lock.AuthenticationCallback;
-import com.auth0.android.lock.Lock;
-import com.auth0.android.lock.LockCallback;
-import com.auth0.android.lock.utils.LockException;
+import com.auth0.android.provider.AuthCallback;
+import com.auth0.android.provider.WebAuthProvider;
 import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
 import com.echessa.tasky.utils.CredentialsManager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class LoginActivity extends Activity {
-
-    private Lock mLock;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
-        //Request a refresh token along with the id token.
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("scope", "openid offline_access");
-        mLock = Lock.newBuilder(auth0, mCallback)
-                .withAuthenticationParameters(parameters)
-                //Add parameters to the build
-                .build(this);
-
-        String accessToken = CredentialsManager.getCredentials(this).getAccessToken();
-        if (accessToken == null) {
-            startActivity(mLock.newIntent(this));
-            return;
-        }
-
-        AuthenticationAPIClient aClient = new AuthenticationAPIClient(auth0);
-        aClient.userInfo(accessToken)
-                .start(new BaseCallback<UserProfile, AuthenticationException>() {
-                    @Override
-                    public void onSuccess(final UserProfile payload) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(LoginActivity.this, "Automatic Login Success", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        startActivity(new Intent(LoginActivity.this, TaskListActivity.class));
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(AuthenticationException error) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(LoginActivity.this, "Session Expired, please Log In", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        CredentialsManager.deleteCredentials(LoginActivity.this);
-                        startActivity(mLock.newIntent(LoginActivity.this));
-                    }
-                });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Your own Activity code
-        mLock.onDestroy(this);
-        mLock = null;
     }
 
-    private final LockCallback mCallback = new AuthenticationCallback() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final Auth0 account = new Auth0(this);
+
+        String accessToken = CredentialsManager.getCredentials(this).getAccessToken();
+        if (accessToken == null) {
+            WebAuthProvider.init(account)
+                    .withConnectionScope("openid", "offline_access")
+                    .start(LoginActivity.this, mCallback);
+            return;
+        }
+
+        AuthenticationAPIClient aClient = new AuthenticationAPIClient(account);
+        aClient.userInfo(accessToken)
+                .start(new BaseCallback<UserProfile, AuthenticationException>() {
+                    @Override
+                    public void onSuccess(final UserProfile payload) {
+                        showToastText("Automatic Login Success");
+
+                        startActivity(new Intent(LoginActivity.this, TaskListActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(AuthenticationException error) {
+                        showToastText("Session Expired, please Log In");
+
+                        CredentialsManager.deleteCredentials(LoginActivity.this);
+
+                        WebAuthProvider.init(account)
+                                .withConnectionScope("openid", "offline_access")
+                                .start(LoginActivity.this, mCallback);
+                    }
+                });
+    }
+
+    private void showToastText(final String text) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private final AuthCallback mCallback = new AuthCallback() {
         @Override
-        public void onAuthentication(Credentials credentials) {
-            Toast.makeText(LoginActivity.this, "Log In - Success", Toast.LENGTH_SHORT).show();
+        public void onSuccess(Credentials credentials) {
+            showToastText("Log In - Success");
             CredentialsManager.saveCredentials(LoginActivity.this, credentials);
             startActivity(new Intent(LoginActivity.this, TaskListActivity.class));
             finish();
         }
 
         @Override
-        public void onCanceled() {
-            Toast.makeText(LoginActivity.this, "Log In - Cancelled", Toast.LENGTH_SHORT).show();
+        public void onFailure(Dialog dialog) {
+            showToastText("Log In - Cancelled");
         }
 
         @Override
-        public void onError(LockException error) {
-            Toast.makeText(LoginActivity.this, "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
+        public void onFailure(AuthenticationException exception) {
+            showToastText("Log In - Error Occurred");
         }
     };
 }
 ```
  
-Before launching Lock we need to first ask for the `offline_access` scope in order to get a valid `refresh_token` in the response.
+Before showing the login page, we need to first ask for the `offline_access` scope in order to get a valid `refresh_token` in the response.
  
-We then check for a saved `accessToken`. If there is none, the Lock widget is launched and the user can log in. When they log in, the `onAuthentication()` callback will be called and their credentials saved.
+We then check for a saved `accessToken`. If there is none, the login page is shown and the user can log in. When they log in, the `onSuccess()` callback will be called and their credentials saved.
  
 If an `accessToken` is found on application launch, we check whether it’s still valid. To do this, we fetch the user profile with the `AuthenticationAPI`. If this call succeeds, we launch the `TaskListActivity`.
  
@@ -1083,4 +1073,4 @@ Run the app and you should be able to logout via the Logout menu option
 ![Logout](https://raw.githubusercontent.com/echessa/various_learning/master/misc/realmio/image_04.png)
 
 ## Conclusion
-In this article, we've looked at how to use the Realm Mobile Database in an Android app. If you are interested in finding out more on this, be sure to check out its [documentation](https://realm.io/docs). You can download the completed project files from [here](https://github.com/echessa/realm-android-demo). The folder contains two subfolders labelled `completed` and `completed_with_auth0`. The former contains the completed project without the added authentication code, while the latter contains the Auth0 code. For the latter, remember to place in your Auth0 client ID and domain in the `strings.xml` file.
+In this article, we've looked at how to use the Realm Mobile Database in an Android app. If you are interested in finding out more on this, be sure to check out its [documentation](https://realm.io/docs). You can download the completed project files from [here](https://github.com/auth0-blog/realm-android-demo). The folder contains two subfolders labelled `completed` and `completed_with_auth0`. The former contains the completed project without the added authentication code, while the latter contains the Auth0 code. For the latter, remember to place in your Auth0 client ID and domain in the `strings.xml` file.
