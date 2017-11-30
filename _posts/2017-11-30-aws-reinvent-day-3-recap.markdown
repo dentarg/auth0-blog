@@ -37,7 +37,7 @@ Thank you for tuning back in to our TL;DR of the AWS re:Invent conference. Day t
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">New instances. M5 as predicted, H1 for <a href="https://twitter.com/hashtag/BigData?src=hash&amp;ref_src=twsrc%5Etfw">#BigData</a> and I3M bare metal hi io. <a href="https://twitter.com/hashtag/ReInvent?src=hash&amp;ref_src=twsrc%5Etfw">#ReInvent</a> <a href="https://twitter.com/hashtag/Live?src=hash&amp;ref_src=twsrc%5Etfw">#Live</a> <a href="https://twitter.com/hashtag/launch?src=hash&amp;ref_src=twsrc%5Etfw">#launch</a> <a href="https://t.co/2og9C1IfM9">pic.twitter.com/2og9C1IfM9</a></p>&mdash; Peter Joseph (@CloudyNetwork) <a href="https://twitter.com/CloudyNetwork/status/935908201035325440?ref_src=twsrc%5Etfw">November 29, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-AWS already has one of the broadset sets of compute offerings. Today, they announced three more elastic compute instances: **M5**, **H1**, and [**I3M**](https://aws.amazon.com/blogs/aws/new-amazon-ec2-bare-metal-instances-with-direct-access-to-hardware/), a bare metal offering for organizations wanting to have direct access to the hardware. In addition to the new instances, they also announces a new pricing model for their spot instances, which allow developers to use EC2 resources at reduced prices.
+AWS already has one of the broadest sets of computing offerings. Today, they announced three more elastic compute instances: **M5**, **H1**, and [**I3M**](https://aws.amazon.com/blogs/aws/new-amazon-ec2-bare-metal-instances-with-direct-access-to-hardware/), a bare metal offering for organizations wanting to have direct access to the hardware. In addition to the new instances, they also announced a new pricing model for their spot instances, which allows developers to use EC2 resources at reduced prices.
 
 ### ECS for Kubernetes
 
@@ -49,7 +49,7 @@ AWS already has one of the broadset sets of compute offerings. Today, they annou
 
 ### AWS Fargate
 
-What if you didn't want to manage contrainer clusters at all? AWS may just have a solution for that as well. [AWS Fargate](https://aws.amazon.com/blogs/aws/aws-fargate/) is a service that they announced today that can deploy and manage containers for you so you don't have to manage any of the underlying architecture.
+What if you didn't want to manage container clusters at all? AWS may just have a solution for that as well. [AWS Fargate](https://aws.amazon.com/blogs/aws/aws-fargate/) is a service that they announced today that can deploy and manage containers for you so you don't have to manage any of the underlying architecture.
 
 ![AWS Fargate](https://cdn.auth0.com/blog/aws-reinvent-2017/fargate.jpg)
 
@@ -66,11 +66,11 @@ We already have serverless functionality for our applications, why not our datab
 
 ### Amazon DynamoDB Global Tables
 
-[DynamoDB](https://aws.amazon.com/blogs/aws/new-for-amazon-dynamodb-global-tables-and-on-demand-backup/) is Amazon's key/value database offering and it is a pretty impressive one at that. During Prime Day, DynamoDB served over 12.9 million requests per second bringing a whole new meaning to the term big data and web scale. Over 3.34 trillion requests were served for Prime Day in total. DynamoDB Global Tables provides a fully managed multi-region NoSQL database that allow you to provide localized reads and writes to your data wherever your users may be.
+[DynamoDB](https://aws.amazon.com/blogs/aws/new-for-amazon-dynamodb-global-tables-and-on-demand-backup/) is Amazon's key/value database offering and it is a pretty impressive one at that. During Prime Day, DynamoDB served over 12.9 million requests per second bringing a whole new meaning to the term big data and web scale. Over 3.34 trillion requests were served for Prime Day in total. DynamoDB Global Tables provides a fully managed multi-region NoSQL database that allows you to provide localized reads and writes to your data wherever your users may be.
 
 ### Amazon Neptune
 
-Graph databases have been growing in popularity recently and Amazon will have an official player in the game with [Amazon Neptune](http://www.businesswire.com/news/home/20171129006077/en/AWS-Announces-New-Capabilities-Amazon-Aurora-Amazon). The promise of this graph database is that it will be fast, reliable, and of course fully managed by AWS. Another big benefit of Neptune is the ability to use multiplate graph query languages such as TinkerPop and SPARQL.
+Graph databases have been growing in popularity recently and Amazon will have an official player in the game with [Amazon Neptune](http://www.businesswire.com/news/home/20171129006077/en/AWS-Announces-New-Capabilities-Amazon-Aurora-Amazon). The promise of this graph database is that it will be fast, reliable, and of course fully managed by AWS. Another big benefit of Neptune is the ability to use multiple graph query languages such as TinkerPop and SPARQL.
 
 ## Machine Learning
 
@@ -97,17 +97,17 @@ With more and more apps reaching a global audience, having correct localized tra
 
 ### Amazon SageMaker
 
-If you aren't looking to translate, transcribe, or understand your content, perhaps you want to do something else with it. [Amazon SageMaker](https://aws.amazon.com/blogs/aws/sagemaker/) is a fully managed service enabling data scientists to build, train, and deploy maching learning models for any dataset. SageMaker will work with a variety of different platforms such as [TenserFlow](https://www.tensorflow.org/), [MXNet](https://mxnet.incubator.apache.org/), and others and through its managed capability will help data scientists make sense of their data faster and with greater accuracy.
+If you aren't looking to translate, transcribe, or understand your content, perhaps you want to do something else with it. [Amazon SageMaker](https://aws.amazon.com/blogs/aws/sagemaker/) is a fully managed service enabling data scientists to build, train, and deploy machine learning models for any dataset. SageMaker will work with a variety of different platforms such as [TenserFlow](https://www.tensorflow.org/), [MXNet](https://mxnet.incubator.apache.org/), and others and through its managed capability will help data scientists make sense of their data faster and with greater accuracy.
 
 ![Amazon SageMaker](https://cdn.auth0.com/blog/aws-reinvent-2017/sagemaker.png)
 
 ### AWS DeepLens
 
-[AWS DeepLens](https://aws.amazon.com/blogs/aws/deeplens/) is a a wireless video camera and development kit that allows developers to get a better understanding of machine learning concepts. DeepLens will be released next year and will come with various samples to help developers learn more about what's possible with machine learning and how to get started.
+[AWS DeepLens](https://aws.amazon.com/blogs/aws/deeplens/) is a wireless video camera and development kit that allows developers to get a better understanding of machine learning concepts. DeepLens will be released next year and will come with various samples to help developers learn more about what's possible with machine learning and how to get started.
 
 ## IoT
 
-IoT is another buzzword that has been around for a little while but seems ready to take the world by storm. AWS had many announcements that will make working with IoT a much more pleasent experience than before.
+IoT is another buzzword that has been around for a little while but seems ready to take the world by storm. AWS had many announcements that will make working with IoT a much more pleasant experience than before.
 
 ### AWS IoT 1-Click
 
@@ -115,11 +115,11 @@ IoT is another buzzword that has been around for a little while but seems ready 
 
 ### AWS IoT Analytics
 
-[AWS IoT Analytics](https://aws.amazon.com/blogs/aws/launch-presenting-aws-iot-analytics/) will give developers greater insight into the data their IoT devicees collect. This fully managed service will collect, process, enrich, and analyze IoT device data at scale.
+[AWS IoT Analytics](https://aws.amazon.com/blogs/aws/launch-presenting-aws-iot-analytics/) will give developers greater insight into the data their IoT devices collect. This fully managed service will collect, process, enrich, and analyze IoT device data at scale.
 
 ### Amazon FreeRTOS
 
-[Amazon FreeRTOS](https://aws.amazon.com/blogs/aws/announcing-amazon-freertos/) is an IoT operating system for low-power edge devices that is easy to program, deploy, secure, connect to, and maintain. It is available free of charge, is full open source, and best of all available to all today.
+[Amazon FreeRTOS](https://aws.amazon.com/blogs/aws/announcing-amazon-freertos/) is an IoT operating system for low-power edge devices that is easy to program, deploy, secure, connect to, and maintain. It is available free of charge, is fully open source, and best of all, available to all today.
 
 ## Security, Identity, and Compliance
 
@@ -127,11 +127,11 @@ I was very excited to learn about what identity and security announcements Amazo
 
 ### Advanced Security Features for Amazon Cognito
 
-Amazon announced a number of advanced security features for [Amazon Cognito](https://aws.amazon.com/cognito/) including multifactor authentication, breached password detection, and various anomaly detection features. All of these features launched in beta today. If you need these features in a production ready capacity today, we at Auth0 also provide [multifactor authentication](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), and [anomaly detection](https://auth0.com/docs/anomaly-detection).
+Amazon announced a number of advanced security features for [Amazon Cognito](https://aws.amazon.com/cognito/) including multifactor authentication, breached password detection, and various anomaly detection features. All of these features launched in beta today. If you need these features in a production-ready capacity today, we at Auth0 also provide [multifactor authentication](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), and [anomaly detection](https://auth0.com/docs/anomaly-detection).
 
 ### Amazon GuardDuty
 
-Keeping your servers secure is important. [Amazon GuardDuty](https://aws.amazon.com/blogs/aws/amazon-guardduty-continuous-security-monitoring-threat-detection/) aims to make security a little easier by providing a manged threat detection service that allows your devops team to continuously monitor and protect your AWS accounts and workloads. The best part? It can be enabled with a few simple toggles in the AWS management console.
+Keeping your servers secure is important. [Amazon GuardDuty](https://aws.amazon.com/blogs/aws/amazon-guardduty-continuous-security-monitoring-threat-detection/) aims to make security a little easier by providing a managed threat detection service that allows your DevOps team to continuously monitor and protect your AWS accounts and workloads. The best part? It can be enabled with a few simple toggles in the AWS management console.
 
 That sums up the major announcements from today's keynote. I'm sure we missed a couple as they were coming at us one after another. Werner Vogels, CTO of AWS, will deliver his two-hour keynote tomorrow and we will be sure to cover all of the announcements that he makes as well. As for the sessions I attended today, two really stood out:
 
@@ -140,12 +140,12 @@ That sums up the major announcements from today's keynote. I'm sure we missed a 
 Steve Schmidt, chief information security officer of AWS, delivered the AWS Security State of the Union talk. The key takeaway from his talk was his mechanisms to drive security in an organization, and they are:
 
 * **Buy-in from leadership** - security cannot be an afterthought.
-* **Radically restricting and monitoring human access to data** - humans and data don't mix, follow the principle of least priviledge.
+* **Radically restricting and monitoring human access to data** - humans and data don't mix, follow the principle of least privilege.
 * **Source code security**.
-* **Patching** - everybody hates doning it, but it must be done.
+* **Patching** - everybody hates doing it, but it must be done.
 * **Log retention duration** - storage is fairly cheap, once deleted logs are lost forever.
 * **Credential blast radius detection** - use IAM roles properly to ensure that if credentials are leaked damage will be minimal.
-* **Credentials lifespan reduction** - no long lived tokens and continous rotation of credentials.
+* **Credentials lifespan reduction** - no long-lived tokens and continuous rotation of credentials.
 * **TLS implementation** - encrypt data in motion and at rest.
 * **AWS encryption everywhere**.
 * **Canaries and invariants for security functionality**.
@@ -158,7 +158,7 @@ We at Auth0 follow many of these principles to the T to ensure that we are deliv
 
 ## Session: Best Security Practices in the Intelligence Community
 
-This breakout session include guest speakers from the US Intelligence Community, including Scott Kaplan, Deputy Chief of the NGA and John Nicely, Chief of Cloud Security for the US Government. They shared their lessons learned from moving their infrastructures from on-premise deployments to the cloud and how it allowed their organizations to respond quicker and with greater accuracy. This is definitely a talk I look forward to revisiting once it is posted online after AWS re:Invent 2017 concludes.
+This breakout session included guest speakers from the US Intelligence Community, including Scott Kaplan, Deputy Chief of the NGA and John Nicely, Chief of Cloud Security for the US Government. They shared their lessons learned from moving their infrastructures from on-premise deployments to the cloud and how it allowed their organizations to respond quicker and with greater accuracy. This is definitely a talk I look forward to revisiting once it is posted online after AWS re:Invent 2017 concludes.
 
 ## Aside: Auth0 and AWS
 
@@ -175,7 +175,7 @@ If you are using AWS to manage your infrastructure, whether it be traditional, s
 
 ## Summary
 
-Day three of AWS re:Invent 2017 was very eventful. Andy's keynote has set the tone for the rest of the conference and that tone is "everything is everything." AWS wants to give you the best infrastructure to build and deploy your applications. Currently the number of services offered by AWS is approaching 4,000! I can't wait to see what tomorrow has in store for us.
+Day three of AWS re:Invent 2017 was very eventful. Andy's keynote has set the tone for the rest of the conference and that tone is "everything is everything." AWS wants to give you the best infrastructure to build and deploy your applications. Currently, the number of services offered by AWS is approaching 4,000! I can't wait to see what tomorrow has in store for us.
 
 Previous recaps:
 
