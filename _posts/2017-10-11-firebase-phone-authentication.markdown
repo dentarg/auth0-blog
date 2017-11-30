@@ -427,22 +427,6 @@ They then have five minutes to input that password into the app:
 
 If this is a user’s first time logging in, a new account is created for their phone number. If their phone number matches an existing account, they are authenticated and logged into that account.
 
-Integrating is as simple as including the `lock-passwordless` script and invoking it like so:
-
-```
- <button id="signin-sms">Login</button>
-
-  <script src="//cdn.auth0.com/js/lock-passwordless-1.0.min.js"></script>
-  <script type="text/javascript">
-    document.getElementById('signin-sms').onclick = function () {
-      var pwdless = new Auth0LockPasswordless('client-id', 'app-domain');
-      pwdless.sms(function (err, profile, id_token) {
-        // Passwordless Authentication handler
-      });
-    }
-  </script>
-```
-
 Check out how to authenticate users using passwordless on [Single Page Apps](https://auth0.com/docs/connections/passwordless#passwordless-on-single-page-apps), [Regular Web Apps](https://auth0.com/docs/connections/passwordless#passwordless-on-regular-web-apps), [iOS](https://auth0.com/docs/connections/passwordless#passwordless-on-ios) and [Android](https://auth0.com/docs/connections/passwordless#passwordless-on-android).
 
 ## Wrapping Up
