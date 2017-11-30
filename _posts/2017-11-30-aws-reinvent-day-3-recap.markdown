@@ -28,7 +28,7 @@ related:
 - 2017-07-21-the-role-of-identity-in-application-modernization
 ---
 
-Thank you for tuning back in to our TL;DR of the AWS re:Invent conference. Day three kicked off with a keynote by AWS CEO Andy Jassy where he announced a large number of new services that really go above and beyond and cement AWS as the premier cloud platform for organizations large and small. I was also able to sneak into a couple of great talks and sessions after the keynote, but the highlight of the day was the keynote. Here's a TL;DR of all the announcements.
+Thank you for tuning back in to our TL;DR of the AWS re:Invent conference. Day three kicked off with a keynote by AWS CEO Andy Jassy where he announced a large number of new services that really go above and beyond, and cement AWS as the premier cloud platform for organizations large and small. I was also able to sneak into a couple of great talks and sessions after the keynote, but the highlight of the day was the keynote. Here's a TL;DR of all the announcements.
 
 ## Compute
 
@@ -37,11 +37,11 @@ Thank you for tuning back in to our TL;DR of the AWS re:Invent conference. Day t
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">New instances. M5 as predicted, H1 for <a href="https://twitter.com/hashtag/BigData?src=hash&amp;ref_src=twsrc%5Etfw">#BigData</a> and I3M bare metal hi io. <a href="https://twitter.com/hashtag/ReInvent?src=hash&amp;ref_src=twsrc%5Etfw">#ReInvent</a> <a href="https://twitter.com/hashtag/Live?src=hash&amp;ref_src=twsrc%5Etfw">#Live</a> <a href="https://twitter.com/hashtag/launch?src=hash&amp;ref_src=twsrc%5Etfw">#launch</a> <a href="https://t.co/2og9C1IfM9">pic.twitter.com/2og9C1IfM9</a></p>&mdash; Peter Joseph (@CloudyNetwork) <a href="https://twitter.com/CloudyNetwork/status/935908201035325440?ref_src=twsrc%5Etfw">November 29, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-AWS already has one of the broadest sets of computing offerings. Today, they announced three more elastic compute instances: **M5**, **H1**, and [**I3M**](https://aws.amazon.com/blogs/aws/new-amazon-ec2-bare-metal-instances-with-direct-access-to-hardware/), a bare metal offering for organizations wanting to have direct access to the hardware. In addition to the new instances, they also announced a new pricing model for their spot instances, which allows developers to use EC2 resources at reduced prices.
+AWS already has one of the broadest sets of compute offerings. Today, they announced three more elastic compute instances: **M5**, **H1**, and [**I3M**](https://aws.amazon.com/blogs/aws/new-amazon-ec2-bare-metal-instances-with-direct-access-to-hardware/), a bare metal offering for organizations wanting to have direct access to the hardware. In addition to the new instances, they also announced a new pricing model for their spot instances, which allows developers to use EC2 resources at reduced prices.
 
 ### ECS for Kubernetes
 
-[Kubernetes](https://kubernetes.io/) is making some pretty large waves in the container orchestration space and until now it was very much a manual process to setup Kubernetes on AWS. That is about to change with [Amazon Elastic Container Service for Kubernetes](http://www.businesswire.com/news/home/20171129006075/en/AWS-Announces-New-Container-Capabilities%E2%80%94Amazon-Elastic-Container) or EKS which is launching in preview this week. Amazon EKS fully manages the availability and scalability of the Kubernetes control plane for each cluster and will allow organizations to easily run Kubernetes without having expert Kubernetes knowledge.
+[Kubernetes](https://kubernetes.io/) is making some pretty large waves in the container orchestration space and until now it was very much a manual process to set up Kubernetes on AWS. That is about to change with [Amazon Elastic Container Service for Kubernetes](http://www.businesswire.com/news/home/20171129006075/en/AWS-Announces-New-Container-Capabilities%E2%80%94Amazon-Elastic-Container) or EKS which is launching in preview this week. Amazon EKS fully manages the availability and scalability of the Kubernetes control plane for each cluster and will allow organizations to easily run Kubernetes without having expert Kubernetes knowledge.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Managed Kubernetes for AWS - The Elastic Container Service for Kubernetes (EKS) <a href="https://twitter.com/hashtag/reinvent?src=hash&amp;ref_src=twsrc%5Etfw">#reinvent</a> <a href="https://t.co/lqKpwoYjOK">pic.twitter.com/lqKpwoYjOK</a></p>&mdash; AWS re:Invent (@AWSreInvent) <a href="https://twitter.com/AWSreInvent/status/935909627224506368?ref_src=twsrc%5Etfw">November 29, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -55,14 +55,14 @@ What if you didn't want to manage container clusters at all? AWS may just have a
 
 ## Databases
 
-I have a love/hate relationship with databases. They power the applications that I build and I actually have fun working with traditional relational database systems, especially PostgreSQL, but I hate setting up database servers. Andy had a few announcements in the database space that really got me excited for the future of database management, or should I say lack of management?
+I have a love/hate relationship with databases. They power the applications that I build and I actually have fun working with traditional relational database systems, especially PostgreSQL, but I hate setting up database servers. Andy had a few announcements in the database space that really got me excited for the future of database management—or should I say lack of management?
 
 ### Amazon Aurora Serverless
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Aurora Serverless &lt; <a href="https://twitter.com/ajassy?ref_src=twsrc%5Etfw">@ajassy</a> and <a href="https://twitter.com/awscloud?ref_src=twsrc%5Etfw">@awscloud</a> team is stealing my dreams and making them real<br><br>AMAZING NEW SERVICE/FEATURE<a href="https://twitter.com/hashtag/reinvent?src=hash&amp;ref_src=twsrc%5Etfw">#reinvent</a> <a href="https://t.co/MJFOOUOS2y">pic.twitter.com/MJFOOUOS2y</a></p>&mdash; Mark Nunnikhoven (@marknca) <a href="https://twitter.com/marknca/status/935913290676428802?ref_src=twsrc%5Etfw">November 29, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-We already have serverless functionality for our applications, why not our databases? That is the question Amazon is asking as well. [Aurora Serverless](https://aws.amazon.com/blogs/aws/in-the-works-amazon-aurora-serverless/) aims to bring the benefits of serverless computing to database management where you only get charged for the resources that you consume. This is perhaps the biggest announcement of Andy's keynote for me personally and I think a real game-changer in the database management space.
+We already have serverless functionality for our applications, why not our databases? That is the question Amazon is asking as well. [Aurora Serverless](https://aws.amazon.com/blogs/aws/in-the-works-amazon-aurora-serverless/) aims to bring the benefits of serverless computing to database management where you only get charged for the resources that you consume. This is perhaps the biggest announcement of Andy's keynote for me personally, and in my opinion, a real game-changer in the database management space.
 
 ### Amazon DynamoDB Global Tables
 
@@ -74,15 +74,15 @@ Graph databases have been growing in popularity recently and Amazon will have an
 
 ## Machine Learning
 
-If "Big Data" was the buzzword that dominated our industry the last five years, "Machine Learning" will be the buzzword that dominates the next five. The promise of machine learning is that it will allow organizations the ability to provide much more personal and relevant experiences to each and every user. We're seeing machine learning used in everything from image recognition, recommendation engines, and healthcare. AWS had lots of announcements in this space.
+If "Big Data" was the buzzword that dominated our industry the last five years, "Machine Learning" will be the buzzword that dominates the next five. The promise of machine learning is that it will allow organizations the ability to provide much more personal and relevant experiences to each and every user. We're seeing machine learning used in everything from image recognition, recommendation engines, to healthcare. AWS had lots of announcements in this space.
 
 ### Amazon Rekognition Video
 
-The [Amazon Rekognition](https://aws.amazon.com/blogs/aws/launch-welcoming-amazon-rekognition-video-service/) service provides developers with an API to make sense of images. For example, you feed it an image and it will tell you what's it sees for example correctly identifying humans and other objects that it sees. [Amazon Rekognition Video]() does the same exact thing, but for video content. It will be able to track people, detect various activities, recognize various objects, celebrities, and even inappropriate objects. This can be done with existing video and even live streams which opens up a wide array of potential use cases.
+The [Amazon Rekognition](https://aws.amazon.com/rekognition/) service provides developers with an API to make sense of images. For example, you feed it an image and it will tell you what it sees, for example, correctly identifying humans and other objects. [Amazon Rekognition Video](https://aws.amazon.com/blogs/aws/launch-welcoming-amazon-rekognition-video-service/) does the same exact thing, but for video content. It will be able to track people, detect various activities, recognize various objects, celebrities, and even inappropriate objects. This can be done with existing video and even live streams, which opens up a wide array of potential use cases.
 
 ### Amazon Transcribe
 
-[Amazon Transcribe](https://aws.amazon.com/blogs/aws/amazon-transcribe-scalable-and-accurate-automatic-speech-recognition/) will equip developers with automatic speech recognition (ASR), allowing developers to easily add speech-to-text capability to their applications.
+[Amazon Transcribe](https://aws.amazon.com/blogs/aws/amazon-transcribe-scalable-and-accurate-automatic-speech-recognition/) will equip developers with automatic speech recognition (ASR), allowing them to easily add speech-to-text capability to their applications.
 
 ### Amazon Translate
 
@@ -97,7 +97,7 @@ With more and more apps reaching a global audience, having correct localized tra
 
 ### Amazon SageMaker
 
-If you aren't looking to translate, transcribe, or understand your content, perhaps you want to do something else with it. [Amazon SageMaker](https://aws.amazon.com/blogs/aws/sagemaker/) is a fully managed service enabling data scientists to build, train, and deploy machine learning models for any dataset. SageMaker will work with a variety of different platforms such as [TenserFlow](https://www.tensorflow.org/), [MXNet](https://mxnet.incubator.apache.org/), and others and through its managed capability will help data scientists make sense of their data faster and with greater accuracy.
+If you aren't looking to translate, transcribe, or understand your content, perhaps you want to do something else with it. [Amazon SageMaker](https://aws.amazon.com/blogs/aws/sagemaker/) is a fully managed service enabling data scientists to build, train, and deploy machine learning models for any dataset. SageMaker will work with a variety of different platforms such as [TenserFlow](https://www.tensorflow.org/), [MXNet](https://mxnet.incubator.apache.org/), and others. Through its managed capability, it will help data scientists make sense of their data faster and with greater accuracy.
 
 ![Amazon SageMaker](https://cdn.auth0.com/blog/aws-reinvent-2017/sagemaker.png)
 
@@ -111,7 +111,7 @@ IoT is another buzzword that has been around for a little while but seems ready 
 
 ### AWS IoT 1-Click
 
-[AWS IoT 1-Click](http://www.businesswire.com/news/home/20171129006079/en/AWS-Announces-Slew-New-IoT-Services-Brings) is a service that makes it easy to trigger [AWS Lambda](https://aws.amazon.com/lambda/) functions from devices. If you've used [Amazon Dash](https://www.amazon.com/Dash-Buttons/b?ie=UTF8&node=10667898011) buttons in the past, the concept is fairly similar but just applied to any IoT device.
+[AWS IoT 1-Click](http://www.businesswire.com/news/home/20171129006079/en/AWS-Announces-Slew-New-IoT-Services-Brings) is a service that makes it easy to trigger [AWS Lambda](https://aws.amazon.com/lambda/) functions from devices. If you've used [Amazon Dash](https://www.amazon.com/Dash-Buttons/b?ie=UTF8&node=10667898011) buttons in the past, the concept is fairly similar, only applied to any IoT device.
 
 ### AWS IoT Analytics
 
@@ -123,11 +123,11 @@ IoT is another buzzword that has been around for a little while but seems ready 
 
 ## Security, Identity, and Compliance
 
-I was very excited to learn about what identity and security announcements Amazon was going to announce today, and I gotta say I did not leave disappointed. Cognito is becoming a fully fledged identity platform, but that's not all Andy had up his sleeve.
+I was very excited to learn about what identity and security announcements Amazon was going to announce today, and I have to say, I did not leave disappointed. Cognito is becoming a fully fledged identity platform, but that's not all Andy had up his sleeve.
 
 ### Advanced Security Features for Amazon Cognito
 
-Amazon announced a number of advanced security features for [Amazon Cognito](https://aws.amazon.com/cognito/) including multifactor authentication, breached password detection, and various anomaly detection features. All of these features launched in beta today. If you need these features in a production-ready capacity today, we at Auth0 also provide [multifactor authentication](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), and [anomaly detection](https://auth0.com/docs/anomaly-detection).
+Amazon announced a number of advanced security features for [Amazon Cognito](https://aws.amazon.com/cognito/) including multifactor authentication, breached password detection, and various anomaly detection features. All of these features launched in beta today. If you need these features in a production-ready capacity right now, we at Auth0 also provide [multifactor authentication](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), and [anomaly detection](https://auth0.com/docs/anomaly-detection).
 
 ### Amazon GuardDuty
 
@@ -143,14 +143,14 @@ Steve Schmidt, chief information security officer of AWS, delivered the AWS Secu
 * **Radically restricting and monitoring human access to data** - humans and data don't mix, follow the principle of least privilege.
 * **Source code security**.
 * **Patching** - everybody hates doing it, but it must be done.
-* **Log retention duration** - storage is fairly cheap, once deleted logs are lost forever.
-* **Credential blast radius detection** - use IAM roles properly to ensure that if credentials are leaked damage will be minimal.
+* **Log retention duration** - storage is fairly cheap; once deleted, logs are lost forever.
+* **Credential blast radius detection** - use IAM roles properly to ensure that if credentials are leaked, damage will be minimal.
 * **Credentials lifespan reduction** - no long-lived tokens and continuous rotation of credentials.
 * **TLS implementation** - encrypt data in motion and at rest.
 * **AWS encryption everywhere**.
 * **Canaries and invariants for security functionality**.
 
-We at Auth0 follow many of these principles to the T to ensure that we are delivering the most secure platform for our customers and users.
+At Auth0, we follow many of these principles to the T to ensure that we are delivering the most secure platform for our customers and users.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">That’s a lot of 0’s... AWS <a href="https://twitter.com/hashtag/reInvent?src=hash&amp;ref_src=twsrc%5Etfw">#reInvent</a> Security State of The Union <a href="https://t.co/1PX9zuViS8">pic.twitter.com/1PX9zuViS8</a></p>&mdash; Teri Radichel (@TeriRadichel) <a href="https://twitter.com/TeriRadichel/status/935978817440530433?ref_src=twsrc%5Etfw">November 29, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
