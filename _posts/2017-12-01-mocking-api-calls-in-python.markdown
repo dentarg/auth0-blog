@@ -2,7 +2,7 @@
 layout: post
 title: "Mocking API calls in Python"
 description: "Let's learn how to test Python APIs with mocks."
-date: 2017-11-09 01:57
+date: 2017-12-01 08:30
 category: Technical Guide, Python
 author:
   name: "O'Brian Kimokot"
@@ -13,14 +13,13 @@ design:
   bg_color: "#0e2338"
   image: "https://cdn.auth0.com/blog/python-restful/logo.png"
 tags:
-- api
 - python
-- testing
+- api
 - mocking
+- testing
 ---
 
-**TL;DR:** In this article we are going to learn the basic features of mocking API calls in Python tests. We'll start by exploring the tools required, the different methods of mocking and complete with practical examples demonstrating the outlined methods of mocking. The final code can be found on [Github](https://github.com/kimobrian/Python-API-Testing).
-
+**TL;DR:** In this article, we are going to learn the basic features of mocking API calls in Python tests. We'll start by exploring the tools required, then we will learn different methods of mocking, and in the end we will check examples demonstrating the outlined methods. The final code can be found on [this GitHub repository](https://github.com/kimobrian/Python-API-Testing).
 
 ## Introduction
 
@@ -66,7 +65,7 @@ $ pip freeze > requirements.txt
 * The `nose2` library extends the built-in Python `unittest` module to make testing easier. You can use `unittest` or other third-party libraries such as pytest to achieve the same results.
 * The `requests` library simplifies HTTP calls in Python.
 
-For this tutorial, we will be communicating with a fake API on [JSONPlaceholder](http://jsonplaceholder.typicode.com/). 
+For this tutorial, we will be communicating with a fake API on [JSONPlaceholder](http://jsonplaceholder.typicode.com/).
 
 To find tests, `nose2` looks for modules whose names start with `test` in the current directories and sub-directories. In those modules, `nose2` will load tests from all `unittest.TestCase` subclasses, as well as functions whose names start with `test`.
 
@@ -282,7 +281,7 @@ class BasicTests(unittest.TestCase):
 
 `get_users()` function that was patched with a mock returned a mock object response. Whenever the `return_value` is added to a mock, that mock is modified to be run as a function, and by default it returns another mock object. In this example, we made it more clear by explicitly declaring the Mock object, `mock_get.return_value = Mock(status_code=200)`. The response object has a `status_code` property, so we added it to the Mock.
 
-The response object also has a `json()` function that returns a list of users. We added it to the mock and appended it with a `return_value`, since it will be called like a function. Notice that the test now includes an assertion that checks the value of `response.json()`. We want to ensure that the `get_users()` function returns a list of users, just like the actual server does. 
+The response object also has a `json()` function that returns a list of users. We added it to the mock and appended it with a `return_value`, since it will be called like a function. Notice that the test now includes an assertion that checks the value of `response.json()`. We want to ensure that the `get_users()` function returns a list of users, just like the actual server does.
 
 ## Mocking third-party functions
 
