@@ -30,7 +30,7 @@ related:
 
 Thank you for tuning back in to our TL;DR of the AWS re:Invent conference. Day three kicked off with a keynote by AWS CEO Andy Jassy where he announced a large number of new services that really go above and beyond and cement AWS as the premier cloud platform for organizations large and small. I was also able to sneak into a couple of great talks and sessions after the keynote, but the highlight of the day was the keynote. Here's a TL;DR of all the announcements.
 
-## Announcement: Compute
+## Compute
 
 ### New EC2 Instances
 
