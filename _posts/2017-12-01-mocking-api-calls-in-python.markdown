@@ -27,6 +27,8 @@ A mock is a fake object that we construct to look and act like the real one. We 
 
 By mocking out external dependencies and APIs, we can run our tests as often as we want without being affected by any unexpected changes or irregularities within the dependencies. Mocking also saves us on time and computing resources if we have to test HTTP requests that fetch a lot of data.
 
+{% include tweet_quote.html quote_text="By mocking external dependencies, we can run tests without being affected by any unexpected changes or irregularities within the dependencies!" %}
+
 ### Setup
 
 For this tutorial, we will require [Python 3](https://www.python.org/download/releases/3.0/) installed. Having it on our machine, let's set up a simple folder structure:
@@ -225,6 +227,8 @@ class BasicTests(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 ```
+
+{% include tweet_quote.html quote_text="I just learned about different mocking techniques on Python!" %}
 
 ## Mocking a Whole Function
 
