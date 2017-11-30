@@ -137,7 +137,7 @@ Take a look at the [full](https://github.com/auth0/blog-dombench/blob/master/art
 ## Aside: React.js use at Auth0
 At Auth0 we are constantly evaluating the best technologies for our platform. For the development of our [Passwordless Lock library](https://github.com/auth0/lock-passwordless/) we picked React.js. React is an excellent choice because of its unopinionated integration model and its declarative way of developing components. On other fronts, React remains a well balanced approach between speed, memory usage, ease of integration and good documentation/support.
 
-<a href="javascript:signup()">Sign-up</a> and start using our Passwordless Lock library in a minute! Or take a look at the [code](https://github.com/auth0/lock-passwordless/).
+<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign-up</a> and start using our Passwordless Lock library in a minute! Or take a look at the [code](https://github.com/auth0/lock-passwordless/).
 
 ## Conclusion
 Virtual DOM, Glimmer and Incremental DOM are all excellent options for handling dynamic DOM updates. React's mindshare and ease of integration make it a no brainer for many projects. Increased memory use can be a problem in memory constrained devices for big websites. This problem, however, is getting smaller everyday as mobile devices carry more and more memory. Incremental DOM surprises by remaining fast even when doing less. We look forward to seeing Incremental DOM integrated into Closure and other libraries. React and Ember remain as well balanced approaches each favoring different development methodologies.

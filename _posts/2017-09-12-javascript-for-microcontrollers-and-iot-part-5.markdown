@@ -421,6 +421,8 @@ If you are on a different platform, check the [first post](https://auth0.com/blo
 
 [Get the full example](https://github.com/auth0-blog/javascript-for-microncontrollers-example-tls).
 
+{% include asides/about-auth0.markdown %}
+
 ## Conclusion
 We have pushed the Particle Photon to its limits. We integrated a JavaScript interpreter plus a TLS library and had them play together. We filled up all usable ROM and RAM and, luckily, it worked! However, we cannot recommend going this route for production. We had to microtune memory use to make sure everything worked together. Either go for a bigger microcontroller, or forego one element: JavaScript or TLS. We think it would be a good idea for Particle developers to expose the Mbed TLS library embedded in the firmware so that user applications could link against it. Having two copies of the same library in a memory limited device is wasteful. 
 

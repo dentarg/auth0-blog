@@ -28,6 +28,11 @@ related:
 - 2015-12-17-json-web-token-signing-algorithms-overview
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This post is out of date.</strong> The Aurelia framework and its dependencies have undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Thank you for your patience while we work on bringing you an updated tutorial!
+</div>
+
 -----
 
 **TL;DR**: Aurelia is a great client-side JavaScript framework and adding JWT authentication to Aurelia apps is easy with the [aurelia-auth package](https://github.com/paulvanbladel/aurelia-auth). Check out the [GitHub repo](https://github.com/chenkie/aurelia-jwt-auth) for this article to find out how to add authentication to your Aurelia app.
@@ -601,7 +606,7 @@ Auth0 issues [JSON Web Tokens](https://auth0.com/learn/json-web-tokens/) on ever
 
 You can use [Lock](https://auth0.com/docs/libraries/lock) to integrate [Auth0](https://auth0.com) with Aurelia as well and avoid having to deal with authentication!
 
-To start, sign up for your [free Auth0 account](javascript:signup\(\)) if you haven't already. Then bring in the **Auth0Lock** script.
+To start, sign up for your <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a> if you haven't already. Then bring in the **Auth0Lock** script.
 
 ```html
   <!-- Auth0 Lock script -->

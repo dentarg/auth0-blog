@@ -51,5 +51,5 @@ Auth0 provides [breached password detection](https://auth0.com/breached-password
 <img src="https://cdn.auth0.com/blog/breach/lock.gif">
 </video>
 
-Read about [Breached Passwords](https://auth0.com/breached-passwords) and [Anomaly Detection](https://auth0.com/docs/anomaly-detection) to learn more about how to protect users and their credentials with Auth0. You can also <a href="javascript:signup()">sign up for a free Auth0 account and start protecting your users today</a>!
+Read about [Breached Passwords](https://auth0.com/breached-passwords) and [Anomaly Detection](https://auth0.com/docs/anomaly-detection) to learn more about how to protect users and their credentials with Auth0. You can also <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account and start protecting your users today</a>!
 

@@ -710,7 +710,9 @@ Our `app.component.ts` will look like this:
 // ng2-dinos/src/app/core/app.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
 
 declare var window: any;
 

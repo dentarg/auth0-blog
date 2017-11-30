@@ -16,7 +16,7 @@
   <i class="icon-budicon-697 hide"></i>
 
   {% include amp/entry_image.html %}
-  <h2>{{current.title}}</h2>
+  <h1 class="post-title" itemprop="headline">{{current.title}}</h1>
   {% if current.description %}
   <div class="entry-content" itemprop="description">
     {{ current.description | markdownify }}
