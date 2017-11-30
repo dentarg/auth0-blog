@@ -226,7 +226,7 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
-## Mocking the whole function behavior
+## Mocking a Whole Function
 
 In the previous examples, we have implemented a basic mock and tested a simple assertion. In this section, we focus on mocking the whole functionality of `get_users()`. When using `@patch()`, we provide it a path to the function we want to mock. The function is found and `patch()` creates a `Mock` object, and the real function is temporarily replaced with the mock. When `get_users()` is called by the test, the function uses the `mock_get` the same way it would use the real `get()` method. That means that it calls `mock_get` like a function and expects it to return a response object.
 
@@ -265,12 +265,13 @@ class BasicTests(unittest.TestCase):
         # Assert that the request-response cycle completed successfully.
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), users)
-# ... code after
+
+
+if __name__ == "__main__":
+    unittest.main()
 ```
 
-#### Explanation
-
-`get_users()` function that was patched with a mock returned a mock object response. Whenever the `return_value` is added to a mock, that mock is modified to be run as a function, and by default it returns another mock object. In this example, we made it more clear by explicitly declaring the Mock object, `mock_get.return_value = Mock(status_code=200)`. The response object has a `status_code` property, so we added it to the Mock.
+In this case, `get_users()` function that was patched with a mock returned a mock object response. Whenever the `return_value` is added to a mock, that mock is modified to be run as a function, and by default it returns another mock object. In this example, we made it more clear by explicitly declaring the Mock object: `mock_get.return_value = Mock(status_code=200)`. The response object has a `status_code` property, so we added it to the Mock.
 
 The response object also has a `json()` function that returns a list of users. We added it to the mock and appended it with a `return_value`, since it will be called like a function. Notice that the test now includes an assertion that checks the value of `response.json()`. We want to ensure that the `get_users()` function returns a list of users, just like the actual server does.
 
