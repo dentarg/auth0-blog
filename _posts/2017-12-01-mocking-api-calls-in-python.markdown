@@ -327,6 +327,8 @@ def get_user(user_id):
 
 ![Mock a whole Python function](https://cdn.auth0.com/blog/python-api-test/mock_whole_function.png)
 
+{% include asides/python.markdown %}
+
 ## Conclusion
 
-Mocking of API calls is a very important concept while developing applications with several advantages including, but not limited to, faster development and saving of computing resources.
+Mocking API calls is a very important practice while developing applications and, as we could see, it's easy to create mocks on Python tests. This technique introduces several advantages including, but not limited to, faster development and saving of computing resources.
