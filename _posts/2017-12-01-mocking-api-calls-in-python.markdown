@@ -183,7 +183,10 @@ class BasicTests(unittest.TestCase):
 
         # Assert that the request-response cycle completed successfully.
         self.assertEqual(response.status_code, 200)
-# ... code after
+
+
+if __name__ == "__main__":
+    unittest.main()
 ```
 
 ### Using a Patcher
@@ -191,8 +194,12 @@ class BasicTests(unittest.TestCase):
 Another way to patch a function is to use a patcher. We identify the source to patch and then we start using the mock. The patching does not stop until we explicitly tell the system to stop using the mock. This is more suitable when using the `setUp()` and `tearDown()` functions in tests where we can start the patcher in the `setup()` method and stop it in the `tearDown()` method.
 
 ```python
-# users_test/test_users.py   
-# ... other imports
+# users_test/test_users.py
+import unittest
+from unittest.mock import patch
+from users import get_users
+
+
 class BasicTests(unittest.TestCase):
     # ... other tests
     def test_request_response_with_patcher(self):
@@ -213,7 +220,10 @@ class BasicTests(unittest.TestCase):
 
         # Assert that the request-response cycle completed successfully.
         self.assertEqual(response.status_code, 200)
-# ... code after
+
+
+if __name__ == "__main__":
+    unittest.main()
 ```
 
 ## Mocking the whole function behavior
