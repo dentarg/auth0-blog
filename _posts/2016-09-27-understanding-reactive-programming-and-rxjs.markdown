@@ -245,7 +245,7 @@ How would we implement it? Well, it's super simple. Most of the work is handled 
 
 ### Sign Up for Auth0
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 Client so Auth0 can interface with your site.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 Client so Auth0 can interface with your site.
 
 ### Set Up a Client
 
