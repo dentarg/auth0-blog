@@ -121,14 +121,14 @@ Up to this point, we wrote and tested our API by making real API requests during
 
 ## Utilizing Mocks
 
-The code is working as expected because, until this point, the test is actually making a HTTP request. Real-world applications will result to increased complexity, more tests, and more API calls. If we wrote a thousand tests for our API calls and each takes a second to fetch 10kb of data, this will mean a very long time to run our tests. It will also require more computing and internet resources which eventually slows down the development process. In any case, our server breaks down, we will stop the development of our client application since we cannot test it. In this section, we will learn how to detach our programming logic from the actual external library by swapping the real request with a fake one that returns the same data. We explore different ways of using mocks in our tests.
+The code is working as expected because, until this point, the test is actually making an HTTP request. Real-world applications will result to increased complexity, more tests, and more API calls. If we wrote a thousand tests for our API calls and each takes a second to fetch 10kb of data, this will mean a very long time to run our tests. It will also require more computing and internet resources which eventually slows down the development process. In any case, our server breaks down and we stop the development of our client application since we cannot test it. In this section, we will learn how to detach our programming logic from the actual external library by swapping the real request with a fake one that returns the same data. Let's explore different ways of using mocks in our tests.
 
 ### Using Decorators
 
-The first method is the use of decorators.
+The first method is the use of decorators:
 
 ```python
-# users_test/test_users.py    
+# users_test/test_users.py
 import unittest
 from users import get_users
 from unittest.mock import patch
@@ -149,18 +149,13 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
-We then run the tests again with `nose2`:
+Running `nose2` again () will make our test pass without modifying our functions in any way.
 
 ![Mock Python test with decorator](https://cdn.auth0.com/blog/python-api-test/pass_mock_test_decorator.png)
 
+Here is how it works. First, we import the `patch()` function from the mock library. Next, we modify the test function with the `patch()` function as a decorator, passing in a string representation of the desired method (i.e. `users.requests.get`). In the function itself, we pass in a parameter `mock_get`, and then in the body of the test function, we add a line to set `mock_get.return_value.status_code = 200`.
 
-The test passes without modifying our functions in any way.
-
-#### Explanation
-
-First, we imported the `patch()` function from the mock library. Next, we modified the test function with the `patch()` function as a decorator, passing in a string representation of `users.requests.get`. In the function itself, we passed in a parameter `mock_get`, and then in the body of the test function, we added a line to set `mock_get.return_value.status_code = 200`.
-
-So what actually happens when the test is run? We will first try to understand how the `requests` library works. When we call the `requests.get()` function, it makes an HTTP request and then returns an HTTP response in the form of a response object. The `get()` function itself communicates with the external server, which is why we need to target it. We need to make the mock to look and act like the `requests.get()` function.
+So what actually happens when the test is run? To answer this question, first let's understand how the `requests` library works. When we call the `requests.get()` function, it makes an HTTP request and then returns an HTTP response in the form of a response object. The `get()` function itself communicates with the external server, which is why we need to target it. We need to make the mock to look and act like the `requests.get()` function.
 
 When the test function is run, it finds the module where the requests library is declared, `users`, and replaces the targeted function, `requests.get()`, with a mock. The test also tells the mock to behave the way the function expects it to act. Looking at `get_users()`, we see that the success of the function depends on if our response has an `ok` property represented with `response.ok` which translates to a status code of 200. That is what the line `mock_get.return_value.status_code = 200` is doing. When the `status_code` property is called on the mock, it will return 200 just like the actual object. The `get_users()` function will return the response, which is the mock, and the test will pass because the mock response status code is 200.
 
