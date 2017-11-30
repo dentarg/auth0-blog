@@ -275,47 +275,57 @@ In this case, `get_users()` function that was patched with a mock returned a moc
 
 The response object also has a `json()` function that returns a list of users. We added it to the mock and appended it with a `return_value`, since it will be called like a function. Notice that the test now includes an assertion that checks the value of `response.json()`. We want to ensure that the `get_users()` function returns a list of users, just like the actual server does.
 
-## Mocking third-party functions
+## Mocking Third-Party Functions
 
 The above example has been fairly straightforward. Envision a situation where we create a new function that calls `get_users()` and then filters the result to return only the user with a given ID. In such a case, we mock `get_users()` function directly. For `get_users()`, we know that it takes no parameters and that it returns a response with a `json()` function that returns a list of users. What we care most about is not its implementation details. but the fact that `get_users()` mock returns what the actual `get_users()` function would have returned.
 
 ```python
 #users_test/test_users.py   
-# ... code before
-@patch('users.get_users')
-def test_get_one_user(self, mock_get_users):
-    """
-    Test for getting one user using their userID
-    Demonstrates mocking third party functions
-    """
-    users = [
-        {'phone': '514-794-6957', 'first_name': 'Brant', 'last_name': 'Mekhi', 'id': 0},
-        {'phone': '772-370-0117', 'first_name': 'Thalia', 'last_name': 'Kenyatta', 'id': 1},
-        {'phone': '176-290-7637', 'first_name': 'Destin', 'last_name': 'Soledad', 'id': 2}
+import unittest
+from users import get_users, get_user
+from unittest.mock import patch, Mock
+
+
+class BasicTests(unittest.TestCase):
+    @patch('users.get_users')
+    def test_get_one_user(self, mock_get_users):
+        """
+        Test for getting one user using their userID
+        Demonstrates mocking third party functions
+        """
+        users = [
+            {'phone': '514-794-6957', 'first_name': 'Brant', 'last_name': 'Mekhi', 'id': 0},
+            {'phone': '772-370-0117', 'first_name': 'Thalia', 'last_name': 'Kenyatta', 'id': 1},
+            {'phone': '176-290-7637', 'first_name': 'Destin', 'last_name': 'Soledad', 'id': 2}
         ]
-    mock_get_users.return_value = Mock()
-    mock_get_users.return_value.json.return_value = users
-    user = get_user(2)
-    self.assertEqual(user, users[2])
-# ... code after
+        mock_get_users.return_value = Mock()
+        mock_get_users.return_value.json.return_value = users
+        user = get_user(2)
+        self.assertEqual(user, users[2])
+
+
+if __name__ == "__main__":
+    unittest.main()
 ```
 
-In the above snippet, we mock the functionality of `get_users()` which is used by `get_user(user_id)`. When we run our tests with `nose2 --verbose`, our test passes successfully with the following implementation of `get_user(user_id)`.
+In the above snippet, we mock the functionality of `get_users()` which is used by `get_user(user_id)`. When we run our tests with `nose2 --verbose`, our test passes successfully with the following implementation of `get_user(user_id)`:
 
 ```python
 #users.py
-# ... code before
+import requests
+
+# ... USERS_URL and get_users definitions ...
+
+
 def get_user(user_id):
     """Get a single user using their ID"""
     all_users = get_users().json()
     for user in all_users:
         if user['id'] == user_id:
             return user
-# ... code after
 ```
 
 ![Mock a whole Python function](https://cdn.auth0.com/blog/python-api-test/mock_whole_function.png)
-
 
 ## Conclusion
 
