@@ -429,7 +429,7 @@ export class AppModule { }
 
 ## _Angular 2 アプリに認証を追加する_
 
-大部分のアプリは何らかのタイプの認証が必要です。今回のアプリケーションも例外ではありません。次のセクションでは、Angular 2 アプリケーションに認証を正しく追加する方法について説明します。ID プラットフォームとして [Auth0](https://auth0.com/)を使用します。Auth0 は [JSON Web トークン (JWT)](https://jwt.io/)の発行が簡単なのでこれを使用しますが、これから説明するコンセプトは認証システムをベースとするどんなトークンにも適用できます。Auth0 アカウントを持っていない場合は、無料で [サインアップ](javascript:signup\(\))してアカウントを作成してください。
+大部分のアプリは何らかのタイプの認証が必要です。今回のアプリケーションも例外ではありません。次のセクションでは、Angular 2 アプリケーションに認証を正しく追加する方法について説明します。ID プラットフォームとして [Auth0](https://auth0.com/)を使用します。Auth0 は [JSON Web トークン (JWT)](https://jwt.io/)の発行が簡単なのでこれを使用しますが、これから説明するコンセプトは認証システムをベースとするどんなトークンにも適用できます。Auth0 アカウントを持っていない場合は、無料で [サインアップ](https://auth0.com/signup)してアカウントを作成してください。
 
 Auth0 [管理ダッシュボード](https://manage.auth0.com/)にログインし、新しい API クライアントを作成しましょう。API のメニュー項目がない場合、 [アカウント設定](https://manage.auth0.com/#/account/advanced)に移動してそれを可能にします。 **詳細設定** タブでは、 **API を有効にするセクション** が表示されるまでスクロールダウンして、スイッチを入れます。
 
@@ -859,6 +859,6 @@ export const routedComponents = [PublicDealsComponent, PrivateDealsComponent, Ca
 
 Angular 2 がついに公表され、ゴールデンタイムの用意ができました。ここまでかなり時間がかかりましたが、ついに市場に出ました。とてもワクワクしています。このチュートリアルでは、Angular 2 コンポーネントとサービスの書き方をいくつか見てきました。Auth0 および Lock で認証ベースのトークンを実装しました。しかし、これはほんの一部です。
 
-Angular 2 はパイプや i18n などこれ一つでたくさんの機能を提供します。Auth0 は最先端の認証だけでなく、 [多要素認証](https://auth0.com/docs/multifactor-authentication)、 [異常検出](https://auth0.com/docs/anomaly-detection)、 [企業連盟](https://auth0.com/docs/identityproviders)、 [シングルサインオン (SSO)](https://auth0.com/docs/sso)その他の機能を拡張して、Angular 2 アプリをセキュアにします。 [サインアップ](javascript:signup\(\))して、アプリに固有な構築機能を活用してください。
+Angular 2 はパイプや i18n などこれ一つでたくさんの機能を提供します。Auth0 は最先端の認証だけでなく、 [多要素認証](https://auth0.com/docs/multifactor-authentication)、 [異常検出](https://auth0.com/docs/anomaly-detection)、 [企業連盟](https://auth0.com/docs/identityproviders)、 [シングルサインオン (SSO)](https://auth0.com/docs/sso)その他の機能を拡張して、Angular 2 アプリをセキュアにします。 [サインアップ](https://auth0.com/signup)して、アプリに固有な構築機能を活用してください。
 
 Angular 2 はパイプや i18n などこれ一つでたくさんの機能を提供します。Auth0 は最先端の認証だけでなく、多要素認証、異常検出、企業連盟、シングルサインオン (SSO)その他の機能を拡張して、Angular 2 アプリをセキュアにします。サインアップして、アプリに固有な構築機能を活用してください。

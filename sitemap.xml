@@ -38,12 +38,12 @@ sitemap:
         />
       {% endif %}
       {% endunless %}
-      {% unless post.lang == "jp" %}
-      {% if post.alternate_locale_jp %}
+      {% unless post.lang == "ja" %}
+      {% if post.alternate_locale_ja %}
       <xhtml:link
             rel="alternate"
-            hreflang="jp"
-            href="{{ site.url }}/blog/{{post.alternate_locale_jp}}/"
+            hreflang="ja"
+            href="{{ site.url }}/blog/{{post.alternate_locale_ja}}/"
         />
       {% endif %}
       {% endunless %}

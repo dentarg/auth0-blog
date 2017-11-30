@@ -708,25 +708,24 @@ You can call this function in the `onCreate` or `onStart` callbacks for the acti
 Get the [full example code](https://github.com/auth0/blog-android-social-login-sample) for all providers.
 
 ## Aside: Don't Repeat Yourself, use Auth0
-If you've read this far you probably realized supporting several social logins providers is somewhat cumbersome. Using our [Lock library](https://github.com/auth0/Lock.Android) for Android makes this a breeze. Integrating it is as simple as integrating any of the solutions mentioned above, with the added benefit that you pick which social login providers are supported from the settings dashboard. Yup, that's it: do this integration once and get as many social login providers as you want with a few clicks! Let's see how it is done.
+If you've read this far you probably realized supporting several social logins providers is somewhat cumbersome. Using our [Auth0.Android library](https://github.com/auth0/Auth0.Android) for Android makes this a breeze. Integrating it is as simple as integrating any of the solutions mentioned above, with the added benefit that you pick which social login providers are supported from the settings dashboard. Yup, that's it: do this integration once and get as many social login providers as you want with a few clicks! Let's see how it is done.
 
-
-{% include tweet_quote.html quote_text="Using Auth0 Lock for Android makes social login integration a breeze."%}
+{% include tweet_quote.html quote_text="Using the Auth0.Android library makes social login integration a breeze."%}
 
 ![Auth0 social login switches](https://cdn.auth0.com/blog/social_login_android/dashboard-social-login-switches.png)
 
 #### 1. Sign up
-Go to [https://auth0.com/](https://auth0.com/) and <a href="javascript:signup()">sign-up</a>.
+Go to [https://auth0.com/](https://auth0.com/) and <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign-up</a>.
 
 #### 2. Create an empty Android project
 Click on `File` -> `New` -> `New Project` and follow the steps. A project like the one we created for our sample above will do just fine.
 
 #### 3. Tell Auth0 About Your app
-Open the [dashboard](https://manage.auth0.com/) and click on `New App/API`.
+Open the [dashboard](https://manage.auth0.com/) and click on `Clients/Create Client`. When asked, select `Native Client`.
 
-Now go to `Connections` -> `Social` and enable as many social providers as you like. Follow the usual steps to get the application ids or consumer keys. For testing, you can leave the fields blank and use Auth0's internal test keys. Don't forget to enable these connections in your new app (`Apps/APIs` -> `<APP NAME>` -> `Connections`).
+Now go to `Connections` -> `Social` and enable as many social providers as you like. Follow the usual steps to get the application ids or consumer keys. For testing, you can leave the fields blank and use Auth0's internal test keys. Don't forget to enable these connections in your new app (`Clients` -> `<CLIENT NAME>` -> `Connections`).
 
-#### 4. Setup Lock's dependencies
+#### 4. Setup Auth0.Android's dependencies
 Open your app module `build.gradle` file and add the following:
 
 ```groovy
@@ -734,6 +733,13 @@ apply plugin: 'com.android.application'
 
 android {
     // (...)
+
+    defaultConfig {
+        // (...)
+
+        // Add the following line
+        manifestPlaceholders = [auth0Domain: "@string/com_auth0_domain", auth0Scheme: "https"]
+    }
 
     packagingOptions {
         exclude 'META-INF/NOTICE'
@@ -743,89 +749,64 @@ android {
 
 dependencies {
     // (...)
-    compile 'com.auth0.android:lock:1.13.+'
+    // Add the following line
+    compile 'com.auth0.android:auth0:1.12.+'
 }
 ```
 
-#### 5. Add Lock's Activity to Your Manifest File
+#### 5. Enable Internet Access in your Manifest File
 Open `AndroidManifest.xml` and add the following:
-
-```XML
-<activity
-    android:name="com.auth0.lock.LockActivity"
-    android:theme="@style/Lock.Theme"
-    android:screenOrientation="portrait"
-    android:launchMode="singleTask">
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="a0<YOUR CLIENT ID IN LOWERCASE>"
-              android:host="@string/auth0_domain"/>
-    </intent-filter>
-</activity>
-<meta-data android:name="com.auth0.lock.client-id" android:value="@string/auth0_client_id"/>
-<meta-data android:name="com.auth0.lock.domain-url" android:value="@string/auth0_domain"/>
-```
-
-Now add the client id and Auth0 domain to your `strings.xml` file. To get these details go to the [Auth0 dashboard](https://manage.auth0.com) and select your app, then pick `settings`.
-
-Internet permissions are necessary:
 
 ```XML
 <uses-permission android:name="android.permission.INTERNET"/>
 ```
 
+Now add the client id and Auth0 domain to your `strings.xml` file. To get these details go to the [Auth0 dashboard](https://manage.auth0.com) and select your app, then pick `settings`.
+
+```xml
+<resources>
+    <!-- (...) -->
+    <string name="com_auth0_domain">YOUR AUTH0 DOMAIN</string>
+    <string name="com_auth0_client_id">YOUR AUTH0 CLIENT ID</string>
+</resources>
+```
+
 #### 6. Glue Everything Together With Code
-Put the following code in your main activity or global application object:
+Put the following code in the activity class that will present the login screen:
 
-```Java
-public void onCreate() {
-    super.onCreate();
+```java
+if(credentials == null) {
+    final Auth0 account = new Auth0(getApplicationContext());
+    WebAuthProvider.init(account).start(this, new AuthCallback() {
+        @Override
+        public void onFailure(@NonNull Dialog dialog) {
+            credentials = null;
 
-    LockContext.configureLock(
-            new Lock.Builder()
-                    .loadFromApplication(this)
-                    .closable(true));
+            // Handle error
+        }
 
-    final LocalBroadcastManager broadcastManager =
-            LocalBroadcastManager.getInstance(getApplicationContext());
-    broadcastManager.registerReceiver(receiver, new IntentFilter(Lock.AUTHENTICATION_ACTION));
+        @Override
+        public void onFailure(AuthenticationException exception) {
+            credentials = null;
+            
+            // Handle error
+        }
+
+        @Override
+        public void onSuccess(@NonNull Credentials credentials_) {
+            credentials = credentials_;
+            
+            // Do stuff with credentials
+        }
+    });
 }
 ```
 
-The `receiver` object can be implemented as follows:
-
-```Java
-private final BroadcastReceiver receiver = new BroadcastReceiver() {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        userProfile = intent.getParcelableExtra(Lock.AUTHENTICATION_ACTION_PROFILE_PARAMETER);
-        accessToken = intent.getParcelableExtra(Lock.AUTHENTICATION_ACTION_TOKEN_PARAMETER);
-        Log.i(TAG, "User " + userProfile.getName() + " logged in");
-
-        final Intent loggedInIntent =
-                new Intent(getApplicationContext(), LoggedInActivity.class);
-        // The following line is only necessary when calling this from the
-        // global Application object
-        //loggedInIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(loggedInIntent);
-    }
-};
-```
-
-And to show the Auth0 Lock activity put this in any place where you can trigger this code:
-
-```Java
-Intent lockIntent = new Intent(this, LockActivity.class);
-startActivity(lockIntent);
-```
-
-That's it! Now when Lock activity is shown all your picked social login providers will be available. You can add or remove additional connections from the [Auth0 dashboard](https://manage.auth0.com/). No more special cases.
+That's it! Now when that code is triggered by some event, a login screen in your default browser will appear. Once the user logs in, he will be sent back to your application's activity. You can add or remove additional connections from the [Auth0 dashboard](https://manage.auth0.com/). No more special cases.
 
 Get the [full code](https://github.com/auth0/blog-android-social-login-sample).
 
 ## Conclusion
-Social logins are now more important than ever. Many users find the sign-up process cumbersome and expect to be able to sign-in using one their existing accounts from other services. As an application developer, you want to make sure users are not scared away from trying your app because of the dreaded registration step. Adding several login providers is doable but increases the complexity of your app and the time needed to develop it. A great way to prevent this from happening is with our Android Lock library. Other benefits include: added security (for instance by not putting secret keys in your app) and professional support from our team. Try it, you won't be disappointed.
+Social logins are now more important than ever. Many users find the sign-up process cumbersome and expect to be able to sign-in using one their existing accounts from other services. As an application developer, you want to make sure users are not scared away from trying your app because of the dreaded registration step. Adding several login providers is doable but increases the complexity of your app and the time needed to develop it. A great way to prevent this from happening is with our [Auth0.Android](https://github.com/auth0/Auth0.Android) library. Other benefits include: added security (for instance by not putting secret keys in your app) and professional support from our team. Try it, you won't be disappointed.
 
 [Want to learn more about Single Sign-On? Get The Definitive Guide on SSO (74-page free eBook) here.](https://resources.auth0.com/definitive-guide-to-single-sign-on/?utm_source=blog)

@@ -337,7 +337,7 @@ On the next screen, you will be prompted to enter the name for the account. The 
 
 ### Integrating Auth0 into Firebase
 
-If you don't already have an Auth0 account, [sign up](javascript:signup\(\)) for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com), select **Applications** from the navigational menu, then select the app you want to connect with Firebase. Once you are on the app page, select the **Add-Ons** tab and flip the **Firebase** toggle.
+If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com), select **Applications** from the navigational menu, then select the app you want to connect with Firebase. Once you are on the app page, select the **Add-Ons** tab and flip the **Firebase** toggle.
 
 ![Activate Firebase Addon](https://cdn.auth0.com/blog/new-firebase/add-firebase.png)
 
