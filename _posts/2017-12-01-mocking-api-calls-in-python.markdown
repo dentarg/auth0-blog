@@ -68,7 +68,7 @@ For this tutorial, we will be communicating with a fake API on [JSONPlaceholder]
 
 To find tests, `nose2` looks for modules whose names start with `test` in the current directories and sub-directories. In those modules, `nose2` will load tests from all `unittest.TestCase` subclasses, as well as functions whose names start with `test`.
 
-### Test Driven Development(TDD)
+### Test Driven Development (TDD)
 
 TDD is an evolutionary approach to development that combines test-first development and refactoring. We write a test before we write just enough production code to fulfill that test. We then refactor the code to make the test pass. The main goal of TDD is the specification and not validation; it’s one way to think through our requirements before we write functional code. We will follow this approach and begin by writing a simple test to check our API's response's status code.
 
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
-We run the test with `nose2 --verbose`. The test will fail with an error since we are missing the module we are trying to test.
+To run this test we can issue `nose2 --verbose`. The test will fail with an error since we are missing the module we are trying to test.
 
 ![Python failing test](https://cdn.auth0.com/blog/python-api-test/error_test.png)
 
@@ -117,7 +117,7 @@ We then re-run the tests again using `nose2 --verbose` and this time, our test w
 
 ![Python passing test](https://cdn.auth0.com/blog/python-api-test/pass_test_no_mock.png)
 
-Up to this point, we have managed to write and test our API by making real API requests during the tests.
+Up to this point, we wrote and tested our API by making real API requests during the tests.
 
 ## Utilizing Mocks
 
