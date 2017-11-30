@@ -175,6 +175,9 @@ If you are using AWS to manage your infrastructure, whether it be traditional, s
 
 ## Summary
 
-That wraps up day two of the re:Invent. Tomorrow, Andy Jassy, the CEO of Amazon Web Services, will deliver the first of two AWS keynotes, and I can't wait to see all the big announcements!
+Day three of AWS re:Invent 2017 was very eventful. Andy's keynote has set the tone for the rest of the conference and that tone is "everything is everything." AWS wants to give you the best infrastructure to build and deploy your applications. Currently the number of services offered by AWS is approcahing 4,000! I can't wait to see what tomorrow has in store for us.
 
-[Click here for a recap of day one of AWS re:Invent](https://auth0.com/blog/aws-reinvent-day-1-recap/).
+Previous recaps:
+
+* [Day One](https://auth0.com/blog/aws-reinvent-day-1-recap/)
+* [Day Two](https://auth0.com/blog/aws-reinvent-day-2-recap/)
