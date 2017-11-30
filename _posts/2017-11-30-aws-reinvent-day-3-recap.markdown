@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AWS re:Invent Day 3 Recap"
-description: "AWS re:Invent continues with day two. Here is our recap of the exciting announcements and interesting talks we were able to attend."
+description: "AWS re:Invent continues with day three and Andy Jassy, the CEO of AWS, delivered his annual keynote address. Here is our recap of the exciting announcements he shared."
 date: 2017-11-30 8:30
 category: Growth, Conferences, AWS
 author:
@@ -41,7 +41,7 @@ AWS already has one of the broadset sets of compute offerings. Today, they annou
 
 ### ECS for Kubernetes
 
-[Kubernetes](https://kubernetes.io/) is making some pretty large waves in the container orchestration space and until now it was very much a manual process to setup Kubernetes on AWS. That is about to change with [Amazon Elastic Container Service for Kubernetes](http://www.businesswire.com/news/home/20171129006075/en/AWS-Announces-New-Container-Capabilities%E2%80%94Amazon-Elastic-Container) or EKS which is laucnhing in preview this week. Amazon EKS fully manages the availability and scalability of the Kubernetes control plane for each cluster and will allow organizations to easily run Kubernetes without having expert Kubernetes knowledge.
+[Kubernetes](https://kubernetes.io/) is making some pretty large waves in the container orchestration space and until now it was very much a manual process to setup Kubernetes on AWS. That is about to change with [Amazon Elastic Container Service for Kubernetes](http://www.businesswire.com/news/home/20171129006075/en/AWS-Announces-New-Container-Capabilities%E2%80%94Amazon-Elastic-Container) or EKS which is launching in preview this week. Amazon EKS fully manages the availability and scalability of the Kubernetes control plane for each cluster and will allow organizations to easily run Kubernetes without having expert Kubernetes knowledge.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Managed Kubernetes for AWS - The Elastic Container Service for Kubernetes (EKS) <a href="https://twitter.com/hashtag/reinvent?src=hash&amp;ref_src=twsrc%5Etfw">#reinvent</a> <a href="https://t.co/lqKpwoYjOK">pic.twitter.com/lqKpwoYjOK</a></p>&mdash; AWS re:Invent (@AWSreInvent) <a href="https://twitter.com/AWSreInvent/status/935909627224506368?ref_src=twsrc%5Etfw">November 29, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -139,16 +139,16 @@ That sums up the major announcements from today's keynote. I'm sure we missed a 
 
 Steve Schmidt, chief information security officer of AWS, delivered the AWS Security State of the Union talk. The key takeaway from his talk was his mechanisms to drive security in an organization, and they are:
 
-* Buy-in from leadership - security cannot be an afterthought.
-* Radically restricting and monitoring human access to data - humans and data don't mix, follow the principle of least priviledge.
-* Source code security.
-* Patching - everybody hates doning it, but it must be done.
-* Log retention duration - storage is fairly cheap, once deleted logs are lost forever.
-* Credential blast radius detection - use IAM roles properly to ensure that if credentials are leaked damage will be minimal.
-* Credentials lifespan reduction - no long lived tokens and continous rotation of credentials.
-* TLS implementation - encrypt data in motion and at rest.
-* AWS encryption everywhere.
-* Canaries and invariants for security functionality.
+* **Buy-in from leadership** - security cannot be an afterthought.
+* **Radically restricting and monitoring human access to data** - humans and data don't mix, follow the principle of least priviledge.
+* **Source code security**.
+* **Patching** - everybody hates doning it, but it must be done.
+* **Log retention duration** - storage is fairly cheap, once deleted logs are lost forever.
+* **Credential blast radius detection** - use IAM roles properly to ensure that if credentials are leaked damage will be minimal.
+* **Credentials lifespan reduction** - no long lived tokens and continous rotation of credentials.
+* **TLS implementation** - encrypt data in motion and at rest.
+* **AWS encryption everywhere**.
+* **Canaries and invariants for security functionality**.
 
 We at Auth0 follow many of these principles to the T to ensure that we are delivering the most secure platform for our customers and users.
 
@@ -175,7 +175,7 @@ If you are using AWS to manage your infrastructure, whether it be traditional, s
 
 ## Summary
 
-Day three of AWS re:Invent 2017 was very eventful. Andy's keynote has set the tone for the rest of the conference and that tone is "everything is everything." AWS wants to give you the best infrastructure to build and deploy your applications. Currently the number of services offered by AWS is approcahing 4,000! I can't wait to see what tomorrow has in store for us.
+Day three of AWS re:Invent 2017 was very eventful. Andy's keynote has set the tone for the rest of the conference and that tone is "everything is everything." AWS wants to give you the best infrastructure to build and deploy your applications. Currently the number of services offered by AWS is approaching 4,000! I can't wait to see what tomorrow has in store for us.
 
 Previous recaps:
 
