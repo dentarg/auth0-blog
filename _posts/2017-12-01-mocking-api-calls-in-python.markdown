@@ -23,10 +23,9 @@ tags:
 
 ## Introduction
 
-A mock is a fake object that you construct to look and act like real data. You swap the actual object with a mock and trick the system into thinking that the mock is the real deal.
+A mock is a fake object that we construct to look and act like the real one. We swap the actual object with a mock and trick the system into thinking that the mock is the real deal.
 
-By mocking out external dependencies and APIs, you can run your tests as often as you want without being affected by any unexpected changes or irregularities within the dependencies. Mocking also saves us on time and computing resources if we have to test HTTP requests that fetch a lot of data.
-
+By mocking out external dependencies and APIs, we can run our tests as often as we want without being affected by any unexpected changes or irregularities within the dependencies. Mocking also saves us on time and computing resources if we have to test HTTP requests that fetch a lot of data.
 
 ### Setup
 
@@ -38,53 +37,40 @@ python-api-mocks/
     └── test_users.py
     └── __init__.py
 ├── __init__.py
-├── circle.yml
 ├── requirements.txt
 ├── users.py
 ```
 
-We will make use of [virtualenv](https://virtualenv.pypa.io/en/stable/); a tool that enables us to create isolated Python environments. These environments help us to separately manage dependencies, their versions and permissions between different projects. We create a virtual environment called `venv` inside the `python-api-mocks` folder and activate it.
+We will make use of [virtualenv](https://virtualenv.pypa.io/en/stable/); a tool that enables us to create isolated Python environments. These environments help us to manage dependencies separately from the global packages directory. Let's first install `virtualenv`, then let's create a virtual environment for our project, and then let's activate it:
 
 ```sh
-$ virtualenv -p python3 venv   # Create virtual environment
+$ pip3 install virtualenv
+$ virtualenv -p python3 venv # Create virtual environment
 $ source venv/bin/activate # Activate virtual environment
 ```
 
-We then install the required packages.
+After that, let's install the required packages:
 
 ```sh
 $ pip install nose2 requests
 ```
 
-We can save the dependencies to a `requirements.txt` file to make future installations easier.
+To make future installations easier, we can save the dependencies to a `requirements.txt` file:
 
 ```sh
 $ pip freeze > requirements.txt
 ```
 
-* The `nose2` library extends the built-in Python `unittest` module to make testing easier. You can use `unittest` or other third-party libraries such as pytest to achieve the same results.
+* The `nose2` library extends the built-in Python `unittest` module to make testing easier. You can use `unittest` or other third-party libraries such as [`pytest`](https://docs.pytest.org/en/latest/) to achieve the same results.
 * The `requests` library simplifies HTTP calls in Python.
 
 For this tutorial, we will be communicating with a fake API on [JSONPlaceholder](http://jsonplaceholder.typicode.com/).
 
 To find tests, `nose2` looks for modules whose names start with `test` in the current directories and sub-directories. In those modules, `nose2` will load tests from all `unittest.TestCase` subclasses, as well as functions whose names start with `test`.
 
-```python
-# users_test/test_users.py
-# Module name starting with test i.e test_users.py
-import unittest
-
-
-class BasicTests(unittest.TestCase): # unittest.TestCase subclass
-    def test_name_of_test(self): # Test that starts with test...
-        # Logic and assertions
-        self.assertEqual(1+3,4)
-```
-
-
 ### Test Driven Development(TDD)
 
-TDD is an evolutionary approach to development which combines test-first development and refactoring. We write a test before we write just enough production code to fulfill that test. We then refactor the code to make the test pass. The main goal of TDD is the specification and not validation; it’s one way to think through our requirements before we write functional code. We will follow this approach and begin by writing a simple test to check our API's response's status code.
+TDD is an evolutionary approach to development that combines test-first development and refactoring. We write a test before we write just enough production code to fulfill that test. We then refactor the code to make the test pass. The main goal of TDD is the specification and not validation; it’s one way to think through our requirements before we write functional code. We will follow this approach and begin by writing a simple test to check our API's response's status code.
 
 ```python
 # users_test/test_users.py
