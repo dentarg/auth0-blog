@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "Angular 2 Authentication Tutorial"
-description: "Angular 2.0 has officially been released. Learn how to quickly build apps and add authentication the right way."
-date: 2016-09-29 08:30
+title: "Angular Authentication Tutorial"
+description: "Learn how to quickly build Angular apps and add authentication the right way."
+date: 2017-12-02 08:30
+updated: 2017-12-02 08:30
 category: Technical Guide, Angular, Angular2
 banner:
-  text: "Auth0 makes it easy to add authentication to your AngularJS application."
+  text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"
@@ -19,16 +20,15 @@ tags:
 - angular2-jwt
 - angular2-authentication
 related:
-- angular-2-ngmodules
-- introducing-angular2-jwt-a-library-for-angular2-authentication
-- create-a-desktop-app-with-angular-2-and-electron
+- 2017-06-28-real-world-angular-series-part-1
+- 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
 lang: en
 alternate_locale_jp: jp-angular-2-authentication
 ---
 
-<div class="alert alert-danger alert-icon">
+<div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>This post is out of date.</strong> The Angular CLI and framework have undergone breaking changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Please check out our <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong> to learn how to build and authenticate an Angular app. We will also update this tutorial soon. Thank you for your patience!
+  <strong>This post has been updated to the latest versions of Angular and the Angular CLI.</strong> If you'd like to learn how to build a real-world Angular app from architecture to role authorization all the way to production deployment, check out our <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong>.
 </div>
 
 ---
