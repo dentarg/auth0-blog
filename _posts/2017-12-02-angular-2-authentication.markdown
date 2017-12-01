@@ -28,28 +28,28 @@ alternate_locale_jp: jp-angular-2-authentication
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>This post has been updated to the latest versions of Angular and the Angular CLI.</strong> If you'd like to learn how to build a real-world Angular app from architecture to role authorization all the way to production deployment, check out our <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong>.
+  <strong>This post has been updated to the latest versions of Angular and the Angular CLI.</strong> If you'd like to learn how to build a real-world Angular app from architecture to role authorization all the way to production deployment, you can also check out our in-depth <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong>.
 </div>
 
 ---
 
-**TL;DR** Angular 2.0 has finally been released. In this tutorial we are going to look at how to build applications with Angular 2 as well as how to add token based authentication to Angular 2 apps the right way. Check out the completed code example from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
+**TL;DR** Angular has finally been released. In this tutorial we are going to look at how to build applications with Angular as well as how to add token based authentication to Angular apps the right way. Check out the completed code example from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
 
 ---
 
-[Angular 2](https://angular.io/) finally hit the major [2.0 release](http://angularjs.blogspot.com/2016/09/angular2-final.html) milestone just a few weeks ago. The final release of Angular 2 did not have many breaking changes. The Release Candidate 5 (RC5) release, made available just a few weeks prior to final, introduced major breaking changes and additions such as the [@NgModule decorator](https://angular.io/docs/ts/latest/guide/ngmodule.html), [Ahead-of-Time (AOT)](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/) compiler and more.
+[Angular](https://angular.io/) finally hit the major [2.0 release](http://angularjs.blogspot.com/2016/09/angular2-final.html) milestone. The final release of Angular did not have many breaking changes. The Release Candidate 5 (RC5) release, made available just a few weeks prior to final, introduced major breaking changes and additions such as the [@NgModule decorator](https://angular.io/docs/ts/latest/guide/ngmodule.html), [Ahead-of-Time (AOT)](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/) compiler and more.
 
-In today's tutorial, we are going to utilize some of these new features to build an entire Angular 2 application. Components, @NgModule, route guards, services, and more are just some of the topics we'll touch on. Finally, we'll implement token based authentication with [Auth0](https://auth0.com).
+In today's tutorial, we are going to utilize some of these new features to build an entire Angular application. Components, @NgModule, route guards, services, and more are just some of the topics we'll touch on. Finally, we'll implement token based authentication with [Auth0](https://auth0.com).
 
-## The Angular 2 Ecosystem
+## The Angular Ecosystem
 
-[Angular 1.x](https://angularjs.org/) was highly regarded as a robust framework for building single page applications (SPAs). It did a lot of things well, fell short on some, but overall allowed developers to quickly build powerful applications.
+[AngularJS 1.x](https://angularjs.org/) was highly regarded as a robust framework for building single page applications (SPAs). It did a lot of things well, fell short on some, but overall allowed developers to quickly build powerful applications.
 
-While Angular 1.x is a framework, [Angular 2](https://angular.io/) is an entire platform for building modern applications. Alongside the core Angular 2 library, the platform ships with a powerful Command Line Interface (CLI) called [Angular CLI](https://cli.angular.io) that allows developers to easily scaffold their applications as well as control the build system. [Angular Universal](https://universal.angular.io) brings server-side rendering to Angular 2 applications. [Angular Material 2](https://material.angular.io) is the official implementation of [Google Material Design](https://material.google.com/) which allows developers to build beautiful applications with ease.
+While Angular 1.x is a framework, [Angular](https://angular.io/) is an entire platform for building modern applications. Alongside the core Angular library, the platform ships with a powerful Command Line Interface (CLI) called [Angular CLI](https://cli.angular.io) that allows developers to easily scaffold their applications as well as control the build system. [Angular Platform Server](https://angular.io/api/platform-server) brings server-side rendering to Angular applications. [Angular Material](https://material.angular.io) is the official implementation of [Google Material Design](https://material.google.com/) which allows developers to build beautiful applications with ease.
 
-Angular 2.0 has officially shipped, but the other components of the platform are still in alpha and beta stages. For our application today, we will make use of the Angular CLI and the core Angular 2 framework, but we'll let the other components bake a little longer.  
+Angular has officially shipped, but the other components of the platform are still in alpha and beta stages. For our application today, we will make use of the Angular CLI and the core Angular framework.  
 
-{% include tweet_quote.html quote_text="While Angular 1 is a framework, Angular 2 is an entire platform for building modern applications" %}
+{% include tweet_quote.html quote_text="While AngularJS is a framework, Angular is an entire platform for building modern applications" %}
 
 ## Our App: Daily Deals
 
@@ -89,11 +89,11 @@ app.get('/api/deals/private', (req,res)=>{
   res.json(deals);
 })
 
-app.listen(3001);
+app.listen(3001);Angular
 console.log('Serving deals on localhost:3001');
 ```
 
-Both our server and the Angular 2 app we are building will require Node.js and [NPM](https://npmjs.com), so be sure to have those installed before continuing. Check out the [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial) to get our list of daily deals or create your own. The model for each deal will be as follows:
+Both our server and the Angular app we are building will require Node.js and [NPM](https://npmjs.com), so be sure to have those installed before continuing. Check out the [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial) to get our list of daily deals or create your own. The model for each deal will be as follows:
 
 ```js
  {
@@ -105,19 +105,19 @@ Both our server and the Angular 2 app we are building will require Node.js and [
 }
 ```
 
-When you are happy with the public and private deals, launch the server by running `node server` and navigate to both `localhost:3001/api/deals/public` and `localhost:3001/api/deals/private` to make sure you can see the list of deals you added. Next, let's set up our Angular 2 front-end.
+When you are happy with the public and private deals, launch the server by running `node server` and navigate to both `localhost:3001/api/deals/public` and `localhost:3001/api/deals/private` to make sure you can see the list of deals you added. Next, let's set up our Angular front-end.
 
-### Angular 2 Front-End Setup
+### Angular Front-End Setup
 
-One of the best ways to start building a new Angular 2 app is with the official Angular 2 CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial we will scaffold our initial app with the CLI.
+One of the best ways to start building a new Angular app is with the official Angular CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial we will scaffold our initial app with the CLI.
 
-If you don't already have it installed, run `npm install angular-cli -g` to install the Angular CLI. We'll interact with the CLI using the `ng` command. To create a new application, choose a directory and run `ng init`. This will create a new Angular 2 application in selected directory, download all of the required NPM packages, and basically set everything up for us.
+If you don't already have it installed, run `npm install angular-cli -g` to install the Angular CLI. We'll interact with the CLI using the `ng` command. To create a new application, choose a directory and run `ng init`. This will create a new Angular application in selected directory, download all of the required NPM packages, and basically set everything up for us.
 
 Once `ng init` is finished, run the `ng serve` command and the Webpack based build system will take care of compiling our app from TypeScript to JavaScript and will serve our app on `localhost:4200`. The `ng serve` command will also kick off a live sync process, so any time we make a change our app will automatically recompile.
 
-Let's head over the `localhost:4200` for now to make sure that everything is working as expected so far. If you see a message saying "app works!" you are golden. Next, let's examine how our Angular 2 app is scaffolded.
+Let's head over the `localhost:4200` for now to make sure that everything is working as expected so far. If you see a message saying "app works!" you are golden. Next, let's examine how our Angular app is scaffolded.
 
-The `ng init` command scaffolded our Angular 2 app and added a lot of files. Many of these we can ignore for now like the `e2e` folder, which would contain our end to end tests. Open up the `src` directory. In the `src` directory, we can see some familiar files like `index.html`, `styles.css`, and so on. Open up the `app` directory.
+The `ng init` command scaffolded our Angular app and added a lot of files. Many of these we can ignore for now like the `e2e` folder, which would contain our end to end tests. Open up the `src` directory. In the `src` directory, we can see some familiar files like `index.html`, `styles.css`, and so on. Open up the `app` directory.
 
 The `app` directory contains the bulk of our application. By default we are presented with the following files:
 
@@ -131,18 +131,18 @@ The `app` directory contains the bulk of our application. By default we are pres
 - shared - // This directory holds any shared components we may have
 ```
 
-Each Angular 2 component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template, and we won't write any tests so let's make the following edits:
+Each Angular component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template, and we won't write any tests so let's make the following edits:
 
 * Delete `app.component.css`, `app.component.html` and `app.component.spec` files. We'll define all we need for our root component in the `app.component.ts` file.
 * Create a `public-deals.component.ts`, `public-deals.component.html`, and `public-deals.component.css` file. This component will take care of getting and displaying the public deals data.
 * Create a `private-deals.component.ts`, `private-deals.component.html`, and `private-deals.component.css` file. This component will take care of getting and displaying the private deals data.
-* Create a `deal.ts` file. This component will hold our `deal` class which will let Angular 2 know the structure of a `deal`.
+* Create a `deal.ts` file. This component will hold our `deal` class which will let Angular know the structure of a `deal`.
 * Create a `deal.service.ts` file. Here we'll add the functionality to get and retrieve the deal data from our API.
 * Finally, create an `app.routing.ts` file which will take care of our routes.
 
 ### Building the Root Component
 
-Every Angular 2 application must have a root component. We can name it whatever we want, but the important thing is that we have one. In our application, the `app.component.ts` file will be our root component. Let's take a look at our implementation of this component.
+Every Angular application must have a root component. We can name it whatever we want, but the important thing is that we have one. In our application, the `app.component.ts` file will be our root component. Let's take a look at our implementation of this component.
 
 ```js
 // Import the Component decorator
@@ -213,7 +213,7 @@ export class Deal {
 }
 ```
 
-Now we can declare objects in our Angular 2 application to be a type of `deal`. These objects will gain all of the properties and methods of the deal type. We are only defining properties here, we won't have any methods.
+Now we can declare objects in our Angular application to be a type of `deal`. These objects will gain all of the properties and methods of the deal type. We are only defining properties here, we won't have any methods.
 
 ### Public and Private Deals components
 
@@ -252,7 +252,7 @@ export class PublicDealsComponent implements OnInit {
 }
 ```
 
-Next, let's build the view of our public deals component. We'll do this in the `public-deals.component.html` file. Our view will be a mixture of HTML and Angular 2 sugar. Let's take a look at our implementation.
+Next, let's build the view of our public deals component. We'll do this in the `public-deals.component.html` file. Our view will be a mixture of HTML and Angular sugar. Let's take a look at our implementation.
 
 ```html
   <h3 class="text-center">Daily Deals</h3>
@@ -308,7 +308,7 @@ Our private deals component will look very similar. For posterity, we won't disp
 
 ### Accessing our Deals API
 
-Earlier in the tutorial we wrote a very simple API that exposed two routes. Now, let's write an Angular 2 service that will interact with these two endpoints. We'll do this in the `deal.service.ts` file. The implementation is as follows:
+Earlier in the tutorial we wrote a very simple API that exposed two routes. Now, let's write an Angular service that will interact with these two endpoints. We'll do this in the `deal.service.ts` file. The implementation is as follows:
 
 ```
 import { Injectable } from '@angular/core';
@@ -356,7 +356,7 @@ Now you can see where the getPublicDeals() method fits in from our `public-deals
 
 ### Implementing the Routes
 
-Now that we have our two components created, let's implement routing so that we can display the appropriate component. Routing in Angular 2 has changed a couple of different times. The new new new router is really great though and supports many features developers have been asking for such as lazy loading.
+Now that we have our two components created, let's implement routing so that we can display the appropriate component. Routing in Angular has changed a couple of different times. The new new new router is really great though and supports many features developers have been asking for such as lazy loading.
 
 For our application, we will create two routes. The `/deals` route will display the publically available deals, and the `/special` route will display the exclusive private deals that only registered users will have access to. We'll also add a redirect, so that when the user lands on the homepage, we'll automatically redirect them to the deals page. Let's see how we are going to implement this. 
 
@@ -431,9 +431,9 @@ export class AppModule { }
 
 Now we are ready to test our app. If you would like more information on how @NgModule works, check out this post. Navigate to `localhost:4200` and you should see be redirected to the deals page automatically. Notice that you can freely navigate to the `/secret` route and see the exclusive deals as well. You can do this because we haven't added user authentication yet. Let's do that now.
 
-## Adding Authentication to Your Angular 2 App
+## Adding Authentication to Your Angular App
 
-The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular 2 application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
+The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
 Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
 
@@ -449,7 +449,7 @@ This is all we need to do for now. Let's secure our server using this new API th
 
 ### Securing our server
 
-Before we implement authentication on the front end in our Angular 2 application, let's secure our backend server. Open up the `server.js` file located in your `server` directory and make the following edits:
+Before we implement authentication on the front end in our Angular application, let's secure our backend server. Open up the `server.js` file located in your `server` directory and make the following edits:
 
 ```js
 'use strict';
@@ -499,13 +499,13 @@ app.listen(3001);
 console.log('Listening on localhost:3001');
 ```
 
-That's all we'll need to do on the server. Restart the server and try to navigate to `localhost:3001/api/deals/private` and you'll see an error message saying missing authorization header. Our private API route is now secured. Let's get to implementing authentication in our Angular 2 app.
+That's all we'll need to do on the server. Restart the server and try to navigate to `localhost:3001/api/deals/private` and you'll see an error message saying missing authorization header. Our private API route is now secured. Let's get to implementing authentication in our Angular app.
 
 ![API with No Auth Token](https://cdn.auth0.com/blog/angular2-auth-dd/no-auth-token.png)
 
 ### Adding Authentication to the Front-end
 
-We'll make use of the [Angular 2 JWT library](https://github.com/auth0/angular2-jwt) to provide us the foundation for implementing authentication in our app. You can get the library for your app by running `npm install angular2-jwt --save`.
+We'll make use of the [Angular JWT library](https://github.com/auth0/angular2-jwt) to provide us the foundation for implementing authentication in our app. You can get the library for your app by running `npm install angular2-jwt --save`.
 
  We'll first start by creating an authentication service that we can use throughout our app. Create a new file titled `auth.service.ts`. Out auth service implementation follows:
 
@@ -604,9 +604,9 @@ export class AuthService {
 
 We will use the Auth0 Hosted Lock option for authenticating our users. This is the most secure way to authenticate a user and get an `access_token` in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
 
-### Angular 2 Authentication All In
+### Angular Authentication All In
 
-The Angular 2 router comes with a powerful feature called [route guards](https://angular.io/docs/ts/latest/guide/router.html#!#guards) that allows us to programmatically determine whether a user can access the route or not. Route guards in Angular 2 can be compared to middleware in Express.js for example. 
+The Angular router comes with a powerful feature called [route guards](https://angular.io/docs/ts/latest/guide/router.html#!#guards) that allows us to programmatically determine whether a user can access the route or not. Route guards in Angular can be compared to middleware in Express.js for example. 
 
 We'll create an authentication route guard that will check to see if a user is logged in before displaying the route. Create a new file titled `auth-guard.service.ts` and add the following code:
 
@@ -816,10 +816,10 @@ There is one final update we need to make. If you try to access the `/secret` ro
 
 ### Updating the Deal Service
 
-We need to update the call to the `/api/deals/private` to include our `access_token`. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular 2 JWT library comes with an AuthHTTP method that will take care of this for us. Let's see how we're going to implement this in our application.
+We need to update the call to the `/api/deals/private` to include our `access_token`. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular JWT library comes with an AuthHTTP method that will take care of this for us. Let's see how we're going to implement this in our application.
 
 ```js
-  // Be sure to include the HttpAuth API from the Angular 2 JWT library
+  // Be sure to include the HttpAuth API from the Angular JWT library
   import { AuthHttp } from 'angular2-jwt';
 
   ...
@@ -856,10 +856,10 @@ Next, click on the login screen and you will be redirected to your Auth0 domain 
 
 ![Exclusive Daily Deals](https://cdn.auth0.com/blog/angular2-auth-dd/secret-deals.png)
 
-You just wrote and authenticated an Angular 2.0 app. Congrats!
+You just wrote and authenticated an Angular app. Congrats!
 
 ## Conclusion
 
-Angular 2 is finally out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular 2 components and services. We implemented token based authentication with Auth0 and Lock. But that's just scratching the surface.
+Angular is finally out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular components and services. We implemented token based authentication with Auth0. But that's just scratching the surface.
 
-Angular 2 provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular 2 apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
+Angular provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
