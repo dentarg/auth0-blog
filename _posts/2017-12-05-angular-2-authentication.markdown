@@ -2,8 +2,8 @@
 layout: post
 title: "Angular Authentication Tutorial"
 description: "Learn how to quickly build Angular apps and add authentication the right way."
-date: 2017-12-02 08:30
-updated: 2017-12-02 08:30
+date: 2017-12-05 08:30
+updated: 2017-12-05 08:30
 category: Technical Guide, Angular, Angular2
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
@@ -111,85 +111,98 @@ When you are happy with the public and private deals, launch the server by runni
 
 One of the best ways to start building a new Angular app is with the official Angular CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial we will scaffold our initial app with the CLI.
 
-If you don't already have it installed, run `npm install angular-cli -g` to install the Angular CLI. We'll interact with the CLI using the `ng` command. To create a new application, choose a directory and run `ng init`. This will create a new Angular application in selected directory, download all of the required NPM packages, and basically set everything up for us.
+If you don't already have it installed, run: 
 
-Once `ng init` is finished, run the `ng serve` command and the Webpack based build system will take care of compiling our app from TypeScript to JavaScript and will serve our app on `localhost:4200`. The `ng serve` command will also kick off a live sync process, so any time we make a change our app will automatically recompile.
+```bash
+npm install @angular/cli -g
+```
+
+This installs the Angular CLI globally. We'll interact with the CLI using the `ng` command. To create a new application, choose a directory and run:
+
+```bash
+ng new ng2auth --routing --skip-tests
+```
+
+This will create a new Angular application with routing and no initial test files for the root component. The app will be created in its own folder in the current directory, and the CLI will download all of the required NPM packages and basically set everything up for us.
+
+Once `ng new` is finished, enter the new directory and run the `ng serve` command and the Webpack based build system will take care of compiling our app from TypeScript to JavaScript and will serve our app on `localhost:4200`. The `ng serve` command will also kick off a live sync process, so any time we make a change our app will automatically recompile.
 
 Let's head over the `localhost:4200` for now to make sure that everything is working as expected so far. If you see a message saying "app works!" you are golden. Next, let's examine how our Angular app is scaffolded.
 
-The `ng init` command scaffolded our Angular app and added a lot of files. Many of these we can ignore for now like the `e2e` folder, which would contain our end to end tests. Open up the `src` directory. In the `src` directory, we can see some familiar files like `index.html`, `styles.css`, and so on. Open up the `app` directory.
+The `ng new` command scaffolded our Angular app and added a lot of files. Many of these we can ignore for now like the `e2e` folder, which would contain our end to end tests. Open up the `src` directory. In the `src` directory, we can see some familiar files like `index.html`, `styles.css`, and so on. Open up the `app` directory.
 
 The `app` directory contains the bulk of our application. By default we are presented with the following files:
 
-```
-- app.component.css - // Holds the CSS styles for our root component
-- app.component.html - // Holds the HTML view for our root component
-- app.component.spec - // Holds the tests for our root component
-- app.component.ts - // Holds the TypeScript logic for our root component
-- app.module.ts - // Defines our global app dependencies
-- index.ts - // Exports our application
-- shared - // This directory holds any shared components we may have
-```
+* `app.component.css` - Holds the CSS styles for our root component
+* `app.component.html` - Holds the HTML view for our root component
+* `app.component.ts` - Holds the TypeScript logic for our root component
+* `app.module.ts` - Defines our global app dependencies
+* `app-routing.module.ts` - Defines our app's routes
 
-Each Angular component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template, and we won't write any tests so let's make the following edits:
+Each Angular component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template, and styles. Let's make the following edits and run the following CLI commands:
 
-* Delete `app.component.css`, `app.component.html` and `app.component.spec` files. We'll define all we need for our root component in the `app.component.ts` file.
-* Create a `public-deals.component.ts`, `public-deals.component.html`, and `public-deals.component.css` file. This component will take care of getting and displaying the public deals data.
-* Create a `private-deals.component.ts`, `private-deals.component.html`, and `private-deals.component.css` file. This component will take care of getting and displaying the private deals data.
-* Create a `deal.ts` file. This component will hold our `deal` class which will let Angular know the structure of a `deal`.
-* Create a `deal.service.ts` file. Here we'll add the functionality to get and retrieve the deal data from our API.
-* Finally, create an `app.routing.ts` file which will take care of our routes.
+* Delete `app.component.css` and `app.component.html` files. We'll define all we need for our root component in the `app.component.ts` file.
+* Create a `public-deals` component by running `ng g c public-deals --no-spec`. This component will take care of getting and displaying the public deals data.
+* Create a `private-deals` component by running `ng g c private-deals --no-spec`. This component will take care of getting and displaying the private deals data.
+* Create a `deal` file by running `ng g class deal --no-spec`. This file will hold our `deal` class, which will let Angular know the structure of a `deal`.
+* Create a `deal.service.ts` file by running `ng g s deal --no-spec`. Here we'll add the functionality to get and retrieve the deal data from our API.
+
+> **Note:** `g` is a shortcut for `generate`, and `c` and `s` are shortcuts for `component` and `service`, respectively. Therefore, `ng g c` is equivalent to `ng generate component`.
+
+### Adding Bootstrap CSS
+
+We're going to use [Bootstrap](http://getbootstrap.com/docs/3.3/) to style our application, so let's include the CSS in the `<head>` of our `index.html` file like so:
+
+```html
+<!-- src/index.html -->
+...
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+...
+```
 
 ### Building the Root Component
 
 Every Angular application must have a root component. We can name it whatever we want, but the important thing is that we have one. In our application, the `app.component.ts` file will be our root component. Let's take a look at our implementation of this component.
 
 ```js
-// Import the Component decorator
 import { Component } from '@angular/core';
 
 @Component({
-  // We'll call our root component daily-deals
-  selector: 'daily-deals',
+  selector: 'app-root',
   template: `
-  <div class="container">
-    <nav class="navbar navbar-default">
-        <div class="navbar-header">
-          <a class="navbar-brand" routerLink="/dashboard">{{title}}</a>
-        </div>
-        <!-- On the left side of our navbar we'll display the two links for public and private deals -->
-        <ul class="nav navbar-nav">
-          <li>
-            <a routerLink="/deals" routerLinkActive="active">Deals</a>
-          </li>
-          <li>
-            <a routerLink="/special" routerLinkActive="active">Private Deals</a>
-          </li>
-        </ul>
-        <!-- On the right side of our navbar we'll display the login and logout actions depending on user state -->
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a>Log In</a>
-          </li>
-          <li>
-            <a>Log Out</a>
-          </li>
-        </ul>
-    </nav>
-    <div class="col-sm-12">
-      <!-- The router-outlet directive will display the component based on the route we are on, more on this soon -->
-      <router-outlet></router-outlet>
+    <div class="container">
+      <nav class="navbar navbar-default">
+          <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/dashboard">{{title}}</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li>
+              <a routerLink="/deals" routerLinkActive="active">Deals</a>
+            </li>
+            <li>
+              <a routerLink="/special" *ngIf="authService.authenticated" routerLinkActive="active">Private Deals</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a *ngIf="!authService.authenticated" (click)="authService.login()">Log In</a>
+            </li>
+            <li>
+              <a (click)=authService.logout() *ngIf="authService.authenticated">Log Out</a>
+            </li>
+          </ul>
+      </nav>
+      <div class="col-sm-12">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-  </div>
   `,
-  // We'll add an inline style to properly display the navbar
-  styles : ['.navbar-right { margin-right: 0px !important}']
+  styles: [
+    `.navbar-right { margin-right: 0px !important}`
+  ]
 })
 export class AppComponent {
-
   title = 'Daily Deals';
-
-  constructor() {}
 }
 ```
 
@@ -371,7 +384,7 @@ const appRoutes: Routes = [
   // Add the redirect
   {
     path: '',
-    redirectTo: '/deals',
+    redirectTo: '[]()deals',
     pathMatch: 'full'
   },
   // Add our routes
@@ -757,7 +770,15 @@ http://localhost:4200/callback
 
 ### Creating the Callback Component
 
-We will create a new component and call it `CallbackComponent`. This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will make extensive use of the `AuthService` we created earlier. Let's take a look at the implementation:
+We will create a new component and call it `CallbackComponent`. Generate this component using the following CLI command:
+
+```bash
+ng g c callback --it --is --flat --no-spec
+```
+
+> **Note:** `--it` stands for `inline template` and `--is` stands for `inline styles`. `--flat` creates the component without a containing folder. The `--no-spec` flag indicates that no `.spec` file should be generated.
+
+This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will make extensive use of the `AuthService` we created earlier. Let's take a look at the implementation:
 
 ```js
 import { Component } from '@angular/core';
