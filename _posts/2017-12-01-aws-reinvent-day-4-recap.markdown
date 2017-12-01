@@ -46,11 +46,11 @@ Alexa and the Amazon Echo is ushering in a new era of computer interaction with 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-[Alexa for Business]() is aiming to take the success that the Echo has had in the consumer space and adapt it to the office. Integrations with conference room hardware and software, corporate device management for the hardware, and other features will make it easy for businesses to add Echo devices in the workplace. I am curious to see if businesses will adopt it. 
+[Alexa for Business](https://aws.amazon.com/alexaforbusiness/) is aiming to take the success that the Echo has had in the consumer space and adapt it to the office. Integrations with conference room hardware and software, corporate device management for the hardware, and other features will make it easy for businesses to add Echo devices in the workplace. I am curious to see if businesses will adopt it. 
 
 ## Announcement: AWS Lambda
 
-Amazon is betting big on it's serverless frameowrk [AWS Lambda]() and for good reason. It's usage is growing tremendously and it is solving many use cases for organizations within the AWS ecosystem. Today, Dr. Vogles had five new announcements for AWS Lambda.
+Amazon is betting big on it's serverless frameowrk [AWS Lambda](https://aws.amazon.com/lambda/) and for good reason. It's usage is growing tremendously and it is solving many use cases for organizations within the AWS ecosystem. Today, Dr. Vogles had five new announcements for AWS Lambda.
 
 ![AWS Lambda announcements](https://cdn.auth0.com/blog/aws-reinvent-2017/lambda-announcements.jpg)
 
