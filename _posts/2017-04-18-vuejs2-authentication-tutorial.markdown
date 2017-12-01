@@ -315,7 +315,7 @@ Let's build an API to serve the list of startup battles to our app. We'll quickl
 
 Go ahead and fetch the [Node.js backend from GitHub](https://github.com/auth0-blog/vuejs2-authentication-tutorial/tree/master/server).
 
-**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or [sign up](javascript:signup\(\)) for one.
+**Note:** We'll be securing the backend with Auth0, so make sure you have an account already or <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one.
 
 Your `server.js` should look like this:
 
