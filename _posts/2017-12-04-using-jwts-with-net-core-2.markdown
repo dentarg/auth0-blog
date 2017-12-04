@@ -129,15 +129,15 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 This change completes the configuration of our application to support JWT-based authentication.
 
-## Differences from previous .NET Core version
+## Differences to .NET Core 1.0
 
 If you already knew [how .NET Core 1.x supported JWT](https://auth0.com/blog/asp-dot-net-core-authentication-tutorial/), you can find that it has been made easier.
 
-First of all, in previous version of .NET Core you needed to install a few external packages. Now it is no longer needed since JSON Web Tokens are now natively supported.
+First of all, in previous version of .NET Core you needed to install a few external packages. Now it is no longer needed since JSON Web Tokens are natively supported.
 
-In addition, the configuration steps have been simplified as a consequence of the overall authentication system. In fact, while in .NET Core 1.x we had a middleware for each authentication schema we would support, .NET Core 2.0 uses a single middleware handing all authentication and each authentication schema is registered as a service.
+In addition, the configuration steps have been simplified as a consequence of the overall authentication system. In fact, while in .NET Core 1.0 we had a middleware for each authentication schema we would support, .NET Core 2.0 uses a single middleware handing all authentication and each authentication schema is registered as a service.
 
-This allows to create a more compact and cleaner code.
+This allows us to create a more compact and cleaner code.
 
 ## Unauthorized access to APIs
 
