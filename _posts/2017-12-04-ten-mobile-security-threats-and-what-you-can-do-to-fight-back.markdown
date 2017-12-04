@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "10 Mobile Security Threats (and What You Can do to Fight Back)"
-description: The increased use of mobile devices has led to an uptick in mobile security threats. now, enterprises have to be more diligent than ever to protect their private data.
-date: 2017-11-17 9:30
-category: Growth, Generic
+description: The increased use of mobile devices has led to an uptick in mobile security threats. Now, enterprises have to be more diligent than ever to protect their private data.
+date: 2017-12-04 9:30
+category: Growth, Security
 is_non-tech: true
 author:
   name: Martin Gontovnikas
@@ -11,20 +11,18 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  bg_color: #531D6D"
-  image: https://cdn.auth0.com/blog/data-management-integration/logo.png
+  bg_color: #666363"
+  image: https://cdn.auth0.com/blog/mobile_security/logo.png
 tags:
-- data
-- data-management
-- data-integration
-- data-governance
-- data-analysis
-- digital-transformation
-- dmi
+- mobile
+- security
+- cybersecurity
+- enterprise
+- mobile-security
 related:
 - 2017-10-13-how-do-i-modernize-my-legacy-system
-- 2017-09-29-how-dpm-works
-- 2017-08-28-how-to-become-a-data-driven-marketer
+- 2017-10-27-where-video-game-authentication-falls-short-and-how-gamers-can-stay-safe
+- 2017-11-10-4-security-measures-after-data-breach
 ---
 
 Do you remember the days when the biggest threats to security only existed on your computer? Spyware ran silently in the background monitoring your actions, phishing stole private data and of course who can forget viruses. You might even have a memory of a time when a virus wreaked havoc on your computer systems.
