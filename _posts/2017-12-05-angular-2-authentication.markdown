@@ -133,7 +133,7 @@ The `app` directory contains the bulk of our application. By default we are pres
 
 * `app.component.css` - Holds the CSS styles for our root component
 * `app.component.html` - Holds the HTML view for our root component
-* `app.component.ts` - Holds the TypeScript logic for our root component
+* `app.component.ts` - Holds the TypeScript logic for our root component class
 * `app.module.ts` - Defines our global app dependencies
 * `app-routing.module.ts` - Defines our app's routes
 
@@ -145,7 +145,7 @@ Each Angular component we write will have at a minimum the `*.component.ts` file
 * Create a `deal` file by running `ng g class deal --no-spec`. This file will hold our `deal` class, which will let Angular know the structure of a `deal`.
 * Create a `deal.service.ts` file by running `ng g s deal --no-spec`. Here we'll add the functionality to get and retrieve the deal data from our API.
 
-> **Note:** `g` is a shortcut for `generate`, and `c` and `s` are shortcuts for `component` and `service`, respectively. Therefore, `ng g c` is equivalent to `ng generate component`.
+> **Note:** `g` is a shortcut for `generate`, and `c` and `s` are shortcuts for `component` and `service`, respectively. Therefore, `ng g c` is equivalent to `ng generate component`. The `--no-spec` flag indicates that `*.spec.ts` files should not be generated.
 
 ### Adding Bootstrap CSS
 
@@ -170,25 +170,25 @@ import { Component } from '@angular/core';
   template: `
     <div class="container">
       <nav class="navbar navbar-default">
-          <div class="navbar-header">
-            <a class="navbar-brand" routerLink="/dashboard">{{title}}</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li>
-              <a routerLink="/deals" routerLinkActive="active">Deals</a>
-            </li>
-            <li>
-              <a routerLink="/special" *ngIf="authService.authenticated" routerLinkActive="active">Private Deals</a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a *ngIf="!authService.authenticated" (click)="authService.login()">Log In</a>
-            </li>
-            <li>
-              <a (click)=authService.logout() *ngIf="authService.authenticated">Log Out</a>
-            </li>
-          </ul>
+        <div class="navbar-header">
+          <a class="navbar-brand" routerLink="/dashboard">{{ title }}</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li>
+            <a routerLink="/deals" routerLinkActive="active">Deals</a>
+          </li>
+          <li>
+            <a routerLink="/special" *ngIf="authService.authenticated" routerLinkActive="active">Private Deals</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a>Log In</a>
+          </li>
+          <li>
+            <a>Log Out</a>
+          </li>
+        </ul>
       </nav>
       <div class="col-sm-12">
         <router-outlet></router-outlet>
@@ -201,12 +201,54 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Daily Deals';
+
+  constructor() {}
 }
 ```
 
-We've created our root component. We added an inline template and some inline styles. We haven't added all the functionality yet, so every user will be able to see all the links and the login and logout buttons. We'll wait to implement those a little bit.
+We've created our root component. We added an inline template and some inline styles. We haven't added all the functionality yet, so every user will be able to see all the links and the login and logout buttons. We'll wait to implement those a little bit. We're also displaying the `<router-outlet>` element. This is where our routed components will show.
 
-To use this component, open the `index.html` file in your directory and replace `<my-app></my-app>` with `<daily-deals></daily-deals>`. We left the class name `AppComponent` so we don't need to make any edits to our `app.module.ts` file. We can just navigate to `localhost:4200` and see our app displayed. We won't see much yet, just the top navbar.
+### Routing
+
+Since we initialized our app with the `--routing` flag, the architecture for routing is already set up for us. Let's update it so that our Deals component shows by default. We'll also set up all the routes necessary for our app.
+
+Open the `app-routing.module.ts` file and add the following:
+
+```js
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { CallbackComponent } from './callback.component';
+import { PublicDealsComponent } from './public-deals/public-deals.component';
+import { PrivateDealsComponent } from './private-deals/private-deals.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'deals',
+    pathMatch: 'full'
+  },
+  {
+    path: 'deals',
+    component: PublicDealsComponent
+  },
+  {
+    path: 'special',
+    component: PrivateDealsComponent
+  },
+  {
+    path: 'callback',
+    component: CallbackComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+We can just navigate to `localhost:4200` in the browser and see our app displayed. We won't see much yet, just the top navbar and a message saying that the deals component works.
 
 ### The Deal Type
 
