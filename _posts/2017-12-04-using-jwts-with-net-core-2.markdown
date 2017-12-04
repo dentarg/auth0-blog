@@ -189,24 +189,12 @@ namespace JWT.Controllers
     public IEnumerable<Book> Get()
     {
       var currentUser = HttpContext.User;
-      int userAge = 0;
       var resultBookList = new Book[] {
-        new Book { Author = "Ray Bradbury", Title = "Fahrenheit 451", AgeRestriction = false },
-        new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude", AgeRestriction = false },
-        new Book { Author = "George Orwell", Title = "1984", AgeRestriction = false },
-        new Book { Author = "Anais Nin", Title = "Delta of Venus", AgeRestriction = true }
+        new Book { Author = "Ray Bradbury",Title = "Fahrenheit 451" },
+        new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude" },
+        new Book { Author = "George Orwell", Title = "1984" },
+        new Book { Author = "Anais Nin", Title = "Delta of Venus" }
       };
-
-      if (currentUser.HasClaim(c => c.Type == ClaimTypes.DateOfBirth))
-      {
-        DateTime birthDate = DateTime.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.DateOfBirth).Value);
-        userAge = DateTime.Today.Year - birthDate.Year;
-      }
-
-      if (userAge < 18)
-      {
-        resultBookList = resultBookList.Where(b => !b.AgeRestriction).ToArray();
-      }
 
       return resultBookList;
     }
@@ -369,9 +357,9 @@ This time we will get the list of books.
 
 ## Getting claims
 
-When introduced JWTs, we said that a token may contain some data called *claims*. These are usually information about the user that can be useful when authorizing the access to a resource. Claims could be, for example, user's e-mail, gender, role, city or any other information useful to discriminate users while accessing to resources. We can add claims in a JWT so that they will be available while checking authorization to access a resource. Let's explore in practice how to manage claims in our .NET Core 2 application.
+When introducing JWTs, we said that a token may contain some data called *claims*. These are usually information about the user that can be useful when authorizing the access to a resource. Claims could be, for example, user's e-mail, gender, role, city, or any other information useful to discriminate users while accessing to resources. We can add claims in a JWT so that they will be available while checking authorization to access a resource. Let's explore in practice how to manage claims in our .NET Core 2 application.
 
-Suppose that our list contains books not suitable for everyone. For example, it contains a book subject to age restrictions. We should include in the JWT returned after the authentication, an information about the user's age. Let's see how to change the code to create a token:
+Suppose that our list contains books not suitable for everyone. For example, it contains a book subject to age restrictions. We should include in the JWT returned after the authentication, an information about the user's age. To do that, let's update the `BuildToken` method of `TokenController` as follows:
 
 ```c#
 private string BuildToken(UserModel user)
