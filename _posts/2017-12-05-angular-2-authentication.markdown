@@ -45,9 +45,7 @@ In today's tutorial, we are going to utilize some of these new features to build
 
 [AngularJS 1.x](https://angularjs.org/) was highly regarded as a robust framework for building single page applications (SPAs). It did a lot of things well, fell short on some, but overall allowed developers to quickly build powerful applications.
 
-While Angular 1.x is a framework, [Angular](https://angular.io/) is an entire platform for building modern applications. Alongside the core Angular library, the platform ships with a powerful Command Line Interface (CLI) called [Angular CLI](https://cli.angular.io) that allows developers to easily scaffold their applications as well as control the build system. [Angular Platform Server](https://angular.io/api/platform-server) brings server-side rendering to Angular applications. [Angular Material](https://material.angular.io) is the official implementation of [Google Material Design](https://material.google.com/) which allows developers to build beautiful applications with ease.
-
-Angular has officially shipped, but the other components of the platform are still in alpha and beta stages. For our application today, we will make use of the Angular CLI and the core Angular framework.  
+While AngularJS (1.x) is a framework, [Angular](https://angular.io/) is an entire platform for building modern applications. Alongside the core Angular library, the platform ships with a powerful Command Line Interface (CLI) called [Angular CLI](https://cli.angular.io) that allows developers to easily scaffold their applications as well as control the build system. [Angular Platform Server](https://angular.io/api/platform-server) brings server-side rendering to Angular applications. [Angular Material](https://material.angular.io) is the official implementation of [Google Material Design](https://material.google.com/) which allows developers to build beautiful applications with ease.
 
 {% include tweet_quote.html quote_text="While AngularJS is a framework, Angular is an entire platform for building modern applications" %}
 
