@@ -69,7 +69,7 @@ Regardless the way you have created your project, you will get in the folder the
 
 First of all, we change the body of `ConfigureServices` method in `Startup.cs` in order to configure support for JWT-based authentication. The following is the resulting implementation of `ConfigureServices`:
 
-```c#
+```csharp
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,31 +89,31 @@ namespace JWT
   public class Startup
   {
     public Startup(IConfiguration configuration)
-      {
-          Configuration = configuration;
-      }
+    {
+        Configuration = configuration;
+    }
 
-      public IConfiguration Configuration { get; }
+    public IConfiguration Configuration { get; }
 
-      // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-      public void ConfigureServices(IServiceCollection services)
-      {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-          .AddJwtBearer(options =>
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+          options.TokenValidationParameters = new TokenValidationParameters
           {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-              ValidateIssuer = true,
-              ValidateAudience = true,
-              ValidateLifetime = true,
-              ValidateIssuerSigningKey = true,
-              ValidIssuer = Configuration["Jwt:Issuer"],
-              ValidAudience = Configuration["Jwt:Issuer"],
-              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-            };
-          });
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = Configuration["Jwt:Issuer"],
+            ValidAudience = Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+          };
+        });
 
-        services.AddMvc();
+      services.AddMvc();
     }
   }
 }
@@ -139,9 +139,9 @@ In addition, we specify the values for the issuer, the audience and the signing 
 }
 ```
 
-This step configures the JWT-based authentication service. In order to make the authentication service available to the application, we need to create the `Configure` method to invoke `app.UseAuthentication()`:
+This step configures the JWT-based authentication service. In order to make the authentication service available to the application, we need to create the `Configure` method in the `Startup` class to invoke `app.UseAuthentication()`:
 
-```c#
+```csharp
 // other methods
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
@@ -170,9 +170,9 @@ This allows us to create a more compact and cleaner code.
 
 ## Securing Endpoints with JWTs
 
-Once we have enabled JWT-based authentication, let's create a simple Web API. It will return a list of books when invoked with HTTP GET:
+Once we have enabled JWT-based authentication, let's create a simple Web API to return a list of books when invoked with an HTTP `GET` request. This API will be held by a new class called `BooksController` in the `Controllers` namespace:
 
-```c#
+```csharp
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -219,9 +219,9 @@ Of course, this result is due to the lack of the token, so that the access to th
 
 ## Creating JWT on Authentication
 
-Let's add an authentication API to our application so that user can authenticate to get new JWTs. To do that, let's create a controller called `TokenController` with the following code:
+Let's add an authentication API to our application so that user can authenticate to get new JWTs. To do that, let's create a controller called `TokenController` in the `Controllers` namespace with the following code:
 
-```c#
+```csharp
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -261,43 +261,27 @@ namespace JWT.Controllers
 
     private string BuildToken(UserModel user)
     {
+     	var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+     	var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-      var claims = new[] {
-        new Claim(JwtRegisteredClaimNames.Sub, user.Name),
-        new Claim(JwtRegisteredClaimNames.Email, user.Email),
-        new Claim(JwtRegisteredClaimNames.Birthdate, user.Birthdate.ToString("yyyy-MM-dd")),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-         };
+     	var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+     	  _config["Jwt:Issuer"],
+     	  expires: DateTime.Now.AddMinutes(30),
+     	  signingCredentials: creds);
 
-      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-      var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+     	return new JwtSecurityTokenHandler().WriteToken(token);
+     }
 
-      var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-        _config["Jwt:Issuer"],
-        claims,
-        expires: DateTime.Now.AddMinutes(30),
-        signingCredentials: creds);
+     private UserModel Authenticate(LoginModel login)
+     {
+     	UserModel user = null;
 
-      return new JwtSecurityTokenHandler().WriteToken(token);
-    }
-
-    private UserModel Authenticate(LoginModel login)
-    {
-      UserModel user = null;
-
-      if (login.Username == "mario" && login.Password == "secret")
-      {
-        user = new UserModel { Name = "Mario Rossi", Email = "mario.rossi@domain.com", Birthdate = new DateTime(1983, 9, 23)};
-      }
-
-      if (login.Username == "mary" && login.Password == "barbie")
-      {
-          user = new UserModel { Name = "Mary Smith", Email = "mary.smith@domain.com", Birthdate = new DateTime(2001, 5, 13) };
-      }
-
-      return user;
-
-    }
+     	if (login.Username == "mario" && login.Password == "secret")
+     	{
+     		user = new UserModel { Name = "Mario Rossi", Email = "mario.rossi@domain.com"};
+     	}
+     	return user;
+     }
 
     public class LoginModel
     {
@@ -333,7 +317,13 @@ First, let's get a JWT by making an HTTP POST request to `/api/token` endpoint a
 {"username": "mario", "password": "secret"}
 ```
 
-> This can be easily done with Postman or any HTTP client. Using `curl`? This is the command: `curl -X POST -H 'Content-Type: application/json' -d '{"username": "mario", "password": "secret"}' 0:5000/api/token`.
+This can be easily done with Postman or any HTTP client. For example, with `curl` this would be the command:
+
+```bash
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"username": "mario", "password": "secret"}' \
+  0:5000/api/token
+```
 
 As a response we will obtain a JSON like the following:
 
@@ -351,7 +341,13 @@ Now we will try again to request the list of books, as in the previous section. 
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJNYXJpbyBSb3NzaSIsImVtYWlsIjoibWFyaW8ucm9zc2lAZG9tYWluLmNvbSIsImJpcnRoZGF0ZSI6IjE5ODMtMDktMjMiLCJqdGkiOiJmZjQ0YmVjOC03ZDBkLTQ3ZTEtOWJjZC03MTY4NmQ5Nzk3NzkiLCJleHAiOjE1MTIzMjIxNjgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM5MzkvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2MzkzOS8ifQ.9qyvnhDna3gEiGcd_ngsXZisciNOy55RjBP4ENSGfYI
 ```
 
-> Again, this can be easily done with Postman or any HTTP client. Using `curl`? This is the command: `curl -H 'Authorization: Bearer '$JWT 0:5000/api/books`. Of course, `JWT` env variable must be set with the token received while signing in: `JWT="eyJhbG..."`.
+Again, this can be easily done with Postman or any HTTP client. In `curl`, this would be the command:
+
+```bash
+curl -H 'Authorization: Bearer '$JWT 0:5000/api/books
+```
+
+Of course, `JWT` env variable must be set with the token received while signing in: `JWT="eyJhbG..."`.
 
 This time we will get the list of books.
 
@@ -361,7 +357,7 @@ When introducing JWTs, we said that a token may contain some data called *claims
 
 Suppose that our list contains books not suitable for everyone. For example, it contains a book subject to age restrictions. We should include in the JWT returned after the authentication, an information about the user's age. To do that, let's update the `BuildToken` method of `TokenController` as follows:
 
-```c#
+```csharp
 private string BuildToken(UserModel user)
 {
 
@@ -370,7 +366,7 @@ private string BuildToken(UserModel user)
 		new Claim(JwtRegisteredClaimNames.Email, user.Email),
 		new Claim(JwtRegisteredClaimNames.Birthdate, user.Birthdate.ToString("yyyy-MM-dd")),
 		new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-	   };
+	};
 
 	var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
 	var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -391,42 +387,42 @@ This `claims` array is then passed to the `JwtSecurityToken` constructor so that
 
 Now, let's take a look at how to change the API code in order to take into account the user's age when returning the list of books:
 
-```c#
+```csharp
 [Route("api/[controller]")]
 public class BooksController : Controller
 {
-	[HttpGet, Authorize]
-	public IEnumerable<Book> Get()
-	{
-		var currentUser = HttpContext.User;
-		int userAge = 0;
-		var resultBookList = new Book[] {
-			new Book { Author = "Ray Bradbury", Title = "Fahrenheit 451", AgeRestriction = false },
-			new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude", AgeRestriction = false },
-			new Book { Author = "George Orwell", Title = "1984", AgeRestriction = false },
-			new Book { Author = "Anais Nin", Title = "Delta of Venus", AgeRestriction = true }
-		};
+  [HttpGet, Authorize]
+  public IEnumerable<Book> Get()
+  {
+    var currentUser = HttpContext.User;
+    int userAge = 0;
+    var resultBookList = new Book[] {
+      new Book { Author = "Ray Bradbury", Title = "Fahrenheit 451", AgeRestriction = false },
+      new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude", AgeRestriction = false },
+      new Book { Author = "George Orwell", Title = "1984", AgeRestriction = false },
+      new Book { Author = "Anais Nin", Title = "Delta of Venus", AgeRestriction = true }
+    };
 
-		if (currentUser.HasClaim(c => c.Type == ClaimTypes.DateOfBirth))
-		{
-			DateTime birthDate = DateTime.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.DateOfBirth).Value);
-			userAge = DateTime.Today.Year - birthDate.Year;
-		}
+    if (currentUser.HasClaim(c => c.Type == ClaimTypes.DateOfBirth))
+    {
+      DateTime birthDate = DateTime.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.DateOfBirth).Value);
+      userAge = DateTime.Today.Year - birthDate.Year;
+    }
 
-		if (userAge < 18)
-		{
-			resultBookList = resultBookList.Where(b => !b.AgeRestriction).ToArray();
-		}
+    if (userAge < 18)
+    {
+      resultBookList = resultBookList.Where(b => !b.AgeRestriction).ToArray();
+    }
 
-		return resultBookList;
-	}
+    return resultBookList;
+  }
 
-	public class Book
-	{
-		public string Author { get; set; }
-		public string Title { get; set; }
-		public bool AgeRestriction { get; set; }
-	}
+  public class Book
+  {
+    public string Author { get; set; }
+    public string Title { get; set; }
+    public bool AgeRestriction { get; set; }
+  }
 }
 ```
 
