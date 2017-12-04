@@ -905,6 +905,48 @@ In our template for this action, we just want the user to have all of the form f
 {% endraw %}
 {% endhighlight %}
 
+### Including bootstrap and styles
+
+As it is, this template will look very ugly in your browser. So let's create a new css file. `web/css/style.css`
+
+Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file. 
+
+
+Now it's time to include this file into our base template along with Bootstrap's CSS and Javascript files.
+
+Open `app/Resources/views/base.html.twig` and replace its contents with:
+
+{% highlight html %}
+{% raw %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <!-- Custom CSS File -->
+    <script src="css/style.css"></script>
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
+{% endraw %}
+{% endhighlight %}
+
+This just includes your custom CSS file as well as Bootstrap's CSS and Javascript files into your page.
+
 ### Creating event listener to ensure author exists before accessing further functionality
 
 Although a user is authenticated through Auth0, we don't really want them to be able to access the rest of the author section until they've created themself an Author entry in the database with some basic "About me" details. So what we want, is to ensure that any /author/ route they try to access, if they don't have an "Author" entry, we keep redirecting them to the form to create one.
