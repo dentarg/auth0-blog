@@ -863,7 +863,7 @@ Right now, Laravel is the most trending PHP framework in the world. Laravel thri
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Symfony apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Symfony**.
+We can easily set up authentication in our Symfony apps with [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Symfony**.
 
 ### Step 1: Install and Configure Auth0 plugin
 
@@ -873,10 +873,10 @@ Follow the instructions [here](https://auth0.com/docs/quickstart/webapp/symfony)
 
 ### Step 2: Register the Callback
 
-Head over to your Auth0 [dashboard](https://manage.auth0.com/#/applications/) and register a callback like so: `http://symfony-got.app/auth0/callback` and logout URL `http://symfony-got.app/logout`.
+Head over to your Auth0 [dashboard](https://manage.auth0.com/#/applications/) and register Allowed Callback URLs `http://127.0.0.1:8000/auth0/callback`, Allowed Logout URLs `http://127.0.0.1:8000/logout` and Allowed Origins (CORS) `http://127.0.0.1:8000/`.
 
 
-### Step 3: Include Auth0's Lock Widget
+### Step 3: Include Auth0's Centralized Login Page
 
 Open up `default/index.html.twig` and configure it like so:
 
@@ -887,20 +887,17 @@ Open up `default/index.html.twig` and configure it like so:
 
 {% raw %}
 {% block body %}
-<script src="//cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+<script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 <script type="text/javascript">
-
-  var lock = new Auth0Lock('YOUR_AUTH0_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
-
-
+  var webAuth = new auth0.WebAuth({
+      domain: 'YOUR_AUTH0_DOMAIN',
+      clientID: 'YOUR_AUTH0_CLIENT_ID'
+  });
   function signin() {
-    lock.show({
-        callbackURL: 'YOUR_AUTH0_CALLBACK_URL'
-      , responseType: 'code'
-      , authParams: {
-        scope: 'openid email'  // Learn about scopes: https://auth0.com/docs/scopes
-      }
-    });
+      webAuth.authorize({
+          responseType: "code",
+          redirectUri: 'YOUR_AUTH0_CALLBACK_URL'
+      });
   }
 </script>
 <button onclick="window.signin();">Login</button>
@@ -908,22 +905,15 @@ Open up `default/index.html.twig` and configure it like so:
 {% endraw %}
 {% endhighlight %}
 
-When the login button is clicked, the Auth0 lock widget comes up:
+When the login button is clicked, users are redirected to Auth0's Centralized Login Page.
 
-![Auth0 Lock Widget](https://cdn.auth0.com/blog/symfony/auth0-lock.png)
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
+### Step 4: Enjoy!
 
-### Step 4: Use Lock Widget
+Once a user registers, it stores the user information in your Auth0 dashboard. We can retrieve this info using the `HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider` class methods.
 
-Register with the Lock Widget. Once a user registers, it stores the user information in your Auth0 dashboard. We can retrieve this info using the `HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider` class methods.
-
-_logged_in_user_
-
-![Logged In User](https://cdn.auth0.com/blog/symfony/loggedin-user.png)
-
-
-With Auth0, you can have all your users' information stored without having to run your own database. You can configure the Lock UI to handle authentication. Auth0 provides powerful analytics about users signing up on your platform such as the browser the user logged in with, the location, device, number of logins and more, out of the box!
-
+With Auth0, you can have all your users' information stored without having to run your own database. Auth0 provides powerful analytics about users signing up on your platform such as the browser the user logged in with, the location, device, number of logins and more, out of the box!
 
 ## Wrapping Up
 
