@@ -842,91 +842,81 @@ If we view our application in the browser, we can now add an exclamation. If you
 
 Auth0 issues [JSON Web Tokens](http://jwt.io) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our Vue.js apps by using the **[Lock Widget](https://auth0.com/lock)**.
+We can easily set up authentication in our Vue.js apps with [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **Vue.js**.
 
-![auth0 lock vuejs](https://cdn.auth0.com/blog/node-knockout/node-knockout-1.png)
-
-### Step 1: Include Auth0's Lock Widget
+### Step 1: Include auth0.js
 
 ```html
   <!-- index.html -->
 
   ...
 
-  <!-- Auth0 Lock script -->
-  <script src="http://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+  <!-- Auth0.js script -->
+  <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 
   ...
 ```
 
-### Step 2: Instantiate Lock in index.js
+### Step 2: Configure an instance of auth0.js
 
 ```js
 // src/index.js
 
 ...
 
-// Instantiate a Lock
-export var lock = new Auth0Lock(YOUR_CLIENT_ID, YOUR_CLIENT_DOMAIN)
+export var webAuth = new auth0.WebAuth({
+  domain: 'YOUR_DOMAIN',
+  clientID: 'YOUR_CLIENT_ID',
+  responseType: 'token',
+  redirectUri: 'YOUR_REDIRECT_URI'
+});
 
 ...
 ```
 
-### Step 3: Call the Lock Widget from a Vue.js Component
+### Step 3: Call auth0.js from a Vue.js Component
 
 ```html
   <!-- src/components/Login.vue -->
 
   <template>
     <div class="col-sm-4 col-sm-offset-4">
-      <h2>Log In</h2>
-      <p>Log In with Auth0's Lock Widget.</p>
-      <button class="btn btn-primary" @click="login()">Log In</button>
+      <h2>Log in</h2>
+      <button class="btn btn-primary" @click="login()">Log in</button>
     </div>
   </template>
 
   <script>
-  // Import the Lock instance
-  import {lock} from '../index'
+  import {webAuth} from '../index'
 
   export default {
-
     ready() {
-
-      lock.on("authenticated", function(authResult) {
-          lock.getProfile(authResult.idToken, function(error, profile) {
-
-            if (error) {
-              // handle error
-              return;
-            }
-
-            localStorage.setItem('profile', JSON.stringify(profile))
-            localStorage.setItem('id_token', authResult.idToken)
-
-          });
-      });
-
+      // Parse the hash
+      if (window.location.hash) {
+        webAuth.parseHash({ hash: window.location.hash }, function(err, authResult) {
+          if (err) {
+            return console.log(err);
+          }
+          if (authResult) {
+            webAuth.client.userInfo(authResult.accessToken, function(err, user) {
+              localStorage.setItem('profile', JSON.stringify(user))
+              localStorage.setItem('id_token', authResult.idToken)
+            });
+          }
+        });
+      }
     },
-
     methods: {
-
       login() {
-
-        // Show the lock widget
-        lock.show();
-
+        // Redirect to the centralized login page
+        webAuth.authorize();
       },
-
       logout() {
-
         // Remove the profile and token from localStorage
         localStorage.removeItem('profile');
         localStorage.removeItem('id_token');
-
       }
     }
-
   }
 
   </script>
