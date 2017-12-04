@@ -25,7 +25,7 @@ related:
 - 2017-06-05-asp-dot-net-core-authentication-tutorial.markdown
 ---
 
-**TL;DR:** Unlike the previous version, .NET Core 2 provides native support to JSON Web Tokens. This allows us to integrate this technology in ASP.NET applications in an easier way. In this article, we will take a look at how to enable JWTs when creating a Web API application based on .NET Core 2.
+**TL;DR:** Unlike the previous version, .NET Core 2 provides native support to JSON Web Tokens. This allows us to integrate this technology in ASP.NET applications in an easier way. In this article, we will take a look at how to enable JWTs when creating a Web API application based on .NET Core 2. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-jwt).
 
 ## A Quick Introduction to JWTs
 
@@ -49,13 +49,13 @@ Let's take a look at how to set up a [.NET Core 2 application](https://www.micro
 
 ![Creating .Net Core 2 project on Visual Studio](https://cdn.auth0.com/blog/net-core-2/creating-project.png)
 
-Then you need to select the type of ASP.NET application, that in our case will be *Web API*, how we can see in the following picture:
+Then you need to select the type of ASP.NET application, that in our case will be *Web API*, as we can see in the following picture:
 
 ![Creating .Net Core 2 Web API](https://cdn.auth0.com/blog/net-core-2/creating-project-web-api.png)
 
 For simplicity, we have not enabled any type of authentication since we want to focus on JWT management.
 
-If you prefer to create your application from command line, type the following command in a command window:
+If you prefer to create your application from command line, you can do so through the following command:
 
 ```shell
 dotnet new webapi -n JWT
@@ -65,7 +65,7 @@ This will create an ASP.NET Web API project named JWT in the current folder.
 
 ![Creating .Net Core 2 project with dotnet cli](https://cdn.auth0.com/blog/net-core-2/creating-app-through0-cli.png)
 
-Regardless the way you have created your project, you will get in the folder the files defining the classes to setup a basic Web API application.
+Regardless the way you have created your project, you will get in the folder the files defining the classes to setup a basic ASP.NET Core 2 Web API application.
 
 First of all, we change the body of `ConfigureServices` method in `Startup.cs` in order to configure support for JWT-based authentication. The following is the resulting implementation of `ConfigureServices`:
 
@@ -77,20 +77,28 @@ public void ConfigureServices(IServiceCollection services)
 	{
 		options.TokenValidationParameters = new TokenValidationParameters
 		{
-			ValidateIssuer = true,
-             ValidateAudience = true,
-             ValidateLifetime = true,
-             ValidateIssuerSigningKey = true,
-             ValidIssuer = Configuration["Jwt:Issuer"],
-             ValidAudience = Configuration["Jwt:Issuer"],
-             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+		  ValidateIssuer = true,
+		  ValidateAudience = true,
+		  ValidateLifetime = true,
+		  ValidateIssuerSigningKey = true,
+		  ValidIssuer = Configuration["Jwt:Issuer"],
+		  ValidAudience = Configuration["Jwt:Issuer"],
+		  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
 		};
 	});
 
 	services.AddMvc();
 }
 ```
-Here we register JWT authentication schema by using `AddAuthetication` method and specifying `JwtBearerDefaults.AuthenticationScheme`. Then we configure the authentication schema with options for JWT bearer. In particular, we specify which parameters must be taken into account in order to consider valid a JSON Web Token. Our code is saying that to consider a token valid we must validate the server that created that token (`ValidateIssuer`), we must ensure that the recipient of the token is authorized to receive it (`ValidateAudience`), we must check that the token is not expired and that the signing key of the issuer is valid (`ValidateIssuerSigningKey`). In addition, we specify the values for the issuer, the audience and the signing key. These values are stored in the `appsettings.json` file and then accessible via `Configuration` object:
+
+Here we register JWT authentication schema by using `AddAuthentication` method and specifying `JwtBearerDefaults.AuthenticationScheme`. Then we configure the authentication schema with options for JWT bearer. In particular, we specify which parameters must be taken into account in order to consider valid a JSON Web Token. Our code is saying that to consider a token valid we must:
+
+1. validate the server that created that token (`ValidateIssuer = true`);
+2. ensure that the recipient of the token is authorized to receive it (`ValidateAudience = true`);
+3. check that the token is not expired and that the signing key of the issuer is valid (`ValidateLifetime = true`);
+4. verify that the key used to sign the incoming token is part of a list of trusted keys (`ValidateIssuerSigningKey = true`).
+
+In addition, we specify the values for the issuer, the audience and the signing key. These values are stored in the `appsettings.json` file and, as such, accessible via `Configuration` object:
 
 ```js
 //appsettings.json
@@ -103,7 +111,7 @@ Here we register JWT authentication schema by using `AddAuthetication` method an
 }
 ```
 
-This step configures the JWT-based authentication service. In order to make the authentication service available to the application, we need to add `app.UseAuthentication()` invocation in `Configure` method:
+This step configures the JWT-based authentication service. In order to make the authentication service available to the application, we need to create the `Configure` method to invoke `app.UseAuthentication()`:
 
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -118,9 +126,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 	app.UseMvc();
 }
 ```
-This change completes the configuration of our application to support JWT-based authentication.
 
-You can find the source code of the project we are going to illustrate in this article in this [Github repository](https://github.com/andychiare/netcore2-jwt).
+This change completes the configuration of our application to support JWT-based authentication.
 
 ## Differences from previous .NET Core version
 
