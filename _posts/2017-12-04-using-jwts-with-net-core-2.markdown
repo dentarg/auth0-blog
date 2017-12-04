@@ -43,7 +43,7 @@ Of course, this is a very quick overview of JWT, just to have a common terminolo
 
 {% include tweet_quote.html quote_text="JSON Web Tokens are a compact and self-contained way for securely transmitting information between parties as a JSON object." %}
 
-## Configuring JWT Support in .NET Core 2
+## Securing .NET Core 2 with JWTs
 
 Let's take a look at how to set up a [.NET Core 2 application](https://www.microsoft.com/net/) with JWT support by creating a Web API application. You can create it by using Visual Studio or via command line. In the first case you should choose the *ASP.NET Core Web Application* project template, as shown in the following picture:
 
@@ -70,24 +70,52 @@ Regardless the way you have created your project, you will get in the folder the
 First of all, we change the body of `ConfigureServices` method in `Startup.cs` in order to configure support for JWT-based authentication. The following is the resulting implementation of `ConfigureServices`:
 
 ```c#
-public void ConfigureServices(IServiceCollection services)
-{
- services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	.AddJwtBearer(options =>
-	{
-		options.TokenValidationParameters = new TokenValidationParameters
-		{
-		  ValidateIssuer = true,
-		  ValidateAudience = true,
-		  ValidateLifetime = true,
-		  ValidateIssuerSigningKey = true,
-		  ValidIssuer = Configuration["Jwt:Issuer"],
-		  ValidAudience = Configuration["Jwt:Issuer"],
-		  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-		};
-	});
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
-	services.AddMvc();
+namespace JWT
+{
+  public class Startup
+  {
+    public Startup(IConfiguration configuration)
+      {
+          Configuration = configuration;
+      }
+
+      public IConfiguration Configuration { get; }
+
+      // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+      public void ConfigureServices(IServiceCollection services)
+      {
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+          .AddJwtBearer(options =>
+          {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+              ValidateIssuer = true,
+              ValidateAudience = true,
+              ValidateLifetime = true,
+              ValidateIssuerSigningKey = true,
+              ValidIssuer = Configuration["Jwt:Issuer"],
+              ValidAudience = Configuration["Jwt:Issuer"],
+              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+            };
+          });
+
+        services.AddMvc();
+    }
+  }
 }
 ```
 
@@ -98,7 +126,7 @@ Here we register JWT authentication schema by using `AddAuthentication` method a
 3. check that the token is not expired and that the signing key of the issuer is valid (`ValidateLifetime = true`);
 4. verify that the key used to sign the incoming token is part of a list of trusted keys (`ValidateIssuerSigningKey = true`).
 
-In addition, we specify the values for the issuer, the audience and the signing key. These values are stored in the `appsettings.json` file and, as such, accessible via `Configuration` object:
+In addition, we specify the values for the issuer, the audience and the signing key. We can store these values in the `appsettings.json` file to make them accessible via `Configuration` object:
 
 ```js
 //appsettings.json
@@ -139,41 +167,62 @@ In addition, the configuration steps have been simplified as a consequence of th
 
 This allows us to create a more compact and cleaner code.
 
-## Unauthorized access to APIs
+## Securing the API with JWTs
 
 Once we have enabled JWT-based authentication, let's create a simple Web API. It will return a list of books when invoked with HTTP GET:
 
 ```c#
-[Route("api/[controller]")]
-public class BooksController : Controller
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+
+namespace JWT.Controllers
 {
-	[HttpGet, Authorize]
-	public IEnumerable<Book> Get()
-	{
-		var resultBookList = new Book[] {
-			new Book { Author = "Ray Bradbury",Title = "Fahrenheit 451"},
-			new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude"},
-			new Book { Author = "George Orwell", Title = "1984"},
-			new Book { Author = "Anais Nin", Title = "Delta of Venus"}
-		};
+  [Route("api/[controller]")]
+  public class BooksController : Controller
+  {
+    [HttpGet, Authorize]
+    public IEnumerable<Book> Get()
+    {
+      var currentUser = HttpContext.User;
+      int userAge = 0;
+      var resultBookList = new Book[] {
+        new Book { Author = "Ray Bradbury", Title = "Fahrenheit 451", AgeRestriction = false },
+        new Book { Author = "Gabriel García Márquez", Title = "One Hundred years of Solitude", AgeRestriction = false },
+        new Book { Author = "George Orwell", Title = "1984", AgeRestriction = false },
+        new Book { Author = "Anais Nin", Title = "Delta of Venus", AgeRestriction = true }
+      };
 
-		return resultBookList;
-	}
+      if (currentUser.HasClaim(c => c.Type == ClaimTypes.DateOfBirth))
+      {
+        DateTime birthDate = DateTime.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.DateOfBirth).Value);
+        userAge = DateTime.Today.Year - birthDate.Year;
+      }
 
-	public class Book
-	{
-		public string Author { get; set; }
-		public string Title { get; set; }
-	}
+      if (userAge < 18)
+      {
+        resultBookList = resultBookList.Where(b => !b.AgeRestriction).ToArray();
+      }
+
+      return resultBookList;
+    }
+
+    public class Book
+    {
+      public string Author { get; set; }
+      public string Title { get; set; }
+      public bool AgeRestriction { get; set; }
+    }
+  }
 }
-
 ```
 
-As we can see, the API simply returns an array of book objects. We can notice, however, that we marked the API with the `Authorize` attribute. It will trigger the validation check of the token passed with the HTTP request.
+As we can see, the API simply returns an array of books. However, as we marked the API with the `Authorize` attribute, requests to this endpoint will trigger the validation check of the token passed with the HTTP request.
 
-If we run the application and make a GET request to the `/api/books` endpoint, we will get a `401` HTTP status code as a response. You can try it by running the `UnAuthorizedAccess` test in the `Test` project attached to the [project's source code](https://github.com/andychiare/netcore2-jwt) or by using a generic HTTP client such as [curl](https://curl.haxx.se/) or [Postman](https://www.getpostman.com/).
-
-For example, by calling the API with *Postman* we will get the following result:
+If we run the application (through our IDE or the `dotnet run` command) and make a GET request to the `/api/books` endpoint, we will get a `401` HTTP status code as a response. You can try it by running the `UnAuthorizedAccess` test in the `Test` project attached to the [project's source code](https://github.com/andychiare/netcore2-jwt) or by using a generic HTTP client such as [curl](https://curl.haxx.se/) or [Postman](https://www.getpostman.com/).
 
 ![Using Postman to issue requests to .Net Core 2 web API](https://cdn.auth0.com/blog/net-core-2/interacting-with-postman.png)
 
