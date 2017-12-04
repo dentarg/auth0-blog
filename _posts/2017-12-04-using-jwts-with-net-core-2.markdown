@@ -142,6 +142,7 @@ In addition, we specify the values for the issuer, the audience and the signing 
 This step configures the JWT-based authentication service. In order to make the authentication service available to the application, we need to create the `Configure` method to invoke `app.UseAuthentication()`:
 
 ```c#
+// other methods
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
 	if (env.IsDevelopment())
@@ -167,7 +168,7 @@ In addition, the configuration steps have been simplified as a consequence of th
 
 This allows us to create a more compact and cleaner code.
 
-## Securing the API with JWTs
+## Securing Endpoints with JWTs
 
 Once we have enabled JWT-based authentication, let's create a simple Web API. It will return a list of books when invoked with HTTP GET:
 
@@ -228,71 +229,113 @@ If we run the application (through our IDE or the `dotnet run` command) and make
 
 Of course, this result is due to the lack of the token, so that the access to the API has been denied.
 
-## Creating JWT on authentication
+## Creating JWT on Authentication
 
-Let's add an authentication API to our application, so that when a user is authenticated a new JWT is created and returned to the client. The following is the code that implements this API:
+Let's add an authentication API to our application so that user can authenticate to get new JWTs. To do that, let's create a controller called `TokenController` with the following code:
 
 ```c#
-[Route("api/[controller]")]
-public class TokenController : Controller
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace JWT.Controllers
 {
-...
-	[AllowAnonymous]
-	[HttpPost]
-	public IActionResult CreateToken([FromBody]LoginModel login)
-	{
-		IActionResult response = Unauthorized();
-		var user = Authenticate(login);
+  [Route("api/[controller]")]
+  public class TokenController : Controller
+  {
+    private IConfiguration _config;
 
-		if (user != null)
-		{
-			var tokenString = BuildToken(user);
-			response = Ok(new { token = tokenString });
-		}
+    public TokenController(IConfiguration config)
+    {
+      _config = config;
+    }
 
-		return response;
-	}
+    [AllowAnonymous]
+    [HttpPost]
+    public IActionResult CreateToken([FromBody]LoginModel login)
+    {
+      IActionResult response = Unauthorized();
+      var user = Authenticate(login);
 
-	private string BuildToken(UserModel user)
-	{
-		var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-		var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+      if (user != null)
+      {
+        var tokenString = BuildToken(user);
+        response = Ok(new { token = tokenString });
+      }
 
-		var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-		  _config["Jwt:Issuer"],
-		  expires: DateTime.Now.AddMinutes(30),
-		  signingCredentials: creds);
+      return response;
+    }
 
-		return new JwtSecurityTokenHandler().WriteToken(token);
-	}
+    private string BuildToken(UserModel user)
+    {
 
-	private UserModel Authenticate(LoginModel login)
-	{
-		UserModel user = null;
+      var claims = new[] {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Name),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim(JwtRegisteredClaimNames.Birthdate, user.Birthdate.ToString("yyyy-MM-dd")),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+         };
 
-		if (login.Username == "mario" && login.Password == "secret")
-		{
-			user = new UserModel { Name = "Mario Rossi", Email = "mario.rossi@domain.com"};
-		}
-		return user;
-	}
-...
+      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+      var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+      var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+        _config["Jwt:Issuer"],
+        claims,
+        expires: DateTime.Now.AddMinutes(30),
+        signingCredentials: creds);
+
+      return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    private UserModel Authenticate(LoginModel login)
+    {
+      UserModel user = null;
+
+      if (login.Username == "mario" && login.Password == "secret")
+      {
+        user = new UserModel { Name = "Mario Rossi", Email = "mario.rossi@domain.com", Birthdate = new DateTime(1983, 9, 23)};
+      }
+
+      if (login.Username == "mary" && login.Password == "barbie")
+      {
+          user = new UserModel { Name = "Mary Smith", Email = "mary.smith@domain.com", Birthdate = new DateTime(2001, 5, 13) };
+      }
+
+      return user;
+
+    }
+
+    public class LoginModel
+    {
+      public string Username { get; set; }
+      public string Password { get; set; }
+    }
+
+    private class UserModel
+    {
+      public string Name { get; set; }
+      public string Email { get; set; }
+      public DateTime Birthdate { get; set; }
+    }
+  }
 }
 ```
 
-We omitted some code for the sake of simplicity, but remember that you can download the complete code from the [Github repository](https://github.com/andychiare/netcore2-jwt).
-
 The first thing to notice is the presence of `AllowAnonymous` attribute. This is very important, since this must be a public API, that is an API that anyone can access to get a new token after providing his credentials.
 
-The API responds to an HTTP POST request and expects an object containing username and password (a `LoginModel` object).
+The API responds to an HTTP `POST` request and expects an object containing username and password (a `LoginModel` object).
 
 The `Authenticate` method verifies that the provided username and password are the expected ones and returns a `UserModel` object representing the user. Of course, this is a trivial implementation of the authentication process. A production-ready implementation should be more accurate as all we know.
 
-If the `Authentication` method returns a user, that is the provided credentials are valid, the API generates a new token via the `BuildToken` method. And this is the most interesting part: here we create a JSON Web Token by using the `JwtSecurityToken` class. We pass a few parameters to the class constructor, such as the issuer, the audience (in our case are the same), the expiration date and time and the signature. Finally, the `BuildToken` method returns the token as a string, by converting it through the `WriteToken` method of the `JwtSecurityTokenHandler` class.
+If the `Authentication` method returns a user, that is the provided credentials are valid, the API generates a new token via the `BuildToken` method. And this is the most interesting part: here we create a JSON Web Token by using the `JwtSecurityToken` class. We pass a few parameters to the class constructor, such as the issuer, the audience (in our case both are the same), the expiration date and time and the signature. Finally, the `BuildToken` method returns the token as a string, by converting it through the `WriteToken` method of the `JwtSecurityTokenHandler` class.
 
-
-
-## Authorized access to APIs
+## Authenticating to Access the APIs
 
 Now we can test the two APIs we created.
 
@@ -301,6 +344,8 @@ First, let's get a JWT by making an HTTP POST request to `/api/token` endpoint a
 ```json
 {"username": "mario", "password": "secret"}
 ```
+
+> This can be easily done with Postman or any HTTP client. Using `curl`? This is the command: `curl -X POST -H 'Content-Type: application/json' -d '{"username": "mario", "password": "secret"}' 0:5000/api/token`.
 
 As a response we will obtain a JSON like the following:
 
@@ -317,6 +362,8 @@ Now we will try again to request the list of books, as in the previous section. 
 ```
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJNYXJpbyBSb3NzaSIsImVtYWlsIjoibWFyaW8ucm9zc2lAZG9tYWluLmNvbSIsImJpcnRoZGF0ZSI6IjE5ODMtMDktMjMiLCJqdGkiOiJmZjQ0YmVjOC03ZDBkLTQ3ZTEtOWJjZC03MTY4NmQ5Nzk3NzkiLCJleHAiOjE1MTIzMjIxNjgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjM5MzkvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2MzkzOS8ifQ.9qyvnhDna3gEiGcd_ngsXZisciNOy55RjBP4ENSGfYI
 ```
+
+> Again, this can be easily done with Postman or any HTTP client. Using `curl`? This is the command: `curl -H 'Authorization: Bearer '$JWT 0:5000/api/books`. Of course, `JWT` env variable must be set with the token received while signing in: `JWT="eyJhbG..."`.
 
 This time we will get the list of books.
 
