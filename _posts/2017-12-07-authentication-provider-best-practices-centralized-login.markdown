@@ -2,7 +2,7 @@
 layout: post
 title: "Authentication Provider Best Practices: Centralized Login"
 description: "Learn why centralized login is the most secure, standards-based strategy when authenticating with a provider."
-date: 2017-11-30 8:30
+date: 2017-12-07 8:30
 category: Technical guide, Centralized login
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -24,6 +24,7 @@ tags:
 related:
 - 2017-10-19-oauth-2-best-practices-for-native-apps
 - 2017-05-11-google-blocks-oauth-requests-from-embedded-browsers
+- 2017-11-22-using-centralized-login-to-add-authentication-to-your-ios-apps
 ---
 
 **TL;DR:** To maintain a successful application, sooner rather than later you will need a centralized account system, as opposed to embedding login within your application. This is more secure, standard-based, maintainable, and future proof. This is where the industry is moving, and in this post, we will explore this trend.
@@ -54,7 +55,7 @@ High standards of security and ease of use have been set for modern authenticati
 Let's look at a hypothetical example using a timeline from an imaginary company. Let's say our make-believe company, "SourceCentral", provides public and private source control repository hosting. Their timeline looks something like this:
 
 * **Year 0: Launch!** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs, since we are still small and only have one service.
-* **Year 1: Going native** Lots of people have signed up and outlook is great! People love our service. We are launching native Android and iOS mobile apps as well as desktop apps, and we need to implement login for all of them.
+* **Year 1: Going native** Lots of people have signed up and outlook is great! People love our service. We are launching native Android and iOS mobile apps as well as desktop apps for Windows and MacOS, and we need to implement login for all of them.
 * **Year 1.5: APIs** We're now developing an API so that we can better serve our customerbase of developers who want to be able to integrate our service with third parties, but...
 * **Year 2: Auth for third parties** Authentication has been a huge challenge now that we have an API that requires authorization as well as several apps and third party integrations. 😧 To address the complexities and issues this is presenting, we're implementing OAuth in order to provide a much more _centralized_ authentication and authorization process for our product and APIs.
 * **Year 3: SSO** With a centralized login approach, we're now able to leverage Single Sign-On. Our customers love this. This was easy with a centralized login; instead of having to change every single service, we only had to do it once! It's much easier to maintain and enhance.
