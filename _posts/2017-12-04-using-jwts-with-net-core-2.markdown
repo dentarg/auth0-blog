@@ -33,30 +33,25 @@ related:
 
 The JWTs are structured in three sections:
 
-- the *Header*
-  this is a JSON object containing meta-information about the type of JWT and hash algorithm used to encrypt the data
-- the *Payload*
-  even this is a JSON object containing the actual data shared between source and target; these data are coded in *claims*, that is statements about an entity, typically the user
-- the *Signature*
-  this section allows to verify the integrity of the data, since it represents a digital signature based on the previous two sections
+- the `Header`: this is a JSON object containing meta-information about the type of JWT and hash algorithm used to encrypt the data.
+- the `Payload`: even this is a JSON object containing the actual data shared between source and target; these data are coded in *claims*, that is statements about an entity, typically the user.
+- the `Signature`: this section allows to verify the integrity of the data, since it represents a digital signature based on the previous two sections.
 
-The three sections of a JWT are combined together into a sequence of Base64 strings separated by dots so that the data can be easily sent around in HTTP-based environments. When used in authentication, JWT technology allows a client to store session data on its side and to provide the token to the server whenever it tries to access a protected resource. Usually, the token is sent to the server in an *Authorization* HTTP header using the *Bearer* schema, and it should contain all the information that allows to grant or deny access to the resource.
+The three sections of a JWT are combined together into a sequence of [Base64 strings](https://en.wikipedia.org/wiki/Base64) separated by dots so that the data can be easily sent around in HTTP-based environments. When used in authentication, JWT technology allows a client to store session data on its side and to provide the token to the server whenever it tries to access a protected resource. Usually, the token is sent to the server in the `Authorization` HTTP header using the [Bearer schema](https://swagger.io/docs/specification/authentication/bearer-authentication/), and it should contain all the information that allows to grant or deny access to the resource.
 
-Of course, this is a very quick overview of JWT, just to have a common terminology and a basic idea of what this technology is. You can find more information in [Introduction to JSON Web Tokens](https://jwt.io/introduction/).
+Of course, this is a very quick overview of JWT, just to have a common terminology and a basic idea of what the technology is. You can find more information in [Introduction to JSON Web Tokens](https://jwt.io/introduction/).
 
 {% include tweet_quote.html quote_text="JSON Web Tokens are a compact and self-contained way for securely transmitting information between parties as a JSON object." %}
 
+## Configuring JWT Support in .NET Core 2
 
+Let's take a look at how to set up a [.NET Core 2 application](https://www.microsoft.com/net/) with JWT support by creating a Web API application. You can create it by using Visual Studio or via command line. In the first case you should choose the *ASP.NET Core Web Application* project template, as shown in the following picture:
 
-## Configuring JWT support in .NET Core 2
-
-Let's take a look at how to set up a .NET Core 2 application with JWT support by creating a Web API application. You can create it by using Visual Studio or via command line. In the first case you should choose the *ASP.NET Core Web Application* project template, as shown in the following picture:
-
-![](./xxxx-xx-xx-using-jwt-with-dotnet-core-2_img/VS_ASPNET_dialog.png)
+![Creating .Net Core 2 project on Visual Studio](https://cdn.auth0.com/blog/net-core-2/creating-project.png)
 
 Then you need to select the type of ASP.NET application, that in our case will be *Web API*, how we can see in the following picture:
 
-![](./xxxx-xx-xx-using-jwt-with-dotnet-core-2_img/VS_WebAPI_dalog.png)
+![Creating .Net Core 2 Web API](https://cdn.auth0.com/blog/net-core-2/creating-project-web-api.png)
 
 For simplicity, we have not enabled any type of authentication since we want to focus on JWT management.
 
@@ -67,6 +62,8 @@ dotnet new webapi -n JWT
 ```
 
 This will create an ASP.NET Web API project named JWT in the current folder.
+
+![Creating .Net Core 2 project with dotnet cli](https://cdn.auth0.com/blog/net-core-2/creating-app-through0-cli.png)
 
 Regardless the way you have created your project, you will get in the folder the files defining the classes to setup a basic Web API application.
 
@@ -95,11 +92,10 @@ public void ConfigureServices(IServiceCollection services)
 ```
 Here we register JWT authentication schema by using `AddAuthetication` method and specifying `JwtBearerDefaults.AuthenticationScheme`. Then we configure the authentication schema with options for JWT bearer. In particular, we specify which parameters must be taken into account in order to consider valid a JSON Web Token. Our code is saying that to consider a token valid we must validate the server that created that token (`ValidateIssuer`), we must ensure that the recipient of the token is authorized to receive it (`ValidateAudience`), we must check that the token is not expired and that the signing key of the issuer is valid (`ValidateIssuerSigningKey`). In addition, we specify the values for the issuer, the audience and the signing key. These values are stored in the `appsettings.json` file and then accessible via `Configuration` object:
 
-```json
+```js
 //appsettings.json
 {
-...
-,
+// ...
   "Jwt": {
     "Key": "veryVerySecretKey",
     "Issuer": "http://localhost:63939/"
@@ -172,7 +168,7 @@ If we run the application and make a GET request to the `/api/books` endpoint, w
 
 For example, by calling the API with *Postman* we will get the following result:
 
-![](./xxxx-xx-xx-using-jwt-with-dotnet-core-2_img/401_Postman.png)
+![Using Postman to issue requests to .Net Core 2 web API](https://cdn.auth0.com/blog/net-core-2/interacting-with-postman.png)
 
 Of course, this result is due to the lack of the token, so that the access to the API has been denied.
 
