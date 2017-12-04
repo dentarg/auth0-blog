@@ -117,4 +117,4 @@ With Auth0, the centralized login page is a [fully customizable UI](https://auth
 
 ![Auth0 centralized login page](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
-You can [sign up for a free Auth0 account](https://auth0.com/signup) to try out these features and more to modernize your app's authentication and follow standards-based best practices.
+You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a> to try out these features and more to modernize your app's authentication and follow standards-based best practices.
