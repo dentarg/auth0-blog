@@ -9,7 +9,7 @@ We can protect our applications and APIs so that only authenticated users can ac
 The [sample Angular application and API](https://github.com/auth0-blog/angular-auth0-aside) has the following features:
 
 * Angular application generated with [Angular CLI](https://github.com/angular/angular-cli) and served at [http://localhost:4200](http://localhost:4200)
-* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a centralized [Lock](https://auth0.com/lock) instance
+* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a centralized login page
 * Node server protected API route `http://localhost:3001/api/dragons` returns JSON data for authenticated `GET` requests
 * Angular app fetches data from API once user is authenticated with Auth0
 * Profile page requires authentication for access using route guards
@@ -19,7 +19,7 @@ The [sample Angular application and API](https://github.com/auth0-blog/angular-a
 
 ### Sign Up for Auth0
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](https://auth0.com/signup). Next, set up an Auth0 client app and API so Auth0 can interface with an Angular app and Node API.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 client app and API so Auth0 can interface with an Angular app and Node API.
 
 ### Set Up a Client App
 
@@ -60,24 +60,24 @@ Find the [`config.js.example` file](https://github.com/auth0-blog/angular-auth0-
 // server/config.js
 // (formerly config.js.example)
 module.exports = {
-  CLIENT_DOMAIN: '[CLIENT_DOMAIN]', // e.g. 'you.auth0.com'
+  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]', // e.g. 'you.auth0.com'
   AUTH0_AUDIENCE: 'http://localhost:3001/api/'
 };
 ```
 
-Change the `CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://localhost:3001/api/`). The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+Change the `AUTH0_CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://localhost:3001/api/`). The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
-Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting `.example` from the file extension. Then open the file and change the `[CLIENT_ID]` and `[CLIENT_DOMAIN]` strings to your Auth0 information:
+Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting `.example` from the file extension. Then open the file and change the `[AUTH0_CLIENT_ID]` and `[AUTH0_CLIENT_DOMAIN]` strings to your Auth0 information:
 
 ```js
 // src/app/auth/auth0-variables.ts
 // (formerly auth0-variables.ts.example)
 ...
 export const AUTH_CONFIG: AuthConfig = {
-  CLIENT_ID: '[CLIENT_ID]',
-  CLIENT_DOMAIN: '[CLIENT_DOMAIN]',
+  CLIENT_ID: '[AUTH0_CLIENT_ID]',
+  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]',
   ...
 ```
 
@@ -90,6 +90,7 @@ With the Node API and Angular app running, let's take a look at how authenticati
 Authentication logic on the front end is handled with an `AuthService` authentication service: [`src/app/auth/auth.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth.service.ts).
 
 ```js
+// src/app/auth/auth.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as auth0 from 'auth0-js';
@@ -194,26 +195,13 @@ We'll receive `idToken`, `accessToken`, and `expiresIn` in the hash from Auth0 w
 
 > **Note:** The profile takes the shape of [`profile.model.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/profile.model.ts) from the [OpenID standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
 
-The `handleAuth()` method can then be called in the [`app.component.ts` constructor](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.component.ts) like so:
-
-```js
-// src/app/app.component.ts
-import { AuthService } from './auth/auth.service';
-...
-  constructor(private auth: AuthService) {
-    // Check for authentication and handle if hash present
-    auth.handleAuth();
-  }
-...
-```
-
 Finally, we have a `logout()` method that clears data from local storage and updates the `loggedIn$` subject. We also have an `authenticated` accessor to return current authentication status based on access token expiration.
 
 Once [`AuthService` is provided in `app.module.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/app.module.ts#L32), its methods and properties can be used anywhere in our app, such as the [home component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/home).
 
 ### Callback Component
 
-The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until the login process is completed. It subscribes to the `loggedIn$` Behavior Subject from our Authentication service in order to redirect back to the home page once the user is logged in, like so:
+The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/callback) is where the app is redirected after authentication. This component simply shows a loading message until the login process is completed. It executes the `handleAuth()` method to parse the hash and extract authentication information. It subscribes to the `loggedIn$` Behavior Subject from our Authentication service in order to redirect back to the home page once the user is logged in, like so:
 
 ```js
 // src/app/callback/callback.component.ts
@@ -229,7 +217,10 @@ import { Router } from '@angular/router';
 })
 export class CallbackComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {
+    // Parse authentication hash
+    auth.handleAuth();
+  }
 
   ngOnInit() {
     this.auth.loggedIn$.subscribe(
@@ -242,11 +233,21 @@ export class CallbackComponent implements OnInit {
 
 ### Making Authenticated API Requests
 
-In order to make authenticated HTTP requests, we need to add a `Authorization` header with the access token in our [`api.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/api.service.ts).
+In order to make authenticated HTTP requests, we need to add an `Authorization` header with the access token in our [`api.service.ts` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/api.service.ts).
 
 ```js
 // src/app/api.service.ts
-...
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
+
+@Injectable()
+export class ApiService {
+  private baseUrl = 'http://localhost:3001/api/';
+
+  constructor(private http: HttpClient) { }
+
   getDragons$(): Observable<any[]> {
     return this.http
       .get(`${this.baseUrl}dragons`, {
@@ -254,9 +255,17 @@ In order to make authenticated HTTP requests, we need to add a `Authorization` h
           'Authorization', `Bearer ${localStorage.getItem('access_token')}`
         )
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError(this._handleError)
+      );
   }
-...
+
+  private _handleError(err: HttpErrorResponse | any) {
+    const errorMsg = err.message || 'Unable to retrieve data';
+    return Observable.throw(errorMsg);
+  }
+
+}
 ```
 
 ### Final Touches: Route Guard and Profile Page

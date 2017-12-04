@@ -24,7 +24,7 @@ related:
 - 2016-01-04-secure-your-react-and-redux-app-with-jwt-authentication
 - 2016-09-29-angular-2-authentication
 lang: en
-alternate_locale_jp: jp-reactjs-authentication-tutorial
+alternate_locale_ja: jp-reactjs-authentication-tutorial
 ---
 
 ---
