@@ -89,7 +89,7 @@ app.get('/api/deals/private', (req,res)=>{
   res.json(deals);
 })
 
-app.listen(3001);Angular
+app.listen(3001);
 console.log('Serving deals on localhost:3001');
 ```
 
