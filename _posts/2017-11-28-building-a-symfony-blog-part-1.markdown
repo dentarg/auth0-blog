@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building a Symfony blog Part 1"
-description: Learn how to create a blog in Symfony and authenticate.g
+description: Learn how to create a blog in Symfony and authenticate.
 date: 2017-11-28 22:04
 category: Technical Guide, PHP, Symfony
 author:
@@ -21,7 +21,7 @@ related:
 - 2017-07-26-creating-your-first-symfony-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement.  It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with the content stored in the database and authentication through Auth0. The finished code can be found at this [repo](https://github.com/GregHolmes/symfony-blog).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement.  It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with the content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
 
 ---
 
@@ -133,7 +133,7 @@ When it asks for the Entity shortcut name, type in: `AppBundle:Author`
 
 Keep the default on `Configuration format`, but this next step we need to add all of the properties on our Author. Please refer to the image below for the entries required for an Author table:
 
-![Creating an Author entity](http://localhost/example-images/create-author-entity.png)
+![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-author-entity.png)
 __NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php)
 
 ### Creating a new BlogPost entity
@@ -144,7 +144,7 @@ When it asks for the Entity shortcut name, type in: `AppBundle:BlogPost`
 
 Keep the default on `Configuration format`, but the next step is to add all of the properties on the BlogPost. Please refer to the image below for the entries required for a BlogPost table:
 
-![Creating an Author entity](http://localhost/example-images/create-blogpost-entity.png)
+![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
 __NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php)
 
 
@@ -598,7 +598,7 @@ Lets create our admin blog controller by running the following command: `php bin
 
 If you follow the instructions as shown by the input, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called AdminController, you'll also have a new template in `src/AppBundle/Resources/views/Admin/`
 
-![Creating an Admin Controller](http://localhost/example-images/create-admin-controller.png)
+![Creating an Admin Controller](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
 __NOTE__: If you cannot see the image, the full controller can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
 
 First thing we will want to do is create a new form. This is a class that allows us to validate the users input, such as creating an author. So in `src/AppBundle` create a new directory called `Form`
