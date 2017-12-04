@@ -432,11 +432,24 @@ public class BooksController : Controller
 
 We added the `AgeRestriction` property to the Book class. It is a boolean value that indicates if a book is subject to age restrictions or not.
 
-When a request is received, we check if a claim `DateOfBirth` is associated with the current user. In the affirmative case, we calculate the user's age. Then, if the user is under 18, the list will contain only the books without age restrictions, else the whole list will be returned.
+When a request is received, we check if a claim `DateOfBirth` is associated with the current user. In case of affirmative, we calculate the user's age. Then, if the user is under 18, the list will contain only the books without age restrictions, else the whole list will be returned.
 
-You can test this new scenario by running the tests `GetBooksWithoutAgeRestrictions` and `GetBooksWithAgeRestrictions` included in the [project's source code](https://github.com/andychiare/netcore2-jwt).
+You can test this new scenario by running the tests `GetBooksWithoutAgeRestrictions` and `GetBooksWithAgeRestrictions` included in the [project's source code](https://github.com/andychiare/netcore2-jwt) or by issue the following `curl` commands:
 
+```bash
+# signing in
+curl -X POST -H 'Content-Type: application/json' -d '{username: "mary", password: "barbie"}' 0:5000/api/token
 
+# setting JWT variable (replace AAA.BBB.CCC with token received)
+JWT="AAA.BBB.CCC"
+
+# getting books
+curl -H 'Authorization: Bearer '$JWT 0:5000/api/books
+```
+
+The last command will now send a list containing all books but the restricted one: *Delta of Venus*.
+
+{% include tweet_quote.html quote_text="Just learnt how to secure .Net Core 2.0 apis." %}
 
 ## Aside: ????
 
@@ -452,6 +465,6 @@ To learn how you can secure your ASP.NET Core application with Auth0, check the 
 
 ## Summary
 
-In the article, we had an overview of JSON Web Token technology and introduced how to use it in .NET Core 2. While developing a simple Web API application, we saw how to configure support for JWT authentication and how to create tokens on authentication. We also described how to insert claims into a JWT and how to use them while authorizing the access to a resource.
+In this article, we had an overview of the JSON Web Token technology and introduced how to use it in .NET Core 2. While developing a simple Web API application, we saw how to configure support for JWT authentication and how to create tokens on authentication. We also described how to insert claims into a JWT and how to use them while authorizing the access to a resource.
 
-In conclusion, we experienced how easy is to manage JSON Web Tokens in .NET Core 2.
+In conclusion, we experienced how easy it is to manage JSON Web Tokens in .NET Core 2 applications.
