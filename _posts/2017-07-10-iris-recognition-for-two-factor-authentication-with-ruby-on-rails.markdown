@@ -313,6 +313,9 @@ class IrisController < ApplicationController
 end
 ~~~
 
+**Note**: Using Auth0's Centralised Login Page is a more secure way of utilising Auth0's user management technology:
+
+{% include asides/javascript-at-auth0.markdown %}
 
 ### Summary
 

@@ -147,9 +147,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AUTH_CONFIG } from './auth.config';
 import * as auth0 from 'auth0-js';
 
-// Avoid name not found warnings
-declare var auth0: any;
-
 @Injectable()
 export class AuthService {
   // Create Auth0 web auth instance

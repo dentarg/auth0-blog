@@ -23,7 +23,7 @@ related:
 - introducing-angular2-jwt-a-library-for-angular2-authentication
 - create-a-desktop-app-with-angular-2-and-electron
 lang: en
-alternate_locale_jp: jp-angular-2-authentication
+alternate_locale_ja: jp-angular-2-authentication
 ---
 
 <div class="alert alert-danger alert-icon">

@@ -735,15 +735,90 @@ If you need a reference for a ASP.NET Core application with authentication fully
 
 ## Aside: Securing ASP.NET Core with Auth0
 
-Auth0’s goal is to provide the [best identity management solution for customers](https://auth0.com/user-management). As a company that primes for security, we have invested a lot of time and effort to develop the best and easiest solution to help companies to properly handle their users' sensitive data. We allow developers to easily extend the security of their applications with features like [Passwordless](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/multifactor-authentication), and [Breached Passwords Detection](https://auth0.com/breached-passwords).
+In the following sections, we will see how to use authorization features of OAuth 2.0 to limit access to our ASP.NET Core applications. To learn more about OAuth 2.0, we can refer to [the API authorization documentation](https://auth0.com/docs/api-auth).
 
-To learn how you can secure your ASP.NET Core application with Auth0, check the [quickstart documentation over here](https://auth0.com/docs/quickstart/webapp/aspnet-core). After that you can learn how to turn on the security features mentioned above by checking the following resources:
+The very first thing we need is to create our own Auth0 account. Luckily, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Auth0 has a free tier that supports 7,000 free active users & unlimited logins</a>!
 
-* [Multifactor Made Easy](https://auth0.com/multifactor-authentication)
-* [Log in without Passwords. Easy and Secure.](https://auth0.com/passwordless)
-* [Protect your users and services from password leaks](https://auth0.com/breached-passwords)
+### Create a Resource Server (API)
 
-> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+After creating the account, we need to register our application in [the APIs section of the Auth0 dashboard](https://manage.auth0.com/#/apis). On this section, let's click "Create API". Then we have to provide a name ("Contacts API") and an identifier (`https://contacts.mycompany.com/`) to our API. We will use the identifier as an audience when configuring clients that will fetch `access_tokens`. For the signing algorithm, let's select _RS256_.
+
+![Registering applications as APIs on Auth0](https://cdn.auth0.com/blog/asides/contacts-api.png)
+
+### Installing Dependencies
+
+To use tokens with ASP.NET Core applications, we need to use the JWT middleware. This middleware is provided by the [`Microsoft.AspNetCore.Authentication.JwtBearer`](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/1.1.3) package. To install this package, let's use the `dotnet` command:
+
+```bash
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 1.1.3
+```
+
+### Configuration
+
+As requested when creating it, our API will use _RS256_ as the algorithm for signing tokens. Since _RS256_ uses a private/public key pair, it verifies the tokens against the public key for our Auth0 account. The ASP.NET Core JWT middleware will handle downloading the JSON Web Key Set (JWKS) file containing the public key for us, and will use that to verify the `access_token` signature.
+
+To add the JWT middleware to our application's middleware pipeline, let's go to the `Configure` method of our `Startup` class and add a call to `UseJwtBearerAuthentication`. This call will pass in an instance of `JwtBearerOptions` configured with our Auth0 properties. The `JwtBearerOptions` needs to specify our Auth0 API Identifier as the `Audience`, and the full path to our Auth0 domain as the `Authority`:
+
+```csharp
+// Startup.cs
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{
+    loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+    loggerFactory.AddDebug();
+
+    var options = new JwtBearerOptions
+    {
+        Audience = "https://contacts.mycompany.com/",
+        Authority = "https://bk-samples.auth0.com/"
+    };
+    app.UseJwtBearerAuthentication(options);
+
+    app.UseMvc();
+}
+```
+
+The JWT middleware integrates with the standard ASP.NET Core [Authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/) and [Authorization](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/) mechanisms. Therefore, to secure an endpoint we only need to decorate our controller action with the `[Authorize]` attribute:
+
+```csharp
+// Controllers/ContactsController.cs
+
+[Route("[controller]")]
+public class ContactsController : Controller
+{
+    [Authorize]
+    [HttpGet]
+    [Route("")]
+    public List<Team> GetContacts()
+    {
+        List<Team>
+    }
+    [HttpGet]
+    public IEnumerable<Contact> GetContacts()
+    {
+      return _context.ContactList.ToList();
+    }
+}
+```
+
+### Creating an Auth0 Client
+
+As the focus of this section is to secure ASP.NET Core with Auth0, [we are going to use a live Angular app that has a configurable Auth0 client](http://auth0.digituz.com.br/). Before using this app, we need to create an Auth0 Client that represents it. Let's head to the ["Clients" section of the management dashboard](https://manage.auth0.com/#/clients) and click on the "Create Client" button to create this client.
+
+On the popup shown, let's set the name of this new client as "Contacts Client" and choose "Single Page Web App" as the client type. After hitting the "Create" button, we have to go to the "Settings" tab of this client and add `http://auth0.digituz.com.br/callback` to the "Allowed Callback URLs" field.
+
+Now we can save the client and head to [the sample Angular app secured with Auth0](http://auth0.digituz.com.br/). To use this app, we need to set the correct values for four properties:
+
+- `clientID`: We have to copy this value from the "Client ID" field of the "Settings" tab of "Contacts Client".
+- `domain`: We can also copy this value from the "Settings" tab of "Contacts Client".
+- `audience`: We have to set this property to meet the identifier of the API that we created earlier (`https://contacts.mycompany.com/`).
+- `scope`: This property will define the `authority` that the `access_token` will get access to in the backend API. For example: `read:contacts` or both `read:contacts add:contacts`.
+
+Then we can hit the "Sign In with Auth0" button.
+
+![Using the Angular app with the configurable Auth0 Client](https://cdn.auth0.com/blog/angular-generic-client/signing-in.png)
+
+After signing in, we can use the application to submit requests to our secured Node.js API. For example, if we issue a GET request to `http://localhost:5000/contacts`, the Angular app will include the `access_token` in the `Authorization` header and our API will respond with a list of contacts.
 
 ## Conclusion
 

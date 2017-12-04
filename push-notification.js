@@ -1,4 +1,4 @@
-// Get broser Name
+// Get browser Name
 
 function getBrowserName() {
   var userAgent = navigator.userAgent;
@@ -26,11 +26,6 @@ function getBrowserName() {
   }else {
     return browserName;
   }
-}
-
-// about service worker and push notification
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('https://auth0.com/blog/sw.js');
 }
 
 var requestNotificationPermission = function () {
@@ -175,7 +170,7 @@ $(document).ready(function ($) {
     }, 30000);
   }
 
-  subscriptionValidation = function () {
+  function subscriptionValidation () {
     // if ('safari' in window && 'pushNotification' in window.safari) {
     //   if (!localStorage.getItem('permissionAllow') && localStorage.getItem('pn-subscription') != 'false') {
     //     valActive = true;
@@ -183,23 +178,36 @@ $(document).ready(function ($) {
     //   }
     // }
 
-    if (navigator.serviceWorker === undefined) { return; }
+    if (navigator.serviceWorker === undefined) {
+      return;
+    }
 
-    return navigator.serviceWorker.ready
-      .then(function (serviceWorkerRegistration) {
-        serviceWorkerRegistration.pushManager.getSubscription()
-          .then(
-            function (pushSubscription) {
-
-              // Check subsccription
-              if (!pushSubscription && localStorage.getItem('pn-subscription') != 'false') {
-                valActive = true;
-                openPopup();
-              }
-            }
-          );
-      });
+    return navigator.serviceWorker.ready.then(function(
+      serviceWorkerRegistration
+    ) {
+      serviceWorkerRegistration.pushManager
+        .getSubscription()
+        .then(function(pushSubscription) {
+          // Check subscription
+          console.log(pushSubscription);
+          if (
+            !pushSubscription &&
+            localStorage.getItem("pn-subscription") != "false"
+          ) {
+            valActive = true;
+            openPopup();
+          }
+        });
+    });
   };
+
+  // about service worker and push notification
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('./sw.js')
+  .then(function(registration) {
+    return subscriptionValidation();
+  })
+}
 
   window.subscriptionValidationSafari = function () {
     if ('safari' in window && 'pushNotification' in window.safari) {
@@ -251,7 +259,4 @@ $(document).ready(function ($) {
       metricsLib.track('blog:notifications:' + browser, { 'trackData': 'accepted' });
     }
   }
-
-  subscriptionValidation();
-
 });

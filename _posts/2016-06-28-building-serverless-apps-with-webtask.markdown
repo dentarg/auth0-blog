@@ -26,6 +26,11 @@ related:
 - 2015-12-11-get-your-twitter-share-count-back-with-a-webtask
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-487"></i>
+  <strong>This post is out of date.</strong> The AWS Cognito Integration API has been deprecated.  This post will be updated soon with a working solution.  We also recommend using the [Auth0 Centralised Login Pages](https://auth0.com/docs/hosted-pages/login) as opposed to the Lock solution used in this post.
+</div>
+
 ---
 
 **TL;DR** Webtask.io allows you to build applications without thinking about infrastructure. Simply write your server-side logic, deploy your functions via the Webtask CLI, and access your serverless backend over HTTP. Preferring code to configuration, the Webtask platform comes with a familiar programming model, excellent authentication and authorization support, and more to ensure a pleasant development experience.
