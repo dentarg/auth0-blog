@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Using JSON Web Tokens with .NET Core 2"
-description: "A practical tutorial showing how to use JWTs in a .NET Core 2 application."
-date: 2017-12-04 08:30
+title: "Using JWTs with .NET Core 2"
+description: "A practical tutorial showing how to use JSON Web Tokens in .NET Core 2 applications."
+date: 2017-12-05 08:30
 category: Technical Guide, Microsoft, ASP Net Core
 author:
   name: "Andrea Chiarelli"
@@ -27,9 +27,9 @@ related:
 
 **TL;DR:** Unlike the previous version, .NET Core 2 provides native support to JSON Web Tokens. This allows us to integrate this technology in ASP.NET applications in an easier way. In this article, we will take a look at how to enable JWTs when creating a Web API application based on .NET Core 2.
 
-## A quick introduction to JWTs
+## A Quick Introduction to JWTs
 
-*JSON Web Tokens*, often shortened with JWTs, are gathering more and more popularity in the Web environment. It is an [open standard](https://tools.ietf.org/html/rfc7519) that allows transmitting data between parties as a JSON object in a compact and secure way. They are usually used in authentication and information exchange scenarios, since the data transmitted between a source and a target are digitally signed so that they can be easily verified and trusted.
+*JSON Web Tokens*, often shortened with JWTs, are gathering more and more popularity in the Web environment. [It is an open standard that allows transmitting data between parties as a JSON object in a compact and secure way](https://auth0.com/docs/jwt). They are usually used in authentication and information exchange scenarios, since the data transmitted between a source and a target are digitally signed so that they can be easily verified and trusted.
 
 The JWTs are structured in three sections:
 
