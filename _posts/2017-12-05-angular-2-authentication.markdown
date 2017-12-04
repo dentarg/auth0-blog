@@ -4,7 +4,7 @@ title: "Angular Authentication Tutorial"
 description: "Learn how to quickly build Angular apps and add authentication the right way."
 date: 2017-12-05 08:30
 updated: 2017-12-05 08:30
-category: Technical Guide, Angular, Angular2
+category: Technical Guide, Angular
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
@@ -16,9 +16,11 @@ design:
   image: https://cdn.auth0.com/blog/angular/logo3.png
   bg_color: "#012C6C"
 tags:
+- angular
 - angular2
-- angular2-jwt
-- angular2-authentication
+- angular5
+- angular-cli
+- angular-authentication
 related:
 - 2017-06-28-real-world-angular-series-part-1
 - 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
@@ -59,7 +61,7 @@ The app we are building today is called Daily Deals. The Daily Deals app display
 
 We'll have to get our daily deals from somewhere. Let's build a very simple [Node.js](https://nodejs.org) backend to serve the deals. We'll have a publically accessible route serving public deals and a protected route that can only be called by authenticated users. For now, we'll make both of the routes public and worry about the authentication piece later. Take a look at our implementation below:
 
-```js
+```javascript
 'use strict';
 // Load dependencies
 const express = require('express');
@@ -93,7 +95,7 @@ console.log('Serving deals on localhost:3001');
 
 Both our server and the Angular app we are building will require Node.js and [NPM](https://npmjs.com), so be sure to have those installed before continuing. Check out the [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial) to get our list of daily deals or create your own. The model for each deal will be as follows:
 
-```js
+```javascript
  {
     id: 1234,
     name: 'Name of Product',
@@ -152,7 +154,7 @@ Each Angular component we write will have at a minimum the `*.component.ts` file
 
 We're going to be making HTTP requests to our API in our Angular app. To do so, we need to add the correct module to our `app.module.ts` file. Let's do so now by importing the `HttpClientModule` and adding it to our @NgModule's `imports` array like so:
 
-```js
+```typescript
 ...
 import { HttpClientModule } from '@angular/common/http';
 
@@ -185,7 +187,7 @@ We're going to use [Bootstrap](http://getbootstrap.com/docs/3.3/) to style our a
 
 Every Angular application must have a root component. We can name it whatever we want, but the important thing is that we have one. In our application, the `app.component.ts` file will be our root component. Let's take a look at our implementation of this component.
 
-```js
+```typescript
 import { Component } from '@angular/core';
 
 @Component({
@@ -237,7 +239,7 @@ Since we initialized our app with the `--routing` flag, the architecture for rou
 
 Open the `app-routing.module.ts` file and add the following:
 
-```js
+```typescript
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CallbackComponent } from './callback.component';
@@ -279,7 +281,7 @@ We can just navigate to `localhost:4200` in the browser and see our app displaye
 
 For our app, we'll create one such type. In the `deal.ts` file, we'll define a type of Deal. Let's see how we'll accomplish this.
 
-```
+```javascript
 export class Deal {
   id: number;
   name: string;
@@ -295,7 +297,7 @@ Now we can declare objects in our Angular application to be a type of `deal`. Th
 
 The public and private deals components are very similar. In fact, the only difference between the two implementations is that one will display deals from the public API and the other will display deals from the private API. For brevity, we'll just show one of the component implementations. Let's implement the `public-deals.component.ts`.
 
-```js
+```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Deal } from '../deal';
@@ -317,7 +319,7 @@ export class PublicDealsComponent implements OnInit, OnDestroy {
   // Note: We haven't implemented the Deal or Auth Services yet.
   constructor(
     public dealService: DealService,
-    private authService: AuthService) {
+    public authService: AuthService) {
   }
 
   // When this component is loaded, we'll call the dealService and get our public deals.
@@ -474,7 +476,7 @@ npm install express-jwt jwks-rsa --save
 
 Open up the `server.js` file located in your `server` directory and make the following edits:
 
-```js
+```javascript
 'use strict';
 
 const express = require('express');
@@ -584,7 +586,7 @@ This will create a new folder at `src/app/auth` with an `auth.service.ts` file i
 
 Open this file and modify it to the following:
 
-```js
+```typescript
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as auth0 from 'auth0-js';
@@ -720,7 +722,7 @@ export class AuthGuard implements CanActivate {
 
 To implement this route guard in our routes, let's go ahead and open our `app-routing.module.ts` file. Here, we'll include our auth guard service and enable it on our secret route. Let's take a look at the implementation.
 
-```js
+```typescript
 ...
 // Add CanActivate to the imports
 import { Routes, RouterModule, CanActivate } from '@angular/router';
@@ -879,6 +881,6 @@ You just wrote and authenticated an Angular app. Congrats!
 
 ## Conclusion
 
-Angular is finally out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular components and services. We implemented token based authentication with Auth0. But that's just scratching the surface.
+Angular is out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular components and services. We implemented token based authentication with Auth0. But that's just scratching the surface.
 
 Angular provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
