@@ -2,7 +2,7 @@
 layout: post
 title: "Webpack: A Gentle Introduction to the Module Bundler"
 description: Learn the basics of Webpack and how to configure it in your web application.
-date: 2017-11-16 8:30
+date: 2017-12-05 8:30
 category: Technical Guide, JavaScript, Webpack
 author:
   name: Prosper Otemuyiwa
