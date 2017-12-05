@@ -203,7 +203,7 @@ import { Component } from '@angular/core';
             <a routerLink="/deals" routerLinkActive="active">Deals</a>
           </li>
           <li>
-            <a routerLink="/special" *ngIf="authService.authenticated" routerLinkActive="active">Private Deals</a>
+            <a routerLink="/special" routerLinkActive="active">Private Deals</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -803,7 +803,9 @@ export class AppComponent {
 }
 ```
 
-When the user clicks on the login link, they will be taken to a centralized login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
+We imported the `AuthService` and made it publicly available in our constructor (it needs to be `public` in order for the template to use its methods).
+
+We added `*ngIf="authService.authenticated` to our link to private deals so it will not be rendered if the user is not logged in. We also added `*ngIf` logic to our login and logout links to show the appropriate link depending on the user's authentication state. When the user clicks on the login link now, they will be taken to a centralized login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
 
 ### Callback Component
 
