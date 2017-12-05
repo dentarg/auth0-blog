@@ -11,8 +11,8 @@ author:
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 is_non-tech: true
 design:
-  image: https://cdn.auth0.com/blog/predictive-analytics/predictive-analytics-main.png
-  bg_color: "#526C33"
+  image: https://cdn.auth0.com/blog/why-two-factor/logo.png
+  bg_color: "#362570"
 tags:
 - security
 - two-factor
