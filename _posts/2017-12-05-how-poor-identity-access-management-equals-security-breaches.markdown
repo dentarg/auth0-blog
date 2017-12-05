@@ -11,8 +11,8 @@ author:
   mail: diego.poza@auth0.com
 is_non-tech: true
 design:
-  bg_color: "#284E7B"
-  image: https://cdn.auth0.com/blog/appCloud/logo.png
+  image: https://cdn.auth0.com/blog/poor-iam/logo.png
+  bg_color: "#660232"
 tags:
 - identity-management
 - security
