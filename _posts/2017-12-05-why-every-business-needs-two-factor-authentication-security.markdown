@@ -35,6 +35,8 @@ Technology enables hackers to test billions of password combinations per second,
 
 Companies like LinkedIn, Google and Twitter decided that they needed extra layers of security to strengthen passwords and protect their users' data. The solution: two-factor authentication (2FA).
 
+{% include tweet_quote.html quote_text="Even your mom can try hacking your Facebook account." %}
+
 ## Two-Factor Authentication Adds the Extra Security You Need
 
 If you have logged into Facebook, Twitter, or Google within the past few years, you have come across two-factor authentication.
@@ -100,6 +102,8 @@ Employees are now mobile, working on their personal devices outside the office. 
 ![Nowadays, multiple devices are used by employees.](https://cdn.auth0.com/blog/why-two-factor/DifferentDevices2.jpg)
 
 Employee mobility has created a happier and [more productive](https://www.forbes.com/sites/danielnewman/2016/03/29/is-mobility-the-answer-to-better-employee-productivity/#6c493277131c) workforce, and 2FA is the best method to provide the security measure that reaches outside the firewall to make it all possible.
+
+{% include tweet_quote.html quote_text="Multifactor authentication also means increased productivity." %}
 
 ### Increased Awareness
 
