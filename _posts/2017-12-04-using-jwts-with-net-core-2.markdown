@@ -447,17 +447,35 @@ The last command will now send a list containing all books but the restricted on
 
 {% include tweet_quote.html quote_text="Just learnt how to secure .Net Core 2.0 apis." %}
 
-## Aside: ????
+## Enabling Cross-Origin Requests (CORS) in .Net Core 2.0
 
-Auth0’s goal is to provide the [best identity management solution for customers](https://auth0.com/user-management). As a company that primes for security, we have invested a lot of time and effort to develop the best and easiest solution to help companies to properly handle their users' sensitive data. We allow developers to easily extend the security of their applications with features like [Passwordless](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/multifactor-authentication), and [Breached Passwords Detection](https://auth0.com/breached-passwords).
+More often than not, we will want to specify that our API accepts requests coming from other origins (other domains). When issuing AJAX requests, browsers make preflights to check if a server accepts requests from the domain hosting the web app. If the response for these preflights don't contain at least the `Access-Control-Allow-Origin` header specifying that accepts requests from the original domain, browsers won't proceed with the real requests (to improve security).
 
-To learn how you can secure your ASP.NET Core application with Auth0, check the [quickstart documentation over here](https://auth0.com/docs/quickstart/webapp/aspnet-core). After that you can learn how to turn on the security features mentioned above by checking the following resources:
+To include support for CORS (and add this header alongside with a few more), we need to make two more changes in the `Startup` class. First, we need to add:
 
-* [Multifactor Made Easy](https://auth0.com/multifactor-authentication)
-* [Log in without Passwords. Easy and Secure.](https://auth0.com/passwordless)
-* [Protect your users and services from password leaks](https://auth0.com/breached-passwords)
+```csharp
+services.AddCors(options =>
+{
+  options.AddPolicy("CorsPolicy",
+      builder => builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+  .Build());
+});
+```
 
-> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+as the last invocation in the `ConfigureServices` method. Second, we need to add:
+
+```bash
+app.UseCors("CorsPolicy");
+```
+
+Note that this basically makes our API accept requests from any origin. To make it more secure, we can change the `AllowAnyOrigin` with `WithOrigins` and define a specific origin (e.g. `https://mydomain.com`).
+
+## Aside: Securing .Net Core 2.0 with Auth0
+
+
 
 ## Summary
 
