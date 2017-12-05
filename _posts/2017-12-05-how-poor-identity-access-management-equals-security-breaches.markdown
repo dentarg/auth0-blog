@@ -48,6 +48,8 @@ The hackers infiltrated the global email server through an administrator’s acc
 
 Deloitte's lack of identity access management left them extremely vulnerable. They basically built a giant fortress around their data but left the keys in the door.
 
+{% include tweet_quote.html quote_text="Not giving the right attention to identity access management can be very harmful to you company." %}
+
 ### Implement 2FA Everywhere
 
 Millions of passwords are compromised every day. Even if you lose credentials through a phishing scheme or a lost device, [two-factor authentication (2FA)](https://auth0.com/learn/two-factor-authentication/) makes it really difficult for thieves to gain access.
@@ -107,6 +109,8 @@ As for phishing schemes, the first line of defense in strengthening your IAM is 
 ![Employee training and awareness about phishing schemes](https://cdn.auth0.com/blog/poor-identity/legit-or-scheme-2.png)
 
 A strong IAM approach requires a mix of informed employees and the technology tools to initiate, track and manage user identities and their access permissions across your entire network.
+
+{% include tweet_quote.html quote_text="A strong IAM approach requires a mix of informed employees and tools to initiate, track and manage user identities." %}
 
 ## Your Expensive Cybersecurity is only as Strong as Your IAM
 
