@@ -475,7 +475,54 @@ Note that this basically makes our API accept requests from any origin. To make 
 
 ## Aside: Securing .Net Core 2.0 with Auth0
 
+Securing Node.js applications with Auth0 is easy and brings a lot of great features to the table. With [Auth0](https://auth0.com/), we only have to write a few lines of code to get solid [identity management solution](https://auth0.com/user-management), [single sign-on](https://auth0.com/docs/sso/single-sign-on), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), and support for [enterprise identity providers (like Active Directory, LDAP, SAML, custom, etc.)](https://auth0.com/enterprise).
 
+With .Net Core 2.0, we just need [to create an API in our Auth0 Management Dashboard](https://auth0.com/docs/apis) and change two things on our code. To create an API, we need to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>. After that, we need to go to [the API section of the dashboard](https://manage.auth0.com/#/apis) and click on "Create API". On the dialog shown, we can set the _Name_ of our API as "Books", the _Identifier_ as "http://books.mycompany.com", and leave the _Signing Algorithm_ as "RS256".
+
+![Creating API on Auth0](https://cdn.auth0.com/blog/net-core-2/creating-api-on-auth0.png)
+
+After that, we have to replace the call to `services.AddAuthentication` in the `Startup` to:
+
+```csharp
+string domain = $"https://{Configuration["Auth0:Domain"]}/";
+services.AddAuthentication(options =>
+{
+  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+  options.Authority = domain;
+  options.Audience = Configuration["Auth0:Audience"];
+});
+```
+
+And add the following element to `appsettings.json`:
+
+```json
+{
+  "Logging": {
+    // ...
+  },
+  "Auth0": {
+    "Domain": "bk-samples.auth0.com",
+    "Audience": "http://books.mycompany.com"
+  }
+}
+```
+
+Note that the domain in this case have to be changed to the domain that we specified when creating our Auth0 account.
+
+### Testing the Integration
+
+That's it. This is all we need to secure our .Net Core 2.0 API with Auth0. However, to test this integration [we need a client to communicate with our application](https://auth0.com/docs/clients). As the focus of this article is .Net Core 2.0, we will use [a generic web application that is secured with a configurable Auth0 client](http://auth0.digituz.com.br/). All we need to configure in this application is the `clientID`, `domain`, and `audience` properties.
+
+To get the `clientID` and `domain` properties, we need to create a new Client in the management dashboard. [In the Clients section](https://manage.auth0.com/#/clients), we can click on "Create Client", name it as "Book Client" on the dialog shown, and choose "Single Page Web Applications" as the client type. After creating the client, we have to go to the "Settings" tab of it and add "http://auth0.digituz.com.br" in the "Allowed Callback URLs" field and hit "Save" (ctrl/command + s). In this same tab, we can fetch both properties that we are interested (`Client ID` and `Domain`) in and then add to the generic application. There, we can also set the audience to be the identifier of our API (i.e. `http://books.mycompany.com`). Now we can hit "Sign In with Auth0" to authenticate ourselves.
+
+![Testing integration with Auth0](https://cdn.auth0.com/blog/net-core-2/testing-auth0-integration.png)
+
+After authenticating, we can use the web app to issue requests to the API (e.g. `http://localhost:5000/api/books`). As this web app automatically adds the `access_token` generated in the authentication process in the `Authorization` header, our API checks its validity and sends us the list of books.
+
+![Issuing request to the API](https://cdn.auth0.com/blog/net-core-2/issuing-requests-api-auth0.png)
 
 ## Summary
 
