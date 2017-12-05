@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Using JWTs with .NET Core 2"
+title: "Securing .Net Core 2.0 Applications with JWTs"
 description: "A practical tutorial showing how to use JSON Web Tokens in .NET Core 2 applications."
 date: 2017-12-05 08:30
 category: Technical Guide, Microsoft, ASP Net Core
@@ -24,6 +24,10 @@ related:
 - 2016-06-03-add-auth-to-native-desktop-csharp-apps-with-jwt
 - 2017-06-05-asp-dot-net-core-authentication-tutorial.markdown
 ---
+
+<div class="alert alert-success alert-icon">
+  <strong>Heads up!</strong> This article refers to version <strong>2.0</strong> of the .Net Core platform. If you are looking for instructions on how to secure .Net Core <strong>1.0</strong>, please refer to the <a href="/blog/asp-dot-net-core-authentication-tutorial/">ASP.NET Core Authentication Tutorial</a> article. Have fun!
+</div>
 
 **TL;DR:** Unlike the previous version, .NET Core 2 provides native support to JSON Web Tokens. This allows us to integrate this technology in ASP.NET applications in an easier way. In this article, we will take a look at how to enable JWTs when creating a Web API application based on .NET Core 2. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-jwt).
 
