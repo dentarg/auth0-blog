@@ -3,6 +3,7 @@ layout: post
 title: "Turn Your Customers Into Brand Advocates Through Personalization"
 description: "Brand advocates are your best and most authentic influencers — so how can you create more of them?"
 date: 2017-06-26 8:30
+updated: 2017-12-05 11:40
 category: Growth, Industries, Retail
 author:
   name: Diego Poza
@@ -23,9 +24,12 @@ related:
 - 2017-06-19-how-to-keep-up-with-hyperconnected-consumers
 - 2016-04-18-progressive-profiling
 - 2017-05-26-go-beyond-username-password-with-modern-auth
+- 2017-06-09-the-three-best-ways-to-create-the-single-vision-of-a-customer
 ---
 
 Brand advocates are the holy grail of customers. They're a key part of growing your customer base because they love your product and encourage others to use it. Of course you wish every customer were a brand advocate.
+
+{% include tweet_quote.html quote_text="Brand advocates are the holy grail of customers. Of course you wish every customer were a brand advocate." %}
 
 So, can you better connect with *regular* customers to turn them into all-important brand advocates? Creating that valuable, personal connection to your brand is difficult. Especially today, when you're communicating across multiple channels, and trying to [stitch together your customers' behaviors](https://auth0.com/blog/how-to-keep-up-with-hyperconnected-consumers/) from in-store purchases to tweets.
 
@@ -47,19 +51,21 @@ In this way, social login encourages a better relationship between brand and cus
 
 ## Engage over time with progressive profiling
 
-You want to build a relationship with your customers, and that means learning about them over time, it doesn't happen just because you ask a customer what they're like on day one. There's no way a customer would ever sit through a survey that asks everything you want to know about them, but they still want that personal touch.
+You want to build a relationship with your customers, and that means learning about them over time — it doesn't happen just because you ask a customer what they're like on day one. There's no way a customer would ever sit through a survey that asks everything you want to know about them — but they still want that personal touch.
 
-That's where [progressive profiling](https://auth0.com/blog/progressive-profiling/) comes in. Progressive profiling is slowly nudging the customer over time and learning about their preferences, likes, dislikes. It's also about knowing when the right time to ask for information is. You want to identify when customers will share the information you need, which probably aligns with how much they've realized the value of your product.
+That's where [progressive profiling](https://auth0.com/blog/progressive-profiling/) comes in. Progressive profiling is slowly nudging the customer over time and learning about their preferences, likes, dislikes. It's also about knowing when the right time to ask for information is — you want to identify when customers will share the information you need, which probably aligns with how much they've realized the value of your product.
+
+{% include tweet_quote.html quote_text="Progressive profiling is slowly nudging the customer over time and learning about their preferences, likes, dislikes." %}
 
 Progressive profiling is easy when done by triggering questions at login. Maybe the first login you only take their basic information, but the third or fourth time they log in, you ask them where they work or what types of deals they'd like to see from you in their inbox.
 
 ![Progressive profiling](https://cdn.auth0.com/blog/customers/progressiveprofiling.png)
 
-This will allow you to foster your relationship based on the personal information an individual consumer gives you. Maybe you're an online cosmetics retailer and you send a free sample with every purchase over $50. You can give different people different gifts, ones they'll actually want, based on what they tell you.
+This will allow you to foster your relationship based on the personal information an individual consumer gives you. Maybe you're an online cosmetics retailer and you send a free sample with every purchase over $50. You can give different people different gifts — ones they'll actually want — based on what they tell you.
 
 So, instead of sending everyone the same sample, you can send perfume samples to those who are interested in fragrance, and a hair mask to those who told you their concern was healthy hair.
 
-Gathering personal information from a customer can lead to forging a more meaningful and valuable relationship between you and them. They are actually better served by your business, because you can cater to their individual needs. In turn, they'll be more likely to recommend and talk up your brand to others. And that's a cycle that can continue for their entire lifetime as a customer.
+Gathering personal information from a customer can lead to forging a more meaningful — and valuable — relationship between you and them. They are actually better served by your business, because you can cater to their individual needs. In turn, they'll be more likely to recommend and talk up your brand to others. And that's a cycle that can continue for their entire lifetime as a customer.
 
 ## Streamline your personalization with a single view of your customer
 
@@ -75,15 +81,19 @@ This profile within Auth0 also helps maintain a single view of your customer in 
 
 * **Cross-device use is streamlined.** Just as using Auth0 helps with keeping track of users across brands, using a sophisticated IAM helps consolidate users who log in across different devices. The same, centralized profile is able to consolidate no matter where users log in, or with what device.
 
+All of this helps you build an [omnichannel](https://auth0.com/blog/the-three-best-ways-to-create-the-single-vision-of-a-customer/) or [unified](https://auth0.com/blog/how-to-keep-up-with-hyperconnected-consumers/) experience for your customers, who want a seamless experience across brands. And as you stitch together consumers' digital presence and how they interact with your brand, you can better target them at each stage of their journey.
+
 ## Better personalization with Auth0 Rules
 
-That centralized profile is also the perfect way to take advantage of the [true power of a robust identity management system like Auth0](https://auth0.com/user-management). With Auth0 in particular, it's a great way to take advantage of [Auth0 Rules](https://auth0.com/docs/rules/current), snippets of code that you add to kick in things like grabbing information from a user's profile.
+That centralized profile is also the perfect way to take advantage of the [true power of a robust identity management system like Auth0](https://auth0.com/user-management). With Auth0 in particular, it's a great way to take advantage of [Auth0 Rules](https://auth0.com/docs/rules/current) — snippets of code that you add to kick in things like grabbing information from a user's profile.
+
+{% include tweet_quote.html quote_text="With @auth0, each user in your system has a centralized profile where information is stored." %}
 
 While you can write your own Rule to help your marketing efforts, you can also rely on a library of existing rules. Many of them can help with bolstering personalization efforts in marketing. A couple that highlight this focus are:
 
 * **Adding demographic data to a user profile.** Using [this](https://auth0.com/rules/add-income) Rule, you can add median household income to your user profile based on the zip code of their IP address. Zip codes can open up a lot of possibilities for personalization, and this is a great one.
 
-* **Using FullContact to enrich your profiles.** With [this](https://auth0.com/rules/get-FullContact-profile) Rule, you can enhance your users' profiles with data from FullContact using their email address. The data that's collected, for example, job title, is automatically added to your profiles.
+* **Using FullContact to enrich your profiles.** With [this](https://auth0.com/rules/get-FullContact-profile) Rule, you can enhance your users' profiles with data from FullContact using their email address. The data that's collected — for example, job title — is automatically added to your profiles.
 
 By incorporating information with Rules, you can easily pull in what you need to personalize your interactions with customers. Best of all, it's zero friction for users, who don't have to answer questions or fill out surveys.
 
@@ -91,7 +101,7 @@ By incorporating information with Rules, you can easily pull in what you need to
 
 _Attributes you can add to a customer's profile using [Auth0 Rules](https://auth0.com/docs/rules)._
 
-So, if a customer comes into the store and you've pulled their birthday from their Facebook, an associate can automatically apply a birthday month discount. Marketers can look at individuals, or overall trends to set up more effective campaigns. This single view of your customer helps that customer get the same, personal touch every and anytime they interact with your brand.
+So if a customer comes into the store and you've pulled their birthday from their Facebook, an associate can automatically apply a birthday month discount. Marketers can look at individuals, or overall trends to set up more effective campaigns. This single view of your customer helps that customer get the same, personal touch every and anytime they interact with your brand.
 
 It strengthens your brand as a whole, and makes that customer feel like they're not just another number in your system that nobody pays attention to. When customers feel that they're being valued as an individual, they associate that with your brand and, in turn are more likely to go from customer to advocate.
 
@@ -101,6 +111,6 @@ Making your best customers your brand advocates means fostering deep customer en
 
 The best way to get into that personalization is to capture all the information your customer is giving you and make that accessible for marketers, sales people, and anyone who could help the customer benefit through personalization. You're aiming to nurture your customer relationship over that user's lifetime. Paying attention to and asking them about their likes, dislikes, and habits is a key component of that.
 
-This is a tough task, but using your identity management to track and store information takes what you already have, **login**, and turns it into a valuable tool for encouraging customers to become brand advocates.
+This is a tough task, but using your identity management to track and store information takes what you already have — login — and turns it into a valuable tool for encouraging customers to become brand advocates.
 
 > Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
