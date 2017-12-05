@@ -510,13 +510,13 @@ And add the following element to `appsettings.json`:
 }
 ```
 
-Note that the domain in this case have to be changed to the domain that we specified when creating our Auth0 account.
+**Note** that the domain in this case **have to be changed** to the domain that we specified when creating our Auth0 account.
 
 ### Testing the Integration
 
-That's it. This is all we need to secure our .Net Core 2.0 API with Auth0. However, to test this integration [we need a client to communicate with our application](https://auth0.com/docs/clients). As the focus of this article is .Net Core 2.0, we will use [a generic web application that is secured with a configurable Auth0 client](http://auth0.digituz.com.br/). All we need to configure in this application is the `clientID`, `domain`, and `audience` properties.
+That's it. This is all we need to secure our .Net Core 2.0 API with Auth0. However, to test this integration [we need a client to communicate with our application](https://auth0.com/docs/clients). As the focus of this article is .Net Core 2.0, we will use [a generic web application that is secured with a configurable Auth0 client](http://auth0.digituz.com.br/). All we need to configure in this application are the `clientID`, `domain`, and `audience` properties.
 
-To get the `clientID` and `domain` properties, we need to create a new Client in the management dashboard. [In the Clients section](https://manage.auth0.com/#/clients), we can click on "Create Client", name it as "Book Client" on the dialog shown, and choose "Single Page Web Applications" as the client type. After creating the client, we have to go to the "Settings" tab of it and add "http://auth0.digituz.com.br" in the "Allowed Callback URLs" field and hit "Save" (ctrl/command + s). In this same tab, we can fetch both properties that we are interested (`Client ID` and `Domain`) in and then add to the generic application. There, we can also set the audience to be the identifier of our API (i.e. `http://books.mycompany.com`). Now we can hit "Sign In with Auth0" to authenticate ourselves.
+To get the `clientID` and `domain` properties, we need to create a new Client in the management dashboard. [In the Clients section](https://manage.auth0.com/#/clients), we can click on "Create Client", name it as "Book Client" on the dialog shown, and choose "Single Page Web Applications" as the client type. After creating the client, we have to go to the "Settings" tab of it and add `http://auth0.digituz.com.br` in the "Allowed Callback URLs" field and hit "Save" (ctrl/command + s). In this same tab, we can fetch both properties that we are interested in (`Client ID` and `Domain`) and then add to the generic application. There, we can also set the audience to be the identifier of our API (i.e. `http://books.mycompany.com`). Now we can hit "Sign In with Auth0" to authenticate ourselves.
 
 ![Testing integration with Auth0](https://cdn.auth0.com/blog/net-core-2/testing-auth0-integration.png)
 
