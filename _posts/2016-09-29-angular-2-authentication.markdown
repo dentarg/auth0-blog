@@ -61,7 +61,7 @@ The app we are building today is called Daily Deals. The Daily Deals app display
 
 We'll have to get our daily deals from somewhere. Let's build a very simple [Node.js](https://nodejs.org) backend to serve the deals. We'll have a publically accessible route serving public deals and a protected route that can only be called by authenticated users. For now, we'll make both of the routes public and worry about the authentication piece later. Take a look at our implementation below:
 
-```javascript
+```js
 'use strict';
 // Load dependencies
 const express = require('express');
@@ -95,7 +95,7 @@ console.log('Serving deals on localhost:3001');
 
 Both our server and the Angular app we are building will require Node.js and [NPM](https://npmjs.com), so be sure to have those installed before continuing. Check out the [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial) to get our list of daily deals or create your own. The model for each deal will be as follows:
 
-```javascript
+```js
  {
     id: 1234,
     name: 'Name of Product',
@@ -176,12 +176,12 @@ export class AppModule { }
 
 We're going to use [Bootstrap](http://getbootstrap.com/docs/3.3/) to style our application, so let's include the CSS in the `<head>` of our `index.html` file like so:
 
-```html
+{% highlight html %}
 <!-- src/index.html -->
 ...
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 ...
-```
+{% endhighlight %}
 
 ### Building the Root Component
 
@@ -281,7 +281,7 @@ We can just navigate to `localhost:4200` in the browser and see our app displaye
 
 For our app, we'll create one such type. In the `deal.ts` file, we'll define a type of Deal. Let's see how we'll accomplish this.
 
-```javascript
+```js
 export class Deal {
   id: number;
   name: string;
@@ -476,7 +476,7 @@ npm install express-jwt jwks-rsa --save
 
 Open up the `server.js` file located in your `server` directory and make the following edits:
 
-```javascript
+```js
 'use strict';
 
 const express = require('express');
