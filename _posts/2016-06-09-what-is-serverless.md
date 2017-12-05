@@ -26,9 +26,9 @@ tags:
 - paas
 - webhook
 related:
-- 2015-10-07-extensibility-through-code-using-webtasks
-- 2015-12-11-get-your-twitter-share-count-back-with-a-webtask
-- 2015-07-28-if-this-then-node-dot-js-extending-ifttt-with-webtask-dot-io
+- 2017-09-11-why-is-serverless-extensibility-better-than-webhooks
+- 2017-08-15-extend-salesforce-with-node
+- 2017-05-16-introducing-auth0-extend-the-new-way-to-extend-your-saas
 ---
 
 Focus software development on application code and improve efficiency of operations or just another fad that will pass? Let's dissect the the new *serverless* trend in computing.
