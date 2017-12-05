@@ -532,7 +532,9 @@ That's all we'll need to do on the server. Restart the server and try to navigat
 
 Log into your Auth0 [management dashboard](https://manage.auth0.com) and let's make some updates to our [client](https://manage.auth0.com/#/clients) by clicking the Clients item in the sidebar. Find the test client that was created automatically when we made our API. It should be called something like `Daily Deals (Test Client)`.
 
-Change the **Client Type** to `Single Page Application`. Then add `http://localhost:4200/callback` to the **Allowed Callback URLs** field and save your changes.
+Change the **Client Type** to `Single Page Application`. Then add `http://localhost:4200/callback` to the **Allowed Callback URLs** field.
+
+Finally, click on the **Advanced Settings** link at the bottom and select the **OAuth** tab. Change the **JsonWebToken Signature Algorithm** to `RS256`.
 
 Make note of the **Client ID**; we will need this to set up the configuration for our Angular app's authentication.
 
