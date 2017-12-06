@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Retail Analytics: Past, Present, and Future"
-description: "Auth0 explores the Data-Driven approach to eCommerce and how retail analytics can help you optimize procurement, merchandizing, and marketing"
+description: "Auth0 explores the Data-Driven approach to eCommerce and how retail analytics can help you optimize procurement, merchandising, and marketing"
 date: 2017-12-05 12:39
 category: Growth, Industries, Retail
 author:
@@ -35,17 +35,17 @@ Here's everything you need to know to keep up with *retail analytics* for today 
 
 ## What can you expect from retail analytics?
 
-When something encompasses production through sales, its possibilities seem almost endless. Right now, though, the big uses for *retail analytics* center on optimizing procurement, optimizing merchandizing, and optimizing marketing.
+When something encompasses production through sales, its possibilities seem almost endless. Right now, though, the big uses for *retail analytics* center on optimizing procurement, optimizing merchandising, and optimizing marketing.
 
 ### Optimizing procurement
 
 One of the key places that *retail analytics* helps businesses is **optimizing procurement**. By better predicting sales numbers, procurement and stocking gets more efficient. Retailers can also better see the cost balance for a given materials vendor, with more visibility into how the different purchases from a single vendor add up. 
 
-### Optimizing Merchandizing
+### Optimizing Merchandising
 
-When it comes to merchandizing, **product appeal** has always been a huge consideration for retailers. With digital marketing and eCommerce, it's only gotten more important. The color of landing pages, the music in product videos, the packaging that an item comes in when someone receives it in the mail — these things are all important factors that replicate the “in-store experience” for digital consumers. And they're things that marketers are testing to optimize for the most appeal to online shoppers, who have their attention going in 700 different directions.
+When it comes to merchandising, **product appeal** has always been a huge consideration for retailers. With digital marketing and eCommerce, it's only gotten more important. The color of landing pages, the music in product videos, the packaging that an item comes in when someone receives it in the mail — these things are all important factors that replicate the “in-store experience” for digital consumers. And they're things that marketers are testing to optimize for the most appeal to online shoppers, who have their attention going in 700 different directions.
 
-![Retail Analytics - Optimizing Merchandizing](https://cdn.auth0.com/blog/past-present-future/optimizing-merchandizing.jpg)
+![Retail Analytics - Optimizing Merchandising](https://cdn.auth0.com/blog/past-present-future/optimizing-merchandising.jpg)
 
 > _"The best packaging [...creates] memorable marketing," [writes](https://www.forbes.com/sites/onmarketing/2014/07/23/the-five-things-product-packaging-must-do/#7cfd6433ac4f) Simon Preece for Forbes._
 
