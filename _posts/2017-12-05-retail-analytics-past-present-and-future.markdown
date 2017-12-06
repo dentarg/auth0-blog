@@ -37,7 +37,7 @@ Here's everything you need to know to keep up with *retail analytics* for today 
 
 When something encompasses production through sales, its possibilities seem almost endless. Right now, though, the big uses for *retail analytics* center on optimizing procurement, optimizing merchandizing, and optimizing marketing.
 
-### Optimzing procurement
+### Optimizing procurement
 
 One of the key places that *retail analytics* helps businesses is **optimizing procurement**. By better predicting sales numbers, procurement and stocking gets more efficient. Retailers can also better see the cost balance for a given materials vendor, with more visibility into how the different purchases from a single vendor add up. 
 
