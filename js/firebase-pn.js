@@ -59,8 +59,9 @@ function subscriptionValidation() {
 			.then(function(pushSubscription) {
 				// Check subscription
 				if (!pushSubscription) {
-					return;
+					serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true })
 				}
+				
 				var subscriptionId = pushSubscription.endpoint.substr(
 					pushSubscription.endpoint.lastIndexOf("/") + 1
 				);
