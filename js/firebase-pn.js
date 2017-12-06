@@ -59,15 +59,18 @@ function subscriptionValidation() {
 			.then(function(pushSubscription) {
 				// Check subscription
 				if (!pushSubscription) {
-					serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true })
+					return serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true })
+				  .then(function (subscription) {
+						return subscription;
+					})
 				}
-				
-				var subscriptionId = pushSubscription.endpoint.substr(
-					pushSubscription.endpoint.lastIndexOf("/") + 1
-				);
-				return subscriptionId;
+
+				return pushSubscription;
 			})
-			.then(function(subscriptionId) {
+			.then(function(pushSubscription) {
+					var subscriptionId = pushSubscription.endpoint.substr(
+							pushSubscription.endpoint.lastIndexOf("/") + 1);
+
 					getPopupUI(subscriptionId);
 			});
 	});
@@ -81,7 +84,7 @@ messaging.onMessage(function(payload) {
 // [END receive_message]
 
 function getPopupUI(subscriptionId) {
-
+	console.log(subscriptionId);
 	var oldToken = subscriptionId || '';
 
 	messaging
