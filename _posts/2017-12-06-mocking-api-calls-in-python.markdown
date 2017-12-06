@@ -2,7 +2,7 @@
 layout: post
 title: "Mocking API calls in Python"
 description: "Let's learn how to test Python APIs with mocks."
-date: 2017-12-01 08:30
+date: 2017-12-06 08:30
 category: Technical Guide, Python
 author:
   name: "O'Brian Kimokot"
