@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Retail Analytics: Past, Present, and Future"
-description: "The Data-Driven approach to eCommerce"
+description: "Auth0 explores the Data-Driven approach to eCommerce and how retail analytics can help you optimize procurement, merchandizing, and marketing"
 date: 2017-12-05 12:39
 category: Growth, Industries, Retail
 author:
