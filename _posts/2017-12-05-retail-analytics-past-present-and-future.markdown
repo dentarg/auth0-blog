@@ -45,7 +45,7 @@ One of the key places that *retail analytics* helps businesses is **optimizing p
 
 When it comes to merchandizing, **product appeal** has always been a huge consideration for retailers. With digital marketing and eCommerce, it's only gotten more important. The color of landing pages, the music in product videos, the packaging that an item comes in when someone receives it in the mail — these things are all important factors that replicate the “in-store experience” for digital consumers. And they're things that marketers are testing to optimize for the most appeal to online shoppers, who have their attention going in 700 different directions.
 
-![Optimizing Merchandizing](https://cdn.auth0.com/blog/past-present-future/optimizing-merchandizing.jpg)
+![Retail Analytics - Optimizing Merchandizing](https://cdn.auth0.com/blog/past-present-future/optimizing-merchandizing.jpg)
 
 > _"The best packaging [...creates] memorable marketing," [writes](https://www.forbes.com/sites/onmarketing/2014/07/23/the-five-things-product-packaging-must-do/#7cfd6433ac4f) Simon Preece for Forbes._
 
@@ -59,7 +59,7 @@ The digital age birthed more sales channels than ever before, and now it's rushi
 
 **Ad targeting** is another area that can be positively influenced by *retail analytics*. As users login with their social accounts for eCommerce sites, see targeted ads on social media, and are retargeted after purchase, more information about their demographics, habits, likes, and dislikes are gathered. This means that *retail analytics* can streamline ad targeting for happier customers and happier marketers. 
 
-![But no one else would](https://cdn.auth0.com/blog/past-present-future/but-no-one-else-would-trick.jpg)
+![Retail Analytics - Interest Targeting](https://cdn.auth0.com/blog/past-present-future/but-no-one-else-would-trick.jpg)
 
 > _[Digitalmarketer](http://www.digitalmarketer.com/facebook-advertising-targeting-options-social/)'s literal ad target shows one way to determine ad interest and reach by using the “but no one else would” trick._
 
@@ -83,7 +83,7 @@ What's happening in *retail analytics* today isn't just refreshed POS analytics.
 
 * **Sentiment analysis.** Sentiment analysis is a new way of determining how customers and potential buyers feel about your product. It uses text analysis to determine how your customers are talking about your products on channels from on-site product reviews to comments on your social pages. Sentiment analysis helps predict trends, gauge customer reactions to products and marketing materials, and can be the missing link that explains sales fluctuations.
 
-![Social media real time sentiment analysis](https://cdn.auth0.com/blog/past-present-future/social-media-realtime-sentiments.png)
+![Retail Analytics - Social media real time sentiment analysis](https://cdn.auth0.com/blog/past-present-future/social-media-realtime-sentiments.png)
 
 <small>[[Source](https://www.linkedin.com/pulse/introducing-social-media-real-time-sentiment-analysis-debajani)]</small>
 
@@ -97,7 +97,7 @@ Moving commerce online was the first in a series of chain reactions that have op
 
 * **More IoT data.** It's no secret that the IoT has more and more [use cases](https://www.interana.com/blog/the-top-iot-analytics-use-cases-today/) as each year passes. More connected devices will mean a better picture of your eCommerce customer and their behaviors. eCommerce is also likely to build its own integrations with IoT devices — think [Farmstead](https://www.farmsteadapp.com/) integrated with your smart fridge — and this will bring a whole new set of data to process. 
 
-![The Internet of Things and the mythical smart fridge](https://cdn.auth0.com/blog/past-present-future/mythical-smart-fridge.jpg)
+![Retail Analytics - The Internet of Things and the mythical smart fridge](https://cdn.auth0.com/blog/past-present-future/mythical-smart-fridge.jpg)
 
 <small>[[Source](https://uxmag.com/articles/the-internet-of-things-and-the-mythical-smart-fridge)]</small>
 
