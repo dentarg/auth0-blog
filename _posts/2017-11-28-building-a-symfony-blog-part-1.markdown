@@ -147,6 +147,7 @@ Keep the default on `Configuration format`, but the next step is to add all of t
 ![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
 __NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php)
 
+__NOTE__: If you copied the file directly from the repository, please skip to: `Install Doctrine-migrations`
 
 You may have noticed that we've added a created_at, updated_at and author. These fields all need some extra changes to be made in the entity file itself. So open `src/AppBundle/Entity/BlogPost.php`
 
@@ -909,7 +910,7 @@ In our template for this action, we just want the user to have all of the form f
 
 As it is, this template will look very ugly in your browser. So let's create a new css file. `web/css/style.css`
 
-Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file. 
+Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file.
 
 
 Now it's time to include this file into our base template along with Bootstrap's CSS and Javascript files.
@@ -933,7 +934,7 @@ Open `app/Resources/views/base.html.twig` and replace its contents with:
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+
     <!-- Custom CSS File -->
     <script src="css/style.css"></script>
 </head>
@@ -1105,4 +1106,3 @@ Authenticated authors will be able to:
 * Create a new blog post
 * See all of their own blog posts
 * Delete their own blog posts from the system.
-
