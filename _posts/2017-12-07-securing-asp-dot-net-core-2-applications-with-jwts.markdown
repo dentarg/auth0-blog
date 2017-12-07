@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Securing .NET Core 2.0 Applications with JWTs"
-description: "A practical tutorial showing how to use JSON Web Tokens in .NET Core 2 applications."
+title: "Securing ASP.NET Core 2.0 Applications with JWTs"
+description: "A practical tutorial showing how to use JSON Web Tokens in ASP.NET Core 2 applications."
 date: 2017-12-07 08:30
 category: Technical Guide, Microsoft, ASP Net Core
 author:
@@ -23,13 +23,14 @@ related:
 - 2016-06-27-auth0-support-for-aspnet-core
 - 2016-06-03-add-auth-to-native-desktop-csharp-apps-with-jwt
 - 2017-06-05-asp-dot-net-core-authentication-tutorial.markdown
+alias: /securing-dot-net-core-2-applications-with-jwts/
 ---
 
 <div class="alert alert-success alert-icon">
-  <strong>Heads up!</strong> This article refers to version <strong>2.0</strong> of the .NET Core platform. If you are looking for instructions on how to secure .NET Core <strong>1.0</strong>, please refer to the <a href="/blog/asp-dot-net-core-authentication-tutorial/">ASP.NET Core Authentication Tutorial</a> article. Have fun!
+  <strong>Heads up!</strong> This article refers to version <strong>2.0</strong> of the ASP.NET Core platform. If you are looking for instructions on how to secure ASP.NET Core <strong>1.0</strong>, please refer to the <a href="/blog/asp-dot-net-core-authentication-tutorial/">ASP.NET Core Authentication Tutorial</a> article. Have fun!
 </div>
 
-**TL;DR:** Unlike the previous version, .NET Core 2 provides native support to JSON Web Tokens. This allows us to integrate this technology in ASP.NET applications in an easier way. In this article, we will take a look at how to enable JWTs when creating a Web API application based on .NET Core 2. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-jwt).
+**TL;DR:** Unlike the previous version, ASP.NET Core 2 provides native support to JSON Web Tokens. This allows us to integrate this technology in ASP.NET applications in an easier way. In this article, we will take a look at how to enable JWTs when creating a Web API application based on ASP.NET Core 2. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-jwt).
 
 ## A Quick Introduction to JWTs
 
@@ -47,15 +48,15 @@ Of course, this is a very quick overview of JWT, just to have a common terminolo
 
 {% include tweet_quote.html quote_text="JSON Web Tokens are a compact and self-contained way for securely transmitting information between parties as a JSON object." %}
 
-## Securing .NET Core 2.0 Applications with JWTs
+## Securing ASP.NET Core 2.0 Applications with JWTs
 
-Let's take a look at how to set up a [.NET Core 2 application](https://www.microsoft.com/net/) with JWT support by creating a Web API application. You can create it by using Visual Studio or via command line. In the first case you should choose the *ASP.NET Core Web Application* project template, as shown in the following picture:
+Let's take a look at how to set up a [ASP.NET Core 2 application](https://www.microsoft.com/net/) with JWT support by creating a Web API application. You can create it by using Visual Studio or via command line. In the first case you should choose the *ASP.NET Core Web Application* project template, as shown in the following picture:
 
-![Creating .NET Core 2 project on Visual Studio](https://cdn.auth0.com/blog/net-core-2/creating-project.png)
+![Creating ASP.NET Core 2 project on Visual Studio](https://cdn.auth0.com/blog/net-core-2/creating-project.png)
 
 Then you need to select the type of ASP.NET application, that in our case will be *Web API*, as we can see in the following picture:
 
-![Creating .NET Core 2 Web API](https://cdn.auth0.com/blog/net-core-2/creating-project-web-api.png)
+![Creating ASP.NET Core 2 Web API](https://cdn.auth0.com/blog/net-core-2/creating-project-web-api.png)
 
 For simplicity, we have not enabled any type of authentication since we want to focus on JWT management.
 
@@ -67,7 +68,7 @@ dotnet new webapi -n JWT
 
 This will create an ASP.NET Web API project named JWT in the current folder.
 
-![Creating .NET Core 2 project with dotnet cli](https://cdn.auth0.com/blog/net-core-2/creating-app-through0-cli.png)
+![Creating ASP.NET Core 2 project with dotnet cli](https://cdn.auth0.com/blog/net-core-2/creating-app-through0-cli.png)
 
 Regardless the way you have created your project, you will get in the folder the files defining the classes to setup a basic ASP.NET Core 2 Web API application.
 
@@ -162,17 +163,17 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 This change completes the configuration of our application to support JWT-based authentication.
 
-## .NET Core 1.0 vs .NET Core 2.0
+## ASP.NET Core 1.0 vs ASP.NET Core 2.0
 
-If you already knew [how .NET Core 1.x supported JWT](https://auth0.com/blog/asp-dot-net-core-authentication-tutorial/), you can find that it has been made easier.
+If you already knew [how ASP.NET Core 1.x supported JWT](https://auth0.com/blog/asp-dot-net-core-authentication-tutorial/), you can find that it has been made easier.
 
-First of all, in previous version of .NET Core you needed to install a few external packages. Now it is no longer needed since JSON Web Tokens are natively supported.
+First of all, in previous version of ASP.NET Core you needed to install a few external packages. Now it is no longer needed since JSON Web Tokens are natively supported.
 
-In addition, the configuration steps have been simplified as a consequence of the overall authentication system. In fact, while in .NET Core 1.0 we had a middleware for each authentication schema we would support, .NET Core 2.0 uses a single middleware handing all authentication and each authentication schema is registered as a service.
+In addition, the configuration steps have been simplified as a consequence of the overall authentication system. In fact, while in ASP.NET Core 1.0 we had a middleware for each authentication schema we would support, ASP.NET Core 2.0 uses a single middleware handing all authentication and each authentication schema is registered as a service.
 
 This allows us to create a more compact and cleaner code.
 
-## Securing .NET Core 2.0 Endpoints with JWTs
+## Securing ASP.NET Core 2.0 Endpoints with JWTs
 
 Once we have enabled JWT-based authentication, let's create a simple Web API to return a list of books when invoked with an HTTP `GET` request. This API will be held by a new class called `BooksController` in the `Controllers` namespace:
 
@@ -217,7 +218,7 @@ As we can see, the API simply returns an array of books. However, as we marked t
 
 If we run the application (through our IDE or the `dotnet run` command) and make a GET request to the `/api/books` endpoint, we will get a `401` HTTP status code as a response. You can try it by running the `UnAuthorizedAccess` test in the `Test` project attached to the [project's source code](https://github.com/andychiare/netcore2-jwt) or by using a generic HTTP client such as [curl](https://curl.haxx.se/) or [Postman](https://www.getpostman.com/).
 
-![Using Postman to issue requests to .NET Core 2 web API](https://cdn.auth0.com/blog/net-core-2/interacting-with-postman.png)
+![Using Postman to issue requests to ASP.NET Core 2 web API](https://cdn.auth0.com/blog/net-core-2/interacting-with-postman.png)
 
 Of course, this result is due to the lack of the token, so that the access to the API has been denied.
 
@@ -355,9 +356,9 @@ Of course, `JWT` env variable must be set with the token received while signing 
 
 This time we will get the list of books.
 
-## Handling JWT Claims on .NET Core 2.0
+## Handling JWT Claims on ASP.NET Core 2.0
 
-When introducing JWTs, we said that a token may contain some data called *claims*. These are usually information about the user that can be useful when authorizing the access to a resource. Claims could be, for example, user's e-mail, gender, role, city, or any other information useful to discriminate users while accessing to resources. We can add claims in a JWT so that they will be available while checking authorization to access a resource. Let's explore in practice how to manage claims in our .NET Core 2 application.
+When introducing JWTs, we said that a token may contain some data called *claims*. These are usually information about the user that can be useful when authorizing the access to a resource. Claims could be, for example, user's e-mail, gender, role, city, or any other information useful to discriminate users while accessing to resources. We can add claims in a JWT so that they will be available while checking authorization to access a resource. Let's explore in practice how to manage claims in our ASP.NET Core 2 application.
 
 Suppose that our list contains books not suitable for everyone. For example, it contains a book subject to age restrictions. We should include in the JWT returned after the authentication, an information about the user's age. To do that, let's update the `BuildToken` method of `TokenController` as follows:
 
@@ -449,9 +450,9 @@ curl -H 'Authorization: Bearer '$JWT 0:5000/api/books
 
 The last command will now send a list containing all books but the restricted one: *Delta of Venus*.
 
-{% include tweet_quote.html quote_text="Just learnt how to secure .NET Core 2.0 apis." %}
+{% include tweet_quote.html quote_text="Just learnt how to secure ASP.NET Core 2.0 apis." %}
 
-## Enabling Cross-Origin Requests (CORS) in .NET Core 2.0
+## Enabling Cross-Origin Requests (CORS) in ASP.NET Core 2.0
 
 More often than not, we will want to specify that our API accepts requests coming from other origins (other domains). When issuing AJAX requests, browsers make preflights to check if a server accepts requests from the domain hosting the web app. If the response for these preflights don't contain at least the `Access-Control-Allow-Origin` header specifying that accepts requests from the original domain, browsers won't proceed with the real requests (to improve security).
 
@@ -477,11 +478,11 @@ app.UseCors("CorsPolicy");
 
 Note that this basically makes our API accept requests from any origin. To make it more secure, we can change the `AllowAnyOrigin` with `WithOrigins` and define a specific origin (e.g. `https://mydomain.com`).
 
-## Aside: Securing .NET Core 2.0 with Auth0
+## Aside: Securing ASP.NET Core 2.0 with Auth0
 
 Securing Node.js applications with Auth0 is easy and brings a lot of great features to the table. With [Auth0](https://auth0.com/), we only have to write a few lines of code to get solid [identity management solution](https://auth0.com/user-management), [single sign-on](https://auth0.com/docs/sso/single-sign-on), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), and support for [enterprise identity providers (like Active Directory, LDAP, SAML, custom, etc.)](https://auth0.com/enterprise).
 
-With .NET Core 2.0, we just need [to create an API in our Auth0 Management Dashboard](https://auth0.com/docs/apis) and change two things on our code. To create an API, we need to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>. After that, we need to go to [the API section of the dashboard](https://manage.auth0.com/#/apis) and click on "Create API". On the dialog shown, we can set the _Name_ of our API as "Books", the _Identifier_ as "http://books.mycompany.com", and leave the _Signing Algorithm_ as "RS256".
+With ASP.NET Core 2.0, we just need [to create an API in our Auth0 Management Dashboard](https://auth0.com/docs/apis) and change two things on our code. To create an API, we need to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>. After that, we need to go to [the API section of the dashboard](https://manage.auth0.com/#/apis) and click on "Create API". On the dialog shown, we can set the _Name_ of our API as "Books", the _Identifier_ as "http://books.mycompany.com", and leave the _Signing Algorithm_ as "RS256".
 
 ![Creating API on Auth0](https://cdn.auth0.com/blog/net-core-2/creating-api-on-auth0.png)
 
@@ -518,7 +519,7 @@ And add the following element to `appsettings.json`:
 
 ### Testing the Integration
 
-That's it. This is all we need to secure our .NET Core 2.0 API with Auth0. However, to test this integration [we need a client to communicate with our application](https://auth0.com/docs/clients). As the focus of this article is .NET Core 2.0, we will use [a generic web application that is secured with a configurable Auth0 client](http://auth0.digituz.com.br/). All we need to configure in this application are the `clientID`, `domain`, and `audience` properties.
+That's it. This is all we need to secure our ASP.NET Core 2.0 API with Auth0. However, to test this integration [we need a client to communicate with our application](https://auth0.com/docs/clients). As the focus of this article is ASP.NET Core 2.0, we will use [a generic web application that is secured with a configurable Auth0 client](http://auth0.digituz.com.br/). All we need to configure in this application are the `clientID`, `domain`, and `audience` properties.
 
 To get the `clientID` and `domain` properties, we need to create a new Client in the management dashboard. [In the Clients section](https://manage.auth0.com/#/clients), we can click on "Create Client", name it as "Book Client" on the dialog shown, and choose "Single Page Web Applications" as the client type. After creating the client, we have to go to the "Settings" tab of it and add `http://auth0.digituz.com.br` in the "Allowed Callback URLs" field and hit "Save" (ctrl/command + s). In this same tab, we can fetch both properties that we are interested in (`Client ID` and `Domain`) and then add to the generic application. There, we can also set the audience to be the identifier of our API (i.e. `http://books.mycompany.com`). Now we can hit "Sign In with Auth0" to authenticate ourselves.
 
@@ -530,6 +531,6 @@ After authenticating, we can use the web app to issue requests to the API (e.g. 
 
 ## Summary
 
-In this article, we had an overview of the JSON Web Token technology and introduced how to use it in .NET Core 2. While developing a simple Web API application, we saw how to configure support for JWT authentication and how to create tokens on authentication. We also described how to insert claims into a JWT and how to use them while authorizing the access to a resource.
+In this article, we had an overview of the JSON Web Token technology and introduced how to use it in ASP.NET Core 2. While developing a simple Web API application, we saw how to configure support for JWT authentication and how to create tokens on authentication. We also described how to insert claims into a JWT and how to use them while authorizing the access to a resource.
 
-In conclusion, we experienced how easy it is to manage JSON Web Tokens in .NET Core 2 applications.
+In conclusion, we experienced how easy it is to manage JSON Web Tokens in ASP.NET Core 2 applications.
