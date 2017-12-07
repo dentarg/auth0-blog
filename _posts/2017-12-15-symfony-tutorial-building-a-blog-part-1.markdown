@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Building a Symfony blog Part 1"
+title: "Symfony Tutorial: Building a Blog (Part 1)"
 description: Learn how to create a blog in Symfony and authenticate.
-date: 2017-11-28 22:04
+date: 2017-12-15 08:30
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
