@@ -2,7 +2,7 @@
 layout: post
 title: "Securing .NET Core 2.0 Applications with JWTs"
 description: "A practical tutorial showing how to use JSON Web Tokens in .NET Core 2 applications."
-date: 2017-12-05 08:30
+date: 2017-12-07 08:30
 category: Technical Guide, Microsoft, ASP Net Core
 author:
   name: "Andrea Chiarelli"
