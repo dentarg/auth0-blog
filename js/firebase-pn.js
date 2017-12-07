@@ -40,7 +40,10 @@ if (navigator.serviceWorker) {
 		.then(function(registration) {
 			//return subscriptionValidation();
 			messaging.useServiceWorker(registration);
-			subscriptionValidation();
+			if (!isTokenSentToServer() && window.localStorage.getItem("pn-subscription") != "false") {
+				valActive = true;
+        openPopup();
+      }
 		});
 }else{
 	subscriptionValidationSafari();
@@ -84,7 +87,6 @@ messaging.onMessage(function(payload) {
 // [END receive_message]
 
 function getPopupUI(subscriptionId) {
-	console.log(subscriptionId);
 	var oldToken = subscriptionId || '';
 
 	messaging
@@ -94,7 +96,7 @@ function getPopupUI(subscriptionId) {
 				sendTokenToServer(currentToken, oldToken);
 			} else {
 				// Show permission UI.
-				if (localStorage.getItem("pn-subscription") != "false") {
+				if (!isTokenSentToServer() && localStorage.getItem("pn-subscription") != "false") {
 					valActive = true;
 					openPopup();
 				}
@@ -147,7 +149,7 @@ function requestPermission() {
 	messaging
 		.requestPermission()
 		.then(function() {
-			getPopupUI();
+			subscriptionValidation();
 		})
 		.catch(function(err) {
 			console.log("Unable to get permission to notify.", err);
@@ -303,7 +305,7 @@ function conditionalScroll(scroll) {
 
 				$(".pn-popup-container").css({
 					position: "absolute",
-					top: "130px"
+					top: "180px"
 				});
 			}
 		}
