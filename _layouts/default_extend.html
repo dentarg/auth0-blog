@@ -86,7 +86,6 @@
       {% include footer_extend.html %}
     </div>
 
-    <script src="{{ site.baseurl }}/push-notification.js" type="text/javascript"></script>
     <script src="{{ site.baseurl }}/js/vendor/js-cookie.js" type="text/javascript"></script>
 
     {% if page.is_post_index %}
@@ -119,7 +118,7 @@
       <!-- end jekyll-search-->
     {% endif %}
 
-    <!--- btn ontact us  --->
+    <!-- btn ontact us  -->
     <script type="text/javascript">
       var Auth0ContactForm = window.Auth0ContactForm.default;
       var ContactForm = Auth0ContactForm.ContactForm;
@@ -570,5 +569,9 @@
           a.appendChild(r);
       })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+    <script src="{{ site.baseurl }}/js/firebase-pn.js"></script>
 </body>
 </html>

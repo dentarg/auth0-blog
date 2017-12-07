@@ -66,6 +66,8 @@ related:
 
 {{use raw tag when curly braces are present}}
 
+<link rel="stylesheet" src="or when external stylesheets are called, such as CDN Bootstrap">
+
 {% endraw %}
 {% endhighlight %}
 ```

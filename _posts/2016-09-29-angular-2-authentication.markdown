@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "Angular 2 Authentication Tutorial"
-description: "Angular 2.0 has officially been released. Learn how to quickly build apps and add authentication the right way."
-date: 2016-09-29 08:30
-category: Technical Guide, Angular, Angular2
+title: "Angular Authentication Tutorial"
+description: "Learn how to quickly build Angular apps and add authentication the right way."
+date: 2017-12-05 08:30
+updated: 2017-12-05 08:30
+category: Technical Guide, Angular
 banner:
-  text: "Auth0 makes it easy to add authentication to your AngularJS application."
+  text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
   name: "Ado Kukic"
   url: "https://twitter.com/kukicado"
@@ -15,41 +16,40 @@ design:
   image: https://cdn.auth0.com/blog/angular/logo3.png
   bg_color: "#012C6C"
 tags:
+- angular
 - angular2
-- angular2-jwt
-- angular2-authentication
+- angular5
+- angular-cli
+- angular-authentication
 related:
-- angular-2-ngmodules
-- introducing-angular2-jwt-a-library-for-angular2-authentication
-- create-a-desktop-app-with-angular-2-and-electron
+- 2017-06-28-real-world-angular-series-part-1
+- 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
 lang: en
-alternate_locale_ja: jp-angular-2-authentication
+alternate_locale_jp: jp-angular-2-authentication
 ---
 
-<div class="alert alert-danger alert-icon">
+<div class="alert alert-info alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>This post is out of date.</strong> The Angular CLI and framework have undergone breaking changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. Please check out our <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong> to learn how to build and authenticate an Angular app. We will also update this tutorial soon. Thank you for your patience!
+  <strong>This post has been updated to the latest versions of Angular and the Angular CLI.</strong> If you'd like to learn how to build a real-world Angular app from architecture to role authorization all the way to production deployment, you can also check out our in-depth <strong><a href="https://auth0.com/blog/real-world-angular-series-part-1">Real-World Angular Series</a></strong>.
 </div>
 
 ---
 
-**TL;DR** Angular 2.0 has finally been released. In this tutorial we are going to look at how to build applications with Angular 2 as well as how to add token based authentication to Angular 2 apps the right way. Check out the completed code example from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
+**TL;DR** Angular has finally been released. In this tutorial we are going to look at how to build applications with Angular as well as how to add token based authentication to Angular apps the right way. Check out the completed code example from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
 
 ---
 
-[Angular 2](https://angular.io/) finally hit the major [2.0 release](http://angularjs.blogspot.com/2016/09/angular2-final.html) milestone just a few weeks ago. The final release of Angular 2 did not have many breaking changes. The Release Candidate 5 (RC5) release, made available just a few weeks prior to final, introduced major breaking changes and additions such as the [@NgModule decorator](https://angular.io/docs/ts/latest/guide/ngmodule.html), [Ahead-of-Time (AOT)](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/) compiler and more.
+[Angular](https://angular.io/) finally hit the major [2.0 release](http://angularjs.blogspot.com/2016/09/angular2-final.html) milestone. The final release of Angular did not have many breaking changes. The Release Candidate 5 (RC5) release, made available just a few weeks prior to final, introduced major breaking changes and additions such as the [@NgModule decorator](https://angular.io/docs/ts/latest/guide/ngmodule.html), [Ahead-of-Time (AOT)](http://blog.mgechev.com/2016/08/14/ahead-of-time-compilation-angular-offline-precompilation/) compiler and more.
 
-In today's tutorial, we are going to utilize some of these new features to build an entire Angular 2 application. Components, @NgModule, route guards, services, and more are just some of the topics we'll touch on. Finally, we'll implement token based authentication with [Auth0](https://auth0.com).
+In today's tutorial, we are going to utilize some of these new features to build an entire Angular application. Components, @NgModule, route guards, services, and more are just some of the topics we'll touch on. Finally, we'll implement token based authentication with [Auth0](https://auth0.com).
 
-## The Angular 2 Ecosystem
+## The Angular Ecosystem
 
-[Angular 1.x](https://angularjs.org/) was highly regarded as a robust framework for building single page applications (SPAs). It did a lot of things well, fell short on some, but overall allowed developers to quickly build powerful applications.
+[AngularJS 1.x](https://angularjs.org/) was highly regarded as a robust framework for building single page applications (SPAs). It did a lot of things well, fell short on some, but overall allowed developers to quickly build powerful applications.
 
-While Angular 1.x is a framework, [Angular 2](https://angular.io/) is an entire platform for building modern applications. Alongside the core Angular 2 library, the platform ships with a powerful Command Line Interface (CLI) called [Angular CLI](https://cli.angular.io) that allows developers to easily scaffold their applications as well as control the build system. [Angular Universal](https://universal.angular.io) brings server-side rendering to Angular 2 applications. [Angular Material 2](https://material.angular.io) is the official implementation of [Google Material Design](https://material.google.com/) which allows developers to build beautiful applications with ease.
+While AngularJS (1.x) is a framework, [Angular](https://angular.io/) is an entire platform for building modern applications. Alongside the core Angular library, the platform ships with a powerful Command Line Interface (CLI) called [Angular CLI](https://cli.angular.io) that allows developers to easily scaffold their applications as well as control the build system. [Angular Platform Server](https://angular.io/api/platform-server) brings server-side rendering to Angular applications. [Angular Material](https://material.angular.io) is the official implementation of [Google Material Design](https://material.google.com/) which allows developers to build beautiful applications with ease.
 
-Angular 2.0 has officially shipped, but the other components of the platform are still in alpha and beta stages. For our application today, we will make use of the Angular CLI and the core Angular 2 framework, but we'll let the other components bake a little longer.  
-
-{% include tweet_quote.html quote_text="While Angular 1 is a framework, Angular 2 is an entire platform for building modern applications" %}
+{% include tweet_quote.html quote_text="While AngularJS is a framework, Angular is an entire platform for building modern applications" %}
 
 ## Our App: Daily Deals
 
@@ -93,7 +93,7 @@ app.listen(3001);
 console.log('Serving deals on localhost:3001');
 ```
 
-Both our server and the Angular 2 app we are building will require Node.js and [NPM](https://npmjs.com), so be sure to have those installed before continuing. Check out the [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial) to get our list of daily deals or create your own. The model for each deal will be as follows:
+Both our server and the Angular app we are building will require Node.js and [NPM](https://npmjs.com), so be sure to have those installed before continuing. Check out the [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial) to get our list of daily deals or create your own. The model for each deal will be as follows:
 
 ```js
  {
@@ -105,59 +105,99 @@ Both our server and the Angular 2 app we are building will require Node.js and [
 }
 ```
 
-When you are happy with the public and private deals, launch the server by running `node server` and navigate to both `localhost:3001/api/deals/public` and `localhost:3001/api/deals/private` to make sure you can see the list of deals you added. Next, let's set up our Angular 2 front-end.
+When you are happy with the public and private deals, launch the server by running `node server` and navigate to both `localhost:3001/api/deals/public` and `localhost:3001/api/deals/private` to make sure you can see the list of deals you added. Next, let's set up our Angular front-end.
 
-### Angular 2 Front-End Setup
+### Angular Front-End Setup
 
-One of the best ways to start building a new Angular 2 app is with the official Angular 2 CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial we will scaffold our initial app with the CLI.
+One of the best ways to start building a new Angular app is with the official Angular CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial we will scaffold our initial app with the CLI.
 
-If you don't already have it installed, run `npm install angular-cli -g` to install the Angular CLI. We'll interact with the CLI using the `ng` command. To create a new application, choose a directory and run `ng init`. This will create a new Angular 2 application in selected directory, download all of the required NPM packages, and basically set everything up for us.
+If you don't already have it installed, run: 
 
-Once `ng init` is finished, run the `ng serve` command and the Webpack based build system will take care of compiling our app from TypeScript to JavaScript and will serve our app on `localhost:4200`. The `ng serve` command will also kick off a live sync process, so any time we make a change our app will automatically recompile.
+```bash
+npm install @angular/cli -g
+```
 
-Let's head over the `localhost:4200` for now to make sure that everything is working as expected so far. If you see a message saying "app works!" you are golden. Next, let's examine how our Angular 2 app is scaffolded.
+This installs the Angular CLI globally. We'll interact with the CLI using the `ng` command. To create a new application, choose a directory and run:
 
-The `ng init` command scaffolded our Angular 2 app and added a lot of files. Many of these we can ignore for now like the `e2e` folder, which would contain our end to end tests. Open up the `src` directory. In the `src` directory, we can see some familiar files like `index.html`, `styles.css`, and so on. Open up the `app` directory.
+```bash
+ng new ng2auth --routing --skip-tests
+```
+
+This will create a new Angular application with routing and no initial test files for the root component. The app will be created in its own folder in the current directory, and the CLI will download all of the required NPM packages and basically set everything up for us.
+
+Once `ng new` is finished, enter the new directory and run the `ng serve` command and the Webpack based build system will take care of compiling our app from TypeScript to JavaScript and will serve our app on `localhost:4200`. The `ng serve` command will also kick off a live sync process, so any time we make a change our app will automatically recompile.
+
+Let's head over the `localhost:4200` for now to make sure that everything is working as expected so far. If you see a message saying "app works!" you are golden. Next, let's examine how our Angular app is scaffolded.
+
+The `ng new` command scaffolded our Angular app and added a lot of files. Many of these we can ignore for now like the `e2e` folder, which would contain our end to end tests. Open up the `src` directory. In the `src` directory, we can see some familiar files like `index.html`, `styles.css`, and so on. Open up the `app` directory.
 
 The `app` directory contains the bulk of our application. By default we are presented with the following files:
 
-```
-- app.component.css - // Holds the CSS styles for our root component
-- app.component.html - // Holds the HTML view for our root component
-- app.component.spec - // Holds the tests for our root component
-- app.component.ts - // Holds the TypeScript logic for our root component
-- app.module.ts - // Defines our global app dependencies
-- index.ts - // Exports our application
-- shared - // This directory holds any shared components we may have
+* `app.component.css` - Holds the CSS styles for our root component
+* `app.component.html` - Holds the HTML view for our root component
+* `app.component.ts` - Holds the TypeScript logic for our root component class
+* `app.module.ts` - Defines our global app dependencies
+* `app-routing.module.ts` - Defines our app's routes
+
+Each Angular component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template, and styles. Let's make the following edits and run the following CLI commands:
+
+* Delete `app.component.css` and `app.component.html` files. We'll define all we need for our root component in the `app.component.ts` file.
+* Create a `public-deals` component by running `ng g c public-deals --no-spec`. This component will take care of getting and displaying the public deals data.
+* Create a `private-deals` component by running `ng g c private-deals --no-spec`. This component will take care of getting and displaying the private deals data.
+* Create a `callback.component.ts` file by running `ng g c callback --it --is --flat --no-spec`.
+* Create a `deal` file by running `ng g class deal --no-spec`. This file will hold our `deal` class, which will let Angular know the structure of a `deal`.
+* Create a `deal.service.ts` file by running `ng g s deal --no-spec`. Here we'll add the functionality to get and retrieve the deal data from our API.
+
+> **Note:** `g` is a shortcut for `generate`, and `c` and `s` are shortcuts for `component` and `service`, respectively. Therefore, `ng g c` is equivalent to `ng generate component`. The `--no-spec` flag indicates that `*.spec.ts` files should not be generated. The `--it` and `--is` flags stand for "inline template" and "inline styles" and `--flat` indicates that a containing folder should not be created.
+
+### Adding HTTP Client Module
+
+We're going to be making HTTP requests to our API in our Angular app. To do so, we need to add the correct module to our `app.module.ts` file. Let's do so now by importing the `HttpClientModule` and adding it to our @NgModule's `imports` array like so:
+
+```typescript
+...
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [
+    ...
+  ],
+  imports: [
+    ...,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 ```
 
-Each Angular 2 component we write will have at a minimum the `*.component.ts` file, the others are optional. Our application is going to have three components. The main or root component, a component to display the public deals, and a component to display private deals. For our root component, we'll inline the template, and we won't write any tests so let's make the following edits:
+### Adding Bootstrap CSS
 
-* Delete `app.component.css`, `app.component.html` and `app.component.spec` files. We'll define all we need for our root component in the `app.component.ts` file.
-* Create a `public-deals.component.ts`, `public-deals.component.html`, and `public-deals.component.css` file. This component will take care of getting and displaying the public deals data.
-* Create a `private-deals.component.ts`, `private-deals.component.html`, and `private-deals.component.css` file. This component will take care of getting and displaying the private deals data.
-* Create a `deal.ts` file. This component will hold our `deal` class which will let Angular 2 know the structure of a `deal`.
-* Create a `deal.service.ts` file. Here we'll add the functionality to get and retrieve the deal data from our API.
-* Finally, create an `app.routing.ts` file which will take care of our routes.
+We're going to use [Bootstrap](http://getbootstrap.com/docs/3.3/) to style our application, so let's include the CSS in the `<head>` of our `index.html` file like so:
+
+{% highlight html %}
+<!-- src/index.html -->
+...
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+...
+{% endhighlight %}
 
 ### Building the Root Component
 
-Every Angular 2 application must have a root component. We can name it whatever we want, but the important thing is that we have one. In our application, the `app.component.ts` file will be our root component. Let's take a look at our implementation of this component.
+Every Angular application must have a root component. We can name it whatever we want, but the important thing is that we have one. In our application, the `app.component.ts` file will be our root component. Let's take a look at our implementation of this component.
 
-```js
-// Import the Component decorator
+```typescript
 import { Component } from '@angular/core';
 
 @Component({
-  // We'll call our root component daily-deals
-  selector: 'daily-deals',
+  selector: 'app-root',
   template: `
-  <div class="container">
-    <nav class="navbar navbar-default">
+    <div class="container">
+      <nav class="navbar navbar-default">
         <div class="navbar-header">
-          <a class="navbar-brand" routerLink="/dashboard">{{title}}</a>
+          <a class="navbar-brand" routerLink="/dashboard">{{ title }}</a>
         </div>
-        <!-- On the left side of our navbar we'll display the two links for public and private deals -->
         <ul class="nav navbar-nav">
           <li>
             <a routerLink="/deals" routerLinkActive="active">Deals</a>
@@ -166,7 +206,6 @@ import { Component } from '@angular/core';
             <a routerLink="/special" routerLinkActive="active">Private Deals</a>
           </li>
         </ul>
-        <!-- On the right side of our navbar we'll display the login and logout actions depending on user state -->
         <ul class="nav navbar-nav navbar-right">
           <li>
             <a>Log In</a>
@@ -175,27 +214,66 @@ import { Component } from '@angular/core';
             <a>Log Out</a>
           </li>
         </ul>
-    </nav>
-    <div class="col-sm-12">
-      <!-- The router-outlet directive will display the component based on the route we are on, more on this soon -->
-      <router-outlet></router-outlet>
+      </nav>
+      <div class="col-sm-12">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-  </div>
   `,
-  // We'll add an inline style to properly display the navbar
-  styles : ['.navbar-right { margin-right: 0px !important}']
+  styles: [
+    `.navbar-right { margin-right: 0px !important}`
+  ]
 })
 export class AppComponent {
-
   title = 'Daily Deals';
 
   constructor() {}
 }
 ```
 
-We've created our root component. We added an inline template and some inline styles. We haven't added all the functionality yet, so every user will be able to see all the links and the login and logout buttons. We'll wait to implement those a little bit.
+We've created our root component. We added an inline template and some inline styles. We haven't added all the functionality yet, so every user will be able to see all the links and the login and logout buttons. We'll wait to implement those a little bit. We're also displaying the `<router-outlet>` element. This is where our routed components will show.
 
-To use this component, open the `index.html` file in your directory and replace `<my-app></my-app>` with `<daily-deals></daily-deals>`. We left the class name `AppComponent` so we don't need to make any edits to our `app.module.ts` file. We can just navigate to `localhost:4200` and see our app displayed. We won't see much yet, just the top navbar.
+### Routing
+
+Since we initialized our app with the `--routing` flag, the architecture for routing is already set up for us. Let's update it so that our Deals component shows by default. We'll also set up all the routes necessary for our app.
+
+Open the `app-routing.module.ts` file and add the following:
+
+```typescript
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { CallbackComponent } from './callback.component';
+import { PublicDealsComponent } from './public-deals/public-deals.component';
+import { PrivateDealsComponent } from './private-deals/private-deals.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'deals',
+    pathMatch: 'full'
+  },
+  {
+    path: 'deals',
+    component: PublicDealsComponent
+  },
+  {
+    path: 'special',
+    component: PrivateDealsComponent
+  },
+  {
+    path: 'callback',
+    component: CallbackComponent
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+We can just navigate to `localhost:4200` in the browser and see our app displayed. We won't see much yet, just the top navbar and a message saying that the deals component works.
 
 ### The Deal Type
 
@@ -203,7 +281,7 @@ To use this component, open the `index.html` file in your directory and replace 
 
 For our app, we'll create one such type. In the `deal.ts` file, we'll define a type of Deal. Let's see how we'll accomplish this.
 
-```
+```js
 export class Deal {
   id: number;
   name: string;
@@ -213,110 +291,125 @@ export class Deal {
 }
 ```
 
-Now we can declare objects in our Angular 2 application to be a type of `deal`. These objects will gain all of the properties and methods of the deal type. We are only defining properties here, we won't have any methods.
+Now we can declare objects in our Angular application to be a type of `deal`. These objects will gain all of the properties and methods of the deal type. We are only defining properties here, we won't have any methods.
 
 ### Public and Private Deals components
 
-The public and private deals components are very similar. In fact, the only difference between the two implementations is that one will display deals from the public API and the other will display deals from the private API. For posterity, we'll just show one of the component implementations. Let's implement the `public-deals.component.ts`.
+The public and private deals components are very similar. In fact, the only difference between the two implementations is that one will display deals from the public API and the other will display deals from the private API. For brevity, we'll just show one of the component implementations. Let's implement the `public-deals.component.ts`.
 
-```js
-import { Component, OnInit } from '@angular/core';
-import { Deal } from './deal';
+```typescript
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Deal } from '../deal';
 // We haven't defined these services yet
-import { AuthService } from './auth.service';
-import { DealService } from './deal.service';
+import { AuthService } from '../auth.service';
+import { DealService } from '../deal.service';
 
 @Component({
-  selector: 'public-deals',
+  selector: 'app-public-deals',
   // We'll use an external file for both the CSS styles and HTML view
   templateUrl: 'public-deals.component.html',
   styleUrls: ['public-deals.component.css']
 })
-export class PublicDealsComponent implements OnInit {
+export class PublicDealsComponent implements OnInit, OnDestroy {
+  dealsSub: Subscription;
   publicDeals: Deal[];
+  error: any;
   
   // Note: We haven't implemented the Deal or Auth Services yet.
   constructor(
-    private dealService: DealService,
-    private authService: AuthService) {
+    public dealService: DealService,
+    public authService: AuthService) {
   }
+
   // When this component is loaded, we'll call the dealService and get our public deals.
-  ngOnInit(): void {
-    this.dealService.getPublicDeals()
-      .then(deals => this.publicDeals = deals);
+  ngOnInit() {
+    this.dealsSub = this.dealService
+      .getPublicDeals()
+      .subscribe(
+        deals => this.publicDeals = deals,
+        err => this.error = err
+      );
   }
   
-  purchase(item){
-    alert("You bought the: " + item.name);
+  ngOnDestroy() {
+    this.dealsSub.unsubscribe();
   }
 }
 ```
 
-Next, let's build the view of our public deals component. We'll do this in the `public-deals.component.html` file. Our view will be a mixture of HTML and Angular 2 sugar. Let's take a look at our implementation.
+We'll use an RxJS [subscription](http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html) to _subscribe_ to the observable created by our HTTP request (to be defined in the Deal Service, which we'll create shortly), and take some action once a value is available to either set the `publicDeals` member, or to define an `error`. We need to add the `OnDestroy` lifecycle hook with an `ngOnDestroy()` method that unsubscribes when the component is destroyed to prevent memory leaks.
 
-```html
-  <h3 class="text-center">Daily Deals</h3>
+Next, let's build the view of our public deals component. We'll do this in the `public-deals.component.html` file. Our view will be a mixture of HTML and Angular sugar. Let's take a look at our implementation.
 
-  <!-- We are going to get an array of deals stored in the publicDeals variable. We'll loop over that variable here using the ngFor directive -->
-  <div class="col-sm-4" *ngFor="let deal of publicDeals">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">{{deal.name}}</h3>
-      </div>
-      <div class="panel-body">
-        {{deal.description}}
-      </div>
-      <div class="panel-footer">
-        <ul class="list-inline">
-          <li>Original</li>
-          <li class="pull-right">Sale</li>
-        </ul>
-        <ul class="list-inline">
-          <li><a class="btn btn-danger">${{deal.originalPrice | number}}</a></li>
-          <li class="pull-right"><a class="btn btn-success">${{deal.salePrice | number}}</a></li>
-        </ul>
-      </div>
+{% highlight html %}
+{% raw %}
+<h3 class="text-center">Daily Deals</h3>
+
+<!-- We are going to get an array of deals stored in the publicDeals variable. We'll loop over that variable here using the ngFor directive -->
+<div class="col-sm-4" *ngFor="let deal of publicDeals">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ deal.name }}</h3>
+    </div>
+    <div class="panel-body">
+      {{ deal.description }}
+    </div>
+    <div class="panel-footer">
+      <ul class="list-inline">
+        <li>Original</li>
+        <li class="pull-right">Sale</li>
+      </ul>
+      <ul class="list-inline">
+        <li><a class="btn btn-danger">${{ deal.originalPrice | number }}</a></li>
+        <li class="pull-right"><a class="btn btn-success" (click)="dealService.purchase(deal)">${{ deal.salePrice | number }}</a></li>
+      </ul>
     </div>
   </div>
+</div>
 
-  <!-- We are going to use the authService.loggedIn() method to see if the user is logged in or not. If they are not logged in we'll encourage them to login, otherwise if they are logged in, we'll provide a handy link to private deals. We haven't implemented the authService yet, so don't worry about the functionality just yet -->
-  <div class="col-sm-12" *ngIf="!authService.loggedIn()">
-    <div class="jumbotron text-center">
-      <h2>Get More Deals By Logging In</h2>
-    </div>
+<!-- We are going to use the authService.loggedIn() method to see if the user is logged in or not. If they are not logged in we'll encourage them to login, otherwise if they are logged in, we'll provide a handy link to private deals. We haven't implemented the authService yet, so don't worry about the functionality just yet -->
+<div class="col-sm-12" *ngIf="!authService.authenticated">
+  <div class="jumbotron text-center">
+    <h2>Get More Deals By Logging In</h2>
   </div>
+</div>
 
-  <div class="col-sm-12" *ngIf="authService.loggedIn()">
-    <div class="jumbotron text-center">
-      <h2>View Private Deals</h2>
-      <a class="btn btn-lg btn-success" routerLink="/special">Private Deals</a>
-    </div>
+<div class="col-sm-12" *ngIf="authService.authenticated">
+  <div class="jumbotron text-center">
+    <h2>View Private Deals</h2>
+    <a class="btn btn-lg btn-success" routerLink="/special">Private Deals</a>
   </div>
-```
+</div>
+
+<!-- If an error occurs, we'll show an error message -->
+<div class="col-sm-12 alert alert-danger" *ngIf="error">
+  <strong>Oops!</strong> An error occurred fetching data. Please try again.
+</div>
+{% endraw %}
+{% endhighlight %}
 
 Finally, let's add a custom style. In the `public-deals.component.css` file add the following:
 
 ```css
 .panel-body {
-	min-height: 100px;
+  min-height: 100px;
 }
 ```
 
 This will ensure that each of the products displays nicely on our page.
 
-Our private deals component will look very similar. For posterity, we won't display the scaffold. We'll cover the changes a little later on. If you'd like to see what it looks like, you can view it from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
+Our private deals component will look very similar. For brevity, we won't display the scaffold. We'll cover the changes a little later on. If you'd like to see what it looks like, you can view it from our [Github repo](https://github.com/auth0-blog/angular-2-authentication-tutorial).
 
 ### Accessing our Deals API
 
-Earlier in the tutorial we wrote a very simple API that exposed two routes. Now, let's write an Angular 2 service that will interact with these two endpoints. We'll do this in the `deal.service.ts` file. The implementation is as follows:
+Earlier in the tutorial we wrote a very simple API that exposed two routes. Now, let's write an Angular service that will interact with these two endpoints. We'll do this in the `deal.service.ts` file. The implementation is as follows:
 
-```
+```typescript
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
-
-import 'rxjs/add/operator/toPromise';
-
-import { Deal } from './deal';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class DealService {
@@ -324,132 +417,64 @@ export class DealService {
   private publicDealsUrl = 'http://localhost:3001/api/deals/public';
   private privateDealsUrl = 'http://localhost:3001/api/deals/private';
 
-  constructor(private http: Http) { }
-  
+  constructor(private http: HttpClient) { }
+
   // Implement a method to get the public deals
   getPublicDeals() {
     return this.http
       .get(this.publicDealsUrl)
-      .toPromise()
-      .then(response=>response.json() as Deal[])
-      .catch(this.handleError);
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // Implement a method to get the private deals
   getPrivateDeals() {
     return this.http
       .get(this.privateDealsUrl)
-      .toPromise()
-      .then(response=>response.json() as Deal[])
-      .catch(this.handleError);
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // Implement a method to handle errors if any
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+  private handleError(err: HttpErrorResponse | any) {
+    console.error('An error occurred', err);
+    return Observable.throw(err.message || err);
+  }
+
+  // Create a shared method that shows an alert when someone buys a deal
+  purchase(item) {
+    alert(`You bought the: ${item.name}`);
   }
 }
 ``` 
 
-Now you can see where the getPublicDeals() method fits in from our `public-deals.component.ts` file. We also have written a `getPrivateDeals()` method that will get our list of private deals. Implement this method in your `private-deals.component.ts` file.
+Now you can see where the `getPublicDeals()` method fits in from our `public-deals.component.ts` file. We also have written a `getPrivateDeals()` method that will get our list of private deals. Implement this method in your `private-deals.component.ts` file. Finally, we handle errors and implement the `purchase()` method that is used in both of the deals components.
 
-### Implementing the Routes
+## Adding Authentication to Your Angular App
 
-Now that we have our two components created, let's implement routing so that we can display the appropriate component. Routing in Angular 2 has changed a couple of different times. The new new new router is really great though and supports many features developers have been asking for such as lazy loading.
+Navigate to `localhost:4200` and you should see be redirected to the deals page automatically. Notice that you can freely navigate to the `/secret` route and see the exclusive deals as well. You can do this because we haven't added user authentication yet. Let's do that now.
 
-For our application, we will create two routes. The `/deals` route will display the publically available deals, and the `/special` route will display the exclusive private deals that only registered users will have access to. We'll also add a redirect, so that when the user lands on the homepage, we'll automatically redirect them to the deals page. Let's see how we are going to implement this. 
+The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
-```js
-import { Routes, RouterModule} from '@angular/router';
-
-// Import our components
-import { PublicDealsComponent } from './public-deals.component';
-import { PrivateDealsComponent } from './private-deals.component';
-
-const appRoutes: Routes = [
-  // Add the redirect
-  {
-    path: '',
-    redirectTo: '/deals',
-    pathMatch: 'full'
-  },
-  // Add our routes
-  {
-    path: 'deals',
-    component: PublicDealsComponent
-  },
-  {
-    path: 'special',
-    component: PrivateDealsComponent
-  }
-];
-// Here we are exporting our routes
-export const routing = RouterModule.forRoot(appRoutes);
-// Here we are combining our routing components into a single array. We will use this a little later when we update our root module
-export const routedComponents = [PublicDealsComponent, PrivateDealsComponent];
-```
-
-Our routing is looking good. Our entire application should be ready to test now. Before we test our application, there is one final thing we need to do to ensure that everything works correctly. *Note: If you decide to test your application before the conclusion of the tutorial, you will need to remove the `AuthService` from your deals components, otherwise Angular will complain.*
-
-We need to update our root @NgModule to include all of the new components and services we've written. To do this, open the `app.module.ts` file. In this file, you'll see the root module that the Angular bootstrap created for us. We are going to edit it as follows:
-
-```js
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-
-// Import our dependencies
-import { AppComponent } from './app.component';
-import { routing, routedComponents } from './app.routing';
-
-import { DealService } from './deal.service';
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    // Include the routing module
-    routing,
-    HttpModule,
-  ],
-  declarations: [
-    AppComponent,
-    // Include our array of routing components. This saves us from having to type out the entire list of components twice
-    routedComponents
-  ],
-  providers: [
-    // Add our deal service we created earlier
-    DealService
-  ],
-  // Declare our root component, which is the AppComponent
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-Now we are ready to test our app. If you would like more information on how @NgModule works, check out this post. Navigate to `localhost:4200` and you should see be redirected to the deals page automatically. Notice that you can freely navigate to the `/secret` route and see the exclusive deals as well. You can do this because we haven't added user authentication yet. Let's do that now.
-
-## Adding Authentication to Your Angular 2 App
-
-The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular 2 application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
-
-Login to your Auth0 [management dashboard](https://manage.auth0.com) and let's create a new API client. If you don't already have the APIs menu item, you can enable it by going to your [Account Settings](https://manage.auth0.com/#/account/advanced) and in the **Advanced** tab, scroll down until you see **Enable APIs Section** and flip the switch.
-
-From here, click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Daily Deals API** and for the identifier I'll set it as **daily-deals-api**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+From here, click on the [APIs menu item](https://manage.auth0.com/#/apis) and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Daily Deals API** and for the identifier I'll set it as **daily-deals-api**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
 
 ![Creating Auth0 API](https://cdn.auth0.com/blog/angular2-auth-dd/creating-api.png)
 
-Next, let's define some scopes for our API. Scopes allow us to manage access to our API. We can define as few or as many scopes as we want. For our simple example, we'll just create a single scope that will grant users full access to the API.
-
-![Adding Scope to API](https://cdn.auth0.com/blog/angular2-auth-dd/adding-scope.png)
-
 This is all we need to do for now. Let's secure our server using this new API that we created.
 
-### Securing our server
+### Securing our Server
 
-Before we implement authentication on the front end in our Angular 2 application, let's secure our backend server. Open up the `server.js` file located in your `server` directory and make the following edits:
+Before we implement authentication on the front end in our Angular application, let's secure our backend server. 
+
+First we'll install dependencies:
+
+```bash
+npm install express-jwt jwks-rsa --save
+```
+
+Open up the `server.js` file located in your `server` directory and make the following edits:
 
 ```js
 'use strict';
@@ -476,7 +501,7 @@ const authCheck = jwt({
     }),
     // This is the identifier we set when we created the API
     audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
-    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
+    issuer: "{YOUR-AUTH0-DOMAIN}", // e.g., you.auth0.com
     algorithms: ['RS256']
 });
 
@@ -499,34 +524,89 @@ app.listen(3001);
 console.log('Listening on localhost:3001');
 ```
 
-That's all we'll need to do on the server. Restart the server and try to navigate to `localhost:3001/api/deals/private` and you'll see an error message saying missing authorization header. Our private API route is now secured. Let's get to implementing authentication in our Angular 2 app.
+That's all we'll need to do on the server. Restart the server and try to navigate to `localhost:3001/api/deals/private` and you'll see an error message saying missing authorization header. Our private API route is now secured. Let's get to implementing authentication in our Angular app.
 
 ![API with No Auth Token](https://cdn.auth0.com/blog/angular2-auth-dd/no-auth-token.png)
 
 ### Adding Authentication to the Front-end
 
-We'll make use of the [Angular 2 JWT library](https://github.com/auth0/angular2-jwt) to provide us the foundation for implementing authentication in our app. You can get the library for your app by running `npm install angular2-jwt --save`.
+Log into your Auth0 [management dashboard](https://manage.auth0.com) and let's make some updates to our [client](https://manage.auth0.com/#/clients) by clicking the Clients item in the sidebar. Find the test client that was created automatically when we made our API. It should be called something like `Daily Deals (Test Client)`.
 
- We'll first start by creating an authentication service that we can use throughout our app. Create a new file titled `auth.service.ts`. Out auth service implementation follows:
+Change the **Client Type** to `Single Page Application`. Then add `http://localhost:4200/callback` to the **Allowed Callback URLs** field.
 
-```js
+Finally, click on the **Advanced Settings** link at the bottom and select the **OAuth** tab. Change the **JsonWebToken Signature Algorithm** to `RS256`.
+
+Make note of the **Client ID**; we will need this to set up the configuration for our Angular app's authentication.
+
+### Auth0.js Library
+
+Now we need to install the `auth0-js` library. We can do so like this in our Angular app's root folder:
+
+```bash
+npm install auth0-js --save
+```
+
+### Auth0 Config
+
+Now let's create a simple interface file to hold our Auth0 config. You can create this file with this CLI command:
+
+```bash
+ng g interface auth/auth-config
+```
+
+Open the generated `auth-config.ts` file and add the following:
+
+```typescript
+interface AuthConfig {
+  CLIENT_ID: string;
+  CLIENT_DOMAIN: string;
+  AUDIENCE: string;
+  REDIRECT: string;
+  SCOPE: string;
+}
+
+export const AUTH_CONFIG: AuthConfig = {
+  CLIENT_ID: '[AUTH0_CLIENT_ID]',
+  CLIENT_DOMAIN: '[AUTH0_DOMAIN]', // e.g., you.auth0.com
+  AUDIENCE: 'http://localhost:3001',
+  REDIRECT: 'http://localhost:4200/callback',
+  SCOPE: 'openid profile email'
+};
+```
+
+This file provides the authentication configuration variables so we can use Auth0 to secure our front end. Be sure to update the `CLIENT_ID` and `CLIENT_DOMAIN` to your own information from your Auth0 Client.
+
+### Authentication Service
+
+Next we'll create an authentication service that we can use throughout our app:
+
+```bash
+ng g s auth/auth --no-spec
+```
+
+This will create a new folder at `src/app/auth` with an `auth.service.ts` file inside it.
+
+Open this file and modify it to the following:
+
+```typescript
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { AUTH_CONFIG } from './auth0-variables';
-import { tokenNotExpired } from 'angular2-jwt';
-
-// Avoid name not found warnings
-declare var auth0: any;
+import * as auth0 from 'auth0-js';
+import { AUTH_CONFIG } from './auth-config';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
   // Create Auth0 web auth instance
-  // @TODO: Update AUTH_CONFIG and remove .example extension in src/app/auth/auth0-variables.ts.example
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.CLIENT_ID,
-    domain: AUTH_CONFIG.CLIENT_DOMAIN
+    domain: AUTH_CONFIG.CLIENT_DOMAIN,
+    responseType: 'token id_token',
+    redirectUri: AUTH_CONFIG.REDIRECT,
+    audience: AUTH_CONFIG.AUDIENCE,
+    scope: AUTH_CONFIG.SCOPE
   });
+  userProfile: any;
 
   // Create a stream of logged in status to communicate throughout app
   loggedIn: boolean;
@@ -534,8 +614,12 @@ export class AuthService {
 
   constructor(private router: Router) {
     // If authenticated, set local profile property and update login status subject
+    // If token is expired, log out to clear any data from localStorage
     if (this.authenticated) {
+      this.userProfile = JSON.parse(localStorage.getItem('profile'));
       this.setLoggedIn(true);
+    } else {
+      this.logout();
     }
   }
 
@@ -547,26 +631,19 @@ export class AuthService {
 
   login() {
     // Auth0 authorize request
-    // Note: nonce is automatically generated: https://auth0.com/docs/libraries/auth0js/v8#using-nonce
-    this.auth0.authorize({
-      responseType: 'token id_token',
-      redirectUri: AUTH_CONFIG.REDIRECT,
-      audience: AUTH_CONFIG.AUDIENCE,
-      scope: AUTH_CONFIG.SCOPE
-    });
+    this.auth0.authorize();
   }
 
   handleAuth() {
     // When Auth0 hash parsed, get profile
-    this.auth0.parseHash((err, authResult) => {
+    this.auth0.parseHash(window.location.hash, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this._getProfile(authResult);
-        this.router.navigate(['/']);
       } else if (err) {
-        this.router.navigate(['/']);
         console.error(`Error: ${err.error}`);
       }
+      this.router.navigate(['/']);
     });
   }
 
@@ -578,10 +655,13 @@ export class AuthService {
   }
 
   private _setSession(authResult, profile) {
+    const expTime = authResult.expiresIn * 1000 + Date.now();
     // Save session data and update login status subject
     localStorage.setItem('token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('expires_at', JSON.stringify(expTime));
+    this.userProfile = profile;
     this.setLoggedIn(true);
   }
 
@@ -590,102 +670,107 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
-    this.router.navigate(['/']);
+    localStorage.removeItem('expires_at');
+    this.userProfile = undefined;
     this.setLoggedIn(false);
   }
 
-  get authenticated() {
-    // Check if there's an unexpired access token
-    return tokenNotExpired('token');
+  get authenticated(): boolean {
+    // Check if current date is greater than expiration
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return Date.now() < expiresAt;
   }
 
 }
 ```
 
-We will use the Auth0 Hosted Lock option for authenticating our users. This is the most secure way to authenticate a user and get an `access_token` in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
+We will use the [Auth0 centralized login](https://auth0.com/docs/hosted-pages/login) option for authenticating our users. This is the most secure way to authenticate a user and get an `access_token` in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
 
-### Angular 2 Authentication All In
+### Angular Authentication All In
 
-The Angular 2 router comes with a powerful feature called [route guards](https://angular.io/docs/ts/latest/guide/router.html#!#guards) that allows us to programmatically determine whether a user can access the route or not. Route guards in Angular 2 can be compared to middleware in Express.js for example. 
+The Angular router comes with a powerful feature called [route guards](https://angular.io/docs/ts/latest/guide/router.html#!#guards) that allows us to programmatically determine whether a user can access the route or not. Route guards in Angular can be compared to middleware in Express.js for example. 
 
-We'll create an authentication route guard that will check to see if a user is logged in before displaying the route. Create a new file titled `auth-guard.service.ts` and add the following code:
+We'll create an authentication route guard that will check to see if a user is logged in before displaying the route. Create a new guard by running the following CLI command:
 
-```js
+```bash
+ng g guard auth/auth --no-spec
+```
+
+Open the generated `auth.guard.ts` file and make the following changes:
+
+```typescript
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CanActivate } from '@angular/router';
-// Import our authentication service
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate() {
-    // If the user is not logged in we'll send them back to the home page
-    if (!this.auth.authenticated) {
-      this.router.navigate(['']);
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.authService.authenticated) {
+      this.router.navigate(['/']);
       return false;
     }
     return true;
   }
-
 }
 ```
 
-To implement this route guard in our routes, let's go ahead and open our `app.routing.ts` file. Here, we'll include our auth guard service and enable it on our secret route. Let's take a look at the implementation.
+To implement this route guard in our routes, let's go ahead and open our `app-routing.module.ts` file. Here, we'll include our auth guard service and enable it on our secret route. Let's take a look at the implementation.
 
-```js
-// Here we're also including the CanActivate API
+```typescript
+...
+// Add CanActivate to the imports
 import { Routes, RouterModule, CanActivate } from '@angular/router';
-// Add the AuthGuard service
-import { AuthGuard } from './auth-guard.service';
+...
+// Import the AuthGuard
+import { AuthGuard } from './auth/auth.guard';
 
-import { PublicDealsComponent } from './public-deals.component';
-import { PrivateDealsComponent } from './private-deals.component';
-
-const appRoutes: Routes = [
-  {
-    path: '',
-    redirectTo: '/deals',
-    pathMatch: 'full'
-  },
-  {
-    path: 'deals',
-    component: PublicDealsComponent
-  },
+const routes: Routes = [
+  ...,
   {
     path: 'special',
     component: PrivateDealsComponent,
-    // We'll use the canActivate API and pass in our AuthGuard. Now any time the /special route is hit, the AuthGuard will run first to make sure the user is logged in before activating and loading this route.
-    canActivate: [AuthGuard]
-  }
+    // Add this to guard this route
+    canActivate: [
+      AuthGuard
+    ]
+  },
+  ...
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
-
-export const routedComponents = [PublicDealsComponent, PrivateDealsComponent];
+@NgModule({
+  ...,
+  // Add AuthGuard to the providers array
+  providers: [AuthGuard],
+  ...
+})
+export class AppRoutingModule { }
 ```
 
 That's all there is to it. Our route is now protected at the routing level. 
 
-If you recall we included a stub for the AuthService in our deal components. Since the authentication service is now implemented our placeholder functionality will just work. We'll see the correct behavior displayed based on user state.
+If you recall, we included a stub for the AuthService in our deal components. Since the authentication service is now implemented, our placeholder functionality will just work. We'll see the correct behavior displayed based on user state.
 
-We will need to update our root component though as we didn't include authentication specific functionality there. I did this on purpose so we could go through the example line by line. Let's do that next.
+We will need to update our root component though as we didn't include authentication-specific functionality there. I did this on purpose so we could go through the example line by line. Let's do that next.
 
-```js
+```typescript
 import { Component } from '@angular/core';
-// First and foremost we'll include our authentication service
-import { AuthService } from './auth.service';
+import { AuthService } from './auth/auth.service';
 
 @Component({
-  selector: 'daily-deals',
+  selector: 'app-root',
   template: `
-  <div class="container">
-    <nav class="navbar navbar-default">
+    <div class="container">
+      <nav class="navbar navbar-default">
         <div class="navbar-header">
-          <a class="navbar-brand" routerLink="/dashboard">{{title}}</a>
+          <a class="navbar-brand" routerLink="/">{{ title }}</a>
         </div>
         <ul class="nav navbar-nav">
           <li>
@@ -700,155 +785,95 @@ import { AuthService } from './auth.service';
             <a *ngIf="!authService.authenticated" (click)="authService.login()">Log In</a>
           </li>
           <li>
-            <a (click)=authService.logout() *ngIf="authService.authenticated">Log Out</a>
+            <a (click)="authService.logout()" *ngIf="authService.authenticated">Log Out</a>
           </li>
         </ul>
-    </nav>
-    <div class="col-sm-12">
-      <router-outlet></router-outlet>
+      </nav>
+      <div class="col-sm-12">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-  </div>
   `,
-  styles : ['.navbar-right { margin-right: 0px !important}']
+  styles: [
+    `.navbar-right { margin-right: 0px !important}`
+  ]
 })
 export class AppComponent {
   title = 'Daily Deals';
 
-  // We'll need to include a reference to our authService in the constructor to gain access to the API's in the view
-  constructor(private authService: AuthService) {
-  }
+  constructor(public authService: AuthService) {}
 }
 ```
 
-When the user clicks on the login link, they will be taken to a hosted Lock login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
+We imported the `AuthService` and made it publicly available in our constructor (it needs to be `public` in order for the template to use its methods).
 
-Before we test out this functionality, we'll need to ensure that we have the right credentials so that our authentication service knows which parameters to pass to the hosted Lock page. Create a new file called `auth0-variables.ts` and paste the following:
+We added `*ngIf="authService.authenticated` to our link to private deals so it will not be rendered if the user is not logged in. We also added `*ngIf` logic to our login and logout links to show the appropriate link depending on the user's authentication state. When the user clicks on the login link now, they will be taken to a centralized login page on the Auth0 domain. They will enter their credentials here and if correct, they will be redirected back to the application.
 
-```js
-interface AuthConfig {
-  CLIENT_ID: string;
-  CLIENT_DOMAIN: string;
-  AUDIENCE: string;
-  REDIRECT: string;
-  SCOPE: string;
-}
+### Callback Component
 
-export const AUTH_CONFIG: AuthConfig = {
-  CLIENT_ID: 'YOUR-AUTH0-CLIENT-ID',
-  CLIENT_DOMAIN: 'YOUR-AUTH0-DOMAIN.auth0.com',
-  AUDIENCE: 'YOUR-AUTH0-API-IDENTIFIER',
-  REDIRECT: 'http://localhost:4200/callback',
-  SCOPE: 'openid'
-};
+We'll now code up the callback component that we generated at the beginning of the tutorial. This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back in the hash after a successful authentication. To do this, the component will make use of the `AuthService` we created earlier. Let's take a look at the implementation:
 
-```
-
-We are already importing this file in the `auth.service.ts` file, so once it is created we will not have to do anything else except change the `YOUR-AUTH0-CLIENT-ID`, `YOUR-AUTH0-DOMAIN`, and `YOUR-AUTH0-API-IDENTIFIER` for your actual values. The `YOUR-AUTH-CLIENT-ID` will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients). 
-
-The client that was created for me is called **Daily Deals API (Test Client)**, and I will use this client for our application as it is already setup to work with the API. Open up your client, and you will want to copy the **Client ID**. This value will replace the `YOUR-AUTH0-CLIENT-ID` parameter. Likewise, do the same for the other two placeholders.
-
-![Daily Deals API Test Client](https://cdn.auth0.com/blog/angular2-auth-dd/dd-client.png)
-
-While you're viewing your client in the Auth0 dashboard, scroll down to find a section titled **Allowed Callback URLs**. Here you will add the URL that Auth0 will redirect to after successfully authenticating or creating a user. Since we are using the Angular CLI, and it defaults to `localhost:4200`, in our **Allowed Callback URLs** section we will add:
-
-```
-http://localhost:4200/callback
-```
-
-### Creating the Callback Component
-
-We will create a new component and call it `CallbackComponent`. This component will be activated when the `localhost:4200/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will make extensive use of the `AuthService` we created earlier. Let's take a look at the implementation:
-
-```js
-import { Component } from '@angular/core';
-import { AuthService } from './auth.service';
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
-  template: ``
+  selector: 'app-callback',
+  template: `
+    <p>
+      Loading...
+    </p>
+  `,
+  styles: []
 })
-export class CallbackComponent {
+export class CallbackComponent implements OnInit {
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
     this.authService.handleAuth();
   }
+
 }
 ```
 
-Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our CallbackComponent will make sure to properly process and store those tokens in localStorage. If all is well, meaning we recieved an `id_token` and an `access_token`, we will be redirected back to the `/deals` page and will be in a logged in state.
-
-Before we move on, let's make sure to register the `/callback` route in our routes file.
-
-```js
-import { Routes, RouterModule, CanActivate } from '@angular/router';
-import { AuthGuard } from './auth-guard.service';
-
-import { PublicDealsComponent } from './public-deals.component';
-import { PrivateDealsComponent } from './private-deals.component';
-import { CallbackComponent } from './callback.component';
-
-const appRoutes: Routes = [
-  {
-    path: '',
-    redirectTo: '/deals',
-    pathMatch: 'full'
-  },
-  {
-    path: 'deals',
-    component: PublicDealsComponent
-  },
-  {
-    path: 'special',
-    component: PrivateDealsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'callback',
-    component: CallbackComponent,
-  }
-];
-
-export const routing = RouterModule.forRoot(appRoutes);
-
-export const routedComponents = [PublicDealsComponent, PrivateDealsComponent, CallbackComponent];
-```
-
-There is one final update we need to make. If you try to access the `/secret` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the `access_token` to the backend. We'll have to update our deal service.
+Once a user is authenticated, Auth0 will redirect back to our application and call the `/callback` route. Auth0 will also append the `id_token` as well as the `access_token` to this request, and our CallbackComponent will make sure to properly process and store those tokens in `localStorage`. If all is well, meaning we recieved an `id_token` and an `access_token`, we will be redirected back to the homepage and will be in a logged in state.
 
 ### Updating the Deal Service
 
-We need to update the call to the `/api/deals/private` to include our `access_token`. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular 2 JWT library comes with an AuthHTTP method that will take care of this for us. Let's see how we're going to implement this in our application.
+There is one final update we need to make. If you try to access the `/secret` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the `access_token` to the backend. We'll have to update our deal service.
 
-```js
-  // Be sure to include the HttpAuth API from the Angular 2 JWT library
-  import { AuthHttp } from 'angular2-jwt';
+We need to update the call to the `/api/deals/private` to include our `access_token`. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular JWT library comes with an AuthHTTP method that will take care of this for us. Let's see how we're going to implement this in our application.
 
+```typescript
+...
+// Import HttpHeaders
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
   ...
 
-  // We'll need to include the AuthHTTP method in our constructor
-  constructor(private http: Http, private authHttp: AuthHttp) { }
-
-  ...
+  // Implement a method to get the private deals
   getPrivateDeals() {
-    // Instead of this.http, we'll use the this.authHttp method. Everything else remains the same.
-    return this.authHttp
-      .get(this.privateDealsUrl)
-      .toPromise()
-      .then(response=>response.json() as Deal[])
-      .catch(this.handleError);
+    return this.http
+      .get(this.privateDealsUrl, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+      })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 ```
 
-Now when a call is made to our API withe the `authHttp` service, we will automatically append the `access_token` to the call in an `Authorization` header and in the correct format. Let's try it out in the next section to make sure that it works.
+We will add an `Authorization` header to our `getPrivateDeals()` request using the token stored in local storage. Now when a call is made to the private route in our API, we will automatically append the `access_token` to the call. Let's try it out in the next section to make sure that it works.
 
-### Putting it all together
+### Putting it all Together
 
-![Auth0 Hosted Lock](https://cdn.auth0.com/blog/angular2-auth-dd/hosted-lock.png)
+![Auth0 centralized login](https://cdn.auth0.com/blog/angular2-auth-dd/hosted-lock.png)
 
 That's it. We are now ready to test our application. If your Node.js server is not running, make sure to start it up first. Head over to `localhost:4200` and you should automatically be redirected to `localhost:4200/deals` and see the list of public deals.
 
 ![Daily Deals Authenticated](https://cdn.auth0.com/blog/angular2-auth-dd/authenticated.png)
 
-Next, click on the login screen and you will be redirected to your Auth0 domain and the hosted Lock login widget will be displayed. Login or sign up and you will be redirected back to the callback route, and then the deals page, but now the UI will look slightly different. The main menu will have a new option for Private Deals, and the message at the bottom will also show you a link to the private deals. Instead of the Login link in the navbar, you'll also be presented with a Logout link instead. Finally click on the Private Deals link to see our list of exclusive private deals.
+Next, click on the login screen and you will be redirected to your Auth0 domain and the login widget will be displayed. Log in or sign up and you will be redirected back to the callback route, and then the deals page, but now the UI will look slightly different. The main menu will have a new option for Private Deals, and the message at the bottom will also show you a link to the private deals. Instead of the Log In link in the navbar, you'll also be presented with a Log Out link instead. Finally, click on the Private Deals link to see our list of exclusive private deals.
 
 ![Consent Dialog](https://cdn.auth0.com/blog/angular2-auth-dd/consent.png)
 
@@ -856,10 +881,10 @@ Next, click on the login screen and you will be redirected to your Auth0 domain 
 
 ![Exclusive Daily Deals](https://cdn.auth0.com/blog/angular2-auth-dd/secret-deals.png)
 
-You just wrote and authenticated an Angular 2.0 app. Congrats!
+You just wrote and authenticated an Angular app. Congrats!
 
 ## Conclusion
 
-Angular 2 is finally out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular 2 components and services. We implemented token based authentication with Auth0 and Lock. But that's just scratching the surface.
+Angular is out and ready for prime time. It's been a long time coming, but it's finally here and I couldn't be more excited. In this tutorial, we looked at some of the ways you can write Angular components and services. We implemented token based authentication with Auth0. But that's just scratching the surface.
 
-Angular 2 provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular 2 apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
+Angular provides a lot of great features out of the box like pipes, i18n, and much more. Auth0 can help secure your Angular apps with not just state of the art authentication, but enhanced features like [multifactor auth](https://auth0.com/docs/multifactor-authentication), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
