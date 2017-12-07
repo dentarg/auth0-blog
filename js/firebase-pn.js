@@ -33,61 +33,61 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-
+// initial action
 if (navigator.serviceWorker) {
 	navigator.serviceWorker
 		.register("./frb-sw.js")
 		.then(function(registration) {
-			//return subscriptionValidation();
 			messaging.useServiceWorker(registration);
-			if (!isTokenSentToServer() && window.localStorage.getItem("pn-subscription") != "false") {
-				valActive = true;
-        openPopup();
-      }
-		});
+
+		return navigator.serviceWorker.ready.then(function(
+			serviceWorkerRegistration
+		) {
+			serviceWorkerRegistration.pushManager
+				.getSubscription()
+				.then(function(pushSubscription) {
+					if (pushSubscription) {
+						return tokenGenerate(pushSubscription);
+					}
+					if (!isTokenSentToServer() && window.localStorage.getItem("pn-subscription") != "false") {
+						valActive = true;
+						openPopup();
+					}
+				})
+		})
+	});
+
 }else{
 	subscriptionValidationSafari();
 }
 
-function subscriptionValidation() {
-	if (navigator.serviceWorker === undefined) {
-		return;
-	}
-
+function requestSubscribe() {
 	return navigator.serviceWorker.ready.then(function(
 		serviceWorkerRegistration
 	) {
 		serviceWorkerRegistration.pushManager
 			.getSubscription()
 			.then(function(pushSubscription) {
-				// Check subscription
-				if (!pushSubscription) {
-					return serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true })
-				  .then(function (subscription) {
-						return subscription;
-					})
+				if (pushSubscription) {
+					return pushSubscription;
 				}
-
-				return pushSubscription;
+				return serviceWorkerRegistration.pushManager.subscribe(
+					{ userVisibleOnly: true }
+				).then(function(subscription){
+					return messaging.requestPermission().then(function(){
+						return subscription
+					})
+				});
 			})
 			.then(function(pushSubscription) {
-					var subscriptionId = pushSubscription.endpoint.substr(
-							pushSubscription.endpoint.lastIndexOf("/") + 1);
-
-					getPopupUI(subscriptionId);
+				tokenGenerate(pushSubscription);
 			});
 	});
 }
 
-// [START receive_message]
-// - a message is received while the app has focus
-messaging.onMessage(function(payload) {
-	pushMessage(payload);
-});
-// [END receive_message]
-
-function getPopupUI(subscriptionId) {
-	var oldToken = subscriptionId || '';
+function tokenGenerate(pushSubscription) {
+	var oldToken = pushSubscription.endpoint.substr(
+				pushSubscription.endpoint.lastIndexOf("/") + 1) || '';
 
 	messaging
 		.getToken()
@@ -95,7 +95,6 @@ function getPopupUI(subscriptionId) {
 			if (currentToken) {
 				sendTokenToServer(currentToken, oldToken);
 			} else {
-				// Show permission UI.
 				if (!isTokenSentToServer() && localStorage.getItem("pn-subscription") != "false") {
 					valActive = true;
 					openPopup();
@@ -145,17 +144,19 @@ function setTokenSentToServer(sent) {
 	window.localStorage.setItem("sentToServer", sent ? 1 : 0);
 }
 
-function requestPermission() {
-	messaging
-		.requestPermission()
-		.then(function() {
-			subscriptionValidation();
-		})
-		.catch(function(err) {
-			console.log("Unable to get permission to notify.", err);
-		});
-}
+// - a message is received while the app has focus
+messaging.onMessage(function(payload) {
+	pushMessage(payload);
+});
 
+// push notification whene the site is focus
+function pushMessage(payload) {
+	var notification = new Notification(payload.notification.title, {
+		body: payload.notification.body,
+		icon: payload.notification.icon,
+		click_action: payload.notification.click_action
+	});
+}
 
 function fetchDeleteToken(token) {
   return fetch(
@@ -206,17 +207,6 @@ window.unsubscribePushNotification = function() {
 	});
 };
 	
-// push notification whene the site is focus
-function pushMessage(payload) {
-	var notification = new Notification(payload.notification.title, {
-		body: payload.notification.body,
-		icon: payload.notification.icon,
-		click_action: payload.notification.click_action
-	});
-}
-
-
-
 function subscriptionValidationSafari() {
   if ("safari" in window && "pushNotification" in window.safari) {
     if (
@@ -319,7 +309,7 @@ $("#push-allow").on("click", function(e) {
 	if ("safari" in window && "pushNotification" in window.safari) {
 		pnSafari();
 	} else {
-		requestPermission();
+		requestSubscribe();
 	}
 });
 
