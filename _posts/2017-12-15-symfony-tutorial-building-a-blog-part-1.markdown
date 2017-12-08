@@ -45,7 +45,7 @@ related:
 
 ### What will we build
 
-In this article we will be looking at how to install a new version of the Symfony PHP framework, along with making use of Doctrine to create 2 new database tables, Author and BlogPosts in order to store our blog data in. Following this we will be making use of doctrine migrations to pre-populate our newly created database tables with some dummy data to allow you to see the blog at work. Once the initial set up is complete, we will cover making use of Auth0 to authenticate users allowing them to access a restricted section of the blog, to create their own author entry in the database.
+In this article we will be looking at how to install a new version of the Symfony PHP framework, along with making use of Doctrine to create two new database tables (`Author` and `BlogPosts`) in order to store our blog data in. Following this, we will be making use of doctrine migrations to pre-populate our newly created database tables with some dummy data to allow you to see the blog at work. Once the initial set up is complete, we will cover user authentication with Auth0 allowing users to create their own author entry in the database.
 
 ## Bootstrapping Symfony
 
