@@ -383,15 +383,15 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 ### Installing HWIOAuth Bundle
 
-In order to install the HWIOAuth Bundle, which uses a virtual package php-http/client-implementation, we need to install several third party libraries, run this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
+To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), a OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package php-http/client-implementation, we need to install several third party libraries. However, this can be easily done wit this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
 
-Once composer has finished, we need to enable this in our `app/AppKernel.php` in the `$bundles` array, add a new row placing the following in there:
+Once composer has finished, we need to enable it in our `app/AppKernel.php`. In the `$bundles` array, add a new row placing the following in there:
 
-`new Http\HttplugBundle\HttplugBundle(),`
+```php
+new Http\HttplugBundle\HttplugBundle(),
+```
 
-The next steps can also be found on Auth0's [quick start guide for Symfony](https://auth0.com/docs/quickstart/webapp/symfony/01-login)
-
-Open your `composer.json` file and add HWIOAuthBundle (As well as adding the minimum-stability and prefer-stable options:
+Now, open your `composer.json` file and add `HWIOAuthBundle` (as well as adding the `minimum-stability` and `prefer-stable` options):
 
 ```
 "minimum-stability": "dev",
@@ -402,23 +402,15 @@ Open your `composer.json` file and add HWIOAuthBundle (As well as adding the min
 },
 ```
 
-__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the php requirement in config in composer.json so find and remove:
-
-```
-"platform": {
-    "php": "5.5.9"
-},
-```
-
-Now run `composer update`
-
-Once completed, in `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
+In `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
 
 `new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),`
 
-We need to add the routes to your routing file: `app/config/routing.yml`
+We also need to add the routes to your routing file: `app/config/routing.yml`:
 
-```
+```yml
+# ...
+
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /connect
