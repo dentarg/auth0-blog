@@ -493,32 +493,27 @@ class Auth0ResourceOwner extends GenericOAuth2ResourceOwner
 }
 ```
 
-We're going to need API keys for Auth0, so go over to https://auth0.com/signup and follow the instructions on the page. Once signed up:
+We're going to need API keys for Auth0, so <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">create your free account</a>. Once signed up:
 
-1 - In the dashboard, click `Clients` on the left.
+1. In the dashboard, click `Clients` on the left:
+  * Create Client
+  * Add a name
+  * Choose regular web applications
 
-* Create Client
-* Add a name
-* Choose regular web applications
+2. Configure callback url:
+  * In the new Auth0 `Client`, go to the settings tab.
+  * Find the text box labelled `Allowed Callback URLs`.
+  * Paste the following in: `http://localhost:8000/auth0/callback`.
 
-2 - Configure callback url.
+3. Configure Auth0 Client to require usernames:
+  * In the navigation bar find and click `Connections`
+  * Then click `Database`
+  * Click on `Username-Password-Authentication`
+  * Toggle `Requires Username` to on.
 
-* In your Auth0 `Client` Under the settings tab.
-* Find the text box labelled `Allowed Callback URLs`
-* Paste the following in: `http://localhost:8000/auth0/callback`
+4. Go to the [Clients](https://manage.auth0.com/#/clients) section again and pick your `Client`.
 
-3 - Configure Auth0 Client to require usernames
-
-* In the navigation bar find and click `Connections`
-* Then click `Database`
-* Click on `Username-Password-Authentication`
-* Toggle `Requires Username` to on.
-* Add Login functionality.
-
-* Go to `https://manage.auth0.com/#/clients`
-* Pick your `Client`
-
-Then in your `.env` file paste the following, but replace the brackets and their contents with the details found on the page you're on at Auth0
+Then in your `.env` file paste the following, but replace the brackets and their contents with the details found in your client:
 
 ```
 AUTH0_CLIENT_ID: (Client ID on Auth0)
@@ -526,7 +521,7 @@ AUTH0_CLIENT_SECRET: (Client Secret on Auth0)
 AUTH0_DOMAIN: (Domain on Auth0)
 ```
 
-For this to all be used we need to add details to the config file at `app/config/config.yml` at the bottom paste the following:
+To use all of this, we need to add details to the `app/config/config.yml` file. At the bottom paste the following:
 
 ```
 hwi_oauth:
@@ -538,9 +533,6 @@ hwi_oauth:
             client_id:           "%env(AUTH0_CLIENT_ID)%"
             client_secret:       "%env(AUTH0_CLIENT_SECRET)%"
             base_url:            "https://%env(AUTH0_DOMAIN)%"
-#            Uncomment this lines if you set audience in .env file
-#            options:
-#                audience:        "%env(AUTH0_AUDIENCE)%"
             scope: "openid profile"
 ```
 
