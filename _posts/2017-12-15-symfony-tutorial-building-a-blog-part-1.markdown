@@ -516,9 +516,9 @@ We're going to need API keys for Auth0, so <a href="https://auth0.com/signup" da
 Then in your `.env` file paste the following, but replace the brackets and their contents with the details found in your client:
 
 ```
-AUTH0_CLIENT_ID: (Client ID on Auth0)
-AUTH0_CLIENT_SECRET: (Client Secret on Auth0)
-AUTH0_DOMAIN: (Domain on Auth0)
+AUTH0_CLIENT_ID=(Client ID on Auth0)
+AUTH0_CLIENT_SECRET=(Client Secret on Auth0)
+AUTH0_DOMAIN=(Domain on Auth0)
 ```
 
 To use all of this, we need to add details to the `app/config/config.yml` file. At the bottom paste the following:
@@ -583,17 +583,18 @@ security:
 
 The config above is setting up urls/sections in your blog that require the user to be authenticated.
 
-### Create an author page
+### Create the Author page
 
-Lets create our admin blog controller by running the following command: `php bin/console generate:controller`
-
-If you follow the instructions as shown by the input, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called AdminController, you'll also have a new template in `src/AppBundle/Resources/views/Admin/`
+Lets create our admin blog controller by running the following command: `php bin/console generate:controller`.
 
 ![Creating an Admin Controller](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
+
+If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called AdminController. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
+
 __NOTE__: If you cannot see the image, the full controller can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
 
-First thing we will want to do is create a new form. This is a class that allows us to validate the users input, such as creating an author. So in `src/AppBundle` create a new directory called `Form`
-And within that directory create a new file named `AuthorFormType.php`. Below will be the code used in your new file:
+First thing we will want to do is create a new form. This is a class that allows us to validate the users input, such as creating an author. So, in the `src/AppBundle` path, create a new directory called `Form`.
+Within that directory create a new file named `AuthorFormType.php`. Add the code below to your new file:
 
 ```php
 <?php
@@ -712,7 +713,7 @@ class AuthorFormType extends AbstractType
 }
 ```
 
-Back in your new AdminController: `src/AppBundle/Controller/AdminController.php` we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the AdminController class we want to inject these services.
+Back in your new AdminController (`src/AppBundle/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services:
 
 ```php
 /** @var EntityManagerInterface */
@@ -735,7 +736,7 @@ public function __construct(EntityManagerInterface $entityManager)
 }
 ```
 
-As you can see there is a class declared here so we need to add it to the namespaces at the top of the file. Where it says:
+As you can see, there is a class declared here so we need to add it to the namespaces at the top of the file. Where it says:
 
 ```php
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -744,13 +745,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
-Great, in our entire controller we can call the blogPostRepository, authorRepository or entityManager as and when needed. The first 2 are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data (It can also be used for retrieving but by setting up the construct this way, we will be reducing duplicate code)
+Great, in our entire controller we can call the blogPostRepository, authorRepository or entityManager when needed. The first two are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data.
 
-In the AdminController you will find your new `createAuthorAction` method, lets change the annotation so that the method has a service name. So above the controller where you see `@Route` lets add the service name. So it will look like:
+In the `AdminController` class, you will find your new `createAuthorAction` method. Change the annotation so that the method has a service name. So above the controller, where you see `@Route`, add the service name. So it will look like:
 
-`* @Route("/admin/author/create", name="author_create")`
+```php
+* @Route("/admin/author/create", name="author_create")
+```
 
-At the top of the controller we need to include this class so where it shows:
+At the top of the controller, we need to include this class so where it shows:
 
 ```php
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -760,14 +763,16 @@ use Doctrine\ORM\EntityManagerInterface;
 
 Paste the following below those:
 
-`use Symfony\Component\HttpFoundation\Request;`
+```php
+use Symfony\Component\HttpFoundation\Request;
+```
 
-Request allows you to gather data for example if there are any parameters in a POST or GET request.
+The `Request` class allows you to gather data, for example, if there are any parameters in a POST or GET request.
 
-Then change `createAuthorAction()` to `createAuthorAction(Request $request)`
+Then change `createAuthorAction()` to `createAuthorAction(Request $request)`.
 
 We want to make sure the user isn't trying to create themselves as duplicate authors for the same user. So at the top of the `createAuthorAction` lets run a query to check whether one already exists.
-Paste the code below into the action, this retrieves the authenticated user with Auth0, checks their username with the authors table to see if one exists, if it does then redirect the user to the index page.
+Paste the code below into the action. This retrieves the authenticated user with Auth0, checks their username with the authors table to see if one exists, if it does then redirect the user to the index page.
 
 ```php
 // Check whether user already has an author.
@@ -779,7 +784,7 @@ if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName()))
 }
 ```
 
-Below that we can now create an empty Author entity, create a new AuthorFormType object and pass the Author entity into the form.
+Below that you can now create an empty `Author` entity. Create a new `AuthorFormType` object and pass the `Author` entity into the form.
 
 ```php
 $author = new Author();
@@ -799,7 +804,7 @@ if ($form->isValid()) {
 }
 ```
 
-We are using 2 new classes here, 1 is the entity Author and the other AuthorFormType class. So lets include these namespaces at the top of our file:
+We are using two new classes here. The first one is the entity `Author` and the second one `AuthorFormType` class. Include these namespaces at the top of our file:
 
 ```php
 namespace AppBundle\Controller;
@@ -809,11 +814,11 @@ use AppBundle\Entity\Author;
 use AppBundle\Form\AuthorFormType;
 ```
 
-The above code will also check whether the form has been submitted, and whether it passes all validations, if it does it will then redirect the user to the index page.
+The above code also checks whether the form has been submitted, and whether it passes all validations, if it does it will then redirect the user to the index page.
 
-__NOTE__: You may have noticed that it sets a session to true for `user_is_author` this will make sense when we reach the part that discusses and implements event listeners (next).
+__NOTE__: You may have noticed that it sets a session to `true` for `user_is_author` this will make sense when we reach the part that discusses and implements event listeners (next).
 
-Finally, we want to pass the form into the template that the user will see. So at the bottom of the method lets change:
+Finally, we want to pass the form into the template that the user will see. So, at the bottom of the method, let's change:
 
 ```php
 return $this->render('AppBundle:Admin:create_author.html.twig', array(
@@ -829,7 +834,7 @@ return $this->render('AppBundle:Admin:create_author.html.twig', array(
 ));
 ```
 
-In our template for this action, we just want the user to have all of the form fields displayed as their correct form elements, so in `create_author.html.twig` copy and paste the following:
+In our template for this action, we just want the user to have all of the form fields displayed as their correct form elements. So, in the `create_author.html.twig` file, copy and paste the following:
 
 {% highlight html %}
 {% raw %}
