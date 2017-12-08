@@ -377,7 +377,7 @@ This is basically just a file that, when loaded, will create an author and a blo
 
 Lets run the fixtures! `php bin/console doctrine:fixtures:load`
 
-Now we have our entities, database, database tables and some dummy data in the tables.
+Now we have our entities, database, database tables, and some dummy data in the tables.
 
 ## Managing Identity with Auth0
 
