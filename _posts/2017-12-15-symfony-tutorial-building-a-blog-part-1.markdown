@@ -428,9 +428,9 @@ auth0_logout:
 
 ### Configure bundle including DotEnv & configs
 
-In order to get the HWIOAuthBundle to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/AppBundle/Auth0ResourceOwner.php`
+In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/AppBundle/Auth0ResourceOwner.php`:
 
-{% highlight php %}
+```php
 <?php
 
 namespace AppBundle;
@@ -491,7 +491,7 @@ class Auth0ResourceOwner extends GenericOAuth2ResourceOwner
         $resolver->setNormalizer('audience', $normalizer);
     }
 }
-{% endhighlight %}
+```
 
 We're going to need API keys for Auth0, so go over to https://auth0.com/signup and follow the instructions on the page. Once signed up:
 
@@ -603,7 +603,7 @@ __NOTE__: If you cannot see the image, the full controller can be found: [here](
 First thing we will want to do is create a new form. This is a class that allows us to validate the users input, such as creating an author. So in `src/AppBundle` create a new directory called `Form`
 And within that directory create a new file named `AuthorFormType.php`. Below will be the code used in your new file:
 
-{% highlight php %}
+```php
 <?php
 
 namespace AppBundle\Form;
@@ -718,11 +718,11 @@ class AuthorFormType extends AbstractType
         return 'author_form';
     }
 }
-{% endhighlight %}
+```
 
 Back in your new AdminController: `src/AppBundle/Controller/AdminController.php` we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the AdminController class we want to inject these services.
 
-{% highlight php %}
+```php
 /** @var EntityManagerInterface */
 private $entityManager;
 
@@ -741,14 +741,14 @@ public function __construct(EntityManagerInterface $entityManager)
     $this->blogPostRepository = $entityManager->getRepository('AppBundle:BlogPost');
     $this->authorRepository = $entityManager->getRepository('AppBundle:Author');
 }
-{% endhighlight %}
+```
 
 As you can see there is a class declared here so we need to add it to the namespaces at the top of the file. Where it says:
 
-{% highlight php %}
+```php
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-{% endhighlight %}
+```
 
 Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
@@ -760,11 +760,11 @@ In the AdminController you will find your new `createAuthorAction` method, lets 
 
 At the top of the controller we need to include this class so where it shows:
 
-{% highlight php %}
+```php
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Doctrine\ORM\EntityManagerInterface;
-{% endhighlight %}
+```
 
 Paste the following below those:
 
@@ -777,7 +777,7 @@ Then change `createAuthorAction()` to `createAuthorAction(Request $request)`
 We want to make sure the user isn't trying to create themselves as duplicate authors for the same user. So at the top of the `createAuthorAction` lets run a query to check whether one already exists.
 Paste the code below into the action, this retrieves the authenticated user with Auth0, checks their username with the authors table to see if one exists, if it does then redirect the user to the index page.
 
-{% highlight php %}
+```php
 // Check whether user already has an author.
 if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName())) {
    // Redirect to dashboard.
@@ -785,11 +785,11 @@ if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName()))
 
    return $this->redirectToRoute('homepage');
 }
-{% endhighlight %}
+```
 
 Below that we can now create an empty Author entity, create a new AuthorFormType object and pass the Author entity into the form.
 
-{% highlight php %}
+```php
 $author = new Author();
 $author->setUsername($this->getUser()->getUserName());
 
@@ -805,17 +805,17 @@ if ($form->isValid()) {
 
     return $this->redirectToRoute('homepage');
 }
-{% endhighlight %}
+```
 
 We are using 2 new classes here, 1 is the entity Author and the other AuthorFormType class. So lets include these namespaces at the top of our file:
 
-{% highlight php %}
+```php
 namespace AppBundle\Controller;
-...
-...
+//...
+//...
 use AppBundle\Entity\Author;
 use AppBundle\Form\AuthorFormType;
-{% endhighlight %}
+```
 
 The above code will also check whether the form has been submitted, and whether it passes all validations, if it does it will then redirect the user to the index page.
 
@@ -823,19 +823,19 @@ __NOTE__: You may have noticed that it sets a session to true for `user_is_autho
 
 Finally, we want to pass the form into the template that the user will see. So at the bottom of the method lets change:
 
-{% highlight php %}
+```php
 return $this->render('AppBundle:Admin:create_author.html.twig', array(
     // ...
 ));
-{% endhighlight %}
+```
 
 to:
 
-{% highlight php %}
+```php
 return $this->render('AppBundle:Admin:create_author.html.twig', array(
     'form' => $form->createView()
 ));
-{% endhighlight %}
+```
 
 In our template for this action, we just want the user to have all of the form fields displayed as their correct form elements, so in `create_author.html.twig` copy and paste the following:
 
@@ -954,7 +954,7 @@ An event listener is as it looks, a listener to specific programmed events which
 
 Lets create the CheckIsAuthorListener.php file in `src/AppBundle/EventListener/Author` and place the following code in there:
 
-{% highlight php %}
+```php
 <?php
 
 namespace AppBundle\EventListener\Author;
