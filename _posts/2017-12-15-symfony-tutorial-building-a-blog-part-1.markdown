@@ -326,11 +326,11 @@ public function registerBundles()
 }
 ```
 
-### Create basic entry for Author and BlogPost
+### Create Author and BlogPost Fixtures
 
 Create a new file (and the directories the file is stored in) under `src/AppBundle/DataFixtures/ORM/Fixtures.php` and insert the following into the file:
 
-{% highlight php %}
+```php
 <?php
 
 namespace AppBundle\DataFixtures\ORM;
@@ -369,9 +369,9 @@ class Fixtures extends Fixture
         $manager->flush();
     }
 }
-{% endhighlight %}
+```
 
-This is basically just a file that when loaded, will create an author, a blog post and link the author to the blog post.
+This is basically just a file that, when loaded, will create an author and a blog post, and will link the author to the blog post.
 
 ### Run fixtures.
 
