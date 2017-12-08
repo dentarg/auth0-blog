@@ -901,7 +901,7 @@ In our template for this action, we just want the user to have all of the form f
 {% endraw %}
 {% endhighlight %}
 
-### Including bootstrap and styles
+### Including Bootstrap and Styles
 
 As it is, this template will look very ugly in your browser. So let's create a new css file. `web/css/style.css`
 
@@ -943,13 +943,13 @@ Open `app/Resources/views/base.html.twig` and replace its contents with:
 
 This just includes your custom CSS file as well as Bootstrap's CSS and Javascript files into your page.
 
-### Creating event listener to ensure author exists before accessing further functionality
+### Asking for "About Me" Information
 
-Although a user is authenticated through Auth0, we don't really want them to be able to access the rest of the author section until they've created themself an Author entry in the database with some basic "About me" details. So what we want, is to ensure that any /author/ route they try to access, if they don't have an "Author" entry, we keep redirecting them to the form to create one.
+Although a user is authenticated through Auth0, we don't really want them to access the rest of the author section until they've filled some basic "About me" details. So, what we want is to ensure that any `/author/` route they try to access, if they don't have an "Author" entry, redirects them to the form to write about themselves.
 
-An event listener is as it looks, a listener to specific programmed events which then run predefined code once the conditions are met.
+An event listener is, as the name states, a listener to specific programmed events which then run predefined code once the conditions are met.
 
-Lets create the CheckIsAuthorListener.php file in `src/AppBundle/EventListener/Author` and place the following code in there:
+Let's create the `CheckIsAuthorListener.php` file in the `src/AppBundle/EventListener/Author` directory. In this file, let's place the following code:
 
 ```php
 <?php
@@ -1052,19 +1052,19 @@ class CheckIsAuthorListener
         });
     }
 }
-{% endhighlight %}
-
-We now need to add this class as a service in order for it to be run by Symfony on each controller request so in `app/config/services.yml` add the following a the bottom of the file:
-
 ```
+
+We now need to add this class as a service so that Symfony runs it on each controller request. In `app/config/services.yml` add the following at the bottom:
+
+```yml
 AppBundle\EventListener\Author\CheckIsAuthorListener:
     tags:
         - { name: kernel.event_listener, event: kernel.controller }
 ```
 
-It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So for the time being we're going to product a link in the Homepage page.
+It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So for the time being we're going to produce a link in the Homepage page.
 
-Open the file `app/Resources/views/default/index.html.twig` and replace the entire contents with:
+Open the file `app/Resources/views/default/index.html.twig` and replace its entire content with:
 
 {% highlight html %}
 {% raw %}
@@ -1085,7 +1085,7 @@ Open the file `app/Resources/views/default/index.html.twig` and replace the enti
 {% endraw %}
 {% endhighlight %}
 
-As you can see here, we're providing a link if the user isn't logged in, to log in. And if they are logged in, there are 2 links, one to log out, one to access the admin section (For this purpose it's to create a new author).
+As you can see, now we provide a link so that unauthenticated users can log in. If they are logged in, two links are shown: one to log out and one to access the admin section.
 
 ## Next Steps
 
