@@ -1089,15 +1089,14 @@ As you can see, now we provide a link so that unauthenticated users can log in. 
 
 ## Next Steps
 
-In the next article, we will be covering installing Bootstrap, a framework, to make the blog nicer visually.
-We will be allowing people to:
+In the next article, we will be covering installing Bootstrap, a framework, to make the blog nicer visually. We will also enhance our blog engine to allow visitors to:
 
-* See a list of blog posts
-* Read a specific blog post
-* Find out more about the author
+* see a list of blog posts;
+* read a specific blog post;
+* and find out more about the author.
 
 Authenticated authors will be able to:
 
-* Create a new blog post
-* See all of their own blog posts
-* Delete their own blog posts from the system.
+* create a new blog post;
+* see all of their own blog posts;
+* delete their own blog posts from the system.
