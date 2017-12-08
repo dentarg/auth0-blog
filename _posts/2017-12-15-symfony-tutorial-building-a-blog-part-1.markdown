@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Symfony Tutorial: Building a Blog (Part 1)"
-description: Learn how to create a blog in Symfony and authenticate.
+description: "Let's use Symfony to build a blog with authentication."
 date: 2017-12-15 08:30
 category: Technical Guide, PHP, Symfony
 author:
@@ -13,15 +13,14 @@ design:
   image: https://cdn.auth0.com/blog/Symfony/Logo.png
 tags:
 - symfony
-- bootstrap
 - authentication
-- web-app
 - auth0
 related:
 - 2017-07-26-creating-your-first-symfony-app-and-adding-authentication
+- 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement.  It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with the content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
 
 ---
 
