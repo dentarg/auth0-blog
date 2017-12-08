@@ -63,22 +63,21 @@ Change directory into your project with: `cd blog`
 
 ### Create & Populate DotEnv file
 
-In your root directory create file called `.env`
-Paste the following into there:
+In your root directory create file called `.env` and paste the following into there:
 
-{% highlight yaml %}
+```yaml
 DATABASE_HOST={DATABASE_HOST}
 DATABASE_PORT=3306
 DATABASE_NAME={DATABASE_NAME}
 DATABASE_USER=root
 DATABASE_PASSWORD={DATABASE_PASSWORD}
-{% endhighlight %}
+```
 
-Please replace any of the values with the correct settings for your database. So replace `{DATABASE_HOST}` for example with `localhost`.
+Then you have to replace any of the values with the correct settings for your MySQL database. For example, `{DATABASE_HOST}` could be replaced by `127.0.0.1`. Don't have MySQL installed? [A easy way to bootstrap one is with this script, it just needs Docker installed on the host machine](https://gist.github.com/brunokrebs/af77f582f0e650a62a6f06e84cd06f91).
 
 Next. Lets find the `app/config/config.yml` file. Within there you'll find the following:
 
-{% highlight yaml %}
+```yaml
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -89,11 +88,11 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
-{% endhighlight %}
+```
 
 Replace anything that is wrapped around `'%` and `%'` to contain the DotEnv configurations. So it will look like:
 
-{% highlight yaml %}
+```yaml
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -104,9 +103,9 @@ doctrine:
         user: '%env(DATABASE_USER)%'
         password: '%env(DATABASE_PASSWORD)%'
         charset: UTF8
-{% endhighlight %}
+```
 
-__NOTE__: All this does is retrieve the database details from .env file rather than `app/config/parameters.yml`
+__NOTE__: All this does is retrieve the database details from the `.env` file rather than `app/config/parameters.yml`.
 
 Now need to just make some minor configuration changes so that Symfony knows to read from the .env file.
 
