@@ -87,7 +87,7 @@ With a tool like Auth0, which was designed to track user behavior across applica
 
 ## 3. How Hackers Tricked Top Movie Executives to Give Them Access
 
-Sony Pictures Entertainment made an offensive movie about North Korea's leader, Kim Jong-un. Shortly after the movie release, Sony suffered a huge data breach, which [Fortune](https://www.cnbc.com/video/2015/06/26/inside-sonys-hack-of-the-century.html)called, *The Hack of the Century.*
+Sony Pictures Entertainment made an offensive movie about North Korea's leader, Kim Jong-un. Shortly after the movie release, Sony suffered a huge data breach, which [Fortune](https://www.cnbc.com/video/2015/06/26/inside-sonys-hack-of-the-century.html) called, *The Hack of the Century.*
 
 While much of the hype and news around the hack was centered on possible North Korean involvement, what often gets missed is the way it happened. The hackers didn't beat the security system with advanced technology or a fancy decryption algorithm. They simply tricked Sony executives to give them their usernames and passwords.
 
