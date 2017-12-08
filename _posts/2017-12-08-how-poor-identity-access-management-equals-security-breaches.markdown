@@ -2,13 +2,13 @@
 layout: post
 title: "How Poor Identity Access Management Equals Security Breaches"
 description: "Your Expensive Cybersecurity System Might Have a Gaping Hole"
-date: 2017-12-05 08:30
+date: 2017-12-08 08:30
 category: Growth, Security
 author:     
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Story Tweedie-Yates
+  url: https://twitter.com/StoryYates
+  avatar: https://pbs.twimg.com/profile_images/939046779500216320/eYk0uf-3_400x400.jpg
+  mail: story.tweedie-yates@auth0.com
 is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/poor-iam/logo.png
@@ -19,7 +19,8 @@ tags:
 - iam
 related:
 - 2017-11-29-5-massive-benefits-of-identity-as-a-service-for-developers
-- 2017-11-20-predictive-analytics-why-is-it-important
+- 2017-05-11-data-breaches-by-the-numbers
+- 2017-11-10-4-security-measures-after-data-breach
 ---
 
 Fort Knox, built in 1935, is the most secure place on Earth. The perimeter of the fort is guarded by almost every security measure you can think of including landmines, laser-guided guns, motion detectors, armed guards and a 25-inches-thick vault door made of a torch and drill-resistant material. It is a firewall on steroids!
