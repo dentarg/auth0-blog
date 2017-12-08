@@ -109,21 +109,21 @@ __NOTE__: All this does is retrieve the database details from the `.env` file ra
 
 Now need to just make some minor configuration changes so that Symfony knows to read from the .env file.
 
-Edit the `bin/console`, `web/app_dev.php`, `web/app.php` files. Above the line `{% raw %}$kernel = new AppKernel($env, $debug){% endraw %}` in each file, paste the following:
+Edit the `bin/console`, `web/app_dev.php`, `web/app.php` files. Above the line `$kernel = new AppKernel($env, $debug)` in each file, paste the following:
 
-{% highlight php %}
+```php
 try {
     (new \Symfony\Component\Dotenv\Dotenv())->load(__DIR__.'/../.env');
 } catch (\Symfony\Component\Dotenv\Exception\PathException $e) {
 
 }
-{% endhighlight %}
+```
 
-Run the following command `php bin/console doctrine:database:create`, which will create a database with the value of `DATABASE_NAME` in the `.env` file.
+If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of `DATABASE_NAME` in the `.env` file.
 
 Now that the basic configuration has been set up, lets run the following command: `php bin/console server:start`
 
-You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000` So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
+You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
 
 ### Creating a new Author entity
 
