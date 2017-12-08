@@ -51,11 +51,13 @@ In this article we will be looking at how to install a new version of the Symfon
 
 ### Installing Symfony
 
-Install symfony via composer with the following command:
+Install Symfony via [Composer](https://getcomposer.org/) with the following command:
 
-`composer create-project symfony/framework-standard-edition:"3.3.11" blog`
+```bash
+composer create-project symfony/framework-standard-edition:"3.3.11" blog
+```
 
-Once composer has finished downloading all the required third party libraries, it will ask you to input a number of parameters. Please just leave these empty, pressing return on each line.
+Once Composer has finished downloading all the required third party libraries, it will ask you to input a number of parameters. Please just leave these empty, pressing return on each line.
 
 Change directory into your project with: `cd blog`
 
