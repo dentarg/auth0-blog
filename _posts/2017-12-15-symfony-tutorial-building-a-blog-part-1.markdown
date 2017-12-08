@@ -134,6 +134,7 @@ When it asks for the Entity shortcut name, type in: `AppBundle:Author`
 Keep the default on `Configuration format`, but this next step we need to add all of the properties on our Author. Please refer to the image below for the entries required for an Author table:
 
 ![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-author-entity.png)
+
 __NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php)
 
 ### Creating a new BlogPost entity
