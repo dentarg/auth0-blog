@@ -127,7 +127,7 @@ You will see something similar to: `[OK] Server listening on http://127.0.0.1:80
 
 ### Creating a new Author entity
 
-Create new Author entity by running the following command `php bin/console doctrine:generate:entity`
+Create new `Author` entity by running the following command `php bin/console doctrine:generate:entity`
 
 When it asks for the Entity shortcut name, type in: `AppBundle:Author`
 
@@ -139,43 +139,44 @@ __NOTE__: If you cannot see the image, the full entity can be found: [here](http
 
 ### Creating a new BlogPost entity
 
-Create new BlogPost entity by running the following command `php bin/console doctrine:generate:entity`
+Create new `BlogPost` entity by running the following command `php bin/console doctrine:generate:entity`
 
 When it asks for the Entity shortcut name, type in: `AppBundle:BlogPost`
 
 Keep the default on `Configuration format`, but the next step is to add all of the properties on the BlogPost. Please refer to the image below for the entries required for a BlogPost table:
 
 ![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
+
 __NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php)
 
 __NOTE__: If you copied the file directly from the repository, please skip to: `Install Doctrine-migrations`
 
-You may have noticed that we've added a created_at, updated_at and author. These fields all need some extra changes to be made in the entity file itself. So open `src/AppBundle/Entity/BlogPost.php`
+You may have noticed that we've added the `created_at`, `updated_at` and `author` fields. These fields all need some extra changes to be made in the entity file itself. So open `src/AppBundle/Entity/BlogPost.php`
 
 Find `private $author;` and replace the annotation above this from:
 
-{% highlight php %}
+```php
 /**
  * @var int
  *
  * @ORM\Column(name="author", type="integer")
  */
-{% endhighlight %}
+```
 
 to:
 
-{% highlight php %}
+```php
 /**
  * @var Author
  *
  * @ORM\ManyToOne(targetEntity="Author")
  * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
  */
-{% endhighlight %}
+```
 
 Next. Replace the Author getter and setter from:
 
-{% highlight php %}
+```php
 /**
  * Set author
  *
@@ -199,11 +200,11 @@ public function getAuthor()
 {
     return $this->author;
 }
-{% endhighlight %}
+```
 
 to:
 
-{% highlight php %}
+```php
 /**
  * Set author
  *
@@ -227,13 +228,13 @@ public function getAuthor()
 {
     return $this->author;
 }
-{% endhighlight %}
+```
 
-All this does is make sure the entity knows that Author has a ManyToOne relationship with BlogPost
+All this does is make sure the entity knows that `Author` has a [`ManyToOne` relationship](https://www.ibm.com/support/knowledgecenter/en/SSWU4L/Data/imc_Data/What_is_a_many-to-one_relationship.html) with `BlogPost`.
 
-At the bottom of the BlogPost class, mysql needs to know to populate and update the `created_at` and `updated_at` columns when a persist or update is made to the database. So paste the following at the bottom of the class:
+At the bottom of the `BlogPost` class, MySQL needs to know to populate and update the `created_at` and `updated_at` columns when a persist or update is made to the database. So paste the following at the bottom of the class:
 
-{% highlight php %}
+```php
 /**
  * @ORM\PrePersist
  */
@@ -255,23 +256,23 @@ public function preUpdate()
 {
     $this->setUpdatedAt(new \DateTime());
 }
-{% endhighlight %}
+```
 
 Now this is useless until the class has lifecycle call backs so in the annotation above the class, you'll see:
 
-{% highlight php %}
+```php
 /**
  * BlogPost
  *
  * @ORM\Table(name="blog_post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BlogPostRepository")
-{% endhighlight %}
+```
 
 under `* @ORM\Entity()` add a new line and place this in there:
 
-{% highlight php %}
+```php
  * @ORM\HasLifecycleCallbacks
-{% endhighlight %}
+```
 
 Our entities are all set up! But.. we don't have the database tables yet.
 
