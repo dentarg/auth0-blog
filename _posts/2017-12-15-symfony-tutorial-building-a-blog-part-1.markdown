@@ -305,13 +305,15 @@ Run the migration, which will run all the SQL queries found in the generated fil
 
 ### Install Doctrine-fixtures
 
-We want to just populate some data into your newly created tables as examples during the creation of the blog. So install doctrine-fixtures.
+We want to just populate some data into your newly created tables as examples during the creation of the blog. So install [doctrine-fixtures](https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html).
 
-`composer require --dev doctrine/doctrine-fixtures-bundle`
+```bash
+composer require --dev doctrine/doctrine-fixtures-bundle
+```
 
-In your `app/AppKernel.php` you want to add the bundle but specifically only for development or testing environments. So add this line `$bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();` as shown below.
+In your `app/AppKernel.php` you want to add the bundle but specifically only for development and testing environments. So add this line `$bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();` as shown below.
 
-{% highlight php %}
+```php
 public function registerBundles()
 {
     // ...
@@ -322,7 +324,7 @@ public function registerBundles()
 
     return $bundles;
 }
-{% endhighlight %}
+```
 
 ### Create basic entry for Author and BlogPost
 
