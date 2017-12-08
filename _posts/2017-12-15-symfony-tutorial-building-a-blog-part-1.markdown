@@ -28,17 +28,17 @@ related:
 
 ### What is Symfony?
 
-[Symfony](https://symfony.com) is an Open Source PHP framework originally created by [Sensiolabs](https://sensiolabs.com/), an interactive agency. The [Symfony PHP framework](https://symfony.com) comes with a very large and active community. This framework has become very popular, mainly due to the vast number of reusable PHP components, not just limited to the Framework itself, but can be found throughout the PHP community, such as Drupal, WordPress, phpBB and Laravel.
+[Symfony](https://symfony.com) is an Open Source PHP framework originally created by [Sensiolabs](https://sensiolabs.com/), an interactive agency. The [Symfony PHP framework](https://symfony.com) comes with a very large and active community. This framework has become very popular, mainly due to the vast number of reusable PHP components. These components are not limited to the framework itself, but can be found throughout the PHP community, such as Drupal, WordPress, phpBB and Laravel.
 
-[Symfony Components](https://symfony.com/components) are a set of decoupled and reusable PHP libraries. They are becoming the standard foundation on which the best PHP  applications are built on. You can use any of these components in your own applications independently from the [Symfony Framework](https://symfony.com). Below you will find a list of some of the components that are used in this article as an example.
+[Symfony Components](https://symfony.com/components) are a set of decoupled and reusable PHP libraries. They are becoming the standard foundation on which the best PHP applications are built on. You can use any of these components in your own applications independently from the Symfony Framework. Below you will find a list of some of the components that are used in this article as an example.
 
-* [Asset](https://symfony.com/components/Asset) - Manages URL generation and versioning of web assets such as CSS stylesheets, JavaScript files and image files
+* [Asset](https://symfony.com/components/Asset) - Manages URL generation and versioning of web assets such as CSS stylesheets, JavaScript files and image files.
 * [Config](https://symfony.com/components/Config) - Helps you find, load, combine, autofill and validate configuration values.
-* [Console](https://symfony.com/components/Console) - Eases the creation of beautiful and testable command line interfaces
-* [Dotenv](https://symfony.com/components/Dotenv) - Parses .env files to make environment variables stored in them accessible via getenv(), $_ENV or $_SERVER.
+* [Console](https://symfony.com/components/Console) - Eases the creation of beautiful and testable command line interfaces.
+* [Dotenv](https://symfony.com/components/Dotenv) - Parses `.env` files to make environment variables stored in them accessible via `getenv()`, `$_ENV` or `$_SERVER`.
 * [Form](https://symfony.com/components/Form) - Provides tools to easy creating, processing and reusing HTML forms.
-* [HttpKernel](https://symfony.com/components/HttpKernel) - Provides the building blocks to create flexible and fast HTT]()P-based frameworks
-* [Routing](https://symfony.com/components/Routing) - Maps an HTTP request to a set of configuration variables
+* [HttpKernel](https://symfony.com/components/HttpKernel) - Provides the building blocks to create flexible and fast HTTP-based frameworks.
+* [Routing](https://symfony.com/components/Routing) - Maps an HTTP request to a set of configuration variables.
 * [Security](https://symfony.com/components/Security) - Provides an infrastructure for sophisticated authorization systems.
 * [Templating](https://symfony.com/components/Templating) - Provides all the tools needed to build any kind of template system.
 * [Yaml](https://symfony.com/components/Yaml) - Loads and dumps YAML files.
