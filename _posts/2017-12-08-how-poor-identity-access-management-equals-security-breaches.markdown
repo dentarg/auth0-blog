@@ -49,7 +49,7 @@ The hackers infiltrated the global email server through an administrator’s acc
 
 Deloitte's lack of identity access management left them extremely vulnerable. They basically built a giant fortress around their data but left the keys in the door.
 
-{% include tweet_quote.html quote_text="Not giving the right attention to identity access management can be very harmful to you company." %}
+{% include tweet_quote.html quote_text="Not giving the right attention to identity access management can be very harmful to your company." %}
 
 ### Implement 2FA Everywhere
 
@@ -61,7 +61,7 @@ Deloitte's data breach could have been easily prevented with 2FA, which is a sta
 
 2FA is so effective, [experts believe](https://www.slideshare.net/cheapsslsecurity/vip-strong-authentication-no-passwords-infographic-by-symantec) that 80% of breaches, including Deloitte, could have been avoided if they had implemented 2FA. In the same way no one person has the complete code to Fort Knox's safe, the safety of your valuable data should not hinge on a single password.
 
-While implementing 2FA for a large organization can seem like an overwhelming internal project, some of the biggest companies in the world are saving time and money by partnering with third-party IAM technologies like Auth0 that have 2FA[ already built in](https://auth0.com/learn/two-factor-authentication/).
+While implementing 2FA for a large organization can seem like an overwhelming internal project, some of the biggest companies in the world are saving time and money by partnering with third-party IAM technologies like Auth0 that have 2FA [already built in](https://auth0.com/learn/two-factor-authentication/).
 
 ## 2. How Hackers Spent 229 Days Inside One of the Largest eCommerce Platforms
 
@@ -87,7 +87,7 @@ With a tool like Auth0, which was designed to track user behavior across applica
 
 ## 3. How Hackers Tricked Top Movie Executives to Give Them Access
 
-Sony Pictures Entertainment made an offensive movie about North Korea's leader, Kim Jong-un. Shortly after the movie release, Sony suffered a huge data breach, which [Fortune ](https://www.cnbc.com/video/2015/06/26/inside-sonys-hack-of-the-century.html)called, *The Hack of the Century.*
+Sony Pictures Entertainment made an offensive movie about North Korea's leader, Kim Jong-un. Shortly after the movie release, Sony suffered a huge data breach, which [Fortune](https://www.cnbc.com/video/2015/06/26/inside-sonys-hack-of-the-century.html)called, *The Hack of the Century.*
 
 While much of the hype and news around the hack was centered on possible North Korean involvement, what often gets missed is the way it happened. The hackers didn't beat the security system with advanced technology or a fancy decryption algorithm. They simply tricked Sony executives to give them their usernames and passwords.
 
