@@ -65,7 +65,7 @@ Change directory into your project with: `cd blog`
 
 In your root directory create file called `.env` and paste the following into there:
 
-```yaml
+```yml
 DATABASE_HOST={DATABASE_HOST}
 DATABASE_PORT=3306
 DATABASE_NAME={DATABASE_NAME}
@@ -77,7 +77,7 @@ Then you have to replace any of the values with the correct settings for your My
 
 Next. Lets find the `app/config/config.yml` file. Within there you'll find the following:
 
-```yaml
+```yml
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -92,7 +92,7 @@ doctrine:
 
 Replace anything that is wrapped around `'%` and `%'` to contain the DotEnv configurations. So it will look like:
 
-```yaml
+```yml
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -282,11 +282,13 @@ Run: `composer require doctrine/doctrine-migrations-bundle "^1.0"`
 
 In `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
 
-{% highlight php %}new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),{% endhighlight %}
+```php
+new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+```
 
 At the bottom of `app/config/config.yml` add:
 
-```
+```yml
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/DoctrineMigrations"
     namespace: Application\Migrations
