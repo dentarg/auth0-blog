@@ -901,14 +901,15 @@ In our template for this action, we just want the user to have all of the form f
 {% endraw %}
 {% endhighlight %}
 
+You can run now your Symfony application to see if everything is working: `php bin/console server:start`.
+
 ### Including Bootstrap and Styles
 
 As it is, this template will look very ugly in your browser. So let's create a new css file. `web/css/style.css`
 
 Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file.
 
-
-Now it's time to include this file into our base template along with Bootstrap's CSS and Javascript files.
+Now, it's time to include this file into the base template alongside with Bootstrap's CSS and Javascript files.
 
 Open `app/Resources/views/base.html.twig` and replace its contents with:
 
