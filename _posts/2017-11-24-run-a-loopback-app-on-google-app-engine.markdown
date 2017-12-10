@@ -346,24 +346,56 @@ You have seen how to make a model. Do the same for the `Albums` and `Tracks` mod
 The model generator will create `.js` and `.json` files in the application’s common/models directory that define our models.
 
 
-### Connect API to mLab
+### Connect API to Google Cloud Firestore
 
-Now, our models set we will connect our API to a datasource. We are going to use mLab, a cloud-hosted MongoDB. 
+Now, our models set we will connect our API to a datasource. We are going to use Cloud Firestore, a cloud-hosted NoSQL database from Firebase. 
 
-The first thing that we have to do is to head to their website and sign up for a free account. After verifying your email address, create a new deployment and choose the Single Node plan. Next, create a database, choose any name you like. Create a user to connect to the database. Now, at the top of the screen, you will see a box with your connection infomation. Copy the `MongoDB URI`, that is the connection URL, you will be using.
+To use Cloud Firestore, we need to add the Google Cloud Platform account we created earlier to Firebase. Follow these steps to import your Google Cloud Platform project to Firebase:
 
-To connect our API to datasource, run the following command on your terminal:
+* Navigate to [console.firebase.google.com](https://console..firebase.google.com).
+* Click on `Add project`.
+* On the modal that pops up, click the `Project name` dropdown box.
+* Select the Google Platform account, then click on `ADD FIREBASE`.
+* A modal window will show up, click on `Enable API`.
+* On the window that appears, Click on `Try Firestore Beta`.
+* Select `Start in test mode` on the modal that shows up, then click on `Enable`.
+
+Now, we will have a Cloud Firestore database ready for use.
+
+To connect our API to the Cloud Firestore datasource, run the following command on your terminal:
 
 ```sh
 lb datasource
 ```
-It will promt you for a name. Enter `mongodb`. Next, select MongoDB as the connector for mongodb and hit Enter. Go ahead and supply the values for the connection string. 
+Then the data source generator will prompt some questions like
 
-Click Enter for host, port, user, password, and database. And enter Yes to install the `loopback-connector-mongodb` tool.
+```sh
+Enter the data-source name: firestore (Choose your prefered name)
+Select the connector for firestore: other
+Enter the connector's module name loopback-connector-firestore
+Install loopback-connector-firestore (Y/n) Y
+```
+
+Then you should use a service account. Go to [Project Settings > Service Accounts](https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts) in the Google Cloud Platform Console. Generate a new private key and save the JSON file.
+
+You should fill the application's datasource file which is located in `/server/datasources.json` with those details, You can find them in the downloaded JSON file from the Google Cloud Platform.
+
+```sh
+    ...
+    "firestore": {
+        "name": "firestore",
+        "connector": "loopback-connector-firestore",
+        "type": "service_account",
+        "projectId": "<PROJECT_ID>",
+        "privateKey": "-----BEGIN PRIVATE KEY-----<KEY>-----END PRIVATE KEY-----\n",
+        "clientEmail": "<PROJECT_ID>@appspot.gserviceaccount.com"
+    }
+    ...
+```
 
 ![](https://IMAGE_URL_HERE)
 
-Open up `server/model-config.json` and change the value of the `dataSource` property from `db` to `mongodb` for each of the models.
+Open up `server/model-config.json` and change the value of the `dataSource` property from `db` to `firestore` for each of the models.
 
 
 ### Create model collections
@@ -373,7 +405,7 @@ Create a file `server/boot/create-data-tables.js`, and add the following to it:
 
 ```js
 module.exports = function(app) {
-    app.dataSources.mongodb.automigrate('Albums', function(err) {
+    app.dataSources.firestore.automigrate('Albums', function(err) {
         if (err) throw err;
 
         app.models.Albums.create([{
@@ -405,7 +437,7 @@ module.exports = function(app) {
         });
     });
 
-    app.dataSources.mongodb.automigrate('Tracks', function(err) {
+    app.dataSources.firestore.automigrate('Tracks', function(err) {
         if (err) throw err;
 
         app.models.Tracks.create([{
@@ -427,7 +459,7 @@ module.exports = function(app) {
         });
     });
 
-    app.dataSources.mongodb.automigrate('Artists', function(err) {
+    app.dataSources.firestore.automigrate('Artists', function(err) {
         if (err) throw err;
 
         app.models.Artists.create([{
