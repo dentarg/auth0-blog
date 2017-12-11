@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Developing RESTful APIs with HapiJS"
-description: "Learn how to build and secure RESTful APIs with HapiJS"
-date: 2017-12-05 8:30
-category: Technical Guide, JavaScript, HapiJS
+title: "Developing RESTful APIs with Hapi"
+description: "Learn how to build and secure RESTful APIs with Hapi"
+date: 2017-12-11 8:30
+category: Technical Guide, JavaScript, Hapi
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
 author:
@@ -15,8 +15,8 @@ design:
   image: https://cdn.auth0.com/blog/keystonejs/keystonejs-logo.png
   bg_color: "#4A4A4A"
 tags:
-- hapijs
 - hapi
+- hapijs
 - javascript
 - authentication
 - auth
@@ -29,40 +29,55 @@ related:
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 ---
 
-**TL;DR:** In this tutorial, I'll show you how easy it is to build and secure an API with KeystoneJS. Check out the [repo](https://github.com/auth0-blog/hapijs-auth) to get the code.
+**TL;DR:** In this tutorial, I'll show you how easy it is to build and secure an API with Hapi. Check out the [repo](https://github.com/auth0-blog/hapi-auth) to get the code.
 
 ---
 
-**HapiJS** is an open-source and rich Node.js framework created and actively maintained by [Eran Hammer](https://twitter.com/eranhammer). HapiJS is a rich framework for building applications and services. It enables developers to focus on writing reusable application logic instead of spending time building infrastructure. 
+**Hapi** is an open-source and rich Node.js framework created and actively maintained by [Eran Hammer](https://twitter.com/eranhammer). Hapi is a rich framework for building applications and services. It enables developers to focus on writing reusable application logic instead of spending time building infrastructure. 
 
-Several organizations such as _Paypal_, _Vendigo_, _Clarify_, _Pling_, and _Npm_ already use **HapiJS** in production. **HapiJS** is a framework that gives you greater flexibility when compared to other Node.js frameworks. It is also perfect for grounds up development. The [documentation](https://hapijs.com/tutorials) is detailed, and there is a [vibrant](https://gitter.im/hapijs/hapi) [community](http://webchat.freenode.net/?channels=hapi) of users. Furthermore, there are dozens of [plugins](https://hapijs.com/plugins) for virtually any functionality you are trying to build in your application.
+Several organizations such as _Paypal_, _Vendigo_, _Clarify_, _Pling_, and _Npm_ already use **Hapi** in production. **Hapi** is a framework that gives you greater flexibility when compared to other Node.js frameworks. It is also perfect for grounds up development. The [documentation](https://hapijs.com/tutorials) is detailed, and there is a [vibrant](https://gitter.im/hapijs/hapi) [community](http://webchat.freenode.net/?channels=hapi) of users. Furthermore, there are dozens of [plugins](https://hapijs.com/plugins) for virtually any functionality you are trying to build in your application.
 
-## HapiJS Features
+## Hapi Features
 
-**HapiJS** is a simple to use configuration-centric framework that provides a set of amazing built-in functionalities that allows developers build web applications and services quickly and effectively with JavaScript. Check out some of the features below that makes it a worthy framework to consider for your next project.
+**Hapi** is a simple to use configuration-centric framework that provides a set of amazing built-in functionalities that allows developers build web applications and services quickly and effectively with JavaScript. Check out some of the features below that makes it a worthy framework to consider for your next project.
 
 * **Authentication and Authorization**: Hapi ships with built-in authentication and authorization schemes and strategies. Anonymous, basic-auth, cookie-based and token-based authentication schemes are provided in the Node.js framework.
-* **Caching**: HapiJS provides powerful client and server side caching via [catbox](https://www.github.com/hapijs/catbox) and makes using cache very convenient.
-* **Routing**: HapiJS provides a router that allows you to express how your web application or API routes should look like.
-* **Validation**: With `Joi`, object schema validation is a breeze in HapiJS.
-* **Cookies**: HapiJS provides several configuration options for making dealing with cookies flexible, safe and simple.
-* **Logging**: Logging is key when building quality software. HapiJS ships with built-in logging methods.
+* **Caching**: Hapi provides powerful client and server side caching via [catbox](https://github.com/hapijs/catbox) and makes using cache very convenient.
+* **Routing**: Hapi provides a router that allows you to express how your web application or API routes should look like.
+* **Validation**: With `Joi`, object schema validation is a breeze in Hapi.
+* **Cookies**: Hapi provides several configuration options for making dealing with cookies flexible, safe and simple.
+* **Logging**: Logging is key when building quality software. Hapi ships with built-in logging methods.
 * **Simplified Error Handling**: [Boom](https://github.com/hapijs/boom) provides a set of utilities for returning HTTP-friendly error objects.
-* **Process Monitoring**: [Good](https://github.com/hapijs/good) is a HapiJS plugin to monitor and report on a variety of hapi server events as well as ops information from the host machine. It listens for events emitted by hapi server instances and pushes standardized events to a collection of streams.
+* **Process Monitoring**: [Good](https://github.com/hapijs/good) is a Hapi plugin to monitor and report on a variety of hapi server events as well as ops information from the host machine. It listens for events emitted by hapi server instances and pushes standardized events to a collection of streams.
 
-## HapiJS Key Requirements
+## Hapi Key Requirements
 
-In order to use HapiJS, you need to have the following tools installed on your machine.
+In order to use Hapi, you need to have the following tools installed on your machine.
 
 * **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine.
 * **MongoDB**: Navigate to the [mongodb website](https://www.mongodb.com/download-center?ct=false#atlas) and install the MongoDB community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
 * Familiarity with database concepts, and working knowledge of JavaScript.
 
-## HapiJS v17: What's New?
+## Hapi Vs Express
 
-**HapiJS** is now at version 17. This is the latest major release version of the Node.js framework, and it was tagged on November 5, 2017. It's a major rewrite of the HapiJS codebase such as replacing all callbacks with a fully  `async/await` interface and the `reply()` method passed to handlers with the new lifecycle methods. HapiJS v17 requires node v8+. Let's go through the major changes in version 17.
+[Express](https://expressjs.com/) is a very popular and widely used node.js framework. Many developers get introduced to express before they become familiar with other node.js frameworks. Ultimately, the developer weighs express and hapi and decides which framework suits their use case. Express is very minimal. You need to add more packages for several functionalities while Hapi on the other hand provides a robust API for several functionalities out-of-the-box.
 
-* **Single Connection Per Server**: In HapiJS v17, you have a single connection per server. The `server.connection` method has been removed. You need to initialize the connection details with the server's constructor.
+Performance-wise, [Apache Bench](https://httpd.apache.org/docs/2.4/programs/ab.html) was used to test sample apps built with Hapi, Express and other Node.js frameworks. Apache Bench was configured to make 100 requests concurrently until 50,000 requests had completed or 20 seconds had elapsed. The request responses per second were then recorded. Apache Bench and the server were hosted within the same environment to avoid extra factors setting in. And tests were repeated five times in each environment.
+
+* **Framework version**: Hapi v16.1.1 and Express 4.15.2
+* **Test Environment**: The Ubuntu subsystem environment running on Windows 10 PC – 32 GB RAM, i7-4790 CPU and a $20 Digital Ocean VM running Ubuntu 16.04 – 2GB Memory, 2 Cores
+* **Requests per second**: Express - `2875 r/s`, Hapi - `688 r/s` on an Ubuntu VM on Digital Ocean. Express - `1745 r/s`, Hapi - `1094 r/s` on an Ubuntu Subsystem on Windows 10. 
+
+![Performance Results - Hapi, Express](https://raygun.com/blog/wp-content/uploads/2017/04/performance-results-1.png)
+
+Check out the [full performance result and analysis on RayGun](https://raygun.com/blog/node-js-performance-2017/).
+
+
+## Hapi v17: What's New?
+
+**Hapi** is now at version 17. This is the latest major release version of the Node.js framework, and it was tagged on November 5, 2017. It's a major rewrite of the Hapi codebase such as replacing all callbacks with a fully  `async/await` interface and the `reply()` method passed to handlers with the new lifecycle methods. Hapi v17 requires node v8+. Let's go through the major changes in version 17.
+
+* **Single Connection Per Server**: In Hapi v17, you have a single connection per server. The `server.connection` method has been removed. You need to initialize the connection details with the server's constructor.
 
     ```js
     const server = new Hapi.Server({  
@@ -71,7 +86,7 @@ In order to use HapiJS, you need to have the following tools installed on your m
     })
     ```
 
-* **Starting and Stopping Hapi Server**: In HapiJS v17, the `server.start` and `server.stop` methods arw fully async. No more error callbacks.
+* **Starting and Stopping Hapi Server**: In Hapi v17, the `server.start` and `server.stop` methods arw fully async. No more error callbacks.
 
     ```js
     try {  
@@ -89,7 +104,7 @@ In order to use HapiJS, you need to have the following tools installed on your m
     }
     ```
 
-* **reply() Callbacks removed**: In HapiJS v17, the `reply` interface isn’t available anymore and you can return values from route handlers directly. The `response.hold()` and `response.resume()` methods are no longer available. A new response toolkit, `h`, is provided with helpers(instead of the `reply()` decorations).
+* **reply() Callbacks removed**: In Hapi v17, the `reply` interface isn’t available anymore and you can return values from route handlers directly. The `response.hold()` and `response.resume()` methods are no longer available. A new response toolkit, `h`, is provided with helpers(instead of the `reply()` decorations).
 
     ```
     // Before
@@ -113,26 +128,26 @@ More examples on how to use the `h` response toolkit can be found below:
       return 'ok'
 
       // return an object and hapi creates JSON out of it
-      return { name: 'Future Studio', makeItRock: true }
+      return { name: 'Authentication Library', library: true }
 
-      // redirect … to 404 … hehehehe :D
+      // redirect to 404
       return h.redirect('/404')
 
       // return a view
-      return h.view('index', { name: 'Future Studio' })
+      return h.view('index', { name: 'Authentication Library' })
 
       // use the "h" response toolkit to create a response
       return h
-        .response(someHTML)
+        .response(thisHTML)
         .type('text/html')
         .header('X-Custom', 'my-value')
         .code(201)
     }
     ```
 
-* **Events**: In HapiJS v17, the three request event types(`request`, `request-interval`, and `request-error`) have been merged into a single `request` event. Emitter methods such as `server.on`, `request.on`, `response.on` should be replaced with `server.events.on()`, `request.events.on()`, and `response.events.on()` respectively. Applies to every emitter method.
+* **Events**: In Hapi v17, the three request event types(`request`, `request-interval`, and `request-error`) have been merged into a single `request` event. Emitter methods such as `server.on`, `request.on`, `response.on` should be replaced with `server.events.on()`, `request.events.on()`, and `response.events.on()` respectively. Applies to every emitter method.
 
-* **New Request Extension: onCredentials**: Before now, HapiJS had `onPreAuth` and `onPostAuth`. In HapiJS v17, there's a new request extension, `onCredentials`. With `onCredentials`, you have the ability to customize credentials before request authorization.
+* **New Request Extension: onCredentials**: Before now, Hapi had `onPreAuth` and `onPostAuth`. In Hapi v17, there's a new request extension, `onCredentials`. With `onCredentials`, you have the ability to customize credentials before request authorization.
 
     ```js
     server.ext('onPreAuth', (request, h) => { … })  
@@ -140,7 +155,7 @@ More examples on how to use the `h` response toolkit can be found below:
     server.ext('onPostAuth', (request, h) => { … })  ]
     ````
 
-* **Replace `config` with `options` in Route definition**: In HapiJS v17, replace `config` with `options` when adding routes. For now, `config` will still work but will be removed in the future.
+* **Replace `config` with `options` in Route definition**: In Hapi v17, replace `config` with `options` when adding routes. For now, `config` will still work but will be removed in the future.
 
     ```js
     server.route({  
@@ -150,14 +165,14 @@ More examples on how to use the `h` response toolkit can be found below:
     })
     ```
 
-* **Plugins**: In HapiJS v17, the plugin function with object properties style has been replaced with a plain object. Replace the `exports.register()` and the matching `exports.register.attributes` with `exports.plugin = { register, name, version, multiple, dependencies, once, pkg }` and remove the `connections` attribute.
+* **Plugins**: In Hapi v17, the plugin function with object properties style has been replaced with a plain object. Replace the `exports.register()` and the matching `exports.register.attributes` with `exports.plugin = { register, name, version, multiple, dependencies, once, pkg }` and remove the `connections` attribute.
 
 Check out the full release note on [GitHub](https://github.com/hapijs/hapi/issues/3658).
 
 
-## Building a Dog API With HapiJS
+## Building a Dog API With Hapi
 
-Let's build a Dog API with HapiJS. The design of this API is simple. It's an API to manage the collection of dogs. For the purpose of the tutorial, the data will be very limited, but I'll put the API structure in place and you'll learn how to secure it.
+Let's build a Dog API with Hapi. The design of this API is simple. It's an API to manage the collection of dogs. For the purpose of the tutorial, the data will be very limited, but I'll put the API structure in place and you'll learn how to secure it.
 
 A few core API principles you should be aware of:
 
@@ -420,7 +435,7 @@ _Dog DELETE operation_
 
 Our API works. Awesome!
 
-## Securing a Star Wars API with Auth0
+## Securing a Dog API with Auth0
 
 Right now, anyone can make `GET` and `POST` requests to all of the endpoints present in our API. In a real-world scenario, we should restrict `POST`, `DELETE` and `PUT` requests to certain registered and authorized users.
 
@@ -447,7 +462,7 @@ Login to your Auth0 [management dashboard](https://manage.auth0.com) and create 
 
 Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want.
 
-The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Star Wars API**, and for the identifier I'll set it as **https://starwarsapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
+The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Dog API**, and for the identifier I'll set it as **https://mydogapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
 
 ![New API to be created](https://cdn.auth0.com/blog/loopback/newapitobecreated.png)
 _Create a New API_
@@ -455,111 +470,138 @@ _Create a New API_
 ![Star Wars API](https://cdn.auth0.com/blog/loopback/starwarsapi.png)
 _Creating the Star Wars API_
 
-![Define the scopes](https://cdn.auth0.com/blog/loopback/starwarscope.png)
-_You can define scopes in this section_
 
 Head over to your terminal and install the following node modules:
 
 ```bash
-npm install express-jwt jwks-rsa --save
+npm install jwks-rsa salzhrani/hapi-auth-jwt2#v-17 --save
 ```
 
-Open your `routes/index.js` file. Just before the route bindings, add this code:
+Open your `routes/index.js` file and modify it like so:
 
 ```js
-...
-var authCheck = jwt({
-  secret: jwks.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        // YOUR-AUTH0-DOMAIN name e.g https://prosper.auth0.com
-        jwksUri: "{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
+'use strict';
+
+const Hapi = require('hapi');
+const mongoose = require('mongoose');
+const hapiAuthJWT = require('hapi-auth-jwt2');
+const jwksRsa = require('jwks-rsa');
+const DogController =  require('./src/controllers/dog');
+const MongoDBUrl = 'mongodb://localhost:27017/dogapi';
+
+const server = new Hapi.Server({
+  port: 3000,
+  host: 'localhost'
+});
+
+
+const validateUser = (decoded, request, callback) => {
+  // This is a simple check that the `sub` claim
+  // exists in the access token. Modify it to suit
+  // the needs of your application
+  console.log("Decoded", decoded);
+  if (decoded && decoded.sub) {
+    return callback(null, true, {});
+  }
+
+  return callback(null, false, {});
+}
+
+const registerRoutes = () => {
+  server.route({
+    method: 'GET',
+    path: '/dogs',
+    options: {
+      handler: DogController.list
+    }
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/dogs/{id}',
+    options: {
+      handler: DogController.get
+    }
+  });
+
+  server.route({
+    method: 'POST',
+    path: '/dogs',
+    handler: DogController.create
+  });
+
+  server.route({
+    method: 'PUT',
+    path: '/dogs/{id}',
+    handler: DogController.update
+  });
+
+  server.route({
+    method: 'DELETE',
+    path: '/dogs/{id}',
+    handler: DogController.remove
+  });
+}
+
+const init = async() => {
+  await server.register(hapiAuthJWT);
+  // see: http://Hapi.com/api#serverauthschemename-scheme
+  server.auth.strategy('jwt', 'jwt', { 
+    key: jwksRsa.hapiJwt2Key({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      // YOUR-AUTH0-DOMAIN name e.g https://prosper.auth0.com
+      jwksUri: '{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json'
     }),
-    // This is the identifier we set when we created the API
-    audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
-    issuer: '{YOUR-AUTH0-DOMAIN}',
-    algorithms: ['RS256']
+    verifyOptions: { 
+      audience: '{YOUR-API-AUDIENCE-ATTRIBUTE}',
+      issuer: "{YOUR-AUTH0-DOMAIN}",
+      algorithms: ['RS256']
+    },
+    validate: validateUser
+  });
+
+  server.auth.default('jwt');
+
+  registerRoutes();
+
+  await server.start();
+  return server;
+
+};
+
+init().then(server => {
+  console.log('Server running at:', server.info.uri);
+}).catch(err => {
+  console.log(err);
 });
 ```
 
-Also, make sure you require the `express-jwt` and `jwks-rsa` modules at the top of the file.
-
-```js
-var jwt = require('express-jwt');
-var jwks = require('jwks-rsa');
-```
-
-Add the `authCheck` function to the endpoints as a middleware like so:
-
-```js
-// Setup Route Bindings
-exports = module.exports = function (app) {
-  // Views
-  app.get('/', routes.views.index);
-
-  // API
-  app.get('/api/people', routes.api.people.list);
-  app.get('/api/people/:id', routes.api.people.get);
-  app.post('/api/people', authCheck, routes.api.people.create);
-  app.put('/api/people/:id', authCheck, routes.api.people.update);
-  app.delete('/api/people/:id', authCheck, routes.api.people.remove);
-
-  app.get('/api/planets', routes.api.planet.list);
-  app.get('/api/planets/:id', routes.api.planet.get);
-  app.post('/api/planets', authCheck, routes.api.planet.create);
-  app.put('/api/planets/:id', authCheck, routes.api.planet.update);
-  app.delete('/api/planets/:id', authCheck, routes.api.planet.remove);
-
-  app.get('/api/starships', routes.api.starship.list);
-  app.get('/api/starships/:id', routes.api.starship.get);
-  app.post('/api/starships', authCheck, routes.api.starship.create);
-  app.put('/api/starships/:id', authCheck, routes.api.starship.update);
-  app.delete('/api/starships/:id', authCheck, routes.api.starship.remove);
-
-
-  // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-  // app.get('/protected', middleware.requireUser, routes.views.protected);
-
-};
-```
-
-* The `express-jwt` module is an express middleware that validates a JSON Web Token and set the `req.user` with the attributes.
+* The `hapi-auth-jwt2` module is a library that validates a JSON Web Token in your headers, query or cookies for your application. At the time of this writing, a [PR](https://github.com/dwyl/hapi-auth-jwt2/pull/249) has been submitted to support Hapi v17. We can only make use of the repo by installing it via the GitHub repo.
 * The `jwks-rsa` module is a library that helps retrieve RSA public keys from a JSON Web Key Set endpoint.
 
-The `authCheck` variable does the check to validate the access tokens that are sent as Authorization headers. It validates the `audience`, `issuer` and algorithm used to sign the token.
+The `validate` function validates the API for any scopes defined in the token. In this example, we did not explicitly define any scope.
 
 **Note:** Replace the `YOUR-API-AUDIENCE-ATTRIBUTE` and `YOUR-AUTH0-DOMAIN` placeholders with the API audience and Auth0 domain values from your Auth0 dashboard.
 
 We just secured all the `post`, `put`, and `delete` API endpoints with JWT. If a user accesses these API endpoint/route without a valid access token or no token at all, it returns an error. Try it out.
 
-![Invalid token](https://cdn.auth0.com/blog/keystonejs/authorizationerror.png)
-_Accessing the POST people endpoint without an access token_
+![Invalid/No token](https://cdn.auth0.com/blog/hapi/missing-authentication.png)
+_Accessing the GET people endpoint without an access token_
 
-Now, let's test it with a valid access token. Head over to the `test` tab of your newly created API on your Auth0 dashboard.
+Go ahead and test it with a valid access token. Head over to the `test` tab of your newly created API on your Auth0 dashboard.
 
 Grab the Access token from the _Test_ tab
 
 ![Get the Access token](https://cdn.auth0.com/blog/keystonejs/gettoken.png)
 _Grab the Access Token_
 
-Now use this `access token` in Postman by sending it as an Authorization header to make a POST request to `api/people` endpoint.
-
-![Accessing the endpoint securely](https://cdn.auth0.com/blog/keystonejs/authorizationbearer.png)
-_Accessing the endpoint securely_
-
-It validates the access token and successfully makes the POST request.
-
-Wondering how to integrate the secure API with a frontend? Check out our amazing [React](https://auth0.com/blog/reactjs-authentication-tutorial/) and [Vue.js authentication tutorials](https://auth0.com/blog/vuejs2-authentication-tutorial/).
-
+Now use this `access token` in Postman by sending it as an Authorization header to make a GET request to `/dogs` endpoint. It validates the access token and successfully makes the GET request.
 
 ## Conclusion
 
-Well done! You have learned how to build a blog and an API with KeystoneJS. The KeystoneJS tutorial focuses on building a content management system as fast as possible and fleshing out secure APIs.
-
-KeystoneJS definitely saves a developer a lot of time during development because of the amazing out-of-the-box features.
-
-{% include tweet_quote.html quote_text="KeystoneJS definitely saves a developer a lot of time during development because of the amazing out-of-the-box features." %}
+You have successfully learned how to build and secure an API with Hapi. A lot of changes were made in the latest release of Hapi (v17). And there are several organizations to thank for supporting FOSS. The active sponsors were [Lob](http://bit.ly/lobh-rn), [Auth0](https://auth0.com), **CNN Digital**, [Contentful](https://www.contentful.com), [Creative Artists Agency](http://www.caa.com) and [Conde Nast Technology](http://bit.ly/cn-rn).
 
 In addition, Auth0 can help secure your **API** easily. Auth0 provides more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
 
