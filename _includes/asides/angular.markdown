@@ -1,14 +1,14 @@
-## Aside: Authenticate an Angular App and Node API with Auth0
+## Aside: Authenticate a Vue App and Node API with Auth0
 
-We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with an Angular application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [angular-auth0-aside repo on GitHub](https://github.com/auth0-blog/angular-auth0-aside).
+We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with a Vue application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [vue-auth0-aside repo on GitHub](https://github.com/auth0-blog/vue-auth0-aside).
 
 ![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 ### Features
 
-The [sample Angular application and API](https://github.com/auth0-blog/angular-auth0-aside) has the following features:
+The [sample Vue application and API](https://github.com/auth0-blog/vue-auth0-aside) has the following features:
 
-* Angular application generated with [Angular CLI](https://github.com/angular/angular-cli) and served at [http://localhost:4200](http://localhost:4200)
+* Vue application generated with [Angular CLI](https://github.com/angular/angular-cli) and served at [http://localhost:4200](http://localhost:4200)
 * Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a centralized login page
 * Node server protected API route `http://localhost:3001/api/dragons` returns JSON data for authenticated `GET` requests
 * Angular app fetches data from API once user is authenticated with Auth0
