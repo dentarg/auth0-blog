@@ -12,10 +12,11 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/keystonejs/keystonejs-logo.png
-  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/hapi/hapi-logo-1.png
+  bg_color: "#4F4D40"
 tags:
 - hapi
+- hapi-17
 - hapijs
 - javascript
 - authentication
@@ -29,7 +30,7 @@ related:
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 ---
 
-**TL;DR:** In this tutorial, I'll show you how easy it is to build and secure an API with Hapi. Check out the [repo](https://github.com/auth0-blog/hapi-auth) to get the code.
+**TL;DR:** In this tutorial, I'll show you how easy it is to build and secure an API with Hapi. Check out the [repo](https://github.com/auth0-blog/hapi-dog-api) to get the code.
 
 ---
 
