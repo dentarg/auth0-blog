@@ -35,7 +35,7 @@ related:
 
 **Hapi** is an open-source and rich Node.js framework created and actively maintained by [Eran Hammer](https://twitter.com/eranhammer). Hapi is a rich framework for building applications and services. It enables developers to focus on writing reusable application logic instead of spending time building infrastructure. 
 
-Several organizations such as _Paypal_, _Vendigo_, _Clarify_, _Pling_, and _Npm_ already use **Hapi** in production. **Hapi** is a framework that gives you greater flexibility when compared to other Node.js frameworks. It is also perfect for grounds up development. The [documentation](https://hapijs.com/tutorials) is detailed, and there is a [vibrant](https://gitter.im/hapijs/hapi) [community](http://webchat.freenode.net/?channels=hapi) of users. Furthermore, there are dozens of [plugins](https://hapijs.com/plugins) for virtually any functionality you are trying to build in your application.
+Several organizations such as _Paypal_, _Vendigo_, _Clarify_, _Pling_, and _Npm_ already use **Hapi** in production. **Hapi** is a framework that gives you greater flexibility when compared to other Node.js frameworks. It is also perfect for grounds up development. The [documentation](https://hapijs.com/tutorials) is detailed, and there is a [vibrant](https://gitter.im/hapijs/hapi) [community](http://webchat.freenode.net/?channels=hapi) of users. Furthermore, there are dozens of [plugins](https://hapijs.com/plugins) for virtually any feature you are trying to build into your application.
 
 ## Hapi Features
 
@@ -60,7 +60,7 @@ In order to use Hapi, you need to have the following tools installed on your mac
 
 ## Hapi Vs Express
 
-[Express](https://expressjs.com/) is a very popular and widely used node.js framework. Many developers get introduced to express before they become familiar with other node.js frameworks. Ultimately, the developer weighs express and hapi and decides which framework suits their use case. Express is very minimal. You need to add more packages for several functionalities while Hapi on the other hand provides a robust API for several functionalities out-of-the-box.
+[Express](https://expressjs.com/) is a very popular and widely used node.js framework. Many developers get introduced to express before they become familiar with other node.js frameworks. Ultimately, the developer weighs express and hapi and decides which framework suits their use case. Express is very minimal. You need to add more packages for several functionalities while Hapi, on the other hand, provides a robust API for several functionalities out-of-the-box.
 
 Performance-wise, [Apache Bench](https://httpd.apache.org/docs/2.4/programs/ab.html) was used to test sample apps built with Hapi, Express and other Node.js frameworks. Apache Bench was configured to make 100 requests concurrently until 50,000 requests had completed or 20 seconds had elapsed. The request responses per second were then recorded. Apache Bench and the server were hosted within the same environment to avoid extra factors setting in. And tests were repeated five times in each environment.
 
@@ -86,7 +86,7 @@ Check out the [full performance result and analysis on RayGun](https://raygun.co
     })
     ```
 
-* **Starting and Stopping Hapi Server**: In Hapi v17, the `server.start` and `server.stop` methods arw fully async. No more error callbacks.
+* **Starting and Stopping Hapi Server**: In Hapi v17, the `server.start` and `server.stop` methods are fully async. No more error callbacks.
 
     ```js
     try {  
@@ -447,10 +447,10 @@ Whenever the user wants to access a protected route or resource (an endpoint), t
 
 When the API receives a request with a JWT, the first thing it does is to validate the token. This consists of a series of steps, and if any of these fails then, the request must be rejected. The following list shows the validation steps needed:
 
-* Check that the JWT is well formed
-* Check the signature
-* Validate the standard claims
-* Check the Client permissions (scopes)
+* Check that the JWT is well-formed.
+* Check the signature.
+* Validate the standard claims.
+* Check the Client permissions (scopes).
 
 We will make use of Auth0 to issue our JSON Web Tokens. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
 
@@ -462,7 +462,7 @@ Login to your Auth0 [management dashboard](https://manage.auth0.com) and create 
 
 Click on the APIs menu item and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want.
 
-The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Dog API**, and for the identifier I'll set it as **https://mydogapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
+The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API, **Dog API**, and for the identifier, I'll set it as **https://mydogapi.com**. We'll leave the signing algorithm as **RS256** and click on the **Create API** button.
 
 ![New API to be created](https://cdn.auth0.com/blog/loopback/newapitobecreated.png)
 _Create a New API_
