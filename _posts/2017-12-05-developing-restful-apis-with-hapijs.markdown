@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Developing RESTful APIs with Hapi"
-description: "Learn how to build and secure RESTful APIs with Hapi"
+description: "Hapi 17 brings major changes to the server framework for Node.js. Learn what's new and how to build and secure RESTful APIs with Hapi"
 date: 2017-12-11 8:30
 category: Technical Guide, JavaScript, Hapi
 banner:
