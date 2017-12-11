@@ -37,9 +37,13 @@ related:
 
 Several organizations such as _Paypal_, _Vendigo_, _Clarify_, _Pling_, and _Npm_ already use **Hapi** in production. **Hapi** is a framework that gives you greater flexibility when compared to other Node.js frameworks. It is also perfect for grounds up development. The [documentation](https://hapijs.com/tutorials) is detailed, and there is a [vibrant](https://gitter.im/hapijs/hapi) [community](http://webchat.freenode.net/?channels=hapi) of users. Furthermore, there are dozens of [plugins](https://hapijs.com/plugins) for virtually any feature you are trying to build into your application.
 
+{% include tweet_quote.html quote_text="Hapi is a framework that gives you greater flexibility when compared to other Node.js frameworks." %}
+
 ## Hapi Features
 
 **Hapi** is a simple to use configuration-centric framework that provides a set of amazing built-in functionalities that allows developers build web applications and services quickly and effectively with JavaScript. Check out some of the features below that makes it a worthy framework to consider for your next project.
+
+{% include tweet_quote.html quote_text="Hapi is a simple to use configuration-centric framework that provides a set of amazing built-in functionalities that allows developers build web applications and services quickly." %}
 
 * **Authentication and Authorization**: Hapi ships with built-in authentication and authorization schemes and strategies. Anonymous, basic-auth, cookie-based and token-based authentication schemes are provided in the Node.js framework.
 * **Caching**: Hapi provides powerful client and server side caching via [catbox](https://github.com/hapijs/catbox) and makes using cache very convenient.
