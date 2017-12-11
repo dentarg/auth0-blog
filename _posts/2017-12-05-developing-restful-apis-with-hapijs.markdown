@@ -24,7 +24,7 @@ tags:
 - restful
 - api
 related:
-- 2017-09-19-building-an-app-with-Nette-and-adding-authentication
+- 2017-10-10-developing-web-apps-and-restful-apis-with-keystonejs
 - 2017-09-07-developing-restful-apis-with-loopback
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 ---
