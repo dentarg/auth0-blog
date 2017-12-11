@@ -2,7 +2,7 @@
 layout: post
 title: "Authentication Provider Best Practices: Centralized Login"
 description: "Learn why centralized login is the most secure, standards-based strategy when authenticating with a provider."
-date: 2017-12-07 8:30
+date: 2017-12-12 8:30
 category: Technical guide, Centralized login
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -12,8 +12,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/a208cda2b3b21dc8d7896507f5ff60fc"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/centralized-login/logo.png
+  bg_color: "#420973"
 tags:
 - login
 - authentication
@@ -53,6 +53,8 @@ High standards of security and ease of use have been set for modern authenticati
 ## Why Centralized Login is a Long-Term Investment
 
 Let's look at a hypothetical example using a timeline from an imaginary company. Let's say our make-believe company, "SourceCentral", provides public and private source control repository hosting. Their timeline looks something like this:
+
+![Hypothetical timeline for a service switching to centralized login](https://cdn.auth0.com/blog/centralized-login/timeline.png)
 
 * **Year 0: Launch!** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs, since we are still small and only have one service.
 * **Year 1: Going native** Lots of people have signed up and outlook is great! People love our service. We are launching native Android and iOS mobile apps as well as desktop apps for Windows and MacOS, and we need to implement login for all of them.
