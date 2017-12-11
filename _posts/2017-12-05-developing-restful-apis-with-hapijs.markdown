@@ -42,13 +42,13 @@ Several organizations such as _Paypal_, _Vendigo_, _Clarify_, _Pling_, and _Npm_
 
 ## Hapi Features
 
-**Hapi** is a simple to use configuration-centric framework that provides a set of amazing built-in functionalities that allows developers build web applications and services quickly and effectively with JavaScript. Check out some of the features below that makes it a worthy framework to consider for your next project.
+**Hapi** is a simple to use configuration-centric framework that provides an amazing set of built-in functionality, which allows developers build web applications and services quickly and effectively with JavaScript. Check out some of the features below that makes it a worthy framework to consider for your next project.
 
 {% include tweet_quote.html quote_text="Hapi is a simple to use configuration-centric framework that provides a set of amazing built-in functionalities that allows developers build web applications and services quickly." %}
 
 * **Authentication and Authorization**: Hapi ships with built-in authentication and authorization schemes and strategies. Anonymous, basic-auth, cookie-based and token-based authentication schemes are provided in the Node.js framework.
 * **Caching**: Hapi provides powerful client and server side caching via [catbox](https://github.com/hapijs/catbox) and makes using cache very convenient.
-* **Routing**: Hapi provides a router that allows you to express how your web application or API routes should look like.
+* **Routing**: Hapi provides a router that allows you to express how your web application or API routes should look.
 * **Validation**: With `Joi`, object schema validation is a breeze in Hapi.
 * **Cookies**: Hapi provides several configuration options for making dealing with cookies flexible, safe and simple.
 * **Logging**: Logging is key when building quality software. Hapi ships with built-in logging methods.
@@ -61,7 +61,7 @@ In order to use Hapi, you need to have the following tools installed on your mac
 
 * **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine.
 * **MongoDB**: Navigate to the [mongodb website](https://www.mongodb.com/download-center?ct=false#atlas) and install the MongoDB community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
-* Familiarity with database concepts, and working knowledge of JavaScript.
+* Familiarity with database concepts, and a working knowledge of JavaScript.
 
 ## Hapi Vs Express
 
@@ -111,7 +111,7 @@ Check out the [full performance result and analysis on RayGun](https://raygun.co
 
 * **reply() Callbacks removed**: In Hapi v17, the `reply` interface isn’t available anymore and you can return values from route handlers directly. The `response.hold()` and `response.resume()` methods are no longer available. A new response toolkit, `h`, is provided with helpers(instead of the `reply()` decorations).
 
-    ```
+    ```js
     // Before
 
     const handler = function (request, reply) {
@@ -201,7 +201,7 @@ A dog will have the following attributes:
 * age
 * image
 
-Create an `src` directory in the root folder. Move into the `src` directory and create two folders, `controllers` and `models` respectively.
+Create a `src` directory in the root folder. Move into the `src` directory and create two folders, `controllers` and `models` respectively.
 
 * The `controllers` folder will house the logic of saving and retrieving data from the database.
 * The `models` folder will house the schema for the Dog API.
@@ -348,11 +348,11 @@ Let's analyze the code above. We have four functions in the `src/controllers/dog
 
 For example, if you make a POST request to `/dog` API endpoint, the `create` function will be invoked.
 
-- The `list` function checks the document for all the resources for an API endpoint.
-- The `create` function creates a new resource for an API endpoint.
-- The `get` function checks the document store for a single resource for an API endpoint.
-- The `update` function checks if a resource exists and allows the resource to be updated for an API endpoint.
-- The `remove` function checks if a resource exists and deletes it for an API endpoint.
+- The `list` function checks the document for all the resources.
+- The `create` function creates a new resource.
+- The `get` function checks the document store for a single resource.
+- The `update` function checks if a resource exists and allows the resource to be updated.
+- The `remove` function checks if a resource exists and deletes it.
 
 Now, we need to map these functions to the API routes for a functional API to exist. Head over to the `server.js` file and modify it like so:
 
@@ -472,8 +472,8 @@ The identifier will be used to identify your API, this field cannot be changed o
 ![New API to be created](https://cdn.auth0.com/blog/loopback/newapitobecreated.png)
 _Create a New API_
 
-![Star Wars API](https://cdn.auth0.com/blog/loopback/starwarsapi.png)
-_Creating the Star Wars API_
+![Dog API](https://cdn.auth0.com/blog/hapi/dogsapi.png)
+_Creating the Dog API_
 
 
 Head over to your terminal and install the following node modules:
