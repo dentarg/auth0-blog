@@ -138,6 +138,8 @@ Keep the default on `Configuration format`, but this next step we need to add al
 
 __NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/AuthorRepository.php).
 
+{% include tweet_quote.html quote_text="Doctrine is a great tool to have around when developing with PHP and Symfony." %}
+
 ### Creating a New BlogPost Entity
 
 Create new `BlogPost` entity by running the following command `php bin/console doctrine:generate:entity`
@@ -1100,6 +1102,8 @@ Open the file `app/Resources/views/default/index.html.twig` and replace its enti
 {% endhighlight %}
 
 As you can see, now we provide a link so that unauthenticated users can log in. If they are logged in, two links are shown: one to log out and one to access the admin section.
+
+{% include tweet_quote.html quote_text="Using Symfony and OAuth together is quite easy." %}
 
 ## Next Steps
 
