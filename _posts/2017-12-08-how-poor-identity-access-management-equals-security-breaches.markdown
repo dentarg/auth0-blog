@@ -27,19 +27,19 @@ Fort Knox, built in 1935, is the most secure place on Earth. The perimeter of th
 
 ![Fort Knox fun facts and the defense.](https://cdn.auth0.com/blog/poor-identity/fort-knox-secrets-fun-facts-and-the-defense.jpg)
 
-While the perimeter security seems impenetrable, that is not what makes Fort Knox so undesirable to thieves. The major reason there has never even been a breach is due to Fort Knox's strict identity access management (IAM) policy.
+While the perimeter security seems impenetrable, that is not what makes Fort Knox so undesirable to thieves. The major reason there has never even been a breach is due to Fort Knox's strict Identity Access Management (IAM) policy.
 
 To ensure there is never a breach, no one person has access to the safe's combination. Rather, the code is distributed among a group of high-level officials that are never there at the same time. Even if a group of highly trained ninjas was able to somehow infiltrate the fortress, no one could access the gold there.
 
 ![Ninja hacking](https://cdn.auth0.com/blog/poor-identity/8dc30fc519280aac21a03d7a118f4b7a_600.jpg)
 
-Companies need to strengthen their own IAM approach for similar reasons. Most cybercriminals are not hacking ninjas who try to break through your complex, super secure firewalls. They simply steal an employee's credentials and walk right in.
+Companies need to strengthen their own Identity Access Management approach for similar reasons. Most cybercriminals are not hacking ninjas who try to break through your complex, super secure firewalls. They simply steal an employee's credentials and walk right in.
 
 Here are 3 data breaches to some of the world's strongest cybersecurity systems that could have been prevented with stronger identity access management.
 
 ## 1. How the #1 Cyber Security Consultancy in the World Left a Key in the Door
 
-Deloitte, one of the world’s largest accountancy firms with over $38 billion in revenue, has been ranked #1 in cybersecurity consulting by Gartner for 5 years in a row. And they just experienced a [major data breach due to poor IAM](https://www.theguardian.com/business/2017/sep/25/deloitte-hit-by-cyber-attack-revealing-clients-secret-emails).
+Deloitte, one of the world’s largest accountancy firms with over $38 billion in revenue, has been ranked #1 in cybersecurity consulting by Gartner for 5 years in a row. And they just experienced a [major data breach due to poor Identity Access Management](https://www.theguardian.com/business/2017/sep/25/deloitte-hit-by-cyber-attack-revealing-clients-secret-emails).
 
 As an accounting company with terabytes of sensitive financial and personal data, Deloitte has a robust, multi-layered security system. They have the resources to buy and implement every security measure available, yet the hackers were able to bypass it all with a simple password.
 
@@ -55,13 +55,13 @@ Deloitte's lack of identity access management left them extremely vulnerable. Th
 
 Millions of passwords are compromised every day. Even if you lose credentials through a phishing scheme or a lost device, [two-factor authentication (2FA)](https://auth0.com/learn/two-factor-authentication/) makes it really difficult for thieves to gain access.
 
-Deloitte's data breach could have been easily prevented with 2FA, which is a standard IAM best practice used by companies of all sizes, including small businesses. When a password is compromised, two-factor authentication protects access by requiring a second set of information, such as an SMS code or a fingerprint.
+Deloitte's data breach could have been easily prevented with 2FA, which is a standard Identity Access Management best practice used by companies of all sizes, including small businesses. When a password is compromised, two-factor authentication protects access by requiring a second set of information, such as an SMS code or a fingerprint.
 
 ![Multifactor authentication with fingerprint.](https://cdn.auth0.com/blog/poor-identity/tfa-what.png)
 
 2FA is so effective, [experts believe](https://www.slideshare.net/cheapsslsecurity/vip-strong-authentication-no-passwords-infographic-by-symantec) that 80% of breaches, including Deloitte, could have been avoided if they had implemented 2FA. In the same way no one person has the complete code to Fort Knox's safe, the safety of your valuable data should not hinge on a single password.
 
-While implementing 2FA for a large organization can seem like an overwhelming internal project, some of the biggest companies in the world are saving time and money by partnering with third-party IAM technologies like Auth0 that have 2FA [already built in](https://auth0.com/learn/two-factor-authentication/).
+While implementing 2FA for a large organization can seem like an overwhelming internal project, some of the biggest companies in the world are saving time and money by partnering with third-party Identity Access Management technologies like Auth0 that have 2FA [already built in](https://auth0.com/learn/two-factor-authentication/).
 
 ## 2. How Hackers Spent 229 Days Inside One of the Largest eCommerce Platforms
 
@@ -71,11 +71,11 @@ During that time, they had inside access to search for the most sensitive and va
 
 ![ebay asking users to reset their password](https://cdn.auth0.com/blog/poor-identity/ebay-password.jpg)
 
-Hackers obtained stolen credentials through an elaborate [social engineering](http://blog.trendmicro.com/social-engineering-attacks-rise-part-1-ebay-breach/) scheme, which could have been prevented with stronger IAM tools like 2FA and [password encryption](https://auth0.com/rules/encrypt-sensitive-data). But the more troubling aspect of this incident was that eBay did not detect the unauthorized users behind their firewall for 229 days.
+Hackers obtained stolen credentials through an elaborate [social engineering](http://blog.trendmicro.com/social-engineering-attacks-rise-part-1-ebay-breach/) scheme, which could have been prevented with stronger Identity Access Management tools like 2FA and [password encryption](https://auth0.com/rules/encrypt-sensitive-data). But the more troubling aspect of this incident was that eBay did not detect the unauthorized users behind their firewall for 229 days.
 
 ### Track User Actions and Behaviors
 
-One of the most important benefits of an IAM technology is the ability to track your user's behavior throughout the system. Seeing where your users are in the system gives you more insight into what applications and data they are accessing, but more importantly, it can alert you to any sudden changes in the behavior.
+One of the most important benefits of an Identity Access Management technology is the ability to track your user's behavior throughout the system. Seeing where your users are in the system gives you more insight into what applications and data they are accessing, but more importantly, it can alert you to any sudden changes in the behavior.
 
 [Anomaly detection](https://auth0.com/docs/anomaly-detection) identifies suspicious activity such as a login from a new IP address or multiple failed password attempts. If the eBay hackers were accessing the system from an unauthorized IP address or displaying erratic behavior, user tracking would have flagged the occurrence much sooner.
 
@@ -83,7 +83,7 @@ One of the most important benefits of an IAM technology is the ability to track 
 
 In addition, the ability to track your users provides an audit trail. If there ever is a breach, you have the data to quickly identify how it happened and then work to troubleshoot and minimize the damage.
 
-With a tool like Auth0, which was designed to track user behavior across applications, your IT team never has to worry about updating or building new IAM capabilities as your systems change and network expands.
+With a tool like Auth0, which was designed to track user behavior across applications, your IT team never has to worry about updating or building new Identity Access Management capabilities as your systems change and network expands.
 
 ## 3. How Hackers Tricked Top Movie Executives to Give Them Access
 
@@ -105,20 +105,20 @@ Hackers steal credentials all the time, which is why security-aware companies pu
 
 Auth0 provides an intuitive way to customize the login process by utilizing the [rules feature](https://auth0.com/university/1/4/how-to-use-auth0-s-rules-feature). You can configure logins to limit people by location by using geolocation data that is set per user. If the hackers were accessing the data from a different location, Sony would have been notified by the system.
 
-As for phishing schemes, the first line of defense in strengthening your IAM is not always technology, it's [employee training and awareness](https://auth0.com/blog/4-security-measures-after-data-breach/). In [almost every](https://www.csoonline.com/article/3225471/security/please-dont-send-me-to-cybersecurity-training.html) data breach, there is some aspect of human error.
+As for phishing schemes, the first line of defense in strengthening your Identity Access Management is not always technology, it's [employee training and awareness](https://auth0.com/blog/4-security-measures-after-data-breach/). In [almost every](https://www.csoonline.com/article/3225471/security/please-dont-send-me-to-cybersecurity-training.html) data breach, there is some aspect of human error.
 
 ![Employee training and awareness about phishing schemes](https://cdn.auth0.com/blog/poor-identity/legit-or-scheme-2.png)
 
-A strong IAM approach requires a mix of informed employees and the technology tools to initiate, track and manage user identities and their access permissions across your entire network.
+A strong Identity Access Management approach requires a mix of informed employees and the technology tools to initiate, track and manage user identities and their access permissions across your entire network.
 
-{% include tweet_quote.html quote_text="A strong IAM approach requires a mix of informed employees and tools to initiate, track and manage user identities." %}
+{% include tweet_quote.html quote_text="A strong Identity Access Management approach requires a mix of informed employees and tools to initiate, track and manage user identities." %}
 
-## Your Expensive Cybersecurity is only as Strong as Your IAM
+## Your Expensive Cybersecurity is only as Strong as Your Identity Access Management
 
 Fort Knox has the most advanced weapons and security measures in the world guarding its gold. So why would the U.S. government take the extra step to create an identity access management layer to protect its $1 trillion?
 
 When identity is compromised, advanced perimeter security is not enough.
 
-Companies are going to spend over [_$100 billion_](https://www.forbes.com/sites/stevemorgan/2015/12/20/cybersecurity%E2%80%8B-%E2%80%8Bmarket-reaches-75-billion-in-2015%E2%80%8B%E2%80%8B-%E2%80%8Bexpected-to-reach-170-billion-by-2020/#3e459f3330d6) on cybersecurity this year to fortify their systems to be as strong as Fort Knox, but without a strong IAM strategy, they could be building a very strong fortress while forgetting to lock the door.
+Companies are going to spend over [_$100 billion_](https://www.forbes.com/sites/stevemorgan/2015/12/20/cybersecurity%E2%80%8B-%E2%80%8Bmarket-reaches-75-billion-in-2015%E2%80%8B%E2%80%8B-%E2%80%8Bexpected-to-reach-170-billion-by-2020/#3e459f3330d6) on cybersecurity this year to fortify their systems to be as strong as Fort Knox, but without a strong Identity Access Management strategy, they could be building a very strong fortress while forgetting to lock the door.
 
-As your security perimeter grows well beyond the firewall, your IAM technology must adapt to new applications and security risks. Auth0 was built by security experts to anticipate these new user trends so your IAM technology is always updated to protect access, giving you the peace of mind to focus on your core business.
+As your security perimeter grows well beyond the firewall, your Identity Access Management technology must adapt to new applications and security risks. Auth0 was built by security experts to anticipate these new user trends so your Identity Access Management technology is always updated to protect access, giving you the peace of mind to focus on your core business.
