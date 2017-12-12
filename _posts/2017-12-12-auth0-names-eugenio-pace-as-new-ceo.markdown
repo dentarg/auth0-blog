@@ -28,6 +28,7 @@ related:
 **BELLEVUE, WA -- Dec. 12, 2017** – Auth0, a global leader in Identity-as-a-Service (IDaaS), today announced that company co-founder Eugenio Pace will serve as its new chief executive officer, effective immediately. The company is grateful to Jon Gelsey, Auth0’s former CEO, for four years of outstanding service.
 
 Pace has been integral to Auth0’s exponential growth since co-founding the company with Matias Woloski, CTO, in 2013. Most recently as chief customer officer, Pace has been part of the leadership team that has led to Auth0’s significant milestones, such as raising nearly $55M in total funding-to-date, and in 2017 alone:
+
 * Doubling its customer base with 1,500 new companies;
 * Increasing revenues by more than 100 percent; 
 * Hiring more than 120 new people; and
