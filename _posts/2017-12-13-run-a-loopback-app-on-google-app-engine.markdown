@@ -246,60 +246,46 @@ The generator will then display messages as it scaffolds the application includi
 
 ### Create Models on LoopBack
 
-We wil be creating three models `Tracks`, `Artists` and `Albums`.
-Go into your new application directory, then run the LoopBack model generator:
+As mentioned before, you will creating three models: `Tracks`, `Artists`, and `Albums`. Go into your new application directory, then run the LoopBack model generator:
 
 ```sh
- cd spotify-app
+cd spotify-app
+
+lb model
 ```
 
-Then, run the command:
+The generator will prompt for a model name. Enter `Artists`. After that, it will ask if you want to attach the model to any data sources that have already been defined. Select `db (memory)` as the datasource. It will prompt for the base class. Select `PersistedModel`.
 
-```sh
- lb model
- ```
+The fourth question will be about whether you want to expose this REST API. Hit Enter to accept the default (yes) option and expose the Artists model via REST.
 
-The generator will prompt for a model name.  Enter Artists. It will ask if you want to attach the model to any data sources that have already been defined. Select `db (memory)` as the datasource. It will prompt for the base class. Select `PersistedModel`.
+Then, you will be asked to enter a custom plural form. Press Enter to accept the default plural form.
 
-PersistedModel is the base object for all models connected to a persistent data source such as a database.
-
-One of the powerful advantages of LoopBack is that it automatically generates a REST API for your model.  The generator will ask whether you want to expose this REST API.
-
-Hit Enter again to accept the default and expose the Artists model via REST.
-
-You will be asked to enter a Custom plural form. Press Enter to accept the default plural form.
-
-Next, you’ll be asked whether you want to create the model on the server only or in the /common directory, where it can potentially be used by both server and client LoopBack APIs.  Keep, the default, common, even though in this application you’ll only be working with server-side models.
+Next, you’ll be asked whether you want to create the model on the server only or in the `common` directory, where it can potentially be used by both server and client LoopBack APIs. Keep the default (`common`) even though in this application you’ll only be working with server-side models.
 
 Right now, we’re going to define properties for the Artists model.
 
-The Artists model has `name`, `popularity`, `genres` and `image` as properties. For each of the properties, it will prompt you for the `name`, the `type`, Whether it is `Required` and the default value. Use the below structure to fill in the prompts.
+The Artists model will contain `name`, `popularity`, `genres`, and `image` as properties. For each of the properties, you will inform LoopBack about properties' `name`, `type`, whether it is `required`, and the default value. Use the structure below to fill in the prompts.
 
-* Property name: name
-* Property type: string
-* Required?: Yes
+* Property name: `name`
+* Property type: `string`
+* Required?: `Yes`
 
+* Property name: `popularity`
+* Property type: `number`
+* Required?: `Yes`
 
-* Property name: popularity
-* Property type: number
-* Required?: Yes
+* Property name: `genres`
+* Property type: `array`
+* Type of array item: `string`
+* Required?: `Yes`
 
-
-* Property name: genres
-* Property type: array
-* Type of array item: string
-* Required?: Yes
-
-
-* Property name: image
-* Property type: string
-* Required?: Yes
-
-![](https://IMAGE_URL_HERE)
+* Property name: `image`
+* Property type: `string`
+* Required?: `Yes`
 
 End the model creation process by pressing Enter when prompted for the name of the next property.
 
-You have seen how to make a model. Do the same for the `Albums` and `Tracks` models with these properties:
+You have seen how to make a model. Do the same for the `Albums` and `Tracks` models with the properties shown in the next two sections.
 
 #### Artists
 
@@ -318,6 +304,7 @@ You have seen how to make a model. Do the same for the `Albums` and `Tracks` mod
 
 The model generator will create `.js` and `.json` files in the application’s common/models directory that define our models.
 
+{% include tweet_quote.html quote_text="One of the powerful advantages of LoopBack is that it automatically generates a REST API for your model." %}
 
 ### Connect API to Google Cloud Firestore
 
