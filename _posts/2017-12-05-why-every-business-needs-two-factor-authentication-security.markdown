@@ -45,13 +45,13 @@ Two-factor authentication (2FA), sometimes referred to as [multifactor authentic
 
 The first step is to sign into your account with a username and a password. This is the first factor of the two-step process.
 
-![First factor of multifactor authentication: username and password.](https://cdn.auth0.com/blog/why-two-factor/Gmail-login-procedure-email-and-password.png)
+![First factor of two-factor authentication: username and password.](https://cdn.auth0.com/blog/why-two-factor/Gmail-login-procedure-email-and-password.png)
 
 Unlike the ineffective security questions such as your mom's maiden name or your school's mascot, the second piece of information used in 2FA is extremely hard for cybercriminals to acquire. The idea is to create a second factor that is unique to the user, which is often something they possess, like a smartphone, or even something biological, like a fingerprint.
 
 After you enter your credentials in step one, you will be prompted to add the second factor. There are several pieces of information that can be used, which we'll share below. In this case, the user chooses an SMS verification.
 
-![Google asking SMS verification on multifactor authentication](https://cdn.auth0.com/blog/why-two-factor/2-step-verification-google.png)
+![Google asking SMS verification on two-factor authentication](https://cdn.auth0.com/blog/why-two-factor/2-step-verification-google.png)
 
 Hacking a password is extremely easy, but obtaining a physical device that generates the second code or stealing biological features is not as easy, which is why 2FA is one of the most effective security approaches available.
 
@@ -71,7 +71,7 @@ Your OTP options include:
   * **_Pros:_** All employees are comfortable with phone calls and voice doesn't require a data connection.
   * **_Cons:_** Calls can be intercepted, forwarded or voicemails hacked. If stolen, you can't authenticate.
 
-![Multiple 2fA screens](https://cdn.auth0.com/blog/why-two-factor/Twitter-Card-Multifactor.png)
+![Multiple two-factor authentication screens](https://cdn.auth0.com/blog/why-two-factor/Twitter-Card-Multifactor.png)
 
 * **Hardware Tokens:** This is a common enterprise practice, where employees are given a physical device such a [*key fob*](https://en.wikipedia.org/wiki/RSA_SecurID), or other devices that dynamically generates a code for the user.
     * **_Pros:_** It is a standalone solution that doesn’t require reception or WiFi connection.
@@ -103,7 +103,7 @@ Employees are now mobile, working on their personal devices outside the office. 
 
 Employee mobility has created a happier and [more productive](https://www.forbes.com/sites/danielnewman/2016/03/29/is-mobility-the-answer-to-better-employee-productivity/#6c493277131c) workforce, and 2FA is the best method to provide the security measure that reaches outside the firewall to make it all possible.
 
-{% include tweet_quote.html quote_text="Multifactor authentication also means increased productivity." %}
+{% include tweet_quote.html quote_text="Two-factor authentication also means increased productivity." %}
 
 ### Increased Awareness
 
