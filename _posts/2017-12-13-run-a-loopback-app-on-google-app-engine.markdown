@@ -172,32 +172,33 @@ You will create three models for this demo. The following list shows them with t
     "image": ""
 ```
 
-## API Endpoints
+## LoopBack API Endpoints
 
+Based on these models, you use LoopBack to create the following RESTful endpoints.
 
-1. **Albums** - This resource is about the albums.
+1. **Albums**
 
-    * POST - /albums/  Creates a new album instance.
-    * GET - /albums/  Returns all albums.
-    * GET - /albums/`<id>`  Returns the specified album id.
-    * PUT - /albums/`<id>`  Update album attributes.
-    * DELETE - /albums/`<id>`  Delete album.
+    * POST - `/albums/`: Creates a new album instance.
+    * GET - `/albums/`: Returns all albums.
+    * GET - `/albums/<id>`: Returns the specified album id.
+    * PUT - `/albums/<id>`: Update album attributes.
+    * DELETE - `/albums/<id>`: Delete album.
 
 2. **Tracks**
 
-    * POST - /tracks/  Creates a new track instance.
-    * GET - /tracks/  Returns all tracks.
-    * GET - /tracks/`<id>`  Returns the specified track id
-    * PUT - /tracks/`<id>`  Update track attributes.
-    * DELETE - /tracks/`<id>`  Delete track.
+    * POST - `/tracks/`: Creates a new track instance.
+    * GET - `/tracks/`: Returns all tracks.
+    * GET - `/tracks/<id>`: Returns the specified track id
+    * PUT - `/tracks/<id>`: Update track attributes.
+    * DELETE - `/tracks/<id>`: Delete track.
 
 3. **Artists**
 
-    * POST - /artists/  Creates a new artist instance.
-    * GET - /artists/  Returns all artists.
-    * GET - /artists/`<id>`  Returns the specified artist id.
-    * PUT - /artists/`<id>`  Update artist attributes.
-    * DELETE - /artists/`<id>`  Delete artist.
+    * POST - `/artists/`: Creates a new artist instance.
+    * GET - `/artists/`: Returns all artists.
+    * GET - `/artists/<id>`: Returns the specified artist id.
+    * PUT - `/artists/<id>`: Update artist attributes.
+    * DELETE - `/artists/<id>`: Delete artist.
 
 ### Install the Loopback CLI
 
@@ -221,7 +222,7 @@ The LoopBack application generator will greet you with some friendly ASCII art a
 Enter spotify-app. Then the generator will prompt you for the name of the directory to contain the project; press Enter to accept the default (the same as the application name):
 
 ```sh
-[?] What's the name of your application? spotify-app
+[?] What\'s the name of your application? spotify-app
 [?] Enter name of the directory to contain the project: spotify-app
 ```
 ![](https://IMAGE_URL_HERE)
