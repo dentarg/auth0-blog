@@ -126,7 +126,7 @@ Now that the basic configuration has been set up, let's run the following comman
 
 You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
 
-### Creating a new Author entity
+### Creating a New Author Entity
 
 Create new `Author` entity by running the following command `php bin/console doctrine:generate:entity`
 
@@ -138,7 +138,7 @@ Keep the default on `Configuration format`, but this next step we need to add al
 
 __NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/AuthorRepository.php).
 
-### Creating a new BlogPost entity
+### Creating a New BlogPost Entity
 
 Create new `BlogPost` entity by running the following command `php bin/console doctrine:generate:entity`
 
@@ -304,7 +304,7 @@ This will generate a file in `app/DoctrineMigrations/` starting with `Version` t
 
 Run the migration, which will run all the SQL queries found in the generated file with: `php bin/console doctrine:migrations:migrate`
 
-### Install Doctrine-fixtures
+### Install Doctrine-Fixtures
 
 We want to just populate some data into your newly created tables as examples during the creation of the blog. So install [doctrine-fixtures](https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html).
 
@@ -374,7 +374,7 @@ class Fixtures extends Fixture
 
 This is basically just a file that, when loaded, will create an author and a blog post, and will link the author to the blog post.
 
-### Run fixtures.
+### Running Fixtures
 
 Let's run the fixtures! `php bin/console doctrine:fixtures:load`
 
@@ -437,7 +437,7 @@ auth0_logout:
     path: /auth0/logout
 ```
 
-### Configure bundle including DotEnv & configs
+### Including DotEnv & Configs
 
 In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/AppBundle/Auth0ResourceOwner.php`:
 
@@ -594,7 +594,7 @@ security:
 
 The config above is setting up URLs/sections in your blog that require the user to be authenticated.
 
-### Create the Author page
+### Create the Author Page
 
 Let's create our admin blog controller by running the following command: `php bin/console generate:controller`.
 
