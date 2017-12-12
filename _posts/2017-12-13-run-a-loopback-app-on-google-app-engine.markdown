@@ -59,18 +59,17 @@ LoopBack is a highly-extensible, open-source Node.js framework that enables you 
 
 ## What is Google App Engine
 
-Google App Engine is a web framework and cloud computing platform for developing and hosting web applications in Google-managed data centers. App Engine provides all of the required elements to run and host Web applications, be it on mobile or Web. Without all this features, developers would have to source their own servers, database software and the APIs that would make all of them work properly together, not to mention the entire configuration that must be done.
+[Google App Engine](https://cloud.google.com/appengine/) is a web framework and cloud computing platform for developing and hosting web applications in Google-managed data centers. App Engine provides all of the required elements to run and host applications, be it on mobile or Web. Without all these features, developers would have to source their own servers, database software and the APIs that would make all of them work properly together, not to mention the entire configuration that must be done.
 
-Google App Engine providing all of the environment requirements, means that you simply deploy your code, and the platform does everything else for you. For example, if you app becomes very successful, App Engine will automatically create more instances to handle the increased volume.
+Google App Engine providing all of the environment requirements, means that you simply deploy your code, and the platform does everything else for you. For example, if you app becomes very successful, Google App Engine can help you scale it properly.
 
-Google App Engine takes burden off the developers so they can concentrate on the app front end and functionality, driving better user experience.
+Google App Engine takes burden off the developers so they can concentrate on the app's special features, driving better user experience.
 
 Advantages of Google App Engine include:
 
-*    Readily available servers with no configuration requirement
-*    Power scaling function all the way down to "free" when resource usage is minimal
-*    Automated cloud computing tools
-
+* readily available servers with no configuration requirement;
+* power scaling function all the way down to "free" when resource usage is minimal;
+* automated cloud computing tools.
 
 ## Create a Google Cloud Platform project
 
