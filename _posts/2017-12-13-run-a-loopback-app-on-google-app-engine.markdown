@@ -129,13 +129,11 @@ If you only have one project, `gcloud` init selects it for you.
 
 ## Prepare the LoopBack App
 
-Having setup our cloud project, the next step is to prepare our Loopback app.
+Having setup our Google App Engine project, the next step is to prepare our Loopback app. We are going to build a RESTful API similar to Spotify. As you probably know, Spotify is an online music service that lets users search for their favourite music or artistes.
 
-we are going to build a RESTful API for Spotify. Spotify is an online music service that lets users search for their favourite music or artistes.
+You will create three models for this demo. The following list shows them with their model structure:
 
-I created three models for this demo `Albums`, `Tracks` and `Artists`.
-
-* Albums Model Structure
+* `Albums`
 
 ```sh
     "artists": [{
@@ -149,7 +147,7 @@ I created three models for this demo `Albums`, `Tracks` and `Artists`.
     "release_date": ""
 ```
 
-* Tracks Model Structure
+* `Tracks`
 
 ```sh
    "artists": [{
@@ -163,7 +161,7 @@ I created three models for this demo `Albums`, `Tracks` and `Artists`.
    "name": ""
 ```
 
-* Artists Model Structure
+* `Artists`
 
 ```sh
     "name": "",
