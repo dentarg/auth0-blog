@@ -202,32 +202,36 @@ Based on these models, you use LoopBack to create the following RESTful endpoint
 
 ### Install the Loopback CLI
 
-Loopback CLI, like the Angular CLI is a command-line tool provided by StrongLoop that helps to quickly create a LoopBack application, models, and data sources.
-In other words, Loopback CLI is an application generator.
+[Loopback CLI](https://github.com/strongloop/loopback-cli), like the Angular CLI, is a command-line tool that helps to quickly create LoopBack applications, models, and data sources. In other words, Loopback CLI is an application generator.
 
-To install the Loopback CLI tool:
+To install the Loopback CLI tool, you can use [NPM as follows](https://www.npmjs.com/):
 
 ```sh
 npm install -g loopback-cli
 ```
 
-After the installation has completed, we will run the command.
+After the installation is complete, you can run `lb` to start creating an application:
 
 ```sh
 lb
 ```
 
-The LoopBack application generator will greet you with some friendly ASCII art and prompt you for the name of the application.
-
-Enter spotify-app. Then the generator will prompt you for the name of the directory to contain the project; press Enter to accept the default (the same as the application name):
+This will prompt you a set of questions to create your app. First, it will ask the app's name. Enter `spotify-app`. Then the generator will prompt you for the name of the directory to contain the project. Press Enter to accept the default (the same as the application name):
 
 ```sh
 [?] What\'s the name of your application? spotify-app
 [?] Enter name of the directory to contain the project: spotify-app
 ```
-![](https://IMAGE_URL_HERE)
 
-Then the tool will ask you what kind of application to create:
+The third question will be about LoopBack version. You can choose `3.x (current)`:
+
+```sh
+? Which version of LoopBack would you like to use? (Use arrow keys)
+  2.x (long term support)
+❯ 3.x (current)
+```
+
+The last question will be about what kind of application to create. Scroll down and choose `hello-world`:
 
 ```sh
 ? What kind of application do you have in mind? (Use arrow keys)
@@ -237,20 +241,10 @@ Then the tool will ask you what kind of application to create:
     a single remote method)
   notes (A project containing a basic working example, including a memory database)
 ```
-![](https://IMAGE_URL_HERE)
 
-Scroll down and choose hello-world.
+The generator will then display messages as it scaffolds the application including.
 
-The generator will then display messages as it scaffolds the application including:
-
-```sh
-Generating .yo-rc.json
-I'm all done. Running npm install for you to install the required dependencies.
-If this fails try running the command your self.
-```
-![](https://IMAGE_URL_HERE)
-
-### Create Models
+### Create Models on LoopBack
 
 We wil be creating three models `Tracks`, `Artists` and `Albums`.
 Go into your new application directory, then run the LoopBack model generator:
