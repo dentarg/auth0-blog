@@ -8,6 +8,7 @@ author:
   name: Greg Holmes
   url: https://github.com/GregHolmes
   mail: iam@gregholmes.co.uk
+  avatar: "https://avatars0.githubusercontent.com/u/2411269?s=460&v=4
 design:
   bg_color: "#3B3B3B"
   image: https://cdn.auth0.com/blog/Symfony/Logo.png
@@ -28,9 +29,9 @@ related:
 
 ### What is Symfony?
 
-[Symfony](https://symfony.com) is an Open Source PHP framework originally created by [Sensiolabs](https://sensiolabs.com/), an interactive agency. The [Symfony PHP framework](https://symfony.com) comes with a very large and active community. This framework has become very popular, mainly due to the vast number of reusable PHP components. These components are not limited to the framework itself, but can be found throughout the PHP community, such as Drupal, WordPress, phpBB and Laravel.
+[Symfony](https://symfony.com) is an Open Source PHP framework originally created by [Sensiolabs](https://sensiolabs.com/), an interactive agency. The [Symfony PHP framework](https://symfony.com) comes with a very large and active community. This framework has become very popular, mainly due to the vast number of reusable PHP components. These components are not limited to the framework itself but can be found throughout the PHP community, such as Drupal, WordPress, phpBB, and Laravel.
 
-[Symfony Components](https://symfony.com/components) are a set of decoupled and reusable PHP libraries. They are becoming the standard foundation on which the best PHP applications are built on. You can use any of these components in your own applications independently from the Symfony Framework. Below you will find a list of some of the components that are used in this article as an example.
+[Symfony Components](https://symfony.com/components) is a set of decoupled and reusable PHP libraries. They are becoming the standard foundation on which the best PHP applications are built on. You can use any of these components in your own applications independently from the Symfony Framework. Below you will find a list of some of the components that are used in this article as an example.
 
 * [Asset](https://symfony.com/components/Asset) - Manages URL generation and versioning of web assets such as CSS stylesheets, JavaScript files and image files.
 * [Config](https://symfony.com/components/Config) - Helps you find, load, combine, autofill and validate configuration values.
@@ -45,7 +46,7 @@ related:
 
 ### What Will We Build
 
-In this article we will be looking at how to install a new version of the Symfony PHP framework, along with making use of Doctrine to create two new database tables (`Author` and `BlogPosts`) in order to store our blog data in. Following this, we will be making use of Doctrine Migrations to pre-populate our newly created database tables with some dummy data to allow you to see the blog at work. Once the initial set up is complete, we will cover user authentication with Auth0 allowing users to create their own author entry in the database.
+In this article, we will be looking at how to install a new version of the Symfony PHP framework, along with making use of Doctrine to create two new database tables (`Author` and `BlogPosts`) in order to store our blog data in. Following this, we will be making use of Doctrine Migrations to pre-populate our newly created database tables with some dummy data to allow you to see the blog at work. Once the initial set up is complete, we will cover user authentication with Auth0 allowing users to create their own author entry in the database.
 
 ## Bootstrapping Symfony
 
@@ -57,7 +58,7 @@ Install Symfony via [Composer](https://getcomposer.org/) with the following comm
 composer create-project symfony/framework-standard-edition:"3.3.11" blog
 ```
 
-Once Composer has finished downloading all the required third party libraries, it will ask you to input a number of parameters. Please just leave these empty, pressing return on each line.
+Once Composer has finished downloading all the required third-party libraries, it will ask you to input a number of parameters. Please just leave these empty, pressing return on each line.
 
 Change directory into your project with: `cd blog`
 
@@ -121,7 +122,7 @@ try {
 
 If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of `DATABASE_NAME` in the `.env` file.
 
-Now that the basic configuration has been set up, lets run the following command: `php bin/console server:start`
+Now that the basic configuration has been set up, let's run the following command: `php bin/console server:start`.
 
 You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
 
@@ -131,11 +132,11 @@ Create new `Author` entity by running the following command `php bin/console doc
 
 When it asks for the Entity shortcut name, type in: `AppBundle:Author`
 
-Keep the default on `Configuration format`, but this next step we need to add all of the properties on our Author. Please refer to the image below for the entries required for an Author table:
+Keep the default on `Configuration format`, but this next step we need to add all of the properties of our Author. Please refer to the image below for the entries required for an Author table:
 
 ![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-author-entity.png)
 
-__NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php)
+__NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/AuthorRepository.php).
 
 ### Creating a new BlogPost entity
 
@@ -147,9 +148,9 @@ Keep the default on `Configuration format`, but the next step is to add all of t
 
 ![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
 
-__NOTE__: If you cannot see the image, the full entity can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php)
+__NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/BlogPostRepository.php).
 
-__NOTE__: If you copied the file directly from the repository, please skip to: `Install Doctrine-migrations`
+__NOTE__: If you copied the file directly from GitHub, please skip to the _Install Doctrine-Migrations_ section.
 
 You may have noticed that we've added the `created_at`, `updated_at` and `author` fields. These fields all need some extra changes to be made in the entity file itself. So open `src/AppBundle/Entity/BlogPost.php`
 
@@ -299,7 +300,7 @@ doctrine_migrations:
 
 Run a migrations diff `php bin/console doctrine:migrations:diff`
 
-This will generate a file in `app/DoctrineMigrations/` starting with `Version` then the date and time it was created. So for this instance, there'll only be the one file. This file contains the migration queries for creating the new mysql tables.
+This will generate a file in `app/DoctrineMigrations/` starting with `Version` then the date and time it was created. So for this instance, there'll only be the one file. This file contains the migration queries for creating the new MySQL tables.
 
 Run the migration, which will run all the SQL queries found in the generated file with: `php bin/console doctrine:migrations:migrate`
 
@@ -375,7 +376,7 @@ This is basically just a file that, when loaded, will create an author and a blo
 
 ### Run fixtures.
 
-Lets run the fixtures! `php bin/console doctrine:fixtures:load`
+Let's run the fixtures! `php bin/console doctrine:fixtures:load`
 
 Now we have our entities, database, database tables, and some dummy data in the tables.
 
@@ -383,9 +384,9 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 ### Installing HWIOAuth Bundle
 
-To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), a OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package php-http/client-implementation, we need to install several third party libraries. However, this can be easily done with this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
+To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third party libraries. However, this can be easily done with this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
 
-Once composer has finished, we need to enable it in our `app/AppKernel.php`. In the `$bundles` array, add a new row placing the following in there:
+Once Composer has finished, we need to enable it in our `app/AppKernel.php`. In the `$bundles` array, add a new row placing the following in there:
 
 ```php
 new Http\HttplugBundle\HttplugBundle(),
@@ -402,7 +403,7 @@ Now, open your `composer.json` file and add `HWIOAuthBundle` (as well as adding 
 },
 ```
 
-__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the php requirement in config in composer.json so find and remove:
+__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the PHP requirement in config in `composer.json` so find and remove:
 
 ```
 "platform": {
@@ -510,9 +511,9 @@ We're going to need API keys for Auth0, so <a href="https://auth0.com/signup" da
   * Add a name
   * Choose _Regular Web Applications_ type
 
-2. Configure callback url:
+2. Configure callback URL:
   * In the new Auth0 `Client`, go to the settings tab.
-  * Find the text box labelled `Allowed Callback URLs`.
+  * Find the text box labeled `Allowed Callback URLs`.
   * Paste the following in: `http://localhost:8000/auth0/callback`.
 
 3. Configure Auth0 Client to require usernames:
@@ -591,19 +592,19 @@ security:
         - { path: ^/admin, roles: ROLE_OAUTH_USER }
 ```
 
-The config above is setting up urls/sections in your blog that require the user to be authenticated.
+The config above is setting up URLs/sections in your blog that require the user to be authenticated.
 
 ### Create the Author page
 
-Lets create our admin blog controller by running the following command: `php bin/console generate:controller`.
+Let's create our admin blog controller by running the following command: `php bin/console generate:controller`.
 
 ![Creating an Admin Controller](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
 
-If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `AdminController`. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
+If you follow the instructions as shown in the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `AdminController`. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
 
 __NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
 
-First thing we will want to do is create a new form. This is a class that allows us to validate the users input, such as creating an author. So, in the `src/AppBundle` path, create a new directory called `Form`.
+The first thing we will want to do is create a new form. This is a class that allows us to validate the users' input, such as creating an author. So, in the `src/AppBundle` path, create a new directory called `Form`.
 Within that directory create a new file named `AuthorFormType.php`. Add the code below to your new file:
 
 ```php
@@ -755,7 +756,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
-Great, in our entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data.
+Great, in our entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data.
 
 In the `AdminController` class, you will find your new `createAuthorAction` method. Change the annotation so that the method has a service name. So above the controller, where you see `@Route`, add the service name. So it will look like:
 
@@ -781,8 +782,8 @@ The `Request` class allows you to gather data, for example, if there are any par
 
 Then change `createAuthorAction()` to `createAuthorAction(Request $request)`.
 
-We want to make sure the user isn't trying to create themselves as duplicate authors for the same user. So at the top of the `createAuthorAction` lets run a query to check whether one already exists.
-Paste the code below into the action. This retrieves the authenticated user with Auth0, checks their username with the authors table to see if one exists, if it does then redirect the user to the index page.
+We want to make sure the user isn't trying to create themselves as duplicate authors for the same user. So at the top of the `createAuthorAction` let's run a query to check whether one already exists.
+Paste the code below into the action. This retrieves the authenticated user with Auth0, checks their username with the `authors` table to see if one exists, if it does then redirect the user to the index page.
 
 ```php
 // Check whether user already has an author.
@@ -824,7 +825,7 @@ use AppBundle\Entity\Author;
 use AppBundle\Form\AuthorFormType;
 ```
 
-The above code also checks whether the form has been submitted, and whether it passes all validations, if it does it will then redirect the user to the index page.
+The above code also checks whether the form has been submitted and whether it passes all validations, if it does it will then redirect the user to the index page.
 
 __NOTE__: You may have noticed that it sets a session to `true` for `user_is_author` this will make sense when we reach the part that discusses and implements event listeners (next).
 
@@ -920,7 +921,7 @@ php bin/console server:start
 
 ### Including Bootstrap and Styles
 
-As it is, this template will look very ugly in your browser. So let's create a new css file. `web/css/style.css`
+As it is, this template will look very ugly in your browser. So let's create a new CSS file. `web/css/style.css`
 
 Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file.
 
@@ -1078,7 +1079,7 @@ AppBundle\EventListener\Author\CheckIsAuthorListener:
         - { name: kernel.event_listener, event: kernel.controller }
 ```
 
-It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So for the time being we're going to produce a link in the Homepage page.
+It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to produce a link on the Homepage page.
 
 Open the file `app/Resources/views/default/index.html.twig` and replace its entire content with:
 
