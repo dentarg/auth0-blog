@@ -54,7 +54,7 @@ High standards of security and ease of use have been set for modern authenticati
 
 Let's look at a hypothetical example using a timeline from an imaginary company. Let's say our make-believe company, "SourceCentral", provides public and private source control repository hosting. Their timeline looks something like this:
 
-![Hypothetical timeline for a service switching to centralized login](https://cdn.auth0.com/blog/centralized-login/timeline.png)
+![Hypothetical timeline for a service switching to centralized login](https://cdn.auth0.com/blog/centralized-login/timeline2.png)
 
 * **Year 0: Launch!** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs, since we are still small and only have one service.
 * **Year 1: Going native** Lots of people have signed up and outlook is great! People love our service. We are launching native Android and iOS mobile apps as well as desktop apps for Windows and MacOS, and we need to implement login for all of them.
