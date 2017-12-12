@@ -308,17 +308,17 @@ All this questions and answers will make the model generator to create `.js` and
 
 ### Connect API to Google Cloud Firestore
 
-Now, our models set we will connect our API to a datasource. We are going to use Cloud Firestore, a cloud-hosted NoSQL database from Firebase.
+Now you will connect your models to a datasource. You will use [Cloud Firestore](https://firebase.google.com/docs/firestore/), a cloud-hosted NoSQL database from Firebase.
 
-To use Cloud Firestore, we need to add the Google Cloud Platform account we created earlier to Firebase. Follow these steps to import your Google Cloud Platform project to Firebase:
+To use Cloud Firestore, you need to add the Google Cloud Platform account we created earlier to Firebase. Follow these steps to import your Google Cloud Platform project to Firebase:
 
-* Navigate to [console.firebase.google.com](https://console..firebase.google.com).
-* Click on `Add project`.
-* On the modal that pops up, click the `Project name` dropdown box.
-* Select the Google Platform account, then click on `ADD FIREBASE`.
-* A modal window will show up, click on `Enable API`.
-* On the window that appears, Click on `Try Firestore Beta`.
-* Select `Start in test mode` on the modal that shows up, then click on `Enable`.
+* navigate to [Firebase console](https://console.firebase.google.com);
+* click on `Add project`;
+* on the modal that pops up, click the `Project name` dropdown box;
+* select the Google Platform account, then click on `Add Firebase`;
+* a modal window will show up, click on `Enable API`;
+* on the window that appears, Click on `Try Firestore Beta`;
+* select `Start in test mode` on the modal that shows up, then click on `Enable`;
 
 Now, we will have a Cloud Firestore database ready for use.
 
@@ -327,21 +327,22 @@ To connect our API to the Cloud Firestore datasource, run the following command 
 ```sh
 lb datasource
 ```
-Then the data source generator will prompt some questions like
 
-```sh
-Enter the data-source name: firestore (Choose your prefered name)
+Then the data source generator will ask four questions. The following code block shows the questions and possible answers:
+
+```
+Enter the data-source name: firestore
 Select the connector for firestore: other
-Enter the connector's module name loopback-connector-firestore
+Enter the connector\'s module name loopback-connector-firestore
 Install loopback-connector-firestore (Y/n) Y
 ```
 
-Then you should use a service account. Go to [Project Settings > Service Accounts](https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts) in the Google Cloud Platform Console. Generate a new private key and save the JSON file.
+Then you should use a service account. Go to [Project Settings > Service Accounts](https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts), generate a new private key, and save the JSON file. You will have to choose your Google App Engine project for LoopBack and then click on the "Create Key" option of "App Engine default service account".
 
-You should fill the application's datasource file which is located in `/server/datasources.json` with those details, You can find them in the downloaded JSON file from the Google Cloud Platform.
+Next, fill the application's datasource file (which is located in `./server/datasources.json`) with those details. You can find them in the downloaded JSON file from the Google Cloud Platform.
 
 ```sh
-    ...
+    # everything else ...
     "firestore": {
         "name": "firestore",
         "connector": "loopback-connector-firestore",
@@ -350,18 +351,15 @@ You should fill the application's datasource file which is located in `/server/d
         "privateKey": "-----BEGIN PRIVATE KEY-----<KEY>-----END PRIVATE KEY-----\n",
         "clientEmail": "<PROJECT_ID>@appspot.gserviceaccount.com"
     }
-    ...
+    # everything else ...
 ```
 
-![](https://IMAGE_URL_HERE)
+Open up `./server/model-config.json` and change the value of the `dataSource` property from `db` to `firestore` for all three models.
 
-Open up `server/model-config.json` and change the value of the `dataSource` property from `db` to `firestore` for each of the models.
+### Create Model Collections
 
-
-### Create model collections
-
-We will write a migration script that will seed our database. We will use them for testing our API.
-Create a file `server/boot/create-data-tables.js`, and add the following to it:
+To see your database, you will create a migration script. You will use them for testing our API.
+Create a file `./server/boot/create-data-tables.js`, and add the following to it:
 
 ```js
 module.exports = function(app) {
@@ -441,8 +439,8 @@ module.exports = function(app) {
 
 };
 ```
-This file wil execute when we boot our server. It will programatically seed our mLab database with the data provided.
 
+LoopBack will execute this file will when during the next boot. It will programmatically seed your Firestore database with the data provided.
 
 ### Secure the Spotify API
 
