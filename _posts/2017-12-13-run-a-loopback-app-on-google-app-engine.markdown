@@ -287,22 +287,22 @@ End the model creation process by pressing Enter when prompted for the name of t
 
 You have seen how to make a model. Do the same for the `Albums` and `Tracks` models with the properties shown in the next two sections.
 
-#### Artists
+#### Albums
 
-* Property name: name, Property type: string, Required? Yes
-* Property name: popularity, Property type: number, Required? Yes
-* Property name: genres, Property type: array, Type of array items: string, Required? Yes
-* Property name: image, Property type: string, Required? Yes
+* Property name: `name`, Property type: `string`, Required? `Yes`
+* Property name: `popularity`, Property type: `number`, Required? `Yes`
+* Property name: `genres`, Property type: `array`, Type of array items: `string`, Required? `Yes`
+* Property name: `image`, Property type: `string`, Required? `Yes`
 
 #### Tracks
 
-* Property name: artists, Property type: array, Type of array items: string, Required? Yes
-* Property name: albums, Property type: array, Type of array items: string, Required? Yes
-* Property name: duration, Property type: string, Required? Yes
-* Property name: image, Property type: string, Required? Yes
-* Property name: name, Property type: string, Required? Yes
+* Property name: `artists`, Property type: `array`, Type of array items: `string`, Required? `Yes`
+* Property name: `albums`, Property type: `array`, Type of array items: `string`, Required? `Yes`
+* Property name: `duration`, Property type: `string`, Required? `Yes`
+* Property name: `image`, Property type: `string`, Required? `Yes`
+* Property name: `name`, Property type: `string`, Required? `Yes`
 
-The model generator will create `.js` and `.json` files in the application’s common/models directory that define our models.
+All this questions and answers will make the model generator to create `.js` and `.json` files in the application’s `common/models` directory.
 
 {% include tweet_quote.html quote_text="One of the powerful advantages of LoopBack is that it automatically generates a REST API for your model." %}
 
