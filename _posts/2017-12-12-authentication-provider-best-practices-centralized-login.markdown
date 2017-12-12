@@ -27,7 +27,7 @@ related:
 - 2017-11-22-using-centralized-login-to-add-authentication-to-your-ios-apps
 ---
 
-**TL;DR:** To maintain a successful application, sooner rather than later you will need a centralized account system, as opposed to embedding login within your application. This is more secure, standard-based, maintainable, and future proof. This is where the industry is moving, and in this post, we will explore this trend.
+**TL;DR:** To maintain a successful application, you will inevitably need a centralized account system, as opposed to embedding login within your application. Centralized login is more secure, standards-based, maintainable, and future proof. This is where the industry is moving, and in this post, we will explore this trend.
 
 ---
 
@@ -56,10 +56,10 @@ Let's look at a hypothetical example using a timeline from an imaginary company.
 
 ![Hypothetical timeline for a service switching to centralized login](https://cdn.auth0.com/blog/centralized-login/timeline2.png)
 
-* **Year 0: Launch!** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs, since we are still small and only have one service.
+* **Year 0: Launch!** We launched a source control repository hosting service. Our homegrown authentication is working out alright for our needs since we are still small and only have one service.
 * **Year 1: Going native** Lots of people have signed up and outlook is great! People love our service. We are launching native Android and iOS mobile apps as well as desktop apps for Windows and MacOS, and we need to implement login for all of them.
-* **Year 1.5: APIs** We're now developing an API so that we can better serve our customerbase of developers who want to be able to integrate our service with third parties, but...
-* **Year 2: Auth for third parties** Authentication has been a huge challenge now that we have an API that requires authorization as well as several apps and third party integrations. 😧 To address the complexities and issues this is presenting, we're implementing OAuth in order to provide a much more _centralized_ authentication and authorization process for our product and APIs.
+* **Year 1.5: APIs** We're now developing an API so that we can better serve our customer base of developers who want to be able to integrate our service with third parties, but...
+* **Year 2: Auth for third parties** Authentication has been a huge challenge now that we have an API that requires authorization as well as several apps and third-party integrations. 😧 To address the complexities and issues this is presenting, we're implementing OAuth in order to provide a much more _centralized_ authentication and authorization process for our product and APIs.
 * **Year 3: SSO** With a centralized login approach, we're now able to leverage Single Sign-On. Our customers love this. This was easy with a centralized login; instead of having to change every single service, we only had to do it once! It's much easier to maintain and enhance.
 * **Year 4: Multi-factor Authentication** Our users demand more security, so we're adding Multi-factor Authentication. We can do this for all our apps at once using centralized login!
 * **Years 5, 6, etc: Growing and scaling!** We're rolling out new properties and apps at a steady pace. We have a desktop app, a community, chat hosting for repositories, and several other services as well. Securing and authenticating all our new services is a non-issue with centralized authentication! 🎉
@@ -78,7 +78,7 @@ Centralized login has many advantages over an embedded login approach, including
 
 Centralized login is more secure than embedded login. Authentication takes place over the same domain, eliminating cross-origin requests. Cross-origin authentication is inherently more dangerous. Collecting user credentials in an application served from one origin and then sending them to another origin can present certain security vulnerabilities. [Phishing attacks](https://auth0.com/blog/all-you-need-to-know-about-the-google-docs-phishing-attack/) are more likely, as are [man-in-the-middle attacks](https://auth0.com/docs/security/common-threats#man-in-the-middle-mitm-attacks). Centralized login does not send information between origins, thereby negating cross-origin concerns.
 
-Embedded user agents are unsafe for third parties, including the authorization server itself. If an embedded login is used, the app has access to both the authorization grant and the user's authentication credentials. As a consequence, this data is left vulnerable to recording or malicious use. Even if the app is trusted, allowing it to access the authorization grant as well as the user's _full_ credentials is unecessary. This violates the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) and increases the potential for attack.
+Embedded user agents are unsafe for third parties, including the authorization server itself. If an embedded login is used, the app has access to both the authorization grant and the user's authentication credentials. As a consequence, this data is left vulnerable to recording or malicious use. Even if the app is trusted, allowing it to access the authorization grant as well as the user's _full_ credentials is unnecessary. This violates the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) and increases the potential for attack.
 
 ### Single Sign-On
 
