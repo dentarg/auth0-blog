@@ -98,15 +98,13 @@ In order to create Google Cloud Platform resources, the project needs to have a 
 
 ### Install the Google SDK
 
-The Cloud SDK is a set of tools for Cloud Platform. It contains `gcloud`, `gsutil`, and `bq`, which you can use to access Google Compute Engine, Google Cloud Storage, Google BigQuery, and other products and services from the command-line. You can run these tools interactively or in your automated scripts.
+The [Google Cloud SDK](https://cloud.google.com/sdk/) is a set of tools for Cloud Platform. It contains the `gcloud`, `gsutil`, and `bq` tool that you can use to access [Google Compute Engine](https://cloud.google.com/compute/), [Google Cloud Storage](https://cloud.google.com/storage/), [Google BigQuery](https://cloud.google.com/bigquery/), and other products and services from the command-line. You can run these tools interactively or in your automated scripts.
 
-The process of installing the Google SDK differs on different platforms (MacOSX, Linux and Windows).
-Go to [Google Cloud SDK Quickstarts](https://cloud.google.com/sdk/docs/quickstarts) to see how to install the SDK on different platforms.
-Download the SDK installer based on your OS and launch the installer.
+The process of installing the Google SDK differs among platforms (MacOSX, Linux and Windows). Go to [Google Cloud SDK Quickstarts](https://cloud.google.com/sdk/docs/quickstarts) to see download the SDK installer based on your OS. After that, launch the installer.
 
-After the installation has completed, the installer will present many options, make sure all the options are selected and click the finish button.
+After the installing, many options be presented. Make sure all of them are selected and click the "Finish" button.
 
-If any error occurs, not to worry I got your back.
+If any error occurs, keep reading. Otherwise, move to the _Prepare the LoopBack App_ section.
 
 Open up your terminal and run the command:
 
@@ -114,20 +112,9 @@ Open up your terminal and run the command:
 gcloud init
 ```
 
-Accept the option to log in using your Google user account:
+Accept the option to log in using your Google user account. In your browser, log in to your Google user account when prompted and click "Allow" to grant permission to access Google Cloud Platform resources.
 
-```sh
-To continue, you must log in. Would you like to log in (Y/n)? Y
-```
-![](https://IMAGE_URL_HERE)
-
-In your browser, log in to your Google user account when prompted and click Allow to grant permission to access Google Cloud Platform resources.
-
-![](https://IMAGE_URL_HERE)
-
-![](https://IMAGE_URL_HERE)
-
-At the command prompt, select a Cloud Platform project from the list of those where you have Owner, Editor or Viewer permissions:
+After that, at the command prompt, select a Cloud Platform project from the list of those where you have Owner, Editor or Viewer permissions:
 
 ```sh
 Pick cloud project to use:
@@ -137,15 +124,10 @@ Pick cloud project to use:
  ...
  Please enter your numeric choice or text value (must exactly match list item):
 ```
-![](https://IMAGE_URL_HERE)
 
-If you only have one project, gcloud init selects it for you.
+If you only have one project, `gcloud` init selects it for you.
 
-gcloud init after series of set ups and configurations completes successfully
-
-![](https://IMAGE_URL_HERE)
-
-## Prepare the app
+## Prepare the LoopBack App
 
 Having setup our cloud project, the next step is to prepare our Loopback app.
 
