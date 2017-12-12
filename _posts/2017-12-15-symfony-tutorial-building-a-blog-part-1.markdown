@@ -43,9 +43,9 @@ related:
 * [Templating](https://symfony.com/components/Templating) - Provides all the tools needed to build any kind of template system.
 * [Yaml](https://symfony.com/components/Yaml) - Loads and dumps YAML files.
 
-### What will we build
+### What Will We Build
 
-In this article we will be looking at how to install a new version of the Symfony PHP framework, along with making use of Doctrine to create two new database tables (`Author` and `BlogPosts`) in order to store our blog data in. Following this, we will be making use of doctrine migrations to pre-populate our newly created database tables with some dummy data to allow you to see the blog at work. Once the initial set up is complete, we will cover user authentication with Auth0 allowing users to create their own author entry in the database.
+In this article we will be looking at how to install a new version of the Symfony PHP framework, along with making use of Doctrine to create two new database tables (`Author` and `BlogPosts`) in order to store our blog data in. Following this, we will be making use of Doctrine Migrations to pre-populate our newly created database tables with some dummy data to allow you to see the blog at work. Once the initial set up is complete, we will cover user authentication with Auth0 allowing users to create their own author entry in the database.
 
 ## Bootstrapping Symfony
 
@@ -61,7 +61,7 @@ Once Composer has finished downloading all the required third party libraries, i
 
 Change directory into your project with: `cd blog`
 
-### Create & Populate DotEnv file
+### Create & Populate DotEnv File
 
 In your root directory create file called `.env` and paste the following into there:
 
@@ -73,9 +73,9 @@ DATABASE_USER=root
 DATABASE_PASSWORD={DATABASE_PASSWORD}
 ```
 
-Then you have to replace any of the values with the correct settings for your MySQL database. For example, `{DATABASE_HOST}` could be replaced by `127.0.0.1`. Don't have MySQL installed? [A easy way to bootstrap one is with this script, it just needs Docker installed on the host machine](https://gist.github.com/brunokrebs/af77f582f0e650a62a6f06e84cd06f91).
+Then you have to replace any of the values with the correct settings for your MySQL database. For example, `{DATABASE_HOST}` could be replaced by `127.0.0.1`. Don't have MySQL installed? [An easy way to bootstrap one is with this script, it just needs Docker installed on the host machine](https://gist.github.com/brunokrebs/af77f582f0e650a62a6f06e84cd06f91).
 
-Next. Lets find the `app/config/config.yml` file. Within there you'll find the following:
+Next. Let's find the `app/config/config.yml` file. Within there you'll find the following:
 
 ```yml
 # Doctrine Configuration
@@ -232,7 +232,7 @@ public function getAuthor()
 
 All this does is make sure the entity knows that `Author` has a [`ManyToOne` relationship](https://www.ibm.com/support/knowledgecenter/en/SSWU4L/Data/imc_Data/What_is_a_many-to-one_relationship.html) with `BlogPost`.
 
-At the bottom of the `BlogPost` class, MySQL needs to know to populate and update the `created_at` and `updated_at` columns when a persist or update is made to the database. So paste the following at the bottom of the class:
+At the bottom of the `BlogPost` class, MySQL needs to know to populate and update the `created_at` and `updated_at` columns when a persist or update is made to the database. So paste the following at the bottom of the class (right before the last `}` in the file):
 
 ```php
 /**
@@ -276,7 +276,7 @@ under `* @ORM\Entity()` add a new line and place this in there:
 
 Our entities are all set up! But.. we don't have the database tables yet.
 
-### Install Doctrine-migrations
+### Install Doctrine-Migrations
 
 Run: `composer require doctrine/doctrine-migrations-bundle "^1.0"`
 
@@ -383,7 +383,7 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 ### Installing HWIOAuth Bundle
 
-To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), a OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package php-http/client-implementation, we need to install several third party libraries. However, this can be easily done wit this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
+To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), a OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package php-http/client-implementation, we need to install several third party libraries. However, this can be easily done with this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
 
 Once composer has finished, we need to enable it in our `app/AppKernel.php`. In the `$bundles` array, add a new row placing the following in there:
 
@@ -401,6 +401,16 @@ Now, open your `composer.json` file and add `HWIOAuthBundle` (as well as adding 
     "hwi/oauth-bundle": ">=0.6",
 },
 ```
+
+__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the php requirement in config in composer.json so find and remove:
+
+```
+"platform": {
+    "php": "5.5.9"
+},
+```
+
+Now run `composer update`.
 
 In `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
 
@@ -498,7 +508,7 @@ We're going to need API keys for Auth0, so <a href="https://auth0.com/signup" da
 1. In the dashboard, click `Clients` on the left:
   * Create Client
   * Add a name
-  * Choose regular web applications
+  * Choose _Regular Web Applications_ type
 
 2. Configure callback url:
   * In the new Auth0 `Client`, go to the settings tab.
@@ -589,9 +599,9 @@ Lets create our admin blog controller by running the following command: `php bin
 
 ![Creating an Admin Controller](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
 
-If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called AdminController. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
+If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `AdminController`. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
 
-__NOTE__: If you cannot see the image, the full controller can be found: [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
+__NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
 
 First thing we will want to do is create a new form. This is a class that allows us to validate the users input, such as creating an author. So, in the `src/AppBundle` path, create a new directory called `Form`.
 Within that directory create a new file named `AuthorFormType.php`. Add the code below to your new file:
@@ -745,7 +755,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
-Great, in our entire controller we can call the blogPostRepository, authorRepository or entityManager when needed. The first two are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data.
+Great, in our entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data.
 
 In the `AdminController` class, you will find your new `createAuthorAction` method. Change the annotation so that the method has a service name. So above the controller, where you see `@Route`, add the service name. So it will look like:
 
@@ -901,7 +911,12 @@ In our template for this action, we just want the user to have all of the form f
 {% endraw %}
 {% endhighlight %}
 
-You can run now your Symfony application to see if everything is working: `php bin/console server:start`.
+You can restart now your Symfony application to see if everything is there no errors. Note that there is nothing to see yet, we just want to guarantee that the configuration is correct.
+
+```bash
+php bin/console server:stop
+php bin/console server:start
+```
 
 ### Including Bootstrap and Styles
 
@@ -1055,7 +1070,7 @@ class CheckIsAuthorListener
 }
 ```
 
-We now need to add this class as a service so that Symfony runs it on each controller request. In `app/config/services.yml` add the following at the bottom:
+We now need to add this class as a service so that Symfony runs it on each controller request. In `app/config/services.yml` add the following as the last item of `services`:
 
 ```yml
 AppBundle\EventListener\Author\CheckIsAuthorListener:
