@@ -32,17 +32,17 @@ related:
 
 **TL;DR:** In this article, we are going to see how to setup a Google App Engine and host a Loopback app on it. We'll deploy a sample Loopback application to Google App Engine. By the end, you'll have learned how to:
 
-*    Create a project in Google Cloud Platform
-*    Configure Deployments
-*    Scaffold a Loopback project using the loopback-cli
-*    Learn how to config your App Engine environment in a YAML file
-*    Deploy apps with Google Cloud Shell
+* create a project in Google Cloud Platform;
+* configure deployments;
+* scaffold a Loopback project using the loopback-cli;
+* learn how to config your App Engine environment in a YAML file;
+* deploy apps with Google Cloud Shell.
 
-This is a real App Engine deployment, so when the tutorial is over you can keep working on it.
+This is a real Google App Engine deployment, so when the tutorial is over you can keep working on it.
 
-It's easy to get started developing Loopback.js apps running on Google Cloud Platform. And because the apps you create will be running on the same infrastructure that powers all of Google's products, you can be confident that they will scale to serve all of your users, whether there are a few or millions of them.
+It's easy to get started developing Loopback.js apps running on Google Cloud Platform. Besides that, the apps you create will be running on the same infrastructure that powers all Google products. Therefore, you can rest assured that they will scale to serve all of your users, whether there are a few or millions of them.
 
-Recap: This article assumes that you are familiar with Node.js and that you have installed Node.js.
+__Note__: This article assumes that you are familiar with [Node.js and that you have it installed](https://nodejs.org/en/download/).
 
 ## What is Loopback
 
@@ -52,10 +52,10 @@ LoopBack comes with a built-in client, API Explorer. We’ll use this since it m
 
 LoopBack is a highly-extensible, open-source Node.js framework that enables you to:
 
-*    Create dynamic end-to-end REST APIs with little or no coding.
-*    Access data from Oracle, MySQL, PostgreSQL, MS SQL Server, MongoDB, SOAP and other REST APIs.
-*    Incorporate model relationships and access controls for complex APIs.
-*    Run your application on-premises or in the cloud.
+* Create dynamic end-to-end REST APIs with little or no coding.
+* Access data from Oracle, MySQL, PostgreSQL, MS SQL Server, MongoDB, SOAP and other REST APIs.
+* Incorporate model relationships and access controls for complex APIs.
+* Run your application on-premises or in the cloud.
 
 ## What is Google App Engine
 
