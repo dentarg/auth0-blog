@@ -442,33 +442,21 @@ module.exports = function(app) {
 
 LoopBack will execute this file will when during the next boot. It will programmatically seed your Firestore database with the data provided.
 
-### Secure the Spotify API
+## Secure the LoopBack API with Auth0
 
-We will secure our APIs with Auth0. You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
+As a responsible developer, you want to secure your API. That's why you will use Auth0. You'll need an [Auth0](https://auth0.com) account to manage authentication. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>. Next, set up an Auth0 API so Auth0 can interface with your LoopBack app.
 
-Follow these steps to set up a Client App
+Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 management dashboard and click on the "Create API" button.
 
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
-2. Name your new app, select "Single Page Web Applications", and click the "Create" button.
-3. In the **Settings** for your new Auth0 client app, add `http://localhost:[PORT]/callback` to the **Allowed Callback URLs**.
-4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
-5. Click the "Save Changes" button.
-6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
+Enter a name for the API. Set the **Identifier** to something meaningful like `https://spotify-app.mycompany.com/` (this does not have to be an existing URL, it won't be called). The **Signing Algorithm** can be left as `RS256`.
 
-After completing the above, you wiil now set up an API
-
-Go to [**APIs**](https://manage.auth0.com/#/apis) in your dashboard and click on the "Create API" button.
-
-![](https://IMAGE_URL_HERE)
-
-Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:[PORT]/api/`. The **Signing Algorithm** should be `RS256`.
 Head over to your terminal and install the following node modules:
 
 ```bash
 npm install express-jwt jwks-rsa --save
 ```
 
-Open up your `server/server.js` file and modify the code to look like this:
+Open up your `./server/server.js` file and modify the code to look like this:
 
 ```js
 'use strict';
@@ -486,10 +474,10 @@ var jwtCheck = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: "https://{YOUR-AUTH0-URL-HERE}.auth0.com/.well-known/jwks.json"
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
     }),
-    audience: '{YOUR-API-AUDIENCE-GOES-HERE}',
-    issuer: "{YOUR-AUTH0-ISSUER-HERE}",
+    audience: '{YOUR-AUTH0-API-AUDIENCE}',
+    issuer: "https://{YOUR-AUTH0-DOMAIN}/",
     algorithms: ['RS256']
 });
 
@@ -534,7 +522,13 @@ boot(app, __dirname, function(err) {
         app.start();
 });
 ```
-## Deploy the app
+
+Then change `{YOUR-AUTH0-API-AUDIENCE}` and both apparitions of `{YOUR-AUTH0-DOMAIN}` with your Auth0 data. For example:
+
+- `{YOUR-AUTH0-DOMAIN}` => `bk-samples.auth0.com`.
+- `{YOUR-AUTH0-API-AUDIENCE}` => `https://spotify-app.mycompany.com/`.
+
+## Deploy LoopBack to Google App Engine
 
 Here comes the important part of this article. We now have a loopback app fully setup. We can run the app locally using the command `node .` or `npm run start`. Instead of, running this app on our system, we will push it on Google App Engine, a NodeJS environment, there the App Engine will take care of the resources our app needs to run and also, give our app a good perfomance boost.
 
