@@ -25,7 +25,7 @@ related:
 
 ---
 
-## Introduction
+## Symfony Tutorial: Introduction
 
 ### What is Symfony?
 
@@ -134,7 +134,7 @@ When it asks for the Entity shortcut name, type in: `AppBundle:Author`
 
 Keep the default on `Configuration format`, but this next step we need to add all of the properties of our Author. Please refer to the image below for the entries required for an Author table:
 
-![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-author-entity.png)
+![Creating an Author entity with Symfony and Doctrine](https://cdn.auth0.com/blog/symfony-blog/create-author-entity.png)
 
 __NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/AuthorRepository.php).
 
@@ -148,7 +148,7 @@ When it asks for the Entity shortcut name, type in: `AppBundle:BlogPost`
 
 Keep the default on `Configuration format`, but the next step is to add all of the properties on the BlogPost. Please refer to the image below for the entries required for a BlogPost table:
 
-![Creating an Author entity](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
+![Creating an Author entity with Symfony and Doctrine](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
 
 __NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/BlogPostRepository.php).
 
@@ -382,7 +382,7 @@ Let's run the fixtures! `php bin/console doctrine:fixtures:load`
 
 Now we have our entities, database, database tables, and some dummy data in the tables.
 
-## Managing Identity with Auth0
+## Managing Identity with Symfony and Auth0
 
 ### Installing HWIOAuth Bundle
 
@@ -597,7 +597,7 @@ The config above is setting up URLs/sections in your blog that require the user 
 
 Let's create our admin blog controller by running the following command: `php bin/console generate:controller`.
 
-![Creating an Admin Controller](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
+![Creating a controller on Symfony](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
 
 If you follow the instructions as shown in the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `AdminController`. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
 
