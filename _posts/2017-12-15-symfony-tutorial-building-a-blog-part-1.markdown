@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Symfony Tutorial: Building a Blog (Part 1)"
-description: "Let's use Symfony to build a blog with authentication."
+description: "Creating application with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. Let's use Symfony to create a blog engine."
 date: 2017-12-15 08:30
 category: Technical Guide, PHP, Symfony
 author:
@@ -10,8 +10,8 @@ author:
   mail: iam@gregholmes.co.uk
   avatar: "https://avatars0.githubusercontent.com/u/2411269?s=460&v=4
 design:
-  bg_color: "#3B3B3B"
-  image: https://cdn.auth0.com/blog/Symfony/Logo.png
+  bg_color: "#000000"
+  image: https://cdn.auth0.com/blog/symfony-blog/logo.png
 tags:
 - symfony
 - authentication
