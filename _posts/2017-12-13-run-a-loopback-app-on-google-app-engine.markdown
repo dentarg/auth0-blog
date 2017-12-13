@@ -290,9 +290,11 @@ You have seen how to make a model. Do the same for the `Albums` and `Tracks` mod
 #### Albums
 
 * Property name: `name`, Property type: `string`, Required? `Yes`
-* Property name: `popularity`, Property type: `number`, Required? `Yes`
-* Property name: `genres`, Property type: `array`, Type of array items: `string`, Required? `Yes`
+* Property name: `artists`, Property type: `array`, Type of array items: `string`, Required? `Yes`
+* Property name: `album_type`, Property type: `string`, Required? `Yes`
+* Property name: `tracks`, Property type: `array`, Type of array items: `object`, Required? `Yes`
 * Property name: `image`, Property type: `string`, Required? `Yes`
+* Property name: `release_date`, Property type: `string`, Required? `Yes`
 
 #### Tracks
 
@@ -530,27 +532,26 @@ Then change `{YOUR-AUTH0-API-AUDIENCE}` and both apparitions of `{YOUR-AUTH0-DOM
 
 ## Deploy LoopBack to Google App Engine
 
-Here comes the important part of this article. We now have a loopback app fully setup. We can run the app locally using the command `node .` or `npm run start`. Instead of, running this app on our system, we will push it on Google App Engine, a NodeJS environment, there the App Engine will take care of the resources our app needs to run and also, give our app a good perfomance boost.
+Great! You are now ready to deploy your application. You can run the app locally using the command `node .` or `npm run start`. However, instead of running this app on your computer, you will push it on Google App Engine in a NodeJS environment. There the App Engine will take care of the resources your app needs to run and also give your app a good perfomance boost.
 
-Let's get started. Create a app.yaml in the root directory of the app and enter the following content:
+Let's get started. Create a `app.yaml` in the root directory of the app and enter the following content:
 
 ```sh
 runtime: nodejs
 env: flex
 ```
 
-`app.yaml` contains our Node.js App Engine's runtime configurations such as cpu, memory, network and disk resource, automatic or manual scaling configurations and other general settings. It's kind of like .htaccess in php. You can read more about app.yaml at its official documentation.
+This `app.yaml` file contains your Node.js App Engine's runtime configurations such as cpu, memory, network and disk resource, automatic or manual scaling configurations and other general settings. It's kind of like `.htaccess` in php. [You can read more about `app.yaml` at its official documentation](https://cloud.google.com/appengine/docs/standard/python/config/appref).
 
 Run the following command to deploy your app:
 
 ```sh
 gcloud app deploy
 ```
-![](https://IMAGE_URL_HERE)
 
-Note: You must be in the root folder of your project folder.
+__Note__: You must be in the root folder of your project folder.
 
-Series of text and progress will fill in your terminal after running the above command. It will take about 4 to 6 minutes for the deployment to complete. At a point, it will demand where you want your App Engine located.
+Series of text and progress will fill in your terminal after running the above command. It will take a few minutes for the deployment to complete. At a point, it will demand where you want your App Engine located.
 
 ```sh
 Please choose the region where you want your App Engine application located :
@@ -561,18 +562,8 @@ Please choose the region where you want your App Engine application located :
 [4] us-central (supports standard and flexible)
 Please enter your numeric choice:
 ```
-![](https://IMAGE_URL_HERE)
 
-Type in your numeric choice. Also, it will ask you for your consent to proceed.
-
-```sh
-Do you want to continue (Y/n)?
-```
-After successfully deploying our app, we can view the deployed app:
-
-![](https://IMAGE_URL_HERE)
-
-Note: The Deployed service URL, will be where we will direct all our requests.
+Type in your numeric choice. Also, it will ask you for your consent to proceed. After successfully deploying our app, we can view the deployed app.
 
 ```sh
 gcloud app browse
