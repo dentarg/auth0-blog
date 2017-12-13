@@ -286,41 +286,28 @@ Then, run the command:
  lb model
  ```
 
-The generator will prompt for a model name.  Enter Artists. It will ask if you want to attach the model to any data sources that have already been defined. Select `db (memory)` as the datasource. It will prompt for the base class. Select `PersistedModel`.
+The generator will prompt for a model name.  Enter `Artists`. It will ask if you want to attach the model to any data sources that have already been defined. Select `db (memory)` as the datasource. It will prompt for the base class. Select `PersistedModel`.
 
-PersistedModel is the base object for all models connected to a persistent data source such as a database.
+`PersistedModel` is the base object for all models connected to a persistent data source such as a database.
 
 One of the powerful advantages of LoopBack is that it automatically generates a REST API for your model.  The generator will ask whether you want to expose this REST API.
 
-Hit Enter again to accept the default and expose the Artists model via REST.
+Hit Enter again to accept the default and expose the `Artists` model via REST.
 
-You will be asked to enter a Custom plural form. Press Enter to accept the default plural form.
+You will be asked to enter a Custom plural form. Press `Enter` to accept the default plural form.
 
 Next, you’ll be asked whether you want to create the model on the server only or in the /common directory, where it can potentially be used by both server and client LoopBack APIs.  Keep, the default, common, even though in this application you’ll only be working with server-side models.
 
-Right now, we’re going to define properties for the Artists model.
+Right now, we’re going to define properties for the `Artists` model.
 
 The Artists model has `name`, `popularity`, `genres` and `image` as properties. For each of the properties, it will prompt you for the `name`, the `type`, Whether it is `Required` and the default value. Use the below structure to fill in the prompts.
 
-* Property name: name
-* Property type: string
-* Required?: Yes
+#### Artists
 
-
-* Property name: popularity
-* Property type: number
-* Required?: Yes
-
-
-* Property name: genres
-* Property type: array
-* Type of array item: string
-* Required?: Yes
-
-
-* Property name: image
-* Property type: string
-* Required?: Yes
+* Property name: name Property type: string Required?: Yes
+* Property name: popularity Property type: number Required?: Yes
+* Property name: genres Property type: array Type of array item: string Required?: Yes
+* Property name: image Property type: string Required?: Yes
 
 ![](https://IMAGE_URL_HERE)
 
@@ -328,7 +315,7 @@ End the model creation process by pressing Enter when prompted for the name of t
 
 You have seen how to make a model. Do the same for the `Albums` and `Tracks` models with these properties:
 
-#### Artists
+#### Albums
 
 * Property name: name, Property type: string, Required? Yes
 * Property name: popularity, Property type: number, Required? Yes
@@ -481,7 +468,7 @@ module.exports = function(app) {
 
 };
 ```
-This file wil execute when we boot our server. It will programatically seed our mLab database with the data provided.
+This file wil execute when we boot our server. It will programatically seed our Cloud Firestore database with the data provided.
 
 
 ### Secure the Spotify API
@@ -489,7 +476,7 @@ This file wil execute when we boot our server. It will programatically seed our 
 We will secure our APIs with Auth0. You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
 
 Follow these steps to set up a Client App
-
+ 
 1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
 2. Name your new app, select "Single Page Web Applications", and click the "Create" button. 
 3. In the **Settings** for your new Auth0 client app, add `http://localhost:[PORT]/callback` to the **Allowed Callback URLs**.
@@ -642,14 +629,55 @@ Now use this access token in Postman by sending it as an Authorization header to
 
 We will test for the Tracks API.
 
-Tracks GET test
+```sh
+CLIENT_ID="J5Hl7A821oFs5LO8xFWTSAAdrJBYhr5Y"
+CLIENT_SECRET="IZ9cpso_kmcdzyHckckAW3l1twUA3bjb32dJEt8qAWM6JsvML7EJoRmLc2DN9jEw"
 
-![](https://IMAGE_URL_HERE)
+JWT=$(curl --request POST \
+  --url https://chidumennamdi.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.com","grant_type":"client_credentials"}')
+curl -H "Authorization: Bearer "$JWT http://loopback-app.appspot.com/api/tracks
+```
 
-Tracks POST test
+#### Tracks GET test
 
-![](https://IMAGE_URL_HERE)
+```sh
+curl -H "Authorization: Bearer "$JWT http://loopback-app.appspot.com/api/tracks
+```
 
+#### Tracks POST test
 
+```sh
+curl -H "Authorization: Bearer "$JWT  -X POST -H "Content-Type: application/json" -d '{
+  "title": "Milk",
+  "price": 0.95
+}' http://loopback-app.appspot.com/api/tracks
+```
 
+## Conclusion
 
+We covered some new technologies in this article: 
+
+* Loopback
+* Google App Engine
+* Google Cloud Firestore
+* Auth0 authentication
+
+We have seen in this article how easy it is to host and run a `Loopback` app on `Google App Engine`, use `Google Cloud Firestore` for data persistence and authenticate it with JWTs. 
+
+**LoopBack** is a great web framework that generates the REST method and handles the communication, we have to take care of defining the model and the business logic. It allows you to focus on application-specific problems and business logic.
+
+{% include tweet_quote.html quote_text="Loopback is an awesome Node.js web framework for creating APIs and connecting them with backend data sources" %}
+
+**Google App Engine** provides an ideal environment for applications without the developer(S) ever thinking of server resorces.
+
+{% include tweet_quote.html quote_text="Google App Engine is a Platform-as-a-Servive(PaaS) from Google that allows developers and businesses to build and run applications using Google's advanced infrastructure." %}
+
+**Google Cloud Firestore** is a great new document database for cloud and realtime data service. As a NoSQL database it differs from traditional database in the way it describes relationships between data.
+
+{% include tweet_quote.html quote_text="Google Cloud Firestore is a NoSQL document database from Firebase and Google Cloud Platform built for automatic scaling, high performance, and ease of application development." %}
+
+**Auth0** helps secure your **API** easily and it also, provides username-password authentication.
+
+Please, feel free to ask if you have any questions or comments in the comment section. 😊
