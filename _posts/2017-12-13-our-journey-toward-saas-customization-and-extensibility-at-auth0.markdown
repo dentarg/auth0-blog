@@ -45,7 +45,7 @@ Customers will come up with an unlimited supply of feature requests. We could no
 Moreover, sometimes building features into the core product for customers is not the right approach. We needed a way to try ideas out. An idea may sound great, but in practice be problematic. Investing core engineering resources to these ideas is very expensive.
 
 > **"The primary use case for extensibility at Auth0 was to empower field engineers to work on the last mile solutions for the customer without involving core engineering."**<br />
-> Eugenio Pace - Co-Founder, VP Customer Success
+> Eugenio Pace - Co-Founder, CEO
 
 If every interaction with a customer involved identifying an idea, putting it in the backlog and coming back to them at a later date, it would add friction to the process and turn customers away.
 
@@ -60,7 +60,7 @@ For example, we had customers who wanted to do profile enrichment. They used ser
 To solve this problem, we introduced a method of adding custom code into the platform that could be defined by customers. The inspiration for custom code extensibility as a solution came from spreadsheets. Excel has significant functionality out of the box, but you can always add a function, macro or calculation that better reflects your goal. However, you can write them yourself directly in Excel removing the dependency on Microsoft engineers.
 
 > **"We wanted a similar experience for our users. A user should be able to log in to the dashboard, write a small amount of node.js code that executes later during authorization transactions."**<br />
-> Eugenio Pace - Co-Founder, VP Customer Success
+> Eugenio Pace - Co-Founder, CEO
 
 Like Excel, we wanted to offer users a really simple experience for customizing our product through code. We believed a user should be able to write their logic in an editor, debug it in place, and make it live in production, all without having to stand up a service. This differed from the prevalent approach at the time for dealing with customization through webhooks, which were hosted by the user.
 
@@ -111,7 +111,7 @@ This is just the beginning. We're constantly looking to enable richer and richer
 Adding extensibility to the identity product opened up a window of customization where field engineers could work independently from core engineering. They could deliver customizations very quickly without waiting weeks or even days, enabling many successful sales engagements.
 
 > **"In some cases, we were able to deliver demos where we implemented feature requests in the demo during the meeting. It was amazing for field engineers and our customers."**<br />
-> Eugenio Pace - Co-Founder, VP Customer Success
+> Eugenio Pace - Co-Founder, CEO
 
 Putting extensibility into the hands of customers also gives us great insights into where the market is going. If we see an extension being implemented again and again through the use of custom code, that is a validation of that feature and an opportunity to add in the core product.
 
