@@ -39,5 +39,4 @@ With an extensive technical background and previous senior management positions 
 
 “I’m honored to be at the helm of Auth0 at such an exciting stage in the company’s evolution. The past few years of exceptional growth are a strong indicator of where we are heading, and I am very appreciative of Jon’s dedication to getting us to this stage,” said Pace. “We hold steadfast to our mission of providing the easiest-to-use IDaaS platform to solve the most complex and large-scale identity and access management challenges. Our amazing team has enabled us to stake our leadership claim in this market, and I’m thrilled to continue our mission as leader of this organization.”
  
-
 {% include asides/about-auth0.markdown %}
