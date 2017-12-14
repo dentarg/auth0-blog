@@ -367,7 +367,7 @@ Then you should use a service account. Go to [Project Settings > Service Account
 
 You should fill the application's datasource file which is located in `/server/datasources.json` with those details, You can find them in the downloaded JSON file from the Google Cloud Platform.
 
-```sh
+```json
     ...
     "firestore": {
         "name": "firestore",
@@ -563,13 +563,15 @@ boot(app, __dirname, function(err) {
         app.start();
 });
 ```
+**Note**: Replace the `YOUR-AUTH0-URL-HERE`, `YOUR-API-AUDIENCE-GOES-HERE` and, `YOUR-AUTH0-ISSUER-HERE` placeholders with the API audience and Auth0 domain values from your Auth0 dashboard before deployment.
+
 ## Deploy the app
 
 Here comes the important part of this article. We now have a loopback app fully setup. We can run the app locally using the command `node .` or `npm run start`. Instead of, running this app on our system, we will push it on Google App Engine, a NodeJS environment, there the App Engine will take care of the resources our app needs to run and also, give our app a good perfomance boost.
 
 Let's get started. Create a app.yaml in the root directory of the app and enter the following content:
 
-```sh
+```yaml
 runtime: nodejs
 env: flex
 ```
@@ -607,7 +609,7 @@ After successfully deploying our app, we can view the deployed app:
 
 ![](https://IMAGE_URL_HERE)
 
-Note: The Deployed service URL, will be where we will direct all our requests.
+**Note**: The Deployed service URL, will be where we will direct all our requests.
 
 ```sh
 gcloud app browse
@@ -615,43 +617,60 @@ gcloud app browse
 
 ## Test the app
 
-We will test our APIs using Postman.
+We will test our APIs using cURL. We need `access_token`. If a user accesses any API endpoint/route without a valid access token or no token at all, it returns an error.
 
-Note: Replace the YOUR-AUTH0-URL-HERE, YOUR-API-AUDIENCE-GOES-HERE and, YOUR-AUTH0-ISSUER-HERE placeholders with the API audience and Auth0 domain values from your Auth0 dashboard.
+We are going to ask Auth0 for our token.
 
-Before we start the test. Go to your Auth0 dashboard and copy the access token. We will use the access token for authorization when sending request to our APIs.
+#### Ask for a Token
 
-![](https://IMAGE_URL_HERE)
-
-Now use this access token in Postman by sending it as an Authorization header to access any API endpoint.
-
-![](https://IMAGE_URL_HERE)
-
-We will test for the Tracks API.
+To ask Auth0 for tokens for any of your authorized client applications, perform a `POST` operation to the `https://chidumennamdi.auth0.com/oauth/token` endpoint with a payload in the following format:
 
 ```sh
-CLIENT_ID="J5Hl7A821oFs5LO8xFWTSAAdrJBYhr5Y"
-CLIENT_SECRET="IZ9cpso_kmcdzyHckckAW3l1twUA3bjb32dJEt8qAWM6JsvML7EJoRmLc2DN9jEw"
+CLIENT_ID="J5Hl7A821oFs5LO8xFWTSAAdrJBYhr5Y";
+CLIENT_SECRET="IZ9cpso_kmcdzyHckckAW3l1twUA3bjb32dJEt8qAWM6JsvML7EJoRmLc2DN9jEw";
 
 JWT=$(curl --request POST \
   --url https://chidumennamdi.auth0.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.com","grant_type":"client_credentials"}')
-curl -H "Authorization: Bearer "$JWT http://loopback-app.appspot.com/api/tracks
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.com","grant_type":"client_credentials"}' | jq .access_token);
 ```
+
+Where:
+
+* `grant_type`: This must be `client_credentials`.
+* `client_id`: Your application's Client ID. You can find this value at the Settings tab of the Non Interactive Client.
+* `client_secret`: Your application's Client Secret. You can find this value at the Settings tab of the Non Interactive Client.
+* `audience`: The Identifier value on the Settings tab for the API you created as part of the prerequisites for this tutorial.
+
+The response contains a signed JSON Web Token, the token's type (which is `Bearer`), and in how much time it expires in Unix time (86400 seconds, which means 24 hours).
+
+```json
+{
+  "access_token":"eyJz93a...k4laUWw",
+  "token_type":"Bearer",
+  "expires_in":86400
+}
+```
+
+We will test for the `Tracks` API:
 
 #### Tracks GET test
 
 ```sh
-curl -H "Authorization: Bearer "$JWT http://loopback-app.appspot.com/api/tracks
+curl --request GET \
+  --url http://loopback-app.appspot.com/api/tracks \
+  --header 'authorization: Bearer $JWT'
 ```
 
 #### Tracks POST test
 
 ```sh
 curl -H "Authorization: Bearer "$JWT  -X POST -H "Content-Type: application/json" -d '{
-  "title": "Milk",
-  "price": 0.95
+  "name": "Smooth Criminal",
+  "image": "mj.png",
+  "duration": 90,
+  "albums": "[{"name": "Smooth Criminal"}]",
+  "artists": "[{"name": "Michael Jackson"}]"
 }' http://loopback-app.appspot.com/api/tracks
 ```
 
@@ -666,6 +685,8 @@ We covered some new technologies in this article:
 
 We have seen in this article how easy it is to host and run a `Loopback` app on `Google App Engine`, use `Google Cloud Firestore` for data persistence and authenticate it with JWTs. 
 
+Let's recap on the technologies we used in this article:
+
 **LoopBack** is a great web framework that generates the REST method and handles the communication, we have to take care of defining the model and the business logic. It allows you to focus on application-specific problems and business logic.
 
 {% include tweet_quote.html quote_text="Loopback is an awesome Node.js web framework for creating APIs and connecting them with backend data sources" %}
@@ -679,5 +700,7 @@ We have seen in this article how easy it is to host and run a `Loopback` app on 
 {% include tweet_quote.html quote_text="Google Cloud Firestore is a NoSQL document database from Firebase and Google Cloud Platform built for automatic scaling, high performance, and ease of application development." %}
 
 **Auth0** helps secure your **API** easily and it also, provides username-password authentication.
+
+{% include tweet_quote.html quote_text="Auth0 is an Authentication-as-a-Service platform that solves the most complex identity use cases with an extensible and easy to integrate platform that secures billions of logins every month." %}
 
 Please, feel free to ask if you have any questions or comments in the comment section. 😊
