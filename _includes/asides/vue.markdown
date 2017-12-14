@@ -210,7 +210,7 @@ export function getPrivateMeetups() {
 }
 ```
 
-### Final Touches: Route Guard and Profile Page
+### Final Touches: Route Guard and Private Meetups Page
 
 A [Private meetup page component](https://github.com/auth0-blog/angular-auth0-aside/tree/master/src/app/profile) can show information about private meetups. However, we only want this component to be accessible if the user is logged in.
 
