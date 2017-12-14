@@ -458,9 +458,9 @@ Navigate to `localhost:4200` and you should see be redirected to the deals page 
 
 The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
-From here, click on the [APIs menu item](https://manage.auth0.com/#/apis) and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Daily Deals API** and for the identifier I'll set it as **daily-deals-api**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
+From here, click on the [APIs menu item](https://manage.auth0.com/#/apis) and then the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set. For our example, I'll name the API **Daily Deals API** and for the identifier I'll set it as **http://localhost:3001**. We'll leave the signing algorithm as RS256 and click on the **Create API** button.
 
-![Creating Auth0 API](https://cdn.auth0.com/blog/angular2-auth-dd/creating-api.png)
+![Creating Auth0 API](https://cdn.auth0.com/blog/angular2-auth-dd/creating-api-fixed.png)
 
 This is all we need to do for now. Let's secure our server using this new API that we created.
 
