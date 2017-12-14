@@ -619,7 +619,9 @@ gcloud app browse
 
 We will test our APIs using cURL. We need `access_token`. If a user accesses any API endpoint/route without a valid access token or no token at all, it returns an error.
 
-We are going to ask Auth0 for our token.
+We are going to ask Auth0 for our token. We can send the `access_token` directly but they have `24` hours expiration window on them. Once expired, an `access_token` can no longer be used to access an API. In order to obtain access again, a new `access_token` needs to be obtained.
+
+Here, we request a fresh and new `access_token` from Auth0 for API operation so we don't have to deal with an expired `access_token`.
 
 #### Ask for a Token
 
@@ -638,11 +640,13 @@ JWT=$(curl --request POST \
 Where:
 
 * `grant_type`: This must be `client_credentials`.
-* `client_id`: Your application's Client ID. You can find this value at the Settings tab of the Non Interactive Client.
-* `client_secret`: Your application's Client Secret. You can find this value at the Settings tab of the Non Interactive Client.
-* `audience`: The Identifier value on the Settings tab for the API you created as part of the prerequisites for this tutorial.
+* `client_id`: Your application's Client ID. You can find this value at the (Settings tab of the Non Interactive Client](https://manage.auth0.com/#/clients).
+* `client_secret`: Your application's Client Secret. You can find this value at the (Settings tab of the Non Interactive Client)[https://manage.auth0.com/#/clients].
+* `audience`: The Identifier value on the (Settings)[https://manage.auth0.com/#/apis] tab for the API you created as part of the prerequisites for this tutorial.
 
-The response contains a signed JSON Web Token, the token's type (which is `Bearer`), and in how much time it expires in Unix time (86400 seconds, which means 24 hours).
+**Note:** To get the above command format. Head over to the `test` tab of your newly created API on your Auth0 dashboard.
+
+The response contains a (signed JSON Web Token)[https://auth0.com/docs/jwt], the token's type (which is `Bearer`), and in how much time it expires in (Unix)[https://en.wikipedia.org/wiki/Unix_time] time (`86400` seconds, which means `24` hours).
 
 ```json
 {
@@ -651,6 +655,12 @@ The response contains a signed JSON Web Token, the token's type (which is `Beare
   "expires_in":86400
 }
 ```
+**Note**: If you run into any error like this, 
+
+```sh
+jq command not found
+```
+Head over to (Download jq)[https://stedolan.github.io/jq/download/] and download the executable for your OS.
 
 We will test for the `Tracks` API:
 
