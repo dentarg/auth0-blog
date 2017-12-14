@@ -25,7 +25,7 @@ related:
 ---
 
 <div class="alert alert-success alert-icon">
-  <strong>Heads up!</strong> This article refers to version <strong>1.0</strong> of the .Net Core platform. If you are looking for instructions on how to secure .Net Core <strong>2.0</strong>, please refer to the <a href="/blog/asp-dot-net-core-authentication-tutorial/">Securing .Net Core 2.0 Applications with JWTs</a> article. Have fun!
+  <strong>Heads up!</strong> This article refers to version <strong>1.0</strong> of the .Net Core platform. If you are looking for instructions on how to secure .Net Core <strong>2.0</strong>, please refer to the <a href="/blog/securing-asp-dot-net-core-2-applications-with-jwts/">Securing .Net Core 2.0 Applications with JWTs</a> article. Have fun!
 </div>
 
 **TL;DR:** ASP.NET Core, the rewritten, cross-platform, and open source version of ASP.NET framework is gaining popularity for being easy to use and for having great performance when compared to modern solutions like Java, Go and Node.js. In this article we are going to use ASP.NET Core to create a simple RESTful API that handles grocery lists and then we are going to add authentication to secure this API.
