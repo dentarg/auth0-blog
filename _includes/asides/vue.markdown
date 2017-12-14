@@ -168,6 +168,9 @@ The [callback component](https://github.com/auth0-blog/vue-auth0-aside/tree/mast
 ```js
 // src/components/Callback.vue
 <template>
+  <div>
+      <h3>Loading....</h3>
+  </div>
 </template>
 <script>
 
