@@ -2,8 +2,8 @@
 layout: post
 title: "Elixir & Phoenix Tutorial: Build an Authenticated App"
 description: "You can't escape Phoenix if you're looking for a good framework to build on when using Elixir."
-date: 2017-10-15 02:25
-category: Auth0, Elixir, Phoenix
+date: 2017-12-14 02:25
+category: Technical Guide, Backend, Phoenix
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
@@ -24,6 +24,7 @@ tags:
 related:
 - 2017-08-23-an-introduction-to-crystal-lang
 - 2016-08-04-creating-your-first-elm-app-part-1
+- 2017-11-02-building-your-first-crystal-app-with-jwt-authentication
 ---
 
 **TL;DR:** The [Elixir language](https://elixir-lang.org) is dynamically typed with lots of helpful documentation. It builds on [Erlang](http://www.erlang.org) and the Erlang VM. You can be up and running almost immediately. If your app compiles, it's already deployable. The [Phoenix framework for Elixir apps](http://phoenixframework.org) is genuinely exciting to use. Let's build an easy-to-use application that manages upcoming events, built with the Phoenix Framework and authenticated with [Auth0](https://auth0.com). The final code can be found at the [auth0-elixir-countdown GitHub repo](https://github.com/lukeoliff/auth0-elixir-countdown).
