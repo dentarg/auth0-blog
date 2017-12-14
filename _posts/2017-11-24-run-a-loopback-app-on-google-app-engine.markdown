@@ -655,7 +655,7 @@ The response contains a (signed JSON Web Token)[https://auth0.com/docs/jwt], the
   "expires_in":86400
 }
 ```
-**Note**: If you run into any error like this, 
+**Note**: If you run into any error like this:
 
 ```sh
 jq command not found
