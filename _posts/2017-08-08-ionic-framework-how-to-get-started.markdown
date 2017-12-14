@@ -64,7 +64,7 @@ In this tutorial, we'll make use of the `sidemenu` layout.
 Run the command below in your terminal:
 
 ```bash
-npm start MyApp sidemenu
+ionic start MyApp sidemenu
 ```
 
 A question - `Would you like to integrate your new app with Cordova to target native iOS and Android?` will pop up in your terminal when you run this command. Reply with `Yes`.
