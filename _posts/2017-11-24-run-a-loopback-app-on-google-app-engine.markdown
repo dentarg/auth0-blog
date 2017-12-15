@@ -370,10 +370,15 @@ lb datasource
 Then the data source generator will prompt some questions like
 
 ```sh
-Enter the data-source name: firestore (Choose your prefered name)
-Select the connector for firestore: other
-Enter the connector's module name loopback-connector-firestore
-Install loopback-connector-firestore (Y/n) Y
+? Enter the data-source name: firestore
+? Select the connector for firestore:
+  ElasticSearch (provided by community)
+  z/OS Connect Enterprise (supported by StrongLoop)
+❯ other
+  In-memory db (supported by StrongLoop)
+? Enter the connector's module name loopback-connector-firestore
+? Install loopback-connector-firestore (Y/n) Y
+Please manually add config for your custom connector loopback-connector-firestore in server/datasources.json
 ```
 
 Then you should use a service account. Go to [Project Settings > Service Accounts](https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts) in the Google Cloud Platform Console. Generate a new private key and save the JSON file.
