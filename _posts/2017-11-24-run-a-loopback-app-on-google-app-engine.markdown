@@ -157,7 +157,8 @@ I created three models for this demo `Albums`, `Tracks` and `Artists`.
 
 * Albums Model Structure
 
-```sh
+```json
+    "name": "",
     "artists": [{
      "name": ""
     }],
@@ -171,7 +172,7 @@ I created three models for this demo `Albums`, `Tracks` and `Artists`.
 
 * Tracks Model Structure
 
-```sh
+```json
    "artists": [{
     "name": ""
    }],
@@ -185,7 +186,7 @@ I created three models for this demo `Albums`, `Tracks` and `Artists`.
 
 * Artists Model Structure
 
-```sh
+```json
     "name": "",
     "popularity": "",
     "genres": [{
@@ -240,13 +241,21 @@ lb
 
 The LoopBack application generator will greet you with some friendly ASCII art and prompt you for the name of the application.
 
-Enter spotify-app. Then the generator will prompt you for the name of the directory to contain the project; press Enter to accept the default (the same as the application name):
+Enter `spotify-app`. Then the generator will prompt you for the name of the directory to contain the project; press Enter to accept the default (the same as the application name):
 
 ```sh
 [?] What's the name of your application? spotify-app
-[?] Enter name of the directory to contain the project: spotify-app
+[?] Enter name of the directory to contain the project: (spotify-app)
 ```
 ![](https://IMAGE_URL_HERE)
+
+It will prompt you to select the version of Loopback you would want to use, select `3.x (current version)`:
+
+```sh
+? What version of Loopback would you like to use? (Use arrow keys)
+  2.x (long term support)
+❯ 3.x (current version)
+```
 
 Then the tool will ask you what kind of application to create:
 
@@ -260,7 +269,7 @@ Then the tool will ask you what kind of application to create:
 ```
 ![](https://IMAGE_URL_HERE)
 
-Scroll down and choose hello-world.
+Scroll down and choose `hello-world`.
 
 The generator will then display messages as it scaffolds the application including:
 
@@ -292,11 +301,11 @@ The generator will prompt for a model name.  Enter `Artists`. It will ask if you
 
 One of the powerful advantages of LoopBack is that it automatically generates a REST API for your model.  The generator will ask whether you want to expose this REST API.
 
-Hit Enter again to accept the default and expose the `Artists` model via REST.
+Hit `Enter` again to accept the default and expose the `Artists` model via REST.
 
 You will be asked to enter a Custom plural form. Press `Enter` to accept the default plural form.
 
-Next, you’ll be asked whether you want to create the model on the server only or in the /common directory, where it can potentially be used by both server and client LoopBack APIs.  Keep, the default, common, even though in this application you’ll only be working with server-side models.
+Next, you’ll be asked whether you want to create the model on the server only or in the `/common` directory, where it can potentially be used by both server and client LoopBack APIs.  Keep, the default, common, even though in this application you’ll only be working with server-side models.
 
 Right now, we’re going to define properties for the `Artists` model.
 
@@ -304,31 +313,35 @@ The Artists model has `name`, `popularity`, `genres` and `image` as properties. 
 
 #### Artists
 
-* Property name: name Property type: string Required?: Yes
-* Property name: popularity Property type: number Required?: Yes
-* Property name: genres Property type: array Type of array item: string Required?: Yes
-* Property name: image Property type: string Required?: Yes
+* Property name: name; Property type: string; Required: Yes
+* Property name: popularity; Property type: number; Required: Yes
+* Property name: genres; Property type: array; Type of array items: string; Required: Yes
+* Property name: image; Property type: string; Required: Yes
 
 ![](https://IMAGE_URL_HERE)
 
-End the model creation process by pressing Enter when prompted for the name of the next property.
+End the model creation process by pressing `Enter` when prompted for the name of the next property.
 
 You have seen how to make a model. Do the same for the `Albums` and `Tracks` models with these properties:
 
+**Note**: For every new `model`  you have to create, `lb model` command must be first run.
+
 #### Albums
 
-* Property name: name, Property type: string, Required? Yes
-* Property name: popularity, Property type: number, Required? Yes
-* Property name: genres, Property type: array, Type of array items: string, Required? Yes
-* Property name: image, Property type: string, Required? Yes
+* Property name: name; Property type: string; Required: Yes
+* Property name: artists; Property type: array; Type of array items: string; Required: Yes
+* Property name: album_type; Property type: string; Required: Yes
+* Property name: tracks; Property type: array; Type of array items: string; Required: Yes
+* Property name: image; Property type: string; Required: Yes
+* Property name: release_date; Property type: string; Required: Yes
 
 #### Tracks
 
-* Property name: artists, Property type: array, Type of array items: string, Required? Yes
-* Property name: albums, Property type: array, Type of array items: string, Required? Yes
-* Property name: duration, Property type: string, Required? Yes
-* Property name: image, Property type: string, Required? Yes
-* Property name: name, Property type: string, Required? Yes
+* Property name: artists; Property type: array; Type of array items: string; Required: Yes
+* Property name: albums; Property type: array; Type of array items: string; Required: Yes
+* Property name: duration; Property type: string; Required: Yes
+* Property name: image; Property type: string; Required: Yes
+* Property name: name; Property type: string; Required: Yes
 
 The model generator will create `.js` and `.json` files in the application’s common/models directory that define our models.
 
