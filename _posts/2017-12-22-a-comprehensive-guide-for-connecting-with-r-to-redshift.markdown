@@ -3,7 +3,7 @@ layout: post
 title: "A comprehensive guide to connect to Amazon Redshift from R"
 description: A guide through all the available drivers and tools to make your life easier when using Redshift from R and/or RStudio
 date: 2017-12-22 12:00
-category: Technical Guide, Data
+category: Technical Guide, Data, R
 author:
   name: Pablo Seibelt
   url: https://twitter.com/sicarul
@@ -28,7 +28,7 @@ related:
 
 [Amazon Redshift](https://aws.amazon.com/redshift/) is one of the hottest databases for Data Warehousing right now, it's one of the most cost-effective solutions available, and allows for integration with many popular BI tools. Unfortunately, the status of the drivers compatibility is a little more shaky, but there is a way to make it work very nicely with [R](https://www.r-project.org/)!
 
-{% include tweet_quote.html quote_text="The status of Redshift drivers compatibility with R is a little shaky, but there is a way to make it work very nicely with R" %}
+{% include tweet_quote.html quote_text="The status of Redshift drivers compatibility with R is a little shaky, but there is a way to make it work very nicely with R." %}
 
 First of all, let's go through the 3 options we have for connecting to Amazon Redshift. For all of the connections, we'll define these variables for connecting:
 
@@ -45,7 +45,7 @@ password='mypassword'
 
 ## RJDBC
 
-This is the most ["official" way to use Amazon Redshift with R](https://aws.amazon.com/blogs/big-data/connecting-r-with-amazon-redshift/), using the JDBC driver on SQL Workbench is the official way to connect to it according to the documentation, and this driver can be loaded like this:
+This is the ["official" way to use Amazon Redshift with R](https://aws.amazon.com/blogs/big-data/connecting-r-with-amazon-redshift/), using the JDBC driver on SQL Workbench is the official way to connect to it according to the documentation, and this driver can be loaded like this:
 
 
 
@@ -97,11 +97,11 @@ pconn_rsql <- dbConnect(drv,
 
 There are two major problems with this driver though: It [lacks SSL support](https://stackoverflow.com/questions/38942118/can-not-connect-postgresqlover-ssl-with-rpostgresql-on-windows), and you don't have transactions like you do with the official driver. In my humble opinion this is the worst choice right now. The good thing is this driver works fine with [dplyr](http://dplyr.tidyverse.org/).
 
-{% include tweet_quote.html quote_text="The RPostgreSQL driver doesn't support SSL-secured Redshift instances" %}
+{% include tweet_quote.html quote_text="The RPostgreSQL driver doesn't support SSL-secured Redshift instances." %}
 
 ## RPostgres
 
-This is another PostgreSQL library, that has much better support using the libpq library, you'll probably need to install the postgresql development header libraries locally for this one to be installed succesfully. [Check out the official docs for installing instructions if you run into issues.](https://github.com/r-dbi/RPostgres)
+This is another PostgreSQL library, that has much better support using the [libpq library](https://www.postgresql.org/docs/9.6/static/libpq.html), you'll probably need to install the postgresql development header libraries locally for this one to be installed succesfully. [Check out the official docs for installing instructions if you run into issues.](https://github.com/r-dbi/RPostgres)
 
 
 
@@ -120,7 +120,7 @@ pconn_r <- dbConnect(RPostgres::Postgres(),
                sslmode='require')
 ```
 
-## Gotchas with the libraries
+## Gotchas With The Libraries
 
 So, what are some gotchas with these libraries?. We'll run this in SQL Workbench to have some data to test:
 
@@ -142,7 +142,7 @@ insert into sicatest values
 commit;
 ```
 
-We are on purpose adding the Ñ letter from spanish, and こんにちは (Kon'nichiwa) which is hello in japanese to have a non-ascii stuff, and see if it's handled correctly.
+We deliberately added the Ñ letter from spanish, and こんにちは (Kon'nichiwa) which is hello in japanese to have a non-ascii stuff, and see if it's handled correctly.
 
 So, let's start with RJDBC:
 
@@ -177,11 +177,11 @@ glimpse(sicatest2)
 ```
 ## Observations: 3
 ## Variables: 5
-## $ a <chr> "こんにちは", "Hello", "Hello ñandu"
-## $ b <S3: integer64> 9223372036854775807, 1, 9223372036854775807
-## $ c <date> 2017-12-30, 2017-10-01, 2017-12-30
-## $ d <dttm> 2017-12-11 23:59:00, 2017-10-01 20:00:00, 2017-12-11 23:59:00
-## $ e <lgl> NA, TRUE, FALSE
+## $ a <chr> "Hello", "Hello ñandu", "こんにちは"
+## $ b <S3: integer64> 1, 9223372036854775807, 9223372036854775807
+## $ c <date> 2017-10-01, 2017-12-30, 2017-12-30
+## $ d <dttm> 2017-10-01 20:00:00, 2017-12-11 23:59:00, 2017-12-11 23:59:00
+## $ e <lgl> TRUE, FALSE, NA
 ```
 Well well, that's much better isn't it? the numbers aren't modified, they are of the correct type (int64), and it correctly guessed types `date`, `datetime` and `logical/boolean`!
 
@@ -230,12 +230,12 @@ dbSendUpdate(jconn, "COMMENT on table sicatest is 'best table ever'")
 dbSendUpdate(jconn, "COMMIT")
 ```
 
-That's why, we can't just rely on one or the other, for maximum efficiency with R + Redshift, we need both drivers, i hope someday we can just rely on one of them, if it's RPostgres or a fork of it, i'll be super happy.
+That's why, we can't just rely on one or the other, for maximum efficiency with R + Redshift, we need both drivers, I hope someday we can just rely on one of them, if it's RPostgres or a fork of it, I'll be super happy.
 
 
 {% include tweet_quote.html quote_text="For maximum efficiency with R + Redshift, we need to use both RJDBC and RPostgreSQL depending on the scenario." %}
 
-Having said that, there's an additional tool which i'd like to introduce to you, which is the `redshiftTools` R Package, it'll add nicely to your toolkit and supports either RJDBC or RPostgres connections. This package is MIT licensed and it's source is available at [https://github.com/sicarul/redshiftTools](https://github.com/sicarul/redshiftTools).
+Having said that, there's an additional tool which I'd like to introduce to you, which is the `redshiftTools` R Package, it'll add nicely to your toolkit and supports either RJDBC or RPostgres connections. This package is MIT licensed and it's source is available at [https://github.com/sicarul/redshiftTools](https://github.com/sicarul/redshiftTools).
 
 
 ```r
@@ -253,10 +253,12 @@ After installing, you'll have 4 helpful functions to use, which are explained in
 
 `rs_upsert_table`: Deletes all records matching the provided keys from the uploaded dataset, and then inserts the rows from the dataset. If no keys are provided, it acts as a regular insert.
 
-`rs_create_table`: This just runs rs_create_statement and then rs_replace_table, creating your table and uploading it.
+`rs_create_table`: This just runs *rs_create_statement* and then *rs_replace_table*, creating your table and uploading it.
 
-This package is helpful because uploading data with inserts in Redshift is super slow, this is the recommended way of doing replaces and upserts [per the Redshift documentation](http://docs.aws.amazon.com/redshift/latest/dg/t_Loading-data-from-S3.html), which consists in generating various CSV files, uploading them to an S3 bucket and then calling a copy command on the Redshift server, all of that is handled by the package.
+This package is helpful because uploading data with inserts in Redshift is super slow, this is the recommended way of doing replaces and upserts [per the Redshift documentation](http://docs.aws.amazon.com/redshift/latest/dg/t_Loading-data-from-S3.html), which consists of generating various CSV files, uploading them to an S3 bucket and then calling a copy command on the Redshift server, all of that is handled by the package.
 
 I hope this guide let's you unlock the full potential of R + Amazon Redshift, two great tools that work very well together when well configured. We use this methodology inside Auth0 and we think it's very useful for other organizations with similar infrastructure.
 
 If you are interested in reading other posts about our work with Data @ Auth0, you may enjoy [Machine Learning for everyone](https://auth0.com/blog/machine-learning-for-everyone/) and [Adding Authentication to Shiny Server in 4 Simple Steps](https://auth0.com/blog/adding-authentication-to-shiny-server/).
+
+{% include asides/market-basket-links-about.markdown %}
