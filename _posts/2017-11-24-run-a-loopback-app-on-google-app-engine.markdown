@@ -587,7 +587,7 @@ gcloud app deploy
 
 Note: You must be in the root folder of your project folder.
 
-Series of text and progress will fill in your terminal after running the above command. It will take about 4 to 6 minutes for the deployment to complete. At a point, it will demand where you want your App Engine located.
+Series of text and progress will fill in your terminal after running the above command. It will take about `4` to `6` minutes for the deployment to complete. At a point, it will demand where you want your App Engine located.
 
 ```sh
 Please choose the region where you want your App Engine application located :
@@ -625,14 +625,14 @@ Here, we request a fresh and new `access_token` from Auth0 for API operation so 
 
 #### Ask for a Token
 
-To ask Auth0 for tokens for any of your authorized client applications, perform a `POST` operation to the `https://chidumennamdi.auth0.com/oauth/token` endpoint with a payload in the following format:
+To ask Auth0 for tokens for any of your authorized client applications, perform a `POST` operation to the `https://<YOUR-AUTH0-DOMAIN>.auth0.com/oauth/token` endpoint with a payload in the following format:
 
 ```sh
-CLIENT_ID="J5Hl7A821oFs5LO8xFWTSAAdrJBYhr5Y";
-CLIENT_SECRET="IZ9cpso_kmcdzyHckckAW3l1twUA3bjb32dJEt8qAWM6JsvML7EJoRmLc2DN9jEw";
+CLIENT_ID="<YOUR-CLIENT-ID>";
+CLIENT_SECRET="<YOUR-CLIENT-SECRET>";
 
 JWT=$(curl --request POST \
-  --url https://chidumennamdi.auth0.com/oauth/token \
+  --url https://<YOUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
   --header 'content-type: application/json' \
   --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.com","grant_type":"client_credentials"}' | jq .access_token);
 ```
@@ -650,38 +650,51 @@ The response contains a (signed JSON Web Token)[https://auth0.com/docs/jwt], the
 
 ```json
 {
-  "access_token":"eyJz93a...k4laUWw",
+  "access_token":"<YOUR-ACCESS-TOKEN>",
   "token_type":"Bearer",
   "expires_in":86400
 }
 ```
-**Note**: If you run into any error like this:
+Now use this `access token` in cURL by sending it as an Authorization header to access any `Spotify` API endpoints.
 
-```sh
-jq command not found
-```
-Head over to (Download jq)[https://stedolan.github.io/jq/download/] and download the executable for your OS.
+**Note**: If you run into any error like this: `jq command not found`. Head over to (Download jq)[https://stedolan.github.io/jq/download/] and download the executable for your OS.
 
 We will test for the `Tracks` API:
 
 #### Tracks GET test
 
 ```sh
+CLIENT_ID="<YOUR-CLIENT-ID-HERE>";
+CLIENT_SECRET="YOUR-CLIENT-SECRET-HERE";
+
+JWT=$(curl --request POST \
+  --url https://<YOUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"<YOUR-AUDIENCE-ATTRIBUTE-HERE>","grant_type":"client_credentials"}' | jq .access_token);
+
 curl --request GET \
-  --url http://loopback-app.appspot.com/api/tracks \
-  --header 'authorization: Bearer $JWT'
+  --url http://<YOUR-APP-URL-HERE>.appspot.com/api/tracks \
+  --header "authorization: Bearer "$JWT
 ```
 
 #### Tracks POST test
 
 ```sh
+CLIENT_ID="<YOUR-CLIENT-ID-HERE>";
+CLIENT_SECRET="YOUR-CLIENT-SECRET-HERE";
+
+JWT=$(curl --request POST \
+  --url https://<YOUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"<YOUR-AUDIENCE-ATTRIBUTE-HERE>","grant_type":"client_credentials"}' | jq .access_token);
+
 curl -H "Authorization: Bearer "$JWT  -X POST -H "Content-Type: application/json" -d '{
   "name": "Smooth Criminal",
   "image": "mj.png",
   "duration": 90,
   "albums": "[{"name": "Smooth Criminal"}]",
   "artists": "[{"name": "Michael Jackson"}]"
-}' http://loopback-app.appspot.com/api/tracks
+}' http://<YOUR-APP-URL-HERE>.appspot.com/api/tracks
 ```
 
 ## Conclusion
