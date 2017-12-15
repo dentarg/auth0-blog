@@ -2,8 +2,8 @@
 layout: post
 title: "Why Your IAM's Definition Of “User” Could Be Costing You Millions"
 description: "Because paying “per user” doesn't factor in activity levels, you could be drastically overpaying"
-date: 2017-09-18 8:30
-category: Growth
+date: 2017-12-15 8:30
+category: Growth, Identity
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
@@ -19,10 +19,17 @@ tags:
 - legacy
 - modernization
 - digital transformation
+- identity-management
+- identity
+- pricing
+- login
+- multi-factor-authentication
+- enterprise-federation
+- enterprise
 related:
 - 2017-07-21-the-role-of-identity-in-application-modernization
-- 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
-- 2017-08-22-for-the-best-security-think-beyond-webhooks
+- 2017-12-08-how-poor-identity-access-management-equals-security-breaches
+- 2017-11-29-5-massive-benefits-of-identity-as-a-service-for-developers
 ---
 
 Depending on your industry, the traditional identity and access management (IAM) provider's pricing structure could be costing you millions of dollars every year.
