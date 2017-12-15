@@ -348,7 +348,9 @@ We're going to use [FlipClock.js](http://flipclockjs.com) to create our countdow
 
 Now edit the homepage template `lib/countdown_web/templates/page/index.html.eex` and replace it with the contents below. It uses a very basic jQuery loop to apply FlipClock to each `.countdownClock` element. The Bootstrap jumbotron is perfect for the quick and easy layout we want here because of its clear heading and very basic markup.
 
-```html
+
+{% highlight html %}
+{% raw %}
 <%= for event <- @events do %>
     <div class="jumbotron">
       <span class="h1">Days until <%= event.title %></span>
@@ -369,7 +371,8 @@ $(document).ready(function() {
     });
 });
 </script>
-```
+{% endraw %}
+{% endhighlight %}
 
 Our last little styling tweaks are just to center the countdown clocks and replace the logo with something more appropriate :)
 
