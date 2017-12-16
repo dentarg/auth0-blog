@@ -138,6 +138,7 @@ $router->before('GET', '/api/private/.*', function() use ($app) {
   }
 
 });
+```
 
 Once a user hits any endpoint which includes `api/private`, a valid JWT `access_token` will be required before the resource can be released. With this in place, private routes can be defined. For example,
 
