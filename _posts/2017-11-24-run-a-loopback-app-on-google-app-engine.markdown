@@ -15,8 +15,7 @@ design:
 tags:
 - google app engine
 - loopback
-- mongodb 
-- mlab
+- google cloud firestore
 - backend
 - javascript
 - authentication
