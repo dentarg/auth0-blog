@@ -13,6 +13,13 @@ We'll need an [Auth0](https://auth0.com) account to manage authentication. [To s
 3. In the **Settings** for our new Auth0 client app, let's add `http://localhost:3000/callback` to the **Allowed Callback URLs**.
 4. If desired, we can [set up some social connections](https://manage.auth0.com/#/connections/social). We can then enable them for our app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure to set up the correct social keys and do not leave social connections set to use Auth0 dev keys.
 
+### Set Up an API
+
+1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:3001/api/`. The **Signing Algorithm** should be `RS256`.
+2. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. We'll implement our Node API in this fashion, using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+
+We're now ready to implement Auth0 authentication on both our React client and Node backend API.
+
 ### Dependencies and Setup
 
 There are only two dependencies that we really need to install: [`auth0.js`](https://github.com/auth0/) and [`history`](https://github.com/ReactTraining/history). To do that, let's issue `npm install --save auth0-js history` in the project root.
