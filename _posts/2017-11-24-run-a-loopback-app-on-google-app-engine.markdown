@@ -42,7 +42,9 @@ This is a real App Engine deployment, so when the tutorial is over you can keep 
 
 It's easy to get started developing Loopback.js apps running on Google Cloud Platform. And because the apps you create will be running on the same infrastructure that powers all of Google's products, you can be confident that they will scale to serve all of your users, whether there are a few or millions of them.
 
-Recap: This article assumes that you are familiar with Node.js and that you have installed Node.js.
+**Note**: This article assumes that you are familiar with Node.js and that you have installed Node.js.
+
+You can check out the [Github repo](https://github.com/philipszdavido/spotify-app) to get the code.
 
 ## What is Loopback
 
