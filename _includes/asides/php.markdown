@@ -8,8 +8,6 @@ Securing PHP APIs with Auth0 is very easy and brings a lot of great features to 
 - [Enterprise identity providers (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise)
 - Our [own database of users](https://auth0.com/docs/connections/database/mysql)
 
-For example, to secure PHP APIs:
-
 ### Sign Up for Auth0
 
 You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 API.
@@ -21,11 +19,15 @@ You'll need an [Auth0](https://auth0.com) account to manage authentication. You 
 
 We're now ready to implement Auth0 authentication on our PHP backend API.
 
+### Dependencies and Setup
+
 Install the following packages via composer like so:
 
 ```bash
 composer require bramus/router:dev-master auth0/auth0-php:~5.0
 ```
+
+### JWT Verification Service
 
 ```php
 <?php
@@ -70,7 +72,9 @@ Change the `$AUTH0_DOMAIN` variable to your Auth0 domain and set the `$AUTH0_API
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
-Then use it to secure endpoints like so:
+### Configure Authenticated Routes
+
+Then use it to secure your API endpoints like so:
 
 ```php
 // Require composer autoloader
