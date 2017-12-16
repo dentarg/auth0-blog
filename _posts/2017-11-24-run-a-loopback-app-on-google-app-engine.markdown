@@ -688,7 +688,7 @@ CLIENT_SECRET="YOUR-CLIENT-SECRET-HERE";
 JWT=$(curl --request POST \
   --url https://<YOUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"<YOUR-AUDIENCE-ATTRIBUTE-HERE>","grant_type":"client_credentials"}' | jq .access_token);
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"<YOUR-AUDIENCE-ATTRIBUTE-HERE>","grant_type":"client_credentials"}' | jq .access_token -r);
 
 curl --request GET \
   --url http://<YOUR-APP-URL-HERE>.appspot.com/api/tracks \
@@ -704,15 +704,13 @@ CLIENT_SECRET="YOUR-CLIENT-SECRET-HERE";
 JWT=$(curl --request POST \
   --url https://<YOUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
   --header 'content-type: application/json' \
-  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"<YOUR-AUDIENCE-ATTRIBUTE-HERE>","grant_type":"client_credentials"}' | jq .access_token);
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"<YOUR-AUDIENCE-ATTRIBUTE-HERE>","grant_type":"client_credentials"}' | jq .access_token -r);
 
-curl -H "Authorization: Bearer "$JWT  -X POST -H "Content-Type: application/json" -d '{
-  "name": "Smooth Criminal",
-  "image": "mj.png",
-  "duration": 90,
-  "albums": "[{"name": "Smooth Criminal"}]",
-  "artists": "[{"name": "Michael Jackson"}]"
-}' http://<YOUR-APP-URL-HERE>.appspot.com/api/tracks
+curl --request POST \
+  --url http://<YOUR-APP-URL-HERE>.appspot.com/api/tracks \
+  --header 'authorization: Bearer '$JWT \
+  --header 'content-type: application/json' \
+  --data '{"artists":[{"name":"Michael Jackson"}],"albums":[{"name":"Thriller"}],"duration":90,"image":"billiejean.png","name":"Beat It"}'
 ```
 
 ## Conclusion
