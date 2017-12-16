@@ -315,7 +315,7 @@ The Artists model has `name`, `popularity`, `genres` and `image` as properties. 
 
 * Property name: name; Property type: string; Required: Yes
 * Property name: popularity; Property type: number; Required: Yes
-* Property name: genres; Property type: array; Type of array items: string; Required: Yes
+* Property name: genres; Property type: array; Type of array items: object; Required: Yes
 * Property name: image; Property type: string; Required: Yes
 
 ![](https://IMAGE_URL_HERE)
@@ -329,16 +329,16 @@ You have seen how to make a model. Do the same for the `Albums` and `Tracks` mod
 #### Albums
 
 * Property name: name; Property type: string; Required: Yes
-* Property name: artists; Property type: array; Type of array items: string; Required: Yes
+* Property name: artists; Property type: array; Type of array items: object; Required: Yes
 * Property name: album_type; Property type: string; Required: Yes
-* Property name: tracks; Property type: array; Type of array items: string; Required: Yes
+* Property name: tracks; Property type: array; Type of array items: object; Required: Yes
 * Property name: image; Property type: string; Required: Yes
 * Property name: release_date; Property type: string; Required: Yes
 
 #### Tracks
 
-* Property name: artists; Property type: array; Type of array items: string; Required: Yes
-* Property name: albums; Property type: array; Type of array items: string; Required: Yes
+* Property name: artists; Property type: array; Type of array items: object; Required: Yes
+* Property name: albums; Property type: array; Type of array items: object; Required: Yes
 * Property name: duration; Property type: string; Required: Yes
 * Property name: image; Property type: string; Required: Yes
 * Property name: name; Property type: string; Required: Yes
@@ -493,7 +493,7 @@ This file wil execute when we boot our server. It will programatically seed our 
 
 We will secure our APIs with Auth0. You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
 
-Follow these steps to set up a Client App
+Follow these steps to set up a Client App:
  
 1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
 2. Name your new app, select "Single Page Web Applications", and click the "Create" button. 
@@ -581,20 +581,20 @@ boot(app, __dirname, function(err) {
         app.start();
 });
 ```
-**Note**: Replace the `YOUR-AUTH0-URL-HERE`, `YOUR-API-AUDIENCE-GOES-HERE` and, `YOUR-AUTH0-ISSUER-HERE` placeholders with the API audience and Auth0 domain values from your Auth0 dashboard before deployment.
+**Note**: Replace the `YOUR-AUTH0-URL-HERE`, `YOUR-API-AUDIENCE-GOES-HERE` and, `YOUR-AUTH0-ISSUER-HERE` placeholders with the API audience and Auth0 domain values from your Auth0 dashboard.
 
 ## Deploy the app
 
-Here comes the important part of this article. We now have a loopback app fully setup. We can run the app locally using the command `node .` or `npm run start`. Instead of, running this app on our system, we will push it on Google App Engine, a NodeJS environment, there the App Engine will take care of the resources our app needs to run and also, give our app a good perfomance boost.
+Here comes the important part of this article. We now have a loopback app fully setup. We can run the app locally using the command `node .` or `npm run start`. Instead of, running this app on our system, we will push it to Google App Engine, a NodeJS environment, there the App Engine will take care of the resources our app needs to run and also, give our app a good perfomance boost.
 
-Let's get started. Create a app.yaml in the root directory of the app and enter the following content:
+Let's get started. Create a `app.yaml` in the root directory of the app and enter the following content:
 
 ```yaml
 runtime: nodejs
 env: flex
 ```
 
-`app.yaml` contains our Node.js App Engine's runtime configurations such as cpu, memory, network and disk resource, automatic or manual scaling configurations and other general settings. It's kind of like .htaccess in php. You can read more about app.yaml at its official documentation.
+`app.yaml` contains our Node.js App Engine's runtime configurations such as CPU, memory, network and disk resource, automatic or manual scaling configurations and other general settings. It's kind of like `.htaccess` in php. You can read more about `app.yaml` at its official documentation.
 
 Run the following command to deploy your app:
 
@@ -603,7 +603,7 @@ gcloud app deploy
 ```
 ![](https://IMAGE_URL_HERE)
 
-Note: You must be in the root folder of your project folder.
+**Note**: You must be in the root directory of your project.
 
 Series of text and progress will fill in your terminal after running the above command. It will take about `4` to `6` minutes for the deployment to complete. At a point, it will demand where you want your App Engine located.
 
