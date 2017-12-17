@@ -85,13 +85,15 @@ To create a new project we have to:
 
 ### Enable Billing on Google App Engine
 
-In order to create Google Cloud Platform resources, the project needs to have a billing account associated with it. To activate it, do the following:
+In order to create Google Cloud Platform resources, the project needs to have a billing account associated with it. To activate it, let's do the following:
 
 * click on "Enable billing";
 * click on "Create Billing Account" on the modal window that appears;
-* fill in the form in the next window that appears. Click on "Agree and Continue";
-* in the next window that appears, Fill in all the requirements especially the Payment Info;
+* fill in the form in the next window that appears and click on "Agree and Continue";
+* in the next window that appears, fill in all the requirements (especially the Payment Info);
 * click on "Start my free trial".
+
+> Google will give us 300 USD to test Google App Engine. This is more than enough to cover this article. However, even if we spend all 300 dollars, Google won't charge us anything before asking for our explicitly permission.
 
 ### Install the Google SDK
 
