@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Run a Loopback App on Google App Engine"
-description: "In this article, we are going to learn how to host and run a Loopback application on Google App Engine. We will also set up Firestore as the database of our application."
+title: "Run a LoopBack App on Google App Engine"
+description: "In this article, we are going to learn how to host and run a LoopBack application on Google App Engine. We will also set up Firestore as the database of our application."
 date: 2017-12-13 08:30
-category: Technical Guide, Backend, Loopback
+category: Technical Guide, Backend, LoopBack
 author:
   name: "Chidume Nnamdi"
   url: "twitter.com/ngArchangel"
@@ -29,21 +29,21 @@ related:
 - 2017-11-28-redux-practical-tutorial
 ---
 
-**TL;DR:** In this article, we are going to see how to setup a Google App Engine and host a Loopback app on it. We'll deploy a sample Loopback application to Google App Engine. By the end, we'll have learned how to:
+**TL;DR:** In this article, we are going to see how to setup a Google App Engine and host a LoopBack app on it. We'll deploy a sample LoopBack application to Google App Engine. By the end, we'll have learned how to:
 
 * create a project in Google Cloud Platform;
 * configure deployments;
-* scaffold a Loopback project using the` loopback-cli`;
+* scaffold a LoopBack project using the` loopback-cli`;
 * learn how to config your App Engine environment in a YAML file;
 * deploy apps with Google Cloud Shell.
 
 This is a real Google App Engine deployment, so when the tutorial is over we can keep improving the application.
 
-It's easy to develop Loopback apps and run them on Google Cloud Platform. Besides that, the apps we create will be running on the same infrastructure that powers all Google products. Therefore, we can rest assured that they will scale to serve all of our users, whether there are a few or millions of them.
+It's easy to develop LoopBack apps and run them on Google Cloud Platform. Besides that, the apps we create will be running on the same infrastructure that powers all Google products. Therefore, we can rest assured that they will scale to serve all of our users, whether there are a few or millions of them.
 
 > __Note__: This article assumes that you are familiar with [Node.js and that you have it installed](https://nodejs.org/en/download/).
 
-## What is Loopback
+## What is LoopBack
 
 [LoopBack is a framework for creating APIs and connecting them with backend data sources](https://loopback.io/). Built on top of Express, it can take a data model definition and easily generate a fully functional end-to-end REST API that can be called by any client.
 
@@ -128,7 +128,7 @@ If you only have one project, `gcloud` init selects it for you.
 
 ## Prepare the LoopBack App
 
-Having setup our Google App Engine project, the next step is to prepare our Loopback app. We are going to build a RESTful API similar to Spotify. As you probably know, Spotify is an online music service that lets users search for their favourite music or artistes.
+Having setup our Google App Engine project, the next step is to prepare our LoopBack app. We are going to build a RESTful API similar to Spotify. As you probably know, Spotify is an online music service that lets users search for their favourite music or artistes.
 
 You will create three models for this demo. The following list shows them with their model structure:
 
@@ -199,11 +199,11 @@ Based on these models, you use LoopBack to create the following RESTful endpoint
     * PUT - `/artists/<id>`: Update artist attributes.
     * DELETE - `/artists/<id>`: Delete artist.
 
-### Install the Loopback CLI
+### Install the LoopBack CLI
 
-[Loopback CLI](https://github.com/strongloop/loopback-cli), like the Angular CLI, is a command-line tool that helps to quickly create LoopBack applications, models, and data sources. In other words, Loopback CLI is an application generator.
+[LoopBack CLI](https://github.com/strongloop/loopback-cli), like the Angular CLI, is a command-line tool that helps to quickly create LoopBack applications, models, and data sources. In other words, LoopBack CLI is an application generator.
 
-To install the Loopback CLI tool, you can use [NPM as follows](https://www.npmjs.com/):
+To install the LoopBack CLI tool, you can use [NPM as follows](https://www.npmjs.com/):
 
 ```sh
 npm install -g loopback-cli
