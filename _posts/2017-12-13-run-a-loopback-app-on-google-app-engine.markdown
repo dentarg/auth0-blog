@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Run a Loopback app on Google App Engine"
-description: "Learn how to host and run a Loopback app on Google App Engine."
+title: "Run a Loopback App on Google App Engine"
+description: "In this article, we are going to learn how to host and run a Loopback application on Google App Engine. We will also set up Firestore as the database of our application."
 date: 2017-12-13 08:30
 category: Technical Guide, Backend, Loopback
 author:
@@ -25,24 +25,23 @@ tags:
 - restful
 - api
 related:
-- 2017-09-07-developing-restful-apis-with-loopback
+- 2017-12-05-webpack-a-gentle-introduction
+- 2017-11-28-redux-practical-tutorial
 ---
 
-## Introduction
-
-**TL;DR:** In this article, we are going to see how to setup a Google App Engine and host a Loopback app on it. We'll deploy a sample Loopback application to Google App Engine. By the end, you'll have learned how to:
+**TL;DR:** In this article, we are going to see how to setup a Google App Engine and host a Loopback app on it. We'll deploy a sample Loopback application to Google App Engine. By the end, we'll have learned how to:
 
 * create a project in Google Cloud Platform;
 * configure deployments;
-* scaffold a Loopback project using the loopback-cli;
+* scaffold a Loopback project using the` loopback-cli`;
 * learn how to config your App Engine environment in a YAML file;
 * deploy apps with Google Cloud Shell.
 
-This is a real Google App Engine deployment, so when the tutorial is over you can keep working on it.
+This is a real Google App Engine deployment, so when the tutorial is over we can keep improving the application.
 
-It's easy to get started developing Loopback.js apps running on Google Cloud Platform. Besides that, the apps you create will be running on the same infrastructure that powers all Google products. Therefore, you can rest assured that they will scale to serve all of your users, whether there are a few or millions of them.
+It's easy to develop Loopback apps and run them on Google Cloud Platform. Besides that, the apps we create will be running on the same infrastructure that powers all Google products. Therefore, we can rest assured that they will scale to serve all of our users, whether there are a few or millions of them.
 
-__Note__: This article assumes that you are familiar with [Node.js and that you have it installed](https://nodejs.org/en/download/).
+> __Note__: This article assumes that you are familiar with [Node.js and that you have it installed](https://nodejs.org/en/download/).
 
 ## What is Loopback
 
