@@ -173,7 +173,7 @@ We will create three models for this demo. The following list shows them with th
 
 ## LoopBack API Endpoints
 
-Based on these models, you use LoopBack to create the following RESTful endpoints.
+Based on these models, we will use LoopBack to create the following RESTful endpoints.
 
 1. **Albums**
 
