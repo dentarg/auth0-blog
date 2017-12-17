@@ -309,9 +309,9 @@ All these questions and answers will make the model generator to create `.js` an
 
 ### Connect API to Google Cloud Firestore
 
-Now you will connect your models to a datasource. You will use [Cloud Firestore](https://firebase.google.com/docs/firestore/), a cloud-hosted NoSQL database from Firebase.
+Now we will connect our models to a datasource. We will use [Cloud Firestore](https://firebase.google.com/docs/firestore/), a cloud-hosted NoSQL database from Firebase.
 
-To use Cloud Firestore, you need to add the Google Cloud Platform account we created earlier to Firebase. Follow these steps to import your Google Cloud Platform project to Firebase:
+To use Cloud Firestore, you need to add the Google Cloud Platform account we created earlier to Firebase. Follow these steps to import your Google Cloud Platform project to [Firebase](https://firebase.google.com/). Therefore, let's:
 
 * navigate to [Firebase console](https://console.firebase.google.com);
 * click on `Add project`;
@@ -323,7 +323,7 @@ To use Cloud Firestore, you need to add the Google Cloud Platform account we cre
 
 Now, we will have a Cloud Firestore database ready for use.
 
-To connect our API to the Cloud Firestore datasource, run the following command on your terminal:
+To connect our API to the Cloud Firestore datasource, let's run the following command on our terminal:
 
 ```sh
 lb datasource
@@ -334,28 +334,29 @@ Then the data source generator will ask four questions. The following code block
 ```
 Enter the data-source name: firestore
 Select the connector for firestore: other
-Enter the connector\'s module name loopback-connector-firestore
-Install loopback-connector-firestore (Y/n) Y
+Enter the connector\'s module name: loopback-connector-firestore
+Install loopback-connector-firestore (Y/n): Y
 ```
 
-Then you should use a service account. Go to [Project Settings > Service Accounts](https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts), generate a new private key, and save the JSON file. You will have to choose your Google App Engine project for LoopBack and then click on the "Create Key" option of "App Engine default service account".
+Then we should use a service account. Let's go to [Project Settings > Service Accounts](https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts), generate a new private key, and save the JSON file. We will have to choose our Google App Engine project for LoopBack and then click on the "Create Key" option of "App Engine default service account".
 
-Next, fill the application's datasource file (which is located in `./server/datasources.json`) with those details. You can find them in the downloaded JSON file from the Google Cloud Platform.
+Next, let's fill the application's datasource file (which is located in `./server/datasources.json`) with these details. We can find them in the downloaded JSON file from the Google Cloud Platform.
 
 ```sh
-    # everything else ...
-    "firestore": {
-        "name": "firestore",
-        "connector": "loopback-connector-firestore",
-        "type": "service_account",
-        "projectId": "<PROJECT_ID>",
-        "privateKey": "-----BEGIN PRIVATE KEY-----<KEY>-----END PRIVATE KEY-----\n",
-        "clientEmail": "<PROJECT_ID>@appspot.gserviceaccount.com"
-    }
-    # everything else ...
+{
+  # everything else ...
+  "firestore": {
+      "name": "firestore",
+      "connector": "loopback-connector-firestore",
+      "type": "service_account",
+      "projectId": "<PROJECT_ID>",
+      "privateKey": "-----BEGIN PRIVATE KEY-----<KEY>-----END PRIVATE KEY-----\n",
+      "clientEmail": "<PROJECT_ID>@appspot.gserviceaccount.com"
+  }
+}
 ```
 
-Open up `./server/model-config.json` and change the value of the `dataSource` property from `db` to `firestore` for all three models.
+Now let's open up `./server/model-config.json` and change the value of the `dataSource` property from `db` to `firestore` for all three models.
 
 ### Create Model Collections
 
