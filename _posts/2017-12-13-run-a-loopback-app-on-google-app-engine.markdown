@@ -245,7 +245,7 @@ The generator will finally display messages as it scaffolds the application.
 
 ### Create Models on LoopBack
 
-As mentioned before, you will creating three models: `Tracks`, `Artists`, and `Albums`. Go into your new application directory, then run the LoopBack model generator:
+As mentioned before, we will creating three models: `Tracks`, `Artists`, and `Albums`. Let's go to our new application directory, then run the LoopBack model generator:
 
 ```sh
 cd spotify-app
@@ -253,17 +253,17 @@ cd spotify-app
 lb model
 ```
 
-The generator will prompt for a model name. Enter `Artists`. After that, it will ask if you want to attach the model to any data sources that have already been defined. Select `db (memory)` as the datasource. It will prompt for the base class. Select `PersistedModel`.
+The generator will prompt for a model name. Let's enter `Artists`. After that, it will ask if we want to attach the model to any data sources that have already been defined. Let's select `db (memory)` as the datasource. It will prompt for the base class. Let's select `PersistedModel`.
 
-The fourth question will be about whether you want to expose this REST API. Hit Enter to accept the default (yes) option and expose the Artists model via REST.
+The fourth question will be about whether we want to expose this REST API. Let's hit _enter_ to accept the default option (yes) and expose `Artists` via REST.
 
-Then, you will be asked to enter a custom plural form. Press Enter to accept the default plural form.
+Then, LoopBack will ask us to enter a custom plural form. Let's hit _enter_ to accept the default plural form.
 
-Next, you’ll be asked whether you want to create the model on the server only or in the `common` directory, where it can potentially be used by both server and client LoopBack APIs. Keep the default (`common`) even though in this application you’ll only be working with server-side models.
+Next, we will be asked whether we want to create the model on the server only or in the `common` directory, where it can potentially be used by both server and client LoopBack APIs. Let's keep the default (`common`) even though in this application you’ll only be working with server-side models.
 
 Right now, we’re going to define properties for the Artists model.
 
-The Artists model will contain `name`, `popularity`, `genres`, and `image` as properties. For each of the properties, you will inform LoopBack about properties' `name`, `type`, whether it is `required`, and the default value. Use the structure below to fill in the prompts.
+The Artists model will contain `name`, `popularity`, `genres`, and `image` as properties. For each of the properties, we will inform LoopBack about properties' `name`, `type`, whether it is `required` or not, and the default value. Let's use the structure below to fill in the prompts.
 
 * Property name: `name`
 * Property type: `string`
@@ -282,14 +282,14 @@ The Artists model will contain `name`, `popularity`, `genres`, and `image` as pr
 * Property type: `string`
 * Required?: `Yes`
 
-End the model creation process by pressing Enter when prompted for the name of the next property.
+To end the model creation process we can press _enter_ when prompted for the name of the next property.
 
-You have seen how to make a model. Do the same for the `Albums` and `Tracks` models with the properties shown in the next two sections.
+We have seen how to use LoopBack to generate a model. Let's do the same for the `Albums` and `Tracks` models with the properties shown in the next two sections.
 
 #### Albums
 
 * Property name: `name`, Property type: `string`, Required? `Yes`
-* Property name: `artists`, Property type: `array`, Type of array items: `string`, Required? `Yes`
+* Property name: `artists`, Property type: `array`, Type of array items: `object`, Required? `Yes`
 * Property name: `album_type`, Property type: `string`, Required? `Yes`
 * Property name: `tracks`, Property type: `array`, Type of array items: `object`, Required? `Yes`
 * Property name: `image`, Property type: `string`, Required? `Yes`
@@ -297,15 +297,15 @@ You have seen how to make a model. Do the same for the `Albums` and `Tracks` mod
 
 #### Tracks
 
-* Property name: `artists`, Property type: `array`, Type of array items: `string`, Required? `Yes`
-* Property name: `albums`, Property type: `array`, Type of array items: `string`, Required? `Yes`
+* Property name: `artists`, Property type: `array`, Type of array items: `object`, Required? `Yes`
+* Property name: `albums`, Property type: `array`, Type of array items: `object`, Required? `Yes`
 * Property name: `duration`, Property type: `string`, Required? `Yes`
 * Property name: `image`, Property type: `string`, Required? `Yes`
 * Property name: `name`, Property type: `string`, Required? `Yes`
 
-All this questions and answers will make the model generator to create `.js` and `.json` files in the application’s `common/models` directory.
+All these questions and answers will make the model generator to create `.js` and `.json` files in the application’s `common/models` directory.
 
-{% include tweet_quote.html quote_text="One of the powerful advantages of LoopBack is that it automatically generates a REST API for your model." %}
+{% include tweet_quote.html quote_text="One of the powerful advantages of LoopBack is that it automatically generates a REST API for our model." %}
 
 ### Connect API to Google Cloud Firestore
 
