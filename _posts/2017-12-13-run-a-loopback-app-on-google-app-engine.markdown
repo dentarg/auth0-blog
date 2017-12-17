@@ -203,26 +203,26 @@ Based on these models, we will use LoopBack to create the following RESTful endp
 
 [LoopBack CLI](https://github.com/strongloop/loopback-cli), like the Angular CLI, is a command-line tool that helps to quickly create LoopBack applications, models, and data sources. In other words, LoopBack CLI is an application generator.
 
-To install the LoopBack CLI tool, you can use [NPM as follows](https://www.npmjs.com/):
+To install the LoopBack CLI tool, we can use [NPM as follows](https://www.npmjs.com/):
 
 ```sh
 npm install -g loopback-cli
 ```
 
-After the installation is complete, you can run `lb` to start creating an application:
+After the installation is complete, we can run `lb` to start creating an application:
 
 ```sh
 lb
 ```
 
-This will prompt you a set of questions to create your app. First, it will ask the app's name. Enter `spotify-app`. Then the generator will prompt you for the name of the directory to contain the project. Press Enter to accept the default (the same as the application name):
+This will prompt us a set of questions to create our app. First, it will ask the app's name. Let's enter `spotify-app`. Then the generator will ask for the name of the directory to contain the project. Let's press _enter_ to accept the default (the same as the application name):
 
 ```sh
 [?] What\'s the name of your application? spotify-app
 [?] Enter name of the directory to contain the project: spotify-app
 ```
 
-The third question will be about LoopBack version. You can choose `3.x (current)`:
+The third question will be about LoopBack version. We can choose `3.x (current)`:
 
 ```sh
 ? Which version of LoopBack would you like to use? (Use arrow keys)
@@ -230,7 +230,7 @@ The third question will be about LoopBack version. You can choose `3.x (current)
 ❯ 3.x (current)
 ```
 
-The last question will be about what kind of application to create. Scroll down and choose `hello-world`:
+Then the last question will be about what kind of application to create. Let's scroll down and choose `hello-world`:
 
 ```sh
 ? What kind of application do you have in mind? (Use arrow keys)
@@ -241,7 +241,7 @@ The last question will be about what kind of application to create. Scroll down 
   notes (A project containing a basic working example, including a memory database)
 ```
 
-The generator will then display messages as it scaffolds the application including.
+The generator will finally display messages as it scaffolds the application.
 
 ### Create Models on LoopBack
 
