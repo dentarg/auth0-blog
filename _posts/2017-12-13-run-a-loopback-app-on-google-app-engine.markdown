@@ -56,9 +56,9 @@ LoopBack is a highly-extensible, open-source Node.js framework that enables us t
 
 ## What is Google App Engine
 
-[Google App Engine](https://cloud.google.com/appengine/) is a web framework and cloud computing platform for developing and hosting web applications in Google-managed data centers. App Engine provides all of the required elements to run and host applications, be it on mobile or Web. Without all these features, developers would have to source their own servers, database software and the APIs that would make all of them work properly together, not to mention the entire configuration that must be done.
+[Google App Engine](https://cloud.google.com/appengine/) is a web framework and cloud computing platform for developing and hosting web applications in Google-managed data centers. App Engine provides all of the required elements to run and host applications, be it on mobile or Web. Without all these features, developers would have to source their own servers, database software and the APIs that would make all of them work properly together.
 
-Google App Engine providing all of the environment requirements, means that you simply deploy your code, and the platform does everything else for you. For example, if you app becomes very successful, Google App Engine can help you scale it properly.
+Google App Engine provides all of the environment requirements. This means that we simply deploy our code, and the platform does everything else for us. For example, if our app becomes very successful, Google App Engine will help us scaling it.
 
 Google App Engine takes burden off the developers so they can concentrate on the app's special features, driving better user experience.
 
