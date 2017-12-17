@@ -2,13 +2,13 @@
 layout: post
 title: "Retail Analytics: Past, Present, and Future"
 description: "Auth0 explores the Data-Driven approach to eCommerce and how retail analytics can help you optimize procurement, merchandising, and marketing"
-date: 2017-12-05 12:39
+date: 2017-12-18 12:39
 category: Growth, Industries, Retail
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   bg_color: "#3B1D59"
   image: https://cdn.auth0.com/blog/past-present-future/logo.png
@@ -18,12 +18,14 @@ tags:
 - customer
 - vision
 - auth0
+- b2c
 related:
 - 2017-11-20-predictive-analytics-why-is-it-important
 - 2017-06-09-the-three-best-ways-to-create-the-single-vision-of-a-customer
+- 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
 ---
 
-Retailers are always fighting for better predictions of what their customers want. From setting price points to predicting next season's trends, retail has been working to move faster and be more efficient since its inception.
+Retailers are always fighting for better predictions of what their customers want. From setting price points to predicting next season's trends, [retail](https://auth0.com/retail) has been working to move faster and be more efficient since its inception.
 
 {% include tweet_quote.html quote_text="Retailers are always fighting for better predictions of what their customers want." %}
 
@@ -81,7 +83,7 @@ What's happening in *retail analytics* today isn't just refreshed POS analytics.
 
 * **Micro marketing analytics.** Digital analytics platforms have allowed businesses a greater window of insight into their marketing analytics. Now, it's easier than ever to look at more micro-level marketing data (like how many impressions a customer needs before they purchase), what items are likely to be purchased together or in subsequent orders, and live updates of A/B testing on campaigns. 
 
-* **Sentiment analysis.** Sentiment analysis is a new way of determining how customers and potential buyers feel about your product. It uses text analysis to determine how your customers are talking about your products on channels from on-site product reviews to comments on your social pages. Sentiment analysis helps predict trends, gauge customer reactions to products and marketing materials, and can be the missing link that explains sales fluctuations.
+* **Sentiment analysis.** Sentiment analysis is a new way of determining how customers and potential buyers feel about your product. It uses text analysis to determine how your customers are talking about your products on channels from on-site product reviews to comments on your social pages. [Sentiment analysis](https://auth0.com/blog/4-ways-to-calculate-your-customers-happiness) helps predict trends, gauge customer reactions to products and marketing materials, and can be the missing link that explains sales fluctuations.
 
 ![Retail Analytics - Social media real time sentiment analysis](https://cdn.auth0.com/blog/past-present-future/social-media-realtime-sentiments.png)
 
@@ -93,7 +95,7 @@ What's happening in *retail analytics* today isn't just refreshed POS analytics.
 
 Moving commerce online was the first in a series of chain reactions that have opened an entirely new world for retail and marketing. Even though technology and techniques seem to move at lightening speed, the truth is that eCommerce, shopping and marketing analysis, and behavioral analysis of customers has been slow to perfect. While getting targeting capabilities, cart abandonment numbers, and CTR stats has been quick, true customization for retailers, shoppers, and marketers is just beginning. 
 
-* **Better predictions and forecasting.** While companies like [SAS](https://www.sas.com/en_us/solutions/analytics.html#forecasting) are investing a lot of energy into building forecasting capabilities, predictive analytics for retail will get better as more customer data is collected and software is better able to track and integrate that data across channels. Because predictions and forecasting are holistic efforts, as each part of data-rich eCommerce improves, so will these capabilities.
+* **Better predictions and forecasting.** While companies like [SAS](https://www.sas.com/en_us/solutions/analytics.html#forecasting) are investing a lot of energy into building forecasting capabilities, [predictive analytics](https://auth0.com/blog/predictive-analytics-why-is-it-important/) for retail will get better as more customer data is collected and software is better able to track and integrate that data across channels. Because predictions and forecasting are holistic efforts, as each part of data-rich eCommerce improves, so will these capabilities.
 
 * **More IoT data.** It's no secret that the IoT has more and more [use cases](https://www.interana.com/blog/the-top-iot-analytics-use-cases-today/) as each year passes. More connected devices will mean a better picture of your eCommerce customer and their behaviors. eCommerce is also likely to build its own integrations with IoT devices — think [Farmstead](https://www.farmsteadapp.com/) integrated with your smart fridge — and this will bring a whole new set of data to process. 
 
@@ -103,7 +105,7 @@ Moving commerce online was the first in a series of chain reactions that have op
 
 ## Getting your data together
 
-The more that eCommerce progresses, the better *retail analytics* is going to get. Right now, companies and platforms have the capability to collect a huge amount of data, but we're still in the process of refining how to *use *it. Marketing is getting smarter and optimizations are being made all the time. From startups to the enterprise, eCommerce software is trying hard to figure out the best ways to help companies use customer data.
+The more that eCommerce progresses, the better *retail analytics* is going to get. Right now, companies and platforms have the capability to collect a huge amount of data, but we're still in the process of refining [how to use it](https://auth0.com/blog/all-you-need-to-know-about-data-management-and-integration/). Marketing is getting smarter and optimizations are being made all the time. From startups to the enterprise, eCommerce software is trying hard to figure out the best ways to help companies use customer data.
 
 {% include tweet_quote.html quote_text="The more that eCommerce progresses, the better retail analytics is going to get." %}
 
