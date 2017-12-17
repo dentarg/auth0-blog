@@ -47,14 +47,12 @@ It's easy to develop LoopBack apps and run them on Google Cloud Platform. Beside
 
 [LoopBack is a framework for creating APIs and connecting them with backend data sources](https://loopback.io/). Built on top of Express, it can take a data model definition and easily generate a fully functional end-to-end REST API that can be called by any client.
 
-LoopBack comes with a built-in client, a API Explorer. We’ll use this since it makes it easier to see the results of our work, and so that our example can focus on building the API itself.
-
-LoopBack is a highly-extensible, open-source Node.js framework that enables you to:
+LoopBack is a highly-extensible, open-source Node.js framework that enables us to:
 
 * create dynamic end-to-end REST APIs with little or no coding;
-* access data from Oracle, MySQL, PostgreSQL, MS SQL Server, MongoDB, SOAP and other REST APIs;
+* access data on Oracle, MySQL, PostgreSQL, SQL Server, MongoDB, SOAP and other REST APIs;
 * incorporate model relationships and access controls for complex APIs;
-* run your application on-premises or in the cloud.
+* run our application on-premises or in the cloud.
 
 ## What is Google App Engine
 
