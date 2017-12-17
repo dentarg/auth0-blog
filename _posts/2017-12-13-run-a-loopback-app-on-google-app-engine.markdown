@@ -68,20 +68,20 @@ Advantages of Google App Engine include:
 * power scaling function all the way down to "free" when resource usage is minimal;
 * automated cloud computing tools.
 
-## Create a Google Cloud Platform project
+## Create a Google Cloud Platform Project
 
-Projects on Google Cloud Platform form the basis for creating, enabling, and using all Cloud Platform services. This includes managing APIs, enabling billing, adding and removing collaborators, and managing permissions for Cloud Platform resources.
+Projects on Google Cloud Platform form the basis for creating, enabling, and using all Google Cloud Platform services. This includes managing APIs, enabling billing, adding and removing collaborators, and managing permissions for Cloud Platform resources.
 
-You can use an already existing project, but let's see how to create a new project if you don't have any.
+We can use an already existing project, but let's see how to create a new project if we don't have any.
 
-To create a new project:
+To create a new project we have to:
 
 * go to the [Google Cloud Platform Resource Manager](https://console.cloud.google.com/cloud-resource-manager) resources page;
 * click Create Project;
 * in the New Project window that appears, enter a project name;
 * then click on "Create".
 
-__Note__: You can also create a Google Cloud Platform project from Google SDK console when initializing your SDK.
+> __Note__: We can also create a Google Cloud Platform project from Google SDK.
 
 ### Enable Billing on Google App Engine
 
