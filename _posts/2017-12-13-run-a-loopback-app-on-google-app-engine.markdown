@@ -34,14 +34,14 @@ related:
 * create a project in Google Cloud Platform;
 * configure deployments;
 * scaffold a LoopBack project using the` loopback-cli`;
-* learn how to config your App Engine environment in a YAML file;
+* learn how to config our App Engine environment in a YAML file;
 * deploy apps with Google Cloud Shell.
 
 This is a real Google App Engine deployment, so when the tutorial is over we can keep improving the application.
 
 It's easy to develop LoopBack apps and run them on Google Cloud Platform. Besides that, the apps we create will be running on the same infrastructure that powers all Google products. Therefore, we can rest assured that they will scale to serve all of our users, whether there are a few or millions of them.
 
-> __Note__: This article assumes that you are familiar with [Node.js and that you have it installed](https://nodejs.org/en/download/).
+> __Note__: This article assumes that we are familiar with [Node.js and that we have it installed](https://nodejs.org/en/download/).
 
 ## What is LoopBack
 
