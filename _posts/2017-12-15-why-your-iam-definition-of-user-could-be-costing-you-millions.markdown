@@ -78,11 +78,11 @@ Sooner or later, in other words, we realize that we've been paying $50 a month f
 
 There are many industries out there affected by the kind of inefficient pricing model described above, with insurance and healthcare as two of the most prominent.
 
-Americans file auto collision insurance claims about [once every 17.9 years](http://www.foxbusiness.com/features/2011/06/17/heres-how-many-car-accidents-youll-have.html). They file homeowners insurance claims every [9 to 10 years](http://finance.zacks.com/average-homeowner-file-insurance-claims-8387.html). During the 4 visits Americans make to the doctor annually, they don't log in to their healthcare provider's online dashboard—they just hand their identifying information over. And yet in these industries, healthcare and insurance, having continuous, HIPAA—certified, secure identity management is a must.
+Americans file auto collision insurance claims about [once every 17.9 years](http://www.foxbusiness.com/features/2011/06/17/heres-how-many-car-accidents-youll-have.html). They file homeowners insurance claims every [9 to 10 years](http://finance.zacks.com/average-homeowner-file-insurance-claims-8387.html). During the 4 visits Americans make to the doctor annually, they don't log in to their [healthcare provider's online dashboard](2017-08-25-how-identity-can-empower-healthcare)—they just hand their identifying information over. And yet in these industries, healthcare and insurance, having continuous, [HIPAA—certified](https://auth0.com/learn/why-hipaa-compliance-is-vital-your-business/), secure identity management is a must.
 
 Let's say you're an insurance company and only about 5% of your overall users actually sign into your online portal each month.
 
-We give away Auth0 support for up to 7,000 active users for free. However, you could support 140,000 _registered _users on that plan if only 5% of your users log in every month.
+We give away Auth0 support for up to 7,000 active users for [free](https://auth0.com/pricing). However, you could support 140,000 _registered _users on that plan if only 5% of your users log in every month.
 
 When you're ready for multifactor authentication, compliance-ready reporting and enterprise connections, you can upgrade to a fuller plan and _still _pay per active user, just $1,025/mo with 7,000 active users and 100 enterprise customers.
 
@@ -105,8 +105,8 @@ FEMA doesn't want their IAM to charge them for hundreds of thousands of users wh
 
 [Value-based pricing](https://en.wikipedia.org/wiki/Value-based_pricing), as opposed to competitor or cost-based pricing, aims to track the price of a product or service to the perceived value that it delivers to its customers.
 
-We believe transparency and pay-for-what-you-use pricing help us get our pricing in line with our value.
+We believe transparency and [pay-for-what-you-use pricing](https://auth0.com/pricing) help us get our pricing in line with our value.
 
-If you need secure login, enterprise connections, and multifactor authentication, but the level of activity among your user base is unevenly distributed or highly variable, we believe you should pay a different amount than a product where 50% of all users are active on a monthly basis.
+If you need [secure login](https://auth0.com/lock), [enterprise connections](https://auth0.com/docs/identityproviders#enterprise), and [multifactor authentication](https://auth0.com/multifactor-authentication), but the level of activity among your user base is unevenly distributed or highly variable, we believe you should pay a different amount than a product where 50% of all users are active on a monthly basis.
 
 Not just because it can be a cost savings for you, but because it means that you're paying for the services you're receiving, and no more, not subsidizing all of the social apps and networks of the world. 
