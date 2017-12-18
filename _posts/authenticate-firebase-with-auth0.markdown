@@ -62,7 +62,7 @@ You can use **Firebase's built-in authentication by itself** if you:
 * Have no need to customize authentication flows
 * Do not need to adhere to compliance regulations regarding the storage of user data
 
-You should use **Auth0 with a custom token** approach in Firebase if you:
+You should use **Auth0 with a custom token** in Firebase if you:
 
 * Already have Auth0 implemented and want to add realtime capabilities to your app
 * Need to easily use issued tokens to [secure a backend](https://auth0.com/docs/apis) that is _not_ provided by Firebase
@@ -74,30 +74,54 @@ You should use **Auth0 with a custom token** approach in Firebase if you:
 * Want features like customizable [passwordless login](https://auth0.com/docs/connections/passwordless), [multifactor authentication](https://auth0.com/docs/multifactor-authentication), [breached password security](https://auth0.com/docs/anomaly-detection/breached-passwords), [anomaly detection](https://auth0.com/docs/anomaly-detection), etc.
 * Must adhere to [compliance regulations](https://auth0.com/docs/compliance) such as HIPAA, GDPR, SOC2, etc.
 
-Essentially, Firebase's basic authentication solution should suffice if you have a very simple app with bare-bones authentication needs and are only using Firebase databases. However, should you need more than that, [Firebase offers a great way to use their services _with_ other authentication solutions](https://firebase.google.com/docs/admin/setup). This is a much more realistic scenario that many developers will be faced with, so we'll explore it in detail here.
+Essentially, Firebase's basic authentication providers should suffice if you have a very simple app with bare-bones authentication needs and are only using Firebase databases. However, should you need more than that, [Firebase offers a great way to use their services _with_ other authentication solutions](https://firebase.google.com/docs/admin/setup). This is a much more realistic scenario that many developers will be faced with, so we'll explore it in detail here.
 
 ## What We'll Build
 
 We're going to build a Node.js API secured with Auth0 that mints custom Firebase tokens and also returns data on ten different dog breeds.
 
-We'll also build an Angular front-end app called "Popular Dogs" that displays information about the ten most popular dogs in 2016, as ranked by public popularity by the American Kennel Club. Our app will call the Node API to fetch dog data, and it will also call the API to acquire Firebase tokens to authorize users to add and delete comments in realtime on the popular dogs list.
+We'll also build an Angular front-end app called "Popular Dogs" that displays information about the ten most popular dogs in 2016, as ranked by public popularity by the American Kennel Club. Our app will call the Node API to fetch dog data, and it will also call the API to acquire Firebase tokens to authorize users to add and delete comments in realtime.
 
 Let's get started!
 
 ## Dependencies and Setup
 
+You will need the following:
+
+* Angular CLI
+* A free Auth0 account with a Client and an API configured
+* A free Firebase project with a service account
+
+### Angular CLI
+
+Make sure you have [Node.js with NPM](https://nodejs.org) installed on your local machine. Run the following command to install the [Angular CLI](https://github.com/angular/angular-cli) globally:
+
+```bash
+npm install -g @angular/cli@latest
+```
+
+We will generate our Angular app and nearly all of its architecture using the CLI.
+
+### Auth0 Client and API
+
+
+
+### Firebase Project with Service Account
+
 ## Node API
+
+## Angular App
 
 ### Create New Angular Project
 
 ```bash
-$ ng new angular-firebase --routing --skip-tests
+ng new angular-firebase --routing --skip-tests
 ```
 
-### Install Dependencies
+### Install Additional Dependencies
 
 ```bash
-$ npm install auth0-js@latest firebase@latest angularfire2@latest --save
+npm install auth0-js@latest firebase@latest angularfire2@latest --save
 ```
 
 
