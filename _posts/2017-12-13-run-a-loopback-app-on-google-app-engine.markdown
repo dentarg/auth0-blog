@@ -568,26 +568,92 @@ Let's type in our numeric choice. Also, it will ask us for our consent to procee
 gcloud app browse
 ```
 
-## Test the app
+## Test LoopBack on Google App Engine
 
-We will test our APIs using Postman.
+We will test our APIs using [cURL](https://curl.haxx.se/). We need an `access_token` to this. If a user accesses any API endpoint/route without a valid access token or no token at all, our LoopBack application will return a 401 status. To keep things simple, we will request a fresh and new `access_token` from Auth0 for API operation so we don't have to deal with an expired `access_token`.
 
-Note: Replace the YOUR-AUTH0-URL-HERE, YOUR-API-AUDIENCE-GOES-HERE and, YOUR-AUTH0-ISSUER-HERE placeholders with the API audience and Auth0 domain values from your Auth0 dashboard.
+### Fetching Access Tokens
 
-Before we start the test. Go to your Auth0 dashboard and copy the access token. We will use the access token for authorization when sending request to our APIs.
+To a token from Auth0 for any of our authorized client applications, let's issue a `POST` request to the `/oauth/token` endpoint. This request will also have a payload in the following format:
 
-![](https://IMAGE_URL_HERE)
+```sh
+CLIENT_ID="<SOME-AUTH0-CLIENT-ID>";
+CLIENT_SECRET="<SOME-AUTH0-CLIENT-SECRET>";
 
-Now use this access token in Postman by sending it as an Authorization header to access any API endpoint.
+JWT=$(curl --request POST \
+  --url https://<OUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.mycompany.com/","grant_type":"client_credentials"}' | jq .access_token);
+```
 
-![](https://IMAGE_URL_HERE)
+> Let's not forget [to replace `<SOME-AUTH0-CLIENT-ID>` and `<SOME-AUTH0-CLIENT-SECRET>` with real values from an Auth0 client](https://auth0.com/docs/clients). We also have to replace `<OUR-AUTH0-DOMAIN>` with our Auth0 domain (something like `bk-samples.auth0.com`).
 
-We will test for the Tracks API.
+Where:
 
-Tracks GET test
+* `grant_type`: This must be `client_credentials`.
+* `client_id`: Our application's Client ID. We can find this value in the [Settings tab of an Auth0 client](https://manage.auth0.com/#/clients).
+* `client_secret`: Our application's Client Secret. We can find this value in the [Settings tab of an Auth0 client](https://manage.auth0.com/#/clients).
+* `audience`: The Identifier value in the [Settings](https://manage.auth0.com/#/apis) tab of our Auth0 API.
 
-![](https://IMAGE_URL_HERE)
+The response contains a [signed JSON Web Token](https://auth0.com/docs/jwt), the token's type (which is `Bearer`), and in how much time it will expire (`86400` seconds, which means `24` hours).
 
-Tracks POST test
+```json
+{
+  "access_token":"<OUR-ACCESS-TOKEN>",
+  "token_type":"Bearer",
+  "expires_in":86400
+}
+```
 
-![](https://IMAGE_URL_HERE)
+Now we can use this `access token` in `curl` by sending it as the `Authorization` header to access any of our LoopBack API endpoints.
+
+> **Note**: If we run into any error like `jq command not found`, we have to head over to [Download jq](https://stedolan.github.io/jq/download/) and download the executable for our OS.
+
+Let's test the `Tracks` API.
+
+#### Tracks GET test
+
+```sh
+CLIENT_ID="<SOME-AUTH0-CLIENT-ID>";
+CLIENT_SECRET="<SOME-AUTH0-CLIENT-SECRET>";
+
+JWT=$(curl --request POST \
+  --url https://<OUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.mycompany.com/","grant_type":"client_credentials"}' | jq .access_token);
+
+curl --request GET \
+  --url http://loopback-gae.appspot.com/api/tracks \
+  --header "authorization: Bearer "$JWT
+```
+
+#### Tracks POST test
+
+```sh
+CLIENT_ID="<SOME-AUTH0-CLIENT-ID>";
+CLIENT_SECRET="<SOME-AUTH0-CLIENT-SECRET>";
+
+JWT=$(curl --request POST \
+  --url https://<OUR-AUTH0-DOMAIN>.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"'$CLIENT_ID'","client_secret":"'$CLIENT_SECRET'","audience":"https://spotify-app.mycompany.com/","grant_type":"client_credentials"}' | jq .access_token);
+
+curl --request POST \
+  --url http://<OUR-APP-URL-HERE>.appspot.com/api/tracks \
+  --header 'authorization: Bearer '$JWT \
+  --header 'content-type: application/json' \
+  --data '{"artists":[{"name":"Michael Jackson"}],"albums":[{"name":"Thriller"}],"duration":90,"image":"billiejean.png","name":"Beat It"}'
+```
+
+## Conclusion
+
+We covered some new technologies in this article:
+
+* LoopBack
+* Google App Engine
+* Google Cloud Firestore
+* Auth0 authentication
+
+We have also seen how easy it is to host and run a LoopBack apps on `Google App Engine`, how to use `Google Cloud Firestore` for data persistence, and how to secure our app with JWTs.
+
+Please, feel free to ask if you have any questions or comments in the comment section. 😊
