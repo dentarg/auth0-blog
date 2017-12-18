@@ -360,8 +360,7 @@ Now let's open up `./server/model-config.json` and change the value of the `data
 
 ### Create Model Collections
 
-To see your database, you will create a migration script. You will use them for testing our API.
-Create a file `./server/boot/create-data-tables.js`, and add the following to it:
+To populate our database, we will create a migration script. We will use this fake value to test our API. Therefore, let's create a file called `./server/boot/create-data-tables.js` and add the following to it:
 
 ```js
 module.exports = function(app) {
@@ -442,7 +441,7 @@ module.exports = function(app) {
 };
 ```
 
-LoopBack will execute this file will when during the next boot. It will programmatically seed your Firestore database with the data provided.
+LoopBack will execute this file during the next boot. It will programmatically seed our Firestore database with the data provided.
 
 ## Secure the LoopBack API with Auth0
 
