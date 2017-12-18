@@ -2,7 +2,7 @@
 layout: post
 title: "Developing RESTful APIs with Hapi"
 description: "Hapi 17 brings major changes to the server framework for Node.js. Learn what's new and how to build and secure RESTful APIs with Hapi"
-date: 2017-12-11 8:30
+date: 2017-12-19 8:30
 category: Technical Guide, JavaScript, Hapi
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
