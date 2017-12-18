@@ -445,19 +445,19 @@ LoopBack will execute this file during the next boot. It will programmatically s
 
 ## Secure the LoopBack API with Auth0
 
-As a responsible developer, you want to secure your API. That's why you will use Auth0. You'll need an [Auth0](https://auth0.com) account to manage authentication. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>. Next, set up an Auth0 API so Auth0 can interface with your LoopBack app.
+As responsible developers, we want to secure our API. That's why we will use [Auth0](https://auth0.com). We'll need an Auth0 account to manage authentication, so <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">let's sign up for a free Auth0 account</a>. Next, let's set up an Auth0 API so Auth0 can interface with our LoopBack app.
 
-Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 management dashboard and click on the "Create API" button.
+Let's go to [**APIs**](https://manage.auth0.com/#/apis) in our Auth0 management dashboard and click on the "Create API" button.
 
-Enter a name for the API. Set the **Identifier** to something meaningful like `https://spotify-app.mycompany.com/` (this does not have to be an existing URL, it won't be called). The **Signing Algorithm** can be left as `RS256`.
+Then, let's enter a name for the API and set the **Identifier** to something meaningful like `https://spotify-app.mycompany.com/` (this does not have to be an existing URL, it won't be called). We can leave the **Signing Algorithm** as `RS256`.
 
-Head over to your terminal and install the following node modules:
+Now, let's head over to our terminal and install the following Node.js modules:
 
 ```bash
 npm install express-jwt jwks-rsa --save
 ```
 
-Open up your `./server/server.js` file and modify the code to look like this:
+After that, let's open our `./server/server.js` file and modify the code to look like this:
 
 ```js
 'use strict';
@@ -475,10 +475,10 @@ var jwtCheck = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: "https://{YOUR-AUTH0-DOMAIN}/.well-known/jwks.json"
+        jwksUri: "https://{OUR-AUTH0-DOMAIN}/.well-known/jwks.json"
     }),
-    audience: '{YOUR-AUTH0-API-AUDIENCE}',
-    issuer: "https://{YOUR-AUTH0-DOMAIN}/",
+    audience: '{OUR-AUTH0-API-AUDIENCE}',
+    issuer: "https://{OUR-AUTH0-DOMAIN}/",
     algorithms: ['RS256']
 });
 
@@ -524,33 +524,33 @@ boot(app, __dirname, function(err) {
 });
 ```
 
-Then change `{YOUR-AUTH0-API-AUDIENCE}` and both apparitions of `{YOUR-AUTH0-DOMAIN}` with your Auth0 data. For example:
+Then, we have to change `{OUR-AUTH0-API-AUDIENCE}` and both apparitions of `{OUR-AUTH0-DOMAIN}` with our Auth0 data. For example:
 
-- `{YOUR-AUTH0-DOMAIN}` => `bk-samples.auth0.com`.
-- `{YOUR-AUTH0-API-AUDIENCE}` => `https://spotify-app.mycompany.com/`.
+- `{OUR-AUTH0-DOMAIN}` => `bk-samples.auth0.com`.
+- `{OUR-AUTH0-API-AUDIENCE}` => `https://spotify-app.mycompany.com/`.
 
 ## Deploy LoopBack to Google App Engine
 
-Great! You are now ready to deploy your application. You can run the app locally using the command `node .` or `npm run start`. However, instead of running this app on your computer, you will push it on Google App Engine in a NodeJS environment. There the App Engine will take care of the resources your app needs to run and also give your app a good perfomance boost.
+Great! We are now ready to deploy our application. We can run the app locally using the command `node .` or `npm run start`. However, instead of running this app on our computer, we will push it on Google App Engine in a NodeJS environment. There, the App Engine will take care of the resources our app needs to run and also give our app a good performance boost.
 
-Let's get started. Create a `app.yaml` in the root directory of the app and enter the following content:
+Let's get started by creating a `app.yaml` in the root directory of the app and entering the following content:
 
 ```sh
 runtime: nodejs
 env: flex
 ```
 
-This `app.yaml` file contains your Node.js App Engine's runtime configurations such as cpu, memory, network and disk resource, automatic or manual scaling configurations and other general settings. It's kind of like `.htaccess` in php. [You can read more about `app.yaml` at its official documentation](https://cloud.google.com/appengine/docs/standard/python/config/appref).
+This `app.yaml` file contains our Node.js App Engine's runtime configurations such as cpu, memory, network and disk resource, automatic or manual scaling configurations and other general settings. It's kind of like `.htaccess` in PHP. [We can read more about `app.yaml` at its official documentation](https://cloud.google.com/appengine/docs/standard/python/config/appref).
 
-Run the following command to deploy your app:
+Now, let's run the following command to deploy your app:
 
 ```sh
 gcloud app deploy
 ```
 
-__Note__: You must be in the root folder of your project folder.
+> __Note__: We must be in the root folder of our project folder.
 
-Series of text and progress will fill in your terminal after running the above command. It will take a few minutes for the deployment to complete. At a point, it will demand where you want your App Engine located.
+A series of text and progress will fill in our terminal after running the above command. It will take a few minutes for the deployment to complete. At a point, it will demand where we want our App Engine located.
 
 ```sh
 Please choose the region where you want your App Engine application located :
@@ -562,7 +562,7 @@ Please choose the region where you want your App Engine application located :
 Please enter your numeric choice:
 ```
 
-Type in your numeric choice. Also, it will ask you for your consent to proceed. After successfully deploying our app, we can view the deployed app.
+Let's type in our numeric choice. Also, it will ask us for our consent to proceed. After successfully deploying our app, we can view the deployed app.
 
 ```sh
 gcloud app browse
