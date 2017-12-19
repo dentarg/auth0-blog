@@ -2,7 +2,7 @@
 layout: post
 title: "A comprehensive guide to connect to Amazon Redshift from R"
 description: "A guide through the available drivers and tools to make your life easier when using Amazon Redshift from R and/or RStudio"
-extendedDescription: "A guide through the available drivers and tools to make your life easier when using Amazon Redshift from R and/or RStudio. We examine RPostgreSQL, RPostgres, RJDBC and find out which one is better for each case. Then we also introduce redshiftTools which can help bulk upload data into your DataWarehouse."
+longdescription: "A guide through the available drivers and tools to make your life easier when using Amazon Redshift from R and/or RStudio. We examine RPostgreSQL, RPostgres, RJDBC and find out which one is better for each case. Then we also introduce redshiftTools which can help bulk upload data into your DataWarehouse."
 date: 2017-12-22 12:00
 category: Technical Guide, Data, R
 author:
