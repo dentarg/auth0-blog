@@ -537,6 +537,14 @@ Good. This creates a function to support the functionality mentioned, and probab
 
 ![NPM Package Development: Green flags after running NPM test with Mocha.](https://cdn.auth0.com/blog/npm-package-development/mocha-tests.png)
 
+Let's commit and push our new code to GitHub:
+
+```bash
+git add src/index.js test/index.js
+git commit -m 'developing the maskUSPhone feature and adding unit tests'
+git push origin master
+```
+
 ### Test Coverage
 
 Feels good to have our code in place with some tests to prove its functionality, but how confident are we of our code and our tests? Are we sure that our tests are covering all the scenarios that we thought about? It's hard to affirm that even in a small package like ours. So, what can we do? The answer is simple, we can use a test coverage tool to see how much of our code we are covering with tests.
