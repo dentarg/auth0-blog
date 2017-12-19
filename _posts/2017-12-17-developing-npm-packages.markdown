@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Developing NPM Packages"
-description: "Creating high quality NPM packages to share with the community is not hard. It's all about configuring the right tools to helps us develop trustworthy libraries. Let's learn, through a practical exercise, what tools we can leverage and how to configure them."
+description: "Let's learn, through a practical exercise, what tools we can leverage to create high quality NPM packages."
+longdescription: "Creating high quality NPM packages to share with the community is not hard. It's all about configuring the right tools to helps us develop trustworthy libraries. Let's learn, through a practical exercise, what tools we can leverage and how to configure them."
 date: "2017-12-18 08:30"
 design:
   bg_color: "#1D4E69"
