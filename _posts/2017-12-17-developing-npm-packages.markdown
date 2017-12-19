@@ -214,7 +214,7 @@ git push origin master
 
 In this section, we are not going to change anything in our project. The focus here is to talk about how to label new releases of our package. In the NPM and Node.js landscape, the most used strategy is by far [Semantic Versioning](https://semver.org/). What makes this strategy so special is that it has a well-defined schema that makes it easy to identify what versions are interoperable.
 
-Semantic Version, also known as SemVer, uses the following schema: `MAJOR.MINOR.PATCH`. As we can see, any version is divided into three parts:
+Semantic Versioning, also known as SemVer, uses the following schema: `MAJOR.MINOR.PATCH`. As we can see, any version is divided into three parts:
 
 - `MAJOR`: A number that we increment when we make incompatible API changes.
 - `MINOR`: A number that we increment when we add features in a backwards-compatible manner.
