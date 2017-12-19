@@ -8,7 +8,7 @@ design:
   bg_color: "#1D4E69"
   image: https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/640px-Npm-logo.svg.png
   image_size: "90%"
-  image_bg_color: "#2a333c"
+  image_bg_color: "#1D4E69"
 author:
   name: "Bruno Krebs"
   url: "brunoskrebs"
