@@ -611,6 +611,14 @@ Now we can browse to [`http://127.0.0.1:8080/`](http://127.0.0.1:8080/) and anal
 
 {% include tweet_quote.html quote_text="Integrating test coverage tools on NPM packages is easy." %}
 
+With Istanbul in place, let's commit and push it to GitHub:
+
+```bash
+git add package*.json
+git commit -m 'test coverage with Istanbul'
+git push origin master
+```
+
 ### Publishing the NPM Package
 
 After installing and checking our code coverage with Istanbul, we figure that we forgot to cover cases where no value (`null` or `undefined`) are passed into our function. Let's fix this by adding new test samples in the `./test/index.js` file:
