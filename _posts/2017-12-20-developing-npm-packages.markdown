@@ -3,7 +3,7 @@ layout: post
 title: "Developing NPM Packages"
 description: "Let's learn, through a practical exercise, what tools we can leverage to create high quality NPM packages."
 longdescription: "Creating high quality NPM packages to share with the community is not hard. It's all about configuring the right tools to helps us develop trustworthy libraries. Let's learn, through a practical exercise, what tools we can leverage and how to configure them."
-date: "2017-12-18 08:30"
+date: "2017-12-20 08:30"
 design:
   bg_color: "#1D4E69"
   image: https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/640px-Npm-logo.svg.png
@@ -30,6 +30,7 @@ tags:
 related:
 - 2017-02-10-glossary-of-modern-javascript-concepts
 - 2017-10-31-typescript-practical-introduction
+- 2016-11-21-building-and-authenticating-nodejs-apps
 ---
 
 **TL;DR:** In this article, we are going to learn what tools we should take advantage of when developing NPM packages. We will start from scratch. We will create a GitHub Repository to host our package, then we will look into interesting and important topics. For example, we will talk about IDEs, we will configure ESLint in our project, we will publish the package on NPM, and we will even integrate a continuous integration tool. [The code that gave life to this article can be found in this GitHub repository](https://github.com/brunokrebs/masks-js).
