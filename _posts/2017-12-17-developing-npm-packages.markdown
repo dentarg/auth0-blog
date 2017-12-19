@@ -412,11 +412,11 @@ As everything in JavaScript, there are many tools that can help us automate our 
 
 The goal of our NPM package is to, based on an inputted string, return a masked value. This kind of package does not have external dependencies (like a RESTful API) nor it will be rendered in an interface (like a web browser). Therefore, writing only unit tests to guarantee that our functions do what they are supposed to do will be enough.
 
-Cool, we now know what type of tests we will write. What is still uncovered is what library will we use to write this tests. Since the data strategy is doing well, let's use it again. After a small research on Google, we find out that there are three great candidates:
+Cool, we now know what type of tests we will write. What is still uncovered is what library will we use to write these tests. Since the data strategy is doing well, let's use it again. After a small research on Google, we find out that there are three great candidates:
 
 - [**Mocha**: a test framework that supports both Node.js & the browser](https://mochajs.org/), has 14.1 thousand stars on GitHub, and was downloaded 64 million times during 2017;
 - [**Jasmine**: a platform-agnostic test framework](https://jasmine.github.io/) that has 13.1 thousand stars on GitHub and was downloaded 22 million times during 2017;
-- [**Jest**: a test utility developed by Facebook](https://facebook.github.io/jest/) with 14 thousand stars on GitHub and that was downloaded 21 million times during 2017.
+- and [**Jest**: a test utility developed by Facebook](https://facebook.github.io/jest/) with 14 thousand stars on GitHub and that was downloaded 21 million times during 2017.
 
 In this case, the numbers were pretty similar. But Mocha, with more stars on GitHub and around three times more downloads on NPM during 2017, looks like the winner. We will probably be supported by a great community and have access to a lot of resources if we choose Mocha. So let's configure it in our project.
 
@@ -441,7 +441,7 @@ Then, we need to _replace_ the `test` script in our `package.json` file by the f
 
 > [__Note that__, as we also want to use modern JavaScript in our tests, we used Mocha's `--require` option to make Babel compile our test code](http://jamesknelson.com/testing-in-es6-with-mocha-and-babel-6/).
 
-That's it! We can now write our tests. To see Mocha in action, let's create a directory called `./src` and add an `index.js` file to it with the following code:
+That's it! We can now write our tests. To see Mocha in action, let's create a directory called `./test` and add an `index.js` file to it with the following code:
 
 ```js
 import assert from 'assert';
@@ -466,6 +466,14 @@ If we are using a good IDE, we will probably be warned that there are no `descri
     "mocha": true
   }
 }
+```
+
+As usually, let's commit and push changes to GitHub:
+
+```bash
+git add .eslintrc.json test/index.js package*.json
+git commit -m 'adding Mocha'
+git push origin master
 ```
 
 ### Coding the NPM Package
