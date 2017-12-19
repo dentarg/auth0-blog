@@ -150,15 +150,15 @@ git push origin master
 
 Developing good software, arguably, passes through a good IDE. Among other things, IDEs can help us refactor our code, be more productive (mainly if we know their shortcuts), and debug our code. They usually help us by pointing out possible problems before compiling and/or running our code either. Therefore, this is a topic that cannot be put aside.
 
-On the Node.js/NPM environment, there is a good number of IDEs available. A few of them are paid and lot are free. However, in the author's opinion, there are only two IDEs that are really relevant: WebStorm and Visual Studio Code.
+On the Node.js/NPM environment, there is a good number of IDEs available. A few of them are paid and lot are free. However, in this author's opinion, there are only two IDEs that are really relevant: WebStorm and Visual Studio Code.
 
 [_WebStorm_](https://www.jetbrains.com/webstorm/): This is a full-fledged IDE that provides great tools and has great support to everything related to JavaScript (e.g. TypeScript, HTML, CSS, SCSS, Angular, Git, etc). If it does not support some feature by default, it probably does so through [plugins](https://plugins.jetbrains.com/webstorm). The biggest disadvantage of this IDE is that [it's paid](https://www.jetbrains.com/webstorm/buy/#edition=personal). However, WebStorm is so good at what it does that it's worth the price.
 
 [_Visual Studio Code_](https://code.visualstudio.com/): This is another full-fledged IDE. It also comes with great support for Node.js and related technologies, just like WebStorm does. This IDE, in contrast to WebStorm, is free and open source. If you are wondering the difference between them, there are a few resources out there that compare both. For example, there is [this article on Medium](https://medium.com/linagora-engineering/from-webstorm-to-vscode-road-to-the-freedom-743eda17164a) and [this discussing on Reddit](https://www.reddit.com/r/webdev/comments/5fcldt/webstorm_vs_visual_studio_code/).
 
-Other options, although famous, cannot be really considered IDEs. That is, they can be considered IDEs if they are correctly configured with a bunch of plugins. However, why waste time on these kind of configuration when we can choose a good IDE that is ready to help us? If you are still interested on seeing what other "IDEs" are available, [there are resources out there show more options and their differences](https://www.google.com.br/search?q=node.js+ides).
+Other options, although famous, cannot be really considered IDEs. That is, they can be considered IDEs if they are correctly configured with a bunch of plugins. However, why waste time on these kind of configuration when we can choose a good IDE that is ready to help us? If you are still interested on seeing what other "IDEs" are available, [there are resources out there that show more options and their differences](https://www.google.com.br/search?q=node.js+ides).
 
-What is important in this section is that we understand that we _do_ need an IDE and choose one. This will help us a lot during the lifecycle of our package.
+What is important in this section is that we understand that we _do_ need an IDE and choose one. This will help us a lot during the development lifecycle of our package.
 
 ## NPM Package Development
 
