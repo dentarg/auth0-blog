@@ -94,7 +94,7 @@ get '/restricted_resource' do
 end
 ```
 
-Once a user hits the endpoint `api/private`, a valid JWT `access_token` will be required before the resource can be released. With this in place, private routes can be defined.
+Once a user hits the endpoint `/restricted_resource`, a valid JWT `access_token` will be required before the resource can be released. With this in place, private routes can be defined.
 
 ### Configure Scopes
 
