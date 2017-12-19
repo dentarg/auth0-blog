@@ -684,7 +684,6 @@ node_js:
 - node
 before_deploy:
 - npm run build
-deploy:
 ```
 
 > __Note__ that, from now on, we will count on Travis to generate builds for us. This means that we have to remove the `prepublishOnly` script from the `package.json` file.
@@ -779,7 +778,7 @@ Now we just need to commit the new code, use [`npm` to bump our package version]
 ```bash
 # add and commit new code
 git add package.json src/ test/ .travis.yml
-git commit -m 'supporting one more digit'
+git commit -m 'supporting one more digit and adding Travis'
 
 # bump patch to 0.0.2 (this also generates a tag called v0.0.2)
 npm version patch
