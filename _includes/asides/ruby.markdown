@@ -16,6 +16,9 @@ You'll need an [Auth0](https://auth0.com) account to manage authentication. You 
 
 1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API. Set the **Identifier** to a URL(_existent or non-existent URL_). The **Signing Algorithm** should be `RS256`.
 
+![Create API on Auth0 dashboard](https://cdn2.auth0.com/docs/media/articles/api-auth/create-api.png)
+_Create API on Auth0 dashboard_
+
 We're now ready to implement Auth0 authentication on our Ruby backend API.
 
 ### Dependencies and Setup
