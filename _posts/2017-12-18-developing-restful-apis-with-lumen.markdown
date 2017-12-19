@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Developing RESTful APIs with Lumen"
+title: "Developing RESTful APIs with Lumen (A PHP Micro-framework)"
 description: "Lumen is a PHP micro-framework built to deliver micro-services and blazing fast APIs. Learn how to build and secure RESTful APIs with Lumen"
-date: 2017-10-10 8:30
+date: 2017-12-19 8:30
 category: Technical Guide, PHP, Lumen
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
@@ -24,7 +24,7 @@ tags:
 - restful
 - api
 related:
-- 2017-09-19-building-an-app-with-Nette-and-adding-authentication
+- 2017-10-10-developing-web-apps-and-restful-apis-with-keystonejs
 - 2017-09-07-developing-restful-apis-with-loopback
 - 2017-08-10-implementing-jwt-authentication-on-spring-boot
 ---
@@ -33,7 +33,7 @@ related:
 
 ---
 
-**Lumen** is an open-source PHP based micro-framework created by [Taylor Otwell](https://twitter.com/taylorotwell) in 2015. Lumen is designed for building lightning fast micro-services and APIs. And it opts for maximum speed rather than flexibility in the bootstrapping process. It was born out of the need to have light Laravel installations that could be faster than existing PHP micro-frameworks such as [Slim](https://www.slimframework.com) and [Silex](https://silex.symfony.com).
+**Lumen** is an open-source PHP based micro-framework created by [Taylor Otwell](https://twitter.com/taylorotwell) in 2015. Lumen is designed for building lightning fast micro-services and APIs. And it opts for maximum speed rather than flexibility in the bootstrapping process. The PHP micro-framework was born out of the need to have light Laravel installations that could be faster than existing PHP micro-frameworks such as [Slim](https://www.slimframework.com) and [Silex](https://silex.symfony.com).
 
 {% include tweet_quote.html quote_text="Lumen is designed for building lightning fast micro-services and APIs." %}
 
@@ -83,13 +83,7 @@ Let's flesh out the possible endpoints for this API. Given some _authors_ resour
 
 What will be the author attributes? Let's flesh it out like we did the endpoints.
 
-Author:
-  - name
-  - email
-  - twitter
-  - github
-  - location
-  - latest_article_published
+* Author: `name`, `email`, `twitter`, `github`, `location`, and `latest_article_published`.
 
 ### Install Lumen
 
@@ -382,7 +376,7 @@ It validated the incoming requests and returned the appropriate error message.
 
 Check out [a plethora of validation rules](https://laravel.com/docs/5.5/validation#available-validation-rules) that you can use with Lumen.
 
-## Securing an Authors API with Auth0
+## Securing the Authors API with Auth0
 
 Right now, anyone can make `GET` and `POST` requests to all of the endpoints present in our API. In a real-world scenario, we should restrict `POST`, `DELETE` and `PUT` requests to certain registered and authorized users.
 
@@ -554,7 +548,7 @@ Wondering how to integrate the secure API with a frontend? Check out our amazing
 
 ## Conclusion
 
-Well done! You have learned how to build and secure a rest API with Lumen and JWT. Need to use PHP to build your API or micro-service? I'd bet on Lumen as the tool of choice for speed and ease of use.
+Well done! You have learned how to build and secure a rest API with the powerful PHP micro-framework, Lumen, and JWT. Need to use PHP to build your API or micro-service? I'd bet on Lumen as the tool of choice for speed and ease of use.
 
 In addition, Auth0 can help secure your **API** easily. Auth0 provides more than just username-password authentication. It provides features like [multifactor auth](https://auth0.com/multifactor-authentication), [breached password detection](https://auth0.com/breached-passwords), [anomaly detection](https://auth0.com/docs/anomaly-detection), [enterprise federation](https://auth0.com/docs/identityproviders), [single sign on (SSO)](https://auth0.com/docs/sso), and more. <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">Sign up</a> today so you can focus on building features unique to your app.
 
