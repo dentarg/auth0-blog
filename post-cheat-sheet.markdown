@@ -2,6 +2,7 @@
 layout: post
 title: "Title Should be Less Than 56 characters"
 description: "Description goes here and must be less than 156 characters."
+longdescription: "Long description is used for meta tags, particularly for Google, and should be between 230-320 characters."
 date: 2017-10-05 8:30
 category: Technical guide, Thing, Thing2, PR, Press
 (!CanRemoveIfFalse)press_release: true
@@ -131,7 +132,7 @@ text
 
 ### Sign Up for Auth0
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account here</a>. Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
 
 ### Set Up a Client App
 
