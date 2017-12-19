@@ -635,7 +635,7 @@ const testSamples = [
 // ... describe method stays untouched
 ```
 
-If we ask Istanbul now (`npm run test`), we will see that we managed to add enough scenarios to cover all our source lines of code. This is not a proof that our package contains no bug, but enough to make us confident to publish its initial version. So let's do it.
+If we ask Istanbul now (`npm test`), we will see that we managed to add enough scenarios to cover all our source lines of code. This is not a proof that our package contains no bug, but enough to make us confident to publish its initial version. So let's do it.
 
 [Publishing NPM packages looks like a very simple process](https://docs.npmjs.com/getting-started/publishing-npm-packages). As described in the official documentation, all we need is to [create a user](https://docs.npmjs.com/getting-started/publishing-npm-packages#creating-a-user) (if we still don't have one) and then issue `npm publish` in the project root, right? Well, not so fast. Indeed, is not hard to publish a NPM package, but we always want to distribute an ES5 version of our package for maximum compatibility. We could leave this as a manual process (that is, expect the developer to run `npm run build` before publishing a new version), but this is too error-prone.
 
@@ -657,6 +657,14 @@ Hurray! Looks like we are ready to publish our package. Let's run `npm publish` 
 ![NPM Package Development: The NPM Webpage of our NPM package.](https://cdn.auth0.com/blog/npm-package-development/npm-package-published.png)
 
 > It's important to note that the `name` property on `package.json` is the name that our package will get after we publish it. If someone else tries to publish a package with the same name as ours, they will get an error and will have to choose another name. (Hint: [I left the `masks-js` namespace available on NPM](https://www.npmjs.com/package/masks-js) to see who will be the first one to finish this tutorial)
+
+Let's commit and push changes to GitHub:
+
+```bash
+git add package.json test/index.js
+git commit -m 'covering 100%'
+git push origin master
+```
 
 ### Continuous Integration
 
