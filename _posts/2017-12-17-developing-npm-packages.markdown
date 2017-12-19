@@ -368,7 +368,7 @@ This will generate a small file called `.eslintrc.json` with the following conte
 }
 ```
 
-> What is nice about ESLint is that it also enables us to adhere to popular style guides (in this case [the Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)). There are other popular styles available to JavaScript developers and we could even create our own. However, to play safe, we will stick to an existing and popular one.
+> What is nice about ESLint is that it also enables us to adhere to popular style guides (in this case [the Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)). There are other popular styles available to JavaScript developers and we could even create our own. However, to play safe, we will stick to an existing and popular choice.
 
 Great, sounds good to have a tool that help us avoid common mistakes and keep our code style consistent, but how do we use it? It's simple, we configure it in our build process and we make our IDE aware of it. This way we get alerts while using the IDE to develop and we guarantee that no developer, unaware of ESLint, generates a new release with inconsistencies.
 
@@ -388,11 +388,19 @@ To add ESLint to our build process, we can create a new script that executes ESL
 
 This way, when we execute the `build` script, the process will abort before starting Babel if ESLint finds issues in our code or code style.
 
-Now, the steps to integrate ESLint in our IDE will depend on what IDE we are using. Both [WebStorm](https://www.jetbrains.com/help/webstorm/eslint.html) and [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) have special sections on their documentation to cover ESLint.
+Now, the steps to integrate ESLint in our IDE will depend on which one we are using. Both [WebStorm](https://www.jetbrains.com/help/webstorm/eslint.html) and [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) have special sections on their documentation to cover ESLint.
 
 > *__Note__: other IDEs and text editors probably provide support to ESLint as well.*
 
 {% include tweet_quote.html quote_text="Linting tools can help us identify potential errors in our code." %}
+
+To wrap this section, let's commit and push changes to GitHub:
+
+```bash
+git add .eslintrc.json package*.json
+git commit -m 'configuring ESLint'
+git push origin master
+```
 
 ### Automated Tests
 
