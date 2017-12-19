@@ -685,12 +685,11 @@ node_js:
 before_deploy:
 - npm run build
 deploy:
-  skip_cleanup: true
 ```
 
 > __Note__ that, from now on, we will count on Travis to generate builds for us. This means that we have to remove the `prepublishOnly` script from the `package.json` file.
 
-The properties in the `.travis.yml` file will tell Travis that we our repository contains a `node_js` project. Besides that, Travis will also use this file to identify which Node.js versions it should use to build our package. In our case, we tell Travis to use only the latest version (`node_js: node`). We could also add other Node.js versions in there, but as we are using Babel to generate ES5 compatible JavaScript, this is not necessary.
+The properties in the `.travis.yml` file will tell Travis that our repository contains a `node_js` project. Besides that, Travis will also use this file to identify which Node.js versions it should use to build our package. In our case, we tell Travis to use only the latest version (`node_js: node`). We could also add other Node.js versions in there, but as we are using Babel to generate ES5 compatible JavaScript, this is not necessary.
 
 Having this file in place, we can install [Travis CLI](https://github.com/travis-ci/travis.rb#installation) to help us with the last step. After installing it, let's open a file called `.npmrc` from our user's home directory (`~/.npmrc`) and copy the token from it ([if needed, keep in mind that there are other ways to get a token](https://docs.travis-ci.com/user/deployment/npm/#NPM-auth-token)). This file will probably have a content similar to:
 
@@ -698,9 +697,10 @@ Having this file in place, we can install [Travis CLI](https://github.com/travis
 //registry.npmjs.org/:_authToken=1a14bf9b-7c33-303c-b2f8-38e15c31dfee
 ```
 
-In this case, we are interested in copying the `1a14bf9b-7c33-303c-b2f8-38e15c31dfee` value. After that, we have to issue `travis setup npm --org` back on our project root. This will make NPM ask 5 questions. The following code snippet shows these questions and the desired answers:
+In this case, we are interested in copying the `1a14bf9b-7c33-303c-b2f8-38e15c31dfee` value. After that, we have to issue `travis setup npm --org` back on our project root. This will make NPM ask six questions. The following code snippet shows these questions and possible answers:
 
 ```bash
+Detected repository as brunokrebs/masks-js, is this correct? |yes|
 # use your own email address, of course
 NPM email address: bruno.krebs@auth0.com
 NPM api key: ************************************
@@ -709,7 +709,7 @@ Release only from brunokrebs/masks-js? |yes|
 Encrypt API key? |yes|
 ```
 
-We can inspect our `.travis.yml` file to see what changed:
+We also have to [prevent Travis CI from deleting the `./lib` directory created during the build process, otherwise it wouldn't be uploaded to NPM when publishing](https://docs.travis-ci.com/user/deployment#Uploading-Files-and-skip_cleanup). In the end, our `.travis.yml` file will look similar to this:
 
 ```yml
 language: node_js
@@ -717,6 +717,7 @@ node_js:
 - node
 - '6'
 deploy:
+  # add this line after travis setup
   skip_cleanup: true
   provider: npm
   email: bruno.krebs@auth0.com
@@ -729,7 +730,7 @@ deploy:
 
 That's it, we can now count on Travis CI to release new versions of our package. So, let's test this integration.
 
-> What is nice is that Travis will also execute `npm test` whenever we push a new commit to GitHub and it won't release new versions if our tests fail.
+> Travis will also execute `npm test` whenever we push a new commit to GitHub and it won't release new versions if our tests fail.
 
 To simulate a real-world scenario, let's make a small patch to our code. Let's make it support one more fictitious digit on US phones. To do that, we will update the `./src/index.js` as follows:
 
@@ -760,7 +761,7 @@ function maskUSPhone(phone) {
 export default maskUSPhone;
 ```
 
-We will also add one more test sample to `./test/index.js` to cover the new scenario:
+And we will also add one more test sample to `./test/index.js` to cover the new scenario:
 
 ```js
 // .. imports
@@ -777,7 +778,7 @@ Now we just need to commit the new code, use [`npm` to bump our package version]
 
 ```bash
 # add and commit new code
-git add .
+git add package.json src/ test/ .travis.yml
 git commit -m 'supporting one more digit'
 
 # bump patch to 0.0.2 (this also generates a tag called v0.0.2)
