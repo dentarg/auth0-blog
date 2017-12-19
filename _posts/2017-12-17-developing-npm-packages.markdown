@@ -31,13 +31,13 @@ related:
 - 2017-10-31-typescript-practical-introduction
 ---
 
-**TL;DR:** In this article, we are going to learn what tools we should take advantage of when developing NPM packages. We will start from scratch. We will create a GitHub Repository to host our package, then we will look into interesting and important topics. For example, we will talk about IDEs, we will configure ESLint in our project, will publish the package on NPM, and we will even integrate a continuous integration tool. [The code that gave life to this article can be found in this GitHub repository](https://github.com/brunokrebs/masks-js).
+**TL;DR:** In this article, we are going to learn what tools we should take advantage of when developing NPM packages. We will start from scratch. We will create a GitHub Repository to host our package, then we will look into interesting and important topics. For example, we will talk about IDEs, we will configure ESLint in our project, we will publish the package on NPM, and we will even integrate a continuous integration tool. [The code that gave life to this article can be found in this GitHub repository](https://github.com/brunokrebs/masks-js).
 
 ## What NPM Package Will We Build
 
 After following all the steps shown in this article, we will have our own package published in [the NPM official repository](https://www.npmjs.com/). The features that this package will support (and how to build them) are not the focus of this article. There are plenty of great tutorials out there that can teach us how to develop in Node.js. The focus here are the processes and the tools that we can use to build great packages.
 
-Nevertheless, to give a heads up, we are going to build a publish a NPM package that masks raw digits into US phones. For example, if we pass `1234567890` to the package, it will return `(543) 126-0987`.
+Nevertheless, to give a heads up, we are going to build and publish a NPM package that masks raw digits into US phones. For example, if we pass `1234567890` to the package, it will return `(543) 126-0987`.
 
 The following list gives an overview of the topics that we are going to cover in this article:
 
@@ -64,15 +64,15 @@ NPM Package Development
 Conclusion
 ```
 
-## Prerequisites
+## Installing Node.js
 
-The only prerequisite is [Node.js (and NPM, but that comes with Node.js)](https://nodejs.org/en/download/). However, the best way to install Node.js in a development machine is not through the official URL. [There is a package called NVM (Node Version Manager) that provides a simple bash script to manage multiple active node.js versions](https://github.com/creationix/nvm). It's the best option because, with just one command, we can switch Node.js and NPM versions.
+The first two prerequisites are Node.js and NPM (but that comes with Node.js). We could use [the official Node.js download webpage](https://nodejs.org/en/download/) to install these dependencies. However, the best way to install Node.js in a development machine is not through the official URL. [There is a package called NVM (Node Version Manager) that provides a simple bash script to manage multiple active node.js versions](https://github.com/creationix/nvm). It's the best option because, with just one command, we can switch Node.js and NPM versions.
 
 ## Git and GitHub
 
-Before anything, we need [Git](https://git-scm.com) and [GitHub](https://github.com/). Why? Because [Git is the best, most advanced, and most used version control system](https://www.atlassian.com/git/tutorials/what-is-git) and [GitHub is the most used Git platform](https://github.com/). The best open source projects in the world are hosted in this platform. For example, [Node.js source code is versioned with Git on GitHub](https://github.com/nodejs/node).
+Besides Node.js and NPM, we also need [Git](https://git-scm.com) and [GitHub](https://github.com/). Why are we going to use them? Because [Git is the best, most advanced, and most used version control system](https://www.atlassian.com/git/tutorials/what-is-git) and [GitHub is the most used Git platform](https://github.com/). The best open source projects in the world are hosted in this platform. For example, [Node.js source code is versioned with Git on GitHub](https://github.com/nodejs/node).
 
-> __Note__ that this article won't lecture about Git. If you are not familiar with Git, you will still be able to follow this article. However, every developer should learn how to properly use Git and GitHub. So, if needed, stop what you are doing and go [learn Git](https://git-scm.com/docs/gittutorial) (and install it too, of course :D). You can come back later.
+> __Note__ that this article won't lecture about Git. If you are not familiar with Git, you will still be able to follow this article. However, every developer should learn how to properly use Git and GitHub. So, if needed, stop reading and go [learn Git](https://git-scm.com/docs/gittutorial) (and install it too, of course :D). You can come back later.
 
 ### Creating the GitHub Repository
 
