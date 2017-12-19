@@ -247,7 +247,15 @@ trim_trailing_whitespace = true
 
 __Note__: EditorConfig can handle multiple configuration blocks. In the example above, we added a single block defining that all files (`[*]`) must be encoded in `UTF-8`, indented with `spaces`, and so on. However, we could have defined that we wanted XML files (`[*.xml]`) to be indented with tabs, for example.
 
-Although subtle, EditorConfig _is_ an important step into producing high quality code. More often than not, more than one developer will work on a software, be it a NPM package or a Single Page App. Having EditorConfig in place, will minimize the chances of a developer messing with our code style and the encoding of our files.
+Although subtle, EditorConfig _is_ an important step into producing high quality code. More often than not, more than one developer will work on a software, be it a NPM package or anything else. Having EditorConfig in place will minimize the chances of a developer messing with our code style and the encoding of our files.
+
+Let's commit and push `.editorconfig` to GitHub:
+
+```bash
+git add .editorconfig
+git commit -m 'adding .editorconfig'
+git push origin master
+```
 
 ### ES6+: Developing with Modern JavaScript
 
