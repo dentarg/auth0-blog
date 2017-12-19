@@ -33,7 +33,7 @@ Previously, we wrote about the emerging pattern of [Serverless Extensibility](ht
 
 In the early days at Auth0, there were two groups: Core and Field Engineering. Core focused on the core functionality of the authentication product, and the field engineers helped customers use the product in their applications. The company was discovering what customers needed in the product.
 
-Our customer's focus was on the authentication transaction. A lot of interesting features can attach to the process of someone trying to login:
+Our customers' focus was on the authentication transaction. A lot of interesting features can attach to the process of someone trying to login:
 
 - Profile Enrichment
 - Progressive Profiling
