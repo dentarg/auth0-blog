@@ -166,7 +166,7 @@ Now that we have chosen our IDE, let's open our project and start configuring it
 
 ### NPM Init
 
-First things first. As our goal is to create and publish a NPM package, we need to initialize our project as one. Luckily, the process is straightforward. NPM, through its CLI (Command Line Interface tool), provides two great ways to configure a project as a NPM package. The first one, triggered by `npm init`, will ask a bunch of questions and produce the `package.json` file for us. The second one, triggered by `npm init -y`, will not ask any question and produce the `package.json` file with default values.
+First things first. As our goal is to create and publish a NPM package, we need to initialize our project as one. Luckily, this process is straightforward. NPM, through its CLI (Command Line Interface), provides two great ways to configure a project as a NPM package. The first one, triggered by `npm init`, will ask a bunch of questions and produce the `package.json` file for us. The second one, triggered by `npm init -y`, will not ask any question and produce the `package.json` file with default values.
 
 We will stick with the second option, `npm init -y`, to get our file as fast as possible. Then, we will edit the `package.json` content manually to look like this:
 
@@ -198,7 +198,17 @@ We will stick with the second option, `npm init -y`, to get our file as fast as 
 }
 ```
 
+> __Important:__ the JSON snippet above contains three URLs that point to `https://github.com/brunokrebs/masks-js`. We need to replace them with the URL of our repository on GitHub.
+
 Two properties in the file above may bring our attention. The `main` property now points to `build/index.js` and the `version` property labels our code as being on version `0.0.1`. Let's not worry about them now, we will discuss about these properties in the following sections.
+
+Let's commit and push these changes to GitHub:
+
+```bash
+git add package.json
+git commit -m 'initializing project as a NPM package'
+git push origin master
+```
 
 ### Semantic Versioning
 
