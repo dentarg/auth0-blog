@@ -7,7 +7,6 @@ date: "2017-12-20 08:30"
 design:
   bg_color: "#1D4E69"
   image: https://cdn.auth0.com/blog/npm-package-development/logo.png
-  image_size: "90%"
   image_bg_color: "#1D4E69"
 author:
   name: "Bruno Krebs"
