@@ -25,7 +25,7 @@ related:
 - 2017-06-28-real-world-angular-series-part-1
 - 2017-09-20-rxjs-advanced-tutorial-with-angular-web-speech-part-1
 lang: en
-alternate_locale_jp: jp-angular-2-authentication
+alternate_locale_ja: jp-angular-2-authentication
 ---
 
 <div class="alert alert-info alert-icon">
