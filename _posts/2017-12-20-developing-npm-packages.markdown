@@ -6,12 +6,12 @@ longdescription: "Creating high quality NPM packages to share with the community
 date: "2017-12-20 08:30"
 design:
   bg_color: "#1D4E69"
-  image: https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/640px-Npm-logo.svg.png
+  image: https://cdn.auth0.com/blog/npm-package-development/logo.png
   image_size: "90%"
   image_bg_color: "#1D4E69"
 author:
   name: "Bruno Krebs"
-  url: "brunoskrebs"
+  url: "https://twitter.com/brunoskrebs"
   mail: "bruno.krebs@gmail.com"
   avatar: "https://twitter.com/brunoskrebs/profile_image?size=original"
 tags:
