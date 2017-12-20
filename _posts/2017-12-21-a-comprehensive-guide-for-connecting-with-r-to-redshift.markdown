@@ -231,7 +231,7 @@ After installing, you'll have 4 helpful functions to use, which are explained in
 
 `rs_create_statement`: Generates the SQL statement to create a table based on the structure of a data.frame. It allows you to specify sort key, dist key and if you want to allow compression to be added or not.
 
-`rs_replace_table`: Deletes all records in a table, then uploads the provided data frame into it. It runs as a transaction if provided with an RJDBC connection.
+`rs_replace_table`: Deletes all records in a table, then uploads the provided data frame into it. It runs as a transaction so the table is never empty to the other users.
 
 `rs_upsert_table`: Deletes all records matching the provided keys from the uploaded dataset, and then inserts the rows from the dataset. If no keys are provided, it acts as a regular insert.
 
