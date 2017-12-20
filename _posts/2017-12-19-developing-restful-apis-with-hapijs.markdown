@@ -483,7 +483,7 @@ Head over to your terminal and install the following node modules:
 npm install jwks-rsa salzhrani/hapi-auth-jwt2#v-17 --save
 ```
 
-Open your `routes/index.js` file and modify it like so:
+Open your `server.js` file and modify it like so:
 
 ```js
 'use strict';
