@@ -2,6 +2,7 @@
 layout: post
 title: "Title Should be Less Than 56 characters"
 description: "Description goes here and must be less than 156 characters."
+longdescription: "Long description should be between 230-320 characters."
 date: 2017-12-20 8:30
 category: Technical guide, Firebase, Angular
 banner:
