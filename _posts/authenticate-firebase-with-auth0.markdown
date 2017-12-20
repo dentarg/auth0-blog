@@ -420,6 +420,26 @@ $ npm install --save auth0-js@latest firebase@latest angularfire2@latest
 
 We will need the [`auth0-js` library](https://github.com/auth0/auth0.js) to implement Auth0 authentication in our Angular app. We'll also need the [`firebase` JS SDK](https://github.com/firebase/firebase-js-sdk) and the [`angularfire2` Angular Firebase library](https://github.com/angular/angularfire2/) to implement our realtime comments with Firebase.
 
+### Add Bootstrap CSS
+
+To make styling fast and easy, we'll add the [Bootstrap CSS](https://getbootstrap.com) CDN link to the `<head>` of our `index.html` file like so:
+
+```html
+<!-- src/index.html -->
+...
+<head>
+  ...
+  <title>Top 10 Dogs</title>
+  ...
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+</head>
+...
+```
+
 ### Serve the Angular App
 
 You can serve the Angular app with the following command:
@@ -438,7 +458,7 @@ Our app is going to use a modular approach with lazy loading. The sample app in 
 
 ### Root Module
 
-The root module has already been created when the Angular app was generated with the `ng new` command. The root module lives at `/src/app/app.module.ts`. Any components we generate in the root of our Angular app without a subdirectory specified will be imported in our root module.
+The root module has already been created when the Angular app was generated with the `ng new` command. The root module lives at `src/app/app.module.ts`. Any components we generate in the root of our Angular app without a subdirectory specified will be imported in our root module.
 
 Let's create a component now:
 
@@ -448,6 +468,8 @@ $ ng g component callback --is --it --flat --no-spec
 ```
 
 This command generates (`g`) a `CallbackComponent` file with inline styles (`--is`), an inline template (`--it`), no containing folder (`--flat`), and no `.spec` test file (`--no-spec`).
+
+We'll use the callback component to handle redirection after the user logs into our application. It's a very simple component, so we can use inline styles and an inline template.
 
 ### Core Module Architecture
 
@@ -526,7 +548,7 @@ $ ng g component comments/comments/comment-form --is --no-spec
 
 ### Environment Configuration
 
-Let's add our configuration information for Auth0 and Firebase to our Angular front-end. Open the `/src/environments/environment.ts` file and add:
+Let's add our configuration information for Auth0 and Firebase to our Angular front-end. Open the `src/environments/environment.ts` file and add:
 
 ```js
 // src/environments/environment.ts
@@ -562,7 +584,7 @@ You can find your Firebase configuration in the [Firebase Console Project Overvi
 
 ### Add Loading Image
 
-The last thing we'll do before we begin implementing functionality in our Angular app is add a loading image. Create the following folder: `/src/assets/images`
+The last thing we'll do before we begin implementing functionality in our Angular app is add a loading image. Create the following folder: `src/assets/images`
 
 Then save [this loading SVG image](https://github.com/auth0-blog/angular-firebase/blob/master/src/assets/images/loading.svg) into that folder.
 
