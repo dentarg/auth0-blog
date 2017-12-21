@@ -558,7 +558,7 @@ Modify `templates/index.html` as shown below.
 
     {% block scripts %}
     {{super()}}
-    <script src="https://cdn.auth0.com/js/auth0/9.0.0-beta.5/auth0.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
     <script>
       var AUTH0_CLIENT_ID = '{{env.AUTH0_CLIENT_ID}}';
       var AUTH0_DOMAIN = '{{env.AUTH0_DOMAIN}}';
