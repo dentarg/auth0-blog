@@ -205,7 +205,7 @@ The [callback component](https://github.com/auth0-blog/angular-auth0-aside/tree/
 
 ```js
 // src/app/callback/callback.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from './../auth/auth.service';
 import { Router } from '@angular/router';
@@ -215,7 +215,8 @@ import { Router } from '@angular/router';
   templateUrl: './callback.component.html',
   styleUrls: ['./callback.component.css']
 })
-export class CallbackComponent implements OnInit {
+export class CallbackComponent implements OnInit, OnDestroy {
+  loggedInSub: Subscription;
 
   constructor(private auth: AuthService, private router: Router) {
     // Parse authentication hash
@@ -223,9 +224,13 @@ export class CallbackComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.loggedIn$.subscribe(
+    this.loggedInSub = this.auth.loggedIn$.subscribe(
       loggedIn => loggedIn ? this.router.navigate(['/']) : null
     )
+  }
+
+  ngOnDestroy() {
+    this.loggedInSub.unsubscribe();
   }
 
 }
