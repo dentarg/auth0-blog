@@ -70,29 +70,32 @@ Running this command, `yarn run encore dev --watch`, will allow us to compile ou
 
 **NOTE** Extra packages may need to be installed. Encore will list these requirements when the command above is run.
 
-Open the base twig template which can be found: `app/Resources/views/base.html.twig`
+Let's move the contents of our CSS file we created in part 1 (`web/css/style.css`) into the new file we've created above (`assets/css/global.scss`)
 
-Find the following line: `{% raw %}{% block stylesheets %}{% endblock %}{% endraw %}`. Within this block we need to include the global.css file. So it will look like:
-
-{% highlight html %}
-{% raw %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/global.css') }}" />
-{% endblock %}
-{% endraw %}
-{% endhighlight %}
-
-Then in the same file find `{% raw %}{% block javascripts %}{% endblock %}{% endraw %}` and place the `app.js` include in between. So it will look like:
+Open the base twig template which can be found: `app/Resources/views/base.html.twig` and replace the contents with:
 
 {% highlight html %}
 {% raw %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/global.css') }}" />
+    {% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
 {% block javascripts %}
     <script src="{{ asset('build/app.js') }}"></script>
 {% endblock %}
+</body>
+</html>
 {% endraw %}
 {% endhighlight %}
 
-We've now included both our empty compiled CSS and Javascript files into our base template to be used throughout our app!
+We've now included both our compiled CSS and empty Javascript files into our base template to be used throughout our app!
 
 In order to make use of Bootstrap we need to install jQuery, so run the command: 
 
@@ -197,9 +200,9 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
 
 ### Creating a blog post
 
-Now that we have made a member restricted area of the site, lets allow the authenticated users to create a new blog post.
+Now that we have made a member restricted area of the site, let's allow the authenticated users to create a new blog post.
 
-Lets create a new file: `src/AppBundle/Form/EntryFormType.php` and paste the following into there:
+Let's create a new file: `src/AppBundle/Form/EntryFormType.php` and paste the following into there:
 
 ```php
 <?php
@@ -286,7 +289,7 @@ class EntryFormType extends AbstractType
 
 As you can see, the data class to be used is the entity BlogPost, and if you compare the fields in `buildForm` you'll notice the first argument of each, the name, matches the names of the properties in BlogPost entity.
 
-A new controller method is needed, so lets paste this into your AdminController:
+A new controller method is needed, so let's paste this into your AdminController:
 
 ```php
 /**
@@ -374,11 +377,11 @@ We now need the template so create a new file: `src/AppBundle/Resources/views/Ad
 {% endraw %}
 {% endhighlight %}
 
-Before we try to create a new entry, lets build the page that displays all of the authenticated users blog posts.
+Before we try to create a new entry, let's build the page that displays all of the authenticated users blog posts.
 
 ### Displaying blog posts created by authenticated author
 
-In your AdminController lets add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the template `entries.html.twig` to be displayed.
+In your AdminController let's add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the template `entries.html.twig` to be displayed.
 
 ```php
 /**
@@ -496,9 +499,9 @@ public function deleteEntryAction($entryId)
 
 This will check if the entryId passed in exists, check to ensure the authenticated user is the author of the article and then delete it.
 
-There is no template needed for this, however we still need somewhere in the templates to show the action. So in `src/AppBundle/Resources/views/Author/entries.html.twig` lets make some additions.
+There is no template needed for this, however we still need somewhere in the templates to show the action. So in `src/AppBundle/Resources/views/Author/entries.html.twig` let's make some additions.
 
-In the table headers, lets add a new row, from:
+In the table headers, let's add a new row, from:
 
 ```html
 <thead>
@@ -542,7 +545,7 @@ to:
 
 ### Add pagination to blog posts list.
 
-We don't want to be loading all blog posts into the page, so lets add some pagination.
+We don't want to be loading all blog posts into the page, so let's add some pagination.
 
 In the `src/AppBundle/Controllers/BlogController.php` find `entriesAction()` and within the empty brackets type in: `Request $request`
 
@@ -562,7 +565,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 Request allows you to gather data for example if there are any parameters in a POST or GET request.
 
-At the top of our BlogController class, lets add a blog post limit constant:
+At the top of our BlogController class, let's add a blog post limit constant:
 
 ```php
 /** @var integer */
@@ -632,7 +635,7 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
 ]);
 ```
 
-Lets call those methods and pass the data aswell as the page number and post limit into the template:
+Let's call those methods and pass the data as well as the page number and post limit into the template:
 
 ```php
 return $this->render('AppBundle:Blog:entries.html.twig', [
@@ -643,7 +646,7 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
 ]);
 ```
 
-In your `entries.html.twig` template. Find `{% raw %}{% endfor %}{% endraw %}`. Below this we want to add the pagination buttons. So lets put the following code there:
+In your `entries.html.twig` template. Find `{% raw %}{% endfor %}{% endraw %}`. Below this we want to add the pagination buttons. So let's put the following code there:
 
 {% highlight html %}
 {% raw %}
@@ -672,15 +675,15 @@ Now reload your browser, you'll see the previously shown blog post, but below th
 
 ### Showing specific blog post
 
-On the `entryAction`, lets add a service name to the action, so where it shows: `* @Route("/entry/{slug}")` lets add the name: `* @Route("/entry/{slug}", name="entry")`
+On the `entryAction`, let's add a service name to the action, so where it shows: `* @Route("/entry/{slug}")` let's add the name: `* @Route("/entry/{slug}", name="entry")`
 
-Lets retrieve the blog post from the database by the given slug at the top of the method:
+Let's retrieve the blog post from the database by the given slug at the top of the method:
 
 ```php
 $blogPost = $this->blogPostRepository->findOneBySlug($slug);
 ```
 
-We need to really make sure the blog post exists before passing data into and displaying the template. So lets now do a check:
+We need to really make sure the blog post exists before passing data into and displaying the template. So let's now do a check:
 
 ```php
 if (!$blogPost) {
@@ -765,7 +768,7 @@ TODO: Show screenshot
 
 ### Showing author details
 
-Want to see more details about the author of the post? Lets go to the `authorAction` in your controller. We're going to be doing something very similar to retrieving the single entry.
+Want to see more details about the author of the post? Let's go to the `authorAction` in your controller. We're going to be doing something very similar to retrieving the single entry.
 We'll be getting the name passed in via the URL, finding the author by name in the database. And then passing that data into the author template, as shown below:
 
 ```php
@@ -834,7 +837,7 @@ We now need to have that author page linkable for people to access it. In: `src/
 {% endraw %}
 {% endhighlight %}
 
-Lets make this a link as shown below:
+Let's make this a link as shown below:
 
 {% highlight html %}
 {% raw %}
@@ -852,7 +855,7 @@ And in `src/AppBundle/Resources/views/Blog/entry.html.twig` you will find:
 {% endraw %}
 {% endhighlight %}
 
-So lets replace that with the following:
+So let's replace that with the following:
 
 {% highlight html %}
 {% raw %}
