@@ -23,9 +23,9 @@ tags:
 - compliance
 - security
 related:
-- 2017-11-28-5-aws-reinvent-day-1-recap
-- 2017-07-21-the-role-of-identity-in-application-modernization
-- 2017-08-03-build-a-rottentomatoes-clone-with-graphql-and-auth0
+- 2017-11-29-aws-reinvent-day-1-recap
+- 2017-11-30-aws-reinvent-day-3-recap
+- 2017-12-01-aws-reinvent-day-4-recap
 ---
 
 Day two of AWS re:Invent was in many ways similar to day one. There was no huge keynote, that is coming tomorrow, but there were a few announcements that I think the developer community will enjoy very much. Just because there was no keynote doesn't mean there weren't amazing talks, demos, and so much more to do. Here is my recap of day two!

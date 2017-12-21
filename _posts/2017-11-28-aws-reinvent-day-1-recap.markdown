@@ -23,9 +23,9 @@ tags:
 - compliance
 - security
 related:
-- 2015-10-22-5-ways-to-make-your-app-more-secure-in-less-than-20-minutes
-- 2017-07-21-the-role-of-identity-in-application-modernization/
-- 2017-11-13-all-you-need-to-know-about-data-management-and-integration
+- 2017-11-29-aws-reinvent-day-2-recap
+- 2017-11-30-aws-reinvent-day-3-recap
+- 2017-12-01-aws-reinvent-day-4-recap
 ---
 
 The AWS re:Invent conference is back in Las Vegas this week and with it comes **five** days of awesome talks, deep-dives, and of course, huge announcements that promise to boost developer productivity, make DevOps simpler, and help companies grow and scale. This year the conference is spread across five hotels on the Las Vegas Strip and features over 1,500 different talks. I would love to be able to attend each one, but since I can't be in 100 places at once, I will share what I learned at the talks I could attend as well as the general announcements that Amazon will have when they host their keynotes on Wednesday and Thursday this week.

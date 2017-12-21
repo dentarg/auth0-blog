@@ -51,5 +51,9 @@ When you create a new Aside, add a link to it here along with author's name so a
 * [angular.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/angular.markdown) - Kim
 * [javascript-at-auth0.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/javascript-at-auth0.markdown) - Bruno & Sebastian
 * [python.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/python.markdown) - Bruno
+* [go.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/go.markdown) - Prosper
+* [php.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/php.markdown) - Prosper
+* [ruby.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/ruby.markdown) - Prosper
 * [react.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/react.markdown) - Bruno
+* [vue.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/vue.markdown) - Prosper
 * [spring-boot.markdown](https://github.com/auth0/blog/blob/master/_includes/asides/spring-boot.markdown) - Bruno

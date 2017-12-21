@@ -11,19 +11,19 @@
                 <div class="row">
                     <div class="navbar-header"><button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                         <a
-                            href="//auth0.com/extend?umt_source=extend_blog&umt_medium=header-logo&umt_campaign=extend_blog">
+                            href="//auth0.com/extend?utm_source=extend_blog&utm_medium=header-logo&utm_campaign=extend_blog">
                             <div class="logo-extend"><img src="https://cdn.auth0.com/website/auth0-extend/images/auth0-extend-logo.svg" alt="Auth0 Extend"></div>
                             </a>
                     </div>
                     <div class="collapse navbar-collapse navbar-right" id="navbar-collapse">
                         <ul class="nav navbar-nav navbar-left">
-                            <li class="li-docs no-basic"><a href="//auth0.com/extend/pricing?umt_source=extend_blog&umt_medium=header-pricing&umt_campaign=extend_blog">Pricing</a></li>
+                            <li class="li-docs no-basic"><a href="//auth0.com/extend/pricing?utm_source=extend_blog&utm_medium=header-pricing&utm_campaign=extend_blog">Pricing</a></li>
                             <li class="li-docs no-basic"><a href="https://github.com/auth0/extend/wiki/Auth0-Extend-User%27s-Guide" onclick="trackDocumentation();"
                                     target="_blank">Documentation</a></li>
                             <li class="li-docs no-basic"><a href="#" onclick="showContactForm(&quot;extend_header_sales&quot;);" rel="external">Talk to Sales</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right pre-signup">
-                            <li><a class="signin-button signup js-signup" href="https://auth0.com/extend/try?umt_source=extend_blog&umt_medium=header-try&umt_campaign=extend_blog">Try Auth0 Extend</a></li>
+                            <li><a class="signin-button signup js-signup" href="https://auth0.com/extend/try?utm_source=extend_blog&utm_medium=header-try&utm_campaign=extend_blog">Try Auth0 Extend</a></li>
                         </ul>
                     </div>
                 </div>
@@ -86,7 +86,6 @@
       {% include footer_extend.html %}
     </div>
 
-    <script src="{{ site.baseurl }}/push-notification.js" type="text/javascript"></script>
     <script src="{{ site.baseurl }}/js/vendor/js-cookie.js" type="text/javascript"></script>
 
     {% if page.is_post_index %}
@@ -119,7 +118,7 @@
       <!-- end jekyll-search-->
     {% endif %}
 
-    <!--- btn ontact us  --->
+    <!-- btn ontact us  -->
     <script type="text/javascript">
       var Auth0ContactForm = window.Auth0ContactForm.default;
       var ContactForm = Auth0ContactForm.ContactForm;
@@ -570,5 +569,24 @@
           a.appendChild(r);
       })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
+    <script src="{{ site.baseurl }}/js/firebase-pn.js"></script>
+
+    <script type="text/javascript"> _linkedin_data_partner_id = "30812"; </script>
+    <script type="text/javascript"> 
+      (function () {
+        var s = document.getElementsByTagName("script")[0];
+        var b = document.createElement("script");
+        b.type = "text/javascript";
+        b.async = true;
+        b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+        s.parentNode.insertBefore(b, s);
+      })(); 
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid=30812&fmt=gif" />
+    </noscript>
 </body>
 </html>
