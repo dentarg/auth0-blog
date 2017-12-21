@@ -23,6 +23,7 @@ tags:
 - auth
 - restful
 - api
+- rest
 related:
 - 2017-10-10-developing-web-apps-and-restful-apis-with-keystonejs
 - 2017-09-07-developing-restful-apis-with-loopback
@@ -46,7 +47,7 @@ related:
 * **Routing**: Lumen provides routing out of the box via [Fast Route](https://github.com/nikic/FastRoute). _Fast Route_ is a library that provides a fast implementation of a regular expression based router.
 * **Authentication**: Lumen does not support session state. However, incoming requests are authenticated via a stateless mechanism such as tokens.
 * **Caching**: Lumen supports caching just like Laravel. In fact, there are no differences between using the cache in Lumen and Laravel. Cache drivers such as _Database_, _Memcached_, and _Redis_ are supported. You will need to install the `illuminate/redis` package via Composer before using a Redis cache with Lumen.
-* **Errors and Logging**: Lumen ships with the Monolog library, which provides support for various log handlers.
+* **Errors and Logging**: Lumen ships with the [Monolog library](https://github.com/Seldaek/monolog), which provides support for various log handlers.
 * **Queuing**: Lumen provides a queuing service that is similar to Laravel's. It provides a unified API across a variety of different queue back-ends.
 * **Events**: Lumen's events provide a simple observer implementation, allowing you to subscribe and listen for events in your application.
 
@@ -58,8 +59,9 @@ In order to use Lumen, you need to have the following tools installed on your ma
 
 * **PHP**: Make sure [PHP](http://php.net/manual/en/install.php) is installed on your machine. `PHP >= 7.0`. Furthermore, ensure that the following PHP extensions are installed. `OpenSSL`, `PDO` and `Mbstring`.
 * **Composer**: Navigate to the [composer website](https://getcomposer.org/) and install it on your machine. Composer is needed to install Lumen's dependencies.
-* **MySQL**: Navigate to the [mysql website](https://www.mysql.com) and install the community server edition. If you are using a Mac, I'll recommend following this [instruction](https://gist.github.com/nrollr/3f57fc15ded7dddddcc4e82fe137b58e). To avoid micromanaging from the terminal, I'll also recommend installing a MySQL GUI, [Sequel Pro](https://sequelpro.com). 
-* Familiarity with database concepts, and working knowledge of PHP.
+* You'll also need familiarity with database concepts, and working knowledge of PHP.
+
+> **Note:** You'll need **MySQL** for this tutorial. Navigate to the [mysql website](https://www.mysql.com) and install the community server edition. If you are using a Mac, I'll recommend following these [instructions](https://gist.github.com/nrollr/3f57fc15ded7dddddcc4e82fe137b58e). To avoid micromanaging from the terminal, I'll also recommend installing a MySQL GUI, [Sequel Pro](https://sequelpro.com). 
 
 ## Building a Fast Authors API Rapidly With Lumen
 
@@ -395,7 +397,7 @@ When the API receives a request with a JWT, the first thing it does is to valida
 
 We will make use of Auth0 to issue our JSON Web Tokens. With Auth0, we have to write just a few lines of code to get a solid [identity management solution](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), [user management](https://auth0.com/docs/user-profile), support for [social identity providers (like Facebook, GitHub, Twitter, etc.)](https://auth0.com/docs/identityproviders), [enterprise (Active Directory, LDAP, SAML, etc.)](https://auth0.com/enterprise), and your [own database of users](https://auth0.com/docs/connections/database/mysql).
 
-For starters, if you haven't done so yet, this is a good time to sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>. Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients. And we are dealing with an API here, SWAPI (Star Wars API).
+For starters, if you haven't done so yet, this is a good time to sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>. Having an Auth0 account, the first thing that we must do is to [create a new API on the dashboard](https://manage.auth0.com/#/apis). An API is an entity that represents an external resource, capable of accepting and responding to protected resource requests made by clients.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
