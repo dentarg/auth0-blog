@@ -257,7 +257,7 @@ Before concluding the article, let's take a look at how you can add authenticati
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
-Instead of creating an application from scratch, I've put together a simple app that you can [download](https://github.com/echessa/python_image_processing) to follow along. It is a simple gallery application, that enables the user to upload images to a server and view the uploaded images.
+Instead of creating an application from scratch, I've put together a simple app that you can [download](https://github.com/auth0-blog/python_image_processing) to follow along. It is a simple gallery application, that enables the user to upload images to a server and view the uploaded images.
 
 If you downloaded the project files, you will find two folders inside the main directory: `complete_without_auth0` and `complete_with_auth0`. As the name implies, `complete_without_auth0` is the project we'll start with and add Auth0 to.
 
@@ -396,7 +396,6 @@ Back in your project, create a file labelled `.env` and save it at the root of t
 
 ```
 AUTH0_CLIENT_ID = 'YOUR_AUTH0_CLIENT_ID'
-AUTH0_CLIENT_SECRET = 'YOUR_AUTH0_CLIENT_SECRET'
 AUTH0_CALLBACK_URL = 'http://localhost:3000/callback'
 AUTH0_DOMAIN = 'YOUR_AUTH0_DOMAIN'
 SECRET_KEY = 'F12ZMr47j\3yXgR~X@H!jmM]6Lwf/,4?KT'
@@ -408,12 +407,10 @@ Add another file named `constants.py` to the root directory of the project and a
 ACCESS_TOKEN_KEY = 'access_token'
 APP_JSON_KEY = 'application/json'
 AUTH0_CLIENT_ID = 'AUTH0_CLIENT_ID'
-AUTH0_CLIENT_SECRET = 'AUTH0_CLIENT_SECRET'
 AUTH0_CALLBACK_URL = 'AUTH0_CALLBACK_URL'
 AUTH0_DOMAIN = 'AUTH0_DOMAIN'
 AUTHORIZATION_CODE_KEY = 'authorization_code'
 CLIENT_ID_KEY = 'client_id'
-CLIENT_SECRET_KEY = 'client_secret'
 CODE_KEY = 'code'
 CONTENT_TYPE_KEY = 'content-type'
 GRANT_TYPE_KEY = 'grant_type'
@@ -520,7 +517,6 @@ def callback_handling():
         auth0_domain=env[constants.AUTH0_DOMAIN])
     token_payload = {
         constants.CLIENT_ID_KEY: env[constants.AUTH0_CLIENT_ID],
-        constants.CLIENT_SECRET_KEY: env[constants.AUTH0_CLIENT_SECRET],
         constants.REDIRECT_URI_KEY: env[constants.AUTH0_CALLBACK_URL],
         constants.CODE_KEY: code,
         constants.GRANT_TYPE_KEY: constants.AUTHORIZATION_CODE_KEY
@@ -562,7 +558,7 @@ Modify `templates/index.html` as shown below.
 
     {% block scripts %}
     {{super()}}
-    <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0/9.0.0-beta.5/auth0.min.js"></script>
     <script>
       var AUTH0_CLIENT_ID = '{{env.AUTH0_CLIENT_ID}}';
       var AUTH0_DOMAIN = '{{env.AUTH0_DOMAIN}}';
@@ -574,26 +570,28 @@ Modify `templates/index.html` as shown below.
 
 In the above, we check for the user's logged in status and display a different message accordingly. At the end of the file, we add a Flask-Bootstrap `block` for scripts. This is used to add JavaScript to the file. Calling `{% raw %}{{super()}}{% endraw %}` before adding your own scripts will add Bootstrap and its dependencies (jQuery) before your scripts. If you added this later, then the app will fail as we'll soon add a JavaScript file that depends on jQuery, so this needs to be loaded for the code to work.
 
-For authentication, the app will use Auth0's [Lock](https://auth0.com/docs/libraries/lock/v10) widget. This is a ready made, but [customizable](https://auth0.com/docs/libraries/lock/v10/customization), login/signup form. We then create some variables that will be used by the widget.
+For authentication, the app will use Auth0's [Auth0.js library](https://github.com/auth0/auth0.js). This will present a ready made, but [customizable](https://auth0.com/docs/hosted-pages/login), login/signup form. We then create some variables that will be used by the widget.
 
 At the end of the code, we link to an `auth.js` file. Let's create this. Create a file named `auth.js` and save it to the `public` folder. Add the following to it.
 
 ```javascript
 $(document).ready(function() {
-     var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
-        auth: {
-          redirectUrl: AUTH0_CALLBACK_URL
-        }
-     });
+  var auth0 = new window.auth0.WebAuth({
+    clientID: AUTH0_CLIENT_ID,
+    domain: AUTH0_DOMAIN,
+    scope: "openid email profile",
+    responseType: "code",
+    redirectUri: AUTH0_CALLBACK_URL
+  });
 
-    $('.login').click(function(e) {
-      e.preventDefault();
-      lock.show();
-    });
+  $('.login').click(function(e) {
+    e.preventDefault();
+    auth0.authorize();
+  });
 });
 ```
 
-The above instantiates an `Auth0Lock`, passing it the variables we set previously. We also add a click listener to the Login link that will display the Lock widget.
+The above instantiates an `auth0.WebAuth` object, passing it the variables we set previously. We also add a click listener to the Login link that will display the login widget.
 
 In `templates/upload.html`, you can add the following before the `form` tag.
 
@@ -601,7 +599,7 @@ In `templates/upload.html`, you can add the following before the `form` tag.
 
 This will display the logged in user's nickname which will be the value before the `@` in their email. Look at the [User Profile](https://auth0.com/docs/user-profile/user-profile-structure) to see what other user information is available to you. The information available will be determined by what is saved on the server. For instance, if the user only uses the email/password authentication, then you won't be able to get their `name` or `picture`, but if they used one of the available Identity Providers like Facebook or Google, then you might get this data.
 
-Run the application. You won't be able to get the upload form by navigating to `/upload`. Head to the Home page and use the Login link to bring up the Lock widget.
+Run the application. You won't be able to get the upload form by navigating to `/upload`. Head to the Home page and use the Login link to bring up the login widget.
 
 ![Auth0 Lock Widget](https://raw.githubusercontent.com/echessa/misc/master/image_a04.png)
 
@@ -623,10 +621,10 @@ def logout():
 When you are implementing the logout functionality in an application, there are typically three layers of sessions you need to consider:
 
  - **Application Session**: The first is the session inside the application. Even though your application uses Auth0 to authenticate users, you will still need to keep track of the fact that the user has logged in to your application. In a normal web application this is achieved by storing information inside a cookie. You need to log out the user from your application, by clearing their session.
- - **Auth0 session**: Next, Auth0 will also keep a session and store the user's information inside a cookie. Next time when a user is redirected to the Auth0 Lock screen, the user's information will be remembered. In order to logout a user from Auth0 you need to clear the SSO cookie.
+ - **Auth0 session**: Next, Auth0 will also keep a session and store the user's information inside a cookie. Next time when a user is redirected to the Auth0 login screen, the user's information will be remembered. In order to logout a user from Auth0 you need to clear the SSO cookie.
  - **Identity Provider session**: The last layer is the Identity Provider, for example Facebook or Google. When you allow users to sign in with any of these providers, and they are already signed into the provider, they will not be prompted to sign in. They may simply be required to give permissions to share their information with Auth0 and in turn your application.
 
- In the code above, we deal with the first two. If we had only cleared the session with `session.clear()`, then the user would be logged out of the app, but they won't be logged out of Auth0. On using the app again, authentication would be required to upload images. If they tried to login, the Lock widget will show the user account that is logged in on Auth0 and the user will only have to click on the email to get Auth0 to send their credentials back to the app which will then be saved to the session object. Here, the user will not be asked to reenter their passowrd.
+ In the code above, we deal with the first two. If we had only cleared the session with `session.clear()`, then the user would be logged out of the app, but they won't be logged out of Auth0. On using the app again, authentication would be required to upload images. If they tried to login, the login widget will show the user account that is logged in on Auth0 and the user will only have to click on the email to get Auth0 to send their credentials back to the app which will then be saved to the session object. Here, the user will not be asked to reenter their passowrd.
 
  ![Lock Widget](https://raw.githubusercontent.com/echessa/misc/master/image_a05.png)
 

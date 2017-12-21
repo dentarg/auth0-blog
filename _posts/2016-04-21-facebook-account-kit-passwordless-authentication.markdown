@@ -342,19 +342,16 @@ Let's walk through the steps of how passwordless authentication works with the F
 At Auth0, we are huge proponents of making the authentication experience the best it can be. Passwordless authentication is something we believe in and offer in all of our packages. Get a taste for how passwordless authentication works with Auth0 at the [Playground](https://auth0.github.io/lock-passwordless/). Some of the benefits of integrating passwordless authentication with Auth0 include:
 
 * Email, SMS and [Apple Touch ID](https://auth0.com/docs/connections/passwordless/ios-touch-id-swift) support
-* Unified Authentication Workflow through [Lock](https://auth0.com/lock)
 * Integrate with your own [SMS gateway](https://auth0.com/docs/connections/passwordless/sms-gateway) and email providers
 * Cloud and Self-hosted options
 * 20+ Social [identity providers](https://auth0.com/docs/identityproviders) including Facebook, Twitter and Google
 * Enterprise connections and Single Sign On (SSO) integration
 
-The Auth0 Passwordless SDK is available for [iOS](https://github.com/auth0/Lock.iOS-OSX), [Android](https://github.com/auth0/Lock.Android) and the [Web](https://github.com/auth0/lock-passwordless).
-
 ### Getting Started
 
 For the best comparison, we'll keep our app as close as possible to the one we built with the Facebook Account Kit. For Auth0 Passwordless, you will need an Auth0 account. If you don't already have one, you can [sign up](https://auth0.com/) for one free of charge. As we won't be exchanging the token server side, our backend will be much simpler.
 
-```
+```javascript
 // Load in dependencies
 const fs = require('fs');
 const express = require('express');
@@ -395,6 +392,81 @@ The **email** integration is much simpler by default. We only need to turn it on
 
 There are a number of configuration settings to play around with on both the SMS and email passwordless integration. You can set how long a code is valid for, customize the message the user receives, disable passwordless signups and more. We'll just stick to defaults in this tutorial, but you should explore and customize these settings to meet your needs. 
 
+We will also need to enable the hosted login page for passwordless logins. To do so, head over to [Hosted Pages](https://manage.auth0.com/#/login_page) in the Auth0 dashboard and set the `Customize Login Page` switch to on. Then select the `Lock (passwordless)` template from the templates dropdown box. We will need to customize the behavior of our login screen according to which type of passwordless login option is selected by the user. To do so, we can add custom code to our hosted login page. Change the code in the editor to look like the one below:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Sign In with Auth0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+  <!--[if IE 8]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"></script>
+  <![endif]-->
+
+  <!--[if lte IE 9]>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/base64.min.js"></script>
+  <script src="https://cdn.auth0.com/js/polyfills/1.0/es5-shim.min.js"></script>
+  <![endif]-->
+
+  <script src="//cdn.auth0.com/js/lock-passwordless-2.2.min.js"></script>
+  <script>
+    // Decode utf8 characters properly
+    var config = JSON.parse(decodeURIComponent(escape(window.atob('@@config@@'))));
+    config.extraParams = config.extraParams || {};
+    var prompt = config.prompt;
+    var loginHint = config.extraParams.login_hint;
+    var lock = new Auth0LockPasswordless(config.clientID, config.auth0Domain);
+    switch(config.extraParams.login_hint) {
+      case 'sms':
+        lock.sms({
+          closable: false,
+          callbackURL: config.callbackURL,
+          responseType: 'code',
+          rememberLastLogin: !prompt,
+          authParams: config.internalOptions
+        });
+        break;
+      case 'email-code':
+        lock.emailcode({
+          closable: false,
+          callbackURL: config.callbackURL,
+          responseType: 'code',
+          rememberLastLogin: !prompt,
+          authParams: config.internalOptions
+        });
+        break;
+      case 'social-or-sms':
+        lock.socialOrSms({
+          connections: ["facebook", "twitter"],
+          closable: false,
+          callbackURL: config.callbackURL,
+          responseType: 'code',
+          rememberLastLogin: !prompt,
+          authParams: config.internalOptions
+        });
+      default: // 'email-link'
+        lock.magiclink({
+          closable: false,
+          callbackURL: config.callbackURL,
+          responseType: 'code',
+          rememberLastLogin: !prompt,
+          authParams: config.internalOptions
+        });
+        break;
+    }    
+  </script>
+</body>
+</html>
+```
+
+As you can see we have modified the default `Lock Passwordless` template to look for the `login_hint` parameter. We will set the parameter to different values according to what the user chooses in our web page for logging-in.
+
 ### Building the UI
 
 ![Auth0 Passwordless App](https://cdn.auth0.com/blog/account-kit-passwordless/auth0-app.png)
@@ -403,53 +475,70 @@ The frontend for our Auth0 Passwordless app will be identical to that of the Acc
 
 ### Adding Passwordless Authentication with Auth0
 
-To integrate passwordless authentication we'll use the [Auth0 Passwordless](https://github.com/auth0/lock-passwordless) SDK. We'll show how to integrate passwordless in four different ways: **SMS**, **Email Code**, **Email Magiclink** and **Social or SMS**. For additional ways, check out the [docs](https://auth0.com/docs/connections/passwordless).
+To integrate passwordless authentication we'll use the [Auth0.js library](https://github.com/auth0/auth0.js) SDK. We'll show how to integrate passwordless in four different ways: **SMS**, **Email Code**, **Email Magiclink** and **Social or SMS**. For additional ways, check out the [docs](https://auth0.com/docs/connections/passwordless).
 
 You will need to get your **Client ID**, **Domain** and **Callback URL** to proceed. You can get all three of these from the Auth0 management [dashboard](https://manage.auth0.com).
 
-```
-  var AUTH0_CLIENT_ID = 'YOUR-AUTH0-CLIENT-ID';
-  var AUTH0_DOMAIN = 'YOUR-AUTH0-DOMAIN.auth0.com';
-  // Make sure you set the proper callback URL in your Auth0 Dashboard
-  var AUTH0_CALLBACKURL = 'YOUR-AUTH0-APP-CALLBACK-URL';
-  
-  // User will recieve a one-time verification code via SMS
-  function loginWithSMS(){
-    var lock = new Auth0LockPasswordless(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-    lock.sms({
-      responseType: 'token',
-      callbackURL: AUTH0_CALLBACKURL
-    })
-   }
-  
-  // User will receive a one-time verification code in their email
-  function loginWithEmailCode(){
-    var lock = new Auth0LockPasswordless(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-    lock.emailcode({
-      responseType:'token', 
-      callbackURL: AUTH0_CALLBACKURL
-    });
-  }
-  
-  // User will receive a one-time link that they will click to login
-  function loginWithEmailLink(){
-    var lock = new Auth0LockPasswordless(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-    lock.magiclink({
-      responseType: 'token',
-      callbackURL: AUTH0_CALLBACKURL
-    })
-  }
-  
-  // User will login with either Facebook or Twitter
-  // or receive a one-time verification code via SMS
-  function loginWithSocialOrSms(){
-    var lock = new Auth0LockPasswordless(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-    lock.socialOrSms({
-      connections: ["facebook", "twitter"],
-      responseType: 'token',
-      callbackURL : AUTH0_CALLBACKURL
-    });
-  }
+```javascript
+var AUTH0_CLIENT_ID = 'AUTH0_CLIENT_ID';
+var AUTH0_DOMAIN = 'AUTH0_DOMAIN';
+var AUTH0_CALLBACKURL = 'AUTH0_CALLBACKURL';
+
+function loginWithSMS() {
+  var auth0 = new window.auth0.WebAuth({
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
+    redirectUri: AUTH0_CALLBACKURL,
+    responseType: 'token'
+  });
+
+  auth0.authorize({
+    scope: 'openid email profile',
+    login_hint: 'sms'
+  });
+}
+
+function loginWithEmailCode() {
+  var auth0 = new window.auth0.WebAuth({
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
+    redirectUri: AUTH0_CALLBACKURL,
+    responseType: 'token'
+  });
+
+  auth0.authorize({
+    scope: 'openid email profile',
+    login_hint: 'email-code'
+  });
+}
+
+function loginWithEmailLink() {
+  var auth0 = new window.auth0.WebAuth({
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
+    redirectUri: AUTH0_CALLBACKURL,
+    responseType: 'token'
+  });
+
+  auth0.authorize({
+    scope: 'openid email profile',
+    login_hint: 'email-link'
+  });
+}
+
+function loginWithSocialOrSms() {
+  var auth0 = new window.auth0.WebAuth({
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
+    redirectUri: AUTH0_CALLBACKURL,
+    responseType: 'token'
+  });
+
+  auth0.authorize({
+    scope: 'openid email profile',
+    login_hint: 'social-or-sms'
+  });
+}
 ```
 
 With this code implemented, let's launch our server and go through the workflow and test our application.
