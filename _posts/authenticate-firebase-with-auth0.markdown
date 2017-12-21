@@ -484,6 +484,8 @@ $ ng g service core/api --no-spec
 $ ng g component core/header --is --no-spec
 # create LoadingComponent with inline styles, inline template, no container, and no .spec file:
 $ ng g component core/loading --is --it --flat --no-spec
+# create ErrorComponent with inline styles, inline template, no container, and no .spec file:
+$ ng g component core/error --is --it --flat --no-spec
 # create Dog type interface:
 $ ng g interface core/dog
 # create DogDetail type interface:
@@ -608,6 +610,7 @@ import { DatePipe } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { ApiService } from './api.service';
 import { LoadingComponent } from './loading.component';
+import { ErrorComponent } from './error.component';
 
 @NgModule({
   imports: [
@@ -618,12 +621,14 @@ import { LoadingComponent } from './loading.component';
   ],
   declarations: [
     HeaderComponent,
-    LoadingComponent
+    LoadingComponent,
+    ErrorComponent
   ],
   exports: [
     FormsModule, // Export FormsModule so CommentsModule can use it
     HeaderComponent,
-    LoadingComponent
+    LoadingComponent,
+    ErrorComponent
   ]
 })
 export class CoreModule {
@@ -644,7 +649,7 @@ Since this is a shared module, we'll import the other modules, services, and com
 
 > **Note:** The `CommonModule` is imported in all modules that are _not_ the root module.
 
-In our `imports` array, we'll add any modules that may be needed by services or components in the `CoreModule`, or that need to be exported so that _other_ modules can use them. The CLI should have automatically added any generated components to the `declarations` array. However, we also need to add an `exports` array for any modules or components that we want to make available to other modules in our app to use.
+In our `imports` array, we'll add any modules that may be needed by services or components in the `CoreModule`, or that need to be exported so that _other_ modules can use them. The CLI should have automatically added any generated components to the `declarations` array. We also need to add an `exports` array for any modules or components that we want to make available to other modules in our app to use.
 
 Note that we have imported `ModuleWithProviders` from `@angular/core`. Using this module, we can create a `forRoot()` method that can be called on import in the root `app.module.ts` when `CoreModule` is imported. This way, we can ensure that any services we add to a `providers` array returned by the `forRoot()` method remain _singletons_ in our application. In this manner, we can avoid unintentional multiple instances if other modules in our app also need to import the `CoreModule`.
 
@@ -699,7 +704,7 @@ import { CommentFormComponent } from './comments/comment-form/comment-form.compo
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule, // Import FormsModule and Loading component
+    CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
   ],
@@ -822,7 +827,7 @@ const DOGS_ROUTES: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule, // Import Loading component
+    CoreModule,
     RouterModule.forChild(DOGS_ROUTES),
     CommentsModule
   ],
@@ -861,7 +866,7 @@ const DOG_ROUTES: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule, // Import Loading component
+    CoreModule,
     RouterModule.forChild(DOG_ROUTES)
   ],
   declarations: [
@@ -880,4 +885,8 @@ http://localhost:4200/dog/3
 We will also not import the `CommentsModule`. However, we could add comments to dog details in the future if we wished.
 
 Our app's architecture and routing are now complete! The app should successfully compile and display in the browser, with lazy loading functioning properly to load shared code, and then additionally, only the code for the specific route requested. We're now ready to implement our application's logic.
+
+## Authentication Logic
+
+Let's start by implementing our 
 
