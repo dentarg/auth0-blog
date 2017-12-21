@@ -29,7 +29,7 @@ related:
 
 [Amazon Redshift](https://aws.amazon.com/redshift/) is one of the hottest databases for Data Warehousing right now, it's one of the most cost-effective solutions available, and allows for integration with many popular BI tools. Unfortunately, the status of the drivers compatibility is a little more shaky, but there is a way to make it work very nicely with [R](https://www.r-project.org/)!
 
-{% include tweet_quote.html quote_text="The status of Redshift drivers compatibility with R is a little shaky, but this guide will help you work." %}
+{% include tweet_quote.html quote_text="The status of Redshift drivers compatibility with R is a little shaky, but there is a way to make it work fine." %}
 
 First of all, let's go through the 3 options we have for connecting to Amazon Redshift. For all of the connections, we'll define these variables for connecting:
 
@@ -44,7 +44,7 @@ password='mypassword'
 
 ## RJDBC
 
-This is the ["official" way to use Amazon Redshift with R](https://aws.amazon.com/blogs/big-data/connecting-r-with-amazon-redshift/), using the JDBC driver on SQL Workbench is the official way to connect to it according to the documentation, and this driver can be loaded like this:
+This is the ["official" way to use Amazon Redshift with R](https://aws.amazon.com/blogs/big-data/connecting-r-with-amazon-redshift/), using the JDBC driver on [SQL Workbench/J](http://www.sql-workbench.net/) is the official way to connect to it according to the documentation, and this driver can be loaded like this:
 
 
 
@@ -69,13 +69,15 @@ jconn <- dbConnect(driver, url, user, password)
 
 Of course you can change the url with the options you need for your particular setup. The first 3 lines you only need to run them once, they download Redshift's official JDBC driver and install the RJDBC package.
 
-This package was the only one I found which supported transactions on Redshift (`BEGIN`, `COMMIT`, `ROLLBACK`) until recently, otherwise on other packages DDL operations will autocommit, until a few days ago since the writing of this blogpost, this was the recommended package for uploading data and inserting/deleting data, since you usually want be able to unite your operations into a single transaction.
+This package was the only one I found which supported transactions on Redshift (`BEGIN`, `COMMIT`, `ROLLBACK`) until recently, otherwise on other packages DDL operations will autocommit.
+
+Until a few days ago since the writing of this blogpost, this was the recommended package for uploading data and inserting/deleting data, since you usually want be able to unite your operations which modify data into a single transaction.
 
 This package has some big problems though, which I'll explain later on this post.
 
 ## RPostgreSQL
 
-Amazon Redshift is mostly PostgreSQL compatible, so most PostgreSQL drivers work well. RPostgreSQL is configured like this:
+Amazon Redshift is mostly PostgreSQL compatible, so most PostgreSQL drivers work well. [RPostgreSQL](code.google.com/p/rpostgresql) is configured like this:
 
 
 
@@ -94,9 +96,9 @@ pconn_rsql <- dbConnect(drv,
                  dbname = dbname)
 ```
 
-There are two major problems with this driver though: It [lacks SSL support](https://stackoverflow.com/questions/38942118/can-not-connect-postgresqlover-ssl-with-rpostgresql-on-windows), and you don't have transactions like you do with the official driver. In my humble opinion this is the worst choice right now. The good thing is this driver works fine with [dplyr](http://dplyr.tidyverse.org/).
+There are two major problems with this driver though: It [lacks SSL support](https://stackoverflow.com/questions/38942118/can-not-connect-postgresqlover-ssl-with-rpostgresql-on-windows), and you don't have transactions like you do with the official driver. In my humble opinion this is not a good option, even if you don't use SSL now, if your company requires it in the future you may need to change all your code to switch drivers. The good thing is this driver works fine with [dbplyr](http://dbplyr.tidyverse.org/).
 
-{% include tweet_quote.html quote_text="The RPostgreSQL driver doesn't support SSL-secured Redshift instances." %}
+{% include tweet_quote.html quote_text="The RPostgreSQL driver doesn't support SSL-secured Redshift clusters." %}
 
 ## RPostgres
 
@@ -119,9 +121,11 @@ pconn_r <- dbConnect(RPostgres::Postgres(),
                sslmode='require')
 ```
 
+RPostgres supports transactions, SSL and works fine with dbplyr.
+
 ## Gotchas With The Libraries
 
-So, what are some gotchas with these libraries?. We'll run this in SQL Workbench to have some data to test:
+So, what are some gotchas with these libraries?. We'll run this in SQL Workbench/J to have some data to test:
 
 
 ```sql
@@ -141,7 +145,7 @@ insert into sicatest values
 commit;
 ```
 
-We deliberately added the Ñ letter from spanish, and こんにちは (Kon'nichiwa) which is hello in japanese to have a non-ascii stuff, and see if it's handled correctly.
+We deliberately added the Ñ letter from spanish, and こんにちは (Kon'nichiwa) which is hello in japanese to have some non-ascii stuff, and see if it's handled correctly.
 
 So, let's start with RJDBC:
 
@@ -184,7 +188,7 @@ glimpse(sicatest2)
 ```
 Well well, that's much better isn't it? the numbers aren't modified, they are of the correct type (int64), and it correctly guessed types `date`, `datetime` and `logical/boolean`! If integer64 is problematic in your case, you can also choose to convert bigint fields into other types, by using the `bigint` parameter when creating the connection.
 
-Great stuff! I think this is the kind of library we want to work in a day-to-day basis. Also, you can use this same connection to explore data with dplyr:
+Great stuff! I think this is the kind of library we want to work in a day-to-day basis. Also, you can use this same connection to explore data with dbplyr:
 
 
 ```r
