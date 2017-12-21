@@ -12,8 +12,8 @@ author:
   mail: "prosper.otemuyiwa@auth0.com"
   avatar: "https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200"
 design:
-  image: https://cdn.auth0.com/blog/keystonejs/keystonejs-logo.png
-  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/lumen/logo.png
+  bg_color: "#5B1C14"
 tags:
 - lumen
 - php
