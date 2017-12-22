@@ -616,7 +616,7 @@ class Callback extends Component {
 export default Callback;
 ```
 
-We’ll need a `loading.svg` file of some sort. I’ve created one [here](https://gist.github.com/yomete/d3b60f638306aad592cfa14edd70aae7) which you can download and place inside the `Callback` folder.
+We’ll need a `loading.svg` file of some sort. I’ve created one [here](https://github.com/auth0-blog/pusher-auth0/blob/master/public/loading.svg) which you can download and place inside the `Callback` folder.
 
 **Adding a Profile Component**
 
@@ -891,7 +891,7 @@ ReactJS works very well with Pusher because of its declarative, unidirectional d
 
 The combination of Pusher and Auth0 can be extended to build wonderful use cases and applications. We could add social sign-ins with Auth0 and implement a “Who’s Online” feature thanks to Pusher. The possibilities are endless. You can learn more about both services by visiting their websites([Pusher](http://pusher.com) and [Auth0](http://auth0.com)).
 
-You can check the [GitHub repository](https://github.com/yomete/pusher-auth0) for the source code.
+You can check the [GitHub repository](https://github.com/auth0-blog/pusher-auth0) for the source code.
 
 <div class="alert alert-info">
 <strong>About Yomi Eluwande:</strong><br />
