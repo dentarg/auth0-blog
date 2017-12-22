@@ -2,7 +2,7 @@
 layout: post
 title: "The Role of CIAM in Implementing a Sound Paywall Strategy"
 description: "Customer identity and management technology plays an important role with media and publishing companies as they optimize their paywalls to convert more subscribers."
-date: 2017-10-26 08:54
+date: 2017-12-22 08:54
 category: Growth, Identity
 author:
   name: "Diego Poza"
@@ -23,6 +23,7 @@ tags:
 related:
 - 2017-06-09-the-three-best-ways-to-create-the-single-vision-of-a-customer
 - 2017-10-20-easy-way-for-users-to-link-accounts
+- 2017-10-13-how-do-i-modernize-my-legacy-system
 ---
 
 The media and publishing industry has been through the wringer in the last decade losing a whopping [$31 billion](http://www.pewresearch.org/fact-tank/2017/06/01/circulation-and-revenue-fall-for-newspaper-industry/) of their total advertising revenue, and the forecast for the future is more of the same.
