@@ -572,11 +572,12 @@ export const environment = {
     projectId: FB_PROJECT_ID,
     storageBucket: `${FB_PROJECT_ID}.appspot.com`,
     messagingSenderId: '<FIREBASE_MESSAGING_SENDER_ID>'
-  }
+  },
+  apiRoot: '<API URL>' // e.g., http://localhost:1337/ (do include trailing slash)
 };
 ```
 
-Replace placeholders in `<angle brackets>` with your appropriate Auth0 and Firebase credentials. 
+Replace placeholders in `<angle brackets>` with your appropriate Auth0, Firebase, and API information. 
 
 You can find your Auth0 configuration in your [Auth0 Dashboard - Clients](https://manage.auth0.com) in the settings for the Client and API you created for this tutorial.
 
@@ -895,6 +896,7 @@ Let's start by implementing the code necessary to get our `AuthModule`'s feature
 Open the `auth.service.ts` file that we generated earlier. Before we write any code, we'll determine what the requirements are for this service. We need to:
 
 * Create a `login()` method that will allow users to authenticate using Auth0
+* If user was prompted to log in by attempting to access a protected route, make sure they can be redirected to that route after successful authentication
 * Get the user's profile information and set up their session
 * Establish a way for the app to know whether the user is logged in or not
 * Request a Firebase custom token from the API with authorization from the Auth0 access token
@@ -916,7 +918,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/timer'; // Using lettable { timer } produces a type error
 import { mergeMap } from 'rxjs/operators';
 
 @Injectable()
@@ -988,7 +990,6 @@ export class AuthService {
     this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
         this._setSession(authResult, profile);
-        this.router.navigate([localStorage.getItem('auth_redirect')]);
       } else if (err) {
         console.warn(`Error retrieving profile: ${err.error}`);
       }
@@ -1006,6 +1007,8 @@ export class AuthService {
     this.userProfile = profile;
     // Session set; set loggedIn
     this.loggedIn = true;
+    // Redirect to desired route
+    this.router.navigate([localStorage.getItem('auth_redirect')]);
   }
 
   private _getFirebaseToken(accessToken) {
@@ -1015,7 +1018,7 @@ export class AuthService {
     }
     const getToken$ = () => {
       return this.http
-        .get(`http://localhost:1337/auth/firebase`, {
+        .get(`${environment.apiRoot}auth/firebase`, {
           headers: new HttpHeaders().set('Authorization', `Bearer ${accessToken}`)
         });
     };
@@ -1104,4 +1107,132 @@ export class AuthService {
 ```
 
 There's a lot going on here, so let's go through it step by step.
+
+First, as always, we'll import our dependencies. This includes our `environment` configuration we set up earlier to provide our Auth0 and Firebase settings, as well as `auth0` and `firebase` libraries, `AngularFireAuth`, HTTP, and the necessary RxJS imports.
+
+You can refer to the code comments for descriptions of the private and public members of our `AuthService` class.
+
+Next is our constructor function:
+
+```typescript
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private http: HttpClient) {
+      // If authenticated, set local profile property and get new Firebase token.
+      // If not authenticated but there are still items in localStorage, log out.
+      const lsProfile = localStorage.getItem('profile');
+      const lsToken = localStorage.getItem('access_token');
+
+      if (this.tokenValid) {
+        this.userProfile = JSON.parse(lsProfile);
+        this.loggedIn = true;
+        this._getFirebaseToken(lsToken);
+      } else if (!this.tokenValid && lsProfile) {
+        this.logout();
+      }
+  }
+```
+
+In addition to passing in Angular router, AngularFireAuth, and the HTTP client, we'll check the current authentication status of the user when this service initializes to determine if they have a valid existing session or not.
+
+The `login()` method looks like this:
+
+```typescript
+  login(redirect?: string) {
+    // Set redirect after login
+    const _redirect = redirect ? redirect : this.router.url;
+    localStorage.setItem('auth_redirect', _redirect);
+    // Auth0 authorize request
+    this._auth0.authorize();
+  }
+```
+
+If a `redirect` URL segment is passed into the method, we'll save it in local storage. If no redirect is passed, we'll simply store the current URL. We'll then use the `_auth0` instance we created in our members and call [Auth0's `authorize()` method](https://auth0.com/docs/libraries/auth0js/v9#webauth-authorize-) to go to the [Auth0 centralized login page](https://auth0.com/docs/hosted-pages/login) so our user can authenticate.
+
+The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
+
+```typescript
+  handleAuth() {
+    this.loggedIn = null;
+    // When Auth0 hash parsed, get profile
+    this._auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken) {
+        window.location.hash = '';
+        // Get Firebase token
+        this._getFirebaseToken(authResult.accessToken);
+        this._getProfile(authResult);
+      } else if (err) {
+        this.router.navigate(['/']);
+        this.loggedIn = false;
+        console.error(`Error authenticating: ${err.error}`);
+      }
+    });
+  }
+
+  private _getProfile(authResult) {
+    // Use access token to retrieve user's profile and set session
+    this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
+      if (profile) {
+        this._setSession(authResult, profile);
+      } else if (err) {
+        console.warn(`Error retrieving profile: ${err.error}`);
+      }
+    });
+  }
+
+  private _setSession(authResult, profile) {
+    // Set tokens and expiration in localStorage
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + Date.now());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
+    // Set profile information
+    localStorage.setItem('profile', JSON.stringify(profile));
+    this.userProfile = profile;
+    // Session set; set loggedIn
+    this.loggedIn = true;
+    // Redirect to desired route
+    this.router.navigate([localStorage.getItem('auth_redirect')]);
+  }
+```
+
+These methods are fairly self-explanatory: they use Auth0 methods [`parseHash()` and `userInfo()` to extract authentication results and get the user's profile](https://auth0.com/docs/libraries/auth0js/v9#extract-the-authresult-and-get-user-info). We'll also set our service's properties to store necessary state (such as whether the user is logged in or not), handle errors, save data to local storage, and redirect to the appropriate route.
+
+We are also going to use the auth result's access token to authorize an HTTP request to our API to get a Firebase token. This is done with the `_getFirebaseToken()` and `_firebaseAuth()` methods:
+
+```typescript
+  private _getFirebaseToken(accessToken) {
+    // Detect if no valid access token passed into this method
+    if (!accessToken) {
+      this.login();
+    }
+    const getToken$ = () => {
+      return this.http
+        .get(`${environment.apiRoot}auth/firebase`, {
+          headers: new HttpHeaders().set('Authorization', `Bearer ${accessToken}`)
+        });
+    };
+    this.firebaseSub = getToken$().subscribe(
+      res => this._firebaseAuth(res),
+      err => console.error(`An error occurred fetching Firebase token: ${err.message}`)
+    );
+  }
+
+  private _firebaseAuth(tokenObj) {
+    this.afAuth.auth.signInWithCustomToken(tokenObj.firebaseToken)
+      .then(res => {
+        this.loggedInFirebase = true;
+        // Schedule token renewal
+        this.scheduleFirebaseRenewal();
+        console.log('Successfully authenticated with Firebase!');
+      })
+      .catch(err => {
+        const errorCode = err.code;
+        const errorMessage = err.message;
+        console.error(`${errorCode} Could not log into Firebase: ${errorMessage}`);
+        this.loggedInFirebase = false;
+      });
+  }
+```
 
