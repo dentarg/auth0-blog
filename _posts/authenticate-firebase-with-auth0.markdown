@@ -43,9 +43,28 @@ related:
 
 In this series of tutorials, we'll learn how to build an application that secures a Node backend and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) database with custom tokens so that users can leave comments in realtime in a secure manner after logging in with Auth0.
 
-### What is Firebase?
+### Table of Contents
+
+1. <a href="#firebase-auth0" target="_self">Firebase and Auth0</a>
+2. <a href="#what-well-build" target="_self">What We'll Build</a>
+3. <a href="#angular-cli" target="_self">Angular CLI</a>
+4. <a href="#auth0-client-api" target="_self">Auth0 Client and API</a>
+5. <a href="#firebase-project-service-account" target="_self">Firebase Project with Service Account</a>
+6. <a href="#node-api" target="_self">Node API</a>
+7. <a href="#set-up-angular-app" target="_self">Set Up Angular App</a>
+8. <a href="#angular-app-architecture" target="_self">Angular App Architecture</a>
+9. <a href="#shared-modules" target="_self">Implement Shared Modules</a>
+10. <a href="#routing-lazy-loading" target="_self">Implement Routing and Lazy Loaded Modules</a>
+11. <a href="#loading-error-components" target="_self">Loading and Error Components</a>
+12. <a href="#auth-logic" target="_self">Authentication Logic</a>
+13. <a href="#core-logic" target="_self">Core Logic</a>
+14. <a href="#next-steps" target="_self">Next Steps</a>
+
+## <span id="firebase-auth0"></span>Firebase and Auth0
 
 Firebase is 
+
+Auth0 is
 
 ### Choosing Auth0+Firebase Authentication vs. Basic Firebase Auth
 
@@ -77,7 +96,7 @@ You should consider **Auth0 with a custom Firebase token** if you:
 
 Essentially, Firebase's basic authentication providers should suffice if you have a very simple app with bare-bones authentication needs and are only using Firebase databases. However, should you need more than that, [Firebase offers a great way to use their services _with_ other authentication solutions](https://firebase.google.com/docs/admin/setup). This is a much more realistic scenario that many developers will be faced with, so we'll explore it in detail here.
 
-## What We'll Build
+## <span id="what-well-build"><span>What We'll Build
 
 We're going to build a Node.js API secured with Auth0 that mints custom Firebase tokens and also returns data on ten different dog breeds.
 
@@ -93,7 +112,7 @@ To implement the app, you will need the following:
 
 Let's get started!
 
-## Angular CLI
+## <span id="angular-cli"></span>Angular CLI
 
 Make sure you have [Node.js with NPM](https://nodejs.org) installed on your local machine. Run the following command to install the [Angular CLI](https://github.com/angular/angular-cli) globally:
 
@@ -103,7 +122,7 @@ $ npm install -g @angular/cli@latest
 
 We will generate our Angular app and nearly all of its architecture using the CLI.
 
-## Auth0 Client and API
+## <span id="auth0-client-api"></span>Auth0 Client and API
 
 You'll need an [Auth0](https://auth0.com) account to manage authentication. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account here</a>. Next, set up an Auth0 client app and API so Auth0 can interface with the Angular app and Node API.
 
@@ -125,7 +144,7 @@ You'll need an [Auth0](https://auth0.com) account to manage authentication. You 
 
 We're now ready to implement Auth0 authentication on both our Angular client and Node backend API.
 
-## Firebase Project with Service Account
+## <span id="firebase-project-service-account"></span>Firebase Project with Service Account
 
 Next you will need a free [Firebase](https://firebase.google.com) project.
 
@@ -148,7 +167,7 @@ In the settings view, click the [Service Accounts](https://console.firebase.goog
 
 A dialog will appear warning you to store your private key confidentially. We will take care never to check this key into a public repository. Click on the **Generate Key** button to save the key as a `.json` file. We will add this file to our Node API shortly.
 
-## Node API
+## <span id="node-api"></span>Node API
 
 The Node.js API for this tutorial can be found at the [firebase-auth0-nodeserver GitHub repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
 
@@ -393,7 +412,7 @@ The API will then be available at [http://localhost:1337](http://localhost:1337)
 
 That's it for our server! Keep the API running so that it will be accessible to the Angular app, which we'll set up next.
 
-## Set Up Angular App
+## <span id="set-up-angular-app"></span>Set Up Angular App
 
 Now it's time to create our Angular app and set up some additional dependencies.
 
@@ -450,7 +469,7 @@ $ ng serve
 
 The app will run in the browser at [http://localhost:4200](http://localhost:4200).
 
-## Angular App Architecture
+## <span id="angular-app-architecture"></span>Angular App Architecture
 
 We're going to use the Angular CLI to generate the complete architecture for our app upfront. This way, we can make sure that our modules are functioning properly before we implement our logic and templates.
 
@@ -591,7 +610,7 @@ The last thing we'll do before we begin implementing functionality in our Angula
 
 Then save [this loading SVG image](https://github.com/auth0-blog/angular-firebase/blob/master/src/assets/images/loading.svg) into that folder.
 
-## Implement Shared Modules
+## <span id="shared-modules"></span>Implement Shared Modules
 
 Let's set up our modules. We'll import the shared modules (`CoreModule` and `AuthModule`) in our root `AppModule`.
 
@@ -762,7 +781,7 @@ export class AppModule { }
 
 The `AppComponent` and `CallbackComponent` have already been added automatically by the CLI. When we add our `CoreModule` and `AuthModule` to the `imports` array, we'll call the `forRoot()` method to ensure no extra instances are created for their services. The `CommentsModule` doesn't provide any services, so this is not a concern for that module.
 
-## Implement Routing and Lazy Loaded Modules
+## <span id="routing-lazy-loading"></span>Implement Routing and Lazy Loaded Modules
 
 We have two modules that require routing: the `DogsModule` for the main listing of dogs, and the `DogModule`, which contains the component showing a dog breed's detail page.
 
@@ -887,13 +906,82 @@ We will also not import the `CommentsModule`. However, we could add comments to 
 
 Our app's architecture and routing are now complete! The app should successfully compile and display in the browser, with lazy loading functioning properly to load shared code, and then additionally, only the code for the specific route requested. We're now ready to implement our application's logic.
 
-## Authentication Logic
+## <span id="loading-error-components"></span>Loading and Error Components
 
-Let's start by implementing the code necessary to get our `AuthModule`'s features working. We'll need the authentication service in order to build out the header in the `CoreModule`, so it makes sense to start here. We've already installed the necessary dependencies (Auth0 and FirebaseAuth), so let's begin.
+The loading and error components are basic, core UI elements that can be used in many different places in our app. Let's set them up now.
+
+### Loading Component
+
+The `LoadingComponent` should simply show a loading image. (Recall that we already saved one when we set up the architecture of our app.) However, it should be capable of displaying the image large and centered, _or_ small and inline.
+
+Open the `loading.component.ts` file and add:
+
+```typescript
+// src/app/core/loading.component.ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-loading',
+  template: `
+    <div [ngClass]="{'inline': inline, 'text-center': !inline, 'py-2': !inline }">
+      <img src="/assets/images/loading.svg">
+    </div>
+  `,
+  styles: [`
+    .inline {
+      display: inline-block;
+    }
+    img {
+      height: 80px;
+      width: 80px;
+    }
+    .inline img {
+      height: 24px;
+      width: 24px;
+    }
+  `]
+})
+export class LoadingComponent {
+  @Input() inline: boolean;
+}
+```
+
+Using the [`@Input()` decorator](https://angular.io/guide/component-interaction#pass-data-from-parent-to-child-with-input-binding), we can pass information into the component from its parent, telling it whether we should display the component inline or not. We'll use the [NgClass directive](https://angular.io/api/common/NgClass) (`[ngClass]`) in our template to conditionally add the appropriate styles for the display we want. Using this component will look like this:
+
+```html
+<!-- Large, full width, centered: -->
+<app-loading></app-loading>
+<!-- Inline: -->
+<app-loading inline="true"></app-loading>
+```
+
+### Error Component
+
+Next let's quickly implement our `ErrorComponent`. This component will display a simple error message if shown. Open the `error.component.ts` file and add:
+
+```typescript
+// src/app/core/error.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-error',
+  template: `
+    <p class="alert alert-danger">
+      <strong>Error:</strong> There was an error retrieving data.
+    </p>
+  `
+})
+export class ErrorComponent {
+}
+```
+
+## <span id="auth-logic"></span>Authentication Logic
+
+Now let's implement the code necessary to get our `AuthModule`'s features working. We'll need the authentication service in order to build out the header in the `CoreModule`, so it makes sense to start here. We've already installed the necessary dependencies (Auth0 and FirebaseAuth), so let's begin.
 
 ### Authentication Service
 
-Open the `auth.service.ts` file that we generated earlier. Before we write any code, we'll determine what the requirements are for this service. We need to:
+Before we write any code, we'll determine what the requirements are for this service. We need to:
 
 * Create a `login()` method that will allow users to authenticate using Auth0
 * If user was prompted to log in by attempting to access a protected route, make sure they can be redirected to that route after successful authentication
@@ -904,211 +992,13 @@ Open the `auth.service.ts` file that we generated earlier. Before we write any c
 * Custom tokens minted by Firebase expire after an hour, so we should set up a way to automatically renew tokens that expire
 * Create a `logout()` method to clear session and sign out of Firebase 
 
-Let's add the following code. We'll go over it in more detail below:
+Open the `auth.service.ts` file that we generated earlier. 
 
-```typescript
-// src/app/auth/auth.service.ts
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from './../../environments/environment';
-import * as auth0 from 'auth0-js';
-import * as firebase from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import 'rxjs/add/observable/timer'; // Using lettable { timer } produces a type error
-import { mergeMap } from 'rxjs/operators';
+For tutorial brevity, please **check out the full code in the [GitHub repo's `auth.service.ts` file here](https://github.com/auth0-blog/angular-firebase/blob/master/src/app/auth/auth.service.ts)**.
 
-@Injectable()
-export class AuthService {
-  // Create Auth0 web auth instance
-  private _auth0 = new auth0.WebAuth({
-    clientID: environment.auth.clientId,
-    domain: environment.auth.clientDomain,
-    responseType: 'token id_token',
-    redirectUri: environment.auth.redirect,
-    audience: environment.auth.audience,
-    scope: environment.auth.scope
-  });
-  userProfile: any;
-  // Track authentication status
-  loggedIn: boolean;
-  // Track Firebase authentication status
-  loggedInFirebase: boolean;
-  // Subscribe to the Firebase token stream
-  firebaseSub: Subscription;
-  // Subscribe to Firebase renewal timer stream
-  refreshFirebaseSub: Subscription;
+There's a lot going on, so let's go through it step by step.
 
-  constructor(
-    private router: Router,
-    private afAuth: AngularFireAuth,
-    private http: HttpClient) {
-      // If authenticated, set local profile property and get new Firebase token.
-      // If not authenticated but there are still items in localStorage, log out.
-      const lsProfile = localStorage.getItem('profile');
-      const lsToken = localStorage.getItem('access_token');
-
-      if (this.tokenValid) {
-        this.userProfile = JSON.parse(lsProfile);
-        this.loggedIn = true;
-        this._getFirebaseToken(lsToken);
-      } else if (!this.tokenValid && lsProfile) {
-        this.logout();
-      }
-  }
-
-  login(redirect?: string) {
-    // Set redirect after login
-    const _redirect = redirect ? redirect : this.router.url;
-    localStorage.setItem('auth_redirect', _redirect);
-    // Auth0 authorize request
-    this._auth0.authorize();
-  }
-
-  handleAuth() {
-    this.loggedIn = null;
-    // When Auth0 hash parsed, get profile
-    this._auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken) {
-        window.location.hash = '';
-        // Get Firebase token
-        this._getFirebaseToken(authResult.accessToken);
-        this._getProfile(authResult);
-      } else if (err) {
-        this.router.navigate(['/']);
-        this.loggedIn = false;
-        console.error(`Error authenticating: ${err.error}`);
-      }
-    });
-  }
-
-  private _getProfile(authResult) {
-    // Use access token to retrieve user's profile and set session
-    this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
-      if (profile) {
-        this._setSession(authResult, profile);
-      } else if (err) {
-        console.warn(`Error retrieving profile: ${err.error}`);
-      }
-    });
-  }
-
-  private _setSession(authResult, profile) {
-    // Set tokens and expiration in localStorage
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + Date.now());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-    // Set profile information
-    localStorage.setItem('profile', JSON.stringify(profile));
-    this.userProfile = profile;
-    // Session set; set loggedIn
-    this.loggedIn = true;
-    // Redirect to desired route
-    this.router.navigate([localStorage.getItem('auth_redirect')]);
-  }
-
-  private _getFirebaseToken(accessToken) {
-    // Detect if no valid access token passed into this method
-    if (!accessToken) {
-      this.login();
-    }
-    const getToken$ = () => {
-      return this.http
-        .get(`${environment.apiRoot}auth/firebase`, {
-          headers: new HttpHeaders().set('Authorization', `Bearer ${accessToken}`)
-        });
-    };
-    this.firebaseSub = getToken$().subscribe(
-      res => this._firebaseAuth(res),
-      err => console.error(`An error occurred fetching Firebase token: ${err.message}`)
-    );
-  }
-
-  private _firebaseAuth(tokenObj) {
-    this.afAuth.auth.signInWithCustomToken(tokenObj.firebaseToken)
-      .then(res => {
-        this.loggedInFirebase = true;
-        // Schedule token renewal
-        this.scheduleFirebaseRenewal();
-        console.log('Successfully authenticated with Firebase!');
-      })
-      .catch(err => {
-        const errorCode = err.code;
-        const errorMessage = err.message;
-        console.error(`${errorCode} Could not log into Firebase: ${errorMessage}`);
-        this.loggedInFirebase = false;
-      });
-  }
-
-  logout() {
-    // Ensure all auth items removed from localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('profile');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('auth_redirect');
-    this.userProfile = undefined;
-    this.loggedIn = false;
-    // Sign out of Firebase
-    this.loggedInFirebase = false;
-    this.afAuth.auth.signOut();
-    // Return to homepage
-    this.router.navigate(['/']);
-  }
-
-  get tokenValid(): boolean {
-    // Check if current time is past access token's expiration
-    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    const tokenValid = Date.now() < expiresAt;
-    return Date.now() < expiresAt;
-  }
-
-  scheduleFirebaseRenewal() {
-    // If user isn't authenticated, do nothing
-    if (!this.loggedInFirebase) { return; }
-    // Unsubscribe from previous expiration observable
-    this.unscheduleFirebaseRenewal();
-    // Create and subscribe to expiration observable
-    // Custom Firebase tokens minted by Firebase
-    // expire after 3600 seconds (1 hour)
-    const expiresAt = new Date().getTime() + (3600 * 1000);
-    const expiresIn$ = Observable.of(expiresAt)
-      .pipe(
-        mergeMap(
-          expires => {
-            const now = Date.now();
-            // Use timer to track delay until expiration
-            // to run the refresh at the proper time
-            return Observable.timer(Math.max(1, expires - now));
-          }
-        )
-      );
-
-    this.refreshFirebaseSub = expiresIn$
-      .subscribe(
-        () => {
-          console.log('Firebase token expired; fetching a new one');
-          this._getFirebaseToken(localStorage.getItem('access_token'));
-          this.scheduleFirebaseRenewal();
-        }
-      );
-  }
-
-  unscheduleFirebaseRenewal() {
-    if (this.refreshFirebaseSub) {
-      this.refreshFirebaseSub.unsubscribe();
-    }
-  }
-
-}
-```
-
-There's a lot going on here, so let's go through it step by step.
-
-First, as always, we'll import our dependencies. This includes our `environment` configuration we set up earlier to provide our Auth0 and Firebase settings, as well as `auth0` and `firebase` libraries, `AngularFireAuth`, HTTP, and the necessary RxJS imports.
+First, as always, we'll import our dependencies. This includes our `environment` configuration we set up earlier to provide our Auth0, Firebase, and API settings, as well as `auth0` and `firebase` libraries, `AngularFireAuth`, `HttpClient` to call the API to get a custom Firebase token, and the necessary RxJS imports.
 
 You can refer to the code comments for descriptions of the private and public members of our `AuthService` class.
 
@@ -1235,4 +1125,172 @@ We are also going to use the auth result's access token to authorize an HTTP req
       });
   }
 ```
+
+We'll create a `getToken$` observable from the `GET` request to our API's `/auth/firebase` endpoint and subscribe to it. If successful, we'll pass the returned object with the custom Firebase token to the `_firebaseAuth()` method, which will authenticate with Firebase using [Firebase's `signInWithCustomToken()` method](https://firebase.google.com/docs/auth/web/custom-auth). This method returns a promise, and when the promise is resolved, we can tell our app that Firebase login was successful. We can also schedule Firebase token renewal (we'll look at this shortly). We'll also handle any errors appropriately.
+
+Our custom Firebase token will expire in `3600` seconds (1 hour). This is only _half_ as long as our default Auth0 access token lifetime (which is `7200` seconds, or 2 hours). To avoid having our users lose access to Firebase unexpectedly in the middle of a session, we'll set up automatic Firebase token renewal with two methods: `scheduleFirebaseRenewal()` and `unscheduleFirebaseRenewal()`.
+
+> **Note:** You can also implement automatic session renewal with Auth0 in a similar manner using the [`checkSession()` method](https://auth0.com/docs/libraries/auth0js/v9#using-checksession-to-acquire-new-tokens). 
+
+```typescript
+  scheduleFirebaseRenewal() {
+    // If user isn't authenticated, check for Firebase subscription
+    // and unsubscribe, then return (don't schedule renewal)
+    if (!this.loggedInFirebase) {
+      if (this.firebaseSub) {
+        this.firebaseSub.unsubscribe();
+      }
+      return;
+    }
+    // Unsubscribe from previous expiration observable
+    this.unscheduleFirebaseRenewal();
+    // Create and subscribe to expiration observable
+    // Custom Firebase tokens minted by Firebase
+    // expire after 3600 seconds (1 hour)
+    const expiresAt = new Date().getTime() + (3600 * 1000);
+    const expiresIn$ = Observable.of(expiresAt)
+      .pipe(
+        mergeMap(
+          expires => {
+            const now = Date.now();
+            // Use timer to track delay until expiration
+            // to run the refresh at the proper time
+            return Observable.timer(Math.max(1, expires - now));
+          }
+        )
+      );
+
+    this.refreshFirebaseSub = expiresIn$
+      .subscribe(
+        () => {
+          console.log('Firebase token expired; fetching a new one');
+          this._getFirebaseToken(localStorage.getItem('access_token'));
+        }
+      );
+  }
+
+  unscheduleFirebaseRenewal() {
+    if (this.refreshFirebaseSub) {
+      this.refreshFirebaseSub.unsubscribe();
+    }
+  }
+```
+
+To schedule automatic token renewal, we'll create a timer observable that counts down to the token's expiration time. We can subscribe to the `expiresIn$` observable and then call our `_getFirebaseToken()` method again to acquire a new token. The promise resolve for `signInWithCustomToken()` calls `scheduleFirebaseRenewal()`, which in turn ensures that the token will continue to be renewed as long as the user is logged into our app.
+
+We'll also need to be able to unsubscribe from token renewal, so we'll create a method for that as well.
+
+Finally, the last two methods in our authentication service are `logout()` and `tokenValid()`:
+
+```typescript
+  logout() {
+    // Ensure all auth items removed from localStorage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('profile');
+    localStorage.removeItem('expires_at');
+    localStorage.removeItem('auth_redirect');
+    this.userProfile = undefined;
+    this.loggedIn = false;
+    // Sign out of Firebase
+    this.loggedInFirebase = false;
+    this.afAuth.auth.signOut();
+    // Return to homepage
+    this.router.navigate(['/']);
+  }
+
+  get tokenValid(): boolean {
+    // Check if current time is past access token's expiration
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const tokenValid = Date.now() < expiresAt;
+    return Date.now() < expiresAt;
+  }
+```
+
+The `logout()` method removes all session information from local storage and from our service, signs out of Firebase Auth, and redirects the user back to the homepage (the only public route in our app).
+
+The `tokenValid()` method simply checks whether the Auth0 access token is expired or not by comparing its expiration to the current datetime.
+
+That's it for our `AuthService`!
+
+### Callback Component
+
+Recall that we created a `CallbackComponent` in our root module. In addition, we set our `environment`'s Auth0 `redirect` to the callback component's route. That means that when the user logs in with Auth0, they will return to our app at the `/callback` route.
+
+We created our `AuthService` with methods to handle authentication and set sessions, but currently these methods aren't being called from anywhere. The callback component is the appropriate place for this code to execute.
+
+Open the `callback.component.ts` file and add:
+
+```typescript
+// src/app/callback.component.ts
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+
+@Component({
+  selector: 'app-callback',
+  template: `
+    <app-loading></app-loading>
+  `,
+  styles: []
+})
+export class CallbackComponent implements OnInit {
+
+  constructor(private auth: AuthService) { }
+
+  ngOnInit() {
+    this.auth.handleAuth();
+  }
+
+}
+```
+
+All our callback component needs to do is show the `LoadingComponent` while the `AuthService`'s `handleAuth()` method executes. The `handleAuth()` method will then get the user's profile info, set their session, and redirect to the appropriate route in the app.
+
+### Auth Guard
+
+Now that we've implemented the authentication service, we have access to the properties and methods necessary to effectively use authentication state throughout our Angular application. Let's use this logic to implement our `AuthGuard` for protecting routes.
+
+Using the Angular CLI should have generated some helpful boilerplate code, and we only have to make a few minor changes to ensure that our guarded routes are only accessible to authenticated users.
+
+> **Note:** It's important to note that route guards _on their own_ do not confer sufficient security. You should always secure your API endpoints, as we have done in this tutorial, and never rely _solely_ on the front end to authorize access to protected data.
+
+Open the `auth.guard.ts` file and make the following changes:
+
+```typescript
+// src/app/auth/auth.guard.ts
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+
+  constructor(private auth: AuthService) { }
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.auth.tokenValid) {
+      return true;
+    } else {
+      // Send guarded route to redirect after logging in
+      this.auth.login(state.url);
+      return false;
+    }
+  }
+}
+```
+
+We'll import `AuthService` add a `constructor()` function to make the service available in our route guard. The `canActivate()` method should return `true` if conditions are met to grant access to a route, and `false` if not. In our case, the user should be able to access the guarded route if they have a valid access token. The `tokenValid()` method from our `AuthService` provides this information.
+
+If the user does not have a valid token, we'll prompt them to log in. We want them to be redirected back to the guarded route after they authenticate, so we'll call the `login()` method and pass the guarded route (`state.url`) as the redirect parameter.
+
+> **Note:** Remember that we set up our entire app's architecture and routing earlier. We already added `AuthGuard` to our dog details route, so it should be protected now that we've implemented the guard.
+
+## <span id="core-logic"></span>Core Logic
+
+The last thing we'll do in this section of our tutorial is implement the remaining components and services that belong to our `CoreModule`. 
+
+## <span id="next-steps"></span>Next Steps
+
 
