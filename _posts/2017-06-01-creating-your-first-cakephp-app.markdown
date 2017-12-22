@@ -649,7 +649,7 @@ _Logout button_
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our CakePHP apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now.
+We can easily set up authentication in our CakePHP apps with [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with **CakePHP**.
 
 > Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users. [A generous **free tier**](https://auth0.com/pricing) is offered so you can get started with modern authentication.
 
@@ -697,39 +697,38 @@ $this->loadComponent('Auth', [
 
 Replace the placeholder values with the credentials on your dashboard. I recommend that you load them from environment variables to prevent your credentials especially the **secret** from been leaked.
 
-### Step 3: Include Auth0's Lock Widget
+### Step 3: Configure Auth0's Centralized Login Page
 
-Open up `List/index.ctp` and add the widget to it like so:
+Open up `List/index.ctp` and add the following:
 
 {% highlight html %}
 {% raw %}
-<script src="//cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
-<script type="text/javascript">
-
-  var lock = new Auth0Lock('YOUR_AUTH0_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
-
+<script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
+<script>
+  var webAuth = new auth0.WebAuth({
+    domain: 'YOUR_AUTH0_DOMAIN',
+    clientID: 'YOUR_AUTH0_CLIENT_ID'
+  });
 
   function signin() {
-    lock.show({
-        callbackURL: 'YOUR_AUTH0_CALLBACK_URL'
-      , responseType: 'code'
-      , authParams: {
-        scope: 'openid email'  // Learn about scopes: https://auth0.com/docs/scopes
-      }
+    webAuth.authorize({
+      responseType: 'code',
+      redirectUri: 'YOUR_AUTH0_CALLBACK_URL'
     });
   }
 </script>
+
 <button onclick="window.signin();">Login</button>
 ...
 ...
 {% endraw %}
 {% endhighlight %}
 
-When the login button is clicked, the auth0 lock widget comes up:
+When the login button is clicked, users are redirected to Auth0's Centralized Login Page.
 
-![Auth0 Lock Widget](https://cdn.auth0.com/blog/cakephp/locklogin.png)
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
-### Step 4: Configure Lock in UsersController
+### Step 4: Configure your UsersController
 
 Configure the `login` method of your `UsersController` like this:
 

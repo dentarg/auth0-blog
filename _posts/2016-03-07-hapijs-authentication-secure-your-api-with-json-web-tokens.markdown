@@ -524,19 +524,19 @@ Now we can protect our endpoints with any of the methods we described above. We 
 
 By default, Auth0 stores user data for you, meaning that when a user authenticates in your app, the call doesn't go to your server. Instead, Auth0 is responsible for checking the user's credentials and issuing them a JWT on a successful login.
 
-There are a few different ways that your users can authenticate and have a JWT issued to them, but the easiest is to use the ready-to-go Lock widget on the front end of your application. We can add Lock to our project easily and trigger it with some simple JavaScript.
+There are a few different ways that your users can authenticate and have a JWT issued to them, but the easiest is to use [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login) on the front end of your application. We can add it to our project easily and trigger it with some simple JavaScript.
 
 > **Note:** Auth0 provides SDKs and integration samples for all popular frameworks and you can check out the [docs](https://auth0.com/docs) for code samples that apply to your specific project.
 
-First, add the Lock library to your front end.
+First, add the `auth0-js` library to your front end.
 
 ```html
   <!-- index.html -->
 
   ...
 
-  <!-- Auth0Lock script -->
-  <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+  <!-- Auth0.js script -->
+  <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 
   <!-- Setting the right viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -544,36 +544,42 @@ First, add the Lock library to your front end.
   ...
 ```
 
-Next, configure an instance of `Auth0Lock`.
+Next, configure an instance of `auth0-js`.
 
 ```js
 // app.js
 
-var lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_DOMAIN');
+var webAuth = new auth0.WebAuth({
+    domain:       'YOUR_DOMAIN',
+    clientID:     'YOUR_CLIENT_ID',
+    responseType: 'token',
+    redirectUri: 'YOUR_REDIRECT_URI'
+});
 ```
 
-You can attach an event listener to a button click and call `lock.show` to open the Lock widget. Then, we listen on the `authenticated` event and call the `getProfile` method to retrieve the profile and the token.
+You can attach an event listener to a button click and call `webAuth.authorize` to redirect to the Centralized Login Page. Once authorized, the user will redirect back to our page where we can fetch the result.
 
 ```js
 // app.js
 
 document.getElementById('btn-login').addEventListener('click', function() {
-  lock.show();
+    webAuth.authorize();
 });
 
-lock.on("authenticated", function(authResult) {
-    lock.getProfile(authResult.idToken, function(error, profile) {
+if (window.location.hash) {
+    webAuth.parseHash({ hash: window.location.hash }, function(err, authResult) {
+        if (err) {
+            return console.log(err);
+        }
 
-      if (error) {
-        // Error callback
-        console.error("Something went wrong: ", err);
-      }
-
-      localStorage.setItem('userProfile', JSON.stringify(profile))
-      localStorage.setItem('id_token', authResult.idToken)
-
+        if (authResult) {
+            webAuth.client.userInfo(authResult.accessToken, function(err, user) {
+                localStorage.setItem('userProfile', JSON.stringify(user))
+                localStorage.setItem('id_token', authResult.idToken)
+            });
+        }
     });
-});
+}
 ```
 
 When the user successfully logs in, their JWT and profile are saved in local storage.
