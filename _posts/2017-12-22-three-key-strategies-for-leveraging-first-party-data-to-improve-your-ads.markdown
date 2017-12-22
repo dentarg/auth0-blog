@@ -2,15 +2,15 @@
 layout: post
 title: "3 Key Strategies for Leveraging First-Party Data to Improve Your Ads"
 description: "In advertising, Data is king, but that doesn't always mean it's put to good use. Until now."
-date: 2017-10-20 8:30
-category: Growth, Identity, Auth0
+date: 2017-12-22 8:30
+category: Growth, Data
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/strategies/logo.png
@@ -24,9 +24,9 @@ tags:
 - authentication
 - social-login
 related:
-- 2017-07-21-the-role-of-identity-in-application-modernization
-- 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
-- 2017-08-22-for-the-best-security-think-beyond-webhooks
+- 2017-08-28-how-to-become-a-data-driven-marketer
+- 2017-11-27-how-data-analytics-can-transform-your-business
+- 2017-12-18-retail-analytics-past-present-and-future
 ---
 
 Companies today are generating and collecting more data on their customers than ever before. This information is a cornerstone of contemporary advertising because it offers companies a way to better tailor every aspect of their content to prospective customers. This means smarter ad spending and more cost-effective campaigns.
