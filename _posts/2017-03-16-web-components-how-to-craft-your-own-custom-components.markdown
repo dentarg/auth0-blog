@@ -354,7 +354,7 @@ The next step is to actually create the custom element. Now add a `<script>` tag
         }
 
         connectedCallback() {
-            var shadowRoot = this.attachShadow({mode:'open'});  
+            var shadowRoot = this.attachShadow({mode:'open'});
 
             // Adds a template clone into shadow root.
             var clone = thatDoc.importNode( template, true );
@@ -422,7 +422,7 @@ Create an `index.html` file. Go ahead and import the `vimeo-embed.html` file in 
 <body>
     <div class="wrapper">
         <vimeo-embed embed="203909195"></vimeo-embed>
-    </div>   
+    </div>
 </body>
 </html>
 
@@ -504,83 +504,9 @@ There are libraries available that make it easier to build web components. Some 
 
  All the libraries highlighted here offer tools to cut down boilerplate code and make creating new components easier. **Polymer** and **Bosonic** also offer a library of ready made Web Components, but Polymer remains the most widely used amongst developers. Check out this [awesome tutorial on building apps with Polymer and Web components](https://auth0.com/blog/build-your-first-app-with-polymer-and-web-components).
 
-## Aside: Easy Authentication with Auth0
-You can use [Auth0 Lock](https://auth0.com/lock) for authentication in your web apps. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app like so:
-
-```js
-
-// Initiating our Auth0Lock
-var lock = new Auth0Lock(
-  'YOUR_CLIENT_ID',
-  'YOUR_AUTH0_DOMAIN'
-);
-
-// Listening for the authenticated event
-lock.on("authenticated", function(authResult) {
-  // Use the token in authResult to getProfile() and save it to localStorage
-  lock.getProfile(authResult.idToken, function(error, profile) {
-    if (error) {
-      // Handle error
-      return;
-    }
-
-    localStorage.setItem('idToken', authResult.idToken);
-    localStorage.setItem('profile', JSON.stringify(profile));
-  });
-});
-
-```
-
-> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
+{% include asides/javascript-at-auth0.markdown %}
 
 **Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
-
-
-_Implementing Lock_
-
-```js
-
-document.getElementById('btn-login').addEventListener('click', function() {
-  lock.show();
-});
-
-```
-
-_Showing Lock_
-
-
-![Auth0 Lock Screen](https://cdn.auth0.com/blog/nexthrone-auth0lock.png)
-
-_Auth0 Lock Screen_
-
-You can also use the [custom auth0-lock polymer web component](https://github.com/epilith/auth0-lock) for login like so:
-
-{% highlight html %}
-
-<auth0-lock autoLogin="true"
-            domain="AUTH0_DOMAIN"
-            clientId="AUTH0_CLIENTID"
-            profile="{{profile}}"></auth0-lock>
-
-<script>
-    var firebaseRequest = {
-        api: "api", // This defaults to the first active addon if any or you can specify this
-        scope: "openid profile"         // default: openid
-    };
-
-    document.querySelector('auth0-lock').addEventListener('logged-in', function (profile) {
-        console.log(profile);
-
-        // try to get delegated access to Firebase
-        document.querySelector('auth0-lock').delegate(firebaseRequest, function (result) {
-            console.log(result)
-        });
-    });
-</script>
-
-{% endhighlight %}
-
-> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 
 ## Conclusion
 Web components have a lot more benefits than meets the eye. Web Components allow for less code, modular code and more reuse in our apps.

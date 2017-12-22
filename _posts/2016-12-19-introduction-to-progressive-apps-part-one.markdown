@@ -31,13 +31,13 @@ related:
 
 ## Introduction to Progressive Web Apps
 
-A progressive web application is basically a website built using modern web technologies but acts and feels like a mobile app. In 2015, *Alex Russell*, Google engineer, and *Frances Berriman* coined the term **Progressive Web Apps**. Google has been immensely working on making sure that progressive web apps can really give users that native-app like experience. The flow of a typical progressive web app goes thus: 
+A progressive web application is basically a website built using modern web technologies but acts and feels like a mobile app. In 2015, *Alex Russell*, Google engineer, and *Frances Berriman* coined the term **Progressive Web Apps**. Google has been immensely working on making sure that progressive web apps can really give users that native-app like experience. The flow of a typical progressive web app goes thus:
 
 * Starts out as accessible in tabs on the Web browser
 * Shows the option of adding to the homescreen of the device
 * Progressively starts exhibiting app-like properties such as offline usage, push notifications and background sync
 
-Until now, mobile apps could do a lot of things that web apps couldn't really do. **Progressive Web Apps**, are web apps that try to do what mobile apps have been doing for a long time. They are web applications that combine the best of the web and the best of apps. **Progressive Web Apps**, can load very fast on slow network connections, work offline, send push notifications, and load on the home screen with the power of [Web App Manifest](https://www.w3.org/TR/appmanifest). 
+Until now, mobile apps could do a lot of things that web apps couldn't really do. **Progressive Web Apps**, are web apps that try to do what mobile apps have been doing for a long time. They are web applications that combine the best of the web and the best of apps. **Progressive Web Apps**, can load very fast on slow network connections, work offline, send push notifications, and load on the home screen with the power of [Web App Manifest](https://www.w3.org/TR/appmanifest).
 
 
 {% include tweet_quote.html quote_text="A progressive web application is basically a website built using modern web technologies but acts and feels like a mobile app" %}
@@ -69,7 +69,7 @@ What does it mean for a web app to be progressive? This new class of web applica
 Several developers and companies have re-developed their websites into progressive web apps. I'll give a summary of three significant products that are progresive web apps and the benefits they have accrued over time.
 
 * **[Flipkart Lite](https://www.flipkart.com):** FlipKart is one of India's largest online shops. They created a progressive web app, **Flipkart Lite** that resulted in a 70% increase in conversions. They took advantage of the super-powers progressive web apps offer by using *service workers*, *push notifications*, *add to home screen*, *splash screen*, and *smooth animations* and it resulted in the following:
-  - 3x less data usage 
+  - 3x less data usage
   - 40% higher re-engagement rate
   - Users spend more time on the platform
   - 70% conversion rate
@@ -82,7 +82,7 @@ _Flipkart Splashscreen_
 _Add to HomeScreen on Flipkart_
 
 More information on the [case study here](https://developers.google.com/web/showcase/2016/pdfs/flipkart.pdf)
-    
+
 * **[Housing](https://housing.com):** Housing.com is one of India's foremost startups. They provide an online real estate platform in India. They created a progressive web app which resulted in a 38% increase in conversions across browsers and also the following:
   - 40% lower bounce rate
   - 10% longer average session
@@ -121,9 +121,9 @@ These companies have benefitted immensely from deploying progressive web apps. N
 
 A service worker is a programmable proxy, a script, that your browser runs in the background. It has the ability to intercept, handle http requests and also respond to them in various ways. It responds to network requests, push notifications, connectivity changes and many more. Jeff Posnick, a Google engineer, gave one of the best explanation that I have seen:
 
-> Service Worker is an air traffic controller. Think of your web apps requests as planes taking off. Service Worker is the air traffic controller that routes the requests. It can load from the network or even off the cache.  
+> Service Worker is an air traffic controller. Think of your web apps requests as planes taking off. Service Worker is the air traffic controller that routes the requests. It can load from the network or even off the cache.
 
-A Service worker can't access the DOM but it can make use of the [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) APIs. You can use the service worker to cache all static resources, which automatically reduces network requests and improve performance. The Service worker can be used to display the application shell, inform users that they are disconnected from the internet and serve up a page for the user to interact with once they are offline. 
+A Service worker can't access the DOM but it can make use of the [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) and [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) APIs. You can use the service worker to cache all static resources, which automatically reduces network requests and improve performance. The Service worker can be used to display the application shell, inform users that they are disconnected from the internet and serve up a page for the user to interact with once they are offline.
 
 A Service worker file, eg `sw.js` needs to be placed in the root directory like so:
 
@@ -293,7 +293,7 @@ Create an `index.html` and `latest.html` file in your code directory like so:
           <div class="fab__ripple"></div>
           <img class="fab__image" src="./images/push-off.png" alt="Push Notification" />
         </div>
-          
+
         <!-- Toast msg's  -->
         <div class="toast__container"></div>
       </div>
@@ -338,29 +338,29 @@ _index.html_
           <li><a href="latest.html">Latest</a></li>
         </ul>
       </div>
-      
+
       <div class="menu__overlay"></div>
 
       <section class="card_container">
         <h2 style="margin-top:70px;" align="center">Latest Commits!</h2>
 
-      
+
 
         <div class="container">
             <section class="card first">
 
             </section>
             <section class="card second">
-              
+
             </section>
             <section class="card third">
-              
+
             </section>
             <section class="card fourth">
-              
+
             </section>
             <section class="card fifth">
-              
+
             </section>
         </div>
       </section>
@@ -372,10 +372,10 @@ _index.html_
         </div>
 
       <!-- Toast msg's  -->
-      <div class="toast__container"></div>      
+      <div class="toast__container"></div>
     </div>
 
-   
+
 
   <script src="./js/app.js"></script>
   <script src="./js/latest.js"></script>
@@ -398,7 +398,7 @@ Create a `js` folder in your directory and add the following files: `app.js`, `m
 
   var header = document.querySelector('header');
   var menuHeader = document.querySelector('.menu__header');
-  
+
   //After DOM Loaded
   document.addEventListener('DOMContentLoaded', function(event) {
     //On initial load to check connectivity
@@ -414,7 +414,7 @@ Create a `js` folder in your directory and add the following files: `app.js`, `m
   function updateNetworkStatus() {
     if (navigator.onLine) {
       header.classList.remove('app__offline');
-      menuHeader.style.background = '#1E88E5'; 
+      menuHeader.style.background = '#1E88E5';
     }
     else {
       toast('You are now offline..');
@@ -467,11 +467,11 @@ The code above helps the user visually differentiate offline from online.
     touchStartPoint = event.changedTouches[0].pageX;
     touchMovePoint = touchStartPoint;
   }, false);
-  
+
   //`TouchMove` event to determine user touch movement
   document.body.addEventListener('touchmove', function(event) {
     touchMovePoint = event.touches[0].pageX;
-    if (touchStartPoint < 10 && touchMovePoint > 30) {          
+    if (touchStartPoint < 10 && touchMovePoint > 30) {
       menuElement.style.transform = "translateX(0)";
     }
   }, false);
@@ -480,7 +480,7 @@ The code above helps the user visually differentiate offline from online.
     if (touchStartPoint < 10) {
       menuElement.style.transform = "translateX(0)";
       menuOverlayElement.classList.add('menu__overlay--show');
-      menuElement.removeEventListener('transitionend', onTransitionEnd, false); 
+      menuElement.removeEventListener('transitionend', onTransitionEnd, false);
     }
   }
 })();
@@ -496,7 +496,7 @@ The code above is responsible for the animation of the menu ellipsis button
   'use strict';
 
   var toastContainer = document.querySelector('.toast__container');
- 
+
   //To show notification
   function toast(msg, options) {
     if (!msg) return;
@@ -504,7 +504,7 @@ The code above is responsible for the animation of the menu ellipsis button
     options = options || 3000;
 
     var toastMsg = document.createElement('div');
-    
+
     toastMsg.className = 'toast__msg';
     toastMsg.textContent = msg;
 
@@ -572,11 +572,11 @@ Open up your `latest.js` file and add the code below:
     var url = 'https://api.github.com/repos/unicodeveloper/resources-i-like/commits';
 
     fetch(url)
-    .then(function(fetchResponse){ 
+    .then(function(fetchResponse){
       return fetchResponse.json();
     })
     .then(function(response) {
-      
+
         var commitData = {
             'first': {
               message: response[0].commit.message,
@@ -609,32 +609,32 @@ Open up your `latest.js` file and add the code below:
               link: response[4].html_url
             }
         };
-     
-        container.querySelector('.first').innerHTML = 
+
+        container.querySelector('.first').innerHTML =
         "<h4> Message: " + response[0].commit.message + "</h4>" +
         "<h4> Author: " + response[0].commit.author.name + "</h4>" +
         "<h4> Time committed: " + (new Date(response[0].commit.author.date)).toUTCString() +  "</h4>" +
         "<h4>" + "<a href='" + response[0].html_url + "'>Click me to see more!</a>"  + "</h4>";
 
-        container.querySelector('.second').innerHTML = 
+        container.querySelector('.second').innerHTML =
         "<h4> Message: " + response[1].commit.message + "</h4>" +
         "<h4> Author: " + response[1].commit.author.name + "</h4>" +
         "<h4> Time committed: " + (new Date(response[1].commit.author.date)).toUTCString()  +  "</h4>" +
         "<h4>" + "<a href='" + response[1].html_url + "'>Click me to see more!</a>"  + "</h4>";
 
-        container.querySelector('.third').innerHTML = 
+        container.querySelector('.third').innerHTML =
         "<h4> Message: " + response[2].commit.message + "</h4>" +
         "<h4> Author: " + response[2].commit.author.name + "</h4>" +
         "<h4> Time committed: " + (new Date(response[2].commit.author.date)).toUTCString()  +  "</h4>" +
         "<h4>" + "<a href='" + response[2].html_url + "'>Click me to see more!</a>"  + "</h4>";
 
-        container.querySelector('.fourth').innerHTML = 
+        container.querySelector('.fourth').innerHTML =
         "<h4> Message: " + response[3].commit.message + "</h4>" +
         "<h4> Author: " + response[3].commit.author.name + "</h4>" +
         "<h4> Time committed: " + (new Date(response[3].commit.author.date)).toUTCString()  +  "</h4>" +
         "<h4>" + "<a href='" + response[3].html_url + "'>Click me to see more!</a>"  + "</h4>";
 
-        container.querySelector('.fifth').innerHTML = 
+        container.querySelector('.fifth').innerHTML =
         "<h4> Message: " + response[4].commit.message + "</h4>" +
         "<h4> Author: " + response[4].commit.author.name + "</h4>" +
         "<h4> Time committed: " + (new Date(response[4].commit.author.date)).toUTCString() +  "</h4>" +
@@ -672,7 +672,7 @@ Also, add the spinner to your `latest.html` file like so:
       </svg>
 </div>
 
-<div class="toast__container"></div>  
+<div class="toast__container"></div>
 
 {% endhighlight %}
 
@@ -685,7 +685,7 @@ _Latest.html page_
 
 We need to cache our app shell using a service worker to ensure our app loads super-fast and work offline.
 
-* First, create a service worker file in your root directory. Name it `sw.js` 
+* First, create a service worker file in your root directory. Name it `sw.js`
 * Second, Open up your `app.js` file and register the service worker by adding this piece of code like so:
 
 ```js
@@ -806,67 +806,22 @@ Yaaay!!! the index page is served offline. What about the `latest` page that sho
 
 _Latest Page Offline_
 
-Yaaay!!! the latest page is served offline. But wait a minute! Where is the data? Where are the commits? Oops! Our app still tries to query the Github API when the user is disconnected from the internet and it fails. 
+Yaaay!!! the latest page is served offline. But wait a minute! Where is the data? Where are the commits? Oops! Our app still tries to query the Github API when the user is disconnected from the internet and it fails.
 
 ![Behind the Scenes Fetch Offline failure](https://cdn.auth0.com/blog/pwa/behind-the-scenes.png)
 
 _Data Fetch Failure, Chrome DevTools_
 
-What do we do? There are different ways to handle this scenario. One of the many options is telling the service worker to serve up an offline page. Another option is to cache the commit data on first load, load locally-saved data on subsequent requests, then fetch recent data later when the user is connected. The commit data can be stored in `IndexedDB` or `local Storage`. 
+What do we do? There are different ways to handle this scenario. One of the many options is telling the service worker to serve up an offline page. Another option is to cache the commit data on first load, load locally-saved data on subsequent requests, then fetch recent data later when the user is connected. The commit data can be stored in `IndexedDB` or `local Storage`.
 
 Well, let's conclude here for now!
 
-## Aside: Easy Authentication with Auth0
-
-You can use [Auth0 Lock](https://auth0.com/docs/libraries/lock) for your progressive web app. With Lock, showing a login screen is as simple as including the **auth0-lock** library and then calling it in your app like so:
-
-```js
-
-// Initiating our Auth0Lock
-var lock = new Auth0Lock(
-  'YOUR_CLIENT_ID',
-  'YOUR_AUTH0_DOMAIN'
-);
-
-// Listening for the authenticated event
-lock.on("authenticated", function(authResult) {
-  // Use the token in authResult to getProfile() and save it to localStorage
-  lock.getProfile(authResult.idToken, function(error, profile) {
-    if (error) {
-      // Handle error
-      return;
-    }
-
-    localStorage.setItem('idToken', authResult.idToken);
-    localStorage.setItem('profile', JSON.stringify(profile));
-  });
-});
-
-```
-
-**Note:** `id_token` should only be used to retrieve the user's profile, necessary for UI rendering. When making calls to an API, we recommend that [you use an access_token](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/).
-
-_Implementing Lock_
-
-```js
-
-document.getElementById('btn-login').addEventListener('click', function() {
-  lock.show();
-});
-
-```
-
-_Showing Lock_
-
-
-![Auth0 Lock Screen](https://cdn.auth0.com/blog/nexthrone-auth0lock.png)
-
-_Auth0 Lock Screen_
+{% include asides/javascript-at-auth0.markdown %}
 
 In the case of an offline-first app, authenticating the user against a remote database won't be possible when network connectivity is lost. However, with service workers, you have full control over which pages and scripts are loaded when the user is offline. This means you can configure your `offline.html` file to display a useful message stating the user needs to regain connectivity to login again instead of displaying the Lock login screen.
 
 ## Conclusion
 
-In this article, we were able to cover the basics of how progressive web apps work in general. We were also able to make our app partially work offline. 
+In this article, we were able to cover the basics of how progressive web apps work in general. We were also able to make our app partially work offline.
 
-In the next part of this tutorial, we will cover how to make our app fully work offline and load instantly by storing the dynamic commit data in the browser using one of its available form of storage.      
+In the next part of this tutorial, we will cover how to make our app fully work offline and load instantly by storing the dynamic commit data in the browser using one of its available form of storage.
