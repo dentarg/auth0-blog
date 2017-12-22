@@ -3,7 +3,7 @@ layout: post
 title: "Developing RESTful APIs with Lumen (A PHP Micro-framework)"
 description: "Lumen is a PHP micro-framework built to deliver micro-services and blazing fast APIs. Learn how to build and secure RESTful APIs with Lumen"
 longdescription: "Lumen is a PHP micro-framework built to deliver micro-services and blazing fast APIs. The creator of Laravel crafted a micro-framework off the giant full-stack web framework, Laravel. Learn how to build and secure RESTful APIs with Lumen"
-date: 2017-12-19 8:30
+date: 2017-12-26 8:30
 category: Technical Guide, PHP, Lumen
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
