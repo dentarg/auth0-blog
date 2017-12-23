@@ -986,3 +986,5 @@ So let's replace that with the following:
 Refresh your browser, you will see the author names have a link now.
 
 ## Conclusion
+
+Congratulations, you have just built yourself a functional blog from scratch with Symfony, and able to allow anyone to sign up to become an author. This allows them to also contribute to your blog by posting articles of their own! Although this is just the basics of a blog, it is a strong stepping stone into making it as custom and feature filled as you wish.
