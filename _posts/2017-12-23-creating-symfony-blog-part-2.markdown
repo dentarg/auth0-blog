@@ -27,6 +27,26 @@ related:
 ---
 
 ## About Part 1
+
+In the first article, we:
+
+* installed and configured a Symfony installation;
+* created two new database tables `author` and `blog_post`;
+* allowed users to authenticate with Auth0;
+* and ensured the authenticated user created an Author entry before using the system.
+
+In this part of the article we will be covering installing Bootstrap, a framework, to make the blog nicer visually. We will also enhance our blog engine to allow visitors to:
+
+* see a list of blog posts;
+* read a specific blog post;
+* and find out more about the author.
+
+Authenticated authors will be able to:
+
+* create a new blog post;
+* see all of their own blog posts;
+* delete their own blog posts from the system.
+
 ## Building the Blog Engine
 ### Installing Bootstrap
 
