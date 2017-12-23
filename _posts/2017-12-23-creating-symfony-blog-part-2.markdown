@@ -484,7 +484,7 @@ As you can see in this template, there is a button to "Add entry" which will dir
 
 ### Creating delete functionality for author's posts
 
-The final action for this article is to delete the authenticated users blog posts on demand. So in AdminController create a new method with the following code:
+Our next step is to delete the authenticated users blog posts on demand. So in AdminController create a new method with the following code:
 
 ```php
 /**
@@ -878,6 +878,11 @@ With the template `src/AppBundle/Resources/views/Blog/author.html.twig`, we won'
 
 {% highlight html %}
 {% raw %}
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Blog:author{% endblock %}
+
+{% block body %}
 <div class="container">
     <div class="blog-header">
         <h1 class="blog-title">Author</h1>
@@ -911,6 +916,8 @@ With the template `src/AppBundle/Resources/views/Blog/author.html.twig`, we won'
         </div>
     </div>
 </div>
+{% endblock %}
+
 {% endraw %}
 {% endhighlight %}
 
