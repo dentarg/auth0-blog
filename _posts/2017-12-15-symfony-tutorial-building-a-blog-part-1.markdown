@@ -9,7 +9,7 @@ author:
   name: Greg Holmes
   url: https://github.com/GregHolmes
   mail: iam@gregholmes.co.uk
-  avatar: "https://avatars0.githubusercontent.com/u/2411269?s=460&v=4
+  avatar: "https://avatars0.githubusercontent.com/u/2411269?s=460&v=4"
 design:
   bg_color: "#000000"
   image: https://cdn.auth0.com/blog/symfony-blog/logo.png
