@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Title Should be Less Than 56 characters"
-description: "Description goes here and must be less than 156 characters."
+title: "How to Authenticate Firebase and Angular with Auth0"
+description: "Learn how to authenticate a realtime Firebase and Angular app with AngularFire2, custom Firebase tokens, and Auth0."
 longdescription: "Long description should be between 230-320 characters."
 date: 2017-12-20 8:30
 category: Technical guide, Firebase, Angular
@@ -66,7 +66,7 @@ Firebase is
 
 Auth0 is
 
-### Choosing Auth0+Firebase Authentication vs. Basic Firebase Auth
+### Choosing Auth0 + Firebase Authentication
 
 One great question that you might be asking is: why would we implement Auth0 with custom tokens in Firebase instead of sticking with [Firebase's built-in authentication](https://firebase.google.com/docs/auth/) by itself?
 
@@ -78,7 +78,7 @@ You can use **Firebase's built-in authentication by itself** if you:
 
 * Only want to authenticate Firebase RTDBs or Firestore and have no need to authenticate additional backends
 * Only need a small handful of login options and do not need enterprise identity providers, integration with your own user storage databases, etc.
-* Do not need robust user management, profile enrichment, etc. and are comfortable [managing users strictly through an API](https://firebase.google.com/docs/auth/web/manage-users)
+* Do not need extensive user management, profile enrichment, etc. and are comfortable [managing users strictly through an API](https://firebase.google.com/docs/auth/web/manage-users)
 * Have no need to customize authentication flows
 * Do not need to adhere to compliance regulations regarding the storage of user data
 
@@ -124,23 +124,27 @@ We will generate our Angular app and nearly all of its architecture using the CL
 
 ## <span id="auth0-client-api"></span>Auth0 Client and API
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account here</a>. Next, set up an Auth0 client app and API so Auth0 can interface with the Angular app and Node API.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account here</a>.
 
 ![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
+Next, set up an Auth0 client app and API so Auth0 can interface with the Angular app and Node API.
+
 ### Set Up an Auth0 Client
 
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
+1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[Create a New Client](https://manage.auth0.com/#/clients/create)" button.
 2. Name your new app (something like `angular-firebase`) and select "Single Page Web Applications".
 3. In the **Settings** for your new Auth0 client app, add `http://localhost:4200/callback` to the **Allowed Callback URLs**.
 4. Enable the toggle for **Use Auth0 instead of the IdP to do Single Sign On**. 
 5. At the bottom of the **Settings** section, click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
-6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
+6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above uses username/password database, Facebook, Google, and Twitter. 
+
+> **Note:** For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
 
 ### Set Up an Auth0 API
 
-1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API, such as `Firebase Dogs API`. Set the **Identifier** to your API endpoint URL. In this example, this is `http://localhost:1337/`. The **Signing Algorithm** should be `RS256`.
-2. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. In the next steps, we'll implement our Node API in this fashion, using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API, such as `Firebase Dogs API`. Set the **Identifier** to your API endpoint URL. In this tutorial, our API identifier is `http://localhost:1337/`. The **Signing Algorithm** should be `RS256`.
+2. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. In the next steps, we'll implement our Node API in this fashion using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 We're now ready to implement Auth0 authentication on both our Angular client and Node backend API.
 
@@ -150,10 +154,10 @@ Next you will need a free [Firebase](https://firebase.google.com) project.
 
 ### Create a Firebase Project
 
-1. Go to the [Firebase Console](https://console.firebase.google.com) and sign in with your Google account. 
+1. Go to the **[Firebase Console](https://console.firebase.google.com)** and sign in with your Google account. 
 2. Click on **Add Project**.
 3. In the dialog that pops up, give your project a name (such as `Angular Firebase Auth0`). A project ID will be generated based on the name you chose. You can then select your country/region.
-4. Click the **Create Project** button.
+4. Click the "Create Project" button.
 
 ### Generate an Admin SDK Key
 
@@ -163,17 +167,17 @@ Click on the gear wheel icon next to your Project Overview in the Firebase conso
 
 <p align="center"><img src="https://cdn.auth0.com/blog/firebase-auth0/firebase-project-settings.png"></p>
 
-In the settings view, click the [Service Accounts](https://console.firebase.google.com/u/0/project/_/settings/serviceaccounts/adminsdk) tab. The **Firebase Admin SDK** UI will appear, showing a configuration code snippet. Node.js is selected by default. This is the technology we want, and we will implement it in our Node API. Click on the **Generate New Private Key** button.
+In the settings view, click the [Service Accounts](https://console.firebase.google.com/u/0/project/_/settings/serviceaccounts/adminsdk) tab. The **Firebase Admin SDK** UI will appear, showing a configuration code snippet. Node.js is selected by default. This is the technology we want, and we will implement it in our Node API. Click on the "Generate New Private Key" button.
 
-A dialog will appear warning you to store your private key confidentially. We will take care never to check this key into a public repository. Click on the **Generate Key** button to save the key as a `.json` file. We will add this file to our Node API shortly.
+A dialog will appear warning you to store your private key confidentially. We will take care never to check this key into a public repository. Click on the "Generate Key" button to download the key as a `.json` file. We will add this file to our Node API shortly.
 
 ## <span id="node-api"></span>Node API
 
-The Node.js API for this tutorial can be found at the [firebase-auth0-nodeserver GitHub repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
+The completed Node.js API for this tutorial can be found at the [firebase-auth0-nodeserver GitHub repo](https://github.com/auth0-blog/firebase-auth0-nodeserver). Let's learn how to build this API.
 
 ### Node API File Structure
 
-Let's learn how to build this API. Create a new folder and the following file structure:
+First create a new folder. We'll want to set up the following file structure:
 
 ```text
 firebase-auth0-nodeserver/
@@ -203,6 +207,8 @@ $ touch routes.js
 $ touch server.js
 ```
 
+### Firebase Admin SDK Key and Git Ignore
+
 Now move the Firebase Admin SDK `.json` key file you downloaded earlier into the `firebase/` folder. We will take care to make sure the folder is checked in, but its _contents_ are never pushed to a repo using the `firebase/.gitignore` like so:
 
 ```bash
@@ -212,9 +218,11 @@ Now move the Firebase Admin SDK `.json` key file you downloaded earlier into the
 !.gitignore
 ```
 
-This `.gitignore` configuration ensures that Git will ignore any files and folders inside the `firebase/` directory _except_ for the `.gitignore` file itself. This allows us to commit an (essentially) empty folder.
+This `.gitignore` configuration ensures that Git will ignore any files and folders inside the `firebase/` directory _except_ for the `.gitignore` file itself. This allows us to commit an (essentially) empty folder. Our `.json` Firebase Admin SDK key can live in this folder and we won't have to worry about gitignoring it by _filename_.
 
-Next let's add the code for the main directory's `.gitignore`:
+> **Note:** This is particularly useful if we have the project pulled down on multiple machines and have different keys (with different filenames) generated.
+
+Next let's add the code for the root directory's `.gitignore`:
 
 ```bash
 # .gitignore
@@ -233,12 +241,11 @@ Let's add our `package.json` file like so:
 ```json
 {
   "name": "firebase-auth0-nodeserver",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Node.js server that authenticates with an Auth0 access token and returns a Firebase auth token.",
   "repository": "https://github.com/auth0-blog/firebase-auth0-nodeserver",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server"
   },
   "author": "Auth0",
@@ -254,7 +261,7 @@ We'll install the dependencies with the command line and latest versions will be
 $ npm install --save body-parser cors express express-jwt jwks-rsa firebase-admin
 ```
 
-We'll need `body-parser`, `cors`, and `express` to serve our API endpoints. Authentication will rely on `express-jwt` and `jwks-rsa`, while Firebase token minting is implemented with `firebase-admin`.
+We'll need `body-parser`, `cors`, and `express` to serve our API endpoints. Authentication will rely on `express-jwt` and `jwks-rsa`, while Firebase token minting is implemented with the `firebase-admin` SDK (which we'll have access to using the key we generated).
 
 ### Configuration
 
@@ -359,22 +366,19 @@ module.exports = function(app) {
   // Set up dogs JSON data for API
   const dogs = require('./dogs.json');
   const getDogsBasic = () => {
-    let dogsBasicArr = [];
-    dogs.forEach(dog => {
-      const newDog = {
+    const dogsBasicArr = dogs.map(dog => {
+      return {
         rank: dog.rank,
         breed: dog.breed,
         image: dog.image
-      };
-      dogsBasicArr.push(newDog);
+      }
     });
     return dogsBasicArr;
   }
-  const dogsBasic = getDogsBasic();
 
   // GET dogs (public)
   app.get('/api/dogs', (req, res) => {
-    res.send(dogsBasic);
+    res.send(getDogsBasic());
   });
 
   // GET dog details by rank (private)
@@ -441,7 +445,7 @@ We will need the [`auth0-js` library](https://github.com/auth0/auth0.js) to impl
 
 ### Add Bootstrap CSS
 
-To make styling fast and easy, we'll add the [Bootstrap CSS](https://getbootstrap.com) CDN link to the `<head>` of our `index.html` file like so:
+To simplify styling, we'll add the [Bootstrap CSS](https://getbootstrap.com) CDN link to the `<head>` of our `index.html` file like so:
 
 ```html
 <!-- src/index.html -->
@@ -471,28 +475,36 @@ The app will run in the browser at [http://localhost:4200](http://localhost:4200
 
 ## <span id="angular-app-architecture"></span>Angular App Architecture
 
-We're going to use the Angular CLI to generate the complete architecture for our app upfront. This way, we can make sure that our modules are functioning properly before we implement our logic and templates.
+We're going to use the Angular CLI to generate the complete architecture for our app up front. This way, we can make sure that our modules are functioning properly before we implement our logic and templates.
 
-Our app is going to use a modular approach with lazy loading. The sample app in this tutorial is small, but we want to build it in a scalable, real-world manner.
+Our app is going to use a **modular approach with lazy loading**. The sample app in this tutorial is small, but we want to build it in a **scalable, real-world** manner.
 
 ### Root Module
 
 The root module has already been created when the Angular app was generated with the `ng new` command. The root module lives at `src/app/app.module.ts`. Any components we generate in the root of our Angular app without a subdirectory specified will be imported in our root module.
 
-Let's create a component now:
+Let's generate a component with the CLI now:
 
 ```bash
 # create CallbackComponent:
 $ ng g component callback --is --it --flat --no-spec
 ```
 
-This command generates (`g`) a `CallbackComponent` file with inline styles (`--is`), an inline template (`--it`), no containing folder (`--flat`), and no `.spec` test file (`--no-spec`).
+This command:
 
-We'll use the callback component to handle redirection after the user logs into our application. It's a very simple component, so we can use inline styles and an inline template.
+* `ng g component`: generates a `callback` component file with
+* `--is`: inline styles
+* `--it`: inline template
+* `--flat`: no containing folder
+* `--no-spec`: no `.spec` test file
+
+We'll use the callback component to handle redirection after the user logs into our application. It's a very simple component.
+
+> **Note:** `g` is a shortcut for `generate`. We could also use `c` as a shortcut for `component`, making this command `ng g c`. However, this tutorial will not use shortcuts for the type of files generated, in the interest of clarity.
 
 ### Core Module Architecture
 
-Next we'll create the `CoreModule` and its components and services. This is a shared module. From the root of your Angular project folder, run the following CLI commands. Make sure you run the `ng g module core` command _first_, like so:
+Next we'll create the `CoreModule` and its components and services. This is a _shared_ module. From the root of your Angular project folder, run the following CLI commands. Make sure you run the `ng g module core` command _first_, like so:
 
 ```bash
 # create Core module:
@@ -513,7 +525,7 @@ $ ng g interface core/dog-detail
 
 Creating the module first ensures that components created in that module's folder will then be imported automatically in that parent module instead of the app's root module.
 
-This is the basic architecture for the _shared_ core services, components, and models that our app will need access to.
+This is the basic architecture for the shared core services, components, and models that our app will need access to.
 
 ### Auth Module Architecture
 
@@ -569,7 +581,7 @@ $ ng g component comments/comments/comment-form --is --no-spec
 
 ### Environment Configuration
 
-Let's add our configuration information for Auth0 and Firebase to our Angular front-end. Open the `src/environments/environment.ts` file and add:
+Let's add our configuration information for Auth0 and Firebase to our Angular front-end. Open the `environment.ts` file and add:
 
 ```js
 // src/environments/environment.ts
@@ -592,21 +604,21 @@ export const environment = {
     storageBucket: `${FB_PROJECT_ID}.appspot.com`,
     messagingSenderId: '<FIREBASE_MESSAGING_SENDER_ID>'
   },
-  apiRoot: '<API URL>' // e.g., http://localhost:1337/ (do include trailing slash)
+  apiRoot: '<API URL>' // e.g., http://localhost:1337/ (DO include trailing slash)
 };
 ```
 
 Replace placeholders in `<angle brackets>` with your appropriate Auth0, Firebase, and API information. 
 
-You can find your Auth0 configuration in your [Auth0 Dashboard - Clients](https://manage.auth0.com) in the settings for the Client and API you created for this tutorial.
+You can find your Auth0 configuration in your [Auth0 Dashboard](https://manage.auth0.com) in the settings for the client and API you created for this tutorial.
 
-You can find your Firebase configuration in the [Firebase Console Project Overview](https://console.firebase.google.com/u/0/project/_/overview), after clicking the large icon labeled **Add Firebase to your web app**, as shown below:
+You can find your Firebase configuration in the [Firebase Console Project Overview](https://console.firebase.google.com/u/0/project/_/overview) after clicking the large icon labeled **Add Firebase to your web app**, as shown below:
 
 <p align="center"><img src="https://cdn.auth0.com/blog/firebase-auth0/firebase-add-to-web-app.png" alt="Add Firebase to your web app"></p>
 
 ### Add Loading Image
 
-The last thing we'll do before we begin implementing functionality in our Angular app is add a loading image. Create the following folder: `src/assets/images`
+The last thing we'll do before we begin implementing functionality in our Angular app is add a loading image. Create the following folder: `src/assets/images`.
 
 Then save [this loading SVG image](https://github.com/auth0-blog/angular-firebase/blob/master/src/assets/images/loading.svg) into that folder.
 
@@ -902,7 +914,7 @@ One difference between this module and the `DogsModule` is that our `DOG_ROUTES`
 http://localhost:4200/dog/3
 ```
 
-We will also not import the `CommentsModule`. However, we could add comments to dog details in the future if we wished.
+Another difference is that we will _not_ import the `CommentsModule`. However, we could add comments to dog details in the future if we wished.
 
 Our app's architecture and routing are now complete! The app should successfully compile and display in the browser, with lazy loading functioning properly to load shared code, and then additionally, only the code for the specific route requested. We're now ready to implement our application's logic.
 
@@ -1089,6 +1101,8 @@ The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
 
 These methods are fairly self-explanatory: they use Auth0 methods [`parseHash()` and `userInfo()` to extract authentication results and get the user's profile](https://auth0.com/docs/libraries/auth0js/v9#extract-the-authresult-and-get-user-info). We'll also set our service's properties to store necessary state (such as whether the user is logged in or not), handle errors, save data to local storage, and redirect to the appropriate route.
 
+> **Note:** We set `loggedIn` to `null` so that we can track different states of the authentication process as it happens. This will help prevent things like a flash of content in the header.
+
 We are also going to use the auth result's access token to authorize an HTTP request to our API to get a Firebase token. This is done with the `_getFirebaseToken()` and `_firebaseAuth()` methods:
 
 ```typescript
@@ -1214,7 +1228,7 @@ That's it for our `AuthService`!
 
 ### Callback Component
 
-Recall that we created a `CallbackComponent` in our root module. In addition, we set our `environment`'s Auth0 `redirect` to the callback component's route. That means that when the user logs in with Auth0, they will return to our app at the `/callback` route.
+Recall that we created a `CallbackComponent` in our root module. In addition, we set our `environment`'s Auth0 `redirect` to the callback component's route. That means that when the user logs in with Auth0, they will return to our app at the `/callback` route with the authentication hash appended to the URI.
 
 We created our `AuthService` with methods to handle authentication and set sessions, but currently these methods aren't being called from anywhere. The callback component is the appropriate place for this code to execute.
 
@@ -1229,8 +1243,7 @@ import { AuthService } from './auth/auth.service';
   selector: 'app-callback',
   template: `
     <app-loading></app-loading>
-  `,
-  styles: []
+  `
 })
 export class CallbackComponent implements OnInit {
 
@@ -1243,7 +1256,7 @@ export class CallbackComponent implements OnInit {
 }
 ```
 
-All our callback component needs to do is show the `LoadingComponent` while the `AuthService`'s `handleAuth()` method executes. The `handleAuth()` method will then get the user's profile info, set their session, and redirect to the appropriate route in the app.
+All our callback component needs to do is show the `LoadingComponent` while the `AuthService`'s `handleAuth()` method executes. The `handleAuth()` method will parse the authentication hash, get the user's profile info, set their session, and redirect to the appropriate route in the app.
 
 ### Auth Guard
 
@@ -1289,7 +1302,194 @@ If the user does not have a valid token, we'll prompt them to log in. We want th
 
 ## <span id="core-logic"></span>Core Logic
 
-The last thing we'll do in this section of our tutorial is implement the remaining components and services that belong to our `CoreModule`. 
+The last thing we'll do in this section of our tutorial is implement the remaining components and services that belong to our `CoreModule`. We've already taken care of the `LoadingComponent` and `ErrorComponent`, so let's move on to the header.
+
+### Header Component
+
+The header will use methods and logic from our authentication service to show login and logout buttons as well as display the user's name and picture if they're authenticated. Open the `header.component.ts` file and add:
+
+```typescript
+// src/app/core/header/header.component.ts
+import { Component } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styles: [`
+    img {
+      border-radius: 100px;
+      width: 30px;
+    }
+    .loading {
+      line-height: 31px;
+    }
+    .home-link {
+      color: #212529;
+    }
+    .home-link:hover {
+      text-decoration: none;
+    }
+  `]
+})
+export class HeaderComponent {
+
+  constructor(public auth: AuthService) {}
+
+  get showLogin(): boolean {
+    return !this.auth.loggedIn && this.auth.loggedIn !== null;
+  }
+
+  get loggingIn(): boolean {
+    return this.auth.loggedIn === null;
+  }
+
+}
+```
+
+We'll add a few simple styles and import our `AuthService` to make its members publicly available to our header component's template.
+
+The `showLogin` accessor method checks the state of the `loggedIn` property and returns a boolean that lets the UI know if the user should be shown the login button. The `loggingIn` accessor method does the same, but checking for `loggedIn` to be `null`. If this is the case, the `handleAuth()` method is currently executing and authentication data will be available shortly.
+
+Next open the `header.component.html` file and add:
+
+{% highlight html %}
+{% raw %}
+<!-- src/app/core/header/header.component.html -->
+<nav class="nav justify-content-between mt-2 mx-2 mb-3">
+  <div class="d-flex align-items-center">
+    <strong class="mr-1"><a routerLink="/" class="home-link">Popular Dogs ❤</a></strong>
+  </div>
+  <div class="ml-3">
+    <button
+      *ngIf="showLogin"
+      class="btn btn-primary btn-sm"
+      (click)="auth.login()">Log In</button>
+    <small *ngIf="loggingIn" class="loading">
+      Logging in...
+    </small>
+    <span *ngIf="auth.loggedIn">
+      <img [src]="auth.userProfile?.picture">
+      <small>{{ auth.userProfile?.name }}</small>
+      <button
+        class="btn btn-danger btn-sm"
+        (click)="auth.logout()">Log Out</button>
+    </span>
+  </div>
+</nav>
+{% endraw %}
+{% endhighlight %}
+
+The header now shows:
+
+* The name of our app ("Popular Dogs") with a link to the `/` route
+* A login button if the user is not authenticated
+* A "Logging in..." message if the user is currently authenticating
+* The user's picture, name, and a logout button if the user is authenticated
+
+Now that we have our header component built, we need to display it in our app.
+
+Open the `app.component.html` file and add:
+
+```html
+<!-- src/app/app.component.html -->
+<app-header></app-header>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+```
+
+The header component will now be displayed in our app with the current routed component showing beneath it. Check it out in the browser and try logging in!
+
+### Dog and DogDetail Models
+
+Let's implement our `dog.ts` and `dog-detail.ts` [interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html). These are models that specify types for the _shape_ of values that we'll use in our app. Using models ensures that our data has the structure that we expect.
+
+We'll start with the `dog.ts` interface:
+
+```typescript
+// src/app/core/dog.ts
+export interface Dog {
+  breed: string;
+  rank: number;
+  image: string;
+}
+```
+
+Next let's implement the `dog-detail.ts` interface:
+
+```typescript
+// src/app/core/dog-detail.ts
+export interface DogDetail {
+  breed: string;
+  rank: number;
+  description: string;
+  personality: string;
+  energy: string;
+  group: string;
+  image: string;
+  link: string;
+}
+```
+
+### API Service
+
+With our <a href="#node-api" target="_self">Node API</a> and models in place, we're ready to implement the service that will call our API in the Angular front-end.
+
+Open the `api.service.ts` file and add this code:
+
+```typescript
+// src/app/core/api.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { environment } from './../../environments/environment';
+import { AuthService } from './../auth/auth.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import { Dog } from './../core/dog';
+import { DogDetail } from './../core/dog-detail';
+import { catchError } from 'rxjs/operators';
+
+@Injectable()
+export class ApiService {
+  private _API = `${environment.apiRoot}api`;
+  private _accessToken = localStorage.getItem('access_token');
+
+  constructor(
+    private http: HttpClient,
+    public auth: AuthService) { }
+
+  getDogs$(): Observable<Dog[]> {
+    return this.http
+      .get(`${this._API}/dogs`, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this._accessToken}`)
+      })
+      .pipe(
+        catchError(this._handleError)
+      );
+  }
+
+  getDogByRank$(rank: number): Observable<DogDetail> {
+    return this.http
+      .get(`${this._API}/dog/${rank}`, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this._accessToken}`)
+      })
+      .pipe(
+        catchError(this._handleError)
+      );
+  }
+
+  private _handleError(err: HttpErrorResponse | any) {
+    const errorMsg = err.message || 'Error: Unable to complete request.';
+    if (err.message && err.message.indexOf('No JWT present') > -1 || err.message.indexOf('UnauthorizedError') > -1) {
+      this.auth.logout();
+      this.auth.login();
+    }
+    return Observable.throw(errorMsg);
+  }
+
+}
+```
 
 ## <span id="next-steps"></span>Next Steps
 
