@@ -23,7 +23,7 @@ related:
 
 **TL;DR:** In this tutorial, I’ll show you how to build a secure chat app with React and Pusher using the Auth0 authentication service and a Node + Express Backend Server. We will use Auth0 to authenticate users so they can access the chat feature of a website.
 
-[Auth0](http://auth0.com) is a platform that allows developers add authentication to their applications easily. It offers products like [Lock](https://auth0.com/docs/libraries/lock/v10), [Passwordless Authentication](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/multifactor-authentication) and [Breached Password Detection](https://auth0.com/breached-passwords). It’s a service that helps to eliminate the headaches of authentication when building modern applications.
+[Auth0](http://auth0.com) is a platform that allows developers add authentication to their applications easily. It offers products like [Centralized Login Page](https://auth0.com/docs/hosted-pages/login), [Lock](https://auth0.com/docs/libraries/lock/v10), [Passwordless Authentication](https://auth0.com/passwordless), [Multifactor Authentication](https://auth0.com/multifactor-authentication) and [Breached Password Detection](https://auth0.com/breached-passwords). It’s a service that helps to eliminate the headaches of authentication when building modern applications.
 
 [Pusher](http://pusher.com) is a platform that builds realtime and scalable infrastructures for developers so you can spend more time building awesome features. Pusher offers features like [Presence Channels](https://pusher.com/docs/client_api_guide/client_presence_channels), [Pub/Sub Messaging](https://pusher.com/docs) and [Access Control](https://pusher.com/docs/authenticating_users).
 
@@ -616,7 +616,7 @@ class Callback extends Component {
 export default Callback;
 ```
 
-We’ll need a `loading.svg` file of some sort. I’ve created one [here](https://gist.github.com/yomete/d3b60f638306aad592cfa14edd70aae7) which you can download and place inside the `Callback` folder.
+We’ll need a `loading.svg` file of some sort. I’ve created one [here](https://github.com/auth0-blog/pusher-auth0/blob/master/public/loading.svg) which you can download and place inside the `Callback` folder.
 
 **Adding a Profile Component**
 
@@ -855,7 +855,7 @@ We’ll also edit the `scripts` object. Edit the `scripts.start` key to this `"n
     "react-scripts": "0.9.5"
   },
   "dependencies": {
-    "auth0-js": "^8.7.0",
+    "auth0-js": "^9.0.0",
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
@@ -883,6 +883,8 @@ We’ll also edit the `scripts` object. Edit the `scripts.start` key to this `"n
 
 You can now run `yarn start` in your terminal and see the app work on `http://localhost:3000/home`.
 
+{% include asides/react.markdown %}
+
 ## Conclusion
 
 We’ve seen how to use ReactJS, Auth0 and Pusher to build a chat app. We also saw how to use the `-private` channel and how to authenticate a user using the `/pusher/auth` endpoint.
@@ -891,7 +893,7 @@ ReactJS works very well with Pusher because of its declarative, unidirectional d
 
 The combination of Pusher and Auth0 can be extended to build wonderful use cases and applications. We could add social sign-ins with Auth0 and implement a “Who’s Online” feature thanks to Pusher. The possibilities are endless. You can learn more about both services by visiting their websites([Pusher](http://pusher.com) and [Auth0](http://auth0.com)).
 
-You can check the [GitHub repository](https://github.com/yomete/pusher-auth0) for the source code.
+You can check the [GitHub repository](https://github.com/auth0-blog/pusher-auth0) for the source code.
 
 <div class="alert alert-info">
 <strong>About Yomi Eluwande:</strong><br />

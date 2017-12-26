@@ -28,7 +28,7 @@ alternate_locale_ja: jp-vuejs2-authentication-tutorial
 
 ---
 
-**TL;DR:** Vuejs is a progressive JavaScript framework for building user interfaces on the web. It was launched shortly after ReactJS and over time, lots of developers started adopting it in their daily work. In fact, with the launch of Vuejs 2.0, the adoption and usage worldwide skyrocketed. Currently, Vuejs has over 49,000 stars on [Github](https://github.com/vuejs/vue). In this tutorial, I'll show you how easy it is to build a web application with Vuejs 2 and add authentication to it. Check out the [repo](https://github.com/auth0-blog/vuejs2-authentication-tutorial) to get the code.
+**TL;DR:** Vuejs is a progressive JavaScript framework for building user interfaces on the web. It was launched shortly after ReactJS and over time, lots of developers started adopting it in their daily work. In fact, with the launch of Vuejs 2.0, the adoption and usage worldwide skyrocketed. Currently, Vuejs has over 49,000 stars on [GitHub](https://github.com/vuejs/vue). In this tutorial, I'll show you how easy it is to build a web application with Vuejs 2 and add authentication to it. Check out the [repo](https://github.com/auth0-blog/vuejs2-authentication-tutorial) to get the code.
 
 ---
 
@@ -1024,9 +1024,9 @@ function isTokenExpired(token) {
 }
 ```
 
-In the code above, we are using an hosted version of [Auth0 Lock](https://auth0.com/lock) in the `login` method and passed in our credentials.
+In the code above, we are using Auth0's [Centralized Login Page](https://auth0.com/docs/hosted-pages/login) in the `login` method and passed in our credentials.
 
-The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js/v8#login).
+The auth0 package calls the Auth0's authorize endpoint. With all the details we passed to the method, our client app will be validated and authorized to perform authentication. You can learn more about the specific values that can be passed to the authorize method [here](https://auth0.com/docs/libraries/auth0js).
 
 The parameters that you do not have yet are the `{YOUR-AUTH0-CLIENT-ID}` and the `{YOUR-CALLBACK-URL}`. This will be an Auth0 client that will hold your users. When you created your API, Auth0 also created a test client which you can use. Additionally, you can use any existing Auth0 client found in Clients section of your [management dashboard](https://manage.auth0.com/#/clients).
 
@@ -1180,7 +1180,7 @@ We are enabling the link to private startup battles based on the login status of
 
 ### Add A Callback Component
 
-We will create a new component and call it ` allback.vue`. This component will be activated when the `localhost:8080/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
+We will create a new component and call it `callback.vue`. This component will be activated when the `localhost:8080/callback` route is called and it will process the redirect from Auth0 and ensure we recieved the right data back after a successful authentication. The component will store the `access_token` and `id_token`.
 
 _callback.vue_
 

@@ -34,7 +34,7 @@ related:
 
 **TL;DR:** In this article, we are going to learn what tools we should take advantage of when developing NPM packages. We will start from scratch. We will create a GitHub Repository to host our package, then we will look into interesting and important topics. For example, we will talk about IDEs, we will configure ESLint in our project, we will publish the package on NPM, and we will even integrate a continuous integration tool. [The code that gave life to this article can be found in this GitHub repository](https://github.com/brunokrebs/masks-js).
 
-## What NPM Package Will We Build
+## <span id="what-we-will-build"></span>What NPM Package Will We Build
 
 After following all the steps shown in this article, we will have our own package published in [the NPM official repository](https://www.npmjs.com/). The features that this package will support (and how to build them) are not the focus of this article. There are plenty of great tutorials out there that can teach us how to develop in Node.js. The focus here are the processes and the tools that we can use to build great packages.
 
@@ -65,17 +65,17 @@ NPM Package Development
 Conclusion
 ```
 
-## Installing Node.js
+## <span id="installing-node-js"></span>Installing Node.js
 
 The first two prerequisites are Node.js and NPM (but that comes with Node.js). We could use [the official Node.js download webpage](https://nodejs.org/en/download/) to install these dependencies. However, the best way to install Node.js in a development machine is not through the official URL. [There is a package called NVM (Node Version Manager) that provides a simple bash script to manage multiple active node.js versions](https://github.com/creationix/nvm). It's the best option because, with just one command, we can switch Node.js and NPM versions.
 
-## Git and GitHub
+## <span id="git-github"></span>Git and GitHub
 
 Besides Node.js and NPM, we also need [Git](https://git-scm.com) and [GitHub](https://github.com/). Why are we going to use them? Because [Git is the best, most advanced, and most used version control system](https://www.atlassian.com/git/tutorials/what-is-git) and [GitHub is the most used Git platform](https://github.com/). The best open source projects in the world are hosted in this platform. For example, [Node.js source code is versioned with Git on GitHub](https://github.com/nodejs/node).
 
 > __Note__ that this article won't lecture about Git. If you are not familiar with Git, you will still be able to follow this article. However, every developer should learn how to properly use Git and GitHub. So, if needed, stop reading and go [learn Git](https://git-scm.com/docs/gittutorial) (and install it too, of course :D). You can come back later.
 
-### Creating the GitHub Repository
+### <span id="creating-github-repository"></span>Creating the GitHub Repository
 
 Great, we already decided where we will keep our source code safe. It's time to create the repository to start working on it. If we head to [the _Create a new repository_ web page on GitHub](https://github.com/new), we will see a form that asks for three things: repository name, description, and visibility. As we are building a module that handles masks, let's answer these questions as follows:
 
@@ -91,7 +91,7 @@ After that, GitHub gives us options to initialize the repository with a `README`
 
 Done! We can hit the _Create repository_ button to finish the process.
 
-### Cloning the GitHub Repository
+### <span id="cloning-github-repository"></span>Cloning the GitHub Repository
 
 After creating the repository (which should be instantaneous), GitHub will redirect us to our repository's webpage. There, we can find a button called _Clone or download_ that gives a shortcut to the URL that we will need. Let's copy this URL and open a terminal. On this terminal, let's choose an appropriate directory to host the root directory of our project (e.g. `~/git`), and then let's clone the repository.
 
@@ -115,7 +115,7 @@ The last command will put our terminal in the project root. There, if we list th
 - A file called `LICENSE`. We don't have to touch this file, it contains a predefined content granting the [MIT License](https://opensource.org/licenses/MIT) to our code/package.
 - A file called `README.md` that contains just the name of our package (`masks-js`) and its description.
 
-### Ignoring Files on Git and NPM
+### <span id="ignoring-files-on-git-and-npm"></span>Ignoring Files on Git and NPM
 
 During the next sections, we will create some artifacts that we don't want to send to GitHub or to NPM. For example, our IDE will add some configuration files to our project root that we want to Git to ignore. Another thing that we want Git to ignore is the `./lib` directory that we will create when publishing our package. This directory will only be shared on the NPM package itself (i.e. for developers downloading the package through NPM). Therefore, let's update `.gitignore` as follows:
 
@@ -148,7 +148,7 @@ git commit -m 'making Git and NPM ignore some files'
 git push origin master
 ```
 
-## IDEs (Integrated Development Environments)
+## <span id="ides"></span>IDEs (Integrated Development Environments)
 
 Developing good software, arguably, passes through a good IDE. Among other things, IDEs can help us refactor our code, be more productive (mainly if we know their shortcuts), and debug our code. They usually help us by pointing out possible problems before compiling and/or running our code either. Therefore, this is a topic that cannot be put aside.
 
@@ -162,11 +162,11 @@ Other options, although famous, cannot be really considered IDEs. That is, they 
 
 What is important in this section is that we understand that we _do_ need an IDE and choose one. This will help us a lot during the development lifecycle of our package.
 
-## NPM Package Development
+## <span id="npm-package-development"></span>NPM Package Development
 
 Now that we have chosen our IDE, let's open our project and start configuring it. Throughout the next sections, we are going to create our project structure and configure tools that will help us produce high-quality code.
 
-### NPM Init
+### <span id="npm-init"></span>NPM Init
 
 First things first. As our goal is to create and publish a NPM package, we need to initialize our project as one. Luckily, this process is straightforward. NPM, through its CLI (Command Line Interface), provides two great ways to configure a project as a NPM package. The first one, triggered by `npm init`, will ask a bunch of questions and produce the `package.json` file for us. The second one, triggered by `npm init -y`, will not ask any question and produce the `package.json` file with default values.
 
@@ -212,7 +212,7 @@ git commit -m 'initializing project as a NPM package'
 git push origin master
 ```
 
-### Semantic Versioning
+### <span id="semantic-versioning"></span>Semantic Versioning
 
 In this section, we are not going to change anything in our project. The focus here is to talk about how to label new releases of our package. In the NPM and Node.js landscape, the most used strategy is by far [Semantic Versioning](https://semver.org/). What makes this strategy so special is that it has a well-defined schema that makes it easy to identify what versions are interoperable.
 
@@ -224,7 +224,7 @@ Semantic Versioning, also known as SemVer, uses the following schema: `MAJOR.MIN
 
 That is, if we have a problem with our code and fix it simply by changing an `if` statement, we have to increment the `PATCH` part: `1.0.0` => `1.0.1`. However, if we need to add a new function (without changing anything else) to handle this new scenario, then we increment the `MINOR` part: `1.0.0` => `1.1.0`. Lastly, if this bug is so big that requires a whole lot of refactoring and API changes, then we increment the `MAJOR` part: `1.0.0` => `2.0.0`.
 
-### EditorConfig
+### <span id="editor-config"></span>EditorConfig
 
 [EditorConfig](http://editorconfig.org/) is a small configuration file that we put in the project root to define how IDEs and text editors must format our files. Many IDEs support EditorConfig out of the box (including WebStorm and Visual Studio Code). The ones that don't, usually have a plugin that can be installed.
 
@@ -259,7 +259,7 @@ git commit -m 'adding .editorconfig'
 git push origin master
 ```
 
-### ES6+: Developing with Modern JavaScript
+### <span id="es6"></span>ES6+: Developing with Modern JavaScript
 
 JavaScript, as everybody knows, has gained mass adoption as the primary programming language over the last few years. Node.js was primarily responsible for this adoption, and brought with it many backend developers. This triggered a huge evolution of the language. These evolutions, although great, are not fully supported by every platform. [There are many JavaScript engines (and many different versions of these engines)](https://en.wikipedia.org/wiki/JavaScript_engine#Implementations) in the market ready to run code, but most of them do _not_ support the latest JavaScript features.
 
@@ -332,7 +332,7 @@ git commit -m 'supporting ES6+ syntax'
 git push origin master
 ```
 
-### Linting NPM Packages
+### <span id="linting-npm-packages"></span>Linting NPM Packages
 
 Another important tool to have around when developing software is a linting tool. [Lint is the process of statically analyzing code for common errors](https://en.wikipedia.org/wiki/Lint_%28software%29). Linting tools, therefore, are libraries (tools) that are specialized in this task. In the JavaScript world, there are at least three popular choices: [ESLint](https://eslint.org/), [JSHint](http://www.jslint.com/), and [JSLint](http://jshint.com/). We can use any of these three libraries to lint our JavaScript code, but we have to choose one.
 
@@ -403,7 +403,7 @@ git commit -m 'configuring ESLint'
 git push origin master
 ```
 
-### Automated Tests
+### <span id="automated-tests"></span>Automated Tests
 
 One of the most important topics in software development is tests. Developing high quality code without automated tests is impossible. That is, we could write code that executes flawlessly without writing a single line of automated tests. However, this code would still not be considered as having high standards.
 
@@ -477,7 +477,7 @@ git commit -m 'adding Mocha'
 git push origin master
 ```
 
-### Coding the NPM Package
+### <span id="coding-the-package"></span>Coding the NPM Package
 
 Hurray! We finally got into what matters, the code. We can create NPM packages without most of the tools shown in this article, but code is just necessary. No code, no NPM package. Although code is so important, it's not the focus of this article. So, to keep things short and easy to grasp, let's create just a very small prototype.
 
@@ -546,7 +546,7 @@ git commit -m 'developing the maskUSPhone feature and adding unit tests'
 git push origin master
 ```
 
-### Test Coverage
+### <span id="test-coverage"></span>Test Coverage
 
 Feels good to have our code in place with some tests to prove its functionality, but how confident are we of our code and our tests? Are we sure that our tests are covering all the scenarios that we thought about? It's hard to affirm that even in a small package like ours. So, what can we do? The answer is simple, we can use a test coverage tool to see how much of our code we are covering with tests.
 
@@ -620,7 +620,7 @@ git commit -m 'test coverage with Istanbul'
 git push origin master
 ```
 
-### Publishing the NPM Package
+### <span id="publishing-the-package"></span>Publishing the NPM Package
 
 After installing and checking our code coverage with Istanbul, we figure that we forgot to cover cases where no value (`null` or `undefined`) are passed into our function. Let's fix this by adding new test samples in the `./test/index.js` file:
 
@@ -667,7 +667,7 @@ git commit -m 'covering 100%'
 git push origin master
 ```
 
-### Continuous Integration
+### <span id="continuous-integration"></span>Continuous Integration
 
 Well, well. We have published the first version of our NPM package. This is amazing. Looks like all we need to do to publish a new version is to write some code, cover it with tests, and issue `npm publish`. But, can we do better? Of course! We can use a continuous integration tool to automate the NPM publishing process.
 

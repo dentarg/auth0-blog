@@ -116,16 +116,15 @@ With Yarn, the presence of a lock file and an install algorithm ensures that the
 
 ## Aside: Using Auth0 with Yarn
 
-**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
+**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, GitHub, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our JavaScript apps by using the [Lock Widget](https://auth0.com/lock). You can easily install Auth0 lock widget from your terminal with Yarn like so:
+We can easily set up authentication in our JavaScript apps by using [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login). You can easily install the `auth0-js` library from your terminal with Yarn like so:
 
 ```bash
-yarn add auth0-lock
+yarn add auth0-js
 ```
 
-It installs the widget within seconds and locks down the exact version with the aid of the `yarn.lock` file. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with the JavaScript framework of your choice. Now head over to the [Quickstart docs](https://auth0.com/docs/quickstarts), select the type of app you want to build and follow the steps highlighted there.
-
+It installs the library within seconds and locks down the exact version with the aid of the `yarn.lock` file. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), select **Applications** from the navigational menu, then select the app you want to connect with the JavaScript framework of your choice. Now head over to the [Quickstart docs](https://auth0.com/docs/quickstarts), select the type of app you want to build and follow the steps highlighted there.
 
 ## Conclusion
 

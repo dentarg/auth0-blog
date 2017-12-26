@@ -455,9 +455,9 @@ The creators of **Next.js** also have a tool, [now](https://zeit.co/now) that yo
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in our **Next.js** apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
+We can easily set up authentication in our **Next.js** apps by using the [Auth0.js library](https://github.com/auth0/auth0.js). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID and domain can be retreived.
 
-**Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/` or whatever url/port you are running on. Also set the `Allowed Origins (CORS)` to `http://localhost:3000/` or whatever domain url you are using, especially if it is hosted.
+**Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/callback` or whatever url/port you are running on. 
 
 ### Step 1
 
@@ -471,49 +471,57 @@ import React from 'react'
 export default class AuthService {
   constructor(clientId, domain) {
     // Configure Auth0
-    this.clientId = clientId
-    this.domain = domain
+    this.clientId = clientId;
+    this.domain = domain;
 
-    this.lock = new Auth0Lock(clientId, domain, {})
-    // Add callback for lock `authenticated` event
-    this.lock.on('authenticated', this._doAuthentication.bind(this))
+    this.auth0 = new window.auth0.WebAuth({
+      domain: domain,
+      clientID: clientId,
+      scope: 'openid profile',
+      responseType: 'token id_token',
+      redirectUri: 'http://localhost:3000/callback'
+    });
+
     // binds login functions to keep this context
-    this.login = this.login.bind(this)
+    this.login = this.login.bind(this);
   }
 
-  _doAuthentication(authResult){
-    // Saves the user token
-    this.setToken(authResult.idToken)
+  parseHash(callback) {
+    this.auth0.parseHash((err, result) => {
+      if(err) {
+        console.log(err);
+        callback(false);
+        this.logout();
+        return;
+      }
+
+      this.setToken(result.accessToken);
+      callback(true);
+    });
   }
 
-  getLock() {
-    // An instance of Lock
-    return new Auth0Lock(this.clientId, this.domain, {});
-  }
-
-  login() {
-    // Call the show method to display the widget.
-    this.lock.show()
+  login() {    
+    this.auth0.authorize();
   }
 
   loggedIn(){
     // Checks if there is a saved token and it's still valid
-    return !!this.getToken()
+    return !!this.getToken();
   }
 
-  setToken(idToken){
+  setToken(accessToken){
     // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken)
+    localStorage.setItem('accessToken', accessToken);
   }
 
   getToken(){
     // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token')
+    return localStorage.getItem('accessToken');
   }
 
   logout(){
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
+    // Clear user token from localStorage
+    localStorage.removeItem('accessToken');
   }
 }
 ```
@@ -527,6 +535,7 @@ _pages/index.js_
 ```js
 import React from 'react'
 import posts from '../data/posts'
+import settings from '../data/settings'
 import { style } from 'next/css'
 import Link from 'next/link'
 import AuthService from '../utils/AuthService'
@@ -542,13 +551,11 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    this.auth = new AuthService('_AUTH0_CLIENT_ID_', '_AUTH0_DOMAIN_');
-    this.setState({ loggedIn: this.auth.loggedIn() })
-    // instance of Lock
-    this.lock = this.auth.getLock();
-    this.lock.on('authenticated', () => {
-      this.setState({ loggedIn: this.auth.loggedIn() })
-    });
+    this.auth = new AuthService(settings.clientId, settings.domain);
+    this.setState({ loggedIn: this.auth.loggedIn() });
+    this.auth.callback = () => {
+      this.setState({ loggedIn: this.auth.loggedIn() });
+    };
   }
 
   login() {
@@ -562,7 +569,7 @@ export default class extends React.Component {
     return (
       <div>
       <div className={style(styles.header)}>
-        <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+        <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
         { loginButton }
         <h3> NEXTHRONE - THE REVELATION OF GAME OF THRONES' CHARACTERS </h3>
       </div>
@@ -647,34 +654,35 @@ const styles = {
 }
 ```
 
-Replace `_AUTH0_CLIENT_ID_` and `_AUTH0_DOMAIN_` with the values from your [dashboard](https://manage.auth0.com/#/applications). We created a state called `loggedIn` and instantiated the AuthService in `componentDidMount`. Now Auth0Lock is not isomorphic, so we need to load the lock script from the cdn to make it available in our component within the render method. Based on the state of `loggedIn`, you will have the ability to have access to the link that redirects to the account or not!
+Replace client ID and Auth0 domain values in the `settings` object with the values from your [dashboard](https://manage.auth0.com/#/applications). We created a state called `loggedIn` and instantiated the AuthService in `componentDidMount`. Now Auth0.js is not isomorphic, so we need to load the script from the CDN to make it available in our component within the render method. Based on the state of `loggedIn`, you will have the ability to have access to the link that redirects to the account or not!
 
 Now, run the app, the login button should appear at the top like so:
 
 ![NexThrone Index](https://cdn.auth0.com/blog/nexthrone-login.png)
 _NexThrone Index Non-loggedIn Status_
 
-User clicks on the login button and the Auth0 Lock displays like so:
+User clicks on the login button and the Auth0 login screen displays like so:
 
-![NexThrone Auth0 Lock Widget](https://cdn.auth0.com/blog/nexthrone-auth0lock.png)
-_NexThrone Auth0 Lock Widget_
+![NexThrone Auth0 Login Screen](https://cdn.auth0.com/blog/nexthrone-auth0lock.png)
+_NexThrone Auth0 Login Screen_
 
 Once you log in successfully, you will now have access to the links like so:
 
 ![NexThrone Logged-in Status](https://cdn.auth0.com/blog/nexthrone-loggedin.png)
 _NexThrone Logged-in Status_
 
-Now you are logged-in and the `id-token` is present in the localStorage. You can now click on the link to have access to the account page.
+Now you are logged-in and the `access token` is present in Local Storage. You can now click on the link to have access to the account page.
 
 ### Step 3
 
-We need to restrict access to the account page if the user is not logged-in. If the `id_token` doesn't exist, then it means the user has been logged out. So open up your `pages/account.js` and modify the code like so:
+We need to restrict access to the account page if the user is not logged-in. If the `access token` doesn't exist, then it means the user has been logged out. So open up your `pages/account.js` and modify the code like so:
 
 _pages/account.js_
 
 ```js
 import React from 'react'
 import posts from '../data/posts'
+import settings from '../data/settings'
 import { style } from 'next/css'
 import * as  _ from 'lodash'
 import AuthService from '../utils/AuthService'
@@ -682,18 +690,18 @@ import AuthService from '../utils/AuthService'
 export default class extends React.Component {
 
   componentDidMount() {
-    this.auth = new AuthService('_AUTH0_CLIENT_ID_', '_AUTH0_DOMAIN_');
+    this.auth = new AuthService(settings.clientId, settings.domain);
     if (!this.auth.loggedIn()) {
-      this.props.url.replaceTo('/')
+      this.props.url.replaceTo('/');
     }
   }
 
   render () {
-    const item =  _.find(posts, { id: this.props.url.query.id })
+    const item =  _.find(posts, { id: this.props.url.query.id });
 
     return (
       <div className={style(styles.main)}>
-        <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+        <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
         <div className={style(styles.header)}>
           <h3> NEXTHRONE - THE REVELATION OF GAME OF THRONES' CHARACTERS </h3>
         </div>
@@ -752,13 +760,35 @@ const styles = {
 
 In the `componentDidMount`, we just simply check if the user is logged in or not. If the user is not logged in, then the user will be redirected to the index page to log in.
 
-**Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). Auth0 `idToken` should only be used on the client-side. [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
+### Step 4
 
+We still need to add one more special page for everything to work. Put this code in the `pages/callback.js` file:
+
+```jsx
+import React from 'react'
+import settings from '../data/settings'
+import AuthService from '../utils/AuthService'
+
+export default class extends React.Component {
+
+  componentDidMount() {
+    this.auth = new AuthService(settings.clientId, settings.domain);
+    this.auth.parseHash(() => {
+        this.props.url.replaceTo('/');
+    });
+  }
+
+  render () {
+    return <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>;
+  }
+}
+```
+
+This is a special page that processes the information returned after a login attempt. This information is passed to the `AuthService` instance so that Auth0.js can handle it. Nothing is rendered by this page.
+
+**Note:** If you want to use Auth0 authentication to authorize _API requests_, note that you'll need to use [a different flow depending on your use case](https://auth0.com/docs/api-auth/which-oauth-flow-to-use). [Access tokens should be used to authorize APIs](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api/). You can read more about [making API calls with Auth0 here](https://auth0.com/docs/apis).
 
 The source code for the authentication part of the NexThrone app can be found on the [adding-auth branch here](https://github.com/auth0-blog/nextjs-got/tree/adding-auth)
-
-You can also check out [Luis Rudge's](https://github.com/luisrudge) sample app that shows how to [integrate Next.js with Auth0 here](https://github.com/luisrudge/next.js-auth0)
-
 
 ## Conclusion
 

@@ -160,26 +160,21 @@ export default () => (
 
 **Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
 
-We can easily set up authentication in a **Next.js 3.0** apps by using the [Lock Widget](https://auth0.com/lock). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
+We can easily set up authentication in a **Next.js 3.0** apps by using the [Auth0.js library](https://github.com/auth0/auth0.js). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
 
 > [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
 
-**Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/auth/signed-in` or whatever url/port you are running on. And set the `Allowed Origins (CORS)` to `http://localhost:3000/` or whatever domain url you are using, especially if it is hosted. Furthermore; set the `Allowed Logout URLs` to `http://localhost:3000/`.
-
-> Here, we use Lock, so it's important to go to `Dashboard >> Clients >> Settings >> Show Advanced Settings >> OAuth >> OIDC Conformant flag` and switch off the `OIDC Conformat` flag because it uses the legacy authentication pipeline. It's easier to upgrade to next 3.0 without breaking changes. Check out the [OIDC Conformant Authentication Adoption Guide](https://auth0.com/docs/api-auth/tutorials/adoption).
+**Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/auth/signed-in` or whatever url/port you are running on. Furthermore; set the `Allowed Logout URLs` to `http://localhost:3000/`.
 
 Authentication in a Next.js app could be a little complicated because you have to ensure that the server-rendered pages are authenticated, meaning they need to have access to the token.
 
-In the example below, the token returned from Auth0 is stored in LocalStorage and also as a cookie.
-
-Check out the [completed app on Github](https://github.com/auth0-blog/next3-auth0).
+Check out the [complete app on Github](https://github.com/auth0-blog/next3-auth0).
 
 **Note**: Don't forget to rename the `config.sample.json` file to `config.json` and add your credentials.
 
 _utils/auth.js_
 
 ```js
-
 import jwtDecode from 'jwt-decode'
 import Cookie from 'js-cookie'
 
@@ -191,40 +186,32 @@ const getQueryParams = () => {
   return params
 }
 
-export const extractInfoFromHash = () => {
-  if (!process.browser) {
-    return undefined
-  }
-  const {id_token, state} = getQueryParams()
-  return {token: id_token, secret: state}
-}
-
-export const setToken = (token) => {
+export const setToken = (idToken, accessToken) => {
   if (!process.browser) {
     return
   }
-  window.localStorage.setItem('token', token)
-  window.localStorage.setItem('user', JSON.stringify(jwtDecode(token)))
-  Cookie.set('jwt', token)
+  Cookie.set('user', jwtDecode(idToken))
+  Cookie.set('idToken', idToken)
+  Cookie.set('accessToken', accessToken)
 }
 
 export const unsetToken = () => {
   if (!process.browser) {
     return
   }
-  window.localStorage.removeItem('token')
-  window.localStorage.removeItem('user')
-  window.localStorage.removeItem('secret')
-  Cookie.remove('jwt')
+  Cookie.remove('idToken')
+  Cookie.remove('accessToken')
+  Cookie.remove('user')
 
+  // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now())
 }
 
-export const getUserFromCookie = (req) => {
+export const getUserFromServerCookie = (req) => {
   if (!req.headers.cookie) {
     return undefined
   }
-  const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
+  const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('idToken='))
   if (!jwtCookie) {
     return undefined
   }
@@ -232,91 +219,71 @@ export const getUserFromCookie = (req) => {
   return jwtDecode(jwt)
 }
 
-export const getUserFromLocalStorage = () => {
-  const json = window.localStorage.user
-  return json ? JSON.parse(json) : undefined
+export const getUserFromLocalCookie = () => {
+  return Cookie.getJSON('user')
 }
-
-export const setSecret = (secret) => window.localStorage.setItem('secret', secret)
-
-export const checkSecret = (secret) => window.localStorage.secret === secret
-
 ```
 
-_utils/lock.js_
+_utils/auth0.js_
 
 ```js
-
-import { setSecret } from './auth'
-
-import uuid from 'uuid'
-
-const getLock = (options) => {
+const getAuth0 = (options) => {
   const config = require('../config.json')
-  const Auth0Lock = require('auth0-lock').default
-  return new Auth0Lock(config.AUTH0_CLIENT_ID, config.AUTH0_CLIENT_DOMAIN, options)
+  const auth0 = require('auth0-js');
+  return new auth0.WebAuth({
+    clientID: config.AUTH0_CLIENT_ID,
+    domain: config.AUTH0_CLIENT_DOMAIN,
+  });
 }
 
 const getBaseUrl = () => `${window.location.protocol}//${window.location.host}`
 
 const getOptions = (container) => {
-  const secret = uuid.v4()
-  setSecret(secret)
   return {
-    container,
-    closable: false,
-    auth: {
-      responseType: 'token',
-      redirectUrl: `${getBaseUrl()}/auth/signed-in`,
-      params: {
-        scope: 'openid profile email',
-        state: secret
-      }
-    }
+    responseType: 'token id_token',
+    redirectUri: `${getBaseUrl()}/auth/signed-in`,
+    scope: 'openid profile email'
   }
 }
 
-export const show = (container) => getLock(getOptions(container)).show()
-export const logout = () => getLock().logout({ returnTo: getBaseUrl() })
-
+export const authorize = () => getAuth0().authorize(getOptions())
+export const logout = () => getAuth0().logout({ returnTo: getBaseUrl() })
+export const parseHash = (callback) => getAuth0().parseHash(callback)
 ```
 
 _pages/auth/sign-in.js_
 
 ```js
-
 import React from 'react'
 
 import defaultPage from '../../hocs/defaultPage'
-import { show } from '../../utils/lock'
-
-const CONTAINER_ID = 'put-lock-here'
+import { authorize } from '../../utils/auth0'
 
 class SignIn extends React.Component {
   componentDidMount () {
-    show(CONTAINER_ID)
+    authorize()
   }
   render () {
-    return <div id={CONTAINER_ID} />
+    return null
   }
 }
 
 export default defaultPage(SignIn)
-
 ```
 
 Display the login page once the sign-in component gets mounted.
 
-![Sign in](https://cdn.auth0.com/blog/secret/sign-in.png)
+![Sign in](https://cdn.auth0.com/blog/nextjs3/login.png)
 _Sign-in page_
 
 _pages/auth/signed-in.js_
 
 ```js
-
 import React, { PropTypes } from 'react'
+import Router from 'next/router'
 
-import { setToken, checkSecret, extractInfoFromHash } from '../../utils/auth'
+import { setToken } from '../../utils/auth'
+import { parseHash } from '../../utils/auth0'
 
 export default class SignedIn extends React.Component {
   static propTypes = {
@@ -324,22 +291,23 @@ export default class SignedIn extends React.Component {
   }
 
   componentDidMount () {
-    const {token, secret} = extractInfoFromHash()
-    if (!checkSecret(secret) || !token) {
-      console.error('Something happened with the Sign In request')
-    }
-    setToken(token)
-    this.props.url.pushTo('/')
-  }
+    parseHash((err, result) => {
+      if(err) {
+        console.error('Something happened with the Sign In request')
+        return;
+      }
 
+      setToken(result.idToken, result.accessToken);
+      Router.push('/')
+    })
+  }
   render () {
     return null
   }
 }
-
 ```
 
-Grab the token and secret from Auth0 as it returns to the callback which is the signed-in page, save it and redirect to the index page.
+Grab the token and ID token from Auth0 as it returns to the callback which is the signed-in page, save it and redirect to the index page.
 
 ![Signed in](https://cdn.auth0.com/blog/signedin/authenticated.png)
 _Secret page shows that the user is signed in and can access it_
@@ -453,7 +421,7 @@ The [secret page](https://github.com/auth0-blog/next3-auth0/blob/master/pages/se
 ![Secret page unauthorized](https://cdn.auth0.com/blog/secret/notloggedin.png)
 _Not displaying valid content because the user cant access the secret page without signing in_
 
-**Note:** Nextjs exposes virtually everything to the client. Secrets and environment variables are leaked to the frontend. So if you want to perform an API call and you need to validate a token based on a **secret**, then you will have to run a [custom express server](https://github.com/zeit/next.js/tree/master/examples/custom-server-express) so that your **secret** can be available only on the server. This also applies to other forms of operations that require loading some secret environment variables that the user of your app shouldn't have access to.
+**Note:** This example performs no server side validation of the token sent by the user in its cookies. For production-ready secure pages this is necessary.
 
 > Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
 

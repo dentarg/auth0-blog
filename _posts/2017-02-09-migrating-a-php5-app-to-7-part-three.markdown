@@ -227,18 +227,17 @@ _app.css_
 ```js
 
 $(document).ready(function() {
-
-    var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, { auth: {
-          redirectUrl: AUTH0_CALLBACK_URL
-          , responseType: 'code'
-          , params: {
-              scope: 'openid'
-          }
-      }});
+    var webAuth = new auth0.WebAuth({
+        domain: AUTH0_DOMAIN,
+        clientID: AUTH0_CLIENT_ID
+    });
 
     $('.btn-login').click(function(e) {
-      e.preventDefault();
-      lock.show();
+        e.preventDefault();
+        webAuth.authorize({
+            responseType: 'code',
+            redirectUri: AUTH0_CALLBACK_URL
+        });
     });
 });
 
@@ -338,7 +337,7 @@ if (isset($_REQUEST['logout'])) {
 <html>
     <head>
         <script src="http://code.jquery.com/jquery-3.0.0.min.js" type="text/javascript"></script>
-        <script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+        <script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 
         <script type="text/javascript" src="//use.typekit.net/iws6ohy.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -448,12 +447,12 @@ This checks if the user submitted a request to log out, clears the session and r
 
 {% highlight html %}
 <script src="http://code.jquery.com/jquery-3.0.0.min.js" type="text/javascript"></script>
-<script src="https://cdn.auth0.com/js/lock/10.0/lock.min.js"></script>
+<script src="https://cdn.auth0.com/js/auth0/9.0.0/auth0.min.js"></script>
 {% endhighlight %}
 
-We are making use of [Auth0 Lock widget](https://auth0.com/lock), and we also using jQuery to call the lock methods and handle button click event.
+We are making use of [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login), and we also using jQuery to call the methods and handle button click event.
 
-> [Lock is an embeddable login form for desktop, tablet and mobile devices.](https://auth0.com/lock) It provides the easiest way of securing your website and mobile apps.
+> [Auth0's Centralized Login Page](https://auth0.com/docs/hosted-pages/login) is the most secure way to easily authenticate users for your applications. 
 
 {% highlight html %}
 <!-- font awesome from BootstrapCDN -->
@@ -511,7 +510,7 @@ _Index Page_
 
 Now, signup & signin.
 
-![Signing In](https://cdn.auth0.com/blog/app/signin.png)
+![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 _Sign In_
 
 When you are logged in, you should be assigned a Star Wars codename like so:

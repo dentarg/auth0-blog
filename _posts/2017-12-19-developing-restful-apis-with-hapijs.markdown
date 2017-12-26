@@ -85,91 +85,91 @@ Check out the [full performance result and analysis on RayGun](https://raygun.co
 
 * **Single Connection Per Server**: In Hapi v17, you have a single connection per server. The `server.connection` method has been removed. You need to initialize the connection details with the server's constructor.
 
-    ```js
-    const server = new Hapi.Server({  
-      host: 'localhost',
-      port: 3000
-    })
-    ```
+```js
+const server = new Hapi.Server({
+  host: 'localhost',
+  port: 3000
+})
+```
 
 * **Starting and Stopping Hapi Server**: In Hapi v17, the `server.start` and `server.stop` methods are fully async. No more error callbacks.
 
-    ```js
-    try {  
-      await server.start()
-    }
-    catch (err) {  
-      console.log(err)
-    }
+```js
+try {
+  await server.start()
+}
+catch (err) {
+  console.log(err)
+}
 
-    try {  
-      await server.stop()
-    }
-    catch (err) {  
-      console.log(err)
-    }
-    ```
+try {
+  await server.stop()
+}
+catch (err) {
+  console.log(err)
+}
+ ```
 
 * **reply() Callbacks removed**: In Hapi v17, the `reply` interface isn’t available anymore and you can return values from route handlers directly. The `response.hold()` and `response.resume()` methods are no longer available. A new response toolkit, `h`, is provided with helpers(instead of the `reply()` decorations).
 
-    ```js
-    // Before
+```js
+// Before
 
-    const handler = function (request, reply) {
-        return reply('ok');
-    };
+const handler = function (request, reply) {
+  return reply('ok');
+};
 
-    // After
+// After
 
-    const handler = function (request, h) {
-        return 'ok';
-    };
-    ```
+const handler = function (request, h) {
+  return 'ok';
+};
+```
 
 More examples on how to use the `h` response toolkit can be found below:
 
-    ```js
-    const handler = (request, h) => {  
-      // return a string
-      return 'ok'
+```js
+const handler = (request, h) => {
+  // return a string
+  return 'ok'
 
-      // return an object and hapi creates JSON out of it
-      return { name: 'Authentication Library', library: true }
+  // return an object and hapi creates JSON out of it
+  return { name: 'Authentication Library', library: true }
 
-      // redirect to 404
-      return h.redirect('/404')
+  // redirect to 404
+  return h.redirect('/404')
 
-      // return a view
-      return h.view('index', { name: 'Authentication Library' })
+  // return a view
+  return h.view('index', { name: 'Authentication Library' })
 
-      // use the "h" response toolkit to create a response
-      return h
-        .response(thisHTML)
-        .type('text/html')
-        .header('X-Custom', 'my-value')
-        .code(201)
-    }
-    ```
+  // use the "h" response toolkit to create a response
+  return h
+    .response(thisHTML)
+    .type('text/html')
+    .header('X-Custom', 'my-value')
+    .code(201)
+}
+```
 
 * **Events**: In Hapi v17, the three request event types(`request`, `request-interval`, and `request-error`) have been merged into a single `request` event. Emitter methods such as `server.on`, `request.on`, `response.on` should be replaced with `server.events.on()`, `request.events.on()`, and `response.events.on()` respectively. Applies to every emitter method.
 
 * **New Request Extension: onCredentials**: Before now, Hapi had `onPreAuth` and `onPostAuth`. In Hapi v17, there's a new request extension, `onCredentials`. With `onCredentials`, you have the ability to customize credentials before request authorization.
 
-    ```js
-    server.ext('onPreAuth', (request, h) => { … })  
-    server.ext('onCredentials', (request, h) => { … })  
-    server.ext('onPostAuth', (request, h) => { … })  ]
-    ````
+```js
+server.ext('onPreAuth', (request, h) => { … })
+server.ext('onCredentials', (request, h) => { … })
+server.ext('onPostAuth', (request, h) => { … }) ]
+```
 
 * **Replace `config` with `options` in Route definition**: In Hapi v17, replace `config` with `options` when adding routes. For now, `config` will still work but will be removed in the future.
 
-    ```js
-    server.route({  
-      method: 'POST',
-      path: '/',
-      options: { … }
-    })
-    ```
+```js
+server.route({
+  method: 'POST',
+  path: '/',
+  options: { … }
+})
+```
 
 * **Plugins**: In Hapi v17, the plugin function with object properties style has been replaced with a plain object. Replace the `exports.register()` and the matching `exports.register.attributes` with `exports.plugin = { register, name, version, multiple, dependencies, once, pkg }` and remove the `connections` attribute.
 
@@ -483,7 +483,7 @@ Head over to your terminal and install the following node modules:
 npm install jwks-rsa salzhrani/hapi-auth-jwt2#v-17 --save
 ```
 
-Open your `routes/index.js` file and modify it like so:
+Open your `server.js` file and modify it like so:
 
 ```js
 'use strict';
@@ -499,7 +499,6 @@ const server = new Hapi.Server({
   port: 3000,
   host: 'localhost'
 });
-
 
 const validateUser = (decoded, request, callback) => {
   // This is a simple check that the `sub` claim
