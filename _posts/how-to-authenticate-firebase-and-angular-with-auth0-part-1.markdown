@@ -40,6 +40,8 @@ related:
 
 ## How to Authenticate Firebase and Angular with Auth0: Part 1
 
+Part 1 of our tutorial will cover:
+
 1. <a href="#firebase-auth0" target="_self">Firebase and Auth0</a>
 2. <a href="#what-well-build" target="_self">What We'll Build</a>
 3. <a href="#angular-cli" target="_self">Angular CLI</a>
