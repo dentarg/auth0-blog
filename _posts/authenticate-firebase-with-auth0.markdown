@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "How to Authenticate Firebase and Angular with Auth0"
-description: "Learn how to authenticate a realtime Firebase and Angular app with AngularFire2, custom Firebase tokens, and Auth0."
+title: "How to Authenticate Firebase and Angular with Auth0: Part 1"
+description: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens."
 longdescription: "Long description should be between 230-320 characters."
 date: 2017-12-20 8:30
 category: Technical guide, Firebase, Angular
@@ -22,8 +22,7 @@ tags:
 - node
 - api
 - angularfire2
-- angularfire
-- real-time-database
+- realtime-database
 - rtdb
 - real-time
 - async
@@ -35,15 +34,11 @@ related:
 - date-postname
 ---
 
-**TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
+**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node backend and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Realtime Database](https://firebase.google.com/docs/database) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
 
 ---
 
-## Introduction
-
-In this series of tutorials, we'll learn how to build an application that secures a Node backend and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) database with custom tokens so that users can leave comments in realtime in a secure manner after logging in with Auth0.
-
-### Table of Contents
+## How to Authenticate Firebase and Angular with Auth0: Part 1
 
 1. <a href="#firebase-auth0" target="_self">Firebase and Auth0</a>
 2. <a href="#what-well-build" target="_self">What We'll Build</a>
@@ -62,15 +57,15 @@ In this series of tutorials, we'll learn how to build an application that secure
 
 ## <span id="firebase-auth0"></span>Firebase and Auth0
 
-Firebase is 
+**[Firebase](https://firebase.google.com)** is a mobile and web application development platform. Firebase was acquired by Google in 2014, and continues to be developed under the Google umbrella. Firebase provides NoSQL databases ([RTDB, or Realtime Database](https://firebase.google.com/docs/database/) and [Cloud Firestore, in beta at the time of writing](https://firebase.google.com/docs/firestore/)) hosted in the cloud and connected using web sockets to provide realtime capabilities to apps.
 
-Auth0 is
+**[Auth0](https://auth0.com)** is a cloud-based platform that provides authentication and authorization as a service. As an authentication provider, Auth0 enables developers to easily implement and customize login and authorization security for their apps.
 
 ### Choosing Auth0 + Firebase Authentication
 
-One great question that you might be asking is: why would we implement Auth0 with custom tokens in Firebase instead of sticking with [Firebase's built-in authentication](https://firebase.google.com/docs/auth/) by itself?
+If you're already familiar with Firebase's offerings, you might be asking: why would we implement Auth0 with custom tokens in Firebase instead of sticking with [Firebase's built-in authentication](https://firebase.google.com/docs/auth/) by itself?
 
-Firstly, there is an important distinction to make here. Using Auth0 to secure Firebase does not mean you are _not_ using Firebase auth. Firebase has a [custom auth approach](https://firebase.google.com/docs/auth/web/custom-auth) that allows developers to integrate their preferred authentication solution _with_ Firebase auth. This approach enables developers to implement Firebase auth so that it functions seamlessly with proprietary systems or other authentication providers.
+Firstly, there is an important distinction to make here. Using Auth0 to secure Firebase does not mean you are _not_ using Firebase auth. Firebase has a [custom authentication approach](https://firebase.google.com/docs/auth/web/custom-auth) that allows developers to integrate their preferred identity solution _with_ Firebase auth. This approach enables developers to implement Firebase auth so that it functions seamlessly with proprietary systems or other authentication providers.
 
 There are many potential reasons we might want to integrate Auth0 with Firebase authentication. Alternatively, there are scenarios where using basic Firebase auth by itself could suffice. Let's explore.
 
@@ -1445,10 +1440,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { environment } from './../../environments/environment';
 import { AuthService } from './../auth/auth.service';
 import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import { Dog } from './../core/dog';
 import { DogDetail } from './../core/dog-detail';
-import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
@@ -1457,13 +1452,11 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    public auth: AuthService) { }
+    private auth: AuthService) { }
 
   getDogs$(): Observable<Dog[]> {
     return this.http
-      .get(`${this._API}/dogs`, {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${this._accessToken}`)
-      })
+      .get(`${this._API}/dogs`)
       .pipe(
         catchError(this._handleError)
       );
@@ -1491,6 +1484,32 @@ export class ApiService {
 }
 ```
 
+We'll add the necessary imports to handle HTTP in Angular along with the environment configuration, `AuthService`, RxJS imports, and `Dog` and `DogDetail` models we just created. We'll set up private members for the `_API` and to store the `_accessToken`, then make the `HttpClient` and `AuthService` available privately to our API service.
+
+Our API methods will return observables that emit one value when the API is either called successfully or an error is thrown. The `getDogs$()` stream returns an observable with an array of objects that are `Dog`-shaped. The `getDogByRank$(rank)` stream requires a numeric rank to be passed in, and will then call the API to retrieve the requested `Dog`'s data. This API call will send an `Authorization` header containing the authenticated user's access token.
+
+Finally, we'll create an error handler that checks for errors and assesses if the user is not authenticated, prompting for login if so. If not, the observable will terminate with the error.
+
 ## <span id="next-steps"></span>Next Steps
 
+We've already accomplished a lot in the first part of our tutorial series. In the next part, we'll finish our Popular Dogs application. In the meantime, here are some additional resources that you may want to check out:
 
+### Angular Testing Resources
+
+If you're interested in learning more about testing in Angular, which we will not cover in this tutorial, please check out some of the following resources:
+
+* [Angular - Testing](https://angular.io/guide/testing)
+* [Angular Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/)
+* [Angular Testing In Depth: HTTP Services](https://auth0.com/blog/angular-testing-in-depth-http-services/)
+* [Angular Testing In Depth: Components](https://auth0.com/blog/angular-testing-in-depth-components)
+* [How to correctly test Angular 4 application with Auth0 integration](https://stackoverflow.com/questions/43784314/how-to-correctly-test-angular4-application-with-auth0-integration)
+
+### Additional Resources
+
+* [Auth0 Documentation](https://auth0.com/docs)
+* [Firebase Documentation](https://firebase.google.com/docs/)
+* [AngularFire2 Documentation](https://github.com/angular/angularfire2/tree/master/docs)
+* [Angular Documentation](https://angular.io)
+* [Angular Cheatsheet](https://angular.io/guide/cheatsheet)
+
+In the next installment of our Auth0 + Firebase + Angular tutorial, we'll **display data from our dogs API** and learn how to **set up and implement realtime comments with Firebase**!
