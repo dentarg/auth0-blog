@@ -13,7 +13,7 @@ author:
   mail: "vincenzo@express-gateway.io"
   avatar: "https://pbs.twimg.com/profile_images/932249086333464576/DacF9HCu_400x400.jpg"
 design:
-  image: https://files.slack.com/files-pri/T1A1RP5RC-F8KQ7635J/expressgateway_logomark__1_.png?pub_secret=1bef851091
+  image: https://github.com/ExpressGateway/express-gateway/blob/master/logo/mark-only/ExpressGateway_logomark.png?raw=true
   image_size: 85%
   image_bg_color: "#ffffff"
   bg_color: "#00728E"
@@ -122,7 +122,7 @@ Express Gateway is an API Gateway that sits at the heart of any microservices ar
 or platform you're using, securing your microservices and exposing them through APIs using [Node.js][11],
 [ExpressJS][12] and [Express middleware][13].
 
-![](./eg-diagram.png)
+![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/eg-diagram.png)
 
 It centralizes all of the application configuration for the API use case into one YAML(or JSON) file. Within the YAML
 file is an easy to understand description of how and what is configured.
@@ -230,7 +230,7 @@ identify your API, this field cannot be changed once set. For our example, I'll 
 the identifier I'll set it as http://orders. We'll leave the signing algorithm as RS256 and click on the
 Create API button.
 
-![](./create-api.png)
+![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/create-api.png)
 
 Now point your browser to `https://yourApi.auth.com/pem` and download the public key file. This is the key we will
 use to verify that the JSON Web Tokens issued by Auth0 are valid. Save it as `pubKey.pem` and place it in the same
@@ -260,11 +260,11 @@ authentication phase (policies are executed following the definition order in th
 Now grab any Http client and let's configure it to start an OAuth2 authorization process against our API hosted in Auth0.
 We can grab all the necessary parameters going on _Clients_ -> _Settings_ -> _Advanced Settings_ -> _Endpoints_
 
-![](./auth0-endpoints.png)
+![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/auth0-endpoints.png)
 
 In my case, I am going to use [Insomnia](https://insomnia.rest) but you can use the one you prefer.
 
-![](./insomnia.png)
+![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/insomnia.png)
 
 Now by simply clicking on the _Fetch token_ button, the oAuth2 flow will be initiated and once over, a JWT will
 be populated under the *access_token* field.
