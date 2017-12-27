@@ -13,8 +13,10 @@ author:
   mail: "vincenzo@express-gateway.io"
   avatar: "https://pbs.twimg.com/profile_images/932249086333464576/DacF9HCu_400x400.jpg"
 design:
-  image: https://cdn.auth0.com/blog/lumen/logo.png
-  bg_color: "#FFFFFF"
+  image: https://files.slack.com/files-pri/T1A1RP5RC-F8KQ7635J/expressgateway_logomark__1_.png?pub_secret=1bef851091
+  image_size: 85%
+  image_bg_color: "#ffffff"
+  bg_color: "#00728E"
 tags:
 - javascript
 - nodejs
