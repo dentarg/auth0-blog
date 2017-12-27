@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Why Every Business Needs Two-Factor Authentication Security"
-description: "Add Extra security To your company's Data without giving up the mobility your employees expect."
-date: 2017-12-05 08:30
-category: Growth, Security
+description: "Add Extra security to your company's Data without giving up the mobility your employees expect."
+date: 2017-12-27 08:30
+category: Growth, Security, Multifactor
 author:
   name: Martin Gontovnikas
   url: http://twitter.com/mgonto
@@ -19,13 +19,14 @@ tags:
 - multifactor
 - business
 related:
-- 2017-11-29-5-massive-benefits-of-identity-as-a-service-for-developers.markdown
-- 2017-11-27-how-data-analytics-can-transform-your-business.markdown
+- 2017-11-29-5-massive-benefits-of-identity-as-a-service-for-developers
+- 2017-11-27-how-data-analytics-can-transform-your-business
+- 2017-12-15-why-your-iam-definition-of-user-could-be-costing-you-millions
 ---
 
 When is the last time you saw a jewelry shop protect their diamonds with a simple lock and key? Even before extra layers of security like alarms, motion detectors, and [biometrics](https://en.wikipedia.org/wiki/Biometrics) were invented, jewelers hid their diamonds and even put out fakes to deter criminals.   
 
-In your company, data is as valuable as those diamonds — so why are you protecting it with a simple username and password?
+In your company, data is as valuable as those diamonds — so why are you protecting it with a [simple username and password?](https://auth0.com/blog/modern-authentication-for-your-clients-made-easy/;)
 
 Passwords are the keys that access your company's data, but like the traditional lock and key, any mediocre cybercriminal can easily decipher your password. In fact, it's now possible for your mother to easily hack your Facebook account.
 
