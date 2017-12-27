@@ -99,7 +99,7 @@ We're going to build a Node.js API secured with Auth0 that mints custom Firebase
 
 We'll also build an Angular front-end app called "Popular Dogs" that displays information about the ten most popular dogs in 2016, ranked by public popularity by the American Kennel Club (AKC). Our app will be secured by Auth0, call the Node API to fetch dog data, and call the API to acquire Firebase tokens to authorize users to add and delete comments in realtime. The app will use shared modules as well as implement lazy loading.
 
-![Angular Firebase app with Auth0 custom tokens](https://cdn.auth0.com/blog/angular-firebase/dogs.jpg)
+![Angular Firebase app with Auth0 custom tokens](https://cdn.auth0.com/blog/firebase-auth0/dogs.jpg)
 
 To implement the app, you will need the following:
 
@@ -1366,8 +1366,8 @@ Next open the `header.component.html` file and add:
       Logging in...
     </small>
     <span *ngIf="auth.loggedIn">
-      <img [src]="auth.userProfile?.picture">
-      <small>{{ auth.userProfile?.name }}</small>
+      <img [src]="auth.userProfile.picture">
+      <small>{{ auth.userProfile.name }}</small>
       <button
         class="btn btn-danger btn-sm"
         (click)="auth.logout()">Log Out</button>
