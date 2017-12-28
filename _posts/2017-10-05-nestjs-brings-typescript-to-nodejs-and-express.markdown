@@ -439,12 +439,10 @@ Let's create this class in a new file called `company.ts` in the `./src/` direct
 export class Company {
     name: string;
     industry: string;
-    address: string;
 
-    constructor(name: string, industry: string, address: string) {
+    constructor(name: string, industry: string) {
         this.name = name;
         this.industry = industry;
-        this.address = address;
     }
 }
 ```
