@@ -46,6 +46,9 @@ This has several benefits compared to a monolithic approach:
 * It enables to select the framework and the programming language that you think it's the best for the job. You can
 use the latest technologies on a microservice while keep the other parts in legacy mode.
 
+* It improves your teams agility, the ability to iterate on a small, focused piece of functionality quickly and to see
+results.
+
 * A crash of a microservice **does not halt** your entire system; you can gracefully degrade the experience.
 
 The above points can be summarized with two keywords: **indipendence** and **isolation**.
@@ -98,7 +101,9 @@ Microservices need a **superglue**. That glue is an **API Gateway**.
 
 An _API Gateway_ is a centralized middleware that encapsulates the internal system architecture and provides an API that
 can be shaped based on real client needs rather than simply returning what the particular microservice is sending you
-back. It can have other responsibilities such as _authentication, monitoring, load balancing, caching, request shaping_
+back, effectively implementing the **facade pattern** in the microservices world.
+
+It can have other responsibilities such as _authentication, monitoring, load balancing, caching, request shaping_
 _and management, and static response handling._
 
 # In practice
