@@ -49,7 +49,8 @@ use the latest technologies on a microservice while keep the other parts in lega
 * It improves your teams agility, the ability to iterate on a small, focused piece of functionality quickly and to see
 results.
 
-* A crash of a microservice **does not halt** your entire system; you can gracefully degrade the experience.
+* It improves the resiliency of your system because a crash of a microservice **does not halt** your entire system; you
+can gracefully degrade the user experience.
 
 The above points can be summarized with two keywords: **indipendence** and **isolation**.
 
@@ -62,7 +63,7 @@ microservices.
 
 # Challenges
 
-The challenge though is — With microservices the knowledge is spread on multiple little pieces; but on the other hand
+The challenge though is — with microservices the knowledge is spread on multiple little pieces; but on the other hand
 the end game of your application is, most of the time, the exposure of what you're building through an **uniform API**.
 
 So we have two sides of the same coin: on one we want to break up our app into a set of services and evergreen them —
@@ -113,16 +114,18 @@ Let's move from the theory to the practice and see how to configure an API Gatew
 Let's suppose we have a customer and an order microservices listening `http://customers` and `http://orders`. Using
 [Docker][9] or [Kubernetes][10] achieving such scenario should be fairly easy.
 
-We will configure an instance of a Gateway in order to throttle all the requests based on client's IP address
-and put our two microservices beyond an authentication based on a **JWT** that _Auth0_ is going to provide — being our
-**system of record** for our users.
+We will configure an instance of a Gateway that will sit on the edge of our system. It will serve as a router for our
+microservices but we'll also move some shared logic from the microservices to it so the application can focus on the
+business logic. The gateway will throttle all the requests based on client's IP address and make sure that all the
+requests will be an authenticated based on a **JWT** that _Auth0_ is going to provide — being our **system of record**
+for our users.
 
 There are multiple API Gateways on the market: some are offered by big software companies as a managed hosted solution;
 there are open source products as well and you can technically write your own too.
 
 For this purpose, we're going to employ [Express-Gateway][3].
 
-## Introducing Express-Gateway
+## Meet Express-Gateway
 
 Express Gateway is an API Gateway that sits at the heart of any microservices architecture, regardless of what language
 or platform you're using, **securing** your microservices and exposing them through **APIs** using [Node.js][11],
@@ -135,7 +138,8 @@ file is an easy to understand description of how and what is configured.
 
 Express Gateway entities, like _policies_, _pipelines_, _conditions_, and _actions_, wrap around Express middleware to
 make it **dynamic**. Any Express middleware can be plugged into Express Gateway to take advantage of its dynamic
-capabilities.
+capabilities. It also features an hot-reload mechanism so you can change its configuration without having to restart
+the gateway at all.
 
 ### Hands on
 
@@ -283,10 +287,24 @@ making sure that the token is now sent as a `Bearer` Authorization endpoint. The
 
 ## Conclusions
 
-We've learned the basic usage of Express-Gateway through a simple use case. However, this is just the tip of the iceberg.
+Thanks to [Express-Gateway][3], we have moved two shared concerns (authentication and rate limiting) from the
+microservices to a centralized middleware that — no matter how many microservices we're going to have — it is going to
+behave in a consistent way.
 
-An API Gateway can be useful in a lot of more situations such as traffic control, request/response trasformations, CORS
-support and [a lot of other ones](http://www.express-gateway.io/resources/).
+We can now safely remove the code handling that from our microservices and assume that, if they're receiving a request,
+it's both **authenticated** and it passed the **rate-limit** checks. You now have **guarantees**.
+
+However, this is just the tip of the iceberg.
+
+The benefits of an API Gateway do not stop here. In this example, we've shown how it can make some checks on **inboud**
+requests, but it can also be used to modify the **outbound** responses.
+
+In the initial part of the article, we were talking about the uniform API. An API Gateway could transform the response
+coming from a particular microservice so that the returned payload is consistent with the other microservices, even
+though the original data is shaped in a different way. Hopefully, we will explore this in a future article.
+
+In meantime, you can see some other interesting use cases on
+[Express-Gateway website](http://www.express-gateway.io/resources/).
 
 [1]: http://microservices.io
 [2]: http://www.zdnet.com/article/soa-done-right-the-amazon-strategy/
