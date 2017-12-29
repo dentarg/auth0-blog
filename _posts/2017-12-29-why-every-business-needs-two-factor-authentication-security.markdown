@@ -2,7 +2,7 @@
 layout: post
 title: "Why Every Business Needs Two-Factor Authentication Security"
 description: "Add Extra security to your company's Data without giving up the mobility your employees expect."
-date: 2017-12-27 08:30
+date: 2017-12-29 08:30
 category: Growth, Security, Multifactor
 author:
   name: Martin Gontovnikas
