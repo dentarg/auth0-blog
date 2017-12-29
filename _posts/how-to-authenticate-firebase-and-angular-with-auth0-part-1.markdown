@@ -23,7 +23,8 @@ tags:
 - api
 - angularfire2
 - realtime-database
-- rtdb
+- cloud-firestore
+- firestore
 - real-time
 - async
 - auth0
@@ -73,7 +74,7 @@ There are many potential reasons we might want to integrate Auth0 with Firebase 
 
 You can use **Firebase's built-in authentication by itself** if you:
 
-* Only want to authenticate Firebase RTDBs or Firestore and have no need to authenticate additional backends
+* Only want to authenticate Firebase RTDB or Firestore and have no need to authenticate additional backends
 * Only need a small handful of login options and do not need enterprise identity providers, integration with your own user storage databases, etc.
 * Do not need extensive user management, profile enrichment, etc. and are comfortable [managing users strictly through an API](https://firebase.google.com/docs/auth/web/manage-users)
 * Have no need to customize authentication flows
@@ -97,7 +98,7 @@ Essentially, Firebase's basic authentication providers should suffice if you hav
 
 We're going to build a Node.js API secured with Auth0 that mints custom Firebase tokens and also returns data on ten different dog breeds.
 
-We'll also build an Angular front-end app called "Popular Dogs" that displays information about the ten most popular dogs in 2016, ranked by public popularity by the American Kennel Club (AKC). Our app will be secured by Auth0, call the Node API to fetch dog data, and call the API to acquire Firebase tokens to authorize users to add and delete comments in realtime. The app will use shared modules as well as implement lazy loading.
+We'll also build an Angular front-end app called "Popular Dogs" that displays information about the ten most popular dogs in 2016, ranked by public popularity by the American Kennel Club (AKC). Our app will be secured by Auth0, call the Node API to fetch dog data, and call the API to acquire Firebase tokens to authorize users to add and delete comments in realtime with Cloud Firestore. The app will use shared modules as well as implement lazy loading.
 
 ![Angular Firebase app with Auth0 custom tokens](https://cdn.auth0.com/blog/firebase-auth0/dogs.jpg)
 
