@@ -30,7 +30,9 @@ related:
 
 ## Simulating B2C Portals
 
-To simulate the B2C portals and to focus on the Single Sign-On integration process, we are going to clone a GitHub repository that contains two applications: one simple RESTful API written in JavaScript that runs on Node.js; and one client side application written with React.
+To simulate the B2C portals and to focus on the Single Sign-On integration process, we are going to clone a GitHub repository that contains two applications: one simple backend API written in JavaScript that runs on Node.js; and one client side application written with React.
+
+In the following sections, we are going to use these applications to simulate two portals. These portals will be pretty similar. The difference between them is that one will simulate a portal that sells products to be used at home, and the other one will simulate a portal that sells products to be used by kids (toys).
 
 To clone the GitHub repository, we can issue the following command:
 
@@ -41,9 +43,12 @@ git clone https://github.com/auth0-blog/react-b2c-sso.git
 
 ### Running the Backend Instances
 
-After cloning this repository, we are going to install its dependencies and then we are going to bootstrap the two backend instances to support our portals:
+After cloning this repository, we are going to install the dependencies of the backend and then we are going to bootstrap two instances to support our portals:
 
 ```bash
+# change working directory
+cd react-b2c-sso/server/
+
 # install backend dependencies
 npm i
 
@@ -60,7 +65,7 @@ export REACT_APP_REST_PORT=4001
 npm start &
 ```
 
-Note that we are using an environment variable called `REACT_APP_REST_PORT` to define on what port our backend instances will run. Besides defining on what port the backend runs, this variable is also used to define what is the type of the backend. The backend instance running on port `3001` will return products used at home. The backend running on port `4001` will return products used by kids.
+Note that we are using an environment variable called `REACT_APP_REST_PORT` to define on what port our backend instances will run. Besides defining on what port they run, this variable also sets the type of the backend. The backend instance running on port `3001` will return products to be used at home. The backend running on port `4001` will return products to be used by kids.
 
 Let's check if both backend instances are running properly:
 
