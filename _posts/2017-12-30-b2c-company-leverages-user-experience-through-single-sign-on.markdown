@@ -53,12 +53,18 @@ cd react-b2c-sso/server/
 npm i
 
 # define port to run the first backend
+export PORT=3000
+
+# define the backend that will handle requests
 export REACT_APP_REST_PORT=3001
 
 # run the first backend instance
 npm start &
 
 # define port to run the second backend
+export PORT=4000
+
+# define the backend that will handle requests
 export REACT_APP_REST_PORT=4001
 
 # run the second backend instance
@@ -76,6 +82,34 @@ curl localhost:3001/products
 # retrieve products used by kids
 curl localhost:4001
 ```
+
+### Running the Client Side Applications
+
+Now that we have both backend APIs ready to handle requests, let's take care of the client side applications. The process, as we will see, will be easy as before. The following commands will install the dependencies of the client side application and will run two different instances. The purpose of these instances, exactly like the backend instances, will be to simulate two different portals. One that exposes products to use at home and one to expose products to be used by kids.
+
+```bash
+# change working directory to client side app root
+cd ..
+
+# install client side dependencies
+npm i
+
+# run the first client side application
+export PORT=3000
+export REACT_APP_REST_PORT=3001
+npm start &
+
+# run the second client side application
+export PORT=4000
+export REACT_APP_REST_PORT=4001
+npm start &
+```
+
+As we can see, the first portal (the one that will show products to be used at home) will run on port `3000` and the second portal (the one that will show product to be used by kids) will run on port `4000`.
+
+We can see both portals running by opening [`http://localhost:3000`](http://localhost:3000) and [`http://localhost:4000`](http://localhost:4000) on a web browser.
+
+![Client side application running without identity management](https://cdn.auth0.com/blog/react-b2c-sso/portal.png)
 
 ## Securing the Portals with Auth0
 
