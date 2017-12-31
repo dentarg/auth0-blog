@@ -133,4 +133,84 @@ Now it's time to do the same process for our second API, the one that will show 
 
 After that, we have to add the same scope to this new API. As such, let's click on the "Scopes" tab and add the `get:products` scope.
 
+### Securing the Backend Application with Auth0
+
+With both APIs correctly configured on our Auth0 account, it's time to secure the backend application. To understand how this is done, we will add a new endpoint to accept purchases from authenticated customers only. Unauthenticated visitor won't be able to use this endpoint.
+
+As our backend is a Node.js API written with [Express](https://expressjs.com/), we will install and configure three NPM packages:
+
+- [`express-jwt`](https://github.com/auth0/express-jwt), an Express middleware that validates JWTs;
+- [`express-jwt-authz`](https://github.com/auth0/express-jwt-authz), an Express middleware that validates JWT scopes;
+- and [`jwks-rsa`](https://github.com/auth0/node-jwks-rsa), a library to retrieve RSA public keys from a [JWKS (JSON Web Key Set) endpoint](https://auth0.com/docs/jwks).
+
+Let's start by installing these dependencies:
+
+```bash
+# change working directory to server
+cd server
+
+# install NPM dependencies
+npm i express-jwt express-jwt-authz jwks-rsa
+```
+
+After that, we will refactor the `server.js` file in the `server` directory to use these packages:
+
+```javascript
+// ... other imports
+const jwt = require('express-jwt');
+const jwtAuthz = require('express-jwt-authz');
+const jwksRsa = require('jwks-rsa');
+
+// ... express app and products endpoint definition
+
+const checkJwt = jwt({
+  // dynamically provide a signing key based on the kid in the header
+  // and the singing keys provided by the JWKS endpoint.
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/.well-known/jwks.json`
+  }),
+  // Validate the audience and the issuer.
+  audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+  issuer: `https://${process.env.REACT_APP_AUTH0_DOMAIN}//`,
+  algorithms: ['RS256']
+});
+
+// new endpoint to accept purchases from authenticated customers
+app.post('/buy', checkJwt, jwtAuthz([ 'get:products' ]), (req, res) => {
+  res.status(201).send({message: 'Thank you for buying. You make me happy!'});
+});
+
+// ... call to app.listen
+```
+
+As we can see, securing backend applications with Auth0 is really easy. In the case of a Node.js and Express combo, we just imported the three packages that we installed and configured two middleware to validate JWTs and their scopes.
+
+With these changes in place, we can run secured instances of our backend:
+
+```bash
+# configure env variable to point to our Auth0 domain
+export REACT_APP_AUTH0_DOMAIN=bk-samples.auth0.com
+
+# define the audience and port of the first backend application
+export REACT_APP_AUTH0_AUDIENCE=https://homeproducts.ourcompany.com
+export REACT_APP_REST_PORT=3001
+npm start &
+
+# define the audience and port of the second backend application
+export REACT_APP_AUTH0_AUDIENCE=https://kidsproducts.ourcompany.com
+export REACT_APP_REST_PORT=4001
+npm start &
+```
+
+What is important to note here is that now we use three environment variables in our backend applications:
+
+- `REACT_APP_AUTH0_DOMAIN`, an env variable that points to our Auth0 domain;
+- `REACT_APP_AUTH0_AUDIENCE`, an env variable that points to the identifier of one of the Auth0 APIs that we created in the previous section;
+- and `REACT_APP_REST_PORT`, an env variable that defines on what port our backend will listen for requests.
+
+Now, our backend contains a new endpoint that accepts purchases from authenticated users. As such, we can focus on the client side application and the Single Sign-On integration.
+
 ## Conclusion
