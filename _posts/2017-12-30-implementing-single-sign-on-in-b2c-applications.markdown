@@ -2,7 +2,7 @@
 layout: post
 title: "Implementing Single Sign-On in B2C Applications"
 description: "Learn how a B2C Company implemented Single Sign-On to provide seamless integration between different e-commerce portals."
-longdescription: "Learn how a B2C Company implemented Single Sign-On to provide seamless integration between different e-commerce portals."
+longdescription: "Let's learn how easily implement Single Sign-On to provide seamless integration between different B2C portals. We will start by bootstrapping two instances of an application (to simulate these portals), then we will secure these instances with Auth0 and add Single Sign-On to show how easy it is."
 date: 2017-12-29 20:10
 category: Technical Guide, Identity, Single Sign-On
 author:
