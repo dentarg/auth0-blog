@@ -1244,7 +1244,7 @@ Our `auth0-login` element will include the following:
 * Auth0 configuration.
 * A greeting with profile image and logout button to show when the user is authenticated.
 
-> **Important security note:** In this demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
+> **Important security note:** In this demo, we're adding authentication to the client side but we are not securing a backend. If you have an API for your application, the API should _always_ be secured. The [`id_token` should not be used to secure an API](https://auth0.com/blog/why-should-use-accesstokens-to-secure-an-api); instead, use an `access_token` with the appropriate configuration. You can read about how to [implement API authentication with Auth0](https://auth0.com/docs/apis) with [implicit grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant).
 
 Let's create the dependency element: `/src/auth0-js.html`. Create a new file and add the following:
 
