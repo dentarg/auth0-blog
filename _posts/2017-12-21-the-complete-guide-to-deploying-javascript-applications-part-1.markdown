@@ -14,8 +14,9 @@ author:
   mail: prosper.otemuyiwa@auth0.com
   avatar: https://en.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=200
 tags:
-- php
-- laravel
+- node
+- node.js
+- guide
 - heroku
 - deployment
 related:
@@ -665,39 +666,34 @@ The service we'll use for deploying our backend Node.js app is **Amazon Elastic 
 - Sign up for an [AWS account](https://aws.amazon.com/account/) if you don't have one.
 - Head over to [Elastic Beanstalk console](https://us-west-2.console.aws.amazon.com/elasticbeanstalk).
 - Create a new app.
-    ![Create new app](https://cdn2.auth0.com/blog/ultimateguideaws/createnewapp.png)
+    ![Create new app](https://cdn.auth0.com/blog/jsdeploy/awscreatenewapp.png)
 - Click on `create web server`.
-    ![Create web server](https://cdn2.auth0.com/blog/ultimateguideaws/createwebserver.png)
+    ![Create web server](https://cdn.auth0.com/blog/jsdeploy/awscreatewebserver.png)
 - Create the webserver environment.
-    ![Environment type](https://cdn2.auth0.com/blog/ultimateguideaws/environmentype.png)
+    ![Environment type](https://cdn.auth0.com/blog/jsdeploy/awsenvironmentype.png)
 - Upload your code. Elastic Beanstalk requires that you upload a zip file of your codebase. You can manually zip it up. But I prefer to do that from my terminal like so:
 
     ```bash
-     zip ../starwarsapp.zip -r * .[^.]*
+     zip ../meetupservice.zip -r * .[^.]*
     ```
 - Now, upload it to AWS like so:
-    ![Upload code to AWS](https://cdn2.auth0.com/blog/ultimateguideaws/uploadcode.png)
+    ![Upload code to AWS](https://cdn.auth0.com/blog/jsdeploy/awsuploadcode.png)
 - Check availability for the app URL. Mine looks like this:
-    ![URL](https://cdn2.auth0.com/blog/ultimateguideaws/url.png)
-- The next page allows us to configure Database Instance. Now our app doesn't require one, so we can skip it.
-    ![Skip setting up DB Instance](https://cdn2.auth0.com/blog/ultimateguideaws/skip.png)
-- This step allows to modify our configuration details. The default one is okay for our app.
-    ![Configuration details](https://cdn2.auth0.com/blog/ultimateguideaws/config.png)
-- Now, add your environment variables like so:
-    ![Environment Variables](https://cdn2.auth0.com/blog/ultimateguideaws/environment_vars.png)
-
-  **Note:** Now grab the URL, in my case it is `http://starwarzapp.us-west-2.elasticbeanstalk.com` and add to **Allowed Origins(CORS)** and **Allowed Callback URLs** in your [Auth0 dashboard](https://manage.auth0.com). Ensure that you add it as an environment variable in Elastic Beanstalk too.
-
+    ![URL](https://cdn.auth0.com/blog/jsdeploy/awsavailableurl.png)
+- The next page allows us to configure Database Instance. Now our app already uses a remote mongoDB instance, so we can skip it.
+    ![Skip setting up DB Instance](https://cdn.auth0.com/blog/jsdeploy/awskip.png)
+- This step allows us to modify our configuration details. The default one is okay for our app.
+    ![Configuration details](https://cdn.auth0.com/blog/jsdeploy/awsdefaultconfig.png)
+- The next step requires that we add any environment variables. Our app does not require one, so we'll skip this step.
 - Add Permission like so:
-    ![Permission](https://cdn2.auth0.com/blog/ultimateguideaws/permission.png)
+    ![Permission](https://cdn.auth0.com/blog/jsdeploy/awspermission.png)
 - Review the information before launching.
-    ![Review](https://cdn2.auth0.com/blog/ultimateguideaws/review.png)
 - Launch.
 
-![Deployed](https://cdn2.auth0.com/blog/ultimateguideaws/deployed.png)
+![Deployed](https://cdn.auth0.com/blog/jsdeploy/awsdeployed.png)
 
-![Live app](https://cdn2.auth0.com/blog/ultimateguideaws/landingpage.png)
-_Live app_
+![Live app](https://cdn.auth0.com/blog/jsdeploy/awsmeetupservicelive.png)
+_Live Backend Service_
 
 ### Caching and Cron Jobs
 
@@ -712,9 +708,10 @@ Companies like [AirBnb](https://www.airbnb.com), [Healthguru](http://www.healthg
 
 You can set up a cron job on Elastic Beanstalk. Learn how to run cron jobs on [Amazon Web Services(AWS) Elastic Beanstalk](https://medium.com/@joelennon/running-cron-jobs-on-amazon-web-services-aws-elastic-beanstalk-a41d91d1c571).
 
+We have worked on a lot of database and code deployments. It's time for you to take a break!
 
 ## Conclusion
 
-There is no way we can cover all the different options available for deploying JavaScript backend/API applications or services. Here, we have covered deploying databases and Node.js backends to the cloud. 
+There is no way we can cover all the different options available for deploying database and JavaScript backend/API applications or services. Here, we have covered deploying databases and Node.js backends to the cloud. 
 
-In the next post, we'll cover deploying JavaScript frontends and static websites. Stay tuned!
+In the next post, we'll connect everything together by covering the deployment of JavaScript Single Page Applications and static websites. Stay tuned!
