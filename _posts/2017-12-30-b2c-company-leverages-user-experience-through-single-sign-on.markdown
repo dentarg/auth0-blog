@@ -241,8 +241,239 @@ We have finished creating the first Auth0 Client. Now, to create the second one,
 
 After saving the second client, let's take note of the "Client ID" property as well.
 
-## Using SSO and Social Logins
+### Securing the Client Side Applications with Auth0
+
+To secure the client applications with Auth0, we will need only one external dependency: [`auth0-web`](https://github.com/brunokrebs/auth0-web). This library is a wrapper around [`auth0.js`](https://github.com/auth0/auth0.js) that favors convention over configuration. To install it, let's issue the following command in the project root:
+
+```bash
+npm i auth0-web
+```
+
+When users successful login with Auth0, they are redirected to our application with their JWTs included as hashes in the URL. To handle these hashes and to show a nice message while we process them, let's create a component called `Callback`. To do that, let's add a new directory inside `src` called `Callback` and create a file on it called `Callback.js`. In this file, we will add:
+
+```javascript
+import React, {Component} from 'react';
+import * as Auth0 from "auth0-web";
+
+class Callback extends Component {
+  componentWillMount() {
+    Auth0.handleAuthCallback();
+  }
+
+  render() {
+    return (
+      <div>Loading profile...</div>
+    );
+  }
+}
+
+export default Callback;
+```
+
+The magic here will happen in the `Auth0.handleAuthCallback` function call. This function will parse hashes and, if it finds tokens, load users profiles.
+
+After creating this component, let's refactor the `App.js` file to use it and also to bootstrap `auth0-web` with the correct properties:
+
+```javascript
+import React, {Component} from 'react';
+import {Route, withRouter, Redirect} from 'react-router-dom';
+import Header from './Header/Header.js';
+import Home from './Home/Home.js';
+import * as Auth0 from 'auth0-web';
+import Callback from "./Callback/Callback";
+
+Auth0.configure({
+  domain: process.env.REACT_APP_AUTH0_DOMAIN,
+  audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+  clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+  redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
+  responseType: 'token id_token',
+  scope: 'openid get:products'
+});
+
+class App extends Component {
+
+  componentWillMount() {
+    const self = this;
+
+    Auth0.subscribe(async (signedIn) => {
+      if (signedIn) {
+        return self.setState({signedIn});
+      }
+
+      const ssoStatus = await Auth0.silentAuth('b2c-sso', process.env.REACT_APP_AUTH0_AUDIENCE, 'openid get:products');
+
+      self.setState({
+        signedIn: ssoStatus
+      });
+    });
+  }
+
+  render() {
+    const {pathname} = this.props.location;
+    if (Auth0.isAuthenticated() && pathname === '/callback') {
+      return <Redirect to="/"/>
+    }
+    return (
+      <div className="app">
+        <Route path="/" component={Header}/>
+        <Route exact path="/" component={Home}/>
+        <Route path="/callback" component={Callback}/>
+      </div>
+    );
+  }
+}
+
+// withRouter makes component route-aware so we can check `this.props.location`
+export default withRouter(props => <App {...props}/>);
+```
+
+There are only a few differences between this version and the previous, unsecured one:
+
+- Now we are bootstrapping the `auth0-web` library with four environment variables (`REACT_APP_AUTH0_DOMAIN`, `REACT_APP_AUTH0_AUDIENCE`, `REACT_APP_AUTH0_CLIENT_ID`, `REACT_APP_AUTH0_REDIRECT_URI`) and with the `get:products` scope that we configured on our Auth0 APIs.
+- We have configured the `componentWillMount` life cycle method to subscribe to `auth0-web` events. Now, if our users are not authenticated, we use the `silentAuth` method of `auth0-web` to Single Sign-On them. Of course, if they are not yet authenticated with Auth0, `ssoStatus` will be set to false (unauthenticated) and vice versa.
+- We have configured our app to redirect users to the home page when they reach `/callback`.
+
+Right now, we are not providing means to users manually initiate the authentication process, nor to allow them to sign out. To do that, let's add two buttons in the `Header` component (`Header.js` file) and make them trigger these processes:
+
+```javascript
+import React, {Component} from 'react';
+import './Header.css';
+import * as Auth0 from 'auth0-web';
+import Button from '../DOMElements/Button/Button';
+
+class Header extends Component {
+  render() {
+    const authenticated = Auth0.isAuthenticated();
+    return (
+      <div className="app-header">
+        <h1>B2C Store</h1>
+        <div className="app-header-links">
+          {!authenticated && <Button text="Sign In with Auth0" onClick={Auth0.signIn}/>}
+          {authenticated && <Button text="Sign Out" onClick={this.logout}/>}
+        </div>
+      </div>
+    );
+  }
+
+  logout() {
+    Auth0.signOut({
+      returnTo: process.env.REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI,
+      clientID: process.env.REACT_APP_AUTH0_CLIENT_ID
+    });
+  }
+}
+
+export default Header;
+```
+
+In this new version, we are now showing a button called "Sign In with Auth0" that, when clicked, triggers the `signIn` method of `auth0-web`. We are also showing a button (for authenticated users only) called "Sign Out" that calls the `logout` method defined above. Lastly, we are making the `logout` method call `signOut` with two environment variables: `REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI` and `REACT_APP_AUTH0_CLIENT_ID`. We will define all these variables later, when running the applications.
+
+The last thing we need to do is to change the `Home` component to show a button called "Buy" to authenticated users. This button, when clicked, will make a POST HTTP request to the secured `/products` endpoint that we created before. This request will include the `access_token` retrieved from Auth0 in the `Authorization` header. This is the new code of the `Home.js` file:
+
+```javascript
+import React, {Component} from 'react';
+import Panel from '../DOMElements/Panel/Panel';
+import {withRouter} from 'react-router-dom';
+import axios from "axios";
+import './Home.css';
+import Button from "../DOMElements/Button/Button";
+import * as Auth0 from 'auth0-web';
+
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {products: []};
+    this.componentDidMount = loadProducts.bind(this);
+  }
+
+  render() {
+    const rows = this.state.products;
+    const authenticated = Auth0.isAuthenticated();
+    return (
+      <Panel>
+        <h2>List of Products</h2>
+        <div className='productsList'>
+          {rows.map((product, index) => {
+            const productImage = `http://localhost:${process.env.REACT_APP_REST_PORT}/images/${product.image}`;
+            const imageStyle = {
+              maxWidth: '200px'
+            };
+            return (
+              <div className='product' key={index}>
+                <img style={imageStyle} src={productImage} alt="The nice product illustration" />
+                <p>{product.title} - $ {product.price}</p>
+                {authenticated && <Button text='Buy' onClick={buy} />}
+              </div>
+            );
+          })}
+        </div>
+      </Panel>
+    );
+  }
+}
+
+export default withRouter(props => <Home {...props} />);
+
+async function loadProducts() {
+  const config = {
+    url: `http://localhost:${process.env.REACT_APP_REST_PORT}/products`,
+  };
+
+  const products = (await axios(config)).data;
+  this.setState({ products });
+}
+
+async function buy() {
+  const config = {
+    method: 'POST',
+    url: `http://localhost:${process.env.REACT_APP_REST_PORT}/buy`,
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem(Auth0.ACCESS_TOKEN)}`
+    }
+  };
+
+  const response = (await axios(config)).data;
+  alert(response.message);
+}
+```
+
+That's it. Our front-end application is ready to run. Let's issue the following commands to bootstrap the two applications (home and kids portals) and test the Single Sign-On integration:
+
+```bash
+# set env variables and bootstrap Home Products portal
+export PORT=3000
+export REACT_APP_AUTH0_DOMAIN=bk-samples.auth0.com
+export REACT_APP_AUTH0_AUDIENCE=https://homeproducts.ourcompany.com
+export REACT_APP_AUTH0_CLIENT_ID=sOmEcLiEnTID
+export REACT_APP_AUTH0_REDIRECT_URI=http://app.local:3000/callback
+export REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI=http://app.local:3000/
+export REACT_APP_REST_PORT=3001
+
+npm start &
+
+# set env variables and bootstrap Kids Products portal
+export PORT=4000
+export REACT_APP_AUTH0_DOMAIN=bk-samples.auth0.com
+export REACT_APP_AUTH0_AUDIENCE=https://kidsproducts.ourcompany.com
+export REACT_APP_AUTH0_CLIENT_ID=sOmEoThErClIeNtID
+export REACT_APP_AUTH0_REDIRECT_URI=http://app.local:4000/callback
+export REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI=http://app.local:4000/
+export REACT_APP_REST_PORT=4001
+
+npm start &
+```
+
+> **Note** that we have to set both `REACT_APP_AUTH0_CLIENT_ID` above to the client ids that we have copied in the last section.
+
+After starting both portals, let's open the first one ([http://app.local:3000/](http://app.local:3000/)) on a web browser and click in the "Sign In with Auth0" button. After authenticating and being redirected as an authenticated user to our portal, let's open the second portal ([http://app.local:4000/](http://app.local:4000/)). Voilà! We are automatically authenticated in the second portal as well.
+
+## Using Single Sign-On and Social Logins
 
 Add special note about SSO and Google Social Login. [Create "react-B2C-auth0-sso" project on Google](https://auth0.com/docs/connections/social/google)
 
 ## Conclusion
+
+As we can see, adding Single Sign-On capabilities to our applications is pretty easy with Auth0. [No matter what technologies we are using in the backend and in the front-end, Auth0 got us covered](https://auth0.com/docs/quickstarts).
+
+After configuring this feature, we make the process so smooth that we can even start thinking about adding small steps to [progressively enrich user profiles](https://auth0.com/blog/how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing/).
