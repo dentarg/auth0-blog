@@ -28,6 +28,15 @@ related:
 
 ## Single Sign-On Advantages
 
+Single Sign-On refers to when a user logs in to an application with a single set of credentials and is then automatically signed into other applications. With Single Sign-On, a user gains access to multiple software systems without maintaining different login credentials such as usernames and passwords. Among the advantages of implementing Single Sign-On on our applications, we can find that it:
+
+- eliminates time spent to re-enter user credentials, which increases conversion rates for B2C portals;
+- eliminates password fatigue from having to store or remember different usernames and passwords;
+- reduces complaints about password problems, thus reducing the costs associated with setting up several help desk systems for password-reset issues, invalid credentials, etc;
+- and minimizes [phishing](https://en.wikipedia.org/wiki/Phishing), thus improving security;
+
+Let's learn how easy it is to implement Single Sign-On capabilities with Auth0.
+
 ## Simulating B2C Portals
 
 To simulate the B2C portals and to focus on the Single Sign-On integration process, we are going to clone a GitHub repository that contains two applications: one simple backend API written in JavaScript that runs on Node.js; and one client side application written with React.
