@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Implementing Single Sign-On in B2C"
+title: "Implementing Single Sign-On in B2C Applications"
 description: "Learn how a B2C Company implemented Single Sign-On to provide seamless integration between different e-commerce portals."
 longdescription: "Learn how a B2C Company implemented Single Sign-On to provide seamless integration between different e-commerce portals."
 date: 2017-12-29 20:10
