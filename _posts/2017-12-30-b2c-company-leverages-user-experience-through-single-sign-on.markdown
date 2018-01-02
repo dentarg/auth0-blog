@@ -213,4 +213,36 @@ What is important to note here is that now we use three environment variables in
 
 Now, our backend contains a new endpoint that accepts purchases from authenticated users. As such, we can focus on the client side application and the Single Sign-On integration.
 
+### Creating Auth0 Clients
+
+To configure Auth0 in our front-end applications, we first need to create [Auth0 Clients](https://auth0.com/docs/clients) to represent them. To do this, we need to head to [the Clients webpage in the management dashboard](https://manage.auth0.com/#/clients) and click "Create Client". We will create two clients, one for the portal that shows products to be used at home and one for the portal that shows products to be used by kids. Therefore, after clicking on the "Create Client" button, we can enter "Home Products Portal" as the name of the client and select "Single Page Web Applications" as its type.
+
+The management dashboard will redirect us to a tab called "Quick Start" inside our new client. Let's switch to the "Settings" tab and configure three properties of this client:
+
+- **Allowed Callback URLs**: Let's add `http://app.local:3000/callback` in this field to tell Auth0 that this is a valid URL to call back after the authentication process.
+- **Allowed Web Origins**: Let's add `http://app.local:3000` in this field to tell Auth0 that requests can originate from this URL.
+- **Allowed Logout URLs**: Let's add `http://app.local:3000` in this field to tell Auth0 that it can redirect the user to this URL after the logout process.
+
+Note that, instead of using `http://localhost:3000`, we used `http://app.local:3000` while configuring this client. We've done that because, for security reasons, Auth0 will always ask for explicit user consent when the Callback URL is set to `localhost` or `127.0.0.1`. We want to avoid that in Single Sign-On process to make it smooth. Therefore, one **important step** before proceeding with the rest of the tutorial is to configure `app.local` to resolve to `localhost` on our development machine. [This reference shows how to do this on different environments](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/), but if we are using Linux or Mac, we can achieve that by issuing the following command:
+
+```bash
+echo '127.0.0.1       app.local' | sudo tee -a /etc/hosts
+```
+
+Now that we have configured our development machine to point `app.local` to `localhost`, let's head back to the management dashboard and save the new properties. While we are still on this client, let's take note of the "Client ID" property. We will use it later when configuring Auth0 in our code.
+
+We have finished creating the first Auth0 Client. Now, to create the second one, let's head back to [the Clients webpage](https://manage.auth0.com/#/clients) and create it with the following properties:
+
+- **Client Name**: "Kids Products Portal"
+- **Client Type**: "Single Page Web Applications"
+- **Allowed Callback URLs**: `http://app.local:4000/callback`
+- **Allowed Web Origins**: `http://app.local:4000`
+- **Allowed Logout URLs**: `http://app.local:4000`
+
+After saving the second client, let's take note of the "Client ID" property as well.
+
+## Using SSO and Social Logins
+
+Add special note about SSO and Google Social Login. [Create "react-B2C-auth0-sso" project on Google](https://auth0.com/docs/connections/social/google)
+
 ## Conclusion
