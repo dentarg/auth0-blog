@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "B2C Company Leverages User Experience Through Single Sign-On"
+title: "Implementing Single Sign-On in B2C"
 description: "Learn how a B2C Company implemented Single Sign-On to provide seamless integration between different e-commerce portals."
 longdescription: "Learn how a B2C Company implemented Single Sign-On to provide seamless integration between different e-commerce portals."
 date: 2017-12-29 20:10
@@ -24,7 +24,7 @@ related:
 - 2017-12-18-retail-analytics-past-present-and-future
 ---
 
-**TL;DR:** In this article, we will learn how a B2C company easily implemented Single Sign-On to provide seamless integration between different e-commerce portals. The first thing we will do is to bootstrap two instances of an application to simulate these portals. Then, we will secure these instances with Auth0 and will add Single Sign-On to show that it take only a few minutes to achieve our goal. The final code can be found in this GitHub repository.
+**TL;DR:** In this article, we will learn how a B2C company easily implemented Single Sign-On to provide seamless integration between different e-commerce portals. The first thing we will do is to bootstrap two instances of an application to simulate these portals. Then, we will secure these instances with Auth0 and will add Single Sign-On to show that it take only a few minutes to achieve our goal. You can find the final code in [the `sso` branch of this GitHub repository](https://github.com/auth0-blog/react-b2c-sso/tree/sso).
 
 ## Single Sign-On Advantages
 
