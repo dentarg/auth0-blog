@@ -28,7 +28,7 @@ related:
 
 <div class="alert alert-danger alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>This post is out of date.</strong> The AWS Cognito Integration API has been deprecated.  This post will be updated soon with a working solution.  We also recommend using the [Auth0 Centralised Login Pages](https://auth0.com/docs/hosted-pages/login) as opposed to the Lock solution used in this post.
+  <strong>This post is out of date.</strong> The AWS Cognito Integration API has been deprecated.  This post will be updated soon with a working solution.  We also recommend using the <a href="https://auth0.com/docs/hosted-pages/login">Auth0 Centralised Login Pages</a> as opposed to the Lock solution used in this post.
 </div>
 
 ---
