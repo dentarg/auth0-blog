@@ -2,7 +2,7 @@
 layout: post
 title: "Run a LoopBack App on Google App Engine"
 description: "In this article, we are going to learn how to host and run a LoopBack application on Google App Engine. We will also set up Firestore as the database of our application."
-date: 2017-12-13 08:30
+date: 2018-01-02 08:30
 category: Technical Guide, Backend, LoopBack
 author:
   name: "Chidume Nnamdi"
@@ -11,7 +11,7 @@ author:
   avatar: "https://secure.gravatar.com/avatar/dbafebf712fa816299231d2763fd292e?s=200"
 design:
   bg_color: "#3445DC"
-  image: https://res.cloudinary.com/chidumennamdi/image/upload/v1511973279/Running-WordPress-in-App-Engine_-_Copy_jpd5yz.png
+  image: https://cdn.auth0.com/blog/loopback-googlecloud/logo.png
 tags:
 - google-app-engine
 - loopback
@@ -25,8 +25,9 @@ tags:
 - restful
 - api
 related:
-- 2017-12-05-webpack-a-gentle-introduction
-- 2017-11-28-redux-practical-tutorial
+- 2017-11-17-moving-your-app-to-cloud
+- 2017-09-07-developing-restful-apis-with-loopback
+- 2016-11-21-building-and-authenticating-nodejs-apps
 ---
 
 **TL;DR:** In this article, we are going to see how to setup a Google App Engine and host a LoopBack app on it. We'll deploy a sample LoopBack application to Google App Engine. By the end, we'll have learned how to:
