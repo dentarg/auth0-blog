@@ -468,9 +468,11 @@ npm start &
 
 After starting both portals, let's open the first one ([http://app.local:3000/](http://app.local:3000/)) on a web browser and click in the "Sign In with Auth0" button. After authenticating and being redirected as an authenticated user to our portal, let's open the second portal ([http://app.local:4000/](http://app.local:4000/)). Voilà! We are automatically authenticated in the second portal as well.
 
-## Using Single Sign-On and Social Logins
+### Using Single Sign-On and Social Connections
 
-Add special note about SSO and Google Social Login. [Create "react-B2C-auth0-sso" project on Google](https://auth0.com/docs/connections/social/google)
+[To use Single Sign-On and Social Connections ("Login with Google", "Login with Facebook", and so on) we need to configure them](https://manage.auth0.com/#/connections/social) with official keys fetched from the providers. For example, [to enable users to sign in with Google, we can follow the steps shown in this documentation](https://auth0.com/docs/goog-clientid).
+
+**Note** that, Auth0 accounts come preconfigured with Auth0 development keys for Google Social Connection. If we don't configure it with our own keys (following the documentation mentioned), the Single Sign-On process won't work. Auth0 **does not** allow silent authentication with its own development keys.
 
 ## Conclusion
 
