@@ -37,6 +37,8 @@ Single Sign-On refers to when a user logs in to an application with a single set
 
 Let's learn how easy it is to implement Single Sign-On capabilities with Auth0.
 
+{% include tweet_quote.html quote_text="Increase conversion rates by implementing Single Sign-On on B2C applications." %}
+
 ## Simulating B2C Portals
 
 To simulate the B2C portals and to focus on the Single Sign-On integration process, we are going to clone a GitHub repository that contains two applications: one simple backend API written in JavaScript that runs on Node.js; and one client side application written with React.
@@ -476,6 +478,8 @@ npm start &
 > **Note** that we have to set both `REACT_APP_AUTH0_CLIENT_ID` above to the client ids that we have copied in the last section.
 
 After starting both portals, let's open the first one ([http://app.local:3000/](http://app.local:3000/)) on a web browser and click in the "Sign In with Auth0" button. After authenticating and being redirected as an authenticated user to our portal, let's open the second portal ([http://app.local:4000/](http://app.local:4000/)). Voilà! We are automatically authenticated in the second portal as well.
+
+{% include tweet_quote.html quote_text="Implementing Single Sign-On on B2C applications with Auth0 is really easy!" %}
 
 ### Using Single Sign-On and Social Connections
 
