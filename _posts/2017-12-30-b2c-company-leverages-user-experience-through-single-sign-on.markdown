@@ -478,4 +478,4 @@ After starting both portals, let's open the first one ([http://app.local:3000/](
 
 As we can see, adding Single Sign-On capabilities to our applications is pretty easy with Auth0. [No matter what technologies we are using in the backend and in the front-end, Auth0 got us covered](https://auth0.com/docs/quickstarts).
 
-After configuring this feature, we make the process so smooth that we can even start thinking about adding small steps to [progressively enrich user profiles](https://auth0.com/blog/how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing/).
+After configuring this feature, we make the process so smooth that we can even start thinking about adding small steps to [progressively enrich our users profiles](https://auth0.com/blog/how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing/). What do you think? Can the process be easier than that?
