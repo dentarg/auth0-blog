@@ -1451,7 +1451,7 @@ Open `/src/my-app.html` and import the `iron-localstorage`, `brum-global-variabl
 {% endraw %}
 {% endhighlight %}
 
-Now we'll add our `<auth0-login>` element to the DOM. We want to display the "Log In" link / user greeting in the header, just like we did in the Chuck Norris app.
+Now we'll add our `<auth0-login>` element to the DOM. We want to display the "Log In" link/user greeting in the header, just like we did in the Chuck Norris app.
 
 {% highlight html %}
 {% raw %}
