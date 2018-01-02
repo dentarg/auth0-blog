@@ -11,8 +11,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
 design:
-  image: https://cdn.auth0.com/blog/logos/polymer2.png
-  bg_color: "#324090"
+  image: https://cdn.auth0.com/blog/polymer2/polymer2_logo.png
+  bg_color: "#303F9F"
 tags:
 - polymer
 - web-components
