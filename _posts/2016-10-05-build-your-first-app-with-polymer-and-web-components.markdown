@@ -1418,7 +1418,7 @@ You can read all about `auth0.js` in the [Auth0's Centralized Login Page](https:
 
 > Note: We're setting the profile image with JS rather than binding directly to `storedUser.profile.picture` because if we don't, the image `src` will populate as `undefined` and result in a 404 network error when not set.
 
-We now have a `auth0.js` element that can be launched by clicking a "Log In" button. We need to place it in our app and pass in the appropriate Auth0 configuration.
+We now have an `auth0.js` element that can be launched by clicking a "Log In" button. We need to place it in our app and pass in the appropriate Auth0 configuration.
 
 ### Adding auth0.js to a Polymer App
 
