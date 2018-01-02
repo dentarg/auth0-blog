@@ -28,7 +28,7 @@ related:
   <strong>This post has been updated.</strong> This post has recently been updated to Polymer 2. Polymer 3 looks to be released soon and we hope to follow up with another article that covers it.
 </div>
 
-**TL;DR:** [Google Polymer](https://www.polymer-project.org) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available at [this GitHub repo](https://github.com/auth0-blog/polymer2-with-jwt-api).
+**TL;DR:** [Google Polymer](https://www.polymer-project.org) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available from [this GitHub repo](https://github.com/auth0-blog/polymer2-with-jwt-api).
 
 ## What Are Web Components?
 
@@ -63,7 +63,7 @@ We're going to develop a Polymer app that does the following:
 * stores tokens and user data with local storage,
 * and logs users out by clearing tokens.
 
-The full source code for the completed app can be [cloned at this GitHub repo](https://github.com/auth0-blog/polymer2-with-jwt-api).
+The full source code for the completed app can be [cloned from this GitHub repo](https://github.com/auth0-blog/polymer2-with-jwt-api).
 
 ## Setup and Installation
 
@@ -439,31 +439,28 @@ Open `/src/shared-styles.html`. We can add our common styles here as well as cle
 Delete the `.circle` ruleset and add the following:
 
 ```css
-/* shared-styles.html */
-<style>
-  ...
-  :root {
-    --primary-color: #4285f4;
-  }
-  a,
-  paper-button {
-    font-weight: bold;
-  }
-  a {
-    color: var(--primary-color);
-  }
-  paper-button {
-    color: #fff;
-  }
-  paper-button.primary {
-    background: var(--primary-color);
-  }
-  blockquote {
-    border-left: 4px solid #eee;
-    margin-left: 4px;
-    padding-left: 20px;
-  }
-</style>
+...
+:root {
+  --primary-color: #4285f4;
+}
+a,
+paper-button {
+  font-weight: bold;
+}
+a {
+  color: var(--primary-color);
+}
+paper-button {
+  color: #fff;
+}
+paper-button.primary {
+  background: var(--primary-color);
+}
+blockquote {
+  border-left: 4px solid #eee;
+  margin-left: 4px;
+  padding-left: 20px;
+}
 ```
 
 As you can see, we can use [custom CSS properties](https://www.polymer-project.org/2.0/docs/devguide/custom-css-properties) with Polymer:
