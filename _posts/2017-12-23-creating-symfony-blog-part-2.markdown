@@ -25,7 +25,7 @@ related:
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this part of the article, we will cover installing [Bootstrap, a UI framework for web applications](https://getbootstrap.com/), to make the blog engine look nicer visually. The final code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this part of the article, we will cover installing [Bootstrap, a UI framework for web applications](https://getbootstrap.com/), to make the blog engine look nicer visually. The final code can be found at this [repository](https://github.com/auth0-blog/symfony-blog-part-2).
 
 ---
 
