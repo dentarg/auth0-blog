@@ -942,7 +942,7 @@ Then you need to find `{% raw %}{{ blogPost.title }}{% endraw %}` and wrap this 
 
 Now refresh your browser. You'll see the title has changed to a link, and there is now a "Read more" at the bottom of your article. Click one of those and you'll see your new page!
 
-### Showing author details
+### Showing Author Details
 
 Want to see more details about the author of the post? Let's go to the `authorAction` in your controller. We're going to be doing something very similar to retrieving the single entry.
 We'll be getting the name passed in via the URL, finding the author by name in the database. And then passing that data into the author template, as shown below:
@@ -963,7 +963,7 @@ return $this->render('AppBundle:Blog:author.html.twig', [
 
 At the top of the method in the annotations we also want to add the service name so: `* @Route("/author/{name}")` will become: `* @Route("/author/{name}", name="author")`
 
-With the template `src/AppBundle/Resources/views/Blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
+With the template `./src/AppBundle/Resources/views/Blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
 
 {% highlight html %}
 {% raw %}
@@ -1032,7 +1032,7 @@ Let's make this a link as shown below:
 {% endraw %}
 {% endhighlight %}
 
-And in `src/AppBundle/Resources/views/Blog/entry.html.twig` you will find:
+And in `./src/AppBundle/Resources/views/Blog/entry.html.twig` you will find:
 
 {% highlight html %}
 {% raw %}
@@ -1040,7 +1040,7 @@ And in `src/AppBundle/Resources/views/Blog/entry.html.twig` you will find:
 {% endraw %}
 {% endhighlight %}
 
-So let's replace that with the following:
+Let's replace it with the following:
 
 {% highlight html %}
 {% raw %}
