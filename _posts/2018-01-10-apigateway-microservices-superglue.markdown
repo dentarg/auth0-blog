@@ -179,24 +179,18 @@ Let's go through the main part of the current configuration. The gateway will li
 
 > **Note:** if you want to test this locally, you'll need to make sure that `company.com` domain points to your local machine. This can be achieved by using [`dnsmasq`](http://www.thekelleys.org.uk/dnsmasq/doc.html) or by [modifying your hosts file](https://support.rackspace.com/how-to/modify-your-hosts-file/), putting both `customers.company.com` **and** `orders.company.com` to point to `localhost`. Another alternative would be to manually put the `HOST` header to the correct value while issuing requests.
 
-## Configure the client and the user in Auth0
+### Configure the Client and the User in Auth0
 
-Let's now configure Auth0 so it will be our **system of record** for the users and **issue JWTs** for us.
+Let's now configure Auth0 to work as our **system of record** for users and **issue JWTs** for them. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free one now</a>.
 
-If you don't already have an Auth0 account, sign up for a free one [now](https://auth0.com/signup).
+From the [Auth0 management dashboard](https://manage.auth0.com/), click on the **APIs** menu item, and then on the **Create API** button. You will need to give your API a name and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be used to identify your API, this field cannot be changed once set.
 
-From here, click on the **APIs** menu item and then the **Create API** button. You will need to give your API a name
-and an identifier. The name can be anything you choose, so make it as descriptive as you want. The identifier will be
-used to identify your API, this field cannot be changed once set.
+For our example, I'll name the API **billings** and identify it as `http://orders`. I'll also leave the signing algorithm as `RS256` and click on the **Create API** button.
 
-For our example, I'll name the API **billings** and for the identifier I'll set it as `http://orders`. We'll leave the
-signing algorithm as RS256 and click on the **Create API** button.
+![Creating billings API on Auth0](https://cdn.auth0.com/blog/express-gateway/create-auth0-api.png)
 
-![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/create-api.png)
-
-Now point your browser to `https://yourApi.auth.com/pem` and download the **public key** file. This is the key we will
-use to verify that the JSON Web Tokens issued by Auth0 are valid. Save it as `pubKey.pem` and place it in the same
-directory specified in `secretOrPublicKeyFile` parameter of the `jwt` policy.
+Now point your browser to `https://yourAPI.auth0.com/pem` (where `yourAPI` is the Auth0 domain that you chose when creating your account) and download the **public key** file. This is the key that we will
+use to verify that the JSON Web Tokens (JWTs) issued by Auth0 are valid. Save it as `pubKey.pem` and place it in the same directory specified in `secretOrPublicKeyFile` parameter of the `jwt` policy.
 
 The API Gateway has now been configured correctly to handle the scenarios.
 
