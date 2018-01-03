@@ -72,14 +72,11 @@ It turns out that, no matter the way you're doing microservices (whether you're 
 
 ## API Gateway
 
-An _API Gateway_ is a centralized middleware that encapsulates the internal system architecture and provides an API that
-can be shaped based on real client needs rather than simply returning what the particular microservice is sending you
-back, effectively implementing the **facade pattern** in the microservices world.
+An _API Gateway_ is a centralized middleware that encapsulates the internal system architecture and provides an API that can be shaped based on real client needs rather than simply returning what the particular microservice is sending you back. These gateways are effectively implementing the [**facade pattern**](https://en.wikipedia.org/wiki/Facade_pattern) in the microservices world.
 
-It can have other responsibilities such as _authentication, monitoring, load balancing, caching, request shaping_
-_and management, and static response handling._
+API Gateway can have other responsibilities such as _authentication_, _monitoring_, _load balancing_, _caching_, _request shaping and management_, and _static response handling_.
 
-# In practice
+## API Gateway In practice
 
 Let's move from the theory to the practice and see how to configure an API Gateway to serve our needs.
 
