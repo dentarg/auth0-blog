@@ -64,13 +64,11 @@ Now, with such requirements, a couple of questions stand:
 1. Writing **idiomatic** JavaScript is different than writing idiomatic Go. According to the programming language and the framework you're using the API you're exposing in Go might be **completely** different with regards to the other one exposed from the JavaScript microservice. How do you make sure that the final API—intended as the the whole surface exposed by your application—is _uniform_ and _consistent_?
 2. _Rate limiting_, _authentication_, _authorization_, and a bunch of other stuff are things that should be shared across multiple microservices in your organisation. If you re-implement these things in each single microservice, you are **duplicating** the code at first, but more importantly you have two different pieces of software to maintain. This will mean that you will also need to make sure they behave in the same way (that's not trivial, since you could be potentially using two libraries for that).
 
-# Solution
+## Solution
 
-It turns out that no matter the way you're doing microservices: whether you're dividing your system by business features
-or by domain or coming up with a microservice architecture starting from your data — there are parts of them that are
-sharing functionalities.
+It turns out that, no matter the way you're doing microservices (whether you're dividing your system by business features, by domain, or coming up with a microservice architecture starting from your data), there are parts of them that are sharing functionalities.
 
-Microservices need a **superglue**. That glue is an **API Gateway**.
+[Microservices need a **superglue** and that glue is an **API Gateway**](https://auth0.com/blog/an-introduction-to-microservices-part-2-API-gateway/).
 
 # API Gateway
 
