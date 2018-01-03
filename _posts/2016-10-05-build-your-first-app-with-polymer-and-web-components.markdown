@@ -2,6 +2,7 @@
 layout: post
 title: "Build Your First App with Polymer and Web Components"
 description: "Build an app using web components and Polymer that interacts with an API and authenticates users with JSON Web Tokens."
+longdescription: "Build your first Polymer app using web components, the syntactic sugar and for building elements and applications. Learn how to setup a starter kit Polymer application, install web components, use Polymer to interact with an API and authenticate users with JSON Web Tokens."
 date: 2016-10-05 8:30
 updated: 2018-01-01 00:44
 category: Technical Guide, Frontend, Polymer
