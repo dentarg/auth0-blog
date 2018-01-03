@@ -74,7 +74,7 @@ AUTH0_CLIENT_SECRET={AUTH0_CLIENT_SECRET}
 AUTH0_DOMAIN={AUTH0_DOMAIN}
 ```
 
-Note that you will have to replace the values above. Check the first part to understand how to replace them.
+Note that you will have to replace the values above. [Check the first part to understand how to replace them](https://auth0.com/blog/symfony-tutorial-building-a-blog-part-1/).
 
 __Pro Tip!__ If you do not have a MySQL database available, an easy way to bootstrap one is with Docker:
 
