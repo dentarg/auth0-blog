@@ -105,11 +105,11 @@ Installing [Express Gateway](https://express-gateway.io) is dead simple:
 
 `~$ npm i -g express-gateway`
 
-This will install the command line `eg` in your system, so we can now bootstrap a new gateway instance:
+This will install the command line `eg` in your system, so you can now bootstrap a new gateway instance:
 
 ```shell
 ~$ eg gateway create
-? What's the name of your Express Gateway? eg-example
+? What\'s the name of your Express Gateway? eg-example
 ? Where would you like to install your Express Gateway? eg-example
 ? What type of Express Gateway do you want to create? Getting Started with…
      created package.json
@@ -118,8 +118,7 @@ This will install the command line `eg` in your system, so we can now bootstrap 
      cd eg-example && npm start
 ```
 
-Next, cd into `eg-example` directory and modify the [gateway.config.yml][4] file. This is the file that controls your
-gateway’s behavior. For a complete configuration reference, you can see the [documentation][5].
+Next, change the working directory to `eg-example` (`cd eg-example`) and modify the [`gateway.config.yml`](https://www.express-gateway.io/docs/configuration/gateway.config.yml/) file. This is the file that controls your gateway’s behavior. For a complete configuration reference, you can see the [documentation](http://www.express-gateway.io/docs/).
 
 ```yml
 http:
@@ -173,18 +172,12 @@ pipelines:
               changeOrigin: true
 ```
 
-Let's go through the main part of the current configuration:
+Let's go through the main part of the current configuration. The gateway will listen for HTTP requests on port `8080` (you might want to change it to `80` when going into production). Then, we have defined two **pipelines** (one per microservice) where we have enabled the [rate limit policy](https://www.express-gateway.io/docs/policies/rate-limiter) and the
+[JWT](https://www.express-gateway.io/docs/policies/jwt) verification policy.
 
-The gateway will listen for Http requests on port `8080` (you might want to change it to `80` when going in production).
-Then we have defined two **pipelines**, one per microservice, where we have enabled the [rate limit policy][6] and the
-[jwt][7] verification policy.
+> **Note:** the configuration is shown in a extended form for clarity. However, it can be shortened by using [YAML references](http://blog.daemonl.com/2016/02/yaml.html).
 
-> **Note:** the configuration is shown in a extended form for clarity. However it can be DRYed using [YAML references][8].
-
-> **Note:** If you want to test this locally, you'll need to make sure that `company.com` domain will point to your
-local machine. This can be achieved usind [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) or modyfing your
-hosts file, putting both `customers.company.com` *AND* `orders.company.com` to point to localhost. Another alternative
-woud be to manually put the `HOST` header to the correct value while issuing requests.
+> **Note:** if you want to test this locally, you'll need to make sure that `company.com` domain points to your local machine. This can be achieved by using [`dnsmasq`](http://www.thekelleys.org.uk/dnsmasq/doc.html) or by [modifying your hosts file](https://support.rackspace.com/how-to/modify-your-hosts-file/), putting both `customers.company.com` **and** `orders.company.com` to point to `localhost`. Another alternative would be to manually put the `HOST` header to the correct value while issuing requests.
 
 ## Configure the client and the user in Auth0
 
@@ -263,9 +256,3 @@ though the original data is shaped in a different way. Hopefully, we will explor
 
 In meantime, you can see some other interesting use cases on
 [Express Gateway website](http://www.express-gateway.io/resources/).
-
-[4]: https://www.express-gateway.io/docs/configuration/gateway.config.yml/
-[5]: http://www.express-gateway.io/docs/
-[6]: https://www.express-gateway.io/docs/policies/rate-limiter
-[7]: https://www.express-gateway.io/docs/policies/jwt
-[8]: http://blog.daemonl.com/2016/02/yaml.html
