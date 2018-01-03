@@ -49,34 +49,20 @@ This concept has been riding high during the last years with [blog posts][https:
 
 Most of the time we don't necessarily have the same web scale, but we can benefit anyway from the paradigm of microservices.
 
-# Challenges
+## Challenges
 
-The challenge though is — with microservices the knowledge is spread on multiple little pieces; but on the other hand
-the end game of your application is, most of the time, the exposure of what you're building through an **uniform API**.
+The challenge though is that with microservices the knowledge is spread among multiple little pieces. However, on the other hand, the end game of your application is, most of the time, the exposure of what you're building through an **uniform API**.
 
-So we have two sides of the same coin: on one we want to break up our app into a set of services and evergreen them —
-on the other, we still want to offer an uniform experience.
+So, we have two sides of the same coin: on one side, we want to break up our app into a set of services and [evergreen](https://blog.juriba.com/evergreen-it-concept-or-reality) them; on the other, we still want to offer an uniform experience.
 
-Suppose you need to create a Coffee order system that will let people, registered as `Customers`, to request for a Coffee
-through an `Order`.
+Suppose you need to create a `Coffee` order system that will let people, registered as `Customers`, request for a coffee through an `Order`.
 
-After a bunch of meetings, everybody in the company agrees that the User and registration part of your application will
-be written in Javascript and running on NodeJS, while the Order system will be written in Go and among the technical
-requirements, you want all the requests must be authenticated and, in order to prevent floodings, you want to put a rate
-limiting policy.
+After a bunch of meetings, everybody in the company agrees that the `User` and registration part of your application will be written in JavaScript and run on [Node.js](https://nodejs.org/en/), while the `Order` system will be written in Go. Among the technical requirements, you want all the requests must be authenticated and, in order to prevent flooding, you want to put a [rate limiting policy](https://auth0.com/docs/connections/database/rate-limits).
 
-Now — with such requirements, couple of questions stand:
+Now, with such requirements, a couple of questions stand:
 
-1. Writing **idiomatic** Javascript is different than writing idiomatic Go. According to the programming language and
-the framework you're using the API you're exposing in Go might be **completely** different with regards to the other one
-exposed from the Javascript microservice. How do you make sure that the final API — intended as the the whole surface
-exposed by your application — is _uniform_ and _consistent_?
-
-2. _Rate limiting, authentication, authorization_ and a bunch of other stuff are things that should be shared across
-multiple microservices in your organisation. If you re-implement these things in each single microservice, you are
-**duplicating** the code at first, but more importantly you have two different pieces of software to maintain, meaning
-also you need to make sure they behave in the same way (that's not trivial, since you could be potentially using two
-libraries for that).
+1. Writing **idiomatic** JavaScript is different than writing idiomatic Go. According to the programming language and the framework you're using the API you're exposing in Go might be **completely** different with regards to the other one exposed from the JavaScript microservice. How do you make sure that the final API—intended as the the whole surface exposed by your application—is _uniform_ and _consistent_?
+2. _Rate limiting_, _authentication_, _authorization_, and a bunch of other stuff are things that should be shared across multiple microservices in your organisation. If you re-implement these things in each single microservice, you are **duplicating** the code at first, but more importantly you have two different pieces of software to maintain. This will mean that you will also need to make sure they behave in the same way (that's not trivial, since you could be potentially using two libraries for that).
 
 # Solution
 
