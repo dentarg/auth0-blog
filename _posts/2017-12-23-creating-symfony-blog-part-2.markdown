@@ -106,6 +106,13 @@ database_password (null): mysecretpassword
 
 For the questions related to `mailer_transport` and `secret`, you can simply press `Enter` to accept the default values.
 
+Last thing, if you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
+
+```bash
+php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
+```
+
 ### Installing Bootstrap
 
 In order to install [Bootstrap](https://getbootstrap.com/) we need [Symfony's Webpack Encore](https://github.com/symfony/webpack-encore), which is a simpler way to integrate [Webpack](https://webpack.js.org/) into your application.
@@ -235,7 +242,7 @@ Back in our `AdminController`, we need to add a route on the controller itself. 
 
 ```php
 /**
- * @Route("/admin");
+ * @Route("/admin")
  */
  ```
 
@@ -640,7 +647,7 @@ to:
 {% endraw %}
 {% endhighlight %}
 
-### Add pagination to blog posts list
+### Add Pagination to Blog Posts List
 
 We don't want to be loading all blog posts into the page, so let's add some pagination.
 
@@ -660,7 +667,7 @@ Paste the following below those:
 use Symfony\Component\HttpFoundation\Request;
 ```
 
-Request allows you to gather data for example if there are any parameters in a POST or GET request.
+`Request` allows you to gather data, for example, if there are any parameters in a POST or GET request.
 
 At the top of our BlogController class, let's add a blog post limit constant:
 
@@ -679,9 +686,9 @@ if ($request->get('page')) {
 }
 ```
 
-This data is useless to us unless BlogPostRepository knows what to do with it. When we created the BlogPost entity, it also created a repository for us to have our methods for custom queries or more indepth queries. So open: `src/AppBundle/Repository/BlogPostRepository.php`
+This data is useless to us unless `BlogPostRepository` knows what to do with it. When we created the `BlogPost` entity, it also created a repository for us. This repository contains our methods for custom queries or more in depth queries. So open: `./src/AppBundle/Repository/BlogPostRepository.php`
 
-First method we're going to need is to get all of the posts, based off the page number and the limit previously set in the BlogController. The method below does exactly that. It retrieves the paginated number of blog posts.
+First method we're going to need is to get all of the posts based off the page number and the limit previously set in the `BlogController`. The method below does exactly that. It retrieves the paginated number of blog posts.
 
 ```php
 /**
@@ -722,9 +729,9 @@ public function getPostCount()
 }
 ```
 
-Back in the `entriesAction` in your BlogController we're going to need to make use of those methods.
+Back in the `entriesAction` in your `BlogController` we're going to need to make use of those methods.
 
-Your return previously looked like:
+Your return previously looked like this:
 
 ```php
 return $this->render('AppBundle:Blog:entries.html.twig', [
@@ -732,7 +739,7 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
 ]);
 ```
 
-Let's call those methods and pass the data as well as the page number and post limit into the template:
+Let's change it to call those methods and pass the data as well as the page number and post limit into the template:
 
 ```php
 return $this->render('AppBundle:Blog:entries.html.twig', [
@@ -742,16 +749,14 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
     'entryLimit' => self::POST_LIMIT
 ]);
 ```
-Time to show your blog posts in a template file. Open `src/AppBundle/Resources/views/Blog/entries.html.twig`
-
-Change the title to whatever you wish, I changed it to `Blog posts` and inside `{% raw %}{% block body %}{% endraw %}` paste the following code:
+Time to show your blog posts in a template file. Open `./src/AppBundle/Resources/views/Blog/entries.html.twig` then change the title to whatever you wish (I changed it to "Blog Posts"). Inside `{% raw %}{% block body %}{% endraw %}`, paste the following code:
 
 {% highlight html %}
 {% raw %}
     <div class="container">
         <div class="blog-header">
             <h1 class="blog-title">Blog tutorial</h1>
-            <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by Auth0.</p>
+            <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by <a href="http://auth0.com">Auth0</a>.</p>
         </div>
 
         <div class="row">
@@ -787,7 +792,7 @@ Change the title to whatever you wish, I changed it to `Blog posts` and inside `
 {% endraw %}
 {% endhighlight %}
 
-In your `entries.html.twig` template. Find `{% raw %}{% endfor %}{% endraw %}`. Below this we want to add the pagination buttons. So let's put the following code there:
+In your `entries.html.twig` template, find `{% raw %}{% endfor %}{% endraw %}`. Below this we want to add the pagination buttons. So let's put the following code there:
 
 {% highlight html %}
 {% raw %}
@@ -810,9 +815,11 @@ In your `entries.html.twig` template. Find `{% raw %}{% endfor %}{% endraw %}`. 
 {% endraw %}
 {% endhighlight %}
 
-The above code determines whether the user can action a previous and/or a next page.
+The above code determines whether the user can move to a previous or a next page.
 
 Now reload your browser, you'll see the previously shown blog post, but below that you'll see disabled "Previous" and "Next" buttons, they're disabled because you're on page 1, and there is only 1 blog post.
+
+> Quick tip, to start and stop your application you can use `php bin/console server:start` and `php bin/console server:stop`.
 
 ### Adding navigation
 
@@ -895,7 +902,7 @@ Within `{% raw %}{% block body %}{% endraw %}` we need to add some content:
 <div class="container">
  <div class="blog-header">
      <h1 class="blog-title">Blog tutorial</h1>
-     <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by Auth0.</p>
+     <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, and secured by <a href="http://auth0.com">Auth0</a>.</p>
  </div>
 
  <div class="row">
