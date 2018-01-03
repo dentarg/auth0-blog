@@ -99,7 +99,7 @@ Express Gateway centralizes all the application configuration for the API use ca
 
 Express Gateway entities, like _policies_, _pipelines_, _conditions_, and _actions_, wrap around Express middleware to make it **dynamic**. Any Express middleware can be plugged into Express Gateway to take advantage of its dynamic capabilities. It also features an hot-reload mechanism so you can change its configuration without having to restart the gateway at all.
 
-### Hands on
+### Hands On
 
 Installing [Express Gateway](https://express-gateway.io) is dead simple:
 
