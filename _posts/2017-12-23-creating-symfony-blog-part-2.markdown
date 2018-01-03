@@ -1,24 +1,27 @@
 ---
 layout: post
 title: "Symfony Tutorial: Building a Blog (Part 2)"
-description: Let's use Symfony to build a blog with authentication.
-date: 2017-12-23 12:37
+description: "Let's create a secure blog engine with Symfony."
+longdescription: "Creating applications with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. Let's use Symfony to create a blog engine."
+date: 2018-01-10 08:30
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
   url: https://github.com/GregHolmes
   mail: iam@gregholmes.co.uk
+  avatar: "https://avatars0.githubusercontent.com/u/2411269?s=460&v=4"
 design:
-  bg_color: "#3B3B3B"
-  image: https://cdn.auth0.com/blog/Symfony/Logo.png
+  bg_color: "#000000"
+  image: https://cdn.auth0.com/blog/symfony-blog/logo.png
 tags:
 - symfony
+- php
+- auth0
 - bootstrap
 - authentication
 - web-app
-- auth0
 related:
-- 2017-07-26-creating-your-first-symfony-app-and-adding-authentication
+- 2017-12-28-symfony-tutorial-building-a-blog-part-1
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
@@ -178,7 +181,7 @@ Open the base twig template which can be found: `app/Resources/views/base.html.t
 
 We've now included both compiled CSS and empty Javascript files into the base template to be used throughout our app!
 
-In order to make use of Bootstrap we need to install jQuery, so run the command: 
+In order to make use of Bootstrap we need to install jQuery, so run the command:
 
 ```bash
 yarn add jquery --dev
@@ -218,7 +221,7 @@ You've now set up Bootstrap to be used in your Symfony Blog.
 
 ### Showing blog posts
 
-Let's create our blog controller by running the following command: 
+Let's create our blog controller by running the following command:
 
 ```bash
 php bin/console generate:controller
@@ -239,7 +242,7 @@ Back in our `AdminController` we need to add a route on the controller itself. B
  * @Route("/admin")
  */
  ```
- 
+
 Open `src/AppBundle/Controllers/BlogController.php` and find the `entriesAction`
 
 Configure the routing for this controller to be the homepage and give the action a service name. So above `public function entriesAction()` replace the annotation with:
@@ -888,11 +891,11 @@ Next in the return's 2nd argument (the array), put in an entry: `'blogPost' => $
      ));
  }
 ```
- 
+
 We now need to output this data in the template. So open `src/AppBundle/Resources/views/Blog/entry.html.twig`
 
 Within `{% raw %}{% block body %}{% endraw %}` we need to add some content:
- 
+
 {% highlight html %}
 {% raw %}
 <div class="container">
