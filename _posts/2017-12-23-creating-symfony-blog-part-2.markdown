@@ -821,9 +821,9 @@ Now reload your browser, you'll see the previously shown blog post, but below th
 
 > Quick tip, to start and stop your application you can use `php bin/console server:start` and `php bin/console server:stop`.
 
-### Adding navigation
+### Adding Navigation
 
-We need a way to find our way through the blog. So time to add some navigation. Create a new file in `app/Resources/views/nav_bar.html.twig` and paste the following in:
+We need to enable users to find their way through the blog. So time to add some navigation. Create a new file in `app/Resources/views/nav_bar.html.twig` and paste the following in:
 
 {% highlight html %}
 {% raw %}
@@ -845,13 +845,17 @@ We need a way to find our way through the blog. So time to add some navigation. 
 {% endraw %}
 {% endhighlight %}
 
-Then include the file into the `app/Resources/views/base.html.twig` just below: `<body>` add:
+Then include the file into the `app/Resources/views/base.html.twig` just below the `<body>` opening tag:
 
-{% highlight html %}{% raw %}{% include 'nav_bar.html.twig' %}{% endraw %}{% endhighlight %}
+{% highlight html %}
+{% raw %}
+{% include 'nav_bar.html.twig' %}
+{% endraw %}
+{% endhighlight %}
 
-### Showing specific blog post
+### Showing Specific Blog Post
 
-On the `entryAction`, let's add a service name to the action, so where it shows: `* @Route("/entry/{slug}")` let's add the name: `* @Route("/entry/{slug}", name="entry")`
+On the `entryAction` of the `BlogController` class, let's add a service name to the action. Where it shows `* @Route("/entry/{slug}")` let's replace it by `* @Route("/entry/{slug}", name="entry")`.
 
 Let's retrieve the blog post from the database by the given slug at the top of the method:
 
@@ -859,7 +863,7 @@ Let's retrieve the blog post from the database by the given slug at the top of t
 $blogPost = $this->blogPostRepository->findOneBySlug($slug);
 ```
 
-We need to really make sure the blog post exists before passing data into and displaying the template. So let's now do a check:
+We need to3 make sure the blog post exists before passing data into and displaying the template. So let's now do a check:
 
 ```php
 if (!$blogPost) {
@@ -871,31 +875,29 @@ if (!$blogPost) {
 
 This will set a "flash" session with an error message and redirect the user to the entries page to display the error.
 
-Next in the return's 2nd argument (the array), put in an entry: `'blogPost' => $blogPost` so your final action will look like:
+Next, in the return's 2nd argument (the array), put in an entry (`'blogPost' => $blogPost`). Your final action will look like:
 
 ```php
 /**
-  * @Route("/entry/{slug}", name="entry")
-  */
- public function entryAction($slug)
- {
-     $blogPost = $this->blogPostRepository->findOneBySlug($slug);
+* @Route("/entry/{slug}", name="entry")
+*/
+public function entryAction($slug)
+{
+   $blogPost = $this->blogPostRepository->findOneBySlug($slug);
 
-     if (!$blogPost) {
-         $this->addFlash('error', 'Unable to find entry!');
+   if (!$blogPost) {
+       $this->addFlash('error', 'Unable to find entry!');
 
-         return $this->redirectToRoute('entries');
-     }
+       return $this->redirectToRoute('entries');
+   }
 
-     return $this->render('AppBundle:Blog:entry.html.twig', array(
-         'blogPost' => $blogPost
-     ));
- }
+   return $this->render('AppBundle:Blog:entry.html.twig', array(
+       'blogPost' => $blogPost
+   ));
+}
 ```
 
-We now need to output this data in the template. So open `src/AppBundle/Resources/views/Blog/entry.html.twig`
-
-Within `{% raw %}{% block body %}{% endraw %}` we need to add some content:
+Now, we need to output this data in the template. So open `src/AppBundle/Resources/views/Blog/entry.html.twig` and, within `{% raw %}{% block body %}{% endraw %}`, we need to add some content:
 
 {% highlight html %}
 {% raw %}
@@ -922,13 +924,13 @@ Within `{% raw %}{% block body %}{% endraw %}` we need to add some content:
 {% endraw %}
 {% endhighlight %}
 
-The above code simply outputs the details of the blog post, its title, when it was updated at, the author, description and the body.
+The above code simply outputs the details of the blog post, its title, when it was updated at, the author, description, and the body.
 
-Our next problem is how to access this new page we've created. Back in your `entries.html.twig` template, find `{% raw %}{{ firstParagraph|raw }}<br />{% endraw %}` and below paste:
+Our next problem is how to access this new page we've created. Back in your `entries.html.twig` template, find `{% raw %}{{ firstParagraph|raw }}<br />{% endraw %}` and paste below:
 
 {% highlight html %}{% raw %}<a href="{{ path('entry', {'slug': blogPost.slug}) }}">Read more</a>{% endraw %}{% endhighlight %}
 
-Find: `{% raw %}{{ blogPost.title }}{% endraw %}` and wrap this in `<a>` tags so it will look like:
+Then you need to find `{% raw %}{{ blogPost.title }}{% endraw %}` and wrap this in `<a>` tags so it will look like:
 
 {% highlight html %}
 {% raw %}
@@ -938,7 +940,7 @@ Find: `{% raw %}{{ blogPost.title }}{% endraw %}` and wrap this in `<a>` tags so
 {% endraw %}
 {% endhighlight %}
 
-Now... refresh your browser, you'll see the title has changed to a link, and there is now a "Read more" at the bottom of your article. Click one of those and you'll see your new page!
+Now refresh your browser. You'll see the title has changed to a link, and there is now a "Read more" at the bottom of your article. Click one of those and you'll see your new page!
 
 ### Showing author details
 
