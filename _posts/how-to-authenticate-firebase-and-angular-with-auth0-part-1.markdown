@@ -571,8 +571,8 @@ Finally, we need to implement the architecture necessary for our Firebase realti
 $ ng g module comments
 # create Comment model class:
 $ ng g class comments/comment
-# create CommentsComponent with inline styles and no .spec file:
-$ ng g component comments/comments --is --no-spec
+# create CommentsComponent with no .spec file:
+$ ng g component comments/comments --no-spec
 # create CommentFormComponent with inline styles and no .spec file:
 $ ng g component comments/comments/comment-form --is --no-spec
 ```
