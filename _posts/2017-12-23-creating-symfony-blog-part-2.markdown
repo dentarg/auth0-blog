@@ -136,19 +136,17 @@ Encore
     .addStyleEntry('global', './assets/css/global.scss')
     .enableSassLoader()
     .autoProvidejQuery()
-
-    .enableSourceMaps(!Encore.isProduction())
-;
+    .enableSourceMaps(!Encore.isProduction());
 
 module.exports = Encore.getWebpackConfig();
 ```
 
-Create the following SCSS and Javascript file in our assets directory to be used in the configuration above, they can be left empty for now. We will populate them further in the tutorial.
+The configuration above uses two assets: `main.js` and `global.scss`. Let's create a new directory called `assets` in the project root, and there we will need to create two subdirectories: `js` and `css`. Inside these subdirectories, let's create the `main.js` and `global.scss` files. We will populate them further in the tutorial. After that, we will have the following substructure:
 
-* `assets/js/main.js`
-* `assets/css/global.scss`
+* `./assets/js/main.js`
+* `./assets/css/global.scss`
 
-Before we can compile our javascript and CSS files to be used in our Symfony templates, we will need to first install some dependencies. `sass-loader` and `node-sass` are libraries that load SASS/SCSS files and compiles them to CSS, where. To do this run the following command:
+Before we can compile our JavaScript and SCSS files to be used in our Symfony templates, we will need to install some dependencies. [`sass-loader`](https://github.com/webpack-contrib/sass-loader) and [`node-sass`](https://github.com/sass/node-sass) are libraries that load SASS/SCSS files and compile them to CSS. Let's install these dependencies by issuing the following codes:
 
 ```bash
 yarn add sass-loader node-sass --dev
@@ -156,7 +154,7 @@ yarn add sass-loader node-sass --dev
 
 Now, we can compile our Javascript and CSS into assets to be used by Symfony by running this command, `yarn run encore dev --watch`.
 
-Open the base twig template which can be found: `app/Resources/views/base.html.twig` and replace the contents with:
+Open the base twig template (which can be found at `./app/Resources/views/base.html.twig`) and replace the contents with:
 
 {% highlight html %}
 {% raw %}
@@ -187,19 +185,17 @@ In order to make use of Bootstrap we need to install jQuery, so run the command:
 yarn add jquery --dev
 ```
 
-Once installed at the top of the empty `assets/js/main.js` file, insert `var $ = require('jquery');`.
+Once installed, at the top of the empty `./assets/js/main.js` file, insert `var $ = require('jquery');`.
 
-We want an app css assets file so, let's create the following file `assets/css/main.scss`
-And in `assets/js/main.js` at the bottom paste the following: `require('../css/main.scss');`
+We want an app CSS asset file. Let's create the following file `assets/css/main.scss`. Then, in `assets/js/main.js` at the bottom paste the following: `require('../css/main.scss');`.
 
-Let's move the contents of our CSS file we created in part 1 (`web/css/style.css`) into the new file we've created above (`assets/css/global.scss`)
+Let's move the contents of our CSS file we created in part 1 (`web/css/style.css`) into the new file we've created above (`assets/css/global.scss`).
 
-Finally, in our `base.html.twig` In the Stylesheets block, paste the following: `{% raw %}<link rel="stylesheet" href="{{ asset('build/app.css') }}">{% endraw %}`
+Finally, in our `base.html.twig`, in the Stylesheets block, paste the following: `{% raw %}<link rel="stylesheet" href="{{ asset('build/app.css') }}">{% endraw %}`.
 
-Now we need to install bootstrap-sass with the following command: `yarn add bootstrap-sass --dev`
-We need to import this into our Sass file. So in `assets/css/global.scss` let's put in the following lines:
+Now we need to install [`bootstrap-sass`](https://github.com/twbs/bootstrap-sass) with the following command: `yarn add bootstrap-sass --dev`. We need to import this into our Sass file. So in `./assets/css/global.scss`, let's insert the following lines:
 
-```JavaScript
+```css
 $brand-primary: darken(#428bca, 20%);
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
@@ -207,11 +203,11 @@ $brand-primary: darken(#428bca, 20%);
 
 We're going to want to override the path to icons by loading Bootstrap in the `global.scss` file:
 
-```JavaScript
-    $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+```css
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 ```
 
-Finally in your `main.js` file you need to require bootstrap-sass under your `var $ = require('jquery');` line
+Finally in your `main.js` file you need to require bootstrap-sass under your `var $ = require('jquery');` line:
 
 ```JavaScript
 require('bootstrap-sass');
