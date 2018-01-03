@@ -234,11 +234,11 @@ php bin/console generate:controller
 
 ![Creating Blog Controller with Symfony](https://cdn.auth0.com/blog/symfony-part-2/creating-blog-controller.png)
 
-If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `BlogController`. You'll also have three new templates in `src/AppBundle/Resources/views/Blog/`.
+If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `./src/AppBundle/Controllers/` called `BlogController`. You'll also have three new templates in `./src/AppBundle/Resources/views/Blog/`.
 
 __NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-2/src/AppBundle/Controller/BlogController.php)
 
-Delete the DefaultController (`src/AppBundle/Controllers/DefaultController.php`) as it's not needed.
+Delete the DefaultController (`./src/AppBundle/Controllers/DefaultController.php`) as it's not needed.
 
 Back in our `AdminController`, we need to add a route on the controller itself. Because there may be conflicts of routes between the two controllers. So above `class AdminController extends Controller` add:
 
@@ -248,7 +248,7 @@ Back in our `AdminController`, we need to add a route on the controller itself. 
  */
  ```
 
-Open `src/AppBundle/Controllers/BlogController.php` and find the `entriesAction`. Then, configure the routing for this controller to be the homepage and give the action a service name. So above `public function entriesAction()` replace the annotation with:
+Open `./src/AppBundle/Controllers/BlogController.php` and find the `entriesAction`. Then, configure the routing for this controller to be the homepage and give the action a service name. So above `public function entriesAction()` replace the annotation with:
 
 ```php
 /**
@@ -435,7 +435,7 @@ use AppBundle\Entity\BlogPost;
 use AppBundle\Form\EntryFormType;
 ```
 
-We now need the template, so create a new file called `src/AppBundle/Resources/views/Admin/entry_form.html.twig` and insert the following code into it:
+We now need the template, so create a new file called `./src/AppBundle/Resources/views/Admin/entry_form.html.twig` and insert the following code into it:
 
 {% highlight html %}
 {% raw %}
@@ -514,7 +514,7 @@ public function entriesAction()
 }
 ```
 
-Time to create the template `src/AppBundle/Resources/views/Admin/entries.html.twig` to store the following code in:
+Time to create the template `./src/AppBundle/Resources/views/Admin/entries.html.twig` to store the following code in:
 
 {% highlight html %}
 {% raw %}
@@ -653,7 +653,7 @@ to:
 
 We don't want to be loading all blog posts into the page, so let's add some pagination.
 
-In the `src/AppBundle/Controllers/BlogController.php` find `entriesAction()` and within the empty brackets type in: `Request $request`
+In the `./src/AppBundle/Controllers/BlogController.php` find `entriesAction()` and within the empty brackets type in: `Request $request`
 
 At the top of the controller we need to include this class so where it shows:
 
@@ -899,7 +899,7 @@ public function entryAction($slug)
 }
 ```
 
-Now, we need to output this data in the template. So open `src/AppBundle/Resources/views/Blog/entry.html.twig` and, within `{% raw %}{% block body %}{% endraw %}`, we need to add some content:
+Now, we need to output this data in the template. So open `./src/AppBundle/Resources/views/Blog/entry.html.twig` and, within `{% raw %}{% block body %}{% endraw %}`, we need to add some content:
 
 {% highlight html %}
 {% raw %}
@@ -1012,7 +1012,7 @@ With the template `./src/AppBundle/Resources/views/Blog/author.html.twig`, we wo
 {% endraw %}
 {% endhighlight %}
 
-We now need to have that author page linkable for people to access it. In: `src/AppBundle/Resources/views/Blog/entries.html.twig` you will find:
+We now need to have that author page linkable for people to access it. In: `./src/AppBundle/Resources/views/Blog/entries.html.twig` you will find:
 
 {% highlight html %}
 {% raw %}
