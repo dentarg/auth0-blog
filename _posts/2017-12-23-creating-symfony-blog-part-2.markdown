@@ -215,7 +215,7 @@ require('bootstrap-sass');
 
 You've now set up Bootstrap to be used in your Symfony Blog.
 
-### Showing blog posts
+### Showing Blog Posts
 
 Let's create our blog controller by running the following command:
 
@@ -223,25 +223,23 @@ Let's create our blog controller by running the following command:
 php bin/console generate:controller
 ```
 
-<screenshot of new controller>
+![Creating Blog Controller with Symfony](https://cdn.auth0.com/blog/symfony-part-2/creating-blog-controller.png)
 
-If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `BlogController`. You'll also have a new template in `src/AppBundle/Resources/views/Blog/`.
+If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `BlogController`. You'll also have three new templates in `src/AppBundle/Resources/views/Blog/`.
 
 __NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-2/src/AppBundle/Controller/BlogController.php)
 
 Delete the DefaultController (`src/AppBundle/Controllers/DefaultController.php`) as it's not needed.
 
-Back in our `AdminController` we need to add a route on the controller itself. Because there may be conflicts of routes between the two controllers. So above `class AdminController extends Controller` add:
+Back in our `AdminController`, we need to add a route on the controller itself. Because there may be conflicts of routes between the two controllers. So above `class AdminController extends Controller` add:
 
 ```php
 /**
- * @Route("/admin")
+ * @Route("/admin");
  */
  ```
 
-Open `src/AppBundle/Controllers/BlogController.php` and find the `entriesAction`
-
-Configure the routing for this controller to be the homepage and give the action a service name. So above `public function entriesAction()` replace the annotation with:
+Open `src/AppBundle/Controllers/BlogController.php` and find the `entriesAction`. Then, configure the routing for this controller to be the homepage and give the action a service name. So above `public function entriesAction()` replace the annotation with:
 
 ```php
 /**
@@ -252,7 +250,7 @@ Configure the routing for this controller to be the homepage and give the action
 
 This allows us to call the action by the service name, but also places the root route as displaying the entries.
 
-We need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the BlogController class we want to inject these services.
+We need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the `BlogController` class we want to inject these services.
 
 ```php
 /** @var EntityManagerInterface */
@@ -284,9 +282,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
-Great, in our entire controller we can call the blogPostRepository, authorRepository or entityManager as and when needed. The first two are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data (It can also be used for retrieving but by setting up the construct this way, we will be reducing duplicate code).
+Great, in our entire controller we can call the `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data (it can also be used for retrieving, but by setting up the construct this way, we will be reducing duplicate code).
 
-Let us populate the entriesAction now:
+Let us populate the `entriesAction` function now:
 
 ```php
 return $this->render('AppBundle:Blog:entries.html.twig', [
@@ -294,7 +292,7 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
 ]);
 ```
 
-### Creating a blog post
+### Creating Blog Posts
 
 Now that we have made a member restricted area of the site, let's allow the authenticated users to create a new blog post.
 
