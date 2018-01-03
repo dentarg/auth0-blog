@@ -76,23 +76,18 @@ An _API Gateway_ is a centralized middleware that encapsulates the internal syst
 
 API Gateway can have other responsibilities such as _authentication_, _monitoring_, _load balancing_, _caching_, _request shaping and management_, and _static response handling_.
 
-## API Gateway In practice
+## API Gateway in Practice
 
-Let's move from the theory to the practice and see how to configure an API Gateway to serve our needs.
+Let's move from theory to practice and see how to configure an API Gateway to serve our needs.
 
-Let's suppose we have a customer and an order microservices listening `http://customers` and `http://orders`. Using
-[Docker][9] or [Kubernetes][10] achieving such scenario should be fairly easy.
+Let's suppose that we have `Customer` and `Order` microservices listening to `http://customers` and `http://orders` respectively. Using [Docker](https://docker.com) or [Kubernetes](https://kubernetes.io) achieving such scenario should be fairly easy.
 
-We will configure an instance of a Gateway that will sit on the edge of our system. It will serve as a router for our
-microservices but we'll also move some shared logic from the microservices to it so the application can focus on the
-business logic. The gateway will throttle all the requests based on client's IP address and make sure that all the
-requests will be an authenticated based on a **JWT** that _Auth0_ is going to provide — being our **system of record**
-for our users.
+We will configure an instance of an API Gateway that will sit on the edge of our system. This gateway will serve as a router for our microservices, but we'll also move some shared logic from the microservices to it. This will enable our applications to focus on the business logic.
 
-There are multiple API Gateways on the market: some are offered by big software companies as a managed hosted solution;
-there are open source products as well and you can technically write your own too.
+This gateway will also throttle all the requests based on clients' IP addresses and make sure that all the
+requests are authenticated based on a **JWT** that _Auth0_ is going to provide. [Auth0e will work as our **system of record** for our users](https://auth0.com/blog/360-view-of-customer-by-managing-identity/).
 
-For this purpose, we're going to employ [Express-Gateway][3].
+There are multiple API Gateways on the market. Some of them are offered by big software companies as a managed hosted solution and others are open source products. Of course, you can technically write your own solution too, but why reinvent the wheel? Instead, let's take advantage of [Express-Gateway](https://express-gateway.io).
 
 ## Meet Express-Gateway
 
@@ -112,7 +107,7 @@ the gateway at all.
 
 ### Hands on
 
-Installing [express-gateway][3] is dead simple:
+Installing [express-gateway](https://express-gateway.io) is dead simple:
 
 `~$ npm i -g express-gateway`
 
@@ -256,7 +251,7 @@ making sure that the token is now sent as a `Bearer` Authorization endpoint. The
 
 ## Conclusions
 
-Thanks to [Express-Gateway][3], we have moved two shared concerns (authentication and rate limiting) from the
+Thanks to [Express-Gateway](https://express-gateway.io), we have moved two shared concerns (authentication and rate limiting) from the
 microservices to a centralized middleware that — no matter how many microservices we're going to have — it is going to
 behave in a consistent way.
 
@@ -275,14 +270,11 @@ though the original data is shaped in a different way. Hopefully, we will explor
 In meantime, you can see some other interesting use cases on
 [Express-Gateway website](http://www.express-gateway.io/resources/).
 
-[3]: https://express-gateway.io
 [4]: https://www.express-gateway.io/docs/configuration/gateway.config.yml/
 [5]: http://www.express-gateway.io/docs/
 [6]: https://www.express-gateway.io/docs/policies/rate-limiter
 [7]: https://www.express-gateway.io/docs/policies/jwt
 [8]: http://blog.daemonl.com/2016/02/yaml.html
-[9]: https://docker.com
-[10]: https://kubernetes.io
 [11]: https://nodejs.org
 [12]: https://expressjs.com/
 [13]: https://expressjs.com/en/guide/writing-middleware.html
