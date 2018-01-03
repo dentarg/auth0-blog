@@ -222,6 +222,8 @@ require('bootstrap-sass');
 
 You've now set up Bootstrap to be used in your Symfony Blog.
 
+{% include tweet_quote.html quote_text="Integrating Webpack, Symfony, and Bootstrap is really easy!" %}
+
 ### Showing Blog Posts
 
 Let's create our blog controller by running the following command:
@@ -1054,6 +1056,8 @@ Let's replace it with the following:
 
 Refresh your browser, you will see the author names have a link now.
 
+{% include tweet_quote.html quote_text="Urray! I've just finished creating my own blog engine with Symfony and PHP!" %}
+
 ## Conclusion
 
-Congratulations, you have just built yourself a functional blog from scratch with Symfony, and able to allow anyone to sign up to become an author. This allows them to also contribute to your blog by posting articles of their own! Although this is just the basics of a blog, it is a strong stepping stone into making it as custom and feature filled as you wish.
+Congratulations, you have just built yourself a functional blog engine from scratch with Symfony. This blog engine even enables visitors to sign up to become authors. This allows them to also contribute to your blog by posting articles of their own! Although this is just the basics of a blog, it is a strong stepping stone into making it as custom and feature filled as you wish.
