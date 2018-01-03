@@ -25,17 +25,17 @@ related:
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this part of the article, we will cover installing [Bootstrap, a UI framework for web applications](https://getbootstrap.com/), to make the blog engine look nicer visually. The final code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
 
 ---
 
 ## Symfony Tutorial: About Part 1 and Part 2
 
-In the first article, we:
+[In the first article](https://auth0.com/blog/symfony-tutorial-building-a-blog-part-1/), we:
 
 * installed and configured a Symfony installation;
-* created two new database tables `author` and `blog_post`;
-* allowed users to authenticate with Auth0;
+* created two new database tables: `author` and `blog_post`;
+* allowed users to authenticate with [Auth0](https://auth0.com);
 * and ensured that the authenticated users have `Author` instances associated before using the system.
 
 In this part of the article, we will cover installing [Bootstrap, a UI framework for web applications](https://getbootstrap.com/), to make the blog engine look nicer visually. We will also enhance our blog engine to allow visitors to:
