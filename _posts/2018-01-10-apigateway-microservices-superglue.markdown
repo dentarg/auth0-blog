@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "API Gateway: the Microservices superglue"
-description: "Express Gateway is an API Gateway that sits at the heart of any microservices architecture, regardless of what language or platform you're using, securing your microservices and exposing them through APIs."
-longdescription: "Express Gateway is an API Gateway that sits at the heart of any microservices architecture, regardless of what language or platform you're using, securing your microservices and exposing them through APIs."
+title: "API Gateway: the Microservices Superglue"
+description: "Express Gateway is an API gateway that sits at the heart of any microservices architecture, securing your microservices and exposing them through APIs."
+longdescription: "Express Gateway is an API Gateway that sits at the heart of any microservices architecture (regardless of what language or platform you're using), securing your microservices and exposing them through APIs. In this tutorial, I'll show you how an API Gateway can be a great tool when you have multiple microservices."
 date: 2018-01-10 10:00
-category: Technical Guide, NodeJS, APIs
+category: Technical Guide, Backend, NodeJS
 banner:
   text: "Auth0 makes it easy to issue JWT for your API Gateway and act as system of records."
 author:
