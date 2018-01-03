@@ -2,15 +2,15 @@
 layout: post
 title: "3 Key Strategies for Leveraging First-Party Data to Improve Your Ads"
 description: "In advertising, Data is king, but that doesn't always mean it's put to good use. Until now."
-date: 2017-12-22 8:30
+date: 2018-01-03 8:30
 category: Growth, Data
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: Martin Gontovnikas
-  url: http://twitter.com/mgonto
-  mail: gonto@auth0.com
-  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 is_non-tech: true
 design:
   image: https://cdn.auth0.com/blog/strategies/logo.png
