@@ -70,7 +70,7 @@ It turns out that, no matter the way you're doing microservices (whether you're 
 
 [Microservices need a **superglue** and that glue is an **API Gateway**](https://auth0.com/blog/an-introduction-to-microservices-part-2-API-gateway/).
 
-# API Gateway
+## API Gateway
 
 An _API Gateway_ is a centralized middleware that encapsulates the internal system architecture and provides an API that
 can be shaped based on real client needs rather than simply returning what the particular microservice is sending you
