@@ -562,9 +562,9 @@ Time to create the template `src/AppBundle/Resources/views/Admin/entries.html.tw
 
 As you can see in this template, there is a button to "Add entry" which will direct the user to create a new entry when clicked.
 
-### Creating delete functionality for author's posts
+### Creating Delete Functionality for Author's Posts
 
-Our next step is to delete the authenticated users blog posts on demand. So in AdminController create a new method with the following code:
+Our next step is to delete the authenticated users blog posts on demand. So in `AdminController` create a new method with the following code:
 
 ```php
 /**
@@ -596,9 +596,9 @@ public function deleteEntryAction($entryId)
 
 This will check if the entryId passed in exists, check to ensure the authenticated user is the author of the article and then delete it.
 
-There is no template needed for this, however we still need somewhere in the templates to show the action. So in `src/AppBundle/Resources/views/Admin/entries.html.twig` let's make some additions.
+There is no template needed for this, however we still need somewhere in the templates to show the action. So in `./src/AppBundle/Resources/views/Admin/entries.html.twig` let's make some additions.
 
-In the table headers, let's add a new row, from:
+In the table headers, let's add a new row. This will this element change from:
 
 ```html
 <thead>
@@ -619,7 +619,7 @@ to:
 </thead>
 ```
 
-And in the for loop, add a new td, which will contain the delete button, from:
+And in the for loop, add a new td, which will contain the delete button. We will change it from:
 
 {% highlight html %}
 {% raw %}
@@ -640,7 +640,7 @@ to:
 {% endraw %}
 {% endhighlight %}
 
-### Add pagination to blog posts list.
+### Add pagination to blog posts list
 
 We don't want to be loading all blog posts into the page, so let's add some pagination.
 
