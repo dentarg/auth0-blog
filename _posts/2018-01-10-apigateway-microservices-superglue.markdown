@@ -87,9 +87,9 @@ We will configure an instance of an API Gateway that will sit on the edge of our
 This gateway will also throttle all the requests based on clients' IP addresses and make sure that all the
 requests are authenticated based on a **JWT** that _Auth0_ is going to provide. [Auth0e will work as our **system of record** for our users](https://auth0.com/blog/360-view-of-customer-by-managing-identity/).
 
-There are multiple API Gateways on the market. Some of them are offered by big software companies as a managed hosted solution and others are open source products. Of course, you can technically write your own solution too, but why reinvent the wheel? Instead, let's take advantage of [Express-Gateway](https://express-gateway.io).
+There are multiple API Gateways on the market. Some of them are offered by big software companies as a managed hosted solution and others are open source products. Of course, you can technically write your own solution too, but why reinvent the wheel? Instead, let's take advantage of [Express Gateway](https://express-gateway.io).
 
-## Meet Express-Gateway
+## Meet Express Gateway
 
 Express Gateway is an API Gateway that sits at the heart of any microservices architecture, regardless of what language
 or platform you're using, **securing** your microservices and exposing them through **APIs** using [Node.js][11],
@@ -107,7 +107,7 @@ the gateway at all.
 
 ### Hands on
 
-Installing [express-gateway](https://express-gateway.io) is dead simple:
+Installing [Express Gateway](https://express-gateway.io) is dead simple:
 
 `~$ npm i -g express-gateway`
 
@@ -251,7 +251,7 @@ making sure that the token is now sent as a `Bearer` Authorization endpoint. The
 
 ## Conclusions
 
-Thanks to [Express-Gateway](https://express-gateway.io), we have moved two shared concerns (authentication and rate limiting) from the
+Thanks to [Express Gateway](https://express-gateway.io), we have moved two shared concerns (authentication and rate limiting) from the
 microservices to a centralized middleware that — no matter how many microservices we're going to have — it is going to
 behave in a consistent way.
 
@@ -268,7 +268,7 @@ coming from a particular microservice so that the returned payload is consistent
 though the original data is shaped in a different way. Hopefully, we will explore this in a future article.
 
 In meantime, you can see some other interesting use cases on
-[Express-Gateway website](http://www.express-gateway.io/resources/).
+[Express Gateway website](http://www.express-gateway.io/resources/).
 
 [4]: https://www.express-gateway.io/docs/configuration/gateway.config.yml/
 [5]: http://www.express-gateway.io/docs/
