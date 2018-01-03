@@ -148,7 +148,7 @@ pipelines:
             windowMs: 1000
       - jwt:
         - action:
-            secretOrPublicKeyFile: /key/pubKey.pem
+            secretOrPublicKeyFile: ./key/pubKey.pem
             checkCredentialExistence: false
       - proxy:
           - action:
@@ -164,7 +164,7 @@ pipelines:
             windowMs: 1000
       - jwt:
         - action:
-            secretOrPublicKeyFile: /key/pubKey.pem
+            secretOrPublicKeyFile: ./key/pubKey.pem
             checkCredentialExistence: false
       - proxy:
           - action:
@@ -190,63 +190,61 @@ For our example, I'll name the API **billings** and identify it as `http://order
 ![Creating billings API on Auth0](https://cdn.auth0.com/blog/express-gateway/create-auth0-api.png)
 
 Now point your browser to `https://yourAPI.auth0.com/pem` (where `yourAPI` is the Auth0 domain that you chose when creating your account) and download the **public key** file. This is the key that we will
-use to verify that the JSON Web Tokens (JWTs) issued by Auth0 are valid. Save it as `pubKey.pem` and place it in the same directory specified in `secretOrPublicKeyFile` parameter of the `jwt` policy.
+use to verify that the JSON Web Tokens (JWTs) issued by Auth0 are valid. Save it as `pubKey.pem` and place it in the same directory specified in `secretOrPublicKeyFile` parameter of the `jwt` policy (that is, in a directory called `key` in the project root).
 
 The API Gateway has now been configured correctly to handle the scenarios.
 
-### Test drive
+### Test Drive
 
-Start the gateway using `npm start` in the gateway directory. Once running, let's try to issue a couple of requests to
-it:
+Start the gateway using `npm start` in the project root. Once running, let's try to issue a couple of requests to it:
 
 ```shell
-$ curl http://customers.company.com & curl http://customers.company.com
+$ curl http://customers.company.com:8080 & curl http://customers.company.com:8080
 $ [1] 4495
 $ Unauthorized
 $ [1]+  Done
 $ Too many requests, please try again later.
 ```
 
-You can see that the first request has been denied with `Unauthorized` as response text. That's because we didn't
-provide any JWT with the request, and it didn't go through.
+You can see that the first request has been denied with `Unauthorized` status. That's because we didn't
+provide any JWT with the request, so it didn't go through.
 
 Moreover, the second request has been refused by the rate limiting policy, without event arriving to the
-**authentication** phase (policies are executed following the definition order in the configuration file).
+**authentication** phase. Policies are executed following the definition order in the configuration file.
 
-Now grab any Http client and let's configure it to start an OAuth2 authorization process against our API hosted in Auth0.
-We can grab all the necessary parameters going on _Clients_ -> _Settings_ -> _Advanced Settings_ -> _Endpoints_
+Now grab any HTTP client and let's configure it to start an OAuth 2.0 authorization process against our API hosted in Auth0. We can grab all the necessary parameters going on _Clients_ -> _billings (Test Client)_ -> _Settings_ -> _Advanced Settings_ -> _Endpoints_
 
-![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/auth0-endpoints.png)
+In my case, I am going to use `curl`, but you can use the one you prefer:
 
-In my case, I am going to use [Insomnia](https://insomnia.rest) but you can use the one you prefer.
+```bash
+curl --request POST \
+  --url https://bkrebs.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{
+    "client_id":"my-client-id-copied-from-auth0-client",
+    "client_secret":"my-super-secret-copied-from-auth0-client",
+    "audience":"http://orders",
+    "grant_type":"client_credentials"
+}'
+```
 
-![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/insomnia.png)
+Now, by simply copying the `access_token` attribute from the response, we will be able to communicate with the API through Express Gateway (you can verify the returned token by using [JWT.io](https://jwt.io/#debugger)). This is the token to be used in order to access the protected resource. So, just try to issue requests making sure that the token is now sent as a `Bearer` Authorization to the endpoint. The response should hopefully be `200`.
 
-Now by simply clicking on the _Fetch token_ button, the oAuth2 flow will be initiated and once over, a JWT will
-be populated under the *access_token* field.
-
-You can verify the returned informations using [JWT.io](https://jwt.io/#debugger), as well as the signature.
-
-That is the token to be used in order to access the protected resource. So just try to issue the request again
-making sure that the token is now sent as a `Bearer` Authorization endpoint. The response should hopefully be `200`.
+```bash
+export JWT="ey...the-rest-of-the-token"
+curl -H "Authorization: Bearer "$JWT http://customers.company.com:8080
+```
 
 ## Conclusions
 
-Thanks to [Express Gateway](https://express-gateway.io), we have moved two shared concerns (authentication and rate limiting) from the
-microservices to a centralized middleware that — no matter how many microservices we're going to have — it is going to
-behave in a consistent way.
+Thanks to [Express Gateway](https://express-gateway.io), we have moved two shared concerns (authentication and rate limiting) from the microservices to a centralized middleware that—no matter how many microservices we're going to have—it is going to behave in a consistent way.
 
-We can now safely remove the code handling that from our microservices and assume that, if they're receiving a request,
-it's both **authenticated** and it passed the **rate-limit** checks. You now have **guarantees**.
+We can now safely remove the code handling that from our microservices and assume that, if they're receiving a request, it's both **authenticated** and it passed the **rate-limit** checks. You now have **guarantees**.
 
 However, this is just the tip of the iceberg.
 
-The benefits of an API Gateway do not stop here. In this example, we've shown how it can make some checks on **inboud**
-requests, but it can also be used to modify the **outbound** responses.
+The benefits of an API Gateway do not stop here. In this example, we've shown how it can make some checks on **inbound** requests, but it can also be used to modify the **outbound** responses.
 
-In the initial part of the article, we were talking about the uniform API. An API Gateway could transform the response
-coming from a particular microservice so that the returned payload is consistent with the other microservices, even
-though the original data is shaped in a different way. Hopefully, we will explore this in a future article.
+In the initial part of the article, we were talking about the uniform API. An API Gateway could transform the response coming from a particular microservice so that the returned payload is consistent with the other microservices, even though the original data is shaped in a different way. Hopefully, we will explore this in a future article.
 
-In meantime, you can see some other interesting use cases on
-[Express Gateway website](http://www.express-gateway.io/resources/).
+In the meantime, you can see some other interesting use cases on [Express Gateway website](http://www.express-gateway.io/resources/).
