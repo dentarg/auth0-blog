@@ -91,19 +91,13 @@ There are multiple API Gateways on the market. Some of them are offered by big s
 
 ## Meet Express Gateway
 
-Express Gateway is an API Gateway that sits at the heart of any microservices architecture, regardless of what language
-or platform you're using, **securing** your microservices and exposing them through **APIs** using [Node.js][11],
-[ExpressJS][12] and [Express middleware][13].
+Express Gateway is an API Gateway that sits at the heart of any microservices architecture (regardless of what language or platform you're using), **securing** the different pieces and exposing them through **APIs**. All these magic works by using [Node.js](https://nodejs.org), [ExpressJS](https://expressjs.com/), and [Express middleware](https://expressjs.com/en/guide/writing-middleware.html).
 
-![](https://gist.githubusercontent.com/XVincentX/8c1c844727cadd071ea3a04a328aad50/raw/30c4d5148cbf200fd8fe4bc610a82dac411156b4/eg-diagram.png)
+![Express Gateway Diagram](https://cdn.auth0.com/blog/express-gateway/express-gateway-diagram.png)
 
-It centralizes all of the application configuration for the API use case into one YAML(or JSON) file. Within the YAML
-file is an easy to understand description of how and what is configured.
+Express Gateway centralizes all the application configuration for the API use case into one YAML (or JSON) file. Within the YAML file there is an easy to understand description of how and what is configured.
 
-Express Gateway entities, like _policies_, _pipelines_, _conditions_, and _actions_, wrap around Express middleware to
-make it **dynamic**. Any Express middleware can be plugged into Express Gateway to take advantage of its dynamic
-capabilities. It also features an hot-reload mechanism so you can change its configuration without having to restart
-the gateway at all.
+Express Gateway entities, like _policies_, _pipelines_, _conditions_, and _actions_, wrap around Express middleware to make it **dynamic**. Any Express middleware can be plugged into Express Gateway to take advantage of its dynamic capabilities. It also features an hot-reload mechanism so you can change its configuration without having to restart the gateway at all.
 
 ### Hands on
 
@@ -275,6 +269,3 @@ In meantime, you can see some other interesting use cases on
 [6]: https://www.express-gateway.io/docs/policies/rate-limiter
 [7]: https://www.express-gateway.io/docs/policies/jwt
 [8]: http://blog.daemonl.com/2016/02/yaml.html
-[11]: https://nodejs.org
-[12]: https://expressjs.com/
-[13]: https://expressjs.com/en/guide/writing-middleware.html
