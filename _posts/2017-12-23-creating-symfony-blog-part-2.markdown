@@ -296,7 +296,7 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
 
 Now that we have made a member restricted area of the site, let's allow the authenticated users to create a new blog post.
 
-Let's create a new file: `src/AppBundle/Form/EntryFormType.php` and paste the following into there:
+Let's create a new file called `./src/AppBundle/Form/EntryFormType.php` and paste the following into there:
 
 ```php
 <?php
@@ -381,9 +381,9 @@ class EntryFormType extends AbstractType
 }
 ```
 
-As you can see, the data class to be used is the entity BlogPost, and if you compare the fields in `buildForm` you'll notice the first argument of each, the name, matches the names of the properties in BlogPost entity.
+As you can see, the data class to be used is the entity `BlogPost`, and if you compare the fields in `buildForm` you'll notice the first argument of each, the name, matches the names of the properties in BlogPost entity.
 
-A new controller method is needed, so let's paste this into your AdminController:
+A new controller method is needed, so add this function into your `AdminController` class:
 
 ```php
 /**
@@ -426,7 +426,7 @@ use AppBundle\Entity\BlogPost;
 use AppBundle\Form\EntryFormType;
 ```
 
-We now need the template so create a new file: `src/AppBundle/Resources/views/Admin/entry_form.html.twig` And insert the following code into that new file:
+We now need the template, so create a new file called `src/AppBundle/Resources/views/Admin/entry_form.html.twig` and insert the following code into it:
 
 {% highlight html %}
 {% raw %}
@@ -478,9 +478,9 @@ We now need the template so create a new file: `src/AppBundle/Resources/views/Ad
 
 Before we try to create a new entry, let's build the page that displays all of the authenticated users blog posts.
 
-### Displaying blog posts created by authenticated author
+### Displaying Blog Posts Created by Authenticated Author
 
-In your AdminController let's add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the template `entries.html.twig` to be displayed.
+In your `AdminController`, let's add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the template `entries.html.twig` to be displayed.
 
 ```php
 /**
