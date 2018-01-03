@@ -28,38 +28,26 @@ tags:
 ---
 
 **TL;DR:** In this tutorial, I'll show you how an API Gateway can be a great tool when you have multiple
-microservices that need to share multiple tasks. You can get the code example
-[here](https://github.com/XVincentX/apigateway-playground)
+microservices that need to share multiple tasks. You can get the code example [here](https://github.com/XVincentX/apigateway-playground).
 
 ---
 
-# Introduction
+## Introduction
 
-Microservices is an architectural style with the basic idea of **decomposing** a system in a collection of services,
-each one implementing a particular capability/feature of the system itself based on business, technical and/or
-other requirements.
+[Microservices](https://auth0.com/blog/an-introduction-to-microservices-part-1/) is an architectural style with the basic idea of **decomposing** a system in a collection of services, each one implementing a particular capability/feature of the system itself based on business, technical, and other requirements.
 
-This has several benefits compared to a monolithic approach:
+[This has several benefits compared to a monolithic approach](https://auth0.com/blog/getting-a-competitive-edge-with-a-microservices-based-architecture/):
 
-* It enables the **continuous delivery** of large, complex applications by deploying the singular pieces **indipendently**.
+* It enables the **continuous delivery** of large, complex applications by deploying the singular pieces **independently**.
+* It enables to select the framework and the programming language that you think it's the best for the job. You can use the latest technologies on a microservice while keep the other parts in legacy mode.
+* It improves your teams agility, the ability to iterate on a small, focused piece of functionality quickly and to see results.
+* It improves the resiliency of your system because a crash of a microservice **does not halt** your entire system (you can gracefully degrade the user experience).
 
-* It enables to select the framework and the programming language that you think it's the best for the job. You can
-use the latest technologies on a microservice while keep the other parts in legacy mode.
+The above points can be summarized with two keywords: **independence** and **isolation**.
 
-* It improves your teams agility, the ability to iterate on a small, focused piece of functionality quickly and to see
-results.
+This concept has been riding high during the last years with [blog posts][https://auth0.com/blog/tags/microservices/], articles, [websites](http://microservices.io), and even dedicated conferences although this is nothing really new—but rather a culmination of **best practices** in the modern web era, pushed by a tech giant that felt the need almost [ten years ago](http://www.zdnet.com/article/soa-done-right-the-amazon-strategy/).
 
-* It improves the resiliency of your system because a crash of a microservice **does not halt** your entire system; you
-can gracefully degrade the user experience.
-
-The above points can be summarized with two keywords: **indipendence** and **isolation**.
-
-This concept has been riding high during the last yeras with blog posts, articles, [websites][1] and even dedicated
-conferences although this is nothing really new — but rather a culmination of **best practices** in the modern web era,
-pushed by tech giant that felt the need almost [ten years ago][2]
-
-Most of the time we don't necessarily have the same web scale, but we can benefit anyway from this paradigm of
-microservices.
+Most of the time we don't necessarily have the same web scale, but we can benefit anyway from the paradigm of microservices.
 
 # Challenges
 
@@ -306,8 +294,6 @@ though the original data is shaped in a different way. Hopefully, we will explor
 In meantime, you can see some other interesting use cases on
 [Express-Gateway website](http://www.express-gateway.io/resources/).
 
-[1]: http://microservices.io
-[2]: http://www.zdnet.com/article/soa-done-right-the-amazon-strategy/
 [3]: https://express-gateway.io
 [4]: https://www.express-gateway.io/docs/configuration/gateway.config.yml/
 [5]: http://www.express-gateway.io/docs/
