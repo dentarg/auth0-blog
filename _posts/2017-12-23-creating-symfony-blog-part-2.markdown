@@ -25,7 +25,7 @@ related:
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this part of the article, we will cover installing [Bootstrap, a UI framework for web applications](https://getbootstrap.com/), to make the blog engine look nicer visually. The final code can be found at this [repository](https://github.com/auth0-blog/symfony-blog-part-2).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this part of the article, we will cover installing [Bootstrap, a UI framework for web applications](https://getbootstrap.com/), to make the blog engine look nicer visually. The final code can be found at this [repository](https://github.com/auth0-blog/symfony-blog-part-2).
 
 ---
 
@@ -61,7 +61,7 @@ git clone https://github.com/auth0-blog/symfony-blog-part-1
 cd symfony-blog-part-1
 ```
 
-After that, you will have to create file called `.env` in the project root and paste the following into it:
+After that, you will have to create a file called `.env` in the project root and paste the following into it:
 
 ```yml
 DATABASE_HOST={DATABASE_HOST}
@@ -115,7 +115,7 @@ php bin/console doctrine:fixtures:load
 
 ### Installing Bootstrap
 
-In order to install [Bootstrap](https://getbootstrap.com/) we need [Symfony's Webpack Encore](https://github.com/symfony/webpack-encore), which is a simpler way to integrate [Webpack](https://webpack.js.org/) into your application.
+In order to install [Bootstrap](https://getbootstrap.com/), we need [Symfony's Webpack Encore](https://github.com/symfony/webpack-encore), which is a simpler way to integrate [Webpack](https://webpack.js.org/) into your application.
 
 __NOTE__ If you do not have [Yarn](https://yarnpkg.com), a Javascript package manager, installed, you will need to install and configure this first. So go to their [Installation](https://yarnpkg.com/lang/en/docs/install/) page and follow the instructions for installing and configuring Yarn first.
 
@@ -234,7 +234,7 @@ php bin/console generate:controller
 
 ![Creating Blog Controller with Symfony](https://cdn.auth0.com/blog/symfony-part-2/creating-blog-controller.png)
 
-If you follow the instructions as shown by the image above, you'll find that you have a new Controller class in `./src/AppBundle/Controllers/` called `BlogController`. You'll also have three new templates in `./src/AppBundle/Resources/views/Blog/`.
+If you follow the instructions as shown in the image above, you'll find that you have a new Controller class in `./src/AppBundle/Controllers/` called `BlogController`. You'll also have three new templates in `./src/AppBundle/Resources/views/Blog/`.
 
 __NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-2/src/AppBundle/Controller/BlogController.php)
 
@@ -291,7 +291,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
-Great, in our entire controller we can call the `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, where as the third will be used for inserting, updating, or deleting data (it can also be used for retrieving, but by setting up the construct this way, we will be reducing duplicate code).
+Great, in our entire controller we can call the `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data (it can also be used for retrieving, but by setting up the construct this way, we will be reducing duplicate code).
 
 Let us populate the `entriesAction` function now:
 
@@ -605,7 +605,7 @@ public function deleteEntryAction($entryId)
 
 This will check if the entryId passed in exists, check to ensure the authenticated user is the author of the article and then delete it.
 
-There is no template needed for this, however we still need somewhere in the templates to show the action. So in `./src/AppBundle/Resources/views/Admin/entries.html.twig` let's make some additions.
+There is no template needed for this, however, we still need somewhere in the templates to show the action. So in `./src/AppBundle/Resources/views/Admin/entries.html.twig` let's make some additions.
 
 In the table headers, let's add a new row. This will this element change from:
 
@@ -678,7 +678,7 @@ At the top of our BlogController class, let's add a blog post limit constant:
 const POST_LIMIT = 5;
 ```
 
-We will want to default the page number to 1, but then make use of the object $request to find out if the user is on a different page number. So in the top of your `entriesAction` place the following:
+We will want to default the page number to 1, but then make use of the object `$request` to find out if the user is on a different page number. So in the top of your `entriesAction` place the following:
 
 ```php
 $page = 1;
@@ -690,7 +690,7 @@ if ($request->get('page')) {
 
 This data is useless to us unless `BlogPostRepository` knows what to do with it. When we created the `BlogPost` entity, it also created a repository for us. This repository contains our methods for custom queries or more in depth queries. So open: `./src/AppBundle/Repository/BlogPostRepository.php`
 
-First method we're going to need is to get all of the posts based off the page number and the limit previously set in the `BlogController`. The method below does exactly that. It retrieves the paginated number of blog posts.
+The first method we're going to need is to get all of the posts based on the page number and the limit previously set in the `BlogController`. The method below does exactly that. It retrieves the paginated number of blog posts.
 
 ```php
 /**
@@ -819,7 +819,7 @@ In your `entries.html.twig` template, find `{% raw %}{% endfor %}{% endraw %}`. 
 
 The above code determines whether the user can move to a previous or a next page.
 
-Now reload your browser, you'll see the previously shown blog post, but below that you'll see disabled "Previous" and "Next" buttons, they're disabled because you're on page 1, and there is only 1 blog post.
+Now reload your browser, you'll see the previously shown blog post, but below that, you'll see disabled "Previous" and "Next" buttons, they're disabled because you're on page 1, and there is only 1 blog post.
 
 > Quick tip, to start and stop your application you can use `php bin/console server:start` and `php bin/console server:stop`.
 
