@@ -1507,7 +1507,7 @@ We've already accomplished a lot in the first part of our tutorial series. In th
 
 ### Angular Testing Resources
 
-If you're interested in learning more about testing in Angular, which we will not cover in this tutorial, please check out some of the following resources:
+If you're interested in learning more about testing in Angular, which we did not cover in this tutorial, please check out some of the following resources:
 
 * [Angular - Testing](https://angular.io/guide/testing)
 * [Angular Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/)
