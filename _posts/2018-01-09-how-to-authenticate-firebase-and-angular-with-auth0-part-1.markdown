@@ -306,7 +306,7 @@ app.listen(port, () => console.log(`Server running on localhost:${port}`));
 
 This will launch our Node server with Express at `http://localhost:1337/`.
 
-> **Note:** Notice that this is the identifier we set up in Auth0 as our API.
+> **Note:** Notice that this is the API identifier we set up in Auth0.
 
 ### API Routes
 
@@ -445,7 +445,8 @@ We will need the [`auth0-js` library](https://github.com/auth0/auth0.js) to impl
 
 To simplify styling, we'll add the [Bootstrap CSS](https://getbootstrap.com) CDN link to the `<head>` of our `index.html` file like so:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- src/index.html -->
 ...
 <head>
@@ -459,7 +460,8 @@ To simplify styling, we'll add the [Bootstrap CSS](https://getbootstrap.com) CDN
     crossorigin="anonymous">
 </head>
 ...
-```
+{% endraw %}
+{% endhighlight %}
 
 ### Serve the Angular App
 
@@ -618,7 +620,9 @@ You can find your Firebase configuration in the [Firebase Console Project Overvi
 
 The last thing we'll do before we begin implementing functionality in our Angular app is add a loading image. Create the following folder: `src/assets/images`.
 
-Then save [this loading SVG image](https://github.com/auth0-blog/angular-firebase/blob/master/src/assets/images/loading.svg) into that folder.
+Then save [this loading SVG image](https://cdn.auth0.com/blog/firebase-auth0/loading.svg) into that folder:
+
+<p align="center"><img src="https://cdn.auth0.com/blog/firebase-auth0/loading.svg" alt="Loading SVG"></p>
 
 ## <span id="shared-modules"></span>Implement Shared Modules
 
