@@ -13,46 +13,22 @@
     (function () {
       var config = {
         auth0Domain: 'auth0.auth0.com',
-        auth0ClientID: 'zEYfpoFzUMEzilhkHilcWoNkrFfJ3hAI',
-        auth0CallbackURL: 'https://manage.auth0.com/callback',
+        auth0ClientID: 'bLR9T5ar6nFtDO4zErGXdoqMCM4iNZSV',
+        auth0CallbackURL: 'https://auth0.com/auth/callback',
+        auth0Audience: 'https://auth0.auth0.com/userinfo',
+        auth0Scope: 'openid profile email',
       };
-      var auth0js = new Auth0({
+      var auth0WebAuth = new auth0.WebAuth({
         domain: config.auth0Domain,
         clientID: config.auth0ClientID,
-        callbackURL: config.auth0CallbackURL,
-        responseType: 'token'
+        audience: config.auth0Audience,
+        scope: config.auth0Scope,
+        redirectUri: config.auth0CallbackURL,
+        responseType: 'code'
       });
-      var lockOptions = {
-        auth: { redirectUrl: config.auth0CallbackURL },
-        theme: {
-          logo: 'https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/badge.png'
-        },
-        rememberLastLogin: true,
-        integratedWindowsLogin: false,
-        socialButtonStyle: 'big',
-        languageDictionary: {
-          emailInputPlaceholder: 'Work email',
-          passwordInputPlaceholder: 'Your password',
-          signUpTerms: 'By signing up, you agree to our <a href="/terms" target="_new">terms of service</a> and <a href="/privacy" target="_new">privacy policy</a>'
-        }
-      };
-      var lock = window.lock = new Auth0Lock(
-        config.auth0ClientID,
-        config.auth0Domain,
-        lockOptions
-      );
-
-      lock.on('signup ready', function () {
-        metricsLib.track('open:signup', getBasicInfo());
-      });
-
-      lock.on('signin ready', function () {
-        metricsLib.track('open:signin', getBasicInfo());
-      });
-
       window.login = function login() {
         metricsLib.track('click:signin', getBasicInfo());
-        lock.show({ initialScreen: 'login' });
+        window.location.href = '/auth/login';
       }
 
       window.signup = function() {
@@ -74,7 +50,7 @@
 
         componentDidMount: function () {
           var _this = this;
-          auth0js.getSSOData(false, function (err, data) {
+          auth0WebAuth.client.getSSOData(false, function (err, data) {
             var logged = data.sso;
             _this.setState({ logged: logged });
           });
@@ -652,17 +628,17 @@
     <script src="{{ site.baseurl }}/js/firebase-pn.js"></script>
 
     <script type="text/javascript"> _linkedin_data_partner_id = "30812"; </script>
-    <script type="text/javascript"> 
-      (function () { 
-        var s = document.getElementsByTagName("script")[0]; 
+    <script type="text/javascript">
+      (function () {
+        var s = document.getElementsByTagName("script")[0];
         var b = document.createElement("script");
-        b.type = "text/javascript"; 
+        b.type = "text/javascript";
         b.async = true;
-        b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js"; 
-        s.parentNode.insertBefore(b, s); })(); 
+        b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+        s.parentNode.insertBefore(b, s); })();
     </script>
     <noscript>
-      <img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid=30812&fmt=gif" /> 
+      <img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid=30812&fmt=gif" />
     </noscript>
 </body>
 </html>

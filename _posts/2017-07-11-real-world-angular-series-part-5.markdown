@@ -390,6 +390,20 @@ If there are no RSVPs yet, we'll show a message saying so. If there are RSVPs, w
 
 If there was an error loading RSVPs, we'll show an alert like usual. Finally, the footer will display the total number of attendees (with a check to ensure `undefined` never shows) formatted into a present or past tense sentence based on if the event is over or not.
 
+### RSVP Component Styles
+
+Now open the `rsvp.component.scss` file and we'll add just a few styles to clean up our component:
+
+```scss
+/* src/app/pages/event/rsvp/rsvp.component.scss */
+.list-group-item p:last-child {
+  margin-bottom: 0;
+}
+.card-block.lead {
+  margin-bottom: 0;
+}
+```
+
 Our RSVP tab component should now look like this in the browser:
 
 ![Angular MEAN app RSVP component](https://cdn.auth0.com/blog/mean-series/event-rsvp-noForm.jpg)

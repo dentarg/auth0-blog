@@ -165,7 +165,10 @@ import { Middleware, NestMiddleware, ExpressMiddleware } from '@nestjs/common';
 export class CorsMiddleware implements NestMiddleware {
     resolve(): ExpressMiddleware {
         return (req, res, next) => {
+            // list os domains
             res.header('Access-Control-Allow-Origin', '*');
+            // list of methods (e.g GET,HEAD,PUT,PATCH,POST,DELETE)
+            res.header('Access-Control-Allow-Methods', '*');
             next();
         };
     }
@@ -439,12 +442,10 @@ Let's create this class in a new file called `company.ts` in the `./src/` direct
 export class Company {
     name: string;
     industry: string;
-    address: string;
 
-    constructor(name: string, industry: string, address: string) {
+    constructor(name: string, industry: string) {
         this.name = name;
         this.industry = industry;
-        this.address = address;
     }
 }
 ```
