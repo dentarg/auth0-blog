@@ -35,7 +35,7 @@ related:
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
-**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back-end and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Realtime Database](https://firebase.google.com/docs/database) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
+**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back-end and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Cloud Firestore database](https://firebase.google.com/docs/firestore/) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
 
 ---
 
@@ -131,17 +131,17 @@ Next, set up an Auth0 client app and API so Auth0 can interface with the Angular
 ### Set Up an Auth0 Client
 
 1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[Create a New Client](https://manage.auth0.com/#/clients/create)" button.
-2. Name your new app (something like `angular-firebase`) and select "Single Page Web Applications".
+2. Name your new app (something like `Angular Firebase`) and select "Single Page Web Applications".
 3. In the **Settings** for your new Auth0 client app, add `http://localhost:4200/callback` to the **Allowed Callback URLs**.
 4. Enable the toggle for **Use Auth0 instead of the IdP to do Single Sign On**. 
-5. At the bottom of the **Settings** section, click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
+5. At the bottom of the **Settings** section, click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to "RS256".
 6. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above uses username/password database, Facebook, Google, and Twitter. 
 
 > **Note:** For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
 
 ### Set Up an Auth0 API
 
-1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API, such as `Firebase Dogs API`. Set the **Identifier** to your API endpoint URL. In this tutorial, our API identifier is `http://localhost:1337/`. The **Signing Algorithm** should be `RS256`.
+1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API, such as `Firebase Dogs API`. Set the **Identifier** to your API endpoint URL. In this tutorial, our API identifier is `http://localhost:1337/`. The **Signing Algorithm** should be "RS256".
 2. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. In the next steps, we'll implement our Node API in this fashion using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 We're now ready to implement Auth0 authentication on both our Angular client and Node back-end API.
@@ -159,7 +159,7 @@ Next you will need a free [Firebase](https://firebase.google.com) project.
 
 ### Generate an Admin SDK Key
 
-In order to mint custom Firebase tokens, you'll need access to the Firebase Admin SDK. To obtain access, you must create a service account in your new Firebase project.
+In order to [mint custom Firebase tokens](https://firebase.google.com/docs/auth/admin/create-custom-tokens), you'll need access to the [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup). To obtain access, you must create a service account in your new Firebase project.
 
 Click on the gear wheel icon next to your Project Overview in the Firebase console sidebar and select **Project Settings** from the menu that appears:
 
@@ -175,7 +175,7 @@ The completed Node.js API for this tutorial can be found at the [firebase-auth0-
 
 ### Node API File Structure
 
-First create a new folder. We'll want to set up the following file structure:
+We'll want to set up the following file structure:
 
 ```text
 firebase-auth0-nodeserver/
@@ -207,7 +207,7 @@ $ touch server.js
 
 ### Firebase Admin SDK Key and Git Ignore
 
-Now move the Firebase Admin SDK `.json` key file you downloaded earlier into the `firebase/` folder. We will take care to make sure the folder is checked in, but its _contents_ are never pushed to a repo using the `firebase/.gitignore` like so:
+Now move the Firebase Admin SDK `.json` key file you downloaded earlier into the `firebase` folder. We will take care to make sure the folder is checked in, but its _contents_ are never pushed to a repo using the `firebase/.gitignore` like so:
 
 ```bash
 # firebase/.gitignore
@@ -216,7 +216,7 @@ Now move the Firebase Admin SDK `.json` key file you downloaded earlier into the
 !.gitignore
 ```
 
-This `.gitignore` configuration ensures that Git will ignore any files and folders inside the `firebase/` directory _except_ for the `.gitignore` file itself. This allows us to commit an (essentially) empty folder. Our `.json` Firebase Admin SDK key can live in this folder and we won't have to worry about gitignoring it by _filename_.
+This `.gitignore` configuration ensures that Git will ignore any files and folders inside the `firebase` directory _except_ for the `.gitignore` file itself. This allows us to commit an (essentially) empty folder. Our `.json` Firebase Admin SDK key can live in this folder and we won't have to worry about gitignoring it by _filename_.
 
 > **Note:** This is particularly useful if we have the project pulled down on multiple machines and have different keys (with different filenames) generated.
 
@@ -230,7 +230,7 @@ node_modules
 
 ### Dogs JSON Data
 
-Next we'll add the data for ten dog breeds. For brevity, you can simply [copy and paste this data](https://raw.githubusercontent.com/auth0-blog/firebase-auth0-nodeserver/master/dogs.json) into your `dogs.json` file.
+Next we'll add the data for ten dog breeds. For brevity, you can simply **[copy and paste this data](https://raw.githubusercontent.com/auth0-blog/firebase-auth0-nodeserver/master/dogs.json)** into your `dogs.json` file.
 
 ### Dependencies
 
@@ -281,7 +281,6 @@ With our data, configuration, and dependencies in place, we can now implement ou
 
 ```js
 // server.js
-
 // Modules
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -314,7 +313,6 @@ Next open the `routes.js` file. This is where we'll define our API endpoints, se
 
 ```js
 // routes.js
-
 // Dependencies
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
@@ -394,7 +392,7 @@ At a high level, our routes file does the following:
 * Initializes the Firebase Admin SDK with the private key generated from the Firebase project service account
 * Provides a secure `GET` endpoint that returns a custom Firebase token
 * Provides a public `GET`* endpoint that returns a short version of the dogs data
-* Provides a secure `GET`* endpoint that returns a dog's detailed data, requested by rank
+* Provides a secure `GET`* endpoint that returns a specific dog's detailed data, requested by rank
 
 _*Endpoints use variations of the same base dataset to simulate a more complex API._
 
@@ -426,7 +424,7 @@ You should have already installed the [Angular CLI](https://github.com/angular/a
 $ ng new angular-firebase --routing --skip-tests
 ```
 
-The `--routing` flag implements an app with a routing module and `--skip-tests` implements the root component with no `.spec.ts` file.
+The `--routing` flag generates an app with a routing module and `--skip-tests` generates the root component with no `.spec.ts` file.
 
 > **Note:** For brevity, we are not going to cover testing in this article. If you'd like to learn more about testing in Angular, check out the tutorial's conclusion for more resources.
 
@@ -481,7 +479,7 @@ Our app is going to use a **modular approach with lazy loading**. The sample app
 
 ### Root Module
 
-The root module has already been created when the Angular app was generated with the `ng new` command. The root module lives at `src/app/app.module.ts`. Any components we generate in the root of our Angular app without a subdirectory specified will be imported in our root module.
+The root module has already been created when the Angular app was generated with the `ng new` command. The root module lives at `src/app/app.module.ts`. Any components we generate in our Angular app without another module's subdirectory specified will be automatically imported and declared in our root module.
 
 Let's generate a component with the CLI now:
 
@@ -490,13 +488,13 @@ Let's generate a component with the CLI now:
 $ ng g component callback --is --it --flat --no-spec
 ```
 
-This command:
+This command is composed of the following:
 
-* `ng g component`: generates a `callback` component file with
-* `--is`: inline styles
-* `--it`: inline template
-* `--flat`: no containing folder
-* `--no-spec`: no `.spec` test file
+* `ng g component`: generates a `callback` component file with:
+* `--is` inline styles
+* `--it` inline template
+* `--flat` no containing folder
+* `--no-spec` no `.spec` test file
 
 We'll use the callback component to handle redirection after the user logs into our application. It's a very simple component.
 
@@ -513,9 +511,9 @@ $ ng g module core
 $ ng g service core/api --no-spec
 # create HeaderComponent with inline styles and no .spec file:
 $ ng g component core/header --is --no-spec
-# create LoadingComponent with inline styles, inline template, no container, and no .spec file:
+# create LoadingComponent with inline styles, inline template, no folder, and no .spec file:
 $ ng g component core/loading --is --it --flat --no-spec
-# create ErrorComponent with inline styles, inline template, no container, and no .spec file:
+# create ErrorComponent with inline styles, inline template, no folder, and no .spec file:
 $ ng g component core/error --is --it --flat --no-spec
 # create Dog type interface:
 $ ng g interface core/dog
@@ -523,7 +521,9 @@ $ ng g interface core/dog
 $ ng g interface core/dog-detail
 ```
 
-Creating the module first ensures that components created in that module's folder will then be imported automatically in that parent module instead of the app's root module.
+Creating the module first ensures that components created in that module's folder will then be imported and declared automatically in that parent module instead of the app's root module.
+
+> **Note:** If you wish to use a shared module's components in another module, however, you will need to `export` the components as well as import/declare. We'll cover this shortly.
 
 This is the basic architecture for the shared core services, components, and models that our app will need access to.
 
@@ -536,7 +536,7 @@ Next we'll create our `AuthModule`. Execute the following CLI commands (again, m
 $ ng g module auth
 # create AuthService with no .spec file:
 $ ng g service auth/auth --no-spec
-# create auth route guard with no .spec file:
+# create Auth route guard with no .spec file:
 $ ng g guard auth/auth --no-spec
 ```
 
@@ -630,10 +630,10 @@ Let's set up our modules. We'll import the shared modules (`CoreModule` and `Aut
 
 ### Core Module
 
-First we'll implement our `CoreModule`. Open the `core.module.ts` file and add the following code:
+First we'll implement our `CoreModule`. Open the `core.module.ts` file and update to the following code:
 
 ```js
-// src/ap/core/core.module.ts
+// src/app/core/core.module.ts
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -683,7 +683,7 @@ Since this is a shared module, we'll import the other modules, services, and com
 
 > **Note:** The `CommonModule` is imported in all modules that are _not_ the root module.
 
-In our `imports` array, we'll add any modules that may be needed by services or components in the `CoreModule`, or that need to be exported so that _other_ modules can use them. The CLI should have automatically added any generated components to the `declarations` array. We also need to add an `exports` array for any modules or components that we want to make available to other modules in our app to use.
+In our `imports` array, we'll add any modules that may be needed by services or components in the `CoreModule`, or that need to be available to _other_ modules in our app. The CLI should have automatically added any generated components to the `declarations` array. We also need to add an `exports` array for any modules or components that we want to make available to other modules.
 
 Note that we have imported `ModuleWithProviders` from `@angular/core`. Using this module, we can create a `forRoot()` method that can be called on import in the root `app.module.ts` when `CoreModule` is imported. This way, we can ensure that any services we add to a `providers` array returned by the `forRoot()` method remain _singletons_ in our application. In this manner, we can avoid unintentional multiple instances if other modules in our app also need to import the `CoreModule`.
 
@@ -731,16 +731,16 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { environment } from './../../environments/environment';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentFormComponent } from './comments/comment-form/comment-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule,
+    CoreModule, // Access FormsModule, Loading, and Error components
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFirestoreModule
   ],
   declarations: [
     CommentsComponent,
@@ -753,7 +753,7 @@ import { CommentFormComponent } from './comments/comment-form/comment-form.compo
 export class CommentsModule { }
 ```
 
-We'll need to import the `CoreModule` so we can utilize its exported `FormsModule` and `LoadingComponent`. We also need to access our configuration from the `environment.ts` file. Comments use Firebase's realtime database, so let's import the `AngularFireModule` and `AngularFireDatabaseModule` as well as our two components: `CommentsComponent` and `CommentFormComponent`.
+We'll need to import the `CoreModule` so we can utilize its exported `FormsModule`, `LoadingComponent`, and `ErrorComponent`. We also need to access our configuration from the `environment.ts` file. Comments use Firebase's Cloud Firestore database, so let's import the `AngularFireModule` and `AngularFirestoreModule` as well as our two components: `CommentsComponent` and `CommentFormComponent`.
 
 When we add `AngularFireModule` to the @NgModule's `imports` array, we'll call its `initializeApp()` method, passing in our Firebase configuration. Both of our components should already be in the `declarations` array, but we'll also need to add `CommentsComponent` to the `exports` array so that other components from other modules can use it. 
 
@@ -836,7 +836,9 @@ const routes: Routes = [
 export class AppRoutingModule { }
 ```
 
-We'll import our `CallbackComponent` and `AuthGuard`. The remaining routes will be string _references_ to modules rather than imported components using the `loadChildren` property. We will set the default `''` path to load route children from the `DogsModule`, and the `'dog'` path to load route children from the `DogModule`. The `'dog'` path should also be protected by the `AuthGuard`, which we declare using the `canActivate` property, which can hold an array of route guards should we require more than one. Finally, the `'callback'` route should simply point to the `CallbackComponent`.
+We'll import our `CallbackComponent` and `AuthGuard`. The remaining routes will be string _references_ to modules rather than imported components using the `loadChildren` property.
+
+We will set the default `''` path to load route children from the `DogsModule`, and the `'dog'` path to load route children from the `DogModule`. The `'dog'` path should also be protected by the `AuthGuard`, which we declare using the `canActivate` property. This can hold an array of route guards should we require more than one. Finally, the `'callback'` route should simply point to the `CallbackComponent`.
 
 ### Dogs Module
 
@@ -876,8 +878,6 @@ We'll import `Routes` and `RouterModule` in addition to our `CoreModule` and `Co
 
 This module has a child route, so we'll create a constant that contains an array to hold our route object. The only child route we'll need inherits the `''` path from `app-routing.module.ts`, so its path should also be `''`. It will load the `DogsComponent`. In our `imports` array, we'll pass our `DOGS_ROUTES` constant to the `RouterModule`'s `forChild()` method.
 
-We're not sharing any components or services with other modules, so we don't need to implement `forRoot()` or add an `exports` array.
-
 ### Dog Module
 
 The `DogModule` works similarly to the `DogsModule` above. Open `dog.module.ts` and add the following:
@@ -912,13 +912,15 @@ export class DogModule { }
 
 One difference between this module and the `DogsModule` is that our `DOG_ROUTES` has a path of `:rank`. This way, the route for any specific dog's details is passed as a URL segment matching the dog's rank in our list of top ten dog breeds, like so:
 
-```
+```text
 http://localhost:4200/dog/3
 ```
 
 Another difference is that we will _not_ import the `CommentsModule`. However, we could add comments to dog details in the future if we wished.
 
-Our app's architecture and routing are now complete! The app should successfully compile and display in the browser, with lazy loading functioning properly to load shared code, and then additionally, only the code for the specific route requested. We're now ready to implement our application's logic.
+Our app's architecture and routing are now complete! The app should successfully compile and display in the browser, with lazy loading functioning properly to load shared code and the code for the specific route requested.
+
+We're now ready to implement our application's logic.
 
 ## <span id="loading-error-components"></span>Loading and Error Components
 
@@ -930,7 +932,7 @@ The `LoadingComponent` should simply show a loading image. (Recall that we alrea
 
 Open the `loading.component.ts` file and add:
 
-```typescript
+```js
 // src/app/core/loading.component.ts
 import { Component, Input } from '@angular/core';
 
@@ -960,20 +962,22 @@ export class LoadingComponent {
 }
 ```
 
-Using the [`@Input()` decorator](https://angular.io/guide/component-interaction#pass-data-from-parent-to-child-with-input-binding), we can pass information into the component from its parent, telling it whether we should display the component inline or not. We'll use the [NgClass directive](https://angular.io/api/common/NgClass) (`[ngClass]`) in our template to conditionally add the appropriate styles for the display we want. Using this component will look like this:
+Using the [`@Input()` decorator](https://angular.io/guide/component-interaction#pass-data-from-parent-to-child-with-input-binding), we can pass information into the component from its parent, telling it whether we should display the component inline or not. We'll use the [NgClass directive](https://angular.io/api/common/NgClass) (`[ngClass]`) in our template to conditionally add the appropriate styles for the display we want. Displaying this component in another template will look like this:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- Large, full width, centered: -->
 <app-loading></app-loading>
 <!-- Inline: -->
 <app-loading inline="true"></app-loading>
-```
+{% endraw %}
+{% endhighlight %}
 
 ### Error Component
 
 Next let's quickly implement our `ErrorComponent`. This component will display a simple error message if shown. Open the `error.component.ts` file and add:
 
-```typescript
+```js
 // src/app/core/error.component.ts
 import { Component } from '@angular/core';
 
