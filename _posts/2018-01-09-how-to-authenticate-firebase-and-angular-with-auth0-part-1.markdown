@@ -31,8 +31,8 @@ tags:
 - authentication
 - centralized-login
 related:
-- date-postname
-- date-postname
+- 2018-01-11-how-to-authenticate-firebase-and-angular-with-auth0-part-2
+- 2017-06-28-real-world-angular-series-part-1
 ---
 
 **TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back-end and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Realtime Database](https://firebase.google.com/docs/database) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
