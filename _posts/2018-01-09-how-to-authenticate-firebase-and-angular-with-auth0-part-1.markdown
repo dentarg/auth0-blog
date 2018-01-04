@@ -3,7 +3,7 @@ layout: post
 title: "How to Authenticate Firebase and Angular with Auth0: Part 1"
 description: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens."
 longdescription: "Long description should be between 230-320 characters."
-date: 2017-12-20 8:30
+date: 2018-01-09 8:30
 category: Technical guide, Firebase, Angular
 banner:
   text: "Auth0 makes it easy to add authentication to your Angular application."
@@ -35,7 +35,7 @@ related:
 - date-postname
 ---
 
-**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node backend and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Realtime Database](https://firebase.google.com/docs/database) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
+**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back-end and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Realtime Database](https://firebase.google.com/docs/database) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
 
 ---
 
@@ -74,7 +74,7 @@ There are many potential reasons we might want to integrate Auth0 with Firebase 
 
 You can use **Firebase's built-in authentication by itself** if you:
 
-* Only want to authenticate Firebase RTDB or Firestore and have no need to authenticate additional backends
+* Only want to authenticate Firebase RTDB or Firestore and have no need to authenticate additional back-ends
 * Only need a small handful of login options and do not need enterprise identity providers, integration with your own user storage databases, etc.
 * Do not need extensive user management, profile enrichment, etc. and are comfortable [managing users strictly through an API](https://firebase.google.com/docs/auth/web/manage-users)
 * Have no need to customize authentication flows
@@ -83,7 +83,7 @@ You can use **Firebase's built-in authentication by itself** if you:
 You should consider **Auth0 with a custom Firebase token** if you:
 
 * Already have Auth0 implemented and want to add realtime capabilities to your app
-* Need to easily use issued tokens to [secure a backend](https://auth0.com/docs/apis) that is _not_ provided by Firebase
+* Need to easily use issued tokens to [secure a back-end](https://auth0.com/docs/apis) that is _not_ provided by Firebase
 * Need to integrate [social identity providers](https://auth0.com/docs/identityproviders#social) beyond just Google, Facebook, Twitter, and GitHub
 * Need to integrate [enterprise identity providers](https://auth0.com/docs/identityproviders#enterprise), such as Active Directory, LDAP, ADFS, SAMLP, etc.
 * Need a [customized authentication flow](https://auth0.com/docs/rules/current)
@@ -144,7 +144,7 @@ Next, set up an Auth0 client app and API so Auth0 can interface with the Angular
 1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API, such as `Firebase Dogs API`. Set the **Identifier** to your API endpoint URL. In this tutorial, our API identifier is `http://localhost:1337/`. The **Signing Algorithm** should be `RS256`.
 2. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. In the next steps, we'll implement our Node API in this fashion using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
-We're now ready to implement Auth0 authentication on both our Angular client and Node backend API.
+We're now ready to implement Auth0 authentication on both our Angular client and Node back-end API.
 
 ## <span id="firebase-project-service-account"></span>Firebase Project with Service Account
 
