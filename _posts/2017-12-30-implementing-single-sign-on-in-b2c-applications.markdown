@@ -11,8 +11,8 @@ author:
   mail: "bruno.krebs@gmail.com"
   avatar: "https://twitter.com/brunoskrebs/profile_image?size=original"
 design:
-  image: https://cdn.auth0.com/blog/iam/logo.png
-  bg_color: "#0D346C"
+  image: https://cdn.auth0.com/blog/sso-b2c/logo.png
+  bg_color: "#002C5F"
 tags:
 - b2c
 - sso
