@@ -176,7 +176,8 @@ Let's move on to the template at `dogs.component.html`:
 
 There are a couple things in this template that we'll take a closer look at:
 
-```html
+{% highlight html %}
+{% raw %}
 ...
 <ng-template #noDogs>
   <app-loading *ngIf="loading"></app-loading>
@@ -187,7 +188,8 @@ There are a couple things in this template that we'll take a closer look at:
   ...
     <div *ngFor="let dog of dogsList" ...>
       ...
-```
+{% endraw %}
+{% endhighlight %}
 
 This code does some very useful things declaratively. Let's explore.
 
@@ -195,7 +197,7 @@ First we have an [`<ng-template>` element](https://angular.io/guide/structural-d
 
 So how (and when) do we tell this view to render?
 
-The next `<div *ngIf="...` is actually an [NgIfElse](https://angular.io/api/common/NgIf) using the [asterisk prefix as syntactic sugar](https://angular.io/guide/structural-directives#the-asterisk--prefix). We're also using the async pipe with our `dogsList$` observable and setting a variable name so we can reference the stream's emitted values in our template (`let dogsList`). If something goes wrong with the `dogsList$`, we have an `else noDogs` statement that tells the template to render the `<ng-template #noDogs>` view. This would be true before the data has been successfully fetched from the API, or if an error was thrown by the observable.
+The next `<div *ngIf="...` is actually an [NgIfElse](https://angular.io/api/common/NgIf) using the [asterisk prefix as syntactic sugar](https://angular.io/guide/structural-directives#the-asterisk--prefix). We're also using the async pipe with our `dogsList$` observable and setting a variable name so we can reference the stream's emitted values in our template (`let dogsList`). If something goes wrong with the `dogsList$` observable, we have an `else noDogs` statement that tells the template to render the `<ng-template #noDogs>` view. This would be true before the data has been successfully fetched from the API, or if an error was thrown by the observable.
 
 If `dogsList$ | async` has successfully emitted a value, the div will render and we can iterate over our `dogsList` value (which is expected to be an array of `Dog`s, as specified in our component class) using the [NgForOf (`*ngFor`) structural directive](https://angular.io/api/common/NgForOf) to display each dog's information.
 
@@ -205,7 +207,7 @@ View the Dogs component in the browser by navigating to your app's homepage at [
 
 > **Note:** We've also included the `<app-comments>` component. Since we've generated this component but haven't implemented its functionality yet, it should show up in the UI as text that says "Comments works!".
 
-To test error handling, you can also stop the API server (`Ctrl+c` in the server's command prompt or terminal). Then try reloading the page. The error component should display since the API cannot be reached, and we should see the appropriate errors in the browser console:
+To test error handling, you can stop the API server (`Ctrl+c` in the server's command prompt or terminal). Then try reloading the page. The error component should display since the API cannot be reached, and we should see the appropriate errors in the browser console:
 
 ![Angular app with Node.js API showing data error](https://cdn.auth0.com/blog/firebase-auth0/dogs-error.jpg)
 
@@ -307,7 +309,7 @@ http://localhost:4200/dog/2
 
 In order to access this parameter in the component class, we need to import the [ActivatedRoute interface](https://angular.io/api/router/ActivatedRoute), pass it to the constructor, and _subscribe_ to the activated route's [`params` observable](https://angular.io/api/router/ActivatedRoute#params).
 
-We can then pass the `rank` parameter to our `getDogByRank$()` API method. We should also _unsubscribe_ from the route params observable [when the component is destroyed](https://angular.io/guide/lifecycle-hooks#ondestroy). Our `dog$` observable can use `map()` and `catchError()` handlers similar to our Dogs listing component.
+We can then pass the `rank` parameter to our `getDogByRank$()` API service method. We should also _unsubscribe_ from the route params observable [when the component is destroyed](https://angular.io/guide/lifecycle-hooks#ondestroy). Our `dog$` observable can use `map()` and `catchError()` handlers similar to our Dogs listing component.
 
 We'll also need a couple of methods to help our template.
 
@@ -319,7 +321,8 @@ The `getImgStyle()` method uses the API data to return a background image CSS va
 
 Now let's use these methods in our `dog.component.html` template:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- src/app/dog/dog/dog.component.html -->
 <ng-template #noDog>
   <app-loading *ngIf="loading"></app-loading>
@@ -353,9 +356,10 @@ Now let's use these methods in our `dog.component.html` template:
     </div>
   </div>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
-Overall, this template looks and functions similar to our Dogs listing component template, except that we are not iterating over an array. Instead, we are showing information for only one dog, and the page title is dynamically generated instead of static. We'll use the `dog` data (from `dog$ | async; let dog`) to display details with the help of [Bootstrap CSS](http://getbootstrap.com/docs/4.0/getting-started/introduction/) classes.
+Overall, this template looks and functions similar to our Dogs listing component template, except that we are not iterating over an array. Instead, we are showing information for only one dog, and the page title is dynamically generated instead of static. We'll use the observable's emitted `dog` data (from `dog$ | async; let dog`) to display details with the help of [Bootstrap CSS](http://getbootstrap.com/docs/4.0/getting-started/introduction/) classes.
 
 The component should look like this in the browser when finished:
 
@@ -398,9 +402,9 @@ When rendered, we want comments to look something like this:
 
 ![Angular Firebase app with comments](https://cdn.auth0.com/blog/firebase-auth0/dogs-comments-notloggedin.jpg)
 
-As you can see, each comment has a username, picture, comment text, and a date and time. Comments also need a unique identifier, provided in the data as a `uid`. This unique ID ensures that users have appropriate access to delete their own comments, but not comments left by others.
+As you can see, each comment has a username, picture, comment text, and a date and time. Comments also need a unique identifier, provided in the data as `uid`. This unique ID ensures that users have appropriate access to delete their own comments, but not comments left by others.
 
-Now that we have a shape in mind for what a comment should look like, let's go set up our Firebase database rules.
+Now that we have a shape in mind for what a comment should look like, let's go set up our Firebase Firestore rules.
 
 ## <span id="firebase-firestore"></span>Firebase Cloud Firestore and Rules
 
@@ -436,7 +440,7 @@ text <string>: This is a test comment from Firebase console.
 timestamp <number>: 1514584235257
 ```
 
-> **Note:** A comment with a made-up `uid` value will _not_ validate to any real authenticated user once we set up Firebase security rules. The seed document will need to be deleted using the [Firebase console](https://console.firebase.google.com/u/0/project/_/database/firestore/data~2Fcomments) if we want to remove it later. We won't have access to delete it using SDK methods, as you will see in the rules below.
+> **Note:** A comment with a made-up `uid` value will _not_ validate to any real authenticated user once we set up Firebase security rules. The seed document will need to be deleted using the [Firebase console](https://console.firebase.google.com/u/0/project/_/database/firestore/data~2Fcomments) if we want to remove it later. We won't have access to delete it using SDK methods in the Angular app, as you will see in the rules below.
 
 Once you've entered your fake user's comment, click the "Save" button. The new collection and document should populate in the database. This provides data that we can query for in our Angular app.
 
@@ -450,7 +454,7 @@ Next let's set up our Firestore database's security. Switch to the [**Rules**](h
 
 Add the following code in your Firebase Database Rules editor. We'll go over it in more detail below.
 
-```json
+```js
 // Firebase Database Rules for Cloud Firestore
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -469,15 +473,15 @@ service cloud.firestore {
 
 [Firestore has rule request methods](https://firebase.google.com/docs/firestore/reference/security/#request_methods): `read` and `write`. Read includes `get` and `list` operations. Write includes `create`, `update`, and `delete` operations. We will implement `read`, `create`, and `delete` rules.
 
-> **Note:** We won't be supporting comment editing in our app, so `update` is not included. However, feel free to add an `update` rule if you would like to add this functionality on your own!
+> **Note:** We won't add a comment editing feature in our app, so `update` is not included. However, feel free to add an `update` rule if you would like to add this functionality on your own!
 
-Rules are executed when a user request [`match`](https://firebase.google.com/docs/firestore/reference/security/#match)es a document path. Paths can be fully named, or they can use wildcards. Our rules apply to all documents in a collection we will name `comments`.
+Rules are executed when a user request [`match`](https://firebase.google.com/docs/firestore/reference/security/#match)es a document path. Paths can be fully named, or they can use wildcards. Our rules apply to all documents in the `comments` collection we created.
 
 We want _everyone_ to be able to _read_ comments, both anonymous and authenticated users alike. Therefore, the condition for `allow read` is simply `if true`.
 
-We want only _authenticated users_ to be able to _create_ new comments. We'll [verify that the user is logged in](https://firebase.google.com/docs/firestore/reference/security/#properties) and ensure the data that is being saved has a `uid` property that matches the user's authentication `uid`. In addition, we can do a bit of field validation here. We will also check that the request's data has a `text` property that is a string and is 200 characters or less (we'll also add this validation in our Angular app shortly).
+We want only _authenticated_ users to be able to _create_ new comments. We'll [verify that the user is logged in](https://firebase.google.com/docs/firestore/reference/security/#properties) and ensure the data that is being saved has a `uid` property that matches the user's authentication `uid` (`request.auth.uid` in Firebase rules). In addition, we can do a bit of field validation here. We will check that the request's data has a `text` property that is a string and is 200 characters or less (we'll also add this validation in our Angular app shortly).
 
-Finally, we only want users to be able to _delete their own_ comments. We can `allow delete` if the authenticated user's UID matches the existing comment's `uid` property using `resource.data`.
+Finally, we only want users to be able to _delete their own_ comments. We can `allow delete` if the authenticated user's UID matches the existing comment's `uid` property using `resource.data.uid`.
 
 > **Note:** You can learn more about the [request](https://firebase.google.com/docs/firestore/reference/security/#request) and [resource](https://firebase.google.com/docs/firestore/reference/security/#resource_1) keywords in the Firebase docs.
 
@@ -575,7 +579,7 @@ First we'll import the necessary angularfire2 dependencies to use Firestore, col
 
 We'll declare members next. The private `_commentsCollection` is a Firestore collection containing items in the shape of `Comment`. The `comments$` observable is a stream with values that take the shape of arrays of `Comment`s. Then we have our usual `loading` and `error` properties.
 
-After passing `AngularFirestore` and `AuthService` to the constructor function, we need to fetch our collection data from Cloud Firestore. We'll use the [angularfire2 method `collection()`](https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#using-angularfirestorecollection) to do so, specifying a type of `<Comment>`, passing the name of our collection (`comments`), [ordering the results by `timestamp`, and limiting](https://github.com/angular/angularfire2/blob/master/docs/firestore/querying-collections.md) to the last `15` comments.
+After passing `AngularFirestore` and `AuthService` to the constructor function, we need to fetch our collection data from Cloud Firestore. We'll use the [angularfire2 method `collection()`](https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#using-angularfirestorecollection) to do so, specifying `Comment` as the type, passing the name of our collection (`comments`), [ordering the results by `timestamp`, and limiting](https://github.com/angular/angularfire2/blob/master/docs/firestore/querying-collections.md) to the last 15 comments.
 
 Next we'll create our `comments$` observable using the `_commentsCollection`. We'll use `map()` and `catchError()` RxJS operators to handle emitted data and errors.
 
@@ -583,15 +587,15 @@ In our private `_dataSuccess()` handler, we'll set `loading` and `error` to `fal
 
 > **Note:** You may notice that we did not set `error` to `false` in the success method in our dogs or dog observables, but we are doing so here. The comments stream emits a value each time _any_ user adds a comment in realtime. Therefore, we may need to reset the error status asynchronously in response.
 
-The private `_dataError()` handler should look very familiar from our other components. It sets `loading` and `error` properties and throws an observable with an error.
+The private `_dataError()` handler should look very familiar from our other components. It sets `loading` and `error` properties and throws an error.
 
-The `onPostComment()` method will be run when the user submits a comment using the comment form component (which we will build shortly). The `onPostComment()` payload will contain a `Comment` instance, which then needs to be unwrapped to a normal object in order to be saved in Firestore. We'll save the unwrapped comment object using the Angular Firestore `add()` method.
+The `onPostComment()` method will be run when the user submits a comment using the comment form component (which we will build shortly). The `onPostComment()` payload will contain a `Comment` instance containing the user's comment data, which then needs to be unwrapped to a normal object in order to be saved in Firestore. We'll save the unwrapped comment object using the Angular Firestore `add()` method.
 
 The `canDeleteComment()` method checks whether the current user is the owner of any given comment. If they created the comment, they can also delete it. This method verifies that the logged in user's `userProfile.sub` property matches the `uid` of the comment.
 
-The `deleteComment()` method will run when the user clicks the icon to delete a comment. This method opens a confirmation dialog that confirms the action, and if confirmed, uses the `id` argument to delete the correct comment document from the Firestore collection. (This is why we needed to add document `id`s to our data when we set up our `comments$` observable.)
+The `deleteComment()` method will run when the user clicks the icon to delete a comment. This method opens a confirmation dialog that confirms the action and if confirmed, uses the `id` argument to delete the correct comment document from the Firestore collection. (This is why we needed to add document `id`s to our data when we mapped values emitted by our `comments$` observable.)
 
-> **Note:** Recall that our Firestore rules also prevent users from deleting comments they didn't create. We should always ensure that access rights are enforced on _both_ the front-end and backend for proper security.
+> **Note:** Recall that our Firestore rules also prevent users from deleting comments they didn't create. We should always ensure that access rights are enforced on _both_ the front-end and back-end for proper security.
 
 ### Comments Component Template
 
@@ -732,9 +736,9 @@ export class CommentFormComponent implements OnInit {
 
 As mentioned earlier, we will need to emit an event from this component to the parent `CommentsComponent`, which sends the new comment to Firestore. The `CommentFormComponent` is responsible for constructing the `Comment` instance with the appropriate information gathered from the authenticated user and their form input and sending that data to the parent. In order to emit the `postComment` event, we'll import `Output` and `EventEmitter`. We'll also need our `Comment` class and `AuthService` to get user data.
 
-Our `CommentFormComponent`'s members include an [Output decorator](https://angular.io/api/core/Output) `postComment` that is an [EventEmitter](https://angular.io/api/core/EventEmitter) with type of `Comment`, and `commentForm`, which will be an instance of `Comment` to store form data.
+Our comment form component's members include an [Output decorator](https://angular.io/api/core/Output) (`postComment`) that is an [EventEmitter](https://angular.io/api/core/EventEmitter) with type of `Comment`, and `commentForm`, which will be an instance of `Comment` to store form data.
 
-In our `ngOnInit()` method, we'll create a new `Comment` instance, which is done with the private `_newComment()` method. This method sets the local `commentForm` property to a new instance of `Comment` with the authenticated user's `name`, `sub`, and `picture`. The comment text is an empty string and the timestamp is set to `null` (it will be added when the form is submitted).
+In our `ngOnInit()` method, we'll create a new `Comment` instance with the private `_newComment()` method. This method sets the local `commentForm` property to a new instance of `Comment` with the authenticated user's `name`, `sub`, and `picture`. The comment `text` is an empty string and the `timestamp` is set to `null` (it will be added when the form is submitted).
 
 The `onSubmit()` method will be executed when the comment form is submitted in the template. This method adds the `timestamp` and emits the `postComment` event with the `commentForm` data as its payload. It also calls the `_newComment()` method to reset the comment form.
 
@@ -742,7 +746,8 @@ The `onSubmit()` method will be executed when the comment form is submitted in t
 
 Open the `comment-form.component.html` file and add this code:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- src/app/comments/comment-form/comment-form.component.html -->
 <form (ngSubmit)="onSubmit()" #tplForm="ngForm">
   <div class="row form-inline m-1">
@@ -758,7 +763,8 @@ Open the `comment-form.component.html` file and add this code:
       [disabled]="!tplForm.valid">Send</button>
   </div>
 </form>
-```
+{% endraw %}
+{% endhighlight %}
 
 The comment form template is quite simple. The form's only field is a text input, since all other comment data (like name, picture, UID, etc.) is added dynamically in the class. We'll use a simple [template-driven form](https://angular.io/guide/forms#template-driven-forms) to implement our comment form.
 
@@ -774,11 +780,11 @@ Verify in the browser that the comments show up as expected. The only comment so
 
 ![Firebase Firestore comments with Angular](https://cdn.auth0.com/blog/firebase-auth0/test-comment.png)
 
-Our comments with the form should show up if the user is authenticated. Log in and try adding a comment.
+The comment form should show up if the user is authenticated. Log in and try adding a comment.
 
 ### Delete Seed Comment
 
-Users can delete their own comments. A red `x` should appear next to the comment's date and time if the user is the owner of a comment. Clicking this delete icon prompts for confirmation and then removes the comment in realtime too.
+Users can delete their own comments. A red `x` should appear next to the comment's date and time if the user is the owner of a comment. Clicking this delete icon prompts for confirmation and then removes the comment in realtime.
 
 Remember that the <a href="#firebase-firestore" target="_self">seed document we added in Firebase</a> cannot be deleted in the Angular app because its `uid` property doesn't match any real user's data. Let's delete it manually now.
 
@@ -790,7 +796,7 @@ Now, any comments that are added to our database should be able to be deleted by
 
 ### Add Comments in Angular App
 
-When comments are added, they should show up and that's great, but doesn't really demonstrate the realtime nature of our Firestore database. We could add comments in the UI without a refresh using a traditional server and database as well, simply by updating the view.
+When comments are added, they should show up and that's great, but it doesn't really demonstrate the true _realtime_ nature of our Firestore database. We could add comments in the UI without a refresh using a traditional server and database as well, simply by updating the view.
 
 ![Angular form with Firebase Firestore](https://cdn.auth0.com/blog/firebase-auth0/dogs-comments-loggedin.jpg)
 
@@ -818,12 +824,12 @@ The second part of our tutorial covered:
 * Using route parameters
 * Modeling data with a class
 * Firebase Cloud Firestore database and security rules
-* Implementing realtime database with angularfire2
+* Implementing Firestore database in Angular with angularfire2
 * Simple template-driven form with component interaction
 
 ### Angular Testing Resources
 
-If you're interested in learning more about testing in Angular, which we will not cover in this tutorial, please check out some of the following resources:
+If you're interested in learning more about testing in Angular, which we did not cover in this tutorial, please check out some of the following resources:
 
 * [Angular - Testing](https://angular.io/guide/testing)
 * [Angular Testing In Depth: Services](https://auth0.com/blog/angular-2-testing-in-depth-services/)
@@ -850,7 +856,7 @@ Hopefully you learned a lot about building scalable apps with Angular and authen
 
 * Implement an inappropriate language filter for comments
 * Implement authorization roles to create an admin user with the rights to delete other peoples' comments
-* Add functionality supporting comment editing
+* Add functionality to support comment editing
 * Add comments to individual dogs' detail pages using additional Firestore collections
 * Add testing
 * And much more!
