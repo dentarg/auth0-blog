@@ -13,8 +13,8 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/a208cda2b3b21dc8d7896507f5ff60fc"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/firebasephoneauth/logo.png
+  bg_color: "#4236C9"
 tags:
 - firebase
 - angular
