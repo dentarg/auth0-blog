@@ -29,9 +29,7 @@ tags:
 - async
 - auth0
 - authentication
-- centralized-login
 related:
-- 2018-01-11-how-to-authenticate-firebase-and-angular-with-auth0-part-2
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
@@ -124,7 +122,7 @@ We will generate our Angular app and nearly all of its architecture using the CL
 
 You'll need an [Auth0](https://auth0.com) account to manage authentication. You can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account here</a>.
 
-![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+![Auth0 login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 Next, set up an Auth0 client app and API so Auth0 can interface with the Angular app and Node API.
 
@@ -1056,7 +1054,7 @@ The `login()` method looks like this:
   }
 ```
 
-If a `redirect` URL segment is passed into the method, we'll save it in local storage. If no redirect is passed, we'll simply store the current URL. We'll then use the `_auth0` instance we created in our members and call [Auth0's `authorize()` method](https://auth0.com/docs/libraries/auth0js/v9#webauth-authorize-) to go to the [Auth0 centralized login page](https://auth0.com/docs/hosted-pages/login) so our user can authenticate.
+If a `redirect` URL segment is passed into the method, we'll save it in local storage. If no redirect is passed, we'll simply store the current URL. We'll then use the `_auth0` instance we created in our members and call [Auth0's `authorize()` method](https://auth0.com/docs/libraries/auth0js/v9#webauth-authorize-) to go to the [Auth0 login page](https://auth0.com/docs/hosted-pages/login) so our user can authenticate.
 
 The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
 
@@ -1146,7 +1144,7 @@ We are also going to use the auth result's access token to authorize an HTTP req
   }
 ```
 
-We'll create a `getToken$` observable from the `GET` request to our API's `/auth/firebase` endpoint and subscribe to it. If successful, we'll pass the returned object with the custom Firebase token to the `_firebaseAuth()` method, which will authenticate with Firebase using [Firebase's `signInWithCustomToken()` method](https://firebase.google.com/docs/auth/web/custom-auth). This method returns a promise, and when the promise is resolved, we can tell our app that Firebase login was successful. We can also schedule Firebase token renewal (we'll look at this shortly). We'll also handle any errors appropriately.
+We'll create a `getToken$` observable from the `GET` request to our API's `/auth/firebase` endpoint and subscribe to it. If successful, we'll pass the returned object with the custom Firebase token to the `_firebaseAuth()` method, which will authenticate with Firebase using [Firebase's `signInWithCustomToken()` method](https://firebase.google.com/docs/auth/web/custom-auth). This method returns a promise, and when the promise is resolved, we can tell our app that Firebase login was successful. We can also schedule Firebase token renewal (we'll look at this shortly). We'll handle any errors appropriately.
 
 Our custom Firebase token will expire in `3600` seconds (1 hour). This is only _half_ as long as our default Auth0 access token lifetime (which is `7200` seconds, or 2 hours). To avoid having our users lose access to Firebase unexpectedly in the middle of a session, we'll set up automatic Firebase token renewal with two methods: `scheduleFirebaseRenewal()` and `unscheduleFirebaseRenewal()`.
 
@@ -1270,7 +1268,7 @@ Now that we've implemented the authentication service, we have access to the pro
 
 Using the Angular CLI should have generated some helpful boilerplate code, and we only have to make a few minor changes to ensure that our guarded routes are only accessible to authenticated users.
 
-> **Note:** It's important to note that route guards _on their own_ do not confer sufficient security. You should always secure your API endpoints, as we have done in this tutorial, and never rely _solely_ on the front end to authorize access to protected data.
+> **Note:** It's important to note that route guards _on their own_ do not confer sufficient security. You should always secure your API endpoints, as we have done in this tutorial, and never rely _solely_ on the client side to authorize access to protected data.
 
 Open the `auth.guard.ts` file and make the following changes:
 
@@ -1314,7 +1312,7 @@ The last thing we'll do in this section of our tutorial is implement the remaini
 
 The header will use methods and logic from our authentication service to show login and logout buttons as well as display the user's name and picture if they're authenticated. Open the `header.component.ts` file and add:
 
-```typescript
+```js
 // src/app/core/header/header.component.ts
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
@@ -1355,7 +1353,7 @@ export class HeaderComponent {
 
 We'll add a few simple styles and import our `AuthService` to make its members publicly available to our header component's template.
 
-The `showLogin` accessor method checks the state of the `loggedIn` property and returns a boolean that lets the UI know if the user should be shown the login button. The `loggingIn` accessor method does the same, but checking for `loggedIn` to be `null`. If this is the case, the `handleAuth()` method is currently executing and authentication data will be available shortly.
+The `showLogin` accessor method checks the state of the `loggedIn` property and returns a boolean that lets the UI know if the user should be shown the login button. The `loggingIn` accessor method checks for `loggedIn` to be `null`. If this is the case, the `handleAuth()` method is currently executing and authentication data will be available shortly.
 
 Next open the `header.component.html` file and add:
 
@@ -1397,13 +1395,15 @@ Now that we have our header component built, we need to display it in our app.
 
 Open the `app.component.html` file and add:
 
-```html
+{% highlight html %}
+{% raw %}
 <!-- src/app/app.component.html -->
 <app-header></app-header>
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
 The header component will now be displayed in our app with the current routed component showing beneath it. Check it out in the browser and try logging in!
 
@@ -1517,10 +1517,15 @@ If you're interested in learning more about testing in Angular, which we will no
 
 ### Additional Resources
 
-* [Auth0 Documentation](https://auth0.com/docs)
-* [Firebase Documentation](https://firebase.google.com/docs/)
-* [AngularFire2 Documentation](https://github.com/angular/angularfire2/tree/master/docs)
-* [Angular Documentation](https://angular.io)
+You can find more resources on Firebase, Auth0, and Angular here:
+
+* [Firebase documentation](https://firebase.google.com/docs/)
+* [Cloud Firestore documentation](https://firebase.google.com/docs/firestore/)
+* [angularfire2 documentation](https://github.com/angular/angularfire2/tree/master/docs)
+* [Auth0 documentation](https://auth0.com/docs)
+* [Auth0 pricing and features](https://auth0.com/pricing)
+* [Angular documentation](https://angular.io/docs)
+* [Angular CLI](https://github.com/angular/angular-cli)
 * [Angular Cheatsheet](https://angular.io/guide/cheatsheet)
 
 In the next installment of our Auth0 + Firebase + Angular tutorial, we'll **display data from our dogs API** and learn how to **set up and implement realtime comments with Firebase**!
