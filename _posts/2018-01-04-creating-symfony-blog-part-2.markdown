@@ -3,7 +3,7 @@ layout: post
 title: "Symfony Tutorial: Building a Blog (Part 2)"
 description: "Let's create a secure blog engine with Symfony."
 longdescription: "Creating applications with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. Let's use Symfony to create a blog engine."
-date: 2018-01-10 08:30
+date: 2018-01-04 08:30
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
