@@ -13,9 +13,8 @@ author:
   mail: "vincenzo@express-gateway.io"
   avatar: "https://pbs.twimg.com/profile_images/932249086333464576/DacF9HCu_400x400.jpg"
 design:
-  image: https://github.com/ExpressGateway/express-gateway/blob/master/logo/mark-only/ExpressGateway_logomark.png?raw=true
-  image_size: 85%
-  image_bg_color: "#ffffff"
+  image: https://cdn.auth0.com/blog/express-gateway/logo.png
+  image_bg_color: "#205868"
   bg_color: "#00728E"
 tags:
 - javascript
