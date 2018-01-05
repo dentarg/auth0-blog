@@ -3,11 +3,11 @@ layout: post
 title: "The Complete Guide To Deploying JavaScript Applications - Part 2"
 description: "Learn how to deploy JavaScript applications on different platforms."
 longdescription: "We are constantly faced with deploying and configuring Single Page Applications running in a browser and Server-side applications running on Node.js. Equip yourself with the knowledge to deploy JavaScript applications to production on different platforms in this guide."
-date: 2017-12-21 08:30
+date: 2017-12-31 08:30
 category: Technical guide, Frameworks, JavaScript
 design:
   bg_color: "#484C89"
-  image: https://cdn2.auth0.com/blog/ultimateguide.png
+  image: https://cdn.auth0.com/blog/jsdeploy/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
@@ -132,7 +132,7 @@ Ensure Auth0 is configured properly.
 ```
 - Now, commit the new changes to GitHub. Once you commit, a deploy process will commence on Netlify. And the `_redirects` file will moved to the `dist` folder on Netlify server. Netlify serves the content of the `dist` folder as the app, so our SPA routing will work fine!
 
-Test the app again in the browser. `[https://agitated-davinci-4df0c1.netlify.com](https://agitated-davinci-4df0c1.netlify.com)`
+Test the app again in the browser. [https://agitated-davinci-4df0c1.netlify.com](https://agitated-davinci-4df0c1.netlify.com)
 
 Netlify is really powerful. It provides a lot of features out of the box such as:
 
