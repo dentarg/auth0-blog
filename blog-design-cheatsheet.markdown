@@ -45,3 +45,10 @@ If adding new logos, upload them to the `logos` directory on the CDN. This will 
   bg_color: "#222228"
   image: https://cdn.auth0.com/blog/logos/spring-boot.png
 ```
+
+### PHP
+
+```
+  bg_color: "#312A4C"
+  image: https://cdn.auth0.com/blog/logos/php.png
+```
