@@ -3,11 +3,11 @@ layout: post
 title: "The Complete Guide To Deploying JavaScript Applications - Part 1"
 description: "Learn how to deploy JavaScript applications on different platforms."
 longdescription: "We are constantly faced with deploying and configuring Single Page Applications running in a browser and Server-side applications running on Node.js. Equip yourself with the knowledge to deploy JavaScript applications to production on different platforms in this guide."
-date: 2017-12-21 08:30
+date: 2017-12-31 08:30
 category: Technical guide, Frameworks, JavaScript
 design:
   bg_color: "#484C89"
-  image: https://cdn2.auth0.com/blog/ultimateguide.png
+  image: https://cdn.auth0.com/blog/jsdeploy/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper?lang=en
