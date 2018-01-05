@@ -12,7 +12,7 @@ author:
   avatar: https://avatars1.githubusercontent.com/u/956290?s=200
   mail: luke.oliff@auth0.com
 design:
-  image: https://cdn.auth0.com/blog/polymer2/polymer2_logo.png
+  image: https://cdn.auth0.com/blog/logos/polymer-project.png
   bg_color: "#303F9F"
 tags:
 - polymer
