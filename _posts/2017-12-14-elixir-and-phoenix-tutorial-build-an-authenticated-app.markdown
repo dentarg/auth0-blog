@@ -759,6 +759,10 @@ $ AUTH0_DOMAIN=<Your domain> \
 
 ![Phoenix Countdown End](https://raw.githubusercontent.com/lukeoliff/auth0-elixir-countdown/master/docs/images/phoenix/phoenix_app-end.jpg)
 
+## Credits
+
+A big thanks to <a href="https://twitter.com/IT_Supertramp">Thomas Peitz</a> for his help fixing the issue surrounding OIDC Conformant clients.
+
 ## Conclusion
 
 We've learned how to build a basic CRUD application in Elixir. It utilizes the Phoenix framework, allowing us to create applications in a straightforward way using the simple command line interface. We've also learned how to write some basic security using [Auth0](https://auth0.com) inside Elixir.
