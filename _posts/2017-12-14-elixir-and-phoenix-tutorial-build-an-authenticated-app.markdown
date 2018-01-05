@@ -592,7 +592,8 @@ Next, create a new controller. Call it `AuthController` and create it at `lib/co
 
  - **Callback** Handles the success or failure of our auth request. On success, stores the user in a session.
  - **Logout** Drops the session.
-
+ - **HelperS** Providers a basepath for our `Ueberauth` strategy helpers, meaning `/auth/auth0` will now allow us to authenticate with the Auth0 provider we setup.
+ 
 ```elixir
 defmodule CountdownWeb.AuthController do
   use CountdownWeb, :controller
