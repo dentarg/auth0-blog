@@ -174,7 +174,7 @@ We need to be able to store the events we are going to count down to.
 
 Before we can start adding our data, we need to set up the database. Open up `config/dev.exs`, and edit the username and password near the bottom of the file. (They will both be set to “postgres” by default.)
 
-```erlang
+```elixir
     ...
     config :countdown, Countdown.Repo,
       adapter: Ecto.Adapters.Postgres,
@@ -420,21 +420,21 @@ Last of all, we'll secure administration of events with Auth0's [Centralized Log
 
 ### Sign Up for Auth0
 
-You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a [free account here](javascript:signup\(\)). Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
+You'll need an [Auth0](https://auth0.com) account to manage authentication. You can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>. Next, set up an Auth0 Client and API so Auth0 can interface with your app and API.
 
 ### Set Up a Client App
 
 1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button. 
 2. Name your new app and select "Regular Web Applications". 
-3. In the **Settings** for your new Auth0 client app, add `http://0.0.0.0:4000/auth` to the **Allowed Callback URLs** and `http://0.0.0.0:4000/auth` to the **Allowed Origins (CORS)**. *You might need to add `http://localhost:4000/auth` depending on how your version of Phoenix renders the routes*.
-4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and change the **JsonWebToken Signature Algorithm** to `RS256`.
+3. In the **Settings** for your new Auth0 client app, add `http://0.0.0.0:4000/auth/auth0/callback` to the **Allowed Callback URLs**.
+4. Click the "Save Changes" button.
 5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter.
 
-### Install Auth0Ex module
+> Note: On the **OAuth** tab of **Advanced Settings** (at the bottom of the **Settings** section) you can see the **JsonWebToken Signature Algorithm** is set to `RS256`. This is now the default, [read more about RS256 vs HS256 here](https://community.auth0.com/questions/6942/jwt-signing-algorithms-rs256-vs-hs256).
 
-Install [Auth0Ex](https://github.com/techgaun/auth0_ex):
+### Install the Ueberauth module
 
-Edit `mix.exs` and add Auth0Ex module to your dependencies and application compilation order.
+Edit `mix.exs` and add the `Ueberauth` module to your dependencies and application compilation order.
 
 ```diff
    ...
@@ -443,7 +443,7 @@ Edit `mix.exs` and add Auth0Ex module to your dependencies and application compi
      [
        mod: {Countdown.Application, []},
 -      extra_applications: [:logger, :runtime_tools]
-+      extra_applications: [:auth0_ex, :logger, :runtime_tools]
++      extra_applications: [:ueberauth, :ueberauth_auth0, :logger, :runtime_tools]
      ]
    end
 
@@ -454,14 +454,15 @@ Edit `mix.exs` and add Auth0Ex module to your dependencies and application compi
        ...
 -      {:cowboy, "~> 1.0"}
 +      {:cowboy, "~> 1.0"},
-+      {:auth0_ex, "~> 0.2"}
++      {:ueberauth, "~> 0.4"},
++      {:ueberauth_auth0, "~> 0.3"}
      ]
    end
 
    ...
 ```
 
-You can use GitHub a repository as your package source to use the latest changes. Beware—it might have breaking and unstable code:
+You can also use a GitHub repository as your package source to use the latest changes. Beware—it might have breaking and unstable code. For example:
 
 ```diff
    ...
@@ -471,7 +472,7 @@ You can use GitHub a repository as your package source to use the latest changes
        ...
 -      {:cowboy, "~> 1.0"}
 +      {:cowboy, "~> 1.0"},
-+      {:auth0_ex, github: "techgaun/auth0_ex"}
++      {:ueberauth_auth0, github: "sntran/ueberauth_auth0"}
      ]
    end
 
@@ -484,20 +485,24 @@ Now that it's configured we need to install our dependencies.
     $ mix deps.get
 ```
 
-With `Auth0Ex` installed, we can use it in our application. 
-
-Edit `config/config.exs` to configure the module.
+Edit `config/config.exs` to configure `Ueberauth`.
 
 ```diff
-  ...
-  import_config "#{Mix.env}.exs"
-+ 
-+ # Configures Auth0Ex
-+ config :auth0_ex,
-+   domain: System.get_env("AUTH0_DOMAIN"),
-+   mgmt_client_id: System.get_env("AUTH0_MGMT_CLIENT_ID"),
-+   mgmt_client_secret: System.get_env("AUTH0_MGMT_CLIENT_SECRET"),
-+   http_opts: []
+...
+import_config "#{Mix.env}.exs"
+
++
++# Configures Ueberauth
++config :ueberauth, Ueberauth,
++  providers: [
++    auth0: { Ueberauth.Strategy.Auth0, [] },
++  ]
++
++# Configures Ueberauth's Auth0 auth provider
++config :ueberauth, Ueberauth.Strategy.Auth0.OAuth,
++  domain: System.get_env("AUTH0_DOMAIN"),
++  client_id: System.get_env("AUTH0_CLIENT_ID"),
++  client_secret: System.get_env("AUTH0_CLIENT_SECRET")
 ```
 
 Configured like this, we can now control our config through environment variables. For more information on how to define these check out [this guide on bash environment variables](http://www.tricksofthetrades.net/2015/06/14/notes-bash-env-variables/).
@@ -507,90 +512,173 @@ Later, we'll be looking at starting our application with environment variables i
 An example of how to launch the application with environment variables:
 
 ```bash
-    $ AUTH0_DOMAIN=<auth0 domain> AUTH0_MGMT_CLIENT_ID=<auth0 client ID> AUTH0_MGMT_CLIENT_SECRET=<auth0 client secret> mix phx.server
+$ AUTH0_DOMAIN=<Your domain> \
+  AUTH0_CLIENT_ID=<Your client ID> \
+  AUTH0_CLIENT_SECRET=<Your client secret> \
+  mix phx.server
 ```
 
 ### Setup authentication
 
-Create a new controller. Call it `AuthController` and create it at `lib/countdown_web/controllers/auth_controller.ex`. This controller has a few responsibilities:
-
- - **Callback** We'll use the response code to fetch a JWT token and redirect where we need to go.
- - **Login** We'll redirect to the hosted login page.
- - **Logout** Delete the JWT token from our cookies. Removing the JWT token and not being able to get it back is enough to revoke our access.
-
-```erlang
-    defmodule CountdownWeb.AuthController do
-      use CountdownWeb, :controller
-      alias Auth0Ex.Authentication
-      alias CountdownWeb.Router.Helpers
-
-      def index(conn, _params) do
-        authCode = Authentication.Token.auth_code(
-          Application.get_env(:auth0_ex, :mgmt_client_id),
-          Application.get_env(:auth0_ex, :mgmt_client_secret),
-          conn.query_params["code"],
-          Helpers.url(conn) <> "/auth"
-        )
-
-        redirect_uri = if conn.params["redirect"], do: conn.params["redirect"], else: "/"
-
-        case authCode do
-          {:ok, response} -> conn
-            |> put_resp_cookie("jwt", response["id_token"])
-            |> redirect(to: redirect_uri)
-          {:error} -> conn
-            |> redirect(to: "/")
-          {:error, errors, 400} -> conn
-            |> redirect(to: "/")
-        end
-      end
-
-      def logout(conn, _params) do
-        conn
-          |> delete_resp_cookie("jwt")
-          |> redirect(to: "/")
-      end
-
-      def login(conn, _params) do
-        redirect_uri = if conn.params["redirect"], do: conn.params["redirect"], else: "/"
-
-        conn
-          |> redirect(external: "https://" <> Application.get_env(:auth0_ex, :domain) <> "/login?client=" <> Application.get_env(:auth0_ex, :mgmt_client_id) <> "&redirect_uri=" <> Helpers.url(conn) <> "/auth?redirect=" <> redirect_uri)
-          |> halt
+First, we'll create a new model for reading user info. Open a new file at `lib/countdown_web/models/user_from_auth.ex`. This model, courtesy of <a href="https://twitter.com/IT_Supertramp">Thomas Peitz</a>, will give us easy access to details obtained back from authentication payload. It also supports multiple formats of profile information. For example, providers like GitHub and Facebook give a profile image url, slightly different.
+             
+```elixir
+defmodule UserFromAuth do
+  @moduledoc """
+  Retrieve the user information from an auth request
+  """
+  require Logger
+  require Poison
+  
+  alias Ueberauth.Auth
+  
+  def find_or_create(%Auth{provider: :identity} = auth) do
+    case validate_pass(auth.credentials) do
+      :ok ->
+        {:ok, basic_info(auth)}
+      {:error, reason} -> {:error, reason}
+    end
+  end
+  
+  def find_or_create(%Auth{} = auth) do
+    {:ok, basic_info(auth)}
+  end
+  
+  # github does it this way
+  defp avatar_from_auth( %{info: %{urls: %{avatar_url: image}} }), do: image
+  
+  # facebook does it this way
+  defp avatar_from_auth( %{info: %{image: image} }), do: image
+  
+  # default case if nothing matches
+  defp avatar_from_auth( auth ) do
+    Logger.warn auth.provider <> " needs to find an avatar URL!"
+    Logger.debug(Poison.encode!(auth))
+    nil
+  end
+  
+  defp basic_info(auth) do
+    %{id: auth.uid, name: name_from_auth(auth), avatar: avatar_from_auth(auth)}
+  end
+  
+  defp name_from_auth(auth) do
+    if auth.info.name do
+      auth.info.name
+    else
+      name = [auth.info.first_name, auth.info.last_name]
+      |> Enum.filter(&(&1 != nil and &1 != ""))
+      
+      cond do
+        length(name) == 0 -> auth.info.nickname
+        true -> Enum.join(name, " ")
       end
     end
+  end
+  
+  defp validate_pass(%{other: %{password: ""}}) do
+    {:error, "Password required"}
+  end
+  defp validate_pass(%{other: %{password: pw, password_confirmation: pw}}) do
+    :ok
+  end
+  defp validate_pass(%{other: %{password: _}}) do
+    {:error, "Passwords do not match"}
+  end
+  defp validate_pass(_), do: {:error, "Password Required"}
+end
+```
+
+Next, create a new controller. Call it `AuthController` and create it at `lib/countdown_web/controllers/auth_controller.ex`. This controller has a few responsibilities:
+
+ - **Callback** Handles the success or failure of our auth request. On success, stores the user in a session.
+ - **Logout** Drops the session.
+ - **Helpers** Providers a basepath for our `Ueberauth` strategy helpers, meaning `/auth/auth0` will now allow us to authenticate with the Auth0 provider we setup.
+ 
+```elixir
+defmodule CountdownWeb.AuthController do
+  use CountdownWeb, :controller
+  alias CountdownWeb.Router.Helpers
+
+  plug Ueberauth
+
+  alias Ueberauth.Strategy.Helpers
+
+  def logout(conn, _params) do
+    conn
+    |> put_flash(:info, "You have been logged out!")
+    |> configure_session(drop: true)
+    |> redirect(to: "/")
+  end
+
+  def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
+    conn
+    |> put_flash(:error, "Failed to authenticate.")
+    |> redirect(to: "/")
+  end
+
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
+    case UserFromAuth.find_or_create(auth) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Successfully authenticated as " <> user.name <> ".")
+        |> put_session(:current_user, user)
+        |> redirect(to: "/")
+      {:error, reason} ->
+        conn
+        |> put_flash(:error, reason)
+        |> redirect(to: "/")
+    end
+  end
+end
 ```
 
 Now we need to add endpoints for the controller to the router. Edit `lib/countdown_web/router.ex` to configure these routes.
 
 ```diff
-   ...
-     get "/", PageController, :index
+ defmodule CountdownWeb.Router do
+   use CountdownWeb, :router
++  require Ueberauth
+
+...
+
++  scope "/auth", CountdownWeb do
++    pipe_through :browser
 +
-+    get "/auth", AuthController, :index
-+    get "/login", AuthController, :login
-+    get "/logout", AuthController, :logout
-   ...
++    get "/:provider", AuthController, :request
++    get "/:provider/callback", AuthController, :callback
++    post "/:provider/callback", AuthController, :callback
++  end
++
+
+...
+
+   scope "/", CountdownWeb do
+      pipe_through :browser # Use the default browser stack
+      get "/", PageController, :index
++     get "/logout", AuthController, :logout
+
+...
+
 ```
 
 ### Secure our application
 
-We only need to verify our JWT token to access to the `/events` endpoints now. To do this, edit `lib/countdown_web/controllers/event_controller.ex` and add a `Plug` which will be called by the controller prior to every endpoint.
+To secure our events controller, edit `lib/countdown_web/controllers/event_controller.ex` and add a `Plug` which will be called by the controller prior to every endpoint. This will now check our current session for a verified user.
 
 ```diff
    ...
    alias Countdown.Events.Event
-+  alias Auth0Ex.Authentication
 +
 +  plug :secure
 +
 +  defp secure(conn, _params) do
-+    tokenInfo = Authentication.tokeninfo(conn.cookies["jwt"])
-+
-+    case tokenInfo do
-+      {:ok, event} -> conn
-+      {:error, errors, 400} -> conn
-+        |> redirect(to: "/login?redirect=/events")
++    user = get_session(conn, :current_user)
++    case user do
++     nil ->
++         conn |> redirect(to: "/auth/auth0") |> halt
++     _ ->
++       conn
++       |> assign(:current_user, user)
 +    end
 +  end
 
@@ -600,48 +688,52 @@ We only need to verify our JWT token to access to the `/events` endpoints now. T
 
 Now our `/events` endpoints are secured, we just need a helpful menu to navigate the site.
 
-Edit the view to add in a new method that allows for checking cookies from inside a template. Edit `lib/countdown_web/views/layout_view.ex`:
-
-```diff
-   defmodule CountdownWeb.LayoutView do
-     use CountdownWeb, :view
-+
-+    def cookies(conn, cookie_name) do
-+        conn.cookies[cookie_name]
-+    end
-   end
-```
-
-
 **Nearly there!**
 
-The base app template `lib/countdown_web/templates/layout/app.html.eex` is going to use our new `cookies` method to provide context-aware navigation for our logged in user.
+Lets edit our `PageController` found at `lib/countdown_web/controllers/page_controller.ex` to add our `current_user` property, allowing us to access it elsewhere.
 
 ```diff
-    ...
-          <ul class="nav nav-pills pull-right">
--           <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-+ <%= if cookies(@conn, "jwt") do %>
-+           <li><a href="/">Home</a></li>
-+           <li><a href="/events">Events</a></li>
-+           <li class="active"><a href="/logout">Logout</a></li>
-+ <% else %>
-+           <li><a href="/">Home</a></li>
-+           <li><a href="/login">Log in</a></li>
-+ <% end %>
-          </ul>
-    ...
+ def index(conn, _params) do
+    events = Events.list_future_events()
+-    render conn, "index.html", events: events
++    render conn, "index.html", events: events, current_user: get_session(conn, :current_user)
+  end
+```
+
+The base app template needs to be edited `lib/countdown_web/templates/layout/app.html.eex`, it is going to check for our current user. If we don't have one, we'll show a link to login.
+
+```diff
+...
+  <ul class="nav nav-pills pull-right">
+-   <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
++   <%= if @current_user do %>
++   <li><a href="/">Home</a></li>
++   <li><a href="/events">Events</a></li>
++   <li class="active"><a href="/logout">Logout</a></li>
++   <% else %>
++   <li><a href="/">Home</a></li>
++   <li><a href="/auth/auth0">Login</a></li>
++   <% end %>
+  </ul>
+...
 ```
 
 Start our application, remembering our environment variables. 
 
 ```bash
-    $ AUTH0_DOMAIN=<auth0 domain> AUTH0_MGMT_CLIENT_ID=<auth0 client ID> AUTH0_MGMT_CLIENT_SECRET=<auth0 client secret> mix phx.server
+$ AUTH0_DOMAIN=<Your domain> \
+  AUTH0_CLIENT_ID=<Your client ID> \
+  AUTH0_CLIENT_SECRET=<Your client secret> \
+  mix phx.server
 ```
 
 **Log in, have a play and it should look something like this!**
 
 ![Phoenix Countdown End](https://raw.githubusercontent.com/lukeoliff/auth0-elixir-countdown/master/docs/images/phoenix/phoenix_app-end.jpg)
+
+## Credits
+
+A big thanks to <a href="https://twitter.com/IT_Supertramp">Thomas Peitz</a> for his help and suggestions.
 
 ## Conclusion
 
