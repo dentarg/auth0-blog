@@ -56,7 +56,7 @@ _[Source](http://dilbert.com/strip/2006-12-08)_
 * As your system accumulates little patches over time, it becomes more complicated and more prone to breakages.
 * Legacy systems don't rely on open standards, so integrating with new technology is sometimes impossible.
 
-Despite all these problems, companies ~~are~~ often loathe ~~to spend~~ spending the time and money to replace these systems because it can cripple their short-term ability to innovate. They also risk eroding customer confidence in the product if a [customer might experience](https://www.zendesk.com/resources/why-companies-should-invest-in-the-customer-experience/) adverse, if temporary, effects.
+Despite all these problems, companies are often reluctant to spend the time and money to replace these systems because it can cripple their short-term ability to innovate. They also risk eroding customer confidence in the product if a [customer might experience](https://www.zendesk.com/resources/why-companies-should-invest-in-the-customer-experience/) adverse, if temporary, effects.
 
 For example, a football stats app may not want to make drastic changes which could cause downtime right before the playoffs, the night before the Super Bowl, right before the draft, or when fantasy football starts, leaving them feeling like there might not be any good moment to tackle upgrades.
 
@@ -73,7 +73,7 @@ Sticking with your legacy systems prevents you from harnessing the full benefits
 
 ## Identifying ways to modernize your system
 
-If your system does need an upgrade pretty much everywhere, how do you know where to start? You likely only have the resources to take care of a few issue at ~~the moment~~ any one time.
+If your system does need an upgrade pretty much everywhere, how do you know where to start? You likely only have the resources to take care of a few issues at any one time.
 
 The first thing you need to do when looking to modernize your system is to [find your pain points](https://www.altexsoft.com/whitepapers/legacy-system-modernization-how-to-transform-the-enterprise-for-digital-future/) by following these three steps:
 
