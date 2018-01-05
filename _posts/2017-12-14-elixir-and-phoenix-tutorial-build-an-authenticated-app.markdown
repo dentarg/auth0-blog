@@ -432,22 +432,9 @@ You'll need an [Auth0](https://auth0.com) account to manage authentication. You 
 
 > Note: On the **OAuth** tab of **Advanced Settings** (at the bottom of the **Settings** section) you can see the **JsonWebToken Signature Algorithm** is set to `RS256`. This is now the default, [read more about RS256 vs HS256 here](https://community.auth0.com/questions/6942/jwt-signing-algorithms-rs256-vs-hs256).
 
-### Set Up Client Management API
+### Install the Ueberauth module
 
-1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[APIs](https://manage.auth0.com/#/apis)" link in the menu. 
-2. Select the "Auth0 Management API" that comes with your new free account.
-3. Select the "Non Interactive Clients" tab.
-4. Toggle "Unauthorized" to "Authorized" for the client you have just created above.
-
-   ![Authorize client](https://cdn.auth0.com/blog/elixir-phoenix-app/authorize-app.png)
-
-5. Now enable the `read:users` scope that is required for this project.
-
-   ![Read permission](https://cdn.auth0.com/blog/elixir-phoenix-app/enable-scope.png)
-
-### Install the Auth0Ex and Ueberauth modules
-
-Edit `mix.exs` and add `Auth0Ex` and `Ueberauth` modules to your dependencies and application compilation order.
+Edit `mix.exs` and add the `Ueberauth` module to your dependencies and application compilation order.
 
 ```diff
    ...
@@ -456,7 +443,7 @@ Edit `mix.exs` and add `Auth0Ex` and `Ueberauth` modules to your dependencies an
      [
        mod: {Countdown.Application, []},
 -      extra_applications: [:logger, :runtime_tools]
-+      extra_applications: [:ueberauth, :ueberauth_auth0, :auth0_ex, :logger, :runtime_tools]
++      extra_applications: [:ueberauth, :ueberauth_auth0, :logger, :runtime_tools]
      ]
    end
 
@@ -467,7 +454,6 @@ Edit `mix.exs` and add `Auth0Ex` and `Ueberauth` modules to your dependencies an
        ...
 -      {:cowboy, "~> 1.0"}
 +      {:cowboy, "~> 1.0"},
-+      {:auth0_ex, "~> 0.2"},
 +      {:ueberauth, "~> 0.4"},
 +      {:ueberauth_auth0, "~> 0.3"}
      ]
@@ -486,7 +472,7 @@ You can also use a GitHub repository as your package source to use the latest ch
        ...
 -      {:cowboy, "~> 1.0"}
 +      {:cowboy, "~> 1.0"},
-+      {:auth0_ex, github: "techgaun/auth0_ex"}
++      {:ueberauth_auth0, github: "sntran/ueberauth_auth0"}
      ]
    end
 
@@ -499,21 +485,14 @@ Now that it's configured we need to install our dependencies.
     $ mix deps.get
 ```
 
-With `Auth0Ex` and `Ueberauth` installed, we can use them in our application. 
+With `Ueberauth` installed, we can it on our application. 
 
-Edit `config/config.exs` to configure the modules.
+Edit `config/config.exs` to configure `Ueberauth`.
 
 ```diff
 ...
 import_config "#{Mix.env}.exs"
 
-+
-+# Configures Auth0Ex
-+config :auth0_ex,
-+  domain: System.get_env("AUTH0_DOMAIN"),
-+  mgmt_client_id: System.get_env("AUTH0_MGMT_CLIENT_ID"),
-+  mgmt_client_secret: System.get_env("AUTH0_MGMT_CLIENT_SECRET"),
-+  http_opts: []
 +
 +# Configures Ueberauth
 +config :ueberauth, Ueberauth,
@@ -538,15 +517,13 @@ An example of how to launch the application with environment variables:
 $ AUTH0_DOMAIN=<Your domain> \
   AUTH0_CLIENT_ID=<Your client ID> \
   AUTH0_CLIENT_SECRET=<Your client secret> \
-  AUTH0_MGMT_CLIENT_ID=<Your management API client ID> \
-  AUTH0_MGMT_CLIENT_SECRET=<Your management API client secret> \
   mix phx.server
 ```
 
 ### Setup authentication
 
-First we'll create a new model. Open a new file at `lib/countdown_web/models/user_from_auth.ex`. It will be responsible for understanding user information returned from an auth request and allowing us to use or display it.
-
+First, we'll create a new model for reading user info. Open a new file at `lib/countdown_web/models/user_from_auth.ex`. This model, courtesy of <a href="https://twitter.com/IT_Supertramp">Thomas Peitz</a>, will give us easy access to details obtained back from authentication payload. It also supports multiple formats of profile information. For example, providers like GitHub and Facebook give a profile image url, slightly different.
+             
 ```elixir
 defmodule UserFromAuth do
   @moduledoc """
@@ -554,9 +531,9 @@ defmodule UserFromAuth do
   """
   require Logger
   require Poison
-
+  
   alias Ueberauth.Auth
-
+  
   def find_or_create(%Auth{provider: :identity} = auth) do
     case validate_pass(auth.credentials) do
       :ok ->
@@ -564,42 +541,42 @@ defmodule UserFromAuth do
       {:error, reason} -> {:error, reason}
     end
   end
-
+  
   def find_or_create(%Auth{} = auth) do
     {:ok, basic_info(auth)}
   end
-
+  
   # github does it this way
   defp avatar_from_auth( %{info: %{urls: %{avatar_url: image}} }), do: image
-
-  #facebook does it this way
+  
+  # facebook does it this way
   defp avatar_from_auth( %{info: %{image: image} }), do: image
-
+  
   # default case if nothing matches
   defp avatar_from_auth( auth ) do
     Logger.warn auth.provider <> " needs to find an avatar URL!"
     Logger.debug(Poison.encode!(auth))
     nil
   end
-
+  
   defp basic_info(auth) do
     %{id: auth.uid, name: name_from_auth(auth), avatar: avatar_from_auth(auth)}
   end
-
+  
   defp name_from_auth(auth) do
     if auth.info.name do
       auth.info.name
     else
       name = [auth.info.first_name, auth.info.last_name]
       |> Enum.filter(&(&1 != nil and &1 != ""))
-
+      
       cond do
         length(name) == 0 -> auth.info.nickname
         true -> Enum.join(name, " ")
       end
     end
   end
-
+  
   defp validate_pass(%{other: %{password: ""}}) do
     {:error, "Password required"}
   end
@@ -615,8 +592,8 @@ end
 
 Next, create a new controller. Call it `AuthController` and create it at `lib/countdown_web/controllers/auth_controller.ex`. This controller has a few responsibilities:
 
- - **Callback** We'll use the response code to fetch a JWT token and redirect where we need to go.
- - **Logout** Drop the session. Dropping the session loses the JWT token and not being able to get it back is enough to revoke our access.
+ - **Callback** Handles the success or failure of our auth request. On success, stores the user in a session.
+ - **Logout** Drops the session.
 
 ```elixir
 defmodule CountdownWeb.AuthController do
@@ -643,9 +620,8 @@ defmodule CountdownWeb.AuthController do
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     case UserFromAuth.find_or_create(auth) do
       {:ok, user} ->
-        {:ok, userInfo} = Auth0Ex.Management.User.get(user[:id])
         conn
-        |> put_flash(:info, "Successfully authenticated as " <> userInfo["email"] <> ".")
+        |> put_flash(:info, "Successfully authenticated as " <> user.name <> ".")
         |> put_session(:current_user, user)
         |> redirect(to: "/")
       {:error, reason} ->
@@ -693,7 +669,6 @@ To secure our events controller, edit `lib/countdown_web/controllers/event_contr
 ```diff
    ...
    alias Countdown.Events.Event
-+  alias Auth0Ex.Authentication
 +
 +  plug :secure
 +
@@ -750,8 +725,6 @@ Start our application, remembering our environment variables.
 $ AUTH0_DOMAIN=<Your domain> \
   AUTH0_CLIENT_ID=<Your client ID> \
   AUTH0_CLIENT_SECRET=<Your client secret> \
-  AUTH0_MGMT_CLIENT_ID=<Your management API client ID> \
-  AUTH0_MGMT_CLIENT_SECRET=<Your management API client secret> \
   mix phx.server
 ```
 
@@ -761,7 +734,7 @@ $ AUTH0_DOMAIN=<Your domain> \
 
 ## Credits
 
-A big thanks to <a href="https://twitter.com/IT_Supertramp">Thomas Peitz</a> for his help fixing the issue surrounding OIDC Conformant clients.
+A big thanks to <a href="https://twitter.com/IT_Supertramp">Thomas Peitz</a> for his help and suggestions.
 
 ## Conclusion
 
