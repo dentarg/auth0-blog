@@ -485,8 +485,6 @@ Now that it's configured we need to install our dependencies.
     $ mix deps.get
 ```
 
-With `Ueberauth` installed, we can it on our application. 
-
 Edit `config/config.exs` to configure `Ueberauth`.
 
 ```diff
