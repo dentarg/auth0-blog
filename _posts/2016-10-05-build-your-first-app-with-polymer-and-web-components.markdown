@@ -3,14 +3,14 @@ layout: post
 title: "Build Your First App with Polymer and Web Components"
 description: "Build an app using web components and Polymer that interacts with an API and authenticates users with JSON Web Tokens."
 longdescription: "Build your first Polymer app using web components, the syntactic sugar for building elements and applications. Learn how to setup a starter kit Polymer application, install web components, use Polymer to interact with an API and authenticate users with JSON Web Tokens."
-date: 2016-10-05 8:30
-updated: 2018-01-01 00:44
+date: 2018-01-08 8:30
+updated: 2018-01-08 8:30
 category: Technical Guide, Frontend, Polymer
 author:
-  name: "Kim Maida"
-  url: "https://twitter.com/KimMaida"
-  mail: "kim.maida@auth0.com"
-  avatar: "https://en.gravatar.com/userimage/20807150/4c9e5bd34750ec1dcedd71cb40b4a9ba.png"
+  name: Luke Oliff
+  url: https://twitter.com/mroliff
+  avatar: https://avatars1.githubusercontent.com/u/956290?s=200
+  mail: luke.oliff@auth0.com
 design:
   image: https://cdn.auth0.com/blog/polymer2/polymer2_logo.png
   bg_color: "#303F9F"
@@ -26,7 +26,7 @@ related:
 
 <div class="alert alert-success alert-icon">
   <i class="icon-budicon-487"></i>
-  <strong>This post has been updated.</strong> This post has recently been updated to Polymer 2. Polymer 3 looks to be released soon and we hope to follow up with another article that covers it.
+  <strong>This post has been updated.</strong> This post was originally by <a href="https://twitter.com/KimMaida">Kim Maida</a> and has recently been updated from Polymer 1 to Polymer 2.
 </div>
 
 **TL;DR:** [Google Polymer](https://www.polymer-project.org) is a library that provides syntactic sugar and polyfills for building elements and applications with [web components](http://webcomponents.org/). We'll build a web app using Polymer and its CLI, call an external API, and add authentication with [JSON Web Tokens](http://jwt.io). The full code is available from [this GitHub repo](https://github.com/auth0-blog/polymer2-with-jwt-api).
