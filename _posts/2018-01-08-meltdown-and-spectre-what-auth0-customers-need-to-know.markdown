@@ -64,13 +64,13 @@ If you have any questions or encounter issues, please contact us at: **[notifica
 
 Auth0 has mitigated the risks posed by Meltdown and Spectre with regard to the Auth0 cloud and PSaaS appliance platforms. We’ve also ensured that our workstations and devices are properly updated with patches to protect against these vulnerabilities. However, you must _also_ take the necessary steps to protect your personal computers, servers, and other devices. This is a great opportunity to do a quick “Check for Updates” on all of your devices and applications and install anything that’s available. 
 
-Install all vendor-supplied operating system updates:
+Install all **vendor-supplied operating system updates**, such as:
 
 * [macOS 10.13.2, iOS 11.2, tvOS 11.2](https://support.apple.com/en-us/HT208394)
 * [Microsoft Update KB4056890](https://support.microsoft.com/en-us/help/4056890/windows-10-update-kb4056890)
 * [Android Security Bulletin January 2018](https://source.android.com/security/bulletin/2018-01-01)
 
-Update browser software:
+Update **browser software**, such as:
 
 * [Mozilla Firefox version 57.0.4](https://www.mozilla.org/en-US/security/advisories/mfsa2018-01/) or higher
 * Microsoft Edge is patched in [Microsoft Update KB4056890](https://support.microsoft.com/en-us/help/4056890/windows-10-update-kb4056890)
