@@ -54,9 +54,9 @@ Your security is of utmost importance to us at Auth0. Our engineering and securi
 
 One of Auth0's service providers is Amazon Web Services (AWS). The AWS infrastructure that powers services like RDS, Elasticache, and Redshift was protected in advance of the Meltdown and Spectre disclosure, thereby immunizing a significant portion of Auth0’s infrastructure in advance as well. At this time, all infrastructure that AWS provides to Auth0 has been patched to mitigate potential risk from these vulnerabilities. 
 
-As this is an evolving situation, we are not at liberty to disclose specific details of our current posture, but we are confident that we have thus far done everything within our power to follow our vendors' guidance and ensure the security of all customer data. Auth0 continues to work with vendors to patch the operating system software of compute resources.
+As this is an evolving situation, we are not at liberty to disclose specific details of our current posture, but we are confident that we have thus far done everything within our power to follow vendor guidance and ensure the security of all customer data. Auth0 continues to work with vendors to patch the operating system software of compute resources.
 
-Auth0 has also taken steps to ensure that, internally, we are up-to-date on all mitigation patches with regard to workstations as well as all personnel devices. To take similar precautions with your own computers, servers, and devices, please see the next section to learn what you can do to reduce your risk.
+In addition, Auth0 has taken steps to ensure that, internally, we are up-to-date on all mitigation patches with regard to workstations as well as all personnel devices. To take similar precautions with your own computers, servers, and devices, please see the next section to learn what you can do to reduce your risk.
 
 If you have any questions or encounter issues, please contact us at: **[notifications@auth0.com](mailto:notifications@auth0.com)**
 
