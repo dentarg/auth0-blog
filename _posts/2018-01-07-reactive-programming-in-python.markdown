@@ -281,11 +281,11 @@ headers = conf.headers
 GIT_ORG = conf.GITHUB_API_URL+"/orgs"
 ```
 
-### Building the WebSocketHandler
+### Building a WebSocket Handler
 
-Our application will exchange messages with a browser using web sockets. Web sockets allow a bidirectional communication between the browser and server in real time. The main idea is to define a class inherited from the `WebSocketHandler` class. We can find more information about Tornado WebSockets [here](http://www.tornadoweb.org).
+Our application will exchange messages with a browser using web sockets. Web sockets allow bidirectional communication between the browser and server in real time. The main idea is to define a class that inherits from the `WebSocketHandler` class. We can find more information about Tornado WebSockets [here](http://www.tornadoweb.org).
 
-Let's define the WebSocketHandler class with the following code:
+Let's define the `WebSocketHandler` class with the following code:
 
 ```python
 class WSHandler(WebSocketHandler):
@@ -295,6 +295,7 @@ class WSHandler(WebSocketHandler):
 	#Override to enable support for allowing alternate origins.
         return True
 ```
+
 Here we are initializing the organizations names and defining the origin check, which we can override if we need support for alternate origins.
 
 ### Obtaining Data
