@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Reactive Programming in Python"
-description: "Learn how to use reactive programming to process data streams asynchronously with RxPy."
+description: "Learn how to use reactive programming in Python to process data streams asynchronously."
+longdescription: "Let's learn how to use reactive programming in Python to create asynchronous and event-based programs by implementing observables, observers/subscribers, and subjects. We will start by getting our data stream from the GitHub with a Tornado web socket and then we will filter and process it asynchronously."
 date: "2018-01-12 08:30"
 author:
   name: "Valery Calderon"
@@ -10,13 +11,16 @@ author:
   avatar: "https://twitter.com/valerybriz/profile_image?size=original"
 tags:
 - python
-- rxpy
 - reactive
+- programming
+- reactive-programming
+- rxpy
 - functional
 - github
 - tornado
 related:
 - 2017-09-28-developing-restful-apis-with-python-and-flask
+- 2017-04-20-image-processing-in-python-with-pillow
 ---
 
 **TL;DR:** In this tutorial, we’ll be learning how to use the [RxPy](https://rxpy.codeplex.com/) library to create asynchronous and event-based programs by implementing observables, observers/subscribers, and subjects. We will start by getting our data stream from the [GitHub API](https://developer.github.com/v3/) with a [Tornado](http://www.tornadoweb.org) web socket and then we will filter and process it asynchronously. [In this GitHub repository](https://github.com/valerybriz/RxGithubSearcher), you can find the code we will be using for this tutorial.
@@ -209,13 +213,14 @@ We can use Reactive Programming to process asynchronous incoming data—perhaps 
 
 ## Building an App with RxPy
 
-First of all, we need to setup our environment by installing all the requirements we need to get our reactive web socket working. To do that on an easier and more organized way we are going to use [PipEnv](https://github.com/kennethreitz/pipenv) Pipenv is a dependency manager that isolates projects on private environments, replacing pip and allowing us to install only what we really need for a certain project. PipEnv will easily manage the environment and the libraries we need to install.
+First of all, we need to setup our environment by installing all the requirements we need to get our reactive web socket working. To do that on an easier and more organized way we are going to use [Pipenv](https://github.com/kennethreitz/pipenv). Pipenv is a dependency manager that isolates projects on private environments, replacing `pip` and allowing us to install only what we really need for a certain project. With Pipenv, we will easily manage the environment and the libraries we need to install.
 
 ```bash
+# we might need to use pip3 instead of pip
 pip install pipenv
-
 ```
-Now we have to create the new environment by executing the following commands:
+
+Now, we have to create the new environment by executing the following commands:
 
 ```bash
 # create our project directory and move to it
@@ -226,26 +231,32 @@ pipenv --three
 
 # install the dependencies we need
 pipenv install tornado rx pycurl
-
 ```
-Once we execute this commands we can find two new files created on our project's root directory:
 
-* Pipfile, a file that contains details about our project, like the Python version that we are using and the packages that our project needs.
-* Pipenv.lock, a file that contains exactly what version of each package our project depends on, and its transitive dependencies.
+Once we execute these commands we can find two new files created on our project's root directory:
 
-Now that we are ready with the environment, we need to create a file called config.py which will contain the constants like the adress of the organizations we will be searching for in Github and also the TOKEN to use the Github API, we would have to replace the <TOKEN> with our own TOKEN, to get it we need to follow the instructions on [this page](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
+* `Pipfile`: a file that contains details about our project, like the Python version that we are using and the packages that our project needs.
+* `Pipenv.lock`: a file that contains exactly what version of each package our project depends on, and their transitive dependencies.
+
+Now that we are ready with the environment, we need to create a file called `config.py` which will contain constants (like the `address` of the organizations we will be searching for in GitHub) and also a token to use the GitHub API. We will have to replace `<TOKEN>` with our own GitHub Token. To get one, we need to follow the instructions on [this page](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
 
 ```python
 TOKEN = <TOKEN>
-headers = {'Content-Type' : 'application/json' } #get the content in json format
-headers["Authorization"] = "token " + TOKEN #authentication for github
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "token " + TOKEN
+}
 GITHUB_API_URL = "https://api.github.com"
 orgs = ["/twitter/repos", "/auth0/repos", "/nasa/repos", "/mozilla/repos", "/adobe/repos"]
 ```
 
-After that, we need to create a file called server.py which will contain the main code for the project, for this code we need to import certain modules from the libraries we just got installed:
+After that, we need to create a file called `server.py` which will contain the main code for the project. For this code, we need to import certain modules from the libraries we just installed:
 
 ```python
+import json
+import os
+import config as conf
+
 from rx import Observable
 from rx.subjects import Subject
 from tornado import ioloop
@@ -257,17 +268,19 @@ from tornado.websocket import WebSocketHandler
 
 Here we have imported the `Observable` and `Subject` modules from the RxPy library and the `async` and `websocket` modules from Tornado to handle the requests.
 
-It is important to notice that, to use the GitHub API authentication, we need to configure the Tornado HttpClient as a curl async client with the following line right after the imported libraries:
+It is important to notice that, to use the GitHub API authentication, we need to configure the Tornado HttpClient as a `curl` async client with the following line right after the imported libraries:
 
 ```python
 AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
 ```
-We also need to initialize our headers and the organizations adress we already declare on the config file.
+
+We also need to initialize our headers and the organizations addresses we already declared on the config file.
 
 ```python
 headers = conf.headers
 GIT_ORG = conf.GITHUB_API_URL+"/orgs"
 ```
+
 ### Building the WebSocketHandler
 
 Our application will exchange messages with a browser using web sockets. Web sockets allow a bidirectional communication between the browser and server in real time. The main idea is to define a class inherited from the `WebSocketHandler` class. We can find more information about Tornado WebSockets [here](http://www.tornadoweb.org).
