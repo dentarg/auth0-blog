@@ -370,13 +370,13 @@ Finally, we will combine both the interval `Observable` and the input value `Sub
 
 ### Filtering Incoming Data
 
-To get the data filtered we are going to use a chain of Observable maps which are going to take the query (the user input) and evaluate it acording to the requirements we have set.
+To get the data filtered, we are going to use a chain of `Observable` maps which are going to take the query (the user input) and evaluate it according to the requirements we have set.
 
-First we need to create the `get_info` method inside the WebSocketHandler class with the following:
+First we need to create the `get_info` method inside the `WebSocketHandler` class with the following:
 ```python
 def get_info(self,req):
     """managing error codes and returning a list of json with content"""
-    if req.code ==200:
+    if req.code == 200:
         jsresponse = json.loads(req.body)
         return jsresponse
     elif req.code == 403:
@@ -385,11 +385,11 @@ def get_info(self,req):
         return json.dumps("clear")
     else:
         return json.dumps("failed")
-
 ```
-This method will help us to handle the exceptions of the request or if everything's ok (code == 200) we will get a json formatted response with the information.
 
-Now we create the get_data method also inside the WebSocketHandler class with:
+This method will help us to handle the exceptions of the request or, if everything's ok (`code == 200`), we will get a JSON formatted response with the information.
+
+Now, we create the `get_data` method also inside the `WebSocketHandler` class with:
 
 ```python
 def get_data(self,query):
@@ -416,9 +416,10 @@ def get_data(self,query):
 	'link': x.get("svn_url"),'description': x.get("description"),
 	'language': x.get("language")})
 ```
-First we are going to iterate by the organizations list defined on the config file. We get the organization repository information and then transform the response to the desirable format with the get_info method. After that we are making the query to the information we just got and take only the first 10 results that acomplish with this query. Finally we emit the Observable as a dictionary with the characteristics we will be showing in the page as a result.
 
-Finally we need to initialize and start the ioLoop for the web socket and render the `index.html` page which is going to show the results of the request with the following code:
+First, we are iterating by the organizations list defined on the config file. We get the organization repository information and then transform the response to the desirable format with the `get_info` method. After that, we are making the query to the information we just got and take only the first 10 results that accomplish with this query. Finally, we emit the `Observable` as a dictionary with the characteristics we will be showing in the page as a result.
+
+Finally we need to initialize and start the `ioLoop` for the web socket and render the `index.html` page which is going to show the results of the request with the following code:
 
 ```python
 class MainHandler(RequestHandler):
@@ -439,8 +440,10 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-Here we are starting the web socket so it can listen on port 8080.
-We can check the entire code of the server.py [here](https://github.com/valerybriz/RxGithubSearcher/blob/master/server.py)
+
+Here we are starting the web socket so it can listen on port `8080`.
+
+We can check [the entire code of the `server.py` here](https://github.com/valerybriz/RxGithubSearcher/blob/master/server.py)
 
 ### Showing the results on the page
 
