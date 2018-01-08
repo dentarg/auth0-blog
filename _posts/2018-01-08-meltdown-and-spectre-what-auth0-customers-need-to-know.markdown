@@ -10,9 +10,9 @@ banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
   name: "Joan Pepin"
-  url: "https://twitter.com/YOUR_TWITTER"
+  url: "https://www.linkedin.com/in/joanpepin/"
   mail: "joan.pepin@auth0.com"
-  avatar: "https://en.gravatar.com/userimage/YOUR_GRAVATAR"
+  avatar: "https://cdn.auth0.com/blog/meltdown-spectre/joanpepin.jpg"
 design:
   image: https://cdn.auth0.com/blog/meltdown-spectre/logo.png
   bg_color: "#222228"
@@ -62,7 +62,7 @@ We will share additional information in our [blog](https://auth0.com/blog) as ou
 
 ## What Should I Do?
 
-Auth0 has mitigated the risks posed by Meltdown and Spectre with regard to the Auth0 cloud and PSaaS appliance platforms. We’ve also ensured that our workstations and devices are properly updated with patches to protect against these vulnerabilities. However, you must _also_ take the necessary steps to protect your personal computers, servers, and other devices. This is a great opportunity to do a quick “Check for Updates” on all of your devices and applications and install anything that’s available. 
+Auth0 is currently working with vendors to mitigate the risks posed by Meltdown and Spectre with regard to the Auth0 cloud and PSaaS appliance platforms. We will be actively coordinating with customers to make sure their environments are covered by the latest patches. We’ve also ensured that our workstations and devices are properly updated with patches to protect against these vulnerabilities. However, you must _also_ take the necessary steps to protect your personal computers, servers, and other devices. This is a great opportunity to do a quick “Check for Updates” on all of your devices and applications and install anything that’s available. 
 
 Install all **vendor-supplied operating system updates**, such as:
 
