@@ -292,7 +292,7 @@ class WSHandler(WebSocketHandler):
     orgs = conf.orgs
 
     def check_origin(self, origin):
-	#Override to enable support for allowing alternate origins.
+        #Override to enable support for allowing alternate origins.
         return True
 ```
 
@@ -300,26 +300,25 @@ Here we are initializing the organizations names and defining the origin check, 
 
 ### Obtaining Data
 
-To obtain the data from the GitHub API, first we need to define a function inside our WebSocketHandler. This function will create an asynchronous `http_client` which will take the organization names received and return the requested repository information asynchronously as a response.
+To obtain the data from the GitHub API, first we need to define a function inside our `WebSocketHandler`. This function will create an asynchronous `http_client` which will take the organization names received and return the requested repository information asynchronously as a response.
 
 ```python
-def get_org_repos(self,org):
+def get_org_repos(self, org):
     """request the repos to the GitHub API"""
     http_client = AsyncHTTPClient()
     response = http_client.fetch(GIT_ORG + org, headers=headers, method="GET")
     return response
 ```
 
-In our implementation of the WebSocketHandler class, we will override the following methods:
+In our implementation of the `WebSocketHandler` class, we will override the following methods:
 
-* `on_message()`: This functon will be called when there is an incoming message on the web socket. As our response is formatted as JSON objects, we have to decode it and then push it to the `Subject` with the `on_next()` operator.
+* `on_message()`: This function will be called when there is an incoming message on the web socket. As our response is formatted as JSON objects, we have to decode it and then push it to the `Subject` with the `on_next()` operator.
 * `on_close()`: This function will be called once we close the web socket. As we read before, it is very important to unsubscribe the `Observable` once the operation has been terminated to avoid memory leaks. As such, in this method we are going to use the `dispose()` method.
 * `open()`: This function will be called when the web socket is opened for the first time.
 
-Inside the `open()` method, we are also going to define the methods `send_response()` and `on_error()` to handle this two kinds of events. In this case, we are printing the message or the exception on the log.
+Inside the `open()` method, we are also going to define the `send_response()` and `on_error()` methods to handle this two kinds of events. In this case, we are printing the message or the exception on the log.
 
 ```python
-
 def on_message(self, message):
     obj = json_decode(message)
     self.subject.on_next(obj['term'])
@@ -361,16 +360,16 @@ def open(self):
     ).flat_map(
         self.get_data
     ).subscribe(send_response, on_error)
-
 ```
 
-Once the data stream has been excited by the `on_message()` method, we are going to filter the incoming user input by the size of the string. So only inputs with a length higher than 2 characters are going to be emitted.
+We are going to filter the incoming user input by the size of the string to consider values with a length higher than 2 characters. Then, we are going to emit these values.
 
-After that, we are going to create an interval `Observable` which will help us to "refresh" the input every 60 seconds and push this input again to the Subject.
+After that, we are going to create an interval `Observable` which will help us to "refresh" the input every 60 seconds and push this input again to the `Subject`.
 
-Finally, we will combine both the interval Observable and the input value Subject so when either of it has a change it will be emitting a Subject to the chain. The chain will send it to the `send_response` method and then to the `get_data` method to be filtered and showed as the result.
+Finally, we will combine both the interval `Observable` and the input value `Subject` so when either of it has a change it will be emitting a Subject to the chain. The chain will send it to the `send_response` method and then to the `get_data` method to be filtered and showed as the result.
 
 ### Filtering Incoming Data
+
 To get the data filtered we are going to use a chain of Observable maps which are going to take the query (the user input) and evaluate it acording to the requirements we have set.
 
 First we need to create the `get_info` method inside the WebSocketHandler class with the following:
