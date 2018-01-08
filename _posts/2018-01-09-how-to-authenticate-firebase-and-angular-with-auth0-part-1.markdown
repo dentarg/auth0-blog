@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "How to Authenticate Firebase and Angular with Auth0: Part 1"
+title: "How to Authenticate Firebase and Angular with Auth0: Part 1 - Custom Firebase Tokens and Angular Lazy Loading"
 description: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens."
-longdescription: "Long description should be between 230-320 characters."
+longdescription: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens. Set up Angular with scalable, real-world architecture with lazy loading and implement Auth0 authentication on the client and server."
 date: 2018-01-09 8:30
 category: Technical guide, Firebase, Angular
 banner:
@@ -91,6 +91,8 @@ You should consider **Auth0 with a custom Firebase token** if you:
 * Must adhere to [compliance regulations](https://auth0.com/docs/compliance) such as HIPAA, GDPR, SOC2, etc.
 
 Essentially, Firebase's basic authentication providers should suffice if you have a very simple app with bare-bones authentication needs and are only using Firebase databases. However, should you need more than that, [Firebase offers a great way to use their services _with_ other authentication solutions](https://firebase.google.com/docs/admin/setup). This is a much more realistic scenario that many developers will be faced with, so we'll explore it in detail here.
+
+{% include tweet_quote.html quote_text="If you need more than simple login with Firebase, using custom tokens with an IDaaS authentication provider like Auth0 is a great option." %}
 
 ## <span id="what-well-build"><span>What We'll Build
 
@@ -474,6 +476,8 @@ The app will run in the browser at [http://localhost:4200](http://localhost:4200
 We're going to use the Angular CLI to generate the complete architecture for our app up front. This way, we can make sure that our modules are functioning properly before we implement our logic and templates.
 
 Our app is going to use a **modular approach with lazy loading**. The sample app in this tutorial is small, but we want to build it in a **scalable, real-world** manner.
+
+{% include tweet_quote.html quote_text="The sample app in this tutorial is small, but we want to build it in a scalable, real-world manner: modular with lazy loading." %}
 
 ### Root Module
 
