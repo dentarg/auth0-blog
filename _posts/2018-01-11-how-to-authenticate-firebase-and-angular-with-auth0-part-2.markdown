@@ -35,7 +35,7 @@ related:
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
-**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back-end and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Cloud Firestore database](https://firebase.google.com/docs/firestore/) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
+**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back end and an Angular front end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Cloud Firestore database](https://firebase.google.com/docs/firestore/) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
 
 ---
 
@@ -432,7 +432,7 @@ Click on **+ Add Collection**. Name your collection `comments`, then click the "
 <img src="https://cdn.auth0.com/blog/firebase-auth0/firebase-add-document-fixed.png" alt="Firebase console - add document">
 </p>
 
-In the **Document id** field, click on "Auto-ID". This will automatically populate an ID for you. Next add the fields we <a href="#comment-model" target="_self">established earlier in the `comment.ts` model</a> with the appropriate types and some placeholder data. We only need this seed document until we know that our listing renders properly in our Angular app, then we can delete it using the Firebase console and enter comments properly using a form in the front-end. 
+In the **Document id** field, click on "Auto-ID". This will automatically populate an ID for you. Next add the fields we <a href="#comment-model" target="_self">established earlier in the `comment.ts` model</a> with the appropriate types and some placeholder data. We only need this seed document until we know that our listing renders properly in our Angular app, then we can delete it using the Firebase console and enter comments properly using a form in the front end. 
 
 However, since we don't have a form built yet, the seed data will be helpful. Once you've entered the correct fields and types, you can populate the values however you like. Here is a suggestion:
 
@@ -599,7 +599,7 @@ The `canDeleteComment()` method checks whether the current user is the owner of 
 
 The `deleteComment()` method will run when the user clicks the icon to delete a comment. This method opens a confirmation dialog that confirms the action and if confirmed, uses the `id` argument to delete the correct comment document from the Firestore collection. (This is why we needed to add document `id`s to our data when we mapped values emitted by our `comments$` observable.)
 
-> **Note:** Recall that our Firestore rules also prevent users from deleting comments they didn't create. We should always ensure that access rights are enforced on _both_ the front-end and back-end for proper security.
+> **Note:** Recall that our Firestore rules also prevent users from deleting comments they didn't create. We should always ensure that access rights are enforced on _both_ the front end and back end for proper security.
 
 ### Comments Component Template
 
@@ -694,7 +694,7 @@ Finally, open the `comments.component.css` file and let's add a few styles to ou
 
 ## <span id="comment-form-component"></span>Comment Form Component
 
-Now that we have a listing of comments that updates in realtime, we need to be able to add new comments in our front-end.
+Now that we have a listing of comments that updates in realtime, we need to be able to add new comments in our front end.
 
 ### Comment Form Component Class
 
@@ -774,7 +774,7 @@ The comment form template is quite simple. The form's only field is a text input
 
 The [`<form>` element](https://angular.io/guide/forms#the-ngform-directive) listens for an `(ngOnSubmit)` event, which we'll handle with our `onSubmit()` method. We'll also add a template reference variable called `#tplForm` and set it to `ngForm`. This way, we can access the form's properties in the template itself.
 
-The `<input>` element should have an `[(ngModel)]` that binds to `commentForm.text`. This is the property we want to update when a user types in the form field. Recall that we set up our Firestore rules to accept comment text 200 characters or less, so we'll add this `maxlength` to our front-end, along with a `required` attribute so that users cannot submit empty comments.
+The `<input>` element should have an `[(ngModel)]` that binds to `commentForm.text`. This is the property we want to update when a user types in the form field. Recall that we set up our Firestore rules to accept comment text 200 characters or less, so we'll add this `maxlength` to our front end, along with a `required` attribute so that users cannot submit empty comments.
 
 Finally, the `<button>` to submit the form should be `[disabled]` if the form is not valid. We can reference the `valid` property using the `tplForm` reference variable we added to the `<form>` element.
 
@@ -796,7 +796,7 @@ Open [your Firebase console](https://console.firebase.google.com/u/0/project/_/)
 
 ![Firebase delete comment](https://cdn.auth0.com/blog/firebase-auth0/firebase-delete-doc.png)
 
-Now, any comments that are added to our database should be able to be deleted by their author in the front-end.
+Now, any comments that are added to our database should be able to be deleted by their author in the back end.
 
 ### Add Comments in Angular App
 
@@ -863,4 +863,4 @@ Hopefully you learned a lot about building scalable apps with Angular and authen
 * Add functionality to support comment editing
 * Add comments to individual dogs' detail pages using additional Firestore collections
 * Add testing
-* And much more!
+* And much more!front end
