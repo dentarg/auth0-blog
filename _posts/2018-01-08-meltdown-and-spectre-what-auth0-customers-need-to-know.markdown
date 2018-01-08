@@ -9,9 +9,9 @@ is_non-tech: true
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: "YOUR NAME"
+  name: "Joan Pepin"
   url: "https://twitter.com/YOUR_TWITTER"
-  mail: "YOUR_EMAIL@auth0.com"
+  mail: "joan.pepin@auth0.com"
   avatar: "https://en.gravatar.com/userimage/YOUR_GRAVATAR"
 design:
   image: https://cdn.auth0.com/blog/meltdown-spectre/logo.png
