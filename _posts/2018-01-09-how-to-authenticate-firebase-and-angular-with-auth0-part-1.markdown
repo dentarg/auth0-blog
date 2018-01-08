@@ -33,7 +33,7 @@ related:
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
-**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back-end and an Angular front-end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Cloud Firestore database](https://firebase.google.com/docs/firestore/) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
+**TL;DR:** In this 2-part tutorial series, we'll learn how to build an application that secures a Node back end and an Angular front end with [Auth0](https://auth0.com) authentication. Our server and app will also authenticate a [Firebase](https://firebase.google.com) [Cloud Firestore database](https://firebase.google.com/docs/firestore/) with custom tokens so that users can leave realtime comments in a secure manner after logging in with Auth0. The Angular application code can be found at the [angular-firebase GitHub repo](https://github.com/auth0-blog/angular-firebase) and the Node API can be found in the [firebase-auth0-nodeserver repo](https://github.com/auth0-blog/firebase-auth0-nodeserver).
 
 ---
 
@@ -72,7 +72,7 @@ There are many potential reasons we might want to integrate Auth0 with Firebase 
 
 You can use **Firebase's built-in authentication by itself** if you:
 
-* Only want to authenticate Firebase RTDB or Firestore and have no need to authenticate additional back-ends
+* Only want to authenticate Firebase RTDB or Firestore and have no need to authenticate additional back ends
 * Only need a small handful of login options and do not need enterprise identity providers, integration with your own user storage databases, etc.
 * Do not need extensive user management, profile enrichment, etc. and are comfortable [managing users strictly through an API](https://firebase.google.com/docs/auth/web/manage-users)
 * Have no need to customize authentication flows
@@ -81,7 +81,7 @@ You can use **Firebase's built-in authentication by itself** if you:
 You should consider **Auth0 with a custom Firebase token** if you:
 
 * Already have Auth0 implemented and want to add realtime capabilities to your app
-* Need to easily use issued tokens to [secure a back-end](https://auth0.com/docs/apis) that is _not_ provided by Firebase
+* Need to easily use issued tokens to [secure a back end](https://auth0.com/docs/apis) that is _not_ provided by Firebase
 * Need to integrate [social identity providers](https://auth0.com/docs/identityproviders#social) beyond just Google, Facebook, Twitter, and GitHub
 * Need to integrate [enterprise identity providers](https://auth0.com/docs/identityproviders#enterprise), such as Active Directory, LDAP, ADFS, SAMLP, etc.
 * Need a [customized authentication flow](https://auth0.com/docs/rules/current)
@@ -98,7 +98,7 @@ Essentially, Firebase's basic authentication providers should suffice if you hav
 
 We're going to build a Node.js API secured with Auth0 that mints custom Firebase tokens and also returns data on ten different dog breeds.
 
-We'll also build an Angular front-end app called "Popular Dogs" that displays information about the ten most popular dogs in 2016, ranked by public popularity by the American Kennel Club (AKC). Our app will be secured by Auth0, call the Node API to fetch dog data, and call the API to acquire Firebase tokens to authorize users to add and delete comments in realtime with Cloud Firestore. The app will use shared modules as well as implement lazy loading.
+We'll also build an Angular front end app called "Popular Dogs" that displays information about the ten most popular dogs in 2016, ranked by public popularity by the American Kennel Club (AKC). Our app will be secured by Auth0, call the Node API to fetch dog data, and call the API to acquire Firebase tokens to authorize users to add and delete comments in realtime with Cloud Firestore. The app will use shared modules as well as implement lazy loading.
 
 ![Angular Firebase app with Auth0 custom tokens](https://cdn.auth0.com/blog/firebase-auth0/dogs.jpg)
 
@@ -144,7 +144,7 @@ Next, set up an Auth0 client app and API so Auth0 can interface with the Angular
 1. Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and click on the "Create API" button. Enter a name for the API, such as `Firebase Dogs API`. Set the **Identifier** to your API endpoint URL. In this tutorial, our API identifier is `http://localhost:1337/`. The **Signing Algorithm** should be "RS256".
 2. You can consult the Node.js example under the **Quick Start** tab in your new API's settings. In the next steps, we'll implement our Node API in this fashion using [Express](https://expressjs.com/), [express-jwt](https://github.com/auth0/express-jwt), and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
-We're now ready to implement Auth0 authentication on both our Angular client and Node back-end API.
+We're now ready to implement Auth0 authentication on both our Angular client and Node back end API.
 
 ## <span id="firebase-project-service-account"></span>Firebase Project with Service Account
 
@@ -428,9 +428,9 @@ The `--routing` flag generates an app with a routing module and `--skip-tests` g
 
 > **Note:** For brevity, we are not going to cover testing in this article. If you'd like to learn more about testing in Angular, check out the tutorial's conclusion for more resources.
 
-### Install Front-End Dependencies
+### Install Front End Dependencies
 
-Now let's install our front-end dependencies:
+Now let's install our front end dependencies:
 
 ```bash
 $ cd angular-firebase
@@ -583,7 +583,7 @@ $ ng g component comments/comments/comment-form --is --no-spec
 
 ### Environment Configuration
 
-Let's add our configuration information for Auth0 and Firebase to our Angular front-end. Open the `environment.ts` file and add:
+Let's add our configuration information for Auth0 and Firebase to our Angular front end. Open the `environment.ts` file and add:
 
 ```js
 // src/environments/environment.ts
@@ -1444,7 +1444,7 @@ export interface DogDetail {
 
 ### API Service
 
-With our <a href="#node-api" target="_self">Node API</a> and models in place, we're ready to implement the service that will call our API in the Angular front-end.
+With our <a href="#node-api" target="_self">Node API</a> and models in place, we're ready to implement the service that will call our API in the Angular front end.
 
 Open the `api.service.ts` file and add this code:
 
