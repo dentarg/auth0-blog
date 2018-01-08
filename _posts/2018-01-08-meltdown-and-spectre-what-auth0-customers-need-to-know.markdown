@@ -32,7 +32,7 @@ related:
 
 ## What are Meltdown and Spectre?
 
-[Two CPU microarchitecture vulnerabilities were discovered by Google’s Project Zero team](https://security.googleblog.com/2018/01/todays-cpu-vulnerability-what-you-need.html): [Meltdown and Spectre](https://meltdownattack.com/).
+[Two CPU microarchitecture vulnerabilities were discovered by Google’s Project Zero team](https://security.googleblog.com/2018/01/todays-cpu-vulnerability-what-you-need.html) and independently by other researchers: [Meltdown and Spectre](https://meltdownattack.com/).
 
 The **Meltdown** vulnerability, [CVE-2017-5754](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-5715), can potentially allow hackers to bypass the hardware barrier between applications and kernel or host memory. A malicious application could therefore access the memory of other software, as well as the operating system. Any system running on an Intel processor manufactured since 1995 (except Intel Itanium and Intel Atom before 2013) is affected.
 
