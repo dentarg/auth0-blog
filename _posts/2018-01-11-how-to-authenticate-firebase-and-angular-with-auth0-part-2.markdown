@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to Authenticate Firebase and Angular with Auth0: Part 2"
+title: "How to Authenticate Firebase and Angular with Auth0: Part 2 - Async and Realtime"
 description: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens."
 longdescription: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens. Display data with Angular's Async and NgIfElse, set up Firebase security rules, and implement realtime data with Firestore and angularfire2."
 date: 2018-01-11 8:30
