@@ -23,19 +23,19 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 ---
 
-**TL;DR:** In this tutorial, we’ll be learning how to use the [RxPy](https://rxpy.codeplex.com/) library to create asynchronous and event-based programs by implementing observables, observers/subscribers, and subjects. We will start by getting our data stream from the [GitHub API](https://developer.github.com/v3/) with a [Tornado](http://www.tornadoweb.org) web socket and then we will filter and process it asynchronously. [In this GitHub repository](https://github.com/valerybriz/RxGithubSearcher), you can find the code we will be using for this tutorial.
+**TL;DR:** In this tutorial, we’ll be learning how to use the [RxPy](https://rxpy.codeplex.com/) library to create asynchronous and event-based programs by implementing observables, observers/subscribers, and subjects. We will start by getting our data stream from the [GitHub API](https://developer.github.com/v3/) with a [Tornado](http://www.tornadoweb.org) web socket and then we will filter and process it asynchronously. [In this GitHub repository](https://github.com/valerybriz/RxGithubSearcher), you can find the code that we are going to create in this tutorial.
 
 ## Why Reactive Programming?
 
 In a way, reactive programming isn't a new thing. Our typical click events are an asynchronous data stream which we can observe and trigger actions from it. That's how it works, but Reactive Programming makes things so much easier by adding a toolbox of operators to filter, create, transform, and unify any of those streams. In just a few lines of maintainable code, we can have web sockets that receive multiple requests and handle them on an asynchronous process that serves a filtered output.
 
-Web applications contains lots of database operations, network calls, nested callbacks, and other computationally expensive tasks that might take a long time to complete (or even block other threads until it's done). This is where Reactive Programming enters, it gives us the facility to convert almost anything to streams (like variables, properties, user inputs, caches, etc) to manage it asynchronously. Besides that, it also gives us an easy way to handle errors. Task that is usually hard task within asynchronous programming. Reactive Programming makes our code more flexible, readable, maintainable, and easy to write.
+Web applications contain lots of database operations, network calls, nested callbacks, and other computationally expensive tasks that might take a long time to complete (or even block other threads until it's done). This is where Reactive Programming enters, it gives us the facility to convert almost anything to streams (like variables, properties, user inputs, caches, etc) to manage it asynchronously. Besides that, it also gives us an easy way to handle errors. A task that is usually hard task within asynchronous programming. Reactive Programming makes our code more flexible, readable, maintainable, and easy to write.
 
 {% include tweet_quote.html quote_text="Reactive Programming makes our code more flexible, readable, maintainable, and easy to write." %}
 
 ## What Does Reactive Programming Really Means?
 
-The main difference between [Event-Driven programming](https://en.wikipedia.org/wiki/Event-driven_programming) and Reactive Programming is the real trigger of the action. While the Event-Driven programming focuses on handling any event (such as a button click) to trigger the corresponding action, Reactive Programming wraps data into the reactive system as events. This enables us to do things like like listening to user inputs as events that triggers an action only if the input changed from the previous one.
+The main difference between [Event-Driven programming](https://en.wikipedia.org/wiki/Event-driven_programming) and Reactive Programming is the real trigger of the action. While the Event-Driven programming focuses on handling any event (such as a button click) to trigger the corresponding action, Reactive Programming wraps data into the reactive system as events. This enables us to do things like listening to user inputs as events that trigger actions only if the input changed from the previous one.
 
 {% include tweet_quote.html quote_text="Reactive, in Reactive Programming, means a dynamic reaction to change in streams." %}
 
@@ -43,7 +43,7 @@ Reactive Programming is a programming paradigm oriented around data flows and th
 
 ## What Does Reactive Programming Works?
 
-Let's take into consideration [ReactiveX](http://reactivex.io/), the most famous implementation of the Reactive Programming paradigm. ReactiveX is mainly based in two classes: the `Observable` and `Observer` classes. The `Observable` class is the source of data streams or events and the `Observer` class is the one that consumes (or reacts to) the emitted elements.
+Let's take into consideration [ReactiveX](http://reactivex.io/), the most famous implementation of the Reactive Programming paradigm. ReactiveX is mainly based on two classes: the `Observable` and `Observer` classes. The `Observable` class is the source of data streams or events and the `Observer` class is the one that consumes (or reacts to) the emitted elements.
 
 ### Observables in Reactive Programming
 
@@ -109,7 +109,7 @@ def on_close(self):
 
 ### Data Operators in Reactive Programming
 
-The essence of Reactive Programmingis working with streams. As we saw before, we have an `Observable` class that supplies the data stream and an `Observer` which consumes it. But, along the way from the `Observable` to the subscriber, we can apply many `Operators` to the stream. These `Operators` define how and when the `Observables` should emit streams.
+The essence of Reactive Programming is working with streams. As we saw before, we have an `Observable` class that supplies the data stream and an `Observer` which consumes it. But, along the way from the `Observable` to the subscriber, we can apply many `Operators` to the stream. These `Operators` define how and when the `Observables` should emit streams.
 
 Most `Operators` execute a function on an `Observable` and return an `Observable`. So we can apply these operators one after the other, in a chain. Each operator in the chain modifies the `Observable` that results from the operation of the previous operator.
 
@@ -127,7 +127,7 @@ There are plenty of operators available. We will be exploring only the ones that
 
 #### **Creating Observables Category**
 
-The `just()` operator, as the name suggest, emits `Observables` with the same values provided in the arguments.
+The `just()` operator, as the name suggests, emits `Observables` with the same values provided in the arguments.
 
 ![Just operator marble diagram](https://cdn.auth0.com/blog/rxpy/just.png)
 
@@ -207,13 +207,13 @@ user_input.combine_latest( interval_observable, lambda input_value, i: input_val
 
 ## Advantages of Reactive Programming
 
-With Reactive Programming we can raise the level of abstraction of our code so we can focus on the interdependence of events that define the business logic, rather than having to constantly fiddle with a large amount of implementation details. With the help of the functional programming the code will also be more concise.
+With Reactive Programming, we can raise the level of abstraction of our code so we can focus on the interdependence of events that define the business logic, rather than having to constantly fiddle with a large number of implementation details. With the help of the functional programming, the code will also be more concise.
 
-We can use Reactive Programming to process asynchronous incoming data—perhaps tasks with a lot of user interaction (clicks, gestures, etc.)—or processing system events (sensors, gyroscope, etc.). That is, we can use with all kind of interactions where the events are portrayed as the object states. Such an approach allows better dynamic process description, also simplifying the asynchronous code writing. Finally, we've got a best performance by the asynchronous context and the parallel processing of the data streams.
+We can use Reactive Programming to process asynchronous incoming data—perhaps tasks with a lot of user interaction (clicks, gestures, etc.)—or processing system events (sensors, gyroscope, etc.). That is, we can use with all kind of interactions where the events are portrayed as the object states. Such an approach allows better dynamic process description, also simplifying the asynchronous code writing. Finally, we've got better performance in the asynchronous context and the parallel processing of the data streams.
 
 ## Building an App with RxPy
 
-First of all, we need to setup our environment by installing all the requirements we need to get our reactive web socket working. To do that on an easier and more organized way we are going to use [Pipenv](https://github.com/kennethreitz/pipenv). Pipenv is a dependency manager that isolates projects on private environments, replacing `pip` and allowing us to install only what we really need for a certain project. With Pipenv, we will easily manage the environment and the libraries we need to install.
+First of all, we need to set up our environment by installing all the requirements we need to get our reactive web socket working. To do that in an easier and more organized way we are going to use [Pipenv](https://github.com/kennethreitz/pipenv). Pipenv is a dependency manager that isolates projects on private environments, replacing `pip` and allowing us to install only what we really need for a certain project. With Pipenv, we will easily manage the environment and the libraries we need to install.
 
 ```bash
 # we might need to use pip3 instead of pip
@@ -278,7 +278,7 @@ It is important to notice that, to use the GitHub API authentication, we need to
 AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
 ```
 
-We also need to initialize our headers and the organizations addresses we already declared on the config file.
+We also need to initialize our headers and the organizations' addresses we already declared on the config file.
 
 ```python
 headers = conf.headers
@@ -421,7 +421,7 @@ def get_data(self,query):
 	'language': x.get("language")})
 ```
 
-First, we are iterating by the organizations list defined on the config file. We get the organization repository information and then transform the response to the desirable format with the `get_info` method. After that, we are making the query to the information we just got and take only the first 10 results that accomplish with this query. Finally, we emit the `Observable` as a dictionary with the characteristics we will be showing in the page as a result.
+First, we are iterating by the organizations list defined on the config file. We get the organization repository information and then transform the response to the desired format with the `get_info` method. After that, we are making the query to the information we just got and take only the first 10 results that accomplish with this query. Finally, we emit the `Observable` as a dictionary with the characteristics we will be showing in the page as a result.
 
 Finally we need to initialize and start the `ioLoop` for the web socket and render the `index.html` page which is going to show the results of the request with the following code:
 
@@ -534,7 +534,7 @@ python server.py
 
 ## Conclusions
 
-Apps and systems nowadays have a lot of real-time computationally expensive events that enables a highly interactive experience to the user. Here is where Reactive Programming shows up to help us properly dealing with that. With the help of the Reactive Programming operators, we can not only manage these events but filter, unify, and transform them on a inherent declarative style way.
+Apps and systems nowadays have a lot of real-time computationally expensive events that enables a highly interactive experience for the user. Here is where Reactive Programming shows up to help us properly dealing with that. With the help of the Reactive Programming operators, we can not only manage these events but filter, unify, and transform them on an inherent declarative style way.
 
 I hope this serves as a useful introduction to Reactive Programming in Python and as an overview of its basic capabilities. To learn more about Reactive Programming, I encourage you to browse the resources available at [ReactiveX](http://reactivex.io).
 
