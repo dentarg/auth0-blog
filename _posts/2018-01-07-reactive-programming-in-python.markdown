@@ -229,6 +229,10 @@ mkdir rxtornado && cd rxtornado
 # run pipenv to create a Python 3 (--three) virtualenv for our project
 pipenv --three
 
+# you might need to define what SSL library to use
+# http://pycurl.io/docs/latest/install.html#ssl
+export PIP_GLOBAL_OPTION="--with-openssl"
+
 # install the dependencies we need
 pipenv install tornado rx pycurl
 ```
@@ -447,10 +451,10 @@ We can check [the entire code of the `server.py` here](https://github.com/valery
 
 ### Showing the results on the page
 
-To show the results we are using two static files which will be index.html and feeder.js.
-Let's replace the content of the index.html with:
+To show the results, we will use two static files: `index.html` and `feeder.js`. Let's create the `index.html` in the project root and add the following code:
 
-```html
+{% highlight html %}
+{% raw %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -482,11 +486,13 @@ Let's replace the content of the index.html with:
   <script src="static/feeder.js"></script>
 </body>
 </html>
+{% endraw %}
+{% endhighlight %}
 
-```
-As you can see, we will be replacing the <ul id="results"></ul> with the results of the request to the Github API dinamically.
+As you can see, we will be replacing the `<ul id="results"></ul>` with the results of the request to the GitHub API dynamically.
 
-And let's replace the content of the feeder.js with:
+Now, let's create the `feeder.js` file in the project root and add the following to it:
+
 ```javascript
 (function (global, $, undefined) {
     function main() {
@@ -512,14 +518,24 @@ And let's replace the content of the feeder.js with:
     }
     main();
 }(window, jQuery));
-
 ```
+
 There you go!
-Now to run it we just execute the server.py file and the app will be served at http://localhost:8080.
+
+Now to run it we just execute the `server.py` file and the app will be served at `http://localhost:8080`:
+
+```bash
+# activate virtualenv
+pipenv shell
+
+# run the server
+python server.py
+```
 
 ## Conclusions
 
-Apps and systems nowadays have a lot of real-time computationally expensive events that enables a highly interactive experience to the user. Here is where ReactiveX shows up to help us properly dealing with that. And also with the help of the ReactiveX operators, we can not only manage this events but filter, unify and transform it on a inherent declarative style way.
-I hope this serves as a useful introduction to ReactiveX and an overview of its basic capabilities. It also has much more powerful tools. To learn more about ReactiveX I encourage you to browse the resources available at [ReactiveX](http://reactivex.io).
+Apps and systems nowadays have a lot of real-time computationally expensive events that enables a highly interactive experience to the user. Here is where Reactive Programming shows up to help us properly dealing with that. With the help of the Reactive Programming operators, we can not only manage these events but filter, unify, and transform them on a inherent declarative style way.
 
-Thanks for reading.
+I hope this serves as a useful introduction to Reactive Programming in Python and as an overview of its basic capabilities. To learn more about Reactive Programming, I encourage you to browse the resources available at [ReactiveX](http://reactivex.io).
+
+Thanks for reading!
