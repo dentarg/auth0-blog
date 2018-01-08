@@ -44,6 +44,8 @@ The **Spectre** vulnerability has two variants: [CVE-2017-5753](https://cve.mitr
 
 These vulnerabilities could potentially be exploited to steal sensitive data from your computer, such as passwords, financial details, and more—including information stored in apps like password managers or banking software. You can read the full [technical details of the report in Project Zero’s blog post here](https://googleprojectzero.blogspot.com/2018/01/reading-privileged-memory-with-side.html).
 
+{% include tweet_quote.html quote_text="The Meltdown and Spectre  vulnerabilities could potentially be exploited to steal sensitive data from your computer, such as passwords, financial details, and more." %}
+
 ## Am I Affected?
 
 Yes. The vulnerabilities are present on all devices with affected CPUs, including desktops, laptops, servers, cloud infrastructure, and mobile devices. However, operating system and software patches mitigate the risks posed by Meltdown and Spectre.
@@ -54,11 +56,9 @@ Your security is of utmost importance to us at Auth0. Our engineering and securi
 
 One of Auth0's service providers is Amazon Web Services (AWS). The AWS infrastructure that powers services like RDS, Elasticache, and Redshift was protected in advance of the Meltdown and Spectre disclosure, thereby immunizing a significant portion of Auth0’s infrastructure in advance as well. At this time, all infrastructure that AWS provides to Auth0 has been patched to mitigate potential risk from these vulnerabilities. 
 
-As this is an evolving situation, we are not at liberty to disclose specific details of our current posture, but we are confident that we have thus far done everything within our power to follow vendor guidance and ensure the security of all customer data. Auth0 continues to work with vendors to patch the operating system software of compute resources.
-
 In addition, Auth0 has taken steps to ensure that, internally, we are up-to-date on all mitigation patches with regard to workstations as well as all personnel devices. To take similar precautions with your own computers, servers, and devices, please see the next section to learn what you can do to reduce your risk.
 
-If you have any questions or encounter issues, please contact us at: **[notifications@auth0.com](mailto:notifications@auth0.com)**
+We will share additional information in our [blog](https://auth0.com/blog) as our vendors continue to update and deploy patches for these vulnerabilities. If you have any questions or encounter issues, please contact us at: **[notifications@auth0.com](mailto:notifications@auth0.com)**
 
 ## What Should I Do?
 
@@ -78,3 +78,5 @@ Update **browser software**, such as:
 * [Google Chrome version 64](https://support.google.com/faqs/answer/7622138#chrome) should be installed immediately when available on January 23; in the interim, [enable site isolation manually as described here now](https://support.google.com/chrome/answer/7623121)
 
 Investigate this [list of Meltdown and Spectre Vulnerability Advisories, Patches, & Updates](https://www.bleepingcomputer.com/news/security/list-of-meltdown-and-spectre-vulnerability-advisories-patches-and-updates/).
+
+{% include tweet_quote.html quote_text="To take steps to mitigate risks posed by Meltdown and Spectre, install all vendor-supplied OS updates and update your browser software to enable site isolation." %}
