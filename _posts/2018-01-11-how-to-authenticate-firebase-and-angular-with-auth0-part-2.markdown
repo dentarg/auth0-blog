@@ -13,7 +13,7 @@ author:
   mail: "kim.maida@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/a208cda2b3b21dc8d7896507f5ff60fc"
 design:
-  image: https://cdn.auth0.com/blog/firebasephoneauth/logo.png
+  image: https://cdn.auth0.com/blog/logos/firebase.png
   bg_color: "#4236C9"
 tags:
 - firebase
@@ -130,6 +130,8 @@ After our imports, we'll set up some local properties:
 * `error`: to display an error if something goes wrong fetching data from the API
 
 We're going to be using the declarative [async pipe](https://angular.io/api/common/AsyncPipe) to respond to the `dogsList$` observable returned by our API `GET` request. With the async pipe, we don't need to subscribe or unsubscribe in our `DogsComponent` class: the subscription process will be managed automatically! We just need to set up our observable.
+
+{% include tweet_quote.html quote_text="With the Angular Async pipe, we don't need to subscribe or unsubscribe in our component class." %}
 
 We'll make `Title` and `ApiService` available to our class by passing them to the constructor, and then set up our `dogsList$` observable. We'll use RxJS operators `map()` and `catchError()` to call handler functions. The `_dataSuccess()` function will set `loading` to `false` (since data has been successfully emitted) and return the data, expected in the shape of an array of `Dog`s. The `_dataError()` function will set `loading` and `error` appropriately and throw an error. As mentioned before, we don't need to _subscribe_ or _unsubscribe_ from the `dogsList$` observable because the async pipe (which we'll add in the template) will handle that for us.
 
@@ -417,6 +419,8 @@ Firestore organizes data as _documents_ in _collections_. This data model should
 1. Log into the [Firebase project that you created in Part 1 of this tutorial](https://auth0.com/blog/how-to-authenticate-firebase-and-angular-with-auth0-part-1#firebase-project-service-account).
 2. Click on **Database** in the sidebar menu.
 3. In the dropdown next to the Database page heading, select **Cloud Firestore**.
+
+{% include tweet_quote.html quote_text="Firebase Cloud Firestore organizes data as documents in collections, like other document-oriented NoSQL databases." %}
 
 ### Add Collection and First Document
 
