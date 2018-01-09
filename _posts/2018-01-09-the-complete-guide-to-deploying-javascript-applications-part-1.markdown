@@ -6,7 +6,7 @@ longdescription: "We are constantly faced with deploying and configuring Single 
 date: 2018-01-09 08:30
 category: Technical guide, Frontend, JavaScript
 design:
-  bg_color: "#484C89"
+  bg_color: "#222228"
   image: https://cdn.auth0.com/blog/jsdeploy/logo.png
 author:
   name: Prosper Otemuyiwa
