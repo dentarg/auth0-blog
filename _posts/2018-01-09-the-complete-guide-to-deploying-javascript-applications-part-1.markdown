@@ -72,7 +72,7 @@ A generic JavaScript application involves a:
     <li>**[Mithril](https://mithril.js.org/)**</li>
   </ul>
 
-- **Back-end:** JavaScript running on a Node.js server. Some frameworks that can be used on the back end are:
+- **Back end:** JavaScript running on a Node.js server. Some frameworks that can be used on the back end are:
 
   <ul>
     <li>**[Express](https://expressjs.com/):** Fast, unopinionated, minimalist web framework for Node.js. </li>
