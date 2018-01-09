@@ -2,9 +2,9 @@
 layout: post
 title: "The Complete Guide To Deploying JavaScript Applications - Part 1: Database, and API Deployment"
 description: "Learn how to deploy JavaScript applications on different platforms."
-longdescription: "We are constantly faced with deploying and configuring Single Page Applications running in a browser and Server-side applications running on Node.js. Equip yourself with the knowledge to deploy JavaScript applications to production on different platforms in this guide."
-date: 2017-12-31 08:30
-category: Technical guide, Frameworks, JavaScript
+longdescription: "We are constantly faced with deploying and configuring Single Page Applications running in a browser and Server-side applications running on Node.js. Equip yourself with the knowledge to deploy JavaScript applications to production on different platforms using this guide."
+date: 2018-01-09 08:30
+category: Technical guide, Frontend, JavaScript
 design:
   bg_color: "#484C89"
   image: https://cdn.auth0.com/blog/jsdeploy/logo.png
@@ -19,9 +19,10 @@ tags:
 - guide
 - heroku
 - deployment
+- javascript
 related:
-- 2017-02-02-migrating-a-php5-app-to-php7-part-one
-- 2017-02-07-migrating-a-php5-app-to-php7-part-two
+- 2017-02-10-glossary-of-modern-javascript-concepts
+- 2017-01-16-a-brief-history-of-javascript
 - 2017-05-08-the-ultimate-guide-to-deploying-php-applications
 ---
 
