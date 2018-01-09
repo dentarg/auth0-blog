@@ -387,6 +387,18 @@ Fantastic monitoring and logging services you can integrate with your app are:
 - **[New Relic](https://newrelic.com)**
 - **[Google Analytics](https://analytics.google.com/analytics/web/)**
 
+## SSL
+
+Every website should be secured to protect users' private information. An SSL Certificate is required to be installed on the server where the website is hosted. SSL certificates allow web servers to encrypt their traffic, and also offer a mechanism to validate server identities to their visitors. An SSL Certificate needs to be purchased from a trusted Certificate Authority such as [GoDaddy](https://uk.godaddy.com/web-security/ssl-certificate), [RapidSSL](https://www.rapidssl.com), [Verisign](http://www.verisign.com), [Digicert](http://www.digicert.com), etc.
+
+[SSLs](https://www.ssls.com/) aggregates several SSL providers and provides discounts on SSL purchase. However, [Let's Encrypt](https://letsencrypt.org) is a Certificate Authority that offers free SSL certificates.
+
+![Let's Encrypt](https://letsencrypt.org/images/howitworks_challenge.png)
+
+![Authorization - How It Works](https://letsencrypt.org/images/howitworks_authorization.png)
+
+Check out [how to get started with Let's Encrypt.](https://letsencrypt.org/getting-started/)
+
 {% include asides/javascript-at-auth0.markdown %}
 
 ## Conclusion
