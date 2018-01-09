@@ -25,18 +25,18 @@ related:
 - 2017-05-08-the-ultimate-guide-to-deploying-php-applications
 ---
 
-**TL;DR:** Atwood's law states that _Any application that can be written in JavaScript, will eventually be written in JavaScript._  In 2018, eleven years after this law was proposed, JavaScript is now the [most popular language](https://insights.stackoverflow.com/survey/2017#technology-programming-languages) in the world. In this tutorial, I'll show you how to deploy your JavaScript applications to diferent cloud platforms such as [Google Cloud](https://cloud.google.com), [Microsoft Azure](https://azure.microsoft.com), [Netlify](https://www.netlify.com/), and others. This article is not about performance.
+**TL;DR:** Atwood's law states that _Any application that can be written in JavaScript, will eventually be written in JavaScript._  In 2018, eleven years after this law was proposed, JavaScript is now the [most popular language](https://insights.stackoverflow.com/survey/2017#technology-programming-languages) in the world. In this tutorial, I'll show you how to deploy your JavaScript applications to different cloud platforms such as [Google Cloud](https://cloud.google.com), [Microsoft Azure](https://azure.microsoft.com), [Netlify](https://www.netlify.com/), and others. This article is not about performance.
 
 ---
 
 
 ## The Client-Server Architecture
 
-Modern applications employ the client-server architecture. This architecture separates application software into two categories, **clients** and **servers** to better employ available computing resources and share data processing loads. These categories are otherwise known as, **front-end**, and **back-end**. The client and server application can be hosted on the same machine but it's more efficient and effective when the client and server applications are hosted and executed on different machines connected via a network.
+Modern applications employ the client-server architecture. This architecture separates application software into two categories, **clients** and **servers** to better utilize available computing resources and share data processing loads. These categories are otherwise known as, **front end**, and **back end**. The client and server application can be hosted on the same machine but it's more efficient and effective when the client and server applications are hosted and executed on different machines connected via a network.
 
 The client-server architecture aids efficiency by allowing the option of having different _clients_ consume a server resource. These _clients_ could be Single Page Applications (SPAs), mobile applications, or non-interactive clients such as CLIs or Daemons.
 
-In recent times, most JavaScript applications are bundled and deployed as Single Page Applications running on _Vanilla JS_, _Vue_, _React_, _Polymer_, _Angular_, consuming and pushing data to a backend application running on _Node_. The _front-end/back-end_ model of building software is common not only in the JavaScript community, but the developer community at large. And these applications are deployed to cloud servers.
+In recent times, most JavaScript applications are bundled and deployed as Single Page Applications running on _Vanilla JS_, _[Vue](https://vuejs.org/)_, _[React](https://reactjs.org/)_, _[Polymer](https://www.polymer-project.org/)_, _[Angular](https://angular.io/)_, consuming and pushing data to a backend application running on _[Node](https://nodejs.org/en/)_. The _front end/back end_ model of building software is common not only in the JavaScript community, but the developer community at large. And these applications are deployed to cloud servers.
 
 ## Introduction to Cloud Server
 
@@ -51,7 +51,7 @@ In fact, many companies have moved their infrastructure to the cloud in order to
 
 A generic JavaScript application involves a:
 
-- **Front-end:** _HTML_, _CSS_, and _JavaScript_. A couple of CSS frameworks that can be used on the front-end are:
+- **Front end:** _HTML_, _CSS_, and _JavaScript_. A couple of CSS frameworks that can be used on the front end are:
 
   <ul>
     <li>**[Bootstrap](https://getbootstrap.com/):** The most popular CSS framework in the world </li>
@@ -59,7 +59,7 @@ A generic JavaScript application involves a:
     <li>**[Tailwind](https://tailwindcss.com/):** A utility-first CSS framework for rapid UI development </li>
   </ul>
 
-A couple of JavaScript front-end frameworks that can be used on the front-end are:
+  A couple of JavaScript frameworks that can be used on the front end are:
 
   <ul>
     <li>**[React](https://getbootstrap.com/)**</li>
@@ -71,7 +71,7 @@ A couple of JavaScript front-end frameworks that can be used on the front-end ar
     <li>**[Mithril](https://mithril.js.org/)**</li>
   </ul>
 
-- **Back-end:** JavaScript running on a Node.js server. Some frameworks that can be used on the back-end are:
+- **Back-end:** JavaScript running on a Node.js server. Some frameworks that can be used on the back end are:
 
   <ul>
     <li>**[Express](https://expressjs.com/):** Fast, unopinionated, minimalist web framework for Node.js. </li>
@@ -80,7 +80,7 @@ A couple of JavaScript front-end frameworks that can be used on the front-end ar
     <li>**[Sails](https://sailsjs.com/):** Realtime MVC framework for Node.js. </li>
   </ul>
 
-Examples of Databases that can be used are:
+  Examples of Databases that can be used are:
 
   <ul>
     <li>**[MongoDB](https://www.mongodb.com/)**</li>
@@ -91,16 +91,16 @@ Examples of Databases that can be used are:
 
 ## Application To Deploy 
 
-In this tutorial, we'll be deploying this sample application, **Meetups**. The Architecture is not complex. It's composed of a back-end and a front-end.
+In this tutorial, we'll be deploying this sample application, **Meetups**. The Architecture is not complex. It's composed of a back end and a front end.
 
-The back-end comprises of the following:
+The back end is comprised of the following:
 
 - **A MongoDB Database**
 - **A Node.js web framework - Express**
 
-The front-end comprises of the following:
+The front end is comprised of the following:
 
-- **Vue.js** - JavaScript Front-end framework.
+- **Vue.js** - JavaScript front end framework.
 - **Twitter Bootstrap** - CSS framework for styling our app.
 
 ### Application Key Requirements
@@ -108,7 +108,7 @@ The front-end comprises of the following:
 In order to run **Meetups**, you need to have the following tools installed on your machine.
 
 * **Node.js**: Navigate to the [Node.js website](https://nodejs.org/en/download/) and install the latest version on your machine. Ensure that `npm` works via the terminal.
-* **MongoDB**: Navigate to the [mongodb website](https://www.mongodb.com/download-center?ct=false#atlas) and install the MongoDB community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
+* **MongoDB**: Navigate to the [MongoDB website](https://www.mongodb.com/download-center?ct=false#atlas) and install the MongoDB community server edition. If you are using a Mac, I'll recommend following this [instruction](https://treehouse.github.io/installation-guides/mac/mongo-mac.html). To avoid micromanaging from the terminal, I'll also recommend installing a MongoDB GUI, [Robo 3T](https://robomongo.org), formerly known as RoboMongo. You can then run `mongod` from the terminal to start up the MongoDB service on your machine.
 
 > MongoDB works seamlessly with Node.js backends.
 
@@ -125,7 +125,7 @@ There are several database cloud services that can manage your database effectiv
 
 For NoSQL databases such as the database _Meetups_ operates, we have some services such as:
 
-- [mlab](https://mlab.com/)
+- [mLab](https://mlab.com/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 - [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
 - [Microsoft Azure CosmosDB](https://azure.microsoft.com/en-us/services/cosmos-db/)
@@ -142,11 +142,11 @@ Make sure you follow these steps below:
 - Choose a **Cloud Provider** amongst these three providers, _Amazon Web Services_, _Google Cloud Platform_, and _Microsoft Azure_. For this tutorial, I chose _Amazon Web Services_.
 - Select a **Plan type** amongst these plans: _Sandbox_, _Shared_, and _Dedicated_. For app prototyping, POCs, and demos, I recommend the _Sandbox_ option which is free and has up to 0.5GB storage.
 - Choose a region for the Cloud Provider you previously selected and click on _"Continue"_. It's always recommended to choose a region closer to you or your target market.
-- Choose a database name. I chose `meetup` as the db name.
+- Choose a database name. I chose `meetup`.
 
-  ![JavaScript Deploy - Choosing Database name](https://cdn.auth0.com/blog/jsdeploy/dbnamemlab.png)
+  ![JavaScript Deploy - Choosing a database name](https://cdn.auth0.com/blog/jsdeploy/dbnamemlab.png)
 
-- Click "Continue". Once it has been created, you'll see the database in the dashboard like so:
+- Click "Continue". Once it has been created, you'll see the database on the dashboard like so:
 
   ![JavaScript Deploy - Recently created database](https://cdn.auth0.com/blog/jsdeploy/recentlycreateddb.png)
 
@@ -164,7 +164,7 @@ All I need to do is replace my local connection string with that of mLabs.
 
 ### MongoDB Atlas
 
-MongoDB Atlas is a cloud platform that also provides Database-as-a-service for MongoDB. The free version provides developers with 512MB storage. Let's go ahead and create a database for our app on MongoDBAtlas. 
+MongoDB Atlas is a cloud platform that also provides Database-as-a-Service for MongoDB. The free version provides developers with 512MB storage. Let's go ahead and create a database for our app on MongoDB Atlas. 
 
 Make sure you follow these steps below:
 
@@ -174,7 +174,7 @@ Make sure you follow these steps below:
   
   ![JavaScript Deploy - Cluster details](https://cdn.auth0.com/blog/jsdeploy/atlasclusterdetails.png)
 
-- Scroll down a bit to **Instance size**. Here you can choose a plan for your app. I chose the free version for the purpose of this tutorial. The free version is also great for prototyping, POCs and demos.
+- Scroll down a bit to **Instance size**. Here you can choose a plan for your app. I chose the free version for the purpose of this tutorial. The free version is also great for prototyping, POCs, and demos.
 
   ![JavaScript Deploy - Select plan](https://cdn.auth0.com/blog/jsdeploy/atlasselectplan.png)
 
@@ -233,12 +233,12 @@ Cloud Firestore is a cloud-hosted, NoSQL database that your iOS, Android, and we
 - Flexible, hierarchical data structures.
 - Stores data in documents, organized into collections.
 - Queries for retrieving individual, specific documents or to retrieve all the documents in a collection that match your query parameters.
-- Realtime updates via data synchronization.
+- Real-time updates via data synchronization.
 - Offline usage.
 
 Follow the steps below to create a database.
 
-- Signup for an [account on Firebase](https://console.firebase.google.com/).
+- Sign up for an [account on Firebase](https://console.firebase.google.com/).
 - Create a new project.
 
   ![Create Firebase Project](https://cdn.auth0.com/blog/jsdeploy/createfirebaseproject.png)
@@ -316,7 +316,7 @@ It offers:
 
 You can follow the steps below to get started with provisioning a database.
 
-- Head over to [Google Cloud SQL](https://console.cloud.google.com/sql/). If you don't have a google acount, sign up for one.
+- Head over to [Google Cloud SQL](https://console.cloud.google.com/sql/). If you don't have a google account, sign up for one.
 - Create a new project.
 
   ![Create a new project](https://cdn.auth0.com/blog/jsdeploy/createprojectgcs.png)
@@ -395,7 +395,7 @@ Amazon Relational Database Service (RDS) is a cloud platform that makes it easy 
 - [Oracle](https://aws.amazon.com/rds/oracle/)
 - [Microsoft SQL Server](https://aws.amazon.com/rds/sqlserver/)
 
-It is higly optimized for memory, I/O and performance.
+It is highly optimized for memory, I/O and performance.
 
 
 ## Code Deployment
@@ -406,19 +406,19 @@ We have briefly discussed the several ways and services you can deploy your data
 
 Heroku is a cloud platform that helps you deploy and host your applications the modern way. It does all the heavy-lifting for you. Let's quickly take a look at how to deploy and maintain a Node.js application on heroku.
 
-Heroku runs a first class experience for Node.js so every developer can run successful production apps.
+Heroku runs a first-class experience for Node.js so every developer can run successful production apps.
 
-If you don't have an account, go ahead and create one on [heroku.com](https://www.heroku.com/). Go ahead and install the [heroku cli](https://devcenter.heroku.com/articles/heroku-cli).
+If you don't have an account, go ahead and create one on [heroku.com](https://www.heroku.com/). Go ahead and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
 
 > Heroku runs your Node.js app in a dyno, a smart container which provides a modern stack with your choice of web server and runtime.
 
 Clone the backend from [GitHub](https://github.com/auth0-blog/jsbackend). 
 
-Heroku looks for a [Procfile](https://devcenter.heroku.com/articles/procfile). If no `Procfile` exists for the Node.js app, Heroku wull attempt to start a default web process via the `start script` in your `package.json`. In our app's backend, we have a `start script`.
+Heroku looks for a [Procfile](https://devcenter.heroku.com/articles/procfile). If no `Procfile` exists for the Node.js app, Heroku will attempt to start a default web process via the `start script` in your `package.json`. In our app's backend, we have a `start script`.
 
 ![JavaScript Deploy - Start Script](https://cdn.auth0.com/blog/jsdeploy/startscript.png)
 
->Note: A Procfile is a text file in the root directory of your application that defines process types and explicitly declares what command should be executed to start your app on heroku.
+>Note: A Procfile is a text file in the root directory of your application that defines process types and explicitly declares what command should be executed to start your app on Heroku.
 
 You can go ahead to upload the project to your [GitHub](https://github.com) or [Bitbucket](https://bitbucket.org) account.
 
@@ -503,13 +503,13 @@ Commit and push to your master branch. Now, go to the **Activity** tab of your H
 ![Build Succeeded](https://cdn.auth0.com/blog/jsdeploy/heroku-build.png)
 _Build Succeeded_
 
-![New version of app](hhttps://cdn.auth0.com/blog/jsdeploy/index-app-route.png)
+![New version of app](https://cdn.auth0.com/blog/jsdeploy/index-app-route.png)
 _New version of the app showing the index route_
 
 
 ### Caching & Cron Jobs
 
-Heroku provides an array of addons for caching, from `memcache` to `fastly` to `ironcache` and others. You can check out how to use [memcache with PHP on heroku](https://devcenter.heroku.com/articles/memcachedcloud#using-memcached-from-php).
+Heroku provides an array of addons for caching, from `memcache` to `[fastly](https://www.fastly.com/)` to `ironcache` and others. You can check out how to use [memcache with PHP on heroku](https://devcenter.heroku.com/articles/memcachedcloud#using-memcached-from-php).
 
 Finally, you can use the [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler) for running jobs on your app at scheduled time intervals.
 
@@ -517,11 +517,11 @@ Finally, you can use the [Heroku Scheduler](https://devcenter.heroku.com/article
 
 The [Google Cloud platform](https://cloud.google.com) is a trusted cloud platform that lots of companies and startups utilize in deploying and hosting their apps. The apps deployed on `Google Cloud` run on the same infrastructure that powers all of Google's products.
 
-Google Cloud offers different options for hosting Node.js apps. The platform offers [App Engine (Full managed)](https://cloud.google.com/appengine/), [Compute Engine (Scalabe VMs)](https://cloud.google.com/compute/) and [Container Engine (Kubernetes Clusters)](https://cloud.google.com/container-engine/).
+Google Cloud offers different options for hosting Node.js apps. The platform offers [App Engine (Full managed)](https://cloud.google.com/appengine/), [Compute Engine (Scalable VMs)](https://cloud.google.com/compute/) and [Container Engine (Kubernetes Clusters)](https://cloud.google.com/container-engine/).
 
-In our case, we'll use Google App Engine to deploy our Node.js backend. It abstracts the infrastucture away. Let's dive right in!
+In our case, we'll use Google App Engine to deploy our Node.js backend. It abstracts the infrastructure away. Let's dive right in!
 
-When using Google App Engine, you can choose the **Standard** or **Flexible** environment. The latter, like the name implies allows you to install a lot of extensions and allows you to run deployment scripts using `package.json`. We'll use the flexible environment. So, go ahead and [create a new project](https://console.cloud.google.com/projectselector/appengine/create). Click on **Create**, give the project a name, select the region you'll like to serve your app and enable billing.
+When using Google App Engine, you can choose the **Standard** or **Flexible** environment. The latter, like the name implies, allows you to install a lot of extensions and allows you to run deployment scripts using `package.json`. We'll use the flexible environment. So, go ahead and [create a new project](https://console.cloud.google.com/projectselector/appengine/create). Click on **Create**, give the project a name, select the region you'll like to serve your app and enable billing.
 
 > **Note:** You won't be charged without your permission.
 
@@ -565,7 +565,7 @@ Now go ahead and run the following command to deploy the app:
 gcloud app deploy
 ```
 
-Our backend is finally [live.](https://meetupservice-190908.appspot.com).
+Our backend is finally [live](https://meetupservice-190908.appspot.com).
 
 ![JavaScript Deploy - Live Backend Service](https://cdn.auth0.com/blog/jsdeploy/meetupserviceurl.png)
 _Live Backend_
@@ -659,7 +659,7 @@ Check out [how to create and manage jobs using the Scheduler](https://docs.micro
 
 ## Amazon Web Services
 
-More companies use AWS(Amazon Web Services) for storing all sorts of data ranging from images, mp3 files to videos than any other cloud platform. In fact, a lot of organizations like Uber, Spotify, Salesforce use Amazon Web Services wholy for hosting, deployment and infrastructure. AWS has a ton of developer products.
+More companies use AWS(Amazon Web Services) for storing all sorts of data ranging from images, mp3 files to videos than any other cloud platform. In fact, a lot of organizations like Uber, Spotify, Salesforce use Amazon Web Services wholly for hosting, deployment and infrastructure. AWS has a ton of developer products.
 
 The service we'll use for deploying our backend Node.js app is **Amazon Elastic Beanstalk**. Let's get started.
 
@@ -669,7 +669,7 @@ The service we'll use for deploying our backend Node.js app is **Amazon Elastic 
     ![Create new app](https://cdn.auth0.com/blog/jsdeploy/awscreatenewapp.png)
 - Click on `create web server`.
     ![Create web server](https://cdn.auth0.com/blog/jsdeploy/awscreatewebserver.png)
-- Create the webserver environment.
+- Create the web server environment.
     ![Environment type](https://cdn.auth0.com/blog/jsdeploy/awsenvironmentype.png)
 - Upload your code. Elastic Beanstalk requires that you upload a zip file of your codebase. You can manually zip it up. But I prefer to do that from my terminal like so:
 
@@ -680,7 +680,7 @@ The service we'll use for deploying our backend Node.js app is **Amazon Elastic 
     ![Upload code to AWS](https://cdn.auth0.com/blog/jsdeploy/awsuploadcode.png)
 - Check availability for the app URL. Mine looks like this:
     ![URL](https://cdn.auth0.com/blog/jsdeploy/awsavailableurl.png)
-- The next page allows us to configure Database Instance. Now our app already uses a remote mongoDB instance, so we can skip it.
+- The next page allows us to configure a Database Instance. Now our app already uses a remote MongoDB instance, so we can skip it.
     ![Skip setting up DB Instance](https://cdn.auth0.com/blog/jsdeploy/awskip.png)
 - This step allows us to modify our configuration details. The default one is okay for our app.
     ![Configuration details](https://cdn.auth0.com/blog/jsdeploy/awsdefaultconfig.png)
@@ -704,7 +704,7 @@ For caching, Amazon Web Services offers [ElastiCache](https://aws.amazon.com/ela
 
 Amazon ElastiCache automatically detects and replaces failed nodes, reducing the overhead associated with self-managed infrastructures and provides a resilient system that mitigates the risk of overloaded databases, which slow website and application load times. Through integration with [Amazon CloudWatch](https://aws.amazon.com/cloudwatch), Amazon ElastiCache provides enhanced visibility into key performance metrics associated with your Redis or Memcached nodes.
 
-Companies like [AirBnb](https://www.airbnb.com), [Healthguru](http://www.healthguru.com), [PlaceIQ](http://www.placeiq.com) and [Tokyo Data Network](http://www.tdn.co.jp) use ElastiCache for caching at multiple layers spanning HTML fragments, results of expensive DB queries, ephemeral session data and search results.
+Companies like [Airbnb](https://www.airbnb.com), [Healthguru](http://www.healthguru.com), [PlaceIQ](http://www.placeiq.com) and [Tokyo Data Network](http://www.tdn.co.jp) use ElastiCache for caching at multiple layers spanning HTML fragments, results of expensive DB queries, ephemeral session data and search results.
 
 You can set up a cron job on Elastic Beanstalk. Learn how to run cron jobs on [Amazon Web Services(AWS) Elastic Beanstalk](https://medium.com/@joelennon/running-cron-jobs-on-amazon-web-services-aws-elastic-beanstalk-a41d91d1c571).
 
