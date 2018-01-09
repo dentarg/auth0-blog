@@ -63,7 +63,7 @@ A generic JavaScript application involves a:
   A couple of JavaScript frameworks that can be used on the front end are:
 
   <ul>
-    <li>**[React](https://getbootstrap.com/)**</li>
+    <li>**[React](https://reactjs.org/)**</li>
     <li>**[Vue](https://vuejs.org/)**</li>
     <li>**[Angular](https://angular.io/)**</li>
     <li>**[Preact](https://preactjs.com/)**</li>
