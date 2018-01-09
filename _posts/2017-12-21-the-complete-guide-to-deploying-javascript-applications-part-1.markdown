@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Complete Guide To Deploying JavaScript Applications - Part 1"
+title: "The Complete Guide To Deploying JavaScript Applications - Part 1: Database, and API Deployment"
 description: "Learn how to deploy JavaScript applications on different platforms."
 longdescription: "We are constantly faced with deploying and configuring Single Page Applications running in a browser and Server-side applications running on Node.js. Equip yourself with the knowledge to deploy JavaScript applications to production on different platforms in this guide."
 date: 2017-12-31 08:30
