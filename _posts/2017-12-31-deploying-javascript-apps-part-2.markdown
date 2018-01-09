@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Complete Guide To Deploying JavaScript Applications - Part 2: Single Page Applications, Logging, SSL, Media Assets Deployment."
+title: "The Complete Guide To Deploying JavaScript Applications - Part 2: Single Page Applications, Logging, SSL, Media Assets Deployment"
 description: "Learn how to deploy JavaScript Single Page Applications on different platforms."
 longdescription: "Deploying JavaScript Single Page Applications can be a hassle. Equip yourself with the knowledge required to move your applications from development to production on different platforms in this guide."
 date: 2017-12-31 08:30
