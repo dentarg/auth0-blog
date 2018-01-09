@@ -2,7 +2,7 @@
 layout: post
 title: "The Complete Guide To Deploying JavaScript Applications - Part 2"
 description: "Learn how to deploy JavaScript applications on different platforms."
-longdescription: "We are constantly faced with deploying and configuring Single Page Applications running in a browser and Server-side applications running on Node.js. Equip yourself with the knowledge to deploy JavaScript applications to production on different platforms in this guide."
+longdescription: "Deploying JavaScript Single Page Applications can be a hassle. Equip yourself with the knowledge required to move your applications from development to production on different platforms in this guide."
 date: 2017-12-31 08:30
 category: Technical guide, Frameworks, JavaScript
 design:
@@ -26,7 +26,8 @@ related:
 - 2017-05-08-the-ultimate-guide-to-deploying-php-applications
 ---
 
-**TL;DR:** Atwood's law states that _Any application that can be written in JavaScript, will eventually be written in JavaScript._  In 2018, eleven years after this law was proposed, JavaScript is now the [most popular language](https://insights.stackoverflow.com/survey/2017#technology-programming-languages) in the world. In the [first part](#firstpart) of this tutorial, we covered database and backend deployments. In the second and final part of this tutorial, I'll show you how to tie everything together by learning to deploy JavaScript Single Page Applications and static websites to diferent cloud platforms. This article is not about performance.
+
+**TL;DR:** Atwood's law states that _Any application that can be written in JavaScript, will eventually be written in JavaScript._  In 2018, eleven years after this law was proposed, JavaScript is now the [most popular language](https://insights.stackoverflow.com/survey/2017#technology-programming-languages) in the world. In the [first part](#firstpart) of this tutorial, we covered database and backend deployments. In the second and final part of this tutorial, I'll show you how to tie everything together by learning to deploy JavaScript Single Page Applications and static websites to different cloud platforms. This article is not about performance.
 
 ---
 
@@ -115,7 +116,7 @@ Ensure Auth0 is configured properly.
 - Ensure the **Allowed Web Origins**, **Allowed Origins(CORS)** in your Auth0 dashboard is set to your live URL. In my case, `https://agitated-davinci-4df0c1.netlify.com`.
 - Your `audience` should be the audience you set when you created the API for the backend.
 
-**Very Important Note:**  Since our app is a single page client side app, without a proper server configuration, the users will get a 404 error if they access `https://agitated-davinci-4df0c1.netlify.com/callback` directly in their browser. So, we have to fix that on Netlify with the following steps:
+**Very Important Note:**  Since our app is a single page client-side app, without a proper server configuration, the users will get a 404 error if they access `https://agitated-davinci-4df0c1.netlify.com/callback` directly in their browser. So, we have to fix that on Netlify with the following steps:
 
 - Create a `_redirects` file in the root of the app. Add the code below to the `_redirects` file:
 
@@ -130,7 +131,7 @@ Ensure Auth0 is configured properly.
     "build": "node build/build.js && mv _redirects dist"
   },
 ```
-- Now, commit the new changes to GitHub. Once you commit, a deploy process will commence on Netlify. And the `_redirects` file will moved to the `dist` folder on Netlify server. Netlify serves the content of the `dist` folder as the app, so our SPA routing will work fine!
+- Now, commit the new changes to GitHub. Once you commit, a deploy process will commence on Netlify. And the `_redirects` file will be moved to the `dist` folder on Netlify server. Netlify serves the content of the `dist` folder as the app, so our SPA routing will work fine!
 
 Test the app again in the browser. [https://agitated-davinci-4df0c1.netlify.com](https://agitated-davinci-4df0c1.netlify.com)
 
@@ -143,7 +144,7 @@ Netlify is really powerful. It provides a lot of features out of the box such as
 
 ## Surge
 
-Surge is a static web publishing platform designed specially for frontend developers. It's simple to use. You can publish your application without leaving the command line. Surge's free version offers the following:
+Surge is a static web publishing platform designed especially for frontend developers. It's simple to use. You can publish your application without leaving the command line. Surge's free version offers the following:
 
 - Unlimited publishing
 - Custom domain
@@ -168,7 +169,7 @@ Now, follow these steps to deploy your app:
 
 _Surge's_ way of handling SPA client-side routing is providing a duplicate of your `index.html` as a `200.html` file in the root of the folder that gets deployed. The `200` page helps you re-route all requests to your client-side application, improving the usefulness of your URLs.
 
-- Run the `surge` command in the terminal. Fill in your email and password. Also specify the `dist` directory and press enter:
+- Run the `surge` command in the terminal. Fill in your email and password. Also, specify the `dist` directory and press enter:
 
   ![Deploying via Surge](https://cdn.auth0.com/blog/jsdeploy/surge.png)
 
@@ -176,7 +177,7 @@ _Surge's_ way of handling SPA client-side routing is providing a duplicate of yo
 
 **Very Important Note:** At this point, you will need to add this URL to the **Allowed Web Origins**, **Allowed Origins(CORS)**, and `http://<your-url.sh>/callback` to your **Allowed Callback URLs** in your Auth0 dashboard. Furthermore, you'll need to update your `src/auth/Auth.js` file. Replace the value of **redirectUri** with `http://<your-url.sh>/callback`.
 
-Now, re-run the `npm run build` command to make a new build. Also run the `surge` command but with some parameters like so:
+Now, re-run the `npm run build` command to make a new build. Also, run the `surge` command but with some parameters like so:
 
 ```bash
 surge dist/ <your-surge-url>
@@ -243,7 +244,7 @@ firebase init
 `public` is mapped to the `dist` folder. This ensures that the content of the `dist` folder is uploaded. The `rewrites` rule is to enable client-side routing for our app. 
 
 - Run `firebase deploy`. 
-- Project should be live now. Mine is [https://meetups-61634.firebaseapp.com/](https://meetups-61634.firebaseapp.com/).
+- The project should be live now. Mine is [https://meetups-61634.firebaseapp.com/](https://meetups-61634.firebaseapp.com/).
 
 **Very Important Note:** At this point, you will need to add this URL to the **Allowed Web Origins**, **Allowed Origins(CORS)**, and `http://<your-url.firebaseapp.com>/callback` to your **Allowed Callback URLs** in your Auth0 dashboard. Furthermore, you'll need to update your `src/auth/Auth.js` file. Replace the value of **redirectUri** with `http://<your-url.firebaseapp.com>/callback`.
 
@@ -257,7 +258,7 @@ Your app will be updated. Everything should work fine now!
 
 ## Aerobatic
 
-Aerobatic is a platform for deploying static websites and single page applications. It's not so popular but it is very powerful and provides a blazing fast performance.
+Aerobatic is a platform for deploying static websites and single page applications. It's not so popular but it is very powerful and provides a blazingly fast performance.
 
 It offers the following:
 
@@ -322,7 +323,7 @@ Replace `<bucket-name>` with the name of your bucket. Let's break down the code 
 
   ![Upload to S3](https://cdn.auth0.com/blog/jsdeploy/s3upload.png)
 
-- Wait for about a minute. Now check out the app via your S3 endpoint URL. [http://meetupservice.s3-website-us-east-1.amazonaws.com](http://meetupservice.s3-website-us-east-1.amazonaws.com/).
+- Wait about a minute. Now check out the app via your S3 endpoint URL. [http://meetupservice.s3-website-us-east-1.amazonaws.com](http://meetupservice.s3-website-us-east-1.amazonaws.com/).
 
   ![Live App](https://cdn.auth0.com/blog/jsdeploy/s3liveapp.png)
   _Live App working fine!_
@@ -350,7 +351,7 @@ Services such as [Webtask](https://webtask.io), [AWS Lambda](https://aws.amazon.
 - [Google Cloud Functions](https://cloud.google.com/functions): Get started with [Quickstarts](https://cloud.google.com/functions/docs/quickstarts).
 - [Azure Functions](https://azure.microsoft.com/en-us/services/functions/): Get started with [Azure Functions documentation](https://docs.microsoft.com/en-us/azure/azure-functions/).
 
-There is a [Serverless Application Framework](https://serverless.com/) that helps you build serverless architectures easily. It's powered by Serverles computing services such as Lambda, Azure Functions and IBM.
+There is a [Serverless Application Framework](https://serverless.com/) that helps you build serverless architectures easily. It's powered by Serverless computing services such as Lambda, Azure Functions and IBM.
 
 With the open-source CLI, you can get started on your machine ASAP!
 
@@ -376,7 +377,7 @@ This is a feature by feature graphical comparison of the various services mentio
 
 ## Production Monitoring & Logging
 
-After deploying your app, the next step is to set up logs and monitoring for the application. Performance monitoring and logging allows you understand everything going on in your app. User interactions, application errors, and issues. 
+After deploying your app, the next step is to set up logs and monitoring for the application. Performance monitoring and logging allow you understand everything going on in your app. User interactions, application errors, and issues. 
 
 All these statistics offer you a better understanding of your app and userbase, which ultimately provides you and your team with better focus areas.
 
