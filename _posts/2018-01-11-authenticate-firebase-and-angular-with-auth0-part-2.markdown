@@ -31,7 +31,7 @@ tags:
 - authentication
 - centralized-login
 related:
-- 2018-01-09-how-to-authenticate-firebase-and-angular-with-auth0-part-1
+- 2018-01-09-authenticate-firebase-and-angular-with-auth0-part-1
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
