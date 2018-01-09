@@ -122,12 +122,14 @@ interface AuthConfig {
 
 export const AUTH_CONFIG: AuthConfig = {
   CLIENT_ID: '[AUTH0_CLIENT_ID]',
-  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]',
-  AUDIENCE: '[YOUR_AUTH0_API_AUDIENCE]', // likely http://localhost:8083/api/
+  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]', // e.g., you.auth0.com
+  AUDIENCE: '[YOUR_AUTH0_API_AUDIENCE]', // e.g., http://localhost:8083/api/
   REDIRECT: `${ENV.BASE_URI}/callback`,
   SCOPE: 'openid profile'
 };
 ```
+
+> **Important Note:** Make sure you copy the configuration properties _exactly_ as they appear in your Auth0 Dashboard settings. If identifiers are not exact, authentication will not and _should not_ function.
 
 ### Authentication Service
 
