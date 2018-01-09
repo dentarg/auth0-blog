@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to Authenticate Firebase and Angular with Auth0: Part 1 - Custom Firebase Tokens and Angular Lazy Loading"
+title: "Authenticate Firebase & Angular with Auth0: Part 1 - Custom Tokens & Lazy Loading"
 description: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens."
 longdescription: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens. Set up Angular with scalable, real-world architecture with lazy loading and implement Auth0 authentication on the client and server."
 date: 2018-01-09 8:30
@@ -1044,7 +1044,7 @@ Next is our constructor function:
   }
 ```
 
-In addition to passing in Angular router, AngularFireAuth, and the HTTP client, we'll check the current authentication status of the user when this service initializes to determine if they have a valid existing session or not.
+In addition to passing in the Angular router, AngularFireAuth, and the HTTP client, we'll check the current authentication status of the user when this service initializes to determine if they have a valid existing session or not.
 
 The `login()` method looks like this:
 
@@ -1198,7 +1198,7 @@ Our custom Firebase token will expire in `3600` seconds (1 hour). This is only _
   }
 ```
 
-To schedule automatic token renewal, we'll create a timer observable that counts down to the token's expiration time. We can subscribe to the `expiresIn$` observable and then call our `_getFirebaseToken()` method again to acquire a new token. The promise resolve for `signInWithCustomToken()` calls `scheduleFirebaseRenewal()`, which in turn ensures that the token will continue to be renewed as long as the user is logged into our app.
+To schedule automatic token renewal, we'll create a timer observable that counts down to the token's expiration time. We can subscribe to the `expiresIn$` observable and then call our `_getFirebaseToken()` method again to acquire a new token. The  `signInWithCustomToken()` angularfire2 auth method returns a promise. When the promise resolves, `scheduleFirebaseRenewal()` is called, which in turn ensures that the token will continue to be renewed as long as the user is logged into our app.
 
 We'll also need to be able to unsubscribe from token renewal, so we'll create a method for that as well.
 
@@ -1310,7 +1310,7 @@ If the user does not have a valid token, we'll prompt them to log in. We want th
 
 ## <span id="core-logic"></span>Core Logic
 
-The last thing we'll do in this section of our tutorial is implement the remaining components and services that belong to our `CoreModule`. We've already taken care of the `LoadingComponent` and `ErrorComponent`, so let's move on to the header.
+The last thing we'll do in this section of our tutorial is build out the remaining components and services that belong to our `CoreModule`. We've already taken care of the `LoadingComponent` and `ErrorComponent`, so let's move on to the header.
 
 ### Header Component
 
