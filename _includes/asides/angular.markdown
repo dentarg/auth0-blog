@@ -2,20 +2,20 @@
 
 We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with an Angular application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [angular-auth0-aside repo on GitHub](https://github.com/auth0-blog/angular-auth0-aside).
 
-![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+![Auth0 login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 ### Features
 
 The [sample Angular application and API](https://github.com/auth0-blog/angular-auth0-aside) has the following features:
 
 * Angular application generated with [Angular CLI](https://github.com/angular/angular-cli) and served at [http://localhost:4200](http://localhost:4200)
-* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a centralized login page
+* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a login page
 * Node server protected API route `http://localhost:3001/api/dragons` returns JSON data for authenticated `GET` requests
 * Angular app fetches data from API once user is authenticated with Auth0
 * Profile page requires authentication for access using route guards
 * Authentication service uses a subject to propagate authentication status events to the entire app
 * User profile is fetched on authentication and stored in authentication service
-* Access token, ID token, profile, and token expiration are stored in local storage and removed upon logout
+* Access token, profile, and token expiration are stored in local storage and removed upon logout
 
 ### Sign Up for Auth0
 
@@ -25,9 +25,10 @@ You'll need an [Auth0](https://auth0.com) account to manage authentication. You 
 
 1. Go to your [**Auth0 Dashboard**](https://manage.auth0.com/#/) and click the "[create a new client](https://manage.auth0.com/#/clients/create)" button.
 2. Name your new app and select "Single Page Web Applications".
-3. In the **Settings** for your new Auth0 client app, add `http://localhost:4200/callback` to the **Allowed Callback URLs**.
-4. Scroll down to the bottom of the **Settings** section and click "Show Advanced Settings". Choose the **OAuth** tab and verify that the **JsonWebToken Signature Algorithm** is set to `RS256`.
-5. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
+3. In the **Settings** for your new Auth0 client app, add `http://localhost:4200/callback` to the **Allowed Callback URLs**. Click the "Save Changes" button.
+4. If you'd like, you can [set up some social connections](https://manage.auth0.com/#/connections/social). You can then enable them for your app in the **Client** options under the **Connections** tab. The example shown in the screenshot above utilizes username/password database, Facebook, Google, and Twitter. For production, make sure you set up your own social keys and do not leave social connections set to use Auth0 dev keys.
+
+> **Note:** Under the **OAuth** tab of **Advanced Settings** (at the bottom of the **Settings** section) you should see that the **JsonWebToken Signature Algorithm** is set to `RS256`. This is  the default for new clients. If it is set to `HS256`, please change it to `RS256`. You can [read more about RS256 vs. HS256 JWT signing algorithms here](https://community.auth0.com/questions/6942/jwt-signing-algorithms-rs256-vs-hs256).
 
 ### Set Up an API
 
@@ -57,23 +58,21 @@ The Node API is located in the [`/server` folder](https://github.com/auth0-blog/
 Find the [`config.js.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/server/config.js.example) and **remove** the `.example` extension from the filename. Then open the file:
 
 ```js
-// server/config.js
-// (formerly config.js.example)
+// server/config.js (formerly config.js.example)
 module.exports = {
   CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]', // e.g. 'you.auth0.com'
   AUTH0_AUDIENCE: 'http://localhost:3001/api/'
 };
 ```
 
-Change the `AUTH0_CLIENT_DOMAIN` variable to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://localhost:3001/api/`). The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
+Change the `AUTH0_CLIENT_DOMAIN` identifier to your Auth0 client domain and set the `AUTH0_AUDIENCE` to your audience (in this example, this is `http://localhost:3001/api/`). The `/api/dragons` route will be protected with [express-jwt](https://github.com/auth0/express-jwt) and [jwks-rsa](https://github.com/auth0/node-jwks-rsa).
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
 Our API is now protected, so let's make sure that our Angular application can also interface with Auth0. To do this, we'll activate the [`src/app/auth/auth0-variables.ts.example` file](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/auth0-variables.ts.example) by deleting `.example` from the file extension. Then open the file and change the `[AUTH0_CLIENT_ID]` and `[AUTH0_CLIENT_DOMAIN]` strings to your Auth0 information:
 
 ```js
-// src/app/auth/auth0-variables.ts
-// (formerly auth0-variables.ts.example)
+// src/app/auth/auth0-variables.ts (formerly auth0-variables.ts.example)
 ...
 export const AUTH_CONFIG: AuthConfig = {
   CLIENT_ID: '[AUTH0_CLIENT_ID]',
@@ -137,7 +136,7 @@ export class AuthService {
   handleAuth() {
     // When Auth0 hash parsed, get profile
     this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+      if (authResult && authResult.accessToken) {
         window.location.hash = '';
         this._getProfile(authResult);
       } else if (err) {
@@ -157,7 +156,6 @@ export class AuthService {
     const expTime = authResult.expiresIn * 1000 + Date.now();
     // Save session data and update login status subject
     localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('profile', JSON.stringify(profile));
     localStorage.setItem('expires_at', JSON.stringify(expTime));
     this.userProfile = profile;
@@ -167,7 +165,6 @@ export class AuthService {
   logout() {
     // Remove tokens and profile and update login status subject
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     localStorage.removeItem('expires_at');
     this.userProfile = undefined;
@@ -187,11 +184,11 @@ This service uses the config variables from `auth0-variables.ts` to instantiate 
 
 An [RxJS `BehaviorSubject`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/behaviorsubject.md) is used to provide a stream of authentication status events that you can subscribe to anywhere in the app.
 
-The `login()` method authorizes the authentication request with Auth0 using your config variables. An Auth0 centralized login page will be shown to the user and they can then log in.
+The `login()` method authorizes the authentication request with Auth0 using your config variables. A login page will be shown to the user and they can then log in.
 
 > **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
 
-We'll receive `idToken`, `accessToken`, and `expiresIn` in the hash from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens, profile, and token expiration to local storage and updating the `loggedIn$` subject so that any subscribed components in the app are informed that the user is now authenticated.
+We'll receive `accessToken` and `expiresIn` in the hash from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens, profile, and token expiration to local storage and updating the `loggedIn$` subject so that any subscribed components in the app are informed that the user is now authenticated.
 
 > **Note:** The profile takes the shape of [`profile.model.ts`](https://github.com/auth0-blog/angular-auth0-aside/blob/master/src/app/auth/profile.model.ts) from the [OpenID standard claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
 
