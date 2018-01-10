@@ -3,8 +3,8 @@ layout: post
 title: "Implementing Single Sign-On in B2C Applications"
 description: "Learn how a B2C Company implemented Single Sign-On to provide seamless integration between different e-commerce portals."
 longdescription: "Let's learn how easily implement Single Sign-On to provide seamless integration between different B2C portals. We will start by bootstrapping two instances of an application (to simulate these portals), then we will secure these instances with Auth0 and add Single Sign-On to show how easy it is."
-date: 2017-12-29 20:10
-category: Technical Guide, Identity, Single Sign-On
+date: 2018-01-10 08:30
+category: Technical Guide, Use Case, Single Sign-On
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
@@ -20,8 +20,15 @@ tags:
 - auth0
 - user-experience
 - ux
+- use-case
+- single-sign-on
+- digital-transformation
+- retail
+- modernization
 related:
 - 2017-12-18-retail-analytics-past-present-and-future
+- 2017-10-12-consolidating-multiple-identity-sources-with-auth0
+- 2017-10-13-how-do-i-modernize-my-legacy-system
 ---
 
 **TL;DR:** In this article, we will learn how a B2C company easily implemented Single Sign-On to provide seamless integration between different e-commerce portals. The first thing we will do is to bootstrap two instances of an application to simulate these portals. Then, we will secure these instances with Auth0 and will add Single Sign-On to show that it takes only a few minutes to achieve our goal. You can find the final code in [the `sso` branch of this GitHub repository](https://github.com/auth0-blog/react-b2c-sso/tree/sso).
