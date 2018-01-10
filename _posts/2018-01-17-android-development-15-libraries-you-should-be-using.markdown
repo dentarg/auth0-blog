@@ -988,6 +988,8 @@ In the code snippet above, we tell the `Job` what to do in the `onRunJob` method
 
 {% include tweet_quote.html quote_text="I just read an amazing article that talks about great Android libraries." %}
 
+{% include asides/android.markdown %}
+
 ## Conclusion
 
 We have seen how libraries significantly reduce the amount of boilerplate code written to perform various functions while developing for Android. We also able took a quick look on how to use these libraries in most cases. Knowing the best libraries available out there can help up improve the quality of our apps and make us produce more in less time. So, no doubt, knowing and using these libraries leads to a win-win situation.
