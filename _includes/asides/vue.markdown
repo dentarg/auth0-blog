@@ -2,18 +2,18 @@
 
 We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with a Vue application and a Node API using [Auth0](https://auth0.com). You can clone this sample app and API from the [vue-auth0-aside repo on GitHub](https://github.com/auth0-blog/vue-auth0-aside).
 
-![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+![Auth0 login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 ### Features
 
 The [sample Vue application and API](https://github.com/auth0-blog/vue-auth0-aside) has the following features:
 
 * Vue application generated with [Vue CLI](https://github.com/vue/vue-cli) and served at [http://localhost:4200](http://localhost:4200)
-* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/v8) using a centralized login page
+* Authentication with [auth0.js](https://auth0.com/docs/libraries/auth0js/) using the Auth0 login page
 * Node server protected API route `http://localhost:3001/api/meetups/private` returns JSON data for authenticated `GET` requests
 * Vue app fetches data from API once user is authenticated with Auth0
 * Authentication service uses a subject to propagate authentication status events to the entire app.
-* Access token, ID token, and token expiration are stored in local storage and removed upon logout.
+* Access token and token expiration are stored in local storage and removed upon logout.
 
 ### Sign Up for Auth0
 
@@ -84,11 +84,11 @@ import router from '../router';
 export default class Auth {
   
   auth0 = new auth0.WebAuth({
-    domain: AUTH0_DOMAIN, // e.g kabiyesi.auth0.com
-    clientID: AUTH0_CLIENT_ID, // e.g i473732832832cfgajHYEUqiqwq
-    redirectUri: CALLBACK_URL, // e.g http://localhost:8080/callback
-    audience: AUTH0_API_AUDIENCE, // e.g. https://meetupapi.com
-    responseType: 'token id_token',
+    domain: AUTH0_DOMAIN, // e.g., you.auth0.com
+    clientID: AUTH0_CLIENT_ID, // e.g., i473732832832cfgajHYEUqiqwq
+    redirectUri: CALLBACK_URL, // e.g., http://localhost:8080/callback
+    audience: AUTH0_API_AUDIENCE, // e.g., https://meetupapi.com
+    responseType: 'token',
     scope: 'openid'
   });
 
@@ -100,7 +100,7 @@ export default class Auth {
 
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+      if (authResult && authResult.accessToken) {
         this.setSession(authResult);
         router.replace('/');
       } else if (err) {
@@ -113,7 +113,6 @@ export default class Auth {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
   }
 
@@ -134,9 +133,8 @@ export default class Auth {
   }
 
   logout() {
-    // Clear access token and ID token from local storage
+    // Clear access token and expiration from local storage
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the landing page route
     router.go('/');
@@ -157,7 +155,7 @@ The `login()` method authorizes the authentication request with Auth0. An Auth0 
 
 > **Note:** If it's the user's first visit to our app _and_ our callback is on `localhost`, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
 
-We'll receive `idToken`, `accessToken`, and `expiresIn` in the hash from Auth0 when returning to our app. The `handleAuthentication()` method uses Auth0's `parseHash()` method callback to set the session (`setSession()`) by saving the tokens, and token expiration to local storage. The `isAuthenticated` method informs the components in the app about the user's authentication status via checking the access token's expiry time.
+We'll receive `accessToken` and `expiresIn` in the hash from Auth0 when returning to our app. The `handleAuthentication()` method uses Auth0's `parseHash()` method callback to set the session (`setSession()`) by saving the tokens, and token expiration to local storage. The `isAuthenticated` method informs the components in the app about the user's authentication status via checking the access token's expiry time.
 
 Finally, we have a `logout()` method that clears data from local storage.
 
@@ -264,5 +262,5 @@ That's it! We have an authenticated Node API and Angular application with login,
 * [Verify Access Tokens](https://auth0.com/docs/api-auth/tutorials/verify-access-token)
 * [Call APIs from Client-side Web Apps](https://auth0.com/docs/api-auth/grant/implicit)
 * [How to implement the Implicit Grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant)
-* [Auth0.js v8 Documentation](https://auth0.com/docs/libraries/auth0js/v8)
+* [Auth0.js Documentation](https://auth0.com/docs/libraries/auth0js)
 * [OpenID Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)
