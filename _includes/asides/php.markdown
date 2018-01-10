@@ -161,5 +161,5 @@ That's it! We have an authenticated PHP API with protected routes. To learn more
 * [Verify Access Tokens](https://auth0.com/docs/api-auth/tutorials/verify-access-token)
 * [Call APIs from Client-side Web Apps](https://auth0.com/docs/api-auth/grant/implicit)
 * [How to implement the Implicit Grant](https://auth0.com/docs/api-auth/tutorials/implicit-grant)
-* [Auth0.js v8 Documentation](https://auth0.com/docs/libraries/auth0js/v8)
+* [Auth0.js Documentation](https://auth0.com/docs/libraries/auth0js)
 * [OpenID Standard Claims](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)

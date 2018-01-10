@@ -2,7 +2,7 @@
 
 We can protect our applications and APIs so that only authenticated users can access them. Let's explore how to do this with a React application using [Auth0](https://auth0.com).
 
-![Auth0 centralized login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
+![Auth0 login screen](https://cdn.auth0.com/blog/resources/auth0-centralized-login.jpg)
 
 We'll need an [Auth0](https://auth0.com) account to manage authentication. [To sign up for a free account, we can follow this link](https://auth0.com/signup). Next, let's set up an Auth0 client app and API so Auth0 can interface with a React App.
 
@@ -22,9 +22,9 @@ We're now ready to implement Auth0 authentication on both our React client and N
 
 ### Dependencies and Setup
 
-There are only two dependencies that we really need to install: [`auth0.js`](https://github.com/auth0/) and [`history`](https://github.com/ReactTraining/history). To do that, let's issue `npm install --save auth0-js history` in the project root.
+There are only two dependencies that we really need to install: [`auth0.js`](https://github.com/auth0/auth0.js) and [`history`](https://github.com/ReactTraining/history). To do that, let's issue `npm install --save auth0-js history` in the project root.
 
-> Note that, as we want to get the best security available, we are going to rely on the [Centralized Login feature of Auth0](https://auth0.com/docs/hosted-pages/login). This method consists of redirecting users to a login page hosted by Auth0 that is easily customizable right from the [Dashboard](https://manage.auth0.com/).
+> **Note:** As we want the best security available, we are going to rely on the [Auth0 login page](https://auth0.com/docs/hosted-pages/login). This method consists of redirecting users to a login page hosted by Auth0 that is easily customizable right from the [Dashboard](https://manage.auth0.com/).
 
 After installing it, we can create an authentication service to interface with the `auth0.js` script. Let's call this service `Auth` and create it in the `src/Auth/` directory with the following code:
 
@@ -39,7 +39,7 @@ export default class Auth {
     audience: 'https://bkrebs.auth0.com/userinfo',
     clientID: '3co4Cdt3h3x8En7Cj0s7Zg5FxhKOjeeK',
     redirectUri: 'http://localhost:3000/callback',
-    responseType: 'token id_token',
+    responseType: 'token',
     scope: 'openid'
   });
 
@@ -52,7 +52,7 @@ export default class Auth {
 
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+      if (authResult && authResult.accessToken) {
         this.setSession(authResult);
         history.replace('/home');
       } else if (err) {
@@ -66,7 +66,6 @@ export default class Auth {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     history.replace('/home');
@@ -77,9 +76,8 @@ export default class Auth {
   }
 
   logout() {
-    // Clear access token and ID token from local storage
+    // Clear access token and expiration from local storage
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
     history.replace('/home');
@@ -97,8 +95,8 @@ export default class Auth {
 The `Auth` service just created contains functions to deal with various steps of the sign in/sign up process. The following list briefly summarizes these functions and their descriptions:
 
 - `handleAuthentication`: looks for the result of the authentication in the URL hash. Then, process the result with the `parseHash` method from `auth0-js`;
-- `setSession`: sets the user's access token, ID token, and the access token's expiry time;
-- `login`: initiates the login process, redirecting users to the Centralized Login page;
+- `setSession`: sets the user's access token and the access token's expiry time;
+- `login`: initiates the login process, redirecting users to the login page;
 - `logout`: removes the user's tokens and expiry time from browser storage;
 - `isAuthenticated`: checks whether the expiry time for the user's access token has passed;
 
@@ -144,7 +142,7 @@ export default App;
 
 Note that we are passing this service through `props`. Therefore, when including the `App` component, we need to inject `Auth` into it: `<App auth={auth} />`.
 
-Considering that we are using the Auth0 Centralized Login page, our users are taken away from the application. However, after they authenticate, users automatically return to the callback URL that we set up previously (`http://localhost:3000/callback`). This means that we need to create a component responsible for this URL:
+Considering that we are using the Auth0 login page, our users are taken away from the application. However, after they authenticate, users automatically return to the callback URL that we set up previously (`http://localhost:3000/callback`). This means that we need to create a component responsible for this URL:
 
 ```jsx
 import React, { Component } from 'react';
@@ -165,11 +163,11 @@ class Callback extends Component {
 export default Callback;
 ```
 
-This component can be just a loading indicator that keeps spinning while the application sets up a client-side session for the users. After the session is set up, we can redirect users to another route.
+This component can just contain a loading indicator that keeps spinning while the application sets up a client-side session for the users. After the session is set up, we can redirect users to another route.
 
-Please, refer to [the official Quick Start Guide to see, step by step, how to properly secure a React application](https://auth0.com/docs/quickstart/spa/react/01-login). Besides the steps shown in this section, the guide also shows:
+Please refer to [the official Quick Start Guide to see, step by step, how to properly secure a React application](https://auth0.com/docs/quickstart/spa/react/01-login). Besides the steps shown in this section, the guide also shows:
 
-- [How to manage profile information of authenticated users](https://auth0.com/docs/quickstart/spa/react/02-user-profile).
-- [How to properly call an API](https://auth0.com/docs/quickstart/spa/react/03-calling-an-api).
-- [How to control which routes users can see/interact with](https://auth0.com/docs/quickstart/spa/react/04-authorization).
-- [How to deal with expiry time of users' access token](https://auth0.com/docs/quickstart/spa/react/05-token-renewal).
+- [How to manage profile information of authenticated users](https://auth0.com/docs/quickstart/spa/react/02-user-profile)
+- [How to properly call an API](https://auth0.com/docs/quickstart/spa/react/03-calling-an-api)
+- [How to control which routes users can see/interact with](https://auth0.com/docs/quickstart/spa/react/04-authorization)
+- [How to deal with expiry time of users' access token](https://auth0.com/docs/quickstart/spa/react/05-token-renewal)

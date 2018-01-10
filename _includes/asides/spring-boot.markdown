@@ -7,7 +7,7 @@ In the following sections, we are going to learn how to use Auth0 to secure Spri
 
 ### Creating the API
 
-First, we need to create an API on our [free Auth0 account](https://auth0.com/signup). To do that, we have to go to [the APIs section of the management dashboard](https://manage.auth0.com/#/apis) and click on "Create API". On the dialog that appears, we can name our API as "Contacts API" (the name isn't really important) and identify it as `https://contacts.mycompany.com` (we will use this value later).
+First, we need to create an API on our <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>. To do that, we have to go to [the APIs section of the management dashboard](https://manage.auth0.com/#/apis) and click on "Create API". On the dialog that appears, we can name our API as "Contacts API" (the name isn't really important) and identify it as `https://contacts.mycompany.com` (we will use this value later).
 
 After creating it, we have to go to the "Scopes" tab of the API and define the desired scopes. For this sample, we will define two scopes: `read:contacts` and `add:contacts`. They will represent two different operations (read and add) over the same entity (contacts).
 
