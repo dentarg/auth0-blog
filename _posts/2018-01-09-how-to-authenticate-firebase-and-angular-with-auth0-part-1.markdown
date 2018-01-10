@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Authenticate Firebase & Angular with Auth0: Part 1 - Custom Tokens & Lazy Loading"
+title: "How to Authenticate Firebase and Angular with Auth0: Part 1 - Custom Tokens & Lazy Loading"
 description: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens."
 longdescription: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens. Set up Angular with scalable, real-world architecture with lazy loading and implement Auth0 authentication on the client and server."
 date: 2018-01-09 8:30
