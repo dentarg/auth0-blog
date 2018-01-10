@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Authenticate Firebase & Angular with Auth0: Part 2 - Async and Realtime"
+title: "How to Authenticate Firebase and Angular with Auth0: Part 2 - Async and Realtime"
 description: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens."
 longdescription: "Learn how to authenticate a realtime Firebase and Angular app with an API using Auth0 with custom Firebase tokens. Display data with Angular's Async and NgIfElse, set up Firebase security rules, and implement realtime data with Firestore and angularfire2."
 date: 2018-01-11 8:30
@@ -31,7 +31,7 @@ tags:
 - authentication
 - centralized-login
 related:
-- 2018-01-09-authenticate-firebase-and-angular-with-auth0-part-1
+- 2018-01-09-how-to-authenticate-firebase-and-angular-with-auth0-part-1
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
@@ -812,7 +812,7 @@ This is what Firebase's realtime databases can do!
 
 ## <span id="conclusion"></span>Conclusion
 
-Congratulations! You should now have an Angular app that authenticates Firebase with Auth0 and is built on a scalable architecture.
+Congratulations! You now have an Angular app that authenticates Firebase with Auth0 and is built on a scalable architecture.
 
 The first part of our tutorial, [How to Authenticate Firebase and Angular with Auth0: Part 1](https://auth0.com/blog/how-to-authenticate-firebase-and-angular-with-auth0-part-1), covered:
 
@@ -861,6 +861,6 @@ Hopefully you learned a lot about building scalable apps with Angular and authen
 * Implement an inappropriate language filter for comments
 * Implement authorization roles to create an admin user with the rights to delete other peoples' comments
 * Add functionality to support comment editing
-* Add comments to individual dogs' detail pages using additional Firestore collections
+* Add comments to individual dog detail pages using additional Firestore collections
 * Add testing
-* And much more!front end
+* And much more!
