@@ -91,7 +91,7 @@ After that, we have to run **Sync Project with Gradle Files** inside Android Stu
 
 ### Start the Authentication Process
 
-The [Auth0 login page](https://auth0.com/docs/hosted-pages/login) is the easiest way to set up authentication in our application. It's recommend using the Auth0 login page for the best experience, best security, and the fullest array of features.
+The [Auth0 login page](https://auth0.com/docs/hosted-pages/login) is the easiest way to set up authentication in our application. It's recommended using the Auth0 login page for the best experience, best security, and the fullest array of features.
 
 Now we have to implement a method to start the authentication process. Let's call this method `login` and add it to our `MainActivity` class.
 
@@ -135,7 +135,7 @@ After we call the `WebAuthProvider#start` function, the browser launches and sho
 
 After authentication, the browser redirects the user to our application with the authentication result. The SDK captures the result and parses it.
 
-> We do not need to declare a specific `intent-filter` for our activity, because we have defined the manifest placeholders with we Auth0 Domain and Scheme values.
+> We do not need to declare a specific `intent-filter` for our activity because we have defined the manifest placeholders with we Auth0 Domain and Scheme values.
 
 The `AndroidManifest.xml` file should look like this:
 
