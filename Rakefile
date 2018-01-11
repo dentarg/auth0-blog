@@ -52,8 +52,6 @@ date: #{Time.now.strftime('%Y-%m-%d %H:%M')}
 category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>
 press_release: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
 is_non-tech: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
-banner:
-  text: <TEXT TO BE USED AS A BANNER>
 author:
   name: <YOUR NAME>
   url: <YOUR URL>
