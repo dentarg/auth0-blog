@@ -84,7 +84,7 @@ Let's suppose that we have `Customer` and `Order` microservices listening to `ht
 We will configure an instance of an API Gateway that will sit on the edge of our system. This gateway will serve as a router for our microservices, but we'll also move some shared logic from the microservices to it. This will enable our applications to focus on the business logic.
 
 This gateway will also throttle all the requests based on clients' IP addresses and make sure that all the
-requests are authenticated based on a **JWT** that _Auth0_ is going to provide. [Auth0e will work as our **system of record** for our users](https://auth0.com/blog/360-view-of-customer-by-managing-identity/).
+requests are authenticated based on a **JWT** that _Auth0_ is going to provide. [Auth0 will work as our **system of record** for our users](https://auth0.com/blog/360-view-of-customer-by-managing-identity/).
 
 There are multiple API Gateways on the market. Some of them are offered by big software companies as a managed hosted solution and others are open source products. Of course, you can technically write your own solution too, but why reinvent the wheel? Instead, let's take advantage of [Express Gateway](https://express-gateway.io).
 
