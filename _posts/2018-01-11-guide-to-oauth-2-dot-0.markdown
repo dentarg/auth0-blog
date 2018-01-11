@@ -23,11 +23,11 @@ related:
 
 Have you visited a site recently, where you are given the option of connecting or signing up using Google, Facebook or Twitter? Sure you have! This is basically what OAuth is all about; granting third-party services permission to do something for you–like logging you in. In this article, you will learn what OAuth is, how it started and how it works. 
 
-> **Note:** For the purposes of this article and the comfort of the target audience, OAuth is to be assumed as OAuth 2.0 unless specifically mentioning OAuth 1.0a.
+> **Note:** For the purposes of this article and the comfort of the target audience, OAuth is to be assumed as OAuth 2.0 unless specifically mentioning another version.
 
 ## So what is OAuth?
 
-OAuth (or Open Authorization) is a set of standards implemented that give users the ability to grant access to their information stored in one place, from another place. For example, granting Spotify access to your Facebook profile.
+OAuth (or Open Authorization) is a framework that gives users the ability to grant access to their information stored in one place, from another place. For example, granting Spotify access to your Facebook profile.
 
 The trade-off is that you're giving Spotify certain permission to access your Facebook details, so that Facebook can provide Spotify with enough information to sign you up, enhance your profile details, or display what your friends are listing to.
 
