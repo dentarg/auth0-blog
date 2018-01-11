@@ -48,7 +48,7 @@ microservices that need to share multiple tasks. You can get the code example [h
 
 The above points can be summarized with two keywords: **independence** and **isolation**.
 
-This concept has been riding high during the last years with [blog posts][https://auth0.com/blog/tags/microservices/], articles, [websites](http://microservices.io), and even dedicated conferences although this is nothing really new—but rather a culmination of **best practices** in the modern web era, pushed by a tech giant that felt the need almost [ten years ago](http://www.zdnet.com/article/soa-done-right-the-amazon-strategy/).
+This concept has been riding high during the last years with [blog posts](https://auth0.com/blog/tags/microservices/), articles, [websites](http://microservices.io), and even dedicated conferences although this is nothing really new—but rather a culmination of **best practices** in the modern web era, pushed by a tech giant that felt the need almost [ten years ago](http://www.zdnet.com/article/soa-done-right-the-amazon-strategy/).
 
 Most of the time we don't necessarily have the same web scale, but we can benefit anyway from the paradigm of microservices.
 
