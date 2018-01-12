@@ -35,7 +35,7 @@ The idea is that you're giving Spotify certain permission to access your Faceboo
 
 ## How did it start?
 
-Before initiatives like OAuth appeared, you would have had to give Spotify access to your Facebook login details for Spotify to be able to access the your information on Facebook.
+Before initiatives like OAuth appeared, you would have had to give Spotify access to your Facebook login details for Spotify to be able to access your information on Facebook.
 
 Previous versions were first developed in 2007 by a group seeking to standardize how we can delegate permissions between different software applications. The latest version, OAuth 2.0, is not backwards compatible with previous versions which have now been deprecated. Despite deprecating old versions, they remain in use widely across the web, including by one of the original drivers behind the general OAuth movement, Twitter. Some feel that it is less secure and it has been described as a [road to hell](http://hueniverse.com/2012/07/26/oauth-2-0-and-the-road-to-hell/).
 
