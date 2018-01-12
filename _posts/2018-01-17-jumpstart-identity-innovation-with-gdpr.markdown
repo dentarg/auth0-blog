@@ -15,7 +15,7 @@ author:
   mail: story.tweedie-yates@auth0.com
 design:
   image: https://cdn2.auth0.com/blog/get-ready-for-gdpr/logo.png
-  bg_color: "#3F3694"
+  bg_color: "#222228"
 tags:
 - gdpr
 - data-protection
