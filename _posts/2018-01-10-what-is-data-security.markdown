@@ -2,7 +2,7 @@
 layout: post
 title: "What is Data Security?"
 description: "Data security is a complex issue — here's how to tackle it."
-date: 2018-01-10 08:30
+date: 2018-01-12 08:30
 category: Security
 author:
   name: "Robin Percy"
@@ -56,21 +56,21 @@ There are many parts to a comprehensive data security solution. What follows her
 
 ### Securing information
 
-* **Manage your identity by restricting access to sensitive documents.** Sometimes called data classification, managing who can see what based on their user id is a great way to keep sensitive information restricted to only those that need to see it. This limits the amount of damage that can be done if someone's username and login is stolen. IAM companies like Auth0 are set up to handle different permissions based on user, and this is a key point to good data security policy. 
+* **Manage your identity by restricting access to sensitive documents.** Sometimes called data classification, managing who can see what based on their user id is a great way to keep sensitive information restricted to only those that need to see it. This limits the amount of damage that can be done if someone's username or login details are stolen. IAM companies like Auth0 are set up to handle different permissions based on user, and this is a key point to good data security policy. 
 * **Encryption**  is one of the best tools that we have to keep data safe, but it isn't a monolith. You can't just decide to encrypt all your data and call it a day — that's not exactly how it works. Often, software tools that you use for your business will have some sort of encryption offered, and that's a great place to start. Your information backup service, for example, should be able to encrypt that data for you. You should also make sure you **encrypt transmissions** to add another layer of security onto any information you send. 
 
 ![Source](https://cdn.auth0.com/blog/data-security/encryption.jpg)
 
 _Think of encryption as taking your plain data and turning it into a secret code that only *you* can make heads or tails of — not the bad guys. We don't recommend using historical documents as keys to encryption, though._
 
-* **Be prepared for the mobile workforce.** As mobile devices take over the workplace, your security threats grow. You need a [mobile security plan](https://auth0.com/blog/ten-mobile-security-threats-and-what-you-can-do-to-fight-back/) to keep everyone in line. This should include proper protocol for employees, like staying off public wifi on work devices, and having a company-mandated antivirus on their mobile devices. 
+* **Be prepared for the mobile workforce.** As mobile devices take over the workplace, your security threats grow. You need a [mobile security plan](https://auth0.com/blog/ten-mobile-security-threats-and-what-you-can-do-to-fight-back/) to keep everyone in line. This should include an enforced protocol for employees, like staying off public wifi on work devices, and having a company-mandated antivirus on their mobile devices. 
 
 
 ### Preparing for Threats
 
-* **Test how good your system is.** The best defense is a good offense, and the best offense in having to recover data is testing your own security systems so you don't lose that data in the first place. Either create an internal team to stress-test your system or find someone outside your company to do it, but don't leave your security up to chance
-* **Have a disaster protocol.** When you find out that your company's security has been compromised, the last thing you want to do is panic. Having a [comprehensive protocol](https://auth0.com/blog/data-breach-response-planning-for-startups/) can keep blood pressure down and limit the damage done. Yes, IT needs to be aware of what to do, but you should also make guidelines for management, letting employees know, and next steps for recovery. 
-* **Make a recovery plan** for your data, in case of corruption or the unhappy scenario where something you need has been deleted or compromised. For many, this means having a secure backup copy of your data that is regularly updated. This backup itself will have to be protected and should also be sufficiently separate from the rest of your data.
+* **Test how good your system is.** The best defense is a good offense, and the best offense in having to recover data is testing your own security systems so you don't lose that data in the first place. Either create an internal team to stress-test your system or find someone outside your company to do it, but don't leave your security up to chance.
+* **Have an incident management plan.** When you find out that your company's security has been compromised, the last thing you want to do is panic. Having a [comprehensive protocol](https://auth0.com/blog/data-breach-response-planning-for-startups/) can keep blood pressure down and limit the damage done. Yes, IT needs to be aware of what to do, but you should also make guidelines for management, letting employees know, and your next steps for recovery. 
+* **Make a disaster recovery plan** for your data, in case of corruption or the unhappy scenario where something you need has been deleted or compromised. For many, this means having a secure backup copy of your data that is regularly updated. This backup itself will have to be protected and should also be sufficiently separate from the rest of your data.
 
 
 ### Deleting information
@@ -85,7 +85,7 @@ _Think of encryption as taking your plain data and turning it into a secret code
 
 There are rules and regulations that govern what you should and cannot do with your business's data, and they can help lower your risks. Especially if you are dealing with sensitive information, looking towards these laws and guidelines will help give you a better sense of what is appropriate for your company. For example, companies in the medical field are likely required to follow [HIPAA requirements](https://auth0.com/learn/why-hipaa-compliance-is-vital-your-business/). 
 
-You can also reduce compliance risks by following open standards. Take identity management, which has guidelines that are available for everyone to follow with the explicit purpose of being as safe and responsible as possible. Auth0, for example, is [OpenID Connect certified](https://auth0.com/blog/we-are-now-open-id-certified/), which means we follow the official OpenID specifications and have done the leg work to keep your data secure.  
+You can also reduce compliance risks by following open standards. Take identity management, which has guidelines that are available for everyone to follow with the explicit purpose of being as safe and responsible as possible. Auth0, for example, is [OpenID Connect certified](https://auth0.com/blog/we-are-now-open-id-certified/), which means we follow the official OpenID specifications and have done the legwork to keep your data secure.  
 
 To ensure that you have the least risk possible, be thorough in your investigation of the laws that apply to your company and the best practices that have developed in your field or for your concerns. This will depend heavily on industry and location, but it needs to be done correctly to ensure that your data security is as good as possible. 
 
