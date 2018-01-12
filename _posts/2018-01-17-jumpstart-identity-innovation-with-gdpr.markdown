@@ -3,7 +3,7 @@ layout: post
 title: "Jumpstart Identity Innovation with GDPR"
 description: "GDPR compliance is an opportunity to improve how you do Identity—whether it's improving customer experience, time to market or increasing revenue."
 longdescription: "We believe that GDPR compliance is an opportunity to improve how you do Identity—whether it's in the context of improving customer experience, time to market or increasing revenue. See how some of our customers have made the most of their investment in compliance using Auth0."
-date: 2018-01-17 8:30
+date: 2018-01-17 1:00
 category: GDPR
 is_non-tech: true
 banner:
