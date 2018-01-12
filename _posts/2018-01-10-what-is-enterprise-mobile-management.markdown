@@ -67,7 +67,7 @@ While EMM can manifest itself in different ways depending on your requirements, 
 
 ![https://cdn.auth0.com/blog/emm/emm-platform.png](https://cdn.auth0.com/blog/emm/emm-platform.png)
 
-EMM is the comprehensive method of remotely managing devices, which is accomplished by incorporating MDM, MAM, MCM and MIM tools and strategies.
+EMM is the comprehensive method of remotely managing devices, which is accomplished by incorporating the aforementioned four tools and strategies.
 
 
 ### 1. What is Mobile Device Management?
@@ -109,9 +109,9 @@ MCM is most effective when incorporated with MAM and MDM to ensure management of
 
 MIM is designed to ensure that only trusted devices and users can access enterprise data or applications. By authenticating the user’s identity and then tracking their activity, MIM gives IT the tools to manage access across devices and applications beyond the firewall.
 
-Tools like [Auth0](https://auth0.com/),  give administrators the ability to implement access security through:
+Tools like [Auth0](https://auth0.com/), give administrators the ability to implement access security through:
 
-* **Two-factor authentication:** [2FA](https://auth0.com/learn/two-factor-authentication/) provides an extra layer of security if a mobile device is lost or stolen. By asking for a second form of identification, such as an SMS code, when credentials are compromised, the data is still secure.  
+* **Two-factor authentication:** [2FA](https://auth0.com/learn/two-factor-authentication/) provides an extra layer of security if a mobile device is lost or stolen. By asking for a second form of identification such as an SMS code; if credentials are ever compromised, the data is still secure.  
 * **Behavioral Alerts:** Auth0 provides [custom tools](https://auth0.com/docs/anomaly-detection) to detect anomalies and stop unauthorized access. By tracking behavior and geography, MIM tools will alert IT of suspicious activity and attempts to log in.
 * **SSO (single sign-on):** [SSO](https://auth0.com/docs/sso/current) allows users to use one set of credentials to access multiple applications. When enterprises use dozens of apps, SSO gives employees the convenience of access without tedious logins for every app. 
 
@@ -134,7 +134,7 @@ Here are 5 questions to get you started:
 4. **Do you offer on-premise solutions?** While the growing trend is to provide SaaS, you may want the option to own the technology with an on-premise solution.
 5. **Does the technology integrate with the current infrastructure?** If you have a complex infrastructure, you will want to make sure the EMM solution integrates with your system. 
 
-Choosing the right vendors comes down to analyzing their capabilities within the core competencies of EMM, which include MDM, MAM, MCM, and MIM. Take each component and evaluate providers on their capabilities to deliver on these elements.
+Choosing the right vendors comes down to analyzing their capabilities within the core competencies of EMM. Take each component and evaluate providers on their capabilities to deliver on these elements.
 
 According to Gartner's Magic Quadrant [report](https://www.air-watch.com/resources/analyst-reports) on EMM:
 
