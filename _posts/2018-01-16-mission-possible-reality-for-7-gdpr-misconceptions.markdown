@@ -3,7 +3,7 @@ layout: post
 title: "Mission Possible: Reality for 7 GDPR Misconceptions"
 description: "We demystify 7 common misconceptions about GDPR. Make sure you are informed about data protection and GDPR compliance requirements."
 longdescription: "We've deciphered 7 recurring misconceptions from customers regarding GDPR and identity for the apps they build. Make sure you are aware of the reality and better informed around data protection and GDPR compliance requirements."
-date: 2018-01-15 8:30
+date: 2018-01-16 1:00
 category: GDPR
 is_non-tech: true
 banner:
