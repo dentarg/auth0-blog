@@ -282,11 +282,11 @@ In fact, it's *all* done with that! You have already built the *entire* applicat
 
 ## Introducing wolkenkit
 
-This is where [wolkenkit](https://www.wolkenkit.io) comes into play: It is an [open-source framework](https://github.com/thenativeweb/wolkenkit) for JavaScript and Node.js that uses event sourcing and CQRS, and that perfectly matches domain-driven design.
+This is where [wolkenkit](https://www.wolkenkit.io) comes into play: it is an [open-source framework](https://github.com/thenativeweb/wolkenkit) for JavaScript and Node.js that uses event sourcing and CQRS, and that perfectly matches domain-driven design.
 
 {% include tweet_quote.html quote_text="#wolkenkit is an open-source framework for JavaScript and Node.js that uses event sourcing and CQRS, and that perfectly matches domain-driven design (DDD)." %}
 
-Once you have modeled and built your domain, wolkenkit automatically provides everything else you need: A real-time HTTPS and web-socket API, JWT-based authentication, authorization, persistence, …
+Once you have modeled and built your domain, wolkenkit automatically provides everything else you need: a real-time HTTPS and web-socket API, JWT-based authentication, authorization, persistence, …
 
 In other words, this means that you don't have to do *anything* for the technical aspects. Furthermore, it helps to keep your code clean, since you don't have to mix domain code and technical code.
 
