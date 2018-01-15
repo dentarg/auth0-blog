@@ -284,7 +284,7 @@ In fact, it's *all* done with that! You have already built the *entire* applicat
 
 This is where [wolkenkit](https://www.wolkenkit.io) comes into play: it is an [open-source framework](https://github.com/thenativeweb/wolkenkit) for JavaScript and Node.js that uses event sourcing and CQRS, and that perfectly matches domain-driven design.
 
-{% include tweet_quote.html quote_text="#wolkenkit is an open-source framework for JavaScript and Node.js that uses event sourcing and CQRS, and that perfectly matches domain-driven design (DDD)." %}
+{% include tweet_quote.html quote_text="wolkenkit is an open-source framework for JavaScript and Node.js that uses event sourcing and CQRS, and that perfectly matches domain-driven design (DDD)." %}
 
 Once you have modeled and built your domain, wolkenkit automatically provides everything else you need: a real-time HTTPS and web-socket API, JWT-based authentication, authorization, persistence, …
 
@@ -910,6 +910,6 @@ Of course, there is much more that you can do with wolkenkit, but now you have a
 
 Also, Auth0 has way more to offer. Besides a credentials database and integration into Google, Auth0 offers many more ways for [social and enterprise integration](https://auth0.com/docs/identityproviders). Auth0 supports [multifactor authentication](https://auth0.com/multifactor-authentication) as well as [breached password detection](https://auth0.com/breached-passwords) and [anomaly detection](https://auth0.com/docs/anomaly-detection). If you haven't done it yet, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for your free Auth0 account now</a>.
 
-{% include tweet_quote.html quote_text="Auth0 is identity management as a service. Learn how to build real-time web applications using #wolkenkit and how to add authentication to them." %}
+{% include tweet_quote.html quote_text="Auth0 is identity management as a service. Learn how to build real-time web applications using wolkenkit and how to add authentication to them." %}
 
 If you have any questions, comments or ideas, feel free to leave a note in the comment section below. Have a nice day!
