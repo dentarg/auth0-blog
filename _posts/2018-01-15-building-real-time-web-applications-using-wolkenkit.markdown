@@ -290,7 +290,7 @@ Once you have modeled and built your domain, wolkenkit automatically provides ev
 
 In other words, this means that you don't have to do *anything* for the technical aspects. Furthermore, it helps to keep your code clean, since you don't have to mix domain code and technical code.
 
-Before you can start the application, you must first install the [wolkenkit CLI](https://www.npmjs.com/package/wolkenkit). This is done using **npm**:
+Before you can start the application, you must first install the [wolkenkit CLI](https://www.npmjs.com/package/wolkenkit). This is done using **NPM**:
 
 ```shell
 $ npm install -g wolkenkit
@@ -500,7 +500,7 @@ The final piece you need to prepare is a custom `render` function that takes car
 })();
 ```
 
-Now you have all the basic parts ready and you can add the actual application logic to the client. First, you need to install the [wolkenkit client SDK](https://www.npmjs.com/package/wolkenkit-client). To do so, use **npm**, but ensure to run this from the directory `chat/client`:
+Now you have all the basic parts ready and you can add the actual application logic to the client. First, you need to install the [wolkenkit client SDK](https://www.npmjs.com/package/wolkenkit-client). To do so, use **NPM**, but ensure to run this from the directory `chat/client`:
 
 ```shell
 $ cd chat/client
@@ -628,7 +628,7 @@ view.newMessage.focus();
 
 ## Running the client
 
-To run the client you need an HTTP server. The easiest way to get started is to use the npm module [http-server](https://www.npmjs.com/package/http-server), which lets you serve any directory as a website. Switch to the client directory and use npm's **npx** tool to run the server without having to install it first:
+To run the client you need an HTTP server. The easiest way to get started is to use the NPM module [http-server](https://www.npmjs.com/package/http-server), which lets you serve any directory as a website. Switch to the client directory and use NPM's **npx** tool to run the server without having to install it first:
 
 ```shell
 $ cd chat/client
