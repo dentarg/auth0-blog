@@ -42,9 +42,9 @@ Fortunately, there are ways to fix this. One of them is **DDD** (*domain-driven 
 
 At the same time, they develop a common language, the so-called [ubiquitous language](https://www.thenativeweb.io/blog/2017-11-01-11-13-ddd-and-co-part-2-semantics-over-crud/). This considerably simplifies communication in the later stages of development. Although the terms of this language depend on the domain modeled, it follows certain rules.
 
-For example, there are [commands](https://www.thenativeweb.io/blog/2017-11-16-09-46-ddd-and-co-part-3-commands-and-events/), which represent the wishes of users and are always formulated as imperative. *Events*, on the other hand, are the facts created by the application as a reaction to the commands. Once created, they can not be undone any more, and are therefore in the past tense. The common logic of commands and events is encapsulated in so-called [aggregates](https://www.thenativeweb.io/blog/2017-11-20-10-02-ddd-and-co-part-4-aggregates/).
+For example, there are [*commands*](https://www.thenativeweb.io/blog/2017-11-16-09-46-ddd-and-co-part-3-commands-and-events/) which represent the wishes of users and are always formulated as imperative. *Events*, on the other hand, are the facts created by the application as a reaction to the commands. Once created, they can not be undone any more, and are therefore in the past tense. The common logic of commands and events is encapsulated in so-called [*aggregates*](https://www.thenativeweb.io/blog/2017-11-20-10-02-ddd-and-co-part-4-aggregates/).
 
-In contrast to [CRUD](https://www.thenativeweb.io/blog/2017-10-25-09-46-ddd-and-co-part-1-whats-wrong-with-crud/), DDD does not focus on the data of the application, but on its processes. Steve Yegge described why this is important in his famous blog post [Execution in the Kingdom of Nouns](http://steve-yegge.blogspot.de/2006/03/execution-in-kingdom-of-nouns.html).
+In contrast to [CRUD](https://www.thenativeweb.io/blog/2017-10-25-09-46-ddd-and-co-part-1-whats-wrong-with-crud/), DDD does not focus on the data of the application, but on its processes. Steve Yegge described why this is important in his famous blog post ["Execution in the Kingdom of Nouns"](http://steve-yegge.blogspot.de/2006/03/execution-in-kingdom-of-nouns.html).
 
 ## DDD + event sourcing …
 
