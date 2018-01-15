@@ -102,13 +102,13 @@ chat
 
 ## Thinking about security
 
-When thinking about security, you have to think about authentication and authorization with respect to three aspects, due to the CQRS- and event-based architecture:
+When thinking about security, you have to think about authentication and authorization with respect to three aspects, due to the CQRS and the event-based architecture:
 
 - Who is allowed to **send commands**, such as `send` and `like`?
 - Who is allowed to **receive events**, such as `sent` and `liked`?
 - Who is allowed to **run queries**, such as listing any previously sent messages?
 
-For the first iteration it makes sense to allow everything to everyone, even to anonymous users. This makes it easier to initially test and debug the application. For further iterations you might decide that only authenticated users are allowed to communicate.
+For the first iteration, it makes sense to allow everything to everyone, even to anonymous users. This makes it easier to initially test and debug the application. For further iterations you might decide that only authenticated users are allowed to communicate.
 
 This means that you won't enable identity management for the first iteration. Instead, you will do this once the base of your application is up and running.
 
