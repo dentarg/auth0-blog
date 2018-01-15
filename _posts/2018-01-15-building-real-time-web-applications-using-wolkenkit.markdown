@@ -857,7 +857,7 @@ render (messages) {
 }
 ```
 
-In the `index.js` file, you need to expand the connection setup so that OpenID Connect is configured as the authentication strategy. There you will need to set the `/authorize` endpoint of your account, specify the client ID, and make some other settings:
+In the `index.js` file, you need to expand the connection setup so that OpenID Connect is configured as the authentication strategy. There you will need to set the `/authorize` endpoint of your account, **specify the client ID**, and make some other settings:
 
 ```javascript
 wolkenkit.connect({
@@ -865,7 +865,7 @@ wolkenkit.connect({
   port: 3000,
   authentication: new wolkenkit.authentication.OpenIdConnect({
     identityProviderUrl: 'https://wolkenkit.auth0.com/authorize',
-    clientId: 'vKtdmXvF9YfBJrYc856pA3OXOJEY0sZU',
+    clientId: 'vKtdmXvF8YfBJrYc856pA3OXOIEY0sZO',
     scope: 'profile',
     strictMode: false
   })
