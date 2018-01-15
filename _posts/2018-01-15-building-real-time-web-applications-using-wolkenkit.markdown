@@ -64,11 +64,11 @@ CQRS leaves open how you carry out the separation. For example, you can do this 
 
 However, regardless of the actual implementation, CQRS always entails [eventual consistency](https://www.thenativeweb.io/blog/2018-01-11-16-23-ddd-and-co-part-8-eventual-consistency/) due to the necessary synchronization. This means that the writing and reading sides are not necessarily consistent at the same time, but only with a slight temporal offset. This is not a problem for most applications, but you should be aware of the effects. Gregor Hohpe described this very well in his article ["Your Coffee Shop Doesn't Use Two-Phase Commit"](http://www.enterpriseintegrationpatterns.com/docs/IEEE_Software_Design_2PC.pdf).
 
-## Connecting the dots
+## Connecting DDD, event sourcing, and CQRS
 
-DDD, event sourcing and CQRS are actually independent of each other. You can use each of the three concepts independently without ever having to consider the use of the other two.
+DDD, event sourcing, and CQRS are actually independent of each other. You can use each of the three concepts independently without ever having to consider the use of the other two.
 
-Nevertheless, there is a connecting element between DDD, event sourcing and CQRS, which is why the three concepts can be combined excellently in practice. We are talking about the **events**. In domain-driven design, they act as the functional and semantic basis for modeling. In event sourcing, as the name already suggests, these events are the changes being saved. And in CQRS, these events are used to synchronize the write and read side.
+Nevertheless, there is a connecting element between DDD, event sourcing, and CQRS, which is why the three concepts can be combined excellently in practice. We are talking about the **events**. In domain-driven design, they act as the functional and semantic basis for modeling. In event sourcing, as the name already suggests, these events are the changes being saved. And in CQRS, these events are used to synchronize the write and read side.
 
 The following graphic illustrates the relationship between DDD, event sourcing and CQRS using the data flow of an application:
 
@@ -76,7 +76,7 @@ The following graphic illustrates the relationship between DDD, event sourcing a
 
 (Source: [Architecture documentation of wolkenkit](https://docs.wolkenkit.io/1.2.0/getting-started/understanding-wolkenkit/architecture/))
 
-In the **write model** – the writing side of the application – you can use DDD to process incoming commands and transform them into events. You then store these events using event sourcing in a special event database, the so-called **event store**. Afterwards, according to CQRS, the events are transferred to the **read model**. There you interpret the events and update the **lists** to be read according to your requirements.
+In the **write model**—the writing side of the application—you can use DDD to process incoming commands and transform them into events. You then store these events using event sourcing in a special event database, the so-called **event store**. Afterwards, according to CQRS, these events are transferred to the **read model**. There, you interpret the events and update the **lists** to be read according to your requirements.
 
 In this way, the three concepts come together like the pieces of a puzzle that form a single picture. As a result, you get an application development approach that is close to the business, offers excellent analytical capabilities, and is highly scalable. Thanks to the use of DDD, an interdisciplinary team was involved right from the start, which is why you will be able to develop better software in less time.
 
