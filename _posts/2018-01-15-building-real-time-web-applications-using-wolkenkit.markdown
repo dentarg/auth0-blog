@@ -48,13 +48,13 @@ In contrast to [CRUD](https://www.thenativeweb.io/blog/2017-10-25-09-46-ddd-and-
 
 ## DDD + event sourcing …
 
-Since domain-driven design is not concerned with technology, it does not give any hints on how to build an application. However, there are two concepts that complement DDD very well, that *are* about technology: **Event sourcing** and **CQRS** (*Command Query Responsibility Seggregation*).
+Since domain-driven design is not concerned with technology, it does not give any hints on how to build an application. However, there are two concepts that complement DDD very well, that *are* about technology: **Event sourcing** and **CQRS** (*Command Query Responsibility Segregation*).
 
-In the past few years, these three concepts have only been known to a few developers. This is currently changing, as they are becoming more and more widespread. So, what are they about?
+In the past few years, these three concepts have only been known to a few developers. This is currently changing, as they are becoming more understood and more widespread. So, what are they about?
 
-[Event sourcing](https://www.thenativeweb.io/blog/2017-11-27-15-17-ddd-and-co-part-5-event-sourcing/) is a special way of storing data. In contrast to classic relational databases, it does not store the current state of the application, but the individual changes that have led to it over time. The important thing is that you can only add new entries to the list of changes, similar to Git. The `UPDATE` and `DELETE` statements must not be executed because they irrevocably destroy historical data. Over time you will get a continuously growing chronological list of changes.
+[Event sourcing](https://www.thenativeweb.io/blog/2017-11-27-15-17-ddd-and-co-part-5-event-sourcing/) is a special way of storing data. In contrast to classic relational databases, it does not store the current state of the application, but the individual changes that have led to it over time. The important thing is that you can only add new entries to the list of changes. The `UPDATE` and `DELETE` statements must not be executed because they irrevocably destroy historical data. Over time you will get a continuously growing chronological list of changes.
 
-To determine the current state of the application you can **replay** this list. Additionally, you can also restore yesterday's state, or the state of a week or a month ago, or the state of any other time in the past. You can also compare data over time – all without having to maintain dedicated tables. En passant you do also get an audit log and an easy way to implement an undo/redo mechanism.
+To determine the current state of the application you can **replay** this list. Additionally, you can also restore yesterday's state, or the state of a week or a month ago, or the state of any other time in the past. You can also compare data over time – all without having to maintain dedicated tables. En passant, you do also get an audit log and an easy way to implement an undo/redo mechanism.
 
 ## … + CQRS
 
