@@ -58,11 +58,11 @@ To determine the current state of the application you can **replay** this list. 
 
 ## … + CQRS
 
-[CQRS](https://www.thenativeweb.io/blog/2017-12-14-14-17-ddd-and-co-part-7-cqrs/) is also a technical concept: The architectural pattern suggests dividing an application into a write and a read side that you need to synchronize regularly. The advantage is that you can optimize both sides to match your specific needs, such as ensuring integrity and consistency when writing, and efficiently querying data when reading.
+[CQRS](https://www.thenativeweb.io/blog/2017-12-14-14-17-ddd-and-co-part-7-cqrs/) is also a technical concept: the architectural pattern suggests dividing an application into a write and a read side that you need to synchronize regularly. The advantage is that you can optimize both sides to match your specific needs—such as ensuring integrity and consistency when writing, and efficiently querying data when reading.
 
-CQRS leaves open how you carry out the separation. For example, you can do this using two APIs that access different databases in the background. However, you can also use only one API with a single database, and perform the separation only on the basis of database schemas.
+CQRS leaves open how you carry out the separation. For example, you can do this using two APIs that access different databases in the background. However, you can also use only one API with a single database and perform the separation only on the basis of database schemas.
 
-Regardless of the actual implementation, however, CQRS always entails [eventual consistency](https://www.thenativeweb.io/blog/2018-01-11-16-23-ddd-and-co-part-8-eventual-consistency/) due to the necessary synchronization. This means that the writing and reading sides are not necessarily consistent at the same time, but only with a slight temporal offset. This is not a problem for most applications, but you should be aware of the effects. Gregor Hohpe described this very well in his article [Your Coffee Shop Doesn't Use Two-Phase Commit](http://www.enterpriseintegrationpatterns.com/docs/IEEE_Software_Design_2PC.pdf).
+However, regardless of the actual implementation, CQRS always entails [eventual consistency](https://www.thenativeweb.io/blog/2018-01-11-16-23-ddd-and-co-part-8-eventual-consistency/) due to the necessary synchronization. This means that the writing and reading sides are not necessarily consistent at the same time, but only with a slight temporal offset. This is not a problem for most applications, but you should be aware of the effects. Gregor Hohpe described this very well in his article ["Your Coffee Shop Doesn't Use Two-Phase Commit"](http://www.enterpriseintegrationpatterns.com/docs/IEEE_Software_Design_2PC.pdf).
 
 ## Connecting the dots
 
