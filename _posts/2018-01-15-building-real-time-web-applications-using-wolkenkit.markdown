@@ -223,7 +223,7 @@ That's it for the write side. Of course, many aspects such as an HTTPS and webso
 
 ## Preparing the read side
 
-Since the UI shall display a list of all messages, the read side of the application must have the corresponding data ready. This requires an interpretation of the domain events: The interpretation must add a new entry to the list for a `sent` event, and it must update an existing entry for a `liked` event.
+Since the UI shall display a list of all messages, the read side of the application must have the corresponding data ready. This requires an interpretation of the domain events: the interpretation must add a new entry to the list for a `sent` event, and it must update an existing entry for a `liked` event.
 
 To do this, first create a directory called `lists` within the read model:
 
