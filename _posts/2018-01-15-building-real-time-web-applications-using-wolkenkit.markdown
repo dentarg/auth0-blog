@@ -114,7 +114,7 @@ This means that you won't enable identity management for the first iteration. In
 
 ## Turning your model into code
 
-To implement your model and turn it into code, you first have to create the directory structure for the application. Please note that in the following the commands are meant to be run using *Bash* on macOS or on Linux. If you use another shell or another operating system, you might need to adjust the commands.
+To implement your model and turn it into code, you first have to create the directory structure for the application. Please note that the following the commands are meant to be run using *Bash* on macOS or on Linux. If you use another shell or another operating system, you might need to adjust the commands.
 
 First, create the application directory and, since you are going to start with the backend, a `server` directory within it. Conveniently, this can be done with a single command:
 
@@ -219,7 +219,7 @@ const initialState = {
 };
 ```
 
-That's it for the write side. Of course, many aspects such as an HTTPS and websocket API or persistence are still missing for an executable application. However, all these missing aspects are technical, and not related to the specific domain.
+That's it for the write side. Of course, many aspects such as an HTTPS and websocket API or persistence are still missing for an executable application. However, all these missing aspects are technical and not related to the specific domain.
 
 ## Preparing the read side
 
