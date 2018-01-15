@@ -28,7 +28,7 @@ related:
 
 ---
 
-**wolkenkit** is an [open-source framework](https://github.com/thenativeweb/wolkenkit) for JavaScript and Node.js that empowers you to develop backends and APIs, focusing on what's really important: Solving actual real-world problems. You model the domain, and wolkenkit automatically provides everything else you need: A real-time HTTPS and web-socket API, JWT-based authentication, authorization, persistence with time-travelling, …
+**wolkenkit** is an [open-source framework](https://github.com/thenativeweb/wolkenkit) for JavaScript and Node.js that empowers you to develop backends and APIs, focusing on what's really important: solving actual real-world problems. You model the domain, and wolkenkit automatically provides everything else you need: A real-time HTTPS and web-socket API, JWT-based authentication, authorization, persistence with time-travelling, …
 
 **wolkenkit** is developed by [the native web](https://www.thenativeweb.io/), a company that offers highly professional consulting, training and development services for JavaScript, Node.js and related technologies. For details on wolkenkit have a look at its [documentation](https://docs.wolkenkit.io/), browse questions on [StackOverflow](http://stackoverflow.com/questions/tagged/wolkenkit) or join the [wolkenkit Slack team](http://slackin.wolkenkit.io/).
 
