@@ -184,7 +184,7 @@ const commands = {
       return mark.asRejected('Text is missing.');
     }
 
-    message.events.publish ('send', {
+    message.events.publish ('sent', {
       text: command.data.text
     });
     mark.asDone();
@@ -512,7 +512,7 @@ Then, you would use a bundler such as **webpack**. However, to keep things simpl
 {% highlight html %}
 {% raw %}
 <script src="https://cdn.rawgit.com/thenativeweb/wolkenkit-client-js/78ea5aa7/dist/wolkenkit-client.browser.min.js"></script>
-<script src="/view.js"></script>
+<script type="text/javascript" src="/view.js"></script>
 {% endraw %}
 {% endhighlight %}
 
@@ -520,7 +520,7 @@ Finally, create another JavaScript file called `index.js`. This file will contai
 
 {% highlight html %}
 {% raw %}
-<script src="/index.js"></script>
+<script type="text/javascript" src="/index.js"></script>
 {% endraw %}
 {% endhighlight %}
 
@@ -536,9 +536,9 @@ So, the end of your `index.html` file should now look like this:
   <body>
     <!-- ... -->
 
-    <script src="/node_modules/wolkenkit-client/dist/wolkenkit-client.browser.min.js"></script>
-    <script src="/view.js"></script>
-    <script src="/index.js"></script>
+    <script src="https://cdn.rawgit.com/thenativeweb/wolkenkit-client-js/78ea5aa7/dist/wolkenkit-client.browser.min.js"></script>
+    <script type="text/javascript" src="/view.js"></script>
+    <script type="text/javascript" src="/index.js"></script>
   </body>
 </html>
 {% endraw %}
