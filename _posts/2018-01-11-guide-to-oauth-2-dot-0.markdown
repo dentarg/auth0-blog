@@ -43,6 +43,8 @@ Previous versions were first developed in 2007 by a group seeking to standardize
 
 To understand how OAuth works, we need to understand Roles, grant types and access tokens.
 
+![Generic OAuth Flow](https://cdn2.auth0.com/docs/media/articles/protocols/oauth2-generic-flow.png)
+
 ### Roles
 
 First we need to understand how it separates the responsibility of our requests. Roles are used to define the separate entities involved in a request.
@@ -65,14 +67,38 @@ The resource owner is the person who is giving access to their account. So if yo
 
 ### Grant types
 
-A grant represents the user's permission to access their data and can be used to acquire an access token. The OAuth Specification describes five grant types for acquiring an access token. To start with, this article will touch on the most common form of grant type which is going to help us shed light on OAuth. [Read more about OAuth 2.0 and the other grant types](https://aaronparecki.com/oauth-2-simplified/).
+A grant represents the user's permission to access their data and can be used to acquire an access token. The OAuth Specification describes four flows for acquiring an access token. These flows are called grant types. Which one is more suitable for you will most likely depend on the type of client.
+
+**[Authorization Code](https://auth0.com/docs/api-auth/grant/authorization-code):** used by Web Apps executing on a server. This is also used by mobile apps, using the [Proof Key for Code Exchange (PKCE) technique](https://auth0.com/docs/api-auth/grant/authorization-code-pkce).
+
+**[Implicit](https://auth0.com/docs/api-auth/grant/implicit):** used by JavaScript-centric apps (Single Page Applications) executing on the user's browser.
+
+**[Resource Owner Password Credentials](https://auth0.com/docs/api-auth/grant/password):** used by trusted apps.
+
+**[Client Credentials](https://auth0.com/docs/api-auth/grant/client-credentials):** used for machine-to-machine communication.
+
+To start with, this article will touch on the most common form of grant type which is going to help us shed light on OAuth, without overcomplicating it. [Read more about OAuth 2.0 and the other grant types](https://auth0.com/docs/protocols/oauth2).
 
 #### Authorization code grant
 
-An authorization code grant is what we'd encounter in our example. 
+An authorization code grant is what we'd encounter in our example.
 
-**The Client** will redirect the user to the **The Authorization Server** with some information about what they're requesting, where they're requesting it from, among other things. The user will be asked to login to **The Authorization Server** and approve **The Client**, receiving an authorization code. **The Client** can now send that code and our grant type to **The Authorization Server** and receive back an access token. 
+**The Client** will redirect the user to the **The Authorization Server** with some information about what they're requesting and where they're requesting it from, among other things. 
+
+The user will be asked to login to **The Authorization Server** and approve **The Client**, receiving an authorization code. 
+
+**The Client** can now send that code and our grant type to **The Authorization Server** and receive back an access token. 
+
+![Authorization Code Grant](https://cdn2.auth0.com/docs/media/articles/api-auth/authorization-code-grant.png)
 
 ### Access tokens
 
 Access tokens represents your authorization to access **The Resource Owner**'s information on **The Resource Server**. You're required to exchange your grant for an access token, which will often have an expiry time.
+
+## OAuth at Auth0
+
+Auth0 is a global leader in Identity-as-a-Service (IDaaS) and provides thousands of customers in every market sector with the only identity solution they need for their web, mobile, IoT, and internal applications.
+
+At Auth0 we utilize OAuth 2.0 along with Open ID Connect (OIDC) which is an identity layer built upon OAuth 2.0. OAuth is not the only authorization protocol we use, but it is one of the most popular.
+
+For more information, visit https://auth0.com or follow @auth0 on Twitter.
