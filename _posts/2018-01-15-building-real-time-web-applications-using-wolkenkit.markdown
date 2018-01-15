@@ -500,18 +500,18 @@ The final piece you need to prepare is a custom `render` function that takes car
 })();
 ```
 
-Now you have all the basic parts ready and you can add the actual application logic to the client. First, you need to install the [wolkenkit client SDK](https://www.npmjs.com/package/wolkenkit-client). To do so, use **NPM**, but ensure to run this from the directory `chat/client`:
+Now you have all the basic parts ready and you can add the actual application logic to the client. First, you need to fetch the [wolkenkit client SDK](https://www.npmjs.com/package/wolkenkit-client). To do so, you would usually use **NPM**, as such:
 
 ```shell
 $ cd chat/client
 $ npm install wolkenkit-client@1.2.0
 ```
 
-In a typical client, you would now use a bundler such as **webpack**. To keep things simple you will not do this, but load the client SDK manually using a `<script>` tag. So, add the following two lines to the end of file `index.html`, just before the closing `</body>` tag:
+Then, you would use a bundler such as **webpack**. However, to keep things simple you will not do this, but load the client SDK manually using a `<script>` tag. So, add the following two lines to the end of file `index.html`, just before the closing `</body>` tag:
 
 {% highlight html %}
 {% raw %}
-<script src="/node_modules/wolkenkit-client/dist/wolkenkit-client.browser.min.js"></script>
+<script src="https://cdn.rawgit.com/thenativeweb/wolkenkit-client-js/78ea5aa7/dist/wolkenkit-client.browser.min.js"></script>
 <script src="/view.js"></script>
 {% endraw %}
 {% endhighlight %}
@@ -561,7 +561,7 @@ Once the promise resolves, a reference to the backend is returned. Otherwise you
     catch(err => {
       console.error(err);
     });
-});
+})();
 ```
 
 Now, when the user enters a message to the form and clicks the submit button, you need to create a new `message` instance and run the `send` command on it. You can do this with the following code:
@@ -628,7 +628,7 @@ view.newMessage.focus();
 
 ## Running the client
 
-To run the client you need an HTTP server. The easiest way to get started is to use the NPM module [http-server](https://www.npmjs.com/package/http-server), which lets you serve any directory as a website. Switch to the client directory and use NPM's **npx** tool to run the server without having to install it first:
+To run the client you need an HTTP server. The easiest way to get started is to use the NPM module [`http-server`](https://www.npmjs.com/package/http-server), which lets you serve any directory as a website. Switch to the client directory and use NPM's **npx** tool to run the server without having to install it first:
 
 ```shell
 $ cd chat/client
@@ -645,7 +645,7 @@ As a result, you can now send and like messages. The list of messages gets updat
 
 ![Running the chat](https://cdn.auth0.com/blog/wolkenkit/chat.png)
 
-As you have seen the wolkenkit client SDK allows you to focus on the domain of your application. Again, you didn't have to think about technical aspects, such as how the commands get delivered to the server or how live updating works in detail.
+As you have seen, the wolkenkit client SDK allows you to focus on the domain of your application. Again, you didn't have to think about technical aspects, such as how the commands get delivered to the server or how live updating works in detail.
 
 ## Preparing authentication
 
