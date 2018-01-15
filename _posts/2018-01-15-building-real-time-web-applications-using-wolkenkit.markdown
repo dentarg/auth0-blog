@@ -651,13 +651,13 @@ As you have seen, the wolkenkit client SDK allows you to focus on the domain of 
 
 What is still missing is the handling of authentication and authorization of your users. To avoid having to worry about these things in every application, you can outsource this to a trusted third party, the so-called **identity provider**. Its primary job is to identify your users and to issue tokens for them, similar to a passport.
 
-Then, your users need to send this token with every request, so your backend can verify the validity of the token and identify the user based on the data stored in the token, the so-called **claims**. Since your application relies on an external service for handling identity, it becomes the **relying party**.
+Then, your users need to send this token with every request, so your backend can verify the validity of the token and identify the user based on the data stored in the token, or the **claims**. Since your application relies on an external service for handling identity, it becomes the **relying party**.
 
-To avoid tampering with the tokens, they need to be cryptographically signed. Fortunately, there is a standard for issuing and handling these tokens. It is called [JWT](https://jwt.io/) (*JSON Web Token*) and uses a JSON-based format for implementing the tokens. The way how applications exchange these tokens is also described in a standard, called [OpenID Connect](http://openid.net/connect/).
+To avoid tampering with the tokens, they need to be cryptographically signed. Fortunately, there is a standard for issuing and handling these tokens. It is called [JWT (*JSON Web Token*)](https://jwt.io/) and uses a JSON-based format for implementing the tokens. The way how applications exchange these tokens is also described in a standard, called [OpenID Connect](http://openid.net/connect/).
 
-Since your users send their tokens with every request, you do not need to use cookies and sessions anymore. Instead, this works perfectly well with stateless services, which is one of the main reasons why JWT and OpenID Connect gained a lof of popularity in the past few years.
+Since your users send their tokens with every request, you do not need to use cookies and sessions anymore. Instead, this works perfectly well with stateless services, which is one of the main reasons why JWT and OpenID Connect gained a lot of popularity in the past few years.
 
-This is where [Auth0](https://auth0.com/) comes into play, because Auth0 is **identity management as a service**. This way you can make use of JWT and OpenID Connect without the need to setup all the identity infrastructure by yourself. If you don't have an account yet, now is a good time to [sign up for a free Auth0 account](https://auth0.com/signup).
+This is where [Auth0](https://auth0.com/) comes into play, because Auth0 is **identity management as a service**. This way you can make use of JWT and OpenID Connect without the need to setup all the identity infrastructure by yourself. If you don't have an account yet, now is a good time to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>.
 
 In your account, you need to create a new client first. For that, login and go to the [dashboard](https://manage.auth0.com/). Then, click the *New Client* button in the upper right corner to create a new client:
 
@@ -669,14 +669,14 @@ Now enter a name for the application, such as `chat`, and select *Single Page We
 
 Make a note of the following data, as you will need them later for configuring the application:
 
-- The client ID, e.g. `vKtdmXvF9YfBJrYc856pA3OXOJEY0sZU`.
+- The client ID, e.g. `vKtdmXvF8YfBJrYc856pA3OXOIEY0sZO`.
 - The domain, e.g. `wolkenkit.auth0.com`.
 
 Scroll down to *Allowed Callback URLs* and set it to `http://localhost:8080`. If the HTTP server of your client is running on a different port, adjust the url as needed. Scroll down even further and click the *Save Changes* button.
 
 Next, click *Show Advanced Settings* (this is directly above the *Save Changes* button). In the *OAuth* tab, make sure that `RS256` is selected as signature algorithm. Disable the *OIDC Conformant* setting, and save your changes.
 
-Now go to *Advanced Settings* again, open the *Certificates* tab and click the *Download Certificate* button to download the certificate in `.pem` format (the button is right above the *Save Changes* button). With the client ID, the domain and the certificate you have everything you need to setup authentication for your wolkenkit application.
+Now, still in the *Advanced Settings* section, open the *Certificates* tab, click the *Download Certificate* button to download the certificate in `.pem` format (the button is right above the *Save Changes* button), and then **save the client**. With the client ID, the domain, and the certificate you have everything you need to setup authentication for your wolkenkit application.
 
 However, before you can do this, you need to configure which strategies your users can use to authenticate themselves. Therefore, open the client's *Connections* tab. By default, Auth0 uses a database to store your users' credentials. Also, the social `google-oauth2` strategy is enabled by default, which allows your users to authenticate using their Google account:
 
