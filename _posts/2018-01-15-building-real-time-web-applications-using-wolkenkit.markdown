@@ -28,21 +28,21 @@ related:
 
 ---
 
-**wolkenkit** is an [open-source framework](https://github.com/thenativeweb/wolkenkit) for JavaScript and Node.js that empowers you to develop backends and APIs, focusing on what's really important: solving actual real-world problems. You model the domain, and wolkenkit automatically provides everything else you need: A real-time HTTPS and web-socket API, JWT-based authentication, authorization, persistence with time-travelling, …
+**wolkenkit** is an [open-source framework](https://github.com/thenativeweb/wolkenkit) for JavaScript and Node.js that empowers you to develop backends and APIs, focusing on what's really important: solving actual real-world problems. You model the domain, and wolkenkit automatically provides everything else you need: A real-time HTTPS and web-socket API, JWT-based authentication, authorization, persistence with time-traveling, …
 
-**wolkenkit** is developed by [the native web](https://www.thenativeweb.io/), a company that offers highly professional consulting, training and development services for JavaScript, Node.js and related technologies. For details on wolkenkit have a look at its [documentation](https://docs.wolkenkit.io/), browse questions on [StackOverflow](http://stackoverflow.com/questions/tagged/wolkenkit) or join the [wolkenkit Slack team](http://slackin.wolkenkit.io/).
+**wolkenkit** is developed by [the native web](https://www.thenativeweb.io/), a company that offers highly professional consulting, training and development services for JavaScript, Node.js, and related technologies. For details on wolkenkit have a look at its [documentation](https://docs.wolkenkit.io/), browse questions on [StackOverflow](http://stackoverflow.com/questions/tagged/wolkenkit) or join the [wolkenkit Slack team](http://slackin.wolkenkit.io/).
 
 ---
 
-Software development is not an end in itself. Instead, software gets written to solve actual real-world problems. Unfortunately, this regularly fails. One of the most significant reasons for this is not technology, but poor communication in interdisciplinary teams. Domain experts, developers and designers have never learned to talk and listen to each other.
+Software development is not an end in itself. Instead, software gets written to solve actual real-world problems. Unfortunately, this regularly fails. One of the most significant reasons for this is not technology, but poor communication in interdisciplinary teams. Domain experts, developers, and designers have never learned to talk and listen to each other.
 
 ## Introducing domain-driven design
 
-Fortunately, there are ways to fix this. One of them is **DDD** (*domain-driven design*), a software development approach that focuses on modeling business processes. Modeling usually takes place in [interdisciplinary teams](https://www.thenativeweb.io/blog/2017-12-18-15-57-working-in-interdisciplinary-teams/), so that domain experts, developers and designers can communicate with each other at an early stage and develop a common understanding of the area of subject.
+Fortunately, there are ways to fix this. One of them is **DDD** (*domain-driven design*), a software development approach that focuses on modeling business processes. Modeling usually takes place in [interdisciplinary teams](https://www.thenativeweb.io/blog/2017-12-18-15-57-working-in-interdisciplinary-teams/), so that domain experts, developers, and designers can communicate with each other at an early stage and develop a common understanding of the area of subject.
 
 At the same time, they develop a common language, the so-called [ubiquitous language](https://www.thenativeweb.io/blog/2017-11-01-11-13-ddd-and-co-part-2-semantics-over-crud/). This considerably simplifies communication in the later stages of development. Although the terms of this language depend on the domain modeled, it follows certain rules.
 
-For example, there are [*commands*](https://www.thenativeweb.io/blog/2017-11-16-09-46-ddd-and-co-part-3-commands-and-events/) which represent the wishes of users and are always formulated as imperative. *Events*, on the other hand, are the facts created by the application as a reaction to the commands. Once created, they can not be undone any more, and are therefore in the past tense. The common logic of commands and events is encapsulated in so-called [*aggregates*](https://www.thenativeweb.io/blog/2017-11-20-10-02-ddd-and-co-part-4-aggregates/).
+For example, there are [*commands*](https://www.thenativeweb.io/blog/2017-11-16-09-46-ddd-and-co-part-3-commands-and-events/) which represent the wishes of users and are always formulated as imperative. *Events*, on the other hand, are the facts created by the application as a reaction to the commands. Once created, they can not be undone anymore, and are therefore in the past tense. The common logic of commands and events is encapsulated in so-called [*aggregates*](https://www.thenativeweb.io/blog/2017-11-20-10-02-ddd-and-co-part-4-aggregates/).
 
 In contrast to [CRUD](https://www.thenativeweb.io/blog/2017-10-25-09-46-ddd-and-co-part-1-whats-wrong-with-crud/), DDD does not focus on the data of the application, but on its processes. Steve Yegge described why this is important in his famous blog post ["Execution in the Kingdom of Nouns"](http://steve-yegge.blogspot.de/2006/03/execution-in-kingdom-of-nouns.html).
 
@@ -108,7 +108,7 @@ When thinking about security, you have to think about authentication and authori
 - Who is allowed to **receive events**, such as `sent` and `liked`?
 - Who is allowed to **run queries**, such as listing any previously sent messages?
 
-For the first iteration, it makes sense to allow everything to everyone, even to anonymous users. This makes it easier to initially test and debug the application. For further iterations you might decide that only authenticated users are allowed to communicate.
+For the first iteration, it makes sense to allow everything to everyone, even to anonymous users. This makes it easier to initially test and debug the application. For further iterations, you might decide that only authenticated users are allowed to communicate.
 
 This means that you won't enable identity management for the first iteration. Instead, you will do this once the base of your application is up and running.
 
@@ -219,7 +219,7 @@ const initialState = {
 };
 ```
 
-That's it for the write side. Of course, many aspects such as an HTTPS and websocket API or persistence are still missing for an executable application. However, all these missing aspects are technical and not related to the specific domain.
+That's it for the write side. Of course, many aspects such as an HTTPS and WebSocket API or persistence are still missing for an executable application. However, all these missing aspects are technical and not related to the specific domain.
 
 ## Preparing the read side
 
@@ -242,7 +242,7 @@ const when = {};
 module.exports = { fields, when };
 ```
 
-As fields, the list must contain not only the text of each message and the number of likes, but also the time when a message was sent. Since the time will serve as a sort criterion later, you should index it:
+As fields, the list must contain not only the text of each message and the number of likes but also the time when a message was sent. Since the time will serve as a sort criterion later, you should index it:
 
 ```javascript
 const fields = {
@@ -325,7 +325,7 @@ You must also install **Docker** locally. For installation instructions, refer t
 }
 ```
 
-What may catch your eye is the domain name `local.wolkenkit.io`. The public DNS of this domain is configured to point to `127.0.0.1`, so essentially it is the same as `localhost`. The reason for using this domain is that wolkenkit contains a perfectly valid SSL certificate for it, so HTTPS works out of the box (and this is not possible with `localhost`, since you can't get an official SSL certificate for it).
+What may catch your eye is the domain name `local.wolkenkit.io`. The public DNS of this domain is configured to point to `127.0.0.1`, so essentially it is the same as `localhost`. The reason for using this domain is that wolkenkit contains a perfectly valid SSL certificate for it, so HTTPS works out of the box (and this is not possible with `localhost` since you can't get an official SSL certificate for it).
 
 As soon as all prerequisites are met, you can [start the application](https://docs.wolkenkit.io/1.2.0/reference/using-the-cli/controlling-the-lifecycle/). It is assumed that ports `3000` to `3004` are available on your machine. If this is not the case, you have to set the port in `package.json` to another base, such as `4000`.
 
@@ -335,7 +335,7 @@ When starting an application for the very first time, the wolkenkit CLI has to d
 $ wolkenkit start
 ```
 
-As a result, although it does not yet *look* sensational, you now have a running backend that can be accessed via HTTPS and websockets, and that takes care of persisting data according to event sourcing.
+As a result, although it does not yet *look* sensational, you now have a running backend that can be accessed via HTTPS and WebSockets, and that takes care of persisting data according to event sourcing.
 
 ## Adding a client
 
@@ -347,7 +347,7 @@ $ mkdir -p chat/client
 
 To keep things simple, you will not use a UI library such as React or Angular. Instead, you will write the code to access the UI on your own. Fortunately, this can be done with just a few lines.
 
-First you have to create the `index.html` file, which acts as the entry point for your application. Initialize it using the following code:
+First, you have to create the `index.html` file, which acts as the entry point for your application. Initialize it using the following code:
 
 {% highlight html %}
 {% raw %}
@@ -548,7 +548,7 @@ In the file `index.js` you will now use the client SDK to connect to the already
 
 This object provides a `connect` function which takes the host and the port of the backend and returns a promise. Please note that if earlier you had selected a different port, you need to adjust the code according to your changes.
 
-Once the promise resolves, a reference to the backend is returned. Otherwise you get an error, which you can simply print to the console:
+Once the promise resolves, a reference to the backend is returned. Otherwise, you get an error, which you can simply print to the console:
 
 ```javascript
 (function () {
@@ -620,7 +620,7 @@ chat.lists.messages.readAndObserve({
   updated(view.render);
 ```
 
-Last but not least, you should initially focus the text input field, so that the user is immediately able to send messages:
+Last but not least, you should initially focus the text input field so that the user is immediately able to send messages:
 
 ```javascript
 view.newMessage.focus();
@@ -659,7 +659,7 @@ Since your users send their tokens with every request, you do not need to use co
 
 This is where [Auth0](https://auth0.com/) comes into play, because Auth0 is **identity management as a service**. This way you can make use of JWT and OpenID Connect without the need to setup all the identity infrastructure by yourself. If you don't have an account yet, now is a good time to <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account</a>.
 
-In your account, you need to create a new client first. For that, login and go to the [dashboard](https://manage.auth0.com/). Then, click the *New Client* button in the upper right corner to create a new client:
+In your account, you need to create a new client first. For that, log in and go to the [dashboard](https://manage.auth0.com/). Then, click the *New Client* button in the upper right corner to create a new client:
 
 ![Use the Auth0 dashboard to create a new client](https://cdn.auth0.com/blog/wolkenkit/auth0-dashboard.png)
 
@@ -672,7 +672,7 @@ Make a note of the following data, as you will need them later for configuring t
 - The client ID, e.g. `vKtdmXvF8YfBJrYc856pA3OXOIEY0sZO`.
 - The domain, e.g. `wolkenkit.auth0.com`.
 
-Scroll down to *Allowed Callback URLs* and set it to `http://localhost:8080`. If the HTTP server of your client is running on a different port, adjust the url as needed. Scroll down even further and click the *Save Changes* button.
+Scroll down to *Allowed Callback URLs* and set it to `http://localhost:8080`. If the HTTP server of your client is running on a different port, adjust the URL as needed. Scroll down even further and click the *Save Changes* button.
 
 Next, click *Show Advanced Settings* (this is directly above the *Save Changes* button). In the *OAuth* tab, make sure that `RS256` is selected as signature algorithm. Disable the *OIDC Conformant* setting, and save your changes.
 
@@ -826,7 +826,7 @@ const when = {
 };
 ```
 
-Finally, you must restart the backend to make your changes effective. Any of the previously created data will be deleted. However, in this case this is desirable, as the data model has changed:
+Finally, you must restart the backend to make your changes effective. Any of the previously created data will be deleted. However, in this case, this is desirable, as the data model has changed:
 
 ```shell
 $ wolkenkit restart
