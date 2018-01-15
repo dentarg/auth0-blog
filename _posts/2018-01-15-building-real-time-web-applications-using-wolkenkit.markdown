@@ -748,7 +748,7 @@ const initialState = {
 
 Omitting `forPublic` automatically sets these properties to `false`. If you want to be more explicit, you can keep them and set their values to `false` manually.
 
-Since each message should now have an author, the aggregate's initial state, the `send` command and the `sent` event must also be modified. The changes to the initial state are simple, as you only need to add an `author` field:
+Since each message should now have an author, the aggregate's initial state, the `send` command, and the `sent` event must also be modified. The changes to the initial state are simple, as you only need to add an `author` field:
 
 ```javascript
 const initialState = {
