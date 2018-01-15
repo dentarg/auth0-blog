@@ -347,7 +347,7 @@ $ mkdir -p chat/client
 
 To keep things simple, you will not use a UI library such as React or Angular. Instead, you will write the code to access the UI on your own. Fortunately, this can be done with just a few lines.
 
-First you have to create the file `index.html`, which acts as the entry point for your application. Initialize it using the following code:
+First you have to create the `index.html` file, which acts as the entry point for your application. Initialize it using the following code:
 
 {% highlight html %}
 {% raw %}
@@ -500,7 +500,7 @@ The final piece you need to prepare is a custom `render` function that takes car
 })();
 ```
 
-Now you have all the basic parts ready, so that you can add the actual application logic to the client. First, you need to install the [wolkenkit client SDK](https://www.npmjs.com/package/wolkenkit-client). To do so, use **npm**, but ensure to run this from the directory `chat/client`:
+Now you have all the basic parts ready and you can add the actual application logic to the client. First, you need to install the [wolkenkit client SDK](https://www.npmjs.com/package/wolkenkit-client). To do so, use **npm**, but ensure to run this from the directory `chat/client`:
 
 ```shell
 $ cd chat/client
@@ -564,7 +564,7 @@ Once the promise resolves, a reference to the backend is returned. Otherwise you
 });
 ```
 
-When the user now enters a message to the form and clicks the submit button, you need to create a new `message` instance and run the `send` command on it. You can do this with the following code:
+Now, when the user enters a message to the form and clicks the submit button, you need to create a new `message` instance and run the `send` command on it. You can do this with the following code:
 
 ```javascript
 chat.communication.message().send({ text: 'Hello world' });
@@ -620,7 +620,7 @@ chat.lists.messages.readAndObserve({
   updated(view.render);
 ```
 
-Last but not least you should initially focus the text input field, so that the user is immediately able to send messages:
+Last but not least, you should initially focus the text input field, so that the user is immediately able to send messages:
 
 ```javascript
 view.newMessage.focus();
