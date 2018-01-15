@@ -82,15 +82,15 @@ In this way, the three concepts come together like the pieces of a puzzle that f
 
 ## Modelling your domain
 
-As described, events are changes that have taken place in the domain. If you want to develop an application based on events and make use of them, you must first think about which events are contained in the respective domain. So before implementing any code, you need to start modelling.
+As described, events are changes that have taken place in the domain. If you want to develop an application based on events and make use of them, you must first think about which events are contained in the respective domain. So, before implementing any code, you need to start modeling.
 
-As an example, you will develop a simple instant messaging service in the style of [Slack](https://slack.com/), but reduced to the essential functions. The most significant limitation is that the application will only support a single channel which you can use to **send** and **like** messages. Furthermore, you will use [Auth0](https://auth0.com/) to authenticate the users.
+As an example, you will develop a simple instant messaging service in the style of [Slack](https://slack.com/), but reduced to the essential functions. The most significant limitation is that the application will only support a single channel, which you can use to **send** and **like** messages. Furthermore, you will use [Auth0](https://auth0.com/) to authenticate the users.
 
-The core of the application is, of course, about sending messages. Therefore, it is obvious to introduce an `sent` event, which is raised whenever a message is sent by a user. It also makes sense to implement a `liked` event to point out that a message was rated positively. You can raise these events with two corresponding [commands](https://www.thenativeweb.io/blog/2017-11-16-09-46-ddd-and-co-part-3-commands-and-events/), `send` and `like`.
+The core of the application is, of course, about sending messages. Therefore, it is obvious to introduce a `sent` event, which is raised whenever a message is sent by a user. It also makes sense to implement a `liked` event to point out that a message was rated positively. You can raise these events with two corresponding [commands](https://www.thenativeweb.io/blog/2017-11-16-09-46-ddd-and-co-part-3-commands-and-events/): `send` and `like`.
 
 According to DDD, the common logic is located in an [aggregate](https://www.thenativeweb.io/blog/2017-11-20-10-02-ddd-and-co-part-4-aggregates/). Since the commands and events refer to a single message, it is obvious to call the aggregate `message`. All of this is about communicating with each other, hence it makes sense to introduce a context called `communication` and to assign the aggregate to this context. The previously defined terminology (which forms the [ubiquitous language](https://www.thenativeweb.io/blog/2017-11-01-11-13-ddd-and-co-part-2-semantics-over-crud/)) is only valid within the linguistic boundaries of this context.
 
-The very same application may have other contexts that deal with other aspects, such as user administration or billing. There the terms `message`, `sent` and `liked` could occur as well – but their semantics would be different. Finally, all the contexts together form the domain, which in this example you can call `chat`. Now the model looks like this:
+The very same application may have other contexts that deal with other aspects, such as user administration or billing. There the terms `message`, `sent`, and `liked` could occur as well—but their semantics would be different. Finally, all the contexts together form the domain, which in this example you can call `chat`. Now the model looks like this:
 
 ```
 chat
