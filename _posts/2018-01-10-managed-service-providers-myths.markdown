@@ -12,8 +12,8 @@ author:
   avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
   mail: diego.poza@auth0.com
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/series-c/auth0-logo.png
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/seven-myths-about-msps/logo.png
 tags:
 - managed-service-providers
 - auth0
