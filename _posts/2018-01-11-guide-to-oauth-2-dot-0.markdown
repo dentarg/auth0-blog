@@ -109,4 +109,4 @@ Auth0 is a global leader in Identity-as-a-Service (IDaaS) and provides thousands
 
 At Auth0 we utilize OAuth 2.0 along with Open ID Connect (OIDC) which is an identity layer built upon OAuth 2.0. OAuth is not the only authorization protocol we use, but it is one of the most popular.
 
-For more information, visit https://auth0.com or follow @auth0 on Twitter.
+For more information, visit https://auth0.com, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free Auth0 account here</a> or follow @auth0 on Twitter.
