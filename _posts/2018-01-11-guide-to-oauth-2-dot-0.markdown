@@ -2,7 +2,7 @@
 layout: post
 title: "Guide to OAuth 2.0"
 description: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique"
-longdescription: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique. Includes how OAuth enables us to enhance our online experience while limiting exposure of sensitive information and how roles help us separate the responsibilities of an OAuth requests"
+longdescription: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique. Includes how OAuth enables us to enhance our online experience while limiting exposure of sensitive information and how roles help us separate the responsibilities of OAuth requests"
 date: 2018-01-11 11:44
 category: Growth, Identity, Authentication
 is_non-tech: true
