@@ -81,7 +81,7 @@ A grant represents the user's permission to access their data and can be used to
 
 **[Client Credentials](https://auth0.com/docs/api-auth/grant/client-credentials):** used for machine-to-machine communication.
 
-To start with, this article will touch on the most common form of grant type which is going to help us shed light on OAuth, without overcomplicating it. [Read more about OAuth 2.0 and the other grant types](https://auth0.com/docs/protocols/oauth2).
+This article will only touch on the most common form of grant type which is going to help us shed light on OAuth, without overcomplicating it. [Read more about OAuth 2.0 and the other grant types](https://auth0.com/docs/protocols/oauth2).
 
 #### Authorization code grant
 
