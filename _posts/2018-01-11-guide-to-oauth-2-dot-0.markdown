@@ -31,7 +31,7 @@ OAuth (or Open Authorization) is a framework that gives users the ability to gra
 
 ![Spotify and Facebook](https://cdn.auth0.com/blog/guide-to-oauth2/spotify-signup-with-facebook.png)
 
-The idea is that you're giving Spotify certain permission to access your Facebook details, so that Facebook can provide Spotify with enough information to sign you up, enhance your profile details, or display what your friends are listing to. Meanwhile, more sensitive information–perhaps your conversations–remain entirely closed off to Spotify. They only get access to the bits they're *authorized* to see.
+The idea is that you're giving Spotify certain permission to access your Facebook details, so that Facebook can provide Spotify with enough information to sign you up, enhance your profile details, or display what your friends are listening to. Meanwhile, more sensitive information–perhaps your conversations–remain entirely closed off to Spotify. They only get access to the bits they're *authorized* to see.
 
 ![Spotify requests access to Facebook](https://cdn.auth0.com/blog/guide-to-oauth2/spotify-access-to-facebook.png)
 
