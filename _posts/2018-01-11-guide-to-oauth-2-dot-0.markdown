@@ -21,7 +21,7 @@ related:
 - 2017-12-12-authentication-provider-best-practices-centralized-login
 ---
 
-Have you visited a site recently, where you are given the option of connecting or signing up using Google, Facebook or Twitter? Sure you have! This is basically what OAuth is all about; granting third-party services permission to do something for you–like logging you in. In this article, you will learn what OAuth is, how it started and how it works. 
+Have you visited a site recently, where you are given the option of connecting or signing up using Google, Facebook or Twitter? Sure you have! This is basically what OAuth is all about; granting third-party services permission to do something for you–like logging you in. In this article, you will learn what OAuth is, how it started, and how it works. 
 
 > **Note:** For the purposes of this article and the comfort of the target audience, OAuth is to be assumed as OAuth 2.0 unless specifically mentioning another version.
 
@@ -31,9 +31,9 @@ OAuth (or Open Authorization) is a framework that gives users the ability to gra
 
 ![Spotify uses OAuth for signup with Facebook](https://cdn.auth0.com/blog/guide-to-oauth2/spotify-signup-with-facebook.png)
 
-{% include tweet_quote.html quote_text="OAuth is a framework that gives users the ability to grant access to their information stored in one place, from another place" %}
+{% include tweet_quote.html quote_text="OAuth is a framework that gives users the ability to grant access to their information stored in one place, from another place." %}
 
-The idea is that you're giving Spotify certain permission to access your Facebook details, so that Facebook can provide Spotify with enough information to sign you up, enhance your profile details, or display what your friends are listening to. Meanwhile, more sensitive information–perhaps your conversations–remain entirely closed off to Spotify. They only get access to the bits they're *authorized* to see.
+The idea is that you're giving Spotify certain permission to access your Facebook details, so that Facebook can provide Spotify with enough information to sign you up, enhance your profile details, or display what your friends are listening to. Meanwhile, more sensitive information, such as your conversations, remain entirely closed off to Spotify. They only get access to the bits they're *authorized* to see.
 
 ![OAuth used by Spotify for access to Facebook](https://cdn.auth0.com/blog/guide-to-oauth2/spotify-access-to-facebook.png)
 
@@ -43,7 +43,7 @@ The idea is that you're giving Spotify certain permission to access your Faceboo
 
 Before initiatives like OAuth appeared, you would have had to give Spotify access to your Facebook login details for Spotify to be able to access your information on Facebook.
 
-Previous versions were first developed in 2007 by a group seeking to standardize how we can delegate permissions between different software applications. The latest version, OAuth 2.0, is not backwards compatible with previous versions which have now been deprecated. Despite deprecating old versions, they remain in use widely across the web, including by one of the original drivers behind the general OAuth movement, Twitter. Some feel that it is less secure and it has been described as a [road to hell](http://hueniverse.com/2012/07/26/oauth-2-0-and-the-road-to-hell/).
+OAuth was first developed in 2007 by a group seeking to standardize how we can delegate permissions between different software applications. The latest version, OAuth 2.0, is not backwards compatible with previous versions which have now been deprecated. Despite deprecating old versions, they remain in use widely across the web, including by one of the original drivers behind the general OAuth movement, Twitter. Some feel that it is less secure and it has been described as a [road to hell](http://hueniverse.com/2012/07/26/oauth-2-0-and-the-road-to-hell/).
 
 ## How does it work?
 
@@ -81,7 +81,7 @@ A grant represents the user's permission to access their data and can be used to
 
 **[Resource Owner Password Credentials](https://auth0.com/docs/api-auth/grant/password):** used by trusted apps.
 
-**[Client Credentials](https://auth0.com/docs/api-auth/grant/client-credentials):** used for machine-to-machine communication.
+**[Client Credentials](https://auth0.com/docs/api-auth/grant/client-credentials):** used for machine to machine communication, such as API auth.
 
 This article will only touch on the most common form of grant type which is going to help us shed light on OAuth, without overcomplicating it. [Read more about OAuth 2.0 and the other grant types](https://auth0.com/docs/protocols/oauth2).
 
@@ -101,7 +101,7 @@ The user will be asked to login to **The Authorization Server** and approve **Th
 
 Access tokens represents your authorization to access **The Resource Owner**'s information on **The Resource Server**. You're required to exchange your grant for an access token, which will often have an expiry time.
 
-{% include tweet_quote.html quote_text="Access tokens represents your authorization to access the resource owners information on the resource server" %}
+{% include tweet_quote.html quote_text="Access tokens represents your authorization to access the resource owners information on the resource server." %}
 
 ## OAuth at Auth0
 
