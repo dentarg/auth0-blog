@@ -47,9 +47,9 @@ OAuth was first developed in 2007 by a group seeking to standardize how we can d
 
 ## How does it work?
 
-To understand how OAuth works, we need to understand Roles, grant types and access tokens.
+To understand how OAuth works, we need to understand Roles, grant types, access tokens, and refresh tokens.
 
-![Generic OAuth Flow](https://cdn2.auth0.com/docs/media/articles/protocols/oauth2-generic-flow.png)
+![Generic OAuth Flow](https://cdn.auth0.com/blog/guide-to-oauth2/basic-oauth2-flow.png)
 
 ### Roles
 
@@ -99,9 +99,17 @@ The user will be asked to login to **The Authorization Server** and approve **Th
 
 ### Access tokens
 
-Access tokens represents your authorization to access **The Resource Owner**'s information on **The Resource Server**. You're required to exchange your grant for an access token, which will often have an expiry time.
+Access tokens represent your authorization to access **The Resource Owner**'s information on **The Resource Server**. You're required to exchange your grant for an access token, which will have an expiry time.
+
+Access tokens expire so that any malicious use is limited by time. You'll need a new access token once it has expired.
 
 {% include tweet_quote.html quote_text="Access tokens represents your authorization to access the resource owners information on the resource server." %}
+
+### Refresh tokens
+
+Refresh tokens are a special type of token that can be held **securely** by **The Client** with the express purpose of being able to request a new access token from **The Authorization Server** once the original access token has expired. These can also expire, but are generally long lived.
+
+**The Authorization Server** should be able to revoke a refresh token in the event that it could have been compromised.
 
 ## OAuth at Auth0
 
