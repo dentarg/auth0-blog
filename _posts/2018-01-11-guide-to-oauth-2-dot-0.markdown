@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Guide to OAuth 2.0"
-description: ""
-longdescription: ""
+description: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique"
+longdescription: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique. Includes how OAuth enables us to enhance our online experience while limiting exposure of sensitive information and how roles help us separate the responsibilities of an OAuth requests"
 date: 2018-01-11 11:44
 category: Growth, Identity, Authentication
 is_non-tech: true
@@ -18,7 +18,7 @@ tags:
 - oauth2
 - authorization
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2017-12-12-authentication-provider-best-practices-centralized-login
 ---
 
 Have you visited a site recently, where you are given the option of connecting or signing up using Google, Facebook or Twitter? Sure you have! This is basically what OAuth is all about; granting third-party services permission to do something for you–like logging you in. In this article, you will learn what OAuth is, how it started and how it works. 
@@ -29,7 +29,11 @@ Have you visited a site recently, where you are given the option of connecting o
 
 OAuth (or Open Authorization) is a framework that gives users the ability to grant access to their information stored in one place, from another place. For example, granting Spotify access to your Facebook profile.
 
-The idea is that you're giving Spotify certain permission to access your Facebook details, so that Facebook can provide Spotify with enough information to sign you up, enhance your profile details, or display what your friends are listing to. Meanwhile, more sensitive information–perhaps your conversations–remain entirely closed off to Spotify's access. They only get access to the bits they're *authorized* to see.
+![Spotify and Facebook](https://cdn.auth0.com/blog/guide-to-oauth2/spotify-signup-with-facebook.png)
+
+The idea is that you're giving Spotify certain permission to access your Facebook details, so that Facebook can provide Spotify with enough information to sign you up, enhance your profile details, or display what your friends are listing to. Meanwhile, more sensitive information–perhaps your conversations–remain entirely closed off to Spotify. They only get access to the bits they're *authorized* to see.
+
+![Spotify requests access to Facebook](https://cdn.auth0.com/blog/guide-to-oauth2/spotify-access-to-facebook.png)
 
 > _"Many luxury cars today come with a valet key. It is a special key you give the parking attendant and unlike your regular key, will not allow the car to drive more than a mile or two. You give someone limited access to your car with a special key, while using your regular key to unlock everything."_ — OAuth.net
 
