@@ -6,7 +6,7 @@ date: 2018-01-02 08:30
 category: Technical Guide, Backend, LoopBack
 author:
   name: "Chidume Nnamdi"
-  url: "twitter.com/ngArchangel"
+  url: "https://twitter.com/ngArchangel"
   mail: "kurtwanger40@gmail.com"
   avatar: "https://secure.gravatar.com/avatar/dbafebf712fa816299231d2763fd292e?s=200"
 design:

@@ -129,7 +129,7 @@ app.use((req, res, next) => {
     } else {
         requiredScope = "authenticate:app2";
     }
-    if (!req.user || !req.user.scope || !req.user.scope.indexOf(requiredScope)) {
+    if (!req.user || !req.user.scope || !req.user.scope.indexOf(requiredScope) < 0) {
         res.sendStatus(401);
         return;
     }
