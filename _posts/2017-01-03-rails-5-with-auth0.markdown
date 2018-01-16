@@ -21,6 +21,11 @@ related:
 - 2016-02-22-12-steps-to-a-faster-web-app
 ---
 
+<div class="alert alert-danger alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>This post is out of date.</strong> Ruby on Rails has undergone many changes since the publication of this article, and the method of authentication utilized in this post is not up-to-date with current best practices. We are working on bringing you an updated tutorial on this topic!
+</div>
+
 Rails 5 is out with Action Cable, a brand new API mode, and best of all, Rake tasks inside Rails!
 
 ![Auth0 On Rails](https://github.com/amingilani/auth0-rails5/raw/master/docs/auth0-on-rails.png)
