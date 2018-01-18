@@ -3,7 +3,7 @@ layout: post
 title: "The Complete Guide To Deploying JavaScript Applications - Part 2: Single Page Applications, Logging, SSL"
 description: "Learn how to deploy JavaScript Single Page Applications on different platforms."
 longdescription: "Deploying JavaScript Single Page Applications can be a hassle. Equip yourself with the knowledge required to move your applications from development to production on different platforms with this guide."
-date: 2017-01-18 08:30
+date: 2018-01-18 08:30
 category: Technical guide, Frontend, JavaScript
 design:
   bg_color: "#484C89"
