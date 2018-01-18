@@ -27,7 +27,7 @@ related:
 ---
 
 
-**TL;DR:** Atwood's law states that _Any application that can be written in JavaScript, will eventually be written in JavaScript._  In 2018, eleven years after this law was proposed, JavaScript is now the [most popular language](https://insights.stackoverflow.com/survey/2017#technology-programming-languages) in the world. In the [first part](#firstpart) of this tutorial, we covered database and backend deployments. In the second and final part of this tutorial, I'll show you how to tie everything together by learning to deploy JavaScript Single Page Applications and static websites to different cloud platforms. This article is not about performance.
+**TL;DR:** Atwood's law states that _Any application that can be written in JavaScript, will eventually be written in JavaScript._  In 2018, eleven years after this law was proposed, JavaScript is now the [most popular language](https://insights.stackoverflow.com/survey/2017#technology-programming-languages) in the world. In the [first part](https://auth0.com/blog/the-complete-guide-to-deploying-javascript-applications-part-1) of this tutorial, we covered database and backend deployments. In the second and final part of this tutorial, I'll show you how to tie everything together by learning to deploy JavaScript Single Page Applications and static websites to different cloud platforms. This article is not about performance.
 
 ---
 
