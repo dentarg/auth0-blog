@@ -6,7 +6,7 @@ longdescription: "Deploying JavaScript Single Page Applications can be a hassle.
 date: 2018-01-18 08:30
 category: Technical guide, Frontend, JavaScript
 design:
-  bg_color: "#484C89"
+  bg_color: "#222228"
   image: https://cdn.auth0.com/blog/jsdeploy/logo.png
 author:
   name: Prosper Otemuyiwa
