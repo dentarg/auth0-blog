@@ -101,13 +101,13 @@ The user will be asked to login to **The Authorization Server** and approve **Th
 
 Access tokens represent your authorization to access **The Resource Owner**'s information on **The Resource Server**. You're required to exchange your grant for an access token, which will have an expiry time.
 
-Access tokens expire so that any malicious use is limited by time. You'll need a new access token once it has expired.
+Access tokens expire so that any malicious use and damage is limited. You'll need a new access token once it has expired. They can be setup to expire after any amount of time, usually a few minutes.
 
 {% include tweet_quote.html quote_text="Access tokens represents your authorization to access the resource owners information on the resource server." %}
 
 ### Refresh tokens
 
-Refresh tokens are a special type of token that can be held **securely** by **The Client** with the express purpose of being able to request a new access token from **The Authorization Server** once the original access token has expired. These can also expire, but are generally long lived.
+Refresh tokens are a special type of token that can be held **securely** by **The Client** with the express purpose of being able to request a new access token from **The Authorization Server** once the original access token has expired. These can also expire, but are generally long lived with expiry times that can be as long as 14 days or more.
 
 **The Authorization Server** should be able to revoke a refresh token in the event that it could have been compromised.
 
