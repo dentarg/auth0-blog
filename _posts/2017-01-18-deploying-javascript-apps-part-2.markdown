@@ -2,9 +2,9 @@
 layout: post
 title: "The Complete Guide To Deploying JavaScript Applications - Part 2: Single Page Applications, Logging, SSL, Media Assets Deployment"
 description: "Learn how to deploy JavaScript Single Page Applications on different platforms."
-longdescription: "Deploying JavaScript Single Page Applications can be a hassle. Equip yourself with the knowledge required to move your applications from development to production on different platforms in this guide."
-date: 2017-12-31 08:30
-category: Technical guide, Frameworks, JavaScript
+longdescription: "Deploying JavaScript Single Page Applications can be a hassle. Equip yourself with the knowledge required to move your applications from development to production on different platforms with this guide."
+date: 2017-01-18 08:30
+category: Technical guide, Frontend, JavaScript
 design:
   bg_color: "#484C89"
   image: https://cdn.auth0.com/blog/jsdeploy/logo.png
@@ -21,8 +21,8 @@ tags:
 - monitoring
 - logging
 related:
-- 2017-02-02-migrating-a-php5-app-to-php7-part-one
-- 2017-02-07-migrating-a-php5-app-to-php7-part-two
+- 2017-12-20-developing-npm-packages
+- 2018-01-09-the-complete-guide-to-deploying-javascript-applications-part-1
 - 2017-05-08-the-ultimate-guide-to-deploying-php-applications
 ---
 
