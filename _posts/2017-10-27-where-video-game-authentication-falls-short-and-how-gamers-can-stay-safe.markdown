@@ -4,6 +4,7 @@ title: "Where Video Game Authentication Falls Short (And How Gamers Can Stay Saf
 description: "Video game security could be better, and you should know why."
 date: 2017-10-27 18:37
 category: Growth, Industries
+is_non-tech: true
 author:
   name: Ramiro Nuñez Dosio
   url: https://twitter.com/ramirond_

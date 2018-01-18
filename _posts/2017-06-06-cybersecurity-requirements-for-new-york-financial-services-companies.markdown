@@ -4,6 +4,7 @@ title: "Attention! New Regulation for New York Financial Companies"
 description: "The New York State Department of Financial Services (DFS) has issued a new regulation that defines cybersecurity requirements for financial companies."
 date: 2017-06-06 14:05
 category: Growth, Industries
+is_non-tech: true
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"

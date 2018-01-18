@@ -4,6 +4,7 @@ title: "Building Account Systems"
 description: "Focus on your core competency. Outsource your login systems"
 date: 2017-09-15 8:30
 category: Growth, BuildBuy
+is_non-tech: true
 author:
   name: Mike Hearn
   url: https://blog.plan99.net/
