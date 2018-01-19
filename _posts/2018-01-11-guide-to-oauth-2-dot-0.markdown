@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Guide to OAuth 2.0"
+title: "OAuth 2.0: The Complete Guide"
 description: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique"
 longdescription: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique. Includes how OAuth enables us to enhance our online experience while limiting exposure of sensitive information and how roles help us separate the responsibilities of OAuth requests"
 date: 2018-01-11 11:44
@@ -39,13 +39,13 @@ The idea is that you're giving Spotify certain permission to access your Faceboo
 
 > _"Many luxury cars today come with a valet key. It is a special key you give the parking attendant and unlike your regular key, will not allow the car to drive more than a mile or two. You give someone limited access to your car with a special key, while using your regular key to unlock everything."_ — OAuth.net
 
-## How did it start?
+## How did OAuth start?
 
 Before initiatives like OAuth appeared, you would have had to give Spotify access to your Facebook login details for Spotify to be able to access your information on Facebook.
 
 OAuth was first developed in 2007 by a group seeking to standardize how we can delegate permissions between different software applications. The latest version, OAuth 2.0, is not backwards compatible with previous versions which have now been deprecated. Despite deprecating old versions, they remain in use widely across the web, including by one of the original drivers behind the general OAuth movement, Twitter. Some feel that it is less secure and it has been described as a [road to hell](http://hueniverse.com/2012/07/26/oauth-2-0-and-the-road-to-hell/).
 
-## How does it work?
+## How does OAuth work?
 
 To understand how OAuth works, we need to understand Roles, grant types, access tokens, and refresh tokens.
 
