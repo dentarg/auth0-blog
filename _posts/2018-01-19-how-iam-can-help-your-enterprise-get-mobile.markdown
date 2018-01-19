@@ -2,7 +2,8 @@
 layout: post
 title: "How IAM Can Help Your Enterprise Get Mobile"
 description: "Give your employees flexibility without compromising security"
-date: 2017-10-26 09:41
+long_description: Workers want mobility and flexibility, but this implies stronger security for mobile devices. You need a sophisticated Identity and Access Management system like Auth0 with features like automatic log out, multifactor authentication and the ability to immediately scale to the enterprise.
+date: 2018-01-19 09:41
 category: Growth, Identity
 author:
   name: Martin Gontovnikas
@@ -18,9 +19,14 @@ tags:
 - management
 - mobile
 - millennials
+- multifactor-authentication
+- security
+- mobile-security
+- remote
 related:
-- 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
-- 2017-03-24-360-view-of-customer-by-managing-identity
+- 2017-12-15-why-your-iam-definition-of-user-could-be-costing-you-millions
+- 2017-12-29-why-every-business-needs-two-factor-authentication-security
+- 2017-12-04-ten-mobile-security-threats-and-what-you-can-do-to-fight-back
 ---
 
 Workers want mobility and flexibility and you want to give it to them. Young people, especially, have heard the siren song of flex time, and they've [made it a priority](https://www.forbes.com/sites/katetaylor/2013/08/23/why-millennials-are-ending-the-9-to-5/#1c17d54f715d) in their job search.
