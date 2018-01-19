@@ -101,7 +101,7 @@ Access tokens expire so that any malicious use and damage is limited. You'll nee
 
 {% include tweet_quote.html quote_text="Access tokens represents your authorization to access the resource owners information on the resource server." %}
 
-![Generic OAuth Flow](https://cdn.auth0.com/blog/guide-to-oauth2/basic-oauth2-flow.png)
+![Generic OAuth flow](https://cdn.auth0.com/blog/guide-to-oauth2/basic-oauth2-flow.png)
 
 ### Refresh tokens
 
@@ -109,7 +109,7 @@ Refresh tokens are a special type of token that can be held **securely** by **Th
 
 **The Authorization Server** should be able to revoke a refresh token in the event that it could have been compromised.
 
-![Basic OAuth refresh token flow](https://cdn.auth0.com/blog/guide-to-oauth2/refresh-oauth2-flow.png)
+![Refresh OAuth flow](https://cdn.auth0.com/blog/guide-to-oauth2/refresh-oauth2-flow.png)
 
 ## OAuth at Auth0
 
