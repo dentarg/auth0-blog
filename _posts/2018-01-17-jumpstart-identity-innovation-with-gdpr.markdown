@@ -40,7 +40,7 @@ Many of our customers make the most of their investment in compliance by using A
  
 Your largest customer is often both the most demanding and rewarding. If you can redirect them to a customized page after logging into your application, you will be able to treat this customer differently from the rest—as you should. 
 
-Thank them. Make it easy for them to add to their subscription. Engage them with questions. Auth0 makes it easy to use taken an innovative approach to this page to increase customer conversions.
+Thank them. Make it easy for them to add to their subscription. Engage them with questions. Auth0 makes it easy to take an innovative approach to this page to increase customer conversions.
 
 An unfriendly implementation of GDPR compliance could tarnish that interaction. Instead, demonstrate your respect for their time by automatically recording the date when explicit consent or agreement to new privacy terms was granted without any disruption to service. Using Auth0 to automatically record the data without adding anything to the login form means your biggest fan won't notice the difference.
 
