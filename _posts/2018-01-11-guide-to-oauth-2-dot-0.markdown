@@ -12,8 +12,8 @@ author:
   avatar: https://avatars1.githubusercontent.com/u/956290?s=200
   mail: luke.oliff@auth0.com
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: #222228
+  image: https://cdn.auth0.com/blog/guide-to-oauth2/logo.png
 tags:
 - oauth2
 - authorization
