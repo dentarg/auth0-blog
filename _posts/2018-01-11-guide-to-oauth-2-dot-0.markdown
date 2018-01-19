@@ -49,8 +49,6 @@ OAuth was first developed in 2007 by a group seeking to standardize how we can d
 
 To understand how OAuth works, we need to understand Roles, grant types, access tokens, and refresh tokens.
 
-![Generic OAuth Flow](https://cdn.auth0.com/blog/guide-to-oauth2/basic-oauth2-flow.png)
-
 ### Roles
 
 First we need to understand how it separates the responsibility of our requests. Roles are used to define the separate entities involved in a request.
@@ -95,8 +93,6 @@ The user will be asked to login to **The Authorization Server** and approve **Th
 
 **The Client** can now send that code and our grant type to **The Authorization Server** and receive back an access token. 
 
-![Authorization code grant in OAuth process](https://cdn2.auth0.com/docs/media/articles/api-auth/authorization-code-grant.png)
-
 ### Access tokens
 
 Access tokens represent your authorization to access **The Resource Owner**'s information on **The Resource Server**. You're required to exchange your grant for an access token, which will have an expiry time.
@@ -105,11 +101,15 @@ Access tokens expire so that any malicious use and damage is limited. You'll nee
 
 {% include tweet_quote.html quote_text="Access tokens represents your authorization to access the resource owners information on the resource server." %}
 
+![Generic OAuth Flow](https://cdn.auth0.com/blog/guide-to-oauth2/basic-oauth2-flow.png)
+
 ### Refresh tokens
 
 Refresh tokens are a special type of token that can be held **securely** by **The Client** with the express purpose of being able to request a new access token from **The Authorization Server** once the original access token has expired. These can also expire, but are generally long lived with expiry times that can be as long as 14 days or more.
 
 **The Authorization Server** should be able to revoke a refresh token in the event that it could have been compromised.
+
+![Basic OAuth refresh token flow](https://cdn.auth0.com/blog/guide-to-oauth2/refresh-oauth2-flow.png)
 
 ## OAuth at Auth0
 
