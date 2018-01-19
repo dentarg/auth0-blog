@@ -57,7 +57,7 @@ And they're backed up by experts who spend each and every day thinking about not
 
 ## Automate log out
 
-Especially when employees are using mobile devices for work, triggering an automatic log out after a certain period of inactivity for any of your work systems in a must. If a work tablet gets left in a coffee shop or in a hotel on a work trip, there's an automatic layer of protection when no accounts have active sessions on a device. You can set up these [automated logouts](https://auth0.com/docs/logout) with your IAM of choice to kick employees out of your systems.
+Especially when employees are using mobile devices for work, triggering an automatic log out after a certain period of inactivity for any of your work systems is a must. If a work tablet gets left in a coffee shop or in a hotel on a work trip, there's an automatic layer of protection when no accounts have active sessions on a device. You can set up these [automated logouts](https://auth0.com/docs/logout) with your IAM of choice to kick employees out of your systems.
 
 You should also force employees to use some form of authentication every time they want to access sensitive information. Employees might be able to log into their email and project tools and stay logged in without a problem. But even if they're still logged into your system, they shouldn't be able to access sensitive documents without logging in every time:
 
