@@ -1458,7 +1458,7 @@ export class ApiService {
     return this.http
       .get(`${this._API}/dogs`)
       .pipe(
-        catchError(this._onError)
+        catchError((err, caught) => this._onError(err, caught))
       );
   }
 
@@ -1468,15 +1468,18 @@ export class ApiService {
         headers: new HttpHeaders().set('Authorization', `Bearer ${this._accessToken}`)
       })
       .pipe(
-        catchError(this._onError)
+        catchError((err, caught) => this._onError(err, caught))
       );
   }
 
-  private _onError(err: HttpErrorResponse | any) {
-    const errorMsg = err.message || 'Error: Unable to complete request.';
-    if (errorMsg.indexOf('No JWT') > -1 || errorMsg.indexOf('Unauthorized') > -1) {
-      this.auth.logout();
-      this.auth.login();
+  private _onError(err, caught) {
+    let errorMsg = 'Error: Unable to complete request.';
+    if (err instanceof HttpErrorResponse) {
+      errorMsg = err.message;
+      if (errorMsg.indexOf('No JWT') > -1 || errorMsg.indexOf('Unauthorized') > -1) {
+        this.auth.logout();
+        this.auth.login();
+      }
     }
     return Observable.throw(errorMsg);
   }
@@ -1488,7 +1491,9 @@ We'll add the necessary imports to handle HTTP in Angular along with the environ
 
 Our API methods will return observables that emit one value when the API is either called successfully or an error is thrown. The `getDogs$()` stream returns an observable with an array of objects that are `Dog`-shaped. The `getDogByRank$(rank)` stream requires a numeric rank to be passed in, and will then call the API to retrieve the requested `Dog`'s data. This API call will send an `Authorization` header containing the authenticated user's access token.
 
-Finally, we'll create an error handler that checks for errors and assesses if the user is not authenticated, clearing any expired session data and then prompting for login if so. If not, the observable will terminate with the error.
+Finally, we'll create an error handler that checks for errors and assesses if the user is not authenticated, clearing any expired session data and then prompting for login if so. The observable will then terminate with an error.
+
+> **Note:** We are using arrow functions to pass parameters to our handler functions for [RxJS pipeable operators](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md) (such as `catchError`). This is done to preserve the scope of the `this` keyword (see the "No separate `this`" section of the [MDN arrow functions documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)).
 
 ## <span id="next-steps"></span>Next Steps
 
