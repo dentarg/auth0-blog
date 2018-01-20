@@ -83,7 +83,7 @@ import { Title } from '@angular/platform-browser';
 import { ApiService } from '../../core/api.service';
 import { Dog } from './../../core/dog';
 import { Observable } from 'rxjs/Observable';
-import { map, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dogs',
@@ -97,23 +97,23 @@ export class DogsComponent implements OnInit {
 
   constructor(
     private title: Title,
-    private api: ApiService) {
-      this.dogsList$ = api.getDogs$().pipe(
-        map(res => this._dataSuccess(res)),
-        catchError(err => this._dataError(err))
-      );
+    private api: ApiService
+  ) {
+    this.dogsList$ = api.getDogs$().pipe(
+      tap(val => this._onNext(val)),
+      catchError((err, caught) => this._onError(err, caught))
+    );
   }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
   }
 
-  private _dataSuccess(res: Dog[]): Dog[] {
+  private _onNext(val: Dog[]) {
     this.loading = false;
-    return res;
   }
 
-  private _dataError(err: any): Observable<any> {
+  private _onError(err, caught): Observable<any> {
     this.loading = false;
     this.error = true;
     return Observable.throw('An error occurred fetching dogs data.');
@@ -133,7 +133,7 @@ We're going to be using the declarative [async pipe](https://angular.io/api/comm
 
 {% include tweet_quote.html quote_text="With the Angular Async pipe, we don't need to subscribe or unsubscribe in our component class." %}
 
-We'll make `Title` and `ApiService` available to our class by passing them to the constructor, and then set up our `dogsList$` observable. We'll use RxJS operators `map()` and `catchError()` to call handler functions. The `_dataSuccess()` function will set `loading` to `false` (since data has been successfully emitted) and return the data, expected in the shape of an array of `Dog`s. The `_dataError()` function will set `loading` and `error` appropriately and throw an error. As mentioned before, we don't need to _subscribe_ or _unsubscribe_ from the `dogsList$` observable because the async pipe (which we'll add in the template) will handle that for us.
+We'll make `Title` and `ApiService` available to our class by passing them to the constructor, and then set up our `dogsList$` observable. We'll use RxJS operators `tap` (previously known as the `do` operator) and `catchError` to call handler functions. The `tap` operator executes side effects but does not affect the emitted data, so it's ideal for setting other properties. The `_onNext()` function will set `loading` to `false` (since data has been successfully emitted). The `_onError()` function will set `loading` and `error` appropriately and throw an error. As mentioned before, we don't need to _subscribe_ or _unsubscribe_ from the `dogsList$` observable because the async pipe (which we'll add in the template) will handle that for us.
 
 On initialization of our component, we'll use [`ngOnInit()` to spy on the OnInit lifecycle hook](https://angular.io/guide/lifecycle-hooks#oninit) to [set the document `<title>`](https://angular.io/guide/set-document-title).
 
@@ -232,7 +232,7 @@ import { ApiService } from '../../core/api.service';
 import { DogDetail } from './../../core/dog-detail';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { map, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dog',
@@ -256,26 +256,26 @@ export class DogComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private title: Title) { }
+    private title: Title
+  ) { }
 
   ngOnInit() {
     this.paramSub = this.route.params
       .subscribe(
         params => {
           this.dog$ = this.api.getDogByRank$(params.rank).pipe(
-            map(res => this._dataSuccess(res)),
-            catchError(err => this._dataError(err))
+            tap(val => this._onNext(val)),
+            catchError((err, caught) => this._onError(err, caught))
           );
         }
       );
   }
 
-  private _dataSuccess(res: DogDetail): DogDetail {
+  private _onNext(val: DogDetail) {
     this.loading = false;
-    return res;
   }
 
-  private _dataError(err: any): Observable<any> {
+  private _onError(err, caught): Observable<any> {
     this.loading = false;
     this.error = true;
     return Observable.throw('An error occurred fetching detail data for this dog.');
@@ -311,7 +311,7 @@ http://localhost:4200/dog/2
 
 In order to access this parameter in the component class, we need to import the [ActivatedRoute interface](https://angular.io/api/router/ActivatedRoute), pass it to the constructor, and _subscribe_ to the activated route's [`params` observable](https://angular.io/api/router/ActivatedRoute#params).
 
-We can then pass the `rank` parameter to our `getDogByRank$()` API service method. We should also _unsubscribe_ from the route params observable [when the component is destroyed](https://angular.io/guide/lifecycle-hooks#ondestroy). Our `dog$` observable can use `map()` and `catchError()` handlers similar to our Dogs listing component.
+We can then pass the `rank` parameter to our `getDogByRank$()` API service method. We should also _unsubscribe_ from the route params observable [when the component is destroyed](https://angular.io/guide/lifecycle-hooks#ondestroy). Our `dog$` observable can use `tap` and `catchError` handlers similar to our Dogs listing component.
 
 We'll also need a couple of methods to help our template.
 
@@ -531,12 +531,12 @@ export class CommentsComponent {
     // Set up observable of comments
     this.comments$ = this._commentsCollection.snapshotChanges()
       .pipe(
-        map(res => this._dataSuccess(res)),
-        catchError(err => this._dataError(err))
+        map(res => this._onNext(res)),
+        catchError((err, caught) => this._onError(err, caught))
       );
   }
 
-  private _dataSuccess(res) {
+  private _onNext(res) {
     this.loading = false;
     this.error = false;
     // Add Firestore ID to comments
@@ -548,7 +548,7 @@ export class CommentsComponent {
     });
   }
 
-  private _dataError(err: any): Observable<any> {
+  private _onError(err, caught): Observable<any> {
     this.loading = false;
     this.error = true;
     return Observable.throw('An error occurred while retrieving comments.');
@@ -587,11 +587,11 @@ After passing `AngularFirestore` and `AuthService` to the constructor function, 
 
 Next we'll create our `comments$` observable using the `_commentsCollection`. We'll use `map()` and `catchError()` RxJS operators to handle emitted data and errors.
 
-In our private `_dataSuccess()` handler, we'll set `loading` and `error` to `false`. We'll also add the Firestore document ID to each item in arrays emitted by the `comments$` stream. We need these IDs in order to allow users to delete individual comments. In order to add the ID to the emitted values, we'll use the [`snapshotChanges()` method to access  metadata](https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#snapshotchanges). We can then `map()` document `id`s into the returned data using the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
+In our private `_onNext()` handler, we'll set `loading` and `error` to `false`. We'll also add the Firestore document ID to each item in arrays emitted by the `comments$` stream. We need these IDs in order to allow users to delete individual comments. In order to add the ID to the emitted values, we'll use the [`snapshotChanges()` method to access  metadata](https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md#snapshotchanges). We can then `map()` document `id`s into the returned data using the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
 
 > **Note:** You may notice that we did not set `error` to `false` in the success method in our dogs or dog observables, but we are doing so here. The comments stream emits a value each time _any_ user adds a comment in realtime. Therefore, we may need to reset the error status asynchronously in response.
 
-The private `_dataError()` handler should look very familiar from our other components. It sets `loading` and `error` properties and throws an error.
+The private `_onError()` handler should look very familiar from our other components. It sets `loading` and `error` properties and throws an error.
 
 The `onPostComment()` method will be run when the user submits a comment using the comment form component (which we will build shortly). The `onPostComment()` payload will contain a `Comment` instance containing the user's comment data, which then needs to be unwrapped to a normal object in order to be saved in Firestore. We'll save the unwrapped comment object using the Angular Firestore `add()` method.
 
