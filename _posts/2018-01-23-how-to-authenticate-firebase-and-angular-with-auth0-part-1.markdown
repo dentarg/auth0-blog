@@ -453,8 +453,8 @@ To simplify styling, we'll add the [Bootstrap CSS](https://getbootstrap.com) CDN
   ...
   <link
     rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
 </head>
 ...
@@ -1064,7 +1064,7 @@ The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
 
 ```typescript
   handleAuth() {
-    this.loggedIn = null;
+    this.loading = true;
     // When Auth0 hash parsed, get profile
     this._auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken) {
@@ -1074,7 +1074,7 @@ The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
         this._getProfile(authResult);
       } else if (err) {
         this.router.navigate(['/']);
-        this.loggedIn = false;
+        this.loading = false;
         console.error(`Error authenticating: ${err.error}`);
       }
     });
@@ -1100,18 +1100,17 @@ The next three methods are `handleAuth()`, `_getProfile()`, and `_setSession()`:
     // Set profile information
     localStorage.setItem('profile', JSON.stringify(profile));
     this.userProfile = profile;
-    // Session set; set loggedIn
+    // Session set; set loggedIn and loading
     this.loggedIn = true;
+    this.loading = false;
     // Redirect to desired route
     this.router.navigate([localStorage.getItem('auth_redirect')]);
   }
 ```
 
-These methods are fairly self-explanatory: they use Auth0 methods [`parseHash()` and `userInfo()` to extract authentication results and get the user's profile](https://auth0.com/docs/libraries/auth0js/v9#extract-the-authresult-and-get-user-info). We'll also set our service's properties to store necessary state (such as whether the user is logged in or not), handle errors, save data to local storage, and redirect to the appropriate route.
+These methods are fairly self-explanatory: they use Auth0 methods [`parseHash()` and `userInfo()` to extract authentication results and get the user's profile](https://auth0.com/docs/libraries/auth0js/v9#extract-the-authresult-and-get-user-info). We'll also set our service's properties to store necessary state (such as whether the user's authentication state is loading and if they're logged in or not), handle errors, save data to local storage, and redirect to the appropriate route.
 
-> **Note:** We set `loggedIn` to `null` so that we can track different states of the authentication process as it happens. This will help prevent things like a flash of content in the header.
-
-We are also going to use the auth result's access token to authorize an HTTP request to our API to get a Firebase token. This is done with the `_getFirebaseToken()` and `_firebaseAuth()` methods:
+We are also going to use the authentication result's access token to authorize an HTTP request to our API to get a Firebase token. This is done with the `_getFirebaseToken()` and `_firebaseAuth()` methods:
 
 ```typescript
   private _getFirebaseToken(accessToken) {
@@ -1329,35 +1328,19 @@ import { AuthService } from '../../auth/auth.service';
       border-radius: 100px;
       width: 30px;
     }
-    .loading {
-      line-height: 31px;
-    }
-    .home-link {
-      color: #212529;
-    }
-    .home-link:hover {
-      text-decoration: none;
-    }
+    .loading { line-height: 31px; }
+    .home-link { color: #212529; }
+    .home-link:hover { text-decoration: none; }
   `]
 })
 export class HeaderComponent {
 
   constructor(public auth: AuthService) {}
 
-  get showLogin(): boolean {
-    return !this.auth.loggedIn && this.auth.loggedIn !== null;
-  }
-
-  get loggingIn(): boolean {
-    return this.auth.loggedIn === null;
-  }
-
 }
 ```
 
 We'll add a few simple styles and import our `AuthService` to make its members publicly available to our header component's template.
-
-The `showLogin` accessor method checks the state of the `loggedIn` property and returns a boolean that lets the UI know if the user should be shown the login button. The `loggingIn` accessor method checks for `loggedIn` to be `null`. If this is the case, the `handleAuth()` method is currently executing and authentication data will be available shortly.
 
 Next open the `header.component.html` file and add:
 
@@ -1369,20 +1352,22 @@ Next open the `header.component.html` file and add:
     <strong class="mr-1"><a routerLink="/" class="home-link">Popular Dogs ❤</a></strong>
   </div>
   <div class="ml-3">
-    <button
-      *ngIf="showLogin"
-      class="btn btn-primary btn-sm"
-      (click)="auth.login()">Log In</button>
-    <small *ngIf="loggingIn" class="loading">
+    <small *ngIf="auth.loading" class="loading">
       Logging in...
     </small>
-    <span *ngIf="auth.loggedIn">
-      <img [src]="auth.userProfile.picture">
-      <small>{{ auth.userProfile.name }}</small>
+    <ng-template [ngIf]="!auth.loading">
       <button
-        class="btn btn-danger btn-sm"
-        (click)="auth.logout()">Log Out</button>
-    </span>
+        *ngIf="!auth.loggedIn"
+        class="btn btn-primary btn-sm"
+        (click)="auth.login()">Log In</button>
+      <span *ngIf="auth.loggedIn">
+        <img [src]="auth.userProfile.picture">
+        <small>{{ auth.userProfile.name }}</small>
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="auth.logout()">Log Out</button>
+      </span>
+    </ng-template>
   </div>
 </nav>
 {% endraw %}
@@ -1473,7 +1458,7 @@ export class ApiService {
     return this.http
       .get(`${this._API}/dogs`)
       .pipe(
-        catchError(this._handleError)
+        catchError(this._onError)
       );
   }
 
@@ -1483,13 +1468,13 @@ export class ApiService {
         headers: new HttpHeaders().set('Authorization', `Bearer ${this._accessToken}`)
       })
       .pipe(
-        catchError(this._handleError)
+        catchError(this._onError)
       );
   }
 
-  private _handleError(err: HttpErrorResponse | any) {
+  private _onError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Error: Unable to complete request.';
-    if (err.message && err.message.indexOf('No JWT present') > -1 || err.message.indexOf('UnauthorizedError') > -1) {
+    if (errorMsg.indexOf('No JWT') > -1 || errorMsg.indexOf('Unauthorized') > -1) {
       this.auth.logout();
       this.auth.login();
     }
@@ -1503,7 +1488,7 @@ We'll add the necessary imports to handle HTTP in Angular along with the environ
 
 Our API methods will return observables that emit one value when the API is either called successfully or an error is thrown. The `getDogs$()` stream returns an observable with an array of objects that are `Dog`-shaped. The `getDogByRank$(rank)` stream requires a numeric rank to be passed in, and will then call the API to retrieve the requested `Dog`'s data. This API call will send an `Authorization` header containing the authenticated user's access token.
 
-Finally, we'll create an error handler that checks for errors and assesses if the user is not authenticated, prompting for login if so. If not, the observable will terminate with the error.
+Finally, we'll create an error handler that checks for errors and assesses if the user is not authenticated, clearing any expired session data and then prompting for login if so. If not, the observable will terminate with the error.
 
 ## <span id="next-steps"></span>Next Steps
 
