@@ -55,7 +55,7 @@ First we need to understand how it separates the responsibility of our requests.
 
 #### The Client
 
-The client is the application trying to access to the user's account. It needs Authorization to do so. This might be the website you're on, or the app you've installed to your phone. In our example, this would be Spotify.
+The client is the application trying to access the user's account. It needs Authorization to do so. This might be the website you're on, the app you've installed to your phone, or both. In our example, this would be Spotify.
 
 #### The Resource Server
 
@@ -67,7 +67,7 @@ This is the server that asks the user to approve or deny the request. This would
 
 #### The Resource Owner
 
-The resource owner is the person who is giving access to their account. So if you're giving Spotify permission to access your Facebook info, you're the resource owner.
+The resource owner is the person who is giving access to their data. So if you're giving Spotify permission to access your Facebook info, you're the resource owner.
 
 ### Grant types
 
