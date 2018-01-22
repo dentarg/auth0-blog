@@ -2,6 +2,7 @@
 layout: post
 title: "Bootstrap 4.0 Release: What’s New?"
 description: "Bootstrap 4 ships with a lot of new features and adds spice to the most popular CSS framework in the world. Learn what's new in Bootstrap!"
+longdescription: "The final release of Bootstrap v4 is out. Learn about the notable changes in Bootstrap v4.0.0 and how to migrate from version 3 to 4."
 date: 2018-01-22 08:30
 category: Technical Guide, Bootstrap, Bootstrap 4
 design:
