@@ -34,25 +34,25 @@ related:
 
 Bootstrap is built and maintained by [@mdo](https://twitter.com/mdo), [@fat](https://twitter.com/fat) and a core team of developers. It is an open source toolkit that provides a responsive grid system, Sass variables and mixins, prebuilt components for developing with HTML, CSS, and JS. 
 
-Bootstrap 4.0 final release was announced to the world on January 19, 2018 after the alpha version was released three years ago. Bootstrap 4 is a major rewrite of the entire project. It is such a huge milestone for the Bootstrap team to tag the 4.0.0 release after many years of hard work squashing bugs, improving the framework and polishing the documentation. Let's go through the major changes in Bootstrap from the v4.0.0-beta to version 4.0.0. 
+Bootstrap 4.0 final release was announced to the world on January 19, 2018, after the alpha version was released three years ago. Bootstrap 4 is a major rewrite of the entire project. It is such a huge milestone for the Bootstrap team to tag the 4.0.0 release after many years of hard work squashing bugs, improving the framework and polishing the documentation. Let's go through the major changes in Bootstrap from the v4.0.0-beta to version 4.0.0. 
 
 {% include tweet_quote.html quote_text="Bootstrap 4 is a major rewrite of the entire project." %}
 
 ## 1. Normalize Dropped, Reboot Here to Stay
 
-Before version 4-beta, Normalize.css was a dependency in Bootstrap used for rendering the consistent appearance of all the HTML elements across board. The team decided to drop the dependency, fork some of it and remixed it with Bootstrap's [Reboot](https://getbootstrap.com/docs/4.0/content/reboot/) for a better and stable normalization approach.
+Before version 4-beta, Normalize.css was a dependency in Bootstrap used for rendering the consistent appearance of all the HTML elements across the board. The team decided to drop the dependency, fork some of it and remixed it with Bootstrap's [Reboot](https://getbootstrap.com/docs/4.0/content/reboot/) for a better and stable normalization approach.
 
 ## 2. Major Browser Support Change
 
 Bootstrap v4.0 now supports Internet Explorer 10+ and iOS 7+. Furthermore, it added official support for Android v5.0 Lollipop's Browser and WebView. 
 
-Unfortunately, it dropped support for IE8, IE9 and iOS 6. If you are building applications that needs support for these browser versions, use Bootstrap v3.
+Unfortunately, it dropped support for IE8, IE9 and iOS 6. If you are building applications that need support for these browser versions, use Bootstrap v3.
 
 ## 3. Giant Move to Flexbox
 
-With Bootstrap v4, Flexbox is enabled out of the box. Flexbox ships with a lot of awesome features, thus making Boostrap v4 very rich with benefits such as a Flexbox based grid, responsive sizing and floats, auto margins, vertical centering, auto-layout grid and even new spacing utilities. Flexbox also powers the new card components.
+With Bootstrap v4, Flexbox is enabled out of the box. Flexbox ships with a lot of awesome features, thus making Bootstrap v4 very rich with benefits such as a Flexbox based grid, responsive sizing and floats, auto margins, vertical centering, auto-layout grid and even new spacing utilities. Flexbox also powers the new card components.
 
-{% include tweet_quote.html quote_text="With Bootstrap v4, Flexbox is enabled out of the box." %}
+{% include tweet_quote.html quote_text=" With Bootstrap v4, Flexbox is enabled out of the box." %}
 
 ## 4. Improved Grid System
 
@@ -133,11 +133,11 @@ Check out [more information on forms](https://getbootstrap.com/docs/4.0/migratio
 
 ## 7. Sass By Default, Less Eliminated 
 
-Boostrap v3 uses [Less](http://lesscss.org/) for source CSS files. With Boostrap v4, [Sass](http://sass-lang.com/) is now used for source CSS files. From project experiments across the world, frontend developers tend to favor Sass over Less. Sass is very flexible and also compiles faster!
+Bootstrap v3 uses [Less](http://lesscss.org/) for source CSS files. With Bootstrap v4, [Sass](http://sass-lang.com/) is now used for source CSS files. From project experiments across the world, frontend developers tend to favour Sass over Less. Sass is very flexible and also compiles faster!
 
 ## 8. Elevated Card Components
 
-Bootstrap v4 dropped support for **panels**, **thumbnails**, and **wells** in favor of the new **card** component built with Flexbox. The card component provides a flexible and extensible content container with multiple variants and options. It includes options for headers, footers, contextual background colors and powerful display options.
+Bootstrap v4 dropped support for **panels**, **thumbnails**, and **wells** in favor of the new **card** component built with Flexbox. The card component provides a flexible and extensible content container with multiple variants and options. It includes options for headers, footers, contextual background colours and powerful display options.
 
 Functionality for panels, thumbnails and wells are available as modifier classes for cards.
 
@@ -187,7 +187,7 @@ Check out [more information on spacing utilities](https://getbootstrap.com/docs/
 
 ## 10. Improved Tooltip auto-placement Support
 
-Bootstrap v4 ships with improves support for auto-placement of tooltips, popovers and dropdowns. Bootstrap 4 dropped support for [Tether.js](https://github.com/HubSpot/tether/) in favor of [Popper.js](https://github.com/FezVrasta/popper.js) which does a great job and is actively maintained.
+Bootstrap v4 ships with improves support for auto-placement of tooltips, popovers and dropdowns. Bootstrap 4 dropped support for [Tether.js](https://github.com/HubSpot/tether/) in favour of [Popper.js](https://github.com/FezVrasta/popper.js) which does a great job and is actively maintained.
 
     ```js
     $(function () {
@@ -229,9 +229,9 @@ Bootstrap v4 ships with improves support for auto-placement of tooltips, popover
 
 Check out other [Angular 5 updates here](https://github.com/angular/angular/blob/master/CHANGELOG.md).
 
-## Upgrading to Boostrap 4
+## Upgrading to Bootstrap 4
 
-The Bootstrap team has a comprehensive guide for [migrating to Bootstrap v4](https://getbootstrap.com/docs/4.0/migration). However, there is a very [nifty tool](http://upgrade-bootstrap.bootply.com) from the community that allows you to drop in a piece of code and convert it to the Boostrap v4 equivalent.
+The Bootstrap team has a comprehensive guide for [migrating to Bootstrap v4](https://getbootstrap.com/docs/4.0/migration). However, there is a very [nifty tool](http://upgrade-bootstrap.bootply.com) from the community that allows you to drop in a piece of code and convert it to the Bootstrap v4 equivalent.
 
 ![Bootstrap v3](https://cdn.auth0.com/blog/bootstrap4/pieceofcode.png)
 _Bootstrap v3_
