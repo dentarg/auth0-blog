@@ -122,12 +122,14 @@ interface AuthConfig {
 
 export const AUTH_CONFIG: AuthConfig = {
   CLIENT_ID: '[AUTH0_CLIENT_ID]',
-  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]',
-  AUDIENCE: '[YOUR_AUTH0_API_AUDIENCE]', // likely http://localhost:8083/api/
+  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]', // e.g., you.auth0.com
+  AUDIENCE: '[YOUR_AUTH0_API_AUDIENCE]', // e.g., http://localhost:8083/api/
   REDIRECT: `${ENV.BASE_URI}/callback`,
   SCOPE: 'openid profile'
 };
 ```
+
+> **Important Note:** Make sure you copy the configuration properties _exactly_ as they appear in your Auth0 Dashboard settings. If identifiers are not exact, authentication will not and _should not_ function.
 
 ### Authentication Service
 
@@ -435,44 +437,52 @@ The first step is to log into your Auth0 dashboard and [create a new Rule](https
 
 ![create new Auth0 rule](https://cdn.auth0.com/blog/mean-series/rule-new.jpg)
 
-This opens up a JavaScript template. We only want to assign an `admin` role to our _own_ account at this time. It'd be a good idea to change the name of this rule so we can see at a glance what it does. I changed the name of the rule to `Set admin role for me`. We can easily modify `line 6` of the template where it checks the user's email for `indexOf()` a specific email domain.
+This opens up a JavaScript template. We only want to assign an `admin` role to our _own_ account at this time. It'd be a good idea to change the name of this rule so we can see at a glance what it does. We can easily modify the template where it checks the user's email for `indexOf()` a specific email domain.
 
-I'll change this to my full Google email address because that is the OAuth account that I want to assign the `admin` role to. I'm also using social connections with Facebook and Twitter, and it's important to keep in mind that some connections don't return an `email` field. Therefore, I need to modify the rule so that it checks that `user.email` exists before using a comparison. I'll modify the `addRolesToUser()` function to the following:
+I'll change this to my full Google email address because that represents the identity that I want to assign the `admin` role to. I'll modify the rule to the following:
 
 ```js
-if (user.email && user.email === '[MY_FULL_GOOGLE_ACCOUNT_EMAIL]') {
-  ...
+// Set me as 'admin' role, and all others to 'user'
+// Save app_metadata to ID and access tokens
+function (user, context, callback) {
+  user.app_metadata = user.app_metadata || {};
+  var addRolesToUser = function(user, cb) {
+    if (user.email && user.email === '[MY_FULL_GOOGLE_ACCOUNT_EMAIL]') {
+      cb(null, ['admin']);
+    } else {
+      cb(null, ['user']);
+    }
+  };
+
+  addRolesToUser(user, function(err, roles) {
+    if (err) {
+      callback(err);
+    } else {
+      user.app_metadata.roles = roles;
+      auth0.users.updateAppMetadata(user.user_id, user.app_metadata)
+        .then(function(){
+          // Add metadata to both ID token and access token
+          var namespace = 'http://myapp.com/roles';
+          var userRoles = user.app_metadata.roles;
+          context.idToken[namespace] = userRoles;
+          context.accessToken[namespace] = userRoles;
+          callback(null, user, context);
+        })
+        .catch(function(err){
+          callback(err);
+        });
+    }
+  });
+}
 ```
 
 Replace `[MY_FULL_GOOGLE_ACCOUNT_EMAIL]` with your own credentials. We're replacing `indexOf()` with a strict equality expression `===` because we want to match a full email address rather than just a domain as in the example rule template.
 
 > **Note:** If you want to use a non-Google account, make sure you identify the account by an appropriate property. Not all properties are returned by all connection types. You can also be more explicit regarding the details of the account if you want _all_ accounts with that email to be set as administrators, or if you want only a Google account versus a username/password account to match the check. You can check your [Auth0 Users](https://manage.auth0.com/#/users) or test your [Auth0 Social Connections](https://manage.auth0.com/#/connections/social) to see what kind of data is returned and stored from logins from different identity providers.
 
-When finished, click the "Save" button at the bottom of the page.
+We added `app_metadata` with a `roles` array to our users, but since this isn't part of the [OpenID standard claims](http://openid.net/specs/openid-connect-core-1_0.html#StandardClaims), we need to add [_custom_ claims](https://auth0.com/docs/scopes/current#custom-claims) in order to include roles data in the ID and access tokens when the `updateAppMetadata()` promise is resolved.
 
-### Create an Auth0 Rule to Add Claims to Tokens
-
-Now we'll create a second rule that will add this metadata from the Auth0 database to the ID token that is returned to the Angular app upon successful authentication, as well as the access token that is sent to the API to authorize endpoints.
-
-[Create another new Rule](https://manage.auth0.com/#/rules/new) in your Auth0 dashboard. This time, we won't be using an existing template, so click the "empty rule" button:
-
-![create new empty Auth0 rule](https://cdn.auth0.com/blog/mean-series/rule-empty.jpg)
-
-We added `app_metadata` with a `roles` array to our users in the previous rule, but since this isn't part of the [OpenID standard claims](http://openid.net/specs/openid-connect-core-1_0.html#StandardClaims), we need to add [_custom_ claims](https://auth0.com/docs/scopes/preview#example-add-custom-claims) in order to include roles data in the ID and access tokens.
-
-In the JavaScript template, enter a name for this rule, such as `Add user role to tokens`. Then add the following code:
-
-```js
-function (user, context, callback) {
-  var namespace = 'http://myapp.com/roles';
-  var userRoles = user.app_metadata.roles;
-  context.idToken[namespace] = userRoles;
-  context.accessToken[namespace] = userRoles;
-  callback(null, user, context);
-}
-```
-
-The `namespace` identifier can be any non-Auth0 HTTP or HTTPS URL and does not have to point to an actual resource. Auth0 enforces this [recommendation from OIDC regarding additional claims](https://openid.net/specs/openid-connect-core-1_0.html#AdditionalClaims) and will silently exclude any claims that do not have a namespace. You can read more about [implementing custom claims with Auth0 here](https://auth0.com/docs/scopes/preview#example-add-custom-claims).
+The `namespace` identifier can be any non-Auth0 HTTP or HTTPS URL and does not have to point to an actual resource. Auth0 enforces this [recommendation from OIDC regarding additional claims](https://openid.net/specs/openid-connect-core-1_0.html#AdditionalClaims) and will _silently exclude_ any claims that do not have a namespace. You can read more about [implementing custom claims with Auth0 here](https://auth0.com/docs/scopes/current#custom-claims).
 
 The key for our custom claim will be `http://myapp.com/roles`. This is how we'll retrieve the `roles` array from the ID and access tokens in our Angular app and Node API. Our rule assigns the Auth0 user's `app_metadata.roles` to this property.
 
@@ -482,9 +492,9 @@ When finished, click the "Save" button to save this rule.
 
 The next thing we need to do is _sign in_ with our intended admin user. This will trigger the rules to execute and the app metadata will be added to our targeted account. Then the roles data will also be available in the tokens whenever the user logs in.
 
-Since we've implemented login in our Angular app already, all we need to do is sign in with the account we specified in our `Set admin role for me` rule. Visit your Angular app in the browser at [http://localhost:4200](http://localhost:4200) and click the "Log In" link we added in the header.
+Since we've implemented login in our Angular app already, all we need to do is sign in with the account we specified in our `Set roles to a user` rule. Visit your Angular app in the browser at [http://localhost:4200](http://localhost:4200) and click the "Log In" link we added in the header.
 
-> **Note:** Recall that I used a Google account when setting up the `Set admin role for me` rule, so I'll log in using Google OAuth. (I enabled Google OAuth in [Auth0 Dashboard Social Connections](https://manage.auth0.com/#/connections/social) back in <a href="https://auth0.com/blog/real-world-angular-series-part-1#auth0-setup">Auth0 Account and Setup</a> in Part 1 of the tutorial series.)
+> **Note:** Recall that I used a Google account when setting up the `Set roles to a user` rule, so I'll log in using Google OAuth. (I enabled Google OAuth in [Auth0 Dashboard Social Connections](https://manage.auth0.com/#/connections/social) back in <a href="https://auth0.com/blog/real-world-angular-series-part-1#auth0-setup">Auth0 Account and Setup</a> in Part 1 of the tutorial series.)
 
 Once you've logged in, you can check to verify that the appropriate role was added to your user account in the [Auth0 Dashboard Users section](https://manage.auth0.com/#/users). Find the user you just logged in with and click the name to view details. This user's **Metadata** section should now look like this:
 
@@ -503,6 +513,8 @@ module.exports = {
   NAMESPACE: 'http://myapp.com/roles'
 };
 ```
+
+> **Note:** If you modified the existing rule template in the Auth0 Rules dashboard and _did not change the namespace_ to match the example code above, you should be mindful of this when setting up your configurations.
 
 We can now implement middleware that will verify that a user is authenticated _and_ has admin privileges to access API endpoints.
 

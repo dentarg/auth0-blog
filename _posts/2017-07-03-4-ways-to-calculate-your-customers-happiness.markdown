@@ -4,6 +4,7 @@ title: "4 Ways to Calculate Your Customers' Happiness"
 description: "Taking a full view of your customers as people is the best way to understand their happiness"
 date: 2017-07-03 16:01
 category: Growth, Growth Hacking
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza

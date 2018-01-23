@@ -38,6 +38,7 @@ GEM
       clamp (~> 0.6)
       ffi
       json (>= 1.7.7)
+    highline (1.7.10)
     hitimes (1.2.2)
     jekyll (2.4.0)
       classifier-reborn (~> 2.0)
@@ -70,9 +71,9 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     mercenary (0.3.4)
-    mini_portile2 (2.0.0)
-    nokogiri (1.6.7.2)
-      mini_portile2 (~> 2.0.0.rc2)
+    mini_portile2 (2.3.0)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
     parslet (1.5.0)
       blankslate (~> 2.0)
     posix-spawn (0.3.9)
@@ -108,6 +109,7 @@ DEPENDENCIES
   deb-s3
   fastimage
   fpm
+  highline
   jekyll (= 2.4.0)
   nokogiri
   psych (~> 2.0.5)
@@ -118,4 +120,4 @@ DEPENDENCIES
   stylus (~> 1.0.1)
 
 BUNDLED WITH
-   1.13.6
+   1.16.1

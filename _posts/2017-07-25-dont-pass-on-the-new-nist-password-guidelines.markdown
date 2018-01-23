@@ -4,6 +4,7 @@ title: "Don't Pass on the New NIST Password Guidelines"
 description: "NIST Digital Identity Guidelines aren't just for federal agencies. Learn how to use them to improve your security."
 date: 2017-07-25 8:30
 category: Growth, Industries, Retail
+is_non-tech: true
 author:
   name: Diego Poza
   url: https://twitter.com/diegopoza
