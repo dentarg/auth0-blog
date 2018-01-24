@@ -112,31 +112,25 @@ curl http://localhost:5000/api/books
 
 Of course, you don't want that any client could access your bookstore without some proper authentication process. You want that only authorized clients could get the list of books managed by your application. That's where [Auth0](https://auth0.com/) can help you: it provides a set of identity solutions that integrate security into your application.
 
-## Configure API endpoint in Auth0 console
+## Creating an Auth0 Client
 
-As a first step we need to signup for an [Auth0 account](https://auth0.com/signup). During the registration process you need to provide the *tenant domain name*, the service hosting region and other information. The domain name is quite important since it will determine the root part of the API endpoints exposed by [Auth0](https://auth0.com/)  to your authorized clients. Once you provide a name you cannot change it anymore. Once the registration phase is completed you will access your *Auth0* dashboard:
+As a first step, you will need an Auth0 account. If don't have one yet, you can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>.
 
-![./xxxx-images/Auth0-dashboard.png](./xxxx-images/Auth0-dashboard.png)
+During the registration process, you will need to provide the *tenant domain name*, the service hosting region, and a few other details about your company and yourself. The domain name is quite important since it will determine the root part of the API endpoints exposed by [Auth0](https://auth0.com/) to your authorized clients. Once you provide a name, you cannot change it anymore. However, you can create as many tenants as needed. Once the registration phase is completed, [you can access your *Auth0* dashboard](https://manage.auth0.com/).
 
+Your goal is to control your API access by authorizing only trusted clients. To do that, you need to create a client configuration in order to obtain a few parameters that allow your Web API application to interact only with trusted clients. The *New Client* button in the dashboard lets you create this configuration.
 
+After clicking on this button, the dashboard will show you a form where you can fill the *name* to assign to your client and the *type* of the client that you want to setup.
 
-Our goal is to control our API access by authorizing only trusted clients. So we need to create a client configuration in order to obtain a few parameters that allow our Web API application to interact only with trusted clients. The *New Client* button in the dashboard let us to start this configuration. The first step asks us the name to assign to our client configuration and the type of client we want to setup, as shown by the following picture:
+![Creating an Auth0 client](https://cdn.auth0.com/blog/dotnet-core-react/auth0-create-client.png)
 
-![./xxxx-images/auth0-create-client.png](./xxxx-images/auth0-create-client.png)
+As you can see, [Auth0](https://auth0.com/) allows to create different types of clients: *Native* for mobile or desktop; *Single Page Web Apps* for modern Web applications; *Regular Web Applications* for old-school applications; and *Non Interactive Clients* for CLIs, daemons, or services running in your backend.
 
+Since at this stage of the development you just want to test the Web API of your application, you will configure a *Non Interactive Client*. This type of client does not requires a user interaction as it happens with the other types. Therefore, define a name for your application (e.g. *My App*), click on the *Non Interactive Client* type, and hit the *Create* button. This will generate your new client and will redirect you to the *Quick Start* tab of it. If you click on the *Settings* tab, you will see the following screen:
 
+![Auth0 Non Interactive Client](https://cdn.auth0.com/blog/dotnet-core-react/auth0-bookstore-client.png)
 
-As we can see, [Auth0](https://auth0.com/)  allows to create configurations for several types of client: from mobile or desktop clients to Web applications. Since at this stage of the development we want just to test the Web API of our application, we will configure a *non interactive client*. A *non interactive client* is a type of client that do not requires a user interaction as it happens with a mobile or Web application. We will use this type of client since we will just test our API and create a couple of integration tests.
-
-The choice of the client will generate a few data that we will see in the *Setting* section of the client configuration view:
-
-![./xxxx-images/auth0-bookstore-client.png](./xxxx-images/auth0-bookstore-client.png)
-
-
-
-The relevant part of the generated data consists of the *Domain Name*, the one we specified when signed up with *Auth0*, the *Client ID*, a string that identifies our client, and the *Client Secret*, a string shared between the client and the authorization server, corresponding to a password and to be kept private.
-
-
+The relevant part of the generated data consists of the *Domain Name* (the one you specified when signing up for an *Auth0* account), the *Client ID* (a string that is used to identify your client), and the *Client Secret* (a string shared between the client and the authorization server) corresponding to a password and to be kept private.
 
 ## Integrating with Auth0 authorization services
 
