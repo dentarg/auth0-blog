@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "APIs: A Look Into What They Are and How They Work"
-description: "A complete introduction to API's for beginners. Learn what API's are, how they work, and write your first API."
+description: "A complete introduction to APIs for beginners. Learn what they are, how they work, and write your first API."
 date: 2017-11-15 13:00
 category: Technical Guide, Backend, API
 banner:
