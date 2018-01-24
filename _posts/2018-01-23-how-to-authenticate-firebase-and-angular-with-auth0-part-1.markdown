@@ -30,6 +30,7 @@ tags:
 - auth0
 - authentication
 related:
+- 2018-01-24-how-to-authenticate-firebase-and-angular-with-auth0-part-2
 - 2017-06-28-real-world-angular-series-part-1
 ---
 
@@ -1521,4 +1522,4 @@ You can find more resources on Firebase, Auth0, and Angular here:
 * [Angular CLI](https://github.com/angular/angular-cli)
 * [Angular Cheatsheet](https://angular.io/guide/cheatsheet)
 
-In the next installment of our Auth0 + Firebase + Angular tutorial, we'll **display data from our dogs API** and learn how to **set up and implement realtime comments with Firebase**!
+In the next installment of our Auth0 + Firebase + Angular tutorial, we'll **display data from our dogs API** and learn how to **set up and implement realtime comments with Firebase**! Check out [How to Authenticate Firebase and Angular with Auth0: Part 2 - Async and Realtime](https://auth0.com/blog/how-to-authenticate-firebase-and-angular-with-auth0-part-2/) now.
