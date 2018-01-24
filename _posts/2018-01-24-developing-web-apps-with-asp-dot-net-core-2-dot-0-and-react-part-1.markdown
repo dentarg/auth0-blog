@@ -26,7 +26,7 @@ related:
 - 2016-06-27-auth0-support-for-aspnet-core
 ---
 
-**TL;DR:** Any modern Web application can't ignore the need to manage security. In the series of posts starting with this one we will build a Web application based on ASP.NET Core 2.0 and React and we will integrate it with [Auth0](https://auth0.com/) security services. In this article we are going to develop the ASP.NET Core 2.0 Web APIs of our application. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-auth0).
+**TL;DR:** In this series of posts, starting with this one, you will build a web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with [Auth0](https://auth0.com/). In this first part of the series, you are going to use ASP.NET Core 2.0 to develop the APIs of your application. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-auth0).
 
 ---
 
