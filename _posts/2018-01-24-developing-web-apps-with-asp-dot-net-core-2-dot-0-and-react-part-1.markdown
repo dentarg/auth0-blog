@@ -56,13 +56,17 @@ If you prefer to use the command line, you can create your application by typing
 dotnet new webapi -n API-Auth0
 ```
 
-This will create an ASP.NET Web API directory, with your project inside, named *API-Auth0* in the current directory.
+This will create an ASP.NET Web API directory, with your project inside, named `API-Auth0` in the current directory.
 
 Whether you use Visual Studio or the command line, you will get the same result. That is, after following these steps, you will get a basic ASP.NET Core 2 Web API application.
 
-Let's remove the *ValuesController.cs* file under the *Controllers* folder and add a new *BooksController.cs* file containing the following class definition:
+### Creating the Books Controller on ASP.NET Core 2.0
 
-```c#
+Now that you have your project created, you can start refactoring it to provide the desired functionality. The first thing you will do is to remove the `ValuesController.cs` file under the `Controllers` directory. You won't need this controller in your application.
+
+After removing it, you can create the `BooksController.cs` file, in this same directory, with the following code:
+
+```csharp
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -94,14 +98,19 @@ namespace APIAuth0.Controllers
         }
     }
 }
-
 ```
 
-Here we defined a Web API returning a list of books. For simplicity we stored the list of books in an array, but of course in a real world case the books should be stored in a database. The Web API's URL will look like */api/books* and any HTTP client can get the list of books running a HTTP GET request.
+Here, you have defined a Web API returning a list of books. For simplicity, you are storing the list of books in an array. In a real-world case, however, this list should be stored in a persistent database. The Web API's URL will be `/api/books` and any HTTP client can get the list of books by issuing a simple HTTP GET request:
 
-Of course we don't want that any client could access our bookstore. We'd like that only authorized clients could get the list of books managed by our application. [Auth0](https://auth0.com/) can help us: it provides us with a set of services that integrate security into our application.
+```bash
+# run the application in the background
+dotnet run &
 
+# issue a get request
+curl http://localhost:5000/api/books
+```
 
+Of course, you don't want that any client could access your bookstore without some proper authentication process. You want that only authorized clients could get the list of books managed by your application. That's where [Auth0](https://auth0.com/) can help you: it provides a set of identity solutions that integrate security into your application.
 
 ## Configure API endpoint in Auth0 console
 
