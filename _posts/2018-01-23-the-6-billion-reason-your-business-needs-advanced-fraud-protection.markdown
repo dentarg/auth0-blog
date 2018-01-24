@@ -2,7 +2,7 @@
 layout: post
 title: The 6 Billion Reason Your Business Needs Advanced Fraud Protection
 description: "Let your defenses down, and you could be giving money away."
-longdescription: "In 2016, consumers lost $16 billion due to online fraud, up from $15 billion in 2015.  Such crimes affected more than 15.4 million consumers. Let your defenses down, and you could be giving money away."
+longdescription: "In 2016, consumers lost $16 billion due to online fraud, up from $15 billion in 2015. Such crimes affected more than 15.4 million consumers. Let your defenses down, and you could be giving money away."
 date: 2018-01-23 15:53
 category: Growth
 is_non-tech: true
@@ -12,8 +12,8 @@ author:
   mail: gonto@auth0.com
   avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  bg_color: "#4A4A4A"
-  image: "https://cdn.auth0.com/blog/iam-mobile/logo.png"
+  bg_color: "#657A4F"
+  image: "https://cdn.auth0.com/blog/advanced-fraud-protection/logo.png"
 tags:
 - fraud-protection
 - breach
