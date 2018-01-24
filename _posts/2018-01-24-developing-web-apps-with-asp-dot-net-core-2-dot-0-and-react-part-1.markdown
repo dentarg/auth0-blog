@@ -112,29 +112,39 @@ curl http://localhost:5000/api/books
 
 Of course, you don't want that any client could access your bookstore without some proper authentication process. You want that only authorized clients could get the list of books managed by your application. That's where [Auth0](https://auth0.com/) can help you: it provides a set of identity solutions that integrate security into your application.
 
-## Creating an Auth0 Client
+## Integrating ASP.NET Core 2.0 with Auth0
 
-As a first step, you will need an Auth0 account. If don't have one yet, you can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>.
+As the first step, you will need an Auth0 account. If don't have one yet, you can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>.
 
-During the registration process, you will need to provide the *tenant domain name*, the service hosting region, and a few other details about your company and yourself. The domain name is quite important since it will determine the root part of the API endpoints exposed by [Auth0](https://auth0.com/) to your authorized clients. Once you provide a name, you cannot change it anymore. However, you can create as many tenants as needed. Once the registration phase is completed, [you can access your *Auth0* dashboard](https://manage.auth0.com/).
+During the registration process, you will need to provide the *tenant domain name*, the service hosting region, and a few other details about your company and yourself. The domain name is quite important since it will determine the root part of the API endpoints exposed by [Auth0](https://auth0.com/) to your authorized clients. Once you provide a domain name, you cannot change it anymore. However, you can create as many tenants as needed. Once the registration phase is completed, [you can access your *Auth0* dashboard](https://manage.auth0.com/).
 
-Your goal is to control your API access by authorizing only trusted clients. To do that, you need to create a client configuration in order to obtain a few parameters that allow your Web API application to interact only with trusted clients. The *New Client* button in the dashboard lets you create this configuration.
+### Creating an Auth0 API
 
-After clicking on this button, the dashboard will show you a form where you can fill the *name* to assign to your client and the *type* of the client that you want to setup.
+As you are creating a backend API that enables users to browse an online bookstore, you will need to create an [Auth0 API](https://auth0.com/docs/apis) to represent your backend. To do that, head to [the APIs section of the Auth0 dashboard](https://manage.auth0.com/#/apis) and click on the *Create API* button. After that, the dashboard will ask you for three things:
 
-![Creating an Auth0 client](https://cdn.auth0.com/blog/dotnet-core-react/auth0-create-client.png)
+- the *Name* of your API, you can set it to *Online Bookstore*;
+- an *Identifier* for your API, you can set it to `https://onlinebookstore.mycompany.com`;
+- and the *Signing Algorithm*, you can choose *RS256* in this field;
 
-As you can see, [Auth0](https://auth0.com/) allows to create different types of clients: *Native* for mobile or desktop; *Single Page Web Apps* for modern Web applications; *Regular Web Applications* for old-school applications; and *Non Interactive Clients* for CLIs, daemons, or services running in your backend.
+![Securing an online bookstore with Auth0](https://cdn.auth0.com/blog/dotnet-core-react/creating-an-auth0-api.png)
 
-Since at this stage of the development you just want to test the Web API of your application, you will configure a *Non Interactive Client*. This type of client does not requires a user interaction as it happens with the other types. Therefore, define a name for your application (e.g. *My App*), click on the *Non Interactive Client* type, and hit the *Create* button. This will generate your new client and will redirect you to the *Quick Start* tab of it. If you click on the *Settings* tab, you will see the following screen:
+When you complete this form, you can hit the *Create* button.
 
-![Auth0 Non Interactive Client](https://cdn.auth0.com/blog/dotnet-core-react/auth0-bookstore-client.png)
+### Creating an Auth0 Client
 
-The relevant part of the generated data consists of the *Domain Name* (the one you specified when signing up for an *Auth0* account), the *Client ID* (a string that is used to identify your client), and the *Client Secret* (a string shared between the client and the authorization server) corresponding to a password and to be kept private.
+Your goal is to control your API access by authorizing only trusted clients. To do that, you will also need a client configuration on Auth0. Usually, you would need to create a new client to represent your front-end app. The type of the front-end app would help you deciding the type of the Auth0 Client to create. However, as in this first part you will not create the front-end yet, you can use the client that was automatically created for your Auth0 API.
 
-## Integrating with Auth0 authorization services
+If you chose *Online Bookstore* as the name of your API, then [you will see a client called *Online Bookstore (Test Client)* in the Client section of the Auth0 dashboard](https://manage.auth0.com/#/clients). Click on this client and head over to the *Settings* tab. In this tab, you will see three properties that you will need:
 
-Having the configuration data from *Auth0*'s dashboard, we can modify our Web API application in order to integrate [Auth0](https://auth0.com/) security services. As a first step we add an *Auth0* section in *appsettings.json* configuration file, as shown below:
+- the *Domain* of your Auth0 tenant;
+- the *Client ID* key;
+- and the *Client Secret* key;
+
+You will use these values soon enough.
+
+### Configuring Auth0 on ASP.NET Core Apps
+
+Having the configuration data from Auth0's dashboard, you can modify your Web API application in order to integrate with [Auth0](https://auth0.com/). As a first step, you add an Auth0 section in the `appsettings.json` configuration file, as shown below:
 
 ```json
 {
@@ -158,7 +168,7 @@ Having the configuration data from *Auth0*'s dashboard, we can modify our Web AP
 }
 ```
 
-In particular, we assign the *Domain* value to the *Authority* key and the application URL to the *Audience* key.
+You will have to assign the *Domain* value to the *Authority* key and the application URL to the *Audience* key.
 
 Then we change the *ConfigureServices()* method in *Startup.cs* file as follows:
 
