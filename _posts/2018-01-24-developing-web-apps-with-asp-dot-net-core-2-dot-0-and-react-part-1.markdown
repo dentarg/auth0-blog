@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Developing Web Apps with ASP.NET Core 2.0 and React - Part 1
-description: "A practical tutorial showing how to setup and develop a modern web application based on ASP.NET Core 2.0 and React."
+description: "A practical tutorial showing how to setup and develop a modern Web application based on ASP.NET Core 2.0 and React."
 longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
 date: 2018-01-24 09:19
 category: Technical Guide, Microsoft, ASP Net Core
@@ -26,31 +26,39 @@ related:
 - 2016-06-27-auth0-support-for-aspnet-core
 ---
 
-**TL;DR:** In this series of posts, starting with this one, you will build a web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with [Auth0](https://auth0.com/). In this first part of the series, you are going to use ASP.NET Core 2.0 to develop the APIs of your application. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-auth0).
+**TL;DR:** In this series of posts, starting with this one, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with [Auth0](https://auth0.com/). In this first part of the series, you are going to use ASP.NET Core 2.0 to develop the APIs of your application. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-auth0).
 
 ---
 
-## Setting up the ASP.NET Core application
+## Setting Up the ASP.NET Core Application
 
-The application we are going to implement will allow the user to browse an online bookstore. Following an [API-First development](https://dzone.com/articles/an-api-first-development-approach-1) approach, we start building our application by creating the ASP.NET Core 2.0 Web API. So we create a Visual Studio solution by choosing *ASP.NET Core Web Application* project template, as shown in the following picture:
+The application that you are going to implement will allow users to browse an online bookstore. Following [the API-First Development approach](https://dzone.com/articles/an-api-first-development-approach-1), you will start building your application by creating the ASP.NET Core 2.0 Web API. To do that, you have two alternatives: first, you can create your application from Visual Studio; second, you can create your application from the command line.
 
-![./xxxx-images/creating-project.png](./xxxx-images/creating-project.png)
+### Creating the Project with Visual Studio
 
-After selecting the *ASP.NET Core Web Application* project template, we need to specify the type of ASP.NET application we want to build. In our case we will select the *Web API* application type, as in the following picture:
+If you are using Visual Studio, you can create the project by choosing *ASP.NET Core Web App* project template, as shown in the following picture:
 
-![Creating ASP.NET Core 2 Web API](https://cdn.auth0.com/blog/net-core-2/creating-project-web-api.png)
+![Creating a ASP.NET Core Web App with Visual Studio](https://cdn.auth0.com/blog/dotnet-core-react/creating-project.png)
 
-Make sure you do not select any type of authentication, since we will integrate our application with [Auth0](https://auth0.com/) security services.
+> If you don't have Visual Studio, [you can download it for free here](https://www.visualstudio.com/free-developer-offers/).
 
-If you don't have Visual Studio or anyway prefer to use command line, you can create your application by typing the following command:
+After selecting the *ASP.NET Core Web App* project template, you need to specify the type of ASP.NET application you want to build. In your case, you will select the *Web API* application type, as in the following picture:
+
+![Creating ASP.NET Core 2 Web API](https://cdn.auth0.com/blog/dotnet-core-react/choosing-web-api.png)
+
+Make sure you **do not** select any type of authentication, since you will integrate your application with [Auth0](https://auth0.com/).
+
+### Creating the Project from the Command Line
+
+If you prefer to use the command line, you can create your application by typing the following command:
 
 ```shell
 dotnet new webapi -n API-Auth0
 ```
 
-This will create an ASP.NET Web API project named *API-Auth0* in the current folder.
+This will create an ASP.NET Web API directory, with your project inside, named *API-Auth0* in the current directory.
 
-Whether you use Visual Studio or the command line, you will get the same result, that is a basic ASP.NET Core 2 Web API application.
+Whether you use Visual Studio or the command line, you will get the same result. That is, after following these steps, you will get a basic ASP.NET Core 2 Web API application.
 
 Let's remove the *ValuesController.cs* file under the *Controllers* folder and add a new *BooksController.cs* file containing the following class definition:
 
@@ -204,7 +212,7 @@ public IEnumerable<Book> Get()
 
 Now, if we try to access the */api/books* API, we will get a 401 HTTP status code, that is an unauthorized response. We can verify it by using any HTTP client, such as a browser or [curl](https://curl.haxx.se/) or [Postman](https://www.getpostman.com/).
 
-![Using Postman to issue requests to ASP.NET Core 2 web API](https://cdn.auth0.com/blog/net-core-2/interacting-with-postman.png)
+![Using Postman to issue requests to ASP.NET Core 2 Web API](https://cdn.auth0.com/blog/net-core-2/interacting-with-postman.png)
 
 We get this result since [Auth0](https://auth0.com/) didn't recognize our client as an authorized client, since it didn't provide the required credentials.
 
