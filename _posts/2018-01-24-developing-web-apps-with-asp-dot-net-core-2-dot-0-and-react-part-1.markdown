@@ -107,7 +107,7 @@ Here, you have defined a Web API returning a list of books. For simplicity, you 
 dotnet run &
 
 # issue a get request
-curl http://localhost:5000/api/books
+curl -D - http://localhost:5000/api/books
 ```
 
 Of course, you don't want that any client could access your bookstore without some proper authentication process. You want that only authorized clients could get the list of books managed by your application. That's where [Auth0](https://auth0.com/) can help you: it provides a set of identity solutions that integrate security into your application.
@@ -144,7 +144,7 @@ You will use these values soon enough.
 
 ### Configuring Auth0 on ASP.NET Core Apps
 
-Having the configuration data from Auth0's dashboard, you can modify your Web API application in order to integrate with [Auth0](https://auth0.com/). As a first step, you add an Auth0 section in the `appsettings.json` configuration file, as shown below:
+After creating the Auth0 API, you will have to modify your application in order to hand the identity management over to [Auth0](https://auth0.com/). As a first step, you will need to add an Auth0 section in the `appsettings.json` configuration file, as shown below:
 
 ```json
 {
@@ -162,17 +162,17 @@ Having the configuration data from Auth0's dashboard, you can modify your Web AP
     }
   },
   "Auth0": {
-    "Authority": "YOUR_AUTH0_DOMAIN",
-    "Audience": "APP_URL"
+    "Authority": "<YOUR_AUTH0_DOMAIN>",
+    "Audience": "<YOUR_AUTH0_AUDIENCE>"
   }
 }
 ```
 
-You will have to assign the *Domain* value to the *Authority* key and the application URL to the *Audience* key.
+You will have to replace both `<YOUR_AUTH0_DOMAIN>` and `<YOUR_AUTH0_AUDIENCE>` with the values that you have defined in the previous sections. For example, if you defined your tenant domain to `https://dotnet2-react.auth0.com` that's what you will use in the place of the `<YOUR_AUTH0_DOMAIN>` placeholder. In the place of the `<YOUR_AUTH0_AUDIENCE>` placeholder, you will use the value that you defined for the *Identifier* of your Auth0 API (e.g. `https://onlinebookstore.mycompany.com`).
 
-Then we change the *ConfigureServices()* method in *Startup.cs* file as follows:
+Then, you will have to change the `ConfigureServices()` method in the `Startup.cs` file, as follows:
 
-```c#
+```csharp
 public void ConfigureServices(IServiceCollection services) {
 	services.AddAuthentication(options =>
 	{
@@ -187,11 +187,12 @@ public void ConfigureServices(IServiceCollection services) {
 	services.AddMvc();
 }
 ```
-As we can see, we added the authentication service by specifying the [JWT](https://jwt.io/) Bearer scheme and providing the authority and audience values taken from the *appsetting.json* configuration file.
 
-Then we add *app.UseAuthentication()* invocation in the body of *Configure()* method, as follows:
+As you can see, you have added the authentication service by specifying the [JWT](https://jwt.io/) bearer scheme and providing the authority and audience values taken from the *appsetting.json* configuration file.
 
-```c#
+After that, you will need to add an invocation to `app.UseAuthentication()` in the body of `Configure()` method, as follows:
+
+```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
 	if (env.IsDevelopment())
@@ -205,9 +206,9 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-After enabling authentication support, we can block public access to our API by simply adding the *Authorize* attribute to the endpoint:
+After enabling authentication support, you can block public access to your API by adding the `Authorize` attribute to the endpoint in the `BooksController.cs` file:
 
-```c#
+```csharp
 [HttpGet, Authorize]
 public IEnumerable<Book> Get()
 {
@@ -223,11 +224,25 @@ public IEnumerable<Book> Get()
 }
 ```
 
-Now, if we try to access the */api/books* API, we will get a 401 HTTP status code, that is an unauthorized response. We can verify it by using any HTTP client, such as a browser or [curl](https://curl.haxx.se/) or [Postman](https://www.getpostman.com/).
+Now, if you try to access the `/api/books` endpoint, you will get a 401 HTTP status code (which means that you are not authorized). You can verify it by using any HTTP client, such as a browser, [curl](https://curl.haxx.se/), or [Postman](https://www.getpostman.com/).
 
-![Using Postman to issue requests to ASP.NET Core 2 Web API](https://cdn.auth0.com/blog/net-core-2/interacting-with-postman.png)
+```bash
+# run the application in the background
+dotnet run &
 
-We get this result since [Auth0](https://auth0.com/) didn't recognize our client as an authorized client, since it didn't provide the required credentials.
+# issue a get request
+curl -D - http://localhost:5000/api/books
+```
+
+The last command will generate a response like the following one:
+
+```bash
+# HTTP/1.1 401 Unauthorized
+# Date: Wed, 24 Jan 2018 16:28:09 GMT
+# Server: Kestrel
+# Content-Length: 0
+# WWW-Authenticate: Bearer
+```
 
 ## Testing the APIs with Postman
 
