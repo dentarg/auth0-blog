@@ -17,7 +17,7 @@ tags:
 - .net-core
 - asp.net-core
 - asp.net
-- c#
+- csharp
 - oauth
 - openid-connect
 - auth0
