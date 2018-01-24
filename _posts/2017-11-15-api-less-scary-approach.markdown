@@ -22,7 +22,7 @@ tags:
 - authentication
 related:
 - 2017-06-22-developing-restful-apis-with-kotlin
-- 2017-09-28-developing-restful-apis-with-python-and-flask
+- 2018-01-11-apigateway-microservices-superglue
 - 2017-09-07-developing-restful-apis-with-loopback
 
 ---
