@@ -118,7 +118,7 @@ Of course, you don't want that any client could access your bookstore without so
 
 As the first step, you will need an Auth0 account. If don't have one yet, you can sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free account here</a>.
 
-During the registration process, you will need to provide the *tenant domain name*, the service hosting region, and a few other details about your company and yourself. The domain name is quite important since it will determine the root part of the API endpoints exposed by [Auth0](https://auth0.com/) to your authorized clients. Once you provide a domain name, you cannot change it anymore. However, you can create as many tenants as needed. Once the registration phase is completed, [you can access your *Auth0* dashboard](https://manage.auth0.com/).
+During the registration process, you will need to provide the *tenant domain name*, the service hosting region, and a few other details about your company and yourself. The domain name is quite important since it will determine the root part of the API endpoints exposed by [Auth0](https://auth0.com/) to your authorized clients. Once you provide a domain name, you cannot change it anymore. However, you can create as many tenants as needed. Once the registration phase is completed, [you can access your Auth0 dashboard](https://manage.auth0.com/).
 
 ### Creating an Auth0 API
 
@@ -199,7 +199,7 @@ public void ConfigureServices(IServiceCollection services) {
 // ... etc
 ```
 
-As you can see, you have added the authentication service by specifying the [JWT](https://jwt.io/) bearer scheme and providing the authority and audience values taken from the *appsetting.json* configuration file.
+As you can see, you have added the authentication service by specifying the [JWT](https://jwt.io/) bearer scheme and providing the authority and audience values taken from the `appsetting.json` configuration file.
 
 After that, you will need to add an invocation to `app.UseAuthentication()` in the body of `Configure()` method, as follows:
 
@@ -311,7 +311,7 @@ This request will generate the following response:
 
 ### Creating Integration Tests as a Non-Interactive Client
 
-The test performed with `curl` in the previous section should only verify that the *Auth0* configuration data and that the API implemented by our application work well together. This is a test performed on the fly that should not be persisted. In fact, the type of client that Auth0 automatically created was a non-interactive client. This type of client is intended for a server to server or unattended interaction. You **must never** store the *Client Secret* on the client side, since it will compromise the application security.
+The test performed with `curl` in the previous section should only verify that the Auth0 configuration data and that the API implemented by our application work well together. This is a test performed on the fly that should not be persisted. In fact, the type of client that Auth0 automatically created was a non-interactive client. This type of client is intended for a server to server or unattended interaction. You **must never** store the *Client Secret* on the client side, since it will compromise the application security.
 
 The implementation of the integration test may be a case where you can use the *Client Secret* since this information will not be exposed to the client but remains in the development environment.
 
@@ -329,7 +329,8 @@ public async Task UnAuthorizedAccess()
 
 This simple test verifies that such a request will receive a 401 Unauthorized HTTP status code. After that, you can verify that the configuration data you put in the `appsetting.json` file allows you to get a valid access token:
 
-```csharp
+{% highlight csharp %}
+{% raw %}
 [Fact]
 public async Task TestGetToken()
 {
@@ -344,7 +345,8 @@ public async Task TestGetToken()
     Assert.NotNull((string)responseJson["access_token"]);
     Assert.Equal("Bearer", (string)responseJson["token_type"]);
 }
-```
+{% endraw %}
+{% endhighlight %}
 
 Here, you have replicated through the code the same request you made via `curl`. The `Assert` clauses just verify that a non-null token has been received and that the type of token is *Bearer*.
 
@@ -370,7 +372,8 @@ public async Task GetBooks()
 
 This code uses a method called `GetToken()` that requests a valid token to [Auth0](https://auth0.com/) authentication endpoint:
 
-```csharp
+{% highlight csharp %}
+{% raw %}
 public async Task<string> GetToken()
 {
     var auth0Client = new HttpClient();
@@ -388,12 +391,13 @@ public async Task<string> GetToken()
 
     return token;
 }
-```
+{% endraw %}
+{% endhighlight %}
 
 This test completes the validation of your ASP.NET Core 2.0 application with [Auth0](https://auth0.com/). If needed, you can download the full source code of the application from [GitHub](https://github.com/andychiare/netcore2-auth0).
 
 ## Summary
 
-In this article, you have built an ASP.NET Core 2 Web API application and you have integrated it with *Auth0* in order to expose the API only to trusted clients.
+In this article, you have built an ASP.NET Core 2 Web API application and you have integrated it with Auth0 in order to expose the API only to trusted clients.
 
 This is the first step in a series of articles that will show how to build a complete modern application. This application will be based on the ASP.NET Core API that you have just created and in a React Single Page Application. In the next article, you will build this Single Page Application to allow users to browse the bookstore. Stay tuned.
