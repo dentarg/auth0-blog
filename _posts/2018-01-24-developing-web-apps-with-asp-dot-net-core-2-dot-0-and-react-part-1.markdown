@@ -244,60 +244,57 @@ The last command will generate a response like the following one:
 # WWW-Authenticate: Bearer
 ```
 
-## Testing the APIs with Postman
+### Getting an Access Token
 
-Let's take a look at how we can qualify our client as an authorized client. In order to get this result, we should exploit the *Client ID* and *Client Secret* we get during the client registration on *Auth0*'s dashboard. Let's use  [Postman](https://www.getpostman.com/) as a test client.
+Now that you have secured your endpoints with Auth0, you will learn how to authenticate a non-interactive client to be able to get the list of books again. You can use any HTTP client, but in this section you will see how to achieve that by using `curl`.
 
-As a first step, we have to get an authorization token from the [Auth0](https://auth0.com/) authentication service. We can do it by sending a POST request to the */oauth/token* endpoint of the authority domain we get from *Auth0*. The following picture shows an example of such request sent via *Postman*:
+The first step is to get an authorization token from Auth0. You can do that by issuing a POST request to [the `/oauth/token` endpoint](https://auth0.com/docs/api/authentication#authorization-code) of your Auth0 domain, as follows:
 
-![./xxxx-images/postman-auth-request.png](./xxxx-images/postman-auth-request.png)
+```bash
+AUTH0_CLIENT_ID=<YOUR_AUTH0_CLIENT_ID>
+AUTH0_CLIENT_SECRET=<YOUR_AUTH0_CLIENT_SECRET>
+AUTH0_AUDIENCE=<YOUR_AUTH0_AUDIENCE>
+AUTH0_DOMAIN=<YOUR_AUTH0_DOMAIN>
 
+curl -X POST -H 'content-type: application/json' -d '{
+    "client_id": "'$AUTH0_CLIENT_ID'",
+    "client_secret": "'$AUTH0_CLIENT_SECRET'",
+    "audience": "'$AUTH0_AUDIENCE'",
+    "grant_type":"client_credentials"
+}' https://$AUTH0_DOMAIN/oauth/token
+```
 
+Note that you will have to replace `<YOUR_AUTH0_CLIENT_ID>`, `<YOUR_AUTH0_CLIENT_SECRET>`, `<YOUR_AUTH0_AUDIENCE>`, and `<YOUR_AUTH0_DOMAIN>` in the commands above with the values corresponding to the Auth0 API and Client that you have created before.
 
-As we can see, we are submitting a JSON object via HTTP POST containing the that identify our client as an authorized client. The response to this request will be something similar to the following:
+The response to this request will be something similar to the following:
 
 ```json
 {
-    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwRXhOamMzUXpCRE9VSkZSRVJCUTBNME1UY3dRekl6TkRkQ1F6WTVRVGMzUXpBNFJrUkVOZyJ9.eyJpc3MiOiJodHRwczovL2FuZHljaGlhcmUuZXUuYXV0aDAuY29tLyIsInN1YiI6InFBUjBjckRGTWhXdTI2T2hmU2M5eTNIQ2pzU1RBUEdNQGNsaWVudHMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjYzOTM5LyIsImlhdCI6MTUxNjYwNDI1NiwiZXhwIjoxNTE2NjkwNjU2LCJhenAiOiJxQVIwY3JERk1oV3UyNk9oZlNjOXkzSENqc1NUQVBHTSIsInNjb3BlIjoicHJvZmlsZSBvcGVuaWQiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.hCl8YtWte8w_3-5gwMW06UrrnNiaSccr03IEtS29x8-CXfrQNEocjircLfJ32ioIdV4vfs0i69NDWwiDe4vP6KdVcemotpmoI1QpLY0zJL5s1zRizLwmXJZ9Kh1mKd--D3Pt92eAqJsXk4EK2-A2c9NPixrp7A4L5FtWDcRyOHinODUstud9_iXsvVF503IytGRepfsCLEosd7KOdCkgg21Gva7mOYMhlJwbUUsasZoLfYhqZhKX0xvjrRVJyhRkP9AJgSdVGX3nohDj0BZ4z6iYGBwW6NFRYy9SPGblt1Cc1L1OMj6hibxVKB6U2kkNubCMM5O_IHz38WCpJmNFPA",
+    "access_token": "eyJ0eXAiO...pJmNFPA",
     "expires_in": 86400,
     "token_type": "Bearer"
 }
 ```
 
-Here we will find the access token, its type and its validity duration expressed in seconds.
+Now, you can use the `access_token` you have received from [Auth0](https://auth0.com/) to request the list of books, as follows:
 
-Now we can use the access token we received from [Auth0](https://auth0.com/) to request the list of books, as shown by the following picture:
+```bash
+ACCESS_TOKEN=eyJ0eXAiO...pJmNFPA
 
-![./xxxx-images/bookstore-result.png](./xxxx-images/bookstore-result.png)
-
-We will get the following response:
-
-```json
-[
-    {
-        "author": "Ray Bradbury",
-        "title": "Fahrenheit 451",
-        "ageRestriction": false
-    },
-    {
-        "author": "Gabriel García Márquez",
-        "title": "One Hundred years of Solitude",
-        "ageRestriction": false
-    },
-    {
-        "author": "George Orwell",
-        "title": "1984",
-        "ageRestriction": false
-    },
-    {
-        "author": "Anais Nin",
-        "title": "Delta of Venus",
-        "ageRestriction": true
-    }
-]
+curl -H 'Authorization: Bearer '$ACCESS_TOKEN -D - http://localhost:5000/api/books
 ```
 
+This request will generate the following response:
 
+```bash
+# HTTP/1.1 200 OK
+# Date: Wed, 24 Jan 2018 17:35:26 GMT
+# Content-Type: application/json; charset=utf-8
+# Server: Kestrel
+# Transfer-Encoding: chunked
+
+# [{"author":"Ray Bradbury","title":"Fahrenheit 451","ageRestriction":false},{"author":"Gabriel García Márquez","title":"One Hundred years of Solitude","ageRestriction":false},{"author":"George Orwell","title":"1984","ageRestriction":false},{"author":"Anais Nin","title":"Delta of Venus","ageRestriction":true}]
+```
 
 ## Creating Integration Tests as a Non Interactive Client
 
