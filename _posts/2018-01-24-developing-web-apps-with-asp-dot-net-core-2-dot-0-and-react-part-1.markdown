@@ -28,6 +28,8 @@ related:
 
 **TL;DR:** In this series of posts, starting with this one, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with [Auth0](https://auth0.com/). In this first part of the series, you are going to use ASP.NET Core 2.0 to develop the APIs of your application. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-auth0).
 
+{% include tweet_quote.html quote_text="Learn how easy it is to create a modern web application with ASP.NET Core 2.0 and React" %}
+
 ---
 
 ## Setting Up the ASP.NET Core Application
@@ -295,6 +297,8 @@ This request will generate the following response:
 
 # [{"author":"Ray Bradbury","title":"Fahrenheit 451","ageRestriction":false},{"author":"Gabriel García Márquez","title":"One Hundred years of Solitude","ageRestriction":false},{"author":"George Orwell","title":"1984","ageRestriction":false},{"author":"Anais Nin","title":"Delta of Venus","ageRestriction":true}]
 ```
+
+{% include tweet_quote.html quote_text="Adding identity management to a ASP.NET Core 2.0 is really easy with Auth0." %}
 
 ### Creating Integration Tests as a Non Interactive Client
 
