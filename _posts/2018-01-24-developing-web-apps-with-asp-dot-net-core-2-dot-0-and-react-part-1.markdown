@@ -296,94 +296,91 @@ This request will generate the following response:
 # [{"author":"Ray Bradbury","title":"Fahrenheit 451","ageRestriction":false},{"author":"Gabriel García Márquez","title":"One Hundred years of Solitude","ageRestriction":false},{"author":"George Orwell","title":"1984","ageRestriction":false},{"author":"Anais Nin","title":"Delta of Venus","ageRestriction":true}]
 ```
 
-## Creating Integration Tests as a Non Interactive Client
+### Creating Integration Tests as a Non Interactive Client
 
-The test performed with *Postman* in previous section should only verify that the *Auth0* configuration data and the API implemented by our application work well together. This is a test performed on the fly that should not be persisted. In fact, the type of client we configured on *Auth0* dashboard was a non interactive client. This type of client is intended for server to server or unattended interaction. In general you should never store the *Client Secret* on the client side, since it could compromise the overall application security.
+The test performed with `curl` in the previous section should only verify that the *Auth0* configuration data and that the API implemented by our application work well together. This is a test performed on the fly that should not be persisted. In fact, the type of client that Auth0 automatically created was a non-interactive client. This type of client is intended for server to server or unattended interaction. You **must never** store the *Client Secret* on the client side, since it will compromise the application security.
 
-The implementation of the integration test may be a case where we can use the *Client Secret*, since this information will not be exposed to the client but remains in the development environment.
+The implementation of the integration test may be a case where you can use the *Client Secret*, since this information will not be exposed to the client but remains in the development environment.
 
-Let's start writing the integration tests by implementing a test that verifies that a request to obtain the book list without an access token fails:
+Now, it's time to write an integration test that verifies that a request to obtain the book list without an access token fails:
 
-```c#
+```csharp
+[Fact]
+public async Task UnAuthorizedAccess()
+{
+    var response = await _client.GetAsync("/api/books");
 
-        [Fact]
-        public async Task UnAuthorizedAccess()
-        {
-            var response = await _client.GetAsync("/api/books");
-
-            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-        }
+    Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+}
 ```
 
-This simple test verifies that such a request will receive a 401 Unauthorized HTTP status code.
+This simple test verifies that such a request will receive a 401 Unauthorized HTTP status code. After that, you can verify that the configuration data you put in the `appsetting.json` file allows you to get a valid access token:
 
-Then let's verify that the configuration data we put in *appsetting.json* allow us to get a valid access token:
+```csharp
+[Fact]
+public async Task TestGetToken()
+{
+    var auth0Client = new HttpClient();
+    var bodyString = $@"{{""client_id"":""{_configuration["Auth0:ClientId"]}"", ""client_secret"":""{_configuration["Auth0:ClientSecret"]}"", ""audience"":""{_configuration["Auth0:Audience"]}"", ""grant_type"":""client_credentials""}}";
+    var response = await auth0Client.PostAsync($"{_configuration["Auth0:Authority"]}oauth/token", new StringContent(bodyString, Encoding.UTF8, "application/json"));
 
-```c#
-        [Fact]
-        public async Task TestGetToken()
-        {
-            var auth0Client = new HttpClient();
-            var bodyString = $@"{{""client_id"":""{_configuration["Auth0:ClientId"]}"", ""client_secret"":""{_configuration["Auth0:ClientSecret"]}"", ""audience"":""{_configuration["Auth0:Audience"]}"", ""grant_type"":""client_credentials""}}";
-            var response = await auth0Client.PostAsync($"{_configuration["Auth0:Authority"]}oauth/token", new StringContent(bodyString, Encoding.UTF8, "application/json"));
+    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
-            var responseString = await response.Content.ReadAsStringAsync();
-            var responseJson = JObject.Parse(responseString);
-            Assert.NotNull((string)responseJson["access_token"]);
-            Assert.Equal("Bearer", (string)responseJson["token_type"]);
-        }
+    var responseString = await response.Content.ReadAsStringAsync();
+    var responseJson = JObject.Parse(responseString);
+    Assert.NotNull((string)responseJson["access_token"]);
+    Assert.Equal("Bearer", (string)responseJson["token_type"]);
+}
 ```
 
-Here we replicate through code the same request we made via *Postman*. The *Assert* clauses just verify that a not null token has been received and that the type of token is *Bearer*.
+Here, you have replicated through code the same request you made via `curl`. The `Assert` clauses just verify that a non-null token has been received and that the type of token is *Bearer*.
 
-The last test ensures that a request with a valid access token get the list of books returned by the API:
+The last test ensures that a request with a valid access token will get the list of books returned by the API:
 
-```c#
-        [Fact]
-        public async Task GetBooks()
-        {
-            var token = await GetToken();
+```csharp
+[Fact]
+public async Task GetBooks()
+{
+    var token = await GetToken();
 
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, "/api/books");
-            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var booksResponse = await _client.SendAsync(requestMessage);
+    var requestMessage = new HttpRequestMessage(HttpMethod.Get, "/api/books");
+    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+    var booksResponse = await _client.SendAsync(requestMessage);
 
-            Assert.Equal(HttpStatusCode.OK, booksResponse.StatusCode);
+    Assert.Equal(HttpStatusCode.OK, booksResponse.StatusCode);
 
-            var bookResponseString = await booksResponse.Content.ReadAsStringAsync();
-            var bookResponseJson = JArray.Parse(bookResponseString);
-            Assert.Equal(4, bookResponseJson.Count);
-        }
+    var bookResponseString = await booksResponse.Content.ReadAsStringAsync();
+    var bookResponseJson = JArray.Parse(bookResponseString);
+    Assert.Equal(4, bookResponseJson.Count);
+}
 ```
 
-This code uses a method *GetToken()* that requests a valid token to [Auth0](https://auth0.com/) authentication endpoint:
+This code uses a method called `GetToken()` that requests a valid token to [Auth0](https://auth0.com/) authentication endpoint:
 
-```c#
-       public async Task<string> GetToken()
-        {
-            var auth0Client = new HttpClient();
-            string token = "";
-            var bodyString = $@"{{""client_id"":""{_configuration["Auth0:ClientId"]}"", ""client_secret"":""{_configuration["Auth0:ClientSecret"]}"", ""audience"":""{_configuration["Auth0:Audience"]}"", ""grant_type"":""client_credentials""}}";
-            var response = await auth0Client.PostAsync($"{_configuration["Auth0:Authority"]}oauth/token", new StringContent(bodyString, Encoding.UTF8, "application/json"));
+```csharp
+public async Task<string> GetToken()
+{
+    var auth0Client = new HttpClient();
+    string token = "";
+    var bodyString = $@"{{""client_id"":""{_configuration["Auth0:ClientId"]}"", ""client_secret"":""{_configuration["Auth0:ClientSecret"]}"", ""audience"":""{_configuration["Auth0:Audience"]}"", ""grant_type"":""client_credentials""}}";
+    var response = await auth0Client.PostAsync($"{_configuration["Auth0:Authority"]}oauth/token", new StringContent(bodyString, Encoding.UTF8, "application/json"));
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseString = await response.Content.ReadAsStringAsync();
-                var responseJson = JObject.Parse(responseString);
-                token = (string)responseJson["access_token"];
+    if (response.IsSuccessStatusCode)
+    {
+        var responseString = await response.Content.ReadAsStringAsync();
+        var responseJson = JObject.Parse(responseString);
+        token = (string)responseJson["access_token"];
 
-            }
+    }
 
-            return token;
-        }
+    return token;
+}
 ```
 
-This test completes the validation of our Web API application with [Auth0](https://auth0.com/) services. You can download the full source code of the application from [GitHub](https://github.com/andychiare/netcore2-auth0).
+This test completes the validation of your ASP.NET Core 2.0 application with [Auth0](https://auth0.com/). If needed, you can download the full source code of the application from [GitHub](https://github.com/andychiare/netcore2-auth0).
 
 ## Summary
 
-In this article, we have built a .NET Core 2 Web API application and we have integrated it with *Auth0* security services in order to expose the API only to trusted clients.
+In this article, you have built a ASP.NET Core 2 Web API application and you have integrated it with *Auth0* in order to expose the API only to trusted clients.
 
-This is a first step in a series of articles that will show how to build a complete modern application that allows the user to browse a bookstore. In the next article we will build a single page application based on React that will interact with the API we have just built.
+This is a first step in a series of articles that will show how to build a complete modern application. This application will be based on the ASP.NET Core API that you have just created and in a React Single Page Application. In the next article, you will build this Single Page Application to allow users to browse the bookstore. Stay tuned.
