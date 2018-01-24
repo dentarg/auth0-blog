@@ -7,14 +7,13 @@ date: 2018-01-23 14:56
 category: Growth
 is_non-tech: true
 author:
-  name: "Bruno Krebs"
-  url: "https://twitter.com/brunoskrebs"
-  mail: "bruno.krebs@gmail.com"
-  avatar: "https://twitter.com/brunoskrebs/profile_image?size=original"
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
 design:
-  bg_color: "#1D4E69"
-  image: https://cdn.auth0.com/blog/npm-package-development/logo.png
-  image_bg_color: "#1D4E69"
+  bg_color: "#2b0050"
+  image: https://cdn.auth0.com/blog/get-iam-budget/logo.png
 tags:
 - iam
 - identity
