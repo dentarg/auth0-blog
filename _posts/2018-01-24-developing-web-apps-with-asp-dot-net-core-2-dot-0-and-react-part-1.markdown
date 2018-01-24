@@ -2,7 +2,7 @@
 layout: post
 title: Developing Web Apps with ASP.NET Core 2.0 and React - Part 1
 description: "A practical tutorial showing how to setup and develop a modern Web application based on ASP.NET Core 2.0 and React."
-longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+longdescription: "In this series of posts, starting with this one, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with Auth0. In this first part of the series, you are going to use ASP.NET Core 2.0 to develop the APIs of your application."
 date: 2018-01-24 09:19
 category: Technical Guide, Microsoft, ASP Net Core
 author:
