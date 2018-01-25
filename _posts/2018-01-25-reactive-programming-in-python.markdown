@@ -26,6 +26,7 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 - 2017-12-06-mocking-api-calls-in-python
 ---
+
 **TL;DR:** In this tutorial, we’ll be learning how to use the [RxPy](https://rxpy.codeplex.com/) library to create asynchronous and event-based programs by implementing observables, observers/subscribers, and subjects. We will start by getting our data stream from the [GitHub API](https://developer.github.com/v3/) with a [Tornado](http://www.tornadoweb.org) web socket and then we will filter and process it asynchronously. [In this GitHub repository](https://github.com/valerybriz/RxGithubSearcher), you can find the code that we are going to create in this tutorial.
 
 ## Why Reactive Programming?
