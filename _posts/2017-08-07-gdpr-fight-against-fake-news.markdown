@@ -17,21 +17,26 @@ design:
   bg_color: "#222228"
 tags:
 - gdpr
+- regulation
+- security
+- identity
 - compliance
+- data-protection
 - webinar
 related:
 - 2017-05-03-get-ready-for-gdpr
-- 2016-10-06-announcing-auth0-eu-us-privacy-shield-certification
+- 2018-01-17-jumpstart-identity-innovation-with-gdpr
+- 2018-01-15-mission-possible-reality-for-7-gdpr-misconceptions
 ---
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-500"></i>
-  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+  <strong>GDPR is around the corner. Are you Ready? Take our GDPR Readiness Assessment to find out. <a href="https://auth0.com/gdpr-assessment/tool-1">Start the survey</a>.</strong>
 </div>
 
 ---
 
-With the [General Data Protection Regulation (GDPR)](https://auth0.com/blog/get-ready-for-gdpr/) set to come into force May 25, 2018, [Jonathan Armstrong](https://twitter.com/armstrongjp), technology and compliance lawyer with [Cordery](http://www.corderycompliance.com/), hosted a webinar with Auth0 to discuss and clarify the truths behind rumors and misconceptions regarding GDPR and what it means.
+With the [General Data Protection Regulation (GDPR)](https://auth0.com/gdpr) set to come into force May 25, 2018, [Jonathan Armstrong](https://twitter.com/armstrongjp), technology and compliance lawyer with [Cordery](http://www.corderycompliance.com/), hosted a webinar with Auth0 to discuss and clarify the truths behind rumors and misconceptions regarding GDPR and what it means.
 
 ## GDPR: The Fight Against Fake News
 
@@ -52,6 +57,6 @@ The **GDPR: The Fight Against Fake News** webinar addresses several _false_ conc
 
 All of the above are inaccurate, and Jonathan Armstrong explains why in the webinar. He also responds to several more fake news items that have been circulating since the announcement of GDPR.
 
-With GDPR approaching enforcement on May 25, 2018, it's more important than ever to be knowledgeable about the regulation and its impact. In addition, learn how organizations can benefit from improved business processes in their preparation for GDPR. Don't be fooled by GDPR fake news: get informed by checking out the webinar below.
+With GDPR approaching enforcement on May 25, 2018, it's more important than ever to be knowledgeable about the regulation and [its impact](https://resources.auth0.com/whitepaper/gdpr-fine-determination/). In addition, learn how organizations can benefit from improved business processes in their preparation for GDPR. Don't be fooled by GDPR fake news: get informed by checking out the webinar below.
 
 [**GDPR: The Fight Against Fake News Webinar**](https://auth0-1.wistia.com/medias/7sjsrhd2lt)
