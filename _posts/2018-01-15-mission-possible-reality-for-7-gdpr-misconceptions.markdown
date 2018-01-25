@@ -18,18 +18,26 @@ design:
   bg_color: "#222228"
 tags:
 - gdpr
-- data-protection
+- regulation
+- security
+- identity
 - compliance
-- regulations
+- data-protection
 - identity
 - iam
 related:
 - 2017-05-03-get-ready-for-gdpr
 - 2017-08-07-gdpr-fight-against-fake-news
-- 2017-07-14-getting-a-competitive-edge-with-a-microservices-based-architecture
+- 2018-01-17-jumpstart-identity-innovation-with-gdpr
 ---
- 
- 
+
+ <div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>GDPR is around the corner. Are you Ready? Take our GDPR Readiness Assessment to find out. <a href="https://auth0.com/gdpr-assessment/tool-1">Start the survey</a>.</strong>
+</div>
+
+---
+
 Did you feel like you had a clear direction for your business when it came to customer experience, acquisition, and the competitiveness of your services and apps... but then [GDPR](https://auth0.com/gdpr) came around and now everything has a giant question mark in front of it? If you are confused about how to move forward, you are not alone.
 
 ![GDPR - General Data Protection Regulation](https://cdn2.auth0.com/blog/get-ready-for-gdpr/gdpr-flag.png)
@@ -111,7 +119,7 @@ The key is to pay attention to where the processing of the data is taking place,
 
 [Privacy Shield Certification](https://www.privacyshield.gov/welcome) is a great start, but there are some significant differences between GDPR and privacy shield.
 
-For example, you're going to need to do some additional work on the 'right to erasure' for foreign processing of EU residents' data as well as making sure you've met Data Protection Officer and breach notification requirements. Other differences include fines and possible timing around responses to data 'subject access requests'.
+For example, you're going to need to do some additional work on the 'right to erasure' for foreign processing of EU residents' data as well as making sure you've met Data Protection Officer and breach notification requirements. Other differences include [fines](https://resources.auth0.com/whitepaper/gdpr-fine-determination/) and possible timing around responses to data 'subject access requests'.
   
 ## Misconception #7: Shouldn't my legal team be able to tell me exactly how I can achieve compliance?
 
