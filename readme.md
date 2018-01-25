@@ -2,47 +2,19 @@ This is a clone of the qraftlabs blog at [http://blog.qraftlabs.com](http://blog
 
 This blog uses [Jekyll](https://github.com/mojombo/jekyll).
 
-
 ## Create a new blog post
 
-	rake new_post["title of the new blog post"]
+```bash
+rake new_post["title of the new blog post"]
+```
 
 ### Manage posts in the "Top Reads" section
 
 To add a post to the "Top Reads" section you must add the tag `featured` to it. Use the `pr:` yaml front matter to sort its position. (e.g. `pr: 1` is the top post in the section).
 
-### Add reply links to your posts
-
-![Reply links](https://cldup.com/1GY-mfWcz6.png)
-
-Use yaml front-matter to add reply links to your post on Hacker News or Twitter.
-
-Example:
-```
----
-reply:
- hn: https://news.ycombinator.com/item?id=9447536
- twitter: https://twitter.com/auth0/status/592765437634555904
----
-```
-
 ### Markdown Cheat Sheet
 
 A blog post markdown cheat sheet is available at [post-cheat-sheet.markdown](post-cheat-sheet.markdown).
-
-### Dealing with outdated content
-
-![](https://cldup.com/4hWdGjoZGc.png)
-
-To mark a post as outdated, add the `outdated` front matter. Additionally, you can direct the link in the disclaimer to a specific page using the tag `doc_reference`, otherwise the link will go to the docs homepage.
-
-Example:
-```
----
-outdated: true
-doc_reference: https://auth0.com/docs/apiv2#!/clients/get_clients_by_id
----
-```
 
 ### Customize your post's design
 
@@ -92,18 +64,16 @@ All blog posts should be checked with the Grammarly app before publication. Plea
 
 ## Prerequisites
 
-1.  Install Ruby (2.0.0-p195 or later)
-2.  Make sure you have [RVM](http://rvm.io/) or other ruby version manager installed
+1.  Install Ruby (2.1.0 or later)
+2.  Make sure you have [`rbenv`](https://github.com/rbenv/rbenv)
 3.  Install Bundler `gem install bundler`
 
 ## Run
 
-1.  Enter the blog directory and make sure with ruby --version that you are running the right ruby version (.ruby-version file).
+1.  Enter the blog directory and make sure (with `ruby -v`) that you are running the right ruby version (`.ruby-version` file).
 2.  Install dependencies with `bundle install`
-3.  `bundle exec jekyll serve --watch`  or  `bundle exec jekyll serve --watch --limit_posts 10`
-4.  Open [http://localhost:4000/blog/](http://localhost:4000/blog/). Make sure you don't leave out the trailing slash (/), otherwise you will get:
-![error](https://i.cloudup.com/FWLX_cUhXb.png)
-
+3.  `bundle exec jekyll serve --watch --limit_posts 10` (removing `--limit_posts` will make thing really slow)
+4.  Open [http://localhost:4000/blog/](http://localhost:4000/blog/). Make sure you **don't leave out the trailing slash (/)**, otherwise you will get a 404.
 
 ## Issue Reporting
 
@@ -117,4 +87,4 @@ If you have found a bug or if you have a feature request, please report them at 
 
 All the infrastructure to run this blog is open sourced under the MIT license. See the [LICENSE](LICENSE) file for more info.
 
-The exact content of the articles (the _posts folder) is Qraftlabs Copyright.
+The exact content of the articles (the `_posts` folder) is Qraftlabs Copyright.
