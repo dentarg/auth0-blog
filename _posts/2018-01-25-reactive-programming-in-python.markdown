@@ -26,7 +26,6 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 - 2017-12-06-mocking-api-calls-in-python
 ---
-
 **TL;DR:** In this tutorial, we’ll be learning how to use the [RxPy](https://rxpy.codeplex.com/) library to create asynchronous and event-based programs by implementing observables, observers/subscribers, and subjects. We will start by getting our data stream from the [GitHub API](https://developer.github.com/v3/) with a [Tornado](http://www.tornadoweb.org) web socket and then we will filter and process it asynchronously. [In this GitHub repository](https://github.com/valerybriz/RxGithubSearcher), you can find the code that we are going to create in this tutorial.
 
 ## Why Reactive Programming?
@@ -45,7 +44,7 @@ The main difference between [Event-Driven programming](https://en.wikipedia.org/
 
 Reactive Programming is a programming paradigm oriented around data flows and the propagation of change. This means that, when a data flow is emitted by one component, the Reactive Programming library will automatically propagate those changes to other components until it reaches the final receiver.
 
-## What Does Reactive Programming Works?
+## How Does Reactive Programming Works?
 
 Let's take into consideration [ReactiveX](http://reactivex.io/), the most famous implementation of the Reactive Programming paradigm. ReactiveX is mainly based on two classes: the `Observable` and `Observer` classes. The `Observable` class is the source of data streams or events and the `Observer` class is the one that consumes (or reacts to) the emitted elements.
 
@@ -217,4 +216,329 @@ We can use Reactive Programming to process asynchronous incoming data—perhaps 
 
 ## Building an App with RxPy
 
-First of all, we need to set up our environment by installing all the requirements we need to get our reactive web socket working. To do that in an easier and more organiz
+First of all, we need to set up our environment by installing all the requirements we need to get our reactive web socket working. To do that in an easier and more organized way we are going to use [Pipenv](https://github.com/kennethreitz/pipenv). Pipenv is a dependency manager that isolates projects on private environments, replacing `pip` and allowing us to install only what we really need for a certain project. With Pipenv, we will easily manage the environment and the libraries we need to install.
+
+```bash
+# we might need to use pip3 instead of pip
+pip install pipenv
+```
+
+Now, we have to create the new environment by executing the following commands:
+
+```bash
+# create our project directory and move to it
+mkdir rxtornado && cd rxtornado
+
+# run pipenv to create a Python 3 (--three) virtualenv for our project
+pipenv --three
+
+# you might need to define what SSL library to use
+# http://pycurl.io/docs/latest/install.html#ssl
+export PIP_GLOBAL_OPTION="--with-openssl"
+
+# install the dependencies we need
+pipenv install tornado rx pycurl
+```
+
+Once we execute these commands we can find two new files created on our project's root directory:
+
+* `Pipfile`: a file that contains details about our project, like the Python version that we are using and the packages that our project needs.
+* `Pipenv.lock`: a file that contains exactly what version of each package our project depends on, and their transitive dependencies.
+
+Now that we are ready with the environment, we need to create a file called `config.py` which will contain constants (like the `address` of the organizations we will be searching for in GitHub) and also a token to use the GitHub API. We will have to replace `<TOKEN>` with our own GitHub Token. To get one, we need to follow the instructions on [this page](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
+
+```python
+TOKEN = <TOKEN>
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "token " + TOKEN
+}
+GITHUB_API_URL = "https://api.github.com"
+orgs = ["/twitter/repos", "/auth0/repos", "/nasa/repos", "/mozilla/repos", "/adobe/repos"]
+```
+
+After that, we need to create a file called `server.py` which will contain the main code for the project. For this code, we need to import certain modules from the libraries we just installed:
+
+```python
+import json
+import os
+import config as conf
+
+from rx import Observable
+from rx.subjects import Subject
+from tornado import ioloop
+from tornado.escape import json_decode
+from tornado.httpclient import AsyncHTTPClient
+from tornado.web import Application, RequestHandler, StaticFileHandler, url
+from tornado.websocket import WebSocketHandler
+```
+
+Here we have imported the `Observable` and `Subject` modules from the RxPy library and the `async` and `websocket` modules from Tornado to handle the requests.
+
+It is important to notice that, to use the GitHub API authentication, we need to configure the Tornado HttpClient as a `curl` async client with the following line right after the imported libraries:
+
+```python
+AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
+```
+
+We also need to initialize our headers and the organizations' addresses we already declared on the config file.
+
+```python
+headers = conf.headers
+GIT_ORG = conf.GITHUB_API_URL+"/orgs"
+```
+
+### Building a WebSocket Handler
+
+Our application will exchange messages with a browser using web sockets. Web sockets allow bidirectional communication between the browser and server in real time. The main idea is to define a class that inherits from the `WebSocketHandler` class. We can find more information about Tornado WebSockets [here](http://www.tornadoweb.org).
+
+Let's define the `WebSocketHandler` class with the following code:
+
+```python
+class WSHandler(WebSocketHandler):
+    orgs = conf.orgs
+
+    def check_origin(self, origin):
+        #Override to enable support for allowing alternate origins.
+        return True
+```
+
+Here we are initializing the organizations names and defining the origin check, which we can override if we need support for alternate origins.
+
+### Obtaining Data
+
+To obtain the data from the GitHub API, first we need to define a function inside our `WebSocketHandler`. This function will create an asynchronous `http_client` which will take the organization names received and return the requested repository information asynchronously as a response.
+
+```python
+def get_org_repos(self, org):
+    """request the repos to the GitHub API"""
+    http_client = AsyncHTTPClient()
+    response = http_client.fetch(GIT_ORG + org, headers=headers, method="GET")
+    return response
+```
+
+In our implementation of the `WebSocketHandler` class, we will override the following methods:
+
+* `on_message()`: This function will be called when there is an incoming message on the web socket. As our response is formatted as JSON objects, we have to decode it and then push it to the `Subject` with the `on_next()` operator.
+* `on_close()`: This function will be called once we close the web socket. As we read before, it is very important to unsubscribe the `Observable` once the operation has been terminated to avoid memory leaks. As such, in this method we are going to use the `dispose()` method.
+* `open()`: This function will be called when the web socket is opened for the first time.
+
+Inside the `open()` method, we are also going to define the `send_response()` and `on_error()` methods to handle this two kinds of events. In this case, we are printing the message or the exception on the log.
+
+```python
+def on_message(self, message):
+    obj = json_decode(message)
+    self.subject.on_next(obj['term'])
+
+def on_close(self):
+    # Unsubscribe from observable
+    #  will stop the work of all observable
+    self.combine_latest_sbs.dispose()
+    print("WebSocket closed")
+
+def open(self):
+    print("WebSocket opened")
+    self.write_message("connection opened")
+
+    def send_response(x):
+        self.write_message(json.dumps(x))
+
+    def on_error(ex):
+        print(ex)
+
+    self.subject = Subject()
+
+    user_input = self.subject.throttle_last(
+        1000  # Given the last value in a given time interval
+    ).start_with(
+        ''  # Immediately after the subscription sends the default value
+    ).filter(
+        lambda text: not text or len(text) > 2
+    )
+
+    interval_obs = Observable.interval(
+        60000  #refresh the value every 60 Seconds for periodic updates
+    ).start_with(0)
+
+    self.combine_latest_sbs = user_input.combine_latest(
+        interval_obs, lambda input_val, i: input_val
+    ).do_action(
+        lambda x: send_response('clear')
+    ).flat_map(
+        self.get_data
+    ).subscribe(send_response, on_error)
+```
+
+We are going to filter the incoming user input by the size of the string to consider values with a length higher than 2 characters. Then, we are going to emit these values.
+
+After that, we are going to create an interval `Observable` which will help us to "refresh" the input every 60 seconds and push this input again to the `Subject`.
+
+Finally, we will combine both the interval `Observable` and the input value `Subject` so when either of it has a change it will be emitting a Subject to the chain. The chain will send it to the `send_response` method and then to the `get_data` method to be filtered and showed as the result.
+
+### Filtering Incoming Data
+
+To get the data filtered, we are going to use a chain of `Observable` maps which are going to take the query (the user input) and evaluate it according to the requirements we have set.
+
+First we need to create the `get_info` method inside the `WebSocketHandler` class with the following:
+```python
+def get_info(self,req):
+    """managing error codes and returning a list of json with content"""
+    if req.code == 200:
+        jsresponse = json.loads(req.body)
+        return jsresponse
+    elif req.code == 403:
+        print("403 error")
+        jsresponse = json.loads(req.body)
+        return json.dumps("clear")
+    else:
+        return json.dumps("failed")
+```
+
+This method will help us to handle the exceptions of the request or, if everything's ok (`code == 200`), we will get a JSON formatted response with the information.
+
+Now, we create the `get_data` method also inside the `WebSocketHandler` class with:
+
+```python
+def get_data(self,query):
+    """ query the data to the API and return the contet filtered"""
+    return Observable.from_list(
+        self.orgs
+    ).flat_map(
+        lambda name: Observable.from_future(self.get_org_repos(name))
+    ).flat_map(
+        lambda x: Observable.from_list(
+
+            self.get_info(x) #transform the response to a json list
+
+         ).filter(
+
+            lambda val: (val.get("description") is not None
+		and (val.get("description").lower()).find(query.lower())!= -1)
+            	or (val.get("language") is not None
+            	and (val.get("language").lower()).find(query.lower())!= -1)
+         ).take(10)  #just take 10 repos from each org
+
+    ).map(lambda x: {'name': x.get("name"),
+	'stars': str(x.get("stargazers_count")),
+	'link': x.get("svn_url"),'description': x.get("description"),
+	'language': x.get("language")})
+```
+
+First, we are iterating by the organizations list defined on the config file. We get the organization repository information and then transform the response to the desired format with the `get_info` method. After that, we are making the query to the information we just got and take only the first 10 results that accomplish with this query. Finally, we emit the `Observable` as a dictionary with the characteristics we will be showing in the page as a result.
+
+Finally we need to initialize and start the `ioLoop` for the web socket and render the `index.html` page which is going to show the results of the request with the following code:
+
+```python
+class MainHandler(RequestHandler):
+    def get(self):
+        self.render("index.html")
+
+def main():
+    port = os.environ.get("PORT", 8080)
+    app = Application([
+        url(r"/", MainHandler),
+        (r'/ws', WSHandler),
+        (r'/static/(.*)', StaticFileHandler, {'path': "."})
+    ])
+    print("Starting server at port: %s" % port)
+    app.listen(port)
+    ioloop.IOLoop.current().start()
+
+if __name__ == '__main__':
+    main()
+```
+
+Here we are starting the web socket so it can listen on port `8080`.
+
+We can check [the entire code of the `server.py` here](https://github.com/valerybriz/RxGithubSearcher/blob/master/server.py)
+
+### Showing the results on the page
+
+To show the results, we will use two static files: `index.html` and `feeder.js`. Let's create the `index.html` in the project root and add the following code:
+
+{% highlight html %}
+{% raw %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Github Searcher</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+      <div class="page-header">
+        <h1>Github Repositories Searcher with RxPY</h1>
+        <p class="lead">You are searching repositories from Auth0, Mozilla, Adobe, Twitter and Nasa</p>
+      </div>
+      <form role="form">
+        <div class="form-group">
+          <label for="textInput">Enter keywords or a programming language to search on the repos</label>
+          <input type="text" id="textInput" class="form-control" placeholder="Query...">
+        </div>
+      </form>
+      <ul id="results"></ul>
+    </div>
+  </div>
+  <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="static/feeder.js"></script>
+</body>
+</html>
+{% endraw %}
+{% endhighlight %}
+
+As you can see, we will be replacing the `<ul id="results"></ul>` with the results of the request to the GitHub API dynamically.
+
+Now, let's create the `feeder.js` file in the project root and add the following to it:
+
+```javascript
+(function (global, $, undefined) {
+    function main() {
+        var $input = $('#textInput'),
+            $results = $('#results');
+        var ws = new WebSocket("ws://localhost:8080/ws");
+
+        $input.keyup(function(ev) {
+            var msg = { term: ev.target.value };
+            ws.send(JSON.stringify(msg));
+        });
+	ws.onmessage = function(msg) {
+	    var value = JSON.parse(msg.data);
+	    if (value === "clear") {$results.empty(); return;}
+		    $('<li><h3><a tabindex="-1" href="' + value.link +
+		        '">' + value.name +'</a></h3> <p> Description : '
+			+ value.description +
+		        '</p><p> Language : ' + value.language +
+		        '</p><p> Stars : ' + value.stars + '</p></li>'
+		    ).appendTo($results);
+		    $results.show();
+	}
+    }
+    main();
+}(window, jQuery));
+```
+
+There you go!
+
+Now to run it we just execute the `server.py` file and the app will be served at `http://localhost:8080`:
+
+```bash
+# activate virtualenv
+pipenv shell
+
+# run the server
+python server.py
+```
+
+## Conclusions
+
+Apps and systems nowadays have a lot of real-time computationally expensive events that enables a highly interactive experience for the user. Here is where Reactive Programming shows up to help us properly dealing with that. With the help of the Reactive Programming operators, we can not only manage these events but filter, unify, and transform them on an inherent declarative style way.
+
+I hope this serves as a useful introduction to Reactive Programming in Python and as an overview of its basic capabilities. To learn more about Reactive Programming, I encourage you to browse the resources available at [ReactiveX](http://reactivex.io).
+
+Thanks for reading!
