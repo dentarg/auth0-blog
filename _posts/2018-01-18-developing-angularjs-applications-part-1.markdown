@@ -82,473 +82,498 @@ angular.module('tutorial', [])
   });
 ```
 
+The first step in converting the directive to a component is to change `.directive()` to `.component()`.
 
+_directive_
 
+```js
+.directive('counter', function counter() {
+  return {
 
-
-## Single Sign-On Advantages
-
-Single Sign-On refers to when a user logs in to an application with a single set of credentials and is then automatically signed into other applications. With Single Sign-On, a user gains access to multiple software systems without maintaining different login credentials such as usernames and passwords. Among the advantages of implementing Single Sign-On on our applications, we can find that it:
-
-- eliminates time spent to re-enter user credentials, which increases conversion rates for B2C portals;
-- eliminates password fatigue from having to store or remember different usernames and passwords;
-- reduces complaints about password problems, thus reducing the costs associated with setting up several help desk systems for password-reset issues, invalid credentials, etc;
-- and minimizes [phishing](https://en.wikipedia.org/wiki/Phishing), thus improving security;
-
-Let's learn how easy it is to implement Single Sign-On capabilities with Auth0.
-
-{% include tweet_quote.html quote_text="Increase conversion rates by implementing Single Sign-On on B2C applications." %}
-
-## Simulating B2C Portals
-
-To simulate the B2C portals and to focus on the Single Sign-On integration process, we are going to clone a GitHub repository that contains two applications: one simple backend API written in JavaScript that runs on Node.js; and one client-side application written with React.
-
-In the following sections, we are going to use these applications to simulate two portals. These portals will be pretty similar. The difference between them is that one will simulate a portal that sells products to be used at home, and the other one will simulate a portal that sells products to be used by kids (toys).
-
-To clone the GitHub repository, we can issue the following command:
-
-```bash
-# clone the repository in the current directory
-git clone https://github.com/auth0-blog/react-b2c-sso.git
+  };
+});
 ```
 
-### Running the Backend Instances
+_component_
 
-After cloning this repository, we are going to install the dependencies of the backend and then we are going to bootstrap two instances to support our portals:
+```js
+.component('counter', function counter() {
 
-```bash
-# change working directory
-cd react-b2c-sso/server/
-
-# install backend dependencies
-npm i
-
-# define port to run the first backend
-export PORT=3000
-
-# define the backend that will handle requests
-export REACT_APP_REST_PORT=3001
-
-# run the first backend instance
-npm start &
-
-# define port to run the second backend
-export PORT=4000
-
-# define the backend that will handle requests
-export REACT_APP_REST_PORT=4001
-
-# run the second backend instance
-npm start &
+});
 ```
 
-Note that we are using an environment variable called `REACT_APP_REST_PORT` to define on what port our backend instances will run. Besides defining on what port they run, this variable also sets the type of the backend. The backend instance running on port `3001` will return products to be used at home. The backend running on port `4001` will return products to be used by kids.
+Nice and simple. Essentially the return {}; statement inside the .directive() becomes the Object definition inside .component() - easy!
 
-Let's check if both backend instances are running properly:
+## Bindings
 
-```bash
-# retrieve products used at home
-curl localhost:3001/products
+In a .directive(), the scope property allows us to define whether we want to isolate the $scope or inherit it, this has now become a sensible default to (usually) always make our Directives have isolate scope. So repeating ourselves each time just creates excess boilerplate. With the introduction of bindToController, we can explicitly define which properties we want to pass into our isolate scope and bind directly to the Controller.
 
-# retrieve products used by kids
-curl localhost:4001
-```
+With the bindings property on .component() we can remove this boilerplate and simply define what we want to pass down to the component, under the assumption that the component will have isolate scope.
 
-### Running the Client-Side Applications
-
-Now that we have both backend APIs ready to handle requests, let's take care of the client-side applications. The process, as we will see, will be easy as before. The following commands will install the dependencies of the client-side application and will run two different instances. The purpose of these instances, exactly like the backend instances, will be to simulate two different portals. One that exposes products to use at home and one to expose products to be used by kids.
-
-```bash
-# change working directory to client-side app root
-cd ..
-
-# install client-side dependencies
-npm i
-
-# run the first client-side application
-export PORT=3000
-export REACT_APP_REST_PORT=3001
-npm start &
-
-# run the second client-side application
-export PORT=4000
-export REACT_APP_REST_PORT=4001
-npm start &
-```
-
-As we can see, the first portal (the one that will show products to be used at home) will run on port `3000` and the second portal (the one that will show products to be used by kids) will run on port `4000`.
-
-We can see both portals running by opening [`http://localhost:3000`](http://localhost:3000) and [`http://localhost:4000`](http://localhost:4000) on a web browser.
-
-![Client-side application running without identity management](https://cdn.auth0.com/blog/react-b2c-sso/portal.png)
-
-## Securing the Portals with Auth0
-
-After bootstrapping both portals, it's time to secure them and add Single Sign-On to provide a seamless user experience to our customers. As we will see, with Auth0, we will be able to achieve our goal in minutes. For starters, if we haven't done so yet, this is a good time to sign up for a <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">free Auth0 account</a>.
-
-### Creating Auth0 APIs
-
-Having our free account, the first thing we will do is to create two [Auth0 APIs](https://auth0.com/docs/apis) to represent our backend instances. To do that, let's open [the APIs webpage in a web browser](https://manage.auth0.com/#/apis) and click on "Create API". In the form that is shown, let's fill the "Name" input with "Products API" and "Identifier" with "https://homeproducts.ourcompany.com". This "Identifier" doesn’t have to be a publicly available URL, as Auth0 will not call our API at all. The last field in this form, "Signing Algorithm", can be left with the "RS256" value.
-
-![Creating Auth0 APIs](https://cdn.auth0.com/blog/react-b2c-sso/creating-auth0-apis.png)
-
-Now that we have our first API registered on Auth0, let's add a [scope](https://auth0.com/docs/scopes/current#api-scopes) to it. Scopes allow us to define the API data accessible to our client applications. In our case, as we want our clients to `get` `products`, we will create one scope: `get:products`. To create this scope, we have to head to the "Scopes" tab of our recently created API, fill the form, and click "Add".
-
-![Creating API Scopes on Auth0](https://cdn.auth0.com/blog/react-b2c-sso/adding-api-scopes.png)
-
-Now it's time to do the same process for our second API, the one that will show products to be used by kids. Therefore, let's head to [the APIs page](https://manage.auth0.com/#/apis) again, click on "Create API", and fill the form with:
-
-- "Name": "Kids Products API"
-- "Identifier": "https://kidsproducts.ourcompany.com"
-- "Signing Algorithm": "RS256"
-
-After that, we have to add the same scope to this new API. As such, let's click on the "Scopes" tab and add the `get:products` scope.
-
-### Securing the Backend Application with Auth0
-
-With both APIs correctly configured on our Auth0 account, it's time to secure the backend application. To understand how this is done, we will add a new endpoint to accept purchases from authenticated customers only. Unauthenticated visitors won't be able to use this endpoint.
-
-As our backend is a Node.js API written with [Express](https://expressjs.com/), we will install and configure three NPM packages:
-
-- [`express-jwt`](https://github.com/auth0/express-jwt), an Express middleware that validates JWTs;
-- [`express-jwt-authz`](https://github.com/auth0/express-jwt-authz), an Express middleware that validates JWT scopes;
-- and [`jwks-rsa`](https://github.com/auth0/node-jwks-rsa), a library to retrieve RSA public keys from a [JWKS (JSON Web Key Set) endpoint](https://auth0.com/docs/jwks).
-
-Let's start by installing these dependencies:
-
-```bash
-# change working directory to server
-cd server
-
-# install NPM dependencies
-npm i express-jwt express-jwt-authz jwks-rsa
-```
-
-After that, we will refactor the `server.js` file in the `server` directory to use these packages:
-
-```javascript
-// ... other imports
-const jwt = require('express-jwt');
-const jwtAuthz = require('express-jwt-authz');
-const jwksRsa = require('jwks-rsa');
-
-// ... express app and products endpoint definition
-
-const checkJwt = jwt({
-  // dynamically provide a signing key based on the kid in the header
-  // and the singing keys provided by the JWKS endpoint.
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/.well-known/jwks.json`
-  }),
-  // Validate the audience and the issuer.
-  audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-  issuer: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/`,
-  algorithms: ['RS256']
+```js
+// before
+.directive('counter', function counter() {
+  return {
+    scope: {},
+    bindToController: {
+      count: '='
+    }
+  };
 });
 
-// new endpoint to accept purchases from authenticated customers
-app.post('/buy', checkJwt, jwtAuthz([ 'get:products' ]), (req, res) => {
-  res.status(201).send({message: 'Thank you for buying. You make me happy!'});
-});
-
-// ... call to app.listen
-```
-
-As we can see, securing backend applications with Auth0 is really easy. In the case of a Node.js and Express combo, we just imported the three packages that we installed and configured two middleware to validate JWTs and their scopes.
-
-With these changes in place, we can run secured instances of our backend:
-
-```bash
-# configure env variable to point to our Auth0 domain
-export REACT_APP_AUTH0_DOMAIN=bk-samples.auth0.com
-
-# define the audience and port of the first backend application
-export REACT_APP_AUTH0_AUDIENCE=https://homeproducts.ourcompany.com
-export REACT_APP_REST_PORT=3001
-npm start &
-
-# define the audience and port of the second backend application
-export REACT_APP_AUTH0_AUDIENCE=https://kidsproducts.ourcompany.com
-export REACT_APP_REST_PORT=4001
-npm start &
-```
-
-What is important to note here is that now we use three environment variables in our backend applications:
-
-- `REACT_APP_AUTH0_DOMAIN`, an env variable that points to our Auth0 domain;
-- `REACT_APP_AUTH0_AUDIENCE`, an env variable that points to the identifier of one of the Auth0 APIs that we created in the previous section;
-- and `REACT_APP_REST_PORT`, an env variable that defines on what port our backend will listen for requests.
-
-Now, our backend contains a new endpoint that accepts purchases from authenticated users. As such, we can focus on the client-side application and the Single Sign-On integration.
-
-### Creating Auth0 Clients
-
-To configure Auth0 in our front-end applications, we first need to create [Auth0 Clients](https://auth0.com/docs/clients) to represent them. To do this, we need to head to [the Clients webpage in the management dashboard](https://manage.auth0.com/#/clients) and click "Create Client". We will create two clients, one for the portal that shows products to be used at home and one for the portal that shows products to be used by kids. Therefore, after clicking on the "Create Client" button, we can enter "Home Products Portal" as the name of the client and select "Single Page Web Applications" as its type.
-
-The management dashboard will redirect us to a tab called "Quick Start" inside our new client. Let's switch to the "Settings" tab and configure three properties of this client:
-
-- **Allowed Callback URLs**: Let's add `http://app.local:3000/callback` in this field to tell Auth0 that this is a valid URL to call back after the authentication process.
-- **Allowed Web Origins**: Let's add `http://app.local:3000` in this field to tell Auth0 that requests can originate from this URL.
-- **Allowed Logout URLs**: Let's add `http://app.local:3000` in this field to tell Auth0 that it can redirect the user to this URL after the logout process.
-
-Note that, instead of using `http://localhost:3000`, we used `http://app.local:3000` while configuring this client. We've done that because, for security reasons, Auth0 will always ask for explicit user consent when the Callback URL is set to `localhost` or `127.0.0.1`. We want to avoid that in Single Sign-On process to make it smooth. Therefore, one **important step** before proceeding with the rest of the tutorial is to configure `app.local` to resolve to `localhost` on our development machine. [This reference shows how to do this in different environments](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/), but if we are using Linux or Mac, we can achieve that by issuing the following command:
-
-```bash
-echo '127.0.0.1       app.local' | sudo tee -a /etc/hosts
-```
-
-Now that we have configured our development machine to point `app.local` to `localhost`, let's head back to the management dashboard and save the new properties. While we are still on this client, let's take note of the "Client ID" property. We will use it later when configuring Auth0 in our code.
-
-We have finished creating the first Auth0 Client. Now, to create the second one, let's head back to [the Clients webpage](https://manage.auth0.com/#/clients) and create it with the following properties:
-
-- **Client Name**: "Kids Products Portal"
-- **Client Type**: "Single Page Web Applications"
-- **Allowed Callback URLs**: `http://app.local:4000/callback`
-- **Allowed Web Origins**: `http://app.local:4000`
-- **Allowed Logout URLs**: `http://app.local:4000`
-
-After saving the second client, let's take note of the "Client ID" property as well.
-
-### Securing the Client-Side Applications with Auth0
-
-To secure the client applications with Auth0, we will need only one external dependency: [`auth0-web`](https://github.com/brunokrebs/auth0-web). This library is a wrapper around [`auth0.js`](https://github.com/auth0/auth0.js) that favors convention over configuration. To install it, let's issue the following command in the project root:
-
-```bash
-npm i auth0-web
-```
-
-When users successful login with Auth0, they are redirected to our application with their JWTs included as hashes in the URL. To handle these hashes and to show a nice message while we process them, let's create a component called `Callback`. To do that, let's add a new directory inside `src` called `Callback` and create a file on it called `Callback.js`. In this file, we will add:
-
-```javascript
-import React, {Component} from 'react';
-import * as Auth0 from "auth0-web";
-
-class Callback extends Component {
-  componentWillMount() {
-    Auth0.handleAuthCallback();
+// after
+.component('counter', {
+  bindings: {
+    count: '='
   }
+});
+```
 
-  render() {
-    return (
-      <div>Loading profile...</div>
-    );
+## Refactoring Controller Function
+
+Nothing has changed in the way we declare controller, however it’s now a little smarter and has a default controllerAs value of $ctrl.
+
+If we’re using a controller local to the component, we’ll do this:
+
+    ```js
+    // 1.4
+    {
+      ...
+      controller: function () {}
+      ...
+    }
+    ```
+
+If we’re using another Controller defined elsewhere, we’ll do this:
+
+```js
+// 1.4
+{
+  ...
+  controller: 'SomeCtrl'
+  ...
+}
+```
+
+If we want to define controllerAs at this stage (which will over-ride the default $ctrl value), we’ll need to create a new property and define the instance alias:
+
+```js
+// 1.4
+{
+  ...
+  controller: 'SomeCtrl',
+  controllerAs: 'something'
+  ...
+}
+```
+
+This then allows us to use something.prop inside our template to talk to the instance of the Controller.
+
+Now, there are some changes in .component() that make sensible assumptions and automatically create a controllerAs property under the hood for us, and automatically assign a name based on three possibilities:
+
+```js
+// inside angular.js
+controllerAs: identifierForController(options.controller) || options.controllerAs || '$ctrl',
+```
+
+Possibility one uses this aptly named identifierForController function that looks like so:
+
+```js
+// inside angular.js
+var CNTRL_REG = /^(\S+)(\s+as\s+(\w+))?$/;
+function identifierForController(controller, ident) {
+  if (ident && isString(ident)) return ident;
+  if (isString(controller)) {
+    var match = CNTRL_REG.exec(controller);
+    if (match) return match[3];
   }
 }
-
-export default Callback;
 ```
 
-The magic here will happen in the `Auth0.handleAuthCallback` function call. This function will parse hashes and, if it finds tokens, load users profiles.
+This allows us to do the following inside .component():
 
-After creating this component, let's refactor the `App.js` file to use it and also to bootstrap `auth0-web` with the correct properties:
+```js
+// 1.5
+{
+  ...
+  controller: 'SomeCtrl as something'
+  ...
+}
+```
 
-```javascript
-import React, {Component} from 'react';
-import {Route, withRouter, Redirect} from 'react-router-dom';
-import Header from './Header/Header.js';
-import Home from './Home/Home.js';
-import * as Auth0 from 'auth0-web';
-import Callback from "./Callback/Callback";
+This saves adding the controllerAs property… however…
 
-Auth0.configure({
-  domain: process.env.REACT_APP_AUTH0_DOMAIN,
-  audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-  clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
-  redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
-  responseType: 'token id_token',
-  scope: 'openid get:products'
+We can add the controllerAs property to maintain backwards compatibility or keep it if that’s within your style for writing Directives/Components.
+
+The third option, and better yet, completely removes all need to think about controllerAs, and Angular automatically uses the name $ctrl. For instance:
+
+```js
+.component('test', {
+  controller: function () {
+    this.testing = 123;
+  }
 });
+```
 
-class App extends Component {
+The would-be controllerAs definition automatically defaults to $ctrl, so we can use $ctrl.testing in our template which would give us the value of 123.
 
-  componentWillMount() {
-    const self = this;
+Based on this information, we add our controller, and refactor our Directive into a Component by dropping the controllerAs property:
 
-    Auth0.subscribe(async (signedIn) => {
-      if (signedIn) {
-        return self.setState({signedIn});
+```js
+// before
+.directive('counter', function counter() {
+  return {
+    scope: {},
+    bindToController: {
+      count: '='
+    },
+    controller: function () {
+      function increment() {
+        this.count++;
       }
-
-      const ssoStatus = await Auth0.silentAuth('b2c-sso', process.env.REACT_APP_AUTH0_AUDIENCE, 'openid get:products');
-
-      self.setState({
-        signedIn: ssoStatus
-      });
-    });
-  }
-
-  render() {
-    const {pathname} = this.props.location;
-    if (Auth0.isAuthenticated() && pathname === '/callback') {
-      return <Redirect to="/"/>
-    }
-    return (
-      <div className="app">
-        <Route path="/" component={Header}/>
-        <Route exact path="/" component={Home}/>
-        <Route path="/callback" component={Callback}/>
-      </div>
-    );
-  }
-}
-
-// withRouter makes component route-aware so we can check `this.props.location`
-export default withRouter(props => <App {...props}/>);
-```
-
-There are only a few differences between this version and the previous, unsecured one:
-
-- Now we are bootstrapping the `auth0-web` library with four environment variables (`REACT_APP_AUTH0_DOMAIN`, `REACT_APP_AUTH0_AUDIENCE`, `REACT_APP_AUTH0_CLIENT_ID`, `REACT_APP_AUTH0_REDIRECT_URI`) and with the `get:products` scope that we configured on our Auth0 APIs.
-- We have configured the `componentWillMount` lifecycle method to subscribe to `auth0-web` events. Now, if our users are not authenticated, we use the `silentAuth` method of `auth0-web` to Single Sign-On them. Of course, if they are not yet authenticated with Auth0, `ssoStatus` will be set to false (unauthenticated) and vice versa.
-- We have configured our app to redirect users to the home page when they reach `/callback`.
-
-Right now, we are not providing means to users manually initiate the authentication process, nor to allow them to sign out. To do that, let's add two buttons into the `Header` component (`Header.js` file) and make them trigger these processes:
-
-```javascript
-import React, {Component} from 'react';
-import './Header.css';
-import * as Auth0 from 'auth0-web';
-import Button from '../DOMElements/Button/Button';
-
-class Header extends Component {
-  render() {
-    const authenticated = Auth0.isAuthenticated();
-    return (
-      <div className="app-header">
-        <h1>B2C Store</h1>
-        <div className="app-header-links">
-          {!authenticated && <Button text="Sign In with Auth0" onClick={Auth0.signIn}/>}
-          {authenticated && <Button text="Sign Out" onClick={this.logout}/>}
-        </div>
-      </div>
-    );
-  }
-
-  logout() {
-    Auth0.signOut({
-      returnTo: process.env.REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI,
-      clientID: process.env.REACT_APP_AUTH0_CLIENT_ID
-    });
-  }
-}
-
-export default Header;
-```
-
-In this new version, we are now showing a button called "Sign In with Auth0" that, when clicked, triggers the `signIn` method of `auth0-web`. We are also showing a button (for authenticated users only) called "Sign Out" that calls the `logout` method defined above. Lastly, we are making the `logout` method call `signOut` with two environment variables: `REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI` and `REACT_APP_AUTH0_CLIENT_ID`. We will define all these variables later, when running the applications.
-
-The last thing we need to do is to change the `Home` component to show a button called "Buy" to authenticated users. This button, when clicked, will make a POST HTTP request to the secured `/products` endpoint that we created before. This request will include the `access_token` retrieved from Auth0 in the `Authorization` header. This is the new code of the `Home.js` file:
-
-```javascript
-import React, {Component} from 'react';
-import Panel from '../DOMElements/Panel/Panel';
-import {withRouter} from 'react-router-dom';
-import axios from "axios";
-import './Home.css';
-import Button from "../DOMElements/Button/Button";
-import * as Auth0 from 'auth0-web';
-
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {products: []};
-    this.componentDidMount = loadProducts.bind(this);
-  }
-
-  render() {
-    const rows = this.state.products;
-    const authenticated = Auth0.isAuthenticated();
-    return (
-      <Panel>
-        <h2>List of Products</h2>
-        <div className='productsList'>
-          {rows.map((product, index) => {
-            const productImage = `http://localhost:${process.env.REACT_APP_REST_PORT}/images/${product.image}`;
-            const imageStyle = {
-              maxWidth: '200px'
-            };
-            return (
-              <div className='product' key={index}>
-                <img style={imageStyle} src={productImage} alt="The nice product illustration" />
-                <p>{product.title} - $ {product.price}</p>
-                {authenticated && <Button text='Buy' onClick={buy} />}
-              </div>
-            );
-          })}
-        </div>
-      </Panel>
-    );
-  }
-}
-
-export default withRouter(props => <Home {...props} />);
-
-async function loadProducts() {
-  const config = {
-    url: `http://localhost:${process.env.REACT_APP_REST_PORT}/products`,
+      function decrement() {
+        this.count--;
+      }
+      this.increment = increment;
+      this.decrement = decrement;
+    },
+    controllerAs: 'counter'
   };
+});
 
-  const products = (await axios(config)).data;
-  this.setState({ products });
-}
-
-async function buy() {
-  const config = {
-    method: 'POST',
-    url: `http://localhost:${process.env.REACT_APP_REST_PORT}/buy`,
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem(Auth0.ACCESS_TOKEN)}`
+// after
+.component('counter', {
+  bindings: {
+    count: '='
+  },
+  controller: function () {
+    function increment() {
+      this.count++;
     }
-  };
+    function decrement() {
+      this.count--;
+    }
+    this.increment = increment;
+    this.decrement = decrement;
+  }
+});
+```
 
-  const response = (await axios(config)).data;
-  alert(response.message);
+Things are becoming much simpler to use and define with this change.
+
+## Templating Changes
+
+There’s a subtle difference in the template property worth noting. Let’s add the template property to finish off our rework and then take a look.
+
+```js
+.component('counter', {
+  bindings: {
+    count: '='
+  },
+  controller: function () {
+    function increment() {
+      this.count++;
+    }
+    function decrement() {
+      this.count--;
+    }
+    this.increment = increment;
+    this.decrement = decrement;
+  },
+  template: `
+    <div class="todo">
+      <input type="text" ng-model="$ctrl.count">
+      <button type="button" ng-click="$ctrl.decrement();">-</button>
+      <button type="button" ng-click="$ctrl.increment();">+</button>
+    </div>
+  `
+});
+```
+
+The template property can be defined as a function that is now injected with $element and $attrs locals. If the template property is a function then it needs to return a String representing the HTML to compile:
+
+```js
+{
+  ...
+  template: function ($element, $attrs) {
+    // access to $element and $attrs
+    return `
+      <div class="todo">
+        <input type="text" ng-model="$ctrl.count">
+        <button type="button" ng-click="$ctrl.decrement();">-</button>
+        <button type="button" ng-click="$ctrl.increment();">+</button>
+      </div>
+    `
+  }
+  ...
 }
 ```
 
-That's it. Our front-end application is ready to run. Let's issue the following commands to bootstrap the two applications (home and kids portals) and test the Single Sign-On integration:
+## One Way Data Binding
+
+If you have been using AngularJS long enough, you will be accustomed to the two-data way binding it provides. However, in AngularJS 1.5+, there is a new one-way data binding that we can explore and also improve the performance of our AngularJS applications.
+
+A new syntax expression for the one-way data binding is the use of `<` notation. For two-way data bindings, the `=` notation is used instead.
+
+```js
+{
+  ...
+  bindings: {
+    firstObj: '<',
+    secondObj: '='
+  },
+  ...
+}
+```
+
+Check out a good example of one-way data binding below:
+
+```js
+var sample = {
+  bindings: {
+    firstObj: '<',
+    secondObj: '<'
+  },
+  template: `
+    <div class="section">
+      <h4>
+        One way Data binding Example
+      </h4>
+      <p>First Object: {{ $ctrl.firstObj }}</p>
+      <p>Second Object: {{ $ctrl.secondObj }}</p>
+      <a href="" ng-click="$ctrl.testDataBinding();">
+        Change Values
+      </a>
+    </div>
+  `,
+  controller: function () {
+    this.testDataBinding = function () {
+      this.firstObj = 10;
+      this.secondObj = {
+        maxwell: {
+          language: 'PHP',
+          name: 'Jack Maxwell'
+        }
+      };
+    };
+  }
+};
+
+function ExampleController() {
+  this.exfirstObj = 99;
+  this.exSecondObj = {
+    unicodeveloper: {
+      language: 'JavaScript',
+      name: 'Prosper Otemuyiwa'
+    }
+  };
+  this.testDataBinding = function () {
+    this.exfirstObj = 33;
+    this.exSecondObj = {
+      lesasote: {
+        language: 'Scala',
+        name: 'Shitta Kalesaso'
+      }
+    };
+  };
+}
+
+angular
+  .module('app', [])
+  .component('sample', sample)
+  .controller('ExampleController', ExampleController);
+```
 
 ```bash
-# set env variables and bootstrap Home Products portal
-export PORT=3000
-export REACT_APP_AUTH0_DOMAIN=bk-samples.auth0.com
-export REACT_APP_AUTH0_AUDIENCE=https://homeproducts.ourcompany.com
-export REACT_APP_AUTH0_CLIENT_ID=sOmEcLiEnTID
-export REACT_APP_AUTH0_REDIRECT_URI=http://app.local:3000/callback
-export REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI=http://app.local:3000/
-export REACT_APP_REST_PORT=3001
-
-npm start &
-
-# set env variables and bootstrap Kids Products portal
-export PORT=4000
-export REACT_APP_AUTH0_DOMAIN=bk-samples.auth0.com
-export REACT_APP_AUTH0_AUDIENCE=https://kidsproducts.ourcompany.com
-export REACT_APP_AUTH0_CLIENT_ID=sOmEoThErClIeNtID
-export REACT_APP_AUTH0_REDIRECT_URI=http://app.local:4000/callback
-export REACT_APP_AUTH0_SIGN_OUT_REDIRECT_URI=http://app.local:4000/
-export REACT_APP_REST_PORT=4001
-
-npm start &
+<div ng-app="app">
+  <div ng-controller="ExampleController as example">
+    <h3>
+      One way data-binding
+    </h3>
+    <div class="section">
+      <h4>
+        Parent
+      </h4>
+      <p>
+        First Object: {{ example.exfirstObj }}
+      </p>
+      <p>
+        Second Object: {{ example.exSecondObj }}
+      </p>
+      <a href="" ng-click="example.testDataBinding();">
+        Change Parent Values
+      </a>
+    </div>
+    <sample firstObj="example.exfirstObj" secondObj="example.exSecondObj"></sample>
+  </div>
+</div>
 ```
 
-> **Note** that we have to set both `REACT_APP_AUTH0_CLIENT_ID` above to the client IDs that we have copied in the last section.
+One-way data binding is changes propagating down and flowing into the component to update it with new data.
 
-After starting both portals, let's open the first one ([http://app.local:3000/](http://app.local:3000/)) on a web browser and click on the "Sign In with Auth0" button. After authenticating and being redirected as an authenticated user to our portal, let's open the second portal ([http://app.local:4000/](http://app.local:4000/)). Voilà! We are automatically authenticated in the second portal as well.
+## LifeCycle Hooks
 
-{% include tweet_quote.html quote_text="Implementing Single Sign-On on B2C applications with Auth0 is really easy!" %}
+Lifecycle hooks shipped alongside the `.component()` method in AngularJS 1.5. These hooks are functions that can be invoked at different stages of a component's life in AngularJS apps. These hooks are:
 
-### Using Single Sign-On and Social Connections
+- **$onInit()**
+- **$onChanges()**
+- **$onDestroy()**
+- **$postLink()**
 
-[To use Single Sign-On and Social Connections ("Login with Google", "Login with Facebook", and so on) we need to configure them](https://manage.auth0.com/#/connections/social) with official keys fetched from the providers. For example, [to enable users to sign in with Google, we can follow the steps shown in this documentation](https://auth0.com/docs/goog-clientid).
 
-**Note** that, Auth0 accounts come preconfigured with Auth0 development keys for Google Social Connection. If we don't configure it with our own keys (following the documentation mentioned), the Single Sign-On process won't work. Auth0 **does not** allow silent authentication with its own development keys.
+### $onInit()
+
+The `$onInit()` hook is invoked when controllers have been constructed. It is used for initialization work for controllers. A typical example is populating a table or some form of list once a controller has been loaded.
+
+```js
+function MyController() {
+  this.$onInit = function () {
+    this.users = [{
+        "id": 1,
+        "name": "Leanne Graham",
+        "username": "Bret",
+        "email": "Sincere@april.biz",
+        "phone": "1-770-736-8031 x56442",
+        "website": "hildegard.org",
+        "company": {
+          "name": "Romaguera-Crona",
+          "catchPhrase": "Multi-layered client-server neural-net"
+        }
+      },
+      ...
+
+    ];
+  };
+}
+```
+
+```bash
+<div ng-repeat="user in users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.address.city }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.website }}</td>
+        <td>{{ user.company.name }}</td>
+</div>
+```
+
+### $onChanges()
+
+When building components at one point you will have data coming into your component from an external source e.g parent component. With `$onChanges` we can react to this changes and update the child component data effectively.
+
+Before we go ahead into examples it is important for us to understand, how, why and when this hook is called. $onChanges hook is called in two scenarios, one being during component initialization, it passes down the initial changes that can be used right away through isFirstChange method.
+
+### $onDestroy()
+
+This hook is called when its containing scope is destroyed. We can use this hook to release external resources, watches and event handlers. This is basically the same as `$scope.on($destroy, fn)` when used in controllers.
+
+```js
+function MyController($element) {
+  /**
+   * eventHandler: custom event handler to be attached to our element]
+   */
+  var eventHandler = function () {
+    /**
+     * Do something cool in here
+     */
+  };
+
+  /**
+   * [$onInit: Attach our eventHandler when the element is clicked]
+   */
+
+  this.$onPostLink = function () {
+
+    // When the component DOM has been compiled attach you eventHandler.
+
+  };
+
+  /**
+   * [$onDestroy: Destroy the eventHandler once the component is destroyed]
+   */
+  this.$onDestroy = function () {
+
+    // Destroy all custom events or bindings when the component scope is destroyed.
+
+  };
+
+}
+```
+
+When our component is constructed, we attach a click event to the component element that does something to it when clicked, it can be wherever we want let's say show alert box saying I am clicked.
+
+In the duration when this component is active we would be happy to have this event, but when this component is inactive (meaning we have destroyed it), we don' t need this event anymore it has to go.
+
+Since this our custom event and it's not native to Angular, it will not be detached from our app along with the component, but it will be left snooping around for an element which does not exist.
+
+We need to tell Angular through the $onDestroy hook when you destroy this component detach this event too.
+
+### $postLink()
+
+This hook is called after the controller's element and its children have been linked. When the component elements have been compiled and ready to go, this hook will be fired.
+
+```js
+function MyController($element) {
+  /**
+   * When the element and its child nodes have been compiled
+   */
+
+  this.$postLink = function () {
+    /**
+     * Do something awesome in here
+     */
+
+  };
+
+}
+```
+
+This hook can help us to implement some functionalities that depend on the component elements to be fully compiled.
+
+It is important to note that this is not a complete replacement for DOM manipulation, this functionality should be handled by decorator directives.
+
+## Disabling isolate scope
+
+Components are always created with isolate scope. Here’s the relevant part from the source code:
+
+```js
+{
+  ...
+  scope: {},
+  ...
+}
+```
+
+## Stateless components
+
+There’s now the ability to create “stateless” components, read my in-depth article on stateless components in the .component() method.
+
+Essentially we can just use a template and bindings:
+
+```js
+var NameComponent = {
+  bindings: {
+    name: '<',
+    age: '<'
+  },
+  template: `
+    <div>
+      <p>Name: {{ $ctrl.name }}</p>
+      <p>Age: {{ $ctrl.age }}</p>
+    </div>
+  `
+};
+
+angular
+  .module('app', [])
+  .component('nameComponent', NameComponent);
+
+```
 
 ## Conclusion
 
-As we can see, adding Single Sign-On capabilities to our applications is pretty easy with Auth0. [No matter what technologies we are using in the backend and in the front-end, Auth0 got us covered](https://auth0.com/docs/quickstarts).
+As we can see, AngularJS applications can be better with these features listed above. Much work has gone in to the project from the team to make it very similar to the way we write Angular apps using the component archictecture.
 
-After configuring this feature, we make the process so smooth that we can even start thinking about adding small steps to [progressively enrich our users' profiles](https://auth0.com/blog/how-profile-enrichment-and-progressive-profiling-can-boost-your-marketing/). What do you think? Can the process be easier than that?
+In the next and final part of this series, we'll build a sample application with AngularJS 1.5+ that harnesses all these features. Stay tuned!
