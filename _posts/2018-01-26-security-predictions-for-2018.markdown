@@ -2,21 +2,40 @@
 layout: post
 title: "Security Predictions for 2018 That Go Beyond GDPR Compliance"
 description: "Here are 5 trends that will help you keep your organization secure in 2018."
-date: 2018-01-10 08:30
-category: Security
+date: 2018-01-26 08:30
+category: Growth, Security 
 author:
-  name: "Robin Percy"
-  url: "https://twitter.com/rbin"
-  mail: "robin.percy@auth0.com"
-  avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
+  name: Diego Poza
+  url: https://twitter.com/diegopoza
+  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
+  mail: diego.poza@auth0.com
+is_non-tech: true
 design:
-  bg_color: "#FFFFFF"
-  image: https://cdn.auth0.com/blog/image.jpg
+  bg_color: "#222228"
+  image: https://cdn2.auth0.com/blog/get-ready-for-gdpr/logo.png
 tags:
-- tag1
-- tag2
+- security
+- gdpr
+- identity
+- compliance
+- data-protection
+- passwords
+- data
+- iot
+- phishing
+- mfa
+- multifactor-authentication
 related:
- - 
+ - 2018-01-15-mission-possible-reality-for-7-gdpr-misconceptions
+ - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
+ - 2017-12-11-business-identity-theft-is-on-the-rise
+---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>GDPR is around the corner. Are you Ready? Take our GDPR Readiness Assessment to find out. <a href="https://auth0.com/gdpr-assessment/tool-1">Start the survey</a>.</strong>
+</div>
+
 ---
 
 # Security Predictions for 2018 That Go Beyond GDPR Compliance
@@ -28,9 +47,9 @@ related:
 {% include tweet_quote.html quote_text="quotable tweet text.." %}
 
 
-GDPR [compliance](https://auth0.com/blog/get-ready-for-gdpr/) is dominating the 2018 security discussion. With the May 25th deadline quickly approaching, the first half of 2018 will likely be consumed with making the necessary changes for compliance, which is an enormous task for any size company.
+[GDPR compliance](https://auth0.com/gdpr) is dominating the 2018 security discussion. With the May 25th deadline quickly approaching, the first half of 2018 will likely be consumed with making the necessary changes for compliance, which is an enormous task for any size company.
 
-While GDPR is extremely important and failure to comply comes with stiff penalties, don't let it distract you from anticipating the security threats that await your organization. If you thought 2017 was a massive year of cyber attacks, there are unfortunately no signs of slowing down in 2018.
+While GDPR is extremely important and failure to comply comes with [stiff penalties](https://resources.auth0.com/whitepaper/gdpr-fine-determination/), don't let it distract you from anticipating the security threats that await your organization. If you thought 2017 was a massive year of cyber attacks, there are unfortunately no signs of slowing down in 2018.
 
 Here are our 5 security predictions to help you prepare for 2018.
 
