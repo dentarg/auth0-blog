@@ -38,13 +38,10 @@ related:
 
 ---
 
-# Security Predictions for 2018 That Go Beyond GDPR Compliance
-
-
 **TL;DR:**  It's easy to predict the security threat for 2018 (Hint: It will be bigger and more sophisticated than 2017). It's another thing to prepare for what lies ahead. Here are 5 trends that will help you keep your organization secure in 2018.
 
 
-{% include tweet_quote.html quote_text="quotable tweet text.." %}
+{% include tweet_quote.html quote_text="Here are 5 trends that will help you keep your organization secure in 2018" %}
 
 
 [GDPR compliance](https://auth0.com/gdpr) is dominating the 2018 security discussion. With the May 25th deadline quickly approaching, the first half of 2018 will likely be consumed with making the necessary changes for compliance, which is an enormous task for any size company.
