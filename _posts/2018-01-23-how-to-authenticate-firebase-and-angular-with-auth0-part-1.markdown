@@ -526,7 +526,7 @@ $ ng g interface core/dog-detail
 
 Creating the module first ensures that components created in that module's folder will then be imported and declared automatically in that parent module instead of the app's root module.
 
-> **Note:** If you wish to use a shared module's components in another module, you need to `export` the components as well as import/declare. We can do this automatically with the CLI using the `--export=true` flag.
+> **Note:** If you wish to use a shared module's components in another module, you need to `export` the components as well as declare them. We can do this automatically with the CLI using the `--export=true` flag.
 
 This is the basic architecture for the shared core services, components, and models that our app will need access to.
 
