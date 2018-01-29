@@ -2,21 +2,30 @@
 layout: post
 title: "What is Enterprise Mobile Management (EMM)?"
 description: "Learn how enterprises are taking back control of managing, tracking and securing their employee's mobile devices."
-date: 2018-01-10 08:30
-category: Security
+longdescription: "Enterprise mobility management (EMM) is a security solution that helps IT take back control of the business-related applications and data living on employee devices without actually interfering with their personal apps. Learn more about EMM."
+date: 2018-01-29 08:30
+category: Growth, Security
+is_non-tech: true
 author:
-  name: "Robin Percy"
-  url: "https://twitter.com/rbin"
-  mail: "robin.percy@auth0.com"
-  avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
-  bg_color: "#FFFFFF"
-  image: https://cdn.auth0.com/blog/image.jpg
+  bg_color: "#2B0050"
+  image: https://cdn.auth0.com/blog/enterprise-mobile-management/logo.png
 tags:
-- tag1
-- tag2
+- enterprise
+- mobile
+- security
+- emm
+- 2fa
+- single-sign-on
+- sso
 related:
- - 
+ - 2017-12-04-ten-mobile-security-threats-and-what-you-can-do-to-fight-back
+ - 2018-01-19-how-iam-can-help-your-enterprise-get-mobile
+ - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
 ---
 
 **TL;DR:**  Learn how enterprises are taking back control of managing, tracking and securing their employee's mobile devices.
