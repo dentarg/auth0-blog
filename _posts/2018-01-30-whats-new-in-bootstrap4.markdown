@@ -30,13 +30,17 @@ related:
 
 **TL;DR:** Bootstrap is the de-facto design frontend component library for designing web and mobile sites. In this article, I'll cover the new features in Bootstrap 4.0 and several other changes and deprecations.
 
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">We never stopped believing, and hope you didn’t either! Bootstrap 4.0.0 has finally landed! <a href="https://t.co/zFAOxpyhvD">https://t.co/zFAOxpyhvD</a></p>&mdash; Bootstrap (@getbootstrap) <a href="https://twitter.com/getbootstrap/status/954061442940002304?ref_src=twsrc%5Etfw">January 18, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 ---
 
 Bootstrap is built and maintained by [@mdo](https://twitter.com/mdo), [@fat](https://twitter.com/fat) and a core team of developers. It is an open source toolkit that provides a responsive grid system, Sass variables and mixins, prebuilt components for developing with HTML, CSS, and JS. 
 
 Bootstrap 4.0 final release was announced to the world on January 19, 2018, after the alpha version was released three years ago. Bootstrap 4 is a major rewrite of the entire project. It is such a huge milestone for the Bootstrap team to tag the 4.0.0 release after many years of hard work squashing bugs, improving the framework and polishing the documentation. Let's go through the major changes in Bootstrap from the v4.0.0-beta to version 4.0.0. 
 
-{% include tweet_quote.html quote_text="Bootstrap 4 is a major rewrite of the entire project." %}
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Nearly three years of personal open source work and energy has gone into this thing. Words cannot express how happy I am that it’s out. Now, on to v4.1! <a href="https://t.co/XgpZzzDNoY">https://t.co/XgpZzzDNoY</a></p>&mdash; Mark Otto (@mdo) <a href="https://twitter.com/mdo/status/954062092037795840?ref_src=twsrc%5Etfw">January 18, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## 1. Normalize Dropped, Reboot Here to Stay
 
@@ -266,5 +270,7 @@ _Auth0 Custom Login Form_
 ## Conclusion
 
 **Bootstrap 4** came loaded with new features and significant improvements. It is better, more customizable and slick. I am proud of what the Bootstrap team and the community achieved with this release.
+
+{% include tweet_quote.html quote_text="Bootstrap 4 is a major rewrite of the entire project." %}
 
 Have you switched to Bootstrap v4.0 yet? What are your thoughts? Let me know in the comments section! 😊
