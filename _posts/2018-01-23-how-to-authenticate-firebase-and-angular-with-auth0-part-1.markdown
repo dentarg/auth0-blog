@@ -512,12 +512,12 @@ Next we'll create the `CoreModule` and its components and services. This is a _s
 $ ng g module core
 # create API service with no .spec file:
 $ ng g service core/api --no-spec
-# create HeaderComponent with inline styles and no .spec file:
-$ ng g component core/header --is --no-spec
-# create LoadingComponent with inline styles, inline template, no folder, and no .spec file:
-$ ng g component core/loading --is --it --flat --no-spec
-# create ErrorComponent with inline styles, inline template, no folder, and no .spec file:
-$ ng g component core/error --is --it --flat --no-spec
+# create HeaderComponent with inline styles, no .spec file, and export in module:
+$ ng g component core/header --is --no-spec --export=true
+# create LoadingComponent with inline styles, inline template, no folder, no .spec file, and export in module:
+$ ng g component core/loading --is --it --flat --no-spec --export=true
+# create ErrorComponent with inline styles, inline template, no folder, no .spec file, and export in module:
+$ ng g component core/error --is --it --flat --no-spec --export=true
 # create Dog type interface:
 $ ng g interface core/dog
 # create DogDetail type interface:
@@ -526,7 +526,7 @@ $ ng g interface core/dog-detail
 
 Creating the module first ensures that components created in that module's folder will then be imported and declared automatically in that parent module instead of the app's root module.
 
-> **Note:** If you wish to use a shared module's components in another module, however, you will need to `export` the components as well as import/declare. We'll cover this shortly.
+> **Note:** If you wish to use a shared module's components in another module, you need to `export` the components as well as declare them. We can do this automatically with the CLI using the `--export=true` flag.
 
 This is the basic architecture for the shared core services, components, and models that our app will need access to.
 
@@ -577,7 +577,7 @@ $ ng g module comments
 # create Comment model class:
 $ ng g class comments/comment
 # create CommentsComponent with no .spec file:
-$ ng g component comments/comments --no-spec
+$ ng g component comments/comments --no-spec --export=true
 # create CommentFormComponent with inline styles and no .spec file:
 $ ng g component comments/comments/comment-form --is --no-spec
 ```
@@ -686,7 +686,7 @@ Since this is a shared module, we'll import the other modules, services, and com
 
 > **Note:** The `CommonModule` is imported in all modules that are _not_ the root module.
 
-In our `imports` array, we'll add any modules that may be needed by services or components in the `CoreModule`, or that need to be available to _other_ modules in our app. The CLI should have automatically added any generated components to the `declarations` array. We also need to add an `exports` array for any modules or components that we want to make available to other modules.
+In our `imports` array, we'll add any modules that may be needed by services or components in the `CoreModule`, or that need to be available to _other_ modules in our app. The CLI should have automatically added any generated components to the `declarations` array. The `exports` array should contain any modules or components that we want to make available to other modules.
 
 Note that we have imported `ModuleWithProviders` from `@angular/core`. Using this module, we can create a `forRoot()` method that can be called on import in the root `app.module.ts` when `CoreModule` is imported. This way, we can ensure that any services we add to a `providers` array returned by the `forRoot()` method remain _singletons_ in our application. In this manner, we can avoid unintentional multiple instances if other modules in our app also need to import the `CoreModule`.
 
@@ -758,7 +758,7 @@ export class CommentsModule { }
 
 We'll need to import the `CoreModule` so we can utilize its exported `FormsModule`, `LoadingComponent`, and `ErrorComponent`. We also need to access our configuration from the `environment.ts` file. Comments use Firebase's Cloud Firestore database, so let's import the `AngularFireModule` and `AngularFirestoreModule` as well as our two components: `CommentsComponent` and `CommentFormComponent`.
 
-When we add `AngularFireModule` to the @NgModule's `imports` array, we'll call its `initializeApp()` method, passing in our Firebase configuration. Both of our components should already be in the `declarations` array, but we'll also need to add `CommentsComponent` to the `exports` array so that other components from other modules can use it. 
+When we add `AngularFireModule` to the @NgModule's `imports` array, we'll call its `initializeApp()` method, passing in our Firebase configuration. Both of our components should already be in the `declarations` array, and the `CommentsComponent` should already be added to the `exports` array so that other components from other modules can use it. 
 
 > **Note:** We don't need to export `CommentsFormComponent` because it's a child of `CommentsComponent`.
 
