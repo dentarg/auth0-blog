@@ -14,12 +14,14 @@ author:
   avatar: https://pbs.twimg.com/profile_images/1891692507/JeanaTahnk2_crop_400x400.jpg
 design:
   bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/ambassador-program/logo.png
+  image: https://cdn.auth0.com/blog/auth0-online-meetup/logo.png
 tags:
 - auth0
 - online-meetup
 - company-news
 - security
+- cybersecurity
+- auth0-ambassador
 related:
 - 2018-01-29-auth0-announces-record-year
 - 2017-12-12-auth0-names-eugenio-pace-as-new-ceo
