@@ -30,7 +30,7 @@ related:
 
 -----
 
-**TL;DR**: Aurelia is a great client-side JavaScript framework and adding JWT authentication to Aurelia apps is easy with the [aurelia-auth package](https://github.com/paulvanbladel/aurelia-auth). Check out the [GitHub repo](https://github.com/auth0/aurelia-quote-app) for this article to find out how to add authentication to your Aurelia app.
+**TL;DR**: Aurelia is a great client-side JavaScript framework and adding JWT authentication to Aurelia apps is easy with the [aurelia-auth package](https://github.com/paulvanbladel/aurelia-auth). Check out the [GitHub repo](https://github.com/auth0-blog/aurelia-quote-app) for this article to find out how to add authentication to your Aurelia app.
 
 -----
 
@@ -390,7 +390,7 @@ Let's start at the top and set up the navigation bar.
 
   ...
 ```
-Notice here that we're running a filter on the repeated navigation items with `authFilter: isAuthenticated`. This allows us to hide any nav menu items that are to be protected if the user isn't authenticated, and this is how we will hide the `super-secret-quote` menu item when the user isn't logged in. We're also conditionally showing the Signup, Login, and Logout links. See the [GitHub repo](https://github.com/auth0/aurelia-quote-app/blob/master/src/nav-bar.html) for the rest of the markup.
+Notice here that we're running a filter on the repeated navigation items with `authFilter: isAuthenticated`. This allows us to hide any nav menu items that are to be protected if the user isn't authenticated, and this is how we will hide the `super-secret-quote` menu item when the user isn't logged in. We're also conditionally showing the Signup, Login, and Logout links. See the [GitHub repo](https://github.com/auth0-blog/aurelia-quote-app/blob/master/src/nav-bar.html) for the rest of the markup.
 
 ```js
 // src/nav-bar.js
@@ -531,7 +531,7 @@ The `signup()` method uses `aurelia-auth` to send a POST request to the API, whi
 
 ### Login
 
-The `login` route is pretty similar. You'll just need to swap out `submit.delegate="signup()"` for `submit.delegate="login()"` and adjust the other [pieces of markup](https://github.com/auth0/aurelia-quote-app/blob/master/src/login.html) appropriately.
+The `login` route is pretty similar. You'll just need to swap out `submit.delegate="signup()"` for `submit.delegate="login()"` and adjust the other [pieces of markup](https://github.com/auth0-blog/aurelia-quote-app/blob/master/src/login.html) appropriately.
 
 The JavaScript for `login` looks similar as well, but this time we are sending the POST request to the `sessions/create` endpoint:
 
@@ -575,7 +575,7 @@ export class Login {
 
 ### Logout
 
-The `logout` route essentially follows the same pattern using `authService.logout()` to remove the user's JWT from `localStorage`. See [the repo](https://github.com/auth0/aurelia-quote-app/blob/master/src/logout.js) for further detail.
+The `logout` route essentially follows the same pattern using `authService.logout()` to remove the user's JWT from `localStorage`. See [the repo](https://github.com/auth0-blog/aurelia-quote-app/blob/master/src/logout.js) for further detail.
 
 With all this in place, we should now be able to signup, login, and log out users. Test it out to make sure that everything is running as expected. If everything is working properly, when the user logs in there will be two tokens set in `localStorage` as `aurelia_id_token` and `access_token`.
 
