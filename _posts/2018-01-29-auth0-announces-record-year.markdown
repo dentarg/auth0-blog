@@ -28,7 +28,7 @@ related:
 
 **BELLEVUE, Wash., January 29, 2018** – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced record growth in 2017. The company marked another consecutive year of impressive milestones, most notably, increasing its customer base and revenue by more than 100 percent. Auth0 also [named](https://auth0.com/blog/auth0-names-eugenio-pace-as-new-ceo/) company co-founder Eugenio Pace as its new chief executive officer in December, and Monica Enand, CEO of Zapproved, Inc., as the new chair of its Board of Directors.
 
-Gartner estimates that the worldwide identity and access management (IAM), IDaaS, and user authentication market will reach $3.4 billion by 2020.
+Gartner estimates that the worldwide identity and access management (IAM), IDaaS, and user authentication market will reach $3.4 billion by 2020.¹
 
 As the market continues on an upward trajectory, Auth0 is prepared to help companies with any identity and access management needs with its fully customizable, secure, and easy-to-implement platform. Continued innovations to the platform and a focus on scalability added more than 1,500 new customers to the company’s roster in 2017 alone. 
 
@@ -38,3 +38,7 @@ In order to support doubling its customer base, which spans every industry from 
 
 
 {% include asides/about-auth0.markdown %}
+
+<div class="alert alert-info"><p style="color: #097093;">1: Gartner Press Release, “Gartner Forecasts Worldwide Cloud-Based Security Services to Grow 21 Percent in 2017,” 13 June 2017. https://www.gartner.com/newsroom/id/3744617</p>
+</div>
+
