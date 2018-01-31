@@ -51,6 +51,47 @@ After this section, you will find the most interesting topics of this part of th
 
 ### Creating the Cannon Ball React Component
 
+The next element that you will create is the `CannonBall`. Note that, for now, you will keep this element inanimate. But don't worry! Soon (after creating all other elements), you will make your cannon shoot multiple cannon balls and kill some aliens.
+
+To create this component, add a new file called `CannonBall.jsx` inside the `./src/components` directory with the following code:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const CannonBall = (props) => {
+  const ballStyle = {
+    fill: '#777',
+    stroke: '#444',
+    strokeWidth: '2px',
+  };
+  return (
+    <ellipse
+      style={ballStyle}
+      cx={props.position.x}
+      cy={props.position.y}
+      rx="16"
+      ry="16"
+    />
+  );
+};
+
+CannonBall.propTypes = {
+  position: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }).isRequired,
+};
+
+export default CannonBall;
+```
+
+As you can see, to make a cannon ball appear in your canvas, you will have to pass to it an object that contains the `x` and `y` properties. If you don't have that much experience with `prop-types`, this might have been the first time that you have used `PropTypes.shape`. Luckily, this feature is self-explanatory.
+
+After creating this component, you might want to see it in your canvas. To do that, simply add `<CannonBall position={{x: 0, y: -100}}/>` inside the `svg` element of the `Canvas` component. Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
+
+> If you don't remember how to do that, you just have to run `npm start` in the project root and then open [http://localhost:3000](http://localhost:3000) in your preferred browser. Also, **don't** forget to commit this code to your repository before moving on.
+
 ### Creating the Current Score React Component
 
 ### Creating the Flying Disc React Component
