@@ -3,7 +3,7 @@ layout: post
 title: "Android Development: 15 Libraries You Should Be Using"
 description: "Let's take a look at some awesome libraries that can help us create better Android apps."
 longdescription: "In this article, we will take a brief look at 15 libraries, divided in 8 categories, that can help us in our day-to-day Android development. With them, we will be able to create apps that perform better and that provide better user experience."
-date: "2018-01-17 08:30"
+date: "2018-01-31 08:30"
 category: Technical Guide, Mobile, Android
 author:
   name: "Idorenyin Obong"
@@ -19,7 +19,7 @@ tags:
 - libraries
 - tips
 related:
-- 2017-07-27-authenticating-android-apps-developed-with-kotlin.markdown
+- 2017-07-27-authenticating-android-apps-developed-with-kotlin
 - 2017-08-09-integrating-realm-database-in-an-android-application
 ---
 
@@ -992,4 +992,4 @@ In the code snippet above, we tell the `Job` what to do in the `onRunJob` method
 
 ## Conclusion
 
-We have seen how libraries significantly reduce the amount of boilerplate code written to perform various functions while developing for Android. We also able took a quick look on how to use these libraries in most cases. Knowing the best libraries available out there can help up improve the quality of our apps and make us produce more in less time. So, no doubt, knowing and using these libraries leads to a win-win situation.
+We have seen how libraries significantly reduce the amount of boilerplate code written to perform various functions while developing for Android. We also able took a quick look on how to use these libraries in most cases. Knowing the best libraries available out there can help us improve the quality of our apps and make us produce more in less time. So, no doubt, knowing and using these libraries leads to a win-win situation.
