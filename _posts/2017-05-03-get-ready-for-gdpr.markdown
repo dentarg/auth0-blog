@@ -14,26 +14,28 @@ design:
   image: https://cdn2.auth0.com/blog/get-ready-for-gdpr/logo.png
   bg_color: "#000040"
 tags:
-- GDPR
+- gdpr
 - regulation
 - security
 - identity
+- compliance
+- data-protection
 related:
-- auth0-lock-is-here-for-b2b-and-b2c
-- customer-data-is-king-four-ways-to-know-your-customers-better
-- growth-hacking-is-dead-long-live-growth-hacking
+- 2018-01-15-mission-possible-reality-for-7-gdpr-misconceptions
+- 2018-01-17-jumpstart-identity-innovation-with-gdpr
+- 2017-08-07-gdpr-fight-against-fake-news
 ---
 
 <div class="alert alert-info alert-icon">
   <i class="icon-budicon-500"></i>
-  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+  <strong>GDPR is around the corner. Are you Ready? Take our GDPR Readiness Assessment to find out. <a href="https://auth0.com/gdpr-assessment/tool-1">Start the survey</a>.</strong>
 </div>
 
 ---
 
 ## Introduction
 
-The data protection and security landscape is all set for change next year with the new EU General Data Protection Regulation (“GDPR”). There will be regulatory burdens, but you can also use GDPR to bring some focus on what you do and improve your security stance.  Remember...
+The data protection and security landscape is all set for change next year with the new [EU General Data Protection Regulation (“GDPR”)](https://auth0.com/gdpr). There will be regulatory burdens, but you can also use GDPR to bring some focus on what you do and improve your security stance.  Remember...
 
 * The new rules are part revolution/part evolution - the new system builds on the current one if you already comply with EU privacy laws you can build on those foundations;
 * Don’t panic, plan instead - the full impact will come in 2018 but preparation now will pay off then.
@@ -73,7 +75,7 @@ Breaches must be reported to a regulator within 72 hours and those affected by t
 
 ### Greater Penalties
 
-Increased enforcement will come about with the new regime, backed up by greater sanctions.
+Increased enforcement will come about with the new regime, backed up by [greater sanctions](https://resources.auth0.com/whitepaper/gdpr-fine-determination/).
 
 There are fines of up to €20 million or 4% of the global annual revenue of a business (whichever is the greater), with likely higher reputational damage resulting and the possibility of civil actions too. This is the big stick for data protection compliance, but, getting it right will avoid major headaches.
 
