@@ -88,11 +88,116 @@ export default CannonBall;
 
 As you can see, to make a cannon ball appear in your canvas, you will have to pass to it an object that contains the `x` and `y` properties. If you don't have that much experience with `prop-types`, this might have been the first time that you have used `PropTypes.shape`. Luckily, this feature is self-explanatory.
 
-After creating this component, you might want to see it in your canvas. To do that, simply add `<CannonBall position={{x: 0, y: -100}}/>` inside the `svg` element of the `Canvas` component. Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
+After creating this component, you might want to see it in your canvas. To do that, simply add `<CannonBall position={{x: 0, y: -100}}/>` inside the `svg` element of the `Canvas` component (you will also need to add `import CannonBall from './CannonBall';`). Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
 
 > If you don't remember how to do that, you just have to run `npm start` in the project root and then open [http://localhost:3000](http://localhost:3000) in your preferred browser. Also, **don't** forget to commit this code to your repository before moving on.
 
 ### Creating the Current Score React Component
+
+Another React component that you will have to create is the `CurrentScore`. As the name states, you will use this component to show users what their current scores are. That is, whenever they kill a flying disc, your game will increase the value in this component by one and show to them.
+
+Before creating this component, you might want to add some neat font to use on it. Actually, you might want to configure and use a font on the whole game, so it won't look like a monotonous game. You can browse and choose a font from whatever place you want, but if you are not interested in investing time on this, you can simply add the following line at the top of the `./src/index.css` file:
+
+```css
+@import url('https://fonts.googleapis.com/css?family=Joti+One');
+
+/* other rules ... */
+```
+
+This will make your game load [the Joti One font from Google](https://fonts.google.com/specimen/Joti+One).
+
+After that, you can create the `CurrentScore.jsx` file inside the `./src/components` directory with the following code:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const CurrentScore = (props) => {
+  const scoreStyle = {
+    fontFamily: '"Joti One", cursive',
+    fontSize: 80,
+    fill: '#d6d33e',
+  };
+
+  return (
+    <g filter="url(#shadow)">
+      <text style={scoreStyle} x="300" y="80">
+        {props.score}
+      </text>
+    </g>
+  );
+};
+
+CurrentScore.propTypes = {
+  score: PropTypes.number.isRequired,
+};
+
+export default CurrentScore;
+```
+
+> **Note:** If you haven't configured Joti One (or if you configured some other font), you will have to change this code accordingly. Besides that, this font is used by other components that you will create, so keep in mind that you might have to update these components as well.
+
+As you can see, the `CurrentScore` component requires a single property: `score`. As your game is not currently counting the score, to see this component right now, you will have to add a hard-coded value. So, inside the `Canvas` component, add `<CurrentScore score={15} />` as the last element inside the `svg` element. Also, add the `import` statement to fetch this component (`import CurrentScore from './CurrentScore'`).
+
+If you try to see your new component now, you **won't** be able to. This is because your component is using a `filter` called `shadow`. Although this shadow filter is not necessary, it will make your game looks nicer. Besides that, [adding a shadow to SVG elements is easy](https://www.w3schools.com/graphics/svg_feoffset.asp). To do that, simply add the following element at the top of your `svg`:
+
+```xml
+<defs>
+  <filter id="shadow">
+    <feDropShadow dx="1" dy="1" stdDeviation="2" />
+  </filter>
+</defs>
+```
+
+In the end, your `Canvas` component will look like this:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+import Sky from './Sky';
+import Ground from './Ground';
+import CannonBase from './CannonBase';
+import CannonPipe from './CannonPipe';
+import CannonBall from './CannonBall';
+import CurrentScore from './CurrentScore'
+
+const Canvas = (props) => {
+  const viewBox = [window.innerWidth / -2, 100 - window.innerHeight, window.innerWidth, window.innerHeight];
+  return (
+    <svg
+      id="aliens-go-home-canvas"
+      preserveAspectRatio="xMaxYMax none"
+      onMouseMove={props.trackMouse}
+      viewBox={viewBox}
+    >
+      <defs>
+        <filter id="shadow">
+          <feDropShadow dx="1" dy="1" stdDeviation="2" />
+        </filter>
+      </defs>
+      <Sky />
+      <Ground />
+      <CannonPipe rotation={props.angle} />
+      <CannonBase />
+      <CannonBall position={{x: 0, y: -100}}/>
+      <CurrentScore score={15} />
+    </svg>
+  );
+};
+
+Canvas.propTypes = {
+  angle: PropTypes.number.isRequired,
+  trackMouse: PropTypes.func.isRequired,
+};
+
+export default Canvas;
+```
+
+And your game will look like this:
+
+![Showing current score and cannon ball in the Alien, Go Home! app.](https://cdn.auth0.com/blog/aliens-go-home/current-score-and-cannon-ball.png)
+
+Not bad, huh?!
 
 ### Creating the Flying Disc React Component
 
