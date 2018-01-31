@@ -45,6 +45,10 @@ These accomplishments paved the way to understand how you can create your game (
 
 ## Creating More SVG React Components
 
+The subsections that follow will show you how to create the rest of your game elements. Although they might look lengthy, they are quite simple and similar. Probably, you will be able to follow the instruction on these subsections in a matter of minutes.
+
+After this section, you will find the most interesting topics of this part of the series. These topics are entitled *Making Flying Discs Appear Randomly* and *Making the Cannon Shoot*.
+
 ### Creating the Cannon Ball React Component
 
 ### Creating the Current Score React Component
