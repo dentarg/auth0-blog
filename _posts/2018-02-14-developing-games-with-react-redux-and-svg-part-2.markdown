@@ -425,6 +425,72 @@ For now, you can simply add one heart to your canvas so you can confirm that eve
 
 ### Creating the Start Game Button React Component
 
+Every game needs an start button. So, to create one for your game, add a file called `StartGame.jsx` alongside with the other components and add the following code to it:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+import { gameWidth } from '../utils/constants';
+
+const StartGame = (props) => {
+  const button = {
+    x: gameWidth / -2, // half width
+    y: -280, // minus means up (above 0)
+    width: gameWidth,
+    height: 200,
+    rx: 10, // border radius
+    ry: 10, // border radius
+    style: {
+      fill: 'transparent',
+      cursor: 'pointer',
+    },
+    onClick: props.onClick,
+  };
+
+  const text = {
+    textAnchor: 'middle', // center
+    x: 0, // center relative to X axis
+    y: -150, // 150 up
+    style: {
+      fontFamily: '"Joti One", cursive',
+      fontSize: 60,
+      fill: '#e3e3e3',
+      cursor: 'pointer',
+    },
+    onClick: props.onClick,
+  };
+  return (
+    <g filter="url(#shadow)">
+      <rect {...button} />
+      <text {...text}>
+        Tap To Start!
+      </text>
+    </g>
+  );
+};
+
+StartGame.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+export default StartGame;
+```
+
+As you don't need to show more than one `StartGame` button at a time, you have defined that this component is statically positioned in your game (`x: 0` and `y: -150`). There are other two differences between this component and the others that you have defined before:
+
+- First, this component is expecting a function called `onClick`. This function is used to listen for clicks in this button and will trigger a Redux action to inform your app that it must start a new game.
+- Second, this component is using a constant called `gameWidth` that you haven't defined yet. This constant will represent the area that is usable. Any area beyond that will have no purpose besides making your app fill the whole screen.
+
+To define the `gameWidth` constant, open the `./src/utils/constants.js` file and add the following line to it:
+
+```js
+export const gameWidth = 800;
+```
+
+After that, you can add the `StartGame` component to your `Canvas` by appending `<StartGame onClick={() => console.log('Aliens, Go Home!')} />` as the last element inside the `svg` element. As always, don't forget to add the import statement (`import StartGame from './StartGame';`).
+
+![Aliens, Go Home! game with the start game button](https://cdn.auth0.com/blog/aliens-go-home/adding-start-button.png)
+
 ### Creating the Title React Component
 
 ## Making Flying Objects Appear Randomly
