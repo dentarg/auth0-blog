@@ -3,7 +3,6 @@ layout: post
 title: "Turn Your Customers Into Brand Advocates Through Personalization"
 description: "Brand advocates are your best and most authentic influencers — so how can you create more of them?"
 date: 2017-06-26 8:30
-updated: 2017-12-05 11:40
 category: Growth, Industries, Retail
 author:
   name: Diego Poza
@@ -22,7 +21,6 @@ tags:
 - auth0
 related:
 - 2017-06-19-how-to-keep-up-with-hyperconnected-consumers
-- 2016-04-18-progressive-profiling
 - 2017-05-26-go-beyond-username-password-with-modern-auth
 - 2017-06-09-the-three-best-ways-to-create-the-single-vision-of-a-customer
 ---
