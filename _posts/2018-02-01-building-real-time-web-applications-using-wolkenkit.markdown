@@ -3,7 +3,7 @@ layout: post
 title: "Building Real-Time Web Applications using wolkenkit"
 description: "Learn to build real-time web applications using wolkenkit and how to add authentication to them."
 longdescription: "Learn how to build real-time web applications using wolkenkit, a CQRS and event-sourcing framework for JavaScript and Node.js, that perfectly matches DDD."
-date: 2018-01-15 09:44
+date: 2018-02-01 09:44
 category: Technical Guide, Node.js
 author:
   name: "Golo Roden"
