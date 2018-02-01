@@ -343,6 +343,86 @@ const Canvas = (props) => {
 
 ### Creating the Heart React Component
 
+The next component that you will need to create is the component that represents gamers' lives. There is nothing better to represent a life than a `Heart`. So, create a new file called `Heart.jsx` inside the `./src/components` directory and add the following code to it:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+import { pathFromBezierCurve } from '../utils/formulas';
+
+const Heart = (props) => {
+  const heartStyle = {
+    fill: '#da0d15',
+    stroke: '#a51708',
+    strokeWidth: '2px',
+  };
+
+  const leftSide = {
+    initialAxis: {
+      x: props.position.x,
+      y: props.position.y,
+    },
+    initialControlPoint: {
+      x: -20,
+      y: -20,
+    },
+    endingControlPoint: {
+      x: -40,
+      y: 10,
+    },
+    endingAxis: {
+      x: 0,
+      y: 40,
+    },
+  };
+
+  const rightSide = {
+    initialAxis: {
+      x: props.position.x,
+      y: props.position.y,
+    },
+    initialControlPoint: {
+      x: 20,
+      y: -20,
+    },
+    endingControlPoint: {
+      x: 40,
+      y: 10,
+    },
+    endingAxis: {
+      x: 0,
+      y: 40,
+    },
+  };
+
+  return (
+    <g filter="url(#shadow)">
+      <path
+        style={heartStyle}
+        d={pathFromBezierCurve(leftSide)}
+      />
+      <path
+        style={heartStyle}
+        d={pathFromBezierCurve(rightSide)}
+      />
+    </g>
+  );
+};
+
+Heart.propTypes = {
+  position: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }).isRequired,
+};
+
+export default Heart;
+```
+
+As you can see, to create the shape of a heart with SVG, you need two Cubic Bezier curves: one for each side of the heart. You also had to add a `position` property to this component. You needed this because your game will provide users more than one life, so you will need to show each one of these hearts in a different position.
+
+For now, you can simply add one heart to your canvas so you can confirm that everything is working properly. To do this, open the `Canvas` component and add `<Heart position={{x: -300, y: 35}} />` as the last element inside the `svg` element. Also, don't forget to add the import statement (`import Heart from './Heart';`).
+
 ### Creating the Start Game Button React Component
 
 ### Creating the Title React Component
