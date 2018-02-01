@@ -602,7 +602,11 @@ const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, ga
 
 In this new version, you are using the `1200` value so your app can properly show the new title component. Besides that, this new vertical space will allow your users to see flying objects moving in the direction of the X-axis with some advance. This will give them enough time to shoot and kill these objects.
 
+![Changing your React, Redux, and SVG game dimensions and making it responsive](https://cdn.auth0.com/blog/aliens-go-home/react-game-with-title.png)
+
 ## Making Flying Objects Appear Randomly
+
+With all these new components in place and with this new dimensions, you can start focusing in your game features. For example, you can improve your game by making flying objects appear randomly in different places, instead of showing them statically.
 
 ### Using CSS Animation to Move Flying Objects
 
