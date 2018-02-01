@@ -576,9 +576,31 @@ export default Title;
 
 To make your title curved, you have used a combination of `path` and `textPath` elements with Cubic Bezier curve. Besides that, you have made your title statically positioned, just like the `StartGame` button.
 
-Now, to add this component to your canvas, you can simply add `<Title />` to your `svg` element and add the import statement (`import Title from './Title';`) at the top of the `Canvas.jsx` file.
+Now, to add this component to your canvas, you can simply add `<Title />` to your `svg` element and add the import statement (`import Title from './Title';`) at the top of the `Canvas.jsx` file. However, if you run your application now, you will notice that your new component does not appear in your screen. This happens because your app does not show enough vertical space yet.
 
-However, if you run your application now, you will notice that your title will not appear in your screen. This happens because you haven't made your game responsive yet. But don't worry, you will fix that in the next section.
+## Making Your React Game Responsive
+
+To change your game dimensions and to make it responsive, you will need to do two things. First, you will need to attach an `onresize` event listener in the global `window` object. Doing this is quite simple, you can open the `./src/App.js` file and append the following code to the `componentDidMount()` method:
+
+```js
+window.onresize = () => {
+  const cnv = document.getElementById('aliens-go-home-canvas');
+  cnv.style.width = `${window.innerWidth}px`;
+  cnv.style.height = `${window.innerHeight}px`;
+};
+window.onresize();
+```
+
+This will make your app keep the dimension of your canvas equals to the dimension of the window that your users see. Even if they resize their browsers. It will also force the execution of the `window.onresize` function when the app is rendered for the first time.
+
+Second, you will need to change the `viewBox` property of your canvas. Now, instead of defining that the uppermost point in the Y-axis is `100 - window.innerHeight` (if you don't remember why you have used this formula, [take a look at the first part of the series](https://github.com/auth0-blog/aliens-go-home-part-1)) and that the `viewBox` height is equals to the `innerHeight` of the `window` object, you will use the following values:
+
+```js
+const gameHeight = 1200;
+const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, gameHeight];
+```
+
+In this new version, you are using the `1200` value so your app can properly show the new title component. Besides that, this new vertical space will allow your users to see flying objects moving in the direction of the X-axis with some advance. This will give them enough time to shoot and kill these objects.
 
 ## Making Flying Objects Appear Randomly
 
