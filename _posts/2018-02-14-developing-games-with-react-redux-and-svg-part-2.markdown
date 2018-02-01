@@ -493,6 +493,93 @@ After that, you can add the `StartGame` component to your `Canvas` by appending 
 
 ### Creating the Title React Component
 
+The last component that you will create in this part of the series is the `Title` component. You already have a name for your game: *Aliens, Go Home!*. So, adding the title to it is as easy as creating a new file called `Title.jsx` (inside the `./src/components` directory) with the following code:
+
+```js
+import React from 'react';
+import { pathFromBezierCurve } from '../utils/formulas';
+
+const Title = () => {
+  const textStyle = {
+    fontFamily: '"Joti One", cursive',
+    fontSize: 120,
+    fill: '#cbca62',
+  };
+
+  const aliensLineCurve = {
+    initialAxis: {
+      x: -190,
+      y: -950,
+    },
+    initialControlPoint: {
+      x: 95,
+      y: -50,
+    },
+    endingControlPoint: {
+      x: 285,
+      y: -50,
+    },
+    endingAxis: {
+      x: 380,
+      y: 0,
+    },
+  };
+
+  const goHomeLineCurve = {
+    ...aliensLineCurve,
+    initialAxis: {
+      x: -250,
+      y: -780,
+    },
+    initialControlPoint: {
+      x: 125,
+      y: -90,
+    },
+    endingControlPoint: {
+      x: 375,
+      y: -90,
+    },
+    endingAxis: {
+      x: 500,
+      y: 0,
+    },
+  };
+
+  return (
+    <g filter="url(#shadow)">
+      <defs>
+        <path
+          id="AliensPath"
+          d={pathFromBezierCurve(aliensLineCurve)}
+        />
+        <path
+          id="GoHomePath"
+          d={pathFromBezierCurve(goHomeLineCurve)}
+        />
+      </defs>
+      <text {...textStyle}>
+        <textPath xlinkHref="#AliensPath">
+          Aliens,
+        </textPath>
+      </text>
+      <text {...textStyle}>
+        <textPath xlinkHref="#GoHomePath">
+          Go Home!
+        </textPath>
+      </text>
+    </g>
+  );
+};
+
+export default Title;
+```
+
+To make your title curved, you have used a combination of `path` and `textPath` elements with Cubic Bezier curve. Besides that, you have made your title statically positioned, just like the `StartGame` button.
+
+Now, to add this component to your canvas, you can simply add `<Title />` to your `svg` element and add the import statement (`import Title from './Title';`) at the top of the `Canvas.jsx` file.
+
+However, if you run your application now, you will notice that your title will not appear in your screen. This happens because you haven't made your game responsive yet. But don't worry, you will fix that in the next section.
+
 ## Making Flying Objects Appear Randomly
 
 ### Using CSS Animation to Move Flying Objects
