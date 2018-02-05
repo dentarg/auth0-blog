@@ -604,9 +604,220 @@ In this new version, you are using the `1200` value so your app can properly sho
 
 ![Changing your React, Redux, and SVG game dimensions and making it responsive](https://cdn.auth0.com/blog/aliens-go-home/react-game-with-title.png)
 
-## Making Flying Objects Appear Randomly
+## Enabling Users to Start the Game
 
-With all these new components in place and with this new dimensions, you can start focusing in your game features. For example, you can improve your game by making flying objects appear randomly in different places, instead of showing them statically.
+With all these new components in place and with these new dimensions, you can start thinking about enabling your users to start the game. That is, you can refactor your game to make its state switch to started whenever a user clicks on the *Start Game* button. This must trigger a lot of changes in your game's state. However, to make things easier to grasp, you can start by simply removing the `Title` and the `StartGame` components from the screen when users click on this button.
+
+To do that, you will need to create a new Redux action that will be processed by a Redux reducer to change a flag in your game. To create this new action, open the `./src/actions/index.js` file and add the following code to it (leave the previous code on it unaltered):
+
+```js
+// ... MOVE_OBJECTS
+export const START_GAME = 'START_GAME';
+
+// ... moveObjects
+
+export const startGame = () => ({
+  type: START_GAME,
+});
+```
+
+Then, you can refactor the `./src/reducers/index.js` to handle this new action. The new version of this file will look like this:
+
+```js
+import { MOVE_OBJECTS, START_GAME } from '../actions';
+import moveObjects from './moveObjects';
+import startGame from './startGame';
+
+const initialGameState = {
+  started: false,
+  kills: 0,
+  lives: 3,
+};
+
+const initialState = {
+  angle: 45,
+  gameState: initialGameState,
+};
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case MOVE_OBJECTS:
+      return moveObjects(state, action);
+    case START_GAME:
+      return startGame(state, initialGameState);
+    default:
+      return state;
+  }
+}
+
+export default reducer;
+```
+
+As you can see, now you have a child object inside `initialState` that contains three properties about your game:
+
+1. `started`: a flag to indicate if the game is running or not;
+2. `kills`: a property that holds how many flying objects the user has killed;
+3. `lives`: a property that holds how many lives the user has;
+
+Besides that, you have added a new `case` to your `switch` statement. This new `case` (which is triggered when an action of `type` `START_GAME` arrives at the reducer) calls the `startGame` function. The goal of this function is to turn on the `started` flag inside the `gameState` property. Also, whenever a user starts a new game, this function has to zero the `kills` counter and give users three lives again.
+
+To implement the `startGame` function, create a new file called `startGame.js` inside the `./src/reducers` directory with the following code:
+
+```js
+export default (state, initialGameState) => {
+  return {
+    ...state,
+    gameState: {
+      ...initialGameState,
+      started: true,
+    }
+  }
+};
+```
+
+As you can see, the code in this new file is quite simple. It just returns a new state object to the Redux store where the `started` flag is set to `true` and resets everything else inside the `gameState` property. This gives users three lives again and zeros their `kills` counter.
+
+After implementing this function, you have to pass it to your game. You also have to pass the new `gameState` property to it. So, to achieve that, you will have to change the `./src/containers/Game.js` file as follows:
+
+```js
+import { connect } from 'react-redux';
+import App from '../App';
+import { moveObjects, startGame } from '../actions/index';
+
+const mapStateToProps = state => ({
+  angle: state.angle,
+  gameState: state.gameState,
+});
+
+const mapDispatchToProps = dispatch => ({
+  moveObjects: (mousePosition) => {
+    dispatch(moveObjects(mousePosition));
+  },
+  startGame: () => {
+    dispatch(startGame());
+  }
+});
+
+const Game = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);
+
+export default Game;
+```
+
+To summarize, the changes that you have made in this file are:
+
+- `mapStateToProps`: Now, you have told Redux that the `App` component cares about the `gameState` property.
+- `mapDispatchToProps`: You have also told Redux to pass the `startGame` function to the `App` component, so it can trigger this new action.
+
+Both these new `App` properties (`gameState` and `startGame`) won't be directly used by the `App` component itself. Actually, the component that will use them is the `Canvas` component, so you have to pass them to it. To do that, open the `./src/App.js` file and refactor it as follows:
+
+```js
+// ... import statements ...
+
+class App extends Component {
+  // ... constructor(props) ...
+
+  // ... componentDidMount() ...
+
+  // ... trackMouse(event) ...
+
+  render() {
+    return (
+      <Canvas
+        angle={this.props.angle}
+        gameState={this.props.gameState}
+        startGame={this.props.startGame}
+        trackMouse={event => (this.trackMouse(event))}
+      />
+    );
+  }
+}
+
+App.propTypes = {
+  angle: PropTypes.number.isRequired,
+  gameState: PropTypes.shape({
+    started: PropTypes.bool.isRequired,
+    kills: PropTypes.number.isRequired,
+    lives: PropTypes.number.isRequired,
+  }).isRequired,
+  moveObjects: PropTypes.func.isRequired,
+  startGame: PropTypes.func.isRequired,
+};
+
+export default App;
+```
+
+Then, you can open the `./src/components/Canvas.jsx` file and replace the code inside it with this:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+import Sky from './Sky';
+import Ground from './Ground';
+import CannonBase from './CannonBase';
+import CannonPipe from './CannonPipe';
+import CurrentScore from './CurrentScore'
+import FlyingObject from './FlyingObject';
+import StartGame from './StartGame';
+import Title from './Title';
+
+const Canvas = (props) => {
+  const gameHeight = 1200;
+  const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, gameHeight];
+  return (
+    <svg
+      id="aliens-go-home-canvas"
+      preserveAspectRatio="xMaxYMax none"
+      onMouseMove={props.trackMouse}
+      viewBox={viewBox}
+    >
+      <defs>
+        <filter id="shadow">
+          <feDropShadow dx="1" dy="1" stdDeviation="2" />
+        </filter>
+      </defs>
+      <Sky />
+      <Ground />
+      <CannonPipe rotation={props.angle} />
+      <CannonBase />
+      <CurrentScore score={15} />
+
+      { ! props.gameState.started &&
+        <g>
+          <StartGame onClick={() => props.startGame()} />
+          <Title />
+        </g>
+      }
+
+      { props.gameState.started &&
+        <g>
+          <FlyingObject position={{x: -150, y: -300}}/>
+          <FlyingObject position={{x: 150, y: -300}}/>
+        </g>
+      }
+    </svg>
+  );
+};
+
+Canvas.propTypes = {
+  angle: PropTypes.number.isRequired,
+  gameState: PropTypes.shape({
+    started: PropTypes.bool.isRequired,
+    kills: PropTypes.number.isRequired,
+    lives: PropTypes.number.isRequired,
+  }).isRequired,
+  trackMouse: PropTypes.func.isRequired,
+  startGame: PropTypes.func.isRequired,
+};
+
+export default Canvas;
+```
+
+As you can see, in this new version, you have made the `StartGame` and the `Title` components appear only when the `gameState.started` property is set to false. Also, you have hidden the `FlyingObject` components until the user clicks on the *Start Game* button.
+
+If you run your app now (issue `npm start` in a terminal if it is not running yet), you will see these new changes in action. They are not enough to enable your users to play your game, but you are getting there.
 
 ### Using CSS Animation to Move Flying Objects
 
