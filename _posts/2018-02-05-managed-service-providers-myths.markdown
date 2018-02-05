@@ -3,14 +3,14 @@ layout: post
 title: "Busted! Seven Myths About Managed Service Providers (MSPs)"
 description: "Seven myths about managed service providers. Separating facts from fiction to explain the real value of MSPs."
 longdescription: "Managed services are an integral component of your company's technology strategy, yet some people continue to have misconceptions that prevent them from taking full advantage. We'll separate fact from fiction to explain the real value of MSPs."
-date: 2018-01-10 14:11
+date: 2018-02-05 14:11
 category: Growth, Industries
 is_non-tech: true
 author:
-  name: Diego Poza
-  url: https://twitter.com/diegopoza
-  avatar: https://avatars3.githubusercontent.com/u/604869?v=3&s=200
-  mail: diego.poza@auth0.com
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   bg_color: "#4A4A4A"
   image: https://cdn.auth0.com/blog/seven-myths-about-msps/logo.png
@@ -20,11 +20,19 @@ tags:
 - strategy
 - msp
 - myths
+- IT
 related:
 - 2017-12-18-retail-analytics-past-present-and-future
 - 2017-10-30-are-your-security-questions-as-safe-as-you-think
+- 2018-01-29-what-is-enterprise-mobile-management
 ---
 
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
+---
 When it comes to Managed Service Providers (MSPs), IT professionals either love them or hate them. Whether you've had a good experience or a bad experience, it's important to understand that all MSPs are not created equal.
 
 MSPs are third-party technology experts hired to monitor and maintain different aspects of a company’s IT systems. The concept is only a decade old. Like most young industries, there are exceptional providers and some not-so-exceptional. As the industry matures, the higher-quality MSPs are separating themselves to provide a compelling IT support option.
