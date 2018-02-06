@@ -695,7 +695,7 @@ const mapDispatchToProps = dispatch => ({
   },
   startGame: () => {
     dispatch(startGame());
-  }
+  },
 });
 
 const Game = connect(
@@ -818,6 +818,199 @@ export default Canvas;
 As you can see, in this new version, you have made the `StartGame` and the `Title` components appear only when the `gameState.started` property is set to false. Also, you have hidden the `FlyingObject` components until the user clicks on the *Start Game* button.
 
 If you run your app now (issue `npm start` in a terminal if it is not running yet), you will see these new changes in action. They are not enough to enable your users to play your game, but you are getting there.
+
+## Making Flying Objects Appear Randomly
+
+Now that you have implemented the *Start Game* feature, you can refactor your game to show some flying objects randomly positioned. These are the flying objects that your users will have to kill, so you will also need to make them fly (i.e. move down the screen). But first, you have to focus on making them appear somehow.
+
+To do that, the first thing you will have to do is to define where these objects will appear. You will also have to set some interval and some max number of flying objects. To keep things organized, you can define constants to hold these rules. So, open the `./src/utils/constants.js` file and add the following code:
+
+```js
+// ... keep skyAndGroundWidth and gameWidth untouched
+
+export const createInterval = 1000;
+
+export const maxFlyingObjects = 4;
+
+export const flyingObjectsStarterYAxis = -1000;
+
+export const flyingObjectsStarterPositions = [
+  -300,
+  -150,
+  150,
+  300,
+];
+```
+
+The rules above state that your game will show new flying objects every one second (`1000` milliseconds) and that there will be no more than four flying objects at the same time (`maxFlyingObjects`). It also defines that new objects will appear at the magnitude of `-1000` on the Y axis (`flyingObjectsStarterYAxis`). The last constant that you have added to this file (`flyingObjectsStarterPositions`) defines four magnitudes on the X axis where objects can spring to life. You will randomly pick one of them while creating flying objects.
+
+To implement the function that will use these constants, create a file called `createFlyingObjects.js` in the `./src/reducers` directory with the following code:
+
+```js
+import {
+  createInterval, flyingObjectsStarterYAxis, maxFlyingObjects,
+  flyingObjectsStarterPositions
+} from '../utils/constants';
+
+export default (state) => {
+  if ( ! state.gameState.started) return state; // game not running
+
+  const now = (new Date()).getTime();
+  const { lastObjectCreatedAt, flyingObjects } = state.gameState;
+  const createNewObject = (
+    now - (lastObjectCreatedAt).getTime() > createInterval &&
+    flyingObjects.length < maxFlyingObjects
+  );
+
+  if ( ! createNewObject) return state; // no need to create objects now
+
+  const id = (new Date()).getTime();
+  const predefinedPosition = Math.floor(Math.random() * maxFlyingObjects);
+  const flyingObjectPosition = flyingObjectsStarterPositions[predefinedPosition];
+  const newFlyingObject = {
+    position: {
+      x: flyingObjectPosition,
+      y: flyingObjectsStarterYAxis,
+    },
+    createdAt: (new Date()).getTime(),
+    id,
+  };
+
+  return {
+    ...state,
+    gameState: {
+      ...state.gameState,
+      flyingObjects: [
+        ...state.gameState.flyingObjects,
+        newFlyingObject
+      ],
+      lastObjectCreatedAt: new Date(),
+    }
+  }
+}
+```
+
+At first, this code might look complex. However, it's quite the opposite. This list summarizes how it works:
+
+1. If the game is not running (i.e. `! state.gameState.started`), this code simply returns the current state unaltered.
+2. If the game is running, this function uses the `createInterval` and the `maxFlyingObjects` constants to decide if it should create new flying objects or not. This logic populates the `createNewObject` constant.
+3. If the `createNewObject` constant is set to `true`, this function uses `Math.floor` to fetch a random number between 0 and 3 (`Math.random() * maxFlyingObjects`) so it can decide where this new flying object will appear.
+4. With this information, this function creates a new object called `newFlyingObject` with its `position`.
+5. In the end, this function returns a new state object with the new flying object and it updates the `lastObjectCreatedAt` value.
+
+As you may have noticed, the function that you have just created is a reducer. As such, you might expect that you will create an action to trigger this reducer, but actually you won't need one. Since your game issues issues a `MOVE_OBJECTS` action every `10` ms, you can take advantage of this action and trigger your new reducer. To do that, you will have to reimplement the `moveObjects` reducer (`./src/reducers/moveObjects.js`) as follows:
+
+```js
+import { calculateAngle } from '../utils/formulas';
+import createFlyingObjects from './createFlyingObjects';
+
+function moveObjects(state, action) {
+  const mousePosition = action.mousePosition || {
+    x: 0,
+    y: 0,
+  };
+
+  const newState = createFlyingObjects(state);
+
+  const { x, y } = mousePosition;
+  const angle = calculateAngle(0, 0, x, y);
+  return {
+    ...newState,
+    angle,
+  };
+}
+
+export default moveObjects;
+```
+
+The new version of the `moveObjects` reducer changes the previous one as follows:
+
+- First, it forces the creation of the `mousePosition` constant if one is not passed in the `action` object. You will need that because the previous version would make the execution of the reducer halt if no `mousePosition` was passed to it.
+- Second, it fetches a `newState` object from the `createFlyingObjects` reducer, so new flying objects are created if needed.
+- Lastly, it return a new object based on the `newState` object retrieved in the last step.
+
+Before refactoring the `App` and the `Canvas` components to show the flying objects created by this new code, you will need to update the `./src/reducers/index.js` file to add two new properties to the `initialState` object:
+
+```js
+// ... import statements ...
+
+const initialGameState = {
+  // ... other initial properties ...
+  flyingObjects: [],
+  lastObjectCreatedAt: new Date(),
+};
+
+// ... everything else ...
+```
+
+With that in place, all you need to do is to add `flyingObjects` to the `propTypes` object of the `App` component:
+
+```js
+// ... import statements ...
+
+// ... App component class ...
+
+App.propTypes = {
+  // ... other propTypes definitions ...
+  gameState: PropTypes.shape({
+    // ... other propTypes definitions ...
+    flyingObjects: PropTypes.arrayOf(PropTypes.shape({
+      position: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired
+      }).isRequired,
+      id: PropTypes.number.isRequired,
+    })).isRequired,
+    // ... other propTypes definitions ...
+  }).isRequired,
+  // ... other propTypes definitions ...
+};
+
+export default App;
+```
+
+And then make the `Canvas` component iterate over this property to show the flying objects. Make sure to replace the statically positioned instances of the `FlyingObject` component with this:
+
+```js
+// ... import statements ...
+
+const Canvas = (props) => {
+  // ... const definitions ...
+  return (
+    <svg ... >
+      // ... other SVG elements and React Components ...
+
+      {props.gameState.flyingObjects.map(flyingObject => (
+        <FlyingObject
+          key={flyingObject.id}
+          position={flyingObject.position}
+        />
+      ))}
+    </svg>
+  );
+};
+
+Canvas.propTypes = {
+  // ... other propTypes definitions ...
+  gameState: PropTypes.shape({
+    // ... other propTypes definitions ...
+    flyingObjects: PropTypes.arrayOf(PropTypes.shape({
+      position: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired
+      }).isRequired,
+      id: PropTypes.number.isRequired,
+    })).isRequired,
+  }).isRequired,
+  // ... other propTypes definitions ...
+};
+
+export default Canvas;
+```
+
+That's it! Now, your app will create and show randomly positioned flying objects when users start the game.
+
+> **Note:** If you run your app now and hit the *Start Game* button, you might end up seeing just one flying object. This might happen because there is nothing preventing flying objects from appearing in the same magnitude on the X axis. In the next section, you will make your flying objects move along the Y axis. This will ensure that you and your users are able to see all flying objects.
 
 ### Using CSS Animation to Move Flying Objects
 
