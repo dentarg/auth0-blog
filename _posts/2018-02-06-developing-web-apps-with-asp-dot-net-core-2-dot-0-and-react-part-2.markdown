@@ -1,7 +1,8 @@
 ---
 layout: post
-title: Developing Web Apps with ASP.NET Core 2.0 and React - Part 2
+title: "Developing Web Apps with ASP.NET Core 2.0 and React - Part 2"
 description: "A practical tutorial showing how to setup and develop a modern Web application based on ASP.NET Core 2.0 and React."
+longdescription: "In this series of posts, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with Auth0. In this second part of the series, you are going to create a Single Page Application (SPA) client based on React and integrate it with the ASP.NET Core API created in the previous part."
 date: 2017-12-07 08:30
 category: Technical Guide, React, Auth0
 author:
@@ -16,16 +17,17 @@ tags:
 - react
 - javascript
 - auth0
+- .net-core
+- asp.net-core
+- csharp
 - oauth
 - openid-connect
 related:
-- 2016-06-27-auth0-support-for-aspnet-core
-- 2016-06-03-add-auth-to-native-desktop-csharp-apps-with-jwt
-- 2017-06-05-asp-dot-net-core-authentication-tutorial.markdown
-alias: /securing-dot-net-core-2-applications-with-jwts/
+- developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1
+- securing-asp-dot-net-core-2-applications-with-jwts
 ---
 
-**TL;DR:** This is the second post of the series about developing a Web application based on ASP.NET Core 2.0 and React. In the previous post (**LINK TO PART 1**), we built a secured Web API application providing a list of books with ASP.NET Core 2.0. In this post, we will create its *Single Page Application* (SPA) client based on React. [The final code of the client can be found in this GitHub repository](https://github.com/andychiare/react-auth0).
+**TL;DR:** This is the second part of the series about developing a Web application based on ASP.NET Core 2.0 and React. [In the previous post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1), you built a secured Web API application that provides a list of books with ASP.NET Core 2.0. In this post, you will create a *Single Page Application* (SPA) client based on React to consume this API. You can find [the final code of the React client in this GitHub repository](https://github.com/andychiare/react-auth0).
 
 ---
 
