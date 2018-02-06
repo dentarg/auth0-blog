@@ -57,72 +57,40 @@ In this article, we will be looking at how to install a new version of the Symfo
 Install Symfony via [Composer](https://getcomposer.org/) with the following command:
 
 ```bash
-composer create-project symfony/framework-standard-edition:"3.3.11" blog
+composer create-project symfony/skeleton:4.0.5 blog
 ```
 
-Once Composer has finished downloading all the required third-party libraries, it will ask you to input a number of parameters. Please just leave these empty, pressing return on each line.
+Once Composer has finished downloading all the required third-party libraries change directory into your project with: `cd blog`
 
-Change directory into your project with: `cd blog`
+### Install Doctrine bundle
+
+*TODO* add information about this.
+
+```bash
+composer require symfony/orm-pack maker
+```
 
 ### Create & Populate DotEnv File
 
-In your root directory create file called `.env` and paste the following into there:
+In your root directory there is a file called `.env`, you should see something similar to the following:
 
 ```yml
-DATABASE_HOST={DATABASE_HOST}
-DATABASE_PORT=3306
-DATABASE_NAME={DATABASE_NAME}
-DATABASE_USER=root
-DATABASE_PASSWORD={DATABASE_PASSWORD}
+###> doctrine/doctrine-bundle ###
+DATABASE_URL=mysql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}
+###< doctrine/doctrine-bundle ###
 ```
 
 Then you have to replace any of the values with the correct settings for your MySQL database. For example, `{DATABASE_HOST}` could be replaced by `127.0.0.1`. Don't have MySQL installed? [An easy way to bootstrap one is with this script, it just needs Docker installed on the host machine](https://gist.github.com/brunokrebs/af77f582f0e650a62a6f06e84cd06f91).
 
-Next. Let's find the `app/config/config.yml` file. Within there you'll find the following:
+__NOTE__: The default database port is 3306, so if you haven't configured your mysql database port, change the above `{DATABASE_PORT}` to `3306`.
 
-```yml
-# Doctrine Configuration
-doctrine:
-    dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
+If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of your database name.
+
+In order to see your blog in your web browser for the duration of this tutorial, you need to have Symfony's web server installed in your application. To do this run the following command:
+
+```bash
+composer require symfony/web-server-bundle
 ```
-
-Replace anything that is wrapped around `'%` and `%'` to contain the DotEnv configurations. So it will look like:
-
-```yml
-# Doctrine Configuration
-doctrine:
-    dbal:
-        driver: pdo_mysql
-        host: '%env(DATABASE_HOST)%'
-        port: '%env(DATABASE_PORT)%'
-        dbname: '%env(DATABASE_NAME)%'
-        user: '%env(DATABASE_USER)%'
-        password: '%env(DATABASE_PASSWORD)%'
-        charset: UTF8
-```
-
-__NOTE__: All this does is retrieve the database details from the `.env` file rather than `app/config/parameters.yml`.
-
-Now need to just make some minor configuration changes so that Symfony knows to read from the .env file.
-
-Edit the `bin/console`, `web/app_dev.php`, `web/app.php` files. Above the line `$kernel = new AppKernel($env, $debug)` in each file, paste the following:
-
-```php
-try {
-    (new \Symfony\Component\Dotenv\Dotenv())->load(__DIR__.'/../.env');
-} catch (\Symfony\Component\Dotenv\Exception\PathException $e) {
-
-}
-```
-
-If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of `DATABASE_NAME` in the `.env` file.
 
 Now that the basic configuration has been set up, let's run the following command: `php bin/console server:start`.
 
@@ -143,6 +111,8 @@ __NOTE__: If you cannot see the image, the full entity can be found [here](https
 {% include tweet_quote.html quote_text="Doctrine is a great tool to have around when developing with PHP and Symfony." %}
 
 ### Creating a New BlogPost Entity
+
+__TODO__: Rewrite this, unfortunately no longer uses command line to complete entity.
 
 Create new `BlogPost` entity by running the following command `php bin/console doctrine:generate:entity`
 
