@@ -54,7 +54,7 @@ Before Angular 1.5, we only had directives, Angular directives such as `ngHide`,
 
 ```js
 angular.module('tutorial', [])
-  .directive('counter', function counter() {
+  .directive('abacus', function abacus() {
     return {
       scope: {},
       bindToController: {
@@ -70,7 +70,7 @@ angular.module('tutorial', [])
         this.increment = increment;
         this.decrement = decrement;
       },
-      controllerAs: 'counter',
+      controllerAs: 'abacus',
       template: `
         <div class="todo">
           <input type="text" ng-model="$ctrl.count">
@@ -87,7 +87,7 @@ The first step in converting the directive to a component is to change `.directi
 _directive_
 
 ```js
-.directive('counter', function counter() {
+.directive('abacus', function abacus() {
   return {
 
   };
@@ -97,7 +97,7 @@ _directive_
 _component_
 
 ```js
-.component('counter', function counter() {
+.component('abacus', function abacus() {
 
 });
 ```
@@ -106,13 +106,13 @@ Nice and simple. Essentially the return {}; statement inside the .directive() be
 
 ## Bindings
 
-In a .directive(), the scope property allows us to define whether we want to isolate the $scope or inherit it, this has now become a sensible default to (usually) always make our Directives have isolate scope. So repeating ourselves each time just creates excess boilerplate. With the introduction of bindToController, we can explicitly define which properties we want to pass into our isolate scope and bind directly to the Controller.
+In a `.directive()`, the scope property allows us to define whether we want to isolate the `$scope` or inherit it, this has now become a sensible default to always make our Directives have isolate scope. So repeating ourselves each time just creates excess boilerplate. With the introduction of `bindToController`, we can explicitly define which properties we want to pass into our isolate scope and bind directly to the Controller.
 
-With the bindings property on .component() we can remove this boilerplate and simply define what we want to pass down to the component, under the assumption that the component will have isolate scope.
+With the bindings property on `.component()` we can remove this boilerplate and simply define what we want to pass down to the component, under the assumption that the component will have an isolated scope.
 
 ```js
 // before
-.directive('counter', function counter() {
+.directive('abacus', function abacus() {
   return {
     scope: {},
     bindToController: {
@@ -122,7 +122,7 @@ With the bindings property on .component() we can remove this boilerplate and si
 });
 
 // after
-.component('counter', {
+.component('abacus', {
   bindings: {
     count: '='
   }
@@ -131,7 +131,7 @@ With the bindings property on .component() we can remove this boilerplate and si
 
 ## Refactoring Controller Function
 
-Nothing has changed in the way we declare controller, however it’s now a little smarter and has a default controllerAs value of $ctrl.
+Nothing has changed in the way we declare controller, however it’s now a little smarter and has a default `controllerAs` value of `$ctrl`.
 
 If we’re using a controller local to the component, we’ll do this:
 
@@ -144,7 +144,7 @@ If we’re using a controller local to the component, we’ll do this:
     }
     ```
 
-If we’re using another Controller defined elsewhere, we’ll do this:
+If we’re using another controller defined elsewhere, we’ll do this:
 
 ```js
 // 1.4
@@ -155,7 +155,7 @@ If we’re using another Controller defined elsewhere, we’ll do this:
 }
 ```
 
-If we want to define controllerAs at this stage (which will over-ride the default $ctrl value), we’ll need to create a new property and define the instance alias:
+If we want to define `controllerAs` at this stage (which will over-ride the default $ctrl value), we’ll need to create a new property and define the instance alias:
 
 ```js
 // 1.4
@@ -167,16 +167,16 @@ If we want to define controllerAs at this stage (which will over-ride the defaul
 }
 ```
 
-This then allows us to use something.prop inside our template to talk to the instance of the Controller.
+This then allows us to use `something.prop` inside our template to talk to the instance of the Controller.
 
-Now, there are some changes in .component() that make sensible assumptions and automatically create a controllerAs property under the hood for us, and automatically assign a name based on three possibilities:
+Now, there are some changes in `.component()` that make sensible assumptions and automatically create a `controllerAs` property under the hood for us, and automatically assign a name based on three possibilities:
 
 ```js
 // inside angular.js
 controllerAs: identifierForController(options.controller) || options.controllerAs || '$ctrl',
 ```
 
-Possibility one uses this aptly named identifierForController function that looks like so:
+Possibility one uses this aptly named `identifierForController` function that looks like so:
 
 ```js
 // inside angular.js
@@ -190,7 +190,7 @@ function identifierForController(controller, ident) {
 }
 ```
 
-This allows us to do the following inside .component():
+This allows us to do the following inside `.component()`:
 
 ```js
 // 1.5
@@ -201,11 +201,9 @@ This allows us to do the following inside .component():
 }
 ```
 
-This saves adding the controllerAs property… however…
+This saves adding the `controllerAs` property. However, we can add the `controllerAs` property to maintain backwards compatibility or keep it if that’s within your style for writing directives or components.
 
-We can add the controllerAs property to maintain backwards compatibility or keep it if that’s within your style for writing Directives/Components.
-
-The third option, and better yet, completely removes all need to think about controllerAs, and Angular automatically uses the name $ctrl. For instance:
+The third option, and better yet, completely removes all need to think about `controllerAs`, and Angular automatically uses the name $ctrl. For instance:
 
 ```js
 .component('test', {
@@ -215,13 +213,13 @@ The third option, and better yet, completely removes all need to think about con
 });
 ```
 
-The would-be controllerAs definition automatically defaults to $ctrl, so we can use $ctrl.testing in our template which would give us the value of 123.
+The would-be controllerAs definition automatically defaults to $ctrl, so we can use `$ctrl.testing` in our template which would give us the value of 123.
 
-Based on this information, we add our controller, and refactor our Directive into a Component by dropping the controllerAs property:
+Based on this information, we add our controller, and refactor our Directive into a Component by dropping the `controllerAs` property:
 
 ```js
 // before
-.directive('counter', function counter() {
+.directive('abacus', function abacus() {
   return {
     scope: {},
     bindToController: {
@@ -237,12 +235,12 @@ Based on this information, we add our controller, and refactor our Directive int
       this.increment = increment;
       this.decrement = decrement;
     },
-    controllerAs: 'counter'
+    controllerAs: 'abacus'
   };
 });
 
 // after
-.component('counter', {
+.component('abacus', {
   bindings: {
     count: '='
   },
@@ -250,9 +248,11 @@ Based on this information, we add our controller, and refactor our Directive int
     function increment() {
       this.count++;
     }
+
     function decrement() {
       this.count--;
     }
+
     this.increment = increment;
     this.decrement = decrement;
   }
@@ -266,7 +266,7 @@ Things are becoming much simpler to use and define with this change.
 There’s a subtle difference in the template property worth noting. Let’s add the template property to finish off our rework and then take a look.
 
 ```js
-.component('counter', {
+.component('abacus', {
   bindings: {
     count: '='
   },
@@ -290,7 +290,7 @@ There’s a subtle difference in the template property worth noting. Let’s add
 });
 ```
 
-The template property can be defined as a function that is now injected with $element and $attrs locals. If the template property is a function then it needs to return a String representing the HTML to compile:
+The template property can be defined as a function that is now injected with `$element` and `$attrs` locals. If the template property is a function then it needs to return a String representing the HTML to compile:
 
 ```js
 {
@@ -311,7 +311,7 @@ The template property can be defined as a function that is now injected with $el
 
 ## One Way Data Binding
 
-If you have been using AngularJS long enough, you will be accustomed to the two-data way binding it provides. However, in AngularJS 1.5+, there is a new one-way data binding that we can explore and also improve the performance of our AngularJS applications.
+If you have been using AngularJS long enough, you will be accustomed to the two-data way binding it provides. However, in AngularJS 1.5+, there is a new one-way data binding that we can explore and also use to improve the performance of our AngularJS applications.
 
 A new syntax expression for the one-way data binding is the use of `<` notation. For two-way data bindings, the `=` notation is used instead.
 
@@ -409,7 +409,7 @@ angular
 </div>
 ```
 
-One-way data binding is changes propagating down and flowing into the component to update it with new data.
+One-way data binding allows changes to propagate down and flow into the component to update it with new data.
 
 ## LifeCycle Hooks
 
@@ -428,17 +428,11 @@ The `$onInit()` hook is invoked when controllers have been constructed. It is us
 ```js
 function MyController() {
   this.$onInit = function () {
-    this.users = [{
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Sincere@april.biz",
-        "phone": "1-770-736-8031 x56442",
-        "website": "hildegard.org",
-        "company": {
-          "name": "Romaguera-Crona",
-          "catchPhrase": "Multi-layered client-server neural-net"
-        }
+    this.players = [{
+        "name": "Lionel Messi",
+        "club": "Barcelona",
+        "jerseyNumber": 10,
+        "position": "Forward",
       },
       ...
 
@@ -447,23 +441,22 @@ function MyController() {
 }
 ```
 
-```bash
-<div ng-repeat="user in users">
-        <td>{{ user.name }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.address.city }}</td>
-        <td>{{ user.phone }}</td>
-        <td>{{ user.website }}</td>
-        <td>{{ user.company.name }}</td>
-</div>
-```
+{% highlight html %}
+{% raw %}
+  <div ng-repeat="player in players">
+    <td>{{ player.name }}</td>
+    <td>{{ player.club }}</td>
+    <td>{{ player.jerseyNumber }}</td>
+    <td>{{ player.position }}</td>
+  </div>
+{% endraw %}
+{% endhighlight %}
 
 ### $onChanges()
 
 When building components at one point you will have data coming into your component from an external source e.g parent component. With `$onChanges` we can react to this changes and update the child component data effectively.
 
-Before we go ahead into examples it is important for us to understand, how, why and when this hook is called. $onChanges hook is called in two scenarios, one being during component initialization, it passes down the initial changes that can be used right away through isFirstChange method.
+Before we go ahead into examples it is important for us to understand, how, why and when this hook is called. `$onChanges` hook is called in two scenarios, one being during component initialization, it passes down the initial changes that can be used right away through `isFirstChange` method.
 
 ### $onDestroy()
 
@@ -471,19 +464,16 @@ This hook is called when its containing scope is destroyed. We can use this hook
 
 ```js
 function MyController($element) {
-  /**
-   * eventHandler: custom event handler to be attached to our element]
-   */
+  
   var eventHandler = function () {
     /**
-     * Do something cool in here
+     * Write code here
      */
   };
 
   /**
    * [$onInit: Attach our eventHandler when the element is clicked]
    */
-
   this.$onPostLink = function () {
 
     // When the component DOM has been compiled attach you eventHandler.
@@ -504,11 +494,11 @@ function MyController($element) {
 
 When our component is constructed, we attach a click event to the component element that does something to it when clicked, it can be wherever we want let's say show alert box saying I am clicked.
 
-In the duration when this component is active we would be happy to have this event, but when this component is inactive (meaning we have destroyed it), we don' t need this event anymore it has to go.
+In the duration when this component is active we would be happy to have this event, but when this component is inactive (meaning we have destroyed it), we don't need this event anymore it has to go.
 
-Since this our custom event and it's not native to Angular, it will not be detached from our app along with the component, but it will be left snooping around for an element which does not exist.
+Since this is our custom event and it's not native to Angular, it will not be detached from our app along with the component, but it will be left snooping around for an element which does not exist.
 
-We need to tell Angular through the $onDestroy hook when you destroy this component detach this event too.
+We need to tell Angular through the `$onDestroy` hook that when this component is destroyed, the event should be detached too.
 
 ### $postLink()
 
@@ -530,27 +520,12 @@ function MyController($element) {
 }
 ```
 
-This hook can help us to implement some functionalities that depend on the component elements to be fully compiled.
+This hook can help us to implement some functionalities that depend on the component elements to be fully compiled. It is important to note that this is not a complete replacement for DOM manipulation, this functionality should be handled by decorator directives.
 
-It is important to note that this is not a complete replacement for DOM manipulation, this functionality should be handled by decorator directives.
-
-## Disabling isolate scope
-
-Components are always created with isolate scope. Here’s the relevant part from the source code:
-
-```js
-{
-  ...
-  scope: {},
-  ...
-}
-```
 
 ## Stateless components
 
-There’s now the ability to create “stateless” components, read my in-depth article on stateless components in the .component() method.
-
-Essentially we can just use a template and bindings:
+There’s now the ability to create `stateless` components. Essentially we can just use a template and bindings:
 
 ```js
 var NameComponent = {
