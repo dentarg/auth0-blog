@@ -239,38 +239,34 @@ As you can see, `setSession()` stores the session's data in the browser's `local
 
 The last method, called `isAuthenticated()`, checks if the session data stored in the `localStorage` is still valid.
 
-## Adding routing and callback URL
+## Adding Routing to the React App
 
-Before going to use the new methods of the *AuthService* class, we need to add routing support to our application. This allows us to separate the new session creation from the application's real point of access. In other words, we want to specify a different URL to which the authentication service will redirect the user.
+Before you can use your new methods, you need to add routing support to your application. This allows you to separate the session creation route from the application's real point of access. In other words, you need to specify a different URL to which the authentication service (Auth0) will redirect your users.
 
-In order to do this, we need to provide a callback URL in the *Bookstore* client configuration of the [Auth0 dashboard](https://manage.auth0.com), as shown in the following picture:
+To do this, you need to provide another callback URL in your Auth0 Client configuration. So, [head to the Client page on the Auth0 management dashboard](https://manage.auth0.com/#/clients), choose your client again, and replace the value on the *Allowed Callback URLs* field to `http://localhost:3000/startSession`.
 
-![./xxx-images/callback-url.png](./xxx-images/callback-url.png)
+With this configuration you are saying to Auth0 that the provided URL is a valid place to redirect your users to after the authentication process. This is a security measure to avoid unauthorized redirections.
 
-With this configuration, we are saying to *Auth0* authentication service that the provided URL is a valid URL to redirect to after authentication. This is a security measure to avoid unauthorized redirections.
-
-We also need to specify the callback URL in the *Auth0Config.js* file:
+You also need to specify the new callback URL in the `Auth0Config.js` file:
 
 ```javascript
 export const AUTH_CONFIG = {
     domain: 'YOUR_AUTH0_DOMAIN',
     clientID: 'YOUR_CLIENT_ID',
     redirectUri: 'http://localhost:3000/startSession',
-    audience: 'http://localhost:63939/'
+    audience: 'https://onlinebookstore.mycompany.com'
 }
 ```
 
-This setting says to the authentication service to redirect the user to the specified URL.
+This setting configures your app to inform Auth0 that users *must* be redirected to this URL after the authentication process.
 
-Let's now add routing support to our React application by installing [react-router](https://reacttraining.com/react-router/). So let's type the following command in the project's folder:
+After that, you can add routing support to your React application by installing [`react-router`](https://reacttraining.com/react-router/). To do this, type the following command in the project's root directory:
 
 ```shell
 npm install --save react-router-dom
 ```
 
-Now we can configure routing for our React application.
-
-
+Now, you can configure routing for your React application.
 
 ## Completing session management
 
