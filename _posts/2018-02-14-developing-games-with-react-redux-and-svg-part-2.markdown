@@ -47,7 +47,7 @@ These accomplishments paved the way to understand how you can create your game (
 
 The subsections that follow will show you how to create the rest of your game elements. Although they might look lengthy, they are quite simple and similar. Probably, you will be able to follow the instruction on these subsections in a matter of minutes.
 
-After this section, you will find the most interesting topics of this part of the series. These topics are entitled *Making Flying Objects Appear Randomly* and *Making the Cannon Shoot*.
+After this section, you will find the most interesting topics of this part of the series. These topics are entitled *Making Flying Objects Appear Randomly* and *Using CSS Animation to Move Flying Objects*.
 
 ### Creating the Cannon Ball React Component
 
@@ -1014,4 +1014,116 @@ That's it! Now, your app will create and show randomly positioned flying objects
 
 ### Using CSS Animation to Move Flying Objects
 
-## Making the Cannon Shoot
+There are two paths you can follow to make your flying objects move. The first and most obvious one is to use JavaScript code to change their position. Although this approach might seem easy to implement, it will degrade the performance of your game to a level that makes it unfeasible.
+
+The second and preferred approach is to use CSS animations. [The advantage of this approach is that it uses the GPU to animate elements](https://www.smashingmagazine.com/2016/12/gpu-animation-doing-it-right/), which increases the performance of your app.
+
+You might think that this approach is harder to implement but, as you will see, it is not. The trickiest part of it is that you will need the help of another NPM package to integrate CSS animations and React properly. That is, you will need to install [the `styled-components` package](https://www.styled-components.com/).
+
+> _"By utilising tagged template literals (a recent addition to JavaScript) and the power of CSS, styled-components allows you to write actual CSS code to style your components. It also removes the mapping between components and styles – using components as a low-level styling construct could not be easier!"_ —[`styled-components`](https://github.com/styled-components/styled-components)
+
+To install this package, you will have to stop your React app (i.e. if it is up and running) and issue the following command:
+
+```bash
+npm i styled-components
+```
+
+After installing it, you can replace the code of the `FlyingObject` component (`./src/components/FlyingObject.jsx`) with this:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled, { keyframes } from 'styled-components';
+import FlyingObjectBase from './FlyingObjectBase';
+import FlyingObjectTop from './FlyingObjectTop';
+import { gameHeight } from '../utils/constants';
+
+const moveVertically = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(${gameHeight}px);
+  }
+`;
+
+const Move = styled.g`
+  animation: ${moveVertically} 4s linear;
+`;
+
+const FlyingObject = props => (
+  <Move>
+    <FlyingObjectBase position={props.position} />
+    <FlyingObjectTop position={props.position} />
+  </Move>
+);
+
+FlyingObject.propTypes = {
+  position: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }).isRequired,
+};
+
+export default FlyingObject;
+```
+
+In this new version, you have wrapped both the `FlyingObjectBase` and the `FlyingObjectTop` components inside a new component called `Move`. This component is simply a `g` SVG element `styled` to use the `moveVertically` transformation. To learn more about transformations and how to use `styled-components`, you can check the [official documentation here](https://www.styled-components.com/docs/) and [the *Using CSS Animations* document at the MDN website](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations).
+
+In the end, what this means is that instead of adding pure/static flying objects, you are adding elements that carry a transformation (a CSS rule) to move them from their starter position (`transform: translateY(0);`) to the very bottom of the game (`transform: translateY(${gameHeight}px);`).
+
+Of course, you will have to add the `gameHeight` constant to the `./src/utils/constants.js` file. Also, since you will need to update this file, you can replace the `flyingObjectsStarterYAxis` to make objects start in a position that users don't see. The current value makes flying objects appear right in the middle of the visible area, which might seem odd for end users.
+
+To make these changes, open the `constants.js` file and change it as follows:
+
+```js
+// keep other constants untouched ...
+
+export const flyingObjectsStarterYAxis = -1100;
+
+// keep flyingObjectsStarterPositions untouched ...
+
+export const gameHeight = 1200;
+```
+
+Lastly, you will need to destroy flying objects after 4 seconds, so new ones can appear and move through the canvas. You can achieve that by replacing the code inside the `./src/reducers/moveObjects.js` file with this:
+
+```js
+import { calculateAngle } from '../utils/formulas';
+import createFlyingObjects from './createFlyingObjects';
+
+function moveObjects(state, action) {
+  const mousePosition = action.mousePosition || {
+    x: 0,
+    y: 0,
+  };
+
+  const newState = createFlyingObjects(state);
+
+  const now = (new Date()).getTime();
+  const flyingObjects = newState.gameState.flyingObjects.filter(object => (
+    (now - object.createdAt) < 4000
+  ));
+
+  const { x, y } = mousePosition;
+  const angle = calculateAngle(0, 0, x, y);
+  return {
+    ...newState,
+    gameState: {
+      ...newState.gameState,
+      flyingObjects,
+    },
+    angle,
+  };
+}
+
+export default moveObjects;
+```
+
+As you can see, this new code filters the `flyingObjects` property of the `gameState` to remove objects that have an age equals or greater than `4000` (4 seconds).
+
+If you restart your app now (`npm start`) and hit the *Start Game* button, you will see flying objects moving from top to bottom in the SVG canvas. Also, you will notice that your game creates new flying object after the existing ones reach the bottom of this canvas.
+
+![Using CSS animation with React](https://cdn.auth0.com/blog/aliens-go-home/flying-objects-moving.png)
+
+## Conclusion and Next Steps
