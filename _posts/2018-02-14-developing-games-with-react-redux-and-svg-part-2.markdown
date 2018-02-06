@@ -35,6 +35,8 @@ The game that you will develop in this series is called *Aliens, Go Home!* The i
 
 If you are curious, you can find [the final game up and running here](http://bang-bang.digituz.com.br/). But don't play too much, you have work to do!
 
+{% include tweet_quote.html quote_text="I'm creating a game with React, Redux, and SVG elements." %}
+
 ## Previously, on Part 1
 
 In the first part of this series, you have used [`create-react-app`](https://github.com/facebookincubator/create-react-app) to bootstrap your React application and you have installed and configured Redux to manage the game state. After that, you have learned how to use SVG with React components while creating game elements like `Sky`, `Ground`, the `CannonBase`, and the `CannonPipe`. In the end, you've added the aiming capability to your cannon by using an event listener and a [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) to trigger a Redux *action* that updates the `CannonPipe` angle.
@@ -1125,6 +1127,8 @@ As you can see, this new code filters the `flyingObjects` property of the `gameS
 If you restart your app now (`npm start`) and hit the *Start Game* button, you will see flying objects moving from top to bottom in the SVG canvas. Also, you will notice that your game creates new flying object after the existing ones reach the bottom of this canvas.
 
 ![Using CSS animation with React](https://cdn.auth0.com/blog/aliens-go-home/flying-objects-moving.png)
+
+{% include tweet_quote.html quote_text="Using CSS animations with React is easy and increases your app's performance." %}
 
 ## Conclusion and Next Steps
 
