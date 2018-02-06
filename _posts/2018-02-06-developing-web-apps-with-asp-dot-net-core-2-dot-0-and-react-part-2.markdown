@@ -86,7 +86,7 @@ After clicking on this button, the dashboard will present to you a form where yo
 
 ![Creating a React SPA client on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/creating-an-auth0-client.png)
 
-After that, you can click on the *Create* button. Clicking on it will make the dashboard redirect you to a tab called *Quick Start* inside your new client. As you are going to learn how to integrate your React app with the ASP.NET Core 2.0 API in this tutorial, you won't need to follow the instructions there. What you will use soon is the information contained in the *Settings* tab.
+After that, you can click on the *Create* button. Clicking on it will make the dashboard redirect you to a tab called *Quick Start* inside your new client. As you are going to learn how to integrate your React app with the ASP.NET Core 2.0 API in this tutorial, you won't need to follow the instructions there. For now, what you will need to do is to set the *Allowed Callback URLs* field to `http://localhost:3000` in the *Settings* tab.
 
 ![Settings tab of a React SPA client on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/settings-tab-on-auth0-client.png)
 
@@ -110,7 +110,7 @@ export const AUTH_CONFIG = {
     clientID: 'YOUR_CLIENT_ID',
     redirectUri: 'http://localhost:3000',
     audience: 'https://onlinebookstore.mycompany.com'
-}
+};
 ```
 
 As you can see, you are defining an object that contains the configuration properties of your Auth0 Client in this file. **Note that**, you will need to replace `YOUR_AUTH0_DOMAIN` and `YOUR_CLIENT_ID` placeholders with the corresponding values from your Auth0 Client. So, head to [the Clients page on the Auth0 Management Dashboard](https://manage.auth0.com/#/clients), choose the client that you have created in the previous section, select the *Settings* tab, and use the *Client ID* and the *Domain* values to replace these placeholders.
@@ -120,13 +120,13 @@ This file also contains another two properties:
 1. `redirectUri`: This property contains the URL that your users will be redirected to after the authentication process. Currently, you set it to the home page of your React app. However, you will change it soon.
 2. `audience`: This property contains the unique identifier of the Auth0 API that you have created in [the first article of this series](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1).
 
-## Create the authentication service
+## Create the Authentication Service
 
-Now we need to create another JavaScript module, *AuthService.js*, containing the definition of an authentication service, as shown below:
+Next, you will need to create another JavaScript module. You will define this module inside a new file called `AuthService.js` in the `src` directory with the following code:
 
 ```javascript
 import auth0 from 'auth0-js';
-import {AUTH_CONFIG} from './Auth0Config';
+import { AUTH_CONFIG } from './Auth0Config';
 
 export default class AuthService {
   auth0 = new auth0.WebAuth({
@@ -144,11 +144,11 @@ export default class AuthService {
 }
 ```
 
-As we can see, we imported the *auth0* namespace from the *auth0-js* library and the *AUTH_CONFIG* object from the module we defined before. Then we used *auth0.WebAuth()* constructor to create an instance of the *Auth0* client provided by the *auth0-js* library. We provided the *Auth0* configuration data to the constructor. We also provided values for the *responseType* property, saying the type of response we want from the authorization server, and for the scope, saying that we want an [OpenID Connect conformant](https://auth0.com/docs/api-auth/tutorials/adoption) authentication.
+As you can see, you imported the `auth0` namespace from the `auth0-js` package and the `AUTH_CONFIG` object from the module defined in the previous section. Then, you used the `auth0.WebAuth()` constructor to create an instance of the `auth0` client. To create this instance, you provided your Auth0 Client properties to this constructor. Alongside with these properties, you also provided values for the `responseType` property (which defines the type of response you want from the authorization server) and for the `scope` (which defines that you are expecting the server to send [the `sub` claim back to your app](https://auth0.com/docs/scopes/current#standard-claims)).
 
-Finally, we defined a *login()* method that wraps the *auth0.authorize()* method. The *AuthService* class is now ready to be used.
+Finally, you defined a `login()` method that wraps the `auth0.authorize()` one.
 
-Now we can open the *App.js* file and change its code as follows:
+With that, you are now ready to use the `AuthService` class in your application. So, open the `App.js` file and replace its code with this:
 
 ```javascript
 import React, { Component } from 'react';
@@ -182,13 +182,11 @@ class App extends Component {
 export default App;
 ```
 
-We imported the *AuthService* class, added a constructor to the *App* component and created an instance of the *AuthService*. Finally we invoked the *login()* method inside the *render()* method of the component.
+In this new version, you imported the `AuthService` class, added a constructor to the `App` component, and created an instance of the `AuthService`. After that, you have defined that your app will trigger the authentication process when rendered (i.e. you called the `login()` method inside the `render()` method of the component.
 
-Now, when running the app we will no longer see the standard *create-react-app* home page, but we will see the following one:
+Now, when running the app, you will no longer see the standard `create-react-app` home page. Instead, you will see the Auth0 hosted login page, which is similar to this one:
 
-![./xxx-images/auth0-login-page.png](./xxx-images/auth0-login-page.png)
-
-This is the *Auth0 hosted login page* asking the user to provide his credentials in order to access our application.
+![The Auth0 hosted login page for a React app.](https://cdn.auth0.com/blog/react-aspnet-core/auth0-hosted-login-page.png)
 
 ## Create users for the app
 
