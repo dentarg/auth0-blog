@@ -268,9 +268,9 @@ npm install --save react-router-dom
 
 Now, you can configure routing for your React application.
 
-## Completing session management
+## Completing the Session Management Feature
 
-With all the previous preparation, let's see how the *App* component code changes:
+With all the previous preparation, you can replace the `App` component code with the following:
 
 ```javascript
 import React, { Component } from 'react';
@@ -319,15 +319,13 @@ class App extends Component {
 export default App;
 ```
 
-The main changes concern the definition of two routes: the home page route, matching the root path, and the session creation route, matching the */startSession* path. Both routes are mapped to *render* functions.
+The main changes in this file concern the definition of two routes: the home page route (which matches the root path) and the session creation route (which matches the `/startSession` path). Both routes are mapped to `render` functions.
 
-The session creation route is mapped to a function that invokes *startSession()* method passing the browser's history as a parameter. The *startSession()* method calls the *handleAuthentication()* method of the *AuthService* class we analyzed earlier. This method returns a waiting React element to show while the asynchronous process is running.
+The session creation route is mapped to a function that invokes `startSession()` method passing the browser's history as a parameter. The `startSession()` method calls the `handleAuthentication()` method of the `AuthService` class. This method returns a waiting React element that is shown while the asynchronous process is running.
 
-The home page route is mapped to a function that calls the *renderHome()* method. The renderHome() method returns the *Home* component if the user is authenticated. Otherwise, it invokes the *login()* service and returns a waiting React element.
+The home page route is mapped to a function that calls the `renderHome()` method. The `renderHome()` method returns the `Home` component if the user is authenticated. Otherwise, it invokes the `login()` method and returns a waiting React element.
 
-Now the user will be authenticated and redirected to the *Home* component content.
-
-
+Now users will be authenticated and redirected to the `Home` component content.
 
 ## Connecting the app and the secured Web API
 
