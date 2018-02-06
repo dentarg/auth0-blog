@@ -35,8 +35,9 @@ related:
 
 The Component-based Architecture is prevalent in frontend development today. JavaScript Client-side frameworks such as React, Preact, Ember, Vue.js all advocate building applications in components. _Angular_ also popularly known as _Angular(v2+)_ which is a major rewrite of AngularJS is completely component-based.
 
-A typical example of an application built applying the component architecture involves developing several features of the application as modules with reusable components. For example, let's use a Music Player application. A required feature for this product could be a Music Player widget. A developer designing their app in a component-based architecture style can model this feature as a *Module*.
+{% include tweet_quote.html quote_text="The Component-based Architecture is prevalent in frontend development today." %}
 
+A typical example of an application built applying the component architecture involves developing several features of the application as modules with reusable components. For example, let's use a Music Player application. A required feature for this product could be a Music Player widget. A developer designing their app in a component-based architecture style can model this feature as a *Module*.
 
 Let's call it the _Music Player Widget_ Module. Inside the module, we can have the following components:
 
@@ -102,7 +103,7 @@ _component_
 });
 ```
 
-Nice and simple. Essentially the return {}; statement inside the .directive() becomes the Object definition inside .component() - easy!
+Nice and simple. Essentially the return `{};` statement inside the `.directive()` becomes the Object definition inside `.component()`. Awesome!
 
 ## Bindings
 
@@ -155,67 +156,42 @@ If we’re using another controller defined elsewhere, we’ll do this:
 }
 ```
 
-If we want to define `controllerAs` at this stage (which will over-ride the default $ctrl value), we’ll need to create a new property and define the instance alias:
+If we want to define `controllerAs` at this stage, we’ll need to create a new property and define the instance alias:
 
 ```js
 // 1.4
 {
   ...
   controller: 'SomeCtrl',
-  controllerAs: 'something'
+  controllerAs: 'vm'
   ...
 }
 ```
 
-This then allows us to use `something.prop` inside our template to talk to the instance of the Controller.
-
-Now, there are some changes in `.component()` that make sensible assumptions and automatically create a `controllerAs` property under the hood for us, and automatically assign a name based on three possibilities:
-
-```js
-// inside angular.js
-controllerAs: identifierForController(options.controller) || options.controllerAs || '$ctrl',
-```
-
-Possibility one uses this aptly named `identifierForController` function that looks like so:
-
-```js
-// inside angular.js
-var CNTRL_REG = /^(\S+)(\s+as\s+(\w+))?$/;
-function identifierForController(controller, ident) {
-  if (ident && isString(ident)) return ident;
-  if (isString(controller)) {
-    var match = CNTRL_REG.exec(controller);
-    if (match) return match[3];
-  }
-}
-```
-
-This allows us to do the following inside `.component()`:
+This then allows us to use something like `vm.title` inside our template to talk to the instance of the controller. In AngularJS 1.5, we can do the following inside `.component()`:
 
 ```js
 // 1.5
 {
   ...
-  controller: 'SomeCtrl as something'
+  controller: 'SomeCtrl as vm'
   ...
 }
 ```
 
-This saves adding the `controllerAs` property. However, we can add the `controllerAs` property to maintain backwards compatibility or keep it if that’s within your style for writing directives or components.
-
-The third option, and better yet, completely removes all need to think about `controllerAs`, and Angular automatically uses the name $ctrl. For instance:
+This helps us minimize our code by preventing the use of `controllerAs` property. However, we can add the `controllerAs` property to maintain backwards compatibility or keep it if that’s within your style for writing directives or components. There is another option that completely eliminates the need for `controllerAs`, and Angular automatically uses the property, `$ctrl`. For instance:
 
 ```js
-.component('test', {
+.component('bet', {
   controller: function () {
-    this.testing = 123;
+    this.betNumber = 777;
   }
 });
 ```
 
-The would-be controllerAs definition automatically defaults to $ctrl, so we can use `$ctrl.testing` in our template which would give us the value of 123.
+In the code above, there is no `controllerAs` property. In our template, controller defaults to `$ctrl`, so we can get the value of `777` in our template using `$ctrl.betNumber`.
 
-Based on this information, we add our controller, and refactor our Directive into a Component by dropping the `controllerAs` property:
+Since there is no need for the `controllerAs` property, we can just have our directive refactored to a component like so:
 
 ```js
 // before
@@ -259,11 +235,9 @@ Based on this information, we add our controller, and refactor our Directive int
 });
 ```
 
-Things are becoming much simpler to use and define with this change.
-
 ## Templating Changes
 
-There’s a subtle difference in the template property worth noting. Let’s add the template property to finish off our rework and then take a look.
+Look at the code below, and how the template property is defined.
 
 ```js
 .component('abacus', {
@@ -290,7 +264,7 @@ There’s a subtle difference in the template property worth noting. Let’s add
 });
 ```
 
-The template property can be defined as a function that is now injected with `$element` and `$attrs` locals. If the template property is a function then it needs to return a String representing the HTML to compile:
+The template property can be defined as a function injected with `$element` and `$attrs` parameters. If the template property is a function then it needs to return a String representing the HTML to compile:
 
 ```js
 {
@@ -454,9 +428,18 @@ function MyController() {
 
 ### $onChanges()
 
-When building components at one point you will have data coming into your component from an external source e.g parent component. With `$onChanges` we can react to this changes and update the child component data effectively.
+Remember the old way of detecting changes with `$scope.$watch()`. In Angular 1.5, changes can be detected with the `$onChanges()` hook. When building components at one point you will have data coming into your component from an external source e.g parent component. With `$onChanges()`, we can react to this changes and update the child component data effectively.
 
 Before we go ahead into examples it is important for us to understand, how, why and when this hook is called. `$onChanges` hook is called in two scenarios, one being during component initialization, it passes down the initial changes that can be used right away through `isFirstChange` method.
+
+```js
+$ctrl.onChanges = function (changes) { 
+    if (changes.commit) {
+        $ctrl.issues = openIssues(changes.commit.currentValue); 
+        $ctrl.repo = createdRepos(changes.commit.currentValue);
+    }
+}
+```
 
 ### $onDestroy()
 
@@ -475,28 +458,21 @@ function MyController($element) {
    * [$onInit: Attach our eventHandler when the element is clicked]
    */
   this.$onPostLink = function () {
-
     // When the component DOM has been compiled attach you eventHandler.
-
   };
 
   /**
    * [$onDestroy: Destroy the eventHandler once the component is destroyed]
    */
   this.$onDestroy = function () {
-
     // Destroy all custom events or bindings when the component scope is destroyed.
-
   };
-
 }
 ```
 
 When our component is constructed, we attach a click event to the component element that does something to it when clicked, it can be wherever we want let's say show alert box saying I am clicked.
 
-In the duration when this component is active we would be happy to have this event, but when this component is inactive (meaning we have destroyed it), we don't need this event anymore it has to go.
-
-Since this is our custom event and it's not native to Angular, it will not be detached from our app along with the component, but it will be left snooping around for an element which does not exist.
+In the duration when this component is active we would be happy to have this event, but when this component is inactive, we don't need this event anymore it has to go. Since this is our custom event and it's not native to Angular, it will not be detached from our app along with the component, but it will be left snooping around for an element which does not exist.
 
 We need to tell Angular through the `$onDestroy` hook that when this component is destroyed, the event should be detached too.
 
@@ -512,9 +488,8 @@ function MyController($element) {
 
   this.$postLink = function () {
     /**
-     * Do something awesome in here
+     * Engineer something epic here
      */
-
   };
 
 }
@@ -525,30 +500,104 @@ This hook can help us to implement some functionalities that depend on the compo
 
 ## Stateless components
 
-There’s now the ability to create `stateless` components. Essentially we can just use a template and bindings:
+There’s now the ability to create `stateless` components. This is essentially a component with no controller attribute.
 
 ```js
-var NameComponent = {
+var Person = {
   bindings: {
     name: '<',
-    age: '<'
+    age: '<',
+    sex: '<'
   },
   template: `
     <div>
-      <p>Name: {{ $ctrl.name }}</p>
-      <p>Age: {{ $ctrl.age }}</p>
+      <p>Name: {{ ::$ctrl.name }}</p>
+      <p>Age: {{ ::$ctrl.age }}</p>
+      <p>Age: {{ ::$ctrl.sex }}</p>
     </div>
   `
 };
 
 angular
   .module('app', [])
-  .component('nameComponent', NameComponent);
-
+  .component('person', Person);
 ```
+
+Use in a html file like so:
+
+{% highlight html %}
+{% raw %}
+  <person name="prosper" age="14" sex="male"></person>
+{% endraw %}
+{% endhighlight %}
+
+
+## Stateful Components
+
+Stateful components are components that perform stateful tasks such as handling form data, making HTTP requests and generally manipulating data. In a stateful component, you can have a controller that loads a list of car items to display from an external service (API).
+
+```js
+var CarItems = {
+  template: './car.html',
+  controller: function($http) {
+    var ctrl = this;
+    // Initialising the component
+    ctrl.$onInit = function() {
+      $http.get('/api/carlistings').then(function (data) {
+        ctrl.items = data;
+      });
+    };
+  }
+};
+
+angular
+  .module('app', [])
+  .component('carItems', CarItems);
+});
+```
+
+## Multi-slot Transclusions
+
+In AngularJS, **transclusion** simply allows you to include content from one place into another template. In basic computer science definition, **transclusion** refers to the inclusion of part or all of an electronic document into one or more other documents by reference.
+
+Multi-slot transclusions was one of the features included in Angular 1.5. How does this work? AngularJS 1.5+ allows us define multiple slots. A good case study is trying to create a generic `card` component. Something like:
+
+{% highlight html %}
+{% raw %}
+  <card>
+    <card-title>Great Title</card-title>
+    <card-body>
+      This is the body of the card component.
+    </card-body>
+  </card>
+{% endraw %}
+{% endhighlight %}
+
+In the definition of the `<card>` component, the `<card-title>` and `<card-body>` elements are the transclusion slots that will be present in the component.
+
+```js
+app.component('card', {
+  template: [
+      '<div style="border: 1px solid black;">'
+      '<div ng-transclude="title"></div>',
+      '<div ng-transclude="body"></div>',
+      '</div>'
+  ].join(''),
+  transclude: {
+    title: 'cardTitle',
+    body: '?cardBody'
+  },
+  controller: function() {
+    // Render the component as a card
+  }
+});
+```
+
+**Note:** `?` signifies that the slot is optional.
+
 
 ## Conclusion
 
 As we can see, AngularJS applications can be better with these features listed above. Much work has gone in to the project from the team to make it very similar to the way we write Angular apps using the component archictecture.
 
-In the next and final part of this series, we'll build a sample application with AngularJS 1.5+ that harnesses all these features. Stay tuned!
+In the next and final part of this series, we'll build a sample application with AngularJS 1.5+ that harnesses somes of these features. Stay tuned!
