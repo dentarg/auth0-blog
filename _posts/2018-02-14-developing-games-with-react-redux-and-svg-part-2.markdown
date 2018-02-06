@@ -1127,3 +1127,7 @@ If you restart your app now (`npm start`) and hit the *Start Game* button, you w
 ![Using CSS animation with React](https://cdn.auth0.com/blog/aliens-go-home/flying-objects-moving.png)
 
 ## Conclusion and Next Steps
+
+In the second part of this series, you have created most of the elements that you need to make a complete game with React, Redux, and SVG. In the end, you also have made flying objects appear at random positions and you took advantage of CSS animations to make them fly around smoothly.
+
+In the next and last article of this series, you will implement the missing features of your game. That is, you will: make your cannon shoot to kill flying objects; make your game control lives of your users; and you will control how many kills your users have. You will also use [Auth0](https://auth0.com/) and [Pusher](https://pusher.com/) to implement a realtime leaderboard. Stay tuned!
