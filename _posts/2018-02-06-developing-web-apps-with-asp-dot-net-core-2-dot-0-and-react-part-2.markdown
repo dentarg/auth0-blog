@@ -188,31 +188,13 @@ Now, when running the app, you will no longer see the standard `create-react-app
 
 ![The Auth0 hosted login page for a React app.](https://cdn.auth0.com/blog/react-aspnet-core/auth0-hosted-login-page.png)
 
-## Create users for the app
+## Create Users for the React App
 
-How can we add users authorized to access our application? We have two options: let the users to autonomously register or adding them from the *Auth0* dashboard.
+You might be wondering: how can you add authorized users to your application? With Auth0, you have two options. First, which is the most common option, is to let visitors register themselves by submitting the *Sign Up* form shown by Auth0 or [by choosing one of the multiple identity providers that you can easily configure in your Auth0 clients](https://auth0.com/docs/identityproviders).
 
-The first option allows the user to register by selecting the *Sign Up* tab and providing an e-mail address and a password.
+The second option is to manually register users through the Auth0 dashboard. You can do this by heading to the *Users* page on the Auth0 management dashboard. There, you will need to click on the *Create User* button in the upper right corner. This will make the dashboard show a form where you can provide the credentials for the new user.
 
-![./xxx-images/auth0-signup.png](./xxx-images/auth0-signup.png)
-
-After submitting the required data, a confirmation e-mail is sent to the user to complete the registration process. The first time a user accesses our application a warning message is shown like the following:
-
-![./xxx-images/auth0-warning.png](./xxx-images/auth0-warning.png)
-
-
-
-The second option requires that we create a user from the *Auth0* dashboard by selecting the *Users* item on the left menu and then by clicking the *Create User* button in the upper right corner:
-
-![./xxx-images/auth0-users-dashboard.png](./xxx-images/auth0-users-dashboard.png)
-
-A form will be shown where you can provide the credentials for the new user:
-
-![./xxx-images/autho-dashboard-create-user.png](./xxx-images/autho-dashboard-create-user.png)
-
-After user creation, the same process as the sign up happens, that is a confirmation e-mail is sent to the user in order to complete the registration.
-
-
+![Creating users through the Auth0 management dashboard](https://cdn.auth0.com/blog/react-aspnet-core/auth0-user-creation-form.png)
 
 ## Managing sessions
 
