@@ -76,21 +76,19 @@ After a few seconds, your default browser will be opened and you will see the fo
 
 This means that the app is working and that you are ready to start enhancing it.
 
-## Creating an Auth0 SPA client
+## Creating an Auth0 SPA Client
 
-Since we need to access a Web API secured with *Auth0*, the first thing we have to do is getting the data to configure the client. In the previous part, we used Postman as a non-interactive client, and we used the same type of configuration for the integration tests. Now we are building an interactive client, that is a client that will be guided by user interaction, so we need to create a new client on the [Auth0 dashboard](https://manage.auth0.com) and specify that we are building a SPA client:
+Since you need to access a Web API secured with *Auth0*, the first thing you have to do is to create and configure an [Auth0 Client](https://auth0.com/docs/clients). In the previous part, you have used `curl` as a non-interactive client. Besides that, you have used the same client type for the integration tests.
 
-![./xxx-images/auth0-create-client.png](./xxx-images/auth0-create-client.png)
+Now, you are building a React SPA client. That is, your client is going to be guided by user interaction. As such, you need to head to [the Clients page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and hit the *Create Client* button.
 
-We will get a new configuration whose data are provided on a screen like the following:
+After clicking on this button, the dashboard will present to you a form where you will have to type a *Name* to your client and select its *type*. For this tutorial, you can set the name of your client as *React Auth0* and choose *Single Page Web Applications* as its type.
 
-![./xxx-images/bookstore-client-config.png](./xxx-images/bookstore-client-config.png)
+![Creating a React SPA client on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/creating-an-auth0-client.png)
 
+After that, you can click on the *Create* button. Clicking on it will make the dashboard redirect you to a tab called *Quick Start* inside your new client. As you are going to learn how to integrate your React app with the ASP.NET Core 2.0 API in this tutorial, you won't need to follow the instructions there. What you will use soon is the information contained in the *Settings* tab.
 
-
-If you compare these new configuration data with the data for a non-interactive client, you will find that there are a few small differences, but we will integrate these data with other info in order to correctly manage the user authentication process. Of course, we need to use these new configuration data to reconfigure the Web API application so that the client and the server are aligned.
-
-
+![Settings tab of a React SPA client on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/settings-tab-on-auth0-client.png)
 
 ## Integrate the React app with Auth0
 
