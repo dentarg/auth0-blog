@@ -47,9 +47,9 @@ Although the previous section has not mentioned anything about [Git](https://git
 
 Why would you start creating a project and don't back it up? You don't even have to pay for it. You can use services like [GitHub](https://github.com/) (the best!) or [BitBucket](https://bitbucket.org/) (not bad, to be honest) and save your code to trustworthy cloud infrastructures.
 
-Besides assuring that your code will remain safe, tools like that facilitate grasping the development process. For example, if you are using Git and you create a new buggy version of your app, you can easily move back to the previous code with just a couple of commands.
+Besides assuring that your code will remain safe, tools like that facilitate grasping the development process. For example, if you are using Git and you create a new buggy version of your app, you can easily move back to the previous code with just a few commands.
 
-Another great advantage (one that you will notice here) is that you can following each section of this series in separately and [easily see the changes between them](https://git-scm.com/docs/git-diff). This will make your life easier while learning through tutorials like this one.
+Another great advantage is that you can follow each section of this series and commit the code developed on them in separately. This will allow you to [easily see the changes proposed by these sections](https://git-scm.com/docs/git-diff), making your life easier while learning through tutorials like this one.
 
 So, do yourself a favor and install Git. Also, create an account on GitHub (if you don't have one yet) and a repository to save your project. Then, after finishing each section, commit changes to this repository. Oh, and don't forget to [push these changes](https://help.github.com/articles/pushing-to-a-remote/).
 
@@ -232,9 +232,9 @@ You are done! To see everything working, you can head to the project root and ru
 
 As you will see in this series, creating SVG components with React is quite easy. In reality, there is almost no difference between creating a React component with HTML and with SVG. Basically, the only differences are that SVG introduces new elements and that these elements are drawn in an SVG canvas.
 
-Nevertheless, before creating your components with SVG and React, a quick review on SVG may be useful.
+Nevertheless, before creating your components with SVG and React, a quick overview of SVG may be useful.
 
-### Quick Review on SVG
+### Quick Overview of SVG
 
 SVG is one of the coolest and flexible web standards. SVG, which stands for Scalable Vector Graphics, is a markup language that allows developers to describe two-dimensional based vector graphics. SVG is pretty similar to HTML. Both technologies are XML-based markup languages and work well with other web standards like CSS and the DOM. This means that you can apply CSS rules to SVG elements just like you would do with HTML elements, including animations.
 
@@ -244,7 +244,7 @@ A thorough explanation about SVG is out of scope and would make this series too 
 
 However, prior to start creating your components, there a few SVG characteristics that are important to understand. First, SVG and DOM enable developers to accomplish great things when combined. This makes using SVG with React very easy.
 
-Second, the SVG coordinate system is similar to the Cartesian plane but upside-down. This means that negative vertical values are, by default, shown above the X-axis. The horizontal values, on the other hand, are just like the Cartesian plane (i.e. negative values are shown to the left of the Y-axis). This behavior could be easily changed by [applying a transformation to the SVG canvas](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform). However, in order not to confuse any other developer, it's better to stick with the default. You will get used soon.
+Second, the SVG coordinate system is similar to the Cartesian plane but upside-down. This means that negative vertical values are, by default, shown above the X-axis. The horizontal values, on the other hand, are just like the Cartesian plane (i.e. negative values are shown to the left of the Y-axis). This behavior could be easily changed by [applying a transformation to the SVG canvas](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform). However, in order not to confuse other developers, it's better to stick with the default. You will soon get used to it.
 
 The third and last characteristic that you need to know is that SVG introduces a lot of new elements (e.g. `circle`, `rect`, and `path`). To use these elements, you cannot simply define them inside an HTML element. First, you must define an `svg` element (your canvas) where you will draw all your SVG components.
 
@@ -291,7 +291,7 @@ In this case, the commands passed to the `path` element tell the browser:
 2. that the second control point lies on the point `110, 110`;
 4. to finish the curve on the point `110 20`;
 
-If you still don't understand exactly how Cubic Bezier curves work, don't worry. You will have the opportunity to practice during this series. Besides that, you can find a lot of tutorial on the web about this feature and you can always practice in tools like [JSFiddle](https://jsfiddle.net/) and [Codepen](https://codepen.io/).
+If you still don't understand exactly how Cubic Bezier curves work, don't worry. You will have the opportunity to practice during this series. Besides that, you can find a lot of tutorials on the web about this feature and you can always practice in tools like [JSFiddle](https://jsfiddle.net/) and [Codepen](https://codepen.io/).
 
 ### Creating the Canvas React Component
 
@@ -698,7 +698,7 @@ export const moveObjects = mousePosition => ({
 });
 ```
 
-Note that you are going to call this action `MOVE_OBJECTS` because you won't use this strategy to update only the cannon. In the next parts of this series, you will also use this same action to move cannon balls and flying objects.
+> **Note:** You are going to call this action `MOVE_OBJECTS` because you won't use it to update the cannon only. In the next parts of this series, you will also use this same action to move cannon balls and flying objects.
 
 After defining this Redux action, you will have to refactor your reducer (the `index.js` file inside `./src/reducers/`) to deal with it:
 
