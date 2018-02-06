@@ -90,34 +90,35 @@ After that, you can click on the *Create* button. Clicking on it will make the d
 
 ![Settings tab of a React SPA client on Auth0](https://cdn.auth0.com/blog/react-aspnet-core/settings-tab-on-auth0-client.png)
 
-## Integrate the React app with Auth0
+## Integrate the React App with Auth0
 
-Now we are ready to integrate our basic React application with the [Auth0](https://auth0.com/) security services.
+Now that you have created an Auth0 Client, you are ready to integrate your React application with Auth0.
 
-As a first step let's install the [auth0.js](https://github.com/auth0/auth0.js) library. We can do it by typing the following command in a console:
+As a first step, you will need to install the [`auth0.js`](https://github.com/auth0/auth0.js) NPM package. You can do this by typing the following command in the root directory of your project:
 
 ```shell
 npm install --save auth0-js
 ```
 
-Now we can add *Auth0* authentication support by enabling the [Auth0 hosted login page](https://auth0.com/docs/hosted-pages/login). This is the simplest and more secure way to integrate the *Auth0* authentication service in your application. In short, this service redirects the user to a login page hosted on *Auth0* servers where the authentication process happens. After the user is authenticated, he is redirected again to the pages of your application with the data proving user's identity and possible authorization.
+Your users will authenticate themselves through [the Auth0 hosted login page](https://auth0.com/docs/hosted-pages/login). This is the simplest and most secure way to secure your application. In short, this service redirects users to a login page hosted by Auth0 where the authentication process happens. After that, users are redirected again to your application with tokens that can be used to fetch sensitive data from your ASP.NET Core 2.0 API.
 
-So we add an *Auth0Config.js* file in the *src* folder of our React application project with the following content:
+After installing the `auth0-js` package, you will need to create a file called `Auth0Config.js` in the `src` directory of your React application project. Add the following content to this file:
 
 ```javascript
 export const AUTH_CONFIG = {
     domain: 'YOUR_AUTH0_DOMAIN',
     clientID: 'YOUR_CLIENT_ID',
     redirectUri: 'http://localhost:3000',
-    audience: 'http://localhost:63939/'
+    audience: 'https://onlinebookstore.mycompany.com'
 }
 ```
 
-This module defines an object containing the configuration data of our client. Of course, you need to replace *YOUR_AUTH0_DOMAIN* and *YOUR_CLIENT_ID* placeholders with the corresponding data from your Auth0 dashboard.
+As you can see, you are defining an object that contains the configuration properties of your Auth0 Client in this file. **Note that**, you will need to replace `YOUR_AUTH0_DOMAIN` and `YOUR_CLIENT_ID` placeholders with the corresponding values from your Auth0 Client. So, head to [the Clients page on the Auth0 Management Dashboard](https://manage.auth0.com/#/clients), choose the client that you have created in the previous section, select the *Settings* tab, and use the *Client ID* and the *Domain* values to replace these placeholders.
 
-The *redirectUri* property contains the URL where the user will be redirected after the authentication. Currently is the home page of our client, but we will change it later.
+This file also contains another two properties:
 
-The *audience* property contains the URL of the server and it must match the configured audience on the server side.
+1. `redirectUri`: This property contains the URL that your users will be redirected to after the authentication process. Currently, you set it to the home page of your React app. However, you will change it soon.
+2. `audience`: This property contains the unique identifier of the Auth0 API that you have created in [the first article of this series](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1).
 
 ## Create the authentication service
 
