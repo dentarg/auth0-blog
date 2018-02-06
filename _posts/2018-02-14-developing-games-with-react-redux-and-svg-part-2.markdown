@@ -49,9 +49,9 @@ The subsections that follow will show you how to create the rest of your game el
 
 After this section, you will find the most interesting topics of this part of the series. These topics are entitled *Making Flying Objects Appear Randomly* and *Using CSS Animation to Move Flying Objects*.
 
-### Creating the Cannon Ball React Component
+### Creating the Cannonball React Component
 
-The next element that you will create is the `CannonBall`. Note that, for now, you will keep this element inanimate. But don't worry! Soon (after creating all other elements), you will make your cannon shoot multiple cannon balls and kill some aliens.
+The next element that you will create is the `CannonBall`. Note that, for now, you will keep this element inanimate. But don't worry! Soon (after creating all other elements), you will make your cannon shoot multiple cannonballs and kill some aliens.
 
 To create this component, add a new file called `CannonBall.jsx` inside the `./src/components` directory with the following code:
 
@@ -86,9 +86,9 @@ CannonBall.propTypes = {
 export default CannonBall;
 ```
 
-As you can see, to make a cannon ball appear in your canvas, you will have to pass to it an object that contains the `x` and `y` properties. If you don't have that much experience with `prop-types`, this might have been the first time that you have used `PropTypes.shape`. Luckily, this feature is self-explanatory.
+As you can see, to make a cannonball appear in your canvas, you will have to pass to it an object that contains the `x` and `y` properties. If you don't have that much experience with `prop-types`, this might have been the first time that you have used `PropTypes.shape`. Luckily, this feature is self-explanatory.
 
-After creating this component, you might want to see it in your canvas. To do that, simply add `<CannonBall position={{x: 0, y: -100}}/>` inside the `svg` element of the `Canvas` component (you will also need to add `import CannonBall from './CannonBall';`). Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
+After creating this component, you might want to see it on your canvas. To do that, simply add `<CannonBall position={{x: 0, y: -100}}/>` inside the `svg` element of the `Canvas` component (you will also need to add `import CannonBall from './CannonBall';`). Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
 
 > If you don't remember how to do that, you just have to run `npm start` in the project root and then open [http://localhost:3000](http://localhost:3000) in your preferred browser. Also, **don't** forget to commit this code to your repository before moving on.
 
@@ -195,7 +195,7 @@ export default Canvas;
 
 And your game will look like this:
 
-![Showing current score and cannon ball in the Alien, Go Home! app.](https://cdn.auth0.com/blog/aliens-go-home/current-score-and-cannon-ball.png)
+![Showing current score and cannonball in the Alien, Go Home! app.](https://cdn.auth0.com/blog/aliens-go-home/current-score-and-cannon-ball.png)
 
 Not bad, huh?!
 
@@ -294,7 +294,7 @@ export default FlyingObjectTop;
 
 If you don't know how the Bezier Cubic curve works, [take a look at the previous article](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1).
 
-This is enough to show some flying objects but, as your are going to make them randomly appear in your game, it will be easier to treat these components as a single element. To do that, simply create a new file called `FlyingObject.jsx` alongside with the other two and add the following code to it:
+This is enough to show some flying objects but, as you are going to make them randomly appear in your game, it will be easier to treat these components as a single element. To do that, simply create a new file called `FlyingObject.jsx` alongside with the other two and add the following code to it:
 
 ```js
 import React from 'react';
@@ -576,11 +576,11 @@ export default Title;
 
 To make your title curved, you have used a combination of `path` and `textPath` elements with Cubic Bezier curve. Besides that, you have made your title statically positioned, just like the `StartGame` button.
 
-Now, to add this component to your canvas, you can simply add `<Title />` to your `svg` element and add the import statement (`import Title from './Title';`) at the top of the `Canvas.jsx` file. However, if you run your application now, you will notice that your new component does not appear in your screen. This happens because your app does not show enough vertical space yet.
+Now, to add this component to your canvas, you can simply add `<Title />` to your `svg` element and add the import statement (`import Title from './Title';`) at the top of the `Canvas.jsx` file. However, if you run your application now, you will notice that your new component does not appear on your screen. This happens because your app does not show enough vertical space yet.
 
 ## Making Your React Game Responsive
 
-To change your game dimensions and to make it responsive, you will need to do two things. First, you will need to attach an `onresize` event listener in the global `window` object. Doing this is quite simple, you can open the `./src/App.js` file and append the following code to the `componentDidMount()` method:
+To change your game dimensions and to make it responsive, you will need to do two things. First, you will need to attach an `onresize` event listener to the global `window` object. Doing this is quite simple, you can open the `./src/App.js` file and append the following code to the `componentDidMount()` method:
 
 ```js
 window.onresize = () => {
@@ -593,7 +593,7 @@ window.onresize();
 
 This will make your app keep the dimension of your canvas equals to the dimension of the window that your users see. Even if they resize their browsers. It will also force the execution of the `window.onresize` function when the app is rendered for the first time.
 
-Second, you will need to change the `viewBox` property of your canvas. Now, instead of defining that the uppermost point in the Y-axis is `100 - window.innerHeight` (if you don't remember why you have used this formula, [take a look at the first part of the series](https://github.com/auth0-blog/aliens-go-home-part-1)) and that the `viewBox` height is equals to the `innerHeight` of the `window` object, you will use the following values:
+Second, you will need to change the `viewBox` property of your canvas. Now, instead of defining that the uppermost point in the Y-axis is `100 - window.innerHeight` (if you don't remember why you have used this formula, [take a look at the first part of the series](https://github.com/auth0-blog/aliens-go-home-part-1)) and that the `viewBox` height is equal to the `innerHeight` of the `window` object, you will use the following values:
 
 ```js
 const gameHeight = 1200;
@@ -898,7 +898,7 @@ At first, this code might look complex. However, it's quite the opposite. This l
 4. With this information, this function creates a new object called `newFlyingObject` with its `position`.
 5. In the end, this function returns a new state object with the new flying object and it updates the `lastObjectCreatedAt` value.
 
-As you may have noticed, the function that you have just created is a reducer. As such, you might expect that you will create an action to trigger this reducer, but actually you won't need one. Since your game issues issues a `MOVE_OBJECTS` action every `10` ms, you can take advantage of this action and trigger your new reducer. To do that, you will have to reimplement the `moveObjects` reducer (`./src/reducers/moveObjects.js`) as follows:
+As you may have noticed, the function that you have just created is a reducer. As such, you might expect that you will create an action to trigger this reducer but, actually, you won't need one. Since your game issues a `MOVE_OBJECTS` action every `10` ms, you can take advantage of this action and trigger your new reducer. To do that, you will have to reimplement the `moveObjects` reducer (`./src/reducers/moveObjects.js`) as follows:
 
 ```js
 import { calculateAngle } from '../utils/formulas';
@@ -927,7 +927,7 @@ The new version of the `moveObjects` reducer changes the previous one as follows
 
 - First, it forces the creation of the `mousePosition` constant if one is not passed in the `action` object. You will need that because the previous version would make the execution of the reducer halt if no `mousePosition` was passed to it.
 - Second, it fetches a `newState` object from the `createFlyingObjects` reducer, so new flying objects are created if needed.
-- Lastly, it return a new object based on the `newState` object retrieved in the last step.
+- Lastly, it returns a new object based on the `newState` object retrieved in the last step.
 
 Before refactoring the `App` and the `Canvas` components to show the flying objects created by this new code, you will need to update the `./src/reducers/index.js` file to add two new properties to the `initialState` object:
 
@@ -1010,7 +1010,7 @@ export default Canvas;
 
 That's it! Now, your app will create and show randomly positioned flying objects when users start the game.
 
-> **Note:** If you run your app now and hit the *Start Game* button, you might end up seeing just one flying object. This might happen because there is nothing preventing flying objects from appearing in the same magnitude on the X axis. In the next section, you will make your flying objects move along the Y axis. This will ensure that you and your users are able to see all flying objects.
+> **Note:** If you run your app now and hit the *Start Game* button, you might end up seeing just one flying object. This might happen because there is nothing preventing flying objects from appearing in the same magnitude on the X-axis. In the next section, you will make your flying objects move along the Y-axis. This will ensure that you and your users are able to see all flying objects.
 
 ### Using CSS Animation to Move Flying Objects
 
@@ -1020,7 +1020,7 @@ The second and preferred approach is to use CSS animations. [The advantage of th
 
 You might think that this approach is harder to implement but, as you will see, it is not. The trickiest part of it is that you will need the help of another NPM package to integrate CSS animations and React properly. That is, you will need to install [the `styled-components` package](https://www.styled-components.com/).
 
-> _"By utilising tagged template literals (a recent addition to JavaScript) and the power of CSS, styled-components allows you to write actual CSS code to style your components. It also removes the mapping between components and styles – using components as a low-level styling construct could not be easier!"_ —[`styled-components`](https://github.com/styled-components/styled-components)
+> _"By utilizing tagged template literals (a recent addition to JavaScript) and the power of CSS, styled-components allows you to write actual CSS code to style your components. It also removes the mapping between components and styles – using components as a low-level styling construct could not be easier!"_ —[`styled-components`](https://github.com/styled-components/styled-components)
 
 To install this package, you will have to stop your React app (i.e. if it is up and running) and issue the following command:
 
@@ -1130,4 +1130,4 @@ If you restart your app now (`npm start`) and hit the *Start Game* button, you w
 
 In the second part of this series, you have created most of the elements that you need to make a complete game with React, Redux, and SVG. In the end, you also have made flying objects appear at random positions and you took advantage of CSS animations to make them fly around smoothly.
 
-In the next and last article of this series, you will implement the missing features of your game. That is, you will: make your cannon shoot to kill flying objects; make your game control lives of your users; and you will control how many kills your users have. You will also use [Auth0](https://auth0.com/) and [Pusher](https://pusher.com/) to implement a realtime leaderboard. Stay tuned!
+In the next and last article of this series, you will implement the missing features of your game. That is, you will: make your cannon shoot to kill flying objects; make your game control lives of your users; and you will control how many kills your users have. You will also use [Auth0](https://auth0.com/) and [Pusher](https://pusher.com/) to implement a real-time leaderboard. Stay tuned!
