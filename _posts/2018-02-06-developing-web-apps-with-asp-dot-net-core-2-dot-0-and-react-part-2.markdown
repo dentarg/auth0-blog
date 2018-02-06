@@ -196,21 +196,17 @@ The second option is to manually register users through the Auth0 dashboard. You
 
 ![Creating users through the Auth0 management dashboard](https://cdn.auth0.com/blog/react-aspnet-core/auth0-user-creation-form.png)
 
-## Managing sessions
+## Managing Sessions on the React App
 
- Until now we have an application that shows the [Auth0 hosted login page](https://auth0.com/docs/hosted-pages/login) when the user accesses its home page. Currently, if the user provides his credentials, he will get a result similar to the following:
+Until now, you just have an application that redirects to the [Auth0 hosted login page](https://auth0.com/docs/hosted-pages/login) when users access your home page.
 
-![./xxx-images/auth0-active-session.png](./xxx-images/auth0-active-session.png)
+Even if users have already authenticated themselves, your home page will redirect them to the Auth0 hosted login page again. This happens because your app has an unconditional request to authenticate the user. To fix this infinite loop, you will need a way to track if users are authenticated or not. In other words, you need to control users' sessions on your React app.
 
-This happens because we specified the application's home page as the page to redirect to after the user authentication. Our home page has an unconditional request to authenticate the user, so it redirects the user to the *Auth0* login page, but here the authentication service detects that the user is already authenticated and asks him if he wants to change his account in order to use the application.
-
-This is a loop without escape since we didn't truly managed user authentication in our application. We need a way to track if a user is authenticated or not. In other words, we need a session management.
-
-Let's add a few methods to the *AuthService* class that will help us to manage sessions:
+To do this, you will need to add a few methods to the `AuthService` class:
 
 ```javascript
 export default class AuthService {
-...
+  // ...
 
   handleAuthentication(history) {
     this.auth0.parseHash((err, authResult) => {
@@ -237,11 +233,11 @@ export default class AuthService {
 }
 ```
 
-The first method *handleAuthentication()* analyzes the authentication result from the *Auth0* login page by using the *auth0.parseHash()* method provided by the *auth0-js* library. If a valid result is received, a new session is created and the user is redirected back to the home page of our application. The *handleAuthentication()* method gets the *history* parameter: it represents the browser's history, but we will be back to it in a while. We also notice that the *handleAuthentication()* method calls the *setSession()* method to create a new session. In fact, this is the method that stores the info about the current session so that the application can verify if a session is live and can retrieve relevant data.
+The first method, called `handleAuthentication()`, analyzes the authentication result from the Auth0 login page by using the `auth0.parseHash()` method provided by the `auth0-js` library. If a valid result is received, a new session is created and the user is redirected back to the home page of your application. The `handleAuthentication()` method uses the `history` parameter to redirect your users. Besides that, the `handleAuthentication()`method calls the `setSession()` method to create a new session. In fact, this is the method that stores the info about the current user so that your react app can verify if there is an active session or not.
 
-As we can see, *setSession()* stores the session's data in the *localStorage* of the browser. This means that data are kept even if the user closes the browser window. If we want a different behaviour, we could store that data in *sessionStorage*, so that the browser cleans session data when it is closed.
+As you can see, `setSession()` stores the session's data in the browser's `localStorage`. This means that users' data are kept even if the user closes the browser window. If you want a different behavior, you could store that data in the `sessionStorage`, so that the browser cleans session data when closed.
 
-The last method *isAuthenticated()* checks if the session data stored in *localStorage* are still valid.
+The last method, called `isAuthenticated()`, checks if the session data stored in the `localStorage` is still valid.
 
 ## Adding routing and callback URL
 
