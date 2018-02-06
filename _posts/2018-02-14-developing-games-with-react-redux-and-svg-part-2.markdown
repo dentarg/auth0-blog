@@ -3,16 +3,16 @@ layout: post
 title: "Developing Games with React, Redux, and SVG - Part 2"
 description: "Learn how to make React and Redux control a bunch of SVG elements to create a game."
 longdescription: "In this series, you will learn how to make React and Redux control a bunch of SVG elements to create a game. The knowledge acquired throughout this series will also allow you to create other types of animations that are orchestrated by React and Redux, not only games."
-date: 2018-02-14 08:30
-category: Technical Guide
+date: 2018-02-08 08:30
+category: Technical Guide, Frontend, React
 author:
   name: "Bruno Krebs"
   url: "https://twitter.com/brunoskrebs"
   mail: "bruno.krebs@gmail.com"
   avatar: "https://twitter.com/brunoskrebs/profile_image?size=original"
 design:
-  image: https://cdn.auth0.com/blog/sso-b2c/logo.png
-  bg_color: "#002C5F"
+  image: https://cdn.auth0.com/blog/react-redux/logo.png
+  bg_color: "#222228"
 tags:
 - react
 - redux
@@ -22,7 +22,9 @@ tags:
 - animation
 - state
 related:
-- 2018-01-10-implementing-single-sign-on-in-b2c-applications
+- 2018-02-06-developing-games-with-react-redux-and-svg-part-1
+- 2017-11-28-redux-practical-tutorial
+- 2017-02-21-reactjs-authentication-tutorial
 ---
 
 **TL;DR:** In this series, you will learn how to make React and Redux control a bunch of SVG elements to create a game. The knowledge acquired throughout this series will also allow you to create other types of animations that are orchestrated by React and Redux, not only games. You can find the final code developed in this article in the following GitHub repository: [Aliens Go Home - Part 2](https://github.com/auth0-blog/aliens-go-home-part-2)
