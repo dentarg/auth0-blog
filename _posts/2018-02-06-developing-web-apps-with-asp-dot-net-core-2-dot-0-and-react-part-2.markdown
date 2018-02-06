@@ -31,39 +31,50 @@ related:
 
 ---
 
-## Creating a React application
+## Creating a React Application
 
-The client application we are going to create is a Web application based on [React](https://reactjs.org/) that will use the API we built in Part 1 (**LINK TO PART 1**) of this series. The Web API returns a list of books, but since an authorization token is required in order to get the data, we will also deal with authentication and authorization issues.
+The client application you are going to create is a Web application based on [React](https://reactjs.org/) that will use [the API you built in Part 1 of this series](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1). The Web API returns a list of books but, since an authorization token is required to get the data, you will also deal with authentication and authorization matters.
 
-Let's start by creating a very basic React application. We have a few alternatives to create a new application: starting from scratch, using one of the several [boilerplates](https://www.google.it/search?q=react+js+boilerplate&oq=reactjs+blierplate&aqs=chrome.1.69i57j0l5.9552j0j7&sourceid=chrome&ie=UTF-8) we can found on the Web or using [create-react-app](https://github.com/facebook/create-react-app). Using  [create-react-app](https://github.com/facebook/create-react-app) has a lot of benefits: it sets up a React application in a few minutes, it provides a ready to use development environment that doesn't require to deal with complex configuration, it is well documented, if we need it allows to export the application project so that we are no longer bound to the tool itself and, last but not least, the tool has been developed by the React team, and this guarantees that the best practices for working with React are applied.
+You will have to start by bootstrapping a React application skeleton. There are a few alternatives to create new React applications, like: starting from scratch; using one of the several [boilerplates](https://www.google.it/search?q=react+js+boilerplate&oq=reactjs+blierplate&aqs=chrome.1.69i57j0l5.9552j0j7&sourceid=chrome&ie=UTF-8) you can find on the Web; or using the  [`create-react-app`](https://github.com/facebook/create-react-app) tool.
 
-But what is [create-react-app](https://github.com/facebook/create-react-app)? It is a *command line interface* (CLI) that allows us to setup a React-based application without needing to configure transpilers, syntax checkers, module bundlers, task runners and other tools required by modern JavaScript development. It is based on *Node.js* and can be installed on your machine by typing the following command:
+Using the [`create-react-app`](https://github.com/facebook/create-react-app) tool has a lot of benefits:
+
+- It sets up a React application in just a few minutes;
+- It provides a ready to use development environment that doesn't require you to deal with complex configuration;
+- It is well documented;
+- And, last but not least, the tool has been developed by the React team itself. This guarantees that the best practices for working with React are applied.
+
+But what is this `create-react-app` tool? It is a *Command Line Interface* (CLI) that allows you to setup a React-based SPA without needing to configure transpilers, syntax checkers, module bundlers, task runners, and other tasks/tools required by modern JavaScript development. This tool is based on [Node.js](https://nodejs.org/en/) and can be installed on your machine by typing the following command:
 
 ```shell
 npm install -g create-react-app
 ```
 
-After installation we can create our React application by typing the following command in a console window:
+> **Note:** If you don't have Node.js and NPM installed on your development machine, head to [the Node.js download page](https://nodejs.org/en/download/) and follow the instructions.
+
+After installing the `create-react-app` tool, you can use it to create your React application by typing the following command in a console window:
 
 ```shell
 create-react-app react-auth0
 ```
 
-This will create in the current folder a folder named *react-auth0* and will put in it all the stuff needed for a minimal but working React-based application. The creation process may take a few minutes since it has to download the *npm* packages needed for the project.
+This command will create a folder named `react-auth0` in the current directory. It will also put, in this directory, all the stuff needed for a minimal (but working) React-based SPA. The creation process may take a few minutes since it has to download a bunch of *NPM* packages needed for the project.
 
-Once the application setup is complete, we can run the application by typing:
+Once the application setup is complete, you can run it by issuing the following commands:
 
 ```shell
+# move into the new directory
+cd react-auth0
+
+# start the development server
 npm start
 ```
 
-After a few seconds, the default browser will be opened and we will see the following page:
+After a few seconds, your default browser will be opened and you will see the following page:
 
-![./xxx-images/react-app-ok.png](./xxx-images/react-app-ok.png)
+![Default SPA create the create-react-app-tool](https://cdn.auth0.com/blog/react-aspnet-core/react-default-app.png)
 
-This means that the app is working and ready to be changed.
-
-
+This means that the app is working and that you are ready to start enhancing it.
 
 ## Creating an Auth0 SPA client
 
