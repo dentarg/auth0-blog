@@ -573,7 +573,7 @@ There is a basic, but interesting, tutorial by Mindorks to help you get started 
 
 ## Android Libraries—Testing
 
-Testing is simply executing a software with the aim of finding bugs. Testing has evolved over time and has gone beyond just being one of the final stages of a software development process. In fact, testing could be adopted as an early part of the coding stage where tests are written first, then the logic of the software is then implemented to only pass what the test expects. This is usually referred to as [_Test Driven Development_](https://en.wikipedia.org/wiki/Test-driven_development). It is good practice to write tests for our applications as it helps us to spot bugs quickly and enhance our application. There are a number of test libraries with different strengths available for Android development. Let's take a look at four of them: JUnit, Mockito, Roboelectric, and Espresso.
+Testing is simply executing a software with the aim of finding bugs. Testing has evolved over time and has gone beyond just being one of the final stages of a software development process. In fact, testing could be adopted as an early part of the coding stage where tests are written first, then the logic of the software is then implemented to only pass what the test expects. This is usually referred to as [_Test Driven Development_](https://en.wikipedia.org/wiki/Test-driven_development). It is good practice to write tests for our applications as it helps us to spot bugs quickly and enhance our application. There are a number of test libraries with different strengths available for Android development. Let's take a look at four of them: JUnit, Mockito, Robolectric, and Espresso.
 
 ### JUnit
 
@@ -635,11 +635,11 @@ public void mockitoTest throws Exception {
 
 Here, we mocked a list, added data to it, and cleared it. We then verified that these actions were performed. We can learn more testing with Mockito in the official [documentation](http://static.javadoc.io/org.mockito/mockito-core/2.13.0/org/mockito/Mockito.html#0.1).
 
-### Roboelectric
+### Robolectric
 
-[Roboelectric](http://robolectric.org/) is another unit testing library. The difference to JUnit is that this Roboelectrict was created aiming to help Android developers. Roboelectrict handles inflation of views, resource loading, and lots of other stuff. This allows tests to do most things we could do on a real device that have Android framework dependencies without launching a device as in Espresso. In a way, Roboelectric simulates the Android SDK for our tests. With Roboelectric, we do not need additional mocking frameworks such as Mockito.
+[Robolectric](http://robolectric.org/) is another unit testing library. The difference to JUnit is that this Robolectric was created aiming to help Android developers. Robolectric handles inflation of views, resource loading, and lots of other stuff. This allows tests to do most things we could do on a real device that have Android framework dependencies without launching a device as in Espresso. In a way, Robolectric simulates the Android SDK for our tests. With Robolectric, we do not need additional mocking frameworks such as Mockito.
 
-#### Using Roboelectric
+#### Using Robolectric
 
 To use Robolectric, we add the dependency in our app `build.gradle` file:
 
@@ -662,7 +662,7 @@ public class MyActivityTest {
 }
 ```
 
-This is a very basic test that sets up our activity and just checks that it is not null. We can learn more about testing with Roboelectric right [here](http://www.vogella.com/tutorials/Robolectric/article.html)!
+This is a very basic test that sets up our activity and just checks that it is not null. We can learn more about testing with Robolectric right [here](http://www.vogella.com/tutorials/Robolectric/article.html)!
 
 ### Espresso
 
@@ -710,7 +710,7 @@ public class EspressoSampleTest {
 
 This test class checks to see if "Hello World!" is displayed when `MainActivity` is opened.
 
-From our study of the various test libraries, we deduce that JUnit competes with no one as it works together with other libraries. Espresso gives us a good platform for our user interface tests. Both Mockito and Roboelectric have similar capabilities, but Roboelectric achieves testing with fewer code. Roboelectric also offers more functionalities like being able to test views. Roboelectric also has the advantage of being supported by Google engineers.
+From our study of the various test libraries, we deduce that JUnit competes with no one as it works together with other libraries. Espresso gives us a good platform for our user interface tests. Both Mockito and Robolectric have similar capabilities, but Robolectric achieves testing with fewer code. Robolectric also offers more functionalities like being able to test views. Robolectric also has the advantage of being supported by Google engineers.
 
 ## Android Libraries—Database Helpers
 
