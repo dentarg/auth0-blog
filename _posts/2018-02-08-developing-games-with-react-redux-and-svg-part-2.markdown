@@ -40,15 +40,15 @@ If you are curious, you can find [the final game up and running here](http://ban
 
 ## Previously, on Part 1
 
-In [the first part of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/), you have used [`create-react-app`](https://github.com/facebookincubator/create-react-app) to bootstrap your React application and you have installed and configured Redux to manage the game state. After that, you have learned how to use SVG with React components while creating game elements like `Sky`, `Ground`, the `CannonBase`, and the `CannonPipe`. In the end, you've added the aiming capability to your cannon by using an event listener and a [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) to trigger a Redux *action* that updates the `CannonPipe` angle.
+In [the first part of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/), you have used [`create-react-app`](https://github.com/facebookincubator/create-react-app) to bootstrap your React application and you have installed and configured Redux to manage the game state. After that, you have learned how to use SVG with React components while creating game elements like `Sky`, `Ground`, the `CannonBase`, and the `CannonPipe`. Finally, you added the aiming capability to your cannon by using an event listener and a [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) to trigger a Redux *action* that updates the `CannonPipe` angle.
 
-These accomplishments paved the way to understand how you can create your game (and other animations) with React, Redux, and SVG.
+These actions paved the way to understand how you can create your game (and other animations) with React, Redux, and SVG.
 
 > **Note:** If, for whatever reason, you don't have the code created in [the first part of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/), you can simply clone it from [this GitHub repository](https://github.com/auth0-blog/aliens-go-home-part-1). After cloning it, you will be able to follow the instructions in the sections that follow.
 
 ## Creating More SVG React Components
 
-The subsections that follow will show you how to create the rest of your game elements. Although they might look lengthy, they are quite simple and similar. Probably, you will be able to follow the instruction on these subsections in a matter of minutes.
+The subsections that follow will show you how to create the rest of your game elements. Although they might look lengthy, they are quite simple and similar. You may even be able to follow the instructions in a matter of minutes.
 
 After this section, you will find the most interesting topics of this part of the series. These topics are entitled *Making Flying Objects Appear Randomly* and *Using CSS Animation to Move Flying Objects*.
 
@@ -297,7 +297,7 @@ export default FlyingObjectTop;
 
 If you don't know how the Bezier Cubic curve works, [take a look at the previous article](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/).
 
-This is enough to show some flying objects but, as you are going to make them randomly appear in your game, it will be easier to treat these components as a single element. To do that, simply create a new file called `FlyingObject.jsx` alongside with the other two and add the following code to it:
+This is enough to show some flying objects but, as you are going to make them randomly appear in your game, it will be easier to treat these components as a single element. To do that, simply create a new file called `FlyingObject.jsx` beside the other two and add the following code to it:
 
 ```js
 import React from 'react';
@@ -428,7 +428,7 @@ For now, you can simply add one heart to your canvas so you can confirm that eve
 
 ### Creating the Start Game Button React Component
 
-Every game needs an start button. So, to create one for your game, add a file called `StartGame.jsx` alongside with the other components and add the following code to it:
+Every game needs a start button. So, to create one for your game, add a file called `StartGame.jsx` beside the other components and add the following code to it:
 
 ```js
 import React from 'react';
@@ -594,7 +594,7 @@ window.onresize = () => {
 window.onresize();
 ```
 
-This will make your app keep the dimension of your canvas equals to the dimension of the window that your users see. Even if they resize their browsers. It will also force the execution of the `window.onresize` function when the app is rendered for the first time.
+This will make your app keep the dimension of your canvas equal to the dimension of the window that your users see. Even if they resize their browsers. It will also force the execution of the `window.onresize` function when the app is rendered for the first time.
 
 Second, you will need to change the `viewBox` property of your canvas. Now, instead of defining that the uppermost point in the Y-axis is `100 - window.innerHeight` (if you don't remember why you have used this formula, [take a look at the first part of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)) and that the `viewBox` height is equal to the `innerHeight` of the `window` object, you will use the following values:
 
@@ -603,7 +603,7 @@ const gameHeight = 1200;
 const viewBox = [window.innerWidth / -2, 100 - gameHeight, window.innerWidth, gameHeight];
 ```
 
-In this new version, you are using the `1200` value so your app can properly show the new title component. Besides that, this new vertical space will allow your users to see flying objects moving in the direction of the X-axis with some advance. This will give them enough time to shoot and kill these objects.
+In this new version, you are using the `1200` value so your app can properly show the new title component. Besides that, this new vertical space will give enough time for your users to see and kill these flying objects. This will give them enough time to shoot and kill these objects.
 
 ![Changing your React, Redux, and SVG game dimensions and making it responsive](https://cdn.auth0.com/blog/aliens-go-home/react-game-with-title.png)
 
@@ -1125,7 +1125,7 @@ export default moveObjects;
 
 As you can see, this new code filters the `flyingObjects` property of the `gameState` to remove objects that have an age equals or greater than `4000` (4 seconds).
 
-If you restart your app now (`npm start`) and hit the *Start Game* button, you will see flying objects moving from top to bottom in the SVG canvas. Also, you will notice that your game creates new flying object after the existing ones reach the bottom of this canvas.
+If you restart your app now (`npm start`) and hit the *Start Game* button, you will see flying objects moving from top to bottom in the SVG canvas. Also, you will notice that your game creates new flying objects after the existing ones reach the bottom of this canvas.
 
 ![Using CSS animation with React](https://cdn.auth0.com/blog/aliens-go-home/flying-objects-moving.png)
 
@@ -1133,6 +1133,6 @@ If you restart your app now (`npm start`) and hit the *Start Game* button, you w
 
 ## Conclusion and Next Steps
 
-In the second part of this series, you have created most of the elements that you need to make a complete game with React, Redux, and SVG. In the end, you also have made flying objects appear at random positions and you took advantage of CSS animations to make them fly around smoothly.
+In the second part of this series, you have created most of the elements that you need to make a complete game with React, Redux, and SVG. In the end, you also have made flying objects appear at random positions and took advantage of CSS animations to make them fly around smoothly.
 
 In the next and last article of this series, you will implement the missing features of your game. That is, you will: make your cannon shoot to kill flying objects; make your game control lives of your users; and you will control how many kills your users have. You will also use [Auth0](https://auth0.com/) and [Pusher](https://pusher.com/) to implement a real-time leaderboard. Stay tuned!
