@@ -22,7 +22,8 @@ tags:
 - animation
 - state
 related:
-- 2018-01-10-implementing-single-sign-on-in-b2c-applications
+- 2018-02-06-developing-games-with-react-redux-and-svg-part-1.markdown
+- 2017-11-28-redux-practical-tutorial
 ---
 
 **TL;DR:** In this series, you will learn how to make React and Redux control a bunch of SVG elements to create a game. The knowledge acquired throughout this series will also allow you to create other types of animations that are orchestrated by React and Redux, not only games. You can find the final code developed in this article in the following GitHub repository: [Aliens Go Home - Part 2](https://github.com/auth0-blog/aliens-go-home-part-2)
@@ -39,11 +40,11 @@ If you are curious, you can find [the final game up and running here](http://ban
 
 ## Previously, on Part 1
 
-In the first part of this series, you have used [`create-react-app`](https://github.com/facebookincubator/create-react-app) to bootstrap your React application and you have installed and configured Redux to manage the game state. After that, you have learned how to use SVG with React components while creating game elements like `Sky`, `Ground`, the `CannonBase`, and the `CannonPipe`. In the end, you've added the aiming capability to your cannon by using an event listener and a [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) to trigger a Redux *action* that updates the `CannonPipe` angle.
+In [the first part of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/), you have used [`create-react-app`](https://github.com/facebookincubator/create-react-app) to bootstrap your React application and you have installed and configured Redux to manage the game state. After that, you have learned how to use SVG with React components while creating game elements like `Sky`, `Ground`, the `CannonBase`, and the `CannonPipe`. In the end, you've added the aiming capability to your cannon by using an event listener and a [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) to trigger a Redux *action* that updates the `CannonPipe` angle.
 
 These accomplishments paved the way to understand how you can create your game (and other animations) with React, Redux, and SVG.
 
-> **Note:** If, for whatever reason, you don't have the code created in the first part of the series, you can simply clone it from [this GitHub repository](https://github.com/auth0-blog/aliens-go-home-part-1). After cloning it, you will be able to follow the instructions in the sections that follow.
+> **Note:** If, for whatever reason, you don't have the code created in [the first part of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/), you can simply clone it from [this GitHub repository](https://github.com/auth0-blog/aliens-go-home-part-1). After cloning it, you will be able to follow the instructions in the sections that follow.
 
 ## Creating More SVG React Components
 
@@ -294,7 +295,7 @@ FlyingObjectTop.propTypes = {
 export default FlyingObjectTop;
 ```
 
-If you don't know how the Bezier Cubic curve works, [take a look at the previous article](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1).
+If you don't know how the Bezier Cubic curve works, [take a look at the previous article](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/).
 
 This is enough to show some flying objects but, as you are going to make them randomly appear in your game, it will be easier to treat these components as a single element. To do that, simply create a new file called `FlyingObject.jsx` alongside with the other two and add the following code to it:
 
@@ -595,7 +596,7 @@ window.onresize();
 
 This will make your app keep the dimension of your canvas equals to the dimension of the window that your users see. Even if they resize their browsers. It will also force the execution of the `window.onresize` function when the app is rendered for the first time.
 
-Second, you will need to change the `viewBox` property of your canvas. Now, instead of defining that the uppermost point in the Y-axis is `100 - window.innerHeight` (if you don't remember why you have used this formula, [take a look at the first part of the series](https://github.com/auth0-blog/aliens-go-home-part-1)) and that the `viewBox` height is equal to the `innerHeight` of the `window` object, you will use the following values:
+Second, you will need to change the `viewBox` property of your canvas. Now, instead of defining that the uppermost point in the Y-axis is `100 - window.innerHeight` (if you don't remember why you have used this formula, [take a look at the first part of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)) and that the `viewBox` height is equal to the `innerHeight` of the `window` object, you will use the following values:
 
 ```js
 const gameHeight = 1200;
