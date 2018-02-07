@@ -3,7 +3,7 @@ layout: post
 title: "OAuth 2.0: The Complete Guide"
 description: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique"
 longdescription: "Describing OAuth 2.0 for the masses, demystifying the technology behind this common authorization technique. Includes how OAuth enables us to enhance our online experience while limiting exposure of sensitive information and how roles help us separate the responsibilities of OAuth requests"
-date: 2018-01-11 11:44
+date: 2018-02-07 11:44
 category: Growth, Identity, Authentication
 is_non-tech: true
 author:
@@ -17,8 +17,14 @@ design:
 tags:
 - oauth2
 - authorization
+- authentication
+- oidc
+- access-tokens
+- refresh-tokens
 related:
 - 2017-12-12-authentication-provider-best-practices-centralized-login
+- 2016-12-05-how-saml-authentication-works
+- 2017-12-29-why-every-business-needs-two-factor-authentication-security
 ---
 
 Have you visited a site recently, where you are given the option of connecting or signing up using Google, Facebook or Twitter? Sure you have! This is basically what OAuth is all about; granting third-party services permission to do something for you–like logging you in. In this article, you will learn what OAuth is, how it started, and how it works. 
