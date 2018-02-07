@@ -13,7 +13,7 @@ author:
   mail: jeana.tahnk@auth0.com
   avatar: https://pbs.twimg.com/profile_images/1891692507/JeanaTahnk2_crop_400x400.jpg
 design:
-  image: https://cdn.auth0.com/blog/googleoauth/logo.png
+  image: https://cdn.auth0.com/blog/gcp/logo.png
   bg_color: "#4A4A4A"
 tags:
 - google-cloud-partner-platform
