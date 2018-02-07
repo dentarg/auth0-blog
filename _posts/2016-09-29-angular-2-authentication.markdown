@@ -81,7 +81,7 @@ app.get('/api/deals/public', (req, res)=>{
   res.json(deals);
 })
 
-// Private route 
+// Private route
 app.get('/api/deals/private', (req,res)=>{
   let deals = [
     // Array of Private Deals here
@@ -111,7 +111,7 @@ When you are happy with the public and private deals, launch the server by runni
 
 One of the best ways to start building a new Angular app is with the official Angular CLI. The CLI can take care of scaffolding the initial app, adding additional components, takes care of the build system and much more. In this tutorial we will scaffold our initial app with the CLI.
 
-If you don't already have it installed, run: 
+If you don't already have it installed, run:
 
 ```bash
 npm install @angular/cli -g
@@ -315,7 +315,7 @@ export class PublicDealsComponent implements OnInit, OnDestroy {
   dealsSub: Subscription;
   publicDeals: Deal[];
   error: any;
-  
+
   // Note: We haven't implemented the Deal or Auth Services yet.
   constructor(
     public dealService: DealService,
@@ -331,7 +331,7 @@ export class PublicDealsComponent implements OnInit, OnDestroy {
         err => this.error = err
       );
   }
-  
+
   ngOnDestroy() {
     this.dealsSub.unsubscribe();
   }
@@ -448,13 +448,13 @@ export class DealService {
     alert(`You bought the: ${item.name}`);
   }
 }
-``` 
+```
 
 Now you can see where the `getPublicDeals()` method fits in from our `public-deals.component.ts` file. We also have written a `getPrivateDeals()` method that will get our list of private deals. Implement this method in your `private-deals.component.ts` file. Finally, we handle errors and implement the `purchase()` method that is used in both of the deals components.
 
 ## Adding Authentication to Your Angular App
 
-Navigate to `localhost:4200` and you should see be redirected to the deals page automatically. Notice that you can freely navigate to the `/secret` route and see the exclusive deals as well. You can do this because we haven't added user authentication yet. Let's do that now.
+Navigate to `localhost:4200` and you should see be redirected to the deals page automatically. Notice that you can freely navigate to the `/special` route and see the exclusive deals as well. You can do this because we haven't added user authentication yet. Let's do that now.
 
 The majority of apps require some type of authentication. Our application today is no different. In the next section I am going to show you how to add authentication to your Angular application the right way. We are going to be using [Auth0](https://auth0.com) as our identity platform. We'll use Auth0 as it allows us to easily issue [JSON Web Tokens (JWTs)](https://jwt.io), but the concepts we'll cover can be applied to any token based authentication system. If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for a free one now.
 
@@ -466,7 +466,7 @@ This is all we need to do for now. Let's secure our server using this new API th
 
 ### Securing our Server
 
-Before we implement authentication on the front end in our Angular application, let's secure our backend server. 
+Before we implement authentication on the front end in our Angular application, let's secure our backend server.
 
 First we'll install dependencies:
 
@@ -688,7 +688,7 @@ We will use the [Auth0 centralized login](https://auth0.com/docs/hosted-pages/lo
 
 ### Angular Authentication All In
 
-The Angular router comes with a powerful feature called [route guards](https://angular.io/docs/ts/latest/guide/router.html#!#guards) that allows us to programmatically determine whether a user can access the route or not. Route guards in Angular can be compared to middleware in Express.js for example. 
+The Angular router comes with a powerful feature called [route guards](https://angular.io/docs/ts/latest/guide/router.html#!#guards) that allows us to programmatically determine whether a user can access the route or not. Route guards in Angular can be compared to middleware in Express.js for example.
 
 We'll create an authentication route guard that will check to see if a user is logged in before displaying the route. Create a new guard by running the following CLI command:
 
@@ -754,7 +754,7 @@ const routes: Routes = [
 export class AppRoutingModule { }
 ```
 
-That's all there is to it. Our route is now protected at the routing level. 
+That's all there is to it. Our route is now protected at the routing level.
 
 If you recall, we included a stub for the AuthService in our deal components. Since the authentication service is now implemented, our placeholder functionality will just work. We'll see the correct behavior displayed based on user state.
 
@@ -841,7 +841,7 @@ Once a user is authenticated, Auth0 will redirect back to our application and ca
 
 ### Updating the Deal Service
 
-There is one final update we need to make. If you try to access the `/secret` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the `access_token` to the backend. We'll have to update our deal service.
+There is one final update we need to make. If you try to access the `/special` route now, even if you are logged in, you won't get the list of secret deals. This is because we are not passing the `access_token` to the backend. We'll have to update our deal service.
 
 We need to update the call to the `/api/deals/private` to include our `access_token`. There are a couple of different ways to accomplish this. We could use the existing `http` call and add the correct header, but there is an easier way. The Angular JWT library comes with an AuthHTTP method that will take care of this for us. Let's see how we're going to implement this in our application.
 
@@ -877,7 +877,7 @@ Next, click on the login screen and you will be redirected to your Auth0 domain 
 
 ![Consent Dialog](https://cdn.auth0.com/blog/angular2-auth-dd/consent.png)
 
-**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, or if the scope changes in the future, a consent dialog will be displayed asking the user if they wish to grant access to the API. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client. 
+**Note:** Since we are using `localhost` for our domain, once a user logs in the first time, or if the scope changes in the future, a consent dialog will be displayed asking the user if they wish to grant access to the API. This consent dialog will not be displayed if you are using a non-localhost domain, and the client is a first-party client.
 
 ![Exclusive Daily Deals](https://cdn.auth0.com/blog/angular2-auth-dd/secret-deals.png)
 
