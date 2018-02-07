@@ -73,7 +73,7 @@ Assuming that everything went well, I have a call with candidates. The goal is t
 
 * Go through past work experience
 * Explain the position to the candidate and gauge their interest
-* Understand what they like to do and which [team](https://auth0.com/jobs/engineer) would be a good fit for them
+* Understand what they like to do and which [team](https://auth0.com/careers/positions?areas=Engineering) would be a good fit for them
 * Evaluate the technical experience (more on "how?" below)
 
 Up next, we do another call with the engineering lead for the position (e.g. frontend, backend, native, etc.). This is to validate the technical experience and to see if they would like to work with the candidate.
@@ -134,4 +134,4 @@ This is what works for us now; and we know there's room for improvement. We cont
 
 {% include tweet_quote.html quote_text="We all know hiring is hard. At Auth0 we want to be transparent about our recruiting process." %}
 
-At Auth0 we value transparency, and to practice what we preach we want to be transparent about our recruiting process. So if at any time you want to [be part of Auth0's engineering team](https://auth0.com/jobs/engineer), you now have an idea of what to expect. 😉
+At Auth0 we value transparency, and to practice what we preach we want to be transparent about our recruiting process. So if at any time you want to [be part of Auth0's engineering team](https://auth0.com/careers/positions?areas=Engineering), you now have an idea of what to expect. 😉
