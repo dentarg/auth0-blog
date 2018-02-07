@@ -3,7 +3,7 @@ layout: post
 title: "Developing Games with React, Redux, and SVG - Part 2"
 description: "Learn how to make React and Redux control a bunch of SVG elements to create a game."
 longdescription: "In this series, you will learn how to make React and Redux control a bunch of SVG elements to create a game. The knowledge acquired throughout this series will also allow you to create other types of animations that are orchestrated by React and Redux, not only games."
-date: 2018-02-14 08:30
+date: 2018-02-08 08:30
 category: Technical Guide
 author:
   name: "Bruno Krebs"
@@ -11,8 +11,8 @@ author:
   mail: "bruno.krebs@gmail.com"
   avatar: "https://twitter.com/brunoskrebs/profile_image?size=original"
 design:
-  image: https://cdn.auth0.com/blog/sso-b2c/logo.png
-  bg_color: "#002C5F"
+  image: https://cdn.auth0.com/blog/react-redux/logo.png
+  bg_color: "#222228"
 tags:
 - react
 - redux
