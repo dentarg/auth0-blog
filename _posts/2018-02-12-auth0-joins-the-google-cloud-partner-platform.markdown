@@ -3,7 +3,7 @@ layout: post
 title: "Auth0 Joins the Google Cloud Partner Program"
 description: "Feature-rich end-to-end identity management service now available to all Google Cloud users."
 longdescription: "Feature-rich end-to-end identity management service now available to all Google Cloud users."
-date: 2018-02-07 8:30
+date: 2018-02-12 8:30
 category: Announcements, Press
 press_release: true
 is_non-tech: true
@@ -28,7 +28,7 @@ related:
 - 2017-11-08-auth0-ranked-in-top10-employer-brands
 ---
 
-**BELLEVUE, Wash. – February 7, 2018** – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has joined the [Google Cloud Platform Partner Program](https://console.cloud.google.com/launcher/details/auth0-190918/auth0?pli=1) as a technology partner, giving Google Cloud customers the ability to utilize Auth0’s feature-rich platform for all their identity and access management (IAM) needs. 
+**BELLEVUE, Wash. – February 7, 2018** – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has joined the [Google Cloud Platform Partner Program](https://cloud.withgoogle.com/partners/detail/?id=CIGAgICAgICzrQE%3D&language=en) as a technology partner, giving Google Cloud customers the ability to utilize Auth0’s feature-rich platform for all their identity and access management (IAM) needs. 
 
 As a partner, Auth0 provides Google Cloud customers with the ability to secure Google Cloud endpoints and seamlessly implement secure identity management into their products and services. 
 
@@ -42,7 +42,7 @@ Google Cloud Platform customers can accomplish many identity-related tasks with 
 * User analytics for more effective personalization
 * Security features such as [Multifactor Authentication](https://auth0.com/multifactor-authentication), [Breached Password Detection](https://auth0.com/breached-passwords), and [Anomaly Detection](https://auth0.com/learn/anomaly-detection/)
 
-For additional information, please visit Auth0 on the [Google Cloud Platform directory](https://console.cloud.google.com/launcher/details/auth0-190918/auth0?pli=1). 
+For additional information, please visit [auth0.com/learn/gcp](https://auth0.com/learn/gcp/). 
 
 {% include asides/about-auth0.markdown %}
 
