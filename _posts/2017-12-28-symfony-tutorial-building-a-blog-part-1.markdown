@@ -68,6 +68,9 @@ In order to communicate with the database, you need to install several third par
 
 ```bash
 composer require symfony/orm-pack
+composer require annotations
+composer require validator
+composer require template
 composer require --dev maker-bundle
 ```
 
@@ -735,7 +738,7 @@ composer require --dev doctrine/doctrine-fixtures-bundle
 
 ### Create Author and BlogPost Fixtures
 
-Create a new file (and the directories the file is stored in) under `src/App/DataFixtures/ORM/Fixtures.php` and insert the following into the file:
+Create a new file (and the directories the file is stored in) under `src/DataFixtures/ORM/Fixtures.php` and insert the following into the file:
 
 ```php
 <?php
@@ -790,23 +793,10 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 ### Installing HWIOAuth Bundle
 
-To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third party libraries. However, this can be easily done with this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
+To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third party libraries. However, this can be easily done with this command: 
 
-Once Composer has finished, we need to enable it in our `app/AppKernel.php`. In the `$bundles` array, add a new row placing the following in there:
-
-```php
-new Http\HttplugBundle\HttplugBundle(),
-```
-
-Now, open your `composer.json` file and add `HWIOAuthBundle` (as well as adding the `minimum-stability` and `prefer-stable` options):
-
-```
-"minimum-stability": "dev",
-"prefer-stable": true,
-"require": {
-    ...
-    "hwi/oauth-bundle": ">=0.6",
-},
+```bash
+composer require hwi/oauth-bundle php-http/guzzle6-adapter php-http/httplug-bundle
 ```
 
 __NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the PHP requirement in config in `composer.json` so find and remove:
@@ -819,15 +809,10 @@ __NOTE__: You may have an issue if your version of PHP is too high. If you encou
 
 Now run `composer update`.
 
-In `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
-
-`new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),`
-
-We also need to add the routes to your routing file: `app/config/routing.yml`:
+We will need to add the routes to your routing file: `config/routes.yaml`:
 
 ```yml
 # ...
-
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /connect
@@ -845,12 +830,12 @@ auth0_logout:
 
 ### Including DotEnv & Configs
 
-In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/AppBundle/Auth0ResourceOwner.php`:
+In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/Auth0ResourceOwner.php`:
 
 ```php
 <?php
 
-namespace AppBundle;
+namespace App;
 
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -935,7 +920,7 @@ AUTH0_CLIENT_SECRET=(Client Secret on Auth0)
 AUTH0_DOMAIN=(Domain on Auth0)
 ```
 
-To use all of this, we need to add details to the `app/config/config.yml` file. At the bottom paste the following:
+To use all of this, we need to create a new file in `config/packages` called `hwio_oauth.yaml` then populate this file with:
 
 ```
 hwi_oauth:
@@ -943,29 +928,22 @@ hwi_oauth:
     resource_owners:
         auth0:
             type:                oauth2
-            class:               'AppBundle\Auth0ResourceOwner'
+            class:               'App\Auth0ResourceOwner'
             client_id:           "%env(AUTH0_CLIENT_ID)%"
             client_secret:       "%env(AUTH0_CLIENT_SECRET)%"
             base_url:            "https://%env(AUTH0_DOMAIN)%"
             scope: "openid profile"
 ```
 
-Finally, replace the contents of your `app/config/security.yml` file with:
+Finally, replace the contents of your `config/packages/security.yaml` file with:
 
 ```
 security:
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
         hwi:
             id: hwi_oauth.user.provider
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
         secured_area:
             anonymous: ~
             oauth:
@@ -982,38 +960,51 @@ security:
                 target: /
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
-
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_OAUTH_USER }
+        - { path: ^/secured, roles: ROLE_OAUTH_USER }
 ```
 
 The config above is setting up URLs/sections in your blog that require the user to be authenticated.
 
 ### Create the Author Page
 
-Let's create our admin blog controller by running the following command: `php bin/console generate:controller`.
+Create new `AdminController` by running the following command `php bin/console make:controller`
 
-![Creating a controller on Symfony](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
+When it asks for `The class name of the controller to create`, type in: `AdminController`.
 
-If you follow the instructions as shown in the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `AdminController`. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
+Once the command has finished running, you'll find a new file in `src/Controller` called `AdminController.php`. Open this and replace the following:
 
-__NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
+```php
+/**
+ * @Route("/admin", name="admin")
+ */
+public function index()
+{
+    return new Response('Welcome to your new controller!');
+}
+```
 
-The first thing we will want to do is create a new form. This is a class that allows us to validate the users' input, such as creating an author. So, in the `src/AppBundle` path, create a new directory called `Form`.
+With our first action, which is to create the author:
+
+```php
+/**
+* @Route("/admin/author/create", name="author_create")
+*/
+public function createAuthorAction()
+{
+
+}
+```
+
+
+The first thing we will want to do is create a new form. This is a class that allows us to validate the user's input, such as creating an author. So, in the `src/` path, create a new directory called `Form`.
 Within that directory create a new file named `AuthorFormType.php`. Add the code below to your new file:
 
 ```php
 <?php
 
-namespace AppBundle\Form;
+namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -1127,7 +1118,7 @@ class AuthorFormType extends AbstractType
 }
 ```
 
-Back in your new AdminController (`src/AppBundle/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services:
+Back in your new AdminController (`src/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services:
 
 ```php
 /** @var EntityManagerInterface */
@@ -1145,8 +1136,8 @@ private $blogPostRepository;
 public function __construct(EntityManagerInterface $entityManager)
 {
     $this->entityManager = $entityManager;
-    $this->blogPostRepository = $entityManager->getRepository('AppBundle:BlogPost');
-    $this->authorRepository = $entityManager->getRepository('AppBundle:Author');
+    $this->blogPostRepository = $entityManager->getRepository('App:BlogPost');
+    $this->authorRepository = $entityManager->getRepository('App:Author');
 }
 ```
 
@@ -1224,31 +1215,15 @@ We are using two new classes here. The first one is the entity `Author` and the 
 namespace AppBundle\Controller;
 //...
 //...
-use AppBundle\Entity\Author;
-use AppBundle\Form\AuthorFormType;
+use App\Entity\Author;
+use App\Form\AuthorFormType;
 ```
 
 The above code also checks whether the form has been submitted and whether it passes all validations, if it does it will then redirect the user to the index page.
 
 __NOTE__: You may have noticed that it sets a session to `true` for `user_is_author` this will make sense when we reach the part that discusses and implements event listeners (next).
 
-Finally, we want to pass the form into the template that the user will see. So, at the bottom of the method, let's change:
-
-```php
-return $this->render('AppBundle:Admin:create_author.html.twig', array(
-    // ...
-));
-```
-
-to:
-
-```php
-return $this->render('AppBundle:Admin:create_author.html.twig', array(
-    'form' => $form->createView()
-));
-```
-
-In our template for this action, we just want the user to have all of the form fields displayed as their correct form elements. So, in the `create_author.html.twig` file, copy and paste the following:
+Finally, we want to pass the form into a template that the user will see. So, lets create a new template in `templates/Admin/` called `create_author.html.twig`. In this template, paste the following:
 
 {% highlight html %}
 {% raw %}
@@ -1315,22 +1290,30 @@ In our template for this action, we just want the user to have all of the form f
 {% endraw %}
 {% endhighlight %}
 
-You can restart now your Symfony application to see if everything is there no errors. Note that there is nothing to see yet, we just want to guarantee that the configuration is correct.
+Back in our controller, at the bottom of the method, let's add:
+
+```php
+return $this->render('templates/Admin/create_author.html.twig', array(
+    'form' => $form->createView()
+));
+```
+
+You can clear the cache in your Symfony application to see if everything is ok and there are no errors. Note that there is nothing to see yet, we just want to guarantee that the configuration is correct.
 
 ```bash
-php bin/console server:stop
-php bin/console server:start
+php bin/console cache:clear
 ```
 
 ### Including Bootstrap and Styles
 
-As it is, this template will look very ugly in your browser. So let's create a new CSS file. `web/css/style.css`
+As it is, this template will look very ugly in your browser. So let's create a new CSS file. `public/css/style.css`
 
+__TODO__ update the below with the new url
 Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file.
 
 Now, it's time to include this file into the base template alongside with Bootstrap's CSS and Javascript files.
 
-Open `app/Resources/views/base.html.twig` and replace its contents with:
+Open `templates/base.html.twig` and replace its contents with:
 
 {% highlight html %}
 {% raw %}
@@ -1369,44 +1352,44 @@ Although a user is authenticated through Auth0, we don't really want them to acc
 
 An event listener is, as the name states, a listener to specific programmed events which then run predefined code once the conditions are met.
 
-Let's create the `CheckIsAuthorListener.php` file in the `src/AppBundle/EventListener/Author` directory. In this file, let's place the following code:
+Let's create the `CheckIsAuthorListener.php` file in the `src/App/EventListener/Author` directory. In this file, let's place the following code:
 
 ```php
 <?php
 
-namespace AppBundle\EventListener\Author;
+namespace App\EventListener\Author;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CheckIsAuthorListener
 {
-    /** @var Router */
+    /** @var RouterInterface */
     protected $router;
 
-    /** @var Session */
+    /** @var SessionInterface */
     protected $session;
 
-    /** @var TokenStorage */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     /** @var EntityManagerInterface */
     private $entityManager;
 
     /**
-     * @param Router $router
-     * @param Session $session
-     * @param TokenStorage $tokenStorage
+     * @param RouterInterface $router
+     * @param SessionInterface $session
+     * @param TokenStorageInterface $tokenStorage
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        Router $router,
-        Session $session,
-        TokenStorage $tokenStorage,
+        RouterInterface $router,
+        SessionInterface $session,
+        TokenStorageInterface $tokenStorage,
         EntityManagerInterface $entityManager
     ) {
         $this->router = $router;
@@ -1447,8 +1430,8 @@ class CheckIsAuthorListener
 
         // Check if authenticated user has an author associated with them.
         if ($author = $this->entityManager
-                ->getRepository('AppBundle:Author')
-                ->findOneByUsername($user->getUsername())
+            ->getRepository('AppBundle:Author')
+            ->findOneByUsername($user->getUsername())
         ) {
             $this->session->set('user_is_author', true);
         }
@@ -1474,17 +1457,40 @@ class CheckIsAuthorListener
 }
 ```
 
-We now need to add this class as a service so that Symfony runs it on each controller request. In `app/config/services.yml` add the following as the last item of `services`:
+We now need to add this class as a service so that Symfony runs it on each controller request. In `config/services.yml` add the following as the last item of `services`:
 
 ```yml
-AppBundle\EventListener\Author\CheckIsAuthorListener:
+App\EventListener\Author\CheckIsAuthorListener:
     tags:
         - { name: kernel.event_listener, event: kernel.controller }
 ```
 
-It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to produce a link on the Homepage page.
+It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to create a Blog Controller with a homepage action.
 
-Open the file `app/Resources/views/default/index.html.twig` and replace its entire content with:
+Create new `BlogController` by running the following command `php bin/console make:controller`
+
+When it asks for `The class name of the controller to create`, type in: `BlogController`.
+
+Once the command has finished running, you'll find a new file in `src/Controller` called `BlogController.php`. Open this and replace the following:
+
+```php
+/**
+ * @Route("/blog", name="blog")
+ */
+public function index()
+{
+    // replace this line with your own code!
+    return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+}
+```
+
+with our new temporary homepage action:
+
+```php
+
+```
+
+Create the file `templates/default/index.html.twig` file and paste the following in:
 
 {% highlight html %}
 {% raw %}
