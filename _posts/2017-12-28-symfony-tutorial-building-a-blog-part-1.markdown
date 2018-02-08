@@ -62,15 +62,16 @@ composer create-project symfony/skeleton:4.0.5 blog
 
 Once Composer has finished downloading all the required third-party libraries change directory into your project with: `cd blog`
 
-### Install Doctrine bundle
+### Install Doctrine bundle & Maker
 
-*TODO* add information about this.
+In order to communicate with the database, you need to install several third party libraries,
 
 ```bash
-composer require symfony/orm-pack maker
+composer require symfony/orm-pack
+composer require --dev maker-bundle
 ```
 
-### Create & Populate DotEnv File
+### Update DotEnv File
 
 In your root directory there is a file called `.env`, you should see something similar to the following:
 
@@ -89,194 +90,640 @@ If needed, run the following command `php bin/console doctrine:database:create`,
 In order to see your blog in your web browser for the duration of this tutorial, you need to have Symfony's web server installed in your application. To do this run the following command:
 
 ```bash
-composer require symfony/web-server-bundle
+composer require server --dev
 ```
 
-Now that the basic configuration has been set up, let's run the following command: `php bin/console server:start`.
+Now that the basic configuration has been set up, let's run the following command:
+
+```bash
+php bin/console server:run
+```
 
 You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
 
 ### Creating a New Author Entity
 
-Create new `Author` entity by running the following command `php bin/console doctrine:generate:entity`
+Create new `Author` entity by running the following command:
 
-When it asks for the Entity shortcut name, type in: `AppBundle:Author`
+```bash
+php bin/console make:entity
+```
 
-Keep the default on `Configuration format`, but this next step we need to add all of the properties of our Author. Please refer to the image below for the entries required for an Author table:
+When it asks for `The class name of the entity to create`, type in: `Author`.
 
-![Creating an Author entity with Symfony and Doctrine](https://cdn.auth0.com/blog/symfony-blog/create-author-entity.png)
+Once the command has finished running, you'll find a new file in `src/Entity` called `Author.php`. Open this and configure it like so:
 
-__NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/AuthorRepository.php).
+```php
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Author
+ *
+ * @ORM\Table(name="author")
+ * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
+ */
+class Author
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string", length=255)
+     */
+    private $company;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="short_bio", type="string", length=500)
+     */
+    private $shortBio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     */
+    private $twitter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="github", type="string", length=255, nullable=true)
+     */
+    private $github;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Author
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Author
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Author
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return Author
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set shortBio
+     *
+     * @param string $shortBio
+     *
+     * @return Author
+     */
+    public function setShortBio($shortBio)
+    {
+        $this->shortBio = $shortBio;
+
+        return $this;
+    }
+
+    /**
+     * Get shortBio
+     *
+     * @return string
+     */
+    public function getShortBio()
+    {
+        return $this->shortBio;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Author
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set facebook
+     *
+     * @param string $facebook
+     *
+     * @return Author
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    /**
+     * Get facebook
+     *
+     * @return string
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * Set twitter
+     *
+     * @param string $twitter
+     *
+     * @return Author
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    /**
+     * Get twitter
+     *
+     * @return string
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * Set github
+     *
+     * @param string $github
+     *
+     * @return Author
+     */
+    public function setGithub($github)
+    {
+        $this->github = $github;
+
+        return $this;
+    }
+
+    /**
+     * Get github
+     *
+     * @return string
+     */
+    public function getGithub()
+    {
+        return $this->github;
+    }
+}
+```
 
 {% include tweet_quote.html quote_text="Doctrine is a great tool to have around when developing with PHP and Symfony." %}
 
 ### Creating a New BlogPost Entity
 
-__TODO__: Rewrite this, unfortunately no longer uses command line to complete entity.
+Create new `BlogPost` entity by running the following command `php bin/console make:entity`
 
-Create new `BlogPost` entity by running the following command `php bin/console doctrine:generate:entity`
+When it asks for `The class name of the entity to create`, type in: `BlogPost`.
 
-When it asks for the Entity shortcut name, type in: `AppBundle:BlogPost`
-
-Keep the default on `Configuration format`, but the next step is to add all of the properties on the BlogPost. Please refer to the image below for the entries required for a BlogPost table:
-
-![Creating an Author entity with Symfony and Doctrine](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
-
-__NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/BlogPostRepository.php).
-
-__NOTE__: If you copied the file directly from GitHub, please skip to the _Install Doctrine-Migrations_ section.
-
-You may have noticed that we've added the `created_at`, `updated_at` and `author` fields. These fields all need some extra changes to be made in the entity file itself. So open `src/AppBundle/Entity/BlogPost.php`
-
-Find `private $author;` and replace the annotation above this from:
+Once the command has finished running, you'll find a new file in `src/Entity` called `BlogPost.php`. Open this and configure it like so:
 
 ```php
-/**
- * @var int
- *
- * @ORM\Column(name="author", type="integer")
- */
-```
+<?php
 
-to:
+namespace App\Entity;
 
-```php
-/**
- * @var Author
- *
- * @ORM\ManyToOne(targetEntity="Author")
- * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
- */
-```
+use Doctrine\ORM\Mapping as ORM;
 
-Next. Replace the Author getter and setter from:
-
-```php
-/**
- * Set author
- *
- * @param integer $author
- *
- * @return BlogPost
- */
-public function setAuthor($author)
-{
-    $this->author = $author;
-
-    return $this;
-}
-
-/**
- * Get author
- *
- * @return int
- */
-public function getAuthor()
-{
-    return $this->author;
-}
-```
-
-to:
-
-```php
-/**
- * Set author
- *
- * @param Author $author
- *
- * @return BlogPost
- */
-public function setAuthor(Author $author)
-{
-    $this->author = $author;
-
-    return $this;
-}
-
-/**
- * Get author
- *
- * @return Author
- */
-public function getAuthor()
-{
-    return $this->author;
-}
-```
-
-All this does is make sure the entity knows that `Author` has a [`ManyToOne` relationship](https://www.ibm.com/support/knowledgecenter/en/SSWU4L/Data/imc_Data/What_is_a_many-to-one_relationship.html) with `BlogPost`.
-
-At the bottom of the `BlogPost` class, MySQL needs to know to populate and update the `created_at` and `updated_at` columns when a persist or update is made to the database. So paste the following at the bottom of the class (right before the last `}` in the file):
-
-```php
-/**
- * @ORM\PrePersist
- */
-public function prePersist()
-{
-    if (!$this->getCreatedAt()) {
-        $this->setCreatedAt(new \DateTime());
-    }
-
-    if (!$this->getUpdatedAt()) {
-        $this->setUpdatedAt(new \DateTime());
-    }
-}
-
-/**
- * @ORM\PreUpdate
- */
-public function preUpdate()
-{
-    $this->setUpdatedAt(new \DateTime());
-}
-```
-
-Now this is useless until the class has lifecycle call backs so in the annotation above the class, you'll see:
-
-```php
 /**
  * BlogPost
  *
  * @ORM\Table(name="blog_post")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\BlogPostRepository")
-```
-
-under `* @ORM\Entity()` add a new line and place this in there:
-
-```php
+ * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
  * @ORM\HasLifecycleCallbacks
+ */
+class BlogPost
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=2000)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="text")
+     */
+    private $body;
+
+    /**
+     * @var Author
+     *
+     * @ORM\ManyToOne(targetEntity="Author")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetimetz")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return BlogPost
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return BlogPost
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return BlogPost
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     *
+     * @return BlogPost
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set author
+     *
+     * @param Author $author
+     *
+     * @return BlogPost
+     */
+    public function setAuthor(Author $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return BlogPost
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return BlogPost
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        if (!$this->getCreatedAt()) {
+            $this->setCreatedAt(new \DateTime());
+        }
+
+        if (!$this->getUpdatedAt()) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+}
 ```
 
-Our entities are all set up! But.. we don't have the database tables yet.
+You may have noticed a `private $author;` property that links to the previous Entity we created. All this does is make sure the entity knows that `Author` has a [`ManyToOne` relationship](https://www.ibm.com/support/knowledgecenter/en/SSWU4L/Data/imc_Data/What_is_a_many-to-one_relationship.html) with `BlogPost`.
 
-### Install Doctrine-Migrations
+Although you have created these entities, your database still has no tables in there. Based off these entities, Doctrine can create the tables we've sepcified. In order to do this, all you have to do is run:
 
-Run: `composer require doctrine/doctrine-migrations-bundle "^1.0"`
-
-In `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
-
-```php
-new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+```bash
+php bin/console doctrine:schema:update --force
 ```
-
-At the bottom of `app/config/config.yml` add:
-
-```yml
-doctrine_migrations:
-    dir_name: "%kernel.root_dir%/DoctrineMigrations"
-    namespace: Application\Migrations
-    table_name: migration_versions
-    name: Application Migrations
-    organize_migrations: false # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
-```
-
-Run a migrations diff `php bin/console doctrine:migrations:diff`
-
-This will generate a file in `app/DoctrineMigrations/` starting with `Version` then the date and time it was created. So for this instance, there'll only be the one file. This file contains the migration queries for creating the new MySQL tables.
-
-Run the migration, which will run all the SQL queries found in the generated file with: `php bin/console doctrine:migrations:migrate`
 
 ### Install Doctrine-Fixtures
 
@@ -286,32 +733,17 @@ We want to just populate some data into your newly created tables as examples du
 composer require --dev doctrine/doctrine-fixtures-bundle
 ```
 
-In your `app/AppKernel.php` you want to add the bundle but specifically only for development and testing environments. So add this line `$bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();` as shown below.
-
-```php
-public function registerBundles()
-{
-    // ...
-    if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
-        // ...
-        $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-    }
-
-    return $bundles;
-}
-```
-
 ### Create Author and BlogPost Fixtures
 
-Create a new file (and the directories the file is stored in) under `src/AppBundle/DataFixtures/ORM/Fixtures.php` and insert the following into the file:
+Create a new file (and the directories the file is stored in) under `src/App/DataFixtures/ORM/Fixtures.php` and insert the following into the file:
 
 ```php
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace App\DataFixtures\ORM;
 
-use AppBundle\Entity\Author;
-use AppBundle\Entity\BlogPost;
+use App\Entity\Author;
+use App\Entity\BlogPost;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
