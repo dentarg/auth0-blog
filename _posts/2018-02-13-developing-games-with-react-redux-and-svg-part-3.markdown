@@ -95,8 +95,6 @@ const Login = (props) => {
     y: -600, // minus means up (above 0)
     width: 600,
     height: 300,
-    rx: 10, // border radius
-    ry: 10, // border radius
     style: {
       fill: 'transparent',
       cursor: 'pointer',
@@ -139,7 +137,7 @@ The component that you have just created is agnostic in terms of what it will do
 ```js
 // ... other import statements
 import Login from './Login';
-import { signIn } as Auth0 from 'auth0-web';
+import { signIn } from 'auth0-web';
 
 const Canvas = (props) => {
   // ... const definitions
