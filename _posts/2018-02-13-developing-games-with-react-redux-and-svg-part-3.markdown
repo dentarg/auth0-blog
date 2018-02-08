@@ -209,3 +209,218 @@ That's it, your game is already [using Auth0 as its identity management service]
 After you finish the sign in process, Auth0 will redirect you to your game again where the `handleAuthCallback` function will fetch your tokens. Then, as you have told your app to `console.log` any changes on the authentication state, you will be able to see it logging `true` in your browser console.
 
 ![Showing the login button on your React and Redux game](https://cdn.auth0.com/blog/aliens-go-home/showing-the-login-button-in-your-react-game.png)
+
+## Creating the Leaderboard React Components
+
+Now that you have configured Auth0 as your identity management system, you will need to create the components that will show the leaderboard and the max score for the current user. For that, you will create two components: `Leaderboard` and `Rank`. You will need to split this feature into two components because, as you will see, it's not that simple to show user data (max score, name, position, and picture) in a nice way. It's not hard either, but you will have to type some good amount of code and adding everything into one component would make it look clumsy.
+
+As your game does not have any players yet, the first thing you will need to do is to define some mock data to populate the leaderboard. The best place to do this is in the `Canvas` component. Also, since you are going to update your canvas, you can go ahead and replace the `Login` component with the `Leaderboard` (you will add `Login` inside the `Leaderboard` in a moment):
+
+```js
+// ... other import statements
+// replace Login with the following line
+import Leaderboard from './Leaderboard';
+
+const Canvas = (props) => {
+  // ... const definitions
+  const leaderboard = [
+    { id: 'd4', maxScore: 82, name: 'Ado Kukic', picture: 'https://twitter.com/KukicAdo/profile_image', },
+    { id: 'a1', maxScore: 235, name: 'Bruno Krebs', picture: 'https://twitter.com/brunoskrebs/profile_image', },
+    { id: 'c3', maxScore: 99, name: 'Diego Poza', picture: 'https://twitter.com/diegopoza/profile_image', },
+    { id: 'b2', maxScore: 129, name: 'Jeana Tahnk', picture: 'https://twitter.com/jeanatahnk/profile_image', },
+    { id: 'e5', maxScore: 34, name: 'Jenny Obrien', picture: 'https://twitter.com/jenny_obrien/profile_image', },
+    { id: 'f6', maxScore: 153, name: 'Kim Maida', picture: 'https://twitter.com/KimMaida/profile_image', },
+    { id: 'g7', maxScore: 55, name: 'Luke Oliff', picture: 'https://twitter.com/mroliff/profile_image', },
+    { id: 'h8', maxScore: 146, name: 'Sebastián Peyrott', picture: 'https://twitter.com/speyrott/profile_image', },
+  ];
+  return (
+    <svg ...>
+      // ... other elements
+
+      { ! props.gameState.started &&
+      <g>
+        // ... StartGame and Title
+        <Leaderboard currentUserId={'g7'} authenticate={signIn} leaderboard={leaderboard} />
+      </g>
+      }
+
+      // ... flyingObjects.map
+    </svg>
+  );
+};
+
+// ... propTypes definition and export statement
+```
+
+In the new version of this file, you defined a constant called `leaderboard` that holds an array of fake users. These users have the following properties: `id`, `maxScore`, `name`, and `picture`. Then, inside the `svg` element, you added the `Leaderboard` component with the following parameters:
+
+- `currentUserId`: This defines what is the `id` of the current user. For now, you are using one of the fake users defined before so you can see how everything works. The purpose of passing this parameter is to make your leaderboard highlight the current user.
+- `authenticate`: This is the same parameter that you were adding to the `Login` component in the previous version.
+- `leaderboard`: This is the array of fake users. Your leaderboard will use it to show the current ranking.
+
+Now, you have to define the `Leaderboard` component. To do this, create a new file called `Leaderboard.jsx` in the `./src/components` directory and add the following code to it:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+import Login from './Login';
+import Rank from "./Rank";
+
+const Leaderboard = (props) => {
+  const style = {
+    fill: 'transparent',
+    stroke: 'black',
+    strokeDasharray: '15',
+  };
+
+  const leaderboardTitle = {
+    fontFamily: '"Joti One", cursive',
+    fontSize: 50,
+    fill: '#88da85',
+    cursor: 'default',
+  };
+
+  const leaderboard = props.leaderboard.sort((prev, next) => {
+    if (prev.maxScore === next.maxScore) {
+      return prev.name <= next.name ? 1 : -1;
+    }
+    return prev.maxScore < next.maxScore ? 1 : -1;
+  }).map((member, index) => ({
+    ...member,
+    rank: index + 1,
+    currentUser: member.id === props.currentUserId,
+  })).filter((member, index) => {
+    if (index < 3 || member.id === props.currentUserId) return member;
+    return null;
+  });
+
+  return (
+    <g>
+      <text filter="url(#shadow)" style={leaderboardTitle} x="-150" y="-630">Leaderboard</text>
+      <rect style={style} x="-350" y="-600" width="700" height="330" />
+      {
+        props.currentUserId && leaderboard.map((user, idx) => {
+          const position = {
+            x: -100,
+            y: -530 + (70 * idx)
+          };
+          return <Rank key={user.id} user={user} rank={user.rank} position={position}/>
+        })
+      }
+      {
+        ! props.currentUserId && <Login authenticate={props.authenticate} />
+      }
+    </g>
+  );
+};
+
+Leaderboard.propTypes = {
+  currentUserId: PropTypes.string,
+  authenticate: PropTypes.func.isRequired,
+  leaderboard: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    maxScore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    ranking: PropTypes.number,
+  })).isRequired,
+};
+
+Leaderboard.defaultProps = {
+  currentUserId: null
+};
+
+export default Leaderboard;
+```
+
+Don't be scared! The code of this component is quite simple:
+
+1. You are defining the `leaderboardTitle` constant to set how the leaderboard title will look like.
+2. You are defining the `dashedRectangle` constant to style a `rect` element that will work as the container of the leaderboard.
+3. You are calling the `sort` function of the `props.leaderboard` variable to order the ranking. After that, your leaderboard will have the highest max score on top and the lowest max score on bottom. Also, if there is a tie between two users, you are ordering them based on their names.
+4. You are calling the `map` function on the result of the previous step (the `sort` function) to complement users with their `rank` and with a flag called `currentUser`. You will use this flag to highlight the row where the current user appears.
+5. You are using the `filter` function on the result of the previous step (the `map` function) to remove everyone who are not among the top three players. Actually, you are letting the current user stay on the final array if they don't belong to this select group.
+6. Lastly, you are simply iterating over the filtered array to show `Rank` elements if there is a user logged in (`props.currentUserId && leaderboard.map`) or showing the `Login` button otherwise.
+
+Then, the last thing you will need to do is to create the `Rank` React component. To do this, create a new file called `Rank.jsx` beside the `Leaderboard.jsx` file with the following code:
+
+```js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const Rank = (props) => {
+  const { x, y } = props.position;
+
+  const rectId = 'rect' + props.rank;
+  const clipId = 'clip' + props.rank;
+
+  const pictureStyle = {
+    height: 60,
+    width: 60,
+  };
+
+  const textStyle = {
+    fontFamily: '"Joti One", cursive',
+    fontSize: 35,
+    fill: '#e3e3e3',
+    cursor: 'default',
+  };
+
+  if (props.user.currentUser) textStyle.fill = '#e9ea64';
+
+  const pictureProperties = {
+    style: pictureStyle,
+    x: x - 140,
+    y: y - 40,
+    href: props.user.picture,
+    clipPath: `url(#${clipId})`,
+  };
+
+  const frameProperties = {
+    width: 55,
+    height: 55,
+    rx: 30,
+    x: pictureProperties.x,
+    y: pictureProperties.y,
+  };
+
+  return (
+    <g>
+      <defs>
+        <rect id={rectId} {...frameProperties} />
+        <clipPath id={clipId}>
+          <use xlinkHref={'#' + rectId} />
+        </clipPath>
+      </defs>
+      <use xlinkHref={'#' + rectId} strokeWidth="2" stroke="black" />
+      <text filter="url(#shadow)" style={textStyle} x={x - 200} y={y}>{props.user.rank}º</text>
+      <image {...pictureProperties} />
+      <text filter="url(#shadow)" style={textStyle} x={x - 60} y={y}>{props.user.name}</text>
+      <text filter="url(#shadow)" style={textStyle} x={x + 350} y={y}>{props.user.maxScore}</text>
+    </g>
+  );
+};
+
+Rank.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    maxScore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    rank: PropTypes.number.isRequired,
+    currentUser: PropTypes.bool.isRequired,
+  }).isRequired,
+  position: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }).isRequired,
+};
+
+export default Rank;
+```
+
+Nothing to be scared of about this code either. The only unordinary thing that you are adding to this component is [the `clipPath` element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath) and a `rect` inside the `defs` element to create a rounded portrait.
+
+With these new files in place, you can head to your app ([`http://localhost:3000/`](http://localhost:3000/)) to see your new leaderboard feature.
+
+![Showing the leaderboard in your React Game](https://cdn.auth0.com/blog/aliens-go-home/showing-the-leaderboard-in-your-react-game.png)
