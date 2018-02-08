@@ -170,7 +170,6 @@ import * as Auth0 from 'auth0-web';
 Auth0.configure({
   domain: 'YOUR_AUTH0_DOMAIN',
   clientID: 'YOUR_AUTH0_CLIENT_ID',
-  audience: 'https://aliens-go-home.digituz.com.br',
   redirectUri: 'http://localhost:3000/',
   responseType: 'token id_token',
   scope: 'openid profile manage:points',
