@@ -700,7 +700,7 @@ export const moveObjects = mousePosition => ({
 });
 ```
 
-> **Note:** You are going to call this action `MOVE_OBJECTS` because you won't use it to update the cannon only. In the next parts of this series, you will also use this same action to move cannon balls and flying objects.
+> **Note:** You are going to call this action `MOVE_OBJECTS` because you won't use it to update the cannon only. In [the next parts of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/), you will also use this same action to move cannon balls and flying objects.
 
 After defining this Redux action, you will have to refactor your reducer (the `index.js` file inside `./src/reducers/`) to deal with it:
 
@@ -916,6 +916,6 @@ How fun is that!?
 
 In the first part of this series, you have learned about some important topics that will enable you to create the complete game. You have also used `create-react-app` to bootstrap your project and you have created some game elements like the cannon, the sky, and the ground. In the end, you have added the aiming feature to your cannon. With these elements in place, you are ready to create the rest of the React components and to make them animated.
 
-In the next article of this series, you are going to create these components, then you are going to make some flying discs appear randomly in some predefined positions. After that, you will also make your cannon shoot some cannon balls. This will be awesome!
+[In the next article of this series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/), you are going to create these components, then you are going to make some flying discs appear randomly in some predefined positions. After that, you will also make your cannon shoot some cannon balls. This will be awesome!
 
 Stay tuned!
