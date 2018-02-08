@@ -45,11 +45,11 @@ In [the first part of this series](https://auth0.com/blog/developing-games-with-
 
 These actions paved the way to understand how you can create your game (and other animations) with React, Redux, and SVG.
 
-In [the second part](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/), you have created the other elements needed in your game (e.g. `Heart`, `FlyingObject`, and `CannonBall`), enabled your users to start the game, and used CSS animations to make flying objects fly (that's what they do right?).
+In [the second part](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/), you have created the other elements needed in your game (e.g. `Heart`, `FlyingObject`, and `CannonBall`), enabled your players to start the game, and used CSS animations to make flying objects fly (that's what they do right?).
 
-Although these are awesome features to have, they don't make a complete game yet. You still have to make your cannon shoot cannon balls and implement an algorithm to detect collision between these balls and flying objects. Besides that, you have to increment the `CurrentScore` component when your users kill some aliens.
+Although these are awesome features to have, they don't make a complete game yet. You still have to make your cannon shoot cannon balls and implement an algorithm to detect collision between these balls and flying objects. Besides that, you have to increment the `CurrentScore` component when your players kill some aliens.
 
-Killing aliens and seeing the current score increase is cool, but you probably can make this game more attractive. That's why you are going to add a leaderboard feature to your game. This will make your users spend more time trying to reach the top of the leaderboard.
+Killing aliens and seeing the current score increase is cool, but you probably can make this game more attractive. That's why you are going to add a leaderboard feature to your game. This will make your players spend more time trying to reach the top of the leaderboard.
 
 With these features, you can say that you have a complete game. So, without wasting more time, it's time to focus on them.
 
@@ -57,11 +57,11 @@ With these features, you can say that you have a complete game. So, without wast
 
 ## Implementing the Leaderboard Feature in Your React Game
 
-The first thing you will do to make your game look like a real game is to implement the leaderboard feature. This feature will enable users to sign in, so your game can track their max score and show their rank.
+The first thing you will do to make your game look like a real game is to implement the leaderboard feature. This feature will enable players to sign in, so your game can track their max score and show their rank.
 
 ## Integrating React and Auth0
 
-To make Auth0 manage the identity of your users, you have to have an Auth0 account. If you don't have one yet, you can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">**sign up for a free Auth0 account** here</a>.
+To make Auth0 manage the identity of your players, you have to have an Auth0 account. If you don't have one yet, you can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">**sign up for a free Auth0 account** here</a>.
 
 After creating your account, you just have to create an [Auth0 Client](https://auth0.com/docs/clients) to represent your game. To do this, head to [the Clients page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. The dashboard will show you a form where you will have to inform the *name* of your client and its *type*. You can type *Aliens, Go Home!* as the name and choose the *Single Page Web Application* type (your game is a SPA based on React after all). Then, you can click on *Create*.
 
@@ -69,7 +69,7 @@ After creating your account, you just have to create an [Auth0 Client](https://a
 
 When you click this button, the dashboard will redirect you to the *Quick Start* tab of your new client. As you will learn how to integrate React and Auth0 in this article, you won't need to use this tab. Instead, you will need to use the *Settings* tab, so head to it.
 
-There are three things that you will need to do in this tab. The first one is to add the `http://localhost:3000` value to the field called *Allowed Callback URLs*. As the dashboard explains, *after the user authenticates, Auth0 will only call back one of the URLs on this field*. So, if you are going to publish your game on the web, be sure to add its public URL there as well (e.g. `http://aliens-go-home.digituz.com.br`).
+There are three things that you will need to do in this tab. The first one is to add the `http://localhost:3000` value to the field called *Allowed Callback URLs*. As the dashboard explains, *after the player authenticates, Auth0 will only call back one of the URLs on this field*. So, if you are going to publish your game on the web, be sure to add its public URL there as well (e.g. `http://aliens-go-home.digituz.com.br`).
 
 After inputing all your URLs on this field, hit the *Save* button or press `ctrl` + `s` (if you are using a MacBook, you will need to press `command` + `s` instead).
 
@@ -83,7 +83,7 @@ npm i auth0-web
 
 As you will see, this package facilitates the integration between Auth0 and SPAs.
 
-The next step is to add a login button in your game, so your users can authenticate via Auth0. To do this, create a new file called `Login.jsx` inside the `./src/components` directory with the following code:
+The next step is to add a login button in your game, so your players can authenticate via Auth0. To do this, create a new file called `Login.jsx` inside the `./src/components` directory with the following code:
 
 ```js
 import React from 'react';
@@ -159,7 +159,7 @@ const Canvas = (props) => {
 // ... propTypes definition and export statement
 ```
 
-As you can see, in this new version, you have imported the `Login` component and the `signIn` function of the `auth0-web` package. Then, you have added your new component to the block of code that is shown only if users have not started the game. Also, you have indicated that, when clicked, the login button must trigger the `signIn` function.
+As you can see, in this new version, you have imported the `Login` component and the `signIn` function of the `auth0-web` package. Then, you have added your new component to the block of code that is shown only if players have not started the game. Also, you have indicated that, when clicked, the login button must trigger the `signIn` function.
 
 With these changes in place, the last thing you will have to do is to configure the `auth0-web` with your Auth0 Client properties. To do this, open the `App.js` file and update it as follows:
 
@@ -201,8 +201,8 @@ class App extends Component {
 The enhancements in this file are quite simple. This list summarizes them:
 
 1. `configure`: You used this function to configure the `auth0-web` package with your Auth0 Client properties.
-2. `handleAuthCallback`: You triggered this function in [the `componentDidMount` lifecycle hook](https://reactjs.org/docs/react-component.html#componentdidmount) to evaluate if the user is returning from Auth0 after authenticating. This function simply tries to fetch tokens from the URL and, if it succeeds, fetches the user profile and persists everything in the `localstorage`.
-3. `subscribe`: You used this function to log if the user is authenticated or not (`true` for authenticated and `false` otherwise).
+2. `handleAuthCallback`: You triggered this function in [the `componentDidMount` lifecycle hook](https://reactjs.org/docs/react-component.html#componentdidmount) to evaluate if the player is returning from Auth0 after authenticating. This function simply tries to fetch tokens from the URL and, if it succeeds, fetches the player profile and persists everything in the `localstorage`.
+3. `subscribe`: You used this function to log if the player is authenticated or not (`true` for authenticated and `false` otherwise).
 
 That's it, your game is already [using Auth0 as its identity management service](https://auth0.com/learn/cloud-identity-access-management/). If you run your app now (`npm start`) and head to it in your browser ([`http://localhost:3000`](http://localhost:3000)), you will see the login button. Clicking on it will redirect you to [the Auth0 login page](https://auth0.com/docs/hosted-pages/login) where you will be able to sign in.
 
@@ -210,9 +210,9 @@ After you finish the sign in process, Auth0 will redirect you to your game again
 
 ![Showing the login button on your React and Redux game](https://cdn.auth0.com/blog/aliens-go-home/showing-the-login-button-in-your-react-game.png)
 
-## Creating the Leaderboard React Components
+## Creating the Leaderboard React Component
 
-Now that you have configured Auth0 as your identity management system, you will need to create the components that will show the leaderboard and the max score for the current user. For that, you will create two components: `Leaderboard` and `Rank`. You will need to split this feature into two components because, as you will see, it's not that simple to show user data (max score, name, position, and picture) in a nice way. It's not hard either, but you will have to type some good amount of code and adding everything into one component would make it look clumsy.
+Now that you have configured Auth0 as your identity management system, you will need to create the components that will show the leaderboard and the max score for the current player. For that, you will create two components: `Leaderboard` and `Rank`. You will need to split this feature into two components because, as you will see, it's not that simple to show player's data (like max score, name, position, and picture) in a nice way. It's not hard either, but you will have to type some good amount of code. So, adding everything into one component would make it look clumsy.
 
 As your game does not have any players yet, the first thing you will need to do is to define some mock data to populate the leaderboard. The best place to do this is in the `Canvas` component. Also, since you are going to update your canvas, you can go ahead and replace the `Login` component with the `Leaderboard` (you will add `Login` inside the `Leaderboard` in a moment):
 
@@ -240,7 +240,7 @@ const Canvas = (props) => {
       { ! props.gameState.started &&
       <g>
         // ... StartGame and Title
-        <Leaderboard currentUserId={'g7'} authenticate={signIn} leaderboard={leaderboard} />
+        <Leaderboard currentPlayer={leaderboard[6]} authenticate={signIn} leaderboard={leaderboard} />
       </g>
       }
 
@@ -252,11 +252,11 @@ const Canvas = (props) => {
 // ... propTypes definition and export statement
 ```
 
-In the new version of this file, you defined a constant called `leaderboard` that holds an array of fake users. These users have the following properties: `id`, `maxScore`, `name`, and `picture`. Then, inside the `svg` element, you added the `Leaderboard` component with the following parameters:
+In the new version of this file, you defined a constant called `leaderboard` that holds an array of fake players. These players have the following properties: `id`, `maxScore`, `name`, and `picture`. Then, inside the `svg` element, you added the `Leaderboard` component with the following parameters:
 
-- `currentUserId`: This defines what is the `id` of the current user. For now, you are using one of the fake users defined before so you can see how everything works. The purpose of passing this parameter is to make your leaderboard highlight the current user.
+- `currentPlayer`: This defines who the current player is. For now, you are using one of the fake players defined before so you can see how everything works. The purpose of passing this parameter is to make your leaderboard highlight the current player.
 - `authenticate`: This is the same parameter that you were adding to the `Login` component in the previous version.
-- `leaderboard`: This is the array of fake users. Your leaderboard will use it to show the current ranking.
+- `leaderboard`: This is the array of fake players. Your leaderboard will use it to show the current ranking.
 
 Now, you have to define the `Leaderboard` component. To do this, create a new file called `Leaderboard.jsx` in the `./src/components` directory and add the following code to it:
 
@@ -288,9 +288,9 @@ const Leaderboard = (props) => {
   }).map((member, index) => ({
     ...member,
     rank: index + 1,
-    currentUser: member.id === props.currentUserId,
+    currentPlayer: member.id === props.currentPlayer.id,
   })).filter((member, index) => {
-    if (index < 3 || member.id === props.currentUserId) return member;
+    if (index < 3 || member.id === props.currentPlayer.id) return member;
     return null;
   });
 
@@ -299,23 +299,28 @@ const Leaderboard = (props) => {
       <text filter="url(#shadow)" style={leaderboardTitle} x="-150" y="-630">Leaderboard</text>
       <rect style={style} x="-350" y="-600" width="700" height="330" />
       {
-        props.currentUserId && leaderboard.map((user, idx) => {
+        props.currentPlayer && leaderboard.map((player, idx) => {
           const position = {
             x: -100,
             y: -530 + (70 * idx)
           };
-          return <Rank key={user.id} user={user} rank={user.rank} position={position}/>
+          return <Rank key={player.id} player={player} position={position}/>
         })
       }
       {
-        ! props.currentUserId && <Login authenticate={props.authenticate} />
+        ! props.currentPlayer && <Login authenticate={props.authenticate} />
       }
     </g>
   );
 };
 
 Leaderboard.propTypes = {
-  currentUserId: PropTypes.string,
+  currentPlayer: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    maxScore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+  }),
   authenticate: PropTypes.func.isRequired,
   leaderboard: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -327,7 +332,7 @@ Leaderboard.propTypes = {
 };
 
 Leaderboard.defaultProps = {
-  currentUserId: null
+  currentPlayer: null
 };
 
 export default Leaderboard;
@@ -337,10 +342,10 @@ Don't be scared! The code of this component is quite simple:
 
 1. You are defining the `leaderboardTitle` constant to set how the leaderboard title will look like.
 2. You are defining the `dashedRectangle` constant to style a `rect` element that will work as the container of the leaderboard.
-3. You are calling the `sort` function of the `props.leaderboard` variable to order the ranking. After that, your leaderboard will have the highest max score on top and the lowest max score on bottom. Also, if there is a tie between two users, you are ordering them based on their names.
-4. You are calling the `map` function on the result of the previous step (the `sort` function) to complement users with their `rank` and with a flag called `currentUser`. You will use this flag to highlight the row where the current user appears.
-5. You are using the `filter` function on the result of the previous step (the `map` function) to remove everyone who are not among the top three players. Actually, you are letting the current user stay on the final array if they don't belong to this select group.
-6. Lastly, you are simply iterating over the filtered array to show `Rank` elements if there is a user logged in (`props.currentUserId && leaderboard.map`) or showing the `Login` button otherwise.
+3. You are calling the `sort` function of the `props.leaderboard` variable to order the ranking. After that, your leaderboard will have the highest max score on top and the lowest max score on bottom. Also, if there is a tie between two players, you are ordering them based on their names.
+4. You are calling the `map` function on the result of the previous step (the `sort` function) to complement players with their `rank` and with a flag called `currentPlayer`. You will use this flag to highlight the row where the current player appears.
+5. You are using the `filter` function on the result of the previous step (the `map` function) to remove everyone who are not among the top three players. Actually, you are letting the current player stay on the final array if they don't belong to this select group.
+6. Lastly, you are simply iterating over the filtered array to show `Rank` elements if there is a player logged in (`props.currentPlayer && leaderboard.map`) or showing the `Login` button otherwise.
 
 Then, the last thing you will need to do is to create the `Rank` React component. To do this, create a new file called `Rank.jsx` beside the `Leaderboard.jsx` file with the following code:
 
@@ -351,8 +356,8 @@ import PropTypes from 'prop-types';
 const Rank = (props) => {
   const { x, y } = props.position;
 
-  const rectId = 'rect' + props.rank;
-  const clipId = 'clip' + props.rank;
+  const rectId = 'rect' + props.player.rank;
+  const clipId = 'clip' + props.player.rank;
 
   const pictureStyle = {
     height: 60,
@@ -366,13 +371,13 @@ const Rank = (props) => {
     cursor: 'default',
   };
 
-  if (props.user.currentUser) textStyle.fill = '#e9ea64';
+  if (props.player.currentPlayer) textStyle.fill = '#e9ea64';
 
   const pictureProperties = {
     style: pictureStyle,
     x: x - 140,
     y: y - 40,
-    href: props.user.picture,
+    href: props.player.picture,
     clipPath: `url(#${clipId})`,
   };
 
@@ -393,22 +398,22 @@ const Rank = (props) => {
         </clipPath>
       </defs>
       <use xlinkHref={'#' + rectId} strokeWidth="2" stroke="black" />
-      <text filter="url(#shadow)" style={textStyle} x={x - 200} y={y}>{props.user.rank}º</text>
+      <text filter="url(#shadow)" style={textStyle} x={x - 200} y={y}>{props.player.rank}º</text>
       <image {...pictureProperties} />
-      <text filter="url(#shadow)" style={textStyle} x={x - 60} y={y}>{props.user.name}</text>
-      <text filter="url(#shadow)" style={textStyle} x={x + 350} y={y}>{props.user.maxScore}</text>
+      <text filter="url(#shadow)" style={textStyle} x={x - 60} y={y}>{props.player.name}</text>
+      <text filter="url(#shadow)" style={textStyle} x={x + 350} y={y}>{props.player.maxScore}</text>
     </g>
   );
 };
 
 Rank.propTypes = {
-  user: PropTypes.shape({
+  player: PropTypes.shape({
     id: PropTypes.string.isRequired,
     maxScore: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     rank: PropTypes.number.isRequired,
-    currentUser: PropTypes.bool.isRequired,
+    currentPlayer: PropTypes.bool.isRequired,
   }).isRequired,
   position: PropTypes.shape({
     x: PropTypes.number.isRequired,
