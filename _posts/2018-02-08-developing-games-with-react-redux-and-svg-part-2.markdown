@@ -91,7 +91,15 @@ export default CannonBall;
 
 As you can see, to make a cannonball appear in your canvas, you will have to pass to it an object that contains the `x` and `y` properties. If you don't have that much experience with `prop-types`, this might have been the first time that you have used `PropTypes.shape`. Luckily, this feature is self-explanatory.
 
-After creating this component, you might want to see it on your canvas. To do that, simply add `<CannonBall position={{x: 0, y: -100}}/>` inside the `svg` element of the `Canvas` component (you will also need to add `import CannonBall from './CannonBall';`). Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
+After creating this component, you might want to see it on your canvas. To do that, simply add the following tag inside the `svg` element of the `Canvas` component (you will also need to add `import CannonBall from './CannonBall';`):
+
+{% highlight html %}
+{% raw %}
+<CannonBall position={{x: 0, y: -100}}/>
+{% endraw %}
+{% endhighlight %}
+
+Just keep in mind that, if you add it before an element that occupies the same position, you will not see it. So, to play safe, just add it as the last element (right after `<CannonBase />`). Then, you can open your game in a web browser to see your new component.
 
 > If you don't remember how to do that, you just have to run `npm start` in the project root and then open [http://localhost:3000](http://localhost:3000) in your preferred browser. Also, **don't** forget to commit this code to your repository before moving on.
 
@@ -154,7 +162,8 @@ If you try to see your new component now, you **won't** be able to. This is beca
 
 In the end, your `Canvas` component will look like this:
 
-```js
+{% highlight html %}
+{% raw %}
 import React from 'react';
 import PropTypes from 'prop-types';
 import Sky from './Sky';
@@ -194,7 +203,8 @@ Canvas.propTypes = {
 };
 
 export default Canvas;
-```
+{% endraw %}
+{% endhighlight %}
 
 And your game will look like this:
 
@@ -324,8 +334,9 @@ export default FlyingObject;
 
 Now, to add flying objects in your game, you can simply use one React component. To see this in action, update your `Canvas` component as follows:
 
-```js
-// other imports ...
+{% highlight html %}
+{% raw %}
+// ... other imports
 import FlyingObject from './FlyingObject';
 
 const Canvas = (props) => {
@@ -339,8 +350,9 @@ const Canvas = (props) => {
   );
 };
 
-// propTypes and export ...
-```
+// ... propTypes and export
+{% endraw %}
+{% endhighlight %}
 
 ![Creating flying objects in your React game](https://cdn.auth0.com/blog/aliens-go-home/flying-objects.png)
 
@@ -424,7 +436,15 @@ export default Heart;
 
 As you can see, to create the shape of a heart with SVG, you need two Cubic Bezier curves: one for each side of the heart. You also had to add a `position` property to this component. You needed this because your game will provide users more than one life, so you will need to show each one of these hearts in a different position.
 
-For now, you can simply add one heart to your canvas so you can confirm that everything is working properly. To do this, open the `Canvas` component and add `<Heart position={{x: -300, y: 35}} />` as the last element inside the `svg` element. Also, don't forget to add the import statement (`import Heart from './Heart';`).
+For now, you can simply add one heart to your canvas so you can confirm that everything is working properly. To do this, open the `Canvas` component and add:
+
+{% highlight html %}
+{% raw %}
+<Heart position={{x: -300, y: 35}} />
+{% endraw %}
+{% endhighlight %}
+
+This must be the last element inside the `svg` element. Also, don't forget to add the import statement (`import Heart from './Heart';`).
 
 ### Creating the Start Game Button React Component
 
@@ -754,7 +774,8 @@ export default App;
 
 Then, you can open the `./src/components/Canvas.jsx` file and replace the code inside it with this:
 
-```js
+{% highlight html %}
+{% raw %}
 import React from 'react';
 import PropTypes from 'prop-types';
 import Sky from './Sky';
@@ -816,7 +837,8 @@ Canvas.propTypes = {
 };
 
 export default Canvas;
-```
+{% endraw %}
+{% endhighlight %}
 
 As you can see, in this new version, you have made the `StartGame` and the `Title` components appear only when the `gameState.started` property is set to false. Also, you have hidden the `FlyingObject` components until the user clicks on the *Start Game* button.
 
