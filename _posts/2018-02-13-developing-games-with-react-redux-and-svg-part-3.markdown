@@ -542,3 +542,291 @@ Now, to understand how this thing works, check out this list:
 - `on('new-max-score', ...)`: Lastly, you are attaching the `newMaxScoreHandler` function to the `new-max-score` event. As such, whenever you need to update the max score of a user, you will need to emit this event from your React app.
 
 The rest of the code is pretty intuitive. Therefore, you can focus on integrating this service in your game.
+
+## Socket.IO and React
+
+After creating your real-time backend service, it's time to integrate your React game with it. The best way to use React and Socket.IO is by installing [the `socket.io-client` package](https://github.com/socketio/socket.io-client). To do this, issue the following code in the root directory of your React app:
+
+```bash
+npm i socket.io-client
+```
+
+Then, after that, you will make your game connect to your service whenever your players authenticate (you won't show the leaderboard for unauthenticated players). As you are using Redux to hold the state of your game, you will need two actions to keep your Redux store up to date. As such, open the `./src/actions/index.js` file and update it as follows:
+
+```js
+export const LEADERBOARD_LOADED = 'LEADERBOARD_LOADED';
+export const LOGGED_IN = 'LOGGED_IN';
+// ... MOVE_OBJECTS and START_GAME ...
+
+export const leaderboardLoaded = players => ({
+  type: LEADERBOARD_LOADED,
+  players,
+});
+
+export const loggedIn = player => ({
+  type: LOGGED_IN,
+  player,
+});
+
+// ... moveObjects and startGame ...
+```
+
+This new version defines actions to be triggered in two moments:
+
+1. `LOGGED_IN`: When a player logs in, you will use this action to connect your React game to the real-time service.
+2. `LEADERBOARD_LOADED`: When the real-time service sends the list of players, you will use this action to update the Redux store with these players.
+
+To make you Redux store respond to these actions, open the `./src/reducers/index.js` file and update it as follows:
+
+```js
+import {
+  LEADERBOARD_LOADED, LOGGED_IN,
+  MOVE_OBJECTS, START_GAME
+} from '../actions';
+// ... other import statements
+
+const initialGameState = {
+  // ... other game state properties
+  currentPlayer: null,
+  players: null,
+};
+
+// ... initialState definition
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case LEADERBOARD_LOADED:
+      return {
+        ...state,
+        players: action.players,
+      };
+    case LOGGED_IN:
+      return {
+        ...state,
+        currentPlayer: action.player,
+      };
+    // ... MOVE_OBJECTS, START_GAME, and default cases
+  }
+}
+
+export default reducer;
+```
+
+Now, whenever your game triggers the `LEADERBOARD_LOADED` action, you will update the Redux store with the new array of players. Besides that, whenever a player logs in (`LOGGED_IN`), you will update the `currentPlayer` in the store.
+
+Then, to make your game use these new actions, open the `./src/containers/Game.js` file and update it as follows:
+
+```js
+// ... other import statements
+import {
+  leaderboardLoaded, loggedIn,
+  moveObjects, startGame
+} from '../actions/index';
+
+const mapStateToProps = state => ({
+  // ... angle and gameState
+  currentPlayer: state.currentPlayer,
+  players: state.players,
+});
+
+const mapDispatchToProps = dispatch => ({
+  leaderboardLoaded: (players) => {
+    dispatch(leaderboardLoaded(players));
+  },
+  loggedIn: (player) => {
+    dispatch(loggedIn(player));
+  },
+  // ... moveObjects and startGame
+});
+
+// ... connect and export statement
+```
+
+With that, you are ready to make your game connect to the real-time service to load and update the leaderboard. Therefore, open the `./src/App.js` file and update it with the following code:
+
+```js
+// ... other import statements
+import io from 'socket.io-client';
+
+Auth0.configure({
+  // ... other properties
+  audience: 'https://aliens-go-home.digituz.com.br',
+});
+
+class App extends Component {
+  // ... constructor
+
+  componentDidMount() {
+    const self = this;
+
+    Auth0.handleAuthCallback();
+
+    Auth0.subscribe((auth) => {
+      if (!auth) return;
+
+      const playerProfile = Auth0.getProfile();
+      const currentPlayer = {
+        id: playerProfile.sub,
+        maxScore: 0,
+        name: playerProfile.name,
+        picture: playerProfile.picture,
+      };
+
+      this.props.loggedIn(currentPlayer);
+
+      const socket = io('http://localhost:3001', {
+        query: `token=${Auth0.getAccessToken()}`,
+      });
+
+      let emitted = false;
+      socket.on('players', (players) => {
+        this.props.leaderboardLoaded(players);
+
+        if (emitted) return;
+        socket.emit('new-max-score', {
+          id: playerProfile.sub,
+          maxScore: 120,
+          name: playerProfile.name,
+          picture: playerProfile.picture,
+        });
+        emitted = true;
+        setTimeout(() => {
+          socket.emit('new-max-score', {
+            id: playerProfile.sub,
+            maxScore: 222,
+            name: playerProfile.name,
+            picture: playerProfile.picture,
+          });
+        }, 5000);
+      });
+    });
+
+    // ... setInterval and onresize
+  }
+
+  // ... trackMouse
+
+  render() {
+    return (
+      <Canvas
+        angle={this.props.angle}
+        currentPlayer={this.props.currentPlayer}
+        gameState={this.props.gameState}
+        players={this.props.players}
+        startGame={this.props.startGame}
+        trackMouse={event => (this.trackMouse(event))}
+      />
+    );
+  }
+}
+
+App.propTypes = {
+  // ... other propTypes definitions
+  currentPlayer: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    maxScore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+  }),
+  leaderboardLoaded: PropTypes.func.isRequired,
+  loggedIn: PropTypes.func.isRequired,
+  players: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    maxScore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+  })),
+};
+
+App.defaultProps = {
+  currentPlayer: null,
+  players: null,
+};
+
+export default App;
+```
+
+As you can see in the code above, what you had to:
+
+1. configure the `audience` property on the `Auth0` module;
+2. fetch the profile of the current player (`Auth0.getProfile()`) to create the `currentPlayer` constant and update the Redux store (`this.props.loggedIn(...)`);
+3. connect to your real-time service (`io('http://localhost:3001', ...)`) with the player's `access_token` (`Auth0.getAccessToken()`);
+4. and listen to the `players` event emitted by your real-time service to update the Redux store (`this.props.leaderboardLoaded(...)`);
+
+Then, as your game is not complete and your players cannot kill aliens yet, you added some temporary code to simulate `new-max-score` events. First, you emitted a new `maxScore` of `120`, which puts the logged in player in the fifth position. Then, after five seconds (`setTimeout(..., 5000)`), you emitted a new action with a new `maxScore` of `222`, putting the logged in player in the second position.
+
+Besides these changes, you passed two new properties to your `Canvas`: `currentPlayer` and `players`. Therefore, you need to open the `./src/components/Canvas.jsx` file and update it:
+
+```js
+// ... import statements
+
+const Canvas = (props) => {
+  // ... gameHeight and viewBox constants
+
+  // REMOVE the leaderboard constant !!!!
+
+  return (
+    <svg ...>
+      // ... other elements
+
+      { ! props.gameState.started &&
+      <g>
+        // ... StartGame and Title
+        <Leaderboard currentPlayer={props.currentPlayer} authenticate={signIn} leaderboard={props.players} />
+      </g>
+      }
+
+      // ... flyingObjects.map
+    </svg>
+  );
+};
+
+Canvas.propTypes = {
+  // ... other propTypes definitions
+  currentPlayer: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    maxScore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+  }),
+  players: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    maxScore: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+  })),
+};
+
+Canvas.defaultProps = {
+  currentPlayer: null,
+  players: null,
+};
+
+export default Canvas;
+```
+
+In this file, you had to make the following changes:
+
+1. Remove the `leaderboard` constant. Now, you are loading this constant from your real-time service.
+2. Update the `<Leaderboard />` element. You have some more realistic data now: `props.currentPlayer` and `props.players`.
+3. Enhance the `propTypes` definition to declare that the `Canvas` component can use the `currentPlayer` and `players` value.
+
+Done! You have integrated your React game leaderboard with the Socket.IO real-time service. To test everything, issue the following commands:
+
+```bash
+# move to the real-time service directory
+cd server
+
+# run it on the background
+node index.js &
+
+# move back to your game
+cd ..
+
+# start the React development server
+npm start
+```
+
+Then, open your game on your browser ([`http://localhost:3000`](http://localhost:3000)). There, you will see that, after logging in, you will appear in the fifth position and that after 5 seconds you will jump to the second position.
+
+![Testing the Socket.IO real-time leaderboard of your React game](https://cdn.auth0.com/blog/aliens-go-home/real-time-leaderboard.png)
