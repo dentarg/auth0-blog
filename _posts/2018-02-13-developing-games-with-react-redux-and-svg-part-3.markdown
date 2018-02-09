@@ -431,3 +431,114 @@ Nothing to be scared of about this code either. The only unordinary thing that y
 With these new files in place, you can head to your app ([`http://localhost:3000/`](http://localhost:3000/)) to see your new leaderboard feature.
 
 ![Showing the leaderboard in your React Game](https://cdn.auth0.com/blog/aliens-go-home/showing-the-leaderboard-in-your-react-game.png)
+
+## Developing a Real-Time Leaderboard with Socket.IO
+
+Cool, you are already using Auth0 as the identity management service and you also created the components needed to show the leaderboard. So, what do you need next? That's right, you need a backend capable of emitting real-time events to update the leaderboard.
+
+This may make you think: isn't it hard to develop a real-time backend server? No, it is not. With [Socket.IO](https://socket.io/), you can develop this feature in no time. However, before diving into it, you will probably want to secure this backend service, right? To do this, you will need to create an [Auth0 API](https://auth0.com/docs/apis) to represent your service.
+
+Doing so is quite easy. Just head to [the APIs page on your Auth0 dashboard](https://manage.auth0.com/#/apis) and click on the *Create API* button. After that, Auth0 will present to you a small form where it will ask for three things:
+
+1. The *Name* of the API: Here, you need to inform just a friendly name so you don't forget what this API represents. So, just type *Aliens, Go Home!* for this field.
+2. The *Identifier* of the API: The recommended value here is the final URL of your game, but the truth is that it can be anything. Nevertheless, insert `https://aliens-go-home.digituz.com.br` in this field.
+3. The *Signing Algorithm*: There are two options here, *RS256* and *HS256*. You will be better off leaving this field untouched (i.e. stick with *RS256*). If you want to learn the difference between them, check [this answer](https://community.auth0.com/answers/6945/view).
+
+![Creating the Auth0 API for the Socket.IO real-time server.](https://cdn.auth0.com/blog/aliens-go-home/creating-the-auth0-api-for-the-socket-io-server.png)
+
+After filling this form, click on the *Create* button. This will redirect you to a tab called *Quick Start* inside your new API. From there, click on the *Scopes* tab and add a new scope called `manage:points` with the following description: "Read and write Max Score". [It's a good practice to define scopes on Auth0 APIs](https://auth0.com/docs/scopes/current#api-scopes).
+
+After adding this scope, you can go back coding. To implement your real-time leaderboard service, do the following:
+
+```bash
+# create a server directory in the project root
+mkdir server
+
+# move into it
+cd server
+
+# start it as a NPM project
+npm init -y
+
+# install some dependencies
+npm i express jsonwebtoken jwks-rsa socket.io socketio-jwt
+
+# create a file to hold your server source code
+touch index.js
+```
+
+Then, in this new file, add the following code:
+
+```js
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const jwt = require('jsonwebtoken');
+const jwksClient = require('jwks-rsa');
+
+const client = jwksClient({
+  jwksUri: 'https://YOUR_AUTH0_DOMAIN/.well-known/jwks.json'
+});
+
+const players = [
+  { id: 'a1', maxScore: 235, name: 'Bruno Krebs', picture: 'https://twitter.com/brunoskrebs/profile_image', },
+  { id: 'c3', maxScore: 99, name: 'Diego Poza', picture: 'https://twitter.com/diegopoza/profile_image', },
+  { id: 'b2', maxScore: 129, name: 'Jeana Tahnk', picture: 'https://twitter.com/jeanatahnk/profile_image', },
+  { id: 'f6', maxScore: 153, name: 'Kim Maida', picture: 'https://twitter.com/KimMaida/profile_image', },
+  { id: 'e5', maxScore: 55, name: 'Luke Oliff', picture: 'https://twitter.com/mroliff/profile_image', },
+  { id: 'd4', maxScore: 146, name: 'Sebastián Peyrott', picture: 'https://twitter.com/speyrott/profile_image', },
+];
+
+const verifyPlayer = (token, cb) => {
+  const uncheckedToken = jwt.decode(token, {complete: true});
+  const kid = uncheckedToken.header.kid;
+
+  client.getSigningKey(kid, (err, key) => {
+    const signingKey = key.publicKey || key.rsaPublicKey;
+
+    jwt.verify(token, signingKey, cb);
+  });
+};
+
+const newMaxScoreHandler = (payload) => {
+  let foundPlayer = false;
+  players.forEach((player) => {
+    if (player.id === payload.id) {
+      foundPlayer = true;
+      player.maxScore = Math.max(player.maxScore, payload.maxScore);
+    }
+  });
+
+  if (!foundPlayer) {
+    players.push(payload);
+  }
+
+  io.emit('players', players);
+};
+
+io.on('connection', (socket) => {
+  const { token } = socket.handshake.query;
+
+  verifyPlayer(token, (err) => {
+    if (err) socket.disconnect();
+    io.emit('players', players);
+  });
+
+  socket.on('new-max-score', newMaxScoreHandler);
+});
+
+http.listen(3001, () => {
+  console.log('listening on port 3001');
+});
+```
+
+Before learning about what this code does, replace `YOUR_AUTH0_DOMAIN` with your Auth0 domain (the same one that you added to the `App.js` file). You will find this placeholder in the value of the `jwksUri` property.
+
+Now, to understand how this thing works, check out this list:
+
+- `express` and `socket.io`: This is simply an [Express](https://expressjs.com/) server enhanced with Socket.IO to make it real-time. If you haven't used Socket.IO before, checkout their *Get Started* tutorial. It's really simple.
+- `jwt` and `jwksClient`: When authenticating with Auth0, your players will get (among other things) an `access_token` in the form of a JWT (JSON Web Token). Since you are using the *RS256* signing algorithm, you need to use the `jwksClient` package to fetch the correct public key to validate JWTs. The JWTs that you receive contain a `kid` property (Key ID) that you can use to get the correct public key (if curious, [you can learn more about JWKS here](https://auth0.com/docs/jwks)).
+- `jwt.verify`: After finding the correct key, you use this function to decode and validate JWTs. If they are fine, you just send the `players` list to whomever is requesting. If they are not valid, you just `disconnect` the `socket` (client).
+- `on('new-max-score', ...)`: Lastly, you are attaching the `newMaxScoreHandler` function to the `new-max-score` event. As such, whenever you need to update the max score of a user, you will need to emit this event from your React app.
+
+The rest of the code is pretty intuitive. Therefore, you can focus on integrating this service in your game.
