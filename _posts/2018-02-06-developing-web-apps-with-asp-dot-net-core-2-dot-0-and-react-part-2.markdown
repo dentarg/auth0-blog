@@ -505,7 +505,7 @@ class App extends Component {
 }
 ```
 
-Here, you add a `logoutButton` React element to the `App` component markup when the user is authenticated. That button will call the `logout()` method when clicked allowing the user to remove the session data. In the end, your unauthenticated user will be moved to the root URL of the application.
+Here, you add a `logoutButton` React element to the `App` component markup when the user is authenticated. That button will call the `logout()` method when clicked, allowing the user to remove the session data. In the end, your unauthenticated user will be moved to the root URL of the application.
 
 ## Summary
 
