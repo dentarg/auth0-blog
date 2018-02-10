@@ -347,7 +347,7 @@ The home page route is mapped to a function that calls the `renderHome()` method
 
 Now, your users will be authenticated and redirected to the `Home` component content.
 
-## Connecting the app and the secured Web API
+## Connecting the App and the Secured Web API
 
 To complete the authentication process, you will need to create the `Home` React component. You will use this component to connect your client to the Web API providing the book list. So, create a file called `Home.jsx` in the `./src/` directory with the following code:
 
