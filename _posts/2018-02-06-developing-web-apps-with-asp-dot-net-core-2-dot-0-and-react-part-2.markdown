@@ -349,7 +349,7 @@ Now, your users will be authenticated and redirected to the `Home` component con
 
 ## Connecting the app and the secured Web API
 
-Now that the authentication process is working fine, let's connect our client to the Web API providing the book list. We will implement it in the `Home` component as follows:
+To complete the authentication process, you will need to create the `Home` React component. You will use this component to connect your client to the Web API providing the book list. So, create a file called `Home.jsx` in the `./src/` directory with the following code:
 
 ```javascript
 import React from 'react';
@@ -384,7 +384,9 @@ export default Home;
 
 In the constructor, you define the component's initial state. This state will be used in the `render()` method to show the data contained in its `bookList` property as an HTML unordered list. Such data will be retrieved after the component is mounted on the DOM (`componentDidMount`) by calling the `/api/books` via `fetch()`.
 
-We also notice the import of `Home.css` stylesheet. Importing a CSS file into a JavaScript module may seem a bit strange, since we just expect JavaScript code. However, thanks to the development environment provided by `create-react-app`, you can use the same syntax even for CSS files. This allows you to use inside our React component, classes and other rules defined in a CSS file, keeping component specific styles close to the component definition itself. In our case we defined a few CSS rules that handles the presentation of the list of books, as shown below:
+Also, notice the import of `Home.css` stylesheet. Importing a CSS file into a JavaScript module may seem a bit strange, since you are dealing with JavaScript code most of the time. However, thanks to the development environment provided by `create-react-app`, you can use the same syntax even for CSS files. This allows you to use, inside your React component, classes and other rules defined in a CSS file. This helps keeping component specific styles close to the component definition itself.
+
+To define this CSS rules, create the `Home.css` file the `./src/` directory with the following code:
 
 ```css
 ul {
@@ -398,9 +400,11 @@ ul h3 {
 }
 ```
 
+If you try to run your code now, you will notice that the `Home` component is still not working. Due to the [same origin policy](https://en.wikipedia.org/wiki/Same-origin_policy) applied by browsers, the React application cannot send an HTTP request to a server in a different domain without some proper configuration.
 
+Provided that the you have followed the instructions in the [Part 1 of this series](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1), you need to enable your React application to call the Web API application. In fact, both are Web applications but running on different ports: the React application runs on port `3000` while the Web API application runs on port `63939`.
 
-Unfortunately, the code for the `Home` component as shown until now doesn't work for a couple of reasons. Provided that the [Web API application we built in Part 1 of this series](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) is running, you need to enable your React application to call the Web API application. In fact, both are Web applications but running on different domains: the React application runs on `localhost:3000` domain while the Web API application runs on `localhost: 63939` domain. Due to the [same origin policy](https://en.wikipedia.org/wiki/Same-origin_policy) applied by browsers, the React application cannot send a HTTP request to a server in a different domain. In the development environment, we can enable the communication between the two applications by simply adding a `proxy` value in the `package.json` file, as shown below:
+In the development environment, you can enable the communication between the two applications by simply adding a `proxy` value in the `package.json` file, as shown below:
 
 ```json
 {
@@ -412,9 +416,9 @@ Unfortunately, the code for the `Home` component as shown until now doesn't work
 }
 ```
 
-In the production environment, we should adopt a different approach, such as put the two applications under the same domain o enabling [CORS](https://auth0.com/docs/cross-origin-authentication) or using a reverse proxy.
+In the production environment, you should adopt a different approach, such as put the two applications under the same domain, by enabling [CORS](https://auth0.com/docs/cross-origin-authentication), or by using a reverse proxy.
 
-Even with this change, you are still unable to get the data from the Web API because it is protected and we need to provide an access token. So, let's integrate once again the *AuthService* class by adding a method that returns the access token associated with the current session:
+Even with this change, you are still unable to get the data from the Web API because it is protected and we need to provide an access token. So, enhance the *AuthService* class by adding a method that returns the access token associated with the current session:
 
 ```javascript
 export default class AuthService {
@@ -429,7 +433,7 @@ export default class AuthService {
 }
 ```
 
-Now you will use the new method to get the access token and pass it to the Web API as an authorization header, as shown by the following code:
+Now, you will use the new method to get the access token and pass it to the Web API as an authorization header, as shown by the following code:
 
 ```javascript
   componentDidMount() {
@@ -447,9 +451,7 @@ Now you will use the new method to get the access token and pass it to the Web A
 
 Finally, now you can get the book list and show it:
 
-![./xxx-images/book-list.png](./xxx-images/book-list.png)
-
-
+![Showing the book list in the React app integrated with ASP.NET Core 2.0](https://cdn.auth0.com/blog/react-aspnet-core/book-list.png)
 
 ## Handling logout
 
