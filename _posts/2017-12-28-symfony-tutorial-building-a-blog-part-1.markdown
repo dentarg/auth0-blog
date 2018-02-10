@@ -23,7 +23,7 @@ related:
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog-part-1).
 
 ---
 
@@ -62,9 +62,9 @@ composer create-project symfony/skeleton:4.0.5 blog
 
 Once Composer has finished downloading all the required third-party libraries change directory into your project with: `cd blog`
 
-### Install Doctrine bundle & Maker
+### Install Doctrine bundle & various libraries
 
-In order to communicate with the database, you need to install several third party libraries,
+In order to communicate with the database and make use of other features, you need to install several third party libraries. So run the following commands:
 
 ```bash
 composer require symfony/orm-pack
@@ -920,7 +920,7 @@ AUTH0_CLIENT_SECRET=(Client Secret on Auth0)
 AUTH0_DOMAIN=(Domain on Auth0)
 ```
 
-To use all of this, we need to create a new file in `config/packages` called `hwio_oauth.yaml` then populate this file with:
+To use all of this, we need to create a new file in `config/packages` called `hwi_oauth.yaml` then populate this file with:
 
 ```
 hwi_oauth:
@@ -1104,7 +1104,7 @@ class AuthorFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Author'
+            'data_class' => 'App\Entity\Author'
         ]);
     }
 
@@ -1212,7 +1212,7 @@ if ($form->isValid()) {
 We are using two new classes here. The first one is the entity `Author` and the second one `AuthorFormType` class. Include these namespaces at the top of our file:
 
 ```php
-namespace AppBundle\Controller;
+namespace App\Controller;
 //...
 //...
 use App\Entity\Author;
@@ -1293,7 +1293,7 @@ Finally, we want to pass the form into a template that the user will see. So, le
 Back in our controller, at the bottom of the method, let's add:
 
 ```php
-return $this->render('templates/Admin/create_author.html.twig', array(
+return $this->render('Admin/create_author.html.twig', array(
     'form' => $form->createView()
 ));
 ```
@@ -1308,8 +1308,7 @@ php bin/console cache:clear
 
 As it is, this template will look very ugly in your browser. So let's create a new CSS file. `public/css/style.css`
 
-__TODO__ update the below with the new url
-Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file.
+Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog-part-1/blob/master/public/css/style.css) into your new `style.css` file.
 
 Now, it's time to include this file into the base template alongside with Bootstrap's CSS and Javascript files.
 
@@ -1352,7 +1351,7 @@ Although a user is authenticated through Auth0, we don't really want them to acc
 
 An event listener is, as the name states, a listener to specific programmed events which then run predefined code once the conditions are met.
 
-Let's create the `CheckIsAuthorListener.php` file in the `src/App/EventListener/Author` directory. In this file, let's place the following code:
+Let's create the `CheckIsAuthorListener.php` file in the `src/EventListener/Author` directory. In this file, let's place the following code:
 
 ```php
 <?php
@@ -1430,7 +1429,7 @@ class CheckIsAuthorListener
 
         // Check if authenticated user has an author associated with them.
         if ($author = $this->entityManager
-            ->getRepository('AppBundle:Author')
+            ->getRepository('App:Author')
             ->findOneByUsername($user->getUsername())
         ) {
             $this->session->set('user_is_author', true);
@@ -1487,7 +1486,13 @@ public function index()
 with our new temporary homepage action:
 
 ```php
-
+/**
+ * @Route("/", name="homepage")
+ */
+public function index()
+{
+    return $this->render('default/index.html.twig');
+}
 ```
 
 Create the file `templates/default/index.html.twig` file and paste the following in:
