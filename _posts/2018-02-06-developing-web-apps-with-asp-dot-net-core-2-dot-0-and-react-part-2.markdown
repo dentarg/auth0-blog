@@ -104,7 +104,7 @@ Your users will authenticate themselves through [the Auth0 hosted login page](ht
 
 After installing the `auth0-js` package, you will need to create a file called `Auth0Config.js` in the `src` directory of your React application project. Add the following content to this file:
 
-```javascript
+```js
 export const AUTH_CONFIG = {
     domain: 'YOUR_AUTH0_DOMAIN',
     clientID: 'YOUR_CLIENT_ID',
@@ -124,7 +124,7 @@ This file also contains another two properties:
 
 Next, you will need to create another JavaScript module. You will define this module inside a new file called `AuthService.js` in the `src` directory with the following code:
 
-```javascript
+```js
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './Auth0Config';
 
@@ -150,7 +150,7 @@ Finally, you defined a `login()` method that wraps the `auth0.authorize()` one.
 
 With that, you are now ready to use the `AuthService` class in your application. So, open the `App.js` file and replace its code with this:
 
-```javascript
+```js
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -204,7 +204,7 @@ Even if users have already authenticated themselves, your home page will redirec
 
 To do this, you will need to add a few methods to the `AuthService` class:
 
-```javascript
+```js
 export default class AuthService {
   // ...
 
@@ -249,7 +249,7 @@ With this configuration you are saying to Auth0 that the provided URL is a valid
 
 You also need to specify the new callback URL in the `Auth0Config.js` file:
 
-```javascript
+```js
 export const AUTH_CONFIG = {
     domain: 'YOUR_AUTH0_DOMAIN',
     clientID: 'YOUR_CLIENT_ID',
@@ -270,7 +270,7 @@ Now, you can configure routing for your React application.
 
 The first thing you need to do is change the code of `index.js` as follows:
 
-```javascript
+```js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -292,7 +292,7 @@ Here, you imported the `BrowserRouter` component from `react-router-dom` module 
 
 With all the previous preparation, you can replace the `App` component code with the following:
 
-```javascript
+```js
 import React, { Component } from 'react';
 import './App.css';
 import AuthService from './AuthService';
@@ -351,7 +351,7 @@ Now, your users will be authenticated and redirected to the `Home` component con
 
 To complete the authentication process, you will need to create the `Home` React component. You will use this component to connect your client to the Web API providing the book list. So, create a file called `Home.jsx` in the `./src/` directory with the following code:
 
-```javascript
+```js
 import React from 'react';
 import './Home.css'
 
@@ -420,7 +420,7 @@ In the production environment, you should adopt a different approach, such as pu
 
 Even with this change, you are still unable to get the data from the Web API because it is protected and we need to provide an access token. So, enhance the *AuthService* class by adding a method that returns the access token associated with the current session:
 
-```javascript
+```js
 export default class AuthService {
 ...
   getAccessToken() {
@@ -435,7 +435,7 @@ export default class AuthService {
 
 Now, you will use the new method to get the access token and pass it to the Web API as an authorization header, as shown by the following code:
 
-```javascript
+```js
   componentDidMount() {
     const accessToken = this.props.auth.getAccessToken();
 
@@ -453,46 +453,46 @@ Finally, now you can get the book list and show it:
 
 ![Showing the book list in the React app integrated with ASP.NET Core 2.0](https://cdn.auth0.com/blog/react-aspnet-core/book-list.png)
 
-## Handling logout
+## Handling Logout
 
-As a final touch, we will add a logout button to allow the user to quit our application. So let's add a `logout()` method to `AuthService` class as in the following:
+As a final touch, you will add a logout button to allow the user to quit your application. To do this, add a `logout()` method to `AuthService` class as shown here:
 
-```javascript
+```js
 export default class AuthService {
-...
+  // ...
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
-	window.location.href = '/';
+    window.location.href = '/';
   }
 }
 ```
 
 The method simply removes the session data from the `localStorage` and redirects the user to the root page.
 
-We use this method in the `App` component as depicted in the following code:
+Use this method in the `App` component as depicted in the following code:
 
-```javascript
+```js
 class App extends Component {
-  ...
+  // ...
   createLogoutButton() {
-	let button = null;
+  	let button = null;
 
-	if (this.authService.isAuthenticated()) {
-		button = <button onClick={()=>this.authService.logout()}>Logout</button>;
-	}
+  	if (this.authService.isAuthenticated()) {
+  		button = <button onClick={()=>this.authService.logout()}>Logout</button>;
+  	}
 
-	return button;
+  	return button;
   }
 
   render() {
-	let logoutButton =  this.createLogoutButton();
+	   let logoutButton =  this.createLogoutButton();
 
     return (
       <div className="App">
         <header className="App-header">
-		  {logoutButton}
+		      {logoutButton}
           <h1 className="App-title">My Bookstore</h1>
         </header>
         <Switch>
@@ -505,7 +505,7 @@ class App extends Component {
 }
 ```
 
-You add a `logoutButton` React element to the `App` component markup when the user is authenticated. That button will call the `logout()` method when clicked allowing the user to remove the session data and move to the root URL of the application.
+Here, you add a `logoutButton` React element to the `App` component markup when the user is authenticated. That button will call the `logout()` method when clicked allowing the user to remove the session data. In the end, your unauthenticated user will be moved to the root URL of the application.
 
 ## Summary
 
