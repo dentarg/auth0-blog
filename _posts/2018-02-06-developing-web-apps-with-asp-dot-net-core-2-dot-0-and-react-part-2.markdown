@@ -268,6 +268,26 @@ npm install --save react-router-dom
 
 Now, you can configure routing for your React application.
 
+The first thing you need to do is change the code of `index.js` as follows:
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import {BrowserRouter} from 'react-router-dom';
+
+ReactDOM.render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+document.getElementById('root'));
+registerServiceWorker();
+```
+
+Here, you imported the `BrowserRouter` component from `react-router-dom` module and wrapped the `App` component inside it. This enriches the `App` component with routing capabilities.
+
 ## Completing the Session Management Feature
 
 With all the previous preparation, you can replace the `App` component code with the following:
@@ -319,7 +339,7 @@ class App extends Component {
 export default App;
 ```
 
-The main changes in this file concern the definition of two routes: the home page route (which matches the root path) and the session creation route (which matches the `/startSession` path). Both routes are mapped to `render` functions.
+The main changes in this file concern the definition of two routes by using `Switch` and `Route` components provided by  `react-router-dom` module. So, we have the home page route (which matches the root path) and the session creation route (which matches the `/startSession` path). Both routes are mapped to `render` functions.
 
 The session creation route is mapped to a function that invokes `startSession()` method passing the browser's history as a parameter. The `startSession()` method calls the `handleAuthentication()` method of the `AuthService` class. This method returns a waiting React element that is shown while the asynchronous process is running.
 
@@ -329,7 +349,7 @@ Now users will be authenticated and redirected to the `Home` component content.
 
 ## Connecting the app and the secured Web API
 
-Now that the authentication process is working fine, let's connect our client to the Web API providing the book list. We will implement it in the *Home* component as follows:
+Now that the authentication process is working fine, let's connect our client to the Web API providing the book list. We will implement it in the `Home` component as follows:
 
 ```javascript
 import React from 'react';
@@ -362,9 +382,25 @@ class Home extends React.Component {
 export default Home;
 ```
 
-In the constructor, we define the component's initial state. This state will be used in the *render()* method to show as an HTML unordered list the data contained in its *bookList* property. Such data will be retrieved after the component is mounted on the DOM (*componentDidMount*) by calling the */api/books* via *fetch()*.
+In the constructor, you define the component's initial state. This state will be used in the `render()` method to show the data contained in its `bookList` property as an HTML unordered list. Such data will be retrieved after the component is mounted on the DOM (`componentDidMount`) by calling the `/api/books` via `fetch()`.
 
-Unfortunately, this code doesn't work for a couple of reasons. Provided that the Web API application we built in Part 1 of this series (**LINK TO PART 1**) is running, we need to enable our React application to call the Web API application. In fact, both are Web applications but running on different domains: the React application runs on *localhost:3000* domain while the Web API application runs on *localhost: 63939* domain. Due to the [same origin policy](https://en.wikipedia.org/wiki/Same-origin_policy) applied by browsers, the React application cannot send a HTTP request to a server in a different domain. In the development environment, we can enable the communication between the two application by simply adding a *proxy* value in the *package.json* file, as shown below:
+We also notice the import of `Home.css` stylesheet. Importing a CSS file into a JavaScript module may seem a bit strange, since we just expect JavaScript code. However, thanks to the development environment provided by `create-react-app`, you can use the same syntax even for CSS files. This allows you to use inside our React component, classes and other rules defined in a CSS file, keeping component specific styles close to the component definition itself. In our case we defined a few CSS rules that handles the presentation of the list of books, as shown below:
+
+```css
+ul {
+    list-style-type: none;
+    text-align: left;
+    margin-left: 20%;
+}
+
+ul h3 {
+    display: inline;
+}
+```
+
+
+
+Unfortunately, the code for the `Home` component as shown until now doesn't work for a couple of reasons. Provided that the [Web API application we built in Part 1 of this series](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1) is running, you need to enable your React application to call the Web API application. In fact, both are Web applications but running on different domains: the React application runs on `localhost:3000` domain while the Web API application runs on `localhost: 63939` domain. Due to the [same origin policy](https://en.wikipedia.org/wiki/Same-origin_policy) applied by browsers, the React application cannot send a HTTP request to a server in a different domain. In the development environment, we can enable the communication between the two applications by simply adding a `proxy` value in the `package.json` file, as shown below:
 
 ```json
 {
@@ -378,7 +414,7 @@ Unfortunately, this code doesn't work for a couple of reasons. Provided that the
 
 In the production environment, we should adopt a different approach, such as put the two applications under the same domain o enabling [CORS](https://auth0.com/docs/cross-origin-authentication) or using a reverse proxy.
 
-Even with this change, we are still unable to get the data from the Web API because it is protected and we need to provide an access token. So, let's integrate once again the *AuthService* class by adding a method that returns the access token associated with the current session:
+Even with this change, you are still unable to get the data from the Web API because it is protected and we need to provide an access token. So, let's integrate once again the *AuthService* class by adding a method that returns the access token associated with the current session:
 
 ```javascript
 export default class AuthService {
@@ -393,7 +429,7 @@ export default class AuthService {
 }
 ```
 
-Now we will use the new method to get the access token and pass it to the Web API as an authorization header, as shown by the following code:
+Now you will use the new method to get the access token and pass it to the Web API as an authorization header, as shown by the following code:
 
 ```javascript
   componentDidMount() {
@@ -409,7 +445,7 @@ Now we will use the new method to get the access token and pass it to the Web AP
   }
 ```
 
-Finally, now we can get the book list and show it:
+Finally, now you can get the book list and show it:
 
 ![./xxx-images/book-list.png](./xxx-images/book-list.png)
 
@@ -417,7 +453,7 @@ Finally, now we can get the book list and show it:
 
 ## Handling logout
 
-As a final touch, we will add a logout button to allow the user to quit our application. So we add a *logout()* method to *AuthService* class as in the following:
+As a final touch, we will add a logout button to allow the user to quit our application. So let's add a `logout()` method to `AuthService` class as in the following:
 
 ```javascript
 export default class AuthService {
@@ -431,9 +467,9 @@ export default class AuthService {
 }
 ```
 
-The method simply removes the session data from the *localStorage* and redirects the user to the root page.
+The method simply removes the session data from the `localStorage` and redirects the user to the root page.
 
-We use this method in the *App* component as depicted in the following code:
+We use this method in the `App` component as depicted in the following code:
 
 ```javascript
 class App extends Component {
@@ -467,8 +503,8 @@ class App extends Component {
 }
 ```
 
-We add a *logoutButton* React element to the *App* component markup when the user is authenticated. That button will call the *logout()* method when clicked allowing the user to remove the session data and move to the root URL of the application.
+You add a `logoutButton` React element to the `App` component markup when the user is authenticated. That button will call the `logout()` method when clicked allowing the user to remove the session data and move to the root URL of the application.
 
 ## Summary
 
-In this second part of the series, we created a React-based client for the Web API application we implemented in the first part (**LINK TO PART 1**). We explored how to configure the client on the *Auth0* dashboard side and how to integrate its code with *auth0-js* library. Then we connected the React client with the Web API and finally showed the book list returned by the server. We described how to build the client in an incremental way, however the final code can be downloaded from the [GitHub repository](https://github.com/andychiare/react-auth0).
+In this second part of the series, we created a React-based client for [the Web API application we implemented in the first part](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1). We explored how to configure the client on the *Auth0* dashboard side and how to integrate its code with `auth0-js` library. Then we connected the React client with the Web API and finally showed the book list returned by the server. We described how to build the client in an incremental way, however the final code can be downloaded from the [GitHub repository](https://github.com/andychiare/react-auth0).
