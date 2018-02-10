@@ -29,6 +29,8 @@ related:
 
 **TL;DR:** This is the second part of the series about developing a Web application based on ASP.NET Core 2.0 and React. [In the previous post](http://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-1), you built a secured Web API application that provides a list of books with ASP.NET Core 2.0. In this post, you will create a *Single Page Application* (SPA) client based on React to consume this API. You can find [the final code of the React client in this GitHub repository](https://github.com/andychiare/react-auth0).
 
+{% include tweet_quote.html quote_text="Learn how to integrate React and ASP.NET Core apps in this practical tutorial." %}
+
 ---
 
 ## Creating a React Application
@@ -506,6 +508,8 @@ class App extends Component {
 ```
 
 Here, you add a `logoutButton` React element to the `App` component markup when the user is authenticated. That button will call the `logout()` method when clicked, allowing the user to remove the session data. In the end, your unauthenticated user will be moved to the root URL of the application.
+
+{% include tweet_quote.html quote_text="Developing secure React and ASP.NET Core apps is easy." %}
 
 ## Summary
 
