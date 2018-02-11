@@ -827,6 +827,6 @@ cd ..
 npm start
 ```
 
-Then, open your game on your browser ([`http://localhost:3000`](http://localhost:3000)). There, you will see that, after logging in, you will appear in the fifth position and that after 5 seconds you will jump to the second position.
+Then, open your game on your browser ([`http://localhost:3000`](http://localhost:3000)). There, you will see that, after logging in, you will appear in the fifth position and that, after 5 seconds, you will jump to the second position.
 
 ![Testing the Socket.IO real-time leaderboard of your React game](https://cdn.auth0.com/blog/aliens-go-home/real-time-leaderboard.png)
