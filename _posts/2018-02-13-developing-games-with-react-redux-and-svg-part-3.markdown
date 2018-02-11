@@ -1084,7 +1084,7 @@ function moveObjects(state, action) {
     gameState: {
       ...newState.gameState,
       flyingObjects,
-      cannonBalls: [...cannonBalls],
+      cannonBalls,
     },
     angle,
   };
@@ -1100,6 +1100,112 @@ Now, with all these changes in place, your players will be able to shoot cannon 
 ![Enabling players to shoot cannon balls in a game created with React, Redux, and SVGs.](https://cdn.auth0.com/blog/aliens-go-home/shooting-cannon-balls.png)
 
 ### Detecting Collisions
+
+Now that your game supports players shooting cannon balls and that there are flying objects trying to invade the Earth, it is a good time to add an algorithm to detect collisions. With this algorithm, you will be able to remove cannon balls and flying objects that collide. This will also enable you to work on the next feature: *Incrementing the Current Score*.
+
+A good strategy to follow when trying to implement the algorithm that checks collisions is to imagine tha cannon balls and flying objects are rectangles. Although this strategy is less precise than implementing an algorithm that considers the real format of these objects, handling them as rectangles will make everything much easier. Besides that, for this game, you won't need too much precision because, fortunately, you won't need this algorithm to kill real aliens.
+
+Having that in mind, add the following function to the `./src/utils/formulas.js` file:
+
+```js
+// ... other functions
+
+export const checkCollision = (rectA, rectB) => (
+  rectA.x1 < rectB.x2 && rectA.x2 > rectB.x1 &&
+  rectA.y1 < rectB.y2 && rectA.y2 > rectB.y1
+);
+```
+
+As you can see, treating objects as rectangles allows you to check for overlaps with these simple conditions. Now, to use this function, create a new file called `checkCollisions.js` inside the `./src/reducers` directory with the following code:
+
+```js
+import { checkCollision } from '../utils/formulas';
+import { gameHeight } from '../utils/constants';
+
+const checkCollisions = (cannonBalls, flyingDiscs) => {
+  const objectsDestroyed = [];
+  flyingDiscs.forEach((flyingDisc) => {
+    const currentLifeTime = (new Date()).getTime() - flyingDisc.createdAt;
+    const calculatedPosition = {
+      x: flyingDisc.position.x,
+      y: flyingDisc.position.y + ((currentLifeTime / 4000) * gameHeight),
+    };
+    const rectA = {
+      x1: calculatedPosition.x - 40,
+      y1: calculatedPosition.y - 10,
+      x2: calculatedPosition.x + 40,
+      y2: calculatedPosition.y + 10,
+    };
+    cannonBalls.forEach((cannonBall) => {
+      const rectB = {
+        x1: cannonBall.position.x - 8,
+        y1: cannonBall.position.y - 8,
+        x2: cannonBall.position.x + 8,
+        y2: cannonBall.position.y + 8,
+      };
+      if (checkCollision(rectA, rectB)) {
+        objectsDestroyed.push({
+          cannonBallId: cannonBall.id,
+          flyingDiscId: flyingDisc.id,
+        });
+      }
+    });
+  });
+  return objectsDestroyed;
+};
+
+export default checkCollisions;
+```
+
+The code in this file basically does the following:
+
+1. It defines an array called `objectsDestroyed` to hold everything that is destroyed.
+2. It iterates over the `flyingDiscs` array (with the `forEach` function) to create a rectangular representation of the flying discs. **Note that**, as you are using CSS animations to move these objects, you need to calculate their positions over the Y-axis based on their `currentLifeTime`.
+3. It iterates over the `cannonBalls` array (with the `forEach` function) to create a rectangular representation of the cannon balls.
+4. It calls the `checkCollision` function with both rectangular representations to decide if these objects must be destroyed. Then, if they must be destroyed, they are added to the `objectsDestroyed` array that this function returns.
+
+Lastly, you will need to update the `moveObjects.js` file to use this function as follows:
+
+```js
+// ... import statements
+
+import checkCollisions from './checkCollisions';
+
+function moveObjects(state, action) {
+  // ... other statements and definitions
+
+  // the only change in the following three lines is that it cannot
+  // be a const anymore, it must be defined with let
+  let flyingObjects = newState.gameState.flyingObjects.filter(object => (
+    (now - object.createdAt) < 4000
+  ));
+
+  // ... { x, y } constants and angle constant
+
+  const objectsDestroyed = checkCollisions(cannonBalls, flyingObjects);
+  const cannonBallsDestroyed = objectsDestroyed.map(object => (object.cannonBallId));
+  const flyingDiscsDestroyed = objectsDestroyed.map(object => (object.flyingDiscId));
+
+  cannonBalls = cannonBalls.filter(cannonBall => (cannonBallsDestroyed.indexOf(cannonBall.id)));
+  flyingObjects = flyingObjects.filter(flyingDisc => (flyingDiscsDestroyed.indexOf(flyingDisc.id)));
+
+  return {
+    ...newState,
+    gameState: {
+      ...newState.gameState,
+      flyingObjects,
+      cannonBalls,
+    },
+    angle,
+  };
+}
+
+export default moveObjects;
+```
+
+Here, you are using the result of the `checkCollisions` function to remove objects from the `cannonBalls` and `flyingObjects` arrays.
+
+Now, when cannon balls and flying objects overlap, the new version of the `moveObjects` reducer will remove them from the `gameState`. You can see this in action in your web browser.
 
 ### Incrementing the Current Score
 
