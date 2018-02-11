@@ -61,14 +61,9 @@ git clone https://github.com/auth0-blog/symfony-blog-part-1
 cd symfony-blog-part-1
 ```
 
-After that, you will have to create a file called `.env` in the project root and paste the following into it:
+After that, you will have a new file created called `.env` in the project root add the following into it:
 
 ```yml
-DATABASE_HOST={DATABASE_HOST}
-DATABASE_PORT={DATABASE_PORT}
-DATABASE_NAME={DATABASE_NAME}
-DATABASE_USER={DATABASE_USER}
-DATABASE_PASSWORD={DATABASE_PASSWORD}
 AUTH0_CLIENT_ID={AUTH0_CLIENT_ID}
 AUTH0_CLIENT_SECRET={AUTH0_CLIENT_SECRET}
 AUTH0_DOMAIN={AUTH0_DOMAIN}
@@ -88,28 +83,33 @@ docker run --name symfony-blog-mysql \
     -d mysql:5.7
 ```
 
+Now that you have a database with some credentials, in your `.env` file, find:
+
+```yaml
+###> doctrine/doctrine-bundle ###
+# Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
+# For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db"
+# Configure your db driver and server_version in config/packages/doctrine.yaml
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+###< doctrine/doctrine-bundle ###
+```
+
+And change the following line: `DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name` to be correct. If you were to use the example details in the creation of the docker database, it would look like:
+
+```yaml
+DATABASE_URL=mysql://symfony-blog-user:mysecretpassword@127.0.0.1:3306/symfony-blog
+```
+
 The last thing you will need to do is to use composer to install the dependencies:
 
 ```bash
 composer install
 ```
 
-This will trigger a series of questions that you can answer as follows:
-
-```bash
-database_host (127.0.0.1): 127.0.0.1
-database_port (null): 3306
-database_name (symfony): symfony-blog
-database_user (root): symfony-blog-user
-database_password (null): mysecretpassword
-```
-
-For the questions related to `mailer_transport` and `secret`, you can simply press `Enter` to accept the default values.
-
 Last thing, if you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
 
 ```bash
-php bin/console doctrine:migrations:migrate
+php bin/console doctrine:schema:update --force
 php bin/console doctrine:fixtures:load
 ```
 
@@ -122,21 +122,20 @@ __NOTE__ If you do not have [Yarn](https://yarnpkg.com), a Javascript package ma
 You can install [Symfony's Webpack Encore](https://github.com/symfony/webpack-encore) by running the following command:
 
 ```bash
-yarn add @symfony/webpack-encore --dev
+composer require webpack-encore
 ```
 
-In the root directory of the project there will be 2 new files (`package.json`, `yarn.lock`) and a new directory (`node_modules`).
+In the root directory of the project there will be 2 new files (`package.json`, `webpack.config.js`) and a new directory (`assets`).
 
-Create `webpack.config.js` in the root of the project, this is just the file that contains all of the web pack configurations.
+Open `webpack.config.js` in the root of the project, this is just the file that contains all of the web pack configurations.
 
-Paste the following code into this file:
+Replace the contents with:
 
 ```JavaScript
-// webpack.config.js
 var Encore = require('@symfony/webpack-encore');
 
 Encore
-    .setOutputPath('web/build/')
+    .setOutputPath('public/build/')
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
     .addEntry('app', './assets/js/main.js')
@@ -148,7 +147,7 @@ Encore
 module.exports = Encore.getWebpackConfig();
 ```
 
-The configuration above uses two assets: `main.js` and `global.scss`. Let's create a new directory called `assets` in the project root, and there we will need to create two subdirectories: `js` and `css`. Inside these subdirectories, let's create the `main.js` and `global.scss` files. We will populate them further in the tutorial. After that, we will have the following substructure:
+The configuration above uses two assets: `main.js` and `global.scss`. So in the directory `assets` in the project root, let's create two subdirectories: `js` and `css`. Inside these subdirectories, let's create the `main.js` and `global.scss` files. We will populate them further in the tutorial. After that, we will have the following substructure:
 
 * `./assets/js/main.js`
 * `./assets/css/global.scss`
