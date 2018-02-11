@@ -844,6 +844,261 @@ So, in the next sections, you will focus on implementing these pieces to wrap up
 
 ### Shooting Cannon Balls
 
+To allow your players to shoot cannon balls, you will add an `onClick` event listener to your `Canvas`. Then, when clicked, your canvas will trigger a Redux action to add a cannon ball to the Redux store (that is, to the state of your game). The movement of this ball will be handled by the `moveObjects` reducer.
+
+To start the implementation of this feature, you can begin by creating the Redux action. To do this, open the `./src/actions/index.js` file and add the following code to it:
+
+```js
+// ... other string constants
+
+export const SHOOT = 'SHOOT';
+
+// ... other function constants
+
+export const shoot = (mousePosition) => ({
+  type: SHOOT,
+  mousePosition,
+});
+```
+
+Then, you can prepare the reducer (`./src/reducers/index.js`) to handle this action:
+
+```js
+import {
+  LEADERBOARD_LOADED, LOGGED_IN,
+  MOVE_OBJECTS, SHOOT, START_GAME
+} from '../actions';
+// ... other import statements
+import shoot from './shoot';
+
+const initialGameState = {
+  // ... other properties
+  cannonBalls: [],
+};
+
+// ... initialState definition
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    // other case statements
+    case SHOOT:
+      return shoot(state, action);
+    // ... default statement
+  }
+}
+```
+
+As you can see, the new version of your reducer uses a function called `shoot` when it receives the `SHOOT` action. You still have to define this function. So, create a file called `shoot.js` in the same directory of the reducer and add the following code to it:
+
+```js
+import { calculateAngle } from '../utils/formulas';
+
+function shoot(state, action) {
+  if (!state.gameState.started) return state;
+
+  const { cannonBalls } = state.gameState;
+
+  if (cannonBalls.length === 2) return state;
+
+  const { x, y } = action.mousePosition;
+
+  const angle = calculateAngle(0, 0, x, y);
+
+  const id = (new Date()).getTime();
+  const cannonBall = {
+    position: { x: 0, y: 0 },
+    angle,
+    id,
+  };
+
+  return {
+    ...state,
+    gameState: {
+      ...state.gameState,
+      cannonBalls: [...cannonBalls, cannonBall],
+    }
+  };
+}
+
+export default shoot;
+```
+
+This function starts by checking if the game is started or not. If it is not, it simply returns the current state. Otherwise, it checks if the game already contains two cannon balls. You are limiting the number of cannon balls to make the game a little bit harder. If the player has shot less than two cannon balls, this function uses `calculateAngle` to define the trajectory of the new cannon ball. Then, in the end, this function creates a new object representing the cannon ball and returns a new state to the Redux store.
+
+After defining this action and the reducer to handle it, you will have to update the `Game` container to provide the action to the `App` component. So, open the `./src/containers/Game.js` file and update it as follows:
+
+```js
+// ... other import statements
+import {
+  leaderboardLoaded, loggedIn,
+  moveObjects, startGame, shoot
+} from '../actions/index';
+
+// ... mapStateToProps
+
+const mapDispatchToProps = dispatch => ({
+  // ... other functions
+  shoot: (mousePosition) => {
+    dispatch(shoot(mousePosition))
+  },
+});
+
+// ... connect and export
+```
+
+Now, you need to update the `./src/App.js` file to make use of the dispatch wrapper:
+
+```js
+// ... import statements and Auth0.configure
+
+class App extends Component {
+  constructor(props) {
+    // ... super and other bindings
+    this.shoot = this.shoot.bind(this);
+  }
+
+  // ... componentDidMount and trackMouse definition
+
+  shoot() {
+    this.props.shoot(this.canvasMousePosition);
+  }
+
+  render() {
+    return (
+      <Canvas
+        // other props
+        shoot={this.shoot}
+      />
+    );
+  }
+}
+
+App.propTypes = {
+  // ... other propTypes
+  shoot: PropTypes.func.isRequired,
+};
+
+// ... defaultProps and export statements
+```
+
+As you can see here, you are defining a new method in the `App` class to call the `shoot` dispatcher with the `canvasMousePosition`. Then, you are passing this new method to the `Canvas` component. So, you still need to enhance this component to attach this method to the `onClick` event listener of the `svg` element and to make it render the cannon balls:
+
+```js
+// ... other import statements
+import CannonBall from './CannonBall';
+
+const Canvas = (props) => {
+  // ... gameHeight and viewBox constant
+
+  return (
+    <svg
+      // ... other properties
+      onClick={props.shoot}
+    >
+      // ... defs, Sky and Ground elements
+
+      {props.gameState.cannonBalls.map(cannonBall => (
+        <CannonBall
+          key={cannonBall.id}
+          position={cannonBall.position}
+        />
+      ))}
+
+      // ... CannonPipe, CannonBase, CurrentScore, etc
+    </svg>
+  );
+};
+
+Canvas.propTypes = {
+  // ... other props
+  shoot: PropTypes.func.isRequired,
+};
+
+// ... defaultProps and export statement
+```
+
+> **Note:** It is important to add `cannonBalls.map` *before* `CannonPipe` because, otherwise, cannon balls would overlap the cannon itself.
+
+These changes are enough to make your game add cannon balls to their initial position (`x: 0`, `y: 0`) and with their trajectory (`angle`) properly defined. The problem now is that these objects are inanimate (that is, they don't move).
+
+To make them move, you will need to add two functions to the `./src/utils/formulas.js` file:
+
+```js
+// ... other functions
+
+const degreesToRadian = degrees => ((degrees * Math.PI) / 180);
+
+export const calculateNextPosition = (x, y, angle, divisor = 300) => {
+  const realAngle = (angle * -1) + 90;
+  const stepsX = radiansToDegrees(Math.cos(degreesToRadian(realAngle))) / divisor;
+  const stepsY = radiansToDegrees(Math.sin(degreesToRadian(realAngle))) / divisor;
+  return {
+    x: x +stepsX,
+    y: y - stepsY,
+  }
+};
+```
+
+> **Note:** To learn how the formula above works, [take a look here](https://answers.unity.com/questions/491719/how-to-calculate-a-new-position-having-angle-and-d.html).
+
+You will use the `calculateNextPosition` function in a new file called `moveCannonBalls.js`. So, create this file inside the `./src/reducers/` directory with the following code:
+
+```js
+import { calculateNextPosition } from '../utils/formulas';
+
+const moveBalls = cannonBalls => (
+  cannonBalls
+    .filter(cannonBall => (
+      cannonBall.position.y > -800 && cannonBall.position.x > -500 && cannonBall.position.x < 500
+    ))
+    .map((cannonBall) => {
+      const { x, y } = cannonBall.position;
+      const { angle } = cannonBall;
+      return {
+        ...cannonBall,
+        position: calculateNextPosition(x, y, angle, 5),
+      };
+    })
+);
+
+export default moveBalls;
+```
+
+In the function exposed by this file, you are doing two important things. First, you are using the `filter` function to remove `cannonBalls` that are not within an specific area. That is, you are removing cannon balls that are above `-800` on the Y-axis, or that moved too much to the left (lower than `-500`) or to the right (greater than `500`).
+
+Lastly, to use this function, you will need to refactor the `./src/reducers/moveObjects.js` file as follows:
+
+```js
+// ... other import statements
+import moveBalls from './moveCannonBalls';
+
+function moveObjects(state, action) {
+  if (!state.gameState.started) return state;
+
+  let cannonBalls = moveBalls(state.gameState.cannonBalls);
+
+  // ... mousePosition, createFlyingObjects, filter, etc
+
+  return {
+    ...newState,
+    gameState: {
+      ...newState.gameState,
+      flyingObjects,
+      cannonBalls: [...cannonBalls],
+    },
+    angle,
+  };
+}
+
+export default moveObjects;
+```
+
+In the new version of this file, you are simply enhancing the previously `moveObjects` reducer to make use of the new `moveBalls` function. Then, you are using the result of this function to define a new array to the `cannonBalls` property of the `gameState`.
+
+Now, with all these changes in place, your players will be able to shoot cannon balls. You can check that by testing your game in a web browser.
+
+![Enabling players to shoot cannon balls in a game created with React, Redux, and SVGs.](https://cdn.auth0.com/blog/aliens-go-home/shooting-cannon-balls.png)
+
 ### Detecting Collisions
 
 ### Incrementing the Current Score
