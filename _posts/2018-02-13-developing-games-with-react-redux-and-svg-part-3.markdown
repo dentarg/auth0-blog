@@ -830,3 +830,22 @@ npm start
 Then, open your game on your browser ([`http://localhost:3000`](http://localhost:3000)). There, you will see that, after logging in, you will appear in the fifth position and that, after 5 seconds, you will jump to the second position.
 
 ![Testing the Socket.IO real-time leaderboard of your React game](https://cdn.auth0.com/blog/aliens-go-home/real-time-leaderboard.png)
+
+## Implementing the Missing Parts
+
+Now, you have almost everything you need to finish your game. You have created all the React elements that your game needs, you have added most of the animations it will have, and you have implemented the leaderboard feature. The pieces that are missing in this puzzle are:
+
+- *Shooting Cannon Balls*: To kill aliens, you must allow your players to shoot cannon balls.
+- *Detecting Collisions*: As your game will have cannon balls and flying objects moving around, you must implement an algorithm to detect collisions between these object.
+- *Incrementing the Current Score*: After allowing your players to kill flying objects, your game must increment their current score so they can achieve new max scores.
+- *Updating the Leaderboard*: With all the features above implemented, the last thing you will have to do is to update the leaderboard with new max scores.
+
+So, in the next sections, you will focus on implementing these pieces to wrap up your game.
+
+### Shooting Cannon Balls
+
+### Detecting Collisions
+
+### Incrementing the Current Score
+
+### Updating the Leaderboard
