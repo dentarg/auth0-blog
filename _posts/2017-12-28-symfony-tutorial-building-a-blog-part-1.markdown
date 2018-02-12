@@ -1198,7 +1198,7 @@ $author->setUsername($this->getUser()->getUserName());
 $form = $this->createForm(AuthorFormType::class, $author);
 $form->handleRequest($request);
 
-if ($form->isValid()) {
+if ($form->isSubmitted() && $form->isValid()) {
     $this->entityManager->persist($author);
     $this->entityManager->flush($author);
 

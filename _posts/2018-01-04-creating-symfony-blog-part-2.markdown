@@ -421,7 +421,7 @@ public function createEntryAction(Request $request)
     $form->handleRequest($request);
 
     // Check is valid
-    if ($form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
         $this->entityManager->persist($blogPost);
         $this->entityManager->flush($blogPost);
 
@@ -714,6 +714,7 @@ public function getAllPosts($page = 1, $limit = 5)
     $queryBuilder
         ->select('bp')
         ->from('App:BlogPost', 'bp')
+        ->orderBy('bp.id', 'DESC')
         ->setFirstResult($limit * ($page - 1))
         ->setMaxResults($limit);
 
