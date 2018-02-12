@@ -837,7 +837,7 @@ Now, you have almost everything you need to finish your game. You have created a
 
 - *Shooting Cannon Balls*: To kill aliens, you must allow your players to shoot cannon balls.
 - *Detecting Collisions*: As your game will have cannon balls and flying objects moving around, you must implement an algorithm to detect collisions between these object.
-- *Incrementing the Current Score*: After allowing your players to kill flying objects, your game must increment their current score so they can achieve new max scores.
+- *Updating Lives and the Current Score*: After allowing your players to kill flying objects, your game must increment their current score so they can achieve new max scores. Also, you need to decrement lives when flying objects invade the Earth.
 - *Updating the Leaderboard*: With all the features above implemented, the last thing you will have to do is to update the leaderboard with new max scores.
 
 So, in the next sections, you will focus on implementing these pieces to wrap up your game.
@@ -1207,6 +1207,113 @@ Here, you are using the result of the `checkCollisions` function to remove objec
 
 Now, when cannon balls and flying objects overlap, the new version of the `moveObjects` reducer will remove them from the `gameState`. You can see this in action in your web browser.
 
-### Incrementing the Current Score
+### Updating Lives and the Current Score
+
+Whenever a flying object invades the Earth, you must decrement the number of lives players have. Also, you must end the game when they have no more lives. To implement these features, you will need to update only two files. The first one is the `./src/reducers/moveObject.js` file. You will need to update it as follows:
+
+```js
+import { calculateAngle } from '../utils/formulas';
+import createFlyingObjects from './createFlyingObjects';
+import moveBalls from './moveCannonBalls';
+import checkCollisions from './checkCollisions';
+
+function moveObjects(state, action) {
+  // ... code until newState.gameState.flyingObjects.filter
+
+  const lostLife = state.gameState.flyingObjects.length > flyingObjects.length;
+  let lives = state.gameState.lives;
+  if (lostLife) {
+    lives--;
+  }
+
+  const started = lives > 0;
+  if (!started) {
+    flyingObjects = [];
+    cannonBalls = [];
+    lives = 3;
+  }
+
+  // ... x, y, angle, objectsDestroyed, etc ...
+
+  return {
+    ...newState,
+    gameState: {
+      ...newState.gameState,
+      flyingObjects,
+      cannonBalls: [...cannonBalls],
+      lives,
+      started,
+    },
+    angle,
+  };
+}
+
+export default moveObjects;
+```
+
+These new lines of code simply compare the current length of the `flyingObjects` array with the one from the original `state` to decide if player must loose a life or not. This strategy works because you are adding this code right after popping flying objects that remained for 4 seconds in the game (`(now - object.createdAt) < 4000`) and before removing objects that collide. So, if the length of these arrays differs, it means one flying object invaded the Earth.
+
+Now, to show players their lives, you will need to update the `Canvas` component. So, open the `./src/components/Canvas.jsx` file and update it as follows:
+
+```js
+// ... other import statements
+import Heart from './Heart';
+
+const Canvas = (props) => {
+  // ... gameHeight and viewBox constants
+
+  const lives = [];
+  for (let i = 0; i < props.gameState.lives; i++) {
+    const heartPosition = {
+      x: -180 - (i * 70),
+      y: 35
+    };
+    lives.push(<Heart position={heartPosition}/>);
+  }
+
+  return (
+    <svg ...>
+      // ... all other elements
+
+      {lives}
+    </svg>
+  );
+};
+
+// ... propTypes, defaultProps, and export statements
+```
+
+With these changes in place, your game is almost complete. Players are already able to shoot and kill flying objects and, if too many of them invade the Earth, the game is ended. Now, to complete this section, you need to update the current score of your players, so they can compete to see who kills more aliens.
+
+Making this enhancement in your game is quite simple. You just have to update the `./src/reducers/moveObjects.js` file as follows:
+
+```js
+// ... import statements
+
+function moveObjects(state, action) {
+  // ... everything else
+
+  const kills = state.gameState.kills + flyingDiscsDestroyed.length;
+
+  return {
+    // ...newState,
+    gameState: {
+      // ... other props
+      kills,
+    },
+    // ... angle,
+  };
+}
+
+export default moveObjects;
+```
+
+Then, on the `./src/components.Canvas.jsx` file, you will need to replace the `CurrentScore` component (which is hard-coded with the value of `15`) with this:
+
+```js
+<CurrentScore score={props.gameState.kills} />
+```
 
 ### Updating the Leaderboard
+
+## Conclusion
