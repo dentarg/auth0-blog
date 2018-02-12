@@ -865,27 +865,7 @@ Then include the file into the `./templates/base.html.twig` just below the `<bod
 
 ### Showing Specific Blog Post
 
-On the `entryAction` of the `BlogController` class, let's add a service name to the action. Where it shows `* @Route("/entry/{slug}")` let's replace it by `* @Route("/entry/{slug}", name="entry")`.
-
-Let's retrieve the blog post from the database by the given slug at the top of the method:
-
-```php
-$blogPost = $this->blogPostRepository->findOneBySlug($slug);
-```
-
-We need to3 make sure the blog post exists before passing data into and displaying the template. So let's now do a check:
-
-```php
-if (!$blogPost) {
-    $this->addFlash('error', 'Unable to find entry!');
-
-    return $this->redirectToRoute('entries');
-}
-```
-
-This will set a "flash" session with an error message and redirect the user to the entries page to display the error.
-
-Next, in the return's 2nd argument (the array), put in an entry (`'blogPost' => $blogPost`). Your final action will look like:
+In the `BlogController` class, create a new action to display the details of a specific blog post. Paste the following code into your controller:
 
 ```php
 /**
@@ -907,21 +887,32 @@ public function entryAction($slug)
 }
 ```
 
-Now, we need to output this data in the template. So open `./src/AppBundle/Resources/views/Blog/entry.html.twig` and, within `{% raw %}{% block body %}{% endraw %}`, we need to add some content:
+In this action, you may have noticed that it checks if the blog post exists, if it doesn't it will set a "flash" session with an error message and redirect the user to the entries page to display the error.
+
+Now, we need to output this data in the template. So create `./templates/Blog/entry.html.twig` and paste the following content:
 
 {% highlight html %}
 {% raw %}
+{% extends "base.html.twig" %}
+
+{% block title %}App:Blog:entry{% endblock %}
+
+{% block body %}
 <div class="container">
  <div class="blog-header">
      <h1 class="blog-title">Blog tutorial</h1>
-     <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, and secured by <a href="http://auth0.com">Auth0</a>.</p>
+     <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by Auth0.</p>
  </div>
 
  <div class="row">
      <div class="col-sm-8 blog-main">
          <div class="blog-post">
              <h2 class="blog-post-title">{{ blogPost.title }}</h2>
-             <p class="blog-post-meta">{{ blogPost.updatedAt|date('F j, Y') }} by {{ blogPost.author.name }}</p>
+             <p class="blog-post-meta">
+                {{ blogPost.updatedAt|date('F j, Y') }} by <a href="{{ path('author', {'name': blogPost.author.username|url_encode }) }}">
+                    {{ blogPost.author.name }}
+                </a>
+            </p>
              <h3>Description:</h3>
              <p>{{ blogPost.description|raw }}</p>
 
@@ -931,6 +922,7 @@ Now, we need to output this data in the template. So open `./src/AppBundle/Resou
      </div>
  </div>
 </div>
+{% endblock %}
 {% endraw %}
 {% endhighlight %}
 
