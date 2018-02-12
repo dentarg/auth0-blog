@@ -881,7 +881,7 @@ public function entryAction($slug)
        return $this->redirectToRoute('entries');
    }
 
-   return $this->render('AppBundle:Blog:entry.html.twig', array(
+   return $this->render('Blog:entry.html.twig', array(
        'blogPost' => $blogPost
    ));
 }
@@ -974,7 +974,7 @@ Create the template `./templates/Blog/author.html.twig`, we won't be doing anyth
 {% raw %}
 {% extends "base.html.twig" %}
 
-{% block title %}AppBundle:Blog:author{% endblock %}
+{% block title %}App:Blog:author{% endblock %}
 
 {% block body %}
 <div class="container">
