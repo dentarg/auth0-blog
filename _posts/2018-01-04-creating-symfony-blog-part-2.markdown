@@ -946,30 +946,33 @@ Now refresh your browser. You'll see the title has changed to a link, and there 
 
 ### Showing Author Details
 
-Want to see more details about the author of the post? Let's go to the `authorAction` in your controller. We're going to be doing something very similar to retrieving the single entry.
+Want to see more details about the author of the post? Let's create an `authorAction` in your `BlogController`. We're going to be doing something very similar to retrieving the single entry.
 We'll be getting the name passed in via the URL, finding the author by name in the database. And then passing that data into the author template, as shown below:
 
 ```php
-$author = $this->authorRepository->findOneByUsername($name);
+/**
+ * @Route("/author/{name}", name="author")
+ */
+public function authorAction($name)
+{
+    $author = $this->authorRepository->findOneByUsername($name);
 
-if (!$author) {
-    $this->addFlash('error', 'Unable to find author!');
+    if (!$author) {
+        $this->addFlash('error', 'Unable to find author!');
+        return $this->redirectToRoute('entries');
+    }
 
-    return $this->redirectToRoute('entries');
+    return $this->render('Blog/author.html.twig', [
+        'author' => $author
+    ]);
 }
-
-return $this->render('AppBundle:Blog:author.html.twig', [
-    'author' => $author
-]);
 ```
 
-At the top of the method in the annotations we also want to add the service name so: `* @Route("/author/{name}")` will become: `* @Route("/author/{name}", name="author")`
-
-With the template `./src/AppBundle/Resources/views/Blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
+Create the template `./templates/Blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
 
 {% highlight html %}
 {% raw %}
-{% extends "::base.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block title %}AppBundle:Blog:author{% endblock %}
 
@@ -1008,11 +1011,10 @@ With the template `./src/AppBundle/Resources/views/Blog/author.html.twig`, we wo
     </div>
 </div>
 {% endblock %}
-
 {% endraw %}
 {% endhighlight %}
 
-We now need to have that author page linkable for people to access it. In: `./src/AppBundle/Resources/views/Blog/entries.html.twig` you will find:
+We now need to have that author page linkable for people to access it. In: `./templates/Blog/entries.html.twig` you will find:
 
 {% highlight html %}
 {% raw %}
@@ -1031,26 +1033,6 @@ Let's make this a link as shown below:
         {{ blogPost.author.name }}
     </a>
 {% else %}
-{% endraw %}
-{% endhighlight %}
-
-And in `./src/AppBundle/Resources/views/Blog/entry.html.twig` you will find:
-
-{% highlight html %}
-{% raw %}
-<p class="blog-post-meta">{{ blogPost.updatedAt|date('F j, Y') }} by {{ blogPost.author.name }}</p>
-{% endraw %}
-{% endhighlight %}
-
-Let's replace it with the following:
-
-{% highlight html %}
-{% raw %}
-<p class="blog-post-meta">
-    {{ blogPost.updatedAt|date('F j, Y') }} by <a href="{{ path('author', {'name': blogPost.author.username|url_encode }) }}">
-        {{ blogPost.author.name }}
-    </a>
-</p>
 {% endraw %}
 {% endhighlight %}
 
