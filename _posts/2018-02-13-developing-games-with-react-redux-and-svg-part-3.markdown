@@ -53,7 +53,7 @@ Killing aliens and seeing the current score increase is cool, but you probably c
 
 With these features, you can say that you have a complete game. So, without wasting more time, it's time to focus on them.
 
-> **Note:** If, for whatever reason, you don't have the code created in [the first two parts of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/), you can simply clone it from [this GitHub repository](https://github.com/auth0-blog/aliens-go-home-part-2). After cloning it, you will be able to follow the instructions in the sections that follow.
+> **Note:** If (for whatever reason) you don't have the code created in [the first two parts of the series](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/), you can simply clone it from [this GitHub repository](https://github.com/auth0-blog/aliens-go-home-part-2). After cloning it, you will be able to follow the instructions in the sections that follow.
 
 ## Implementing the Leaderboard Feature in Your React Game
 
@@ -63,15 +63,15 @@ The first thing you will do to make your game look like a real game is to implem
 
 To make Auth0 manage the identity of your players, you have to have an Auth0 account. If you don't have one yet, you can <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">**sign up for a free Auth0 account** here</a>.
 
-After creating your account, you just have to create an [Auth0 Client](https://auth0.com/docs/clients) to represent your game. To do this, head to [the Clients page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. The dashboard will show you a form where you will have to inform the *name* of your client and its *type*. You can type *Aliens, Go Home!* as the name and choose the *Single Page Web Application* type (your game is a SPA based on React after all). Then, you can click on *Create*.
+After creating your account, you just have to create an [Auth0 Client](https://auth0.com/docs/clients) to represent your game. To do this, head to [the Clients page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. The dashboard will show you a form where you will have to inform the *name* of your client and its *type*. You can type *Aliens, Go Home!* as the name and choose the *Single Page Web Application* type (your game is an SPA based on React after all). Then, you can click on *Create*.
 
 ![Creating the Auth0 Client to represent your React game.](https://cdn.auth0.com/blog/aliens-go-home/creating-the-auth0-client-for-your-react-game.png)
 
 When you click this button, the dashboard will redirect you to the *Quick Start* tab of your new client. As you will learn how to integrate React and Auth0 in this article, you won't need to use this tab. Instead, you will need to use the *Settings* tab, so head to it.
 
-There are three things that you will need to do in this tab. The first one is to add the `http://localhost:3000` value to the field called *Allowed Callback URLs*. As the dashboard explains, *after the player authenticates, Auth0 will only call back one of the URLs on this field*. So, if you are going to publish your game on the web, be sure to add its public URL there as well (e.g. `http://aliens-go-home.digituz.com.br`).
+There are three things that you will need to do in this tab. The first one is to add the `http://localhost:3000` value to the field called *Allowed Callback URLs*. As the dashboard explains, *after the player authenticates, Auth0 will only call back one of the URLs in this field*. So, if you are going to publish your game on the web, be sure to add its public URL there as well (e.g. `http://aliens-go-home.digituz.com.br`).
 
-After inputing all your URLs on this field, hit the *Save* button or press `ctrl` + `s` (if you are using a MacBook, you will need to press `command` + `s` instead).
+After inputting all your URLs on this field, hit the *Save* button or press `ctrl` + `s` (if you are using a MacBook, you will need to press `command` + `s` instead).
 
 The last two things you will need to do is to copy the values from the *Domain* and *Client ID* fields. However, before using these values, you will need to code a little.
 
@@ -344,9 +344,9 @@ Don't be scared! The code of this component is quite simple:
 
 1. You are defining the `leaderboardTitle` constant to set how the leaderboard title will look like.
 2. You are defining the `dashedRectangle` constant to style a `rect` element that will work as the container of the leaderboard.
-3. You are calling the `sort` function of the `props.leaderboard` variable to order the ranking. After that, your leaderboard will have the highest max score on top and the lowest max score on bottom. Also, if there is a tie between two players, you are ordering them based on their names.
+3. You are calling the `sort` function of the `props.leaderboard` variable to order the ranking. After that, your leaderboard will have the highest max score on the top and the lowest max score on the bottom. Also, if there is a tie between two players, you are ordering them based on their names.
 4. You are calling the `map` function on the result of the previous step (the `sort` function) to complement players with their `rank` and with a flag called `currentPlayer`. You will use this flag to highlight the row where the current player appears.
-5. You are using the `filter` function on the result of the previous step (the `map` function) to remove everyone who are not among the top three players. Actually, you are letting the current player stay on the final array if they don't belong to this select group.
+5. You are using the `filter` function on the result of the previous step (the `map` function) to remove everyone who is not among the top three players. Actually, you are letting the current player stay on the final array if they don't belong to this select group.
 6. Lastly, you are simply iterating over the filtered array to show `Rank` elements if there is a player logged in (`props.currentPlayer && leaderboard.map`) or showing the `Login` button otherwise.
 
 Then, the last thing you will need to do is to create the `Rank` React component. To do this, create a new file called `Rank.jsx` beside the `Leaderboard.jsx` file with the following code:
@@ -538,10 +538,10 @@ Now, to understand how this thing works, check out this list:
 
 - `express` and `socket.io`: This is simply an [Express](https://expressjs.com/) server enhanced with Socket.IO to make it real-time. If you haven't used Socket.IO before, checkout their *Get Started* tutorial. It's really simple.
 - `jwt` and `jwksClient`: When authenticating with Auth0, your players will get (among other things) an `access_token` in the form of a JWT (JSON Web Token). Since you are using the *RS256* signing algorithm, you need to use the `jwksClient` package to fetch the correct public key to validate JWTs. The JWTs that you receive contain a `kid` property (Key ID) that you can use to get the correct public key (if curious, [you can learn more about JWKS here](https://auth0.com/docs/jwks)).
-- `jwt.verify`: After finding the correct key, you use this function to decode and validate JWTs. If they are fine, you just send the `players` list to whomever is requesting. If they are not valid, you just `disconnect` the `socket` (client).
+- `jwt.verify`: After finding the correct key, you use this function to decode and validate JWTs. If they are fine, you just send the `players` list to whoever is requesting. If they are not valid, you just `disconnect` the `socket` (client).
 - `on('new-max-score', ...)`: Lastly, you are attaching the `newMaxScoreHandler` function to the `new-max-score` event. As such, whenever you need to update the max score of a user, you will need to emit this event from your React app.
 
-The rest of the code is pretty intuitive. Therefore, you can focus on integrating this service in your game.
+The rest of the code is pretty intuitive. Therefore, you can focus on integrating this service into your game.
 
 ## Socket.IO and React
 
@@ -753,7 +753,7 @@ As you can see in the code above, what you had to:
 3. connect to your real-time service (`io('http://localhost:3001', ...)`) with the player's `access_token` (`Auth0.getAccessToken()`);
 4. and listen to the `players` event emitted by your real-time service to update the Redux store (`this.props.leaderboardLoaded(...)`);
 
-Then, as your game is not complete and your players cannot kill aliens yet, you added some temporary code to simulate `new-max-score` events. First, you emitted a new `maxScore` of `120`, which puts the logged in player in the fifth position. Then, after five seconds (`setTimeout(..., 5000)`), you emitted a new action with a new `maxScore` of `222`, putting the logged in player in the second position.
+Then, as your game is not complete and your players cannot kill aliens yet, you added some temporary code to simulate `new-max-score` events. First, you emitted a new `maxScore` of `120`, which puts the logged-in player in the fifth position. Then, after five seconds (`setTimeout(..., 5000)`), you emitted a new action with a new `maxScore` of `222`, putting the logged-in player in the second position.
 
 Besides these changes, you passed two new properties to your `Canvas`: `currentPlayer` and `players`. Therefore, you need to open the `./src/components/Canvas.jsx` file and update it:
 
@@ -827,7 +827,7 @@ cd ..
 npm start
 ```
 
-Then, open your game on your browser ([`http://localhost:3000`](http://localhost:3000)). There, you will see that, after logging in, you will appear in the fifth position and that, after 5 seconds, you will jump to the second position.
+Then, open your game in your browser ([`http://localhost:3000`](http://localhost:3000)). There, you will see that, after logging in, you will appear in the fifth position and that, after 5 seconds, you will jump to the second position.
 
 ![Testing the Socket.IO real-time leaderboard of your React game](https://cdn.auth0.com/blog/aliens-go-home/real-time-leaderboard.png)
 
@@ -1064,7 +1064,7 @@ const moveBalls = cannonBalls => (
 export default moveBalls;
 ```
 
-In the function exposed by this file, you are doing two important things. First, you are using the `filter` function to remove `cannonBalls` that are not within an specific area. That is, you are removing cannon balls that are above `-800` on the Y-axis, or that moved too much to the left (lower than `-500`) or to the right (greater than `500`).
+In the function exposed by this file, you are doing two important things. First, you are using the `filter` function to remove `cannonBalls` that are not within a specific area. That is, you are removing cannon balls that are above `-800` on the Y-axis, or that moved too much to the left (lower than `-500`) or to the right (greater than `500`).
 
 Lastly, to use this function, you will need to refactor the `./src/reducers/moveObjects.js` file as follows:
 
@@ -1103,7 +1103,7 @@ Now, with all these changes in place, your players will be able to shoot cannon 
 
 Now that your game supports players shooting cannon balls and that there are flying objects trying to invade the Earth, it is a good time to add an algorithm to detect collisions. With this algorithm, you will be able to remove cannon balls and flying objects that collide. This will also enable you to work on the next feature: *Incrementing the Current Score*.
 
-A good strategy to follow when trying to implement the algorithm that checks collisions is to imagine tha cannon balls and flying objects are rectangles. Although this strategy is less precise than implementing an algorithm that considers the real format of these objects, handling them as rectangles will make everything much easier. Besides that, for this game, you won't need too much precision because, fortunately, you won't need this algorithm to kill real aliens.
+A good strategy to follow when trying to implement the algorithm that checks collisions is to imagine the cannon balls and flying objects are rectangles. Although this strategy is less precise than implementing an algorithm that considers the real format of these objects, handling them as rectangles will make everything much easier. Besides that, for this game, you won't need too much precision because, fortunately, you won't need this algorithm to kill real aliens.
 
 Having that in mind, add the following function to the `./src/utils/formulas.js` file:
 
@@ -1251,7 +1251,7 @@ function moveObjects(state, action) {
 export default moveObjects;
 ```
 
-These new lines of code simply compare the current length of the `flyingObjects` array with the one from the original `state` to decide if player must loose a life or not. This strategy works because you are adding this code right after popping flying objects that remained for 4 seconds in the game (`(now - object.createdAt) < 4000`) and before removing objects that collide. So, if the length of these arrays differs, it means one flying object invaded the Earth.
+These new lines of code simply compare the current length of the `flyingObjects` array with the one from the original `state` to decide if players must loose a life or not. This strategy works because you are adding this code right after popping flying objects that remained for 4 seconds in the game (`(now - object.createdAt) < 4000`) and before removing objects that collide. So, if the length of these arrays differs, it means one flying object invaded the Earth.
 
 Now, to show players their lives, you will need to update the `Canvas` component. So, open the `./src/components/Canvas.jsx` file and update it as follows:
 
@@ -1403,7 +1403,7 @@ class App extends Component {
 To summarize, these are the changes that you applied in this component:
 
 - You defined two new properties on its class (`socket` and `currentPlayer`) so you can use them on different methods.
-- You removed the fake max scores that your were emitting to simulate `new-max-score` events.
+- You removed the fake max scores that you were emitting to simulate `new-max-score` events.
 - You made your code iterate over the `players` array (the one received from the Socket.IO backend) to set the correct `maxScore` of your players. That is, if they come back another time, they will still have their `maxScore` record.
 - You defined the `componentWillReceiveProps` lifecycle method to check if players have reached a new `maxScore`. If so, your game emits a `new-max-score` event to update the leaderboard.
 
