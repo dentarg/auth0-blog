@@ -1422,3 +1422,7 @@ Then, open two browsers, authenticate with different email addresses, and kill s
 ![Aliens, Go Home! game completed.](https://cdn.auth0.com/blog/aliens-go-home/complete.png)
 
 ## Conclusion
+
+In this series, you used a lot of amazing technologies to create a nice game. You used React to define and control the game elements, you used SVG (instead of HTML) to render these elements, you used Redux to control the state of the game, and you used CSS animations to make aliens move through the screen. Oh, besides that, you even used a little bit of Socket.IO to make your leaderboard real-time and Auth0 to work as the identity management system of your game.
+
+Phew! You came a long way and you learned a lot in this three articles. Perhaps it is time to take a break and play your game.
