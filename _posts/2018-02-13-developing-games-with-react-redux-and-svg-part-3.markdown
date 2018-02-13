@@ -1316,4 +1316,109 @@ Then, on the `./src/components.Canvas.jsx` file, you will need to replace the `C
 
 ### Updating the Leaderboard
 
+Good news! Updating the leaderboard is the last thing you will have to do to be able to say that you wrote a complete game with React, Redux, SVG, and CSS animations. Also, as you will see, the work here will be quick and painless.
+
+First, you will need to update the `./server/index.js` file to reset the `players` array. You won't want your game with fake players and fake results when you release it. So, open this file and remove all fake players/results. In the end, you will have this constant defined as follows:
+
+```js
+const players = [];
+```
+
+Then, you will need to refactor the `App` component. So, open the `./src/App.js` file and make the following changes:
+
+```js
+// ... import statetments
+
+// ... Auth0.configure
+
+class App extends Component {
+  constructor(props) {
+    // ... super and other bindings
+    this.socket = null;
+    this.currentPlayer = null;
+  }
+
+  // replace the whole content of the componentDidMount method
+  componentDidMount() {
+    const self = this;
+
+    Auth0.handleAuthCallback();
+
+    Auth0.subscribe((auth) => {
+      if (!auth) return;
+
+      self.playerProfile = Auth0.getProfile();
+      self.currentPlayer = {
+        id: self.playerProfile.sub,
+        maxScore: 0,
+        name: self.playerProfile.name,
+        picture: self.playerProfile.picture,
+      };
+
+      this.props.loggedIn(self.currentPlayer);
+
+      self.socket = io('http://localhost:3001', {
+        query: `token=${Auth0.getAccessToken()}`,
+      });
+
+      self.socket.on('players', (players) => {
+        this.props.leaderboardLoaded(players);
+        players.forEach((player) => {
+          if (player.id === self.currentPlayer.id) {
+            self.currentPlayer.maxScore = player.maxScore;
+          }
+        });
+      });
+    });
+
+    setInterval(() => {
+      self.props.moveObjects(self.canvasMousePosition);
+    }, 10);
+
+    window.onresize = () => {
+      const cnv = document.getElementById('aliens-go-home-canvas');
+      cnv.style.width = `${window.innerWidth}px`;
+      cnv.style.height = `${window.innerHeight}px`;
+    };
+    window.onresize();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.gameState.started && this.props.gameState.started) {
+      if (this.currentPlayer.maxScore < this.props.gameState.kills) {
+        this.socket.emit('new-max-score', {
+          ...this.currentPlayer,
+          maxScore: this.props.gameState.kills,
+        });
+      }
+    }
+  }
+
+  // ... trackMouse, shoot, and render method
+}
+
+// ... propTypes, defaultProps, and export statement
+```
+
+To summarize, these are the changes that you applied in this component:
+
+- You defined two new properties on its class (`socket` and `currentPlayer`) so you can use them on different methods.
+- You removed the fake max scores that your were emitting to simulate `new-max-score` events.
+- You made your code iterate over the `players` array (the one received from the Socket.IO backend) to set the correct `maxScore` of your players. That is, if they come back another time, they will still have their `maxScore` record.
+- You defined the `componentWillReceiveProps` lifecycle method to check if players have reached a new `maxScore`. If so, your game emits a `new-max-score` event to update the leaderboard.
+
+That's it! Your game is ready for prime time. To see everything in action, run both the Socket.IO backend and your React application with the following code:
+
+```bash
+# run the backend server in the background
+node ./server/index &
+
+# run the React app
+npm start
+```
+
+Then, open two browsers, authenticate with different email addresses, and kill some aliens. You will see that, when the game is over, the leaderboard will be updated in both browsers.
+
+![Aliens, Go Home! game completed.](https://cdn.auth0.com/blog/aliens-go-home/complete.png)
+
 ## Conclusion
