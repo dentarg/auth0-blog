@@ -210,6 +210,8 @@ After you finish the sign in process, Auth0 will redirect you to your game again
 
 ![Showing the login button on your React and Redux game](https://cdn.auth0.com/blog/aliens-go-home/showing-the-login-button-in-your-react-game.png)
 
+{% include tweet_quote.html quote_text="Securing games with Auth0 is simple and painless." %}
+
 ## Creating the Leaderboard React Component
 
 Now that you have configured Auth0 as your identity management system, you will need to create the components that will show the leaderboard and the max score for the current player. For that, you will create two components: `Leaderboard` and `Rank`. You will need to split this feature into two components because, as you will see, it's not that simple to show player's data (like max score, name, position, and picture) in a nice way. It's not hard either, but you will have to type some good amount of code. So, adding everything into one component would make it look clumsy.
@@ -1313,6 +1315,8 @@ Then, on the `./src/components.Canvas.jsx` file, you will need to replace the `C
 ```js
 <CurrentScore score={props.gameState.kills} />
 ```
+
+{% include tweet_quote.html quote_text="I'm creating a game with React, Redux, SVG, and CSS animations." %}
 
 ### Updating the Leaderboard
 
