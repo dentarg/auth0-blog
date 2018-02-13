@@ -2,7 +2,7 @@
 layout: post
 title: "3 IAM Examples to Support Digital Transformation"
 description: "From basic website authentication, to implementing an OpenID Connect server, and API authentication:  This article covers 3 IAM examples to support your Digital Transformation."
-date: 2018-02-08 08:30
+date: 2018-02-09 08:30
 category: Authentication
 author:
   name: "Robin Percy"
@@ -13,19 +13,23 @@ design:
   bg_color: "#FFFFFF"
   image: https://cdn.auth0.com/blog/image.jpg
 tags:
-- tag1
-- tag2
+- Authentication
+- Authorisation
+- Oauth
+- OpenID-Connect
+- Digital-Transformation
 related:
- - 2017-08-23-an-introduction-to-crystal-lang
+ - 2017-08-04-how-identity-management-helps-you-personalize-your-user-experience
+ - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
 ---
 
 **TL;DR:** We recently [hosted a webinar](https://auth0-1.wistia.com/medias/i6q0xhz4o9) that covered modern identity management and what it takes to implement both Authentication and Authorisation to support your Digital Transformation.  In this article, we'll cover these implementations ranging from basic authentication, to an OpenID Connect server, and API authentication.
 
 
-{% include tweet_quote.html quote_text="quotable tweet text.." %}
-
 ## Introduction
 Identity and Access Management (IAM) is the security and process that allows the correct users to access the correct content, at the correct times.  Cloud-based IAM providers, such as _Auth0_, have created simpler and more intuitive ways of managing user access, and they form an important part of **digital transformations.**
+
+{% include tweet_quote.html quote_text="Identity and Access Management (IAM) is the security and process that allows the correct users to access the correct content, at the correct times." %}
 
 Digital transformation, for those unaware, is not just a buzzword.  It encapsulates the process of heavily utilising modern, digital technologies to radically change businesses.  
 
@@ -106,7 +110,7 @@ By choosing to use an IDaaS provider like _Auth0_, we can get all of these featu
 
 
 ## API Authorisation
-For the final implementation example of this article, we're going to look at API Authorisation.  We need to implement API auth so that our customers can integrate our service into their applications in ways not offered out of our box, and to allow them deeper integrations.  Once again, let's take a look at our data model, now including API auth:
+For the final implementation example of this article, we're going to look at API Authorisation.  We need to implement API auth so that our customers can integrate our service into their applications in ways not offered as standard, and to allow them deeper integrations.  Once again, let's take a look at our data model, now including API auth:
 
 ![api-auth-model](https://cdn.auth0.com/blog/iam-digital-transform/api-auth-model.png)
 
@@ -141,11 +145,13 @@ This _Access Token_ is similar to the _ID Token_ shown in the previous example, 
 
 ![api-auth-authd-reqs](https://cdn.auth0.com/blog/iam-digital-transform/api-auth-authd-reqs.png)
 
-  As the image shows, _Fabrikam_ sends the encoded token in the `Authorization` Header of the request, using the `Bearer` protocol, in all subsequent API requests.  The _Acme.com_ API successfully returns the customer's `Projects` which are listed in the Dashboard, as shown.  That brings to a close the OAuth Client Credentials grant for API Auth example.  However, we can take this a step further still.  What if we wanted to combine this API Auth with the Enterprise SSO implementation in our previous example?
+As the image shows, _Fabrikam_ sends the encoded token in the `Authorization` Header of the request, using the `Bearer` protocol, in all subsequent API requests.  The _Acme.com_ API successfully returns the customer's `Projects` which are listed in the Dashboard, as shown.  That brings to a close the OAuth Client Credentials grant for API Auth example.  However, we can take this a step further still.  What if we wanted to combine this API Auth with the Enterprise SSO implementation in our previous example?
 
 There may arise a scenario in which  _Fabrikam.com_ want to integrate with _Acme's_ APIs, but a user at _Acme_ authenticates with corporate credentials for _Contoso.com_ (who is an enterprise customer) as within our previous example.  The flow becomes a multi-step process, with the first request coming from _Fabrikam_ to _Acme_, then _Acme_ to _Contoso_, with the responses flowing back in the opposite direction, back to _Fabrikam._   The interesting point of this scenario is that _Acme_ is acting as both an Identity Provider (when providing API authorisation), and a Relying Party (when it's consuming identity information).  This pattern may sound complex, but it is a very common scenario.  Most SaaS companies both provide services, as well as authenticating users from other companies, meaning they have to implement both sides of the protocol (client and provider).  The following diagram shows this implementation layout: 
 
 ![oauth-openid-combine](https://cdn.auth0.com/blog/iam-digital-transform/oauth-openid-combine.png)
+
+{% include tweet_quote.html quote_text="OAuth and OpenID Connect have the same protocols, because OpenID Connect is just an extension of OAuth." %}
 
 Happily, as you will have noticed throughout this article, OAuth and OpenID Connect have the same protocols, because OpenID Connect is just an extension of OAuth.  This saves us a lot of hassle on implementation.  At this point, with Authentication becoming a more prominent feature, it might be worth setting up a single, centralised server to handle all of the Auth requests coming through our app _(Acme)_.
 
@@ -157,7 +163,12 @@ We can take advantage of this in our architecture by creating the aforementioned
 
 ![centralised-auth-server](https://cdn.auth0.com/blog/iam-digital-transform/centralised-auth-server.png)
 
-So with this, we have a fully functional OAuth 2.0 server implementation.  Whilst this implementation is fully functional, there are a few extra features not included in this example, that you would want to implement in the real world.  One of the biggest is a _Consent Prompt_ ensuring users have the options of granting the application access.  Beside this, consent and token revocation is also a must-have feature that would need implementing.  Lastly, token introspection and JWTs for stateless authorisation are both desirable features one would ideally implement.
+So with this, we have a fully functional OAuth 2.0 server implementation.  Whilst this implementation is entirely functional, there are a few extra features not included in this example, that you would want to implement in the real world.  One of the biggest is a _Consent Prompt_ ensuring users have the options of granting the application access.  Beside this, consent and token revocation is also a must-have feature that would need implementing.  Lastly, token introspection and JWTs for stateless authorisation are both desirable features one would ideally implement.
 
-If you wanted a fully-featured OAuth 2.0 server with all of the functionality mentioned above, it is definitely worth checking out an IDaaS provider to save you all of the implementation hassle.  [Auth0](https://auth0.com/docs/protocols/oauth2) offer out of the box, fully featured OAuth 2.0 implementations that take care of all of the architecture above, plus offers more features and functionality; and all implemented without having to build and manage it yourself.
+If you wanted a fully-featured OAuth 2.0 server with all of the functionality mentioned above, it is definitely worth checking out an IDaaS provider to save you all of the implementation hassle.  [Auth0](https://auth0.com/docs/protocols/oauth2) offer out of the box, fully featured OAuth 2.0 implementations that take care of all of the architecture above, plus offer more features and functionality; and all implemented without having to build and manage it yourself.
 
+
+  [  **_- @rbin_**](https://twitter.com/rbin)
+
+
+{% include asides/about-auth0.markdown %}
