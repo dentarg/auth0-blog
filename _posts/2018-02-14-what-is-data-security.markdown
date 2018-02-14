@@ -2,21 +2,35 @@
 layout: post
 title: "What is Data Security?"
 description: "Data security is a complex issue — here's how to tackle it."
-date: 2018-01-12 08:30
-category: Security
+date: 2018-02-14 08:30
+category: Growth, Security
 author:
-  name: "Robin Percy"
-  url: "https://twitter.com/rbin"
-  mail: "robin.percy@auth0.com"
-  avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
+  name: "Diego Poza"
+  url: "https://twitter.com/diegopoza"
+  mail: "diego.poza@auth0.com"
+  avatar: "https://avatars3.githubusercontent.com/u/604869?v=3&s=200"
+is_non-tech: true
 design:
-  bg_color: "#FFFFFF"
-  image: https://cdn.auth0.com/blog/image.jpg
+  bg_color: "#222228"
+  image: https://cdn.auth0.com/blog/data-security/logo.png
 tags:
-- tag1
-- tag2
+- data
+- security
+- data-security
+- data-protection
+- cybersecurity
+- compliance
 related:
- - 
+ - 2018-01-26-security-predictions-for-2018-that-go-beyond-gdpr-compliance
+ - 2017-12-11-business-identity-theft-is-on-the-rise
+ - 2017-12-08-how-poor-identity-access-management-equals-security-breaches
+---
+
+<div class="alert alert-info alert-icon">
+  <i class="icon-budicon-500"></i>
+  <strong>Forrester Consulting analysis determines that using Auth0 can yield a 548% ROI and $3.7M in identity-related savings. Read the full report: <a href="https://resources.auth0.com/forrester-tei-research-case-study/">Total Economic Impact of Auth0</a>.</strong>
+</div>
+
 ---
 
 **TL;DR:**  Data security is a complex issue — here's how to tackle it.
