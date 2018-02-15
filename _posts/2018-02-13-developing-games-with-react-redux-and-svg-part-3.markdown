@@ -955,7 +955,7 @@ Now, you need to update the `./src/App.js` file to make use of the dispatch wrap
 
 class App extends Component {
   constructor(props) {
-    // ... super and other bindings
+    super(props);
     this.shoot = this.shoot.bind(this);
   }
 
@@ -1337,7 +1337,7 @@ Then, you will need to refactor the `App` component. So, open the `./src/App.js`
 
 class App extends Component {
   constructor(props) {
-    // ... super and other bindings
+    // ... super and this.shoot.bind(this)
     this.socket = null;
     this.currentPlayer = null;
   }
