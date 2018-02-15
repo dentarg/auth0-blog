@@ -803,12 +803,6 @@ import { getCanvasPosition } from './utils/formulas';
 import Canvas from './components/Canvas';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.trackMouse = this.trackMouse.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-  }
-
   componentDidMount() {
     const self = this;
     setInterval(() => {
@@ -840,7 +834,6 @@ export default App;
 
 You will notice that this new version introduces a lot of changes. The following list summarizes them:
 
-- `constructor`: You need this method to bind the `this` reference of the `trackMouse` and `componentDidMount` methods to the correct object. If you don't understand what this means and you are curious, you can check [this doc](https://reactjs.org/docs/handling-events.html).
 - `componentDidMount`: You have defined [this lifecycle method](https://reactjs.org/docs/react-component.html#componentdidmount) to start the uniform interval that will trigger the `moveObjects` action.
 - `trackMouse`: You have defined this method to update the `canvasMousePosition` property of the `App` component. This property is used by the `moveObjects` action. Note that this property does not refer to the mouse position over the HTML document. [It refers to a relative position inside your canvas](https://stackoverflow.com/questions/10298658/mouse-position-inside-autoscaled-svg). You will define the `canvasMousePosition` function in a moment.
 - `render`: This method now passes the `angle` property and the `trackMouse` method to your `Canvas` component. This component will use `angle` to update the way it renders your cannon and the `trackMouse` to attach as an event listener to the `svg` element. You will update this component in a while.
