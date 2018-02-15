@@ -299,7 +299,7 @@ public function entriesAction()
 
 You now need to create a new template for this action, in `./templates` create a new directory called `Blog` and within there, a new file called `entries.html.twig` and paste the following in:
 
-% highlight html %}
+{% highlight html %}
 {% raw %}
 {% extends "base.html.twig" %}
 
