@@ -3,7 +3,7 @@ layout: post
 title: Developing Web Apps with ASP.NET Core 2.0 and React - Part 1
 description: "A practical tutorial showing how to setup and develop a modern Web application based on ASP.NET Core 2.0 and React."
 longdescription: "In this series of posts, starting with this one, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with Auth0. In this first part of the series, you are going to use ASP.NET Core 2.0 to develop the APIs of your application."
-date: 2018-01-24 09:19
+date: 2018-02-15 09:19
 category: Technical Guide, Microsoft, ASP Net Core
 author:
   name: "Andrea Chiarelli"
@@ -11,8 +11,8 @@ author:
   mail: "andrea.chiarelli.ac@gmail.com"
   avatar: "https://pbs.twimg.com/profile_images/827888770510880769/nnvUxzSd_400x400.jpg"
 design:
-  bg_color: "#3A1C5D"
-  image: https://cdn.auth0.com/blog/asp-net-core-tutorial/logo.png
+  bg_color: "#2B1743"
+  image: https://cdn.auth0.com/blog/webapps-aspnet2-react/logo.png
 tags:
 - .net-core
 - asp.net-core
@@ -22,8 +22,9 @@ tags:
 - openid-connect
 - auth0
 related:
-- 2017-06-05-asp-dot-net-core-authentication-tutorial.markdown
+- 2017-12-07-securing-asp-dot-net-core-2-applications-with-jwts
 - 2016-06-27-auth0-support-for-aspnet-core
+- 2018-02-06-developing-games-with-react-redux-and-svg-part-1
 ---
 
 **TL;DR:** In this series of posts, starting with this one, you will build a Web application based on ASP.NET Core 2.0 and React. To solve the identity management feature, you will integrate this stack with [Auth0](https://auth0.com/). In this first part of the series, you are going to use ASP.NET Core 2.0 to develop the APIs of your application. [The final code can be found in this GitHub repository](https://github.com/andychiare/netcore2-auth0).
