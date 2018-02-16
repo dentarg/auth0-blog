@@ -1,17 +1,15 @@
 ---
 layout: post
-title: Building a blog with GatsbyJS
-description: <A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS >
-longdescription: <A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>
+title: Building a blog with Gatsby
+description: "Building a blog with Gatsby, a modern static content generator for React"
+longdescription: "Building a blog with Gatsby, a modern static content generator for React. Authenticated users using Auth0"
 date: 2018-01-22 11:11
-category: <FROM HERE: https://docs.google.com/spreadsheets/d/1e_RKzi8kVwzqPG8si8kyDOWPiBk9tI-XNGh0KgRIF7Q>
-press_release: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
-is_non-tech: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
+category: Technical Guide, Frontend, Gatsby
 author:
-  name: <YOUR NAME>
-  url: <YOUR URL>
-  mail: <YOUR MAIL>
-  avatar: <LINK TO PROFILE PIC>
+  name: Luke Oliff
+  url: https://twitter.com/mroliff
+  avatar: https://avatars1.githubusercontent.com/u/956290?s=200
+  mail: luke.oliff@auth0.com
 design:
   bg_color: <A HEX BACKGROUND COLOR>
   image: <A PATH TO A 200x200 IMAGE>
@@ -20,26 +18,16 @@ tags:
 - javascript
 - react
 - auth0
-- metadata
-- static
-- cms
+- graphql
 related:
 - 2017-10-26-whats-new-in-react16
 - 2017-12-14-elixir-and-phoenix-tutorial-build-an-authenticated-app
 - 2017-12-28-symfony-tutorial-building-a-blog-part-1
 ---
 
-**TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
+**TL;DR:** [Gatsby](https://www.gatsbyjs.org/) is a modern static content generator for [React](https://reactjs.org/) and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. We're going to be building a simple demo blog, adding some features and authenticating users with [Auth0.js](https://auth0.com/docs/libraries/auth0js).
 
-# Gatsby blog with markdown
-
-- tldr
-- about gatsby (node/react/graphql/other features)
-- prereq
-- basic setup
-- custom features like pagination/archives
-- subscribe (with Auth0 auth)
-- deploy
+**The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/lukeoliff/auth0-gatsby-blog).**
 
 ---
 
@@ -55,7 +43,7 @@ A static site generator flips the entire process around. It generates all the pa
 
 The [starter blog](https://github.com/gatsbyjs/gatsby-starter-blog) by [Kyle Mathews](https://twitter.com/kylemathews) is great! But I felt it was missing a few well known features you'd come to expect from a blog if you're familiar with [Wordpress](https://wordpress.org/) or similar blog frameworks.
 
-In this guide we're going to use Gatsby to generate our content from [Markdown](https://en.wikipedia.org/wiki/Markdown) files along with pagination pages and allow our users to log in using [Auth0.js](https://auth0.com/docs/libraries/auth0js) and opt-in to updates when we publish new articles–we won't be actually sending emails though.
+In this guide we're going to use Gatsby to generate our content from [Markdown](https://en.wikipedia.org/wiki/Markdown) files along with adding pagination to pages and allow our users to log in using [Auth0.js](https://auth0.com/docs/libraries/auth0js).
 
 ### React
 
@@ -351,22 +339,15 @@ Here's my fix, edit `src/layouts/index.js` and remove the following line.
 
 ![Paginated Gatsby page 2 fixed](https://cdn.auth0.com/blog/gatsby-blog/gatsby-paginated-page-2-fixed.png)
 
+
+
 ## Gatsby and Auth0
 
-When you have a blog, you'll probably have readers (you hope) and you'll also want to let them know when you create a new post.
-
-For this we're going to use [Auth0](https://auth0.com) to identify our users so they can turn email notifications on and off. This will show how Auth0 can store [metadata](https://auth0.com/docs/metadata) on users that isn't otherwise provided by your identity providers.
+When you have a blog, you'll probably have readers (you hope) and you'll also want to let them know when you create a new post. For this we're going to use [Auth0](https://auth0.com) to identify our users.
 
 We're also going to be following the [Auth0 React Quickstart](https://auth0.com/docs/quickstart/spa/react) to get set up with Auth0 authentication on our new application. If you're confident with React you could skip straight to the quickstart or get the code you need from the [Auth0 React samples repository](https://github.com/auth0-samples/auth0-react-samples/tree/embedded-login).
 
 The [Auth0 login page](https://auth0.com/docs/hosted-pages/login) is the easiest way to set up authentication in your application.
-
-When a user logs in, Auth0 returns three items:
-- `access_token`: to learn more, see the [access token documentation](https://auth0.com/docs/tokens/access-token)
-- `id_token`: to learn more, see the [ID token documentation](https://auth0.com/docs/tokens/id-token)
-- `expires_in`: the number of seconds before the access token expires
-
-You can use these items in your application to set up and manage authentication.
 
 ### Sign Up for Auth0
 
@@ -402,17 +383,19 @@ Create a new file `src/components/Auth.js` and inside it put the following code:
 
 ```js
 // src/components/Auth.js
-
 import auth0 from 'auth0-js';
+
+const AUTH0_DOMAIN = '<your-domain>.auth0.com',
+ AUTH0_CLIENT_ID = '<your-client-id>';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: 'blog-posts.eu.auth0.com',
-    clientID: 'xNgxPa24lqJ37iiJyuldLk8G1aROE9b4',
+    domain: AUTH0_DOMAIN,
+    clientID: AUTH0_CLIENT_ID,
     redirectUri: 'http://localhost:8000/callback',
-    audience: 'https://blog-posts.eu.auth0.com/userinfo',
+    audience: `https://${AUTH0_DOMAIN}/userinfo`,
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   login() {
@@ -441,7 +424,7 @@ class IndexPage extends React.Component {
 
 When you visit [localhost:8000](http://localhost:8000/) now, we'll be redirected to our login page. **Logging in won't work!** We haven't built our callback yet. But at least we know our library is loading just fine. 
 
-![Gatsby Blog Auth0 login box](/Users/olaf/Desktop/gatsby-blog-auth0-login-box.png)
+![Gatsby Blog Auth0 login box](https://cdn.auth0.com/blog/gatsby-blog/auth0-login-box.png)
 
 Now go ahead and remove the test code from `src/templates/index.js`.
 
@@ -451,12 +434,12 @@ We need a few more methods in the `Auth` component to handle authentication in t
 
 ```js
 // src/component/Auth.js
+...
+import { navigateTo } from "gatsby-link";
 
-import history from './history';
-
-// ...
+...
 export default class Auth {
-  // ...
+  ...
   constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -464,54 +447,226 @@ export default class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this);
   }
 
+  logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+    localStorage.removeItem('user');
+  }
+
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace('/');
       } else if (err) {
-        history.replace('/');
         console.log(err);
       }
+
+      // Return to the homepage after authentication.
+      navigateTo('/');
     });
   }
 
+  isAuthenticated() {
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    return new Date().getTime() < expiresAt;
+  }
+
   setSession(authResult) {
-    // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    // navigate to the home route
-    history.replace('/');
+
+    this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
+      localStorage.setItem('user', JSON.stringify(user));
+    })
   }
 
-  logout() {
-    // Clear access token and ID token from local storage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    // navigate to the home route
-    history.replace('/');
+  getUser() {
+    if (localStorage.getItem('user')) {
+      return JSON.parse(localStorage.getItem('user'));
+    }
   }
 
-  isAuthenticated() {
-    // Check whether the current time is past the 
-    // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    return new Date().getTime() < expiresAt;
+  getUserName() {
+    if (this.getUser()) {
+      return this.getUser().name;
+    }
   }
 }
 ```
 
-Now create a new file `src/components/history.js` so we can easily manage session history.
+Now we need our callback, so create a new file at `src/pages/Callback.js` and copy  the following code into it.
 
 ```js
-// src/components/history.js
+// src/pages/Callback.js
 
-import createHistory from 'history/createBrowserHistory'
+import React from 'react';
+import Auth from '../utils/auth';
 
-export default createHistory()
+class Callback extends React.Component {
+  render() {
+    const auth = new Auth();
+    auth.handleAuthentication();
+    return (
+      <div>Loading...</div>
+    );
+  }
+}
+
+export default Callback;
 ```
 
-REACT QUICKSTART
+> **Note:** For our example repository, you'll notice we use an animated `svg` in our callback. I haven't included it here for the sake of simplicity.
+
+Exclude `Callback.js` from being rendered with our usual layout, without the Bio or headers. No one should ever see the callback page anyway, so it needs to be fast. So edit `src/layouts/index.js` and add the following lines. This returns a basic layout for the `/callback` path.
+
+```diff
+// src/layouts/index.js
+...
+     const { location, children } = this.props;
++
++    // Callback doesn't need nav etc, so return early
++    if (location.pathname === '/callback') {
++      return (
++        <div>
++          <Container>
++            {children()}
++          </Container>
++        </div>
++      )
++    }
+
+     let header;
+...
+```
+
+We don't need to register the `Callback.js` file with a router, which you might do in  a more traditional React application. Gatsby automatically routes anything in the `pages/` directory. So `src/pages/Callback.js` becomes `/callback` on our application. The Gatsby docs have a great page on [creating and modifying pages](https://www.gatsbyjs.org/docs/creating-and-modifying-pages/), if you're interested in what else you can achieve with the pages feature.
+
+Next, we're going to add a new component for navigation. This could hold our branding, some links to static pages and our log in/log out link. Create `src/components/Nav.js` and paste in the code below.
+
+```js
+// src/components/Nav.js
+import React from 'react';
+import Auth from '../utils/auth';
+import { navigateTo } from "gatsby-link";
+
+const auth = new Auth();
+
+export default class Nav extends React.Component {
+  goTo(route) {
+    navigateTo(`/${route}`);
+  }
+
+  login() {
+    auth.login();
+  }
+
+  logout() {
+    auth.logout();
+    this.forceUpdate();
+  }
+
+  render() {
+    const { isAuthenticated } = auth;
+
+    return (
+      <div
+        style={{
+          height: '50px'
+        }}
+      >
+        <div
+          style={{
+            float: 'right'
+          }}
+        >
+          <a href="/"
+             style={{
+               boxShadow: 'none',
+               lineHeight: '37px'
+             }}
+          >
+            Home
+          </a>
+          <span> | </span>
+          {
+            !isAuthenticated() && (
+              <a href="#"
+                onClick={this.login.bind(this)}
+                style={{
+                  boxShadow: 'none',
+                  lineHeight: '37px'
+                }}
+              >
+                Log In
+              </a>
+            )
+          }
+          {
+            isAuthenticated() && (
+              <a href="#"
+                onClick={this.logout.bind(this)}
+                style={{
+                  boxShadow: 'none',
+                  lineHeight: '37px'
+                }}
+              >
+                Log Out
+                {
+                  auth.getUserName() && (
+                    <span> ({auth.getUserName()})</span>
+                  )
+                }
+              </a>
+            )
+          }
+        </div>
+      </div>
+    );
+  }
+}
+```
+
+Now add our `<Nav>` to `src/layouts/index.js` like so. 
+
+```diff
+// src/layouts/index.js
+...
+     return (
+       <div>
+         <Container
+           style={{
+             maxWidth: rhythm(24),
+             padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+           }}
+         >
++          <Nav />
+           {header}
+           {children()}
+         </Container>
+       </div>
+     )
+...
+```
+
+Let's preview our [dev site](http://localhost:8000/) again. It should look something like this.
+
+![Nav added to Gatsby blog](https://cdn.auth0.com/blog/gatsby-blog/nav-added-to-gatsby.png)
+
+And now when we login our application now knows about us.
+
+![Logged into the Gatsby blog](https://cdn.auth0.com/blog/gatsby-blog/logged-into-the-gatsby-blog.png)
+
+## Conclusion
+
+There we have it, a Gatsby blog with Auth0 authentication. As Gatsby is a static site generator, to be able make real use of this we'd need a backend application to provide functionality through an API to the React element of the site. Gatsby has a great guide and demo application for creating [hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/).
+
+Gatsby has a dedicated [tutorial](https://www.gatsbyjs.org/tutorial/) for building Gatsby applications.
+
+If you want to learn more about React, they have a great [tutorial at reactjs.org](https://reactjs.org/tutorial/tutorial.html), but you also won't want to miss [react for beginners](https://reactforbeginners.com/) by [Wes Bos](https://twitter.com/wesbos).
+
+Learn more about graphQL with [how to graphql](https://www.howtographql.com/), which has plenty of resources based on the different types of technology you might be using.
+
+**The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/lukeoliff/auth0-gatsby-blog).**
