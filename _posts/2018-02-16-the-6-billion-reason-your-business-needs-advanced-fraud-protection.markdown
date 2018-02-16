@@ -3,7 +3,7 @@ layout: post
 title: The 6 Billion Reason Your Business Needs Advanced Fraud Protection
 description: "Let your defenses down, and you could be giving money away."
 longdescription: "In 2016, consumers lost $16 billion due to online fraud, up from $15 billion in 2015. Such crimes affected more than 15.4 million consumers. Let your defenses down, and you could be giving money away."
-date: 2018-01-23 15:53
+date: 2018-02-16 15:53
 category: Growth
 is_non-tech: true
 author:
@@ -18,10 +18,16 @@ tags:
 - fraud-protection
 - breach
 - fraud
-- protection
+- protectiony
+- infosec
+- auth0-rules
+- security
+- cybersecurit
 related:
 - 2018-01-08-meltdown-and-spectre-what-auth0-customers-need-to-know
 - 2017-12-29-why-every-business-needs-two-factor-authentication-security
+- 2018-01-26-security-predictions-for-2018-that-go-beyond-gdpr-compliance
+- 
 ---
 
 In 2016, consumers lost [$16 billion](https://www.cnbc.com/2017/02/01/consumers-lost-more-than-16b-to-fraud-and-identity-theft-last-year.html) due to online fraud, up from $15 billion in 2015. Such crimes affected more than 15.4 million consumers.
@@ -34,7 +40,7 @@ Many organizations have taken initial steps to protect themselves against these 
 
 Online fraud protection encompasses an array of methods for preventing the theft of your organization’s most sensitive data. General forms can include, but are not limited to:
 
-1. **Educating your employees about phishing:** Sophisticated email attacks can be indistinguishable from real emails. This can result in staggering breaches of end-user data. It's important to make sure that each member of your team understands this (https://auth0.com/blog/the-new-trend-of-artisanal-spam/).
+1. **Educating your employees about phishing:** Sophisticated email attacks can be indistinguishable from real emails. This can result in staggering breaches of end-user data. It's important to make sure that each member of your team understands [this](https://auth0.com/blog/the-new-trend-of-artisanal-spam/).
 2. **Limiting the disclosure of sensitive information:** The more you distribute your company's EIN, the more surface area you're creating for possible attacks. Limit disclosure to only those cases, when it's absolutely necessary. In addition, try to communicate it over the phone or in-person rather than over a stored medium.
 3. **Sign up for alerts with your local Secretary of State:** If anyone attempts to change your business's registration information, you can receive an email quickly from your local Secretary of State, notifying you of the update. If it's not something you authorized, you can have the fraud immediately rolled back.
 
@@ -42,7 +48,7 @@ Despite widespread education on these steps, hackers still manage to worm their 
 
 ## The Worst Cases of Identity Theft in Recent History
 
-When a data breach occurs, cyberthieves have the ability to open bank accounts, lines of credit, new credit cards, and even drivers' licenses in the name(s) of those they've scammed. This can happen within a day — or sooner.
+[When a data breach occurs](https://auth0.com/blog/data-breaches-by-the-numbers/), cyberthieves have the ability to open bank accounts, lines of credit, new credit cards, and even drivers' licenses in the name(s) of those they've scammed. This can happen within a day — or sooner.
 
 ![When a data breach occurs, cyberthieves have the ability to open bank accounts, lines of credit, etc.](https://cdn.auth0.com/blog/advanced-fraud-protection/equifax-breach-laptop-lg.png)
 
