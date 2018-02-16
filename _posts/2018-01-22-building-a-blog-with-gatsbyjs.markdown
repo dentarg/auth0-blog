@@ -39,6 +39,8 @@ Before static site generators, a lot of us would have relied on software such as
 
 A static site generator flips the entire process around. It generates all the pages on the site, once any changes have been made, ready for deployment. Static sites are secure by default as there are no working parts to exploit. Scaling is less of a consideration as there is no more overhead to a request than the delivery of already generated content. Read more about [static sites vs dynamic sites](https://www.webceo.com/blog/static-website-vs-dynamic-website-which-is-better-for-seo/) if you're still not convinced that static sites might just be the answer to [a lot of your problems](https://moz.com/learn/seo/page-speed).
 
+{% include tweet_quote.html quote_text="Gatsby is a modern static content generator for React and it boasts an impressive list of out-the-box features" %}
+
 ## Another blog, with Gatsby
 
 The [starter blog](https://github.com/gatsbyjs/gatsby-starter-blog) by [Kyle Mathews](https://twitter.com/kylemathews) is great! But I felt it was missing a few well known features you'd come to expect from a blog if you're familiar with [Wordpress](https://wordpress.org/) or similar blog frameworks.
@@ -341,7 +343,7 @@ Here's my fix, edit `src/layouts/index.js` and remove the following line.
 
 ![Paginated Gatsby page 2 fixed](https://cdn.auth0.com/blog/gatsby-blog/gatsby-paginated-page-2-fixed.png)
 
-
+{% include tweet_quote.html quote_text="Follow the Auth0 React Quickstart to get set up with Auth0 authentication in React" %}
 
 ## Gatsby and Auth0
 
