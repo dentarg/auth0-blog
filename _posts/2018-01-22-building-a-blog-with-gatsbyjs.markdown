@@ -11,8 +11,8 @@ author:
   avatar: https://avatars1.githubusercontent.com/u/956290?s=200
   mail: luke.oliff@auth0.com
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: "#1A1A1A"
+  image: https://cdn.auth0.com/blog/reactjs16/logo.png
 tags:
 - gatsby
 - javascript
@@ -221,7 +221,8 @@ But at this very moment, we're still getting our 404. We need to use this code. 
 
 Create a new template file, `src/templates/index.js` and add the following content to it.
 
-```js
+{% highlight javascript %}
+{% raw %}
 // src/templates/index.js
 import React from 'react';
 import Link from 'gatsby-link'
@@ -277,7 +278,8 @@ class IndexPage extends React.Component {
 }
 
 export default IndexPage;
-```
+{% endraw %}
+{% endhighlight %}
 
 If you still had our `src/pages/index.js` that we deleted earlier, you'll notice there are some similarities. Probably because I copy and pasted it, making the changes necessary. I'll talk you through the changes now.
 
@@ -546,7 +548,8 @@ We don't need to register the `Callback.js` file with a router, which you might 
 
 Next, we're going to add a new component for navigation. This could hold our branding, some links to static pages and our log in/log out link. Create `src/components/Nav.js` and paste in the code below.
 
-```js
+{% highlight javascript %}
+{% raw %}
 // src/components/Nav.js
 import React from 'react';
 import Auth from '../utils/auth';
@@ -627,11 +630,13 @@ export default class Nav extends React.Component {
     );
   }
 }
-```
+{% endraw %}
+{% endhighlight %}
 
 Now add our `<Nav>` to `src/layouts/index.js` like so. 
 
-```diff
+{% highlight diff %}
+{% raw %}
 // src/layouts/index.js
 ...
      return (
@@ -649,7 +654,8 @@ Now add our `<Nav>` to `src/layouts/index.js` like so.
        </div>
      )
 ...
-```
+{% endraw %}
+{% endhighlight %}
 
 Let's preview our [dev site](http://localhost:8000/) again. It should look something like this.
 
