@@ -27,7 +27,7 @@ related:
 
 **TL;DR:** [Gatsby](https://www.gatsbyjs.org/) is a modern static content generator for [React](https://reactjs.org/) and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. We're going to be building a simple demo blog, adding some features and authenticating users with [Auth0.js](https://auth0.com/docs/libraries/auth0js).
 
-**The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/lukeoliff/auth0-gatsby-blog).**
+**The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/auth0-blog/auth0-gatsby-blog).**
 
 ---
 
@@ -408,6 +408,8 @@ export default class Auth {
 }
 ```
 
+Edit `src/utils/auth.js` and replace `<your-domain>` and `<your-client-id>` with your Auth0 domain prefix and your client ID, found on your [client dashboard](https://manage.auth0.com/#/clients).
+
 #### Test our component
 
 Quickly, test that we can load our new component from any part of the app. To quickly do this we'll add the following code to our `src/templates/index.js` file.
@@ -677,4 +679,4 @@ If you want to learn more about React, they have a great [tutorial at reactjs.or
 
 Learn more about graphQL with [how to graphql](https://www.howtographql.com/), which has plenty of resources based on the different types of technology you might be using.
 
-**The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/lukeoliff/auth0-gatsby-blog).**
+**The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/auth0-blog/auth0-gatsby-blog).**
