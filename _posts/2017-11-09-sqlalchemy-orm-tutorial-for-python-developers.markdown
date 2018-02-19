@@ -163,7 +163,7 @@ class Article(Base):
 class Comment(Base):
     __tablename__ = 'comments'
     id = Column(Integer, primary_key=True)
-    article_id = Column(Integer, ForeignKey('article.id'))
+    article_id = Column(Integer, ForeignKey('articles.id'))
 ```
 
 The second type, *Many To One*, refers to the same relationship described above but from the other perspective. To give a different example, let's say that we want to map the relationship between instances of `Tire` to an instance of a `Car`. As many tires belong to one car and this car contains many tires, we would map this relation as follows:
@@ -172,7 +172,7 @@ The second type, *Many To One*, refers to the same relationship described above 
 class Tire(Base):
     __tablename__ = 'tires'
     id = Column(Integer, primary_key=True)
-    car_id = Column(Integer, ForeignKey('car.id'))
+    car_id = Column(Integer, ForeignKey('cars.id'))
     car = relationship("Car")
 
 
@@ -187,13 +187,13 @@ The third type, *One To One*, refers to relationships where an instance of a par
 class Person(Base):
     __tablename__ = 'people'
     id = Column(Integer, primary_key=True)
-    mobile_phone = relationship("Mobile", uselist=False, back_populates="person")
+    mobile_phone = relationship("MobilePhone", uselist=False, back_populates="person")
 
 class MobilePhone(Base):
     __tablename__ = 'mobile_phones'
     id = Column(Integer, primary_key=True)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship("People", back_populates="mobile_phone")
+    person_id = Column(Integer, ForeignKey('people.id'))
+    person = relationship("Person", back_populates="mobile_phone")
 ```
 
 In this example, we pass two extra parameters to the `relationship` function. The first one, `uselist=False`, makes SQLAlchemy understand that `mobile_phone` will hold only a single instance and not an array (multiple) of instances. The second one, `back_populates`, instructs SQLAlchemy to populate the other side of the mapping. The [official Relationships API documentation](http://docs.sqlalchemy.org/en/latest/orm/relationship_api.html) provides a complete explanation of these parameters and also covers other parameters not mentioned here.
@@ -202,8 +202,8 @@ The last type supported by SQLAlchemy, *Many To Many*, is used when instances of
 
 ```python
 students_classes_association = Table('students_classes', Base.metadata,
-    Column('student_id', Integer, ForeignKey('student.id')),
-    Column('class_id', Integer, ForeignKey('class.id'))
+    Column('student_id', Integer, ForeignKey('students.id')),
+    Column('class_id', Integer, ForeignKey('classes.id'))
 )
 
 class Student(Base):
