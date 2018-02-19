@@ -92,6 +92,25 @@ __NOTE__: The default database port is 3306, so if you haven't configured your m
 
 If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of your database name.
 
+### Create the Blog Controller
+
+Create new `BlogController` by running the following command `php bin/console make:controller`
+
+When it asks for `The class name of the controller to create`, type in: `BlogController`.
+
+Once the command has finished running, you'll find a new file in `src/Controller` called `BlogController.php`, there should be an action similar to the following:
+
+```php
+/**
+ * @Route("/")
+ */
+public function index()
+{
+    // replace this line with your own code!
+    return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+}
+```
+
 In order to see your blog in your web browser for the duration of this tutorial, you need to have Symfony's web server installed in your application. To do this run the following command:
 
 ```bash
@@ -104,7 +123,7 @@ Now that the basic configuration has been set up, let's run the following comman
 php bin/console server:run
 ```
 
-You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
+You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser open the following URL: `http://127.0.0.1:8000/blog`, you'll be shown a "Hello BlogController!" page.
 
 ### Creating a New Author Entity
 
@@ -1466,13 +1485,13 @@ App\EventListener\Author\CheckIsAuthorListener:
         - { name: kernel.event_listener, event: kernel.controller }
 ```
 
-It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to create a Blog Controller with a homepage action.
+It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to change the homepage action in the Blog Controller.
 
 Create new `BlogController` by running the following command `php bin/console make:controller`
 
 When it asks for `The class name of the controller to create`, type in: `BlogController`.
 
-Once the command has finished running, you'll find a new file in `src/Controller` called `BlogController.php`. Open this and replace the following:
+Open up your BlogController found in `src/Controller/BlogController.php` and replace the following:
 
 ```php
 /**
