@@ -26,7 +26,7 @@ related:
 - 2017-11-08-auth0-ranked-in-top10-employer-brands
 ---
 
-**BELLEVUE, Wash. -- February 19, 2018** – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), ttoday announced that it has been selected by [Coinsource](http://www.coinsource.net/), the world’s largest Bitcoin ATM operator and network, to provide authentication to its expanding customer base. Auth0 will enable secure log-in, account set-up and access for customers at any of the 250+ Coinsource ATM machines across the country. 
+**BELLEVUE, Wash. -- February 19, 2018** – [Auth0](https://auth0.com/), a global leader in Identity-as-a-Service (IDaaS), today announced that it has been selected by [Coinsource](http://www.coinsource.net/), the world’s largest Bitcoin ATM operator and network, to provide authentication to its expanding customer base. Auth0 will enable secure log-in, account set-up and access for customers at any of the 250+ Coinsource ATM machines across the country. 
 
 Coinsource has leveraged the tremendous growth of Bitcoin to provide an easy and secure way for people to convert Bitcoin to cash, and vice versa, based on their everyday transaction needs. With customers and ATMs continually being added to the Coinsource network, they were in need of a scalable identity platform that could support this expansion as Bitcoin becomes more mainstream. 
 
