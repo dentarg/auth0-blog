@@ -1176,7 +1176,7 @@ The three extra `use` classes in that list are:
 
 * the `Request` class, this allows you to gather data, for example, if there are any parameters in a POST or GET request,
 * the `Author` entity that maps objects to the database,
-* the AuthorFormType that will specify the input values users can provide when creating a new Author;
+* the `AuthorFormType` that will specify the input values users can provide when creating a new Author;
 
 In the same class, you should find a method called `index()` similar to the example below:
 
