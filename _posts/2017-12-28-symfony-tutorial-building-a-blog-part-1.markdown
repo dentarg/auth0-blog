@@ -102,12 +102,27 @@ Once the command has finished running, you'll find a new file in `src/Controller
 
 ```php
 /**
- * @Route("/")
+ * @Route("/blog", name="blog")
  */
 public function index()
 {
-    // replace this line with your own code!
-    return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+    return $this->render('blog/index.html.twig', [
+        'controller_name' => 'BlogController',
+    ]);
+}
+```
+
+Replace the above with:
+
+```php
+/**
+ * @Route("/", name="homepage")
+ */
+public function indexAction()
+{
+    return $this->render('blog/index.html.twig', [
+        'controller_name' => 'BlogController',
+    ]);
 }
 ```
 
@@ -123,7 +138,7 @@ Now that the basic configuration has been set up, let's run the following comman
 php bin/console server:run
 ```
 
-You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser open the following URL: `http://127.0.0.1:8000/blog`, you'll be shown a "Hello BlogController!" page.
+You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So paste this URL in your browser, you'll be shown a `Hello BlogController!` page.
 
 ### Creating a New Author Entity
 
@@ -990,35 +1005,6 @@ The config above is setting up URLs/sections in your blog that require the user 
 
 ### Create the Author Page
 
-Create new `AdminController` by running the following command `php bin/console make:controller`
-
-When it asks for `The class name of the controller to create`, type in: `AdminController`.
-
-Once the command has finished running, you'll find a new file in `src/Controller` called `AdminController.php`. Open this and replace the following:
-
-```php
-/**
- * @Route("/admin", name="admin")
- */
-public function index()
-{
-    return new Response('Welcome to your new controller!');
-}
-```
-
-With our first action, which is to create the author:
-
-```php
-/**
-* @Route("/admin/author/create", name="author_create")
-*/
-public function createAuthorAction()
-{
-
-}
-```
-
-
 The first thing we will want to do is create a new form. This is a class that allows us to validate the user's input, such as creating an author. So, in the `src/` path, create a new directory called `Form`.
 Within that directory create a new file named `AuthorFormType.php`. Add the code below to your new file:
 
@@ -1139,7 +1125,13 @@ class AuthorFormType extends AbstractType
 }
 ```
 
-Back in your new AdminController (`src/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services:
+Create new `AdminController` by running the following command `php bin/console make:controller`
+
+When it asks for `The class name of the controller to create`, type in: `AdminController`.
+
+Once the command has finished running, you'll find a new file in `src/Controller` called `AdminController.php`. 
+
+Open your new AdminController (`src/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services in the construct:
 
 ```php
 /** @var EntityManagerInterface */
@@ -1169,78 +1161,76 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 ```
 
-Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
-
-Great, in our entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data.
-
-In the `AdminController` class, you will find your new `createAuthorAction` method. Change the annotation so that the method has a service name. So above the controller, where you see `@Route`, add the service name. So it will look like:
+Add the following four below them:
 
 ```php
-* @Route("/admin/author/create", name="author_create")
-```
-
-At the top of the controller, we need to include this class so where it shows:
-
-```php
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Doctrine\ORM\EntityManagerInterface;
-```
-
-Paste the following below those:
-
-```php
 use Symfony\Component\HttpFoundation\Request;
-```
-
-The `Request` class allows you to gather data, for example, if there are any parameters in a POST or GET request.
-
-Then change `createAuthorAction()` to `createAuthorAction(Request $request)`.
-
-We want to make sure the user isn't trying to create themselves as duplicate authors for the same user. So at the top of the `createAuthorAction` let's run a query to check whether one already exists.
-Paste the code below into the action. This retrieves the authenticated user with Auth0, checks their username with the `authors` table to see if one exists, if it does then redirect the user to the index page.
-
-```php
-// Check whether user already has an author.
-if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName())) {
-   // Redirect to dashboard.
-   $this->addFlash('error', 'Unable to create author, author already exists!');
-
-   return $this->redirectToRoute('homepage');
-}
-```
-
-Below that you can now create an empty `Author` entity. Create a new `AuthorFormType` object and pass the `Author` entity into the form.
-
-```php
-$author = new Author();
-$author->setUsername($this->getUser()->getUserName());
-
-$form = $this->createForm(AuthorFormType::class, $author);
-$form->handleRequest($request);
-
-if ($form->isSubmitted() && $form->isValid()) {
-    $this->entityManager->persist($author);
-    $this->entityManager->flush($author);
-
-    $request->getSession()->set('user_is_author', true);
-    $this->addFlash('success', 'Congratulations! You are now an author.');
-
-    return $this->redirectToRoute('homepage');
-}
-```
-
-We are using two new classes here. The first one is the entity `Author` and the second one `AuthorFormType` class. Include these namespaces at the top of our file:
-
-```php
-namespace App\Controller;
-//...
-//...
 use App\Entity\Author;
 use App\Form\AuthorFormType;
 ```
 
-The above code also checks whether the form has been submitted and whether it passes all validations, if it does it will then redirect the user to the index page.
+Great, in our entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data.
+
+The three extra `use` classes in that list are:
+
+* the `Request` class, this allows you to gather data, for example, if there are any parameters in a POST or GET request,
+* the `Author` entity that maps objects to the database,
+* the AuthorFormType that will specify the input values users can provide when creating a new Author;
+
+In the same class, you should find a method called `index()` similar to the example below:
+
+```php
+/**
+ * @Route("/admin", name="admin")
+ */
+public function index()
+{
+    return $this->render('admin/index.html.twig', [
+        'controller_name' => 'AdminController',
+    ]);
+}
+```
+
+Replace the above method with the one shown below:
+
+```php
+/**
+* @Route("/admin/author/create", name="author_create")
+*/
+public function createAuthorAction(Request $request)
+{
+    // Check whether user already has an author.
+    if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName())) {
+       // Redirect to dashboard.
+       $this->addFlash('error', 'Unable to create author, author already exists!');
+
+       return $this->redirectToRoute('homepage');
+    }
+
+    $author = new Author();
+    $author->setUsername($this->getUser()->getUserName());
+
+    $form = $this->createForm(AuthorFormType::class, $author);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $this->entityManager->persist($author);
+        $this->entityManager->flush($author);
+
+        $request->getSession()->set('user_is_author', true);
+        $this->addFlash('success', 'Congratulations! You are now an author.');
+
+        return $this->redirectToRoute('homepage');
+    }
+
+    return $this->render('admin/create_author.html.twig', [
+        'form' => $form->createView()
+    ]);
+}
+```
+
+The above code checks whether an author already exists for this user, whether the form has been submitted and whether it passes all validations, if it does it will then redirect the user to the index page.
 
 __NOTE__: You may have noticed that it sets a session to `true` for `user_is_author` this will make sense when we reach the part that discusses and implements event listeners (next).
 
@@ -1248,7 +1238,7 @@ Finally, we want to pass the form into a template that the user will see. So, le
 
 {% highlight html %}
 {% raw %}
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
 
@@ -1310,14 +1300,6 @@ Finally, we want to pass the form into a template that the user will see. So, le
 {% endblock %}
 {% endraw %}
 {% endhighlight %}
-
-Back in our controller, at the bottom of the method, let's add:
-
-```php
-return $this->render('Admin/create_author.html.twig', array(
-    'form' => $form->createView()
-));
-```
 
 You can clear the cache in your Symfony application to see if everything is ok and there are no errors. Note that there is nothing to see yet, we just want to guarantee that the configuration is correct.
 
@@ -1487,36 +1469,7 @@ App\EventListener\Author\CheckIsAuthorListener:
 
 It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to change the homepage action in the Blog Controller.
 
-Create new `BlogController` by running the following command `php bin/console make:controller`
-
-When it asks for `The class name of the controller to create`, type in: `BlogController`.
-
-Open up your BlogController found in `src/Controller/BlogController.php` and replace the following:
-
-```php
-/**
- * @Route("/blog", name="blog")
- */
-public function index()
-{
-    // replace this line with your own code!
-    return $this->render('@Maker/demoPage.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
-}
-```
-
-with our new temporary homepage action:
-
-```php
-/**
- * @Route("/", name="homepage")
- */
-public function index()
-{
-    return $this->render('default/index.html.twig');
-}
-```
-
-Create the file `templates/default/index.html.twig` file and paste the following in:
+Open your `./templates/blog/index.html.twig` template defined in your BlogController indexAction and replace the contents with the following in:
 
 {% highlight html %}
 {% raw %}
