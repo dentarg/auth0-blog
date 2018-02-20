@@ -41,13 +41,13 @@ First appearing in the 1990s, most WAM products also permitted the use of limite
 
 WAM products were generally deployed using one centralized authentication server and as many individual agents as necessary to cover all of a corporation's web servers. 
 
-![TBC](tbc.png)
+![Web access management](https://cdn.auth0.com/blog/the-difference-between-wam-and-idm/web-access-management.png)
  
 In this traditional on-premises setup, requests for access went from users to the agents on individual servers, each of which would call back to an external server to either approve or deny access.
 
 Web access management systems could also be set up using proxy servers (in which all requests would flow through a single proxy server) or tokens (in which users use individual tokens to gain access to the resources they need).
 
-![TBC](tbc.png)
+![Proxy server request flow](https://cdn.auth0.com/blog/the-difference-between-wam-and-idm/proxy-server-request-flow.png)
 
 _How a proxy server works. Requests flow from servers within the library (network) to a proxy server on that local network, and finally out to the external internet._ 
 
@@ -77,7 +77,7 @@ The primary difference between legacy web access management and more modern iden
 
 Web access management systems don't generate user identities, provision them or maintain those identities over time. They rely on an identity provider—an IdP—to do that.
 
-![TBC](tbc.png)
+![Auth0 dashboard](https://cdn.auth0.com/blog/the-difference-between-wam-and-idm/auth0-dashboard.png)
 
 _The Auth0 web management dashboard._
 
@@ -91,7 +91,7 @@ An IAM like Auth0, on the other hand, can serve as an IdP or identity provider (
 
 It can connect to a wide variety of social and enterprise identity providers and APIs and applications—and provide single sign on, granular user management, extensibility with JavaScript and the most up-to-date security protocols.
 
-![TBC](tbc.png)
+![IAM in the cloud](https://cdn.auth0.com/blog/the-difference-between-wam-and-idm/iam-in-the-cloud.png)
 
 The biggest reason why IAM is surpassing the role of WAM in the modern day is the cloud. The traditional on-premises identity management that many enterprises have used for decades served its purpose. Today, however, more and more of the activity in the workplace is not literally in the workplace. It's in the coffee shop, or at a co-working space, or at home, or on the road—and no matter where your employees are, they will most likely need to access some kind of privileged resources every day.
 
