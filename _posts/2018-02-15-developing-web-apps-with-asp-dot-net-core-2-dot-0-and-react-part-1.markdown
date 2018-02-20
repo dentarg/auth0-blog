@@ -23,7 +23,7 @@ tags:
 - auth0
 related:
 - 2017-12-07-securing-asp-dot-net-core-2-applications-with-jwts
-- 2016-06-27-auth0-support-for-aspnet-core
+- 2018-02-20-developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2
 - 2018-02-06-developing-games-with-react-redux-and-svg-part-1
 ---
 
@@ -401,4 +401,4 @@ This test completes the validation of your ASP.NET Core 2.0 application with [Au
 
 In this article, you have built an ASP.NET Core 2 Web API application and you have integrated it with Auth0 in order to expose the API only to trusted clients.
 
-This is the first step in a series of articles that will show how to build a complete modern application. This application will be based on the ASP.NET Core API that you have just created and in a React Single Page Application. In the next article, you will build this Single Page Application to allow users to browse the bookstore. Stay tuned.
+This is the first step in a series of articles that will show how to build a complete modern application. This application will be based on the ASP.NET Core API that you have just created and in a React Single Page Application. [In the next article](https://auth0.com/blog/developing-web-apps-with-asp-dot-net-core-2-dot-0-and-react-part-2/), you will build this Single Page Application to allow users to browse the bookstore. Stay tuned.
