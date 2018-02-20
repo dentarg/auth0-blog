@@ -24,7 +24,7 @@ related:
 - 2018-02-02-3-ways-to-get-an-iam-budget-in-2018
 ---
 
-Many businesses, and especially those that first got online in the 1990s, invested large amounts of time and money deploying complex identity authorization systems across their business.
+Many businesses, especially those that appeared online in the 1990s, invested large amounts of time and money deploying complex identity authorization systems across their business.
 
 A large number of these systems have web access management, or WAM, as their central design metaphor. At one point, WAM was one of the most common ways for large companies to handle identification and resource access inside their businesses.
 
