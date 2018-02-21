@@ -284,11 +284,13 @@ git add . && git commit -m "adding SQLAlchemy and some entities"
 
 ### Managing HTTP Requests with Flask
 
+Now that your app is connected to a database, it's time to transform it into a Flask web application. To do so, the first thing you will need is to install Flask. Besides Flask, you will also need to install `marshmallow` to handle serialization and deserialization of JSON objects. To install both dependencies, issue the following command in the `backend` directory:
+
 ```bash
 pipenv install flask marshmallow
 ```
 
-Update the `./src/entities/exam.py` file as such:
+After that, you will need to update the `./src/entities/exam.py` file as follows:
 
 ```python
 # coding=utf-8
@@ -308,7 +310,9 @@ class ExamSchema(Schema):
     last_updated_by = fields.Str()
 ```
 
-Then, replace the contents of the `./src/main.py` file with the following code:
+In the new version of this file, you are using the `Schema` class of `marshmallow` to define a new class called `ExamSchema`. You will use this class to transform instances of `Exam` into JSON objects.
+
+After defining `ExamSchema`, you can refactor the `./src/main.py` file to expose two endpoints:
 
 ```python
 # coding=utf-8
@@ -359,9 +363,9 @@ def add_exam():
     return jsonify(new_exam), 201
 ```
 
-This creates a Flask application, based on SQLAlchemy and PostgreSQL, that is capable of accepting `POST` requests to create new instances of `exam` and capable of accepting `GET` requests to serialize these instances as a JSON array.
+This file now creates a Flask application, based on SQLAlchemy and PostgreSQL, that is capable of accepting `POST` requests to create new instances of `exam` and capable of accepting `GET` requests to serialize these instances as a JSON array.
 
-To easily run this application, you will create a script called `bootstrap.sh` in the `backend` directory with the following code:
+Now, to facilitate running this application, you can create a script called `bootstrap.sh` in the `backend` directory with the following code:
 
 ```bash
 #!/bin/bash
@@ -372,9 +376,9 @@ flask run -h 0.0.0.0
 
 This script does three things:
 
-1. it sets `./src/main.py` as the value of the `FLASK_APP` environment variable;
+1. it sets `./src/main.py` as the value of the `FLASK_APP` environment variable (this is needed by the last command);
 2. it activates the virtual environment;
-3. and runs `flask` listening on all interfaces (`-h 0.0.0.0`).
+3. and it runs `flask` listening on all interfaces (`-h 0.0.0.0`).
 
 Then, to test everything, you can use the following commands:
 
@@ -395,9 +399,11 @@ curl -X POST -H 'Content-Type: application/json' -d '{
 curl http://0.0.0.0:5000/exams
 ```
 
-Also, you can check the result of the `POST` request by browsing to [`http://0.0.0.0:5000/exams`](http://0.0.0.0:5000/exams).
+The first command on the snippet above transforms the `bootstrap.sh` script into an executable file. After that, it runs this script in the backend so you can keep using the same terminal. When the Flask application is up and running, you can use the two `curl` commands to interact with it. The first one issues `POST` requests to create new exams and the second one lists all exams persisted on the database.
 
-As you have made some good progress, it's better to save everything:
+Besides using `curl`, you can also fetch exams by browsing to [`http://0.0.0.0:5000/exams`](http://0.0.0.0:5000/exams).
+
+You have made some good progress. So, it's better to save everything:
 
 ```bash
 git add . && git commit -m "integrating Flask RESTful endpoints and SQLAlchemy"
