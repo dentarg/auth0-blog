@@ -19,7 +19,7 @@ Go to [**APIs**](https://manage.auth0.com/#/apis) in your Auth0 dashboard and cl
 ![Create API on Auth0 dashboard](https://cdn2.auth0.com/docs/media/articles/api-auth/create-api.png)
 _Create API on Auth0 dashboard_
 
-We're now ready to implement Auth0 authentication on our Laravel backend API.
+We're now ready to implement Auth0 authentication on our Lumen API.
 
 ### Dependencies and Setup
 
@@ -34,7 +34,7 @@ composer require auth0/auth0-php:~5.0
 Create the JWT Middleware service in the `app/Http/Middleware` directory.
 
 ```php
-//app/Http/Middleware/Auth0Middleware.php
+// app/Http/Middleware/Auth0Middleware.php
 
 <?php
 
