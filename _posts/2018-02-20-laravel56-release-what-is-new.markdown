@@ -7,7 +7,7 @@ date: 2018-02-21 08:30
 category: Hot Topics, Frameworks, Laravel
 design:
   bg_color: "#4A4A4A"
-  image: https://cdn.auth0.com/blog/laravel-auth/logo.png
+  image: https://cdn.auth0.com/blog/logos/laravel.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper
@@ -254,7 +254,7 @@ _Bootstrap v3_
 ![Bootstrap v4](https://cdn.auth0.com/blog/bootstrap4/convertedcode.png)
 _Converted to Bootstrap v4 code_
 
-{% include asides/{laravel-backend}.markdown %}
+{% include asides/laravel-backend.markdown %}
 
 ## Conclusion
 
