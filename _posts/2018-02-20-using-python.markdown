@@ -172,7 +172,7 @@ exams = session.query(Exam).all()
 
 if len(exams) == 0:
     # create and persist dummy exam
-    python_exam = Exam("SQLAlchemy Exam", "Test your knowledge about SQLAlchemy", "script")
+    python_exam = Exam("SQLAlchemy Exam", "Test your knowledge about SQLAlchemy.", "script")
     session.add(python_exam)
     session.commit()
     session.close()
@@ -305,8 +305,8 @@ chmod u+x bootstrap.sh
 
 # create a new exam
 curl -X POST -H 'Content-Type: application/json' -d '{
-  "title": "Some Exam Title",
-  "description": "The description of this exam."
+  "title": "TypeScript Advanced Exam",
+  "description": "Tricky questions about TypeScript."
 }' http://0.0.0.0:5000/exams
 
 # retrieve exams
@@ -360,7 +360,7 @@ git add . git commit -m "enabling CORS"
 
 ## Bootstrapping the Angular Application
 
-To create your Angular application, you will use the `ng` tool (made available by the Angular CLI). So, move back to the project root directory and issue `ng new frontend`. This will create the basic structure of an Angular app. The following commands do this and commit the app untouched to you Git repository:
+To create your Angular application, you will use the `ng` tool (made available by the Angular CLI). So, move back to the project root directory and issue `ng new frontend`. This will create the basic structure of an Angular app. The following snippet summarizes the commands to create your app and commit it untouched to you Git repository:
 
 ```bash
 # change working directory to project root
@@ -375,3 +375,130 @@ cd frontend
 # commit template Angular project
 git add . && git commit -m "bootstrapping an Angular project"
 ```
+
+After that, the first thing you will do is to create a file called `env.ts` inside the `./frontend/src/app` directory with the following code:
+
+```typescript
+export const API_URL = 'http://localhost:5000';
+```
+
+For now, this TypeScript module simply exports a single constant (`API_URL`) that references your Flask backend application running locally. In the third part of this series, you will enhance this module to define different `API_URL` values depending on the environment.
+
+Then, you can create a new directory called `exams` inside `./frontend/src/app` to hold files related to this entity. In this directory, you will create two files: `exam.model.ts` and `exams-api.service.ts`. The first file (`exam.model.ts`) will have a TypeScript class to represent exams:
+
+```typescript
+export class Exam {
+  constructor(
+    public title: string,
+    public description: string,
+    public _id?: number,
+    public updatedAt?: Date,
+    public createdAt?: Date,
+    public lastUpdatedBy?: string,
+  ) { }
+}
+```
+
+And the `exams-api.service.ts` file will create a service that uses `HttpClient` to fetch exams from your Flask backend application:
+
+```typescript
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import {API_URL} from '../env';
+import {Exam} from './exam.model';
+
+@Injectable()
+export class ExamsApiService {
+
+  constructor(private http: HttpClient) {
+  }
+
+  private static _handleError(err: HttpErrorResponse | any) {
+    return Observable.throw(err.message || 'Error: Unable to complete request.');
+  }
+
+  // GET list of public, future events
+  getExams(): Observable<Exam[]> {
+    return this.http
+      .get(`${API_URL}/exams`)
+      .catch(ExamsApiService._handleError);
+  }
+}
+```
+
+As this service depends on `HttpClient`, you will need to import `HttpClientModule` from Angular in your `AppModule` declaration. Besides that, you will have to register `ExamsApiService` as a `provider`. So, open the `./frontend/src/app/app.module.ts` file and replace its contents with this:
+
+```typescript
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+
+import {AppComponent} from './app.component';
+import {ExamsApiService} from './exams/exams-api.service';
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+  ],
+  providers: [ExamsApiService],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
+
+Now, you will have to update the `./frontend/src/app/app.component.ts` file to use your new service to fetch data from your Flask app:
+
+```typescript
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {ExamsApiService} from './exams/exams-api.service';
+import {Exam} from './exams/exam.model';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'app';
+  examsListSubs: Subscription;
+  examsList: Exam[];
+
+  constructor(private examsApi: ExamsApiService) {
+  }
+
+  ngOnInit() {
+    this.examsListSubs = this.examsApi
+      .getExams()
+      .subscribe(res => {
+          this.examsList = res;
+        },
+        console.error
+      );
+  }
+
+  ngOnDestroy() {
+    this.examsListSubs.unsubscribe();
+  }
+}
+```
+
+And you will have to update its template (`app.component.html`) to show the exams fetched:
+
+{% highlight html %}
+{% raw %}
+
+{% endraw %}
+{% endhighlight %}
+
+Now, you can run your Angular application (run `ng serve` on the `frontend` directory) to check if everything is working. After Angular finishes compiling your app, you can browse to [`http://localhost:4200`](http://localhost:4200). There, you will see a page similar to this:
+
+![Using Angular to fetch data from a Flask application](https://cdn.auth0.com/blog/flask-angular/fetching-data.png)
