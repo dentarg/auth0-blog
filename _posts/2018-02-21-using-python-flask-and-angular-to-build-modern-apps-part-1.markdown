@@ -1,24 +1,28 @@
 ---
 layout: post
-title: "Using Python, Flask, and Angular to Build Modern Apps"
+title: "Using Python, Flask, and Angular to Build Modern Apps - Part 1"
 description: "<A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS >"
 longdescription: "<A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>"
-date: 2018-02-20 20:22
-category: Technical Guide
-press_release: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
-is_non-tech: <true|false (FOR FALSE YOU COULD ALSO REMOVE THIS LINE)>
+date: 2018-02-21 08:30
+category: Technical Guide, Python
 author:
-  name: <YOUR NAME>
-  url: <YOUR URL>
-  mail: <YOUR MAIL>
-  avatar: <LINK TO PROFILE PIC>
+  name: "Bruno Krebs"
+  url: "https://twitter.com/brunoskrebs"
+  mail: "bruno.krebs@gmail.com"
+  avatar: "https://twitter.com/brunoskrebs/profile_image?size=original"
 design:
-  bg_color: <A HEX BACKGROUND COLOR>
-  image: <A PATH TO A 200x200 IMAGE>
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/python-restful/logo.png
 tags:
-- foo
+- python
+- flask
+- sqlalchemy
+- angular
+- typescript
+- auth0
 related:
-- <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
+- 2017-09-28-developing-restful-apis-with-python-and-flask
+- 2017-11-09-sqlalchemy-orm-tutorial-for-python-developers
 ---
 
 **TL;DR:** A brief synopsis that includes link to a [GitHub repo](http://www.github.com/).
@@ -352,7 +356,7 @@ Now, before switching to Angular, you can save your progress and leave your Flas
 
 ```bash
 # commit your progress
-git add . git commit -m "enabling CORS"
+git add . && git commit -m "enabling CORS"
 
 # run the Flask app in the background
 ./bootstrap.sh &
@@ -438,7 +442,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {ExamsApiService} from './exams/exams-api.service';
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -495,10 +498,25 @@ And you will have to update its template (`app.component.html`) to show the exam
 
 {% highlight html %}
 {% raw %}
-
+<div style="text-align:center">
+  <h1>Exams</h1>
+</div>
+<h2>Here are the exams created so far: </h2>
+<ul>
+  <li *ngFor="let exam of examsList">
+    {{exam.title}}
+  </li>
+</ul>
 {% endraw %}
 {% endhighlight %}
 
 Now, you can run your Angular application (run `ng serve` on the `frontend` directory) to check if everything is working. After Angular finishes compiling your app, you can browse to [`http://localhost:4200`](http://localhost:4200). There, you will see a page similar to this:
 
 ![Using Angular to fetch data from a Flask application](https://cdn.auth0.com/blog/flask-angular/fetching-data.png)
+
+Before moving on, don't forget to save your progress:
+
+```bash
+git add .
+git commit -m "integrating Flask and Angular"
+```
