@@ -129,18 +129,32 @@ As you are using Git to backup your code, you will probably want to ignore some 
 
 ### Managing Entities with SQLAlchemy ORM
 
+With your virtual environment set up, you can start developing the features of your application. A good place to start is to define entities and to configure SQLAlchemy to persist and retrieve instances of these entities. As such, you will use `pipenv` to install the `sqlalchemy` package and a driver to connect to your database. If you are using PostgreSQL, you can use the `psycopg2-binary` driver alongside with SQLAlchemy. If you are using another database engine, please, [check this page to choose a good driver](http://docs.sqlalchemy.org/en/latest/core/engines.html#supported-databases).
+
+The following command shows how to use `pipenv` to install `sqlalchemy` and the `psycopg2-binary` driver:
+
 ```bash
 # install sqlalchemy and psycopg2 on the venv
 pipenv install sqlalchemy psycopg2-binary
+```
 
+After installing SQLAlchemy and a driver to connect to the database, you can start creating your entities. To do so, use the following commands to create a module called `entities` inside another module called `src`:
+
+```bash
+# create directories
 mkdir -p src/entities
 
+# create file to mark src as a module
 touch src/__init__.py
 
+# create file to mark entities as a module
 touch src/entities/__init__.py
 
+# create file to hold some boilerplate code
 touch src/entities/entity.py
 ```
+
+The first two `touch` commands above simply create empty `__init__.py` files to mark both directories as Python modules. The last `touch` command creates the file that will hold a class called `Entity`. You will use this class as the superclass to all your entities. This will be useful to avoid having to repeat some boilerplate code to connect to the database and to define some common properties (e.g. `id` and `created_at`):
 
 ```python
 # coding=utf-8
@@ -172,9 +186,13 @@ class Entity():
         self.last_updated_by = created_by
 ```
 
+Then, after defining the `Entity` class, you can create a file called `exam.py` to represent your first entity:
+
 ```bash
 touch src/entities/exam.py
 ```
+
+On this file, insert the following code:
 
 ```python
 # coding=utf-8
@@ -196,9 +214,15 @@ class Exam(Entity, Base):
         self.description = description
 ```
 
+Here, you are defining a class called `Exam` that inherits from `Entity` and from `Base`. This entity contains, besides the properties defided by its superclasses, two properties: `title` and `description`. Besides that, this class also defines that instances of it must be persisted to and retrieved from a table called `exams`.
+
+Having the `Exam` and `Entity` classes properly defined, you can create a script called `main.py` in the `src` directory to test if they are really connecting to the database:
+
 ```bash
 touch src/main.py
 ```
+
+Inside this script, you can add the following code:
 
 ```python
 # coding=utf-8
@@ -231,6 +255,17 @@ for exam in exams:
     print(f'({exam.id}) {exam.title} - {exam.description}')
 ```
 
+As you can see, the code in this script is quite simple. Here is a list that summarizes what it does:
+
+- It starts by importing `Session`, `engine`, and `Base` from the `.entities.entity` module.
+- Then, it imports the `Exam` class from the `.entities.exam` module.
+- Then, it genereates (if needed) the database schema.
+- After generating the schema, it queries all instances of `Exam`.
+- Then, if there are no exams on the database, it creates a new one and queries all instances of the `Exam` class again.
+- Lastly, it prints the exams retrieved from the database.
+
+To run this script, you will have to activate the virtual environment (created by `pipenv`) then use `python` to trigger the `src.main` module:
+
 ```bash
 # activate virtual environment
 pipenv shell
@@ -239,7 +274,9 @@ pipenv shell
 python -m src.main
 ```
 
-This might be a good time to save your progress:
+If everything works as expected, your module will create an instance of `Exam`, persist to the database, and print its details on the terminal.
+
+By the way, this might be a good time to save your progress:
 
 ```bash
 git add . && git commit -m "adding SQLAlchemy and some entities"
