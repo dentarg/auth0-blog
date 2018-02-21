@@ -34,6 +34,8 @@ Unfortunately, the email meant for Ronald Michaels—thanks to a data integratio
 
 Since your CS team still hasn't gotten back to R. Michaels, this sets him off even more and leaves your CS team frustrated that they've been put into an even worse position with the customer. R. Michaels goes ahead and publishes his scathing online review of your team's incompetence. 
 
+{% include tweet_quote.html quote_text="With proper data management and integration, you don't need to worry about mixed messages." %}
+
 With proper data management and integration, you don't need to worry about such mixed messages. But the true benefits of strong data integration go far beyond avoiding embarrassing situations—used right, a strong data integration plan can be the foundation of better customer engagement and higher revenues for your business.
 
 ## What is Data Integration?
@@ -63,6 +65,8 @@ Each of these pieces of data lives in a different format—once you can bring th
 ## Why Data Integration Is Critical
 
 As both examples illustrate, a data integration strategy is key to deeply understanding your user base, along with avoiding miscommunication and other costly errors. With the right tools in place, a myriad of new opportunities will open for your organization. 
+
+{% include tweet_quote.html quote_text="A data integration strategy is key to deeply understanding your user base, along with avoiding miscommunication and other costly errors." %}
 
 You can:
 
