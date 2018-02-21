@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "Laravel 5.6 Release: What's New?"
-description: Laravel 5.6 has officially been released. What's new? What improvements were made? Learn how to build better PHP applications with this new release.
-longdescription:
-date: 2017-09-27 08:30
+description: "Laravel 5.6 has officially been released. What's new? What improvements were made? Learn how to build better PHP applications with this new release."
+longdescription: "Laravel 5.6 is a major release to the framework. There are breaking changes and numerous bug fixes to Laravel. Learn notable additions to Laravel and how you can leverage them in your next project."
+date: 2018-02-21 08:30
 category: Hot Topics, Frameworks, Laravel
 design:
-  bg_color: "#222228"
-  image: https://cdn.auth0.com/blog/next3/logo.png
+  bg_color: "#4A4A4A"
+  image: https://cdn.auth0.com/blog/laravel-auth/logo.png
 author:
   name: Prosper Otemuyiwa
   url: http://twitter.com/unicodeveloper
@@ -18,25 +18,27 @@ tags:
 - web-app
 - php
 - auth0
+- api
+- laravel-56
 related:
-- 2016-11-01-building-universal-apps-with-nextjs
-- 2017-04-24-build-better-universal-apps-with-nextjs2
-- 2016-10-05-build-your-first-app-with-polymer-and-web-components
+- 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
+- 2017-07-27-laracon-summary-day-1
+- 2017-07-29-laracon-summary-day-2
 ---
 
 ---
 
-**TL;DR:** On Wednesday, February 7 2018, **Laravel 5.6**, was released to the public. It's a major release to the most popular PHP framework on GitHub as of this writing. Furthermore, [Spark 6.0](https://spark.laravel.com) was also released alongside **Laravel 5.6**. According to the policy laid down by the Taylor and the core team, major Laravel framework releases are released every six months (February and August). In this article, I'll cover the new features in Laravel 5.6 and several other changes and deprecations.
+**TL;DR:** On Wednesday, February 7, 2018, **Laravel 5.6**, was released to the public. It's a major release to the most popular PHP framework on GitHub as of this writing. Furthermore, [Spark 6.0](https://spark.laravel.com) was also released alongside **Laravel 5.6**. According to the policy laid down by the Taylor and the core team, major Laravel framework releases are released every six months (February and August). In this article, I'll cover the new features in Laravel 5.6 and several other changes and deprecations.
 
 ---
 
-Laravel is a free, open-source PHP framework designed for building web applications with an expressive and elegant syntax. Laravel has a high level of abstraction which shields the common developer from complex inner workings. Laravel saves you time and effort because it ships with a lot of features out of the box. Without further ado, let's dive right in to **Laravel 5.6**.
+Laravel is a free, open-source PHP framework designed for building web applications with an expressive and elegant syntax. Laravel has a high level of abstraction which shields the common developer from complex inner workings. Laravel saves you time and effort because it ships with a lot of features out of the box. Without further ado, let's dive right into **Laravel 5.6**.
 
 ## What's new in Laravel 5.6?
 
 ### 1. Support For Argon Password Hashing
 
-Argon2, the recommended password hashing algorithm by the Password Hashing Competition, is a modern algorithm for securely hashing passwords. And it comes in two distinct flavors, Argon 2i and Argon 2d. PHP 7.2 recently added support for Argon 2i password hashing. Therefore, [Michael Lundbol](https://github.com/morloderex) took the initiative to start the process of adding support for Argon hashing in Laravel.
+Argon2, the recommended password hashing algorithm by the Password Hashing Competition, is a modern algorithm for securely hashing passwords. And it comes in two distinct flavours, Argon 2i and Argon 2d. PHP 7.2 recently added support for Argon 2i password hashing. Therefore, [Michael Lundbol](https://github.com/morloderex) took the initiative to add support for Argon hashing in Laravel.
 
 ![Argon Password Hashing Support](https://cdn.auth0.com/blog/laravel56/argon.png)
 _Initiative to add Argon Password Hashing_
@@ -48,7 +50,7 @@ _Config file for hashing_
 
 **Note:** Laravel 5.6 ships with a [hashing config file](https://github.com/laravel/laravel/blob/develop/config/hashing.php) as displayed above.
 
-### Better Support For Dynamic Rate Limiting
+### 2. Better Support For Dynamic Rate Limiting
 
 One of the beautiful built-in features of Laravel is _API Rate Limiting_. Before now, Laravel's rate limiting configuration involved specifying a hard-coded number of requests on a group of routes. However, Laravel 5.6 adds icing to the cake by allowing you specify a maximum number of requests based on an authenticated User model attribute.
 
@@ -113,7 +115,9 @@ Check out more [information on Logging in Laravel 5.6](https://laravel.com/docs/
 
 ### 5. Single Server Task Scheduling
 
-Before now, if your app ran on multiple servers and the task scheduler was active on those servers, then your scheduled tasks also executed multiple times. However, in Laravel 5.6, you can schedule your task to execute on just a single server if your app runs on multiple servers.
+Before now, if your app ran on multiple servers and the task scheduler was active on those servers, then your scheduled tasks also executed multiple times. However, in Laravel 5.6, you can now schedule your task to execute on just a single server if your app runs on multiple servers.
+
+{% include tweet_quote.html quote_text=" In Laravel 5.6, you can now schedule your task to execute on just a single server if your app runs on multiple servers." %}
 
 ```php
 $schedule->command('launch:flasheavy')
@@ -133,295 +137,114 @@ _Collision Integration with Laravel 5.6_
 
 ### 7. Elevated Eloquent Date Formatting
 
-### 8. Blade Component Aliases
+Laravel 5.6 provides a subtle way to cast Eloquent date model attributes to a specific date format. All you need to do is to specify the desired date format in the `$casts` array.
+
+{% include tweet_quote.html quote_text="Laravel 5.6 provides a subtle way to cast Eloquent date model attributes to a specific date format." %}
+
+Now, you can customize the date model attributes like so:
+
+```php
+protected $casts = [
+  'date_enrolled' => 'date:Y-m-d',
+  'date_evicted' => 'datetime:Y-m-d H:00',
+];
+```
+
+When the model is cast to JSON or array output, the attributes will be formatted to the date formats example provided above like so:
+
+```bash
+date_enrolled: 2005-02-19
+date_evicted: 2018-02-20 8:30
+```
+
+### 8. Aliasing Blade Components For Easier Access
+
+This feature is very handy. Accessing a blade component in a sub-directory is easier via aliasing. With the component method, you can alias `components.card` to `card` assuming the card component's directory is `resources/views/components/card.blade.php`.
+
+```php
+Blade::component('components.card', 'card');
+```
+
+Once it has been aliased, you can invoke the component like so:
+
+```php
+@card
+  This is your Valentine card.
+@card
+```
 
 ### 9. Broadcasting Channel Classes
 
-### 10.
+In Laravel 5.6, you can now generate broadcasting channel classes via the `make:channel` Artisan command. The generated channel class will be placed in the `App/Broadcasting` directory.
 
-
-## Aside: Authenticating a Laravel App with Auth0
-
-**Auth0** issues [JSON Web Tokens](https://jwt.io/) on every login for your users. This means that you can have a solid [identity infrastructure](https://auth0.com/docs/identityproviders), including [single sign-on](https://auth0.com/docs/sso/single-sign-on), user management, support for social identity providers (Facebook, Github, Twitter, etc.), enterprise identity providers (Active Directory, LDAP, SAML, etc.) and your own database of users with just a few lines of code.
-
-We can easily set up authentication in a **Next.js 3.0** apps by using the [Auth0.js library](https://github.com/auth0/auth0.js). If you don't already have an Auth0 account, <a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up</a> for one now. Navigate to the Auth0 [management dashboard](https://manage.auth0.com/), click on `New client` by the right hand side, select Regular Web App from the dialog box and then go ahead to the `Settings` tab where the client ID, client Secret and Domain can be retreived.
-
-> [Auth0 offers a generous **free tier**](https://auth0.com/pricing) to get started with modern authentication.
-
-**Note:** Make sure you set the  `Allowed Callback URLs` to `http://localhost:3000/auth/signed-in` or whatever url/port you are running on. Furthermore; set the `Allowed Logout URLs` to `http://localhost:3000/`.
-
-Authentication in a Next.js app could be a little complicated because you have to ensure that the server-rendered pages are authenticated, meaning they need to have access to the token.
-
-Check out the [complete app on GitHub](https://github.com/auth0-blog/next3-auth0).
-
-**Note**: Don't forget to rename the `config.sample.json` file to `config.json` and add your credentials.
-
-_utils/auth.js_
-
-```js
-import jwtDecode from 'jwt-decode'
-import Cookie from 'js-cookie'
-
-const getQueryParams = () => {
-  const params = {}
-  window.location.href.replace(/([^(?|#)=&]+)(=([^&]*))?/g, ($0, $1, $2, $3) => {
-    params[$1] = $3
-  })
-  return params
-}
-
-export const setToken = (idToken, accessToken) => {
-  if (!process.browser) {
-    return
-  }
-  Cookie.set('user', jwtDecode(idToken))
-  Cookie.set('idToken', idToken)
-  Cookie.set('accessToken', accessToken)
-}
-
-export const unsetToken = () => {
-  if (!process.browser) {
-    return
-  }
-  Cookie.remove('idToken')
-  Cookie.remove('accessToken')
-  Cookie.remove('user')
-
-  // to support logging out from all windows
-  window.localStorage.setItem('logout', Date.now())
-}
-
-export const getUserFromServerCookie = (req) => {
-  if (!req.headers.cookie) {
-    return undefined
-  }
-  const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('idToken='))
-  if (!jwtCookie) {
-    return undefined
-  }
-  const jwt = jwtCookie.split('=')[1]
-  return jwtDecode(jwt)
-}
-
-export const getUserFromLocalCookie = () => {
-  return Cookie.getJSON('user')
-}
+```bash
+php artisan make:channel PurchaseChannel
 ```
 
-_utils/auth0.js_
+Registering the channel is as easy as calling the `Broadcast::channel` method below in the `routes/channel.php` file:
 
-```js
-const getAuth0 = (options) => {
-  const config = require('../config.json')
-  const auth0 = require('auth0-js');
-  return new auth0.WebAuth({
-    clientID: config.AUTH0_CLIENT_ID,
-    domain: config.AUTH0_CLIENT_DOMAIN,
-  });
-}
+```bash
+use App\Broadcasting\PurchaseChannel;
 
-const getBaseUrl = () => `${window.location.protocol}//${window.location.host}`
-
-const getOptions = (container) => {
-  return {
-    responseType: 'token id_token',
-    redirectUri: `${getBaseUrl()}/auth/signed-in`,
-    scope: 'openid profile email'
-  }
-}
-
-export const authorize = () => getAuth0().authorize(getOptions())
-export const logout = () => getAuth0().logout({ returnTo: getBaseUrl() })
-export const parseHash = (callback) => getAuth0().parseHash(callback)
+Broadcast::channel('purchase.{purchase}', PurchaseChannel::class);
 ```
 
-_pages/auth/sign-in.js_
+In the `PurchaseChannel` class, you can add the authorization logic in the `join` method. Before now, the authorization logic was placed in the channel authorization Closure.
 
-```js
-import React from 'react'
+```php
+<?php
 
-import defaultPage from '../../hocs/defaultPage'
-import { authorize } from '../../utils/auth0'
+namespace App\Broadcasting;
 
-class SignIn extends React.Component {
-  componentDidMount () {
-    authorize()
-  }
-  render () {
-    return null
-  }
-}
+use App\User;
+use App\Purchase;
 
-export default defaultPage(SignIn)
-```
+class PurchaseChannel
+{
 
-Display the login page once the sign-in component gets mounted.
+  ....
 
-![Sign in](https://cdn.auth0.com/blog/nextjs3/login.png)
-_Sign-in page_
-
-_pages/auth/signed-in.js_
-
-```js
-import React, { PropTypes } from 'react'
-import Router from 'next/router'
-
-import { setToken } from '../../utils/auth'
-import { parseHash } from '../../utils/auth0'
-
-export default class SignedIn extends React.Component {
-  static propTypes = {
-    url: PropTypes.object.isRequired
-  }
-
-  componentDidMount () {
-    parseHash((err, result) => {
-      if(err) {
-        console.error('Something happened with the Sign In request')
-        return;
-      }
-
-      setToken(result.idToken, result.accessToken);
-      Router.push('/')
-    })
-  }
-  render () {
-    return null
+  /**
+   * Authenticate the user's access to the channel.
+   *
+   * @param  \App\User  $user
+   * @param  \App\Purchase $purchase
+   * @return array|bool
+   */
+  public function join(User $user, Purchase $purchase)
+  {
+      return $user->id === $purchase->user_id;
   }
 }
 ```
+### 10. Daring Upgrade Of Symfony Components and Bootstrap
 
-Grab the token and ID token from Auth0 as it returns to the callback which is the signed-in page, save it and redirect to the index page.
+All the Symfony components used by Laravel 5.6 have been bumped to the `~4.0` release. Furthermore, all the front-end scaffolding of Laravel 5.6 and Spark 6.0 has been bumped to `v4`. 
 
-![Signed in](https://cdn.auth0.com/blog/signedin/authenticated.png)
-_Secret page shows that the user is signed in and can access it_
-
-_pages/index.js_
-
-```js
-
-import React, { PropTypes } from 'react'
-import Link from 'next/link'
-
-import defaultPage from '../hocs/defaultPage'
-
-const SuperSecretDiv = () => (
-  <div>
-    This is a super secret div.
-    <style jsx>{`
-      div {
-        background-color: #ecf0f1;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        border-radius: 2px;
-        padding: 10px;
-        min-height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #333;
-        text-align: center;
-        font-size: 40px;
-        font-weight: 100;
-        margin-bottom: 30px;
-      }
-    `}</style>
-  </div>
-)
-
-const createLink = (href, text) => (
-  <a href={href}>
-    {text}
-    <style jsx>{`
-      a {
-        color: #333;
-        padding-bottom: 2px;
-        border-bottom: 1px solid #ccc;
-        text-decoration: none;
-        font-weight: 400;
-        line-height: 30px;
-        transition: border-bottom .2s;
-      }
-
-      a:hover {
-        border-bottom-color: #333;
-      }
-    `}</style>
-  </a>
-)
-
-const Index = ({ isAuthenticated }) => (
-  <div>
-    {isAuthenticated && <SuperSecretDiv />}
-    <div className='main'>
-      <h1>Hello, friend!</h1>
-      <p>
-        This is a super simple example of how to use {createLink('https://github.com/zeit/next.js', 'next.js')} and {createLink('https://auth0.com/', 'Auth0')} together.
-      </p>
-      {!isAuthenticated && (
-        <p>
-          You're not authenticated yet. Maybe you want to <Link href='/auth/sign-in'>{createLink('/auth/sign-in', 'sign in')}</Link> and see what happens?
-        </p>
-      )}
-      {isAuthenticated && (
-        <p>
-          Now that you're authenticated, maybe you should try going to our <Link href='/secret'>{createLink('/secret', 'super secret page')}</Link>!
-        </p>
-      )}
-    </div>
-    <style jsx>{`
-      .main {
-        max-width: 750px;
-        margin: 0 auto;
-        text-align: center;
-      }
-
-      h1 {
-        font-size: 40;
-        font-weight: 200;
-        line-height: 40px;
-      }
-
-      p {
-        font-size: 20px;
-        font-weight: 200;
-        line-height: 30px;
-      }
-    `}</style>
-  </div>
-)
-
-Index.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired
-}
-
-export default defaultPage(Index)
-
-```
-
-The index page is server-rendered. It checks if the user is authenticated or not and renders content based on the status.
-
-The [secret page](https://github.com/auth0-blog/next3-auth0/blob/master/pages/secret.js) too checks if the user is logged in and determines content based on the user's status.
-
-![Secret page unauthorized](https://cdn.auth0.com/blog/secret/notloggedin.png)
-_Not displaying valid content because the user cant access the secret page without signing in_
-
-**Note:** This example performs no server side validation of the token sent by the user in its cookies. For production-ready secure pages this is necessary.
-
-> Auth0 provides the simplest and easiest to use [user interface tools to help administrators manage user identities](https://auth0.com/user-management) including password resets, creating and provisioning, blocking and deleting users.
-
+I covered all the [major additions and deprecations of Bootstrap 4 in this article](https://auth0.com/blog/whats-new-in-bootstrap4).
 
 ## Deprecations and Other Updates
 
-* The global font-size has been increased from `14px` to `16px`.
-* The primary CSS unit is now `rem` rather than `px`. However, pixels are widely used for media queries.
-* Bootstrap 4 dropped the Glyphicons icon font. Suggested options are [fontAwesome](http://fontawesome.io/) and [Octicons](https://octicons.github.com/).
-* Bootstrap 4 also dropped the **Affix JQuery library**. Suggested option is to use the `position:sticky` polyfill.
-* Bootstrap 4 dropped support for non-responsive usage of Bootstrap.
-* Bootstrap 4 uses a user's system fonts, with a fallback to Helvetica Neue, Arial, and sans-serif.
+* Generating an API resource controller can now be done by using the `--api` switch when executing the `make:controller` command.
+* Laravel 5.6 introduced helper methods, `Arr::wrap()`, `classes_uses_recursive()`, `Str::uuid()`, and `Str::orderedUuid()`, the latter generating a timestamp first UUID that's more easily and efficiently indexed by databases like MySQL.
+* PHPUnit, upgraded to v7.
+* Laravel Mix, upgraded to v2.
+* The deprecated Artisan`optimize` command has been removed.
+* Added support for customizing the mail message building in `ResetPassword::toMail()`.
+* Add `policies()` method to `AuthServiceProvider` to retrieve all the policies defined by the provider.
+* Two new blade directives have been added to the framework, `@csrf` and `@method`.
+* Support for PostgreSQL comments was added. Furthermore, Laravel 5.6 now has better support for enumeration columns.
 
-Check out other [Angular 5 updates here](https://github.com/angular/angular/blob/master/CHANGELOG.md).
+Check out other [Laravel 5.6 updates here](https://github.com/laravel/framework/releases/tag/v5.6.0).
 
 ## Upgrading to Laravel 5.6
+
+Laravel 5.6 requires `PHP >= 7.1.3`. And the estimated upgrade time from Laravel `v5.5` is about ten to thirty minutes.
+
+Check out this [comprehensive upgrade guide](https://laravel.com/docs/5.6/upgrade). However, if you don't want to be bothered about manually configuring and changing files for the upgrade, I recommend using [Laravel Shift - A service that provides automated, instant Laravel upgrade services by an army of thorough bots and friendly humans](https://laravelshift.com).
+
+![Laravel Shift](https://cdn.auth0.com/blog/laravel56/laravelshift.png)
+_Laravel Shift_
 
 The Bootstrap team has a comprehensive guide for [migrating to Bootstrap v4](https://getbootstrap.com/docs/4.0/migration). However, there is a very [nifty tool](http://upgrade-bootstrap.bootply.com) from the community that allows you to drop in a piece of code and convert it to the Bootstrap v4 equivalent.
 
@@ -431,12 +254,10 @@ _Bootstrap v3_
 ![Bootstrap v4](https://cdn.auth0.com/blog/bootstrap4/convertedcode.png)
 _Converted to Bootstrap v4 code_
 
-{% include asides/{laravel}.markdown %}
+{% include asides/{laravel-backend}.markdown %}
 
 ## Conclusion
 
-**Bootstrap 4** came loaded with new features and significant improvements. It is better, more customizable and slick. I am proud of what the Bootstrap team and the community achieved with this release.
+**Laravel 5.6** came loaded with new features and significant improvements. Another major release will be out by August and some of the features shipping with the next major release will be unleashed at [Laracon 2018](http://laracon.us). Get your tickets already!
 
-{% include tweet_quote.html quote_text="Bootstrap 4 is a major rewrite of the entire project." %}
-
-Have you switched to Bootstrap v4.0 yet? What are your thoughts? Let me know in the comments section! 😊
+Have you upgraded to Laravel v5.6 yet? What are your thoughts? Let me know in the comments section! 😊
