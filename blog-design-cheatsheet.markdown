@@ -32,6 +32,13 @@ If adding new logos, upload them to the `logos` directory on the CDN. This will 
   image: https://cdn.auth0.com/blog/logos/laravel.png
 ```
 
+### Lumen
+
+```
+  bg_color: "#5B1C14"
+  image: https://cdn.auth0.com/blog/logos/lumen.png
+```
+
 ### Node.js
 
 ```
