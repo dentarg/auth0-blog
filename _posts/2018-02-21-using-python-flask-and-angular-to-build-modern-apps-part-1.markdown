@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Using Python, Flask, and Angular to Build Modern Apps - Part 1"
-description: "<A SHORT DESCRIPTION OF THE POST <= 200 CHARACTERS >"
-longdescription: "<A LONG DESCRIPTION OF THE POST BETWEEN 230 AND 320 CHARACTERS>"
+description: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular."
+longdescription: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create an app that exposes exams and questions so users can test their knowledge regarding different technologies online."
 date: 2018-02-21 08:30
 category: Technical Guide, Python
 author:
@@ -25,9 +25,13 @@ related:
 - 2017-11-09-sqlalchemy-orm-tutorial-for-python-developers
 ---
 
-**TL;DR:** A brief synopsis that includes link to a [GitHub repo](http://www.github.com/).
+**TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create an app that exposes exams and questions so users can test their knowledge regarding different technologies online. You can find the final code create throughout this article [in this GitHub repository](https://github.com/auth0-blog/online-exam/).
 
 ---
+
+## What Will We Build
+
+## Why Flask and Angular
 
 ## Dependencies
 
@@ -380,6 +384,8 @@ cd frontend
 git add . && git commit -m "bootstrapping an Angular project"
 ```
 
+### Consuming Flask Endpoints with Angular
+
 After that, the first thing you will do is to create a file called `env.ts` inside the `./frontend/src/app` directory with the following code:
 
 ```typescript
@@ -520,3 +526,15 @@ Before moving on, don't forget to save your progress:
 git add .
 git commit -m "integrating Flask and Angular"
 ```
+
+## Identity Management and Security with Auth0
+
+Advantages of using Auth0
+
+### Creating the Auth0 API
+
+### Creating the Auth0 Client
+
+## Conclusion and Next Steps
+
+What we have done so far and what we will do in the next article.
