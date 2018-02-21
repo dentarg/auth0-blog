@@ -1196,16 +1196,15 @@ Replace the above method with the one shown below:
 
 ```php
 /**
-* @Route("/admin/author/create", name="author_create")
-*/
+ * @Route("/admin/author/create", name="author_create")
+ */
 public function createAuthorAction(Request $request)
 {
-    // Check whether user already has an author.
     if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName())) {
-       // Redirect to dashboard.
-       $this->addFlash('error', 'Unable to create author, author already exists!');
+        // Redirect to dashboard.
+        $this->addFlash('error', 'Unable to create author, author already exists!');
 
-       return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('homepage');
     }
 
     $author = new Author();
@@ -1476,16 +1475,18 @@ Open your `./templates/blog/index.html.twig` template defined in your BlogContro
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            {% if app.user %}
-                <li><a href="{{ path("author_create") }}">Admin</a></li>
-                <li><a href="{{ logout_url("secured_area") }}">Logout</a></li>
-            {% else %}
-                <li class="active"><a href="/connect/auth0">Login</a></li>
-            {% endif %}
+    <nav class="navbar navbar-default navbar-static-top">
+        <div id="navbar" class="collapse navbar-collapse pull-right">
+            <ul class="nav navbar-nav">
+                {% if app.user %}
+                    <li><a href="{{ path("author_create") }}">Admin</a></li>
+                    <li><a href="{{ logout_url("secured_area") }}">Logout</a></li>
+                {% else %}
+                    <li class="active"><a href="/connect/auth0">Login</a></li>
+                {% endif %}
+            </ul>
         </div>
-    </div>
+    </nav>
 {% endblock %}
 {% endraw %}
 {% endhighlight %}
