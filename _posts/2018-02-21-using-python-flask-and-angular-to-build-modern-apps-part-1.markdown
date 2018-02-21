@@ -81,11 +81,13 @@ Of course, to run the command above, you will need to [have Docker installed loc
 
 ### Frontend Dependencies
 
-As you are going to use Angular to create your frontend application, you will need Node.js and NPM installed on your machine. You can install both tools simultaneously by downloading and executing an installer (choose one based on your operating system) from [the Node.js download page](https://nodejs.org/en/download/). Another alternative is to use a tool like [NVM](https://github.com/creationix/nvm) to manage multiple active `node` versions (on a development machine, this is probably the best option).
+As you are going to use Angular to create your frontend application, you will need [Node.js](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/) installed on your machine. You can install both tools simultaneously by downloading and executing an installer (choose one based on your operating system) from [the Node.js download page](https://nodejs.org/en/download/). Another alternative is to use a tool like [NVM](https://github.com/creationix/nvm) to manage multiple active `node` versions. On a development machine, this is probably the best option.
 
 Whichever installation method you choose, make sure you are using an up to date version of Node.js (i.e. `>= 8`).
 
-After properly installing both tools, you can use `npm` to install [the Angular CLI tool](https://github.com/angular/angular-cli). You will use this CLI (Command Line Interface) to bootstrap the frontend app, start a development server, and [to create Angular `components`, `services`, etc](https://github.com/angular/angular-cli#generating-components-directives-pipes-and-services). Use the following command to install Angular CLI:
+After properly installing Node.js and NPM, you can use the `npm` command to install [the Angular CLI tool](https://github.com/angular/angular-cli). You will use this CLI (Command Line Interface) to bootstrap the frontend app, start a development server, and [to create Angular `components`, `services`, etc](https://github.com/angular/angular-cli#generating-components-directives-pipes-and-services).
+
+Use the following command to install the Angular CLI:
 
 ```bash
 npm install -g @angular/cli
