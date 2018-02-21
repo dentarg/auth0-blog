@@ -21,11 +21,15 @@ related:
 - <ADD SOME RELATED POSTS FROM AUTH0'S BLOG>
 ---
 
-**TL;DR:** A brief synopsis that includes link to a [github repo](http://www.github.com/).
+**TL;DR:** A brief synopsis that includes link to a [GitHub repo](http://www.github.com/).
 
 ---
 
 ## Dependencies
+
+This section is divided into two subsections to highlight what are the environment dependencies from the backend and the frontend perspective.
+
+### Backend Dependencies
 
 An up to date version of Python 3.
 
@@ -46,6 +50,14 @@ docker run --name online-exam-db \
     -e POSTGRES_PASSWORD=0NLIN3-ex4m \
     -d postgres
 ```
+
+### Frontend Dependencies
+
+As you are going to use Angular to create your frontend application, you will need Node.js and NPM installed on your machine. You can install both tools simultaneously by downloading and executing an installer (choose one based on your operating system) from [the Node.js download page](https://nodejs.org/en/download/). Another alternative, is to use a tool like [NVM](https://github.com/creationix/nvm) to manage multiple active `node` versions.
+
+Whichever installation method you choose, make sure you are using an up to date version of Node.js (i.e. `>= 8`).
+
+From the frontend perspective, having Node.js and NPM installed is enough. Soon, you will use NPM to run [the Angular CLI tool](https://github.com/angular/angular-cli) and to manage your project dependencies.
 
 ## Bootstrapping the Python Application
 
@@ -290,3 +302,5 @@ curl http://0.0.0.0:5000/exams
 ```
 
 Also, you can check the result of the `POST` request by browsing to [`http://0.0.0.0:5000/exams`](http://0.0.0.0:5000/exams).
+
+## Bootstrapping the Angular Application
