@@ -116,6 +116,12 @@ php bin/console doctrine:schema:update --force
 php bin/console doctrine:fixtures:load
 ```
 
+Running the following command, and then opening the URL in your browser, you should see how we left off in the first article.
+
+```bash
+php bin/console server:run
+```
+
 ### Installing Bootstrap
 
 In order to install [Bootstrap](https://getbootstrap.com/), we need [Symfony's Webpack Encore](https://github.com/symfony/webpack-encore), which is a simpler way to integrate [Webpack](https://webpack.js.org/) into your application.
@@ -130,9 +136,7 @@ composer require webpack-encore
 
 In the root directory of the project there will be 2 new files (`package.json`, `webpack.config.js`) and a new directory (`assets`).
 
-Open `webpack.config.js` in the root of the project, this is just the file that contains all of the web pack configurations.
-
-Replace the contents with:
+Open `webpack.config.js`, this is just the file that contains all of the web pack configurations, and replace the contents with:
 
 ```JavaScript
 var Encore = require('@symfony/webpack-encore');
