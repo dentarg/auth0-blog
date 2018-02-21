@@ -452,6 +452,22 @@ export class DealService {
 
 Now you can see where the `getPublicDeals()` method fits in from our `public-deals.component.ts` file. We also have written a `getPrivateDeals()` method that will get our list of private deals. Implement this method in your `private-deals.component.ts` file. Finally, we handle errors and implement the `purchase()` method that is used in both of the deals components.
 
+Once this service has been created, we need to import it in our `app.module.ts` file and provide it like so:
+
+```typescript
+// app.module.ts
+import { DealService } from './deal.service';
+...
+@NgModule({
+  ...
+  providers: [
+    DealService
+  ],
+  ...
+```
+
+Now the service is available to use throughout our application.
+
 ## Adding Authentication to Your Angular App
 
 Navigate to `localhost:4200` and you should see be redirected to the deals page automatically. Notice that you can freely navigate to the `/special` route and see the exclusive deals as well. You can do this because we haven't added user authentication yet. Let's do that now.
@@ -683,6 +699,23 @@ export class AuthService {
 
 }
 ```
+
+Once the authentication service has been created, we need to import it in our `app.module.ts` file and provide it like so:
+
+```typescript
+// app.module.ts
+import { AuthService } from './auth/auth.service';
+...
+@NgModule({
+  ...
+  providers: [
+    ...,
+    AuthService
+  ],
+  ...
+```
+
+Now the service is available to use throughout our application.
 
 We will use the [Auth0 centralized login](https://auth0.com/docs/hosted-pages/login) option for authenticating our users. This is the most secure way to authenticate a user and get an `access_token` in an OAuth compliant manner. With our authentication service created, let's continue building our authentication workflow.
 
