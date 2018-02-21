@@ -11,6 +11,13 @@ If adding new logos, upload them to the `logos` directory on the CDN. This will 
   image: https://cdn.auth0.com/blog/logos/angular.png
 ```
 
+### Vue
+
+```
+  bg_color: "#35495E"
+  image: https://cdn.auth0.com/blog/logos/vue.png
+```
+
 ### Firebase
 
 ```
