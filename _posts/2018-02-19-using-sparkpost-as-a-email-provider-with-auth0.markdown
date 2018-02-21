@@ -2,7 +2,7 @@
 layout: post
 title: "Using SparkPost as a Custom E-mail Provider with Auth0"
 description: "Learn how to use the new SparkPost integration with Auth0."
-longdescription: "We have recently added support for one more e-mail provider to the Auth0 platform: SparkPost. In this short tutorial, we will learn how to enable custom e-mail providers in Auth0 and how to setup SparkPost for all Auth0 related notifications."
+longdescription: "We have recently added support for more e-mail providers to the Auth0 platform. In this short tutorial, we will learn how to enable custom e-mail providers in Auth0, and how to setup SparkPost for all Auth0 related notifications."
 date: 2018-02-19 12:30
 category: Technical Guide
 author:
@@ -80,14 +80,14 @@ It really is as simple as that! Put your API key in the input box at the bottom,
 
 - To use a custom domain for sending emails, that domain must be validated once using the [SparkPost domain validation process](https://developers.sparkpost.com/api/sending-domains.html). The relevant section of SparkPost's dashboard is [this one](https://app.sparkpost.com/account/sending-domains).
 
-- Custom domains must much **exactly** the validated domain. In other words, if your validated domain is `mail.mysuperdomain.com` you must pick an address that looks like `mymailbox@mail.mysuperdomain.com`. Variants like `mymailbox@mysuperdomain.com` or `mymailbox@mail2.mysuperdomain.com` are not valid. If you don't want the `mail` subdomain to be part of your e-mail, make sure to validate the root domain and not the subdomain using SparkPost's domain validation process. Whatever goes before the `@` is not important, though, you can pick whatever you want.
+- Custom domains must match **exactly** the validated domain. In other words, if your validated domain is `mail.mysuperdomain.com` you must pick an address that looks like `mymailbox@mail.mysuperdomain.com`. Variants like `mymailbox@mysuperdomain.com` or `mymailbox@mail2.mysuperdomain.com` are not valid. If you don't want the `mail` subdomain to be part of your e-mail, make sure to validate the root domain and not the subdomain using SparkPost's domain validation process. Whatever goes before the `@` is not important, though, you can pick whatever you want.
 
 - There is a domain that can be used for tests in case you don't have a custom domain at the moment: `sparkpostbox.com`. This is known in SparkPost's documentation as the [sandbox](https://developers.sparkpost.com/api/transmissions.html#header-the-sandbox-domain). SparkPost's sandbox domain has strict limitations and should only be used to test that things work once or twice. In fact, there is a hard lifetime limit of five test e-mails from that domain. In other words, after five test e-mails, you won't be able to send any more using that domain. You can use this domain to test the integration with Auth0 but be aware that things will fail after those five e-mails have been sent. Sandbox domains are of the form `mailbox@sparkpostbox.com` where `mailbox` can be anything you want.
 
 With all of this in mind, we might want to test things using the sandbox domain (just one mail this time!). Put a sandbox domain e-mail address in the input box at the top, like `test@sparkpostbox.com` and hit `SEND TEST EMAIL`. In a few seconds, you will receive an e-mail in your main Auth0 e-mail address. This is the e-mail that you used when you signed-up for an Auth0 account. Check it out!
 
 ## Step 4: Setup a Custom Domain in SparkPost
-SparkPost's sandbox domain is very limited. For this reason, it is very import to setup a custom domain as soon as possible. Fortunately, if you already own a domain this is very simple. If you don't, getting one is out of scope for this tutorial. Fortunately, there are many tutorials on getting a domain on the internet. If you need to buy one, do that and then return to this step. For instance, you can buy one from [Google](https://domains.google/#/) or you can use [Zeit's excellent now.sh service](https://zeit.co/domains) to buy one from the console.
+SparkPost's sandbox domain is very limited. For this reason, it is very important to setup a custom domain as soon as possible. Fortunately, if you already own a domain this is very simple. If you don't, getting one is out of scope for this tutorial. Fortunately, there are many tutorials on getting a domain on the internet. If you need to buy one, do that and then return to this step. For instance, you can buy one from [Google](https://domains.google/#/) or you can use [Zeit's excellent now.sh service](https://zeit.co/domains) to buy one from the console.
 
 To access the domain verification screen, go to [SparkPost's dashboard](https://app.sparkpost.com/dashboard), then go to `ACCOUNT`, `SENDING DOMAINS` and read the `Set Up For Sending` section.
 
@@ -121,4 +121,4 @@ Before getting worked up if things don't work, do remember two important limitat
 ## Conclusion
 Using custom e-mails providers with Auth0 is very important for a production environment. Although Auth0's built-in service is a great test tool, it cannot match dedicated services like SparkPost. If you want great customization options, rate-limiting that suits your use case, custom send addresses and no limits with regards to bounced e-mails count, you must adopt a dedicated e-mail provider. Fortunately, integration with services like SparkPost, as we have seen in this post, is a breeze. And even then, if you don't find any of the alternatives fitting to your use case, you can still fall back to a custom SMTP solution. Flexibility is part of Auth0's architecture. 
 
-{% include tweet_quote.html quote_text="Setting up SparkPost with Auth0 is a breeze!" %}
+{% include tweet_quote.html quote_text="Auth0 is flexible platform! Setup a custom e-mail provider using SparkPost or other alternatives." %}
