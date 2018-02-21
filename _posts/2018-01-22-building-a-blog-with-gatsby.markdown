@@ -2,7 +2,7 @@
 layout: post
 title: Building a blog with Gatsby
 description: "Building a blog with Gatsby, a modern static content generator for React"
-longdescription: "Building a blog with Gatsby, a modern static content generator for React. Authenticated users using Auth0"
+longdescription: "Gatsby is a modern static content generator using React. We look at building a blog with Gatsby with extra features like pagination, and user authentication with Auth0"
 date: 2018-01-22 11:11
 category: Technical Guide, Frontend, Gatsby
 author:
@@ -25,7 +25,7 @@ related:
 - 2017-12-28-symfony-tutorial-building-a-blog-part-1
 ---
 
-**TL;DR:** [Gatsby](https://www.gatsbyjs.org/) is a modern static content generator for [React](https://reactjs.org/) and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. We're going to be building a simple demo blog, adding some features and authenticating users with [Auth0.js](https://auth0.com/docs/libraries/auth0js).
+**TL;DR:** [Gatsby](https://www.gatsbyjs.org/) is a modern static content generator for [React](https://reactjs.org/) and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. In this article, we're going to be building a simple demo blog, and adding some features like user authentication with [Auth0.js](https://auth0.com/docs/libraries/auth0js).
 
 **The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/auth0-blog/auth0-gatsby-blog).**
 
@@ -37,7 +37,7 @@ related:
 
 Before static site generators, a lot of us would have relied on software such as [Wordpress](https://wordpress.org/), [Drupal](https://www.drupal.org/) or services like [Squarespace](https://www.squarespace.com/) to allow us to both manage and deliver our content to the internet. Typically, they work by generating each page on-demand. They would get the content from a database and render it using a template engine. The problems can be reliability *AND* speed, everything you want from your website! If a developer introduced a bug in his wordpress plugin, you might encounter downtime or unexpected errors and for most sites this is completely unnecessary. A simple plugin update could introduce problems in security and performance.
 
-A static site generator flips the entire process around. It generates all the pages on the site, once any changes have been made, ready for deployment. Static sites are secure by default as there are no working parts to exploit. Scaling is less of a consideration as there is no more overhead to a request than the delivery of already generated content. Read more about [static sites vs dynamic sites](https://www.webceo.com/blog/static-website-vs-dynamic-website-which-is-better-for-seo/) if you're still not convinced that static sites might just be the answer to [a lot of your problems](https://moz.com/learn/seo/page-speed).
+A static site generator flips the entire process around. It generates all the pages on the site, once any changes have been made, ready for deployment. Static sites are more easy to secure as there are no working parts to exploit. Scaling is less of a consideration as there is no more overhead to a request than the delivery of already generated content. Read more about [static sites vs dynamic sites](https://www.webceo.com/blog/static-website-vs-dynamic-website-which-is-better-for-seo/) if you're still not convinced that static sites might just be the answer to [a lot of your problems](https://moz.com/learn/seo/page-speed).
 
 {% include tweet_quote.html quote_text="Gatsby is a modern static content generator for React and it boasts an impressive list of out-the-box features" %}
 
@@ -51,7 +51,7 @@ In this guide we're going to use Gatsby to generate our content from [Markdown](
 
 Gatsby uses React for its ability to enable developers to build modular and reusable code. React has a large collection of open source components, guides and tools that are all relevant, as Gatsby acts close to a normal React application.
 
-Newcomers to react can follow this [react for beginners](https://reactforbeginners.com/) guide to learn more.
+Newcomers to React can learn about [bootstrapping a React project](https://auth0.com/blog/bootstrapping-a-react-project/) here.
 
 ### GraphQL
 
@@ -59,7 +59,7 @@ If a query language and an API had a baby, the result would be something like Gr
 
 Gatsby uses GraphQL for loading data into React components when it's needed. More importantly, it will handle many of your data transformation when generating the site, not when the pages are loaded.
 
-If you're not familiar with it, you can look here to learn [how to use GraphQL](https://www.howtographql.com/).
+If you're not familiar with it, you can follow our guide to [building an instagram clone with GraphQL and Auth0](https://auth0.com/blog/building-an-instagram-clone-with-graphql-and-auth0/) or check out the [how to use GraphQL](https://www.howtographql.com/) site by Graphcool.
 
 ## Pre-requisites for Gatsby
 
@@ -130,11 +130,11 @@ So lets go ahead and just delete `src/pages/index.js` and see what it has done t
 
 ![Broken Gatsby homepage](https://cdn.auth0.com/blog/gatsby-blog/broken-gatsby-homepage.png)
 
-[Constants (or `const`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) are new to [ES6 (ECMAScript 6)](https://codeburst.io/javascript-wtf-is-es6-es8-es-2017-ecmascript-dca859e4821c#9be0) and we're going to be using them in this guide.
+[Constants (or `const`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) are one of a few [new features in ES6](https://auth0.com/blog/a-rundown-of-es6-features/) and we're going to be using them in this guide. 
 
-They're block-scoped variables that can be either global or local to the block they were declared. Unlike traditional `var`'s they do not get attached to `window`. As they're constants, they cannot be reassigned. But, if you define one as a function, you can reuse the function with different values, but the workings of the function cannot be changed. **Handy!**  
+They're block-scoped variables that can be either global or local to the block they were declared. As they're constants, they cannot be reassigned. But, if you define one as a function, you can reuse the function with different values, but the workings of the function cannot be changed. **Handy!**  
 
-[Lets (or `let`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) are also new to ES6, but we won't be using any in this guide. They are a block-scoped local variable that you intend to reassign.
+[Lets (or `let`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) are also new to ES6, but we won't be using any in this guide. They are block-scoped local variables that you intend to reassign.
 
 Now, lets edit `gatsby-node.js` to start building our pagination, by adding a `const` for how many articles per page we want to display. Because our demo has 3 articles, make our page length `2`, giving us two pages.
 
@@ -320,7 +320,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 ...
 ```
 
-Gatsby uses a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to contain the graphql request and subsequent handling of the result. This enables Gatsby to compile the site asynchronously and a Promise represents the eventual completion (or failure). 
+Gatsby uses a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to contain the GraphQL request and subsequent handling of the result. This enables Gatsby to compile the site asynchronously and a Promise represents the eventual completion (or failure). 
 
 We're adding our `createPaginatedPages` function to the Promise's result.
 
@@ -343,7 +343,7 @@ Here's my fix, edit `src/layouts/index.js` and remove the following line.
 
 ![Paginated Gatsby page 2 fixed](https://cdn.auth0.com/blog/gatsby-blog/gatsby-paginated-page-2-fixed.png)
 
-{% include tweet_quote.html quote_text="Follow the Auth0 React Quickstart to get set up with Auth0 authentication in React" %}
+{% include tweet_quote.html quote_text="Setting up Auth0 with React is really easy, check the quickstart" %}
 
 ## Gatsby and Auth0
 
@@ -675,8 +675,8 @@ There we have it, a Gatsby blog with Auth0 authentication. As Gatsby is a static
 
 Gatsby has a dedicated [tutorial](https://www.gatsbyjs.org/tutorial/) for building Gatsby applications.
 
-If you want to learn more about React, they have a great [tutorial at reactjs.org](https://reactjs.org/tutorial/tutorial.html), but you also won't want to miss [react for beginners](https://reactforbeginners.com/) by [Wes Bos](https://twitter.com/wesbos).
+If you want to learn more about React, here is a great guide on [bootstrapping a React project](https://auth0.com/blog/bootstrapping-a-react-project/) and you also won't want to miss [React for beginners](https://reactforbeginners.com/) by [Wes Bos](https://twitter.com/wesbos).
 
-Learn more about graphQL with [how to graphql](https://www.howtographql.com/), which has plenty of resources based on the different types of technology you might be using.
+Learn more about GraphQL with [how to GraphQL](https://www.howtographql.com/), which has plenty of resources based on the different types of technology you might be using.
 
 **The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/auth0-blog/auth0-gatsby-blog).**
