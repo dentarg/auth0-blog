@@ -434,7 +434,9 @@ Let's add our new API endpoint to our API service. Open the `api.service.ts` fil
       .get(`${ENV.BASE_API}events/${userId}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
 ...

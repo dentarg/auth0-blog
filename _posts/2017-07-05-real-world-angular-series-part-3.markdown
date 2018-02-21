@@ -244,7 +244,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './../auth/auth.service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
+import { catchError } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
 import { ENV } from './env.config';
 import { EventModel } from './models/event.model';
 import { RsvpModel } from './models/rsvp.model';
@@ -264,7 +265,9 @@ export class ApiService {
   getEvents$(): Observable<EventModel[]> {
     return this.http
       .get(`${ENV.BASE_API}events`)
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
   // GET all events - private and public (admin only)
@@ -273,7 +276,9 @@ export class ApiService {
       .get(`${ENV.BASE_API}events/admin`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
   // GET an event by ID (login required)
@@ -282,7 +287,9 @@ export class ApiService {
       .get(`${ENV.BASE_API}event/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
   // GET RSVPs by event ID (login required)
@@ -291,10 +298,12 @@ export class ApiService {
       .get(`${ENV.BASE_API}event/${eventId}/rsvps`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
-  private _handleError(err: HttpErrorResponse | any) {
+  private _handleError(err: HttpErrorResponse | any): Observable<any> {
     const errorMsg = err.message || 'Error: Unable to complete request.';
     if (err.message && err.message.indexOf('No JWT present') > -1) {
       this.auth.login();
@@ -305,7 +314,7 @@ export class ApiService {
 }
 ```
 
-We'll need to make unauthenticated _and_ authenticated requests, so we'll import `HttpClient` and `HttpHeaders` (to add the `Authorization` header with access token) along with `HttpErrorResponse`. We also need `AuthService` to prompt login if no JWT is found when attempting to make an authenticated request. We'll create streams with our API calls so we'll import `Observable`, as well as the `catch` operator from RxJS. We need `ENV` from our environment config to get the appropriate API URIs. Finally, in order to declare the types for our event streams, we need the models (`EventModel` and `RsvpModel`) we created earlier.
+We'll need to make unauthenticated _and_ authenticated requests, so we'll import `HttpClient` and `HttpHeaders` (to add the `Authorization` header with access token) along with `HttpErrorResponse`. We also need `AuthService` to prompt login if no JWT is found when attempting to make an authenticated request. We'll create streams with our API calls so we'll import `Observable`, as well as the pipeable `catchError` operator and the `throw` observable method from RxJS. We need `ENV` from our environment config to get the appropriate API URIs. Finally, in order to declare the types for our event streams, we need the models (`EventModel` and `RsvpModel`) we created earlier.
 
 Once `HttpClient` and `AuthService` are added to the constructor, we can use the HTTP methods to create observables of API data. We expect to receive streams of type `EventModel[]` (an array of events) for our two event list endpoints, a single `EventModel` when retrieving event details by ID, and `RsvpModel[]` when retrieving all RSVPs for an event.
 
