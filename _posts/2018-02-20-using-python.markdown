@@ -53,11 +53,15 @@ docker run --name online-exam-db \
 
 ### Frontend Dependencies
 
-As you are going to use Angular to create your frontend application, you will need Node.js and NPM installed on your machine. You can install both tools simultaneously by downloading and executing an installer (choose one based on your operating system) from [the Node.js download page](https://nodejs.org/en/download/). Another alternative, is to use a tool like [NVM](https://github.com/creationix/nvm) to manage multiple active `node` versions.
+As you are going to use Angular to create your frontend application, you will need Node.js and NPM installed on your machine. You can install both tools simultaneously by downloading and executing an installer (choose one based on your operating system) from [the Node.js download page](https://nodejs.org/en/download/). Another alternative is to use a tool like [NVM](https://github.com/creationix/nvm) to manage multiple active `node` versions (on a development machine, this is probably the best option).
 
 Whichever installation method you choose, make sure you are using an up to date version of Node.js (i.e. `>= 8`).
 
-From the frontend perspective, having Node.js and NPM installed is enough. Soon, you will use NPM to run [the Angular CLI tool](https://github.com/angular/angular-cli) and to manage your project dependencies.
+After properly installing both tools, you can use `npm` to install [the Angular CLI tool](https://github.com/angular/angular-cli). You will use this CLI (Command Line Interface) to bootstrap the frontend app, start a development server, and [to create Angular `components`, `services`, etc](https://github.com/angular/angular-cli#generating-components-directives-pipes-and-services). Use the following command to install Angular CLI:
+
+```bash
+npm install -g @angular/cli
+```
 
 ## Bootstrapping the Python Application
 
@@ -304,3 +308,10 @@ curl http://0.0.0.0:5000/exams
 Also, you can check the result of the `POST` request by browsing to [`http://0.0.0.0:5000/exams`](http://0.0.0.0:5000/exams).
 
 ## Bootstrapping the Angular Application
+
+```bash
+# change working directory to project root
+cd ..
+
+# run @angular/cli to bootstrap the Angular app
+```
