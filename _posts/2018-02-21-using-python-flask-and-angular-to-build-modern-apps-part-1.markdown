@@ -49,13 +49,15 @@ As you can see, by choosing Python, Flask, and Angular to build web applications
 
 ## Dependencies
 
-This section is divided into two subsections to highlight what are the environment dependencies from the backend and the frontend perspective.
+Now that you learned why Python, Flask, and Angular form a great stack to build modern web applications, you are ready to install the local dependencies. This section is divided into two subsections to highlight what are the environment dependencies from the backend and from the frontend perspectives.
 
 ### Backend Dependencies
 
-An up to date version of Python 3.
+To start with, you will need an up to date version of Python 3. If you don't have Python 3 available on your development machine, please, [browse to the Python download page and install it](https://www.python.org/downloads/).
 
-The [`pipenv`](https://github.com/pypa/pipenv) tool:
+After installing Python, you will have to install the [`pipenv`](https://github.com/pypa/pipenv) tool. This tool aims on bringing the best of all packaging worlds (`bundler`, `composer`, `npm`, etc.) to Python developers. Also, this tool is a first–class citizen on Windows. So, if you are still stuck to this operating system, don't worry, you are covered.
+
+To install `pipenv`, simply open a terminal and type the following command:
 
 ```bash
 # depending on the environment, you will have to use
@@ -63,7 +65,9 @@ The [`pipenv`](https://github.com/pypa/pipenv) tool:
 pip install pipenv
 ```
 
-PostgreSQL (could be on cloud, local, Dockerized, or whatever):
+Python and `pipenv` together are enough to start developing your Flask application. However, as you want to persist transactional data, you still need to choose and configure a database engine. To make your life easier, you will use SQLAlchemy to persist and retrive data from the chosen engine. If you don't have experience with SQLAlchemy, please, check [this nice introductory article on the subject](https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/). There, you will learn that by using the SQLAlchemy ORM (Object Relational Mapping) extension, you will be able to easily connect and use any major SQL database engine (e.g. MySQL, PostgreSQL, SQL Server, etc).
+
+If you don't have a database available on your machine, one great way to proceed is to use Docker to spam a new one:
 
 ```bash
 docker run --name online-exam-db \
@@ -72,6 +76,8 @@ docker run --name online-exam-db \
     -e POSTGRES_PASSWORD=0NLIN3-ex4m \
     -d postgres
 ```
+
+Of course, to run the command above, you will need to [have Docker installed locally](https://docs.docker.com/install/).
 
 ### Frontend Dependencies
 
