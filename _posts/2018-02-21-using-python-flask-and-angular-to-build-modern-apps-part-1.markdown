@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Using Python, Flask, and Angular to Build Modern Apps - Part 1"
+title: "Using Python, Flask, and Angular to Build Modern Web Apps - Part 1"
 description: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular."
-longdescription: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create an app that exposes exams and questions so users can test their knowledge regarding different technologies online."
+longdescription: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create an SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies."
 date: 2018-02-21 08:30
 category: Technical Guide, Python
 author:
@@ -25,7 +25,7 @@ related:
 - 2017-11-09-sqlalchemy-orm-tutorial-for-python-developers
 ---
 
-**TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create an app that exposes exams and questions so users can test their knowledge regarding different technologies online. You can find the final code create throughout this article [in this GitHub repository](https://github.com/auth0-blog/online-exam/).
+**TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build an SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/online-exam/), you can find the final code created throughout the first part of the series.
 
 ---
 
