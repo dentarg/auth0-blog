@@ -276,6 +276,8 @@ python -m src.main
 
 If everything works as expected, your module will create an instance of `Exam`, persist to the database, and print its details on the terminal.
 
+![SQLAlchemy ORM querying a PostgreSQL database](https://cdn.auth0.com/blog/flask-angular/sqlalchemy-orm.png)
+
 By the way, this might be a good time to save your progress:
 
 ```bash
@@ -400,6 +402,8 @@ curl http://0.0.0.0:5000/exams
 ```
 
 The first command on the snippet above transforms the `bootstrap.sh` script into an executable file. After that, it runs this script in the backend so you can keep using the same terminal. When the Flask application is up and running, you can use the two `curl` commands to interact with it. The first one issues `POST` requests to create new exams and the second one lists all exams persisted on the database.
+
+![Flask application and SQLAlchemy ORM integrated.](https://cdn.auth0.com/blog/flask-angular/sqlalchemy-flask-integration.png)
 
 Besides using `curl`, you can also fetch exams by browsing to [`http://0.0.0.0:5000/exams`](http://0.0.0.0:5000/exams).
 
@@ -606,6 +610,8 @@ This wraps up the first part of the series. Therefore, before moving on to the n
 git add .
 git commit -m "integrating Flask and Angular"
 ```
+
+{% include tweet_quote.html quote_text="Developing web applications with Angular and Flask is easy!" %}
 
 ## Conclusion and Next Steps
 
