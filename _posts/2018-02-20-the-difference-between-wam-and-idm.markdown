@@ -30,6 +30,8 @@ A large number of these systems have web access management, or WAM, as their cen
 
 As time passed, however, these kinds of systems have grown increasingly expensive to maintain, and most are unprepared for the kind of threats and issues that businesses need to worry about today. In other words, legacy WAM solutions leave your business exposed. 
 
+{% include tweet_quote.html quote_text="Web access management systems are expensive to maintime and unprepared for the threats of today." %}
+
 ## What Is Web Access Management?
 
 Web access management systems are focused on providing security to web-based tools and applications, and they focus on two main identity operations:
@@ -94,6 +96,8 @@ It can connect to a wide variety of social and enterprise identity providers and
 ![IAM in the cloud](https://cdn.auth0.com/blog/the-difference-between-wam-and-idm/iam-in-the-cloud.png)
 
 The biggest reason why IAM is surpassing the role of WAM in the modern day is the cloud. The traditional on-premises identity management that many enterprises have used for decades served its purpose. Today, however, more and more of the activity in the workplace is not literally in the workplace. It's in the coffee shop, or at a co-working space, or at home, or on the road—and no matter where your employees are, they will most likely need to access some kind of privileged resources every day.
+
+{% include tweet_quote.html quote_text="Identity management is surpassing the role of web access management because of the cloud." %}
 
 The cloud makes identities more complex because it removes the on-prem notion of “perimeter security.” You can no longer protect your company's network by just securing your four walls—your notion of security must extend to all the BYOD devices and public wireless networks that your employees are using to do their work.
 
