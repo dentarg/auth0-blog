@@ -20,10 +20,11 @@ tags:
 - auth0
 - api
 - laravel-56
+- open-source
 related:
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
-- 2017-07-27-laracon-summary-day-1
-- 2017-07-29-laracon-summary-day-2
+- 2017-12-26-developing-restful-apis-with-lumen
+- 2017-05-08-the-ultimate-guide-to-deploying-php-applications
 ---
 
 ---
