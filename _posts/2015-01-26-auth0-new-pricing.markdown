@@ -6,9 +6,10 @@ date: 2015-01-26 08:00
 alias: /2015/01/26/auth0-new-pricing/
 category: Announcement, Pricing
 author:
-  name: "Gianpaolo Carraro"
-  url:  http://www.twitter.com/gcarraro
-  avatar: https://www.gravatar.com/avatar/aad435650eb4a93583d6aaa19f3a91f4.png?s=60
+  name: Martin Gontovnikas
+  url: http://twitter.com/mgonto
+  mail: gonto@auth0.com
+  avatar: https://www.gravatar.com/avatar/df6c864847fba9687d962cb80b482764??s=60
 design:
   image: https://cldup.com/1RGPQw_s8c.png
   image_top: "45%"
@@ -21,8 +22,8 @@ tags:
 - announcements
 related:
 - 2015-02-06-auth0-startup-plan
-- 2015-06-23-another-big-milestone
-- 2015-11-05-announcing-our-new-pricing-including-a-production-ready-free-account
+- 2018-01-29-auth0-announces-record-year
+- 2017-11-29-5-massive-benefits-of-identity-as-a-service-for-developers
 ---
 
 ### Introduction
@@ -33,7 +34,7 @@ Today we are very pleased to announce Auth0 [new pricing](https://auth0.com/pric
 
 ### New Pricing
 
-<p class="alert alert-warning"><i class="icon icon-budicon-179"></i>Heads up! We now have even <b>newer</b> pricing. Check out the <a href="https://auth0.com/blog/2015/11/05/announcing-our-new-pricing-including-a-production-ready-free-account/">details</a> and <a href="https://support.auth0.com">get in touch</a> if you have any questions!</p>
+<p class="alert alert-warning"><i class="icon icon-budicon-179"></i>Heads up! We now have even <b>newer</b> pricing. Check out the <a href="https://auth0.com/pricing">details</a> and <a href="https://support.auth0.com">get in touch</a> if you have any questions!</p>
 
 Based on the feedback we received over the last few months, we have modified our pricing structure to be much more **flexible**, allowing you to create **custom packages** that best fit your needs.
 

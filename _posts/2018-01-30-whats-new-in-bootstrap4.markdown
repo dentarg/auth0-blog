@@ -145,7 +145,8 @@ Bootstrap v4 dropped support for **panels**, **thumbnails**, and **wells** in fa
 
 Functionality for panels, thumbnails and wells are available as modifier classes for cards.
 
-```css
+{% highlight html %}
+{% raw %}
 <div class="card">
   <img class="card-img-top" src="http://res.cloudinary.com/unicodeveloper/image/upload/c_fill,h_800,w_600/v1515417610/Screen_Shot_2018-01-08_at_2.17.49_PM_v4xp58.png" alt="Card image cap">
   <div class="card-body">
@@ -154,7 +155,8 @@ Functionality for panels, thumbnails and wells are available as modifier classes
     <a href="#" class="btn btn-primary">Visit Profile</a>
   </div>
 </div>
-```
+{% endraw %}
+{% endhighlight %}
 
 You can have:
 
@@ -193,34 +195,36 @@ Check out [more information on spacing utilities](https://getbootstrap.com/docs/
 
 Bootstrap v4 ships with improves support for auto-placement of tooltips, popovers and dropdowns. Bootstrap 4 dropped support for [Tether.js](https://github.com/HubSpot/tether/) in favour of [Popper.js](https://github.com/FezVrasta/popper.js) which does a great job and is actively maintained.
 
-    ```js
+  ```js
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
-    ```
+  ```
 
-    ```bash
-    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-      Tooltip on top
-    </button>
-    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
-      Tooltip on right
-    </button>
-    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
-      Tooltip on bottom
-    </button>
-    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
-      Tooltip on left
-    </button>
-    ```
+  {% highlight html %}
+  {% raw %}
+  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+    Tooltip on top
+  </button>
+  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+    Tooltip on right
+  </button>
+  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+    Tooltip on bottom
+  </button>
+  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+    Tooltip on left
+  </button>
+  {% endraw %}
+  {% endhighlight %}
     
-    // Enable Popovers everywhere
-
-    ```js
+  // Enable Popovers everywhere
+  
+  ```js
     $(function () {
       $('[data-toggle="popover"]').popover()
     })
-    ```
+  ```
 
 ## Deprecations and Other Updates
 
