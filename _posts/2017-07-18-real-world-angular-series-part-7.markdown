@@ -434,7 +434,9 @@ Let's add our new API endpoint to our API service. Open the `api.service.ts` fil
       .get(`${ENV.BASE_API}events/${userId}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
 ...
@@ -689,7 +691,7 @@ We'll link the authenticated user's name to the `/my-rsvps` route. We'll also ad
 
 ---
 
-## <span id="renew-auth"></span>Angular: Renew Tokens with Auth0
+## <span id="renew-auth"></span>Angular: Renew Token with Auth0
 
 You may have noticed throughout development that your access token periodically expires if the same session is left open for longer than two hours. This can result in unexpected loss of access to the API, or the UI still displaying elements that aren't actually accessible to unauthenticated users.
 
@@ -710,9 +712,9 @@ Open the `auth.service.ts` file and let's get started:
 ...
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { mergeMap } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class AuthService {
@@ -787,15 +789,16 @@ export class AuthService {
     this.unscheduleRenewal();
     // Create and subscribe to expiration observable
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    const expiresIn$ = Observable.of(expiresAt)
-      .mergeMap(
+    const expiresIn$ = Observable.of(expiresAt).pipe(
+      mergeMap(
         expires => {
           const now = Date.now();
           // Use timer to track delay until expiration
           // to run the refresh at the proper time
           return Observable.timer(Math.max(1, expires - now));
         }
-      );
+      )
+    );
 
     this.refreshSub = expiresIn$
       .subscribe(
@@ -815,7 +818,7 @@ export class AuthService {
 }
 ```
 
-First we'll import `Observable` and `Subscription` to support creating an observable token expiration timer.
+First we'll import `Observable`, `Subscription` and to support creating an observable token expiration timer. We'll then need to import the `mergeMap` operator from RxJS along with `of` and `timer` observable methods.
 
 We'll declare a new property for a subscription to a token expiration stream we'll create shortly. This property is called `refreshSub` and has a type of `Subscription`.
 
@@ -859,15 +862,16 @@ The next new method is `scheduleRenewal()`:
     this.unscheduleRenewal();
     // Create and subscribe to expiration observable
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-    const expiresIn$ = Observable.of(expiresAt)
-      .mergeMap(
+    const expiresIn$ = Observable.of(expiresAt).pipe(
+      mergeMap(
         expires => {
           const now = Date.now();
           // Use timer to track delay until expiration
           // to run the refresh at the proper time
           return Observable.timer(Math.max(1, expires - now));
         }
-      );
+      )
+    );
 
     this.refreshSub = expiresIn$
       .subscribe(

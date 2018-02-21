@@ -155,7 +155,7 @@ export class AuthService {
   private _auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.CLIENT_ID,
     domain: AUTH_CONFIG.CLIENT_DOMAIN,
-    responseType: 'token id_token',
+    responseType: 'token',
     redirectUri: AUTH_CONFIG.REDIRECT,
     audience: AUTH_CONFIG.AUDIENCE,
     scope: AUTH_CONFIG.SCOPE
@@ -194,7 +194,7 @@ export class AuthService {
   handleAuth() {
     // When Auth0 hash parsed, get profile
     this._auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+      if (authResult && authResult.accessToken) {
         window.location.hash = '';
         this._getProfile(authResult);
       } else if (err) {
@@ -220,7 +220,6 @@ export class AuthService {
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + Date.now());
     // Set tokens and expiration in localStorage and props
     localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
     localStorage.setItem('profile', JSON.stringify(profile));
     this.userProfile = profile;
@@ -231,7 +230,6 @@ export class AuthService {
   logout() {
     // Ensure all auth items removed from localStorage
     localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('authRedirect');
@@ -261,7 +259,7 @@ The `login()` method authorizes the authentication request with Auth0 using the 
 
 > **Note:** If it's the user's first visit to our app _and_ our callback is on localhost, they'll also be presented with a consent screen where they can grant access to our API. A first party client on a non-localhost domain would be highly trusted, so the consent dialog would not be presented in this case. You can modify this by editing your [Auth0 Dashboard API](https://manage.auth0.com/#/apis) **Settings**. Look for the "Allow Skipping User Consent" toggle.
 
-We'll receive an `id_token`, an `access_token`, and a time until token expiration (`expiresIn`) from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens, expiration, and profile to local storage and calling `setLoggedIn()` so that any components in the app are informed that the user is now authenticated.
+We'll receive an an `access_token` and a time until token expiration (`expiresIn`) from Auth0 when returning to our app. The `handleAuth()` method uses Auth0's `parseHash()` method callback to get the user's profile (`_getProfile()`) and set the session (`_setSession()`) by saving the tokens, expiration, and profile to local storage and calling `setLoggedIn()` so that any components in the app are informed that the user is now authenticated.
 
 Finally, we'll define a `logout()` method that clears data from local storage and updates `setLoggedIn()`. We also have a `tokenValid()` accessor to check whether the current datetime is less than the token expiration datetime.
 

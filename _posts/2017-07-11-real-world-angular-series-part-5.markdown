@@ -695,7 +695,9 @@ Open the `api.service.ts` file and add these two methods:
       .post(`${ENV.BASE_API}rsvp/new`, rsvp, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
   // PUT existing RSVP (login required)
@@ -704,7 +706,9 @@ Open the `api.service.ts` file and add these two methods:
       .put(`${ENV.BASE_API}rsvp/${id}`, rsvp, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
 
   ...
 ```

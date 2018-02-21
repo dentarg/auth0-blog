@@ -211,7 +211,9 @@ Open the `api.service.ts` file and add these three methods:
       .post(`${ENV.BASE_API}event/new`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
   // PUT existing event (admin only)
@@ -220,7 +222,9 @@ Open the `api.service.ts` file and add these three methods:
       .put(`${ENV.BASE_API}event/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
   // DELETE existing event and all associated RSVPs (admin only)
@@ -229,7 +233,9 @@ Open the `api.service.ts` file and add these three methods:
       .delete(`${ENV.BASE_API}event/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
-      .catch(this._handleError);
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
   ...
