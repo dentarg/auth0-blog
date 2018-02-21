@@ -206,14 +206,8 @@ Now we need to install [`bootstrap-sass`](https://github.com/twbs/bootstrap-sass
 
 ```css
 $brand-primary: darken(#428bca, 20%);
-
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-```
-
-We're going to want to override the path to icons by loading Bootstrap in the `global.scss` file:
-
-```css
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
 ```
 
 Finally in your `main.js` file you need to require bootstrap-sass under your `var $ = require('jquery');` line:
@@ -262,23 +256,17 @@ Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
 Great, in our entire controller we can call the `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data (it can also be used for retrieving, but by setting up the construct this way, we will be reducing duplicate code).
 
-Back in our `AdminController`, we need to add a route on the controller itself. Because there may be conflicts of routes between the two controllers. So above `class AdminController extends Controller` add:
-
-```php
-/**
- * @Route("/admin")
- */
- ```
-
-In the `BlogController` replace the action below:
+Then replace the action below:
 
 ```php
 /**
  * @Route("/", name="homepage")
  */
-public function index()
+public function indexAction()
 {
-    return $this->render('index.html.twig');
+    return $this->render('blog/index.html.twig', [
+        'controller_name' => 'BlogController',
+    ]);
 }
 ```
 
@@ -291,19 +279,19 @@ with:
  */
 public function entriesAction()
 {
-    return $this->render('Blog/entries.html.twig', [
+    return $this->render('blog/entries.html.twig', [
         'blogPosts' => $this->blogPostRepository->findAll()
     ]);
 }
 ```
 
-You now need to create a new template for this action, in `./templates` create a new directory called `Blog` and within there, a new file called `entries.html.twig` and paste the following in:
+You now need to create a new template for this action, in `./templates/blog` create a new file called `entries.html.twig` and paste the following in:
 
 {% highlight html %}
 {% raw %}
 {% extends "base.html.twig" %}
 
-{% block title %}App:Blog:entries{% endblock %}
+{% block title %}App:blog:entries{% endblock %}
 
 {% block body %}
 
@@ -432,7 +420,7 @@ public function createEntryAction(Request $request)
         return $this->redirectToRoute('admin_entries');
     }
 
-    return $this->render('Admin/entry_form.html.twig', [
+    return $this->render('admin/entry_form.html.twig', [
         'form' => $form->createView()
     ]);
 }
@@ -445,7 +433,7 @@ use App\Entity\BlogPost;
 use App\Form\EntryFormType;
 ```
 
-We now need the template, so create a new file called `./templates/Admin/entry_form.html.twig` and insert the following code into it:
+We now need the template, so create a new file called `./templates/admin/entry_form.html.twig` and insert the following code into it:
 
 {% highlight html %}
 {% raw %}
@@ -499,7 +487,31 @@ Before we try to create a new entry, let's build the page that displays all of t
 
 ### Displaying Blog Posts Created by Authenticated Author
 
-In your `AdminController`, let's add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the soon to be created template `entries.html.twig` to be displayed.
+In your `AdminController`, we need to add a route on the controller itself. Because there will be conflicts of routes between the two controllers. So above `class AdminController extends Controller` add:
+
+```php
+/**
+ * @Route("/admin")
+ */
+ ```
+
+Also, find:
+
+```php
+/**
+ * @Route("/admin/author/create", name="author_create")
+ */
+```
+
+and change the route to:
+
+```php
+/**
+ * @Route("/author/create", name="author_create")
+ */
+```
+
+Now let's add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the soon to be created template `entries.html.twig` to be displayed.
 
 ```php
 /**
@@ -518,13 +530,13 @@ public function entriesAction()
         $blogPosts = $this->blogPostRepository->findByAuthor($author);
     }
 
-    return $this->render('Admin/entries.html.twig', [
+    return $this->render('admin/entries.html.twig', [
         'blogPosts' => $blogPosts
     ]);
 }
 ```
 
-Time to create the template `./templates/Admin/entries.html.twig` to store the following code in:
+Time to create the template `./templates/admin/entries.html.twig` to store the following code in:
 
 {% highlight html %}
 {% raw %}
@@ -615,7 +627,7 @@ public function deleteEntryAction($entryId)
 
 This will check if the entryId passed in exists, check to ensure the authenticated user is the author of the article and then delete it.
 
-There is no template needed for this, however, we still need somewhere in the templates to show the action. So in `./templates/Admin/entries.html.twig` let's make some additions.
+There is no template needed for this, however, we still need somewhere in the templates to show the action. So in `./templates/admin/entries.html.twig` let's make some additions.
 
 In the table headers, let's add a new row. This will this element change from:
 
@@ -747,7 +759,7 @@ Back in the `entriesAction` in your `BlogController` we're going to need to make
 Your return previously looked like this:
 
 ```php
-return $this->render('Blog/entries.html.twig', [
+return $this->render('blog/entries.html.twig', [
     'blogPosts' => $this->blogPostRepository->findAll()
 ]);
 ```
@@ -755,14 +767,14 @@ return $this->render('Blog/entries.html.twig', [
 Let's change it to call those methods and pass the data as well as the page number and post limit into the template:
 
 ```php
-return $this->render('Blog/entries.html.twig', [
+return $this->render('blog/entries.html.twig', [
     'blogPosts' => $this->blogPostRepository->getAllPosts($page, self::POST_LIMIT),
     'totalBlogPosts' => $this->blogPostRepository->getPostCount(),
     'page' => $page,
     'entryLimit' => self::POST_LIMIT
 ]);
 ```
-Time to show your blog posts in a template file. Open `./templates/Blog/entries.html.twig` then change the title to whatever you wish (I changed it to "Blog Posts"). Inside `{% raw %}{% block body %}{% endraw %}`, paste the following code:
+Time to show your blog posts in a template file. Open `./templates/blog/entries.html.twig` then change the title to whatever you wish (I changed it to "Blog Posts"). Inside `{% raw %}{% block body %}{% endraw %}`, paste the following code:
 
 {% highlight html %}
 {% raw %}
@@ -799,40 +811,32 @@ Time to show your blog posts in a template file. Open `./templates/Blog/entries.
                         You have no blog articles. Please log in and create an article.
                     </div>
                 {% endfor %}
+
+                {% set canPrevious = page > 1 %}
+                {% set canNext = (page * entryLimit) < totalBlogPosts %}
+                <nav>
+                    <ul class="pager">
+                        <li class="previous {% if canPrevious == false %}disabled{% endif %}">
+                            <a href="{% if canPrevious %}{{ path('entries', {'page': page - 1}) }}{% endif %}">
+                                <span aria-hidden="true">&larr;</span> Older
+                            </a>
+                        </li>
+                        <li class="next {% if canNext == false %}disabled{% endif %}">
+                            <a href="{% if canNext %}{{ path('entries', {'page': page + 1}) }}{% endif %}">
+                                Newer <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
 {% endraw %}
 {% endhighlight %}
 
-In your `entries.html.twig` template, find `{% raw %}{% endfor %}{% endraw %}`. Below this we want to add the pagination buttons. So let's put the following code there:
+Now reload your browser, you'll see the previously shown blog post, and below that, you'll see disabled "Previous" and "Next" buttons, they're disabled because you're on page 1, and there is only 1 blog post.
 
-{% highlight html %}
-{% raw %}
-{% set canPrevious = page > 1 %}
-{% set canNext = (page * entryLimit) < totalBlogPosts %}
-<nav>
-    <ul class="pager">
-        <li class="previous {% if canPrevious == false %}disabled{% endif %}">
-            <a href="{% if canPrevious %}{{ path('entries', {'page': page - 1}) }}{% endif %}">
-                <span aria-hidden="true">&larr;</span> Older
-            </a>
-        </li>
-        <li class="next {% if canNext == false %}disabled{% endif %}">
-            <a href="{% if canNext %}{{ path('entries', {'page': page + 1}) }}{% endif %}">
-                Newer <span aria-hidden="true">&rarr;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
-{% endraw %}
-{% endhighlight %}
-
-The above code determines whether the user can move to a previous or a next page.
-
-Now reload your browser, you'll see the previously shown blog post, but below that, you'll see disabled "Previous" and "Next" buttons, they're disabled because you're on page 1, and there is only 1 blog post.
-
-> Quick tip, to start and stop your application you can use `php bin/console server:start` and `php bin/console server:stop`.
+> Quick tip, to start your application you can use `php bin/console server:run`
 
 ### Adding Navigation
 
@@ -872,33 +876,33 @@ In the `BlogController` class, create a new action to display the details of a s
 
 ```php
 /**
-* @Route("/entry/{slug}", name="entry")
-*/
+ * @Route("/entry/{slug}", name="entry")
+ */
 public function entryAction($slug)
 {
-   $blogPost = $this->blogPostRepository->findOneBySlug($slug);
+    $blogPost = $this->blogPostRepository->findOneBySlug($slug);
 
-   if (!$blogPost) {
-       $this->addFlash('error', 'Unable to find entry!');
+    if (!$blogPost) {
+        $this->addFlash('error', 'Unable to find entry!');
 
-       return $this->redirectToRoute('entries');
-   }
+        return $this->redirectToRoute('entries');
+    }
 
-   return $this->render('Blog:entry.html.twig', array(
-       'blogPost' => $blogPost
-   ));
+    return $this->render('blog/entry.html.twig', array(
+        'blogPost' => $blogPost
+    ));
 }
 ```
 
 In this action, you may have noticed that it checks if the blog post exists, if it doesn't it will set a "flash" session with an error message and redirect the user to the entries page to display the error.
 
-Now, we need to output this data in the template. So create `./templates/Blog/entry.html.twig` and paste the following content:
+Now, we need to output this data in the template. So create `./templates/blog/entry.html.twig` and paste the following content:
 
 {% highlight html %}
 {% raw %}
 {% extends "base.html.twig" %}
 
-{% block title %}App:Blog:entry{% endblock %}
+{% block title %}App:blog:entry{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -931,7 +935,7 @@ Now, we need to output this data in the template. So create `./templates/Blog/en
 
 The above code simply outputs the details of the blog post, its title, when it was updated at, the author, description, and the body.
 
-Our next problem is how to access this new page we've created. Back in your `entries.html.twig` template, find `{% raw %}{{ firstParagraph|raw }}<br />{% endraw %}` and paste below:
+Our next problem is how to access this new page we've created. Back in your `./templates/blog/entries.html.twig` template, find `{% raw %}{{ firstParagraph|raw }}<br />{% endraw %}` and paste below:
 
 {% highlight html %}{% raw %}<a href="{{ path('entry', {'slug': blogPost.slug}) }}">Read more</a>{% endraw %}{% endhighlight %}
 
@@ -940,7 +944,7 @@ Then you need to find `{% raw %}{{ blogPost.title }}{% endraw %}` and wrap this 
 {% highlight html %}
 {% raw %}
 <a href="{{ path('entry', {'slug': blogPost.slug}) }}">
- {{ blogPost.title }}
+    {{ blogPost.title }}
 </a>
 {% endraw %}
 {% endhighlight %}
@@ -965,19 +969,19 @@ public function authorAction($name)
         return $this->redirectToRoute('entries');
     }
 
-    return $this->render('Blog/author.html.twig', [
+    return $this->render('blog/author.html.twig', [
         'author' => $author
     ]);
 }
 ```
 
-Create the template `./templates/Blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
+Create the template `./templates/blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
 
 {% highlight html %}
 {% raw %}
 {% extends "base.html.twig" %}
 
-{% block title %}App:Blog:author{% endblock %}
+{% block title %}App:blog:author{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -1017,7 +1021,7 @@ Create the template `./templates/Blog/author.html.twig`, we won't be doing anyth
 {% endraw %}
 {% endhighlight %}
 
-We now need to have that author page linkable for people to access it. In: `./templates/Blog/entries.html.twig` you will find:
+We now need to have that author page linkable for people to access it. In: `./templates/blog/entries.html.twig` you will find:
 
 {% highlight html %}
 {% raw %}
