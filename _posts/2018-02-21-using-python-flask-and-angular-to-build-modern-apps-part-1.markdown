@@ -448,7 +448,7 @@ git add . && git commit -m "enabling CORS"
 
 ## Bootstrapping the Angular Application
 
-To create your Angular application, you will use the `ng` tool (made available by the Angular CLI). So, move back to the project root directory and issue `ng new frontend`. This will create the basic structure of an Angular app. The following snippet summarizes the commands to create your app and commit it untouched to you Git repository:
+To create your Angular application, you will use the `ng` tool that Angular CLI made available. So, move back to the project root directory and issue `ng new frontend`. This will create the basic structure of an Angular app. The following snippet summarizes the commands to create your app and to commit it untouched to you Git repository:
 
 ```bash
 # change working directory to project root
@@ -466,7 +466,7 @@ git add . && git commit -m "bootstrapping an Angular project"
 
 ### Consuming Flask Endpoints with Angular
 
-After that, the first thing you will do is to create a file called `env.ts` inside the `./frontend/src/app` directory with the following code:
+After creating your Angular app, the next thing you will need is to create a file called `env.ts` inside the `./frontend/src/app` directory with the following code:
 
 ```typescript
 export const API_URL = 'http://localhost:5000';
@@ -474,7 +474,7 @@ export const API_URL = 'http://localhost:5000';
 
 For now, this TypeScript module simply exports a single constant (`API_URL`) that references your Flask backend application running locally. In the third part of this series, you will enhance this module to define different `API_URL` values depending on the environment.
 
-Then, you can create a new directory called `exams` inside `./frontend/src/app` to hold files related to this entity. In this directory, you will create two files: `exam.model.ts` and `exams-api.service.ts`. The first file (`exam.model.ts`) will have a TypeScript class to represent exams:
+Now, you can create a new directory called `exams` inside `./frontend/src/app` to hold files related to this entity. In this directory, you will create two files: `exam.model.ts` and `exams-api.service.ts`. The first file (`exam.model.ts`) will have a TypeScript class to represent exams:
 
 ```typescript
 export class Exam {
@@ -489,7 +489,7 @@ export class Exam {
 }
 ```
 
-And the `exams-api.service.ts` file will create a service that uses `HttpClient` to fetch exams from your Flask backend application:
+The second file, `exams-api.service.ts`, will create a service that uses `HttpClient` to fetch exams from your Flask backend application:
 
 ```typescript
 import {Injectable} from '@angular/core';
@@ -580,7 +580,7 @@ export class AppComponent implements OnInit, OnDestroy {
 }
 ```
 
-And you will have to update its template (`app.component.html`) to show the exams fetched:
+Lastly, you will have to update its template (`app.component.html`) to show the exams fetched:
 
 {% highlight html %}
 {% raw %}
@@ -596,22 +596,16 @@ And you will have to update its template (`app.component.html`) to show the exam
 {% endraw %}
 {% endhighlight %}
 
-Now, you can run your Angular application (run `ng serve` on the `frontend` directory) to check if everything is working. After Angular finishes compiling your app, you can browse to [`http://localhost:4200`](http://localhost:4200). There, you will see a page similar to this:
+With all these changes in place, you can run your Angular application (run `ng serve` on the `frontend` directory) to check if everything is working as expected. After Angular finishes compiling your app, you can browse to [`http://localhost:4200`](http://localhost:4200). On this URL, you will see a page similar to this:
 
 ![Using Angular to fetch data from a Flask application](https://cdn.auth0.com/blog/flask-angular/fetching-data.png)
 
-Before moving on, don't forget to save your progress:
+This wraps up the first part of the series. Therefore, before moving on to the next parts, don't forget to save your progress:
 
 ```bash
 git add .
 git commit -m "integrating Flask and Angular"
 ```
-
-## Identity Management and Security with Auth0
-
-Advantages of using Auth0
-
-### Creating the Auth0 API
 
 ### Creating the Auth0 Client
 
