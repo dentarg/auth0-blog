@@ -2,7 +2,7 @@
 layout: post
 title: "Using Python, Flask, and Angular to Build Modern Web Apps - Part 1"
 description: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular."
-longdescription: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create an SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies."
+longdescription: "In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will create a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies."
 date: 2018-02-21 08:30
 category: Technical Guide, Python
 author:
@@ -25,7 +25,7 @@ related:
 - 2017-11-09-sqlalchemy-orm-tutorial-for-python-developers
 ---
 
-**TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build an SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/online-exam/), you can find the final code created throughout the first part of the series.
+**TL;DR:** In this series, you will learn how to create modern web applications with Python, Flask, and Angular. You will use this stack to build a SPA and a backend API to expose exams and questions so users can test their knowledge regarding different technologies. [In this GitHub repository](https://github.com/auth0-blog/online-exam/), you can find the final code created throughout the first part of the series.
 
 ---
 
@@ -411,7 +411,7 @@ git add . && git commit -m "integrating Flask RESTful endpoints and SQLAlchemy"
 
 ### Handling CORS on Flask Apps
 
-As your Flask app will receive requests from an SPA, you will need to [allow CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) on it. If you don't do so, most browsers will block requests to your API because the backend does not explicitly allow *Cross-Origin Resource Sharing* (CORS).
+As your Flask app will receive requests from a SPA, you will need to [allow CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) on it. If you don't do so, most browsers will block requests to your API because the backend does not explicitly allow *Cross-Origin Resource Sharing* (CORS).
 
 Luckily, there is a Flask module called `flask-cors` that is easy to configure. So, to install this module, issue the following command in your `backend` directory:
 
