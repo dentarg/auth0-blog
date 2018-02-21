@@ -607,8 +607,8 @@ git add .
 git commit -m "integrating Flask and Angular"
 ```
 
-### Creating the Auth0 Client
-
 ## Conclusion and Next Steps
 
-What we have done so far and what we will do in the next article.
+In the first part of this series, you used `pipenv` to bootstrap a Flask backend API. After that, you used SQLAlchemy ORM to integrate your Flask app with a database. Then, you installed and ran Angular CLI to create a new Angular SPA . In the end, you made your SPA fetch exams from the backend to show to visitors. These features together pave the way to create an application that relies on Flask and Angular to deliver a modern user experience.
+
+In the next article, you will learn how modern web apps manage identity and you will enhance both your backend and your frontend apps to include more features. Stay tuned!
