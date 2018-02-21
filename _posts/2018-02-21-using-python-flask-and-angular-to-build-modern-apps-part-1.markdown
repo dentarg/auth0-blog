@@ -95,22 +95,37 @@ npm install -g @angular/cli
 
 ## Bootstrapping the Python Application
 
+Now that you have taken care off the environment dependencies, you can focus on developing your application. For starters, you can create a directory to hold all the frontend and the backend source code of your app. Also, you will probably want to commit everything to a Git repository to guarantee that your progress is saved. Therefore, use the following commands to start structuring your app:
+
 ```bash
+# create the project root directory
 mkdir online-exam
 
+# move into it
 cd online-exam
 
+# initialize it as a Git repository
 git init
+```
 
+After that, you will want a directory specifically created to your Flask backend application:
+
+```bash
+# create directory to hold backend source code
 mkdir backend
 
+# move into it
 cd backend
+```
 
+Then, you will want to use `pipenv` to create a virtual environemnt. If you don't know why you need a virtual environment, [check out this great article written by the author of `pipenv`](https://www.kennethreitz.org/essays/a-better-pip-workflow).
+
+```bash
 # initialize the virtual environment
 pipenv --three
 ```
 
-As you are a responsible developer and is using Git to backup your code, you will probably want to ignore some files. Therefore, create a file called `.gitignore` in the project root directory and copy [the rules from this URL](https://raw.githubusercontent.com/auth0-blog/online-exam/master/.gitignore) to it.
+As you are using Git to backup your code, you will probably want to ignore some files. To do this, create a file called `.gitignore` in the project root directory and copy [the rules from this URL](https://raw.githubusercontent.com/auth0-blog/online-exam/master/.gitignore) into it.
 
 ### Managing Entities with SQLAlchemy ORM
 
