@@ -192,6 +192,12 @@ pipenv shell
 python -m src.main
 ```
 
+This might be a good time to save your progress:
+
+```bash
+git add . && git commit -m "adding SQLAlchemy and some entities"
+```
+
 ### Managing HTTP Requests with Flask
 
 ```bash
@@ -307,6 +313,45 @@ curl http://0.0.0.0:5000/exams
 
 Also, you can check the result of the `POST` request by browsing to [`http://0.0.0.0:5000/exams`](http://0.0.0.0:5000/exams).
 
+As you have made some good progress, it's better to save everything:
+
+```bash
+git add . && git commit -m "integrating Flask RESTful endpoints and SQLAlchemy"
+```
+
+### Handling CORS on Flask Apps
+
+As your Flask app will receive requests from an SPA (Single Page App), you will need to [allow CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) on it. If you don't do so, most browsers will block requests to your API because the backend does not explicitly allow *Cross-Origin Resource Sharing* (CORS).
+
+Luckily, there is a Flask module called `flask-cors` that is easy to configure. So, to install this module, issue the following command in your `backend` directory:
+
+```bash
+pipenv install flask-cors
+```
+
+Then, update the `main.py` file to take advantage of this module:
+
+```python
+# coding=utf-8
+
+from flask_cors import CORS
+# ... other import statements ...
+
+# creating the Flask application
+app = Flask(__name__)
+CORS(app)
+
+# ... create_all(engine) and endpoint definitions ...
+```
+
+Without any further configuration, `flask-cors` allows CORS for all domains on all routes. During the development process, this configuration will be enough. However, in the future, you will probably want to be more restrictive. When the day comes, [check the official documentation of the `flask-cors` module](http://flask-cors.readthedocs.io/en/latest/#resource-specific-cors) to learn how to tweak these settings.
+
+Now, before switching to Angular, you can start and leave your Flask application running:
+
+```bash
+./bootstrap.sh &
+```
+
 ## Bootstrapping the Angular Application
 
 ```bash
@@ -314,4 +359,11 @@ Also, you can check the result of the `POST` request by browsing to [`http://0.0
 cd ..
 
 # run @angular/cli to bootstrap the Angular app
+ng new frontend
+
+# move working directory to your frontend app
+cd frontend
+
+# commit template Angular project
+git add . && git commit -m "bootstrapping an Angular project"
 ```
