@@ -80,6 +80,8 @@ cd backend
 pipenv --three
 ```
 
+As you are a responsible developer and is using Git to backup your code, you will probably want to ignore some files. Therefore, create a file called `.gitignore` in the project root directory and copy [the rules from this URL](https://raw.githubusercontent.com/auth0-blog/online-exam/master/.gitignore) to it.
+
 ### Managing Entities with SQLAlchemy ORM
 
 ```bash
@@ -346,13 +348,19 @@ CORS(app)
 
 Without any further configuration, `flask-cors` allows CORS for all domains on all routes. During the development process, this configuration will be enough. However, in the future, you will probably want to be more restrictive. When the day comes, [check the official documentation of the `flask-cors` module](http://flask-cors.readthedocs.io/en/latest/#resource-specific-cors) to learn how to tweak these settings.
 
-Now, before switching to Angular, you can start and leave your Flask application running:
+Now, before switching to Angular, you can save your progress and leave your Flask application up and running:
 
 ```bash
+# commit your progress
+git add . git commit -m "enabling CORS"
+
+# run the Flask app in the background
 ./bootstrap.sh &
 ```
 
 ## Bootstrapping the Angular Application
+
+To create your Angular application, you will use the `ng` tool (made available by the Angular CLI). So, move back to the project root directory and issue `ng new frontend`. This will create the basic structure of an Angular app. The following commands do this and commit the app untouched to you Git repository:
 
 ```bash
 # change working directory to project root
