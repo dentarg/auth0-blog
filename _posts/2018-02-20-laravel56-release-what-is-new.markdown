@@ -246,14 +246,6 @@ Check out this [comprehensive upgrade guide](https://laravel.com/docs/5.6/upgrad
 ![Laravel Shift](https://cdn.auth0.com/blog/laravel56/laravelshift.png)
 _Laravel Shift_
 
-The Bootstrap team has a comprehensive guide for [migrating to Bootstrap v4](https://getbootstrap.com/docs/4.0/migration). However, there is a very [nifty tool](http://upgrade-bootstrap.bootply.com) from the community that allows you to drop in a piece of code and convert it to the Bootstrap v4 equivalent.
-
-![Bootstrap v3](https://cdn.auth0.com/blog/bootstrap4/pieceofcode.png)
-_Bootstrap v3_
-
-![Bootstrap v4](https://cdn.auth0.com/blog/bootstrap4/convertedcode.png)
-_Converted to Bootstrap v4 code_
-
 {% include asides/laravel-backend.markdown %}
 
 ## Conclusion
