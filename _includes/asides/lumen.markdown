@@ -74,8 +74,8 @@ class Auth0Middleware
         try {
             $verifier = new JWTVerifier([
               'supported_algs' => ['RS256'],
-              'valid_audiences' => [$AUTH0_API_AUDIENCE'],
-              'authorized_iss' => [$AUTH0_DOMAIN']
+              'valid_audiences' => [$AUTH0_API_AUDIENCE'], e.g https://mylumenapi.com
+              'authorized_iss' => [$AUTH0_DOMAIN'] // e.g https://kabiyesi.auth0.com/
             ]);
 
             $decoded = $verifier->verifyAndDecode($token);
@@ -88,13 +88,14 @@ class Auth0Middleware
 }
 ```
 
+
 In the `retrieveAndValidateToken()` method, we created an instance of `JWTVerifier` to verify the token coming from the Authorization header. It checks the algorithm, the API audience, and the issuer to ensure the token is a valid one issued by Auth0.
 
-Change the `$AUTH0_DOMAIN` variable to your Auth0 domain and set the `$AUTH0_API_AUDIENCE` to the **Identifier** you chose while creating the API from the Auth0 dashboard.
+Change the `$AUTH0_DOMAIN` variable to your Auth0 domain and set the `$AUTH0_API_AUDIENCE` to the **Identifier** you chose while creating the API from the Auth0 dashboard. Ensure that there is a trailing slash in `authorized_iss`'s value. An example is `https://kabiyesi.auth0.com/`.
 
 > **Note:** To learn more about RS256 and JSON Web Key Set, read [Navigating RS256 and JWKS](https://auth0.com/blog/navigating-rs256-and-jwks/).
 
-### Activate Middleware
+### Activate Auth0 JWT Middleware
 
 Assign the middleware a short-hand key in `bootstrap/app.php` file's call to the `$app->routeMiddleware()` method. 
 
