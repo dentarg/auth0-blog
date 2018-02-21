@@ -82,8 +82,8 @@ touch src/entities/entity.py
 ```python
 # coding=utf-8
 
-from datetime import date
-from sqlalchemy import create_engine, Column, String, Integer, Date
+from datetime import datetime
+from sqlalchemy import create_engine, Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -99,13 +99,13 @@ Base = declarative_base()
 
 class Entity():
     id = Column(Integer, primary_key=True)
-    created_at = Column(Date)
-    updated_at = Column(Date)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
     last_updated_by = Column(String)
 
     def __init__(self, created_by):
-        self.created_at = date.today()
-        self.updated_at = date.today()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         self.last_updated_by = created_by
 ```
 
@@ -174,4 +174,95 @@ pipenv shell
 
 # run main module
 python -m src.main
+```
+
+### Managing HTTP Requests with Flask
+
+```bash
+pipenv install flask marshmallow
+```
+
+```python
+# coding=utf-8
+
+from marshmallow import Schema, fields
+
+# ... other import statements ...
+
+# ... Exam class definition ...
+
+class ExamSchema(Schema):
+    id = fields.Number()
+    title = fields.Str()
+    description = fields.Str()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
+    last_updated_by = fields.Str()
+```
+
+```python
+# coding=utf-8
+
+from flask import Flask, jsonify, request
+
+from .entities.entity import Session, engine, Base
+from .entities.exam import Exam, ExamSchema
+
+# creating the Flask application
+app = Flask(__name__)
+
+# if needed, generate database schema
+Base.metadata.create_all(engine)
+
+
+@app.route('/exams')
+def get_exams():
+    # fetching from the database
+    session = Session()
+    exam_objects = session.query(Exam).all()
+
+    # transforming into JSON-serializable objects
+    schema = ExamSchema(many=True)
+    exams = schema.dump(exam_objects)
+
+    # serializing as JSON
+    session.close()
+    return jsonify(exams.data)
+
+
+@app.route('/exams', methods=['POST'])
+def add_exam():
+    # mount exam object
+    posted_exam = ExamSchema(only=('title', 'description'))\
+        .load(request.get_json())
+
+    exam = Exam(**posted_exam.data, created_by="HTTP post request")
+
+    # persist exam
+    session = Session()
+    session.add(exam)
+    session.commit()
+
+    # return created exam
+    new_exam = ExamSchema().dump(exam).data
+    session.close()
+    return jsonify(new_exam), 201
+```
+
+```bash
+#!/bin/bash
+export FLASK_APP=./src/main.py
+source $(pipenv --venv)/bin/activate
+flask run -h 0.0.0.0
+```
+
+```bash
+./bootstrap.sh &
+
+curl http://0.0.0.0:5000/exams
+
+curl -X POST -H 'Content-Type: application/json' -d '{
+  "title": "Some Exam Title",
+  "description": "The description of this exam."
+}' http://0.0.0.0:5000/exams
 ```
