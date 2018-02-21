@@ -35,7 +35,17 @@ In this series, you will use Python, Flask, and Angular to build a web applicati
 
 As you are looking forward to build a modern web application, you will use Auth0 as [the identity management system of your app](https://auth0.com/learn/cloud-identity-access-management/). You will also persist all exams, questions, alternatives, and results on a database.
 
-## Why Flask and Angular
+## Why Python, Flask, and Angular
+
+[As StackOverflow recently analyzed](https://stackoverflow.blog/2017/09/06/incredible-growth-python/), Python is one of the fastest-growing programming languages, having surpassed even Java on the number of questions asked on the platform. Besides that, the language is also showing mass adoption on GitHub. On this platform, Python occupied [the second position on the number of pull requests opened in 2017](https://octoverse.github.com/).
+
+When it comes to developing web applications with Python, you will have to choose between two popular frameworks: [Django](https://github.com/django/django) or [Flask](https://github.com/pallets/flask). Django is more mature and a little bit more popular than Flask. However, Flask has its strengths too. From the beginning, Flask was built to be scalable and simple to start with. Applications built with Flask are clearly lighter when compared to Django counterparts. As such, Python developers usually refer to Flask as a microframework.
+
+For the frontend application, you will use Angular as this is one of the most popular frameworks around. To learn about advantages of this framework, [you can check this nice page on Rangle.io](https://angular-2-training-book.rangle.io/handout/why_angular_2.html). As stated by this page, Angular provides developers with the tools needed to build and structure large-scale JavaScript applications. Besides that, Angular has some big advantages over some alternatives. For example, Angular is built and supported by Google engineers. Alongside with these engineers, there are a huge community ready to help you with issues when the time comes.
+
+As you can see, by choosing Python, Flask, and Angular to build web applications, you can rest assured that you will always be able to rely on great and thriving communities to support you.
+
+{% include tweet_quote.html quote_text="Python, Flask, and Angular form a great stack to build modern web applications." %}
 
 ## Dependencies
 
