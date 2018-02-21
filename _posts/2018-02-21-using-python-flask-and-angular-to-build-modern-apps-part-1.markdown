@@ -29,7 +29,11 @@ related:
 
 ---
 
-## What Will We Build
+## What You Will Build
+
+In this series, you will use Python, Flask, and Angular to build a web application based on a modern architecture. With Angular, you will build a SPA (Single Page App) that allows users to browse through exams and questions. These users, when authenticated, will be able to test their knowledge regarding a specific topic by choosing one of the multiple choices that a question exposes. Then, when your users submit their answers, your backend will check if they are right or wrong, record the result, and send back this result to users.
+
+As you are looking forward to build a modern web application, you will use Auth0 as [the identity management system of your app](https://auth0.com/learn/cloud-identity-access-management/). You will also persist all exams, questions, alternatives, and results on a database.
 
 ## Why Flask and Angular
 
@@ -331,7 +335,7 @@ git add . && git commit -m "integrating Flask RESTful endpoints and SQLAlchemy"
 
 ### Handling CORS on Flask Apps
 
-As your Flask app will receive requests from an SPA (Single Page App), you will need to [allow CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) on it. If you don't do so, most browsers will block requests to your API because the backend does not explicitly allow *Cross-Origin Resource Sharing* (CORS).
+As your Flask app will receive requests from an SPA, you will need to [allow CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) on it. If you don't do so, most browsers will block requests to your API because the backend does not explicitly allow *Cross-Origin Resource Sharing* (CORS).
 
 Luckily, there is a Flask module called `flask-cors` that is easy to configure. So, to install this module, issue the following command in your `backend` directory:
 
