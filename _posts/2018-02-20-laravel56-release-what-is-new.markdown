@@ -32,13 +32,13 @@ related:
 
 ---
 
-Laravel is a free, open-source PHP framework designed for building web applications with an expressive and elegant syntax. Laravel has a high level of abstraction which shields the common developer from complex inner workings. Laravel saves you time and effort because it ships with a lot of features out of the box. Without further ado, let's dive right into **Laravel 5.6**.
+Laravel is the most popular, open-source PHP framework as of this writing. It is designed for building web applications with an expressive and elegant syntax. With Laravel, application development is fast because it ships with a lot of features out of the box. Without further ado, let's dive right into **Laravel 5.6**.
 
 ## What's new in Laravel 5.6?
 
 ### 1. Support For Argon Password Hashing
 
-Argon2, the recommended password hashing algorithm by the Password Hashing Competition, is a modern algorithm for securely hashing passwords. And it comes in two distinct flavours, Argon 2i and Argon 2d. PHP 7.2 recently added support for Argon 2i password hashing. Therefore, [Michael Lundbol](https://github.com/morloderex) took the initiative to add support for Argon hashing in Laravel.
+Argon2, the recommended password hashing algorithm by the [Password Hashing Competition](http://password-hashing.net), is a modern algorithm for securely hashing passwords. And it comes in two distinct flavors, Argon 2i and Argon 2d. PHP 7.2 recently added support for Argon 2i password hashing. Therefore, [Michael Lundbol](https://github.com/morloderex) took the initiative to add support for Argon hashing in Laravel.
 
 ![Argon Password Hashing Support](https://cdn.auth0.com/blog/laravel56/argon.png)
 _Initiative to add Argon Password Hashing_
@@ -110,6 +110,8 @@ Furthermore, with the `tap` array on a channel's configuration, you can easily c
     'level' => 'debug',
 ],
 ```
+
+**Note:** Monolog is a library that sends your application logs to files, sockets, inboxes, databases and various web services. It's a comprehensive library with various log handlers.
 
 Check out more [information on Logging in Laravel 5.6](https://laravel.com/docs/5.6/logging).
 
@@ -229,7 +231,7 @@ I covered all the [major additions and deprecations of Bootstrap 4 in this artic
 * Laravel 5.6 introduced helper methods, `Arr::wrap()`, `classes_uses_recursive()`, `Str::uuid()`, and `Str::orderedUuid()`, the latter generating a timestamp first UUID that's more easily and efficiently indexed by databases like MySQL.
 * PHPUnit, upgraded to v7.
 * Laravel Mix, upgraded to v2.
-* The deprecated Artisan`optimize` command has been removed.
+* The deprecated Artisan `optimize` command has been removed.
 * Added support for customizing the mail message building in `ResetPassword::toMail()`.
 * Add `policies()` method to `AuthServiceProvider` to retrieve all the policies defined by the provider.
 * Two new blade directives have been added to the framework, `@csrf` and `@method`.
