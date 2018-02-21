@@ -2,7 +2,7 @@
 layout: post
 title: Building a blog with Gatsby
 description: "Building a blog with Gatsby, a modern static content generator for React"
-longdescription: "Gatsby is a modern static content generator using React. We look at building a blog with Gatsby with extra features like pagination, and user authentication with Auth0"
+longdescription: "Gatsby is a modern static content generator that uses React. We look at building a blog with Gatsby with extra features like pagination, and user authentication with Auth0"
 date: 2018-01-22 11:11
 category: Technical Guide, Frontend, Gatsby
 author:
