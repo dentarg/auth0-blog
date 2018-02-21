@@ -182,6 +182,8 @@ python -m src.main
 pipenv install flask marshmallow
 ```
 
+Update the `./src/entities/exam.py` file as such:
+
 ```python
 # coding=utf-8
 
@@ -199,6 +201,8 @@ class ExamSchema(Schema):
     updated_at = fields.DateTime()
     last_updated_by = fields.Str()
 ```
+
+Then, replace the contents of the `./src/main.py` file with the following code:
 
 ```python
 # coding=utf-8
@@ -249,6 +253,10 @@ def add_exam():
     return jsonify(new_exam), 201
 ```
 
+This creates a Flask application, based on SQLAlchemy and PostgreSQL, that is capable of accepting `POST` requests to create new instances of `exam` and capable of accepting `GET` requests to serialize these instances as a JSON array.
+
+To easily run this application, you will create a script called `bootstrap.sh` in the `backend` directory with the following code:
+
 ```bash
 #!/bin/bash
 export FLASK_APP=./src/main.py
@@ -256,13 +264,29 @@ source $(pipenv --venv)/bin/activate
 flask run -h 0.0.0.0
 ```
 
+This script does three things:
+
+1. it sets `./src/main.py` as the value of the `FLASK_APP` environment variable;
+2. it activates the virtual environment;
+3. and runs `flask` listening on all interfaces (`-h 0.0.0.0`).
+
+Then, to test everything, you can use the following commands:
+
 ```bash
+# make script executable
+chmod u+x bootstrap.sh
+
+# execute script in the background
 ./bootstrap.sh &
 
-curl http://0.0.0.0:5000/exams
-
+# create a new exam
 curl -X POST -H 'Content-Type: application/json' -d '{
   "title": "Some Exam Title",
   "description": "The description of this exam."
 }' http://0.0.0.0:5000/exams
+
+# retrieve exams
+curl http://0.0.0.0:5000/exams
 ```
+
+Also, you can check the result of the `POST` request by browsing to [`http://0.0.0.0:5000/exams`](http://0.0.0.0:5000/exams).
