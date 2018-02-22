@@ -1017,7 +1017,7 @@ There we have it, a Gatsby blog with Auth0 authentication, markdown post paginat
 
 As Gatsby is a static site generator, to be able make real use of our authentication we needed a backend application to provide functionality through an API to the React element of the site. Gatsby has a great guide and demo application for creating [hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/). 
 
-In this instance we used [Webtask by Auth0](https://webtask.io/) which allows us to build our own serverless api endpoints.
+In this instance we used [Webtask by Auth0](https://webtask.io/) which allows us to build our own serverless API endpoints.
 
 Gatsby has a dedicated [tutorial](https://www.gatsbyjs.org/tutorial/) for building Gatsby applications.
 
