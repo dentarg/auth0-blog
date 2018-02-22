@@ -73,6 +73,7 @@ composer require symfony/orm-pack
 composer require annotations
 composer require validator
 composer require template
+composer require security-bundle
 composer require --dev maker-bundle
 ```
 
@@ -829,23 +830,11 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 ### Installing HWIOAuth Bundle
 
-To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third party libraries. However, this can be easily done with this command: 
+To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. 
 
-```bash
-composer require hwi/oauth-bundle php-http/guzzle6-adapter php-http/httplug-bundle
-```
-
-__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the PHP requirement in config in `composer.json` so find and remove:
-
-```
-"platform": {
-    "php": "5.5.9"
-},
-```
-
-Now run `composer update`.
-
-We will need to add the routes to your routing file: `config/routes.yaml`:
+First we will set up all the configurations needed for this bundle.
+ 
+So to begin we need to add the routes to your routing file: `config/routes.yaml`:
 
 ```yml
 # ...
@@ -863,8 +852,6 @@ auth0_login:
 auth0_logout:
     path: /auth0/logout
 ```
-
-### Including DotEnv & Configs
 
 In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/Auth0ResourceOwner.php`:
 
@@ -1002,6 +989,22 @@ security:
 ```
 
 The config above is setting up URLs/sections in your blog that require the user to be authenticated.
+
+In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third party libraries. However, this can be easily done with this command: 
+
+```bash
+composer require hwi/oauth-bundle php-http/guzzle6-adapter php-http/httplug-bundle
+```
+
+__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the PHP requirement in config in `composer.json` so find and remove:
+
+```
+"platform": {
+    "php": "5.5.9"
+},
+```
+
+Now run `composer update`.
 
 ### Create the Author Page
 
