@@ -758,7 +758,7 @@ class BlogPost
 
 You may have noticed a `private $author;` property that links to the previous Entity we created. All this does is make sure the entity knows that `Author` has a [`ManyToOne` relationship](https://www.ibm.com/support/knowledgecenter/en/SSWU4L/Data/imc_Data/What_is_a_many-to-one_relationship.html) with `BlogPost`.
 
-Although you have created these entities, your database still has no tables in there. Based off these entities, Doctrine can create the tables we've sepcified. In order to do this, all you have to do is run:
+Although you have created these entities, your database still has no tables in there. Based off these entities, Doctrine can create the tables we've specified. In order to do this, all you have to do is run:
 
 ```bash
 php bin/console doctrine:schema:update --force
@@ -766,7 +766,7 @@ php bin/console doctrine:schema:update --force
 
 ### Install Doctrine-Fixtures
 
-We want to just populate some data into your newly created tables as examples during the creation of the blog. So install [doctrine-fixtures](https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html).
+We want to just populate some data into the newly created tables as examples during the creation of the blog. So install [doctrine-fixtures](https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html).
 
 ```bash
 composer require --dev doctrine/doctrine-fixtures-bundle
