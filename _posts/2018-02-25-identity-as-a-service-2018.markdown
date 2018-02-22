@@ -20,8 +20,8 @@ tags:
 - iaas
 - idaas
 related:
-- 2017-04-13-auth0-to-azure-log-analytics
-- 2018-02-12-auth0-joins-the-google-cloud-partner-platform
+- 2018-02-09are-you-gdpr-ready
+- 2018-01-26-security-predictions-for-2018-that-go-beyond-gdpr-compliance
 ---
 
 The New Year is bringing with it a rapidly growing desire to keep individual identity safe—on a state and geopolitical level, as well as a personal level. 
