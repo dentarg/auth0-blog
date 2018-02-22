@@ -21,8 +21,8 @@ tags:
 - auth-standards
 - psd2
 related:
-- 2017-04-13-auth0-to-azure-log-analytics
-- 2018-02-12-auth0-joins-the-google-cloud-partner-platform
+- 2018-02-07-oauth2-the-complete-guide
+- 2017-10-19-oauth-2-best-practices-for-native-apps
 ---
 
 Marc Andreessen famously said software is ["eating the world."](https://www.wsj.com/articles/SB10001424053111903480904576512250915629460) In a matter of months, it will take a bite out of one of the last remaining holdouts—European financial institutions. 
