@@ -2,7 +2,7 @@
 layout: post
 title: "Identity-as-a-Service 2018: What's New?"
 description: "Between GDPR, biometrics and the blockchain, 2018 promises to be a big year for identity."
-longdescription: ""
+longdescription: "Blockchain, with its immutable nature for data storage; Biometrics with Apple's Face ID at the front; and EU's with its new GDPR enforcement, are changing the landscape of identity. Keep reading for the breakdown of the top identity-as-a-service trends of 2018."
 date: 2018-02-25 12:30
 category: Technical Guide
 author:
