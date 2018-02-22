@@ -389,8 +389,8 @@ Create a new file `src/components/Auth.js` and inside it put the following code:
 // src/components/Auth.js
 import auth0 from 'auth0-js';
 
-const AUTH0_DOMAIN = '<your-domain>.auth0.com',
- AUTH0_CLIENT_ID = '<your-client-id>';
+const AUTH0_DOMAIN = '<your-domain>.auth0.com';
+const AUTH0_CLIENT_ID = '<your-client-id>';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -399,7 +399,7 @@ export default class Auth {
     redirectUri: 'http://localhost:8000/callback',
     audience: `https://${AUTH0_DOMAIN}/userinfo`,
     responseType: 'token id_token',
-    scope: 'openid profile'
+    scope: 'openid profile email'
   });
 
   login() {
@@ -465,7 +465,7 @@ export default class Auth {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
-        console.log(err);
+        console.error(err);
       }
 
       // Return to the homepage after authentication.
@@ -557,15 +557,10 @@ Next, we're going to add a new component for navigation. This could hold our bra
 // src/components/Nav.js
 import React from 'react';
 import Auth from '../utils/auth';
-import { navigateTo } from "gatsby-link";
 
 const auth = new Auth();
 
 export default class Nav extends React.Component {
-  goTo(route) {
-    navigateTo(`/${route}`);
-  }
-
   login() {
     auth.login();
   }
@@ -600,33 +595,38 @@ export default class Nav extends React.Component {
           <span> | </span>
           {
             !isAuthenticated() && (
-              <a href="#"
-                onClick={this.login.bind(this)}
-                style={{
-                  boxShadow: 'none',
-                  lineHeight: '37px'
-                }}
-              >
-                Log In
-              </a>
+              <span>
+                <a href="#"
+                  onClick={this.login.bind(this)}
+                  style={{
+                    boxShadow: 'none',
+                    lineHeight: '37px'
+                  }}
+                >
+                  Log In
+                </a>
+              </span>
             )
           }
           {
             isAuthenticated() && (
-              <a href="#"
-                onClick={this.logout.bind(this)}
-                style={{
-                  boxShadow: 'none',
-                  lineHeight: '37px'
-                }}
-              >
-                Log Out
-                {
-                  auth.getUserName() && (
-                    <span> ({auth.getUserName()})</span>
-                  )
-                }
-              </a>
+              <span>
+                <a href="#"
+                  onClick={this.logout.bind(this)}
+                  style={{
+                    boxShadow: 'none',
+                    lineHeight: '37px'
+                  }}
+                >
+                  Log Out
+                  {
+                    auth.getUserName() && (
+                      <span> ({auth.getUserName()})</span>
+                    )
+                  }
+                </a>
+                <span> | </span>
+              </span>
             )
           }
         </div>
@@ -669,9 +669,355 @@ And now when we login our application now knows about us.
 
 ![Logged into the Gatsby blog](https://cdn.auth0.com/blog/gatsby-blog/logged-into-the-gatsby-blog.png)
 
+## Newsletter with Webtasks
+
+Now we can login, we want to be able to signup to our blog to receive updates on new articles and other news. We're going to use Webtask to create our API. Webtask provides api endpoints as services. Serverless endpoints designed to make developers lives easily and eliminate the need for unnecessary infrastructure. 
+
+### Setting up a Webtask
+
+If you're in a rush, you can skip this step and use a webtask endpoint I've already created: `https://wt-b374f39b442dc589a2d950057c95207e-0.run.webtask.io/auth0-newsletter-wt-api`.
+
+To not distract us from our goal of developing an awesome Gatsby application, here is [a guide to producing a serverless application with Webtask.io](https://auth0.com/blog/building-serverless-apps-with-webtask/), a serverless code service. With the following webtask, we're going to be able to subscribe to a newsletter for our blog.
+
+You can also give it a go, [setting up your own webtask](https://webtask.io/cli#) and creating your own endpoint. They have a great step by step interactive guide.
+
+![Webtask cli setup](https://cdn.auth0.com/blog/gatsby-blog/webtask-cli-setup.png)
+
+#### Install wt command line interface.
+
+`wt` is an [open source](https://github.com/auth0/wt-cli) Node.js CLI to interact with the webtask API.
+
+```bash
+npm install ---global wt-cli
+```
+
+#### Initialize wt
+
+`wt` will ask for an e-mail or phone number to send you an activation code. Once activated you'll be able to create webtasks from commandline.
+
+```bash
+wt init (your email address here)
+```
+
+#### Create our webtask
+
+Now let's make our basic newsletter webtask.
+
+```bash
+touch newsletter.js
+```
+
+Copy and paste the code below into `newsletter.js`.
+ 
+> **Note:** This file doesn't need to be in the same root or directory tree as your Gatsby application.
+
+```js
+// newsletter.js
+'use latest';
+import bodyParser from 'body-parser';
+import express from 'express';
+import Webtask from 'webtask-tools';
+import _ from 'lodash';
+
+const app = new express();
+app.use(bodyParser.json());
+
+const RESPONSE = {
+  OK : {
+    statusCode : 200,
+    message: "You have successfully subscribed to the newsletter!",
+  },
+  DUPLICATE : {
+    status : 400,
+    message : "You are already subscribed."
+  },
+  ERROR : {
+    statusCode : 400,
+    message: "Something went wrong. Please try again."
+  },
+  UNAUTHORIZED : {
+    statusCode : 401,
+    message : "You must be logged in to access this resource."
+  }
+};
+
+app.post('/subscribe', function(req, res){
+  var email = req.body.email;
+  if(email){
+    req.webtaskContext.storage.get(function(err, data){
+      if(err){
+        res.writeHead(400, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(RESPONSE.ERROR));
+      }
+
+      data = data || [];
+
+      if(_.indexOf(data, email) == -1){
+        data.push(email);
+        req.webtaskContext.storage.set(data, function(err){
+          if(err){
+            res.writeHead(400, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify(RESPONSE.ERROR));
+          } else {
+            res.writeHead(200, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify(RESPONSE.OK));
+          }
+        })
+      } else {
+        res.writeHead(400, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(RESPONSE.DUPLICATE));
+      }
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'application/json'});
+    res.end(JSON.stringify(RESPONSE.ERROR));
+  }
+})
+
+app.post('/unsubscribe', function(req, res){
+  var email = req.body.email;
+  if(email){
+    req.webtaskContext.storage.get(function(err, data){
+      if(err){
+        res.writeHead(400, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(RESPONSE.ERROR));
+      }
+
+      data = data || [];
+
+      const index = _.indexOf(data, email);
+
+      if(index == -1){
+        res.writeHead(400, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(RESPONSE.ERROR));
+      } else {
+        data.splice(index, 1);
+        req.webtaskContext.storage.set(data, function(err){
+          if(err){
+            res.writeHead(400, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify(RESPONSE.ERROR));
+          } else {
+            res.writeHead(200, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify(RESPONSE.OK));
+          }
+        })
+      }
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'application/json'});
+    res.end(JSON.stringify(RESPONSE.ERROR));
+  }
+})
+
+app.get('/subscribed/:email', function(req, res){
+  const email = req.params.email;
+  if(email){
+    req.webtaskContext.storage.get(function(err, data){
+      if(err){
+        res.writeHead(400, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(RESPONSE.ERROR));
+      }
+
+      data = data || [];
+
+      if(_.indexOf(data, email) == -1){
+        res.writeHead(200, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify({subscribed: false}));
+      } else {
+        res.writeHead(200, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify({subscribed: true}));
+      }
+    })
+  } else {
+    res.writeHead(200, { 'Content-Type': 'application/json'});
+    res.end(JSON.stringify(RESPONSE.ERROR));
+  }
+})
+
+// Here we are exporting our express app using the wt helper library
+module.exports = Webtask.fromExpress(app);
+```
+
+Run `wt` again to create our new Webtask, where it will create our newsletter webtask and prompt you to open it for editing on the Webtask code editor. It will also return the URI for the webtask for you to use in this applciation. Copy it or use our demo, provided above.
+
+```bash
+wt create newsletter.js
+```
+
+If you check out your Webtask in the Webtask code editor, you'll see something like this:
+
+![Webtask in editor](https://cdn.auth0.com/blog/gatsby-blog/webtask-in-editor.png)
+
+#### Testing 
+
+Using commandline, we can easily test our webtask is working.
+
+```bash
+curl \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d '{"email": "<your-email-address>"}' \
+  <your-webtask-uri>/subscribe
+```
+
+and you'll get a response like `{"statusCode":200,"message":"You have successfully subscribed to the newsletter!"}`.
+
+> **Note:** If you submit a common test email, it might already have subscribed! The webtask will tell you though! You'll get a nice error saying you've already subscribed :)
+
+### Subscribe to the Newsletter
+
+Now to enable our logged in users to subscribe/unsubscribe from our Gatsby application.
+
+#### Axios, react!
+
+No, it's not a spell from Harry Potter. Axios is a Promise based HTTP client we can use in React. So go ahead and install this to our app.
+
+```bash
+npm install --save axios
+```
+
+#### A Subscribe component
+
+Create the file `src/componenets/Subscribe.js` and give it the following code, replacing `<your-webtask-uri>` with a your Webtask uri, if you're not planning on using our demo webtask at `https://wt-b374f39b442dc589a2d950057c95207e-0.run.webtask.io/auth0-newsletter-wt-api`
+
+```js
+// src/componenets/Subscribe.js
+import React from 'react';
+import Auth from '../utils/auth';
+import axios from 'axios';
+
+const wtUri = '<your webtask uri>';
+const auth = new Auth();
+
+export default class Subscribe extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      subscribed: this.isSubscribed()
+    };
+  }
+
+  isSubscribed() {
+    return (localStorage.getItem('subscribed') == 'true');
+  }
+
+  componentWillMount() {
+    if (auth.getUser() && localStorage.getItem("subscribed") === null) {
+      const email = auth.getUser().email;
+      axios.get(`${wtUri}/subscribed/${email}`)
+        .then(res => {
+          localStorage.setItem('subscribed', res.data.subscribed);
+          this.setState({
+            subscribed: this.isSubscribed()
+          });
+        })
+        .catch(console.error);
+    }
+  }
+
+  subscribe() {
+    if (auth.getUser()) {
+      const email = auth.getUser().email;
+      axios.post(`${wtUri}/subscribe`, {email: email})
+        .then(res => {
+          localStorage.setItem('subscribed', 'true');
+          this.setState({
+            subscribed: this.isSubscribed()
+          });
+        })
+        .catch(console.error);
+    }
+  }
+
+  unsubscribe() {
+    if (auth.getUser()) {
+      const email = auth.getUser().email;
+      axios.post(`${wtUri}/unsubscribe`, {email: email})
+        .then(res => {
+          localStorage.removeItem('subscribed');
+          this.setState({
+            subscribed: false
+          });
+        })
+        .catch(console.error);
+    }
+  }
+
+  render() {
+    if (this.state.subscribed) {
+      return (
+        <a href="#"
+           onClick={this.unsubscribe.bind(this)}
+        >Unsubscribe</a>
+      )
+    } else {
+      return (
+        <a href="#"
+           onClick={this.subscribe.bind(this)}
+        >Subscribe</a>
+      )
+    }
+  }
+}
+```
+
+#### Adding Subscribe to our Nav
+
+All that is left to do is add our `Subscribe` component to `Nav`. This will show in our `Nav` whether our logged in user is already subscribed or not, allowing them to subscribe or unsubscribe as they see fit.
+
+So edit `src/components/Nav.js` and add the code as follows.
+
+```diff
+// src/components/Nav.js
+  import React from 'react';
+  import Auth from '../utils/auth';
++ import Subscribe from './Subscribe';
+
+  const auth = new Auth();
+
+  ...
+
+            {
+              isAuthenticated() && (
+                <span>
+                  <a href="#"
+                    onClick={this.logout.bind(this)}
+                    style={{
+                      boxShadow: 'none',
+                      lineHeight: '37px'
+                    }}
+                  >
+                    Log Out
+                    {
+                      auth.getUserName() && (
+                        <span> ({auth.getUserName()})</span>
+                      )
+                    }
+                  </a>
++                 <span> | </span>
++                 <Subscribe />
+                </span>
+              )
+            }
+
+  ...
+```
+
+With that added, lets run our app and see what we get!
+
+![Logged in and unsubscribed](https://cdn.auth0.com/blog/gatsby-blog/logged-in-unsubscribed.png)
+
+Now subscribe to the newsletter!
+
+![Logged in and subscribed](https://cdn.auth0.com/blog/gatsby-blog/logged-in-subscribed.png)
+
 ## Conclusion
 
-There we have it, a Gatsby blog with Auth0 authentication. As Gatsby is a static site generator, to be able make real use of this we'd need a backend application to provide functionality through an API to the React element of the site. Gatsby has a great guide and demo application for creating [hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/).
+There we have it, a Gatsby blog with Auth0 authentication, markdown post pagination, and newsletter signup for authenticated users. 
+
+As Gatsby is a static site generator, to be able make real use of our authentication we needed a backend application to provide functionality through an API to the React element of the site. Gatsby has a great guide and demo application for creating [hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/). 
+
+In this instance we used [Webtask by Auth0](https://webtask.io/) which allows us to build our own serverless api endpoints.
 
 Gatsby has a dedicated [tutorial](https://www.gatsbyjs.org/tutorial/) for building Gatsby applications.
 
@@ -680,3 +1026,5 @@ If you want to learn more about React, here is a great guide on [bootstrapping a
 Learn more about GraphQL with [how to GraphQL](https://www.howtographql.com/), which has plenty of resources based on the different types of technology you might be using.
 
 **The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/auth0-blog/auth0-gatsby-blog).**
+
+I welcome your comments below for any suggestions or improvements to make this Gatsby/React guide beter, or if you have any questions!
