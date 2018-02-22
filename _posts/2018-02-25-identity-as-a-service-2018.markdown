@@ -103,3 +103,5 @@ Although an IDaaS provider, like Auth0, can't ensure your organization will be f
 
 ## New Year, Big Moves in IDaaS
 Demand from new regulations, paired with a lot of excitement and [funding](https://www.theverge.com/2017/4/18/15332742/us-border-biometric-exit-facial-recognition-scanning-homeland-security), pushing new technologies, like biometrics and distributed ledger opportunities, into the mainstream, has opened a lot of new avenues for IDaaS in 2018. Look for more people taking selfies to sign on, investors seeking out blockchain startups that focus on personal data security, and European companies panicking to meet their looming May deadline. And this could just be a start.
+
+{% include tweet_quote.html quote_text="Blockchain, biometrics, data protection regulations. Which of these will define the trend for 2018 on identity?" %}
