@@ -1236,7 +1236,7 @@ The above code checks whether an author already exists for this user, whether th
 
 __NOTE__: You may have noticed that it sets a session to `true` for `user_is_author` this will make sense when we reach the part that discusses and implements event listeners (next).
 
-Finally, we want to pass the form into a template that the user will see. So, lets create a new template in `templates/Admin/` called `create_author.html.twig`. In this template, paste the following:
+Finally, we want to pass the form into a template that the user will see. So, lets create a new template in `templates/admin/` called `create_author.html.twig`. In this template, paste the following:
 
 {% highlight html %}
 {% raw %}
