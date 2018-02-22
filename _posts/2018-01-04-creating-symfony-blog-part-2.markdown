@@ -226,7 +226,7 @@ You've now set up Bootstrap to be used in your Symfony Blog.
 
 ### Showing Blog Posts
 
-In `./src/Controllers/BlogController.php`, we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the `BlogController` class we want to inject these services.
+In `./src/Controller/BlogController.php`, we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the `BlogController` class we want to inject these services.
 
 ```php
 /** @var EntityManagerInterface */
@@ -679,7 +679,7 @@ to:
 
 We don't want to be loading all blog posts into the page, so let's add some pagination.
 
-In the `./src/Controllers/BlogController.php` find `entriesAction()` and within the empty brackets type in: `Request $request`
+In the `./src/Controller/BlogController.php` find `entriesAction()` and within the empty brackets type in: `Request $request`
 
 At the top of the controller we need to include this class so where it shows:
 
@@ -782,59 +782,59 @@ Time to show your blog posts in a template file. Open `./templates/blog/entries.
 
 {% highlight html %}
 {% raw %}
-    <div class="container">
-        <div class="blog-header">
-            <h1 class="blog-title">Blog tutorial</h1>
-            <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by <a href="http://auth0.com">Auth0</a>.</p>
-        </div>
+<div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title">Blog tutorial</h1>
+        <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by <a href="http://auth0.com">Auth0</a>.</p>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-8 blog-main">
-                {% for blogPost in blogPosts %}
-                    {% set paragraphs = blogPost.description|split('</p>') %}
-                    {% set firstParagraph = paragraphs|first ~ '</p>' %}
-                    <div class="blog-post">
-                        <h2 class="blog-post-title">
-                            {{ blogPost.title }}
-                        </h2>
-                        <p class="blog-post-meta">
-                            {{ blogPost.getUpdatedAt|date('F j, Y') }} by
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            {% for blogPost in blogPosts %}
+                {% set paragraphs = blogPost.description|split('</p>') %}
+                {% set firstParagraph = paragraphs|first ~ '</p>' %}
+                <div class="blog-post">
+                    <h2 class="blog-post-title">
+                        {{ blogPost.title }}
+                    </h2>
+                    <p class="blog-post-meta">
+                        {{ blogPost.getUpdatedAt|date('F j, Y') }} by
 
-                            {% if blogPost.author %}
-                                {{ blogPost.author.name }}
-                            {% else %}
-                                Unknown Author
-                            {% endif %}
-                        </p>
-                        {{ firstParagraph|raw }}<br />
-                    </div>
-                {% else %}
-                    <div class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        You have no blog articles. Please log in and create an article.
-                    </div>
-                {% endfor %}
+                        {% if blogPost.author %}
+                            {{ blogPost.author.name }}
+                        {% else %}
+                            Unknown Author
+                        {% endif %}
+                    </p>
+                    {{ firstParagraph|raw }}<br />
+                </div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    You have no blog articles. Please log in and create an article.
+                </div>
+            {% endfor %}
 
-                {% set canPrevious = page > 1 %}
-                {% set canNext = (page * entryLimit) < totalBlogPosts %}
-                <nav>
-                    <ul class="pager">
-                        <li class="previous {% if canPrevious == false %}disabled{% endif %}">
-                            <a href="{% if canPrevious %}{{ path('entries', {'page': page - 1}) }}{% endif %}">
-                                <span aria-hidden="true">&larr;</span> Older
-                            </a>
-                        </li>
-                        <li class="next {% if canNext == false %}disabled{% endif %}">
-                            <a href="{% if canNext %}{{ path('entries', {'page': page + 1}) }}{% endif %}">
-                                Newer <span aria-hidden="true">&rarr;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            {% set canPrevious = page > 1 %}
+            {% set canNext = (page * entryLimit) < totalBlogPosts %}
+            <nav>
+                <ul class="pager">
+                    <li class="previous {% if canPrevious == false %}disabled{% endif %}">
+                        <a href="{% if canPrevious %}{{ path('entries', {'page': page - 1}) }}{% endif %}">
+                            <span aria-hidden="true">&larr;</span> Older
+                        </a>
+                    </li>
+                    <li class="next {% if canNext == false %}disabled{% endif %}">
+                        <a href="{% if canNext %}{{ path('entries', {'page': page + 1}) }}{% endif %}">
+                            Newer <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
+</div>
 {% endraw %}
 {% endhighlight %}
 
@@ -953,8 +953,6 @@ Then you need to find `{% raw %}{{ blogPost.title }}{% endraw %}` and wrap this 
 {% endraw %}
 {% endhighlight %}
 
-Now refresh your browser. You'll see the title has changed to a link, and there is now a "Read more" at the bottom of your article. Click one of those and you'll see your new page!
-
 ### Showing Author Details
 
 Want to see more details about the author of the post? Let's create an `authorAction` in your `BlogController`. We're going to be doing something very similar to retrieving the single entry.
@@ -1047,7 +1045,8 @@ Let's make this a link as shown below:
 {% endraw %}
 {% endhighlight %}
 
-Refresh your browser, you will see the author names have a link now.
+Now refresh your browser. You'll see the title has changed to a link, and there is now a "Read more" at the bottom of your article. Click one of those and you'll see your new page!
+You will also see the author names have a link now.
 
 {% include tweet_quote.html quote_text="Urray! I've just finished creating my own blog engine with Symfony and PHP!" %}
 
