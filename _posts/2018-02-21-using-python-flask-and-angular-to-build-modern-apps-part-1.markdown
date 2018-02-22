@@ -39,7 +39,7 @@ As you are looking forward to building a modern web application, you will use Au
 
 [As StackOverflow recently analyzed](https://stackoverflow.blog/2017/09/06/incredible-growth-python/), Python is one of the fastest-growing programming languages, having surpassed even Java on the number of questions asked on the platform. Besides that, the language is also showing mass adoption on GitHub. On this platform, Python occupied [the second position on the number of pull requests opened in 2017](https://octoverse.github.com/).
 
-When it comes to developing web applications with Python, you will have to choose between two popular frameworks: [Django](https://github.com/django/django) or [Flask](https://github.com/pallets/flask). Django is more mature and a little bit more popular than Flask. However, Flask has its strengths too. From the beginning, Flask was built to be scalable and simple to start with. Applications built with Flask are clearly lighter when compared to Django counterparts. As such, Python developers usually refer to Flask as a microframework.
+When it comes to developing web applications with Python, you will have to choose between two popular frameworks: [Django](https://github.com/django/django) or [Flask](https://github.com/pallets/flask). Django is more mature and a little bit more popular than Flask. However, Flask has its strengths too. From the beginning, Flask was built to be scalable and simple to get started with. Applications built with Flask are clearly lighter when compared to Django counterparts. As such, Python developers usually refer to Flask as a microframework.
 
 For the frontend application, you will use Angular as this is one of the most popular frameworks around. To learn about advantages of this framework, [you can check this nice page on Rangle.io](https://angular-2-training-book.rangle.io/handout/why_angular_2.html). As stated by this page, Angular provides developers with the tools needed to build and structure large-scale JavaScript applications. Besides that, Angular has some big advantages over some alternatives. For example, Angular is built and supported by Google engineers. Alongside with these engineers, there is a huge community ready to help you with issues when the time comes.
 
@@ -55,7 +55,7 @@ Now that you learned why Python, Flask, and Angular form a great stack to build 
 
 To start with, you will need an up to date version of Python 3. If you don't have Python 3 available on your development machine, please, [browse to the Python download page and install it](https://www.python.org/downloads/).
 
-After installing Python, you will have to install the [`pipenv`](https://github.com/pypa/pipenv) tool. This tool aims at bringing the best of all packaging worlds (`bundler`, `composer`, `npm`, etc.) to Python developers. Also, this tool is a first–class citizen on Windows. So, if you are still stuck to this operating system, don't worry, you are covered.
+After installing Python, you will have to install the [`pipenv`](https://github.com/pypa/pipenv) tool. This tool aims at bringing the best of all packaging worlds (`bundler`, `composer`, `npm`, etc.) to Python developers. Also, this tool is a first–class citizen on Windows. So, if you are still stuck on this operating system, don't worry, you are covered.
 
 To install `pipenv`, simply open a terminal and type the following command:
 
@@ -67,7 +67,7 @@ pip install pipenv
 
 Python and `pipenv` together are enough to start developing your Flask application. However, as you want to persist transactional data, you still need to choose and configure a database engine. To make your life easier, you will use SQLAlchemy to persist and retrieve data from the chosen engine. If you don't have experience with SQLAlchemy, please, check [this nice introductory article on the subject](https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/). There, you will learn that by using the SQLAlchemy ORM (Object Relational Mapping) extension, you will be able to easily connect and use any major SQL database engine (e.g. MySQL, PostgreSQL, SQL Server, etc).
 
-If you don't have a database available on your machine, one great way to proceed is to use Docker to spam a new one:
+If you don't have a database available on your machine, one great way to proceed is to use Docker to create a new one:
 
 ```bash
 docker run --name online-exam-db \
@@ -95,7 +95,7 @@ npm install -g @angular/cli
 
 ## Bootstrapping the Python Application
 
-Now that you have taken care off the environment dependencies, you can focus on developing your application. For starters, you can create a directory to hold all the frontend and the backend source code of your app. Also, you will probably want to commit everything to a Git repository to guarantee that your progress is saved. Therefore, use the following commands to start structuring your app:
+Now that you have taken care of the environment dependencies, you can focus on developing your application. For starters, you can create a directory to hold all the frontend and the backend source code of your app. Also, you will probably want to commit everything to a Git repository to guarantee that your progress is saved. Therefore, use the following commands to start structuring your app:
 
 ```bash
 # create the project root directory
