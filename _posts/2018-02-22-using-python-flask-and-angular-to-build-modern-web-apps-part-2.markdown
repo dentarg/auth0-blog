@@ -245,3 +245,177 @@ git add . && git commit -m "securing Flask with Auth0"
 
 ### Securing Angular Apps with Auth0
 
+The next step is to create an Auth0 Client to represent your Angular app. To do so, browse to [the Client page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. This time, you will have to inform only two things to Auth0:
+
+1. *Name*: Another friendly reminder, this time to your Auth0 Client. Here, you can add something like "Online Exam Client".
+2. *Client Type*: The type of the client that you are creating. In this case, as you are using Angular to create a SPA, you will choose *Single Page Web Applications*.
+
+Having filled up this form, click on the *Create* button. When finished creating your client (it takes just a second or two), Auth0 will redirect you to the *Quick Start* tab of the new client. From there, click on the *Settings* tab. In this new page, you will have to inform to Auth0 what are the *Allowed Callback URLs*. As for the moment you are only running your app locally, you can simply add the `http://localhost:4200/callback` URL to this field. Now, you can hit the *Save Changes* button at the bottom of the page and leave this it open (you will need to copy some properties from it later).
+
+Next, you can go back to your code. Before integrating Auth0 into your Angular app, you will add two new components to it: `ExamsComponent` and `ExamFormComponent`. The first one will render the list of exams (i.e. you will remove this functionality from the `AppComponent`) and the second one will allow authenticated users to create exams.
+
+As such, open the `app.component.ts` file and replace all its content with this:
+
+```typescript
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div style="text-align:center">
+      <h1>Exams</h1>
+    </div>
+    <h2>Here are the exams created so far: </h2>
+    <router-outlet></router-outlet>
+  `,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent { }
+```
+
+As you can see, this component exists only to show a title and to define where other components will be rendered (`<router-outlet></router-outlet>`). As you have moved this component's template to this file, you can remove the `app.component.html` file.
+
+Now, to show the exams list again, you are going to create the `ExamsComponent`. To do so, create a new file called `exams.component.ts` inside the `src/app/exams` directory with the following code:
+
+```typescript
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {Exam} from './exam.model';
+import {ExamsApiService} from './exams-api.service';
+
+@Component({
+  selector: 'exams',
+  template: `
+    <div>
+      <button routerLink="/new-exam">New Exam</button>
+      <ul>
+        <li *ngFor="let exam of examsList">
+          {{exam.title}}
+        </li>
+      </ul>
+    </div>
+  `
+})
+export class ExamsComponent implements OnInit, OnDestroy {
+  examsListSubs: Subscription;
+  examsList: Exam[];
+
+  constructor(private examsApi: ExamsApiService) {
+  }
+
+  ngOnInit() {
+    this.examsListSubs = this.examsApi
+      .getExams()
+      .subscribe(res => {
+          this.examsList = res;
+        },
+        console.error
+      );
+  }
+
+  ngOnDestroy() {
+    this.examsListSubs.unsubscribe();
+  }
+}
+```
+
+There is nothing fancy about this component, you are simply moving the code that renders the list of exams from the `AppComponent`to this one and adding a `button` to enable users to navigate to the `/new-exam` page.
+
+Speaking of which, you have to create the component that will be responsible for this URI. Therefore, create a new file called `exam-form.component.ts` inside the `src/app/exams` directory and add the following code to it:
+
+```typescript
+import {Component} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ExamsApiService} from "./exams-api.service";
+import {Router} from "@angular/router";
+
+@Component({
+  selector: 'exam-form',
+  template: `
+    <div>
+      <h2>New Exam</h2>
+      <label for="exam-title">Title</label>
+      <input id="exam-title" (keyup)="updateTitle($event)">
+      <label for="exam-description">Description</label>
+      <input id="exam-description" (keyup)="updateDescription($event)">
+      <button (click)="saveExam()">Save Exam</button>
+    </div>
+  `
+})
+export class ExamFormComponent {
+  exam = {
+    title: '',
+    description: '',
+  };
+
+  constructor(private examsApi: ExamsApiService, private router: Router) { }
+
+  updateTitle(event: any) {
+    this.exam.title = event.target.value;
+  }
+
+  updateDescription(event: any) {
+    this.exam.description = event.target.value;
+  }
+
+  saveExam() {
+    this.examsApi
+      .saveExam(this.exam)
+      .subscribe(
+        () => this.router.navigate(['/']),
+        error => alert(error.message)
+      );
+  }
+}
+```
+
+In this component, you are defining two `input` elements where users will be able to inform the `title` and `description` of the exam that they are creating and a `button` that triggers the `saveExam` method. This method calls another (homonymous) method that you will define in the `examsApi` service. Then, if the call to this method is succesful, users are redirected to the home page (`/`) and, if the call is unsuccessful, an `alert` is shown by the browser.
+
+Now, to define the `saveExam` method on the `ExamsApiService`, open the `exams-api.service.ts` file and update it as follows:
+
+```typescript
+// ... import statements ...
+
+@Injectable()
+export class ExamsApiService {
+  // ... constructor, _handleError, getExams ...
+
+  saveExam(exam: Exam): Observable<any> {
+    return this.http
+      .post(`${API_URL}/exams`, exam);
+  }
+}
+```
+
+Lastly, you will have to update the `app.module.ts` file as follows:
+
+```typescript
+// ... other imports ...
+
+import {ExamFormComponent} from './exams/exam-form.component';
+import {RouterModule, Routes} from '@angular/router';
+import {ExamsComponent} from './exams/exams.component';
+
+const appRoutes: Routes = [
+  { path: 'new-exam', component: ExamFormComponent },
+  { path: '', component: ExamsComponent },
+];
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    ExamFormComponent,
+    ExamsComponent,
+  ],
+  imports: [
+    // ... BrowserModule and HttpClientModule ...
+    RouterModule.forRoot(
+      appRoutes,
+    ),
+  ],
+  // ... providers and bootstrap ...
+})
+// ... AppModule class definition
+```
+
+With these changes in place, you can open a terminal, move to the `frontend` directory, and run the `ng serve` command. Then, if you open [`http://localhost:4200/`](http://localhost:4200/) in a browser, you will see the list of exams and a button labeled *New Exam*. Clicking on this button, you will be redirected to your new form. The problem now is that you will get an error saying "Http failure response for http://localhost:5000/exams: 401 UNAUTHORIZED" when clicking on the *Save Exam* button. The reason for that is simple, you haven't configured Auth0 in your Angular app yet.
