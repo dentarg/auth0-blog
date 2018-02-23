@@ -272,7 +272,8 @@ As you can see, this component exists only to show a title and to define where o
 
 Now, to show the exams list again, you are going to create the `ExamsComponent`. To do so, create a new file called `exams.component.ts` inside the `src/app/exams` directory with the following code:
 
-```typescript
+{% highlight html %}
+{% raw %}
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {Exam} from './exam.model';
@@ -312,7 +313,8 @@ export class ExamsComponent implements OnInit, OnDestroy {
     this.examsListSubs.unsubscribe();
   }
 }
-```
+{% endraw %}
+{% endhighlight %}
 
 There is nothing fancy about this component, you are simply moving the code that renders the list of exams from the `AppComponent`to this one and adding a `button` to enable users to navigate to the `/new-exam` page.
 
@@ -462,7 +464,8 @@ As you can see, this component simply shows a message saying "Loading authentica
 
 Next, you will have to refactor the `exams.component.ts` file to allow users to sign in and sign out. So, open this file and replace its code with the following:
 
-```typescript
+{% highlight html %}
+{% raw %}
 import * as Auth0 from 'auth0-web';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
@@ -512,7 +515,8 @@ export class ExamsComponent implements OnInit, OnDestroy {
     this.examsListSubs.unsubscribe();
   }
 }
-```
+{% endraw %}
+{% endhighlight %}
 
 In the new version of this component, you are adding two new buttons (*Sign In* and *Sign Out*) and a paragraph that shows names of authenticated users. All these new elements are conditionally showed according to the `authenticated` flag. The *Sign In* button is showed when this flag is set to false and the other two are showed otherwise.
 
