@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Building a blog with Gatsby
-description: "Building a blog with Gatsby, a modern static content generator for React"
-longdescription: "Gatsby is a modern static content generator that uses React. We look at building a blog with Gatsby with extra features like pagination, and user authentication with Auth0"
+description: "Building a blog with Gatsby, React and Webtask.io!"
+longdescription: "Building a blog with Gatsby, the React based static content generator. Using Webtask.io, the serverless endpoint service to provide a backend API, we look at building a blog with Gatsby and adding extra features like pagination, user authentication with Auth0 and newsletter subscription."
 date: 2018-01-22 11:11
 category: Technical Guide, Frontend, Gatsby
 author:
@@ -18,14 +18,16 @@ tags:
 - javascript
 - react
 - auth0
+- webtask
 - graphql
+- es6
 related:
 - 2017-10-26-whats-new-in-react16
 - 2017-12-14-elixir-and-phoenix-tutorial-build-an-authenticated-app
 - 2017-12-28-symfony-tutorial-building-a-blog-part-1
 ---
 
-**TL;DR:** [Gatsby](https://www.gatsbyjs.org/) is a modern static content generator for [React](https://reactjs.org/) and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. In this article, we're going to be building a simple demo blog, and adding some features like user authentication with [Auth0.js](https://auth0.com/docs/libraries/auth0js).
+**TL;DR:** [Gatsby](https://www.gatsbyjs.org/) is a modern [React](https://reactjs.org/) based static content generator, and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. In this article, we're going to be building a blog, and adding extra features like pagination, user authentication with [Auth0.js](https://auth0.com/docs/libraries/auth0js), and newsletter subscription using an API endpoint built on [Webtask.io](https://webtask.io).
 
 **The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/auth0-blog/auth0-gatsby-blog).**
 
@@ -132,7 +134,13 @@ So lets go ahead and just delete `src/pages/index.js` and see what it has done t
 
 [Constants (or `const`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) are one of a few [new features in ES6](https://auth0.com/blog/a-rundown-of-es6-features/) and we're going to be using them in this guide. 
 
-They're block-scoped variables that can be either global or local to the block they were declared. As they're constants, they cannot be reassigned. But, if you define one as a function, you can reuse the function with different values, but the workings of the function cannot be changed. **Handy!**  
+They're block-scoped and can be either global or local to the block they were declared. 
+
+> "The `const` **declaration** creates a read-only reference to a value. It does not mean the value it holds is immutable, just that the variable identifier cannot be reassigned. For instance, in the case where the content is an object, this means the object's contents (e.g., its parameters) can be altered" – [developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const).
+
+[Arrow functions (e.g. `param => { // your func here }`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are another [new feature in ES6](https://auth0.com/blog/a-rundown-of-es6-features/) that you'll see used through this guide. They're the **new function** expression and they're shorter! But they do have some drawbacks, not having their own [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this), [arguments](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments), [super](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super), or [new.target](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new.target). They are best suited for non-method functions, always called with the context in which they are defined.
+
+ **Handy!**  
 
 [Lets (or `let`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) are also new to ES6, but we won't be using any in this guide. They are block-scoped local variables that you intend to reassign.
 
@@ -397,9 +405,9 @@ export default class Auth {
     domain: AUTH0_DOMAIN,
     clientID: AUTH0_CLIENT_ID,
     redirectUri: 'http://localhost:8000/callback',
-    audience: `https://${AUTH0_DOMAIN}/userinfo`,
+    audience: `https://${AUTH0_DOMAIN}/api/v2/`,
     responseType: 'token id_token',
-    scope: 'openid profile email'
+    scope: 'openid profile'
   });
 
   login() {
@@ -671,21 +679,21 @@ And now when we login our application now knows about us.
 
 ## Newsletter with Webtasks
 
-Now we can login, we want to be able to signup to our blog to receive updates on new articles and other news. We're going to use Webtask to create our API. Webtask provides api endpoints as services. Serverless endpoints designed to make developers lives easily and eliminate the need for unnecessary infrastructure. 
+Now we can login, we want to be able to signup to our blog to receive updates on new articles and other news. We're going to use Webtask to create our API. Webtask provides API endpoints as services. Serverless endpoints designed to make developers lives easily and eliminate the need for unnecessary infrastructure. 
 
 ### Setting up a Webtask
 
-If you're in a rush, you can skip this step and use a webtask endpoint I've already created: `https://wt-b374f39b442dc589a2d950057c95207e-0.run.webtask.io/auth0-newsletter-wt-api`.
+If you're in a rush, you can skip this step and use a Webtask endpoint I've already created: `https://wt-b374f39b442dc589a2d950057c95207e-0.run.webtask.io/auth0-newsletter-wt-api`.
 
-To not distract us from our goal of developing an awesome Gatsby application, here is [a guide to producing a serverless application with Webtask.io](https://auth0.com/blog/building-serverless-apps-with-webtask/), a serverless code service. With the following webtask, we're going to be able to subscribe to a newsletter for our blog.
+To not distract us from our goal of developing an awesome Gatsby application, here is [a guide to producing a serverless application with Webtask.io](https://auth0.com/blog/building-serverless-apps-with-webtask/), a serverless code service. With the following Webtask, we're going to be able to subscribe to a newsletter for our blog.
 
-You can also give it a go, [setting up your own webtask](https://webtask.io/cli#) and creating your own endpoint. They have a great step by step interactive guide.
+You can also give it a go, [setting up your own Webtask](https://webtask.io/cli#) and creating your own endpoint. They have a great step by step interactive guide. You can get the source for this Webtask in my [Newsletter Webtask](https://github.com/lukeoliff/auth0-newsletter-wt-api) GitHub repository. 
 
-![Webtask cli setup](https://cdn.auth0.com/blog/gatsby-blog/webtask-cli-setup.png)
+![Webtask CLI setup](https://cdn.auth0.com/blog/gatsby-blog/webtask-cli-setup.png)
 
 #### Install wt command line interface.
 
-`wt` is an [open source](https://github.com/auth0/wt-cli) Node.js CLI to interact with the webtask API.
+`wt` is an [open source](https://github.com/auth0/wt-cli) Node.js CLI to interact with the Webtask API.
 
 ```bash
 npm install ---global wt-cli
@@ -699,9 +707,9 @@ npm install ---global wt-cli
 wt init (your email address here)
 ```
 
-#### Create our webtask
+#### Create our Webtask
 
-Now let's make our basic newsletter webtask.
+Now let's make our basic newsletter Webtask.
 
 ```bash
 touch newsletter.js
@@ -709,160 +717,182 @@ touch newsletter.js
 
 Copy and paste the code below into `newsletter.js`.
  
-> **Note:** This file doesn't need to be in the same root or directory tree as your Gatsby application.
+> **Note:** This file doesn't need to be in the same root or directory tree as your Gatsby application. We're just creating a file that we can run our `wt` CLI against, to set up our endpoint on [Webtask.io](https://webtask.io).
 
 ```js
 // newsletter.js
 'use latest';
+import axios from 'axios';
 import bodyParser from 'body-parser';
 import express from 'express';
 import Webtask from 'webtask-tools';
+import jwt from 'express-jwt';
+import jwksRsa from 'jwks-rsa';
 import _ from 'lodash';
-
-const app = new express();
-app.use(bodyParser.json());
 
 const RESPONSE = {
   OK : {
     statusCode : 200,
-    message: "You have successfully subscribed to the newsletter!",
+    status: 'subscribed',
+    message: 'You have successfully subscribed to the newsletter!'
+  },
+  UNSUBSCRIBED : {
+    statusCode : 200,
+    status: 'unsubscribed',
+    message: 'You have successfully unsubscribed from the newsletter!'
   },
   DUPLICATE : {
-    status : 400,
-    message : "You are already subscribed."
+    statusCode : 400,
+    status: 'duplicate',
+    message : 'You are already subscribed.'
   },
   ERROR : {
     statusCode : 400,
-    message: "Something went wrong. Please try again."
-  },
-  UNAUTHORIZED : {
-    statusCode : 401,
-    message : "You must be logged in to access this resource."
+    status: 'error',
+    message: 'Something went wrong. Please try again.'
   }
 };
 
-app.post('/subscribe', function(req, res){
-  var email = req.body.email;
-  if(email){
-    req.webtaskContext.storage.get(function(err, data){
-      if(err){
-        res.writeHead(400, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(RESPONSE.ERROR));
-      }
+const app = new express();
 
-      data = data || [];
+app.use(bodyParser.json());
 
-      if(_.indexOf(data, email) == -1){
-        data.push(email);
-        req.webtaskContext.storage.set(data, function(err){
-          if(err){
-            res.writeHead(400, { 'Content-Type': 'application/json'});
-            res.end(JSON.stringify(RESPONSE.ERROR));
+app.use((req, res, next) => { 
+  const issuer = `https://${req.webtaskContext.secrets.AUTH0_DOMAIN}/`;
+  return jwt({
+    secret: jwksRsa.expressJwtSecret({ jwksUri: `${issuer}.well-known/jwks.json` }),
+    audience: `${issuer}api/v2/`,
+    issuer: issuer,
+    algorithms: [ 'RS256' ]
+  })(req, res, next);
+});
+
+const userProfile = (req) => {
+  const userinfo = `https://${req.webtaskContext.secrets.AUTH0_DOMAIN}/userinfo`
+  return axios.get(userinfo, { headers: { Authorization: req.headers.authorization }})
+    .then(response => {
+      return response.data;
+    })
+    .catch(console.error);
+};
+
+const sendResponse = (key, res) => {
+  res.status(RESPONSE[key].statusCode).send(RESPONSE[key]);
+}
+
+app.get('/subscribe', (req, res) => {
+  userProfile(req)
+    .then(result => {
+      const email = result.email;
+
+      if ( email ) {
+        req.webtaskContext.storage.get((err, data) => {
+          if ( err ) {
+            sendResponse('ERROR', res);
+          }
+
+          data = data || [];
+
+          if ( _.indexOf(data, email) == -1 ) {
+            data.push(email);
+            req.webtaskContext.storage.set(data, err => {
+              if ( err === undefined ) {
+                sendResponse('OK', res);
+              } else {
+                sendResponse('ERROR', res);
+              }
+            })
           } else {
-            res.writeHead(200, { 'Content-Type': 'application/json'});
-            res.end(JSON.stringify(RESPONSE.OK));
+            sendResponse('DUPLICATE', res);
           }
         })
       } else {
-        res.writeHead(400, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(RESPONSE.DUPLICATE));
+        sendResponse('ERROR', res);
       }
     })
-  } else {
-    res.writeHead(200, { 'Content-Type': 'application/json'});
-    res.end(JSON.stringify(RESPONSE.ERROR));
-  }
-})
+    .catch(console.error);
+});
 
-app.post('/unsubscribe', function(req, res){
-  var email = req.body.email;
-  if(email){
-    req.webtaskContext.storage.get(function(err, data){
-      if(err){
-        res.writeHead(400, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(RESPONSE.ERROR));
-      }
+app.get('/unsubscribe', (req, res) => {
+  userProfile(req)
+    .then(result => {
+      const email = result.email;
 
-      data = data || [];
+      if ( email ) {
+        req.webtaskContext.storage.get((err, data) => {
+          if ( err ) {
+            sendResponse('ERROR', res);
+          }
 
-      const index = _.indexOf(data, email);
+          data = data || [];
 
-      if(index == -1){
-        res.writeHead(400, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(RESPONSE.ERROR));
-      } else {
-        data.splice(index, 1);
-        req.webtaskContext.storage.set(data, function(err){
-          if(err){
-            res.writeHead(400, { 'Content-Type': 'application/json'});
-            res.end(JSON.stringify(RESPONSE.ERROR));
+          const index = _.indexOf(data, email);
+
+          if ( index == -1 ) {
+            sendResponse('ERROR', res);
           } else {
-            res.writeHead(200, { 'Content-Type': 'application/json'});
-            res.end(JSON.stringify(RESPONSE.OK));
+            data.splice(index, 1);
+            req.webtaskContext.storage.set(data, err => {
+              if ( err === undefined ) {
+                sendResponse('UNSUBSCRIBED', res);
+              } else {
+                sendResponse('ERROR', res);
+              }
+            })
           }
         })
-      }
-    })
-  } else {
-    res.writeHead(200, { 'Content-Type': 'application/json'});
-    res.end(JSON.stringify(RESPONSE.ERROR));
-  }
-})
-
-app.get('/subscribed/:email', function(req, res){
-  const email = req.params.email;
-  if(email){
-    req.webtaskContext.storage.get(function(err, data){
-      if(err){
-        res.writeHead(400, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(RESPONSE.ERROR));
-      }
-
-      data = data || [];
-
-      if(_.indexOf(data, email) == -1){
-        res.writeHead(200, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify({subscribed: false}));
       } else {
-        res.writeHead(200, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify({subscribed: true}));
+        sendResponse('ERROR', res);
       }
     })
-  } else {
-    res.writeHead(200, { 'Content-Type': 'application/json'});
-    res.end(JSON.stringify(RESPONSE.ERROR));
-  }
-})
+    .catch(console.error);
+});
 
-// Here we are exporting our express app using the wt helper library
+app.get('/subscribed', (req, res) => {
+  userProfile(req)
+    .then(result => {
+      const email = result.email;
+
+      if ( email ) {
+        req.webtaskContext.storage.get((err, data) => {
+          if ( err ) {
+            sendResponse('ERROR', res);
+          }
+
+          data = data || [];
+
+          if ( _.indexOf(data, email) == -1 ) {
+            sendResponse('UNSUBSCRIBED', res);
+          } else {
+            sendResponse('OK', res);
+          }
+        })
+      } else {
+        sendResponse('ERROR', res);
+      }
+    })
+    .catch(console.error);
+});
+
 module.exports = Webtask.fromExpress(app);
 ```
 
-Run `wt` again to create our new Webtask, where it will create our newsletter webtask and prompt you to open it for editing on the Webtask code editor. It will also return the URI for the webtask for you to use in this applciation. Copy it or use our demo, provided above.
+Run `wt` again to create our new Webtask, where it will create our newsletter Webtask and prompt you to open it for editing on the Webtask code editor. It will also return the URI for the Webtask for you to use in this application. Copy it or use our demo, provided above.
+
+Our Gatsby app will provide the Webtask with our `access_token`. Usually, `auth0.js` would require an opaque string usable by Auth0 only for an openid request against our identity endpoint. As we're changing our audience to our default Management API, our `access_token` is returned as a JWT instead. You can read more about this on [Auth0's Access Token docs](https://auth0.com/docs/tokens/access-token).
+
+The JWT `access_token` returned is still perfectly acceptable for our openid request as well, but it also allows us to our JWT for our Webtask request so we can make sure the user subscribing/unsubscribing is doing so for themselves only.
+
+In this `create` command we're providing our Webtask our AUTH0_DOMAIN so it can be used in the validation of our JWT. Even though your Auth0 domain is not particularly sensitive, we'll still storing it in a [Webtask secret](https://webtask.io/docs/editor/secrets), accessible by the application only. Secrets can also be added, removed and managed via the Secrets panel, which is in the settings menu in the Webtask Editor.
 
 ```bash
-wt create newsletter.js
+wt create newsletter.js \
+    -s AUTH0_DOMAIN=YOUR_AUTH0_DOMAIN.auth0.com
 ```
 
-If you check out your Webtask in the Webtask code editor, you'll see something like this:
+If you check out your Webtask in the [Webtask code editor](https://webtask.it.auth0.com/edit), you'll see something like this:
 
 ![Webtask in editor](https://cdn.auth0.com/blog/gatsby-blog/webtask-in-editor.png)
-
-#### Testing 
-
-Using commandline, we can easily test our webtask is working.
-
-```bash
-curl \
-  -H "Content-Type: application/json" \
-  -X POST \
-  -d '{"email": "<your-email-address>"}' \
-  <your-webtask-uri>/subscribe
-```
-
-and you'll get a response like `{"statusCode":200,"message":"You have successfully subscribed to the newsletter!"}`.
-
-> **Note:** If you submit a common test email, it might already have subscribed! The webtask will tell you though! You'll get a nice error saying you've already subscribed :)
 
 ### Subscribe to the Newsletter
 
@@ -878,7 +908,7 @@ npm install --save axios
 
 #### A Subscribe component
 
-Create the file `src/componenets/Subscribe.js` and give it the following code, replacing `<your-webtask-uri>` with a your Webtask uri, if you're not planning on using our demo webtask at `https://wt-b374f39b442dc589a2d950057c95207e-0.run.webtask.io/auth0-newsletter-wt-api`
+Create the file `src/componenets/Subscribe.js` and give it the following code, replacing `<your-webtask-uri>` with a your Webtask url, if you're not planning on using our demo Webtask at `https://wt-b374f39b442dc589a2d950057c95207e-0.run.webtask.io/auth0-newsletter-wt-api`
 
 ```js
 // src/componenets/Subscribe.js
@@ -901,12 +931,16 @@ export default class Subscribe extends React.Component {
     return (localStorage.getItem('subscribed') == 'true');
   }
 
+  isIdentified() {
+    return auth.getUser() && auth.isAuthenticated();
+  }
+
   componentWillMount() {
-    if (auth.getUser() && localStorage.getItem("subscribed") === null) {
-      const email = auth.getUser().email;
-      axios.get(`${wtUri}/subscribed/${email}`)
+    if (this.isIdentified() && localStorage.getItem('subscribed') === null) {
+      const token = localStorage.getItem('access_token');
+      axios.get(`${wtUri}/subscribed`, {headers: {"Authorization" : `Bearer ${token}`}})
         .then(res => {
-          localStorage.setItem('subscribed', res.data.subscribed);
+          localStorage.setItem('subscribed', (res.data.status == 'subscribed'));
           this.setState({
             subscribed: this.isSubscribed()
           });
@@ -916,9 +950,9 @@ export default class Subscribe extends React.Component {
   }
 
   subscribe() {
-    if (auth.getUser()) {
-      const email = auth.getUser().email;
-      axios.post(`${wtUri}/subscribe`, {email: email})
+    if (this.isIdentified()) {
+      const token = localStorage.getItem('access_token');
+      axios.get(`${wtUri}/subscribe`, {headers: {"Authorization" : `Bearer ${token}`}})
         .then(res => {
           localStorage.setItem('subscribed', 'true');
           this.setState({
@@ -930,9 +964,9 @@ export default class Subscribe extends React.Component {
   }
 
   unsubscribe() {
-    if (auth.getUser()) {
-      const email = auth.getUser().email;
-      axios.post(`${wtUri}/unsubscribe`, {email: email})
+    if (this.isIdentified()) {
+      const token = localStorage.getItem('access_token');
+      axios.get(`${wtUri}/unsubscribe`, {headers: {"Authorization" : `Bearer ${token}`}})
         .then(res => {
           localStorage.removeItem('subscribed');
           this.setState({
@@ -1013,7 +1047,7 @@ Now subscribe to the newsletter!
 
 ## Conclusion
 
-There we have it, a Gatsby blog with Auth0 authentication, markdown post pagination, and newsletter signup for authenticated users. 
+There we have it, a Gatsby blog with Auth0 authentication, markdown post pagination, and newsletter signup for authenticated users with a Webtask using an Auth0 `access_token`.
 
 As Gatsby is a static site generator, to be able make real use of our authentication we needed a backend application to provide functionality through an API to the React element of the site. Gatsby has a great guide and demo application for creating [hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/). 
 
