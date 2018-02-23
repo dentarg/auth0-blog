@@ -35,6 +35,8 @@ In this series, you will use Python, Flask, and Angular to build a web applicati
 
 In this part of the series, you will start by configuring Auth0 as the identity management system of your app. You will configure an Auth0 API to represent and secure your Flask application and you will configure an Auth0 Client to represent and secure your Angular SPA. After securing your app with Auth0, you are going to enhance the application to allow users to test their knowledge.
 
+{% include tweet_quote.html quote_text="I'm building modern webapps with Angular, Flask, and Python!" %}
+
 ## Managing Identity with Auth0
 
 Instead of investing time to develop rudimentary authentication mechanisms to manage the identity of your users, you are going to use Auth0. For startup projects like this one, [the free tier provided by Auth0](https://auth0.com/pricing) is more than enough. Besides being free, by choosing Auth0, you will get a modern, easy to use, and reliable service capable of integrating with tons of different social identity providers (e.g. Facebook, Google, Twitter, etc). Also, if you ever need to integrate with enterprise identity providers using protocols like [OpenID Connect](https://auth0.com/docs/protocols/oidc), [SAML](https://auth0.com/docs/protocols/saml), and [WS-Federation](https://auth0.com/docs/protocols/ws-fed), don't worry, Auth0 got you covered.
@@ -420,6 +422,8 @@ To solve the `401 UNAUTHORIZED` issue, the first thing you will have to do is to
 1. *Name*: Another friendly reminder, this time to your Auth0 Client. Here, you can add something like "Online Exam Client".
 2. *Client Type*: The type of the client that you are creating. In this case, as you are using Angular to create a SPA, you will choose *Single Page Web Applications*.
 
+![Creating an Auth0 Client to represent the Angular app.](https://cdn.auth0.com/blog/flask-angular/creating-auth0-client.png)
+
 Having filled up this form, click on the *Create* button. When finished creating your client (it takes just a second or two), Auth0 will redirect you to the *Quick Start* tab of the new client. From there, click on the *Settings* tab to inform to Auth0 what are the *Allowed Callback URLs*. As for the moment you are only running your app locally, you can simply add the `http://localhost:4200/callback` URL to this field. Now, you can hit the *Save Changes* button at the bottom of the page and leave it open (you will need to copy some properties from it soon).
 
 Now, you can go back to your Angular project and integrate it with Auth0. To do so, you will have to install the [`auth0-web` NPM package](https://github.com/brunokrebs/auth0-web). So, open a terminal, move to the `frontend` directory, and issue the following command:
@@ -585,6 +589,8 @@ Wait! Don't forget to save your progress!!
 git add .
 git commit -m "Integrating Angular with Auth0"
 ```
+
+{% include tweet_quote.html quote_text="Securing applications with Auth0 is easy and allows me to focus on my apps features." %}
 
 ## Conclusion and Next Steps
 
