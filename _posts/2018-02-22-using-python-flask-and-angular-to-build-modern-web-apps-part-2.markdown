@@ -37,7 +37,7 @@ In this part of the series, you will start by configuring Auth0 as the identity 
 
 ## Managing Identity with Auth0
 
-Instead of investing time to develop rudimentary authetication mechanisms to manage the identity of your users, you are going to use Auth0. For startup projects like this one, [the free tier provided by Auth0](https://auth0.com/pricing) is more than enough. Besides being free, by choosing Auth0, you will get a modern, easy to use, and reliable service capable of integrating with tons of different social identity providers (e.g. Facebook, Google, Twitter, etc). Also, if you ever need to integrate with enterprise identity providers using protocols like [OpenID Connect](https://auth0.com/docs/protocols/oidc), [SAML](https://auth0.com/docs/protocols/saml), and [WS-Federation](https://auth0.com/docs/protocols/ws-fed), don't worry, Auth0 got you covered.
+Instead of investing time to develop rudimentary authentication mechanisms to manage the identity of your users, you are going to use Auth0. For startup projects like this one, [the free tier provided by Auth0](https://auth0.com/pricing) is more than enough. Besides being free, by choosing Auth0, you will get a modern, easy to use, and reliable service capable of integrating with tons of different social identity providers (e.g. Facebook, Google, Twitter, etc). Also, if you ever need to integrate with enterprise identity providers using protocols like [OpenID Connect](https://auth0.com/docs/protocols/oidc), [SAML](https://auth0.com/docs/protocols/saml), and [WS-Federation](https://auth0.com/docs/protocols/ws-fed), don't worry, Auth0 got you covered.
 
 That is, Auth0 can help you focus on what matters the most to you, the special features of your product. In addition, Auth0 can improve your product's security with state-of-the-art features like [passwordless](https://auth0.com/passwordless), [breached password surveillance](https://auth0.com/breached-passwords), and [multifactor authentication](https://auth0.com/multifactor-authentication).
 
@@ -219,7 +219,7 @@ curl -X POST -H 'Content-Type: application/json' -d '{
 }' http://0.0.0.0:5000/exams
 ```
 
-Now, to get an access token to test the secured endpoint, you will need to copy a command from your Auth0 API. So, head back to the page that you left opened, then click on the *Test* tab, and copy the first `curl` command showed there. The code snippet below shows how to use this command to fetch the access token and how to send it to your Flask application (replace the first command with the one you copied from your Auth0 API):
+Now, to get an access token to test the secured endpoint, you will need to copy a command from your Auth0 API. So, head back to the page that you left open, then click on the *Test* tab, and copy the first `curl` command showed there. The code snippet below shows how to use this command to fetch the access token and how to send it to your Flask application (replace the first command with the one you copied from your Auth0 API):
 
 ```bash
 # retrieve token from Auth0
@@ -362,7 +362,7 @@ export class ExamFormComponent {
 }
 ```
 
-In this component, you are defining two `input` elements where users will be able to inform the `title` and `description` of the exam that they are creating and a `button` that triggers the `saveExam` method. This method calls another (homonymous) method that you will define in the `examsApi` service. Then, if the call to this method is succesful, users are redirected to the home page (`/`) and, if the call is unsuccessful, an `alert` is shown by the browser.
+In this component, you are defining two `input` elements where users will be able to inform the `title` and `description` of the exam that they are creating and a `button` that triggers the `saveExam` method. This method calls another (homonymous) method that you will define in the `examsApi` service. Then, if the call to this method is successful, users are redirected to the home page (`/`) and, if the call is unsuccessful, an `alert` is shown by the browser.
 
 Now, to define the `saveExam` method on the `ExamsApiService`, open the `exams-api.service.ts` file and update it as follows:
 
@@ -512,7 +512,7 @@ export class ExamsComponent implements OnInit, OnDestroy {
 
 In the new version of this component, you are adding two new buttons (*Sign In* and *Sign Out*) and a paragraph that shows names of authenticated users. All these new elements are conditionally showed according to the `authenticated` flag. The *Sign In* button is showed when this flag is set to false and the other two are showed otherwise.
 
-To make everything work, the new `ExamsComponent` references and calls three methods provided by `auth0-web` (`signIn`, `signOut`, and `getProfile`). Besides these methods, this component also subscribe an anonymous function to change the value of the `authenticated` flag whenever the authentication status changes.
+To make everything work, the new `ExamsComponent` references and calls three methods provided by `auth0-web` (`signIn`, `signOut`, and `getProfile`). Besides these methods, this component also subscribes an anonymous function to change the value of the `authenticated` flag whenever the authentication status changes.
 
 After updating the `ExamsComponent`, you will have to update the `ExamsApiService` to make use of the `access_token` retrieved from Auth0. So, open the `exams-api.service.ts` file and update it as follows:
 
@@ -588,6 +588,6 @@ git commit -m "Integrating Angular with Auth0"
 
 ## Conclusion and Next Steps
 
-In the second part of this series, you focused on adding Auth0 to act as the identity management service of your Flask and Angular applications. You started by defining an Auth0 API to represent your Flask backend app, then you added a new feature into your project (a form that allow users to add exams), and finally you integrated Auth0 into your Angular application.
+In the second part of this series, you focused on adding Auth0 to act as the identity management service of your Flask and Angular applications. You started by defining an Auth0 API to represent your Flask backend app, then you added a new feature into your project (a form that allows users to add exams), and, finally, you integrated Auth0 into your Angular application.
 
 In the next article, you are going to create even more features to your project and, after that, you will start preparing your code for CI/CD (Continuous Integration and Continuous Delivery) tools. These tools will help you automate the development pipeline. Stay tuned!
