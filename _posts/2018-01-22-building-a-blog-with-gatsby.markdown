@@ -1061,4 +1061,4 @@ Learn more about GraphQL with [how to GraphQL](https://www.howtographql.com/), w
 
 **The final code can be found at the [auth0-gatsby-blog GitHub repo](https://github.com/auth0-blog/auth0-gatsby-blog).**
 
-I welcome your comments below for any suggestions or improvements to make this Gatsby/React guide beter, or if you have any questions!
+I welcome your questions, suggestions or improvements, below in the comments section! Thanks for reading.
