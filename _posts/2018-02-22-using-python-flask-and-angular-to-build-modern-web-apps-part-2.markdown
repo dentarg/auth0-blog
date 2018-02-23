@@ -49,9 +49,9 @@ To integrate Auth0 into your Flask application, you will need to create an Auth0
 2. *Identifier*: This is the logical identifier (a.k.a. audience) of your API. Usually, developers use an URL to represent their APIs. Although this is not mandatory, it is a good approach. So, in this field, enter something like `https://online-exam.digituz.com.br`.
 3. *Signing Algorithm*: In this field, you will have to select between two strategies: `RS256` (the default one) and `HS256`. The best option is to stick with the default one (`RS256`). If you are curious, you can [check this thread to understand the difference between them](https://community.auth0.com/answers/6945/view).
 
-When you finish filling up this form, you can hit the *Create* button. This will redirect you to a tab called *Quick Start* inside your new Auth0 API. Leave this page opened in your browser and head back to your Flask project (i.e. to the `backend`directory inside the project root).
+When you finish filling up this form, you can hit the *Create* button. This will redirect you to a tab called *Quick Start* inside your new Auth0 API. From there, select the *Scopes* tab and add a new scope called `manage:exams` ([as a good practice, always define scopes when dealing with the OAuth 2.0 authorization mechanism](https://auth0.com/docs/scopes/current)). You can add a simple description like *Manage exams* to it. After that, you can leave this page open and head back to your Flask project (i.e. to the `backend`directory inside the project root).
 
-Back in your Flask project, you will need to create a [Python decorator](https://realpython.com/blog/python/primer-on-python-decorators/) to wrap the endpoints that must be secured. To define this decorator, create a new file called `auth.py` inside the `./backend/src/` directory. Then, inside this file, paste the following code:
+Back in your project, you will need to create a [Python decorator](https://realpython.com/blog/python/primer-on-python-decorators/) to wrap the endpoints that must be secured. To define this decorator, create a new file called `auth.py` inside the `./backend/src/` directory. Then, inside this file, paste the following code:
 
 ```python
 import json
@@ -415,10 +415,179 @@ With these changes in place, you can open a terminal, move to the `frontend` dir
 
 ## Securing Angular Apps with Auth0
 
-To solve the `401 UNAUTHORIZED` issue, the first thing you will have to do is to create an Auth0 Client to represent your Angular app. To do so, browse to [the Client page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. This time, you will have to inform only two things to Auth0:
+To solve the `401 UNAUTHORIZED` issue, the first thing you will have to do is to create an [Auth0 Client](https://auth0.com/docs/clients) to represent your Angular app. To do so, browse to [the Client page on the Auth0 dashboard](https://manage.auth0.com/#/clients) and click on the *Create Client* button. This time, you will have to inform only two things to Auth0:
 
 1. *Name*: Another friendly reminder, this time to your Auth0 Client. Here, you can add something like "Online Exam Client".
 2. *Client Type*: The type of the client that you are creating. In this case, as you are using Angular to create a SPA, you will choose *Single Page Web Applications*.
 
-Having filled up this form, click on the *Create* button. When finished creating your client (it takes just a second or two), Auth0 will redirect you to the *Quick Start* tab of the new client. From there, click on the *Settings* tab. In this new page, you will have to inform to Auth0 what are the *Allowed Callback URLs*. As for the moment you are only running your app locally, you can simply add the `http://localhost:4200/callback` URL to this field. Now, you can hit the *Save Changes* button at the bottom of the page and leave this it open (you will need to copy some properties from it soon).
+Having filled up this form, click on the *Create* button. When finished creating your client (it takes just a second or two), Auth0 will redirect you to the *Quick Start* tab of the new client. From there, click on the *Settings* tab to inform to Auth0 what are the *Allowed Callback URLs*. As for the moment you are only running your app locally, you can simply add the `http://localhost:4200/callback` URL to this field. Now, you can hit the *Save Changes* button at the bottom of the page and leave it open (you will need to copy some properties from it soon).
 
+Now, you can go back to your Angular project and integrate it with Auth0. To do so, you will have to install the [`auth0-web` NPM package](https://github.com/brunokrebs/auth0-web). So, open a terminal, move to the `frontend` directory, and issue the following command:
+
+```bash
+npm i auth0-web
+```
+
+After installing this package, you will have to create the component responsible for [handling the callback URL called by Auth0](https://auth0.com/docs/client-auth/current/client-side-web#handle-the-callback). As such, create a new file called `callback.component.ts` in the `src/app/` directory and add the following code to it:
+
+```typescript
+import * as Auth0 from 'auth0-web';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+
+@Component({
+  selector: 'callback',
+  template: `
+    <div>Loading authentication details...</div>
+  `,
+})
+export class CallbackComponent implements OnInit {
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    const self = this;
+    Auth0.handleAuthCallback((err) => {
+      if (err) alert(err);
+      self.router.navigate(['/']);
+    });
+  }
+}
+```
+
+As you can see, this component simply shows a message saying "Loading authentication details..." to users and delegates to `auth0-web` the process of parsing the callback URL. Then, when `auth0-web` finishes its job, users are redirected to the home page (`self.router.navigate(['/'])`).
+
+Next, you will have to refactor the `exams.component.ts` file to allow users to sign in and sign out. So, open this file and replace its code with the following:
+
+```typescript
+import * as Auth0 from 'auth0-web';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {Exam} from './exam.model';
+import {ExamsApiService} from './exams-api.service';
+
+@Component({
+  selector: 'exams',
+  template: `
+    <div>
+      <button routerLink="/new-exam">New Exam</button>
+      <button (click)="signIn()" *ngIf="!authenticated">Sign In</button>
+      <button (click)="signOut()" *ngIf="authenticated">Sign Out</button>
+      <p *ngIf="authenticated">Hello, {{getProfile().name}}</p>
+      <ul>
+        <li *ngFor="let exam of examsList">
+          {{exam.title}}
+        </li>
+      </ul>
+    </div>
+  `
+})
+export class ExamsComponent implements OnInit, OnDestroy {
+  examsListSubs: Subscription;
+  examsList: Exam[];
+  authenticated = false;
+
+  constructor(private examsApi: ExamsApiService) { }
+
+  signIn = Auth0.signIn;
+  signOut = Auth0.signOut;
+  getProfile = Auth0.getProfile;
+
+  ngOnInit() {
+    this.examsListSubs = this.examsApi
+      .getExams()
+      .subscribe(res => {
+          this.examsList = res;
+        },
+        console.error
+      );
+    const self = this;
+    Auth0.subscribe((authenticated) => (self.authenticated = authenticated));
+  }
+
+  ngOnDestroy() {
+    this.examsListSubs.unsubscribe();
+  }
+}
+```
+
+In the new version of this component, you are adding two new buttons (*Sign In* and *Sign Out*) and a paragraph that shows names of authenticated users. All these new elements are conditionally showed according to the `authenticated` flag. The *Sign In* button is showed when this flag is set to false and the other two are showed otherwise.
+
+To make everything work, the new `ExamsComponent` references and calls three methods provided by `auth0-web` (`signIn`, `signOut`, and `getProfile`). Besides these methods, this component also subscribe an anonymous function to change the value of the `authenticated` flag whenever the authentication status changes.
+
+After updating the `ExamsComponent`, you will have to update the `ExamsApiService` to make use of the `access_token` retrieved from Auth0. So, open the `exams-api.service.ts` file and update it as follows:
+
+```typescript
+// ... other imports ...
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+// ... other imports ...
+import * as Auth0 from 'auth0-web';
+
+@Injectable()
+export class ExamsApiService {
+
+  // ... constructor, _handleError, and getExams
+
+  saveExam(exam: Exam): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${Auth0.getAccessToken()}`
+      })
+    };
+    return this.http
+      .post(`${API_URL}/exams`, exam, httpOptions);
+  }
+}
+```
+
+The difference to the previous version is that now you are adding the `Authorization` header to the `POST` request that is sent when users try to save a new exam. This header is the missing piece to make your Angular and your Flask apps communicate properly.
+
+So, to wrap up everything, you will have to update your `AppModule` to declare the `CallbackComponent`, register the `/callback` route, and to configure the `auth0-web` package. As such, open the `app.module.ts` and change it as follows:
+
+```typescript
+import * as Auth0 from 'auth0-web';
+import {CallbackComponent} from './callback.component';
+
+// ... other import statements ...
+const appRoutes: Routes = [
+  { path: 'callback', component: CallbackComponent },
+  // ... other routes ...
+];
+
+@NgModule({
+  declarations: [
+    // ... other components ...
+    CallbackComponent,
+  ],
+  // ... imports, providers, and bootstrap ...
+})
+export class AppModule {
+  constructor() {
+    Auth0.configure({
+      domain: 'bk-samples.auth0.com',
+      audience: 'https://online-exam.digituz.com.br',
+      clientID: 'oxiIp4EX1diCft0rOjzTc9PnHRvtuh9a',
+      redirectUri: 'http://localhost:4200/callback',
+      scope: 'openid profile manage:exams'
+    });
+  }
+}
+```
+
+**Note that** you will have to replace the `domain`, `audience`, and `clientID` properties on this code with values from your Auth0 account. So, head back to your Auth0 management dashboard and copy the `domain` and `clientID` from the Auth0 Client created before and `audience` from the Auth0 API (that is, copy the API identifier and paste it here).
+
+That's it! If you run your Angular application now, you will be able to create new exams.
+
+![Developing modern applications with Python, Flask, and Angular.](https://cdn.auth0.com/blog/flask-angular/angular-and-flask-secured-with-auth0.png)
+
+Wait! Don't forget to save your progress!!
+
+```bash
+git add .
+git commit -m "Integrating Angular with Auth0"
+```
+
+## Conclusion and Next Steps
+
+In the second part of this series, you focused on adding Auth0 to act as the identity management service of your Flask and Angular applications. You started by defining an Auth0 API to represent your Flask backend app, then you added a new feature into your project (a form that allow users to add exams), and finally you integrated Auth0 into your Angular application.
+
+In the next article, you are going to create even more features to your project and, after that, you will start preparing your code for CI/CD (Continuous Integration and Continuous Delivery) tools. These tools will help you automate the development pipeline. Stay tuned!
