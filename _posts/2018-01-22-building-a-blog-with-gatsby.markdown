@@ -22,9 +22,9 @@ tags:
 - graphql
 - es6
 related:
-- 2017-10-26-whats-new-in-react16
-- 2017-12-14-elixir-and-phoenix-tutorial-build-an-authenticated-app
-- 2017-12-28-symfony-tutorial-building-a-blog-part-1
+- 2016-11-16-a-rundown-of-es6-features
+- 2017-03-09-serverless-development-reimagined-with-the-new-webtask-editor
+- 2018-02-06-developing-games-with-react-redux-and-svg-part-1
 ---
 
 **TL;DR:** [Gatsby](https://www.gatsbyjs.org/) is a modern [React](https://reactjs.org/) based static content generator, and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. In this article, we're going to be building a blog, and adding extra features like pagination, user authentication with [Auth0.js](https://auth0.com/docs/libraries/auth0js), and newsletter subscription using an API endpoint built on [Webtask.io](https://webtask.io).
