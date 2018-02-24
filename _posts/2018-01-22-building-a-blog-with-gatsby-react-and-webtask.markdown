@@ -37,7 +37,7 @@ related:
 
 [Gatsby](https://www.gatsbyjs.org/) is a modern static content generator for [React](https://reactjs.org/) and it boasts an [impressive list](https://www.gatsbyjs.org/features/#legend) of out-the-box features. There are alternatives to Gatsby, like [Jekyll](https://jekyllrb.com/), [Hugo](https://gohugo.io/) and [Hexo](https://hexo.io/), [among others](https://www.staticgen.com/). Generally speaking there is one emerging for each preferable language stack. Traditionally, static site generators let you generate content for the web as HTML that can be cached, instead of compiling the HTML on request.
 
-Before static site generators, a lot of us would have relied on software such as [Wordpress](https://wordpress.org/), [Drupal](https://www.drupal.org/) or services like [Squarespace](https://www.squarespace.com/) to allow us to both manage and deliver our content to the internet. Typically, they work by generating each page on-demand. They would get the content from a database and render it using a template engine. The problems can be reliability *AND* speed, everything you want from your website! If a developer introduced a bug in his wordpress plugin, you might encounter downtime or unexpected errors and for most sites this is completely unnecessary. A simple plugin update could introduce problems in security and performance.
+Before static site generators, a lot of us would have relied on software such as [WordPress](https://wordpress.org/), [Drupal](https://www.drupal.org/) or services like [Squarespace](https://www.squarespace.com/) to allow us to both manage and deliver our content to the internet. Typically, they work by generating each page on-demand. They would get the content from a database and render it using a template engine. The problems can be reliability *AND* speed, everything you want from your website! If a developer introduced a bug in his WordPress plugin, you might encounter downtime or unexpected errors and for most sites, this is completely unnecessary. A simple plugin update could introduce problems in security and performance.
 
 A static site generator flips the entire process around. It generates all the pages on the site, once any changes have been made, ready for deployment. Static sites are more easy to secure as there are no working parts to exploit. Scaling is less of a consideration as there is no more overhead to a request than the delivery of already generated content. Read more about [static sites vs dynamic sites](https://www.webceo.com/blog/static-website-vs-dynamic-website-which-is-better-for-seo/) if you're still not convinced that static sites might just be the answer to [a lot of your problems](https://moz.com/learn/seo/page-speed).
 
@@ -45,13 +45,13 @@ A static site generator flips the entire process around. It generates all the pa
 
 ## Another blog, with Gatsby
 
-The [starter blog](https://github.com/gatsbyjs/gatsby-starter-blog) by [Kyle Mathews](https://twitter.com/kylemathews) is great! But I felt it was missing a few well known features you'd come to expect from a blog if you're familiar with [Wordpress](https://wordpress.org/) or similar blog frameworks.
+The [starter blog](https://github.com/gatsbyjs/gatsby-starter-blog) by [Kyle Mathews](https://twitter.com/kylemathews) is great! But I felt it was missing a few well-known features you'd come to expect from a blog if you're familiar with [Wordpress](https://wordpress.org/) or similar blog frameworks.
 
-In this guide we're going to use Gatsby to generate our content from [Markdown](https://en.wikipedia.org/wiki/Markdown) files along with adding pagination to pages and allow our users to log in using [Auth0.js](https://auth0.com/docs/libraries/auth0js).
+In this guide, we're going to use Gatsby to generate our content from [Markdown](https://en.wikipedia.org/wiki/Markdown) files along with adding pagination to pages and allow our users to log in using [Auth0.js](https://auth0.com/docs/libraries/auth0js).
 
 ### React
 
-Gatsby uses React for its ability to enable developers to build modular and reusable code. React has a large collection of open source components, guides and tools that are all relevant, as Gatsby acts close to a normal React application.
+Gatsby uses React for its ability to enable developers to build modular and reusable code. React has a large collection of open source components, guides, and tools that are all relevant, as Gatsby acts close to a normal React application.
 
 Newcomers to React can learn about [bootstrapping a React project](https://auth0.com/blog/bootstrapping-a-react-project/) here.
 
@@ -59,9 +59,9 @@ Newcomers to React can learn about [bootstrapping a React project](https://auth0
 
 If a query language and an API had a baby, the result would be something like GraphQL. You can send GraphQL your query and it will return exactly the data you want, in the format you want, right out of your existing data.
 
-Gatsby uses GraphQL for loading data into React components when it's needed. More importantly, it will handle many of your data transformation when generating the site, not when the pages are loaded.
+Gatsby uses GraphQL for loading data into React components when it's needed. More importantly, it will handle many of your data transformations when generating the site, not when the pages are loaded.
 
-If you're not familiar with it, you can follow our guide to [building an instagram clone with GraphQL and Auth0](https://auth0.com/blog/building-an-instagram-clone-with-graphql-and-auth0/) or check out the [how to use GraphQL](https://www.howtographql.com/) site by Graphcool.
+If you're not familiar with it, you can follow our guide to [building an Instagram clone with GraphQL and Auth0](https://auth0.com/blog/building-an-instagram-clone-with-graphql-and-auth0/) or check out the [how to use GraphQL](https://www.howtographql.com/) site by Graphcool.
 
 ## Pre-requisites for Gatsby
 
@@ -69,7 +69,7 @@ Gatsby requires `node`, `npm`, and features a handy command line tool for creati
 
 ### Node & NPM
 
-To get started we're going to need `node` and `npm` installed. Lets check if they're installed by running:
+To get started we're going to need `node` and `npm` installed. Let's check if they're installed by running:
 
 ```bash
 node --version
@@ -93,7 +93,7 @@ npm install --global gatsby-cli
 
 ## Create a basic Gatsby starter project
 
-Now the CLI is installed, lets create a new project from the starter blog.
+Now the CLI is installed, let's create a new project from the starter blog.
 
 ```bash
 gatsby new auth0-gatsby-blog https://github.com/gatsbyjs/gatsby-starter-blog
@@ -128,7 +128,7 @@ To build our pagination, we need to turn our starter blogs structure upside down
 
 What we need to do is generate our index page based on constraints (like maximum articles per page) and every other page we might need, dynamically, based on how many articles we have.
 
-So lets go ahead and just delete `src/pages/index.js` and see what it has done to our blog.
+So let's go ahead and just delete `src/pages/index.js` and see what it has done to our blog.
 
 ![Broken Gatsby homepage](https://cdn.auth0.com/blog/gatsby-blog/broken-gatsby-homepage.png)
 
@@ -142,7 +142,7 @@ They're block-scoped and can be either global or local to the block they were de
 
  **Handy!**  
 
-[Lets (or `let`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) are also new to ES6, but we won't be using any in this guide. They are block-scoped local variables that you intend to reassign.
+[Lets (or `let`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) are also new to ES6. They are block-scoped local variables that you intend to reassign.
 
 Now, lets edit `gatsby-node.js` to start building our pagination, by adding a `const` for how many articles per page we want to display. Because our demo has 3 articles, make our page length `2`, giving us two pages.
 
@@ -293,7 +293,7 @@ export default IndexPage;
 
 If you still had our `src/pages/index.js` that we deleted earlier, you'll notice there are some similarities. Probably because I copy and pasted it, making the changes necessary. I'll talk you through the changes now.
 
-The main difference between the original `src/pages/index.js` and our `src/templates/index.js` is that we don't need a `graphql` query to retrieve the articles for the page. Instead we're using the result of the data in our `gatsby-node.js` file to render to pages we need.
+The main difference between the original `src/pages/index.js` and our `src/templates/index.js` is that we don't need a `graphql` query to retrieve the articles for the page. Instead, we're using the result of the data in our `gatsby-node.js` file to render to pages we need.
 
 The other change is that we've now added our pagination below the articles. We've kept it simple and just passed a `previous` and `next` link into our template. Each paginated index we generate has the context of the previous and next pages in the list.
 
@@ -355,7 +355,7 @@ Here's my fix, edit `src/layouts/index.js` and remove the following line.
 
 ## Gatsby and Auth0
 
-When you have a blog, you'll probably have readers (you hope) and you'll also want to let them know when you create a new post. For this we're going to use [Auth0](https://auth0.com) to identify our users.
+When you have a blog, you'll probably have readers (you hope) and you'll also want to let them know when you create a new post. For this, we're going to use [Auth0](https://auth0.com) to identify our users.
 
 We're also going to be following the [Auth0 React Quickstart](https://auth0.com/docs/quickstart/spa/react) to get set up with Auth0 authentication on our new application. If you're confident with React you could skip straight to the quickstart or get the code you need from the [Auth0 React samples repository](https://github.com/auth0-samples/auth0-react-samples/tree/embedded-login).
 
@@ -420,7 +420,7 @@ Edit `src/utils/auth.js` and replace `<your-domain>` and `<your-client-id>` with
 
 #### Test our component
 
-Quickly, test that we can load our new component from any part of the app. To quickly do this we'll add the following code to our `src/templates/index.js` file.
+Quickly, we'll test that we can load our new component from any part of the app. To quickly do this we'll add the following code to our `src/templates/index.js` file.
 
 ```js
 // src/templates/index.js
@@ -673,13 +673,13 @@ Let's preview our [dev site](http://localhost:8000/) again. It should look somet
 
 ![Nav added to Gatsby blog](https://cdn.auth0.com/blog/gatsby-blog/nav-added-to-gatsby.png)
 
-And now when we login our application now knows about us.
+And now when we log in, our application now knows who we are.
 
 ![Logged into the Gatsby blog](https://cdn.auth0.com/blog/gatsby-blog/logged-into-the-gatsby-blog.png)
 
 ## Newsletter with Webtasks
 
-Now we can login, we want to be able to signup to our blog to receive updates on new articles and other news. We're going to use Webtask to create our API. Webtask provides API endpoints as services. Serverless endpoints designed to make developers lives easily and eliminate the need for unnecessary infrastructure. 
+Now we can log in, we want to be able to signup to our blog to receive updates on new articles and other news. We're going to use Webtask to create our API. Webtask provides API endpoints as services. Serverless endpoints designed to make developers lives easily and eliminate the need for unnecessary infrastructure. 
 
 ### Setting up a Webtask
 
@@ -701,7 +701,7 @@ npm install ---global wt-cli
 
 #### Initialize wt
 
-`wt` will ask for an e-mail or phone number to send you an activation code. Once activated you'll be able to create webtasks from commandline.
+`wt` will ask for an e-mail or phone number to send you an activation code. Once activated you'll be able to create Webtasks from command line.
 
 ```bash
 wt init (your email address here)
@@ -883,7 +883,7 @@ Our Gatsby app will provide the Webtask with our `access_token`. Usually, `auth0
 
 The JWT `access_token` returned is still perfectly acceptable for our openid request as well, but it also allows us to our JWT for our Webtask request so we can make sure the user subscribing/unsubscribing is doing so for themselves only.
 
-In this `create` command we're providing our Webtask our AUTH0_DOMAIN so it can be used in the validation of our JWT. Even though your Auth0 domain is not particularly sensitive, we'll still storing it in a [Webtask secret](https://webtask.io/docs/editor/secrets), accessible by the application only. Secrets can also be added, removed and managed via the Secrets panel, which is in the settings menu in the Webtask Editor.
+In this `create` command we're providing our Webtask our AUTH0_DOMAIN so it can be used in the validation of our JWT. Even though your Auth0 domain is not particularly sensitive, we'll still store it in a [Webtask secret](https://webtask.io/docs/editor/secrets), accessible by the application only. Secrets can also be added, removed and managed via the Secrets panel, which is in the settings menu in the Webtask Editor.
 
 ```bash
 wt create newsletter.js \
@@ -1037,7 +1037,7 @@ So edit `src/components/Nav.js` and add the code as follows.
   ...
 ```
 
-With that added, lets run our app and see what we get!
+With that added, let's run our app and see what we get!
 
 ![Logged in and unsubscribed](https://cdn.auth0.com/blog/gatsby-blog/logged-in-unsubscribed.png)
 
@@ -1049,9 +1049,9 @@ Now subscribe to the newsletter!
 
 There we have it, a Gatsby blog with Auth0 authentication, markdown post pagination, and newsletter signup for authenticated users with a Webtask using an Auth0 `access_token`.
 
-As Gatsby is a static site generator, to be able make real use of our authentication we needed a backend application to provide functionality through an API to the React element of the site. Gatsby has a great guide and demo application for creating [hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/). 
+As Gatsby is a static site generator, to be able to make real use of our authentication we needed a backend application to provide functionality through an API to the React element of the site. Gatsby has a great guide and demo application for creating [hybrid app pages](https://www.gatsbyjs.org/docs/building-apps-with-gatsby/). 
 
-In this instance we used [Webtask by Auth0](https://webtask.io/) which allows us to build our own serverless API endpoints.
+In this instance, we used [Webtask by Auth0](https://webtask.io/) which allows us to build our own serverless API endpoints.
 
 Gatsby has a dedicated [tutorial](https://www.gatsbyjs.org/tutorial/) for building Gatsby applications.
 
