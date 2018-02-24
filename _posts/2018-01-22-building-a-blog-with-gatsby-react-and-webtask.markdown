@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Building a blog with Gatsby
-description: "Building a blog with Gatsby, React and Webtask.io!"
+title: "Building a blog with Gatsby, React and Webtask.io!"
+description: "Building a blog with Gatsby, the React based static content generator. Using Webtask.io, the serverless endpoint service to provide a backend API."
 longdescription: "Building a blog with Gatsby, the React based static content generator. Using Webtask.io, the serverless endpoint service to provide a backend API, we look at building a blog with Gatsby and adding extra features like pagination, user authentication with Auth0 and newsletter subscription."
 date: 2018-01-22 11:11
 category: Technical Guide, Frontend, Gatsby
