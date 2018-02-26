@@ -633,7 +633,7 @@ This will check if the entryId passed in exists, check to ensure the authenticat
 
 There is no template needed for this, however, we still need somewhere in the templates to show the action. So in `./templates/admin/entries.html.twig` let's make some additions.
 
-In the table headers, let's add a new row. This will this element change from:
+In the table headers, let's add a new column. This will this element change from:
 
 ```html
 <thead>
