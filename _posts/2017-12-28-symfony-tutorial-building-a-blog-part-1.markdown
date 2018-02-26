@@ -1461,7 +1461,7 @@ class CheckIsAuthorListener
 }
 ```
 
-We now need to add this class as a service so that Symfony runs it on each controller request. In `config/services.yml` add the following as the last item of `services`:
+We now need to add this class as a service so that Symfony runs it on each controller request. In `config/services.yaml` add the following as the last item of `services`:
 
 ```yml
 App\EventListener\Author\CheckIsAuthorListener:
