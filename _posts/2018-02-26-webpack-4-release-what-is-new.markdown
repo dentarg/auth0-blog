@@ -103,19 +103,21 @@ Check out the [configuration options affected by `mode`](https://medium.com/webp
 
 ![Webpack 4 Mode warning](https://cdn.auth0.com/blog/webpack4/modewarning.png)
 
-## 6 Zero Config Module Bundler #OCJS
+## 6. Zero Config Module Bundler #OCJS
 
-Before now, an entry point had to be defined inside a `webpack.config.js` file for Webpack to bundle your app. However, with Webpack 4, there is no need to define the entry point, it will take `./scr/index.js` as the default. Furthermore, there's also no need to define the output file, it will output the bundle to `/.dist/main.js`.
+Before now, an entry point had to be defined inside a `webpack.config.js` file for Webpack to bundle your app. However, with Webpack 4, there is no need to define the entry point, it will take `./scr/index.js` as the default. 
+
+Furthermore, there's also no need to define the output file, it emits the bundle to `/.dist/main.js`.
 
 {% include tweet_quote.html quote_text="With Webpack 4, there is no need to define the entry point, it will take `./scr/index.js` as the default." %}
 
 The significance of this slick feature comes to play when spinning up small projects. No need for a configuration file. Just webpack away! 
 
 ![Webpack 4 without entry](https://cdn.auth0.com/blog/webpack4/withoutindex.png)
-_Webpack 4 without any config and entry file_
+_Webpack 4 without any config and entry file._
 
 ![Webpack 4 with index.js](https://cdn.auth0.com/blog/webpack4/withindex.png)
-_Webpack 4 with an src/index.js file_
+_Webpack 4 without any config file. Just a src/index.js file._
 
 ## 7. Faster Build Times
 
