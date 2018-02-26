@@ -927,7 +927,7 @@ We're going to need API keys for Auth0, so <a href="https://auth0.com/signup" da
 - Configure callback URL:
   * In the new Auth0 `Client`, go to the settings tab.
   * Find the text box labeled `Allowed Callback URLs`.
-  * Paste the following in: `http://localhost:8000/auth0/callback`.
+  * Paste the following in: `http://127.0.0.1:8000/auth0/callback`.
 - Configure Auth0 Client to require usernames:
   * In the navigation bar find and click `Connections`
   * Then click `Database`
