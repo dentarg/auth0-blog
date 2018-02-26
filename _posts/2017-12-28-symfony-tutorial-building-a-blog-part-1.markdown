@@ -832,7 +832,7 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. 
 
-First we will set up all the configurations needed for this bundle.
+First, we will set up all the configurations needed for this bundle.
  
 So to begin we need to add the routes to your routing file: `config/routes.yaml`:
 
@@ -853,7 +853,7 @@ auth0_logout:
     path: /auth0/logout
 ```
 
-In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/Auth0ResourceOwner.php`:
+In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. Create a new file `src/Auth0ResourceOwner.php`:
 
 ```php
 <?php
