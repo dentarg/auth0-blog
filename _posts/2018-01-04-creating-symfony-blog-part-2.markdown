@@ -108,7 +108,7 @@ And change the following line: `DATABASE_URL=mysql://db_user:db_password@127.0.0
 DATABASE_URL=mysql://symfony-blog-user:mysecretpassword@127.0.0.1:3306/symfony-blog
 ```
 
-Last thing, if you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
+Lastly, if you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
 
 ```bash
 php bin/console doctrine:database:create
