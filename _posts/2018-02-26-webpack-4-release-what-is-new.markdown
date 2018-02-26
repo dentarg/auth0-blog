@@ -34,7 +34,7 @@ related:
 
 ---
 
-Webpack is a capable module bundler for JavaScript applications. It bundles every one of the modules in your application into at least one file (frequently, only one) and serves it to the browser. In any case, Webpack is something beyond a module bundler. With the assistance of loaders and plugins, it can change, minify and optimize a wide range of files before serving them as a bundle to the browser. It takes in different resources, for example, JavaScript, CSS, Fonts, Images, and HTML, and afterwards changes these assets into a configuration that is helpful to expend through a browser. The genuine energy of Webpack is the whole of its parts. 
+Webpack is a capable module bundler for JavaScript applications. It bundles every one of the modules in your application into at least one file (frequently, only one) and serves it to the browser. In any case, Webpack is something beyond a module bundler. With the assistance of loaders and plugins, it can change, minify and optimize a wide range of files before serving them as a bundle to the browser. It takes in different resources, for example, JavaScript, CSS, Fonts, Images, and HTML, and afterwards changes these assets into a configuration that is helpful to use through a browser. The genuine energy of Webpack is the whole of its parts. 
 
 Alright, that's enough, [this article](https://auth0.com/blog/webpack-a-gentle-introduction/) provides a gentle introduction to webpack. Now, what's new in Webpack 4.0?
 
@@ -53,7 +53,7 @@ The creator of Webpack, Tobias, warns users to use Node >= 8.9.4 for optimal per
 
 It's sad to see you go, dear `CommonsChunkPlugin`. The infamous _CommonsChunkPlugin_ has been removed and replaced with two new smooth APIs called `optimize.splitChunks` and `optimization.runtimeChunk`. Let me explain!
 
-Webpack 4 shipped with huge improvements to the chunk graph and a new optimization technique for chunk splitting. A new plugin was born in the process of improvements called `SplitChunksPlugin`. The `SplitChunksPlugin` automatically identifies modules which should be split of chunk by heuristics and splits the chunks. And it has some other great features such as working efficiently on async chunks, and handling vendor splitting with multiple vendor chunks.
+Webpack 4 shipped with huge improvements to the chunk graph and a new optimization technique for chunk splitting. A new plugin was born in the process of improvements called `SplitChunksPlugin`. The `SplitChunksPlugin` automatically identifies modules which should be split by heuristics and splits the chunks. And it has some other great features such as working efficiently on async chunks, and handling vendor splitting with multiple vendor chunks.
 
 By default, shared chunks will be automatically generated for you out of the box in Webpack 4. And it is configurable via `optimize.splitChunks`. The `optimization.runtimeChunk: true` option adds an additional chunk to each entry point containing only the runtime.
 
@@ -61,11 +61,9 @@ Tobias has [compelling examples of how the new optimization technique works!](ht
 
 ## 3. WebAssembly Support Out of the Box
 
-WebAssembly (wasm) is a new portable, and load-time-efficient format suitable for compilation to the web. It's really fast and the developer community is embracing it rapidly. In lieu of this, Webpack 4 now supports WebAssembly out of the box.
+WebAssembly (wasm) is a new portable, and load-time-efficient format suitable for compilation to the web. It's really fast and the developer community is embracing it rapidly. For this reason, Webpack 4 now supports WebAssembly out of the box. In Webpack 4, you can import and export any local WebAssembly module. And you can write loaders that allow you to import C++, C and Rust directly.
 
-The WebAssembly modules can only be used in async chunks. They would be very bad for performance, thus the reason why it doesn't work in initial chunks.
-
-In Webpack 4, you can import and export any local WebAssembly module.
+**Note:** The WebAssembly modules can only be used in async chunks.
 
 ## 4. Support for various Module Types
 
@@ -81,7 +79,7 @@ Webpack 4 now supports five module types. These module types are:
 
 ## 5. Lighting the Fire with Mode
 
-I am more excited about this feature than everyone in the universe at the moment. The Webpack team has introduced a new config property called `mode` all in the quest to achieve a zero-config #0CJS module bundler. The `mode` option can be set to either of these two values; `development` or `production`. Out of the box, it defaults to `production`.
+I am more excited about this feature than everyone in the universe at the moment. The Webpack team has introduced a new config property called `mode` all in the quest to achieve a zero-config (#0CJS) module bundler. The `mode` option can be set to either of these two values; `development` or `production`. Out of the box, it defaults to `production`.
 
 The `production` option provides a set of sensible defaults that allows for:
 
@@ -105,11 +103,11 @@ Check out the [configuration options affected by `mode`](https://medium.com/webp
 
 ## 6. Zero Config Module Bundler #OCJS
 
-Before now, an entry point had to be defined inside a `webpack.config.js` file for Webpack to bundle your app. However, with Webpack 4, there is no need to define the entry point, it will take `./scr/index.js` as the default. 
+Before now, an entry point had to be defined inside a `webpack.config.js` file for Webpack to bundle your app. However, with Webpack 4, there is no need to define the entry point, it will take `./src/index.js` as the default. 
 
 Furthermore, there's also no need to define the output file, it emits the bundle to `/.dist/main.js`.
 
-{% include tweet_quote.html quote_text="With Webpack 4, there is no need to define the entry point, it will take `./scr/index.js` as the default." %}
+{% include tweet_quote.html quote_text="Webpack 4 supports zero-config (#0CJS) setups. For example, it will use ./src/index.js as the default entry point." %}
 
 The significance of this slick feature comes to play when spinning up small projects. No need for a configuration file. Just webpack away! 
 
