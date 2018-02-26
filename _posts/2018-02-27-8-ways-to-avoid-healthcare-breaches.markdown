@@ -33,7 +33,7 @@ related:
 - 2017-11-10-4-security-measures-after-data-breach
 ---
 
-**TL;DR:** Learn how to make your organization less attractive to medical identity thieves with cyber hygiene.
+## Block Medical Identity Thieves with Cyber Hygiene
 
 Cybersecurity attacks increased in number and sophistication in 2017. But the Online Trust Alliance (OTA), a global nonprofit dedicated to promoting online innovation and trust, found that [93% of breaches through Q3 could have been prevented](https://otalliance.org/system/files/files/initiative/documents/ota_cyber_incident_trends_report_jan2018.pdf). Only 52% of those breaches were caused by actual hacks. Internal issues that resulted in accidental or malicious events instigated by employees accounted for another 11%.
 
@@ -52,7 +52,8 @@ That kind of patient experience can send a customer doctor shopping. A [2018 PwC
 {% include tweet_quote.html quote_text="Healthcare organizations are just starting to realize that cybersecurity is adding value by placing the focus on the well-being of their end customers." —Auth0 CISO Joan Pepin" %}
 
 And 2018 is already laying out challenges and consequences.
-Half of Norway’s entire population — 3 million people — was already exposed in a [professional healthcare hack](https://www.scmagazineuk.com/half-of-norways-population-have-medical-data-leaked/article/738079/) in January. Although swift by current standards, breach notification fell well outside GDPR’s 72-hour requirement. After May, that lag will mean stiff fines. 
+Half of Norway’s entire population — 3 million people — was already exposed in a [professional healthcare hack](https://www.scmagazineuk.com/half-of-norways-population-have-medical-data-leaked/article/738079/) in January. Although swift by current standards, breach notification fell well outside GDPR’s 72-hour requirement. After May, that lag will mean stiff fines.
+ 
 Even outside the EU, breaches can have expensive consequences. Last year U.S. health insurer [Anthem paid a $115 million settlement](https://www.nbcnews.com/news/us-news/anthem-pay-record-115m-settle-lawsuits-over-data-breach-n776246) on over 100 consolidated lawsuits due to a 2015 cyber attack.
 
 ![Healthcare cybersecurity](https://cdn.auth0.com/blog/healthcare-cybersecurity/med.png)
