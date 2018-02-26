@@ -77,7 +77,9 @@ Webpack 4 now supports five module types. These module types are:
 * **json:** Supports only JSON data, It's available via `require` and `import`.
 * **webassembly/experimental:** Supports only WebAssembly modules. For now, it is currently experimental.
 
-## 5. Lighting the Fire with Mode, Zero Config #OCJS
+{% include tweet_quote.html quote_text="Webpack 4 now supports five module types." %}
+
+## 5. Lighting the Fire with Mode
 
 I am more excited about this feature than everyone in the universe at the moment. The Webpack team has introduced a new config property called `mode` all in the quest to achieve a zero-config #0CJS module bundler. The `mode` option can be set to either of these two values; `development` or `production`. Out of the box, it defaults to `production`.
 
@@ -101,7 +103,21 @@ Check out the [configuration options affected by `mode`](https://medium.com/webp
 
 ![Webpack 4 Mode warning](https://cdn.auth0.com/blog/webpack4/modewarning.png)
 
-## 6. Faster Build Times
+## 6 Zero Config Module Bundler #OCJS
+
+Before now, an entry point had to be defined inside a `webpack.config.js` file for Webpack to bundle your app. However, with Webpack 4, there is no need to define the entry point, it will take `./scr/index.js` as the default. Furthermore, there's also no need to define the output file, it will output the bundle to `/.dist/main.js`.
+
+{% include tweet_quote.html quote_text="With Webpack 4, there is no need to define the entry point, it will take `./scr/index.js` as the default." %}
+
+The significance of this slick feature comes to play when spinning up small projects. No need for a configuration file. Just webpack away! 
+
+![Webpack 4 without entry](https://cdn.auth0.com/blog/webpack4/withoutindex.png)
+_Webpack 4 without any config and entry file_
+
+![Webpack 4 with index.js](https://cdn.auth0.com/blog/webpack4/withindex.png)
+_Webpack 4 with an src/index.js file_
+
+## 7. Faster Build Times
 
 Webpack 4's build times are now up to about 98% faster than the previous major version. Don't take my word for it. Try it out yourself. You can get started with Webpack 4 like so:
 
@@ -136,7 +152,7 @@ Other performance tests from the community can be found below:
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">6 entries, dev mode, source maps off, using a bunch of loaders and plugins. dat speed ⚡️ <a href="https://t.co/fgzYPN24k1">pic.twitter.com/fgzYPN24k1</a></p>&mdash; Evan Scott (@probablyup) <a href="https://twitter.com/probablyup/status/965128389307846657?ref_src=twsrc%5Etfw">February 18, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-## 7. Fresh Plugin System
+## 8. Fresh Plugin System
 
 Webpack 4 ships with a complete overhaul of the plugin system. There is a new simple API for plugins and hooks which comes with the following configuration:
 
@@ -148,7 +164,7 @@ Webpack 4 ships with a complete overhaul of the plugin system. There is a new si
 
 Tobias wrote a [comprehensive note on how the new plugin system works](https://medium.com/webpack/the-new-plugin-system-week-22-23-c24e3b22e95). The plugin method is backward-compatible.
 
-## 8. Giant Move to webpack-cli
+## 9. Giant Move to webpack-cli
 
 The Webpack's command line interface has been moved to [webpack-cli](https://github.com/webpack/webpack-cli), you need to install `webpack-cli` to use the CLI.
 
