@@ -134,7 +134,7 @@ You can install [Symfony's Webpack Encore](https://github.com/symfony/webpack-en
 composer require webpack-encore
 ```
 
-In the root directory of the project there will be 2 new files (`package.json`, `webpack.config.js`) and a new directory (`assets`).
+In the root directory of the project, there will be 2 new files (`package.json`, `webpack.config.js`) and a new directory (`assets`).
 
 Open `webpack.config.js`, this is just the file that contains all of the web pack configurations, and replace the contents with:
 
@@ -202,7 +202,7 @@ Once installed, at the top of the empty `./assets/js/main.js` file, insert `var 
 
 We want an app CSS asset file. Let's create the following file `assets/css/main.scss`. Then, in `assets/js/main.js` at the bottom paste the following: `require('../css/main.scss');`.
 
-Let's move the contents of our CSS file we created in part 1 (`public/css/style.css`) into the new file we've created above (`assets/css/main.scss`).
+Let's move the contents of the CSS file we created in part 1 (`public/css/style.css`) into the new file we've created above (`assets/css/main.scss`).
 
 Finally, in our `base.html.twig`, in the Stylesheets block, paste the following: `{% raw %}<link rel="stylesheet" href="{{ asset('build/app.css') }}">{% endraw %}`.
 
@@ -226,7 +226,7 @@ You've now set up Bootstrap to be used in your Symfony Blog.
 
 ### Showing Blog Posts
 
-In `./src/Controller/BlogController.php`, we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the `BlogController` class we want to inject these services.
+In `./src/Controller/BlogController.php`, we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the `BlogController` class, we want to inject these services.
 
 ```php
 /** @var EntityManagerInterface */
@@ -394,7 +394,7 @@ class EntryFormType extends AbstractType
 
 As you can see, the data class to be used is the entity `BlogPost`, and if you compare the fields in `buildForm` you'll notice the first argument of each, the name, matches the names of the properties in BlogPost entity.
 
-A new controller method is needed, so add this function into your `AdminController` class:
+A new controller method is needed, so add this function to your `AdminController` class:
 
 ```php
 /**
@@ -430,7 +430,7 @@ public function createEntryAction(Request $request)
 }
 ```
 
-At the top in the namespaces, we need to add the two new classes we're using: `BlogPost` and `EntryFormType` so paste:
+At the top, in the namespaces, we need to add the two new classes we're using: `BlogPost` and `EntryFormType` so paste:
 
 ```php
 use App\Entity\BlogPost;
@@ -714,7 +714,7 @@ if ($request->get('page')) {
 }
 ```
 
-This data is useless to us unless `BlogPostRepository` knows what to do with it. When we created the `BlogPost` entity, it also created a repository for us. This repository contains our methods for custom queries or more in depth queries. So open: `./src/Repository/BlogPostRepository.php`
+This data is useless to us unless `BlogPostRepository` knows what to do with it. When we created the `BlogPost` entity, it also created a repository for us. This repository contains our methods for custom queries or more in-depth queries. So open: `./src/Repository/BlogPostRepository.php`
 
 The first method we're going to need is to get all of the posts based on the page number and the limit previously set in the `BlogController`. The method below does exactly that. It retrieves the paginated number of blog posts.
 
@@ -1052,4 +1052,4 @@ You will also see the author names have a link now.
 
 ## Conclusion
 
-Congratulations, you have just built yourself a functional blog engine from scratch with Symfony. This blog engine even enables visitors to sign up to become authors. This allows them to also contribute to your blog by posting articles of their own! Although this is just the basics of a blog, it is a strong stepping stone into making it as custom and feature filled as you wish.
+Congratulations, you have just built yourself a functional blog engine from scratch with Symfony. This blog engine even enables visitors to sign up to become authors. This allows them to also contribute to your blog by posting articles of their own! Although this is just the basics of a blog, it is a strong stepping stone to making it as custom and feature filled as you wish.
