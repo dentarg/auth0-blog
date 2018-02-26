@@ -3,7 +3,7 @@ layout: post
 title: "Community at Auth0 begins a new chapter"
 description: "A new chapter for the Auth0 Community begins."
 longdescription: "Today marks a new chapter in the Community at Auth0 as we move to a new platform and dedicate a team."
-date: 2018-03-01 08:30
+date: 2018-03-01 19:00
 category: Community, Company
 author:
   name: "Jeremy Meiss"
