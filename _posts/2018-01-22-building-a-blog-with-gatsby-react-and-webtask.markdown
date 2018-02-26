@@ -768,7 +768,7 @@ app.use((req, res, next) => {
 });
 
 const userProfile = (req) => {
-  const userinfo = `https://${req.webtaskContext.secrets.AUTH0_DOMAIN}/userinfo`
+  const userinfo = `https://${req.webtaskContext.secrets.AUTH0_DOMAIN}/userinfo`;
   return axios.get(userinfo, { headers: { Authorization: req.headers.authorization }})
     .then(response => {
       return response.data;
@@ -778,7 +778,7 @@ const userProfile = (req) => {
 
 const sendResponse = (key, res) => {
   res.status(RESPONSE[key].statusCode).send(RESPONSE[key]);
-}
+};
 
 app.get('/subscribe', (req, res) => {
   userProfile(req)
@@ -1001,7 +1001,8 @@ All that is left to do is add our `Subscribe` component to `Nav`. This will show
 
 So edit `src/components/Nav.js` and add the code as follows.
 
-```diff
+{% highlight diff %}
+{% raw %}
 // src/components/Nav.js
   import React from 'react';
   import Auth from '../utils/auth';
@@ -1035,7 +1036,8 @@ So edit `src/components/Nav.js` and add the code as follows.
             }
 
   ...
-```
+{% endraw %}
+{% endhighlight %}
 
 With that added, let's run our app and see what we get!
 
