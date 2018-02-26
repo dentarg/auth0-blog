@@ -1173,9 +1173,9 @@ use App\Entity\Author;
 use App\Form\AuthorFormType;
 ```
 
-Great, in our entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data.
+Great, in the entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data.
 
-The three extra `use` classes in that list are:
+The three extra `use` classes on that list are:
 
 * the `Request` class, this allows you to gather data, for example, if there are any parameters in a POST or GET request,
 * the `Author` entity that maps objects to the database,
@@ -1354,7 +1354,7 @@ This just includes your custom CSS file as well as Bootstrap's CSS and Javascrip
 
 Although a user is authenticated through Auth0, we don't really want them to access the rest of the author section until they've filled some basic "About me" details. So, what we want is to ensure that any `/author/` route they try to access, if they don't have an "Author" entry, redirects them to the form to write about themselves.
 
-An event listener is, as the name states, a listener to specific programmed events which then run predefined code once the conditions are met.
+An event listener is, as the name states, a listener to specific programmed events which then run the predefined code once the conditions are met.
 
 Let's create the `CheckIsAuthorListener.php` file in the `src/EventListener/Author` directory. In this file, let's place the following code:
 
