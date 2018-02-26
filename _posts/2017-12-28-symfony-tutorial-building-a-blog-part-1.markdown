@@ -139,7 +139,7 @@ Now that the basic configuration has been set up, let's run the following comman
 php bin/console server:run
 ```
 
-You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So paste this URL in your browser, you'll be shown a `Hello BlogController!` page.
+You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So paste this URL int0 your browser, you'll be shown a `Hello BlogController!` page.
 
 ### Creating a New Author Entity
 
