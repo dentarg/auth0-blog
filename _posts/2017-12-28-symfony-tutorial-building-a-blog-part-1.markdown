@@ -66,7 +66,7 @@ Once Composer has finished downloading all the required third-party libraries ch
 
 ### Install Doctrine bundle & various libraries
 
-In order to communicate with the database and make use of other features, you need to install several third party libraries. So run the following commands:
+In order to communicate with the database and make use of other features, you need to install several third-party libraries. So run the following commands:
 
 ```bash
 composer require symfony/orm-pack
@@ -79,7 +79,7 @@ composer require --dev maker-bundle
 
 ### Update DotEnv File
 
-In your root directory there is a file called `.env`, you should see something similar to the following:
+In your root directory, there is a file called `.env`, you should see something similar to the following:
 
 ```yml
 ###> doctrine/doctrine-bundle ###
@@ -89,7 +89,7 @@ DATABASE_URL=mysql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABA
 
 Then you have to replace any of the values with the correct settings for your MySQL database. For example, `{DATABASE_HOST}` could be replaced by `127.0.0.1`. Don't have MySQL installed? [An easy way to bootstrap one is with this script, it just needs Docker installed on the host machine](https://gist.github.com/brunokrebs/af77f582f0e650a62a6f06e84cd06f91).
 
-__NOTE__: The default database port is 3306, so if you haven't configured your mysql database port, change the above `{DATABASE_PORT}` to `3306`.
+__NOTE__: The default database port is 3306, so if you haven't configured your MySQL database port, change the above `{DATABASE_PORT}` to `3306`.
 
 If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of your database name.
 
@@ -990,7 +990,7 @@ security:
 
 The config above is setting up URLs/sections in your blog that require the user to be authenticated.
 
-In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third party libraries. However, this can be easily done with this command: 
+In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third-party libraries. However, this can be easily done with this command: 
 
 ```bash
 composer require hwi/oauth-bundle php-http/guzzle6-adapter php-http/httplug-bundle
