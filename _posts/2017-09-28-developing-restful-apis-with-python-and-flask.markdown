@@ -198,7 +198,7 @@ chmod +x bootstrap.sh
 The goal of this file is to facilitate the start up of our application. Its source code will be the following:
 
 ```sh
-#!/bin/bash
+#!/bin/sh
 export FLASK_APP=./cashman/index.py
 source $(pipenv --venv)/bin/activate
 flask run -h 0.0.0.0
