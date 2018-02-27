@@ -4,6 +4,7 @@ title: "Symfony Tutorial: Building a Blog (Part 1)"
 description: "Let's create a secure blog engine with Symfony."
 longdescription: "Creating applications with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. Let's use Symfony to create a blog engine."
 date: 2017-12-28 08:30
+updated: 2018-02-27 13:15
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
@@ -19,11 +20,12 @@ tags:
 - auth0
 - php
 related:
+- 2018-01-04-creating-symfony-blog-part-2
 - 2017-07-26-creating-your-first-symfony-app-and-adding-authentication
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern, and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog-part-1).
 
 ---
 
@@ -57,291 +59,731 @@ In this article, we will be looking at how to install a new version of the Symfo
 Install Symfony via [Composer](https://getcomposer.org/) with the following command:
 
 ```bash
-composer create-project symfony/framework-standard-edition:"3.3.11" blog
+composer create-project symfony/skeleton:4.0.5 blog
 ```
 
-Once Composer has finished downloading all the required third-party libraries, it will ask you to input a number of parameters. Please just leave these empty, pressing return on each line.
+Once Composer has finished downloading all the required third-party libraries change directory into your project with: `cd blog`
 
-Change directory into your project with: `cd blog`
+### Install Doctrine bundle & various libraries
 
-### Create & Populate DotEnv File
+In order to communicate with the database and make use of other features, you need to install several third-party libraries. So run the following commands:
 
-In your root directory create file called `.env` and paste the following into there:
+```bash
+composer require symfony/orm-pack
+composer require annotations
+composer require validator
+composer require template
+composer require security-bundle
+composer require --dev maker-bundle
+```
+
+### Update DotEnv File
+
+In your root directory, there is a file called `.env`, you should see something similar to the following:
 
 ```yml
-DATABASE_HOST={DATABASE_HOST}
-DATABASE_PORT=3306
-DATABASE_NAME={DATABASE_NAME}
-DATABASE_USER=root
-DATABASE_PASSWORD={DATABASE_PASSWORD}
+###> doctrine/doctrine-bundle ###
+DATABASE_URL=mysql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}
+###< doctrine/doctrine-bundle ###
 ```
 
 Then you have to replace any of the values with the correct settings for your MySQL database. For example, `{DATABASE_HOST}` could be replaced by `127.0.0.1`. Don't have MySQL installed? [An easy way to bootstrap one is with this script, it just needs Docker installed on the host machine](https://gist.github.com/brunokrebs/af77f582f0e650a62a6f06e84cd06f91).
 
-Next. Let's find the `app/config/config.yml` file. Within there you'll find the following:
+__NOTE__: The default database port is 3306, so if you haven't configured your MySQL database port, change the above `{DATABASE_PORT}` to `3306`.
 
-```yml
-# Doctrine Configuration
-doctrine:
-    dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
-```
+If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of your database name.
 
-Replace anything that is wrapped around `'%` and `%'` to contain the DotEnv configurations. So it will look like:
+### Create the Blog Controller
 
-```yml
-# Doctrine Configuration
-doctrine:
-    dbal:
-        driver: pdo_mysql
-        host: '%env(DATABASE_HOST)%'
-        port: '%env(DATABASE_PORT)%'
-        dbname: '%env(DATABASE_NAME)%'
-        user: '%env(DATABASE_USER)%'
-        password: '%env(DATABASE_PASSWORD)%'
-        charset: UTF8
-```
+Create new `BlogController` by running the following command `php bin/console make:controller`
 
-__NOTE__: All this does is retrieve the database details from the `.env` file rather than `app/config/parameters.yml`.
+When it asks for `The class name of the controller to create`, type in: `BlogController`.
 
-Now need to just make some minor configuration changes so that Symfony knows to read from the .env file.
-
-Edit the `bin/console`, `web/app_dev.php`, `web/app.php` files. Above the line `$kernel = new AppKernel($env, $debug)` in each file, paste the following:
+Once the command has finished running, you'll find a new file in `src/Controller` called `BlogController.php`, there should be an action similar to the following:
 
 ```php
-try {
-    (new \Symfony\Component\Dotenv\Dotenv())->load(__DIR__.'/../.env');
-} catch (\Symfony\Component\Dotenv\Exception\PathException $e) {
-
+/**
+ * @Route("/blog", name="blog")
+ */
+public function index()
+{
+    return $this->render('blog/index.html.twig', [
+        'controller_name' => 'BlogController',
+    ]);
 }
 ```
 
-If needed, run the following command `php bin/console doctrine:database:create`, which will create a database with the value of `DATABASE_NAME` in the `.env` file.
+Replace the above with:
 
-Now that the basic configuration has been set up, let's run the following command: `php bin/console server:start`.
+```php
+/**
+ * @Route("/", name="homepage")
+ */
+public function indexAction()
+{
+    return $this->render('blog/index.html.twig', [
+        'controller_name' => 'BlogController',
+    ]);
+}
+```
 
-You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So in your browser copy in that URL and you'll be shown a "Welcome to Symfony" page.
+In order to see your blog in your web browser for the duration of this tutorial, you need to have Symfony's web server installed in your application. To do this run the following command:
+
+```bash
+composer require server --dev
+```
+
+Now that the basic configuration has been set up, let's run the following command:
+
+```bash
+php bin/console server:run
+```
+
+You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So paste this URL into your browser, you'll be shown a `Hello BlogController!` page.
 
 ### Creating a New Author Entity
 
-Create new `Author` entity by running the following command `php bin/console doctrine:generate:entity`
+Create new `Author` entity by running the following command:
 
-When it asks for the Entity shortcut name, type in: `AppBundle:Author`
+```bash
+php bin/console make:entity
+```
 
-Keep the default on `Configuration format`, but this next step we need to add all of the properties of our Author. Please refer to the image below for the entries required for an Author table:
+When it asks for `The class name of the entity to create`, type in: `Author`.
 
-![Creating an Author entity with Symfony and Doctrine](https://cdn.auth0.com/blog/symfony-blog/create-author-entity.png)
+Once the command has finished running, you'll find a new file in `src/Entity` called `Author.php`. Open this and configure it like so:
 
-__NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/Author.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/AuthorRepository.php).
+```php
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Author
+ *
+ * @ORM\Table(name="author")
+ * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
+ */
+class Author
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string", length=255)
+     */
+    private $company;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="short_bio", type="string", length=500)
+     */
+    private $shortBio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     */
+    private $twitter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="github", type="string", length=255, nullable=true)
+     */
+    private $github;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Author
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Author
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Author
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return Author
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set shortBio
+     *
+     * @param string $shortBio
+     *
+     * @return Author
+     */
+    public function setShortBio($shortBio)
+    {
+        $this->shortBio = $shortBio;
+
+        return $this;
+    }
+
+    /**
+     * Get shortBio
+     *
+     * @return string
+     */
+    public function getShortBio()
+    {
+        return $this->shortBio;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Author
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set facebook
+     *
+     * @param string $facebook
+     *
+     * @return Author
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    /**
+     * Get facebook
+     *
+     * @return string
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * Set twitter
+     *
+     * @param string $twitter
+     *
+     * @return Author
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    /**
+     * Get twitter
+     *
+     * @return string
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * Set github
+     *
+     * @param string $github
+     *
+     * @return Author
+     */
+    public function setGithub($github)
+    {
+        $this->github = $github;
+
+        return $this;
+    }
+
+    /**
+     * Get github
+     *
+     * @return string
+     */
+    public function getGithub()
+    {
+        return $this->github;
+    }
+}
+```
 
 {% include tweet_quote.html quote_text="Doctrine is a great tool to have around when developing with PHP and Symfony." %}
 
 ### Creating a New BlogPost Entity
 
-Create new `BlogPost` entity by running the following command `php bin/console doctrine:generate:entity`
+Create new `BlogPost` entity by running the following command `php bin/console make:entity`
 
-When it asks for the Entity shortcut name, type in: `AppBundle:BlogPost`
+When it asks for `The class name of the entity to create`, type in: `BlogPost`.
 
-Keep the default on `Configuration format`, but the next step is to add all of the properties on the BlogPost. Please refer to the image below for the entries required for a BlogPost table:
-
-![Creating an Author entity with Symfony and Doctrine](https://cdn.auth0.com/blog/symfony-blog/create-blogpost-entity.png)
-
-__NOTE__: If you cannot see the image, the full entity can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Entity/BlogPost.php) and its repository can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Repository/BlogPostRepository.php).
-
-__NOTE__: If you copied the file directly from GitHub, please skip to the _Install Doctrine-Migrations_ section.
-
-You may have noticed that we've added the `created_at`, `updated_at` and `author` fields. These fields all need some extra changes to be made in the entity file itself. So open `src/AppBundle/Entity/BlogPost.php`
-
-Find `private $author;` and replace the annotation above this from:
+Once the command has finished running, you'll find a new file in `src/Entity` called `BlogPost.php`. Open this and configure it like so:
 
 ```php
-/**
- * @var int
- *
- * @ORM\Column(name="author", type="integer")
- */
-```
+<?php
 
-to:
+namespace App\Entity;
 
-```php
-/**
- * @var Author
- *
- * @ORM\ManyToOne(targetEntity="Author")
- * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
- */
-```
+use Doctrine\ORM\Mapping as ORM;
 
-Next. Replace the Author getter and setter from:
-
-```php
-/**
- * Set author
- *
- * @param integer $author
- *
- * @return BlogPost
- */
-public function setAuthor($author)
-{
-    $this->author = $author;
-
-    return $this;
-}
-
-/**
- * Get author
- *
- * @return int
- */
-public function getAuthor()
-{
-    return $this->author;
-}
-```
-
-to:
-
-```php
-/**
- * Set author
- *
- * @param Author $author
- *
- * @return BlogPost
- */
-public function setAuthor(Author $author)
-{
-    $this->author = $author;
-
-    return $this;
-}
-
-/**
- * Get author
- *
- * @return Author
- */
-public function getAuthor()
-{
-    return $this->author;
-}
-```
-
-All this does is make sure the entity knows that `Author` has a [`ManyToOne` relationship](https://www.ibm.com/support/knowledgecenter/en/SSWU4L/Data/imc_Data/What_is_a_many-to-one_relationship.html) with `BlogPost`.
-
-At the bottom of the `BlogPost` class, MySQL needs to know to populate and update the `created_at` and `updated_at` columns when a persist or update is made to the database. So paste the following at the bottom of the class (right before the last `}` in the file):
-
-```php
-/**
- * @ORM\PrePersist
- */
-public function prePersist()
-{
-    if (!$this->getCreatedAt()) {
-        $this->setCreatedAt(new \DateTime());
-    }
-
-    if (!$this->getUpdatedAt()) {
-        $this->setUpdatedAt(new \DateTime());
-    }
-}
-
-/**
- * @ORM\PreUpdate
- */
-public function preUpdate()
-{
-    $this->setUpdatedAt(new \DateTime());
-}
-```
-
-Now this is useless until the class has lifecycle call backs so in the annotation above the class, you'll see:
-
-```php
 /**
  * BlogPost
  *
  * @ORM\Table(name="blog_post")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\BlogPostRepository")
-```
-
-under `* @ORM\Entity()` add a new line and place this in there:
-
-```php
+ * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
  * @ORM\HasLifecycleCallbacks
+ */
+class BlogPost
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=2000)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="text")
+     */
+    private $body;
+
+    /**
+     * @var Author
+     *
+     * @ORM\ManyToOne(targetEntity="Author")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetimetz")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return BlogPost
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return BlogPost
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return BlogPost
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set body
+     *
+     * @param string $body
+     *
+     * @return BlogPost
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set author
+     *
+     * @param Author $author
+     *
+     * @return BlogPost
+     */
+    public function setAuthor(Author $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return BlogPost
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return BlogPost
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        if (!$this->getCreatedAt()) {
+            $this->setCreatedAt(new \DateTime());
+        }
+
+        if (!$this->getUpdatedAt()) {
+            $this->setUpdatedAt(new \DateTime());
+        }
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+}
 ```
 
-Our entities are all set up! But.. we don't have the database tables yet.
+You may have noticed a `private $author;` property that links to the previous Entity we created. All this does is make sure the entity knows that `Author` has a [`ManyToOne` relationship](https://www.ibm.com/support/knowledgecenter/en/SSWU4L/Data/imc_Data/What_is_a_many-to-one_relationship.html) with `BlogPost`.
 
-### Install Doctrine-Migrations
+Although you have created these entities, your database still has no tables in there. Based off these entities, Doctrine can create the tables we've specified. In order to do this, all you have to do is run:
 
-Run: `composer require doctrine/doctrine-migrations-bundle "^1.0"`
-
-In `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
-
-```php
-new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+```bash
+php bin/console doctrine:schema:update --force
 ```
-
-At the bottom of `app/config/config.yml` add:
-
-```yml
-doctrine_migrations:
-    dir_name: "%kernel.root_dir%/DoctrineMigrations"
-    namespace: Application\Migrations
-    table_name: migration_versions
-    name: Application Migrations
-    organize_migrations: false # Version >=1.2 Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
-```
-
-Run a migrations diff `php bin/console doctrine:migrations:diff`
-
-This will generate a file in `app/DoctrineMigrations/` starting with `Version` then the date and time it was created. So for this instance, there'll only be the one file. This file contains the migration queries for creating the new MySQL tables.
-
-Run the migration, which will run all the SQL queries found in the generated file with: `php bin/console doctrine:migrations:migrate`
 
 ### Install Doctrine-Fixtures
 
-We want to just populate some data into your newly created tables as examples during the creation of the blog. So install [doctrine-fixtures](https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html).
+We want to just populate some data into the newly created tables as examples during the creation of the blog. So install [doctrine-fixtures](https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html).
 
 ```bash
 composer require --dev doctrine/doctrine-fixtures-bundle
 ```
 
-In your `app/AppKernel.php` you want to add the bundle but specifically only for development and testing environments. So add this line `$bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();` as shown below.
-
-```php
-public function registerBundles()
-{
-    // ...
-    if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
-        // ...
-        $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-    }
-
-    return $bundles;
-}
-```
-
 ### Create Author and BlogPost Fixtures
 
-Create a new file (and the directories the file is stored in) under `src/AppBundle/DataFixtures/ORM/Fixtures.php` and insert the following into the file:
+Create a new file (and the directories the file is stored in) under `src/DataFixtures/ORM/Fixtures.php` and insert the following into the file:
 
 ```php
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace App\DataFixtures\ORM;
 
-use AppBundle\Entity\Author;
-use AppBundle\Entity\BlogPost;
+use App\Entity\Author;
+use App\Entity\BlogPost;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -388,44 +830,14 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 ### Installing HWIOAuth Bundle
 
-To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third party libraries. However, this can be easily done with this command: `composer require php-http/httplug-bundle php-http/curl-client guzzlehttp/psr7`
+To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2.
 
-Once Composer has finished, we need to enable it in our `app/AppKernel.php`. In the `$bundles` array, add a new row placing the following in there:
+First, we will set up all the configurations needed for this bundle.
 
-```php
-new Http\HttplugBundle\HttplugBundle(),
-```
-
-Now, open your `composer.json` file and add `HWIOAuthBundle` (as well as adding the `minimum-stability` and `prefer-stable` options):
-
-```
-"minimum-stability": "dev",
-"prefer-stable": true,
-"require": {
-    ...
-    "hwi/oauth-bundle": ">=0.6",
-},
-```
-
-__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the PHP requirement in config in `composer.json` so find and remove:
-
-```
-"platform": {
-    "php": "5.5.9"
-},
-```
-
-Now run `composer update`.
-
-In `app/AppKernel.php` under the method `registerBundles` in the `$bundles` array, add a new row and place the following in there:
-
-`new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),`
-
-We also need to add the routes to your routing file: `app/config/routing.yml`:
+So to begin we need to add the routes to your routing file: `config/routes.yaml`:
 
 ```yml
 # ...
-
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /connect
@@ -441,14 +853,12 @@ auth0_logout:
     path: /auth0/logout
 ```
 
-### Including DotEnv & Configs
-
-In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. So create a new file `src/AppBundle/Auth0ResourceOwner.php`:
+In order to get the `HWIOAuthBundle` to connect to Auth0, we need to create an Auth0 resource owner. Create a new file `src/Auth0ResourceOwner.php`:
 
 ```php
 <?php
 
-namespace AppBundle;
+namespace App;
 
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -517,7 +927,7 @@ We're going to need API keys for Auth0, so <a href="https://auth0.com/signup" da
 - Configure callback URL:
   * In the new Auth0 `Client`, go to the settings tab.
   * Find the text box labeled `Allowed Callback URLs`.
-  * Paste the following in: `http://localhost:8000/auth0/callback`.
+  * Paste the following in: `http://127.0.0.1:8000/auth0/callback`.
 - Configure Auth0 Client to require usernames:
   * In the navigation bar find and click `Connections`
   * Then click `Database`
@@ -533,7 +943,7 @@ AUTH0_CLIENT_SECRET=(Client Secret on Auth0)
 AUTH0_DOMAIN=(Domain on Auth0)
 ```
 
-To use all of this, we need to add details to the `app/config/config.yml` file. At the bottom paste the following:
+To use all of this, we need to create a new file in `config/packages` called `hwi_oauth.yaml` then populate this file with:
 
 ```
 hwi_oauth:
@@ -541,29 +951,22 @@ hwi_oauth:
     resource_owners:
         auth0:
             type:                oauth2
-            class:               'AppBundle\Auth0ResourceOwner'
+            class:               'App\Auth0ResourceOwner'
             client_id:           "%env(AUTH0_CLIENT_ID)%"
             client_secret:       "%env(AUTH0_CLIENT_SECRET)%"
             base_url:            "https://%env(AUTH0_DOMAIN)%"
             scope: "openid profile"
 ```
 
-Finally, replace the contents of your `app/config/security.yml` file with:
+Finally, replace the contents of your `config/packages/security.yaml` file with:
 
 ```
 security:
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
         hwi:
             id: hwi_oauth.user.provider
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
         secured_area:
             anonymous: ~
             oauth:
@@ -580,38 +983,38 @@ security:
                 target: /
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
-
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_OAUTH_USER }
+        - { path: ^/secured, roles: ROLE_OAUTH_USER }
 ```
 
 The config above is setting up URLs/sections in your blog that require the user to be authenticated.
 
+In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third-party libraries. However, this can be easily done with this command:
+
+```bash
+composer require hwi/oauth-bundle php-http/guzzle6-adapter php-http/httplug-bundle
+```
+
+__NOTE__: You may have an issue if your version of PHP is too high. If you encounter an error similar to `overridden by "config.platform.php" version (5.5.9) does not satisfy that requirement`, remove the PHP requirement in config in `composer.json` so find and remove:
+
+```
+"platform": {
+    "php": "5.5.9"
+},
+```
+
+Now run `composer update`.
+
 ### Create the Author Page
 
-Let's create our admin blog controller by running the following command: `php bin/console generate:controller`.
-
-![Creating a controller on Symfony](https://cdn.auth0.com/blog/symfony-blog/create-admin-controller.png)
-
-If you follow the instructions as shown in the image above, you'll find that you have a new Controller class in `src/AppBundle/Controllers/` called `AdminController`. You'll also have a new template in `src/AppBundle/Resources/views/Admin/`.
-
-__NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/src/AppBundle/Controller/AdminController.php)
-
-The first thing we will want to do is create a new form. This is a class that allows us to validate the users' input, such as creating an author. So, in the `src/AppBundle` path, create a new directory called `Form`.
+The first thing we will want to do is create a new form. This is a class that allows us to validate the user's input, such as creating an author. So, in the `src/` path, create a new directory called `Form`.
 Within that directory create a new file named `AuthorFormType.php`. Add the code below to your new file:
 
 ```php
 <?php
 
-namespace AppBundle\Form;
+namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -711,7 +1114,7 @@ class AuthorFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Author'
+            'data_class' => 'App\Entity\Author'
         ]);
     }
 
@@ -725,7 +1128,13 @@ class AuthorFormType extends AbstractType
 }
 ```
 
-Back in your new AdminController (`src/AppBundle/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services:
+Create new `AdminController` by running the following command `php bin/console make:controller`
+
+When it asks for `The class name of the controller to create`, type in: `AdminController`.
+
+Once the command has finished running, you'll find a new file in `src/Controller` called `AdminController.php`.
+
+Open your new AdminController (`src/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services in the construct:
 
 ```php
 /** @var EntityManagerInterface */
@@ -743,8 +1152,8 @@ private $blogPostRepository;
 public function __construct(EntityManagerInterface $entityManager)
 {
     $this->entityManager = $entityManager;
-    $this->blogPostRepository = $entityManager->getRepository('AppBundle:BlogPost');
-    $this->authorRepository = $entityManager->getRepository('AppBundle:Author');
+    $this->blogPostRepository = $entityManager->getRepository('App:BlogPost');
+    $this->authorRepository = $entityManager->getRepository('App:Author');
 }
 ```
 
@@ -755,102 +1164,83 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 ```
 
-Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
-
-Great, in our entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data.
-
-In the `AdminController` class, you will find your new `createAuthorAction` method. Change the annotation so that the method has a service name. So above the controller, where you see `@Route`, add the service name. So it will look like:
+Add the following four below them:
 
 ```php
-* @Route("/admin/author/create", name="author_create")
-```
-
-At the top of the controller, we need to include this class so where it shows:
-
-```php
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Doctrine\ORM\EntityManagerInterface;
-```
-
-Paste the following below those:
-
-```php
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Author;
+use App\Form\AuthorFormType;
 ```
 
-The `Request` class allows you to gather data, for example, if there are any parameters in a POST or GET request.
+Great, in the entire controller we can call `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data.
 
-Then change `createAuthorAction()` to `createAuthorAction(Request $request)`.
+The three extra `use` classes on that list are:
 
-We want to make sure the user isn't trying to create themselves as duplicate authors for the same user. So at the top of the `createAuthorAction` let's run a query to check whether one already exists.
-Paste the code below into the action. This retrieves the authenticated user with Auth0, checks their username with the `authors` table to see if one exists, if it does then redirect the user to the index page.
+* the `Request` class, this allows you to gather data, for example, if there are any parameters in a POST or GET request,
+* the `Author` entity that maps objects to the database,
+* the `AuthorFormType` that will specify the input values users can provide when creating a new Author;
+
+In the same class, you should find a method called `index()` similar to the example below:
 
 ```php
-// Check whether user already has an author.
-if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName())) {
-   // Redirect to dashboard.
-   $this->addFlash('error', 'Unable to create author, author already exists!');
-
-   return $this->redirectToRoute('homepage');
+/**
+ * @Route("/admin", name="admin")
+ */
+public function index()
+{
+    return $this->render('admin/index.html.twig', [
+        'controller_name' => 'AdminController',
+    ]);
 }
 ```
 
-Below that you can now create an empty `Author` entity. Create a new `AuthorFormType` object and pass the `Author` entity into the form.
+Replace the above method with the one shown below:
 
 ```php
-$author = new Author();
-$author->setUsername($this->getUser()->getUserName());
+/**
+ * @Route("/admin/author/create", name="author_create")
+ */
+public function createAuthorAction(Request $request)
+{
+    if ($this->authorRepository->findOneByUsername($this->getUser()->getUserName())) {
+        // Redirect to dashboard.
+        $this->addFlash('error', 'Unable to create author, author already exists!');
 
-$form = $this->createForm(AuthorFormType::class, $author);
-$form->handleRequest($request);
+        return $this->redirectToRoute('homepage');
+    }
 
-if ($form->isValid()) {
-    $this->entityManager->persist($author);
-    $this->entityManager->flush($author);
+    $author = new Author();
+    $author->setUsername($this->getUser()->getUserName());
 
-    $request->getSession()->set('user_is_author', true);
-    $this->addFlash('success', 'Congratulations! You are now an author.');
+    $form = $this->createForm(AuthorFormType::class, $author);
+    $form->handleRequest($request);
 
-    return $this->redirectToRoute('homepage');
+    if ($form->isSubmitted() && $form->isValid()) {
+        $this->entityManager->persist($author);
+        $this->entityManager->flush($author);
+
+        $request->getSession()->set('user_is_author', true);
+        $this->addFlash('success', 'Congratulations! You are now an author.');
+
+        return $this->redirectToRoute('homepage');
+    }
+
+    return $this->render('admin/create_author.html.twig', [
+        'form' => $form->createView()
+    ]);
 }
 ```
 
-We are using two new classes here. The first one is the entity `Author` and the second one `AuthorFormType` class. Include these namespaces at the top of our file:
-
-```php
-namespace AppBundle\Controller;
-//...
-//...
-use AppBundle\Entity\Author;
-use AppBundle\Form\AuthorFormType;
-```
-
-The above code also checks whether the form has been submitted and whether it passes all validations, if it does it will then redirect the user to the index page.
+The above code checks whether an author already exists for this user, whether the form has been submitted and whether it passes all validations, if it does it will then redirect the user to the index page.
 
 __NOTE__: You may have noticed that it sets a session to `true` for `user_is_author` this will make sense when we reach the part that discusses and implements event listeners (next).
 
-Finally, we want to pass the form into the template that the user will see. So, at the bottom of the method, let's change:
-
-```php
-return $this->render('AppBundle:Admin:create_author.html.twig', array(
-    // ...
-));
-```
-
-to:
-
-```php
-return $this->render('AppBundle:Admin:create_author.html.twig', array(
-    'form' => $form->createView()
-));
-```
-
-In our template for this action, we just want the user to have all of the form fields displayed as their correct form elements. So, in the `create_author.html.twig` file, copy and paste the following:
+Finally, we want to pass the form into a template that the user will see. So, lets create a new template in `templates/admin/` called `create_author.html.twig`. In this template, paste the following:
 
 {% highlight html %}
 {% raw %}
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
 
@@ -913,22 +1303,21 @@ In our template for this action, we just want the user to have all of the form f
 {% endraw %}
 {% endhighlight %}
 
-You can restart now your Symfony application to see if everything is there no errors. Note that there is nothing to see yet, we just want to guarantee that the configuration is correct.
+You can clear the cache in your Symfony application to see if everything is ok and there are no errors. Note that there is nothing to see yet, we just want to guarantee that the configuration is correct.
 
 ```bash
-php bin/console server:stop
-php bin/console server:start
+php bin/console cache:clear
 ```
 
 ### Including Bootstrap and Styles
 
-As it is, this template will look very ugly in your browser. So let's create a new CSS file. `web/css/style.css`
+As it is, this template will look very ugly in your browser. So let's create a new CSS file. `public/css/style.css`
 
-Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog/blob/master/part-1/web/css/style.css) into your new `style.css` file.
+Copy the contents of the file [found here](https://github.com/GregHolmes/symfony-blog-part-1/blob/master/public/css/style.css) into your new `style.css` file.
 
 Now, it's time to include this file into the base template alongside with Bootstrap's CSS and Javascript files.
 
-Open `app/Resources/views/base.html.twig` and replace its contents with:
+Open `templates/base.html.twig` and replace its contents with:
 
 {% highlight html %}
 {% raw %}
@@ -965,46 +1354,46 @@ This just includes your custom CSS file as well as Bootstrap's CSS and Javascrip
 
 Although a user is authenticated through Auth0, we don't really want them to access the rest of the author section until they've filled some basic "About me" details. So, what we want is to ensure that any `/author/` route they try to access, if they don't have an "Author" entry, redirects them to the form to write about themselves.
 
-An event listener is, as the name states, a listener to specific programmed events which then run predefined code once the conditions are met.
+An event listener is, as the name states, a listener to specific programmed events which then run the predefined code once the conditions are met.
 
-Let's create the `CheckIsAuthorListener.php` file in the `src/AppBundle/EventListener/Author` directory. In this file, let's place the following code:
+Let's create the `CheckIsAuthorListener.php` file in the `src/EventListener/Author` directory. In this file, let's place the following code:
 
 ```php
 <?php
 
-namespace AppBundle\EventListener\Author;
+namespace App\EventListener\Author;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CheckIsAuthorListener
 {
-    /** @var Router */
+    /** @var RouterInterface */
     protected $router;
 
-    /** @var Session */
+    /** @var SessionInterface */
     protected $session;
 
-    /** @var TokenStorage */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     /** @var EntityManagerInterface */
     private $entityManager;
 
     /**
-     * @param Router $router
-     * @param Session $session
-     * @param TokenStorage $tokenStorage
+     * @param RouterInterface $router
+     * @param SessionInterface $session
+     * @param TokenStorageInterface $tokenStorage
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        Router $router,
-        Session $session,
-        TokenStorage $tokenStorage,
+        RouterInterface $router,
+        SessionInterface $session,
+        TokenStorageInterface $tokenStorage,
         EntityManagerInterface $entityManager
     ) {
         $this->router = $router;
@@ -1045,8 +1434,8 @@ class CheckIsAuthorListener
 
         // Check if authenticated user has an author associated with them.
         if ($author = $this->entityManager
-                ->getRepository('AppBundle:Author')
-                ->findOneByUsername($user->getUsername())
+            ->getRepository('App:Author')
+            ->findOneByUsername($user->getUsername())
         ) {
             $this->session->set('user_is_author', true);
         }
@@ -1072,33 +1461,35 @@ class CheckIsAuthorListener
 }
 ```
 
-We now need to add this class as a service so that Symfony runs it on each controller request. In `app/config/services.yml` add the following as the last item of `services`:
+We now need to add this class as a service so that Symfony runs it on each controller request. In `config/services.yaml` add the following as the last item of `services`:
 
 ```yml
-AppBundle\EventListener\Author\CheckIsAuthorListener:
+App\EventListener\Author\CheckIsAuthorListener:
     tags:
         - { name: kernel.event_listener, event: kernel.controller }
 ```
 
-It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to produce a link on the Homepage page.
+It's great setting up HWIOAuth Bundle and configuring Auth0 to allow users to log in, but we don't yet have anywhere in the Symfony installation to actually log in. So, for the time being, we're going to change the homepage action in the Blog Controller.
 
-Open the file `app/Resources/views/default/index.html.twig` and replace its entire content with:
+Open your `./templates/blog/index.html.twig` template defined in your BlogController indexAction and replace the contents with the following in:
 
 {% highlight html %}
 {% raw %}
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            {% if app.user %}
-                <li><a href="{{ path("author_create") }}">Admin</a></li>
-                <li><a href="{{ logout_url("secured_area") }}">Logout</a></li>
-            {% else %}
-                <li class="active"><a href="/connect/auth0">Login</a></li>
-            {% endif %}
+    <nav class="navbar navbar-default navbar-static-top">
+        <div id="navbar" class="collapse navbar-collapse pull-right">
+            <ul class="nav navbar-nav">
+                {% if app.user %}
+                    <li><a href="{{ path("author_create") }}">Admin</a></li>
+                    <li><a href="{{ logout_url("secured_area") }}">Logout</a></li>
+                {% else %}
+                    <li class="active"><a href="/connect/auth0">Login</a></li>
+                {% endif %}
+            </ul>
         </div>
-    </div>
+    </nav>
 {% endblock %}
 {% endraw %}
 {% endhighlight %}

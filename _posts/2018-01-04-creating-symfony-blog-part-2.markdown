@@ -4,6 +4,7 @@ title: "Symfony Tutorial: Building a Blog (Part 2)"
 description: "Let's create a secure blog engine with Symfony."
 longdescription: "Creating applications with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. Let's use Symfony to create a blog engine."
 date: 2018-01-04 08:30
+updated: 2018-02-27 13:15
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
@@ -22,6 +23,7 @@ tags:
 - web-app
 related:
 - 2017-12-28-symfony-tutorial-building-a-blog-part-1
+- 2017-07-26-creating-your-first-symfony-app-and-adding-authentication
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
@@ -61,14 +63,15 @@ git clone https://github.com/auth0-blog/symfony-blog-part-1
 cd symfony-blog-part-1
 ```
 
-After that, you will have to create a file called `.env` in the project root and paste the following into it:
+Install our dependencies with the following command:
+
+```bash
+composer install
+```
+
+In the root directory is a file called `.env`. Update the following values with your Auth0 credentials:
 
 ```yml
-DATABASE_HOST={DATABASE_HOST}
-DATABASE_PORT={DATABASE_PORT}
-DATABASE_NAME={DATABASE_NAME}
-DATABASE_USER={DATABASE_USER}
-DATABASE_PASSWORD={DATABASE_PASSWORD}
 AUTH0_CLIENT_ID={AUTH0_CLIENT_ID}
 AUTH0_CLIENT_SECRET={AUTH0_CLIENT_SECRET}
 AUTH0_DOMAIN={AUTH0_DOMAIN}
@@ -88,29 +91,35 @@ docker run --name symfony-blog-mysql \
     -d mysql:5.7
 ```
 
-The last thing you will need to do is to use composer to install the dependencies:
+Now that you have a database with some credentials, in your `.env` file, find:
 
-```bash
-composer install
+```yaml
+###> doctrine/doctrine-bundle ###
+# Format described at http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
+# For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db"
+# Configure your db driver and server_version in config/packages/doctrine.yaml
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+###< doctrine/doctrine-bundle ###
 ```
 
-This will trigger a series of questions that you can answer as follows:
+And change the following line: `DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name` to be correct. If you were to use the example details in the creation of the docker database, it would look like:
 
-```bash
-database_host (127.0.0.1): 127.0.0.1
-database_port (null): 3306
-database_name (symfony): symfony-blog
-database_user (root): symfony-blog-user
-database_password (null): mysecretpassword
+```yaml
+DATABASE_URL=mysql://symfony-blog-user:mysecretpassword@127.0.0.1:3306/symfony-blog
 ```
 
-For the questions related to `mailer_transport` and `secret`, you can simply press `Enter` to accept the default values.
-
-Last thing, if you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
+Lastly, if you haven't followed the first part of this series, you might need to issue the following commands to create the database tables and to populate them:
 
 ```bash
-php bin/console doctrine:migrations:migrate
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:update --force
 php bin/console doctrine:fixtures:load
+```
+
+Running the following command, and then opening the URL in your browser, you should see how we left off in the first article.
+
+```bash
+php bin/console server:run
 ```
 
 ### Installing Bootstrap
@@ -122,21 +131,18 @@ __NOTE__ If you do not have [Yarn](https://yarnpkg.com), a Javascript package ma
 You can install [Symfony's Webpack Encore](https://github.com/symfony/webpack-encore) by running the following command:
 
 ```bash
-yarn add @symfony/webpack-encore --dev
+composer require webpack-encore
 ```
 
-In the root directory of the project there will be 2 new files (`package.json`, `yarn.lock`) and a new directory (`node_modules`).
+In the root directory of the project, there will be 2 new files (`package.json`, `webpack.config.js`) and a new directory (`assets`).
 
-Create `webpack.config.js` in the root of the project, this is just the file that contains all of the web pack configurations.
-
-Paste the following code into this file:
+Open `webpack.config.js`, this is just the file that contains all of the web pack configurations, and replace the contents with:
 
 ```JavaScript
-// webpack.config.js
 var Encore = require('@symfony/webpack-encore');
 
 Encore
-    .setOutputPath('web/build/')
+    .setOutputPath('public/build/')
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
     .addEntry('app', './assets/js/main.js')
@@ -148,7 +154,7 @@ Encore
 module.exports = Encore.getWebpackConfig();
 ```
 
-The configuration above uses two assets: `main.js` and `global.scss`. Let's create a new directory called `assets` in the project root, and there we will need to create two subdirectories: `js` and `css`. Inside these subdirectories, let's create the `main.js` and `global.scss` files. We will populate them further in the tutorial. After that, we will have the following substructure:
+The configuration above uses two assets: `main.js` and `global.scss`. So in the directory `assets` in the project root, let's create two subdirectories: `js` and `css`. Inside these subdirectories, let's create the `main.js` and `global.scss` files. We will populate them further in the tutorial. After that, we will have the following substructure:
 
 * `./assets/js/main.js`
 * `./assets/css/global.scss`
@@ -161,7 +167,7 @@ yarn add sass-loader node-sass --dev
 
 Now, we can compile our Javascript and CSS into assets to be used by Symfony by running this command, `yarn run encore dev --watch`.
 
-Open the base twig template (which can be found at `./app/Resources/views/base.html.twig`) and replace the contents with:
+Open the base twig template (which can be found at `./templates/base.html.twig`) and replace the contents with:
 
 {% highlight html %}
 {% raw %}
@@ -196,7 +202,7 @@ Once installed, at the top of the empty `./assets/js/main.js` file, insert `var 
 
 We want an app CSS asset file. Let's create the following file `assets/css/main.scss`. Then, in `assets/js/main.js` at the bottom paste the following: `require('../css/main.scss');`.
 
-Let's move the contents of our CSS file we created in part 1 (`web/css/style.css`) into the new file we've created above (`assets/css/global.scss`).
+Let's move the contents of the CSS file we created in part 1 (`public/css/style.css`) into the new file we've created above (`assets/css/main.scss`).
 
 Finally, in our `base.html.twig`, in the Stylesheets block, paste the following: `{% raw %}<link rel="stylesheet" href="{{ asset('build/app.css') }}">{% endraw %}`.
 
@@ -204,14 +210,8 @@ Now we need to install [`bootstrap-sass`](https://github.com/twbs/bootstrap-sass
 
 ```css
 $brand-primary: darken(#428bca, 20%);
-
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-```
-
-We're going to want to override the path to icons by loading Bootstrap in the `global.scss` file:
-
-```css
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
 ```
 
 Finally in your `main.js` file you need to require bootstrap-sass under your `var $ = require('jquery');` line:
@@ -226,40 +226,7 @@ You've now set up Bootstrap to be used in your Symfony Blog.
 
 ### Showing Blog Posts
 
-Let's create our blog controller by running the following command:
-
-```bash
-php bin/console generate:controller
-```
-
-![Creating Blog Controller with Symfony](https://cdn.auth0.com/blog/symfony-part-2/creating-blog-controller.png)
-
-If you follow the instructions as shown in the image above, you'll find that you have a new Controller class in `./src/AppBundle/Controllers/` called `BlogController`. You'll also have three new templates in `./src/AppBundle/Resources/views/Blog/`.
-
-__NOTE__: If you cannot see the image, the full controller can be found [here](https://github.com/GregHolmes/symfony-blog/blob/master/part-2/src/AppBundle/Controller/BlogController.php)
-
-Delete the DefaultController (`./src/AppBundle/Controllers/DefaultController.php`) as it's not needed.
-
-Back in our `AdminController`, we need to add a route on the controller itself. Because there may be conflicts of routes between the two controllers. So above `class AdminController extends Controller` add:
-
-```php
-/**
- * @Route("/admin")
- */
- ```
-
-Open `./src/AppBundle/Controllers/BlogController.php` and find the `entriesAction`. Then, configure the routing for this controller to be the homepage and give the action a service name. So above `public function entriesAction()` replace the annotation with:
-
-```php
-/**
- * @Route("/", name="homepage")
- * @Route("/entries", name="entries")
- */
-```
-
-This allows us to call the action by the service name, but also places the root route as displaying the entries.
-
-We need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the `BlogController` class we want to inject these services.
+In `./src/Controller/BlogController.php`, we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of the `BlogController` class, we want to inject these services.
 
 ```php
 /** @var EntityManagerInterface */
@@ -277,8 +244,8 @@ private $blogPostRepository;
 public function __construct(EntityManagerInterface $entityManager)
 {
     $this->entityManager = $entityManager;
-    $this->blogPostRepository = $entityManager->getRepository('AppBundle:BlogPost');
-    $this->authorRepository = $entityManager->getRepository('AppBundle:Author');
+    $this->blogPostRepository = $entityManager->getRepository('App:BlogPost');
+    $this->authorRepository = $entityManager->getRepository('App:Author');
 }
 ```
 
@@ -293,24 +260,59 @@ Add: `use Doctrine\ORM\EntityManagerInterface;` above the two.
 
 Great, in our entire controller we can call the `blogPostRepository`, `authorRepository` or `entityManager` when needed. The first two are used for retrieving data from the database, whereas the third will be used for inserting, updating, or deleting data (it can also be used for retrieving, but by setting up the construct this way, we will be reducing duplicate code).
 
-Let us populate the `entriesAction` function now:
+Then replace the action below:
 
 ```php
-return $this->render('AppBundle:Blog:entries.html.twig', [
-    'blogPosts' => $this->blogPostRepository->findAll()
-]);
+/**
+ * @Route("/", name="homepage")
+ */
+public function indexAction()
+{
+    return $this->render('blog/index.html.twig', [
+        'controller_name' => 'BlogController',
+    ]);
+}
 ```
+
+with:
+
+```php
+/**
+ * @Route("/", name="homepage")
+ * @Route("/entries", name="entries")
+ */
+public function entriesAction()
+{
+    return $this->render('blog/entries.html.twig', [
+        'blogPosts' => $this->blogPostRepository->findAll()
+    ]);
+}
+```
+
+You now need to create a new template for this action, in `./templates/blog` create a new file called `entries.html.twig` and paste the following in:
+
+{% highlight html %}
+{% raw %}
+{% extends "base.html.twig" %}
+
+{% block title %}App:blog:entries{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+{% endraw %}
+{% endhighlight %}
 
 ### Creating Blog Posts
 
 Now that we have made a member restricted area of the site, let's allow the authenticated users to create a new blog post.
 
-Let's create a new file called `./src/AppBundle/Form/EntryFormType.php` and paste the following into there:
+Create a new file called `./src/Form/EntryFormType.php` and paste in the following:
 
 ```php
 <?php
 
-namespace AppBundle\Form;
+namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -376,7 +378,7 @@ class EntryFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\BlogPost'
+            'data_class' => 'App\Entity\BlogPost'
         ]);
     }
 
@@ -392,7 +394,7 @@ class EntryFormType extends AbstractType
 
 As you can see, the data class to be used is the entity `BlogPost`, and if you compare the fields in `buildForm` you'll notice the first argument of each, the name, matches the names of the properties in BlogPost entity.
 
-A new controller method is needed, so add this function into your `AdminController` class:
+A new controller method is needed, so add this function to your `AdminController` class:
 
 ```php
 /**
@@ -413,7 +415,7 @@ public function createEntryAction(Request $request)
     $form->handleRequest($request);
 
     // Check is valid
-    if ($form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
         $this->entityManager->persist($blogPost);
         $this->entityManager->flush($blogPost);
 
@@ -422,24 +424,24 @@ public function createEntryAction(Request $request)
         return $this->redirectToRoute('admin_entries');
     }
 
-    return $this->render('AppBundle:Admin:entry_form.html.twig', [
+    return $this->render('admin/entry_form.html.twig', [
         'form' => $form->createView()
     ]);
 }
 ```
 
-At the top in the namespaces, we need to add the two new classes we're using: `BlogPost` and `EntryFormType` so paste:
+At the top, in the namespaces, we need to add the two new classes we're using: `BlogPost` and `EntryFormType` so paste:
 
 ```php
-use AppBundle\Entity\BlogPost;
-use AppBundle\Form\EntryFormType;
+use App\Entity\BlogPost;
+use App\Form\EntryFormType;
 ```
 
-We now need the template, so create a new file called `./src/AppBundle/Resources/views/Admin/entry_form.html.twig` and insert the following code into it:
+We now need the template, so create a new file called `./templates/admin/entry_form.html.twig` and insert the following code into it:
 
 {% highlight html %}
 {% raw %}
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
 
@@ -489,7 +491,31 @@ Before we try to create a new entry, let's build the page that displays all of t
 
 ### Displaying Blog Posts Created by Authenticated Author
 
-In your `AdminController`, let's add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the template `entries.html.twig` to be displayed.
+In your `AdminController`, we need to add a route on the controller itself. Because there will be conflicts of routes between the two controllers. So above `class AdminController extends Controller` add:
+
+```php
+/**
+ * @Route("/admin")
+ */
+ ```
+
+Also, find:
+
+```php
+/**
+ * @Route("/admin/author/create", name="author_create")
+ */
+```
+
+and change the route to:
+
+```php
+/**
+ * @Route("/author/create", name="author_create")
+ */
+```
+
+Now let's add a new method called `entriesAction()` and input the code below. All this will do is retrieve all of the blog posts by the authenticated user and pass those into the soon to be created template `entries.html.twig` to be displayed.
 
 ```php
 /**
@@ -508,17 +534,17 @@ public function entriesAction()
         $blogPosts = $this->blogPostRepository->findByAuthor($author);
     }
 
-    return $this->render('AppBundle:Admin:entries.html.twig', [
+    return $this->render('admin/entries.html.twig', [
         'blogPosts' => $blogPosts
     ]);
 }
 ```
 
-Time to create the template `./src/AppBundle/Resources/views/Admin/entries.html.twig` to store the following code in:
+Time to create the template `./templates/admin/entries.html.twig` to store the following code in:
 
 {% highlight html %}
 {% raw %}
-{% extends '::base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
 
@@ -605,9 +631,9 @@ public function deleteEntryAction($entryId)
 
 This will check if the entryId passed in exists, check to ensure the authenticated user is the author of the article and then delete it.
 
-There is no template needed for this, however, we still need somewhere in the templates to show the action. So in `./src/AppBundle/Resources/views/Admin/entries.html.twig` let's make some additions.
+There is no template needed for this, however, we still need somewhere in the templates to show the action. So in `./templates/admin/entries.html.twig` let's make some additions.
 
-In the table headers, let's add a new row. This will this element change from:
+In the table headers, let's add a new column. This will this element change from:
 
 ```html
 <thead>
@@ -653,7 +679,7 @@ to:
 
 We don't want to be loading all blog posts into the page, so let's add some pagination.
 
-In the `./src/AppBundle/Controllers/BlogController.php` find `entriesAction()` and within the empty brackets type in: `Request $request`
+In the `./src/Controller/BlogController.php` find `entriesAction()` and within the empty brackets type in: `Request $request`
 
 At the top of the controller we need to include this class so where it shows:
 
@@ -688,7 +714,7 @@ if ($request->get('page')) {
 }
 ```
 
-This data is useless to us unless `BlogPostRepository` knows what to do with it. When we created the `BlogPost` entity, it also created a repository for us. This repository contains our methods for custom queries or more in depth queries. So open: `./src/AppBundle/Repository/BlogPostRepository.php`
+This data is useless to us unless `BlogPostRepository` knows what to do with it. When we created the `BlogPost` entity, it also created a repository for us. This repository contains our methods for custom queries or more in-depth queries. So open: `./src/Repository/BlogPostRepository.php`
 
 The first method we're going to need is to get all of the posts based on the page number and the limit previously set in the `BlogController`. The method below does exactly that. It retrieves the paginated number of blog posts.
 
@@ -699,13 +725,14 @@ The first method we're going to need is to get all of the posts based on the pag
  *
  * @return array
  */
-public function getAllPosts($page = 1, $limit)
+public function getAllPosts($page = 1, $limit = 5)
 {
     $entityManager = $this->getEntityManager();
     $queryBuilder = $entityManager->createQueryBuilder();
     $queryBuilder
         ->select('bp')
-        ->from('AppBundle:BlogPost', 'bp')
+        ->from('App:BlogPost', 'bp')
+        ->orderBy('bp.id', 'DESC')
         ->setFirstResult($limit * ($page - 1))
         ->setMaxResults($limit);
 
@@ -725,7 +752,7 @@ public function getPostCount()
     $queryBuilder = $entityManager->createQueryBuilder();
     $queryBuilder
         ->select('count(bp)')
-        ->from('AppBundle:BlogPost', 'bp');
+        ->from('App:BlogPost', 'bp');
 
     return $queryBuilder->getQuery()->getSingleScalarResult();
 }
@@ -736,7 +763,7 @@ Back in the `entriesAction` in your `BlogController` we're going to need to make
 Your return previously looked like this:
 
 ```php
-return $this->render('AppBundle:Blog:entries.html.twig', [
+return $this->render('blog/entries.html.twig', [
     'blogPosts' => $this->blogPostRepository->findAll()
 ]);
 ```
@@ -744,88 +771,80 @@ return $this->render('AppBundle:Blog:entries.html.twig', [
 Let's change it to call those methods and pass the data as well as the page number and post limit into the template:
 
 ```php
-return $this->render('AppBundle:Blog:entries.html.twig', [
+return $this->render('blog/entries.html.twig', [
     'blogPosts' => $this->blogPostRepository->getAllPosts($page, self::POST_LIMIT),
     'totalBlogPosts' => $this->blogPostRepository->getPostCount(),
     'page' => $page,
     'entryLimit' => self::POST_LIMIT
 ]);
 ```
-Time to show your blog posts in a template file. Open `./src/AppBundle/Resources/views/Blog/entries.html.twig` then change the title to whatever you wish (I changed it to "Blog Posts"). Inside `{% raw %}{% block body %}{% endraw %}`, paste the following code:
+Time to show your blog posts in a template file. Open `./templates/blog/entries.html.twig` then change the title to whatever you wish (I changed it to "Blog Posts"). Inside `{% raw %}{% block body %}{% endraw %}`, paste the following code:
 
 {% highlight html %}
 {% raw %}
-    <div class="container">
-        <div class="blog-header">
-            <h1 class="blog-title">Blog tutorial</h1>
-            <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by <a href="http://auth0.com">Auth0</a>.</p>
-        </div>
+<div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title">Blog tutorial</h1>
+        <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by <a href="http://auth0.com">Auth0</a>.</p>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-8 blog-main">
-                {% for blogPost in blogPosts %}
-                    {% set paragraphs = blogPost.description|split('</p>') %}
-                    {% set firstParagraph = paragraphs|first ~ '</p>' %}
-                    <div class="blog-post">
-                        <h2 class="blog-post-title">
-                            {{ blogPost.title }}
-                        </h2>
-                        <p class="blog-post-meta">
-                            {{ blogPost.getUpdatedAt|date('F j, Y') }} by
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            {% for blogPost in blogPosts %}
+                {% set paragraphs = blogPost.description|split('</p>') %}
+                {% set firstParagraph = paragraphs|first ~ '</p>' %}
+                <div class="blog-post">
+                    <h2 class="blog-post-title">
+                        {{ blogPost.title }}
+                    </h2>
+                    <p class="blog-post-meta">
+                        {{ blogPost.getUpdatedAt|date('F j, Y') }} by
 
-                            {% if blogPost.author %}
-                                {{ blogPost.author.name }}
-                            {% else %}
-                                Unknown Author
-                            {% endif %}
-                        </p>
-                        {{ firstParagraph|raw }}<br />
-                    </div>
-                {% else %}
-                    <div class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        You have no blog articles. Please log in and create an article.
-                    </div>
-                {% endfor %}
-            </div>
+                        {% if blogPost.author %}
+                            {{ blogPost.author.name }}
+                        {% else %}
+                            Unknown Author
+                        {% endif %}
+                    </p>
+                    {{ firstParagraph|raw }}<br />
+                </div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    You have no blog articles. Please log in and create an article.
+                </div>
+            {% endfor %}
+
+            {% set canPrevious = page > 1 %}
+            {% set canNext = (page * entryLimit) < totalBlogPosts %}
+            <nav>
+                <ul class="pager">
+                    <li class="previous {% if canPrevious == false %}disabled{% endif %}">
+                        <a href="{% if canPrevious %}{{ path('entries', {'page': page - 1}) }}{% endif %}">
+                            <span aria-hidden="true">&larr;</span> Older
+                        </a>
+                    </li>
+                    <li class="next {% if canNext == false %}disabled{% endif %}">
+                        <a href="{% if canNext %}{{ path('entries', {'page': page + 1}) }}{% endif %}">
+                            Newer <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
+</div>
 {% endraw %}
 {% endhighlight %}
 
-In your `entries.html.twig` template, find `{% raw %}{% endfor %}{% endraw %}`. Below this we want to add the pagination buttons. So let's put the following code there:
+Now reload your browser, you'll see the previously shown blog post, and below that, you'll see disabled "Previous" and "Next" buttons, they're disabled because you're on page 1, and there is only 1 blog post.
 
-{% highlight html %}
-{% raw %}
-{% set canPrevious = page > 1 %}
-{% set canNext = (page * entryLimit) < totalBlogPosts %}
-<nav>
-    <ul class="pager">
-        <li class="previous {% if canPrevious == false %}disabled{% endif %}">
-            <a href="{% if canPrevious %}{{ path('entries', {'page': page - 1}) }}{% endif %}">
-                <span aria-hidden="true">&larr;</span> Older
-            </a>
-        </li>
-        <li class="next {% if canNext == false %}disabled{% endif %}">
-            <a href="{% if canNext %}{{ path('entries', {'page': page + 1}) }}{% endif %}">
-                Newer <span aria-hidden="true">&rarr;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
-{% endraw %}
-{% endhighlight %}
-
-The above code determines whether the user can move to a previous or a next page.
-
-Now reload your browser, you'll see the previously shown blog post, but below that, you'll see disabled "Previous" and "Next" buttons, they're disabled because you're on page 1, and there is only 1 blog post.
-
-> Quick tip, to start and stop your application you can use `php bin/console server:start` and `php bin/console server:stop`.
+> Quick tip, to start your application you can use `php bin/console server:run`
 
 ### Adding Navigation
 
-We need to enable users to find their way through the blog. So time to add some navigation. Create a new file in `app/Resources/views/nav_bar.html.twig` and paste the following in:
+We need to enable users to find their way through the blog. So time to add some navigation. Create a new file in `./templates/nav_bar.html.twig` and paste the following in:
 
 {% highlight html %}
 {% raw %}
@@ -847,7 +866,7 @@ We need to enable users to find their way through the blog. So time to add some 
 {% endraw %}
 {% endhighlight %}
 
-Then include the file into the `app/Resources/views/base.html.twig` just below the `<body>` opening tag:
+Then include the file into the `./templates/base.html.twig` just below the `<body>` opening tag:
 
 {% highlight html %}
 {% raw %}
@@ -857,63 +876,54 @@ Then include the file into the `app/Resources/views/base.html.twig` just below t
 
 ### Showing Specific Blog Post
 
-On the `entryAction` of the `BlogController` class, let's add a service name to the action. Where it shows `* @Route("/entry/{slug}")` let's replace it by `* @Route("/entry/{slug}", name="entry")`.
-
-Let's retrieve the blog post from the database by the given slug at the top of the method:
-
-```php
-$blogPost = $this->blogPostRepository->findOneBySlug($slug);
-```
-
-We need to3 make sure the blog post exists before passing data into and displaying the template. So let's now do a check:
-
-```php
-if (!$blogPost) {
-    $this->addFlash('error', 'Unable to find entry!');
-
-    return $this->redirectToRoute('entries');
-}
-```
-
-This will set a "flash" session with an error message and redirect the user to the entries page to display the error.
-
-Next, in the return's 2nd argument (the array), put in an entry (`'blogPost' => $blogPost`). Your final action will look like:
+In the `BlogController` class, create a new action to display the details of a specific blog post. Paste the following code into your controller:
 
 ```php
 /**
-* @Route("/entry/{slug}", name="entry")
-*/
+ * @Route("/entry/{slug}", name="entry")
+ */
 public function entryAction($slug)
 {
-   $blogPost = $this->blogPostRepository->findOneBySlug($slug);
+    $blogPost = $this->blogPostRepository->findOneBySlug($slug);
 
-   if (!$blogPost) {
-       $this->addFlash('error', 'Unable to find entry!');
+    if (!$blogPost) {
+        $this->addFlash('error', 'Unable to find entry!');
 
-       return $this->redirectToRoute('entries');
-   }
+        return $this->redirectToRoute('entries');
+    }
 
-   return $this->render('AppBundle:Blog:entry.html.twig', array(
-       'blogPost' => $blogPost
-   ));
+    return $this->render('blog/entry.html.twig', array(
+        'blogPost' => $blogPost
+    ));
 }
 ```
 
-Now, we need to output this data in the template. So open `./src/AppBundle/Resources/views/Blog/entry.html.twig` and, within `{% raw %}{% block body %}{% endraw %}`, we need to add some content:
+In this action, you may have noticed that it checks if the blog post exists, if it doesn't it will set a "flash" session with an error message and redirect the user to the entries page to display the error.
+
+Now, we need to output this data in the template. So create `./templates/blog/entry.html.twig` and paste the following content:
 
 {% highlight html %}
 {% raw %}
+{% extends "base.html.twig" %}
+
+{% block title %}App:blog:entry{% endblock %}
+
+{% block body %}
 <div class="container">
  <div class="blog-header">
      <h1 class="blog-title">Blog tutorial</h1>
-     <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, and secured by <a href="http://auth0.com">Auth0</a>.</p>
+     <p class="lead blog-description">A basic description of the blog, built in Symfony, styled in Bootstrap 3, secured by Auth0.</p>
  </div>
 
  <div class="row">
      <div class="col-sm-8 blog-main">
          <div class="blog-post">
              <h2 class="blog-post-title">{{ blogPost.title }}</h2>
-             <p class="blog-post-meta">{{ blogPost.updatedAt|date('F j, Y') }} by {{ blogPost.author.name }}</p>
+             <p class="blog-post-meta">
+                {{ blogPost.updatedAt|date('F j, Y') }} by <a href="{{ path('author', {'name': blogPost.author.username|url_encode }) }}">
+                    {{ blogPost.author.name }}
+                </a>
+            </p>
              <h3>Description:</h3>
              <p>{{ blogPost.description|raw }}</p>
 
@@ -923,12 +933,13 @@ Now, we need to output this data in the template. So open `./src/AppBundle/Resou
      </div>
  </div>
 </div>
+{% endblock %}
 {% endraw %}
 {% endhighlight %}
 
 The above code simply outputs the details of the blog post, its title, when it was updated at, the author, description, and the body.
 
-Our next problem is how to access this new page we've created. Back in your `entries.html.twig` template, find `{% raw %}{{ firstParagraph|raw }}<br />{% endraw %}` and paste below:
+Our next problem is how to access this new page we've created. Back in your `./templates/blog/entries.html.twig` template, find `{% raw %}{{ firstParagraph|raw }}<br />{% endraw %}` and paste below:
 
 {% highlight html %}{% raw %}<a href="{{ path('entry', {'slug': blogPost.slug}) }}">Read more</a>{% endraw %}{% endhighlight %}
 
@@ -937,41 +948,42 @@ Then you need to find `{% raw %}{{ blogPost.title }}{% endraw %}` and wrap this 
 {% highlight html %}
 {% raw %}
 <a href="{{ path('entry', {'slug': blogPost.slug}) }}">
- {{ blogPost.title }}
+    {{ blogPost.title }}
 </a>
 {% endraw %}
 {% endhighlight %}
 
-Now refresh your browser. You'll see the title has changed to a link, and there is now a "Read more" at the bottom of your article. Click one of those and you'll see your new page!
-
 ### Showing Author Details
 
-Want to see more details about the author of the post? Let's go to the `authorAction` in your controller. We're going to be doing something very similar to retrieving the single entry.
+Want to see more details about the author of the post? Let's create an `authorAction` in your `BlogController`. We're going to be doing something very similar to retrieving the single entry.
 We'll be getting the name passed in via the URL, finding the author by name in the database. And then passing that data into the author template, as shown below:
 
 ```php
-$author = $this->authorRepository->findOneByUsername($name);
+/**
+ * @Route("/author/{name}", name="author")
+ */
+public function authorAction($name)
+{
+    $author = $this->authorRepository->findOneByUsername($name);
 
-if (!$author) {
-    $this->addFlash('error', 'Unable to find author!');
+    if (!$author) {
+        $this->addFlash('error', 'Unable to find author!');
+        return $this->redirectToRoute('entries');
+    }
 
-    return $this->redirectToRoute('entries');
+    return $this->render('blog/author.html.twig', [
+        'author' => $author
+    ]);
 }
-
-return $this->render('AppBundle:Blog:author.html.twig', [
-    'author' => $author
-]);
 ```
 
-At the top of the method in the annotations we also want to add the service name so: `* @Route("/author/{name}")` will become: `* @Route("/author/{name}", name="author")`
-
-With the template `./src/AppBundle/Resources/views/Blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
+Create the template `./templates/blog/author.html.twig`, we won't be doing anything special, just outputting the data the Author has:
 
 {% highlight html %}
 {% raw %}
-{% extends "::base.html.twig" %}
+{% extends "base.html.twig" %}
 
-{% block title %}AppBundle:Blog:author{% endblock %}
+{% block title %}App:blog:author{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -1008,11 +1020,10 @@ With the template `./src/AppBundle/Resources/views/Blog/author.html.twig`, we wo
     </div>
 </div>
 {% endblock %}
-
 {% endraw %}
 {% endhighlight %}
 
-We now need to have that author page linkable for people to access it. In: `./src/AppBundle/Resources/views/Blog/entries.html.twig` you will find:
+We now need to have that author page linkable for people to access it. In: `./templates/blog/entries.html.twig` you will find:
 
 {% highlight html %}
 {% raw %}
@@ -1034,30 +1045,11 @@ Let's make this a link as shown below:
 {% endraw %}
 {% endhighlight %}
 
-And in `./src/AppBundle/Resources/views/Blog/entry.html.twig` you will find:
-
-{% highlight html %}
-{% raw %}
-<p class="blog-post-meta">{{ blogPost.updatedAt|date('F j, Y') }} by {{ blogPost.author.name }}</p>
-{% endraw %}
-{% endhighlight %}
-
-Let's replace it with the following:
-
-{% highlight html %}
-{% raw %}
-<p class="blog-post-meta">
-    {{ blogPost.updatedAt|date('F j, Y') }} by <a href="{{ path('author', {'name': blogPost.author.username|url_encode }) }}">
-        {{ blogPost.author.name }}
-    </a>
-</p>
-{% endraw %}
-{% endhighlight %}
-
-Refresh your browser, you will see the author names have a link now.
+Now refresh your browser. You'll see the title has changed to a link, and there is now a "Read more" at the bottom of your article. Click one of those and you'll see your new page!
+You will also see the author names have a link now.
 
 {% include tweet_quote.html quote_text="Urray! I've just finished creating my own blog engine with Symfony and PHP!" %}
 
 ## Conclusion
 
-Congratulations, you have just built yourself a functional blog engine from scratch with Symfony. This blog engine even enables visitors to sign up to become authors. This allows them to also contribute to your blog by posting articles of their own! Although this is just the basics of a blog, it is a strong stepping stone into making it as custom and feature filled as you wish.
+Congratulations, you have just built yourself a functional blog engine from scratch with Symfony. This blog engine even enables visitors to sign up to become authors. This allows them to also contribute to your blog by posting articles of their own! Although this is just the basics of a blog, it is a strong stepping stone to making it as custom and feature filled as you wish.
