@@ -14,8 +14,8 @@ author:
   mail: "jennifer.obrien@auth0.com"
   avatar: "https://cdn.auth0.com/blog/avatars/jenny-obrien.png"
 design:
-  image: https://cdn.auth0.com/blog/...
-  bg_color: "#"
+  image: https://cdn.auth0.com/blog/healthcare-breaches/logo.png
+  bg_color: "#002E61"
 tags:
 - healthcare
 - cybersecurity
@@ -31,6 +31,7 @@ tags:
 related:
 - 2017-08-25-how-identity-can-empower-healthcare
 - 2017-11-10-4-security-measures-after-data-breach
+- 2017-09-01-why-healthcare-is-moving-to-the-cloud-but-isnt-there-yet
 ---
 
 ## Block Medical Identity Thieves with Cyber Hygiene
