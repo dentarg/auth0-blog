@@ -24,6 +24,7 @@ related:
 - 2016-06-03-add-auth-to-native-desktop-csharp-apps-with-jwt
 - 2017-06-05-asp-dot-net-core-authentication-tutorial.markdown
 alias: /securing-dot-net-core-2-applications-with-jwts/
+alternate_locale_ja: jp-securing-asp-dot-net-core-2-applications-with-jwts
 ---
 
 <div class="alert alert-success alert-icon">
