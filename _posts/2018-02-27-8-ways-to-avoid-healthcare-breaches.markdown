@@ -50,7 +50,7 @@ That kind of patient experience can send a customer doctor shopping. A [2018 PwC
 
 "Healthcare organizations are just starting to realize that cybersecurity is not a cost center,” says Auth0 CISO Joan Pepin, speaking from more than twenty years experience handling cybersecurity, “It's actually adding value by placing the focus on the well-being of their end customers."
 
-{% include tweet_quote.html quote_text="Healthcare organizations are just starting to realize that cybersecurity is adding value by placing the focus on the well-being of their end customers." —Auth0 CISO Joan Pepin" %}
+{% include tweet_quote.html quote_text="Healthcare organizations are just starting to realize that cybersecurity is adding value by placing the focus on the well-being of their end customers. —Auth0 CISO Joan Pepin" %}
 
 And 2018 is already laying out challenges and consequences.
 Half of Norway’s entire population — 3 million people — was already exposed in a [professional healthcare hack](https://www.scmagazineuk.com/half-of-norways-population-have-medical-data-leaked/article/738079/) in January. Although swift by current standards, breach notification fell well outside GDPR’s 72-hour requirement. After May, that lag will mean stiff fines.
