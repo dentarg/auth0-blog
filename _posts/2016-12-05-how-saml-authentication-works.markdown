@@ -24,7 +24,7 @@ related:
 - 2016-11-23-how-passwordless-authentication-works
 - 2016-01-27-setting-up-passwordless-authentication-with-the-auth0-dashboard
 - 2016-09-06-use-nginx-plus-and-auth0-to-authenticate-api-clients
-
+alternate_locale_ja: jp-how-saml-authentication-works
 ---
 
 ---
