@@ -4,7 +4,7 @@ title: "Symfony Tutorial: Building a Blog (Part 1)"
 description: "Let's create a secure blog engine with Symfony."
 longdescription: "Creating applications with Symfony is easy and can be scaled to be used in any requirement. The tools that it provides to create and maintain web applications is amazing and replaces repetitive tasks. Let's use Symfony to create a blog engine."
 date: 2017-12-28 08:30
-updated: 2018-02-12 16:40
+updated: 2018-02-27 13:15
 category: Technical Guide, PHP, Symfony
 author:
   name: Greg Holmes
@@ -139,7 +139,7 @@ Now that the basic configuration has been set up, let's run the following comman
 php bin/console server:run
 ```
 
-You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So paste this URL int0 your browser, you'll be shown a `Hello BlogController!` page.
+You will see something similar to: `[OK] Server listening on http://127.0.0.1:8000`. So paste this URL into your browser, you'll be shown a `Hello BlogController!` page.
 
 ### Creating a New Author Entity
 
@@ -830,10 +830,10 @@ Now we have our entities, database, database tables, and some dummy data in the 
 
 ### Installing HWIOAuth Bundle
 
-To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2. 
+To make Symfony integrate with Auth0, we are going to use  [HWIOAuth Bundle](https://github.com/hwi/HWIOAuthBundle), an OAuth client that supports OAuth2.
 
 First, we will set up all the configurations needed for this bundle.
- 
+
 So to begin we need to add the routes to your routing file: `config/routes.yaml`:
 
 ```yml
@@ -990,7 +990,7 @@ security:
 
 The config above is setting up URLs/sections in your blog that require the user to be authenticated.
 
-In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third-party libraries. However, this can be easily done with this command: 
+In order to install HWIOAuth Bundle, which uses a virtual package `php-http/client-implementation`, we need to install several third-party libraries. However, this can be easily done with this command:
 
 ```bash
 composer require hwi/oauth-bundle php-http/guzzle6-adapter php-http/httplug-bundle
@@ -1132,7 +1132,7 @@ Create new `AdminController` by running the following command `php bin/console m
 
 When it asks for `The class name of the controller to create`, type in: `AdminController`.
 
-Once the command has finished running, you'll find a new file in `src/Controller` called `AdminController.php`. 
+Once the command has finished running, you'll find a new file in `src/Controller` called `AdminController.php`.
 
 Open your new AdminController (`src/Controller/AdminController.php`), we need to make use the entity manager and the repositories for the entities in order to retrieve database data. At the top of this class, inject these services in the construct:
 
