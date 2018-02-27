@@ -123,7 +123,7 @@ HTML is required with a `target="_self"` because the blog programming will autom
 ### Tweet Quote
 
 ```
-{% include tweet_quote.html quote_text="Lorem ipsum dolor sit amet." %}
+{% include tweet_quote.html quote_text="Max tweet character length is 255." %}
 ```
 
 ## Copy-Paste Auth0 Login Setup for SPAs
