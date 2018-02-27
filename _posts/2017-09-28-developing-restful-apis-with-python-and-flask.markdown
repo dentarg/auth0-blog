@@ -20,7 +20,7 @@ related:
 - 2017-04-20-image-processing-in-python-with-pillow
 ---
 
-**TL;DR:** Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start by creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few endpoints to insert and retrieve instances of these classes. Finally, will take a look on how to run the API on a Docker container. Hope you enjoy!
+**TL;DR:** Throughout this article, we are going to use Flask and Python to develop a RESTful API. We will start by creating an endpoint that returns static data (dictionaries). After, we are going to create a class with two specializations and a few endpoints to insert and retrieve instances of these classes. Finally, will take a look on how to run the API on a Docker container. [The final code developed throughout this article can be found in this GitHub repository](https://github.com/auth0-blog/flask-restful-apis). I hope you enjoy!
 
 {% include tweet_quote.html quote_text="Flask allows Python developers to create lightweight RESTful APIs." %}
 
@@ -198,7 +198,7 @@ chmod +x bootstrap.sh
 The goal of this file is to facilitate the start up of our application. Its source code will be the following:
 
 ```sh
-#!/bin/bash
+#!/bin/sh
 export FLASK_APP=./cashman/index.py
 source $(pipenv --venv)/bin/activate
 flask run -h 0.0.0.0
@@ -287,7 +287,7 @@ import datetime as dt
 from marshmallow import Schema, fields
 
 
-class Transaction(object):
+class Transaction():
   def __init__(self, description, amount, type):
     self.description = description
     self.amount = amount
