@@ -46,7 +46,7 @@ Victims of medical identity theft can even find themselves paying the thieves’
 
 That kind of patient experience can send a customer doctor shopping. A [2018 PwC report](https://www.pwc.com/us/en/health-industries/assets/pwc-health-research-institute-top-health-industry-issues-of-2018-report.pdf) noted that 26% of consumers would change doctors, hospitals, insurers, or medical organizations after a hack.
 
-{% include tweet_quote.html quote_text="26% of consumers said they would change doctors, hospitals, insurers, or medical organizations after a hack. Cyberattacks may be rising, but 93% of hacks are preventable. Auth0 offers concrete ways to keep your patients safe." %}
+{% include tweet_quote.html quote_text="26% of consumers said they would change healthcare providers after a hack. Cyberattacks may be rising, but 93% of hacks are preventable. Auth0 offers concrete ways to keep your patients safe." %}
 
 "Healthcare organizations are just starting to realize that cybersecurity is not a cost center,” says Auth0 CISO Joan Pepin, speaking from more than twenty years experience handling cybersecurity, “It's actually adding value by placing the focus on the well-being of their end customers."
 
