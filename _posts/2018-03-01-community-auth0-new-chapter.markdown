@@ -11,7 +11,7 @@ author:
   mail: "jeremy.meiss@auth0.com"
   avatar: "https://twitter.com/IAmJerdog/profile_image?size=original"
 design:
-  image: https://cdn.auth0.com/blog/community-auth0-new-chapter/logo.png
+  image: https://cdn.auth0.com/blog/logos/auth0.png
   bg_color: "#222228"
 tags:
 - community
