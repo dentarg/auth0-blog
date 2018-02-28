@@ -25,7 +25,7 @@ related:
 - 2016-06-23-creating-your-first-laravel-app-and-adding-authentication
 ---
 
-**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [repository](https://github.com/GregHolmes/symfony-blog-part-1).
+**TL;DR:** Symfony is a PHP framework as well as a set of reusable PHP components and libraries. It uses the Model-View-Controller design pattern and can be scaled to be used in any requirement. It aims to speed up the creation and maintenance of web applications, replacing repetitive code. In this tutorial, I'll show you how to create your very own blog, with content stored in the database and authentication through Auth0. The finished code can be found at this [GitHub repository](https://github.com/auth0-blog/symfony-blog-part-1).
 
 ---
 
