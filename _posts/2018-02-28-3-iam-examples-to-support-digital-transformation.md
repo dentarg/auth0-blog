@@ -1,39 +1,41 @@
 ---
 layout: post
 title: "3 IAM Examples to Support Digital Transformation"
-description: "From basic website authentication, to implementing an OpenID Connect server, and API authentication:  This article covers 3 IAM examples to support your Digital Transformation."
-date: 2018-02-19 08:30
-category: Authentication
+description: "From basic website authentication to implementing an OpenID Connect server and API authentication:  This article covers 3 IAM examples to support your Digital Transformation."
+date: 2018-02-28 08:30
+category: Technical Guide, Identity
 author:
-  name: "Robin Percy"
-  url: "https://twitter.com/rbin"
-  mail: "robin.percy@auth0.com"
-  avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
+  name: ""
+  url: ""
+  mail: ""
+  avatar: ""
 design:
-  bg_color: "#FFFFFF"
-  image: https://cdn.auth0.com/blog/image.jpg
+  bg_color: "#3F3442"
+  image: https://cdn.auth0.com/blog/iam-digital-transformation/logo.png
 tags:
 - Authentication
-- Authorisation
+- Authorization
 - Oauth
 - OpenID-Connect
 - Digital-Transformation
+- Webinar
 related:
  - 2017-08-04-how-identity-management-helps-you-personalize-your-user-experience
  - 2017-03-15-5-reasons-your-company-needs-identity-and-access-management
+ - 2017-07-21-the-role-of-identity-in-application-modernization
 ---
 
-**TL;DR:** We recently [hosted a webinar](https://auth0-1.wistia.com/medias/i6q0xhz4o9) that covered modern identity management and what it takes to implement both Authentication and Authorisation to support your Digital Transformation.  In this article, we'll cover these implementations ranging from basic authentication, to an OpenID Connect server, and API authentication.
+**TL;DR:** We recently [hosted a webinar](https://auth0-1.wistia.com/medias/i6q0xhz4o9) that covered modern identity management and what it takes to implement both Authentication and Authorization to support your Digital Transformation.  In this article, we'll cover these implementations ranging from basic authentication, to an OpenID Connect server, and API authentication.
 
 
 ## Introduction
-Identity and Access Management (IAM) encompasses the security protocols and processes that allows the correct users to access the correct content, at the correct times.  Cloud-based IAM providers, such as _Auth0_, have created simpler and more intuitive ways of managing user access, and they form an important part of **digital transformations.**
+Identity and Access Management (IAM) encompasses the security protocols and processes that allow the correct users to access the correct content, at the correct times.  Cloud-based IAM providers, such as _Auth0_, have created simpler and more intuitive ways of managing user access, and they form an important part of **digital transformations.**
 
 {% include tweet_quote.html quote_text="Identity and Access Management (IAM) is the security and process that allows the correct users to access the correct content, at the correct times." %}
 
-Digital transformation, for those unaware, is not just a buzzword.  It encapsulates the process of heavily utilising modern, digital technologies to radically change businesses.  
+Digital transformation, for those unaware, is not just a buzzword.  It encapsulates the process of heavily utilizing modern, digital technologies to radically change businesses.  
 
-> Look beyond the hype and you'll find a daunting task at the heart of digital transformation. Rather than focusing on any single IT project, digital transformation describes a series of projects that, together, change every facet of an organisation, from back office operations to customer interactions, often with the end goal of making these different processes intrinsically linked.
+> Look beyond the hype and you'll find a daunting task at the heart of digital transformation. Rather than focusing on any single IT project, digital transformation describes a series of projects that, together, change every facet of an organization, from back office operations to customer interactions, often with the end goal of making these different processes intrinsically linked.
 
 [http://www.itpro.co.uk/strategy/28047/what-is-digital-transformation](http://www.itpro.co.uk/strategy/28047/what-is-digital-transformation)
 
@@ -45,7 +47,7 @@ Finally, we will cover API integration.  When we want to allow our customers to 
 
   
 ## A Basic Website
-Something we're all familiar with is the basic user registration and log in that we find on our favourite websites.  To access various areas and features of most websites, we usually have to create an account with them.  From a high level, all this consists of is a database containing our usernames/email addresses and a complex hash of our passwords (hopefully).  Throughout this article, we'll use an example data model in which crucially, the core Users table will never change schema, only the data references will change.  The basic data model looks like this:
+Something we're all familiar with is the basic user registration and log in that we find on our favorite websites.  To access various areas and features of most websites, we usually have to create an account with them.  From a high level, all this consists of is a database containing our usernames/email addresses and a complex hash of our passwords (hopefully).  Throughout this article, we'll use an example data model in which crucially, the core Users table will never change the schema, only the data references will change.  The basic data model looks like this:
 
 ![basic-data-model](https://cdn.auth0.com/blog/iam-digital-transform/basic-data-model.png)
 
@@ -53,13 +55,13 @@ Our sample data model is that of a simple project management tool, in which User
 
 ![basic-registration](https://cdn.auth0.com/blog/iam-digital-transform/basic-registration.png)
 
-As you can see in the image, our app now contains a standard sign up for for new users to register for our service.  From a back end perspective, the form uses a `POST` action to submit the form data to our `/signup` resource.  Our back end then writes this data to our chosen database, and forwards the user onto the specified route upon successful completion.  Once we have a user signup implemented, a user login is the next thing we need to address.  The basic login flow for our simple web app looks like this:
+As you can see in the image, our app now contains a standard sign up for new users to register for our service.  From a back end perspective, the form uses a `POST` action to submit the form data to our `/signup` resource.  Our back end then writes this data to our chosen database and forwards the user onto the specified route upon successful completion.  Once we have a user signup implemented, a user login is the next thing we need to address.  The basic login flow for our simple web app looks like this:
 
 ![basic-login](https://cdn.auth0.com/blog/iam-digital-transform/basic-login.png) 
 
 In our login flow, users submit their email address and password, which issues a `POST` request to our `/login` resource.  Our application back end takes the credentials supplied, issues a database lookup and ensures the details are correct.  If so, our app will issue a HTTP forward request onto the specified resource, containing a Session Cookie.
 
-In the image above, you can see that the Session Cookie is set as a HTTP Header, and is actually the most important factor in this flow.  The Cookie will contain tokenised information about our users perhaps including metadata such as the user's name and avatar, so as to reduce database hits going through our web app.  Besides containing the user's metadata, the Session Cookie is (more importantly) also the authorisation credential for all subsequent requests as the user browses our application.
+In the image above, you can see that the Session Cookie is set as a HTTP Header, and is actually the most important factor in this flow.  The Cookie will contain tokenized information about our users perhaps including metadata such as the user's name and avatar, so as to reduce database hits going through our web app.  Besides containing the user's metadata, the Session Cookie is (more importantly) also the authorization credential for all subsequent requests as the user browses our application.
 
 With this implemented, our application now has a basic user authentication system set up.  Being basic, there are many features that we haven't addressed here, but that would really need implementing.  Password hashing, password complexity verification, password reset functionality, and multi-factor authentication to name a few.  Luckily, by using a system such as [Auth0's Hosted Login](https://auth0.com/docs/hosted-pages/login), we save the worry of having to implement these, as they come as standard.  Out of the box, Auth0 offer the features mentioned above plus many more.  You can have a fully functional user management system setup in minutes.
 
@@ -102,7 +104,7 @@ Firstly, our application will perform a lookup for the identity provider _contos
 
 ![sso-final-step](https://cdn.auth0.com/blog/iam-digital-transform/sso-final-step.png)
 
-Similar to our earlier basic example, upon successful login a _Session Cookie_ is set to portray the information required for subsequent requests.
+Similar to our earlier basic example, upon successful login, a _Session Cookie_ is set to portray the information required for subsequent requests.
 
 With the above, we now have Single Sign On implemented on our acme.com sample application.  Worth noting here is that in this SSO implementation, we have chosen an identifier-first login prompt with no option for a password.  In reality, we would need to implement a password option for users that have existing non-federated accounts.  Beside this, we should also implement a SAML integration, and support for account linking an unlinking.
 
@@ -114,17 +116,17 @@ For the final implementation example of this article, we're going to look at API
 
 ![api-auth-model](https://cdn.auth0.com/blog/iam-digital-transform/api-auth-model.png)
 
-Although the model now looks slightly more complex, following our aforementioned constraint; our `Users` and `Projects` schemas have not been changed.  The schemas for SSO providers have not changed either.  What has changed are the tables on the left, which introduce support for other people getting access to _Acme's_ APIs.  If you are familiar with Facebook sign-on or GitHub etc, the terms above are fairly typical.  `Clients` are the applications a user may build / use to access APIs and services, `Resource Servers` are the APIs themselves, and the Authorisation Grants `(AuthZ Grants)` track the permissions that have been granted between the users and the applications.
+Although the model now looks slightly more complex, following our aforementioned constraint; our `Users` and `Projects` schemas have not been changed.  The schemas for SSO providers have not changed either.  What has changed are the tables on the left, which introduce support for other people getting access to _Acme's_ APIs.  If you are familiar with Facebook sign-on or GitHub etc, the terms above are fairly typical.  `Clients` are the applications a user may build/use to access APIs and services, `Resource Servers` are the APIs themselves, and the Authorisation Grants `(AuthZ Grants)` track the permissions that have been granted between the users and the applications.
 
 For our API Authorisation example, we are going to imagine that our sample company (Acme.com) have a customer named _Fabrikam.com,_ who wish to allow their customers to pull a list of their `Projects` from the _Acme_ API to display on their own dashboard.  
 
-From a simple button on the _Fabrikam.com_ website, their customers will be redirected through an OAuth2 Authorisation request to the _Acme_ website, returning an Auth code on successful submission.  Using the OAuth2 auth flow of [Client Credentials Grant](https://auth0.com/docs/api-auth/tutorials/client-credentials), this Auth code will then be swapped for an **Access Token** and used in the web application's _Authorisation Header_ using the `Bearer` protocol.
+From a simple button on the _Fabrikam.com_ website, their customers will be redirected through an OAuth2 Authorisation request to the _Acme_ website, returning an Auth code on successful submission.  Using the OAuth2 auth flow of [Client Credentials Grant](https://auth0.com/docs/api-auth/tutorials/client-credentials), this Auth code will then be swapped for an **Access Token** and used in the web application's _Authorization Header_ using the `Bearer` protocol.
 
 Let's take a look at how the API Auth flow works visually:
 
 ![api-auth-login](https://cdn.auth0.com/blog/iam-digital-transform/api-auth-login.png)
 
-As you can see from the image above, the customer of _Fabrikam.com_ clicks on the 'Connect to Acme' button in their Dashboard.  This click then issues a GET request to the `/connect/acme` route, which from the back end initiates an OAuth2 request to the _Acme.com_ server.   The _Fabrikam.com_ customer is then prompted to log in using their _Acme_ credentials.  On success, the _Acme.com_ server issues the OAuth2 Authorisation Response to the `callback_url` specified in the initial request.  In a similar manner to the _OpenID Connect_ example above, this response contains a `code` that will be exchanged for an **Access Token:**
+As you can see from the image above, the customer of _Fabrikam.com_ clicks on the 'Connect to Acme' button on their Dashboard.  This click then issues a GET request to the `/connect/acme` route, which from the back end initiates an OAuth2 request to the _Acme.com_ server.   The _Fabrikam.com_ customer is then prompted to log in using their _Acme_ credentials.  On success, the _Acme.com_ server issues the OAuth2 Authorization Response to the `callback_url` specified in the initial request.  In a similar manner to the _OpenID Connect_ example above, this response contains a `code` that will be exchanged for an **Access Token:**
 
 ![api-auth-login-response](https://cdn.auth0.com/blog/iam-digital-transform/api-auth-login-response.png)
 
@@ -147,21 +149,21 @@ This _Access Token_ is similar to the _ID Token_ shown in the previous example, 
 
 As the image shows, _Fabrikam_ sends the encoded token in the `Authorization` Header of the request, using the `Bearer` protocol, in all subsequent API requests.  The _Acme.com_ API successfully returns the customer's `Projects` which are listed in the Dashboard, as shown.  That brings to a close the OAuth2 Client Credentials grant for API Auth example.  However, we can take this a step further still.  What if we wanted to combine this API Auth with the Enterprise SSO implementation in our previous example?
 
-There may arise a scenario in which  _Fabrikam.com_ want to integrate with _Acme's_ APIs, but a user at _Acme_ authenticates with corporate credentials for _Contoso.com_ (who is an enterprise customer) as within our previous example.  The flow becomes a multi-step process, with the first request coming from _Fabrikam_ to _Acme_, then _Acme_ to _Contoso_, with the responses flowing back in the opposite direction, back to _Fabrikam._   The interesting point of this scenario is that _Acme_ is acting as both an Identity Provider (when providing API authorisation), and a Relying Party (when it's consuming identity information).  This pattern may sound complex, but it is a very common scenario.  Most SaaS companies both provide services, as well as authenticating users from other companies, meaning they have to implement both sides of the protocol (client and provider).  The following diagram shows this implementation layout: 
+There may arise a scenario in which  _Fabrikam.com_ want to integrate with _Acme's_ APIs, but a user at _Acme_ authenticates with corporate credentials for _Contoso.com_ (who is an enterprise customer) as within our previous example.  The flow becomes a multi-step process, with the first request coming from _Fabrikam_ to _Acme_, then _Acme_ to _Contoso_, with the responses flowing back in the opposite direction, back to _Fabrikam._   The interesting point of this scenario is that _Acme_ is acting as both an Identity Provider (when providing API authorization), and a Relying Party (when it's consuming identity information).  This pattern may sound complex, but it is a very common scenario.  Most SaaS companies both provide services, as well as authenticating users from other companies, meaning they have to implement both sides of the protocol (client and provider).  The following diagram shows this implementation layout: 
 
 ![oauth-openid-combine](https://cdn.auth0.com/blog/iam-digital-transform/oauth-openid-combine.png)
 
-{% include tweet_quote.html quote_text="OAuth 2.0 and OpenID Connect have the same protocols, because OpenID Connect is just an extension of OAuth." %}
+{% include tweet_quote.html quote_text="OAuth 2.0 and OpenID Connect have the same protocols because OpenID Connect is just an extension of OAuth." %}
 
-Happily, as you will have noticed throughout this article, OAuth 2.0 and OpenID Connect have the same protocols, because OpenID Connect is just an extension of OAuth.  This saves us a lot of hassle on implementation.  At this point, with Authentication becoming a more prominent feature, it might be worth setting up a single, centralised server to handle all of the Auth requests coming through our app _(Acme)_.
+Happily, as you will have noticed throughout this article, OAuth 2.0 and OpenID Connect have the same protocols, because OpenID Connect is just an extension of OAuth.  This saves us a lot of hassle on implementation.  At this point, with Authentication becoming a more prominent feature, it might be worth setting up a single, centralized server to handle all of the Auth requests coming through our app _(Acme)_.
 
 If we revisit our data model, we can see that all of the tables in our model, except for the `Projects` table, can be treated as a separate concern, and become our authentication server:
 
 ![api-auth-model-pattern](https://cdn.auth0.com/blog/iam-digital-transform/api-auth-model-pattern.png)
 
-We can take advantage of this in our architecture by creating the aforementioned centralised Auth server on a subdomain such as `id.acme.com`, and piping all of our Authorisation / Authentication requests through there.  The applications authenticating and being granted authorisation through this centralised server may be third party applications, such as _Fabrikam.com_ or _Contoso.com_, but also internal applications such as `app.acme.com`.  Setting up this single centralised server is nice and clean way to solve a lot of Auth challenges, with a single protocol and a single implementation.  The architecture for this server could look like the following:
+We can take advantage of this in our architecture by creating the aforementioned centralized Auth server on a subdomain such as `id.acme.com`, and piping all of our Authorization / Authentication requests through there.  The applications authenticating and being granted authorisation through this centralized server may be third-party applications, such as _Fabrikam.com_ or _Contoso.com_, but also internal applications such as `app.acme.com`.  Setting up this single centralized server is a nice and clean way to solve a lot of Auth challenges, with a single protocol and a single implementation.  The architecture for this server could look like the following:
 
-![centralised-auth-server](https://cdn.auth0.com/blog/iam-digital-transform/centralised-auth-server.png)
+![centralized-auth-server](https://cdn.auth0.com/blog/iam-digital-transform/centralised-auth-server.png)
 
 So with this, we have a fully functional OAuth 2.0 server implementation.  Whilst this implementation is entirely functional, there are a few extra features not included in this example, that you would want to implement in the real world.  One of the biggest is a _Consent Prompt_ ensuring users have the options of granting the application access, such as the following:  
 
@@ -169,10 +171,8 @@ So with this, we have a fully functional OAuth 2.0 server implementation.  Whils
 
 Besides this, consent and token revocation is also a must-have feature that would need implementing.  Lastly, token introspection and JWTs for stateless authorisation are both desirable features one would ideally implement.
 
-If you wanted a fully-featured OAuth 2.0 server with all of the functionality mentioned above, it is definitely worth checking out an IDaaS provider to save you all of the implementation hassle.  [Auth0](https://auth0.com/docs/protocols/oauth2) offers out of the box, fully featured OAuth 2.0 implementations that take care of all of the architecture above, plus offer more features and functionality; and all implemented without having to build and manage it yourself.
+If you wanted a fully-featured OAuth 2.0 server with all of the functionality mentioned above, it is definitely worth checking out an IDaaS provider to save you all of the implementation hassles. [Auth0](https://auth0.com/docs/protocols/oauth2) offers out of the box, fully featured OAuth 2.0 implementations that take care of all of the architecture above, plus offer more features and functionality; and all implemented without having to build and manage it yourself.
 
-
-  [  **_- @rbin_**](https://twitter.com/rbin)
 
 
 {% include asides/about-auth0.markdown %}
