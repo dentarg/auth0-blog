@@ -41,7 +41,7 @@ As [cited in Duo’s disclosure](https://duo.com/blog/duo-finds-saml-vulnerabili
 2. XML canonicalization (in most cases) will remove comments as part of signature validation, so adding comments to a SAML Response will not invalidate the signature.
 3. XML text extraction may only return a substring of the text within an XML element when comments are present.
 
-The library that Auth0 uses internally to parse SAML responses prevents the third requirement for exploitation. This prevents the vulnerability being exploited when  Auth0 isused as a SAML Service Provider (SP).
+The library that Auth0 uses internally to parse SAML responses prevents the third requirement for exploitation. This prevents the vulnerability being exploited when  Auth0 is used as a SAML Service Provider (SP).
 
 ## Am I Affected?
 
