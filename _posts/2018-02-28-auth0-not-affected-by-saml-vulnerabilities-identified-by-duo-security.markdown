@@ -13,7 +13,7 @@ author:
   mail: "samuel.judson@auth0.com"
   avatar: "https://cdn.auth0.com/blog/duo-saml-exploit/sam-judson.png"
 design:
-  image: https://cdn.auth0.com/blog/
+  image: https://cdn.auth0.com/blog/duo-saml-exploit/saml.png
   bg_color: "#222228"
 tags:
 - saml
