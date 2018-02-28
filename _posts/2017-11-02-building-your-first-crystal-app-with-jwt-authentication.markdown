@@ -6,7 +6,6 @@ date: 2017-11-02 08:30
 category: Technical Guide
 author:
   name: "Robin Percy"
-  url: "https://twitter.com/rbin"
   mail: "robin.percy@auth0.com"
   avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
 design:
