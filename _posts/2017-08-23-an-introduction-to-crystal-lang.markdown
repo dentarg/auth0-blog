@@ -6,7 +6,6 @@ date: 2017-08-23 15:54
 category: Technical Guide, Backend, Crystal
 author:
   name: "Robin Percy"
-  url: "https://twitter.com/rbin"
   mail: "robin@percy.pw"
   avatar: "https://secure.gravatar.com/avatar/685342d5e7f42c3ab8d251d7d4a53308?s=100&d=mm&r=g"
 design:
