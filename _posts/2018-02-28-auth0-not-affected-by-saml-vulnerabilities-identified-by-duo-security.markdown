@@ -8,8 +8,8 @@ is_non-tech: true
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
 author:
-  name: "Sam Judson"
-  url: "TBD"
+  name: "Samuel Judson"
+  url: "https://github.com/sjudson"
   mail: "samuel.judson@auth0.com"
   avatar: "https://cdn.auth0.com/blog/duo-saml-exploit/sam-judson.png"
 design:
