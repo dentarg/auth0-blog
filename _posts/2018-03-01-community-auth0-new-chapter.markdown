@@ -34,7 +34,7 @@ The responsibility of the Community Manager is to water it and make sure the gro
 
 Over the past year or so we’ve gone through a few iterations of what community looks like at Auth0. We have an already vibrant user base, but the challenge has been bringing together that user base in a way which provides opportunities to collaborate and share with other developers in the Identity and Access Management space. In addition, empowering developers seeking to implement Auth0 into their ideas, platforms, and products has always been our motivation in the community. Today we set out meeting that challenge head-on with the unveiling of our new Community.
 
-![Auth0 Community has a new platform.](https://cdn.auth0.com/blog/community-auth0-new-chapter/auth0-community-new-platform.png)
+![Auth0 Community has a new platform.](https://cdn.auth0.com/blog/community-auth0-new-chapter/new_community_platform.png)
 
 One might say, *“Gee, that looks a lot like what we used to have,”* and they’d be correct. We’re moving away from the Q&A-centric AnswerHub and back to the community- and discussion-centric [Discourse](https://www.discourse.org/), upgraded from our previous iteration. This move provides you with opportunities to share what you’re working on, provide feature requests, be notified of upcoming changes, collaborate on events, and receive support directly from our engineers and others in the community. Plus, I’m sure a cat picture or two and a healthy debate about which movie franchise is best will be found.
 
