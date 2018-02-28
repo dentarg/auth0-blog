@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Duo Security announced the discovery of a new class of SAML response vulnerability affecting SSO. Auth0 is not vulnerable to this issue."
+title: "Auth0 Not Affected by SAML Vulnerabilities Identified by Duo Security"
+description: "Duo Security announced the discovery of new SAML response vulnerabilities affecting SSO. Auth0 is not vulnerable to this issue."
 longdescription: "Duo Security announced the discovery SAML response vulnerabilities affecting SSO, allowing an authenticated attacker to impersonate another user. Auth0 as a Service Provider is not vulnerable, but developers should update other libraries if processing SAML responses in their own code."
 date: 2018-02-28 8:30
-category: Security
+category: Hot Topics, Security
 is_non-tech: true
 banner:
   text: "Auth0 makes it easy to add authentication to your application."
@@ -49,4 +50,4 @@ Auth0 is not vulnerable to this issue, therefore, Auth0 customers do not need to
 
 Auth0 provides the [passport-wsfed-saml2](https://github.com/auth0/passport-wsfed-saml2) Passport strategy as open-source software. This strategy is **not vulnerable** to this SAML security vulnerability reported by Duo. If you or your company are using this strategy, you do not need to take any additional action.
 
-If you have any further questions or concerns, please email us at [notifications@auth0.com](mailto:notifications@auth0.com).
+If you have any further questions or concerns, please [open a support ticket](https://support.auth0.com/) or [ask in our community forum](https://community.auth0.com/).
