@@ -7,7 +7,7 @@ date: 2018-03-01 19:00
 category: Community, Company
 author:
   name: "Jeremy Meiss"
-  url: "https://linkedin.com/in/jeremymeiss"
+  url: "https://twitter.com/IAmJerdog"
   mail: "jeremy.meiss@auth0.com"
   avatar: "https://twitter.com/IAmJerdog/profile_image?size=original"
 design:
@@ -42,8 +42,9 @@ The current community will go into read-only mode at 8pm EST on March 1, and we 
 
 - All threads from our previous platform have been moved over to Discourse.
 - You’ll notice that thread ownership still remains, but we do ask that you update your profile as not all of the profile information, like avatars, was migrated over. This is also a good opportunity to tell others in the community about you.
-- When creating a new topic, you’ll have options to place into a relevant category and tag the topic with the relevant technology or subject matter. Please make use of them as it helps the community better collaborate and find relevant topics.
+- When creating a new topic, you’ll have options to place into a relevant category (like **SDKs/Frameworks**, **Feature Requests**, and **APIs**) and tag the topic with the relevant technology or subject matter (like **nodejs**, **react-native**, or **roles**). Please make use of them as it helps the community better collaborate and find relevant topics.
 - Search is much better now and you’ll be prompted upon topic creation to review other threads which may be relevant before creating the new topic.
+- A new category was added, **Show Your Auth0**, where we encourage you to share what you're working on using Auth0 with the rest of the community.
 
 We’re excited to embark on this new direction and look forward to working with you to make Auth0 the identify platform of choice for developers. If you haven't already looked at what Auth0 can do for you, `<a href="https://auth0.com/signup" data-amp-replace="CLIENT_ID" data-amp-addparams="anonId=CLIENT_ID(cid-scope-cookie-fallback-name)">sign up for a free account to get started.</a>
 
