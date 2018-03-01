@@ -94,15 +94,15 @@ Feel free to ignore this section, but I just wanted to make you aware of some mi
 * [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens) set to 0, because I like the clean look of functions without parens where they only have one argument;
 * and [`comma-dangle`](https://eslint.org/docs/rules/comma-dangle) set to 0. I think dangling commas can introduce a lot of noise into the code and I tend not to use them, but I can appreciate the benefits. I haven't used them in the code samples here.
 
-## Shelling out the default application
+## Shelling Out the Default Vue.js Application
 
 Now that we've got a template application up and running, the first thing we're going to do is get rid of the stuff that we don't need.
 
-Most of the time we're going to be changing the component files that live in the 'src' folder, with maybe a couple of changes to the `index.html` file in the root.
+Most of the time, we're going to be changing the component files that live in the `src` folder, with maybe a couple of changes to the `index.html` file in the root.
 
 First of all, delete the `src/components/HelloWorld.vue` file, as we won't be using that at all.
 
-Next, since we've deleted that component file, we'll need to modify the Vue Router to tell it to stop looking for this component. Open `src/router/index.js` and remove the reference to the component, so that your file looks like this (I've also renamed the route to 'Default' for the time being):
+Next, since we've deleted that component file, we'll need to modify the Vue Router to tell it to stop looking for this component. So, let's open `src/router/index.js` and remove the reference to the component. In the end, our file will look like this (we will also rename the route to 'Default' for the time being):
 
 ```javascript
 import Vue from 'vue'
@@ -120,7 +120,7 @@ export default new Router({
 });
 ```
 
-Finally, in `src/App.vue`, modify the file to look like the following. I've just taken out the reference to the logo, and the default styles:
+Finally, in `src/App.vue`, let's modify the file to look like the following (we will just take out the reference to the logo and the default styles):
 
 {% highlight html %}
 <template>
@@ -130,13 +130,13 @@ Finally, in `src/App.vue`, modify the file to look like the following. I've just
 </template>
 
 <script>
-  export default {
-    name: 'app'
-  };
+export default {
+  name: 'app'
+};
 </script>
 {% endhighlight %}
 
-We're going to come back in here later and fill in some chrome to make it look a bit nicer. Right now if you look at your application in the browser, you should just see a blank page. This is fine - we're going to start filling in some UI in just a moment.
+We're going to come back here later and fill in some chrome to make it look a bit nicer. Right now, if we look at our application in the browser, we should just see a blank page. This is fine—we're going to start filling in some UI in just a moment.
 
 For now, we have a nice base to start created our Kanban board.
 
