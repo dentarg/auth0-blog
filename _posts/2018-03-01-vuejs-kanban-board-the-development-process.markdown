@@ -87,13 +87,6 @@ Next, run `$ npm install` to install the required Node packages. Then `$ npm run
 
 As any changes we make will automatically be recompiled and sent to the browser, you can leave the application running at this point.
 
-## Linting
-
-Feel free to ignore this section, but I just wanted to make you aware of some minor tweaks I made to the ESLint config to suit my own coding style, which have an impact on the code samples presented in this article. To be precise, the rules that I turned off are:
-
-* [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens) set to 0, because I like the clean look of functions without parens where they only have one argument;
-* and [`comma-dangle`](https://eslint.org/docs/rules/comma-dangle) set to 0. I think dangling commas can introduce a lot of noise into the code and I tend not to use them, but I can appreciate the benefits. I haven't used them in the code samples here.
-
 ## Shelling Out the Default Vue.js Application
 
 Now that we've got a template application up and running, the first thing we're going to do is get rid of the stuff that we don't need.
@@ -105,8 +98,8 @@ First of all, delete the `src/components/HelloWorld.vue` file, as we won't be us
 Next, since we've deleted that component file, we'll need to modify the Vue Router to tell it to stop looking for this component. So, let's open `src/router/index.js` and remove the reference to the component. In the end, our file will look like this (we will also rename the route to 'Default' for the time being):
 
 ```javascript
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
@@ -114,9 +107,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Default'
-    }
-  ]
+      name: 'Default',
+    },
+  ],
 });
 ```
 
@@ -131,7 +124,7 @@ Finally, in `src/App.vue`, let's modify the file to look like the following (we 
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
 };
 </script>
 {% endhighlight %}
