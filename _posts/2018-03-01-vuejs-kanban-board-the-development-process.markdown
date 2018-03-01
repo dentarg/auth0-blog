@@ -192,22 +192,22 @@ export default {
 
 ## The Vue.js Backlog Component
 
-Now we can begin the backlog screen. This will allow us to see our list of items, and add new items to the backlog. We'll have a couple of elements to it:
+Now, we can begin the to develop the backlog component. This component will allow us to see the list of items and to add new items to the backlog. We'll have a couple of elements to it:
 
-* A form with a textbox, for creating our new items
-* A list of backlog items
+* a form with a textbox for creating our new items;
+* and a list of backlog items.
 
-As we're starting to talk about adding and listing pieces of data, it's time to talk about how we're going to store and retrieve this data. For this app, I'm using [Vuex](https://vuex.vuejs.org/en/intro.html). From their intro page, _"Vuex is a state management pattern + library for Vue.js applications"_. Sounds ideal! It essentially allows us to store and mutate data in a central place and make the data available to all of our components. When the data changes (mutates) then our components will be re-rendered.
+As we're starting to talk about adding and listing pieces of data, it's time to talk about how we're going to store and retrieve this data. For this app, we will use [Vuex](https://vuex.vuejs.org/en/intro.html). From their intro page, _"Vuex is a state management pattern + library for Vue.js applications"_. Sounds ideal! It essentially allows us to store and mutate data in a central place and make the data available to all of our components. When the data changes (mutates) our components will be re-rendered.
 
 We're going to use a Vuex _Store_ to hold information about the backlog items we've added, plus a couple of other pieces of data such as the next available item ID.
 
-To start, install Vuex:
+To start, let's install Vuex with the following command:
 
 ```
 npm install vuex
 ```
 
-Next, create a new file `app/store.js`:
+Next, let's create a new file on `./src/store.js`:
 
 ```js
 import Vue from 'vue';
@@ -218,22 +218,22 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     items: {
-      todo: []
+      todo: [],
     },
-    nextId: 1
-  }
+    nextId: 1,
+  },
 });
 ```
 
-Here we import the main Vue object and the Vuex _plugin_, which is then added to Vue via the `Vue.use(Vuex)` call. This then allows each component to get access to the store to interact with the data. The store itself becomes initialised with some state which stores the list of todo items, and the next Id to be used when a new item is created.
+Here, we import the main Vue object and the Vuex _plugin_ which is then added to Vue via the `Vue.use(Vuex)` call. This allows each component to get access to the store to interact with the data. The store itself becomes initialised with some state which stores the list of *ToDo* items and the `nextId` to be used when a new item is created.
 
-We'll come back and fill this in a bit more later. For now, let's head over to `main.js` and add this store in to our Vue app. First, import the store from the module we just created:
+We'll come back and fill this in a bit more later. For now, let's head over to `main.js` and add this store in to our Vue app. First, let's import the store from the module we just created:
 
 ```js
 import store from './store';
 ```
 
-Then modify the Vue options to add the store:
+Then, modify the Vue options to add the store:
 
 ```js
 new Vue({
@@ -241,61 +241,60 @@ new Vue({
   router,
   store,     // <-- add the store here
   template: '<App/>',
-  components: { App }
+  components: { App },
 });
 ```
 
-Right now we have a basic, working store that we can use to orchestrate the data for our application. It's not much use at the moment as we can't mutate the data yet, so let's fix that now and turn our attention to the form that allows us to create new backlog items.
+Right now, we have a basic, working store that we can use to orchestrate the data for our application. It's not much use at the moment as we can't mutate the data yet. So, let's fix that now and turn our attention to the form that allows us to create new backlog items.
 
-First of all, let's create the backlog view. Our finished application is effectively going to have two pages: 'Board', and 'Backlog'. We're going to use the Vue Router to switch between these two pages and give the user a nice Single Page App experience with navigatable history, and it's so easy to do that we almost get it for free!
+First of all, let's create the backlog view. Our finished application is effectively going to have two pages: `Board` and `Backlog`. We're going to use the Vue Router to switch between these two pages and give users a nice Single Page App (SPA) experience with navigable history.
 
-We can start by creating the backlog view which will house the other components, such as the form to create new items, and the list of items itself. Then we can wire up this component to the Router.
+After that, we can start by creating the backlog view which will house the other components, such as the form to create new items and the list of items itself. Then, we can wire up this component to the Router.
 
 Create a new file `src/components/Backlog.vue` and give it the following content:
 
 {% highlight html %}
 <template>
   <div class="backlog-view">
-      <p>Backlog</p>
+    <p>Backlog</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Backlog'
+  name: 'Backlog',
 };
 </script>
 {% endhighlight %}
 
-We'll replace the text content a bit later, but it'll be useful for the moment just to check that our component is working ok. Next, open `src/router/index.js` and import our new component:
+We'll replace the text content a bit later, but it'll be useful for the moment just to check that our component is working ok. So, open `src/router/index.js` and import our new component:
 
 ```js
 import Backlog from '@/components/Backlog';
 ```
 
-Finally, configure the Router with a path to our backlog page, and to use it by default when the user hits the root path '/':
+Finally, configure the router with a path to our backlog page, and to use it by default when the user hits the root path '/':
 
 ```js
 export default new Router({
   routes: [
     {
       path: '/backlog',
-      component: Backlog
+      component: Backlog,
     },
     {
       path: '*',
-      redirect: '/backlog'
-    }
+      redirect: '/backlog',
+    },
   ],
 });
 ```
 
-Now when you view your site in your browser you should automatically be redirected to `/#/backlog` and you should see the text 'Backlog' underneath the main heading content. Neat!
+Now, when users access our Vue.js application in a browser, they should automatically be redirected to `/#/backlog` andtheywe should see the text 'Backlog' underneath the main heading content. Neat!
 
-Let's continue and get our form on the screen. Create a new file `src/components/NewItemForm.vue`, and add some markup that shows an input box on the page:
+Let's continue and get our form on the screen. Create a new file on `src/components/NewItemForm.vue`, and add some markup that shows an input box on the page:
 
 {% highlight html %}
-
 <template>
     <div class="add-item">
         <form action="#" method="post" v-on:submit.prevent="submitForm">
@@ -303,14 +302,12 @@ Let's continue and get our form on the screen. Create a new file `src/components
         </form>
     </div>
 </template>
-
 {% endhighlight %}
 
-This is a pretty bog-standard Html form, but note a couple of things:
+This is a pretty bog-standard HTML form, but note a couple of things:
 
-* The form has a `v-on` binding so that we can handle the form's `submit` event, which is also suffixed with `.prevent`, preventing the event from firing its default action; a handy idiom for calling `preventDefault()` on the event object we would otherwise be working with were we doing this manually
-
-* The textbox is bound to the `itemText` property via the `v-model` binding, allowing us to retrieve the text that the user types in
+* The form has a `v-on` binding so that we can handle the form's `submit` event. This event is also suffixed with `.prevent` to prevent the event from firing its default action. This is a handy idiom for calling `preventDefault()` on the event object we would otherwise be working with if we were doing things manually.
+* The textbox is bound to the `itemText` property via the `v-model` binding. This allows us to retrieve the text that the user types in.
 
 Underneath, add the script for our component:
 
@@ -320,33 +317,31 @@ export default {
   name: 'NewItemForm',
   data() {
     return {
-      itemText: ''
+      itemText: '',
     };
   },
   methods: {
     submitForm() {
       if (this.itemText) {
         this.$store.commit('addItem', {
-          text: this.itemText
+          text: this.itemText,
         });
 
         this.itemText = '';
       }
-    }
-  }
+    },
+  },
 };
 </script>
 {% endhighlight %}
 
 There's a bit going on here, so let's break it down:
 
-1. We give the component a name of 'NewItemForm'
+1. We give the component a name of `NewItemForm`.
+2. We specify the data for this component as a function `data()`, and for this component the only piece of data we have is `itemText`. If you look back at the markup, you'll notice that the `v-model` attribute on the textbox is bound to `itemText`, meaning that when the user changes the textbox value, `itemText` will contain whatever they typed in.
+3. We then have a method called `submitForm()` to handle the user submitting the form. This is where we can send new data to the store via _mutations_. Here, we want to invoke a mutation called `addItem` and we set the text to value of `itemText`. Finally, we clear the value of `itemText` so that the user can enter another item.
 
-2. We specify the data for this component as a function `data()`, and for this component the only piece of data we have is `itemText`. If you look back at the markup, you'll notice that the `v-model` attribute on the textbox is bound to `itemText`, meaning that when the user changes the textbox value, `itemText` will contain whatever they typed in
-
-3. We then have a method called `submitForm()`, which handles the user submitting the form. This is where we can send new data to the store via a _mutation_. Here we want to invoke a mutation called `addItem`, and we set the text to value of `itemText`. Finally, we clear the value of `itemText` so that the user can enter another item
-
-Before we move on, let's add a bit of styling to the form to make it look a little nicer. Underneath the script tag in your component, add the following:
+Before we move on, let's add a bit of styling to the form to make it look a little nicer. Underneath the script tag in our component, let's add the following:
 
 {% highlight html %}
 <style>
@@ -365,13 +360,32 @@ Before we move on, let's add a bit of styling to the form to make it look a litt
 </style>
 {% endhighlight %}
 
-That's a bit better! If you're not using the same Bootswatch style as me, the colours might need some tweaking.
+Now, we have to update the `src/components/Backlog.vue` to show the `NewItemForm` component. So, let's open this file and update it as follows:
 
-After all these style changes, my app looks like this:
+{% highlight html %}
+<template>
+  <div class="backlog-view">
+    <new-item></new-item>
+  </div>
+</template>
 
-![Kanban board preview](http://res.cloudinary.com/dbec78owc/image/upload/c_scale,w_803/v1513116894/Screen_Shot_2017-12-12_at_22.13.37_ovkkem.png)
+<script>
+import NewItemForm from './NewItemForm';
 
-Right now you'll find that you can type something into the box, hit 'enter' on your keyboard to submit the form and the value in the textbox disappears. At this point the value that you entered should have been submitted to the store, but keen eyes will notice an error in the console: `[vuex] unknown mutation type: addItem`. We get that because the store has no idea what to do with that mutation, which isn't surprising as we haven't written it yet!
+export default {
+  name: 'Backlog',
+  components: {
+    'new-item': NewItemForm,
+  },
+};
+</script>
+{% endhighlight %}
+
+After all these style changes, our app will look like this:
+
+![Kanban board preview](https://cdn.auth0.com/blog/vuejs-kanban/new-item-component.png)
+
+Right now, we will find that we can type something into the box, hit 'enter' on our keyboard to submit the form, and the value in the textbox disappears. At this point the value that we entered should have been submitted to the store, but keen eyes will notice an error in the console: `[vuex] unknown mutation type: addItem`. We get that because the store has no idea what to do with that mutation, which isn't surprising as we haven't written it yet!
 
 Let's fix that now.
 
