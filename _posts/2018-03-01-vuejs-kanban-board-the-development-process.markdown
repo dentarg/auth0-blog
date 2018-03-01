@@ -872,35 +872,35 @@ Now, when we play about with your application you'll find that you'll be able to
 
 However, if we move some items from the 'To-Do' lane into one of the other two lanes and then switch back to the Backlog view, the final problem will become obvious; the items that we moved out of the 'To-Do' lane are missing. Let's fix that up now.
 
-## Fixing up the backlog view
+## Fixing up the Backlog View
 
 To finish up, we're going to do a couple of things:
 
-* Fix it so that all the items are shown in the list regardless of which lane they're in
-* Put some badges on the tasks in the list so that we can easily see at a glance which lane they're in
+* fix it so that all the items are shown in the list regardless of which lane they're in;
+* and put some badges on the tasks in the list so that we can easily see at a glance which lane they're in.
 
-Let's tackle the first one. Open `Backlog.vue` and find the `items` computed variable. Right now this just reads from the `items.todo` state from the Vuex store. We can use some [ES6 spread magic](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) to combine the items for the three lanes together into one array, like so:
+Let's tackle the first one. Open `Backlog.vue` and find the `items` computed variable. Right now, this just reads from the `items.todo` state from the Vuex store. We can use some [ES6 spread magic](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) to combine the items for the three lanes together into one array, like so:
 
 ```js
 // ...
 computed: mapState({
   items: s => [...s.items.todo, ...s.items.inProgress, ...s.items.done]
-})
+}),
 // ...
 ```
 
-This will effectively concatenate the three arrays together into one, making use of some nice new ES6 syntax. If you refresh the Backlog view now, create some new backlog items and then switch to the board view and move the items into different lanes, you'll find that all of the items will now continue to appear in the backlog view.
+This will effectively concatenate the three arrays together into one, making use of the nice new ES6 syntax. If we refresh the Backlog view now, create some new backlog items and then switch to the board view and move the items into different lanes, we'll find that all of the items will now continue to appear in the backlog view.
 
-The final step we're going to take is to put some badges on the items in the backlog view to highlight which lane they're currently in. To achieve this, we'll add in new methods to our component that return the text and badge classes for the correct lane, given an item. 
+On the final step, we're going to put some badges on the items in the backlog view to highlight which lane they're currently in. To achieve this, we'll add in new methods to our component that return the text and badge classes for the correct lane, given an item. 
 
 To start with, let's modify the markup to include the markup for the badge component. Still inside `Backlog.vue`, modify the markup for the `h5` tag to include a span for the badge:
 
 {% highlight html %}
 <h5 class="card-title"><span class="text-muted">#{{ "{{ item.id" }} }}</span>
-{{ "{{ item.text" }} }} <span :class="badgeClass(item)">{{ "{{ badgeText(item)" }} }}</span></h5>
+{{item.text}} <span :class="badgeClass(item)">{{badgeText(item)}}</span></h5>
 {% endhighlight %}
 
-You can see the span itself has a couple of dynamic elements in there which find out the class and the text for the badge. If you try and refresh the page now you'll find that things start to break, primarily because we haven't defined what `badgeClass` and `badgeText` are yet.
+We can see the span itself has a couple of dynamic elements in there which find out the class and the text for the badge. If we try and refresh the page now, we'll find that things start to break, primarily because we haven't defined what `badgeClass` and `badgeText` are yet.
 
 Before we do that, let's sort out a couple of utilities that will help us complete the implementation for those methods. First up, we're going to define a map of text and classes based on lane, which we can use later to figure out what the text and class should be for an item. Here's what that looks like:
 
@@ -908,26 +908,24 @@ Before we do that, let's sort out a couple of utilities that will help us comple
 const badgeDetail = {
   todo: {
     text: 'to-do',
-    class: 'badge badge-light'
+    class: 'badge badge-light',
   },
-
   inProgress: {
     text: 'in progress',
-    class: 'badge badge-info'
+    class: 'badge badge-info',
   },
-
   done: {
     text: 'done',
-    class: 'badge badge-success'
-  }
+    class: 'badge badge-success',
+  },
 };
 ```
 
-It's simply a map which says "Given this lane id, return the text and the class". I've defined this inside the script tag for the Backlog component, but outside of the component definition itself.
+It's simply a map which says "Given this lane id, return the text and the class". We can define this inside the script tag for the Backlog component, but outside of the component definition itself.
 
 The next thing to do is define a method which will return the lane id given an item. It's a very crude implementation which simply finds out which item array the item is in and returns the id. This will not scale to a large set of items, but it's perfectly fine for our toy application.
 
-I've defined it inside a `methods` key inside the component, and here's what it looks like:
+Let's define it inside a `methods` key inside the component:
 
 ```js
 methods: {
@@ -939,42 +937,42 @@ methods: {
     }
 
     return 'done';
-  }
-}
+  },
+},
 ```
 
-It first checks to see if the given item is in `this.$store.state.items.todo` and if so, returns an id of 'todo'. This should map directly into the `badgeDetail` map that we defined earlier. Then it tries the `inProgress` list, and then simply returns 'done' as a default if the item wasn't found in the other two lists.
+It first checks to see if the given item is in `this.$store.state.items.todo` and, if so, returns an id of 'todo'. This should map directly into the `badgeDetail` map that we defined earlier. Then it tries the `inProgress` list, and then simply returns 'done' as a default if the item wasn't found in the other two lists.
 
-Now we have all the tools to implement our badge methods. First up, let's defined `badgeText`. This also goes under the `methods` key in our component:
+Now, we have all the tools to implement our badge methods. First up, let's defined `badgeText`. This also goes under the `methods` key in our component:
 
 ```js
 // ...
 badgeText(item) {
   const lane = this.itemLane(item);
   return badgeDetail[lane].text;
-}
+},
 // ...
 ```
 
 Pretty simple! It gets the lane id from `this.itemLane` and then uses that to look up the `badgeDetail` map, returning the `text` property.
 
-You can probably guess the implementation for the CSS class; here it is:
+You can probably guess the implementation for the CSS class; but here it is:
 
 ```js
 // ...
 badgeClass(item) {
   const lane = this.itemLane(item);
   return badgeDetail[lane].class;
-}
+},
 // ...
 ```
 
 Pretty much exactly the same, except we're looking at the `class` property instead of the `text` property.
 
-If you look at your Kanban board now, you should have nicely-coloured badges on all of your items to indicate which lane they're in at a glance. Neat!
+If we look at our Kanban board now, we should have nicely-coloured badges on all of our items to indicate which lane they're in at a glance. Neat!
 
 ## Wrapping up
 
-That brings this tutorial to a close, giving you your very own Kanban board with which to plan your next project! Ok, so it's pretty basic but it gets the job done.
+That brings this tutorial to a close, giving us our very own Kanban board with which to plan our next project! Ok, so it's pretty basic but it gets the job done.
 
 Keep an eye out for part 2 where we're going to progressively enhance this application with offline capabilities, home screen icons and some data storage!
