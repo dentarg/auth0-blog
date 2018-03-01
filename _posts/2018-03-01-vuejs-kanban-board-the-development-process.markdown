@@ -18,7 +18,7 @@ tags:
 - auth0
 - frontend
 - kanban
-- drag-&-drop
+- drag-and-drop
 related:
 - 2017-04-18-vuejs2-authentication-tutorial
 - 2016-07-14-create-an-app-in-vuejs-2
@@ -38,6 +38,8 @@ Furthermore, there will be a second part to this article which will demonstrate 
 So, this article by itself will build the application, which won't be as complex as the Docker Dashboard, but it will be more or less complete. Then, later, we will employ some modern techniques to progressively enhance the application and really bring it into its own.
 
 Without further ado, let's get started!
+
+{% include tweet_quote.html quote_text="Look how easy it is to create a Kanban board with drag and drop support." %}
 
 ## Prerequisites
 
@@ -978,6 +980,10 @@ badgeClass(item) {
 Pretty much exactly the same, except we're looking at the `class` property instead of the `text` property.
 
 If we look at our Kanban board now, we should have nicely-coloured badges on all of our items to indicate which lane they're in at a glance. Neat!
+
+{% include tweet_quote.html quote_text="I just built a Kanban board with Vue.js!" %}
+
+{% include asides/vue.markdown %}
 
 ## Wrapping up
 
