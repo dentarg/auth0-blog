@@ -91,8 +91,8 @@ As any changes we make will automatically be recompiled and sent to the browser,
 
 Feel free to ignore this section, but I just wanted to make you aware of some minor tweaks I made to the ESLint config to suit my own coding style, which have an impact on the code samples presented in this article. To be precise, the rules that I turned off are:
 
-* [arrow-parens](https://eslint.org/docs/rules/arrow-parens) set to 0, because I like the clean look of functions without parens where they only have one argument
-* [comma-dangle](https://eslint.org/docs/rules/comma-dangle) set to 0. I think dangling commas can introduce a lot of noise into the code and I tend not to use them, but I can appreciate the benefits. I haven't used them in the code samples here
+* [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens) set to 0, because I like the clean look of functions without parens where they only have one argument;
+* and [`comma-dangle`](https://eslint.org/docs/rules/comma-dangle) set to 0. I think dangling commas can introduce a lot of noise into the code and I tend not to use them, but I can appreciate the benefits. I haven't used them in the code samples here.
 
 ## Shelling out the default application
 
